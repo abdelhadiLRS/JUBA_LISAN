@@ -1,7 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Constants from 'expo-constants'
 
 const TOKEN_KEY = 'juba_lisan_access_token'
-const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:8000'
+
+// Build-time EXPO_PUBLIC_API_URL takes priority. Expo app config is the fallback.
+// On a physical device, localhost points to the phone, not the development PC.
+const configuredApiUrl =
+  process.env.EXPO_PUBLIC_API_URL ||
+  (Constants.expoConfig?.extra?.apiBaseUrl as string | undefined)
+
+export const API_BASE_URL = (configuredApiUrl || 'http://localhost:8000').replace(/\/$/, '')
 
 export type User = {
   id: number
@@ -43,10 +51,7 @@ export async function apiFetch(path: string, options: RequestInit = {}) {
   if (!headers.has('Content-Type') && options.body) headers.set('Content-Type', 'application/json')
   if (token) headers.set('Authorization', `Bearer ${token}`)
 
-  return fetch(`${API_BASE_URL}${path}`, {
-    ...options,
-    headers,
-  })
+  return fetch(`${API_BASE_URL}${path}`, { ...options, headers })
 }
 
 export async function login(email: string, password: string) {
@@ -78,5 +83,3 @@ export async function todayPlan() {
   if (!response.ok) return null
   return response.json()
 }
-
-export { API_BASE_URL }
