@@ -4,6 +4,8 @@ import json
 import re
 from datetime import datetime
 
+from pydantic import BaseModel, EmailStr, Field, field_serializer, field_validator
+
 PASSWORD_PATTERN = re.compile(r"^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{10,25}$")
 
 
@@ -15,8 +17,6 @@ def validate_password_strength(v: str) -> str:
         )
     return v
 
-
-from pydantic import BaseModel, EmailStr, Field, field_serializer, field_validator
 
 SUPPORTED_LANGUAGES = {
     "en",
@@ -167,7 +167,7 @@ class UserResponse(BaseModel):
                 parsed = json.loads(v)
                 if isinstance(parsed, list):
                     return parsed
-            except json.JSONDecodeError, ValueError:
+            except (json.JSONDecodeError, ValueError):
                 pass
         return None
 
