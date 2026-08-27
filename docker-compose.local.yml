@@ -39,18 +39,18 @@ services:
       sh -c "cd /app && PYTHONPATH=/app alembic -c /app/alembic.ini upgrade head &&
       uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 1"
     environment:
-      DATABASE_URL: postgresql+asyncpg://$${POSTGRES_USER:-juba}:$${POSTGRES_PASSWORD:-juba_local_password}@postgres:5432/$${POSTGRES_DB:-juba_lisan}
-      REDIS_URL: redis://:$${REDIS_PASSWORD:-juba_local_redis}@redis:6379/0
-      SECRET_KEY: $${SECRET_KEY:-juba-local-development-secret-change-me}
-      LLM_PROVIDER: $${LLM_PROVIDER:-ollama}
-      OLLAMA_BASE_URL: $${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
-      OLLAMA_MODEL: $${OLLAMA_MODEL:-llama3.2}
-      OPENAI_API_KEY: $${OPENAI_API_KEY:-}
-      OPENAI_MODEL: $${OPENAI_MODEL:-gpt-4o-mini}
-      TTS_PROVIDER: $${TTS_PROVIDER:-local}
-      TTS_BASE_URL: $${TTS_BASE_URL:-http://kokoro:8880}
-      STT_PROVIDER: $${STT_PROVIDER:-local}
-      STT_BASE_URL: $${STT_BASE_URL:-http://whisper:9000}
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-juba}:${POSTGRES_PASSWORD:-juba_local_password}@postgres:5432/${POSTGRES_DB:-juba_lisan}
+      REDIS_URL: redis://:${REDIS_PASSWORD:-juba_local_redis}@redis:6379/0
+      SECRET_KEY: ${SECRET_KEY:-juba-local-development-secret-change-me}
+      LLM_PROVIDER: ${LLM_PROVIDER:-ollama}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      TTS_PROVIDER: ${TTS_PROVIDER:-local}
+      TTS_BASE_URL: ${TTS_BASE_URL:-http://kokoro:8880}
+      STT_PROVIDER: ${STT_PROVIDER:-local}
+      STT_BASE_URL: ${STT_BASE_URL:-http://whisper:9000}
       CORS_ORIGINS: '["http://localhost:3000"]'
       COOKIE_SECURE: "false"
       ALLOW_REGISTRATION: "true"
