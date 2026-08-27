@@ -6,10 +6,31 @@ const BASE_URL = ''
 let isRefreshing = false
 let refreshPromise: Promise<string | null> | null = null
 
-async function refreshToken(): Promise<string | null> {
-  if (isRefreshing && refreshPromise) {
-    return refreshPromise
+export async function readApiError(res: Response): Promise<string> {
+  try {
+    const data = (await res.json()) as { detail?: unknown; message?: unknown }
+    if (typeof data.detail === 'string') return data.detail
+    if (typeof data.message === 'string') return data.message
+    if (Array.isArray(data.detail)) {
+      return data.detail
+        .map((item) => {
+          if (item && typeof item === 'object' && 'msg' in item) {
+            return String((item as { msg?: unknown }).msg ?? '')
+          }
+          return String(item)
+        })
+        .filter(Boolean)
+        .join(', ')
+    }
+  } catch {
+    // Fall through to the HTTP status text.
   }
+  return res.statusText || `Request failed (${res.status})`
+}
+
+async function refreshToken(): Promise<string | null> {
+  if (isRefreshing && refreshPromise) return refreshPromise
+
   isRefreshing = true
   refreshPromise = (async () => {
     try {
@@ -18,14 +39,12 @@ async function refreshToken(): Promise<string | null> {
         credentials: 'include',
       })
       if (!res.ok) throw new Error('refresh failed')
-      const { access_token } = await res.json()
-      useAuthStore.getState().setTokens(access_token)
-      return access_token
+      const data = (await res.json()) as { access_token?: string }
+      if (!data.access_token) throw new Error('missing access token')
+      useAuthStore.getState().setTokens(data.access_token)
+      return data.access_token
     } catch {
       useAuthStore.getState().logout()
-      if (typeof window !== 'undefined') {
-        window.location.assign('/login')
-      }
       return null
     } finally {
       isRefreshing = false
@@ -35,10 +54,7 @@ async function refreshToken(): Promise<string | null> {
   return refreshPromise
 }
 
-export async function apiFetch(
-  url: string,
-  options: RequestInit = {}
-): Promise<Response> {
+export async function apiFetch(url: string, options: RequestInit = {}): Promise<Response> {
   const { inc, dec } = useLoadingStore.getState()
   inc()
   try {
@@ -48,32 +64,31 @@ export async function apiFetch(
   }
 }
 
-async function _apiFetch(
-  url: string,
-  options: RequestInit = {}
-): Promise<Response> {
+async function _apiFetch(url: string, options: RequestInit = {}): Promise<Response> {
   const token = useAuthStore.getState().accessToken
-  const headers: Record<string, string> = {
-    ...(options.headers as Record<string, string>),
-  }
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`
-  }
+  const headers = new Headers(options.headers)
+  headers.set('Accept', 'application/json')
+  if (token) headers.set('Authorization', `Bearer ${token}`)
 
   let res = await fetch(`${BASE_URL}${url}`, {
     ...options,
     headers,
     credentials: 'include',
+    cache: 'no-store',
   })
 
-  if (res.status === 401 && token) {
+  // Login/register must never trigger the refresh flow: a 401 there is a real
+  // authentication error, not an expired session.
+  const isAuthEntryPoint = url === '/api/auth/login' || url === '/api/auth/register'
+  if (res.status === 401 && token && !isAuthEntryPoint) {
     const newToken = await refreshToken()
     if (newToken) {
-      headers['Authorization'] = `Bearer ${newToken}`
+      headers.set('Authorization', `Bearer ${newToken}`)
       res = await fetch(`${BASE_URL}${url}`, {
         ...options,
         headers,
         credentials: 'include',
+        cache: 'no-store',
       })
     }
   }
