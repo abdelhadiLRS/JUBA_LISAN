@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "JUBA LISAN",
+    "slug": "juba-lisan",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "juba-lisan",
+    "android": {
+      "package": "com.jubalisan.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#F7F7FB"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.jubalisan.app"
+    },
+    "plugins": ["expo-av"],
+    "extra": {
+      "apiBaseUrl": "http://localhost:8000"
+    }
+  }
+}
