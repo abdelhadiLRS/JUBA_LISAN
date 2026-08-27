@@ -9,11 +9,15 @@
     "android": {
       "package": "com.jubalisan.app",
       "adaptiveIcon": {
-        "backgroundColor": "#F7F7FB"
-      }
+        "backgroundColor": "#6C4CF1"
+      },
+      "permissions": ["RECORD_AUDIO"]
     },
     "ios": {
-      "bundleIdentifier": "com.jubalisan.app"
+      "bundleIdentifier": "com.jubalisan.app",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "JUBA LISAN uses your microphone for AI speaking practice and pronunciation feedback."
+      }
     },
     "plugins": ["expo-av"],
     "extra": {
