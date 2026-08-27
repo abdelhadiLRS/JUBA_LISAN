@@ -7,6 +7,7 @@ import {
   Noto_Sans_SC,
 } from 'next/font/google'
 import './globals.css'
+import './juba-modern.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
@@ -109,7 +110,7 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${notoSansJP.variable} ${notoSansKR.variable} ${notoSansSC.variable} h-full antialiased`}
     >
       <head>
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#07111f" />
         <meta name="color-scheme" content="light dark" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
