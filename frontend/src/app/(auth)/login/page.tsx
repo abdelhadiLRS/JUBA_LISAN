@@ -5,8 +5,8 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { Loader2 } from 'lucide-react'
-import { apiFetch } from '@/lib/api'
+import { ArrowRight, Eye, EyeOff, Globe2, Loader2, LockKeyhole, Mail } from 'lucide-react'
+import { apiFetch, readApiError } from '@/lib/api'
 import { mapUser } from '@/lib/mappers'
 import { useAuthStore } from '@/store/auth'
 
@@ -24,210 +24,156 @@ function LoginForm() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault()
-      setError('')
-      if (!email.trim()) {
-        setError(t('emailRequired'))
-        return
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+    const normalizedEmail = email.trim().toLowerCase()
+    if (!normalizedEmail) return setError(t('emailRequired'))
+    if (!password) return setError(t('passwordRequired'))
+
+    setLoading(true)
+    try {
+      const res = await apiFetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: normalizedEmail, password }),
+      })
+      if (!res.ok) {
+        const detail = await readApiError(res)
+        throw new Error(detail)
       }
-      if (!password) {
-        setError(t('passwordRequired'))
-        return
-      }
-      setLoading(true)
-      try {
-        const res = await apiFetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }),
-        })
-        if (!res.ok) {
-          const data = await res.json().catch(() => ({}))
-          if (Array.isArray(data.detail) && data.detail.length > 0) {
-            const first = data.detail[0] as { loc?: string[]; msg?: string }
-            const loc = (first.loc ?? []).join('.')
-            if (
-              loc.includes('email') ||
-              first.msg?.toLowerCase().includes('email')
-            ) {
-              throw new Error(t('invalidEmail'))
-            }
-          }
-          throw new Error(t('error'))
-        }
-        const { access_token } = await res.json()
-        setTokens(access_token)
-        const meRes = await apiFetch('/api/auth/me')
-        if (meRes.ok) setUser(mapUser(await meRes.json()))
-        router.push('/dashboard')
-      } catch (err: unknown) {
-        setError(err instanceof Error ? err.message : t('loginFailed'))
-      } finally {
-        setLoading(false)
-      }
-    },
-    [email, password, router, setTokens, setUser, t]
-  )
+
+      const data = await res.json() as { access_token?: string }
+      if (!data.access_token) throw new Error('No access token returned by server')
+      setTokens(data.access_token)
+
+      const meRes = await apiFetch('/api/auth/me')
+      if (!meRes.ok) throw new Error(await readApiError(meRes))
+      setUser(mapUser(await meRes.json()))
+      router.replace('/dashboard')
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : t('loginFailed'))
+    } finally {
+      setLoading(false)
+    }
+  }, [email, password, router, setTokens, setUser, t])
 
   return (
-    <div className="bg-fl-bg bg-dot-grid flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        {/* Brand */}
-        <div className="mb-10 flex flex-col items-center">
-          <Image
-            src="/logo.png"
-            alt="FreeLingo"
-            width={100}
-            height={100}
-            className="mb-4"
-          />
-          <h1 className="text-fl-fg font-mono text-xl font-bold tracking-widest uppercase">
-            FreeLingo
-          </h1>
-          <p className="text-fl-caption text-fl-muted-2 mt-1 font-mono tracking-widest uppercase">
-            {tCommon('tagline')}
-          </p>
-        </div>
-
-        <div className="border-fl-border bg-fl-surface border p-8">
-          {/* Header */}
-          <div className="border-fl-border mb-6 flex items-center gap-2 border-b pb-4">
-            <span className="text-fl-label text-fl-muted-2">●</span>
-            <span className="text-fl-muted-2 font-mono text-xs tracking-widest uppercase">
-              {t('title')}
-            </span>
+    <main className="min-h-screen bg-[#07111f] text-white selection:bg-cyan-300 selection:text-slate-950">
+      <div className="mx-auto grid min-h-screen max-w-7xl lg:grid-cols-[1.05fr_.95fr]">
+        <section className="relative hidden overflow-hidden px-10 py-10 lg:flex lg:flex-col lg:justify-between xl:px-16">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,.18),transparent_34%),radial-gradient(circle_at_80%_70%,rgba(99,102,241,.2),transparent_38%)]" />
+          <div className="relative">
+            <div className="flex items-center gap-3">
+              <div className="grid h-11 w-11 place-items-center rounded-2xl bg-white/10 ring-1 ring-white/15 backdrop-blur">
+                <Image src="/logo.png" alt="FreeLingo" width={30} height={30} priority />
+              </div>
+              <span className="text-lg font-semibold tracking-tight">FreeLingo</span>
+            </div>
+            <div className="mt-28 max-w-xl">
+              <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1.5 text-xs font-medium text-cyan-100">
+                <Globe2 className="h-3.5 w-3.5" />
+                {tCommon('tagline')}
+              </p>
+              <h2 className="text-5xl font-semibold leading-[1.05] tracking-tight xl:text-6xl">
+                Learn languages with a platform built around <span className="text-cyan-300">you.</span>
+              </h2>
+              <p className="mt-6 max-w-lg text-base leading-7 text-slate-300">
+                Practice, listen, speak and track your progress from one clean workspace.
+              </p>
+            </div>
           </div>
+          <div className="relative flex items-center gap-3 text-xs text-slate-400">
+            <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_14px_rgba(52,211,153,.8)]" />
+            Secure session · Personal progress · Multi-language learning
+          </div>
+        </section>
 
-          {registered && (
-            <div className="border-fl-border text-fl-muted-1 mb-5 border px-4 py-3 font-mono text-xs tracking-wide">
-              ✓ {t('accountCreated')}
+        <section className="flex items-center justify-center px-5 py-10 sm:px-8">
+          <div className="w-full max-w-md">
+            <div className="mb-8 flex items-center gap-3 lg:hidden">
+              <div className="grid h-11 w-11 place-items-center rounded-2xl bg-white/10 ring-1 ring-white/10">
+                <Image src="/logo.png" alt="FreeLingo" width={30} height={30} priority />
+              </div>
+              <span className="text-lg font-semibold">FreeLingo</span>
             </div>
-          )}
-          {error && (
-            <div className="border-fl-error/40 text-fl-error mb-5 border px-4 py-3 font-mono text-xs tracking-wide">
-              ✕ {error}
-            </div>
-          )}
 
-          <form onSubmit={handleSubmit} noValidate className="space-y-4">
-            <div>
-              <label className="text-fl-label text-fl-muted-2 mb-2 block font-mono tracking-widest uppercase">
-                {t('email')}
-              </label>
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                autoComplete="username"
-                autoCorrect="off"
-                autoCapitalize="none"
-                spellCheck={false}
-                className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
-              />
-            </div>
-            <div>
-              <label className="text-fl-label text-fl-muted-2 mb-2 block font-mono tracking-widest uppercase">
-                {t('password')}
-              </label>
-              <div className="relative">
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="current-password"
-                  autoCorrect="off"
-                  autoCapitalize="none"
-                  spellCheck={false}
-                  className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full border px-4 py-3 pr-11 font-mono text-sm transition-colors focus:outline-none"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((v) => !v)}
-                  className="text-fl-muted-4 hover:text-fl-muted-0 absolute inset-y-0 right-0 flex items-center px-3 transition-colors"
-                  aria-label={
-                    showPassword ? t('hidePassword') : t('showPassword')
-                  }
-                >
-                  {showPassword ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-                      <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
-                      <line x1="1" y1="1" x2="23" y2="23" />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                  )}
+            <div className="rounded-3xl border border-white/10 bg-white/[.055] p-6 shadow-2xl shadow-black/30 backdrop-blur-xl sm:p-8">
+              <div className="mb-8">
+                <p className="text-sm font-medium text-cyan-300">Welcome back</p>
+                <h1 className="mt-1 text-3xl font-semibold tracking-tight">{t('title')}</h1>
+                <p className="mt-2 text-sm leading-6 text-slate-400">Sign in to continue your learning journey.</p>
+              </div>
+
+              {registered && (
+                <div className="mb-5 rounded-2xl border border-emerald-400/20 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200">
+                  ✓ {t('accountCreated')}
+                </div>
+              )}
+              {error && (
+                <div className="mb-5 rounded-2xl border border-rose-400/20 bg-rose-400/10 px-4 py-3 text-sm leading-5 text-rose-200">
+                  {error}
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                <label className="block">
+                  <span className="mb-2 block text-sm font-medium text-slate-200">{t('email')}</span>
+                  <div className="relative">
+                    <Mail className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      autoComplete="username"
+                      autoCorrect="off"
+                      autoCapitalize="none"
+                      spellCheck={false}
+                      required
+                      className="w-full rounded-2xl border border-white/10 bg-slate-950/50 px-11 py-3.5 text-sm outline-none transition placeholder:text-slate-600 focus:border-cyan-300/50 focus:ring-4 focus:ring-cyan-300/10"
+                    />
+                  </div>
+                </label>
+
+                <label className="block">
+                  <span className="mb-2 block text-sm font-medium text-slate-200">{t('password')}</span>
+                  <div className="relative">
+                    <LockKeyhole className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      autoComplete="current-password"
+                      autoCorrect="off"
+                      autoCapitalize="none"
+                      spellCheck={false}
+                      required
+                      className="w-full rounded-2xl border border-white/10 bg-slate-950/50 px-11 py-3.5 pr-12 text-sm outline-none transition focus:border-cyan-300/50 focus:ring-4 focus:ring-cyan-300/10"
+                    />
+                    <button type="button" onClick={() => setShowPassword((v) => !v)} className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl p-2 text-slate-500 transition hover:bg-white/5 hover:text-white" aria-label={showPassword ? t('hidePassword') : t('showPassword')}>
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                </label>
+
+                <button disabled={loading} type="submit" className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-cyan-300 px-4 py-3.5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 hover:shadow-lg hover:shadow-cyan-300/15 disabled:cursor-not-allowed disabled:opacity-60">
+                  {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />}
+                  {loading ? t('signingIn') : t('submit')}
                 </button>
+              </form>
+
+              <div className="mt-7 flex flex-col gap-3 text-center text-sm text-slate-400">
+                <span>{t('noAccount')} <Link href="/register" className="font-medium text-cyan-300 hover:text-cyan-200">{t('register')}</Link></span>
+                <Link href="/forgot-password" className="text-slate-500 hover:text-slate-200">{t('forgotPassword')}</Link>
               </div>
             </div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 mt-2 w-full py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="mr-2 inline h-4 w-4 animate-spin" />
-                  {t('signingIn')}
-                </>
-              ) : (
-                t('submit')
-              )}
-            </button>
-          </form>
-
-          <p className="text-fl-label text-fl-muted-2 mt-6 text-center font-mono tracking-wide">
-            {t('noAccount')}{' '}
-            <Link
-              href="/register"
-              className="text-fl-muted-1 hover:text-fl-fg transition-colors"
-            >
-              {t('register')}
-            </Link>
-          </p>
-          <p className="text-fl-label text-fl-muted-4 mt-3 text-center font-mono tracking-wide">
-            <Link
-              href="/forgot-password"
-              className="hover:text-fl-muted-2 transition-colors"
-            >
-              {t('forgotPassword')}
-            </Link>
-          </p>
-        </div>
+          </div>
+        </section>
       </div>
-    </div>
+    </main>
   )
 }
 
 export default function LoginPage() {
-  return (
-    <Suspense>
-      <LoginForm />
-    </Suspense>
-  )
+  return <Suspense><LoginForm /></Suspense>
 }
