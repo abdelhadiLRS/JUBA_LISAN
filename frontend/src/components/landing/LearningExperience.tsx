@@ -13,6 +13,9 @@ import {
   Plane,
   Trophy,
   FileText,
+  Mic,
+  RotateCcw,
+  BarChart3,
 } from 'lucide-react'
 
 interface LearningExperienceProps {
@@ -38,95 +41,89 @@ export function LearningExperience({ t }: LearningExperienceProps) {
   const intelligence = [
     { icon: BrainCircuit, title: 'Adaptive AI Coach', desc: 'Your next activity changes with your progress, mistakes and goals.' },
     { icon: FileText, title: 'Learn From Anything', desc: 'Turn text, notes or imported content into lessons, vocabulary and quizzes.' },
+    { icon: RotateCcw, title: 'Smart Review', desc: 'Bring back words and concepts at the right moment with spaced repetition.' },
     { icon: Trophy, title: 'Weekly Missions', desc: 'Small challenges create momentum without turning learning into a chore.' },
   ]
 
+  const voiceScores = [
+    { label: 'Pronunciation', value: 91 },
+    { label: 'Grammar', value: 84 },
+    { label: 'Vocabulary', value: 88 },
+    { label: 'Fluency', value: 79 },
+  ]
+
   return (
-    <section className="py-20 sm:py-24 bg-neutral-50/50 dark:bg-neutral-900/40 border-y border-neutral-200/60 dark:border-neutral-800/60">
+    <section className="relative overflow-hidden border-y border-neutral-200/60 bg-neutral-50/50 py-20 dark:border-neutral-800/60 dark:bg-neutral-900/40 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-amber-600 dark:text-amber-400 font-bold text-xs tracking-widest uppercase mb-2 block">
-            THE METHODOLOGY
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
-            {t('experienceTitle')}
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-neutral-600 dark:text-neutral-400">
-            {t('experienceSubtitle')}
-          </p>
+        <div className="mx-auto mb-14 max-w-3xl text-center">
+          <span className="mb-2 block text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">THE METHODOLOGY</span>
+          <h2 className="text-3xl font-extrabold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">{t('experienceTitle')}</h2>
+          <p className="mt-4 text-base text-neutral-600 dark:text-neutral-400 sm:text-lg">{t('experienceSubtitle')}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
+        <div className="relative grid grid-cols-1 gap-6 md:grid-cols-5">
           {steps.map((step, idx) => {
             const Icon = step.icon
             return (
-              <div key={step.num} className="juba-card p-6 flex flex-col justify-between relative group">
+              <div key={step.num} className="juba-card group relative flex flex-col justify-between p-6">
                 <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="text-2xl font-extrabold text-amber-500/40 dark:text-amber-400/30 group-hover:text-amber-500 transition-colors">
-                      {step.num}
-                    </span>
-                    <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
-                      <Icon className="w-5 h-5" />
-                    </div>
+                  <div className="mb-6 flex items-center justify-between">
+                    <span className="text-2xl font-extrabold text-amber-500/40 transition-colors group-hover:text-amber-500 dark:text-amber-400/30">{step.num}</span>
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400"><Icon className="h-5 w-5" /></div>
                   </div>
-                  <h3 className="font-bold text-base text-neutral-900 dark:text-white mb-2">{step.title}</h3>
-                  <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">{step.desc}</p>
+                  <h3 className="mb-2 text-base font-bold text-neutral-900 dark:text-white">{step.title}</h3>
+                  <p className="text-xs leading-relaxed text-neutral-600 dark:text-neutral-400">{step.desc}</p>
                 </div>
-                {idx < steps.length - 1 && (
-                  <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 text-neutral-300 dark:text-neutral-700">
-                    <ArrowRight className="w-5 h-5" />
-                  </div>
-                )}
+                {idx < steps.length - 1 && <div className="absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 text-neutral-300 dark:text-neutral-700 md:block"><ArrowRight className="h-5 w-5" /></div>}
               </div>
             )
           })}
         </div>
 
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-7 juba-card p-7 sm:p-9 bg-white dark:bg-neutral-950 overflow-hidden relative">
-            <div className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-amber-400/10 blur-3xl" />
+        <div className="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-12">
+          <div className="juba-card relative overflow-hidden bg-white p-7 dark:bg-neutral-950 sm:p-9 lg:col-span-7">
+            <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-amber-400/10 blur-3xl" />
             <div className="relative">
-              <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-widest mb-4">
-                <Sparkles className="w-4 h-4" /> Real-world practice
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
-                Practice the language you actually need.
-              </h3>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-                Choose a situation, speak naturally with JUBA AI, receive instant feedback and repeat the scenario until it feels effortless.
-              </p>
+              <div className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400"><Sparkles className="h-4 w-4" />Real-world practice</div>
+              <h3 className="text-2xl font-extrabold tracking-tight text-neutral-900 dark:text-white sm:text-3xl">Practice the language you actually need.</h3>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">Choose a situation, speak naturally with JUBA AI, receive instant feedback and repeat the scenario until it feels effortless.</p>
 
               <div className="mt-7 grid grid-cols-2 gap-3">
                 {scenarios.map(({ icon: Icon, label, desc }) => (
-                  <div key={label} className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-900/70 p-4 transition-transform hover:-translate-y-0.5">
-                    <Icon className="w-5 h-5 text-amber-500 mb-3" />
-                    <p className="font-bold text-sm text-neutral-900 dark:text-white">{label}</p>
+                  <div key={label} className="rounded-2xl border border-neutral-200 bg-neutral-50/80 p-4 transition-transform hover:-translate-y-0.5 dark:border-neutral-800 dark:bg-neutral-900/70">
+                    <Icon className="mb-3 h-5 w-5 text-amber-500" />
+                    <p className="text-sm font-bold text-neutral-900 dark:text-white">{label}</p>
                     <p className="mt-1 text-[11px] leading-relaxed text-neutral-500 dark:text-neutral-400">{desc}</p>
                   </div>
                 ))}
               </div>
+
+              <div className="mt-5 rounded-2xl border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
+                <div className="mb-4 flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500 text-neutral-950"><Mic className="h-5 w-5" /></div><div><p className="text-sm font-extrabold text-neutral-900 dark:text-white">Instant speaking feedback</p><p className="text-[11px] text-neutral-500">Analyze → correct → try again</p></div></div>
+                  <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-bold text-emerald-600">82% overall</span>
+                </div>
+                <div className="grid grid-cols-2 gap-x-5 gap-y-3 sm:grid-cols-4">
+                  {voiceScores.map(({ label, value }) => (
+                    <div key={label}>
+                      <div className="mb-1 flex justify-between text-[10px] font-semibold text-neutral-500"><span>{label}</span><span>{value}</span></div>
+                      <div className="h-1.5 overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-800"><div className="h-full rounded-full bg-amber-500" style={{ width: `${value}%` }} /></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="lg:col-span-5 space-y-3">
+          <div className="space-y-3 lg:col-span-5">
             {intelligence.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="juba-card p-5 bg-white dark:bg-neutral-950 flex gap-4 items-start group">
-                <div className="shrink-0 w-11 h-11 rounded-2xl bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center text-amber-500 group-hover:bg-amber-500 group-hover:text-neutral-950 transition-colors">
-                  <Icon className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-sm text-neutral-900 dark:text-white">{title}</h3>
-                  <p className="mt-1 text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">{desc}</p>
-                </div>
+              <div key={title} className="juba-card group flex items-start gap-4 bg-white p-5 dark:bg-neutral-950">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-neutral-100 text-amber-500 transition-colors group-hover:bg-amber-500 group-hover:text-neutral-950 dark:bg-neutral-900"><Icon className="h-5 w-5" /></div>
+                <div><h3 className="text-sm font-bold text-neutral-900 dark:text-white">{title}</h3><p className="mt-1 text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">{desc}</p></div>
               </div>
             ))}
-            <div className="rounded-2xl bg-neutral-900 dark:bg-white p-5 text-white dark:text-neutral-950 flex items-center justify-between gap-4">
-              <div>
-                <p className="text-sm font-extrabold">Your learning, not a generic course.</p>
-                <p className="mt-1 text-[11px] text-neutral-400 dark:text-neutral-600">Personalized from day one.</p>
-              </div>
-              <Sparkles className="w-6 h-6 shrink-0 text-amber-400 dark:text-amber-600" />
+            <div className="rounded-2xl bg-neutral-900 p-5 text-white dark:bg-white dark:text-neutral-950">
+              <div className="flex items-center gap-3"><BarChart3 className="h-5 w-5 text-amber-400 dark:text-amber-600" /><div><p className="text-sm font-extrabold">Your learning, not a generic course.</p><p className="mt-1 text-[11px] opacity-60">Personalized from day one and refined every session.</p></div></div>
             </div>
           </div>
         </div>
