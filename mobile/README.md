@@ -1,52 +1,65 @@
 # JUBA LISAN Mobile
 
-Cross-platform mobile client for Android and iOS, built with Expo and React Native.
+Native Android/iOS client foundation for JUBA LISAN, built with Expo + React Native and connected to the existing FastAPI API.
 
-## Current mobile experience
+## Current experience
 
-- JUBA LISAN branded authentication
-- JWT login against the existing FastAPI backend
-- Persistent mobile session token
-- Personalized home dashboard
-- Streak, XP, vocabulary and accuracy cards
-- Today's learning mission
-- AI Learning Coach surface
-- Voice practice UI with microphone capture
-- Smart review queue
-- Profile and sign-out
-- Shared backend progress endpoints so web and mobile can use the same account data
+- Premium light mobile visual system
+- Home learning dashboard with streak, XP, vocabulary and accuracy
+- Personalized learning path
+- AI conversation surface with tutor prompt and waveform UI
+- Smart review surface
+- Progress and skill-growth view
+- Bottom navigation designed for one-hand use
+- Shared account/progress data with the web backend
 
-## Development
+## Run locally
 
-```bash
-cd mobile
+```powershell
+cd C:\Users\abdel\Documents\GitHub\JUBA_LISAN\mobile
 npm install
-$env:EXPO_PUBLIC_API_URL="http://YOUR_SERVER:8000"
+$env:EXPO_PUBLIC_API_URL="http://10.0.2.2:8000"
 npm start
 ```
 
-For an Android emulator, use `http://10.0.2.2:8000` when the API is running on the host machine. For a physical phone, use the host machine's LAN IP or your deployed HTTPS API URL.
+For a physical Android/iPhone on the same Wi-Fi, replace the URL with the Windows host LAN address, for example `http://192.168.1.20:8000`.
 
-Android:
+## Android
 
-```bash
+```powershell
 npm run android
 ```
 
-iOS (macOS + Xcode):
+## iOS
 
 ```bash
 npm run ios
 ```
 
-Type checking:
+## Type check
 
-```bash
+```powershell
 npm run typecheck
 ```
 
-## Architecture
+## EAS builds
 
-The mobile app intentionally reuses the existing FastAPI contracts instead of duplicating business logic. Authentication uses `/api/auth/login` and `/api/auth/me`; progress uses `/api/progress/summary`; the daily plan uses `/api/study-plan/today`.
+```powershell
+npx eas login
+npx eas build:configure
+npx eas build --platform android --profile preview
+npx eas build --platform ios --profile preview
+```
 
-The mobile UI is designed as a native learning product rather than a wrapped web page: large touch targets, safe-area layouts, bottom-friendly actions, focused learning cards, voice-first interaction, and a lightweight navigation stack.
+Production builds:
+
+```powershell
+npx eas build --platform android --profile production
+npx eas build --platform ios --profile production
+```
+
+## API architecture
+
+The mobile client reuses the existing FastAPI contracts instead of duplicating business logic. The current shell reads the authenticated user and progress summary from `/api/auth/me` and `/api/progress/summary`.
+
+The mobile code is intentionally structured as a native product foundation so future releases can add offline lessons, real-time voice/STT/TTS, push notifications, downloads, and deeper adaptive-learning flows without replacing the UI architecture.
