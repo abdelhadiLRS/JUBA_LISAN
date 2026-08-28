@@ -1,106 +1,186 @@
-/* JUBA LISAN modern visual layer.
- * Kept separate from the functional styles so the application UI can evolve
- * without changing page logic or data contracts.
+/* JUBA LISAN — learning-first visual system
+ * This layer intentionally overrides the legacy visual treatment while
+ * preserving existing component/data contracts.
  */
 :root {
-  --juba-bg: #07111f;
-  --juba-surface: rgba(15, 27, 45, 0.78);
-  --juba-surface-strong: #0d1a2d;
-  --juba-border: rgba(148, 163, 184, 0.14);
-  --juba-text: #f8fafc;
-  --juba-muted: #94a3b8;
-  --juba-accent: #67e8f9;
+  --juba-bg: #f7f8f4;
+  --juba-surface: #ffffff;
+  --juba-surface-soft: #f0f4ee;
+  --juba-border: #dce5dc;
+  --juba-text: #17231b;
+  --juba-muted: #68766d;
+  --juba-primary: #1f6b4f;
+  --juba-primary-dark: #174d3a;
+  --juba-primary-soft: #e5f1ea;
+  --juba-warm: #e8a43a;
+  --juba-warm-soft: #fff3dc;
+  --juba-danger: #c94a45;
 }
 
-html[data-theme='light'] {
-  --juba-bg: #f4f8fc;
-  --juba-surface: rgba(255, 255, 255, 0.9);
-  --juba-surface-strong: #ffffff;
-  --juba-border: rgba(15, 23, 42, 0.09);
-  --juba-text: #0f172a;
-  --juba-muted: #64748b;
-  --juba-accent: #0891b2;
+html[data-theme='dark'] {
+  --juba-bg: #101512;
+  --juba-surface: #18201b;
+  --juba-surface-soft: #202a23;
+  --juba-border: #2d3a31;
+  --juba-text: #edf4ee;
+  --juba-muted: #9aaba0;
+  --juba-primary: #72c69e;
+  --juba-primary-dark: #a5e1c2;
+  --juba-primary-soft: #1d3328;
+  --juba-warm: #efb75c;
+  --juba-warm-soft: #352b1d;
+  --juba-danger: #ef8179;
 }
 
-body {
-  background:
-    radial-gradient(circle at 5% 0%, rgba(34, 211, 238, 0.08), transparent 28%),
-    radial-gradient(circle at 95% 10%, rgba(99, 102, 241, 0.08), transparent 30%),
-    var(--juba-bg) !important;
+html, body {
+  background: var(--juba-bg) !important;
   color: var(--juba-text);
 }
 
-/* The existing application vocabulary remains intact; these selectors only
- * improve its surface treatment. */
-.bg-fl-bg {
-  background-color: transparent !important;
+body {
+  background-image: none !important;
 }
 
+/* Existing semantic utility classes stay valid, but now share one identity. */
+.bg-fl-bg { background-color: var(--juba-bg) !important; }
+.bg-fl-bg-alt { background-color: var(--juba-surface-soft) !important; }
 .bg-fl-surface {
   background: var(--juba-surface) !important;
-  border-radius: 1.25rem !important;
   border-color: var(--juba-border) !important;
-  box-shadow: 0 18px 50px rgba(2, 8, 23, 0.08) !important;
-  backdrop-filter: blur(18px);
+  box-shadow: none !important;
+  backdrop-filter: none !important;
 }
-
-.border-fl-border {
-  border-color: var(--juba-border) !important;
-}
-
-.bg-fl-border {
-  background-color: var(--juba-border) !important;
-}
-
-.text-fl-fg { color: var(--juba-text) !important; }
+.bg-fl-surface-2 { background: var(--juba-surface-soft) !important; }
+.bg-fl-border { background-color: var(--juba-border) !important; }
+.border-fl-border { border-color: var(--juba-border) !important; }
+.border-fl-border-2 { border-color: color-mix(in srgb, var(--juba-border) 60%, var(--juba-text)) !important; }
+.text-fl-fg,
 .text-fl-muted-0 { color: var(--juba-text) !important; }
 .text-fl-muted-1,
 .text-fl-muted-2 { color: var(--juba-muted) !important; }
-
+.text-fl-muted-3,
+.text-fl-muted-4 { color: color-mix(in srgb, var(--juba-muted) 82%, var(--juba-bg)) !important; }
+.text-fl-accent { color: var(--juba-primary) !important; }
 .bg-fl-accent {
-  background: linear-gradient(135deg, #67e8f9, #818cf8) !important;
-  color: #07111f !important;
-  border-radius: 0.9rem !important;
-  box-shadow: 0 10px 28px rgba(34, 211, 238, 0.16);
+  background: var(--juba-primary) !important;
+  color: #fff !important;
+  border-radius: 0.8rem !important;
+  box-shadow: none !important;
 }
 
-.text-fl-accent { color: var(--juba-accent) !important; }
-
-/* Primary navigation and action controls */
-nav a,
-button {
-  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
+/* The legacy classes are retained as compatibility aliases, not as a design
+ * direction. New screens should prefer flat surfaces and semantic sections. */
+.juba-card {
+  background: var(--juba-surface);
+  border: 1px solid var(--juba-border);
+  border-radius: 1.25rem;
+  box-shadow: 0 1px 2px rgba(23, 35, 27, 0.04);
+  transition: border-color 180ms ease, transform 180ms ease;
 }
 
-button:not(:disabled):hover {
+.juba-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--juba-primary) 30%, var(--juba-border));
+  box-shadow: 0 10px 24px rgba(23, 35, 27, 0.07);
+}
+
+.juba-glass {
+  background: var(--juba-surface);
+  border: 1px solid var(--juba-border);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.juba-gradient-text {
+  background: none;
+  color: var(--juba-primary);
+  -webkit-background-clip: initial;
+  background-clip: initial;
+}
+
+.juba-hero-glow { display: none; }
+
+.juba-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--juba-primary) 22%, var(--juba-border));
+  background: var(--juba-primary-soft);
+  color: var(--juba-primary-dark);
+  border-radius: 999px;
+  padding: 0.42rem 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.juba-section {
+  position: relative;
+  width: 100%;
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+
+.juba-section-header {
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* Make the existing dashboard read as a learning workspace rather than an
+ * admin panel. */
+main > div.mx-auto.max-w-4xl,
+.mx-auto.max-w-4xl {
+  max-width: 1120px !important;
+  padding-top: clamp(1.25rem, 3vw, 2.5rem);
+  padding-bottom: 4rem;
+}
+
+/* Remove the old monospaced/product-console feel where semantic text classes
+ * are used by the existing dashboard. */
+.mx-auto.max-w-4xl .font-mono {
+  font-family: inherit;
+}
+
+/* Learning progress bars should feel calm and directional. */
+.mx-auto.max-w-4xl .bg-fl-accent.h-px {
+  height: 0.35rem !important;
+  border-radius: 999px;
+}
+
+/* Buttons */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:not(:disabled),
+a[role='button'] {
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+button:not(:disabled):hover,
+a[role='button']:hover {
   transform: translateY(-1px);
 }
 
-/* Form controls inside the application */
-input,
-select,
-textarea {
-  border-radius: 0.85rem;
+/* Inputs */
+input, select, textarea {
+  border-radius: 0.8rem;
 }
 
-/* Dashboard content width and rhythm */
-main > div.mx-auto.max-w-4xl,
-.mx-auto.max-w-4xl {
-  padding-top: 2rem;
-  padding-bottom: 3rem;
-}
-
-/* Stat tiles */
-.bg-fl-border > .bg-fl-surface {
-  min-height: 7.5rem;
-}
-
-/* Mobile spacing */
-@media (max-width: 640px) {
-  .mx-auto.max-w-4xl { padding-left: 1rem; padding-right: 1rem; }
-  .bg-fl-surface { border-radius: 1rem !important; }
-}
-
+/* Respect reduced-motion preferences. */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .mx-auto.max-w-4xl {
+    padding-inline: 1rem;
+  }
+  .juba-card { border-radius: 1rem; }
 }
