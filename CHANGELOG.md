@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.43] - 2026-08-29
+
+### Changed
+
+- **Progress Center**: rebuilt with the JUBA LISAN identity — header card with language/level pill and icon stat tiles, competency blocks with status icon badges (check/loader/circle) and pill progress bars, segmented vocabulary level toggle, and warm-accent skill bars for weak skills. All endpoints and calculations unchanged.
+- **Smart Review (flashcards)**: rebuilt as a focused review experience — session progress bar, modern flip card with keyboard support (Enter/Space), semantic rating colors, and preserved standard/speaking modes, audio playback, generation, and SM-2 stats.
+- **Settings**: page header, anchor navigation (rounded pills with focus rings), action cards (icon chips, RTL-aware chevron), session-security and legal blocks modernized.
+- **Automation**: new `automation/` directory with self-detecting PowerShell scripts (`status`, `test`, `build`, `develop`) implementing the one-click development cycle with push-on-failure protection and no force-push.
+
 ## [1.8.42] - 2026-08-29
 
 ### Changed

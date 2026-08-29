@@ -37,15 +37,21 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 - 🔜 Remaining: multi-level overview (A1→C2 progression map beyond the user's current plan level), unit content previews (vocabulary/grammar/listening counts as visual chips).
 ### Phase 7 — Courses ❌
 ### Phase 8 — First Lesson ❌ (lesson player exists, not rebuilt)
-### Phase 9 — Smart Review ❌ (SM-2 flashcards exist, needs dedicated review experience)
+### Phase 9 — Smart Review 🟡
+- ✅ Review session rebuilt (v1.8.43): session progress bar, keyboard-accessible flip card, semantic rating colors; standard/speaking modes, audio, generation, and SM-2 stats preserved. Built on the existing `GET /api/flashcards/due` + `POST /api/flashcards/{id}/review` endpoints — no backend changes needed.
+- 🔜 Remaining: multi-surface review queue (grammar, listening, reading, speaking items feeding the same scheduler).
 ### Phase 10 — Grammar Review ❌
 ### Phase 11 — Vocabulary ❌ (vocabulary hub + flashcards exist, needs mastery loop surfacing)
 ### Phase 12 — Speaking / Lingu ❌ (exists, not rebuilt)
-### Phase 13 — Progress ❌ (exists, not rebuilt)
+### Phase 13 — Progress 🟡
+- ✅ Progress Center rebuilt (v1.8.43): header with level pill and icon stat tiles, competency status badges, segmented vocab toggle, skill bars with warm accent for weak skills.
+- 🔜 Remaining: weekly/monthly/all-time ranges (needs backend history aggregation).
 ### Phase 14 — Mastery ❌ (competencies exist, not surfaced as mastery center)
 ### Phase 15 — Streak / Goals / XP ❌ (goals exist at onboarding, no streak/XP system)
 ### Phase 16 — Discover / Social ❌
-### Phase 17 — Profile ❌ (settings/profile exist, not rebuilt)
+### Phase 17 — Profile 🟡
+- ✅ Settings shell + session-security + legal blocks modernized (v1.8.43); action cards RTL-aware.
+- 🔜 Remaining: dedicated public profile view (avatar/level/streak/achievements hero) — pending achievements system (Phase 15).
 ### Phase 18 — Backend integration 🟡 (rich backend; new surfaces will need small additive endpoints)
 ### Phase 19 — Performance ❌
 ### Phase 20 — Accessibility ❌
@@ -54,7 +60,7 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 
 ## Automation
 
-- `automation/` scripts (develop/test/build/status/one-click dev) — ❌ not started.
+- `automation/` scripts — ✅ `automation/` created (v1.8.43): `status.ps1`, `test.ps1`, `build.ps1`, `develop.ps1` (one-click cycle; ff-only pull, no commit/push after failures, no force push, explicit push confirmation).
 
 ## Test state
 

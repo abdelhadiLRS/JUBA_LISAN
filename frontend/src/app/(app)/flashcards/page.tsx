@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
+import { BookMarked, Layers, Sparkles, Volume2 } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import { useLanguageStore } from '@/store/language'
 import { AudioPlayer } from '@/components/ui/AudioPlayer'
@@ -22,6 +23,11 @@ interface CardData {
   repetitions: number
   source?: string | null
 }
+
+const btnPrimary =
+  'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
+const btnSecondary =
+  'inline-flex items-center justify-center gap-2 rounded-xl border border-fl-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-surface-soft)]'
 
 export default function FlashcardsPage() {
   const t = useTranslations('flashcards')
@@ -132,59 +138,68 @@ export default function FlashcardsPage() {
   }
 
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
+  const sessionProgress =
+    cards.length > 0 ? Math.round((current / cards.length) * 100) : 0
 
   return (
-    <div className="mx-auto max-w-4xl space-y-4 p-6">
+    <div className="mx-auto max-w-4xl space-y-5 px-4 py-6 sm:px-6 md:py-8">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <span className="text-fl-label text-fl-muted-3">●</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="text-fl-fg text-xl font-bold tracking-tight">
             {t('title')}
-          </span>
-          <span className="text-fl-hint text-fl-muted-2 font-mono tracking-widest">
-            {total} {t('total')} · {cards.length} {t('due')}
-          </span>
+          </h1>
+          <p className="text-fl-muted-2 mt-1 text-sm">
+            {total} {t('total')} ·{' '}
+            <span
+              className="font-semibold"
+              style={{ color: 'var(--juba-warm)' }}
+            >
+              {cards.length} {t('due')}
+            </span>
+          </p>
         </div>
         <div className="flex items-center gap-2">
-          <Link
-            href="/flashcards/vocabulary"
-            className="text-fl-label border-fl-border text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2 border px-4 py-2 font-mono tracking-widest uppercase transition-colors"
-          >
+          <Link href="/flashcards/vocabulary" className={btnSecondary}>
+            <BookMarked className="h-4 w-4" aria-hidden="true" />
             {t('myVocabularyBtn')}
           </Link>
           <button
             onClick={() => {
               setShowGenerate(!showGenerate)
             }}
-            className={`text-fl-label border px-4 py-2 font-mono tracking-widest uppercase transition-colors ${
-              showGenerate
-                ? 'border-fl-border-2 text-fl-fg'
-                : 'border-fl-border text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2'
-            }`}
+            className={`${btnPrimary} ${showGenerate ? 'bg-[var(--juba-primary-dark)]' : 'bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]'}`}
           >
-            + {t('generateBtn')}
+            <Sparkles className="h-4 w-4" aria-hidden="true" />
+            {t('generateBtn')}
           </button>
         </div>
       </div>
 
       {/* Generate panel */}
       {showGenerate && (
-        <div className="border-fl-border bg-fl-surface border">
-          <div className="border-fl-border flex items-center gap-2 border-b px-5 py-4">
-            <span className="text-fl-label text-fl-muted-3">●</span>
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
-              {t('generate')}
-            </span>
-          </div>
+        <div className="border-fl-border bg-fl-surface rounded-2xl border p-5">
+          <p className="text-fl-muted-2 mb-4 text-xs font-semibold tracking-wide uppercase">
+            {t('generate')}
+          </p>
           {genError && (
-            <div className="border-fl-error/40 text-fl-error-fg mx-5 mt-4 border px-4 py-3 font-mono text-xs">
-              ✕ {genError}
+            <div
+              className="mb-4 rounded-xl px-4 py-3 text-sm"
+              role="alert"
+              style={{
+                color: 'var(--juba-danger)',
+                background:
+                  'color-mix(in srgb, var(--juba-danger) 8%, transparent)',
+                border:
+                  '1px solid color-mix(in srgb, var(--juba-danger) 30%, transparent)',
+              }}
+            >
+              {genError}
             </div>
           )}
-          <form onSubmit={generateCards} className="space-y-3 p-5">
+          <form onSubmit={generateCards} className="space-y-4">
             <div>
-              <label className="text-fl-label text-fl-muted-3 mb-2 block font-mono tracking-widest uppercase">
+              <label className="text-fl-muted-1 mb-2 block text-xs font-semibold tracking-wide uppercase">
                 {t('topic')}
               </label>
               <input
@@ -193,18 +208,18 @@ export default function FlashcardsPage() {
                 onChange={(e) => setGenTopic(e.target.value)}
                 required
                 placeholder={t('topicPlaceholder')}
-                className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-border-2 focus:border-fl-border-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+                className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-border-2 focus:border-fl-border-2 w-full rounded-xl border px-4 py-3 text-sm transition-colors focus:outline-none"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-fl-label text-fl-muted-3 mb-2 block font-mono tracking-widest uppercase">
+                <label className="text-fl-muted-1 mb-2 block text-xs font-semibold tracking-wide uppercase">
                   {t('count')}
                 </label>
                 <select
                   value={genCount}
                   onChange={(e) => setGenCount(Number(e.target.value))}
-                  className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full appearance-none border px-4 py-3 font-mono text-sm focus:outline-none"
+                  className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full rounded-xl border px-4 py-3 text-sm focus:outline-none"
                 >
                   {[5, 10, 15, 20].map((n) => (
                     <option key={n} value={n}>
@@ -214,13 +229,13 @@ export default function FlashcardsPage() {
                 </select>
               </div>
               <div>
-                <label className="text-fl-label text-fl-muted-3 mb-2 block font-mono tracking-widest uppercase">
+                <label className="text-fl-muted-1 mb-2 block text-xs font-semibold tracking-wide uppercase">
                   {t('level')}
                 </label>
                 <select
                   value={genCefr}
                   onChange={(e) => setGenCefr(e.target.value)}
-                  className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full appearance-none border px-4 py-3 font-mono text-sm focus:outline-none"
+                  className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full rounded-xl border px-4 py-3 text-sm focus:outline-none"
                 >
                   {CEFR_LEVELS.map((l) => (
                     <option key={l} value={l}>
@@ -233,9 +248,19 @@ export default function FlashcardsPage() {
             <button
               type="submit"
               disabled={generating || !genTopic.trim()}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+              className={`${btnPrimary} w-full bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}
             >
-              {generating ? t('generating') : t('submit')}
+              {generating ? (
+                <>
+                  <Layers
+                    className="h-4 w-4 animate-pulse"
+                    aria-hidden="true"
+                  />
+                  {t('generating')}
+                </>
+              ) : (
+                t('submit')
+              )}
             </button>
           </form>
         </div>
@@ -243,17 +268,21 @@ export default function FlashcardsPage() {
 
       {/* No cards */}
       {cards.length === 0 && (
-        <div className="border-fl-border bg-fl-surface border px-6 py-10 text-center">
-          <p className="text-fl-muted-1 font-mono text-sm">{t('noDue')}</p>
-          {total === 0 && (
-            <p className="text-fl-muted-2 mt-2 font-mono text-xs">
-              {t('noCardsHint')}
-            </p>
-          )}
-          <button
-            onClick={loadDue}
-            className="border-fl-border text-fl-label text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2 mt-6 border px-6 py-2 font-mono tracking-widest uppercase transition-colors"
+        <div className="border-fl-border bg-fl-surface rounded-2xl border px-6 py-12 text-center">
+          <span
+            className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl"
+            style={{
+              color: 'var(--juba-primary)',
+              background: 'var(--juba-primary-soft)',
+            }}
           >
+            <CheckBadgeIcon />
+          </span>
+          <p className="text-fl-muted-1 text-sm font-medium">{t('noDue')}</p>
+          {total === 0 && (
+            <p className="text-fl-muted-2 mt-2 text-sm">{t('noCardsHint')}</p>
+          )}
+          <button onClick={loadDue} className={btnSecondary + ' mt-6'}>
             {t('refresh')}
           </button>
         </div>
@@ -262,30 +291,50 @@ export default function FlashcardsPage() {
       {/* Card review */}
       {cards.length > 0 && (
         <>
-          <div className="text-fl-label text-fl-muted-3 flex items-center justify-between font-mono tracking-widest uppercase">
-            <span>
-              {current + 1} / {cards.length} due
-            </span>
-            {/* Mode toggle */}
-            <div className="flex gap-1">
-              <button
-                onClick={() => {
-                  setSpeakingMode(false)
-                  setFlipped(false)
+          {/* Session progress */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-fl-muted-2 text-xs font-semibold">
+                {current + 1} / {cards.length} due
+              </span>
+              {/* Mode toggle */}
+              <div className="bg-fl-surface-2 inline-flex rounded-xl p-1">
+                <button
+                  onClick={() => {
+                    setSpeakingMode(false)
+                    setFlipped(false)
+                  }}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
+                    !speakingMode
+                      ? 'text-fl-fg bg-[var(--juba-surface)] shadow-sm'
+                      : 'text-fl-muted-2 hover:text-fl-fg'
+                  }`}
+                >
+                  {t('standardMode')}
+                </button>
+                <button
+                  onClick={() => {
+                    setSpeakingMode(true)
+                    setFlipped(false)
+                  }}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
+                    speakingMode
+                      ? 'text-fl-fg bg-[var(--juba-surface)] shadow-sm'
+                      : 'text-fl-muted-2 hover:text-fl-fg'
+                  }`}
+                >
+                  {t('speakingMode')}
+                </button>
+              </div>
+            </div>
+            <div className="bg-fl-surface-2 h-1.5 overflow-hidden rounded-full">
+              <div
+                className="h-full rounded-full transition-all duration-500"
+                style={{
+                  width: `${sessionProgress}%`,
+                  background: 'var(--juba-primary)',
                 }}
-                className={`text-fl-hint border px-3 py-1 tracking-widest transition-colors ${!speakingMode ? 'border-fl-border-2 text-fl-fg' : 'border-fl-border text-fl-muted-3 hover:text-fl-muted-1'}`}
-              >
-                {t('standardMode')}
-              </button>
-              <button
-                onClick={() => {
-                  setSpeakingMode(true)
-                  setFlipped(false)
-                }}
-                className={`text-fl-hint border px-3 py-1 tracking-widest transition-colors ${speakingMode ? 'border-fl-border-2 text-fl-fg' : 'border-fl-border text-fl-muted-3 hover:text-fl-muted-1'}`}
-              >
-                {t('speakingMode')}
-              </button>
+              />
             </div>
           </div>
 
@@ -293,17 +342,23 @@ export default function FlashcardsPage() {
           {!speakingMode && (
             <>
               <div
-                className="border-fl-border bg-fl-surface hover:border-fl-border-2 min-h-[220px] cursor-pointer border transition-colors select-none"
+                className="juba-card cursor-pointer select-none"
                 onClick={() => setFlipped(!flipped)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    setFlipped(!flipped)
+                  }
+                }}
+                aria-label={flipped ? t('tapToHide') : t('tapToReveal')}
               >
-                <div className="border-fl-border flex items-center justify-between border-b px-6 py-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-fl-label text-fl-muted-3">●</span>
-                    <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
-                      {flipped ? t('back') : t('front')}
-                    </span>
-                  </div>
-                  <span className="text-fl-hint text-fl-border-2 font-mono tracking-widest uppercase">
+                <div className="border-fl-border flex items-center justify-between border-b px-6 py-3.5">
+                  <span className="text-fl-muted-2 text-xs font-semibold tracking-wide uppercase">
+                    {flipped ? t('back') : t('front')}
+                  </span>
+                  <span className="text-fl-muted-3 text-xs">
                     {flipped ? t('tapToHide') : t('tapToReveal')}
                   </span>
                 </div>
@@ -341,7 +396,7 @@ export default function FlashcardsPage() {
                         </TargetLanguageText>
                       )}
                       {cards[current].translation && (
-                        <p className="text-fl-label text-fl-muted-3 border-fl-border mt-1 border-t pt-3 font-mono tracking-widest uppercase">
+                        <p className="text-fl-muted-3 border-fl-border mt-1 border-t pt-3 text-sm">
                           {cards[current].translation}
                         </p>
                       )}
@@ -351,18 +406,34 @@ export default function FlashcardsPage() {
               </div>
 
               {flipped && (
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                   {[
-                    { key: 'again', q: 0, color: '#ff5555' },
-                    { key: 'hard', q: 3, color: 'var(--fl-muted-1)' },
-                    { key: 'good', q: 4, color: 'var(--fl-muted-0)' },
-                    { key: 'easy', q: 5, color: 'var(--fl-fg)' },
-                  ].map(({ key, q, color }) => (
+                    {
+                      key: 'again',
+                      q: 0,
+                      style: { color: 'var(--juba-danger)' },
+                    },
+                    {
+                      key: 'hard',
+                      q: 3,
+                      style: { color: 'var(--juba-muted)' },
+                    },
+                    { key: 'good', q: 4, style: { color: 'var(--juba-text)' } },
+                    {
+                      key: 'easy',
+                      q: 5,
+                      style: {
+                        color: 'var(--juba-primary-dark)',
+                        borderColor:
+                          'color-mix(in srgb, var(--juba-primary) 45%, var(--juba-border))',
+                      },
+                    },
+                  ].map(({ key, q, style }) => (
                     <button
                       key={q}
                       onClick={() => reviewCard(q)}
-                      className="border-fl-border text-fl-label hover:border-fl-border-2 min-w-[80px] flex-1 border py-3 font-mono tracking-widest uppercase transition-all"
-                      style={{ color }}
+                      className="border-fl-border min-w-[80px] rounded-xl border py-3 text-sm font-semibold transition-all hover:border-[color-mix(in_srgb,var(--juba-border)_60%,var(--juba-text))] hover:bg-[var(--juba-surface-soft)]"
+                      style={style}
                     >
                       {t(key)}
                     </button>
@@ -374,15 +445,13 @@ export default function FlashcardsPage() {
 
           {/* ── Speaking mode ── */}
           {speakingMode && (
-            <div className="border-fl-border bg-fl-surface border">
-              <div className="border-fl-border flex items-center justify-between border-b px-6 py-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-fl-label text-fl-muted-3">●</span>
-                  <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
-                    {t('speakingMode')}
-                  </span>
-                </div>
-                <span className="text-fl-hint text-fl-border-2 font-mono tracking-widest uppercase">
+            <div className="border-fl-border bg-fl-surface rounded-2xl border">
+              <div className="border-fl-border flex items-center justify-between border-b px-5 py-3.5">
+                <p className="text-fl-muted-2 text-xs font-semibold tracking-wide uppercase">
+                  {t('speakingMode')}
+                </p>
+                <span className="flex items-center gap-1.5 text-xs text-[var(--juba-muted)]">
+                  <Volume2 className="h-3.5 w-3.5" aria-hidden="true" />
                   {t('sayWord')}
                 </span>
               </div>
@@ -405,7 +474,7 @@ export default function FlashcardsPage() {
                   </TargetLanguageText>
                 )}
                 {cards[current].translation && (
-                  <p className="text-fl-label text-fl-muted-3 border-fl-border mt-1 border-t pt-3 font-mono tracking-widest uppercase">
+                  <p className="text-fl-muted-3 border-fl-border mt-1 border-t pt-3 text-sm">
                     {cards[current].translation}
                   </p>
                 )}
@@ -418,7 +487,7 @@ export default function FlashcardsPage() {
             </div>
           )}
 
-          <p className="text-fl-hint text-fl-border-2 text-center font-mono tracking-widest uppercase">
+          <p className="text-fl-muted-4 text-center text-xs tabular-nums">
             EF {cards[current].ease_factor.toFixed(2)} · {t('interval')}{' '}
             {cards[current].interval}d · {t('repetitions')}{' '}
             {cards[current].repetitions}
@@ -426,5 +495,23 @@ export default function FlashcardsPage() {
         </>
       )}
     </div>
+  )
+}
+
+function CheckBadgeIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-6 w-6"
+      aria-hidden="true"
+    >
+      <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
   )
 }

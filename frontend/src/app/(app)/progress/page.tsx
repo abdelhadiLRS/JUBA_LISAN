@@ -4,6 +4,15 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 import { useTranslations } from 'next-intl'
+import {
+  BookOpen,
+  Check,
+  Circle,
+  Flame,
+  LoaderCircle,
+  Sparkles,
+  type LucideIcon,
+} from 'lucide-react'
 import { PageLoading } from '@/components/ui/page-loading'
 import { apiFetch } from '@/lib/api'
 import { useLanguageStore } from '@/store/language'
@@ -60,16 +69,25 @@ function getCompetencyStatus(
   return 'not-started'
 }
 
-const STATUS_ICON: Record<CompetencyStatus, string> = {
-  mastered: '✅',
-  'in-progress': '🔄',
-  'not-started': '⬜',
-}
-
-const STATUS_COLOR: Record<CompetencyStatus, string> = {
-  mastered: 'text-fl-fg',
-  'in-progress': 'text-amber-600 dark:text-amber-400',
-  'not-started': 'text-fl-muted-4',
+const STATUS_BADGE: Record<
+  CompetencyStatus,
+  { Icon: LucideIcon; color: string; background: string }
+> = {
+  mastered: {
+    Icon: Check,
+    color: '#ffffff',
+    background: 'var(--juba-primary)',
+  },
+  'in-progress': {
+    Icon: LoaderCircle,
+    color: 'var(--juba-warm)',
+    background: 'var(--juba-warm-soft)',
+  },
+  'not-started': {
+    Icon: Circle,
+    color: 'var(--juba-muted)',
+    background: 'transparent',
+  },
 }
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -88,25 +106,31 @@ function UnitCompetencyBlock({
   const score = record?.score ?? 0
   const pct =
     totalCount > 0 ? Math.round((masteredCount / totalCount) * 100) : 0
+  const complete = pct === 100
 
   return (
-    <div className="border-fl-border bg-fl-surface border">
+    <div
+      className={`border-fl-border bg-fl-surface rounded-2xl border ${
+        complete ? '' : 'overflow-hidden'
+      }`}
+    >
       {/* Unit header */}
-      <div className="border-fl-border flex items-center justify-between border-b px-5 py-4">
-        <div className="flex items-center gap-2">
-          <span className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+      <div className="flex items-center justify-between gap-4 px-5 pt-4 pb-3">
+        <div className="min-w-0">
+          <span
+            className="text-xs font-semibold"
+            style={{ color: 'var(--juba-primary)' }}
+          >
             {tPlan('unitLabel')} {unit.unit_number}
           </span>
-          <span className="text-fl-fg font-mono text-xs font-bold">
-            {unit.title}
-          </span>
+          <p className="text-fl-fg truncate text-sm font-bold">{unit.title}</p>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="text-fl-label text-fl-muted-3 font-mono">
+        <div className="flex shrink-0 items-center gap-3">
+          <span className="text-fl-muted-3 text-xs font-medium">
             {masteredCount}/{totalCount} {t('mastered')}
           </span>
           {record && (
-            <span className="text-fl-label text-fl-muted-2 font-mono">
+            <span className="text-fl-muted-1 text-xs font-semibold tabular-nums">
               {Math.round(score * 100)}%
             </span>
           )}
@@ -114,15 +138,18 @@ function UnitCompetencyBlock({
       </div>
 
       {/* Progress bar */}
-      <div className="bg-fl-border h-0.5">
+      <div className="bg-fl-surface-2 mx-5 mb-3 h-1.5 overflow-hidden rounded-full">
         <div
-          className="bg-fl-accent h-full transition-all"
-          style={{ width: `${pct}%` }}
+          className="h-full rounded-full transition-all duration-500"
+          style={{
+            width: `${pct}%`,
+            background: complete ? 'var(--juba-primary)' : 'var(--juba-warm)',
+          }}
         />
       </div>
 
       {/* Competency list */}
-      <ul className="space-y-2 px-5 py-3">
+      <ul className="space-y-2.5 px-5 pb-4">
         {unit.competency_checklist.map((text, idx) => {
           const status = getCompetencyStatus(
             idx,
@@ -130,18 +157,36 @@ function UnitCompetencyBlock({
             record?.total_count ?? 0,
             score
           )
+          const { Icon, color, background } = STATUS_BADGE[status]
           return (
             <li key={idx} className="flex items-start gap-3">
-              <span className="mt-0.5 shrink-0 text-base leading-none">
-                {STATUS_ICON[status]}
+              <span
+                className="mt-0.5 flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full"
+                style={
+                  status === 'not-started'
+                    ? { border: '1px solid var(--juba-border)' }
+                    : { background }
+                }
+              >
+                <Icon
+                  className="h-3 w-3"
+                  style={{ color }}
+                  aria-hidden="true"
+                />
               </span>
               <span
-                className={`font-mono text-xs leading-relaxed ${STATUS_COLOR[status]}`}
+                className={`flex-1 text-xs leading-relaxed ${
+                  status === 'mastered'
+                    ? 'text-fl-muted-2'
+                    : status === 'in-progress'
+                      ? 'text-fl-fg font-medium'
+                      : 'text-fl-muted-4'
+                }`}
               >
                 {text}
               </span>
               {status === 'in-progress' && record && (
-                <span className="text-fl-label text-fl-muted-3 ml-auto shrink-0 font-mono">
+                <span className="text-fl-muted-3 shrink-0 text-xs tabular-nums">
                   {Math.round(score * 100)}%
                 </span>
               )}
@@ -239,40 +284,83 @@ export default function ProgressPage() {
     0
   )
 
+  const statTiles = summary
+    ? [
+        {
+          label: t('xp'),
+          value: summary.total_xp.toLocaleString(),
+          Icon: Sparkles,
+          highlight: false,
+        },
+        {
+          label: t('streak'),
+          value: `${summary.current_streak}d`,
+          Icon: Flame,
+          highlight: summary.current_streak > 0,
+        },
+        {
+          label: t('lessons'),
+          value: summary.total_lessons,
+          Icon: BookOpen,
+          highlight: false,
+        },
+        {
+          label: t('accuracy'),
+          value: `${Math.round(summary.accuracy * 100)}%`,
+          Icon: Check,
+          highlight: false,
+        },
+      ]
+    : []
+
   return (
-    <div className="mx-auto max-w-4xl space-y-8 p-6">
+    <div className="mx-auto max-w-4xl space-y-8 px-4 py-6 sm:px-6 md:py-8">
       {/* Header */}
-      <div className="border-fl-border bg-fl-surface border">
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-3">●</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+      <div className="border-fl-border bg-fl-surface rounded-2xl border p-5 sm:p-6">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <h1 className="text-fl-fg text-lg font-bold tracking-tight">
             {t('subtitle')}
-          </span>
+          </h1>
           {activeLanguage && cefrLevel && (
-            <span className="border-fl-border text-fl-label text-fl-muted-3 ml-auto border px-2 py-0.5 font-mono tracking-widest uppercase">
+            <span
+              className="rounded-full px-3 py-1 text-xs font-semibold"
+              style={{
+                color: 'var(--juba-primary-dark)',
+                background: 'var(--juba-primary-soft)',
+              }}
+            >
               {activeLanguage.name} · {cefrLevel}
             </span>
           )}
         </div>
 
-        {/* XP + streak */}
-        {summary && (
-          <div className="divide-fl-border border-fl-border grid grid-cols-2 divide-x border-b sm:grid-cols-4">
-            {[
-              { label: t('xp'), value: summary.total_xp.toLocaleString() },
-              { label: t('streak'), value: `${summary.current_streak}d 🔥` },
-              { label: t('lessons'), value: summary.total_lessons },
-              {
-                label: t('accuracy'),
-                value: `${Math.round(summary.accuracy * 100)}%`,
-              },
-            ].map(({ label, value }) => (
-              <div key={label} className="px-5 py-4 text-center">
-                <p className="text-fl-label text-fl-muted-3 mb-1 font-mono tracking-widest uppercase">
-                  {label}
-                </p>
-                <p className="text-fl-fg font-mono text-sm font-bold">
-                  {value}
+        {/* Stat tiles */}
+        {statTiles.length > 0 && (
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {statTiles.map((stat) => (
+              <div
+                key={stat.label}
+                className="bg-fl-surface-2 rounded-xl p-3.5 text-center sm:text-start"
+              >
+                <div className="mb-1.5 flex items-center justify-center gap-1.5 sm:justify-start">
+                  <stat.Icon
+                    className={`h-3.5 w-3.5 ${
+                      stat.highlight
+                        ? 'text-[var(--juba-warm)]'
+                        : 'text-[var(--juba-primary)]'
+                    }`}
+                    aria-hidden="true"
+                  />
+                  <p className="text-fl-muted-2 truncate text-xs font-medium">
+                    {stat.label}
+                  </p>
+                </div>
+                <p
+                  className={`text-xl font-bold tracking-tight ${
+                    stat.highlight ? 'text-[var(--juba-warm)]' : 'text-fl-fg'
+                  }`}
+                >
+                  {stat.value}
                 </p>
               </div>
             ))}
@@ -284,11 +372,11 @@ export default function ProgressPage() {
       {levelUnits.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
-            <span className="text-fl-fg font-mono text-base font-bold tracking-widest">
+            <h2 className="text-fl-fg text-sm font-bold">
               {cefrLevel
                 ? t('competenciesSection', { level: cefrLevel })
                 : t('competencies')}
-            </span>
+            </h2>
             <div className="bg-fl-border h-px flex-1" />
           </div>
 
@@ -301,13 +389,14 @@ export default function ProgressPage() {
           ))}
 
           {competencies.length === 0 && (
-            <div className="border-fl-border bg-fl-surface border px-6 py-8 text-center">
-              <p className="text-fl-muted-3 font-mono text-xs leading-relaxed">
+            <div className="border-fl-border bg-fl-surface rounded-2xl border px-6 py-8 text-center">
+              <p className="text-fl-muted-3 text-sm leading-relaxed">
                 {t('noCompetencies')}
               </p>
               <Link
                 href="/plan"
-                className="text-fl-label text-fl-muted-2 hover:text-fl-fg mt-4 inline-block font-mono tracking-widest uppercase transition-colors"
+                className="mt-4 inline-block text-sm font-medium underline transition-all hover:no-underline"
+                style={{ color: 'var(--juba-primary)' }}
               >
                 {t('goToMyPlan')}
               </Link>
@@ -320,43 +409,44 @@ export default function ProgressPage() {
       {displayVocabSets.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
-            <span className="text-fl-fg font-mono text-base font-bold tracking-widest">
+            <h2 className="text-fl-fg text-sm font-bold">
               {showAllLevels
                 ? t('vocabularySection')
                 : cefrLevel
                   ? t('vocabularyHeader', { level: cefrLevel })
                   : t('vocabularySection')}
-            </span>
+            </h2>
             <div className="bg-fl-border h-px flex-1" />
-            <span className="text-fl-label text-fl-muted-3 font-mono">
+            <span className="text-fl-muted-3 shrink-0 text-xs font-medium">
               {totalMastered}/{totalDisplayWords} {tVocab('words')}
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          {/* Level toggle — segmented control */}
+          <div className="bg-fl-surface-2 inline-flex rounded-xl p-1">
             <button
               onClick={() => setShowAllLevels(false)}
-              className={`text-fl-label border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
+              className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-colors ${
                 !showAllLevels
-                  ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
-                  : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
+                  ? 'text-fl-fg bg-[var(--juba-surface)] shadow-sm'
+                  : 'text-fl-muted-2 hover:text-fl-fg'
               }`}
             >
               {t('currentLevelOnly')}
             </button>
             <button
               onClick={() => setShowAllLevels(true)}
-              className={`text-fl-label border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
+              className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-colors ${
                 showAllLevels
-                  ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
-                  : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
+                  ? 'text-fl-fg bg-[var(--juba-surface)] shadow-sm'
+                  : 'text-fl-muted-2 hover:text-fl-fg'
               }`}
             >
               {t('allLevels')}
             </button>
           </div>
 
-          <div className="border-fl-border bg-fl-surface divide-fl-border divide-y border">
+          <div className="border-fl-border bg-fl-surface divide-fl-border divide-y rounded-2xl border">
             {displayVocabSets.map((s) => {
               const mastered = s.words.filter((w) =>
                 masteredWordSet.has(w.word.toLowerCase())
@@ -366,21 +456,24 @@ export default function ProgressPage() {
                   ? Math.round((mastered / s.words.length) * 100)
                   : 0
               return (
-                <div key={s.id} className="flex items-center gap-4 px-5 py-3">
+                <div key={s.id} className="flex items-center gap-4 px-5 py-3.5">
                   <Link
                     href={`/vocabulary/${s.id}`}
-                    className="text-fl-muted-1 hover:text-fl-fg min-w-0 flex-1 truncate font-mono text-xs transition-colors"
+                    className="text-fl-muted-1 hover:text-fl-fg min-w-0 flex-1 truncate text-sm font-medium transition-colors"
                   >
                     {s.topic}
                   </Link>
-                  <div className="flex items-center gap-3">
-                    <div className="bg-fl-border h-1.5 w-24">
+                  <div className="flex shrink-0 items-center gap-3">
+                    <div className="bg-fl-surface-2 h-1.5 w-24 overflow-hidden rounded-full">
                       <div
-                        className="bg-fl-accent h-full transition-all"
-                        style={{ width: `${pct}%` }}
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{
+                          width: `${pct}%`,
+                          background: 'var(--juba-primary)',
+                        }}
                       />
                     </div>
-                    <span className="text-fl-label text-fl-muted-3 w-12 text-right font-mono">
+                    <span className="text-fl-muted-3 w-12 text-end text-xs tabular-nums">
                       {mastered}/{s.words.length}
                     </span>
                   </div>
@@ -395,24 +488,28 @@ export default function ProgressPage() {
       {summary && Object.keys(summary.skills).length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
-            <span className="text-fl-fg font-mono text-base font-bold tracking-widest">
-              {t('skills')}
-            </span>
+            <h2 className="text-fl-fg text-sm font-bold">{t('skills')}</h2>
             <div className="bg-fl-border h-px flex-1" />
           </div>
-          <div className="border-fl-border bg-fl-surface divide-fl-border divide-y border">
+          <div className="border-fl-border bg-fl-surface divide-fl-border divide-y rounded-2xl border">
             {Object.entries(summary.skills).map(([skill, value]) => (
-              <div key={skill} className="flex items-center gap-4 px-5 py-3">
-                <span className="text-fl-label text-fl-muted-2 w-24 font-mono tracking-widest uppercase">
+              <div key={skill} className="flex items-center gap-4 px-5 py-3.5">
+                <span className="text-fl-muted-1 w-24 shrink-0 truncate text-sm font-medium">
                   {skill}
                 </span>
-                <div className="bg-fl-border h-1.5 flex-1">
+                <div className="bg-fl-surface-2 h-1.5 flex-1 overflow-hidden rounded-full">
                   <div
-                    className="bg-fl-accent h-full"
-                    style={{ width: `${Math.round(value * 100)}%` }}
+                    className="h-full rounded-full transition-all duration-500"
+                    style={{
+                      width: `${Math.round(value * 100)}%`,
+                      background:
+                        value < 0.5
+                          ? 'var(--juba-warm)'
+                          : 'var(--juba-primary)',
+                    }}
                   />
                 </div>
-                <span className="text-fl-label text-fl-muted-2 w-10 text-right font-mono">
+                <span className="text-fl-muted-2 w-10 shrink-0 text-end text-xs font-semibold tabular-nums">
                   {Math.round(value * 100)}%
                 </span>
               </div>

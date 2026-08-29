@@ -63,7 +63,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl space-y-4 p-6">
+    <div className="mx-auto max-w-6xl space-y-4 px-4 py-6 sm:px-6 md:py-8">
       <SettingsPageHeader
         eyebrow={`${t('sectionAccount')} / ${t('title')}`}
         title={t('title')}
@@ -90,17 +90,14 @@ export default function SettingsPage() {
         <SettingsPanel id="account" title={t('sectionAccount')}>
           <ProfileSection title={t('cardProfileAccess')} />
 
-          <div className="border-fl-border bg-fl-surface border p-6">
-            <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-4">
-              <span className="text-fl-label text-fl-muted-2">●</span>
-              <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
-                {t('cardSessionSecurity')}
-              </span>
-            </div>
+          <div className="border-fl-border bg-fl-surface rounded-2xl border p-6">
+            <p className="text-fl-muted-2 mb-4 text-xs font-semibold tracking-wide uppercase">
+              {t('cardSessionSecurity')}
+            </p>
             <div className="space-y-2">
               <button
                 onClick={() => setLogoutConfirm(true)}
-                className="text-fl-label text-fl-muted-2 border-fl-border hover:text-fl-error hover:border-fl-error/40 w-full border py-3 font-mono tracking-widest uppercase transition-colors"
+                className="border-fl-border text-fl-muted-2 w-full rounded-xl border py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-surface-soft)]"
               >
                 {tCommon('logout')}
               </button>
@@ -109,7 +106,12 @@ export default function SettingsPage() {
                 <button
                   onClick={() => setDeleteConfirm(true)}
                   disabled={deleting}
-                  className="text-fl-label text-fl-error border-fl-error/40 hover:border-fl-error/70 w-full border py-3 font-mono tracking-widest uppercase transition-colors disabled:opacity-40"
+                  className="w-full rounded-xl border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
+                  style={{
+                    color: 'var(--juba-danger)',
+                    borderColor:
+                      'color-mix(in srgb, var(--juba-danger) 35%, transparent)',
+                  }}
                 >
                   {t('deleteAccount')}
                 </button>
@@ -141,23 +143,20 @@ export default function SettingsPage() {
         </SettingsPanel>
 
         <SettingsPanel id="legal" title={t('sectionLegal')}>
-          <div className="border-fl-border bg-fl-surface border p-6">
-            <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-4">
-              <span className="text-fl-label text-fl-muted-2">●</span>
-              <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
-                {t('cardLegalDocuments')}
-              </span>
-            </div>
+          <div className="border-fl-border bg-fl-surface rounded-2xl border p-6">
+            <p className="text-fl-muted-2 mb-4 text-xs font-semibold tracking-wide uppercase">
+              {t('cardLegalDocuments')}
+            </p>
             <div className="flex flex-col gap-2">
               <a
                 href="/terms?from=settings"
-                className="text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
+                className="text-fl-muted-2 hover:text-fl-fg text-sm font-medium transition-colors"
               >
                 {t('termsOfService')}
               </a>
               <a
                 href="/privacy?from=settings"
-                className="text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
+                className="text-fl-muted-2 hover:text-fl-fg text-sm font-medium transition-colors"
               >
                 {t('privacyPolicy')}
               </a>
