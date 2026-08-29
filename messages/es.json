@@ -1439,23 +1439,19 @@
   },
   "whatsNew": {
     "title": "Novedades",
-    "version": "v1.8.40",
+    "version": "v1.8.41",
     "cta": "Entendido",
     "entry1": {
-      "label": "Memorias que te acompañan",
-      "desc": "Lingu ahora puede recordar detalles útiles en todos los idiomas que estudias, tanto en el chat como por voz."
+      "label": "Un aspecto totalmente nuevo",
+      "desc": "La aplicación ha sido rediseñada con la nueva identidad de JUBA LISAN: iconos claros, navegación moderna y un espacio de aprendizaje más limpio."
     },
     "entry2": {
-      "label": "Tú tienes el control",
-      "desc": "Añade tus propias memorias o revísalas, elimínalas y bórralas todas cuando quieras desde Ajustes. Eliminar un idioma conserva tus memorias."
+      "label": "Más rápida en el móvil",
+      "desc": "Una nueva navegación inferior pone Inicio, Mi plan, Tarjetas, Tutor y Progreso a un solo toque en tu teléfono."
     },
     "entry3": {
-      "label": "Tus lecciones, siempre accesibles",
-      "desc": "En Mi plan puedes comenzar la lección actual, continuar las que saltaste o revisar las completadas con tus respuestas y comentarios guardados."
-    },
-    "entry4": {
-      "label": "Una experiencia más fluida",
-      "desc": "Hemos corregido errores y añadido pequeñas mejoras para que FreeLingo sea más estable y agradable de usar."
+      "label": "Bajo el capó",
+      "desc": "La aplicación ahora compila y carga con más fiabilidad, sin depender de servidores de fuentes externos."
     }
   },
   "contact": {

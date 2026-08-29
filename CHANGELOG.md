@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.41] - 2026-08-29
+
+### Added
+
+- **JUBA LISAN app shell**: the authenticated navigation was rebuilt with the new learning-first identity — a JUBA LISAN wordmark with an "JL" monogram, real lucide icons for every navigation item (sidebar, mobile dropdown, and bottom navigation), rounded active states using the shared color tokens, and a mobile bottom navigation bar (Home, My Plan, Flashcards, Tutor, Progress) with iOS safe-area support. Sidebar spacing, badges, unread feedback counters, premium markers, and trial countdowns are preserved.
+- **What's New (1.8.41)**: refreshed release notes in all 10 UI locales covering the redesigned shell and the new mobile navigation.
+
+### Changed
+
+- **Navigation typography**: sidebar and menus no longer use the legacy mono/uppercase terminal styling; navigation labels are sentence case in Geist Sans, with logical spacing utilities (`ps/pe`, `border-e`, `ms-auto`) so the shell mirrors correctly in RTL locales.
+- **CJK typography**: Japanese, Korean, and Mainland Chinese target-language text now renders through well-defined platform font stacks (`Hiragino Sans`/`Yu Gothic`/`Meiryo`, `Apple SD Gothic Neo`/`Malgun Gothic`, `PingFang SC`/`Microsoft YaHei`) instead of bundling Noto Sans web fonts.
+
+### Fixed
+
+- **Build resilience**: the production build no longer downloads Google Fonts (Noto Sans JP/KR/SC) at build time, which failed on machines with restricted network access and made builds nondeterministic. The frontend now builds fully offline.
+
 ## [1.8.40] - 2026-08-17
 
 ### Changed

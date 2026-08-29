@@ -1439,23 +1439,19 @@
   },
   "whatsNew": {
     "title": "Nieuw",
-    "version": "v1.8.40",
+    "version": "v1.8.41",
     "cta": "Begrepen",
     "entry1": {
-      "label": "Herinneringen die met je meegaan",
-      "desc": "Lingu kan nu nuttige details onthouden in alle talen die je leert, zowel in chat als in spraakgesprekken."
+      "label": "Een frisse nieuwe look",
+      "desc": "De app is opnieuw ontworpen met de nieuwe JUBA LISAN-identiteit: heldere pictogrammen, moderne navigatie en een overzichtelijkere leeromgeving."
     },
     "entry2": {
-      "label": "Jij houdt de controle",
-      "desc": "Voeg zelf herinneringen toe of bekijk, verwijder en wis ze wanneer je wilt in Instellingen. Als je een leertaal verwijdert, blijven je herinneringen behouden."
+      "label": "Sneller op mobiel",
+      "desc": "Een nieuwe onderbalk maakt Start, Mijn plan, Flashcards, Tutor en Voortgang binnen één tik bereikbaar."
     },
     "entry3": {
-      "label": "Je lessen, altijd toegankelijk",
-      "desc": "In Mijn plan kun je je huidige les starten, overgeslagen lessen voortzetten of voltooide lessen bekijken met je opgeslagen antwoorden en feedback."
-    },
-    "entry4": {
-      "label": "Een soepelere ervaring",
-      "desc": "Bugfixes en kleine verbeteringen maken FreeLingo betrouwbaarder en prettiger in gebruik."
+      "label": "Onder de motorkap",
+      "desc": "De app bouwt en laadt nu betrouwbaarder, onafhankelijk van externe lettertypeservers."
     }
   },
   "contact": {

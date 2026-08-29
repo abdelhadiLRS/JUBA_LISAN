@@ -1,11 +1,5 @@
 import type { Metadata } from 'next'
-import {
-  Geist,
-  Geist_Mono,
-  Noto_Sans_JP,
-  Noto_Sans_KR,
-  Noto_Sans_SC,
-} from 'next/font/google'
+import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import './juba-modern.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
@@ -20,21 +14,6 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
-
-const notoSansJP = Noto_Sans_JP({
-  variable: '--font-noto-ja',
-  subsets: ['latin'],
-})
-
-const notoSansKR = Noto_Sans_KR({
-  variable: '--font-noto-ko',
-  subsets: ['latin'],
-})
-
-const notoSansSC = Noto_Sans_SC({
-  variable: '--font-noto-zh',
   subsets: ['latin'],
 })
 
@@ -107,7 +86,7 @@ export default async function RootLayout({
     <html
       suppressHydrationWarning
       lang={locale}
-      className={`${geistSans.variable} ${geistMono.variable} ${notoSansJP.variable} ${notoSansKR.variable} ${notoSansSC.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
         <meta name="theme-color" content="#07111f" />

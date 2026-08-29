@@ -1439,23 +1439,19 @@
   },
   "whatsNew": {
     "title": "Noutăți",
-    "version": "v1.8.40",
+    "version": "v1.8.41",
     "cta": "Am înțeles",
     "entry1": {
-      "label": "Amintiri care te însoțesc",
-      "desc": "Lingu poate acum să rețină detalii utile în toate limbile pe care le studiezi, atât în chat, cât și în conversațiile vocale."
+      "label": "Un aspect complet nou",
+      "desc": "Aplicația a fost reproiectată cu noua identitate JUBA LISAN: pictograme clare, navigare modernă și un spațiu de învățare mai curat."
     },
     "entry2": {
-      "label": "Tu deții controlul",
-      "desc": "Adaugă propriile amintiri sau consultă-le, șterge-le și golește-le oricând din Setări. Eliminarea unei limbi îți păstrează amintirile."
+      "label": "Mai rapidă pe mobil",
+      "desc": "O nouă navigare de jos aduce Acasă, Planul meu, Fișele, Tutorul și Progresul la o singură atingere pe telefon."
     },
     "entry3": {
-      "label": "Lecțiile tale, mereu accesibile",
-      "desc": "În Planul meu poți începe lecția curentă, continua lecțiile omise sau revizui lecțiile finalizate cu răspunsurile și feedbackul salvate."
-    },
-    "entry4": {
-      "label": "O experiență mai fluidă",
-      "desc": "Remedierile de erori și micile îmbunătățiri fac FreeLingo mai stabil și mai plăcut de utilizat."
+      "label": "Sub capotă",
+      "desc": "Aplicația se compilează și se încarcă acum mai fiabil, fără a depinde de servere externe de fonturi."
     }
   },
   "contact": {

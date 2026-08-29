@@ -22,8 +22,8 @@ frontend/
 │   │   │   ├── reset-password/
 │   │   │   └── verify-email/
 │   │   │
-│   │   ├── (app)/               # Authenticated routes — sidebar layout
-│   │   │   ├── layout.tsx       # Sidebar + global layout shell
+│   │   ├── (app)/               # Authenticated routes — app shell layout
+│   │   │   ├── layout.tsx       # Sidebar (desktop) + bottom nav (mobile) + global shell
 │   │   │   ├── loading.tsx
 │   │   │   ├── admin/           # Admin overview + admin-only management routes
 │   │   │   ├── admin/users/     # User list + [id] detail: tabs, quotas, subscription override
@@ -300,7 +300,7 @@ Full-screen interactive experiences (conversation, chat, listening, reading, ass
 
 ### Target-language typography
 
-The global FreeLingo visual language remains mono-heavy: `Geist`/`Geist_Mono` are loaded in `src/app/layout.tsx`, and `globals.css` maps the default theme fonts to the mono variable. Do not change this globally when adding non-Latin target languages.
+The authenticated app shell uses the JUBA LISAN learning-first treatment: `Geist`/`Geist_Mono` are loaded in `src/app/layout.tsx` (only Geist web fonts are bundled), navigation labels are sentence case in Geist Sans with token-based active states, and mono/uppercase styling remains only on screens not yet migrated to the new identity. Do not reintroduce mono-heavy chrome when adding non-Latin target languages.
 
 Content that is part of the language being learned must use the language-aware rendering path instead of raw `font-mono` text:
 
@@ -308,9 +308,9 @@ Content that is part of the language being learned must use the language-aware r
 - `getTargetLanguageTextClass(code)` returns Latin-compatible mono styling for current Latin-script languages and CJK-friendly `font-target-ja`, `font-target-ko`, or `font-target-zh` classes for `ja-JP`, `ko-KR`, and `zh-CN` content.
 - `TARGET_LANGUAGE_CATALOG` and `SUPPORTED_TARGET_LANGUAGES` include display metadata and flag paths for all 10 target languages, including `ja-JP`, `ko-KR`, and `zh-CN`. `TargetLanguageSelector`, Settings → My Languages, and Admin → Create User filter through operator-provided `availableCodes` / `availableLanguageCodes` when those values are available.
 - `frontend/src/components/TargetLanguageText.tsx` applies the correct class and `lang` attribute. Use it for lesson content, exercise prompts/options, flashcards, reading/listening transcripts, phrasebook entries, vocabulary examples, assessment questions, and chat/conversation transcript text.
-- `globals.css` defines `font-target-latin`, `font-target-ja`, `font-target-ko`, and `font-target-zh`. CJK classes use Noto variables when available plus platform fallbacks (`Hiragino Sans`/`Yu Gothic`/`Meiryo`, `Apple SD Gothic Neo`/`Malgun Gothic`, `PingFang SC`/`Microsoft YaHei`/`Noto Sans CJK SC`).
+- `globals.css` defines `font-target-latin`, `font-target-ja`, `font-target-ko`, and `font-target-zh`. CJK classes use platform font stacks only (`Hiragino Sans`/`Yu Gothic`/`Noto Sans CJK JP`/`Meiryo`, `Apple SD Gothic Neo`/`Noto Sans CJK KR`/`Malgun Gothic`, `PingFang SC`/`Noto Sans CJK SC`/`Microsoft YaHei`) — no CJK web fonts are bundled, which keeps production builds offline-deterministic.
 
-UI labels, levels, controls, navigation, and admin chrome may continue using `font-mono`, `uppercase`, and wide tracking. Do not apply `uppercase`, `tracking-widest`, or small mono text to learned-language CJK content.
+Screens not yet migrated to the JUBA LISAN identity may continue using `font-mono`, `uppercase`, and wide tracking for UI labels, levels, and admin chrome; new or redesigned navigation must use the shell's sentence-case Geist Sans treatment. Do not apply `uppercase`, `tracking-widest`, or small mono text to learned-language CJK content.
 
 ---
 

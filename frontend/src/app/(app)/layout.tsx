@@ -449,7 +449,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <p className="text-fl-muted-4 mb-2 text-[11px] tracking-wide">
-            v1.8.40
+            v1.8.41
           </p>
           <div className="flex items-center gap-4">
             <button
@@ -637,7 +637,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </p>
               )}
               <p className="text-fl-muted-4 mb-2 text-[11px] tracking-wide">
-                v1.8.40
+                v1.8.41
               </p>
               <div className="flex items-center gap-4">
                 <button

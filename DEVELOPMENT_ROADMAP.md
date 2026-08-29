@@ -15,16 +15,17 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 
 ### Phase 2 — Design System 🟡
 - ✅ Color tokens (light/dark) in `juba-modern.css`.
-- ❌ Modern typography scale (legacy `font-mono` uppercase treatment still used in app chrome).
+- ✅ App-shell typography migrated to Geist Sans sentence case with token-based states (v1.8.41); remaining legacy screens still use the mono treatment.
 - ❌ Centralized component layer on top of the tokens (many legacy mono-styled components remain).
-- ❌ Systematic RTL audit of physical utilities (`border-l`, `ml-*`, `pl-*`).
+- 🟡 RTL: app shell now uses logical utilities; systematic audit of remaining screens pending.
+- ✅ Build determinism: CJK web fonts removed in favor of platform font stacks — production build is fully offline (v1.8.41).
 
-### Phase 3 — App Shell 🟡
-- ✅ Sidebar + mobile dropdown exist and are functional.
-- ❌ Shell still uses the legacy FreeLingo mono/terminal aesthetic and branding.
-- ❌ No mobile bottom navigation for primary destinations.
-- ❌ Nav icons are text glyphs (`●`, `·`) instead of real icons.
-- ❌ Physical border/spacing utilities break RTL directionality.
+### Phase 3 — App Shell ✅
+- ✅ Sidebar + mobile dropdown rebuilt with the JUBA LISAN identity (v1.8.41).
+- ✅ Mobile bottom navigation for primary destinations with safe-area support.
+- ✅ Real lucide icons across sidebar, dropdown, and bottom navigation.
+- ✅ Logical utilities (`border-e`, `ps/pe`, `ms-auto`) for correct RTL mirroring.
+- 🔜 Remaining: collapse/toggle behavior for desktop sidebar, deep-shell polish (breadcrumbs, page headers).
 
 ### Phase 4 — Onboarding ❌ (exists, not rebuilt to new identity)
 ### Phase 5 — Dashboard ❌ (exists, not rebuilt to new identity)
