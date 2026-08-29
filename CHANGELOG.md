@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.42] - 2026-08-29
+
+### Changed
+
+- **Onboarding**: the language → goals → trial flow was rebuilt with the JUBA LISAN identity — JL monogram brand header, animated step-progress dots, rounded goal chips, and modernized trial/subscription cards. All logic, endpoints, and edge cases are unchanged.
+- **My Plan**: the learning roadmap now reads as a visual journey — status badges with lucide icons (completed check, active play, locked padlock, level-test ribbon), rounded cards with warm ring on the active unit, and pill-shaped progress bars. Pending lessons moved into a highlighted warm card; the unit drawer was modernized to match (rounded chips, icon lesson states, primary action buttons).
+
+### Fixed
+
+- **Test suite**: repaired two long-standing failing `apiFetch` tests that predated the `Headers`-based request implementation, and updated `UnitCard`/`UnitDrawer` tests for the new icon-based status treatment. The frontend suite is now fully green (446/446).
+
 ## [1.8.41] - 2026-08-29
 
 ### Added

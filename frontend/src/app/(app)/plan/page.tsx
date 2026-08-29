@@ -262,40 +262,38 @@ export default function PlanPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-6 px-4 py-8">
       {/* ── Header ── */}
-      <div className="border-fl-border bg-fl-surface border">
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-3">●</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
-            {t('learningRoadmap')}
-          </span>
-        </div>
-        <div className="flex flex-wrap items-center gap-4 px-6 py-4">
+      <div className="border-fl-border bg-fl-surface rounded-2xl border p-5 sm:p-6">
+        <p className="text-fl-muted-2 mb-3 text-xs font-semibold tracking-wide uppercase">
+          {t('learningRoadmap')}
+        </p>
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
           <div>
-            <p className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
+            <p className="text-fl-muted-3 text-xs font-medium">
               {langName ? `${langName} — ${t('level')}` : t('level')}
             </p>
-            <p className="text-fl-fg font-mono text-2xl font-bold tracking-widest">
+            <p
+              className="text-3xl font-black tracking-tight"
+              style={{ color: 'var(--juba-primary)' }}
+            >
               {level}
             </p>
           </div>
-          <div className="bg-fl-border h-8 w-px" />
           <div>
-            <p className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
+            <p className="text-fl-muted-3 text-xs font-medium">
               {t('duration')}
             </p>
-            <p className="text-fl-body text-fl-muted-1 font-mono">
+            <p className="text-fl-muted-1 text-sm font-medium">
               {t('durationDetail', {
                 weeks: plan.duration_weeks,
                 days: plan.days_per_week,
               })}
             </p>
           </div>
-          <div className="bg-fl-border h-8 w-px" />
           <div>
-            <p className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
+            <p className="text-fl-muted-3 text-xs font-medium">
               {t('unitsLabel')}
             </p>
-            <p className="text-fl-body text-fl-muted-1 font-mono">
+            <p className="text-fl-muted-1 text-sm font-semibold">
               {units.length}
             </p>
           </div>
@@ -304,29 +302,38 @@ export default function PlanPage() {
 
       {/* ── Pending lessons ── */}
       {pendingLessons.length > 0 && (
-        <div className="border-fl-accent/30 bg-fl-surface border">
-          <div className="border-fl-accent/20 flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-fl-label text-fl-accent">●</span>
-            <span className="text-fl-label text-fl-accent font-mono tracking-widest uppercase">
-              {pendingLessons.length} {t('pendingLessons')}
-            </span>
-          </div>
-          <div className="divide-fl-border divide-y">
+        <div
+          className="rounded-2xl border p-5"
+          style={{
+            borderColor:
+              'color-mix(in srgb, var(--juba-warm) 40%, var(--juba-border))',
+            background: 'var(--juba-warm-soft)',
+          }}
+        >
+          <p
+            className="mb-3 text-xs font-bold tracking-wide uppercase"
+            style={{ color: 'var(--juba-warm)' }}
+          >
+            {pendingLessons.length} {t('pendingLessons')}
+          </p>
+          <div className="space-y-2">
             {pendingLessons.map((lesson) => (
               <div
                 key={lesson.id}
-                className="flex items-center justify-between px-6 py-3"
+                className="border-fl-border bg-fl-surface flex items-center justify-between gap-3 rounded-xl border px-4 py-3"
               >
-                <div>
-                  <p className="text-fl-fg font-mono text-xs">{lesson.title}</p>
-                  <p className="text-fl-hint text-fl-muted-3 mt-0.5 font-mono tracking-widest uppercase">
+                <div className="min-w-0">
+                  <p className="text-fl-fg truncate text-sm font-medium">
+                    {lesson.title}
+                  </p>
+                  <p className="text-fl-muted-3 mt-0.5 text-xs">
                     W{lesson.week_number} D{lesson.day_number} ·{' '}
                     {lesson.lesson_type}
                   </p>
                 </div>
                 <button
                   onClick={() => router.push(`/lesson/${lesson.id}`)}
-                  className="text-fl-label text-fl-bg bg-fl-fg hover:bg-fl-accent/90 px-3 py-1 font-mono tracking-widest uppercase transition-colors"
+                  className="shrink-0 rounded-lg bg-[var(--juba-primary)] px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[var(--juba-primary-dark)]"
                 >
                   {t('resume')}
                 </button>
@@ -339,13 +346,11 @@ export default function PlanPage() {
       {/* ── Unit list ── */}
       <div className="space-y-2">
         {units.length === 0 && (
-          <div className="border-fl-border bg-fl-surface space-y-3 border px-6 py-10 text-center">
-            <p className="text-fl-muted-3 font-mono text-xs tracking-widest uppercase">
+          <div className="border-fl-border bg-fl-surface space-y-2 rounded-2xl border px-6 py-10 text-center">
+            <p className="text-fl-muted-2 text-sm font-medium">
               {t('noUnitsForLevel', { level })}
             </p>
-            <p className="text-fl-label text-fl-muted-4 font-mono">
-              {t('noUnitsDesc')}
-            </p>
+            <p className="text-fl-muted-4 text-xs">{t('noUnitsDesc')}</p>
           </div>
         )}
         {units.map((unit, i) => {
@@ -423,11 +428,11 @@ export default function PlanPage() {
 
       {/* ── Completion test result ── */}
       {plan.completion_test_taken && (
-        <div className="border-fl-border bg-fl-surface space-y-2 border px-6 py-4">
-          <p className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
+        <div className="border-fl-border bg-fl-surface space-y-2 rounded-2xl border px-5 py-5 sm:px-6">
+          <p className="text-fl-muted-3 text-xs font-semibold tracking-wide uppercase">
             {t('levelTestResult')}
           </p>
-          <p className="text-fl-body text-fl-fg font-mono">
+          <p className="text-fl-fg text-sm">
             {t('testScore')}{' '}
             <span className="font-bold">
               {plan.completion_test_score != null
@@ -436,7 +441,7 @@ export default function PlanPage() {
             </span>
           </p>
           {plan.completion_test_recommendation && (
-            <p className="text-fl-label text-fl-muted-1 font-mono">
+            <p className="text-fl-muted-1 text-sm">
               {plan.completion_test_recommendation}
             </p>
           )}

@@ -79,34 +79,35 @@ describe('UnitCard', () => {
   // ── Status states ──────────────────────────────────────────────────────
 
   it('renders completed unit with checkmark icon', () => {
-    renderUnitCard({ status: { completed: true }, competency: 1 })
-    expect(screen.getByText('✓')).toBeInTheDocument()
+    const { container } = renderUnitCard({
+      status: { completed: true },
+      competency: 1,
+    })
+    expect(container.querySelector('svg.lucide-check')).toBeInTheDocument()
   })
 
-  it('renders active unit with pulsing dot icon', () => {
-    renderUnitCard({ status: { active: true } })
-    const dot = screen.getByText('●')
-    expect(dot).toBeInTheDocument()
-    expect(dot.className).toContain('animate-pulse')
+  it('renders active unit with play icon', () => {
+    const { container } = renderUnitCard({ status: { active: true } })
+    expect(container.querySelector('svg[class*="play"]')).toBeInTheDocument()
   })
 
-  it('renders locked unit with empty circle icon and opacity', () => {
+  it('renders locked unit with lock icon and reduced opacity', () => {
     const { container } = renderUnitCard({ status: { locked: true } })
-    expect(screen.getByText('○')).toBeInTheDocument()
-    // outer wrapper should have opacity-40
+    expect(container.querySelector('svg.lucide-lock')).toBeInTheDocument()
+    // outer wrapper should be dimmed
     const outer = container.firstChild as HTMLElement
-    expect(outer.className).toContain('opacity-40')
+    expect(outer.className).toContain('opacity-55')
   })
 
   it('renders level-test unit with special icon and badge', () => {
-    renderUnitCard({ status: { isLevelTest: true } })
-    expect(screen.getByText('⊞')).toBeInTheDocument()
+    const { container } = renderUnitCard({ status: { isLevelTest: true } })
+    expect(container.querySelector('svg.lucide-ribbon')).toBeInTheDocument()
     expect(screen.getByText('levelTestLabel')).toBeInTheDocument()
   })
 
-  it('renders default state (none of the flags) with hollow dot', () => {
-    renderUnitCard()
-    expect(screen.getByText('◦')).toBeInTheDocument()
+  it('renders default state (none of the flags) with hollow circle', () => {
+    const { container } = renderUnitCard()
+    expect(container.querySelector('svg.lucide-circle')).toBeInTheDocument()
   })
 
   // ── Card content ───────────────────────────────────────────────────────
@@ -141,15 +142,17 @@ describe('UnitCard', () => {
   it('renders progress bar for non-locked units', () => {
     const { container } = renderUnitCard({ competency: 0.42 })
     expect(screen.getByText('42%')).toBeInTheDocument()
-    const bar = container.querySelector('.bg-fl-fg.h-px') as HTMLElement
-    expect(bar).toBeInTheDocument()
+    const track = container.querySelector('.h-1\\.5') as HTMLElement
+    expect(track).toBeInTheDocument()
+    const bar = track.firstElementChild as HTMLElement
     expect(bar.style.width).toBe('42%')
   })
 
   it('renders 0% progress bar when competency is 0', () => {
     const { container } = renderUnitCard({ competency: 0 })
     expect(screen.getByText('0%')).toBeInTheDocument()
-    const bar = container.querySelector('.bg-fl-fg.h-px') as HTMLElement
+    const track = container.querySelector('.h-1\\.5') as HTMLElement
+    const bar = track.firstElementChild as HTMLElement
     expect(bar.style.width).toBe('0%')
   })
 
@@ -159,13 +162,14 @@ describe('UnitCard', () => {
       status: { completed: true },
     })
     expect(screen.getByText('100%')).toBeInTheDocument()
-    const bar = container.querySelector('.bg-fl-fg.h-px') as HTMLElement
+    const track = container.querySelector('.h-1\\.5') as HTMLElement
+    const bar = track.firstElementChild as HTMLElement
     expect(bar.style.width).toBe('100%')
   })
 
   it('does not render progress bar for locked units', () => {
     const { container } = renderUnitCard({ status: { locked: true } })
-    expect(container.querySelector('.bg-fl-fg.h-px')).toBeNull()
+    expect(container.querySelector('.h-1\\.5')).toBeNull()
     expect(screen.queryByText(/%$/)).toBeNull()
   })
 
@@ -358,21 +362,19 @@ describe('UnitDrawer', () => {
   })
 
   it('shows completed lessons with checkmark and strikethrough', () => {
-    renderUnitDrawer()
+    const { container } = renderUnitDrawer()
     // completed lesson
     expect(screen.getByText('Verb Conjugation').className).toContain(
       'line-through'
     )
-    // the ✓ icon next to it
-    const checkmarks = screen.getAllByText('✓')
-    expect(checkmarks.length).toBeGreaterThanOrEqual(1)
+    // the check icon next to it
+    expect(container.querySelector('svg.lucide-check')).toBeInTheDocument()
   })
 
   it('shows incomplete lessons with empty circle', () => {
-    renderUnitDrawer()
-    const circles = screen.getAllByText('○')
+    const { container } = renderUnitDrawer()
     // 2 incomplete lessons (id:2 and id:3)
-    expect(circles.length).toBe(2)
+    expect(container.querySelectorAll('svg.lucide-circle')).toHaveLength(2)
   })
 
   it('renders lesson type label for each lesson', () => {
@@ -426,18 +428,20 @@ describe('UnitDrawer', () => {
 
   it('closes on X button click', () => {
     const onClose = vi.fn()
-    renderUnitDrawer({ onClose })
-    fireEvent.click(screen.getByText('✕'))
+    const { container } = renderUnitDrawer({ onClose })
+    const xButton = container.querySelector('button[aria-label="close"]')
+    expect(xButton).not.toBeNull()
+    fireEvent.click(xButton!)
     expect(onClose).toHaveBeenCalledTimes(1)
   })
 
   it('closes on bottom close button click', () => {
     const onClose = vi.fn()
     renderUnitDrawer({ onClose })
-    // There are 2 elements with text 'close': X button's aria-label and bottom button
-    const closeButtons = screen.getAllByText('close')
-    // The bottom button is the one that is a visible button (the X is ✕)
-    const bottomButton = closeButtons.find((btn) => btn.tagName === 'BUTTON')
+    // The bottom button is the visible one with the 'close' label
+    const bottomButton = screen
+      .getAllByRole('button', { name: 'close' })
+      .find((btn) => btn.textContent === 'close')
     fireEvent.click(bottomButton!)
     expect(onClose).toHaveBeenCalledTimes(1)
   })

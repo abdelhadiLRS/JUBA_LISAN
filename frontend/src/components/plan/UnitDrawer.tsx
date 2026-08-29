@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
+import { Check, Circle, X } from 'lucide-react'
 import type { CurriculumUnit } from '@/data/curriculum'
 
 interface Lesson {
@@ -64,38 +65,41 @@ export default function UnitDrawer({
     <div className="bg-fl-bg/80 fixed inset-0 z-50 flex items-end justify-center p-0 backdrop-blur-sm sm:items-center sm:p-4">
       <div
         ref={ref}
-        className="border-fl-border bg-fl-surface max-h-[80vh] w-full overflow-y-auto border sm:max-w-xl"
+        className="border-fl-border bg-fl-surface max-h-[80vh] w-full overflow-y-auto rounded-t-2xl border shadow-xl sm:max-w-xl sm:rounded-2xl"
       >
         {/* Header */}
-        <div className="border-fl-border bg-fl-surface sticky top-0 z-10 flex items-center justify-between border-b px-6 py-4">
-          <div>
-            <span className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
+        <div className="border-fl-border bg-fl-surface sticky top-0 z-10 flex items-center justify-between gap-4 border-b px-5 py-4 sm:px-6">
+          <div className="min-w-0">
+            <span
+              className="text-xs font-semibold"
+              style={{ color: 'var(--juba-primary)' }}
+            >
               {unit.level} · {t('unitLabel')}
             </span>
-            <p className="text-fl-body text-fl-fg mt-0.5 font-mono">
+            <p className="text-fl-fg mt-0.5 truncate text-base font-bold">
               {unit.title}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="text-fl-muted-3 hover:text-fl-fg font-mono text-lg leading-none transition-colors"
+            className="text-fl-muted-3 hover:text-fl-fg shrink-0 rounded-lg p-1.5 transition-colors hover:bg-[var(--juba-surface-soft)]"
             aria-label={tCommon('close')}
           >
-            ✕
+            <X className="h-4.5 w-4.5" aria-hidden="true" />
           </button>
         </div>
 
         {/* Grammar points */}
         {unit.grammar_points.length > 0 && (
-          <div className="border-fl-border border-b px-6 py-4">
-            <p className="text-fl-hint text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
+          <div className="border-fl-border border-b px-5 py-4 sm:px-6">
+            <p className="text-fl-muted-3 mb-2.5 text-xs font-semibold tracking-wide uppercase">
               {t('grammarCovered')}
             </p>
             <div className="flex flex-wrap gap-1.5">
               {unit.grammar_points.map((gp) => (
                 <span
                   key={gp}
-                  className="text-fl-hint border-fl-border text-fl-muted-1 border px-2 py-1 font-mono"
+                  className="bg-fl-surface-2 text-fl-muted-1 rounded-full px-2.5 py-1 text-xs font-medium"
                 >
                   {gp}
                 </span>
@@ -106,36 +110,41 @@ export default function UnitDrawer({
 
         {/* Lessons */}
         <div>
-          <div className="border-fl-border border-b px-6 py-3">
-            <p className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
+          <div className="border-fl-border border-b px-5 py-3 sm:px-6">
+            <p className="text-fl-muted-3 text-xs font-semibold tracking-wide uppercase">
               {t('lessonsHeader', { count: lessons.length })}
             </p>
           </div>
           <div className="divide-fl-border divide-y">
             {lessons.length === 0 ? (
-              <div className="px-6 py-6">
-                <p className="text-fl-label text-fl-muted-3 font-mono">
-                  {t('noLessons')}
-                </p>
+              <div className="px-5 py-6 sm:px-6">
+                <p className="text-fl-muted-3 text-sm">{t('noLessons')}</p>
               </div>
             ) : (
               lessons.map((lesson, i) => (
                 <div
                   key={lesson.id ?? i}
-                  className={`flex items-center gap-3 px-6 py-4 transition-colors ${lesson.action ? 'hover:bg-fl-surface-2' : ''}`}
+                  className={`flex items-center gap-3 px-5 py-3.5 transition-colors sm:px-6 ${lesson.action ? 'hover:bg-[var(--juba-surface-soft)]' : ''}`}
                 >
-                  <span
-                    className={`w-4 shrink-0 font-mono text-base ${lesson.completed ? 'text-fl-fg' : 'text-fl-muted-3'}`}
-                  >
-                    {lesson.completed ? '✓' : '○'}
-                  </span>
+                  {lesson.completed ? (
+                    <span
+                      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-white"
+                      style={{ background: 'var(--juba-primary)' }}
+                    >
+                      <Check className="h-3.5 w-3.5" aria-hidden="true" />
+                    </span>
+                  ) : (
+                    <span className="border-fl-border text-fl-muted-3 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border">
+                      <Circle className="h-2.5 w-2.5" aria-hidden="true" />
+                    </span>
+                  )}
                   <div className="min-w-0 flex-1">
                     <p
-                      className={`text-fl-label font-mono ${lesson.completed ? 'text-fl-muted-2 line-through' : 'text-fl-muted-1'}`}
+                      className={`truncate text-sm font-medium ${lesson.completed ? 'text-fl-muted-2 line-through' : 'text-fl-fg'}`}
                     >
                       {lesson.title}
                     </p>
-                    <p className="text-fl-hint text-fl-muted-3 mt-0.5 font-mono">
+                    <p className="text-fl-muted-3 mt-0.5 text-xs">
                       {t('weekDay', { week: lesson.week, day: lesson.day })} ·{' '}
                       {lessonTypeLabel[lesson.lesson_type] ??
                         lesson.lesson_type}
@@ -144,7 +153,7 @@ export default function UnitDrawer({
                   {lesson.id != null && lesson.action && (
                     <button
                       onClick={() => onStartLesson(lesson.id!)}
-                      className="text-fl-label text-fl-bg bg-fl-fg hover:bg-fl-fg/90 min-w-24 shrink-0 px-3 py-2 font-mono font-bold tracking-widest uppercase transition-colors"
+                      className="shrink-0 rounded-lg bg-[var(--juba-primary)] px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-[var(--juba-primary-dark)]"
                     >
                       {lesson.action === 'review'
                         ? t('reviewLesson')
@@ -160,10 +169,10 @@ export default function UnitDrawer({
         </div>
 
         {/* Close */}
-        <div className="border-fl-border bg-fl-surface sticky bottom-0 border-t px-6 py-4">
+        <div className="border-fl-border bg-fl-surface sticky bottom-0 border-t px-5 py-4 sm:px-6">
           <button
             onClick={onClose}
-            className="border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg w-full border py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+            className="border-fl-border text-fl-muted-2 hover:text-fl-fg w-full rounded-xl border py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-surface-soft)]"
           >
             {tCommon('close')}
           </button>

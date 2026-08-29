@@ -23,15 +23,10 @@ describe('apiFetch', () => {
 
     await apiFetch('/api/test')
 
-    expect(fetch).toHaveBeenCalledWith(
-      '/api/test',
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: 'Bearer test-token',
-        }),
-        credentials: 'include',
-      })
-    )
+    const callArgs = vi.mocked(fetch).mock.calls[0]
+    const headers = callArgs[1]?.headers as Headers
+    expect(headers.get('Authorization')).toBe('Bearer test-token')
+    expect(callArgs[1]?.credentials).toBe('include')
   })
 
   it('does not attach Authorization header when no token', async () => {
@@ -124,8 +119,8 @@ describe('apiFetch', () => {
     })
 
     const callArgs = vi.mocked(fetch).mock.calls[0]
-    const headers = callArgs[1]?.headers as Record<string, string>
-    expect(headers['Content-Type']).toBe('application/json')
-    expect(headers['Authorization']).toBe('Bearer token')
+    const headers = callArgs[1]?.headers as Headers
+    expect(headers.get('Content-Type')).toBe('application/json')
+    expect(headers.get('Authorization')).toBe('Bearer token')
   })
 })

@@ -27,11 +27,14 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 - ✅ Logical utilities (`border-e`, `ps/pe`, `ms-auto`) for correct RTL mirroring.
 - 🔜 Remaining: collapse/toggle behavior for desktop sidebar, deep-shell polish (breadcrumbs, page headers).
 
-### Phase 4 — Onboarding ❌ (exists, not rebuilt to new identity)
+### Phase 4 — Onboarding ✅
+- ✅ Rebuilt with the JUBA LISAN identity (v1.8.42): JL monogram header, animated step-progress dots, rounded goal chips, modernized trial/subscription cards. Logic, endpoints, and edge cases unchanged.
 ### Phase 5 — Dashboard 🟡
 - ✅ Dashboard rebuilt with the JUBA LISAN identity (v1.8.41): hero next-step card, icon stat tiles (streak/XP/lessons/accuracy), rounded progress bars, skill performance grid with warm accent for weak skills, modernized premium banner and quick actions. All data contracts and behaviors preserved.
 - ❌ Retention-loop surfaces on home (items due for review, daily goal ring, smart motivation messages) — pending Smart Review backend surfaces (Phase 9).
-### Phase 6 — Timeline A1–C2 ❌ (plan page exists, not rebuilt)
+### Phase 6 — Timeline A1–C2 🟡
+- ✅ Plan page rebuilt (v1.8.42): status-badge unit journey (check/play/lock/ribbon), warm active ring, pill progress bars, highlighted pending-lessons card, modernized unit drawer.
+- 🔜 Remaining: multi-level overview (A1→C2 progression map beyond the user's current plan level), unit content previews (vocabulary/grammar/listening counts as visual chips).
 ### Phase 7 — Courses ❌
 ### Phase 8 — First Lesson ❌ (lesson player exists, not rebuilt)
 ### Phase 9 — Smart Review ❌ (SM-2 flashcards exist, needs dedicated review experience)
@@ -52,6 +55,10 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 ## Automation
 
 - `automation/` scripts (develop/test/build/status/one-click dev) — ❌ not started.
+
+## Test state
+
+- Frontend: 446/446 passing (fully green as of v1.8.42; two long-standing `apiFetch` test failures repaired).
 
 ## Working rules
 
