@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
+import { BookOpen, Flame, Sparkles, Target } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import {
   isSubscribed,
@@ -29,6 +30,11 @@ interface TodayLessonItem {
   estimated_minutes: number
   is_completed: boolean
 }
+
+const btnPrimary =
+  'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
+const btnSecondary =
+  'inline-flex items-center justify-center gap-2 rounded-xl border border-fl-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-surface-soft)]'
 
 export default function DashboardPage() {
   const t = useTranslations('dashboard')
@@ -193,14 +199,14 @@ export default function DashboardPage() {
   if (loadError) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4">
-        <p className="text-fl-muted-2 font-mono text-sm">{tError('body')}</p>
+        <p className="text-fl-muted-2 text-sm">{tError('body')}</p>
         <button
           onClick={() => {
             setLoadError(false)
             setLoading(true)
             loadData()
           }}
-          className="text-fl-accent font-mono text-xs tracking-widest uppercase underline"
+          className="text-fl-accent text-sm font-medium underline transition-all hover:no-underline"
         >
           {tError('retry')}
         </button>
@@ -234,30 +240,57 @@ export default function DashboardPage() {
     return t('performanceStrong')
   }
 
+  const stats = [
+    {
+      label: t('streak'),
+      value: `${streak}d`,
+      Icon: Flame,
+      highlight: streak > 0,
+    },
+    { label: t('xp'), value: xp, Icon: Sparkles, highlight: false },
+    {
+      label: t('lessonsCompleted'),
+      value: totalLessons,
+      Icon: BookOpen,
+      highlight: false,
+    },
+    {
+      label: t('accuracy'),
+      value: totalExercises > 0 ? `${Math.round(accuracy * 100)}%` : '—',
+      Icon: Target,
+      highlight: false,
+      detail:
+        totalExercises > 0
+          ? t('exerciseStats', {
+              correct: exercisesCorrect,
+              total: totalExercises,
+            })
+          : t('noExercisesYet'),
+    },
+  ]
+
   return (
     <>
       <OnboardingTour />
       <WhatsNew />
-      <div className="mx-auto max-w-4xl p-6">
+      <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 md:py-8">
         {/* Header */}
-        <div className="border-fl-border mb-6 border-b pb-4">
-          <p className="text-fl-label text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
-            {t('welcomeBack')}
-          </p>
-          <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+        <div className="mb-6">
+          <p className="text-fl-muted-2 mb-1 text-sm">{t('welcomeBack')}</p>
+          <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
             <div>
-              <h1 className="text-fl-fg font-mono text-2xl font-bold tracking-tight">
+              <h1 className="text-fl-fg text-2xl font-bold tracking-tight sm:text-3xl">
                 {user?.displayName || user?.username}
               </h1>
               {activeLanguage && (
-                <p className="text-fl-muted-1 mt-2 font-mono text-sm">
+                <p className="text-fl-muted-1 mt-1 text-sm">
                   {tTarget(activeLanguage.code)}
-                  {cefrLevel ? ` (${cefrLevel})` : ''}
+                  {cefrLevel ? ` · ${cefrLevel}` : ''}
                 </p>
               )}
             </div>
             {hasPlan && totalDays > 0 && (
-              <p className="text-fl-hint text-fl-muted-2 font-mono tracking-widest uppercase">
+              <p className="text-fl-muted-2 text-sm font-medium">
                 {t('dayProgress', {
                   current: Math.min(progressDay + 1, totalDays),
                   total: totalDays,
@@ -269,23 +302,28 @@ export default function DashboardPage() {
 
         <DashboardAnnouncement />
 
-        {/* Next step */}
-        <div className="border-fl-border bg-fl-surface mb-8 border p-5">
-          <p className="text-fl-label text-fl-muted-2 mb-3 font-mono tracking-widest uppercase">
+        {/* Next step — hero card */}
+        <section
+          className="juba-card mb-6 p-5 sm:p-6"
+          aria-label={t('nextStep')}
+        >
+          <p className="text-fl-muted-2 mb-4 text-xs font-semibold tracking-wide uppercase">
             {t('nextStep')}
           </p>
           {!hasPlan ? (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-fl-fg font-mono text-xl font-bold tracking-tight">
+                <h2 className="text-fl-fg text-xl font-bold tracking-tight">
                   {t('startWithAssessment')}
                 </h2>
-                <p className="text-fl-muted-2 mt-2 max-w-xl font-mono text-sm">
+                <p className="text-fl-muted-2 mt-2 max-w-xl text-sm">
                   {t('assessmentCreatesPlan')}
                 </p>
               </div>
               <Link href="/assessment">
-                <button className="text-fl-label text-fl-bg bg-fl-fg hover:bg-fl-accent/90 px-4 py-2 font-mono tracking-widest uppercase transition-colors">
+                <button
+                  className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}
+                >
                   {t('takeAssessmentArrow')}
                 </button>
               </Link>
@@ -293,19 +331,21 @@ export default function DashboardPage() {
           ) : nextLesson ? (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-fl-hint text-fl-muted-2 mb-2 font-mono tracking-widest uppercase">
+                <p className="text-fl-muted-3 mb-2 text-xs font-medium tracking-wide uppercase">
                   {t('lessonReady')}
                 </p>
-                <h2 className="text-fl-fg font-mono text-xl font-bold tracking-tight">
+                <h2 className="text-fl-fg text-xl font-bold tracking-tight">
                   {nextLesson.title}
                 </h2>
-                <p className="text-fl-muted-2 mt-2 font-mono text-sm">
+                <p className="text-fl-muted-2 mt-2 text-sm">
                   {tPlan(`lessonTypes.${nextLesson.lessonType}`)} ·{' '}
                   {nextLesson.estimatedMinutes}min
                 </p>
               </div>
               <Link href={`/lesson/${nextLesson.id}`}>
-                <button className="text-fl-label text-fl-bg bg-fl-fg hover:bg-fl-accent/90 px-4 py-2 font-mono tracking-widest uppercase transition-colors">
+                <button
+                  className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}
+                >
                   {t('startLesson')}
                 </button>
               </Link>
@@ -313,153 +353,148 @@ export default function DashboardPage() {
           ) : (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-fl-fg font-mono text-xl font-bold tracking-tight">
+                <h2 className="text-fl-fg text-xl font-bold tracking-tight">
                   {t('allCaughtUp')}
                 </h2>
-                <p className="text-fl-muted-2 mt-2 font-mono text-sm">
+                <p className="text-fl-muted-2 mt-2 text-sm">
                   {pendingCount > 0
                     ? t('pendingStillAvailable', { count: pendingCount })
                     : t('noPendingToday')}
                 </p>
               </div>
               <Link href="/plan">
-                <button className="text-fl-label text-fl-fg border-fl-border hover:border-fl-border-2 border px-4 py-2 font-mono tracking-widest uppercase transition-colors">
-                  {t('goToMyPlan')}
-                </button>
+                <button className={btnSecondary}>{t('goToMyPlan')}</button>
               </Link>
             </div>
           )}
-        </div>
+        </section>
 
         {/* Stats row */}
-        <div className="bg-fl-border mb-8 grid grid-cols-2 gap-px sm:grid-cols-4">
-          {[
-            { label: t('streak'), value: `${streak}d`, accent: streak > 0 },
-            { label: t('xp'), value: xp, accent: false },
-            {
-              label: t('lessonsCompleted'),
-              value: totalLessons,
-              accent: false,
-            },
-            {
-              label: t('accuracy'),
-              value:
-                totalExercises > 0 ? `${Math.round(accuracy * 100)}%` : '—',
-              accent: false,
-              detail:
-                totalExercises > 0
-                  ? t('exerciseStats', {
-                      correct: exercisesCorrect,
-                      total: totalExercises,
-                    })
-                  : t('noExercisesYet'),
-            },
-          ].map((stat) => (
-            <div key={stat.label} className="bg-fl-surface px-5 py-5">
-              <p className="text-fl-hint text-fl-muted-2 mb-2 font-mono tracking-widest uppercase">
-                {stat.label}
-              </p>
+        <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          {stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="border-fl-border bg-fl-surface rounded-2xl border p-4 sm:p-5"
+            >
+              <div className="mb-2 flex items-center gap-2">
+                <span
+                  className={`flex h-7 w-7 items-center justify-center rounded-lg ${
+                    stat.highlight
+                      ? 'bg-[var(--juba-warm-soft)] text-[var(--juba-warm)]'
+                      : 'bg-[var(--juba-primary-soft)] text-[var(--juba-primary)]'
+                  }`}
+                >
+                  <stat.Icon className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <p className="text-fl-muted-2 truncate text-xs font-medium">
+                  {stat.label}
+                </p>
+              </div>
               <p
-                className={`font-mono text-3xl font-bold tracking-tight ${stat.accent ? 'text-fl-accent' : 'text-fl-fg'}`}
+                className={`text-2xl font-bold tracking-tight sm:text-3xl ${
+                  stat.highlight ? 'text-[var(--juba-warm)]' : 'text-fl-fg'
+                }`}
               >
                 {stat.value}
               </p>
               {'detail' in stat && stat.detail && (
-                <p className="text-fl-hint text-fl-muted-3 mt-2 font-mono tracking-widest uppercase">
-                  {stat.detail}
-                </p>
+                <p className="text-fl-muted-3 mt-1 text-xs">{stat.detail}</p>
               )}
             </div>
           ))}
         </div>
 
-        <div className="bg-fl-border mb-8 grid gap-px sm:grid-cols-2">
+        <div className="mb-6 grid gap-4 lg:grid-cols-2">
           {/* Plan progress */}
-          <div className="bg-fl-surface p-5">
+          <section
+            className="border-fl-border bg-fl-surface rounded-2xl border p-5"
+            aria-label={t('planProgress')}
+          >
             <div className="mb-4 flex items-center justify-between gap-4">
-              <div className="flex items-center gap-2">
-                <span className="text-fl-label text-fl-muted-2">●</span>
-                <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
-                  {t('planProgress')}
-                </span>
-              </div>
+              <h3 className="text-fl-fg text-sm font-semibold">
+                {t('planProgress')}
+              </h3>
               {hasPlan && totalDays > 0 && (
-                <span className="text-fl-hint text-fl-muted-3 font-mono tracking-widest">
+                <span className="text-fl-muted-2 text-sm font-semibold">
                   {planCompletion}%
                 </span>
               )}
             </div>
             {hasPlan && totalDays > 0 ? (
               <>
-                <div className="bg-fl-border mb-4 h-px w-full">
+                <div className="bg-fl-surface-2 mb-4 h-2 w-full overflow-hidden rounded-full">
                   <div
-                    className="bg-fl-accent h-px transition-all duration-500"
-                    style={{ width: `${planCompletion}%` }}
+                    className="h-full rounded-full transition-all duration-500"
+                    style={{
+                      width: `${planCompletion}%`,
+                      background: 'var(--juba-primary)',
+                    }}
                   />
                 </div>
-                <div className="bg-fl-border grid grid-cols-2 gap-px">
-                  <div className="bg-fl-bg p-3">
-                    <p className="text-fl-hint text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-fl-surface-2 rounded-xl p-3">
+                    <p className="text-fl-muted-2 mb-1 text-xs font-medium">
                       {t('currentDay')}
                     </p>
-                    <p className="text-fl-fg font-mono text-lg font-bold">
+                    <p className="text-fl-fg text-lg font-bold">
                       {Math.min(progressDay + 1, totalDays)} / {totalDays}
                     </p>
                   </div>
-                  <div className="bg-fl-bg p-3">
-                    <p className="text-fl-hint text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
+                  <div className="bg-fl-surface-2 rounded-xl p-3">
+                    <p className="text-fl-muted-2 mb-1 text-xs font-medium">
                       {t('daysRemaining')}
                     </p>
-                    <p className="text-fl-fg font-mono text-lg font-bold">
+                    <p className="text-fl-fg text-lg font-bold">
                       {daysRemaining}
                     </p>
                   </div>
                 </div>
                 {vocabularyTotal > 0 && (
-                  <div className="mt-4">
+                  <div className="mt-5">
                     <div className="flex items-center justify-between gap-3">
-                      <p className="text-fl-hint text-fl-muted-2 font-mono tracking-widest uppercase">
+                      <p className="text-fl-muted-2 text-xs font-medium">
                         {t('vocabularyProgress', {
                           level: vocabularyLevel ?? cefrLevel ?? '',
                         })}
                       </p>
-                      <p className="text-fl-label text-fl-muted-2 font-mono">
+                      <p className="text-fl-muted-1 text-xs font-semibold">
                         {vocabularyProgressPct}%
                       </p>
                     </div>
-                    <p className="text-fl-hint text-fl-muted-3 mt-2 font-mono tracking-widest uppercase">
+                    <p className="text-fl-muted-3 mt-1 text-xs">
                       {t('vocabularyWords', {
                         mastered: vocabularyMastered,
                         total: vocabularyTotal,
                       })}
                     </p>
-                    <div className="bg-fl-border mt-2 h-px w-full">
+                    <div className="bg-fl-surface-2 mt-2 h-2 w-full overflow-hidden rounded-full">
                       <div
-                        className="bg-fl-accent h-px transition-all duration-500"
-                        style={{ width: `${vocabularyProgressPct}%` }}
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{
+                          width: `${vocabularyProgressPct}%`,
+                          background: 'var(--juba-primary)',
+                        }}
                       />
                     </div>
                   </div>
                 )}
               </>
             ) : (
-              <p className="text-fl-muted-2 font-mono text-xs">
+              <p className="text-fl-muted-2 text-sm">
                 {t('startWithAssessment')}
               </p>
             )}
-          </div>
+          </section>
 
           {/* Today's lessons */}
-          <div className="bg-fl-surface p-5">
+          <section
+            className="border-fl-border bg-fl-surface rounded-2xl border p-5"
+            aria-label={t('today')}
+          >
             <div className="mb-4 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-fl-label text-fl-muted-2">●</span>
-                <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
-                  {t('today')}
-                </span>
-              </div>
+              <h3 className="text-fl-fg text-sm font-semibold">{t('today')}</h3>
               {todayLessons.length > 0 && (
-                <span className="text-fl-hint text-fl-muted-3 font-mono tracking-widest">
+                <span className="text-fl-muted-3 text-xs font-medium">
                   {t('completedToday', {
                     completed: completedLessonCount,
                     total: todayLessons.length,
@@ -479,33 +514,36 @@ export default function DashboardPage() {
                   return (
                     <div
                       key={i}
-                      className={`border px-4 py-3 ${
+                      className={`rounded-xl border px-4 py-3 transition-colors ${
                         isNext
-                          ? 'border-fl-accent/60 bg-fl-accent/5'
+                          ? 'border-[color-mix(in_srgb,var(--juba-primary)_45%,var(--juba-border))] bg-[var(--juba-primary-soft)]'
                           : 'border-fl-border'
                       }`}
                     >
-                      <div className="flex items-center justify-between gap-4">
-                        <div>
-                          <p className="text-fl-fg font-mono text-xs">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="min-w-0">
+                          <p className="text-fl-fg truncate text-sm font-medium">
                             {lesson.title}
                           </p>
-                          <p className="text-fl-label text-fl-muted-2 mt-0.5 font-mono tracking-wider uppercase">
+                          <p className="text-fl-muted-2 mt-0.5 text-xs">
                             {tPlan(`lessonTypes.${lesson.lessonType}`)} ·{' '}
                             {lesson.estimatedMinutes}min
                           </p>
                         </div>
                         {isDone ? (
-                          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+                          <span className="text-fl-muted-2 shrink-0 text-xs font-medium">
                             ✓ {t('lessonDone')}
                           </span>
                         ) : lesson.id ? (
-                          <Link href={`/lesson/${lesson.id}`}>
+                          <Link
+                            href={`/lesson/${lesson.id}`}
+                            className="shrink-0"
+                          >
                             <button
-                              className={`text-fl-label px-3 py-1 font-mono tracking-widest uppercase transition-colors ${
+                              className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
                                 isNext
-                                  ? 'text-fl-bg bg-fl-fg hover:bg-fl-accent/90'
-                                  : 'text-fl-fg border-fl-border hover:border-fl-border-2 border'
+                                  ? 'bg-[var(--juba-primary)] text-white hover:bg-[var(--juba-primary-dark)]'
+                                  : 'border-fl-border text-fl-fg border hover:bg-[var(--juba-surface-soft)]'
                               }`}
                             >
                               {t('startLesson')}
@@ -520,12 +558,12 @@ export default function DashboardPage() {
                   <button
                     onClick={skipDay}
                     disabled={skipping}
-                    className="text-fl-hint text-fl-muted-3 hover:text-fl-muted-1 font-mono tracking-widest uppercase transition-colors disabled:opacity-40"
+                    className="text-fl-muted-3 hover:text-fl-muted-1 text-xs font-medium transition-colors disabled:opacity-40"
                   >
                     {skipping ? '...' : t('skipDay')}
                   </button>
                   {skipError && (
-                    <p className="text-fl-error mt-1 font-mono text-xs">
+                    <p className="text-fl-error mt-1 text-xs">
                       {tError('title')}
                     </p>
                   )}
@@ -533,76 +571,82 @@ export default function DashboardPage() {
               </div>
             ) : (
               <div className="space-y-3">
-                <p className="text-fl-muted-2 font-mono text-xs">
+                <p className="text-fl-muted-2 text-sm">
                   {hasPlan ? t('allCaughtUp') : t('startWithAssessment')}
                 </p>
                 {!hasPlan && (
                   <Link href="/assessment">
-                    <button className="text-fl-label text-fl-bg bg-fl-fg hover:bg-fl-accent/90 px-4 py-2 font-mono tracking-widest uppercase transition-colors">
+                    <button
+                      className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}
+                    >
                       {t('takeAssessmentArrow')}
                     </button>
                   </Link>
                 )}
               </div>
             )}
-          </div>
+          </section>
 
           {/* Recent performance */}
-          <div className="bg-fl-surface p-5 sm:col-span-2">
+          <section
+            className="border-fl-border bg-fl-surface rounded-2xl border p-5 lg:col-span-2"
+            aria-label={t('recentPerformance')}
+          >
             <div className="mb-4">
-              <div className="mb-2 flex items-center gap-2">
-                <span className="text-fl-label text-fl-muted-2">●</span>
-                <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
-                  {t('recentPerformance')}
-                </span>
-              </div>
-              <p className="text-fl-muted-3 font-mono text-xs">
+              <h3 className="text-fl-fg text-sm font-semibold">
+                {t('recentPerformance')}
+              </h3>
+              <p className="text-fl-muted-3 mt-1 text-xs">
                 {t('recentPerformanceDescription')}
               </p>
             </div>
             {skillEntries.length > 0 ? (
-              <div className="space-y-3">
+              <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
                 {skillEntries.map(({ skill, value }) => (
                   <div key={skill}>
-                    <div className="mb-1 flex justify-between">
-                      <span className="text-fl-label text-fl-muted-1 font-mono tracking-widest uppercase">
+                    <div className="mb-1.5 flex items-center justify-between gap-2">
+                      <span className="text-fl-muted-1 truncate text-xs font-medium">
                         {tPlan(`lessonTypes.${skill}`)}
                       </span>
-                      <div className="flex items-center gap-2">
-                        <span className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
-                          {getPerformanceLabel(value)}
-                        </span>
-                        <span className="text-fl-label text-fl-muted-2 font-mono">
-                          {Math.round(value * 100)}%
-                        </span>
-                      </div>
+                      <span className="text-fl-muted-2 shrink-0 text-xs font-semibold">
+                        {getPerformanceLabel(value)} · {Math.round(value * 100)}
+                        %
+                      </span>
                     </div>
-                    <div className="bg-fl-border h-px w-full">
+                    <div className="bg-fl-surface-2 h-2 w-full overflow-hidden rounded-full">
                       <div
-                        className="bg-fl-accent h-px"
-                        style={{ width: `${value * 100}%` }}
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{
+                          width: `${value * 100}%`,
+                          background:
+                            value < 0.5
+                              ? 'var(--juba-warm)'
+                              : 'var(--juba-primary)',
+                        }}
                       />
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-fl-muted-2 font-mono text-xs">
-                {t('noSkills')}
-              </p>
+              <p className="text-fl-muted-2 text-sm">{t('noSkills')}</p>
             )}
-          </div>
+          </section>
         </div>
 
         {showPremiumBanner && (
-          <div className="border-fl-border bg-fl-surface mb-6 border p-5">
+          <div className="border-fl-border bg-fl-surface mb-6 rounded-2xl border p-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex gap-3">
-                <span className="text-fl-accent font-mono text-sm leading-none">
+                <span
+                  className="mt-0.5 text-sm leading-none"
+                  style={{ color: 'var(--juba-warm)' }}
+                  aria-hidden="true"
+                >
                   ★
                 </span>
                 <div>
-                  <p className="text-fl-label text-fl-muted-2 mb-2 font-mono tracking-widest uppercase">
+                  <p className="text-fl-fg mb-1 text-sm font-semibold">
                     {freemiumTrialActive
                       ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft })
                       : t(
@@ -611,7 +655,7 @@ export default function DashboardPage() {
                             : 'premiumBannerTitle'
                         )}
                   </p>
-                  <p className="text-fl-muted-2 font-mono text-xs leading-relaxed">
+                  <p className="text-fl-muted-2 text-sm leading-relaxed">
                     {freemiumTrialActive
                       ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft })
                       : paymentRecovery
@@ -625,7 +669,13 @@ export default function DashboardPage() {
                 </div>
               </div>
               {!freemiumTrialActive && (
-                <span className="text-fl-label text-fl-accent border-fl-accent/30 border px-3 py-1.5 font-mono tracking-widest whitespace-nowrap uppercase">
+                <span
+                  className="shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap"
+                  style={{
+                    color: 'var(--juba-warm)',
+                    background: 'var(--juba-warm-soft)',
+                  }}
+                >
                   {paymentRecovery
                     ? t('premiumBannerPastDueCta')
                     : t(
@@ -642,12 +692,12 @@ export default function DashboardPage() {
                   <button
                     onClick={handleManageSubscription}
                     disabled={portalLoading}
-                    className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50 sm:w-auto"
+                    className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)] sm:w-auto`}
                   >
                     {portalLoading ? '...' : tBilling('updatePayment')}
                   </button>
                   {portalError && (
-                    <p className="text-fl-hint mt-3 font-mono text-red-500">
+                    <p className="mt-3 text-xs text-[var(--juba-danger)]">
                       {portalError}
                     </p>
                   )}
@@ -662,32 +712,35 @@ export default function DashboardPage() {
         <div className="flex flex-wrap gap-2">
           {hasPlan && (
             <Link href="/plan">
-              <button className="text-fl-label text-fl-bg bg-fl-fg hover:bg-fl-accent/90 px-4 py-2 font-mono tracking-widest uppercase transition-colors">
+              <button
+                className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}
+              >
                 {t('goToMyPlan')}
               </button>
             </Link>
           )}
           {pendingCount > 0 && (
             <Link href="/plan">
-              <button className="text-fl-label text-fl-fg border-fl-accent/50 hover:border-fl-accent border px-4 py-2 font-mono tracking-widest uppercase transition-colors">
+              <button
+                className="rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors"
+                style={{
+                  borderColor:
+                    'color-mix(in srgb, var(--juba-primary) 45%, var(--juba-border))',
+                  color: 'var(--juba-primary-dark)',
+                }}
+              >
                 {pendingCount} {t('pendingLessons')} →
               </button>
             </Link>
           )}
           <Link href="/flashcards">
-            <button className="text-fl-label text-fl-fg border-fl-border hover:border-fl-border-2 border px-4 py-2 font-mono tracking-widest uppercase transition-colors">
-              {tNav('flashcards')}
-            </button>
+            <button className={btnSecondary}>{tNav('flashcards')}</button>
           </Link>
           <Link href="/chat">
-            <button className="text-fl-label text-fl-fg border-fl-border hover:border-fl-border-2 border px-4 py-2 font-mono tracking-widest uppercase transition-colors">
-              {tNav('tutor')}
-            </button>
+            <button className={btnSecondary}>{tNav('tutor')}</button>
           </Link>
           <Link href="/assessment">
-            <button className="text-fl-label text-fl-fg border-fl-border hover:border-fl-border-2 border px-4 py-2 font-mono tracking-widest uppercase transition-colors">
-              {tNav('assessment')}
-            </button>
+            <button className={btnSecondary}>{tNav('assessment')}</button>
           </Link>
         </div>
       </div>

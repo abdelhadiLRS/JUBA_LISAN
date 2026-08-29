@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Build resilience**: the production build no longer downloads Google Fonts (Noto Sans JP/KR/SC) at build time, which failed on machines with restricted network access and made builds nondeterministic. The frontend now builds fully offline.
+- **Build resilience**: the production build no longer downloads Google Fonts at build time (previously Noto Sans JP/KR/SC and Geist), which failed on machines with restricted network access and made builds nondeterministic. Geist Sans/Mono are now self-hosted through the official `geist` package, CJK text uses platform font stacks, and the frontend builds fully offline.
 
 ## [1.8.40] - 2026-08-17
 

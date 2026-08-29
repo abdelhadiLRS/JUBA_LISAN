@@ -28,7 +28,9 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 - 🔜 Remaining: collapse/toggle behavior for desktop sidebar, deep-shell polish (breadcrumbs, page headers).
 
 ### Phase 4 — Onboarding ❌ (exists, not rebuilt to new identity)
-### Phase 5 — Dashboard ❌ (exists, not rebuilt to new identity)
+### Phase 5 — Dashboard 🟡
+- ✅ Dashboard rebuilt with the JUBA LISAN identity (v1.8.41): hero next-step card, icon stat tiles (streak/XP/lessons/accuracy), rounded progress bars, skill performance grid with warm accent for weak skills, modernized premium banner and quick actions. All data contracts and behaviors preserved.
+- ❌ Retention-loop surfaces on home (items due for review, daily goal ring, smart motivation messages) — pending Smart Review backend surfaces (Phase 9).
 ### Phase 6 — Timeline A1–C2 ❌ (plan page exists, not rebuilt)
 ### Phase 7 — Courses ❌
 ### Phase 8 — First Lesson ❌ (lesson player exists, not rebuilt)

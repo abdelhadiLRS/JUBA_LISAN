@@ -300,7 +300,7 @@ Full-screen interactive experiences (conversation, chat, listening, reading, ass
 
 ### Target-language typography
 
-The authenticated app shell uses the JUBA LISAN learning-first treatment: `Geist`/`Geist_Mono` are loaded in `src/app/layout.tsx` (only Geist web fonts are bundled), navigation labels are sentence case in Geist Sans with token-based active states, and mono/uppercase styling remains only on screens not yet migrated to the new identity. Do not reintroduce mono-heavy chrome when adding non-Latin target languages.
+The authenticated app shell uses the JUBA LISAN learning-first treatment: Geist Sans and Geist Mono are self-hosted through the `geist` package in `src/app/layout.tsx` (no font downloads at build time), navigation labels are sentence case in Geist Sans with token-based active states, and mono/uppercase styling remains only on screens not yet migrated to the new identity. Do not reintroduce mono-heavy chrome when adding non-Latin target languages.
 
 Content that is part of the language being learned must use the language-aware rendering path instead of raw `font-mono` text:
 
