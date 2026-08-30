@@ -47,7 +47,7 @@ export default function TranslatorPage() {
 
   function saveWord() {
     if (!text.trim() || !translation.trim()) return
-    saveTranslatedWordLocally({ word: text.trim(), translation: translation.trim(), sourceLanguage: source, targetLanguage: target, source: 'translator', createdAt: new Date().toISOString() })
+    saveTranslatedWordLocally({ word: text.trim(), translation: translation.trim(), source, target })
     setSaved(true)
   }
 
