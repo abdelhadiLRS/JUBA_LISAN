@@ -27,8 +27,7 @@ async function refreshToken(): Promise<string | null> {
       useAuthStore.getState().setTokens(data.access_token)
       return data.access_token
     } catch {
-      useAuthStore.getState().logout()
-      return null
+      useAuthStore.getState().logout(); return null
     } finally { isRefreshing = false; refreshPromise = null }
   })()
   return refreshPromise
@@ -58,12 +57,12 @@ export function apiUrl(path: string): string { return `${BASE_URL}${path}` }
 export type TranslatorSavedWord = { source: string; target: string; word: string; translation: string }
 const TRANSLATOR_STORAGE_KEY = 'juba_lisan_saved_vocabulary'
 
-/** Guest-safe persistence for Translator → Vocabulary. No authentication is required. */
+/** Guest-safe Translator → Vocabulary persistence. Authentication is never required. */
 export function saveTranslatedWordLocally(input: TranslatorSavedWord): TranslatorSavedWord[] {
   if (typeof window === 'undefined') return [input]
   try {
     const raw = window.localStorage.getItem(TRANSLATOR_STORAGE_KEY)
-    const existing = raw ? JSON.parse(raw) : []
+    const existing: unknown = raw ? JSON.parse(raw) : []
     const words = Array.isArray(existing) ? existing.filter(Boolean) as TranslatorSavedWord[] : []
     const normalized = input.word.trim().toLowerCase()
     const next = [input, ...words.filter((item) => item.word?.trim().toLowerCase() !== normalized)]
