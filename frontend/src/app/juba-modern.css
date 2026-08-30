@@ -1,35 +1,39 @@
 /* JUBA LISAN — learning-first visual system
- * This layer intentionally overrides the legacy visual treatment while
- * preserving existing component/data contracts.
+ * Evolution layer: preserves existing component/data contracts while moving
+ * the product toward a distinctive, energetic learning workspace.
  */
 :root {
-  --juba-bg: #f7f8f4;
+  --juba-bg: #f6f3e9;
   --juba-surface: #ffffff;
-  --juba-surface-soft: #f0f4ee;
-  --juba-border: #dce5dc;
-  --juba-text: #17231b;
-  --juba-muted: #68766d;
-  --juba-primary: #1f6b4f;
-  --juba-primary-dark: #174d3a;
-  --juba-primary-soft: #e5f1ea;
-  --juba-warm: #e8a43a;
-  --juba-warm-soft: #fff3dc;
-  --juba-danger: #c94a45;
+  --juba-surface-soft: #eef4e8;
+  --juba-border: #171a17;
+  --juba-border-soft: #d8ddd3;
+  --juba-text: #171a17;
+  --juba-muted: #687067;
+  --juba-primary: #cfe83b;
+  --juba-primary-dark: #a7c51e;
+  --juba-primary-soft: #edf6bd;
+  --juba-warm: #f29b54;
+  --juba-warm-soft: #fff0df;
+  --juba-danger: #d9554f;
+  --juba-shadow: 5px 5px 0 rgba(23, 26, 23, 0.92);
 }
 
 html[data-theme='dark'] {
-  --juba-bg: #101512;
-  --juba-surface: #18201b;
-  --juba-surface-soft: #202a23;
-  --juba-border: #2d3a31;
-  --juba-text: #edf4ee;
-  --juba-muted: #9aaba0;
-  --juba-primary: #72c69e;
-  --juba-primary-dark: #a5e1c2;
-  --juba-primary-soft: #1d3328;
-  --juba-warm: #efb75c;
-  --juba-warm-soft: #352b1d;
-  --juba-danger: #ef8179;
+  --juba-bg: #10130f;
+  --juba-surface: #191d18;
+  --juba-surface-soft: #232920;
+  --juba-border: #eef3e8;
+  --juba-border-soft: #394239;
+  --juba-text: #f3f7ef;
+  --juba-muted: #a5afa4;
+  --juba-primary: #cfe83b;
+  --juba-primary-dark: #b4d328;
+  --juba-primary-soft: #303a12;
+  --juba-warm: #ffb36e;
+  --juba-warm-soft: #3a2b1e;
+  --juba-danger: #ff8078;
+  --juba-shadow: 5px 5px 0 rgba(0, 0, 0, 0.7);
 }
 
 html, body {
@@ -37,81 +41,86 @@ html, body {
   color: var(--juba-text);
 }
 
-body {
-  background-image: none !important;
-}
+body { background-image: none !important; }
 
-/* Existing semantic utility classes stay valid, but now share one identity. */
 .bg-fl-bg { background-color: var(--juba-bg) !important; }
 .bg-fl-bg-alt { background-color: var(--juba-surface-soft) !important; }
 .bg-fl-surface {
   background: var(--juba-surface) !important;
-  border-color: var(--juba-border) !important;
+  border-color: var(--juba-border-soft) !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
 }
 .bg-fl-surface-2 { background: var(--juba-surface-soft) !important; }
-.bg-fl-border { background-color: var(--juba-border) !important; }
-.border-fl-border { border-color: var(--juba-border) !important; }
-.border-fl-border-2 { border-color: color-mix(in srgb, var(--juba-border) 60%, var(--juba-text)) !important; }
+.bg-fl-border { background-color: var(--juba-border-soft) !important; }
+.border-fl-border { border-color: var(--juba-border-soft) !important; }
+.border-fl-border-2 { border-color: var(--juba-border) !important; }
 .text-fl-fg,
 .text-fl-muted-0 { color: var(--juba-text) !important; }
 .text-fl-muted-1,
 .text-fl-muted-2 { color: var(--juba-muted) !important; }
 .text-fl-muted-3,
 .text-fl-muted-4 { color: color-mix(in srgb, var(--juba-muted) 82%, var(--juba-bg)) !important; }
-.text-fl-accent { color: var(--juba-primary) !important; }
+.text-fl-accent { color: #47752c !important; }
 .bg-fl-accent {
   background: var(--juba-primary) !important;
-  color: #fff !important;
-  border-radius: 0.8rem !important;
-  box-shadow: none !important;
+  color: #171a17 !important;
+  border-radius: 999px !important;
+  box-shadow: 3px 3px 0 rgba(23, 26, 23, 0.9) !important;
 }
 
-/* The legacy classes are retained as compatibility aliases, not as a design
- * direction. New screens should prefer flat surfaces and semantic sections. */
 .juba-card {
   background: var(--juba-surface);
-  border: 1px solid var(--juba-border);
-  border-radius: 1.25rem;
-  box-shadow: 0 1px 2px rgba(23, 35, 27, 0.04);
-  transition: border-color 180ms ease, transform 180ms ease;
+  border: 2px solid var(--juba-border);
+  border-radius: 1.5rem;
+  box-shadow: var(--juba-shadow);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 
 .juba-card:hover {
-  transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--juba-primary) 30%, var(--juba-border));
-  box-shadow: 0 10px 24px rgba(23, 35, 27, 0.07);
+  transform: translate(-1px, -2px);
+  box-shadow: 7px 7px 0 rgba(23, 26, 23, 0.92);
+  border-color: var(--juba-border);
 }
 
 .juba-glass {
-  background: var(--juba-surface);
-  border: 1px solid var(--juba-border);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  background: color-mix(in srgb, var(--juba-surface) 92%, transparent);
+  border: 2px solid var(--juba-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .juba-gradient-text {
   background: none;
-  color: var(--juba-primary);
+  color: var(--juba-text);
   -webkit-background-clip: initial;
   background-clip: initial;
 }
 
-.juba-hero-glow { display: none; }
+.juba-hero-glow {
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 50%;
+  background: var(--juba-primary-soft);
+  filter: blur(8px);
+  opacity: 0.7;
+}
 
 .juba-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  border: 1px solid color-mix(in srgb, var(--juba-primary) 22%, var(--juba-border));
+  border: 2px solid var(--juba-border);
   background: var(--juba-primary-soft);
-  color: var(--juba-primary-dark);
+  color: var(--juba-text);
   border-radius: 999px;
-  padding: 0.42rem 0.75rem;
+  padding: 0.42rem 0.78rem;
   font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
+  font-weight: 900;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -127,49 +136,43 @@ body {
   text-align: center;
 }
 
-/* Make the existing dashboard read as a learning workspace rather than an
- * admin panel. */
-main > div.mx-auto.max-w-4xl,
+/* Learning workspace: stronger hierarchy without touching data contracts. */
+.mx-auto.max-w-5xl,
 .mx-auto.max-w-4xl {
-  max-width: 1120px !important;
   padding-top: clamp(1.25rem, 3vw, 2.5rem);
   padding-bottom: 4rem;
 }
 
-/* Remove the old monospaced/product-console feel where semantic text classes
- * are used by the existing dashboard. */
-.mx-auto.max-w-4xl .font-mono {
-  font-family: inherit;
-}
+.mx-auto.max-w-4xl .font-mono { font-family: inherit; }
 
-/* Learning progress bars should feel calm and directional. */
 .mx-auto.max-w-4xl .bg-fl-accent.h-px {
-  height: 0.35rem !important;
+  height: 0.45rem !important;
   border-radius: 999px;
 }
 
-/* Buttons */
+/* Buttons feel like actions in a learning product, not admin controls. */
 button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
+a { -webkit-tap-highlight-color: transparent; }
 
 button:not(:disabled),
 a[role='button'] {
-  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, border-color 160ms ease;
+  transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease, border-color 150ms ease;
 }
 
 button:not(:disabled):hover,
-a[role='button']:hover {
-  transform: translateY(-1px);
+a[role='button']:hover { transform: translateY(-1px); }
+
+button:not(:disabled):active,
+a[role='button']:active { transform: translate(1px, 1px); }
+
+input, select, textarea { border-radius: 0.9rem; }
+
+/* Keep keyboard and reduced-motion users comfortable. */
+:focus-visible {
+  outline: 3px solid var(--juba-primary-dark);
+  outline-offset: 3px;
 }
 
-/* Inputs */
-input, select, textarea {
-  border-radius: 0.8rem;
-}
-
-/* Respect reduced-motion preferences. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
@@ -179,8 +182,7 @@ input, select, textarea {
 }
 
 @media (max-width: 640px) {
-  .mx-auto.max-w-4xl {
-    padding-inline: 1rem;
-  }
-  .juba-card { border-radius: 1rem; }
+  .mx-auto.max-w-4xl,
+  .mx-auto.max-w-5xl { padding-inline: 1rem; }
+  .juba-card { border-radius: 1.1rem; box-shadow: 4px 4px 0 rgba(23, 26, 23, 0.92); }
 }
