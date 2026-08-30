@@ -1,522 +1,59 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 
 import { useTranslations } from 'next-intl'
-import {
-  BookOpen,
-  Check,
-  Circle,
-  Flame,
-  LoaderCircle,
-  Sparkles,
-  type LucideIcon,
-} from 'lucide-react'
+import { BookOpen, Check, Circle, Flame, LoaderCircle, Sparkles, type LucideIcon } from 'lucide-react'
 import { PageLoading } from '@/components/ui/page-loading'
 import { apiFetch } from '@/lib/api'
 import { useLanguageStore } from '@/store/language'
 import NoPlanBanner from '@/components/plan/NoPlanBanner'
-import {
-  getCurriculumUnits,
-  type CurriculumUnit,
-  type CEFRLevel,
-} from '@/data/curriculum'
+import { getCurriculumUnits, type CurriculumUnit, type CEFRLevel } from '@/data/curriculum'
 import type { VocabularySet } from '@/data/types'
 
-// ── Types ──────────────────────────────────────────────────────────────────────
-
-interface CompetencyRecord {
-  unit_id: string
-  score: number // 0–1 average
-  mastered_count: number
-  total_count: number
-}
-
-interface ProgressSummary {
-  total_xp: number
-  current_streak: number
-  total_lessons: number
-  total_exercises: number
-  exercises_correct: number
-  accuracy: number
-  skills: Record<string, number>
-}
-
-interface FlashcardProgress {
-  id: number
-  word: string
-  repetitions: number
-}
-
-interface StudyPlan {
-  id: number
-  cefr_level: string
-}
-
+interface CompetencyRecord { unit_id: string; score: number; mastered_count: number; total_count: number }
+interface ProgressSummary { total_xp: number; current_streak: number; total_lessons: number; total_exercises: number; exercises_correct: number; accuracy: number; skills: Record<string, number>; vocabulary_level?: string; vocabulary_mastered?: number; vocabulary_total?: number; vocabulary_progress?: number }
+interface FlashcardProgress { id: number; word: string; repetitions: number }
+interface StudyPlan { id: number; cefr_level: string }
+interface HistoryEntry { id: number; user_id: number; date: string; xp_earned: number; lessons_completed: number; exercises_correct: number; exercises_total: number; streak_day: number; skills: Record<string, number> }
 type CompetencyStatus = 'mastered' | 'in-progress' | 'not-started'
 
-// ── Helpers ────────────────────────────────────────────────────────────────────
+function getCompetencyStatus(itemIndex: number, masteredCount: number, totalCount: number, score: number): CompetencyStatus { if (itemIndex < masteredCount) return 'mastered'; if (score > 0 && itemIndex < totalCount) return 'in-progress'; return 'not-started' }
+const STATUS_BADGE: Record<CompetencyStatus, { Icon: LucideIcon; color: string; background: string }> = { mastered: { Icon: Check, color: '#ffffff', background: 'var(--juba-primary)' }, 'in-progress': { Icon: LoaderCircle, color: 'var(--juba-warm)', background: 'var(--juba-warm-soft)' }, 'not-started': { Icon: Circle, color: 'var(--juba-muted)', background: 'transparent' } }
 
-function getCompetencyStatus(
-  itemIndex: number,
-  masteredCount: number,
-  totalCount: number,
-  score: number
-): CompetencyStatus {
-  if (itemIndex < masteredCount) return 'mastered'
-  if (score > 0 && itemIndex < totalCount) return 'in-progress'
-  return 'not-started'
+function UnitCompetencyBlock({ unit, record }: { unit: CurriculumUnit; record: CompetencyRecord | undefined }) {
+  const t = useTranslations('progress'); const tPlan = useTranslations('plan'); const masteredCount = record?.mastered_count ?? 0; const totalCount = unit.competency_checklist.length; const score = record?.score ?? 0; const pct = totalCount > 0 ? Math.round((masteredCount / totalCount) * 100) : 0; const complete = pct === 100
+  return <div className={`border-fl-border bg-fl-surface rounded-2xl border ${complete ? '' : 'overflow-hidden'}`}><div className="flex items-center justify-between gap-4 px-5 pt-4 pb-3"><div className="min-w-0"><span className="text-xs font-semibold" style={{ color: 'var(--juba-primary)' }}>{tPlan('unitLabel')} {unit.unit_number}</span><p className="text-fl-fg truncate text-sm font-bold">{unit.title}</p></div><div className="flex shrink-0 items-center gap-3"><span className="text-fl-muted-3 text-xs font-medium">{masteredCount}/{totalCount} {t('mastered')}</span>{record && <span className="text-fl-muted-1 text-xs font-semibold tabular-nums">{Math.round(score * 100)}%</span>}</div></div><div className="bg-fl-surface-2 mx-5 mb-3 h-1.5 overflow-hidden rounded-full"><div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: complete ? 'var(--juba-primary)' : 'var(--juba-warm)' }} /></div><ul className="space-y-2.5 px-5 pb-4">{unit.competency_checklist.map((text, idx) => { const status = getCompetencyStatus(idx, masteredCount, record?.total_count ?? 0, score); const { Icon, color, background } = STATUS_BADGE[status]; return <li key={idx} className="flex items-start gap-3"><span className="mt-0.5 flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full" style={status === 'not-started' ? { border: '1px solid var(--juba-border)' } : { background }}><Icon className="h-3 w-3" style={{ color }} aria-hidden="true" /></span><span className={`flex-1 text-xs leading-relaxed ${status === 'mastered' ? 'text-fl-muted-2' : status === 'in-progress' ? 'text-fl-fg font-medium' : 'text-fl-muted-4'}`}>{text}</span>{status === 'in-progress' && record && <span className="text-fl-muted-3 shrink-0 text-xs tabular-nums">{Math.round(score * 100)}%</span>}</li> })}</ul></div>
 }
-
-const STATUS_BADGE: Record<
-  CompetencyStatus,
-  { Icon: LucideIcon; color: string; background: string }
-> = {
-  mastered: {
-    Icon: Check,
-    color: '#ffffff',
-    background: 'var(--juba-primary)',
-  },
-  'in-progress': {
-    Icon: LoaderCircle,
-    color: 'var(--juba-warm)',
-    background: 'var(--juba-warm-soft)',
-  },
-  'not-started': {
-    Icon: Circle,
-    color: 'var(--juba-muted)',
-    background: 'transparent',
-  },
-}
-
-// ── Sub-components ────────────────────────────────────────────────────────────
-
-function UnitCompetencyBlock({
-  unit,
-  record,
-}: {
-  unit: CurriculumUnit
-  record: CompetencyRecord | undefined
-}) {
-  const t = useTranslations('progress')
-  const tPlan = useTranslations('plan')
-  const masteredCount = record?.mastered_count ?? 0
-  const totalCount = unit.competency_checklist.length
-  const score = record?.score ?? 0
-  const pct =
-    totalCount > 0 ? Math.round((masteredCount / totalCount) * 100) : 0
-  const complete = pct === 100
-
-  return (
-    <div
-      className={`border-fl-border bg-fl-surface rounded-2xl border ${
-        complete ? '' : 'overflow-hidden'
-      }`}
-    >
-      {/* Unit header */}
-      <div className="flex items-center justify-between gap-4 px-5 pt-4 pb-3">
-        <div className="min-w-0">
-          <span
-            className="text-xs font-semibold"
-            style={{ color: 'var(--juba-primary)' }}
-          >
-            {tPlan('unitLabel')} {unit.unit_number}
-          </span>
-          <p className="text-fl-fg truncate text-sm font-bold">{unit.title}</p>
-        </div>
-        <div className="flex shrink-0 items-center gap-3">
-          <span className="text-fl-muted-3 text-xs font-medium">
-            {masteredCount}/{totalCount} {t('mastered')}
-          </span>
-          {record && (
-            <span className="text-fl-muted-1 text-xs font-semibold tabular-nums">
-              {Math.round(score * 100)}%
-            </span>
-          )}
-        </div>
-      </div>
-
-      {/* Progress bar */}
-      <div className="bg-fl-surface-2 mx-5 mb-3 h-1.5 overflow-hidden rounded-full">
-        <div
-          className="h-full rounded-full transition-all duration-500"
-          style={{
-            width: `${pct}%`,
-            background: complete ? 'var(--juba-primary)' : 'var(--juba-warm)',
-          }}
-        />
-      </div>
-
-      {/* Competency list */}
-      <ul className="space-y-2.5 px-5 pb-4">
-        {unit.competency_checklist.map((text, idx) => {
-          const status = getCompetencyStatus(
-            idx,
-            masteredCount,
-            record?.total_count ?? 0,
-            score
-          )
-          const { Icon, color, background } = STATUS_BADGE[status]
-          return (
-            <li key={idx} className="flex items-start gap-3">
-              <span
-                className="mt-0.5 flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full"
-                style={
-                  status === 'not-started'
-                    ? { border: '1px solid var(--juba-border)' }
-                    : { background }
-                }
-              >
-                <Icon
-                  className="h-3 w-3"
-                  style={{ color }}
-                  aria-hidden="true"
-                />
-              </span>
-              <span
-                className={`flex-1 text-xs leading-relaxed ${
-                  status === 'mastered'
-                    ? 'text-fl-muted-2'
-                    : status === 'in-progress'
-                      ? 'text-fl-fg font-medium'
-                      : 'text-fl-muted-4'
-                }`}
-              >
-                {text}
-              </span>
-              {status === 'in-progress' && record && (
-                <span className="text-fl-muted-3 shrink-0 text-xs tabular-nums">
-                  {Math.round(score * 100)}%
-                </span>
-              )}
-            </li>
-          )
-        })}
-      </ul>
-    </div>
-  )
-}
-
-// ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function ProgressPage() {
-  const t = useTranslations('progress')
-  const tVocab = useTranslations('vocabulary')
-  const activeLanguage = useLanguageStore((s) => s.activeLanguage)
-  const [summary, setSummary] = useState<ProgressSummary | null>(null)
-  const [competencies, setCompetencies] = useState<CompetencyRecord[]>([])
-  const [plan, setPlan] = useState<StudyPlan | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [levelUnits, setLevelUnits] = useState<CurriculumUnit[]>([])
-  const [flashcards, setFlashcards] = useState<FlashcardProgress[]>([])
-  const [showAllLevels, setShowAllLevels] = useState(false)
+  const t = useTranslations('progress'); const tVocab = useTranslations('vocabulary'); const activeLanguage = useLanguageStore((s) => s.activeLanguage)
+  const [summary, setSummary] = useState<ProgressSummary | null>(null); const [competencies, setCompetencies] = useState<CompetencyRecord[]>([]); const [plan, setPlan] = useState<StudyPlan | null>(null); const [loading, setLoading] = useState(true); const [levelUnits, setLevelUnits] = useState<CurriculumUnit[]>([]); const [flashcards, setFlashcards] = useState<FlashcardProgress[]>([]); const [showAllLevels, setShowAllLevels] = useState(false); const [history, setHistory] = useState<HistoryEntry[]>([])
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const [sumRes, compRes, planRes, flashRes] = await Promise.all([
-          apiFetch('/api/progress/summary'),
-          apiFetch('/api/progress/competencies'),
-          apiFetch('/api/study-plan/current'),
-          apiFetch('/api/flashcards/all').catch(() => null),
-        ])
-        if (sumRes.ok) setSummary((await sumRes.json()) as ProgressSummary)
-        if (compRes.ok)
-          setCompetencies((await compRes.json()) as CompetencyRecord[])
-        if (planRes.ok) setPlan((await planRes.json()) as StudyPlan)
-        if (flashRes?.ok)
-          setFlashcards((await flashRes.json()) as FlashcardProgress[])
-      } catch {
-        /* ignore */
-      } finally {
-        setLoading(false)
-      }
-    }
-    void load()
-  }, [activeLanguage?.code])
-
+  useEffect(() => { async function load() { try { const [sumRes, compRes, planRes, flashRes, historyRes] = await Promise.all([apiFetch('/api/progress/summary'), apiFetch('/api/progress/competencies'), apiFetch('/api/study-plan/current'), apiFetch('/api/flashcards/all').catch(() => null), apiFetch('/api/progress/history').catch(() => null)]); if (sumRes.ok) setSummary((await sumRes.json()) as ProgressSummary); if (compRes.ok) setCompetencies((await compRes.json()) as CompetencyRecord[]); if (planRes.ok) setPlan((await planRes.json()) as StudyPlan); if (flashRes?.ok) setFlashcards((await flashRes.json()) as FlashcardProgress[]); if (historyRes?.ok) { const data = (await historyRes.json()) as { entries?: HistoryEntry[] }; setHistory(data.entries ?? []) } } catch { /* ignore */ } finally { setLoading(false) } } void load() }, [activeLanguage?.code])
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
-
-  useEffect(() => {
-    if (plan?.cefr_level) {
-      getCurriculumUnits(plan.cefr_level, targetLanguageCode)
-        .then(setLevelUnits)
-        .catch(() => setLevelUnits([]))
-    }
-  }, [plan?.cefr_level, targetLanguageCode])
-
+  useEffect(() => { if (plan?.cefr_level) getCurriculumUnits(plan.cefr_level, targetLanguageCode).then(setLevelUnits).catch(() => setLevelUnits([])) }, [plan?.cefr_level, targetLanguageCode])
   const [vocabSets, setVocabSets] = useState<VocabularySet[]>([])
-
-  useEffect(() => {
-    apiFetch(`/api/vocabulary?language=${targetLanguageCode}`)
-      .then((r) => r.json())
-      .then((d: { sets: VocabularySet[] }) => setVocabSets(d.sets))
-      .catch(() => setVocabSets([]))
-  }, [targetLanguageCode])
-
+  useEffect(() => { apiFetch(`/api/vocabulary?language=${targetLanguageCode}`).then((r) => r.json()).then((d: { sets: VocabularySet[] }) => setVocabSets(d.sets)).catch(() => setVocabSets([])) }, [targetLanguageCode])
   const compMap = Object.fromEntries(competencies.map((c) => [c.unit_id, c]))
+  const recentHistory = useMemo(() => history.slice(0, 7).reverse(), [history])
+  const maxDailyXp = Math.max(1, ...recentHistory.map((entry) => entry.xp_earned))
+  if (loading) return <PageLoading label={t('loading')} />
+  if (!plan) return <NoPlanBanner />
+  const cefrLevel = plan.cefr_level as CEFRLevel; const displayVocabSets = showAllLevels ? vocabSets : vocabSets.filter((s) => s.level === cefrLevel); const totalDisplayWords = displayVocabSets.reduce((a, s) => a + s.words.length, 0)
+  const masteredWordSet = new Set(flashcards.filter((f) => f.repetitions > 0).map((f) => f.word.toLowerCase())); const totalMastered = displayVocabSets.reduce((a, s) => a + s.words.filter((w) => masteredWordSet.has(w.word.toLowerCase())).length, 0)
+  const statTiles = summary ? [{ label: t('xp'), value: summary.total_xp.toLocaleString(), Icon: Sparkles, highlight: false }, { label: t('streak'), value: `${summary.current_streak}d`, Icon: Flame, highlight: summary.current_streak > 0 }, { label: t('lessons'), value: summary.total_lessons, Icon: BookOpen, highlight: false }, { label: t('accuracy'), value: `${Math.round(summary.accuracy * 100)}%`, Icon: Check, highlight: false }] : []
 
-  if (loading) {
-    return <PageLoading label={t('loading')} />
-  }
+  return <div className="mx-auto max-w-4xl space-y-8 px-4 py-6 sm:px-6 md:py-8">
+    <div className="border-fl-border bg-fl-surface rounded-2xl border p-5 sm:p-6"><div className="mb-4 flex flex-wrap items-center justify-between gap-3"><h1 className="text-fl-fg text-lg font-bold tracking-tight">{t('subtitle')}</h1>{activeLanguage && cefrLevel && <span className="rounded-full px-3 py-1 text-xs font-semibold" style={{ color: 'var(--juba-primary-dark)', background: 'var(--juba-primary-soft)' }}>{activeLanguage.name} · {cefrLevel}</span>}</div>{statTiles.length > 0 && <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">{statTiles.map((stat) => <div key={stat.label} className="bg-fl-surface-2 rounded-xl p-3.5 text-center sm:text-start"><div className="mb-1.5 flex items-center justify-center gap-1.5 sm:justify-start"><stat.Icon className={`h-3.5 w-3.5 ${stat.highlight ? 'text-[var(--juba-warm)]' : 'text-[var(--juba-primary)]'}`} aria-hidden="true" /><p className="text-fl-muted-2 truncate text-xs font-medium">{stat.label}</p></div><p className={`text-xl font-bold tracking-tight ${stat.highlight ? 'text-[var(--juba-warm)]' : 'text-fl-fg'}`}>{stat.value}</p></div>)}</div>}</div>
 
-  if (!plan) {
-    return <NoPlanBanner />
-  }
+    {recentHistory.length > 0 && <section className="border-fl-border bg-fl-surface rounded-2xl border p-5 sm:p-6"><div className="mb-5 flex items-center justify-between gap-3"><div><span className="text-fl-muted-3 text-xs font-mono tracking-widest uppercase">Learning activity</span><h2 className="text-fl-fg mt-1 text-lg font-bold">Last 7 days</h2></div><Link href="/vocabulary/review" className="text-sm font-bold" style={{ color: 'var(--juba-primary)' }}>Review →</Link></div><div className="grid grid-cols-7 items-end gap-2 sm:gap-3">{recentHistory.map((entry) => { const height = Math.max(8, Math.round((entry.xp_earned / maxDailyXp) * 100)); const dateLabel = new Date(`${entry.date}T00:00:00`).toLocaleDateString(undefined, { weekday: 'short' }); return <div key={entry.date} className="flex min-w-0 flex-col items-center gap-2"><span className="text-fl-muted-3 text-[10px] tabular-nums">{entry.xp_earned} XP</span><div className="bg-fl-surface-2 flex h-28 w-full max-w-10 items-end overflow-hidden rounded-lg"><div className="w-full rounded-t-lg transition-all" style={{ height: `${height}%`, background: 'var(--juba-primary)' }} /></div><span className="text-fl-muted-3 truncate text-[10px] font-medium">{dateLabel}</span></div> })}</div><div className="mt-5 grid grid-cols-3 gap-3 border-t border-fl-border pt-4 text-center"><div><p className="text-fl-fg text-lg font-black">{recentHistory.reduce((a, e) => a + e.exercises_total, 0)}</p><p className="text-fl-muted-3 text-[10px] font-mono tracking-widest uppercase">Exercises</p></div><div><p className="text-fl-fg text-lg font-black">{recentHistory.reduce((a, e) => a + e.lessons_completed, 0)}</p><p className="text-fl-muted-3 text-[10px] font-mono tracking-widest uppercase">Lessons</p></div><div><p className="text-fl-fg text-lg font-black">{recentHistory.reduce((a, e) => a + e.xp_earned, 0)}</p><p className="text-fl-muted-3 text-[10px] font-mono tracking-widest uppercase">7-day XP</p></div></div></section>}
 
-  const cefrLevel = plan.cefr_level as CEFRLevel
-  const displayVocabSets = showAllLevels
-    ? vocabSets
-    : vocabSets.filter((s) => s.level === cefrLevel)
-  const totalDisplayWords = displayVocabSets.reduce(
-    (a, s) => a + s.words.length,
-    0
-  )
+    {levelUnits.length > 0 && <section className="space-y-4"><div className="flex items-center gap-3"><h2 className="text-fl-fg text-sm font-bold">{cefrLevel ? t('competenciesSection', { level: cefrLevel }) : t('competencies')}</h2><div className="bg-fl-border h-px flex-1" /></div>{levelUnits.map((unit) => <UnitCompetencyBlock key={unit.id} unit={unit} record={compMap[unit.id]} />)}{competencies.length === 0 && <div className="border-fl-border bg-fl-surface rounded-2xl border px-6 py-8 text-center"><p className="text-fl-muted-3 text-sm leading-relaxed">{t('noCompetencies')}</p><Link href="/plan" className="mt-4 inline-block text-sm font-medium underline transition-all hover:no-underline" style={{ color: 'var(--juba-primary)' }}>{t('goToMyPlan')}</Link></div>}</section>}
 
-  const masteredWordSet = new Set(
-    flashcards.filter((f) => f.repetitions > 0).map((f) => f.word.toLowerCase())
-  )
-  const totalMastered = displayVocabSets.reduce(
-    (a, s) =>
-      a +
-      s.words.filter((w) => masteredWordSet.has(w.word.toLowerCase())).length,
-    0
-  )
+    {displayVocabSets.length > 0 && <section className="space-y-4"><div className="flex items-center gap-3"><h2 className="text-fl-fg text-sm font-bold">{showAllLevels ? t('vocabularySection') : cefrLevel ? t('vocabularyHeader', { level: cefrLevel }) : t('vocabularySection')}</h2><div className="bg-fl-border h-px flex-1" /><span className="text-fl-muted-3 shrink-0 text-xs font-medium">{totalMastered}/{totalDisplayWords} {tVocab('words')}</span></div><div className="bg-fl-surface-2 inline-flex rounded-xl p-1"><button onClick={() => setShowAllLevels(false)} className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-colors ${!showAllLevels ? 'text-fl-fg bg-[var(--juba-surface)] shadow-sm' : 'text-fl-muted-2 hover:text-fl-fg'}`}>{t('currentLevelOnly')}</button><button onClick={() => setShowAllLevels(true)} className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-colors ${showAllLevels ? 'text-fl-fg bg-[var(--juba-surface)] shadow-sm' : 'text-fl-muted-2 hover:text-fl-fg'}`}>{t('allLevels')}</button></div><div className="border-fl-border bg-fl-surface divide-fl-border divide-y rounded-2xl border">{displayVocabSets.map((s) => { const mastered = s.words.filter((w) => masteredWordSet.has(w.word.toLowerCase())).length; const pct = s.words.length > 0 ? Math.round((mastered / s.words.length) * 100) : 0; return <div key={s.id} className="flex items-center gap-4 px-5 py-3.5"><Link href={`/vocabulary/${s.id}`} className="text-fl-muted-1 hover:text-fl-fg min-w-0 flex-1 truncate text-sm font-medium transition-colors">{s.topic}</Link><div className="flex shrink-0 items-center gap-3"><div className="bg-fl-surface-2 h-1.5 w-24 overflow-hidden rounded-full"><div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: 'var(--juba-primary)' }} /></div><span className="text-fl-muted-3 w-12 text-end text-xs tabular-nums">{mastered}/{s.words.length}</span></div></div> })}</div></section>}
 
-  const statTiles = summary
-    ? [
-        {
-          label: t('xp'),
-          value: summary.total_xp.toLocaleString(),
-          Icon: Sparkles,
-          highlight: false,
-        },
-        {
-          label: t('streak'),
-          value: `${summary.current_streak}d`,
-          Icon: Flame,
-          highlight: summary.current_streak > 0,
-        },
-        {
-          label: t('lessons'),
-          value: summary.total_lessons,
-          Icon: BookOpen,
-          highlight: false,
-        },
-        {
-          label: t('accuracy'),
-          value: `${Math.round(summary.accuracy * 100)}%`,
-          Icon: Check,
-          highlight: false,
-        },
-      ]
-    : []
-
-  return (
-    <div className="mx-auto max-w-4xl space-y-8 px-4 py-6 sm:px-6 md:py-8">
-      {/* Header */}
-      <div className="border-fl-border bg-fl-surface rounded-2xl border p-5 sm:p-6">
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <h1 className="text-fl-fg text-lg font-bold tracking-tight">
-            {t('subtitle')}
-          </h1>
-          {activeLanguage && cefrLevel && (
-            <span
-              className="rounded-full px-3 py-1 text-xs font-semibold"
-              style={{
-                color: 'var(--juba-primary-dark)',
-                background: 'var(--juba-primary-soft)',
-              }}
-            >
-              {activeLanguage.name} · {cefrLevel}
-            </span>
-          )}
-        </div>
-
-        {/* Stat tiles */}
-        {statTiles.length > 0 && (
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {statTiles.map((stat) => (
-              <div
-                key={stat.label}
-                className="bg-fl-surface-2 rounded-xl p-3.5 text-center sm:text-start"
-              >
-                <div className="mb-1.5 flex items-center justify-center gap-1.5 sm:justify-start">
-                  <stat.Icon
-                    className={`h-3.5 w-3.5 ${
-                      stat.highlight
-                        ? 'text-[var(--juba-warm)]'
-                        : 'text-[var(--juba-primary)]'
-                    }`}
-                    aria-hidden="true"
-                  />
-                  <p className="text-fl-muted-2 truncate text-xs font-medium">
-                    {stat.label}
-                  </p>
-                </div>
-                <p
-                  className={`text-xl font-bold tracking-tight ${
-                    stat.highlight ? 'text-[var(--juba-warm)]' : 'text-fl-fg'
-                  }`}
-                >
-                  {stat.value}
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Grammar Competencies */}
-      {levelUnits.length > 0 && (
-        <section className="space-y-4">
-          <div className="flex items-center gap-3">
-            <h2 className="text-fl-fg text-sm font-bold">
-              {cefrLevel
-                ? t('competenciesSection', { level: cefrLevel })
-                : t('competencies')}
-            </h2>
-            <div className="bg-fl-border h-px flex-1" />
-          </div>
-
-          {levelUnits.map((unit) => (
-            <UnitCompetencyBlock
-              key={unit.id}
-              unit={unit}
-              record={compMap[unit.id]}
-            />
-          ))}
-
-          {competencies.length === 0 && (
-            <div className="border-fl-border bg-fl-surface rounded-2xl border px-6 py-8 text-center">
-              <p className="text-fl-muted-3 text-sm leading-relaxed">
-                {t('noCompetencies')}
-              </p>
-              <Link
-                href="/plan"
-                className="mt-4 inline-block text-sm font-medium underline transition-all hover:no-underline"
-                style={{ color: 'var(--juba-primary)' }}
-              >
-                {t('goToMyPlan')}
-              </Link>
-            </div>
-          )}
-        </section>
-      )}
-
-      {/* Vocabulary Progress */}
-      {displayVocabSets.length > 0 && (
-        <section className="space-y-4">
-          <div className="flex items-center gap-3">
-            <h2 className="text-fl-fg text-sm font-bold">
-              {showAllLevels
-                ? t('vocabularySection')
-                : cefrLevel
-                  ? t('vocabularyHeader', { level: cefrLevel })
-                  : t('vocabularySection')}
-            </h2>
-            <div className="bg-fl-border h-px flex-1" />
-            <span className="text-fl-muted-3 shrink-0 text-xs font-medium">
-              {totalMastered}/{totalDisplayWords} {tVocab('words')}
-            </span>
-          </div>
-
-          {/* Level toggle — segmented control */}
-          <div className="bg-fl-surface-2 inline-flex rounded-xl p-1">
-            <button
-              onClick={() => setShowAllLevels(false)}
-              className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-colors ${
-                !showAllLevels
-                  ? 'text-fl-fg bg-[var(--juba-surface)] shadow-sm'
-                  : 'text-fl-muted-2 hover:text-fl-fg'
-              }`}
-            >
-              {t('currentLevelOnly')}
-            </button>
-            <button
-              onClick={() => setShowAllLevels(true)}
-              className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-colors ${
-                showAllLevels
-                  ? 'text-fl-fg bg-[var(--juba-surface)] shadow-sm'
-                  : 'text-fl-muted-2 hover:text-fl-fg'
-              }`}
-            >
-              {t('allLevels')}
-            </button>
-          </div>
-
-          <div className="border-fl-border bg-fl-surface divide-fl-border divide-y rounded-2xl border">
-            {displayVocabSets.map((s) => {
-              const mastered = s.words.filter((w) =>
-                masteredWordSet.has(w.word.toLowerCase())
-              ).length
-              const pct =
-                s.words.length > 0
-                  ? Math.round((mastered / s.words.length) * 100)
-                  : 0
-              return (
-                <div key={s.id} className="flex items-center gap-4 px-5 py-3.5">
-                  <Link
-                    href={`/vocabulary/${s.id}`}
-                    className="text-fl-muted-1 hover:text-fl-fg min-w-0 flex-1 truncate text-sm font-medium transition-colors"
-                  >
-                    {s.topic}
-                  </Link>
-                  <div className="flex shrink-0 items-center gap-3">
-                    <div className="bg-fl-surface-2 h-1.5 w-24 overflow-hidden rounded-full">
-                      <div
-                        className="h-full rounded-full transition-all duration-500"
-                        style={{
-                          width: `${pct}%`,
-                          background: 'var(--juba-primary)',
-                        }}
-                      />
-                    </div>
-                    <span className="text-fl-muted-3 w-12 text-end text-xs tabular-nums">
-                      {mastered}/{s.words.length}
-                    </span>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </section>
-      )}
-
-      {/* Skills breakdown */}
-      {summary && Object.keys(summary.skills).length > 0 && (
-        <section className="space-y-4">
-          <div className="flex items-center gap-3">
-            <h2 className="text-fl-fg text-sm font-bold">{t('skills')}</h2>
-            <div className="bg-fl-border h-px flex-1" />
-          </div>
-          <div className="border-fl-border bg-fl-surface divide-fl-border divide-y rounded-2xl border">
-            {Object.entries(summary.skills).map(([skill, value]) => (
-              <div key={skill} className="flex items-center gap-4 px-5 py-3.5">
-                <span className="text-fl-muted-1 w-24 shrink-0 truncate text-sm font-medium">
-                  {skill}
-                </span>
-                <div className="bg-fl-surface-2 h-1.5 flex-1 overflow-hidden rounded-full">
-                  <div
-                    className="h-full rounded-full transition-all duration-500"
-                    style={{
-                      width: `${Math.round(value * 100)}%`,
-                      background:
-                        value < 0.5
-                          ? 'var(--juba-warm)'
-                          : 'var(--juba-primary)',
-                    }}
-                  />
-                </div>
-                <span className="text-fl-muted-2 w-10 shrink-0 text-end text-xs font-semibold tabular-nums">
-                  {Math.round(value * 100)}%
-                </span>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-    </div>
-  )
+    {summary && Object.keys(summary.skills).length > 0 && <section className="space-y-4"><div className="flex items-center gap-3"><h2 className="text-fl-fg text-sm font-bold">{t('skills')}</h2><div className="bg-fl-border h-px flex-1" /></div><div className="border-fl-border bg-fl-surface divide-fl-border divide-y rounded-2xl border">{Object.entries(summary.skills).map(([skill, value]) => <div key={skill} className="flex items-center gap-4 px-5 py-3.5"><span className="text-fl-muted-1 w-24 shrink-0 truncate text-sm font-medium">{skill}</span><div className="bg-fl-surface-2 h-1.5 flex-1 overflow-hidden rounded-full"><div className="h-full rounded-full transition-all duration-500" style={{ width: `${Math.round(value * 100)}%`, background: value < 0.5 ? 'var(--juba-warm)' : 'var(--juba-primary)' }} /></div><span className="text-fl-muted-2 w-10 shrink-0 text-end text-xs font-semibold tabular-nums">{Math.round(value * 100)}%</span></div>)}</div></section>}
+  </div>
 }
