@@ -1,0 +1,86 @@
+/* JUBA LISAN — learning-first foundation
+ * Shared visual primitives for the new learning experience.
+ * Keep page/data contracts intact; compose these classes on new surfaces.
+ */
+:root {
+  --juba-bg: #f7f8f4;
+  --juba-surface: #ffffff;
+  --juba-surface-soft: #f0f4ee;
+  --juba-border: #dce5dc;
+  --juba-text: #17231b;
+  --juba-muted: #68766d;
+  --juba-primary: #1f6b4f;
+  --juba-primary-dark: #174d3a;
+  --juba-primary-soft: #e5f1ea;
+  --juba-warm: #e8a43a;
+  --juba-warm-soft: #fff3dc;
+  --juba-danger: #c94a45;
+  --juba-radius-sm: .75rem;
+  --juba-radius-md: 1rem;
+  --juba-radius-lg: 1.25rem;
+  --juba-radius-pill: 999px;
+  --juba-shadow-sm: 0 1px 2px rgba(23, 35, 27, .05);
+  --juba-shadow-md: 0 10px 28px rgba(23, 35, 27, .08);
+}
+
+html[data-theme='dark'] {
+  --juba-bg: #101512;
+  --juba-surface: #18201b;
+  --juba-surface-soft: #202a23;
+  --juba-border: #2d3a31;
+  --juba-text: #edf4ee;
+  --juba-muted: #9aaba0;
+  --juba-primary: #72c69e;
+  --juba-primary-dark: #a5e1c2;
+  --juba-primary-soft: #1d3328;
+  --juba-warm: #efb75c;
+  --juba-warm-soft: #352b1d;
+  --juba-danger: #ef8179;
+}
+
+html, body { background: var(--juba-bg); color: var(--juba-text); }
+body { background-image: none !important; }
+
+.juba-learning-page { min-height: 100%; background: var(--juba-bg); color: var(--juba-text); }
+.juba-container { width: min(1120px, calc(100% - 2rem)); margin-inline: auto; }
+.juba-section { padding-block: clamp(2.5rem, 6vw, 5rem); }
+.juba-section-header { max-width: 760px; margin-inline: auto; text-align: center; }
+
+.juba-card {
+  background: var(--juba-surface);
+  border: 1px solid var(--juba-border);
+  border-radius: var(--juba-radius-lg);
+  box-shadow: var(--juba-shadow-sm);
+}
+.juba-card-interactive { transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
+.juba-card-interactive:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--juba-primary) 32%, var(--juba-border)); box-shadow: var(--juba-shadow-md); }
+
+.juba-eyebrow {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .42rem .75rem; border: 1px solid color-mix(in srgb, var(--juba-primary) 22%, var(--juba-border));
+  border-radius: var(--juba-radius-pill); background: var(--juba-primary-soft); color: var(--juba-primary-dark);
+  font-size: .72rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase;
+}
+
+.juba-progress-track { width: 100%; height: .5rem; overflow: hidden; border-radius: var(--juba-radius-pill); background: var(--juba-surface-soft); }
+.juba-progress-value { height: 100%; border-radius: inherit; background: var(--juba-primary); transition: width 240ms ease; }
+.juba-progress-value-warm { background: var(--juba-warm); }
+
+.juba-focus-ring:focus-visible { outline: 3px solid color-mix(in srgb, var(--juba-primary) 55%, transparent); outline-offset: 3px; }
+.juba-muted { color: var(--juba-muted); }
+.juba-primary { color: var(--juba-primary); }
+.juba-primary-surface { background: var(--juba-primary-soft); }
+.juba-warm-surface { background: var(--juba-warm-soft); }
+
+button, a { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled), a[role='button'] { transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
+button:not(:disabled):hover, a[role='button']:hover { transform: translateY(-1px); }
+
+@media (max-width: 640px) {
+  .juba-container { width: min(100% - 1.25rem, 1120px); }
+  .juba-card { border-radius: var(--juba-radius-md); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
