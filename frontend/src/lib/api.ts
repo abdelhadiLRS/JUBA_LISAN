@@ -26,9 +26,8 @@ async function refreshToken(): Promise<string | null> {
       if (!data.access_token) throw new Error('missing access token')
       useAuthStore.getState().setTokens(data.access_token)
       return data.access_token
-    } catch {
-      useAuthStore.getState().logout(); return null
-    } finally { isRefreshing = false; refreshPromise = null }
+    } catch { useAuthStore.getState().logout(); return null }
+    finally { isRefreshing = false; refreshPromise = null }
   })()
   return refreshPromise
 }
