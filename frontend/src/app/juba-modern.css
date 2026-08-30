@@ -36,153 +36,118 @@ html[data-theme='dark'] {
   --juba-shadow: 5px 5px 0 rgba(0, 0, 0, 0.7);
 }
 
-html, body {
-  background: var(--juba-bg) !important;
-  color: var(--juba-text);
-}
-
+html, body { background: var(--juba-bg) !important; color: var(--juba-text); }
 body { background-image: none !important; }
-
 .bg-fl-bg { background-color: var(--juba-bg) !important; }
 .bg-fl-bg-alt { background-color: var(--juba-surface-soft) !important; }
-.bg-fl-surface {
-  background: var(--juba-surface) !important;
-  border-color: var(--juba-border-soft) !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
+.bg-fl-surface { background: var(--juba-surface) !important; border-color: var(--juba-border-soft) !important; box-shadow: none !important; backdrop-filter: none !important; }
 .bg-fl-surface-2 { background: var(--juba-surface-soft) !important; }
 .bg-fl-border { background-color: var(--juba-border-soft) !important; }
 .border-fl-border { border-color: var(--juba-border-soft) !important; }
 .border-fl-border-2 { border-color: var(--juba-border) !important; }
-.text-fl-fg,
-.text-fl-muted-0 { color: var(--juba-text) !important; }
-.text-fl-muted-1,
-.text-fl-muted-2 { color: var(--juba-muted) !important; }
-.text-fl-muted-3,
-.text-fl-muted-4 { color: color-mix(in srgb, var(--juba-muted) 82%, var(--juba-bg)) !important; }
+.text-fl-fg, .text-fl-muted-0 { color: var(--juba-text) !important; }
+.text-fl-muted-1, .text-fl-muted-2 { color: var(--juba-muted) !important; }
+.text-fl-muted-3, .text-fl-muted-4 { color: color-mix(in srgb, var(--juba-muted) 82%, var(--juba-bg)) !important; }
 .text-fl-accent { color: #47752c !important; }
-.bg-fl-accent {
-  background: var(--juba-primary) !important;
-  color: #171a17 !important;
-  border-radius: 999px !important;
-  box-shadow: 3px 3px 0 rgba(23, 26, 23, 0.9) !important;
-}
+.bg-fl-accent { background: var(--juba-primary) !important; color: #171a17 !important; border-radius: 999px !important; box-shadow: 3px 3px 0 rgba(23, 26, 23, 0.9) !important; }
 
-.juba-card {
-  background: var(--juba-surface);
-  border: 2px solid var(--juba-border);
-  border-radius: 1.5rem;
-  box-shadow: var(--juba-shadow);
-  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
-}
+.juba-card { background: var(--juba-surface); border: 2px solid var(--juba-border); border-radius: 1.5rem; box-shadow: var(--juba-shadow); transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+.juba-card:hover { transform: translate(-1px, -2px); box-shadow: 7px 7px 0 rgba(23, 26, 23, 0.92); border-color: var(--juba-border); }
+.juba-glass { background: color-mix(in srgb, var(--juba-surface) 92%, transparent); border: 2px solid var(--juba-border); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.juba-gradient-text { background: none; color: var(--juba-text); -webkit-background-clip: initial; background-clip: initial; }
+.juba-hero-glow { display: block; position: absolute; pointer-events: none; width: 18rem; height: 18rem; border-radius: 50%; background: var(--juba-primary-soft); filter: blur(8px); opacity: 0.7; }
+.juba-eyebrow { display: inline-flex; align-items: center; gap: 0.45rem; border: 2px solid var(--juba-border); background: var(--juba-primary-soft); color: var(--juba-text); border-radius: 999px; padding: 0.42rem 0.78rem; font-size: 0.72rem; font-weight: 900; letter-spacing: 0.04em; text-transform: uppercase; }
+.juba-section { position: relative; width: 100%; padding-block: clamp(3.5rem, 7vw, 6rem); }
+.juba-section-header { max-width: 760px; margin-inline: auto; text-align: center; }
 
-.juba-card:hover {
-  transform: translate(-1px, -2px);
-  box-shadow: 7px 7px 0 rgba(23, 26, 23, 0.92);
-  border-color: var(--juba-border);
-}
-
-.juba-glass {
-  background: color-mix(in srgb, var(--juba-surface) 92%, transparent);
-  border: 2px solid var(--juba-border);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-.juba-gradient-text {
-  background: none;
-  color: var(--juba-text);
-  -webkit-background-clip: initial;
-  background-clip: initial;
-}
-
-.juba-hero-glow {
-  display: block;
-  position: absolute;
-  pointer-events: none;
-  width: 18rem;
-  height: 18rem;
-  border-radius: 50%;
-  background: var(--juba-primary-soft);
-  filter: blur(8px);
-  opacity: 0.7;
-}
-
-.juba-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  border: 2px solid var(--juba-border);
-  background: var(--juba-primary-soft);
-  color: var(--juba-text);
-  border-radius: 999px;
-  padding: 0.42rem 0.78rem;
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.juba-section {
-  position: relative;
-  width: 100%;
-  padding-block: clamp(3.5rem, 7vw, 6rem);
-}
-
-.juba-section-header {
-  max-width: 760px;
-  margin-inline: auto;
-  text-align: center;
-}
-
-/* Learning workspace: stronger hierarchy without touching data contracts. */
-.mx-auto.max-w-5xl,
-.mx-auto.max-w-4xl {
-  padding-top: clamp(1.25rem, 3vw, 2.5rem);
-  padding-bottom: 4rem;
-}
-
+.mx-auto.max-w-5xl, .mx-auto.max-w-4xl { padding-top: clamp(1.25rem, 3vw, 2.5rem); padding-bottom: 4rem; }
 .mx-auto.max-w-4xl .font-mono { font-family: inherit; }
-
-.mx-auto.max-w-4xl .bg-fl-accent.h-px {
-  height: 0.45rem !important;
-  border-radius: 999px;
-}
-
-/* Buttons feel like actions in a learning product, not admin controls. */
-button,
-a { -webkit-tap-highlight-color: transparent; }
-
-button:not(:disabled),
-a[role='button'] {
-  transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease, border-color 150ms ease;
-}
-
-button:not(:disabled):hover,
-a[role='button']:hover { transform: translateY(-1px); }
-
-button:not(:disabled):active,
-a[role='button']:active { transform: translate(1px, 1px); }
-
+.mx-auto.max-w-4xl .bg-fl-accent.h-px { height: 0.45rem !important; border-radius: 999px; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled), a[role='button'] { transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease, border-color 150ms ease; }
+button:not(:disabled):hover, a[role='button']:hover { transform: translateY(-1px); }
+button:not(:disabled):active, a[role='button']:active { transform: translate(1px, 1px); }
 input, select, textarea { border-radius: 0.9rem; }
+:focus-visible { outline: 3px solid var(--juba-primary-dark); outline-offset: 3px; }
 
-/* Keep keyboard and reduced-motion users comfortable. */
-:focus-visible {
-  outline: 3px solid var(--juba-primary-dark);
-  outline-offset: 3px;
+/* App shell: turn the existing navigation into a focused learning workspace. */
+.md\\:flex > aside {
+  width: 17rem !important;
+  background: var(--juba-surface) !important;
+  border-color: var(--juba-border) !important;
+  padding-block: 0.25rem;
 }
+.md\\:flex > aside > div:first-child {
+  min-height: 4.75rem;
+  padding-inline: 1.25rem;
+  border-color: var(--juba-border) !important;
+}
+.md\\:flex > aside > div:first-child span:first-child,
+.fixed.top-0 span span:first-child {
+  border: 2px solid var(--juba-border);
+  color: var(--juba-text) !important;
+  background: var(--juba-primary) !important;
+  box-shadow: 2px 2px 0 var(--juba-border);
+}
+.md\\:flex > aside nav {
+  padding-inline: 0.8rem;
+  padding-block: 1rem;
+}
+.md\\:flex > aside nav a {
+  min-height: 2.75rem;
+  border: 1px solid transparent;
+  font-weight: 700;
+}
+.md\\:flex > aside nav a[aria-current='page'] {
+  border: 2px solid var(--juba-border);
+  background: var(--juba-primary) !important;
+  color: var(--juba-text) !important;
+  box-shadow: 3px 3px 0 var(--juba-border);
+  transform: translate(-1px, -1px);
+}
+.md\\:flex > aside nav a[aria-current='page'] svg { color: var(--juba-text) !important; }
+.md\\:flex > aside nav a:hover:not([aria-current='page']) {
+  border-color: var(--juba-border-soft);
+  background: var(--juba-surface-soft) !important;
+}
+.md\\:flex > aside > div:last-child {
+  border-color: var(--juba-border) !important;
+  background: var(--juba-surface-soft);
+}
+
+/* Mobile shell: compact top bar plus a tactile five-destination dock. */
+.fixed.top-0.right-0.left-0 {
+  background: var(--juba-surface) !important;
+  border-color: var(--juba-border) !important;
+}
+.fixed.bottom-0.right-0.left-0 {
+  background: var(--juba-surface) !important;
+  border-color: var(--juba-border) !important;
+  box-shadow: 0 -4px 0 rgba(23, 26, 23, 0.06);
+}
+.fixed.bottom-0.right-0.left-0 a {
+  position: relative;
+  min-height: 3.8rem;
+  font-weight: 700;
+}
+.fixed.bottom-0.right-0.left-0 a[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  top: 0.35rem;
+  width: 1.8rem;
+  height: 0.22rem;
+  border-radius: 999px;
+  background: var(--juba-primary);
+}
+.fixed.bottom-0.right-0.left-0 a[aria-current='page'] svg { transform: translateY(2px); }
+
+/* Keep verification and utility banners integrated with the same visual language. */
+main > .border-fl-border { border-color: var(--juba-border) !important; background: var(--juba-surface) !important; }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-  }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
-
 @media (max-width: 640px) {
-  .mx-auto.max-w-4xl,
-  .mx-auto.max-w-5xl { padding-inline: 1rem; }
+  .mx-auto.max-w-4xl, .mx-auto.max-w-5xl { padding-inline: 1rem; }
   .juba-card { border-radius: 1.1rem; box-shadow: 4px 4px 0 rgba(23, 26, 23, 0.92); }
 }
