@@ -1,6 +1,7 @@
 /* JUBA LISAN — learning-first foundation
- * Shared visual primitives for the new learning experience.
- * Keep page/data contracts intact; compose these classes on new surfaces.
+ * Shared visual primitives for the learning experience.
+ * The landing-page layer below is inspired by the requested editorial language-learning reference,
+ * while keeping JUBA LISAN's own identity and product semantics.
  */
 :root {
   --juba-bg: #f7f8f4;
@@ -76,9 +77,123 @@ button, a { -webkit-tap-highlight-color: transparent; }
 button:not(:disabled), a[role='button'] { transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
 button:not(:disabled):hover, a[role='button']:hover { transform: translateY(-1px); }
 
+/* Requested JUBA LISAN landing-page direction.
+ * Reference language: warm paper canvas, energetic lime hero, thin dark rules,
+ * pill-shaped typography and playful circular imagery. This is an original JUBA treatment,
+ * not a pixel-for-pixel reproduction of the reference.
+ */
+body:has(.juba-site-nav) {
+  --juba-landing-paper: #f7f2e8;
+  --juba-landing-ink: #161616;
+  --juba-landing-lime: #c9ff3a;
+  --juba-landing-lime-dark: #a9df16;
+  background: var(--juba-landing-paper) !important;
+  color: var(--juba-landing-ink) !important;
+}
+
+body:has(.juba-site-nav) .juba-site-nav {
+  height: 72px;
+  border-bottom: 1px solid rgba(22, 22, 22, .28) !important;
+  background: rgba(247, 242, 232, .94) !important;
+  color: var(--juba-landing-ink);
+  backdrop-filter: blur(14px);
+}
+
+body:has(.juba-site-nav) .juba-site-nav > div {
+  height: 72px;
+  max-width: 1320px;
+}
+
+body:has(.juba-site-nav) .juba-brand { gap: .65rem; }
+body:has(.juba-site-nav) .juba-brand-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--juba-landing-ink) !important;
+  color: var(--juba-landing-lime) !important;
+  box-shadow: none !important;
+}
+body:has(.juba-site-nav) .juba-brand-accent { color: var(--juba-landing-ink) !important; }
+body:has(.juba-site-nav) .juba-nav-link,
+body:has(.juba-site-nav) .juba-nav-signin {
+  color: var(--juba-landing-ink) !important;
+  font-weight: 650;
+}
+body:has(.juba-site-nav) .juba-nav-link:hover,
+body:has(.juba-site-nav) .juba-nav-signin:hover { color: #666 !important; }
+body:has(.juba-site-nav) .juba-nav-cta {
+  border: 1px solid var(--juba-landing-ink);
+  border-radius: 999px;
+  background: var(--juba-landing-ink) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+body:has(.juba-site-nav) .juba-nav-cta:hover { background: #303030 !important; }
+
+body:has(.juba-site-nav) nav + section {
+  background: var(--juba-landing-lime) !important;
+  border-bottom: 1px solid var(--juba-landing-ink);
+}
+
+body:has(.juba-site-nav) nav + section h1 {
+  max-width: 780px;
+  font-size: clamp(3.2rem, 7vw, 6.8rem) !important;
+  line-height: .9 !important;
+  letter-spacing: -.065em !important;
+  font-weight: 900 !important;
+  color: var(--juba-landing-ink) !important;
+}
+
+body:has(.juba-site-nav) nav + section h1 span,
+body:has(.juba-site-nav) nav + section h2 span { color: inherit; }
+
+body:has(.juba-site-nav) nav + section p {
+  color: var(--juba-landing-ink) !important;
+}
+
+body:has(.juba-site-nav) nav + section a.rounded-2xl {
+  border: 1px solid var(--juba-landing-ink);
+  border-radius: 999px !important;
+  background: var(--juba-landing-ink) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+body:has(.juba-site-nav) nav + section a.rounded-2xl[href='#features'] {
+  background: transparent !important;
+  color: var(--juba-landing-ink) !important;
+}
+
+body:has(.juba-site-nav) nav + section .juba-card {
+  border: 1px solid var(--juba-landing-ink);
+  border-radius: 2rem;
+  background: rgba(247, 242, 232, .9) !important;
+  box-shadow: 8px 8px 0 var(--juba-landing-ink);
+}
+
+body:has(.juba-site-nav) nav + section .bg-gradient-to-tr {
+  background: var(--juba-landing-ink) !important;
+}
+
+body:has(.juba-site-nav) > *:not(nav) section {
+  border-bottom: 1px solid rgba(22, 22, 22, .18);
+}
+
+body:has(.juba-site-nav) .juba-mobile-menu {
+  background: var(--juba-landing-paper) !important;
+  border-color: rgba(22, 22, 22, .2) !important;
+}
+
+body:has(.juba-site-nav) .juba-mobile-menu .juba-nav-link,
+body:has(.juba-site-nav) .juba-mobile-menu .juba-nav-signin { color: var(--juba-landing-ink) !important; }
+
 @media (max-width: 640px) {
   .juba-container { width: min(100% - 1.25rem, 1120px); }
   .juba-card { border-radius: var(--juba-radius-md); }
+  body:has(.juba-site-nav) .juba-site-nav,
+  body:has(.juba-site-nav) .juba-site-nav > div { height: 64px; }
+  body:has(.juba-site-nav) nav + section h1 { font-size: clamp(3rem, 15vw, 5rem) !important; }
+  body:has(.juba-site-nav) nav + section .juba-card { box-shadow: 5px 5px 0 var(--juba-landing-ink); }
 }
 
 @media (prefers-reduced-motion: reduce) {
