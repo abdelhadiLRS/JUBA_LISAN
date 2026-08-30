@@ -1,7 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
-import { ArrowRightLeft, Languages, Loader2, Sparkles, X } from 'lucide-react'
+import { ArrowRightLeft, BookOpenCheck, Languages, Loader2, Sparkles, X } from 'lucide-react'
 
 const LANGUAGES = [
   { code: 'ar', label: 'العربية', short: 'AR' },
@@ -12,6 +12,8 @@ const LANGUAGES = [
   { code: 'de', label: 'Deutsch', short: 'DE' },
   { code: 'pt', label: 'Português', short: 'PT' },
 ]
+
+const SAVED_VOCABULARY_KEY = 'juba_lisan_saved_vocabulary'
 
 function languageLabel(code: string) {
   if (code === 'auto') return 'Auto detect'
@@ -26,12 +28,14 @@ export function VisitorTranslator() {
   const [translation, setTranslation] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [saved, setSaved] = useState(false)
 
   async function translate(event?: FormEvent) {
     event?.preventDefault()
     if (!text.trim()) return
     setLoading(true)
     setError('')
+    setSaved(false)
     try {
       const response = await fetch('/api/translate', {
         method: 'POST',
@@ -49,11 +53,40 @@ export function VisitorTranslator() {
     }
   }
 
+  function saveToLearning() {
+    if (!text.trim() || !translation.trim()) return
+
+    try {
+      const existing = JSON.parse(localStorage.getItem(SAVED_VOCABULARY_KEY) || '[]')
+      const item = {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        sourceText: text.trim(),
+        translation: translation.trim(),
+        sourceLanguage: source,
+        targetLanguage: target,
+        createdAt: new Date().toISOString(),
+        mastery: 0,
+        nextReviewAt: new Date().toISOString(),
+      }
+      const duplicate = existing.some(
+        (entry: { sourceText?: string; targetLanguage?: string }) =>
+          entry.sourceText?.toLowerCase() === item.sourceText.toLowerCase() && entry.targetLanguage === item.targetLanguage,
+      )
+      if (!duplicate) {
+        localStorage.setItem(SAVED_VOCABULARY_KEY, JSON.stringify([item, ...existing].slice(0, 500)))
+      }
+      setSaved(true)
+    } catch {
+      setError('This browser could not save the word for learning.')
+    }
+  }
+
   function swapLanguages() {
     if (source === 'auto') return
     setSource(target)
     setTarget(source)
     setTranslation('')
+    setSaved(false)
   }
 
   return (
@@ -94,20 +127,12 @@ export function VisitorTranslator() {
                 <section className="flex min-h-[300px] flex-col rounded-[24px] border-2 border-neutral-950 bg-white p-4 dark:border-white dark:bg-neutral-900 sm:p-5">
                   <div className="mb-4 flex flex-wrap items-center gap-2">
                     <span className="rounded-full bg-neutral-950 px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-white dark:bg-white dark:text-neutral-950">From</span>
-                    <select value={source} onChange={(e) => { setSource(e.target.value); setTranslation('') }} className="max-w-full rounded-full border border-neutral-300 bg-transparent px-3 py-1.5 text-sm font-bold outline-none dark:border-neutral-700">
+                    <select value={source} onChange={(e) => { setSource(e.target.value); setTranslation(''); setSaved(false) }} className="max-w-full rounded-full border border-neutral-300 bg-transparent px-3 py-1.5 text-sm font-bold outline-none dark:border-neutral-700">
                       <option value="auto">Auto detect</option>
                       {LANGUAGES.map((language) => <option key={language.code} value={language.code}>{language.label}</option>)}
                     </select>
                   </div>
-                  <textarea
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    maxLength={2000}
-                    rows={7}
-                    autoFocus
-                    placeholder="Type or paste your text here…"
-                    className="min-h-[190px] flex-1 resize-none bg-transparent text-xl font-semibold leading-relaxed text-neutral-950 outline-none placeholder:text-neutral-400 dark:text-white"
-                  />
+                  <textarea value={text} onChange={(e) => { setText(e.target.value); setSaved(false) }} maxLength={2000} rows={7} autoFocus placeholder="Type or paste your text here…" className="min-h-[190px] flex-1 resize-none bg-transparent text-xl font-semibold leading-relaxed text-neutral-950 outline-none placeholder:text-neutral-400 dark:text-white" />
                   <div className="mt-3 flex items-center justify-between text-xs font-semibold text-neutral-400">
                     <span>{text.length}/2000</span>
                     <span>{source === 'auto' ? 'Automatic detection' : languageLabel(source)}</span>
@@ -123,7 +148,7 @@ export function VisitorTranslator() {
                 <section className="flex min-h-[300px] flex-col rounded-[24px] border-2 border-neutral-950 bg-[#d8f53f] p-4 dark:border-white dark:bg-lime-300 sm:p-5">
                   <div className="mb-4 flex flex-wrap items-center gap-2">
                     <span className="rounded-full bg-neutral-950 px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-white">To</span>
-                    <select value={target} onChange={(e) => { setTarget(e.target.value); setTranslation('') }} className="max-w-full rounded-full border border-neutral-950/30 bg-white/60 px-3 py-1.5 text-sm font-bold text-neutral-950 outline-none">
+                    <select value={target} onChange={(e) => { setTarget(e.target.value); setTranslation(''); setSaved(false) }} className="max-w-full rounded-full border border-neutral-950/30 bg-white/60 px-3 py-1.5 text-sm font-bold text-neutral-950 outline-none">
                       {LANGUAGES.map((language) => <option key={language.code} value={language.code}>{language.label}</option>)}
                     </select>
                   </div>
@@ -131,7 +156,14 @@ export function VisitorTranslator() {
                     {error ? (
                       <p className="text-sm font-bold text-red-700">{error}</p>
                     ) : translation ? (
-                      <p className="w-full text-xl font-black leading-relaxed text-neutral-950 sm:text-2xl">{translation}</p>
+                      <div className="w-full">
+                        <p className="text-xl font-black leading-relaxed text-neutral-950 sm:text-2xl">{translation}</p>
+                        <button type="button" onClick={saveToLearning} className="mt-5 inline-flex items-center gap-2 rounded-full border-2 border-neutral-950 bg-white px-4 py-2.5 text-sm font-black text-neutral-950 shadow-[3px_3px_0_rgba(17,17,17,.85)] transition hover:-translate-y-0.5">
+                          <BookOpenCheck className="h-4 w-4" />
+                          {saved ? 'Saved for learning ✓' : 'Learn this word'}
+                        </button>
+                        {saved && <p className="mt-2 text-xs font-bold text-neutral-700">Added to your learning list. Review it again to build mastery.</p>}
+                      </div>
                     ) : (
                       <p className="text-lg font-semibold leading-relaxed text-neutral-700/70">Your translation will appear here.</p>
                     )}
@@ -141,7 +173,7 @@ export function VisitorTranslator() {
               </div>
 
               <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-xs font-semibold leading-relaxed text-neutral-500">Quick visitor lookup. Save vocabulary and review it inside your JUBA LISAN learning journey.</p>
+                <p className="text-xs font-semibold leading-relaxed text-neutral-500">Translate → save → learn → review. Your saved item stays in this browser until we sync it to your JUBA LISAN account.</p>
                 <button type="submit" disabled={!text.trim() || loading} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-neutral-950 bg-neutral-950 px-7 py-3 text-sm font-black text-white shadow-[4px_4px_0_#d8f53f] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45 dark:border-white dark:bg-white dark:text-neutral-950 dark:shadow-[4px_4px_0_#a3c51f]">
                   {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Languages className="h-4 w-4" />}
                   {loading ? 'Translating…' : 'Translate'}
