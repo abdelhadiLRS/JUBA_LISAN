@@ -70,76 +70,39 @@ button:not(:disabled):active, a[role='button']:active { transform: translate(1px
 input, select, textarea { border-radius: 0.9rem; }
 :focus-visible { outline: 3px solid var(--juba-primary-dark); outline-offset: 3px; }
 
-/* App shell: turn the existing navigation into a focused learning workspace. */
-.md\\:flex > aside {
-  width: 17rem !important;
-  background: var(--juba-surface) !important;
-  border-color: var(--juba-border) !important;
-  padding-block: 0.25rem;
-}
-.md\\:flex > aside > div:first-child {
-  min-height: 4.75rem;
-  padding-inline: 1.25rem;
-  border-color: var(--juba-border) !important;
-}
-.md\\:flex > aside > div:first-child span:first-child,
-.fixed.top-0 span span:first-child {
-  border: 2px solid var(--juba-border);
-  color: var(--juba-text) !important;
-  background: var(--juba-primary) !important;
-  box-shadow: 2px 2px 0 var(--juba-border);
-}
-.md\\:flex > aside nav {
-  padding-inline: 0.8rem;
-  padding-block: 1rem;
-}
-.md\\:flex > aside nav a {
-  min-height: 2.75rem;
-  border: 1px solid transparent;
-  font-weight: 700;
-}
-.md\\:flex > aside nav a[aria-current='page'] {
-  border: 2px solid var(--juba-border);
-  background: var(--juba-primary) !important;
-  color: var(--juba-text) !important;
-  box-shadow: 3px 3px 0 var(--juba-border);
-  transform: translate(-1px, -1px);
-}
+/* App shell */
+.md\\:flex > aside { width: 17rem !important; background: var(--juba-surface) !important; border-color: var(--juba-border) !important; padding-block: 0.25rem; }
+.md\\:flex > aside > div:first-child { min-height: 4.75rem; padding-inline: 1.25rem; border-color: var(--juba-border) !important; }
+.md\\:flex > aside > div:first-child span:first-child, .fixed.top-0 span span:first-child { border: 2px solid var(--juba-border); color: var(--juba-text) !important; background: var(--juba-primary) !important; box-shadow: 2px 2px 0 var(--juba-border); }
+.md\\:flex > aside nav { padding-inline: 0.8rem; padding-block: 1rem; }
+.md\\:flex > aside nav a { min-height: 2.75rem; border: 1px solid transparent; font-weight: 700; }
+.md\\:flex > aside nav a[aria-current='page'] { border: 2px solid var(--juba-border); background: var(--juba-primary) !important; color: var(--juba-text) !important; box-shadow: 3px 3px 0 var(--juba-border); transform: translate(-1px, -1px); }
 .md\\:flex > aside nav a[aria-current='page'] svg { color: var(--juba-text) !important; }
-.md\\:flex > aside nav a:hover:not([aria-current='page']) {
-  border-color: var(--juba-border-soft);
-  background: var(--juba-surface-soft) !important;
-}
-.md\\:flex > aside > div:last-child {
-  border-color: var(--juba-border) !important;
-  background: var(--juba-surface-soft);
-}
+.md\\:flex > aside nav a:hover:not([aria-current='page']) { border-color: var(--juba-border-soft); background: var(--juba-surface-soft) !important; }
+.md\\:flex > aside > div:last-child { border-color: var(--juba-border) !important; background: var(--juba-surface-soft); }
 
-/* Mobile shell: compact top bar plus a tactile five-destination dock. */
-.fixed.top-0.right-0.left-0 {
-  background: var(--juba-surface) !important;
-  border-color: var(--juba-border) !important;
-}
-.fixed.bottom-0.right-0.left-0 {
-  background: var(--juba-surface) !important;
-  border-color: var(--juba-border) !important;
-  box-shadow: 0 -4px 0 rgba(23, 26, 23, 0.06);
-}
-.fixed.bottom-0.right-0.left-0 a {
-  position: relative;
-  min-height: 3.8rem;
-  font-weight: 700;
-}
-.fixed.bottom-0.right-0.left-0 a[aria-current='page']::before {
-  content: '';
-  position: absolute;
-  top: 0.35rem;
-  width: 1.8rem;
-  height: 0.22rem;
-  border-radius: 999px;
-  background: var(--juba-primary);
-}
+/* Mobile shell */
+.fixed.top-0.right-0.left-0 { background: var(--juba-surface) !important; border-color: var(--juba-border) !important; }
+.fixed.bottom-0.right-0.left-0 { background: var(--juba-surface) !important; border-color: var(--juba-border) !important; box-shadow: 0 -4px 0 rgba(23, 26, 23, 0.06); }
+.fixed.bottom-0.right-0.left-0 a { position: relative; min-height: 3.8rem; font-weight: 700; }
+.fixed.bottom-0.right-0.left-0 a[aria-current='page']::before { content: ''; position: absolute; top: 0.35rem; width: 1.8rem; height: 0.22rem; border-radius: 999px; background: var(--juba-primary); }
 .fixed.bottom-0.right-0.left-0 a[aria-current='page'] svg { transform: translateY(2px); }
+
+/* Dashboard: make the existing data feel like a learning mission, without changing its data/API contracts. */
+main .juba-card[aria-label] { position: relative; overflow: hidden; background: linear-gradient(135deg, var(--juba-surface) 0%, var(--juba-primary-soft) 100%) !important; }
+main .juba-card[aria-label]::after { content: ''; position: absolute; inset-inline-end: -4rem; top: -5rem; width: 12rem; height: 12rem; border-radius: 50%; background: var(--juba-primary); opacity: 0.22; pointer-events: none; }
+main .juba-card[aria-label] > * { position: relative; z-index: 1; }
+main .juba-card[aria-label] h2 { max-width: 42rem; font-size: clamp(1.35rem, 2.7vw, 2rem); }
+main .juba-card[aria-label] a button { min-width: 9.5rem; min-height: 3rem; border: 2px solid var(--juba-border); box-shadow: 3px 3px 0 var(--juba-border); font-weight: 900; color: var(--juba-text); }
+main .juba-card[aria-label] a button:hover { box-shadow: 5px 5px 0 var(--juba-border); }
+
+main .grid.grid-cols-2.lg\\:grid-cols-4 > div { border-width: 2px !important; border-color: var(--juba-border-soft) !important; transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease; }
+main .grid.grid-cols-2.lg\\:grid-cols-4 > div:hover { transform: translateY(-2px); border-color: var(--juba-border) !important; box-shadow: 3px 3px 0 var(--juba-border); }
+
+/* Dashboard section cards: consistent hierarchy and stronger action affordances. */
+main section:not(.juba-card) { scroll-margin-top: 6rem; }
+main section a button { border-width: 2px; font-weight: 800; }
+main section .bg-fl-accent { border: 2px solid var(--juba-border); }
 
 /* Keep verification and utility banners integrated with the same visual language. */
 main > .border-fl-border { border-color: var(--juba-border) !important; background: var(--juba-surface) !important; }
@@ -150,4 +113,6 @@ main > .border-fl-border { border-color: var(--juba-border) !important; backgrou
 @media (max-width: 640px) {
   .mx-auto.max-w-4xl, .mx-auto.max-w-5xl { padding-inline: 1rem; }
   .juba-card { border-radius: 1.1rem; box-shadow: 4px 4px 0 rgba(23, 26, 23, 0.92); }
+  main .juba-card[aria-label] { border-radius: 1.35rem; }
+  main .juba-card[aria-label] a button { width: 100%; }
 }
