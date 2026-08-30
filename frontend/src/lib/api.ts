@@ -2,7 +2,6 @@ import { useAuthStore } from '@/store/auth'
 import { useLoadingStore } from '@/store/loading'
 
 const BASE_URL = ''
-
 let isRefreshing = false
 let refreshPromise: Promise<string | null> | null = null
 
@@ -11,12 +10,7 @@ export async function readApiError(res: Response): Promise<string> {
     const data = (await res.json()) as { detail?: unknown; message?: unknown }
     if (typeof data.detail === 'string') return data.detail
     if (typeof data.message === 'string') return data.message
-    if (Array.isArray(data.detail)) {
-      return data.detail.map((item) => {
-        if (item && typeof item === 'object' && 'msg' in item) return String((item as { msg?: unknown }).msg ?? '')
-        return String(item)
-      }).filter(Boolean).join(', ')
-    }
+    if (Array.isArray(data.detail)) return data.detail.map((item) => item && typeof item === 'object' && 'msg' in item ? String((item as { msg?: unknown }).msg ?? '') : String(item)).filter(Boolean).join(', ')
   } catch {}
   return res.statusText || `Request failed (${res.status})`
 }
@@ -35,17 +29,13 @@ async function refreshToken(): Promise<string | null> {
     } catch {
       useAuthStore.getState().logout()
       return null
-    } finally {
-      isRefreshing = false
-      refreshPromise = null
-    }
+    } finally { isRefreshing = false; refreshPromise = null }
   })()
   return refreshPromise
 }
 
 export async function apiFetch(url: string, options: RequestInit = {}): Promise<Response> {
-  const { inc, dec } = useLoadingStore.getState()
-  inc()
+  const { inc, dec } = useLoadingStore.getState(); inc()
   try { return await _apiFetch(url, options) } finally { dec() }
 }
 
@@ -58,35 +48,26 @@ async function _apiFetch(url: string, options: RequestInit = {}): Promise<Respon
   const isAuthEntryPoint = url === '/api/auth/login' || url === '/api/auth/register'
   if (res.status === 401 && token && !isAuthEntryPoint) {
     const newToken = await refreshToken()
-    if (newToken) {
-      headers.set('Authorization', `Bearer ${newToken}`)
-      res = await fetch(`${BASE_URL}${url}`, { ...options, headers, credentials: 'include', cache: 'no-store' })
-    }
+    if (newToken) { headers.set('Authorization', `Bearer ${newToken}`); res = await fetch(`${BASE_URL}${url}`, { ...options, headers, credentials: 'include', cache: 'no-store' }) }
   }
   return res
 }
 
 export function apiUrl(path: string): string { return `${BASE_URL}${path}` }
 
-/**
- * Translator remains usable without authentication. This local-only helper
- * gives the UI a stable persistence contract until an authenticated
- * vocabulary endpoint is explicitly exposed by the backend.
- */
 export type TranslatorSavedWord = { source: string; target: string; word: string; translation: string }
-
 const TRANSLATOR_STORAGE_KEY = 'juba_lisan_saved_vocabulary'
 
+/** Guest-safe persistence for Translator → Vocabulary. No authentication is required. */
 export function saveTranslatedWordLocally(input: TranslatorSavedWord): TranslatorSavedWord[] {
   if (typeof window === 'undefined') return [input]
   try {
-    const existing = JSON.parse(window.localStorage.getItem(TRANSLATOR_STORAGE_KEY) || '[]')
+    const raw = window.localStorage.getItem(TRANSLATOR_STORAGE_KEY)
+    const existing = raw ? JSON.parse(raw) : []
     const words = Array.isArray(existing) ? existing.filter(Boolean) as TranslatorSavedWord[] : []
     const normalized = input.word.trim().toLowerCase()
     const next = [input, ...words.filter((item) => item.word?.trim().toLowerCase() !== normalized)]
     window.localStorage.setItem(TRANSLATOR_STORAGE_KEY, JSON.stringify(next))
     return next
-  } catch {
-    return [input]
-  }
+  } catch { return [input] }
 }
