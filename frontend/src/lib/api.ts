@@ -12,32 +12,21 @@ export async function readApiError(res: Response): Promise<string> {
     if (typeof data.detail === 'string') return data.detail
     if (typeof data.message === 'string') return data.message
     if (Array.isArray(data.detail)) {
-      return data.detail
-        .map((item) => {
-          if (item && typeof item === 'object' && 'msg' in item) {
-            return String((item as { msg?: unknown }).msg ?? '')
-          }
-          return String(item)
-        })
-        .filter(Boolean)
-        .join(', ')
+      return data.detail.map((item) => {
+        if (item && typeof item === 'object' && 'msg' in item) return String((item as { msg?: unknown }).msg ?? '')
+        return String(item)
+      }).filter(Boolean).join(', ')
     }
-  } catch {
-    // Fall through to the HTTP status text.
-  }
+  } catch {}
   return res.statusText || `Request failed (${res.status})`
 }
 
 async function refreshToken(): Promise<string | null> {
   if (isRefreshing && refreshPromise) return refreshPromise
-
   isRefreshing = true
   refreshPromise = (async () => {
     try {
-      const res = await fetch(`${BASE_URL}/api/auth/refresh`, {
-        method: 'POST',
-        credentials: 'include',
-      })
+      const res = await fetch(`${BASE_URL}/api/auth/refresh`, { method: 'POST', credentials: 'include' })
       if (!res.ok) throw new Error('refresh failed')
       const data = (await res.json()) as { access_token?: string }
       if (!data.access_token) throw new Error('missing access token')
@@ -57,11 +46,7 @@ async function refreshToken(): Promise<string | null> {
 export async function apiFetch(url: string, options: RequestInit = {}): Promise<Response> {
   const { inc, dec } = useLoadingStore.getState()
   inc()
-  try {
-    return await _apiFetch(url, options)
-  } finally {
-    dec()
-  }
+  try { return await _apiFetch(url, options) } finally { dec() }
 }
 
 async function _apiFetch(url: string, options: RequestInit = {}): Promise<Response> {
@@ -69,66 +54,33 @@ async function _apiFetch(url: string, options: RequestInit = {}): Promise<Respon
   const headers = new Headers(options.headers)
   headers.set('Accept', 'application/json')
   if (token) headers.set('Authorization', `Bearer ${token}`)
-
-  let res = await fetch(`${BASE_URL}${url}`, {
-    ...options,
-    headers,
-    credentials: 'include',
-    cache: 'no-store',
-  })
-
-  // Login/register must never trigger the refresh flow: a 401 there is a real
-  // authentication error, not an expired session.
+  let res = await fetch(`${BASE_URL}${url}`, { ...options, headers, credentials: 'include', cache: 'no-store' })
   const isAuthEntryPoint = url === '/api/auth/login' || url === '/api/auth/register'
   if (res.status === 401 && token && !isAuthEntryPoint) {
     const newToken = await refreshToken()
     if (newToken) {
       headers.set('Authorization', `Bearer ${newToken}`)
-      res = await fetch(`${BASE_URL}${url}`, {
-        ...options,
-        headers,
-        credentials: 'include',
-        cache: 'no-store',
-      })
+      res = await fetch(`${BASE_URL}${url}`, { ...options, headers, credentials: 'include', cache: 'no-store' })
     }
   }
-
   return res
 }
 
-export function apiUrl(path: string): string {
-  return `${BASE_URL}${path}`
-}
+export function apiUrl(path: string): string { return `${BASE_URL}${path}` }
 
-export type TranslatorSave = {
-  source: string
-  target: string
-  word: string
-  translation: string
-}
+export type TranslatorSave = { source: string; target: string; word: string; translation: string }
 
-/**
- * Save a translated word for an authenticated learner when the backend
- * exposes the vocabulary endpoint. The translator itself remains usable
- * without authentication; callers can silently fall back to local storage.
- */
+/** Optional authenticated bridge for Translator → Vocabulary. */
 export async function saveTranslatedWord(input: TranslatorSave): Promise<boolean> {
-  const token = useAuthStore.getState().accessToken
-  if (!token) return false
-
-  const candidates = ['/api/vocabulary', '/api/flashcards']
-  for (const url of candidates) {
-    try {
-      const res = await apiFetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(input),
-      })
-      if (res.ok) return true
-      if (res.status !== 404 && res.status !== 405) return false
-    } catch {
-      return false
-    }
+  if (!useAuthStore.getState().accessToken) return false
+  try {
+    const res = await apiFetch('/api/vocabulary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input),
+    })
+    return res.ok
+  } catch {
+    return false
   }
-  return false
 }
