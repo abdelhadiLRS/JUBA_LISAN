@@ -99,3 +99,36 @@ async function _apiFetch(url: string, options: RequestInit = {}): Promise<Respon
 export function apiUrl(path: string): string {
   return `${BASE_URL}${path}`
 }
+
+export type TranslatorSave = {
+  source: string
+  target: string
+  word: string
+  translation: string
+}
+
+/**
+ * Save a translated word for an authenticated learner when the backend
+ * exposes the vocabulary endpoint. The translator itself remains usable
+ * without authentication; callers can silently fall back to local storage.
+ */
+export async function saveTranslatedWord(input: TranslatorSave): Promise<boolean> {
+  const token = useAuthStore.getState().accessToken
+  if (!token) return false
+
+  const candidates = ['/api/vocabulary', '/api/flashcards']
+  for (const url of candidates) {
+    try {
+      const res = await apiFetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(input),
+      })
+      if (res.ok) return true
+      if (res.status !== 404 && res.status !== 405) return false
+    } catch {
+      return false
+    }
+  }
+  return false
+}
