@@ -68,19 +68,25 @@ async function _apiFetch(url: string, options: RequestInit = {}): Promise<Respon
 
 export function apiUrl(path: string): string { return `${BASE_URL}${path}` }
 
-export type TranslatorSave = { source: string; target: string; word: string; translation: string }
+/**
+ * Translator remains usable without authentication. This local-only helper
+ * gives the UI a stable persistence contract until an authenticated
+ * vocabulary endpoint is explicitly exposed by the backend.
+ */
+export type TranslatorSavedWord = { source: string; target: string; word: string; translation: string }
 
-/** Optional authenticated bridge for Translator → Vocabulary. */
-export async function saveTranslatedWord(input: TranslatorSave): Promise<boolean> {
-  if (!useAuthStore.getState().accessToken) return false
+const TRANSLATOR_STORAGE_KEY = 'juba_lisan_saved_vocabulary'
+
+export function saveTranslatedWordLocally(input: TranslatorSavedWord): TranslatorSavedWord[] {
+  if (typeof window === 'undefined') return [input]
   try {
-    const res = await apiFetch('/api/vocabulary', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(input),
-    })
-    return res.ok
+    const existing = JSON.parse(window.localStorage.getItem(TRANSLATOR_STORAGE_KEY) || '[]')
+    const words = Array.isArray(existing) ? existing.filter(Boolean) as TranslatorSavedWord[] : []
+    const normalized = input.word.trim().toLowerCase()
+    const next = [input, ...words.filter((item) => item.word?.trim().toLowerCase() !== normalized)]
+    window.localStorage.setItem(TRANSLATOR_STORAGE_KEY, JSON.stringify(next))
+    return next
   } catch {
-    return false
+    return [input]
   }
 }
