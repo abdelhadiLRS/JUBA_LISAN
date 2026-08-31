@@ -1,8 +1,13 @@
-name: PR checks (develop)
+name: CI checks
 
 on:
+  push:
+    branches:
+      - main
+      - develop
   pull_request:
     branches:
+      - main
       - develop
     types:
       - opened
