@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, BookOpen, CheckCircle2, Headphones, LockKeyhole, MessageCircle, Mic2, Sparkles } from 'lucide-react'
+import { ArrowRight, BookOpen, CheckCircle2, Headphones, LockKeyhole, Mic2, Sparkles } from 'lucide-react'
 
 const levels = [
   { id: 'a1', title: 'A1 · Starter', desc: 'Build your first practical vocabulary and everyday phrases.', progress: 0, lessons: 24, unlocked: true, current: true },
@@ -53,7 +53,7 @@ export default function CoursesPage() {
               <p className="mt-3 max-w-xl font-medium text-neutral-600 dark:text-neutral-300">{level.desc}</p>
               <div className="mt-6 flex items-center justify-between text-sm font-black"><span>{level.lessons} lessons</span><span>{level.progress}%</span></div>
               <div className="mt-2 h-3 overflow-hidden rounded-full border-2 border-neutral-950 bg-white"><div className="h-full rounded-full bg-[#d8f53f]" style={{ width: `${level.progress}%` }} /></div>
-              {level.unlocked ? <Link href={`/lesson/${level.id}-01`} className="mt-6 inline-flex items-center gap-2 rounded-full border-2 border-neutral-950 bg-[#d8f53f] px-5 py-3 font-black">Explore level <ArrowRight className="h-4 w-4" /></Link> : <span className="mt-6 inline-flex items-center gap-2 rounded-full border-2 border-neutral-300 px-5 py-3 font-black text-neutral-400"><LockKeyhole className="h-4 w-4" /> Unlock later</span>}
+              {level.unlocked ? <Link href="/plan" className="mt-6 inline-flex items-center gap-2 rounded-full border-2 border-neutral-950 bg-[#d8f53f] px-5 py-3 font-black">Open learning plan <ArrowRight className="h-4 w-4" /></Link> : <span className="mt-6 inline-flex items-center gap-2 rounded-full border-2 border-neutral-300 px-5 py-3 font-black text-neutral-400"><LockKeyhole className="h-4 w-4" /> Unlock later</span>}
             </article>)}
           </div>
         </section>
