@@ -1,13 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 const MAX_TEXT_LENGTH = 2000
+const SUPPORTED_LANGUAGES = new Set(['ar', 'en', 'fr', 'es', 'it', 'de', 'pt'])
+
+function detectLanguage(text: string) {
+  if (/\p{Script=Arabic}/u.test(text)) return 'ar'
+  if (/[àâçéèêëîïôùûüÿœæ]/i.test(text)) return 'fr'
+  if (/\b(le|la|les|des|une|un|avec|pour|dans|est|bonjour)\b/i.test(text)) return 'fr'
+  if (/\b(el|la|los|las|una|uno|para|con|hola|que)\b/i.test(text)) return 'es'
+  if (/\b(il|lo|gli|una|uno|per|con|ciao|che)\b/i.test(text)) return 'it'
+  if (/\b(der|die|das|ein|eine|und|für|mit|hallo|ist)\b/i.test(text)) return 'de'
+  if (/\b(o|a|os|as|um|uma|para|com|olá|que)\b/i.test(text)) return 'pt'
+  return 'en'
+}
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const text = typeof body?.text === 'string' ? body.text.trim() : ''
     const target = typeof body?.target === 'string' ? body.target.trim().toLowerCase() : ''
-    const source = typeof body?.source === 'string' ? body.source.trim().toLowerCase() : 'auto'
+    const requestedSource = typeof body?.source === 'string' ? body.source.trim().toLowerCase() : 'auto'
 
     if (!text || !target) {
       return NextResponse.json({ error: 'Text and target language are required.' }, { status: 400 })
@@ -17,8 +29,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: `Text must be ${MAX_TEXT_LENGTH} characters or fewer.` }, { status: 400 })
     }
 
-    if (!/^[a-z]{2,5}$/.test(target) || (source !== 'auto' && !/^[a-z]{2,5}$/.test(source))) {
-      return NextResponse.json({ error: 'Unsupported language code.' }, { status: 400 })
+    if (!SUPPORTED_LANGUAGES.has(target)) {
+      return NextResponse.json({ error: 'Unsupported target language.' }, { status: 400 })
+    }
+
+    const source = requestedSource === 'auto' ? detectLanguage(text) : requestedSource
+    if (!SUPPORTED_LANGUAGES.has(source)) {
+      return NextResponse.json({ error: 'Unsupported source language.' }, { status: 400 })
+    }
+
+    if (source === target) {
+      return NextResponse.json({
+        translation: text,
+        source,
+        target,
+        provider: 'identity',
+      })
     }
 
     const baseUrl = process.env.TRANSLATION_API_URL || 'https://api.mymemory.translated.net/get'
@@ -30,7 +56,7 @@ export async function POST(request: NextRequest) {
 
     const response = await fetch(url, {
       headers: { Accept: 'application/json' },
-      next: { revalidate: 0 },
+      cache: 'no-store',
     })
 
     if (!response.ok) {
