@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
-import { CheckCircle2, Megaphone, X } from 'lucide-react'
+import { CheckCircle2, Megaphone, RefreshCw, X } from 'lucide-react'
 
 import {
   apiFetch,
   clearGuestSyncNotice,
   getGuestSyncNotice,
+  syncGuestMemoryAfterLogin,
 } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
 import { useConfigStore } from '@/store/config'
@@ -23,6 +24,7 @@ export function DashboardAnnouncement() {
     (state) => state.setDismissedDashboardBannerRevision
   )
   const [pending, setPending] = useState(false)
+  const [syncing, setSyncing] = useState(false)
   const [error, setError] = useState(false)
   const [syncNotice, setSyncNotice] = useState<ReturnType<typeof getGuestSyncNotice>>(null)
 
@@ -46,6 +48,16 @@ export function DashboardAnnouncement() {
       setError(true)
     } finally {
       setPending(false)
+    }
+  }
+
+  async function retryGuestSync() {
+    setSyncing(true)
+    try {
+      await syncGuestMemoryAfterLogin()
+      setSyncNotice(getGuestSyncNotice())
+    } finally {
+      setSyncing(false)
     }
   }
 
@@ -88,7 +100,7 @@ export function DashboardAnnouncement() {
               <p className="text-fl-fg text-sm font-semibold">
                 {syncNotice.status === 'synced'
                   ? isArabic
-                    ? `تمت مزامنة ${syncNotice.count} ${syncNotice.count === 1 ? 'كلمة' : 'كلمة'} محفوظة من وضع الزائر.`
+                    ? `تمت مزامنة ${syncNotice.count} ${syncNotice.count === 1 ? 'كلمة' : 'كلمات'} محفوظة من وضع الزائر.`
                     : `${syncNotice.count} saved ${syncNotice.count === 1 ? 'word was' : 'words were'} synced from guest mode.`
                   : isArabic
                     ? 'احتفظنا بالكلمات المحفوظة على هذا الجهاز. يمكنك مزامنتها لاحقًا.'
@@ -103,6 +115,17 @@ export function DashboardAnnouncement() {
                     ? 'إذا لم تكن لديك خطة دراسة، أنشئ خطة أولًا ثم أعد المحاولة.'
                     : 'If you do not have a study plan yet, create one and try again.'}
               </p>
+              {syncNotice.status === 'failed' && (
+                <button
+                  type="button"
+                  onClick={retryGuestSync}
+                  disabled={syncing}
+                  className="mt-3 inline-flex items-center gap-2 rounded-full border border-fl-border bg-fl-surface px-3 py-1.5 text-xs font-semibold text-fl-fg transition-colors hover:bg-[var(--juba-surface-soft)] disabled:cursor-wait disabled:opacity-50"
+                >
+                  <RefreshCw className={`size-3.5 ${syncing ? 'animate-spin' : ''}`} aria-hidden="true" />
+                  {isArabic ? 'إعادة المزامنة' : 'Retry sync'}
+                </button>
+              )}
             </div>
           </div>
           <button
