@@ -46,7 +46,7 @@ export function clearGuestMemory(): void { if (typeof window !== 'undefined') { 
 export function getGuestSyncNotice(): { status: 'synced' | 'failed'; count: number; timestamp: number } | null { if (typeof window === 'undefined') return null; try { const value: unknown = JSON.parse(window.localStorage.getItem(SYNC_NOTICE_KEY) || 'null'); if (!value || typeof value !== 'object') return null; const item = value as { status?: unknown; count?: unknown; timestamp?: unknown }; if ((item.status !== 'synced' && item.status !== 'failed') || typeof item.count !== 'number' || typeof item.timestamp !== 'number') return null; return { status: item.status, count: item.count, timestamp: item.timestamp } } catch { return null } }
 export function clearGuestSyncNotice(): void { if (typeof window !== 'undefined') window.localStorage.removeItem(SYNC_NOTICE_KEY) }
 
-/** Merge anonymous Translator saves into the authenticated user's active learning deck without mixing languages. */
+/** Merge only the guest saves belonging to the user's active language into that language's authenticated deck. */
 export async function syncGuestMemoryAfterLogin(): Promise<boolean> {
   if (typeof window === 'undefined') return false
   const words = getGuestMemory()
@@ -54,32 +54,40 @@ export async function syncGuestMemoryAfterLogin(): Promise<boolean> {
 
   try {
     const languageRes = await apiFetch('/api/languages')
-    if (!languageRes.ok) throw new Error('unable to resolve active language')
+    if (!languageRes.ok) {
+      window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: words.length, timestamp: Date.now() }))
+      return false
+    }
     const languageData = await languageRes.json() as { languages?: Array<{ target_language?: string; is_active?: boolean }> }
-    const activeLanguage = languageData.languages?.find((language) => language.is_active)?.target_language?.split('-')[0]?.toLowerCase()
-    if (!activeLanguage) throw new Error('no active language')
+    const activeLanguage = languageData.languages?.find((language) => language.is_active)?.target_language
+    if (!activeLanguage) return false
+    const activeIso = activeLanguage.split('-')[0].toLowerCase()
+    const wordsForActiveLanguage = words.filter((item) => item.target.trim().toLowerCase() === activeIso)
+    if (!wordsForActiveLanguage.length) return true
 
-    const matchingWords = words.filter((item) => item.target?.trim().toLowerCase().split('-')[0] === activeLanguage)
-    if (!matchingWords.length) return true
-
-    const flashcards = matchingWords
-      .map((item) => ({ word: item.word.trim(), definition: item.translation.trim(), example_sentence: item.word.trim(), translation: item.translation.trim(), source: 'from_text' }))
-      .filter((item) => item.word && item.translation)
+    const flashcards = wordsForActiveLanguage.map((item) => ({
+      word: item.word.trim(),
+      definition: item.translation.trim(),
+      example_sentence: item.word.trim(),
+      translation: item.translation.trim(),
+      source: 'from_text',
+    })).filter((item) => item.word && item.translation)
     if (!flashcards.length) return true
 
     const res = await apiFetch('/api/flashcards/bulk', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ flashcards }) })
     if (!res.ok) {
-      window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: matchingWords.length, timestamp: Date.now() }))
+      window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: flashcards.length, timestamp: Date.now() }))
       return false
     }
 
-    const remaining = words.filter((item) => !matchingWords.includes(item))
+    const remaining = words.filter((item) => item.target.trim().toLowerCase() !== activeIso)
     if (remaining.length) {
-      window.localStorage.setItem(TRANSLATOR_STORAGE_KEY, JSON.stringify(remaining.slice(0, 500)))
+      window.localStorage.setItem(TRANSLATOR_STORAGE_KEY, JSON.stringify(remaining))
     } else {
-      clearGuestMemory()
+      window.localStorage.removeItem(TRANSLATOR_STORAGE_KEY)
+      clearGuestCookie()
     }
-    window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'synced', count: matchingWords.length, timestamp: Date.now() }))
+    window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'synced', count: flashcards.length, timestamp: Date.now() }))
     return true
   } catch {
     window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: words.length, timestamp: Date.now() }))
