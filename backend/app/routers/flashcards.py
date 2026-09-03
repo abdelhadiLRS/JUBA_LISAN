@@ -122,6 +122,7 @@ async def create_flashcard(
         definition=data.definition,
         example_sentence=data.example_sentence,
         translation=data.translation,
+        source=data.source,
     )
     db.add(card)
     await db.commit()
@@ -164,6 +165,7 @@ async def create_flashcards_bulk(
             definition=item.definition,
             example_sentence=item.example_sentence,
             translation=item.translation,
+            source=item.source,
         )
         db.add(card)
         created_words.add(normalized_word)
