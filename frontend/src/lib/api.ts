@@ -4,6 +4,7 @@ import { useLoadingStore } from '@/store/loading'
 const BASE_URL = ''
 const GUEST_COOKIE = 'juba_guest_id'
 const GUEST_COOKIE_MAX_AGE = 60 * 60 * 24 * 180
+const SYNC_NOTICE_KEY = 'juba_lisan_sync_notice'
 let isRefreshing = false
 let refreshPromise: Promise<string | null> | null = null
 
@@ -34,10 +35,7 @@ export function saveTranslatedWordLocally(input: TranslatorSavedWord): Translato
     const words = Array.isArray(existing) ? existing.filter(Boolean) as TranslatorSavedWord[] : []
     const normalized = input.word.trim().toLowerCase()
     const normalizedTarget = input.target.trim().toLowerCase()
-    const next = [
-      { ...input, createdAt: input.createdAt || new Date().toISOString() },
-      ...words.filter((item) => !(item.word?.trim().toLowerCase() === normalized && item.target?.trim().toLowerCase() === normalizedTarget)),
-    ].slice(0, 500)
+    const next = [{ ...input, createdAt: input.createdAt || new Date().toISOString() }, ...words.filter((item) => !(item.word?.trim().toLowerCase() === normalized && item.target?.trim().toLowerCase() === normalizedTarget))].slice(0, 500)
     window.localStorage.setItem(TRANSLATOR_STORAGE_KEY, JSON.stringify(next))
     return next
   } catch { return [input] }
@@ -45,6 +43,27 @@ export function saveTranslatedWordLocally(input: TranslatorSavedWord): Translato
 export function getGuestMemory(): TranslatorSavedWord[] { if (typeof window === 'undefined') return []; try { const value: unknown = JSON.parse(window.localStorage.getItem(TRANSLATOR_STORAGE_KEY) || '[]'); return Array.isArray(value) ? value.filter((x): x is TranslatorSavedWord => !!x && typeof x === 'object' && typeof x.word === 'string' && typeof x.translation === 'string') : [] } catch { return [] } }
 export function getGuestReviewState(): Record<string, { repetitions: number; interval: number; ease: number; due: number }> { if (typeof window === 'undefined') return {}; try { const value: unknown = JSON.parse(window.localStorage.getItem(REVIEW_STORAGE_KEY) || '{}'); return value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, { repetitions: number; interval: number; ease: number; due: number }> : {} } catch { return {} } }
 export function clearGuestMemory(): void { if (typeof window !== 'undefined') { window.localStorage.removeItem(TRANSLATOR_STORAGE_KEY); window.localStorage.removeItem(REVIEW_STORAGE_KEY); clearGuestCookie() } }
+export function getGuestSyncNotice(): { status: 'synced' | 'failed'; count: number; timestamp: number } | null { if (typeof window === 'undefined') return null; try { const value: unknown = JSON.parse(window.localStorage.getItem(SYNC_NOTICE_KEY) || 'null'); if (!value || typeof value !== 'object') return null; const item = value as { status?: unknown; count?: unknown; timestamp?: unknown }; if ((item.status !== 'synced' && item.status !== 'failed') || typeof item.count !== 'number' || typeof item.timestamp !== 'number') return null; return { status: item.status, count: item.count, timestamp: item.timestamp } } catch { return null } }
+export function clearGuestSyncNotice(): void { if (typeof window !== 'undefined') window.localStorage.removeItem(SYNC_NOTICE_KEY) }
 
 /** Merge anonymous Translator saves into the authenticated user's existing learning deck using the real bulk Flashcards API. */
-export async function syncGuestMemoryAfterLogin(): Promise<boolean> { if (typeof window === 'undefined') return false; const words = getGuestMemory(); if (!words.length) return true; const flashcards = words.map((item) => ({ word: item.word.trim(), definition: item.translation.trim(), example_sentence: item.word.trim(), translation: item.translation.trim() })).filter((item) => item.word && item.translation); if (!flashcards.length) return true; try { const res = await apiFetch('/api/flashcards/bulk', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ flashcards }) }); if (!res.ok) return false; clearGuestMemory(); return true } catch { return false } }
+export async function syncGuestMemoryAfterLogin(): Promise<boolean> {
+  if (typeof window === 'undefined') return false
+  const words = getGuestMemory()
+  if (!words.length) return true
+  const flashcards = words.map((item) => ({ word: item.word.trim(), definition: item.translation.trim(), example_sentence: item.word.trim(), translation: item.translation.trim() })).filter((item) => item.word && item.translation)
+  if (!flashcards.length) return true
+  try {
+    const res = await apiFetch('/api/flashcards/bulk', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ flashcards }) })
+    if (!res.ok) {
+      window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: words.length, timestamp: Date.now() }))
+      return false
+    }
+    clearGuestMemory()
+    window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'synced', count: words.length, timestamp: Date.now() }))
+    return true
+  } catch {
+    window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: words.length, timestamp: Date.now() }))
+    return false
+  }
+}
