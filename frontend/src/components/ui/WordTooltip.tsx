@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import { apiFetch, readApiError, saveTranslatedWordLocally } from '@/lib/api'
+import { useLanguageStore } from '@/store/language'
 
 export type SaveState = 'idle' | 'saving' | 'saved' | 'error'
 
@@ -29,6 +30,7 @@ export function useWordSave() {
   const [selectedCefrLevel, setSelectedCefrLevel] = useState('B1')
   const [tooltipPos, setTooltipPos] = useState<TooltipPos>({ x: 0, y: 0 })
   const [saveState, setSaveState] = useState<SaveState>('idle')
+  const activeLanguage = useLanguageStore((state) => state.activeLanguage)
 
   const dismissTooltip = useCallback(() => {
     setSelectedWord(null)
@@ -53,15 +55,16 @@ export function useWordSave() {
   }
 
   async function saveGuestWord(word: string) {
+    const target = activeLanguage?.iso639 || 'ar'
     const res = await apiFetch('/api/translate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: word, source: 'auto', target: 'ar' }),
+      body: JSON.stringify({ text: word, source: 'auto', target }),
     })
     if (!res.ok) throw new Error()
     const data = await res.json() as { translation?: string; source?: string; target?: string }
     if (!data.translation?.trim()) throw new Error()
-    saveTranslatedWordLocally({ word, translation: data.translation.trim(), source: data.source || 'auto', target: data.target || 'ar' })
+    saveTranslatedWordLocally({ word, translation: data.translation.trim(), source: data.source || 'auto', target: data.target || target })
   }
 
   async function handleSaveWord() {
