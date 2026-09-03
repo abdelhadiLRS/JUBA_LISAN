@@ -5,26 +5,9 @@ import { apiFetch, saveTranslatedWordLocally } from '@/lib/api'
 
 export type SaveState = 'idle' | 'saving' | 'saved' | 'error'
 
-export interface TooltipPos {
-  x: number
-  y: number
-}
+export interface TooltipPos { x: number; y: number }
 
-export function WordTooltip({
-  word,
-  pos,
-  saveState,
-  onSave,
-  onDismiss,
-  labels,
-}: {
-  word: string
-  pos: TooltipPos
-  saveState: SaveState
-  onSave: () => void
-  onDismiss: () => void
-  labels: { saveWord: string; wordSaved: string; wordSaveError: string }
-}) {
+export function WordTooltip({ word, pos, saveState, onSave, onDismiss, labels }: { word: string; pos: TooltipPos; saveState: SaveState; onSave: () => void; onDismiss: () => void; labels: { saveWord: string; wordSaved: string; wordSaveError: string } }) {
   return (
     <div style={{ left: pos.x, top: pos.y }} className="pointer-events-auto fixed z-50 -translate-x-1/2 -translate-y-full">
       <div className="border-fl-border bg-fl-surface flex items-center gap-3 border px-3 py-2 font-mono text-xs shadow-lg">
@@ -69,6 +52,18 @@ export function useWordSave() {
     }, 0)
   }
 
+  async function saveGuestWord(word: string) {
+    const res = await apiFetch('/api/translate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: word, source: 'auto', target: 'ar' }),
+    })
+    if (!res.ok) throw new Error()
+    const data = await res.json() as { translation?: string; source?: string; target?: string }
+    if (!data.translation?.trim()) throw new Error()
+    saveTranslatedWordLocally({ word, translation: data.translation.trim(), source: data.source || 'auto', target: data.target || 'ar' })
+  }
+
   async function handleSaveWord() {
     if (!selectedWord) return
     setSaveState('saving')
@@ -83,9 +78,8 @@ export function useWordSave() {
         setTimeout(() => dismissTooltip(), 1500)
         return
       }
-
       if (res.status === 401 || res.status === 403) {
-        saveTranslatedWordLocally({ word: selectedWord, translation: selectedWord, source: 'auto', target: 'ar' })
+        await saveGuestWord(selectedWord)
         setSaveState('saved')
         setTimeout(() => dismissTooltip(), 1500)
         return
