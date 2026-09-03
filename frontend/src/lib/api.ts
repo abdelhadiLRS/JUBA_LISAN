@@ -26,7 +26,26 @@ export function apiUrl(path: string): string { return `${BASE_URL}${path}` }
 export type TranslatorSavedWord = { source: string; target: string; word: string; translation: string; createdAt?: string }
 const TRANSLATOR_STORAGE_KEY = 'juba_lisan_saved_vocabulary'
 const REVIEW_STORAGE_KEY = 'juba_lisan_review_state'
-export function saveTranslatedWordLocally(input: TranslatorSavedWord): TranslatorSavedWord[] { if (typeof window === 'undefined') return [input]; try { const existing: unknown = JSON.parse(window.localStorage.getItem(TRANSLATOR_STORAGE_KEY) || '[]'); const words = Array.isArray(existing) ? existing.filter(Boolean) as TranslatorSavedWord[] : []; const normalized = input.word.trim().toLowerCase(); const next = [{ ...input, createdAt: input.createdAt || new Date().toISOString() }, ...words.filter((item) => item.word?.trim().toLowerCase() !== normalized)]; window.localStorage.setItem(TRANSLATOR_STORAGE_KEY, JSON.stringify(next)); return next } catch { return [input] } }
+export function saveTranslatedWordLocally(input: TranslatorSavedWord): TranslatorSavedWord[] {
+  if (typeof window === 'undefined') return [input]
+  try {
+    ensureGuestCookie()
+    const existing: unknown = JSON.parse(window.localStorage.getItem(TRANSLATOR_STORAGE_KEY) || '[]')
+    const words = Array.isArray(existing) ? existing.filter(Boolean) as TranslatorSavedWord[] : []
+    const normalized = input.word.trim().toLowerCase()
+    const normalizedTarget = input.target.trim().toLowerCase()
+    const next = [
+      { ...input, createdAt: input.createdAt || new Date().toISOString() },
+      ...words.filter((item) => {
+        const sameWord = item.word?.trim().toLowerCase() === normalized
+        const sameTarget = item.target?.trim().toLowerCase() === normalizedTarget
+        return !(sameWord && sameTarget)
+      }),
+    ].slice(0, 500)
+    window.localStorage.setItem(TRANSLATOR_STORAGE_KEY, JSON.stringify(next))
+    return next
+  } catch { return [input] }
+}
 export function getGuestMemory(): TranslatorSavedWord[] { if (typeof window === 'undefined') return []; try { const value: unknown = JSON.parse(window.localStorage.getItem(TRANSLATOR_STORAGE_KEY) || '[]'); return Array.isArray(value) ? value.filter((x): x is TranslatorSavedWord => !!x && typeof x === 'object' && typeof x.word === 'string' && typeof x.translation === 'string') : [] } catch { return [] } }
 export function getGuestReviewState(): Record<string, { repetitions: number; interval: number; ease: number; due: number }> { if (typeof window === 'undefined') return {}; try { const value: unknown = JSON.parse(window.localStorage.getItem(REVIEW_STORAGE_KEY) || '{}'); return value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, { repetitions: number; interval: number; ease: number; due: number }> : {} } catch { return {} } }
 export function clearGuestMemory(): void { if (typeof window !== 'undefined') { window.localStorage.removeItem(TRANSLATOR_STORAGE_KEY); window.localStorage.removeItem(REVIEW_STORAGE_KEY); clearGuestCookie() } }
