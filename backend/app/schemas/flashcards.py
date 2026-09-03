@@ -11,6 +11,7 @@ class FlashcardCreate(BaseModel):
     definition: str
     example_sentence: str
     translation: str
+    source: Optional[str] = None
 
 
 class FlashcardBulkCreate(BaseModel):
