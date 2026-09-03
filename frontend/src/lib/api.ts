@@ -36,11 +36,7 @@ export function saveTranslatedWordLocally(input: TranslatorSavedWord): Translato
     const normalizedTarget = input.target.trim().toLowerCase()
     const next = [
       { ...input, createdAt: input.createdAt || new Date().toISOString() },
-      ...words.filter((item) => {
-        const sameWord = item.word?.trim().toLowerCase() === normalized
-        const sameTarget = item.target?.trim().toLowerCase() === normalizedTarget
-        return !(sameWord && sameTarget)
-      }),
+      ...words.filter((item) => !(item.word?.trim().toLowerCase() === normalized && item.target?.trim().toLowerCase() === normalizedTarget)),
     ].slice(0, 500)
     window.localStorage.setItem(TRANSLATOR_STORAGE_KEY, JSON.stringify(next))
     return next
