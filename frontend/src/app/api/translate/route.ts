@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 const MAX_TEXT_LENGTH = 2000
-const SUPPORTED_LANGUAGES = new Set(['ar', 'en', 'fr', 'es', 'it', 'de', 'pt'])
+const SUPPORTED_LANGUAGES = new Set(['ar', 'en', 'fr', 'es', 'it', 'de', 'pt', 'ja', 'ko', 'zh'])
 
 function detectLanguage(text: string) {
   if (/\p{Script=Arabic}/u.test(text)) return 'ar'
+  if (/\p{Script=Hiragana}|\p{Script=Katakana}|\p{Script=Han}/u.test(text)) return /\p{Script=Han}/u.test(text) && !/\p{Script=Hiragana}|\p{Script=Katakana}/u.test(text) ? 'zh' : 'ja'
+  if (/\p{Script=Hangul}/u.test(text)) return 'ko'
   if (/[àâçéèêëîïôùûüÿœæ]/i.test(text)) return 'fr'
   if (/\b(le|la|les|des|une|un|avec|pour|dans|est|bonjour)\b/i.test(text)) return 'fr'
   if (/\b(el|la|los|las|una|uno|para|con|hola|que)\b/i.test(text)) return 'es'
@@ -39,12 +41,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (source === target) {
-      return NextResponse.json({
-        translation: text,
-        source,
-        target,
-        provider: 'identity',
-      })
+      return NextResponse.json({ translation: text, source, target, provider: 'identity' })
     }
 
     const baseUrl = process.env.TRANSLATION_API_URL || 'https://api.mymemory.translated.net/get'
@@ -54,28 +51,14 @@ export async function POST(request: NextRequest) {
     url.searchParams.set('langpair', `${source}|${target}`)
     if (email) url.searchParams.set('de', email)
 
-    const response = await fetch(url, {
-      headers: { Accept: 'application/json' },
-      cache: 'no-store',
-    })
-
-    if (!response.ok) {
-      return NextResponse.json({ error: 'Translation service is temporarily unavailable.' }, { status: 502 })
-    }
+    const response = await fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store' })
+    if (!response.ok) return NextResponse.json({ error: 'Translation service is temporarily unavailable.' }, { status: 502 })
 
     const data = await response.json()
     const translatedText = data?.responseData?.translatedText
+    if (typeof translatedText !== 'string' || !translatedText.trim()) return NextResponse.json({ error: 'No translation was returned.' }, { status: 502 })
 
-    if (typeof translatedText !== 'string' || !translatedText.trim()) {
-      return NextResponse.json({ error: 'No translation was returned.' }, { status: 502 })
-    }
-
-    return NextResponse.json({
-      translation: translatedText.trim(),
-      source,
-      target,
-      provider: 'configured-translation-service',
-    })
+    return NextResponse.json({ translation: translatedText.trim(), source, target, provider: 'configured-translation-service' })
   } catch {
     return NextResponse.json({ error: 'Unable to translate right now.' }, { status: 500 })
   }
