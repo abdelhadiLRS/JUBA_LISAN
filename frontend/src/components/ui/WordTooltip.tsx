@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { apiFetch, saveTranslatedWordLocally } from '@/lib/api'
+import { apiFetch, readApiError, saveTranslatedWordLocally } from '@/lib/api'
 
 export type SaveState = 'idle' | 'saving' | 'saved' | 'error'
 
@@ -79,6 +79,12 @@ export function useWordSave() {
         return
       }
       if (res.status === 401 || res.status === 403) {
+        await saveGuestWord(selectedWord)
+        setSaveState('saved')
+        setTimeout(() => dismissTooltip(), 1500)
+        return
+      }
+      if (res.status === 404 && (await readApiError(res)) === 'No active study plan found') {
         await saveGuestWord(selectedWord)
         setSaveState('saved')
         setTimeout(() => dismissTooltip(), 1500)
