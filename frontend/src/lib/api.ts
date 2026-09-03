@@ -51,7 +51,7 @@ export async function syncGuestMemoryAfterLogin(): Promise<boolean> {
   if (typeof window === 'undefined') return false
   const words = getGuestMemory()
   if (!words.length) return true
-  const flashcards = words.map((item) => ({ word: item.word.trim(), definition: item.translation.trim(), example_sentence: item.word.trim(), translation: item.translation.trim() })).filter((item) => item.word && item.translation)
+  const flashcards = words.map((item) => ({ word: item.word.trim(), definition: item.translation.trim(), example_sentence: item.word.trim(), translation: item.translation.trim(), source: 'from_text' })).filter((item) => item.word && item.translation)
   if (!flashcards.length) return true
   try {
     const res = await apiFetch('/api/flashcards/bulk', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ flashcards }) })
