@@ -71,6 +71,13 @@ export async function login(email: string, password: string) {
   const data = await response.json().catch(() => ({}))
   if (!response.ok) throw new Error(typeof data.detail === 'string' ? data.detail : 'Unable to sign in')
   await setToken(data.access_token)
+  // Best-effort replay of offline actions created before this login.
+  try {
+    const { syncPendingActions } = await import('./sync')
+    await syncPendingActions()
+  } catch {
+    // Keep login successful even when the device is still offline.
+  }
   return data.access_token as string
 }
 
