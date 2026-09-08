@@ -14,6 +14,11 @@ export type ChatResult = {
   memoryUpdated: boolean
 }
 
+export type ChatMessage = {
+  role: 'user' | 'assistant'
+  content: string
+}
+
 function parseEventLine(line: string): Record<string, unknown> | null {
   if (!line.startsWith('data:')) return null
   const payload = line.slice(5).trim()
@@ -23,6 +28,27 @@ function parseEventLine(line: string): Record<string, unknown> | null {
   } catch {
     return null
   }
+}
+
+export async function getLatestChatConversation(): Promise<{ id: number; title: string } | null> {
+  const response = await apiFetch('/api/chat/conversations')
+  if (!response.ok) return null
+  const data = (await response.json()) as Array<{ id?: unknown; title?: unknown }>
+  const first = data[0]
+  if (!first || typeof first.id !== 'number') return null
+  return { id: first.id, title: typeof first.title === 'string' ? first.title : 'Conversation' }
+}
+
+export async function getChatMessages(conversationId: number): Promise<ChatMessage[]> {
+  const response = await apiFetch(`/api/chat/conversations/${conversationId}/messages`)
+  if (!response.ok) return []
+  const data = (await response.json()) as { messages?: unknown }
+  if (!Array.isArray(data.messages)) return []
+  return data.messages.filter((message): message is ChatMessage => {
+    if (!message || typeof message !== 'object') return false
+    const item = message as { role?: unknown; content?: unknown }
+    return (item.role === 'user' || item.role === 'assistant') && typeof item.content === 'string'
+  })
 }
 
 /**
