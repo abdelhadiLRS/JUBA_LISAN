@@ -1,5 +1,5 @@
 import { apiFetch } from './api'
-import { getPendingActions, removePendingAction, type PendingAction } from './offline'
+import { getPendingActions, queueAction, removePendingAction, type PendingAction } from './offline'
 
 export async function syncPendingActions(): Promise<{ synced: number; remaining: number }> {
   const actions = await getPendingActions()
@@ -32,8 +32,7 @@ export async function queueReview(cardId: number, quality: number) {
     method: 'POST',
     path: `/api/flashcards/${cardId}/review`,
     body: { quality },
-    createdAt: Date.now(),
+    createdAt: new Date().toISOString(),
   }
-  const { queuePendingAction } = await import('./offline')
-  await queuePendingAction(action)
+  await queueAction(action)
 }
