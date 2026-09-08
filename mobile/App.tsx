@@ -1,1 +1,1 @@
-export { default } from './src/AppShellV2'
+export { default } from './src/AppShellV3'
