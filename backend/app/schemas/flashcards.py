@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import date, datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field, field_serializer, model_validator
+from pydantic import BaseModel, Field, model_validator
 
 
 class FlashcardCreate(BaseModel):
@@ -54,14 +54,6 @@ class FlashcardResponse(BaseModel):
     created_at: datetime
 
     model_config = {"from_attributes": True}
-
-    @field_serializer("next_review")
-    def serialize_next_review(self, v: date, _info):
-        return v.isoformat()
-
-    @field_serializer("created_at")
-    def serialize_created_at(self, v: datetime, _info):
-        return v.isoformat()
 
 
 class FlashcardListResponse(BaseModel):
