@@ -40,12 +40,13 @@ export async function stopRecording(): Promise<VoiceRecording | null> {
 
   const active = recording
   recording = null
-  const uri = active.uri || ''
   const durationMs = active.currentTime * 1000
 
   await active.stop()
+  const uri = active.uri
   active.release()
 
+  if (!uri) return null
   return { uri, durationMs }
 }
 
