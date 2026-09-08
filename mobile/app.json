@@ -8,6 +8,7 @@
     "scheme": "juba-lisan",
     "android": {
       "package": "com.jubalisan.app",
+      "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#6C4CF1"
       },
@@ -15,6 +16,7 @@
     },
     "ios": {
       "bundleIdentifier": "com.jubalisan.app",
+      "buildNumber": "1",
       "config": {
         "usesNonExemptEncryption": false
       },
