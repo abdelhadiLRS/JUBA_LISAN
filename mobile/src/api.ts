@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import * as SecureStore from 'expo-secure-store'
 import Constants from 'expo-constants'
 
 const TOKEN_KEY = 'juba_lisan_access_token'
+const LEGACY_TOKEN_KEY = TOKEN_KEY
 
-// Build-time EXPO_PUBLIC_API_URL takes priority. Expo app config is the fallback.
-// On a physical device, localhost points to the phone, not the development PC.
 const configuredApiUrl =
   process.env.EXPO_PUBLIC_API_URL ||
   (Constants.expoConfig?.extra?.apiBaseUrl as string | undefined)
@@ -34,15 +34,24 @@ export type ProgressSummary = {
 }
 
 export async function setToken(token: string) {
-  await AsyncStorage.setItem(TOKEN_KEY, token)
+  await SecureStore.setItemAsync(TOKEN_KEY, token)
+  await AsyncStorage.removeItem(LEGACY_TOKEN_KEY)
 }
 
 export async function clearToken() {
-  await AsyncStorage.removeItem(TOKEN_KEY)
+  await SecureStore.deleteItemAsync(TOKEN_KEY).catch(() => undefined)
+  await AsyncStorage.removeItem(LEGACY_TOKEN_KEY)
 }
 
 export async function getToken() {
-  return AsyncStorage.getItem(TOKEN_KEY)
+  const secureToken = await SecureStore.getItemAsync(TOKEN_KEY)
+  if (secureToken) return secureToken
+  const legacyToken = await AsyncStorage.getItem(LEGACY_TOKEN_KEY)
+  if (legacyToken) {
+    await SecureStore.setItemAsync(TOKEN_KEY, legacyToken)
+    await AsyncStorage.removeItem(LEGACY_TOKEN_KEY)
+  }
+  return legacyToken
 }
 
 export async function apiFetch(path: string, options: RequestInit = {}) {
@@ -50,7 +59,6 @@ export async function apiFetch(path: string, options: RequestInit = {}) {
   const headers = new Headers(options.headers)
   if (!headers.has('Content-Type') && options.body) headers.set('Content-Type', 'application/json')
   if (token) headers.set('Authorization', `Bearer ${token}`)
-
   return fetch(`${API_BASE_URL}${path}`, { ...options, headers })
 }
 
