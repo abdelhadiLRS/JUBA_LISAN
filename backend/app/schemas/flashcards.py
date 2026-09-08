@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import date, datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field, field_serializer
+from pydantic import BaseModel, Field, field_serializer, model_validator
 
 
 class FlashcardCreate(BaseModel):
@@ -67,6 +67,14 @@ class FlashcardResponse(BaseModel):
 class FlashcardListResponse(BaseModel):
     due: list[FlashcardResponse]
     total: int
+    # Compatibility alias for clients that expect a generic `flashcards` list.
+    flashcards: list[FlashcardResponse] | None = None
+
+    @model_validator(mode="after")
+    def populate_flashcards_alias(self):
+        if self.flashcards is None:
+            self.flashcards = self.due
+        return self
 
 
 class VocabularyListResponse(BaseModel):
