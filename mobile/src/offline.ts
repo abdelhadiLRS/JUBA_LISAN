@@ -6,13 +6,13 @@ export async function cacheSet<T>(key: string, value: T) {
   await AsyncStorage.setItem(`${PREFIX}${key}`, JSON.stringify(value))
 }
 
-export async function cacheGet<T>(key: string, fallback: T): Promise<T> {
+export async function cacheGet<T>(key: string, fallback?: T): Promise<T> {
   const raw = await AsyncStorage.getItem(`${PREFIX}${key}`)
-  if (!raw) return fallback
+  if (!raw) return fallback as T
   try {
     return JSON.parse(raw) as T
   } catch {
-    return fallback
+    return fallback as T
   }
 }
 
