@@ -1,13 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as SecureStore from 'expo-secure-store'
-import Constants from 'expo-constants'
 
 const TOKEN_KEY = 'juba_lisan_access_token'
 const LEGACY_TOKEN_KEY = TOKEN_KEY
 
-const configuredApiUrl =
-  process.env.EXPO_PUBLIC_API_URL ||
-  (Constants.expoConfig?.extra?.apiBaseUrl as string | undefined)
+const configuredApiUrl = process.env.EXPO_PUBLIC_API_URL
 
 export const API_BASE_URL = (configuredApiUrl || 'http://localhost:8000').replace(/\/$/, '')
 
