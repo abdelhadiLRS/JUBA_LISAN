@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { getToken } from './api'
 import { sendChatMessage } from './chat'
 
 const C={bg:'#F7F8FC',card:'#FFF',ink:'#171820',muted:'#777986',line:'#E6E7EF',primary:'#635BFF',soft:'#EEEDFF',navy:'#20213A',danger:'#B42318'}
@@ -12,10 +13,13 @@ export default function SpeakConversation(){
   const [conversationId,setConversationId]=useState<number|null>(null)
   const [busy,setBusy]=useState(false)
   const [error,setError]=useState('')
+  const [authenticated,setAuthenticated]=useState(false)
+
+  useEffect(()=>{void getToken().then(token=>setAuthenticated(Boolean(token))).catch(()=>setAuthenticated(false))},[])
 
   const send=async()=>{
     const text=input.trim()
-    if(!text||busy)return
+    if(!text||busy||!authenticated)return
     setInput('')
     setError('')
     setMessages(v=>[...v,{role:'user',content:text},{role:'assistant',content:''}])
@@ -37,13 +41,15 @@ export default function SpeakConversation(){
 
   return <ScrollView contentContainerStyle={s.content} keyboardShouldPersistTaps="handled">
     <View style={s.header}><View style={s.logo}><Text style={s.logoText}>J</Text></View><View><Text style={s.eyebrow}>AI CONVERSATION</Text><Text style={s.title}>Speak with Lingu</Text></View></View>
-    <View style={s.hero}><Text style={s.pill}>✦ YOUR LANGUAGE TUTOR</Text><Text style={s.heroTitle}>Practice naturally.</Text><Text style={s.heroBody}>Your conversation is sent through the verified JUBA LISAN chat API. Continue in the same conversation while you practice.</Text></View>
-    <View style={s.card}>
-      {messages.length===0?<View style={s.empty}><Text style={s.tutor}>✦</Text><Text style={s.cardTitle}>Tell me about your day</Text><Text style={s.body}>Write a short message and Lingu will answer. Voice recording remains available in the local practice flow.</Text></View>:messages.map((m,i)=><View key={`${i}-${m.role}`} style={[s.message,m.role==='user'?s.userMessage:s.assistantMessage]}><Text style={s.messageRole}>{m.role==='user'?'YOU':'LINGU'}</Text><Text style={s.messageText}>{m.content||'…'}</Text></View>)}
-    </View>
-    {!!error&&<Text style={s.error}>{error}</Text>}
-    <View style={s.composer}><TextInput value={input} onChangeText={setInput} placeholder="Write your message…" placeholderTextColor={C.muted} multiline maxLength={5000} style={s.input}/><Pressable disabled={busy||!input.trim()} onPress={()=>void send()} style={[s.send,busy&&s.sendBusy]}>{busy?<ActivityIndicator color="#fff"/>:<Text style={s.sendText}>Send</Text>}</Pressable></View>
-    {conversationId&&<Text style={s.meta}>Conversation #{conversationId}</Text>}
+    <View style={s.hero}><Text style={s.pill}>✦ YOUR LANGUAGE TUTOR</Text><Text style={s.heroTitle}>Practice naturally.</Text><Text style={s.heroBody}>Continue with Lingu using the authenticated JUBA LISAN tutor service. Your conversation stays in the same thread while you practice.</Text></View>
+    {!authenticated?<View style={s.card}><View style={s.empty}><Text style={s.tutor}>→</Text><Text style={s.cardTitle}>Sign in to practice with Lingu</Text><Text style={s.body}>AI conversation requires an authenticated JUBA LISAN account. Sign in from the app to unlock the tutor.</Text></View></View>:<>
+      <View style={s.card}>
+        {messages.length===0?<View style={s.empty}><Text style={s.tutor}>✦</Text><Text style={s.cardTitle}>Tell me about your day</Text><Text style={s.body}>Write a short message and Lingu will answer. Voice recording remains available in the local practice flow.</Text></View>:messages.map((m,i)=><View key={`${i}-${m.role}`} style={[s.message,m.role==='user'?s.userMessage:s.assistantMessage]}><Text style={s.messageRole}>{m.role==='user'?'YOU':'LINGU'}</Text><Text style={s.messageText}>{m.content||'…'}</Text></View>)}
+      </View>
+      {!!error&&<Text style={s.error}>{error}</Text>}
+      <View style={s.composer}><TextInput value={input} onChangeText={setInput} placeholder="Write your message…" placeholderTextColor={C.muted} multiline maxLength={5000} style={s.input}/><Pressable disabled={busy||!input.trim()} onPress={()=>void send()} style={[s.send,busy&&s.sendBusy]}>{busy?<ActivityIndicator color="#fff"/>:<Text style={s.sendText}>Send</Text>}</Pressable></View>
+      {conversationId&&<Text style={s.meta}>Conversation #{conversationId}</Text>}
+    </>}
   </ScrollView>
 }
 
