@@ -1,10 +1,10 @@
 import {
-  AudioRecorder,
   createAudioPlayer,
   RecordingPresets,
   requestRecordingPermissionsAsync,
   setAudioModeAsync,
 } from 'expo-audio'
+import type { AudioRecorder } from 'expo-audio'
 
 export type VoiceRecording = {
   uri: string
@@ -12,6 +12,16 @@ export type VoiceRecording = {
 }
 
 let recording: AudioRecorder | null = null
+
+type AudioRecorderConstructor = new (preset: unknown) => AudioRecorder
+
+function getAudioRecorderConstructor(): AudioRecorderConstructor {
+  const module = require('expo-audio') as { AudioRecorder?: AudioRecorderConstructor }
+  if (!module.AudioRecorder) {
+    throw new Error('This Expo Audio build does not expose the imperative AudioRecorder API yet.')
+  }
+  return module.AudioRecorder
+}
 
 export async function requestMicrophonePermission() {
   const permission = await requestRecordingPermissionsAsync()
@@ -29,7 +39,8 @@ export async function startRecording() {
     playsInSilentMode: true,
   })
 
-  const next = new AudioRecorder(RecordingPresets.HIGH_QUALITY)
+  const Recorder = getAudioRecorderConstructor()
+  const next = new Recorder(RecordingPresets.HIGH_QUALITY)
   await next.prepareToRecordAsync()
   next.record()
   recording = next
