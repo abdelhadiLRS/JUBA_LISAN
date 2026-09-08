@@ -39,6 +39,27 @@ export async function getLatestChatConversation(): Promise<{ id: number; title: 
   return { id: first.id, title: typeof first.title === 'string' ? first.title : 'Conversation' }
 }
 
+export async function createChatConversation(title = 'New conversation'): Promise<{ id: number; title: string }> {
+  const response = await apiFetch('/api/chat/conversations', {
+    method: 'POST',
+    body: JSON.stringify({ title }),
+  })
+  const body = await response.text()
+  if (!response.ok) {
+    let detail = 'Unable to create a new conversation.'
+    try {
+      const parsed = JSON.parse(body) as { detail?: unknown }
+      if (typeof parsed.detail === 'string') detail = parsed.detail
+    } catch {
+      // Keep the generic message for non-JSON error bodies.
+    }
+    throw new Error(detail)
+  }
+  const data = JSON.parse(body) as { id?: unknown; title?: unknown }
+  if (typeof data.id !== 'number') throw new Error('The conversation service returned an invalid conversation.')
+  return { id: data.id, title: typeof data.title === 'string' ? data.title : title }
+}
+
 export async function getChatMessages(conversationId: number): Promise<ChatMessage[]> {
   const response = await apiFetch(`/api/chat/conversations/${conversationId}/messages`)
   if (!response.ok) return []
@@ -95,9 +116,7 @@ export async function sendChatMessage(
     const event = parseEventLine(line)
     if (!event) continue
 
-    if (typeof event.conversation_id === 'number') {
-      currentConversationId = event.conversation_id
-    }
+    if (typeof event.conversation_id === 'number') currentConversationId = event.conversation_id
     if (typeof event.token === 'string') {
       if (responseWasReset) {
         answer = ''
@@ -113,9 +132,5 @@ export async function sendChatMessage(
   if (backendError) throw new Error(backendError)
   if (!answer.trim()) throw new Error('The language tutor returned an empty response.')
 
-  return {
-    conversationId: currentConversationId,
-    response: answer,
-    memoryUpdated,
-  }
+  return { conversationId: currentConversationId, response: answer, memoryUpdated }
 }
