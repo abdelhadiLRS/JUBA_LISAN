@@ -24,6 +24,6 @@
         "NSMicrophoneUsageDescription": "JUBA LISAN uses your microphone for AI speaking practice and pronunciation feedback."
       }
     },
-    "plugins": ["expo-av", "expo-secure-store"]
+    "plugins": ["expo-audio", "expo-secure-store"]
   }
 }
