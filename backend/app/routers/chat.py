@@ -125,6 +125,24 @@ async def get_conversation_messages(request: Request, conversation_id: int, _mai
     return ChatHistoryResponse(messages=messages)
 
 
+@router.get("/history", response_model=ChatHistoryResponse)
+@limiter.limit("60/minute")
+async def get_chat_history(request: Request, _maintenance: None = Depends(require_not_maintenance), current_user: User = Depends(require_subscription_or_freemium_readonly("chat")), db: AsyncSession = Depends(get_db)):
+    """Backward-compatible chat history endpoint for clients using the legacy route."""
+    from app.services.user_language_service import get_active_language
+
+    active_lang = await get_active_language(db, current_user.id)
+    if not active_lang:
+        return ChatHistoryResponse(messages=[])
+    result = await db.execute(
+        select(ChatHistory)
+        .where(ChatHistory.user_id == current_user.id, ChatHistory.target_language == active_lang.target_language)
+        .order_by(ChatHistory.created_at.asc())
+        .limit(MAX_HISTORY)
+    )
+    return ChatHistoryResponse(messages=[{"role": m.role, "content": m.content} for m in result.scalars().all()])
+
+
 @router.post("")
 @limiter.limit("30/minute")
 async def chat(request: Request, request_data: ChatRequest, _maintenance: None = Depends(require_not_maintenance), current_user: User = Depends(require_subscription_or_freemium("chat")), db: AsyncSession = Depends(get_db)):
