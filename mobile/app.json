@@ -15,11 +15,14 @@
     },
     "ios": {
       "bundleIdentifier": "com.jubalisan.app",
+      "config": {
+        "usesNonExemptEncryption": false
+      },
       "infoPlist": {
         "NSMicrophoneUsageDescription": "JUBA LISAN uses your microphone for AI speaking practice and pronunciation feedback."
       }
     },
-    "plugins": ["expo-av"],
+    "plugins": ["expo-av", "expo-secure-store"],
     "extra": {
       "apiBaseUrl": "http://localhost:8000"
     }
