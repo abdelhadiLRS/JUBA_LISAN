@@ -85,6 +85,7 @@ export async function sendChatMessage(
   }
 
   if (backendError) throw new Error(backendError)
+  if (!answer.trim()) throw new Error('The language tutor returned an empty response.')
 
   return {
     conversationId: currentConversationId,
