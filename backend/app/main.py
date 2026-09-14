@@ -104,7 +104,7 @@ async def lifespan(app: FastAPI):  # noqa: ANN201
     yield
 
 
-app = FastAPI(title="FreeLingo API", version="0.1.0", lifespan=lifespan)
+app = FastAPI(title="JUBA LISAN API", version="0.1.0", lifespan=lifespan)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
@@ -164,4 +164,4 @@ if settings.STRIPE_ENABLED:
     from app.routers import billing as billing_router
 
     _stripe.api_key = settings.STRIPE_SECRET_KEY
-    app.include_router(billing_router.router)
+    app.include_router(billing_router.router
