@@ -154,7 +154,7 @@ export function AudioPlayer({
   }
 
   const sizeClass =
-    size === 'sm' ? 'px-2 py-1 text-fl-hint' : 'px-3 py-2 text-xs'
+    size === 'sm' ? 'px-2.5 py-1.5 text-[11px]' : 'px-3 py-2 text-xs'
 
   const label =
     state === 'loading'
@@ -167,19 +167,19 @@ export function AudioPlayer({
 
   const colorClass =
     state === 'playing'
-      ? 'border-fl-border-2 text-fl-fg'
+      ? 'border-[var(--juba-primary)] bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)]'
       : state === 'loading'
-        ? 'border-fl-border text-fl-muted-3 animate-pulse'
+        ? 'border-[var(--juba-border)] bg-[var(--juba-surface-soft)] text-[var(--juba-muted)] animate-pulse'
         : state === 'error'
-          ? 'border-fl-error/40 text-fl-error-fg'
-          : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
+          ? 'border-[color-mix(in_srgb,var(--juba-danger)_40%,var(--juba-border))] bg-[color-mix(in_srgb,var(--juba-danger)_8%,var(--juba-surface))] text-[var(--juba-danger)]'
+          : 'border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-muted)] hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-primary-dark)]'
 
   return (
     <button
       onClick={handleClick}
       title={state === 'playing' ? t('stop') : t('listen')}
       aria-label={state === 'playing' ? t('ariaStop') : t('ariaListen')}
-      className={`border font-mono tracking-widest uppercase transition-colors ${colorClass} ${sizeClass} ${className}`}
+      className={`rounded-full border font-medium tracking-wide transition-all duration-200 ${colorClass} ${sizeClass} ${className}`}
     >
       {label}
     </button>
