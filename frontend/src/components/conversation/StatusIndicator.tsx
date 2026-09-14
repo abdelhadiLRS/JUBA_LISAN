@@ -23,7 +23,7 @@ export default function StatusIndicator({
   const t = useTranslations('conversation')
 
   let label: string
-  let dotClass = 'text-fl-muted-4'
+  let dotClass = 'text-[var(--juba-muted)]'
   let pulse = false
 
   if (status === 'loading') {
@@ -37,34 +37,35 @@ export default function StatusIndicator({
   } else if (status === 'live') {
     if (userSpeaking) {
       label = t('statusDetecting')
-      dotClass = 'text-fl-accent'
+      dotClass = 'text-[var(--juba-primary-dark)]'
       pulse = true
     } else if (assistantSpeaking) {
       label = t('statusSpeaking')
-      dotClass = 'text-fl-accent'
+      dotClass = 'text-[var(--juba-primary-dark)]'
       pulse = true
     } else {
       label = t('statusListening')
-      dotClass = 'text-fl-muted-2'
+      dotClass = 'text-[var(--juba-muted)]'
     }
   } else if (status === 'ended') {
     label = t('sessionEnded')
   } else if (status === 'error') {
     label = t('statusError')
-    dotClass = 'text-fl-error'
+    dotClass = 'text-[var(--juba-danger)]'
   } else {
     // ready
     label = t('statusReady')
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 rounded-full border border-[var(--juba-border-soft)] bg-[var(--juba-surface-soft)] px-3 py-1.5">
       <span
-        className={`text-fl-label ${dotClass} ${pulse ? 'animate-pulse' : ''}`}
+        className={`text-xs leading-none ${dotClass} ${pulse ? 'animate-pulse' : ''}`}
+        aria-hidden="true"
       >
         ●
       </span>
-      <span className="text-fl-muted-2 font-mono text-xs tracking-widest uppercase">
+      <span className="text-[var(--juba-muted)] text-[0.68rem] font-semibold tracking-[0.14em] uppercase">
         {label}
       </span>
     </div>
