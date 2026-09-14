@@ -13,13 +13,13 @@ class Settings(BaseSettings):
     BLOCKED_EMAIL_DOMAINS: list[str] = []
     LLM_PROVIDER: str = "ollama"
     OLLAMA_BASE_URL: str = "http://host.docker.internal:11434"
-    OLLAMA_MODEL: str = "gemma4:e4b"
+    OLLAMA_MODEL: str = "juba-coder"
     OPENAI_API_KEY: str = ""
-    OPENAI_MODEL: str = "gpt-4o-mini"
+    OPENAI_MODEL: str = "gpt-5.4-mini"
     ANTHROPIC_API_KEY: str = ""
-    ANTHROPIC_MODEL: str = "claude-3-5-haiku-latest"
+    ANTHROPIC_MODEL: str = "claude-4-5-haiku"
     DEEPSEEK_API_KEY: str = ""
-    DEEPSEEK_MODEL: str = "deepseek-chat"
+    DEEPSEEK_MODEL: str = "deepseek-v4-flash"
     TTS_PROVIDER: str = "local"  # local | openai
     TTS_BASE_URL: str = "http://kokoro:8880"
     TTS_VOICE: str = "af_heart"
@@ -75,7 +75,7 @@ class Settings(BaseSettings):
     SMTP_PORT: int = 587
     SMTP_USER: str = ""
     SMTP_PASSWORD: str = ""
-    SMTP_FROM: str = "noreply@freelingo.app"
+    SMTP_FROM: str = "noreply@jubalisan.com"
     SMTP_TLS: bool = True
     SMTP_SSL: bool = False
     APP_BASE_URL: str = "http://localhost:3000"
