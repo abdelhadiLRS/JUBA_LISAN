@@ -123,6 +123,19 @@ main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface.p-4 { border-radius: 16p
 main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface.p-4 button { border-radius: .75rem; }
 main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface.p-4 + * { margin-top: .75rem; }
 
+/* Conversation workspace: retain VAD/WebSocket behavior and improve only presentation. */
+main .mx-auto.flex.h-full.max-w-4xl { gap: 0; }
+main .mx-auto.flex.h-full.max-w-4xl > .border-fl-border.mb-6 { border-bottom-color: var(--juba-border); padding-bottom: 1rem; }
+main .mx-auto.flex.h-full.max-w-4xl > .border-fl-border.mb-6 h1 { font-size: clamp(1.35rem,3vw,2rem); letter-spacing: -.035em; }
+main .mx-auto.flex.h-full.max-w-4xl > .border-fl-border.mb-6 button { border: 1px solid var(--juba-border); border-radius: 999px; padding: .45rem .75rem; background: var(--juba-surface); }
+main .mx-auto.flex.h-full.max-w-4xl > .border-fl-border.mb-6 button:hover { background: var(--juba-primary-soft); color: var(--juba-primary-dark) !important; }
+main .mx-auto.flex.h-full.max-w-4xl .border-fl-border.bg-fl-surface { border-radius: 14px; box-shadow: var(--juba-shadow); }
+main .mx-auto.flex.h-full.max-w-4xl .border-fl-error\\/40 { border-color: color-mix(in srgb, var(--juba-danger) 45%, var(--juba-border)) !important; background: color-mix(in srgb, var(--juba-danger) 8%, var(--juba-surface)) !important; }
+main .mx-auto.flex.h-full.max-w-4xl button:not([disabled]) { border-radius: .8rem; }
+main .mx-auto.flex.h-full.max-w-4xl button[class*='border-fl-border'][class*='px-3'] { background: var(--juba-surface); }
+main .mx-auto.flex.h-full.max-w-4xl button[class*='border-fl-border'][class*='px-3']:hover { background: var(--juba-primary-soft); border-color: var(--juba-primary) !important; color: var(--juba-primary-dark) !important; }
+main .mx-auto.flex.h-full.max-w-4xl .border-fl-accent\\/40 { border-color: color-mix(in srgb, var(--juba-primary) 65%, var(--juba-border)) !important; background: var(--juba-primary-soft) !important; }
+
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; } }
 @media (max-width:640px) {
   .mx-auto.max-w-4xl, .mx-auto.max-w-5xl { padding-inline: 1rem; }
@@ -132,4 +145,6 @@ main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface.p-4 + * { margin-top: .7
   main .juba-card.cursor-pointer.select-none { min-height: 20rem; }
   main .juba-card.cursor-pointer.select-none > div:last-child { min-height: 14rem; }
   main .mx-auto.max-w-5xl .border-fl-border.bg-fl-surface.p-5 .reading-text { font-size: 1rem; line-height: 1.8; }
+  main .mx-auto.flex.h-full.max-w-4xl { padding-inline: .75rem; }
+  main .mx-auto.flex.h-full.max-w-4xl > .border-fl-border.mb-6 { margin-bottom: 1rem; }
 }
