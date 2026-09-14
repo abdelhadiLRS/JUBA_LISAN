@@ -33,18 +33,13 @@ interface ProgressStore {
   skills: Record<string, number>
   todayLessons: TodayLesson[]
   completedToday: number[]
-  // Curriculum-aware fields
   currentUnitId: string
   currentPlanDurationWeeks: number
   unitProgress: Record<string, UnitProgress>
   levelTestUnlocked: boolean
   levelTestResult: LevelTestResult | null
-  // Actions
-  setProgress: (data: {
-    streak: number
-    xp: number
-    skills: Record<string, number>
-  }) => void
+  setProgress: (data: { streak: number; xp: number; skills: Record<string, number> }) => void
+  addGameXP: (xp: number, skill: string, correct: boolean) => void
   setTodayLessons: (lessons: TodayLesson[]) => void
   completeLesson: (id: number) => void
   setCurrentUnit: (unitId: string) => void
@@ -65,11 +60,17 @@ export const useProgressStore = create<ProgressStore>((set) => ({
   unitProgress: {},
   levelTestUnlocked: false,
   levelTestResult: null,
-  setProgress: (data) =>
-    set({ streak: data.streak, xp: data.xp, skills: data.skills }),
+  setProgress: (data) => set({ streak: data.streak, xp: data.xp, skills: data.skills }),
+  addGameXP: (xp, skill, correct) =>
+    set((state) => ({
+      xp: state.xp + xp,
+      streak: correct ? state.streak + 1 : 0,
+      skills: correct
+        ? { ...state.skills, [skill]: Math.min(1, (state.skills[skill] ?? 0) + 0.05) }
+        : state.skills,
+    })),
   setTodayLessons: (lessons) => set({ todayLessons: lessons }),
-  completeLesson: (id) =>
-    set((state) => ({ completedToday: [...state.completedToday, id] })),
+  completeLesson: (id) => set((state) => ({ completedToday: [...state.completedToday, id] })),
   setCurrentUnit: (unitId) => set({ currentUnitId: unitId }),
   setPlanDuration: (weeks) => set({ currentPlanDurationWeeks: weeks }),
   updateUnitProgress: (unitId, progress) =>
