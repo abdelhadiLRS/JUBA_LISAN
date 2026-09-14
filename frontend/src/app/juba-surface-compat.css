@@ -60,9 +60,26 @@ main:has(.reading-text) button[class*='border-fl-border'] { min-height: 44px; bo
 main:has(.reading-text) button[class*='border-fl-accent'] { border-color: var(--juba-primary) !important; background: var(--juba-primary-soft) !important; color: var(--juba-primary-dark) !important; box-shadow: 0 0 0 1px color-mix(in srgb, var(--juba-primary) 18%, transparent); }
 main:has(.reading-text) .space-y-4 > div { border-radius: 16px; }
 
+/* Chat workspace: modernize the dense two-pane shell while preserving SSE, persistence, and message DOM. */
+main:has(textarea) .border-fl-border.bg-fl-bg { border-color: var(--juba-border) !important; background: var(--juba-bg) !important; }
+main:has(textarea) .border-fl-border.bg-fl-bg aside { background: var(--juba-surface) !important; }
+main:has(textarea) .border-fl-border.bg-fl-bg aside > div:first-child { background: var(--juba-surface-soft); border-color: var(--juba-border-soft) !important; }
+main:has(textarea) .border-fl-border.bg-fl-bg aside > div:first-child button { border-radius: .7rem; color: var(--juba-primary-dark); font-weight: 700; }
+main:has(textarea) .border-fl-border.bg-fl-bg aside > div:first-child button:hover { background: var(--juba-primary-soft); }
+main:has(textarea) .border-fl-border.bg-fl-bg aside [class*='border-fl-surface-2'] { border-color: var(--juba-border-soft) !important; }
+main:has(textarea) .border-fl-border.bg-fl-bg aside [class*='bg-fl-surface-2'] { background: var(--juba-primary-soft) !important; }
+main:has(textarea) .border-fl-border.bg-fl-bg aside [class*='hover:bg-fl-surface']:hover { background: var(--juba-surface-soft) !important; }
+main:has(textarea) .border-fl-border.bg-fl-bg textarea { background: var(--juba-surface-soft) !important; border-color: var(--juba-border) !important; color: var(--juba-text) !important; border-radius: 16px; box-shadow: none; }
+main:has(textarea) .border-fl-border.bg-fl-bg textarea:focus { border-color: var(--juba-primary) !important; box-shadow: 0 0 0 3px color-mix(in srgb, var(--juba-primary) 20%, transparent); }
+main:has(textarea) .border-fl-border.bg-fl-bg .border-fl-accent { background: var(--juba-primary-dark) !important; border-color: var(--juba-primary-dark) !important; color: #fff !important; border-radius: 14px; box-shadow: 0 8px 18px rgba(125,109,150,.16); }
+main:has(textarea) .border-fl-border.bg-fl-bg .border-fl-accent:hover { filter: brightness(.96); }
+main:has(textarea) .border-fl-border.bg-fl-bg .text-fl-error, main:has(textarea) .border-fl-border.bg-fl-bg .text-fl-error-fg { color: var(--juba-danger) !important; }
+main:has(textarea) .border-fl-border.bg-fl-bg .text-amber-500 { color: var(--juba-primary-dark) !important; }
+
 @media (max-width: 640px) {
   main .border-fl-border.bg-fl-surface:not(.rounded-2xl):not(.rounded-xl):not(.rounded-lg) { border-radius: 16px; }
   main .border-fl-border.border > div > button { min-height: 52px; }
   main table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   main:has(.reading-text) .reading-text { font-size: 1.05rem; line-height: 1.8; }
+  main:has(textarea) .border-fl-border.bg-fl-bg textarea { border-radius: 14px; }
 }
