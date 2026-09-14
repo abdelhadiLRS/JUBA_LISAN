@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import '../games.css'
-import '../../../../../components/games/interactive-games.css'
+import '../../../../components/games/interactive-games.css'
 
 type Lang = 'ar' | 'fr' | 'en'
 
