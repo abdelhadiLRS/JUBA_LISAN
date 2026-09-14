@@ -12,7 +12,7 @@ export function ContactButton() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="text-fl-hint text-fl-muted-3 hover:text-fl-muted-1 w-full text-left font-mono tracking-widest uppercase transition-colors"
+        className="w-full rounded-lg px-2 py-1.5 text-left text-sm font-medium text-[var(--juba-muted)] transition-colors hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)]"
       >
         {t('contact')}
       </button>
