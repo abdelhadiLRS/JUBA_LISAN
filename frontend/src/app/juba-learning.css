@@ -1,41 +1,41 @@
 /* JUBA LISAN — learning-first foundation
  * Shared visual primitives for the learning experience.
- * The landing-page layer below is inspired by the requested editorial language-learning reference,
- * while keeping JUBA LISAN's own identity and product semantics.
+ * The learning UI follows the new minimal SaaS identity while preserving
+ * existing class names and product semantics.
  */
 :root {
-  --juba-bg: #f7f8f4;
+  --juba-bg: #fdfdfd;
   --juba-surface: #ffffff;
-  --juba-surface-soft: #f0f4ee;
-  --juba-border: #dce5dc;
-  --juba-text: #17231b;
-  --juba-muted: #68766d;
-  --juba-primary: #1f6b4f;
-  --juba-primary-dark: #174d3a;
-  --juba-primary-soft: #e5f1ea;
-  --juba-warm: #e8a43a;
-  --juba-warm-soft: #fff3dc;
-  --juba-danger: #c94a45;
+  --juba-surface-soft: #ebebf0;
+  --juba-border: #dedee5;
+  --juba-text: #141217;
+  --juba-muted: #77757d;
+  --juba-primary: #b1bde8;
+  --juba-primary-dark: #7d6d96;
+  --juba-primary-soft: #eef0fa;
+  --juba-warm: #c3ec6c;
+  --juba-warm-soft: #f1fadf;
+  --juba-danger: #d95c66;
   --juba-radius-sm: .75rem;
   --juba-radius-md: 1rem;
   --juba-radius-lg: 1.25rem;
   --juba-radius-pill: 999px;
-  --juba-shadow-sm: 0 1px 2px rgba(23, 35, 27, .05);
-  --juba-shadow-md: 0 10px 28px rgba(23, 35, 27, .08);
+  --juba-shadow-sm: 0 1px 2px rgba(20, 18, 23, .04);
+  --juba-shadow-md: 0 10px 28px rgba(20, 18, 23, .07);
 }
 
 html[data-theme='dark'] {
-  --juba-bg: #101512;
-  --juba-surface: #18201b;
-  --juba-surface-soft: #202a23;
-  --juba-border: #2d3a31;
-  --juba-text: #edf4ee;
-  --juba-muted: #9aaba0;
-  --juba-primary: #72c69e;
-  --juba-primary-dark: #a5e1c2;
-  --juba-primary-soft: #1d3328;
-  --juba-warm: #efb75c;
-  --juba-warm-soft: #352b1d;
+  --juba-bg: #111014;
+  --juba-surface: #19171c;
+  --juba-surface-soft: #252229;
+  --juba-border: #37333d;
+  --juba-text: #f6f5f7;
+  --juba-muted: #aaa5b0;
+  --juba-primary: #b9c5f0;
+  --juba-primary-dark: #d0c3e0;
+  --juba-primary-soft: #292736;
+  --juba-warm: #c9f27a;
+  --juba-warm-soft: #2a321d;
   --juba-danger: #ef8179;
 }
 
