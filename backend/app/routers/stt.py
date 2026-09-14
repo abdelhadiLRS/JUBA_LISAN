@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile, status
 import httpx
 import openai
+from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile, status
 
 from app.core.app_logger import get_logger
 from app.core.deps import get_current_user
