@@ -43,6 +43,7 @@ export default function GamesPage() {
   const [selected, setSelected] = useState<string | null>(null);
   const [roundScore, setRoundScore] = useState(0);
   const [round, setRound] = useState(0);
+  const [hydrated, setHydrated] = useState(false);
   const { xp, streak, skills, setProgress, addGameXP } = useProgressStore();
   const level = Math.floor(xp / 100) + 1;
   const t = copy[lang];
@@ -50,17 +51,21 @@ export default function GamesPage() {
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (!saved) return;
-      const parsed = JSON.parse(saved) as { points?: number; streak?: number };
-      setProgress({ streak: parsed.streak ?? 0, xp: parsed.points ?? 0, skills: {} });
+      if (saved) {
+        const parsed = JSON.parse(saved) as { points?: number; streak?: number };
+        setProgress({ streak: parsed.streak ?? 0, xp: parsed.points ?? 0, skills: {} });
+      }
     } catch {
       // Ignore invalid local progress and keep the Lisan store defaults.
+    } finally {
+      setHydrated(true);
     }
   }, [setProgress]);
 
   useEffect(() => {
+    if (!hydrated) return;
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ points: xp, streak, level }));
-  }, [xp, streak, level]);
+  }, [hydrated, xp, streak, level]);
 
   const direction = lang === 'ar' ? 'rtl' : 'ltr';
   const gameCards = useMemo(() => [
