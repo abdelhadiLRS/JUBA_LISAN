@@ -7,7 +7,9 @@ import './games.css';
 
 type Lang = GameLanguage;
 
-const STORAGE_KEY = 'juba-edu-progress-v1';
+const STORAGE_KEY = 'juba-edu-progress-v2';
+
+type SavedProgress = { points?: number; streak?: number; skills?: Record<string, number> };
 
 const copy = {
   ar: {
@@ -16,7 +18,7 @@ const copy = {
     mathDesc: 'عمليات حسابية قصيرة مع مكافآت فورية.', wordsDesc: 'طابق الكلمة مع معناها.', sequenceDesc: 'اكتشف الرقم التالي في السلسلة.',
     start: 'ابدأ اللعبة', next: 'السؤال التالي', correct: 'إجابة صحيحة!', wrong: 'ليست صحيحة',
     hint: 'تلميح', back: 'الألعاب', score: 'نتيجة الجولة', done: 'أحسنت! أكملت الجولة.',
-    choose: 'اختر الإجابة الصحيحة', reset: 'إعادة التقدم', lang: 'اللغة', xp: 'XP',
+    choose: 'اختر الإجابة الصحيحة', reset: 'إعادة التقدم', lang: 'اللغة', xp: 'XP', skills: 'المهارات',
   },
   fr: {
     title: 'JUBA EDU', subtitle: 'Apprendre en jouant, progresser chaque jour', points: 'Points', streak: 'Série', level: 'Niveau',
@@ -24,7 +26,7 @@ const copy = {
     mathDesc: 'De courts calculs avec récompenses immédiates.', wordsDesc: 'Associe le mot à sa signification.', sequenceDesc: 'Trouve le prochain nombre.',
     start: 'Commencer', next: 'Question suivante', correct: 'Bonne réponse !', wrong: 'Pas encore',
     hint: 'Indice', back: 'Jeux', score: 'Score de la partie', done: 'Bravo ! Partie terminée.',
-    choose: 'Choisis la bonne réponse', reset: 'Réinitialiser', lang: 'Langue', xp: 'XP',
+    choose: 'Choisis la bonne réponse', reset: 'Réinitialiser', lang: 'Langue', xp: 'XP', skills: 'Compétences',
   },
   en: {
     title: 'JUBA EDU', subtitle: 'Learn through play. Improve every day.', points: 'Points', streak: 'Streak', level: 'Level',
@@ -32,7 +34,7 @@ const copy = {
     mathDesc: 'Short calculations with instant rewards.', wordsDesc: 'Match each word with its meaning.', sequenceDesc: 'Find the next number in the sequence.',
     start: 'Start game', next: 'Next question', correct: 'Correct!', wrong: 'Not quite',
     hint: 'Hint', back: 'Games', score: 'Round score', done: 'Great job! Round complete.',
-    choose: 'Choose the correct answer', reset: 'Reset progress', lang: 'Language', xp: 'XP',
+    choose: 'Choose the correct answer', reset: 'Reset progress', lang: 'Language', xp: 'XP', skills: 'Skills',
   },
 } as const;
 
@@ -52,8 +54,8 @@ export default function GamesPage() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        const parsed = JSON.parse(saved) as { points?: number; streak?: number };
-        setProgress({ streak: parsed.streak ?? 0, xp: parsed.points ?? 0, skills: {} });
+        const parsed = JSON.parse(saved) as SavedProgress;
+        setProgress({ streak: parsed.streak ?? 0, xp: parsed.points ?? 0, skills: parsed.skills ?? {} });
       }
     } catch {
       // Ignore invalid local progress and keep the Lisan store defaults.
@@ -64,8 +66,8 @@ export default function GamesPage() {
 
   useEffect(() => {
     if (!hydrated) return;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ points: xp, streak, level }));
-  }, [hydrated, xp, streak, level]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ points: xp, streak, level, skills }));
+  }, [hydrated, xp, streak, level, skills]);
 
   const direction = lang === 'ar' ? 'rtl' : 'ltr';
   const gameCards = useMemo(() => [
@@ -103,7 +105,7 @@ export default function GamesPage() {
   }
 
   function reset() {
-    setProgress({ points: 0, streak: 0, skills: {} });
+    setProgress({ xp: 0, streak: 0, skills: {} });
     setGame(null);
     setQuestion(null);
     setRound(0);
@@ -147,6 +149,7 @@ export default function GamesPage() {
               ))}
             </section>
             <div className="games-skill-summary">
+              <strong>{t.skills}</strong>
               {Object.entries(skills).map(([skill, value]) => <span key={skill}>{skill}: {Math.round(value * 100)}%</span>)}
             </div>
           </>
