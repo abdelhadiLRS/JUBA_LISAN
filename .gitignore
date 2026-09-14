@@ -3,6 +3,9 @@
 .env.local
 .env.*.local
 
+# Local Docker state / generated persistent data
+docker-data/
+
 # IDE
 .idea/
 .vscode/
@@ -10,6 +13,10 @@
 
 # Local development files
 /data/
+
+# Frontend build/dependency output
+frontend/node_modules/
+frontend/.next/
 
 # OS
 .DS_Store
