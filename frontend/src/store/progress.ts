@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import type { AchievementId, GameStats } from '@/lib/games/achievements'
 
 interface TodayLesson {
   id: number | null
@@ -16,7 +17,7 @@ interface UnitProgress {
   unitId: string
   completedLessons: number
   totalLessons: number
-  competencies: Record<string, number> // competency text → score 0–1
+  competencies: Record<string, number>
 }
 
 export type LevelTestRecommendation = 'advance' | 'extend' | 'repeat'
@@ -31,6 +32,8 @@ interface ProgressStore {
   streak: number
   xp: number
   skills: Record<string, number>
+  gameStats: GameStats
+  achievements: AchievementId[]
   todayLessons: TodayLesson[]
   completedToday: number[]
   currentUnitId: string
@@ -38,8 +41,11 @@ interface ProgressStore {
   unitProgress: Record<string, UnitProgress>
   levelTestUnlocked: boolean
   levelTestResult: LevelTestResult | null
-  setProgress: (data: { streak: number; xp: number; skills: Record<string, number> }) => void
+  setProgress: (data: { streak: number; xp: number; skills: Record<string, number>; gameStats?: GameStats; achievements?: AchievementId[] }) => void
   addGameXP: (xp: number, skill: string, correct: boolean) => void
+  recordGameAttempt: (correct: boolean) => void
+  completeGame: (roundScore: number, daily: boolean) => void
+  unlockAchievements: (ids: AchievementId[]) => void
   setTodayLessons: (lessons: TodayLesson[]) => void
   completeLesson: (id: number) => void
   setCurrentUnit: (unitId: string) => void
@@ -49,10 +55,21 @@ interface ProgressStore {
   setLevelTestResult: (result: LevelTestResult) => void
 }
 
+const initialGameStats: GameStats = {
+  gamesPlayed: 0,
+  questionsAnswered: 0,
+  correctAnswers: 0,
+  bestRoundScore: 0,
+  dailyChallengesCompleted: 0,
+  bestCorrectStreak: 0,
+}
+
 export const useProgressStore = create<ProgressStore>((set) => ({
   streak: 0,
   xp: 0,
   skills: {},
+  gameStats: initialGameStats,
+  achievements: [],
   todayLessons: [],
   completedToday: [],
   currentUnitId: '',
@@ -60,7 +77,13 @@ export const useProgressStore = create<ProgressStore>((set) => ({
   unitProgress: {},
   levelTestUnlocked: false,
   levelTestResult: null,
-  setProgress: (data) => set({ streak: data.streak, xp: data.xp, skills: data.skills }),
+  setProgress: (data) => set({
+    streak: data.streak,
+    xp: data.xp,
+    skills: data.skills,
+    ...(data.gameStats ? { gameStats: data.gameStats } : {}),
+    ...(data.achievements ? { achievements: data.achievements } : {}),
+  }),
   addGameXP: (xp, skill, correct) =>
     set((state) => ({
       xp: state.xp + xp,
@@ -69,6 +92,25 @@ export const useProgressStore = create<ProgressStore>((set) => ({
         ? { ...state.skills, [skill]: Math.min(1, (state.skills[skill] ?? 0) + 0.05) }
         : state.skills,
     })),
+  recordGameAttempt: (correct) =>
+    set((state) => ({
+      gameStats: {
+        ...state.gameStats,
+        questionsAnswered: state.gameStats.questionsAnswered + 1,
+        correctAnswers: state.gameStats.correctAnswers + (correct ? 1 : 0),
+        bestCorrectStreak: Math.max(state.gameStats.bestCorrectStreak, correct ? state.streak : 0),
+      },
+    })),
+  completeGame: (roundScore, daily) =>
+    set((state) => ({
+      gameStats: {
+        ...state.gameStats,
+        gamesPlayed: state.gameStats.gamesPlayed + 1,
+        bestRoundScore: Math.max(state.gameStats.bestRoundScore, roundScore),
+        dailyChallengesCompleted: state.gameStats.dailyChallengesCompleted + (daily ? 1 : 0),
+      },
+    })),
+  unlockAchievements: (ids) => set((state) => ({ achievements: Array.from(new Set([...state.achievements, ...ids])) })),
   setTodayLessons: (lessons) => set({ todayLessons: lessons }),
   completeLesson: (id) => set((state) => ({ completedToday: [...state.completedToday, id] })),
   setCurrentUnit: (unitId) => set({ currentUnitId: unitId }),
