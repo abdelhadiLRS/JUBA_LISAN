@@ -15,10 +15,16 @@ from app.services.subscription_service import is_subscribed
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
 MAINTENANCE_KEY = "maintenance_mode"
+REDIS_SOCKET_TIMEOUT = 5.0
 
 
 async def get_redis():
-    redis = Redis.from_url(settings.REDIS_URL, decode_responses=True)
+    redis = Redis.from_url(
+        settings.REDIS_URL,
+        decode_responses=True,
+        socket_connect_timeout=REDIS_SOCKET_TIMEOUT,
+        socket_timeout=REDIS_SOCKET_TIMEOUT,
+    )
     try:
         yield redis
     finally:
@@ -166,7 +172,7 @@ def require_subscription_or_freemium_readonly(feature: str):
 
     Use this on GET endpoints (history, conversation list, audio) that should
     remain accessible even when the user's daily/weekly quota is exhausted.
-    POST endpoints that consume quota should use require_subscription_or_freemium.
+
     """
 
     async def _check(
