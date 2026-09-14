@@ -27,20 +27,30 @@ async def get_config(
     redis: Redis = Depends(get_redis),
     db: AsyncSession = Depends(get_db),
 ) -> dict:
-    """Return public runtime configuration flags."""
+    """Return public runtime configuration flags.
+
+    Configuration is intentionally best-effort: the frontend can still boot
+    when the optional Redis maintenance flag or dashboard banner is temporarily
+    unavailable. Core service health remains exposed by ``/health``.
+    """
     maintenance_mode = False
     try:
         maintenance_mode = await redis.get(MAINTENANCE_KEY) == "1"
     except Exception:
         pass
 
-    banner = await db.get(DashboardBanner, 1)
     public_banner = None
-    if banner is not None and banner.is_active:
-        public_banner = {
-            "revision": banner.revision,
-            "translations": banner.translations,
-        }
+    try:
+        banner = await db.get(DashboardBanner, 1)
+        if banner is not None and banner.is_active:
+            public_banner = {
+                "revision": banner.revision,
+                "translations": banner.translations,
+            }
+    except Exception:
+        # A banner is optional presentation data. Do not block application
+        # bootstrap when the database is briefly unavailable.
+        pass
 
     return {
         "stripe_enabled": settings.STRIPE_ENABLED,
