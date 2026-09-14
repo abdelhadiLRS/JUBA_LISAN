@@ -99,19 +99,19 @@ export function ExerciseAudioPlayer({
   const label = state === 'playing' ? 'Pause' : 'Play'
 
   return (
-    <div className="border-fl-border bg-fl-surface space-y-2 border p-4">
+    <div className="juba-card space-y-3 p-4">
       <div className="flex items-center gap-4">
         <button
           onClick={handlePlayPause}
           disabled={state === 'loading'}
           aria-label={label}
-          className="text-fl-fg hover:text-fl-fg-bright w-8 shrink-0 text-center font-mono text-base transition-colors disabled:opacity-40"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)] font-mono text-sm font-bold transition-colors hover:bg-[var(--juba-primary)] hover:text-[var(--juba-text)] disabled:cursor-not-allowed disabled:opacity-40"
         >
           {icon}
         </button>
 
         <div
-          className="bg-fl-border relative h-1.5 flex-1 cursor-pointer"
+          className="h-2 flex-1 cursor-pointer overflow-hidden rounded-full bg-[var(--juba-surface-soft)]"
           onClick={handleSeek}
           role="progressbar"
           aria-valuenow={Math.round(progress)}
@@ -119,19 +119,19 @@ export function ExerciseAudioPlayer({
           aria-valuemax={100}
         >
           <div
-            className="bg-fl-accent h-full transition-all"
+            className="h-full rounded-full bg-[var(--juba-primary)] transition-all"
             style={{ width: `${progress}%` }}
           />
         </div>
 
         {duration > 0 && (
-          <span className="text-fl-label text-fl-muted-3 shrink-0 font-mono tabular-nums">
+          <span className="shrink-0 rounded-lg bg-[var(--juba-surface-soft)] px-2 py-1 text-xs font-medium tabular-nums text-[var(--juba-muted)]">
             {Math.ceil(duration)}s
           </span>
         )}
       </div>
       {state === 'error' && (
-        <p className="text-fl-label font-mono text-red-500">
+        <p className="text-xs font-medium text-[var(--juba-danger)]">
           {t('audioError')}
         </p>
       )}
