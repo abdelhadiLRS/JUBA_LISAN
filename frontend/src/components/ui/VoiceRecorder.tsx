@@ -169,21 +169,21 @@ export function VoiceRecorder({
 
   const colorClass =
     state === 'recording'
-      ? 'border-fl-error/60 text-fl-error-fg animate-pulse'
+      ? 'border-[color-mix(in_srgb,var(--juba-danger)_55%,var(--juba-border))] bg-[color-mix(in_srgb,var(--juba-danger)_8%,var(--juba-surface))] text-[var(--juba-danger)] animate-pulse'
       : state === 'transcribing'
-        ? 'border-fl-border text-fl-muted-3 animate-pulse'
+        ? 'border-[var(--juba-border)] bg-[var(--juba-surface-soft)] text-[var(--juba-muted)] animate-pulse'
         : state === 'error'
-          ? 'border-fl-error/40 text-fl-error-fg'
+          ? 'border-[color-mix(in_srgb,var(--juba-danger)_40%,var(--juba-border))] bg-[color-mix(in_srgb,var(--juba-danger)_8%,var(--juba-surface))] text-[var(--juba-danger)]'
           : disabled
-            ? 'border-fl-border text-fl-muted-4 cursor-not-allowed opacity-40'
-            : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
+            ? 'border-[var(--juba-border)] bg-[var(--juba-surface-soft)] text-[var(--juba-muted)] cursor-not-allowed opacity-40'
+            : 'border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-muted)] hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-primary-dark)]'
 
   return (
     <button
       onClick={handleClick}
       disabled={disabled && state === 'idle'}
       aria-label={state === 'recording' ? t('ariaStop') : t('ariaRecord')}
-      className={`border px-3 py-2 font-mono text-xs tracking-widest uppercase transition-colors ${colorClass} ${className}`}
+      className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-medium tracking-wide transition-all duration-200 ${colorClass} ${className}`}
     >
       {label}
     </button>
