@@ -136,6 +136,41 @@ main .mx-auto.flex.h-full.max-w-4xl button[class*='border-fl-border'][class*='px
 main .mx-auto.flex.h-full.max-w-4xl button[class*='border-fl-border'][class*='px-3']:hover { background: var(--juba-primary-soft); border-color: var(--juba-primary) !important; color: var(--juba-primary-dark) !important; }
 main .mx-auto.flex.h-full.max-w-4xl .border-fl-accent\\/40 { border-color: color-mix(in srgb, var(--juba-primary) 65%, var(--juba-border)) !important; background: var(--juba-primary-soft) !important; }
 
+/* Listening workspace: modern exercise/history/results surfaces without changing exercise logic. */
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface { border-radius: 18px; background: var(--juba-surface) !important; box-shadow: var(--juba-shadow); }
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface.border { border-color: var(--juba-border) !important; }
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface button { border-radius: .8rem; }
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface .text-fl-accent { color: var(--juba-primary-dark) !important; }
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface .text-fl-label { letter-spacing: .07em; }
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface .border-t { border-color: var(--juba-border-soft) !important; }
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface .bg-fl-surface-2 { background: var(--juba-surface-soft) !important; }
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface [class*='bg-green-'] { background: var(--juba-warm-soft) !important; }
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface [class*='border-green-'] { border-color: color-mix(in srgb, var(--juba-warm) 58%, var(--juba-border)) !important; }
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface [class*='text-green-'] { color: var(--juba-primary-dark) !important; }
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface [class*='bg-red-'] { background: color-mix(in srgb, var(--juba-danger) 10%, var(--juba-surface)) !important; }
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface [class*='border-red-'] { border-color: color-mix(in srgb, var(--juba-danger) 52%, var(--juba-border)) !important; }
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface [class*='text-red-'] { color: var(--juba-danger) !important; }
+main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface audio { width: 100%; border-radius: .75rem; }
+
+/* Text chat workspace: preserve SSE/streaming behavior and only refine its presentation. */
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] { background: var(--juba-bg); }
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] aside { background: var(--juba-surface) !important; border-color: var(--juba-border-soft) !important; box-shadow: none; }
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] aside > div:first-child { border-color: var(--juba-border-soft) !important; }
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] aside > div:first-child button,
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] aside > div:first-child span { font-family: inherit; letter-spacing: .06em; }
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] aside > div > div > div { border-color: var(--juba-border-soft) !important; }
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] aside > div > div > div:hover { background: var(--juba-surface-soft) !important; }
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] aside > div > div > div[class*='bg-fl-surface-2'] { background: var(--juba-primary-soft) !important; border-left-color: var(--juba-primary-dark) !important; }
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] > div:last-child { background: var(--juba-bg); }
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] > div:last-child > div:first-child { background: color-mix(in srgb, var(--juba-surface) 96%, transparent) !important; border-color: var(--juba-border-soft) !important; }
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] .border-fl-border { border-color: var(--juba-border-soft) !important; }
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] .bg-fl-surface { background: var(--juba-surface) !important; }
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] textarea,
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] input { background: var(--juba-surface) !important; border-color: var(--juba-border) !important; color: var(--juba-text) !important; }
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] textarea::placeholder,
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] input::placeholder { color: var(--juba-muted) !important; }
+main .flex.h-\\[calc\\(100dvh-56px\\)\\] .text-amber-500 { color: var(--juba-primary-dark) !important; }
+
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; } }
 @media (max-width:640px) {
   .mx-auto.max-w-4xl, .mx-auto.max-w-5xl { padding-inline: 1rem; }
@@ -145,6 +180,5 @@ main .mx-auto.flex.h-full.max-w-4xl .border-fl-accent\\/40 { border-color: color
   main .juba-card.cursor-pointer.select-none { min-height: 20rem; }
   main .juba-card.cursor-pointer.select-none > div:last-child { min-height: 14rem; }
   main .mx-auto.max-w-5xl .border-fl-border.bg-fl-surface.p-5 .reading-text { font-size: 1rem; line-height: 1.8; }
-  main .mx-auto.flex.h-full.max-w-4xl { padding-inline: .75rem; }
-  main .mx-auto.flex.h-full.max-w-4xl > .border-fl-border.mb-6 { margin-bottom: 1rem; }
+  main .flex.h-\\[calc\\(100dvh-56px\\)\\] aside { width: min(88vw, 20rem); }
 }
