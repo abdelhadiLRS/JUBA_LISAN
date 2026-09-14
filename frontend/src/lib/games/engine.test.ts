@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildQuestion, getDifficulty, scoreAnswer } from './engine';
+import { buildDailyQuestion, buildQuestion, getDifficulty, scoreAnswer } from './engine';
 
 describe('game engine', () => {
   it('maps learner level to a bounded difficulty', () => {
@@ -16,6 +16,18 @@ describe('game engine', () => {
       expect(question.skill).toBeTruthy();
       expect(question.hint).toBeTruthy();
     }
+  });
+
+  it('produces repeatable daily questions for the same date and round', () => {
+    const first = buildDailyQuestion('math', 'ar', 3, '2026-09-14', 0);
+    const second = buildDailyQuestion('math', 'ar', 3, '2026-09-14', 0);
+    expect(second).toEqual(first);
+  });
+
+  it('changes the daily challenge when the round changes', () => {
+    const first = buildDailyQuestion('sequence', 'en', 3, '2026-09-14', 0);
+    const second = buildDailyQuestion('sequence', 'en', 3, '2026-09-14', 1);
+    expect(second.prompt !== first.prompt || second.choices.join('|') !== first.choices.join('|')).toBe(true);
   });
 
   it('awards bonus XP for harder correct answers', () => {
