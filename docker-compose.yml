@@ -36,7 +36,7 @@ services:
     container_name: juba-lisan-backend
     restart: unless-stopped
     command: >
-      sh -c "cd /tmp && PYTHONPATH=/app alembic -c /app/alembic.ini upgrade head && cd /app && uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers ${UVICORN_WORKERS:-4}"
+      sh -c "cd /tmp && PYTHONPATH=/app alembic -c /app/alembic.ini upgrade head && cd /app && uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers ${UVICORN_WORKERS:-1}"
     volumes:
       - ${DATA_PATH}/avatars:/app/avatars
       - ${DATA_PATH}/audio:/data/audio
@@ -80,7 +80,7 @@ services:
       SMTP_SSL: ${SMTP_SSL:-false}
       APP_BASE_URL: ${APP_BASE_URL:-http://localhost:3000}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
-      UVICORN_WORKERS: ${UVICORN_WORKERS:-4}
+      UVICORN_WORKERS: ${UVICORN_WORKERS:-1}
       DEFAULT_CONVERSATION_MAX_DURATION: ${DEFAULT_CONVERSATION_MAX_DURATION:-1800}
       DEFAULT_CONVERSATION_INACTIVITY_TIMEOUT: ${DEFAULT_CONVERSATION_INACTIVITY_TIMEOUT:-180}
       DEFAULT_CONVERSATION_WEEKLY_SESSIONS: ${DEFAULT_CONVERSATION_WEEKLY_SESSIONS:-0}
@@ -134,6 +134,12 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:3000/', r => process.exit(r.statusCode >= 200 && r.statusCode < 500 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 15s
 
   # GPU-only speech services are opt-in so the core stack can start on
   # machines without NVIDIA/CUDA, including Intel-only Windows PCs.
