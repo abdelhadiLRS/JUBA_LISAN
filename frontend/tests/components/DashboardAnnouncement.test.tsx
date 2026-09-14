@@ -6,8 +6,16 @@ import { useAuthStore, type User } from '@/store/auth'
 import { useConfigStore } from '@/store/config'
 
 const mockApiFetch = vi.hoisted(() => vi.fn())
+const mockGetGuestSyncNotice = vi.hoisted(() => vi.fn(() => null))
+const mockClearGuestSyncNotice = vi.hoisted(() => vi.fn())
+const mockSyncGuestMemoryAfterLogin = vi.hoisted(() => vi.fn())
 
-vi.mock('@/lib/api', () => ({ apiFetch: mockApiFetch }))
+vi.mock('@/lib/api', () => ({
+  apiFetch: mockApiFetch,
+  getGuestSyncNotice: mockGetGuestSyncNotice,
+  clearGuestSyncNotice: mockClearGuestSyncNotice,
+  syncGuestMemoryAfterLogin: mockSyncGuestMemoryAfterLogin,
+}))
 vi.mock('next-intl', () => ({
   useLocale: () => 'es',
   useTranslations: () => (key: string) => {
@@ -30,6 +38,9 @@ const user = {
 describe('DashboardAnnouncement', () => {
   beforeEach(() => {
     mockApiFetch.mockReset()
+    mockGetGuestSyncNotice.mockReturnValue(null)
+    mockClearGuestSyncNotice.mockReset()
+    mockSyncGuestMemoryAfterLogin.mockReset()
     useAuthStore.setState({ user })
     useConfigStore.setState({
       dashboardBanner: {
@@ -51,9 +62,7 @@ describe('DashboardAnnouncement', () => {
     render(<DashboardAnnouncement />)
 
     expect(screen.getByText('Novedades')).toBeInTheDocument()
-    expect(
-      screen.getByText('<strong>Texto sin HTML</strong>')
-    ).toBeInTheDocument()
+    expect(screen.getByText('<strong>Texto sin HTML</strong>')).toBeInTheDocument()
     expect(document.querySelector('strong')).not.toBeInTheDocument()
 
     fireEvent.click(screen.getByRole('button', { name: 'Cerrar anuncio' }))
@@ -70,9 +79,7 @@ describe('DashboardAnnouncement', () => {
     await waitFor(() =>
       expect(screen.queryByText('Novedades')).not.toBeInTheDocument()
     )
-    expect(
-      useAuthStore.getState().user?.dismissed_dashboard_banner_revision
-    ).toBe(7)
+    expect(useAuthStore.getState().user?.dismissed_dashboard_banner_revision).toBe(7)
   })
 
   it('remains visible and reports a compact error when dismissal fails', async () => {
@@ -81,13 +88,9 @@ describe('DashboardAnnouncement', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Cerrar anuncio' }))
 
-    expect(await screen.findByRole('alert')).toHaveTextContent(
-      'No se pudo cerrar'
-    )
+    expect(await screen.findByRole('alert')).toHaveTextContent('No se pudo cerrar')
     expect(screen.getByText('Novedades')).toBeInTheDocument()
-    expect(
-      useAuthStore.getState().user?.dismissed_dashboard_banner_revision
-    ).toBeNull()
+    expect(useAuthStore.getState().user?.dismissed_dashboard_banner_revision).toBeNull()
   })
 
   it('does not render when the user dismissed the current revision', () => {
