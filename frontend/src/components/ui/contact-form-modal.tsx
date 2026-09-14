@@ -21,7 +21,6 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
   const [status, setStatus] = useState<Status>('idle')
   const [errorMsg, setErrorMsg] = useState('')
 
-  // Reset form when modal opens
   useEffect(() => {
     if (open) {
       setEmail('')
@@ -32,7 +31,6 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
     }
   }, [open])
 
-  // Close on Escape
   useEffect(() => {
     if (!open) return
     function onKey(e: KeyboardEvent) {
@@ -42,7 +40,6 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
     return () => window.removeEventListener('keydown', onKey)
   }, [open, onClose])
 
-  // Auto-close after success with short delay
   useEffect(() => {
     if (status !== 'success') return
     const timer = setTimeout(() => onClose(), 2000)
@@ -80,24 +77,25 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center p-4"
       style={{
-        backgroundColor: 'rgba(0,0,0,0.7)',
-        backdropFilter: 'blur(2px)',
+        backgroundColor: 'color-mix(in srgb, var(--juba-text) 55%, transparent)',
+        backdropFilter: 'blur(8px)',
       }}
       onClick={onClose}
     >
       <div
-        className="border-fl-border bg-fl-surface w-full max-w-md border shadow-2xl"
+        className="juba-card w-full max-w-md overflow-hidden border shadow-[var(--juba-shadow)]"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-2">●</span>
-          <span className="text-fl-label text-fl-muted-2 flex-1 font-mono tracking-widest uppercase">
+        <div className="flex items-center gap-3 border-b border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-6 py-4">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--juba-primary-soft)] text-sm text-[var(--juba-primary-dark)]" aria-hidden="true">
+            ●
+          </span>
+          <span className="flex-1 text-sm font-semibold tracking-tight text-[var(--juba-text)]">
             {t('title')}
           </span>
           <button
             onClick={onClose}
-            className="text-fl-label text-fl-muted-3 hover:text-fl-fg font-mono transition-colors"
+            className="rounded-lg px-2 py-1 text-[var(--juba-muted)] transition hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)]"
             aria-label={tCommon('close')}
           >
             ✕
@@ -105,37 +103,29 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
         </div>
 
         {status === 'success' ? (
-          /* Success state */
           <div className="flex flex-col items-center gap-3 px-6 py-10">
-            <span className="text-fl-success font-mono text-sm tracking-widest uppercase">
+            <span className="rounded-full bg-[var(--juba-warm-soft)] px-4 py-2 text-sm font-semibold text-[var(--juba-primary-dark)]">
               ✓ {t('sent')}
             </span>
           </div>
         ) : (
-          /* Form */
           <form onSubmit={handleSubmit}>
-            <div className="flex flex-col gap-4 px-6 py-6">
-              {/* Email */}
-              <div className="flex flex-col gap-1">
-                <label className="text-fl-muted-3 font-mono text-[10px] tracking-widest uppercase">
-                  {t('labelEmail')}
-                </label>
+            <div className="flex flex-col gap-5 px-6 py-6">
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-semibold text-[var(--juba-muted)]">{t('labelEmail')}</label>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isLoading}
-                  className="border-fl-border bg-fl-bg text-fl-fg placeholder:text-fl-muted-3 focus:border-fl-border-2 border px-3 py-2 font-mono text-xs transition-colors focus:outline-none disabled:opacity-50"
+                  className="rounded-xl border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-3 py-2.5 text-sm text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] transition focus:border-[var(--juba-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-primary)]/30 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderEmail')}
                 />
               </div>
 
-              {/* Subject */}
-              <div className="flex flex-col gap-1">
-                <label className="text-fl-muted-3 font-mono text-[10px] tracking-widest uppercase">
-                  {t('labelSubject')}
-                </label>
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-semibold text-[var(--juba-muted)]">{t('labelSubject')}</label>
                 <input
                   type="text"
                   required
@@ -143,16 +133,13 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   disabled={isLoading}
-                  className="border-fl-border bg-fl-bg text-fl-fg placeholder:text-fl-muted-3 focus:border-fl-border-2 border px-3 py-2 font-mono text-xs transition-colors focus:outline-none disabled:opacity-50"
+                  className="rounded-xl border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-3 py-2.5 text-sm text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] transition focus:border-[var(--juba-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-primary)]/30 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderSubject')}
                 />
               </div>
 
-              {/* Description */}
-              <div className="flex flex-col gap-1">
-                <label className="text-fl-muted-3 font-mono text-[10px] tracking-widest uppercase">
-                  {t('labelDescription')}
-                </label>
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-semibold text-[var(--juba-muted)]">{t('labelDescription')}</label>
                 <textarea
                   required
                   maxLength={5000}
@@ -160,33 +147,31 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   disabled={isLoading}
-                  className="border-fl-border bg-fl-bg text-fl-fg placeholder:text-fl-muted-3 focus:border-fl-border-2 min-h-[98px] resize-y border px-3 py-2 font-mono text-xs transition-colors focus:outline-none disabled:opacity-50"
+                  className="min-h-[120px] resize-y rounded-xl border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-3 py-2.5 text-sm leading-6 text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] transition focus:border-[var(--juba-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-primary)]/30 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderDescription')}
                 />
               </div>
 
-              {/* Error */}
               {status === 'error' && (
-                <p className="text-fl-error-fg font-mono text-xs leading-relaxed">
+                <p className="rounded-xl bg-[color-mix(in_srgb,var(--juba-danger)_10%,var(--juba-surface))] px-3 py-2.5 text-sm leading-relaxed text-[var(--juba-danger)]">
                   {errorMsg}
                 </p>
               )}
             </div>
 
-            {/* Actions */}
-            <div className="flex gap-2 px-6 pb-6">
+            <div className="flex gap-3 border-t border-[var(--juba-border-soft)] bg-[var(--juba-surface-soft)] px-6 py-4">
               <button
                 type="button"
                 onClick={onClose}
                 disabled={isLoading}
-                className="border-fl-border text-fl-label text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg flex-1 border py-3 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+                className="flex-1 rounded-xl border border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2.5 text-sm font-semibold text-[var(--juba-muted)] transition hover:border-[var(--juba-primary)] hover:text-[var(--juba-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {tCommon('cancel')}
               </button>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="bg-fl-fg text-fl-bg text-fl-label hover:bg-fl-fg-bright flex-1 py-3 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+                className="flex-1 rounded-xl bg-[var(--juba-primary-dark)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isLoading ? (
                   <>
