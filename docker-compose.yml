@@ -128,7 +128,10 @@ services:
     depends_on:
       - backend
 
+  # GPU-only speech services are opt-in so the core stack can start on
+  # machines without NVIDIA/CUDA, including Intel-only Windows PCs.
   kokoro:
+    profiles: ["gpu"]
     image: ghcr.io/remsky/kokoro-fastapi-gpu:latest-cu128
     container_name: juba-lisan-kokoro
     restart: unless-stopped
@@ -143,6 +146,7 @@ services:
               capabilities: [gpu]
 
   whisper:
+    profiles: ["gpu"]
     image: onerahmet/openai-whisper-asr-webservice:latest-gpu
     container_name: juba-lisan-whisper
     restart: unless-stopped
