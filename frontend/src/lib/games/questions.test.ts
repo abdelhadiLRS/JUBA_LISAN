@@ -1,12 +1,23 @@
 import { describe, expect, it } from 'vitest'
-import { getQuestionBank } from './questions'
+import { QUESTION_BANK, getQuestionBank } from './questions'
 import { buildDailyQuestion } from './engine'
 
 describe('question bank', () => {
   it('contains localized vocabulary questions', () => {
-    expect(getQuestionBank('words', 'ar').length).toBeGreaterThan(0)
-    expect(getQuestionBank('words', 'fr').length).toBeGreaterThan(0)
-    expect(getQuestionBank('words', 'en').length).toBeGreaterThan(0)
+    expect(getQuestionBank('words', 'ar').length).toBeGreaterThanOrEqual(10)
+    expect(getQuestionBank('words', 'fr').length).toBeGreaterThanOrEqual(10)
+    expect(getQuestionBank('words', 'en').length).toBeGreaterThanOrEqual(10)
+  })
+
+  it('contains curated math questions', () => {
+    expect(getQuestionBank('math', 'ar').length).toBeGreaterThan(0)
+    expect(getQuestionBank('math', 'fr').length).toBeGreaterThan(0)
+    expect(getQuestionBank('math', 'en').length).toBeGreaterThan(0)
+  })
+
+  it('has unique question identifiers', () => {
+    const ids = QUESTION_BANK.map((item) => item.id)
+    expect(new Set(ids).size).toBe(ids.length)
   })
 
   it('returns metadata needed for learning feedback', () => {
