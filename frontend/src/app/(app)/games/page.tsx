@@ -1,28 +1,30 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { buildQuestion, scoreAnswer, type GameId, type GameLanguage, type GameQuestion } from '@/lib/games/engine';
+import { buildDailyQuestion, buildQuestion, scoreAnswer, type GameId, type GameLanguage, type GameQuestion } from '@/lib/games/engine';
 import { useProgressStore } from '@/store/progress';
 import './games.css';
 
 type Lang = GameLanguage;
 
-const STORAGE_KEY = 'juba-edu-progress-v2';
-
 type SavedProgress = { points?: number; streak?: number; skills?: Record<string, number> };
+const STORAGE_KEY = 'juba-edu-progress-v2';
+const DAILY_GAMES: GameId[] = ['math', 'words', 'sequence'];
 
 const copy = {
   ar: {
     title: 'JUBA EDU', subtitle: 'تعلّم باللعب، وتقدّم كل يوم', points: 'النقاط', streak: 'سلسلة', level: 'المستوى',
-    games: 'الألعاب التعليمية', math: 'تحدي الحساب', words: 'صيد الكلمات', sequence: 'أكمل النمط',
+    games: 'الألعاب التعليمية', daily: 'تحدي اليوم', dailyDesc: 'تحدٍ واحد ثابت يوميًا. أكمله لتحصل على XP وتبني عادتك التعليمية.',
+    math: 'تحدي الحساب', words: 'صيد الكلمات', sequence: 'أكمل النمط',
     mathDesc: 'عمليات حسابية قصيرة مع مكافآت فورية.', wordsDesc: 'طابق الكلمة مع معناها.', sequenceDesc: 'اكتشف الرقم التالي في السلسلة.',
     start: 'ابدأ اللعبة', next: 'السؤال التالي', correct: 'إجابة صحيحة!', wrong: 'ليست صحيحة',
     hint: 'تلميح', back: 'الألعاب', score: 'نتيجة الجولة', done: 'أحسنت! أكملت الجولة.',
     choose: 'اختر الإجابة الصحيحة', reset: 'إعادة التقدم', lang: 'اللغة', xp: 'XP', skills: 'المهارات',
   },
   fr: {
-    title: 'JUBA EDU', subtitle: 'Apprendre en jouant, progresser chaque jour', points: 'Points', streak: 'Série', level: 'Niveau',
-    games: 'Jeux éducatifs', math: 'Défi de calcul', words: 'Chasse aux mots', sequence: 'Complète la suite',
+    title: 'JUBA EDU', subtitle: 'Apprendre en jouant, progresser chaque jour', points: 'Points', streak: 'Série', niveau: 'Niveau', level: 'Niveau',
+    games: 'Jeux éducatifs', daily: 'Défi du jour', dailyDesc: 'Un défi fixe chaque jour pour gagner de l’XP et construire une habitude.',
+    math: 'Défi de calcul', words: 'Chasse aux mots', sequence: 'Complète la suite',
     mathDesc: 'De courts calculs avec récompenses immédiates.', wordsDesc: 'Associe le mot à sa signification.', sequenceDesc: 'Trouve le prochain nombre.',
     start: 'Commencer', next: 'Question suivante', correct: 'Bonne réponse !', wrong: 'Pas encore',
     hint: 'Indice', back: 'Jeux', score: 'Score de la partie', done: 'Bravo ! Partie terminée.',
@@ -30,7 +32,8 @@ const copy = {
   },
   en: {
     title: 'JUBA EDU', subtitle: 'Learn through play. Improve every day.', points: 'Points', streak: 'Streak', level: 'Level',
-    games: 'Educational games', math: 'Math challenge', words: 'Word hunt', sequence: 'Complete the pattern',
+    games: 'Educational games', daily: 'Daily Challenge', dailyDesc: 'One consistent challenge each day. Complete it to earn XP and build your habit.',
+    math: 'Math challenge', words: 'Word hunt', sequence: 'Complete the pattern',
     mathDesc: 'Short calculations with instant rewards.', wordsDesc: 'Match each word with its meaning.', sequenceDesc: 'Find the next number in the sequence.',
     start: 'Start game', next: 'Next question', correct: 'Correct!', wrong: 'Not quite',
     hint: 'Hint', back: 'Games', score: 'Round score', done: 'Great job! Round complete.',
@@ -41,6 +44,7 @@ const copy = {
 export default function GamesPage() {
   const [lang, setLang] = useState<Lang>('ar');
   const [game, setGame] = useState<GameId | null>(null);
+  const [dailyMode, setDailyMode] = useState(false);
   const [question, setQuestion] = useState<GameQuestion | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [roundScore, setRoundScore] = useState(0);
@@ -49,6 +53,8 @@ export default function GamesPage() {
   const { xp, streak, skills, setProgress, addGameXP } = useProgressStore();
   const level = Math.floor(xp / 100) + 1;
   const t = copy[lang];
+  const today = new Date().toISOString().slice(0, 10);
+  const dailyGame = DAILY_GAMES[new Date(`${today}T00:00:00Z`).getUTCDay() % DAILY_GAMES.length];
 
   useEffect(() => {
     try {
@@ -76,12 +82,13 @@ export default function GamesPage() {
     { id: 'sequence' as const, title: t.sequence, desc: t.sequenceDesc, icon: '🧩' },
   ], [t]);
 
-  function startGame(id: GameId) {
+  function startGame(id: GameId, daily = false) {
     setGame(id);
+    setDailyMode(daily);
     setRound(0);
     setRoundScore(0);
     setSelected(null);
-    setQuestion(buildQuestion(id, lang, level));
+    setQuestion(daily ? buildDailyQuestion(id, lang, level, today, 0) : buildQuestion(id, lang, level));
   }
 
   function answer(choice: string) {
@@ -96,17 +103,20 @@ export default function GamesPage() {
     if (!game) return;
     if (round >= 4) {
       setGame(null);
+      setDailyMode(false);
       setQuestion(null);
       return;
     }
-    setRound((value) => value + 1);
+    const nextRound = round + 1;
+    setRound(nextRound);
     setSelected(null);
-    setQuestion(buildQuestion(game, lang, level));
+    setQuestion(dailyMode ? buildDailyQuestion(game, lang, level, today, nextRound) : buildQuestion(game, lang, level));
   }
 
   function reset() {
     setProgress({ xp: 0, streak: 0, skills: {} });
     setGame(null);
+    setDailyMode(false);
     setQuestion(null);
     setRound(0);
     setRoundScore(0);
@@ -137,6 +147,11 @@ export default function GamesPage() {
 
         {!game ? (
           <>
+            <button className="daily-challenge" onClick={() => startGame(dailyGame, true)}>
+              <span className="daily-icon">📅</span>
+              <span><strong>{t.daily}</strong><small>{t.dailyDesc}</small></span>
+              <span className="start">{t.start} →</span>
+            </button>
             <div className="section-heading"><h2>{t.games}</h2><button className="reset" onClick={reset}>{t.reset}</button></div>
             <section className="game-grid">
               {gameCards.map((card) => (
@@ -156,7 +171,7 @@ export default function GamesPage() {
         ) : (
           <section className="play-card">
             <button className="back" onClick={() => setGame(null)}>← {t.back}</button>
-            <div className="round-meta">{round + 1} / 5 · +XP</div>
+            <div className="round-meta">{dailyMode ? `📅 ${t.daily} · ` : ''}{round + 1} / 5 · +XP</div>
             {question && <>
               <h2>{question.prompt}</h2>
               <p className="choose">{t.choose}</p>
