@@ -15,12 +15,10 @@ export default function MicButton({ status, onStart, onStop }: Props) {
     return (
       <button
         disabled
-        className="border-fl-border bg-fl-surface flex h-16 w-16 items-center justify-center rounded-full border-2 opacity-40"
+        className="border-[var(--juba-border)] bg-[var(--juba-surface)] flex h-16 w-16 items-center justify-center rounded-full border-2 opacity-40 shadow-sm"
         aria-label={t('statusLoading')}
       >
-        <span className="text-fl-muted-4 animate-pulse font-mono text-xl">
-          ◌
-        </span>
+        <span className="text-[var(--juba-muted)] animate-pulse text-xl">◌</span>
       </button>
     )
   }
@@ -29,12 +27,10 @@ export default function MicButton({ status, onStart, onStop }: Props) {
     return (
       <button
         disabled
-        className="border-fl-border bg-fl-surface flex h-16 w-16 items-center justify-center rounded-full border-2 opacity-60"
+        className="border-[var(--juba-border)] bg-[var(--juba-surface)] flex h-16 w-16 items-center justify-center rounded-full border-2 opacity-60 shadow-sm"
         aria-label={t('statusWarming')}
       >
-        <span className="text-fl-muted-2 animate-pulse font-mono text-xl">
-          ○
-        </span>
+        <span className="text-[var(--juba-primary-dark)] animate-pulse text-xl">○</span>
       </button>
     )
   }
@@ -43,12 +39,10 @@ export default function MicButton({ status, onStart, onStop }: Props) {
     return (
       <button
         disabled
-        className="border-fl-border bg-fl-surface flex h-16 w-16 items-center justify-center rounded-full border-2 opacity-60"
+        className="border-[var(--juba-border)] bg-[var(--juba-surface)] flex h-16 w-16 items-center justify-center rounded-full border-2 opacity-60 shadow-sm"
         aria-label={t('statusConnecting')}
       >
-        <span className="text-fl-muted-2 animate-pulse font-mono text-xl">
-          ○
-        </span>
+        <span className="text-[var(--juba-primary-dark)] animate-pulse text-xl">○</span>
       </button>
     )
   }
@@ -57,7 +51,7 @@ export default function MicButton({ status, onStart, onStop }: Props) {
     return (
       <button
         onClick={onStart}
-        className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 px-8 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+        className="bg-[var(--juba-primary-dark)] text-white hover:brightness-95] rounded-xl px-8 py-3 text-xs font-bold tracking-widest uppercase shadow-[0_8px_20px_rgba(125,109,150,.16)] transition-all"
       >
         {t('start')}
       </button>
@@ -68,22 +62,19 @@ export default function MicButton({ status, onStart, onStop }: Props) {
     return (
       <button
         onClick={onStop}
-        className="border-fl-error/60 bg-fl-surface hover:bg-fl-error/10 group flex h-16 w-16 items-center justify-center rounded-full border-2 transition-colors"
+        className="border-[color-mix(in_srgb,var(--juba-danger)_60%,var(--juba-border))] bg-[var(--juba-surface)] hover:bg-[color-mix(in_srgb,var(--juba-danger)_10%,var(--juba-surface))] group flex h-16 w-16 items-center justify-center rounded-full border-2 transition-colors"
         aria-label={t('stop')}
         title={t('stop')}
       >
-        <span className="text-fl-error font-mono text-lg transition-transform group-hover:scale-110">
-          ■
-        </span>
+        <span className="text-[var(--juba-danger)] text-lg transition-transform group-hover:scale-110">■</span>
       </button>
     )
   }
 
-  // ended or error → offer restart
   return (
     <button
       onClick={onStart}
-      className="border-fl-border text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2 border px-8 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+      className="border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-primary)] rounded-xl border px-8 py-3 text-xs tracking-widest uppercase shadow-sm transition-colors"
     >
       {t('startNew')}
     </button>
