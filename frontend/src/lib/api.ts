@@ -21,14 +21,6 @@ export function clearGuestCookie(): void { if (typeof document !== 'undefined') 
 
 export async function readApiError(res: Response): Promise<string> { try { const data = (await res.json()) as { detail?: unknown; message?: unknown }; if (typeof data.detail === 'string') return data.detail; if (typeof data.message === 'string') return data.message; if (Array.isArray(data.detail)) return data.detail.map((item) => item && typeof item === 'object' && 'msg' in item ? String((item as { msg?: unknown }).msg ?? '') : String(item)).filter(Boolean).join(', ') } catch {} return res.statusText || `Request failed (${res.status})` }
 
-function withAuthTimeout(options: RequestInit): RequestInit {
-  if (options.signal) return options
-  const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), AUTH_REQUEST_TIMEOUT_MS)
-  const signal = controller.signal
-  return { ...options, signal, headers: options.headers, body: options.body, next: undefined, keepalive: options.keepalive, cache: options.cache, credentials: options.credentials, mode: options.mode, redirect: options.redirect, referrer: options.referrer, referrerPolicy: options.referrerPolicy, integrity: options.integrity, window: options.window, method: options.method, signal: signal, _jubaTimeoutCleanup: timeout } as RequestInit & { _jubaTimeoutCleanup?: ReturnType<typeof setTimeout> }
-}
-
 async function fetchAuthRequest(input: RequestInfo | URL, options: RequestInit): Promise<Response> {
   if (options.signal) return fetch(input, options)
   const controller = new AbortController()
@@ -42,7 +34,7 @@ async function fetchAuthRequest(input: RequestInfo | URL, options: RequestInit):
 
 async function refreshToken(): Promise<string | null> { if (isRefreshing && refreshPromise) return refreshPromise; isRefreshing = true; refreshPromise = (async () => { try { const res = await fetchAuthRequest(`${BASE_URL}/api/auth/refresh`, { method: 'POST', credentials: 'include' }); if (!res.ok) throw new Error('refresh failed'); const data = (await res.json()) as { access_token?: string }; if (!data.access_token) throw new Error('missing access token'); useAuthStore.getState().setTokens(data.access_token); return data.access_token } catch { useAuthStore.getState().logout(); return null } finally { isRefreshing = false; refreshPromise = null } })(); return refreshPromise }
 export async function apiFetch(url: string, options: RequestInit = {}): Promise<Response> { const { inc, dec } = useLoadingStore.getState(); inc(); try { return await _apiFetch(url, options) } finally { dec() } }
-async function _apiFetch(url: string, options: RequestInit = {}): Promise<Response> { const token = useAuthStore.getState().accessToken; const headers = new Headers(options.headers); headers.set('Accept', 'application/json'); if (token) headers.set('Authorization', `Bearer ${token}`); let requestOptions = { ...options, headers, credentials: 'include' as const, cache: 'no-store' as const }; const shouldTimeout = url === '/api/auth/me' || url === '/api/auth/refresh'; let res = shouldTimeout ? await fetchAuthRequest(`${BASE_URL}${url}`, requestOptions) : await fetch(`${BASE_URL}${url}`, requestOptions); const isAuthEntryPoint = url === '/api/auth/login' || url === '/api/auth/register'; if (res.status === 401 && token && !isAuthEntryPoint) { const newToken = await refreshToken(); if (newToken) { headers.set('Authorization', `Bearer ${newToken}`); requestOptions = { ...requestOptions, headers }; res = await fetch(`${BASE_URL}${url}`, requestOptions) } } return res }
+async function _apiFetch(url: string, options: RequestInit = {}): Promise<Response> { const token = useAuthStore.getState().accessToken; const headers = new Headers(options.headers); headers.set('Accept', 'application/json'); if (token) headers.set('Authorization', `Bearer ${token}`); const requestOptions = { ...options, headers, credentials: 'include' as const, cache: 'no-store' as const }; const shouldTimeout = url === '/api/auth/me' || url === '/api/auth/refresh'; let res = shouldTimeout ? await fetchAuthRequest(`${BASE_URL}${url}`, requestOptions) : await fetch(`${BASE_URL}${url}`, requestOptions); const isAuthEntryPoint = url === '/api/auth/login' || url === '/api/auth/register'; if (res.status === 401 && token && !isAuthEntryPoint) { const newToken = await refreshToken(); if (newToken) { headers.set('Authorization', `Bearer ${newToken}`); res = await fetch(`${BASE_URL}${url}`, { ...requestOptions, headers }) } } return res }
 export function apiUrl(path: string): string { return `${BASE_URL}${path}` }
 
 export type TranslatorSavedWord = { source: string; target: string; word: string; translation: string; createdAt?: string }
