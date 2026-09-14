@@ -73,57 +73,49 @@ export function ConfirmDialog({
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center p-4"
       style={{
-        backgroundColor: 'rgba(0,0,0,0.7)',
-        backdropFilter: 'blur(2px)',
+        backgroundColor: 'color-mix(in srgb, var(--juba-text) 55%, transparent)',
+        backdropFilter: 'blur(8px)',
       }}
       onClick={() => !confirming && onCancel()}
     >
       <div
         ref={dialogRef}
-        className="border-fl-border bg-fl-surface w-full max-w-sm border shadow-2xl"
+        className="juba-card w-full max-w-sm overflow-hidden border shadow-[var(--juba-shadow)]"
         onClick={(e) => e.stopPropagation()}
         role="alertdialog"
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
       >
-        {/* Header */}
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
+        <div className="flex items-center gap-3 border-b border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-6 py-4">
           <span
-            className={`text-fl-label ${danger ? 'text-fl-error-fg' : 'text-fl-muted-2'}`}
+            className={`flex h-8 w-8 items-center justify-center rounded-full text-sm ${danger ? 'bg-[color-mix(in_srgb,var(--juba-danger)_12%,var(--juba-surface))] text-[var(--juba-danger)]' : 'bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)]'}`}
+            aria-hidden="true"
           >
             ●
           </span>
-          <span
-            id={titleId}
-            className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase"
-          >
+          <span id={titleId} className="text-sm font-semibold tracking-tight text-[var(--juba-text)]">
             {title}
           </span>
         </div>
 
-        {/* Body */}
         <div className="px-6 py-6">
-          <p
-            id={descriptionId}
-            className="text-fl-muted-0 font-mono text-xs leading-relaxed"
-          >
+          <p id={descriptionId} className="text-sm leading-6 text-[var(--juba-muted)]">
             {message}
           </p>
           {error && (
-            <p role="alert" className="text-fl-error-fg mt-3 font-mono text-xs">
+            <p role="alert" className="mt-3 text-sm leading-5 text-[var(--juba-danger)]">
               {error}
             </p>
           )}
         </div>
 
-        {/* Actions */}
-        <div className="flex gap-2 px-6 pb-6">
+        <div className="flex gap-3 border-t border-[var(--juba-border-soft)] bg-[var(--juba-surface-soft)] px-6 py-4">
           <button
             ref={cancelRef}
             onClick={onCancel}
             disabled={confirming}
-            className="border-fl-border text-fl-label text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg flex-1 border py-3 font-mono font-bold tracking-widest uppercase transition-colors"
+            className="flex-1 rounded-xl border border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2.5 text-sm font-semibold text-[var(--juba-muted)] transition hover:border-[var(--juba-primary)] hover:text-[var(--juba-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {cancelLabel ?? tCommon('cancel')}
           </button>
@@ -131,13 +123,13 @@ export function ConfirmDialog({
             onClick={onConfirm}
             disabled={confirming}
             aria-busy={confirming}
-            className={`text-fl-label flex-1 py-3 font-mono font-bold tracking-widest uppercase transition-colors ${
+            className={`flex-1 rounded-xl px-4 py-2.5 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
               danger
-                ? 'bg-fl-error text-fl-fg-bright hover:bg-fl-error-hover'
-                : 'bg-fl-fg text-fl-bg hover:bg-fl-fg-bright'
+                ? 'bg-[var(--juba-danger)] text-white hover:opacity-90 focus-visible:ring-[var(--juba-danger)]'
+                : 'bg-[var(--juba-primary-dark)] text-white hover:opacity-90 focus-visible:ring-[var(--juba-primary)]'
             }`}
           >
-            {confirmLabel}
+            {confirming ? '…' : confirmLabel}
           </button>
         </div>
       </div>
