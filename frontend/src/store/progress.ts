@@ -61,6 +61,7 @@ const initialGameStats: GameStats = {
   correctAnswers: 0,
   bestRoundScore: 0,
   dailyChallengesCompleted: 0,
+  currentCorrectStreak: 0,
   bestCorrectStreak: 0,
 }
 
@@ -93,14 +94,18 @@ export const useProgressStore = create<ProgressStore>((set) => ({
         : state.skills,
     })),
   recordGameAttempt: (correct) =>
-    set((state) => ({
-      gameStats: {
-        ...state.gameStats,
-        questionsAnswered: state.gameStats.questionsAnswered + 1,
-        correctAnswers: state.gameStats.correctAnswers + (correct ? 1 : 0),
-        bestCorrectStreak: Math.max(state.gameStats.bestCorrectStreak, correct ? state.streak : 0),
-      },
-    })),
+    set((state) => {
+      const currentCorrectStreak = correct ? (state.gameStats.currentCorrectStreak ?? 0) + 1 : 0
+      return {
+        gameStats: {
+          ...state.gameStats,
+          currentCorrectStreak,
+          questionsAnswered: state.gameStats.questionsAnswered + 1,
+          correctAnswers: state.gameStats.correctAnswers + (correct ? 1 : 0),
+          bestCorrectStreak: Math.max(state.gameStats.bestCorrectStreak, currentCorrectStreak),
+        },
+      }
+    }),
   completeGame: (roundScore, daily) =>
     set((state) => ({
       gameStats: {
