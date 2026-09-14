@@ -72,7 +72,7 @@ export default function UnitDrawer({
           <div className="min-w-0">
             <span
               className="text-xs font-semibold"
-              style={{ color: 'var(--juba-primary)' }}
+              style={{ color: 'var(--juba-primary-dark)' }}
             >
               {unit.level} · {t('unitLabel')}
             </span>
@@ -128,8 +128,11 @@ export default function UnitDrawer({
                 >
                   {lesson.completed ? (
                     <span
-                      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-white"
-                      style={{ background: 'var(--juba-primary)' }}
+                      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
+                      style={{
+                        background: 'var(--juba-primary)',
+                        color: 'var(--juba-text)',
+                      }}
                     >
                       <Check className="h-3.5 w-3.5" aria-hidden="true" />
                     </span>
@@ -153,7 +156,7 @@ export default function UnitDrawer({
                   {lesson.id != null && lesson.action && (
                     <button
                       onClick={() => onStartLesson(lesson.id!)}
-                      className="shrink-0 rounded-lg bg-[var(--juba-primary)] px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-[var(--juba-primary-dark)]"
+                      className="shrink-0 rounded-lg bg-[var(--juba-primary)] px-3 py-2 text-xs font-bold text-[var(--juba-text)] transition-colors hover:bg-[var(--juba-primary-dark)]"
                     >
                       {lesson.action === 'review'
                         ? t('reviewLesson')
