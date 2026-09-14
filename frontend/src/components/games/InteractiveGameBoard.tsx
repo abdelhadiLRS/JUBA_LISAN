@@ -50,15 +50,32 @@ export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
   const targetOrder = lang === 'ar' ? ['الأول', 'الثاني', 'الثالث', 'الرابع'] : lang === 'fr' ? ['un', 'deux', 'trois', 'quatre'] : ['one', 'two', 'three', 'four']
 
   useEffect(() => {
-    setMemoryCards(makeMemory(lang)); setFirst(null); setLeft(null); setRight(null); setMatchedPairs([]); setOrder([]); setMoves(0); setCompleted(false); setLocked(false)
+    setMemoryCards(makeMemory(lang))
+    setFirst(null)
+    setLeft(null)
+    setRight(null)
+    setMatchedPairs([])
+    setOrder([])
+    setMoves(0)
+    setCompleted(false)
+    setLocked(false)
   }, [lang, mode])
 
   useEffect(() => {
     if (completed) return
     if (mode === 'memory' && memoryCards.length > 0 && memoryCards.every((card) => card.matched)) {
-      setCompleted(true); onComplete?.()
+      setCompleted(true)
+      onComplete?.()
     }
   }, [completed, memoryCards, mode, onComplete])
+
+  useEffect(() => {
+    if (completed || mode !== 'matching') return
+    if (matchedPairs.length === pairs.length && pairs.length > 0) {
+      setCompleted(true)
+      onComplete?.()
+    }
+  }, [completed, matchedPairs.length, mode, onComplete, pairs.length])
 
   useEffect(() => {
     if (completed || mode !== 'matching' || left === null || right === null) return
@@ -68,16 +85,21 @@ export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
     const timer = window.setTimeout(() => {
       setMoves((value) => value + 1)
       if (correct) {
-        setMatchedPairs((current) => {
-          const next = current.includes(currentLeft) ? current : [...current, currentLeft]
-          if (next.length === pairs.length) { setCompleted(true); onComplete?.() }
-          return next
-        })
+        setMatchedPairs((current) => current.includes(currentLeft) ? current : [...current, currentLeft])
       }
-      setLeft(null); setRight(null)
+      setLeft(null)
+      setRight(null)
     }, 300)
     return () => window.clearTimeout(timer)
-  }, [completed, left, right, mode, pairs.length, onComplete])
+  }, [completed, left, right, mode])
+
+  useEffect(() => {
+    if (completed || mode !== 'ordering' || order.length !== targetOrder.length) return
+    if (order.every((value, index) => value === targetOrder[index])) {
+      setCompleted(true)
+      onComplete?.()
+    }
+  }, [completed, mode, order, targetOrder])
 
   function flipCard(index: number) {
     if (locked || completed) return
@@ -85,42 +107,54 @@ export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
     if (card.flipped || card.matched) return
     const next = memoryCards.map((item, itemIndex) => itemIndex === index ? { ...item, flipped: true } : item)
     setMemoryCards(next)
-    if (first === null) { setFirst(index); return }
-    setMoves((value) => value + 1); setLocked(true)
+    if (first === null) {
+      setFirst(index)
+      return
+    }
+    setMoves((value) => value + 1)
+    setLocked(true)
     if (next[first].pair === next[index].pair) {
       setTimeout(() => {
         setMemoryCards((current) => current.map((item, itemIndex) => itemIndex === first || itemIndex === index ? { ...item, matched: true } : item))
-        setFirst(null); setLocked(false)
+        setFirst(null)
+        setLocked(false)
       }, 250)
     } else {
       setTimeout(() => {
         setMemoryCards((current) => current.map((item, itemIndex) => itemIndex === first || itemIndex === index ? { ...item, flipped: false } : item))
-        setFirst(null); setLocked(false)
+        setFirst(null)
+        setLocked(false)
       }, 700)
     }
   }
 
   function reset() {
-    setMemoryCards(makeMemory(lang)); setFirst(null); setLeft(null); setRight(null); setMatchedPairs([]); setOrder([]); setMoves(0); setCompleted(false); setLocked(false)
+    setMemoryCards(makeMemory(lang))
+    setFirst(null)
+    setLeft(null)
+    setRight(null)
+    setMatchedPairs([])
+    setOrder([])
+    setMoves(0)
+    setCompleted(false)
+    setLocked(false)
   }
 
   function chooseOrder(item: string) {
     if (completed || order.includes(item)) return
-    const next = [...order, item]; setOrder(next)
-    if (next.length === targetOrder.length) {
-      if (next.every((value, index) => value === targetOrder[index])) { setCompleted(true); onComplete?.() }
-      else setMoves((value) => value + 1)
-    }
+    setOrder((current) => [...current, item])
   }
 
-  function removeLast() { setOrder((value) => value.slice(0, -1)) }
+  function removeLast() {
+    setOrder((value) => value.slice(0, -1))
+  }
 
   function shiftOrder(index: number, direction: -1 | 1) {
     setOrder((value) => {
-      const next = [...value]; const target = index + direction
+      const next = [...value]
+      const target = index + direction
       if (target < 0 || target >= next.length) return value
       ;[next[index], next[target]] = [next[target], next[index]]
-      if (next.length === targetOrder.length && next.every((item, itemIndex) => item === targetOrder[itemIndex])) { setCompleted(true); onComplete?.() }
       return next
     })
   }
