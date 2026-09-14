@@ -52,8 +52,17 @@ main td, main th { border-color: var(--juba-border-soft) !important; }
 main tbody tr:hover { background: color-mix(in srgb, var(--juba-primary-soft) 48%, var(--juba-surface)); }
 main code:not(pre code) { border: 1px solid var(--juba-border-soft); border-radius: .45rem; background: var(--juba-surface-soft); color: var(--juba-primary-dark); padding: .1rem .35rem; }
 
+/* Reading workspace: preserve the exercise DOM/API while giving the dense practice flow a calmer SaaS hierarchy. */
+main:has(.reading-text) .border-fl-border.bg-fl-surface { box-shadow: 0 8px 26px rgba(20,18,23,.045) !important; }
+main:has(.reading-text) .reading-text { font-size: clamp(1.05rem, 1rem + .35vw, 1.2rem); line-height: 1.9; letter-spacing: -.008em; }
+main:has(.reading-text) .reading-text::selection { background: color-mix(in srgb, var(--juba-primary) 55%, transparent); color: var(--juba-text); }
+main:has(.reading-text) button[class*='border-fl-border'] { min-height: 44px; border-radius: .8rem; }
+main:has(.reading-text) button[class*='border-fl-accent'] { border-color: var(--juba-primary) !important; background: var(--juba-primary-soft) !important; color: var(--juba-primary-dark) !important; box-shadow: 0 0 0 1px color-mix(in srgb, var(--juba-primary) 18%, transparent); }
+main:has(.reading-text) .space-y-4 > div { border-radius: 16px; }
+
 @media (max-width: 640px) {
   main .border-fl-border.bg-fl-surface:not(.rounded-2xl):not(.rounded-xl):not(.rounded-lg) { border-radius: 16px; }
   main .border-fl-border.border > div > button { min-height: 52px; }
   main table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  main:has(.reading-text) .reading-text { font-size: 1.05rem; line-height: 1.8; }
 }
