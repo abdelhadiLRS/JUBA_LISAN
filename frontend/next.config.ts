@@ -3,6 +3,9 @@ import type { NextConfig } from 'next'
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
+const withBackend = (path: string) =>
+  `${process.env.BACKEND_URL || 'http://localhost:8000'}${path}`
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   output: 'standalone',
@@ -63,11 +66,17 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
+        // Backend exposes the liveness endpoint at /health (not /api/health).
+        // Keep the browser-facing endpoint under the same-origin /api namespace.
+        source: '/api/health',
+        destination: withBackend('/health'),
+      },
+      {
         source: '/api/:path*',
         // Docker supplies BACKEND_URL=http://backend:8000. When Next.js is
         // started directly on Windows, use the host backend instead of the
         // Docker-only hostname so /api requests do not fail at the proxy.
-        destination: `${process.env.BACKEND_URL || 'http://localhost:8000'}/api/:path*`,
+        destination: withBackend('/api/:path*'),
       },
     ]
   },
