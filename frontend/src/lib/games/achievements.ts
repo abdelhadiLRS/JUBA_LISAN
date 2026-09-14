@@ -13,6 +13,7 @@ export interface GameStats {
   correctAnswers: number
   bestRoundScore: number
   dailyChallengesCompleted: number
+  currentCorrectStreak?: number
   bestCorrectStreak: number
 }
 
@@ -61,6 +62,7 @@ export function emptyGameStats(): GameStats {
     correctAnswers: 0,
     bestRoundScore: 0,
     dailyChallengesCompleted: 0,
+    currentCorrectStreak: 0,
     bestCorrectStreak: 0,
   }
 }
