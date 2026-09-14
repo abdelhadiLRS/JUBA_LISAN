@@ -41,9 +41,11 @@ if ($Start) {
 
     Push-Location $root
     try {
-        docker compose up -d --build
-        Write-Host "JUBA LISAN is starting at http://localhost:3000" -ForegroundColor Cyan
-        Write-Host "Check services with: docker compose ps" -ForegroundColor Gray
+        Write-Host "Building and starting JUBA LISAN; waiting for healthy services..." -ForegroundColor White
+        docker compose up -d --build --wait --wait-timeout 180
+        Write-Host "JUBA LISAN is ready at http://localhost:3000" -ForegroundColor Green
+        Write-Host "Run diagnostics with: powershell -ExecutionPolicy Bypass -File .\scripts\diagnose-local.ps1" -ForegroundColor Gray
+        docker compose ps
     }
     finally {
         Pop-Location
