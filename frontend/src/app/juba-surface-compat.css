@@ -1,0 +1,17 @@
+/* JUBA LISAN — compatibility polish for legacy learning surfaces. */
+main .border-fl-border.bg-fl-surface { border-color: var(--juba-border) !important; background: var(--juba-surface) !important; box-shadow: var(--juba-shadow) !important; }
+main .border-fl-border.bg-fl-surface:not(.rounded-2xl):not(.rounded-xl):not(.rounded-lg) { border-radius: 18px; }
+main .border-fl-border.bg-fl-surface > .border-fl-border:first-child { border-color: var(--juba-border-soft) !important; }
+main .border-fl-border.bg-fl-surface input, main .border-fl-border.bg-fl-surface select, main .border-fl-border.bg-fl-surface textarea { border-color: var(--juba-border) !important; background: var(--juba-surface-soft) !important; color: var(--juba-text) !important; }
+main .border-fl-border.bg-fl-surface input:focus, main .border-fl-border.bg-fl-surface select:focus, main .border-fl-border.bg-fl-surface textarea:focus { border-color: var(--juba-primary) !important; box-shadow: 0 0 0 3px color-mix(in srgb, var(--juba-primary) 24%, transparent); }
+main .border-fl-border.bg-fl-surface > .border-fl-border.border-b { background: color-mix(in srgb, var(--juba-surface-soft) 52%, var(--juba-surface)); }
+main .border-fl-border.bg-fl-surface button.border-fl-border, main .border-fl-border.bg-fl-surface button[class*='border-fl-border'] { border-color: var(--juba-border) !important; border-radius: .75rem; background: var(--juba-surface) !important; color: var(--juba-text) !important; }
+main .border-fl-border.bg-fl-surface button.border-fl-border:hover, main .border-fl-border.bg-fl-surface button[class*='border-fl-border']:hover { border-color: var(--juba-primary) !important; background: var(--juba-primary-soft) !important; color: var(--juba-primary-dark) !important; }
+main .border-fl-border.bg-fl-surface button.bg-fl-accent, main .border-fl-border.bg-fl-surface a.bg-fl-accent { background: var(--juba-primary) !important; color: var(--juba-text) !important; border: 0 !important; border-radius: .8rem; font-weight: 700; }
+main .border-fl-border.bg-fl-surface ul > li { border-color: var(--juba-border-soft) !important; }
+main .border-fl-border.bg-fl-surface ul > li:hover { background: color-mix(in srgb, var(--juba-primary-soft) 38%, transparent); }
+main .border-fl-border.bg-fl-surface [class*='text-blue-'], main .border-fl-border.bg-fl-surface [class*='text-amber-'] { color: var(--juba-primary-dark) !important; }
+main .border-fl-border.bg-fl-surface [class*='bg-blue-'], main .border-fl-border.bg-fl-surface [class*='bg-amber-'] { background: var(--juba-primary-soft) !important; }
+main .border-fl-border.bg-fl-surface [class*='border-blue-'], main .border-fl-border.bg-fl-surface [class*='border-amber-'] { border-color: color-mix(in srgb, var(--juba-primary) 58%, var(--juba-border)) !important; }
+main .border-fl-border.bg-fl-surface .text-fl-label { letter-spacing: .07em; font-weight: 700; }
+@media (max-width: 640px) { main .border-fl-border.bg-fl-surface:not(.rounded-2xl):not(.rounded-xl):not(.rounded-lg) { border-radius: 16px; } }
