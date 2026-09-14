@@ -23,7 +23,7 @@ export function LandingFAQ() {
   const [open, setOpen] = useState<number | null>(null)
 
   const strong = (chunks: React.ReactNode) => (
-    <strong className="text-fl-fg">{chunks}</strong>
+    <strong className="font-semibold text-[var(--juba-text)]">{chunks}</strong>
   )
 
   const renderAnswer = (key: string) => {
@@ -39,11 +39,11 @@ export function LandingFAQ() {
         t('workflowStep6'),
       ]
       return (
-        <ol className="list-none space-y-1">
+        <ol className="list-none space-y-2">
           {steps.map((step, i) => (
             <li key={i} className="flex items-start gap-3">
-              <span className="text-fl-label text-fl-muted-4 mt-0.5 shrink-0 font-mono">
-                {i + 1}.
+              <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[var(--juba-primary-soft)] text-xs font-semibold text-[var(--juba-primary-dark)]">
+                {i + 1}
               </span>
               <span>{step}</span>
             </li>
@@ -52,7 +52,6 @@ export function LandingFAQ() {
       )
     }
 
-    // For rich-text answers that use <strong> tags
     if (
       [
         'q_start',
@@ -72,25 +71,24 @@ export function LandingFAQ() {
   }
 
   return (
-    <div className="border-fl-border border">
+    <div className="juba-card overflow-hidden p-0">
       {FAQ_KEYS.map((key, i) => (
         <div
           key={key}
-          className={i < FAQ_KEYS.length - 1 ? 'border-fl-border border-b' : ''}
+          className={i < FAQ_KEYS.length - 1 ? 'border-b border-[var(--juba-border-soft)]' : ''}
         >
           <button
             onClick={() => setOpen(open === i ? null : i)}
-            className="hover:bg-fl-surface flex w-full items-center justify-between px-5 py-4 text-left transition-colors"
+            aria-expanded={open === i}
+            className="flex w-full items-center justify-between px-5 py-4 text-left text-sm transition-colors hover:bg-[var(--juba-surface-soft)]"
           >
-            <span className="text-fl-fg pr-4 font-mono text-xs tracking-wide">
-              {t(key)}
-            </span>
-            <span className="text-fl-muted-2 shrink-0 font-mono text-sm">
+            <span className="pr-4 font-medium text-[var(--juba-text)]">{t(key)}</span>
+            <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[var(--juba-surface-soft)] text-sm font-medium text-[var(--juba-primary-dark)]">
               {open === i ? '−' : '+'}
             </span>
           </button>
           {open === i && (
-            <div className="text-fl-muted-1 border-fl-border bg-fl-bg-alt border-t px-5 pt-4 pb-5 font-mono text-xs leading-relaxed">
+            <div className="border-t border-[var(--juba-border-soft)] bg-[var(--juba-surface-soft)]/45 px-5 pt-4 pb-5 text-sm leading-6 text-[var(--juba-muted)]">
               {renderAnswer(key)}
             </div>
           )}
