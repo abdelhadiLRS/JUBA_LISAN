@@ -19,7 +19,6 @@ export function LoadingBar() {
 
   useEffect(() => {
     if (count > 0) {
-      // New request started — show loading immediately, cancel any pending complete
       if (timerRef.current) clearTimeout(timerRef.current)
       visibleSince.current = Date.now()
       setPhase('loading')
@@ -27,7 +26,6 @@ export function LoadingBar() {
     }
 
     if (complete && phase === 'loading') {
-      // All requests finished — wait minimum visible time, then exit
       const elapsed = Date.now() - visibleSince.current
       const remaining = Math.max(0, MIN_VISIBLE_MS - elapsed)
       timerRef.current = setTimeout(() => {
@@ -44,12 +42,12 @@ export function LoadingBar() {
 
   return (
     <div
-      className="fixed top-0 right-0 left-0 z-[300] h-px overflow-hidden"
+      className="fixed top-0 right-0 left-0 z-[300] h-0.5 overflow-hidden bg-[var(--juba-surface-soft)]"
       role="progressbar"
       aria-label="Loading"
     >
       <div
-        className={`bg-fl-fg h-full ${
+        className={`h-full bg-[var(--juba-primary-dark)] ${
           phase === 'completing'
             ? 'animate-loading-bar-complete'
             : 'animate-loading-bar'
