@@ -1,6 +1,6 @@
 /* JUBA LISAN — learning-first foundation
  * Shared visual primitives for the learning experience.
- * The learning UI follows the new minimal SaaS identity while preserving
+ * The learning UI follows the minimal language SaaS identity while preserving
  * existing class names and product semantics.
  */
 :root {
@@ -77,24 +77,30 @@ button, a { -webkit-tap-highlight-color: transparent; }
 button:not(:disabled), a[role='button'] { transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
 button:not(:disabled):hover, a[role='button']:hover { transform: translateY(-1px); }
 
-/* Requested JUBA LISAN landing-page direction.
- * Reference language: warm paper canvas, energetic lime hero, thin dark rules,
- * pill-shaped typography and playful circular imagery. This is an original JUBA treatment,
- * not a pixel-for-pixel reproduction of the reference.
- */
+/* Semantic compatibility: old learning screens keep their class names,
+ * but their success/error states now inherit the JUBA SaaS palette. */
+[class~="bg-green-950/30"] { background: var(--juba-warm-soft) !important; }
+[class~="border-green-600/50"] { border-color: color-mix(in srgb, var(--juba-warm) 58%, var(--juba-border)) !important; }
+[class~="text-green-400"] { color: var(--juba-primary-dark) !important; }
+[class~="bg-red-950/30"] { background: color-mix(in srgb, var(--juba-danger) 10%, var(--juba-surface)) !important; }
+[class~="border-red-600/50"] { border-color: color-mix(in srgb, var(--juba-danger) 52%, var(--juba-border)) !important; }
+[class~="text-red-400"] { color: var(--juba-danger) !important; }
+
+/* Landing page: the same SaaS identity extends to the public surface.
+ * The composition remains original JUBA LISAN rather than a pixel-for-pixel copy. */
 body:has(.juba-site-nav) {
-  --juba-landing-paper: #f7f2e8;
-  --juba-landing-ink: #161616;
-  --juba-landing-lime: #c9ff3a;
-  --juba-landing-lime-dark: #a9df16;
+  --juba-landing-paper: var(--juba-bg);
+  --juba-landing-ink: var(--juba-text);
+  --juba-landing-lime: var(--juba-primary);
+  --juba-landing-lime-dark: var(--juba-primary-dark);
   background: var(--juba-landing-paper) !important;
   color: var(--juba-landing-ink) !important;
 }
 
 body:has(.juba-site-nav) .juba-site-nav {
   height: 72px;
-  border-bottom: 1px solid rgba(22, 22, 22, .28) !important;
-  background: rgba(247, 242, 232, .94) !important;
+  border-bottom: 1px solid var(--juba-border) !important;
+  background: color-mix(in srgb, var(--juba-surface) 94%, transparent) !important;
   color: var(--juba-landing-ink);
   backdrop-filter: blur(14px);
 }
@@ -109,8 +115,8 @@ body:has(.juba-site-nav) .juba-brand-mark {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: var(--juba-landing-ink) !important;
-  color: var(--juba-landing-lime) !important;
+  background: var(--juba-text) !important;
+  color: var(--juba-primary) !important;
   box-shadow: none !important;
 }
 body:has(.juba-site-nav) .juba-brand-accent { color: var(--juba-landing-ink) !important; }
@@ -120,19 +126,19 @@ body:has(.juba-site-nav) .juba-nav-signin {
   font-weight: 650;
 }
 body:has(.juba-site-nav) .juba-nav-link:hover,
-body:has(.juba-site-nav) .juba-nav-signin:hover { color: #666 !important; }
+body:has(.juba-site-nav) .juba-nav-signin:hover { color: var(--juba-primary-dark) !important; }
 body:has(.juba-site-nav) .juba-nav-cta {
-  border: 1px solid var(--juba-landing-ink);
+  border: 1px solid var(--juba-text);
   border-radius: 999px;
-  background: var(--juba-landing-ink) !important;
-  color: #fff !important;
+  background: var(--juba-text) !important;
+  color: var(--juba-bg) !important;
   box-shadow: none !important;
 }
-body:has(.juba-site-nav) .juba-nav-cta:hover { background: #303030 !important; }
+body:has(.juba-site-nav) .juba-nav-cta:hover { background: var(--juba-primary-dark) !important; }
 
 body:has(.juba-site-nav) nav + section {
-  background: var(--juba-landing-lime) !important;
-  border-bottom: 1px solid var(--juba-landing-ink);
+  background: var(--juba-primary) !important;
+  border-bottom: 1px solid var(--juba-text);
 }
 
 body:has(.juba-site-nav) nav + section h1 {
@@ -141,47 +147,45 @@ body:has(.juba-site-nav) nav + section h1 {
   line-height: .9 !important;
   letter-spacing: -.065em !important;
   font-weight: 900 !important;
-  color: var(--juba-landing-ink) !important;
+  color: var(--juba-text) !important;
 }
 
 body:has(.juba-site-nav) nav + section h1 span,
 body:has(.juba-site-nav) nav + section h2 span { color: inherit; }
 
-body:has(.juba-site-nav) nav + section p {
-  color: var(--juba-landing-ink) !important;
-}
+body:has(.juba-site-nav) nav + section p { color: var(--juba-text) !important; }
 
 body:has(.juba-site-nav) nav + section a.rounded-2xl {
-  border: 1px solid var(--juba-landing-ink);
+  border: 1px solid var(--juba-text);
   border-radius: 999px !important;
-  background: var(--juba-landing-ink) !important;
-  color: #fff !important;
+  background: var(--juba-text) !important;
+  color: var(--juba-bg) !important;
   box-shadow: none !important;
 }
 
 body:has(.juba-site-nav) nav + section a.rounded-2xl[href='#features'] {
   background: transparent !important;
-  color: var(--juba-landing-ink) !important;
+  color: var(--juba-text) !important;
 }
 
 body:has(.juba-site-nav) nav + section .juba-card {
-  border: 1px solid var(--juba-landing-ink);
+  border: 1px solid var(--juba-text);
   border-radius: 2rem;
-  background: rgba(247, 242, 232, .9) !important;
-  box-shadow: 8px 8px 0 var(--juba-landing-ink);
+  background: color-mix(in srgb, var(--juba-surface) 92%, transparent) !important;
+  box-shadow: 8px 8px 0 var(--juba-text);
 }
 
 body:has(.juba-site-nav) nav + section .bg-gradient-to-tr {
-  background: var(--juba-landing-ink) !important;
+  background: var(--juba-primary-dark) !important;
 }
 
 body:has(.juba-site-nav) > *:not(nav) section {
-  border-bottom: 1px solid rgba(22, 22, 22, .18);
+  border-bottom: 1px solid color-mix(in srgb, var(--juba-text) 18%, transparent);
 }
 
 body:has(.juba-site-nav) .juba-mobile-menu {
-  background: var(--juba-landing-paper) !important;
-  border-color: rgba(22, 22, 22, .2) !important;
+  background: var(--juba-bg) !important;
+  border-color: var(--juba-border) !important;
 }
 
 body:has(.juba-site-nav) .juba-mobile-menu .juba-nav-link,
@@ -193,7 +197,7 @@ body:has(.juba-site-nav) .juba-mobile-menu .juba-nav-signin { color: var(--juba-
   body:has(.juba-site-nav) .juba-site-nav,
   body:has(.juba-site-nav) .juba-site-nav > div { height: 64px; }
   body:has(.juba-site-nav) nav + section h1 { font-size: clamp(3rem, 15vw, 5rem) !important; }
-  body:has(.juba-site-nav) nav + section .juba-card { box-shadow: 5px 5px 0 var(--juba-landing-ink); }
+  body:has(.juba-site-nav) nav + section .juba-card { box-shadow: 5px 5px 0 var(--juba-text); }
 }
 
 @media (prefers-reduced-motion: reduce) {
