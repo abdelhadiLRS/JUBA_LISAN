@@ -10,30 +10,29 @@ export default function NoPlanBanner() {
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 py-16 text-center">
-      <div className="border-fl-border bg-fl-surface w-full max-w-md border p-8">
-        <BookOpen
-          className="text-fl-muted-2 mx-auto mb-4 h-6 w-6"
-          aria-hidden="true"
-        />
+      <div className="juba-card w-full max-w-md p-8">
+        <span className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)]">
+          <BookOpen className="h-6 w-6" aria-hidden="true" />
+        </span>
 
-        <p className="text-fl-label text-fl-muted-2 mb-2 font-mono tracking-widest uppercase">
+        <p className="mb-2 text-xs font-bold tracking-wide text-[var(--juba-muted)] uppercase">
           {t('noPlanLabel')}
         </p>
-        <h2 className="text-fl-fg mb-3 font-mono text-base font-bold">
+        <h2 className="mb-3 text-lg font-bold tracking-tight text-[var(--juba-text)]">
           {t('noPlanTitle')}
         </h2>
-        <p className="text-fl-muted-1 mb-6 font-mono text-xs leading-relaxed">
+        <p className="mb-6 text-sm leading-relaxed text-[var(--juba-muted)]">
           {t('noPlanDesc')}
         </p>
 
         <button
           onClick={() => router.push('/assessment')}
-          className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+          className="w-full rounded-xl bg-[var(--juba-primary)] px-4 py-3 text-xs font-bold text-[var(--juba-text)] transition-colors hover:bg-[var(--juba-primary-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)] focus-visible:ring-offset-2"
         >
           {t('startAssessment')}
         </button>
 
-        <p className="text-fl-hint text-fl-muted-3 mt-6 font-mono tracking-widest uppercase">
+        <p className="mt-6 text-xs text-[var(--juba-muted)]">
           {t('noPlanHint')}
         </p>
       </div>
