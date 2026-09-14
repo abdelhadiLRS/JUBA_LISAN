@@ -55,7 +55,6 @@ const NAV_ICONS: Record<string, LucideIcon> = {
   '/admin': Shield,
 }
 
-// Primary destinations surfaced in the mobile bottom navigation.
 const BOTTOM_NAV_HREFS = [
   '/dashboard',
   '/plan',
@@ -63,6 +62,18 @@ const BOTTOM_NAV_HREFS = [
   '/chat',
   '/progress',
 ]
+
+const AUTH_REQUEST_TIMEOUT_MS = 12_000
+
+async function fetchAuthBootstrap(input: RequestInfo | URL, options: RequestInit): Promise<Response> {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), AUTH_REQUEST_TIMEOUT_MS)
+  try {
+    return await fetch(input, { ...options, signal: controller.signal })
+  } finally {
+    clearTimeout(timeout)
+  }
+}
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const tNav = useTranslations('nav')
@@ -127,15 +138,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     if (res.ok) setResendSent(true)
   }
 
-  // On every page load, Zustand is empty. Use the httpOnly refresh cookie
-  // to silently get a new access token, then fetch /me to populate the user.
   useEffect(() => {
     async function init() {
-      // Load Stripe config once (non-blocking)
       loadConfig()
       try {
         if (!accessToken) {
-          const res = await fetch('/api/auth/refresh', {
+          const res = await fetchAuthBootstrap('/api/auth/refresh', {
             method: 'POST',
             credentials: 'include',
           })
@@ -145,9 +153,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             return
           }
           const { access_token } = await res.json()
+          if (!access_token) throw new Error('missing access token')
           setTokens(access_token)
         }
-        // Fetch user info if not already loaded
         const meRes = await apiFetch('/api/auth/me')
         if (!meRes.ok) {
           logout()
@@ -173,7 +181,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }, [])
 
   useEffect(() => {
-    // Stripe trial countdown
     if (
       user?.subscription_status === 'trialing' &&
       user?.subscription_ends_at &&
@@ -189,7 +196,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       setTrialDaysLeft(days)
       return
     }
-    // Freemium trial countdown
     if (
       user?.freemium_trial_ends_at &&
       stripeEnabled &&
@@ -414,9 +420,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   fallback={
                     <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
                       <span className="text-fl-muted-1 text-xs font-semibold select-none">
-                        {(user?.displayName ||
-                          user?.username ||
-                          '?')[0].toUpperCase()}
+                        {(user?.displayName || user?.username || '?')[0].toUpperCase()}
                       </span>
                     </div>
                   }
@@ -424,9 +428,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               ) : (
                 <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
                   <span className="text-fl-muted-1 text-xs font-semibold select-none">
-                    {(user?.displayName ||
-                      user?.username ||
-                      '?')[0].toUpperCase()}
+                    {(user?.displayName || user?.username || '?')[0].toUpperCase()}
                   </span>
                 </div>
               )}
@@ -435,315 +437,114 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <p className="text-fl-fg truncate text-sm font-semibold">
                 {user?.displayName || user?.username}
               </p>
-              <p className="text-fl-muted-3 truncate text-xs">
-                @{user?.username?.toLowerCase()}
-              </p>
+              <p className="text-fl-muted-3 truncate text-xs">@{user?.username?.toLowerCase()}</p>
               {trialDaysLeft > 0 && (
-                <p
-                  className="truncate text-xs font-medium"
-                  style={{ color: 'var(--juba-warm)' }}
-                >
+                <p className="truncate text-xs font-medium" style={{ color: 'var(--juba-warm)' }}>
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
             </div>
           </div>
-          <p className="text-fl-muted-4 mb-2 text-[11px] tracking-wide">
-            v1.8.43
-          </p>
+          <p className="text-fl-muted-4 mb-2 text-[11px] tracking-wide">v1.8.43</p>
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => setContactOpen(true)}
-              className="text-fl-muted-2 hover:text-fl-fg text-xs font-medium transition-colors"
-            >
-              {tNav('contact')}
+            <button onClick={() => setContactOpen(true)} className="text-fl-muted-2 hover:text-fl-fg text-xs transition-colors">
+              {tCommon('contact')}
             </button>
-            <button
-              onClick={() => setLogoutConfirm(true)}
-              className="text-fl-muted-2 hover:text-fl-fg text-xs font-medium transition-colors"
-            >
+            <button onClick={() => setLogoutConfirm(true)} className="text-fl-muted-2 hover:text-fl-fg text-xs transition-colors">
               {tCommon('logout')}
             </button>
           </div>
         </div>
       </aside>
 
-      {/* Mobile top bar */}
-      <div className="border-fl-border bg-fl-bg fixed top-0 right-0 left-0 z-50 border-b md:hidden">
-        <div className="flex items-center justify-between px-4 py-3">
-          <span className="text-fl-fg flex items-center gap-2 text-sm font-bold tracking-wide">
-            <span
-              className="flex h-6 w-6 items-center justify-center rounded-md text-[10px] font-black text-white"
-              style={{ background: 'var(--juba-primary)' }}
-              aria-hidden="true"
-            >
-              JL
-            </span>
-            JUBA LISAN
-          </span>
+      {/* Main content */}
+      <div className="flex min-w-0 flex-1 flex-col">
+        <LoadingBar />
+        <header className="border-fl-border bg-fl-bg flex h-14 shrink-0 items-center justify-between border-b px-4 md:hidden">
           <button
-            onClick={() => setMobileMenuOpen((o) => !o)}
-            className="text-fl-muted-2 hover:text-fl-fg p-1 transition-colors"
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={mobileMenuOpen}
+            type="button"
+            onClick={() => setMobileMenuOpen(true)}
+            className="text-fl-muted-2 hover:text-fl-fg rounded-xl p-2 transition-colors"
+            aria-label="Open navigation"
           >
-            {mobileMenuOpen ? (
-              <X className="h-5 w-5" aria-hidden="true" />
-            ) : (
-              <Menu className="h-5 w-5" aria-hidden="true" />
-            )}
+            <Menu className="h-5 w-5" />
           </button>
-        </div>
+          <span className="text-fl-fg text-sm font-bold tracking-wide">JUBA LISAN</span>
+          <Link href="/settings" className="text-fl-muted-2 hover:text-fl-fg rounded-xl p-2 transition-colors" aria-label="Settings">
+            <Settings className="h-5 w-5" />
+          </Link>
+        </header>
 
-        {/* Dropdown */}
-        {mobileMenuOpen && (
-          <nav className="border-fl-border bg-fl-bg max-h-[calc(100svh-3.5rem)] space-y-1 overflow-y-auto overscroll-contain border-t px-3 pb-4">
-            <div className="border-fl-border -mx-3 mb-2 border-b">
-              <LanguageSwitcher />
-            </div>
-            {mainNavItems.map((item) => {
-              const active = isActive(item.href)
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={navLinkClass(active)}
-                  aria-current={active ? 'page' : undefined}
-                >
-                  {renderNavIcon(item.href, active)}
-                  <span className="truncate">{item.label}</span>
-                  {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
-                    <span
-                      className="ms-auto text-xs"
-                      style={{ color: 'var(--juba-warm)' }}
-                    >
-                      ★
-                    </span>
-                  )}
-                </Link>
-              )
-            })}
+        <main className="min-h-0 flex-1 overflow-y-auto pb-20 md:pb-0">{children}</main>
 
-            {/* Resources group (mobile) */}
-            <div>
-              <button
-                onClick={() => setResourcesOpen((o) => !o)}
-                className="text-fl-muted-3 hover:text-fl-muted-2 flex w-full items-center justify-between rounded-xl px-3.5 py-2 text-xs font-semibold tracking-wide uppercase transition-colors"
-                aria-expanded={resourcesOpen}
-              >
-                <span>{tNav('resources')}</span>
-                <span aria-hidden="true">{resourcesOpen ? '▴' : '▾'}</span>
+        <nav className="border-fl-border bg-fl-bg fixed inset-x-0 bottom-0 z-40 flex h-16 border-t md:hidden" aria-label="Mobile navigation">
+          {bottomMobileItems.map((item) => {
+            const active = isActive(item.href)
+            return (
+              <Link key={item.href} href={item.href} className={`flex flex-1 flex-col items-center justify-center gap-1 text-[10px] font-medium ${active ? 'text-[var(--juba-primary-dark)]' : 'text-[var(--juba-muted)]'}`} aria-current={active ? 'page' : undefined}>
+                {renderNavIcon(item.href, active, 'h-5 w-5')}
+                <span>{item.label}</span>
+              </Link>
+            )
+          })}
+        </nav>
+      </div>
+
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          <button type="button" className="absolute inset-0 bg-black/30" onClick={() => setMobileMenuOpen(false)} aria-label="Close navigation" />
+          <aside className="border-fl-border bg-fl-bg absolute inset-y-0 start-0 flex w-[min(86vw,20rem)] flex-col border-e shadow-xl">
+            <div className="border-fl-border flex items-center justify-between border-b px-5 py-5">
+              <span className="text-fl-fg text-sm font-bold tracking-wide">JUBA LISAN</span>
+              <button type="button" onClick={() => setMobileMenuOpen(false)} className="text-fl-muted-2 hover:text-fl-fg rounded-xl p-2" aria-label="Close navigation">
+                <X className="h-5 w-5" />
               </button>
-              {resourcesOpen &&
-                resourceNavItems.map((item) => {
-                  const active = isActive(item.href)
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={navLinkClass(active, true)}
-                      aria-current={active ? 'page' : undefined}
-                    >
-                      {renderNavIcon(item.href, active, 'h-4 w-4')}
-                      <span className="truncate">{item.label}</span>
-                    </Link>
-                  )
-                })}
             </div>
-
-            {/* Bottom items (mobile) */}
-            <div className="border-fl-border space-y-1 border-t pt-2">
-              {bottomNavItems.map((item) => {
+            <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
+              {[...mainNavItems, ...resourceNavItems, ...bottomNavItems].map((item) => {
                 const active = isActive(item.href)
                 return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={navLinkClass(active)}
-                    aria-current={active ? 'page' : undefined}
-                  >
+                  <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)} className={navLinkClass(active)} aria-current={active ? 'page' : undefined}>
                     {renderNavIcon(item.href, active)}
                     <span className="truncate">{item.label}</span>
-                    {item.href === '/feedback' && feedbackBadgeText && (
-                      <span className="ms-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] leading-none font-bold text-white">
-                        {feedbackBadgeText}
-                      </span>
-                    )}
                   </Link>
                 )
               })}
-
               {user?.role === 'admin' && (
-                <Link
-                  href="/admin"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={navLinkClass(isActive('/admin'))}
-                  aria-current={isActive('/admin') ? 'page' : undefined}
-                >
+                <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className={navLinkClass(isActive('/admin'))} aria-current={isActive('/admin') ? 'page' : undefined}>
                   {renderNavIcon('/admin', isActive('/admin'))}
                   <span className="truncate">{tNav('admin')}</span>
                 </Link>
               )}
-            </div>
-
-            <div className="border-fl-border mt-2 border-t pt-3">
-              <div className="mb-2 flex items-center gap-3">
-                <div className="border-fl-border h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border">
-                  {user?.avatar ? (
-                    <AuthAvatarImage
-                      avatar={user.avatar}
-                      alt=""
-                      width={32}
-                      height={32}
-                      className="h-full w-full object-cover"
-                      fallback={
-                        <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                          <span className="text-fl-muted-1 text-xs font-semibold select-none">
-                            {(user?.displayName ||
-                              user?.username ||
-                              '?')[0].toUpperCase()}
-                          </span>
-                        </div>
-                      }
-                    />
-                  ) : (
-                    <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                      <span className="text-fl-muted-1 text-xs font-semibold select-none">
-                        {(user?.displayName ||
-                          user?.username ||
-                          '?')[0].toUpperCase()}
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <div className="min-w-0">
-                  <p className="text-fl-fg truncate text-sm font-semibold">
-                    {user?.displayName || user?.username}
-                  </p>
-                  <p className="text-fl-muted-3 truncate text-xs">
-                    @{user?.username?.toLowerCase()}
-                  </p>
-                </div>
-              </div>
-              {trialDaysLeft > 0 && (
-                <p
-                  className="mb-2 text-xs font-medium"
-                  style={{ color: 'var(--juba-warm)' }}
-                >
-                  ★ {tBilling('trialDays', { days: trialDaysLeft })}
-                </p>
-              )}
-              <p className="text-fl-muted-4 mb-2 text-[11px] tracking-wide">
-                v1.8.43
-              </p>
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false)
-                    setContactOpen(true)
-                  }}
-                  className="text-fl-muted-2 hover:text-fl-fg text-xs font-medium transition-colors"
-                >
-                  {tNav('contact')}
-                </button>
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false)
-                    setLogoutConfirm(true)
-                  }}
-                  className="text-fl-muted-2 hover:text-fl-fg text-xs font-medium transition-colors"
-                >
-                  {tCommon('logout')}
-                </button>
-              </div>
-            </div>
-          </nav>
-        )}
-      </div>
-
-      {/* Main */}
-      <main className="flex min-h-[100dvh] flex-1 flex-col overflow-hidden pt-14 md:min-h-screen md:pt-0">
-        {/* Email verification banner */}
-        {user && user.is_verified === false && (
-          <div className="border-fl-border bg-fl-surface flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
-            <span className="text-fl-muted-1 text-xs">
-              ● {tCommon('verifyEmailBanner')}
-            </span>
-            {resendSent ? (
-              <span className="text-fl-muted-2 text-xs">
-                {tCommon('verifyEmailSent')}
-              </span>
-            ) : (
-              <button
-                onClick={handleResendVerification}
-                className="text-fl-accent text-xs font-medium underline transition-all hover:no-underline"
-              >
-                {tCommon('resendVerification')}
-              </button>
-            )}
-          </div>
-        )}
-        <div className="min-h-0 flex-1 overflow-y-auto pb-20 md:pb-0">
-          {children}
+            </nav>
+          </aside>
         </div>
-      </main>
-
-      {/* Mobile bottom navigation */}
-      <nav
-        className="border-fl-border bg-fl-surface fixed right-0 bottom-0 left-0 z-50 border-t md:hidden"
-        aria-label="Primary"
-      >
-        <div
-          className="mx-auto grid max-w-lg grid-cols-5"
-          style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
-        >
-          {bottomMobileItems.map((item) => {
-            const active = isActive(item.href)
-            const Icon = NAV_ICONS[item.href] ?? Layers
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="flex flex-col items-center gap-0.5 py-2.5 transition-colors"
-                aria-current={active ? 'page' : undefined}
-              >
-                <Icon
-                  className={`h-5 w-5 ${active ? 'text-[var(--juba-primary)]' : 'text-[var(--juba-muted)]'}`}
-                  aria-hidden="true"
-                />
-                <span
-                  className={`max-w-full truncate text-[10px] leading-tight ${
-                    active
-                      ? 'font-semibold text-[var(--juba-primary-dark)]'
-                      : 'text-[var(--juba-muted)]'
-                  }`}
-                >
-                  {item.label}
-                </span>
-              </Link>
-            )
-          })}
-        </div>
-      </nav>
-
-      <LoadingBar />
-
-      <ContactFormModal
-        open={contactOpen}
-        onClose={() => setContactOpen(false)}
-      />
+      )}
 
       <ConfirmDialog
         open={logoutConfirm}
-        title={tCommon('logoutConfirmTitle')}
-        message={tCommon('logoutConfirmMessage')}
+        title={tCommon('logout')}
+        description={tCommon('logoutConfirm')}
         confirmLabel={tCommon('logout')}
-        onConfirm={handleLogout}
         onCancel={() => setLogoutConfirm(false)}
+        onConfirm={async () => {
+          setLogoutConfirm(false)
+          await handleLogout()
+        }}
       />
+
+      <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
+
+      {user && !user.email_verified && (
+        <div className="fixed inset-x-0 bottom-16 z-30 flex justify-center px-4 md:bottom-4">
+          <div className="border-fl-border bg-fl-bg flex max-w-2xl items-center gap-3 rounded-2xl border px-4 py-3 text-xs shadow-lg">
+            <span className="text-fl-muted-1">{tCommon('verifyEmail')}</span>
+            <button type="button" onClick={handleResendVerification} disabled={resendSent} className="text-[var(--juba-primary-dark)] font-semibold disabled:opacity-50">
+              {resendSent ? tCommon('sent') : tCommon('resend')}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
