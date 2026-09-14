@@ -32,7 +32,7 @@ function StatusBadge({ status }: { status: UnitStatus }): ReactNode {
           background: status.active
             ? 'var(--juba-primary-soft)'
             : 'var(--juba-surface-soft)',
-          color: status.active ? 'var(--juba-primary)' : 'var(--juba-muted)',
+          color: status.active ? 'var(--juba-primary-dark)' : 'var(--juba-muted)',
         }}
       >
         <Ribbon className="h-4.5 w-4.5" aria-hidden="true" />
@@ -42,8 +42,11 @@ function StatusBadge({ status }: { status: UnitStatus }): ReactNode {
   if (status.completed) {
     return (
       <span
-        className="flex h-9 w-9 items-center justify-center rounded-full text-white"
-        style={{ background: 'var(--juba-primary)' }}
+        className="flex h-9 w-9 items-center justify-center rounded-full"
+        style={{
+          background: 'var(--juba-primary)',
+          color: 'var(--juba-text)',
+        }}
       >
         <Check className="h-4.5 w-4.5" aria-hidden="true" />
       </span>
@@ -55,7 +58,7 @@ function StatusBadge({ status }: { status: UnitStatus }): ReactNode {
         className="flex h-9 w-9 items-center justify-center rounded-full"
         style={{
           background: 'var(--juba-warm-soft)',
-          color: 'var(--juba-warm)',
+          color: 'var(--juba-primary-dark)',
         }}
       >
         <PlayCircle className="h-4.5 w-4.5" aria-hidden="true" />
@@ -101,7 +104,7 @@ export default function UnitCard({
       className={`border-fl-border bg-fl-surface rounded-2xl border transition-all ${
         status.locked
           ? 'opacity-55'
-          : 'hover:shadow-[0_4px_16px_rgba(23,35,27,0.06)]'
+          : 'hover:shadow-[0_4px_16px_rgba(20,18,23,0.06)]'
       } ${status.active ? 'ring-1' : ''}`}
       style={
         status.active
@@ -113,7 +116,6 @@ export default function UnitCard({
           : undefined
       }
     >
-      {/* Clickable card header — opens drawer */}
       <button
         onClick={onClick}
         disabled={status.locked}
@@ -164,7 +166,6 @@ export default function UnitCard({
           )}
         </div>
 
-        {/* Progress bar */}
         {!status.locked && (
           <div className="bg-fl-surface-2 mx-4 mb-4 h-1.5 overflow-hidden rounded-full sm:mx-5">
             <div
@@ -175,12 +176,11 @@ export default function UnitCard({
         )}
       </button>
 
-      {/* Start CTA — only shown on the active unit when a lesson is ready */}
       {status.active && onStartLesson && (
         <div className="border-fl-border flex justify-end border-t px-4 py-3 sm:px-5">
           <button
             onClick={onStartLesson}
-            className="rounded-xl bg-[var(--juba-primary)] px-4 py-2 text-xs font-bold text-white transition-colors hover:bg-[var(--juba-primary-dark)]"
+            className="rounded-xl bg-[var(--juba-primary)] px-4 py-2 text-xs font-bold text-[var(--juba-text)] transition-colors hover:bg-[var(--juba-primary-dark)]"
           >
             {tCommon('start')} →
           </button>
