@@ -31,7 +31,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html suppressHydrationWarning lang={locale} className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}>
       <head>
-        <meta name="theme-color" content="#f7f8f4" />
+        <meta name="theme-color" content="#fdfdfd" />
         <meta name="color-scheme" content="light dark" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: `(function(){if(document.cookie.indexOf('LOCALE_DETECTED=')!==-1)return;var m=document.cookie.match(/(^| )NEXT_LOCALE=([^;]+)/);var cl=m?m[2]:null;var bl=(navigator.language||'').split('-')[0].toLowerCase();var s=['es','fr','pt','de','it','pl','nl','ro','ru'];document.cookie='LOCALE_DETECTED=1;path=/;max-age=31536000;SameSite=Lax';if(bl!=='en'&&s.indexOf(bl)!==-1&&cl!==bl){document.cookie='NEXT_LOCALE='+bl+';path=/;max-age=31536000;SameSite=Lax';location.reload()}})();` }} />
