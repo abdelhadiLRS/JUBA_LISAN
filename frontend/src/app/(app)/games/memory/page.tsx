@@ -1,14 +1,23 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { InteractiveGameBoard } from '@/components/games/InteractiveGameBoard'
 import '@/components/games/interactive-games.css'
 import { useProgressStore } from '@/store/progress'
 
+type Lang = 'ar' | 'fr' | 'en'
+
 export default function MemoryGamePage() {
-  const [lang, setLang] = useState<'ar' | 'fr' | 'en'>('ar')
+  const searchParams = useSearchParams()
+  const [lang, setLang] = useState<Lang>('ar')
   const addGameXP = useProgressStore((state) => state.addGameXP)
   const recordGameAttempt = useProgressStore((state) => state.recordGameAttempt)
+
+  useEffect(() => {
+    const value = searchParams.get('lang')
+    if (value === 'ar' || value === 'fr' || value === 'en') setLang(value)
+  }, [searchParams])
 
   function complete() {
     addGameXP(25, 'memory', true)
