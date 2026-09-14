@@ -42,12 +42,12 @@ export function PageLoading({
   if (!fullScreen) {
     return (
       <span
-        className={`text-fl-muted-2 animate-pulse font-mono text-xs tracking-widest uppercase ${className}`}
+        className={`text-[var(--juba-muted)] animate-pulse text-xs font-medium tracking-[0.12em] uppercase ${className}`}
         role="status"
         aria-busy="true"
         aria-label={text}
       >
-        {showDot && '● '}
+        {showDot && <span className="mr-1.5 text-[var(--juba-primary-dark)]">●</span>}
         {text}
       </span>
     )
@@ -60,13 +60,13 @@ export function PageLoading({
       aria-busy="true"
       aria-label={text}
     >
-      <div className="flex flex-col items-center gap-3 px-4">
-        <span className="text-fl-muted-2 animate-pulse font-mono text-xs tracking-widest uppercase">
-          {showDot && '● '}
+      <div className="juba-card flex min-w-44 flex-col items-center gap-3 px-5 py-4">
+        <span className="text-[var(--juba-muted)] animate-pulse text-xs font-medium tracking-[0.12em] uppercase">
+          {showDot && <span className="mr-1.5 text-[var(--juba-primary-dark)]">●</span>}
           {text}
         </span>
         {subtext && (
-          <p className="text-fl-muted-4 max-w-xs text-center font-mono text-xs">
+          <p className="text-[var(--juba-muted)] max-w-xs text-center text-xs leading-5">
             {subtext}
           </p>
         )}
