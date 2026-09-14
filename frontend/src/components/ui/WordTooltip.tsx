@@ -11,15 +11,15 @@ export interface TooltipPos { x: number; y: number }
 export function WordTooltip({ word, pos, saveState, onSave, onDismiss, labels }: { word: string; pos: TooltipPos; saveState: SaveState; onSave: () => void; onDismiss: () => void; labels: { saveWord: string; wordSaved: string; wordSaveError: string } }) {
   return (
     <div style={{ left: pos.x, top: pos.y }} className="pointer-events-auto fixed z-50 -translate-x-1/2 -translate-y-full">
-      <div className="border-fl-border bg-fl-surface flex items-center gap-3 border px-3 py-2 font-mono text-xs shadow-lg">
-        <span className="text-fl-fg font-bold">{word}</span>
-        {saveState === 'idle' && <button onClick={onSave} className="text-fl-muted-2 hover:text-fl-fg border-fl-border border px-2 py-0.5 tracking-widest uppercase transition-colors">{labels.saveWord}</button>}
-        {saveState === 'saving' && <span className="text-fl-muted-3 animate-pulse tracking-widest uppercase">...</span>}
-        {saveState === 'saved' && <span className="tracking-widest text-green-400 uppercase">✓ {labels.wordSaved}</span>}
-        {saveState === 'error' && <span className="tracking-widest text-red-400 uppercase">{labels.wordSaveError}</span>}
-        <button onClick={onDismiss} className="text-fl-muted-3 hover:text-fl-fg ml-1 transition-colors" aria-label="dismiss">✕</button>
+      <div className="juba-card flex items-center gap-3 px-3 py-2.5 text-xs shadow-[var(--juba-shadow)]">
+        <span className="text-[var(--juba-text)] font-semibold">{word}</span>
+        {saveState === 'idle' && <button onClick={onSave} className="border-[var(--juba-border)] text-[var(--juba-primary-dark)] hover:bg-[var(--juba-primary-soft)] rounded-lg border px-2.5 py-1 text-[11px] font-semibold tracking-wide uppercase transition-colors">{labels.saveWord}</button>}
+        {saveState === 'saving' && <span className="text-[var(--juba-muted)] animate-pulse tracking-widest uppercase">...</span>}
+        {saveState === 'saved' && <span className="text-[var(--juba-primary-dark)] font-semibold tracking-wide uppercase">✓ {labels.wordSaved}</span>}
+        {saveState === 'error' && <span className="text-[var(--juba-danger)] font-semibold tracking-wide uppercase">{labels.wordSaveError}</span>}
+        <button onClick={onDismiss} className="text-[var(--juba-muted)] hover:bg-[var(--juba-surface-soft)] hover:text-[var(--juba-text)] ml-1 rounded-md px-1 transition-colors" aria-label="dismiss">✕</button>
       </div>
-      <div className="border-t-fl-border mx-auto mt-px h-0 w-0 border-x-4 border-t-4 border-x-transparent" />
+      <div className="border-t-[var(--juba-border)] mx-auto mt-px h-0 w-0 border-x-4 border-t-4 border-x-transparent" />
     </div>
   )
 }
