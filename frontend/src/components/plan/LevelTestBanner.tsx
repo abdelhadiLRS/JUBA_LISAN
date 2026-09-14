@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { Award } from 'lucide-react'
 
 interface Props {
   planId: number
@@ -13,23 +14,27 @@ export default function LevelTestBanner({ planId, level }: Props) {
   const router = useRouter()
 
   return (
-    <div className="border-fl-fg bg-fl-surface mt-2 border">
-      <div className="border-fl-fg/20 flex items-center gap-2 border-b px-6 py-4">
-        <span className="text-fl-label text-fl-fg font-mono">⊞</span>
-        <span className="text-fl-label text-fl-fg font-mono tracking-widest uppercase">
-          {t('levelComplete', { level })}
+    <div className="juba-card mt-2 overflow-hidden">
+      <div className="flex items-center gap-3 border-b border-[var(--juba-border-soft)] px-5 py-4 sm:px-6">
+        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--juba-warm-soft)] text-[var(--juba-primary-dark)]">
+          <Award className="h-4.5 w-4.5" aria-hidden="true" />
         </span>
+        <div>
+          <p className="text-xs font-bold tracking-wide text-[var(--juba-text)] uppercase">
+            {t('levelComplete', { level })}
+          </p>
+          <p className="mt-0.5 text-xs text-[var(--juba-muted)]">
+            {t('levelCompleteHint')}
+          </p>
+        </div>
       </div>
-      <div className="space-y-4 p-6">
-        <p className="text-fl-label text-fl-muted-1 font-mono leading-relaxed">
+      <div className="space-y-4 p-5 sm:p-6">
+        <p className="text-sm leading-relaxed text-[var(--juba-muted)]">
           {t('levelCompleteDesc', { level })}
-        </p>
-        <p className="text-fl-hint text-fl-muted-3 font-mono">
-          {t('levelCompleteHint')}
         </p>
         <button
           onClick={() => router.push(`/assessment/level-test?plan=${planId}`)}
-          className="bg-fl-fg text-fl-bg hover:bg-fl-fg-bright px-6 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+          className="rounded-xl bg-[var(--juba-primary)] px-5 py-3 text-xs font-bold text-[var(--juba-text)] transition-colors hover:bg-[var(--juba-primary-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)] focus-visible:ring-offset-2"
         >
           {t('beginLevelTest')} →
         </button>
