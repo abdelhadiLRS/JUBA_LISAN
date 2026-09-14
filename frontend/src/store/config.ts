@@ -27,6 +27,8 @@ interface ConfigStore {
   load: () => Promise<void>
 }
 
+const CONFIG_REQUEST_TIMEOUT_MS = 8_000
+
 export const useConfigStore = create<ConfigStore>((set, get) => ({
   stripeEnabled: false,
   stripeTrialDays: 7,
@@ -42,9 +44,18 @@ export const useConfigStore = create<ConfigStore>((set, get) => ({
   loaded: false,
   load: async () => {
     if (get().loaded) return
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), CONFIG_REQUEST_TIMEOUT_MS)
+
     try {
-      const res = await fetch('/api/config')
-      if (!res.ok) return
+      const res = await fetch('/api/config', {
+        signal: controller.signal,
+        cache: 'no-store',
+      })
+      if (!res.ok) {
+        set({ loaded: true })
+        return
+      }
       const data = await res.json()
       set({
         stripeEnabled: data.stripe_enabled ?? false,
@@ -63,6 +74,8 @@ export const useConfigStore = create<ConfigStore>((set, get) => ({
     } catch {
       // Non-fatal: keep defaults (stripe disabled)
       set({ loaded: true })
+    } finally {
+      clearTimeout(timeout)
     }
   },
 }))
