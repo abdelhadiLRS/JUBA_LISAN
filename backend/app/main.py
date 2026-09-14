@@ -74,9 +74,7 @@ async def lifespan(app: FastAPI):  # noqa: ANN201
 
     await asyncio.to_thread(_run_migrations)
 
-    # Ensure the avatars directory exists on startup (persisted via Docker volume)
     os.makedirs(_AVATARS_DIR, exist_ok=True)
-    # Ensure the TTS preview cache directory exists on startup
     os.makedirs(_TTS_PREVIEWS_DIR, exist_ok=True)
 
     if settings.TTS_PROVIDER == "openai":
@@ -123,9 +121,9 @@ async def security_headers_middleware(request: Request, call_next) -> Response:
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    response.headers["X-XSS-Protection"] = "0"  # Modern browsers ignore it; CSP is the right tool
+    response.headers["X-XSS-Protection"] = "0"
     response.headers["Content-Security-Policy"] = (
-        "default-src 'self'; object-src 'none'; base-uri 'self'"  # API-only responses (JSON/binary)
+        "default-src 'self'; object-src 'none'; base-uri 'self'"
     )
     return response
 
@@ -164,4 +162,4 @@ if settings.STRIPE_ENABLED:
     from app.routers import billing as billing_router
 
     _stripe.api_key = settings.STRIPE_SECRET_KEY
-    app.include_router(billing_router.router
+    app.include_router(billing_router.router)
