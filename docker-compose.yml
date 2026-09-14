@@ -29,8 +29,10 @@ services:
       retries: 5
 
   backend:
-    image: ghcr.io/artcc/freelingo-backend:latest
-    pull_policy: always
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: juba-lisan-backend:local
     container_name: juba-lisan-backend
     restart: unless-stopped
     command: >
@@ -111,8 +113,10 @@ services:
         condition: service_healthy
 
   frontend:
-    image: ghcr.io/artcc/freelingo-frontend:latest
-    pull_policy: always
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    image: juba-lisan-frontend:local
     container_name: juba-lisan-frontend
     restart: unless-stopped
     environment:
