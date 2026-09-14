@@ -1,17 +1,11 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { buildQuestion, scoreAnswer, type GameId, type GameLanguage, type GameQuestion } from '@/lib/games/engine';
+import { useProgressStore } from '@/store/progress';
 import './games.css';
 
-type GameId = 'math' | 'words' | 'sequence';
-type Lang = 'ar' | 'fr' | 'en';
-
-type Question = {
-  prompt: string;
-  choices: string[];
-  answer: string;
-  hint: string;
-};
+type Lang = GameLanguage;
 
 const STORAGE_KEY = 'juba-edu-progress-v1';
 
@@ -22,7 +16,7 @@ const copy = {
     mathDesc: 'عمليات حسابية قصيرة مع مكافآت فورية.', wordsDesc: 'طابق الكلمة مع معناها.', sequenceDesc: 'اكتشف الرقم التالي في السلسلة.',
     start: 'ابدأ اللعبة', next: 'السؤال التالي', correct: 'إجابة صحيحة!', wrong: 'ليست صحيحة',
     hint: 'تلميح', back: 'الألعاب', score: 'نتيجة الجولة', done: 'أحسنت! أكملت الجولة.',
-    choose: 'اختر الإجابة الصحيحة', reset: 'إعادة التقدم', lang: 'اللغة',
+    choose: 'اختر الإجابة الصحيحة', reset: 'إعادة التقدم', lang: 'اللغة', xp: 'XP',
   },
   fr: {
     title: 'JUBA EDU', subtitle: 'Apprendre en jouant, progresser chaque jour', points: 'Points', streak: 'Série', level: 'Niveau',
@@ -30,7 +24,7 @@ const copy = {
     mathDesc: 'De courts calculs avec récompenses immédiates.', wordsDesc: 'Associe le mot à sa signification.', sequenceDesc: 'Trouve le prochain nombre.',
     start: 'Commencer', next: 'Question suivante', correct: 'Bonne réponse !', wrong: 'Pas encore',
     hint: 'Indice', back: 'Jeux', score: 'Score de la partie', done: 'Bravo ! Partie terminée.',
-    choose: 'Choisis la bonne réponse', reset: 'Réinitialiser', lang: 'Langue',
+    choose: 'Choisis la bonne réponse', reset: 'Réinitialiser', lang: 'Langue', xp: 'XP',
   },
   en: {
     title: 'JUBA EDU', subtitle: 'Learn through play. Improve every day.', points: 'Points', streak: 'Streak', level: 'Level',
@@ -38,68 +32,35 @@ const copy = {
     mathDesc: 'Short calculations with instant rewards.', wordsDesc: 'Match each word with its meaning.', sequenceDesc: 'Find the next number in the sequence.',
     start: 'Start game', next: 'Next question', correct: 'Correct!', wrong: 'Not quite',
     hint: 'Hint', back: 'Games', score: 'Round score', done: 'Great job! Round complete.',
-    choose: 'Choose the correct answer', reset: 'Reset progress', lang: 'Language',
+    choose: 'Choose the correct answer', reset: 'Reset progress', lang: 'Language', xp: 'XP',
   },
 } as const;
-
-function shuffle<T>(items: T[]): T[] {
-  return [...items].sort(() => Math.random() - 0.5);
-}
-
-function buildQuestion(game: GameId, lang: Lang): Question {
-  if (game === 'math') {
-    const a = 2 + Math.floor(Math.random() * 18);
-    const b = 2 + Math.floor(Math.random() * 18);
-    const op = Math.random() > 0.5 ? '+' : '-';
-    const answer = op === '+' ? a + b : a - b;
-    const choices = shuffle([answer, answer + 1, answer - 1, answer + 2].map(String));
-    return {
-      prompt: `${a} ${op} ${b} = ?`, choices, answer: String(answer),
-      hint: lang === 'ar' ? 'احسب بهدوء خطوة بخطوة.' : lang === 'fr' ? 'Calcule étape par étape.' : 'Work it out step by step.',
-    };
-  }
-
-  if (game === 'words') {
-    const bank = lang === 'ar'
-      ? [['كتاب', 'Book'], ['ماء', 'Water'], ['مدرسة', 'School'], ['قمر', 'Moon'], ['شجرة', 'Tree']]
-      : lang === 'fr'
-        ? [['livre', 'Book'], ['eau', 'Water'], ['école', 'School'], ['lune', 'Moon'], ['arbre', 'Tree']]
-        : [['book', 'كتاب'], ['water', 'ماء'], ['school', 'مدرسة'], ['moon', 'قمر'], ['tree', 'شجرة']];
-    const pair = bank[Math.floor(Math.random() * bank.length)];
-    const choices = shuffle(bank.map((item) => item[1]));
-    return { prompt: pair[0], choices, answer: pair[1], hint: lang === 'ar' ? 'فكّر في معنى الكلمة.' : lang === 'fr' ? 'Pense au sens du mot.' : 'Think about the meaning.' };
-  }
-
-  const start = 2 + Math.floor(Math.random() * 6);
-  const step = 2 + Math.floor(Math.random() * 5);
-  const answer = start + step * 4;
-  const values = [start, start + step, start + step * 2, start + step * 3];
-  const choices = shuffle([answer, answer + step, answer - step, answer + 2 * step].map(String));
-  return { prompt: `${values.join('  →  ')}  →  ?`, choices, answer: String(answer), hint: lang === 'ar' ? `ابحث عن مقدار الزيادة بين الأرقام.` : lang === 'fr' ? 'Trouve l’écart constant entre les nombres.' : 'Find the constant step between numbers.' };
-}
 
 export default function GamesPage() {
   const [lang, setLang] = useState<Lang>('ar');
   const [game, setGame] = useState<GameId | null>(null);
-  const [question, setQuestion] = useState<Question | null>(null);
+  const [question, setQuestion] = useState<GameQuestion | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [roundScore, setRoundScore] = useState(0);
   const [round, setRound] = useState(0);
-  const [progress, setProgress] = useState({ points: 0, streak: 0, level: 1 });
+  const { xp, streak, skills, setProgress, addGameXP } = useProgressStore();
+  const level = Math.floor(xp / 100) + 1;
   const t = copy[lang];
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setProgress(JSON.parse(saved));
+      if (!saved) return;
+      const parsed = JSON.parse(saved) as { points?: number; streak?: number };
+      setProgress({ streak: parsed.streak ?? 0, xp: parsed.points ?? 0, skills: {} });
     } catch {
-      // Ignore invalid local progress and start fresh.
+      // Ignore invalid local progress and keep the Lisan store defaults.
     }
-  }, []);
+  }, [setProgress]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
-  }, [progress]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ points: xp, streak, level }));
+  }, [xp, streak, level]);
 
   const direction = lang === 'ar' ? 'rtl' : 'ltr';
   const gameCards = useMemo(() => [
@@ -113,23 +74,15 @@ export default function GamesPage() {
     setRound(0);
     setRoundScore(0);
     setSelected(null);
-    setQuestion(buildQuestion(id, lang));
+    setQuestion(buildQuestion(id, lang, level));
   }
 
   function answer(choice: string) {
     if (!question || selected) return;
     setSelected(choice);
-    const correct = choice === question.answer;
-    if (correct) {
-      setRoundScore((value) => value + 10);
-      setProgress((value) => ({
-        points: value.points + 10,
-        streak: value.streak + 1,
-        level: Math.floor((value.points + 10) / 100) + 1,
-      }));
-    } else {
-      setProgress((value) => ({ ...value, streak: 0 }));
-    }
+    const result = scoreAnswer(question, choice);
+    if (result.correct) setRoundScore((value) => value + result.xp);
+    addGameXP(result.xp, result.skill, result.correct);
   }
 
   function next() {
@@ -141,13 +94,16 @@ export default function GamesPage() {
     }
     setRound((value) => value + 1);
     setSelected(null);
-    setQuestion(buildQuestion(game, lang));
+    setQuestion(buildQuestion(game, lang, level));
   }
 
   function reset() {
-    setProgress({ points: 0, streak: 0, level: 1 });
+    setProgress({ points: 0, streak: 0, skills: {} });
     setGame(null);
     setQuestion(null);
+    setRound(0);
+    setRoundScore(0);
+    setSelected(null);
   }
 
   return (
@@ -167,9 +123,9 @@ export default function GamesPage() {
         </header>
 
         <section className="stats-grid" aria-label="progress">
-          <div><span>⭐</span><strong>{progress.points}</strong><small>{t.points}</small></div>
-          <div><span>🔥</span><strong>{progress.streak}</strong><small>{t.streak}</small></div>
-          <div><span>🏆</span><strong>{progress.level}</strong><small>{t.level}</small></div>
+          <div><span>⭐</span><strong>{xp}</strong><small>{t.points}</small></div>
+          <div><span>🔥</span><strong>{streak}</strong><small>{t.streak}</small></div>
+          <div><span>🏆</span><strong>{level}</strong><small>{t.level}</small></div>
         </section>
 
         {!game ? (
@@ -185,11 +141,14 @@ export default function GamesPage() {
                 </button>
               ))}
             </section>
+            <div className="games-skill-summary">
+              {Object.entries(skills).map(([skill, value]) => <span key={skill}>{skill}: {Math.round(value * 100)}%</span>)}
+            </div>
           </>
         ) : (
           <section className="play-card">
             <button className="back" onClick={() => setGame(null)}>← {t.back}</button>
-            <div className="round-meta">{round + 1} / 5 · +10 XP</div>
+            <div className="round-meta">{round + 1} / 5 · +XP</div>
             {question && <>
               <h2>{question.prompt}</h2>
               <p className="choose">{t.choose}</p>
@@ -201,7 +160,7 @@ export default function GamesPage() {
               </div>
               {selected && <div className={`feedback ${selected === question.answer ? 'good' : 'bad'}`}>
                 <strong>{selected === question.answer ? t.correct : t.wrong}</strong>
-                <span>{selected === question.answer ? '+10 XP' : `${t.hint}: ${question.hint}`}</span>
+                <span>{selected === question.answer ? `+${scoreAnswer(question, selected).xp} ${t.xp}` : `${t.hint}: ${question.hint}`}</span>
               </div>}
               {selected && <button className="next" onClick={next}>{round >= 4 ? t.done : t.next} →</button>}
             </>}
