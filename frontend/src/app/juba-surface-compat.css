@@ -40,7 +40,20 @@ main [class*='text-red-'] { color: var(--juba-danger) !important; }
 main [class*='bg-red-'] { background: color-mix(in srgb, var(--juba-danger) 10%, var(--juba-surface)) !important; }
 main [class*='border-red-'] { border-color: color-mix(in srgb, var(--juba-danger) 52%, var(--juba-border)) !important; }
 
+/* Shared controls: make native form states feel intentional across older pages. */
+main input[type='checkbox'], main input[type='radio'] { accent-color: var(--juba-primary-dark); }
+main input[type='checkbox']:focus-visible, main input[type='radio']:focus-visible { outline: 3px solid color-mix(in srgb, var(--juba-primary) 28%, transparent); outline-offset: 2px; }
+main button:disabled, main a[aria-disabled='true'], main [aria-disabled='true'] { opacity: .58; cursor: not-allowed; }
+main button:focus-visible, main a:focus-visible, main select:focus-visible, main input:focus-visible, main textarea:focus-visible { outline: 2px solid var(--juba-primary); outline-offset: 2px; }
+main table { border-color: var(--juba-border) !important; background: var(--juba-surface) !important; color: var(--juba-text); border-radius: 14px; overflow: hidden; }
+main thead { background: var(--juba-surface-soft) !important; color: var(--juba-text) !important; }
+main th { font-weight: 700; letter-spacing: -.01em; }
+main td, main th { border-color: var(--juba-border-soft) !important; }
+main tbody tr:hover { background: color-mix(in srgb, var(--juba-primary-soft) 48%, var(--juba-surface)); }
+main code:not(pre code) { border: 1px solid var(--juba-border-soft); border-radius: .45rem; background: var(--juba-surface-soft); color: var(--juba-primary-dark); padding: .1rem .35rem; }
+
 @media (max-width: 640px) {
   main .border-fl-border.bg-fl-surface:not(.rounded-2xl):not(.rounded-xl):not(.rounded-lg) { border-radius: 16px; }
   main .border-fl-border.border > div > button { min-height: 52px; }
+  main table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 }
