@@ -14,4 +14,33 @@ main .border-fl-border.bg-fl-surface [class*='text-blue-'], main .border-fl-bord
 main .border-fl-border.bg-fl-surface [class*='bg-blue-'], main .border-fl-border.bg-fl-surface [class*='bg-amber-'] { background: var(--juba-primary-soft) !important; }
 main .border-fl-border.bg-fl-surface [class*='border-blue-'], main .border-fl-border.bg-fl-surface [class*='border-amber-'] { border-color: color-mix(in srgb, var(--juba-primary) 58%, var(--juba-border)) !important; }
 main .border-fl-border.bg-fl-surface .text-fl-label { letter-spacing: .07em; font-weight: 700; }
-@media (max-width: 640px) { main .border-fl-border.bg-fl-surface:not(.rounded-2xl):not(.rounded-xl):not(.rounded-lg) { border-radius: 16px; } }
+
+/* FAQ accordion: keep the information architecture, modernize the reading surface. */
+main .border-fl-border.border > div > button.hover\\:bg-fl-surface { background: var(--juba-surface) !important; }
+main .border-fl-border.border > div > button.hover\\:bg-fl-surface:hover { background: var(--juba-primary-soft) !important; }
+main .border-fl-border.border > div > button { min-height: 56px; }
+main .border-fl-border.border > div > div.text-fl-muted-1 { background: var(--juba-surface-soft) !important; border-color: var(--juba-border-soft) !important; }
+main .border-fl-border.border code { border-radius: .45rem; background: var(--juba-surface-soft) !important; }
+
+/* Feedback modal and forms: consistent SaaS controls without touching API behavior. */
+.fixed .border-fl-border.bg-fl-surface { border-radius: 18px; border-color: var(--juba-border) !important; background: var(--juba-surface) !important; box-shadow: 0 24px 70px rgba(20,18,23,.18) !important; }
+.fixed .border-fl-border.bg-fl-surface input, .fixed .border-fl-border.bg-fl-surface textarea { border-radius: .8rem; }
+.fixed .border-fl-border.bg-fl-surface button { border-radius: .8rem; }
+main textarea, main input, main select { border-radius: .75rem; }
+main button { -webkit-tap-highlight-color: transparent; }
+
+/* Legacy semantic colors are translated to the JUBA identity. */
+main [class*='text-blue-'], main [class*='text-amber-'], main [class*='text-yellow-'] { color: var(--juba-primary-dark) !important; }
+main [class*='bg-blue-'], main [class*='bg-amber-'], main [class*='bg-yellow-'] { background: var(--juba-primary-soft) !important; }
+main [class*='border-blue-'], main [class*='border-amber-'], main [class*='border-yellow-'] { border-color: color-mix(in srgb, var(--juba-primary) 58%, var(--juba-border)) !important; }
+main [class*='text-green-'] { color: var(--juba-primary-dark) !important; }
+main [class*='bg-green-'] { background: var(--juba-warm-soft) !important; }
+main [class*='border-green-'] { border-color: color-mix(in srgb, var(--juba-warm) 58%, var(--juba-border)) !important; }
+main [class*='text-red-'] { color: var(--juba-danger) !important; }
+main [class*='bg-red-'] { background: color-mix(in srgb, var(--juba-danger) 10%, var(--juba-surface)) !important; }
+main [class*='border-red-'] { border-color: color-mix(in srgb, var(--juba-danger) 52%, var(--juba-border)) !important; }
+
+@media (max-width: 640px) {
+  main .border-fl-border.bg-fl-surface:not(.rounded-2xl):not(.rounded-xl):not(.rounded-lg) { border-radius: 16px; }
+  main .border-fl-border.border > div > button { min-height: 52px; }
+}
