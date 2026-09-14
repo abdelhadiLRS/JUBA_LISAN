@@ -18,8 +18,6 @@ import { CEFR_LEVELS } from '@/data/curriculum'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { PageLoading } from '@/components/ui/page-loading'
 
-// ── Types ──────────────────────────────────────────────────────────────────────
-
 interface AnswerRecord {
   question_id: string
   skill: string
@@ -61,8 +59,6 @@ type FlowStep =
   | 'duration'
   | 'voice-trial-offer'
 
-// ── Constants ──────────────────────────────────────────────────────────────────
-
 const MAX_QUESTIONS = 15
 const CORRECT_STREAK_TO_UP = 2
 const WRONG_STREAK_TO_DOWN = 2
@@ -88,8 +84,6 @@ function adjustLevel(current: CEFRLevel, direction: 'up' | 'down'): CEFRLevel {
   return current
 }
 
-// ── Component ─────────────────────────────────────────────────────────────────
-
 export default function AssessmentPage() {
   const t = useTranslations('assessment')
   const tCommon = useTranslations('common')
@@ -104,38 +98,25 @@ export default function AssessmentPage() {
   const [existingPlan, setExistingPlan] = useState<ExistingPlan | null>(null)
   const [error, setError] = useState('')
   const [bank, setBank] = useState<AssessmentQuestion[]>([])
-
-  const [currentQuestion, setCurrentQuestion] =
-    useState<AssessmentQuestion | null>(null)
+  const [currentQuestion, setCurrentQuestion] = useState<AssessmentQuestion | null>(null)
   const [questionNumber, setQuestionNumber] = useState(0)
   const [answers, setAnswers] = useState<AnswerRecord[]>([])
   const [usedIds] = useState<Set<string>>(() => new Set())
   const [currentLevel, setCurrentLevel] = useState<CEFRLevel>(START_LEVEL)
   const [correctStreak, setCorrectStreak] = useState(0)
   const [wrongStreak, setWrongStreak] = useState(0)
-
   const [result, setResult] = useState<AssessmentResult | null>(null)
   const [selectedLevel, setSelectedLevel] = useState<CEFRLevel>('A1')
   const [evaluating, setEvaluating] = useState(false)
-
-  const [durationOption, setDurationOption] = useState<DurationOption>(
-    DURATION_OPTIONS[2]
-  )
-  const [selectedGoals, setSelectedGoals] = useState<string[]>([
-    'grammar',
-    'vocabulary',
-  ])
+  const [durationOption, setDurationOption] = useState<DurationOption>(DURATION_OPTIONS[2])
+  const [selectedGoals, setSelectedGoals] = useState<string[]>(['grammar', 'vocabulary'])
   const [submitting, setSubmitting] = useState(false)
   const [trialLoading, setTrialLoading] = useState(false)
   const [createdPlanId, setCreatedPlanId] = useState<number | null>(null)
   const [voiceTrial, setVoiceTrial] = useState<VoiceTrialOffer | null>(null)
-
-  // Warning dialog shown before the adaptive quiz starts
   const [showStartWarning, setShowStartWarning] = useState(false)
 
-  useEffect(() => {
-    void loadConfig()
-  }, [loadConfig])
+  useEffect(() => { void loadConfig() }, [loadConfig])
 
   useEffect(() => {
     async function check() {
@@ -146,9 +127,7 @@ export default function AssessmentPage() {
           apiFetch(`/api/assessment/bank?language=${lang}`),
         ])
         if (bankRes.ok) {
-          const bankData = (await bankRes.json()) as {
-            questions: AssessmentQuestion[]
-          }
+          const bankData = (await bankRes.json()) as { questions: AssessmentQuestion[] }
           setBank(bankData.questions)
         }
         if (planRes.ok) {
@@ -168,11 +147,8 @@ export default function AssessmentPage() {
   }, [activeLanguage?.code])
 
   const canOfferVoiceTrial =
-    configLoaded &&
-    stripeEnabled &&
-    user !== null &&
-    !isSubscribed(user, stripeEnabled) &&
-    !user.assessment_voice_trial_used
+    configLoaded && stripeEnabled && user !== null &&
+    !isSubscribed(user, stripeEnabled) && !user.assessment_voice_trial_used
 
   function loadNextQuestion(level: CEFRLevel, usedSet: Set<string>) {
     const q = pickNextQuestion(bank, usedSet, level)
@@ -205,7 +181,6 @@ export default function AssessmentPage() {
 
   function handleAnswer(chosen: string) {
     if (!currentQuestion) return
-
     const isCorrect = chosen === currentQuestion.correct
     const record: AnswerRecord = {
       question_id: currentQuestion.id,
@@ -215,11 +190,9 @@ export default function AssessmentPage() {
     }
     const newAnswers = [...answers, record]
     setAnswers(newAnswers)
-
     let newCorrect = correctStreak
     let newWrong = wrongStreak
     let newLevel = currentLevel
-
     if (isCorrect) {
       newCorrect += 1
       newWrong = 0
@@ -235,15 +208,12 @@ export default function AssessmentPage() {
         newWrong = 0
       }
     }
-
     setCorrectStreak(newCorrect)
     setWrongStreak(newWrong)
-
     if (newAnswers.length >= MAX_QUESTIONS) {
       void evaluateQuiz(newAnswers)
       return
     }
-
     setCurrentLevel(newLevel)
     setQuestionNumber((n) => n + 1)
     setTimeout(() => loadNextQuestion(newLevel, usedIds), 150)
@@ -260,9 +230,7 @@ export default function AssessmentPage() {
       })
       if (!res.ok) {
         const d = await res.json().catch(() => ({}))
-        throw new Error(
-          (d as { detail?: string }).detail ?? `Error ${res.status}`
-        )
+        throw new Error((d as { detail?: string }).detail ?? `Error ${res.status}`)
       }
       const data = (await res.json()) as AssessmentResult
       setResult(data)
@@ -270,11 +238,7 @@ export default function AssessmentPage() {
       setStep('result')
     } catch (err) {
       const msg = err instanceof Error ? err.message : ''
-      setError(
-        msg === 'ai_service_error' || msg === 'ai_service_unavailable'
-          ? tCommon('errorMessage')
-          : msg || 'Evaluation failed'
-      )
+      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || 'Evaluation failed')
     } finally {
       setEvaluating(false)
     }
@@ -296,17 +260,12 @@ export default function AssessmentPage() {
           duration_weeks: durationOption.weeks,
           days_per_week: durationOption.daysPerWeek,
           goals: selectedGoals,
-          // Explicit target_language prevents /complete from relying on the
-          // potentially-stale users.target_language column when the user is
-          // completing assessment for a newly added language.
           target_language: activeLanguage?.code ?? undefined,
         }),
       })
       if (!res.ok) {
         const d = await res.json().catch(() => ({}))
-        throw new Error(
-          (d as { detail?: string }).detail ?? `Error ${res.status}`
-        )
+        throw new Error((d as { detail?: string }).detail ?? `Error ${res.status}`)
       }
       const data = (await res.json()) as AssessmentCompleteResponse
       setCreatedPlanId(data.plan_id)
@@ -319,27 +278,20 @@ export default function AssessmentPage() {
       router.push('/plan')
     } catch (err) {
       const msg = err instanceof Error ? err.message : ''
-      setError(
-        msg === 'ai_service_error' || msg === 'ai_service_unavailable'
-          ? tCommon('errorMessage')
-          : msg || 'Failed to create plan'
-      )
+      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || 'Failed to create plan')
       setSubmitting(false)
     }
   }
 
   function startVoiceTrial() {
     if (!voiceTrial?.token) return
-    sessionStorage.setItem(
-      'assessment_voice_trial',
-      JSON.stringify({
-        token: voiceTrial.token,
-        durationSeconds: voiceTrial.duration_seconds ?? 300,
-        cefrLevel: selectedLevel,
-        planId: createdPlanId,
-        targetLanguage: activeLanguage?.code,
-      })
-    )
+    sessionStorage.setItem('assessment_voice_trial', JSON.stringify({
+      token: voiceTrial.token,
+      durationSeconds: voiceTrial.duration_seconds ?? 300,
+      cefrLevel: selectedLevel,
+      planId: createdPlanId,
+      targetLanguage: activeLanguage?.code,
+    }))
     router.push('/conversation')
   }
 
@@ -355,9 +307,7 @@ export default function AssessmentPage() {
       })
       if (!res.ok) {
         const d = await res.json().catch(() => ({}))
-        throw new Error(
-          (d as { detail?: string }).detail ?? `Error ${res.status}`
-        )
+        throw new Error((d as { detail?: string }).detail ?? `Error ${res.status}`)
       }
       const data = (await res.json()) as AssessmentCompleteResponse
       if (data.voice_trial?.available && data.voice_trial.token) {
@@ -376,90 +326,49 @@ export default function AssessmentPage() {
     }
   }
 
-  // ── Loading ────────────────────────────────────────────────────────────────
-  if (
-    step === 'checking' ||
-    (step === 'quiz' && (evaluating || !currentQuestion))
-  ) {
-    return (
-      <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
-    )
+  const cardClass = 'juba-card w-full max-w-lg overflow-hidden'
+  const panelClass = 'border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] rounded-2xl p-4'
+  const actionClass = 'w-full rounded-xl bg-[var(--juba-primary)] px-4 py-3 font-semibold text-[var(--juba-text)] shadow-sm transition hover:bg-[var(--juba-primary-dark)]'
+
+  if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
+    return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
   }
 
-  // ── Existing plan ─────────────────────────────────────────────────────────
   if (step === 'existing' && existingPlan) {
-    const assessedDate = new Date(existingPlan.created_at).toLocaleDateString(
-      undefined,
-      {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      }
-    )
+    const assessedDate = new Date(existingPlan.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
     return (
-      <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-fl-border bg-fl-surface w-full max-w-md border">
-          <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-fl-label text-fl-muted-3">●</span>
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
-              {t('title')}
-            </span>
-          </div>
-          <div className="space-y-6 p-8 text-center">
+      <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
+        <div className={cardClass}>
+          <div className="flex items-center gap-3 border-b border-[var(--juba-border)] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--juba-primary-soft)] text-sm font-bold text-[var(--juba-primary-dark)]">A</span>
             <div>
-              <p className="text-fl-label text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
-                {t('currentLevel')}
-              </p>
-              <p className="text-fl-fg font-mono text-6xl font-bold tracking-widest">
-                {existingPlan.cefr_level}
-              </p>
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('title')}</p>
+              <p className="text-xs text-[var(--juba-muted)]">{t('currentLevel')}</p>
             </div>
-            <div className="border-fl-border border py-3">
-              <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
-                {t('assessedOn')}
-              </p>
-              <p className="text-fl-muted-1 mt-1 font-mono text-xs">
-                {assessedDate}
-              </p>
+          </div>
+          <div className="space-y-6 p-6 sm:p-8 text-center">
+            <div>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('currentLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-[var(--juba-text)]">{existingPlan.cefr_level}</p>
             </div>
-            <p className="text-fl-label text-fl-muted-3 font-mono leading-relaxed">
-              {t('alreadyHasPlan')}
-            </p>
+            <div className={panelClass}>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('assessedOn')}</p>
+              <p className="mt-1 text-sm text-[var(--juba-text)]">{assessedDate}</p>
+            </div>
+            <p className="text-sm leading-relaxed text-[var(--juba-muted)]">{t('alreadyHasPlan')}</p>
             {canOfferVoiceTrial && (
-              <div className="border-fl-border bg-fl-surface-2 space-y-3 border px-4 py-5">
-                <p className="text-fl-fg font-mono text-sm font-bold">
-                  {t('voiceTrialTitle')}
-                </p>
-                <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
-                  {t('voiceTrialDesc', { minutes: 5 })}
-                </p>
-                <button
-                  onClick={requestVoiceTrial}
-                  disabled={trialLoading}
-                  className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
-                >
+              <div className={panelClass + ' space-y-3'}>
+                <p className="font-semibold text-[var(--juba-text)]">{t('voiceTrialTitle')}</p>
+                <p className="text-xs leading-relaxed text-[var(--juba-muted)]">{t('voiceTrialDesc', { minutes: 5 })}</p>
+                <button onClick={requestVoiceTrial} disabled={trialLoading} className={actionClass + ' disabled:opacity-50'}>
                   {trialLoading ? '...' : `${t('voiceTrialStart')} →`}
                 </button>
               </div>
             )}
-            {error && (
-              <div className="border-fl-error/40 text-fl-error-fg border px-4 py-3 font-mono text-xs">
-                ✕ {error}
-              </div>
-            )}
+            {error && <div className="rounded-xl border border-[var(--juba-danger)]/30 bg-[var(--juba-danger)]/10 px-4 py-3 text-xs text-[var(--juba-danger)]">✕ {error}</div>}
             <div className="flex gap-2">
-              <button
-                onClick={() => router.push('/dashboard')}
-                className="border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg flex-1 border px-3 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
-              >
-                ← {tCommon('backToDashboard')}
-              </button>
-              <button
-                onClick={() => setStep('beginner-gate')}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 flex-[1.75] px-3 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
-              >
-                {t('retake')}
-              </button>
+              <button onClick={() => router.push('/dashboard')} className="flex-1 rounded-xl border border-[var(--juba-border)] px-3 py-3 text-xs font-semibold text-[var(--juba-muted)] transition hover:bg-[var(--juba-surface-soft)]">← {tCommon('backToDashboard')}</button>
+              <button onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
             </div>
           </div>
         </div>
@@ -467,20 +376,13 @@ export default function AssessmentPage() {
     )
   }
 
-  // ── BeginnerGate ──────────────────────────────────────────────────────────
   if (step === 'beginner-gate') {
     return (
       <>
         <BeginnerGate
           languageCode={activeLanguage?.iso639 ?? ''}
           onBeginner={() => {
-            setResult({
-              cefr_level: 'A1',
-              score: 0,
-              skill_profile: {},
-              strengths: [],
-              weaknesses: [],
-            })
+            setResult({ cefr_level: 'A1', score: 0, skill_profile: {}, strengths: [], weaknesses: [] })
             setSelectedLevel('A1')
             setAnswers([])
             setStep('duration')
@@ -492,154 +394,92 @@ export default function AssessmentPage() {
           title={t('startWarningTitle')}
           message={t('startWarningMessage')}
           confirmLabel={t('startWarningConfirm')}
-          onConfirm={() => {
-            setShowStartWarning(false)
-            startQuiz()
-          }}
+          onConfirm={() => { setShowStartWarning(false); startQuiz() }}
           onCancel={() => setShowStartWarning(false)}
         />
       </>
     )
   }
 
-  // ── Quiz ──────────────────────────────────────────────────────────────────
   if (step === 'quiz' && currentQuestion) {
     return (
-      <AdaptiveQuizCard
-        question={currentQuestion}
-        questionNumber={questionNumber}
-        totalQuestions={MAX_QUESTIONS}
-        onAnswer={handleAnswer}
-        languageCode={activeLanguage?.code}
-      />
+      <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:py-10">
+        <div className="mb-5 flex items-center justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('title')}</p>
+            <p className="mt-1 text-sm font-semibold text-[var(--juba-text)]">{currentLevel}</p>
+          </div>
+          <div className="rounded-full bg-[var(--juba-primary-soft)] px-3 py-1.5 text-xs font-bold text-[var(--juba-primary-dark)]">{questionNumber}/{MAX_QUESTIONS}</div>
+        </div>
+        <AdaptiveQuizCard question={currentQuestion} questionNumber={questionNumber} totalQuestions={MAX_QUESTIONS} onAnswer={handleAnswer} languageCode={activeLanguage?.code} />
+      </div>
     )
   }
 
-  // ── Result ────────────────────────────────────────────────────────────────
   if (step === 'result' && result) {
     const score = Math.round(result.score * 100)
     const aiLevel = result.cefr_level
     const levelChanged = selectedLevel !== aiLevel
     return (
-      <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-fl-border bg-fl-surface w-full max-w-md border">
-          <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-fl-label text-fl-muted-3">●</span>
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
-              {t('resultStep')}
-            </span>
+      <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
+        <div className={cardClass}>
+          <div className="flex items-center gap-3 border-b border-[var(--juba-border)] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--juba-warm-soft)] text-sm font-bold text-[var(--juba-primary-dark)]">✓</span>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('resultStep')}</p>
+              <p className="text-xs text-[var(--juba-muted)]">{t('cefrLevel')}</p>
+            </div>
           </div>
-          <div className="space-y-6 p-8 text-center">
+          <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="text-fl-label text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
-                {t('cefrLevel')}
-              </p>
-              <p className="text-fl-fg font-mono text-6xl font-bold tracking-widest">
-                {aiLevel}
-              </p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('cefrLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-[var(--juba-text)]">{aiLevel}</p>
             </div>
-            <div className="border-fl-border border py-3">
-              <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
-                {tCommon('score')}
-              </p>
-              <p className="text-fl-fg-2 mt-1 font-mono text-2xl">{score}%</p>
+            <div className={panelClass}>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{tCommon('score')}</p>
+              <p className="mt-1 text-3xl font-extrabold text-[var(--juba-text)]">{score}%</p>
             </div>
             <div>
-              <p className="text-fl-hint text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
-                {t('overrideLevel')}
-              </p>
-              <div className="flex flex-wrap justify-center gap-1">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('overrideLevel')}</p>
+              <div className="flex flex-wrap justify-center gap-2">
                 {CEFR_LEVELS.map((lvl) => (
-                  <button
-                    key={lvl}
-                    onClick={() => setSelectedLevel(lvl)}
-                    className={`border px-3 py-1.5 font-mono text-xs font-bold tracking-widest transition-colors ${
-                      selectedLevel === lvl
-                        ? 'bg-fl-accent text-fl-accent-fg border-fl-accent'
-                        : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
-                    }`}
-                  >
+                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-full border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--juba-primary)] bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)]' : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:bg-[var(--juba-surface-soft)]'}`}>
                     {lvl}
                   </button>
                 ))}
               </div>
-              {levelChanged && (
-                <p className="text-fl-hint text-fl-muted-1 mt-2 font-mono">
-                  {t('suggestedLevel', { aiLevel, selectedLevel })}
-                </p>
-              )}
+              {levelChanged && <p className="mt-2 text-xs text-[var(--juba-muted)]">{t('suggestedLevel', { aiLevel, selectedLevel })}</p>}
             </div>
             {result.strengths.length > 0 && (
               <div>
-                <p className="text-fl-hint text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
-                  {t('strengths')}
-                </p>
-                <div className="flex flex-wrap justify-center gap-1">
-                  {result.strengths.map((s) => (
-                    <span
-                      key={s}
-                      className="border-fl-border text-fl-label text-fl-muted-1 border px-3 py-1 font-mono tracking-widest uppercase"
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('strengths')}</p>
+                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-full border border-[var(--juba-border)] bg-[var(--juba-warm-soft)] px-3 py-1.5 text-xs font-medium text-[var(--juba-primary-dark)]">{s}</span>)}</div>
               </div>
             )}
             {result.weaknesses.length > 0 && (
               <div>
-                <p className="text-fl-hint text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
-                  {t('needsWork')}
-                </p>
-                <div className="flex flex-wrap justify-center gap-1">
-                  {result.weaknesses.map((w) => (
-                    <span
-                      key={w}
-                      className="border-fl-error/30 text-fl-label text-fl-error-dim border px-3 py-1 font-mono tracking-widest uppercase"
-                    >
-                      {w}
-                    </span>
-                  ))}
-                </div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('needsWork')}</p>
+                <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded-full border border-[var(--juba-danger)]/25 bg-[var(--juba-danger)]/10 px-3 py-1.5 text-xs font-medium text-[var(--juba-danger)]">{w}</span>)}</div>
               </div>
             )}
-            {error && (
-              <div className="border-fl-error/40 text-fl-error-fg border px-4 py-3 font-mono text-xs">
-                ✕ {error}
-              </div>
-            )}
-            <button
-              onClick={() => setStep('duration')}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
-            >
-              {t('createPlan')} →
-            </button>
+            {error && <div className="rounded-xl border border-[var(--juba-danger)]/30 bg-[var(--juba-danger)]/10 px-4 py-3 text-xs text-[var(--juba-danger)]">✕ {error}</div>}
+            <button onClick={() => setStep('duration')} className={actionClass}>{t('createPlan')} →</button>
           </div>
         </div>
       </div>
     )
   }
 
-  // ── Duration + goals ──────────────────────────────────────────────────────
   if (step === 'duration') {
     return (
       <DurationSelector
         selectedWeeks={durationOption.weeks}
         selectedGoals={selectedGoals}
         onSelectDuration={setDurationOption}
-        onToggleGoal={(goal) =>
-          setSelectedGoals((prev) =>
-            prev.includes(goal)
-              ? prev.filter((g) => g !== goal)
-              : [...prev, goal]
-          )
-        }
+        onToggleGoal={(goal) => setSelectedGoals((prev) => prev.includes(goal) ? prev.filter((g) => g !== goal) : [...prev, goal])}
         onConfirm={handleComplete}
         onBack={() => {
-          const isBeginner =
-            result?.score === 0 &&
-            result?.cefr_level === 'A1' &&
-            answers.length === 0
+          const isBeginner = result?.score === 0 && result?.cefr_level === 'A1' && answers.length === 0
           setStep(isBeginner ? 'beginner-gate' : 'result')
         }}
         cefr_level={selectedLevel}
@@ -648,47 +488,26 @@ export default function AssessmentPage() {
     )
   }
 
-  // ── Voice trial offer ─────────────────────────────────────────────────────
   if (step === 'voice-trial-offer') {
     const minutes = Math.round((voiceTrial?.duration_seconds ?? 300) / 60)
     return (
-      <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-fl-border bg-fl-surface w-full max-w-md border">
-          <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-fl-label text-fl-muted-3">●</span>
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
-              {t('voiceTrialLabel')}
-            </span>
+      <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
+        <div className={cardClass}>
+          <div className="flex items-center gap-3 border-b border-[var(--juba-border)] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--juba-primary-soft)] text-sm font-bold text-[var(--juba-primary-dark)]">◉</span>
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('voiceTrialLabel')}</p>
           </div>
-          <div className="space-y-6 p-8 text-center">
+          <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="text-fl-label text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
-                {t('cefrLevel')}
-              </p>
-              <p className="text-fl-fg font-mono text-6xl font-bold tracking-widest">
-                {selectedLevel}
-              </p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('cefrLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-[var(--juba-text)]">{selectedLevel}</p>
             </div>
-            <div className="border-fl-border bg-fl-surface-2 border px-4 py-5">
-              <p className="text-fl-fg mb-2 font-mono text-base font-bold">
-                {t('voiceTrialTitle')}
-              </p>
-              <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
-                {t('voiceTrialDesc', { minutes })}
-              </p>
+            <div className={panelClass}>
+              <p className="mb-2 font-semibold text-[var(--juba-text)]">{t('voiceTrialTitle')}</p>
+              <p className="text-xs leading-relaxed text-[var(--juba-muted)]">{t('voiceTrialDesc', { minutes })}</p>
             </div>
-            <button
-              onClick={startVoiceTrial}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
-            >
-              {t('voiceTrialStart')} →
-            </button>
-            <button
-              onClick={() => router.push('/plan')}
-              className="text-fl-hint text-fl-muted-4 hover:text-fl-muted-2 w-full font-mono tracking-widest uppercase transition-colors"
-            >
-              {t('voiceTrialSkip')}
-            </button>
+            <button onClick={startVoiceTrial} className={actionClass}>{t('voiceTrialStart')} →</button>
+            <button onClick={() => router.push('/plan')} className="w-full py-2 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--juba-muted)] transition hover:text-[var(--juba-text)]">{t('voiceTrialSkip')}</button>
           </div>
         </div>
       </div>
