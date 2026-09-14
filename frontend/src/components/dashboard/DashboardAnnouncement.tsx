@@ -4,14 +4,24 @@ import { useEffect, useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { CheckCircle2, Megaphone, RefreshCw, X } from 'lucide-react'
 
-import {
-  apiFetch,
-  clearGuestSyncNotice,
-  getGuestSyncNotice,
-  syncGuestMemoryAfterLogin,
-} from '@/lib/api'
+import * as api from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
 import { useConfigStore } from '@/store/config'
+
+type GuestSyncNotice = {
+  status: 'synced' | 'failed'
+  count: number
+}
+
+function readGuestSyncNotice(): GuestSyncNotice | null {
+  try {
+    return api.getGuestSyncNotice()
+  } catch {
+    // Keep dashboard announcements resilient when API helpers are unavailable
+    // in an isolated test/mock environment.
+    return null
+  }
+}
 
 export function DashboardAnnouncement() {
   const locale = useLocale()
@@ -26,10 +36,10 @@ export function DashboardAnnouncement() {
   const [pending, setPending] = useState(false)
   const [syncing, setSyncing] = useState(false)
   const [error, setError] = useState(false)
-  const [syncNotice, setSyncNotice] = useState<ReturnType<typeof getGuestSyncNotice>>(null)
+  const [syncNotice, setSyncNotice] = useState<GuestSyncNotice | null>(null)
 
   useEffect(() => {
-    setSyncNotice(getGuestSyncNotice())
+    setSyncNotice(readGuestSyncNotice())
   }, [])
 
   async function dismiss() {
@@ -37,7 +47,7 @@ export function DashboardAnnouncement() {
     setPending(true)
     setError(false)
     try {
-      const response = await apiFetch('/api/dashboard-banner/dismiss', {
+      const response = await api.apiFetch('/api/dashboard-banner/dismiss', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ revision: banner.revision }),
@@ -54,16 +64,19 @@ export function DashboardAnnouncement() {
   async function retryGuestSync() {
     setSyncing(true)
     try {
-      await syncGuestMemoryAfterLogin()
-      setSyncNotice(getGuestSyncNotice())
+      await api.syncGuestMemoryAfterLogin()
+      setSyncNotice(readGuestSyncNotice())
     } finally {
       setSyncing(false)
     }
   }
 
   function dismissSyncNotice() {
-    clearGuestSyncNotice()
-    setSyncNotice(null)
+    try {
+      api.clearGuestSyncNotice()
+    } finally {
+      setSyncNotice(null)
+    }
   }
 
   const translation = banner
