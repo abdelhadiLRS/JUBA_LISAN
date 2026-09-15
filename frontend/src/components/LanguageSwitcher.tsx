@@ -51,7 +51,8 @@ export default function LanguageSwitcher() {
   ), [])
 
   if (!activeLanguage) return skeleton
-  const multiple = userLanguages.length > 1
+  const supportedUserLanguages = userLanguages.filter((ulang) => getLanguageByCode(ulang.target_language))
+  const multiple = supportedUserLanguages.length > 1
 
   return (
     <div ref={ref} className="relative w-full">
@@ -62,7 +63,7 @@ export default function LanguageSwitcher() {
         {multiple && <span className="ml-auto rounded-full bg-[var(--juba-surface-2)] px-2 py-0.5 text-xs text-[var(--juba-muted)]">{open ? '⌃' : '⌄'}</span>}
       </button>
       {open && multiple && <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-2xl border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] p-1.5 shadow-[var(--juba-shadow-lg)]">
-        {[...userLanguages].sort((a, b) => tTarget(a.target_language).localeCompare(tTarget(b.target_language))).map((ulang) => {
+        {[...supportedUserLanguages].sort((a, b) => tTarget(a.target_language).localeCompare(tTarget(b.target_language))).map((ulang) => {
           const lang = getLanguageByCode(ulang.target_language)
           if (!lang) return null
           return <button key={ulang.target_language} onClick={() => handleSwitch(ulang.target_language)} className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-bold transition-colors ${ulang.is_active ? 'bg-[var(--juba-accent)] text-[var(--juba-text)]' : 'text-[var(--juba-text)] hover:bg-[var(--juba-surface-2)]'}`}>
