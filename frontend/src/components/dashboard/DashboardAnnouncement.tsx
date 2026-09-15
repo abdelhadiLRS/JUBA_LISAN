@@ -17,8 +17,6 @@ function readGuestSyncNotice(): GuestSyncNotice | null {
   try {
     return api.getGuestSyncNotice()
   } catch {
-    // Keep dashboard announcements resilient when API helpers are unavailable
-    // in an isolated test/mock environment.
     return null
   }
 }
@@ -79,11 +77,9 @@ export function DashboardAnnouncement() {
     }
   }
 
-  const translation = banner
-    ? banner.translations[locale] ??
-      banner.translations.en ??
-      Object.values(banner.translations)[0]
-    : null
+  const translations = banner?.translations ?? {}
+  const translation =
+    translations[locale] ?? translations.en ?? Object.values(translations)[0]
   const showAnnouncement =
     Boolean(banner && translation) && dismissedRevision !== banner?.revision
   const isArabic = locale.toLowerCase().startsWith('ar')
