@@ -13,12 +13,28 @@ type GuestSyncNotice = {
   count: number
 }
 
+type BannerTranslation = {
+  title: string
+  subtitle: string
+  description: string
+}
+
 function readGuestSyncNotice(): GuestSyncNotice | null {
   try {
     return api.getGuestSyncNotice()
   } catch {
     return null
   }
+}
+
+function isBannerTranslation(value: unknown): value is BannerTranslation {
+  if (!value || typeof value !== 'object') return false
+  const candidate = value as Record<string, unknown>
+  return (
+    typeof candidate.title === 'string' &&
+    typeof candidate.subtitle === 'string' &&
+    typeof candidate.description === 'string'
+  )
 }
 
 export function DashboardAnnouncement() {
@@ -77,9 +93,15 @@ export function DashboardAnnouncement() {
     }
   }
 
-  const translations = banner?.translations ?? {}
+  const rawTranslations = banner?.translations
+  const translationCandidates =
+    rawTranslations && typeof rawTranslations === 'object'
+      ? (rawTranslations as Record<string, unknown>)
+      : {}
   const translation =
-    translations[locale] ?? translations.en ?? Object.values(translations)[0]
+    [translationCandidates[locale], translationCandidates.en, ...Object.values(translationCandidates)].find(
+      isBannerTranslation
+    ) ?? null
   const showAnnouncement =
     Boolean(banner && translation) && dismissedRevision !== banner?.revision
   const isArabic = locale.toLowerCase().startsWith('ar')
