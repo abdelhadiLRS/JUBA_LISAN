@@ -143,4 +143,4 @@ class PlanLessonResponse(BaseModel):
     unit_id: str | None
     is_completed: bool
 
-    model_config = {"from_attributes": True
+    model_config = {"from_attributes": True}
