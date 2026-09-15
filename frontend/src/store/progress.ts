@@ -65,6 +65,16 @@ const initialGameStats: GameStats = {
   bestCorrectStreak: 0,
 }
 
+function normalizeSkills(value: unknown): Record<string, number> {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return {}
+
+  return Object.fromEntries(
+    Object.entries(value).filter(
+      ([, score]) => typeof score === 'number' && Number.isFinite(score)
+    )
+  )
+}
+
 export const useProgressStore = create<ProgressStore>((set) => ({
   streak: 0,
   xp: 0,
@@ -81,7 +91,7 @@ export const useProgressStore = create<ProgressStore>((set) => ({
   setProgress: (data) => set({
     streak: data.streak,
     xp: data.xp,
-    skills: data.skills,
+    skills: normalizeSkills(data.skills),
     ...(data.gameStats ? { gameStats: data.gameStats } : {}),
     ...(data.achievements ? { achievements: data.achievements } : {}),
   }),
@@ -90,8 +100,8 @@ export const useProgressStore = create<ProgressStore>((set) => ({
       xp: state.xp + xp,
       streak: correct ? state.streak + 1 : 0,
       skills: correct
-        ? { ...state.skills, [skill]: Math.min(1, (state.skills[skill] ?? 0) + 0.05) }
-        : state.skills,
+        ? { ...normalizeSkills(state.skills), [skill]: Math.min(1, (state.skills[skill] ?? 0) + 0.05) }
+        : normalizeSkills(state.skills),
     })),
   recordGameAttempt: (correct) =>
     set((state) => {
