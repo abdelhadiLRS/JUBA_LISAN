@@ -86,20 +86,25 @@ function normalizeSkills(value: unknown): Record<string, number> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return {}
 
   return Object.fromEntries(
-    Object.entries(value).filter(
-      ([skill, score]) =>
-        SUPPORTED_LESSON_TYPES.has(skill) &&
-        typeof score === 'number' &&
-        Number.isFinite(score)
-    )
+    Object.entries(value).flatMap(([skill, score]) => {
+      if (
+        !SUPPORTED_LESSON_TYPES.has(skill) ||
+        typeof score !== 'number' ||
+        !Number.isFinite(score)
+      ) {
+        return []
+      }
+
+      return [[skill, Math.max(0, Math.min(1, score))]]
+    })
   )
 }
 
-function normalizeTodayLessons(lessons: TodayLesson[]): TodayLesson[] {
+function normalizeTodayLessons(lessons: unknown): TodayLesson[] {
   if (!Array.isArray(lessons)) return []
 
   return lessons
-    .filter((lesson) => lesson && typeof lesson === 'object')
+    .filter((lesson): lesson is TodayLesson => Boolean(lesson && typeof lesson === 'object'))
     .map((lesson) => ({
       ...lesson,
       lessonType: normalizeLessonType(lesson.lessonType),
