@@ -2,7 +2,19 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from pydantic import BaseModel, field_serializer
+from pydantic import BaseModel, field_serializer, field_validator
+
+
+SUPPORTED_LESSON_TYPES = {
+    "grammar",
+    "vocabulary",
+    "reading",
+    "writing",
+    "listening",
+    "conversation",
+    "review",
+    "level_test",
+}
 
 
 class StudyPlanGoal(BaseModel):
@@ -79,6 +91,29 @@ class TodayLesson(BaseModel):
     unit_id: str = ""
     is_completed: bool = False
 
+    @field_validator("lesson_type", mode="before")
+    @classmethod
+    def normalize_lesson_type(cls, value: object) -> str:
+        if not isinstance(value, str):
+            return "review"
+        normalized = value.strip().lower()
+        return normalized if normalized in SUPPORTED_LESSON_TYPES else "review"
+
+    @field_validator("objectives", mode="before")
+    @classmethod
+    def normalize_objectives(cls, value: object) -> list[str]:
+        if not isinstance(value, list):
+            return []
+        return [item for item in value if isinstance(item, str)]
+
+    @field_validator("estimated_minutes", mode="before")
+    @classmethod
+    def normalize_estimated_minutes(cls, value: object) -> int:
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            return 25
+        minutes = int(value)
+        return minutes if minutes > 0 else 25
+
 
 class TodayResponse(BaseModel):
     plan_id: int
@@ -108,4 +143,4 @@ class PlanLessonResponse(BaseModel):
     unit_id: str | None
     is_completed: bool
 
-    model_config = {"from_attributes": True}
+    model_config = {"from_attributes": True
