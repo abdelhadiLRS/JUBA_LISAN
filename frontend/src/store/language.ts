@@ -40,6 +40,23 @@ interface LanguageStore {
   removeLanguage: (code: string) => Promise<boolean>
 }
 
+function isLanguageRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value && typeof value === 'object' && !Array.isArray(value))
+}
+
+function normalizeSupportedCodes(value: unknown): string[] {
+  if (!Array.isArray(value)) return []
+
+  return Array.from(
+    new Set(
+      value.filter(
+        (code: unknown): code is string =>
+          typeof code === 'string' && Boolean(getLanguageByCode(code))
+      )
+    )
+  )
+}
+
 export const useLanguageStore = create<LanguageStore>((set, get) => ({
   activeLanguage: null,
   userLanguages: [],
@@ -53,30 +70,28 @@ export const useLanguageStore = create<LanguageStore>((set, get) => ({
       if (!res.ok) return
       const data = await res.json()
 
-      const languages: UserLanguageInfo[] = (Array.isArray(data.languages)
-        ? data.languages
-        : []
+      const languages: UserLanguageInfo[] = (
+        Array.isArray(data.languages) ? data.languages : []
       )
-        .map(mapUserLanguageInfo)
-        .filter((language) => Boolean(getLanguageByCode(language.target_language)))
+        .filter(isLanguageRecord)
+        .filter(
+          (language) =>
+            typeof language.target_language === 'string' &&
+            Boolean(getLanguageByCode(language.target_language))
+        )
+        .map((language) => mapUserLanguageInfo(language))
 
       const active = languages.find((l) => l.is_active)
       const activeLang = active
         ? (getLanguageByCode(active.target_language) ?? null)
         : null
 
-      const availableLanguageCodes = (Array.isArray(data.all_supported_languages)
-        ? data.all_supported_languages
-        : []
-      ).filter(
-        (code: unknown): code is string =>
-          typeof code === 'string' && Boolean(getLanguageByCode(code))
-      )
-
       set({
         userLanguages: languages,
         activeLanguage: activeLang,
-        availableLanguageCodes,
+        availableLanguageCodes: normalizeSupportedCodes(
+          data.all_supported_languages
+        ),
       })
     } catch {
       // silently ignore — store stays with current state
