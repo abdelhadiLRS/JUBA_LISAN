@@ -91,7 +91,11 @@ export const useAuthStore = create<AuthStore>((set) => ({
     })),
   logout: () => {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('fl_tour_done')
+      try {
+        localStorage.removeItem('fl_tour_done')
+      } catch {
+        // Storage can be unavailable in private/restricted browser contexts.
+      }
     }
     set({ accessToken: null, user: null })
   },
