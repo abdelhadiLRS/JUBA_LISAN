@@ -65,14 +65,55 @@ const initialGameStats: GameStats = {
   bestCorrectStreak: 0,
 }
 
+const SUPPORTED_LESSON_TYPES = new Set([
+  'grammar',
+  'vocabulary',
+  'reading',
+  'writing',
+  'listening',
+  'conversation',
+  'review',
+  'level_test',
+])
+
+function normalizeLessonType(value: unknown): string {
+  if (typeof value !== 'string') return 'review'
+  const normalized = value.trim().toLowerCase()
+  return SUPPORTED_LESSON_TYPES.has(normalized) ? normalized : 'review'
+}
+
 function normalizeSkills(value: unknown): Record<string, number> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return {}
 
   return Object.fromEntries(
     Object.entries(value).filter(
-      ([, score]) => typeof score === 'number' && Number.isFinite(score)
+      ([skill, score]) =>
+        SUPPORTED_LESSON_TYPES.has(skill) &&
+        typeof score === 'number' &&
+        Number.isFinite(score)
     )
   )
+}
+
+function normalizeTodayLessons(lessons: TodayLesson[]): TodayLesson[] {
+  if (!Array.isArray(lessons)) return []
+
+  return lessons
+    .filter((lesson) => lesson && typeof lesson === 'object')
+    .map((lesson) => ({
+      ...lesson,
+      lessonType: normalizeLessonType(lesson.lessonType),
+      objectives: Array.isArray(lesson.objectives)
+        ? lesson.objectives.filter((objective) => typeof objective === 'string')
+        : [],
+      estimatedMinutes:
+        typeof lesson.estimatedMinutes === 'number' &&
+        Number.isFinite(lesson.estimatedMinutes) &&
+        lesson.estimatedMinutes > 0
+          ? lesson.estimatedMinutes
+          : 25,
+      isCompleted: Boolean(lesson.isCompleted),
+    }))
 }
 
 export const useProgressStore = create<ProgressStore>((set) => ({
@@ -100,7 +141,12 @@ export const useProgressStore = create<ProgressStore>((set) => ({
       xp: state.xp + xp,
       streak: correct ? state.streak + 1 : 0,
       skills: correct
-        ? { ...normalizeSkills(state.skills), [skill]: Math.min(1, (state.skills[skill] ?? 0) + 0.05) }
+        ? {
+            ...normalizeSkills(state.skills),
+            ...(SUPPORTED_LESSON_TYPES.has(skill)
+              ? { [skill]: Math.min(1, (state.skills[skill] ?? 0) + 0.05) }
+              : {}),
+          }
         : normalizeSkills(state.skills),
     })),
   recordGameAttempt: (correct) =>
@@ -126,7 +172,7 @@ export const useProgressStore = create<ProgressStore>((set) => ({
       },
     })),
   unlockAchievements: (ids) => set((state) => ({ achievements: Array.from(new Set([...state.achievements, ...ids])) })),
-  setTodayLessons: (lessons) => set({ todayLessons: lessons }),
+  setTodayLessons: (lessons) => set({ todayLessons: normalizeTodayLessons(lessons) }),
   completeLesson: (id) => set((state) => ({ completedToday: [...state.completedToday, id] })),
   setCurrentUnit: (unitId) => set({ currentUnitId: unitId }),
   setPlanDuration: (weeks) => set({ currentPlanDurationWeeks: weeks }),
