@@ -8,22 +8,38 @@ const WHATS_NEW_VERSION = 'v1.8.43'
 const STORAGE_KEY = `fl_whats_new_seen_${WHATS_NEW_VERSION}`
 const TOUR_KEY = 'fl_tour_done'
 
+type WhatsNewEntry = {
+  label: string
+  desc: string
+}
+
+function isWhatsNewEntry(value: unknown): value is WhatsNewEntry {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const entry = value as Record<string, unknown>
+  return typeof entry.label === 'string' && typeof entry.desc === 'string'
+}
+
 export default function WhatsNew() {
   const t = useTranslations('whatsNew')
   const messages = useMessages()
   const [visible, setVisible] = useState(false)
 
-  // Derive entries from raw messages — avoids relying on next-intl throwing on
-  // missing keys (it doesn't: it returns the key path as a string instead).
+  // Derive entries from raw messages and ignore malformed translation payloads.
   const entries = useMemo(() => {
-    const ns = ((messages as Record<string, unknown>)['whatsNew'] ??
-      {}) as Record<string, unknown>
+    const nsValue = (messages as Record<string, unknown>)['whatsNew']
+    if (!nsValue || typeof nsValue !== 'object' || Array.isArray(nsValue)) {
+      return []
+    }
+
+    const ns = nsValue as Record<string, unknown>
     return Object.keys(ns)
       .filter((k) => /^entry\d+$/.test(k))
       .sort((a, b) => parseInt(a.slice(5)) - parseInt(b.slice(5)))
-      .map((k) => {
-        const entry = ns[k] as { label: string; desc: string }
-        return { key: k, label: entry.label, desc: entry.desc }
+      .flatMap((key) => {
+        const entry = ns[key]
+        return isWhatsNewEntry(entry)
+          ? [{ key, label: entry.label, desc: entry.desc }]
+          : []
       })
   }, [messages])
 
@@ -70,8 +86,8 @@ export default function WhatsNew() {
 
         {/* Entries */}
         <div className="max-h-[50vh] space-y-5 overflow-y-auto px-5 py-5">
-          {entries.map((entry, idx) => (
-            <div key={idx} className="flex gap-3">
+          {entries.map((entry) => (
+            <div key={entry.key} className="flex gap-3">
               <CircleDot
                 className="text-fl-accent mt-0.5 h-3.5 w-3.5 shrink-0"
                 aria-hidden="true"
