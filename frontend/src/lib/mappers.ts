@@ -5,7 +5,10 @@ function stringOrFallback(value: unknown, fallback = ''): string {
   return typeof value === 'string' ? value : fallback
 }
 
-function nullableString(value: unknown, fallback: string | null = null): string | null {
+function nullableString(
+  value: unknown,
+  fallback: string | null | undefined = null
+): string | null | undefined {
   if (value === null) return null
   return typeof value === 'string' ? value : fallback
 }
@@ -18,7 +21,10 @@ function booleanOrFallback(value: unknown, fallback = false): boolean {
   return typeof value === 'boolean' ? value : fallback
 }
 
-function subscriptionStatus(value: unknown, fallback: User['subscription_status'] = 'none'): User['subscription_status'] {
+function subscriptionStatus(
+  value: unknown,
+  fallback: User['subscription_status'] = 'none'
+): User['subscription_status'] {
   const supported: User['subscription_status'][] = [
     'none',
     'incomplete',
@@ -52,10 +58,10 @@ export function mapUser(
     id: finiteNumber(data.id, currentUser?.id ?? 0),
     username: stringOrFallback(data.username, currentUser?.username ?? ''),
     displayName: stringOrFallback(data.display_name, currentUser?.displayName ?? ''),
-    email: nullableString(data.email, currentUser?.email ?? undefined) ?? undefined,
-    native_language: nullableString(data.native_language, currentUser?.native_language ?? undefined) ?? undefined,
-    target_language: nullableString(data.target_language, currentUser?.target_language ?? undefined) ?? undefined,
-    ui_locale: nullableString(data.ui_locale, currentUser?.ui_locale ?? null),
+    email: nullableString(data.email, currentUser?.email),
+    native_language: nullableString(data.native_language, currentUser?.native_language),
+    target_language: nullableString(data.target_language, currentUser?.target_language),
+    ui_locale: nullableString(data.ui_locale, currentUser?.ui_locale ?? null) ?? null,
     role,
     conversation_max_duration: finiteNumber(
       data.conversation_max_duration,
@@ -67,13 +73,13 @@ export function mapUser(
     ),
     avatar:
       'avatar' in data
-        ? nullableString(data.avatar)
+        ? nullableString(data.avatar) ?? null
         : (currentUser?.avatar ?? null),
     is_verified: booleanOrFallback(
       data.is_verified,
       currentUser?.is_verified ?? true
     ),
-    bio: nullableString(data.bio, currentUser?.bio ?? null),
+    bio: nullableString(data.bio, currentUser?.bio ?? null) ?? null,
     learning_goals: Array.isArray(data.learning_goals)
       ? data.learning_goals.filter((goal: unknown): goal is string => typeof goal === 'string')
       : (currentUser?.learning_goals ?? null),
@@ -81,10 +87,8 @@ export function mapUser(
       data.subscription_status,
       currentUser?.subscription_status ?? 'none'
     ),
-    subscription_ends_at: nullableString(
-      data.subscription_ends_at,
-      currentUser?.subscription_ends_at ?? null
-    ),
+    subscription_ends_at:
+      nullableString(data.subscription_ends_at, currentUser?.subscription_ends_at ?? null) ?? null,
     cancel_at_period_end: booleanOrFallback(
       data.cancel_at_period_end,
       currentUser?.cancel_at_period_end ?? false
@@ -94,10 +98,8 @@ export function mapUser(
       data.assessment_voice_trial_used,
       currentUser?.assessment_voice_trial_used ?? false
     ),
-    freemium_trial_ends_at: nullableString(
-      data.freemium_trial_ends_at,
-      currentUser?.freemium_trial_ends_at ?? null
-    ),
+    freemium_trial_ends_at:
+      nullableString(data.freemium_trial_ends_at, currentUser?.freemium_trial_ends_at ?? null) ?? null,
     freemium_trial_used: booleanOrFallback(
       data.freemium_trial_used,
       currentUser?.freemium_trial_used ?? false
@@ -127,7 +129,7 @@ export function mapUserLanguageInfo(
     plan: plan
       ? {
           id: finiteNumber(plan.id),
-          cefr_level: nullableString(plan.cefr_level),
+          cefr_level: nullableString(plan.cefr_level) ?? null,
           progress_day: finiteNumber(plan.progress_day),
           total_days: finiteNumber(plan.total_days),
           completion_pct: finiteNumber(plan.completion_pct),
