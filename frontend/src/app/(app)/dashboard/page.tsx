@@ -31,6 +31,65 @@ interface TodayLessonItem {
   is_completed: boolean
 }
 
+const SUPPORTED_LESSON_TYPES = new Set([
+  'grammar',
+  'vocabulary',
+  'reading',
+  'writing',
+  'listening',
+  'conversation',
+  'review',
+  'level_test',
+])
+
+function normalizeLessonType(value: unknown): string {
+  if (typeof value !== 'string') return 'review'
+  const normalized = value.trim().toLowerCase()
+  return SUPPORTED_LESSON_TYPES.has(normalized) ? normalized : 'review'
+}
+
+function getLessonTypeLabelKey(value: unknown): string {
+  return `lessonTypes.${normalizeLessonType(value)}`
+}
+
+function normalizeDashboardLessons(value: unknown): TodayLessonItem[] {
+  if (!Array.isArray(value)) return []
+
+  return value
+    .filter(
+      (item): item is Record<string, unknown> =>
+        Boolean(item && typeof item === 'object' && !Array.isArray(item))
+    )
+    .map((item) => ({
+      id: typeof item.id === 'number' && Number.isFinite(item.id) ? item.id : null,
+      title:
+        typeof item.title === 'string' && item.title.trim()
+          ? item.title
+          : 'Lesson',
+      lesson_type: normalizeLessonType(item.lesson_type),
+      week:
+        typeof item.week === 'number' && Number.isFinite(item.week)
+          ? item.week
+          : 0,
+      day:
+        typeof item.day === 'number' && Number.isFinite(item.day)
+          ? item.day
+          : 0,
+      objectives: Array.isArray(item.objectives)
+        ? item.objectives.filter(
+            (objective): objective is string => typeof objective === 'string'
+          )
+        : [],
+      estimated_minutes:
+        typeof item.estimated_minutes === 'number' &&
+        Number.isFinite(item.estimated_minutes) &&
+        item.estimated_minutes > 0
+          ? item.estimated_minutes
+          : 25,
+      is_completed: Boolean(item.is_completed),
+    }))
+}
+
 const btnPrimary =
   'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
 const btnSecondary =
@@ -131,14 +190,14 @@ export default function DashboardPage() {
         setTotalDays(plan.total_days ?? 0)
         setPendingCount(plan.pending_count ?? 0)
         setTodayLessons(
-          plan.lessons.map((l: TodayLessonItem) => ({
+          normalizeDashboardLessons(plan.lessons).map((l) => ({
             id: l.id,
             title: l.title,
             lessonType: l.lesson_type,
             week: l.week,
             day: l.day,
-            objectives: l.objectives || [],
-            estimatedMinutes: l.estimated_minutes || 25,
+            objectives: l.objectives,
+            estimatedMinutes: l.estimated_minutes,
             isCompleted: l.is_completed,
           }))
         )
@@ -241,19 +300,9 @@ export default function DashboardPage() {
   }
 
   const stats = [
-    {
-      label: t('streak'),
-      value: `${streak}d`,
-      Icon: Flame,
-      highlight: streak > 0,
-    },
+    { label: t('streak'), value: `${streak}d`, Icon: Flame, highlight: streak > 0 },
     { label: t('xp'), value: xp, Icon: Sparkles, highlight: false },
-    {
-      label: t('lessonsCompleted'),
-      value: totalLessons,
-      Icon: BookOpen,
-      highlight: false,
-    },
+    { label: t('lessonsCompleted'), value: totalLessons, Icon: BookOpen, highlight: false },
     {
       label: t('accuracy'),
       value: totalExercises > 0 ? `${Math.round(accuracy * 100)}%` : '—',
@@ -261,10 +310,7 @@ export default function DashboardPage() {
       highlight: false,
       detail:
         totalExercises > 0
-          ? t('exerciseStats', {
-              correct: exercisesCorrect,
-              total: totalExercises,
-            })
+          ? t('exerciseStats', { correct: exercisesCorrect, total: totalExercises })
           : t('noExercisesYet'),
     },
   ]
@@ -274,7 +320,6 @@ export default function DashboardPage() {
       <OnboardingTour />
       <WhatsNew />
       <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 md:py-8">
-        {/* Header */}
         <div className="mb-6">
           <p className="text-fl-muted-2 mb-1 text-sm">{t('welcomeBack')}</p>
           <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
@@ -284,17 +329,13 @@ export default function DashboardPage() {
               </h1>
               {activeLanguage && (
                 <p className="text-fl-muted-1 mt-1 text-sm">
-                  {tTarget(activeLanguage.code)}
-                  {cefrLevel ? ` · ${cefrLevel}` : ''}
+                  {tTarget(activeLanguage.code)}{cefrLevel ? ` · ${cefrLevel}` : ''}
                 </p>
               )}
             </div>
             {hasPlan && totalDays > 0 && (
               <p className="text-fl-muted-2 text-sm font-medium">
-                {t('dayProgress', {
-                  current: Math.min(progressDay + 1, totalDays),
-                  total: totalDays,
-                })}
+                {t('dayProgress', { current: Math.min(progressDay + 1, totalDays), total: totalDays })}
               </p>
             )}
           </div>
@@ -302,446 +343,129 @@ export default function DashboardPage() {
 
         <DashboardAnnouncement />
 
-        {/* Next step — hero card */}
-        <section
-          className="juba-card mb-6 p-5 sm:p-6"
-          aria-label={t('nextStep')}
-        >
-          <p className="text-fl-muted-2 mb-4 text-xs font-semibold tracking-wide uppercase">
-            {t('nextStep')}
-          </p>
+        <section className="juba-card mb-6 p-5 sm:p-6" aria-label={t('nextStep')}>
+          <p className="text-fl-muted-2 mb-4 text-xs font-semibold tracking-wide uppercase">{t('nextStep')}</p>
           {!hasPlan ? (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-fl-fg text-xl font-bold tracking-tight">
-                  {t('startWithAssessment')}
-                </h2>
-                <p className="text-fl-muted-2 mt-2 max-w-xl text-sm">
-                  {t('assessmentCreatesPlan')}
-                </p>
+                <h2 className="text-fl-fg text-xl font-bold tracking-tight">{t('startWithAssessment')}</h2>
+                <p className="text-fl-muted-2 mt-2 max-w-xl text-sm">{t('assessmentCreatesPlan')}</p>
               </div>
-              <Link href="/assessment">
-                <button
-                  className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}
-                >
-                  {t('takeAssessmentArrow')}
-                </button>
-              </Link>
+              <Link href="/assessment"><button className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}>{t('takeAssessmentArrow')}</button></Link>
             </div>
           ) : nextLesson ? (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-fl-muted-3 mb-2 text-xs font-medium tracking-wide uppercase">
-                  {t('lessonReady')}
-                </p>
-                <h2 className="text-fl-fg text-xl font-bold tracking-tight">
-                  {nextLesson.title}
-                </h2>
-                <p className="text-fl-muted-2 mt-2 text-sm">
-                  {tPlan(`lessonTypes.${nextLesson.lessonType}`)} ·{' '}
-                  {nextLesson.estimatedMinutes}min
-                </p>
+                <p className="text-fl-muted-3 mb-2 text-xs font-medium tracking-wide uppercase">{t('lessonReady')}</p>
+                <h2 className="text-fl-fg text-xl font-bold tracking-tight">{nextLesson.title}</h2>
+                <p className="text-fl-muted-2 mt-2 text-sm">{tPlan(getLessonTypeLabelKey(nextLesson.lessonType))} · {nextLesson.estimatedMinutes}min</p>
               </div>
-              <Link href={`/lesson/${nextLesson.id}`}>
-                <button
-                  className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}
-                >
-                  {t('startLesson')}
-                </button>
-              </Link>
+              <Link href={`/lesson/${nextLesson.id}`}><button className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}>{t('startLesson')}</button></Link>
             </div>
           ) : (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-fl-fg text-xl font-bold tracking-tight">
-                  {t('allCaughtUp')}
-                </h2>
-                <p className="text-fl-muted-2 mt-2 text-sm">
-                  {pendingCount > 0
-                    ? t('pendingStillAvailable', { count: pendingCount })
-                    : t('noPendingToday')}
-                </p>
+                <h2 className="text-fl-fg text-xl font-bold tracking-tight">{t('allCaughtUp')}</h2>
+                <p className="text-fl-muted-2 mt-2 text-sm">{pendingCount > 0 ? t('pendingStillAvailable', { count: pendingCount }) : t('noPendingToday')}</p>
               </div>
-              <Link href="/plan">
-                <button className={btnSecondary}>{t('goToMyPlan')}</button>
-              </Link>
+              <Link href="/plan"><button className={btnSecondary}>{t('goToMyPlan')}</button></Link>
             </div>
           )}
         </section>
 
-        {/* Stats row */}
         <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
           {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="border-fl-border bg-fl-surface rounded-2xl border p-4 sm:p-5"
-            >
+            <div key={stat.label} className="border-fl-border bg-fl-surface rounded-2xl border p-4 sm:p-5">
               <div className="mb-2 flex items-center gap-2">
-                <span
-                  className={`flex h-7 w-7 items-center justify-center rounded-lg ${
-                    stat.highlight
-                      ? 'bg-[var(--juba-warm-soft)] text-[var(--juba-warm)]'
-                      : 'bg-[var(--juba-primary-soft)] text-[var(--juba-primary)]'
-                  }`}
-                >
+                <span className={`flex h-7 w-7 items-center justify-center rounded-lg ${stat.highlight ? 'bg-[var(--juba-warm-soft)] text-[var(--juba-warm)]' : 'bg-[var(--juba-primary-soft)] text-[var(--juba-primary)]'}`}>
                   <stat.Icon className="h-4 w-4" aria-hidden="true" />
                 </span>
-                <p className="text-fl-muted-2 truncate text-xs font-medium">
-                  {stat.label}
-                </p>
+                <p className="text-fl-muted-2 truncate text-xs font-medium">{stat.label}</p>
               </div>
-              <p
-                className={`text-2xl font-bold tracking-tight sm:text-3xl ${
-                  stat.highlight ? 'text-[var(--juba-warm)]' : 'text-fl-fg'
-                }`}
-              >
-                {stat.value}
-              </p>
-              {'detail' in stat && stat.detail && (
-                <p className="text-fl-muted-3 mt-1 text-xs">{stat.detail}</p>
-              )}
+              <p className={`text-2xl font-bold tracking-tight sm:text-3xl ${stat.highlight ? 'text-[var(--juba-warm)]' : 'text-fl-fg'}`}>{stat.value}</p>
+              {'detail' in stat && stat.detail && <p className="text-fl-muted-3 mt-1 text-xs">{stat.detail}</p>}
             </div>
           ))}
         </div>
 
         <div className="mb-6 grid gap-4 lg:grid-cols-2">
-          {/* Plan progress */}
-          <section
-            className="border-fl-border bg-fl-surface rounded-2xl border p-5"
-            aria-label={t('planProgress')}
-          >
+          <section className="border-fl-border bg-fl-surface rounded-2xl border p-5" aria-label={t('planProgress')}>
             <div className="mb-4 flex items-center justify-between gap-4">
-              <h3 className="text-fl-fg text-sm font-semibold">
-                {t('planProgress')}
-              </h3>
-              {hasPlan && totalDays > 0 && (
-                <span className="text-fl-muted-2 text-sm font-semibold">
-                  {planCompletion}%
-                </span>
-              )}
+              <h3 className="text-fl-fg text-sm font-semibold">{t('planProgress')}</h3>
+              {hasPlan && totalDays > 0 && <span className="text-fl-muted-2 text-sm font-semibold">{planCompletion}%</span>}
             </div>
             {hasPlan && totalDays > 0 ? (
               <>
-                <div className="bg-fl-surface-2 mb-4 h-2 w-full overflow-hidden rounded-full">
-                  <div
-                    className="h-full rounded-full transition-all duration-500"
-                    style={{
-                      width: `${planCompletion}%`,
-                      background: 'var(--juba-primary)',
-                    }}
-                  />
-                </div>
+                <div className="bg-fl-surface-2 mb-4 h-2 w-full overflow-hidden rounded-full"><div className="h-full rounded-full transition-all duration-500" style={{ width: `${planCompletion}%`, background: 'var(--juba-primary)' }} /></div>
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="bg-fl-surface-2 rounded-xl p-3">
-                    <p className="text-fl-muted-2 mb-1 text-xs font-medium">
-                      {t('currentDay')}
-                    </p>
-                    <p className="text-fl-fg text-lg font-bold">
-                      {Math.min(progressDay + 1, totalDays)} / {totalDays}
-                    </p>
-                  </div>
-                  <div className="bg-fl-surface-2 rounded-xl p-3">
-                    <p className="text-fl-muted-2 mb-1 text-xs font-medium">
-                      {t('daysRemaining')}
-                    </p>
-                    <p className="text-fl-fg text-lg font-bold">
-                      {daysRemaining}
-                    </p>
-                  </div>
+                  <div className="bg-fl-surface-2 rounded-xl p-3"><p className="text-fl-muted-2 mb-1 text-xs font-medium">{t('currentDay')}</p><p className="text-fl-fg text-lg font-bold">{Math.min(progressDay + 1, totalDays)} / {totalDays}</p></div>
+                  <div className="bg-fl-surface-2 rounded-xl p-3"><p className="text-fl-muted-2 mb-1 text-xs font-medium">{t('daysRemaining')}</p><p className="text-fl-fg text-lg font-bold">{daysRemaining}</p></div>
                 </div>
                 {vocabularyTotal > 0 && (
                   <div className="mt-5">
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="text-fl-muted-2 text-xs font-medium">
-                        {t('vocabularyProgress', {
-                          level: vocabularyLevel ?? cefrLevel ?? '',
-                        })}
-                      </p>
-                      <p className="text-fl-muted-1 text-xs font-semibold">
-                        {vocabularyProgressPct}%
-                      </p>
-                    </div>
-                    <p className="text-fl-muted-3 mt-1 text-xs">
-                      {t('vocabularyWords', {
-                        mastered: vocabularyMastered,
-                        total: vocabularyTotal,
-                      })}
-                    </p>
-                    <div className="bg-fl-surface-2 mt-2 h-2 w-full overflow-hidden rounded-full">
-                      <div
-                        className="h-full rounded-full transition-all duration-500"
-                        style={{
-                          width: `${vocabularyProgressPct}%`,
-                          background: 'var(--juba-primary)',
-                        }}
-                      />
-                    </div>
+                    <div className="flex items-center justify-between gap-3"><p className="text-fl-muted-2 text-xs font-medium">{t('vocabularyProgress', { level: vocabularyLevel ?? cefrLevel ?? '' })}</p><p className="text-fl-muted-1 text-xs font-semibold">{vocabularyProgressPct}%</p></div>
+                    <p className="text-fl-muted-3 mt-1 text-xs">{t('vocabularyWords', { mastered: vocabularyMastered, total: vocabularyTotal })}</p>
+                    <div className="bg-fl-surface-2 mt-2 h-2 w-full overflow-hidden rounded-full"><div className="h-full rounded-full transition-all duration-500" style={{ width: `${vocabularyProgressPct}%`, background: 'var(--juba-primary)' }} /></div>
                   </div>
                 )}
               </>
-            ) : (
-              <p className="text-fl-muted-2 text-sm">
-                {t('startWithAssessment')}
-              </p>
-            )}
+            ) : <p className="text-fl-muted-2 text-sm">{t('startWithAssessment')}</p>}
           </section>
 
-          {/* Today's lessons */}
-          <section
-            className="border-fl-border bg-fl-surface rounded-2xl border p-5"
-            aria-label={t('today')}
-          >
-            <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-fl-fg text-sm font-semibold">{t('today')}</h3>
-              {todayLessons.length > 0 && (
-                <span className="text-fl-muted-3 text-xs font-medium">
-                  {t('completedToday', {
-                    completed: completedLessonCount,
-                    total: todayLessons.length,
-                  })}
-                </span>
-              )}
-            </div>
-
+          <section className="border-fl-border bg-fl-surface rounded-2xl border p-5" aria-label={t('today')}>
+            <div className="mb-4 flex items-center justify-between"><h3 className="text-fl-fg text-sm font-semibold">{t('today')}</h3>{todayLessons.length > 0 && <span className="text-fl-muted-3 text-xs font-medium">{t('completedToday', { completed: completedLessonCount, total: todayLessons.length })}</span>}</div>
             {todayLessons.length > 0 ? (
               <div className="space-y-2">
                 {todayLessons.map((lesson, i) => {
-                  const isDone =
-                    (lesson.id && completedToday.includes(lesson.id)) ||
-                    lesson.isCompleted
+                  const isDone = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
                   const isNext = nextLesson?.id === lesson.id
-
                   return (
-                    <div
-                      key={i}
-                      className={`rounded-xl border px-4 py-3 transition-colors ${
-                        isNext
-                          ? 'border-[color-mix(in_srgb,var(--juba-primary)_45%,var(--juba-border))] bg-[var(--juba-primary-soft)]'
-                          : 'border-fl-border'
-                      }`}
-                    >
+                    <div key={i} className={`rounded-xl border px-4 py-3 transition-colors ${isNext ? 'border-[color-mix(in_srgb,var(--juba-primary)_45%,var(--juba-border))] bg-[var(--juba-primary-soft)]' : 'border-fl-border'}`}>
                       <div className="flex items-center justify-between gap-3">
-                        <div className="min-w-0">
-                          <p className="text-fl-fg truncate text-sm font-medium">
-                            {lesson.title}
-                          </p>
-                          <p className="text-fl-muted-2 mt-0.5 text-xs">
-                            {tPlan(`lessonTypes.${lesson.lessonType}`)} ·{' '}
-                            {lesson.estimatedMinutes}min
-                          </p>
-                        </div>
-                        {isDone ? (
-                          <span className="text-fl-muted-2 shrink-0 text-xs font-medium">
-                            ✓ {t('lessonDone')}
-                          </span>
-                        ) : lesson.id ? (
-                          <Link
-                            href={`/lesson/${lesson.id}`}
-                            className="shrink-0"
-                          >
-                            <button
-                              className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
-                                isNext
-                                  ? 'bg-[var(--juba-primary)] text-white hover:bg-[var(--juba-primary-dark)]'
-                                  : 'border-fl-border text-fl-fg border hover:bg-[var(--juba-surface-soft)]'
-                              }`}
-                            >
-                              {t('startLesson')}
-                            </button>
-                          </Link>
-                        ) : null}
+                        <div className="min-w-0"><p className="text-fl-fg truncate text-sm font-medium">{lesson.title}</p><p className="text-fl-muted-2 mt-0.5 text-xs">{tPlan(getLessonTypeLabelKey(lesson.lessonType))} · {lesson.estimatedMinutes}min</p></div>
+                        {isDone ? <span className="text-fl-muted-2 shrink-0 text-xs font-medium">✓ {t('lessonDone')}</span> : lesson.id ? <Link href={`/lesson/${lesson.id}`} className="shrink-0"><button className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${isNext ? 'bg-[var(--juba-primary)] text-white hover:bg-[var(--juba-primary-dark)]' : 'border-fl-border text-fl-fg border hover:bg-[var(--juba-surface-soft)]'}`}>{t('startLesson')}</button></Link> : null}
                       </div>
                     </div>
                   )
                 })}
-                <div className="pt-1">
-                  <button
-                    onClick={skipDay}
-                    disabled={skipping}
-                    className="text-fl-muted-3 hover:text-fl-muted-1 text-xs font-medium transition-colors disabled:opacity-40"
-                  >
-                    {skipping ? '...' : t('skipDay')}
-                  </button>
-                  {skipError && (
-                    <p className="text-fl-error mt-1 text-xs">
-                      {tError('title')}
-                    </p>
-                  )}
-                </div>
+                <div className="pt-1"><button onClick={skipDay} disabled={skipping} className="text-fl-muted-3 hover:text-fl-muted-1 text-xs font-medium transition-colors disabled:opacity-40">{skipping ? '...' : t('skipDay')}</button>{skipError && <p className="text-fl-error mt-1 text-xs">{tError('title')}</p>}</div>
               </div>
             ) : (
-              <div className="space-y-3">
-                <p className="text-fl-muted-2 text-sm">
-                  {hasPlan ? t('allCaughtUp') : t('startWithAssessment')}
-                </p>
-                {!hasPlan && (
-                  <Link href="/assessment">
-                    <button
-                      className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}
-                    >
-                      {t('takeAssessmentArrow')}
-                    </button>
-                  </Link>
-                )}
-              </div>
+              <div className="space-y-3"><p className="text-fl-muted-2 text-sm">{hasPlan ? t('allCaughtUp') : t('startWithAssessment')}</p>{!hasPlan && <Link href="/assessment"><button className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}>{t('takeAssessmentArrow')}</button></Link>}</div>
             )}
           </section>
 
-          {/* Recent performance */}
-          <section
-            className="border-fl-border bg-fl-surface rounded-2xl border p-5 lg:col-span-2"
-            aria-label={t('recentPerformance')}
-          >
-            <div className="mb-4">
-              <h3 className="text-fl-fg text-sm font-semibold">
-                {t('recentPerformance')}
-              </h3>
-              <p className="text-fl-muted-3 mt-1 text-xs">
-                {t('recentPerformanceDescription')}
-              </p>
-            </div>
+          <section className="border-fl-border bg-fl-surface rounded-2xl border p-5 lg:col-span-2" aria-label={t('recentPerformance')}>
+            <div className="mb-4"><h3 className="text-fl-fg text-sm font-semibold">{t('recentPerformance')}</h3><p className="text-fl-muted-3 mt-1 text-xs">{t('recentPerformanceDescription')}</p></div>
             {skillEntries.length > 0 ? (
               <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
                 {skillEntries.map(({ skill, value }) => (
                   <div key={skill}>
-                    <div className="mb-1.5 flex items-center justify-between gap-2">
-                      <span className="text-fl-muted-1 truncate text-xs font-medium">
-                        {tPlan(`lessonTypes.${skill}`)}
-                      </span>
-                      <span className="text-fl-muted-2 shrink-0 text-xs font-semibold">
-                        {getPerformanceLabel(value)} · {Math.round(value * 100)}
-                        %
-                      </span>
-                    </div>
-                    <div className="bg-fl-surface-2 h-2 w-full overflow-hidden rounded-full">
-                      <div
-                        className="h-full rounded-full transition-all duration-500"
-                        style={{
-                          width: `${value * 100}%`,
-                          background:
-                            value < 0.5
-                              ? 'var(--juba-warm)'
-                              : 'var(--juba-primary)',
-                        }}
-                      />
-                    </div>
+                    <div className="mb-1.5 flex items-center justify-between gap-2"><span className="text-fl-muted-1 truncate text-xs font-medium">{tPlan(getLessonTypeLabelKey(skill))}</span><span className="text-fl-muted-2 shrink-0 text-xs font-semibold">{getPerformanceLabel(value)} · {Math.round(value * 100)}%</span></div>
+                    <div className="bg-fl-surface-2 h-2 w-full overflow-hidden rounded-full"><div className="h-full rounded-full transition-all duration-500" style={{ width: `${value * 100}%`, background: value < 0.5 ? 'var(--juba-warm)' : 'var(--juba-primary)' }} /></div>
                   </div>
                 ))}
               </div>
-            ) : (
-              <p className="text-fl-muted-2 text-sm">{t('noSkills')}</p>
-            )}
+            ) : <p className="text-fl-muted-2 text-sm">{t('noSkills')}</p>}
           </section>
         </div>
 
         {showPremiumBanner && (
           <div className="border-fl-border bg-fl-surface mb-6 rounded-2xl border p-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-              <div className="flex gap-3">
-                <span
-                  className="mt-0.5 text-sm leading-none"
-                  style={{ color: 'var(--juba-warm)' }}
-                  aria-hidden="true"
-                >
-                  ★
-                </span>
-                <div>
-                  <p className="text-fl-fg mb-1 text-sm font-semibold">
-                    {freemiumTrialActive
-                      ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft })
-                      : t(
-                          paymentRecovery
-                            ? 'premiumBannerPastDueTitle'
-                            : 'premiumBannerTitle'
-                        )}
-                  </p>
-                  <p className="text-fl-muted-2 text-sm leading-relaxed">
-                    {freemiumTrialActive
-                      ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft })
-                      : paymentRecovery
-                        ? t('premiumBannerPastDueDesc')
-                        : t(
-                            trialEligible
-                              ? 'premiumBannerDesc'
-                              : 'premiumBannerDescTrialUsed'
-                          )}
-                  </p>
-                </div>
-              </div>
-              {!freemiumTrialActive && (
-                <span
-                  className="shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap"
-                  style={{
-                    color: 'var(--juba-warm)',
-                    background: 'var(--juba-warm-soft)',
-                  }}
-                >
-                  {paymentRecovery
-                    ? t('premiumBannerPastDueCta')
-                    : t(
-                        trialEligible
-                          ? 'premiumBannerCta'
-                          : 'premiumBannerCtaTrialUsed'
-                      )}
-                </span>
-              )}
+              <div className="flex gap-3"><span className="mt-0.5 text-sm leading-none" style={{ color: 'var(--juba-warm)' }} aria-hidden="true">★</span><div><p className="text-fl-fg mb-1 text-sm font-semibold">{freemiumTrialActive ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft }) : t(paymentRecovery ? 'premiumBannerPastDueTitle' : 'premiumBannerTitle')}</p><p className="text-fl-muted-2 text-sm leading-relaxed">{freemiumTrialActive ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft }) : paymentRecovery ? t('premiumBannerPastDueDesc') : t(trialEligible ? 'premiumBannerDesc' : 'premiumBannerDescTrialUsed')}</p></div></div>
+              {!freemiumTrialActive && <span className="shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap" style={{ color: 'var(--juba-warm)', background: 'var(--juba-warm-soft)' }}>{paymentRecovery ? t('premiumBannerPastDueCta') : t(trialEligible ? 'premiumBannerCta' : 'premiumBannerCtaTrialUsed')}</span>}
             </div>
-            {!freemiumTrialActive &&
-              (paymentRecovery ? (
-                <div className="border-fl-border mt-4 border-t pt-4">
-                  <button
-                    onClick={handleManageSubscription}
-                    disabled={portalLoading}
-                    className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)] sm:w-auto`}
-                  >
-                    {portalLoading ? '...' : tBilling('updatePayment')}
-                  </button>
-                  {portalError && (
-                    <p className="mt-3 text-xs text-[var(--juba-danger)]">
-                      {portalError}
-                    </p>
-                  )}
-                </div>
-              ) : (
-                <SubscriptionPlanButtons className="border-fl-border mt-4 border-t pt-4" />
-              ))}
+            {!freemiumTrialActive && (paymentRecovery ? <div className="border-fl-border mt-4 border-t pt-4"><button onClick={handleManageSubscription} disabled={portalLoading} className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)] sm:w-auto`}>{portalLoading ? '...' : tBilling('updatePayment')}</button>{portalError && <p className="mt-3 text-xs text-[var(--juba-danger)]">{portalError}</p>}</div> : <SubscriptionPlanButtons className="border-fl-border mt-4 border-t pt-4" />)}
           </div>
         )}
 
-        {/* Quick actions */}
         <div className="flex flex-wrap gap-2">
-          {hasPlan && (
-            <Link href="/plan">
-              <button
-                className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}
-              >
-                {t('goToMyPlan')}
-              </button>
-            </Link>
-          )}
-          {pendingCount > 0 && (
-            <Link href="/plan">
-              <button
-                className="rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors"
-                style={{
-                  borderColor:
-                    'color-mix(in srgb, var(--juba-primary) 45%, var(--juba-border))',
-                  color: 'var(--juba-primary-dark)',
-                }}
-              >
-                {pendingCount} {t('pendingLessons')} →
-              </button>
-            </Link>
-          )}
-          <Link href="/flashcards">
-            <button className={btnSecondary}>{tNav('flashcards')}</button>
-          </Link>
-          <Link href="/chat">
-            <button className={btnSecondary}>{tNav('tutor')}</button>
-          </Link>
-          <Link href="/assessment">
-            <button className={btnSecondary}>{tNav('assessment')}</button>
-          </Link>
+          {hasPlan && <Link href="/plan"><button className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}>{t('goToMyPlan')}</button></Link>}
+          {pendingCount > 0 && <Link href="/plan"><button className="rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors" style={{ borderColor: 'color-mix(in srgb, var(--juba-primary) 45%, var(--juba-border))', color: 'var(--juba-primary-dark)' }}>{pendingCount} {t('pendingLessons')} →</button></Link>}
+          <Link href="/flashcards"><button className={btnSecondary}>{tNav('flashcards')}</button></Link>
+          <Link href="/chat"><button className={btnSecondary}>{tNav('tutor')}</button></Link>
+          <Link href="/assessment"><button className={btnSecondary}>{tNav('assessment')}</button></Link>
         </div>
       </div>
     </>
