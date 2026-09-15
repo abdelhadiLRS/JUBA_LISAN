@@ -53,19 +53,30 @@ export const useLanguageStore = create<LanguageStore>((set, get) => ({
       if (!res.ok) return
       const data = await res.json()
 
-      const languages: UserLanguageInfo[] = (data.languages || []).map(
-        mapUserLanguageInfo
+      const languages: UserLanguageInfo[] = (Array.isArray(data.languages)
+        ? data.languages
+        : []
       )
+        .map(mapUserLanguageInfo)
+        .filter((language) => Boolean(getLanguageByCode(language.target_language)))
 
       const active = languages.find((l) => l.is_active)
       const activeLang = active
         ? (getLanguageByCode(active.target_language) ?? null)
         : null
 
+      const availableLanguageCodes = (Array.isArray(data.all_supported_languages)
+        ? data.all_supported_languages
+        : []
+      ).filter(
+        (code: unknown): code is string =>
+          typeof code === 'string' && Boolean(getLanguageByCode(code))
+      )
+
       set({
         userLanguages: languages,
         activeLanguage: activeLang,
-        availableLanguageCodes: data.all_supported_languages || [],
+        availableLanguageCodes,
       })
     } catch {
       // silently ignore — store stays with current state
