@@ -26,6 +26,22 @@ const STEP_ICONS = [
 ]
 const PREMIUM_STEPS = new Set([1, 2, 5])
 
+function readTourDone() {
+  try {
+    return window.localStorage.getItem(STORAGE_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+
+function markTourDone() {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, '1')
+  } catch {
+    // Storage can be unavailable in privacy-restricted browser contexts.
+  }
+}
+
 export default function OnboardingTour() {
   const t = useTranslations('tour')
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
@@ -34,20 +50,21 @@ export default function OnboardingTour() {
   const [leaving, setLeaving] = useState(false)
   const [dir, setDir] = useState<'next' | 'prev'>('next')
 
-  const totalSteps = 7
+  const totalSteps = STEP_ICONS.length
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && !localStorage.getItem(STORAGE_KEY)) {
+    if (typeof window !== 'undefined' && !readTourDone()) {
       setVisible(true)
     }
   }, [])
 
   const dismiss = useCallback(() => {
-    localStorage.setItem(STORAGE_KEY, '1')
+    markTourDone()
     setVisible(false)
   }, [])
 
   const goTo = useCallback((next: number, direction: 'next' | 'prev') => {
+    if (next < 0 || next >= STEP_ICONS.length) return
     setDir(direction)
     setLeaving(true)
     setTimeout(() => {
@@ -60,6 +77,7 @@ export default function OnboardingTour() {
 
   const isFirst = step === 0
   const isLast = step === totalSteps - 1
+  const Icon = STEP_ICONS[step] ?? Sparkles
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -103,10 +121,7 @@ export default function OnboardingTour() {
           }`}
         >
           <div className="mb-4 flex items-center gap-3">
-            {(() => {
-              const Icon = STEP_ICONS[step]
-              return <Icon className="text-fl-muted-2 h-5 w-5" />
-            })()}
+            <Icon className="text-fl-muted-2 h-5 w-5" />
             <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
               {t(`step${step + 1}.label`)}
               {stripeEnabled && PREMIUM_STEPS.has(step) && (
