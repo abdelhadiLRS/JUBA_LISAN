@@ -92,9 +92,11 @@ try {
     }
 
     Write-Host "      One or more HTTP checks failed." -ForegroundColor Red
-    Write-Host "      Useful logs:" -ForegroundColor Yellow
-    Write-Host "        docker compose logs --tail=200 backend" -ForegroundColor Gray
-    Write-Host "        docker compose logs --tail=200 frontend" -ForegroundColor Gray
+    Write-Host "      Backend logs (tail 120):" -ForegroundColor Yellow
+    docker compose logs --tail=120 backend
+    Write-Host ""
+    Write-Host "      Frontend logs (tail 120):" -ForegroundColor Yellow
+    docker compose logs --tail=120 frontend
     exit 1
 }
 finally {
