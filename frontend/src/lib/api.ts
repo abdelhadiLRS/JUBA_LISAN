@@ -92,25 +92,20 @@ const REVIEW_STORAGE_KEY = 'juba_lisan_review_state'
 type GuestReviewCard = { repetitions: number; interval: number; ease: number; due: number }
 
 function isFiniteNumber(value: unknown): value is number { return typeof value === 'number' && Number.isFinite(value) }
-
 function normalizeGuestReviewCard(value: unknown): GuestReviewCard | null {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return null
   const item = value as Record<string, unknown>
   if (!isFiniteNumber(item.repetitions) || !isFiniteNumber(item.interval) || !isFiniteNumber(item.ease) || !isFiniteNumber(item.due)) return null
   return { repetitions: Math.max(0, item.repetitions), interval: Math.max(0, item.interval), ease: Math.max(1, item.ease), due: Math.max(0, item.due) }
 }
-
 function normalizeGuestSavedWord(value: unknown): TranslatorSavedWord | null {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return null
   const item = value as Record<string, unknown>
-  if (typeof item.word !== 'string' || !item.word.trim()) return null
-  if (typeof item.translation !== 'string' || !item.translation.trim()) return null
-  if (typeof item.target !== 'string' || !item.target.trim()) return null
+  if (typeof item.word !== 'string' || !item.word.trim() || typeof item.translation !== 'string' || !item.translation.trim() || typeof item.target !== 'string' || !item.target.trim()) return null
   const normalized: TranslatorSavedWord = { source: typeof item.source === 'string' ? item.source : '', target: item.target, word: item.word, translation: item.translation }
   if (typeof item.createdAt === 'string') normalized.createdAt = item.createdAt
   return normalized
 }
-
 export function saveTranslatedWordLocally(input: TranslatorSavedWord): TranslatorSavedWord[] {
   const normalizedInput = normalizeGuestSavedWord(input)
   if (!normalizedInput) return []
@@ -126,82 +121,44 @@ export function saveTranslatedWordLocally(input: TranslatorSavedWord): Translato
     return next
   } catch { return [normalizedInput] }
 }
-
 export function getGuestMemory(): TranslatorSavedWord[] {
   if (typeof window === 'undefined') return []
-  try {
-    const value: unknown = JSON.parse(window.localStorage.getItem(TRANSLATOR_STORAGE_KEY) || '[]')
-    return Array.isArray(value) ? value.map(normalizeGuestSavedWord).filter((item): item is TranslatorSavedWord => item !== null) : []
-  } catch { return [] }
+  try { const value: unknown = JSON.parse(window.localStorage.getItem(TRANSLATOR_STORAGE_KEY) || '[]'); return Array.isArray(value) ? value.map(normalizeGuestSavedWord).filter((item): item is TranslatorSavedWord => item !== null) : [] } catch { return [] }
 }
-
 export function getGuestReviewState(): Record<string, GuestReviewCard> {
   if (typeof window === 'undefined') return {}
   try {
     const value: unknown = JSON.parse(window.localStorage.getItem(REVIEW_STORAGE_KEY) || '{}')
     if (!value || typeof value !== 'object' || Array.isArray(value)) return {}
     const result: Record<string, GuestReviewCard> = {}
-    for (const [key, card] of Object.entries(value)) {
-      const normalized = normalizeGuestReviewCard(card)
-      if (normalized) result[key] = normalized
-    }
+    for (const [key, card] of Object.entries(value)) { const normalized = normalizeGuestReviewCard(card); if (normalized) result[key] = normalized }
     return result
   } catch { return {} }
 }
-
 export function clearGuestMemory(): void {
-  if (typeof window !== 'undefined') {
-    try { window.localStorage.removeItem(TRANSLATOR_STORAGE_KEY); window.localStorage.removeItem(REVIEW_STORAGE_KEY) } catch {}
-    clearGuestCookie()
-  }
+  if (typeof window !== 'undefined') { try { window.localStorage.removeItem(TRANSLATOR_STORAGE_KEY); window.localStorage.removeItem(REVIEW_STORAGE_KEY) } catch {}; clearGuestCookie() }
 }
-
 export function getGuestSyncNotice(): { status: 'synced' | 'failed'; count: number; timestamp: number } | null {
   if (typeof window === 'undefined') return null
-  try {
-    const value: unknown = JSON.parse(window.localStorage.getItem(SYNC_NOTICE_KEY) || 'null')
-    if (!value || typeof value !== 'object') return null
-    const item = value as { status?: unknown; count?: unknown; timestamp?: unknown }
-    if ((item.status !== 'synced' && item.status !== 'failed') || typeof item.count !== 'number' || typeof item.timestamp !== 'number') return null
-    return { status: item.status, count: item.count, timestamp: item.timestamp }
-  } catch { return null }
+  try { const value: unknown = JSON.parse(window.localStorage.getItem(SYNC_NOTICE_KEY) || 'null'); if (!value || typeof value !== 'object') return null; const item = value as { status?: unknown; count?: unknown; timestamp?: unknown }; if ((item.status !== 'synced' && item.status !== 'failed') || typeof item.count !== 'number' || typeof item.timestamp !== 'number') return null; return { status: item.status, count: item.count, timestamp: item.timestamp } } catch { return null }
 }
-
-export function clearGuestSyncNotice(): void {
-  if (typeof window !== 'undefined') try { window.localStorage.removeItem(SYNC_NOTICE_KEY) } catch {}
-}
-
+export function clearGuestSyncNotice(): void { if (typeof window !== 'undefined') try { window.localStorage.removeItem(SYNC_NOTICE_KEY) } catch {} }
 export async function syncGuestMemoryAfterLogin(): Promise<boolean> {
   if (typeof window === 'undefined') return false
-  const words = getGuestMemory()
-  if (!words.length) return true
+  const words = getGuestMemory(); if (!words.length) return true
   try {
     const languageRes = await apiFetch('/api/languages')
-    if (!languageRes.ok) {
-      window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: words.length, timestamp: Date.now() }))
-      return false
-    }
+    if (!languageRes.ok) { window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: words.length, timestamp: Date.now() })); return false }
     const languageData = (await languageRes.json()) as { languages?: unknown }
     const activeLanguage = Array.isArray(languageData.languages) ? languageData.languages.find((language): language is { target_language?: unknown; is_active?: unknown } => !!language && typeof language === 'object' && language !== null && (language as { is_active?: unknown }).is_active === true && typeof (language as { target_language?: unknown }).target_language === 'string') : undefined
-    const activeTarget = activeLanguage?.target_language
-    if (!activeTarget) return false
+    const activeTarget = activeLanguage?.target_language; if (!activeTarget) return false
     const activeIso = activeTarget.split('-')[0].toLowerCase()
-    const wordsForActiveLanguage = words.filter((item) => item.target.trim().toLowerCase() === activeIso)
-    if (!wordsForActiveLanguage.length) return true
-    const flashcards = wordsForActiveLanguage.map((item) => ({ word: item.word.trim(), definition: item.translation.trim(), example_sentence: item.word.trim(), translation: item.translation.trim(), source: 'from_text' })).filter((item) => item.word && item.translation)
-    if (!flashcards.length) return true
+    const wordsForActiveLanguage = words.filter((item) => item.target.trim().toLowerCase() === activeIso); if (!wordsForActiveLanguage.length) return true
+    const flashcards = wordsForActiveLanguage.map((item) => ({ word: item.word.trim(), definition: item.translation.trim(), example_sentence: item.word.trim(), translation: item.translation.trim(), source: 'from_text' })).filter((item) => item.word && item.translation); if (!flashcards.length) return true
     const res = await apiFetch('/api/flashcards/bulk', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ flashcards }) })
-    if (!res.ok) {
-      window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: flashcards.length, timestamp: Date.now() }))
-      return false
-    }
+    if (!res.ok) { window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: flashcards.length, timestamp: Date.now() })); return false }
     const remaining = words.filter((item) => item.target.trim().toLowerCase() !== activeIso)
-    if (remaining.length) window.localStorage.setItem(TRANSLATOR_STORAGE_KEY, JSON.stringify(remaining))
-    else { window.localStorage.removeItem(TRANSLATOR_STORAGE_KEY); clearGuestCookie() }
-    window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'synced', count: flashcards.length, timestamp: Date.now() }))
-    return true
-  } catch {
-    try { window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: words.length, timestamp: Date.now() })) } catch {}
-    return false
-  }
+    if (remaining.length) window.localStorage.setItem(TRANSLATOR_STORAGE_KEY, JSON.stringify(remaining)); else { window.localStorage.removeItem(TRANSLATOR_STORAGE_KEY); clearGuestCookie() }
+    window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'synced', count: flashcards.length, timestamp: Date.now() })); return true
+  } catch { try { window.localStorage.setItem(SYNC_NOTICE_KEY, JSON.stringify({ status: 'failed', count: words.length, timestamp: Date.now() })) } catch {}; return false }
 }
