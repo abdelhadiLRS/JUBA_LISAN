@@ -60,9 +60,7 @@ async function refreshToken(): Promise<string | null> {
   return refreshPromise
 }
 
-export async function refreshAuthSession(): Promise<string | null> {
-  return refreshToken()
-}
+export async function refreshAuthSession(): Promise<string | null> { return refreshToken() }
 
 export async function apiFetch(url: string, options: RequestInit = {}): Promise<Response> {
   const { inc, dec } = useLoadingStore.getState()
@@ -93,20 +91,13 @@ const TRANSLATOR_STORAGE_KEY = 'juba_lisan_saved_vocabulary'
 const REVIEW_STORAGE_KEY = 'juba_lisan_review_state'
 type GuestReviewCard = { repetitions: number; interval: number; ease: number; due: number }
 
-function isFiniteNumber(value: unknown): value is number {
-  return typeof value === 'number' && Number.isFinite(value)
-}
+function isFiniteNumber(value: unknown): value is number { return typeof value === 'number' && Number.isFinite(value) }
 
 function normalizeGuestReviewCard(value: unknown): GuestReviewCard | null {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return null
   const item = value as Record<string, unknown>
   if (!isFiniteNumber(item.repetitions) || !isFiniteNumber(item.interval) || !isFiniteNumber(item.ease) || !isFiniteNumber(item.due)) return null
-  return {
-    repetitions: Math.max(0, item.repetitions),
-    interval: Math.max(0, item.interval),
-    ease: Math.max(1, item.ease),
-    due: Math.max(0, item.due),
-  }
+  return { repetitions: Math.max(0, item.repetitions), interval: Math.max(0, item.interval), ease: Math.max(1, item.ease), due: Math.max(0, item.due) }
 }
 
 function normalizeGuestSavedWord(value: unknown): TranslatorSavedWord | null {
@@ -115,12 +106,7 @@ function normalizeGuestSavedWord(value: unknown): TranslatorSavedWord | null {
   if (typeof item.word !== 'string' || !item.word.trim()) return null
   if (typeof item.translation !== 'string' || !item.translation.trim()) return null
   if (typeof item.target !== 'string' || !item.target.trim()) return null
-  const normalized: TranslatorSavedWord = {
-    source: typeof item.source === 'string' ? item.source : '',
-    target: item.target,
-    word: item.word,
-    translation: item.translation,
-  }
+  const normalized: TranslatorSavedWord = { source: typeof item.source === 'string' ? item.source : '', target: item.target, word: item.word, translation: item.translation }
   if (typeof item.createdAt === 'string') normalized.createdAt = item.createdAt
   return normalized
 }
@@ -185,7 +171,6 @@ export function clearGuestSyncNotice(): void {
   if (typeof window !== 'undefined') try { window.localStorage.removeItem(SYNC_NOTICE_KEY) } catch {}
 }
 
-/** Merge only the guest saves belonging to the user's active language into that language's authenticated deck. */
 export async function syncGuestMemoryAfterLogin(): Promise<boolean> {
   if (typeof window === 'undefined') return false
   const words = getGuestMemory()
@@ -197,9 +182,7 @@ export async function syncGuestMemoryAfterLogin(): Promise<boolean> {
       return false
     }
     const languageData = (await languageRes.json()) as { languages?: unknown }
-    const activeLanguage = Array.isArray(languageData.languages)
-      ? languageData.languages.find((language): language is { target_language?: unknown; is_active?: unknown } => !!language && typeof language === 'object' && language !== null && (language as { is_active?: unknown }).is_active === true && typeof (language as { target_language?: unknown }).target_language === 'string')
-      : undefined
+    const activeLanguage = Array.isArray(languageData.languages) ? languageData.languages.find((language): language is { target_language?: unknown; is_active?: unknown } => !!language && typeof language === 'object' && language !== null && (language as { is_active?: unknown }).is_active === true && typeof (language as { target_language?: unknown }).target_language === 'string') : undefined
     const activeTarget = activeLanguage?.target_language
     if (!activeTarget) return false
     const activeIso = activeTarget.split('-')[0].toLowerCase()
