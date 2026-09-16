@@ -122,17 +122,19 @@ function normalizeGuestSavedWord(value: unknown): TranslatorSavedWord | null {
 }
 
 export function saveTranslatedWordLocally(input: TranslatorSavedWord): TranslatorSavedWord[] {
-  if (typeof window === 'undefined') return [input]
+  const normalizedInput = normalizeGuestSavedWord(input)
+  if (!normalizedInput) return []
+  if (typeof window === 'undefined') return [normalizedInput]
   try {
     ensureGuestCookie()
     const existing: unknown = JSON.parse(window.localStorage.getItem(TRANSLATOR_STORAGE_KEY) || '[]')
     const words = Array.isArray(existing) ? existing.map(normalizeGuestSavedWord).filter((item): item is TranslatorSavedWord => item !== null) : []
-    const normalized = input.word.trim().toLowerCase()
-    const normalizedTarget = input.target.trim().toLowerCase()
-    const next = [{ ...input, createdAt: input.createdAt || new Date().toISOString() }, ...words.filter((item) => !(item.word.trim().toLowerCase() === normalized && item.target.trim().toLowerCase() === normalizedTarget))].slice(0, 500)
+    const normalized = normalizedInput.word.trim().toLowerCase()
+    const normalizedTarget = normalizedInput.target.trim().toLowerCase()
+    const next = [{ ...normalizedInput, createdAt: normalizedInput.createdAt || new Date().toISOString() }, ...words.filter((item) => !(item.word.trim().toLowerCase() === normalized && item.target.trim().toLowerCase() === normalizedTarget))].slice(0, 500)
     window.localStorage.setItem(TRANSLATOR_STORAGE_KEY, JSON.stringify(next))
     return next
-  } catch { return [input] }
+  } catch { return [normalizedInput] }
 }
 
 export function getGuestMemory(): TranslatorSavedWord[] {
