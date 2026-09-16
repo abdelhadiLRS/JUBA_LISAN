@@ -75,6 +75,71 @@ class StudyPlanResponse(BaseModel):
 
     model_config = {"from_attributes": True}
 
+    @field_validator("generated_plan", mode="before")
+    @classmethod
+    def normalize_generated_plan(cls, value: object) -> dict:
+        """Keep persisted/corrupted plan JSON safe for frontend consumers."""
+        if not isinstance(value, dict):
+            return {"title": "", "weekly_plan": []}
+
+        normalized = dict(value)
+        weekly_plan = value.get("weekly_plan")
+        if not isinstance(weekly_plan, list):
+            normalized["weekly_plan"] = []
+            return normalized
+
+        safe_weeks: list[dict] = []
+        for week in weekly_plan:
+            if not isinstance(week, dict):
+                continue
+            week_number = week.get("week")
+            days = week.get("days")
+            if not isinstance(week_number, int) or isinstance(week_number, bool):
+                continue
+            if not isinstance(days, list):
+                continue
+
+            safe_days: list[dict] = []
+            for day in days:
+                if not isinstance(day, dict):
+                    continue
+                day_number = day.get("day")
+                title = day.get("title")
+                if not isinstance(day_number, int) or isinstance(day_number, bool):
+                    continue
+                if not isinstance(title, str) or not title.strip():
+                    continue
+
+                safe_day = dict(day)
+                safe_day["day"] = day_number
+                safe_day["title"] = title
+                if not isinstance(safe_day.get("lesson_type"), str):
+                    safe_day["lesson_type"] = "review"
+                if not isinstance(safe_day.get("objectives"), list):
+                    safe_day["objectives"] = []
+                else:
+                    safe_day["objectives"] = [
+                        item for item in safe_day["objectives"] if isinstance(item, str)
+                    ]
+                minutes = safe_day.get("estimated_minutes")
+                if isinstance(minutes, bool) or not isinstance(minutes, (int, float)) or minutes <= 0:
+                    safe_day["estimated_minutes"] = 25
+                else:
+                    safe_day["estimated_minutes"] = int(minutes)
+                if not isinstance(safe_day.get("unit_id"), str):
+                    safe_day["unit_id"] = ""
+                safe_days.append(safe_day)
+
+            safe_week = dict(week)
+            safe_week["week"] = week_number
+            safe_week["days"] = safe_days
+            if not isinstance(safe_week.get("theme"), str):
+                safe_week["theme"] = ""
+            safe_weeks.append(safe_week)
+
+        normalized["weekly_plan"] = safe_weeks
+        return normalized
+
     @field_serializer("created_at")
     def serialize_created_at(self, v: datetime, _info):
         return v.isoformat()
