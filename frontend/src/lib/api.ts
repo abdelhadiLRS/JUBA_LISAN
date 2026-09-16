@@ -87,6 +87,23 @@ export function apiUrl(path: string): string { return `${BASE_URL}${path}` }
 export type TranslatorSavedWord = { source: string; target: string; word: string; translation: string; createdAt?: string }
 const TRANSLATOR_STORAGE_KEY = 'juba_lisan_saved_vocabulary'
 const REVIEW_STORAGE_KEY = 'juba_lisan_review_state'
+type GuestReviewCard = { repetitions: number; interval: number; ease: number; due: number }
+
+function isFiniteNumber(value: unknown): value is number {
+  return typeof value === 'number' && Number.isFinite(value)
+}
+
+function normalizeGuestReviewCard(value: unknown): GuestReviewCard | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null
+  const item = value as Record<string, unknown>
+  if (!isFiniteNumber(item.repetitions) || !isFiniteNumber(item.interval) || !isFiniteNumber(item.ease) || !isFiniteNumber(item.due)) return null
+  return {
+    repetitions: Math.max(0, item.repetitions),
+    interval: Math.max(0, item.interval),
+    ease: Math.max(1, item.ease),
+    due: Math.max(0, item.due),
+  }
+}
 
 export function saveTranslatedWordLocally(input: TranslatorSavedWord): TranslatorSavedWord[] {
   if (typeof window === 'undefined') return [input]
@@ -110,11 +127,17 @@ export function getGuestMemory(): TranslatorSavedWord[] {
   } catch { return [] }
 }
 
-export function getGuestReviewState(): Record<string, { repetitions: number; interval: number; ease: number; due: number }> {
+export function getGuestReviewState(): Record<string, GuestReviewCard> {
   if (typeof window === 'undefined') return {}
   try {
     const value: unknown = JSON.parse(window.localStorage.getItem(REVIEW_STORAGE_KEY) || '{}')
-    return value && typeof value === 'object' && !Array.isArray(value) ? (value as Record<string, { repetitions: number; interval: number; ease: number; due: number }>) : {}
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return {}
+    const result: Record<string, GuestReviewCard> = {}
+    for (const [key, card] of Object.entries(value)) {
+      const normalized = normalizeGuestReviewCard(card)
+      if (normalized) result[key] = normalized
+    }
+    return result
   } catch { return {} }
 }
 
