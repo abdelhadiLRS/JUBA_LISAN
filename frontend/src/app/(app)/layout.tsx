@@ -5,24 +5,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import {
-  BarChart3,
-  BookMarked,
-  BookOpen,
-  ClipboardCheck,
-  GraduationCap,
-  Headphones,
-  HelpCircle,
-  Home,
-  Layers,
-  Map,
-  Menu,
-  MessageCircle,
-  MessageSquare,
-  MessageSquarePlus,
-  Settings,
-  Shield,
-  X,
-  type LucideIcon,
+  BarChart3, BookMarked, BookOpen, ClipboardCheck, GraduationCap, Headphones, HelpCircle, Home, Layers, Map, Menu, MessageCircle, MessageSquare, MessageSquarePlus, Settings, Shield, X, type LucideIcon,
 } from 'lucide-react'
 import { useAuthStore, isSubscribed } from '@/store/auth'
 import { useConfigStore } from '@/store/config'
@@ -36,203 +19,22 @@ import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
 
-const NAV_ICONS: Record<string, LucideIcon> = {
-  '/dashboard': Home,
-  '/plan': Map,
-  '/progress': BarChart3,
-  '/flashcards': Layers,
-  '/chat': MessageCircle,
-  '/listening': Headphones,
-  '/reading': BookOpen,
-  '/conversation': MessageCircle,
-  '/assessment': ClipboardCheck,
-  '/grammar': BookMarked,
-  '/vocabulary': GraduationCap,
-  '/phrasebook': MessageSquare,
-  '/settings': Settings,
-  '/faq': HelpCircle,
-  '/feedback': MessageSquarePlus,
-  '/admin': Shield,
-}
-
+const NAV_ICONS: Record<string, LucideIcon> = {'/dashboard': Home, '/plan': Map, '/progress': BarChart3, '/flashcards': Layers, '/chat': MessageCircle, '/listening': Headphones, '/reading': BookOpen, '/conversation': MessageCircle, '/assessment': ClipboardCheck, '/grammar': BookMarked, '/vocabulary': GraduationCap, '/phrasebook': MessageSquare, '/settings': Settings, '/faq': HelpCircle, '/feedback': MessageSquarePlus, '/admin': Shield}
 const BOTTOM_NAV_HREFS = ['/dashboard', '/plan', '/flashcards', '/chat', '/progress']
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  const tNav = useTranslations('nav')
-  const tCommon = useTranslations('common')
-  const tBilling = useTranslations('billing')
-  const pathname = usePathname()
-  const router = useRouter()
-  const user = useAuthStore((s) => s.user)
-  const accessToken = useAuthStore((s) => s.accessToken)
-  const setUser = useAuthStore((s) => s.setUser)
-  const logout = useAuthStore((s) => s.logout)
-  const handleLogout = useLogout()
-  const [initializing, setInitializing] = useState(true)
-  const loadConfig = useConfigStore((s) => s.load)
-  const [logoutConfirm, setLogoutConfirm] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [resourcesOpen, setResourcesOpen] = useState(false)
-  const [contactOpen, setContactOpen] = useState(false)
-  const [resendSent, setResendSent] = useState(false)
-  const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
-
-  const mainNavItems = [
-    { href: '/dashboard', label: tNav('home') },
-    { href: '/plan', label: tNav('myPlan') },
-    { href: '/progress', label: tNav('progress') },
-    { href: '/flashcards', label: tNav('flashcards') },
-    { href: '/chat', label: tNav('tutor') },
-    { href: '/listening', label: tNav('listening') },
-    { href: '/reading', label: tNav('reading') },
-    { href: '/conversation', label: tNav('conversation') },
-    { href: '/assessment', label: tNav('assessment') },
-  ]
-  const resourceNavItems = [
-    { href: '/grammar', label: tNav('grammar') },
-    { href: '/vocabulary', label: tNav('vocabulary') },
-    { href: '/phrasebook', label: tNav('phrasebook') },
-  ]
-  const bottomNavItems = [
-    { href: '/settings', label: tNav('settings') },
-    { href: '/faq', label: tNav('faq') },
-    { href: '/feedback', label: tNav('feedback') },
-  ]
-  const PREMIUM_HREFS = new Set(['/chat', '/listening', '/reading', '/conversation'])
-  const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
-  const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled)
-  const [trialDaysLeft, setTrialDaysLeft] = useState(0)
-
-  async function handleResendVerification() {
-    const res = await apiFetch('/api/auth/resend-verification', { method: 'POST' })
-    if (res.ok) setResendSent(true)
-  }
-
-  useEffect(() => {
-    async function init() {
-      loadConfig()
-      try {
-        if (!accessToken) {
-          const token = await refreshAuthSession()
-          if (!token) {
-            router.push('/login')
-            return
-          }
-        }
-        const meRes = await apiFetch('/api/auth/me')
-        if (!meRes.ok) {
-          logout()
-          router.push('/login')
-          return
-        }
-        const me = await meRes.json()
-        setUser(mapUser(me))
-        if (me.learning_goals === null) {
-          router.replace('/onboarding')
-          return
-        }
-      } catch {
-        logout()
-        router.push('/login')
-      } finally {
-        setInitializing(false)
-      }
-    }
-    init()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  const tNav = useTranslations('nav'); const tCommon = useTranslations('common'); const tBilling = useTranslations('billing'); const pathname = usePathname(); const router = useRouter()
+  const user = useAuthStore((s) => s.user); const accessToken = useAuthStore((s) => s.accessToken); const setUser = useAuthStore((s) => s.setUser); const logout = useAuthStore((s) => s.logout); const handleLogout = useLogout(); const [initializing, setInitializing] = useState(true); const loadConfig = useConfigStore((s) => s.load); const [logoutConfirm, setLogoutConfirm] = useState(false); const [mobileMenuOpen, setMobileMenuOpen] = useState(false); const [resourcesOpen, setResourcesOpen] = useState(false); const [contactOpen, setContactOpen] = useState(false); const [resendSent, setResendSent] = useState(false); const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
+  const mainNavItems = [{ href: '/dashboard', label: tNav('home') }, { href: '/plan', label: tNav('myPlan') }, { href: '/progress', label: tNav('progress') }, { href: '/flashcards', label: tNav('flashcards') }, { href: '/chat', label: tNav('tutor') }, { href: '/listening', label: tNav('listening') }, { href: '/reading', label: tNav('reading') }, { href: '/conversation', label: tNav('conversation') }, { href: '/assessment', label: tNav('assessment') }]
+  const resourceNavItems = [{ href: '/grammar', label: tNav('grammar') }, { href: '/vocabulary', label: tNav('vocabulary') }, { href: '/phrasebook', label: tNav('phrasebook') }]
+  const bottomNavItems = [{ href: '/settings', label: tNav('settings') }, { href: '/faq', label: tNav('faq') }, { href: '/feedback', label: tNav('feedback') }]
+  const PREMIUM_HREFS = new Set(['/chat', '/listening', '/reading', '/conversation']); const stripeEnabled = useConfigStore((s) => s.stripeEnabled); const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled); const [trialDaysLeft, setTrialDaysLeft] = useState(0)
+  async function handleResendVerification() { const res = await apiFetch('/api/auth/resend-verification', { method: 'POST' }); if (res.ok) setResendSent(true) }
+  useEffect(() => { async function init() { loadConfig(); try { if (!accessToken) { const token = await refreshAuthSession(); if (!token) { router.push('/login'); return } } const meRes = await apiFetch('/api/auth/me'); if (!meRes.ok) { logout(); router.push('/login'); return } const me = await meRes.json(); setUser(mapUser(me)); if (me.learning_goals === null) { router.replace('/onboarding'); return } } catch { logout(); router.push('/login') } finally { setInitializing(false) } } init(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  useEffect(() => {
-    if (user?.subscription_status === 'trialing' && user?.subscription_ends_at && stripeEnabled) {
-      const days = Math.max(1, Math.ceil((new Date(user.subscription_ends_at).getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
-      setTrialDaysLeft(days)
-      return
-    }
-    if (user?.freemium_trial_ends_at && stripeEnabled && user?.subscription_status !== 'active' && user?.subscription_status !== 'trialing') {
-      const end = new Date(user.freemium_trial_ends_at)
-      if (end > new Date()) {
-        const days = Math.max(1, Math.ceil((end.getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
-        setTrialDaysLeft(days)
-        return
-      }
-    }
-    setTrialDaysLeft(0)
-  }, [user?.subscription_status, user?.subscription_ends_at, user?.freemium_trial_ends_at, stripeEnabled])
-
-  useEffect(() => {
-    if (initializing) return
-    async function loadFeedbackUnreadCount() {
-      try {
-        const res = await apiFetch('/api/feedback/unread-summary')
-        if (!res.ok) return
-        const data = await res.json()
-        setFeedbackUnreadCount(typeof data?.unread_count === 'number' ? Math.max(0, data.unread_count) : 0)
-      } catch {
-        setFeedbackUnreadCount(0)
-      }
-    }
-    loadFeedbackUnreadCount()
-    window.addEventListener('freelingo:feedback-read', loadFeedbackUnreadCount)
-    return () => window.removeEventListener('freelingo:feedback-read', loadFeedbackUnreadCount)
-  }, [initializing])
-
+  useEffect(() => { if (user?.subscription_status === 'trialing' && user?.subscription_ends_at && stripeEnabled) { const days = Math.max(1, Math.ceil((new Date(user.subscription_ends_at).getTime() - Date.now()) / 86400000)); setTrialDaysLeft(days); return } if (user?.freemium_trial_ends_at && stripeEnabled && user?.subscription_status !== 'active' && user?.subscription_status !== 'trialing') { const end = new Date(user.freemium_trial_ends_at); if (end > new Date()) { setTrialDaysLeft(Math.max(1, Math.ceil((end.getTime() - Date.now()) / 86400000))); return } } setTrialDaysLeft(0) }, [user?.subscription_status, user?.subscription_ends_at, user?.freemium_trial_ends_at, stripeEnabled])
+  useEffect(() => { if (initializing) return; async function loadFeedbackUnreadCount() { try { const res = await apiFetch('/api/feedback/unread-summary'); if (!res.ok) return; const data = await res.json(); setFeedbackUnreadCount(typeof data?.unread_count === 'number' ? Math.max(0, data.unread_count) : 0) } catch { setFeedbackUnreadCount(0) } } loadFeedbackUnreadCount(); window.addEventListener('freelingo:feedback-read', loadFeedbackUnreadCount); return () => window.removeEventListener('freelingo:feedback-read', loadFeedbackUnreadCount) }, [initializing])
   if (initializing) return <PageLoading label={tCommon('initializing')} minHeight="min-h-screen" className="bg-fl-bg" />
-
-  const feedbackBadgeText = feedbackUnreadCount > 99 ? '99+' : feedbackUnreadCount > 0 ? String(feedbackUnreadCount) : ''
-  const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
-  const navLinkClass = (active: boolean, inset = false) => `flex items-center gap-3 rounded-xl ${inset ? 'py-2.5 ps-8 pe-4' : 'px-3.5 py-2.5'} text-sm font-medium transition-colors ${active ? 'bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)]' : 'text-[var(--juba-muted)] hover:bg-[var(--juba-surface-soft)] hover:text-[var(--juba-text)]'}`
-  const renderNavIcon = (href: string, active: boolean, className = 'h-[18px] w-[18px]') => {
-    const Icon = NAV_ICONS[href] ?? Layers
-    return <Icon className={`${className} ${active ? 'text-[var(--juba-primary)]' : 'text-[var(--juba-muted)]'}`} aria-hidden="true" />
-  }
-  const bottomMobileItems = mainNavItems.filter((item) => BOTTOM_NAV_HREFS.includes(item.href))
-
-  return (
-    <div className="bg-fl-bg flex min-h-screen md:h-screen md:overflow-hidden">
-      <aside className="border-fl-border bg-fl-bg hidden w-60 shrink-0 flex-col border-e md:flex">
-        <div className="border-fl-border flex items-center gap-2.5 border-b px-5 py-5">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg text-xs font-black text-white" style={{ background: 'var(--juba-primary)' }} aria-hidden="true">JL</span>
-          <span className="text-fl-fg text-sm font-bold tracking-wide">JUBA LISAN</span>
-        </div>
-        <div className="border-fl-border border-b"><LanguageSwitcher /></div>
-        <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4" aria-label="Main">
-          {mainNavItems.map((item) => {
-            const active = isActive(item.href)
-            return <Link key={item.href} href={item.href} className={navLinkClass(active)} aria-current={active ? 'page' : undefined}>{renderNavIcon(item.href, active)}<span className="truncate">{item.label}</span>{showPremiumBadge && PREMIUM_HREFS.has(item.href) && <span className="ms-auto text-xs" style={{ color: 'var(--juba-warm)' }} title="Premium">★</span>}</Link>
-          })}
-          <div className="pt-2">
-            <button onClick={() => setResourcesOpen((o) => !o)} className="text-fl-muted-3 hover:text-fl-fg flex w-full items-center justify-between rounded-xl px-3.5 py-2 text-xs font-semibold tracking-wide uppercase transition-colors" aria-expanded={resourcesOpen}><span>{tNav('resources')}</span><span aria-hidden="true">{resourcesOpen ? '▴' : '▾'}</span></button>
-            {resourcesOpen && resourceNavItems.map((item) => { const active = isActive(item.href); return <Link key={item.href} href={item.href} className={navLinkClass(active, true)} aria-current={active ? 'page' : undefined}>{renderNavIcon(item.href, active, 'h-4 w-4')}<span className="truncate">{item.label}</span></Link> })}
-          </div>
-          <div className="border-fl-border mt-2 space-y-1 border-t pt-3">
-            {bottomNavItems.map((item) => { const active = isActive(item.href); return <Link key={item.href} href={item.href} className={navLinkClass(active)} aria-current={active ? 'page' : undefined}>{renderNavIcon(item.href, active)}<span className="truncate">{item.label}</span>{item.href === '/feedback' && feedbackBadgeText && <span className="ms-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] leading-none font-bold text-white">{feedbackBadgeText}</span>}</Link> })}
-            {user?.role === 'admin' && <Link href="/admin" className={navLinkClass(isActive('/admin'))} aria-current={isActive('/admin') ? 'page' : undefined}>{renderNavIcon('/admin', isActive('/admin'))}<span className="truncate">{tNav('admin')}</span></Link>}
-          </div>
-        </nav>
-        <div className="border-fl-border border-t px-5 py-4">
-          <div className="mb-3 flex items-center gap-3">
-            <div className="border-fl-border h-9 w-9 flex-shrink-0 overflow-hidden rounded-full border">
-              {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover" fallback={<div className="bg-fl-surface-2 flex h-full w-full items-center justify-center"><span className="text-fl-muted-1 text-xs font-semibold select-none">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span></div>} /> : <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center"><span className="text-fl-muted-1 text-xs font-semibold select-none">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span></div>}
-            </div>
-            <div className="min-w-0"><p className="text-fl-fg truncate text-sm font-semibold">{user?.displayName || user?.username}</p><p className="text-fl-muted-3 truncate text-xs">@{user?.username?.toLowerCase()}</p>{trialDaysLeft > 0 && <p className="truncate text-xs font-medium" style={{ color: 'var(--juba-warm)' }}>★ {tBilling('trialDays', { days: trialDaysLeft })}</p>}</div>
-          </div>
-          <p className="text-fl-muted-4 mb-2 text-[11px] tracking-wide">v1.8.43</p>
-          <div className="flex items-center gap-4"><button onClick={() => setContactOpen(true)} className="text-fl-muted-2 hover:text-fl-fg text-xs">{tCommon('contact')}</button><button onClick={() => setLogoutConfirm(true)} className="text-fl-muted-2 hover:text-fl-fg text-xs">{tCommon('logout')}</button></div>
-        </div>
-      </aside>
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="border-fl-border bg-fl-bg/95 sticky top-0 z-30 flex h-14 items-center justify-between border-b px-4 backdrop-blur md:hidden">
-          <button onClick={() => setMobileMenuOpen(true)} className="text-fl-muted-2 hover:text-fl-fg rounded-lg p-2" aria-label={tCommon('menu')}><Menu className="h-5 w-5" /></button>
-          <Link href="/dashboard" className="text-fl-fg text-sm font-bold">JUBA LISAN</Link>
-          <LanguageSwitcher compact />
-        </header>
-        <main className="min-h-0 flex-1 overflow-y-auto">{children}</main>
-      </div>
-      {mobileMenuOpen && <div className="fixed inset-0 z-50 md:hidden"><button className="absolute inset-0 bg-black/40" aria-label={tCommon('close')} onClick={() => setMobileMenuOpen(false)} /><aside className="bg-fl-bg relative h-full w-72 max-w-[85vw] overflow-y-auto p-4 shadow-xl"><div className="mb-4 flex items-center justify-between"><span className="text-fl-fg font-bold">JUBA LISAN</span><button onClick={() => setMobileMenuOpen(false)} aria-label={tCommon('close')} className="text-fl-muted-2 rounded-lg p-2"><X className="h-5 w-5" /></button></div>{mainNavItems.map((item) => { const active = isActive(item.href); return <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)} className={navLinkClass(active)}>{renderNavIcon(item.href, active)}<span>{item.label}</span></Link> })}</aside></div>}
-      <div className="hidden">{bottomMobileItems.length}</div>
-      <ConfirmDialog open={logoutConfirm} onOpenChange={setLogoutConfirm} title={tCommon('logout')} description={tCommon('logoutConfirm')} onConfirm={async () => { setLogoutConfirm(false); await handleLogout() }} />
-      <ContactFormModal open={contactOpen} onOpenChange={setContactOpen} />
-      <LoadingBar />
-    </div>
-  )
+  const feedbackBadgeText = feedbackUnreadCount > 99 ? '99+' : feedbackUnreadCount > 0 ? String(feedbackUnreadCount) : ''; const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/'); const navLinkClass = (active: boolean, inset = false) => `flex items-center gap-3 rounded-xl ${inset ? 'py-2.5 ps-8 pe-4' : 'px-3.5 py-2.5'} text-sm font-medium transition-colors ${active ? 'bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)]' : 'text-[var(--juba-muted)] hover:bg-[var(--juba-surface-soft)] hover:text-[var(--juba-text)]'}`; const renderNavIcon = (href: string, active: boolean, className = 'h-[18px] w-[18px]') => { const Icon = NAV_ICONS[href] ?? Layers; return <Icon className={`${className} ${active ? 'text-[var(--juba-primary)]' : 'text-[var(--juba-muted)]'}`} aria-hidden="true" /> }; const bottomMobileItems = mainNavItems.filter((item) => BOTTOM_NAV_HREFS.includes(item.href))
+  return <div className="bg-fl-bg flex min-h-screen md:h-screen md:overflow-hidden"><aside className="border-fl-border bg-fl-bg hidden w-60 shrink-0 flex-col border-e md:flex"><div className="border-fl-border flex items-center gap-2.5 border-b px-5 py-5"><span className="flex h-7 w-7 items-center justify-center rounded-lg text-xs font-black text-white" style={{ background: 'var(--juba-primary)' }} aria-hidden="true">JL</span><span className="text-fl-fg text-sm font-bold tracking-wide">JUBA LISAN</span></div><div className="border-fl-border border-b"><LanguageSwitcher /></div><nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4" aria-label="Main">{mainNavItems.map((item) => { const active = isActive(item.href); return <Link key={item.href} href={item.href} className={navLinkClass(active)} aria-current={active ? 'page' : undefined}>{renderNavIcon(item.href, active)}<span className="truncate">{item.label}</span>{showPremiumBadge && PREMIUM_HREFS.has(item.href) && <span className="ms-auto text-xs" style={{ color: 'var(--juba-warm)' }} title="Premium">★</span>}</Link> })}<div className="pt-2"><button onClick={() => setResourcesOpen((o) => !o)} className="text-fl-muted-3 hover:text-fl-fg flex w-full items-center justify-between rounded-xl px-3.5 py-2 text-xs font-semibold tracking-wide uppercase transition-colors" aria-expanded={resourcesOpen}><span>{tNav('resources')}</span><span aria-hidden="true">{resourcesOpen ? '▴' : '▾'}</span></button>{resourcesOpen && resourceNavItems.map((item) => { const active = isActive(item.href); return <Link key={item.href} href={item.href} className={navLinkClass(active, true)} aria-current={active ? 'page' : undefined}>{renderNavIcon(item.href, active, 'h-4 w-4')}<span className="truncate">{item.label}</span></Link> })}</div><div className="border-fl-border mt-2 space-y-1 border-t pt-3">{bottomNavItems.map((item) => { const active = isActive(item.href); return <Link key={item.href} href={item.href} className={navLinkClass(active)} aria-current={active ? 'page' : undefined}>{renderNavIcon(item.href, active)}<span className="truncate">{item.label}</span>{item.href === '/feedback' && feedbackBadgeText && <span className="ms-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] leading-none font-bold text-white">{feedbackBadgeText}</span>}</Link> })}{user?.role === 'admin' && <Link href="/admin" className={navLinkClass(isActive('/admin'))} aria-current={isActive('/admin') ? 'page' : undefined}>{renderNavIcon('/admin', isActive('/admin'))}<span className="truncate">{tNav('admin')}</span></Link>}</div></nav><div className="border-fl-border border-t px-5 py-4"><div className="mb-3 flex items-center gap-3"><div className="border-fl-border h-9 w-9 flex-shrink-0 overflow-hidden rounded-full border">{user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover" fallback={<div className="bg-fl-surface-2 flex h-full w-full items-center justify-center"><span className="text-fl-muted-1 text-xs font-semibold select-none">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span></div>} /> : <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center"><span className="text-fl-muted-1 text-xs font-semibold select-none">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span></div>}</div><div className="min-w-0"><p className="text-fl-fg truncate text-sm font-semibold">{user?.displayName || user?.username}</p><p className="text-fl-muted-3 truncate text-xs">@{user?.username?.toLowerCase()}</p>{trialDaysLeft > 0 && <p className="truncate text-xs font-medium" style={{ color: 'var(--juba-warm)' }}>★ {tBilling('trialDays', { days: trialDaysLeft })}</p>}</div></div><p className="text-fl-muted-4 mb-2 text-[11px] tracking-wide">v1.8.43</p><div className="flex items-center gap-4"><button onClick={() => setContactOpen(true)} className="text-fl-muted-2 hover:text-fl-fg text-xs">{tCommon('contact')}</button><button onClick={() => setLogoutConfirm(true)} className="text-fl-muted-2 hover:text-fl-fg text-xs">{tCommon('logout')}</button></div></div></aside><div className="flex min-w-0 flex-1 flex-col"><header className="border-fl-border bg-fl-bg/95 sticky top-0 z-30 flex h-14 items-center justify-between border-b px-4 backdrop-blur md:hidden"><button onClick={() => setMobileMenuOpen(true)} className="text-fl-muted-2 hover:text-fl-fg rounded-lg p-2" aria-label={tCommon('menu')}><Menu className="h-5 w-5" /></button><Link href="/dashboard" className="text-fl-fg text-sm font-bold">JUBA LISAN</Link><LanguageSwitcher compact /></header><main className="min-h-0 flex-1 overflow-y-auto">{children}</main></div>{mobileMenuOpen && <div className="fixed inset-0 z-50 md:hidden"><button className="absolute inset-0 bg-black/40" aria-label={tCommon('close')} onClick={() => setMobileMenuOpen(false)} /><aside className="bg-fl-bg relative h-full w-72 max-w-[85vw] overflow-y-auto p-4 shadow-xl"><div className="mb-4 flex items-center justify-between"><span className="text-fl-fg font-bold">JUBA LISAN</span><button onClick={() => setMobileMenuOpen(false)} aria-label={tCommon('close')} className="text-fl-muted-2 rounded-lg p-2"><X className="h-5 w-5" /></button></div>{mainNavItems.map((item) => { const active = isActive(item.href); return <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)} className={navLinkClass(active)}>{renderNavIcon(item.href, active)}<span>{item.label}</span></Link> })}</aside></div>}<div className="hidden">{bottomMobileItems.length}</div><ConfirmDialog open={logoutConfirm} onOpenChange={setLogoutConfirm} title={tCommon('logout')} description={tCommon('logoutConfirm')} onConfirm={async () => { setLogoutConfirm(false); await handleLogout() }} /><ContactFormModal open={contactOpen} onOpenChange={setContactOpen} /><LoadingBar /></div>
 }
