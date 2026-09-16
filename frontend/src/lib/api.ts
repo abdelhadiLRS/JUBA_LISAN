@@ -242,11 +242,19 @@ export async function syncGuestMemoryAfterLogin(): Promise<boolean> {
       return false
     }
     const languageData = (await languageRes.json()) as {
-      languages?: Array<{ target_language?: string; is_active?: boolean }>
+      languages?: unknown
     }
-    const activeLanguage = languageData.languages?.find((language) => language.is_active)?.target_language
-    if (!activeLanguage) return false
-    const activeIso = activeLanguage.split('-')[0].toLowerCase()
+    const activeLanguage = Array.isArray(languageData.languages)
+      ? languageData.languages.find(
+          (language): language is { target_language?: unknown; is_active?: unknown } =>
+            !!language && typeof language === 'object' && language !== null
+        )
+      : undefined
+    const activeTarget = activeLanguage?.is_active === true && typeof activeLanguage.target_language === 'string'
+      ? activeLanguage.target_language
+      : undefined
+    if (!activeTarget) return false
+    const activeIso = activeTarget.split('-')[0].toLowerCase()
     const wordsForActiveLanguage = words.filter((item) => item.target.trim().toLowerCase() === activeIso)
     if (!wordsForActiveLanguage.length) return true
 
