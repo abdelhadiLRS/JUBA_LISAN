@@ -31,6 +31,37 @@ logger = get_logger(__name__)
 router = APIRouter(prefix="/api/study-plan", tags=["study-plan"])
 
 
+def _get_weekly_plan_items(generated_plan: object) -> list:
+    """Return only structurally valid persisted weekly-plan items."""
+    if isinstance(generated_plan, dict):
+        weekly_plan = generated_plan.get("weekly_plan")
+    else:
+        weekly_plan = getattr(generated_plan, "weekly_plan", None)
+
+    if not isinstance(weekly_plan, list):
+        return []
+
+    return [
+        week
+        for week in weekly_plan
+        if isinstance(week, dict) or hasattr(week, "week")
+    ]
+
+
+def _get_week_days(week: object) -> list:
+    if isinstance(week, dict):
+        days = week.get("days")
+    else:
+        days = getattr(week, "days", None)
+    return days if isinstance(days, list) else []
+
+
+def _get_plan_value(item: object, key: str, default: object = None) -> object:
+    if isinstance(item, dict):
+        return item.get(key, default)
+    return getattr(item, key, default)
+
+
 @router.get("/current", response_model=Optional[StudyPlanResponse])
 @limiter.limit("60/minute")
 async def get_current_plan(
@@ -189,11 +220,7 @@ async def get_today_lessons(
     current_week = (plan.progress_day // plan.days_per_week) + 1
     current_day = (plan.progress_day % plan.days_per_week) + 1
 
-    weekly_plan = (
-        plan.generated_plan.get("weekly_plan")
-        if isinstance(plan.generated_plan, dict)
-        else getattr(plan.generated_plan, "weekly_plan", None)
-    )
+    weekly_plan = _get_weekly_plan_items(plan.generated_plan)
     if not weekly_plan:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -202,8 +229,8 @@ async def get_today_lessons(
 
     week = None
     for w in weekly_plan:
-        w_week = w["week"] if isinstance(w, dict) else w.week
-        if w_week == current_week:
+        w_week = _get_plan_value(w, "week")
+        if isinstance(w_week, int) and w_week == current_week:
             week = w
             break
 
@@ -217,7 +244,16 @@ async def get_today_lessons(
             pending_count=pending_count,
         )
 
-    days = week["days"] if isinstance(week, dict) else week.days
+    days = _get_week_days(week)
+    if not days:
+        return TodayResponse(
+            plan_id=plan.id,
+            cefr_level=plan.cefr_level,
+            lessons=[],
+            progress_day=plan.progress_day,
+            total_days=total_days,
+            pending_count=pending_count,
+        )
 
     # Build title→(id, is_completed) lookup from already-loaded lessons
     lesson_by_title: dict[str, tuple[int, bool]] = {
@@ -227,14 +263,26 @@ async def get_today_lessons(
 
     today_lessons = []
     for d in days:
-        d_day = d["day"] if isinstance(d, dict) else d.day
-        if d_day != current_day:
+        d_day = _get_plan_value(d, "day")
+        if not isinstance(d_day, int) or d_day != current_day:
             continue
-        d_title = d["title"] if isinstance(d, dict) else d.title
-        d_type = d["lesson_type"] if isinstance(d, dict) else d.lesson_type
-        d_obj = d["objectives"] if isinstance(d, dict) else d.objectives
-        d_min = d["estimated_minutes"] if isinstance(d, dict) else d.estimated_minutes
-        d_unit_id = d.get("unit_id", "") if isinstance(d, dict) else getattr(d, "unit_id", "")
+        d_title = _get_plan_value(d, "title", "")
+        d_type = _get_plan_value(d, "lesson_type", "review")
+        d_obj = _get_plan_value(d, "objectives", [])
+        d_min = _get_plan_value(d, "estimated_minutes", 25)
+        d_unit_id = _get_plan_value(d, "unit_id", "")
+
+        if not isinstance(d_title, str) or not d_title.strip():
+            continue
+        if not isinstance(d_type, str) or not d_type.strip():
+            d_type = "review"
+        if not isinstance(d_obj, list):
+            d_obj = []
+        d_obj = [item for item in d_obj if isinstance(item, str)]
+        if not isinstance(d_min, int) or d_min <= 0:
+            d_min = 25
+        if not isinstance(d_unit_id, str):
+            d_unit_id = ""
 
         _existing = lesson_by_title.get(d_title)
         lesson_id: int | None = _existing[0] if _existing else None
