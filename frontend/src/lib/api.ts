@@ -60,6 +60,10 @@ async function refreshToken(): Promise<string | null> {
   return refreshPromise
 }
 
+export async function refreshAuthSession(): Promise<string | null> {
+  return refreshToken()
+}
+
 export async function apiFetch(url: string, options: RequestInit = {}): Promise<Response> {
   const { inc, dec } = useLoadingStore.getState()
   inc()
