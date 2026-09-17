@@ -6,9 +6,18 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    DATABASE_URL: str = os.environ.get("DATABASE_URL", "postgresql://user:pass@localhost/db")
-    REDIS_URL: str = "redis://localhost:6379/0"
-    SECRET_KEY: str = os.environ.get("SECRET_KEY", "dev-secret-key-change-in-production")
+    # Desktop mode flag
+    DESKTOP_MODE: bool = False
+    
+    # Database configuration
+    DATABASE_URL: str = ""
+    DATA_DIR: str = ""
+    
+    # Redis (optional for desktop)
+    REDIS_URL: str = ""
+    REDIS_ENABLED: bool = True
+    
+    SECRET_KEY: str = ""
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
     REFRESH_TOKEN_EXPIRE_DAYS: int = 30
     ALLOW_REGISTRATION: bool = True
@@ -152,4 +161,50 @@ class Settings(BaseSettings):
     model_config = {"env_file": ".env"}
 
 
+# Initialize default settings instance
 settings = Settings()
+
+
+def get_settings() -> Settings:
+    """Get settings instance with desktop mode support."""
+    return settings
+
+
+def initialize_desktop_mode(data_dir: str) -> Settings:
+    """
+    Initialize settings for desktop mode.
+    
+    Args:
+        data_dir: Base directory for user data (database, logs, etc.)
+    
+    Returns:
+        Settings object configured for desktop mode
+    """
+    import os
+    
+    # Set desktop mode flag
+    os.environ["DESKTOP_MODE"] = "True"
+    os.environ["DATA_DIR"] = data_dir
+    
+    # Create SQLite database path
+    db_path = os.path.join(data_dir, "database", "juba_lisan.db")
+    os.makedirs(os.path.dirname(db_path), exist_ok=True)
+    os.environ["DATABASE_URL"] = f"sqlite+aiosqlite:///{db_path}"
+    
+    # Disable Redis for desktop (use in-memory fallback)
+    os.environ["REDIS_ENABLED"] = "False"
+    os.environ["REDIS_URL"] = ""
+    
+    # Set default paths
+    os.environ["AUDIO_STORAGE_PATH"] = os.path.join(data_dir, "audio")
+    os.makedirs(os.environ["AUDIO_STORAGE_PATH"], exist_ok=True)
+    
+    # Generate secure secret key if not set
+    if not os.environ.get("SECRET_KEY"):
+        import secrets
+        os.environ["SECRET_KEY"] = secrets.token_urlsafe(32)
+    
+    # Reload settings
+    global settings
+    settings = Settings()
+    return settings
