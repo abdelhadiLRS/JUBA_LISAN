@@ -8,9 +8,10 @@ function stringOrFallback(value: unknown, fallback = ''): string {
 function nullableString(
   value: unknown,
   fallback: string | null | undefined = null
-): string | null | undefined {
+): string | null {
   if (value === null) return null
-  return typeof value === 'string' ? value : fallback
+  if (typeof value === 'string') return value
+  return fallback ?? null
 }
 
 function finiteNumber(value: unknown, fallback = 0): number {
@@ -58,9 +59,9 @@ export function mapUser(
     id: finiteNumber(data.id, currentUser?.id ?? 0),
     username: stringOrFallback(data.username, currentUser?.username ?? ''),
     displayName: stringOrFallback(data.display_name, currentUser?.displayName ?? ''),
-    email: nullableString(data.email, currentUser?.email),
-    native_language: nullableString(data.native_language, currentUser?.native_language),
-    target_language: nullableString(data.target_language, currentUser?.target_language),
+    email: nullableString(data.email, currentUser?.email) ?? undefined,
+    native_language: nullableString(data.native_language, currentUser?.native_language) ?? undefined,
+    target_language: nullableString(data.target_language, currentUser?.target_language) ?? undefined,
     ui_locale: nullableString(data.ui_locale, currentUser?.ui_locale ?? null) ?? null,
     role,
     conversation_max_duration: finiteNumber(
