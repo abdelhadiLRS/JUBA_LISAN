@@ -22,8 +22,7 @@
         "target": "portable",
         "arch": ["x64"]
       }
-    ],
-    "icon": "public/icon.png"
+    ]
   },
   "nsis": {
     "oneClick": false,
@@ -35,13 +34,5 @@
   },
   "portable": {
     "artifactName": "JUBA-LISAN-${version}-portable.${ext}"
-  },
-  "mac": {
-    "target": "dmg",
-    "icon": "public/icon.icns"
-  },
-  "linux": {
-    "target": ["AppImage", "deb"],
-    "icon": "public"
   }
 }
