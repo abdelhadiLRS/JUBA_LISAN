@@ -21,9 +21,20 @@ def _get_real_ip(request: Request) -> str:
     return request.client.host if request.client else "unknown"
 
 
-limiter = Limiter(
-    key_func=_get_real_ip,
-    default_limits=["60/minute"] if settings.RATE_LIMIT_ENABLED else [],
-    enabled=settings.RATE_LIMIT_ENABLED,
-    storage_uri=settings.REDIS_URL,
-)
+# Desktop mode: disable rate limiting or use in-memory storage
+if settings.DESKTOP_MODE or not settings.REDIS_ENABLED:
+    # Use in-memory storage for desktop (single user doesn't need strict limits)
+    limiter = Limiter(
+        key_func=_get_real_ip,
+        default_limits=["120/minute"] if settings.RATE_LIMIT_ENABLED else [],
+        enabled=settings.RATE_LIMIT_ENABLED and not settings.DESKTOP_MODE,
+        storage_uri="memory://",
+    )
+else:
+    # Server mode: use Redis for distributed rate limiting
+    limiter = Limiter(
+        key_func=_get_real_ip,
+        default_limits=["60/minute"] if settings.RATE_LIMIT_ENABLED else [],
+        enabled=settings.RATE_LIMIT_ENABLED,
+        storage_uri=settings.REDIS_URL,
+    )
