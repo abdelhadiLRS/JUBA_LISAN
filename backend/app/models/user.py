@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import UTC, datetime
 
 from sqlalchemy import Boolean, DateTime, Integer, String, Text
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.config import settings
 from app.core.database import Base
@@ -78,3 +78,8 @@ class User(Base):
         DateTime, nullable=False, default=lambda: datetime.now(UTC).replace(tzinfo=None)
     )
     last_login: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+
+    # AI Tutor Relationships
+    ai_sessions: Mapped[list["AISession"]] = relationship(
+        "AISession", back_populates="user", cascade="all, delete-orphan", lazy="select"
+    )

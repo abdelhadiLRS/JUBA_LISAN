@@ -1,3 +1,4 @@
+from app.models.ai_session import AISession, SpeechAnalysis, SessionStatus, SpeechQuality
 from app.models.chat_history import ChatHistory
 from app.models.competency import UserCompetency
 from app.models.conversation import Conversation
@@ -17,6 +18,10 @@ from app.models.user import User
 from app.models.user_language import UserLanguage
 
 __all__ = [
+    "AISession",
+    "SpeechAnalysis",
+    "SessionStatus",
+    "SpeechQuality",
     "ChatHistory",
     "UserCompetency",
     "Conversation",

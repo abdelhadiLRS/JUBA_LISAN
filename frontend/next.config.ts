@@ -9,6 +9,10 @@ const withBackend = (path: string) =>
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   output: 'standalone',
+  images: {
+    unoptimized: true,
+    domains: ['localhost', 'backend']
+  },
   webpack(config, { isServer }) {
     if (isServer) {
       // Prevent SSR bundling of WASM-heavy packages; ConversationMode is

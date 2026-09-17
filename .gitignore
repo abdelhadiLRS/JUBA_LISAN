@@ -1,33 +1,52 @@
-# Ignore environment variables
+```
+# Dependencies
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+# Build artifacts
+dist/
+build/
+*.egg-info/
+# Environment
 .env
 .env.local
-.env.*.local
-
-# Local Docker state / generated persistent data
-docker-data/
-
-# IDE
-.idea/
+.env.*
+!.env.example
+# Editors/IDEs
 .vscode/
+.idea/
 *.swp
-
-# Local development files
-/data/
-
-# Frontend build/dependency output
-frontend/node_modules/
-frontend/.next/
-
-# OS
+*.swo
+# OS generated files
 .DS_Store
-
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-.venv/
-dist/
+Thumbs.db
+# Logs
+*.log
+# Coverage
 .coverage
-.coverage.*
-coverage.xml
+coverage/
 htmlcov/
+# Python specific
+*.so
+.Python
+env/
+.venv/
+venv/
+venv.bak/
+ENV/
+# Frontend specific
+.next/
+.nuxt/
+public/build/
+# Prisma
+prisma/migrations/
+prisma/generated/
+# Temporary files
+*.tmp
+*.temp
+```
