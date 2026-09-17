@@ -1,0 +1,54 @@
+{
+  "name": "juba-lisan-desktop",
+  "version": "1.0.0",
+  "description": "Juba Lisan Desktop Application",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently \"npm run next-dev\" \"wait-on http://localhost:3000 && electron .\"",
+    "next-dev": "next dev",
+    "build": "next build && next export",
+    "build:electron": "npm run build && electron-builder",
+    "start": "electron .",
+    "dist": "npm run build && electron-builder --win",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:linux": "npm run build && electron-builder --linux"
+  },
+  "author": "Juba Lisan",
+  "license": "MIT",
+  "build": {
+    "appId": "com.jubalisan.app",
+    "productName": "Juba Lisan",
+    "directories": {
+      "output": "dist",
+      "buildResources": "public"
+    },
+    "files": [
+      "out/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "public/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "public/icon.png"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "icon": "public/icon.png"
+    }
+  }
+}
