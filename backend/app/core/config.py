@@ -1,11 +1,14 @@
+import os
+from pathlib import Path
+
 from pydantic import field_validator
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    DATABASE_URL: str
+    DATABASE_URL: str = os.environ.get("DATABASE_URL", "postgresql://user:pass@localhost/db")
     REDIS_URL: str = "redis://localhost:6379/0"
-    SECRET_KEY: str
+    SECRET_KEY: str = os.environ.get("SECRET_KEY", "dev-secret-key-change-in-production")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
     REFRESH_TOKEN_EXPIRE_DAYS: int = 30
     ALLOW_REGISTRATION: bool = True
