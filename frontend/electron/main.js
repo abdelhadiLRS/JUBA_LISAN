@@ -1,36 +1,63 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, dialog } = require('electron');
 const path = require('path');
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling
-if (require('electron-squirrel-startup')) {
-  app.quit();
+let mainWindow = null;
+
+const isDev = !app.isPackaged;
+const FRONTEND_DEV_URL = process.env.ELECTRON_START_URL || 'http://127.0.0.1:3000';
+
+function getRendererPath() {
+  return path.join(__dirname, '..', 'out', 'index.html');
 }
 
-let mainWindow;
-
 function createWindow() {
-  // Create the browser window
   mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 1280,
+    height: 820,
+    minWidth: 960,
+    minHeight: 640,
+    show: false,
+    title: 'JUBA LISAN',
+    autoHideMenuBar: true,
     webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
+      sandbox: true,
     },
-    icon: path.join(__dirname, '../public/icon.png'),
+    icon: path.join(__dirname, '..', 'public', 'icon.png'),
   });
 
-  // Load the app
-  const isDev = process.env.NODE_ENV === 'development';
-  
+  mainWindow.once('ready-to-show', () => {
+    mainWindow?.show();
+  });
+
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (url.startsWith('https://') || url.startsWith('http://')) {
+      require('electron').shell.openExternal(url);
+    }
+    return { action: 'deny' };
+  });
+
+  mainWindow.webContents.on('did-fail-load', (_event, errorCode, errorDescription) => {
+    if (!isDev && mainWindow && !mainWindow.isDestroyed()) {
+      dialog.showErrorBox(
+        'JUBA LISAN',
+        `Unable to load the application.\n\n${errorDescription} (${errorCode})`,
+      );
+    }
+  });
+
+  const loadPromise = isDev
+    ? mainWindow.loadURL(FRONTEND_DEV_URL)
+    : mainWindow.loadFile(getRendererPath());
+
+  loadPromise.catch((error) => {
+    dialog.showErrorBox('JUBA LISAN', `Application startup failed.\n\n${error.message}`);
+  });
+
   if (isDev) {
-    // In development, load from the dev server
-    mainWindow.loadURL('http://localhost:3000');
-    // Open DevTools in development
-    mainWindow.webContents.openDevTools();
-  } else {
-    // In production, load the built files
-    mainWindow.loadFile(path.join(__dirname, '../out/index.html'));
+    mainWindow.webContents.openDevTools({ mode: 'detach' });
   }
 
   mainWindow.on('closed', () => {
@@ -38,19 +65,16 @@ function createWindow() {
   });
 }
 
-// This method will be called when Electron has finished initialization
 app.whenReady().then(() => {
   createWindow();
 
   app.on('activate', () => {
-    // On macOS it's common to re-create a window when the dock icon is clicked
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
     }
   });
 });
 
-// Quit when all windows are closed, except on macOS
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
