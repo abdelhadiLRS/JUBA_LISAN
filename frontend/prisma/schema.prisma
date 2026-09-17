@@ -1,0 +1,335 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// JUBA LISAN - Database Schema for User Progress & Learning
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// User Model
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  emailVerified DateTime?
+  password      String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Profile
+  nativeLanguage    String   @default("ar")
+  learningLanguages String[]
+  level             String   @default("beginner") // beginner, intermediate, advanced
+  streak            Int      @default(0)
+  totalXp           Int      @default(0)
+  dailyGoal         Int      @default(50) // XP per day
+
+  // Relations
+  accounts       Account[]
+  sessions       Session[]
+  progress       LearningProgress[]
+  achievements   Achievement[]
+  challenges     UserChallenge[]
+  conversations  AIConversation[]
+  speechAnalyses SpeechAnalysis[]
+  dailyMomentums DailyMomentum[]
+  posts          CommunityPost[]
+  comments       Comment[]
+  certifications Certification[]
+  enrollments    Enrollment[]
+  conversationSessions ConversationSession[]
+
+  @@map("users")
+}
+
+// Auth Models (NextAuth)
+model Account {
+  userId            String  @db.VarChar(191)
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  sessionToken String   @unique @db.VarChar(191)
+  userId       String   @db.VarChar(191)
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String   @unique @db.VarChar(191)
+  token      String   @unique @db.VarChar(191)
+  expires    DateTime
+
+  @@map("verification_tokens")
+}
+
+// Learning Progress
+model LearningProgress {
+  id            String    @id @default(cuid())
+  userId        String
+  language      String // e.g., 'en', 'de', 'fr'
+  skillType     String // vocabulary, grammar, speaking, listening, reading, writing
+  skillId       String // Reference to specific skill/exercise
+  masteryLevel  Float     @default(0.0) // 0.0 to 1.0
+  lastPracticed DateTime  @default(now())
+  nextReview    DateTime?
+  xpEarned      Int       @default(0)
+  correctCount  Int       @default(0)
+  totalCount    Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, language, skillType, skillId])
+  @@map("learning_progress")
+}
+
+// Achievements & Badges
+model Achievement {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String
+  icon        String
+  category    String // streak, mastery, social, challenge
+  earnedAt    DateTime @default(now())
+  xpBonus     Int      @default(0)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("achievements")
+}
+
+// Weekly Challenges
+model Challenge {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  type         String // weekly, monthly, special
+  startDate    DateTime
+  endDate      DateTime
+  goal         Int // Target XP or exercises
+  reward       Int // XP reward
+  participants Int      @default(0)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  userChallenges UserChallenge[]
+
+  @@map("challenges")
+}
+
+model UserChallenge {
+  id          String   @id @default(cuid())
+  userId      String
+  challengeId String
+  progress    Int      @default(0)
+  completed   Boolean  @default(false)
+  claimed     Boolean  @default(false)
+  joinedAt    DateTime @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, challengeId])
+  @@map("user_challenges")
+}
+
+// AI Conversations
+model AIConversation {
+  id        String   @id @default(cuid())
+  userId    String
+  language  String
+  topic     String?
+  messages  Json // Array of message objects
+  score     Float? // Overall conversation score
+  feedback  String?
+  duration  Int? // In seconds
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("ai_conversations")
+}
+
+// Speech Analysis
+model SpeechAnalysis {
+  id            String   @id @default(cuid())
+  userId        String
+  language      String
+  audioUrl      String?
+  transcript    String?
+  accuracy      Float? // 0.0 to 1.0
+  pronunciation Float?
+  fluency       Float?
+  feedback      String?
+  createdAt     DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("speech_analysis")
+}
+
+// Cultural Content
+model CulturalContent {
+  id          String   @id @default(cuid())
+  country     String
+  language    String
+  title       String
+  description String
+  type        String // tradition, greeting, food, festival, art
+  imageUrl    String?
+  content     Json // Rich content
+  views       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("cultural_content")
+}
+
+// Daily Momentum Tracking
+model DailyMomentum {
+  id                 String   @id @default(cuid())
+  userId             String
+  date               DateTime @db.Date
+  xpEarned           Int      @default(0)
+  exercisesCompleted Int      @default(0)
+  streak             Int      @default(0)
+  mood               String? // happy, neutral, tired
+  notes              String?
+  createdAt          DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@map("daily_momentum")
+}
+
+// Community & Social Features
+model CommunityPost {
+  id          String   @id @default(cuid())
+  userId      String
+  languageCode String
+  title       String
+  content     String
+  tags        String[] @default([])
+  likes       Int      @default(0)
+  views       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comments Comment[]
+
+  @@map("community_posts")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  postId    String
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  post CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("comments")
+}
+
+// Professional Features
+model Certification {
+  id             String   @id @default(cuid())
+  userId         String
+  languageCode   String
+  level          String // A1, A2, B1, B2, C1, C2
+  type           String // general, business, academic
+  score          Float
+  issuedAt       DateTime @default(now())
+  expiresAt      DateTime?
+  certificateUrl String?
+  verified       Boolean  @default(false)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("certifications")
+}
+
+model BusinessCourse {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  languageCode String
+  modules     Json     @default("[]")
+  duration    Int      // hours
+  level       String
+  price       Float
+  certificate Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  enrollments Enrollment[]
+
+  @@map("business_courses")
+}
+
+model Enrollment {
+  id          String   @id @default(cuid())
+  userId      String
+  courseId    String
+  progress    Float    @default(0.0)
+  completed   Boolean  @default(false)
+  enrolledAt  DateTime @default(now())
+  completedAt DateTime?
+
+  user   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course BusinessCourse @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@map("enrollments")
+}
+
+// AI Conversation Sessions with Scenarios
+model ConversationSession {
+  id             String   @id @default(cuid())
+  userId         String
+  languageCode   String
+  topic          String?
+  scenario       String? // restaurant, airport, business_meeting, etc.
+  messages       Json     @default("[]")
+  score          Float?
+  feedback       String?
+  duration       Int?     // seconds
+  audioRecording String?
+  completed      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("conversation_sessions")
+}

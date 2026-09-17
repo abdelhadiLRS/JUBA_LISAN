@@ -25,6 +25,7 @@ _TTS_PREVIEWS_DIR = "/app/tts_previews"
 from app.routers import (
     admin,
     admin_dashboard_banner,
+    ai_tutor,
     assessment,
     auth,
     chat,
@@ -51,6 +52,7 @@ from app.routers import (
 )
 from app.routers import config as config_router
 from app.routers import health as health_router
+from app.routers import community_professional as community_router
 from app.services.stt_service import OpenAISTTService, WhisperSTTService
 from app.services.tts_service import KokoroTTSService, OpenAITTSService
 
@@ -131,6 +133,7 @@ async def security_headers_middleware(request: Request, call_next) -> Response:
 app.include_router(auth.router)
 app.include_router(admin.router)
 app.include_router(admin_dashboard_banner.router)
+app.include_router(ai_tutor.router)
 app.include_router(assessment.router)
 app.include_router(study_plan.router)
 app.include_router(lessons.router)
@@ -155,6 +158,7 @@ app.include_router(phrasebook.router)
 app.include_router(languages.router)
 app.include_router(health_router.router)
 app.include_router(vocabulary.router)
+app.include_router(community_router.router)
 
 if settings.STRIPE_ENABLED:
     import stripe as _stripe

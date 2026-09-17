@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { BookOpen, Flame, Sparkles, Target } from 'lucide-react'
+import { BookOpen, Flame, Sparkles, Target, ArrowRight } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import {
   isSubscribed,
@@ -23,12 +23,12 @@ import { DashboardAnnouncement } from '@/components/dashboard/DashboardAnnouncem
 interface TodayLessonItem {
   id: number | null
   title: string
-  lesson_type: string
+  lessonType: string
   week: number
   day: number
   objectives: string[]
-  estimated_minutes: number
-  is_completed: boolean
+  estimatedMinutes: number
+  isCompleted: boolean
 }
 
 const SUPPORTED_LESSON_TYPES = new Set([
@@ -66,7 +66,7 @@ function normalizeDashboardLessons(value: unknown): TodayLessonItem[] {
         typeof item.title === 'string' && item.title.trim()
           ? item.title
           : 'Lesson',
-      lesson_type: normalizeLessonType(item.lesson_type),
+      lessonType: normalizeLessonType((item as any).lesson_type || item.lessonType),
       week:
         typeof item.week === 'number' && Number.isFinite(item.week)
           ? item.week
@@ -80,13 +80,16 @@ function normalizeDashboardLessons(value: unknown): TodayLessonItem[] {
             (objective): objective is string => typeof objective === 'string'
           )
         : [],
-      estimated_minutes:
-        typeof item.estimated_minutes === 'number' &&
-        Number.isFinite(item.estimated_minutes) &&
-        item.estimated_minutes > 0
-          ? item.estimated_minutes
-          : 25,
-      is_completed: Boolean(item.is_completed),
+      estimatedMinutes:
+        typeof (item as any).estimated_minutes === 'number' &&
+        Number.isFinite((item as any).estimated_minutes)
+          ? (item as any).estimated_minutes
+          : typeof item.estimatedMinutes === 'number' &&
+            Number.isFinite(item.estimatedMinutes) &&
+            item.estimatedMinutes > 0
+            ? item.estimatedMinutes
+            : 25,
+      isCompleted: typeof (item as any).is_completed === 'boolean' ? (item as any).is_completed : Boolean(item.isCompleted),
     }))
 }
 
@@ -107,6 +110,11 @@ export default function DashboardPage() {
   const trialEligible = !user?.trial_used
   const freemiumTrialActive = isFreemiumTrialActive(user, stripeEnabled)
   const [freemiumTrialDaysLeft, setFreemiumTrialDaysLeft] = useState(0)
+  
+  // Daily Momentum State - answers three core questions
+  const [nextAction, setNextAction] = useState<TodayLessonItem | null>(null) // What should I do now?
+  const [reviewDueCount, setReviewDueCount] = useState(0) // What is due for review?
+  const [goalProgress, setGoalProgress] = useState({ current: 0, target: 0 }) // How close to today's goal?
 
   useEffect(() => {
     if (freemiumTrialActive && user?.freemium_trial_ends_at) {
@@ -172,6 +180,16 @@ export default function DashboardPage() {
         setVocabularyMastered(prog.vocabulary_mastered ?? 0)
         setVocabularyTotal(prog.vocabulary_total ?? 0)
         setVocabularyProgress(prog.vocabulary_progress ?? 0)
+        
+        // Update goal progress for Daily Momentum (calculate inline to avoid forward reference)
+        const currentCompleted = todayLessons.filter(
+          (lesson) =>
+            (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
+        ).length
+        setGoalProgress({
+          current: currentCompleted,
+          target: todayLessons.length || 3, // Default to 3 lessons per day
+        })
       } else {
         setProgress({ streak: 0, xp: 0, skills: {} })
         setTotalLessons(0)
@@ -182,6 +200,7 @@ export default function DashboardPage() {
         setVocabularyMastered(0)
         setVocabularyTotal(0)
         setVocabularyProgress(0)
+        setGoalProgress({ current: 0, target: 3 })
       }
       if (planRes.ok) {
         const plan = await planRes.json()
@@ -189,18 +208,14 @@ export default function DashboardPage() {
         setProgressDay(plan.progress_day ?? 0)
         setTotalDays(plan.total_days ?? 0)
         setPendingCount(plan.pending_count ?? 0)
-        setTodayLessons(
-          normalizeDashboardLessons(plan.lessons).map((l) => ({
-            id: l.id,
-            title: l.title,
-            lessonType: l.lesson_type,
-            week: l.week,
-            day: l.day,
-            objectives: l.objectives,
-            estimatedMinutes: l.estimated_minutes,
-            isCompleted: l.is_completed,
-          }))
-        )
+        const normalizedLessons = normalizeDashboardLessons(plan.lessons)
+        setTodayLessons(normalizedLessons)
+        
+        // Daily Momentum: Set next action and review count
+        const next = normalizedLessons.find(l => !l.isCompleted && l.id !== null) || null
+        setNextAction(next)
+        setReviewDueCount(plan.review_due_count ?? 0)
+        
         setHasPlan(true)
       } else {
         setCefrLevel(null)
@@ -208,6 +223,8 @@ export default function DashboardPage() {
         setTotalDays(0)
         setPendingCount(0)
         setTodayLessons([])
+        setNextAction(null)
+        setReviewDueCount(0)
         setHasPlan(false)
       }
     } catch {
@@ -276,10 +293,13 @@ export default function DashboardPage() {
   const skillEntries = Object.entries(skills)
     .map(([skill, value]) => ({ skill, value: value as number }))
     .sort((a, b) => a.value - b.value)
+  
+  // Daily Momentum: Calculate completed lessons for goal progress
   const completedLessonCount = todayLessons.filter(
     (lesson) =>
       (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
   ).length
+  
   const nextLesson = todayLessons.find(
     (lesson) =>
       lesson.id && !completedToday.includes(lesson.id) && !lesson.isCompleted
@@ -342,6 +362,74 @@ export default function DashboardPage() {
         </div>
 
         <DashboardAnnouncement />
+
+        {/* Daily Momentum Hero Section - answers three core questions */}
+        <section className="juba-card mb-6 overflow-hidden p-0" aria-label={t('dailyMomentum')}>
+          <div className="border-b border-fl-border bg-gradient-to-r from-[var(--juba-accent)]/5 to-transparent p-5 sm:p-6">
+            <div className="flex items-center gap-2">
+              <Flame className="h-5 w-5 text-[var(--juba-accent)]" />
+              <h2 className="text-fl-fg text-lg font-bold">{t('dailyMomentum')}</h2>
+            </div>
+            <p className="text-fl-muted-2 mt-1 text-sm">{t('dailyMomentumSubtitle')}</p>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-4 p-5 sm:p-6 md:grid-cols-3">
+            {/* What should I do now? */}
+            <div className="rounded-xl border border-fl-border bg-fl-surface p-4">
+              <p className="text-fl-muted-2 mb-2 text-xs font-semibold uppercase tracking-wide">{t('whatNow')}</p>
+              {nextAction ? (
+                <>
+                  <h3 className="text-fl-fg text-base font-bold">{nextAction.title}</h3>
+                  <p className="text-fl-muted-2 mt-1 text-sm">{tPlan(getLessonTypeLabelKey(nextAction.lessonType))} · {nextAction.estimatedMinutes}min</p>
+                  <Link href={`/lesson/${nextAction.id}`} className="mt-3 inline-flex">
+                    <button className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}>
+                      {t('startLesson')} <ArrowRight className="h-4 w-4" />
+                    </button>
+                  </Link>
+                </>
+              ) : hasPlan ? (
+                <p className="text-fl-muted-1 text-sm font-medium">{t('allCaughtUp')}</p>
+              ) : (
+                <Link href="/assessment"><p className="text-[var(--juba-accent)] text-sm font-semibold">{t('takeAssessment')}</p></Link>
+              )}
+            </div>
+            
+            {/* What is due for review? */}
+            <div className="rounded-xl border border-fl-border bg-fl-surface p-4">
+              <p className="text-fl-muted-2 mb-2 text-xs font-semibold uppercase tracking-wide">{t('dueForReview')}</p>
+              {reviewDueCount > 0 ? (
+                <>
+                  <h3 className="text-fl-fg text-2xl font-bold text-[var(--juba-accent)]">{reviewDueCount}</h3>
+                  <p className="text-fl-muted-2 mt-1 text-sm">{t('itemsToReview')}</p>
+                  <Link href="/review" className="mt-3 inline-flex">
+                    <button className={btnSecondary}>{t('reviewNow')}</button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <h3 className="text-fl-fg text-2xl font-bold">✓</h3>
+                  <p className="text-fl-muted-2 mt-1 text-sm">{t('noReviewsDue')}</p>
+                </>
+              )}
+            </div>
+            
+            {/* How close to today's goal? */}
+            <div className="rounded-xl border border-fl-border bg-fl-surface p-4">
+              <p className="text-fl-muted-2 mb-2 text-xs font-semibold uppercase tracking-wide">{t('todayGoal')}</p>
+              <div className="mb-2 flex items-end justify-between">
+                <span className="text-fl-fg text-2xl font-bold">{goalProgress.current}</span>
+                <span className="text-fl-muted-2 text-sm">/ {goalProgress.target}</span>
+              </div>
+              <div className="bg-fl-surface-2 h-2 w-full overflow-hidden rounded-full">
+                <div 
+                  className="h-full rounded-full transition-all duration-500" 
+                  style={{ width: `${Math.min(100, (goalProgress.current / goalProgress.target) * 100)}%`, background: 'var(--juba-accent)' }}
+                />
+              </div>
+              <p className="text-fl-muted-2 mt-2 text-xs">{t('lessonsCompletedToday')}</p>
+            </div>
+          </div>
+        </section>
 
         <section className="juba-card mb-6 p-5 sm:p-6" aria-label={t('nextStep')}>
           <p className="text-fl-muted-2 mb-4 text-xs font-semibold tracking-wide uppercase">{t('nextStep')}</p>

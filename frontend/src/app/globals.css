@@ -427,6 +427,10 @@ html[data-theme='dark'] .juba-glass {
   opacity: 0;
 }
 
+.animate-shimmer {
+  animation: shimmer 2.8s ease-in-out infinite;
+}
+
 .juba-shimmer {
   position: relative;
   overflow: hidden;
