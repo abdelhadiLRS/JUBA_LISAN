@@ -3,7 +3,10 @@ from pathlib import Path
 
 from PyInstaller.utils.hooks import collect_submodules
 
-ROOT = Path(__file__).resolve().parent
+# PyInstaller executes .spec files as build configuration code, where
+# __file__ is not guaranteed to be defined. The build script invokes
+# PyInstaller from the backend directory, so cwd is the stable project root.
+ROOT = Path.cwd().resolve()
 if not (ROOT / "desktop_server.py").exists():
     raise RuntimeError(f"PyInstaller spec root is invalid: {ROOT}")
 
