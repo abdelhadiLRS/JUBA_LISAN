@@ -1,7 +1,7 @@
 {
   "appId": "com.jubalisan.app",
   "productName": "JUBA LISAN",
-  "artifactName": "JUBA-LISAN-${version}-${arch}.${ext}",
+  "artifactName": "JUBA-LISAN-$" + "{version}-$" + "{arch}.$" + "{ext}",
   "directories": {
     "output": "dist",
     "buildResources": "public"
@@ -11,17 +11,18 @@
     "electron/**/*",
     "package.json"
   ],
+  "extraResources": [
+    {
+      "from": "desktop-backend",
+      "to": "backend",
+      "filter": ["juba-lisan-backend.exe"]
+    }
+  ],
   "asar": true,
   "win": {
     "target": [
-      {
-        "target": "nsis",
-        "arch": ["x64"]
-      },
-      {
-        "target": "portable",
-        "arch": ["x64"]
-      }
+      { "target": "nsis", "arch": ["x64"] },
+      { "target": "portable", "arch": ["x64"] }
     ]
   },
   "nsis": {
@@ -33,6 +34,6 @@
     "deleteAppDataOnUninstall": false
   },
   "portable": {
-    "artifactName": "JUBA-LISAN-${version}-portable.${ext}"
+    "artifactName": "JUBA-LISAN-$" + "{version}-portable.$" + "{ext}"
   }
 }
