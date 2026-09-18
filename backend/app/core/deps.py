@@ -1,3 +1,5 @@
+from collections.abc import AsyncIterator
+
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jwt.exceptions import PyJWTError as JWTError
@@ -18,7 +20,12 @@ MAINTENANCE_KEY = "maintenance_mode"
 REDIS_SOCKET_TIMEOUT = 5.0
 
 
-async def get_redis():
+async def get_redis() -> AsyncIterator[Redis | None]:
+    """Yield Redis when enabled; Desktop mode does not require a Redis server."""
+    if not settings.REDIS_ENABLED or not settings.REDIS_URL:
+        yield None
+        return
+
     redis = Redis.from_url(
         settings.REDIS_URL,
         decode_responses=True,
@@ -52,8 +59,11 @@ async def require_admin(current_user: User = Depends(get_current_user)) -> User:
     return current_user
 
 
-async def check_maintenance_mode(redis: Redis = Depends(get_redis)) -> None:
+async def check_maintenance_mode(redis: Redis | None = None) -> None:
     """Raise 503 if maintenance mode is active in Redis."""
+    if redis is None:
+        return
+
     try:
         if await redis.get(MAINTENANCE_KEY) == "1":
             raise HTTPException(
@@ -80,7 +90,7 @@ async def require_subscription(
 
 
 async def check_subscription_or_freemium_access(
-    feature: str, redis: Redis, current_user: User
+    feature: str, redis: Redis | None, current_user: User
 ) -> None:
     """Raise unless the user has subscription, trial, or remaining feature quota."""
     if not settings.STRIPE_ENABLED:
@@ -93,6 +103,17 @@ async def check_subscription_or_freemium_access(
 
     if is_freemium_trial_active(current_user.freemium_trial_ends_at):
         return
+
+    if redis is None:
+        raise HTTPException(
+            status_code=402,
+            detail={
+                "reason": "freemium_unavailable",
+                "feature": feature,
+                "remaining": 0,
+                "limit": 0,
+            },
+        )
 
     try:
         from app.services.freemium_service import (
@@ -140,20 +161,9 @@ async def check_subscription_or_freemium_access(
 
 
 def require_subscription_or_freemium(feature: str):
-    """Factory that returns a FastAPI dependency checking subscription OR freemium quota.
-
-    When STRIPE_ENABLED=false the user always passes (self-hosted mode).
-    When STRIPE_ENABLED=true the check follows this order:
-      1. Subscribed (trialing/active) → allowed
-      2. Freemium trial active → allowed
-      3. Freemium quota available for *feature* → allowed
-      4. Otherwise → 402 with freemium_exhausted detail
-
-    *feature* must be one of: chat, lessons, listening, reading, voice.
-    """
-
+    """Factory for subscription/freemium feature access."""
     async def _check(
-        redis: Redis = Depends(get_redis),
+        redis: Redis | None = Depends(get_redis),
         current_user: User = Depends(get_current_user),
     ) -> User:
         await check_subscription_or_freemium_access(feature, redis, current_user)
@@ -163,19 +173,9 @@ def require_subscription_or_freemium(feature: str):
 
 
 def require_subscription_or_freemium_readonly(feature: str):
-    """Factory that returns a FastAPI dependency for read-only endpoints.
-
-    Same cascade as require_subscription_or_freemium except the quota step
-    only checks that the feature EXISTS for free users (limit > 0), not that
-    remaining quota is available.
-
-    Use this on GET endpoints (history, conversation list, audio) that should
-    remain accessible even when the user's daily/weekly quota is exhausted.
-
-    """
-
+    """Factory for read-only subscription/freemium access."""
     async def _check(
-        redis: Redis = Depends(get_redis),
+        redis: Redis | None = Depends(get_redis),
         current_user: User = Depends(get_current_user),
     ) -> User:
         if not settings.STRIPE_ENABLED:
@@ -188,6 +188,17 @@ def require_subscription_or_freemium_readonly(feature: str):
 
         if is_freemium_trial_active(current_user.freemium_trial_ends_at):
             return current_user
+
+        if redis is None:
+            raise HTTPException(
+                status_code=402,
+                detail={
+                    "reason": "freemium_unavailable",
+                    "feature": feature,
+                    "remaining": 0,
+                    "limit": 0,
+                },
+            )
 
         try:
             from app.services.freemium_service import (
@@ -232,7 +243,7 @@ def require_subscription_or_freemium_readonly(feature: str):
 
 async def require_not_maintenance(
     current_user: User = Depends(get_current_user),
-    redis: Redis = Depends(get_redis),
+    redis: Redis | None = Depends(get_redis),
 ) -> None:
     """Dependency for operational features disabled during maintenance mode."""
     if current_user.role != "admin":
