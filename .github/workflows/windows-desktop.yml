@@ -284,27 +284,24 @@ jobs:
             $rendererReady = $false
             for ($i = 0; $i -lt 60; $i++) {
               Start-Sleep -Seconds 1
+              $page = $null
               try {
                 $page = Invoke-WebRequest -Uri "http://127.0.0.1:18082/" -TimeoutSec 3
-                if ($page.StatusCode -eq 200) {
-                  if ($page.Content -notmatch "FreeLingo|JUBA LISAN") {
-                    throw "Packaged Next.js renderer returned 200 but did not render the expected application shell."
-                  }
-                  $rendererReady = $true
-                  break
-                }
               } catch {
-                # Transient startup/network failures are retried. A successful HTTP
-                # response with invalid application content must fail immediately.
-                if ($renderer.HasExited) {
-                  $stderr = $renderer.StandardError.ReadToEnd()
-                  throw "Packaged Next.js renderer exited unexpectedly. $stderr"
-                }
+                # Renderer startup can transiently refuse connections.
               }
 
               if ($renderer.HasExited) {
                 $stderr = $renderer.StandardError.ReadToEnd()
                 throw "Packaged Next.js renderer exited unexpectedly. $stderr"
+              }
+
+              if ($null -ne $page -and $page.StatusCode -eq 200) {
+                if ($page.Content -notmatch "FreeLingo|JUBA LISAN") {
+                  throw "Packaged Next.js renderer returned 200 but did not render the expected application shell."
+                }
+                $rendererReady = $true
+                break
               }
             }
 
