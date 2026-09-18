@@ -3,7 +3,7 @@ from pathlib import Path
 
 from PyInstaller.utils.hooks import collect_submodules
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path.cwd().resolve()\nif not (ROOT / "desktop_server.py").exists():\n    raise RuntimeError(f"PyInstaller must be invoked from the backend directory: {ROOT}")
 
 hiddenimports = collect_submodules("app")
 
