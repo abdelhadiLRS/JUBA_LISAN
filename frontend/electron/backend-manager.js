@@ -71,7 +71,16 @@ function waitForHealth(url, timeoutMs = 30000) {
 }
 
 async function startBackend({ app, isDev }) {
-  const port = await findFreePort();
+  // Development keeps the backend on the conventional port so Next.js
+  // server-side requests and its /api rewrites resolve to the same service.
+  // Packaged Desktop uses an ephemeral port to avoid collisions.
+  const port = isDev
+    ? Number(process.env.JUBA_BACKEND_PORT || 8000)
+    : await findFreePort();
+  if (!Number.isInteger(port) || port < 1 || port > 65535) {
+    throw new Error('JUBA_BACKEND_PORT must be a valid TCP port.');
+  }
+
   const dataDir = path.join(app.getPath('userData'), 'data');
   fs.mkdirSync(dataDir, { recursive: true });
 
