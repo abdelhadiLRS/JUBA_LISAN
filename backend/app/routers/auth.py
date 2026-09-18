@@ -47,6 +47,84 @@ from app.services import email_service
 
 logger = get_logger(__name__)
 
+router = APIRouter(prefix="/api/auth", tags=["auth"])
+
+# Desktop mode deliberately avoids a Redis dependency. Refresh tokens are
+# kept in-process for the lifetime of the bundled FastAPI process.
+_DESKTOP_REFRESH_TOKENS: dict[str, int] = {}
+
+
+async def _store_refresh_token(redis: Redis | None, token: str, user_id: int, ttl: int) -> None:
+    if redis is not None:
+        await redis.setex(f"refresh:{token}", ttl, str(user_id))
+    else:
+        _DESKTOP_REFRESH_TOKENS[token] = user_id
+
+
+async def _consume_refresh_token(redis: Redis | None, token: str) -> int | None:
+    if redis is not None:
+        user_id = await redis.get(f"refresh:{token}")
+        if not user_id:
+            return None
+        await redis.delete(f"refresh:{token}")
+        return int(user_id)
+    return _DESKTOP_REFRESH_TOKENS.pop(token, None)
+
+
+async def _delete_refresh_token(redis: Redis | None, token: str) -> None:
+    if redis is not None:
+        await redis.delete(f"refresh:{token}")
+    else:
+        _DESKTOP_REFRESH_TOKENS.pop(token, None)
+mport base64
+import json
+import os
+import uuid
+from datetime import UTC, datetime
+
+from fastapi import (
+    APIRouter,
+    Depends,
+    File,
+    HTTPException,
+    Request,
+    Response,
+    UploadFile,
+    status,
+)
+from fastapi.responses import FileResponse
+from redis.asyncio import Redis
+from sqlalchemy import func, select, update
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.core.app_logger import get_logger
+from app.core.config import settings
+from app.core.database import get_db
+from app.core.deps import get_current_user, get_redis
+from app.core.limiter import limiter
+from app.core.security import (
+    create_access_token,
+    create_refresh_token,
+    dummy_verify,
+    hash_password,
+    verify_password,
+)
+from app.models.user import User
+from app.models.user_language import UserLanguage
+from app.schemas.auth import (
+    ForgotPasswordRequest,
+    LoginRequest,
+    RegisterRequest,
+    RegisterResponse,
+    ResetPasswordRequest,
+    TokenResponse,
+    UserResponse,
+    UserUpdateRequest,
+)
+from app.services import email_service
+
+logger = get_logger(__name__)
+
 router = APIRouter(prefix="/api/auth", tags=["auth"])\n\n# Desktop mode deliberately avoids a Redis dependency. Refresh tokens are\n# kept in-process for the lifetime of the bundled FastAPI process.\n_DESKTOP_REFRESH_TOKENS: dict[str, int] = {}\n\n\nasync def _store_refresh_token(redis: Redis | None, token: str, user_id: int, ttl: int) -> None:\n    if redis is not None:\n        await redis.setex(f"refresh:{token}", ttl, str(user_id))\n    else:\n        _DESKTOP_REFRESH_TOKENS[token] = user_id\n\n\nasync def _consume_refresh_token(redis: Redis | None, token: str) -> int | None:\n    if redis is not None:\n        user_id = await redis.get(f"refresh:{token}")\n        if not user_id:\n            return None\n        await _delete_refresh_token(redis, token)\n        return int(user_id)\n    return _DESKTOP_REFRESH_TOKENS.pop(token, None)\n\n\nasync def _delete_refresh_token(redis: Redis | None, token: str) -> None:\n    if redis is not None:\n        await redis.delete(f"refresh:{token}")\n    else:\n        _DESKTOP_REFRESH_TOKENS.pop(token, None)
 
 
