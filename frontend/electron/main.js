@@ -23,7 +23,7 @@ function findFreePort(host = '127.0.0.1') {
   });
 }
 
-async function startRendererServer() {
+async function startRendererServer(backendUrl) {
   if (isDev) return { child: null, url: FRONTEND_DEV_URL };
 
   const port = await findFreePort();
@@ -42,6 +42,7 @@ async function startRendererServer() {
       HOSTNAME: '127.0.0.1',
       PORT: String(port),
       NEXT_TELEMETRY_DISABLED: '1',
+      BACKEND_URL: backendUrl,
     },
     stdio: ['ignore', 'pipe', 'pipe'],
     serviceName: 'JUBA LISAN renderer',
@@ -128,7 +129,7 @@ function createWindow(rendererUrl) {
 async function bootstrap() {
   try {
     backend = await startBackend({ app, isDev });
-    renderer = await startRendererServer();
+    renderer = await startRendererServer(backend.baseUrl);
     createWindow(renderer.url);
   } catch (error) {
     stopRenderer(renderer);
