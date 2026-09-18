@@ -26,7 +26,8 @@ class StudyPlan(Base):
             "uq_active_plan_per_lang",
             "user_language_id",
             unique=True,
-            postgresql_where=text("is_active = true"),\n            sqlite_where=text("is_active = 1"),
+            postgresql_where=text("is_active = true"),
+            sqlite_where=text("is_active = 1"),
         ),
     )
 
