@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from datetime import date
 
-from sqlalchemy import Date, ForeignKey, Integer, UniqueConstraint
-from sqlalchemy.dialects.postgresql import JSON
+from sqlalchemy import JSON, Date, ForeignKey, Integer, UniqueConstraint
+from sqlalchemy import JSON, Date, ForeignKey, Integer, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base
