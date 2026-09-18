@@ -69,7 +69,11 @@ async function startRendererServer(backendUrl) {
     dialog.showErrorBox(
       'JUBA LISAN',
       'The application renderer stopped unexpectedly (' + detail + ').\n\nPlease restart JUBA LISAN.',
-    );\n    // Do not leave a blank Electron window running after the renderer dies.\n    isQuitting = true;\n    try { mainWindow.close(); } catch {}\n    app.quit();
+    );
+    // Do not leave a blank Electron window running after the renderer dies.
+    isQuitting = true;
+    try { mainWindow.close(); } catch {}
+    app.quit();
   });
 
   // Consume both child streams so verbose Next.js startup logs cannot fill a pipe.
