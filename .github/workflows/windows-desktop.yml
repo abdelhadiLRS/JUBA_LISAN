@@ -258,6 +258,53 @@ jobs:
           $renderer.StartInfo = $rendererPsi
 
           try {
+            # Start the backend first. The packaged Next.js landing page performs
+            # request-time calls to /api/config and /api/reviews/public, so the
+            # renderer must never race the backend during its first request.
+            [void]$backend.Start()
+            $backendReady = $false
+            for ($i = 0; $i -lt 60; $i++) {
+              Start-Sleep -Seconds 1
+              try {
+                $health = Invoke-RestMethod -Uri "http://127.0.0.1:18081/health" -TimeoutSec 2
+                if ($health.status -eq "ok") { $backendReady = $true; break }
+              } catch {}
+
+              if ($backend.HasExited) {
+                $stderr = $backend.StandardError.ReadToEnd()
+                throw "Renderer smoke backend exited unexpectedly. $stderr"
+              }
+            }
+
+            if (-not $backendReady) {
+              $stderr = $backend.StandardError.ReadToEnd()
+              throw "Renderer smoke backend did not become healthy within 60 seconds. $stderr"
+            }
+
+            [void]$renderer.Start()
+            $rendererReady = $false
+            for ($i = 0; $i -lt 60; $i++) {
+              Start-Sleep -Seconds 1
+              try {
+                $page = Invoke-WebRequest -Uri "http://127.0.0.1:18082/" -TimeoutSec 3
+                if ($page.StatusCode -eq 200) { $rendererReady = $true; break }
+              } catch {}
+
+              if ($renderer.HasExited) {
+                $stderr = $renderer.StandardError.ReadToEnd()
+                throw "Packaged Next.js renderer exited unexpectedly. $stderr"
+              }
+            }
+
+            if (-not $rendererReady) {
+              $stderr = $renderer.StandardError.ReadToEnd()
+              throw "Packaged Next.js renderer did not serve / within 60 seconds. $stderr"
+            }
+          } finally {
+            if (-not $renderer.HasExited) { $renderer.Kill(); $renderer.WaitForExit() }
+            if (-not $backend.HasExited) { $backend.Kill(); $backend.WaitForExit() }
+          }
+          try {
             [void]$renderer.Start()
             $backendReady = $false
             $rendererReady = $false
