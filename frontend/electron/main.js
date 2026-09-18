@@ -58,10 +58,14 @@ async function startRendererServer(backendUrl) {
 
   // Keep a reference to an unexpected renderer exit so the packaged app does
   // not remain open on a permanently blank window after Next.js crashes.
-  child.once('exit', (code, signal) => {
+  let rendererExited = false;
+  let rendererExitCode = null;
+  child.once('exit', (code) => {
+    rendererExited = true;
+    rendererExitCode = code;
     if (isQuitting) return;
     if (!mainWindow || mainWindow.isDestroyed()) return;
-    const detail = signal ? 'signal ' + signal : 'exit code ' + code;
+    const detail = 'exit code ' + code;
     dialog.showErrorBox(
       'JUBA LISAN',
       'The application renderer stopped unexpectedly (' + detail + ').\n\nPlease restart JUBA LISAN.',
@@ -83,8 +87,10 @@ async function startRendererServer(backendUrl) {
 
   const started = Date.now();
   while (Date.now() - started < 30000) {
-    if (child.exitCode !== null) {
-      failStartup('JUBA LISAN renderer exited during startup.');
+    if (rendererExited) {
+      failStartup(
+        'JUBA LISAN renderer exited during startup (exit code ' + rendererExitCode + ').',
+      );
     }
 
     try {
