@@ -1,8 +1,9 @@
 import base64
+import hashlib
 import json
 import os
 import uuid
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 
 from fastapi import (
     APIRouter,
@@ -31,6 +32,7 @@ from app.core.security import (
     hash_password,
     verify_password,
 )
+from app.models.refresh_token import RefreshToken
 from app.models.user import User
 from app.models.user_language import UserLanguage
 from app.schemas.auth import (
@@ -49,31 +51,88 @@ logger = get_logger(__name__)
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
-_DESKTOP_REFRESH_TOKENS: dict[str, int] = {}
+def _hash_refresh_token(token: str) -> str:
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
 
 
-async def _store_refresh_token(redis: Redis | None, token: str, user_id: int, ttl: int) -> None:
+async def _store_refresh_token(
+    redis: Redis | None,
+    token: str,
+    user_id: int,
+    ttl: int,
+    db: AsyncSession | None = None,
+) -> None:
     if redis is not None:
         await redis.setex(f"refresh:{token}", ttl, str(user_id))
-    else:
-        _DESKTOP_REFRESH_TOKENS[token] = user_id
+        return
+
+    if db is None:
+        raise RuntimeError("Desktop refresh token storage requires a database session")
+
+    now = datetime.now(UTC).replace(tzinfo=None)
+    await db.execute(
+        RefreshToken.__table__.delete().where(RefreshToken.expires_at <= now)
+    )
+    db.add(
+        RefreshToken(
+            token_hash=_hash_refresh_token(token),
+            user_id=user_id,
+            expires_at=now + timedelta(seconds=ttl),
+        )
+    )
+    await db.commit()
 
 
-async def _consume_refresh_token(redis: Redis | None, token: str) -> int | None:
+async def _consume_refresh_token(
+    redis: Redis | None,
+    token: str,
+    db: AsyncSession | None = None,
+) -> int | None:
     if redis is not None:
         user_id = await redis.get(f"refresh:{token}")
         if not user_id:
             return None
         await redis.delete(f"refresh:{token}")
         return int(user_id)
-    return _DESKTOP_REFRESH_TOKENS.pop(token, None)
+
+    if db is None:
+        raise RuntimeError("Desktop refresh token storage requires a database session")
+
+    now = datetime.now(UTC).replace(tzinfo=None)
+    result = await db.execute(
+        select(RefreshToken).where(
+            RefreshToken.token_hash == _hash_refresh_token(token),
+            RefreshToken.expires_at > now,
+        )
+    )
+    stored = result.scalar_one_or_none()
+    if stored is None:
+        return None
+
+    user_id = stored.user_id
+    await db.delete(stored)
+    await db.commit()
+    return user_id
 
 
-async def _delete_refresh_token(redis: Redis | None, token: str) -> None:
+async def _delete_refresh_token(
+    redis: Redis | None,
+    token: str,
+    db: AsyncSession | None = None,
+) -> None:
     if redis is not None:
         await redis.delete(f"refresh:{token}")
-    else:
-        _DESKTOP_REFRESH_TOKENS.pop(token, None)
+        return
+
+    if db is None:
+        raise RuntimeError("Desktop refresh token storage requires a database session")
+
+    await db.execute(
+        RefreshToken.__table__.delete().where(
+            RefreshToken.token_hash == _hash_refresh_token(token)
+        )
+    )
+    await db.commit()
 
 
 def _require_redis(redis: Redis | None, feature: str) -> Redis:
@@ -162,7 +221,7 @@ async def register(
     refresh_token = create_refresh_token()
 
     ttl = settings.REFRESH_TOKEN_EXPIRE_DAYS * 86400
-    await _store_refresh_token(redis, refresh_token, user.id, ttl)
+    await _store_refresh_token(redis, refresh_token, user.id, ttl, db)
 
     response.set_cookie(
         "refresh_token",
@@ -249,7 +308,7 @@ async def refresh(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing refresh token"
         )
 
-    user_id = await _consume_refresh_token(redis, token)
+    user_id = await _consume_refresh_token(redis, token, db)
     if not user_id:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -259,7 +318,7 @@ async def refresh(
 
     new_refresh = create_refresh_token()
     ttl = settings.REFRESH_TOKEN_EXPIRE_DAYS * 86400
-    await _store_refresh_token(redis, new_refresh, int(user_id), ttl)
+    await _store_refresh_token(redis, new_refresh, int(user_id), ttl, db)
 
     response.set_cookie(
         "refresh_token",
@@ -289,7 +348,7 @@ async def logout(
 ):
     token = request.cookies.get("refresh_token")
     if token:
-        await _delete_refresh_token(redis, token)
+        await _delete_refresh_token(redis, token, db)
     response.delete_cookie("refresh_token")
     return {"detail": "Logged out"}
 
