@@ -14,14 +14,33 @@
     {
       "from": "desktop-backend",
       "to": "backend",
-      "filter": ["juba-lisan-backend.exe"]
+      "filter": [
+        "juba-lisan-backend.exe"
+      ]
+    },
+    {
+      "from": "next-standalone",
+      "to": "next-standalone",
+      "filter": [
+        "**/*"
+      ]
     }
   ],
   "asar": true,
   "win": {
     "target": [
-      { "target": "nsis", "arch": ["x64"] },
-      { "target": "portable", "arch": ["x64"] }
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      },
+      {
+        "target": "portable",
+        "arch": [
+          "x64"
+        ]
+      }
     ]
   },
   "nsis": {
