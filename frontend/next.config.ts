@@ -13,7 +13,8 @@ const nextConfig: NextConfig = {
   // Desktop keeps the full Next.js server because the App Router uses
   // request-time cookies/headers and middleware for auth + locale handling.
   // Both Docker and the Windows Electron package run the full Next.js server.
-  // Standalone output keeps the production runtime self-contained.\n  output: 'standalone',
+  // Standalone output keeps the production runtime self-contained.
+  output: 'standalone',
   // Keep Next.js/Turbopack anchored to the frontend project. The repository also
   // contains a root package-lock.json, and automatic workspace detection can
   // otherwise place the standalone output under the repository root.
