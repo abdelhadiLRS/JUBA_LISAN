@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const { app, BrowserWindow, dialog, shell, utilityProcess } = require('electron');
 const fs = require('fs');
-const http = require('http');
 const path = require('path');
 const { startBackend, stopBackend } = require('./backend-manager');
 
@@ -11,29 +10,6 @@ let renderer = null;
 
 const isDev = !app.isPackaged;
 const FRONTEND_DEV_URL = process.env.ELECTRON_START_URL || 'http://127.0.0.1:3000';
-
-function getRendererRoot() {
-  return path.join(__dirname, '..', 'out');
-}
-
-function getContentType(filePath) {
-  const ext = path.extname(filePath).toLowerCase();
-  return {
-    '.html': 'text/html; charset=utf-8',
-    '.js': 'text/javascript; charset=utf-8',
-    '.css': 'text/css; charset=utf-8',
-    '.json': 'application/json; charset=utf-8',
-    '.svg': 'image/svg+xml',
-    '.png': 'image/png',
-    '.jpg': 'image/jpeg',
-    '.jpeg': 'image/jpeg',
-    '.webp': 'image/webp',
-    '.ico': 'image/x-icon',
-    '.woff': 'font/woff',
-    '.woff2': 'font/woff2',
-    '.wasm': 'application/wasm',
-  }[ext] || 'application/octet-stream';
-}
 
 function findFreePort(host = '127.0.0.1') {
   return new Promise((resolve, reject) => {
@@ -48,7 +24,7 @@ function findFreePort(host = '127.0.0.1') {
 }
 
 async function startRendererServer() {
-  if (isDev) return FRONTEND_DEV_URL;
+  if (isDev) return { child: null, url: FRONTEND_DEV_URL };
 
   const port = await findFreePort();
   const serverPath = path.join(process.resourcesPath, 'next-standalone', 'server.js');
@@ -78,37 +54,26 @@ async function startRendererServer() {
   });
 
   const started = Date.now();
-  const wait = async () => {
-    while (Date.now() - started < 30000) {
-      try {
-        const response = await fetch('http://127.0.0.1:' + port + '/');
-        if (response.status < 500) return;
-      } catch {}
-      await new Promise((resolve) => setTimeout(resolve, 250));
-    }
-    try { child.kill(); } catch {}
-    throw new Error(
-      'JUBA LISAN renderer did not become healthy in time.' +
-      (stderr.trim() ? '\n\n' + stderr.trim() : ''),
-    );
-  };
+  while (Date.now() - started < 30000) {
+    try {
+      const response = await fetch('http://127.0.0.1:' + port + '/');
+      if (response.status < 500) {
+        return { child, url: 'http://127.0.0.1:' + port };
+      }
+    } catch {}
+    await new Promise((resolve) => setTimeout(resolve, 250));
+  }
 
-  await wait();
-
-  return {
-    child,
-    url: 'http://127.0.0.1:' + port,
-  };
+  try { child.kill(); } catch {}
+  throw new Error(
+    'JUBA LISAN renderer did not become healthy in time.' +
+    (stderr.trim() ? '\n\n' + stderr.trim() : ''),
+  );
 }
 
 function stopRenderer(renderer) {
   if (!renderer?.child) return;
   try { renderer.child.kill(); } catch {}
-}
-function stopRenderer() {
-  if (!rendererServer) return;
-  try { rendererServer.close(); } catch {}
-  rendererServer = null;
 }
 
 function createWindow(rendererUrl) {
