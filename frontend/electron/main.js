@@ -59,7 +59,7 @@ async function startRendererServer(backendUrl) {
   // Keep a reference to an unexpected renderer exit so the packaged app does
   // not remain open on a permanently blank window after Next.js crashes.
   child.once('exit', (code, signal) => {
-    if (app.isQuitting) return;
+    if (isQuitting) return;
     if (!mainWindow || mainWindow.isDestroyed()) return;
     const detail = signal ? 'signal ' + signal : 'exit code ' + code;
     dialog.showErrorBox(
@@ -178,7 +178,6 @@ if (gotSingleInstanceLock) {
 
 app.on('before-quit', () => {
   isQuitting = true;
-  app.isQuitting = true;
   stopRenderer(renderer);
   if (backend) stopBackend(backend.child);
 });
