@@ -74,6 +74,10 @@ async def test_desktop_refresh_token_survives_database_restart(tmp_path, monkeyp
             access_token = login.json()["access_token"]
             assert access_token
             assert access_token != registration_token
+            set_cookie = login.headers.get("set-cookie", "").lower()
+            assert "refresh_token=" in set_cookie
+            assert "httponly" in set_cookie
+            assert "secure" not in set_cookie
 
             await engine.dispose()
             engine = create_async_engine(url)
