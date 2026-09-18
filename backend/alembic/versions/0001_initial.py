@@ -8,7 +8,6 @@ Create Date: 2026-04-30
 from collections.abc import Sequence
 
 import sqlalchemy as sa
-from sqlalchemy.dialects import postgresql
 
 from alembic import op
 
@@ -42,9 +41,9 @@ def upgrade() -> None:
         sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
         sa.Column("user_id", sa.Integer(), nullable=False),
         sa.Column("cefr_level", sa.String(length=10), nullable=False),
-        sa.Column("goals", postgresql.JSON(), nullable=False),
+        sa.Column("goals", sa.JSON(), nullable=False),
         sa.Column("weeks_planned", sa.Integer(), nullable=False),
-        sa.Column("generated_plan", postgresql.JSON(), nullable=False),
+        sa.Column("generated_plan", sa.JSON(), nullable=False),
         sa.Column("is_active", sa.Boolean(), nullable=False),
         sa.Column("created_at", sa.DateTime(), nullable=False),
         sa.ForeignKeyConstraint(["user_id"], ["users.id"]),
@@ -80,7 +79,7 @@ def upgrade() -> None:
         sa.Column("exercises_correct", sa.Integer(), nullable=False),
         sa.Column("exercises_total", sa.Integer(), nullable=False),
         sa.Column("streak_day", sa.Integer(), nullable=False),
-        sa.Column("skills", postgresql.JSON(), nullable=False),
+        sa.Column("skills", sa.JSON(), nullable=False),
         sa.ForeignKeyConstraint(["user_id"], ["users.id"]),
         sa.PrimaryKeyConstraint("id"),
     )
@@ -95,7 +94,7 @@ def upgrade() -> None:
         sa.Column("cefr_level", sa.String(length=10), nullable=False),
         sa.Column("week_number", sa.Integer(), nullable=False),
         sa.Column("day_number", sa.Integer(), nullable=False),
-        sa.Column("content", postgresql.JSON(), nullable=False),
+        sa.Column("content", sa.JSON(), nullable=False),
         sa.Column("is_completed", sa.Boolean(), nullable=False),
         sa.Column("completed_at", sa.DateTime(), nullable=True),
         sa.ForeignKeyConstraint(["study_plan_id"], ["study_plans.id"]),
@@ -109,7 +108,7 @@ def upgrade() -> None:
         sa.Column("lesson_id", sa.Integer(), nullable=False),
         sa.Column("exercise_type", sa.String(length=50), nullable=False),
         sa.Column("question", sa.Text(), nullable=False),
-        sa.Column("options", postgresql.JSON(), nullable=True),
+        sa.Column("options", sa.JSON(), nullable=True),
         sa.Column("correct_answer", sa.Text(), nullable=False),
         sa.Column("user_answer", sa.Text(), nullable=True),
         sa.Column("score", sa.Float(), nullable=True),
