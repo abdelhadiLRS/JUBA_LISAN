@@ -88,7 +88,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
     allow_origin_regex=(
-        r"^https?://(?:127\\.0\\.0\\.1|localhost)(?::\\d+)?$"
+        r"^https?://(?:127\.0\.0\.1|localhost)(?::\d+)?$"
         if settings.DESKTOP_MODE
         else None
     ),
