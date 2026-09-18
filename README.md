@@ -63,10 +63,66 @@ JUBA_LISAN/
 | STT | faster-whisper (local) · OpenAI Whisper |
 | Authentication | JWT access/refresh tokens, users and roles |
 | Deployment | Docker Compose |
+| Windows Desktop | Electron + Next.js standalone + packaged FastAPI + SQLite |
+
+## Windows Desktop (.exe)
+
+JUBA LISAN includes a Windows desktop target designed to run without Docker, PostgreSQL, or Redis. The desktop package contains:
+
+- Electron desktop shell.
+- Next.js standalone renderer.
+- Packaged FastAPI backend executable.
+- SQLite database stored under the Windows application-data directory.
+- Persistent refresh-token records in SQLite so login sessions survive backend/application restarts.
+- Optional local AI providers such as Ollama running on the Windows host.
+- Redis disabled by default in Desktop mode.
+
+The desktop application is intended for Windows x64.
+
+### Build the Windows installer
+
+From PowerShell at the repository root:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\build-desktop.ps1
+```
+
+The script:
+
+1. Builds the packaged FastAPI backend with PyInstaller.
+2. Installs frontend dependencies.
+3. Builds Next.js in standalone mode.
+4. Copies the standalone server, static assets, and public assets into the Electron package staging directory.
+5. Builds both an NSIS installer and a portable Windows executable.
+
+Artifacts are written to:
+
+```text
+frontend\dist\
+```
+
+### Desktop data location
+
+Desktop application data is kept outside the installation directory so uninstall/reinstall does not implicitly remove user data. The application creates a data directory containing the SQLite database, generated secret key, audio files, and other local state.
+
+The desktop backend is bound to localhost only. No Docker, PostgreSQL, or Redis service is required for the core desktop runtime.
+
+### Desktop verification
+
+The Windows CI workflow validates:
+
+- SQLite model compatibility.
+- Alembic migrations against SQLite.
+- Desktop registration, login, logout, refresh, and `/me`.
+- Refresh-token persistence after restarting the packaged backend against the same SQLite database.
+- Startup and HTTP serving of the packaged Next.js standalone renderer.
+- Windows NSIS and portable artifacts.
+
+A local Windows build should still be performed before distributing an installer to end users.
 
 ## Quick start on Windows
 
-The recommended Windows path is Docker Desktop with WSL2, plus Ollama running on the Windows host when using a local LLM.
+The recommended Windows path for the server/self-hosted deployment is Docker Desktop with WSL2, plus Ollama running on the Windows host when using a local LLM.
 
 ### 1. Clone
 
