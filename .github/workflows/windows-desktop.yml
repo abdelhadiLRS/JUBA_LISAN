@@ -7,6 +7,7 @@ on:
     paths:
       - 'frontend/**'
       - 'backend/**'
+      - 'messages/**'
       - 'scripts/build-desktop*.ps1'
       - '.github/workflows/windows-desktop.yml'
       - 'backend/alembic.ini'
@@ -160,9 +161,6 @@ jobs:
               throw "Packaged backend /me returned an unexpected user."
             }
 
-            # Restart the packaged backend against the same SQLite data directory.
-            # The WebRequestSession retains the HttpOnly refresh cookie, proving
-            # refresh-token persistence across an application/backend restart.
             $process.Kill()
             $process.WaitForExit()
 
@@ -264,9 +262,6 @@ jobs:
           $renderer.StartInfo = $rendererPsi
 
           try {
-            # Start the backend first. The packaged Next.js landing page performs
-            # request-time calls to /api/config and /api/reviews/public, so the
-            # renderer must never race the backend during its first request.
             [void]$backend.Start()
             $backendReady = $false
             for ($i = 0; $i -lt 60; $i++) {
@@ -294,9 +289,7 @@ jobs:
               $page = $null
               try {
                 $page = Invoke-WebRequest -Uri "http://127.0.0.1:18082/" -TimeoutSec 3
-              } catch {
-                # Renderer startup can transiently refuse connections.
-              }
+              } catch {}
 
               if ($renderer.HasExited) {
                 $stderr = $renderer.StandardError.ReadToEnd()
