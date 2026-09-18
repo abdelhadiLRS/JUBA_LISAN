@@ -10,6 +10,7 @@ from app.models.listening import ListeningAttempt, ListeningExercise
 from app.models.llm_usage import LLMUsage
 from app.models.memory import Memory
 from app.models.progress import Progress
+from app.models.refresh_token import RefreshToken
 from app.models.reading import ReadingAttempt, ReadingExercise
 from app.models.resource_native_help import ResourceNativeHelp
 from app.models.review import Review
@@ -38,6 +39,7 @@ __all__ = [
     "LLMUsage",
     "Memory",
     "Progress",
+    "RefreshToken",
     "ReadingAttempt",
     "ReadingExercise",
     "ResourceNativeHelp",
