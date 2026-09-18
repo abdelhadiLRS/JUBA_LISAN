@@ -100,11 +100,16 @@ async function startRendererServer(backendUrl) {
     if (stderr.length > 12000) stderr = stderr.slice(-12000);
   });
 
+  const diagnostics = () => {
+    const sections = [];
+    if (stderr.trim()) sections.push('Renderer stderr:\n' + stderr.trim());
+    if (stdout.trim()) sections.push('Renderer stdout:\n' + stdout.trim());
+    return sections.length ? '\n\n' + sections.join('\n\n') : '';
+  };
+
   const failStartup = (message) => {
     try { child.kill(); } catch {}
-    throw new Error(
-      message + (stderr.trim() ? '\n\n' + stderr.trim() : ''),
-    );
+    throw new Error(message + diagnostics());
   };
 
   const started = Date.now();
@@ -217,6 +222,7 @@ async function bootstrap() {
   } catch (error) {
     stopRenderer(renderer);
     if (backend) stopBackend(backend.child);
+    writeDesktopLog('Application startup failed: ' + error.message);
     dialog.showErrorBox('JUBA LISAN', 'Application startup failed.\n\n' + error.message);
     app.quit();
   }
