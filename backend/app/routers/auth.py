@@ -73,7 +73,7 @@ async def _consume_refresh_token(redis: Redis | None, token: str) -> int | None:
 
 async def _delete_refresh_token(redis: Redis | None, token: str) -> None:
     if redis is not None:
-        await redis.delete(f"refresh:{token}")
+        await _delete_refresh_token(redis, token)
     else:
         _DESKTOP_REFRESH_TOKENS.pop(token, None)
 
@@ -133,9 +133,6 @@ from app.schemas.auth import (
 from app.services import email_service
 
 logger = get_logger(__name__)
-
-router = APIRouter(prefix="/api/auth", tags=["auth"])\n\n# Desktop mode deliberately avoids a Redis dependency. Refresh tokens are\n# kept in-process for the lifetime of the bundled FastAPI process.\n_DESKTOP_REFRESH_TOKENS: dict[str, int] = {}\n\n\nasync def _store_refresh_token(redis: Redis | None, token: str, user_id: int, ttl: int) -> None:\n    if redis is not None:\n        await redis.setex(f"refresh:{token}", ttl, str(user_id))\n    else:\n        _DESKTOP_REFRESH_TOKENS[token] = user_id\n\n\nasync def _consume_refresh_token(redis: Redis | None, token: str) -> int | None:\n    if redis is not None:\n        user_id = await redis.get(f"refresh:{token}")\n        if not user_id:\n            return None\n        await _delete_refresh_token(redis, token)\n        return int(user_id)\n    return _DESKTOP_REFRESH_TOKENS.pop(token, None)\n\n\nasync def _delete_refresh_token(redis: Redis | None, token: str) -> None:\n    if redis is not None:\n        await redis.delete(f"refresh:{token}")\n    else:\n        _DESKTOP_REFRESH_TOKENS.pop(token, None)
-
 
 @router.post("/register", response_model=RegisterResponse)
 @limiter.limit("5/minute")
