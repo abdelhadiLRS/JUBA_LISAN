@@ -17,6 +17,29 @@ function findFreePort(host = '127.0.0.1') {
   });
 }
 
+function getDesktopSecretKey(dataDir) {
+  const secretPath = path.join(dataDir, '.secret_key');
+
+  try {
+    const existing = fs.readFileSync(secretPath, 'utf8').trim();
+    if (existing.length >= 32) return existing;
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+  }
+
+  const generated = crypto.randomBytes(32).toString('base64url');
+  try {
+    fs.writeFileSync(secretPath, generated, { encoding: 'utf8', flag: 'wx' });
+    return generated;
+  } catch (error) {
+    if (error.code === 'EEXIST') {
+      const existing = fs.readFileSync(secretPath, 'utf8').trim();
+      if (existing.length >= 32) return existing;
+    }
+    throw error;
+  }
+}
+
 function waitForHealth(url, timeoutMs = 30000) {
   const started = Date.now();
   return new Promise((resolve, reject) => {
@@ -88,7 +111,7 @@ async function startBackend({ app, isDev }) {
     DATABASE_URL: 'sqlite+aiosqlite:///' + path.join(dataDir, 'database', 'juba_lisan.db'),
     REDIS_ENABLED: 'false',
     REDIS_URL: '',
-    SECRET_KEY: process.env.SECRET_KEY || crypto.randomBytes(32).toString('base64url'),
+    SECRET_KEY: process.env.SECRET_KEY || getDesktopSecretKey(dataDir),
     AUDIO_STORAGE_PATH: path.join(dataDir, 'audio'),
     CORS_ORIGINS: '["http://127.0.0.1","http://localhost","null"]',
   };
