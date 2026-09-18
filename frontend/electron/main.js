@@ -59,7 +59,7 @@ async function startRendererServer(backendUrl) {
     if (child.exitCode !== null) {
       throw new Error(
         'JUBA LISAN renderer exited during startup.' +
-        (stderr.trim() ? '\\n\\n' + stderr.trim() : ''),
+        (stderr.trim() ? '\n\n' + stderr.trim() : ''),
       );
     }
 
