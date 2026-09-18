@@ -54,7 +54,9 @@ function waitForHealth(url, timeoutMs = 30000) {
       const http = require('http');
       const request = http.get(url, (response) => {
         response.resume();
-        if (response.statusCode && response.statusCode < 500) {
+        // /health is an application readiness endpoint. Treat only an explicit
+        // 200 response as healthy; a 3xx/4xx response must not unblock startup.
+        if (response.statusCode === 200) {
           resolve();
           return;
         }
