@@ -37,6 +37,18 @@ if (-not (Test-Path (Join-Path $NextStandalone "server.js"))) {
     throw "Next.js standalone server was not produced: $NextStandalone\server.js"
 }
 
+$StaticSource = Join-Path $Frontend ".next\static"
+if (-not (Test-Path $StaticSource)) {
+    throw "Next.js static assets were not produced: $StaticSource"
+}
+
+$StaticChunks = Get-ChildItem -Path $StaticSource -Recurse -File -ErrorAction SilentlyContinue |
+    Where-Object { $_.Extension -in ".js", ".css" } |
+    Select-Object -First 1
+if (-not $StaticChunks) {
+    throw "Next.js standalone build contains no JavaScript or CSS static assets: $StaticSource"
+}
+
 $DesktopRenderer = Join-Path $Frontend "next-standalone"
 if (Test-Path $DesktopRenderer) {
     Remove-Item $DesktopRenderer -Recurse -Force
