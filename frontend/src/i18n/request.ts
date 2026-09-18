@@ -1,3 +1,5 @@
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
 import { getRequestConfig } from 'next-intl/server'
 import { cookies, headers } from 'next/headers'
 import { SUPPORTED_LOCALES, type Locale } from '@/lib/locales'
@@ -19,13 +21,31 @@ export default getRequestConfig(async () => {
     headerStore.get('x-next-locale') ?? cookieStore.get('NEXT_LOCALE')?.value
   )
 
-  let messages
-  try {
-    messages = (await import(`../../../messages/${locale}.json`)).default
-  } catch {
-    // Fallback to English if locale file is missing
-    const defaultLocale = 'en'
-    messages = (await import(`../../../messages/${defaultLocale}.json`)).default
+  const messagesDirCandidates = [
+    path.join(process.cwd(), 'messages'),
+    path.join(process.cwd(), '..', 'messages'),
+    path.join(process.cwd(), '..', '..', 'messages'),
+    path.join(process.cwd(), '..', '..', '..', 'messages'),
+  ]
+
+  async function loadMessages(requestedLocale: string) {
+    for (const messagesDir of messagesDirCandidates) {
+      try {
+        const file = await readFile(path.join(messagesDir, `${requestedLocale}.json`), 'utf8')
+        return JSON.parse(file)
+      } catch {
+        // Try the next known runtime location.
+      }
+    }
+    return null
+  }
+
+  let messages = await loadMessages(locale)
+  if (!messages && locale !== 'en') {
+    messages = await loadMessages('en')
+  }
+  if (!messages) {
+    throw new Error('No locale messages were found in the application runtime.')
   }
 
   return {
