@@ -64,7 +64,8 @@ jobs:
           $psi.RedirectStandardError = $true
           $psi.Environment["DESKTOP_MODE"] = "true"
           $psi.Environment["DATA_DIR"] = $dataDir
-          $sqlitePath = (Join-Path $dataDir "database/juba_lisan.db") -replace "\\", "/"\n          $psi.Environment["DATABASE_URL"] = "sqlite+aiosqlite:///" + $sqlitePath
+          $sqlitePath = (Join-Path $dataDir "database/juba_lisan.db") -replace "\\", "/"
+          $psi.Environment["DATABASE_URL"] = "sqlite+aiosqlite:///" + $sqlitePath
           $psi.Environment["REDIS_ENABLED"] = "false"
           $psi.Environment["REDIS_URL"] = ""
           $psi.Environment["SECRET_KEY"] = "github-actions-desktop-smoke-secret-32chars-minimum"
