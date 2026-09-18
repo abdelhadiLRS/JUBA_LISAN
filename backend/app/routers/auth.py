@@ -281,7 +281,7 @@ async def login(
 async def refresh(
     request: Request,
     response: Response,
-    redis: Redis = Depends(get_redis),
+    redis: Redis | None = Depends(get_redis),
     db: AsyncSession = Depends(get_db),
 ):
     token = request.cookies.get("refresh_token")
@@ -327,7 +327,7 @@ async def refresh(
 async def logout(
     request: Request,
     response: Response,
-    redis: Redis = Depends(get_redis),
+    redis: Redis | None = Depends(get_redis),
 ):
     token = request.cookies.get("refresh_token")
     if token:
@@ -581,7 +581,7 @@ async def delete_me(
     response: Response,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
-    redis: Redis = Depends(get_redis),
+    redis: Redis | None = Depends(get_redis),
 ):
     if current_user.role == "admin":
         raise HTTPException(
@@ -613,7 +613,7 @@ async def get_my_quota(
     request: Request,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
-    redis: Redis = Depends(get_redis),
+    redis: Redis | None = Depends(get_redis),
 ):
     """Return conversation quota status for the current user."""
     from app.services.quota_service import (  # noqa: PLC0415
@@ -646,7 +646,7 @@ async def verify_email(
     request: Request,
     token: str,
     db: AsyncSession = Depends(get_db),
-    redis: Redis = Depends(get_redis),
+    redis: Redis | None = Depends(get_redis),
 ):
     user_id_str = await redis.get(f"verify_email:{token}")
     if not user_id_str:
@@ -668,7 +668,7 @@ async def verify_email(
 async def resend_verification(
     request: Request,
     current_user: User = Depends(get_current_user),
-    redis: Redis = Depends(get_redis),
+    redis: Redis | None = Depends(get_redis),
 ):
     if current_user.is_verified:
         return {"detail": "Already verified"}
@@ -703,7 +703,7 @@ async def forgot_password(
     request: Request,
     data: ForgotPasswordRequest,
     db: AsyncSession = Depends(get_db),
-    redis: Redis = Depends(get_redis),
+    redis: Redis | None = Depends(get_redis),
 ):
     # Always return 200 to avoid user enumeration
     result = await db.execute(select(User).where(User.email == data.email))
@@ -723,7 +723,7 @@ async def reset_password(
     request: Request,
     data: ResetPasswordRequest,
     db: AsyncSession = Depends(get_db),
-    redis: Redis = Depends(get_redis),
+    redis: Redis | None = Depends(get_redis),
 ):
     user_id_str = await redis.get(f"reset_password:{data.token}")
     if not user_id_str:
