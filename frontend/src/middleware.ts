@@ -72,7 +72,7 @@ export function middleware(req: NextRequest) {
       response.cookies.set('NEXT_LOCALE', locale, {
         path: '/',
         sameSite: 'lax',
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production' && process.env.BUILD_TARGET !== 'desktop',
         maxAge: 60 * 60 * 24 * 365,
       })
     }
@@ -91,7 +91,7 @@ export function middleware(req: NextRequest) {
     response.cookies.set('NEXT_LOCALE', locale, {
       path: '/',
       sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === 'production' && process.env.BUILD_TARGET !== 'desktop',
       maxAge: 60 * 60 * 24 * 365,
     })
   }
