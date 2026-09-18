@@ -57,8 +57,24 @@ async def test_desktop_refresh_token_survives_database_restart(tmp_path, monkeyp
                 },
             )
             assert register.status_code == 200, register.text
-            access_token = register.json()["access_token"]
+            registration_token = register.json()["access_token"]
+            assert registration_token
+
+            logout_after_register = await client.post("/api/auth/logout")
+            assert logout_after_register.status_code == 200
+
+            login = await client.post(
+                "/api/auth/login",
+                json={
+                    "email": "desktop@example.com",
+                    "password": "StrongPass1!",
+                },
+            )
+            assert login.status_code == 200, login.text
+            access_token = login.json()["access_token"]
             assert access_token
+            assert access_token != registration_token
+
             await engine.dispose()
             engine = create_async_engine(url)
             session_factory = async_sessionmaker(engine, expire_on_commit=False)
