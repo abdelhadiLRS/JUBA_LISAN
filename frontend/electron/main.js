@@ -12,6 +12,17 @@ let isQuitting = false;
 const isDev = !app.isPackaged;
 const FRONTEND_DEV_URL = process.env.ELECTRON_START_URL || 'http://127.0.0.1:3000';
 
+function writeDesktopLog(message) {
+  if (isDev) return;
+  try {
+    const logDir = app.getPath('userData');
+    fs.mkdirSync(logDir, { recursive: true });
+    const logPath = path.join(logDir, 'juba-lisan-desktop.log');
+    const line = new Date().toISOString() + ' ' + message + '\\n';
+    fs.appendFileSync(logPath, line, { encoding: 'utf8' });
+  } catch {}
+}
+
 // SQLite desktop mode is a single-user local application. Prevent two Electron
 // instances from opening the same database and data directory concurrently.
 const gotSingleInstanceLock = app.requestSingleInstanceLock();
@@ -66,6 +77,7 @@ async function startRendererServer(backendUrl) {
     if (isQuitting) return;
     if (!mainWindow || mainWindow.isDestroyed()) return;
     const detail = 'exit code ' + code;
+    writeDesktopLog('Renderer stopped unexpectedly: ' + detail);
     dialog.showErrorBox(
       'JUBA LISAN',
       'The application renderer stopped unexpectedly (' + detail + ').\n\nPlease restart JUBA LISAN.',
@@ -159,6 +171,7 @@ function createWindow(rendererUrl) {
     : mainWindow.loadURL(rendererUrl);
 
   loadPromise.catch((error) => {
+    writeDesktopLog('Application startup failed: ' + error.message);
     dialog.showErrorBox('JUBA LISAN', 'Application startup failed.\n\n' + error.message);
   });
 
@@ -180,6 +193,7 @@ function monitorBackendProcess(child) {
       : 'exit code ' + code;
 
     if (mainWindow && !mainWindow.isDestroyed()) {
+      writeDesktopLog('Backend stopped unexpectedly: ' + detail);
       dialog.showErrorBox(
         'JUBA LISAN',
         'The local backend stopped unexpectedly (' + detail + ').\n\nPlease restart JUBA LISAN.',
@@ -195,8 +209,10 @@ function monitorBackendProcess(child) {
 async function bootstrap() {
   try {
     backend = await startBackend({ app, isDev });
+    writeDesktopLog('Backend ready at ' + backend.baseUrl);
     monitorBackendProcess(backend.child);
     renderer = await startRendererServer(backend.baseUrl);
+    writeDesktopLog('Renderer ready at ' + renderer.url);
     createWindow(renderer.url);
   } catch (error) {
     stopRenderer(renderer);
