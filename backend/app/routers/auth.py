@@ -344,6 +344,7 @@ async def refresh(
 async def logout(
     request: Request,
     response: Response,
+    db: AsyncSession = Depends(get_db),
     redis: Redis | None = Depends(get_redis),
 ):
     token = request.cookies.get("refresh_token")
