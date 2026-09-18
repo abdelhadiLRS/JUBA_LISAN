@@ -238,7 +238,6 @@ jobs:
 
           $backend = New-Object System.Diagnostics.Process
           $backend.StartInfo = $backendPsi
-          [void]$backend.Start()
 
           $rendererPsi = New-Object System.Diagnostics.ProcessStartInfo
           $rendererPsi.FileName = (Get-Command node).Source
