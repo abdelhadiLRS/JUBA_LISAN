@@ -39,6 +39,13 @@ jobs:
         shell: pwsh
         run: ./scripts/build-desktop.ps1
 
+      - name: Validate Electron bootstrap scripts
+        shell: pwsh
+        run: |
+          node --check ./frontend/electron/main.js
+          node --check ./frontend/electron/backend-manager.js
+          node --check ./frontend/electron/preload.js
+
       - name: Verify desktop SQLite/auth tests
         shell: pwsh
         run: |
