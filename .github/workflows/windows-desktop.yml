@@ -93,6 +93,73 @@ jobs:
               $stderr = $process.StandardError.ReadToEnd()
               throw "Packaged backend did not become healthy within 60 seconds. $stderr"
             }
+            $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+            $registerBody = @{
+              username = "smokeuser"
+              email = "smoke@example.com"
+              password = "StrongPass1!"
+              display_name = "Smoke User"
+              native_language = "fr"
+              target_language = "en-GB"
+            } | ConvertTo-Json
+
+            $register = Invoke-RestMethod `
+              -Uri "http://127.0.0.1:18080/api/auth/register" `
+              -Method Post `
+              -ContentType "application/json" `
+              -WebSession $session `
+              -Body $registerBody
+            if (-not $register.access_token) {
+              throw "Packaged backend registration did not return an access token."
+            }
+
+            $logout = Invoke-RestMethod `
+              -Uri "http://127.0.0.1:18080/api/auth/logout" `
+              -Method Post `
+              -WebSession $session
+            if ($logout.detail -ne "Logged out") {
+              throw "Packaged backend registration logout failed."
+            }
+
+            $loginBody = @{
+              email = "smoke@example.com"
+              password = "StrongPass1!"
+            } | ConvertTo-Json
+            $login = Invoke-RestMethod `
+              -Uri "http://127.0.0.1:18080/api/auth/login" `
+              -Method Post `
+              -ContentType "application/json" `
+              -WebSession $session `
+              -Body $loginBody
+            if (-not $login.access_token) {
+              throw "Packaged backend login did not return an access token."
+            }
+
+            $refresh = Invoke-RestMethod `
+              -Uri "http://127.0.0.1:18080/api/auth/refresh" `
+              -Method Post `
+              -WebSession $session
+            if (-not $refresh.access_token) {
+              throw "Packaged backend refresh did not return an access token."
+            }
+
+            $me = Invoke-RestMethod `
+              -Uri "http://127.0.0.1:18080/api/auth/me" `
+              -Method Get `
+              -Headers @{ Authorization = "Bearer $($refresh.access_token)" } `
+              -WebSession $session
+            if ($me.email -ne "smoke@example.com") {
+              throw "Packaged backend /me returned an unexpected user."
+            }
+
+            $finalLogout = Invoke-RestMethod `
+              -Uri "http://127.0.0.1:18080/api/auth/logout" `
+              -Method Post `
+              -WebSession $session
+            if ($finalLogout.detail -ne "Logged out") {
+              throw "Packaged backend final logout failed."
+            }
+
           } finally {
             if (-not $process.HasExited) { $process.Kill(); $process.WaitForExit() }
           }
