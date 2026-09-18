@@ -1,22 +1,15 @@
 import os
-from pathlib import Path
-
 from pydantic import field_validator
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    # Desktop mode flag
-    DESKTOP_MODE: bool = False
-    
-    # Database configuration
+    DESKTOP_MODE: bool = True
     DATABASE_URL: str = ""
     DATA_DIR: str = ""
-    
-    # Redis (optional for desktop)
     REDIS_URL: str = ""
-    REDIS_ENABLED: bool = True
-    
+    REDIS_ENABLED: bool = False
+
     SECRET_KEY: str = ""
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
     REFRESH_TOKEN_EXPIRE_DAYS: int = 30
@@ -24,7 +17,7 @@ class Settings(BaseSettings):
     FIRST_USER_IS_ADMIN: bool = True
     BLOCKED_EMAIL_DOMAINS: list[str] = []
     LLM_PROVIDER: str = "ollama"
-    OLLAMA_BASE_URL: str = "http://host.docker.internal:11434"
+    OLLAMA_BASE_URL: str = "http://127.0.0.1:11434"
     OLLAMA_MODEL: str = "juba-coder"
     OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-5.4-mini"
@@ -32,21 +25,20 @@ class Settings(BaseSettings):
     ANTHROPIC_MODEL: str = "claude-4-5-haiku"
     DEEPSEEK_API_KEY: str = ""
     DEEPSEEK_MODEL: str = "deepseek-v4-flash"
-    TTS_PROVIDER: str = "local"  # local | openai
-    TTS_BASE_URL: str = "http://kokoro:8880"
+    TTS_PROVIDER: str = "local"
+    TTS_BASE_URL: str = "http://127.0.0.1:8880"
     TTS_VOICE: str = "af_heart"
     OPENAI_TTS_MODEL: str = "tts-1"
     OPENAI_TTS_VOICE: str = "nova"
     OPENAI_TTS_SPEED: float = 1.0
-    STT_PROVIDER: str = "local"  # local | openai
-    STT_BASE_URL: str = "http://whisper:9000"
+    STT_PROVIDER: str = "local"
+    STT_BASE_URL: str = "http://127.0.0.1:9000"
     OPENAI_STT_MODEL: str = "whisper-1"
     RATE_LIMIT_ENABLED: bool = True
     CORS_ORIGINS: list[str] = ["http://localhost:3000"]
     COOKIE_SECURE: bool = False
     LOG_LEVEL: str = "INFO"
 
-    # Default AI usage quotas for new/subscribed users. A quota value of 0 means unlimited.
     DEFAULT_CONVERSATION_MAX_DURATION: int = 1800
     DEFAULT_CONVERSATION_INACTIVITY_TIMEOUT: int = 180
     DEFAULT_CONVERSATION_WEEKLY_SESSIONS: int = 0
@@ -55,8 +47,6 @@ class Settings(BaseSettings):
     DEFAULT_MONTHLY_TOKENS_LIMIT: int = 1_000_000
     ASSESSMENT_VOICE_TRIAL_DURATION_SECONDS: int = 300
 
-    # Freemium quotas for unsubscribed users when STRIPE_ENABLED=true.
-    # A quota value of 0 means the feature is entirely blocked for free users.
     FREEMIUM_CHAT_DAILY_MESSAGES: int = 5
     FREEMIUM_LESSONS_DAILY: int = 3
     FREEMIUM_LISTENING_WEEKLY: int = 3
@@ -65,22 +55,19 @@ class Settings(BaseSettings):
     FREEMIUM_TRIAL_ENABLED: bool = True
     FREEMIUM_TRIAL_DAYS: int = 7
 
-    # Stripe (for paid plans and billing management)
     STRIPE_ENABLED: bool = False
     STRIPE_SECRET_KEY: str = ""
     STRIPE_WEBHOOK_SECRET: str = ""
     STRIPE_PRICE_MONTHLY: str = ""
     STRIPE_PRICE_YEARLY: str = ""
     STRIPE_TRIAL_DAYS: int = 7
-    STRIPE_BASE_URL: str = "http://localhost:3000"
+    STRIPE_BASE_URL: str = "http://127.0.0.1:3000"
 
-    # Display prices (shown on landing page and paywall banner)
     PRICE_MONTHLY: float = 0.0
     PRICE_YEARLY: float = 0.0
     TOTAL_PRICE_MONTHLY: float = 0.0
     TOTAL_PRICE_YEARLY: float = 0.0
 
-    # Email / SMTP
     EMAIL_ENABLED: bool = False
     CONTACT_EMAIL: str = ""
     SMTP_HOST: str = "localhost"
@@ -90,23 +77,12 @@ class Settings(BaseSettings):
     SMTP_FROM: str = "noreply@jubalisan.com"
     SMTP_TLS: bool = True
     SMTP_SSL: bool = False
-    APP_BASE_URL: str = "http://localhost:3000"
+    APP_BASE_URL: str = "http://127.0.0.1:3000"
 
-    # Listening — path where generated MP3 files are stored (Docker volume)
-    AUDIO_STORAGE_PATH: str = "/data/audio"
-
-    # Multi-language — operator-configured subset of supported target languages.
+    AUDIO_STORAGE_PATH: str = ""
     AVAILABLE_TARGET_LANGUAGES: list[str] = [
-        "de-DE",
-        "en-GB",
-        "en-US",
-        "es-ES",
-        "fr-FR",
-        "it-IT",
-        "ja-JP",
-        "ko-KR",
-        "pt-PT",
-        "zh-CN",
+        "de-DE", "en-GB", "en-US", "es-ES", "fr-FR",
+        "it-IT", "ja-JP", "ko-KR", "pt-PT", "zh-CN",
     ]
 
     @field_validator(
@@ -152,59 +128,39 @@ class Settings(BaseSettings):
     @field_validator("ASSESSMENT_VOICE_TRIAL_DURATION_SECONDS")
     @classmethod
     def validate_trial_duration(cls, value: int) -> int:
-        if value <= 0:
-            raise ValueError("ASSESSMENT_VOICE_TRIAL_DURATION_SECONDS must be greater than 0")
-        if value > 1800:
-            raise ValueError("ASSESSMENT_VOICE_TRIAL_DURATION_SECONDS must not exceed 1800")
+        if value <= 0 or value > 1800:
+            raise ValueError(
+                "ASSESSMENT_VOICE_TRIAL_DURATION_SECONDS must be between 1 and 1800"
+            )
         return value
 
-    model_config = {"env_file": ".env"}
+    model_config = {"env_file": ".env", "extra": "ignore"}
 
 
-# Initialize default settings instance
 settings = Settings()
 
 
 def get_settings() -> Settings:
-    """Get settings instance with desktop mode support."""
     return settings
 
 
 def initialize_desktop_mode(data_dir: str) -> Settings:
-    """
-    Initialize settings for desktop mode.
-    
-    Args:
-        data_dir: Base directory for user data (database, logs, etc.)
-    
-    Returns:
-        Settings object configured for desktop mode
-    """
-    import os
-    
-    # Set desktop mode flag
     os.environ["DESKTOP_MODE"] = "True"
     os.environ["DATA_DIR"] = data_dir
-    
-    # Create SQLite database path
+
     db_path = os.path.join(data_dir, "database", "juba_lisan.db")
     os.makedirs(os.path.dirname(db_path), exist_ok=True)
     os.environ["DATABASE_URL"] = f"sqlite+aiosqlite:///{db_path}"
-    
-    # Disable Redis for desktop (use in-memory fallback)
+
     os.environ["REDIS_ENABLED"] = "False"
     os.environ["REDIS_URL"] = ""
-    
-    # Set default paths
     os.environ["AUDIO_STORAGE_PATH"] = os.path.join(data_dir, "audio")
     os.makedirs(os.environ["AUDIO_STORAGE_PATH"], exist_ok=True)
-    
-    # Generate secure secret key if not set
+
     if not os.environ.get("SECRET_KEY"):
         import secrets
         os.environ["SECRET_KEY"] = secrets.token_urlsafe(32)
-    
-    # Reload settings
+
     global settings
     settings = Settings()
     return settings
