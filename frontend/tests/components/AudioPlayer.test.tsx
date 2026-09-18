@@ -92,6 +92,7 @@ describe('AudioPlayer', () => {
   })
 
   afterEach(() => {
+    vi.useRealTimers()
     // beforeEach overwrites all globals, so no manual cleanup needed here.
     // vi.restoreAllMocks() (called in setup.ts) already handles spies and vi.fn mocks.
   })
@@ -115,7 +116,7 @@ describe('AudioPlayer', () => {
 
   it('applies sm size class by default', () => {
     render(<AudioPlayer text="Hello" />)
-    expect(screen.getByRole('button').className).toContain('px-2 py-1')
+    expect(screen.getByRole('button').className).toContain('px-2.5 py-1.5')
   })
 
   it('applies md size class when size=md', () => {
@@ -131,10 +132,10 @@ describe('AudioPlayer', () => {
   it('has idle-only color classes (no active/animation/error)', () => {
     render(<AudioPlayer text="Hello" />)
     const c = screen.getByRole('button').className.split(/\s+/).filter(Boolean)
-    expect(c).toContain('text-fl-muted-2')
-    expect(c).not.toContain('text-fl-fg')
+    expect(c).toContain('text-[var(--juba-muted)]')
+    expect(c).not.toContain('text-[var(--juba-primary-dark)]')
     expect(c).not.toContain('animate-pulse')
-    expect(c).not.toContain('text-fl-error-fg')
+    expect(c).not.toContain('text-[var(--juba-danger)]')
   })
 
   // ───────────── PLAY FLOW ─────────────
@@ -239,7 +240,7 @@ describe('AudioPlayer', () => {
         .getByRole('button')
         .className.split(/\s+/)
         .filter(Boolean)
-      expect(c).toContain('text-fl-fg')
+      expect(c).toContain('text-[var(--juba-primary-dark)]')
     })
   })
 
@@ -268,7 +269,7 @@ describe('AudioPlayer', () => {
         .className.split(/\s+/)
         .filter(Boolean)
       expect(c).toContain('animate-pulse')
-      expect(c).toContain('text-fl-muted-3')
+      expect(c).toContain('text-[var(--juba-muted)]')
     })
   })
 
@@ -413,7 +414,7 @@ describe('AudioPlayer', () => {
 
     expect(screen.getByText(ERROR)).toBeDefined()
     const c = screen.getByRole('button').className.split(/\s+/).filter(Boolean)
-    expect(c).toContain('text-fl-error-fg')
+    expect(c).toContain('text-[var(--juba-danger)]')
 
     act(() => {
       vi.advanceTimersByTime(2000)
@@ -435,7 +436,7 @@ describe('AudioPlayer', () => {
 
     expect(screen.getByText(ERROR)).toBeDefined()
     const c = screen.getByRole('button').className.split(/\s+/).filter(Boolean)
-    expect(c).toContain('text-fl-error-fg')
+    expect(c).toContain('text-[var(--juba-danger)]')
 
     act(() => {
       vi.advanceTimersByTime(2000)
