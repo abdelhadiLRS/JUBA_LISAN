@@ -1,4 +1,5 @@
 const { spawn } = require('child_process');
+const crypto = require('crypto');
 const fs = require('fs');
 const net = require('net');
 const path = require('path');
@@ -81,7 +82,7 @@ async function startBackend({ app, isDev }) {
     DATABASE_URL: 'sqlite+aiosqlite:///' + path.join(dataDir, 'database', 'juba_lisan.db'),
     REDIS_ENABLED: 'false',
     REDIS_URL: '',
-    SECRET_KEY: process.env.SECRET_KEY || 'desktop-generated-secret-replaced-at-runtime',
+    SECRET_KEY: process.env.SECRET_KEY || crypto.randomBytes(32).toString('base64url'),
     AUDIO_STORAGE_PATH: path.join(dataDir, 'audio'),
     CORS_ORIGINS: '["http://127.0.0.1","http://localhost","null"]',
   };
