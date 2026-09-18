@@ -49,6 +49,10 @@ from app.services import email_service
 
 logger = get_logger(__name__)
 
+# Tests and legacy callers may override this path; Desktop resolves it dynamically
+# when the constant is not overridden so packaged data stays under DATA_DIR.
+_AVATARS_DIR: str | None = None
+
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
 
@@ -449,7 +453,7 @@ _ALLOWED_AVATAR_TYPES = {"image/jpeg", "image/png"}
 def _avatars_dir() -> str:
     """Resolve avatar storage at request time so Desktop uses its persistent data directory."""
     data_dir = settings.DATA_DIR or os.path.join(os.path.expanduser("~"), "JUBA-LISAN")
-    return os.path.join(data_dir, "avatars")
+    return _AVATARS_DIR or os.path.join(data_dir, "avatars")
 
 
 def _avatar_path_from_reference(avatar: str | None) -> str | None:
