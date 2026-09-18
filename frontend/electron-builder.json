@@ -6,7 +6,6 @@
     "buildResources": "public"
   },
   "files": [
-    "out/**/*",
     "electron/**/*",
     "package.json"
   ],
