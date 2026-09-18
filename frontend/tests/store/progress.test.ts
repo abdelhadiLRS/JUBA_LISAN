@@ -118,20 +118,20 @@ describe('useProgressStore — setProgress', () => {
     useProgressStore.getState().setProgress({
       streak: 3,
       xp: 300,
-      skills: { new_skill: 0.7 },
+      skills: { vocabulary: 0.7 },
     })
 
-    expect(useProgressStore.getState().skills).toEqual({ new_skill: 0.7 })
+    expect(useProgressStore.getState().skills).toEqual({ vocabulary: 0.7 })
   })
 
   it('handles a skill with value exactly 1.0', () => {
     useProgressStore.getState().setProgress({
       streak: 10,
       xp: 2000,
-      skills: { fluency: 1.0 },
+      skills: { vocabulary: 1.0 },
     })
 
-    expect(useProgressStore.getState().skills).toEqual({ fluency: 1.0 })
+    expect(useProgressStore.getState().skills).toEqual({ vocabulary: 1.0 })
   })
 })
 
@@ -174,7 +174,7 @@ describe('useProgressStore — setTodayLessons', () => {
     ]
 
     useProgressStore.getState().setTodayLessons(lessons)
-    expect(useProgressStore.getState().todayLessons).toEqual(lessons)
+    expect(useProgressStore.getState().todayLessons).toEqual(lessons.map((lesson) => ({ ...lesson, isCompleted: false })))
   })
 
   it('replaces existing lessons entirely', () => {
