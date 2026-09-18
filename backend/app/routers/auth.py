@@ -597,7 +597,7 @@ async def delete_me(
         )
     token = request.cookies.get("refresh_token")
     if token:
-        await redis.delete(f"refresh:{token}")
+        await _delete_refresh_token(redis, token)
     response.delete_cookie("refresh_token")
     # Clean up avatar file from disk before deleting the user record
     old_path = _avatar_path_from_reference(current_user.avatar)
