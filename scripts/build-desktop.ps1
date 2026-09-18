@@ -78,6 +78,19 @@ if (-not (Test-Path $MessagesSource)) {
 }
 Copy-Item $MessagesSource $MessagesTarget -Recurse -Force
 
+$RequiredLocales = @("en", "es", "fr", "pt", "de", "it", "pl", "nl", "ro", "ru")
+foreach ($Locale in $RequiredLocales) {
+    $LocaleFile = Join-Path $MessagesTarget ($Locale + ".json")
+    if (-not (Test-Path $LocaleFile)) {
+        throw "Required locale message file was not packaged: $LocaleFile"
+    }
+}
+
+$RendererServer = Join-Path $DesktopRenderer "server.js"
+if (-not (Test-Path $RendererServer)) {
+    throw "Desktop renderer server was not copied to the packaging directory: $RendererServer"
+}
+
 npx electron-builder --win nsis portable
 
 $Dist = Join-Path $Frontend "dist"
