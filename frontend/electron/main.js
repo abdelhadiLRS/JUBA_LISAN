@@ -11,6 +11,13 @@ let renderer = null;
 const isDev = !app.isPackaged;
 const FRONTEND_DEV_URL = process.env.ELECTRON_START_URL || 'http://127.0.0.1:3000';
 
+// SQLite desktop mode is a single-user local application. Prevent two Electron
+// instances from opening the same database and data directory concurrently.
+const gotSingleInstanceLock = app.requestSingleInstanceLock();
+if (!gotSingleInstanceLock) {
+  app.quit();
+}
+
 function findFreePort(host = '127.0.0.1') {
   return new Promise((resolve, reject) => {
     const server = require('net').createServer();
@@ -146,7 +153,15 @@ async function bootstrap() {
   }
 }
 
-app.whenReady().then(bootstrap);
+app.on('second-instance', () => {
+  if (!mainWindow || mainWindow.isDestroyed()) return;
+  if (mainWindow.isMinimized()) mainWindow.restore();
+  mainWindow.focus();
+});
+
+if (gotSingleInstanceLock) {
+  app.whenReady().then(bootstrap);
+}
 
 app.on('before-quit', () => {
   stopRenderer(renderer);
