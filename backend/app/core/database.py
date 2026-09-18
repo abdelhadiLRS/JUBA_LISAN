@@ -8,29 +8,29 @@ from app.core.config import settings
 
 
 def get_database_url() -> str:
-    """Get database URL based on mode (desktop or server)."""
+    """Resolve the configured database URL, defaulting to Desktop SQLite."""
     if settings.DATABASE_URL:
         return settings.DATABASE_URL
-    
-    # Default fallback for development
-    if settings.DESKTOP_MODE:
-        # Desktop mode: SQLite in user data directory
-        data_dir = settings.DATA_DIR or os.path.join(os.path.expanduser("~"), "JUBA_LISAN")
-        db_path = os.path.join(data_dir, "database", "juba_lisan.db")
-        os.makedirs(os.path.dirname(db_path), exist_ok=True)
-        return f"sqlite+aiosqlite:///{db_path}"
-    else:
-        # Server mode: PostgreSQL default
-        return "postgresql+asyncpg://user:pass@localhost/db"
 
+    data_dir = settings.DATA_DIR or os.path.join(
+        os.path.expanduser("~"), "JUBA_LISAN"
+    )
+    db_path = Path(data_dir) / "database" / "juba_lisan.db"
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if settings.DESKTOP_MODE:
+        return f"sqlite+aiosqlite:///{db_path}"
+
+    return "postgresql+asyncpg://user:pass@localhost/db"
+
+
+DATABASE_URL = get_database_url()
+_is_sqlite = DATABASE_URL.startswith("sqlite")
 
 engine = create_async_engine(
-    get_database_url(),
+    DATABASE_URL,
     echo=False,
-    connect_args={
-        "timeout": 10,
-        "command_timeout": 10,
-    },
+    connect_args={"timeout": 10} if _is_sqlite else {"command_timeout": 10},
 )
 AsyncSessionLocal = async_sessionmaker(engine, expire_on_commit=False)
 
