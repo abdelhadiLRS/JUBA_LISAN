@@ -62,8 +62,12 @@ const nextConfig: NextConfig = {
           isDesktopBuild
             ? "connect-src 'self' http://127.0.0.1:* http://localhost:* ws: wss:"
             : "connect-src 'self' ws: wss:",
-          "img-src 'self' data: blob:",
-          "media-src 'self' blob:",
+          isDesktopBuild
+            ? "img-src 'self' http://127.0.0.1:* http://localhost:* data: blob:"
+            : "img-src 'self' data: blob:",
+          isDesktopBuild
+            ? "media-src 'self' http://127.0.0.1:* http://localhost:* blob:"
+            : "media-src 'self' blob:",
           "worker-src 'self' blob:",
           "font-src 'self'",
           "object-src 'none'",
@@ -80,8 +84,8 @@ const nextConfig: NextConfig = {
     ]
   },
   async rewrites() {
-    // Static Electron builds call the dynamically allocated FastAPI port
-    // through preload. Rewrites are only needed by the server/Docker build.
+    // Desktop builds call the dynamically allocated FastAPI port directly.
+    // Rewrites are only needed by the server/Docker build.
     if (isDesktopBuild) return []
 
     return [
