@@ -281,7 +281,7 @@ async def login(
     refresh_token = create_refresh_token()
 
     ttl = settings.REFRESH_TOKEN_EXPIRE_DAYS * 86400
-    await _store_refresh_token(redis, refresh_token, user.id, ttl)
+    await _store_refresh_token(redis, refresh_token, user.id, ttl, db)
 
     response.set_cookie(
         "refresh_token",
@@ -608,7 +608,7 @@ async def delete_me(
         )
     token = request.cookies.get("refresh_token")
     if token:
-        await _delete_refresh_token(redis, token)
+        await _delete_refresh_token(redis, token, db)
     response.delete_cookie("refresh_token")
     # Clean up avatar file from disk before deleting the user record
     old_path = _avatar_path_from_reference(current_user.avatar)
