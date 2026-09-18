@@ -66,7 +66,7 @@ async def _consume_refresh_token(redis: Redis | None, token: str) -> int | None:
         user_id = await _consume_refresh_token(redis, token)
         if not user_id:
             return None
-        await redis.delete(f"refresh:{token}")
+        await _delete_refresh_token(redis, token)
         return int(user_id)
     return _DESKTOP_REFRESH_TOKENS.pop(token, None)
 
@@ -301,7 +301,7 @@ async def refresh(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing refresh token"
         )
 
-    user_id = await redis.get(f"refresh:{token}")
+    user_id = await _consume_refresh_token(redis, token)
     if not user_id:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
