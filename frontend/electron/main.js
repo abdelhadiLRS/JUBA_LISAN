@@ -56,9 +56,16 @@ async function startRendererServer(backendUrl) {
 
   const started = Date.now();
   while (Date.now() - started < 30000) {
+    if (child.exitCode !== null) {
+      throw new Error(
+        'JUBA LISAN renderer exited during startup.' +
+        (stderr.trim() ? '\\n\\n' + stderr.trim() : ''),
+      );
+    }
+
     try {
       const response = await fetch('http://127.0.0.1:' + port + '/');
-      if (response.status < 500) {
+      if (response.status === 200) {
         return { child, url: 'http://127.0.0.1:' + port };
       }
     } catch {}
