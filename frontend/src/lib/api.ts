@@ -1,7 +1,9 @@
 import { useAuthStore } from '@/store/auth'
 import { useLoadingStore } from '@/store/loading'
 
-const BASE_URL = ''
+const BASE_URL = typeof window !== 'undefined'
+  ? (window as Window & { jubaDesktop?: { backendUrl?: string } }).jubaDesktop?.backendUrl || ''
+  : ''
 const GUEST_COOKIE = 'juba_guest_id'
 const GUEST_COOKIE_MAX_AGE = 60 * 60 * 24 * 180
 const SYNC_NOTICE_KEY = 'juba_lisan_sync_notice'
