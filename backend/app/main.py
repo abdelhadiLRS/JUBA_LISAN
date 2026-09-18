@@ -86,6 +86,11 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
+    allow_origin_regex=(
+        r"^https?://(?:127\\.0\\.0\\.1|localhost)(?::\\d+)?$"
+        if settings.DESKTOP_MODE
+        else None
+    ),
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
