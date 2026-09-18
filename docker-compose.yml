@@ -42,6 +42,7 @@ services:
       - ${DATA_PATH}/audio:/data/audio
       - ${DATA_PATH}/tts_previews:/app/tts_previews
     environment:
+      DESKTOP_MODE: ${DESKTOP_MODE:-false}
       DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
       REDIS_ENABLED: ${REDIS_ENABLED:-true}
