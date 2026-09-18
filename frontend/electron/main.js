@@ -70,7 +70,6 @@ async function startRendererServer(backendUrl) {
       'JUBA LISAN',
       'The application renderer stopped unexpectedly (' + detail + ').\n\nPlease restart JUBA LISAN.',
     );
-    // Do not leave a blank Electron window running after the renderer dies.
     isQuitting = true;
     try { mainWindow.close(); } catch {}
     app.quit();
@@ -170,9 +169,33 @@ function createWindow(rendererUrl) {
   });
 }
 
+function monitorBackendProcess(child) {
+  if (!child || isDev) return;
+
+  child.once('exit', (code, signal) => {
+    if (isQuitting) return;
+
+    const detail = code === null
+      ? 'signal ' + (signal || 'unknown')
+      : 'exit code ' + code;
+
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      dialog.showErrorBox(
+        'JUBA LISAN',
+        'The local backend stopped unexpectedly (' + detail + ').\n\nPlease restart JUBA LISAN.',
+      );
+    }
+
+    isQuitting = true;
+    try { mainWindow?.close(); } catch {}
+    app.quit();
+  });
+}
+
 async function bootstrap() {
   try {
     backend = await startBackend({ app, isDev });
+    monitorBackendProcess(backend.child);
     renderer = await startRendererServer(backend.baseUrl);
     createWindow(renderer.url);
   } catch (error) {
