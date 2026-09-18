@@ -226,7 +226,7 @@ async def register(
         "refresh_token",
         refresh_token,
         httponly=True,
-        secure=settings.COOKIE_SECURE,
+        secure=settings.COOKIE_SECURE and not settings.DESKTOP_MODE,
         samesite="lax",
         max_age=ttl,
     )
@@ -286,7 +286,7 @@ async def login(
         "refresh_token",
         refresh_token,
         httponly=True,
-        secure=settings.COOKIE_SECURE,
+        secure=settings.COOKIE_SECURE and not settings.DESKTOP_MODE,
         samesite="lax",
         max_age=ttl,
     )
@@ -323,7 +323,7 @@ async def refresh(
         "refresh_token",
         new_refresh,
         httponly=True,
-        secure=settings.COOKIE_SECURE,
+        secure=settings.COOKIE_SECURE and not settings.DESKTOP_MODE,
         samesite="lax",
         max_age=ttl,
     )
