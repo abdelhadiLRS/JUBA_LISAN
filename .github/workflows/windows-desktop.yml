@@ -286,7 +286,13 @@ jobs:
               Start-Sleep -Seconds 1
               try {
                 $page = Invoke-WebRequest -Uri "http://127.0.0.1:18082/" -TimeoutSec 3
-                if ($page.StatusCode -eq 200) { $rendererReady = $true; break }
+                if ($page.StatusCode -eq 200) {
+                  if ($page.Content -notmatch "FreeLingo|JUBA LISAN") {
+                    throw "Packaged Next.js renderer returned 200 but did not render the expected application shell."
+                  }
+                  $rendererReady = $true
+                  break
+                }
               } catch {}
 
               if ($renderer.HasExited) {
