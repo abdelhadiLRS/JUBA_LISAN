@@ -1,7 +1,6 @@
 {
   "appId": "com.jubalisan.app",
   "productName": "JUBA LISAN",
-  "artifactName": "JUBA-LISAN-$" + "{version}-$" + "{arch}.$" + "{ext}",
   "directories": {
     "output": "dist",
     "buildResources": "public"
@@ -32,8 +31,5 @@
     "createStartMenuShortcut": true,
     "shortcutName": "JUBA LISAN",
     "deleteAppDataOnUninstall": false
-  },
-  "portable": {
-    "artifactName": "JUBA-LISAN-$" + "{version}-portable.$" + "{ext}"
   }
 }
