@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import UTC, datetime
 
 from sqlalchemy import (
-    Boolean,
+    JSON,\n    Boolean,
     DateTime,
     Float,
     ForeignKey,
@@ -12,7 +12,7 @@ from sqlalchemy import (
     String,
     text,
 )
-from sqlalchemy.dialects.postgresql import JSON
+from sqlalchemy import JSON, Boolean, DateTime, Float, ForeignKey, Index, Integer, String, text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base
@@ -26,7 +26,7 @@ class StudyPlan(Base):
             "uq_active_plan_per_lang",
             "user_language_id",
             unique=True,
-            postgresql_where=text("is_active = true"),
+            postgresql_where=text("is_active = true"),\n            sqlite_where=text("is_active = 1"),
         ),
     )
 
