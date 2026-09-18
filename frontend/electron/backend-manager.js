@@ -61,7 +61,12 @@ async function startBackend({ app, isDev }) {
   let command;
   let args;
 
-  if (!isDev && fs.existsSync(packagedExe)) {
+  if (!isDev) {
+    if (!fs.existsSync(packagedExe)) {
+      throw new Error(
+        'Bundled JUBA LISAN backend was not found. Reinstall the application or rebuild the Windows package.',
+      );
+    }
     command = packagedExe;
     args = ['--host', '127.0.0.1', '--port', String(port)];
   } else {
@@ -96,6 +101,9 @@ async function startBackend({ app, isDev }) {
   });
 
   let stderr = '';
+  let exitedBeforeReady = false;
+  let exitCode = null;
+  let exitSignal = null;
   if (child.stderr) {
     child.stderr.on('data', (chunk) => {
       stderr += chunk.toString();
@@ -106,13 +114,21 @@ async function startBackend({ app, isDev }) {
   child.on('error', (error) => {
     child.startupError = error;
   });
+  child.on('exit', (code, signal) => {
+    exitedBeforeReady = true;
+    exitCode = code;
+    exitSignal = signal;
+  });
 
   try {
     await waitForHealth('http://127.0.0.1:' + port + '/health');
   } catch (error) {
     try { child.kill(); } catch {}
     const detail = stderr.trim() ? '\n\n' + stderr.trim() : '';
-    throw new Error(error.message + detail);
+    const processDetail = exitedBeforeReady
+      ? '\n\nBackend process exited before becoming healthy (code=' + exitCode + ', signal=' + (exitSignal || 'none') + ').'
+      : '';
+    throw new Error(error.message + processDetail + detail);
   }
 
   return {
