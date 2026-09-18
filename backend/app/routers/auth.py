@@ -17,7 +17,7 @@ from fastapi import (
 )
 from fastapi.responses import FileResponse
 from redis.asyncio import Redis
-from sqlalchemy import func, select, update
+from sqlalchemy import delete, func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.app_logger import get_logger
@@ -99,20 +99,19 @@ async def _consume_refresh_token(
         raise RuntimeError("Desktop refresh token storage requires a database session")
 
     now = datetime.now(UTC).replace(tzinfo=None)
+    # Consume the token atomically so two concurrent refresh requests cannot
+    # both reuse the same single-use refresh token.
     result = await db.execute(
-        select(RefreshToken).where(
+        delete(RefreshToken)
+        .where(
             RefreshToken.token_hash == _hash_refresh_token(token),
             RefreshToken.expires_at > now,
         )
+        .returning(RefreshToken.user_id)
     )
-    stored = result.scalar_one_or_none()
-    if stored is None:
-        return None
-
-    user_id = stored.user_id
-    await db.delete(stored)
+    user_id = result.scalar_one_or_none()
     await db.commit()
-    return user_id
+    return int(user_id) if user_id is not None else None
 
 
 async def _delete_refresh_token(
