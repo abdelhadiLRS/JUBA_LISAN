@@ -53,7 +53,9 @@ const nextConfig: NextConfig = {
           "default-src 'self'",
           "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'",
           "style-src 'self' 'unsafe-inline'",
-          "connect-src 'self' ws: wss:",
+          isDesktopBuild
+            ? "connect-src 'self' http://127.0.0.1:* http://localhost:* ws: wss:"
+            : "connect-src 'self' ws: wss:",
           "img-src 'self' data: blob:",
           "media-src 'self' blob:",
           "worker-src 'self' blob:",
