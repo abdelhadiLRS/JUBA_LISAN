@@ -64,7 +64,7 @@ async function startRendererServer(backendUrl) {
     const detail = signal ? 'signal ' + signal : 'exit code ' + code;
     dialog.showErrorBox(
       'JUBA LISAN',
-      'The application renderer stopped unexpectedly (' + detail + ').\\n\\nPlease restart JUBA LISAN.',
+      'The application renderer stopped unexpectedly (' + detail + ').\n\nPlease restart JUBA LISAN.',
     );
   });
 
