@@ -297,8 +297,11 @@ jobs:
               }
 
               if ($null -ne $page -and $page.StatusCode -eq 200) {
-                if ($page.Content -notmatch "FreeLingo|JUBA LISAN") {
-                  throw "Packaged Next.js renderer returned 200 but did not render the expected application shell."
+                if ($page.Content -notmatch "JUBA LISAN") {
+                  throw "Packaged Next.js renderer returned 200 but did not render the JUBA LISAN application shell."
+                }
+                if ($page.Content -match "FreeLingo") {
+                  throw "Packaged Next.js renderer still contains legacy FreeLingo branding."
                 }
                 $rendererReady = $true
                 break
