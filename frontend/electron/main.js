@@ -72,7 +72,14 @@ async function startRendererServer(backendUrl) {
     );
   });
 
-  // Consume both child streams so verbose Next.js startup logs cannot fill a pipe.\n  let stdout = '';\n  child.stdout?.on('data', (chunk) => {\n    stdout += chunk.toString();\n    if (stdout.length > 12000) stdout = stdout.slice(-12000);\n  });\n\n  let stderr = '';
+  // Consume both child streams so verbose Next.js startup logs cannot fill a pipe.
+  let stdout = '';
+  child.stdout?.on('data', (chunk) => {
+    stdout += chunk.toString();
+    if (stdout.length > 12000) stdout = stdout.slice(-12000);
+  });
+
+  let stderr = '';
   child.stderr?.on('data', (chunk) => {
     stderr += chunk.toString();
     if (stderr.length > 12000) stderr = stderr.slice(-12000);
