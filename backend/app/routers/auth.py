@@ -63,7 +63,7 @@ async def _store_refresh_token(redis: Redis | None, token: str, user_id: int, tt
 
 async def _consume_refresh_token(redis: Redis | None, token: str) -> int | None:
     if redis is not None:
-        user_id = await redis.get(f"refresh:{token}")
+        user_id = await _consume_refresh_token(redis, token)
         if not user_id:
             return None
         await redis.delete(f"refresh:{token}")
@@ -76,6 +76,15 @@ async def _delete_refresh_token(redis: Redis | None, token: str) -> None:
         await redis.delete(f"refresh:{token}")
     else:
         _DESKTOP_REFRESH_TOKENS.pop(token, None)
+
+
+def _require_redis(redis: Redis | None, feature: str) -> Redis:
+    if redis is None:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"{feature} requires Redis in the current configuration",
+        )
+    return redis
 mport base64
 import json
 import os
@@ -139,13 +148,14 @@ async def register(
 ):
     if not settings.ALLOW_REGISTRATION:
         if data.invite_token:
-            valid = await redis.get(f"invite:{data.invite_token}")
+            redis_client = _require_redis(redis, "Invite registration")
+            valid = await redis_client.get(f"invite:{data.invite_token}")
             if not valid:
                 raise HTTPException(
                     status_code=status.HTTP_403_FORBIDDEN,
                     detail="Invalid or expired invite",
                 )
-            await redis.delete(f"invite:{data.invite_token}")
+            await redis_client.delete(f"invite:{data.invite_token}")
         else:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN, detail="Registration is closed"
@@ -218,7 +228,8 @@ async def register(
     # Send verification email asynchronously (fire-and-forget style — errors are logged, not raised)
     if user.email and settings.EMAIL_ENABLED:
         verify_token = str(uuid.uuid4())
-        await redis.setex(f"verify_email:{verify_token}", 86400, str(user.id))  # 24h
+        redis_client = _require_redis(redis, "Email verification")
+        await redis_client.setex(f"verify_email:{verify_token}", 86400, str(user.id))  # 24h
         await email_service.send_verification_email(
             user.email, user.display_name, verify_token, locale=user.native_language
         )
@@ -263,7 +274,7 @@ async def login(
     refresh_token = create_refresh_token()
 
     ttl = settings.REFRESH_TOKEN_EXPIRE_DAYS * 86400
-    await redis.setex(f"refresh:{refresh_token}", ttl, str(user.id))
+    await _store_refresh_token(redis, refresh_token, user.id, ttl)
 
     response.set_cookie(
         "refresh_token",
@@ -297,11 +308,10 @@ async def refresh(
             detail="Invalid or expired refresh token",
         )
 
-    await redis.delete(f"refresh:{token}")
 
     new_refresh = create_refresh_token()
     ttl = settings.REFRESH_TOKEN_EXPIRE_DAYS * 86400
-    await redis.setex(f"refresh:{new_refresh}", ttl, user_id)
+    await _store_refresh_token(redis, new_refresh, int(user_id), ttl)
 
     response.set_cookie(
         "refresh_token",
@@ -331,7 +341,7 @@ async def logout(
 ):
     token = request.cookies.get("refresh_token")
     if token:
-        await redis.delete(f"refresh:{token}")
+        await _delete_refresh_token(redis, token)
     response.delete_cookie("refresh_token")
     return {"detail": "Logged out"}
 
@@ -648,7 +658,8 @@ async def verify_email(
     db: AsyncSession = Depends(get_db),
     redis: Redis | None = Depends(get_redis),
 ):
-    user_id_str = await redis.get(f"verify_email:{token}")
+    redis_client = _require_redis(redis, "Email verification")
+    user_id_str = await redis_client.get(f"verify_email:{token}")
     if not user_id_str:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -659,7 +670,7 @@ async def verify_email(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     user.is_verified = True
     await db.commit()
-    await redis.delete(f"verify_email:{token}")
+    await redis_client.delete(f"verify_email:{token}")
     return {"detail": "Email verified successfully"}
 
 
@@ -682,7 +693,8 @@ async def resend_verification(
             detail="Email not configured",
         )
     verify_token = str(uuid.uuid4())
-    await redis.setex(f"verify_email:{verify_token}", 86400, str(current_user.id))
+    redis_client = _require_redis(redis, "Email verification")
+    await redis_client.setex(f"verify_email:{verify_token}", 86400, str(current_user.id))
     await email_service.send_verification_email(
         current_user.email,
         current_user.display_name,
@@ -710,7 +722,8 @@ async def forgot_password(
     user = result.scalar_one_or_none()
     if user and settings.EMAIL_ENABLED:
         reset_token = str(uuid.uuid4())
-        await redis.setex(f"reset_password:{reset_token}", 3600, str(user.id))  # 1h
+        redis_client = _require_redis(redis, "Password reset")
+        await redis_client.setex(f"reset_password:{reset_token}", 3600, str(user.id))  # 1h
         await email_service.send_reset_password_email(
             user.email, user.display_name, reset_token, locale=user.native_language
         )
@@ -725,7 +738,8 @@ async def reset_password(
     db: AsyncSession = Depends(get_db),
     redis: Redis | None = Depends(get_redis),
 ):
-    user_id_str = await redis.get(f"reset_password:{data.token}")
+    redis_client = _require_redis(redis, "Password reset")
+    user_id_str = await redis_client.get(f"reset_password:{data.token}")
     if not user_id_str:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -736,5 +750,5 @@ async def reset_password(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     user.hashed_password = hash_password(data.new_password)
     await db.commit()
-    await redis.delete(f"reset_password:{data.token}")
+    await redis_client.delete(f"reset_password:{data.token}")
     return {"detail": "Password updated successfully"}
