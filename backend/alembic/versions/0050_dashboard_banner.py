@@ -5,7 +5,6 @@ Revises: 0049_memory_user_content_unique
 """
 
 import sqlalchemy as sa
-from sqlalchemy.dialects import postgresql
 
 from alembic import op
 
@@ -19,7 +18,7 @@ def upgrade() -> None:
     op.create_table(
         "dashboard_banners",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("translations", postgresql.JSONB(astext_type=sa.Text()), nullable=False),
+        sa.Column("translations", sa.JSON(), nullable=False),
         sa.Column("source_locale", sa.String(length=2), nullable=False),
         sa.Column("is_active", sa.Boolean(), nullable=False),
         sa.Column("revision", sa.Integer(), nullable=False),
