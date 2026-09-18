@@ -210,6 +210,100 @@ jobs:
             if (-not $process.HasExited) { $process.Kill(); $process.WaitForExit() }
           }
 
+      - name: Smoke test packaged Next.js renderer
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $backendExe = (Resolve-Path "./frontend/desktop-backend/juba-lisan-backend.exe").Path
+          $rendererServer = (Resolve-Path "./frontend/next-standalone/server.js").Path
+          $dataDir = Join-Path $env:RUNNER_TEMP "juba-lisan-renderer-data"
+          New-Item -ItemType Directory -Force -Path $dataDir | Out-Null
+
+          $backendPsi = New-Object System.Diagnostics.ProcessStartInfo
+          $backendPsi.FileName = $backendExe
+          $backendPsi.Arguments = "--host 127.0.0.1 --port 18081"
+          $backendPsi.UseShellExecute = $false
+          $backendPsi.CreateNoWindow = $true
+          $backendPsi.RedirectStandardOutput = $true
+          $backendPsi.RedirectStandardError = $true
+          $backendPsi.Environment["DESKTOP_MODE"] = "true"
+          $backendPsi.Environment["DATA_DIR"] = $dataDir
+          $sqlitePath = (Join-Path $dataDir "database/juba_lisan.db") -replace "\\", "/"
+          $backendPsi.Environment["DATABASE_URL"] = "sqlite+aiosqlite:///" + $sqlitePath
+          $backendPsi.Environment["REDIS_ENABLED"] = "false"
+          $backendPsi.Environment["REDIS_URL"] = ""
+          $backendPsi.Environment["SECRET_KEY"] = "github-actions-renderer-smoke-secret-32chars-minimum"
+          $backendPsi.Environment["AUDIO_STORAGE_PATH"] = Join-Path $dataDir "audio"
+          $backendPsi.Environment["CORS_ORIGINS"] = '["http://127.0.0.1","http://localhost"]'
+
+          $backend = New-Object System.Diagnostics.Process
+          $backend.StartInfo = $backendPsi
+          [void]$backend.Start()
+
+          $rendererPsi = New-Object System.Diagnostics.ProcessStartInfo
+          $rendererPsi.FileName = (Get-Command node).Source
+          [void]$rendererPsi.ArgumentList.Add($rendererServer)
+          $rendererPsi.UseShellExecute = $false
+          $rendererPsi.CreateNoWindow = $true
+          $rendererPsi.RedirectStandardOutput = $true
+          $rendererPsi.RedirectStandardError = $true
+          $rendererPsi.WorkingDirectory = (Split-Path $rendererServer)
+          $rendererPsi.Environment["NODE_ENV"] = "production"
+          $rendererPsi.Environment["HOSTNAME"] = "127.0.0.1"
+          $rendererPsi.Environment["PORT"] = "18082"
+          $rendererPsi.Environment["NEXT_TELEMETRY_DISABLED"] = "1"
+          $rendererPsi.Environment["BACKEND_URL"] = "http://127.0.0.1:18081"
+
+          $renderer = New-Object System.Diagnostics.Process
+          $renderer.StartInfo = $rendererPsi
+
+          try {
+            [void]$renderer.Start()
+            $backendReady = $false
+            $rendererReady = $false
+
+            for ($i = 0; $i -lt 60; $i++) {
+              Start-Sleep -Seconds 1
+
+              if (-not $backendReady) {
+                try {
+                  $health = Invoke-RestMethod -Uri "http://127.0.0.1:18081/health" -TimeoutSec 2
+                  if ($health.status -eq "ok") { $backendReady = $true }
+                } catch {}
+              }
+
+              if (-not $rendererReady) {
+                try {
+                  $page = Invoke-WebRequest -Uri "http://127.0.0.1:18082/" -TimeoutSec 3
+                  if ($page.StatusCode -eq 200) { $rendererReady = $true }
+                } catch {}
+              }
+
+              if ($backendReady -and $rendererReady) { break }
+
+              if ($backend.HasExited) {
+                $stderr = $backend.StandardError.ReadToEnd()
+                throw "Renderer smoke backend exited unexpectedly. $stderr"
+              }
+              if ($renderer.HasExited) {
+                $stderr = $renderer.StandardError.ReadToEnd()
+                throw "Packaged Next.js renderer exited unexpectedly. $stderr"
+              }
+            }
+
+            if (-not $backendReady) {
+              $stderr = $backend.StandardError.ReadToEnd()
+              throw "Renderer smoke backend did not become healthy within 60 seconds. $stderr"
+            }
+            if (-not $rendererReady) {
+              $stderr = $renderer.StandardError.ReadToEnd()
+              throw "Packaged Next.js renderer did not serve / within 60 seconds. $stderr"
+            }
+          } finally {
+            if (-not $renderer.HasExited) { $renderer.Kill(); $renderer.WaitForExit() }
+            if (-not $backend.HasExited) { $backend.Kill(); $backend.WaitForExit() }
+          }
+
       - name: Upload Windows desktop artifacts
         uses: actions/upload-artifact@v4
         with:
