@@ -18,7 +18,7 @@ function writeDesktopLog(message) {
     const logDir = app.getPath('userData');
     fs.mkdirSync(logDir, { recursive: true });
     const logPath = path.join(logDir, 'juba-lisan-desktop.log');
-    const line = new Date().toISOString() + ' ' + message + '\\n';
+    const line = new Date().toISOString() + ' ' + message + '\n';
     fs.appendFileSync(logPath, line, { encoding: 'utf8' });
   } catch {}
 }
