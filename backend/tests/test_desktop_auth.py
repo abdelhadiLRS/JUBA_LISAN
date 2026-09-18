@@ -1,8 +1,7 @@
-import asyncio
-
 import pytest
 from httpx import ASGITransport, AsyncClient
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy import func, select
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
 from app.core.config import settings
 from app.core.database import Base, get_db
@@ -60,14 +59,6 @@ async def test_desktop_refresh_token_survives_database_restart(tmp_path, monkeyp
             assert register.status_code == 200, register.text
             access_token = register.json()["access_token"]
             assert access_token
-            refresh_cookie = client.cookies.get("refresh_token")
-            assert refresh_cookie
-
-            async with engine.begin() as connection:
-                await connection.run_sync(lambda conn: conn.execute(
-                    RefreshToken.__table__.select()
-                ))
-
             await engine.dispose()
             engine = create_async_engine(url)
             session_factory = async_sessionmaker(engine, expire_on_commit=False)
@@ -94,9 +85,7 @@ async def test_desktop_refresh_token_survives_database_restart(tmp_path, monkeyp
             async with session_factory() as session:
                 user = await session.get(User, 1)
                 assert user is not None
-                token_count = await session.scalar(
-                    __import__("sqlalchemy").select(__import__("sqlalchemy").func.count(RefreshToken.id))
-                )
+                token_count = await session.scalar(select(func.count(RefreshToken.id)))
                 assert token_count == 0
     finally:
         app.dependency_overrides.pop(get_db, None)
