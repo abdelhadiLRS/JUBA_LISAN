@@ -293,7 +293,14 @@ jobs:
                   $rendererReady = $true
                   break
                 }
-              } catch {}
+              } catch {
+                # Transient startup/network failures are retried. A successful HTTP
+                # response with invalid application content must fail immediately.
+                if ($renderer.HasExited) {
+                  $stderr = $renderer.StandardError.ReadToEnd()
+                  throw "Packaged Next.js renderer exited unexpectedly. $stderr"
+                }
+              }
 
               if ($renderer.HasExited) {
                 $stderr = $renderer.StandardError.ReadToEnd()
