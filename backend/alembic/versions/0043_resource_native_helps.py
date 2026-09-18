@@ -8,7 +8,6 @@ Create Date: 2026-06-22
 from collections.abc import Sequence
 
 import sqlalchemy as sa
-from sqlalchemy.dialects import postgresql
 
 from alembic import op
 
@@ -27,7 +26,7 @@ def upgrade() -> None:
         sa.Column("target_language", sa.String(length=10), nullable=False),
         sa.Column("native_language", sa.String(length=10), nullable=False),
         sa.Column("source_hash", sa.String(length=64), nullable=False),
-        sa.Column("content", postgresql.JSONB(astext_type=sa.Text()), nullable=False),
+        sa.Column("content", sa.JSON(), nullable=False),
         sa.Column("created_at", sa.DateTime(), nullable=False),
         sa.Column("updated_at", sa.DateTime(), nullable=False),
         sa.PrimaryKeyConstraint("id"),
