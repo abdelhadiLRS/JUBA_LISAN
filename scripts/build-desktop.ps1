@@ -54,6 +54,12 @@ if (Test-Path $PublicSource) {
 
 npx electron-builder --win nsis portable
 
+$Dist = Join-Path $Frontend "dist"
+$Installer = Get-ChildItem -Path $Dist -Filter "*.exe" -File | Where-Object { $_.Name -notmatch "\\.portable\\.exe$" } | Select-Object -First 1
+$Portable = Get-ChildItem -Path $Dist -Filter "*.portable.exe" -File | Select-Object -First 1
+if (-not $Installer) { throw "Windows NSIS installer was not produced in: $Dist" }
+if (-not $Portable) { throw "Windows portable executable was not produced in: $Dist" }
+
 Write-Host ""
 Write-Host "JUBA LISAN Windows artifacts are in: $Frontend\dist"
 Get-ChildItem -Path (Join-Path $Frontend "dist") -File |
