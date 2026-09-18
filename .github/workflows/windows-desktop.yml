@@ -153,6 +153,51 @@ jobs:
               throw "Packaged backend /me returned an unexpected user."
             }
 
+            # Restart the packaged backend against the same SQLite data directory.
+            # The WebRequestSession retains the HttpOnly refresh cookie, proving
+            # refresh-token persistence across an application/backend restart.
+            $process.Kill()
+            $process.WaitForExit()
+
+            $process = New-Object System.Diagnostics.Process
+            $process.StartInfo = $psi
+            [void]$process.Start()
+
+            $readyAfterRestart = $false
+            for ($i = 0; $i -lt 60; $i++) {
+              Start-Sleep -Seconds 1
+              try {
+                $response = Invoke-RestMethod -Uri "http://127.0.0.1:18080/health" -TimeoutSec 2
+                if ($response.status -eq "ok") { $readyAfterRestart = $true; break }
+              } catch {
+                if ($process.HasExited) {
+                  $stderr = $process.StandardError.ReadToEnd()
+                  throw "Packaged backend exited after restart. $stderr"
+                }
+              }
+            }
+            if (-not $readyAfterRestart) {
+              $stderr = $process.StandardError.ReadToEnd()
+              throw "Packaged backend did not recover after restart within 60 seconds. $stderr"
+            }
+
+            $refreshAfterRestart = Invoke-RestMethod `
+              -Uri "http://127.0.0.1:18080/api/auth/refresh" `
+              -Method Post `
+              -WebSession $session
+            if (-not $refreshAfterRestart.access_token) {
+              throw "Packaged backend refresh failed after restart; persisted session is not working."
+            }
+
+            $meAfterRestart = Invoke-RestMethod `
+              -Uri "http://127.0.0.1:18080/api/auth/me" `
+              -Method Get `
+              -Headers @{ Authorization = "Bearer $($refreshAfterRestart.access_token)" } `
+              -WebSession $session
+            if ($meAfterRestart.email -ne "smoke@example.com") {
+              throw "Packaged backend /me failed after restart."
+            }
+
             $finalLogout = Invoke-RestMethod `
               -Uri "http://127.0.0.1:18080/api/auth/logout" `
               -Method Post `
