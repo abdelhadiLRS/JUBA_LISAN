@@ -10,9 +10,9 @@ const isDesktopBuild = process.env.BUILD_TARGET === 'desktop'
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  // Electron ships the static export. Server/Docker keeps the normal Next.js
-  // server output so /api rewrites remain available there.
-  ...(isDesktopBuild ? { output: 'export' as const } : {}),
+  // Desktop keeps the full Next.js server because the App Router uses
+  // request-time cookies/headers and middleware for auth + locale handling.
+  ...(isDesktopBuild ? { output: 'standalone' as const } : {}),
   images: {
     unoptimized: true,
     remotePatterns: [
