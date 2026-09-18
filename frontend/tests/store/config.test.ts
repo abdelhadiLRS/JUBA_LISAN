@@ -80,7 +80,7 @@ describe('useConfigStore', () => {
     expect(useConfigStore.getState().loaded).toBe(true)
   })
 
-  it('does not mark loaded when response is not ok (allows retry)', async () => {
+  it('marks the config load as completed when response is not ok', async () => {
     vi.mocked(fetch).mockResolvedValueOnce(
       new Response('error', { status: 500 })
     )
@@ -88,7 +88,7 @@ describe('useConfigStore', () => {
     await useConfigStore.getState().load()
 
     expect(useConfigStore.getState().stripeEnabled).toBe(false)
-    expect(useConfigStore.getState().loaded).toBe(false)
+    expect(useConfigStore.getState().loaded).toBe(true)
   })
 
   it('uses defaults for missing fields in response', async () => {
