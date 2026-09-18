@@ -54,13 +54,17 @@ async function startRendererServer(backendUrl) {
     if (stderr.length > 12000) stderr = stderr.slice(-12000);
   });
 
+  const failStartup = (message) => {
+    try { child.kill(); } catch {}
+    throw new Error(
+      message + (stderr.trim() ? '\n\n' + stderr.trim() : ''),
+    );
+  };
+
   const started = Date.now();
   while (Date.now() - started < 30000) {
     if (child.exitCode !== null) {
-      throw new Error(
-        'JUBA LISAN renderer exited during startup.' +
-        (stderr.trim() ? '\n\n' + stderr.trim() : ''),
-      );
+      failStartup('JUBA LISAN renderer exited during startup.');
     }
 
     try {
@@ -72,11 +76,7 @@ async function startRendererServer(backendUrl) {
     await new Promise((resolve) => setTimeout(resolve, 250));
   }
 
-  try { child.kill(); } catch {}
-  throw new Error(
-    'JUBA LISAN renderer did not become healthy in time.' +
-    (stderr.trim() ? '\n\n' + stderr.trim() : ''),
-  );
+  failStartup('JUBA LISAN renderer did not become healthy in time.');
 }
 
 function stopRenderer(renderer) {
