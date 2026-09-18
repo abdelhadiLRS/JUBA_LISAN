@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import os
+import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -21,7 +22,7 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
-_APP_DIR = Path(__file__).resolve().parents[2]
+_APP_DIR = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parents[1]))
 _DATA_DIR = Path(settings.DATA_DIR or (Path.home() / "JUBA_LISAN"))
 _AVATARS_DIR = _DATA_DIR / "avatars"
 _TTS_PREVIEWS_DIR = _DATA_DIR / "tts_previews"
