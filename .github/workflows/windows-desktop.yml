@@ -304,52 +304,6 @@ jobs:
             if (-not $renderer.HasExited) { $renderer.Kill(); $renderer.WaitForExit() }
             if (-not $backend.HasExited) { $backend.Kill(); $backend.WaitForExit() }
           }
-          try {
-            [void]$renderer.Start()
-            $backendReady = $false
-            $rendererReady = $false
-
-            for ($i = 0; $i -lt 60; $i++) {
-              Start-Sleep -Seconds 1
-
-              if (-not $backendReady) {
-                try {
-                  $health = Invoke-RestMethod -Uri "http://127.0.0.1:18081/health" -TimeoutSec 2
-                  if ($health.status -eq "ok") { $backendReady = $true }
-                } catch {}
-              }
-
-              if (-not $rendererReady) {
-                try {
-                  $page = Invoke-WebRequest -Uri "http://127.0.0.1:18082/" -TimeoutSec 3
-                  if ($page.StatusCode -eq 200) { $rendererReady = $true }
-                } catch {}
-              }
-
-              if ($backendReady -and $rendererReady) { break }
-
-              if ($backend.HasExited) {
-                $stderr = $backend.StandardError.ReadToEnd()
-                throw "Renderer smoke backend exited unexpectedly. $stderr"
-              }
-              if ($renderer.HasExited) {
-                $stderr = $renderer.StandardError.ReadToEnd()
-                throw "Packaged Next.js renderer exited unexpectedly. $stderr"
-              }
-            }
-
-            if (-not $backendReady) {
-              $stderr = $backend.StandardError.ReadToEnd()
-              throw "Renderer smoke backend did not become healthy within 60 seconds. $stderr"
-            }
-            if (-not $rendererReady) {
-              $stderr = $renderer.StandardError.ReadToEnd()
-              throw "Packaged Next.js renderer did not serve / within 60 seconds. $stderr"
-            }
-          } finally {
-            if (-not $renderer.HasExited) { $renderer.Kill(); $renderer.WaitForExit() }
-            if (-not $backend.HasExited) { $backend.Kill(); $backend.WaitForExit() }
-          }
 
       - name: Upload Windows desktop artifacts
         uses: actions/upload-artifact@v4
