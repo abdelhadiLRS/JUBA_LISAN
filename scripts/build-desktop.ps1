@@ -68,6 +68,16 @@ if (Test-Path $PublicSource) {
     Copy-Item $PublicSource $PublicTarget -Recurse -Force
 }
 
+# next-intl message files live at the repository root. They are loaded at
+# runtime so Turbopack does not need to resolve modules outside the frontend
+# workspace; package them beside the standalone Next.js server.
+$MessagesSource = Join-Path $RepoRoot "messages"
+$MessagesTarget = Join-Path $DesktopRenderer "messages"
+if (-not (Test-Path $MessagesSource)) {
+    throw "Locale messages directory was not found: $MessagesSource"
+}
+Copy-Item $MessagesSource $MessagesTarget -Recurse -Force
+
 npx electron-builder --win nsis portable
 
 $Dist = Join-Path $Frontend "dist"
