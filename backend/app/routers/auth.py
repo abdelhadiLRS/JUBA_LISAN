@@ -47,7 +47,7 @@ from app.services import email_service
 
 logger = get_logger(__name__)
 
-router = APIRouter(prefix="/api/auth", tags=["auth"])
+router = APIRouter(prefix="/api/auth", tags=["auth"])\n\n# Desktop mode deliberately avoids a Redis dependency. Refresh tokens are\n# kept in-process for the lifetime of the bundled FastAPI process.\n_DESKTOP_REFRESH_TOKENS: dict[str, int] = {}\n\n\nasync def _store_refresh_token(redis: Redis | None, token: str, user_id: int, ttl: int) -> None:\n    if redis is not None:\n        await redis.setex(f"refresh:{token}", ttl, str(user_id))\n    else:\n        _DESKTOP_REFRESH_TOKENS[token] = user_id\n\n\nasync def _consume_refresh_token(redis: Redis | None, token: str) -> int | None:\n    if redis is not None:\n        user_id = await redis.get(f"refresh:{token}")\n        if not user_id:\n            return None\n        await _delete_refresh_token(redis, token)\n        return int(user_id)\n    return _DESKTOP_REFRESH_TOKENS.pop(token, None)\n\n\nasync def _delete_refresh_token(redis: Redis | None, token: str) -> None:\n    if redis is not None:\n        await redis.delete(f"refresh:{token}")\n    else:\n        _DESKTOP_REFRESH_TOKENS.pop(token, None)
 
 
 @router.post("/register", response_model=RegisterResponse)
@@ -57,7 +57,7 @@ async def register(
     data: RegisterRequest,
     response: Response,
     db: AsyncSession = Depends(get_db),
-    redis: Redis = Depends(get_redis),
+    redis: Redis | None = Depends(get_redis),
 ):
     if not settings.ALLOW_REGISTRATION:
         if data.invite_token:
@@ -126,7 +126,7 @@ async def register(
     refresh_token = create_refresh_token()
 
     ttl = settings.REFRESH_TOKEN_EXPIRE_DAYS * 86400
-    await redis.setex(f"refresh:{refresh_token}", ttl, str(user.id))
+    await _store_refresh_token(redis, refresh_token, user.id, ttl)
 
     response.set_cookie(
         "refresh_token",
@@ -163,7 +163,7 @@ async def login(
     data: LoginRequest,
     response: Response,
     db: AsyncSession = Depends(get_db),
-    redis: Redis = Depends(get_redis),
+    redis: Redis | None = Depends(get_redis),
 ):
     result = await db.execute(select(User).where(User.email == data.email))
     user = result.scalar_one_or_none()
@@ -370,7 +370,7 @@ async def update_me(
 
 _MAX_AVATAR_BYTES = 2 * 1024 * 1024  # 2 MB
 _ALLOWED_AVATAR_TYPES = {"image/jpeg", "image/png"}
-_AVATARS_DIR = "/app/avatars"
+_AVATARS_DIR = os.path.join(settings.DATA_DIR or os.path.join(os.path.expanduser("~"), "JUBA-LISAN"), "avatars")
 
 
 def _avatar_path_from_reference(avatar: str | None) -> str | None:
