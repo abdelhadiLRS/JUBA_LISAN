@@ -3,7 +3,9 @@ from pathlib import Path
 
 from PyInstaller.utils.hooks import collect_submodules
 
-ROOT = Path.cwd().resolve()\nif not (ROOT / "desktop_server.py").exists():\n    raise RuntimeError(f"PyInstaller must be invoked from the backend directory: {ROOT}")
+ROOT = Path(__file__).resolve().parent
+if not (ROOT / "desktop_server.py").exists():
+    raise RuntimeError(f"PyInstaller spec root is invalid: {ROOT}")
 
 hiddenimports = collect_submodules("app")
 
