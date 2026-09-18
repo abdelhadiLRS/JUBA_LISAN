@@ -31,6 +31,27 @@ if (Test-Path "package-lock.json") {
 
 $env:BUILD_TARGET = "desktop"
 npm run build
+
+$NextStandalone = Join-Path $Frontend ".next\standalone"
+if (-not (Test-Path (Join-Path $NextStandalone "server.js"))) {
+    throw "Next.js standalone server was not produced: $NextStandalone\server.js"
+}
+$DesktopRenderer = Join-Path $Frontend "next-standalone"
+if (Test-Path $DesktopRenderer) { Remove-Item $DesktopRenderer -Recurse -Force }
+Copy-Item $NextStandalone $DesktopRenderer -Recurse -Force
+
+$StaticSource = Join-Path $Frontend ".next\static"
+$StaticTarget = Join-Path $DesktopRenderer ".next\static"
+if (Test-Path $StaticSource) {
+    New-Item -ItemType Directory -Force -Path (Split-Path $StaticTarget) | Out-Null
+    Copy-Item $StaticSource $StaticTarget -Recurse -Force
+}
+$PublicSource = Join-Path $Frontend "public"
+$PublicTarget = Join-Path $DesktopRenderer "public"
+if (Test-Path $PublicSource) {
+    Copy-Item $PublicSource $PublicTarget -Recurse -Force
+}
+
 npx electron-builder --win nsis portable
 
 Write-Host ""
