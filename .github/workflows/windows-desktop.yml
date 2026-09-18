@@ -39,6 +39,64 @@ jobs:
         shell: pwsh
         run: ./scripts/build-desktop.ps1
 
+      - name: Verify desktop SQLite/auth tests
+        shell: pwsh
+        run: |
+          & "./backend/.venv/Scripts/python.exe" -m pytest `
+            backend/tests/test_desktop_sqlite.py `
+            backend/tests/test_desktop_migrations.py `
+            backend/tests/test_desktop_auth.py -q
+
+      - name: Smoke test packaged backend
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $exe = (Resolve-Path "./frontend/desktop-backend/juba-lisan-backend.exe").Path
+          $dataDir = Join-Path $env:RUNNER_TEMP "juba-lisan-smoke-data"
+          New-Item -ItemType Directory -Force -Path $dataDir | Out-Null
+
+          $psi = New-Object System.Diagnostics.ProcessStartInfo
+          $psi.FileName = $exe
+          $psi.Arguments = "--host 127.0.0.1 --port 18080"
+          $psi.UseShellExecute = $false
+          $psi.CreateNoWindow = $true
+          $psi.RedirectStandardOutput = $true
+          $psi.RedirectStandardError = $true
+          $psi.Environment["DESKTOP_MODE"] = "true"
+          $psi.Environment["DATA_DIR"] = $dataDir
+          $psi.Environment["DATABASE_URL"] = "sqlite+aiosqlite:///" + (Join-Path $dataDir "database/juba_lisan.db")
+          $psi.Environment["REDIS_ENABLED"] = "false"
+          $psi.Environment["REDIS_URL"] = ""
+          $psi.Environment["SECRET_KEY"] = "github-actions-desktop-smoke-secret-32chars-minimum"
+          $psi.Environment["AUDIO_STORAGE_PATH"] = Join-Path $dataDir "audio"
+          $psi.Environment["CORS_ORIGINS"] = '["http://127.0.0.1","http://localhost","null"]'
+
+          $process = New-Object System.Diagnostics.Process
+          $process.StartInfo = $psi
+          [void]$process.Start()
+
+          try {
+            $ready = $false
+            for ($i = 0; $i -lt 60; $i++) {
+              Start-Sleep -Seconds 1
+              try {
+                $response = Invoke-RestMethod -Uri "http://127.0.0.1:18080/health" -TimeoutSec 2
+                if ($response.status -eq "ok") { $ready = $true; break }
+              } catch {
+                if ($process.HasExited) {
+                  $stderr = $process.StandardError.ReadToEnd()
+                  throw "Packaged backend exited before /health became ready. $stderr"
+                }
+              }
+            }
+            if (-not $ready) {
+              $stderr = $process.StandardError.ReadToEnd()
+              throw "Packaged backend did not become healthy within 60 seconds. $stderr"
+            }
+          } finally {
+            if (-not $process.HasExited) { $process.Kill(); $process.WaitForExit() }
+          }
+
       - name: Upload Windows desktop artifacts
         uses: actions/upload-artifact@v4
         with:
