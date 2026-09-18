@@ -9,7 +9,7 @@ on:
       - 'backend/**'
       - 'scripts/build-desktop*.ps1'
       - '.github/workflows/windows-desktop.yml'
-      - 'alembic.ini'
+      - 'backend/alembic.ini'
 
 permissions:
   contents: read
@@ -64,7 +64,7 @@ jobs:
           $psi.RedirectStandardError = $true
           $psi.Environment["DESKTOP_MODE"] = "true"
           $psi.Environment["DATA_DIR"] = $dataDir
-          $psi.Environment["DATABASE_URL"] = "sqlite+aiosqlite:///" + (Join-Path $dataDir "database/juba_lisan.db")
+          $sqlitePath = (Join-Path $dataDir "database/juba_lisan.db") -replace "\\", "/"\n          $psi.Environment["DATABASE_URL"] = "sqlite+aiosqlite:///" + $sqlitePath
           $psi.Environment["REDIS_ENABLED"] = "false"
           $psi.Environment["REDIS_URL"] = ""
           $psi.Environment["SECRET_KEY"] = "github-actions-desktop-smoke-secret-32chars-minimum"
