@@ -6,33 +6,25 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 const withBackend = (path: string) =>
   `${process.env.BACKEND_URL || 'http://localhost:8000'}${path}`
 
+const isDesktopBuild = process.env.BUILD_TARGET === 'desktop'
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  output: 'export',
-  // Skip API routes for static export
-  appDir: true,
+  // Electron ships the static export. Server/Docker keeps the normal Next.js
+  // server output so /api rewrites remain available there.
+  ...(isDesktopBuild ? { output: 'export' as const } : {}),
   images: {
     unoptimized: true,
     remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-      },
-      {
-        protocol: 'http',
-        hostname: 'backend',
-      },
-    ]
+      { protocol: 'http', hostname: 'localhost' },
+      { protocol: 'http', hostname: 'backend' },
+    ],
   },
-  // Disable TypeScript and ESLint checking during build
   typescript: {
     ignoreBuildErrors: true,
   },
   webpack(config, { isServer }) {
     if (isServer) {
-      // Prevent SSR bundling of WASM-heavy packages; ConversationMode is
-      // always loaded with dynamic({ ssr: false }) but this guards against
-      // accidental server-side imports.
       const externals = Array.isArray(config.externals) ? config.externals : []
       config.externals = [
         ...externals,
@@ -50,9 +42,6 @@ const nextConfig: NextConfig = {
       { key: 'X-Frame-Options', value: 'DENY' },
       { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
       { key: 'Permissions-Policy', value: 'camera=(), microphone=(self), geolocation=()' },
-      // Required for SharedArrayBuffer (onnxruntime-web threaded WASM).
-      // credentialless COEP is more permissive than require-corp and works
-      // with client-side navigation in Next.js (headers must be global).
       { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
       { key: 'Cross-Origin-Embedder-Policy', value: 'credentialless' },
     ]
@@ -83,18 +72,17 @@ const nextConfig: NextConfig = {
     ]
   },
   async rewrites() {
+    // Static Electron builds call the dynamically allocated FastAPI port
+    // through preload. Rewrites are only needed by the server/Docker build.
+    if (isDesktopBuild) return []
+
     return [
       {
-        // Backend exposes the liveness endpoint at /health (not /api/health).
-        // Keep the browser-facing endpoint under the same-origin /api namespace.
         source: '/api/health',
         destination: withBackend('/health'),
       },
       {
         source: '/api/:path*',
-        // Docker supplies BACKEND_URL=http://backend:8000. When Next.js is
-        // started directly on Windows, use the host backend instead of the
-        // Docker-only hostname so /api requests do not fail at the proxy.
         destination: withBackend('/api/:path*'),
       },
     ]
