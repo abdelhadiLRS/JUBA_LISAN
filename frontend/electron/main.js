@@ -7,6 +7,7 @@ const { startBackend, stopBackend } = require('./backend-manager');
 let mainWindow = null;
 let backend = null;
 let renderer = null;
+let isQuitting = false;
 
 const isDev = !app.isPackaged;
 const FRONTEND_DEV_URL = process.env.ELECTRON_START_URL || 'http://127.0.0.1:3000';
@@ -53,6 +54,18 @@ async function startRendererServer(backendUrl) {
     },
     stdio: ['ignore', 'pipe', 'pipe'],
     serviceName: 'JUBA LISAN renderer',
+  });
+
+  // Keep a reference to an unexpected renderer exit so the packaged app does
+  // not remain open on a permanently blank window after Next.js crashes.
+  child.once('exit', (code, signal) => {
+    if (app.isQuitting) return;
+    if (!mainWindow || mainWindow.isDestroyed()) return;
+    const detail = signal ? 'signal ' + signal : 'exit code ' + code;
+    dialog.showErrorBox(
+      'JUBA LISAN',
+      'The application renderer stopped unexpectedly (' + detail + ').\\n\\nPlease restart JUBA LISAN.',
+    );
   });
 
   let stderr = '';
@@ -164,6 +177,8 @@ if (gotSingleInstanceLock) {
 }
 
 app.on('before-quit', () => {
+  isQuitting = true;
+  app.isQuitting = true;
   stopRenderer(renderer);
   if (backend) stopBackend(backend.child);
 });
