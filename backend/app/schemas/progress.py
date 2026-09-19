@@ -128,7 +128,7 @@ class GameSessionComplete(BaseModel):
     @classmethod
     def validate_answers(cls, value: list[GameSessionAnswer]) -> list[GameSessionAnswer]:
         if not value:
-            raise ValueError("answers cannot be empty")
+            return []
         seen: set[str] = set()
         for answer in value:
             if answer.question_id in seen:
