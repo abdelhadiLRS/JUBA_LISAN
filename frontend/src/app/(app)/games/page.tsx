@@ -13,10 +13,8 @@ import {
   ACHIEVEMENTS,
   evaluateAchievements,
   emptyGameStats,
-  getAchievementRewardXP,
   type AchievementId,
 } from '@/lib/games/achievements'
-import { apiFetch } from '@/lib/api'
 import { persistGameEvent } from '@/lib/games/persist'
 import { useProgressStore } from '@/store/progress'
 import './games.css'
@@ -244,21 +242,6 @@ export default function GamesPage() {
       }).catch(() => undefined)
     }
 
-    void apiFetch('/api/progress/game', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        xp: roundScore + getAchievementRewardXP(fresh),
-        correct_answers: roundCorrect,
-        questions_answered: ROUND_SIZE,
-        skills: Object.fromEntries(
-          Object.entries(roundSkills).map(([skill, value]) => [
-            skill,
-            value.total ? value.correct / value.total : 0,
-          ])
-        ),
-      }),
-    }).catch(() => undefined)
   }
 
   function next() {
