@@ -456,6 +456,61 @@ async def test_duplicate_event_conflict_rolls_back_game_completion(
 
 
 @pytest.mark.asyncio
+async def test_game_completion_uses_captured_ownership_after_rollback(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    for question in session.questions:
+        question["answer"] = question["choices"][0]
+    await db_session.commit()
+
+    answers = [
+        {"question_id": question["id"], "choice": question["choices"][0]}
+        for question in payload["questions"]
+    ]
+    result = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": answers},
+        headers=headers,
+    )
+
+    assert result.status_code == 200
+    assert result.json()["total_xp"] > 0
+
+    progress_rows = (
+        await db_session.execute(
+            select(Progress).where(
+                Progress.user_id == user.id,
+                Progress.study_plan_id == session.study_plan_id,
+            )
+        )
+    ).scalars().all()
+    assert sum(row.xp_earned for row in progress_rows) == result.json()["xp_earned"]
+
+
+@pytest.mark.asyncio
 async def test_game_session_expiry_is_rechecked_after_write_phase_starts(
     client, test_user, db_session
 ):
