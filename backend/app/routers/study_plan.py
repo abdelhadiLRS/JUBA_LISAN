@@ -1,4 +1,5 @@
 from collections import defaultdict
+from datetime import date
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
@@ -10,6 +11,7 @@ from app.core.app_logger import get_logger
 from app.core.database import get_db
 from app.core.deps import get_active_study_plan, get_current_user
 from app.core.limiter import limiter
+from app.models.flashcard import Flashcard
 from app.models.lesson import Exercise, Lesson
 from app.models.study_plan import StudyPlan
 from app.models.user import User
@@ -175,6 +177,14 @@ async def get_today_lessons(
     if not plan:
         raise HTTPException(status_code=404, detail="No active study plan found")
     total_days = plan.duration_weeks * plan.days_per_week
+    due_result = await db.execute(
+        select(Flashcard.id).where(
+            Flashcard.user_id == current_user.id,
+            Flashcard.study_plan_id == plan.id,
+            Flashcard.next_review <= date.today(),
+        )
+    )
+    review_due_count = len(due_result.scalars().all())
 
     # Load all existing lessons for this plan at once
     all_lessons_result = await db.execute(select(Lesson).where(Lesson.study_plan_id == plan.id))
@@ -215,6 +225,7 @@ async def get_today_lessons(
             progress_day=plan.progress_day,
             total_days=total_days,
             pending_count=pending_count,
+            review_due_count=review_due_count,
         )
 
     current_week = (plan.progress_day // plan.days_per_week) + 1
