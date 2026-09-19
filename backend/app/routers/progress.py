@@ -624,7 +624,11 @@ async def complete_game_session(
         raise HTTPException(status_code=409, detail="Game session already completed")
 
     round_score = round((correct_answers / questions_answered) * 25)
-    # The session ID is the durable idempotency key for this game result.\n    # Reusing it prevents the aggregate and event ledger from ever representing\n    # the same server-issued session as two different progress events.\n    event_id = session.id\n    base_xp = correct_answers * 5 + (questions_answered - correct_answers)
+    # The session ID is the durable idempotency key for this game result.
+    # Reusing it prevents the aggregate and event ledger from ever representing
+    # the same server-issued session as two different progress events.
+    event_id = session.id
+    base_xp = correct_answers * 5 + (questions_answered - correct_answers)
     total_before_result = await db.execute(
         select(Progress.xp_earned).where(
             Progress.user_id == current_user.id,
@@ -711,7 +715,14 @@ async def complete_game_session(
         daily_challenge=data.daily_challenge, daily_challenge_date=data.daily_challenge_date,
         achievements=fresh, xp_earned=base_xp + achievement_xp,
     ))
-    await db.commit()
+    try:
+        await db.commit()
+    except IntegrityError as exc:
+        # The unique event key is a final idempotency guard. If a duplicate
+        # completion reaches this point, roll back every aggregate mutation
+        # made above and expose a deterministic conflict instead of a 500.
+        await db.rollback()
+        raise HTTPException(status_code=409, detail="Game completion already recorded") from exc
     summary = await get_game_summary(request=request, current_user=current_user, db=db)
     return GameSessionResultResponse(
         **summary.model_dump(),
