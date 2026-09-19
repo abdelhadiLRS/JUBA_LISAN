@@ -62,6 +62,7 @@ class GameProgressUpdate(BaseModel):
 
 
 class GameStatsResponse(BaseModel):
+    total_xp: int = 0
     games_played: int
     questions_answered: int
     correct_answers: int
