@@ -100,9 +100,10 @@ class GameProgressEventCreate(BaseModel):
     @field_validator("game_id")
     @classmethod
     def validate_game_id(cls, value: str) -> str:
+        allowed = {"math", "words", "sequence", "memory", "matching", "ordering"}
         value = value.strip()
-        if not value or len(value) > 32:
-            raise ValueError("game_id must be a non-empty value of at most 32 characters")
+        if value not in allowed:
+            raise ValueError("game_id must be one of the supported games")
         return value
 
     @field_validator("questions_answered", "correct_answers", "round_score")
