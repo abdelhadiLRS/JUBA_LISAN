@@ -67,7 +67,7 @@ const initialGameStats: GameStats = {
   bestCorrectStreak: 0,
 }
 
-const SUPPORTED_SKILLS = new Set([
+const SUPPORTED_LESSON_TYPES = new Set([
   'grammar',
   'vocabulary',
   'reading',
@@ -76,16 +76,24 @@ const SUPPORTED_SKILLS = new Set([
   'conversation',
   'review',
   'level_test',
+])
+
+const SUPPORTED_GAME_SKILLS = new Set([
   'math',
   'logic',
   'memory',
   'ordering',
 ])
 
+const SUPPORTED_SKILLS = new Set([
+  ...SUPPORTED_LESSON_TYPES,
+  ...SUPPORTED_GAME_SKILLS,
+])
+
 function normalizeLessonType(value: unknown): string {
   if (typeof value !== 'string') return 'review'
   const normalized = value.trim().toLowerCase()
-  return SUPPORTED_SKILLS.has(normalized) ? normalized : 'review'
+  return SUPPORTED_LESSON_TYPES.has(normalized) ? normalized : 'review'
 }
 
 function normalizeSkills(value: unknown): Record<string, number> {
