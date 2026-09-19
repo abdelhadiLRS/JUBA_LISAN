@@ -78,6 +78,8 @@ async def test_game_xp_is_scoped_to_the_active_study_plan(
             skills={},
         )
     )
+    inactive_plan_id = inactive_plan.id
+    active_plan_id = active_plan.id
     await db_session.commit()
 
     summary = await client.get("/api/progress/game-summary", headers=headers)
@@ -94,7 +96,7 @@ async def test_game_xp_is_scoped_to_the_active_study_plan(
         await db_session.execute(
             select(Progress).where(
                 Progress.user_id == user.id,
-                Progress.study_plan_id == active_plan.id,
+                Progress.study_plan_id == active_plan_id,
             )
         )
     ).scalars().all()
@@ -102,7 +104,7 @@ async def test_game_xp_is_scoped_to_the_active_study_plan(
         await db_session.execute(
             select(Progress).where(
                 Progress.user_id == user.id,
-                Progress.study_plan_id == inactive_plan.id,
+                Progress.study_plan_id == inactive_plan_id,
             )
         )
     ).scalars().all()
@@ -196,7 +198,7 @@ async def test_game_achievement_xp_500_can_be_crossed_in_one_round(
     db_session.add(
         Progress(
             user_id=user.id,
-            study_plan_id=plan.id,
+            study_plan_id=plan_id,
             date=date.today(),
             xp_earned=425,
             lessons_completed=0,
@@ -384,6 +386,7 @@ async def test_replayed_game_session_does_not_duplicate_progress_or_event(
         is_active=True,
     )
 
+    plan_id = plan.id
     started = await client.post(
         "/api/progress/game-session",
         json={"game_id": "math", "language": "en", "difficulty": 1},
@@ -512,7 +515,7 @@ async def test_duplicate_event_conflict_rolls_back_game_completion(
         await db_session.execute(
             select(GameProgress).where(
                 GameProgress.user_id == user.id,
-                GameProgress.study_plan_id == plan.id,
+                GameProgress.study_plan_id == plan_id,
             )
         )
     ).scalar_one()
@@ -524,7 +527,7 @@ async def test_duplicate_event_conflict_rolls_back_game_completion(
         await db_session.execute(
             select(Progress).where(
                 Progress.user_id == user.id,
-                Progress.study_plan_id == plan.id,
+                Progress.study_plan_id == plan_id,
             )
         )
     ).scalars().all()
