@@ -512,7 +512,7 @@ async def test_game_session_completion_rejects_replay_and_partial_answers(client
     user, headers = test_user
     from tests.conftest import make_study_plan
 
-    await make_study_plan(
+    plan = await make_study_plan(
         db_session, user_id=user.id, cefr_level="A1", goals=["grammar"],
         duration_weeks=4, days_per_week=4, current_unit="A1-u1",
         generated_plan={}, is_active=True,
