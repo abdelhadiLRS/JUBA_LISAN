@@ -145,6 +145,7 @@ async def get_game_summary(
     plan = await _get_active_plan_or_none(db, current_user.id)
     if plan is None:
         return GameStatsResponse(
+            total_xp=0,
             games_played=0,
             questions_answered=0,
             correct_answers=0,
@@ -165,6 +166,7 @@ async def get_game_summary(
     entry = result.scalar_one_or_none()
     if entry is None:
         return GameStatsResponse(
+            total_xp=0,
             games_played=0,
             questions_answered=0,
             correct_answers=0,
@@ -175,7 +177,21 @@ async def get_game_summary(
             best_correct_streak=0,
             achievements=[],
         )
-    return entry
+    total_xp_result = await db.execute(
+        select(Progress.xp_earned).where(Progress.study_plan_id == plan.id)
+    )
+    return GameStatsResponse(
+        total_xp=sum(total_xp_result.scalars().all()),
+        games_played=entry.games_played,
+        questions_answered=entry.questions_answered,
+        correct_answers=entry.correct_answers,
+        best_round_score=entry.best_round_score,
+        daily_challenges_completed=entry.daily_challenges_completed,
+        last_daily_challenge_date=entry.last_daily_challenge_date,
+        current_correct_streak=entry.current_correct_streak,
+        best_correct_streak=entry.best_correct_streak,
+        achievements=entry.achievements or [],
+    )
 
 
 @router.post("/game-event", response_model=GameStatsResponse)
@@ -328,7 +344,18 @@ async def record_game_event(
         entry.updated_at = datetime.now(UTC).replace(tzinfo=None)
         await db.commit()
         await db.refresh(entry)
-        return entry
+        return GameStatsResponse(
+            total_xp=sum((await db.execute(select(Progress.xp_earned).where(Progress.study_plan_id == plan.id))).scalars().all()),
+            games_played=entry.games_played,
+            questions_answered=entry.questions_answered,
+            correct_answers=entry.correct_answers,
+            best_round_score=entry.best_round_score,
+            daily_challenges_completed=entry.daily_challenges_completed,
+            last_daily_challenge_date=entry.last_daily_challenge_date,
+            current_correct_streak=entry.current_correct_streak,
+            best_correct_streak=entry.best_correct_streak,
+            achievements=entry.achievements or [],
+        )
     except IntegrityError:
         await db.rollback()
         existing_result = await db.execute(
@@ -349,7 +376,21 @@ async def record_game_event(
         aggregate = aggregate_result.scalar_one_or_none()
         if aggregate is None:
             raise HTTPException(status_code=409, detail="Game event exists without an aggregate")
-        return aggregate
+        total_xp_result = await db.execute(
+            select(Progress.xp_earned).where(Progress.study_plan_id == plan.id)
+        )
+        return GameStatsResponse(
+            total_xp=sum(total_xp_result.scalars().all()),
+            games_played=aggregate.games_played,
+            questions_answered=aggregate.questions_answered,
+            correct_answers=aggregate.correct_answers,
+            best_round_score=aggregate.best_round_score,
+            daily_challenges_completed=aggregate.daily_challenges_completed,
+            last_daily_challenge_date=aggregate.last_daily_challenge_date,
+            current_correct_streak=aggregate.current_correct_streak,
+            best_correct_streak=aggregate.best_correct_streak,
+            achievements=aggregate.achievements or [],
+        )
 
 
 @router.post("/game-summary", deprecated=True)
