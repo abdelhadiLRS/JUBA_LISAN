@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { InteractiveGameBoard } from '@/components/games/InteractiveGameBoard'
 import '@/components/games/interactive-games.css'
-import { apiFetch } from '@/lib/api'
 import { persistGameEvent } from '@/lib/games/persist'
-import { evaluateAchievements, getAchievementRewardXP } from '@/lib/games/achievements'
+import { evaluateAchievements } from '@/lib/games/achievements'
 import { useProgressStore } from '@/store/progress'
 
 type Lang = 'ar' | 'fr' | 'en'
@@ -46,19 +45,8 @@ export default function MatchingGamePage() {
       questionsAnswered: result.questionsAnswered,
       correctAnswers: result.correctAnswers,
       roundScore: 25,
-      achievements: fresh,
     }).catch(() => undefined)
 
-    void apiFetch('/api/progress/game', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        xp: 25 + getAchievementRewardXP(fresh),
-        correct_answers: result.correctAnswers,
-        questions_answered: result.questionsAnswered,
-        skills: { vocabulary: 1 },
-      }),
-    }).catch(() => undefined)
   }
 
   return (
