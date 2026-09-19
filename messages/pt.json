@@ -353,7 +353,7 @@
       "linkPrivacy": "Política de privacidade",
       "linkBack": "Voltar ao cadastro",
       "linkBackSettings": "Voltar às configurações",
-      "linkContact": "Para questões, use o formulário de freelingo.app enquanto estiver disponível ou o canal de contacto publicado no repositório GitHub do JUBA LISAN."
+      "linkContact": "Para questões, use o formulário de the JUBA LISAN website enquanto estiver disponível ou o canal de contacto publicado no repositório GitHub do JUBA LISAN."
     },
     "privacy": {
       "pageTitle": "Política de privacidade",
@@ -390,7 +390,7 @@
       "s7Title": "7. Retenção e exclusão de dados",
       "s7Body": "Os dados operacionais são conservados enquanto a conta existir e o serviço hospedado estiver ativo. Pode eliminar memórias, idiomas ou toda a conta nas Configurações. Ao encerrar o serviço, o operador pode eliminar todas as contas e dados após o aviso razoavelmente possível. A eliminação é irreversível. Após eliminar os sistemas e cópias sob controlo do operador, o JUBA LISAN não conservará dados pessoais. A Stripe poderá conservar informações de pagamentos e transações conforme a sua própria política e obrigações legais.",
       "s8Title": "8. Contato",
-      "s8Body": "Para questões de privacidade do serviço hospedado, use o formulário de freelingo.app enquanto estiver disponível. Após o encerramento, use o canal de contacto publicado no repositório GitHub do JUBA LISAN e não publique dados pessoais em issues públicas. Em instalações auto-hospedadas, contacte o respetivo administrador.",
+      "s8Body": "Para questões de privacidade do serviço hospedado, use o formulário de the JUBA LISAN website enquanto estiver disponível. Após o encerramento, use o canal de contacto publicado no repositório GitHub do JUBA LISAN e não publique dados pessoais em issues públicas. Em instalações auto-hospedadas, contacte o respetivo administrador.",
       "s9Title": "9. Divisibilidade",
       "s9Body": "Se alguma disposição desta política for considerada inválida ou inaplicável, essa disposição será limitada na medida mínima necessária e as demais permanecerão em pleno vigor.",
       "linkTerms": "Termos de serviço",
