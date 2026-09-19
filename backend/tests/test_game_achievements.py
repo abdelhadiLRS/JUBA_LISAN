@@ -39,6 +39,79 @@ async def _start_perfect_round(client, headers, db_session, game_id="math"):
 
 
 @pytest.mark.asyncio
+async def test_game_xp_is_scoped_to_the_active_study_plan(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    inactive_plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=False,
+    )
+    active_plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A2",
+        goals=["conversation"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A2-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add(
+        Progress(
+            user_id=user.id,
+            study_plan_id=inactive_plan.id,
+            date=date.today(),
+            xp_earned=900,
+            lessons_completed=0,
+            exercises_correct=0,
+            exercises_total=0,
+            streak_day=1,
+            skills={},
+        )
+    )
+    await db_session.commit()
+
+    summary = await client.get("/api/progress/game-summary", headers=headers)
+    assert summary.status_code == 200
+    assert summary.json()["total_xp"] == 0
+
+    result = await _start_perfect_round(client, headers, db_session)
+
+    assert result["total_xp"] == result["xp_earned"]
+    assert result["total_xp"] < 900
+    assert "xp_500" not in result["new_achievements"]
+
+    active_progress = (
+        await db_session.execute(
+            select(Progress).where(
+                Progress.user_id == user.id,
+                Progress.study_plan_id == active_plan.id,
+            )
+        )
+    ).scalars().all()
+    inactive_progress = (
+        await db_session.execute(
+            select(Progress).where(
+                Progress.user_id == user.id,
+                Progress.study_plan_id == inactive_plan.id,
+            )
+        )
+    ).scalars().all()
+
+    assert sum(row.xp_earned for row in active_progress) == result["xp_earned"]
+    assert sum(row.xp_earned for row in inactive_progress) == 900
+
+
+@pytest.mark.asyncio
 async def test_game_achievement_thresholds_are_awarded_when_crossed(
     client, test_user, db_session
 ):
