@@ -52,9 +52,9 @@ class SpeechService:
             audio_data = base64.b64decode(audio_base64)
 
             # Configure recognition
-            audio = self.speech.RecognitionAudio(content=audio_data)
-            config = self.speech.RecognitionConfig(
-                encoding=self.speech.RecognitionConfig.AudioEncoding.LINEAR16,
+            audio = self.self.speech.RecognitionAudio(content=audio_data)
+            config = self.self.speech.RecognitionConfig(
+                encoding=self.self.speech.RecognitionConfig.AudioEncoding.LINEAR16,
                 sample_rate_hertz=16000,
                 language_code=language,
                 enable_automatic_punctuation=True,
