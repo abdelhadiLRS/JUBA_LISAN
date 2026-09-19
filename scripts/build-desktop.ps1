@@ -50,6 +50,30 @@ if (-not (Test-Path $StaticSource)) {
     throw "Next.js static assets were not produced: $StaticSource"
 }
 
+# Enforce the current product branding in generated renderer assets as a final packaging guard.
+# This also protects the desktop bundle from stale generated strings that are not present
+# in the checked-in source tree.
+$BrandingFiles = Get-ChildItem -Path $NextStandalone -Recurse -File -ErrorAction SilentlyContinue |
+    Where-Object { $_.Extension -in ".js", ".json", ".css", ".html", ".map", ".txt" }
+foreach ($File in $BrandingFiles) {
+    $Text = Get-Content -LiteralPath $File.FullName -Raw -ErrorAction SilentlyContinue
+    if ($null -ne $Text -and $Text -match "FreeLingo|freelingo\.app") {
+        $Text = $Text -replace "FreeLingo", "JUBA LISAN"
+        $Text = $Text -replace "freelingo\.app", "the JUBA LISAN website"
+        Set-Content -LiteralPath $File.FullName -Value $Text -NoNewline
+    }
+}
+
+$LegacyBranding = Get-ChildItem -Path $NextStandalone -Recurse -File -ErrorAction SilentlyContinue |
+    Where-Object { $_.Extension -in ".js", ".json", ".css", ".html", ".map", ".txt" } |
+    ForEach-Object {
+        $Text = Get-Content -LiteralPath $_.FullName -Raw -ErrorAction SilentlyContinue
+        if ($null -ne $Text -and $Text -match "FreeLingo|freelingo\.app") { $_.FullName }
+    }
+if ($LegacyBranding) {
+    throw "Generated desktop renderer still contains legacy branding: $($LegacyBranding -join ', ')"
+}
+
 $StaticChunks = Get-ChildItem -Path $StaticSource -Recurse -File -ErrorAction SilentlyContinue |
     Where-Object { $_.Extension -in ".js", ".css" } |
     Select-Object -First 1
