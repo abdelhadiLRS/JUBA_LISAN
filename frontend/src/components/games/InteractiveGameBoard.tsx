@@ -74,7 +74,7 @@ export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
     if (completed || mode !== 'matching') return
     if (matchedPairs.length === pairs.length && pairs.length > 0) {
       setCompleted(true)
-      onComplete?.()
+      onComplete?.({ questionsAnswered: pairs.length, correctAnswers: pairs.length })
     }
   }, [completed, matchedPairs.length, mode, onComplete, pairs.length])
 
