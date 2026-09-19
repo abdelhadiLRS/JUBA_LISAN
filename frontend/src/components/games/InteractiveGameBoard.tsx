@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { InteractiveGameChallenge, InteractiveGameTrace } from '@/lib/games/persist'
 
 type Mode = 'memory' | 'matching' | 'ordering'
@@ -33,6 +33,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
   const [order, setOrder] = useState<string[]>([])
   const [orderingTrace, setOrderingTrace] = useState<InteractiveGameTrace[]>([])
   const [completed, setCompleted] = useState(false)
+  const memoryTimer = useRef<number | null>(null)
 
   useEffect(() => {
     if (!challenge || challenge.type !== mode) return
@@ -46,11 +47,11 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     }
   }, [challenge, mode])
 
-  async function finish(trace: InteractiveGameTrace[]) {
+  const finish = useCallback(async (trace: InteractiveGameTrace[]) => {
     if (completed) return
     const accepted = await onComplete?.(trace)
     if (accepted !== false) setCompleted(true)
-  }
+  }, [completed, onComplete])
 
   function flipCard(index: number) {
     if (locked || completed || !memoryCards[index] || memoryCards[index].flipped || memoryCards[index].matched) return
@@ -67,7 +68,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     const trace = [...memoryTrace, { first: firstId, second: card.id } as InteractiveGameTrace]
     setMemoryTrace(trace)
     setMoves(value => value + 1)
-    const timer = window.setTimeout(() => {
+    memoryTimer.current = window.setTimeout(() => {
       setLocked(false)
       setMemoryCards(current => {
         const a = current.find(item => item.id === firstId)
@@ -80,10 +81,19 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
   }
 
   useEffect(() => {
+    return () => {
+      if (memoryTimer.current !== null) {
+        window.clearTimeout(memoryTimer.current)
+        memoryTimer.current = null
+      }
+    }
+  }, [])
+
+  useEffect(() => {
     if (!completed && mode === 'memory' && memoryCards.length > 0 && memoryCards.every(card => card.matched)) {
       void finish(memoryTrace)
     }
-  }, [completed, mode, memoryCards, memoryTrace])
+  }, [completed, mode, memoryCards, memoryTrace, finish])
 
   function chooseMatching(side: 'left' | 'right', id: string) {
     if (completed || matched.includes(id)) return
@@ -101,8 +111,8 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     const correct = Boolean(leftItem && rightItem && leftItem.pair_key === rightItem.pair_key)
     if (correct) setMatched(current => [...current, left, right])
     setLeft(null); setRight(null)
-    if (matched.length + (correct ? 2 : 0) >= challenge.left.length * 2) finish(trace)
-  }, [left, right, completed, mode, challenge, matchingTrace, matched.length])
+    if (matched.length + (correct ? 2 : 0) >= challenge.left.length * 2) void finish(trace)
+  }, [left, right, completed, mode, challenge, matchingTrace, matched.length, finish])
 
   function submitOrder() {
     if (completed || !challenge || challenge.type !== 'ordering' || order.length !== challenge.items.length) return
@@ -117,6 +127,10 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
 
   function reset() {
     if (!challenge || challenge.type !== mode) return
+    if (memoryTimer.current !== null) {
+      window.clearTimeout(memoryTimer.current)
+      memoryTimer.current = null
+    }
     setCompleted(false); setFirst(null); setLocked(false); setMoves(0)
     setMemoryTrace([]); setLeft(null); setRight(null); setMatched([]); setMatchingTrace([])
     setOrder([]); setOrderingTrace([])
