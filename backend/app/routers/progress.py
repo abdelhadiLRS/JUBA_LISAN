@@ -1,7 +1,7 @@
-from datetime import UTC, date, datetime, timedelta
-from uuid import uuid4
 import random
+from datetime import UTC, date, datetime, timedelta
 from typing import cast
+from uuid import uuid4
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy import select, text, update
