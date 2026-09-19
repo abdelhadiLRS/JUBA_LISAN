@@ -66,17 +66,17 @@ export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
     if (completed) return
     if (mode === 'memory' && memoryCards.length > 0 && memoryCards.every((card) => card.matched)) {
       setCompleted(true)
-      onComplete?.({ questionsAnswered: memoryCards.length / 2, correctAnswers: memoryCards.length / 2 })
+      onComplete?.({ questionsAnswered: moves, correctAnswers: memoryCards.length / 2 })
     }
-  }, [completed, memoryCards, mode, onComplete])
+  }, [completed, memoryCards, mode, moves, onComplete])
 
   useEffect(() => {
     if (completed || mode !== 'matching') return
     if (matchedPairs.length === pairs.length && pairs.length > 0) {
       setCompleted(true)
-      onComplete?.({ questionsAnswered: pairs.length, correctAnswers: pairs.length })
+      onComplete?.({ questionsAnswered: moves, correctAnswers: matchedPairs.length })
     }
-  }, [completed, matchedPairs.length, mode, onComplete, pairs.length])
+  }, [completed, matchedPairs.length, mode, moves, onComplete, pairs.length])
 
   useEffect(() => {
     if (completed || mode !== 'matching' || left === null || right === null) return
