@@ -354,16 +354,16 @@ async def record_game_event(
             .limit(1)
         )
         existing_skills = latest_progress_result.scalar_one_or_none() or {}
-        active_skill_count = sum(
-            1 for skill, score in existing_skills.items() if skill and float(score) > 0
-        )
+        projected_skills = dict(existing_skills)
         if (
             current_skill
             and current_skill_score is not None
             and current_skill_score > 0
-            and current_skill not in existing_skills
         ):
-            active_skill_count += 1
+            projected_skills[current_skill] = current_skill_score
+        active_skill_count = sum(
+            1 for skill, score in projected_skills.items() if skill and float(score) > 0
+        )
         if active_skill_count >= 3:
             candidate_achievements.append("multi_skill")
 
