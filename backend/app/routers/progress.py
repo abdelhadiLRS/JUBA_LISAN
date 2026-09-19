@@ -156,6 +156,7 @@ async def record_game_progress(
         xp=safe_xp,
         exercise_total_delta=questions_answered,
         exercise_correct_delta=min(max(0, data.correct_answers), questions_answered),
+        activity_recorded=bool(data.skills),
         commit=False,
     )
     if entry is None:
