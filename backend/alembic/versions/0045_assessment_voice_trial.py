@@ -30,4 +30,5 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.drop_column("users", "assessment_voice_trial_used")
+    with op.batch_alter_table("users", recreate="auto") as batch_op:
+        batch_op.drop_column("assessment_voice_trial_used")
