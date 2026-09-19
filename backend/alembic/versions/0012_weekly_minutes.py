@@ -22,7 +22,13 @@ def upgrade() -> None:
     op.execute(
         "UPDATE users SET conversation_weekly_sessions = 0 WHERE conversation_weekly_sessions = 3"
     )
-    op.alter_column("users", "conversation_weekly_sessions", server_default="0")
+    with op.batch_alter_table("users", recreate="auto") as batch_op:
+        batch_op.alter_column(
+            "conversation_weekly_sessions",
+            server_default="0",
+            existing_type=sa.Integer(),
+            existing_nullable=False,
+        )
 
     op.add_column(
         "users",
@@ -37,4 +43,10 @@ def upgrade() -> None:
 
 def downgrade() -> None:
     op.drop_column("users", "conversation_weekly_minutes")
-    op.alter_column("users", "conversation_weekly_sessions", server_default="3")
+    with op.batch_alter_table("users", recreate="auto") as batch_op:
+        batch_op.alter_column(
+            "conversation_weekly_sessions",
+            server_default="3",
+            existing_type=sa.Integer(),
+            existing_nullable=False,
+        )
