@@ -46,6 +46,7 @@ export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
   const [matchedPairs, setMatchedPairs] = useState<number[]>([])
   const [order, setOrder] = useState<string[]>([])
   const [completed, setCompleted] = useState(false)
+  const [orderingAttempts, setOrderingAttempts] = useState(0)
 
   const pairs = useMemo(() => WORD_PAIRS[lang], [lang])
   const targetOrder = lang === 'ar' ? ['الأول', 'الثاني', 'الثالث', 'الرابع'] : lang === 'fr' ? ['un', 'deux', 'trois', 'quatre'] : ['one', 'two', 'three', 'four']
@@ -60,6 +61,7 @@ export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
     setMoves(0)
     setCompleted(false)
     setLocked(false)
+    setOrderingAttempts(0)
   }, [lang, mode])
 
   useEffect(() => {
@@ -96,10 +98,15 @@ export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
 
   useEffect(() => {
     if (completed || mode !== 'ordering' || order.length !== targetOrder.length) return
-    if (order.every((value, index) => value === targetOrder[index])) {
+    const correct = order.every((value, index) => value === targetOrder[index])
+    setMoves((value) => value + 1)
+    setOrderingAttempts((value) => value + 1)
+    if (correct) {
       setCompleted(true)
-      onComplete?.({ questionsAnswered: 1, correctAnswers: 1 })
+      onComplete?.({ questionsAnswered: orderingAttempts + 1, correctAnswers: 1 })
+      return
     }
+    setOrder([])
   }, [completed, mode, order, targetOrder])
 
   function flipCard(index: number) {
@@ -139,6 +146,7 @@ export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
     setMoves(0)
     setCompleted(false)
     setLocked(false)
+    setOrderingAttempts(0)
   }
 
   function chooseOrder(item: string) {
