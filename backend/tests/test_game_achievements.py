@@ -209,3 +209,47 @@ async def test_daily_challenge_is_counted_once_per_day(
     assert game_progress.daily_challenges_completed == 1
     assert game_progress.last_daily_challenge_date == daily_date
     assert game_progress.achievements.count("daily_challenge") == 1
+
+
+@pytest.mark.asyncio
+async def test_game_progress_row_is_initialized_once_for_multiple_sessions(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    first = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    second = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+
+    assert first.status_code == 200
+    assert second.status_code == 200
+
+    rows = (
+        await db_session.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == user.id,
+            )
+        )
+    ).scalars().all()
+
+    assert len(rows) == 1
+    assert rows[0].games_played == 0
+    assert rows[0].achievements == []
