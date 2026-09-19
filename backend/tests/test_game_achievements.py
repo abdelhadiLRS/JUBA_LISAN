@@ -569,3 +569,120 @@ async def test_interactive_attempts_do_not_inflate_scored_questions_or_xp(
         )
     ).scalar_one()
     assert game_progress.questions_answered == solution["pair_count"]
+
+
+@pytest.mark.asyncio
+async def test_matching_attempts_do_not_inflate_scored_questions_or_xp(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "matching", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+
+    solution = session.questions[0]["interaction"]["solution"]
+    pairs = solution["pairs"]
+    correct = [{"left": left_id, "right": right_id} for left_id, right_id in pairs.items()]
+    wrong = {"left": correct[0]["left"], "right": correct[1]["right"]}
+
+    result = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": payload["session_id"],
+            "interaction_trace": [wrong] * 20 + correct,
+        },
+        headers=headers,
+    )
+
+    assert result.status_code == 200
+    body = result.json()
+    assert body["round_correct"] == solution["pair_count"]
+    assert body["round_questions"] == solution["pair_count"]
+    assert body["round_score"] == 25
+    assert body["xp_earned"] == solution["pair_count"] * 5 + 75
+
+    game_progress = (
+        await db_session.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == user.id,
+                GameProgress.study_plan_id == plan.id,
+            )
+        )
+    ).scalar_one()
+    assert game_progress.questions_answered == solution["pair_count"]
+
+
+@pytest.mark.asyncio
+async def test_ordering_attempts_do_not_inflate_scored_questions_or_xp(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "ordering", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+
+    solution = session.questions[0]["interaction"]["solution"]
+    target = solution["target"]
+    rotated = target[1:] + target[:1]
+
+    result = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": payload["session_id"],
+            "interaction_trace": [{"order": rotated}] * 20 + [{"order": target}],
+        },
+        headers=headers,
+    )
+
+    assert result.status_code == 200
+    body = result.json()
+    assert body["round_correct"] == 1
+    assert body["round_questions"] == 1
+    assert body["round_score"] == 25
+    assert body["xp_earned"] == 80
+
+    game_progress = (
+        await db_session.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == user.id,
+                GameProgress.study_plan_id == plan.id,
+            )
+        )
+    ).scalar_one()
+    assert game_progress.questions_answered == 1
