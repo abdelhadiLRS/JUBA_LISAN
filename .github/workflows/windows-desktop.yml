@@ -249,8 +249,8 @@ jobs:
           $backendPsi.Arguments = "--host 127.0.0.1 --port 18081"
           $backendPsi.UseShellExecute = $false
           $backendPsi.CreateNoWindow = $true
-          $backendPsi.RedirectStandardOutput = $true
-          $backendPsi.RedirectStandardError = $true
+          $backendPsi.RedirectStandardOutput = $false
+          $backendPsi.RedirectStandardError = $false
           $backendPsi.Environment["DESKTOP_MODE"] = "true"
           $backendPsi.Environment["DATA_DIR"] = $dataDir
           $sqlitePath = (Join-Path $dataDir "database/juba_lisan.db") -replace "\\", "/"
@@ -269,8 +269,8 @@ jobs:
           [void]$rendererPsi.ArgumentList.Add($rendererServer)
           $rendererPsi.UseShellExecute = $false
           $rendererPsi.CreateNoWindow = $true
-          $rendererPsi.RedirectStandardOutput = $true
-          $rendererPsi.RedirectStandardError = $true
+          $rendererPsi.RedirectStandardOutput = $false
+          $rendererPsi.RedirectStandardError = $false
           $rendererPsi.WorkingDirectory = (Split-Path $rendererServer)
           $rendererPsi.Environment["NODE_ENV"] = "production"
           $rendererPsi.Environment["HOSTNAME"] = "127.0.0.1"
@@ -292,8 +292,7 @@ jobs:
               } catch {}
 
               if ($backend.HasExited) {
-                $stderr = $backend.StandardError.ReadToEnd()
-                throw "Renderer smoke backend exited unexpectedly. $stderr"
+                throw "Renderer smoke backend exited unexpectedly."
               }
             }
 
@@ -302,8 +301,7 @@ jobs:
                 $backend.Kill()
                 $backend.WaitForExit()
               }
-              $stderr = $backend.StandardError.ReadToEnd()
-              throw "Renderer smoke backend did not become healthy within 60 seconds. $stderr"
+              throw "Renderer smoke backend did not become healthy within 60 seconds."
             }
 
             [void]$renderer.Start()
@@ -316,8 +314,7 @@ jobs:
               } catch {}
 
               if ($renderer.HasExited) {
-                $stderr = $renderer.StandardError.ReadToEnd()
-                throw "Packaged Next.js renderer exited unexpectedly. $stderr"
+                throw "Packaged Next.js renderer exited unexpectedly."
               }
 
               if ($null -ne $page -and $page.StatusCode -eq 200) {
@@ -337,8 +334,7 @@ jobs:
                 $renderer.Kill()
                 $renderer.WaitForExit()
               }
-              $stderr = $renderer.StandardError.ReadToEnd()
-              throw "Packaged Next.js renderer did not serve / within 60 seconds. $stderr"
+              throw "Packaged Next.js renderer did not serve / within 60 seconds."
             }
           } finally {
             if (-not $renderer.HasExited) { $renderer.Kill(); $renderer.WaitForExit() }
