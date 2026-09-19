@@ -83,7 +83,7 @@ export default function GamesPage() {
   const [dailyCompletedToday, setDailyCompletedToday] = useState(false)
 
   const {
-    xp, streak, skills, gameStats, achievements,
+    xp, streak, skills, gameStats, achievements, setProgress,
     addGameXP, recordGameAttempt, completeGame, unlockAchievements, resetGameProgress,
   } = useProgressStore()
 
@@ -199,6 +199,23 @@ export default function GamesPage() {
         dailyChallenge: dailyMode,
         dailyChallengeDate: dailyMode ? today : '',
         achievements: fresh,
+      }).then((server) => {
+        setProgress({
+          streak,
+          xp: server.total_xp,
+          skills,
+          gameStats: {
+            gamesPlayed: server.games_played,
+            questionsAnswered: server.questions_answered,
+            correctAnswers: server.correct_answers,
+            bestRoundScore: server.best_round_score,
+            dailyChallengesCompleted: server.daily_challenges_completed,
+            lastDailyChallengeDate: server.last_daily_challenge_date,
+            currentCorrectStreak: server.current_correct_streak,
+            bestCorrectStreak: server.best_correct_streak,
+          },
+          achievements: server.achievements as AchievementId[],
+        })
       }).catch(() => undefined)
     }
 
