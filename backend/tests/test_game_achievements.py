@@ -465,6 +465,7 @@ async def test_duplicate_event_conflict_rolls_back_game_completion(
         is_active=True,
     )
 
+    plan_id = plan.id
     started = await client.post(
         "/api/progress/game-session",
         json={"game_id": "math", "language": "en", "difficulty": 1},
