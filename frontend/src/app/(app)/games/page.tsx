@@ -171,7 +171,13 @@ export default function GamesPage() {
       ...gameStats,
       gamesPlayed: gameStats.gamesPlayed + 1,
       bestRoundScore: Math.max(gameStats.bestRoundScore, roundScore),
-      dailyChallengesCompleted: gameStats.dailyChallengesCompleted + (dailyMode ? 1 : 0),
+      dailyChallengesCompleted:
+        gameStats.dailyChallengesCompleted +
+        (dailyMode && gameStats.lastDailyChallengeDate !== today ? 1 : 0),
+      lastDailyChallengeDate:
+        dailyMode && gameStats.lastDailyChallengeDate !== today
+          ? today
+          : gameStats.lastDailyChallengeDate,
       currentCorrectStreak: gameStats.currentCorrectStreak,
       bestCorrectStreak: Math.max(
         gameStats.bestCorrectStreak,
@@ -190,7 +196,7 @@ export default function GamesPage() {
       achievements
     )
     const fresh = unlocked.filter((id) => !achievements.includes(id))
-    completeGame(roundScore, dailyMode)
+    completeGame(roundScore, dailyMode, today)
     if (fresh.length) {
       unlockAchievements(fresh)
       setNewAchievements(fresh)
