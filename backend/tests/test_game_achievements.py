@@ -1096,3 +1096,71 @@ async def test_tampered_game_answer_is_rejected_without_persisting_progress(
         )
     ).scalars().all()
     assert progress_rows == []
+
+@pytest.mark.asyncio
+async def test_daily_challenge_with_non_today_date_is_rejected_before_persistence(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+
+    yesterday = (date.today() - timedelta(days=1)).isoformat()
+    result = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": payload["session_id"],
+            "answers": [
+                {"question_id": question["id"], "choice": question["choices"][0]}
+                for question in payload["questions"]
+            ],
+            "daily_challenge": True,
+            "daily_challenge_date": yesterday,
+        },
+        headers=headers,
+    )
+
+    assert result.status_code == 422
+    assert result.json()["detail"] == "daily_challenge_date must be today"
+
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    assert session.completed is False
+
+    game_progress = (
+        await db_session.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == user.id,
+                GameProgress.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert game_progress == []
+
+    progress_rows = (
+        await db_session.execute(
+            select(Progress).where(
+                Progress.user_id == user.id,
+                Progress.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert progress_rows == []
+
