@@ -4,7 +4,7 @@ import random
 from typing import cast
 
 from fastapi import APIRouter, Depends, HTTPException, Request
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -427,6 +427,19 @@ async def complete_game_session(
     if len(data.answers) != len(expected) or set(item.question_id for item in data.answers) != set(expected):
         raise HTTPException(status_code=422, detail="Exactly one answer is required for every question")
 
+    claim = await db.execute(
+        update(GameSession)
+        .where(
+            GameSession.id == session.id,
+            GameSession.user_id == current_user.id,
+            GameSession.study_plan_id == plan.id,
+            GameSession.completed.is_(False),
+        )
+        .values(completed=True)
+    )
+    if claim.rowcount != 1:
+        raise HTTPException(status_code=409, detail="Game session already completed")
+
     correct_answers = 0
     for submitted in data.answers:
         question = expected[submitted.question_id]
@@ -521,7 +534,6 @@ async def complete_game_session(
         daily_challenge=data.daily_challenge, daily_challenge_date=data.daily_challenge_date,
         achievements=fresh, xp_earned=base_xp + achievement_xp,
     ))
-    session.completed = True
     await db.commit()
     summary = await get_game_summary(request=request, current_user=current_user, db=db)
     return GameSessionResultResponse(
