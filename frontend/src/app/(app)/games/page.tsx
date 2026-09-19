@@ -1,18 +1,15 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import {
-  buildDailyQuestion,
-  buildQuestion,
-  scoreAnswer,
-  type GameId,
-  type GameLanguage,
-  type GameQuestion,
-} from '@/lib/games/engine'
+import type { GameId, GameLanguage } from '@/lib/games/engine'
 import {
   type AchievementId,
 } from '@/lib/games/achievements'
-import { persistGameEvent } from '@/lib/games/persist'
+import {
+  completeGameSession,
+  startGameSession,
+  type GameSessionQuestion,
+} from '@/lib/games/persist'
 import { useProgressStore } from '@/store/progress'
 import './games.css'
 
@@ -71,10 +68,11 @@ export default function GamesPage() {
   const [lang, setLang] = useState<Lang>('ar')
   const [game, setGame] = useState<GameId | null>(null)
   const [dailyMode, setDailyMode] = useState(false)
-  const [question, setQuestion] = useState<GameQuestion | null>(null)
+  const [question, setQuestion] = useState<GameSessionQuestion | null>(null)
+  const [sessionId, setSessionId] = useState<string | null>(null)
+  const [answers, setAnswers] = useState<Array<{ question_id: string; choice: string }>>([])
   const [selected, setSelected] = useState<string | null>(null)
   const [roundScore, setRoundScore] = useState(0)
-  const [roundCorrect, setRoundCorrect] = useState(0)
   const [round, setRound] = useState(0)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
   const [roundSkills, setRoundSkills] = useState<Record<string, { correct: number; total: number }>>({})
@@ -82,7 +80,7 @@ export default function GamesPage() {
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
-    addGameXP, recordGameAttempt, completeGame, resetGameProgress,
+    resetGameProgress,
   } = useProgressStore()
 
   const level = Math.floor(xp / 100) + 1
@@ -107,54 +105,49 @@ export default function GamesPage() {
     [t]
   )
 
-  function startGame(id: GameId, daily = false) {
+  async function startGame(id: GameId, daily = false) {
     if (daily && dailyCompletedToday) return
-    setGame(id)
-    setDailyMode(daily)
-    setRound(0)
-    setRoundScore(0)
-    setRoundCorrect(0)
-    setSelected(null)
-    setNewAchievements([])
-    setRoundSkills({})
-    setQuestion(
-      daily
-        ? buildDailyQuestion(id, lang, level, today, 0)
-        : buildQuestion(id, lang, level)
-    )
+    try {
+      const session = await startGameSession(id, lang, level)
+      setGame(id)
+      setDailyMode(daily)
+      setRound(0)
+      setRoundScore(0)
+      setSelected(null)
+      setAnswers([])
+      setSessionId(session.session_id)
+      setNewAchievements([])
+      setRoundSkills({})
+      setQuestion(session.questions[0] ?? null)
+    } catch {
+      setGame(null)
+      setQuestion(null)
+      setSessionId(null)
+    }
   }
 
   function answer(choice: string) {
     if (!question || selected) return
     setSelected(choice)
-    const result = scoreAnswer(question, choice)
-    if (result.correct) {
-      setRoundScore((value) => value + result.xp)
-      setRoundCorrect((value) => value + 1)
-    }
-    addGameXP(result.xp, result.skill, result.correct)
-    recordGameAttempt(result.correct)
+    setAnswers((current) => [...current, { question_id: question.id, choice }])
   }
 
-  function finishRound() {
-    const dailyReward = dailyMode && !dailyCompletedToday
+  async function finishRound() {
+    if (!sessionId) return
     const previousAchievements = new Set(achievements)
-    completeGame(roundScore, dailyMode, today)
-    if (dailyReward) setDailyCompletedToday(true)
-    if (!game) return
-
-    void persistGameEvent({
-      gameId: game,
-      questionsAnswered: ROUND_SIZE,
-      correctAnswers: roundCorrect,
-      roundScore,
-      dailyChallenge: dailyMode,
-      dailyChallengeDate: dailyMode ? today : '',
-    }).then((server) => {
-      const fresh = (server.achievements as AchievementId[]).filter(
+    try {
+      const server = await completeGameSession(
+        sessionId,
+        answers,
+        dailyMode,
+        dailyMode ? today : '',
+      )
+      const fresh = (server.new_achievements as AchievementId[]).filter(
         (id) => !previousAchievements.has(id)
       )
       if (fresh.length) setNewAchievements(fresh)
+      if (dailyMode) setDailyCompletedToday(true)
+      setRoundScore(server.round_score)
       setProgress({
         streak,
         xp: server.total_xp,
@@ -171,26 +164,39 @@ export default function GamesPage() {
         },
         achievements: server.achievements as AchievementId[],
       })
-    }).catch(() => undefined)
+    } catch {
+      return
+    }
   }
 
   function next() {
-    if (!game) return
+    if (!game || !question) return
     if (round >= ROUND_SIZE - 1) {
-      finishRound()
+      void finishRound()
       setGame(null)
       setDailyMode(false)
       setQuestion(null)
+      setSessionId(null)
       return
     }
     const nextRound = round + 1
     setRound(nextRound)
     setSelected(null)
-    setQuestion(
-      dailyMode
-        ? buildDailyQuestion(game, lang, level, today, nextRound)
-        : buildQuestion(game, lang, level)
-    )
+    setQuestion(null)
+    if (sessionId) {
+      void (async () => {
+        try {
+          const session = await startGameSession(game, lang, level)
+          setSessionId(session.session_id)
+          setAnswers([])
+          setQuestion(session.questions[nextRound] ?? null)
+        } catch {
+          setGame(null)
+          setQuestion(null)
+          setSessionId(null)
+        }
+      })()
+    }
   }
 
   function reset() {
@@ -198,9 +204,10 @@ export default function GamesPage() {
     setGame(null)
     setDailyMode(false)
     setQuestion(null)
+    setSessionId(null)
+    setAnswers([])
     setRound(0)
     setRoundScore(0)
-    setRoundCorrect(0)
     setSelected(null)
     setNewAchievements([])
     setDailyCompletedToday(false)
@@ -300,13 +307,7 @@ export default function GamesPage() {
                 <p className="choose">{t.choose}</p>
                 <div className="choices">
                   {question.choices.map((choice) => {
-                    const state = selected
-                      ? choice === question.answer
-                        ? 'correct'
-                        : choice === selected
-                          ? 'wrong'
-                          : ''
-                      : ''
+                    const state = selected === choice ? 'selected' : ''
                     return (
                       <button key={choice} className={`choice ${state}`} onClick={() => answer(choice)}>
                         {choice}
@@ -315,13 +316,9 @@ export default function GamesPage() {
                   })}
                 </div>
                 {selected && (
-                  <div className={`feedback ${selected === question.answer ? 'good' : 'bad'}`}>
-                    <strong>{selected === question.answer ? t.correct : t.wrong}</strong>
-                    <span>
-                      {selected === question.answer
-                        ? `+${scoreAnswer(question, selected).xp} ${t.xp}`
-                        : `${t.hint}: ${question.hint}`}
-                    </span>
+                  <div className="feedback good">
+                    <strong>{t.correct}</strong>
+                    <span>{question.hint}</span>
                   </div>
                 )}
                 {selected && <button className="next" onClick={next}>{round >= ROUND_SIZE - 1 ? t.done : t.next} →</button>}
