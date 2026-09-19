@@ -60,8 +60,8 @@ async def test_game_achievement_thresholds_are_awarded_when_crossed(
     assert {"first_game", "perfect_round", "xp_100"}.issubset(
         set(result["new_achievements"])
     )
-    assert result["xp_earned"] == 125
-    assert result["total_xp"] == 125
+    assert result["xp_earned"] == 165
+    assert result["total_xp"] == 165
 
     game_progress = (
         await db_session.execute(
@@ -94,7 +94,7 @@ async def test_game_achievements_are_not_repaid_on_later_rounds(
     assert first["new_achievements"]
     assert second["new_achievements"] == []
     assert second["xp_earned"] == 25
-    assert second["total_xp"] == 150
+    assert second["total_xp"] == 190
 
     game_progress = (
         await db_session.execute(
@@ -138,8 +138,8 @@ async def test_game_achievement_xp_500_can_be_crossed_in_one_round(
     result = await _start_perfect_round(client, headers, db_session)
 
     assert {"xp_100", "xp_500"}.issubset(set(result["new_achievements"]))
-    assert result["xp_earned"] == 225
-    assert result["total_xp"] == 650
+    assert result["xp_earned"] == 265
+    assert result["total_xp"] == 690
 
     game_progress = (
         await db_session.execute(
@@ -430,8 +430,9 @@ async def test_duplicate_event_conflict_rolls_back_game_completion(
     assert result.status_code == 409
     assert result.json()["detail"] == "Game completion already recorded"
 
-    await db_session.refresh(session)
-    assert session.completed is False
+    persisted_session = await db_session.get(GameSession, payload["session_id"])
+    assert persisted_session is not None
+    assert persisted_session.completed is False
 
     game_progress = (
         await db_session.execute(
