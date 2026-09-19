@@ -22,4 +22,5 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.drop_column("users", "stripe_subscription_id")
+    with op.batch_alter_table("users", recreate="auto") as batch_op:
+        batch_op.drop_column("stripe_subscription_id")
