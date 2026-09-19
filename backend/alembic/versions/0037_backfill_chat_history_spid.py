@@ -17,17 +17,18 @@ depends_on: str | Sequence[str] | None = None
 
 def upgrade() -> None:
     op.execute("""
-        UPDATE chat_history ch
+        UPDATE chat_history
         SET study_plan_id = (
             SELECT sp.id
-            FROM study_plans sp
-            WHERE sp.user_id = ch.user_id
+            FROM study_plans AS sp
+            WHERE sp.user_id = chat_history.user_id
               AND sp.is_active = true
+            ORDER BY sp.created_at DESC, sp.id DESC
             LIMIT 1
         )
-        WHERE ch.study_plan_id IS NULL
+        WHERE study_plan_id IS NULL
     """)
 
 
 def downgrade() -> None:
-    pass  # data backfill — no schema change to revert
+    pass
