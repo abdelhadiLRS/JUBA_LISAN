@@ -110,10 +110,16 @@ async def get_summary(
     accuracy = exercises_correct / total_exercises if total_exercises > 0 else 0.0
 
     latest_skills = all_entries[0].skills if all_entries else {}
+    latest_date = all_entries[0].date
+    current_streak = (
+        all_entries[0].streak_day
+        if latest_date >= date.today() - __import__("datetime").timedelta(days=1)
+        else 0
+    )
 
     return ProgressSummary(
         total_xp=total_xp,
-        current_streak=all_entries[0].streak_day,
+        current_streak=current_streak,
         total_lessons=total_lessons,
         total_exercises=total_exercises,
         exercises_correct=exercises_correct,
