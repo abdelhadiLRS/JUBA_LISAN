@@ -185,7 +185,11 @@ async def get_unit_competencies(
     conditions = [UserCompetency.user_id == user_id]
     if study_plan_id is not None:
         conditions.append(UserCompetency.study_plan_id == study_plan_id)
-    result = await db.execute(select(UserCompetency).where(*conditions))
+    result = await db.execute(
+        select(UserCompetency).where(*conditions).order_by(
+            UserCompetency.unit_id, UserCompetency.competency_text
+        )
+    )
     rows = result.scalars().all()
 
     # Aggregate per unit in one pass to avoid repeatedly scanning all rows.
