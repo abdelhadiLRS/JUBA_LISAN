@@ -99,6 +99,10 @@ jobs:
               }
             }
             if (-not $ready) {
+              if (-not $process.HasExited) {
+                $process.Kill()
+                $process.WaitForExit()
+              }
               $stderr = $process.StandardError.ReadToEnd()
               throw "Packaged backend did not become healthy within 60 seconds. $stderr"
             }
@@ -182,6 +186,10 @@ jobs:
               }
             }
             if (-not $readyAfterRestart) {
+              if (-not $process.HasExited) {
+                $process.Kill()
+                $process.WaitForExit()
+              }
               $stderr = $process.StandardError.ReadToEnd()
               throw "Packaged backend did not recover after restart within 60 seconds. $stderr"
             }
@@ -278,6 +286,10 @@ jobs:
             }
 
             if (-not $backendReady) {
+              if (-not $backend.HasExited) {
+                $backend.Kill()
+                $backend.WaitForExit()
+              }
               $stderr = $backend.StandardError.ReadToEnd()
               throw "Renderer smoke backend did not become healthy within 60 seconds. $stderr"
             }
@@ -309,6 +321,10 @@ jobs:
             }
 
             if (-not $rendererReady) {
+              if (-not $renderer.HasExited) {
+                $renderer.Kill()
+                $renderer.WaitForExit()
+              }
               $stderr = $renderer.StandardError.ReadToEnd()
               throw "Packaged Next.js renderer did not serve / within 60 seconds. $stderr"
             }
