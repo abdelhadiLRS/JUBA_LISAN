@@ -3,6 +3,7 @@ from typing import cast
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
@@ -12,10 +13,11 @@ from app.data._types import CEFRLevel
 from app.data.vocabulary import get_vocabulary_by_level
 from app.models.flashcard import Flashcard
 from app.models.game_progress import GameProgress
+from app.models.game_progress_event import GameProgressEvent
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import GameProgressSync, GameProgressUpdate, GameStatsResponse, ProgressHistoryResponse, ProgressResponse, ProgressSummary
+from app.schemas.progress import GameProgressEventCreate, GameProgressUpdate, GameStatsResponse, ProgressHistoryResponse, ProgressResponse, ProgressSummary
 from app.services.progress_service import get_unit_competencies, update_daily_progress
 from app.services.user_language_service import get_active_language
 
@@ -176,48 +178,130 @@ async def get_game_summary(
     return entry
 
 
-@router.post("/game-summary", response_model=GameStatsResponse)
+@router.post("/game-event", response_model=GameStatsResponse)
 @limiter.limit("60/minute")
-async def sync_game_summary(
+async def record_game_event(
     request: Request,
-    data: GameProgressSync,
+    data: GameProgressEventCreate,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """Record one completed game exactly once and update the server aggregate."""
     plan = await _get_active_plan_or_none(db, current_user.id)
     if plan is None:
         raise HTTPException(status_code=404, detail="No active study plan found")
 
-    result = await db.execute(
-        select(GameProgress).where(
-            GameProgress.user_id == current_user.id,
-            GameProgress.study_plan_id == plan.id,
+    existing_result = await db.execute(
+        select(GameProgressEvent).where(
+            GameProgressEvent.user_id == current_user.id,
+            GameProgressEvent.study_plan_id == plan.id,
+            GameProgressEvent.event_id == data.event_id,
         )
     )
-    entry = result.scalar_one_or_none()
-    if entry is None:
-        entry = GameProgress(
+    if existing_result.scalar_one_or_none() is not None:
+        aggregate_result = await db.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == current_user.id,
+                GameProgress.study_plan_id == plan.id,
+            )
+        )
+        aggregate = aggregate_result.scalar_one_or_none()
+        if aggregate is None:
+            raise HTTPException(status_code=409, detail="Game event already exists without an aggregate")
+        return aggregate
+
+    try:
+        event = GameProgressEvent(
+            event_id=data.event_id,
             user_id=current_user.id,
             study_plan_id=plan.id,
-            achievements=[],
+            game_id=data.game_id,
+            questions_answered=data.questions_answered,
+            correct_answers=data.correct_answers,
+            round_score=data.round_score,
+            daily_challenge=data.daily_challenge,
+            daily_challenge_date=data.daily_challenge_date,
+            achievements=data.achievements,
         )
-        db.add(entry)
+        db.add(event)
+        await db.flush()
 
-    entry.games_played = max(entry.games_played, data.games_played)
-    entry.questions_answered = max(entry.questions_answered, data.questions_answered)
-    entry.correct_answers = max(entry.correct_answers, min(data.correct_answers, entry.questions_answered))
-    entry.best_round_score = max(entry.best_round_score, data.best_round_score)
-    entry.daily_challenges_completed = max(
-        entry.daily_challenges_completed, data.daily_challenges_completed
+        result = await db.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == current_user.id,
+                GameProgress.study_plan_id == plan.id,
+            )
+        )
+        entry = result.scalar_one_or_none()
+        if entry is None:
+            entry = GameProgress(
+                user_id=current_user.id,
+                study_plan_id=plan.id,
+                achievements=[],
+            )
+            db.add(entry)
+            await db.flush()
+
+        entry.games_played += 1
+        entry.questions_answered += data.questions_answered
+        entry.correct_answers += data.correct_answers
+        entry.best_round_score = max(entry.best_round_score, data.round_score)
+
+        if (
+            data.daily_challenge
+            and data.daily_challenge_date
+            and entry.last_daily_challenge_date != data.daily_challenge_date
+        ):
+            entry.daily_challenges_completed += 1
+            entry.last_daily_challenge_date = data.daily_challenge_date
+
+        if data.questions_answered > 0 and data.correct_answers == data.questions_answered:
+            entry.current_correct_streak += data.correct_answers
+            entry.best_correct_streak = max(
+                entry.best_correct_streak, entry.current_correct_streak
+            )
+        else:
+            entry.current_correct_streak = 0
+
+        entry.achievements = list(
+            dict.fromkeys([*(entry.achievements or []), *data.achievements])
+        )
+        await db.commit()
+        await db.refresh(entry)
+        return entry
+    except IntegrityError:
+        await db.rollback()
+        existing_result = await db.execute(
+            select(GameProgressEvent).where(
+                GameProgressEvent.user_id == current_user.id,
+                GameProgressEvent.study_plan_id == plan.id,
+                GameProgressEvent.event_id == data.event_id,
+            )
+        )
+        if existing_result.scalar_one_or_none() is None:
+            raise
+        aggregate_result = await db.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == current_user.id,
+                GameProgress.study_plan_id == plan.id,
+            )
+        )
+        aggregate = aggregate_result.scalar_one_or_none()
+        if aggregate is None:
+            raise HTTPException(status_code=409, detail="Game event exists without an aggregate")
+        return aggregate
+
+
+@router.post("/game-summary", deprecated=True)
+@limiter.limit("60/minute")
+async def reject_legacy_game_summary(
+    request: Request,
+    current_user: User = Depends(get_current_user),
+):
+    raise HTTPException(
+        status_code=410,
+        detail="Legacy absolute game-summary sync is retired; submit /api/progress/game-event instead",
     )
-    if data.last_daily_challenge_date:
-        entry.last_daily_challenge_date = data.last_daily_challenge_date
-    entry.current_correct_streak = data.current_correct_streak
-    entry.best_correct_streak = max(entry.best_correct_streak, data.best_correct_streak)
-    entry.achievements = list(dict.fromkeys([*(entry.achievements or []), *data.achievements]))
-    await db.commit()
-    await db.refresh(entry)
-    return entry
 
 
 @router.post("/game", response_model=ProgressResponse)
