@@ -1,3 +1,5 @@
+from datetime import date, timedelta
+
 import pytest
 
 
@@ -93,3 +95,42 @@ async def test_progress_with_data(client, test_user, db_session):
     assert data["vocabulary_mastered"] == 1
     assert data["vocabulary_total"] == total_a1_words
     assert data["vocabulary_progress"] == round(1 / total_a1_words, 2)
+
+
+@pytest.mark.asyncio
+async def test_progress_summary_expires_stale_streak(client, test_user, db_session):
+    user, headers = test_user
+
+    from app.models.progress import Progress
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add(
+        Progress(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            date=date.today() - timedelta(days=2),
+            xp_earned=30,
+            lessons_completed=1,
+            exercises_correct=1,
+            exercises_total=1,
+            streak_day=4,
+            skills={},
+        )
+    )
+    await db_session.commit()
+
+    response = await client.get("/api/progress/summary", headers=headers)
+    assert response.status_code == 200
+    assert response.json()["current_streak"] == 0
