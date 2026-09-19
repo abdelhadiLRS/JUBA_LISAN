@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { ACHIEVEMENTS, type AchievementId, type GameStats } from '@/lib/games/achievements'
+import { getAchievementRewardXP, type AchievementId, type GameStats } from '@/lib/games/achievements'
 
 interface TodayLesson {
   id: number | null
@@ -209,7 +209,7 @@ export const useProgressStore = create<ProgressStore>((set) => ({
     set((state) => {
       const fresh = ids.filter((id) => !state.achievements.includes(id))
       if (!fresh.length) return state
-      const rewardXP = fresh.reduce((total, id) => total + (ACHIEVEMENTS[id]?.xp ?? 0), 0)
+      const rewardXP = getAchievementRewardXP(fresh)
       return {
         xp: state.xp + rewardXP,
         achievements: [...state.achievements, ...fresh],
