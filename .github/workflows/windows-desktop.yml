@@ -53,7 +53,7 @@ jobs:
           & "./backend/.venv/Scripts/python.exe" -m pytest `
             backend/tests/test_desktop_sqlite.py `
             backend/tests/test_desktop_migrations.py `
-            backend/tests/test_desktop_auth.py -q
+            backend/tests/test_desktop_auth.py -q -o addopts=""
 
       - name: Smoke test packaged backend
         shell: pwsh
