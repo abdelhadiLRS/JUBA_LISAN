@@ -147,6 +147,19 @@ class GameSessionComplete(BaseModel):
     daily_challenge: bool = False
     daily_challenge_date: str = Field(default="", max_length=10)
 
+    @field_validator("daily_challenge_date")
+    @classmethod
+    def validate_daily_challenge_date(cls, value: str) -> str:
+        if not value:
+            return value
+        try:
+            date.fromisoformat(value)
+        except ValueError as exc:
+            raise ValueError("daily_challenge_date must be YYYY-MM-DD") from exc
+        if len(value) != 10:
+            raise ValueError("daily_challenge_date must be YYYY-MM-DD")
+        return value
+
     @field_validator("answers")
     @classmethod
     def validate_answers(cls, value: list[GameSessionAnswer]) -> list[GameSessionAnswer]:
