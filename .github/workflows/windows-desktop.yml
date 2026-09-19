@@ -284,6 +284,12 @@ jobs:
           $renderer.StartInfo = $rendererPsi
           $rendererOut = Join-Path $dataDir "renderer.stdout.log"
           $rendererErr = Join-Path $dataDir "renderer.stderr.log"
+          Register-ObjectEvent -InputObject $renderer -EventName OutputDataReceived -Action {
+            if ($EventArgs.Data) { Add-Content -LiteralPath $rendererOut -Value $EventArgs.Data }
+          } | Out-Null
+          Register-ObjectEvent -InputObject $renderer -EventName ErrorDataReceived -Action {
+            if ($EventArgs.Data) { Add-Content -LiteralPath $rendererErr -Value $EventArgs.Data }
+          } | Out-Null
 
           try {
             [void]$backend.Start()
@@ -349,6 +355,9 @@ jobs:
             }
           } finally {
             if (-not $renderer.HasExited) { $renderer.Kill(); $renderer.WaitForExit() }
+            $renderer.CancelOutputRead()
+            $renderer.CancelErrorRead()
+            Get-EventSubscriber | Where-Object { $_.SourceObject -eq $renderer } | Unregister-Event -Force -ErrorAction SilentlyContinue
             if (-not $backend.HasExited) { $backend.Kill(); $backend.WaitForExit() }
           }
 
