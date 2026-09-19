@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { InteractiveGameBoard } from '@/components/games/InteractiveGameBoard'
 import '@/components/games/interactive-games.css'
 import { apiFetch } from '@/lib/api'
+import { evaluateAchievements } from '@/lib/games/achievements'
 import { useProgressStore } from '@/store/progress'
 
 type Lang = 'ar' | 'fr' | 'en'
@@ -25,6 +26,20 @@ export default function MatchingGamePage() {
     addGameXP(25, 'vocabulary', true)
     recordGameAttempt(true, result.questionsAnswered, result.correctAnswers)
     completeGame(25, false)
+    const state = useProgressStore.getState()
+    const unlocked = evaluateAchievements(
+      {
+        xp: state.xp,
+        skills: state.skills,
+        stats: state.gameStats,
+        roundScore: 25,
+        perfectRound: result.questionsAnswered > 0 && result.correctAnswers === result.questionsAnswered,
+        dailyChallengeCompleted: false,
+      },
+      state.achievements,
+    )
+    const fresh = unlocked.filter((id) => !state.achievements.includes(id))
+    if (fresh.length) state.unlockAchievements(fresh)
     void apiFetch('/api/progress/game', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
