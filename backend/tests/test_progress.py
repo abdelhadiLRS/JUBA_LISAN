@@ -144,8 +144,27 @@ async def test_empty_progress_update_does_not_create_streak_entry(db_session, te
 
     from app.models.progress import Progress
     from app.services.progress_service import update_daily_progress
+    from tests.conftest import make_study_plan
 
-    entry = await update_daily_progress(db_session, user.id, commit=False)
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+
+    entry = await update_daily_progress(
+        db_session,
+        user.id,
+        study_plan_id=plan.id,
+        commit=False,
+    )
     assert entry is None
 
     result = await db_session.execute(
