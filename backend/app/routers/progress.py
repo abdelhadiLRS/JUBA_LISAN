@@ -11,10 +11,11 @@ from app.core.limiter import limiter
 from app.data._types import CEFRLevel
 from app.data.vocabulary import get_vocabulary_by_level
 from app.models.flashcard import Flashcard
+from app.models.game_progress import GameProgress
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import GameProgressUpdate, ProgressHistoryResponse, ProgressResponse, ProgressSummary
+from app.schemas.progress import GameProgressSync, GameProgressUpdate, GameStatsResponse, ProgressHistoryResponse, ProgressResponse, ProgressSummary
 from app.services.progress_service import get_unit_competencies, update_daily_progress
 from app.services.user_language_service import get_active_language
 
@@ -130,6 +131,93 @@ async def get_summary(
         vocabulary_total=vocabulary_total,
         vocabulary_progress=round(vocabulary_progress, 2),
     )
+
+
+@router.get("/game-summary", response_model=GameStatsResponse)
+@limiter.limit("60/minute")
+async def get_game_summary(
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    plan = await _get_active_plan_or_none(db, current_user.id)
+    if plan is None:
+        return GameStatsResponse(
+            games_played=0,
+            questions_answered=0,
+            correct_answers=0,
+            best_round_score=0,
+            daily_challenges_completed=0,
+            last_daily_challenge_date="",
+            current_correct_streak=0,
+            best_correct_streak=0,
+            achievements=[],
+        )
+
+    result = await db.execute(
+        select(GameProgress).where(
+            GameProgress.user_id == current_user.id,
+            GameProgress.study_plan_id == plan.id,
+        )
+    )
+    entry = result.scalar_one_or_none()
+    if entry is None:
+        return GameStatsResponse(
+            games_played=0,
+            questions_answered=0,
+            correct_answers=0,
+            best_round_score=0,
+            daily_challenges_completed=0,
+            last_daily_challenge_date="",
+            current_correct_streak=0,
+            best_correct_streak=0,
+            achievements=[],
+        )
+    return entry
+
+
+@router.post("/game-summary", response_model=GameStatsResponse)
+@limiter.limit("60/minute")
+async def sync_game_summary(
+    request: Request,
+    data: GameProgressSync,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    plan = await _get_active_plan_or_none(db, current_user.id)
+    if plan is None:
+        raise HTTPException(status_code=404, detail="No active study plan found")
+
+    result = await db.execute(
+        select(GameProgress).where(
+            GameProgress.user_id == current_user.id,
+            GameProgress.study_plan_id == plan.id,
+        )
+    )
+    entry = result.scalar_one_or_none()
+    if entry is None:
+        entry = GameProgress(
+            user_id=current_user.id,
+            study_plan_id=plan.id,
+            achievements=[],
+        )
+        db.add(entry)
+
+    entry.games_played = max(entry.games_played, data.games_played)
+    entry.questions_answered = max(entry.questions_answered, data.questions_answered)
+    entry.correct_answers = max(entry.correct_answers, min(data.correct_answers, entry.questions_answered))
+    entry.best_round_score = max(entry.best_round_score, data.best_round_score)
+    entry.daily_challenges_completed = max(
+        entry.daily_challenges_completed, data.daily_challenges_completed
+    )
+    if data.last_daily_challenge_date:
+        entry.last_daily_challenge_date = data.last_daily_challenge_date
+    entry.current_correct_streak = data.current_correct_streak
+    entry.best_correct_streak = max(entry.best_correct_streak, data.best_correct_streak)
+    entry.achievements = list(dict.fromkeys([*(entry.achievements or []), *data.achievements]))
+    await db.commit()
+    await db.refresh(entry)
+    return entry
 
 
 @router.post("/game", response_model=ProgressResponse)
