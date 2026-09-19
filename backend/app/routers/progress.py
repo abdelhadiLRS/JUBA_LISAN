@@ -620,7 +620,10 @@ async def complete_game_session(
     current_skill_score = correct_answers / questions_answered
     skills = await _get_game_skills(db, plan)
     projected_skills = dict(skills)
-    projected_skills[current_skill] = current_skill_score
+    current_skill_before = float(projected_skills.get(current_skill, current_skill_score))
+    projected_skills[current_skill] = round(
+        current_skill_before * 0.7 + current_skill_score * 0.3, 3
+    )
     if sum(1 for score in projected_skills.values() if float(score) > 0) >= 3:
         candidates.append("multi_skill")
 
