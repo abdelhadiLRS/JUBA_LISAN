@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { InteractiveGameBoard } from '@/components/games/InteractiveGameBoard'
 import '@/components/games/interactive-games.css'
 import { apiFetch } from '@/lib/api'
+import { persistGameEvent } from '@/lib/games/persist'
 import { evaluateAchievements, getAchievementRewardXP } from '@/lib/games/achievements'
 import { useProgressStore } from '@/store/progress'
 
@@ -40,20 +41,12 @@ export default function OrderingGamePage() {
     )
     const fresh = unlocked.filter((id) => !state.achievements.includes(id))
     if (fresh.length) state.unlockAchievements(fresh)
-    void apiFetch('/api/progress/game-summary', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        games_played: state.gameStats.gamesPlayed,
-        questions_answered: state.gameStats.questionsAnswered,
-        correct_answers: state.gameStats.correctAnswers,
-        best_round_score: state.gameStats.bestRoundScore,
-        daily_challenges_completed: state.gameStats.dailyChallengesCompleted,
-        last_daily_challenge_date: state.gameStats.lastDailyChallengeDate ?? '',
-        current_correct_streak: state.gameStats.currentCorrectStreak ?? 0,
-        best_correct_streak: state.gameStats.bestCorrectStreak,
-        achievements: state.achievements,
-      }),
+    void persistGameEvent({
+      gameId: 'ordering',
+      questionsAnswered: result.questionsAnswered,
+      correctAnswers: result.correctAnswers,
+      roundScore: 25,
+      achievements: fresh,
     }).catch(() => undefined)
 
     void apiFetch('/api/progress/game', {
