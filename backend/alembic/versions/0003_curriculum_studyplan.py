@@ -37,12 +37,12 @@ def upgrade() -> None:
         "UPDATE study_plans SET completion_test_taken = false WHERE completion_test_taken IS NULL"
     )
 
-    op.alter_column("study_plans", "duration_weeks", nullable=False)
-    op.alter_column("study_plans", "days_per_week", nullable=False)
-    op.alter_column("study_plans", "current_unit", nullable=False)
-    op.alter_column("study_plans", "completion_test_taken", nullable=False)
-
-    op.drop_column("study_plans", "weeks_planned")
+    with op.batch_alter_table("study_plans", recreate="auto") as batch_op:
+        batch_op.alter_column("duration_weeks", nullable=False)
+        batch_op.alter_column("days_per_week", nullable=False)
+        batch_op.alter_column("current_unit", nullable=False)
+        batch_op.alter_column("completion_test_taken", nullable=False)
+        batch_op.drop_column("weeks_planned")
 
     # ── user_competencies table ───────────────────────────────────────────────
     op.create_table(
@@ -68,11 +68,11 @@ def downgrade() -> None:
 
     op.add_column("study_plans", sa.Column("weeks_planned", sa.Integer(), nullable=True))
     op.execute("UPDATE study_plans SET weeks_planned = duration_weeks WHERE weeks_planned IS NULL")
-    op.alter_column("study_plans", "weeks_planned", nullable=False)
-
-    op.drop_column("study_plans", "completion_test_recommendation")
-    op.drop_column("study_plans", "completion_test_score")
-    op.drop_column("study_plans", "completion_test_taken")
-    op.drop_column("study_plans", "current_unit")
-    op.drop_column("study_plans", "days_per_week")
-    op.drop_column("study_plans", "duration_weeks")
+    with op.batch_alter_table("study_plans", recreate="auto") as batch_op:
+        batch_op.alter_column("weeks_planned", nullable=False)
+        batch_op.drop_column("completion_test_recommendation")
+        batch_op.drop_column("completion_test_score")
+        batch_op.drop_column("completion_test_taken")
+        batch_op.drop_column("current_unit")
+        batch_op.drop_column("days_per_week")
+        batch_op.drop_column("duration_weeks")
