@@ -733,3 +733,104 @@ async def test_game_session_result_is_server_derived(client, test_user, db_sessi
     assert result["round_score"] == 25
     assert result["xp_earned"] >= 5 * 5
     assert "new_achievements" in result
+
+@pytest.mark.asyncio
+async def test_game_session_rejects_invalid_choice_and_expired_session(client, test_user, db_session):
+    user, headers = test_user
+    from datetime import UTC, datetime, timedelta
+    from app.models.game_session import GameSession
+    from tests.conftest import make_study_plan
+
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    payload = started.json()
+    invalid = [
+        {"question_id": q["id"], "choice": "__forged__"}
+        for q in payload["questions"]
+    ]
+    response = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": invalid},
+        headers=headers,
+    )
+    assert response.status_code == 422
+
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    session.expires_at = datetime.now(UTC).replace(tzinfo=None) - timedelta(minutes=1)
+    await db_session.commit()
+
+    valid = [
+        {"question_id": q["id"], "choice": q["choices"][0]}
+        for q in payload["questions"]
+    ]
+    response = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": valid},
+        headers=headers,
+    )
+    assert response.status_code == 410
+
+
+@pytest.mark.asyncio
+async def test_game_session_daily_date_is_validated_before_persistence(client, test_user, db_session):
+    user, headers = test_user
+    from app.models.game_progress import GameProgress
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "sequence", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    payload = started.json()
+    answers = [
+        {"question_id": q["id"], "choice": q["choices"][0]}
+        for q in payload["questions"]
+    ]
+    response = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": payload["session_id"],
+            "answers": answers,
+            "daily_challenge": True,
+            "daily_challenge_date": "2000-01-01",
+        },
+        headers=headers,
+    )
+    assert response.status_code == 422
+
+    entry = (
+        await db_session.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == user.id,
+                GameProgress.study_plan_id == plan.id,
+            )
+        )
+    ).scalar_one_or_none()
+    assert entry is None
