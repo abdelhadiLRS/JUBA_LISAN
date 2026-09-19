@@ -203,7 +203,7 @@ export default function GamesPage() {
         setProgress({
           streak,
           xp: server.total_xp,
-          skills,
+          skills: server.skills,
           gameStats: {
             gamesPlayed: server.games_played,
             questionsAnswered: server.questions_answered,
