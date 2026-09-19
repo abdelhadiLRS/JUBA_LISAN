@@ -28,6 +28,13 @@ type SavedProgress = {
   achievements?: AchievementId[]
 }
 
+function getLocalDateKey() {
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = String(now.getMonth() + 1).padStart(2, '0')
+  const day = String(now.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
 const STORAGE_KEY = 'juba-edu-progress-v2'
 const DAILY_GAMES: GameId[] = ['math', 'words', 'sequence', 'memory', 'matching', 'ordering']
 const ROUND_SIZE = 5
@@ -93,8 +100,8 @@ export default function GamesPage() {
 
   const level = Math.floor(xp / 100) + 1
   const t = copy[lang]
-  const today = new Date().toISOString().slice(0, 10)
-  const dayIndex = new Date(`${today}T00:00:00Z`).getUTCDay()
+  const today = getLocalDateKey()
+  const dayIndex = new Date(`${today}T00:00:00`).getDay()
   const dailyGame = DAILY_GAMES[dayIndex % DAILY_GAMES.length]
   const accuracy = gameStats.questionsAnswered
     ? Math.round((gameStats.correctAnswers / gameStats.questionsAnswered) * 100)
