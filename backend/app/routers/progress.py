@@ -226,7 +226,21 @@ async def record_game_event(
         aggregate = aggregate_result.scalar_one_or_none()
         if aggregate is None:
             raise HTTPException(status_code=409, detail="Game event already exists without an aggregate")
-        return aggregate
+        total_xp_result = await db.execute(
+            select(Progress.xp_earned).where(Progress.study_plan_id == plan.id)
+        )
+        return GameStatsResponse(
+            total_xp=sum(total_xp_result.scalars().all()),
+            games_played=aggregate.games_played,
+            questions_answered=aggregate.questions_answered,
+            correct_answers=aggregate.correct_answers,
+            best_round_score=aggregate.best_round_score,
+            daily_challenges_completed=aggregate.daily_challenges_completed,
+            last_daily_challenge_date=aggregate.last_daily_challenge_date,
+            current_correct_streak=aggregate.current_correct_streak,
+            best_correct_streak=aggregate.best_correct_streak,
+            achievements=aggregate.achievements or [],
+        )
 
     try:
         # Game XP is derived from the validated result; client-supplied XP/achievement rewards are ignored.
