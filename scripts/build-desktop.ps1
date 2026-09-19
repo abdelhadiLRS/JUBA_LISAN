@@ -95,7 +95,7 @@ npx electron-builder --win nsis portable
 
 $Dist = Join-Path $Frontend "dist"
 $Installer = Get-ChildItem -Path $Dist -Filter "*.exe" -File |
-    Where-Object { $_.Name -notmatch "\.portable\.exe$" } |
+    Where-Object { $_.Name -match "Setup .*\.exe$" -and $_.Name -notmatch "__uninstaller\.exe$" } |
     Select-Object -First 1
 $Portable = Get-ChildItem -Path $Dist -Filter "*.portable.exe" -File |
     Select-Object -First 1
