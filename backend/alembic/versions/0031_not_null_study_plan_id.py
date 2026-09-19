@@ -16,12 +16,12 @@ depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
-    op.alter_column("progress", "study_plan_id", nullable=False)
-    op.alter_column("flashcards", "study_plan_id", nullable=False)
-    op.alter_column("user_competencies", "study_plan_id", nullable=False)
+    for table in ("progress", "flashcards", "user_competencies"):
+        with op.batch_alter_table(table, recreate="auto") as batch_op:
+            batch_op.alter_column("study_plan_id", nullable=False)
 
 
 def downgrade() -> None:
-    op.alter_column("user_competencies", "study_plan_id", nullable=True)
-    op.alter_column("flashcards", "study_plan_id", nullable=True)
-    op.alter_column("progress", "study_plan_id", nullable=True)
+    for table in ("user_competencies", "flashcards", "progress"):
+        with op.batch_alter_table(table, recreate="auto") as batch_op:
+            batch_op.alter_column("study_plan_id", nullable=True)
