@@ -18,19 +18,32 @@ import { LoadingBar } from '@/components/ui/loading-bar'
 import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
+import { useProgressStore } from '@/store/progress'
 
 const NAV_ICONS: Record<string, LucideIcon> = {'/dashboard': Home, '/plan': Map, '/games': Gamepad2, '/progress': BarChart3, '/flashcards': Layers, '/chat': MessageCircle, '/listening': Headphones, '/reading': BookOpen, '/conversation': MessageCircle, '/assessment': ClipboardCheck, '/grammar': BookMarked, '/vocabulary': GraduationCap, '/phrasebook': MessageSquare, '/settings': Settings, '/faq': HelpCircle, '/feedback': MessageSquarePlus, '/admin': Shield}
 const BOTTOM_NAV_HREFS = ['/dashboard', '/plan', '/flashcards', '/chat', '/progress']
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const tNav = useTranslations('nav'); const tCommon = useTranslations('common'); const tBilling = useTranslations('billing'); const pathname = usePathname(); const router = useRouter()
-  const user = useAuthStore((s) => s.user); const accessToken = useAuthStore((s) => s.accessToken); const setUser = useAuthStore((s) => s.setUser); const logout = useAuthStore((s) => s.logout); const handleLogout = useLogout(); const [initializing, setInitializing] = useState(true); const loadConfig = useConfigStore((s) => s.load); const [logoutConfirm, setLogoutConfirm] = useState(false); const [mobileMenuOpen, setMobileMenuOpen] = useState(false); const [resourcesOpen, setResourcesOpen] = useState(false); const [contactOpen, setContactOpen] = useState(false); const [resendSent, setResendSent] = useState(false); const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
+  const user = useAuthStore((s) => s.user); const accessToken = useAuthStore((s) => s.accessToken); const setProgress = useProgressStore((s) => s.setProgress); const setUser = useAuthStore((s) => s.setUser); const logout = useAuthStore((s) => s.logout); const handleLogout = useLogout(); const [initializing, setInitializing] = useState(true); const loadConfig = useConfigStore((s) => s.load); const [logoutConfirm, setLogoutConfirm] = useState(false); const [mobileMenuOpen, setMobileMenuOpen] = useState(false); const [resourcesOpen, setResourcesOpen] = useState(false); const [contactOpen, setContactOpen] = useState(false); const [resendSent, setResendSent] = useState(false); const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
   const mainNavItems = [{ href: '/dashboard', label: tNav('home') }, { href: '/plan', label: tNav('myPlan') }, { href: '/progress', label: tNav('progress') }, { href: '/games', label: tNav('games') }, { href: '/flashcards', label: tNav('flashcards') }, { href: '/chat', label: tNav('tutor') }, { href: '/listening', label: tNav('listening') }, { href: '/reading', label: tNav('reading') }, { href: '/conversation', label: tNav('conversation') }, { href: '/assessment', label: tNav('assessment') }]
   const resourceNavItems = [{ href: '/grammar', label: tNav('grammar') }, { href: '/vocabulary', label: tNav('vocabulary') }, { href: '/phrasebook', label: tNav('phrasebook') }]
   const bottomNavItems = [{ href: '/settings', label: tNav('settings') }, { href: '/faq', label: tNav('faq') }, { href: '/feedback', label: tNav('feedback') }]
   const PREMIUM_HREFS = new Set(['/chat', '/listening', '/reading', '/conversation']); const stripeEnabled = useConfigStore((s) => s.stripeEnabled); const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled); const [trialDaysLeft, setTrialDaysLeft] = useState(0)
   async function handleResendVerification() { const res = await apiFetch('/api/auth/resend-verification', { method: 'POST' }); if (res.ok) setResendSent(true) }
-  useEffect(() => { async function init() { loadConfig(); try { if (!accessToken) { const token = await refreshAuthSession(); if (!token) { router.push('/login'); return } } const meRes = await apiFetch('/api/auth/me'); if (!meRes.ok) { logout(); router.push('/login'); return } const me = await meRes.json(); setUser(mapUser(me)); if (me.learning_goals === null) { router.replace('/onboarding'); return } } catch { logout(); router.push('/login') } finally { setInitializing(false) } } init(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { async function init() { loadConfig(); try { if (!accessToken) { const token = await refreshAuthSession(); if (!token) { router.push('/login'); return } } const meRes = await apiFetch('/api/auth/me'); if (!meRes.ok) { logout(); router.push('/login'); return } const me = await meRes.json(); setUser(mapUser(me));
+        try {
+          const progressRes = await apiFetch('/api/progress/summary');
+          if (progressRes.ok) {
+            const progress = await progressRes.json();
+            setProgress({
+              streak: typeof progress.current_streak === 'number' ? Math.max(0, progress.current_streak) : 0,
+              xp: typeof progress.total_xp === 'number' ? Math.max(0, progress.total_xp) : 0,
+              skills: progress.skills && typeof progress.skills === 'object' ? progress.skills : {},
+            });
+          }
+        } catch { /* progress hydration is best-effort */ }
+        if (me.learning_goals === null) { router.replace('/onboarding'); return } } catch { logout(); router.push('/login') } finally { setInitializing(false) } } init(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => { if (user?.subscription_status === 'trialing' && user?.subscription_ends_at && stripeEnabled) { const days = Math.max(1, Math.ceil((new Date(user.subscription_ends_at).getTime() - Date.now()) / 86400000)); setTrialDaysLeft(days); return } if (user?.freemium_trial_ends_at && stripeEnabled && user?.subscription_status !== 'active' && user?.subscription_status !== 'trialing') { const end = new Date(user.freemium_trial_ends_at); if (end > new Date()) { setTrialDaysLeft(Math.max(1, Math.ceil((end.getTime() - Date.now()) / 86400000))); return } } setTrialDaysLeft(0) }, [user?.subscription_status, user?.subscription_ends_at, user?.freemium_trial_ends_at, stripeEnabled])
   useEffect(() => { if (initializing) return; async function loadFeedbackUnreadCount() { try { const res = await apiFetch('/api/feedback/unread-summary'); if (!res.ok) return; const data = await res.json(); setFeedbackUnreadCount(typeof data?.unread_count === 'number' ? Math.max(0, data.unread_count) : 0) } catch { setFeedbackUnreadCount(0) } } loadFeedbackUnreadCount(); window.addEventListener('freelingo:feedback-read', loadFeedbackUnreadCount); return () => window.removeEventListener('freelingo:feedback-read', loadFeedbackUnreadCount) }, [initializing])
