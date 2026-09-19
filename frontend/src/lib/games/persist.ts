@@ -8,7 +8,6 @@ export type GameEventPayload = {
   roundScore: number
   dailyChallenge?: boolean
   dailyChallengeDate?: string
-  achievements?: string[]
 }
 
 export type ServerGameStats = {
@@ -48,7 +47,6 @@ export async function persistGameEvent(payload: GameEventPayload): Promise<Serve
           round_score: payload.roundScore,
           daily_challenge: payload.dailyChallenge ?? false,
           daily_challenge_date: payload.dailyChallengeDate ?? '',
-          achievements: payload.achievements ?? [],
         }),
       })
 
