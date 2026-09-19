@@ -122,7 +122,7 @@ async def upsert_unit_competency(
     competency_texts: list[str],
     lesson_score: float,
     *,
-    study_plan_id: int | None = None,
+    study_plan_id: int,
 ) -> None:
     """
     Update (or create) UserCompetency rows for all competencies in a unit.
