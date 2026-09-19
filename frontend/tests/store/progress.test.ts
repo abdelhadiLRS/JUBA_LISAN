@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { useProgressStore } from '@/store/progress'
+import type { AchievementId } from '@/lib/games/achievements'
 
 describe('useProgressStore — initial state', () => {
   beforeEach(() => {
@@ -7,6 +8,17 @@ describe('useProgressStore — initial state', () => {
       streak: 0,
       xp: 0,
       skills: {},
+      gameStats: {
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestRoundScore: 0,
+        dailyChallengesCompleted: 0,
+        lastDailyChallengeDate: '',
+        currentCorrectStreak: 0,
+        bestCorrectStreak: 0,
+      },
+      achievements: [],
       todayLessons: [],
       completedToday: [],
       currentUnitId: '',
@@ -64,6 +76,17 @@ describe('useProgressStore — setProgress', () => {
       streak: 0,
       xp: 0,
       skills: {},
+      gameStats: {
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestRoundScore: 0,
+        dailyChallengesCompleted: 0,
+        lastDailyChallengeDate: '',
+        currentCorrectStreak: 0,
+        bestCorrectStreak: 0,
+      },
+      achievements: [],
       todayLessons: [],
       completedToday: [],
       currentUnitId: '',
@@ -141,6 +164,17 @@ describe('useProgressStore — game skill XP', () => {
       streak: 0,
       xp: 0,
       skills: {},
+      gameStats: {
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestRoundScore: 0,
+        dailyChallengesCompleted: 0,
+        lastDailyChallengeDate: '',
+        currentCorrectStreak: 0,
+        bestCorrectStreak: 0,
+      },
+      achievements: [],
       todayLessons: [],
       completedToday: [],
       currentUnitId: '',
@@ -169,6 +203,30 @@ describe('useProgressStore — game skill XP', () => {
     expect(state.gameStats.bestCorrectStreak).toBe(6)
   })
 
+  it('resets game statistics and achievements without clearing learning progress', () => {
+    useProgressStore.getState().addGameXP(20, 'memory', true)
+    useProgressStore.getState().recordGameAttempt(true, 4, 4)
+    useProgressStore.getState().unlockAchievements(['first_game'] as AchievementId[])
+    useProgressStore.setState({ streak: 3, xp: 200 })
+
+    useProgressStore.getState().resetGameProgress()
+
+    const state = useProgressStore.getState()
+    expect(state.gameStats).toEqual({
+      gamesPlayed: 0,
+      questionsAnswered: 0,
+      correctAnswers: 0,
+      bestRoundScore: 0,
+      dailyChallengesCompleted: 0,
+      lastDailyChallengeDate: '',
+      currentCorrectStreak: 0,
+      bestCorrectStreak: 0,
+    })
+    expect(state.achievements).toEqual([])
+    expect(state.streak).toBe(3)
+    expect(state.xp).toBe(200)
+  })
+
   it('persists logic, memory, and ordering skills', () => {
     useProgressStore.getState().addGameXP(10, 'logic', true)
     useProgressStore.getState().addGameXP(10, 'memory', true)
@@ -195,6 +253,17 @@ describe('useProgressStore — setTodayLessons', () => {
       streak: 0,
       xp: 0,
       skills: {},
+      gameStats: {
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestRoundScore: 0,
+        dailyChallengesCompleted: 0,
+        lastDailyChallengeDate: '',
+        currentCorrectStreak: 0,
+        bestCorrectStreak: 0,
+      },
+      achievements: [],
       todayLessons: [],
       completedToday: [],
       currentUnitId: '',
@@ -283,6 +352,17 @@ describe('useProgressStore — completeLesson', () => {
       streak: 0,
       xp: 0,
       skills: {},
+      gameStats: {
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestRoundScore: 0,
+        dailyChallengesCompleted: 0,
+        lastDailyChallengeDate: '',
+        currentCorrectStreak: 0,
+        bestCorrectStreak: 0,
+      },
+      achievements: [],
       todayLessons: [],
       completedToday: [],
       currentUnitId: '',
@@ -330,6 +410,17 @@ describe('useProgressStore — setCurrentUnit', () => {
       streak: 0,
       xp: 0,
       skills: {},
+      gameStats: {
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestRoundScore: 0,
+        dailyChallengesCompleted: 0,
+        lastDailyChallengeDate: '',
+        currentCorrectStreak: 0,
+        bestCorrectStreak: 0,
+      },
+      achievements: [],
       todayLessons: [],
       completedToday: [],
       currentUnitId: '',
@@ -367,6 +458,17 @@ describe('useProgressStore — setPlanDuration', () => {
       streak: 0,
       xp: 0,
       skills: {},
+      gameStats: {
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestRoundScore: 0,
+        dailyChallengesCompleted: 0,
+        lastDailyChallengeDate: '',
+        currentCorrectStreak: 0,
+        bestCorrectStreak: 0,
+      },
+      achievements: [],
       todayLessons: [],
       completedToday: [],
       currentUnitId: '',
@@ -399,6 +501,17 @@ describe('useProgressStore — updateUnitProgress', () => {
       streak: 0,
       xp: 0,
       skills: {},
+      gameStats: {
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestRoundScore: 0,
+        dailyChallengesCompleted: 0,
+        lastDailyChallengeDate: '',
+        currentCorrectStreak: 0,
+        bestCorrectStreak: 0,
+      },
+      achievements: [],
       todayLessons: [],
       completedToday: [],
       currentUnitId: '',
@@ -511,6 +624,17 @@ describe('useProgressStore — unlockLevelTest', () => {
       streak: 0,
       xp: 0,
       skills: {},
+      gameStats: {
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestRoundScore: 0,
+        dailyChallengesCompleted: 0,
+        lastDailyChallengeDate: '',
+        currentCorrectStreak: 0,
+        bestCorrectStreak: 0,
+      },
+      achievements: [],
       todayLessons: [],
       completedToday: [],
       currentUnitId: '',
@@ -540,6 +664,17 @@ describe('useProgressStore — setLevelTestResult', () => {
       streak: 0,
       xp: 0,
       skills: {},
+      gameStats: {
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestRoundScore: 0,
+        dailyChallengesCompleted: 0,
+        lastDailyChallengeDate: '',
+        currentCorrectStreak: 0,
+        bestCorrectStreak: 0,
+      },
+      achievements: [],
       todayLessons: [],
       completedToday: [],
       currentUnitId: '',
@@ -641,6 +776,17 @@ describe('useProgressStore — state transitions / interactions', () => {
       streak: 0,
       xp: 0,
       skills: {},
+      gameStats: {
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestRoundScore: 0,
+        dailyChallengesCompleted: 0,
+        lastDailyChallengeDate: '',
+        currentCorrectStreak: 0,
+        bestCorrectStreak: 0,
+      },
+      achievements: [],
       todayLessons: [],
       completedToday: [],
       currentUnitId: '',
