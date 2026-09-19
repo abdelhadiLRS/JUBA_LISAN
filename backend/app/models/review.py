@@ -34,7 +34,6 @@ class Review(Base):
         ForeignKey("users.id", ondelete="CASCADE"),
         nullable=False,
         unique=True,
-        index=True,
     )
     user_display_name: Mapped[str] = mapped_column(String(150), nullable=False)
     target_language: Mapped[str] = mapped_column(String(10), nullable=False, index=True)
