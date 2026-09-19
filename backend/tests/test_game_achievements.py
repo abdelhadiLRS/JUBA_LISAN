@@ -253,3 +253,46 @@ async def test_game_progress_row_is_initialized_once_for_multiple_sessions(
     assert len(rows) == 1
     assert rows[0].games_played == 0
     assert rows[0].achievements == []
+
+
+@pytest.mark.asyncio
+async def test_duplicate_game_progress_insert_isolated_from_session_creation(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    first = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert first.status_code == 200
+
+    # A second session must remain creatable even though its GameProgress
+    # initialization hits the unique (user_id, study_plan_id) constraint.
+    second = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert second.status_code == 200
+
+    sessions = (
+        await db_session.execute(
+            select(GameSession).where(
+                GameSession.user_id == user.id,
+            )
+        )
+    ).scalars().all()
+    assert len(sessions) == 2
