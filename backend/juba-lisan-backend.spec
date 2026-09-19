@@ -10,7 +10,7 @@ ROOT = Path.cwd().resolve()
 if not (ROOT / "desktop_server.py").exists():
     raise RuntimeError(f"PyInstaller spec root is invalid: {ROOT}")
 
-hiddenimports = collect_submodules("app")
+hiddenimports = collect_submodules("app") + ["aiosqlite"]
 
 a = Analysis(
     ["desktop_server.py"],
