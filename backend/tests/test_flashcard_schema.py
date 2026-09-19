@@ -26,5 +26,5 @@ def test_flashcard_list_response_populates_flashcards_alias() -> None:
     response = FlashcardListResponse(due=due, total=2)
 
     assert response.flashcards == due
-    assert response.model_dump()["flashcards"] == due
+    assert response.model_dump()["flashcards"] == [card.model_dump() for card in due]
     assert response.model_dump(mode="json")["flashcards"][0]["id"] == 1
