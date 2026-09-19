@@ -167,15 +167,20 @@ export const useProgressStore = create<ProgressStore>((set) => ({
           }
         : normalizeSkills(state.skills),
     })),
-  recordGameAttempt: (correct) =>
+  recordGameAttempt: (correct, questionsAnswered = 1, correctAnswers = correct ? 1 : 0) =>
     set((state) => {
-      const currentCorrectStreak = correct ? (state.gameStats.currentCorrectStreak ?? 0) + 1 : 0
+      const safeQuestions = Math.max(0, Math.floor(questionsAnswered))
+      const safeCorrect = Math.max(0, Math.min(safeQuestions, Math.floor(correctAnswers)))
+      const batchIsPerfect = safeQuestions > 0 && safeCorrect === safeQuestions
+      const currentCorrectStreak = batchIsPerfect
+        ? (state.gameStats.currentCorrectStreak ?? 0) + safeCorrect
+        : 0
       return {
         gameStats: {
           ...state.gameStats,
           currentCorrectStreak,
-          questionsAnswered: state.gameStats.questionsAnswered + 1,
-          correctAnswers: state.gameStats.correctAnswers + (correct ? 1 : 0),
+          questionsAnswered: state.gameStats.questionsAnswered + safeQuestions,
+          correctAnswers: state.gameStats.correctAnswers + safeCorrect,
           bestCorrectStreak: Math.max(state.gameStats.bestCorrectStreak, currentCorrectStreak),
         },
       }
