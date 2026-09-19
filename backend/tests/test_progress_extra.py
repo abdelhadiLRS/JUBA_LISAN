@@ -815,3 +815,69 @@ async def test_interactive_ordering_uses_trace_and_rejects_incomplete_round(clie
         headers=headers,
     )
     assert incomplete.status_code == 422
+
+
+@pytest.mark.asyncio
+async def test_game_session_cannot_be_completed_by_another_user(client, test_user, db_session):
+    """A session is bound to its issuing user and cannot be completed cross-account."""
+    owner, owner_headers = test_user
+    from app.core.security import create_access_token, hash_password
+    from app.models.user import User
+    from app.models.user_language import UserLanguage
+    from tests.conftest import make_study_plan
+
+    await make_study_plan(
+        db_session,
+        user_id=owner.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    other = User(
+        username="otheruser",
+        email="other@example.com",
+        display_name="Other User",
+        hashed_password=hash_password("otherpass"),
+        role="user",
+        native_language="es",
+        target_language="en-US",
+        is_active=True,
+    )
+    db_session.add(other)
+    await db_session.flush()
+    db_session.add(UserLanguage(user_id=other.id, target_language="en-US", is_active=True))
+    await db_session.commit()
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=owner_headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+
+    other_headers = {
+        "Authorization": f"Bearer {create_access_token(other.id, other.role)}"
+    }
+    answers = [
+        {"question_id": question["id"], "choice": question["choices"][0]}
+        for question in payload["questions"]
+    ]
+    response = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": answers},
+        headers=other_headers,
+    )
+    assert response.status_code == 404
+
+    owner_response = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": answers},
+        headers=owner_headers,
+    )
+    assert owner_response.status_code == 200
