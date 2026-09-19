@@ -243,123 +243,14 @@ async def test_get_unit_competencies_returns_deterministic_unit_order(db_session
     assert result[0]["total_count"] == 2
 
 @pytest.mark.asyncio
-async def test_game_event_is_idempotent_and_server_aggregated(client, test_user, db_session):
-    user, headers = test_user
-    from tests.conftest import make_study_plan
-
-    plan = await make_study_plan(
-        db_session,
-        user_id=user.id,
-        cefr_level="A1",
-        goals=["grammar"],
-        duration_weeks=4,
-        days_per_week=4,
-        current_unit="A1-u1",
-        generated_plan={},
-        is_active=True,
-    )
-
-    event = {
-        "event_id": "2f8d6b2e-8a6b-4c52-9a8a-2d6a2a1f9b10",
-        "game_id": "memory",
-        "questions_answered": 5,
-        "correct_answers": 5,
-        "round_score": 25,
-        "daily_challenge": True,
-        "daily_challenge_date": "2026-09-19",
-        "achievements": ["first_game", "perfect_round", "xp_500"],
-    }
-    response = await client.post("/api/progress/game-event", json=event, headers=headers)
-    assert response.status_code == 200
-    first = response.json()
-    assert first["total_xp"] == 160
-    assert first["games_played"] == 1
-    assert first["questions_answered"] == 5
-    assert first["correct_answers"] == 5
-    assert first["current_correct_streak"] == 5
-    assert first["best_correct_streak"] == 5
-    assert first["daily_challenges_completed"] == 1
-    assert first["achievements"] == ["first_game", "perfect_round", "daily_challenge"]
-    assert first["skills"]["memory"] == pytest.approx(1.0)
-
-    from app.models.game_progress_event import GameProgressEvent
-    from app.models.progress import Progress
-
-    event_row = (
-        await db_session.execute(
-            select(GameProgressEvent).where(GameProgressEvent.event_id == event["event_id"])
-        )
-    ).scalar_one()
-    assert event_row.xp_earned == 160
-
-    xp_rows = (
-        await db_session.execute(select(Progress.xp_earned).where(Progress.study_plan_id == plan.id))
-    ).scalars().all()
-    assert sum(xp_rows) == 160
-
-    response = await client.post("/api/progress/game-event", json=event, headers=headers)
-    assert response.status_code == 200
-    duplicate = response.json()
-    assert duplicate["total_xp"] == 160
-    assert duplicate["games_played"] == 1
-    assert duplicate["questions_answered"] == 5
-    assert duplicate["correct_answers"] == 5
-    assert duplicate["achievements"] == ["first_game", "perfect_round", "daily_challenge"]
-    assert duplicate["skills"]["memory"] == pytest.approx(1.0)
-
+async def test_legacy_game_event_endpoint_is_retired(client, test_user):
+    _, headers = test_user
     response = await client.post(
         "/api/progress/game-event",
-        json={
-            **event,
-            "event_id": "7d8c1b9f-31a0-4e52-91d4-5b2f9a6c8e11",
-            "game_id": "ordering",
-            "questions_answered": 5,
-            "correct_answers": 3,
-            "round_score": 10,
-            "daily_challenge": False,
-            "daily_challenge_date": "",
-            "achievements": ["streak_5"],
-        },
+        json={"game_id": "memory", "questions_answered": 5, "correct_answers": 5},
         headers=headers,
     )
-    assert response.status_code == 200
-    data = response.json()
-    assert data["total_xp"] == 216
-    assert data["games_played"] == 2
-    assert data["questions_answered"] == 10
-    assert data["correct_answers"] == 8
-    assert data["best_round_score"] == 25
-    assert data["daily_challenges_completed"] == 1
-    assert data["current_correct_streak"] == 0
-    assert data["best_correct_streak"] == 5
-    assert data["achievements"] == ["first_game", "perfect_round", "daily_challenge", "streak_5"]
-    assert data["skills"]["memory"] == pytest.approx(1.0)
-    assert data["skills"]["ordering"] == pytest.approx(0.6)
-
-    second_event_row = (
-        await db_session.execute(
-            select(GameProgressEvent).where(
-                GameProgressEvent.event_id == "7d8c1b9f-31a0-4e52-91d4-5b2f9a6c8e11"
-            )
-        )
-    ).scalar_one()
-    assert second_event_row.xp_earned == 56
-
-    xp_rows = (
-        await db_session.execute(select(Progress.xp_earned).where(Progress.study_plan_id == 1))
-    ).scalars().all()
-    assert sum(xp_rows) == 216
-
-    response = await client.get("/api/progress/game-summary", headers=headers)
-    assert response.status_code == 200
-    summary = response.json()
-    assert summary["games_played"] == 2
-    assert summary["questions_answered"] == 10
-    assert summary["correct_answers"] == 8
-    assert summary["skills"]["memory"] == pytest.approx(1.0)
-    assert summary["skills"]["ordering"] == pytest.approx(0.6)
-
-
+    assert response.status_code == 410
 
 @pytest.mark.asyncio
 async def test_legacy_game_progress_endpoint_is_removed(client, test_user):
