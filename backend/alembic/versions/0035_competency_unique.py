@@ -16,23 +16,26 @@ depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
-    # Deduplicate: keep the row with the highest id (most recent) per group,
-    # deleting older duplicates so the unique constraint can be created.
     op.execute("""
         DELETE FROM user_competencies
-        WHERE id NOT IN (
-            SELECT MAX(id)
-            FROM user_competencies
-            GROUP BY user_id, study_plan_id, unit_id, competency_text
+        WHERE EXISTS (
+            SELECT 1
+            FROM user_competencies AS keeper
+            WHERE keeper.user_id = user_competencies.user_id
+              AND keeper.study_plan_id = user_competencies.study_plan_id
+              AND keeper.unit_id = user_competencies.unit_id
+              AND keeper.competency_text = user_competencies.competency_text
+              AND keeper.id < user_competencies.id
         )
     """)
 
-    op.create_unique_constraint(
-        "uq_competency_user_plan_unit_text",
-        "user_competencies",
-        ["user_id", "study_plan_id", "unit_id", "competency_text"],
-    )
+    with op.batch_alter_table("user_competencies", recreate="auto") as batch_op:
+        batch_op.create_unique_constraint(
+            "uq_competency_user_plan_unit_text",
+            ["user_id", "study_plan_id", "unit_id", "competency_text"],
+        )
 
 
 def downgrade() -> None:
-    op.drop_constraint("uq_competency_user_plan_unit_text", "user_competencies", type_="unique")
+    with op.batch_alter_table("user_competencies", recreate="auto") as batch_op:
+        batch_op.drop_constraint("uq_competency_user_plan_unit_text", type_="unique")
