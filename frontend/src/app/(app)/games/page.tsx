@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   buildDailyQuestion,
   buildQuestion,
@@ -20,14 +20,6 @@ import { useProgressStore } from '@/store/progress'
 import './games.css'
 
 type Lang = GameLanguage
-type SavedProgress = {
-  points?: number
-  streak?: number
-  skills?: Record<string, number>
-  gameStats?: ReturnType<typeof emptyGameStats>
-  achievements?: AchievementId[]
-}
-
 function getLocalDateKey() {
   const now = new Date()
   const year = now.getFullYear()
@@ -35,7 +27,6 @@ function getLocalDateKey() {
   const day = String(now.getDate()).padStart(2, '0')
   return `${year}-${month}-${day}`
 }
-const STORAGE_KEY = 'juba-edu-progress-v2'
 const DAILY_GAMES: GameId[] = ['math', 'words', 'sequence', 'memory', 'matching', 'ordering']
 const ROUND_SIZE = 5
 
@@ -88,13 +79,12 @@ export default function GamesPage() {
   const [roundScore, setRoundScore] = useState(0)
   const [roundCorrect, setRoundCorrect] = useState(0)
   const [round, setRound] = useState(0)
-  const [hydrated, setHydrated] = useState(false)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
   const [roundSkills, setRoundSkills] = useState<Record<string, { correct: number; total: number }>>({})
   const [dailyCompletedToday, setDailyCompletedToday] = useState(false)
 
   const {
-    xp, streak, skills, gameStats, achievements, setProgress,
+    xp, streak, skills, gameStats, achievements,
     addGameXP, recordGameAttempt, completeGame, unlockAchievements, resetGameProgress,
   } = useProgressStore()
 
@@ -106,35 +96,6 @@ export default function GamesPage() {
   const accuracy = gameStats.questionsAnswered
     ? Math.round((gameStats.correctAnswers / gameStats.questionsAnswered) * 100)
     : 0
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY)
-      if (saved) {
-        const parsed = JSON.parse(saved) as SavedProgress
-        setProgress({
-          streak: parsed.streak ?? 0,
-          xp: parsed.points ?? 0,
-          skills: parsed.skills ?? {},
-          gameStats: parsed.gameStats,
-          achievements: parsed.achievements,
-        })
-        setDailyCompletedToday(parsed.gameStats?.lastDailyChallengeDate === today)
-      }
-    } catch {
-      // Ignore malformed local progress and keep the in-memory defaults.
-    } finally {
-      setHydrated(true)
-    }
-  }, [setProgress])
-
-  useEffect(() => {
-    if (!hydrated) return
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({ points: xp, streak, level, skills, gameStats, achievements })
-    )
-  }, [hydrated, xp, streak, level, skills, gameStats, achievements])
 
   const direction = lang === 'ar' ? 'rtl' : 'ltr'
   const gameCards = useMemo(
