@@ -14,6 +14,7 @@ export default function OrderingGamePage() {
   const [lang, setLang] = useState<Lang>('ar')
   const addGameXP = useProgressStore((state) => state.addGameXP)
   const recordGameAttempt = useProgressStore((state) => state.recordGameAttempt)
+  const completeGame = useProgressStore((state) => state.completeGame)
 
   useEffect(() => {
     const value = searchParams.get('lang')
@@ -23,6 +24,7 @@ export default function OrderingGamePage() {
   function complete(result: { questionsAnswered: number; correctAnswers: number }) {
     addGameXP(25, 'ordering', true)
     recordGameAttempt(true, result.questionsAnswered, result.correctAnswers)
+    completeGame(25, false)
     void apiFetch('/api/progress/game', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
