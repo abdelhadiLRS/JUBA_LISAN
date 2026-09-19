@@ -165,8 +165,7 @@ class TatoebaService:
                 
                 response = self.session.get(endpoint, params=params)
                 if response.status_code == 200:
-                    data = response.json()
-                    results = data.get("results", data.get("sentences", []))
+                        results = data.get("results", data.get("sentences", []))
                     
                     sentences = []
                     for item in results:
@@ -189,19 +188,19 @@ class TatoebaService:
         sample_sentences = [
             {
                 "id": "1",
-                "text": f"Hello, how are you?",
+                "text": "Hello, how are you?",
                 "lang": target_language,
                 "translations": [{"text": "Hola, ¿cómo estás?", "lang": translation_language or "spa"}]
             },
             {
                 "id": "2", 
-                "text": f"Hello everyone!",
+                "text": "Hello everyone!",
                 "lang": target_language,
                 "translations": [{"text": "¡Hola a todos!", "lang": translation_language or "spa"}]
             },
             {
                 "id": "3",
-                "text": f"Say hello to your family.",
+                "text": "Say hello to your family.",
                 "lang": target_language,
                 "translations": [{"text": "Saluda a tu familia.", "lang": translation_language or "spa"}]
             }
@@ -568,7 +567,7 @@ class CommonVoiceService:
             Dataset metadata or None if not found
         """
         # Common Voice datasets are hosted on Hugging Face now
-        hf_url = f"https://huggingface.co/api/datasets/mozilla-foundation/common_voice_17_0"
+        hf_url = "https://huggingface.co/api/datasets/mozilla-foundation/common_voice_17_0"
         
         try:
             response = self.session.get(hf_url)
@@ -713,7 +712,7 @@ class MerlinCorpusService:
             try:
                 with open(cache_file, 'r', encoding='utf-8') as f:
                     cached_data = json.load(f)
-                logger.info(f"Loaded MERLIN texts from cache")
+                logger.info("Loaded MERLIN texts from cache")
                 return [self._parse_text(t) for t in cached_data]
             except Exception as e:
                 logger.warning(f"Cache read error: {e}")
