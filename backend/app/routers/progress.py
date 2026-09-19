@@ -556,6 +556,21 @@ async def complete_game_session(
             if submitted.choice == question["answer"]:
                 correct_answers += 1
         questions_answered = len(expected)
+    # All payload validation is complete at this point. Claim the session atomically
+    # immediately before mutating progress so two concurrent completions cannot both earn XP.
+    claim = await db.execute(
+        update(GameSession)
+        .where(
+            GameSession.id == session.id,
+            GameSession.user_id == current_user.id,
+            GameSession.study_plan_id == plan.id,
+            GameSession.completed.is_(False),
+        )
+        .values(completed=True)
+    )
+    if claim.rowcount != 1:
+        raise HTTPException(status_code=409, detail="Game session already completed")
+
     round_score = round((correct_answers / questions_answered) * 25)
     event_id = str(uuid4())
     base_xp = correct_answers * 5 + (questions_answered - correct_answers)
@@ -675,7 +690,7 @@ async def reject_legacy_game_summary(
 ):
     raise HTTPException(
         status_code=410,
-        detail="Legacy absolute game-summary sync is retired; submit /api/progress/game-event instead",
+        detail="Legacy absolute game-summary sync is retired; use /api/progress/game-session/complete instead",
     )
 
 
