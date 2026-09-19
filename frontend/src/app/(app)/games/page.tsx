@@ -38,7 +38,7 @@ const copy = {
     start: 'ابدأ اللعبة', next: 'السؤال التالي', correct: 'إجابة صحيحة!', wrong: 'ليست صحيحة',
     hint: 'تلميح', back: 'الألعاب', score: 'نتيجة الجولة', done: 'أحسنت! أكملت الجولة.', choose: 'اختر الإجابة الصحيحة',
     reset: 'إعادة التقدم', lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائياتك', gamesPlayed: 'الألعاب',
-    questions: 'الأسئلة', accuracy: 'الدقة', best: 'أفضل نتيجة', badges: 'الإنجازات', unlocked: 'مفتوح', newBadge: 'إنجاز جديد!',
+    questions: 'الأسئلة', accuracy: 'الدقة', best: 'أفضل نتيجة', badges: 'الإنجازات', unlocked: 'مفتوح', newBadge: 'إنجاز جديد!', answered: 'تم تسجيل إجابتك.',
   },
   fr: {
     title: 'JUBA EDU', subtitle: 'Apprendre en jouant, progresser chaque jour', points: 'Points', streak: 'Série', level: 'Niveau',
@@ -49,7 +49,7 @@ const copy = {
     matchingDesc: 'Associe le mot à sa bonne traduction.', orderingDesc: 'Classe les éléments dans le bon ordre.', start: 'Commencer', next: 'Question suivante',
     correct: 'Bonne réponse !', wrong: 'Pas encore', hint: 'Indice', back: 'Jeux', score: 'Score de la partie', done: 'Bravo ! Partie terminée.',
     choose: 'Choisis la bonne réponse', reset: 'Réinitialiser', lang: 'Langue', xp: 'XP', skills: 'Compétences', stats: 'Tes statistiques',
-    gamesPlayed: 'Parties', questions: 'Questions', accuracy: 'Précision', best: 'Meilleur score', badges: 'Succès', unlocked: 'débloqué', newBadge: 'Nouveau succès !',
+    gamesPlayed: 'Parties', questions: 'Questions', accuracy: 'Précision', best: 'Meilleur score', badges: 'Succès', unlocked: 'débloqué', newBadge: 'Nouveau succès !', answered: 'Réponse enregistrée.',
   },
   en: {
     title: 'JUBA EDU', subtitle: 'Learn through play. Improve every day.', points: 'Points', streak: 'Streak', level: 'Level',
@@ -60,7 +60,7 @@ const copy = {
     matchingDesc: 'Match each word with the correct translation.', orderingDesc: 'Put the items in the correct order.', start: 'Start game', next: 'Next question',
     correct: 'Correct!', wrong: 'Not quite', hint: 'Hint', back: 'Games', score: 'Round score', done: 'Great job! Round complete.',
     choose: 'Choose the correct answer', reset: 'Reset progress', lang: 'Language', xp: 'XP', skills: 'Skills', stats: 'Your stats',
-    gamesPlayed: 'Games', questions: 'Questions', accuracy: 'Accuracy', best: 'Best score', badges: 'Achievements', unlocked: 'unlocked', newBadge: 'New achievement!',
+    gamesPlayed: 'Games', questions: 'Questions', accuracy: 'Accuracy', best: 'Best score', badges: 'Achievements', unlocked: 'unlocked', newBadge: 'New achievement!', answered: 'Answer recorded.',
   },
 } as const
 
@@ -69,6 +69,7 @@ export default function GamesPage() {
   const [game, setGame] = useState<GameId | null>(null)
   const [dailyMode, setDailyMode] = useState(false)
   const [question, setQuestion] = useState<GameSessionQuestion | null>(null)
+  const [sessionQuestions, setSessionQuestions] = useState<GameSessionQuestion[]>([])
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [answers, setAnswers] = useState<Array<{ question_id: string; choice: string }>>([])
   const [selected, setSelected] = useState<string | null>(null)
@@ -116,6 +117,7 @@ export default function GamesPage() {
       setSelected(null)
       setAnswers([])
       setSessionId(session.session_id)
+      setSessionQuestions(session.questions)
       setNewAchievements([])
       setRoundSkills({})
       setQuestion(session.questions[0] ?? null)
@@ -182,21 +184,7 @@ export default function GamesPage() {
     const nextRound = round + 1
     setRound(nextRound)
     setSelected(null)
-    setQuestion(null)
-    if (sessionId) {
-      void (async () => {
-        try {
-          const session = await startGameSession(game, lang, level)
-          setSessionId(session.session_id)
-          setAnswers([])
-          setQuestion(session.questions[nextRound] ?? null)
-        } catch {
-          setGame(null)
-          setQuestion(null)
-          setSessionId(null)
-        }
-      })()
-    }
+    setQuestion(sessionQuestions[nextRound] ?? null)
   }
 
   function reset() {
@@ -205,6 +193,7 @@ export default function GamesPage() {
     setDailyMode(false)
     setQuestion(null)
     setSessionId(null)
+    setSessionQuestions([])
     setAnswers([])
     setRound(0)
     setRoundScore(0)
@@ -317,7 +306,7 @@ export default function GamesPage() {
                 </div>
                 {selected && (
                   <div className="feedback good">
-                    <strong>{t.correct}</strong>
+                    <strong>{t.answered}</strong>
                     <span>{question.hint}</span>
                   </div>
                 )}
