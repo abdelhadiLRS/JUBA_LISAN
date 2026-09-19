@@ -74,12 +74,16 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
         const b = current.find(item => item.id === card.id)
         const samePair = Boolean(a && b && a.pair_key === b.pair_key)
         if (!samePair) return current.map(item => item.id === firstId || item.id === card.id ? { ...item, flipped: false } : item)
-        const updated = current.map(item => item.id === firstId || item.id === card.id ? { ...item, matched: true } : item)
-        if (updated.every(item => item.matched)) finish(trace)
-        return updated
+        return current.map(item => item.id === firstId || item.id === card.id ? { ...item, matched: true } : item)
       })
     }, 350)
   }
+
+  useEffect(() => {
+    if (!completed && mode === 'memory' && memoryCards.length > 0 && memoryCards.every(card => card.matched)) {
+      void finish(memoryTrace)
+    }
+  }, [completed, mode, memoryCards, memoryTrace])
 
   function chooseMatching(side: 'left' | 'right', id: string) {
     if (completed || matched.includes(id)) return
