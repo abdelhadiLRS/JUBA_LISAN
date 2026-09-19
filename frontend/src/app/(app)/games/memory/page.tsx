@@ -5,7 +5,6 @@ import { useSearchParams } from 'next/navigation'
 import { InteractiveGameBoard } from '@/components/games/InteractiveGameBoard'
 import '@/components/games/interactive-games.css'
 import { persistGameEvent } from '@/lib/games/persist'
-import { evaluateAchievements } from '@/lib/games/achievements'
 import { useProgressStore } from '@/store/progress'
 
 type Lang = 'ar' | 'fr' | 'en'
@@ -16,6 +15,7 @@ export default function MemoryGamePage() {
   const addGameXP = useProgressStore((state) => state.addGameXP)
   const recordGameAttempt = useProgressStore((state) => state.recordGameAttempt)
   const completeGame = useProgressStore((state) => state.completeGame)
+  const setProgress = useProgressStore((state) => state.setProgress)
 
   useEffect(() => {
     const value = searchParams.get('lang')
@@ -26,25 +26,28 @@ export default function MemoryGamePage() {
     addGameXP(25, 'memory', true)
     recordGameAttempt(true, result.questionsAnswered, result.correctAnswers)
     completeGame(25, false)
-    const state = useProgressStore.getState()
-    const unlocked = evaluateAchievements(
-      {
-        xp: state.xp,
-        skills: state.skills,
-        stats: state.gameStats,
-        roundScore: 25,
-        perfectRound: result.questionsAnswered > 0 && result.correctAnswers === result.questionsAnswered,
-        dailyChallengeCompleted: false,
-      },
-      state.achievements,
-    )
-    const fresh = unlocked.filter((id) => !state.achievements.includes(id))
-    if (fresh.length) state.unlockAchievements(fresh)
     void persistGameEvent({
       gameId: 'memory',
       questionsAnswered: result.questionsAnswered,
       correctAnswers: result.correctAnswers,
       roundScore: 25,
+    }).then((server) => {
+      setProgress({
+        streak: useProgressStore.getState().streak,
+        xp: server.total_xp,
+        skills: useProgressStore.getState().skills,
+        gameStats: {
+          gamesPlayed: server.games_played,
+          questionsAnswered: server.questions_answered,
+          correctAnswers: server.correct_answers,
+          bestRoundScore: server.best_round_score,
+          dailyChallengesCompleted: server.daily_challenges_completed,
+          lastDailyChallengeDate: server.last_daily_challenge_date,
+          currentCorrectStreak: server.current_correct_streak,
+          bestCorrectStreak: server.best_correct_streak,
+        },
+        achievements: server.achievements as import('@/lib/games/achievements').AchievementId[],
+      })
     }).catch(() => undefined)
 
   }
