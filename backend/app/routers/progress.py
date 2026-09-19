@@ -279,7 +279,7 @@ async def get_game_summary(
         current_correct_streak=entry.current_correct_streak,
         best_correct_streak=entry.best_correct_streak,
         achievements=entry.achievements or [],
-        skills=await _get_game_skills(db, plan),
+        skills=await _get_game_skills(db, current_user.id, plan),
     )
 
 
