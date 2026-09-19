@@ -33,7 +33,7 @@ export interface AchievementContext {
 
 export const ACHIEVEMENTS: Record<AchievementId, { xp: number; title: string; description: string }> = {
   first_game: { xp: 25, title: 'First Game', description: 'Complete your first game.' },
-  perfect_round: { xp: 50, title: 'Perfect Round', description: 'Answer all five questions correctly.' },
+  perfect_round: { xp: 50, title: 'Perfect Round', description: 'Complete a round without mistakes.' },
   streak_5: { xp: 40, title: 'On Fire', description: 'Reach a five-answer correct streak.' },
   xp_100: { xp: 25, title: 'Getting Started', description: 'Reach 100 XP.' },
   xp_500: { xp: 100, title: 'Rising Star', description: 'Reach 500 XP.' },
