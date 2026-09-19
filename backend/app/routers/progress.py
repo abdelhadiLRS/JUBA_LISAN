@@ -86,10 +86,15 @@ def _server_interactive_challenge(game_id: str, language: str, difficulty: int) 
         return {"type": "ordering", "items": shuffled}, {"target": [item["id"] for item in items]}
     raise ValueError("Unsupported interactive game")
 
-async def _get_game_skills(db: AsyncSession, plan: StudyPlan) -> dict[str, float]:
+async def _get_game_skills(
+    db: AsyncSession, user_id: int, plan: StudyPlan
+) -> dict[str, float]:
     result = await db.execute(
         select(Progress.skills)
-        .where(Progress.study_plan_id == plan.id)
+        .where(
+            Progress.user_id == user_id,
+            Progress.study_plan_id == plan.id,
+        )
         .order_by(Progress.date.desc())
         .limit(1)
     )
@@ -712,7 +717,7 @@ async def complete_game_session(
     plan = await db.get(StudyPlan, plan_id)
     if plan is None:
         raise HTTPException(status_code=409, detail="Study plan no longer exists")
-    skills = await _get_game_skills(db, plan)
+    skills = await _get_game_skills(db, user_id, plan)
     projected_skills = dict(skills)
     current_skill_before = float(projected_skills.get(current_skill, current_skill_score))
     projected_skills[current_skill] = round(
