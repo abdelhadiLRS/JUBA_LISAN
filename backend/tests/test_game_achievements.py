@@ -505,6 +505,7 @@ async def test_duplicate_event_conflict_rolls_back_game_completion(
 
     persisted_session = await db_session.get(GameSession, payload["session_id"])
     assert persisted_session is not None
+    await db_session.refresh(persisted_session)
     assert persisted_session.completed is False
 
     game_progress = (
