@@ -537,8 +537,11 @@ async def complete_game_session(
                     if pair_id not in seen_pairs:
                         seen_pairs.add(pair_id)
                         correct_answers += 1
-            questions_answered = len(data.interaction_trace)
-            if correct_answers != solution.get("pair_count") or len(seen_pairs) != solution.get("pair_count"):
+            # Attempts are interaction telemetry, not question count. Keep the
+            # scored question total fixed to the server-issued challenge size so
+            # clients cannot inflate XP by submitting many incorrect attempts.
+            questions_answered = solution.get("pair_count", 0)
+            if correct_answers != questions_answered or len(seen_pairs) != questions_answered:
                 raise HTTPException(status_code=422, detail="Memory challenge is not complete")
         elif session.game_id == "matching":
             pairs = solution.get("pairs", {})
@@ -553,8 +556,10 @@ async def complete_game_session(
                 if pairs.get(left_id) == right_id and left_id not in matched:
                     matched.add(left_id)
                     correct_answers += 1
-            questions_answered = len(data.interaction_trace)
-            if correct_answers != solution.get("pair_count"):
+            # Score the fixed server-issued pair count rather than the
+            # number of client-submitted attempts, preventing XP inflation.
+            questions_answered = solution.get("pair_count", 0)
+            if correct_answers != questions_answered:
                 raise HTTPException(status_code=422, detail="Matching challenge is not complete")
         else:
             items = {item["id"] for item in stored.get("public", {}).get("items", [])}
@@ -567,7 +572,9 @@ async def complete_game_session(
                 ) or len(sequence) != len(set(sequence)) or len(sequence) != len(items):
                     raise HTTPException(status_code=422, detail="Invalid ordering interaction")
                 attempts.append(sequence)
-            questions_answered = len(attempts)
+            # Ordering is one scored question regardless of how many
+            # intermediate reorder attempts the client submits.
+            questions_answered = 1
             correct_answers = 1 if attempts and attempts[-1] == target else 0
             if correct_answers != 1:
                 raise HTTPException(status_code=422, detail="Ordering challenge is not complete")
