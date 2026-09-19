@@ -12,7 +12,6 @@ import {
 import {
   ACHIEVEMENTS,
   evaluateAchievements,
-  emptyGameStats,
   type AchievementId,
 } from '@/lib/games/achievements'
 import { persistGameEvent } from '@/lib/games/persist'
