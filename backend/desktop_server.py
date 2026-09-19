@@ -2,6 +2,8 @@ import argparse
 
 import uvicorn
 
+from app.main import app
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="JUBA LISAN desktop backend")
@@ -10,7 +12,7 @@ def main() -> None:
     args = parser.parse_args()
 
     uvicorn.run(
-        "app.main:app",
+        app,
         host=args.host,
         port=args.port,
         workers=1,
