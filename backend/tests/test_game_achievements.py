@@ -894,3 +894,70 @@ async def test_valid_game_completion_creates_game_progress_once(client, test_use
     assert len(rows) == 1
     assert rows[0].games_played == 1
     assert rows[0].questions_answered == 5
+
+
+@pytest.mark.asyncio
+async def test_game_session_public_payload_never_exposes_answers(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    for game_id in ("math", "words", "sequence"):
+        started = await client.post(
+            "/api/progress/game-session",
+            json={"game_id": game_id, "language": "en", "difficulty": 1},
+            headers=headers,
+        )
+        assert started.status_code == 200
+        payload = started.json()
+        assert payload["questions"]
+        assert all("answer" not in question for question in payload["questions"])
+
+        session = await db_session.get(GameSession, payload["session_id"])
+        assert session is not None
+        assert all("answer" in question for question in session.questions)
+
+
+@pytest.mark.asyncio
+async def test_interactive_game_session_public_payload_never_exposes_solution(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    for game_id in ("memory", "matching", "ordering"):
+        started = await client.post(
+            "/api/progress/game-session",
+            json={"game_id": game_id, "language": "en", "difficulty": 1},
+            headers=headers,
+        )
+        assert started.status_code == 200
+        payload = started.json()
+        assert payload["interaction"]
+        assert "solution" not in payload["interaction"]
+
+        session = await db_session.get(GameSession, payload["session_id"])
+        assert session is not None
+        stored_interaction = session.questions[0]["interaction"]
+        assert "solution" in stored_interaction
