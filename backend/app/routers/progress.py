@@ -518,6 +518,11 @@ async def complete_game_session(
         raise HTTPException(status_code=422, detail="daily_challenge_date must be today")
 
     if session.game_id in {"memory", "matching", "ordering"}:
+        if data.answers:
+            raise HTTPException(
+                status_code=422,
+                detail="Interactive games accept interaction_trace instead of answers",
+            )
         if len(data.interaction_trace) > 100:
             raise HTTPException(status_code=422, detail="Too many interaction attempts")
         stored = session.questions[0].get("interaction", {})
