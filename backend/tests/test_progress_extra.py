@@ -271,7 +271,7 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     user, headers = test_user
     from tests.conftest import make_study_plan
 
-    await make_study_plan(
+    plan = await make_study_plan(
         db_session,
         user_id=user.id,
         cefr_level="A1",
@@ -315,7 +315,7 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     assert event_row.xp_earned == 160
 
     xp_rows = (
-        await db_session.execute(select(Progress.xp_earned).where(Progress.study_plan_id == 1))
+        await db_session.execute(select(Progress.xp_earned).where(Progress.study_plan_id == plan.id))
     ).scalars().all()
     assert sum(xp_rows) == 160
 
