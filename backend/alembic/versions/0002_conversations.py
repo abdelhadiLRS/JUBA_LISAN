@@ -34,20 +34,21 @@ def upgrade() -> None:
         "chat_history",
         sa.Column("conversation_id", sa.Integer(), nullable=True),
     )
-    op.create_foreign_key(
-        "fk_chat_history_conversation_id",
-        "chat_history",
-        "conversations",
-        ["conversation_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
+    with op.batch_alter_table("chat_history", recreate="auto") as batch_op:
+        batch_op.create_foreign_key(
+            "fk_chat_history_conversation_id",
+            "conversations",
+            ["conversation_id"],
+            ["id"],
+            ondelete="CASCADE",
+        )
     op.create_index("ix_chat_history_conversation_id", "chat_history", ["conversation_id"])
 
 
 def downgrade() -> None:
     op.drop_index("ix_chat_history_conversation_id", table_name="chat_history")
-    op.drop_constraint("fk_chat_history_conversation_id", "chat_history", type_="foreignkey")
+    with op.batch_alter_table("chat_history", recreate="auto") as batch_op:
+        batch_op.drop_constraint("fk_chat_history_conversation_id", type_="foreignkey")
     op.drop_column("chat_history", "conversation_id")
     op.drop_index("ix_conversations_user_id", table_name="conversations")
     op.drop_table("conversations")
