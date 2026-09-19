@@ -248,7 +248,7 @@ class ResourceCache:
         audio_files = []
         
         try:
-            for dirpath, dirnames, filenames in os.walk(self.audio_dir):
+            for dirpath, _dirnames, filenames in os.walk(self.audio_dir):
                 for filename in filenames:
                     filepath = Path(dirpath) / filename
                     if filepath.exists():
