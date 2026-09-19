@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { InteractiveGameBoard } from '@/components/games/InteractiveGameBoard'
 import '@/components/games/interactive-games.css'
-import { persistGameEvent } from '@/lib/games/persist'
+import { completeGameSession, startGameSession, type InteractiveGameChallenge, type InteractiveGameTrace } from '@/lib/games/persist'
 import { useProgressStore } from '@/store/progress'
 
 type Lang = 'ar' | 'fr' | 'en'
@@ -12,9 +12,9 @@ type Lang = 'ar' | 'fr' | 'en'
 export default function MemoryGamePage() {
   const searchParams = useSearchParams()
   const [lang, setLang] = useState<Lang>('ar')
-  const addGameXP = useProgressStore((state) => state.addGameXP)
-  const recordGameAttempt = useProgressStore((state) => state.recordGameAttempt)
-  const completeGame = useProgressStore((state) => state.completeGame)
+  const [sessionId, setSessionId] = useState<string | null>(null)
+  const [challenge, setChallenge] = useState<InteractiveGameChallenge>()
+  const [loading, setLoading] = useState(true)
   const setProgress = useProgressStore((state) => state.setProgress)
 
   useEffect(() => {
@@ -22,22 +22,26 @@ export default function MemoryGamePage() {
     if (value === 'ar' || value === 'fr' || value === 'en') setLang(value)
   }, [searchParams])
 
-  function complete(result: { questionsAnswered: number; correctAnswers: number }) {
-    const questionsAnswered = Math.max(0, Math.floor(result.questionsAnswered))
-    const correctAnswers = Math.max(0, Math.min(questionsAnswered, Math.floor(result.correctAnswers)))
-    const earnedXp = correctAnswers * 5 + (questionsAnswered - correctAnswers)
-    const roundScore = questionsAnswered > 0
-      ? Math.round((correctAnswers / questionsAnswered) * 25)
-      : 0
-    addGameXP(earnedXp, 'memory', correctAnswers > 0)
-    recordGameAttempt(correctAnswers === questionsAnswered && questionsAnswered > 0, questionsAnswered, correctAnswers)
-    completeGame(roundScore, false)
-    void persistGameEvent({
-      gameId: 'memory',
-      questionsAnswered,
-      correctAnswers,
-      roundScore,
-    }).then((server) => {
+  useEffect(() => {
+    let cancelled = false
+    setLoading(true)
+    setSessionId(null)
+    setChallenge(undefined)
+    void startGameSession('memory', lang, 1).then((session) => {
+      if (cancelled) return
+      setSessionId(session.session_id)
+      setChallenge(session.interaction)
+      setLoading(false)
+    }).catch(() => {
+      if (!cancelled) setLoading(false)
+    })
+    return () => { cancelled = true }
+  }, [lang])
+
+  async function complete(trace: InteractiveGameTrace[]) {
+    if (!sessionId) return false
+    try {
+      const server = await completeGameSession(sessionId, [], false, '', trace)
       setProgress({
         streak: useProgressStore.getState().streak,
         xp: server.total_xp,
@@ -54,8 +58,10 @@ export default function MemoryGamePage() {
         },
         achievements: server.achievements as import('@/lib/games/achievements').AchievementId[],
       })
-    }).catch(() => undefined)
-
+      return true
+    } catch {
+      return false
+    }
   }
 
   return (
@@ -67,7 +73,9 @@ export default function MemoryGamePage() {
           </button>
         ))}
       </div>
-      <InteractiveGameBoard mode="memory" lang={lang} onComplete={complete} />
+      {loading || !challenge ? <p className="interactive-instruction">Loading challenge…</p> : (
+        <InteractiveGameBoard mode="memory" lang={lang} challenge={challenge} onComplete={complete} />
+      )}
     </main>
   )
 }
