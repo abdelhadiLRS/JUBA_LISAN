@@ -574,3 +574,89 @@ async def test_game_session_rejects_invalid_language_and_difficulty(client, test
         headers=headers,
     )
     assert response.status_code == 422
+
+
+@pytest.mark.asyncio
+async def test_game_session_completion_uses_server_answers(client, test_user, db_session):
+    user, headers = test_user
+    from app.models.game_session import GameSession
+    from tests.conftest import make_study_plan
+
+    await make_study_plan(
+        db_session, user_id=user.id, cefr_level="A1", goals=["grammar"],
+        duration_weeks=4, days_per_week=4, current_unit="A1-u1",
+        generated_plan={}, is_active=True,
+    )
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    forged_answers = [
+        {"question_id": q["id"], "choice": q["choices"][0]}
+        for q in payload["questions"]
+    ]
+    response = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": forged_answers},
+        headers=headers,
+    )
+    assert response.status_code == 200
+
+    expected_correct = sum(
+        answer["choice"] == question["answer"]
+        for answer, question in zip(forged_answers, session.questions)
+    )
+    assert response.json()["questions_answered"] == 5
+    assert response.json()["correct_answers"] == expected_correct
+
+
+@pytest.mark.asyncio
+async def test_game_session_completion_rejects_replay_and_partial_answers(client, test_user, db_session):
+    user, headers = test_user
+    from tests.conftest import make_study_plan
+
+    await make_study_plan(
+        db_session, user_id=user.id, cefr_level="A1", goals=["grammar"],
+        duration_weeks=4, days_per_week=4, current_unit="A1-u1",
+        generated_plan={}, is_active=True,
+    )
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "sequence", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    payload = started.json()
+    partial = [{
+        "question_id": payload["questions"][0]["id"],
+        "choice": payload["questions"][0]["choices"][0],
+    }]
+    response = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": partial},
+        headers=headers,
+    )
+    assert response.status_code == 422
+
+    session = await db_session.get(__import__("app.models.game_session", fromlist=["GameSession"]).GameSession, payload["session_id"])
+    answers = [
+        {"question_id": q["id"], "choice": q["choices"][0]}
+        for q in payload["questions"]
+    ]
+    completed = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": answers},
+        headers=headers,
+    )
+    assert completed.status_code == 200
+    replay = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": answers},
+        headers=headers,
+    )
+    assert replay.status_code == 409
