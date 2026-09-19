@@ -39,6 +39,8 @@ async def update_daily_progress(
     )
     if not has_activity:
         return None
+    if study_plan_id is None:
+        raise ValueError("study_plan_id is required when recording activity")
 
     today = date.today()
 
