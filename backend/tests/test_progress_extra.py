@@ -881,3 +881,124 @@ async def test_game_session_cannot_be_completed_by_another_user(client, test_use
         headers=owner_headers,
     )
     assert owner_response.status_code == 200
+
+
+
+@pytest.mark.asyncio
+async def test_invalid_game_session_completion_does_not_consume_session(client, test_user, db_session):
+    """Validation failures must leave the server-issued session retryable."""
+    user, headers = test_user
+    from app.models.game_session import GameSession
+    from tests.conftest import make_study_plan
+
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+
+    invalid_answers = [
+        {"question_id": question["id"], "choice": "__forged__"}
+        for question in payload["questions"]
+    ]
+    rejected = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": invalid_answers},
+        headers=headers,
+    )
+    assert rejected.status_code == 422
+
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    assert session.completed is False
+
+    valid_answers = [
+        {"question_id": question["id"], "choice": question["choices"][0]}
+        for question in payload["questions"]
+    ]
+    completed = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": valid_answers},
+        headers=headers,
+    )
+    assert completed.status_code == 200
+
+    await db_session.refresh(session)
+    assert session.completed is True
+
+
+@pytest.mark.asyncio
+async def test_invalid_interactive_trace_does_not_consume_session(client, test_user, db_session):
+    """Interactive validation failures must also leave the session retryable."""
+    user, headers = test_user
+    from app.models.game_session import GameSession
+    from tests.conftest import make_study_plan
+
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["vocabulary"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "matching", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+
+    rejected = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": payload["session_id"],
+            "answers": [],
+            "interaction_trace": [{"left": "fake", "right": "fake"}],
+        },
+        headers=headers,
+    )
+    assert rejected.status_code == 422
+
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    assert session.completed is False
+
+    challenge = payload["interaction"]
+    right_by_pair = {
+        item["pair_key"]: item["id"] for item in challenge["right"]
+    }
+    trace = [
+        {"left": left["id"], "right": right_by_pair[left["pair_key"]]}
+        for left in challenge["left"]
+    ]
+    completed = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": payload["session_id"],
+            "answers": [],
+            "interaction_trace": trace,
+        },
+        headers=headers,
+    )
+    assert completed.status_code == 200
+
+    await db_session.refresh(session)
+    assert session.completed is True
