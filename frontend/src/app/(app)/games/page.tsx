@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react'
 import type { GameId, GameLanguage } from '@/lib/games/engine'
 import {
+  ACHIEVEMENTS,
   type AchievementId,
 } from '@/lib/games/achievements'
 import {
@@ -76,7 +77,6 @@ export default function GamesPage() {
   const [roundScore, setRoundScore] = useState(0)
   const [round, setRound] = useState(0)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
-  const [roundSkills, setRoundSkills] = useState<Record<string, { correct: number; total: number }>>({})
   const [dailyCompletedToday, setDailyCompletedToday] = useState(false)
 
   const {
@@ -119,7 +119,6 @@ export default function GamesPage() {
       setSessionId(session.session_id)
       setSessionQuestions(session.questions)
       setNewAchievements([])
-      setRoundSkills({})
       setQuestion(session.questions[0] ?? null)
     } catch {
       setGame(null)
