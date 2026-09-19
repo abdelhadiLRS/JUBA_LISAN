@@ -139,7 +139,7 @@ export default function FlashcardsPage() {
 
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
   const sessionProgress =
-    cards.length > 0 ? Math.round((current / cards.length) * 100) : 0
+    cards.length > 0 ? Math.round(((current + 1) / cards.length) * 100) : 0
 
   return (
     <div className="mx-auto max-w-4xl space-y-5 px-4 py-6 sm:px-6 md:py-8">
