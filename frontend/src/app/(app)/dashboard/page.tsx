@@ -161,10 +161,9 @@ export default function DashboardPage() {
 
   const loadData = useCallback(async () => {
     try {
-      const [progRes, planRes, dueRes] = await Promise.all([
+      const [progRes, planRes] = await Promise.all([
         apiFetch('/api/progress/summary'),
         apiFetch('/api/study-plan/today'),
-        apiFetch('/api/flashcards/due'),
       ])
       if (progRes.ok) {
         const prog = await progRes.json()
@@ -200,6 +199,11 @@ export default function DashboardPage() {
         setProgressDay(plan.progress_day ?? 0)
         setTotalDays(plan.total_days ?? 0)
         setPendingCount(plan.pending_count ?? 0)
+        setReviewDueCount(
+          typeof plan.review_due_count === 'number' && Number.isFinite(plan.review_due_count)
+            ? Math.max(0, plan.review_due_count)
+            : 0
+        )
         const normalizedLessons = normalizeDashboardLessons(plan.lessons)
         setTodayLessons(normalizedLessons)
         const currentCompleted = normalizedLessons.filter((lesson) => lesson.isCompleted).length
@@ -208,16 +212,10 @@ export default function DashboardPage() {
           target: normalizedLessons.length || 3,
         })
         
-        // Daily Momentum: Set next action and review count
+        // Daily Momentum: Set next action. Review count comes from the same
+        // study-plan response so the dashboard has one consistent source of truth.
         const next = normalizedLessons.find(l => !l.isCompleted && l.id !== null) || null
         setNextAction(next)
-        if (dueRes.ok) {
-          const due = await dueRes.json()
-          setReviewDueCount(Array.isArray(due?.due) ? due.due.length : 0)
-        } else {
-          setReviewDueCount(0)
-        }
-        
         setHasPlan(true)
       } else {
         setCefrLevel(null)
