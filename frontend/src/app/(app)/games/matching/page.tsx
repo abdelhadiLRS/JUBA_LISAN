@@ -15,11 +15,14 @@ export default function MatchingGamePage() {
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [challenge, setChallenge] = useState<InteractiveGameChallenge>()
   const [loading, setLoading] = useState(true)
+  const [difficulty, setDifficulty] = useState(1)
   const setProgress = useProgressStore((state) => state.setProgress)
 
   useEffect(() => {
     const value = searchParams.get('lang')
     if (value === 'ar' || value === 'fr' || value === 'en') setLang(value)
+    const rawDifficulty = Number(searchParams.get('difficulty'))
+    if (Number.isInteger(rawDifficulty) && rawDifficulty >= 1 && rawDifficulty <= 3) setDifficulty(rawDifficulty)
   }, [searchParams])
 
   useEffect(() => {
@@ -27,7 +30,7 @@ export default function MatchingGamePage() {
     setLoading(true)
     setSessionId(null)
     setChallenge(undefined)
-    void startGameSession('matching', lang, 1).then((session) => {
+    void startGameSession('matching', lang, difficulty).then((session) => {
       if (cancelled) return
       setSessionId(session.session_id)
       setChallenge(session.interaction)
@@ -36,7 +39,7 @@ export default function MatchingGamePage() {
       if (!cancelled) setLoading(false)
     })
     return () => { cancelled = true }
-  }, [lang])
+  }, [lang, difficulty])
 
   async function complete(trace: InteractiveGameTrace[]) {
     if (!sessionId) return false
