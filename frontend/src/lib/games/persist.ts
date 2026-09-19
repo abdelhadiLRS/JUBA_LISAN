@@ -60,3 +60,65 @@ export async function persistGameEvent(payload: GameEventPayload): Promise<Serve
 
   throw new Error('Game event failed')
 }
+
+export type GameSessionQuestion = {
+  id: string
+  prompt: string
+  choices: string[]
+  hint: string
+  skill: string
+  difficulty: number
+}
+
+export type GameSessionStartResponse = {
+  session_id: string
+  game_id: string
+  questions: GameSessionQuestion[]
+  expires_at: string
+}
+
+export type GameSessionResult = ServerGameStats & {
+  round_score: number
+  round_correct: number
+  round_questions: number
+  xp_earned: number
+  new_achievements: string[]
+}
+
+export async function startGameSession(
+  gameId: string,
+  language: 'ar' | 'fr' | 'en',
+  difficulty: number,
+): Promise<GameSessionStartResponse> {
+  const response = await apiFetch('/api/progress/game-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      game_id: gameId,
+      language,
+      difficulty: Math.min(3, Math.max(1, Math.floor(difficulty))),
+    }),
+  })
+  if (!response.ok) throw new Error(`Game session start failed: ${response.status}`)
+  return response.json() as Promise<GameSessionStartResponse>
+}
+
+export async function completeGameSession(
+  sessionId: string,
+  answers: Array<{ question_id: string; choice: string }>,
+  dailyChallenge = false,
+  dailyChallengeDate = '',
+): Promise<GameSessionResult> {
+  const response = await apiFetch('/api/progress/game-session/complete', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      session_id: sessionId,
+      answers,
+      daily_challenge: dailyChallenge,
+      daily_challenge_date: dailyChallengeDate,
+    }),
+  })
+  if (!response.ok) throw new Error(`Game session completion failed: ${response.status}`)
+  return response.json() as Promise<GameSessionResult>
+}
