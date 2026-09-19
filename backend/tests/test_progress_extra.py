@@ -296,6 +296,7 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     response = await client.post("/api/progress/game-event", json=event, headers=headers)
     assert response.status_code == 200
     first = response.json()
+    assert first["total_xp"] == 160
     assert first["games_played"] == 1
     assert first["questions_answered"] == 5
     assert first["correct_answers"] == 5
@@ -322,6 +323,7 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     response = await client.post("/api/progress/game-event", json=event, headers=headers)
     assert response.status_code == 200
     duplicate = response.json()
+    assert duplicate["total_xp"] == 160
     assert duplicate["games_played"] == 1
     assert duplicate["questions_answered"] == 5
     assert duplicate["correct_answers"] == 5
@@ -344,6 +346,7 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     )
     assert response.status_code == 200
     data = response.json()
+    assert data["total_xp"] == 216
     assert data["games_played"] == 2
     assert data["questions_answered"] == 10
     assert data["correct_answers"] == 8
