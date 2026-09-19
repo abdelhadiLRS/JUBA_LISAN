@@ -247,6 +247,52 @@ describe('useProgressStore — game skill XP', () => {
   })
 })
 
+describe('useProgressStore — completeGame', () => {
+  beforeEach(() => {
+    useProgressStore.setState({
+      streak: 0,
+      xp: 0,
+      skills: {},
+      gameStats: {
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestRoundScore: 0,
+        dailyChallengesCompleted: 0,
+        lastDailyChallengeDate: '',
+        currentCorrectStreak: 0,
+        bestCorrectStreak: 0,
+      },
+      achievements: [],
+      todayLessons: [],
+      completedToday: [],
+      currentUnitId: '',
+      currentPlanDurationWeeks: 12,
+      unitProgress: {},
+      levelTestUnlocked: false,
+      levelTestResult: null,
+    })
+  })
+
+  it('records a completed interactive game', () => {
+    useProgressStore.getState().completeGame(25, false)
+
+    expect(useProgressStore.getState().gameStats.gamesPlayed).toBe(1)
+    expect(useProgressStore.getState().gameStats.bestRoundScore).toBe(25)
+  })
+
+  it('does not award the daily challenge twice on the same date', () => {
+    useProgressStore.getState().completeGame(25, true, '2026-09-19')
+    useProgressStore.getState().completeGame(40, true, '2026-09-19')
+
+    const stats = useProgressStore.getState().gameStats
+    expect(stats.gamesPlayed).toBe(2)
+    expect(stats.dailyChallengesCompleted).toBe(1)
+    expect(stats.lastDailyChallengeDate).toBe('2026-09-19')
+    expect(stats.bestRoundScore).toBe(40)
+  })
+})
+
 describe('useProgressStore — setTodayLessons', () => {
   beforeEach(() => {
     useProgressStore.setState({
