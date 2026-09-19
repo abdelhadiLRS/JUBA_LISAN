@@ -725,3 +725,93 @@ async def test_game_session_daily_date_is_validated_before_persistence(client, t
         )
     ).scalar_one_or_none()
     assert entry is None
+
+
+@pytest.mark.asyncio
+async def test_interactive_memory_session_verifies_server_challenge(client, test_user, db_session):
+    user, headers = test_user
+    from tests.conftest import make_study_plan
+    await make_study_plan(
+        db_session, user_id=user.id, cefr_level="A1", goals=["vocabulary"],
+        duration_weeks=4, days_per_week=4, current_unit="A1-u1",
+        generated_plan={}, is_active=True,
+    )
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "memory", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+    challenge = payload["interaction"]
+    groups = {}
+    for card in challenge["cards"]:
+        groups.setdefault(card["pair_key"], []).append(card["id"])
+    trace = [{"first": ids[0], "second": ids[1]} for ids in groups.values()]
+    completed = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": [], "interaction_trace": trace},
+        headers=headers,
+    )
+    assert completed.status_code == 200
+    result = completed.json()
+    assert result["round_correct"] == len(groups)
+    assert result["round_questions"] == len(groups)
+    assert result["round_score"] == 25
+
+
+@pytest.mark.asyncio
+async def test_interactive_matching_rejects_fabricated_ids(client, test_user, db_session):
+    user, headers = test_user
+    from tests.conftest import make_study_plan
+    await make_study_plan(
+        db_session, user_id=user.id, cefr_level="A1", goals=["vocabulary"],
+        duration_weeks=4, days_per_week=4, current_unit="A1-u1",
+        generated_plan={}, is_active=True,
+    )
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "matching", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+    completed = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": payload["session_id"],
+            "answers": [],
+            "interaction_trace": [{"left": "fake", "right": "fake"}],
+        },
+        headers=headers,
+    )
+    assert completed.status_code == 422
+
+
+@pytest.mark.asyncio
+async def test_interactive_ordering_uses_trace_and_rejects_incomplete_round(client, test_user, db_session):
+    user, headers = test_user
+    from tests.conftest import make_study_plan
+    await make_study_plan(
+        db_session, user_id=user.id, cefr_level="A1", goals=["vocabulary"],
+        duration_weeks=4, days_per_week=4, current_unit="A1-u1",
+        generated_plan={}, is_active=True,
+    )
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "ordering", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+    ids = [item["id"] for item in payload["interaction"]["items"]]
+    incomplete = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": payload["session_id"],
+            "answers": [],
+            "interaction_trace": [{"order": ids[:-1]}],
+        },
+        headers=headers,
+    )
+    assert incomplete.status_code == 422
