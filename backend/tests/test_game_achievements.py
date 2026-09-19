@@ -147,3 +147,65 @@ async def test_game_achievement_xp_500_can_be_crossed_in_one_round(
     ).scalar_one()
     assert game_progress.achievements.count("xp_100") == 1
     assert game_progress.achievements.count("xp_500") == 1
+
+
+@pytest.mark.asyncio
+async def test_daily_challenge_is_counted_once_per_day(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    first_started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert first_started.status_code == 200
+    first_payload = first_started.json()
+    first_session = await db_session.get(GameSession, first_payload["session_id"])
+    assert first_session is not None
+    for question in first_session.questions:
+        question["answer"] = question["choices"][0]
+    await db_session.commit()
+
+    answers = [
+        {"question_id": question["id"], "choice": question["choices"][0]}
+        for question in first_payload["questions"]
+    ]
+    daily_date = date.today().isoformat()
+    first = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": first_payload["session_id"],
+            "answers": answers,
+            "daily_challenge": True,
+            "daily_challenge_date": daily_date,
+        },
+        headers=headers,
+    )
+    assert first.status_code == 200
+    assert "daily_challenge" in first.json()["new_achievements"]
+    assert first.json()["daily_challenges_completed"] == 1
+
+    second = await _start_perfect_round(client, headers, db_session)
+    assert "daily_challenge" not in second["new_achievements"]
+
+    game_progress = (
+        await db_session.execute(
+            select(GameProgress).where(GameProgress.user_id == user.id)
+        )
+    ).scalar_one()
+    assert game_progress.daily_challenges_completed == 1
+    assert game_progress.last_daily_challenge_date == daily_date
+    assert game_progress.achievements.count("daily_challenge") == 1
