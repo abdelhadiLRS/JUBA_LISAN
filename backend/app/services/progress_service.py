@@ -18,7 +18,7 @@ async def update_daily_progress(
     db: AsyncSession,
     user_id: int,
     *,
-    study_plan_id: int | None = None,
+    study_plan_id: int,
     lesson_completed: bool = False,
     exercise_correct: bool | None = None,
     flashcard_reviewed: bool = False,
@@ -39,14 +39,13 @@ async def update_daily_progress(
     )
     if not has_activity:
         return None
-    if study_plan_id is None:
-        raise ValueError("study_plan_id is required when recording activity")
 
     today = date.today()
 
-    base_filter = [Progress.user_id == user_id]
-    if study_plan_id is not None:
-        base_filter.append(Progress.study_plan_id == study_plan_id)
+    base_filter = [
+        Progress.user_id == user_id,
+        Progress.study_plan_id == study_plan_id,
+    ]
 
     result = await db.execute(select(Progress).where(*base_filter, Progress.date == today))
     entry = result.scalar_one_or_none()
@@ -140,7 +139,7 @@ async def upsert_unit_competency(
             row = UserCompetency(
                 user_id=user_id,
                 unit_id=unit_id,
-                competency_text=text,
+                competency_text=competency_text,
                 score=lesson_score,
                 mastered=lesson_score >= 0.80,
                 updated_at=now,
