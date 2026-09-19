@@ -204,6 +204,8 @@ async def test_activity_after_yesterday_continues_streak(db_session, test_user):
 async def test_empty_game_progress_is_rejected_without_creating_progress(client, test_user, db_session):
     user, headers = test_user
 
+    from sqlalchemy import select
+
     from app.models.progress import Progress
     from tests.conftest import make_study_plan
 
