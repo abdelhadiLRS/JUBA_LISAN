@@ -288,16 +288,17 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
             vocab_sets = get_vocabulary_by_level(level, target_language)
             entries = [word for vocab_set in vocab_sets for word in vocab_set.words]
             rng.shuffle(entries)
-            selected = entries[:4]
-            if len(selected) < 4:
+            selected = entries[:5]
+            if len(selected) < 5:
                 fallback = [
                     ("hello", "a greeting"),
                     ("water", "a liquid people drink"),
                     ("school", "a place where people learn"),
                     ("book", "a written work"),
+                    ("friend", "a person you know and like"),
                 ]
                 selected = [type("VocabularyFallback", (), {"word": w, "definition": d})() for w, d in fallback]
-            entry = selected[index % len(selected)]
+            entry = selected[index]
             correct = entry.definition.strip()
             distractors = list(dict.fromkeys(
                 item.definition.strip() for item in selected if item.definition.strip() != correct
