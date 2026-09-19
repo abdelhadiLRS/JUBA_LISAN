@@ -267,11 +267,11 @@ def test_game_progress_schema_discards_invalid_only_skills():
 
 
 @pytest.mark.asyncio
-async def test_game_summary_persists_and_merges_stats(client, test_user, db_session):
+async def test_game_event_is_idempotent_and_server_aggregated(client, test_user, db_session):
     user, headers = test_user
     from tests.conftest import make_study_plan
 
-    plan = await make_study_plan(
+    await make_study_plan(
         db_session,
         user_id=user.id,
         cefr_level="A1",
@@ -283,33 +283,44 @@ async def test_game_summary_persists_and_merges_stats(client, test_user, db_sess
         is_active=True,
     )
 
-    payload = {
-        "games_played": 2,
-        "questions_answered": 10,
-        "correct_answers": 8,
-        "best_round_score": 25,
-        "daily_challenges_completed": 1,
-        "last_daily_challenge_date": "2026-09-19",
-        "current_correct_streak": 4,
-        "best_correct_streak": 4,
+    event = {
+        "event_id": "2f8d6b2e-8a6b-4c52-9a8a-2d6a2a1f9b10",
+        "game_id": "memory",
+        "questions_answered": 5,
+        "correct_answers": 5,
+        "round_score": 25,
+        "daily_challenge": True,
+        "daily_challenge_date": "2026-09-19",
         "achievements": ["first_game", "perfect_round"],
     }
-    response = await client.post("/api/progress/game-summary", json=payload, headers=headers)
+    response = await client.post("/api/progress/game-event", json=event, headers=headers)
     assert response.status_code == 200
-    assert response.json()["games_played"] == 2
-    assert response.json()["achievements"] == ["first_game", "perfect_round"]
+    first = response.json()
+    assert first["games_played"] == 1
+    assert first["questions_answered"] == 5
+    assert first["correct_answers"] == 5
+    assert first["current_correct_streak"] == 5
+    assert first["best_correct_streak"] == 5
+    assert first["daily_challenges_completed"] == 1
+
+    response = await client.post("/api/progress/game-event", json=event, headers=headers)
+    assert response.status_code == 200
+    duplicate = response.json()
+    assert duplicate["games_played"] == 1
+    assert duplicate["questions_answered"] == 5
+    assert duplicate["correct_answers"] == 5
 
     response = await client.post(
-        "/api/progress/game-summary",
+        "/api/progress/game-event",
         json={
-            **payload,
-            "games_played": 1,
-            "questions_answered": 4,
+            **event,
+            "event_id": "7d8c1b9f-31a0-4e52-91d4-5b2f9a6c8e11",
+            "game_id": "ordering",
+            "questions_answered": 5,
             "correct_answers": 3,
-            "best_round_score": 10,
-            "daily_challenges_completed": 0,
-            "current_correct_streak": 1,
-            "best_correct_streak": 2,
+            "round_score": 10,
+            "daily_challenge": False,
+            "daily_challenge_date": "",
             "achievements": ["streak_5"],
         },
         headers=headers,
@@ -321,7 +332,8 @@ async def test_game_summary_persists_and_merges_stats(client, test_user, db_sess
     assert data["correct_answers"] == 8
     assert data["best_round_score"] == 25
     assert data["daily_challenges_completed"] == 1
-    assert data["best_correct_streak"] == 4
+    assert data["current_correct_streak"] == 0
+    assert data["best_correct_streak"] == 5
     assert data["achievements"] == ["first_game", "perfect_round", "streak_5"]
 
     response = await client.get("/api/progress/game-summary", headers=headers)
@@ -330,4 +342,31 @@ async def test_game_summary_persists_and_merges_stats(client, test_user, db_sess
     assert summary["games_played"] == 2
     assert summary["questions_answered"] == 10
     assert summary["correct_answers"] == 8
-    assert summary["achievements"] == ["first_game", "perfect_round", "streak_5"]
+
+
+@pytest.mark.asyncio
+async def test_legacy_game_summary_sync_is_rejected(client, test_user):
+    _, headers = test_user
+    response = await client.post(
+        "/api/progress/game-summary",
+        json={"games_played": 999, "questions_answered": 999, "correct_answers": 999},
+        headers=headers,
+    )
+    assert response.status_code == 410
+
+
+@pytest.mark.asyncio
+async def test_game_event_rejects_invalid_counters(client, test_user):
+    _, headers = test_user
+    response = await client.post(
+        "/api/progress/game-event",
+        json={
+            "event_id": "f5b5f4d8-4c41-4cb0-9c17-2a8f4b2e9d77",
+            "game_id": "memory",
+            "questions_answered": 2,
+            "correct_answers": 3,
+            "round_score": 10,
+        },
+        headers=headers,
+    )
+    assert response.status_code == 422
