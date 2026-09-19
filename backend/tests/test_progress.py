@@ -291,6 +291,46 @@ async def test_game_progress_counts_questions_without_xp(client, test_user, db_s
 
 
 @pytest.mark.asyncio
+async def test_game_progress_records_skills_without_xp_or_questions(client, test_user, db_session):
+    """A skills-only game result must be recorded as activity."""
+    user, headers = test_user
+
+    from sqlalchemy import select
+
+    from app.models.progress import Progress
+    from tests.conftest import make_study_plan
+
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    await db_session.commit()
+
+    response = await client.post(
+        "/api/progress/game",
+        headers=headers,
+        json={"xp": 0, "questions_answered": 0, "skills": {"grammar": 0.8}},
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["xp_earned"] == 0
+    assert data["exercises_total"] == 0
+    assert data["exercises_correct"] == 0
+    assert data["skills"]["grammar"] == 0.8
+
+    result = await db_session.execute(select(Progress).where(Progress.user_id == user.id))
+    assert len(result.scalars().all()) == 1
+
+
+@pytest.mark.asyncio
 async def test_same_day_activity_accumulates_in_one_progress_row(db_session, test_user):
     user, _ = test_user
 
