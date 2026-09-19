@@ -20,7 +20,7 @@ from app.models.game_session import GameSession
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import (GameProgressEventCreate, GameSessionResponse, GameSessionStart, GameStatsResponse, ProgressHistoryResponse, ProgressResponse, ProgressSummary)
+from app.schemas.progress import (GameProgressEventCreate, GameSessionComplete, GameSessionResponse, GameSessionStart, GameStatsResponse, ProgressHistoryResponse, ProgressResponse, ProgressSummary)
 from app.services.progress_service import get_unit_competencies, update_daily_progress
 from app.services.user_language_service import get_active_language
 
@@ -352,6 +352,133 @@ async def start_game_session(
         questions=public_questions,
         expires_at=expires_at.isoformat(),
     )
+
+
+@router.post("/game-session/complete", response_model=GameStatsResponse)
+@limiter.limit("30/minute")
+async def complete_game_session(
+    request: Request,
+    data: GameSessionComplete,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Verify a server-issued round and persist only server-derived results."""
+    plan = await _get_active_plan_or_none(db, current_user.id)
+    if plan is None:
+        raise HTTPException(status_code=404, detail="No active study plan found")
+
+    session = await db.get(GameSession, data.session_id)
+    if session is None or session.user_id != current_user.id or session.study_plan_id != plan.id:
+        raise HTTPException(status_code=404, detail="Game session not found")
+    if session.completed:
+        raise HTTPException(status_code=409, detail="Game session already completed")
+    now = datetime.now(UTC).replace(tzinfo=None)
+    if now > session.expires_at:
+        raise HTTPException(status_code=410, detail="Game session expired")
+
+    expected = {item["id"]: item for item in session.questions}
+    if len(data.answers) != len(expected) or set(item.question_id for item in data.answers) != set(expected):
+        raise HTTPException(status_code=422, detail="Exactly one answer is required for every question")
+
+    correct_answers = 0
+    for submitted in data.answers:
+        question = expected[submitted.question_id]
+        if submitted.choice not in question["choices"]:
+            raise HTTPException(status_code=422, detail="Invalid choice for game question")
+        if submitted.choice == question["answer"]:
+            correct_answers += 1
+
+    questions_answered = len(expected)
+    round_score = round((correct_answers / questions_answered) * 25)
+    event_id = str(uuid4())
+    base_xp = correct_answers * 5 + (questions_answered - correct_answers)
+    total_before_result = await db.execute(
+        select(Progress.xp_earned).where(Progress.study_plan_id == plan.id)
+    )
+    total_xp_before = sum(total_before_result.scalars().all())
+
+    existing = await db.execute(
+        select(GameProgress).where(
+            GameProgress.user_id == current_user.id,
+            GameProgress.study_plan_id == plan.id,
+        )
+    )
+    entry = existing.scalar_one_or_none()
+    if entry is None:
+        entry = GameProgress(user_id=current_user.id, study_plan_id=plan.id, achievements=[])
+        db.add(entry)
+        await db.flush()
+
+    entry.games_played += 1
+    entry.questions_answered += questions_answered
+    entry.correct_answers += correct_answers
+    entry.best_round_score = max(entry.best_round_score, round_score)
+    if data.daily_challenge:
+        if data.daily_challenge_date != date.today().isoformat():
+            raise HTTPException(status_code=422, detail="daily_challenge_date must be today")
+        if entry.last_daily_challenge_date != data.daily_challenge_date:
+            entry.daily_challenges_completed += 1
+            entry.last_daily_challenge_date = data.daily_challenge_date
+
+    if correct_answers == questions_answered:
+        entry.current_correct_streak += correct_answers
+        entry.best_correct_streak = max(entry.best_correct_streak, entry.current_correct_streak)
+    else:
+        entry.current_correct_streak = 0
+
+    candidates = []
+    if entry.games_played == 1:
+        candidates.append("first_game")
+    if correct_answers == questions_answered:
+        candidates.append("perfect_round")
+    if entry.best_correct_streak >= 5:
+        candidates.append("streak_5")
+    if data.daily_challenge:
+        candidates.append("daily_challenge")
+
+    current_skill = GAME_SKILL_MAP[session.game_id]
+    current_skill_score = correct_answers / questions_answered
+    skills = await _get_game_skills(db, plan)
+    projected_skills = dict(skills)
+    projected_skills[current_skill] = current_skill_score
+    if sum(1 for score in projected_skills.values() if float(score) > 0) >= 3:
+        candidates.append("multi_skill")
+
+    rewards = {
+        "first_game": 25, "perfect_round": 50, "streak_5": 40,
+        "xp_100": 25, "xp_500": 100, "daily_challenge": 60, "multi_skill": 75,
+    }
+    existing_achievements = set(entry.achievements or [])
+    fresh = [item for item in dict.fromkeys(candidates) if item not in existing_achievements]
+    achievement_xp = sum(rewards[item] for item in fresh)
+    projected_xp = total_xp_before + base_xp + achievement_xp
+    if projected_xp >= 100 and "xp_100" not in existing_achievements:
+        fresh.append("xp_100")
+        achievement_xp += rewards["xp_100"]
+        projected_xp += rewards["xp_100"]
+    if projected_xp >= 500 and "xp_500" not in existing_achievements:
+        fresh.append("xp_500")
+        achievement_xp += rewards["xp_500"]
+
+    entry.achievements = list(dict.fromkeys([*(entry.achievements or []), *fresh]))
+    progress_entry = await update_daily_progress(
+        db, current_user.id, study_plan_id=plan.id,
+        xp=base_xp + achievement_xp, skill=current_skill,
+        skill_score=current_skill_score, commit=False,
+    )
+    if progress_entry is None:
+        raise HTTPException(status_code=500, detail="Unable to persist game XP")
+
+    db.add(GameProgressEvent(
+        event_id=event_id, user_id=current_user.id, study_plan_id=plan.id,
+        game_id=session.game_id, questions_answered=questions_answered,
+        correct_answers=correct_answers, round_score=round_score,
+        daily_challenge=data.daily_challenge, daily_challenge_date=data.daily_challenge_date,
+        achievements=fresh, xp_earned=base_xp + achievement_xp,
+    ))
+    session.completed = True
+    await db.commit()
+    return await get_game_summary(request=request, current_user=current_user, db=db)
 
 
 @router.post("/game-event", response_model=GameStatsResponse)
