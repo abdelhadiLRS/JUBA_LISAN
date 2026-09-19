@@ -18,20 +18,20 @@ depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
-    op.alter_column(
-        "users",
-        "monthly_tokens_limit",
-        existing_type=sa.Integer(),
-        server_default="1000000",
-        existing_nullable=False,
-    )
+    with op.batch_alter_table("users", recreate="auto") as batch_op:
+        batch_op.alter_column(
+            "monthly_tokens_limit",
+            existing_type=sa.Integer(),
+            server_default="1000000",
+            existing_nullable=False,
+        )
 
 
 def downgrade() -> None:
-    op.alter_column(
-        "users",
-        "monthly_tokens_limit",
-        existing_type=sa.Integer(),
-        server_default="0",
-        existing_nullable=False,
-    )
+    with op.batch_alter_table("users", recreate="auto") as batch_op:
+        batch_op.alter_column(
+            "monthly_tokens_limit",
+            existing_type=sa.Integer(),
+            server_default="0",
+            existing_nullable=False,
+        )
