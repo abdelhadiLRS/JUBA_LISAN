@@ -15,7 +15,7 @@ from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
 from app.schemas.progress import GameProgressUpdate, ProgressHistoryResponse, ProgressResponse, ProgressSummary
-from app.services.progress_service import get_unit_competencies
+from app.services.progress_service import get_unit_competencies, update_daily_progress
 from app.services.user_language_service import get_active_language
 
 router = APIRouter(prefix="/api/progress", tags=["progress"])
