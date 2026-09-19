@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from datetime import date
 
 from pydantic import BaseModel, Field, field_serializer, field_validator
@@ -54,7 +55,7 @@ class GameProgressUpdate(BaseModel):
         for skill, score in value.items():
             if not isinstance(skill, str) or not skill.strip():
                 continue
-            if not isinstance(score, (int, float)) or not __import__("math").isfinite(float(score)):
+            if not isinstance(score, (int, float)) or not math.isfinite(float(score)):
                 continue
             normalized[skill.strip()] = max(0.0, min(1.0, float(score)))
         return normalized
