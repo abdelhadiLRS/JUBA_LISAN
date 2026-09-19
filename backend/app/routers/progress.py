@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 from typing import cast
 
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -113,7 +113,7 @@ async def get_summary(
     latest_date = all_entries[0].date
     current_streak = (
         all_entries[0].streak_day
-        if latest_date >= date.today() - __import__("datetime").timedelta(days=1)
+        if latest_date >= date.today() - timedelta(days=1)
         else 0
     )
 
