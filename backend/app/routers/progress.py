@@ -20,7 +20,7 @@ from app.models.game_session import GameSession
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import (GameProgressEventCreate, GameSessionComplete, GameSessionResponse, GameSessionStart, GameStatsResponse, ProgressHistoryResponse, ProgressResponse, ProgressSummary)
+from app.schemas.progress import (GameProgressEventCreate, GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, ProgressHistoryResponse, ProgressResponse, ProgressSummary)
 from app.services.progress_service import get_unit_competencies, update_daily_progress
 from app.services.user_language_service import get_active_language
 
@@ -221,7 +221,7 @@ async def get_game_summary(
     )
 
 
-def _server_game_questions(game_id: str, language: str, difficulty: int) -> list[dict]:
+def _server_game_questions(game_id: str, language: str, difficulty: int, target_language: str = "en-GB") -> list[dict]:
     rng = random.SystemRandom()
     hints = {
         "ar": "فكّر بهدوء قبل اختيار الإجابة.",
@@ -231,6 +231,51 @@ def _server_game_questions(game_id: str, language: str, difficulty: int) -> list
     questions: list[dict] = []
     for index in range(5):
         question_id = str(uuid4())
+        if game_id == "words":
+            level = cast(CEFRLevel, {1: "A1", 2: "A2", 3: "B1"}[difficulty])
+            vocab_sets = get_vocabulary_by_level(level, target_language)
+            entries = [word for vocab_set in vocab_sets for word in vocab_set.words]
+            rng.shuffle(entries)
+            selected = entries[:4]
+            if len(selected) < 4:
+                fallback = [
+                    ("hello", "a greeting"),
+                    ("water", "a liquid people drink"),
+                    ("school", "a place where people learn"),
+                    ("book", "a written work"),
+                ]
+                selected = [type("VocabularyFallback", (), {"word": w, "definition": d})() for w, d in fallback]
+            entry = selected[index % len(selected)]
+            correct = entry.definition.strip()
+            distractors = list(dict.fromkeys(
+                item.definition.strip() for item in selected if item.definition.strip() != correct
+            ))[:3]
+            choices = [correct, *distractors]
+            while len(choices) < 4:
+                choices.append(f"{correct} ({len(choices) + 1})")
+            rng.shuffle(choices)
+            prompt = (
+                f"What does '{entry.word}' mean?"
+                if language == "en"
+                else (f"Que signifie '{entry.word}' ?" if language == "fr"
+                      else f"ماذا تعني كلمة «{entry.word}»؟")
+            )
+            questions.append({
+                "id": str(uuid4()),
+                "prompt": prompt,
+                "choices": choices,
+                "answer": correct,
+                "hint": (
+                    "Choose the definition that best matches the word."
+                    if language == "en"
+                    else ("Choisis la définition qui correspond au mot."
+                          if language == "fr" else "اختر التعريف المطابق للكلمة.")
+                ),
+                "skill": "vocabulary",
+                "difficulty": difficulty,
+                "topic": "vocabulary",
+            })
+            continue
         if game_id == "math":
             maximum = {1: 18, 2: 60, 3: 150}[difficulty]
             a, b = 2 + rng.randrange(maximum), 2 + rng.randrange(maximum)
@@ -327,7 +372,7 @@ async def start_game_session(
     session_id = str(uuid4())
     now = datetime.now(UTC).replace(tzinfo=None)
     expires_at = now + timedelta(minutes=15)
-    questions = _server_game_questions(data.game_id, data.language, data.difficulty)
+    questions = _server_game_questions(data.game_id, data.language, data.difficulty, plan.target_language)
     session = GameSession(
         id=session_id,
         user_id=current_user.id,
@@ -375,6 +420,8 @@ async def complete_game_session(
     now = datetime.now(UTC).replace(tzinfo=None)
     if now > session.expires_at:
         raise HTTPException(status_code=410, detail="Game session expired")
+    if data.daily_challenge and data.daily_challenge_date != date.today().isoformat():
+        raise HTTPException(status_code=422, detail="daily_challenge_date must be today")
 
     expected = {item["id"]: item for item in session.questions}
     if len(data.answers) != len(expected) or set(item.question_id for item in data.answers) != set(expected):
@@ -414,8 +461,6 @@ async def complete_game_session(
     entry.correct_answers += correct_answers
     entry.best_round_score = max(entry.best_round_score, round_score)
     if data.daily_challenge:
-        if data.daily_challenge_date != date.today().isoformat():
-            raise HTTPException(status_code=422, detail="daily_challenge_date must be today")
         if entry.last_daily_challenge_date != data.daily_challenge_date:
             entry.daily_challenges_completed += 1
             entry.last_daily_challenge_date = data.daily_challenge_date
@@ -478,7 +523,15 @@ async def complete_game_session(
     ))
     session.completed = True
     await db.commit()
-    return await get_game_summary(request=request, current_user=current_user, db=db)
+    summary = await get_game_summary(request=request, current_user=current_user, db=db)
+    return GameSessionResultResponse(
+        **summary.model_dump(),
+        round_score=round_score,
+        round_correct=correct_answers,
+        round_questions=questions_answered,
+        xp_earned=base_xp + achievement_xp,
+        new_achievements=fresh,
+    )
 
 
 @router.post("/game-event", response_model=GameStatsResponse)
