@@ -355,8 +355,6 @@ jobs:
             }
           } finally {
             if (-not $renderer.HasExited) { $renderer.Kill(); $renderer.WaitForExit() }
-            $renderer.CancelOutputRead()
-            $renderer.CancelErrorRead()
             Get-EventSubscriber | Where-Object { $_.SourceObject -eq $renderer } | Unregister-Event -Force -ErrorAction SilentlyContinue
             if (-not $backend.HasExited) { $backend.Kill(); $backend.WaitForExit() }
           }
