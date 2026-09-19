@@ -269,10 +269,12 @@ jobs:
           [void]$rendererPsi.ArgumentList.Add($rendererServer)
           $rendererPsi.UseShellExecute = $false
           $rendererPsi.CreateNoWindow = $true
-          $rendererPsi.RedirectStandardOutput = $false
-          $rendererPsi.RedirectStandardError = $false
+          $rendererPsi.RedirectStandardOutput = $true
+          $rendererPsi.RedirectStandardError = $true
           $rendererPsi.WorkingDirectory = (Split-Path $rendererServer)
           $rendererPsi.Environment["NODE_ENV"] = "production"
+          $rendererPsi.Environment["NEXTAUTH_SECRET"] = "github-actions-renderer-smoke-nextauth-secret-32chars"
+          $rendererPsi.Environment["AUTH_SECRET"] = "github-actions-renderer-smoke-nextauth-secret-32chars"
           $rendererPsi.Environment["HOSTNAME"] = "127.0.0.1"
           $rendererPsi.Environment["PORT"] = "18082"
           $rendererPsi.Environment["NEXT_TELEMETRY_DISABLED"] = "1"
@@ -280,6 +282,8 @@ jobs:
 
           $renderer = New-Object System.Diagnostics.Process
           $renderer.StartInfo = $rendererPsi
+          $rendererOut = Join-Path $dataDir "renderer.stdout.log"
+          $rendererErr = Join-Path $dataDir "renderer.stderr.log"
 
           try {
             [void]$backend.Start()
@@ -305,6 +309,8 @@ jobs:
             }
 
             [void]$renderer.Start()
+            $renderer.BeginOutputReadLine()
+            $renderer.BeginErrorReadLine()
             $rendererReady = $false
             for ($i = 0; $i -lt 60; $i++) {
               Start-Sleep -Seconds 1
@@ -334,6 +340,11 @@ jobs:
                 $renderer.Kill()
                 $renderer.WaitForExit()
               }
+              if ($renderer.HasExited) {
+                Write-Host "Renderer exit code: $($renderer.ExitCode)"
+              }
+              if (Test-Path $rendererOut) { Get-Content $rendererOut -Tail 120 | Write-Host }
+              if (Test-Path $rendererErr) { Get-Content $rendererErr -Tail 120 | Write-Host }
               throw "Packaged Next.js renderer did not serve / within 60 seconds."
             }
           } finally {
