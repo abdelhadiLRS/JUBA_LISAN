@@ -15,6 +15,70 @@ async def test_progress_summary_empty(client, test_user):
 
 
 @pytest.mark.asyncio
+async def test_progress_summary_and_history_ignore_other_user_rows(
+    client, test_user, db_session
+):
+    user, headers = test_user
+
+    from app.models.progress import Progress
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+
+    from app.core.security import hash_password
+    from app.models.user import User
+    from app.models.user_language import UserLanguage
+
+    other = User(
+        username="progress-isolation-user",
+        email="progress-isolation-user@example.com",
+        display_name="Progress Isolation User",
+        hashed_password=hash_password("otherpass"),
+        role="user",
+        native_language="fr",
+        target_language="en-US",
+        is_active=True,
+    )
+    db_session.add(other)
+    await db_session.flush()
+    db_session.add(UserLanguage(user_id=other.id, target_language="en-US", is_active=True))
+    db_session.add(
+        Progress(
+            user_id=other.id,
+            study_plan_id=plan.id,
+            xp_earned=9999,
+            lessons_completed=99,
+            exercises_correct=99,
+            exercises_total=100,
+            streak_day=99,
+            skills={"grammar": 0.99},
+        )
+    )
+    await db_session.commit()
+
+    summary = await client.get("/api/progress/summary", headers=headers)
+    assert summary.status_code == 200
+    assert summary.json()["total_xp"] == 0
+    assert summary.json()["total_lessons"] == 0
+    assert summary.json()["total_exercises"] == 0
+
+    history = await client.get("/api/progress/history", headers=headers)
+    assert history.status_code == 200
+    assert history.json()["entries"] == []
+
+
+@pytest.mark.asyncio
 async def test_progress_history_empty(client, test_user):
     user, headers = test_user
 
