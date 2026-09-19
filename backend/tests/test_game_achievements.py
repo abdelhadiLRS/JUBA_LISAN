@@ -725,3 +725,69 @@ async def test_ordering_attempts_do_not_inflate_scored_questions_or_xp(
         )
     ).scalar_one()
     assert game_progress.questions_answered == 1
+
+
+@pytest.mark.asyncio
+async def test_game_session_cannot_be_completed_by_another_user(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+
+    from app.core.security import create_access_token, hash_password
+    from app.models.user import User
+    from app.models.user_language import UserLanguage
+
+    other = User(
+        username="other-game-user",
+        email="other-game-user@example.com",
+        display_name="Other Game User",
+        hashed_password=hash_password("otherpass"),
+        role="user",
+        native_language="fr",
+        target_language="en-US",
+        is_active=True,
+    )
+    db_session.add(other)
+    await db_session.flush()
+    db_session.add(UserLanguage(user_id=other.id, target_language="en-US", is_active=True))
+    await db_session.commit()
+    other_headers = {"Authorization": f"Bearer {create_access_token(other.id, other.role)}"}
+
+    result = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": payload["session_id"],
+            "answers": [
+                {"question_id": question["id"], "choice": question["choices"][0]}
+                for question in payload["questions"]
+            ],
+        },
+        headers=other_headers,
+    )
+
+    assert result.status_code == 404
+    assert result.json()["detail"] == "Game session not found"
+
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    assert session.user_id == user.id
+    assert session.completed is False
