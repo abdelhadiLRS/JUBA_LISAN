@@ -37,6 +37,55 @@ GAME_SKILL_MAP = {
 }
 
 
+
+def _server_interactive_challenge(game_id: str, language: str, difficulty: int) -> tuple[dict, dict]:
+    """Build a renderable challenge plus server-only solution state."""
+    rng = random.SystemRandom()
+    if game_id == "memory":
+        symbols = {
+            "ar": [("قمر", "moon"), ("كتاب", "book"), ("شمس", "sun"), ("بحر", "sea"), ("قلم", "pen"), ("باب", "door")],
+            "fr": [("lune", "moon"), ("livre", "book"), ("soleil", "sun"), ("mer", "sea"), ("stylo", "pen"), ("porte", "door")],
+            "en": [("moon", "lune"), ("book", "livre"), ("sun", "soleil"), ("sea", "mer"), ("pen", "stylo"), ("door", "porte")],
+        }[language]
+        count = {1: 3, 2: 4, 3: 5}[difficulty]
+        selected = rng.sample(symbols, count)
+        cards = []
+        pairs = {}
+        for index, (left, right) in enumerate(selected):
+            a, b = str(uuid4()), str(uuid4())
+            cards.extend([{"id": a, "label": left}, {"id": b, "label": right}])
+            pairs[a] = index
+            pairs[b] = index
+        rng.shuffle(cards)
+        return {"type": "memory", "cards": cards}, {"pairs": pairs, "pair_count": count}
+    if game_id == "matching":
+        pairs_source = {
+            "ar": [("كتاب", "book"), ("ماء", "water"), ("مدرسة", "school"), ("قلم", "pen")],
+            "fr": [("livre", "book"), ("eau", "water"), ("école", "school"), ("stylo", "pen")],
+            "en": [("book", "livre"), ("water", "eau"), ("school", "école"), ("pen", "stylo")],
+        }[language]
+        left, right = [], []
+        pairs = {}
+        for left_label, right_label in pairs_source:
+            left_id, right_id = str(uuid4()), str(uuid4())
+            left.append({"id": left_id, "label": left_label})
+            right.append({"id": right_id, "label": right_label})
+            pairs[left_id] = right_id
+        rng.shuffle(left)
+        rng.shuffle(right)
+        return {"type": "matching", "left": left, "right": right}, {"pairs": pairs, "pair_count": len(left)}
+    if game_id == "ordering":
+        source = {
+            "ar": ["الأول", "الثاني", "الثالث", "الرابع"],
+            "fr": ["un", "deux", "trois", "quatre"],
+            "en": ["one", "two", "three", "four"],
+        }[language]
+        items = [{"id": str(uuid4()), "label": label} for label in source]
+        shuffled = list(items)
+        rng.shuffle(shuffled)
+        return {"type": "ordering", "items": shuffled}, {"target": [item["id"] for item in items]}
+    raise ValueError("Unsupported interactive game")
+
 async def _get_game_skills(db: AsyncSession, plan: StudyPlan) -> dict[str, float]:
     result = await db.execute(
         select(Progress.skills)
@@ -372,7 +421,22 @@ async def start_game_session(
     session_id = str(uuid4())
     now = datetime.now(UTC).replace(tzinfo=None)
     expires_at = now + timedelta(minutes=15)
-    questions = _server_game_questions(data.game_id, data.language, data.difficulty, plan.target_language)
+    if data.game_id in {"memory", "matching", "ordering"}:
+        interaction_public, interaction_solution = _server_interactive_challenge(
+            data.game_id, data.language, data.difficulty
+        )
+        questions = [{
+            "id": str(uuid4()),
+            "prompt": interaction_public["type"],
+            "choices": [],
+            "answer": "",
+            "hint": "",
+            "skill": GAME_SKILL_MAP[data.game_id],
+            "difficulty": data.difficulty,
+            "interaction": {"public": interaction_public, "solution": interaction_solution},
+        }]
+    else:
+        questions = _server_game_questions(data.game_id, data.language, data.difficulty, plan.target_language)
     session = GameSession(
         id=session_id,
         user_id=current_user.id,
@@ -396,6 +460,8 @@ async def start_game_session(
         game_id=data.game_id,
         questions=public_questions,
         expires_at=expires_at.isoformat(),
+        interaction=questions[0].get("interaction", {}).get("public")
+        if data.game_id in {"memory", "matching", "ordering"} else None,
     )
 
 
