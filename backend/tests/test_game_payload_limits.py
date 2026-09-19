@@ -1,3 +1,6 @@
+import pytest
+from pydantic import ValidationError
+
 from app.schemas.progress import GameSessionComplete
 
 
@@ -10,6 +13,25 @@ def test_game_completion_rejects_more_than_five_answers():
         ],
     }
 
-    result = GameSessionComplete.model_validate(payload)
+    with pytest.raises(ValidationError):
+        GameSessionComplete.model_validate(payload)
 
-    assert False, result
+
+def test_game_completion_rejects_more_than_one_hundred_interaction_attempts():
+    payload = {
+        "session_id": "session-1",
+        "interaction_trace": [{"first": "a", "second": "b"} for _ in range(101)],
+    }
+
+    with pytest.raises(ValidationError):
+        GameSessionComplete.model_validate(payload)
+
+
+def test_game_completion_bounds_answer_text_and_identifiers():
+    payload = {
+        "session_id": "s" * 65,
+        "answers": [{"question_id": "q", "choice": "a"}],
+    }
+
+    with pytest.raises(ValidationError):
+        GameSessionComplete.model_validate(payload)
