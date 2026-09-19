@@ -56,11 +56,9 @@ describe('ReviewPrompt', () => {
     render(<ReviewPrompt open onClose={onClose} />)
     await screen.findByText('Rating required')
     fireEvent.click(screen.getByLabelText('5 stars'))
-    await waitFor(() =>
-      expect(screen.getByLabelText('5 stars')).toHaveAttribute(
-        'aria-checked',
-        'true'
-      )
+    expect(screen.getByLabelText('5 stars')).toHaveAttribute(
+      'aria-checked',
+      'true'
     )
     fireEvent.click(screen.getByText('Submit'))
     await waitFor(() =>
