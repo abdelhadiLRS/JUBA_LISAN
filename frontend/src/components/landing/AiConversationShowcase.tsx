@@ -1,5 +1,3 @@
-'use client'
-
 import { Mic, Volume2, Sparkles, User, Bot, Circle } from 'lucide-react'
 
 interface AiConversationShowcaseProps {
