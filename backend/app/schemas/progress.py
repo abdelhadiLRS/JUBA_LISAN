@@ -72,6 +72,7 @@ class GameStatsResponse(BaseModel):
     current_correct_streak: int
     best_correct_streak: int
     achievements: list[str]
+    skills: dict[str, float] = Field(default_factory=dict)
 
     model_config = {"from_attributes": True}
 
