@@ -28,6 +28,7 @@ def upgrade() -> None:
         sa.Column("daily_challenge", sa.Boolean(), nullable=False, server_default=sa.false()),
         sa.Column("daily_challenge_date", sa.String(length=10), nullable=False, server_default=""),
         sa.Column("achievements", sa.JSON(), nullable=False),
+        sa.Column("xp_earned", sa.Integer(), nullable=False, server_default="0"),
         sa.Column("created_at", sa.DateTime(), nullable=False),
         sa.ForeignKeyConstraint(["study_plan_id"], ["study_plans.id"], ondelete="CASCADE"),
         sa.ForeignKeyConstraint(["user_id"], ["users.id"], ondelete="CASCADE"),
