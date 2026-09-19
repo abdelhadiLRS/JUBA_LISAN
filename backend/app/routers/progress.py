@@ -217,7 +217,7 @@ async def record_game_event(
             select(Progress.xp_earned).where(Progress.study_plan_id == plan.id)
         )
         total_xp_before = sum(current_total_xp_result.scalars().all())
-                event = GameProgressEvent(
+        event = GameProgressEvent(
             event_id=data.event_id,
             user_id=current_user.id,
             study_plan_id=plan.id,
@@ -270,25 +270,15 @@ async def record_game_event(
         else:
             entry.current_correct_streak = 0
 
-        fresh_achievements: list[str] = []
+        candidate_achievements: list[str] = []
         if entry.games_played == 1:
-            fresh_achievements.append("first_game")
+            candidate_achievements.append("first_game")
         if data.questions_answered > 0 and data.correct_answers == data.questions_answered:
-            fresh_achievements.append("perfect_round")
+            candidate_achievements.append("perfect_round")
         if entry.best_correct_streak >= 5:
-            fresh_achievements.append("streak_5")
-        if (
-            data.daily_challenge
-            and data.daily_challenge_date
-            and entry.last_daily_challenge_date == data.daily_challenge_date
-            and entry.daily_challenges_completed > 0
-        ):
-            fresh_achievements.append("daily_challenge")
-        projected_xp = total_xp_before + base_xp
-        if projected_xp >= 100:
-            fresh_achievements.append("xp_100")
-        if projected_xp >= 500:
-            fresh_achievements.append("xp_500")
+            candidate_achievements.append("streak_5")
+        if data.daily_challenge:
+            candidate_achievements.append("daily_challenge")
 
         reward_by_achievement = {
             "first_game": 25,
@@ -301,10 +291,23 @@ async def record_game_event(
         existing_achievements = set(entry.achievements or [])
         fresh_achievements = [
             achievement
-            for achievement in dict.fromkeys(fresh_achievements)
+            for achievement in dict.fromkeys(candidate_achievements)
             if achievement not in existing_achievements
         ]
+
+        # Apply ordinary achievement rewards first, then evaluate XP thresholds
+        # against the projected total so crossing 100/500 XP is rewarded in
+        # the same event that crosses the threshold.
         achievement_xp = sum(reward_by_achievement[item] for item in fresh_achievements)
+        projected_xp = total_xp_before + base_xp + achievement_xp
+        if projected_xp >= 100 and "xp_100" not in existing_achievements:
+            fresh_achievements.append("xp_100")
+            achievement_xp += reward_by_achievement["xp_100"]
+            projected_xp += reward_by_achievement["xp_100"]
+        if projected_xp >= 500 and "xp_500" not in existing_achievements:
+            fresh_achievements.append("xp_500")
+            achievement_xp += reward_by_achievement["xp_500"]
+
         entry.achievements = list(
             dict.fromkeys([*(entry.achievements or []), *fresh_achievements])
         )
@@ -320,6 +323,7 @@ async def record_game_event(
             raise HTTPException(status_code=500, detail="Unable to persist game XP")
 
         event.xp_earned = base_xp + achievement_xp
+        entry.updated_at = __import__("datetime").datetime.now(__import__("datetime").timezone.utc)
         await db.commit()
         await db.refresh(entry)
         return entry
