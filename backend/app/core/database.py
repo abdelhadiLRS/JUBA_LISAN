@@ -10,6 +10,10 @@ from app.core.config import settings
 def get_database_url() -> str:
     """Resolve the configured database URL, defaulting to Desktop SQLite."""
     if settings.DATABASE_URL:
+        if settings.DATABASE_URL.startswith("sqlite"):
+            database_path = settings.DATABASE_URL.split("///", 1)[-1]
+            if database_path:
+                Path(database_path).parent.mkdir(parents=True, exist_ok=True)
         return settings.DATABASE_URL
 
     data_dir = settings.DATA_DIR or os.path.join(
