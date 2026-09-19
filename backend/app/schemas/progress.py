@@ -113,16 +113,16 @@ class GameSessionResultResponse(GameStatsResponse):
 
 
 class GameSessionAnswer(BaseModel):
-    question_id: str
-    choice: str
+    question_id: str = Field(min_length=1, max_length=64)
+    choice: str = Field(min_length=1, max_length=500)
 
 
 class GameSessionComplete(BaseModel):
-    session_id: str
-    answers: list[GameSessionAnswer] = Field(default_factory=list)
-    interaction_trace: list[dict] = Field(default_factory=list)
+    session_id: str = Field(min_length=1, max_length=64)
+    answers: list[GameSessionAnswer] = Field(default_factory=list, max_length=5)
+    interaction_trace: list[dict] = Field(default_factory=list, max_length=100)
     daily_challenge: bool = False
-    daily_challenge_date: str = ""
+    daily_challenge_date: str = Field(default="", max_length=10)
 
     @field_validator("answers")
     @classmethod
