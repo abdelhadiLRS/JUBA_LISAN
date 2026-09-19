@@ -41,7 +41,7 @@ export default function OrderingGamePage() {
       setProgress({
         streak: useProgressStore.getState().streak,
         xp: server.total_xp,
-        skills: useProgressStore.getState().skills,
+        skills: server.skills,
         gameStats: {
           gamesPlayed: server.games_played,
           questionsAnswered: server.questions_answered,
