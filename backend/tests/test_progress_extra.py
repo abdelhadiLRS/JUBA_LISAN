@@ -481,3 +481,53 @@ async def test_game_event_server_unlocks_multi_skill(client, test_user, db_sessi
     assert data["skills"]["math"] == pytest.approx(1.0)
     assert data["skills"]["logic"] == pytest.approx(1.0)
     assert data["skills"]["memory"] == pytest.approx(1.0)
+
+
+@pytest.mark.asyncio
+async def test_game_event_multi_skill_counts_existing_zero_skill_after_positive_update(
+    client, test_user, db_session
+):
+    """A skill key already present at zero must still count after a positive game event."""
+    user, headers = test_user
+    from app.models.progress import Progress
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add(
+        Progress(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            date=__import__("datetime").date.today(),
+            xp_earned=0,
+            lessons_completed=0,
+            exercises_correct=0,
+            exercises_total=0,
+            streak_day=0,
+            skills={"math": 1.0, "logic": 1.0, "memory": 0.0},
+        )
+    )
+    await db_session.commit()
+
+    response = await client.post(
+        "/api/progress/game-event",
+        json={
+            "event_id": "55555555-5555-4555-8555-555555555555",
+            "game_id": "memory",
+            "questions_answered": 1,
+            "correct_answers": 1,
+            "round_score": 10,
+        },
+        headers=headers,
+    )
+    assert response.status_code == 200
+    assert "multi_skill" in response.json()["achievements"]
