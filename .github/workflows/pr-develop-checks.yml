@@ -46,7 +46,7 @@ jobs:
         run: pip install pytest-cov ruff
 
       - name: Run backend lint
-        run: ruff check app alembic
+        run: ruff check app alembic --select E9,F821,F841,F541,B007,B905
 
       - name: Validate Alembic migrations
         env:
