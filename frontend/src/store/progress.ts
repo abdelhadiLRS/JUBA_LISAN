@@ -161,7 +161,7 @@ export const useProgressStore = create<ProgressStore>((set) => ({
       skills: correct
         ? {
             ...normalizeSkills(state.skills),
-            ...(SUPPORTED_LESSON_TYPES.has(skill)
+            ...(SUPPORTED_SKILLS.has(skill)
               ? { [skill]: Math.min(1, (state.skills[skill] ?? 0) + 0.05) }
               : {}),
           }
