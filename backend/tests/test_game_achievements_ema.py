@@ -33,7 +33,7 @@ async def test_multi_skill_uses_projected_ema_score(
             exercises_correct=0,
             exercises_total=0,
             streak_day=1,
-            skills={"math": 0.1, "vocabulary": 0.5},
+            skills={"math": 0.1, "vocabulary": 0.5, "grammar": 0.2},
         )
     )
     await db_session.commit()
