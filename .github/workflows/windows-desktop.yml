@@ -68,8 +68,8 @@ jobs:
           $psi.Arguments = "--host 127.0.0.1 --port 18080"
           $psi.UseShellExecute = $false
           $psi.CreateNoWindow = $true
-          $psi.RedirectStandardOutput = $true
-          $psi.RedirectStandardError = $true
+          $psi.RedirectStandardOutput = $false
+          $psi.RedirectStandardError = $false
           $psi.Environment["DESKTOP_MODE"] = "true"
           $psi.Environment["DATA_DIR"] = $dataDir
           $sqlitePath = (Join-Path $dataDir "database/juba_lisan.db") -replace "\\", "/"
@@ -93,8 +93,7 @@ jobs:
                 if ($response.status -eq "ok") { $ready = $true; break }
               } catch {
                 if ($process.HasExited) {
-                  $stderr = $process.StandardError.ReadToEnd()
-                  throw "Packaged backend exited before /health became ready. $stderr"
+                  throw "Packaged backend exited before /health became ready."
                 }
               }
             }
@@ -103,8 +102,7 @@ jobs:
                 $process.Kill()
                 $process.WaitForExit()
               }
-              $stderr = $process.StandardError.ReadToEnd()
-              throw "Packaged backend did not become healthy within 60 seconds. $stderr"
+              throw "Packaged backend did not become healthy within 60 seconds."
             }
             $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
             $registerBody = @{
@@ -118,6 +116,8 @@ jobs:
 
             $register = Invoke-RestMethod `
               -Uri "http://127.0.0.1:18080/api/auth/register" `
+              -TimeoutSec 5 `
+              -ErrorAction Stop `
               -Method Post `
               -ContentType "application/json" `
               -WebSession $session `
@@ -128,6 +128,8 @@ jobs:
 
             $logout = Invoke-RestMethod `
               -Uri "http://127.0.0.1:18080/api/auth/logout" `
+              -TimeoutSec 5 `
+              -ErrorAction Stop `
               -Method Post `
               -WebSession $session
             if ($logout.detail -ne "Logged out") {
@@ -140,6 +142,8 @@ jobs:
             } | ConvertTo-Json
             $login = Invoke-RestMethod `
               -Uri "http://127.0.0.1:18080/api/auth/login" `
+              -TimeoutSec 5 `
+              -ErrorAction Stop `
               -Method Post `
               -ContentType "application/json" `
               -WebSession $session `
@@ -150,6 +154,8 @@ jobs:
 
             $refresh = Invoke-RestMethod `
               -Uri "http://127.0.0.1:18080/api/auth/refresh" `
+              -TimeoutSec 5 `
+              -ErrorAction Stop `
               -Method Post `
               -WebSession $session
             if (-not $refresh.access_token) {
@@ -158,6 +164,8 @@ jobs:
 
             $me = Invoke-RestMethod `
               -Uri "http://127.0.0.1:18080/api/auth/me" `
+              -TimeoutSec 5 `
+              -ErrorAction Stop `
               -Method Get `
               -Headers @{ Authorization = "Bearer $($refresh.access_token)" } `
               -WebSession $session
@@ -180,8 +188,7 @@ jobs:
                 if ($response.status -eq "ok") { $readyAfterRestart = $true; break }
               } catch {
                 if ($process.HasExited) {
-                  $stderr = $process.StandardError.ReadToEnd()
-                  throw "Packaged backend exited after restart. $stderr"
+                  throw "Packaged backend exited after restart."
                 }
               }
             }
@@ -190,12 +197,13 @@ jobs:
                 $process.Kill()
                 $process.WaitForExit()
               }
-              $stderr = $process.StandardError.ReadToEnd()
-              throw "Packaged backend did not recover after restart within 60 seconds. $stderr"
+              throw "Packaged backend did not recover after restart within 60 seconds."
             }
 
             $refreshAfterRestart = Invoke-RestMethod `
               -Uri "http://127.0.0.1:18080/api/auth/refresh" `
+              -TimeoutSec 5 `
+              -ErrorAction Stop `
               -Method Post `
               -WebSession $session
             if (-not $refreshAfterRestart.access_token) {
@@ -204,6 +212,8 @@ jobs:
 
             $meAfterRestart = Invoke-RestMethod `
               -Uri "http://127.0.0.1:18080/api/auth/me" `
+              -TimeoutSec 5 `
+              -ErrorAction Stop `
               -Method Get `
               -Headers @{ Authorization = "Bearer $($refreshAfterRestart.access_token)" } `
               -WebSession $session
@@ -213,6 +223,8 @@ jobs:
 
             $finalLogout = Invoke-RestMethod `
               -Uri "http://127.0.0.1:18080/api/auth/logout" `
+              -TimeoutSec 5 `
+              -ErrorAction Stop `
               -Method Post `
               -WebSession $session
             if ($finalLogout.detail -ne "Logged out") {
