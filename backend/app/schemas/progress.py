@@ -121,6 +121,29 @@ class GameSessionComplete(BaseModel):
     session_id: str = Field(min_length=1, max_length=64)
     answers: list[GameSessionAnswer] = Field(default_factory=list, max_length=5)
     interaction_trace: list[dict] = Field(default_factory=list, max_length=100)
+    @field_validator("interaction_trace")
+    @classmethod
+    def validate_interaction_trace(cls, value: list[dict]) -> list[dict]:
+        # Traces are deliberately shallow telemetry records. Reject oversized
+        # nested payloads at the schema boundary before the router touches them.
+        for attempt in value:
+            if len(attempt) > 4:
+                raise ValueError("interaction attempt has too many fields")
+            for key, item in attempt.items():
+                if not isinstance(key, str) or len(key) > 32:
+                    raise ValueError("interaction field name is too long")
+                if isinstance(item, str):
+                    if len(item) > 64:
+                        raise ValueError("interaction value is too long")
+                elif isinstance(item, list):
+                    if len(item) > 16 or any(
+                        not isinstance(entry, str) or len(entry) > 64 for entry in item
+                    ):
+                        raise ValueError("interaction sequence is invalid")
+                else:
+                    raise ValueError("interaction value must be a string or string list")
+        return value
+
     daily_challenge: bool = False
     daily_challenge_date: str = Field(default="", max_length=10)
 
