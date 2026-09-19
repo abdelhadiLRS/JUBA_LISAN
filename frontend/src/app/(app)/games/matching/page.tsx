@@ -22,7 +22,7 @@ export default function MatchingGamePage() {
 
   function complete(result: { questionsAnswered: number; correctAnswers: number }) {
     addGameXP(25, 'vocabulary', true)
-    recordGameAttempt(true)
+    recordGameAttempt(true, result.questionsAnswered, result.correctAnswers)
     void apiFetch('/api/progress/game', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
