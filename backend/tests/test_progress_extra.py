@@ -208,3 +208,36 @@ async def test_competency_upsert_applies_ema_and_mastery_threshold(db_session, t
 
     assert row.score == pytest.approx(0.79)
     assert row.mastered is False
+
+@pytest.mark.asyncio
+async def test_get_unit_competencies_returns_deterministic_unit_order(db_session, test_user):
+    """Aggregated competency responses should not depend on database row order."""
+    from app.models.competency import UserCompetency
+    from app.services.progress_service import get_unit_competencies
+    from tests.conftest import make_study_plan
+
+    user, _ = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add_all([
+        UserCompetency(user_id=user.id, study_plan_id=plan.id, unit_id="A1-u2", competency_text="B", score=0.8, mastered=True),
+        UserCompetency(user_id=user.id, study_plan_id=plan.id, unit_id="A1-u1", competency_text="Z", score=0.6, mastered=False),
+        UserCompetency(user_id=user.id, study_plan_id=plan.id, unit_id="A1-u1", competency_text="A", score=1.0, mastered=True),
+    ])
+    await db_session.commit()
+
+    result = await get_unit_competencies(db_session, user.id, study_plan_id=plan.id)
+
+    assert [item["unit_id"] for item in result] == ["A1-u1", "A1-u2"]
+    assert result[0]["score"] == pytest.approx(0.8)
+    assert result[0]["mastered_count"] == 1
+    assert result[0]["total_count"] == 2
