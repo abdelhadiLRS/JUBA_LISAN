@@ -1,207 +1,169 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
+import type { InteractiveGameChallenge, InteractiveGameTrace } from '@/lib/games/persist'
 
 type Mode = 'memory' | 'matching' | 'ordering'
 type Lang = 'ar' | 'fr' | 'en'
-
-type GameCompletion = { questionsAnswered: number; correctAnswers: number }
-type Props = { mode: Mode; lang: Lang; onComplete?: (result: GameCompletion) => void }
-type MemoryCard = { id: number; pair: string; label: string; flipped: boolean; matched: boolean }
+type Props = {
+  mode: Mode
+  lang: Lang
+  challenge?: InteractiveGameChallenge
+  onComplete?: (trace: InteractiveGameTrace[]) => void
+}
+type MemoryCard = { id: string; label: string; flipped: boolean; matched: boolean }
 
 const copy = {
-  ar: { memory: 'الذاكرة', matching: 'المطابقة', ordering: 'الترتيب', reset: 'إعادة', moves: 'المحاولات', pairs: 'الأزواج', match: 'طابق العنصرين المتشابهين', chooseLeft: 'اختر كلمة', chooseRight: 'اختر ترجمتها', order: 'اضغط العناصر بالترتيب الصحيح', selected: 'المختار', complete: 'أحسنت! أكملت التحدي.', up: 'أعلى', down: 'أسفل', undo: 'تراجع', clear: 'مسح' },
-  fr: { memory: 'Mémoire', matching: 'Association', ordering: 'Classement', reset: 'Réinitialiser', moves: 'Coups', pairs: 'Paires', match: 'Associe les deux éléments identiques', chooseLeft: 'Choisis un mot', chooseRight: 'Choisis sa traduction', order: 'Appuie sur les éléments dans le bon ordre', selected: 'Sélection', complete: 'Bravo ! Défi terminé.', up: 'Monter', down: 'Descendre', undo: 'Annuler', clear: 'Effacer' },
-  en: { memory: 'Memory', matching: 'Matching', ordering: 'Ordering', reset: 'Reset', moves: 'Moves', pairs: 'Pairs', match: 'Match the two identical items', chooseLeft: 'Choose a word', chooseRight: 'Choose its translation', order: 'Tap the items in the correct order', selected: 'Selected', complete: 'Great job! Challenge complete.', up: 'Up', down: 'Down', undo: 'Undo', clear: 'Clear' },
+  ar: { memory: 'الذاكرة', matching: 'المطابقة', ordering: 'الترتيب', reset: 'إعادة', moves: 'المحاولات', match: 'طابق العنصرين المتشابهين', chooseLeft: 'اختر كلمة', chooseRight: 'اختر ترجمتها', order: 'اضغط العناصر بالترتيب الصحيح', complete: 'أحسنت! أكملت التحدي.', up: 'أعلى', down: 'أسفل', undo: 'تراجع', clear: 'مسح' },
+  fr: { memory: 'Mémoire', matching: 'Association', ordering: 'Classement', reset: 'Réinitialiser', moves: 'Coups', match: 'Associe les deux éléments', chooseLeft: 'Choisis un mot', chooseRight: 'Choisis sa traduction', order: 'Appuie sur les éléments dans le bon ordre', complete: 'Bravo ! Défi terminé.', up: 'Monter', down: 'Descendre', undo: 'Annuler', clear: 'Effacer' },
+  en: { memory: 'Memory', matching: 'Matching', ordering: 'Ordering', reset: 'Reset', moves: 'Moves', match: 'Match the two items', chooseLeft: 'Choose a word', chooseRight: 'Choose its translation', order: 'Tap the items in the correct order', complete: 'Great job! Challenge complete.', up: 'Up', down: 'Down', undo: 'Undo', clear: 'Clear' },
 } as const
 
-const WORD_PAIRS = {
-  ar: [['كتاب', 'book'], ['ماء', 'water'], ['مدرسة', 'school'], ['قلم', 'pen']],
-  fr: [['livre', 'book'], ['eau', 'water'], ['école', 'school'], ['stylo', 'pen']],
-  en: [['book', 'livre'], ['water', 'eau'], ['school', 'école'], ['pen', 'stylo']],
-} as const
-
-const ORDER_ITEMS = { ar: ['الثاني', 'الرابع', 'الأول', 'الثالث'], fr: ['deux', 'quatre', 'un', 'trois'], en: ['two', 'four', 'one', 'three'] } as const
-
-function makeMemory(lang: Lang): MemoryCard[] {
-  const pairs = lang === 'ar'
-    ? [['قمر', 'moon'], ['كتاب', 'book'], ['شمس', 'sun'], ['بحر', 'sea'], ['قلم', 'pen'], ['باب', 'door']]
-    : lang === 'fr'
-      ? [['lune', 'moon'], ['livre', 'book'], ['soleil', 'sun'], ['mer', 'sea'], ['stylo', 'pen'], ['porte', 'door']]
-      : [['moon', 'lune'], ['book', 'livre'], ['sun', 'soleil'], ['sea', 'mer'], ['pen', 'stylo'], ['door', 'porte']]
-  return pairs.flatMap(([label, pair], index) => [
-    { id: index * 2, pair: String(index), label, flipped: false, matched: false },
-    { id: index * 2 + 1, pair: String(index), label: pair, flipped: false, matched: false },
-  ]).sort(() => Math.random() - 0.5)
-}
-
-export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
+export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Props) {
   const t = copy[lang]
-  const [memoryCards, setMemoryCards] = useState(() => makeMemory(lang))
-  const [first, setFirst] = useState<number | null>(null)
+  const [memoryCards, setMemoryCards] = useState<MemoryCard[]>([])
+  const [first, setFirst] = useState<string | null>(null)
   const [locked, setLocked] = useState(false)
   const [moves, setMoves] = useState(0)
-  const [left, setLeft] = useState<number | null>(null)
-  const [right, setRight] = useState<number | null>(null)
-  const [matchedPairs, setMatchedPairs] = useState<number[]>([])
+  const [memoryTrace, setMemoryTrace] = useState<InteractiveGameTrace[]>([])
+  const [left, setLeft] = useState<string | null>(null)
+  const [right, setRight] = useState<string | null>(null)
+  const [matched, setMatched] = useState<string[]>([])
+  const [matchingTrace, setMatchingTrace] = useState<InteractiveGameTrace[]>([])
   const [order, setOrder] = useState<string[]>([])
+  const [orderingTrace, setOrderingTrace] = useState<InteractiveGameTrace[]>([])
   const [completed, setCompleted] = useState(false)
-  const [orderingAttempts, setOrderingAttempts] = useState(0)
-
-  const pairs = useMemo(() => WORD_PAIRS[lang], [lang])
-  const targetOrder = useMemo(
-    () => lang === 'ar'
-      ? ['الأول', 'الثاني', 'الثالث', 'الرابع']
-      : lang === 'fr'
-        ? ['un', 'deux', 'trois', 'quatre']
-        : ['one', 'two', 'three', 'four'],
-    [lang],
-  )
 
   useEffect(() => {
-    setMemoryCards(makeMemory(lang))
-    setFirst(null)
-    setLeft(null)
-    setRight(null)
-    setMatchedPairs([])
-    setOrder([])
-    setMoves(0)
-    setCompleted(false)
-    setLocked(false)
-    setOrderingAttempts(0)
-  }, [lang, mode])
+    if (!challenge || challenge.type !== mode) return
+    setFirst(null); setLocked(false); setMoves(0); setCompleted(false)
+    setMemoryTrace([]); setLeft(null); setRight(null); setMatched([]); setMatchingTrace([])
+    setOrder([]); setOrderingTrace([])
+    if (challenge.type === 'memory') {
+      setMemoryCards(challenge.cards.map(card => ({ ...card, flipped: false, matched: false })))
+    } else {
+      setMemoryCards([])
+    }
+  }, [challenge, mode])
 
-  useEffect(() => {
+  function finish(trace: InteractiveGameTrace[]) {
     if (completed) return
-    if (mode === 'memory' && memoryCards.length > 0 && memoryCards.every((card) => card.matched)) {
-      setCompleted(true)
-      onComplete?.({ questionsAnswered: moves, correctAnswers: memoryCards.length / 2 })
-    }
-  }, [completed, memoryCards, mode, moves, onComplete])
-
-  useEffect(() => {
-    if (completed || mode !== 'matching') return
-    if (matchedPairs.length === pairs.length && pairs.length > 0) {
-      setCompleted(true)
-      onComplete?.({ questionsAnswered: moves, correctAnswers: matchedPairs.length })
-    }
-  }, [completed, matchedPairs.length, mode, moves, onComplete, pairs.length])
-
-  useEffect(() => {
-    if (completed || mode !== 'matching' || left === null || right === null) return
-    const currentLeft = left
-    const currentRight = right
-    const correct = currentLeft === currentRight
-    const timer = window.setTimeout(() => {
-      setMoves((value) => value + 1)
-      if (correct) {
-        setMatchedPairs((current) => current.includes(currentLeft) ? current : [...current, currentLeft])
-      }
-      setLeft(null)
-      setRight(null)
-    }, 300)
-    return () => window.clearTimeout(timer)
-  }, [completed, left, right, mode])
-
-  useEffect(() => {
-    if (completed || mode !== 'ordering' || order.length !== targetOrder.length) return
-    const correct = order.every((value, index) => value === targetOrder[index])
-    setMoves((value) => value + 1)
-    setOrderingAttempts((value) => value + 1)
-    if (correct) {
-      setCompleted(true)
-      onComplete?.({ questionsAnswered: orderingAttempts + 1, correctAnswers: 1 })
-      return
-    }
-    setOrder([])
-  }, [completed, mode, order, targetOrder, orderingAttempts, onComplete])
+    setCompleted(true)
+    onComplete?.(trace)
+  }
 
   function flipCard(index: number) {
-    if (locked || completed) return
+    if (locked || completed || !memoryCards[index] || memoryCards[index].flipped || memoryCards[index].matched) return
     const card = memoryCards[index]
-    if (card.flipped || card.matched) return
-    const next = memoryCards.map((item, itemIndex) => itemIndex === index ? { ...item, flipped: true } : item)
+    const next = memoryCards.map((item, i) => i === index ? { ...item, flipped: true } : item)
     setMemoryCards(next)
     if (first === null) {
-      setFirst(index)
+      setFirst(card.id)
       return
     }
-    setMoves((value) => value + 1)
+    const firstId = first
+    setFirst(null)
     setLocked(true)
-    if (next[first].pair === next[index].pair) {
-      setTimeout(() => {
-        setMemoryCards((current) => current.map((item, itemIndex) => itemIndex === first || itemIndex === index ? { ...item, matched: true } : item))
-        setFirst(null)
-        setLocked(false)
-      }, 250)
-    } else {
-      setTimeout(() => {
-        setMemoryCards((current) => current.map((item, itemIndex) => itemIndex === first || itemIndex === index ? { ...item, flipped: false } : item))
-        setFirst(null)
-        setLocked(false)
-      }, 700)
+    const trace = [...memoryTrace, { first: firstId, second: card.id } as InteractiveGameTrace]
+    setMemoryTrace(trace)
+    setMoves(value => value + 1)
+    const firstIndex = next.findIndex(item => item.id === firstId)
+    const correct = firstIndex >= 0 && next[firstIndex].label !== card.label && false
+    void correct
+    const timer = window.setTimeout(() => {
+      setLocked(false)
+      setMemoryCards(current => {
+        const a = current.find(item => item.id === firstId)
+        const b = current.find(item => item.id === card.id)
+        const samePair = a && b && a.label !== b.label
+        if (!samePair) return current.map(item => item.id === firstId || item.id === card.id ? { ...item, flipped: false } : item)
+        const updated = current.map(item => item.id === firstId || item.id === card.id ? { ...item, matched: true } : item)
+        if (updated.every(item => item.matched)) finish(trace)
+        return updated
+      })
+    }, 350)
+    window.setTimeout(() => {
+      setMemoryCards(current => current)
+    }, 351)
+  }
+
+  function chooseMatching(side: 'left' | 'right', id: string) {
+    if (completed || matched.includes(id)) return
+    if (side === 'left') setLeft(id); else setRight(id)
+  }
+
+  useEffect(() => {
+    if (completed || mode !== 'matching' || left === null || right === null || !challenge || challenge.type !== 'matching') return
+    const pair = { left, right } as InteractiveGameTrace
+    const trace = [...matchingTrace, pair]
+    setMatchingTrace(trace)
+    setMoves(value => value + 1)
+    const correct = challenge.left.some(item => item.id === left) && challenge.right.some(item => item.id === right)
+    if (correct) {
+      setMatched(current => [...current, left, right])
     }
+    setLeft(null); setRight(null)
+    if (matched.length + (correct ? 2 : 0) >= challenge.left.length * 2) finish(trace)
+  }, [left, right, completed, mode, challenge, matchingTrace, matched.length])
+
+  function submitOrder() {
+    if (completed || !challenge || challenge.type !== 'ordering' || order.length !== challenge.items.length) return
+    const trace = [...orderingTrace, { order: [...order] } as InteractiveGameTrace]
+    setOrderingTrace(trace)
+    setMoves(value => value + 1)
+    const next = challenge.items.map(item => item.id)
+    if (order.every((id, i) => id === next[i])) finish(trace)
+    else setOrder([])
   }
 
   function reset() {
-    setMemoryCards(makeMemory(lang))
-    setFirst(null)
-    setLeft(null)
-    setRight(null)
-    setMatchedPairs([])
-    setOrder([])
-    setMoves(0)
-    setCompleted(false)
-    setLocked(false)
-    setOrderingAttempts(0)
+    if (!challenge || challenge.type !== mode) return
+    setCompleted(false); setFirst(null); setLocked(false); setMoves(0)
+    setMemoryTrace([]); setLeft(null); setRight(null); setMatched([]); setMatchingTrace([])
+    setOrder([]); setOrderingTrace([])
+    if (challenge.type === 'memory') setMemoryCards(challenge.cards.map(card => ({ ...card, flipped: false, matched: false })))
   }
 
-  function chooseOrder(item: string) {
-    if (completed || order.includes(item)) return
-    setOrder((current) => [...current, item])
-  }
-
-  function removeLast() {
-    setOrder((value) => value.slice(0, -1))
-  }
-
-  function shiftOrder(index: number, direction: -1 | 1) {
-    setOrder((value) => {
-      const next = [...value]
-      const target = index + direction
-      if (target < 0 || target >= next.length) return value
-      ;[next[index], next[target]] = [next[target], next[index]]
-      return next
-    })
-  }
-
+  const items = challenge?.type === 'ordering' ? challenge.items : []
   return (
     <div className="interactive-game" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       <div className="interactive-toolbar">
         <strong>{mode === 'memory' ? t.memory : mode === 'matching' ? t.matching : t.ordering}</strong>
         <span>{t.moves}: {moves}</span>
-        <button type="button" onClick={reset}>{t.reset}</button>
+        <button type="button" onClick={reset} disabled={!challenge}>{t.reset}</button>
       </div>
 
-      {mode === 'memory' && <>
+      {!challenge && <p className="interactive-instruction">Loading challenge…</p>}
+
+      {challenge?.type === 'memory' && <>
         <p className="interactive-instruction">{t.match}</p>
-        <div className="memory-board">{memoryCards.map((card, index) => <button key={card.id} type="button" className={`memory-card ${card.flipped || card.matched ? 'revealed' : ''} ${card.matched ? 'matched' : ''}`} onClick={() => flipCard(index)} aria-label={card.flipped || card.matched ? card.label : 'Hidden card'}><span>{card.flipped || card.matched ? card.label : '✦'}</span></button>)}</div>
+        <div className="memory-board">{memoryCards.map((card, index) =>
+          <button key={card.id} type="button" className={`memory-card ${card.flipped || card.matched ? 'revealed' : ''} ${card.matched ? 'matched' : ''}`} onClick={() => flipCard(index)} aria-label={card.flipped || card.matched ? card.label : 'Hidden card'}>
+            <span>{card.flipped || card.matched ? card.label : '✦'}</span>
+          </button>)}</div>
       </>}
 
-      {mode === 'matching' && <>
+      {challenge?.type === 'matching' && <>
         <p className="interactive-instruction">{t.chooseLeft} → {t.chooseRight}</p>
         <div className="matching-board">
-          <div>{pairs.map((pair, index) => <button key={pair[0]} type="button" disabled={matchedPairs.includes(index)} className={`match-option ${left === index ? 'selected' : ''}`} onClick={() => !matchedPairs.includes(index) && setLeft(index)}>{pair[0]}</button>)}</div>
-          <div>{pairs.map((pair, index) => <button key={pair[1]} type="button" disabled={matchedPairs.includes(index)} className={`match-option ${right === index ? 'selected' : ''}`} onClick={() => !matchedPairs.includes(index) && setRight(index)}>{pair[1]}</button>)}</div>
+          <div>{challenge.left.map(item => <button key={item.id} type="button" disabled={matched.includes(item.id)} className={`match-option ${left === item.id ? 'selected' : ''}`} onClick={() => chooseMatching('left', item.id)}>{item.label}</button>)}</div>
+          <div>{challenge.right.map(item => <button key={item.id} type="button" disabled={matched.includes(item.id)} className={`match-option ${right === item.id ? 'selected' : ''}`} onClick={() => chooseMatching('right', item.id)}>{item.label}</button>)}</div>
         </div>
       </>}
 
-      {mode === 'ordering' && <>
+      {challenge?.type === 'ordering' && <>
         <p className="interactive-instruction">{t.order}</p>
-        <div className="ordering-pool">{ORDER_ITEMS[lang].map((item) => <button key={item} type="button" disabled={order.includes(item)} onClick={() => chooseOrder(item)}>{item}</button>)}</div>
-        <div className="ordering-result">{order.map((item, index) => <div key={item} className="order-row"><span>{index + 1}. {item}</span><button type="button" onClick={() => shiftOrder(index, -1)} disabled={index === 0}>{t.up}</button><button type="button" onClick={() => shiftOrder(index, 1)} disabled={index === order.length - 1}>{t.down}</button></div>)}</div>
-        <button type="button" className="interactive-secondary" onClick={removeLast} disabled={!order.length}>{t.undo}</button>
+        <div className="ordering-pool">{items.map(item => <button key={item.id} type="button" disabled={order.includes(item.id)} onClick={() => setOrder(current => [...current, item.id])}>{item.label}</button>)}</div>
+        <div className="ordering-result">{order.map((id, index) => {
+          const item = items.find(entry => entry.id === id)
+          return <div key={id} className="order-row"><span>{index + 1}. {item?.label}</span>
+            <button type="button" onClick={() => setOrder(current => { const next=[...current]; [next[index-1], next[index]]=[next[index], next[index-1]]; return next })} disabled={index === 0}>{t.up}</button>
+            <button type="button" onClick={() => setOrder(current => { const next=[...current]; [next[index], next[index+1]]=[next[index+1], next[index]]; return next })} disabled={index === order.length - 1}>{t.down}</button>
+          </div>
+        })}</div>
+        <button type="button" className="interactive-secondary" onClick={() => setOrder(value => value.slice(0, -1))} disabled={!order.length}>{t.undo}</button>
         <button type="button" className="interactive-secondary" onClick={() => setOrder([])} disabled={!order.length}>{t.clear}</button>
+        <button type="button" className="interactive-secondary" onClick={submitOrder} disabled={order.length !== items.length}>✓</button>
       </>}
 
       {completed && <div className="interactive-complete">🏆 {t.complete}</div>}
