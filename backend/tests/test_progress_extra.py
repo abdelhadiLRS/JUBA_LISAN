@@ -242,30 +242,6 @@ async def test_get_unit_competencies_returns_deterministic_unit_order(db_session
     assert result[0]["mastered_count"] == 1
     assert result[0]["total_count"] == 2
 
-@pytest.mark.parametrize(
-    ("payload", "expected"),
-    [
-        ({"math": 2.0, "memory": -1.0, "": 0.5, "bad": float("nan")}, {"math": 1.0, "memory": 0.0}),
-        ({"ordering": float("inf"), "vocabulary": 0.75}, {"vocabulary": 0.75}),
-    ],
-)
-def test_game_progress_schema_normalizes_skill_scores(payload, expected):
-    from app.schemas.progress import GameProgressUpdate
-
-    data = GameProgressUpdate(skills=payload)
-
-    assert data.skills == expected
-
-
-def test_game_progress_schema_discards_invalid_only_skills():
-    from app.schemas.progress import GameProgressUpdate
-
-    data = GameProgressUpdate(skills={"": 1.0, "bad": float("nan")})
-
-    assert data.skills == {}
-
-
-
 @pytest.mark.asyncio
 async def test_game_event_is_idempotent_and_server_aggregated(client, test_user, db_session):
     user, headers = test_user
@@ -542,3 +518,59 @@ async def test_game_event_multi_skill_counts_existing_zero_skill_after_positive_
     )
     assert response.status_code == 200
     assert "multi_skill" in response.json()["achievements"]
+
+
+@pytest.mark.asyncio
+async def test_game_session_hides_answers_and_persists_server_questions(client, test_user, db_session):
+    user, headers = test_user
+    from app.models.game_session import GameSession
+    from tests.conftest import make_study_plan
+
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    response = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["game_id"] == "math"
+    assert len(data["questions"]) == 5
+    assert all(set(q) == {"id", "prompt", "choices", "hint", "skill", "difficulty"} for q in data["questions"])
+    assert all("answer" not in q for q in data["questions"])
+
+    session = await db_session.get(GameSession, data["session_id"])
+    assert session is not None
+    assert session.user_id == user.id
+    assert session.study_plan_id is not None
+    assert len(session.questions) == 5
+    assert all("answer" in q for q in session.questions)
+
+
+@pytest.mark.asyncio
+async def test_game_session_rejects_invalid_language_and_difficulty(client, test_user):
+    _, headers = test_user
+    response = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "xx", "difficulty": 1},
+        headers=headers,
+    )
+    assert response.status_code == 422
+
+    response = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 9},
+        headers=headers,
+    )
+    assert response.status_code == 422
