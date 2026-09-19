@@ -1,5 +1,8 @@
 import { apiFetch } from '@/lib/api'
 
+export type GameId = 'math' | 'words' | 'sequence' | 'memory' | 'matching' | 'ordering'
+export type GameLanguage = 'ar' | 'fr' | 'en'
+
 export type ServerGameStats = {
   total_xp: number
   games_played: number
