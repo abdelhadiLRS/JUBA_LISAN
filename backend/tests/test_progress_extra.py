@@ -304,6 +304,7 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     assert first["best_correct_streak"] == 5
     assert first["daily_challenges_completed"] == 1
     assert first["achievements"] == ["first_game", "perfect_round", "daily_challenge"]
+    assert first["skills"]["memory"] == pytest.approx(1.0)
 
     from app.models.game_progress_event import GameProgressEvent
     from app.models.progress import Progress
@@ -328,6 +329,7 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     assert duplicate["questions_answered"] == 5
     assert duplicate["correct_answers"] == 5
     assert duplicate["achievements"] == ["first_game", "perfect_round", "daily_challenge"]
+    assert duplicate["skills"]["memory"] == pytest.approx(1.0)
 
     response = await client.post(
         "/api/progress/game-event",
@@ -355,6 +357,8 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     assert data["current_correct_streak"] == 0
     assert data["best_correct_streak"] == 5
     assert data["achievements"] == ["first_game", "perfect_round", "daily_challenge", "streak_5"]
+    assert data["skills"]["memory"] == pytest.approx(1.0)
+    assert data["skills"]["ordering"] == pytest.approx(0.6)
 
     second_event_row = (
         await db_session.execute(
@@ -376,6 +380,8 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     assert summary["games_played"] == 2
     assert summary["questions_answered"] == 10
     assert summary["correct_answers"] == 8
+    assert summary["skills"]["memory"] == pytest.approx(1.0)
+    assert summary["skills"]["ordering"] == pytest.approx(0.6)
 
 
 @pytest.mark.asyncio
