@@ -624,8 +624,7 @@ async def complete_game_session(
         raise HTTPException(status_code=409, detail="Game session already completed")
 
     round_score = round((correct_answers / questions_answered) * 25)
-    event_id = str(uuid4())
-    base_xp = correct_answers * 5 + (questions_answered - correct_answers)
+    # The session ID is the durable idempotency key for this game result.\n    # Reusing it prevents the aggregate and event ledger from ever representing\n    # the same server-issued session as two different progress events.\n    event_id = session.id\n    base_xp = correct_answers * 5 + (questions_answered - correct_answers)
     total_before_result = await db.execute(
         select(Progress.xp_earned).where(
             Progress.user_id == current_user.id,
