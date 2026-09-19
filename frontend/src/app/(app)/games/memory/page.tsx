@@ -23,14 +23,20 @@ export default function MemoryGamePage() {
   }, [searchParams])
 
   function complete(result: { questionsAnswered: number; correctAnswers: number }) {
-    addGameXP(25, 'memory', true)
-    recordGameAttempt(true, result.questionsAnswered, result.correctAnswers)
-    completeGame(25, false)
+    const questionsAnswered = Math.max(0, Math.floor(result.questionsAnswered))
+    const correctAnswers = Math.max(0, Math.min(questionsAnswered, Math.floor(result.correctAnswers)))
+    const earnedXp = correctAnswers * 5 + (questionsAnswered - correctAnswers)
+    const roundScore = questionsAnswered > 0
+      ? Math.round((correctAnswers / questionsAnswered) * 25)
+      : 0
+    addGameXP(earnedXp, 'memory', correctAnswers > 0)
+    recordGameAttempt(correctAnswers === questionsAnswered && questionsAnswered > 0, questionsAnswered, correctAnswers)
+    completeGame(roundScore, false)
     void persistGameEvent({
       gameId: 'memory',
-      questionsAnswered: result.questionsAnswered,
-      correctAnswers: result.correctAnswers,
-      roundScore: 25,
+      questionsAnswered,
+      correctAnswers,
+      roundScore,
     }).then((server) => {
       setProgress({
         streak: useProgressStore.getState().streak,
