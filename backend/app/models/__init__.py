@@ -6,6 +6,7 @@ from app.models.dashboard_banner import DashboardBanner
 from app.models.feedback import FeedbackComment, FeedbackEntry, FeedbackReadState, FeedbackVote
 from app.models.flashcard import Flashcard
 from app.models.game_progress import GameProgress
+from app.models.game_progress_event import GameProgressEvent
 from app.models.lesson import Exercise, Lesson
 from app.models.listening import ListeningAttempt, ListeningExercise
 from app.models.llm_usage import LLMUsage
@@ -34,6 +35,7 @@ __all__ = [
     "FeedbackVote",
     "Flashcard",
     "GameProgress",
+    "GameProgressEvent",
     "Exercise",
     "Lesson",
     "ListeningAttempt",
