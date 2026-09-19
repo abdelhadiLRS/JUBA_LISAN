@@ -1,5 +1,19 @@
 import { apiFetch } from '@/lib/api'
 
+export type ServerGameStats = {
+  total_xp: number
+  games_played: number
+  questions_answered: number
+  correct_answers: number
+  best_round_score: number
+  daily_challenges_completed: number
+  last_daily_challenge_date: string
+  current_correct_streak: number
+  best_correct_streak: number
+  achievements: string[]
+  skills: Record<string, number>
+}
+
 export type GameSessionQuestion = {
   id: string
   prompt: string
