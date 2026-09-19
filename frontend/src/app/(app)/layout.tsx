@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import {
-  BarChart3, BookMarked, BookOpen, ClipboardCheck, GraduationCap, Headphones, HelpCircle, Home, Layers, Map, Menu, MessageCircle, MessageSquare, MessageSquarePlus, Settings, Shield, X, type LucideIcon,
+  BarChart3, BookMarked, BookOpen, ClipboardCheck, Gamepad2, GraduationCap, Headphones, HelpCircle, Home, Layers, Map, Menu, MessageCircle, MessageSquare, MessageSquarePlus, Settings, Shield, X, type LucideIcon,
 } from 'lucide-react'
 import { useAuthStore, isSubscribed } from '@/store/auth'
 import { useConfigStore } from '@/store/config'
@@ -19,13 +19,13 @@ import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
 
-const NAV_ICONS: Record<string, LucideIcon> = {'/dashboard': Home, '/plan': Map, '/progress': BarChart3, '/flashcards': Layers, '/chat': MessageCircle, '/listening': Headphones, '/reading': BookOpen, '/conversation': MessageCircle, '/assessment': ClipboardCheck, '/grammar': BookMarked, '/vocabulary': GraduationCap, '/phrasebook': MessageSquare, '/settings': Settings, '/faq': HelpCircle, '/feedback': MessageSquarePlus, '/admin': Shield}
+const NAV_ICONS: Record<string, LucideIcon> = {'/dashboard': Home, '/plan': Map, '/games': Gamepad2, '/progress': BarChart3, '/flashcards': Layers, '/chat': MessageCircle, '/listening': Headphones, '/reading': BookOpen, '/conversation': MessageCircle, '/assessment': ClipboardCheck, '/grammar': BookMarked, '/vocabulary': GraduationCap, '/phrasebook': MessageSquare, '/settings': Settings, '/faq': HelpCircle, '/feedback': MessageSquarePlus, '/admin': Shield}
 const BOTTOM_NAV_HREFS = ['/dashboard', '/plan', '/flashcards', '/chat', '/progress']
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const tNav = useTranslations('nav'); const tCommon = useTranslations('common'); const tBilling = useTranslations('billing'); const pathname = usePathname(); const router = useRouter()
   const user = useAuthStore((s) => s.user); const accessToken = useAuthStore((s) => s.accessToken); const setUser = useAuthStore((s) => s.setUser); const logout = useAuthStore((s) => s.logout); const handleLogout = useLogout(); const [initializing, setInitializing] = useState(true); const loadConfig = useConfigStore((s) => s.load); const [logoutConfirm, setLogoutConfirm] = useState(false); const [mobileMenuOpen, setMobileMenuOpen] = useState(false); const [resourcesOpen, setResourcesOpen] = useState(false); const [contactOpen, setContactOpen] = useState(false); const [resendSent, setResendSent] = useState(false); const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
-  const mainNavItems = [{ href: '/dashboard', label: tNav('home') }, { href: '/plan', label: tNav('myPlan') }, { href: '/progress', label: tNav('progress') }, { href: '/flashcards', label: tNav('flashcards') }, { href: '/chat', label: tNav('tutor') }, { href: '/listening', label: tNav('listening') }, { href: '/reading', label: tNav('reading') }, { href: '/conversation', label: tNav('conversation') }, { href: '/assessment', label: tNav('assessment') }]
+  const mainNavItems = [{ href: '/dashboard', label: tNav('home') }, { href: '/plan', label: tNav('myPlan') }, { href: '/progress', label: tNav('progress') }, { href: '/games', label: tNav('games') }, { href: '/flashcards', label: tNav('flashcards') }, { href: '/chat', label: tNav('tutor') }, { href: '/listening', label: tNav('listening') }, { href: '/reading', label: tNav('reading') }, { href: '/conversation', label: tNav('conversation') }, { href: '/assessment', label: tNav('assessment') }]
   const resourceNavItems = [{ href: '/grammar', label: tNav('grammar') }, { href: '/vocabulary', label: tNav('vocabulary') }, { href: '/phrasebook', label: tNav('phrasebook') }]
   const bottomNavItems = [{ href: '/settings', label: tNav('settings') }, { href: '/faq', label: tNav('faq') }, { href: '/feedback', label: tNav('feedback') }]
   const PREMIUM_HREFS = new Set(['/chat', '/listening', '/reading', '/conversation']); const stripeEnabled = useConfigStore((s) => s.stripeEnabled); const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled); const [trialDaysLeft, setTrialDaysLeft] = useState(0)
