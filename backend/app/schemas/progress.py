@@ -75,31 +75,74 @@ class GameStatsResponse(BaseModel):
     model_config = {"from_attributes": True}
 
 
-class GameProgressSync(BaseModel):
-    games_played: int = 0
-    questions_answered: int = 0
-    correct_answers: int = 0
-    best_round_score: int = 0
-    daily_challenges_completed: int = 0
-    last_daily_challenge_date: str = ""
-    current_correct_streak: int = 0
-    best_correct_streak: int = 0
+class GameProgressEventCreate(BaseModel):
+    event_id: str
+    game_id: str
+    questions_answered: int
+    correct_answers: int
+    round_score: int = 0
+    daily_challenge: bool = False
+    daily_challenge_date: str = ""
     achievements: list[str] = Field(default_factory=list)
 
-    @field_validator(
-        "games_played",
-        "questions_answered",
-        "correct_answers",
-        "best_round_score",
-        "daily_challenges_completed",
-        "current_correct_streak",
-        "best_correct_streak",
-    )
+    @field_validator("event_id")
     @classmethod
-    def normalize_non_negative(cls, value: int) -> int:
+    def validate_event_id(cls, value: str) -> str:
+        import uuid
+
+        try:
+            return str(uuid.UUID(value))
+        except (ValueError, AttributeError, TypeError) as exc:
+            raise ValueError("event_id must be a valid UUID") from exc
+
+    @field_validator("game_id")
+    @classmethod
+    def validate_game_id(cls, value: str) -> str:
+        value = value.strip()
+        if not value or len(value) > 32:
+            raise ValueError("game_id must be a non-empty value of at most 32 characters")
+        return value
+
+    @field_validator("questions_answered", "correct_answers", "round_score")
+    @classmethod
+    def validate_non_negative(cls, value: int) -> int:
         return max(0, value)
 
     @field_validator("achievements")
     @classmethod
     def normalize_achievements(cls, value: list[str]) -> list[str]:
-        return list(dict.fromkeys(item.strip() for item in value if isinstance(item, str) and item.strip()))
+        allowed = {
+            "first_game",
+            "perfect_round",
+            "streak_5",
+            "xp_100",
+            "xp_500",
+            "multi_skill",
+            "daily_challenge",
+        }
+        return list(
+            dict.fromkeys(
+                item.strip()
+                for item in value
+                if isinstance(item, str) and item.strip() in allowed
+            )
+        )
+
+    @field_validator("daily_challenge_date")
+    @classmethod
+    def normalize_daily_date(cls, value: str) -> str:
+        value = value.strip()
+        if value:
+            try:
+                date.fromisoformat(value)
+            except ValueError as exc:
+                raise ValueError("daily_challenge_date must be YYYY-MM-DD") from exc
+        return value
+
+    @field_validator("correct_answers")
+    @classmethod
+    def validate_correct_answers(cls, value: int, info) -> int:
+        questions = info.data.get("questions_answered", 0)
+        if value > questions:
+            raise ValueError("correct_answers cannot exceed questions_answered")
+        return value
