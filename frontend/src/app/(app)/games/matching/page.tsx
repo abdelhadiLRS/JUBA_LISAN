@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { InteractiveGameBoard } from '@/components/games/InteractiveGameBoard'
 import '@/components/games/interactive-games.css'
 import { apiFetch } from '@/lib/api'
-import { evaluateAchievements } from '@/lib/games/achievements'
+import { evaluateAchievements, getAchievementRewardXP } from '@/lib/games/achievements'
 import { useProgressStore } from '@/store/progress'
 
 type Lang = 'ar' | 'fr' | 'en'
