@@ -786,3 +786,56 @@ async def test_game_session_cannot_be_completed_by_another_user(
     assert session is not None
     assert session.user_id == user.id
     assert session.completed is False
+
+
+@pytest.mark.asyncio
+async def test_valid_game_completion_creates_game_progress_once(client, test_user, db_session):
+    user, headers = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    for question in session.questions:
+        question["answer"] = question["choices"][0]
+    await db_session.commit()
+
+    answers = [
+        {"question_id": question["id"], "choice": question["choices"][0]}
+        for question in payload["questions"]
+    ]
+    result = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": answers},
+        headers=headers,
+    )
+    assert result.status_code == 200
+
+    rows = (
+        await db_session.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == user.id,
+                GameProgress.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert len(rows) == 1
+    assert rows[0].games_played == 1
+    assert rows[0].questions_answered == 5
