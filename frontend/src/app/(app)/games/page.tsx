@@ -85,7 +85,7 @@ export default function GamesPage() {
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
-    addGameXP, recordGameAttempt, completeGame, unlockAchievements,
+    addGameXP, recordGameAttempt, completeGame, unlockAchievements, resetGameProgress,
   } = useProgressStore()
 
   const level = Math.floor(xp / 100) + 1
@@ -217,7 +217,7 @@ export default function GamesPage() {
   }
 
   function reset() {
-    setProgress({ xp: 0, streak: 0, skills: {}, gameStats: emptyGameStats(), achievements: [] })
+    resetGameProgress()
     setGame(null)
     setDailyMode(false)
     setQuestion(null)
