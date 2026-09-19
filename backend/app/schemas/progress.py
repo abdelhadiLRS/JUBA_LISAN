@@ -187,3 +187,15 @@ class GameSessionComplete(BaseModel):
     answers: list[GameSessionAnswer]
     daily_challenge: bool = False
     daily_challenge_date: str = ""
+
+    @field_validator("answers")
+    @classmethod
+    def validate_answers(cls, value: list[GameSessionAnswer]) -> list[GameSessionAnswer]:
+        if not value:
+            raise ValueError("answers cannot be empty")
+        seen: set[str] = set()
+        for answer in value:
+            if answer.question_id in seen:
+                raise ValueError("duplicate question_id")
+            seen.add(answer.question_id)
+        return value
