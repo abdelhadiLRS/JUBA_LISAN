@@ -165,8 +165,14 @@ class TatoebaService:
                 
                 response = self.session.get(endpoint, params=params)
                 if response.status_code == 200:
+                    data = response.json()
+                    if isinstance(data, list):
+                        results = data
+                    elif isinstance(data, dict):
                         results = data.get("results", data.get("sentences", []))
-                    
+                    else:
+                        results = []
+
                     sentences = []
                     for item in results:
                         sentence = self._parse_sentence(item)
