@@ -371,5 +371,6 @@ async def test_replayed_game_session_does_not_duplicate_progress_or_event(
     assert game_progress.questions_answered == 5
     assert game_progress.correct_answers == 5
     assert len(events) == 1
+    assert events[0].event_id == payload["session_id"]
     assert events[0].xp_earned == first.json()["xp_earned"]
     assert sum(row.xp_earned for row in progress_rows) == first.json()["xp_earned"]
