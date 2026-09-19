@@ -46,6 +46,7 @@ interface ProgressStore {
   recordGameAttempt: (correct: boolean) => void
   completeGame: (roundScore: number, daily: boolean) => void
   unlockAchievements: (ids: AchievementId[]) => void
+  resetGameProgress: () => void
   setTodayLessons: (lessons: TodayLesson[]) => void
   completeLesson: (id: number) => void
   setCurrentUnit: (unitId: string) => void
@@ -144,7 +145,6 @@ export const useProgressStore = create<ProgressStore>((set) => ({
   addGameXP: (xp, skill, correct) =>
     set((state) => ({
       xp: state.xp + xp,
-      streak: correct ? state.streak + 1 : 0,
       skills: correct
         ? {
             ...normalizeSkills(state.skills),
@@ -177,6 +177,7 @@ export const useProgressStore = create<ProgressStore>((set) => ({
       },
     })),
   unlockAchievements: (ids) => set((state) => ({ achievements: Array.from(new Set([...state.achievements, ...ids])) })),
+  resetGameProgress: () => set({ gameStats: initialGameStats, achievements: [] }),
   setTodayLessons: (lessons) => set({ todayLessons: normalizeTodayLessons(lessons) }),
   completeLesson: (id) => set((state) => ({ completedToday: [...state.completedToday, id] })),
   setCurrentUnit: (unitId) => set({ currentUnitId: unitId }),
