@@ -49,7 +49,14 @@ export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
   const [orderingAttempts, setOrderingAttempts] = useState(0)
 
   const pairs = useMemo(() => WORD_PAIRS[lang], [lang])
-  const targetOrder = lang === 'ar' ? ['الأول', 'الثاني', 'الثالث', 'الرابع'] : lang === 'fr' ? ['un', 'deux', 'trois', 'quatre'] : ['one', 'two', 'three', 'four']
+  const targetOrder = useMemo(
+    () => lang === 'ar'
+      ? ['الأول', 'الثاني', 'الثالث', 'الرابع']
+      : lang === 'fr'
+        ? ['un', 'deux', 'trois', 'quatre']
+        : ['one', 'two', 'three', 'four'],
+    [lang],
+  )
 
   useEffect(() => {
     setMemoryCards(makeMemory(lang))
@@ -107,7 +114,7 @@ export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
       return
     }
     setOrder([])
-  }, [completed, mode, order, targetOrder])
+  }, [completed, mode, order, targetOrder, orderingAttempts, onComplete])
 
   function flipCard(index: number) {
     if (locked || completed) return
