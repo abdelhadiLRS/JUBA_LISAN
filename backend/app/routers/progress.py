@@ -726,7 +726,7 @@ async def complete_game_session(
 
     entry.achievements = list(dict.fromkeys([*(entry.achievements or []), *fresh]))
     progress_entry = await update_daily_progress(
-        db, current_user.id, study_plan_id=plan.id,
+        db, user_id, study_plan_id=plan_id,
         xp=base_xp + achievement_xp, skill=current_skill,
         skill_score=current_skill_score, commit=False,
     )
@@ -734,7 +734,7 @@ async def complete_game_session(
         raise HTTPException(status_code=500, detail="Unable to persist game XP")
 
     db.add(GameProgressEvent(
-        event_id=event_id, user_id=current_user.id, study_plan_id=plan.id,
+        event_id=event_id, user_id=user_id, study_plan_id=plan_id,
         game_id=session.game_id, questions_answered=questions_answered,
         correct_answers=correct_answers, round_score=round_score,
         daily_challenge=data.daily_challenge, daily_challenge_date=data.daily_challenge_date,
@@ -748,6 +748,9 @@ async def complete_game_session(
         # made above and expose a deterministic conflict instead of a 500.
         await db.rollback()
         raise HTTPException(status_code=409, detail="Game completion already recorded") from exc
+    # Refresh the authenticated user after commit so this endpoint remains safe
+    # with production async_sessionmaker(expire_on_commit=True).
+    await db.refresh(current_user)
     summary = await get_game_summary(request=request, current_user=current_user, db=db)
     return GameSessionResultResponse(
         **summary.model_dump(),
