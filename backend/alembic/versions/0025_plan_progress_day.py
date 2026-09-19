@@ -25,17 +25,23 @@ def upgrade() -> None:
     #    absolute_day = (week_number - 1) * days_per_week + (day_number - 1)
     #    If no completed lessons, default to 0.
     op.execute("""
-        UPDATE study_plans sp
+        UPDATE study_plans
         SET progress_day = COALESCE((
-            SELECT MAX((l.week_number - 1) * sp.days_per_week + (l.day_number - 1)) + 1
+            SELECT MAX(
+                (l.week_number - 1) * study_plans.days_per_week
+                + (l.day_number - 1)
+            ) + 1
             FROM lessons l
-            WHERE l.study_plan_id = sp.id AND l.is_completed = TRUE
+            WHERE l.study_plan_id = study_plans.id
+              AND l.is_completed = TRUE
         ), 0)
         """)
 
     # 3. Make NOT NULL now that all rows have a value
-    op.alter_column("study_plans", "progress_day", nullable=False)
+    with op.batch_alter_table("study_plans", recreate="auto") as batch_op:
+        batch_op.alter_column("progress_day", nullable=False)
 
 
 def downgrade() -> None:
-    op.drop_column("study_plans", "progress_day")
+    with op.batch_alter_table("study_plans", recreate="auto") as batch_op:
+        batch_op.drop_column("progress_day")
