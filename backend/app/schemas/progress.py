@@ -39,3 +39,10 @@ class ProgressSummary(BaseModel):
 
 class ProgressHistoryResponse(BaseModel):
     entries: list[ProgressResponse]
+
+
+class GameProgressUpdate(BaseModel):
+    xp: int = 0
+    correct_answers: int = 0
+    questions_answered: int = 0
+    skills: dict[str, float] = {}
