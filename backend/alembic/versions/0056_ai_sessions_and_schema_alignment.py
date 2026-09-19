@@ -91,5 +91,11 @@ def downgrade() -> None:
     op.drop_index("ix_ai_sessions_user_id", table_name="ai_sessions")
     op.drop_table("ai_sessions")
 
+    # PostgreSQL stores SQLAlchemy enums as named types; remove them on downgrade
+    # so the migration can be applied again cleanly.
+    if op.get_bind().dialect.name == "postgresql":
+        op.execute("DROP TYPE IF EXISTS speechquality")
+        op.execute("DROP TYPE IF EXISTS sessionstatus")
+
     op.create_index("ix_reviews_user_id", "reviews", ["user_id"], unique=False)
     op.create_index("ix_users_username", "users", ["username"], unique=False)
