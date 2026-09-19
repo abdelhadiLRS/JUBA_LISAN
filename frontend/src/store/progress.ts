@@ -44,7 +44,7 @@ interface ProgressStore {
   setProgress: (data: { streak: number; xp: number; skills: Record<string, number>; gameStats?: GameStats; achievements?: AchievementId[] }) => void
   addGameXP: (xp: number, skill: string, correct: boolean) => void
   recordGameAttempt: (correct: boolean) => void
-  completeGame: (roundScore: number, daily: boolean) => void
+  completeGame: (roundScore: number, daily: boolean, dailyDate?: string) => void
   unlockAchievements: (ids: AchievementId[]) => void
   resetGameProgress: () => void
   setTodayLessons: (lessons: TodayLesson[]) => void
@@ -167,15 +167,26 @@ export const useProgressStore = create<ProgressStore>((set) => ({
         },
       }
     }),
-  completeGame: (roundScore, daily) =>
-    set((state) => ({
-      gameStats: {
-        ...state.gameStats,
-        gamesPlayed: state.gameStats.gamesPlayed + 1,
-        bestRoundScore: Math.max(state.gameStats.bestRoundScore, roundScore),
-        dailyChallengesCompleted: state.gameStats.dailyChallengesCompleted + (daily ? 1 : 0),
-      },
-    })),
+  completeGame: (roundScore, daily, dailyDate) =>
+    set((state) => {
+      const alreadyClaimedToday =
+        daily &&
+        Boolean(dailyDate) &&
+        state.gameStats.lastDailyChallengeDate === dailyDate
+      return {
+        gameStats: {
+          ...state.gameStats,
+          gamesPlayed: state.gameStats.gamesPlayed + 1,
+          bestRoundScore: Math.max(state.gameStats.bestRoundScore, roundScore),
+          dailyChallengesCompleted:
+            state.gameStats.dailyChallengesCompleted + (daily && !alreadyClaimedToday ? 1 : 0),
+          lastDailyChallengeDate:
+            daily && !alreadyClaimedToday
+              ? dailyDate
+              : state.gameStats.lastDailyChallengeDate,
+        },
+      }
+    }),
   unlockAchievements: (ids) => set((state) => ({ achievements: Array.from(new Set([...state.achievements, ...ids])) })),
   resetGameProgress: () => set({ gameStats: initialGameStats, achievements: [] }),
   setTodayLessons: (lessons) => set({ todayLessons: normalizeTodayLessons(lessons) }),
