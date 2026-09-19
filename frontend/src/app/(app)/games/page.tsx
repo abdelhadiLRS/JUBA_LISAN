@@ -10,8 +10,6 @@ import {
   type GameQuestion,
 } from '@/lib/games/engine'
 import {
-  ACHIEVEMENTS,
-  evaluateAchievements,
   type AchievementId,
 } from '@/lib/games/achievements'
 import { persistGameEvent } from '@/lib/games/persist'
@@ -84,7 +82,7 @@ export default function GamesPage() {
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
-    addGameXP, recordGameAttempt, completeGame, unlockAchievements, resetGameProgress,
+    addGameXP, recordGameAttempt, completeGame, resetGameProgress,
   } = useProgressStore()
 
   const level = Math.floor(xp / 100) + 1
@@ -140,44 +138,12 @@ export default function GamesPage() {
 
   function finishRound() {
     const perfect = roundCorrect === ROUND_SIZE
-    const projectedStats = {
-      ...gameStats,
-      gamesPlayed: gameStats.gamesPlayed + 1,
-      questionsAnswered: gameStats.questionsAnswered + ROUND_SIZE,
-      correctAnswers: gameStats.correctAnswers + roundCorrect,
-      bestRoundScore: Math.max(gameStats.bestRoundScore, roundScore),
-      dailyChallengesCompleted:
-        gameStats.dailyChallengesCompleted +
-        (dailyMode && gameStats.lastDailyChallengeDate !== today ? 1 : 0),
-      lastDailyChallengeDate:
-        dailyMode && gameStats.lastDailyChallengeDate !== today
-          ? today
-          : gameStats.lastDailyChallengeDate,
-      currentCorrectStreak:
-        roundCorrect === ROUND_SIZE
-          ? (gameStats.currentCorrectStreak ?? 0) + ROUND_SIZE
-          : 0,
-      bestCorrectStreak: Math.max(
-        gameStats.bestCorrectStreak,
-        roundCorrect === ROUND_SIZE
-          ? (gameStats.currentCorrectStreak ?? 0) + ROUND_SIZE
-          : 0
-      ),
-    }
+    const previousAchievements = new Set(achievements)
     const dailyReward = dailyMode && !dailyCompletedToday
-    const unlocked = evaluateAchievements(
-      {
-        xp,
-        skills,
-        stats: projectedStats,
-        roundScore,
-        perfectRound: perfect,
-        dailyChallengeCompleted: dailyReward,
-      },
-      achievements
-    )
-    const fresh = unlocked.filter((id) => !achievements.includes(id))
     completeGame(roundScore, dailyMode, today)
+    if (dailyReward) setDailyCompletedToday(true)
+    if (game) {
+
     if (dailyReward) setDailyCompletedToday(true)
     if (fresh.length) {
       unlockAchievements(fresh)
@@ -191,10 +157,10 @@ export default function GamesPage() {
         roundScore,
         dailyChallenge: dailyMode,
         dailyChallengeDate: dailyMode ? today : '',
-        achievements: fresh,
       }).then((server) => {
-        setProgress({
-          streak,
+        const fresh = (server.achievements as AchievementId[]).filter((id) => !previousAchievements.has(id))
+        if (fresh.length) setNewAchievements(fresh)
+        setProgress({          streak,
           xp: server.total_xp,
           skills: server.skills,
           gameStats: {
