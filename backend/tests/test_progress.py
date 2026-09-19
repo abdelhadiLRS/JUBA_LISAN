@@ -233,6 +233,60 @@ async def test_empty_game_progress_is_rejected_without_creating_progress(client,
 
 
 @pytest.mark.asyncio
+async def test_same_day_activity_accumulates_in_one_progress_row(db_session, test_user):
+    user, _ = test_user
+
+    from sqlalchemy import select
+
+    from app.models.progress import Progress
+    from app.services.progress_service import update_daily_progress
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+
+    first = await update_daily_progress(
+        db_session,
+        user.id,
+        study_plan_id=plan.id,
+        lesson_completed=True,
+        commit=False,
+    )
+    second = await update_daily_progress(
+        db_session,
+        user.id,
+        study_plan_id=plan.id,
+        exercise_correct=True,
+        commit=False,
+    )
+    await db_session.commit()
+
+    assert first is second
+    assert second.streak_day == 1
+    assert second.lessons_completed == 1
+    assert second.exercises_total == 1
+    assert second.exercises_correct == 1
+
+    result = await db_session.execute(
+        select(Progress).where(
+            Progress.user_id == user.id,
+            Progress.study_plan_id == plan.id,
+        )
+    )
+    assert len(result.scalars().all()) == 1
+
+
+@pytest.mark.asyncio
 async def test_streak_does_not_cross_study_plans(db_session, test_user):
     user, _ = test_user
 
