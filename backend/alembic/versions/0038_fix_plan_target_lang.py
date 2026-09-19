@@ -17,13 +17,20 @@ depends_on: str | Sequence[str] | None = None
 
 def upgrade() -> None:
     op.execute("""
-        UPDATE study_plans sp
-        SET target_language = ul.target_language
-        FROM user_languages ul
-        WHERE sp.user_language_id = ul.id
-          AND sp.target_language != ul.target_language
+        UPDATE study_plans
+        SET target_language = (
+            SELECT ul.target_language
+            FROM user_languages AS ul
+            WHERE ul.id = study_plans.user_language_id
+        )
+        WHERE user_language_id IS NOT NULL
+          AND target_language != (
+              SELECT ul.target_language
+              FROM user_languages AS ul
+              WHERE ul.id = study_plans.user_language_id
+          )
     """)
 
 
 def downgrade() -> None:
-    pass  # data fix — no schema change to revert
+    pass
