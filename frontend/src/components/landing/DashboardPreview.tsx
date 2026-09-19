@@ -1,5 +1,3 @@
-'use client'
-
 import { Flame, Award, BookOpen, Target, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react'
 
 interface DashboardPreviewProps {
