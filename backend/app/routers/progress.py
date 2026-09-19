@@ -1,4 +1,6 @@
 from datetime import UTC, date, datetime, timedelta
+from uuid import uuid4
+import random
 from typing import cast
 
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -14,10 +16,11 @@ from app.data.vocabulary import get_vocabulary_by_level
 from app.models.flashcard import Flashcard
 from app.models.game_progress import GameProgress
 from app.models.game_progress_event import GameProgressEvent
+from app.models.game_session import GameSession
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import GameProgressEventCreate, GameStatsResponse, ProgressHistoryResponse, ProgressResponse, ProgressSummary
+from app.schemas.progress import (GameProgressEventCreate, GameSessionResponse, GameSessionStart, GameStatsResponse, ProgressHistoryResponse, ProgressResponse, ProgressSummary)
 from app.services.progress_service import get_unit_competencies, update_daily_progress
 from app.services.user_language_service import get_active_language
 
@@ -215,6 +218,139 @@ async def get_game_summary(
         best_correct_streak=entry.best_correct_streak,
         achievements=entry.achievements or [],
         skills=await _get_game_skills(db, plan),
+    )
+
+
+def _server_game_questions(game_id: str, language: str, difficulty: int) -> list[dict]:
+    rng = random.SystemRandom()
+    hints = {
+        "ar": "فكّر بهدوء قبل اختيار الإجابة.",
+        "fr": "Réfléchis avant de choisir.",
+        "en": "Think carefully before choosing.",
+    }
+    questions: list[dict] = []
+    for index in range(5):
+        question_id = str(uuid4())
+        if game_id == "math":
+            maximum = {1: 18, 2: 60, 3: 150}[difficulty]
+            a, b = 2 + rng.randrange(maximum), 2 + rng.randrange(maximum)
+            subtraction = rng.random() > 0.5
+            left, right = (max(a, b), min(a, b)) if subtraction else (a, b)
+            answer = left - right if subtraction else left + right
+            spread = {1: 2, 2: 5, 3: 10}[difficulty]
+            choices = [str(answer), str(answer + 1), str(answer - 1), str(answer + spread)]
+            rng.shuffle(choices)
+            prompt = f"{left} {'-' if subtraction else '+'} {right} = ?"
+            skill, topic = "math", "arithmetic"
+        elif game_id == "sequence":
+            start = 2 + rng.randrange(difficulty * 4)
+            step = 2 + rng.randrange(difficulty * 4)
+            answer = start + step * 4
+            values = [start + step * n for n in range(4)]
+            choices = [str(answer), str(answer + step), str(answer - step), str(answer + 2 * step)]
+            rng.shuffle(choices)
+            prompt = "  →  ".join(map(str, values)) + "  →  ?"
+            skill, topic = "logic", "sequences"
+        elif game_id == "memory":
+            symbols = {
+                "ar": ["قمر", "كتاب", "بحر", "شمس", "قلم", "باب"],
+                "fr": ["lune", "livre", "mer", "soleil", "stylo", "porte"],
+                "en": ["moon", "book", "sea", "sun", "pen", "door"],
+            }[language]
+            size = {1: 3, 2: 4, 3: 5}[difficulty]
+            shown = rng.sample(symbols, size)
+            answer = " • ".join(shown)
+            alternatives = [answer]
+            while len(alternatives) < 4:
+                candidate = " • ".join(rng.sample(shown, len(shown)))
+                if candidate not in alternatives:
+                    alternatives.append(candidate)
+            rng.shuffle(alternatives)
+            choices, prompt = alternatives, f"Remember this order:\n\n{answer}"
+            skill, topic = "memory", "memory-sequence"
+        elif game_id == "matching":
+            pairs = {
+                "ar": [("كتاب", "book"), ("ماء", "water"), ("مدرسة", "school"), ("قلم", "pen")],
+                "fr": [("livre", "book"), ("eau", "water"), ("école", "school"), ("stylo", "pen")],
+                "en": [("book", "livre"), ("water", "eau"), ("school", "école"), ("pen", "stylo")],
+            }[language]
+            left, answer = rng.choice(pairs)
+            wrong = [value for key, value in pairs if key != left]
+            rng.shuffle(wrong)
+            choices = [answer, *wrong[:3]]
+            rng.shuffle(choices)
+            prompt = f"Match: {left}" if language == "en" else (f"Associe : {left}" if language == "fr" else f"طابق: {left}")
+            skill, topic = "vocabulary", "matching"
+        else:
+            base = {1: [1, 2, 3, 4], 2: [2, 4, 6, 8], 3: [3, 6, 9, 12]}[difficulty]
+            scrambled = base[:]
+            rng.shuffle(scrambled)
+            answer = " → ".join(map(str, base))
+            alternatives = [answer, " → ".join(map(str, reversed(base))), " → ".join(map(str, base[1:] + base[:1]))]
+            if " → ".join(map(str, scrambled)) not in alternatives:
+                alternatives.append(" → ".join(map(str, scrambled)))
+            choices = list(dict.fromkeys(alternatives))[:4]
+            rng.shuffle(choices)
+            prompt = (
+                f"Order from smallest to largest: {' · '.join(map(str, scrambled))}"
+                if language == "en"
+                else (f"Ordonne du plus petit au plus grand : {' · '.join(map(str, scrambled))}"
+                      if language == "fr"
+                      else f"رتّب الأرقام من الأصغر إلى الأكبر: {' · '.join(map(str, scrambled))}")
+            skill, topic = "ordering", "ordering"
+        questions.append({
+            "id": question_id,
+            "prompt": prompt,
+            "choices": choices,
+            "answer": str(answer),
+            "hint": hints[language],
+            "skill": skill,
+            "difficulty": difficulty,
+            "topic": topic,
+        })
+    return questions
+
+
+@router.post("/game-session", response_model=GameSessionResponse)
+@limiter.limit("30/minute")
+async def start_game_session(
+    request: Request,
+    data: GameSessionStart,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Issue an opaque server-owned question set for a verifiable game round."""
+    plan = await _get_active_plan_or_none(db, current_user.id)
+    if plan is None:
+        raise HTTPException(status_code=404, detail="No active study plan found")
+
+    session_id = str(uuid4())
+    now = datetime.now(UTC).replace(tzinfo=None)
+    expires_at = now + timedelta(minutes=15)
+    questions = _server_game_questions(data.game_id, data.language, data.difficulty)
+    session = GameSession(
+        id=session_id,
+        user_id=current_user.id,
+        study_plan_id=plan.id,
+        game_id=data.game_id,
+        language=data.language,
+        difficulty=data.difficulty,
+        questions=questions,
+        started_at=now,
+        expires_at=expires_at,
+        completed=False,
+    )
+    db.add(session)
+    await db.commit()
+    public_questions = [
+        {key: item[key] for key in ("id", "prompt", "choices", "hint", "skill", "difficulty")}
+        for item in questions
+    ]
+    return GameSessionResponse(
+        session_id=session_id,
+        game_id=data.game_id,
+        questions=public_questions,
+        expires_at=expires_at.isoformat(),
     )
 
 
