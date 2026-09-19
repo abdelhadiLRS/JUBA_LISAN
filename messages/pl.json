@@ -353,7 +353,7 @@
       "linkPrivacy": "Polityka prywatności",
       "linkBack": "Wróć do rejestracji",
       "linkBackSettings": "Wróć do ustawień",
-      "linkContact": "W sprawach regulaminu użyj formularza freelingo.app, dopóki jest dostępny, lub kanału kontaktowego opublikowanego w repozytorium JUBA LISAN na GitHubie."
+      "linkContact": "W sprawach regulaminu użyj formularza the JUBA LISAN website, dopóki jest dostępny, lub kanału kontaktowego opublikowanego w repozytorium JUBA LISAN na GitHubie."
     },
     "privacy": {
       "pageTitle": "Polityka prywatności",
@@ -390,7 +390,7 @@
       "s7Title": "7. Przechowywanie i usuwanie danych",
       "s7Body": "Dane operacyjne są przechowywane, dopóki istnieje konto i działa usługa hostowana. W Ustawieniach możesz usunąć wspomnienia, języki lub całe konto. Przy zamknięciu usługi operator może po rozsądnym możliwym powiadomieniu usunąć wszystkie konta i dane. Usunięcie jest nieodwracalne. Po usunięciu systemów i kopii kontrolowanych przez operatora JUBA LISAN nie będzie przechowywać danych osobowych. Stripe może zachować informacje o płatnościach i transakcjach zgodnie z własną polityką i obowiązkami prawnymi.",
       "s8Title": "8. Kontakt",
-      "s8Body": "W sprawach prywatności usługi hostowanej użyj formularza freelingo.app, dopóki jest dostępny. Po zamknięciu użyj kanału kontaktowego w repozytorium JUBA LISAN na GitHubie i nie publikuj danych osobowych w publicznych zgłoszeniach. Przy samodzielnym hostingu skontaktuj się z administratorem instancji.",
+      "s8Body": "W sprawach prywatności usługi hostowanej użyj formularza the JUBA LISAN website, dopóki jest dostępny. Po zamknięciu użyj kanału kontaktowego w repozytorium JUBA LISAN na GitHubie i nie publikuj danych osobowych w publicznych zgłoszeniach. Przy samodzielnym hostingu skontaktuj się z administratorem instancji.",
       "s9Title": "9. Rozdzielność",
       "s9Body": "Jeśli którekolwiek postanowienie niniejszej polityki zostanie uznane za nieważne lub niewykonalne, zostanie ono ograniczone w minimalnym zakresie, a pozostałe pozostaną w mocy.",
       "linkTerms": "Regulamin",
