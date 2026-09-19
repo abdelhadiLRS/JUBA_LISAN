@@ -253,7 +253,10 @@ async def get_game_summary(
             skills=await _get_game_skills(db, plan),
         )
     total_xp_result = await db.execute(
-        select(Progress.xp_earned).where(\n            Progress.user_id == current_user.id,\n            Progress.study_plan_id == plan.id,\n        )
+        select(Progress.xp_earned).where(
+            Progress.user_id == current_user.id,
+            Progress.study_plan_id == plan.id,
+        )
     )
     return GameStatsResponse(
         total_xp=sum(total_xp_result.scalars().all()),
