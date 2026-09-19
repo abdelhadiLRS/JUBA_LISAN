@@ -211,7 +211,13 @@ async def record_game_event(
         return aggregate
 
     try:
-        event = GameProgressEvent(
+        # Game XP is derived from the validated result; client-supplied XP/achievement rewards are ignored.
+        base_xp = (data.correct_answers * 5) + max(0, data.questions_answered - data.correct_answers)
+        current_total_xp_result = await db.execute(
+            select(Progress.xp_earned).where(Progress.study_plan_id == plan.id)
+        )
+        total_xp_before = sum(current_total_xp_result.scalars().all())
+                event = GameProgressEvent(
             event_id=data.event_id,
             user_id=current_user.id,
             study_plan_id=plan.id,
@@ -221,7 +227,8 @@ async def record_game_event(
             round_score=data.round_score,
             daily_challenge=data.daily_challenge,
             daily_challenge_date=data.daily_challenge_date,
-            achievements=data.achievements,
+            achievements=[],
+            xp_earned=base_xp,
         )
         db.add(event)
         await db.flush()
@@ -263,9 +270,56 @@ async def record_game_event(
         else:
             entry.current_correct_streak = 0
 
+        fresh_achievements: list[str] = []
+        if entry.games_played == 1:
+            fresh_achievements.append("first_game")
+        if data.questions_answered > 0 and data.correct_answers == data.questions_answered:
+            fresh_achievements.append("perfect_round")
+        if entry.best_correct_streak >= 5:
+            fresh_achievements.append("streak_5")
+        if (
+            data.daily_challenge
+            and data.daily_challenge_date
+            and entry.last_daily_challenge_date == data.daily_challenge_date
+            and entry.daily_challenges_completed > 0
+        ):
+            fresh_achievements.append("daily_challenge")
+        projected_xp = total_xp_before + base_xp
+        if projected_xp >= 100:
+            fresh_achievements.append("xp_100")
+        if projected_xp >= 500:
+            fresh_achievements.append("xp_500")
+
+        reward_by_achievement = {
+            "first_game": 25,
+            "perfect_round": 50,
+            "streak_5": 40,
+            "xp_100": 25,
+            "xp_500": 100,
+            "daily_challenge": 60,
+        }
+        existing_achievements = set(entry.achievements or [])
+        fresh_achievements = [
+            achievement
+            for achievement in dict.fromkeys(fresh_achievements)
+            if achievement not in existing_achievements
+        ]
+        achievement_xp = sum(reward_by_achievement[item] for item in fresh_achievements)
         entry.achievements = list(
-            dict.fromkeys([*(entry.achievements or []), *data.achievements])
+            dict.fromkeys([*(entry.achievements or []), *fresh_achievements])
         )
+
+        progress_entry = await update_daily_progress(
+            db,
+            current_user.id,
+            study_plan_id=plan.id,
+            xp=base_xp + achievement_xp,
+            commit=False,
+        )
+        if progress_entry is None:
+            raise HTTPException(status_code=500, detail="Unable to persist game XP")
+
+        event.xp_earned = base_xp + achievement_xp
         await db.commit()
         await db.refresh(entry)
         return entry
