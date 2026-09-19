@@ -353,7 +353,7 @@
       "linkPrivacy": "Datenschutzerklärung",
       "linkBack": "Zurück zur Registrierung",
       "linkBackSettings": "Zurück zu Einstellungen",
-      "linkContact": "Bei Fragen nutzen Sie das Kontaktformular auf freelingo.app, solange es verfügbar ist, oder den im JUBA LISAN-GitHub-Repository veröffentlichten Kontaktweg."
+      "linkContact": "Bei Fragen nutzen Sie das Kontaktformular auf the JUBA LISAN website, solange es verfügbar ist, oder den im JUBA LISAN-GitHub-Repository veröffentlichten Kontaktweg."
     },
     "privacy": {
       "pageTitle": "Datenschutzerklärung",
@@ -390,7 +390,7 @@
       "s7Title": "7. Datenspeicherung und Löschung",
       "s7Body": "Betriebsdaten werden gespeichert, solange Ihr Konto besteht und der gehostete Dienst aktiv ist. Erinnerungen, Sprachen oder das gesamte Konto können in den Einstellungen gelöscht werden. Bei Schließung des Dienstes kann der Betreiber nach einer angemessenen Vorankündigung alle Konten und Daten löschen. Die Löschung ist unwiderruflich. Nach Löschung der Systeme und Kopien unter Kontrolle des Betreibers bewahrt JUBA LISAN keine personenbezogenen Daten auf. Stripe kann Zahlungs- und Transaktionsdaten gemäß seiner eigenen Richtlinie und gesetzlichen Pflichten aufbewahren.",
       "s8Title": "8. Kontakt",
-      "s8Body": "Für Datenschutzfragen zum gehosteten Dienst nutzen Sie das Kontaktformular auf freelingo.app, solange es verfügbar ist. Nach der Schließung nutzen Sie den im JUBA LISAN-GitHub-Repository veröffentlichten Kontaktweg und veröffentlichen Sie keine personenbezogenen Daten in öffentlichen Issues. Bei selbst gehosteten Installationen wenden Sie sich an deren Administrator.",
+      "s8Body": "Für Datenschutzfragen zum gehosteten Dienst nutzen Sie das Kontaktformular auf the JUBA LISAN website, solange es verfügbar ist. Nach der Schließung nutzen Sie den im JUBA LISAN-GitHub-Repository veröffentlichten Kontaktweg und veröffentlichen Sie keine personenbezogenen Daten in öffentlichen Issues. Bei selbst gehosteten Installationen wenden Sie sich an deren Administrator.",
       "s9Title": "9. Salvatorische Klausel",
       "s9Body": "Sollte eine Bestimmung dieser Richtlinie für ungültig oder nicht durchsetzbar befunden werden, wird diese Bestimmung im geringstmöglichen Umfang eingeschränkt und die übrigen Bestimmungen bleiben wirksam.",
       "linkTerms": "Nutzungsbedingungen",
