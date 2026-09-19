@@ -38,5 +38,6 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.drop_column("users", "freemium_trial_used")
-    op.drop_column("users", "freemium_trial_ends_at")
+    with op.batch_alter_table("users", recreate="auto") as batch_op:
+        batch_op.drop_column("freemium_trial_used")
+        batch_op.drop_column("freemium_trial_ends_at")
