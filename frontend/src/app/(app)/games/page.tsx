@@ -84,6 +84,7 @@ export default function GamesPage() {
   const [hydrated, setHydrated] = useState(false)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
   const [roundSkills, setRoundSkills] = useState<Record<string, { correct: number; total: number }>>({})
+  const [dailyCompletedToday, setDailyCompletedToday] = useState(false)
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
@@ -141,6 +142,7 @@ export default function GamesPage() {
   )
 
   function startGame(id: GameId, daily = false) {
+    if (daily && dailyCompletedToday) return
     setGame(id)
     setDailyMode(daily)
     setRound(0)
@@ -194,6 +196,7 @@ export default function GamesPage() {
         gameStats.currentCorrectStreak ?? 0
       ),
     }
+    const dailyReward = dailyMode && !dailyCompletedToday
     const unlocked = evaluateAchievements(
       {
         xp: xp + roundScore,
@@ -201,12 +204,13 @@ export default function GamesPage() {
         stats: projectedStats,
         roundScore,
         perfectRound: perfect,
-        dailyChallengeCompleted: dailyMode,
+        dailyChallengeCompleted: dailyReward,
       },
       achievements
     )
     const fresh = unlocked.filter((id) => !achievements.includes(id))
     completeGame(roundScore, dailyMode, today)
+    if (dailyReward) setDailyCompletedToday(true)
     if (fresh.length) {
       unlockAchievements(fresh)
       setNewAchievements(fresh)
@@ -288,7 +292,7 @@ export default function GamesPage() {
             <div className="achievement-toast" style={{ display: newAchievements.length ? 'block' : 'none' }}>
               🏅 <strong>{t.newBadge}</strong> {newAchievements.map((id) => ACHIEVEMENTS[id].title).join(' · ')}
             </div>
-            <button className="daily-challenge" onClick={() => startGame(dailyGame, true)}>
+            <button className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} onClick={() => startGame(dailyGame, true)} disabled={dailyCompletedToday}>
               <span className="daily-icon">📅</span>
               <span><strong>{t.daily}</strong><small>{t.dailyDesc}</small></span>
               <span className="start">{t.start} →</span>
