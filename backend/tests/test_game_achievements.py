@@ -1164,3 +1164,97 @@ async def test_daily_challenge_with_non_today_date_is_rejected_before_persistenc
     ).scalars().all()
     assert progress_rows == []
 
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("game_id", "trace_factory", "detail"),
+    [
+        (
+            "memory",
+            lambda solution: [
+                {
+                    "first": next(iter(solution["pairs"])),
+                    "second": "client-forged-card-id",
+                }
+            ],
+            "Unknown memory card",
+        ),
+        (
+            "matching",
+            lambda solution: [
+                {
+                    "left": "client-forged-left-id",
+                    "right": next(iter(solution["pairs"].values())),
+                }
+            ],
+            "Unknown matching item",
+        ),
+        (
+            "ordering",
+            lambda solution: [{"order": solution["target"] + ["client-forged-item"]}],
+            "Invalid ordering interaction",
+        ),
+    ],
+)
+async def test_interactive_tampering_is_rejected_before_persistence(
+    client, test_user, db_session, game_id, trace_factory, detail
+):
+    user, headers = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": game_id, "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    solution = session.questions[0]["interaction"]["solution"]
+
+    result = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": payload["session_id"],
+            "interaction_trace": trace_factory(solution),
+        },
+        headers=headers,
+    )
+
+    assert result.status_code == 422
+    assert result.json()["detail"] == detail
+
+    await db_session.refresh(session)
+    assert session.completed is False
+
+    game_progress = (
+        await db_session.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == user.id,
+                GameProgress.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert game_progress == []
+
+    progress_rows = (
+        await db_session.execute(
+            select(Progress).where(
+                Progress.user_id == user.id,
+                Progress.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert progress_rows == []
+
