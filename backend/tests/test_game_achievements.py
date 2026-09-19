@@ -504,3 +504,68 @@ async def test_game_session_expiry_is_rechecked_after_write_phase_starts(
 
     await db_session.refresh(session)
     assert session.completed is False
+
+@pytest.mark.asyncio
+async def test_interactive_attempts_do_not_inflate_scored_questions_or_xp(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "memory", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+
+    solution = session.questions[0]["interaction"]["solution"]
+    cards_by_pair = {}
+    for card_id, pair_id in solution["pairs"].items():
+        cards_by_pair.setdefault(pair_id, []).append(card_id)
+    correct_pairs = list(cards_by_pair.values())
+    assert len(correct_pairs) == solution["pair_count"]
+
+    trace = [
+        {"first": pair[0], "second": pair[1]}
+        for pair in correct_pairs
+    ]
+    wrong_pair = {"first": correct_pairs[0][0], "second": correct_pairs[1][0]}
+    trace.extend([wrong_pair] * 20)
+
+    result = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "interaction_trace": trace},
+        headers=headers,
+    )
+
+    assert result.status_code == 200
+    body = result.json()
+    assert body["round_correct"] == solution["pair_count"]
+    assert body["round_questions"] == solution["pair_count"]
+    assert body["round_score"] == 25
+    assert body["xp_earned"] == solution["pair_count"] * 5 + 75
+    assert body["total_xp"] == body["xp_earned"]
+
+    game_progress = (
+        await db_session.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == user.id,
+                GameProgress.study_plan_id == plan.id,
+            )
+        )
+    ).scalar_one()
+    assert game_progress.questions_answered == solution["pair_count"]
