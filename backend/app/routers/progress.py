@@ -465,7 +465,7 @@ async def start_game_session(
     )
 
 
-@router.post("/game-session/complete", response_model=GameStatsResponse)
+@router.post("/game-session/complete", response_model=GameSessionResultResponse)
 @limiter.limit("30/minute")
 async def complete_game_session(
     request: Request,
