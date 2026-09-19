@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from pydantic import BaseModel, Field, field_serializer
+from pydantic import BaseModel, Field, field_serializer, field_validator
 
 
 class ProgressResponse(BaseModel):
@@ -46,3 +46,15 @@ class GameProgressUpdate(BaseModel):
     correct_answers: int = 0
     questions_answered: int = 0
     skills: dict[str, float] = Field(default_factory=dict)
+
+    @field_validator("skills")
+    @classmethod
+    def normalize_skills(cls, value: dict[str, float]) -> dict[str, float]:
+        normalized: dict[str, float] = {}
+        for skill, score in value.items():
+            if not isinstance(skill, str) or not skill.strip():
+                continue
+            if not isinstance(score, (int, float)) or not __import__("math").isfinite(float(score)):
+                continue
+            normalized[skill.strip()] = max(0.0, min(1.0, float(score)))
+        return normalized
