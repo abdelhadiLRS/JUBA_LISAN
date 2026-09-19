@@ -482,7 +482,7 @@ async def test_duplicate_event_conflict_rolls_back_game_completion(
         GameProgressEvent(
             event_id=payload["session_id"],
             user_id=user.id,
-            study_plan_id=plan.id,
+            study_plan_id=plan_id,
             game_id="math",
             questions_answered=0,
             correct_answers=0,
