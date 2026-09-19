@@ -160,7 +160,12 @@ async def get_summary(
     )
 
     result = await db.execute(
-        select(Progress).where(Progress.study_plan_id == plan.id).order_by(Progress.date.desc())
+        select(Progress)
+        .where(
+            Progress.user_id == current_user.id,
+            Progress.study_plan_id == plan.id,
+        )
+        .order_by(Progress.date.desc())
     )
     all_entries = result.scalars().all()
 
@@ -809,7 +814,10 @@ async def get_history(
 
     result = await db.execute(
         select(Progress)
-        .where(Progress.study_plan_id == plan.id)
+        .where(
+            Progress.user_id == current_user.id,
+            Progress.study_plan_id == plan.id,
+        )
         .order_by(Progress.date.desc())
         .limit(90)
     )
