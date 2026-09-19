@@ -136,13 +136,6 @@ export default function GamesPage() {
     }
     addGameXP(result.xp, result.skill, result.correct)
     recordGameAttempt(result.correct)
-    setRoundSkills((current) => ({
-      ...current,
-      [result.skill]: {
-        correct: (current[result.skill]?.correct ?? 0) + (result.correct ? 1 : 0),
-        total: (current[result.skill]?.total ?? 0) + 1,
-      },
-    }))
   }
 
   function finishRound() {
