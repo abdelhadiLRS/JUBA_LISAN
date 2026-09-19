@@ -22,6 +22,8 @@ async def update_daily_progress(
     study_plan_id: int,
     lesson_completed: bool = False,
     exercise_correct: bool | None = None,
+    exercise_total_delta: int = 0,
+    exercise_correct_delta: int = 0,
     flashcard_reviewed: bool = False,
     xp: int = 0,
     skill: str | None = None,
@@ -34,6 +36,8 @@ async def update_daily_progress(
     has_activity = (
         lesson_completed
         or exercise_correct is not None
+        or exercise_total_delta > 0
+        or exercise_correct_delta > 0
         or flashcard_reviewed
         or xp > 0
         or (skill is not None and skill_score is not None)
@@ -94,6 +98,11 @@ async def update_daily_progress(
             entry.xp_earned += XP_EXERCISE_CORRECT
         else:
             entry.xp_earned += XP_EXERCISE_WRONG
+
+    if exercise_total_delta > 0:
+        entry.exercises_total += exercise_total_delta
+    if exercise_correct_delta > 0:
+        entry.exercises_correct += min(exercise_correct_delta, exercise_total_delta or exercise_correct_delta)
 
     if flashcard_reviewed:
         entry.xp_earned += XP_FLASHCARD_REVIEW
