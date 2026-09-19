@@ -137,47 +137,41 @@ export default function GamesPage() {
   }
 
   function finishRound() {
-    const perfect = roundCorrect === ROUND_SIZE
-    const previousAchievements = new Set(achievements)
     const dailyReward = dailyMode && !dailyCompletedToday
+    const previousAchievements = new Set(achievements)
     completeGame(roundScore, dailyMode, today)
     if (dailyReward) setDailyCompletedToday(true)
-    if (game) {
+    if (!game) return
 
-    if (dailyReward) setDailyCompletedToday(true)
-    if (fresh.length) {
-      unlockAchievements(fresh)
-      setNewAchievements(fresh)
-    }
-    if (game) {
-      void persistGameEvent({
-        gameId: game,
-        questionsAnswered: ROUND_SIZE,
-        correctAnswers: roundCorrect,
-        roundScore,
-        dailyChallenge: dailyMode,
-        dailyChallengeDate: dailyMode ? today : '',
-      }).then((server) => {
-        const fresh = (server.achievements as AchievementId[]).filter((id) => !previousAchievements.has(id))
-        if (fresh.length) setNewAchievements(fresh)
-        setProgress({          streak,
-          xp: server.total_xp,
-          skills: server.skills,
-          gameStats: {
-            gamesPlayed: server.games_played,
-            questionsAnswered: server.questions_answered,
-            correctAnswers: server.correct_answers,
-            bestRoundScore: server.best_round_score,
-            dailyChallengesCompleted: server.daily_challenges_completed,
-            lastDailyChallengeDate: server.last_daily_challenge_date,
-            currentCorrectStreak: server.current_correct_streak,
-            bestCorrectStreak: server.best_correct_streak,
-          },
-          achievements: server.achievements as AchievementId[],
-        })
-      }).catch(() => undefined)
-    }
-
+    void persistGameEvent({
+      gameId: game,
+      questionsAnswered: ROUND_SIZE,
+      correctAnswers: roundCorrect,
+      roundScore,
+      dailyChallenge: dailyMode,
+      dailyChallengeDate: dailyMode ? today : '',
+    }).then((server) => {
+      const fresh = (server.achievements as AchievementId[]).filter(
+        (id) => !previousAchievements.has(id)
+      )
+      if (fresh.length) setNewAchievements(fresh)
+      setProgress({
+        streak,
+        xp: server.total_xp,
+        skills: server.skills,
+        gameStats: {
+          gamesPlayed: server.games_played,
+          questionsAnswered: server.questions_answered,
+          correctAnswers: server.correct_answers,
+          bestRoundScore: server.best_round_score,
+          dailyChallengesCompleted: server.daily_challenges_completed,
+          lastDailyChallengeDate: server.last_daily_challenge_date,
+          currentCorrectStreak: server.current_correct_streak,
+          bestCorrectStreak: server.best_correct_streak,
+        },
+        achievements: server.achievements as AchievementId[],
+      })
+    }).catch(() => undefined)
   }
 
   function next() {
