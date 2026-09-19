@@ -62,6 +62,7 @@ const initialGameStats: GameStats = {
   correctAnswers: 0,
   bestRoundScore: 0,
   dailyChallengesCompleted: 0,
+  lastDailyChallengeDate: '',
   currentCorrectStreak: 0,
   bestCorrectStreak: 0,
 }
