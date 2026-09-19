@@ -11,7 +11,7 @@ type Props = {
   challenge?: InteractiveGameChallenge
   onComplete?: (trace: InteractiveGameTrace[]) => Promise<boolean> | boolean | void
 }
-type MemoryCard = { id: string; label: string; flipped: boolean; matched: boolean }
+type MemoryCard = { id: string; label: string; pair_key?: string; flipped: boolean; matched: boolean }
 
 const copy = {
   ar: { memory: 'الذاكرة', matching: 'المطابقة', ordering: 'الترتيب', reset: 'إعادة', moves: 'المحاولات', match: 'طابق العنصرين المتشابهين', chooseLeft: 'اختر كلمة', chooseRight: 'اختر ترجمتها', order: 'اضغط العناصر بالترتيب الصحيح', complete: 'أحسنت! أكملت التحدي.', up: 'أعلى', down: 'أسفل', undo: 'تراجع', clear: 'مسح' },
@@ -46,10 +46,10 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     }
   }, [challenge, mode])
 
-  function finish(trace: InteractiveGameTrace[]) {
+  async function finish(trace: InteractiveGameTrace[]) {
     if (completed) return
-    setCompleted(true)
-    onComplete?.(trace)
+    const accepted = await onComplete?.(trace)
+    if (accepted !== false) setCompleted(true)
   }
 
   function flipCard(index: number) {
@@ -67,8 +67,6 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     const trace = [...memoryTrace, { first: firstId, second: card.id } as InteractiveGameTrace]
     setMemoryTrace(trace)
     setMoves(value => value + 1)
-    const firstIndex = next.findIndex(item => item.id === firstId)
-    const correct = firstIndex >= 0 && next[firstIndex].pair_key === card.pair_key
     const timer = window.setTimeout(() => {
       setLocked(false)
       setMemoryCards(current => {
@@ -81,9 +79,6 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
         return updated
       })
     }, 350)
-    window.setTimeout(() => {
-      setMemoryCards(current => current)
-    }, 351)
   }
 
   function chooseMatching(side: 'left' | 'right', id: string) {
@@ -110,7 +105,6 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     const trace = [...orderingTrace, { order: [...order] } as InteractiveGameTrace]
     setOrderingTrace(trace)
     setMoves(value => value + 1)
-    const next = challenge.items.map(item => item.id)
     void Promise.resolve(onComplete?.(trace)).then((accepted) => {
       if (accepted !== false) setCompleted(true)
       else setOrder([])
