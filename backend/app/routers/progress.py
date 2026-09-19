@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta
 from typing import cast
 
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -323,7 +323,7 @@ async def record_game_event(
             raise HTTPException(status_code=500, detail="Unable to persist game XP")
 
         event.xp_earned = base_xp + achievement_xp
-        entry.updated_at = __import__("datetime").datetime.now(__import__("datetime").timezone.utc)
+        entry.updated_at = datetime.now(UTC).replace(tzinfo=None)
         await db.commit()
         await db.refresh(entry)
         return entry
