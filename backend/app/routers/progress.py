@@ -20,7 +20,7 @@ from app.models.game_session import GameSession
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import (GameProgressEventCreate, GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, ProgressHistoryResponse, ProgressResponse, ProgressSummary)
+from app.schemas.progress import (GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, ProgressHistoryResponse, ProgressResponse, ProgressSummary)
 from app.services.progress_service import get_unit_competencies, update_daily_progress
 from app.services.user_language_service import get_active_language
 
@@ -653,253 +653,18 @@ async def complete_game_session(
     )
 
 
-@router.post("/game-event", response_model=GameStatsResponse)
+@router.post("/game-event", response_model=GameStatsResponse, status_code=410)
 @limiter.limit("60/minute")
 async def record_game_event(
     request: Request,
-    data: GameProgressEventCreate,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Record one completed game exactly once and update the server aggregate."""
-    plan = await _get_active_plan_or_none(db, current_user.id)
-    if plan is None:
-        raise HTTPException(status_code=404, detail="No active study plan found")
-    if data.daily_challenge and data.daily_challenge_date != date.today().isoformat():
-        raise HTTPException(status_code=422, detail="daily_challenge_date must be today")
-
-    existing_result = await db.execute(
-        select(GameProgressEvent).where(
-            GameProgressEvent.user_id == current_user.id,
-            GameProgressEvent.study_plan_id == plan.id,
-            GameProgressEvent.event_id == data.event_id,
-        )
+    """Legacy endpoint retired; all game writes require a server-issued session."""
+    raise HTTPException(
+        status_code=410,
+        detail="Legacy game events are retired; use /api/progress/game-session",
     )
-    if existing_result.scalar_one_or_none() is not None:
-        aggregate_result = await db.execute(
-            select(GameProgress).where(
-                GameProgress.user_id == current_user.id,
-                GameProgress.study_plan_id == plan.id,
-            )
-        )
-        aggregate = aggregate_result.scalar_one_or_none()
-        if aggregate is None:
-            raise HTTPException(status_code=409, detail="Game event already exists without an aggregate")
-        total_xp_result = await db.execute(
-            select(Progress.xp_earned).where(Progress.study_plan_id == plan.id)
-        )
-        return GameStatsResponse(
-            total_xp=sum(total_xp_result.scalars().all()),
-            games_played=aggregate.games_played,
-            questions_answered=aggregate.questions_answered,
-            correct_answers=aggregate.correct_answers,
-            best_round_score=aggregate.best_round_score,
-            daily_challenges_completed=aggregate.daily_challenges_completed,
-            last_daily_challenge_date=aggregate.last_daily_challenge_date,
-            current_correct_streak=aggregate.current_correct_streak,
-            best_correct_streak=aggregate.best_correct_streak,
-            achievements=aggregate.achievements or [],
-            skills=await _get_game_skills(db, plan),
-        )
-
-    try:
-        # Game XP is derived from the validated result; client-supplied XP/achievement rewards are ignored.
-        base_xp = (data.correct_answers * 5) + max(0, data.questions_answered - data.correct_answers)
-        current_total_xp_result = await db.execute(
-            select(Progress.xp_earned).where(Progress.study_plan_id == plan.id)
-        )
-        total_xp_before = sum(current_total_xp_result.scalars().all())
-        event = GameProgressEvent(
-            event_id=data.event_id,
-            user_id=current_user.id,
-            study_plan_id=plan.id,
-            game_id=data.game_id,
-            questions_answered=data.questions_answered,
-            correct_answers=data.correct_answers,
-            round_score=data.round_score,
-            daily_challenge=data.daily_challenge,
-            daily_challenge_date=data.daily_challenge_date,
-            achievements=[],
-            xp_earned=base_xp,
-        )
-        db.add(event)
-        await db.flush()
-
-        result = await db.execute(
-            select(GameProgress).where(
-                GameProgress.user_id == current_user.id,
-                GameProgress.study_plan_id == plan.id,
-            )
-        )
-        entry = result.scalar_one_or_none()
-        if entry is None:
-            entry = GameProgress(
-                user_id=current_user.id,
-                study_plan_id=plan.id,
-                achievements=[],
-            )
-            db.add(entry)
-            await db.flush()
-
-        entry.games_played += 1
-        entry.questions_answered += data.questions_answered
-        entry.correct_answers += data.correct_answers
-        entry.best_round_score = max(entry.best_round_score, data.round_score)
-
-        if (
-            data.daily_challenge
-            and data.daily_challenge_date
-            and entry.last_daily_challenge_date != data.daily_challenge_date
-        ):
-            entry.daily_challenges_completed += 1
-            entry.last_daily_challenge_date = data.daily_challenge_date
-
-        if data.questions_answered > 0 and data.correct_answers == data.questions_answered:
-            entry.current_correct_streak += data.correct_answers
-            entry.best_correct_streak = max(
-                entry.best_correct_streak, entry.current_correct_streak
-            )
-        else:
-            entry.current_correct_streak = 0
-
-        candidate_achievements: list[str] = []
-        if entry.games_played == 1:
-            candidate_achievements.append("first_game")
-        if data.questions_answered > 0 and data.correct_answers == data.questions_answered:
-            candidate_achievements.append("perfect_round")
-        if entry.best_correct_streak >= 5:
-            candidate_achievements.append("streak_5")
-        if data.daily_challenge:
-            candidate_achievements.append("daily_challenge")
-
-        # Evaluate multi-skill progress from server-owned daily skills. The
-        # current game's mapped skill counts as active only when the event has
-        # at least one question, so the client cannot unlock this reward by
-        # claiming an arbitrary achievement.
-        current_skill = GAME_SKILL_MAP.get(data.game_id)
-        current_skill_score = (
-            data.correct_answers / data.questions_answered
-            if data.questions_answered > 0
-            else None
-        )
-        latest_progress_result = await db.execute(
-            select(Progress.skills)
-            .where(Progress.study_plan_id == plan.id)
-            .order_by(Progress.date.desc())
-            .limit(1)
-        )
-        existing_skills = latest_progress_result.scalar_one_or_none() or {}
-        projected_skills = dict(existing_skills)
-        if (
-            current_skill
-            and current_skill_score is not None
-            and current_skill_score > 0
-        ):
-            projected_skills[current_skill] = current_skill_score
-        active_skill_count = sum(
-            1 for skill, score in projected_skills.items() if skill and float(score) > 0
-        )
-        if active_skill_count >= 3:
-            candidate_achievements.append("multi_skill")
-
-        reward_by_achievement = {
-            "first_game": 25,
-            "perfect_round": 50,
-            "streak_5": 40,
-            "xp_100": 25,
-            "xp_500": 100,
-            "daily_challenge": 60,
-            "multi_skill": 75,
-        }
-        existing_achievements = set(entry.achievements or [])
-        fresh_achievements = [
-            achievement
-            for achievement in dict.fromkeys(candidate_achievements)
-            if achievement not in existing_achievements
-        ]
-
-        # Apply ordinary achievement rewards first, then evaluate XP thresholds
-        # against the projected total so crossing 100/500 XP is rewarded in
-        # the same event that crosses the threshold.
-        achievement_xp = sum(reward_by_achievement[item] for item in fresh_achievements)
-        projected_xp = total_xp_before + base_xp + achievement_xp
-        if projected_xp >= 100 and "xp_100" not in existing_achievements:
-            fresh_achievements.append("xp_100")
-            achievement_xp += reward_by_achievement["xp_100"]
-            projected_xp += reward_by_achievement["xp_100"]
-        if projected_xp >= 500 and "xp_500" not in existing_achievements:
-            fresh_achievements.append("xp_500")
-            achievement_xp += reward_by_achievement["xp_500"]
-
-        entry.achievements = list(
-            dict.fromkeys([*(entry.achievements or []), *fresh_achievements])
-        )
-
-        progress_entry = await update_daily_progress(
-            db,
-            current_user.id,
-            study_plan_id=plan.id,
-            xp=base_xp + achievement_xp,
-            skill=GAME_SKILL_MAP.get(data.game_id),
-            skill_score=(data.correct_answers / data.questions_answered) if data.questions_answered > 0 else None,
-            commit=False,
-        )
-        if progress_entry is None:
-            raise HTTPException(status_code=500, detail="Unable to persist game XP")
-
-        event.xp_earned = base_xp + achievement_xp
-        entry.updated_at = datetime.now(UTC).replace(tzinfo=None)
-        await db.commit()
-        await db.refresh(entry)
-        return GameStatsResponse(
-            total_xp=sum((await db.execute(select(Progress.xp_earned).where(Progress.study_plan_id == plan.id))).scalars().all()),
-            games_played=entry.games_played,
-            questions_answered=entry.questions_answered,
-            correct_answers=entry.correct_answers,
-            best_round_score=entry.best_round_score,
-            daily_challenges_completed=entry.daily_challenges_completed,
-            last_daily_challenge_date=entry.last_daily_challenge_date,
-            current_correct_streak=entry.current_correct_streak,
-            best_correct_streak=entry.best_correct_streak,
-            achievements=entry.achievements or [],
-            skills=await _get_game_skills(db, plan),
-        )
-    except IntegrityError:
-        await db.rollback()
-        existing_result = await db.execute(
-            select(GameProgressEvent).where(
-                GameProgressEvent.user_id == current_user.id,
-                GameProgressEvent.study_plan_id == plan.id,
-                GameProgressEvent.event_id == data.event_id,
-            )
-        )
-        if existing_result.scalar_one_or_none() is None:
-            raise
-        aggregate_result = await db.execute(
-            select(GameProgress).where(
-                GameProgress.user_id == current_user.id,
-                GameProgress.study_plan_id == plan.id,
-            )
-        )
-        aggregate = aggregate_result.scalar_one_or_none()
-        if aggregate is None:
-            raise HTTPException(status_code=409, detail="Game event exists without an aggregate")
-        total_xp_result = await db.execute(
-            select(Progress.xp_earned).where(Progress.study_plan_id == plan.id)
-        )
-        return GameStatsResponse(
-            total_xp=sum(total_xp_result.scalars().all()),
-            games_played=aggregate.games_played,
-            questions_answered=aggregate.questions_answered,
-            correct_answers=aggregate.correct_answers,
-            best_round_score=aggregate.best_round_score,
-            daily_challenges_completed=aggregate.daily_challenges_completed,
-            last_daily_challenge_date=aggregate.last_daily_challenge_date,
-            current_correct_streak=aggregate.current_correct_streak,
-            best_correct_streak=aggregate.best_correct_streak,
-            achievements=aggregate.achievements or [],
-            skills=await _get_game_skills(db, plan),
-        )
 
 
 @router.post("/game-summary", deprecated=True)
