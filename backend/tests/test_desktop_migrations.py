@@ -77,6 +77,18 @@ def test_full_alembic_upgrade_enforces_progress_and_competency_constraints(tmp_p
 
     import sqlite3
 
+    def unique_index_columns(connection, table_name):
+        columns = set()
+        for row in connection.execute(f"PRAGMA index_list({table_name})"):
+            if row[2]:
+                index_name = row[1]
+                index_columns = tuple(
+                    item[2]
+                    for item in connection.execute(f"PRAGMA index_info({index_name})")
+                )
+                columns.add(index_columns)
+        return columns
+
     with sqlite3.connect(db_path) as connection:
         progress_columns = {
             row[1]: row[3] for row in connection.execute("PRAGMA table_info(progress)")
@@ -88,13 +100,12 @@ def test_full_alembic_upgrade_enforces_progress_and_competency_constraints(tmp_p
         assert progress_columns["study_plan_id"] == 1
         assert competency_columns["study_plan_id"] == 1
 
-        progress_indexes = {
-            row[1]
-            for row in connection.execute("PRAGMA index_list(progress)")
-        }
-        competency_indexes = {
-            row[1]
-            for row in connection.execute("PRAGMA index_list(user_competencies)")
-        }
-        assert "uq_progress_user_plan_date" in progress_indexes
-        assert "uq_competency_user_plan_unit_text" in competency_indexes
+        assert ("user_id", "study_plan_id", "date") in unique_index_columns(
+            connection, "progress"
+        )
+        assert (
+            "user_id",
+            "study_plan_id",
+            "unit_id",
+            "competency_text",
+        ) in unique_index_columns(connection, "user_competencies")
