@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { InteractiveGameBoard } from '@/components/games/InteractiveGameBoard'
 import '@/components/games/interactive-games.css'
+import { apiFetch } from '@/lib/api'
 import { useProgressStore } from '@/store/progress'
 
 type Lang = 'ar' | 'fr' | 'en'
@@ -22,6 +23,16 @@ export default function MatchingGamePage() {
   function complete() {
     addGameXP(25, 'vocabulary', true)
     recordGameAttempt(true)
+    void apiFetch('/api/progress/game', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        xp: 25,
+        correct_answers: 1,
+        questions_answered: 1,
+        skills: { vocabulary: 1 },
+      }),
+    }).catch(() => undefined)
   }
 
   return (
