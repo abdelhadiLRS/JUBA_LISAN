@@ -374,6 +374,7 @@ async def record_game_event(
             "xp_100": 25,
             "xp_500": 100,
             "daily_challenge": 60,
+            "multi_skill": 75,
         }
         existing_achievements = set(entry.achievements or [])
         fresh_achievements = [
