@@ -241,3 +241,26 @@ async def test_get_unit_competencies_returns_deterministic_unit_order(db_session
     assert result[0]["score"] == pytest.approx(0.8)
     assert result[0]["mastered_count"] == 1
     assert result[0]["total_count"] == 2
+
+@pytest.mark.parametrize(
+    ("payload", "expected"),
+    [
+        ({"math": 2.0, "memory": -1.0, "": 0.5, "bad": float("nan")}, {"math": 1.0, "memory": 0.0}),
+        ({"ordering": float("inf"), "vocabulary": 0.75}, {"vocabulary": 0.75}),
+    ],
+)
+def test_game_progress_schema_normalizes_skill_scores(payload, expected):
+    from app.schemas.progress import GameProgressUpdate
+
+    data = GameProgressUpdate(skills=payload)
+
+    assert data.skills == expected
+
+
+def test_game_progress_schema_discards_invalid_only_skills():
+    from app.schemas.progress import GameProgressUpdate
+
+    data = GameProgressUpdate(skills={"": 1.0, "bad": float("nan")})
+
+    assert data.skills == {}
+
