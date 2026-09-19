@@ -163,7 +163,6 @@ async def analyze_speech(
         )
         
         transcription = transcription_result.get("transcription", "")
-        confidence = transcription_result.get("confidence", 0.0)
         
         # Analyze pronunciation and fluency
         analysis = await speech_service.analyze_pronunciation(
