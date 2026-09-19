@@ -34,5 +34,6 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.drop_column("users", "dismissed_dashboard_banner_revision")
+    with op.batch_alter_table("users", recreate="auto") as batch_op:
+        batch_op.drop_column("dismissed_dashboard_banner_revision")
     op.drop_table("dashboard_banners")
