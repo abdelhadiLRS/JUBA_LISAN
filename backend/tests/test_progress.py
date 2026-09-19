@@ -198,3 +198,92 @@ async def test_activity_after_yesterday_continues_streak(db_session, test_user):
     )
     assert entry is not None
     assert entry.streak_day == 5
+
+
+@pytest.mark.asyncio
+async def test_empty_game_progress_is_rejected_without_creating_progress(client, test_user, db_session):
+    user, headers = test_user
+
+    from app.models.progress import Progress
+    from tests.conftest import make_study_plan
+
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    await db_session.commit()
+
+    response = await client.post("/api/progress/game", headers=headers, json={})
+    assert response.status_code == 400
+
+    result = await db_session.execute(
+        select(Progress).where(Progress.user_id == user.id)
+    )
+    assert result.scalars().all() == []
+
+
+@pytest.mark.asyncio
+async def test_streak_does_not_cross_study_plans(db_session, test_user):
+    user, _ = test_user
+
+    from app.models.progress import Progress
+    from app.services.progress_service import update_daily_progress
+    from tests.conftest import make_study_plan
+
+    previous_plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    current_plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A2",
+        target_language="en-US",
+        goals=["vocabulary"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=False,
+    )
+    db_session.add(
+        Progress(
+            user_id=user.id,
+            study_plan_id=previous_plan.id,
+            date=date.today() - timedelta(days=1),
+            xp_earned=10,
+            lessons_completed=1,
+            exercises_correct=0,
+            exercises_total=0,
+            streak_day=7,
+            skills={},
+        )
+    )
+    await db_session.commit()
+
+    entry = await update_daily_progress(
+        db_session,
+        user.id,
+        study_plan_id=current_plan.id,
+        lesson_completed=True,
+        commit=False,
+    )
+    assert entry is not None
+    assert entry.streak_day == 1
+    assert entry.study_plan_id == current_plan.id
