@@ -43,7 +43,10 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Install backend test plugins
-        run: pip install pytest-cov
+        run: pip install pytest-cov ruff
+
+      - name: Run backend lint
+        run: ruff check .
 
       - name: Validate Alembic migrations
         env:
