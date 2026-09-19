@@ -481,6 +481,11 @@ async def complete_game_session(
     if plan is None:
         raise HTTPException(status_code=404, detail="No active study plan found")
 
+    # Capture scalar ownership keys before any rollback. Async SQLAlchemy expires
+    # ORM attributes on rollback, so these values must be retained as plain scalars.
+    user_id = current_user.id
+    plan_id = plan.id
+
     session = await db.get(GameSession, data.session_id)
     if session is None or session.user_id != user_id or session.study_plan_id != plan_id:
         raise HTTPException(status_code=404, detail="Game session not found")
@@ -571,12 +576,6 @@ async def complete_game_session(
             if submitted.choice == question["answer"]:
                 correct_answers += 1
         questions_answered = len(expected)
-    # Capture scalar ownership keys before rollback. Async SQLAlchemy expires ORM
-    # attributes on rollback, so reading current_user.id or plan.id afterwards
-    # would trigger implicit async IO and raise MissingGreenlet.
-    user_id = current_user.id
-    plan_id = plan.id
-
     # Validation above is read-only. Start the write phase with a database lock
     # so the GameProgress counters, achievements, and XP thresholds are calculated
     # from one serialized state.
