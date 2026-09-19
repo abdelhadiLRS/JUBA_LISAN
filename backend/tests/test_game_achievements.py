@@ -506,6 +506,45 @@ async def test_game_session_expiry_is_rechecked_after_write_phase_starts(
     assert session.completed is False
 
 @pytest.mark.asyncio
+async def test_interactive_completion_rejects_answer_payload(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "memory", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+
+    result = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": payload["session_id"],
+            "answers": [{"question_id": "ignored", "choice": "ignored"}],
+            "interaction_trace": [],
+        },
+        headers=headers,
+    )
+
+    assert result.status_code == 422
+    assert "interaction_trace" in result.json()["detail"]
+
+
+@pytest.mark.asyncio
 async def test_interactive_attempts_do_not_inflate_scored_questions_or_xp(
     client, test_user, db_session
 ):
