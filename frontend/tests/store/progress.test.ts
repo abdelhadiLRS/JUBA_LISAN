@@ -247,6 +247,36 @@ describe('useProgressStore — game skill XP', () => {
   })
 })
 
+describe('useProgressStore — unlockAchievements', () => {
+  beforeEach(() => {
+    useProgressStore.setState({
+      streak: 0,
+      xp: 0,
+      skills: {},
+      gameStats: {
+        gamesPlayed: 0,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        bestRoundScore: 0,
+        dailyChallengesCompleted: 0,
+        lastDailyChallengeDate: '',
+        currentCorrectStreak: 0,
+        bestCorrectStreak: 0,
+      },
+      achievements: [],
+    })
+  })
+
+  it('awards each achievement XP only once', () => {
+    useProgressStore.getState().unlockAchievements(['first_game'])
+    useProgressStore.getState().unlockAchievements(['first_game', 'xp_100'])
+
+    const state = useProgressStore.getState()
+    expect(state.achievements).toEqual(['first_game', 'xp_100'])
+    expect(state.xp).toBe(50)
+  })
+})
+
 describe('useProgressStore — completeGame', () => {
   beforeEach(() => {
     useProgressStore.setState({
