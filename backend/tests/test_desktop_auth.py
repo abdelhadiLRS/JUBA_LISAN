@@ -9,7 +9,7 @@ from app.core.deps import get_redis
 from app.main import app
 from app.models.refresh_token import RefreshToken
 from app.models.user import User
-import app.models  # noqa: F401
+from app import models as _models  # noqa: F401
 
 
 @pytest.mark.asyncio
