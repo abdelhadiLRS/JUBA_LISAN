@@ -20,7 +20,7 @@ export default function MemoryGamePage() {
     if (value === 'ar' || value === 'fr' || value === 'en') setLang(value)
   }, [searchParams])
 
-  function complete() {
+  function complete(result: { questionsAnswered: number; correctAnswers: number }) {
     addGameXP(25, 'memory', true)
     recordGameAttempt(true)
     void apiFetch('/api/progress/game', {
@@ -28,8 +28,8 @@ export default function MemoryGamePage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         xp: 25,
-        correct_answers: 1,
-        questions_answered: 1,
+        correct_answers: result.correctAnswers,
+        questions_answered: result.questionsAnswered,
         skills: { memory: 1 },
       }),
     }).catch(() => undefined)
