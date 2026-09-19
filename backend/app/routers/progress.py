@@ -453,31 +453,6 @@ async def start_game_session(
         completed=False,
     )
     db.add(session)
-    # Materialize the per-user/plan aggregate before the first round completes.
-    # This guarantees that completion can lock one stable row instead of racing
-    # to create GameProgress when two sessions finish concurrently.
-    existing_progress = await db.execute(
-        select(GameProgress).where(
-            GameProgress.user_id == current_user.id,
-            GameProgress.study_plan_id == plan.id,
-        )
-    )
-    if existing_progress.scalar_one_or_none() is None:
-        # The unique (user_id, study_plan_id) constraint is the final arbiter
-        # when two workers create the first session concurrently. Keep that
-        # conflict inside a savepoint so the GameSession itself is not rolled back.
-        try:
-            async with db.begin_nested():
-                db.add(
-                    GameProgress(
-                        user_id=current_user.id,
-                        study_plan_id=plan.id,
-                        achievements=[],
-                    )
-                )
-                await db.flush()
-        except IntegrityError:
-            pass
     await db.commit()
     public_questions = [
         {key: item[key] for key in ("id", "prompt", "choices", "hint", "skill", "difficulty")}
@@ -507,7 +482,7 @@ async def complete_game_session(
         raise HTTPException(status_code=404, detail="No active study plan found")
 
     session = await db.get(GameSession, data.session_id)
-    if session is None or session.user_id != current_user.id or session.study_plan_id != plan.id:
+    if session is None or session.user_id != user_id or session.study_plan_id != plan_id:
         raise HTTPException(status_code=404, detail="Game session not found")
     if session.completed:
         raise HTTPException(status_code=409, detail="Game session already completed")
@@ -596,6 +571,12 @@ async def complete_game_session(
             if submitted.choice == question["answer"]:
                 correct_answers += 1
         questions_answered = len(expected)
+    # Capture scalar ownership keys before rollback. Async SQLAlchemy expires ORM
+    # attributes on rollback, so reading current_user.id or plan.id afterwards
+    # would trigger implicit async IO and raise MissingGreenlet.
+    user_id = current_user.id
+    plan_id = plan.id
+
     # Validation above is read-only. Start the write phase with a database lock
     # so the GameProgress counters, achievements, and XP thresholds are calculated
     # from one serialized state.
@@ -609,13 +590,12 @@ async def complete_game_session(
         locked_progress = await db.execute(
             select(GameProgress)
             .where(
-                GameProgress.user_id == current_user.id,
-                GameProgress.study_plan_id == plan.id,
+                GameProgress.user_id == user_id,
+                GameProgress.study_plan_id == plan_id,
             )
             .with_for_update()
         )
-        if locked_progress.scalar_one_or_none() is None:
-            raise HTTPException(status_code=409, detail="Game progress row is missing")
+        locked_progress.scalar_one_or_none()
 
     # Re-read the session after acquiring the write lock. A competing completion
     # may have claimed it while the validation phase was running.
@@ -635,8 +615,8 @@ async def complete_game_session(
         update(GameSession)
         .where(
             GameSession.id == session.id,
-            GameSession.user_id == current_user.id,
-            GameSession.study_plan_id == plan.id,
+            GameSession.user_id == user_id,
+            GameSession.study_plan_id == plan_id,
             GameSession.completed.is_(False),
         )
         .values(completed=True)
@@ -652,21 +632,42 @@ async def complete_game_session(
     base_xp = correct_answers * 5 + (questions_answered - correct_answers)
     total_before_result = await db.execute(
         select(Progress.xp_earned).where(
-            Progress.user_id == current_user.id,
-            Progress.study_plan_id == plan.id,
+            Progress.user_id == user_id,
+            Progress.study_plan_id == plan_id,
         )
     )
     total_xp_before = sum(total_before_result.scalars().all())
 
     existing = await db.execute(
         select(GameProgress).where(
-            GameProgress.user_id == current_user.id,
-            GameProgress.study_plan_id == plan.id,
+            GameProgress.user_id == user_id,
+            GameProgress.study_plan_id == plan_id,
         )
     )
     entry = existing.scalar_one_or_none()
     if entry is None:
-        raise HTTPException(status_code=409, detail="Game progress row is missing")
+        # Completion is the first point at which the aggregate is persisted.
+        # A savepoint isolates a first-writer unique conflict on PostgreSQL;
+        # SQLite is already serialized by BEGIN IMMEDIATE.
+        try:
+            async with db.begin_nested():
+                entry = GameProgress(
+                    user_id=user_id,
+                    study_plan_id=plan_id,
+                    achievements=[],
+                )
+                db.add(entry)
+                await db.flush()
+        except IntegrityError:
+            refreshed = await db.execute(
+                select(GameProgress).where(
+                    GameProgress.user_id == user_id,
+                    GameProgress.study_plan_id == plan_id,
+                )
+            )
+            entry = refreshed.scalar_one_or_none()
+        if entry is None:
+            raise HTTPException(status_code=409, detail="Game progress row is missing")
 
     entry.games_played += 1
     entry.questions_answered += questions_answered
@@ -695,6 +696,9 @@ async def complete_game_session(
 
     current_skill = GAME_SKILL_MAP[session.game_id]
     current_skill_score = correct_answers / questions_answered
+    plan = await db.get(StudyPlan, plan_id)
+    if plan is None:
+        raise HTTPException(status_code=409, detail="Study plan no longer exists")
     skills = await _get_game_skills(db, plan)
     projected_skills = dict(skills)
     current_skill_before = float(projected_skills.get(current_skill, current_skill_score))
