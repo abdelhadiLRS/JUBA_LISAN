@@ -181,15 +181,6 @@ export default function DashboardPage() {
         setVocabularyTotal(prog.vocabulary_total ?? 0)
         setVocabularyProgress(prog.vocabulary_progress ?? 0)
         
-        // Update goal progress for Daily Momentum (calculate inline to avoid forward reference)
-        const currentCompleted = todayLessons.filter(
-          (lesson) =>
-            (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
-        ).length
-        setGoalProgress({
-          current: currentCompleted,
-          target: todayLessons.length || 3, // Default to 3 lessons per day
-        })
       } else {
         setProgress({ streak: 0, xp: 0, skills: {} })
         setTotalLessons(0)
@@ -210,6 +201,11 @@ export default function DashboardPage() {
         setPendingCount(plan.pending_count ?? 0)
         const normalizedLessons = normalizeDashboardLessons(plan.lessons)
         setTodayLessons(normalizedLessons)
+        const currentCompleted = normalizedLessons.filter((lesson) => lesson.isCompleted).length
+        setGoalProgress({
+          current: currentCompleted,
+          target: normalizedLessons.length || 3,
+        })
         
         // Daily Momentum: Set next action and review count
         const next = normalizedLessons.find(l => !l.isCompleted && l.id !== null) || null
