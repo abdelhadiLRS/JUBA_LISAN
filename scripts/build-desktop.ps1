@@ -30,6 +30,14 @@ if (Test-Path "package-lock.json") {
 }
 
 $env:BUILD_TARGET = "desktop"
+
+# Always start from a clean Next.js production tree so stale generated chunks cannot
+# leak legacy branding or other content into the packaged desktop renderer.
+$NextBuild = Join-Path $Frontend ".next"
+if (Test-Path $NextBuild) {
+    Remove-Item $NextBuild -Recurse -Force
+}
+
 npm run build
 
 $NextStandalone = Join-Path $Frontend ".next\standalone"
