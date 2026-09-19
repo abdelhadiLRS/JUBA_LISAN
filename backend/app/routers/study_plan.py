@@ -265,6 +265,7 @@ async def get_today_lessons(
             progress_day=plan.progress_day,
             total_days=total_days,
             pending_count=pending_count,
+            review_due_count=review_due_count,
         )
 
     # Build title→(id, is_completed) lookup from already-loaded lessons
