@@ -961,3 +961,49 @@ async def test_interactive_game_session_public_payload_never_exposes_solution(
         assert session is not None
         stored_interaction = session.questions[0]["interaction"]
         assert "solution" in stored_interaction
+
+
+@pytest.mark.asyncio
+async def test_game_skill_projection_is_scoped_to_current_user(
+    client, test_user, admin_user, db_session
+):
+    user, headers = test_user
+    other_user, _ = admin_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    # A malicious or stale row can reference the same plan ID with another
+    # user. The game projection must never inherit that user's skill history.
+    db_session.add(
+        Progress(
+            user_id=other_user.id,
+            study_plan_id=plan.id,
+            date=date.today(),
+            skills={"vocabulary": 0.8, "logic": 0.7, "memory": 0.9},
+        )
+    )
+    await db_session.commit()
+
+    result = await _start_perfect_round(client, headers, db_session)
+
+    assert "multi_skill" not in result["new_achievements"]
+
+    own_progress = (
+        await db_session.execute(
+            select(Progress).where(
+                Progress.user_id == user.id,
+                Progress.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert own_progress
+    assert set(own_progress[-1].skills) == {"math"}
