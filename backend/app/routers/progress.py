@@ -53,7 +53,7 @@ def _server_interactive_challenge(game_id: str, language: str, difficulty: int) 
         pairs = {}
         for index, (left, right) in enumerate(selected):
             a, b = str(uuid4()), str(uuid4())
-            cards.extend([{"id": a, "label": left}, {"id": b, "label": right}])
+            cards.extend([{"id": a, "label": left, "pair_key": str(index)}, {"id": b, "label": right, "pair_key": str(index)}])
             pairs[a] = index
             pairs[b] = index
         rng.shuffle(cards)
@@ -68,8 +68,8 @@ def _server_interactive_challenge(game_id: str, language: str, difficulty: int) 
         pairs = {}
         for left_label, right_label in pairs_source:
             left_id, right_id = str(uuid4()), str(uuid4())
-            left.append({"id": left_id, "label": left_label})
-            right.append({"id": right_id, "label": right_label})
+            left.append({"id": left_id, "label": left_label, "pair_key": str(len(left))})
+            right.append({"id": right_id, "label": right_label, "pair_key": str(len(right))})
             pairs[left_id] = right_id
         rng.shuffle(left)
         rng.shuffle(right)
