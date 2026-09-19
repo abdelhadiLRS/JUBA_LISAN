@@ -9,6 +9,7 @@ def test_full_alembic_upgrade_works_on_sqlite(tmp_path):
     data_dir = tmp_path / "juba-lisan"
     db_path = data_dir / "database" / "juba_lisan.db"
     data_dir.mkdir(parents=True)
+    db_path.parent.mkdir(parents=True)
 
     env = os.environ.copy()
     env.update(
