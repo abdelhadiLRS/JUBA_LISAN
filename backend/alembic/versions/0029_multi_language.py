@@ -17,6 +17,26 @@ branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
 
 
+def _add_study_plan_fk(
+    table: str,
+    constraint_name: str,
+    ondelete: str,
+) -> None:
+    with op.batch_alter_table(table, recreate="auto") as batch_op:
+        batch_op.create_foreign_key(
+            constraint_name,
+            "study_plans",
+            ["study_plan_id"],
+            ["id"],
+            ondelete=ondelete,
+        )
+
+
+def _drop_study_plan_fk(table: str, constraint_name: str) -> None:
+    with op.batch_alter_table(table, recreate="auto") as batch_op:
+        batch_op.drop_constraint(constraint_name, type_="foreignkey")
+
+
 def upgrade() -> None:
     # ── 1. Create user_languages table ──────────────────────────────────────
     op.create_table(
@@ -43,258 +63,191 @@ def upgrade() -> None:
     )
 
     # ── 2. Add study_plan_id columns to 7 tables ────────────────────────────
-
-    # CASCADE tables (nullable for now — NOT NULL deferred to Phase 10.2)
-    op.add_column("progress", sa.Column("study_plan_id", sa.Integer(), nullable=True))
-    op.create_foreign_key(
-        "fk_progress_study_plan",
-        "progress",
-        "study_plans",
-        ["study_plan_id"],
-        ["id"],
-        ondelete="CASCADE",
+    fk_specs = (
+        ("progress", "fk_progress_study_plan", "CASCADE"),
+        ("flashcards", "fk_flashcards_study_plan", "CASCADE"),
+        ("user_competencies", "fk_user_competencies_study_plan", "CASCADE"),
+        ("conversations", "fk_conversations_study_plan", "SET NULL"),
+        ("chat_history", "fk_chat_history_study_plan", "SET NULL"),
+        ("memories", "fk_memories_study_plan", "SET NULL"),
+        ("llm_usage", "fk_llm_usage_study_plan", "SET NULL"),
     )
-    op.create_index("ix_progress_study_plan_id", "progress", ["study_plan_id"])
 
-    op.add_column("flashcards", sa.Column("study_plan_id", sa.Integer(), nullable=True))
-    op.create_foreign_key(
-        "fk_flashcards_study_plan",
-        "flashcards",
-        "study_plans",
-        ["study_plan_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
-    op.create_index("ix_flashcards_study_plan_id", "flashcards", ["study_plan_id"])
-
-    op.add_column("user_competencies", sa.Column("study_plan_id", sa.Integer(), nullable=True))
-    op.create_foreign_key(
-        "fk_user_competencies_study_plan",
-        "user_competencies",
-        "study_plans",
-        ["study_plan_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
-    op.create_index("ix_user_competencies_study_plan_id", "user_competencies", ["study_plan_id"])
-
-    # SET NULL tables (permanently nullable)
-    op.add_column("conversations", sa.Column("study_plan_id", sa.Integer(), nullable=True))
-    op.create_foreign_key(
-        "fk_conversations_study_plan",
-        "conversations",
-        "study_plans",
-        ["study_plan_id"],
-        ["id"],
-        ondelete="SET NULL",
-    )
-    op.create_index("ix_conversations_study_plan_id", "conversations", ["study_plan_id"])
-
-    op.add_column("chat_history", sa.Column("study_plan_id", sa.Integer(), nullable=True))
-    op.create_foreign_key(
-        "fk_chat_history_study_plan",
-        "chat_history",
-        "study_plans",
-        ["study_plan_id"],
-        ["id"],
-        ondelete="SET NULL",
-    )
-    op.create_index("ix_chat_history_study_plan_id", "chat_history", ["study_plan_id"])
-
-    op.add_column("memories", sa.Column("study_plan_id", sa.Integer(), nullable=True))
-    op.create_foreign_key(
-        "fk_memories_study_plan",
-        "memories",
-        "study_plans",
-        ["study_plan_id"],
-        ["id"],
-        ondelete="SET NULL",
-    )
-    op.create_index("ix_memories_study_plan_id", "memories", ["study_plan_id"])
-
-    op.add_column("llm_usage", sa.Column("study_plan_id", sa.Integer(), nullable=True))
-    op.create_foreign_key(
-        "fk_llm_usage_study_plan",
-        "llm_usage",
-        "study_plans",
-        ["study_plan_id"],
-        ["id"],
-        ondelete="SET NULL",
-    )
-    op.create_index("ix_llm_usage_study_plan_id", "llm_usage", ["study_plan_id"])
+    for table, constraint_name, ondelete in fk_specs:
+        op.add_column(table, sa.Column("study_plan_id", sa.Integer(), nullable=True))
+        _add_study_plan_fk(table, constraint_name, ondelete)
+        op.create_index(f"ix_{table}_study_plan_id", table, ["study_plan_id"])
 
     # ── 2.5. Deduplicate active plans before creating the unique index ─────
-    # If a race condition ever left two is_active=true rows for the same
-    # (user_id, target_language), the CREATE UNIQUE INDEX below would fail.
-    # Keep only the most recent plan per group and deactivate the rest.
+    # Keep the newest active plan for each (user_id, target_language).
+    # The correlated subquery works on both PostgreSQL and SQLite.
     op.execute("""
         UPDATE study_plans
         SET is_active = false
         WHERE is_active = true
-          AND id NOT IN (
-            SELECT DISTINCT ON (user_id, target_language) id
-            FROM study_plans
-            WHERE is_active = true
-            ORDER BY user_id, target_language, created_at DESC
+          AND id <> (
+            SELECT keeper.id
+            FROM study_plans AS keeper
+            WHERE keeper.user_id = study_plans.user_id
+              AND keeper.target_language = study_plans.target_language
+              AND keeper.is_active = true
+            ORDER BY keeper.created_at DESC, keeper.id DESC
+            LIMIT 1
           )
         """)
 
     # ── 3. Partial unique index on study_plans ──────────────────────────────
+    # Both dialects receive a real partial index predicate.
     op.create_index(
         "uq_active_plan_per_lang",
         "study_plans",
         ["user_id", "target_language"],
         unique=True,
         postgresql_where=sa.text("is_active = true"),
+        sqlite_where=sa.text("is_active = 1"),
     )
 
     # ── 4. Data operations ──────────────────────────────────────────────────
 
-    # 4a. Backfill user_languages from existing users
+    # 4a. Backfill user_languages from existing users.
     op.execute("""
         INSERT INTO user_languages (user_id, target_language, is_active, created_at)
-        SELECT id, target_language, true, NOW()
+        SELECT id, target_language, true, CURRENT_TIMESTAMP
         FROM users
         """)
 
-    # 4b. Backfill study_plan_id for CASCADE tables
+    # 4b. Backfill study_plan_id for CASCADE tables.
     op.execute("""
-        UPDATE progress p
+        UPDATE progress
         SET study_plan_id = (
-            SELECT id FROM study_plans sp
-            WHERE sp.user_id = p.user_id AND sp.is_active = true
+            SELECT sp.id
+            FROM study_plans AS sp
+            WHERE sp.user_id = progress.user_id
+              AND sp.is_active = true
+            ORDER BY sp.created_at DESC, sp.id DESC
             LIMIT 1
         )
+        WHERE study_plan_id IS NULL
         """)
     op.execute("""
-        UPDATE flashcards f
+        UPDATE flashcards
         SET study_plan_id = (
-            SELECT id FROM study_plans sp
-            WHERE sp.user_id = f.user_id AND sp.is_active = true
+            SELECT sp.id
+            FROM study_plans AS sp
+            WHERE sp.user_id = flashcards.user_id
+              AND sp.is_active = true
+            ORDER BY sp.created_at DESC, sp.id DESC
             LIMIT 1
         )
+        WHERE study_plan_id IS NULL
         """)
     op.execute("""
-        UPDATE user_competencies uc
+        UPDATE user_competencies
         SET study_plan_id = (
-            SELECT id FROM study_plans sp
-            WHERE sp.user_id = uc.user_id AND sp.is_active = true
+            SELECT sp.id
+            FROM study_plans AS sp
+            WHERE sp.user_id = user_competencies.user_id
+              AND sp.is_active = true
+            ORDER BY sp.created_at DESC, sp.id DESC
             LIMIT 1
         )
+        WHERE study_plan_id IS NULL
         """)
 
-    # 4c. Create a fallback study plan for orphan rows that have no active plan.
-    # Instead of deleting the rows, we create a minimal plan so data is preserved.
-    op.execute("""
-        INSERT INTO study_plans (user_id, cefr_level, target_language, goals,
-            duration_weeks, days_per_week, current_unit, progress_day,
-            generated_plan, is_active, completion_test_taken, created_at)
-        SELECT DISTINCT ON (p.user_id)
-            p.user_id, 'A1', COALESCE(u.target_language, 'en-US'), '[]'::json,
-            12, 4, '', 0, '{}'::json, true, false, NOW()
-        FROM progress p
-        JOIN users u ON u.id = p.user_id
-        WHERE p.study_plan_id IS NULL
-          AND NOT EXISTS (
-            SELECT 1 FROM study_plans sp
-            WHERE sp.user_id = p.user_id AND sp.is_active = true
-          )
-        """)
-    op.execute("""
-        INSERT INTO study_plans (user_id, cefr_level, target_language, goals,
-            duration_weeks, days_per_week, current_unit, progress_day,
-            generated_plan, is_active, completion_test_taken, created_at)
-        SELECT DISTINCT ON (f.user_id)
-            f.user_id, 'A1', COALESCE(u.target_language, 'en-US'), '[]'::json,
-            12, 4, '', 0, '{}'::json, true, false, NOW()
-        FROM flashcards f
-        JOIN users u ON u.id = f.user_id
-        WHERE f.study_plan_id IS NULL
-          AND NOT EXISTS (
-            SELECT 1 FROM study_plans sp
-            WHERE sp.user_id = f.user_id AND sp.is_active = true
-          )
-        """)
-    op.execute("""
-        INSERT INTO study_plans (user_id, cefr_level, target_language, goals,
-            duration_weeks, days_per_week, current_unit, progress_day,
-            generated_plan, is_active, completion_test_taken, created_at)
-        SELECT DISTINCT ON (uc.user_id)
-            uc.user_id, 'A1', COALESCE(u.target_language, 'en-US'), '[]'::json,
-            12, 4, '', 0, '{}'::json, true, false, NOW()
-        FROM user_competencies uc
-        JOIN users u ON u.id = uc.user_id
-        WHERE uc.study_plan_id IS NULL
-          AND NOT EXISTS (
-            SELECT 1 FROM study_plans sp
-            WHERE sp.user_id = uc.user_id AND sp.is_active = true
-          )
-        """)
+    # 4c. Create one fallback plan per user with orphaned rows and no active plan.
+    # Plain GROUP BY and JSON text literals are portable across PostgreSQL/SQLite.
+    for source_table in ("progress", "flashcards", "user_competencies"):
+        op.execute(f"""
+            INSERT INTO study_plans (
+                user_id, cefr_level, target_language, goals,
+                duration_weeks, days_per_week, current_unit, progress_day,
+                generated_plan, is_active, completion_test_taken, created_at
+            )
+            SELECT source.user_id,
+                   'A1',
+                   COALESCE(u.target_language, 'en-US'),
+                   '[]',
+                   12,
+                   4,
+                   '',
+                   0,
+                   '{{}}',
+                   true,
+                   false,
+                   CURRENT_TIMESTAMP
+            FROM (
+                SELECT user_id
+                FROM {source_table}
+                WHERE study_plan_id IS NULL
+                GROUP BY user_id
+            ) AS source
+            JOIN users AS u ON u.id = source.user_id
+            WHERE NOT EXISTS (
+                SELECT 1
+                FROM study_plans AS sp
+                WHERE sp.user_id = source.user_id
+                  AND sp.is_active = true
+            )
+            """)
 
-    # 4d. Re-run backfill for any rows that now have a plan after fallback creation
+    # 4d. Re-run backfill for rows whose fallback plan was just created.
     op.execute("""
-        UPDATE progress p
+        UPDATE progress
         SET study_plan_id = (
-            SELECT id FROM study_plans sp
-            WHERE sp.user_id = p.user_id AND sp.is_active = true
+            SELECT sp.id
+            FROM study_plans AS sp
+            WHERE sp.user_id = progress.user_id
+              AND sp.is_active = true
+            ORDER BY sp.created_at DESC, sp.id DESC
             LIMIT 1
         )
-        WHERE p.study_plan_id IS NULL
+        WHERE study_plan_id IS NULL
         """)
     op.execute("""
-        UPDATE flashcards f
+        UPDATE flashcards
         SET study_plan_id = (
-            SELECT id FROM study_plans sp
-            WHERE sp.user_id = f.user_id AND sp.is_active = true
+            SELECT sp.id
+            FROM study_plans AS sp
+            WHERE sp.user_id = flashcards.user_id
+              AND sp.is_active = true
+            ORDER BY sp.created_at DESC, sp.id DESC
             LIMIT 1
         )
-        WHERE f.study_plan_id IS NULL
+        WHERE study_plan_id IS NULL
         """)
     op.execute("""
-        UPDATE user_competencies uc
+        UPDATE user_competencies
         SET study_plan_id = (
-            SELECT id FROM study_plans sp
-            WHERE sp.user_id = uc.user_id AND sp.is_active = true
+            SELECT sp.id
+            FROM study_plans AS sp
+            WHERE sp.user_id = user_competencies.user_id
+              AND sp.is_active = true
+            ORDER BY sp.created_at DESC, sp.id DESC
             LIMIT 1
         )
-        WHERE uc.study_plan_id IS NULL
+        WHERE study_plan_id IS NULL
         """)
 
 
 def downgrade() -> None:
-    # ── 1. Drop partial unique index ────────────────────────────────────────
     op.drop_index("uq_active_plan_per_lang", table_name="study_plans")
 
-    # ── 2. Drop study_plan_id columns from all 7 tables ─────────────────────
-    op.drop_index("ix_progress_study_plan_id", table_name="progress")
-    op.drop_constraint("fk_progress_study_plan", "progress", type_="foreignkey")
-    op.drop_column("progress", "study_plan_id")
+    fk_specs = (
+        ("progress", "fk_progress_study_plan"),
+        ("flashcards", "fk_flashcards_study_plan"),
+        ("user_competencies", "fk_user_competencies_study_plan"),
+        ("conversations", "fk_conversations_study_plan"),
+        ("chat_history", "fk_chat_history_study_plan"),
+        ("memories", "fk_memories_study_plan"),
+        ("llm_usage", "fk_llm_usage_study_plan"),
+    )
 
-    op.drop_index("ix_flashcards_study_plan_id", table_name="flashcards")
-    op.drop_constraint("fk_flashcards_study_plan", "flashcards", type_="foreignkey")
-    op.drop_column("flashcards", "study_plan_id")
+    for table, constraint_name in fk_specs:
+        op.drop_index(f"ix_{table}_study_plan_id", table_name=table)
+        _drop_study_plan_fk(table, constraint_name)
+        with op.batch_alter_table(table, recreate="auto") as batch_op:
+            batch_op.drop_column("study_plan_id")
 
-    op.drop_index("ix_user_competencies_study_plan_id", table_name="user_competencies")
-    op.drop_constraint("fk_user_competencies_study_plan", "user_competencies", type_="foreignkey")
-    op.drop_column("user_competencies", "study_plan_id")
-
-    op.drop_index("ix_conversations_study_plan_id", table_name="conversations")
-    op.drop_constraint("fk_conversations_study_plan", "conversations", type_="foreignkey")
-    op.drop_column("conversations", "study_plan_id")
-
-    op.drop_index("ix_chat_history_study_plan_id", table_name="chat_history")
-    op.drop_constraint("fk_chat_history_study_plan", "chat_history", type_="foreignkey")
-    op.drop_column("chat_history", "study_plan_id")
-
-    op.drop_index("ix_memories_study_plan_id", table_name="memories")
-    op.drop_constraint("fk_memories_study_plan", "memories", type_="foreignkey")
-    op.drop_column("memories", "study_plan_id")
-
-    op.drop_index("ix_llm_usage_study_plan_id", table_name="llm_usage")
-    op.drop_constraint("fk_llm_usage_study_plan", "llm_usage", type_="foreignkey")
-    op.drop_column("llm_usage", "study_plan_id")
-
-    # ── 3. Drop user_languages table ────────────────────────────────────────
     op.drop_index("ix_user_language_user_active", table_name="user_languages")
     op.drop_index("ix_user_languages_user_id", table_name="user_languages")
     op.drop_table("user_languages")
