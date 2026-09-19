@@ -304,6 +304,21 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     assert first["daily_challenges_completed"] == 1
     assert first["achievements"] == ["first_game", "perfect_round", "daily_challenge"]
 
+    from app.models.game_progress_event import GameProgressEvent
+    from app.models.progress import Progress
+
+    event_row = (
+        await db_session.execute(
+            select(GameProgressEvent).where(GameProgressEvent.event_id == event["event_id"])
+        )
+    ).scalar_one()
+    assert event_row.xp_earned == 160
+
+    xp_rows = (
+        await db_session.execute(select(Progress.xp_earned).where(Progress.study_plan_id == 1))
+    ).scalars().all()
+    assert sum(xp_rows) == 160
+
     response = await client.post("/api/progress/game-event", json=event, headers=headers)
     assert response.status_code == 200
     duplicate = response.json()
@@ -337,6 +352,20 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     assert data["current_correct_streak"] == 0
     assert data["best_correct_streak"] == 5
     assert data["achievements"] == ["first_game", "perfect_round", "daily_challenge", "streak_5"]
+
+    second_event_row = (
+        await db_session.execute(
+            select(GameProgressEvent).where(
+                GameProgressEvent.event_id == "7d8c1b9f-31a0-4e52-91d4-5b2f9a6c8e11"
+            )
+        )
+    ).scalar_one()
+    assert second_event_row.xp_earned == 56
+
+    xp_rows = (
+        await db_session.execute(select(Progress.xp_earned).where(Progress.study_plan_id == 1))
+    ).scalars().all()
+    assert sum(xp_rows) == 216
 
     response = await client.get("/api/progress/game-summary", headers=headers)
     assert response.status_code == 200
