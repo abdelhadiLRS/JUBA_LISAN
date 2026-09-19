@@ -43,7 +43,7 @@ interface ProgressStore {
   levelTestResult: LevelTestResult | null
   setProgress: (data: { streak: number; xp: number; skills: Record<string, number>; gameStats?: GameStats; achievements?: AchievementId[] }) => void
   addGameXP: (xp: number, skill: string, correct: boolean) => void
-  recordGameAttempt: (correct: boolean) => void
+  recordGameAttempt: (correct: boolean, questionsAnswered?: number, correctAnswers?: number) => void
   completeGame: (roundScore: number, daily: boolean, dailyDate?: string) => void
   unlockAchievements: (ids: AchievementId[]) => void
   resetGameProgress: () => void
