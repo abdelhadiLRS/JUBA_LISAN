@@ -24,6 +24,7 @@ async def update_daily_progress(
     exercise_correct: bool | None = None,
     exercise_total_delta: int = 0,
     exercise_correct_delta: int = 0,
+    activity_recorded: bool = False,
     flashcard_reviewed: bool = False,
     xp: int = 0,
     skill: str | None = None,
@@ -38,6 +39,7 @@ async def update_daily_progress(
         or exercise_correct is not None
         or exercise_total_delta > 0
         or exercise_correct_delta > 0
+        or activity_recorded
         or flashcard_reviewed
         or xp > 0
         or (skill is not None and skill_score is not None)
