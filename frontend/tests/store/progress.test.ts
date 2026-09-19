@@ -159,6 +159,16 @@ describe('useProgressStore — game skill XP', () => {
     expect(state.skills).toEqual({ math: 0.05 })
   })
 
+  it('records batched interactive game metrics without inflating one-question counts', () => {
+    useProgressStore.getState().recordGameAttempt(true, 6, 6)
+
+    const state = useProgressStore.getState()
+    expect(state.gameStats.questionsAnswered).toBe(6)
+    expect(state.gameStats.correctAnswers).toBe(6)
+    expect(state.gameStats.currentCorrectStreak).toBe(6)
+    expect(state.gameStats.bestCorrectStreak).toBe(6)
+  })
+
   it('persists logic, memory, and ordering skills', () => {
     useProgressStore.getState().addGameXP(10, 'logic', true)
     useProgressStore.getState().addGameXP(10, 'memory', true)
