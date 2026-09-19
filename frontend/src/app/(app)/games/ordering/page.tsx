@@ -40,6 +40,22 @@ export default function OrderingGamePage() {
     )
     const fresh = unlocked.filter((id) => !state.achievements.includes(id))
     if (fresh.length) state.unlockAchievements(fresh)
+    void apiFetch('/api/progress/game-summary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        games_played: state.gameStats.gamesPlayed,
+        questions_answered: state.gameStats.questionsAnswered,
+        correct_answers: state.gameStats.correctAnswers,
+        best_round_score: state.gameStats.bestRoundScore,
+        daily_challenges_completed: state.gameStats.dailyChallengesCompleted,
+        last_daily_challenge_date: state.gameStats.lastDailyChallengeDate ?? '',
+        current_correct_streak: state.gameStats.currentCorrectStreak ?? 0,
+        best_correct_streak: state.gameStats.bestCorrectStreak,
+        achievements: state.achievements,
+      }),
+    }).catch(() => undefined)
+
     void apiFetch('/api/progress/game', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
