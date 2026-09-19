@@ -22,6 +22,7 @@ export type ServerGameStats = {
   current_correct_streak: number
   best_correct_streak: number
   achievements: string[]
+  skills: Record<string, number>
 }
 
 const MAX_NETWORK_RETRIES = 2
