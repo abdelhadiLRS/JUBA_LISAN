@@ -75,11 +75,11 @@ export const useLanguageStore = create<LanguageStore>((set, get) => ({
       )
         .filter(isLanguageRecord)
         .filter(
-          (language) =>
+          (language: Record<string, unknown>) =>
             typeof language.target_language === 'string' &&
             Boolean(getLanguageByCode(language.target_language))
         )
-        .map((language) => mapUserLanguageInfo(language))
+        .map((language: Record<string, unknown>) => mapUserLanguageInfo(language))
 
       const active = languages.find((l) => l.is_active)
       const activeLang = active
