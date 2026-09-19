@@ -489,32 +489,73 @@ async def complete_game_session(
     if data.daily_challenge and data.daily_challenge_date != date.today().isoformat():
         raise HTTPException(status_code=422, detail="daily_challenge_date must be today")
 
-    expected = {item["id"]: item for item in session.questions}
-    if len(data.answers) != len(expected) or set(item.question_id for item in data.answers) != set(expected):
-        raise HTTPException(status_code=422, detail="Exactly one answer is required for every question")
+    if session.game_id in {"memory", "matching", "ordering"}:
+        if len(data.interaction_trace) > 100:
+            raise HTTPException(status_code=422, detail="Too many interaction attempts")
+        stored = session.questions[0].get("interaction", {})
+        solution = stored.get("solution", {})
+        if session.game_id == "memory":
+            pairs = solution.get("pairs", {})
+            seen_pairs: set[int] = set()
+            correct_answers = 0
+            for attempt in data.interaction_trace:
+                first, second = attempt.get("first"), attempt.get("second")
+                if not isinstance(first, str) or not isinstance(second, str) or first == second:
+                    raise HTTPException(status_code=422, detail="Invalid memory interaction")
+                if first not in pairs or second not in pairs:
+                    raise HTTPException(status_code=422, detail="Unknown memory card")
+                if pairs[first] == pairs[second]:
+                    pair_id = pairs[first]
+                    if pair_id not in seen_pairs:
+                        seen_pairs.add(pair_id)
+                        correct_answers += 1
+            questions_answered = len(data.interaction_trace)
+            if correct_answers != solution.get("pair_count") or len(seen_pairs) != solution.get("pair_count"):
+                raise HTTPException(status_code=422, detail="Memory challenge is not complete")
+        elif session.game_id == "matching":
+            pairs = solution.get("pairs", {})
+            matched: set[str] = set()
+            correct_answers = 0
+            for attempt in data.interaction_trace:
+                left_id, right_id = attempt.get("left"), attempt.get("right")
+                if not isinstance(left_id, str) or not isinstance(right_id, str):
+                    raise HTTPException(status_code=422, detail="Invalid matching interaction")
+                if left_id not in pairs or right_id not in pairs.values():
+                    raise HTTPException(status_code=422, detail="Unknown matching item")
+                if pairs.get(left_id) == right_id and left_id not in matched:
+                    matched.add(left_id)
+                    correct_answers += 1
+            questions_answered = len(data.interaction_trace)
+            if correct_answers != solution.get("pair_count"):
+                raise HTTPException(status_code=422, detail="Matching challenge is not complete")
+        else:
+            items = {item["id"] for item in stored.get("public", {}).get("items", [])}
+            target = solution.get("target", [])
+            attempts = []
+            for attempt in data.interaction_trace:
+                sequence = attempt.get("order")
+                if not isinstance(sequence, list) or not sequence or any(
+                    not isinstance(item, str) or item not in items for item in sequence
+                ) or len(sequence) != len(set(sequence)) or len(sequence) != len(items):
+                    raise HTTPException(status_code=422, detail="Invalid ordering interaction")
+                attempts.append(sequence)
+            questions_answered = len(attempts)
+            correct_answers = 1 if attempts and attempts[-1] == target else 0
+            if correct_answers != 1:
+                raise HTTPException(status_code=422, detail="Ordering challenge is not complete")
+    else:
+        expected = {item["id"]: item for item in session.questions}
+        if len(data.answers) != len(expected) or set(item.question_id for item in data.answers) != set(expected):
+            raise HTTPException(status_code=422, detail="Exactly one answer is required for every question")
 
-    claim = await db.execute(
-        update(GameSession)
-        .where(
-            GameSession.id == session.id,
-            GameSession.user_id == current_user.id,
-            GameSession.study_plan_id == plan.id,
-            GameSession.completed.is_(False),
-        )
-        .values(completed=True)
-    )
-    if claim.rowcount != 1:
-        raise HTTPException(status_code=409, detail="Game session already completed")
-
-    correct_answers = 0
-    for submitted in data.answers:
-        question = expected[submitted.question_id]
-        if submitted.choice not in question["choices"]:
-            raise HTTPException(status_code=422, detail="Invalid choice for game question")
-        if submitted.choice == question["answer"]:
-            correct_answers += 1
-
-    questions_answered = len(expected)
+        correct_answers = 0
+        for submitted in data.answers:
+            question = expected[submitted.question_id]
+            if submitted.choice not in question["choices"]:
+                raise HTTPException(status_code=422, detail="Invalid choice for game question")
+            if submitted.choice == question["answer"]:
+                correct_answers += 1
+        questions_answered = len(expected)
     round_score = round((correct_answers / questions_answered) * 25)
     event_id = str(uuid4())
     base_xp = correct_answers * 5 + (questions_answered - correct_answers)
