@@ -175,6 +175,7 @@ class GameSessionResponse(BaseModel):
     game_id: str
     questions: list[GameSessionQuestion]
     expires_at: str
+    interaction: dict | None = None
 
 
 class GameSessionResultResponse(GameStatsResponse):
@@ -192,7 +193,8 @@ class GameSessionAnswer(BaseModel):
 
 class GameSessionComplete(BaseModel):
     session_id: str
-    answers: list[GameSessionAnswer]
+    answers: list[GameSessionAnswer] = Field(default_factory=list)
+    interaction_trace: list[dict] = Field(default_factory=list)
     daily_challenge: bool = False
     daily_challenge_date: str = ""
 
