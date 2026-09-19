@@ -384,6 +384,17 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     assert summary["skills"]["ordering"] == pytest.approx(0.6)
 
 
+
+@pytest.mark.asyncio
+async def test_legacy_game_progress_endpoint_is_removed(client, test_user):
+    _, headers = test_user
+    response = await client.post(
+        "/api/progress/game",
+        json={"xp": 999999, "questions_answered": 1, "correct_answers": 1, "skills": {"math": 1}},
+        headers=headers,
+    )
+    assert response.status_code == 404
+
 @pytest.mark.asyncio
 async def test_legacy_game_summary_sync_is_rejected(client, test_user):
     _, headers = test_user
