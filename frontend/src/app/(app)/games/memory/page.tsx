@@ -44,7 +44,7 @@ export default function MemoryGamePage() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        xp: 25,
+        xp: 25 + getAchievementRewardXP(fresh),
         correct_answers: result.correctAnswers,
         questions_answered: result.questionsAnswered,
         skills: { memory: 1 },
