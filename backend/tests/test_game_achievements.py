@@ -4,6 +4,7 @@ import pytest
 from sqlalchemy import select
 
 from app.models.game_progress import GameProgress
+from app.models.game_session import GameSession
 from app.models.progress import Progress
 from tests.conftest import make_study_plan
 
@@ -17,10 +18,7 @@ async def _start_perfect_round(client, headers, db_session, game_id="math"):
     assert started.status_code == 200
     payload = started.json()
 
-    session = await db_session.get(
-        __import__("app.models.game_session", fromlist=["GameSession"]).GameSession,
-        payload["session_id"],
-    )
+    session = await db_session.get(GameSession, payload["session_id"])
     assert session is not None
     for question in session.questions:
         question["answer"] = question["choices"][0]
