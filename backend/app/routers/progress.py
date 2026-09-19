@@ -1,3 +1,4 @@
+from datetime import date
 from typing import cast
 
 from fastapi import APIRouter, Depends, Request
@@ -13,7 +14,7 @@ from app.models.flashcard import Flashcard
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import GameProgressUpdate, ProgressHistoryResponse, ProgressSummary
+from app.schemas.progress import GameProgressUpdate, ProgressHistoryResponse, ProgressResponse, ProgressSummary
 from app.services.progress_service import get_unit_competencies
 from app.services.user_language_service import get_active_language
 
