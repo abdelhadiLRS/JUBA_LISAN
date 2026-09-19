@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { apiFetch } from '@/lib/api'
-import { persistGameEvent } from './persist'
+import { completeGameSession, startGameSession } from './persist'
 
 vi.mock('@/lib/api', () => ({
   apiFetch: vi.fn(),
@@ -8,89 +8,92 @@ vi.mock('@/lib/api', () => ({
 
 const mockedApiFetch = vi.mocked(apiFetch)
 
-const serverStats = {
-  total_xp: 160,
-  games_played: 1,
-  questions_answered: 5,
-  correct_answers: 5,
-  best_round_score: 25,
-  daily_challenges_completed: 0,
-  last_daily_challenge_date: '',
-  current_correct_streak: 5,
-  best_correct_streak: 5,
-  achievements: ['first_game'],
-}
-
-describe('persistGameEvent', () => {
+describe('server game sessions', () => {
   beforeEach(() => {
     mockedApiFetch.mockReset()
-    vi.spyOn(globalThis.crypto, 'randomUUID').mockReturnValue('event-1234')
   })
 
-  it('reuses one generated event id when a network response is lost', async () => {
-    mockedApiFetch
-      .mockRejectedValueOnce(new Error('network timeout'))
-      .mockResolvedValueOnce(
-        new Response(JSON.stringify(serverStats), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' },
-        }),
-      )
-
-    await expect(
-      persistGameEvent({
-        gameId: 'math',
-        questionsAnswered: 5,
-        correctAnswers: 5,
-        roundScore: 25,
-      }),
-    ).resolves.toEqual(serverStats)
-
-    expect(mockedApiFetch).toHaveBeenCalledTimes(2)
-    const firstBody = JSON.parse(String(mockedApiFetch.mock.calls[0][1]?.body))
-    const secondBody = JSON.parse(String(mockedApiFetch.mock.calls[1][1]?.body))
-    expect(firstBody.event_id).toBe('event-1234')
-    expect(secondBody.event_id).toBe('event-1234')
-  })
-
-  it('keeps a caller supplied event id across retries', async () => {
-    mockedApiFetch
-      .mockRejectedValueOnce(new Error('network timeout'))
-      .mockResolvedValueOnce(
-        new Response(JSON.stringify(serverStats), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' },
-        }),
-      )
-
-    await persistGameEvent({
-      eventId: 'stable-event',
-      gameId: 'memory',
-      questionsAnswered: 6,
-      correctAnswers: 4,
-      roundScore: 25,
-    })
-
-    const firstBody = JSON.parse(String(mockedApiFetch.mock.calls[0][1]?.body))
-    const secondBody = JSON.parse(String(mockedApiFetch.mock.calls[1][1]?.body))
-    expect(firstBody.event_id).toBe('stable-event')
-    expect(secondBody.event_id).toBe('stable-event')
-  })
-
-  it('does not retry non-success HTTP responses', async () => {
+  it('starts a server-owned session with bounded difficulty', async () => {
     mockedApiFetch.mockResolvedValue(
-      new Response(JSON.stringify({ detail: 'bad request' }), { status: 422 }),
+      new Response(
+        JSON.stringify({
+          session_id: 'session-123',
+          game_id: 'math',
+          questions: [
+            {
+              id: 'q1',
+              prompt: '2 + 2 = ?',
+              choices: ['3', '4', '5', '6'],
+              hint: 'Add two numbers',
+              skill: 'math',
+              difficulty: 3,
+            },
+          ],
+          expires_at: '2026-09-19T12:15:00Z',
+        }),
+        { status: 200 },
+      ),
     )
 
-    await expect(
-      persistGameEvent({
-        gameId: 'ordering',
-        questionsAnswered: 1,
-        correctAnswers: 0,
-        roundScore: 0,
-      }),
-    ).rejects.toThrow('Game event failed: 422')
+    const result = await startGameSession('math', 'en', 99)
 
+    expect(result.session_id).toBe('session-123')
+    const body = JSON.parse(String(mockedApiFetch.mock.calls[0][1]?.body))
+    expect(body).toEqual({ game_id: 'math', language: 'en', difficulty: 3 })
+  })
+
+  it('submits only answers and interaction traces to the completion endpoint', async () => {
+    mockedApiFetch.mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          total_xp: 125,
+          games_played: 2,
+          questions_answered: 5,
+          correct_answers: 4,
+          best_round_score: 25,
+          daily_challenges_completed: 1,
+          last_daily_challenge_date: '2026-09-19',
+          current_correct_streak: 4,
+          best_correct_streak: 7,
+          achievements: ['first_game'],
+          skills: { vocabulary: 0.8 },
+          round_score: 20,
+          round_correct: 4,
+          round_questions: 5,
+          xp_earned: 21,
+          new_achievements: [],
+        }),
+        { status: 200 },
+      ),
+    )
+
+    const result = await completeGameSession(
+      'session-123',
+      [{ question_id: 'q1', choice: '4' }],
+      true,
+      '2026-09-19',
+      [{ first: 'a', second: 'b' }],
+    )
+
+    expect(result.xp_earned).toBe(21)
+    const body = JSON.parse(String(mockedApiFetch.mock.calls[0][1]?.body))
+    expect(body).toEqual({
+      session_id: 'session-123',
+      answers: [{ question_id: 'q1', choice: '4' }],
+      interaction_trace: [{ first: 'a', second: 'b' }],
+      daily_challenge: true,
+      daily_challenge_date: '2026-09-19',
+    })
+  })
+
+  it('rejects failed HTTP responses without retrying', async () => {
+    mockedApiFetch.mockResolvedValue(
+      new Response(JSON.stringify({ detail: 'expired' }), { status: 410 }),
+    )
+
+    await expect(completeGameSession('session-123', [])).rejects.toThrow(
+      'Game session completion failed: 410',
+    )
     expect(mockedApiFetch).toHaveBeenCalledTimes(1)
   })
 })
