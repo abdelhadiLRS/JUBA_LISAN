@@ -35,3 +35,37 @@ def test_game_completion_bounds_answer_text_and_identifiers():
 
     with pytest.raises(ValidationError):
         GameSessionComplete.model_validate(payload)
+
+
+def test_game_completion_rejects_oversized_interaction_fields():
+    payload = {
+        "session_id": "session-1",
+        "interaction_trace": [{"first": "x" * 65}],
+    }
+
+    with pytest.raises(ValidationError):
+        GameSessionComplete.model_validate(payload)
+
+
+def test_game_completion_rejects_nested_interaction_values():
+    payload = {
+        "session_id": "session-1",
+        "interaction_trace": [{"order": [{"id": "a"}]}],
+    }
+
+    with pytest.raises(ValidationError):
+        GameSessionComplete.model_validate(payload)
+
+
+def test_game_completion_accepts_supported_interaction_shapes():
+    payload = {
+        "session_id": "session-1",
+        "interaction_trace": [
+            {"first": "card-a", "second": "card-b"},
+            {"left": "left-a", "right": "right-a"},
+            {"order": ["item-a", "item-b", "item-c"]},
+        ],
+    }
+
+    result = GameSessionComplete.model_validate(payload)
+    assert len(result.interaction_trace) == 3
