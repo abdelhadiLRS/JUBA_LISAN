@@ -410,3 +410,57 @@ async def test_game_event_rejects_invalid_counters(client, test_user):
         headers=headers,
     )
     assert response.status_code == 422
+
+
+@pytest.mark.asyncio
+async def test_game_event_server_unlocks_multi_skill(client, test_user, db_session):
+    user, headers = test_user
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    def event(event_id: str, game_id: str):
+        return {
+            "event_id": event_id,
+            "game_id": game_id,
+            "questions_answered": 1,
+            "correct_answers": 1,
+            "round_score": 10,
+            "daily_challenge": False,
+            "daily_challenge_date": "",
+            "achievements": ["multi_skill"],
+        }
+
+    for event_id, game_id in [
+        ("11111111-1111-4111-8111-111111111111", "math"),
+        ("22222222-2222-4222-8222-222222222222", "sequence"),
+    ]:
+        response = await client.post(
+            "/api/progress/game-event",
+            json=event(event_id, game_id),
+            headers=headers,
+        )
+        assert response.status_code == 200
+        assert "multi_skill" not in response.json()["achievements"]
+
+    response = await client.post(
+        "/api/progress/game-event",
+        json=event("33333333-3333-4333-8333-333333333333", "memory"),
+        headers=headers,
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert "multi_skill" in data["achievements"]
+    assert data["skills"]["math"] == pytest.approx(1.0)
+    assert data["skills"]["logic"] == pytest.approx(1.0)
+    assert data["skills"]["memory"] == pytest.approx(1.0)
