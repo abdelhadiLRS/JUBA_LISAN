@@ -609,6 +609,12 @@ async def complete_game_session(
         raise HTTPException(status_code=404, detail="Game session not found")
     if session.completed:
         raise HTTPException(status_code=409, detail="Game session already completed")
+    # The first expiry check happens before the write lock. Re-check after
+    # acquiring the lock because a request can wait long enough for the
+    # server-issued session to expire while another transaction is finishing.
+    now = datetime.now(UTC).replace(tzinfo=None)
+    if now > session.expires_at:
+        raise HTTPException(status_code=410, detail="Game session expired")
 
     claim = await db.execute(
         update(GameSession)
