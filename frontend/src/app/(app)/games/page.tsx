@@ -207,7 +207,7 @@ export default function GamesPage() {
     const dailyReward = dailyMode && !dailyCompletedToday
     const unlocked = evaluateAchievements(
       {
-        xp: xp + roundScore,
+        xp,
         skills,
         stats: projectedStats,
         roundScore,
