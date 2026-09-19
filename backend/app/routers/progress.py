@@ -24,6 +24,27 @@ from app.services.user_language_service import get_active_language
 router = APIRouter(prefix="/api/progress", tags=["progress"])
 
 
+GAME_SKILL_MAP = {
+    "math": "math",
+    "words": "vocabulary",
+    "sequence": "logic",
+    "memory": "memory",
+    "matching": "vocabulary",
+    "ordering": "ordering",
+}
+
+
+async def _get_game_skills(db: AsyncSession, plan: StudyPlan) -> dict[str, float]:
+    result = await db.execute(
+        select(Progress.skills)
+        .where(Progress.study_plan_id == plan.id)
+        .order_by(Progress.date.desc())
+        .limit(1)
+    )
+    skills = result.scalar_one_or_none()
+    return skills or {}
+
+
 async def _get_active_plan_or_none(db: AsyncSession, user_id: int) -> StudyPlan | None:
     """Return the active study plan for the user's active language, or None if not set up yet."""
     active_lang = await get_active_language(db, user_id)
@@ -155,6 +176,7 @@ async def get_game_summary(
             current_correct_streak=0,
             best_correct_streak=0,
             achievements=[],
+            skills={},
         )
 
     result = await db.execute(
@@ -176,6 +198,7 @@ async def get_game_summary(
             current_correct_streak=0,
             best_correct_streak=0,
             achievements=[],
+            skills=await _get_game_skills(db, plan),
         )
     total_xp_result = await db.execute(
         select(Progress.xp_earned).where(Progress.study_plan_id == plan.id)
@@ -191,6 +214,7 @@ async def get_game_summary(
         current_correct_streak=entry.current_correct_streak,
         best_correct_streak=entry.best_correct_streak,
         achievements=entry.achievements or [],
+        skills=await _get_game_skills(db, plan),
     )
 
 
@@ -240,6 +264,7 @@ async def record_game_event(
             current_correct_streak=aggregate.current_correct_streak,
             best_correct_streak=aggregate.best_correct_streak,
             achievements=aggregate.achievements or [],
+            skills=await _get_game_skills(db, plan),
         )
 
     try:
@@ -349,6 +374,8 @@ async def record_game_event(
             current_user.id,
             study_plan_id=plan.id,
             xp=base_xp + achievement_xp,
+            skill=GAME_SKILL_MAP.get(data.game_id),
+            skill_score=(data.correct_answers / data.questions_answered) if data.questions_answered > 0 else None,
             commit=False,
         )
         if progress_entry is None:
@@ -369,6 +396,7 @@ async def record_game_event(
             current_correct_streak=entry.current_correct_streak,
             best_correct_streak=entry.best_correct_streak,
             achievements=entry.achievements or [],
+            skills=await _get_game_skills(db, plan),
         )
     except IntegrityError:
         await db.rollback()
@@ -404,6 +432,7 @@ async def record_game_event(
             current_correct_streak=aggregate.current_correct_streak,
             best_correct_streak=aggregate.best_correct_streak,
             achievements=aggregate.achievements or [],
+            skills=await _get_game_skills(db, plan),
         )
 
 
