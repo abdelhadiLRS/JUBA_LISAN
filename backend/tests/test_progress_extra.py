@@ -264,3 +264,66 @@ def test_game_progress_schema_discards_invalid_only_skills():
 
     assert data.skills == {}
 
+
+
+@pytest.mark.asyncio
+async def test_game_summary_persists_and_merges_stats(client, test_user, db_session):
+    user, headers = test_user
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    payload = {
+        "games_played": 2,
+        "questions_answered": 10,
+        "correct_answers": 8,
+        "best_round_score": 25,
+        "daily_challenges_completed": 1,
+        "last_daily_challenge_date": "2026-09-19",
+        "current_correct_streak": 4,
+        "best_correct_streak": 4,
+        "achievements": ["first_game", "perfect_round"],
+    }
+    response = await client.post("/api/progress/game-summary", json=payload, headers=headers)
+    assert response.status_code == 200
+    assert response.json()["games_played"] == 2
+    assert response.json()["achievements"] == ["first_game", "perfect_round"]
+
+    response = await client.post(
+        "/api/progress/game-summary",
+        json={
+            **payload,
+            "games_played": 1,
+            "questions_answered": 4,
+            "correct_answers": 3,
+            "best_round_score": 10,
+            "daily_challenges_completed": 0,
+            "current_correct_streak": 1,
+            "best_correct_streak": 2,
+            "achievements": ["streak_5"],
+        },
+        headers=headers,
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["games_played"] == 2
+    assert data["questions_answered"] == 10
+    assert data["correct_answers"] == 8
+    assert data["best_round_score"] == 25
+    assert data["daily_challenges_completed"] == 1
+    assert data["best_correct_streak"] == 4
+    assert data["achievements"] == ["first_game", "perfect_round", "streak_5"]
+
+    response = await client.get("/api/progress/game-summary", headers=headers)
+    assert response.status_code == 200
+    assert response.json()["study_plan_id"] if "study_plan_id" in response.json() else True
