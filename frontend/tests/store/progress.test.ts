@@ -135,6 +135,50 @@ describe('useProgressStore — setProgress', () => {
   })
 })
 
+describe('useProgressStore — game skill XP', () => {
+  beforeEach(() => {
+    useProgressStore.setState({
+      streak: 0,
+      xp: 0,
+      skills: {},
+      todayLessons: [],
+      completedToday: [],
+      currentUnitId: '',
+      currentPlanDurationWeeks: 12,
+      unitProgress: {},
+      levelTestUnlocked: false,
+      levelTestResult: null,
+    })
+  })
+
+  it('persists game-only skills when a correct answer earns XP', () => {
+    useProgressStore.getState().addGameXP(10, 'math', true)
+
+    const state = useProgressStore.getState()
+    expect(state.xp).toBe(10)
+    expect(state.skills).toEqual({ math: 0.05 })
+  })
+
+  it('persists logic, memory, and ordering skills', () => {
+    useProgressStore.getState().addGameXP(10, 'logic', true)
+    useProgressStore.getState().addGameXP(10, 'memory', true)
+    useProgressStore.getState().addGameXP(10, 'ordering', true)
+
+    expect(useProgressStore.getState().skills).toEqual({
+      logic: 0.05,
+      memory: 0.05,
+      ordering: 0.05,
+    })
+  })
+
+  it('does not change skill progress for an incorrect answer', () => {
+    useProgressStore.setState({ skills: { math: 0.4 } })
+    useProgressStore.getState().addGameXP(0, 'math', false)
+
+    expect(useProgressStore.getState().skills).toEqual({ math: 0.4 })
+  })
+})
+
 describe('useProgressStore — setTodayLessons', () => {
   beforeEach(() => {
     useProgressStore.setState({
