@@ -535,6 +535,7 @@ async def test_game_session_completion_rejects_replay_and_partial_answers(client
     assert response.status_code == 422
 
     session = await db_session.get(__import__("app.models.game_session", fromlist=["GameSession"]).GameSession, payload["session_id"])
+    assert session is not None
     answers = [
         {"question_id": q["id"], "choice": q["choices"][0]}
         for q in payload["questions"]
