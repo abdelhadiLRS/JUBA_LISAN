@@ -1,5 +1,3 @@
-'use client'
-
 import { Globe2, Sparkles } from 'lucide-react'
 
 interface LanguageShowcaseProps {
