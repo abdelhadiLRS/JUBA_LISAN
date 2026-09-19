@@ -4,6 +4,7 @@ import pytest
 from sqlalchemy import select
 
 from app.models.game_progress import GameProgress
+from app.models.game_progress_event import GameProgressEvent
 from app.models.game_session import GameSession
 from app.models.progress import Progress
 from tests.conftest import make_study_plan
