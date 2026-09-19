@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { evaluateAchievements, emptyGameStats } from './achievements'
+import { evaluateAchievements, emptyGameStats, getAchievementRewardXP } from './achievements'
 
 describe('game achievements', () => {
   it('unlocks first game and xp milestones', () => {
@@ -22,5 +22,14 @@ describe('game achievements', () => {
     const stats = emptyGameStats()
     expect(evaluateAchievements({ xp: 0, skills: { math: 0.1, words: 0.2 }, stats, roundScore: 0, perfectRound: false, dailyChallengeCompleted: false })).not.toContain('multi_skill')
     expect(evaluateAchievements({ xp: 0, skills: { math: 0.1, words: 0.2, sequence: 0.3 }, stats, roundScore: 0, perfectRound: false, dailyChallengeCompleted: false })).toContain('multi_skill')
+  })
+})
+
+
+
+describe('achievement rewards', () => {
+  it('sums rewards for newly unlocked achievements', () => {
+    expect(getAchievementRewardXP(['first_game', 'perfect_round', 'daily_challenge'])).toBe(135)
+    expect(getAchievementRewardXP([])).toBe(0)
   })
 })
