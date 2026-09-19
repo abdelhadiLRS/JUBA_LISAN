@@ -134,3 +134,67 @@ async def test_progress_summary_expires_stale_streak(client, test_user, db_sessi
     response = await client.get("/api/progress/summary", headers=headers)
     assert response.status_code == 200
     assert response.json()["current_streak"] == 0
+
+
+@pytest.mark.asyncio
+async def test_empty_progress_update_does_not_create_streak_entry(db_session, test_user):
+    user, _ = test_user
+
+    from sqlalchemy import select
+
+    from app.models.progress import Progress
+    from app.services.progress_service import update_daily_progress
+
+    entry = await update_daily_progress(db_session, user.id, commit=False)
+    assert entry is None
+
+    result = await db_session.execute(
+        select(Progress).where(Progress.user_id == user.id)
+    )
+    assert result.scalars().all() == []
+
+
+@pytest.mark.asyncio
+async def test_activity_after_yesterday_continues_streak(db_session, test_user):
+    user, _ = test_user
+
+    from app.models.progress import Progress
+    from app.services.progress_service import update_daily_progress
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add(
+        Progress(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            date=date.today() - timedelta(days=1),
+            xp_earned=10,
+            lessons_completed=0,
+            exercises_correct=0,
+            exercises_total=0,
+            streak_day=4,
+            skills={},
+        )
+    )
+    await db_session.commit()
+
+    entry = await update_daily_progress(
+        db_session,
+        user.id,
+        study_plan_id=plan.id,
+        lesson_completed=True,
+        commit=False,
+    )
+    assert entry is not None
+    assert entry.streak_day == 5
