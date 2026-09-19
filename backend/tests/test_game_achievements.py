@@ -512,6 +512,31 @@ async def test_game_completion_uses_captured_ownership_after_rollback(
     assert sum(row.xp_earned for row in progress_rows) == result.json()["xp_earned"]
 
 
+def test_game_session_complete_rejects_malformed_daily_challenge_date():
+    from pydantic import ValidationError
+
+    from app.schemas.progress import GameSessionComplete
+
+    with pytest.raises(ValidationError):
+        GameSessionComplete(
+            session_id="session-1",
+            daily_challenge=True,
+            daily_challenge_date="20-09-2026",
+        )
+
+
+def test_game_session_complete_accepts_iso_daily_challenge_date():
+    from app.schemas.progress import GameSessionComplete
+
+    payload = GameSessionComplete(
+        session_id="session-1",
+        daily_challenge=True,
+        daily_challenge_date="2026-09-20",
+    )
+
+    assert payload.daily_challenge_date == "2026-09-20"
+
+
 @pytest.mark.asyncio
 async def test_game_session_expiry_is_rechecked_after_write_phase_starts(
     client, test_user, db_session
