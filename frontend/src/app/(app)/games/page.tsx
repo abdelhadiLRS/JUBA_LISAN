@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import type { GameId, GameLanguage } from '@/lib/games/engine'
 import {
   ACHIEVEMENTS,
   type AchievementId,
@@ -10,6 +9,8 @@ import {
   completeGameSession,
   startGameSession,
   type GameSessionQuestion,
+  type GameId,
+  type GameLanguage,
 } from '@/lib/games/persist'
 import { useProgressStore } from '@/store/progress'
 import './games.css'
