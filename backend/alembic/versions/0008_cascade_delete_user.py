@@ -16,124 +16,46 @@ depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
-    # ── flashcards.user_id ────────────────────────────────────────────────
-    op.drop_constraint("flashcards_user_id_fkey", "flashcards", type_="foreignkey")
-    op.create_foreign_key(
-        "flashcards_user_id_fkey",
-        "flashcards",
-        "users",
-        ["user_id"],
-        ["id"],
-        ondelete="CASCADE",
+    # SQLite cannot ALTER foreign-key constraints directly. Batch mode uses
+    # Alembic's copy-and-move strategy while remaining a no-op-style ALTER
+    # path on databases that support constraint alteration.
+    constraints = (
+        ("flashcards", "flashcards_user_id_fkey", "users", ["user_id"], ["id"]),
+        ("study_plans", "study_plans_user_id_fkey", "users", ["user_id"], ["id"]),
+        ("progress", "progress_user_id_fkey", "users", ["user_id"], ["id"]),
+        ("chat_history", "chat_history_user_id_fkey", "users", ["user_id"], ["id"]),
+        ("lessons", "lessons_study_plan_id_fkey", "study_plans", ["study_plan_id"], ["id"]),
+        ("exercises", "exercises_lesson_id_fkey", "lessons", ["lesson_id"], ["id"]),
     )
 
-    # ── study_plans.user_id ───────────────────────────────────────────────
-    op.drop_constraint("study_plans_user_id_fkey", "study_plans", type_="foreignkey")
-    op.create_foreign_key(
-        "study_plans_user_id_fkey",
-        "study_plans",
-        "users",
-        ["user_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
-
-    # ── progress.user_id ──────────────────────────────────────────────────
-    op.drop_constraint("progress_user_id_fkey", "progress", type_="foreignkey")
-    op.create_foreign_key(
-        "progress_user_id_fkey",
-        "progress",
-        "users",
-        ["user_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
-
-    # ── chat_history.user_id ──────────────────────────────────────────────
-    op.drop_constraint("chat_history_user_id_fkey", "chat_history", type_="foreignkey")
-    op.create_foreign_key(
-        "chat_history_user_id_fkey",
-        "chat_history",
-        "users",
-        ["user_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
-
-    # ── lessons.study_plan_id ─────────────────────────────────────────────
-    op.drop_constraint("lessons_study_plan_id_fkey", "lessons", type_="foreignkey")
-    op.create_foreign_key(
-        "lessons_study_plan_id_fkey",
-        "lessons",
-        "study_plans",
-        ["study_plan_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
-
-    # ── exercises.lesson_id ───────────────────────────────────────────────
-    op.drop_constraint("exercises_lesson_id_fkey", "exercises", type_="foreignkey")
-    op.create_foreign_key(
-        "exercises_lesson_id_fkey",
-        "exercises",
-        "lessons",
-        ["lesson_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
+    for table, constraint_name, referred_table, local_cols, referred_cols in constraints:
+        with op.batch_alter_table(table, recreate="auto") as batch_op:
+            batch_op.drop_constraint(constraint_name, type_="foreignkey")
+            batch_op.create_foreign_key(
+                constraint_name,
+                referred_table,
+                local_cols,
+                referred_cols,
+                ondelete="CASCADE",
+            )
 
 
 def downgrade() -> None:
-    op.drop_constraint("exercises_lesson_id_fkey", "exercises", type_="foreignkey")
-    op.create_foreign_key(
-        "exercises_lesson_id_fkey",
-        "exercises",
-        "lessons",
-        ["lesson_id"],
-        ["id"],
+    constraints = (
+        ("exercises", "exercises_lesson_id_fkey", "lessons", ["lesson_id"], ["id"]),
+        ("lessons", "lessons_study_plan_id_fkey", "study_plans", ["study_plan_id"], ["id"]),
+        ("chat_history", "chat_history_user_id_fkey", "users", ["user_id"], ["id"]),
+        ("progress", "progress_user_id_fkey", "users", ["user_id"], ["id"]),
+        ("study_plans", "study_plans_user_id_fkey", "users", ["user_id"], ["id"]),
+        ("flashcards", "flashcards_user_id_fkey", "users", ["user_id"], ["id"]),
     )
 
-    op.drop_constraint("lessons_study_plan_id_fkey", "lessons", type_="foreignkey")
-    op.create_foreign_key(
-        "lessons_study_plan_id_fkey",
-        "lessons",
-        "study_plans",
-        ["study_plan_id"],
-        ["id"],
-    )
-
-    op.drop_constraint("chat_history_user_id_fkey", "chat_history", type_="foreignkey")
-    op.create_foreign_key(
-        "chat_history_user_id_fkey",
-        "chat_history",
-        "users",
-        ["user_id"],
-        ["id"],
-    )
-
-    op.drop_constraint("progress_user_id_fkey", "progress", type_="foreignkey")
-    op.create_foreign_key(
-        "progress_user_id_fkey",
-        "progress",
-        "users",
-        ["user_id"],
-        ["id"],
-    )
-
-    op.drop_constraint("study_plans_user_id_fkey", "study_plans", type_="foreignkey")
-    op.create_foreign_key(
-        "study_plans_user_id_fkey",
-        "study_plans",
-        "users",
-        ["user_id"],
-        ["id"],
-    )
-
-    op.drop_constraint("flashcards_user_id_fkey", "flashcards", type_="foreignkey")
-    op.create_foreign_key(
-        "flashcards_user_id_fkey",
-        "flashcards",
-        "users",
-        ["user_id"],
-        ["id"],
-    )
+    for table, constraint_name, referred_table, local_cols, referred_cols in constraints:
+        with op.batch_alter_table(table, recreate="auto") as batch_op:
+            batch_op.drop_constraint(constraint_name, type_="foreignkey")
+            batch_op.create_foreign_key(
+                constraint_name,
+                referred_table,
+                local_cols,
+                referred_cols,
+            )
