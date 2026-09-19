@@ -545,12 +545,35 @@ async def test_game_session_completion_rejects_replay_and_partial_answers(client
         headers=headers,
     )
     assert completed.status_code == 200
+
+    from app.models.game_progress import GameProgress
+    before_replay = (
+        await db_session.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == user.id,
+                GameProgress.study_plan_id == plan.id,
+            )
+        )
+    ).scalar_one()
+    stats_before = (
+        before_replay.games_played,
+        before_replay.questions_answered,
+        before_replay.correct_answers,
+    )
+
     replay = await client.post(
         "/api/progress/game-session/complete",
         json={"session_id": payload["session_id"], "answers": answers},
         headers=headers,
     )
     assert replay.status_code == 409
+
+    await db_session.refresh(before_replay)
+    assert (
+        before_replay.games_played,
+        before_replay.questions_answered,
+        before_replay.correct_answers,
+    ) == stats_before
 
 @pytest.mark.asyncio
 async def test_game_session_words_uses_server_vocabulary(client, test_user, db_session):
