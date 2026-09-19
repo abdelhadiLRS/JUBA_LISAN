@@ -43,6 +43,14 @@ jobs:
       - name: Install backend test plugins
         run: pip install pytest-cov
 
+      - name: Validate Alembic migrations
+        env:
+          DATABASE_URL: 'sqlite+aiosqlite:///ci-migrations.db'
+          SECRET_KEY: ci-secret-key
+        run: |
+          alembic upgrade head
+          alembic check
+
       - name: Run backend tests
         env:
           DATABASE_URL: 'sqlite+aiosqlite:///:memory:'
