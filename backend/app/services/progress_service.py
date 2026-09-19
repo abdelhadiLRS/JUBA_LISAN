@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import UTC, date, datetime, timedelta
 
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.competency import UserCompetency
@@ -69,8 +70,18 @@ async def update_daily_progress(
             skills={},
             study_plan_id=study_plan_id,
         )
-        db.add(entry)
-        await db.flush()
+        try:
+            async with db.begin_nested():
+                db.add(entry)
+                await db.flush()
+        except IntegrityError:
+            # Another request may have created today's row concurrently.
+            # The savepoint keeps the outer transaction usable; reload the
+            # canonical row and continue accumulating activity on it.
+            result = await db.execute(
+                select(Progress).where(*base_filter, Progress.date == today)
+            )
+            entry = result.scalar_one()
 
     if lesson_completed:
         entry.lessons_completed += 1
