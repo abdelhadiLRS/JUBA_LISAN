@@ -326,4 +326,8 @@ async def test_game_summary_persists_and_merges_stats(client, test_user, db_sess
 
     response = await client.get("/api/progress/game-summary", headers=headers)
     assert response.status_code == 200
-    assert response.json()["study_plan_id"] if "study_plan_id" in response.json() else True
+    summary = response.json()
+    assert summary["games_played"] == 2
+    assert summary["questions_answered"] == 10
+    assert summary["correct_answers"] == 8
+    assert summary["achievements"] == ["first_game", "perfect_round", "streak_5"]
