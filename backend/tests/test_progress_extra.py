@@ -660,3 +660,76 @@ async def test_game_session_completion_rejects_replay_and_partial_answers(client
         headers=headers,
     )
     assert replay.status_code == 409
+
+@pytest.mark.asyncio
+async def test_game_session_words_uses_server_vocabulary(client, test_user, db_session):
+    user, headers = test_user
+    from tests.conftest import make_study_plan
+
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["vocabulary"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    response = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "words", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data["questions"]) == 5
+    assert all(q["skill"] == "vocabulary" for q in data["questions"])
+    assert all("answer" not in q for q in data["questions"])
+    assert all(len(q["choices"]) == 4 for q in data["questions"])
+
+
+@pytest.mark.asyncio
+async def test_game_session_result_is_server_derived(client, test_user, db_session):
+    user, headers = test_user
+    from app.models.game_session import GameSession
+    from tests.conftest import make_study_plan
+
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "math", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+
+    answers = [
+        {"question_id": question["id"], "choice": question["answer"]}
+        for question in session.questions
+    ]
+    completed = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": answers},
+        headers=headers,
+    )
+    assert completed.status_code == 200
+    result = completed.json()
+    assert result["round_questions"] == 5
+    assert result["round_correct"] == 5
+    assert result["round_score"] == 25
+    assert result["xp_earned"] >= 5 * 5
+    assert "new_achievements" in result
