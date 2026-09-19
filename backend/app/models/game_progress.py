@@ -32,5 +32,6 @@ class GameProgress(Base):
     best_correct_streak: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     achievements: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, default=lambda: datetime.now(UTC).replace(tzinfo=None)
+        DateTime, nullable=False, default=lambda: datetime.now(UTC).replace(tzinfo=None),
+        onupdate=lambda: datetime.now(UTC).replace(tzinfo=None),
     )
