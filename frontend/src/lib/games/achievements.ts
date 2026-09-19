@@ -41,6 +41,10 @@ export const ACHIEVEMENTS: Record<AchievementId, { xp: number; title: string; de
   daily_challenge: { xp: 60, title: 'Daily Hero', description: 'Complete a daily challenge.' },
 }
 
+export function getAchievementRewardXP(ids: AchievementId[]): number {
+  return ids.reduce((total, id) => total + (ACHIEVEMENTS[id]?.xp ?? 0), 0)
+}
+
 export function evaluateAchievements(
   context: AchievementContext,
   existing: AchievementId[] = [],
