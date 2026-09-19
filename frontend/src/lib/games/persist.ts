@@ -24,21 +24,40 @@ export type ServerGameStats = {
   achievements: string[]
 }
 
+const MAX_NETWORK_RETRIES = 2
+const RETRY_DELAYS_MS = [150, 300]
+
+function getEventId(eventId?: string): string {
+  return eventId ?? crypto.randomUUID()
+}
+
 export async function persistGameEvent(payload: GameEventPayload): Promise<ServerGameStats> {
-  const response = await apiFetch('/api/progress/game-event', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      event_id: payload.eventId ?? crypto.randomUUID(),
-      game_id: payload.gameId,
-      questions_answered: payload.questionsAnswered,
-      correct_answers: payload.correctAnswers,
-      round_score: payload.roundScore,
-      daily_challenge: payload.dailyChallenge ?? false,
-      daily_challenge_date: payload.dailyChallengeDate ?? '',
-      achievements: payload.achievements ?? [],
-    }),
-  })
-  if (!response.ok) throw new Error(`Game event failed: ${response.status}`)
-  return response.json() as Promise<ServerGameStats>
+  const eventId = getEventId(payload.eventId)
+
+  for (let attempt = 0; attempt <= MAX_NETWORK_RETRIES; attempt += 1) {
+    try {
+      const response = await apiFetch('/api/progress/game-event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event_id: eventId,
+          game_id: payload.gameId,
+          questions_answered: payload.questionsAnswered,
+          correct_answers: payload.correctAnswers,
+          round_score: payload.roundScore,
+          daily_challenge: payload.dailyChallenge ?? false,
+          daily_challenge_date: payload.dailyChallengeDate ?? '',
+          achievements: payload.achievements ?? [],
+        }),
+      })
+
+      if (!response.ok) throw new Error(`Game event failed: ${response.status}`)
+      return response.json() as Promise<ServerGameStats>
+    } catch (error) {
+      if (attempt === MAX_NETWORK_RETRIES) throw error
+      await new Promise((resolve) => setTimeout(resolve, RETRY_DELAYS_MS[attempt]))
+    }
+  }
+
+  throw new Error('Game event failed')
 }
