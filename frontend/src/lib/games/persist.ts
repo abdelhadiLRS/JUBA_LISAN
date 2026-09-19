@@ -75,7 +75,18 @@ export type GameSessionStartResponse = {
   game_id: string
   questions: GameSessionQuestion[]
   expires_at: string
+  interaction?: InteractiveGameChallenge
 }
+
+export type InteractiveGameChallenge =
+  | { type: 'memory'; cards: Array<{ id: string; label: string }> }
+  | { type: 'matching'; left: Array<{ id: string; label: string }>; right: Array<{ id: string; label: string }> }
+  | { type: 'ordering'; items: Array<{ id: string; label: string }> }
+
+export type InteractiveGameTrace =
+  | { first: string; second: string }
+  | { left: string; right: string }
+  | { order: string[] }
 
 export type GameSessionResult = ServerGameStats & {
   round_score: number
@@ -108,6 +119,7 @@ export async function completeGameSession(
   answers: Array<{ question_id: string; choice: string }>,
   dailyChallenge = false,
   dailyChallengeDate = '',
+  interactionTrace: InteractiveGameTrace[] = [],
 ): Promise<GameSessionResult> {
   const response = await apiFetch('/api/progress/game-session/complete', {
     method: 'POST',
@@ -115,6 +127,7 @@ export async function completeGameSession(
     body: JSON.stringify({
       session_id: sessionId,
       answers,
+      interaction_trace: interactionTrace,
       daily_challenge: dailyChallenge,
       daily_challenge_date: dailyChallengeDate,
     }),
