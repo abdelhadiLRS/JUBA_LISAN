@@ -393,7 +393,7 @@
       "linkPrivacy": "Privacy Policy",
       "linkBack": "Back to Register",
       "linkBackSettings": "Back to Settings",
-      "linkContact": "For questions about these terms, use the contact form at freelingo.app while available or the contact channel published in the JUBA LISAN GitHub repository."
+      "linkContact": "For questions about these terms, use the contact form at the JUBA LISAN website while available or the contact channel published in the JUBA LISAN GitHub repository."
     },
     "privacy": {
       "pageTitle": "Privacy Policy",
@@ -430,7 +430,7 @@
       "s7Title": "7. Data Retention & Deletion",
       "s7Body": "Operational data is kept while your account exists and the hosted service remains active. You can delete memories, languages, or your entire account from Settings. The operator may also delete all accounts and their data when closing the service, after whatever reasonable notice is possible. Deletion cannot be undone. After deleting the systems and copies under the operator's control, JUBA LISAN will not retain personal data. Stripe may retain payment and transaction information under its own policy and legal obligations.",
       "s8Title": "8. Contact",
-      "s8Body": "For hosted-service privacy questions, use the contact form at freelingo.app while available. After closure, use the contact channel published in the JUBA LISAN GitHub repository and do not post personal data in public issues. For self-hosted deployments, contact that instance's administrator.",
+      "s8Body": "For hosted-service privacy questions, use the contact form at the JUBA LISAN website while available. After closure, use the contact channel published in the JUBA LISAN GitHub repository and do not post personal data in public issues. For self-hosted deployments, contact that instance's administrator.",
       "s9Title": "9. Severability",
       "s9Body": "If any provision of this policy is found to be invalid or unenforceable, that provision will be limited to the minimum extent necessary and the remaining provisions will remain in full force and effect.",
       "linkTerms": "Terms of Service",
