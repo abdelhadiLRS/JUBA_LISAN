@@ -190,6 +190,8 @@ async def record_game_event(
     plan = await _get_active_plan_or_none(db, current_user.id)
     if plan is None:
         raise HTTPException(status_code=404, detail="No active study plan found")
+    if data.daily_challenge and data.daily_challenge_date != date.today().isoformat():
+        raise HTTPException(status_code=422, detail="daily_challenge_date must be today")
 
     existing_result = await db.execute(
         select(GameProgressEvent).where(
