@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import base64
-import json
 from typing import Any
 
 from app.core.app_logger import get_logger
@@ -16,9 +15,11 @@ class SpeechService:
 
     def __init__(self):
         self.enabled = bool(settings.GOOGLE_CLOUD_SPEECH_CREDENTIALS)
+        self.speech = None
         if self.enabled:
             try:
                 from google.cloud import speech_v1p1beta1 as speech
+                self.speech = speech
                 self.client = speech.SpeechClient()
                 logger.info("Google Cloud Speech client initialized successfully")
             except Exception as e:
@@ -51,9 +52,9 @@ class SpeechService:
             audio_data = base64.b64decode(audio_base64)
 
             # Configure recognition
-            audio = speech.RecognitionContent(content=audio_data)
-            config = speech.RecognitionConfig(
-                encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+            audio = self.speech.RecognitionAudio(content=audio_data)
+            config = self.speech.RecognitionConfig(
+                encoding=self.speech.RecognitionConfig.AudioEncoding.LINEAR16,
                 sample_rate_hertz=16000,
                 language_code=language,
                 enable_automatic_punctuation=True,
@@ -226,7 +227,7 @@ class SpeechService:
         trans_words = transcription.lower().split()
         expected_words = expected_text.lower().split()
 
-        for i, (tw, ew) in enumerate(zip(trans_words, expected_words)):
+        for i, (tw, ew) in enumerate(zip(trans_words, expected_words, strict=False)):
             if tw != ew:
                 errors.append(f"Word {i+1}: said '{tw}' instead of '{ew}'")
 
