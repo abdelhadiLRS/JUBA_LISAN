@@ -112,6 +112,7 @@ export default function GamesPage() {
           gameStats: parsed.gameStats,
           achievements: parsed.achievements,
         })
+        setDailyCompletedToday(parsed.gameStats?.lastDailyChallengeDate === today)
       }
     } catch {
       // Ignore malformed local progress and keep the in-memory defaults.
@@ -261,6 +262,7 @@ export default function GamesPage() {
     setRoundCorrect(0)
     setSelected(null)
     setNewAchievements([])
+    setDailyCompletedToday(false)
   }
 
   return (
@@ -292,10 +294,10 @@ export default function GamesPage() {
             <div className="achievement-toast" style={{ display: newAchievements.length ? 'block' : 'none' }}>
               🏅 <strong>{t.newBadge}</strong> {newAchievements.map((id) => ACHIEVEMENTS[id].title).join(' · ')}
             </div>
-            <button className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} onClick={() => startGame(dailyGame, true)} disabled={dailyCompletedToday}>
+            <button className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} onClick={() => startGame(dailyGame, true)} disabled={dailyCompletedToday} aria-disabled={dailyCompletedToday}>
               <span className="daily-icon">📅</span>
               <span><strong>{t.daily}</strong><small>{t.dailyDesc}</small></span>
-              <span className="start">{t.start} →</span>
+              <span className="start">{dailyCompletedToday ? '✓' : t.start} {dailyCompletedToday ? '' : '→'}</span>
             </button>
 
             <div className="section-heading">
