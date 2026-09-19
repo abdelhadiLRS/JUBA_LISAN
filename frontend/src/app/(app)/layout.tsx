@@ -41,6 +41,26 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               xp: typeof progress.total_xp === 'number' ? Math.max(0, progress.total_xp) : 0,
               skills: progress.skills && typeof progress.skills === 'object' ? progress.skills : {},
             });
+            const gameRes = await apiFetch('/api/progress/game-summary');
+            if (gameRes.ok) {
+              const game = await gameRes.json();
+              setProgress({
+                streak: typeof progress.current_streak === 'number' ? Math.max(0, progress.current_streak) : 0,
+                xp: typeof progress.total_xp === 'number' ? Math.max(0, progress.total_xp) : 0,
+                skills: progress.skills && typeof progress.skills === 'object' ? progress.skills : {},
+                gameStats: {
+                  gamesPlayed: Math.max(0, Number(game.games_played) || 0),
+                  questionsAnswered: Math.max(0, Number(game.questions_answered) || 0),
+                  correctAnswers: Math.max(0, Number(game.correct_answers) || 0),
+                  bestRoundScore: Math.max(0, Number(game.best_round_score) || 0),
+                  dailyChallengesCompleted: Math.max(0, Number(game.daily_challenges_completed) || 0),
+                  lastDailyChallengeDate: typeof game.last_daily_challenge_date === 'string' ? game.last_daily_challenge_date : '',
+                  currentCorrectStreak: Math.max(0, Number(game.current_correct_streak) || 0),
+                  bestCorrectStreak: Math.max(0, Number(game.best_correct_streak) || 0),
+                },
+                achievements: Array.isArray(game.achievements) ? game.achievements : [],
+              });
+            }
           }
         } catch { /* progress hydration is best-effort */ }
         if (me.learning_goals === null) { router.replace('/onboarding'); return } } catch { logout(); router.push('/login') } finally { setInitializing(false) } } init(); // eslint-disable-next-line react-hooks/exhaustive-deps
