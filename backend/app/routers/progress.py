@@ -281,23 +281,31 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
         "en": "Think carefully before choosing.",
     }
     questions: list[dict] = []
+    word_entries: list[object] | None = None
+    if game_id == "words":
+        level = cast(CEFRLevel, {1: "A1", 2: "A2", 3: "B1"}[difficulty])
+        vocab_sets = get_vocabulary_by_level(level, target_language)
+        entries = [word for vocab_set in vocab_sets for word in vocab_set.words]
+        rng.shuffle(entries)
+        word_entries = entries[:5]
+        if len(word_entries) < 5:
+            fallback = [
+                ("hello", "a greeting"),
+                ("water", "a liquid people drink"),
+                ("school", "a place where people learn"),
+                ("book", "a written work"),
+                ("friend", "a person you know and like"),
+            ]
+            word_entries = [
+                type("VocabularyFallback", (), {"word": w, "definition": d})()
+                for w, d in fallback
+            ]
+
     for index in range(5):
         question_id = str(uuid4())
         if game_id == "words":
-            level = cast(CEFRLevel, {1: "A1", 2: "A2", 3: "B1"}[difficulty])
-            vocab_sets = get_vocabulary_by_level(level, target_language)
-            entries = [word for vocab_set in vocab_sets for word in vocab_set.words]
-            rng.shuffle(entries)
-            selected = entries[:5]
-            if len(selected) < 5:
-                fallback = [
-                    ("hello", "a greeting"),
-                    ("water", "a liquid people drink"),
-                    ("school", "a place where people learn"),
-                    ("book", "a written work"),
-                    ("friend", "a person you know and like"),
-                ]
-                selected = [type("VocabularyFallback", (), {"word": w, "definition": d})() for w, d in fallback]
+            assert word_entries is not None
+            selected = word_entries
             entry = selected[index]
             correct = entry.definition.strip()
             distractors = list(dict.fromkeys(
