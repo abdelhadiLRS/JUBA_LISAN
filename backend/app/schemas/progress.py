@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from pydantic import BaseModel, field_serializer
+from pydantic import BaseModel, Field, field_serializer
 
 
 class ProgressResponse(BaseModel):
@@ -45,4 +45,4 @@ class GameProgressUpdate(BaseModel):
     xp: int = 0
     correct_answers: int = 0
     questions_answered: int = 0
-    skills: dict[str, float] = {}
+    skills: dict[str, float] = Field(default_factory=dict)
