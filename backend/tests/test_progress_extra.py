@@ -291,7 +291,7 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
         "round_score": 25,
         "daily_challenge": True,
         "daily_challenge_date": "2026-09-19",
-        "achievements": ["first_game", "perfect_round"],
+        "achievements": ["first_game", "perfect_round", "xp_500"],
     }
     response = await client.post("/api/progress/game-event", json=event, headers=headers)
     assert response.status_code == 200
@@ -302,6 +302,7 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     assert first["current_correct_streak"] == 5
     assert first["best_correct_streak"] == 5
     assert first["daily_challenges_completed"] == 1
+    assert first["achievements"] == ["first_game", "perfect_round", "daily_challenge"]
 
     response = await client.post("/api/progress/game-event", json=event, headers=headers)
     assert response.status_code == 200
@@ -309,6 +310,7 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     assert duplicate["games_played"] == 1
     assert duplicate["questions_answered"] == 5
     assert duplicate["correct_answers"] == 5
+    assert duplicate["achievements"] == ["first_game", "perfect_round", "daily_challenge"]
 
     response = await client.post(
         "/api/progress/game-event",
@@ -334,7 +336,7 @@ async def test_game_event_is_idempotent_and_server_aggregated(client, test_user,
     assert data["daily_challenges_completed"] == 1
     assert data["current_correct_streak"] == 0
     assert data["best_correct_streak"] == 5
-    assert data["achievements"] == ["first_game", "perfect_round", "streak_5"]
+    assert data["achievements"] == ["first_game", "perfect_round", "daily_challenge", "streak_5"]
 
     response = await client.get("/api/progress/game-summary", headers=headers)
     assert response.status_code == 200
