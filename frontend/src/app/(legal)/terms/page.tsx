@@ -40,15 +40,13 @@ export default function TermsPage() {
         <Link href="/">
           <Image
             src="/logo.png"
-            alt="FreeLingo"
+            alt="JUBA LISAN"
             width={48}
             height={48}
             className="mb-3"
           />
         </Link>
-        <h1 className="text-fl-fg font-mono text-xl font-bold tracking-widest uppercase">
-          FreeLingo
-        </h1>
+        <h1 className="text-fl-fg font-mono text-xl font-bold tracking-widest uppercase">JUBA LISAN</h1>
         <p className="text-fl-caption text-fl-muted-2 mt-1 font-mono tracking-widest uppercase">
           {tCommon('tagline')}
         </p>
