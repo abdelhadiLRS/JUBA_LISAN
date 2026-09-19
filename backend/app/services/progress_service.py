@@ -26,7 +26,20 @@ async def update_daily_progress(
     skill: str | None = None,
     skill_score: float | None = None,
     commit: bool = True,
-) -> Progress:
+) -> Progress | None:
+    # Do not create a progress row (and therefore do not start/advance a streak)
+    # for a call that records no learning activity. This matters for idempotent
+    # or empty API calls such as a game submission with zero XP/questions.
+    has_activity = (
+        lesson_completed
+        or exercise_correct is not None
+        or flashcard_reviewed
+        or xp > 0
+        or (skill is not None and skill_score is not None)
+    )
+    if not has_activity:
+        return None
+
     today = date.today()
 
     base_filter = [Progress.user_id == user_id]
