@@ -353,7 +353,7 @@
       "linkPrivacy": "Politique de confidentialité",
       "linkBack": "Retour à l'inscription",
       "linkBackSettings": "Retour aux paramètres",
-      "linkContact": "Pour toute question, utilisez le formulaire de freelingo.app tant qu'il est disponible ou le canal de contact publié dans le dépôt GitHub de JUBA LISAN."
+      "linkContact": "Pour toute question, utilisez le formulaire de the JUBA LISAN website tant qu'il est disponible ou le canal de contact publié dans le dépôt GitHub de JUBA LISAN."
     },
     "privacy": {
       "pageTitle": "Politique de confidentialité",
@@ -390,7 +390,7 @@
       "s7Title": "7. Conservation et suppression des données",
       "s7Body": "Les données opérationnelles sont conservées tant que votre compte existe et que le service hébergé reste actif. Vous pouvez supprimer des souvenirs, des langues ou tout votre compte depuis les Paramètres. À la fermeture du service, l'opérateur peut supprimer tous les comptes et leurs données après le préavis raisonnablement possible. La suppression est irréversible. Après suppression des systèmes et copies sous le contrôle de l'opérateur, JUBA LISAN ne conservera aucune donnée personnelle. Stripe pourra conserver les informations de paiement et de transaction selon sa propre politique et ses obligations légales.",
       "s8Title": "8. Contact",
-      "s8Body": "Pour les questions de confidentialité du service hébergé, utilisez le formulaire de freelingo.app tant qu'il est disponible. Après la fermeture, utilisez le canal de contact publié dans le dépôt GitHub de JUBA LISAN et ne publiez aucune donnée personnelle dans une issue publique. Pour une installation auto-hébergée, contactez son administrateur.",
+      "s8Body": "Pour les questions de confidentialité du service hébergé, utilisez le formulaire de the JUBA LISAN website tant qu'il est disponible. Après la fermeture, utilisez le canal de contact publié dans le dépôt GitHub de JUBA LISAN et ne publiez aucune donnée personnelle dans une issue publique. Pour une installation auto-hébergée, contactez son administrateur.",
       "s9Title": "9. Divisibilité",
       "s9Body": "Si une disposition de cette politique est jugée invalide ou inapplicable, cette disposition sera limitée dans la mesure minimale nécessaire et les autres dispositions resteront pleinement en vigueur.",
       "linkTerms": "Conditions d'utilisation",
