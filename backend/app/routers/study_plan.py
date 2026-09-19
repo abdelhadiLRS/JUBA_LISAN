@@ -253,6 +253,7 @@ async def get_today_lessons(
             progress_day=plan.progress_day,
             total_days=total_days,
             pending_count=pending_count,
+            review_due_count=review_due_count,
         )
 
     days = _get_week_days(week)
