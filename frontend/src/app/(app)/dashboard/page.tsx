@@ -161,9 +161,10 @@ export default function DashboardPage() {
 
   const loadData = useCallback(async () => {
     try {
-      const [progRes, planRes] = await Promise.all([
+      const [progRes, planRes, dueRes] = await Promise.all([
         apiFetch('/api/progress/summary'),
         apiFetch('/api/study-plan/today'),
+        apiFetch('/api/flashcards/due'),
       ])
       if (progRes.ok) {
         const prog = await progRes.json()
@@ -210,7 +211,12 @@ export default function DashboardPage() {
         // Daily Momentum: Set next action and review count
         const next = normalizedLessons.find(l => !l.isCompleted && l.id !== null) || null
         setNextAction(next)
-        setReviewDueCount(plan.review_due_count ?? 0)
+        if (dueRes.ok) {
+          const due = await dueRes.json()
+          setReviewDueCount(Array.isArray(due?.due) ? due.due.length : 0)
+        } else {
+          setReviewDueCount(0)
+        }
         
         setHasPlan(true)
       } else {
