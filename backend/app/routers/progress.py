@@ -337,6 +337,36 @@ async def record_game_event(
         if data.daily_challenge:
             candidate_achievements.append("daily_challenge")
 
+        # Evaluate multi-skill progress from server-owned daily skills. The
+        # current game's mapped skill counts as active only when the event has
+        # at least one question, so the client cannot unlock this reward by
+        # claiming an arbitrary achievement.
+        current_skill = GAME_SKILL_MAP.get(data.game_id)
+        current_skill_score = (
+            data.correct_answers / data.questions_answered
+            if data.questions_answered > 0
+            else None
+        )
+        latest_progress_result = await db.execute(
+            select(Progress.skills)
+            .where(Progress.study_plan_id == plan.id)
+            .order_by(Progress.date.desc())
+            .limit(1)
+        )
+        existing_skills = latest_progress_result.scalar_one_or_none() or {}
+        active_skill_count = sum(
+            1 for skill, score in existing_skills.items() if skill and float(score) > 0
+        )
+        if (
+            current_skill
+            and current_skill_score is not None
+            and current_skill_score > 0
+            and current_skill not in existing_skills
+        ):
+            active_skill_count += 1
+        if active_skill_count >= 3:
+            candidate_achievements.append("multi_skill")
+
         reward_by_achievement = {
             "first_game": 25,
             "perfect_round": 50,
