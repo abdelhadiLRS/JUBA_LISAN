@@ -352,7 +352,7 @@
       "linkPrivacy": "Informativa sulla privacy",
       "linkBack": "Torna alla registrazione",
       "linkBackSettings": "Torna alle impostazioni",
-      "linkContact": "Per domande, usa il modulo di freelingo.app finché disponibile o il canale di contatto pubblicato nel repository GitHub di JUBA LISAN."
+      "linkContact": "Per domande, usa il modulo di the JUBA LISAN website finché disponibile o il canale di contatto pubblicato nel repository GitHub di JUBA LISAN."
     },
     "privacy": {
       "pageTitle": "Informativa sulla privacy",
@@ -389,7 +389,7 @@
       "s7Title": "7. Conservazione ed eliminazione dei dati",
       "s7Body": "I dati operativi sono conservati finché esiste l'account e il servizio ospitato rimane attivo. Puoi eliminare ricordi, lingue o l'intero account dalle Impostazioni. Alla chiusura del servizio, l'operatore può eliminare tutti gli account e i dati dopo il ragionevole preavviso possibile. L'eliminazione è irreversibile. Dopo l'eliminazione dei sistemi e delle copie sotto il controllo dell'operatore, JUBA LISAN non conserverà dati personali. Stripe potrà conservare informazioni su pagamenti e transazioni secondo la propria informativa e gli obblighi di legge.",
       "s8Title": "8. Contatti",
-      "s8Body": "Per domande sulla privacy del servizio ospitato, usa il modulo di freelingo.app finché disponibile. Dopo la chiusura, usa il canale di contatto pubblicato nel repository GitHub di JUBA LISAN e non pubblicare dati personali in issue pubbliche. Per installazioni self-hosted, contatta il relativo amministratore.",
+      "s8Body": "Per domande sulla privacy del servizio ospitato, usa il modulo di the JUBA LISAN website finché disponibile. Dopo la chiusura, usa il canale di contatto pubblicato nel repository GitHub di JUBA LISAN e non pubblicare dati personali in issue pubbliche. Per installazioni self-hosted, contatta il relativo amministratore.",
       "s9Title": "9. Divisibilità",
       "s9Body": "Se una disposizione di questa policy viene ritenuta invalida o inapplicabile, tale disposizione sarà limitata nella misura minima necessaria e le restanti rimarranno in pieno vigore.",
       "linkTerms": "Termini di servizio",
