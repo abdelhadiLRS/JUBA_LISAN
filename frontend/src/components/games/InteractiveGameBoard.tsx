@@ -5,7 +5,8 @@ import { useEffect, useMemo, useState } from 'react'
 type Mode = 'memory' | 'matching' | 'ordering'
 type Lang = 'ar' | 'fr' | 'en'
 
-type Props = { mode: Mode; lang: Lang; onComplete?: () => void }
+type GameCompletion = { questionsAnswered: number; correctAnswers: number }
+type Props = { mode: Mode; lang: Lang; onComplete?: (result: GameCompletion) => void }
 type MemoryCard = { id: number; pair: string; label: string; flipped: boolean; matched: boolean }
 
 const copy = {
@@ -65,7 +66,7 @@ export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
     if (completed) return
     if (mode === 'memory' && memoryCards.length > 0 && memoryCards.every((card) => card.matched)) {
       setCompleted(true)
-      onComplete?.()
+      onComplete?.({ questionsAnswered: memoryCards.length / 2, correctAnswers: memoryCards.length / 2 })
     }
   }, [completed, memoryCards, mode, onComplete])
 
@@ -97,7 +98,7 @@ export function InteractiveGameBoard({ mode, lang, onComplete }: Props) {
     if (completed || mode !== 'ordering' || order.length !== targetOrder.length) return
     if (order.every((value, index) => value === targetOrder[index])) {
       setCompleted(true)
-      onComplete?.()
+      onComplete?.({ questionsAnswered: 1, correctAnswers: 1 })
     }
   }, [completed, mode, order, targetOrder])
 
