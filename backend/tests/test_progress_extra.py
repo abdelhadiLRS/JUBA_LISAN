@@ -413,6 +413,23 @@ async def test_game_event_rejects_invalid_counters(client, test_user):
 
 
 @pytest.mark.asyncio
+async def test_game_event_rejects_unknown_game_id(client, test_user):
+    _, headers = test_user
+    response = await client.post(
+        "/api/progress/game-event",
+        json={
+            "event_id": "44444444-4444-4444-8444-444444444444",
+            "game_id": "forged_game",
+            "questions_answered": 5,
+            "correct_answers": 5,
+            "round_score": 9999,
+        },
+        headers=headers,
+    )
+    assert response.status_code == 422
+
+
+@pytest.mark.asyncio
 async def test_game_event_server_unlocks_multi_skill(client, test_user, db_session):
     user, headers = test_user
     from tests.conftest import make_study_plan
