@@ -13,6 +13,7 @@ import {
   ACHIEVEMENTS,
   evaluateAchievements,
   emptyGameStats,
+  getAchievementRewardXP,
   type AchievementId,
 } from '@/lib/games/achievements'
 import { apiFetch } from '@/lib/api'
@@ -227,7 +228,7 @@ export default function GamesPage() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        xp: roundScore,
+        xp: roundScore + getAchievementRewardXP(fresh),
         correct_answers: roundCorrect,
         questions_answered: ROUND_SIZE,
         skills: Object.fromEntries(
