@@ -42,25 +42,6 @@ class ProgressHistoryResponse(BaseModel):
     entries: list[ProgressResponse]
 
 
-class GameProgressUpdate(BaseModel):
-    xp: int = 0
-    correct_answers: int = 0
-    questions_answered: int = 0
-    skills: dict[str, float] = Field(default_factory=dict)
-
-    @field_validator("skills")
-    @classmethod
-    def normalize_skills(cls, value: dict[str, float]) -> dict[str, float]:
-        normalized: dict[str, float] = {}
-        for skill, score in value.items():
-            if not isinstance(skill, str) or not skill.strip():
-                continue
-            if not isinstance(score, (int, float)) or not math.isfinite(float(score)):
-                continue
-            normalized[skill.strip()] = max(0.0, min(1.0, float(score)))
-        return normalized
-
-
 class GameStatsResponse(BaseModel):
     total_xp: int = 0
     games_played: int
