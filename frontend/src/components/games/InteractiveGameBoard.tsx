@@ -9,7 +9,7 @@ type Props = {
   mode: Mode
   lang: Lang
   challenge?: InteractiveGameChallenge
-  onComplete?: (trace: InteractiveGameTrace[]) => void
+  onComplete?: (trace: InteractiveGameTrace[]) => Promise<boolean> | boolean | void
 }
 type MemoryCard = { id: string; label: string; flipped: boolean; matched: boolean }
 
@@ -68,14 +68,13 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     setMemoryTrace(trace)
     setMoves(value => value + 1)
     const firstIndex = next.findIndex(item => item.id === firstId)
-    const correct = firstIndex >= 0 && next[firstIndex].label !== card.label && false
-    void correct
+    const correct = firstIndex >= 0 && next[firstIndex].pair_key === card.pair_key
     const timer = window.setTimeout(() => {
       setLocked(false)
       setMemoryCards(current => {
         const a = current.find(item => item.id === firstId)
         const b = current.find(item => item.id === card.id)
-        const samePair = a && b && a.label !== b.label
+        const samePair = Boolean(a && b && a.pair_key === b.pair_key)
         if (!samePair) return current.map(item => item.id === firstId || item.id === card.id ? { ...item, flipped: false } : item)
         const updated = current.map(item => item.id === firstId || item.id === card.id ? { ...item, matched: true } : item)
         if (updated.every(item => item.matched)) finish(trace)
@@ -98,10 +97,10 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     const trace = [...matchingTrace, pair]
     setMatchingTrace(trace)
     setMoves(value => value + 1)
-    const correct = challenge.left.some(item => item.id === left) && challenge.right.some(item => item.id === right)
-    if (correct) {
-      setMatched(current => [...current, left, right])
-    }
+    const leftItem = challenge.left.find(item => item.id === left)
+    const rightItem = challenge.right.find(item => item.id === right)
+    const correct = Boolean(leftItem && rightItem && leftItem.pair_key === rightItem.pair_key)
+    if (correct) setMatched(current => [...current, left, right])
     setLeft(null); setRight(null)
     if (matched.length + (correct ? 2 : 0) >= challenge.left.length * 2) finish(trace)
   }, [left, right, completed, mode, challenge, matchingTrace, matched.length])
@@ -112,8 +111,10 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     setOrderingTrace(trace)
     setMoves(value => value + 1)
     const next = challenge.items.map(item => item.id)
-    if (order.every((id, i) => id === next[i])) finish(trace)
-    else setOrder([])
+    void Promise.resolve(onComplete?.(trace)).then((accepted) => {
+      if (accepted !== false) setCompleted(true)
+      else setOrder([])
+    })
   }
 
   function reset() {
