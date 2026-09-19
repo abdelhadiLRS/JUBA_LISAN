@@ -154,14 +154,12 @@ async def record_game_progress(
         current_user.id,
         study_plan_id=plan.id,
         xp=safe_xp,
+        exercise_total_delta=questions_answered,
+        exercise_correct_delta=min(max(0, data.correct_answers), questions_answered),
         commit=False,
     )
     if entry is None:
         raise HTTPException(status_code=400, detail="No game activity to record")
-    entry.exercises_total += questions_answered
-    entry.exercises_correct += min(
-        max(0, data.correct_answers), questions_answered
-    )
     if data.skills:
         skills = dict(entry.skills or {})
         for skill, score in data.skills.items():
