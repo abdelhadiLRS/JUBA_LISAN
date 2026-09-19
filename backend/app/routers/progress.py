@@ -599,7 +599,7 @@ async def complete_game_session(
     # Re-read the session after acquiring the write lock. A competing completion
     # may have claimed it while the validation phase was running.
     session = await db.get(GameSession, data.session_id)
-    if session is None or session.user_id != current_user.id or session.study_plan_id != plan.id:
+    if session is None or session.user_id != user_id or session.study_plan_id != plan_id:
         raise HTTPException(status_code=404, detail="Game session not found")
     if session.completed:
         raise HTTPException(status_code=409, detail="Game session already completed")
