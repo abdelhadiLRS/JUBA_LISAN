@@ -106,8 +106,6 @@ class ResourceCache:
             Cached value or None if not found/expired
         """
         key = self._generate_key(prefix, **kwargs)
-        ttl = self.DEFAULT_TTLS.get(prefix, 3600)
-        
         with self._lock:
             entry = self._memory_cache.get(key)
             
@@ -221,7 +219,7 @@ class ResourceCache:
         """Get total size of audio cache in bytes."""
         total_size = 0
         try:
-            for dirpath, dirnames, filenames in os.walk(self.audio_dir):
+            for dirpath, _dirnames, filenames in os.walk(self.audio_dir):
                 for filename in filenames:
                     filepath = Path(dirpath) / filename
                     if filepath.exists():
