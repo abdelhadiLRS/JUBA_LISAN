@@ -177,16 +177,19 @@ async def get_unit_competencies(
     result = await db.execute(select(UserCompetency).where(*conditions))
     rows = result.scalars().all()
 
-    # Aggregate per unit: average score across all competency rows
+    # Aggregate per unit in one pass to avoid repeatedly scanning all rows.
     unit_scores: dict[str, list[float]] = {}
+    mastered_counts: dict[str, int] = {}
     for row in rows:
         unit_scores.setdefault(row.unit_id, []).append(row.score)
+        if row.mastered:
+            mastered_counts[row.unit_id] = mastered_counts.get(row.unit_id, 0) + 1
 
     return [
         {
             "unit_id": uid,
             "score": round(sum(scores) / len(scores), 3),
-            "mastered_count": sum(1 for r in rows if r.unit_id == uid and r.mastered),
+            "mastered_count": mastered_counts.get(uid, 0),
             "total_count": len(scores),
         }
         for uid, scores in unit_scores.items()
