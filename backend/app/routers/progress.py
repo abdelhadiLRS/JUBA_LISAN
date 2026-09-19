@@ -460,13 +460,21 @@ async def start_game_session(
         )
     )
     if existing_progress.scalar_one_or_none() is None:
-        db.add(
-            GameProgress(
-                user_id=current_user.id,
-                study_plan_id=plan.id,
-                achievements=[],
-            )
-        )
+        # The unique (user_id, study_plan_id) constraint is the final arbiter
+        # when two workers create the first session concurrently. Keep that
+        # conflict inside a savepoint so the GameSession itself is not rolled back.
+        try:
+            async with db.begin_nested():
+                db.add(
+                    GameProgress(
+                        user_id=current_user.id,
+                        study_plan_id=plan.id,
+                        achievements=[],
+                    )
+                )
+                await db.flush()
+        except IntegrityError:
+            pass
     await db.commit()
     public_questions = [
         {key: item[key] for key in ("id", "prompt", "choices", "hint", "skill", "difficulty")}
