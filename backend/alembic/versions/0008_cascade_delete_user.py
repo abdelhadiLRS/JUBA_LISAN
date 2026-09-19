@@ -14,11 +14,38 @@ down_revision: str | None = "0007_target_language"
 branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
 
+FK_NAMING_CONVENTION = {"fk": "%(table_name)s_%(column_0_name)s_fkey"}
+
+
+def _replace_fk(
+    table: str,
+    constraint_name: str,
+    referred_table: str,
+    local_cols: list[str],
+    referred_cols: list[str],
+    *,
+    ondelete: str | None,
+) -> None:
+    # The initial SQLite schema contains unnamed foreign keys. Supplying a
+    # naming convention lets Alembic assign stable names while reflecting
+    # those existing constraints, so the same migration works on SQLite and
+    # databases that already have convention-based FK names.
+    with op.batch_alter_table(
+        table,
+        recreate="auto",
+        naming_convention=FK_NAMING_CONVENTION,
+    ) as batch_op:
+        batch_op.drop_constraint(constraint_name, type_="foreignkey")
+        batch_op.create_foreign_key(
+            constraint_name,
+            referred_table,
+            local_cols,
+            referred_cols,
+            ondelete=ondelete,
+        )
+
 
 def upgrade() -> None:
-    # SQLite cannot ALTER foreign-key constraints directly. Batch mode uses
-    # Alembic's copy-and-move strategy while remaining a no-op-style ALTER
-    # path on databases that support constraint alteration.
     constraints = (
         ("flashcards", "flashcards_user_id_fkey", "users", ["user_id"], ["id"]),
         ("study_plans", "study_plans_user_id_fkey", "users", ["user_id"], ["id"]),
@@ -29,15 +56,14 @@ def upgrade() -> None:
     )
 
     for table, constraint_name, referred_table, local_cols, referred_cols in constraints:
-        with op.batch_alter_table(table, recreate="auto") as batch_op:
-            batch_op.drop_constraint(constraint_name, type_="foreignkey")
-            batch_op.create_foreign_key(
-                constraint_name,
-                referred_table,
-                local_cols,
-                referred_cols,
-                ondelete="CASCADE",
-            )
+        _replace_fk(
+            table,
+            constraint_name,
+            referred_table,
+            local_cols,
+            referred_cols,
+            ondelete="CASCADE",
+        )
 
 
 def downgrade() -> None:
@@ -51,11 +77,11 @@ def downgrade() -> None:
     )
 
     for table, constraint_name, referred_table, local_cols, referred_cols in constraints:
-        with op.batch_alter_table(table, recreate="auto") as batch_op:
-            batch_op.drop_constraint(constraint_name, type_="foreignkey")
-            batch_op.create_foreign_key(
-                constraint_name,
-                referred_table,
-                local_cols,
-                referred_cols,
-            )
+        _replace_fk(
+            table,
+            constraint_name,
+            referred_table,
+            local_cols,
+            referred_cols,
+            ondelete=None,
+        )
