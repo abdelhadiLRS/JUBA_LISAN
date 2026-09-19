@@ -17,134 +17,122 @@ branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
 
 
+def _add_fk(table: str, constraint_name: str) -> None:
+    with op.batch_alter_table(table, recreate="auto") as batch_op:
+        batch_op.create_foreign_key(
+            constraint_name,
+            "study_plans",
+            ["study_plan_id"],
+            ["id"],
+            ondelete="CASCADE",
+        )
+
+
+def _drop_fk(table: str, constraint_name: str) -> None:
+    with op.batch_alter_table(table, recreate="auto") as batch_op:
+        batch_op.drop_constraint(constraint_name, type_="foreignkey")
+
+
 def upgrade() -> None:
-    # ── 1. Add nullable study_plan_id columns with FK and index ──────────────
-    op.add_column("listening_attempts", sa.Column("study_plan_id", sa.Integer(), nullable=True))
-    op.create_foreign_key(
-        "fk_listening_attempts_study_plan",
-        "listening_attempts",
-        "study_plans",
-        ["study_plan_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
-    op.create_index(
-        "ix_listening_attempts_study_plan_id",
-        "listening_attempts",
-        ["study_plan_id"],
-    )
+    for table in ("listening_attempts", "reading_attempts"):
+        op.add_column(table, sa.Column("study_plan_id", sa.Integer(), nullable=True))
+        _add_fk(table, f"fk_{table}_study_plan")
+        op.create_index(f"ix_{table}_study_plan_id", table, ["study_plan_id"])
 
-    op.add_column("reading_attempts", sa.Column("study_plan_id", sa.Integer(), nullable=True))
-    op.create_foreign_key(
-        "fk_reading_attempts_study_plan",
-        "reading_attempts",
-        "study_plans",
-        ["study_plan_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
-    op.create_index(
-        "ix_reading_attempts_study_plan_id",
-        "reading_attempts",
-        ["study_plan_id"],
-    )
-
-    # ── 2. Backfill — match attempts to study plans via exercise target_language ─
     op.execute("""
-        UPDATE listening_attempts la
+        UPDATE listening_attempts
         SET study_plan_id = (
-            SELECT sp.id FROM study_plans sp
-            JOIN listening_exercises le ON le.id = la.exercise_id
-            WHERE sp.user_id = la.user_id
+            SELECT sp.id
+            FROM study_plans AS sp
+            JOIN listening_exercises AS le ON le.id = listening_attempts.exercise_id
+            WHERE sp.user_id = listening_attempts.user_id
               AND sp.target_language = le.target_language
               AND sp.is_active = true
+            ORDER BY sp.created_at DESC, sp.id DESC
             LIMIT 1
         )
+        WHERE study_plan_id IS NULL
         """)
     op.execute("""
-        UPDATE reading_attempts ra
+        UPDATE reading_attempts
         SET study_plan_id = (
-            SELECT sp.id FROM study_plans sp
-            JOIN reading_exercises re ON re.id = ra.exercise_id
-            WHERE sp.user_id = ra.user_id
+            SELECT sp.id
+            FROM study_plans AS sp
+            JOIN reading_exercises AS re ON re.id = reading_attempts.exercise_id
+            WHERE sp.user_id = reading_attempts.user_id
               AND sp.target_language = re.target_language
               AND sp.is_active = true
+            ORDER BY sp.created_at DESC, sp.id DESC
             LIMIT 1
         )
+        WHERE study_plan_id IS NULL
         """)
 
-    # ── 3. Fallback plans for orphan attempts (same pattern as 0029) ────────
+    for source_table, exercise_table, language_column in (
+        ("listening_attempts", "listening_exercises", "target_language"),
+        ("reading_attempts", "reading_exercises", "target_language"),
+    ):
+        op.execute(f"""
+            INSERT INTO study_plans (
+                user_id, cefr_level, target_language, goals,
+                duration_weeks, days_per_week, current_unit, progress_day,
+                generated_plan, is_active, completion_test_taken, created_at
+            )
+            SELECT orphan.user_id, 'A1', orphan.target_language, '[]',
+                   12, 4, '', 0, '{{}}', true, false, CURRENT_TIMESTAMP
+            FROM (
+                SELECT a.user_id, e.{language_column} AS target_language
+                FROM {source_table} AS a
+                JOIN {exercise_table} AS e ON e.id = a.exercise_id
+                WHERE a.study_plan_id IS NULL
+                GROUP BY a.user_id, e.{language_column}
+            ) AS orphan
+            WHERE NOT EXISTS (
+                SELECT 1
+                FROM study_plans AS sp
+                WHERE sp.user_id = orphan.user_id
+                  AND sp.target_language = orphan.target_language
+                  AND sp.is_active = true
+            )
+            """)
+
     op.execute("""
-        INSERT INTO study_plans (user_id, cefr_level, target_language, goals,
-            duration_weeks, days_per_week, current_unit, progress_day,
-            generated_plan, is_active, completion_test_taken, created_at)
-        SELECT DISTINCT ON (la.user_id, le.target_language)
-            la.user_id, 'A1', le.target_language, '[]'::json,
-            12, 4, '', 0, '{}'::json, true, false, NOW()
-        FROM listening_attempts la
-        JOIN listening_exercises le ON le.id = la.exercise_id
-        WHERE la.study_plan_id IS NULL
-          AND NOT EXISTS (
-            SELECT 1 FROM study_plans sp
-            WHERE sp.user_id = la.user_id
+        UPDATE listening_attempts
+        SET study_plan_id = (
+            SELECT sp.id
+            FROM study_plans AS sp
+            JOIN listening_exercises AS le ON le.id = listening_attempts.exercise_id
+            WHERE sp.user_id = listening_attempts.user_id
               AND sp.target_language = le.target_language
               AND sp.is_active = true
-          )
-        """)
-    op.execute("""
-        INSERT INTO study_plans (user_id, cefr_level, target_language, goals,
-            duration_weeks, days_per_week, current_unit, progress_day,
-            generated_plan, is_active, completion_test_taken, created_at)
-        SELECT DISTINCT ON (ra.user_id, re.target_language)
-            ra.user_id, 'A1', re.target_language, '[]'::json,
-            12, 4, '', 0, '{}'::json, true, false, NOW()
-        FROM reading_attempts ra
-        JOIN reading_exercises re ON re.id = ra.exercise_id
-        WHERE ra.study_plan_id IS NULL
-          AND NOT EXISTS (
-            SELECT 1 FROM study_plans sp
-            WHERE sp.user_id = ra.user_id
-              AND sp.target_language = re.target_language
-              AND sp.is_active = true
-          )
-        """)
-
-    # ── 4. Re-run backfill for rows now covered by fallback plans ───────────
-    op.execute("""
-        UPDATE listening_attempts la
-        SET study_plan_id = (
-            SELECT sp.id FROM study_plans sp
-            JOIN listening_exercises le ON le.id = la.exercise_id
-            WHERE sp.user_id = la.user_id
-              AND sp.target_language = le.target_language
-              AND sp.is_active = true
+            ORDER BY sp.created_at DESC, sp.id DESC
             LIMIT 1
         )
-        WHERE la.study_plan_id IS NULL
+        WHERE study_plan_id IS NULL
         """)
     op.execute("""
-        UPDATE reading_attempts ra
+        UPDATE reading_attempts
         SET study_plan_id = (
-            SELECT sp.id FROM study_plans sp
-            JOIN reading_exercises re ON re.id = ra.exercise_id
-            WHERE sp.user_id = ra.user_id
+            SELECT sp.id
+            FROM study_plans AS sp
+            JOIN reading_exercises AS re ON re.id = reading_attempts.exercise_id
+            WHERE sp.user_id = reading_attempts.user_id
               AND sp.target_language = re.target_language
               AND sp.is_active = true
+            ORDER BY sp.created_at DESC, sp.id DESC
             LIMIT 1
         )
-        WHERE ra.study_plan_id IS NULL
+        WHERE study_plan_id IS NULL
         """)
 
-    # ── 5. Apply NOT NULL (all callers already pass study_plan_id) ──────────
-    op.alter_column("listening_attempts", "study_plan_id", nullable=False)
-    op.alter_column("reading_attempts", "study_plan_id", nullable=False)
+    for table in ("listening_attempts", "reading_attempts"):
+        with op.batch_alter_table(table, recreate="auto") as batch_op:
+            batch_op.alter_column("study_plan_id", nullable=False)
 
 
 def downgrade() -> None:
-    op.drop_index("ix_reading_attempts_study_plan_id", table_name="reading_attempts")
-    op.drop_constraint("fk_reading_attempts_study_plan", "reading_attempts", type_="foreignkey")
-    op.drop_column("reading_attempts", "study_plan_id")
-
-    op.drop_index("ix_listening_attempts_study_plan_id", table_name="listening_attempts")
-    op.drop_constraint("fk_listening_attempts_study_plan", "listening_attempts", type_="foreignkey")
-    op.drop_column("listening_attempts", "study_plan_id")
+    for table in ("reading_attempts", "listening_attempts"):
+        op.drop_index(f"ix_{table}_study_plan_id", table_name=table)
+        _drop_fk(table, f"fk_{table}_study_plan")
+        with op.batch_alter_table(table, recreate="auto") as batch_op:
+            batch_op.drop_column("study_plan_id")
