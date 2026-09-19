@@ -224,6 +224,22 @@ export default function GamesPage() {
       unlockAchievements(fresh)
       setNewAchievements(fresh)
     }
+    void apiFetch('/api/progress/game-summary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        games_played: projectedStats.gamesPlayed,
+        questions_answered: projectedStats.questionsAnswered,
+        correct_answers: projectedStats.correctAnswers,
+        best_round_score: projectedStats.bestRoundScore,
+        daily_challenges_completed: projectedStats.dailyChallengesCompleted,
+        last_daily_challenge_date: projectedStats.lastDailyChallengeDate ?? '',
+        current_correct_streak: projectedStats.currentCorrectStreak ?? 0,
+        best_correct_streak: projectedStats.bestCorrectStreak,
+        achievements: unlocked,
+      }),
+    }).catch(() => undefined)
+
     void apiFetch('/api/progress/game', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
