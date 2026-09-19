@@ -15,6 +15,7 @@ import {
   emptyGameStats,
   type AchievementId,
 } from '@/lib/games/achievements'
+import { apiFetch } from '@/lib/api'
 import { useProgressStore } from '@/store/progress'
 import './games.css'
 
@@ -82,6 +83,7 @@ export default function GamesPage() {
   const [round, setRound] = useState(0)
   const [hydrated, setHydrated] = useState(false)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
+  const [roundSkills, setRoundSkills] = useState<Record<string, { correct: number; total: number }>>({})
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
@@ -146,6 +148,7 @@ export default function GamesPage() {
     setRoundCorrect(0)
     setSelected(null)
     setNewAchievements([])
+    setRoundSkills({})
     setQuestion(
       daily
         ? buildDailyQuestion(id, lang, level, today, 0)
@@ -163,6 +166,13 @@ export default function GamesPage() {
     }
     addGameXP(result.xp, result.skill, result.correct)
     recordGameAttempt(result.correct)
+    setRoundSkills((current) => ({
+      ...current,
+      [result.skill]: {
+        correct: (current[result.skill]?.correct ?? 0) + (result.correct ? 1 : 0),
+        total: (current[result.skill]?.total ?? 0) + 1,
+      },
+    }))
   }
 
   function finishRound() {
@@ -201,6 +211,21 @@ export default function GamesPage() {
       unlockAchievements(fresh)
       setNewAchievements(fresh)
     }
+    void apiFetch('/api/progress/game', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        xp: roundScore,
+        correct_answers: roundCorrect,
+        questions_answered: ROUND_SIZE,
+        skills: Object.fromEntries(
+          Object.entries(roundSkills).map(([skill, value]) => [
+            skill,
+            value.total ? value.correct / value.total : 0,
+          ])
+        ),
+      }),
+    }).catch(() => undefined)
   }
 
   function next() {
