@@ -213,7 +213,7 @@ async def test_daily_challenge_is_counted_once_per_day(
 
 
 @pytest.mark.asyncio
-async def test_game_progress_row_is_initialized_once_for_multiple_sessions(
+async def test_game_progress_is_created_only_after_valid_completion(
     client, test_user, db_session
 ):
     user, headers = test_user
@@ -245,15 +245,10 @@ async def test_game_progress_row_is_initialized_once_for_multiple_sessions(
 
     rows = (
         await db_session.execute(
-            select(GameProgress).where(
-                GameProgress.user_id == user.id,
-            )
+            select(GameProgress).where(GameProgress.user_id == user.id)
         )
     ).scalars().all()
-
-    assert len(rows) == 1
-    assert rows[0].games_played == 0
-    assert rows[0].achievements == []
+    assert rows == []
 
 
 @pytest.mark.asyncio
@@ -280,8 +275,8 @@ async def test_duplicate_game_progress_insert_isolated_from_session_creation(
     )
     assert first.status_code == 200
 
-    # A second session must remain creatable even though its GameProgress
-    # initialization hits the unique (user_id, study_plan_id) constraint.
+    # A second session remains creatable because aggregate persistence is
+    # deferred until a completion has passed validation.
     second = await client.post(
         "/api/progress/game-session",
         json={"game_id": "math", "language": "en", "difficulty": 1},
