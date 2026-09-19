@@ -260,7 +260,7 @@ async def get_game_summary(
             current_correct_streak=0,
             best_correct_streak=0,
             achievements=[],
-            skills=await _get_game_skills(db, plan),
+            skills=await _get_game_skills(db, current_user.id, plan),
         )
     total_xp_result = await db.execute(
         select(Progress.xp_earned).where(
@@ -496,18 +496,21 @@ async def complete_game_session(
     db: AsyncSession = Depends(get_db),
 ):
     """Verify a server-issued round and persist only server-derived results."""
-    plan = await _get_active_plan_or_none(db, current_user.id)
-    if plan is None:
-        raise HTTPException(status_code=404, detail="No active study plan found")
+    # Resolve the opaque session and verify ownership before looking up the
+    # caller's active plan. This keeps cross-user attempts deterministic even when
+    # the attacker has no active study plan of their own.
+    user_id = current_user.id
+    session = await db.get(GameSession, data.session_id)
+    if session is None or session.user_id != user_id:
+        raise HTTPException(status_code=404, detail="Game session not found")
+
+    plan = await _get_active_plan_or_none(db, user_id)
+    if plan is None or session.study_plan_id != plan.id:
+        raise HTTPException(status_code=404, detail="Game session not found")
 
     # Capture scalar ownership keys before any rollback. Async SQLAlchemy expires
     # ORM attributes on rollback, so these values must be retained as plain scalars.
-    user_id = current_user.id
     plan_id = plan.id
-
-    session = await db.get(GameSession, data.session_id)
-    if session is None or session.user_id != user_id or session.study_plan_id != plan_id:
-        raise HTTPException(status_code=404, detail="Game session not found")
     if session.completed:
         raise HTTPException(status_code=409, detail="Game session already completed")
     now = datetime.now(UTC).replace(tzinfo=None)
