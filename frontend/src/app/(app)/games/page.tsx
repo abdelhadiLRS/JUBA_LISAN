@@ -191,6 +191,8 @@ export default function GamesPage() {
     const projectedStats = {
       ...gameStats,
       gamesPlayed: gameStats.gamesPlayed + 1,
+      questionsAnswered: gameStats.questionsAnswered + ROUND_SIZE,
+      correctAnswers: gameStats.correctAnswers + roundCorrect,
       bestRoundScore: Math.max(gameStats.bestRoundScore, roundScore),
       dailyChallengesCompleted:
         gameStats.dailyChallengesCompleted +
@@ -199,10 +201,15 @@ export default function GamesPage() {
         dailyMode && gameStats.lastDailyChallengeDate !== today
           ? today
           : gameStats.lastDailyChallengeDate,
-      currentCorrectStreak: gameStats.currentCorrectStreak,
+      currentCorrectStreak:
+        roundCorrect === ROUND_SIZE
+          ? (gameStats.currentCorrectStreak ?? 0) + ROUND_SIZE
+          : 0,
       bestCorrectStreak: Math.max(
         gameStats.bestCorrectStreak,
-        gameStats.currentCorrectStreak ?? 0
+        roundCorrect === ROUND_SIZE
+          ? (gameStats.currentCorrectStreak ?? 0) + ROUND_SIZE
+          : 0
       ),
     }
     const dailyReward = dailyMode && !dailyCompletedToday
