@@ -59,3 +59,47 @@ class GameProgressUpdate(BaseModel):
                 continue
             normalized[skill.strip()] = max(0.0, min(1.0, float(score)))
         return normalized
+
+
+class GameStatsResponse(BaseModel):
+    games_played: int
+    questions_answered: int
+    correct_answers: int
+    best_round_score: int
+    daily_challenges_completed: int
+    last_daily_challenge_date: str
+    current_correct_streak: int
+    best_correct_streak: int
+    achievements: list[str]
+
+    model_config = {"from_attributes": True}
+
+
+class GameProgressSync(BaseModel):
+    games_played: int = 0
+    questions_answered: int = 0
+    correct_answers: int = 0
+    best_round_score: int = 0
+    daily_challenges_completed: int = 0
+    last_daily_challenge_date: str = ""
+    current_correct_streak: int = 0
+    best_correct_streak: int = 0
+    achievements: list[str] = Field(default_factory=list)
+
+    @field_validator(
+        "games_played",
+        "questions_answered",
+        "correct_answers",
+        "best_round_score",
+        "daily_challenges_completed",
+        "current_correct_streak",
+        "best_correct_streak",
+    )
+    @classmethod
+    def normalize_non_negative(cls, value: int) -> int:
+        return max(0, value)
+
+    @field_validator("achievements")
+    @classmethod
+    def normalize_achievements(cls, value: list[str]) -> list[str]:
+        return list(dict.fromkeys(item.strip() for item in value if isinstance(item, str) and item.strip()))
