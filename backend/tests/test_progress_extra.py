@@ -662,6 +662,7 @@ async def test_game_session_rejects_invalid_choice_and_expired_session(client, t
 
     session = await db_session.get(GameSession, payload["session_id"])
     assert session is not None
+    assert session.completed is False
     session.expires_at = datetime.now(UTC).replace(tzinfo=None) - timedelta(minutes=1)
     await db_session.commit()
 
@@ -715,6 +716,11 @@ async def test_game_session_daily_date_is_validated_before_persistence(client, t
         headers=headers,
     )
     assert response.status_code == 422
+
+    from app.models.game_session import GameSession
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    assert session.completed is False
 
     entry = (
         await db_session.execute(
