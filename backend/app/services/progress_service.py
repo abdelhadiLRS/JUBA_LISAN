@@ -133,7 +133,7 @@ async def upsert_unit_competency(
                 UserCompetency.study_plan_id == study_plan_id,
             )
         )
-        row: UserCompetency | None = await db.scalar(result)
+        row: UserCompetency | None = result.scalar_one_or_none()
 
         if row is None:
             row = UserCompetency(
