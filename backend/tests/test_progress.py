@@ -252,6 +252,45 @@ async def test_empty_game_progress_is_rejected_without_creating_progress(client,
 
 
 @pytest.mark.asyncio
+async def test_game_progress_counts_questions_without_xp(client, test_user, db_session):
+    """Answering game questions must count as activity even when XP is zero."""
+    user, headers = test_user
+
+    from sqlalchemy import select
+
+    from app.models.progress import Progress
+    from tests.conftest import make_study_plan
+
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    await db_session.commit()
+
+    response = await client.post(
+        "/api/progress/game",
+        headers=headers,
+        json={"xp": 0, "questions_answered": 3, "correct_answers": 2},
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["xp_earned"] == 0
+    assert data["exercises_total"] == 3
+    assert data["exercises_correct"] == 2
+
+    result = await db_session.execute(select(Progress).where(Progress.user_id == user.id))
+    assert len(result.scalars().all()) == 1
+
+
+@pytest.mark.asyncio
 async def test_same_day_activity_accumulates_in_one_progress_row(db_session, test_user):
     user, _ = test_user
 
