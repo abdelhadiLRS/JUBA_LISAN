@@ -13,7 +13,7 @@ from app.models.flashcard import Flashcard
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import ProgressHistoryResponse, ProgressSummary
+from app.schemas.progress import GameProgressUpdate, ProgressHistoryResponse, ProgressSummary
 from app.services.progress_service import get_unit_competencies
 from app.services.user_language_service import get_active_language
 
@@ -123,6 +123,43 @@ async def get_summary(
         vocabulary_total=vocabulary_total,
         vocabulary_progress=round(vocabulary_progress, 2),
     )
+
+
+@router.post("/game", response_model=ProgressResponse)
+@limiter.limit("60/minute")
+async def record_game_progress(
+    request: Request,
+    data: GameProgressUpdate,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    plan = await _get_active_plan_or_none(db, current_user.id)
+    if plan is None:
+        raise HTTPException(status_code=404, detail="No active study plan found")
+
+    entry = await update_daily_progress(
+        db,
+        current_user.id,
+        study_plan_id=plan.id,
+        xp=max(0, data.xp),
+        commit=False,
+    )
+    entry.exercises_total += max(0, data.questions_answered)
+    entry.exercises_correct += min(
+        max(0, data.correct_answers), max(0, data.questions_answered)
+    )
+    if data.skills:
+        skills = dict(entry.skills or {})
+        for skill, score in data.skills.items():
+            if not isinstance(skill, str) or not skill.strip():
+                continue
+            safe_score = max(0.0, min(1.0, float(score)))
+            old = skills.get(skill, safe_score)
+            skills[skill] = round(old * 0.7 + safe_score * 0.3, 3)
+        entry.skills = skills
+    await db.commit()
+    await db.refresh(entry)
+    return entry
 
 
 @router.get("/history", response_model=ProgressHistoryResponse)
