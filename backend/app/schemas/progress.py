@@ -177,6 +177,14 @@ class GameSessionResponse(BaseModel):
     expires_at: str
 
 
+class GameSessionResultResponse(GameStatsResponse):
+    round_score: int
+    round_correct: int
+    round_questions: int
+    xp_earned: int
+    new_achievements: list[str] = Field(default_factory=list)
+
+
 class GameSessionAnswer(BaseModel):
     question_id: str
     choice: str
