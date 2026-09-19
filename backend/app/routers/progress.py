@@ -144,16 +144,23 @@ async def record_game_progress(
     if plan is None:
         raise HTTPException(status_code=404, detail="No active study plan found")
 
+    safe_xp = max(0, data.xp)
+    questions_answered = max(0, data.questions_answered)
+    if safe_xp == 0 and questions_answered == 0 and not data.skills:
+        raise HTTPException(status_code=400, detail="No game activity to record")
+
     entry = await update_daily_progress(
         db,
         current_user.id,
         study_plan_id=plan.id,
-        xp=max(0, data.xp),
+        xp=safe_xp,
         commit=False,
     )
-    entry.exercises_total += max(0, data.questions_answered)
+    if entry is None:
+        raise HTTPException(status_code=400, detail="No game activity to record")
+    entry.exercises_total += questions_answered
     entry.exercises_correct += min(
-        max(0, data.correct_answers), max(0, data.questions_answered)
+        max(0, data.correct_answers), questions_answered
     )
     if data.skills:
         skills = dict(entry.skills or {})
