@@ -507,6 +507,8 @@ async def start_game_session(
         game_id=data.game_id,
         questions=public_questions,
         expires_at=expires_at.isoformat(),
+        daily_challenge=bool(daily_challenge_date),
+        daily_challenge_date=daily_challenge_date,
         interaction=questions[0].get("interaction", {}).get("public")
         if data.game_id in {"memory", "matching", "ordering"} else None,
     )
