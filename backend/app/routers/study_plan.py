@@ -25,6 +25,7 @@ from app.schemas.study_plan import (
     TodayResponse,
 )
 from app.services.lesson_generator import generate_lesson
+from app.services.exercise_factory import build_persisted_exercise_variants
 from app.services.study_plan_generator import generate_study_plan
 from app.services.user_language_service import ensure_user_language, get_active_language
 
@@ -330,6 +331,11 @@ async def get_today_lessons(
                     native_language=current_user.native_language,
                 )
                 content_dict = content.model_dump() if hasattr(content, "model_dump") else content
+                exercises_data = content_dict.get("exercises") or []
+                exercises_data = build_persisted_exercise_variants(exercises_data)
+                if not exercises_data:
+                    raise ValueError("Lesson generated with no valid exercises")
+                content_dict["exercises"] = exercises_data
 
                 lesson = Lesson(
                     study_plan_id=plan.id,
@@ -344,7 +350,6 @@ async def get_today_lessons(
                 db.add(lesson)
                 await db.flush()
 
-                exercises_data = content_dict.get("exercises") or []
                 for ex in exercises_data:
                     exercise = Exercise(
                         lesson_id=lesson.id,
@@ -355,10 +360,6 @@ async def get_today_lessons(
                         explanation=ex.get("explanation"),
                     )
                     db.add(exercise)
-
-                if not exercises_data:
-                    await db.rollback()
-                    raise ValueError("Lesson generated with no exercises")
 
                 await db.commit()
                 await db.refresh(lesson)
