@@ -63,6 +63,15 @@ def build_exercise_variants(
             "content_id": content_id,
             "variant": exercise_type,
         }
+        for key in (
+            "explanation",
+            "native_explanation",
+            "native_hint",
+            "accepted_answers",
+            "metadata",
+        ):
+            if key in canonical and canonical[key] is not None:
+                item[key] = deepcopy(canonical[key])
 
         if exercise_type == "multiple_choice":
             options = [str(x).strip() for x in canonical.get("options", []) if str(x).strip()]
@@ -93,3 +102,36 @@ def _make_gap(question: str, correct: str) -> str:
     if correct and correct in question:
         return question.replace(correct, "___", 1)
     return f"{question} ___"
+
+
+def build_persisted_exercise_variants(
+    source_exercises: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Expand generated lesson exercises conservatively for richer practice.
+
+    Each source exercise remains the canonical content item. We keep its
+    original interaction and add at most one deterministic alternate:
+    multiple-choice -> translation, fill-blank -> free-write. Other types
+    remain one-to-one until their dedicated interaction is implemented.
+    """
+    output: list[dict[str, Any]] = []
+
+    for source in source_exercises:
+        source_type = _normalise_type(str(source.get("type") or "multiple_choice"))
+        alternate = {
+            "multiple_choice": "translate",
+            "fill_blank": "free_write",
+        }.get(source_type)
+
+        requested = [source_type]
+        if alternate:
+            requested.append(alternate)
+
+        variants = build_exercise_variants(
+            source,
+            variants=requested,
+            max_variants=2,
+        )
+        output.extend(variants)
+
+    return output
