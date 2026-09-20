@@ -101,6 +101,8 @@ class GameSessionResponse(BaseModel):
     game_id: str
     questions: list[GameSessionQuestion]
     expires_at: str
+    daily_challenge: bool = False
+    daily_challenge_date: str = ""
     interaction: dict | None = None
 
 
