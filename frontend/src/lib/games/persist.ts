@@ -31,6 +31,8 @@ export type GameSessionStartResponse = {
   game_id: string
   questions: GameSessionQuestion[]
   expires_at: string
+  daily_challenge: boolean
+  daily_challenge_date: string
   interaction?: InteractiveGameChallenge
 }
 
