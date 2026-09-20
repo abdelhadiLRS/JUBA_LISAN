@@ -101,6 +101,10 @@ class ExerciseResponse(BaseModel):
     explanation: str | None = None
     native_explanation: str | None = None
     native_hint: str | None = None
+    content_id: str | None = None
+    variant: str | None = None
+    accepted_answers: list[str] | None = None
+    metadata: dict[str, str] | None = None
     answered_at: datetime | None = None
 
     model_config = {"from_attributes": True}
