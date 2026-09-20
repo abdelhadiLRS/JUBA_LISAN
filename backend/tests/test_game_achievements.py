@@ -513,17 +513,15 @@ async def test_duplicate_event_conflict_rolls_back_game_completion(
     await db_session.refresh(persisted_session)
     assert persisted_session.completed is False
 
-    game_progress = (
+    game_progress_rows = (
         await db_session.execute(
             select(GameProgress).where(
                 GameProgress.user_id == user_id,
-                GameProgress.study_plan_id == session.study_plan_id,
+                GameProgress.study_plan_id == plan_id,
             )
         )
-    ).scalar_one()
-    assert game_progress.games_played == 0
-    assert game_progress.questions_answered == 0
-    assert game_progress.correct_answers == 0
+    ).scalars().all()
+    assert game_progress_rows == []
 
     progress_rows = (
         await db_session.execute(
