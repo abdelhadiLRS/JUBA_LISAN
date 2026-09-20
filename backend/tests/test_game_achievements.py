@@ -198,7 +198,7 @@ async def test_game_achievement_xp_500_can_be_crossed_in_one_round(
     db_session.add(
         Progress(
             user_id=user.id,
-            study_plan_id=plan_id,
+            study_plan_id=plan.id,
             date=date.today(),
             xp_earned=425,
             lessons_completed=0,
