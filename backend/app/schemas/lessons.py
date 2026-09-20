@@ -128,6 +128,10 @@ class ExerciseAnswerResponse(BaseModel):
     score: float
     feedback: str
     correct_answer: str
+    attempt_id: int | None = None
+    attempt_number: int = 1
+    content_id: str | None = None
+    variant: str | None = None
 
 
 class FreeWriteEvaluation(BaseModel):
