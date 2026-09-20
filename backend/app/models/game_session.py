@@ -26,4 +26,6 @@ class GameSession(Base):
         DateTime, nullable=False, default=lambda: datetime.now(UTC).replace(tzinfo=None)
     )
     expires_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+    # Server-owned daily slot captured when the session is issued.
+    daily_challenge_date: Mapped[str] = mapped_column(String(10), nullable=False, default="")
     completed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)

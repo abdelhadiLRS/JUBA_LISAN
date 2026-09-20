@@ -482,6 +482,7 @@ async def start_game_session(
         }]
     else:
         questions = _server_game_questions(data.game_id, data.language, data.difficulty, plan.target_language)
+    daily_challenge_date = now.date().isoformat() if data.game_id == _daily_game_id(now.date()) else ""
     session = GameSession(
         id=session_id,
         user_id=current_user.id,
@@ -492,6 +493,7 @@ async def start_game_session(
         questions=questions,
         started_at=now,
         expires_at=expires_at,
+        daily_challenge_date=daily_challenge_date,
         completed=False,
     )
     db.add(session)
@@ -543,7 +545,7 @@ async def complete_game_session(
         today = date.today()
         if data.daily_challenge_date != today.isoformat():
             raise HTTPException(status_code=422, detail="daily_challenge_date must be today")
-        if session.game_id != _daily_game_id(today):
+        if session.daily_challenge_date != today.isoformat():
             raise HTTPException(status_code=422, detail="session is not today's daily challenge")
 
     if session.game_id in {"memory", "matching", "ordering"}:

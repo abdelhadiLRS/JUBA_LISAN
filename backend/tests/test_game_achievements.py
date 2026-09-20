@@ -1461,6 +1461,62 @@ async def test_game_summary_xp_is_scoped_to_active_study_plan(
 
 
 @pytest.mark.asyncio
+async def test_daily_challenge_uses_the_session_issuance_date(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    daily_game_ids = ("math", "words", "sequence", "memory", "matching", "ordering")
+    daily_game = daily_game_ids[((date.today().weekday() + 1) % 7) % len(daily_game_ids)]
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": daily_game, "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    assert session.daily_challenge_date == date.today().isoformat()
+
+    session.daily_challenge_date = (date.today() - timedelta(days=1)).isoformat()
+    await db_session.commit()
+
+    result = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": payload["session_id"],
+            "answers": [
+                {"question_id": question["id"], "choice": question["choices"][0]}
+                for question in payload["questions"]
+            ],
+            "daily_challenge": True,
+            "daily_challenge_date": date.today().isoformat(),
+        },
+        headers=headers,
+    )
+
+    assert result.status_code == 422
+    assert result.json()["detail"] == "session is not today's daily challenge"
+
+    await db_session.refresh(session)
+    assert session.completed is False
+
+
+@pytest.mark.asyncio
 async def test_daily_challenge_must_use_server_selected_game(
     client, test_user, db_session
 ):
