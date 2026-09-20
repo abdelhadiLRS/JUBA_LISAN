@@ -147,7 +147,7 @@ export default function GamesPage() {
         sessionId,
         answers,
         dailyMode,
-        dailyMode ? today : '',
+        dailyMode ? dailyChallengeDate : '',
       )
       const fresh = (server.new_achievements as AchievementId[]).filter(
         (id) => !previousAchievements.has(id)
