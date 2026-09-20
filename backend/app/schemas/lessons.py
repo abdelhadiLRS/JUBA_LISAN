@@ -123,6 +123,25 @@ class ExerciseAnswerRequest(BaseModel):
     answer: str
 
 
+class ExerciseAttemptResponse(BaseModel):
+    id: int
+    exercise_id: int
+    lesson_id: int
+    content_id: str | None = None
+    variant: str | None = None
+    attempt_number: int
+    user_answer: str
+    score: float
+    feedback: str
+    answered_at: datetime
+
+    model_config = {"from_attributes": True}
+
+    @field_serializer("answered_at")
+    def serialize_answered_at(self, v: datetime, _info):
+        return v.isoformat()
+
+
 class ExerciseAnswerResponse(BaseModel):
     id: int
     score: float
