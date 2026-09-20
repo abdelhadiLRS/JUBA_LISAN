@@ -1,3 +1,4 @@
+import hashlib
 import json
 import re
 from typing import Any
@@ -43,6 +44,57 @@ def hint_reveals_answer(native_hint: str | None, correct_answer: str | None) -> 
         if re.search(rf"(?<!\w){re.escape(answer)}(?!\w)", hint):
             return True
     return False
+
+
+def _stable_exercise_id(
+    *,
+    target_language: str,
+    cefr_level: str,
+    lesson_type: str,
+    topic: str,
+    unit_id: str,
+    index: int,
+    exercise: ExerciseContent,
+) -> str:
+    """Create a deterministic content identity independent of database row IDs."""
+    payload = {
+        "language": target_language,
+        "level": cefr_level,
+        "lesson_type": lesson_type,
+        "topic": topic.strip().casefold(),
+        "unit_id": unit_id,
+        "index": index,
+        "type": exercise.type,
+        "question": exercise.question.strip(),
+        "correct": exercise.correct.strip(),
+    }
+    digest = hashlib.sha256(
+        json.dumps(payload, ensure_ascii=False, sort_keys=True).encode("utf-8")
+    ).hexdigest()[:16]
+    return f"exercise_{digest}"
+
+
+def _attach_stable_exercise_metadata(
+    lesson: LessonContent,
+    *,
+    target_language: str,
+    topic: str,
+    unit_id: str,
+) -> None:
+    """Add reusable content identity without changing existing exercise semantics."""
+    for index, exercise in enumerate(lesson.exercises):
+        if not exercise.content_id:
+            exercise.content_id = _stable_exercise_id(
+                target_language=target_language,
+                cefr_level=lesson.cefr_level,
+                lesson_type=lesson.lesson_type,
+                topic=topic,
+                unit_id=unit_id,
+                index=index,
+                exercise=exercise,
+            )
+        if not exercise.variant:
+            exercise.variant = exercise.type
 
 
 def get_valid_grammar_slugs(target_language: str = "en-GB") -> set[str]:
@@ -99,6 +151,12 @@ async def generate_lesson(
                 ex.question, ex.explanation = ex.explanation, ex.question
         if hint_reveals_answer(ex.native_hint, ex.correct):
             ex.native_hint = None
+    _attach_stable_exercise_metadata(
+        lesson,
+        target_language=target_language,
+        topic=topic,
+        unit_id=unit_id,
+    )
     return lesson
 
 
@@ -151,6 +209,18 @@ async def regenerate_exercise(
             )
     if hint_reveals_answer(exercise.native_hint, exercise.correct):
         exercise.native_hint = None
+    if not exercise.content_id:
+        exercise.content_id = _stable_exercise_id(
+            target_language=target_language,
+            cefr_level=cefr_level,
+            lesson_type=lesson_type,
+            topic=topic,
+            unit_id="",
+            index=0,
+            exercise=exercise,
+        )
+    if not exercise.variant:
+        exercise.variant = exercise.type
     return exercise
 
 
