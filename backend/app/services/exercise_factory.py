@@ -4,7 +4,6 @@ import hashlib
 from copy import deepcopy
 from typing import Any
 
-
 # Canonical exercise variants. The factory changes interaction, not language content.
 VARIANT_ALIASES = {
     "choice": "multiple_choice",
@@ -43,12 +42,15 @@ def _stable_distractors(
         value = str(candidate).strip()
         key = value.casefold()
         if value and key not in excluded:
-            unique[key] = value
+            existing = unique.get(key)
+            # Candidate order must not determine which spelling/casing survives
+            # when canonical sibling data contains equivalent values.
+            unique[key] = min(existing, value) if existing is not None else value
 
     seed = str(source.get("content_id") or "")
     ranked = sorted(
         unique.values(),
-        key=lambda value: hashlib.sha256(f"{seed}\0{value}".encode("utf-8")).hexdigest(),
+        key=lambda value: hashlib.sha256(f"{seed}\0{value}".encode()).hexdigest(),
     )
     return ranked[: max(0, max_options - 1)]
 
@@ -58,27 +60,38 @@ def _ensure_multiple_choice_options(
     candidates: list[str] | None = None,
 ) -> list[str]:
     correct = str(source.get("correct") or source.get("translation") or "").strip()
-    options = [str(x).strip() for x in source.get("options", []) if str(x).strip()]
-    if correct and correct not in options:
-        options.insert(0, correct)
-    if len(options) < 4 and candidates:
-        options.extend(
-            _stable_distractors(
-                source,
-                candidates,
-                max_options=4,
-            )
-        )
-    # De-duplicate while preserving the canonical/source order.
+    accepted = {
+        str(answer).strip().casefold()
+        for answer in (source.get("accepted_answers") or [])
+        if str(answer).strip()
+    }
+    options: list[str] = []
     seen: set[str] = set()
-    result: list[str] = []
-    for option in options:
+    for raw_option in source.get("options", []):
+        option = str(raw_option).strip()
         key = option.casefold()
-        if key in seen:
+        if not option or key in seen or (key in accepted and key != correct.casefold()):
             continue
+        options.append(option)
         seen.add(key)
-        result.append(option)
-    return result[:4]
+
+    if correct and correct.casefold() not in seen:
+        options.insert(0, correct)
+        seen.add(correct.casefold())
+    if not correct or len(options) >= 4:
+        return options[:4]
+
+    # Persisted option order is canonical lesson content and must remain stable;
+    # only missing distractors are chosen from the unordered sibling pool.
+    remaining_candidates = [
+        candidate
+        for candidate in (candidates or [])
+        if str(candidate).strip().casefold() not in seen
+    ]
+    options.extend(
+        _stable_distractors(source, remaining_candidates, max_options=4 - len(options) + 1)
+    )
+    return options[:4]
 
 
 def build_exercise_variants(
@@ -149,11 +162,11 @@ def build_exercise_variants(
         elif exercise_type == "fill_blank":
             item["question"] = _make_gap(question, correct)
 
-        elif exercise_type == "free_write":
-            item["metadata"] = {"source": "canonical_content"}
-
         else:
-            item["metadata"] = {"source": "canonical_content"}
+            item["metadata"] = {
+                **(item.get("metadata") or {}),
+                "source": "canonical_content",
+            }
 
         output.append(item)
         seen.add(exercise_type)
