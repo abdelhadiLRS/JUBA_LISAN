@@ -60,10 +60,22 @@ def _server_interactive_challenge(game_id: str, language: str, difficulty: int) 
         return {"type": "memory", "cards": cards}, {"pairs": pairs, "pair_count": count}
     if game_id == "matching":
         pairs_source = {
-            "ar": [("كتاب", "book"), ("ماء", "water"), ("مدرسة", "school"), ("قلم", "pen")],
-            "fr": [("livre", "book"), ("eau", "water"), ("école", "school"), ("stylo", "pen")],
-            "en": [("book", "livre"), ("water", "eau"), ("school", "école"), ("pen", "stylo")],
+            "ar": [
+                ("كتاب", "book"), ("ماء", "water"), ("مدرسة", "school"),
+                ("قلم", "pen"), ("سيارة", "car"),
+            ],
+            "fr": [
+                ("livre", "book"), ("eau", "water"), ("école", "school"),
+                ("stylo", "pen"), ("voiture", "car"),
+            ],
+            "en": [
+                ("book", "livre"), ("water", "eau"), ("school", "école"),
+                ("pen", "stylo"), ("car", "voiture"),
+            ],
         }[language]
+        count = {1: 3, 2: 4, 3: 5}[difficulty]
+        rng.shuffle(pairs_source)
+        pairs_source = pairs_source[:count]
         left, right = [], []
         pairs = {}
         for left_label, right_label in pairs_source:
@@ -76,11 +88,12 @@ def _server_interactive_challenge(game_id: str, language: str, difficulty: int) 
         return {"type": "matching", "left": left, "right": right}, {"pairs": pairs, "pair_count": len(left)}
     if game_id == "ordering":
         source = {
-            "ar": ["الأول", "الثاني", "الثالث", "الرابع"],
-            "fr": ["un", "deux", "trois", "quatre"],
-            "en": ["one", "two", "three", "four"],
+            "ar": ["الأول", "الثاني", "الثالث", "الرابع", "الخامس"],
+            "fr": ["un", "deux", "trois", "quatre", "cinq"],
+            "en": ["one", "two", "three", "four", "five"],
         }[language]
-        items = [{"id": str(uuid4()), "label": label} for label in source]
+        count = {1: 3, 2: 4, 3: 5}[difficulty]
+        items = [{"id": str(uuid4()), "label": label} for label in source[:count]]
         shuffled = list(items)
         rng.shuffle(shuffled)
         return {"type": "ordering", "items": shuffled}, {"target": [item["id"] for item in items]}
