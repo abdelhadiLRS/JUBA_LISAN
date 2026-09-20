@@ -530,8 +530,6 @@ async def answer_exercise(
         feedback=exercise.feedback or "",
         answered_at=exercise.answered_at,
     )
-    db.add(attempt)
-
     prior_content_attempt = False
     if attempt.content_id:
         prior_content_attempt = (await db.scalar(
@@ -540,6 +538,7 @@ async def answer_exercise(
                 ExerciseAttempt.content_id == attempt.content_id,
             ).limit(1)
         )) is not None
+    db.add(attempt)
     if not prior_content_attempt:
         await update_daily_progress(
             db,
