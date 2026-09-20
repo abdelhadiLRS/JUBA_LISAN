@@ -421,19 +421,19 @@ async def test_replayed_game_session_does_not_duplicate_progress_or_event(
 
     game_progress = (
         await db_session.execute(
-            select(GameProgress).where(GameProgress.user_id == user.id)
+            select(GameProgress).where(GameProgress.user_id == user_id)
         )
     ).scalar_one()
     events = (
         await db_session.execute(
-            select(GameProgressEvent).where(GameProgressEvent.user_id == user.id)
+            select(GameProgressEvent).where(GameProgressEvent.user_id == user_id)
         )
     ).scalars().all()
     study_plan_id = session.study_plan_id
     progress_rows = (
         await db_session.execute(
             select(Progress).where(
-                Progress.user_id == user.id,
+                Progress.user_id == user_id,
                 Progress.study_plan_id == study_plan_id,
             )
         )
