@@ -105,3 +105,67 @@ def test_distractors_exclude_accepted_answers_and_correct_answer():
     )
 
     assert variants[0]["options"] == ["Bonjour", "Merci", "Au revoir"]
+
+
+def test_distractors_are_independent_of_candidate_order_without_reordering_options():
+    source = {
+        "content_id": "hello_01",
+        "question": "Hello",
+        "correct": "Bonjour",
+        "accepted_answers": ["Salut"],
+        "options": ["Merci", "Salut", "Au revoir"],
+    }
+
+    first = build_exercise_variants(
+        source,
+        variants=["multiple_choice"],
+        distractor_candidates=["Bonsoir", "Merci"],
+    )
+    second = build_exercise_variants(
+        source,
+        variants=["multiple_choice"],
+        distractor_candidates=["Merci", "Bonsoir"],
+    )
+
+    assert first[0]["options"] == second[0]["options"]
+    assert "Salut" not in first[0]["options"]
+    assert first[0]["options"][:3] == ["Bonjour", "Merci", "Au revoir"]
+
+
+def test_distractors_choose_one_stable_spelling_for_casefold_duplicates():
+    source = {
+        "content_id": "hello_01",
+        "question": "Hello",
+        "correct": "Bonjour",
+    }
+
+    first = build_exercise_variants(
+        source,
+        variants=["multiple_choice"],
+        distractor_candidates=["MERCI", "merci", "Au revoir"],
+    )
+    second = build_exercise_variants(
+        source,
+        variants=["multiple_choice"],
+        distractor_candidates=["merci", "Au revoir", "MERCI"],
+    )
+
+    assert first[0]["options"] == second[0]["options"]
+    assert len({option.casefold() for option in first[0]["options"]}) == len(first[0]["options"])
+
+
+def test_factory_preserves_canonical_metadata_when_setting_variant_source():
+    source = {
+        "content_id": "hello_01",
+        "question": "Hello",
+        "correct": "Bonjour",
+        "metadata": {"difficulty": "beginner", "topic": "greetings"},
+    }
+
+    variants = build_exercise_variants(source, variants=["translate"])
+
+    assert variants[0]["metadata"] == {
+        "difficulty": "beginner",
+        "topic": "greetings",
+        "source": "canonical_content",
+    }
