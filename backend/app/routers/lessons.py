@@ -526,8 +526,16 @@ async def answer_exercise(
         exercise_id=exercise.id,
         lesson_id=lesson.id,
         study_plan_id=lesson.study_plan_id,
-        content_id=content_exercise.get("content_id") if isinstance(content_exercise.get("content_id"), str) else None,
-        variant=content_exercise.get("variant") if isinstance(content_exercise.get("variant"), str) else exercise.exercise_type,
+        content_id=(
+            content_exercise.get("content_id")
+            if isinstance(content_exercise.get("content_id"), str)
+            else None
+        ),
+        variant=(
+            content_exercise.get("variant")
+            if isinstance(content_exercise.get("variant"), str)
+            else exercise.exercise_type
+        ),
         attempt_number=attempt_number,
         user_answer=data.answer,
         score=exercise.score,
@@ -536,12 +544,14 @@ async def answer_exercise(
     )
     prior_content_attempt = False
     if attempt.content_id:
-        prior_content_attempt = (await db.scalar(
-            select(ExerciseAttempt.id).where(
-                ExerciseAttempt.user_id == current_user.id,
-                ExerciseAttempt.content_id == attempt.content_id,
-            ).limit(1)
-        )) is not None
+        prior_content_attempt = (
+            await db.scalar(
+                select(ExerciseAttempt.id).where(
+                    ExerciseAttempt.user_id == current_user.id,
+                    ExerciseAttempt.content_id == attempt.content_id,
+                ).limit(1)
+            )
+        ) is not None
     db.add(attempt)
     if not prior_content_attempt:
         await update_daily_progress(
@@ -658,12 +668,28 @@ async def retry_exercise(
         score=target.score,
         feedback=target.feedback,
         explanation=target.explanation,
-        native_explanation=target_content.get("native_explanation") if isinstance(target_content.get("native_explanation"), str) else None,
-        native_hint=target_content.get("native_hint") if isinstance(target_content.get("native_hint"), str) else None,
+        native_explanation=(
+            target_content.get("native_explanation")
+            if isinstance(target_content.get("native_explanation"), str)
+            else None
+        ),
+        native_hint=(
+            target_content.get("native_hint")
+            if isinstance(target_content.get("native_hint"), str)
+            else None
+        ),
         content_id=content_id,
         variant=target_variant,
-        accepted_answers=target_content.get("accepted_answers") if isinstance(target_content.get("accepted_answers"), list) else None,
-        metadata=target_content.get("metadata") if isinstance(target_content.get("metadata"), dict) else None,
+        accepted_answers=(
+            target_content.get("accepted_answers")
+            if isinstance(target_content.get("accepted_answers"), list)
+            else None
+        ),
+        metadata=(
+            target_content.get("metadata")
+            if isinstance(target_content.get("metadata"), dict)
+            else None
+        ),
         answered_at=target.answered_at,
     )
 
