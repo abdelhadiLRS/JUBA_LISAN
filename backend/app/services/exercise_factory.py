@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 from copy import deepcopy
 from typing import Any
 
@@ -18,11 +19,74 @@ def _normalise_type(value: str) -> str:
     return VARIANT_ALIASES.get(value.strip().lower(), value.strip().lower())
 
 
+def _stable_distractors(
+    source: dict[str, Any],
+    candidates: list[str],
+    *,
+    max_options: int = 4,
+) -> list[str]:
+    """Return deterministic distractors from canonical sibling answers.
+
+    Only answers already present in the lesson are eligible. The correct answer
+    and accepted answers are excluded, and ordering is stable for a given
+    content_id/candidate set.
+    """
+    correct = str(source.get("correct") or source.get("translation") or "").strip()
+    accepted = {
+        str(answer).strip().casefold()
+        for answer in (source.get("accepted_answers") or [])
+        if str(answer).strip()
+    }
+    excluded = accepted | ({correct.casefold()} if correct else set())
+    unique = {}
+    for candidate in candidates:
+        value = str(candidate).strip()
+        key = value.casefold()
+        if value and key not in excluded:
+            unique[key] = value
+
+    seed = str(source.get("content_id") or "")
+    ranked = sorted(
+        unique.values(),
+        key=lambda value: hashlib.sha256(f"{seed}\0{value}".encode("utf-8")).hexdigest(),
+    )
+    return ranked[: max(0, max_options - 1)]
+
+
+def _ensure_multiple_choice_options(
+    source: dict[str, Any],
+    candidates: list[str] | None = None,
+) -> list[str]:
+    correct = str(source.get("correct") or source.get("translation") or "").strip()
+    options = [str(x).strip() for x in source.get("options", []) if str(x).strip()]
+    if correct and correct not in options:
+        options.insert(0, correct)
+    if len(options) < 4 and candidates:
+        options.extend(
+            _stable_distractors(
+                source,
+                candidates,
+                max_options=4,
+            )
+        )
+    # De-duplicate while preserving the canonical/source order.
+    seen: set[str] = set()
+    result: list[str] = []
+    for option in options:
+        key = option.casefold()
+        if key in seen:
+            continue
+        seen.add(key)
+        result.append(option)
+    return result[:4]
+
+
 def build_exercise_variants(
     source: dict[str, Any],
     *,
     variants: list[str] | None = None,
     max_variants: int = 4,
+    distractor_candidates: list[str] | None = None,
 ) -> list[dict[str, Any]]:
     """Project one canonical content item into deterministic exercise variants.
 
@@ -74,9 +138,10 @@ def build_exercise_variants(
                 item[key] = deepcopy(canonical[key])
 
         if exercise_type == "multiple_choice":
-            options = [str(x).strip() for x in canonical.get("options", []) if str(x).strip()]
-            if correct not in options:
-                options.insert(0, correct)
+            options = _ensure_multiple_choice_options(
+                canonical,
+                distractor_candidates,
+            )
             if len(options) < 2:
                 continue
             item["options"] = options
@@ -113,7 +178,15 @@ def build_persisted_exercise_variants(
     original interaction and add at most one deterministic alternate:
     multiple-choice -> translation, fill-blank -> free-write. Other types
     remain one-to-one until their dedicated interaction is implemented.
+
+    For multiple-choice items, missing options are filled only from correct
+    answers of sibling canonical exercises in the same lesson. This keeps
+    distractors deterministic and prevents fabricated answer content.
     """
+    sibling_answers = [
+        str(source.get("correct") or source.get("translation") or "").strip()
+        for source in source_exercises
+    ]
     output: list[dict[str, Any]] = []
 
     for source in source_exercises:
@@ -123,14 +196,22 @@ def build_persisted_exercise_variants(
             "fill_blank": "free_write",
         }.get(source_type)
 
+        canonical = deepcopy(source)
+        if source_type == "multiple_choice":
+            canonical["options"] = _ensure_multiple_choice_options(
+                canonical,
+                sibling_answers,
+            )
+
         requested = [source_type]
         if alternate:
             requested.append(alternate)
 
         variants = build_exercise_variants(
-            source,
+            canonical,
             variants=requested,
             max_variants=2,
+            distractor_candidates=sibling_answers,
         )
         output.extend(variants)
 
