@@ -1458,3 +1458,66 @@ async def test_game_summary_xp_is_scoped_to_active_study_plan(
 
     assert summary.status_code == 200
     assert summary.json()["total_xp"] == 125
+
+
+@pytest.mark.asyncio
+async def test_daily_challenge_must_use_server_selected_game(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    daily_game_ids = ("math", "words", "sequence", "memory", "matching", "ordering")
+    today_index = ((date.today().weekday() + 1) % 7) % len(daily_game_ids)
+    daily_game = daily_game_ids[today_index]
+    non_daily_game = next(game_id for game_id in daily_game_ids if game_id != daily_game)
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": non_daily_game, "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+
+    result = await client.post(
+        "/api/progress/game-session/complete",
+        json={
+            "session_id": payload["session_id"],
+            "answers": [
+                {"question_id": question["id"], "choice": question["choices"][0]}
+                for question in payload["questions"]
+            ],
+            "daily_challenge": True,
+            "daily_challenge_date": date.today().isoformat(),
+        },
+        headers=headers,
+    )
+
+    assert result.status_code == 422
+    assert result.json()["detail"] == "session is not today's daily challenge"
+
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    assert session.game_id == non_daily_game
+    assert session.completed is False
+
+    game_progress = (
+        await db_session.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == user.id,
+                GameProgress.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert game_progress == []
