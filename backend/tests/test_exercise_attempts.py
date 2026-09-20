@@ -52,7 +52,7 @@ async def _lesson_with_variants(db_session, user_id):
 @pytest.mark.asyncio
 async def test_answer_persists_attempt(client, test_user, db_session):
     user, headers = test_user
-    lesson, exercise, _ = await _lesson_with_variants(db_session, user.id)
+    _, exercise, _ = await _lesson_with_variants(db_session, user.id)
 
     response = await client.post(
         f"/api/lessons/exercises/{exercise.id}/answer",
