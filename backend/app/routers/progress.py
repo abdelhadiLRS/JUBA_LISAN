@@ -36,6 +36,16 @@ GAME_SKILL_MAP = {
     "ordering": "ordering",
 }
 
+DAILY_GAME_IDS = ("math", "words", "sequence", "memory", "matching", "ordering")
+
+
+def _daily_game_id(day: date) -> str:
+    """Return the same deterministic daily-game slot used by the web client."""
+    # JavaScript Date#getDay() is Sunday=0..Saturday=6; Python weekday() is
+    # Monday=0..Sunday=6. Keep the existing UI rotation stable without trusting
+    # the client to choose which game qualifies for the daily reward.
+    return DAILY_GAME_IDS[((day.weekday() + 1) % 7) % len(DAILY_GAME_IDS)]
+
 
 
 def _server_interactive_challenge(game_id: str, language: str, difficulty: int) -> tuple[dict, dict]:
@@ -529,8 +539,12 @@ async def complete_game_session(
     now = datetime.now(UTC).replace(tzinfo=None)
     if now > session.expires_at:
         raise HTTPException(status_code=410, detail="Game session expired")
-    if data.daily_challenge and data.daily_challenge_date != date.today().isoformat():
-        raise HTTPException(status_code=422, detail="daily_challenge_date must be today")
+    if data.daily_challenge:
+        today = date.today()
+        if data.daily_challenge_date != today.isoformat():
+            raise HTTPException(status_code=422, detail="daily_challenge_date must be today")
+        if session.game_id != _daily_game_id(today):
+            raise HTTPException(status_code=422, detail="session is not today's daily challenge")
 
     if session.game_id in {"memory", "matching", "ordering"}:
         if data.answers:
