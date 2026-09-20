@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 import pytest
+from sqlalchemy import select
 
 from app.models.exercise_attempt import ExerciseAttempt
 from app.models.lesson import Exercise
-from app.models.study_plan import StudyPlan
 
 
 async def _lesson_with_variants(db_session, user_id):
-    from app.models.lesson import Lesson
     from tests.test_lessons_router import _create_lesson_with_plan
 
     lesson = await _create_lesson_with_plan(
@@ -70,7 +69,7 @@ async def test_answer_persists_attempt(client, test_user, db_session):
 
     attempts = (
         await db_session.execute(
-            __import__("sqlalchemy").select(ExerciseAttempt).where(
+            select(ExerciseAttempt).where(
                 ExerciseAttempt.user_id == user.id,
                 ExerciseAttempt.exercise_id == exercise.id,
             )
