@@ -543,7 +543,7 @@ async def answer_exercise(
         feedback=exercise.feedback or "",
         answered_at=exercise.answered_at,
     )
-    prior_content_attempt = False
+    prior_content_attempt = max_attempt is not None
     if attempt.content_id:
         prior_content_attempt = (
             await db.scalar(
