@@ -5,7 +5,7 @@ from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from redis.asyncio import Redis
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
@@ -15,6 +15,7 @@ from app.core.deps import (
     get_redis,
 )
 from app.core.limiter import limiter
+from app.models.exercise_attempt import ExerciseAttempt
 from app.models.lesson import Exercise, Lesson
 from app.models.study_plan import StudyPlan
 from app.models.user import User
@@ -42,6 +43,7 @@ from app.services.llm_adapter import (
     LLMUnavailableError,
     llm_adapter,
 )
+from app.services.exercise_retry import get_retry_variant
 from app.services.progress_service import update_daily_progress, upsert_unit_competency
 
 router = APIRouter(prefix="/api/lessons", tags=["lessons"])
@@ -394,11 +396,6 @@ async def answer_exercise(
     if canonical_answer and canonical_answer not in accepted_answers:
         accepted_answers.insert(0, canonical_answer)
 
-    if exercise.answered_at is not None:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT, detail="Exercise already answered"
-        )
-
     if exercise.exercise_type == "free_write":
         prompt = exercise.question
         # Bug 4: use exercise-specific criteria from options if available
@@ -512,23 +509,61 @@ async def answer_exercise(
 
     exercise.user_answer = data.answer
     exercise.answered_at = datetime.now(UTC).replace(tzinfo=None)
+
+    max_attempt = await db.scalar(
+        select(func.max(ExerciseAttempt.attempt_number)).where(
+            ExerciseAttempt.user_id == current_user.id,
+            ExerciseAttempt.exercise_id == exercise.id,
+        )
+    )
+    attempt_number = int(max_attempt or 0) + 1
+    attempt = ExerciseAttempt(
+        user_id=current_user.id,
+        exercise_id=exercise.id,
+        lesson_id=lesson.id,
+        study_plan_id=lesson.study_plan_id,
+        content_id=content_exercise.get("content_id") if isinstance(content_exercise.get("content_id"), str) else None,
+        variant=content_exercise.get("variant") if isinstance(content_exercise.get("variant"), str) else exercise.exercise_type,
+        attempt_number=attempt_number,
+        user_answer=data.answer,
+        score=exercise.score,
+        feedback=exercise.feedback or "",
+        answered_at=exercise.answered_at,
+    )
+    db.add(attempt)
+
+    prior_content_attempt = False
+    if attempt.content_id:
+        prior_content_attempt = (await db.scalar(
+            select(ExerciseAttempt.id).where(
+                ExerciseAttempt.user_id == current_user.id,
+                ExerciseAttempt.content_id == attempt.content_id,
+            ).limit(1)
+        )) is not None
+    if not prior_content_attempt:
+        await update_daily_progress(
+            db,
+            current_user.id,
+            exercise_correct=exercise.score >= 0.5,
+            skill=lesson.lesson_type,
+            skill_score=exercise.score,
+            study_plan_id=lesson.study_plan_id,
+            commit=False,
+        )
+
     await db.commit()
     await db.refresh(exercise)
-
-    await update_daily_progress(
-        db,
-        current_user.id,
-        exercise_correct=exercise.score >= 0.5,
-        skill=lesson.lesson_type,
-        skill_score=exercise.score,
-        study_plan_id=lesson.study_plan_id,
-    )
+    await db.refresh(attempt)
 
     return ExerciseAnswerResponse(
         id=exercise.id,
         score=exercise.score,
         feedback=exercise.feedback,
         correct_answer=exercise.correct_answer,
+        attempt_id=attempt.id,
+        attempt_number=attempt.attempt_number,
+        content_id=attempt.content_id,
+        variant=attempt.variant,
     )
 
 
