@@ -70,6 +70,7 @@ export default function GamesPage() {
   const [lang, setLang] = useState<Lang>('ar')
   const [game, setGame] = useState<GameId | null>(null)
   const [dailyMode, setDailyMode] = useState(false)
+  const [dailyChallengeDate, setDailyChallengeDate] = useState('')
   const [question, setQuestion] = useState<GameSessionQuestion | null>(null)
   const [sessionQuestions, setSessionQuestions] = useState<GameSessionQuestion[]>([])
   const [sessionId, setSessionId] = useState<string | null>(null)
@@ -115,7 +116,8 @@ export default function GamesPage() {
     try {
       const session = await startGameSession(id, lang, level)
       setGame(id)
-      setDailyMode(daily)
+      setDailyMode(session.daily_challenge)
+      setDailyChallengeDate(session.daily_challenge_date)
       setRound(0)
       setRoundScore(0)
       setSelected(null)
@@ -179,6 +181,7 @@ export default function GamesPage() {
       void finishRound()
       setGame(null)
       setDailyMode(false)
+      setDailyChallengeDate('')
       setQuestion(null)
       setSessionId(null)
       return
@@ -193,6 +196,7 @@ export default function GamesPage() {
     resetGameProgress()
     setGame(null)
     setDailyMode(false)
+    setDailyChallengeDate('')
     setQuestion(null)
     setSessionId(null)
     setSessionQuestions([])
