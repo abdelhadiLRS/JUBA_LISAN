@@ -22,6 +22,7 @@ from app.models.user import User
 from app.schemas.lessons import (
     ExerciseAnswerRequest,
     ExerciseAnswerResponse,
+    ExerciseAttemptResponse,
     ExerciseResponse,
     LessonDetailResponse,
     LessonResponse,
@@ -578,6 +579,29 @@ async def answer_exercise(
         content_id=attempt.content_id,
         variant=attempt.variant,
     )
+
+
+@router.get("/exercises/{exercise_id}/attempts", response_model=list[ExerciseAttemptResponse])
+@limiter.limit("60/minute")
+async def list_exercise_attempts(
+    request: Request,
+    exercise_id: int,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    exercise = await db.get(Exercise, exercise_id)
+    if not exercise:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exercise not found")
+    await _get_lesson_for_user(exercise.lesson_id, current_user.id, db)
+    result = await db.execute(
+        select(ExerciseAttempt)
+        .where(
+            ExerciseAttempt.exercise_id == exercise_id,
+            ExerciseAttempt.user_id == current_user.id,
+        )
+        .order_by(ExerciseAttempt.attempt_number)
+    )
+    return result.scalars().all()
 
 
 @router.post("/exercises/{exercise_id}/retry", response_model=ExerciseResponse)
