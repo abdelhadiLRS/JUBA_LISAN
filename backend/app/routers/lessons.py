@@ -237,9 +237,18 @@ async def get_lesson(
                 q, exp = exp, q
         native_exp = None
         native_hint = None
+        content_id = None
+        variant = None
+        accepted_answers = None
+        metadata = None
         if index < len(content_exercises) and isinstance(content_exercises[index], dict):
-            native_exp = content_exercises[index].get("native_explanation")
-            native_hint = content_exercises[index].get("native_hint")
+            content_item = content_exercises[index]
+            native_exp = content_item.get("native_explanation")
+            native_hint = content_item.get("native_hint")
+            content_id = content_item.get("content_id")
+            variant = content_item.get("variant")
+            accepted_answers = content_item.get("accepted_answers")
+            metadata = content_item.get("metadata")
         fixed.append(
             ExerciseResponse(
                 id=ex.id,
@@ -254,6 +263,10 @@ async def get_lesson(
                 explanation=exp,
                 native_explanation=native_exp if isinstance(native_exp, str) else None,
                 native_hint=native_hint if isinstance(native_hint, str) else None,
+                content_id=content_id if isinstance(content_id, str) else None,
+                variant=variant if isinstance(variant, str) else None,
+                accepted_answers=accepted_answers if isinstance(accepted_answers, list) else None,
+                metadata=metadata if isinstance(metadata, dict) else None,
                 answered_at=ex.answered_at,
             )
         )
@@ -597,6 +610,10 @@ async def regenerate_invalid_exercise(
         explanation=exercise.explanation,
         native_explanation=regenerated.native_explanation,
         native_hint=regenerated.native_hint,
+        content_id=regenerated.content_id,
+        variant=regenerated.variant,
+        accepted_answers=regenerated.accepted_answers,
+        metadata=regenerated.metadata,
         answered_at=exercise.answered_at,
     )
 
