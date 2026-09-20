@@ -81,3 +81,55 @@ async def test_interactive_game_session_keeps_solution_server_side(
     stored_interaction = session.questions[0]["interaction"]
     assert stored_interaction["solution"]["target"]
     assert stored_interaction["solution"]["target"] != []
+
+
+@pytest.mark.asyncio
+async def test_completed_interactive_session_cannot_be_replayed(
+    client, test_user, db_session
+):
+    from tests.conftest import make_study_plan
+
+    user, headers = test_user
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "memory", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+
+    cards_by_pair = {}
+    for card in payload["interaction"]["cards"]:
+        cards_by_pair.setdefault(card["pair_key"], []).append(card["id"])
+    trace = [
+        {"first": ids[0], "second": ids[1]}
+        for ids in cards_by_pair.values()
+    ]
+
+    first = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "interaction_trace": trace},
+        headers=headers,
+    )
+    assert first.status_code == 200
+    assert first.json()["round_correct"] == first.json()["round_questions"]
+
+    replay = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "interaction_trace": trace},
+        headers=headers,
+    )
+    assert replay.status_code == 409
+    assert replay.json()["detail"] == "Game session already completed"
