@@ -386,7 +386,7 @@ async def test_replayed_game_session_does_not_duplicate_progress_or_event(
         is_active=True,
     )
 
-    plan_id = plan.id
+    user_id = user.id
     started = await client.post(
         "/api/progress/game-session",
         json={"game_id": "math", "language": "en", "difficulty": 1},
@@ -466,6 +466,7 @@ async def test_duplicate_event_conflict_rolls_back_game_completion(
     )
 
     plan_id = plan.id
+    user_id = user.id
     started = await client.post(
         "/api/progress/game-session",
         json={"game_id": "math", "language": "en", "difficulty": 1},
@@ -515,8 +516,8 @@ async def test_duplicate_event_conflict_rolls_back_game_completion(
     game_progress = (
         await db_session.execute(
             select(GameProgress).where(
-                GameProgress.user_id == user.id,
-                GameProgress.study_plan_id == plan_id,
+                GameProgress.user_id == user_id,
+                GameProgress.study_plan_id == session.study_plan_id,
             )
         )
     ).scalar_one()
@@ -527,7 +528,7 @@ async def test_duplicate_event_conflict_rolls_back_game_completion(
     progress_rows = (
         await db_session.execute(
             select(Progress).where(
-                Progress.user_id == user.id,
+                Progress.user_id == user_id,
                 Progress.study_plan_id == plan_id,
             )
         )
