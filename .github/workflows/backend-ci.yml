@@ -37,7 +37,7 @@ jobs:
           cache-dependency-path: backend/requirements.txt
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt ruff
 
       - name: Lint changed backend surface
         run: ruff check app alembic --select E9,F821,F841,F541,B007,B905
