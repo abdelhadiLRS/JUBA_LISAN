@@ -367,7 +367,11 @@ async def answer_exercise(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    exercise = await db.get(Exercise, exercise_id)
+    exercise = (
+        await db.execute(
+            select(Exercise).where(Exercise.id == exercise_id).with_for_update()
+        )
+    ).scalar_one_or_none()
     if not exercise:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exercise not found")
 
