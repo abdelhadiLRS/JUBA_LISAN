@@ -1335,3 +1335,59 @@ async def test_interactive_tampering_is_rejected_before_persistence(
     ).scalars().all()
     assert progress_rows == []
 
+@pytest.mark.asyncio
+async def test_game_summary_xp_is_scoped_to_current_user(
+    client, test_user, admin_user, db_session
+):
+    user, headers = test_user
+    other_user, _ = admin_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add(
+        GameProgress(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            achievements=[],
+        )
+    )
+    db_session.add_all(
+        [
+            Progress(
+                user_id=user.id,
+                study_plan_id=plan.id,
+                date=date.today(),
+                xp_earned=75,
+                lessons_completed=0,
+                exercises_correct=0,
+                exercises_total=0,
+                streak_day=1,
+                skills={},
+            ),
+            Progress(
+                user_id=other_user.id,
+                study_plan_id=plan.id,
+                date=date.today(),
+                xp_earned=9000,
+                lessons_completed=0,
+                exercises_correct=0,
+                exercises_total=0,
+                streak_day=1,
+                skills={},
+            ),
+        ]
+    )
+    await db_session.commit()
+
+    summary = await client.get("/api/progress/game-summary", headers=headers)
+
+    assert summary.status_code == 200
+    assert summary.json()["total_xp"] == 75
