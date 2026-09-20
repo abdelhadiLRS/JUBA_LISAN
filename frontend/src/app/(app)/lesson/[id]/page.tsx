@@ -16,7 +16,7 @@ import { useFreemiumStore } from '@/store/freemium'
 import { useConfigStore } from '@/store/config'
 import { cn } from '@/lib/utils'
 
-interface ExerciseItem { id: number; exercise_type: string; question: string; options: string[] | null; correct_answer: string; explanation: string | null; native_explanation: string | null; user_answer: string | null; score: number | null; feedback: string | null; native_hint: string | null }
+interface ExerciseItem { id: number; exercise_type: string; question: string; options: string[] | null; correct_answer: string; explanation: string | null; native_explanation: string | null; user_answer: string | null; score: number | null; feedback: string | null; native_hint: string | null; content_id?: string | null; variant?: string | null; accepted_answers?: string[] | null; metadata?: Record<string, string> | null }
 interface LessonData { id: number; title: string; lesson_type: string; cefr_level: string; content: Record<string, unknown>; is_completed: boolean }
 interface LessonVocabularyItem { word?: string; definition?: string; translation?: string | null; example?: string; example_translation?: string | null; note?: string | null; reading?: string | null }
 
