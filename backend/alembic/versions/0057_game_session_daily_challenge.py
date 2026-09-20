@@ -17,11 +17,18 @@ depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
+    # Keep the migration SQLite-compatible. The temporary server default is
+    # intentionally retained because SQLite cannot drop a column default with
+    # a plain ALTER COLUMN statement.
     op.add_column(
         "game_sessions",
-        sa.Column("daily_challenge_date", sa.String(length=10), nullable=False, server_default=""),
+        sa.Column(
+            "daily_challenge_date",
+            sa.String(length=10),
+            nullable=False,
+            server_default="",
+        ),
     )
-    op.alter_column("game_sessions", "daily_challenge_date", server_default=None)
 
 
 def downgrade() -> None:
