@@ -78,7 +78,6 @@ export default function GamesPage() {
   const [roundScore, setRoundScore] = useState(0)
   const [round, setRound] = useState(0)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
-  const [dailyCompletedToday, setDailyCompletedToday] = useState(false)
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
@@ -88,6 +87,7 @@ export default function GamesPage() {
   const level = Math.floor(xp / 100) + 1
   const t = copy[lang]
   const today = getLocalDateKey()
+  const dailyCompletedToday = gameStats.lastDailyChallengeDate === today
   // Keep the daily rotation aligned with the server: Date#getDay() is
   // Sunday=0..Saturday=6, and the server normalizes Python's weekday() to
   // the same numbering before applying the six-game rotation.
@@ -151,7 +151,6 @@ export default function GamesPage() {
         (id) => !previousAchievements.has(id)
       )
       if (fresh.length) setNewAchievements(fresh)
-      if (dailyMode) setDailyCompletedToday(true)
       setRoundScore(server.round_score)
       setProgress({
         streak,
@@ -202,7 +201,6 @@ export default function GamesPage() {
     setRoundScore(0)
     setSelected(null)
     setNewAchievements([])
-    setDailyCompletedToday(false)
   }
 
   return (
