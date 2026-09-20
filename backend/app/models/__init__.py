@@ -8,6 +8,7 @@ from app.models.flashcard import Flashcard
 from app.models.game_progress import GameProgress
 from app.models.game_progress_event import GameProgressEvent
 from app.models.game_session import GameSession
+from app.models.exercise_attempt import ExerciseAttempt
 from app.models.lesson import Exercise, Lesson
 from app.models.listening import ListeningAttempt, ListeningExercise
 from app.models.llm_usage import LLMUsage
@@ -37,6 +38,7 @@ __all__ = [
     "Flashcard",
     "GameProgress",
     "GameProgressEvent", "GameSession",
+    "ExerciseAttempt",
     "Exercise",
     "Lesson",
     "ListeningAttempt",
