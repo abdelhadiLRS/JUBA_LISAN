@@ -115,3 +115,26 @@ async def test_retry_requires_failed_attempt(client, test_user, db_session):
     )
 
     assert response.status_code == 409
+
+
+@pytest.mark.asyncio
+async def test_attempt_history_is_user_scoped(client, test_user, db_session):
+    user, headers = test_user
+    _, exercise, _ = await _lesson_with_variants(db_session, user.id)
+
+    answer = await client.post(
+        f"/api/lessons/exercises/{exercise.id}/answer",
+        headers=headers,
+        json={"answer": "A"},
+    )
+    assert answer.status_code == 200
+
+    history = await client.get(
+        f"/api/lessons/exercises/{exercise.id}/attempts",
+        headers=headers,
+    )
+    assert history.status_code == 200
+    data = history.json()
+    assert len(data) == 1
+    assert data[0]["attempt_number"] == 1
+    assert data[0]["content_id"] == "content-1"
