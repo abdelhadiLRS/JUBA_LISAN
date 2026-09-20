@@ -14,6 +14,10 @@ class ExerciseContent(BaseModel):
     explanation: str | None = None
     native_explanation: str | None = None
     native_hint: str | None = None
+    content_id: str | None = None
+    variant: str | None = None
+    accepted_answers: list[str] | None = None
+    metadata: dict[str, str] | None = None
 
     @model_validator(mode="after")
     def validate_exercise_content(self) -> Self:
@@ -21,6 +25,12 @@ class ExerciseContent(BaseModel):
             raise ValueError("exercises must include a question")
         if not self.correct.strip():
             raise ValueError("exercises must include a correct answer")
+        if self.accepted_answers is not None:
+            self.accepted_answers = [
+                answer.strip() for answer in self.accepted_answers if answer.strip()
+            ]
+            if self.correct not in self.accepted_answers:
+                self.accepted_answers.insert(0, self.correct)
         if self.type == "fill_blank" and "___" not in self.question:
             if self.explanation and "___" in self.explanation:
                 self.question, self.explanation = self.explanation, self.question
