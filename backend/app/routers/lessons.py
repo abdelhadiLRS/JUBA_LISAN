@@ -379,6 +379,21 @@ async def answer_exercise(
         )
     target_language = plan.target_language
 
+    _content, _content_exercises, content_exercise = await _get_exercise_content_entry(
+        exercise, lesson, db
+    )
+    accepted_answers = []
+    raw_accepted = content_exercise.get("accepted_answers")
+    if isinstance(raw_accepted, list):
+        accepted_answers = [
+            str(answer).strip().casefold()
+            for answer in raw_accepted
+            if str(answer).strip()
+        ]
+    canonical_answer = exercise.correct_answer.strip().casefold()
+    if canonical_answer and canonical_answer not in accepted_answers:
+        accepted_answers.insert(0, canonical_answer)
+
     if exercise.answered_at is not None:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT, detail="Exercise already answered"
@@ -429,7 +444,7 @@ async def answer_exercise(
             ua = data.answer.strip().lower().rstrip(".,!?")
             ca = exercise.correct_answer.strip().lower().rstrip(".,!?")
             alternatives = [a.strip().lower() for a in ca.split("/")]
-            is_correct = ua == ca or ua in alternatives
+            is_correct = ua == ca or ua in alternatives or ua in accepted_answers
             exercise.score = 1.0 if is_correct else 0.0
             exercise.feedback = (
                 _answer_feedback(current_user.native_language, "correct")
@@ -481,6 +496,8 @@ async def answer_exercise(
             user_ans == correct_ans
             or _stripped == correct_ans
             or user_ans == re.sub(r"^[a-z]\. *", "", correct_ans)
+            or user_ans in accepted_answers
+            or _stripped in accepted_answers
         )
         exercise.score = 1.0 if is_correct else 0.0
         exercise.feedback = (
