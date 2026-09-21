@@ -62,7 +62,7 @@ def test_collect_attempted_exercise_ids_supports_custom_getter():
     )
 
 
-def test_selector_rejects_boolean_candidate_ids(): 
+def test_selector_rejects_boolean_candidate_ids():
     exercises = [
         {"id": True, "content_id": "c1", "variant": "multiple_choice"},
         {"id": 2, "content_id": "c1", "variant": "fill_blank"},
