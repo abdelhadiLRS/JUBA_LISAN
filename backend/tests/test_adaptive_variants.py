@@ -307,6 +307,32 @@ def test_recommendation_reinforces_middle_score_without_target():
         score=0.79,
     ) == ("reinforce", None, None)
 
+def test_recommendation_uses_shared_score_boundaries():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+        VariantExercise(3, "c1", "translate"),
+    ]
+
+    assert recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="translate",
+        score=0.50,
+    ) == ("reinforce", None, None)
+
+    action, variant, target = recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        score=0.80,
+        attempted_exercise_ids={1},
+    )
+    assert action == "advance_harder"
+    assert variant == "fill_blank"
+    assert target is exercises[1]
+
+
 def test_recommendation_returns_easier_variant_for_low_score():
     exercises = [
         VariantExercise(1, "c1", "multiple_choice"),
