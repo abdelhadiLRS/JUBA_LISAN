@@ -15,6 +15,8 @@ function getProgressChannel(): BroadcastChannel | null {
 }
 
 export function markLearningProgressUpdated(): void {
+  if (typeof window === 'undefined') return
+
   const timestamp = String(Date.now())
 
   try {
