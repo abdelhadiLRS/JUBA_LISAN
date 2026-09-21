@@ -19,8 +19,29 @@ export function useLearningProgressSync(
   }, [onRefresh])
 
   useEffect(() => {
+    let refreshInFlight = false
+    let refreshQueued = false
+    let disposed = false
+
     const refresh = () => {
-      void refreshRef.current()
+      if (disposed) return
+      if (refreshInFlight) {
+        refreshQueued = true
+        return
+      }
+
+      refreshInFlight = true
+      Promise.resolve(refreshRef.current())
+        .catch(() => {
+          // Refresh failures are owned by the caller; lifecycle sync must stay alive.
+        })
+        .finally(() => {
+          refreshInFlight = false
+          if (refreshQueued && !disposed) {
+            refreshQueued = false
+            refresh()
+          }
+        })
     }
 
     const unsubscribe = subscribeToLearningProgressUpdated(refresh)
@@ -37,6 +58,8 @@ export function useLearningProgressSync(
     }
 
     return () => {
+      disposed = true
+      refreshQueued = false
       unsubscribe()
       window.removeEventListener('pageshow', onPageShow)
       document.removeEventListener('visibilitychange', onVisibilityChange)
