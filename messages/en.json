@@ -1731,6 +1731,10 @@
     "hard": "Hard",
     "good": "Good",
     "easy": "Easy",
-    "tapToHear": "Tap the word to hear it"
+    "tapToHear": "Tap the word to hear it",
+    "progressLabel": "Review progress",
+    "account": "Account",
+    "source": "source",
+    "target": "target"
   }
 }
