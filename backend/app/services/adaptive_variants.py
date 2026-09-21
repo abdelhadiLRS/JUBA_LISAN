@@ -78,6 +78,7 @@ def select_unanswered_variant(
         None,
     )
 
+
 def recommend_adaptive_variant(
     exercises: Sequence[ExerciseT],
     *,
