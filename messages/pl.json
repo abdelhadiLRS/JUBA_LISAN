@@ -1697,6 +1697,9 @@
     "source": "źródło",
     "target": "cel",
     "loadError": "Nie można załadować kart powtórek.",
-    "saveError": "Nie można zapisać powtórki. Spróbuj ponownie."
+    "saveError": "Nie można zapisać powtórki. Spróbuj ponownie.",
+    "shortcutHint": "Spacja, aby odkryć · 1–4, aby ocenić",
+    "spaceShortcut": "Spacja, aby odkryć",
+    "rateKeys": "1 Ponownie · 2 Trudne · 3 Dobrze · 4 Łatwe"
   }
 }
