@@ -23,7 +23,7 @@ class FlashcardBulkResponse(BaseModel):
 
 
 class FlashcardReview(BaseModel):
-    quality: int
+    quality: int = Field(ge=0, le=5)
 
 
 class FlashcardFromWordRequest(BaseModel):

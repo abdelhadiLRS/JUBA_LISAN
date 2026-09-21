@@ -186,8 +186,17 @@ async def review_flashcard(
     db: AsyncSession = Depends(get_db),
 ):
     plan = await _get_active_plan_or_404(db, current_user.id)
-    card = await db.get(Flashcard, card_id)
-    if not card or card.user_id != current_user.id:
+    card_result = await db.execute(
+        select(Flashcard)
+        .where(
+            Flashcard.id == card_id,
+            Flashcard.user_id == current_user.id,
+            Flashcard.study_plan_id == plan.id,
+        )
+        .with_for_update()
+    )
+    card = card_result.scalar_one_or_none()
+    if not card:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Flashcard not found")
 
     card = sm2_update(card, data.quality)

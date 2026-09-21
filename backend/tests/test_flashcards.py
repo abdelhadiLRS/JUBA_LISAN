@@ -132,6 +132,16 @@ async def test_get_due_flashcards(client, test_user, db_session):
     assert data["total"] == 1
 
 
+def test_sm2_quality_outside_range_is_rejected():
+    from pydantic import ValidationError
+    from app.schemas.flashcards import FlashcardReview
+
+    with pytest.raises(ValidationError):
+        FlashcardReview(quality=6)
+    with pytest.raises(ValidationError):
+        FlashcardReview(quality=-1)
+
+
 @pytest.mark.asyncio
 async def test_review_flashcard(client, test_user, db_session):
     user, headers = test_user
@@ -199,6 +209,46 @@ async def test_get_vocabulary_flashcards(client, test_user, db_session):
     assert len(data["items"]) == 1
     assert data["items"][0]["word"] == "ephemeral"
     assert data["items"][0]["source"] == "from_text"
+
+
+@pytest.mark.asyncio
+async def test_review_flashcard_rejects_card_from_inactive_plan(client, test_user, db_session):
+    user, headers = test_user
+
+    from app.models.flashcard import Flashcard
+    from tests.conftest import make_study_plan
+
+    await _seed_plan(db_session, user.id)
+    inactive_plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=False,
+    )
+
+    card = Flashcard(
+        user_id=user.id,
+        study_plan_id=inactive_plan.id,
+        word="orphan",
+        definition="inactive plan card",
+        example_sentence="This card belongs to an inactive plan.",
+        translation="orphelin",
+    )
+    db_session.add(card)
+    await db_session.commit()
+
+    response = await client.post(
+        f"/api/flashcards/{card.id}/review",
+        headers=headers,
+        json={"quality": 4},
+    )
+    assert response.status_code == 404
 
 
 @pytest.mark.asyncio

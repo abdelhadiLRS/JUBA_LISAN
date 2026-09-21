@@ -5,7 +5,7 @@ from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from redis.asyncio import Redis
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
@@ -15,12 +15,14 @@ from app.core.deps import (
     get_redis,
 )
 from app.core.limiter import limiter
+from app.models.exercise_attempt import ExerciseAttempt
 from app.models.lesson import Exercise, Lesson
 from app.models.study_plan import StudyPlan
 from app.models.user import User
 from app.schemas.lessons import (
     ExerciseAnswerRequest,
     ExerciseAnswerResponse,
+    ExerciseAttemptResponse,
     ExerciseResponse,
     LessonDetailResponse,
     LessonResponse,
@@ -42,6 +44,7 @@ from app.services.llm_adapter import (
     LLMUnavailableError,
     llm_adapter,
 )
+from app.services.exercise_retry import get_retry_variant
 from app.services.progress_service import update_daily_progress, upsert_unit_competency
 
 router = APIRouter(prefix="/api/lessons", tags=["lessons"])
@@ -365,7 +368,11 @@ async def answer_exercise(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    exercise = await db.get(Exercise, exercise_id)
+    exercise = (
+        await db.execute(
+            select(Exercise).where(Exercise.id == exercise_id).with_for_update()
+        )
+    ).scalar_one_or_none()
     if not exercise:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exercise not found")
 
@@ -393,11 +400,6 @@ async def answer_exercise(
     canonical_answer = exercise.correct_answer.strip().casefold()
     if canonical_answer and canonical_answer not in accepted_answers:
         accepted_answers.insert(0, canonical_answer)
-
-    if exercise.answered_at is not None:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT, detail="Exercise already answered"
-        )
 
     if exercise.exercise_type == "free_write":
         prompt = exercise.question
@@ -512,23 +514,207 @@ async def answer_exercise(
 
     exercise.user_answer = data.answer
     exercise.answered_at = datetime.now(UTC).replace(tzinfo=None)
+
+    max_attempt = await db.scalar(
+        select(func.max(ExerciseAttempt.attempt_number)).where(
+            ExerciseAttempt.user_id == current_user.id,
+            ExerciseAttempt.exercise_id == exercise.id,
+        )
+    )
+    attempt_number = int(max_attempt or 0) + 1
+    attempt = ExerciseAttempt(
+        user_id=current_user.id,
+        exercise_id=exercise.id,
+        lesson_id=lesson.id,
+        study_plan_id=lesson.study_plan_id,
+        content_id=(
+            content_exercise.get("content_id")
+            if isinstance(content_exercise.get("content_id"), str)
+            else None
+        ),
+        variant=(
+            content_exercise.get("variant")
+            if isinstance(content_exercise.get("variant"), str)
+            else exercise.exercise_type
+        ),
+        attempt_number=attempt_number,
+        user_answer=data.answer,
+        score=exercise.score,
+        feedback=exercise.feedback or "",
+        answered_at=exercise.answered_at,
+    )
+    prior_content_attempt = max_attempt is not None
+    if attempt.content_id:
+        prior_content_attempt = (
+            await db.scalar(
+                select(ExerciseAttempt.id).where(
+                    ExerciseAttempt.user_id == current_user.id,
+                    ExerciseAttempt.content_id == attempt.content_id,
+                ).limit(1)
+            )
+        ) is not None
+    db.add(attempt)
+    if not prior_content_attempt:
+        await update_daily_progress(
+            db,
+            current_user.id,
+            exercise_correct=exercise.score >= 0.5,
+            skill=lesson.lesson_type,
+            skill_score=exercise.score,
+            study_plan_id=lesson.study_plan_id,
+            commit=False,
+        )
+
     await db.commit()
     await db.refresh(exercise)
-
-    await update_daily_progress(
-        db,
-        current_user.id,
-        exercise_correct=exercise.score >= 0.5,
-        skill=lesson.lesson_type,
-        skill_score=exercise.score,
-        study_plan_id=lesson.study_plan_id,
-    )
+    await db.refresh(attempt)
 
     return ExerciseAnswerResponse(
         id=exercise.id,
         score=exercise.score,
         feedback=exercise.feedback,
         correct_answer=exercise.correct_answer,
+        attempt_id=attempt.id,
+        attempt_number=attempt.attempt_number,
+        content_id=attempt.content_id,
+        variant=attempt.variant,
+    )
+
+
+@router.get("/exercises/{exercise_id}/attempts", response_model=list[ExerciseAttemptResponse])
+@limiter.limit("60/minute")
+async def list_exercise_attempts(
+    request: Request,
+    exercise_id: int,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    exercise = await db.get(Exercise, exercise_id)
+    if not exercise:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exercise not found")
+    await _get_lesson_for_user(exercise.lesson_id, current_user.id, db)
+    result = await db.execute(
+        select(ExerciseAttempt)
+        .where(
+            ExerciseAttempt.exercise_id == exercise_id,
+            ExerciseAttempt.user_id == current_user.id,
+        )
+        .order_by(ExerciseAttempt.attempt_number)
+    )
+    return result.scalars().all()
+
+
+@router.post("/exercises/{exercise_id}/retry", response_model=ExerciseResponse)
+@limiter.limit("20/minute")
+async def retry_exercise(
+    request: Request,
+    exercise_id: int,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    exercise = await db.get(Exercise, exercise_id)
+    if not exercise:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exercise not found")
+
+    lesson = await _get_lesson_for_user(exercise.lesson_id, current_user.id, db)
+    _content, content_exercises, content_exercise = await _get_exercise_content_entry(
+        exercise, lesson, db
+    )
+    content_id = content_exercise.get("content_id")
+    if not isinstance(content_id, str) or not content_id.strip():
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Exercise does not have a stable content identity for retry",
+        )
+
+    latest_attempt = await db.scalar(
+        select(ExerciseAttempt)
+        .where(
+            ExerciseAttempt.user_id == current_user.id,
+            ExerciseAttempt.exercise_id == exercise.id,
+        )
+        .order_by(ExerciseAttempt.attempt_number.desc())
+        .limit(1)
+    )
+    if latest_attempt is None:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Exercise must be answered before retry",
+        )
+    if latest_attempt.score >= 0.5:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Only failed exercises can be retried",
+        )
+
+    result = await db.execute(
+        select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
+    )
+    lesson_exercises = result.scalars().all()
+    available_variants: list[str] = []
+    candidates: dict[str, Exercise] = {}
+    candidate_content: dict[int, dict] = {}
+    for index, sibling in enumerate(lesson_exercises):
+        if index >= len(content_exercises) or not isinstance(content_exercises[index], dict):
+            continue
+        sibling_content = content_exercises[index]
+        if sibling_content.get("content_id") != content_id:
+            continue
+        variant = sibling_content.get("variant") or sibling.exercise_type
+        if not isinstance(variant, str):
+            continue
+        available_variants.append(variant)
+        if sibling.id != exercise.id and sibling.answered_at is None:
+            candidates[variant] = sibling
+            candidate_content[sibling.id] = sibling_content
+
+    target_variant = get_retry_variant(
+        content_exercise.get("variant") or exercise.exercise_type,
+        succeeded=False,
+        available_variants=available_variants,
+    )
+    if not target_variant or target_variant not in candidates:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="No easier unanswered exercise variant is available",
+        )
+
+    target = candidates[target_variant]
+    target_content = candidate_content[target.id]
+    return ExerciseResponse(
+        id=target.id,
+        lesson_id=target.lesson_id,
+        exercise_type=target.exercise_type,
+        question=target.question,
+        options=target.options,
+        correct_answer=target.correct_answer,
+        user_answer=target.user_answer,
+        score=target.score,
+        feedback=target.feedback,
+        explanation=target.explanation,
+        native_explanation=(
+            target_content.get("native_explanation")
+            if isinstance(target_content.get("native_explanation"), str)
+            else None
+        ),
+        native_hint=(
+            target_content.get("native_hint")
+            if isinstance(target_content.get("native_hint"), str)
+            else None
+        ),
+        content_id=content_id,
+        variant=target_variant,
+        accepted_answers=(
+            target_content.get("accepted_answers")
+            if isinstance(target_content.get("accepted_answers"), list)
+            else None
+        ),
+        metadata=(
+            target_content.get("metadata")
+            if isinstance(target_content.get("metadata"), dict)
+            else None
+        ),
+        answered_at=target.answered_at,
     )
 
 
