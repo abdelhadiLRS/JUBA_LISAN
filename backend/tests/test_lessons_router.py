@@ -646,7 +646,7 @@ async def test_answer_exercise_not_found(client, test_user):
 
 @pytest.mark.asyncio
 async def test_answer_exercise_already_answered(client, test_user, db_session):
-    """Answering an already-answered exercise returns 409."""
+    """Answering an already-answered exercise records a second attempt."""
     from datetime import UTC, datetime
 
     from app.models.lesson import Exercise
@@ -673,7 +673,14 @@ async def test_answer_exercise_already_answered(client, test_user, db_session):
         headers=headers,
         json={"answer": "B"},
     )
-    assert response.status_code == 409
+    assert response.status_code == 200
+    data = response.json()
+    assert data["attempt_number"] == 1
+    assert data["score"] == 1.0
+
+    await db_session.refresh(ex)
+    assert ex.user_answer == "B"
+    assert ex.score == 1.0
 
 
 @pytest.mark.asyncio
@@ -1258,13 +1265,14 @@ async def test_full_lesson_lifecycle(client, test_user, db_session):
     assert r_a2.status_code == 200
     assert r_a2.json()["score"] == 0.0
 
-    # Step 4: Answering same exercise again fails
+    # Step 4: Re-answering the same exercise creates a second immutable attempt
     r_dup = await client.post(
         f"/api/lessons/exercises/{e1.id}/answer",
         headers=headers,
         json={"answer": "B"},
     )
-    assert r_dup.status_code == 409
+    assert r_dup.status_code == 200
+    assert r_dup.json()["attempt_number"] == 2
 
     # Step 5: Complete lesson
     r_complete = await client.post(f"/api/lessons/{lesson.id}/complete", headers=headers)
