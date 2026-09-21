@@ -681,12 +681,13 @@
     "attemptHistory": "Versuchsverlauf",
     "noAttempts": "Noch keine Versuche.",
     "hintPrefix": "Hinweis: ",
-    "retryEasier": "Einfacher wiederholen"\n    "checking": "Prüfe…",,
-    "next": "Weiter",,
-    "finish": "Lektion beenden",,
-    "completed": "Abgeschlossen",,
-    "niceWork": "Gut gemacht. Du hast es behalten.",,
-    "reviewNow": "Jetzt wiederholen",,
+    "retryEasier": "Einfacher wiederholen"
+    "checking": "Prüfe…",
+    "next": "Weiter",
+    "finish": "Lektion beenden",
+    "completed": "Abgeschlossen",
+    "niceWork": "Gut gemacht. Du hast es behalten.",
+    "reviewNow": "Jetzt wiederholen",
     "nextCourse": "Nächster Kurs"
   },
   "flashcards": {
