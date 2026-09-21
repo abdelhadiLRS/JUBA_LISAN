@@ -696,7 +696,9 @@
     "saveWord": "+ Opslaan",
     "saved": "Opgeslagen",
     "saveError": "Fout",
-    "keepLearning": "Blijf oefenen met een herhaling."
+    "keepLearning": "Blijf oefenen met een herhaling.",
+    "retryHarderVariant": "Doorgaan met een moeilijkere variant",
+    "retryEasierVariant": "Opnieuw proberen met een eenvoudigere variant"
   },
   "flashcards": {
     "title": "Flashcards",
