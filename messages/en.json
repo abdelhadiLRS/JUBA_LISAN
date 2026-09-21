@@ -1708,5 +1708,29 @@
     "label": "Maintenance",
     "title": "Under Maintenance",
     "description": "This section is temporarily unavailable while we perform maintenance. Please check back later."
+  },
+  "vocabularyReview": {
+    "loading": "Loading your review deck…",
+    "unavailable": "Review unavailable",
+    "tryAgain": "Try again",
+    "noDue": "No cards are due",
+    "caughtUp": "You are caught up. Come back when your next cards are due.",
+    "guestHint": "Save words from Instant Translator first. No account is required.",
+    "openVocabulary": "Open Vocabulary",
+    "openTranslator": "Open Translator",
+    "vocabulary": "Vocabulary",
+    "cardsDue": "cards due now",
+    "dueNow": "due now",
+    "saved": "saved",
+    "title": "Spaced review",
+    "complete": "Review complete",
+    "reviewed": "You reviewed {count} {count, plural, one {card} other {cards}}.",
+    "reviewAgain": "Review again",
+    "reveal": "Reveal translation",
+    "again": "Again",
+    "hard": "Hard",
+    "good": "Good",
+    "easy": "Easy",
+    "tapToHear": "Tap the word to hear it"
   }
 }
