@@ -4,7 +4,7 @@ from collections.abc import Sequence
 import re
 
 # Lower number = easier interaction. Unknown interaction types are left unchanged.
-DIFFICULTY: dict[str, int] = {
+LOW_SCORE_THRESHOLD = 0.50\nSUCCESS_SCORE_THRESHOLD = 0.80\n\nDIFFICULTY: dict[str, int] = {
     "multiple_choice": 1,
     "fill_blank": 2,
     "translate": 3,
