@@ -166,11 +166,10 @@ def test_duplicate_variant_rows_keep_the_first_unattempted_match():
         content_id="c1",
         current_variant="multiple_choice",
         succeeded=True,
-        attempted_exercise_ids={1},
+        attempted_exercise_ids={1, 2},
     )
 
-    assert selected is exercises[2] or selected is exercises[1]
-    assert selected is not exercises[0]
+    assert selected is exercises[2]
 
 
 def test_unknown_sibling_variants_do_not_affect_difficulty_selection():
