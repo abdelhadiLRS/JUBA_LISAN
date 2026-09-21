@@ -1691,6 +1691,10 @@
     "hard": "Greu",
     "good": "Bine",
     "easy": "Ușor",
-    "tapToHear": "Atinge cuvântul pentru a-l auzi"
+    "tapToHear": "Atinge cuvântul pentru a-l auzi",
+    "progressLabel": "Progresul recapitulării",
+    "account": "Cont",
+    "source": "sursă",
+    "target": "destinație"
   }
 }
