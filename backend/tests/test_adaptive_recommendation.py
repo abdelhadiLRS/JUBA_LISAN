@@ -82,3 +82,31 @@ def test_missing_harder_variant_falls_back_to_advance(monkeypatch):
 
     assert action == "advance"
     assert variant is None
+
+
+def test_half_score_stays_in_reinforce_band():
+    action, variant = lessons._adaptive_recommendation(
+        0.50,
+        "standard",
+        ["guided", "standard", "challenge"],
+    )
+
+    assert action == "reinforce"
+    assert variant is None
+
+
+def test_thresholds_are_deterministic_at_eighty_percent(monkeypatch):
+    monkeypatch.setattr(
+        lessons,
+        "get_retry_variant",
+        lambda current_variant, succeeded, available_variants: "challenge" if succeeded else "guided",
+    )
+
+    action, variant = lessons._adaptive_recommendation(
+        0.80,
+        "standard",
+        ["guided", "standard", "challenge"],
+    )
+
+    assert action == "advance_harder"
+    assert variant == "challenge"
