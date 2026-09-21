@@ -1,3 +1,4 @@
+from app.services.exercise_retry import get_retry_variant, normalise_variant
 from app.routers import lessons
 
 
@@ -110,3 +111,24 @@ def test_thresholds_are_deterministic_at_eighty_percent(monkeypatch):
 
     assert action == "advance_harder"
     assert variant == "challenge"
+
+
+def test_whitespace_separators_normalize_to_canonical_variants():
+    assert normalise_variant(" free   write ") == "free-write"
+    assert normalise_variant("multiple_choice") == "multiple-choice"
+
+
+def test_easy_to_hard_chain_uses_adjacent_difficulty():
+    variants = ["multiple_choice", "fill_blank", "translate", "free_write"]
+
+    assert get_retry_variant("multiple_choice", succeeded=True, available_variants=variants) == "fill_blank"
+    assert get_retry_variant("fill_blank", succeeded=True, available_variants=variants) == "translate"
+    assert get_retry_variant("translate", succeeded=True, available_variants=variants) == "free-write"
+
+
+def test_hard_to_easy_chain_uses_adjacent_difficulty():
+    variants = ["multiple_choice", "fill_blank", "translate", "free_write"]
+
+    assert get_retry_variant("free_write", succeeded=False, available_variants=variants) == "translate"
+    assert get_retry_variant("translate", succeeded=False, available_variants=variants) == "fill_blank"
+    assert get_retry_variant("fill_blank", succeeded=False, available_variants=variants) == "multiple-choice"
