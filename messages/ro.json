@@ -1668,5 +1668,29 @@
     "label": "Întreținere",
     "title": "În mentenanță",
     "description": "Această secțiune este temporar indisponibilă pentru lucrări de întreținere. Încearcă din nou mai târziu."
+  },
+  "vocabularyReview": {
+    "loading": "Se încarcă setul de recapitulare…",
+    "unavailable": "Recapitularea nu este disponibilă",
+    "tryAgain": "Încearcă din nou",
+    "noDue": "Nu există carduri de recapitulat",
+    "caughtUp": "Ești la zi. Revino când vor fi disponibile carduri noi.",
+    "guestHint": "Salvează mai întâi cuvinte din Traducătorul instant. Nu este necesar un cont.",
+    "openVocabulary": "Deschide vocabularul",
+    "openTranslator": "Deschide traducătorul",
+    "vocabulary": "Vocabular",
+    "cardsDue": "carduri de recapitulat",
+    "dueNow": "de recapitulat",
+    "saved": "salvate",
+    "title": "Recapitulare spațiată",
+    "complete": "Recapitulare finalizată",
+    "reviewed": "Ai recapitulat {count} carduri.",
+    "reviewAgain": "Recapitulează din nou",
+    "reveal": "Afișează traducerea",
+    "again": "Din nou",
+    "hard": "Greu",
+    "good": "Bine",
+    "easy": "Ușor",
+    "tapToHear": "Atinge cuvântul pentru a-l auzi"
   }
 }
