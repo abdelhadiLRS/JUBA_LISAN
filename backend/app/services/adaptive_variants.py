@@ -3,7 +3,11 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from typing import TypeVar
 
-from app.services.exercise_retry import (\n    classify_score,\n    get_retry_variant,\n    normalise_variant,\n)
+from app.services.exercise_retry import (
+    classify_score,
+    get_retry_variant,
+    normalise_variant,
+)
 
 ExerciseT = TypeVar("ExerciseT")
 
@@ -54,9 +58,8 @@ def select_unanswered_variant(
         if str(get_content_id(exercise) or "") != content_id:
             continue
 
-        variant = normalise_variant(
-            get_variant(exercise) if isinstance(get_variant(exercise), str) else None
-        )
+        raw_variant = get_variant(exercise)
+        variant = normalise_variant(raw_variant if isinstance(raw_variant, str) else None)
         if not variant:
             continue
         available_variants.append(variant)
@@ -90,29 +93,34 @@ def recommend_adaptive_variant(
     get_variant: Callable[[ExerciseT], object] = _get_attr("variant"),
     get_content_id: Callable[[ExerciseT], object] = _get_attr("content_id"),
 ) -> tuple[str, str | None, ExerciseT | None]:
-    """Return one adaptive action and its unanswered target, using one decision path."""
-    succeeded = score >= 0.80
-    if 0.50 <= score < 0.80:
+    """Return one adaptive action and its unanswered target.
+
+    Score classification is delegated to the shared retry policy so endpoint
+    callers cannot drift from the canonical 0.50/0.80 boundaries.
+    """
+    classification = classify_score(score)
+    if classification == "middle":
         return "reinforce", None, None
 
     target = select_unanswered_variant(
         exercises,
         content_id=content_id,
         current_variant=current_variant,
-        succeeded=succeeded,
+        succeeded=classification == "success",
         attempted_exercise_ids=attempted_exercise_ids,
         get_exercise_id=get_exercise_id,
         get_variant=get_variant,
         get_content_id=get_content_id,
     )
     if target is None:
-        return ("advance", None, None) if succeeded else ("reinforce", None, None)
+        return ("advance", None, None) if classification == "success" else ("reinforce", None, None)
 
+    raw_target_variant = get_variant(target)
     target_variant = normalise_variant(
-        get_variant(target) if isinstance(get_variant(target), str) else None
+        raw_target_variant if isinstance(raw_target_variant, str) else None
     )
     if not target_variant:
-        return ("advance", None, None) if succeeded else ("reinforce", None, None)
+        return ("advance", None, None) if classification == "success" else ("reinforce", None, None)
 
-    return ("advance_harder" if succeeded else "retry_easier"), target_variant, target
-
+    action = "advance_harder" if classification == "success" else "retry_easier"
+    return action, target_variant, target
