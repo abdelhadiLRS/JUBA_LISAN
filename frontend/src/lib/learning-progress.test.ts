@@ -41,6 +41,40 @@ describe('learning progress signal', () => {
     unsubscribe()
   })
 
+  it('ignores storage events that clear the progress key', () => {
+    const listener = vi.fn()
+    const unsubscribe = subscribeToLearningProgressUpdated(listener)
+
+    window.dispatchEvent(
+      new StorageEvent('storage', {
+        key: 'juba:learning-progress-updated',
+        newValue: null,
+        storageArea: localStorage,
+      }),
+    )
+
+    expect(listener).not.toHaveBeenCalled()
+
+    unsubscribe()
+  })
+
+  it('ignores storage events from a different storage area', () => {
+    const listener = vi.fn()
+    const unsubscribe = subscribeToLearningProgressUpdated(listener)
+
+    window.dispatchEvent(
+      new StorageEvent('storage', {
+        key: 'juba:learning-progress-updated',
+        newValue: String(Date.now()),
+        storageArea: sessionStorage,
+      }),
+    )
+
+    expect(listener).not.toHaveBeenCalled()
+
+    unsubscribe()
+  })
+
   it('ignores unrelated storage events', () => {
     const listener = vi.fn()
     const unsubscribe = subscribeToLearningProgressUpdated(listener)
