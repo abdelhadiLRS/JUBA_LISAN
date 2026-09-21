@@ -148,6 +148,51 @@ def _map_content_exercises(
     return mapped
 
 
+def _build_exercise_response(
+    exercise: Exercise,
+    *,
+    content: dict,
+    content_id: str | None = None,
+    variant: str | None = None,
+) -> ExerciseResponse:
+    """Build the public exercise payload with optional lesson-content metadata."""
+    return ExerciseResponse(
+        id=exercise.id,
+        lesson_id=exercise.lesson_id,
+        exercise_type=exercise.exercise_type,
+        question=exercise.question,
+        options=exercise.options,
+        correct_answer=exercise.correct_answer,
+        user_answer=exercise.user_answer,
+        score=exercise.score,
+        feedback=exercise.feedback,
+        explanation=exercise.explanation,
+        native_explanation=(
+            content.get("native_explanation")
+            if isinstance(content.get("native_explanation"), str)
+            else None
+        ),
+        native_hint=(
+            content.get("native_hint")
+            if isinstance(content.get("native_hint"), str)
+            else None
+        ),
+        content_id=content_id if isinstance(content_id, str) else None,
+        variant=variant if isinstance(variant, str) else None,
+        accepted_answers=(
+            content.get("accepted_answers")
+            if isinstance(content.get("accepted_answers"), list)
+            else None
+        ),
+        metadata=(
+            content.get("metadata")
+            if isinstance(content.get("metadata"), dict)
+            else None
+        ),
+        answered_at=exercise.answered_at,
+    )
+
+
 def _exercise_has_technical_error(exercise: Exercise) -> bool:
     if not exercise.question.strip() or not exercise.correct_answer.strip():
         return True
@@ -895,40 +940,11 @@ async def adaptive_next_exercise(
     return AdaptiveNextResponse(
         action=action,
         recommended_variant=target_variant,
-        exercise=ExerciseResponse(
-            id=target.id,
-            lesson_id=target.lesson_id,
-            exercise_type=target.exercise_type,
-            question=target.question,
-            options=target.options,
-            correct_answer=target.correct_answer,
-            user_answer=target.user_answer,
-            score=target.score,
-            feedback=target.feedback,
-            explanation=target.explanation,
-            native_explanation=(
-                target_content.get("native_explanation")
-                if isinstance(target_content.get("native_explanation"), str)
-                else None
-            ),
-            native_hint=(
-                target_content.get("native_hint")
-                if isinstance(target_content.get("native_hint"), str)
-                else None
-            ),
+        exercise=_build_exercise_response(
+            target,
+            content=target_content,
             content_id=content_id,
             variant=target_variant,
-            accepted_answers=(
-                target_content.get("accepted_answers")
-                if isinstance(target_content.get("accepted_answers"), list)
-                else None
-            ),
-            metadata=(
-                target_content.get("metadata")
-                if isinstance(target_content.get("metadata"), dict)
-                else None
-            ),
-            answered_at=target.answered_at,
         ),
     )
 
@@ -1018,40 +1034,11 @@ async def retry_exercise(
         )
 
     target_content = content_by_exercise_id.get(target.id, {})
-    return ExerciseResponse(
-        id=target.id,
-        lesson_id=target.lesson_id,
-        exercise_type=target.exercise_type,
-        question=target.question,
-        options=target.options,
-        correct_answer=target.correct_answer,
-        user_answer=target.user_answer,
-        score=target.score,
-        feedback=target.feedback,
-        explanation=target.explanation,
-        native_explanation=(
-            target_content.get("native_explanation")
-            if isinstance(target_content.get("native_explanation"), str)
-            else None
-        ),
-        native_hint=(
-            target_content.get("native_hint")
-            if isinstance(target_content.get("native_hint"), str)
-            else None
-        ),
+    return _build_exercise_response(
+        target,
+        content=target_content,
         content_id=content_id,
         variant=target_variant,
-        accepted_answers=(
-            target_content.get("accepted_answers")
-            if isinstance(target_content.get("accepted_answers"), list)
-            else None
-        ),
-        metadata=(
-            target_content.get("metadata")
-            if isinstance(target_content.get("metadata"), dict)
-            else None
-        ),
-        answered_at=target.answered_at,
     )
 
 
