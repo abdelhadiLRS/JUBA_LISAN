@@ -1695,6 +1695,8 @@
     "progressLabel": "Voortgang herhaling",
     "account": "Account",
     "source": "bron",
-    "target": "doel"
+    "target": "doel",
+    "loadError": "De herhalingskaarten konden niet worden geladen.",
+    "saveError": "De herhaling kon niet worden opgeslagen. Probeer het opnieuw."
   }
 }
