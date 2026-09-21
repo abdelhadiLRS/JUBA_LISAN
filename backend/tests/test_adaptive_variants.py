@@ -471,3 +471,41 @@ def test_recommendation_falls_back_when_all_directional_variants_were_attempted(
         attempted_exercise_ids={1, 2},
     ) == ("advance", None, None)
 
+def test_recommendation_accepts_runtime_history_collections():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+        VariantExercise(3, "c1", "translate"),
+    ]
+
+    action, variant, target = recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        score=0.90,
+        attempted_exercise_ids=["1", True, 1, 2.0],
+    )
+
+    assert action == "advance_harder"
+    assert variant == "translate"
+    assert target is exercises[2]
+
+
+def test_recommendation_accepts_missing_attempt_history():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+    ]
+
+    action, variant, target = recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        score=0.90,
+    )
+
+    assert action == "advance_harder"
+    assert variant == "fill_blank"
+    assert target is exercises[1]
+
+
