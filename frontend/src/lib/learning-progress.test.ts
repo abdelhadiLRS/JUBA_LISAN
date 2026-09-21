@@ -59,25 +59,23 @@ describe('learning progress signal', () => {
     if (typeof BroadcastChannel === 'undefined') return
 
     const listener = vi.fn()
+    const addEventListener = vi.spyOn(BroadcastChannel.prototype, 'addEventListener')
     const unsubscribe = subscribeToLearningProgressUpdated(listener)
-    const channel = new BroadcastChannel('juba:learning-progress')
 
     try {
-      channel.dispatchEvent(
-        new MessageEvent('message', {
-          data: { type: 'unrelated-event' },
-        }),
-      )
+      const messageHandler = addEventListener.mock.calls.at(-1)?.[1]
+      if (typeof messageHandler !== 'function') throw new Error('message handler was not registered')
+
+      messageHandler(new MessageEvent('message', { data: { type: 'unrelated-event' } }))
       expect(listener).not.toHaveBeenCalled()
 
-      channel.dispatchEvent(
+      messageHandler(
         new MessageEvent('message', {
           data: { type: 'juba:learning-progress-updated' },
         }),
       )
       expect(listener).toHaveBeenCalledTimes(1)
     } finally {
-      channel.close()
       unsubscribe()
     }
   })
