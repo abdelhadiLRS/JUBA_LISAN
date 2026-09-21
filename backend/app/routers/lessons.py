@@ -23,6 +23,7 @@ from app.schemas.lessons import (
     ExerciseAnswerRequest,
     ExerciseAnswerResponse,
     ExerciseAttemptResponse,
+    ExerciseAttemptSummaryResponse,
     ExerciseResponse,
     LessonDetailResponse,
     LessonResponse,
@@ -636,8 +637,18 @@ async def list_lesson_attempt_summary(
             exercise_id=exercise_id,
             attempts=len(items),
             best_score=max(item.score for item in items),
-            latest_score=items[-1].score,
-            latest_variant=items[-1].variant,
+            latest_score=max(
+                items,
+                key=lambda item: item.answered_at,
+            ).score,
+            latest_variant=max(
+                items,
+                key=lambda item: item.answered_at,
+            ).variant,
+            latest_answered_at=max(
+                items,
+                key=lambda item: item.answered_at,
+            ).answered_at,
         )
         for exercise_id, items in grouped.items()
     ]
