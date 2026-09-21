@@ -505,7 +505,6 @@ async def _learning_path_state(
                 }
 
     sections: list[LearningJourneySectionResponse] = []
-    previous_unit_id: str | None = None
     previous_completed_units: set[str] = set()
     next_lesson_id: int | None = None
     next_unit_id: str | None = None
@@ -587,7 +586,6 @@ async def _learning_path_state(
             )
         )
         if unit_complete:
-            previous_unit_id = unit.id
             previous_completed_units.add(unit.id)
 
     sections.append(
