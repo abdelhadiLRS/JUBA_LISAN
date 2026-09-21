@@ -142,6 +142,14 @@ class ExerciseAttemptResponse(BaseModel):
         return v.isoformat()
 
 
+class ExerciseAttemptSummaryResponse(BaseModel):
+    exercise_id: int
+    attempts: int
+    best_score: float
+    latest_score: float
+    latest_variant: str | None = None
+
+
 class ExerciseAnswerResponse(BaseModel):
     id: int
     score: float
