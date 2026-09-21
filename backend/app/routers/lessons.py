@@ -592,6 +592,44 @@ async def answer_exercise(
             )
         ) is not None
     db.add(attempt)
+
+    # Feed each answered exercise into the unit competency engine immediately.
+    # This makes adaptive performance visible to the Learning Journey without
+    # waiting for the whole lesson to be completed.
+    if lesson.unit_id:
+        from app.data.curriculum import get_curriculum_units  # noqa: PLC0415
+
+        curriculum_unit = next(
+            (
+                unit
+                for unit in get_curriculum_units(plan.cefr_level, plan.target_language)
+                if unit.id == lesson.unit_id
+            ),
+            None,
+        )
+        if curriculum_unit and curriculum_unit.competency_checklist:
+            scored_result = await db.execute(
+                select(Exercise).where(
+                    Exercise.lesson_id == lesson.id,
+                    Exercise.score.is_not(None),
+                )
+            )
+            scored_exercises = scored_result.scalars().all()
+            lesson_score = (
+                sum(item.score for item in scored_exercises if item.score is not None)
+                / len(scored_exercises)
+                if scored_exercises
+                else exercise.score
+            )
+            await upsert_unit_competency(
+                db,
+                current_user.id,
+                unit_id=lesson.unit_id,
+                competency_texts=curriculum_unit.competency_checklist,
+                lesson_score=lesson_score,
+                study_plan_id=lesson.study_plan_id,
+            )
+
     if not prior_content_attempt:
         await update_daily_progress(
             db,
