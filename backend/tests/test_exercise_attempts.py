@@ -82,7 +82,20 @@ async def test_answer_persists_attempt(client, test_user, db_session):
 @pytest.mark.asyncio
 async def test_failed_attempt_returns_easier_variant(client, test_user, db_session):
     user, headers = test_user
-    lesson, exercise, easier = await _lesson_with_variants(db_session, user.id)
+    lesson, _exercise, _easier = await _lesson_with_variants(db_session, user.id)
+    from app.models.lesson import Exercise
+    exercise = (await db_session.execute(
+        select(Exercise).where(
+            Exercise.lesson_id == lesson.id,
+            Exercise.exercise_type == "fill_blank",
+        )
+    )).scalar_one()
+    easier = (await db_session.execute(
+        select(Exercise).where(
+            Exercise.lesson_id == lesson.id,
+            Exercise.exercise_type == "multiple_choice",
+        )
+    )).scalar_one()
 
     answer = await client.post(
         f"/api/lessons/exercises/{exercise.id}/answer",
