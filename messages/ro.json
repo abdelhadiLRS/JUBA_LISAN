@@ -1697,6 +1697,9 @@
     "source": "sursă",
     "target": "destinație",
     "loadError": "Nu s-au putut încărca cardurile de recapitulare.",
-    "saveError": "Recapitularea nu a putut fi salvată. Încearcă din nou."
+    "saveError": "Recapitularea nu a putut fi salvată. Încearcă din nou.",
+    "shortcutHint": "Spațiu pentru dezvăluire · 1–4 pentru evaluare",
+    "spaceShortcut": "Spațiu pentru dezvăluire",
+    "rateKeys": "1 Din nou · 2 Greu · 3 Bine · 4 Ușor"
   }
 }
