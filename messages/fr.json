@@ -1695,6 +1695,8 @@
     "progressLabel": "Progression de la révision",
     "account": "Compte",
     "source": "source",
-    "target": "cible"
+    "target": "cible",
+    "loadError": "Impossible de charger les cartes de révision.",
+    "saveError": "Impossible d’enregistrer la révision. Réessayez."
   }
 }
