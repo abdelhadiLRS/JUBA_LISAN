@@ -688,7 +688,15 @@
     "completed": "Completata",
     "niceWork": "Ottimo lavoro. Lo hai ricordato.",
     "reviewNow": "Ripassa ora",
-    "nextCourse": "Corso successivo"
+    "nextCourse": "Corso successivo",
+    "attemptsLabel": "Tentativi",
+    "best": "Migliore",
+    "latest": "Ultimo",
+    "typeAnswer": "Scrivi la tua risposta…",
+    "saveWord": "+ Salva",
+    "saved": "Salvato",
+    "saveError": "Errore",
+    "keepLearning": "Continua con un ripasso."
   },
   "flashcards": {
     "title": "Schede",
