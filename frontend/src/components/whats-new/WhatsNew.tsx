@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { useTranslations, useMessages } from 'next-intl'
 import { CircleDot, Sparkles } from 'lucide-react'
 
@@ -23,6 +23,7 @@ export default function WhatsNew() {
   const t = useTranslations('whatsNew')
   const messages = useMessages()
   const [visible, setVisible] = useState(false)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
 
   // Derive entries from raw messages and ignore malformed translation payloads.
   const entries = useMemo(() => {
@@ -58,6 +59,7 @@ export default function WhatsNew() {
 
   useEffect(() => {
     if (!visible) return
+    closeButtonRef.current?.focus()
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') dismiss()
     }
@@ -123,6 +125,7 @@ export default function WhatsNew() {
         {/* Footer */}
         <div className="border-fl-border flex justify-end border-t px-5 pt-3 pb-5">
           <button
+            ref={closeButtonRef}
             type="button"
             onClick={dismiss}
             className="text-fl-label bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 px-5 py-2 font-mono tracking-widest uppercase transition-colors"
