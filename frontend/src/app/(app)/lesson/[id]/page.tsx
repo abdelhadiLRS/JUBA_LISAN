@@ -16,13 +16,13 @@ import { useFreemiumStore } from '@/store/freemium'
 import { useConfigStore } from '@/store/config'
 import { cn } from '@/lib/utils'
 import { markLearningProgressUpdated } from '@/lib/learning-progress'
-import { mergeAdaptiveRecommendations } from '@/lib/adaptive-exercise'
+import { mergeAdaptiveRecommendations, type AdaptiveExerciseRecommendation } from '@/lib/adaptive-exercise'
 
 interface ExerciseItem { id: number; exercise_type: string; question: string; options: string[] | null; correct_answer: string; explanation: string | null; native_explanation: string | null; user_answer: string | null; score: number | null; feedback: string | null; native_hint: string | null; content_id?: string | null; variant?: string | null; accepted_answers?: string[] | null; metadata?: Record<string, string> | null; recommended_action?: string; recommended_variant?: string | null }
 interface LessonData { id: number; title: string; lesson_type: string; cefr_level: string; content: Record<string, unknown>; is_completed: boolean }
 interface LessonVocabularyItem { word?: string; definition?: string; translation?: string | null; example?: string; example_translation?: string | null; note?: string | null; reading?: string | null }
 interface ExerciseAttempt { id: number; exercise_id: number; lesson_id: number; content_id?: string | null; variant?: string | null; attempt_number: number; user_answer: string; score: number; feedback: string; answered_at: string }
-interface ExerciseAttemptSummary { exercise_id: number; attempts: number; best_score: number; latest_score: number; latest_variant?: string | null; latest_answered_at: string }
+type ExerciseAttemptSummary = AdaptiveExerciseRecommendation & { attempts: number; best_score: number; latest_score: number; first_score: number; improvement: number; mastered: boolean; needs_retry: boolean; latest_variant?: string | null; latest_answered_at: string }
 
 export default function LessonPage() {
   const t = useTranslations('lesson')
