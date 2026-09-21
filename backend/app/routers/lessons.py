@@ -49,7 +49,7 @@ from app.services.llm_adapter import (
 from app.services.exercise_retry import get_retry_variant
 from app.services.adaptive_variants import (
     collect_attempted_exercise_ids,
-    select_unanswered_variant,
+    recommend_adaptive_variant,
 )
 from app.services.progress_service import update_daily_progress, upsert_unit_competency
 
@@ -831,27 +831,17 @@ async def adaptive_next_exercise(
     )
     attempted_exercise_ids = collect_attempted_exercise_ids(attempt_result.scalars().all())
 
-    target = select_unanswered_variant(
+    action, target_variant, target = recommend_adaptive_variant(
         lesson_exercises,
         content_id=content_id,
         current_variant=current_variant,
-        succeeded=latest_attempt.score >= 0.80,
+        score=latest_attempt.score,
         attempted_exercise_ids=attempted_exercise_ids,
         get_exercise_id=lambda item: item.id,
         get_variant=lambda item: (
             content_by_exercise_id.get(item.id, {}).get("variant") or item.exercise_type
         ),
         get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
-    )
-    available_variants = [
-        content_by_exercise_id[item.id].get("variant")
-        for item in lesson_exercises
-        if item.id in content_by_exercise_id
-        and content_by_exercise_id[item.id].get("content_id") == content_id
-        and isinstance(content_by_exercise_id[item.id].get("variant"), str)
-    ]
-    action, target_variant = _adaptive_recommendation(
-        latest_attempt.score, current_variant, available_variants
     )
     if target is None or target_variant is None:
         raise HTTPException(
@@ -971,11 +961,11 @@ async def retry_exercise(
     )
     attempted_exercise_ids = collect_attempted_exercise_ids(attempt_result.scalars().all())
 
-    target = select_unanswered_variant(
+    _action, target_variant, target = recommend_adaptive_variant(
         lesson_exercises,
         content_id=content_id,
         current_variant=content_exercise.get("variant") or exercise.exercise_type,
-        succeeded=False,
+        score=latest_attempt.score,
         attempted_exercise_ids=attempted_exercise_ids,
         get_exercise_id=lambda item: item.id,
         get_variant=lambda item: (
@@ -983,12 +973,7 @@ async def retry_exercise(
         ),
         get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
     )
-    target_variant = (
-        content_by_exercise_id.get(target.id, {}).get("variant")
-        if target is not None
-        else None
-    )
-    if target is None or not isinstance(target_variant, str):
+    if target is None or target_variant is None or latest_attempt.score >= 0.5:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="No easier unanswered exercise variant is available",
