@@ -266,6 +266,29 @@ export default function PlanPage() {
     void loadPlan()
   }, [loadPlan])
 
+  const launchLesson = useCallback(
+    async (lessonId: number) => {
+      try {
+        const response = await apiFetch('/api/study-plan/launch-lesson', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ lesson_id: lessonId }),
+        })
+        if (!response.ok) {
+          if (response.status === 409) {
+            setError(t('lessonLocked'))
+            return
+          }
+          throw new Error(`Failed to launch lesson (${response.status})`)
+        }
+        router.push(`/lesson/${lessonId}`)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : t('lessonLaunchFailed'))
+      }
+    },
+    [router, t],
+  )
+
   useEffect(() => {
     if (plan?.cefr_level && activeLanguage?.code) {
       getCurriculumUnits(plan.cefr_level, activeLanguage.code)
@@ -366,7 +389,7 @@ export default function PlanPage() {
                   </p>
                 </div>
                 <button
-                  onClick={() => router.push(`/lesson/${lesson.id}`)}
+                  onClick={() => void launchLesson(lesson.id)}
                   className="shrink-0 rounded-lg bg-[var(--juba-primary)] px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[var(--juba-primary-dark)]"
                 >
                   {t('resume')}
@@ -421,7 +444,7 @@ export default function PlanPage() {
               onClick={() => setActiveDrawer(unit)}
               onStartLesson={
                 isActive && activeLessonId != null
-                  ? () => router.push(`/lesson/${activeLessonId}`)
+                  ? () => void launchLesson(activeLessonId)
                   : undefined
               }
             />
@@ -493,7 +516,7 @@ export default function PlanPage() {
           onClose={() => setActiveDrawer(null)}
           onStartLesson={(lessonId) => {
             setActiveDrawer(null)
-            router.push(`/lesson/${lessonId}`)
+            void launchLesson(lessonId)
           }}
         />
       )}
