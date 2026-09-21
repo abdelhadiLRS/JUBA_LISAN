@@ -1668,5 +1668,29 @@
     "label": "Onderhoud",
     "title": "In onderhoud",
     "description": "Dit gedeelte is tijdelijk niet beschikbaar vanwege onderhoud. Probeer het later opnieuw."
+  },
+  "vocabularyReview": {
+    "loading": "Je herhalingsset wordt geladen…",
+    "unavailable": "Herhaling niet beschikbaar",
+    "tryAgain": "Opnieuw proberen",
+    "noDue": "Geen kaarten klaar",
+    "caughtUp": "Je bent helemaal bij. Kom terug wanneer nieuwe kaarten klaarstaan.",
+    "guestHint": "Sla eerst woorden op via de Directe vertaler. Een account is niet nodig.",
+    "openVocabulary": "Woordenlijst openen",
+    "openTranslator": "Vertaler openen",
+    "vocabulary": "Woordenlijst",
+    "cardsDue": "kaarten klaar",
+    "dueNow": "klaar",
+    "saved": "opgeslagen",
+    "title": "Gespreide herhaling",
+    "complete": "Herhaling voltooid",
+    "reviewed": "Je hebt {count} kaarten herhaald.",
+    "reviewAgain": "Opnieuw herhalen",
+    "reveal": "Vertaling tonen",
+    "again": "Opnieuw",
+    "hard": "Moeilijk",
+    "good": "Goed",
+    "easy": "Makkelijk",
+    "tapToHear": "Tik op het woord om het te horen"
   }
 }
