@@ -1,4 +1,8 @@
-from app.services.exercise_retry import get_retry_variant, normalise_variant
+from app.services.exercise_retry import (
+    classify_score,
+    get_retry_variant,
+    normalise_variant,
+)
 
 
 def test_failed_exercise_moves_to_nearest_easier_variant():
@@ -48,3 +52,19 @@ def test_duplicate_aliases_do_not_change_selection():
         succeeded=False,
         available_variants=["multiple-choice", "choice", "multiple_choice", "fill-blank"],
     ) == "multiple_choice"
+
+
+def test_score_classification_uses_canonical_boundaries():
+    assert classify_score(0.0) == "low"
+    assert classify_score(0.49) == "low"
+    assert classify_score(0.50) == "middle"
+    assert classify_score(0.79) == "middle"
+    assert classify_score(0.80) == "success"
+    assert classify_score(1.0) == "success"
+
+
+def test_score_classification_is_monotonic_at_decimal_boundaries():
+    assert classify_score(0.499999) == "low"
+    assert classify_score(0.500001) == "middle"
+    assert classify_score(0.799999) == "middle"
+    assert classify_score(0.800001) == "success"
