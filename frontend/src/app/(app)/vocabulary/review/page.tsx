@@ -59,6 +59,28 @@ export default function VocabularyReviewPage() {
     void loadReviewCards()
   }, [loadReviewCards])
 
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null
+      if (target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA' || target?.isContentEditable) return
+      if (!current || loading || reviewing) return
+      if (event.key === ' ' && !revealed) {
+        event.preventDefault()
+        setRevealed(true)
+        return
+      }
+      if (!revealed) return
+      const ratings: Record<string, Rating> = { '1': 'again', '2': 'hard', '3': 'good', '4': 'easy' }
+      const rating = ratings[event.key]
+      if (rating) {
+        event.preventDefault()
+        void review(rating)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [current, loading, reviewing, revealed])
+
   const current = words[index]; const remainingDue = Math.max(0, words.length - done); const progress = words.length ? Math.min(100, Math.round(done / words.length * 100)) : 0
 
   async function review(rating: Rating) { if (!current || reviewing) return; setReviewing(true); if (authenticated && current.id) { try { const res = await apiFetch(`/api/flashcards/${current.id}/review`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quality: quality(rating) }) }); if (!res.ok) throw new Error(t('saveError')); } catch (e) { setError(e instanceof Error ? e.message : t('saveError')); setReviewing(false); return } } else { const id = `${current.word.trim().toLowerCase()}::${current.target || ''}`; const next = { ...states, [id]: guestSchedule(states[id] || { repetitions: 0, interval: 0, ease: 2.5, due: 0 }, rating) }; setStates(next); if (typeof window !== 'undefined') window.localStorage.setItem(REVIEW_KEY, JSON.stringify(next)) } setError(''); setDone((n) => n + 1); setReviewing(false); if (index + 1 < words.length) { setTimeout(() => { setIndex((n) => n + 1); setRevealed(false) }, 120) } }
