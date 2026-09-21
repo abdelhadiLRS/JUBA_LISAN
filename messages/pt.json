@@ -1695,6 +1695,8 @@
     "progressLabel": "Progresso da revisão",
     "account": "Conta",
     "source": "origem",
-    "target": "destino"
+    "target": "destino",
+    "loadError": "Não foi possível carregar os cartões de revisão.",
+    "saveError": "Não foi possível guardar a revisão. Tente novamente."
   }
 }
