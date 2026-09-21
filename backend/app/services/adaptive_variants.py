@@ -25,7 +25,7 @@ def collect_attempted_exercise_ids(
     attempted: set[int] = set()
     for attempt in attempts:
         exercise_id = get_exercise_id(attempt)
-        if isinstance(exercise_id, int) and exercise_id > 0:
+        if isinstance(exercise_id, int) and not isinstance(exercise_id, bool) and exercise_id > 0:
             attempted.add(exercise_id)
     return attempted
 
