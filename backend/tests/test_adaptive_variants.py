@@ -398,6 +398,14 @@ def test_recommendation_reinforces_middle_score_without_target():
     ) == ("reinforce", None, None)
 
 
+def test_recommend_adaptive_action_normalizes_runtime_score_values():
+    assert recommend_adaptive_action(
+        "0.90",
+        "multiple_choice",
+        ["fill_blank"],
+    ) == ("advance_harder", "fill_blank")
+
+
 def test_recommendation_uses_shared_score_boundaries():
     exercises = [
         VariantExercise(1, "c1", "multiple_choice"),
