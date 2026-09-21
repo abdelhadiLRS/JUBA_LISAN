@@ -26,7 +26,7 @@ def test_exercise_content_inserts_canonical_answer_into_accepted_answers():
         accepted_answers=["bonjour"],
     )
 
-    assert exercise.accepted_answers == ["bonjour", "Bonjour"]
+    assert exercise.accepted_answers == ["Bonjour", "bonjour"]
 
 
 def test_legacy_exercise_payload_remains_valid():
