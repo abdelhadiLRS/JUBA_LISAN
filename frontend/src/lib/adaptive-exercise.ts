@@ -31,3 +31,12 @@ export function mergeAdaptiveRecommendations<T extends AdaptiveExerciseLike>(
 export function hasAdaptiveTarget(recommendation: AdaptiveExerciseRecommendation): boolean {
   return typeof recommendation.recommended_variant === 'string' && recommendation.recommended_variant.trim().length > 0
 }
+
+
+export function isAdaptiveRetryAction(action?: string | null): boolean {
+  return action === 'retry_easier' || action === 'advance_harder'
+}
+
+export function isAdaptiveReinforcementAction(action?: string | null): boolean {
+  return action === 'reinforce'
+}
