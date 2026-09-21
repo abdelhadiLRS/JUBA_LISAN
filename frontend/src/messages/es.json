@@ -688,7 +688,15 @@
     "completed": "Completada",
     "niceWork": "Buen trabajo. Lo has recordado.",
     "reviewNow": "Repasar ahora",
-    "nextCourse": "Siguiente curso"
+    "nextCourse": "Siguiente curso",
+    "attemptsLabel": "Intentos",
+    "best": "Mejor",
+    "latest": "Último",
+    "typeAnswer": "Escribe tu respuesta…",
+    "saveWord": "+ Guardar",
+    "saved": "Guardado",
+    "saveError": "Error",
+    "keepLearning": "Sigue avanzando con un repaso."
   },
   "flashcards": {
     "title": "Tarjetas",
