@@ -399,6 +399,23 @@ def test_recommendation_uses_shared_score_boundaries():
     assert target is exercises[1]
 
 
+def test_selector_accepts_malformed_attempt_history_collections():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+    ]
+
+    selected = select_unanswered_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        succeeded=True,
+        attempted_exercise_ids=["1", True, 0, 1, 2.0],
+    )
+
+    assert selected is exercises[1]
+
+
 def test_selector_rejects_string_and_float_candidate_ids():
     exercises = [
         {"id": "1", "content_id": "c1", "variant": "multiple_choice"},
