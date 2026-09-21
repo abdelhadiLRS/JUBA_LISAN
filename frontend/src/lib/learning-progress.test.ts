@@ -35,6 +35,22 @@ describe('learning progress signal', () => {
     unsubscribe()
   })
 
+  it('broadcasts progress updates through BroadcastChannel', () => {
+    const listener = vi.fn()
+    const postMessage = vi.spyOn(BroadcastChannel.prototype, 'postMessage')
+    const unsubscribe = subscribeToLearningProgressUpdated(listener)
+
+    markLearningProgressUpdated()
+
+    expect(postMessage).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'juba:learning-progress-updated',
+      }),
+    )
+
+    unsubscribe()
+  })
+
   it('refreshes from a cross-tab storage event', () => {
     const listener = vi.fn()
     const unsubscribe = subscribeToLearningProgressUpdated(listener)
