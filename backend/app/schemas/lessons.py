@@ -162,6 +162,8 @@ class ExerciseAttemptSummaryResponse(BaseModel):
     mastered: bool
     needs_retry: bool
     latest_variant: str | None = None
+    recommended_action: str = "reinforce"
+    recommended_variant: str | None = None
     latest_answered_at: datetime
 
 
@@ -177,6 +179,8 @@ class ExerciseAnswerResponse(BaseModel):
     attempts_count: int = 1
     score_delta: float = 0.0
     mastered: bool = False
+    recommended_action: str = "reinforce"
+    recommended_variant: str | None = None
 
 
 class FreeWriteEvaluation(BaseModel):
