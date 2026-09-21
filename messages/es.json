@@ -1668,5 +1668,29 @@
     "label": "Mantenimiento",
     "title": "En mantenimiento",
     "description": "Esta sección no está disponible temporalmente por tareas de mantenimiento. Vuelve más tarde."
+  },
+  "vocabularyReview": {
+    "loading": "Cargando tu repaso…",
+    "unavailable": "Repaso no disponible",
+    "tryAgain": "Intentar de nuevo",
+    "noDue": "No hay tarjetas pendientes",
+    "caughtUp": "Estás al día. Vuelve cuando haya nuevas tarjetas pendientes.",
+    "guestHint": "Primero guarda palabras desde el Traductor instantáneo. No necesitas una cuenta.",
+    "openVocabulary": "Abrir vocabulario",
+    "openTranslator": "Abrir traductor",
+    "vocabulary": "Vocabulario",
+    "cardsDue": "tarjetas pendientes",
+    "dueNow": "pendientes",
+    "saved": "guardadas",
+    "title": "Repaso espaciado",
+    "complete": "Repaso completado",
+    "reviewed": "Has repasado {count} tarjetas.",
+    "reviewAgain": "Repasar de nuevo",
+    "reveal": "Mostrar traducción",
+    "again": "Otra vez",
+    "hard": "Difícil",
+    "good": "Bien",
+    "easy": "Fácil",
+    "tapToHear": "Toca la palabra para escucharla"
   }
 }
