@@ -1453,19 +1453,23 @@
   },
   "whatsNew": {
     "title": "Nieuw",
-    "version": "v1.8.43",
+    "version": "v1.8.44",
     "cta": "Begrepen",
     "entry1": {
-      "label": "Een frisse nieuwe look",
-      "desc": "De app is opnieuw ontworpen met de nieuwe JUBA LISAN-identiteit: heldere pictogrammen, moderne navigatie en een overzichtelijkere leeromgeving."
+      "label": "Leerervaring",
+      "desc": "Het volgen van lessen is overzichtelijker, met betere weergaven van pogingen en resultaten en extra hulp wanneer je die nodig hebt."
     },
     "entry2": {
-      "label": "Sneller op mobiel",
-      "desc": "Een nieuwe onderbalk maakt Start, Mijn plan, Flashcards, Tutor en Voortgang binnen één tik bereikbaar."
+      "label": "Slim herhalen",
+      "desc": "Antwoorden opnieuw proberen en nakijken gaat soepeler, terwijl je eerdere voortgang behouden blijft."
     },
     "entry3": {
-      "label": "Onder de motorkap",
-      "desc": "De app bouwt en laadt nu betrouwbaarder, onafhankelijk van externe lettertypeservers."
+      "label": "Voortgangsoverzicht",
+      "desc": "Je voortgang en niveau zijn gemakkelijker te volgen, met duidelijkere aanwijzingen voor vaardigheden die meer oefening nodig hebben."
+    },
+    "entry4": {
+      "label": "Gebruiksvriendelijker",
+      "desc": "Lessen zijn gemakkelijker te gebruiken, met betere ondersteuning voor sneltoetsen."
     }
   },
   "contact": {
