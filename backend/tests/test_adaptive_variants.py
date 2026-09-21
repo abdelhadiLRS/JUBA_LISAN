@@ -628,3 +628,26 @@ def test_recommend_adaptive_action_returns_none_for_unknown_current_variant():
         "advance",
         None,
     )
+
+def test_selector_trims_content_identity_before_matching():
+    exercises = [
+        VariantExercise(1, " c1 ", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+    ]
+
+    selected = select_unanswered_variant(
+        exercises,
+        content_id=" c1 ",
+        current_variant="multiple_choice",
+        succeeded=True,
+        attempted_exercise_ids={1},
+    )
+
+    assert selected is exercises[1]
+
+
+def test_recommend_adaptive_action_middle_score_ignores_malformed_variants():
+    assert recommend_adaptive_action(0.60, "translate", [True, None, "fill_blank"]) == (
+        "reinforce",
+        None,
+    )
