@@ -673,7 +673,13 @@
     "exitConfirmTitle": "Les afsluiten?",
     "exitConfirmMessage": "Je voortgang in deze les gaat verloren.",
     "dayComplete": "Dag voltooid!",
-    "dayCompleteMsg": "Alle lessen van vandaag zijn klaar."
+    "dayCompleteMsg": "Alle lessen van vandaag zijn klaar.",
+    "dailyGoalComplete": "Dagdoel voltooid — houd je reeks gaande.",
+    "lessonLabel": "LES",
+    "lessonFlowHint": "Leer → oefen → onthoud. Blijf actief en haal het meeste uit elk antwoord.",
+    "exerciseProgress": "Oefening {current}/{total}",
+    "tapToHear": "Tik op het woord om het te horen",
+    "lessonProgress": "Lesvoortgang"
   },
   "flashcards": {
     "title": "Flashcards",
