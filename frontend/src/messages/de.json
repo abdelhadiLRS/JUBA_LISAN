@@ -672,7 +672,16 @@
     "exitConfirmTitle": "Lektion beenden?",
     "exitConfirmMessage": "Dein Fortschritt in dieser Lektion geht verloren.",
     "dayComplete": "Tag abgeschlossen!",
-    "dayCompleteMsg": "Alle heutigen Lektionen sind abgeschlossen."
+    "dayCompleteMsg": "Alle heutigen Lektionen sind abgeschlossen.",
+    "loadingHint": "Hinweis wird geladen…",
+    "loadingExplanation": "Erklärung wird geladen…",
+    "explain": "Erklären",
+    "hideAttempts": "Versuche ausblenden",
+    "attempts": "Versuche ({count})",
+    "attemptHistory": "Versuchsverlauf",
+    "noAttempts": "Noch keine Versuche.",
+    "hintPrefix": "Hinweis: ",
+    "retryEasier": "Einfacher wiederholen"
   },
   "flashcards": {
     "title": "Karteikarten",

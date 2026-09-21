@@ -672,7 +672,16 @@
     "exitConfirmTitle": "Uscire dalla lezione?",
     "exitConfirmMessage": "Il tuo progresso in questa lezione andrà perso.",
     "dayComplete": "Giornata completata!",
-    "dayCompleteMsg": "Tutte le lezioni di oggi sono completate."
+    "dayCompleteMsg": "Tutte le lezioni di oggi sono completate.",
+    "loadingHint": "Caricamento suggerimento…",
+    "loadingExplanation": "Caricamento spiegazione…",
+    "explain": "Spiega",
+    "hideAttempts": "Nascondi tentativi",
+    "attempts": "Tentativi ({count})",
+    "attemptHistory": "Cronologia tentativi",
+    "noAttempts": "Nessun tentativo ancora.",
+    "hintPrefix": "Suggerimento: ",
+    "retryEasier": "Riprova più facilmente"
   },
   "flashcards": {
     "title": "Schede",

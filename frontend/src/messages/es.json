@@ -672,7 +672,16 @@
     "exitConfirmTitle": "¿Salir de la lección?",
     "exitConfirmMessage": "Perderás el progreso de esta lección.",
     "dayComplete": "¡Día completado!",
-    "dayCompleteMsg": "Has completado todas las lecciones de hoy."
+    "dayCompleteMsg": "Has completado todas las lecciones de hoy.",
+    "loadingHint": "Cargando pista…",
+    "loadingExplanation": "Cargando explicación…",
+    "explain": "Explicar",
+    "hideAttempts": "Ocultar intentos",
+    "attempts": "Intentos ({count})",
+    "attemptHistory": "Historial de intentos",
+    "noAttempts": "Aún no hay intentos.",
+    "hintPrefix": "Pista: ",
+    "retryEasier": "Reintentar más fácil"
   },
   "flashcards": {
     "title": "Tarjetas",

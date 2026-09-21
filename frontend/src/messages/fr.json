@@ -672,7 +672,16 @@
     "exitConfirmTitle": "Quitter la leçon ?",
     "exitConfirmMessage": "Votre progression sur cette leçon sera perdue.",
     "dayComplete": "Journée terminée !",
-    "dayCompleteMsg": "Toutes les leçons d'aujourd'hui sont terminées."
+    "dayCompleteMsg": "Toutes les leçons d'aujourd'hui sont terminées.",
+    "loadingHint": "Chargement de l’indice…",
+    "loadingExplanation": "Chargement de l’explication…",
+    "explain": "Expliquer",
+    "hideAttempts": "Masquer les tentatives",
+    "attempts": "Tentatives ({count})",
+    "attemptHistory": "Historique des tentatives",
+    "noAttempts": "Aucune tentative pour l’instant.",
+    "hintPrefix": "Indice : ",
+    "retryEasier": "Réessayer plus facilement"
   },
   "flashcards": {
     "title": "Fiches",
