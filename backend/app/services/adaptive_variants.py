@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Collection, Sequence
 from typing import TypeVar
 
 from app.services.exercise_retry import (
@@ -23,7 +23,7 @@ def _normalise_exercise_id(value: object) -> int | None:
 
 
 def _normalise_attempted_exercise_ids(
-    values: set[int] | None,
+    values: Collection[object] | None,
 ) -> set[int]:
     return {
         exercise_id
@@ -52,7 +52,7 @@ def select_unanswered_variant(
     content_id: str,
     current_variant: str | None,
     succeeded: bool,
-    attempted_exercise_ids: set[int] | None = None,
+    attempted_exercise_ids: Collection[object] | None = None,
     get_exercise_id: Callable[[ExerciseT], object] = _get_attr("id"),
     get_variant: Callable[[ExerciseT], object] = _get_attr("variant"),
     get_content_id: Callable[[ExerciseT], object] = _get_attr("content_id"),
