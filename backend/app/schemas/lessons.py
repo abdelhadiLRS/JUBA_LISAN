@@ -174,6 +174,9 @@ class ExerciseAnswerResponse(BaseModel):
     attempt_number: int = 1
     content_id: str | None = None
     variant: str | None = None
+    attempts_count: int = 1
+    score_delta: float = 0.0
+    mastered: bool = False
 
 
 class FreeWriteEvaluation(BaseModel):
