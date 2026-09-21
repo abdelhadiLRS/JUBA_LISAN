@@ -12,6 +12,20 @@ def _get_attr(name: str) -> Callable[[object], object]:
     return lambda exercise: getattr(exercise, name, None)
 
 
+def collect_attempted_exercise_ids(
+    attempts: Sequence[object],
+    *,
+    get_exercise_id: Callable[[object], object] = _get_attr("exercise_id"),
+) -> set[int]:
+    """Return valid exercise ids represented in persisted attempt history."""
+    attempted: set[int] = set()
+    for attempt in attempts:
+        exercise_id = get_exercise_id(attempt)
+        if isinstance(exercise_id, int) and exercise_id > 0:
+            attempted.add(exercise_id)
+    return attempted
+
+
 def select_unanswered_variant(
     exercises: Sequence[ExerciseT],
     *,
