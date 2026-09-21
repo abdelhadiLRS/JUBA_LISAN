@@ -508,4 +508,22 @@ def test_recommendation_accepts_missing_attempt_history():
     assert variant == "fill_blank"
     assert target is exercises[1]
 
+def test_selector_ignores_malformed_variant_values():
+    exercises = [
+        {"id": 1, "content_id": "c1", "variant": "multiple_choice"},
+        {"id": 2, "content_id": "c1", "variant": True},
+        {"id": 3, "content_id": "c1", "variant": "fill_blank"},
+    ]
 
+    selected = select_unanswered_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        succeeded=True,
+        attempted_exercise_ids={1},
+        get_exercise_id=lambda item: item["id"],
+        get_variant=lambda item: item["variant"],
+        get_content_id=lambda item: item["content_id"],
+    )
+
+    assert selected is exercises[2]
