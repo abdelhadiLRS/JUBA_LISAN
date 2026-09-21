@@ -94,6 +94,42 @@ describe('learning progress signal', () => {
     expect(close).toHaveBeenCalledTimes(1)
   })
 
+  it('makes unsubscribe idempotent', () => {
+    if (typeof BroadcastChannel === 'undefined') return
+
+    const close = vi.spyOn(BroadcastChannel.prototype, 'close')
+    const unsubscribe = subscribeToLearningProgressUpdated(vi.fn())
+
+    unsubscribe()
+    unsubscribe()
+
+    expect(close).toHaveBeenCalledTimes(1)
+
+    const laterUnsubscribe = subscribeToLearningProgressUpdated(vi.fn())
+    laterUnsubscribe()
+    expect(close).toHaveBeenCalledTimes(2)
+  })
+
+  it('keeps local notifications when BroadcastChannel postMessage fails', () => {
+    if (typeof BroadcastChannel === 'undefined') return
+
+    const listener = vi.fn()
+    const postMessage = vi
+      .spyOn(BroadcastChannel.prototype, 'postMessage')
+      .mockImplementation(() => {
+        throw new Error('broadcast blocked')
+      })
+    const unsubscribe = subscribeToLearningProgressUpdated(listener)
+
+    try {
+      markLearningProgressUpdated()
+      expect(listener).toHaveBeenCalledTimes(1)
+      expect(postMessage).toHaveBeenCalled()
+    } finally {
+      unsubscribe()
+    }
+  })
+
   it('survives storage write failures while still notifying local listeners', () => {
     const listener = vi.fn()
     const unsubscribe = subscribeToLearningProgressUpdated(listener)
