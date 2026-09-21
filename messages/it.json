@@ -1695,6 +1695,8 @@
     "progressLabel": "Progresso del ripasso",
     "account": "Account",
     "source": "origine",
-    "target": "destinazione"
+    "target": "destinazione",
+    "loadError": "Impossibile caricare le schede di ripasso.",
+    "saveError": "Impossibile salvare il ripasso. Riprova."
   }
 }
