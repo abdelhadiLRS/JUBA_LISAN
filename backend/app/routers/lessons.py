@@ -516,6 +516,12 @@ async def answer_exercise(
             )
         )
 
+    # Keep every evaluator on the same canonical score domain used by mastery/progress logic.
+    try:
+        exercise.score = max(0.0, min(1.0, float(exercise.score)))
+    except (TypeError, ValueError):
+        exercise.score = 0.0
+
     exercise.user_answer = data.answer
     exercise.answered_at = datetime.now(UTC).replace(tzinfo=None)
 
@@ -641,6 +647,14 @@ async def list_lesson_attempt_summary(
                 items,
                 key=lambda item: item.answered_at,
             ).score,
+            first_score=min(items, key=lambda item: item.attempt_number).score,
+            improvement=round(
+                max(items, key=lambda item: item.answered_at).score
+                - min(items, key=lambda item: item.attempt_number).score,
+                3,
+            ),
+            mastered=max(item.score for item in items) >= 0.80,
+            needs_retry=max(item.score for item in items) < 0.50,
             latest_variant=max(
                 items,
                 key=lambda item: item.answered_at,
