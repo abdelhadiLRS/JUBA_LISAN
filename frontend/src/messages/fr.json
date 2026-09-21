@@ -682,6 +682,14 @@
     "noAttempts": "Aucune tentative pour l’instant.",
     "hintPrefix": "Indice : ",
     "retryEasier": "Réessayer plus facilement"
+    ,"checking": "Vérification…",
+    "checkAnswer": "Vérifier la réponse",
+    "next": "Suivant",
+    "finish": "Terminer la leçon",
+    "completed": "Terminée",
+    "niceWork": "Bravo. Vous l'avez retenu.",
+    "reviewNow": "Réviser maintenant",
+    "nextCourse": "Cours suivant",
   },
   "flashcards": {
     "title": "Fiches",
