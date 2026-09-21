@@ -276,14 +276,14 @@ export default function PlanPage() {
         })
         if (!response.ok) {
           if (response.status === 409) {
-            setError(t('lessonLocked'))
+            setError('Lesson is locked')
             return
           }
           throw new Error(`Failed to launch lesson (${response.status})`)
         }
         router.push(`/lesson/${lessonId}`)
       } catch (err) {
-        setError(err instanceof Error ? err.message : t('lessonLaunchFailed'))
+        setError(err instanceof Error ? err.message : 'Failed to launch lesson')
       }
     },
     [router, t],
