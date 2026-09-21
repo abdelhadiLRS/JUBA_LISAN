@@ -1668,5 +1668,29 @@
     "label": "Konserwacja",
     "title": "W trakcie konserwacji",
     "description": "Ta sekcja jest tymczasowo niedostępna z powodu prac konserwacyjnych. Spróbuj ponownie później."
+  },
+  "vocabularyReview": {
+    "loading": "Ładowanie zestawu powtórek…",
+    "unavailable": "Powtórka niedostępna",
+    "tryAgain": "Spróbuj ponownie",
+    "noDue": "Brak kart do powtórki",
+    "caughtUp": "Jesteś na bieżąco. Wróć, gdy pojawią się nowe karty do powtórki.",
+    "guestHint": "Najpierw zapisz słowa z Tłumacza błyskawicznego. Konto nie jest wymagane.",
+    "openVocabulary": "Otwórz słownictwo",
+    "openTranslator": "Otwórz tłumacz",
+    "vocabulary": "Słownictwo",
+    "cardsDue": "kart do powtórki",
+    "dueNow": "do powtórki",
+    "saved": "zapisanych",
+    "title": "Powtórka rozłożona w czasie",
+    "complete": "Powtórka zakończona",
+    "reviewed": "Powtórzono {count} kart.",
+    "reviewAgain": "Powtórz ponownie",
+    "reveal": "Pokaż tłumaczenie",
+    "again": "Jeszcze raz",
+    "hard": "Trudne",
+    "good": "Dobrze",
+    "easy": "Łatwe",
+    "tapToHear": "Dotknij słowa, aby go posłuchać"
   }
 }
