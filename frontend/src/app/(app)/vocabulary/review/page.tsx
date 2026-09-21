@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { apiFetch, getGuestMemory, getGuestReviewState } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
