@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 
-from app.services.adaptive_variants import select_unanswered_variant
+from app.services.adaptive_variants import (
+    collect_attempted_exercise_ids,
+    select_unanswered_variant,
+)
 
 
 @dataclass
@@ -8,6 +11,35 @@ class VariantExercise:
     id: int
     content_id: str
     variant: str
+
+
+@dataclass
+class Attempt:
+    exercise_id: int
+
+
+def test_collect_attempted_exercise_ids_deduplicates_history():
+    attempts = [Attempt(1), Attempt(2), Attempt(1)]
+
+    assert collect_attempted_exercise_ids(attempts) == {1, 2}
+
+
+def test_collect_attempted_exercise_ids_ignores_invalid_ids():
+    attempts = [Attempt(1), Attempt(0), Attempt(-2), Attempt("3")]
+
+    assert collect_attempted_exercise_ids(attempts) == {1}
+
+
+def test_collect_attempted_exercise_ids_supports_custom_getter():
+    attempts = [{"exercise": 4}, {"exercise": 5}, {"exercise": 4}]
+
+    assert (
+        collect_attempted_exercise_ids(
+            attempts,
+            get_exercise_id=lambda item: item["exercise"],
+        )
+        == {4, 5}
+    )
 
 
 def test_selects_adjacent_easier_unanswered_variant():
