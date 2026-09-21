@@ -1695,6 +1695,8 @@
     "progressLabel": "Postęp powtórki",
     "account": "Konto",
     "source": "źródło",
-    "target": "cel"
+    "target": "cel",
+    "loadError": "Nie można załadować kart powtórek.",
+    "saveError": "Nie można zapisać powtórki. Spróbuj ponownie."
   }
 }
