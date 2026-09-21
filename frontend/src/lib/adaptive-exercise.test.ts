@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { mergeAdaptiveRecommendations } from '@/lib/adaptive-exercise'
+import { hasAdaptiveTarget, mergeAdaptiveRecommendations } from '@/lib/adaptive-exercise'
 
 describe('mergeAdaptiveRecommendations', () => {
   it('hydrates persisted adaptive recommendations onto matching exercises', () => {
@@ -56,6 +56,13 @@ describe('mergeAdaptiveRecommendations', () => {
       recommended_action: 'retry_easier',
       recommended_variant: 'fill_blank',
     })
+  })
+
+  it('recognizes only non-empty recommended variants as adaptive targets', () => {
+    expect(hasAdaptiveTarget({ exercise_id: 1, recommended_variant: 'fill_blank' })).toBe(true)
+    expect(hasAdaptiveTarget({ exercise_id: 2, recommended_variant: '' })).toBe(false)
+    expect(hasAdaptiveTarget({ exercise_id: 3, recommended_variant: '   ' })).toBe(false)
+    expect(hasAdaptiveTarget({ exercise_id: 4, recommended_variant: null })).toBe(false)
   })
 
 })
