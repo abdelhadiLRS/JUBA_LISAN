@@ -156,7 +156,21 @@ async def test_attempt_history_is_user_scoped(client, test_user, db_session):
 @pytest.mark.asyncio
 async def test_lesson_attempt_summary_is_user_scoped(client, test_user, db_session):
     user, headers = test_user
-    lesson, exercise, easier = await _lesson_with_variants(db_session, user.id)
+    lesson, _exercise, _easier = await _lesson_with_variants(db_session, user.id)
+    from app.models.lesson import Exercise
+
+    exercise = (await db_session.execute(
+        select(Exercise).where(
+            Exercise.lesson_id == lesson.id,
+            Exercise.exercise_type == "fill_blank",
+        )
+    )).scalar_one()
+    easier = (await db_session.execute(
+        select(Exercise).where(
+            Exercise.lesson_id == lesson.id,
+            Exercise.exercise_type == "multiple_choice",
+        )
+    )).scalar_one()
 
     first = await client.post(
         f"/api/lessons/exercises/{exercise.id}/answer",
