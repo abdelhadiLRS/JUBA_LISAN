@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from app.services.exercise_retry import classify_score
 from app.services.adaptive_variants import (
     collect_attempted_exercise_ids,
+    recommend_adaptive_action,
     select_unanswered_variant,
     recommend_adaptive_variant,
 )
@@ -592,3 +593,23 @@ def test_recommendation_ignores_attempts_from_other_lessons_via_caller_history()
     assert action == "advance_harder"
     assert variant == "fill_blank"
     assert target is exercises[1]
+
+def test_recommend_adaptive_action_uses_shared_boundaries_without_rows():
+    assert recommend_adaptive_action(0.49, "translate") == ("retry_easier", "fill_blank")
+    assert recommend_adaptive_action(0.50, "translate") == ("reinforce", None)
+    assert recommend_adaptive_action(0.79, "translate") == ("reinforce", None)
+    assert recommend_adaptive_action(0.80, "multiple_choice") == ("advance", None)
+
+
+def test_recommend_adaptive_action_selects_directional_variant_when_available():
+    assert recommend_adaptive_action(
+        0.20,
+        "translate",
+        ["multiple_choice", "fill_blank", "translate"],
+    ) == ("retry_easier", "fill_blank")
+    assert recommend_adaptive_action(
+        0.90,
+        "multiple_choice",
+        ["multiple_choice", "fill_blank", "translate"],
+    ) == ("advance_harder", "fill_blank")
+
