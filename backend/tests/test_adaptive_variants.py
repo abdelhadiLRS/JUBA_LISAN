@@ -613,3 +613,18 @@ def test_recommend_adaptive_action_selects_directional_variant_when_available():
         ["multiple_choice", "fill_blank", "translate"],
     ) == ("advance_harder", "fill_blank")
 
+
+
+def test_recommend_adaptive_action_ignores_malformed_available_variants():
+    assert recommend_adaptive_action(
+        0.20,
+        "translate",
+        [True, None, "", "fill_blank", "fill_blank"],
+    ) == ("retry_easier", "fill_blank")
+
+
+def test_recommend_adaptive_action_returns_none_for_unknown_current_variant():
+    assert recommend_adaptive_action(0.90, "unknown_variant", ["fill_blank"]) == (
+        "advance",
+        None,
+    )
