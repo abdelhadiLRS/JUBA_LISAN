@@ -41,6 +41,8 @@ export function markLearningProgressUpdated(): void {
 }
 
 export function subscribeToLearningProgressUpdated(listener: () => void): () => void {
+  if (typeof window === 'undefined') return () => undefined
+
   const channel = getProgressChannel()
   const onChannelMessage = (event: MessageEvent<{ type?: string }>) => {
     if (event.data?.type === LEARNING_PROGRESS_EVENT) {
