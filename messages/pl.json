@@ -765,7 +765,11 @@
     "noActivePlanDesc": "Ukończ ocenę poziomu, aby zacząć śledzić umiejętności.",
     "vocabularyHeader": "Słownictwo {level}",
     "currentLevelOnly": "Tylko bieżący poziom",
-    "allLevels": "Wszystkie poziomy"
+    "allLevels": "Wszystkie poziomy",
+    "learningActivity": "Aktywność nauki",
+    "last7Days": "Ostatnie 7 dni",
+    "exercises": "Ćwiczenia",
+    "sevenDayXp": "XP z 7 dni"
   },
   "grammar": {
     "title": "Podręcznik gramatyki",
