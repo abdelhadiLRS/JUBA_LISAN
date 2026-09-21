@@ -346,3 +346,16 @@ All endpoints require `get_current_user`.
 - **GET `/{category_id}`** — Rate limit: 60/min. Auth: get_current_user. Returns a single phrasebook category by ID. Query param: `language`. Returns 404 if not found.
 - **POST `/{category_id}/native-help`** — Rate limit: 10/min. Auth: get_current_user. Query param: `language` (BCP-47, default `en-GB`). Generates or returns cached native-language study help for a phrasebook category, keyed globally by category ID, target language, native language, and source-content hash. Response: `{native_help: {summary, usage_tips, register_notes, phrase_notes, common_traps, mini_glossary}}`. Returns 404 if the category does not exist and 503 if generation is unavailable or already in progress.
 - **GET `/audio/{category_id}/{phrase_index}`** — Rate limit: 30/min. Auth: get_current_user. Returns cached TTS audio (audio/mpeg) for a specific phrase. Generates and caches on first request; subsequent requests serve from disk. Query param: `language`. Returns 404 if category or phrase index not found, 503 if TTS service unavailable.
+
+
+## Learning Journey — `/api/study-plan`
+
+- **GET `/learning-path`** — Rate limit: 60/min. Auth: `get_current_user`. Returns the hierarchical learning journey for the active target-language study plan: CEFR section/unit structure, lesson availability/completion, unit progress and state, competency aggregates, and the next recommended lesson. The endpoint is read-only and does not generate lessons.
+- **POST `/launch-lesson`** — Rate limit: 20/min. Auth: `get_current_user`. Body: `{lesson_id: int}`. Verifies that the lesson belongs to the authenticated user's active learning track and that its sequential-unlock prerequisites are satisfied; generates and persists the lesson/exercises when content is not yet materialized, then returns the launched lesson detail. Locked or foreign lessons are rejected without mutating progress.
+
+### Exercise attempts
+
+- **POST `/api/lessons/exercises/{exercise_id}/answer`** — Records every submitted attempt, evaluates the exercise type, preserves the stable content identity/variant, and updates daily learning activity only for the first attempt against the same content identity.
+- **GET `/api/lessons/exercises/{exercise_id}/attempts`** — Returns the authenticated user's chronological attempts for one exercise.
+- **GET `/api/lessons/{lesson_id}/attempt-summary`** — Returns per-exercise attempt count, best score, latest score/variant, and latest-answer timestamp for the authenticated user.
+- **POST `/api/lessons/exercises/{exercise_id}/retry`** — Creates a new generated exercise variant for an unanswered/invalid exercise while preserving the original content identity and attempt history.
