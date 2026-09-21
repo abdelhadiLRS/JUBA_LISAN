@@ -387,3 +387,19 @@ Testing infrastructure and strategy are documented in [testing.instructions.md](
 - **Setup**: Global mocks for `localStorage`, `next/navigation`, `next-intl`
 - **Coverage areas**: API fetch interceptor, auth store, audio queue, conversation WebSocket, target language utilities, mapper functions, middleware, component rendering
 - **Coverage**: Not configured/reported (`@vitest/coverage-v8` is not installed)
+
+
+## `/learning-journey`
+
+The Learning Journey page is the interactive presentation layer for the hierarchical learning engine. It consumes the study-plan learning-path read model and presents **Sections → Units → Micro-Lessons** without duplicating unlock or mastery rules in the browser.
+
+### UI responsibilities
+
+- Show the recommended next lesson as the primary continuation action.
+- Render unit cards with completion progress, current/in-progress state, lock state, and mastery indication.
+- Open a unit detail drawer/modal containing competencies, grammar targets, vocabulary context, and ordered lessons.
+- Enable starting only lessons marked available by the backend; starting a lesson calls `POST /api/study-plan/launch-lesson`.
+- Keep completed lessons reviewable while avoiding client-side progress mutations.
+- Preserve keyboard navigation, focus management, semantic labels, progressbar semantics, and localized strings across the journey UI.
+
+The frontend must treat backend availability/mastery flags as authoritative and must not infer unlock eligibility from display-only percentages.
