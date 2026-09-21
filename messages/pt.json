@@ -1697,6 +1697,9 @@
     "source": "origem",
     "target": "destino",
     "loadError": "Não foi possível carregar os cartões de revisão.",
-    "saveError": "Não foi possível guardar a revisão. Tente novamente."
+    "saveError": "Não foi possível guardar a revisão. Tente novamente.",
+    "shortcutHint": "Espaço para revelar · 1–4 para avaliar",
+    "spaceShortcut": "Espaço para revelar",
+    "rateKeys": "1 Novamente · 2 Difícil · 3 Bom · 4 Fácil"
   }
 }
