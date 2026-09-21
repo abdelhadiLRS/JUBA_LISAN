@@ -399,6 +399,27 @@ def test_recommendation_uses_shared_score_boundaries():
     assert target is exercises[1]
 
 
+def test_selector_rejects_string_and_float_candidate_ids():
+    exercises = [
+        {"id": "1", "content_id": "c1", "variant": "multiple_choice"},
+        {"id": 2.0, "content_id": "c1", "variant": "fill_blank"},
+        {"id": 3, "content_id": "c1", "variant": "translate"},
+    ]
+
+    selected = select_unanswered_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        succeeded=True,
+        attempted_exercise_ids={"1", 2.0},
+        get_exercise_id=lambda item: item["id"],
+        get_variant=lambda item: item["variant"],
+        get_content_id=lambda item: item["content_id"],
+    )
+
+    assert selected is exercises[2]
+
+
 def test_recommendation_returns_easier_variant_for_low_score():
     exercises = [
         VariantExercise(1, "c1", "multiple_choice"),
