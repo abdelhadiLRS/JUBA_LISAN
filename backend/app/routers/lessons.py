@@ -726,23 +726,55 @@ async def list_lesson_attempt_summary(
     for attempt in result.scalars().all():
         grouped.setdefault(attempt.exercise_id, []).append(attempt)
 
+    lesson_exercise_result = await db.execute(
+        select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
+    )
+    lesson_exercises = lesson_exercise_result.scalars().all()
+    content_exercises = (
+        lesson.content.get("exercises", [])
+        if isinstance(lesson.content, dict)
+        else []
+    )
+    content_by_exercise_id: dict[int, dict] = {}
+    for index, exercise in enumerate(lesson_exercises):
+        if index < len(content_exercises) and isinstance(content_exercises[index], dict):
+            content_by_exercise_id[exercise.id] = content_exercises[index]
+
+    attempted_exercise_ids = collect_attempted_exercise_ids(
+        [attempt for items in grouped.values() for attempt in items]
+    )
+
     summaries = []
     for exercise_id, items in grouped.items():
         latest = max(items, key=lambda item: item.answered_at)
         first = min(items, key=lambda item: item.attempt_number)
         best_score = max(item.score for item in items)
-        available_variants = []
-        if latest.content_id:
-            available_variants = [
-                item.get("variant")
-                for item in (lesson.content or {}).get("exercises", [])
-                if isinstance(item, dict)
-                and item.get("content_id") == latest.content_id
-                and isinstance(item.get("variant"), str)
-            ]
-        action, recommended_variant = _adaptive_recommendation(
-            latest.score, latest.variant, available_variants
+
+        current_exercise = next(
+            (exercise for exercise in lesson_exercises if exercise.id == exercise_id),
+            None,
         )
+        if current_exercise is not None and latest.content_id:
+            action, recommended_variant, _target = recommend_adaptive_variant(
+                lesson_exercises,
+                content_id=latest.content_id,
+                current_variant=latest.variant or current_exercise.exercise_type,
+                score=latest.score,
+                attempted_exercise_ids=attempted_exercise_ids,
+                get_exercise_id=lambda item: item.id,
+                get_variant=lambda item: (
+                    content_by_exercise_id.get(item.id, {}).get("variant")
+                    or item.exercise_type
+                ),
+                get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get(
+                    "content_id"
+                ),
+            )
+        else:
+            action, recommended_variant = _adaptive_recommendation(
+                latest.score, latest.variant, []
+            )
+
         summaries.append(
             ExerciseAttemptSummaryResponse(
                 exercise_id=exercise_id,
