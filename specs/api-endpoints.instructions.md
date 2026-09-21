@@ -351,11 +351,11 @@ All endpoints require `get_current_user`.
 ## Learning Journey — `/api/study-plan`
 
 - **GET `/learning-path`** — Rate limit: 60/min. Auth: `get_current_user`. Returns the hierarchical learning journey for the active target-language study plan: CEFR section/unit structure, lesson availability/completion, unit progress and state, competency aggregates, and the next recommended lesson. The endpoint is read-only and does not generate lessons.
-- **POST `/launch-lesson`** — Rate limit: 20/min. Auth: `get_current_user`. Body: `{lesson_id: int}`. Verifies that the lesson belongs to the authenticated user's active learning track and that its sequential-unlock prerequisites are satisfied; generates and persists the lesson/exercises when content is not yet materialized, then returns the launched lesson detail. Locked or foreign lessons are rejected without mutating progress.
+- **POST `/launch-lesson`** — Rate limit: 20/min. Auth: `get_current_user`. Body: `{lesson_id: int}`. Verifies that the lesson belongs to the authenticated user's active learning track and that its sequential-unlock prerequisites are satisfied. Completed lessons can be reopened for review; locked or foreign lessons are rejected without mutating progress.
 
 ### Exercise attempts
 
 - **POST `/api/lessons/exercises/{exercise_id}/answer`** — Records every submitted attempt, evaluates the exercise type, clamps the persisted score to `0..1`, preserves the stable content identity/variant, and updates daily learning activity only for the first attempt against the same content identity. Empty answers are rejected and answer text is capped at 5000 characters. The response also includes `attempts_count`, `score_delta`, and `mastered`.
 - **GET `/api/lessons/exercises/{exercise_id}/attempts`** — Returns the authenticated user's chronological attempts for one exercise.
 - **GET `/api/lessons/{lesson_id}/attempt-summary`** — Returns per-exercise attempt count, best/first/latest score, score improvement, mastery (`>= 0.80`), retry-needed signal (`best < 0.50`), latest variant, and latest-answer timestamp for the authenticated user.
-- **POST `/api/lessons/exercises/{exercise_id}/retry`** — Creates a new generated exercise variant for an unanswered/invalid exercise while preserving the original content identity and attempt history.
+- **POST `/api/lessons/exercises/{exercise_id}/retry`** — Creates a new generated exercise variant only after a prior failed attempt and when an unanswered sibling variant with the same stable content identity is available; original content identity and attempt history are preserved.
