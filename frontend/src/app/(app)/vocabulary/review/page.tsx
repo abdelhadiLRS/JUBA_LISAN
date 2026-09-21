@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { apiFetch, getGuestMemory, getGuestReviewState } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
@@ -22,12 +22,47 @@ export default function VocabularyReviewPage() {
   const authenticated = !!useAuthStore((s) => s.accessToken)
   const [words, setWords] = useState<Word[]>([]); const [states, setStates] = useState<Record<string, ReviewState>>({}); const [index, setIndex] = useState(0); const [revealed, setRevealed] = useState(false); const [done, setDone] = useState(0); const [loading, setLoading] = useState(true); const [reviewing, setReviewing] = useState(false); const [error, setError] = useState('')
 
-  useEffect(() => { let cancelled = false; (async () => { setLoading(true); setError(''); if (!authenticated) { if (!cancelled) { const savedWords = readWords(); const savedStates = readState(); const dueWords = savedWords.filter((w) => { const state = savedStates[`${w.word.trim().toLowerCase()}::${w.target || ''}`]; return !state || state.due <= Date.now() }); setWords(dueWords); setStates(savedStates); setLoading(false) }; return } try { const res = await apiFetch('/api/flashcards/due'); if (!res.ok) throw new Error(t('unavailable')); const data = await res.json() as { due?: ServerCard[] }; if (!cancelled) { setWords((data.due || []).map((c) => ({ ...c, translation: c.translation || c.definition || '', source: c.source, target: c.target }))); setLoading(false) } } catch (e) { if (!cancelled) { setError(e instanceof Error ? e.message : t('unavailable')); setLoading(false) } } })(); return () => { cancelled = true } }, [authenticated, t])
+  const loadReviewCards = useCallback(async () => {
+    setLoading(true)
+    setError('')
+    if (!authenticated) {
+      const savedWords = readWords()
+      const savedStates = readState()
+      const dueWords = savedWords.filter((w) => {
+        const state = savedStates[`${w.word.trim().toLowerCase()}::${w.target || ''}`]
+        return !state || state.due <= Date.now()
+      })
+      setStates(savedStates)
+      setWords(dueWords)
+      setIndex(0)
+      setDone(0)
+      setRevealed(false)
+      setLoading(false)
+      return
+    }
+    try {
+      const res = await apiFetch('/api/flashcards/due')
+      if (!res.ok) throw new Error(t('loadError'))
+      const data = await res.json() as { due?: ServerCard[] }
+      setWords((data.due || []).map((c) => ({ ...c, translation: c.translation || c.definition || '', source: c.source, target: c.target })))
+      setIndex(0)
+      setDone(0)
+      setRevealed(false)
+      setLoading(false)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : t('loadError'))
+      setLoading(false)
+    }
+  }, [authenticated, t])
+
+  useEffect(() => {
+    void loadReviewCards()
+  }, [loadReviewCards])
 
   const current = words[index]; const remainingDue = Math.max(0, words.length - done); const progress = words.length ? Math.min(100, Math.round(done / words.length * 100)) : 0
 
-  async function review(rating: Rating) { if (!current || reviewing) return; setReviewing(true); if (authenticated && current.id) { try { const res = await apiFetch(`/api/flashcards/${current.id}/review`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quality: quality(rating) }) }); if (!res.ok) throw new Error(t('unavailable')); } catch (e) { setError(e instanceof Error ? e.message : t('unavailable')); setReviewing(false); return } } else { const id = `${current.word.trim().toLowerCase()}::${current.target || ''}`; const next = { ...states, [id]: guestSchedule(states[id] || { repetitions: 0, interval: 0, ease: 2.5, due: 0 }, rating) }; setStates(next); if (typeof window !== 'undefined') window.localStorage.setItem(REVIEW_KEY, JSON.stringify(next)) } setError(''); setDone((n) => n + 1); setReviewing(false); if (index + 1 < words.length) { setTimeout(() => { setIndex((n) => n + 1); setRevealed(false) }, 120) } }
-  function restart() { setIndex(0); setDone(0); setRevealed(false) }
+  async function review(rating: Rating) { if (!current || reviewing) return; setReviewing(true); if (authenticated && current.id) { try { const res = await apiFetch(`/api/flashcards/${current.id}/review`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quality: quality(rating) }) }); if (!res.ok) throw new Error(t('saveError')); } catch (e) { setError(e instanceof Error ? e.message : t('saveError')); setReviewing(false); return } } else { const id = `${current.word.trim().toLowerCase()}::${current.target || ''}`; const next = { ...states, [id]: guestSchedule(states[id] || { repetitions: 0, interval: 0, ease: 2.5, due: 0 }, rating) }; setStates(next); if (typeof window !== 'undefined') window.localStorage.setItem(REVIEW_KEY, JSON.stringify(next)) } setError(''); setDone((n) => n + 1); setReviewing(false); if (index + 1 < words.length) { setTimeout(() => { setIndex((n) => n + 1); setRevealed(false) }, 120) } }
+  function restart() { void loadReviewCards() }
   function speak() { if (!current || typeof window === 'undefined' || !('speechSynthesis' in window)) return; window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(current.word); u.lang = current.source === 'account' ? 'en-US' : current.source || 'en-US'; window.speechSynthesis.speak(u) }
 
   if (loading) return <main className="mx-auto max-w-4xl p-6 sm:p-10"><div className="juba-card p-10 text-center font-bold">{t('loading')}</div></main>
