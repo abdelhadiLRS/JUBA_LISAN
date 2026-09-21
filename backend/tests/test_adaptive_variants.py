@@ -82,6 +82,26 @@ def test_selector_rejects_boolean_candidate_ids():
     assert selected is exercises[1]
 
 
+def test_selector_ignores_boolean_attempt_history_ids():
+    exercises = [
+        {"id": 1, "content_id": "c1", "variant": "translate"},
+        {"id": 2, "content_id": "c1", "variant": "free_write"},
+    ]
+
+    selected = select_unanswered_variant(
+        exercises,
+        content_id="c1",
+        current_variant="fill_blank",
+        succeeded=True,
+        attempted_exercise_ids={True},
+        get_exercise_id=lambda item: item["id"],
+        get_variant=lambda item: item["variant"],
+        get_content_id=lambda item: item["content_id"],
+    )
+
+    assert selected is exercises[0]
+
+
 def test_selector_rejects_non_positive_candidate_ids():
     exercises = [
         {"id": 0, "content_id": "c1", "variant": "multiple_choice"},
