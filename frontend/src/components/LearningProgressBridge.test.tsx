@@ -18,6 +18,23 @@ describe('refreshLearningPlan', () => {
     expect(reload).toHaveBeenCalledTimes(1)
   })
 
+  it('reloads localized plan routes', () => {
+    const reload = vi.fn()
+
+    refreshLearningPlan('/fr/plan', reload)
+    refreshLearningPlan('/de/plan/unit-1', reload)
+
+    expect(reload).toHaveBeenCalledTimes(2)
+  })
+
+  it('ignores query strings when matching the plan route', () => {
+    const reload = vi.fn()
+
+    refreshLearningPlan('/plan?section=1', reload)
+
+    expect(reload).toHaveBeenCalledTimes(1)
+  })
+
   it('ignores unrelated routes', () => {
     const reload = vi.fn()
 
