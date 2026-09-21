@@ -805,7 +805,11 @@
     "noActivePlanDesc": "Complete the assessment to start tracking your skills.",
     "vocabularyHeader": "{level} Vocabulary",
     "currentLevelOnly": "Current level only",
-    "allLevels": "All levels"
+    "allLevels": "All levels",
+    "learningActivity": "Learning activity",
+    "last7Days": "Last 7 days",
+    "exercises": "Exercises",
+    "sevenDayXp": "7-day XP"
   },
   "grammar": {
     "title": "Grammar Reference",
