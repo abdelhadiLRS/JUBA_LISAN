@@ -37,4 +37,25 @@ describe('mergeAdaptiveRecommendations', () => {
 
     expect(mergeAdaptiveRecommendations([exercise], [])).toEqual([exercise])
   })
+
+  it('uses the latest summary when duplicate exercise ids are present', () => {
+    const exercises = [
+      { id: 4, recommended_action: 'retry_easier', recommended_variant: 'fill_blank' },
+    ]
+
+    const result = mergeAdaptiveRecommendations(exercises, [
+      { exercise_id: 4, recommended_action: 'retry_easier', recommended_variant: 'fill_blank' },
+      { exercise_id: 4, recommended_action: 'advance_harder', recommended_variant: 'translate' },
+    ])
+
+    expect(result).toEqual([
+      { id: 4, recommended_action: 'advance_harder', recommended_variant: 'translate' },
+    ])
+    expect(exercises[0]).toEqual({
+      id: 4,
+      recommended_action: 'retry_easier',
+      recommended_variant: 'fill_blank',
+    })
+  })
+
 })
