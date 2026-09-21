@@ -1668,5 +1668,29 @@
     "label": "Manutenzione",
     "title": "In manutenzione",
     "description": "Questa sezione è temporaneamente non disponibile per manutenzione. Riprova più tardi."
+  },
+  "vocabularyReview": {
+    "loading": "Caricamento del mazzo di ripasso…",
+    "unavailable": "Ripasso non disponibile",
+    "tryAgain": "Riprova",
+    "noDue": "Nessuna scheda da ripassare",
+    "caughtUp": "Hai completato i ripassi. Torna quando saranno disponibili nuove schede.",
+    "guestHint": "Salva prima le parole dal Traduttore istantaneo. Non serve un account.",
+    "openVocabulary": "Apri vocabolario",
+    "openTranslator": "Apri traduttore",
+    "vocabulary": "Vocabolario",
+    "cardsDue": "schede da ripassare",
+    "dueNow": "da ripassare",
+    "saved": "salvate",
+    "title": "Ripasso dilazionato",
+    "complete": "Ripasso completato",
+    "reviewed": "Hai ripassato {count} schede.",
+    "reviewAgain": "Ripassa di nuovo",
+    "reveal": "Mostra traduzione",
+    "again": "Ancora",
+    "hard": "Difficile",
+    "good": "Bene",
+    "easy": "Facile",
+    "tapToHear": "Tocca la parola per ascoltarla"
   }
 }
