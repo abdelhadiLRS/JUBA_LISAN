@@ -63,11 +63,15 @@ describe('learning progress signal', () => {
       .mockImplementation(() => {
         throw new Error('storage blocked')
       })
+    const localSetItem = vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
+      throw new Error('storage blocked')
+    })
 
     try {
       markLearningProgressUpdated()
       expect(listener).toHaveBeenCalledTimes(1)
       expect(sessionSetItem).toHaveBeenCalled()
+      expect(localSetItem).toHaveBeenCalled()
     } finally {
       unsubscribe()
     }
