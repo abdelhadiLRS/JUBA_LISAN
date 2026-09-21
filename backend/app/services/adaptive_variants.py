@@ -63,7 +63,8 @@ def select_unanswered_variant(
     metadata in lesson JSON can provide callbacks that read that metadata while
     still sharing the same retry/adaptive candidate rules.
     """
-    if not content_id.strip():
+    normalized_content_id = content_id.strip()
+    if not normalized_content_id:
         return None
 
     attempted = _normalise_attempted_exercise_ids(attempted_exercise_ids)
@@ -71,7 +72,8 @@ def select_unanswered_variant(
     available_variants: list[str] = []
 
     for exercise in exercises:
-        if str(get_content_id(exercise) or "") != content_id:
+        candidate_content_id = str(get_content_id(exercise) or "").strip()
+        if candidate_content_id != normalized_content_id:
             continue
 
         raw_variant = get_variant(exercise)
