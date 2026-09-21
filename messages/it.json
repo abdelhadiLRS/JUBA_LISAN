@@ -765,7 +765,11 @@
     "noActivePlanDesc": "Fai la valutazione per iniziare a monitorare le tue abilità.",
     "vocabularyHeader": "Vocabolario {level}",
     "currentLevelOnly": "Solo livello corrente",
-    "allLevels": "Tutti i livelli"
+    "allLevels": "Tutti i livelli",
+    "learningActivity": "Attività di apprendimento",
+    "last7Days": "Ultimi 7 giorni",
+    "exercises": "Esercizi",
+    "sevenDayXp": "XP degli ultimi 7 giorni"
   },
   "grammar": {
     "title": "Grammatica",
