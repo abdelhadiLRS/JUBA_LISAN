@@ -667,3 +667,47 @@ def test_recommend_adaptive_action_accepts_numeric_score_values():
         "advance_harder",
         "fill_blank",
     )
+
+def test_recommendation_accepts_numeric_string_score_values():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+    ]
+
+    action, variant, target = recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        score="0.90",
+        attempted_exercise_ids={1},
+    )
+
+    assert action == "advance_harder"
+    assert variant == "fill_blank"
+    assert target is exercises[1]
+
+
+def test_recommendation_preserves_boundary_semantics_for_numeric_strings():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+    ]
+
+    assert recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        score="0.50",
+    ) == ("reinforce", None, None)
+
+    action, variant, target = recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        score="0.80",
+        attempted_exercise_ids={1},
+    )
+    assert action == "advance_harder"
+    assert variant == "fill_blank"
+    assert target is exercises[1]
+\n
