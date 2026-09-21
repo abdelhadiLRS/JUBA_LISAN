@@ -1697,6 +1697,9 @@
     "source": "bron",
     "target": "doel",
     "loadError": "De herhalingskaarten konden niet worden geladen.",
-    "saveError": "De herhaling kon niet worden opgeslagen. Probeer het opnieuw."
+    "saveError": "De herhaling kon niet worden opgeslagen. Probeer het opnieuw.",
+    "shortcutHint": "Spatie om te onthullen · 1–4 om te beoordelen",
+    "spaceShortcut": "Spatie om te onthullen",
+    "rateKeys": "1 Opnieuw · 2 Moeilijk · 3 Goed · 4 Makkelijk"
   }
 }
