@@ -1695,6 +1695,8 @@
     "progressLabel": "Wiederholungsfortschritt",
     "account": "Konto",
     "source": "Quelle",
-    "target": "Ziel"
+    "target": "Ziel",
+    "loadError": "Wiederholungskarten konnten nicht geladen werden.",
+    "saveError": "Die Wiederholung konnte nicht gespeichert werden. Bitte versuche es erneut."
   }
 }
