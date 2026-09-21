@@ -696,7 +696,9 @@
     "saveWord": "+ Speichern",
     "saved": "Gespeichert",
     "saveError": "Fehler",
-    "keepLearning": "Bleib dran und wiederhole weiter."
+    "keepLearning": "Bleib dran und wiederhole weiter.",
+    "retryHarderVariant": "Mit einer schwierigeren Variante fortfahren",
+    "retryEasierVariant": "Mit einer einfacheren Variante erneut versuchen"
   },
   "flashcards": {
     "title": "Karteikarten",
