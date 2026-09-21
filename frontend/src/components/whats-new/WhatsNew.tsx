@@ -51,6 +51,15 @@ export default function WhatsNew() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!visible) return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') dismiss()
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [visible, dismiss])
+
   const dismiss = useCallback(() => {
     localStorage.setItem(STORAGE_KEY, '1')
     setVisible(false)
