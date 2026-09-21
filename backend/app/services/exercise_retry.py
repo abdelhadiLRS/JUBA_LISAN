@@ -49,7 +49,7 @@ def normalise_variant(value: object) -> str:
 
 
 def get_retry_variant(
-    current_variant: str | None,
+    current_variant: object,
     *,
     succeeded: bool,
     available_variants: Sequence[object],
