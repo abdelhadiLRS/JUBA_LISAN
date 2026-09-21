@@ -170,6 +170,7 @@ export default function LessonPage() {
       setCurrentExercise(targetIndex >= 0 ? targetIndex : exercises.length)
       setAnswer('')
       void loadAttempts(result.id)
+      if (lesson) void loadAttemptSummary(lesson.id)
     } catch { /* keep the failed exercise visible so the user can retry later */ } finally { setEvaluating(false) }
   }
 
@@ -180,7 +181,7 @@ export default function LessonPage() {
       const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/answer`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ answer: answer.trim() }) })
       if (!res.ok) throw new Error('answer_failed')
       const result = await res.json()
-      setExercises((prev) => prev.map((item) => item.id === exercise.id ? { ...item, ...result } : item)); setAnswer(''); void loadAttempts(exercise.id)
+      setExercises((prev) => prev.map((item) => item.id === exercise.id ? { ...item, ...result } : item)); setAnswer(''); void loadAttempts(exercise.id); if (lesson) void loadAttemptSummary(lesson.id)
     } catch { /* keep answer so the user can retry */ } finally { setEvaluating(false) }
   }
 
