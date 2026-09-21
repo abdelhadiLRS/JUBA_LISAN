@@ -114,3 +114,23 @@ def test_empty_content_identity_is_rejected():
         )
         is None
     )
+
+
+def test_selector_supports_lesson_metadata_callbacks():
+    exercises = [
+        {"id": 1, "meta": {"content_id": "c1", "variant": "multiple-choice"}},
+        {"id": 2, "meta": {"content_id": "c1", "variant": "fill-blank"}},
+    ]
+
+    selected = select_unanswered_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        succeeded=True,
+        attempted_exercise_ids={1},
+        get_exercise_id=lambda item: item["id"],
+        get_variant=lambda item: item["meta"]["variant"],
+        get_content_id=lambda item: item["meta"]["content_id"],
+    )
+
+    assert selected is exercises[1]
