@@ -66,3 +66,15 @@ describe('mergeAdaptiveRecommendations', () => {
   })
 
 })
+
+
+describe('adaptive action helpers', () => {
+  it('classifies actionable adaptive targets', async () => {
+    const { isAdaptiveRetryAction, isAdaptiveReinforcementAction } = await import('@/lib/adaptive-exercise')
+    expect(isAdaptiveRetryAction('retry_easier')).toBe(true)
+    expect(isAdaptiveRetryAction('advance_harder')).toBe(true)
+    expect(isAdaptiveRetryAction('reinforce')).toBe(false)
+    expect(isAdaptiveReinforcementAction('reinforce')).toBe(true)
+    expect(isAdaptiveReinforcementAction(null)).toBe(false)
+  })
+})
