@@ -488,6 +488,22 @@ async def _learning_path_state(
     competency_rows = await get_unit_competencies(db, user_id, study_plan_id=plan.id)
     competency_map = {row["unit_id"]: row for row in competency_rows}
 
+    # Keep journey metadata aligned with the persisted study-plan blueprint.
+    # This lets the journey render objectives/duration even before a lesson is opened.
+    plan_day_meta: dict[tuple[int, int], dict] = {}
+    for week in _get_weekly_plan_items(plan.generated_plan):
+        week_number = _get_plan_value(week, "week")
+        if not isinstance(week_number, int):
+            continue
+        for day in _get_week_days(week):
+            day_number = _get_plan_value(day, "day")
+            if isinstance(day_number, int):
+                plan_day_meta[(week_number, day_number)] = {
+                    "title": _get_plan_value(day, "title", ""),
+                    "objectives": _get_plan_value(day, "objectives", []),
+                    "estimated_minutes": _get_plan_value(day, "estimated_minutes", 25),
+                }
+
     sections: list[LearningJourneySectionResponse] = []
     previous_unit_id: str | None = None
     next_lesson_id: int | None = None
@@ -510,7 +526,7 @@ async def _learning_path_state(
 
         if unit_complete:
             state = "completed"
-        elif prereq_complete and (previous_unit_id is None or previous_unit_id == prereq):
+        elif prereq_complete and (prereq is None or previous_unit_id == prereq):
             state = "active"
         elif prereq_complete and not unit_lessons:
             state = "available"
@@ -524,6 +540,14 @@ async def _learning_path_state(
             slot_index = _lesson_slot_index(lesson, plan.days_per_week)
             available = state in {"active", "available"} and prior_complete
             lesson_state = "completed" if lesson.is_completed else ("available" if available else "locked")
+            meta = plan_day_meta.get((lesson.week_number, lesson.day_number), {})
+            objectives = meta.get("objectives", [])
+            estimated_minutes = meta.get("estimated_minutes", 25)
+            if not isinstance(objectives, list):
+                objectives = []
+            objectives = [item for item in objectives if isinstance(item, str)]
+            if isinstance(estimated_minutes, bool) or not isinstance(estimated_minutes, (int, float)) or estimated_minutes <= 0:
+                estimated_minutes = 25
             lesson_responses.append(
                 LearningJourneyLessonResponse(
                     id=lesson.id,
@@ -535,6 +559,8 @@ async def _learning_path_state(
                     is_completed=lesson.is_completed,
                     available=available,
                     state=lesson_state,
+                    objectives=objectives,
+                    estimated_minutes=int(estimated_minutes),
                 )
             )
             if not lesson.is_completed:
