@@ -247,8 +247,7 @@ async def get_today_lessons(
 
     week = None
     for w in weekly_plan:
-        w_week = _get_plan_value(w, "week")
-        if isinstance(w_week, int) and w_week == current_week:
+        w_week = _get_plan_value(w, "week")        if isinstance(w_week, int) and w_week == current_week:
             week = w
             break
 
@@ -497,12 +496,18 @@ async def _learning_path_state(
             continue
         for day in _get_week_days(week):
             day_number = _get_plan_value(day, "day")
-            if isinstance(day_number, int):
-                plan_day_meta[(week_number, day_number)] = {
+            if isinstance(day_number, int):                plan_day_meta[(week_number, day_number)] = {
                     "title": _get_plan_value(day, "title", ""),
                     "objectives": _get_plan_value(day, "objectives", []),
                     "estimated_minutes": _get_plan_value(day, "estimated_minutes", 25),
                 }
+
+    expected_slots_by_unit: dict[str, int] = defaultdict(int)
+    for week in _get_weekly_plan_items(plan.generated_plan):
+        for day in _get_week_days(week):
+            unit_id = _get_plan_value(day, "unit_id")
+            if isinstance(unit_id, str) and unit_id.strip():
+                expected_slots_by_unit[unit_id] += 1
 
     sections: list[LearningJourneySectionResponse] = []
     previous_completed_units: set[str] = set()
@@ -528,9 +533,9 @@ async def _learning_path_state(
 
         if unit_complete:
             state = "completed"
-        elif prereq_complete and (prereq is None or previous_unit_id == prereq):
+        elif prereq_complete and unit_lessons:
             state = "active"
-        elif prereq_complete and not unit_lessons:
+        elif prereq_complete:
             state = "available"
         else:
             state = "locked"
@@ -539,7 +544,6 @@ async def _learning_path_state(
         ordered_slots = sorted(unit_lessons, key=lambda item: (_lesson_slot_index(item, plan.days_per_week), item.id))
         prior_complete = True
         for lesson in ordered_slots:
-            slot_index = _lesson_slot_index(lesson, plan.days_per_week)
             available = state in {"active", "available"} and prior_complete
             lesson_state = "completed" if lesson.is_completed else ("available" if available else "locked")
             meta = plan_day_meta.get((lesson.week_number, lesson.day_number), {})
