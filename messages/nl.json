@@ -1691,6 +1691,10 @@
     "hard": "Moeilijk",
     "good": "Goed",
     "easy": "Makkelijk",
-    "tapToHear": "Tik op het woord om het te horen"
+    "tapToHear": "Tik op het woord om het te horen",
+    "progressLabel": "Voortgang herhaling",
+    "account": "Account",
+    "source": "bron",
+    "target": "doel"
   }
 }
