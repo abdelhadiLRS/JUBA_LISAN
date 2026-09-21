@@ -41,6 +41,28 @@ describe('useLearningProgressSync', () => {
     expect(refresh).toHaveBeenCalledTimes(2)
   })
 
+  it('does not replay a queued refresh after unmount', async () => {
+    let resolveRefresh: (() => void) | undefined
+    const refresh = vi.fn(
+      () => new Promise<void>((resolve) => {
+        resolveRefresh = resolve
+      }),
+    )
+    const { unmount } = renderHook(() => useLearningProgressSync(refresh))
+
+    window.dispatchEvent(new Event('juba:learning-progress-updated'))
+    window.dispatchEvent(new Event('pageshow'))
+    await flush()
+
+    expect(refresh).toHaveBeenCalledTimes(1)
+    unmount()
+    resolveRefresh?.()
+    await flush()
+    await flush()
+
+    expect(refresh).toHaveBeenCalledTimes(1)
+  })
+
   it('refreshes when the page becomes visible again', async () => {
     const refresh = vi.fn()
     renderHook(() => useLearningProgressSync(refresh))
