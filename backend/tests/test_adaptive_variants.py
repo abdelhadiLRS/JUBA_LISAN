@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from app.services.adaptive_variants import (
     collect_attempted_exercise_ids,
     select_unanswered_variant,
+    recommend_adaptive_variant,
 )
 
 
@@ -220,3 +221,76 @@ def test_unknown_sibling_variants_do_not_affect_difficulty_selection():
     )
 
     assert selected is exercises[2]
+
+def test_recommendation_returns_action_variant_and_target_from_same_selection():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+        VariantExercise(3, "c1", "translate"),
+    ]
+
+    action, variant, target = recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        score=0.90,
+        attempted_exercise_ids={1},
+    )
+
+    assert action == "advance_harder"
+    assert variant == "fill_blank"
+    assert target == exercises[1]
+
+
+def test_recommendation_never_returns_an_attempted_target():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+        VariantExercise(3, "c1", "translate"),
+    ]
+
+    action, variant, target = recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        score=0.90,
+        attempted_exercise_ids={1, 2},
+    )
+
+    assert action == "advance_harder"
+    assert variant == "translate"
+    assert target == exercises[2]
+
+
+def test_recommendation_normalizes_target_alias():
+    exercises = [
+        VariantExercise(1, "c1", "multiple-choice"),
+        VariantExercise(2, "c1", "fill-blank"),
+    ]
+
+    action, variant, target = recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple-choice",
+        score=0.90,
+        attempted_exercise_ids={1},
+    )
+
+    assert action == "advance_harder"
+    assert variant == "fill_blank"
+    assert target == exercises[1]
+
+
+def test_recommendation_reinforces_middle_score_without_target():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+    ]
+
+    assert recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        score=0.79,
+    ) == ("reinforce", None, None)
+
