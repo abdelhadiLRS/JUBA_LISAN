@@ -1453,19 +1453,23 @@
   },
   "whatsNew": {
     "title": "Neuigkeiten",
-    "version": "v1.8.43",
+    "version": "v1.8.44",
     "cta": "Verstanden",
     "entry1": {
-      "label": "Ein frisches neues Aussehen",
-      "desc": "Die App wurde mit der neuen JUBA-LISAN-Identität neu gestaltet: klare Symbole, moderne Navigation und ein aufgeräumter Lernbereich."
+      "label": "Lernerfahrung",
+      "desc": "Das Folgen von Lektionen ist übersichtlicher, mit besseren Ansichten für Versuche und Ergebnisse sowie zusätzlicher Hilfe bei Bedarf."
     },
     "entry2": {
-      "label": "Schneller auf dem Handy",
-      "desc": "Eine neue untere Navigation legt Startseite, Mein Plan, Lernkarten, Tutor und Fortschritt nur einen Fingertipp entfernt ab."
+      "label": "Intelligente Wiederholung",
+      "desc": "Erneutes Bearbeiten und Überprüfen von Antworten ist einfacher, während dein bisheriger Fortschritt erhalten bleibt."
     },
     "entry3": {
-      "label": "Unter der Haube",
-      "desc": "Die App baut und lädt jetzt zuverlässiger, unabhängig von externen Font-Servern."
+      "label": "Fortschrittsübersicht",
+      "desc": "Dein Fortschritt und dein Niveau sind leichter zu verfolgen, mit klareren Hinweisen auf Fähigkeiten, die mehr Übung benötigen."
+    },
+    "entry4": {
+      "label": "Einfacher zu bedienen",
+      "desc": "Lektionen lassen sich leichter bedienen, mit besserer Unterstützung für Tastaturkürzel."
     }
   },
   "contact": {
