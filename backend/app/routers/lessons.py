@@ -666,7 +666,7 @@ async def retry_exercise(
     if not exercise:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exercise not found")
 
-    lesson = await _get_lesson_for_user(exercise.lesson_id, current_user.id, db)
+    lesson = await _get_lesson_for_user(exercise.lesson_id, current_user.id, db, for_update=True)
     if lesson.is_completed:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -704,7 +704,10 @@ async def retry_exercise(
         )
 
     result = await db.execute(
-        select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
+        select(Exercise)
+        .where(Exercise.lesson_id == lesson.id)
+        .order_by(Exercise.id)
+        .with_for_update()
     )
     lesson_exercises = result.scalars().all()
     available_variants: list[str] = []
