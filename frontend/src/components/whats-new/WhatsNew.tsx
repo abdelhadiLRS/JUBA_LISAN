@@ -24,6 +24,7 @@ export default function WhatsNew() {
   const messages = useMessages()
   const [visible, setVisible] = useState(false)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const previousFocusRef = useRef<HTMLElement | null>(null)
 
   // Derive entries from raw messages and ignore malformed translation payloads.
   const entries = useMemo(() => {
@@ -59,12 +60,17 @@ export default function WhatsNew() {
 
   useEffect(() => {
     if (!visible) return
+    previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
     closeButtonRef.current?.focus()
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') dismiss()
     }
     window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      previousFocusRef.current?.focus()
+      previousFocusRef.current = null
+    }
   }, [visible, dismiss])
 
   if (!visible) return null
