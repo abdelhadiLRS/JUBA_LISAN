@@ -696,7 +696,9 @@
     "saveWord": "+ Salva",
     "saved": "Salvato",
     "saveError": "Errore",
-    "keepLearning": "Continua con un ripasso."
+    "keepLearning": "Continua con un ripasso.",
+    "retryHarderVariant": "Continua con una variante più difficile",
+    "retryEasierVariant": "Riprova con una variante più semplice"
   },
   "flashcards": {
     "title": "Schede",
