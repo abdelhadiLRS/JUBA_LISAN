@@ -696,7 +696,9 @@
     "saveWord": "+ Guardar",
     "saved": "Guardado",
     "saveError": "Erro",
-    "keepLearning": "Continue praticando com uma revisão."
+    "keepLearning": "Continue praticando com uma revisão.",
+    "retryHarderVariant": "Continuar com uma variante mais difícil",
+    "retryEasierVariant": "Tentar novamente com uma variante mais fácil"
   },
   "flashcards": {
     "title": "Cartões",
