@@ -77,3 +77,41 @@ def select_unanswered_variant(
         (exercise for exercise, variant in candidates if variant == target_variant),
         None,
     )
+
+def recommend_adaptive_variant(
+    exercises: Sequence[ExerciseT],
+    *,
+    content_id: str,
+    current_variant: str | None,
+    score: float,
+    attempted_exercise_ids: set[int] | None = None,
+    get_exercise_id: Callable[[ExerciseT], int] = _get_attr("id"),
+    get_variant: Callable[[ExerciseT], object] = _get_attr("variant"),
+    get_content_id: Callable[[ExerciseT], object] = _get_attr("content_id"),
+) -> tuple[str, str | None, ExerciseT | None]:
+    """Return one adaptive action and its unanswered target, using one decision path."""
+    succeeded = score >= 0.80
+    if 0.50 <= score < 0.80:
+        return "reinforce", None, None
+
+    target = select_unanswered_variant(
+        exercises,
+        content_id=content_id,
+        current_variant=current_variant,
+        succeeded=succeeded,
+        attempted_exercise_ids=attempted_exercise_ids,
+        get_exercise_id=get_exercise_id,
+        get_variant=get_variant,
+        get_content_id=get_content_id,
+    )
+    if target is None:
+        return ("advance", None, None) if succeeded else ("reinforce", None, None)
+
+    target_variant = normalise_variant(
+        get_variant(target) if isinstance(get_variant(target), str) else None
+    )
+    if not target_variant:
+        return ("advance", None, None) if succeeded else ("reinforce", None, None)
+
+    return ("advance_harder" if succeeded else "retry_easier"), target_variant, target
+
