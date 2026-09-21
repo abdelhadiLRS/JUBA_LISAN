@@ -35,20 +35,42 @@ describe('learning progress signal', () => {
     unsubscribe()
   })
 
-  it('broadcasts progress updates through BroadcastChannel', () => {
+  it('broadcasts progress updates through BroadcastChannel when supported', () => {
+    if (typeof BroadcastChannel === 'undefined') return
+
     const listener = vi.fn()
     const postMessage = vi.spyOn(BroadcastChannel.prototype, 'postMessage')
     const unsubscribe = subscribeToLearningProgressUpdated(listener)
 
-    markLearningProgressUpdated()
+    try {
+      markLearningProgressUpdated()
 
-    expect(postMessage).toHaveBeenCalledWith(
-      expect.objectContaining({
-        type: 'juba:learning-progress-updated',
-      }),
-    )
+      expect(postMessage).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: 'juba:learning-progress-updated',
+        }),
+      )
+    } finally {
+      unsubscribe()
+    }
+  })
 
-    unsubscribe()
+  it('survives storage write failures while still notifying local listeners', () => {
+    const listener = vi.fn()
+    const unsubscribe = subscribeToLearningProgressUpdated(listener)
+    const sessionSetItem = vi
+      .spyOn(Storage.prototype, 'setItem')
+      .mockImplementation(() => {
+        throw new Error('storage blocked')
+      })
+
+    try {
+      markLearningProgressUpdated()
+      expect(listener).toHaveBeenCalledTimes(1)
+      expect(sessionSetItem).toHaveBeenCalled()
+    } finally {
+      unsubscribe()
+    }
   })
 
   it('refreshes from a cross-tab storage event', () => {
