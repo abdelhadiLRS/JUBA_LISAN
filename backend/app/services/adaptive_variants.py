@@ -101,13 +101,18 @@ def select_unanswered_variant(
     )
 
 
+def _normalise_score(score: object) -> float:
+    """Coerce runtime score values before applying the shared score policy."""
+    return float(score)
+
+
 def recommend_adaptive_action(
-    score: float,
+    score: object,
     current_variant: str | None,
     available_variants: Collection[object] | None = None,
 ) -> tuple[str, str | None]:
     """Return an adaptive action and optional variant without requiring exercise rows."""
-    classification = classify_score(float(score))
+    classification = classify_score(_normalise_score(score))
     if classification == "middle":
         return "reinforce", None
 
@@ -138,7 +143,7 @@ def recommend_adaptive_variant(
     Score classification is delegated to the shared retry policy so endpoint
     callers cannot drift from the canonical 0.50/0.80 boundaries.
     """
-    classification = classify_score(score)
+    classification = classify_score(_normalise_score(score))
     if classification == "middle":
         return "reinforce", None, None
 
