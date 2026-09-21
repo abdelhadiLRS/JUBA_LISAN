@@ -47,6 +47,10 @@ from app.services.llm_adapter import (
     llm_adapter,
 )
 from app.services.exercise_retry import get_retry_variant
+from app.services.adaptive_variants import (
+    collect_attempted_exercise_ids,
+    select_unanswered_variant,
+)
 from app.services.progress_service import update_daily_progress, upsert_unit_competency
 
 router = APIRouter(prefix="/api/lessons", tags=["lessons"])
@@ -813,31 +817,49 @@ async def adaptive_next_exercise(
     )
     lesson_exercises = result.scalars().all()
 
-    available_variants: list[str] = []
-    candidates: dict[str, tuple[Exercise, dict]] = {}
+    content_by_exercise_id: dict[int, dict] = {}
     for index, sibling in enumerate(lesson_exercises):
         if index >= len(content_exercises) or not isinstance(content_exercises[index], dict):
             continue
-        sibling_content = content_exercises[index]
-        if sibling_content.get("content_id") != content_id:
-            continue
-        variant = sibling_content.get("variant") or sibling.exercise_type
-        if not isinstance(variant, str):
-            continue
-        available_variants.append(variant)
-        if sibling.id != exercise.id and sibling.answered_at is None:
-            candidates[variant] = (sibling, sibling_content)
+        content_by_exercise_id[sibling.id] = content_exercises[index]
 
+    attempt_result = await db.execute(
+        select(ExerciseAttempt).where(
+            ExerciseAttempt.user_id == current_user.id,
+            ExerciseAttempt.lesson_id == lesson.id,
+        )
+    )
+    attempted_exercise_ids = collect_attempted_exercise_ids(attempt_result.scalars().all())
+
+    target = select_unanswered_variant(
+        lesson_exercises,
+        content_id=content_id,
+        current_variant=current_variant,
+        succeeded=latest_attempt.score >= 0.80,
+        attempted_exercise_ids=attempted_exercise_ids,
+        get_exercise_id=lambda item: item.id,
+        get_variant=lambda item: (
+            content_by_exercise_id.get(item.id, {}).get("variant") or item.exercise_type
+        ),
+        get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
+    )
+    available_variants = [
+        content_by_exercise_id[item.id].get("variant")
+        for item in lesson_exercises
+        if item.id in content_by_exercise_id
+        and content_by_exercise_id[item.id].get("content_id") == content_id
+        and isinstance(content_by_exercise_id[item.id].get("variant"), str)
+    ]
     action, target_variant = _adaptive_recommendation(
         latest_attempt.score, current_variant, available_variants
     )
-    if target_variant is None or target_variant not in candidates:
+    if target is None or target_variant is None:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="No unanswered adaptive variant is available",
         )
 
-    target, target_content = candidates[target_variant]
+    target_content = content_by_exercise_id.get(target.id, {})
     return AdaptiveNextResponse(
         action=action,
         recommended_variant=target_variant,
@@ -935,36 +957,44 @@ async def retry_exercise(
         .with_for_update()
     )
     lesson_exercises = result.scalars().all()
-    available_variants: list[str] = []
-    candidates: dict[str, Exercise] = {}
-    candidate_content: dict[int, dict] = {}
+    content_by_exercise_id: dict[int, dict] = {}
     for index, sibling in enumerate(lesson_exercises):
         if index >= len(content_exercises) or not isinstance(content_exercises[index], dict):
             continue
-        sibling_content = content_exercises[index]
-        if sibling_content.get("content_id") != content_id:
-            continue
-        variant = sibling_content.get("variant") or sibling.exercise_type
-        if not isinstance(variant, str):
-            continue
-        available_variants.append(variant)
-        if sibling.id != exercise.id and sibling.answered_at is None:
-            candidates[variant] = sibling
-            candidate_content[sibling.id] = sibling_content
+        content_by_exercise_id[sibling.id] = content_exercises[index]
 
-    target_variant = get_retry_variant(
-        content_exercise.get("variant") or exercise.exercise_type,
-        succeeded=False,
-        available_variants=available_variants,
+    attempt_result = await db.execute(
+        select(ExerciseAttempt).where(
+            ExerciseAttempt.user_id == current_user.id,
+            ExerciseAttempt.lesson_id == lesson.id,
+        )
     )
-    if not target_variant or target_variant not in candidates:
+    attempted_exercise_ids = collect_attempted_exercise_ids(attempt_result.scalars().all())
+
+    target = select_unanswered_variant(
+        lesson_exercises,
+        content_id=content_id,
+        current_variant=content_exercise.get("variant") or exercise.exercise_type,
+        succeeded=False,
+        attempted_exercise_ids=attempted_exercise_ids,
+        get_exercise_id=lambda item: item.id,
+        get_variant=lambda item: (
+            content_by_exercise_id.get(item.id, {}).get("variant") or item.exercise_type
+        ),
+        get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
+    )
+    target_variant = (
+        content_by_exercise_id.get(target.id, {}).get("variant")
+        if target is not None
+        else None
+    )
+    if target is None or not isinstance(target_variant, str):
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="No easier unanswered exercise variant is available",
         )
 
-    target = candidates[target_variant]
-    target_content = candidate_content[target.id]
+    target_content = content_by_exercise_id.get(target.id, {})
     return ExerciseResponse(
         id=target.id,
         lesson_id=target.lesson_id,
