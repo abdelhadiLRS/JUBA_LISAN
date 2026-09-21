@@ -15,6 +15,7 @@ import { FreemiumQuotaBanner } from '@/components/billing/FreemiumQuotaBanner'
 import { useFreemiumStore } from '@/store/freemium'
 import { useConfigStore } from '@/store/config'
 import { cn } from '@/lib/utils'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
 
 interface ExerciseItem { id: number; exercise_type: string; question: string; options: string[] | null; correct_answer: string; explanation: string | null; native_explanation: string | null; user_answer: string | null; score: number | null; feedback: string | null; native_hint: string | null; content_id?: string | null; variant?: string | null; accepted_answers?: string[] | null; metadata?: Record<string, string> | null; recommended_action?: string; recommended_variant?: string | null }
 interface LessonData { id: number; title: string; lesson_type: string; cefr_level: string; content: Record<string, unknown>; is_completed: boolean }
@@ -92,8 +93,7 @@ export default function LessonPage() {
       if (!res.ok) throw new Error('complete_failed')
       const updated: LessonData = await res.json()
       setLesson(updated); setCompleted(true); completeLesson(lesson.id); setDayComplete(true)
-      try { sessionStorage.setItem('juba:learning-progress-updated', String(Date.now())) } catch { /* storage may be unavailable */ }
-      window.dispatchEvent(new Event('juba:learning-progress-updated'))
+      markLearningProgressUpdated()
     } catch { /* keep lesson active so the user can retry */ } finally { setEvaluating(false) }
   }, [lesson, completed, completeLesson])
   const loadAttempts = useCallback(async (exerciseId: number) => {
@@ -210,7 +210,7 @@ export default function LessonPage() {
       const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/answer`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ answer: answer.trim() }) })
       if (!res.ok) throw new Error('answer_failed')
       const result = await res.json()
-      setExercises((prev) => prev.map((item) => item.id === exercise.id ? { ...item, ...result } : item)); setAnswer(''); void loadAttempts(exercise.id); if (lesson) void loadAttemptSummary(lesson.id); try { sessionStorage.setItem('juba:learning-progress-updated', String(Date.now())) } catch { /* storage may be unavailable */ }
+      setExercises((prev) => prev.map((item) => item.id === exercise.id ? { ...item, ...result } : item)); setAnswer(''); void loadAttempts(exercise.id); if (lesson) void loadAttemptSummary(lesson.id); markLearningProgressUpdated()
     } catch { /* keep answer so the user can retry */ } finally { setEvaluating(false) }
   }
 
