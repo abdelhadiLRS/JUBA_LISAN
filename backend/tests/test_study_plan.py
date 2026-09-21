@@ -247,8 +247,7 @@ async def test_skip_day_does_not_exceed_total(client, test_user, db_session):
         current_unit="",
         generated_plan={},
         is_active=True,
-        progress_day=2,
-    )
+        progress_day=2,    )
 
     response = await client.post("/api/study-plan/skip-day", headers=headers)
     assert response.status_code == 200
@@ -499,7 +498,6 @@ async def test_today_auto_advances_when_day_complete(client, test_user, db_sessi
 
 # ── GET /today when plan is fully complete ────────────────────────────────────
 
-
 @pytest.mark.asyncio
 async def test_today_returns_empty_when_plan_complete(client, test_user, db_session):
     """GET /today with progress_day == total_days returns empty lessons list."""
@@ -536,3 +534,153 @@ async def test_today_returns_empty_when_plan_complete(client, test_user, db_sess
     assert data["lessons"] == []
     assert data["progress_day"] == total
     assert data["total_days"] == total
+
+# ── Learning Journey progression state ────────────────────────────────────────
+
+
+@pytest.mark.asyncio
+async def test_learning_path_unlocks_prerequisite_unit_after_completion(
+    client, test_user, db_session
+):
+    """A completed prerequisite unlocks the next curriculum unit."""
+    from app.models.lesson import Lesson
+
+    user, headers = test_user
+    await deactivate_active_plans(db_session, user.id)
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=1,
+        days_per_week=2,
+        current_unit="a1-unit-1",
+        generated_plan={
+            "weekly_plan": [
+                {
+                    "week": 1,
+                    "days": [
+                        {"day": 1, "unit_id": "a1-unit-1", "title": "Identity"},
+                        {"day": 2, "unit_id": "a1-unit-2", "title": "My World"},
+                    ],
+                }
+            ]
+        },
+        is_active=True,
+        progress_day=0,
+    )
+    db_session.add_all(
+        [
+            Lesson(
+                study_plan_id=plan.id,
+                title="Identity",
+                lesson_type="grammar",
+                cefr_level="A1",
+                week_number=1,
+                day_number=1,
+                unit_id="a1-unit-1",
+                content={},
+                is_completed=True,
+            ),
+            Lesson(
+                study_plan_id=plan.id,
+                title="My World",
+                lesson_type="grammar",
+                cefr_level="A1",
+                week_number=1,
+                day_number=2,
+                unit_id="a1-unit-2",
+                content={},
+                is_completed=False,
+            ),
+        ]
+    )
+    await db_session.commit()
+
+    response = await client.get("/api/study-plan/learning-path", headers=headers)
+
+    assert response.status_code == 200
+    units = {
+        unit["id"]: unit
+        for section in response.json()["sections"]
+        for unit in section["units"]
+    }
+    assert units["a1-unit-1"]["state"] == "completed"
+    assert units["a1-unit-2"]["state"] == "active"
+    assert response.json()["next_unit_id"] == "a1-unit-2"
+
+
+@pytest.mark.asyncio
+async def test_learning_path_keeps_prerequisite_unit_locked_until_completion(
+    client, test_user, db_session
+):
+    """An incomplete prerequisite keeps the dependent unit locked."""
+    from app.models.lesson import Lesson
+
+    user, headers = test_user
+    await deactivate_active_plans(db_session, user.id)
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=1,
+        days_per_week=2,
+        current_unit="a1-unit-1",
+        generated_plan={
+            "weekly_plan": [
+                {
+                    "week": 1,
+                    "days": [
+                        {"day": 1, "unit_id": "a1-unit-1", "title": "Identity"},
+                        {"day": 2, "unit_id": "a1-unit-2", "title": "My World"},
+                    ],
+                }
+            ]
+        },
+        is_active=True,
+        progress_day=0,
+    )
+    db_session.add_all(
+        [
+            Lesson(
+                study_plan_id=plan.id,
+                title="Identity",
+                lesson_type="grammar",
+                cefr_level="A1",
+                week_number=1,
+                day_number=1,
+                unit_id="a1-unit-1",
+                content={},
+                is_completed=False,
+            ),
+            Lesson(
+                study_plan_id=plan.id,
+                title="My World",
+                lesson_type="grammar",
+                cefr_level="A1",
+                week_number=1,
+                day_number=2,
+                unit_id="a1-unit-2",
+                content={},
+                is_completed=False,
+            ),
+        ]
+    )
+    await db_session.commit()
+
+    response = await client.get("/api/study-plan/learning-path", headers=headers)
+
+    assert response.status_code == 200
+    units = {
+        unit["id"]: unit
+        for section in response.json()["sections"]
+        for unit in section["units"]
+    }
+    assert units["a1-unit-1"]["state"] == "active"
+    assert units["a1-unit-2"]["state"] == "locked"
+    assert response.json()["next_unit_id"] == "a1-unit-1"
