@@ -18,7 +18,8 @@ import { cn } from '@/lib/utils'
 
 interface ExerciseItem { id: number; exercise_type: string; question: string; options: string[] | null; correct_answer: string; explanation: string | null; native_explanation: string | null; user_answer: string | null; score: number | null; feedback: string | null; native_hint: string | null; content_id?: string | null; variant?: string | null; accepted_answers?: string[] | null; metadata?: Record<string, string> | null }
 interface LessonData { id: number; title: string; lesson_type: string; cefr_level: string; content: Record<string, unknown>; is_completed: boolean }
-interface LessonVocabularyItem { word?: string; definition?: string; translation?: string | null; example?: string; example_translation?: string | null; note?: string | null; reading?: string | null }\ninterface ExerciseAttempt { id: number; exercise_id: number; lesson_id: number; content_id?: string | null; variant?: string | null; attempt_number: number; user_answer: string; score: number; feedback: string; answered_at: string }
+interface LessonVocabularyItem { word?: string; definition?: string; translation?: string | null; example?: string; example_translation?: string | null; note?: string | null; reading?: string | null }
+interface ExerciseAttempt { id: number; exercise_id: number; lesson_id: number; content_id?: string | null; variant?: string | null; attempt_number: number; user_answer: string; score: number; feedback: string; answered_at: string }
 
 export default function LessonPage() {
   const t = useTranslations('lesson')
@@ -44,7 +45,13 @@ export default function LessonPage() {
   const [answer, setAnswer] = useState('')
   const [evaluating, setEvaluating] = useState(false)
   const [completed, setCompleted] = useState(false)
-  const [dayComplete, setDayComplete] = useState(false)\n  const [attempts, setAttempts] = useState<ExerciseAttempt[]>([])\n  const [attemptsOpen, setAttemptsOpen] = useState(false)\n  const [nativeHint, setNativeHint] = useState<string | null>(null)\n  const [nativeExplanation, setNativeExplanation] = useState<string | null>(null)\n  const [loadingHint, setLoadingHint] = useState(false)\n  const [loadingExplanation, setLoadingExplanation] = useState(false)
+  const [dayComplete, setDayComplete] = useState(false)
+  const [attempts, setAttempts] = useState<ExerciseAttempt[]>([])
+  const [attemptsOpen, setAttemptsOpen] = useState(false)
+  const [nativeHint, setNativeHint] = useState<string | null>(null)
+  const [nativeExplanation, setNativeExplanation] = useState<string | null>(null)
+  const [loadingHint, setLoadingHint] = useState(false)
+  const [loadingExplanation, setLoadingExplanation] = useState(false)
 
   useEffect(() => { void getGrammarTopics(activeLanguage?.code ?? 'en-GB').catch(() => undefined) }, [activeLanguage?.code])
   useEffect(() => { void fetchFreemium().catch(() => undefined) }, [fetchFreemium])
@@ -70,7 +77,43 @@ export default function LessonPage() {
       setLesson(updated); setCompleted(true); completeLesson(lesson.id); setDayComplete(true)
     } catch { /* keep lesson active so the user can retry */ } finally { setEvaluating(false) }
   }, [lesson, completed, completeLesson])
-  const loadAttempts = useCallback(async (exerciseId: number) => {\n    try {\n      const res = await apiFetch(`/api/lessons/exercises/${exerciseId}/attempts`)\n      if (!res.ok) return\n      const data: ExerciseAttempt[] = await res.json()\n      setAttempts(data)\n    } catch { /* attempt history is optional UI */ }\n  }, [])\n\n  const loadNativeHint = async () => {\n    if (!exercise || loadingHint) return\n    setLoadingHint(true)\n    try {\n      const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/native-hint`, { method: 'POST' })\n      if (!res.ok) throw new Error('hint_failed')\n      const data: { native_hint: string } = await res.json()\n      setNativeHint(data.native_hint)\n    } catch { /* keep exercise usable when hint generation is unavailable */ } finally { setLoadingHint(false) }\n  }\n\n  const loadNativeExplanation = async () => {\n    if (!exercise || loadingExplanation) return\n    setLoadingExplanation(true)\n    try {\n      const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/native-explanation`, { method: 'POST' })\n      if (!res.ok) throw new Error('explanation_failed')\n      const data: { native_explanation: string } = await res.json()\n      setNativeExplanation(data.native_explanation)\n    } catch { /* keep exercise usable when explanation generation is unavailable */ } finally { setLoadingExplanation(false) }\n  }\n\n  useEffect(() => {\n    setAttempts([]); setAttemptsOpen(false); setNativeHint(null); setNativeExplanation(null)\n    if (exercise) void loadAttempts(exercise.id)\n  }, [exercise?.id, loadAttempts])\n\n  const retryExercise = async () => {
+  const loadAttempts = useCallback(async (exerciseId: number) => {
+    try {
+      const res = await apiFetch(`/api/lessons/exercises/${exerciseId}/attempts`)
+      if (!res.ok) return
+      const data: ExerciseAttempt[] = await res.json()
+      setAttempts(data)
+    } catch { /* attempt history is optional UI */ }
+  }, [])
+
+  const loadNativeHint = async () => {
+    if (!exercise || loadingHint) return
+    setLoadingHint(true)
+    try {
+      const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/native-hint`, { method: 'POST' })
+      if (!res.ok) throw new Error('hint_failed')
+      const data: { native_hint: string } = await res.json()
+      setNativeHint(data.native_hint)
+    } catch { /* keep exercise usable when hint generation is unavailable */ } finally { setLoadingHint(false) }
+  }
+
+  const loadNativeExplanation = async () => {
+    if (!exercise || loadingExplanation) return
+    setLoadingExplanation(true)
+    try {
+      const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/native-explanation`, { method: 'POST' })
+      if (!res.ok) throw new Error('explanation_failed')
+      const data: { native_explanation: string } = await res.json()
+      setNativeExplanation(data.native_explanation)
+    } catch { /* keep exercise usable when explanation generation is unavailable */ } finally { setLoadingExplanation(false) }
+  }
+
+  useEffect(() => {
+    setAttempts([]); setAttemptsOpen(false); setNativeHint(null); setNativeExplanation(null)
+    if (exercise) void loadAttempts(exercise.id)
+  }, [exercise?.id, loadAttempts])
+
+  const retryExercise = async () => {
     if (!exercise || evaluating || !exercise.feedback) return
     setEvaluating(true)
     try {
@@ -95,7 +138,7 @@ export default function LessonPage() {
       const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/answer`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ answer: answer.trim() }) })
       if (!res.ok) throw new Error('answer_failed')
       const result = await res.json()
-      setExercises((prev) => prev.map((item) => item.id === exercise.id ? { ...item, ...result } : item)); setAnswer(''); void loadAttempts(exercise.id); void loadAttempts(exercise.id)
+      setExercises((prev) => prev.map((item) => item.id === exercise.id ? { ...item, ...result } : item)); setAnswer(''); void loadAttempts(exercise.id)
     } catch { /* keep answer so the user can retry */ } finally { setEvaluating(false) }
   }
 
