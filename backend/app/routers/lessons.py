@@ -607,6 +607,42 @@ async def list_exercise_attempts(
     return result.scalars().all()
 
 
+@router.get(
+    "/lessons/{lesson_id}/attempt-summary",
+    response_model=list[ExerciseAttemptSummaryResponse],
+)
+@limiter.limit("60/minute")
+async def list_lesson_attempt_summary(
+    request: Request,
+    lesson_id: int,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    lesson = await _get_lesson_for_user(lesson_id, current_user.id, db)
+    result = await db.execute(
+        select(ExerciseAttempt)
+        .where(
+            ExerciseAttempt.lesson_id == lesson.id,
+            ExerciseAttempt.user_id == current_user.id,
+        )
+        .order_by(ExerciseAttempt.exercise_id, ExerciseAttempt.attempt_number)
+    )
+    grouped: dict[int, list[ExerciseAttempt]] = {}
+    for attempt in result.scalars().all():
+        grouped.setdefault(attempt.exercise_id, []).append(attempt)
+
+    return [
+        ExerciseAttemptSummaryResponse(
+            exercise_id=exercise_id,
+            attempts=len(items),
+            best_score=max(item.score for item in items),
+            latest_score=items[-1].score,
+            latest_variant=items[-1].variant,
+        )
+        for exercise_id, items in grouped.items()
+    ]
+
+
 @router.post("/exercises/{exercise_id}/retry", response_model=ExerciseResponse)
 @limiter.limit("20/minute")
 async def retry_exercise(
