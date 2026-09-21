@@ -765,7 +765,11 @@
     "noActivePlanDesc": "Completa la evaluación para empezar a seguir tus habilidades.",
     "vocabularyHeader": "Vocabulario {level}",
     "currentLevelOnly": "Solo nivel actual",
-    "allLevels": "Todos los niveles"
+    "allLevels": "Todos los niveles",
+    "learningActivity": "Actividad de aprendizaje",
+    "last7Days": "Últimos 7 días",
+    "exercises": "Ejercicios",
+    "sevenDayXp": "XP de 7 días"
   },
   "grammar": {
     "title": "Gramática",
