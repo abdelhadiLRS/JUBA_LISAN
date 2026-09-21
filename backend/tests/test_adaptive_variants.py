@@ -62,6 +62,46 @@ def test_collect_attempted_exercise_ids_supports_custom_getter():
     )
 
 
+def test_selector_rejects_boolean_candidate_ids(): 
+    exercises = [
+        {"id": True, "content_id": "c1", "variant": "multiple_choice"},
+        {"id": 2, "content_id": "c1", "variant": "fill_blank"},
+    ]
+
+    selected = select_unanswered_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        succeeded=True,
+        attempted_exercise_ids={1},
+        get_exercise_id=lambda item: item["id"],
+        get_variant=lambda item: item["variant"],
+        get_content_id=lambda item: item["content_id"],
+    )
+
+    assert selected is exercises[1]
+
+
+def test_selector_rejects_non_positive_candidate_ids():
+    exercises = [
+        {"id": 0, "content_id": "c1", "variant": "multiple_choice"},
+        {"id": 2, "content_id": "c1", "variant": "fill_blank"},
+    ]
+
+    selected = select_unanswered_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        succeeded=True,
+        attempted_exercise_ids={0},
+        get_exercise_id=lambda item: item["id"],
+        get_variant=lambda item: item["variant"],
+        get_content_id=lambda item: item["content_id"],
+    )
+
+    assert selected is exercises[1]
+
+
 def test_selects_adjacent_easier_unanswered_variant():
     exercises = [
         VariantExercise(1, "c1", "multiple_choice"),
