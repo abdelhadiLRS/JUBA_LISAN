@@ -681,15 +681,13 @@
     "attemptHistory": "Poginggeschiedenis",
     "noAttempts": "Nog geen pogingen.",
     "hintPrefix": "Hint: ",
-    "retryEasier": "Makkelijker opnieuw proberen"
-    ,"checking": "Controleren…",
-    "checkAnswer": "Antwoord controleren",
-    "next": "Volgende",
-    "finish": "Les afronden",
-    "completed": "Voltooid",
-    "niceWork": "Goed gedaan. Je hebt het onthouden.",
-    "reviewNow": "Nu herhalen",
-    "nextCourse": "Volgende cursus",
+    "retryEasier": "Makkelijker opnieuw proberen"\n    "checking": "Controleren…",,
+    "next": "Volgende",,
+    "finish": "Les afronden",,
+    "completed": "Voltooid",,
+    "niceWork": "Goed gedaan. Je hebt het onthouden.",,
+    "reviewNow": "Nu herhalen",,
+    "nextCourse": "Volgende cursus"
   },
   "flashcards": {
     "title": "Flashcards",
