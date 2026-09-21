@@ -164,6 +164,7 @@ export default function LessonPage() {
       const targetIndex = exercises.findIndex((item) => item.id === result.id)
       const fallbackIndex = Math.min(currentExercise, Math.max(0, exercises.length - 1))
       setCurrentExercise(targetIndex >= 0 ? targetIndex : fallbackIndex)
+      setCompleted(false)
       setAnswer('')
       void loadAttempts(result.id)
       if (lesson) void loadAttemptSummary(lesson.id)
