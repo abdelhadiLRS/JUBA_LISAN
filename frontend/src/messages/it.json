@@ -681,12 +681,13 @@
     "attemptHistory": "Cronologia tentativi",
     "noAttempts": "Nessun tentativo ancora.",
     "hintPrefix": "Suggerimento: ",
-    "retryEasier": "Riprova più facilmente"\n    "checking": "Verifica…",,
-    "next": "Avanti",,
-    "finish": "Termina lezione",,
-    "completed": "Completata",,
-    "niceWork": "Ottimo lavoro. Lo hai ricordato.",,
-    "reviewNow": "Ripassa ora",,
+    "retryEasier": "Riprova più facilmente"
+    "checking": "Verifica…",
+    "next": "Avanti",
+    "finish": "Termina lezione",
+    "completed": "Completata",
+    "niceWork": "Ottimo lavoro. Lo hai ricordato.",
+    "reviewNow": "Ripassa ora",
     "nextCourse": "Corso successivo"
   },
   "flashcards": {
