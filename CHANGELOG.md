@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.44] - 2026-09-21
+
+### Added
+
+- Lesson attempt summaries with clearer views of attempts, results, retry history, and learning analytics.
+- Smart Review retry and answer-review flow with preserved previous progress.
+
+### Changed
+
+- Progress dashboard presentation improved to make level, progress, and practice needs easier to understand.
+- Lesson interactions improved with better keyboard shortcut support.
+
 ## [1.8.43] - 2026-08-29
 
 ### Changed
