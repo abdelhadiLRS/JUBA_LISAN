@@ -11,11 +11,22 @@ DIFFICULTY: dict[str, int] = {
     "pronunciation": 3,
     "free_write": 4,
 }
-ALIASES = {\n    "choice": "multiple_choice",\n    "mcq": "multiple_choice",\n    "multiple-choice": "multiple_choice",\n    "gap": "fill_blank",\n    "fill-blank": "fill_blank",\n    "writing": "free_write",\n    "free-write": "free_write",\n}
+
+ALIASES = {
+    "choice": "multiple_choice",
+    "mcq": "multiple_choice",
+    "multiple-choice": "multiple_choice",
+    "gap": "fill_blank",
+    "fill-blank": "fill_blank",
+    "writing": "free_write",
+    "free-write": "free_write",
+}
+
 
 def normalise_variant(value: str | None) -> str:
-    raw = (value or "").strip().lower()
+    raw = (value or "").strip().lower().replace("_", "-")
     return ALIASES.get(raw, raw)
+
 
 def get_retry_variant(
     current_variant: str | None,
@@ -32,13 +43,16 @@ def get_retry_variant(
         if variant and variant not in seen:
             seen.add(variant)
             available.append(variant)
+
     if not current or current not in DIFFICULTY or not available:
         return None
 
     current_level = DIFFICULTY[current]
     candidates = [
-        variant for variant in available
-        if variant != current and (
+        variant
+        for variant in available
+        if variant != current
+        and (
             (not succeeded and DIFFICULTY.get(variant, current_level) < current_level)
             or (succeeded and DIFFICULTY.get(variant, current_level) > current_level)
         )
@@ -47,5 +61,10 @@ def get_retry_variant(
         return None
 
     target_level = current_level - 1 if not succeeded else current_level + 1
-    candidates.sort(key=lambda variant: (abs(DIFFICULTY.get(variant, target_level) - target_level), variant))
+    candidates.sort(
+        key=lambda variant: (
+            abs(DIFFICULTY.get(variant, target_level) - target_level),
+            variant,
+        )
+    )
     return candidates[0]
