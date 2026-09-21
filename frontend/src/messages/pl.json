@@ -696,7 +696,9 @@
     "saveWord": "+ Zapisz",
     "saved": "Zapisano",
     "saveError": "Błąd",
-    "keepLearning": "Kontynuuj naukę, powtarzając materiał."
+    "keepLearning": "Kontynuuj naukę, powtarzając materiał.",
+    "retryHarderVariant": "Kontynuuj z trudniejszym wariantem",
+    "retryEasierVariant": "Spróbuj ponownie z łatwiejszym wariantem"
   },
   "flashcards": {
     "title": "Fiszki",
