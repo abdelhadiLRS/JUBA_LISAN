@@ -294,3 +294,37 @@ def test_recommendation_reinforces_middle_score_without_target():
         score=0.79,
     ) == ("reinforce", None, None)
 
+def test_recommendation_returns_easier_variant_for_low_score():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+        VariantExercise(3, "c1", "translate"),
+    ]
+
+    action, variant, target = recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="translate",
+        score=0.20,
+        attempted_exercise_ids={3},
+    )
+
+    assert action == "retry_easier"
+    assert variant == "fill_blank"
+    assert target is exercises[1]
+
+
+def test_recommendation_falls_back_when_all_directional_variants_were_attempted():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+    ]
+
+    assert recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        score=0.95,
+        attempted_exercise_ids={1, 2},
+    ) == ("advance", None, None)
+
