@@ -54,6 +54,15 @@ describe('refreshLearningPlan', () => {
     expect(reload).not.toHaveBeenCalled()
   })
 
+  it('does not reload the localized plan prefix without the plan segment', () => {
+    const reload = vi.fn()
+
+    refreshLearningPlan('/fr', reload)
+    refreshLearningPlan('/de/dashboard', reload)
+
+    expect(reload).not.toHaveBeenCalled()
+  })
+
   it('ignores unrelated routes', () => {
     const reload = vi.fn()
 
