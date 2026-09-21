@@ -23,11 +23,17 @@ from app.schemas.study_plan import (
     StudyPlanResponse,
     TodayLesson,
     TodayResponse,
+    LearningJourneyLessonResponse,
+    LearningJourneyResponse,
+    LearningJourneySectionResponse,
+    LearningJourneyUnitResponse,
+    LaunchLessonRequest,
 )
 from app.services.lesson_generator import generate_lesson
 from app.services.exercise_factory import build_persisted_exercise_variants
 from app.services.study_plan_generator import generate_study_plan
 from app.services.user_language_service import ensure_user_language, get_active_language
+from app.services.progress_service import get_unit_competencies
 
 logger = get_logger(__name__)
 
@@ -454,3 +460,218 @@ async def get_plan_lessons(
         .order_by(Lesson.week_number, Lesson.day_number, Lesson.id)
     )
     return result.scalars().all()
+
+
+def _lesson_slot_index(lesson: Lesson, days_per_week: int) -> int:
+    return (lesson.week_number - 1) * days_per_week + (lesson.day_number - 1)
+
+
+async def _learning_path_state(
+    db: AsyncSession,
+    user_id: int,
+    plan: StudyPlan,
+) -> tuple[list[LearningJourneySectionResponse], int | None, str | None]:
+    from app.data.curriculum import get_curriculum_units
+
+    units = get_curriculum_units(plan.cefr_level, plan.target_language)
+    lessons_result = await db.execute(
+        select(Lesson)
+        .where(Lesson.study_plan_id == plan.id)
+        .order_by(Lesson.week_number, Lesson.day_number, Lesson.id)
+    )
+    persisted = lessons_result.scalars().all()
+    lessons_by_unit: dict[str, list[Lesson]] = defaultdict(list)
+    for lesson in persisted:
+        if lesson.unit_id:
+            lessons_by_unit[lesson.unit_id].append(lesson)
+
+    competency_rows = await get_unit_competencies(db, user_id, study_plan_id=plan.id)
+    competency_map = {row["unit_id"]: row for row in competency_rows}
+
+    sections: list[LearningJourneySectionResponse] = []
+    previous_unit_id: str | None = None
+    next_lesson_id: int | None = None
+    next_unit_id: str | None = None
+
+    section_units: list[LearningJourneyUnitResponse] = []
+    for unit in units:
+        unit_lessons = lessons_by_unit.get(unit.id, [])
+        unit_score = float(competency_map.get(unit.id, {}).get("score", 0.0))
+        mastered_count = int(competency_map.get(unit.id, {}).get("mastered_count", 0))
+        competency_count = int(competency_map.get(unit.id, {}).get("total_count", len(unit.competency_checklist)))
+
+        completed_count = sum(1 for lesson in unit_lessons if lesson.is_completed)
+        unit_complete = unit_score >= 0.80 or (
+            bool(unit_lessons) and completed_count == len(unit_lessons)
+        )
+        prereq = unit.prerequisite_unit
+        prereq_score = float(competency_map.get(prereq, {}).get("score", 0.0)) if prereq else 1.0
+        prereq_complete = not prereq or prereq_score >= 0.80
+
+        if unit_complete:
+            state = "completed"
+        elif prereq_complete and (previous_unit_id is None or previous_unit_id == prereq):
+            state = "active"
+        elif prereq_complete and not unit_lessons:
+            state = "available"
+        else:
+            state = "locked"
+
+        lesson_responses: list[LearningJourneyLessonResponse] = []
+        ordered_slots = sorted(unit_lessons, key=lambda item: (_lesson_slot_index(item, plan.days_per_week), item.id))
+        prior_complete = True
+        for lesson in ordered_slots:
+            slot_index = _lesson_slot_index(lesson, plan.days_per_week)
+            available = state in {"active", "available"} and prior_complete
+            lesson_state = "completed" if lesson.is_completed else ("available" if available else "locked")
+            lesson_responses.append(
+                LearningJourneyLessonResponse(
+                    id=lesson.id,
+                    title=lesson.title,
+                    lesson_type=lesson.lesson_type,
+                    week_number=lesson.week_number,
+                    day_number=lesson.day_number,
+                    unit_id=unit.id,
+                    is_completed=lesson.is_completed,
+                    available=available,
+                    state=lesson_state,
+                )
+            )
+            if not lesson.is_completed:
+                prior_complete = False
+                if available and next_lesson_id is None:
+                    next_lesson_id = lesson.id
+                    next_unit_id = unit.id
+
+        section_units.append(
+            LearningJourneyUnitResponse(
+                id=unit.id,
+                title=unit.title,
+                level=unit.level,
+                unit_number=unit.unit_number,
+                prerequisite_unit=prereq,
+                state=state,
+                progress=round(unit_score, 3),
+                mastered_count=mastered_count,
+                competency_count=competency_count,
+                lessons=lesson_responses,
+            )
+        )
+        if unit_complete:
+            previous_unit_id = unit.id
+
+    sections.append(
+        LearningJourneySectionResponse(
+            id=plan.cefr_level.lower(),
+            title=f"{plan.cefr_level} Learning Section",
+            level=plan.cefr_level,
+            state="completed" if section_units and all(u.state == "completed" for u in section_units) else "active",
+            units=section_units,
+        )
+    )
+    return sections, next_lesson_id, next_unit_id
+
+
+@router.get("/learning-path", response_model=LearningJourneyResponse)
+@limiter.limit("60/minute")
+async def get_learning_path(
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    active_lang = await get_active_language(db, current_user.id)
+    if not active_lang:
+        raise HTTPException(status_code=404, detail="No active language set")
+    result = await db.execute(
+        select(StudyPlan).where(
+            StudyPlan.user_language_id == active_lang.id,
+            StudyPlan.is_active.is_(True),
+        )
+    )
+    plan = result.scalar_one_or_none()
+    if not plan:
+        raise HTTPException(status_code=404, detail="No active study plan found")
+
+    sections, next_lesson_id, next_unit_id = await _learning_path_state(
+        db, current_user.id, plan
+    )
+    return LearningJourneyResponse(
+        plan_id=plan.id,
+        target_language=plan.target_language,
+        cefr_level=plan.cefr_level,
+        current_unit=plan.current_unit,
+        sections=sections,
+        next_lesson_id=next_lesson_id,
+        next_unit_id=next_unit_id,
+    )
+
+
+@router.post("/launch-lesson")
+@limiter.limit("20/minute")
+async def launch_lesson(
+    request: Request,
+    data: LaunchLessonRequest,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    active_lang = await get_active_language(db, current_user.id)
+    if not active_lang:
+        raise HTTPException(status_code=404, detail="No active language set")
+    plan_result = await db.execute(
+        select(StudyPlan).where(
+            StudyPlan.user_language_id == active_lang.id,
+            StudyPlan.is_active.is_(True),
+        )
+    )
+    plan = plan_result.scalar_one_or_none()
+    if not plan:
+        raise HTTPException(status_code=404, detail="No active study plan found")
+
+    lesson_result = await db.execute(
+        select(Lesson).where(
+            Lesson.id == data.lesson_id,
+            Lesson.study_plan_id == plan.id,
+        )
+    )
+    lesson = lesson_result.scalar_one_or_none()
+    if lesson is None:
+        raise HTTPException(status_code=404, detail="Lesson not found")
+
+    sections, next_lesson_id, _ = await _learning_path_state(
+        db, current_user.id, plan
+    )
+    requested = next(
+        (
+            item
+            for section in sections
+            for unit in section.units
+            for item in unit.lessons
+            if item.id == lesson.id
+        ),
+        None,
+    )
+    if requested is None or not requested.available and not lesson.is_completed:
+        raise HTTPException(status_code=409, detail="Lesson is locked")
+
+    if lesson.is_completed:
+        return {
+            "id": lesson.id,
+            "title": lesson.title,
+            "lesson_type": lesson.lesson_type,
+            "unit_id": lesson.unit_id,
+            "week_number": lesson.week_number,
+            "day_number": lesson.day_number,
+            "is_completed": True,
+            "next_lesson_id": next_lesson_id,
+        }
+
+    return {
+        "id": lesson.id,
+        "title": lesson.title,
+        "lesson_type": lesson.lesson_type,
+        "unit_id": lesson.unit_id,
+        "week_number": lesson.week_number,
+        "day_number": lesson.day_number,
+        "is_completed": False,
+        "next_lesson_id": next_lesson_id,
+    }
