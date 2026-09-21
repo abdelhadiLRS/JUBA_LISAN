@@ -46,9 +46,9 @@ from app.services.llm_adapter import (
     LLMUnavailableError,
     llm_adapter,
 )
-from app.services.exercise_retry import get_retry_variant
 from app.services.adaptive_variants import (
     collect_attempted_exercise_ids,
+    recommend_adaptive_action,
     recommend_adaptive_variant,
 )
 from app.services.progress_service import update_daily_progress, upsert_unit_competency
@@ -133,30 +133,6 @@ _ANSWER_FEEDBACK: dict[str, dict[str, str]] = {
 def _answer_feedback(native_language: str, key: str, *, answer: str = "") -> str:
     messages = _ANSWER_FEEDBACK.get(native_language, _ANSWER_FEEDBACK["en"])
     return messages[key].format(answer=answer)
-
-
-def _adaptive_recommendation(
-    score: float,
-    current_variant: str | None,
-    available_variants: list[str],
-) -> tuple[str, str | None]:
-    """Turn the latest score into a deterministic next-step recommendation."""
-    if score < 0.50:
-        variant = get_retry_variant(
-            current_variant,
-            succeeded=False,
-            available_variants=available_variants,
-        )
-        return ("retry_easier", variant) if variant else ("reinforce", None)
-    if score >= 0.80:
-        variant = get_retry_variant(
-            current_variant,
-            succeeded=True,
-            available_variants=available_variants,
-        )
-        return ("advance_harder", variant) if variant else ("advance", None)
-    return "reinforce", None
-
 
 
 
@@ -678,10 +654,7 @@ async def answer_exercise(
         select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
     )
     lesson_exercises = lesson_exercise_result.scalars().all()
-    content_by_exercise_id: dict[int, dict] = {}
-    for index, lesson_exercise in enumerate(lesson_exercises):
-        if index < len(_content_exercises) and isinstance(_content_exercises[index], dict):
-            content_by_exercise_id[lesson_exercise.id] = _content_exercises[index]
+    content_by_exercise_id = _map_content_exercises(lesson_exercises, _content_exercises)
 
     if attempt.content_id:
         recommended_action, recommended_variant, _target = recommend_adaptive_variant(
@@ -700,8 +673,8 @@ async def answer_exercise(
             ),
         )
     else:
-        recommended_action, recommended_variant = _adaptive_recommendation(
-            exercise.score, attempt.variant, []
+        recommended_action, recommended_variant = recommend_adaptive_action(
+            exercise.score, attempt.variant
         )
 
     return ExerciseAnswerResponse(
@@ -812,8 +785,8 @@ async def list_lesson_attempt_summary(
                 ),
             )
         else:
-            action, recommended_variant = _adaptive_recommendation(
-                latest.score, latest.variant, []
+            action, recommended_variant = recommend_adaptive_action(
+                latest.score, latest.variant
             )
 
         summaries.append(
@@ -1016,11 +989,7 @@ async def retry_exercise(
         .with_for_update()
     )
     lesson_exercises = result.scalars().all()
-    content_by_exercise_id: dict[int, dict] = {}
-    for index, sibling in enumerate(lesson_exercises):
-        if index >= len(content_exercises) or not isinstance(content_exercises[index], dict):
-            continue
-        content_by_exercise_id[sibling.id] = content_exercises[index]
+    content_by_exercise_id = _map_content_exercises(lesson_exercises, content_exercises)
 
     attempt_result = await db.execute(
         select(ExerciseAttempt).where(
