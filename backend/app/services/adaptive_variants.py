@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from typing import TypeVar
 
-from app.services.exercise_retry import get_retry_variant, normalise_variant
+from app.services.exercise_retry import (\n    classify_score,\n    get_retry_variant,\n    normalise_variant,\n)
 
 ExerciseT = TypeVar("ExerciseT")
 
