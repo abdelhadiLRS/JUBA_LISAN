@@ -79,3 +79,18 @@ def test_score_classification_is_monotonic_at_decimal_boundaries():
     assert classify_score(0.500001) == "middle"
     assert classify_score(0.799999) == "middle"
     assert classify_score(0.800001) == "success"
+
+def test_retry_accepts_mixed_runtime_variant_collections():
+    assert get_retry_variant(
+        "multiple_choice",
+        succeeded=True,
+        available_variants=["multiple_choice", True, 2, "fill_blank", None],
+    ) == "fill_blank"
+
+
+def test_retry_ignores_unknown_variants_when_selecting_direction():
+    assert get_retry_variant(
+        "multiple_choice",
+        succeeded=True,
+        available_variants=["experimental", "fill_blank", "future_variant"],
+    ) == "fill_blank"
