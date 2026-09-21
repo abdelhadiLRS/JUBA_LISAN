@@ -19,6 +19,28 @@ describe('useLearningProgressSync', () => {
     expect(refresh).toHaveBeenCalledTimes(1)
   })
 
+  it('coalesces lifecycle events while a refresh is in flight', async () => {
+    let resolveRefresh: (() => void) | undefined
+    const refresh = vi.fn(
+      () => new Promise<void>((resolve) => {
+        resolveRefresh = resolve
+      }),
+    )
+    renderHook(() => useLearningProgressSync(refresh))
+
+    window.dispatchEvent(new Event('juba:learning-progress-updated'))
+    window.dispatchEvent(new Event('pageshow'))
+    document.dispatchEvent(new Event('visibilitychange'))
+    await flush()
+
+    expect(refresh).toHaveBeenCalledTimes(1)
+    resolveRefresh?.()
+    await flush()
+    await flush()
+
+    expect(refresh).toHaveBeenCalledTimes(2)
+  })
+
   it('refreshes when the page becomes visible again', async () => {
     const refresh = vi.fn()
     renderHook(() => useLearningProgressSync(refresh))
