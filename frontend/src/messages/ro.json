@@ -681,15 +681,13 @@
     "attemptHistory": "Istoricul încercărilor",
     "noAttempts": "Nicio încercare încă.",
     "hintPrefix": "Indiciu: ",
-    "retryEasier": "Reîncearcă mai ușor"
-    ,"checking": "Se verifică…",
-    "checkAnswer": "Verifică răspunsul",
-    "next": "Următorul",
-    "finish": "Finalizează lecția",
-    "completed": "Finalizată",
-    "niceWork": "Foarte bine. Ți-ai amintit.",
-    "reviewNow": "Recapitulează acum",
-    "nextCourse": "Cursul următor",
+    "retryEasier": "Reîncearcă mai ușor"\n    "checking": "Se verifică…",,
+    "next": "Următorul",,
+    "finish": "Finalizează lecția",,
+    "completed": "Finalizată",,
+    "niceWork": "Foarte bine. Ți-ai amintit.",,
+    "reviewNow": "Recapitulează acum",,
+    "nextCourse": "Cursul următor"
   },
   "flashcards": {
     "title": "Carduri flash",
