@@ -765,7 +765,11 @@
     "noActivePlanDesc": "Finalizează evaluarea pentru a urmări abilitățile.",
     "vocabularyHeader": "Vocabular {level}",
     "currentLevelOnly": "Doar nivelul curent",
-    "allLevels": "Toate nivelurile"
+    "allLevels": "Toate nivelurile",
+    "learningActivity": "Activitate de învățare",
+    "last7Days": "Ultimele 7 zile",
+    "exercises": "Exerciții",
+    "sevenDayXp": "XP din 7 zile"
   },
   "grammar": {
     "title": "Referință gramaticală",
