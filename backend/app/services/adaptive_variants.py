@@ -101,14 +101,13 @@ def select_unanswered_variant(
     )
 
 
-
 def recommend_adaptive_action(
     score: float,
     current_variant: str | None,
     available_variants: Collection[object] | None = None,
 ) -> tuple[str, str | None]:
     """Return an adaptive action and optional variant without requiring exercise rows."""
-    classification = classify_score(score)
+    classification = classify_score(float(score))
     if classification == "middle":
         return "reinforce", None
 
