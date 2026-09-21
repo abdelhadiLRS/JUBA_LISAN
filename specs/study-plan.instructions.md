@@ -401,3 +401,14 @@ The learning system exposes a stable hierarchy: **CEFR Section → Unit → Micr
 `GET /api/study-plan/learning-path` is the canonical read model for the journey UI. It must return enough information to render sections, units, lesson ordering, availability, progress, competency/mastery state, and the recommended next lesson without requiring the frontend to reconstruct prerequisite rules.
 
 `POST /api/study-plan/launch-lesson` is the mutation boundary for starting a lesson from the journey. It validates ownership and unlock state before generation/persistence and is idempotent for an already-materialized lesson.
+
+## Learning Journey runtime contract
+
+The learning journey is exposed as a server-authoritative projection of the active study plan.
+
+- **Sections → Units → Micro-lessons**: the active CEFR level is represented as a section; curriculum units are its units; persisted lessons are the micro-lessons.
+- **Unit state** is derived from prerequisite completion and competency progress. A completed unit has competency score >= 0.80 or all persisted unit lessons completed.
+- **Lesson state** is sequential within a unit. A lesson is available only when its unit is available and the preceding persisted lesson is complete.
+- **GET /api/study-plan/learning-path** is read-only and returns unit progress, mastery counts, lesson states, and the next available persisted lesson.
+- **POST /api/study-plan/launch-lesson** is the guarded entry point for starting/reviewing a persisted lesson. It verifies active-plan ownership and sequential unlock state before returning lesson launch metadata.
+- The client must not infer unlock authority from local curriculum data; local data is presentation metadata only. Backend state remains authoritative.
