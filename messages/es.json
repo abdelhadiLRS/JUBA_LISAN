@@ -1697,6 +1697,9 @@
     "source": "origen",
     "target": "destino",
     "loadError": "No se pudieron cargar las tarjetas de repaso.",
-    "saveError": "No se pudo guardar el repaso. Inténtalo de nuevo."
+    "saveError": "No se pudo guardar el repaso. Inténtalo de nuevo.",
+    "shortcutHint": "Espacio para revelar · 1–4 para valorar",
+    "spaceShortcut": "Espacio para revelar",
+    "rateKeys": "1 Otra vez · 2 Difícil · 3 Bien · 4 Fácil"
   }
 }
