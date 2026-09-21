@@ -728,7 +728,15 @@
     "completed": "Completed",
     "niceWork": "Nice work. You remembered.",
     "reviewNow": "Review now",
-    "nextCourse": "Next course"
+    "nextCourse": "Next course",
+    "attemptsLabel": "Attempts",
+    "best": "Best",
+    "latest": "Latest",
+    "typeAnswer": "Type your answer…",
+    "saveWord": "+ Save",
+    "saved": "Saved",
+    "saveError": "Error",
+    "keepLearning": "Keep the momentum going with a review."
   },
   "flashcards": {
     "title": "Flashcards",
