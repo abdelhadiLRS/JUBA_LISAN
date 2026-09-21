@@ -26,7 +26,6 @@ export default function LessonPage() {
   const t = useTranslations('lesson')
   const tCommon = useTranslations('common')
   const tPlan = useTranslations('plan')
-  const tError = useTranslations('error')
   const locale = useLocale()
   const params = useParams()
   const router = useRouter()
@@ -86,7 +85,7 @@ export default function LessonPage() {
 
   const exercise = exercises[currentExercise]
   const currentVariant = exercise?.variant ?? exercise?.exercise_type ?? ''
-  const progress = exercises.length ? Math.round(((currentExercise + (completed ? 1 : 0)) / exercises.length) * 100) : 0
+  const progress = exercises.length ? Math.min(100, Math.round(((currentExercise + (completed ? 1 : 0)) / exercises.length) * 100)) : 0
   const contentItems = useMemo(() => { const value = lesson?.content?.vocabulary; return Array.isArray(value) ? value as LessonVocabularyItem[] : [] }, [lesson])
   const finishLesson = useCallback(async () => {
     if (!lesson || completed) return
