@@ -90,7 +90,7 @@ export default function LessonPage() {
 
   const loadAttemptSummary = useCallback(async (lessonId: number) => {
     try {
-      const res = await apiFetch(`/api/lessons/lessons/${lessonId}/attempt-summary`)
+      const res = await apiFetch(`/api/lessons/${lessonId}/attempt-summary`)
       if (!res.ok) return
       const data: ExerciseAttemptSummary[] = await res.json()
       setAttemptSummary(data)
