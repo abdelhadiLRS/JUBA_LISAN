@@ -3,6 +3,7 @@ const LEARNING_PROGRESS_KEY = 'juba:learning-progress-updated'
 const LEARNING_PROGRESS_CHANNEL = 'juba:learning-progress'
 
 let progressChannel: BroadcastChannel | null = null
+let progressSubscriberCount = 0
 
 function getProgressChannel(): BroadcastChannel | null {
   if (typeof window === 'undefined' || typeof BroadcastChannel === 'undefined') {
@@ -34,7 +35,7 @@ export function markLearningProgressUpdated(): void {
   window.dispatchEvent(new Event(LEARNING_PROGRESS_EVENT))
 
   try {
-    getProgressChannel()?.postMessage({ type: LEARNING_PROGRESS_EVENT, timestamp })
+    progressChannel?.postMessage({ type: LEARNING_PROGRESS_EVENT, timestamp })
   } catch {
     // BroadcastChannel can be unavailable or closed in restricted browser contexts.
   }
@@ -44,6 +45,7 @@ export function subscribeToLearningProgressUpdated(listener: () => void): () => 
   if (typeof window === 'undefined') return () => undefined
 
   const channel = getProgressChannel()
+  if (channel) progressSubscriberCount += 1
   const onChannelMessage = (event: MessageEvent<{ type?: string }>) => {
     if (event.data?.type === LEARNING_PROGRESS_EVENT) {
       listener()
@@ -63,5 +65,12 @@ export function subscribeToLearningProgressUpdated(listener: () => void): () => 
     window.removeEventListener(LEARNING_PROGRESS_EVENT, listener)
     window.removeEventListener('storage', onStorage)
     channel?.removeEventListener('message', onChannelMessage)
+    if (channel) {
+      progressSubscriberCount = Math.max(0, progressSubscriberCount - 1)
+      if (progressSubscriberCount === 0) {
+        channel.close()
+        progressChannel = null
+      }
+    }
   }
 }
