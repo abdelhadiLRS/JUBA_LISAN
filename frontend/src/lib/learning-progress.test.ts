@@ -15,9 +15,11 @@ describe('learning progress signal', () => {
     const originalWindow = globalThis.window
     vi.stubGlobal('window', undefined)
 
-    expect(subscribeToLearningProgressUpdated(vi.fn())).toEqual(expect.any(Function))
-
-    vi.stubGlobal('window', originalWindow)
+    try {
+      expect(subscribeToLearningProgressUpdated(vi.fn())).toEqual(expect.any(Function))
+    } finally {
+      vi.stubGlobal('window', originalWindow)
+    }
   })
 
   it('persists a timestamp and dispatches the shared event', () => {
