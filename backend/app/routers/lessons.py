@@ -683,12 +683,6 @@ async def list_lesson_attempt_summary(
     for attempt in result.scalars().all():
         grouped.setdefault(attempt.exercise_id, []).append(attempt)
 
-    content_by_id = {
-        item.get("content_id"): item
-        for item in (lesson.content or {}).get("exercises", [])
-        if isinstance(item, dict) and isinstance(item.get("content_id"), str)
-    }
-
     summaries = []
     for exercise_id, items in grouped.items():
         latest = max(items, key=lambda item: item.answered_at)
