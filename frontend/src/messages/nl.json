@@ -688,7 +688,15 @@
     "completed": "Voltooid",
     "niceWork": "Goed gedaan. Je hebt het onthouden.",
     "reviewNow": "Nu herhalen",
-    "nextCourse": "Volgende cursus"
+    "nextCourse": "Volgende cursus",
+    "attemptsLabel": "Pogingen",
+    "best": "Beste",
+    "latest": "Laatste",
+    "typeAnswer": "Typ je antwoord…",
+    "saveWord": "+ Opslaan",
+    "saved": "Opgeslagen",
+    "saveError": "Fout",
+    "keepLearning": "Blijf oefenen met een herhaling."
   },
   "flashcards": {
     "title": "Flashcards",
