@@ -681,15 +681,13 @@
     "attemptHistory": "Versuchsverlauf",
     "noAttempts": "Noch keine Versuche.",
     "hintPrefix": "Hinweis: ",
-    "retryEasier": "Einfacher wiederholen"
-    ,"checking": "Prüfe…",
-    "checkAnswer": "Antwort prüfen",
-    "next": "Weiter",
-    "finish": "Lektion beenden",
-    "completed": "Abgeschlossen",
-    "niceWork": "Gut gemacht. Du hast es behalten.",
-    "reviewNow": "Jetzt wiederholen",
-    "nextCourse": "Nächster Kurs",
+    "retryEasier": "Einfacher wiederholen"\n    "checking": "Prüfe…",,
+    "next": "Weiter",,
+    "finish": "Lektion beenden",,
+    "completed": "Abgeschlossen",,
+    "niceWork": "Gut gemacht. Du hast es behalten.",,
+    "reviewNow": "Jetzt wiederholen",,
+    "nextCourse": "Nächster Kurs"
   },
   "flashcards": {
     "title": "Karteikarten",
