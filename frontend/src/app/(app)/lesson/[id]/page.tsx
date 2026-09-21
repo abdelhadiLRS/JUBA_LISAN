@@ -55,6 +55,15 @@ export default function LessonPage() {
   const [loadingHint, setLoadingHint] = useState(false)
   const [loadingExplanation, setLoadingExplanation] = useState(false)
 
+  const loadAttemptSummary = useCallback(async (lessonId: number) => {
+    try {
+      const res = await apiFetch(`/api/lessons/${lessonId}/attempt-summary`)
+      if (!res.ok) return
+      const data: ExerciseAttemptSummary[] = await res.json()
+      setAttemptSummary(data)
+    } catch { /* summary is optional UI */ }
+  }, [])
+
   useEffect(() => { void getGrammarTopics(activeLanguage?.code ?? 'en-GB').catch(() => undefined) }, [activeLanguage?.code])
   useEffect(() => { void fetchFreemium().catch(() => undefined) }, [fetchFreemium])
   useEffect(() => {
@@ -96,15 +105,6 @@ export default function LessonPage() {
       const data: ExerciseAttempt[] = await res.json()
       setAttempts(data)
     } catch { /* attempt history is optional UI */ }
-  }, [])
-
-  const loadAttemptSummary = useCallback(async (lessonId: number) => {
-    try {
-      const res = await apiFetch(`/api/lessons/${lessonId}/attempt-summary`)
-      if (!res.ok) return
-      const data: ExerciseAttemptSummary[] = await res.json()
-      setAttemptSummary(data)
-    } catch { /* summary is optional UI */ }
   }, [])
 
   const loadNativeHint = async () => {
