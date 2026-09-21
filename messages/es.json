@@ -1691,6 +1691,10 @@
     "hard": "Difícil",
     "good": "Bien",
     "easy": "Fácil",
-    "tapToHear": "Toca la palabra para escucharla"
+    "tapToHear": "Toca la palabra para escucharla",
+    "progressLabel": "Progreso del repaso",
+    "account": "Cuenta",
+    "source": "origen",
+    "target": "destino"
   }
 }
