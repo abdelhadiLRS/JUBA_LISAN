@@ -1,6 +1,19 @@
 from dataclasses import dataclass
 
+from app.services.exercise_retry import classify_score
 from app.services.adaptive_variants import (
+
+def test_classify_score_uses_stable_boundaries():
+    assert classify_score(0.49) == "low"
+    assert classify_score(0.50) == "middle"
+    assert classify_score(0.79) == "middle"
+    assert classify_score(0.80) == "success"
+
+
+def test_classify_score_accepts_out_of_range_scores_deterministically():
+    assert classify_score(-1.0) == "low"
+    assert classify_score(1.5) == "success"
+
     collect_attempted_exercise_ids,
     select_unanswered_variant,
     recommend_adaptive_variant,
