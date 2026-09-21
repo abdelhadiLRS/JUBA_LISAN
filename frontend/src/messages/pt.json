@@ -688,7 +688,15 @@
     "completed": "Concluída",
     "niceWork": "Bom trabalho. Você se lembrou.",
     "reviewNow": "Rever agora",
-    "nextCourse": "Próximo curso"
+    "nextCourse": "Próximo curso",
+    "attemptsLabel": "Tentativas",
+    "best": "Melhor",
+    "latest": "Mais recente",
+    "typeAnswer": "Digite sua resposta…",
+    "saveWord": "+ Guardar",
+    "saved": "Guardado",
+    "saveError": "Erro",
+    "keepLearning": "Continue praticando com uma revisão."
   },
   "flashcards": {
     "title": "Cartões",
