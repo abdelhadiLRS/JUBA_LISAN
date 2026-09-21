@@ -1,11 +1,15 @@
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from typing import TypeVar
 
 from app.services.exercise_retry import get_retry_variant, normalise_variant
 
 ExerciseT = TypeVar("ExerciseT")
+
+
+def _get_attr(name: str) -> Callable[[object], object]:
+    return lambda exercise: getattr(exercise, name, None)
 
 
 def select_unanswered_variant(
@@ -15,14 +19,15 @@ def select_unanswered_variant(
     current_variant: str | None,
     succeeded: bool,
     attempted_exercise_ids: set[int] | None = None,
-    get_exercise_id=lambda exercise: exercise.id,
-    get_variant=lambda exercise: exercise.variant,
-    get_content_id=lambda exercise: exercise.content_id,
+    get_exercise_id: Callable[[ExerciseT], int] = _get_attr("id"),
+    get_variant: Callable[[ExerciseT], object] = _get_attr("variant"),
+    get_content_id: Callable[[ExerciseT], object] = _get_attr("content_id"),
 ) -> ExerciseT | None:
     """Select the adjacent unanswered variant for one stable content identity.
 
-    The selector is intentionally independent of SQLAlchemy so retry and adaptive
-    progression can share identical candidate semantics at the router boundary.
+    The selector is independent of SQLAlchemy. Callers that keep variant/content
+    metadata in lesson JSON can provide callbacks that read that metadata while
+    still sharing the same retry/adaptive candidate rules.
     """
     if not content_id.strip():
         return None
@@ -35,13 +40,14 @@ def select_unanswered_variant(
         if str(get_content_id(exercise) or "") != content_id:
             continue
 
-        variant = normalise_variant(get_variant(exercise))
+        variant = normalise_variant(
+            get_variant(exercise) if isinstance(get_variant(exercise), str) else None
+        )
         if not variant:
             continue
         available_variants.append(variant)
 
-        exercise_id = get_exercise_id(exercise)
-        if exercise_id in attempted:
+        if get_exercise_id(exercise) in attempted:
             continue
         candidates.append((exercise, variant))
 
@@ -53,7 +59,7 @@ def select_unanswered_variant(
     if not target_variant:
         return None
 
-    for exercise, variant in candidates:
-        if variant == target_variant:
-            return exercise
-    return None
+    return next(
+        (exercise for exercise, variant in candidates if variant == target_variant),
+        None,
+    )
