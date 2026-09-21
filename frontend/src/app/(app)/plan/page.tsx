@@ -20,11 +20,14 @@
           setActiveLessonId(journey.next_lesson_id)
         }
         const journeyMap: CompetencyMap = {}
+        const journeyStates: Record<string, string> = {}
         for (const section of journey.sections) {
           for (const unit of section.units) {
             journeyMap[unit.id] = unit.progress
+            journeyStates[unit.id] = unit.state
           }
         }
+        setUnitStates(journeyStates)
         if (Object.keys(journeyMap).length > 0) {
           setCompetencies(journeyMap)
         }
