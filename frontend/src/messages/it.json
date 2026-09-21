@@ -682,6 +682,14 @@
     "noAttempts": "Nessun tentativo ancora.",
     "hintPrefix": "Suggerimento: ",
     "retryEasier": "Riprova più facilmente"
+    ,"checking": "Verifica…",
+    "checkAnswer": "Controlla risposta",
+    "next": "Avanti",
+    "finish": "Termina lezione",
+    "completed": "Completata",
+    "niceWork": "Ottimo lavoro. Lo hai ricordato.",
+    "reviewNow": "Ripassa ora",
+    "nextCourse": "Corso successivo",
   },
   "flashcards": {
     "title": "Schede",
