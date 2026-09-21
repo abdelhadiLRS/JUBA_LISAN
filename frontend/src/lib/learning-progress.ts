@@ -61,7 +61,11 @@ export function subscribeToLearningProgressUpdated(listener: () => void): () => 
   window.addEventListener('storage', onStorage)
   channel?.addEventListener('message', onChannelMessage)
 
+  let active = true
   return () => {
+    if (!active) return
+    active = false
+
     window.removeEventListener(LEARNING_PROGRESS_EVENT, listener)
     window.removeEventListener('storage', onStorage)
     channel?.removeEventListener('message', onChannelMessage)
