@@ -651,3 +651,11 @@ def test_recommend_adaptive_action_middle_score_ignores_malformed_variants():
         "reinforce",
         None,
     )
+
+
+
+def test_recommend_adaptive_action_accepts_numeric_score_values():
+    assert recommend_adaptive_action("0.90", "multiple_choice", ["fill_blank"]) == (
+        "advance_harder",
+        "fill_blank",
+    )
