@@ -681,12 +681,13 @@
     "attemptHistory": "Histórico de tentativas",
     "noAttempts": "Nenhuma tentativa ainda.",
     "hintPrefix": "Dica: ",
-    "retryEasier": "Tentar novamente mais fácil"\n    "checking": "A verificar…",,
-    "next": "Seguinte",,
-    "finish": "Concluir lição",,
-    "completed": "Concluída",,
-    "niceWork": "Bom trabalho. Você se lembrou.",,
-    "reviewNow": "Rever agora",,
+    "retryEasier": "Tentar novamente mais fácil"
+    "checking": "A verificar…",
+    "next": "Seguinte",
+    "finish": "Concluir lição",
+    "completed": "Concluída",
+    "niceWork": "Bom trabalho. Você se lembrou.",
+    "reviewNow": "Rever agora",
     "nextCourse": "Próximo curso"
   },
   "flashcards": {
