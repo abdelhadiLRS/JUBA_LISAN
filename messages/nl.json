@@ -765,7 +765,11 @@
     "noActivePlanDesc": "Voltooi de beoordeling om je vaardigheden bij te houden.",
     "vocabularyHeader": "{level} woordenschat",
     "currentLevelOnly": "Alleen huidig niveau",
-    "allLevels": "Alle niveaus"
+    "allLevels": "Alle niveaus",
+    "learningActivity": "Leeractiviteit",
+    "last7Days": "Afgelopen 7 dagen",
+    "exercises": "Oefeningen",
+    "sevenDayXp": "XP van 7 dagen"
   },
   "grammar": {
     "title": "Grammaticareferentie",
