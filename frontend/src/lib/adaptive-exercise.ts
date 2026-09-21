@@ -6,7 +6,7 @@ export interface AdaptiveExerciseRecommendation {
 
 export interface AdaptiveExerciseLike {
   id: number
-  recommended_action?: string
+  recommended_action?: string | null
   recommended_variant?: string | null
 }
 
@@ -26,4 +26,8 @@ export function mergeAdaptiveRecommendations<T extends AdaptiveExerciseLike>(
       recommended_variant: summary.recommended_variant ?? null,
     }
   })
+}
+
+export function hasAdaptiveTarget(recommendation: AdaptiveExerciseRecommendation): boolean {
+  return typeof recommendation.recommended_variant === 'string' && recommendation.recommended_variant.trim().length > 0
 }
