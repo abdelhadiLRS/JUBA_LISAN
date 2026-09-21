@@ -148,6 +148,7 @@ class ExerciseAttemptSummaryResponse(BaseModel):
     best_score: float
     latest_score: float
     latest_variant: str | None = None
+    latest_answered_at: datetime
 
 
 class ExerciseAnswerResponse(BaseModel):
