@@ -99,6 +99,28 @@ def select_unanswered_variant(
     )
 
 
+
+def recommend_adaptive_action(
+    score: float,
+    current_variant: str | None,
+    available_variants: Collection[object] | None = None,
+) -> tuple[str, str | None]:
+    """Return an adaptive action and optional variant without requiring exercise rows."""
+    classification = classify_score(score)
+    if classification == "middle":
+        return "reinforce", None
+
+    variant = get_retry_variant(
+        current_variant,
+        succeeded=classification == "success",
+        available_variants=list(available_variants or ()),
+    )
+    if variant is None:
+        return ("advance", None) if classification == "success" else ("reinforce", None)
+
+    action = "advance_harder" if classification == "success" else "retry_easier"
+    return action, variant
+
 def recommend_adaptive_variant(
     exercises: Sequence[ExerciseT],
     *,
