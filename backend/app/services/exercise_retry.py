@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import Literal
 import re
+from typing import Literal
 
 # Lower number = easier interaction. Unknown interaction types are left unchanged.
 LOW_SCORE_THRESHOLD = 0.50
@@ -40,8 +40,11 @@ ALIASES = {
 }
 
 
-def normalise_variant(value: str | None) -> str:
-    raw = re.sub(r"[\s_]+", "-", (value or "").strip().lower())
+def normalise_variant(value: object) -> str:
+    """Return a canonical variant name, safely ignoring malformed values."""
+    if not isinstance(value, str):
+        return ""
+    raw = re.sub(r"[\s_]+", "-", value.strip().lower())
     return ALIASES.get(raw, raw)
 
 
