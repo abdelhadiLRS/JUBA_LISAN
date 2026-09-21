@@ -8,11 +8,13 @@ from app.services.adaptive_variants import (
 )
 
 
+
 def test_classify_score_uses_stable_boundaries():
     assert classify_score(0.49) == "low"
     assert classify_score(0.50) == "middle"
     assert classify_score(0.79) == "middle"
     assert classify_score(0.80) == "success"
+
 
 
 def test_classify_score_accepts_out_of_range_scores_deterministically():
@@ -32,10 +34,12 @@ class Attempt:
     exercise_id: int
 
 
+
 def test_collect_attempted_exercise_ids_deduplicates_history():
     attempts = [Attempt(1), Attempt(2), Attempt(1)]
 
     assert collect_attempted_exercise_ids(attempts) == {1, 2}
+
 
 
 def test_collect_attempted_exercise_ids_ignores_invalid_ids():
@@ -44,10 +48,12 @@ def test_collect_attempted_exercise_ids_ignores_invalid_ids():
     assert collect_attempted_exercise_ids(attempts) == {1}
 
 
+
 def test_collect_attempted_exercise_ids_rejects_boolean_ids():
     attempts = [Attempt(True), Attempt(False), Attempt(2)]
 
     assert collect_attempted_exercise_ids(attempts) == {2}
+
 
 
 def test_collect_attempted_exercise_ids_supports_custom_getter():
@@ -60,6 +66,7 @@ def test_collect_attempted_exercise_ids_supports_custom_getter():
         )
         == {4, 5}
     )
+
 
 
 def test_selector_rejects_boolean_candidate_ids():
@@ -82,6 +89,7 @@ def test_selector_rejects_boolean_candidate_ids():
     assert selected is exercises[1]
 
 
+
 def test_selector_ignores_boolean_attempt_history_ids():
     exercises = [
         {"id": 1, "content_id": "c1", "variant": "translate"},
@@ -100,6 +108,7 @@ def test_selector_ignores_boolean_attempt_history_ids():
     )
 
     assert selected is exercises[0]
+
 
 
 def test_selector_rejects_non_positive_candidate_ids():
@@ -122,6 +131,7 @@ def test_selector_rejects_non_positive_candidate_ids():
     assert selected is exercises[1]
 
 
+
 def test_selects_adjacent_easier_unanswered_variant():
     exercises = [
         VariantExercise(1, "c1", "multiple_choice"),
@@ -139,6 +149,7 @@ def test_selects_adjacent_easier_unanswered_variant():
     )
 
     assert selected is exercises[2]
+
 
 
 def test_selects_adjacent_harder_unanswered_variant():
@@ -160,6 +171,7 @@ def test_selects_adjacent_harder_unanswered_variant():
     assert selected is exercises[1]
 
 
+
 def test_never_crosses_stable_content_identity():
     exercises = [
         VariantExercise(1, "c1", "multiple_choice"),
@@ -175,6 +187,7 @@ def test_never_crosses_stable_content_identity():
     )
 
     assert selected is None
+
 
 
 def test_attempted_sibling_is_skipped():
@@ -195,6 +208,7 @@ def test_attempted_sibling_is_skipped():
     assert selected is None
 
 
+
 def test_variant_aliases_are_normalized_before_selection():
     exercises = [
         VariantExercise(1, "c1", "multiple-choice"),
@@ -213,6 +227,7 @@ def test_variant_aliases_are_normalized_before_selection():
     assert selected is exercises[1]
 
 
+
 def test_empty_content_identity_is_rejected():
     exercises = [VariantExercise(1, "c1", "multiple_choice")]
 
@@ -226,6 +241,7 @@ def test_empty_content_identity_is_rejected():
         )
         is None
     )
+
 
 
 def test_selector_supports_lesson_metadata_callbacks():
@@ -248,6 +264,7 @@ def test_selector_supports_lesson_metadata_callbacks():
     assert selected is exercises[1]
 
 
+
 def test_attempt_history_blocks_a_variant_even_when_exercise_is_unanswered():
     exercises = [
         VariantExercise(1, "c1", "multiple_choice"),
@@ -264,6 +281,7 @@ def test_attempt_history_blocks_a_variant_even_when_exercise_is_unanswered():
     )
 
     assert selected is None
+
 
 
 def test_duplicate_variant_rows_keep_the_first_unattempted_match():
@@ -284,6 +302,7 @@ def test_duplicate_variant_rows_keep_the_first_unattempted_match():
     assert selected is exercises[2]
 
 
+
 def test_unknown_sibling_variants_do_not_affect_difficulty_selection():
     exercises = [
         VariantExercise(1, "c1", "multiple_choice"),
@@ -300,6 +319,7 @@ def test_unknown_sibling_variants_do_not_affect_difficulty_selection():
     )
 
     assert selected is exercises[2]
+
 
 def test_recommendation_returns_action_variant_and_target_from_same_selection():
     exercises = [
@@ -319,6 +339,7 @@ def test_recommendation_returns_action_variant_and_target_from_same_selection():
     assert action == "advance_harder"
     assert variant == "fill_blank"
     assert target == exercises[1]
+
 
 
 def test_recommendation_never_returns_an_attempted_target():
@@ -341,6 +362,7 @@ def test_recommendation_never_returns_an_attempted_target():
     assert target == exercises[2]
 
 
+
 def test_recommendation_normalizes_target_alias():
     exercises = [
         VariantExercise(1, "c1", "multiple-choice"),
@@ -360,6 +382,7 @@ def test_recommendation_normalizes_target_alias():
     assert target == exercises[1]
 
 
+
 def test_recommendation_reinforces_middle_score_without_target():
     exercises = [
         VariantExercise(1, "c1", "multiple_choice"),
@@ -372,6 +395,7 @@ def test_recommendation_reinforces_middle_score_without_target():
         current_variant="multiple_choice",
         score=0.79,
     ) == ("reinforce", None, None)
+
 
 def test_recommendation_uses_shared_score_boundaries():
     exercises = [
@@ -399,6 +423,7 @@ def test_recommendation_uses_shared_score_boundaries():
     assert target is exercises[1]
 
 
+
 def test_selector_accepts_malformed_attempt_history_collections():
     exercises = [
         VariantExercise(1, "c1", "multiple_choice"),
@@ -414,6 +439,7 @@ def test_selector_accepts_malformed_attempt_history_collections():
     )
 
     assert selected is exercises[1]
+
 
 
 def test_selector_rejects_string_and_float_candidate_ids():
@@ -437,6 +463,7 @@ def test_selector_rejects_string_and_float_candidate_ids():
     assert selected is exercises[2]
 
 
+
 def test_recommendation_returns_easier_variant_for_low_score():
     exercises = [
         VariantExercise(1, "c1", "multiple_choice"),
@@ -457,6 +484,7 @@ def test_recommendation_returns_easier_variant_for_low_score():
     assert target is exercises[1]
 
 
+
 def test_recommendation_falls_back_when_all_directional_variants_were_attempted():
     exercises = [
         VariantExercise(1, "c1", "multiple_choice"),
@@ -470,6 +498,7 @@ def test_recommendation_falls_back_when_all_directional_variants_were_attempted(
         score=0.95,
         attempted_exercise_ids={1, 2},
     ) == ("advance", None, None)
+
 
 def test_recommendation_accepts_runtime_history_collections():
     exercises = [
@@ -491,6 +520,7 @@ def test_recommendation_accepts_runtime_history_collections():
     assert target is exercises[2]
 
 
+
 def test_recommendation_accepts_missing_attempt_history():
     exercises = [
         VariantExercise(1, "c1", "multiple_choice"),
@@ -507,6 +537,7 @@ def test_recommendation_accepts_missing_attempt_history():
     assert action == "advance_harder"
     assert variant == "fill_blank"
     assert target is exercises[1]
+
 
 def test_selector_ignores_malformed_variant_values():
     exercises = [
