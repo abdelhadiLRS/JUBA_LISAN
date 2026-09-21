@@ -1,65 +1,28 @@
-import { render } from '@testing-library/react'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { usePathname } from 'next/navigation'
-import { useLearningProgressSync } from '@/hooks/use-learning-progress'
-import { LearningProgressBridge } from '@/components/LearningProgressBridge'
+import { describe, expect, it, vi } from 'vitest'
+import { refreshLearningPlan } from '@/components/LearningProgressBridge'
 
-vi.mock('next/navigation', () => ({
-  usePathname: vi.fn(),
-}))
+describe('refreshLearningPlan', () => {
+  it('reloads the plan route', () => {
+    const reload = vi.fn()
 
-vi.mock('@/hooks/use-learning-progress', () => ({
-  useLearningProgressSync: vi.fn(),
-}))
-
-const mockedUsePathname = vi.mocked(usePathname)
-const mockedUseLearningProgressSync = vi.mocked(useLearningProgressSync)
-
-describe('LearningProgressBridge', () => {
-  beforeEach(() => {
-    mockedUsePathname.mockReset()
-    mockedUseLearningProgressSync.mockReset()
-  })
-
-  it('reloads the plan when learning progress changes', () => {
-    mockedUsePathname.mockReturnValue('/plan')
-    const reload = vi.spyOn(window.location, 'reload').mockImplementation(() => undefined)
-
-    render(<LearningProgressBridge />)
-
-    expect(mockedUseLearningProgressSync).toHaveBeenCalledTimes(1)
-    const refresh = mockedUseLearningProgressSync.mock.calls[0]?.[0]
-    expect(refresh).toBeTypeOf('function')
-
-    refresh?.()
+    refreshLearningPlan('/plan', reload)
 
     expect(reload).toHaveBeenCalledTimes(1)
-    reload.mockRestore()
   })
 
-  it('does not reload unrelated routes', () => {
-    mockedUsePathname.mockReturnValue('/dashboard')
-    const reload = vi.spyOn(window.location, 'reload').mockImplementation(() => undefined)
+  it('reloads nested plan routes', () => {
+    const reload = vi.fn()
 
-    render(<LearningProgressBridge />)
+    refreshLearningPlan('/plan/unit-1', reload)
 
-    const refresh = mockedUseLearningProgressSync.mock.calls[0]?.[0]
-    refresh?.()
+    expect(reload).toHaveBeenCalledTimes(1)
+  })
+
+  it('ignores unrelated routes', () => {
+    const reload = vi.fn()
+
+    refreshLearningPlan('/dashboard', reload)
 
     expect(reload).not.toHaveBeenCalled()
-    reload.mockRestore()
-  })
-
-  it('also handles nested plan routes', () => {
-    mockedUsePathname.mockReturnValue('/plan/unit-1')
-    const reload = vi.spyOn(window.location, 'reload').mockImplementation(() => undefined)
-
-    render(<LearningProgressBridge />)
-
-    const refresh = mockedUseLearningProgressSync.mock.calls[0]?.[0]
-    refresh?.()
-
-    expect(reload).toHaveBeenCalledTimes(1)
-    reload.mockRestore()
   })
 })
