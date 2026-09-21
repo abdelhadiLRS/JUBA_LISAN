@@ -210,3 +210,52 @@ class PlanLessonResponse(BaseModel):
     is_completed: bool
 
     model_config = {"from_attributes": True}
+
+
+class LearningJourneyLessonResponse(BaseModel):
+    id: int | None = None
+    title: str
+    lesson_type: str
+    week_number: int
+    day_number: int
+    unit_id: str
+    is_completed: bool = False
+    available: bool = False
+    state: str = "locked"
+    objectives: list[str] = []
+    estimated_minutes: int = 25
+
+
+class LearningJourneyUnitResponse(BaseModel):
+    id: str
+    title: str
+    level: str
+    unit_number: int
+    prerequisite_unit: str | None = None
+    state: str = "locked"
+    progress: float = 0.0
+    mastered_count: int = 0
+    competency_count: int = 0
+    lessons: list[LearningJourneyLessonResponse] = []
+
+
+class LearningJourneySectionResponse(BaseModel):
+    id: str
+    title: str
+    level: str
+    state: str = "active"
+    units: list[LearningJourneyUnitResponse] = []
+
+
+class LearningJourneyResponse(BaseModel):
+    plan_id: int
+    target_language: str
+    cefr_level: str
+    current_unit: str
+    sections: list[LearningJourneySectionResponse]
+    next_lesson_id: int | None = None
+    next_unit_id: str | None = None
+
+
+class LaunchLessonRequest(BaseModel):
+    lesson_id: int
