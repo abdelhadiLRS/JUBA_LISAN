@@ -44,6 +44,12 @@ def test_collect_attempted_exercise_ids_ignores_invalid_ids():
     assert collect_attempted_exercise_ids(attempts) == {1}
 
 
+def test_collect_attempted_exercise_ids_rejects_boolean_ids():
+    attempts = [Attempt(True), Attempt(False), Attempt(2)]
+
+    assert collect_attempted_exercise_ids(attempts) == {2}
+
+
 def test_collect_attempted_exercise_ids_supports_custom_getter():
     attempts = [{"exercise": 4}, {"exercise": 5}, {"exercise": 4}]
 
