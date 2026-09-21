@@ -672,7 +672,16 @@
     "exitConfirmTitle": "Sair da lição?",
     "exitConfirmMessage": "O seu progresso nesta lição será perdido.",
     "dayComplete": "Dia concluído!",
-    "dayCompleteMsg": "Todas as lições de hoje estão concluídas."
+    "dayCompleteMsg": "Todas as lições de hoje estão concluídas.",
+    "loadingHint": "Carregando dica…",
+    "loadingExplanation": "Carregando explicação…",
+    "explain": "Explicar",
+    "hideAttempts": "Ocultar tentativas",
+    "attempts": "Tentativas ({count})",
+    "attemptHistory": "Histórico de tentativas",
+    "noAttempts": "Nenhuma tentativa ainda.",
+    "hintPrefix": "Dica: ",
+    "retryEasier": "Tentar novamente mais fácil"
   },
   "flashcards": {
     "title": "Cartões",

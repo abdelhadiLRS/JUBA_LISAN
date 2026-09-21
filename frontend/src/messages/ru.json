@@ -672,7 +672,16 @@
     "exitConfirmTitle": "Выйти из урока?",
     "exitConfirmMessage": "Ваш прогресс в этом уроке будет потерян.",
     "dayComplete": "День завершён!",
-    "dayCompleteMsg": "Все сегодняшние уроки выполнены."
+    "dayCompleteMsg": "Все сегодняшние уроки выполнены.",
+    "loadingHint": "Загрузка подсказки…",
+    "loadingExplanation": "Загрузка объяснения…",
+    "explain": "Объяснить",
+    "hideAttempts": "Скрыть попытки",
+    "attempts": "Попытки ({count})",
+    "attemptHistory": "История попыток",
+    "noAttempts": "Попыток пока нет.",
+    "hintPrefix": "Подсказка: ",
+    "retryEasier": "Повторить проще"
   },
   "flashcards": {
     "title": "Карточки",

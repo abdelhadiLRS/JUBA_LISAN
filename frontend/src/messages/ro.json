@@ -672,7 +672,16 @@
     "exitConfirmTitle": "Ieșiți din lecție?",
     "exitConfirmMessage": "Progresul dvs. la această lecție va fi pierdut.",
     "dayComplete": "Ziua finalizată!",
-    "dayCompleteMsg": "Toate lecțiile de astăzi sunt finalizate."
+    "dayCompleteMsg": "Toate lecțiile de astăzi sunt finalizate.",
+    "loadingHint": "Se încarcă indiciul…",
+    "loadingExplanation": "Se încarcă explicația…",
+    "explain": "Explică",
+    "hideAttempts": "Ascunde încercările",
+    "attempts": "Încercări ({count})",
+    "attemptHistory": "Istoricul încercărilor",
+    "noAttempts": "Nicio încercare încă.",
+    "hintPrefix": "Indiciu: ",
+    "retryEasier": "Reîncearcă mai ușor"
   },
   "flashcards": {
     "title": "Carduri flash",

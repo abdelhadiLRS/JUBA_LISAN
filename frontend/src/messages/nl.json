@@ -672,7 +672,16 @@
     "exitConfirmTitle": "Les afsluiten?",
     "exitConfirmMessage": "Je voortgang in deze les gaat verloren.",
     "dayComplete": "Dag voltooid!",
-    "dayCompleteMsg": "Alle lessen van vandaag zijn klaar."
+    "dayCompleteMsg": "Alle lessen van vandaag zijn klaar.",
+    "loadingHint": "Hint laden…",
+    "loadingExplanation": "Uitleg laden…",
+    "explain": "Uitleg",
+    "hideAttempts": "Pogingen verbergen",
+    "attempts": "Pogingen ({count})",
+    "attemptHistory": "Poginggeschiedenis",
+    "noAttempts": "Nog geen pogingen.",
+    "hintPrefix": "Hint: ",
+    "retryEasier": "Makkelijker opnieuw proberen"
   },
   "flashcards": {
     "title": "Flashcards",
