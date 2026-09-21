@@ -1697,6 +1697,9 @@
     "source": "origine",
     "target": "destinazione",
     "loadError": "Impossibile caricare le schede di ripasso.",
-    "saveError": "Impossibile salvare il ripasso. Riprova."
+    "saveError": "Impossibile salvare il ripasso. Riprova.",
+    "shortcutHint": "Spazio per rivelare · 1–4 per valutare",
+    "spaceShortcut": "Spazio per rivelare",
+    "rateKeys": "1 Ancora · 2 Difficile · 3 Bene · 4 Facile"
   }
 }
