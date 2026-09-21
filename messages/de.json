@@ -1697,6 +1697,9 @@
     "source": "Quelle",
     "target": "Ziel",
     "loadError": "Wiederholungskarten konnten nicht geladen werden.",
-    "saveError": "Die Wiederholung konnte nicht gespeichert werden. Bitte versuche es erneut."
+    "saveError": "Die Wiederholung konnte nicht gespeichert werden. Bitte versuche es erneut.",
+    "shortcutHint": "Leertaste zum Aufdecken · 1–4 zum Bewerten",
+    "spaceShortcut": "Leertaste zum Aufdecken",
+    "rateKeys": "1 Nochmal · 2 Schwer · 3 Gut · 4 Leicht"
   }
 }
