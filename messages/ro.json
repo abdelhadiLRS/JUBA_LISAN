@@ -1695,6 +1695,8 @@
     "progressLabel": "Progresul recapitulării",
     "account": "Cont",
     "source": "sursă",
-    "target": "destinație"
+    "target": "destinație",
+    "loadError": "Nu s-au putut încărca cardurile de recapitulare.",
+    "saveError": "Recapitularea nu a putut fi salvată. Încearcă din nou."
   }
 }
