@@ -127,12 +127,13 @@ def recommend_adaptive_action(
     action = "advance_harder" if classification == "success" else "retry_easier"
     return action, variant
 
+
 def recommend_adaptive_variant(
     exercises: Sequence[ExerciseT],
     *,
     content_id: str,
     current_variant: str | None,
-    score: float,
+    score: object,
     attempted_exercise_ids: Collection[object] | None = None,
     get_exercise_id: Callable[[ExerciseT], object] = _get_attr("id"),
     get_variant: Callable[[ExerciseT], object] = _get_attr("variant"),
