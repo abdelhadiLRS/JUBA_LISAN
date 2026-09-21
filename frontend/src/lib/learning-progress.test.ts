@@ -11,6 +11,15 @@ describe('learning progress signal', () => {
     localStorage.clear()
   })
 
+  it('returns a safe no-op unsubscribe when window is unavailable', () => {
+    const originalWindow = globalThis.window
+    vi.stubGlobal('window', undefined)
+
+    expect(subscribeToLearningProgressUpdated(vi.fn())).toEqual(expect.any(Function))
+
+    vi.stubGlobal('window', originalWindow)
+  })
+
   it('persists a timestamp and dispatches the shared event', () => {
     const listener = vi.fn()
     const unsubscribe = subscribeToLearningProgressUpdated(listener)
