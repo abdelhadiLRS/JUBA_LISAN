@@ -46,6 +46,17 @@ def test_variant_normalization_is_case_and_separator_insensitive():
     assert normalise_variant(None) == ""
 
 
+def test_malformed_variant_values_are_ignored():
+    assert normalise_variant(1) == ""
+    assert normalise_variant(True) == ""
+    assert normalise_variant(object()) == ""
+    assert get_retry_variant(
+        "fill_blank",
+        succeeded=False,
+        available_variants=[True, 1, "multiple-choice", None, "fill_blank"],
+    ) == "multiple_choice"
+
+
 def test_duplicate_aliases_do_not_change_selection():
     assert get_retry_variant(
         "fill_blank",
