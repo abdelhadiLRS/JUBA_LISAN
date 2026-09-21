@@ -191,6 +191,7 @@ async def review_flashcard(
         .where(
             Flashcard.id == card_id,
             Flashcard.user_id == current_user.id,
+            Flashcard.study_plan_id == plan.id,
         )
         .with_for_update()
     )
