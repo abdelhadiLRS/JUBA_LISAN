@@ -673,7 +673,13 @@
     "exitConfirmTitle": "Lektion beenden?",
     "exitConfirmMessage": "Dein Fortschritt in dieser Lektion geht verloren.",
     "dayComplete": "Tag abgeschlossen!",
-    "dayCompleteMsg": "Alle heutigen Lektionen sind abgeschlossen."
+    "dayCompleteMsg": "Alle heutigen Lektionen sind abgeschlossen.",
+    "dailyGoalComplete": "Tagesziel erreicht — halte deine Serie am Leben.",
+    "lessonLabel": "LEKTION",
+    "lessonFlowHint": "Lernen → üben → erinnern. Bleib aktiv und nutze jede Antwort.",
+    "exerciseProgress": "Übung {current}/{total}",
+    "tapToHear": "Tippe auf das Wort, um es zu hören",
+    "lessonProgress": "Lektionsfortschritt"
   },
   "flashcards": {
     "title": "Karteikarten",
