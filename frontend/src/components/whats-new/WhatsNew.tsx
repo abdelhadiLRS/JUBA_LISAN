@@ -59,15 +59,16 @@ export default function WhatsNew() {
   if (!visible) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="presentation">
       {/* Backdrop */}
       <div
         className="bg-fl-bg/80 absolute inset-0 backdrop-blur-sm"
         onClick={dismiss}
+        aria-hidden="true"
       />
 
       {/* Modal */}
-      <div className="border-fl-border bg-fl-surface relative z-10 w-full max-w-md border shadow-2xl">
+      <div className="border-fl-border bg-fl-surface relative z-10 w-full max-w-md border shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="whats-new-title">
         {/* Header */}
         <div className="border-fl-border flex items-center gap-3 border-b px-5 pt-5 pb-4">
           <Sparkles
@@ -75,7 +76,7 @@ export default function WhatsNew() {
             aria-hidden="true"
           />
           <div>
-            <p className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+            <p id="whats-new-title" className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
               {t('title')}
             </p>
             <p className="text-fl-hint text-fl-muted-4 font-mono tracking-widest">
@@ -113,6 +114,7 @@ export default function WhatsNew() {
         {/* Footer */}
         <div className="border-fl-border flex justify-end border-t px-5 pt-3 pb-5">
           <button
+            type="button"
             onClick={dismiss}
             className="text-fl-label bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 px-5 py-2 font-mono tracking-widest uppercase transition-colors"
           >
