@@ -673,7 +673,13 @@
     "exitConfirmTitle": "Ieșiți din lecție?",
     "exitConfirmMessage": "Progresul dvs. la această lecție va fi pierdut.",
     "dayComplete": "Ziua finalizată!",
-    "dayCompleteMsg": "Toate lecțiile de astăzi sunt finalizate."
+    "dayCompleteMsg": "Toate lecțiile de astăzi sunt finalizate.",
+    "dailyGoalComplete": "Obiectiv zilnic finalizat — menține-ți seria.",
+    "lessonLabel": "LECȚIE",
+    "lessonFlowHint": "Învață → exersează → reține. Rămâi activ și valorifică fiecare răspuns.",
+    "exerciseProgress": "Exercițiul {current}/{total}",
+    "tapToHear": "Atinge cuvântul pentru a-l auzi",
+    "lessonProgress": "Progresul lecției"
   },
   "flashcards": {
     "title": "Carduri flash",
