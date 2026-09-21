@@ -769,7 +769,8 @@
     "learningActivity": "Lernaktivität",
     "last7Days": "Letzte 7 Tage",
     "exercises": "Übungen",
-    "sevenDayXp": "XP der letzten 7 Tage"
+    "sevenDayXp": "XP der letzten 7 Tage",
+    "reviewLink": "Wiederholen"
   },
   "grammar": {
     "title": "Grammatik",
