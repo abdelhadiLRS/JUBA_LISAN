@@ -63,7 +63,14 @@ export default function VocabularyReviewPage() {
 
   async function review(rating: Rating) { if (!current || reviewing) return; setReviewing(true); if (authenticated && current.id) { try { const res = await apiFetch(`/api/flashcards/${current.id}/review`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quality: quality(rating) }) }); if (!res.ok) throw new Error(t('saveError')); } catch (e) { setError(e instanceof Error ? e.message : t('saveError')); setReviewing(false); return } } else { const id = `${current.word.trim().toLowerCase()}::${current.target || ''}`; const next = { ...states, [id]: guestSchedule(states[id] || { repetitions: 0, interval: 0, ease: 2.5, due: 0 }, rating) }; setStates(next); if (typeof window !== 'undefined') window.localStorage.setItem(REVIEW_KEY, JSON.stringify(next)) } setError(''); setDone((n) => n + 1); setReviewing(false); if (index + 1 < words.length) { setTimeout(() => { setIndex((n) => n + 1); setRevealed(false) }, 120) } }
   function restart() { void loadReviewCards() }
-  function speak() { if (!current || typeof window === 'undefined' || !('speechSynthesis' in window)) return; window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(current.word); u.lang = current.source === 'account' ? 'en-US' : current.source || 'en-US'; window.speechSynthesis.speak(u) }
+  function speak() {
+    if (!current || typeof window === 'undefined' || !('speechSynthesis' in window)) return
+    window.speechSynthesis.cancel()
+    const u = new SpeechSynthesisUtterance(current.word)
+    const source = current.source && current.source !== 'account' ? current.source.replace('_', '-') : 'en-US'
+    u.lang = source.includes('-') ? source : `${source}-${source.toUpperCase() === 'EN' ? 'US' : source.toUpperCase()}`
+    window.speechSynthesis.speak(u)
+  }
 
   if (loading) return <main className="mx-auto max-w-4xl p-6 sm:p-10"><div className="juba-card p-10 text-center font-bold">{t('loading')}</div></main>
   if (error && !words.length) return <main className="mx-auto max-w-4xl p-6 sm:p-10"><div className="juba-card p-10 text-center" aria-live="polite"><h1 className="text-2xl font-black">{t('unavailable')}</h1><p className="mt-3 text-fl-muted-1">{error}</p><button type="button" onClick={() => window.location.reload()} className="mt-6 rounded-full border-2 border-fl-border bg-fl-accent px-6 py-3 font-black">{t('tryAgain')}</button></div></main>
