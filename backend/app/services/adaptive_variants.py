@@ -22,6 +22,16 @@ def _normalise_exercise_id(value: object) -> int | None:
     return value
 
 
+def _normalise_attempted_exercise_ids(
+    values: set[int] | None,
+) -> set[int]:
+    return {
+        exercise_id
+        for value in values or set()
+        if (exercise_id := _normalise_exercise_id(value)) is not None
+    }
+
+
 def collect_attempted_exercise_ids(
     attempts: Sequence[object],
     *,
@@ -43,7 +53,7 @@ def select_unanswered_variant(
     current_variant: str | None,
     succeeded: bool,
     attempted_exercise_ids: set[int] | None = None,
-    get_exercise_id: Callable[[ExerciseT], int] = _get_attr("id"),
+    get_exercise_id: Callable[[ExerciseT], object] = _get_attr("id"),
     get_variant: Callable[[ExerciseT], object] = _get_attr("variant"),
     get_content_id: Callable[[ExerciseT], object] = _get_attr("content_id"),
 ) -> ExerciseT | None:
@@ -56,7 +66,7 @@ def select_unanswered_variant(
     if not content_id.strip():
         return None
 
-    attempted = attempted_exercise_ids or set()
+    attempted = _normalise_attempted_exercise_ids(attempted_exercise_ids)
     candidates: list[tuple[ExerciseT, str]] = []
     available_variants: list[str] = []
 
