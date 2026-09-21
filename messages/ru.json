@@ -673,7 +673,13 @@
     "exitConfirmTitle": "Выйти из урока?",
     "exitConfirmMessage": "Ваш прогресс в этом уроке будет потерян.",
     "dayComplete": "День завершён!",
-    "dayCompleteMsg": "Все сегодняшние уроки выполнены."
+    "dayCompleteMsg": "Все сегодняшние уроки выполнены.",
+    "dailyGoalComplete": "Дневная цель выполнена — продолжайте серию.",
+    "lessonLabel": "УРОК",
+    "lessonFlowHint": "Учитесь → практикуйтесь → вспоминайте. Будьте активны и используйте каждый ответ.",
+    "exerciseProgress": "Упражнение {current}/{total}",
+    "tapToHear": "Нажмите на слово, чтобы услышать его",
+    "lessonProgress": "Прогресс урока"
   },
   "flashcards": {
     "title": "Карточки",
