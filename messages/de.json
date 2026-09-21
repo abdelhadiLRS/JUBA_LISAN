@@ -1668,5 +1668,29 @@
     "label": "Wartung",
     "title": "Wartungsarbeiten",
     "description": "Dieser Bereich ist wegen Wartungsarbeiten vorübergehend nicht verfügbar. Bitte versuche es später erneut."
+  },
+  "vocabularyReview": {
+    "loading": "Dein Wiederholungsstapel wird geladen…",
+    "unavailable": "Wiederholung nicht verfügbar",
+    "tryAgain": "Erneut versuchen",
+    "noDue": "Keine Karten fällig",
+    "caughtUp": "Du bist auf dem neuesten Stand. Komm zurück, wenn neue Karten fällig sind.",
+    "guestHint": "Speichere zuerst Wörter über den Sofortübersetzer. Kein Konto erforderlich.",
+    "openVocabulary": "Vokabeln öffnen",
+    "openTranslator": "Übersetzer öffnen",
+    "vocabulary": "Vokabeln",
+    "cardsDue": "fällige Karten",
+    "dueNow": "fällig",
+    "saved": "gespeichert",
+    "title": "Wiederholung mit Abständen",
+    "complete": "Wiederholung abgeschlossen",
+    "reviewed": "Du hast {count} Karten wiederholt.",
+    "reviewAgain": "Erneut wiederholen",
+    "reveal": "Übersetzung anzeigen",
+    "again": "Nochmal",
+    "hard": "Schwer",
+    "good": "Gut",
+    "easy": "Leicht",
+    "tapToHear": "Tippe auf das Wort, um es zu hören"
   }
 }
