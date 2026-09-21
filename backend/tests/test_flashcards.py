@@ -132,6 +132,16 @@ async def test_get_due_flashcards(client, test_user, db_session):
     assert data["total"] == 1
 
 
+def test_sm2_quality_outside_range_is_rejected():
+    from pydantic import ValidationError
+    from app.schemas.flashcards import FlashcardReview
+
+    with pytest.raises(ValidationError):
+        FlashcardReview(quality=6)
+    with pytest.raises(ValidationError):
+        FlashcardReview(quality=-1)
+
+
 @pytest.mark.asyncio
 async def test_review_flashcard(client, test_user, db_session):
     user, headers = test_user
