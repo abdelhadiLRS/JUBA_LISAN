@@ -80,6 +80,14 @@ def test_score_classification_is_monotonic_at_decimal_boundaries():
     assert classify_score(0.799999) == "middle"
     assert classify_score(0.800001) == "success"
 
+def test_retry_rejects_malformed_current_variant():
+    assert get_retry_variant(
+        True,
+        succeeded=True,
+        available_variants=["fill_blank", "translate"],
+    ) is None
+
+
 def test_retry_accepts_mixed_runtime_variant_collections():
     assert get_retry_variant(
         "multiple_choice",
