@@ -190,3 +190,57 @@ async def test_lesson_attempt_summary_is_user_scoped(client, test_user, db_sessi
     assert by_exercise[easier.id]["attempts"] == 1
     assert by_exercise[easier.id]["best_score"] == 1
     assert by_exercise[easier.id]["latest_variant"] == "multiple_choice"
+
+
+@pytest.mark.asyncio
+async def test_retry_is_rejected_after_lesson_completion(client, test_user, db_session):
+    user, headers = test_user
+    lesson, exercise, _ = await _lesson_with_variants(db_session, user.id)
+
+    answer = await client.post(
+        f"/api/lessons/exercises/{exercise.id}/answer",
+        headers=headers,
+        json={"answer": "A"},
+    )
+    assert answer.status_code == 200
+
+    lesson.is_completed = True
+    await db_session.commit()
+
+    retry = await client.post(
+        f"/api/lessons/exercises/{exercise.id}/retry",
+        headers=headers,
+    )
+
+    assert retry.status_code == 409
+
+
+@pytest.mark.asyncio
+async def test_lesson_attempt_summary_tracks_best_and_latest_attempts(client, test_user, db_session):
+    user, headers = test_user
+    lesson, exercise, _ = await _lesson_with_variants(db_session, user.id)
+
+    first = await client.post(
+        f"/api/lessons/exercises/{exercise.id}/answer",
+        headers=headers,
+        json={"answer": "A"},
+    )
+    assert first.status_code == 200
+
+    second = await client.post(
+        f"/api/lessons/exercises/{exercise.id}/answer",
+        headers=headers,
+        json={"answer": "B"},
+    )
+    assert second.status_code == 200
+
+    summary = await client.get(
+        f"/api/lessons/{lesson.id}/attempt-summary",
+        headers=headers,
+    )
+    assert summary.status_code == 200
+    item = next(row for row in summary.json() if row["exercise_id"] == exercise.id)
+    assert item["attempts"] == 2
+    assert item["best_score"] == 1
+    assert item["latest_score"] == 1
+    assert item["latest_variant"] == "multiple_choice"
