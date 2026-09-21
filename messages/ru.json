@@ -769,7 +769,8 @@
     "learningActivity": "Учебная активность",
     "last7Days": "Последние 7 дней",
     "exercises": "Упражнения",
-    "sevenDayXp": "XP за 7 дней"
+    "sevenDayXp": "XP за 7 дней",
+    "reviewLink": "Повторить"
   },
   "grammar": {
     "title": "Справочник по грамматике",
