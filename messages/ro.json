@@ -1453,19 +1453,23 @@
   },
   "whatsNew": {
     "title": "Noutăți",
-    "version": "v1.8.43",
+    "version": "v1.8.44",
     "cta": "Am înțeles",
     "entry1": {
-      "label": "Un aspect complet nou",
-      "desc": "Aplicația a fost reproiectată cu noua identitate JUBA LISAN: pictograme clare, navigare modernă și un spațiu de învățare mai curat."
+      "label": "Experiența de învățare",
+      "desc": "Urmărirea lecțiilor este mai clară, cu vizualizări mai bune ale încercărilor și rezultatelor și cu ajutor suplimentar atunci când ai nevoie."
     },
     "entry2": {
-      "label": "Mai rapidă pe mobil",
-      "desc": "O nouă navigare de jos aduce Acasă, Planul meu, Fișele, Tutorul și Progresul la o singură atingere pe telefon."
+      "label": "Recapitulare inteligentă",
+      "desc": "Reîncercarea și verificarea răspunsurilor este mai simplă, iar progresul anterior este păstrat."
     },
     "entry3": {
-      "label": "Sub capotă",
-      "desc": "Aplicația se compilează și se încarcă acum mai fiabil, fără a depinde de servere externe de fonturi."
+      "label": "Panoul de progres",
+      "desc": "Progresul și nivelul tău sunt mai ușor de urmărit, cu indicații mai clare despre abilitățile care au nevoie de mai multă practică."
+    },
+    "entry4": {
+      "label": "Mai ușor de folosit",
+      "desc": "Lecțiile sunt mai ușor de folosit, cu suport îmbunătățit pentru comenzile rapide de la tastatură."
     }
   },
   "contact": {
