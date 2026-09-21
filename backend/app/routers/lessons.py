@@ -649,16 +649,46 @@ async def answer_exercise(
     await db.refresh(exercise)
     await db.refresh(attempt)
 
-    available_variants = [
-        item.get("variant")
-        for item in (_content_exercises or [])
-        if isinstance(item, dict)
-        and item.get("content_id") == attempt.content_id
-        and isinstance(item.get("variant"), str)
-    ]
-    recommended_action, recommended_variant = _adaptive_recommendation(
-        exercise.score, attempt.variant, available_variants
+    # Reuse the canonical adaptive engine for the immediate answer response.
+    # The current attempt is already persisted, so collect the full history and
+    # prevent recommendations from pointing back to any answered sibling.
+    history_result = await db.execute(
+        select(ExerciseAttempt).where(
+            ExerciseAttempt.user_id == current_user.id,
+            ExerciseAttempt.lesson_id == lesson.id,
+        )
     )
+    attempted_exercise_ids = collect_attempted_exercise_ids(history_result.scalars().all())
+
+    lesson_exercise_result = await db.execute(
+        select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
+    )
+    lesson_exercises = lesson_exercise_result.scalars().all()
+    content_by_exercise_id: dict[int, dict] = {}
+    for index, lesson_exercise in enumerate(lesson_exercises):
+        if index < len(_content_exercises) and isinstance(_content_exercises[index], dict):
+            content_by_exercise_id[lesson_exercise.id] = _content_exercises[index]
+
+    if attempt.content_id:
+        recommended_action, recommended_variant, _target = recommend_adaptive_variant(
+            lesson_exercises,
+            content_id=attempt.content_id,
+            current_variant=attempt.variant,
+            score=exercise.score,
+            attempted_exercise_ids=attempted_exercise_ids,
+            get_exercise_id=lambda item: item.id,
+            get_variant=lambda item: (
+                content_by_exercise_id.get(item.id, {}).get("variant")
+                or item.exercise_type
+            ),
+            get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get(
+                "content_id"
+            ),
+        )
+    else:
+        recommended_action, recommended_variant = _adaptive_recommendation(
+            exercise.score, attempt.variant, []
+        )
 
     return ExerciseAnswerResponse(
         id=exercise.id,
@@ -1098,228 +1128,3 @@ async def regenerate_invalid_exercise(
     }
 
     try:
-        regenerated = await regenerate_exercise(
-            cefr_level=lesson.cefr_level,
-            lesson_type=lesson.lesson_type,
-            topic=lesson.title,
-            exercise_type=exercise.exercise_type,
-            lesson_explanation=(content.get("explanation") if isinstance(content, dict) else {}),
-            lesson_vocabulary=(content.get("vocabulary") if isinstance(content, dict) else []),
-            invalid_exercise=invalid_exercise,
-            target_language=plan.target_language,
-            native_language=current_user.native_language,
-        )
-    except (LLMError, LLMTimeoutError, LLMUnavailableError, ValueError) as exc:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Could not regenerate exercise at this time",
-        ) from exc
-
-    exercise.question = regenerated.question
-    exercise.options = regenerated.options
-    exercise.correct_answer = regenerated.correct
-    exercise.explanation = regenerated.explanation
-    exercise.feedback = None
-    exercise.user_answer = None
-    exercise.score = None
-    exercise.answered_at = None
-
-    content_exercises[exercise_index] = regenerated.model_dump()
-    content["exercises"] = content_exercises
-    lesson.content = content
-
-    await db.commit()
-    await db.refresh(exercise)
-
-    return ExerciseResponse(
-        id=exercise.id,
-        lesson_id=exercise.lesson_id,
-        exercise_type=exercise.exercise_type,
-        question=exercise.question,
-        options=exercise.options,
-        correct_answer=exercise.correct_answer,
-        user_answer=exercise.user_answer,
-        score=exercise.score,
-        feedback=exercise.feedback,
-        explanation=exercise.explanation,
-        native_explanation=regenerated.native_explanation,
-        native_hint=regenerated.native_hint,
-        content_id=regenerated.content_id,
-        variant=regenerated.variant,
-        accepted_answers=regenerated.accepted_answers,
-        metadata=regenerated.metadata,
-        answered_at=exercise.answered_at,
-    )
-
-
-@router.post("/exercises/{exercise_id}/native-explanation")
-@limiter.limit("10/minute")
-async def generate_exercise_native_explanation(
-    request: Request,
-    exercise_id: int,
-    current_user: User = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db),
-):
-    exercise = await db.get(Exercise, exercise_id)
-    if not exercise:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exercise not found")
-
-    lesson = await _get_lesson_for_user(exercise.lesson_id, current_user.id, db)
-    content, content_exercises, content_exercise = await _get_exercise_content_entry(
-        exercise, lesson, db
-    )
-
-    cached = content_exercise.get("native_explanation")
-    if isinstance(cached, str) and cached.strip():
-        return {"native_explanation": cached}
-
-    if not exercise.explanation:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Exercise has no explanation to translate",
-        )
-
-    plan = await db.get(StudyPlan, lesson.study_plan_id)
-    target_language = plan.target_language if plan else "en-GB"
-
-    from app.services.prompts.lesson import (
-        build_native_exercise_explanation_on_demand_prompt,
-    )
-
-    prompt = build_native_exercise_explanation_on_demand_prompt(
-        target_language_name=get_language_name(target_language),
-        native_language_name=get_native_language_name(current_user.native_language),
-        exercise_type=exercise.exercise_type,
-        question=exercise.question,
-        correct_answer=exercise.correct_answer,
-        explanation=exercise.explanation,
-    )
-
-    try:
-        result_native = await llm_adapter.structured_output(
-            [{"role": "user", "content": prompt}],
-            NativeExerciseExplanationResponse,
-        )
-        native_exp = result_native.native_explanation
-    except (LLMError, LLMTimeoutError, LLMUnavailableError):
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Could not generate native exercise explanation at this time",
-        )
-
-    content_exercise["native_explanation"] = native_exp
-    content["exercises"] = content_exercises
-    lesson.content = content
-    await db.commit()
-
-    return {"native_explanation": native_exp}
-
-
-@router.post("/exercises/{exercise_id}/native-hint")
-@limiter.limit("10/minute")
-async def generate_exercise_native_hint(
-    request: Request,
-    exercise_id: int,
-    current_user: User = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db),
-):
-    exercise = await db.get(Exercise, exercise_id)
-    if not exercise:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exercise not found")
-
-    lesson = await _get_lesson_for_user(exercise.lesson_id, current_user.id, db)
-    content, content_exercises, content_exercise = await _get_exercise_content_entry(
-        exercise, lesson, db
-    )
-
-    cached = content_exercise.get("native_hint")
-    if isinstance(cached, str) and cached.strip():
-        return {"native_hint": cached}
-
-    plan = await db.get(StudyPlan, lesson.study_plan_id)
-    target_language = plan.target_language if plan else "en-GB"
-
-    from app.services.prompts.lesson import build_native_exercise_hint_on_demand_prompt
-
-    prompt = build_native_exercise_hint_on_demand_prompt(
-        target_language_name=get_language_name(target_language),
-        native_language_name=get_native_language_name(current_user.native_language),
-        exercise_type=exercise.exercise_type,
-        question=exercise.question,
-        options=json.dumps(exercise.options or [], ensure_ascii=False),
-        correct_answer=exercise.correct_answer,
-        explanation=exercise.explanation or "",
-    )
-
-    try:
-        result_native = await llm_adapter.structured_output(
-            [{"role": "user", "content": prompt}],
-            NativeExerciseHintResponse,
-        )
-        native_hint = result_native.native_hint
-        if hint_reveals_answer(native_hint, exercise.correct_answer):
-            raise LLMError("Generated hint revealed the answer")
-    except (LLMError, LLMTimeoutError, LLMUnavailableError):
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Could not generate native exercise hint at this time",
-        )
-
-    content_exercise["native_hint"] = native_hint
-    content["exercises"] = content_exercises
-    lesson.content = content
-    await db.commit()
-
-    return {"native_hint": native_hint}
-
-
-@router.post("/{lesson_id}/native-explanation")
-@limiter.limit("10/minute")
-async def generate_native_explanation(
-    request: Request,
-    lesson_id: int,
-    current_user: User = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db),
-):
-    lesson = await _get_lesson_for_user(lesson_id, current_user.id, db)
-
-    content = dict(lesson.content or {})
-    if content.get("native_explanation"):
-        return {"native_explanation": content["native_explanation"]}
-
-    explanation = content.get("explanation")
-    if not explanation or not isinstance(explanation, dict):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Lesson has no explanation to translate",
-        )
-
-    plan = await db.get(StudyPlan, lesson.study_plan_id)
-    target_language = plan.target_language if plan else "en-GB"
-
-    from app.services.prompts.lesson import build_native_explanation_on_demand_prompt
-
-    prompt = build_native_explanation_on_demand_prompt(
-        target_language_name=get_language_name(target_language),
-        native_language_name=get_native_language_name(current_user.native_language),
-        source_explanation=json.dumps(explanation, ensure_ascii=False),
-    )
-
-    try:
-        result = await llm_adapter.structured_output(
-            [{"role": "user", "content": prompt}],
-            NativeExplanationResponse,
-        )
-        native_exp: dict = result.model_dump() if hasattr(result, "model_dump") else result
-    except (LLMError, LLMTimeoutError, LLMUnavailableError):
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Could not generate native explanation at this time",
-        )
-
-    content["native_explanation"] = native_exp
-    lesson.content = content
-    await db.commit()
-    await db.refresh(lesson)
-
-    return {"native_explanation": native_exp}
