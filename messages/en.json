@@ -1493,20 +1493,24 @@
   },
   "whatsNew": {
     "title": "What's New",
-    "version": "v1.8.43",
     "cta": "Got it",
     "entry1": {
-      "label": "A fresh new look",
-      "desc": "The app has been redesigned with the new JUBA LISAN identity: clear icons, modern navigation, and a cleaner learning space."
+      "label": "Learning experience",
+      "desc": "Following lessons is clearer with better views of attempts and results, plus extra help when you need it."
     },
     "entry2": {
-      "label": "Faster on mobile",
-      "desc": "A new bottom navigation puts Home, My Plan, Flashcards, Tutor, and Progress one tap away on your phone."
+      "label": "Smart Review",
+      "desc": "Retrying and reviewing answers is smoother while your previous progress stays preserved."
     },
     "entry3": {
-      "label": "Under the hood",
-      "desc": "The app now builds and loads more reliably, independent of external font servers."
-    }
+      "label": "Progress dashboard",
+      "desc": "Your progress and level are easier to follow, with clearer guidance on the skills that need more practice."
+    },
+    "entry4": {
+      "label": "Easier to use",
+      "desc": "Lessons are easier to interact with, with improved support for keyboard shortcuts."
+    },
+    "version": "v1.8.44"
   },
   "contact": {
     "title": "Contact",
