@@ -52,7 +52,7 @@ def get_retry_variant(
     current_variant: str | None,
     *,
     succeeded: bool,
-    available_variants: Sequence[str],
+    available_variants: Sequence[object],
 ) -> str | None:
     """Select an adjacent difficulty variant without inventing content."""
     current = normalise_variant(current_variant)
