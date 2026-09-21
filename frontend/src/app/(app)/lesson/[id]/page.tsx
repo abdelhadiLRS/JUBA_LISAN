@@ -156,15 +156,16 @@ export default function LessonPage() {
       const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/retry`, { method: 'POST' })
       if (!res.ok) throw new Error('retry_failed')
       const result: ExerciseItem = await res.json()
+      let targetIndex = -1
       setExercises((prev) => {
         const index = prev.findIndex((item) => item.id === result.id)
+        targetIndex = index >= 0 ? index : prev.length
         if (index < 0) return [...prev, result]
         return prev.map((item) => item.id === result.id ? { ...item, ...result } : item)
       })
-      const targetIndex = exercises.findIndex((item) => item.id === result.id)
-      const fallbackIndex = Math.min(currentExercise, Math.max(0, exercises.length - 1))
-      setCurrentExercise(targetIndex >= 0 ? targetIndex : fallbackIndex)
+      setCurrentExercise(targetIndex >= 0 ? targetIndex : Math.min(currentExercise, Math.max(0, exercises.length - 1)))
       setCompleted(false)
+      setDayComplete(false)
       setAnswer('')
       void loadAttempts(result.id)
       if (lesson) void loadAttemptSummary(lesson.id)
