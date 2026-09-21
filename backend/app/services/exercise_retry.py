@@ -11,7 +11,7 @@ DIFFICULTY: dict[str, int] = {
     "pronunciation": 3,
     "free_write": 4,
 }
-ALIASES = {"choice": "multiple_choice", "mcq": "multiple_choice", "gap": "fill_blank", "writing": "free_write"}
+ALIASES = {\n    "choice": "multiple_choice",\n    "mcq": "multiple_choice",\n    "multiple-choice": "multiple_choice",\n    "gap": "fill_blank",\n    "fill-blank": "fill_blank",\n    "writing": "free_write",\n    "free-write": "free_write",\n}
 
 def normalise_variant(value: str | None) -> str:
     raw = (value or "").strip().lower()
