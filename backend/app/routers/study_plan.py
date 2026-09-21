@@ -88,6 +88,7 @@ async def _learning_path_state(
 
     sections: list[LearningJourneySectionResponse] = []
     previous_unit_id: str | None = None
+    previous_completed_units: set[str] = set()
     next_lesson_id: int | None = None
     next_unit_id: str | None = None
 
@@ -99,11 +100,16 @@ async def _learning_path_state(
         competency_count = int(competency_map.get(unit.id, {}).get("total_count", len(unit.competency_checklist)))
 
         completed_count = sum(1 for lesson in unit_lessons if lesson.is_completed)
-        expected_slots = expected_slots_by_unit.get(unit.id, 0)
+        # Prefer the blueprint slot count, but fall back to persisted lessons for
+        # older/generated plans whose day metadata does not carry unit_id.
+        expected_slots = expected_slots_by_unit.get(unit.id, len(unit_lessons))
         unit_complete = expected_slots > 0 and completed_count >= expected_slots
         prereq = unit.prerequisite_unit
-        prereq_score = float(competency_map.get(prereq, {}).get("score", 0.0)) if prereq else 1.0
-        prereq_complete = not prereq or prereq_score >= 0.80
+        # A prerequisite is satisfied by completing that curriculum unit, not by
+        # reaching a competency threshold after a single lesson/exercise.
+        prereq_complete = prereq is None or prereq in {
+            completed_unit_id for completed_unit_id in previous_completed_units
+        }
 
         if unit_complete:
             state = "completed"
@@ -166,6 +172,7 @@ async def _learning_path_state(
         )
         if unit_complete:
             previous_unit_id = unit.id
+            previous_completed_units.add(unit.id)
 
     sections.append(
         LearningJourneySectionResponse(
