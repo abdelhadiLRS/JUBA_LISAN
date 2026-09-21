@@ -134,3 +134,58 @@ def test_selector_supports_lesson_metadata_callbacks():
     )
 
     assert selected is exercises[1]
+
+
+def test_attempt_history_blocks_a_variant_even_when_exercise_is_unanswered():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+        VariantExercise(3, "c1", "translate"),
+    ]
+
+    selected = select_unanswered_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        succeeded=True,
+        attempted_exercise_ids={1, 2},
+    )
+
+    assert selected is None
+
+
+def test_duplicate_variant_rows_keep_the_first_unattempted_match():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+        VariantExercise(3, "c1", "fill-blank"),
+    ]
+
+    selected = select_unanswered_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        succeeded=True,
+        attempted_exercise_ids={1},
+    )
+
+    assert selected is exercises[2] or selected is exercises[1]
+    assert selected is not exercises[0]
+
+
+def test_unknown_sibling_variants_do_not_affect_difficulty_selection():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "experimental_variant"),
+        VariantExercise(3, "c1", "fill_blank"),
+    ]
+
+    selected = select_unanswered_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        succeeded=True,
+        attempted_exercise_ids={1},
+    )
+
+    assert selected is exercises[2]
