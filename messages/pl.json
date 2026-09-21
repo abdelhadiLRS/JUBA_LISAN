@@ -1453,19 +1453,23 @@
   },
   "whatsNew": {
     "title": "Co nowego",
-    "version": "v1.8.43",
+    "version": "v1.8.44",
     "cta": "Rozumiem",
     "entry1": {
-      "label": "Świeży nowy wygląd",
-      "desc": "Aplikacja została przeprojektowana w nowej tożsamości JUBA LISAN: czytelne ikony, nowoczesna nawigacja i bardziej przejrzysta przestrzeń do nauki."
+      "label": "Doświadczenie nauki",
+      "desc": "Śledzenie lekcji jest teraz bardziej przejrzyste, z lepszym widokiem prób i wyników oraz dodatkową pomocą, gdy jej potrzebujesz."
     },
     "entry2": {
-      "label": "Szybciej na telefonie",
-      "desc": "Nowa dolna nawigacja umieszcza Start, Mój plan, Fiszki, Korepetytora i Postępy na wyciągnięcie jednego dotknięcia."
+      "label": "Inteligentna powtórka",
+      "desc": "Ponowne rozwiązywanie i sprawdzanie odpowiedzi jest prostsze, a wcześniejsze postępy pozostają zachowane."
     },
     "entry3": {
-      "label": "Pod maską",
-      "desc": "Aplikacja buduje się i ładuje teraz niezawodniej, niezależnie od zewnętrznych serwerów czcionek."
+      "label": "Panel postępów",
+      "desc": "Łatwiej śledzić swój postęp i poziom, a także zobaczyć, które umiejętności wymagają więcej ćwiczeń."
+    },
+    "entry4": {
+      "label": "Łatwiejsza obsługa",
+      "desc": "Korzystanie z lekcji jest prostsze dzięki lepszemu wsparciu skrótów klawiaturowych."
     }
   },
   "contact": {
