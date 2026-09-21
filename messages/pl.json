@@ -1691,6 +1691,10 @@
     "hard": "Trudne",
     "good": "Dobrze",
     "easy": "Łatwe",
-    "tapToHear": "Dotknij słowa, aby go posłuchać"
+    "tapToHear": "Dotknij słowa, aby go posłuchać",
+    "progressLabel": "Postęp powtórki",
+    "account": "Konto",
+    "source": "źródło",
+    "target": "cel"
   }
 }
