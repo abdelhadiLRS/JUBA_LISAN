@@ -4,7 +4,16 @@ from collections.abc import Sequence
 import re
 
 # Lower number = easier interaction. Unknown interaction types are left unchanged.
-LOW_SCORE_THRESHOLD = 0.50\nSUCCESS_SCORE_THRESHOLD = 0.80\n\nDIFFICULTY: dict[str, int] = {
+LOW_SCORE_THRESHOLD = 0.50\nSUCCESS_SCORE_THRESHOLD = 0.80\n\ndef classify_score(score: float) -> str:
+    """Classify an exercise score using the shared adaptive thresholds."""
+    if score < LOW_SCORE_THRESHOLD:
+        return "low"
+    if score >= SUCCESS_SCORE_THRESHOLD:
+        return "success"
+    return "middle"
+
+
+DIFFICULTY: dict[str, int] = {
     "multiple_choice": 1,
     "fill_blank": 2,
     "translate": 3,
