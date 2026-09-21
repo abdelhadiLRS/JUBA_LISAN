@@ -212,6 +212,46 @@ async def test_get_vocabulary_flashcards(client, test_user, db_session):
 
 
 @pytest.mark.asyncio
+async def test_review_flashcard_rejects_card_from_inactive_plan(client, test_user, db_session):
+    user, headers = test_user
+
+    from app.models.flashcard import Flashcard
+    from tests.conftest import make_study_plan
+
+    await _seed_plan(db_session, user.id)
+    inactive_plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=False,
+    )
+
+    card = Flashcard(
+        user_id=user.id,
+        study_plan_id=inactive_plan.id,
+        word="orphan",
+        definition="inactive plan card",
+        example_sentence="This card belongs to an inactive plan.",
+        translation="orphelin",
+    )
+    db_session.add(card)
+    await db_session.commit()
+
+    response = await client.post(
+        f"/api/flashcards/{card.id}/review",
+        headers=headers,
+        json={"quality": 4},
+    )
+    assert response.status_code == 404
+
+
+@pytest.mark.asyncio
 async def test_delete_flashcard(client, test_user, db_session):
     user, headers = test_user
 
