@@ -130,6 +130,29 @@ def _answer_feedback(native_language: str, key: str, *, answer: str = "") -> str
     return messages[key].format(answer=answer)
 
 
+def _adaptive_recommendation(
+    score: float,
+    current_variant: str | None,
+    available_variants: list[str],
+) -> tuple[str, str | None]:
+    """Turn the latest score into a deterministic next-step recommendation."""
+    if score < 0.50:
+        variant = get_retry_variant(
+            current_variant,
+            succeeded=False,
+            available_variants=available_variants,
+        )
+        return ("retry_easier", variant) if variant else ("reinforce", None)
+    if score >= 0.80:
+        variant = get_retry_variant(
+            current_variant,
+            succeeded=True,
+            available_variants=available_variants,
+        )
+        return ("advance_harder", variant) if variant else ("advance", None)
+    return "reinforce", None
+
+
 def _exercise_has_technical_error(exercise: Exercise) -> bool:
     if not exercise.question.strip() or not exercise.correct_answer.strip():
         return True
@@ -583,6 +606,17 @@ async def answer_exercise(
     await db.refresh(exercise)
     await db.refresh(attempt)
 
+    available_variants = [
+        item.get("variant")
+        for item in (_content_exercises or [])
+        if isinstance(item, dict)
+        and item.get("content_id") == attempt.content_id
+        and isinstance(item.get("variant"), str)
+    ]
+    recommended_action, recommended_variant = _adaptive_recommendation(
+        exercise.score, attempt.variant, available_variants
+    )
+
     return ExerciseAnswerResponse(
         id=exercise.id,
         score=exercise.score,
@@ -597,6 +631,8 @@ async def answer_exercise(
             exercise.score - latest_attempt.score, 3
         ) if latest_attempt is not None else 0.0,
         mastered=exercise.score >= 0.80,
+        recommended_action=recommended_action,
+        recommended_variant=recommended_variant,
     )
 
 
@@ -647,34 +683,46 @@ async def list_lesson_attempt_summary(
     for attempt in result.scalars().all():
         grouped.setdefault(attempt.exercise_id, []).append(attempt)
 
-    return [
-        ExerciseAttemptSummaryResponse(
-            exercise_id=exercise_id,
-            attempts=len(items),
-            best_score=max(item.score for item in items),
-            latest_score=max(
-                items,
-                key=lambda item: item.answered_at,
-            ).score,
-            first_score=min(items, key=lambda item: item.attempt_number).score,
-            improvement=round(
-                max(items, key=lambda item: item.answered_at).score
-                - min(items, key=lambda item: item.attempt_number).score,
-                3,
-            ),
-            mastered=max(item.score for item in items) >= 0.80,
-            needs_retry=max(item.score for item in items) < 0.50,
-            latest_variant=max(
-                items,
-                key=lambda item: item.answered_at,
-            ).variant,
-            latest_answered_at=max(
-                items,
-                key=lambda item: item.answered_at,
-            ).answered_at,
+    content_by_id = {
+        item.get("content_id"): item
+        for item in (lesson.content or {}).get("exercises", [])
+        if isinstance(item, dict) and isinstance(item.get("content_id"), str)
+    }
+
+    summaries = []
+    for exercise_id, items in grouped.items():
+        latest = max(items, key=lambda item: item.answered_at)
+        first = min(items, key=lambda item: item.attempt_number)
+        best_score = max(item.score for item in items)
+        available_variants = []
+        if latest.content_id:
+            available_variants = [
+                item.get("variant")
+                for item in (lesson.content or {}).get("exercises", [])
+                if isinstance(item, dict)
+                and item.get("content_id") == latest.content_id
+                and isinstance(item.get("variant"), str)
+            ]
+        action, recommended_variant = _adaptive_recommendation(
+            latest.score, latest.variant, available_variants
         )
-        for exercise_id, items in grouped.items()
-    ]
+        summaries.append(
+            ExerciseAttemptSummaryResponse(
+                exercise_id=exercise_id,
+                attempts=len(items),
+                best_score=best_score,
+                latest_score=latest.score,
+                first_score=first.score,
+                improvement=round(latest.score - first.score, 3),
+                mastered=best_score >= 0.80,
+                needs_retry=best_score < 0.50,
+                latest_variant=latest.variant,
+                recommended_action=action,
+                recommended_variant=recommended_variant,
+                latest_answered_at=latest.answered_at,
+            )
+        )
+    return summaries
 
 
 @router.post("/exercises/{exercise_id}/retry", response_model=ExerciseResponse)
