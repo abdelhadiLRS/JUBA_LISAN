@@ -1737,6 +1737,9 @@
     "source": "source",
     "target": "target",
     "loadError": "Unable to load review cards.",
-    "saveError": "Unable to save your review. Please try again."
+    "saveError": "Unable to save your review. Please try again.",
+    "shortcutHint": "Space to reveal · 1–4 to rate",
+    "spaceShortcut": "Space to reveal",
+    "rateKeys": "1 Again · 2 Hard · 3 Good · 4 Easy"
   }
 }
