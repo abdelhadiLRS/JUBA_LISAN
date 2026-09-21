@@ -23,6 +23,12 @@ export function markLearningProgressUpdated(): void {
     // Storage can be unavailable in private/restricted browser contexts.
   }
 
+  try {
+    localStorage.setItem(LEARNING_PROGRESS_KEY, timestamp)
+  } catch {
+    // Local storage can be unavailable in private/restricted browser contexts.
+  }
+
   window.dispatchEvent(new Event(LEARNING_PROGRESS_EVENT))
 
   try {
@@ -39,12 +45,19 @@ export function subscribeToLearningProgressUpdated(listener: () => void): () => 
       listener()
     }
   }
+  const onStorage = (event: StorageEvent) => {
+    if (event.storageArea === localStorage && event.key === LEARNING_PROGRESS_KEY && event.newValue) {
+      listener()
+    }
+  }
 
   window.addEventListener(LEARNING_PROGRESS_EVENT, listener)
+  window.addEventListener('storage', onStorage)
   channel?.addEventListener('message', onChannelMessage)
 
   return () => {
     window.removeEventListener(LEARNING_PROGRESS_EVENT, listener)
+    window.removeEventListener('storage', onStorage)
     channel?.removeEventListener('message', onChannelMessage)
   }
 }
