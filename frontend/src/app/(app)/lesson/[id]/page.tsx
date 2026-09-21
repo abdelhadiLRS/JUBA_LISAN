@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { apiFetch } from '@/lib/api'
 import { useProgressStore } from '@/store/progress'
 import { useLanguageStore } from '@/store/language'
@@ -24,9 +24,6 @@ interface ExerciseAttemptSummary { exercise_id: number; attempts: number; best_s
 
 export default function LessonPage() {
   const t = useTranslations('lesson')
-  const tCommon = useTranslations('common')
-  const tPlan = useTranslations('plan')
-  const locale = useLocale()
   const params = useParams()
   const router = useRouter()
   const id = params.id as string
@@ -37,7 +34,6 @@ export default function LessonPage() {
   const fetchFreemium = useFreemiumStore((s) => s.fetchStatus)
   const freemiumStatus = useFreemiumStore((s) => s.status)
   const freemiumExhausted = stripeEnabled && !isSubscribed(user, stripeEnabled) && !isFreemiumTrialActive(user, stripeEnabled) && freemiumStatus && freemiumStatus.lessons_remaining <= 0
-  const langAtLoad = useRef(activeLanguage?.code ?? null)
   const { selectedWord, tooltipPos, saveState, handleTextSelection, handleSaveWord, dismissTooltip } = useWordSave()
   const [lesson, setLesson] = useState<LessonData | null>(null)
   const [exercises, setExercises] = useState<ExerciseItem[]>([])
