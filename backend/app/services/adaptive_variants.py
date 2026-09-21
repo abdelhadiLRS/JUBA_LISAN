@@ -106,7 +106,7 @@ def recommend_adaptive_variant(
     current_variant: str | None,
     score: float,
     attempted_exercise_ids: set[int] | None = None,
-    get_exercise_id: Callable[[ExerciseT], int] = _get_attr("id"),
+    get_exercise_id: Callable[[ExerciseT], object] = _get_attr("id"),
     get_variant: Callable[[ExerciseT], object] = _get_attr("variant"),
     get_content_id: Callable[[ExerciseT], object] = _get_attr("content_id"),
 ) -> tuple[str, str | None, ExerciseT | None]:
