@@ -158,6 +158,20 @@ def _adaptive_recommendation(
     return "reinforce", None
 
 
+
+
+def _map_content_exercises(
+    lesson_exercises: list[Exercise],
+    content_exercises: list[object],
+) -> dict[int, dict]:
+    """Map persisted exercise ids to their lesson-content metadata by stable order."""
+    mapped: dict[int, dict] = {}
+    for index, exercise in enumerate(lesson_exercises):
+        if index < len(content_exercises) and isinstance(content_exercises[index], dict):
+            mapped[exercise.id] = content_exercises[index]
+    return mapped
+
+
 def _exercise_has_technical_error(exercise: Exercise) -> bool:
     if not exercise.question.strip() or not exercise.correct_answer.strip():
         return True
@@ -765,10 +779,7 @@ async def list_lesson_attempt_summary(
         if isinstance(lesson.content, dict)
         else []
     )
-    content_by_exercise_id: dict[int, dict] = {}
-    for index, exercise in enumerate(lesson_exercises):
-        if index < len(content_exercises) and isinstance(content_exercises[index], dict):
-            content_by_exercise_id[exercise.id] = content_exercises[index]
+    content_by_exercise_id = _map_content_exercises(lesson_exercises, content_exercises)
 
     attempted_exercise_ids = collect_attempted_exercise_ids(
         [attempt for items in grouped.values() for attempt in items]
@@ -879,11 +890,7 @@ async def adaptive_next_exercise(
     )
     lesson_exercises = result.scalars().all()
 
-    content_by_exercise_id: dict[int, dict] = {}
-    for index, sibling in enumerate(lesson_exercises):
-        if index >= len(content_exercises) or not isinstance(content_exercises[index], dict):
-            continue
-        content_by_exercise_id[sibling.id] = content_exercises[index]
+    content_by_exercise_id = _map_content_exercises(lesson_exercises, content_exercises)
 
     attempt_result = await db.execute(
         select(ExerciseAttempt).where(
