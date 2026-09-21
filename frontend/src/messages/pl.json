@@ -681,12 +681,13 @@
     "attemptHistory": "Historia prób",
     "noAttempts": "Brak prób.",
     "hintPrefix": "Wskazówka: ",
-    "retryEasier": "Spróbuj łatwiejszego"\n    "checking": "Sprawdzanie…",,
-    "next": "Dalej",,
-    "finish": "Zakończ lekcję",,
-    "completed": "Ukończono",,
-    "niceWork": "Dobra robota. Zapamiętałeś to.",,
-    "reviewNow": "Powtórz teraz",,
+    "retryEasier": "Spróbuj łatwiejszego"
+    "checking": "Sprawdzanie…",
+    "next": "Dalej",
+    "finish": "Zakończ lekcję",
+    "completed": "Ukończono",
+    "niceWork": "Dobra robota. Zapamiętałeś to.",
+    "reviewNow": "Powtórz teraz",
     "nextCourse": "Następny kurs"
   },
   "flashcards": {
