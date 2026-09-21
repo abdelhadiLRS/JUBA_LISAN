@@ -696,7 +696,9 @@
     "saveWord": "+ Salvează",
     "saved": "Salvat",
     "saveError": "Eroare",
-    "keepLearning": "Continuă cu o recapitulare."
+    "keepLearning": "Continuă cu o recapitulare.",
+    "retryHarderVariant": "Continuă cu o variantă mai dificilă",
+    "retryEasierVariant": "Încearcă din nou cu o variantă mai ușoară"
   },
   "flashcards": {
     "title": "Carduri flash",
