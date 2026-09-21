@@ -1735,6 +1735,8 @@
     "progressLabel": "Review progress",
     "account": "Account",
     "source": "source",
-    "target": "target"
+    "target": "target",
+    "loadError": "Unable to load review cards.",
+    "saveError": "Unable to save your review. Please try again."
   }
 }
