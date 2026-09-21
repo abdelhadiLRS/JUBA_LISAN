@@ -673,7 +673,13 @@
     "exitConfirmTitle": "Uscire dalla lezione?",
     "exitConfirmMessage": "Il tuo progresso in questa lezione andrà perso.",
     "dayComplete": "Giornata completata!",
-    "dayCompleteMsg": "Tutte le lezioni di oggi sono completate."
+    "dayCompleteMsg": "Tutte le lezioni di oggi sono completate.",
+    "dailyGoalComplete": "Obiettivo giornaliero completato — mantieni attiva la tua serie.",
+    "lessonLabel": "LEZIONE",
+    "lessonFlowHint": "Impara → esercitati → ricorda. Rimani attivo e valorizza ogni risposta.",
+    "exerciseProgress": "Esercizio {current}/{total}",
+    "tapToHear": "Tocca la parola per ascoltarla",
+    "lessonProgress": "Progresso della lezione"
   },
   "flashcards": {
     "title": "Schede",
