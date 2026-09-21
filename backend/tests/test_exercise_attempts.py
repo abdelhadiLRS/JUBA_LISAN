@@ -151,3 +151,42 @@ async def test_attempt_history_is_user_scoped(client, test_user, db_session):
     assert len(data) == 1
     assert data[0]["attempt_number"] == 1
     assert data[0]["content_id"] == "content-1"
+
+
+@pytest.mark.asyncio
+async def test_lesson_attempt_summary_is_user_scoped(client, test_user, db_session):
+    user, headers = test_user
+    lesson, exercise, easier = await _lesson_with_variants(db_session, user.id)
+
+    first = await client.post(
+        f"/api/lessons/exercises/{exercise.id}/answer",
+        headers=headers,
+        json={"answer": "A"},
+    )
+    assert first.status_code == 200
+
+    retry = await client.post(
+        f"/api/lessons/exercises/{exercise.id}/retry",
+        headers=headers,
+    )
+    assert retry.status_code == 200
+
+    second = await client.post(
+        f"/api/lessons/exercises/{easier.id}/answer",
+        headers=headers,
+        json={"answer": "B"},
+    )
+    assert second.status_code == 200
+
+    summary = await client.get(
+        f"/api/lessons/lessons/{lesson.id}/attempt-summary",
+        headers=headers,
+    )
+    assert summary.status_code == 200
+    data = summary.json()
+    by_exercise = {item["exercise_id"]: item for item in data}
+    assert by_exercise[exercise.id]["attempts"] == 1
+    assert by_exercise[exercise.id]["best_score"] == 0
+    assert by_exercise[easier.id]["attempts"] == 1
+    assert by_exercise[easier.id]["best_score"] == 1
+    assert by_exercise[easier.id]["latest_variant"] == "multiple_choice"
