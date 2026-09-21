@@ -608,7 +608,7 @@ async def list_exercise_attempts(
 
 
 @router.get(
-    "/lessons/{lesson_id}/attempt-summary",
+    "/{lesson_id}/attempt-summary",
     response_model=list[ExerciseAttemptSummaryResponse],
 )
 @limiter.limit("60/minute")
