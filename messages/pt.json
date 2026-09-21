@@ -1668,5 +1668,29 @@
     "label": "Manutenção",
     "title": "Em manutenção",
     "description": "Esta seção está temporariamente indisponível para manutenção. Volte mais tarde."
+  },
+  "vocabularyReview": {
+    "loading": "Carregando seu conjunto de revisão…",
+    "unavailable": "Revisão indisponível",
+    "tryAgain": "Tentar novamente",
+    "noDue": "Não há cartões para revisar",
+    "caughtUp": "Você está em dia. Volte quando houver novos cartões para revisar.",
+    "guestHint": "Primeiro salve palavras no Tradutor instantâneo. Não é necessária uma conta.",
+    "openVocabulary": "Abrir vocabulário",
+    "openTranslator": "Abrir tradutor",
+    "vocabulary": "Vocabulário",
+    "cardsDue": "cartões para revisar",
+    "dueNow": "para revisar",
+    "saved": "salvos",
+    "title": "Revisão espaçada",
+    "complete": "Revisão concluída",
+    "reviewed": "Você revisou {count} cartões.",
+    "reviewAgain": "Revisar novamente",
+    "reveal": "Mostrar tradução",
+    "again": "Novamente",
+    "hard": "Difícil",
+    "good": "Bom",
+    "easy": "Fácil",
+    "tapToHear": "Toque na palavra para ouvi-la"
   }
 }
