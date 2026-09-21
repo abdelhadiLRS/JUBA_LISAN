@@ -688,7 +688,15 @@
     "completed": "Завершено",
     "niceWork": "Отличная работа. Ты это запомнил.",
     "reviewNow": "Повторить сейчас",
-    "nextCourse": "Следующий курс"
+    "nextCourse": "Следующий курс",
+    "attemptsLabel": "Попытки",
+    "best": "Лучший",
+    "latest": "Последний",
+    "typeAnswer": "Введите ответ…",
+    "saveWord": "+ Сохранить",
+    "saved": "Сохранено",
+    "saveError": "Ошибка",
+    "keepLearning": "Продолжайте обучение с повторением."
   },
   "flashcards": {
     "title": "Карточки",
