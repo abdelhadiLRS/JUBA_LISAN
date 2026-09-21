@@ -1453,19 +1453,23 @@
   },
   "whatsNew": {
     "title": "Novidades",
-    "version": "v1.8.43",
+    "version": "v1.8.44",
     "cta": "Entendido",
     "entry1": {
-      "label": "Um visual totalmente novo",
-      "desc": "A aplicação foi redesenhada com a nova identidade JUBA LISAN: ícones claros, navegação moderna e um espaço de aprendizagem mais limpo."
+      "label": "Experiência de aprendizagem",
+      "desc": "Acompanhar as aulas ficou mais claro, com melhores vistas das tentativas e dos resultados, além de ajuda extra quando precisar."
     },
     "entry2": {
-      "label": "Mais rápido no celular",
-      "desc": "Uma nova navegação inferior coloca Início, Meu plano, Flashcards, Tutor e Progresso a um toque de distância no seu telefone."
+      "label": "Revisão inteligente",
+      "desc": "Tentar novamente e rever respostas ficou mais simples, mantendo o seu progresso anterior."
     },
     "entry3": {
-      "label": "Por dentro",
-      "desc": "A aplicação agora compila e carrega com mais confiabilidade, sem depender de servidores de fontes externos."
+      "label": "Painel de progresso",
+      "desc": "O seu progresso e nível estão mais fáceis de acompanhar, com orientações mais claras sobre as competências que precisam de mais prática."
+    },
+    "entry4": {
+      "label": "Mais fácil de usar",
+      "desc": "As aulas estão mais fáceis de utilizar, com melhor suporte para atalhos de teclado."
     }
   },
   "contact": {
