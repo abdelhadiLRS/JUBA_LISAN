@@ -113,7 +113,7 @@ async def test_failed_attempt_returns_easier_variant(client, test_user, db_sessi
     data = retry.json()
     assert data["id"] == easier.id
     assert data["content_id"] == "content-1"
-    assert data["variant"] == "fill_blank"
+    assert data["variant"] == "multiple_choice"
     assert data["answered_at"] is None
 
 
