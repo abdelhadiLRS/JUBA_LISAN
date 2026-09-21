@@ -1416,3 +1416,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Alembic migration chain broken by mismatched revision IDs in `0004_lesson_unit_id` (`"0003"` → `"0003_curriculum_studyplan"`)
 - Backend container no longer requires a manual `alembic upgrade head` step — migrations run automatically in the container `command`
+
+## Learning Journey / Exercise Engine — 2026-09-21
+
+### Added
+
+- Hierarchical learning journey documentation covering Sections, Units, Micro-Lessons, sequential unlocking, unit mastery, and lazy lesson launch.
+- Exercise-attempt documentation covering stable content identity, attempt history, retries, and first-content activity accounting.
+
+### Changed
+
+- Learning-path and lesson-launch API contracts are now documented alongside the study-plan API.
