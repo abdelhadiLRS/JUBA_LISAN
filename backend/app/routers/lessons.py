@@ -171,7 +171,10 @@ async def _get_exercise_content_entry(
     db: AsyncSession,
 ) -> tuple[dict, list, dict]:
     result = await db.execute(
-        select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
+        select(Exercise)
+        .where(Exercise.lesson_id == lesson.id)
+        .order_by(Exercise.id)
+        .with_for_update()
     )
     lesson_exercises = result.scalars().all()
     exercise_index = next(
@@ -617,6 +620,11 @@ async def retry_exercise(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exercise not found")
 
     lesson = await _get_lesson_for_user(exercise.lesson_id, current_user.id, db)
+    if lesson.is_completed:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Completed lesson exercises cannot be retried",
+        )
     _content, content_exercises, content_exercise = await _get_exercise_content_entry(
         exercise, lesson, db
     )
@@ -635,6 +643,7 @@ async def retry_exercise(
         )
         .order_by(ExerciseAttempt.attempt_number.desc())
         .limit(1)
+        .with_for_update()
     )
     if latest_attempt is None:
         raise HTTPException(
