@@ -355,7 +355,7 @@ All endpoints require `get_current_user`.
 
 ### Exercise attempts
 
-- **POST `/api/lessons/exercises/{exercise_id}/answer`** — Records every submitted attempt, evaluates the exercise type, preserves the stable content identity/variant, and updates daily learning activity only for the first attempt against the same content identity.
+- **POST `/api/lessons/exercises/{exercise_id}/answer`** — Records every submitted attempt, evaluates the exercise type, clamps the persisted score to `0..1`, preserves the stable content identity/variant, and updates daily learning activity only for the first attempt against the same content identity. Empty answers are rejected and answer text is capped at 5000 characters. The response also includes `attempts_count`, `score_delta`, and `mastered`.
 - **GET `/api/lessons/exercises/{exercise_id}/attempts`** — Returns the authenticated user's chronological attempts for one exercise.
-- **GET `/api/lessons/{lesson_id}/attempt-summary`** — Returns per-exercise attempt count, best score, latest score/variant, and latest-answer timestamp for the authenticated user.
+- **GET `/api/lessons/{lesson_id}/attempt-summary`** — Returns per-exercise attempt count, best/first/latest score, score improvement, mastery (`>= 0.80`), retry-needed signal (`best < 0.50`), latest variant, and latest-answer timestamp for the authenticated user.
 - **POST `/api/lessons/exercises/{exercise_id}/retry`** — Creates a new generated exercise variant for an unanswered/invalid exercise while preserving the original content identity and attempt history.
