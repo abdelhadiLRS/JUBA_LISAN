@@ -16,6 +16,12 @@ def _get_attr(name: str) -> Callable[[object], object]:
     return lambda exercise: getattr(exercise, name, None)
 
 
+def _normalise_exercise_id(value: object) -> int | None:
+    if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+        return None
+    return value
+
+
 def collect_attempted_exercise_ids(
     attempts: Sequence[object],
     *,
@@ -24,8 +30,8 @@ def collect_attempted_exercise_ids(
     """Return valid exercise ids represented in persisted attempt history."""
     attempted: set[int] = set()
     for attempt in attempts:
-        exercise_id = get_exercise_id(attempt)
-        if isinstance(exercise_id, int) and not isinstance(exercise_id, bool) and exercise_id > 0:
+        exercise_id = _normalise_exercise_id(get_exercise_id(attempt))
+        if exercise_id is not None:
             attempted.add(exercise_id)
     return attempted
 
@@ -64,7 +70,8 @@ def select_unanswered_variant(
             continue
         available_variants.append(variant)
 
-        if get_exercise_id(exercise) in attempted:
+        exercise_id = _normalise_exercise_id(get_exercise_id(exercise))
+        if exercise_id is None or exercise_id in attempted:
             continue
         candidates.append((exercise, variant))
 
