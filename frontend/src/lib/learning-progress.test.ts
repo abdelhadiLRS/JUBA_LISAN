@@ -55,6 +55,47 @@ describe('learning progress signal', () => {
     }
   })
 
+  it('ignores unrelated BroadcastChannel messages', () => {
+    if (typeof BroadcastChannel === 'undefined') return
+
+    const listener = vi.fn()
+    const unsubscribe = subscribeToLearningProgressUpdated(listener)
+    const channel = new BroadcastChannel('juba:learning-progress')
+
+    try {
+      channel.dispatchEvent(
+        new MessageEvent('message', {
+          data: { type: 'unrelated-event' },
+        }),
+      )
+      expect(listener).not.toHaveBeenCalled()
+
+      channel.dispatchEvent(
+        new MessageEvent('message', {
+          data: { type: 'juba:learning-progress-updated' },
+        }),
+      )
+      expect(listener).toHaveBeenCalledTimes(1)
+    } finally {
+      channel.close()
+      unsubscribe()
+    }
+  })
+
+  it('closes the shared BroadcastChannel after the last unsubscribe', () => {
+    if (typeof BroadcastChannel === 'undefined') return
+
+    const close = vi.spyOn(BroadcastChannel.prototype, 'close')
+    const firstUnsubscribe = subscribeToLearningProgressUpdated(vi.fn())
+    const secondUnsubscribe = subscribeToLearningProgressUpdated(vi.fn())
+
+    firstUnsubscribe()
+    expect(close).not.toHaveBeenCalled()
+
+    secondUnsubscribe()
+    expect(close).toHaveBeenCalledTimes(1)
+  })
+
   it('survives storage write failures while still notifying local listeners', () => {
     const listener = vi.fn()
     const unsubscribe = subscribeToLearningProgressUpdated(listener)
