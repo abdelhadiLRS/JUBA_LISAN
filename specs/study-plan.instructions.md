@@ -1,6 +1,6 @@
 ---
 description: "Current-state reference for FreeLingo's study plan and lesson system: data model, plan generation, lesson lifecycle, progress tracking, auto-advance logic, skip day, and pending lessons. This is the authoritative description of how the system works today."
-applyTo: "backend/app/routers/study_plan.py, backend/app/routers/lessons.py, backend/app/models/study_plan.py, backend/app/models/lesson.py, backend/app/services/study_plan_generator.py, backend/app/services/lesson_generator.py, frontend/src/app/(app)/dashboard/**, frontend/src/app/(app)/lesson/**"
+applyTo: "backend/app/routers/study_plan.py, backend/app/routers/lessons.py, backend/app/models/study_plan.py, backend/app/models/lesson.py, backend/app/services/study_plan_generator.py, backend/app/services/lesson_generator.py, frontend/src/app/(app)/dashboard/**, frontend/src/app/(app)/lesson/**, frontend/src/app/(app)/plan/**, frontend/src/hooks/use-learning-progress.ts"
 ---
 
 # Study Plan & Lesson System — FreeLingo
@@ -391,9 +391,9 @@ The learning system exposes a stable hierarchy: **CEFR Section → Unit → Micr
 ### Sequential unlocking and mastery
 
 - A lesson is available when its preceding lesson in the same unit is completed, while completed lessons remain reviewable without double-counting progress.
-- A later unit becomes available when its prerequisite unit satisfies the configured completion threshold (75% of prerequisite lessons, or an explicit prerequisite when defined).
-- Unit state is derived from persisted lesson completion and competency data: `locked`, `in_progress`, `completed`, or `mastered`.
-- `mastered` requires completion of the unit lessons plus the configured competency threshold; competency updates use the existing unit competency service and do not duplicate activity rows.
+- A later unit becomes available when its configured prerequisite unit is actually completed. Completion is based on the expected lesson-slot count from the curriculum blueprint (when available), not on a competency-score threshold.
+- Unit state is derived from prerequisite completion, expected lesson-slot completion, and competency progress: `locked`, `in_progress`, `completed`, or `mastered`.
+- `mastered` requires the unit to be completed plus the configured competency threshold; competency updates use the existing unit competency service and do not duplicate activity rows.
 - The learning journey is read-only until a learner explicitly launches a lesson. Lesson generation is lazy and persisted only when launched.
 
 ### Learning-path API contract
@@ -407,8 +407,10 @@ The learning system exposes a stable hierarchy: **CEFR Section → Unit → Micr
 The learning journey is exposed as a server-authoritative projection of the active study plan.
 
 - **Sections → Units → Micro-lessons**: the active CEFR level is represented as a section; curriculum units are its units; persisted lessons are the micro-lessons.
-- **Unit state** is derived from prerequisite completion and competency progress. A completed unit has competency score >= 0.80 or all persisted unit lessons completed.
+- **Unit state** is derived from prerequisite completion and expected lesson-slot completion. A unit is `completed` when all expected lesson slots are completed; `mastered` additionally requires the competency threshold.
 - **Lesson state** is sequential within a unit. A lesson is available only when its unit is available and the preceding persisted lesson is complete.
 - **GET /api/study-plan/learning-path** is read-only and returns unit progress, mastery counts, lesson states, and the next available persisted lesson.
 - **POST /api/study-plan/launch-lesson** is the guarded entry point for starting/reviewing a persisted lesson. It verifies active-plan ownership and sequential unlock state before returning lesson launch metadata.
 - The client must not infer unlock authority from local curriculum data; local data is presentation metadata only. Backend state remains authoritative.
+- Lesson answer and completion mutations synchronize unit competency in the same database transaction, so the learning-path projection can reflect performance before the lesson is completed.
+- The lesson player emits the shared `juba:learning-progress-updated` signal after successful answer/completion updates. `useLearningProgressSync` provides a reusable client lifecycle bridge for refreshing progression data when a plan view is active, the page is restored, or visibility returns.
