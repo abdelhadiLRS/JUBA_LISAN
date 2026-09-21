@@ -242,9 +242,11 @@ async def test_daily_challenge_is_counted_once_per_day(
         is_active=True,
     )
 
+    daily_game_ids = ("math", "words", "sequence", "memory", "matching", "ordering")
+    daily_game = daily_game_ids[((date.today().weekday() + 1) % 7) % len(daily_game_ids)]
     first_started = await client.post(
         "/api/progress/game-session",
-        json={"game_id": "math", "language": "en", "difficulty": 1},
+        json={"game_id": daily_game, "language": "en", "difficulty": 1},
         headers=headers,
     )
     assert first_started.status_code == 200
