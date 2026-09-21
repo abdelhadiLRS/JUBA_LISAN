@@ -688,7 +688,15 @@
     "completed": "Terminée",
     "niceWork": "Bravo. Vous l'avez retenu.",
     "reviewNow": "Réviser maintenant",
-    "nextCourse": "Cours suivant"
+    "nextCourse": "Cours suivant",
+    "attemptsLabel": "Tentatives",
+    "best": "Meilleur",
+    "latest": "Dernier",
+    "typeAnswer": "Saisissez votre réponse…",
+    "saveWord": "+ Enregistrer",
+    "saved": "Enregistré",
+    "saveError": "Erreur",
+    "keepLearning": "Continuez avec une révision."
   },
   "flashcards": {
     "title": "Fiches",
