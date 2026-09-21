@@ -688,7 +688,15 @@
     "completed": "Finalizată",
     "niceWork": "Foarte bine. Ți-ai amintit.",
     "reviewNow": "Recapitulează acum",
-    "nextCourse": "Cursul următor"
+    "nextCourse": "Cursul următor",
+    "attemptsLabel": "Încercări",
+    "best": "Cel mai bun",
+    "latest": "Ultimul",
+    "typeAnswer": "Introdu răspunsul…",
+    "saveWord": "+ Salvează",
+    "saved": "Salvat",
+    "saveError": "Eroare",
+    "keepLearning": "Continuă cu o recapitulare."
   },
   "flashcards": {
     "title": "Carduri flash",
