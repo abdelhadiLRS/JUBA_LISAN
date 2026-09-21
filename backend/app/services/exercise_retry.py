@@ -4,7 +4,11 @@ from collections.abc import Sequence
 import re
 
 # Lower number = easier interaction. Unknown interaction types are left unchanged.
-LOW_SCORE_THRESHOLD = 0.50\nSUCCESS_SCORE_THRESHOLD = 0.80\n\ndef classify_score(score: float) -> str:
+LOW_SCORE_THRESHOLD = 0.50
+SUCCESS_SCORE_THRESHOLD = 0.80
+
+
+def classify_score(score: float) -> str:
     """Classify an exercise score using the shared adaptive thresholds."""
     if score < LOW_SCORE_THRESHOLD:
         return "low"
@@ -34,7 +38,7 @@ ALIASES = {
 
 
 def normalise_variant(value: str | None) -> str:
-    raw = re.sub(r"[\\s_]+", "-", (value or "").strip().lower())
+    raw = re.sub(r"[\s_]+", "-", (value or "").strip().lower())
     return ALIASES.get(raw, raw)
 
 
