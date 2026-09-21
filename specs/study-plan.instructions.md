@@ -382,3 +382,22 @@ The completion button is guarded by both an immediate in-memory lock and a disab
 - Skip past the last day — `progress_day` is capped at `total_days`.
 - Plan with no generated lessons for the current day — Auto-advance does **not** fire. The loop stops when `lessons_by_wday.get((week, day), [])` returns `[]`.
 - Lesson with no exercises returned by LLM — Rolled back and excluded from today response.
+
+
+## Hierarchical Learning Journey
+
+The learning system exposes a stable hierarchy: **CEFR Section → Unit → Micro-Lesson → Exercise → Attempt**. Sections group major milestones, units define competencies/grammar/vocabulary targets, and micro-lessons provide the bite-sized execution layer.
+
+### Sequential unlocking and mastery
+
+- A lesson is available when its preceding lesson in the same unit is completed, while completed lessons remain reviewable without double-counting progress.
+- A later unit becomes available when its prerequisite unit satisfies the configured completion threshold (75% of prerequisite lessons, or an explicit prerequisite when defined).
+- Unit state is derived from persisted lesson completion and competency data: `locked`, `in_progress`, `completed`, or `mastered`.
+- `mastered` requires completion of the unit lessons plus the configured competency threshold; competency updates use the existing unit competency service and do not duplicate activity rows.
+- The learning journey is read-only until a learner explicitly launches a lesson. Lesson generation is lazy and persisted only when launched.
+
+### Learning-path API contract
+
+`GET /api/study-plan/learning-path` is the canonical read model for the journey UI. It must return enough information to render sections, units, lesson ordering, availability, progress, competency/mastery state, and the recommended next lesson without requiring the frontend to reconstruct prerequisite rules.
+
+`POST /api/study-plan/launch-lesson` is the mutation boundary for starting a lesson from the journey. It validates ownership and unlock state before generation/persistence and is idempotent for an already-materialized lesson.
