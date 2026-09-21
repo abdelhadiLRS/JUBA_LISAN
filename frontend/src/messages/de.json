@@ -688,7 +688,15 @@
     "completed": "Abgeschlossen",
     "niceWork": "Gut gemacht. Du hast es behalten.",
     "reviewNow": "Jetzt wiederholen",
-    "nextCourse": "Nächster Kurs"
+    "nextCourse": "Nächster Kurs",
+    "attemptsLabel": "Versuche",
+    "best": "Beste",
+    "latest": "Letzte",
+    "typeAnswer": "Gib deine Antwort ein…",
+    "saveWord": "+ Speichern",
+    "saved": "Gespeichert",
+    "saveError": "Fehler",
+    "keepLearning": "Bleib dran und wiederhole weiter."
   },
   "flashcards": {
     "title": "Karteikarten",
