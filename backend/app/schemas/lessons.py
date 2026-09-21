@@ -167,6 +167,12 @@ class ExerciseAttemptSummaryResponse(BaseModel):
     latest_answered_at: datetime
 
 
+class AdaptiveNextResponse(BaseModel):
+    action: str
+    recommended_variant: str | None = None
+    exercise: ExerciseResponse
+
+
 class ExerciseAnswerResponse(BaseModel):
     id: int
     score: float
