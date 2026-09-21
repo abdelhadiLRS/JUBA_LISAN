@@ -1695,6 +1695,8 @@
     "progressLabel": "Progreso del repaso",
     "account": "Cuenta",
     "source": "origen",
-    "target": "destino"
+    "target": "destino",
+    "loadError": "No se pudieron cargar las tarjetas de repaso.",
+    "saveError": "No se pudo guardar el repaso. Inténtalo de nuevo."
   }
 }
