@@ -152,6 +152,8 @@ def _build_exercise_response(
     exercise: Exercise,
     *,
     content: dict,
+    question: str | None = None,
+    explanation: str | None = None,
     content_id: str | None = None,
     variant: str | None = None,
 ) -> ExerciseResponse:
@@ -160,13 +162,13 @@ def _build_exercise_response(
         id=exercise.id,
         lesson_id=exercise.lesson_id,
         exercise_type=exercise.exercise_type,
-        question=exercise.question,
+        question=question if isinstance(question, str) else exercise.question,
         options=exercise.options,
         correct_answer=exercise.correct_answer,
         user_answer=exercise.user_answer,
         score=exercise.score,
         feedback=exercise.feedback,
-        explanation=exercise.explanation,
+        explanation=explanation if isinstance(explanation, str) else exercise.explanation,
         native_explanation=(
             content.get("native_explanation")
             if isinstance(content.get("native_explanation"), str)
@@ -305,39 +307,17 @@ async def get_lesson(
         if ex.exercise_type == "fill_blank" and "___" not in q:
             if exp and "___" in exp:
                 q, exp = exp, q
-        native_exp = None
-        native_hint = None
-        content_id = None
-        variant = None
-        accepted_answers = None
-        metadata = None
-        if index < len(content_exercises) and isinstance(content_exercises[index], dict):
-            content_item = content_exercises[index]
-            native_exp = content_item.get("native_explanation")
-            native_hint = content_item.get("native_hint")
-            content_id = content_item.get("content_id")
-            variant = content_item.get("variant")
-            accepted_answers = content_item.get("accepted_answers")
-            metadata = content_item.get("metadata")
+        content_item = content_exercises[index] if index < len(content_exercises) else {}
+        if not isinstance(content_item, dict):
+            content_item = {}
         fixed.append(
-            ExerciseResponse(
-                id=ex.id,
-                lesson_id=ex.lesson_id,
-                exercise_type=ex.exercise_type,
+            _build_exercise_response(
+                ex,
+                content=content_item,
                 question=q,
-                options=ex.options,
-                correct_answer=ex.correct_answer,
-                user_answer=ex.user_answer,
-                score=ex.score,
-                feedback=ex.feedback,
                 explanation=exp,
-                native_explanation=native_exp if isinstance(native_exp, str) else None,
-                native_hint=native_hint if isinstance(native_hint, str) else None,
-                content_id=content_id if isinstance(content_id, str) else None,
-                variant=variant if isinstance(variant, str) else None,
-                accepted_answers=accepted_answers if isinstance(accepted_answers, list) else None,
-                metadata=metadata if isinstance(metadata, dict) else None,
-                answered_at=ex.answered_at,
+                content_id=content_item.get("content_id"),
+                variant=content_item.get("variant"),
             )
         )
 
