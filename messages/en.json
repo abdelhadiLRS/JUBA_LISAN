@@ -809,7 +809,8 @@
     "learningActivity": "Learning activity",
     "last7Days": "Last 7 days",
     "exercises": "Exercises",
-    "sevenDayXp": "7-day XP"
+    "sevenDayXp": "7-day XP",
+    "reviewLink": "Review"
   },
   "grammar": {
     "title": "Grammar Reference",
