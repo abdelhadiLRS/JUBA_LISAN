@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
+import re
 
 # Lower number = easier interaction. Unknown interaction types are left unchanged.
 DIFFICULTY: dict[str, int] = {
@@ -24,7 +25,7 @@ ALIASES = {
 
 
 def normalise_variant(value: str | None) -> str:
-    raw = (value or "").strip().lower().replace("_", "-")
+    raw = re.sub(r"[\\s_]+", "-", (value or "").strip().lower())
     return ALIASES.get(raw, raw)
 
 
