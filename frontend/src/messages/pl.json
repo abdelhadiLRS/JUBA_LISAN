@@ -682,6 +682,14 @@
     "noAttempts": "Brak prób.",
     "hintPrefix": "Wskazówka: ",
     "retryEasier": "Spróbuj łatwiejszego"
+    ,"checking": "Sprawdzanie…",
+    "checkAnswer": "Sprawdź odpowiedź",
+    "next": "Dalej",
+    "finish": "Zakończ lekcję",
+    "completed": "Ukończono",
+    "niceWork": "Dobra robota. Zapamiętałeś to.",
+    "reviewNow": "Powtórz teraz",
+    "nextCourse": "Następny kurs",
   },
   "flashcards": {
     "title": "Fiszki",
