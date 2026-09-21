@@ -21,3 +21,10 @@ def test_aliases_are_supported():
 
 def test_unknown_variants_are_safe():
     assert get_retry_variant("unknown", succeeded=False, available_variants=["multiple_choice"]) is None
+
+def test_hyphenated_and_underscored_aliases_normalize():
+    assert get_retry_variant(
+        "free-write",
+        succeeded=False,
+        available_variants=["multiple-choice", "fill_blank", "free_write"],
+    ) == "fill_blank"
