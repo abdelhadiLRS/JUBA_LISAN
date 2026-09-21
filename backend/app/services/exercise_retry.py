@@ -1,14 +1,17 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
+from typing import Literal
 import re
 
 # Lower number = easier interaction. Unknown interaction types are left unchanged.
 LOW_SCORE_THRESHOLD = 0.50
 SUCCESS_SCORE_THRESHOLD = 0.80
 
+ScoreClassification = Literal["low", "middle", "success"]
 
-def classify_score(score: float) -> str:
+
+def classify_score(score: float) -> ScoreClassification:
     """Classify an exercise score using the shared adaptive thresholds."""
     if score < LOW_SCORE_THRESHOLD:
         return "low"
