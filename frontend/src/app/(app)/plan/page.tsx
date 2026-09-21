@@ -77,6 +77,23 @@ interface CompetencyMap {
   [unitId: string]: number // 0–1
 }
 
+interface LearningJourneyResponse {
+  next_lesson_id: number | null
+  next_unit_id: string | null
+  sections: {
+    units: {
+      id: string
+      progress: number
+      state: string
+      lessons: {
+        id: number | null
+        state: string
+        is_completed: boolean
+      }[]
+    }[]
+  }[]
+}
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function flattenLessons(plan: StudyPlan): Lesson[] {
@@ -135,9 +152,10 @@ export default function PlanPage() {
     setLoading(true)
     setError('')
     try {
-      const [planRes, compRes, todayRes, pendingRes, lessonsRes] =
+      const [planRes, journeyRes, compRes, todayRes, pendingRes, lessonsRes] =
         await Promise.all([
           apiFetch('/api/study-plan/current'),
+          apiFetch('/api/study-plan/learning-path').catch(() => null),
           apiFetch('/api/progress/competencies').catch(() => null),
           apiFetch('/api/study-plan/today').catch(() => null),
           apiFetch('/api/study-plan/pending-lessons').catch(() => null),
@@ -154,6 +172,22 @@ export default function PlanPage() {
 
       const planData = (await planRes.json()) as StudyPlan
       setPlan(planData)
+
+      if (journeyRes?.ok) {
+        const journey = (await journeyRes.json()) as LearningJourneyResponse
+        if (journey.next_lesson_id != null) {
+          setActiveLessonId(journey.next_lesson_id)
+        }
+        const journeyMap: CompetencyMap = {}
+        for (const section of journey.sections) {
+          for (const unit of section.units) {
+            journeyMap[unit.id] = unit.progress
+          }
+        }
+        if (Object.keys(journeyMap).length > 0) {
+          setCompetencies(journeyMap)
+        }
+      }
 
       if (compRes?.ok) {
         const compData = await compRes.json()
