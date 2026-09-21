@@ -161,7 +161,7 @@ export default function LessonPage() {
   }, [currentExercise, evaluating, exercise, exercises.length, finishLesson])
 
   const adaptiveNextExercise = async () => {
-    if (!exercise || evaluating || !exercise.feedback || !exercise.recommended_variant) return
+    if (!exercise || evaluating || !exercise.feedback || !hasAdaptiveTarget(exercise) || !isAdaptiveRetryAction(exercise.recommended_action)) return
     setEvaluating(true)
     try {
       const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/adaptive-next`, { method: 'POST' })
@@ -179,6 +179,8 @@ export default function LessonPage() {
       setCompleted(false)
       setDayComplete(false)
       setAnswer('')
+      setNativeHint(null)
+      setNativeExplanation(null)
       void loadAttempts(result.id)
       if (lesson) void loadAttemptSummary(lesson.id)
     } catch { /* keep the answered exercise visible when no adaptive variant is available */ } finally { setEvaluating(false) }
