@@ -1453,19 +1453,23 @@
   },
   "whatsNew": {
     "title": "Nouveautés",
-    "version": "v1.8.43",
+    "version": "v1.8.44",
     "cta": "Compris",
     "entry1": {
-      "label": "Un tout nouveau look",
-      "desc": "L'application a été repensée avec la nouvelle identité JUBA LISAN : icônes claires, navigation moderne et espace d'apprentissage plus épuré."
+      "label": "Expérience d'apprentissage",
+      "desc": "Le suivi des leçons est plus clair, avec de meilleurs aperçus des tentatives et des résultats, ainsi qu'une aide supplémentaire lorsque vous en avez besoin."
     },
     "entry2": {
-      "label": "Plus rapide sur mobile",
-      "desc": "Une nouvelle navigation inférieure place Accueil, Mon plan, Cartes, Tuteur et Progrès à un seul geste sur votre téléphone."
+      "label": "Révision intelligente",
+      "desc": "Réessayer et revoir les réponses est plus simple, tout en conservant votre progression précédente."
     },
     "entry3": {
-      "label": "Sous le capot",
-      "desc": "L'application se compile et se charge désormais de façon plus fiable, sans dépendre de serveurs de polices externes."
+      "label": "Tableau de progression",
+      "desc": "Votre progression et votre niveau sont plus faciles à suivre, avec des indications plus claires sur les compétences qui demandent davantage de pratique."
+    },
+    "entry4": {
+      "label": "Plus simple à utiliser",
+      "desc": "Les leçons sont plus faciles à utiliser, avec une meilleure prise en charge des raccourcis clavier."
     }
   },
   "contact": {
