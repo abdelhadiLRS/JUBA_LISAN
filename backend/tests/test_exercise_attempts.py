@@ -179,7 +179,7 @@ async def test_lesson_attempt_summary_is_user_scoped(client, test_user, db_sessi
     assert second.status_code == 200
 
     summary = await client.get(
-        f"/api/lessons/lessons/{lesson.id}/attempt-summary",
+        f"/api/lessons/{lesson.id}/attempt-summary",
         headers=headers,
     )
     assert summary.status_code == 200
