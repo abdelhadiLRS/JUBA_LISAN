@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Self
 
-from pydantic import BaseModel, field_serializer, model_validator
+from pydantic import BaseModel, field_serializer, field_validator, model_validator
 
 
 class ExerciseContent(BaseModel):
@@ -122,6 +122,16 @@ class LessonDetailResponse(BaseModel):
 class ExerciseAnswerRequest(BaseModel):
     answer: str
 
+    @field_validator("answer")
+    @classmethod
+    def validate_answer(cls, value: str) -> str:
+        value = value.strip()
+        if not value:
+            raise ValueError("answer must not be empty")
+        if len(value) > 5000:
+            raise ValueError("answer is too long")
+        return value
+
 
 class ExerciseAttemptResponse(BaseModel):
     id: int
@@ -147,6 +157,10 @@ class ExerciseAttemptSummaryResponse(BaseModel):
     attempts: int
     best_score: float
     latest_score: float
+    first_score: float
+    improvement: float
+    mastered: bool
+    needs_retry: bool
     latest_variant: str | None = None
     latest_answered_at: datetime
 
