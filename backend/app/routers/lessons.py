@@ -21,6 +21,7 @@ from app.models.study_plan import StudyPlan
 from app.models.user import User
 from app.schemas.lessons import (
     ExerciseAnswerRequest,
+    AdaptiveNextResponse,
     ExerciseAnswerResponse,
     ExerciseAttemptResponse,
     ExerciseAttemptSummaryResponse,
@@ -717,6 +718,127 @@ async def list_lesson_attempt_summary(
             )
         )
     return summaries
+
+
+
+@router.post(
+    "/exercises/{exercise_id}/adaptive-next",
+    response_model=AdaptiveNextResponse,
+)
+@limiter.limit("20/minute")
+async def adaptive_next_exercise(
+    request: Request,
+    exercise_id: int,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return the next unanswered sibling variant selected from the latest attempt."""
+    exercise = await db.get(Exercise, exercise_id)
+    if not exercise:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exercise not found")
+
+    lesson = await _get_lesson_for_user(exercise.lesson_id, current_user.id, db, for_update=True)
+    if lesson.is_completed:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Completed lesson exercises cannot be advanced adaptively",
+        )
+
+    _content, content_exercises, content_exercise = await _get_exercise_content_entry(
+        exercise, lesson, db
+    )
+    content_id = content_exercise.get("content_id")
+    current_variant = content_exercise.get("variant") or exercise.exercise_type
+    if not isinstance(content_id, str) or not content_id.strip():
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Exercise does not have a stable content identity",
+        )
+
+    latest_attempt = await db.scalar(
+        select(ExerciseAttempt)
+        .where(
+            ExerciseAttempt.user_id == current_user.id,
+            ExerciseAttempt.exercise_id == exercise.id,
+        )
+        .order_by(ExerciseAttempt.attempt_number.desc())
+        .limit(1)
+    )
+    if latest_attempt is None:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Exercise must be answered before adaptive progression",
+        )
+
+    result = await db.execute(
+        select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
+    )
+    lesson_exercises = result.scalars().all()
+
+    available_variants: list[str] = []
+    candidates: dict[str, tuple[Exercise, dict]] = {}
+    for index, sibling in enumerate(lesson_exercises):
+        if index >= len(content_exercises) or not isinstance(content_exercises[index], dict):
+            continue
+        sibling_content = content_exercises[index]
+        if sibling_content.get("content_id") != content_id:
+            continue
+        variant = sibling_content.get("variant") or sibling.exercise_type
+        if not isinstance(variant, str):
+            continue
+        available_variants.append(variant)
+        if sibling.id != exercise.id and sibling.answered_at is None:
+            candidates[variant] = (sibling, sibling_content)
+
+    action, target_variant = _adaptive_recommendation(
+        latest_attempt.score, current_variant, available_variants
+    )
+    if target_variant is None or target_variant not in candidates:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="No unanswered adaptive variant is available",
+        )
+
+    target, target_content = candidates[target_variant]
+    return AdaptiveNextResponse(
+        action=action,
+        recommended_variant=target_variant,
+        exercise=ExerciseResponse(
+            id=target.id,
+            lesson_id=target.lesson_id,
+            exercise_type=target.exercise_type,
+            question=target.question,
+            options=target.options,
+            correct_answer=target.correct_answer,
+            user_answer=target.user_answer,
+            score=target.score,
+            feedback=target.feedback,
+            explanation=target.explanation,
+            native_explanation=(
+                target_content.get("native_explanation")
+                if isinstance(target_content.get("native_explanation"), str)
+                else None
+            ),
+            native_hint=(
+                target_content.get("native_hint")
+                if isinstance(target_content.get("native_hint"), str)
+                else None
+            ),
+            content_id=content_id,
+            variant=target_variant,
+            accepted_answers=(
+                target_content.get("accepted_answers")
+                if isinstance(target_content.get("accepted_answers"), list)
+                else None
+            ),
+            metadata=(
+                target_content.get("metadata")
+                if isinstance(target_content.get("metadata"), dict)
+                else None
+            ),
+            answered_at=target.answered_at,
+        ),
+    )
 
 
 @router.post("/exercises/{exercise_id}/retry", response_model=ExerciseResponse)
