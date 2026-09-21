@@ -525,12 +525,16 @@ async def answer_exercise(
     exercise.user_answer = data.answer
     exercise.answered_at = datetime.now(UTC).replace(tzinfo=None)
 
-    max_attempt = await db.scalar(
-        select(func.max(ExerciseAttempt.attempt_number)).where(
+    latest_attempt = await db.scalar(
+        select(ExerciseAttempt)
+        .where(
             ExerciseAttempt.user_id == current_user.id,
             ExerciseAttempt.exercise_id == exercise.id,
         )
+        .order_by(ExerciseAttempt.attempt_number.desc())
+        .limit(1)
     )
+    max_attempt = latest_attempt.attempt_number if latest_attempt else None
     attempt_number = int(max_attempt or 0) + 1
     attempt = ExerciseAttempt(
         user_id=current_user.id,
@@ -588,6 +592,11 @@ async def answer_exercise(
         attempt_number=attempt.attempt_number,
         content_id=attempt.content_id,
         variant=attempt.variant,
+        attempts_count=attempt.attempt_number,
+        score_delta=round(
+            exercise.score - latest_attempt.score, 3
+        ) if latest_attempt is not None else 0.0,
+        mastered=exercise.score >= 0.80,
     )
 
 
