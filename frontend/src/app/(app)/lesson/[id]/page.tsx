@@ -16,6 +16,7 @@ import { useFreemiumStore } from '@/store/freemium'
 import { useConfigStore } from '@/store/config'
 import { cn } from '@/lib/utils'
 import { markLearningProgressUpdated } from '@/lib/learning-progress'
+import { mergeAdaptiveRecommendations } from '@/lib/adaptive-exercise'
 
 interface ExerciseItem { id: number; exercise_type: string; question: string; options: string[] | null; correct_answer: string; explanation: string | null; native_explanation: string | null; user_answer: string | null; score: number | null; feedback: string | null; native_hint: string | null; content_id?: string | null; variant?: string | null; accepted_answers?: string[] | null; metadata?: Record<string, string> | null; recommended_action?: string; recommended_variant?: string | null }
 interface LessonData { id: number; title: string; lesson_type: string; cefr_level: string; content: Record<string, unknown>; is_completed: boolean }
@@ -57,6 +58,7 @@ export default function LessonPage() {
       if (!res.ok) return
       const data: ExerciseAttemptSummary[] = await res.json()
       setAttemptSummary(data)
+      setExercises((prev) => mergeAdaptiveRecommendations(prev, data))
     } catch { /* summary is optional UI */ }
   }, [])
 
