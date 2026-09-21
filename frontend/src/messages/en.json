@@ -722,6 +722,14 @@
     "noAttempts": "No attempts yet.",
     "hintPrefix": "Hint: ",
     "retryEasier": "Retry easier"
+    ,"checking": "Checking…",
+    "checkAnswer": "Check answer",
+    "next": "Next",
+    "finish": "Finish lesson",
+    "completed": "Completed",
+    "niceWork": "Nice work. You remembered.",
+    "reviewNow": "Review now",
+    "nextCourse": "Next course",
   },
   "flashcards": {
     "title": "Flashcards",
