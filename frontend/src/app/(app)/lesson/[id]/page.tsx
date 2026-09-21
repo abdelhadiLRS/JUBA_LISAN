@@ -128,6 +128,7 @@ export default function LessonPage() {
       const targetIndex = exercises.findIndex((item) => item.id === result.id)
       setCurrentExercise(targetIndex >= 0 ? targetIndex : exercises.length)
       setAnswer('')
+      void loadAttempts(result.id)
     } catch { /* keep the failed exercise visible so the user can retry later */ } finally { setEvaluating(false) }
   }
 
