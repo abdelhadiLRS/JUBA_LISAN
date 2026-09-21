@@ -696,7 +696,9 @@
     "saveWord": "+ Guardar",
     "saved": "Guardado",
     "saveError": "Error",
-    "keepLearning": "Sigue avanzando con un repaso."
+    "keepLearning": "Sigue avanzando con un repaso.",
+    "retryHarderVariant": "Continuar con una variante más difícil",
+    "retryEasierVariant": "Reintentar con una variante más fácil"
   },
   "flashcards": {
     "title": "Tarjetas",
