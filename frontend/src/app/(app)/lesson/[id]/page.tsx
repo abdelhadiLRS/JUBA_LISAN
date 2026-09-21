@@ -125,7 +125,7 @@ export default function LessonPage() {
       }
       if (event.key === ' ' && exercise && !exercise.feedback && !evaluating && !exercise.options) {
         event.preventDefault()
-        const input = document.querySelector<HTMLInputElement>('input[placeholder={t('typeAnswer')}]')
+        const input = document.querySelector<HTMLInputElement>('input[placeholder]')
         input?.focus()
       }
     }
