@@ -769,7 +769,8 @@
     "learningActivity": "Aktywność nauki",
     "last7Days": "Ostatnie 7 dni",
     "exercises": "Ćwiczenia",
-    "sevenDayXp": "XP z 7 dni"
+    "sevenDayXp": "XP z 7 dni",
+    "reviewLink": "Powtórz"
   },
   "grammar": {
     "title": "Podręcznik gramatyki",
