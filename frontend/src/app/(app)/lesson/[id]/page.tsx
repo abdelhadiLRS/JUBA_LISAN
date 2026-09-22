@@ -310,7 +310,6 @@ export default function LessonPage() {
       void loadAttempts(exercise.id)
       if (lesson) {
         void loadAttemptSummary(lesson.id)
-        void loadNextMasteryExercise(lesson.id)
         if (masteryReviewMode) {
           try {
             const masteryRes = await apiFetch(`/api/lessons/${lesson.id}/mastery`)
@@ -320,11 +319,14 @@ export default function LessonPage() {
               if (masteryReviewInitialRate !== null && refreshedMastery.mastery_rate > masteryReviewInitialRate) {
                 setMasteryReviewImproved(true)
                 setMasteryReviewMode(false)
+              } else {
+                void loadNextMasteryExercise(lesson.id)
               }
             }
           } catch { /* keep the review session usable when mastery refresh is unavailable */ }
         } else {
           void loadLessonMastery(lesson.id)
+          void loadNextMasteryExercise(lesson.id)
         }
       }
       markLearningProgressUpdated()
