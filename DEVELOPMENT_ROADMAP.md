@@ -44,7 +44,9 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 - ✅ Level cards now open dedicated `/courses/[level]` explorers with unit metadata, prerequisites, mastery progress, and persisted lesson links when available.
 - ✅ Current-level progress now prefers the server learning-path state and falls back to competency records.
 - ✅ Level explorers now show richer unit previews: grammar-point, vocabulary-set, competency counts, and the first competency outcomes.
-- 🔜 Remaining: localized course copy and richer listening/media counts.
+- ✅ CEFR level explorer header copy is localized across all supported UI locales.
+- ✅ Unit mastery bars now expose semantic progressbar state, and unavailable lesson previews no longer use inert `#` links.
+- 🔜 Remaining: richer listening/media counts.
 ### Phase 8 — First Lesson 🟡
 - ✅ Course level explorer can hand off directly to persisted lesson routes when the learning path exposes an available lesson.
 - ✅ Lesson player is wired to persisted lesson/exercise/mastery APIs and JUBA design tokens.
