@@ -396,7 +396,56 @@ async def test_streak_does_not_cross_study_plans(db_session, test_user):
     assert entry.study_plan_id == current_plan.id
 
 
+@pytest.mark.asyncio@pytest.mark.asyncio
+async def test_progress_history_supports_selected_ranges(client, test_user, db_session):
+    user, headers = test_user
+    from app.models.progress import Progress
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    today = date.today()
+    db_session.add_all([
+        Progress(user_id=user.id, study_plan_id=plan.id, date=today, xp_earned=30, skills={}),
+        Progress(user_id=user.id, study_plan_id=plan.id, date=today - timedelta(days=10), xp_earned=20, skills={}),
+        Progress(user_id=user.id, study_plan_id=plan.id, date=today - timedelta(days=40), xp_earned=100, skills={}),
+    ])
+    await db_session.commit()
+
+    week = await client.get("/api/progress/history?range=week", headers=headers)
+    assert week.status_code == 200
+    assert [entry["xp_earned"] for entry in week.json()["entries"]] == [30]
+
+    month = await client.get("/api/progress/history?range=month", headers=headers)
+    assert month.status_code == 200
+    assert [entry["xp_earned"] for entry in month.json()["entries"]] == [30, 20]
+
+    all_time = await client.get("/api/progress/history?range=all", headers=headers)
+    assert all_time.status_code == 200
+    assert [entry["xp_earned"] for entry in all_time.json()["entries"]] == [30, 20, 100]
+
+
 @pytest.mark.asyncio
+async def test_progress_history_rejects_invalid_range(client, test_user):
+    _, headers = test_user
+    response = await client.get(
+        "/api/progress/history?range=quarter",
+        headers=headers,
+    )
+    assert response.status_code == 422
+
+
+
 async def test_progress_history_summary_supports_ranges_and_aggregates_skills(
     client, test_user, db_session
 ):
