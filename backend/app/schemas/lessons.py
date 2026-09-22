@@ -18,6 +18,7 @@ class ExerciseContent(BaseModel):
     variant: str | None = None
     accepted_answers: list[str] | None = None
     metadata: dict[str, str] | None = None
+    skills: list[str] | None = None
 
     @model_validator(mode="after")
     def validate_exercise_content(self) -> Self:
@@ -105,6 +106,7 @@ class ExerciseResponse(BaseModel):
     variant: str | None = None
     accepted_answers: list[str] | None = None
     metadata: dict[str, str] | None = None
+    skills: list[str] | None = None
     answered_at: datetime | None = None
     mastery_score: float = 0.0
     mastery_state: str = "unseen"
@@ -189,6 +191,19 @@ class LessonMasteryResponse(BaseModel):
 class LessonMasteryNextResponse(BaseModel):
     exercise: ExerciseResponse
     reason: Literal["struggling", "unseen", "lowest_mastery"]
+
+
+class SkillMasteryResponse(BaseModel):
+    skill: str
+    total_exercises: int
+    attempted_exercises: int
+    mastered_exercises: int
+    learning_exercises: int
+    struggling_exercises: int
+    unseen_exercises: int
+    average_mastery_score: float
+    mastery_rate: float
+    covered_variants: int
 
 
 class AdaptiveNextResponse(BaseModel):
