@@ -27,9 +27,9 @@ export function mergeAdaptiveRecommendations<T extends AdaptiveExerciseLike>(
       ...exercise,
       recommended_action: summary.recommended_action ?? undefined,
       recommended_variant: summary.recommended_variant ?? null,
-      mastery_score: summary.mastery_score,
-      mastery_state: summary.mastery_state,
-      mastery_variants: summary.mastery_variants,
+      ...(summary.mastery_score !== undefined ? { mastery_score: summary.mastery_score } : {}),
+      ...(summary.mastery_state !== undefined ? { mastery_state: summary.mastery_state } : {}),
+      ...(summary.mastery_variants !== undefined ? { mastery_variants: summary.mastery_variants } : {}),
     }
   })
 }
