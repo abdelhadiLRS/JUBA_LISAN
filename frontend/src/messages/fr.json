@@ -698,7 +698,15 @@
     "saveError": "Erreur",
     "keepLearning": "Continuez avec une révision.",
     "retryHarderVariant": "Continuer avec une variante plus difficile",
-    "retryEasierVariant": "Réessayer avec une variante plus facile"
+    "retryEasierVariant": "Réessayer avec une variante plus facile",
+    "mastery": "Maîtrise",
+    "masteryVariants": "{count} variantes couvertes",
+    "masteryStates": {
+      "unseen": "Non commencé",
+      "struggling": "À pratiquer",
+      "learning": "En apprentissage",
+      "mastered": "Maîtrisé"
+    }
   },
   "flashcards": {
     "title": "Fiches",
