@@ -61,3 +61,16 @@ The skill endpoint is `GET /api/lessons/{lesson_id}/mastery/skills`. Each skill 
 ## Skill mastery presentation
 
 The lesson screen presents each normalized skill as a compact coverage card. The card shows the mastery percentage, mastered/learning/review-needed exercise counts, attempt rate, average mastery score, and covered adaptive variants. The API remains the source of truth; the UI refreshes skill mastery after review answers so the skill breakdown stays aligned with the lesson-level aggregate.
+
+
+## Skill-level mastery snapshot
+
+The lesson mastery response now includes a skills collection derived from the same exercise-level mastery engine. Each skill aggregates every lesson exercise mapped to that skill, including:
+
+- mastery state (unseen, struggling, learning, mastered)
+- attempted and mastered exercise counts
+- average mastery score
+- attempt and mastery rates
+- covered adaptive variants
+
+The dedicated GET /api/lessons/{lesson_id}/mastery/skills endpoint remains available for clients that only need skill coverage. The lesson-level GET /api/lessons/{lesson_id}/mastery response can now render lesson and skill progress from one snapshot, avoiding a second request.
