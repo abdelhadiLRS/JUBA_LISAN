@@ -706,6 +706,8 @@
     "skillMasteryExhaustedDesc": "Er zijn geen oefeningen meer om {skill} verder te beheersen.",
     "skillMastery": "Beheersing van vaardigheden",
     "skillMasteryDesc": "Bekijk hoe goed elke leervaardigheid in deze les wordt beheerst.",
+    "skillMasteryComplete": "Alle leervaardigheden zijn beheerst",
+    "skillMasteryCompleteDesc": "Elke vaardigheid die in deze les wordt gevolgd, is beheerst.",
     "skillMasteryPractice": "Deze vaardigheid oefenen",
     "skillMasteryMastered": "beheerst",
     "skillMasteryAttempted": "pogingen",
