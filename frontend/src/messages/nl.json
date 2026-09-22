@@ -821,6 +821,9 @@
     "dailyTarget": "Dagelijks XP-doel",
     "weeklyTarget": "Wekelijks XP-doel",
     "saveGoals": "Doelen opslaan",
+    "goalHistory": "Doelgeschiedenis",
+    "milestones": "Mijlpalen",
+    "rewardXp": "belonings-XP"
   },
   "grammar": {
     "title": "Grammaticareferentie",
