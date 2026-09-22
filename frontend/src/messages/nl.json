@@ -1556,6 +1556,8 @@
     "noExercises": "Geen oefeningen beschikbaar voor jouw niveau.",
     "generate": "Oefening genereren",
     "audioError": "Audio kan niet worden geladen",
+    "audioPlay": "Afspelen",
+    "audioPause": "Pauzeren",
     "alreadyAttempted": "Je hebt deze oefening al voltooid.",
     "errorLoading": "Oefening laden mislukt. Probeer opnieuw.",
     "errorSubmit": "Antwoorden indienen mislukt. Probeer opnieuw.",
