@@ -214,7 +214,6 @@ export default function DashboardPage() {
         )
         const normalizedLessons = normalizeDashboardLessons(plan.lessons)
         setTodayLessons(normalizedLessons)
-        const currentCompleted = normalizedLessons.filter((lesson) => lesson.isCompleted).length
         if (!goalRes.ok) {
           setGoalProgress((current) => ({
             current: current.current,
