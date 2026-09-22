@@ -222,12 +222,13 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
     setLoadingMasteryNext(true)
     try {
       const activeSkill = skillOverride === undefined ? masteryReviewSkill : skillOverride
+      const reviewSessionActive = masteryReviewMode || skillOverride !== undefined
       const next = activeSkill
         ? await fetchNextSkillMasteryExercise(lesson.id, activeSkill)
         : await fetchNextMasteryExercise(lesson.id)
       if (!next) {
         setMasteryNext(null)
-        if (masteryReviewMode) {
+        if (reviewSessionActive) {
           setMasteryReviewExhausted(true)
           setMasteryReviewMode(false)
         }
