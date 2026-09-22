@@ -290,6 +290,32 @@ def test_skill_mastery_aggregates_shared_exercises_deterministically():
     assert vocabulary.mastery_rate == 0.0
 
 
+def test_skill_mastery_normalizes_case_and_deduplicates_labels_per_exercise():
+    exercises = [
+        SimpleNamespace(id=1, content_id="alpha", skills=["Grammar", " grammar ", "GRAMMAR"]),
+        SimpleNamespace(id=2, content_id="beta", skills=["GRAMMAR"]),
+    ]
+    attempts = [
+        SimpleNamespace(content_id="alpha", variant="a", score=0.90),
+        SimpleNamespace(content_id="alpha", variant="b", score=0.90),
+        SimpleNamespace(content_id="beta", variant="a", score=0.60),
+    ]
+
+    result = summarize_skill_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: item.content_id,
+        get_skills=lambda item: item.skills,
+    )
+
+    assert len(result) == 1
+    assert result[0].skill == "grammar"
+    assert result[0].total_exercises == 2
+    assert result[0].mastered_exercises == 1
+    assert result[0].learning_exercises == 1
+    assert result[0].covered_variants == 3
+
+
 def test_skill_mastery_accepts_single_skill_strings_and_ignores_blank_labels():
     exercises = [
         SimpleNamespace(id=1, content_id="alpha", skills="pronunciation"),
