@@ -316,6 +316,14 @@ export default function LessonPage() {
         if (masteryReviewMode) {
           try {
             const currentSummary = refreshedSummary?.find((item) => item.exercise_id === exercise.id)
+            if (currentSummary) {
+              setExercises((prev) => prev.map((item) => item.id === exercise.id ? {
+                ...item,
+                mastery_score: currentSummary.mastery_score,
+                mastery_state: currentSummary.mastery_state,
+                mastery_variants: currentSummary.mastery_variants,
+              } : item))
+            }
             const candidateMastered = currentSummary?.mastery_state === 'mastered' || currentSummary?.mastered
             const masteryRes = await apiFetch(`/api/lessons/${lesson.id}/mastery`)
             if (masteryRes.ok) {
