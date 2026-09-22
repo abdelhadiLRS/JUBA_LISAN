@@ -793,7 +793,7 @@ async def test_lesson_mastery_next_returns_skill_metadata_and_reason(
     assert data["reason"] == "unseen"
     assert data["exercise"]["content_id"] == "weak-item"
     assert data["exercise"]["variant"] == "target-a"
-    assert data["exercise"]["skills"] == ["Grammar"]
+    assert data["exercise"]["skills"] == ["grammar"]
     assert data["exercise"]["mastery_state"] == "unseen"
     assert data["exercise"]["mastery_score"] == 0.0
 \n
@@ -962,6 +962,91 @@ async def test_lesson_mastery_skill_next_filters_exercises_by_skill(
     assert data["exercise"]["content_id"] == "grammar-item"
     assert data["exercise"]["skills"] == ["Grammar"]
     assert data["reason"] == "unseen"
+
+
+@pytest.mark.asyncio
+async def test_lesson_mastery_skill_next_rejects_empty_skill(client, test_user, db_session):
+    user, headers = test_user
+    from app.models.lesson import Lesson
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A2",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    lesson = Lesson(
+        study_plan_id=plan.id,
+        title="Empty skill",
+        lesson_type="grammar",
+        cefr_level="A2",
+        week_number=1,
+        day_number=1,
+        content={"exercises": []},
+    )
+    db_session.add(lesson)
+    await db_session.commit()
+
+    response = await client.get(
+        f"/api/lessons/{lesson.id}/mastery/skills/%20%20/next",
+        headers=headers,
+    )
+
+    assert response.status_code == 400
+    assert response.json()["detail"] == "Skill must not be empty"
+
+
+@pytest.mark.asyncio
+async def test_lesson_mastery_skill_next_returns_404_for_unknown_skill(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    from app.models.lesson import Lesson
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A2",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    lesson = Lesson(
+        study_plan_id=plan.id,
+        title="Unknown skill",
+        lesson_type="grammar",
+        cefr_level="A2",
+        week_number=1,
+        day_number=1,
+        content={
+            "exercises": [
+                {
+                    "content_id": "grammar-item",
+                    "skills": ["grammar"],
+                }
+            ]
+        },
+    )
+    db_session.add(lesson)
+    await db_session.commit()
+
+    response = await client.get(
+        f"/api/lessons/{lesson.id}/mastery/skills/vocabulary/next",
+        headers=headers,
+    )
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == "No exercises found for this skill"
 
 
 @pytest.mark.asyncio
