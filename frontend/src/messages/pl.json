@@ -821,6 +821,9 @@
     "dailyTarget": "Dzienny cel XP",
     "weeklyTarget": "Tygodniowy cel XP",
     "saveGoals": "Zapisz cele",
+    "goalHistory": "Historia celów",
+    "milestones": "Kamienie milowe",
+    "rewardXp": "XP nagrody"
   },
   "grammar": {
     "title": "Podręcznik gramatyki",
