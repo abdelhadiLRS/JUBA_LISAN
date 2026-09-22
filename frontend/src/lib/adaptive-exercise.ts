@@ -35,7 +35,7 @@ export function hasAdaptiveTarget(recommendation: Pick<AdaptiveExerciseLike, 're
 
 const ADAPTIVE_RETRY_ACTIONS = new Set(['retry_easier', 'advance_harder'])
 
-function normaliseAdaptiveAction(action?: string | null): string {
+export function normaliseAdaptiveAction(action?: string | null): string {
   return typeof action === 'string' ? action.trim().toLowerCase() : ''
 }
 
