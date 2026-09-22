@@ -335,3 +335,26 @@ def test_skill_mastery_accepts_single_skill_strings_and_ignores_blank_labels():
     assert len(result) == 1
     assert result[0].skill == "pronunciation"
     assert result[0].attempted_exercises == 1
+
+
+def test_skill_mastery_exposes_attempt_rate_and_variant_coverage():
+    exercises = [
+        SimpleNamespace(id=1, content_id="alpha", skills=["grammar"]),
+        SimpleNamespace(id=2, content_id="beta", skills=["grammar"]),
+    ]
+    attempts = [
+        SimpleNamespace(content_id="alpha", variant="a", score=0.90),
+        SimpleNamespace(content_id="alpha", variant="b", score=0.90),
+        SimpleNamespace(content_id="beta", variant="a", score=0.60),
+    ]
+
+    result = summarize_skill_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: item.content_id,
+        get_skills=lambda item: item.skills,
+    )
+
+    assert len(result) == 1
+    assert result[0].attempt_rate == 1.0
+    assert result[0].covered_variants == 3
