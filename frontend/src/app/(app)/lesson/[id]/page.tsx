@@ -195,7 +195,7 @@ export default function LessonPage() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [currentExercise, evaluating, exercise, exercises.length, finishLesson, masteryReviewMode, continueMasteryReview])
 
-  const openMasteryCandidate = async (countAsCompleted: boolean) => {
+  const openMasteryCandidate = async () => {
     if (!lesson || loadingMasteryNext) return
     setLoadingMasteryNext(true)
     try {
@@ -233,7 +233,7 @@ export default function LessonPage() {
     setMasteryReviewInitialRate(lessonMastery.mastery_rate)
     setMasteryReviewFinalRate(null)
     setMasteryReviewImproved(false)
-    await openMasteryCandidate(false)
+    await openMasteryCandidate()
   }
 
   const finishMasteryReview = () => {
@@ -322,6 +322,8 @@ export default function LessonPage() {
                 setMasteryReviewFinalRate(refreshedMastery.mastery_rate)
                 setMasteryReviewImproved(true)
                 setMasteryReviewMode(false)
+              } else if (masteryReviewMode && result.score !== null && result.score < 0.5) {
+                setMasteryNext(null)
               } else {
                 void loadNextMasteryExercise(lesson.id)
               }
