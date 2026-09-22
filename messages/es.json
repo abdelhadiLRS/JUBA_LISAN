@@ -699,8 +699,9 @@
     "masteryReviewFinish": "Terminar repaso",
     "masteryReviewNext": "Siguiente ejercicio de dominio",
     "masteryReviewImproved": "Dominio mejorado",
-    "masteryReviewImprovedDesc": "Tu tasa de dominio mejoró durante este repaso. La sesión ha terminado."
-
+    "masteryReviewImprovedDesc": "Tu tasa de dominio mejoró durante este repaso. La sesión ha terminado.",
+    "masteryReviewExhausted": "Repaso de dominio completado",
+    "masteryReviewExhaustedDesc": "No quedan ejercicios para repasar y dominar."
   },
   "flashcards": {
     "title": "Tarjetas",
