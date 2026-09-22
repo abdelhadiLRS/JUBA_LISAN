@@ -203,6 +203,7 @@ class SkillMasteryResponse(BaseModel):
     unseen_exercises: int
     average_mastery_score: float
     mastery_rate: float
+    attempt_rate: float
     covered_variants: int
 
 
