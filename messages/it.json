@@ -1,6 +1,5 @@
 {
   "landing": {
-    "hero": "Impara le lingue con un vero partner di conversazione vocale",
     "heroSub": "Parla. Ascolta. Migliora.",
     "signIn": "Accedi",
     "dashboard": "Continua",
@@ -16,7 +15,6 @@
     "feature5Desc": "Ripasso del vocabolario con ripetizione spaziata. L'algoritmo SM-2 pianifica ogni scheda nel momento ottimale per massimizzare la memoria a lungo termine.",
     "feature6Title": "Progressi e serie",
     "feature6Desc": "XP, serie giornaliere, punteggi di abilità e competenze per unità. Monitora la tua crescita settimana per settimana e metti alla prova il tuo livello alla fine di ogni fase QCER.",
-    "footer": "Open source · Self-hostalo gratis o abbonati al servizio ospitato",
     "navFeatures": "Funzionalità",
     "navReviews": "Recensioni",
     "navPricing": "Prezzi",
