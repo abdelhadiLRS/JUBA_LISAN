@@ -708,7 +708,8 @@
       "mastered": "Освоено"
     },
     "transcriptLabel": "Транскрипция",
-    "listeningPractice": "Открыть практику аудирования"
+    "listeningPractice": "Открыть практику аудирования",
+    "audioLoadError": "Не удалось загрузить аудио. Вы можете продолжить с транскрипцией."
   },
   "flashcards": {
     "title": "Карточки",
