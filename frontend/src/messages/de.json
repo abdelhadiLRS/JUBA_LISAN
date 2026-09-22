@@ -798,7 +798,16 @@
     "noActivePlanDesc": "Mache die Bewertung, um deine Fähigkeiten zu verfolgen.",
     "vocabularyHeader": "Vokabular {level}",
     "currentLevelOnly": "Nur aktuelle Stufe",
-    "allLevels": "Alle Stufen"
+    "allLevels": "Alle Stufen",
+    "activityRange": "Aktivitätszeitraum",
+    "sevenDays": "7 Tage",
+    "thirtyDays": "30 Tage",
+    "last30Days": "Letzte 30 Tage",
+    "allTime": "Gesamtzeit",
+    "rangeXp": "XP im Zeitraum",
+    "rangeAccuracy": "Genauigkeit im Zeitraum",
+    "activeDays": "Aktive Tage",
+    "avgDailyXp": "Ø XP pro Tag"
   },
   "grammar": {
     "title": "Grammatik",
