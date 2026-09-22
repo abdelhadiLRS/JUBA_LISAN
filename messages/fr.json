@@ -708,7 +708,7 @@
     "skillMasteryAttempted": "tentées",
     "skillMasteryAttemptRate": "Taux de tentative : {rate} %",
     "skillMasteryVariants": "variantes"
-  },
+  \n    "masteryStates": {\n      "unseen": "Non exploré",\n      "struggling": "En difficulté",\n      "learning": "En apprentissage",\n      "mastered": "Maîtrisé"\n    },},
   "flashcards": {
     "title": "Fiches",
     "due": "À revoir",
