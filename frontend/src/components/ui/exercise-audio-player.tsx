@@ -113,7 +113,18 @@ export function ExerciseAudioPlayer({
         <div
           className="h-2 flex-1 cursor-pointer overflow-hidden rounded-full bg-[var(--juba-surface-soft)]"
           onClick={handleSeek}
-          role="progressbar"
+          onKeyDown={(e) => {
+            const audio = audioRef.current
+            if (!audio || audio.duration === 0) return
+            if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+            e.preventDefault()
+            const delta = audio.duration * 0.05
+            audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + (e.key === 'ArrowRight' ? delta : -delta)))
+            setProgress((audio.currentTime / audio.duration) * 100)
+          }}
+          role="slider"
+          tabIndex={0}
+          aria-label={t('audioProgress')}
           aria-valuenow={Math.round(progress)}
           aria-valuemin={0}
           aria-valuemax={100}
