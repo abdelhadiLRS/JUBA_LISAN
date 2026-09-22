@@ -48,6 +48,7 @@ from app.services.llm_adapter import (
 )
 from app.services.exercise_retry import normalise_variant
 from app.services.adaptive_variants import (
+    collect_attempted_adaptive_identities,
     collect_attempted_exercise_ids,
     recommend_adaptive_action,
     recommend_adaptive_variant,
@@ -715,7 +716,9 @@ async def answer_exercise(
             ExerciseAttempt.lesson_id == lesson.id,
         )
     )
-    attempted_exercise_ids = collect_attempted_exercise_ids(history_result.scalars().all())
+    history_attempts = history_result.scalars().all()
+    attempted_exercise_ids = collect_attempted_exercise_ids(history_attempts)
+    attempted_adaptive_identities = collect_attempted_adaptive_identities(history_attempts)
 
     lesson_exercise_result = await db.execute(
         select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
@@ -730,6 +733,7 @@ async def answer_exercise(
             current_variant=attempt.variant,
             score=exercise.score,
             attempted_exercise_ids=attempted_exercise_ids,
+            attempted_adaptive_identities=attempted_adaptive_identities,
             get_exercise_id=lambda item: item.id,
             get_variant=lambda item: (
                 content_by_exercise_id.get(item.id, {}).get("variant")
@@ -821,9 +825,9 @@ async def list_lesson_attempt_summary(
     )
     content_by_exercise_id = _map_content_exercises(lesson_exercises, content_exercises)
 
-    attempted_exercise_ids = collect_attempted_exercise_ids(
-        [attempt for items in grouped.values() for attempt in items]
-    )
+    all_attempts = [attempt for items in grouped.values() for attempt in items]
+    attempted_exercise_ids = collect_attempted_exercise_ids(all_attempts)
+    attempted_adaptive_identities = collect_attempted_adaptive_identities(all_attempts)
 
     summaries = []
     for exercise_id, items in grouped.items():
@@ -842,6 +846,7 @@ async def list_lesson_attempt_summary(
                 current_variant=latest.variant or current_exercise.exercise_type,
                 score=latest.score,
                 attempted_exercise_ids=attempted_exercise_ids,
+                attempted_adaptive_identities=attempted_adaptive_identities,
                 get_exercise_id=lambda item: item.id,
                 get_variant=lambda item: (
                     content_by_exercise_id.get(item.id, {}).get("variant")
@@ -957,7 +962,9 @@ async def adaptive_next_exercise(
             ExerciseAttempt.lesson_id == lesson.id,
         )
     )
-    attempted_exercise_ids = collect_attempted_exercise_ids(attempt_result.scalars().all())
+    attempt_history = attempt_result.scalars().all()
+    attempted_exercise_ids = collect_attempted_exercise_ids(attempt_history)
+    attempted_adaptive_identities = collect_attempted_adaptive_identities(attempt_history)
 
     action, target_variant, target = recommend_adaptive_variant(
         lesson_exercises,
@@ -965,6 +972,7 @@ async def adaptive_next_exercise(
         current_variant=attempted_variant,
         score=latest_attempt.score,
         attempted_exercise_ids=attempted_exercise_ids,
+        attempted_adaptive_identities=attempted_adaptive_identities,
         get_exercise_id=lambda item: item.id,
         get_variant=lambda item: (
             content_by_exercise_id.get(item.id, {}).get("variant") or item.exercise_type
@@ -1045,7 +1053,9 @@ async def retry_exercise(
             ExerciseAttempt.lesson_id == lesson.id,
         )
     )
-    attempted_exercise_ids = collect_attempted_exercise_ids(attempt_result.scalars().all())
+    attempt_history = attempt_result.scalars().all()
+    attempted_exercise_ids = collect_attempted_exercise_ids(attempt_history)
+    attempted_adaptive_identities = collect_attempted_adaptive_identities(attempt_history)
 
     persisted_identity = _persisted_attempt_identity(
         latest_attempt,
@@ -1065,6 +1075,7 @@ async def retry_exercise(
         current_variant=attempted_variant,
         score=latest_attempt.score,
         attempted_exercise_ids=attempted_exercise_ids,
+        attempted_adaptive_identities=attempted_adaptive_identities,
         get_exercise_id=lambda item: item.id,
         get_variant=lambda item: (
             content_by_exercise_id.get(item.id, {}).get("variant") or item.exercise_type
