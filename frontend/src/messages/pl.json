@@ -698,7 +698,15 @@
     "saveError": "Błąd",
     "keepLearning": "Kontynuuj naukę, powtarzając materiał.",
     "retryHarderVariant": "Kontynuuj z trudniejszym wariantem",
-    "retryEasierVariant": "Spróbuj ponownie z łatwiejszym wariantem"
+    "retryEasierVariant": "Spróbuj ponownie z łatwiejszym wariantem",
+    "mastery": "Opanowanie",
+    "masteryVariants": "{count} wariantów opanowanych",
+    "masteryStates": {
+      "unseen": "Nie rozpoczęto",
+      "struggling": "Wymaga ćwiczeń",
+      "learning": "W trakcie nauki",
+      "mastered": "Opanowane"
+    }
   },
   "flashcards": {
     "title": "Fiszki",
