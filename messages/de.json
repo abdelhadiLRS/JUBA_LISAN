@@ -687,7 +687,17 @@
     "masteryAttempted": "Bearbeitet",
     "masteryLearning": "Lernend",
     "masteryStruggling": "Schwierig",
-    "masteryUnseen": "Unbearbeitet"
+    "masteryUnseen": "Unbearbeitet",
+    "masteryReview": "Meisterschafts-Wiederholung",
+    "masteryReviewReady": "Wiederhole die Übung, die am meisten Übung benötigt.",
+    "masteryReviewAction": "Schwächste Fähigkeit wiederholen",
+    "masteryReviewLoading": "Auswahl…",
+    "masteryReviewNone": "Keine weitere Meisterschafts-Wiederholung nötig.",
+    "masteryReviewReasons": {
+      "struggling": "Meisterschafts-Wiederholung",
+      "unseen": "unbearbeitete Übung",
+      "lowest_mastery": "geringste Beherrschung"
+    }
   },
   "flashcards": {
     "title": "Karteikarten",
