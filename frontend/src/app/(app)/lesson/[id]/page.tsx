@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { apiFetch } from '@/lib/api'
+import { apiFetch, fetchNextLessonSkillMastery } from '@/lib/api'
 import { useProgressStore } from '@/store/progress'
 import { useLanguageStore } from '@/store/language'
 import { useAuthStore, isSubscribed, isFreemiumTrialActive } from '@/store/auth'
@@ -89,12 +89,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
       setLessonMastery(data)
       setSkillMastery(data.skills ?? [])
       try {
-        const nextRes = await apiFetch(`/api/lessons/${lessonId}/mastery/skills/next`)
-        if (nextRes.ok) {
-          setNextSkillMastery(await nextRes.json())
-        } else {
-          setNextSkillMastery(null)
-        }
+        setNextSkillMastery(await fetchNextLessonSkillMastery(lessonId))
       } catch {
         setNextSkillMastery(null)
       }
@@ -378,8 +373,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
               setLessonMastery(refreshedMastery)
               setSkillMastery(refreshedMastery.skills ?? [])
               try {
-                const nextSkillRes = await apiFetch(`/api/lessons/${lesson.id}/mastery/skills/next`)
-                setNextSkillMastery(nextSkillRes.ok ? await nextSkillRes.json() : null)
+                setNextSkillMastery(await fetchNextLessonSkillMastery(lesson.id))
               } catch {
                 setNextSkillMastery(null)
               }
