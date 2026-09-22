@@ -50,6 +50,9 @@ After each review answer, the client reconciles the answered exercise with the r
 
 ### Exhausted review state
 
+When a skill-focused review is exhausted, the UI keeps the selected skill in context and uses skill-specific completion copy rather than claiming that the whole lesson is mastered. The lesson-wide review keeps the generic exhausted message.
+
+
 When the mastery-next endpoint reports that every lesson exercise is mastered, the lesson UI now exits the active review loop into an explicit exhausted state. The state is localized, announces completion through the live status region, and provides the existing Finish action instead of silently clearing the candidate.
 
 
