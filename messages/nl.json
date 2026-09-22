@@ -687,7 +687,17 @@
     "masteryAttempted": "Geprobeerd",
     "masteryLearning": "In ontwikkeling",
     "masteryStruggling": "Moeilijk",
-    "masteryUnseen": "Ongezien"
+    "masteryUnseen": "Ongezien",
+    "masteryReview": "Beheersingsherhaling",
+    "masteryReviewReady": "Herhaal de oefening die de meeste extra oefening nodig heeft.",
+    "masteryReviewAction": "Zwakste vaardigheid herhalen",
+    "masteryReviewLoading": "Selecteren…",
+    "masteryReviewNone": "Geen verdere beheersingsherhaling nodig.",
+    "masteryReviewReasons": {
+      "struggling": "Beheersingsherhaling",
+      "unseen": "ongeziene oefening",
+      "lowest_mastery": "laagste beheersing"
+    }
   },
   "flashcards": {
     "title": "Flashcards",
