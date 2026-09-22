@@ -462,6 +462,27 @@ async def test_regenerate_rejects_completed_lesson(client, test_user, db_session
 
 
 
+def test_exercise_response_normalizes_skill_labels():
+    from app.models.lesson import Exercise
+    from app.routers.lessons import _build_exercise_response
+
+    exercise = Exercise(
+        id=1,
+        lesson_id=1,
+        exercise_type="multiple_choice",
+        question="What?",
+        options=["A", "B"],
+        correct_answer="A",
+    )
+
+    response = _build_exercise_response(
+        exercise,
+        content={"skills": ["Grammar", " grammar ", "GRAMMAR", "Vocabulary", " "]},
+    )
+
+    assert response.skills == ["grammar", "vocabulary"]
+
+
 @pytest.mark.asyncio
 async def test_get_lesson_skill_mastery(client, test_user, db_session):
     user, headers = test_user
