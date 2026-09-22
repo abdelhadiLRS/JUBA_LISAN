@@ -1222,6 +1222,27 @@ def test_persisted_attempt_identity_prefers_saved_values_and_normalizes_them():
     ) == ("saved-content", "fill_blank")
 
 
+@pytest.mark.parametrize(
+    ("saved_variant", "expected_variant"),
+    [
+        (" Fill-Blank ", "fill_blank"),
+        ("MULTIPLE_CHOICE", "multiple-choice"),
+        ("choice", "multiple_choice"),
+    ],
+)
+def test_persisted_attempt_identity_canonicalizes_variant(saved_variant, expected_variant):
+    """Persisted variant aliases resolve to the canonical adaptive variant."""
+    from types import SimpleNamespace
+
+    attempt = SimpleNamespace(content_id="saved-content", variant=saved_variant)
+
+    assert _persisted_attempt_identity(
+        attempt,
+        fallback_content_id="current-content",
+        fallback_variant="multiple_choice",
+    ) == ("saved-content", expected_variant)
+
+
 def test_persisted_attempt_identity_falls_back_only_when_saved_values_are_missing():
     """Legacy attempts without identity can still use current lesson metadata."""
     from types import SimpleNamespace
