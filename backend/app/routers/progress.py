@@ -358,8 +358,8 @@ async def _learning_goal_response(
         )
     )
     entries = result.scalars().all()
-    daily_xp = sum(entry.xp_earned for entry in entries if entry.date == today)
-    weekly_xp = sum(entry.xp_earned for entry in entries)
+    daily_xp = sum(max(entry.xp_earned - entry.reward_xp, 0) for entry in entries if entry.date == today)
+    weekly_xp = sum(max(entry.xp_earned - entry.reward_xp, 0) for entry in entries)
 
     return LearningGoalResponse(
         daily_xp_target=goal.daily_xp_target,
