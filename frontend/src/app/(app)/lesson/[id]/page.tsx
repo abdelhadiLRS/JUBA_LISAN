@@ -375,28 +375,12 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
               const refreshedMastery: LessonMasterySnapshot = await masteryRes.json()
               setLessonMastery(refreshedMastery)
               setSkillMastery(refreshedMastery.skills ?? [])
-              setNextSkillMastery(
-                refreshedMastery.skills
-                  ?.filter((item) => item.mastery_state !== 'mastered')
-                  .sort(
-                    (a, b) =>
-                      skillMasteryPriority[a.mastery_state] - skillMasteryPriority[b.mastery_state] ||
-                      a.mastery_rate - b.mastery_rate ||
-                      a.skill.localeCompare(b.skill),
-                  )[0]
-                  ? {
-                      skill: refreshedMastery.skills
-                        .filter((item) => item.mastery_state !== 'mastered')
-                        .sort(
-                          (a, b) =>
-                            skillMasteryPriority[a.mastery_state] - skillMasteryPriority[b.mastery_state] ||
-                            a.mastery_rate - b.mastery_rate ||
-                            a.skill.localeCompare(b.skill),
-                        )[0],
-                      reason: 'lowest_mastery',
-                    }
-                  : null,
-              )
+              try {
+                const nextSkillRes = await apiFetch(`/api/lessons/${lesson.id}/mastery/skills/next`)
+                setNextSkillMastery(nextSkillRes.ok ? await nextSkillRes.json() : null)
+              } catch {
+                setNextSkillMastery(null)
+              }
               const activeSkill = masteryReviewSkill
                 ? refreshedMastery.skills.find((item) => item.skill === masteryReviewSkill)
                 : null
