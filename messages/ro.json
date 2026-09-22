@@ -679,7 +679,13 @@
     "lessonFlowHint": "Învață → exersează → reține. Rămâi activ și valorifică fiecare răspuns.",
     "exerciseProgress": "Exercițiul {current}/{total}",
     "tapToHear": "Atinge cuvântul pentru a-l auzi",
-    "lessonProgress": "Progresul lecției"
+    "lessonProgress": "Progresul lecției",
+    "masteryOverview": "Stăpânirea lecției",
+    "masteryCoverage": "{{covered}} variante acoperite",
+    "masteryAttempted": "Încercate",
+    "masteryLearning": "În învățare",
+    "masteryStruggling": "Dificile",
+    "masteryUnseen": "Nevăzute"
   },
   "flashcards": {
     "title": "Carduri flash",
