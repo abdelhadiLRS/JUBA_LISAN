@@ -702,6 +702,8 @@
     "masteryReviewImprovedDesc": "Il tuo tasso di padronanza è migliorato durante questo ripasso. La sessione è completa.",
     "masteryReviewExhausted": "Ripasso della padronanza completato",
     "masteryReviewExhaustedDesc": "Non ci sono altri esercizi da ripassare per consolidare la padronanza.",
+    "skillMasteryExhausted": "Revisione della padronanza della competenza completata",
+    "skillMasteryExhaustedDesc": "Non ci sono altri esercizi da ripassare per consolidare {skill}.",
     "skillMastery": "Padronanza delle competenze",
     "skillMasteryDesc": "Scopri quanto è consolidata ogni competenza di apprendimento in questa lezione.",
     "skillMasteryPractice": "Pratica questa competenza",
@@ -1737,6 +1739,4 @@
     "spaceShortcut": "Spazio per rivelare",
     "rateKeys": "1 Ancora · 2 Difficile · 3 Bene · 4 Facile"
   },
-  "masteryReviewExhausted": "Ripasso della padronanza completato",
-  "masteryReviewExhaustedDesc": "Tutti gli esercizi di questa lezione sono stati padroneggiati. Puoi continuare a imparare o ripassare più tardi."
 }
