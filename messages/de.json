@@ -694,11 +694,13 @@
     "masteryReviewLoading": "Auswahl…",
     "masteryReviewNone": "Keine weitere Meisterschafts-Wiederholung nötig.",
     "masteryReviewLowest": "Geringste Beherrschung",
-    "masteryReviewReasons": {
-      "struggling": "Meisterschafts-Wiederholung",
-      "unseen": "unbearbeitete Übung",
-      "lowest_mastery": "geringste Beherrschung"
-    }
+    "masteryReviewSession": "Meisterschafts-Wiederholung",
+    "masteryReviewProgress": "{count} Übungen wiederholt",
+    "masteryReviewFinish": "Wiederholung beenden",
+    "masteryReviewNext": "Nächste Meisterschaftsübung",
+    "masteryReviewImproved": "Beherrschung verbessert",
+    "masteryReviewImprovedDesc": "Deine Beherrschungsrate hat sich während dieser Wiederholung verbessert. Die Sitzung ist abgeschlossen."
+
   },
   "flashcards": {
     "title": "Karteikarten",
