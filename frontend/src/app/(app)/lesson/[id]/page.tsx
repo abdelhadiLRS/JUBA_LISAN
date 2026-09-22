@@ -31,7 +31,7 @@ import {
 
 interface ExerciseItem { id: number; exercise_type: string; question: string; options: string[] | null; correct_answer: string; explanation: string | null; native_explanation: string | null; user_answer: string | null; score: number | null; feedback: string | null; native_hint: string | null; content_id?: string | null; variant?: string | null; accepted_answers?: string[] | null; metadata?: Record<string, string> | null; skills?: string[] | null; recommended_action?: string; recommended_variant?: string | null; mastery_score?: number; mastery_state?: string; mastery_variants?: number }
 interface LessonData { id: number; title: string; lesson_type: string; cefr_level: string; content: Record<string, unknown>; is_completed: boolean }
-interface LessonMasterySnapshot { mastery_state: 'unseen' | 'struggling' | 'learning' | 'mastered'; total_exercises: number; attempted_exercises: number; mastered_exercises: number; learning_exercises: number; struggling_exercises: number; unseen_exercises: number; average_mastery_score: number; attempt_rate: number; mastery_rate: number; covered_variants: number }
+interface LessonMasterySnapshot { mastery_state: 'unseen' | 'struggling' | 'learning' | 'mastered'; total_exercises: number; attempted_exercises: number; mastered_exercises: number; learning_exercises: number; struggling_exercises: number; unseen_exercises: number; average_mastery_score: number; attempt_rate: number; mastery_rate: number; covered_variants: number; skills: SkillMastery[] }
 interface LessonVocabularyItem { word?: string; definition?: string; translation?: string | null; example?: string; example_translation?: string | null; note?: string | null; reading?: string | null }
 interface ExerciseAttempt { id: number; exercise_id: number; lesson_id: number; content_id?: string | null; variant?: string | null; attempt_number: number; user_answer: string; score: number; feedback: string; answered_at: string }
 type ExerciseAttemptSummary = AdaptiveExerciseRecommendation & { attempts: number; best_score: number; latest_score: number; first_score: number; improvement: number; mastered: boolean; needs_retry: boolean; mastery_score?: number; mastery_state?: string; mastery_variants?: number; latest_variant?: string | null; latest_answered_at: string }
@@ -78,16 +78,10 @@ export default function LessonPage() {
     try {
       const res = await apiFetch(`/api/lessons/${lessonId}/mastery`)
       if (!res.ok) return
-      setLessonMastery(await res.json())
+      const data: LessonMasterySnapshot = await res.json()
+      setLessonMastery(data)
+      setSkillMastery(data.skills ?? [])
     } catch { /* aggregate mastery is optional UI */ }
-  }, [])
-
-  const loadSkillMastery = useCallback(async (lessonId: number) => {
-    try {
-      const res = await apiFetch(`/api/lessons/${lessonId}/mastery/skills`)
-      if (!res.ok) return
-      setSkillMastery(await res.json())
-    } catch { /* skill mastery is optional UI */ }
   }, [])
 
   const loadNextMasteryExercise = useCallback(async (lessonId: number) => {
@@ -115,10 +109,10 @@ export default function LessonPage() {
   useEffect(() => {
     let cancelled = false
     apiFetch(`/api/lessons/${id}`).then(async (res) => { if (!res.ok) throw new Error('lesson_fetch_failed'); return res.json() }).then((data: { lesson: LessonData; exercises: ExerciseItem[] }) => {
-      if (!cancelled) { setLesson(data.lesson); setExercises(data.exercises || []); setCompleted(!!data.lesson.is_completed); void loadAttemptSummary(data.lesson.id); void loadLessonMastery(data.lesson.id); void loadSkillMastery(data.lesson.id); void loadNextMasteryExercise(data.lesson.id) }
+      if (!cancelled) { setLesson(data.lesson); setExercises(data.exercises || []); setCompleted(!!data.lesson.is_completed); void loadAttemptSummary(data.lesson.id); void loadLessonMastery(data.lesson.id); void loadNextMasteryExercise(data.lesson.id) }
     }).catch(() => { if (!cancelled) router.replace('/plan') })
     return () => { cancelled = true }
-  }, [id, router, loadAttemptSummary, loadLessonMastery, loadSkillMastery, loadNextMasteryExercise])
+  }, [id, router, loadAttemptSummary, loadLessonMastery, loadNextMasteryExercise])
 
   const attemptStats = useMemo(() => {
     if (!attemptSummary.length) return null
@@ -346,7 +340,7 @@ export default function LessonPage() {
             if (masteryRes.ok) {
               const refreshedMastery: LessonMasterySnapshot = await masteryRes.json()
               setLessonMastery(refreshedMastery)
-              void loadSkillMastery(lesson.id)
+              setSkillMastery(refreshedMastery.skills ?? [])
               if (candidateMastered || (masteryReviewInitialRate !== null && refreshedMastery.mastery_rate > masteryReviewInitialRate)) {
                 setMasteryReviewFinalRate(refreshedMastery.mastery_rate)
                 setMasteryReviewImproved(true)
@@ -360,7 +354,6 @@ export default function LessonPage() {
           } catch { /* keep the review session usable when mastery refresh is unavailable */ }
         } else {
           void loadLessonMastery(lesson.id)
-          void loadSkillMastery(lesson.id)
           void loadNextMasteryExercise(lesson.id)
         }
       }
