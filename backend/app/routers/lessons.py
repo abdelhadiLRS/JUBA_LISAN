@@ -210,8 +210,8 @@ def _build_exercise_response(
             else None
         ),
         skills=(
-            [skill.strip() for skill in content.get("skills", []) if isinstance(skill, str) and skill.strip()]
-            if isinstance(content.get("skills"), list)
+            list(normalise_skill_labels(content.get("skills")))
+            if isinstance(content.get("skills"), (list, str))
             else None
         ),
         answered_at=exercise.answered_at,
