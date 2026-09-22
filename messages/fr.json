@@ -694,11 +694,13 @@
     "masteryReviewLoading": "Sélection…",
     "masteryReviewNone": "Aucune autre révision de maîtrise n’est nécessaire.",
     "masteryReviewLowest": "Maîtrise la plus faible",
-    "masteryReviewReasons": {
-      "struggling": "Révision de maîtrise",
-      "unseen": "exercice non vu",
-      "lowest_mastery": "maîtrise la plus faible"
-    }
+    "masteryReviewSession": "Session de révision de maîtrise",
+    "masteryReviewProgress": "{count} exercices révisés",
+    "masteryReviewFinish": "Terminer la révision",
+    "masteryReviewNext": "Exercice de maîtrise suivant",
+    "masteryReviewImproved": "Maîtrise améliorée",
+    "masteryReviewImprovedDesc": "Votre taux de maîtrise s’est amélioré pendant cette révision. La session est terminée."
+
   },
   "flashcards": {
     "title": "Fiches",
