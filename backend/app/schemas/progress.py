@@ -60,6 +60,23 @@ class LearningGoalUpdate(BaseModel):
     weekly_xp_target: int = Field(default=250, ge=1, le=70000)
 
 
+class LearningGoalMilestoneResponse(BaseModel):
+    id: int
+    goal_type: Literal["daily", "weekly"]
+    period_start: date
+    period_end: date
+    target_xp: int
+    achieved_xp: int
+    reward_xp: int
+    achieved_at: str
+
+    model_config = {"from_attributes": True}
+
+    @field_serializer("period_start", "period_end")
+    def serialize_period(self, v: date, _info):
+        return v.isoformat()
+
+
 class LearningGoalResponse(BaseModel):
     daily_xp_target: int
     weekly_xp_target: int
