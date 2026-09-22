@@ -706,6 +706,8 @@
     "skillMasteryExhaustedDesc": "Não há mais exercícios para praticar o domínio de {skill}.",
     "skillMastery": "Domínio de competências",
     "skillMasteryDesc": "Veja o nível de domínio de cada competência de aprendizagem nesta lição.",
+    "skillMasteryComplete": "Todas as competências de aprendizagem estão dominadas",
+    "skillMasteryCompleteDesc": "Todas as competências acompanhadas nesta lição atingiram o domínio.",
     "skillMasteryPractice": "Praticar esta competência",
     "skillMasteryMastered": "dominadas",
     "skillMasteryAttempted": "tentadas",
