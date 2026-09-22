@@ -1491,3 +1491,148 @@ async def regenerate_invalid_exercise(
     exercise_id: int,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
+
+    exercise = await db.get(Exercise, exercise_id)
+    if exercise is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Exercise not found",
+        )
+
+    lesson = await _get_lesson_for_user(
+        exercise.lesson_id, current_user.id, db, for_update=True
+    )
+    if lesson.is_completed:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Completed lesson exercises cannot be regenerated",
+        )
+    if exercise.score is not None:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Answered exercises cannot be regenerated",
+        )
+    if not _exercise_has_technical_error(exercise):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Exercise does not contain a technical error",
+        )
+
+    content, content_exercises, content_exercise = await _get_exercise_content_entry(
+        exercise, lesson, db
+    )
+    plan = await db.get(StudyPlan, lesson.study_plan_id)
+    if plan is None:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Study plan not found for lesson",
+        )
+
+    invalid_exercise = {
+        "type": exercise.exercise_type,
+        "question": exercise.question,
+        "options": exercise.options or [],
+        "correct": exercise.correct_answer,
+        "explanation": exercise.explanation,
+        "native_explanation": content_exercise.get("native_explanation"),
+        "native_hint": content_exercise.get("native_hint"),
+        "content_id": content_exercise.get("content_id"),
+        "variant": content_exercise.get("variant"),
+        "accepted_answers": content_exercise.get("accepted_answers"),
+        "metadata": content_exercise.get("metadata"),
+        "skills": content_exercise.get("skills"),
+    }
+
+    lesson_explanation = (
+        lesson.content.get("explanation", {})
+        if isinstance(lesson.content, dict)
+        else {}
+    )
+    if not isinstance(lesson_explanation, dict):
+        lesson_explanation = {"text": str(lesson_explanation)}
+
+    lesson_vocabulary = (
+        lesson.content.get("vocabulary", [])
+        if isinstance(lesson.content, dict)
+        else []
+    )
+    if not isinstance(lesson_vocabulary, list):
+        lesson_vocabulary = []
+
+    try:
+        regenerated = await regenerate_exercise(
+            cefr_level=lesson.cefr_level,
+            lesson_type=lesson.lesson_type,
+            topic=lesson.title,
+            exercise_type=exercise.exercise_type,
+            lesson_explanation=lesson_explanation,
+            lesson_vocabulary=lesson_vocabulary,
+            invalid_exercise=invalid_exercise,
+            target_language=plan.target_language,
+            native_language=current_user.native_language,
+        )
+    except LLMTimeoutError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_504_GATEWAY_TIMEOUT,
+            detail="Exercise regeneration timed out",
+        ) from exc
+    except LLMUnavailableError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Exercise regeneration service is unavailable",
+        ) from exc
+    except LLMError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Exercise regeneration failed",
+        ) from exc
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Generated exercise is invalid",
+        ) from exc
+
+    if regenerated.type != exercise.exercise_type:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Generated exercise type does not match the original",
+        )
+
+    exercise.question = regenerated.question
+    exercise.options = regenerated.options or []
+    exercise.correct_answer = regenerated.correct
+    exercise.explanation = regenerated.explanation
+    exercise.user_answer = None
+    exercise.score = None
+    exercise.feedback = None
+    exercise.answered_at = None
+
+    regenerated_content = {
+        "type": regenerated.type,
+        "question": regenerated.question,
+        "options": regenerated.options or [],
+        "correct": regenerated.correct,
+        "explanation": regenerated.explanation,
+        "native_explanation": regenerated.native_explanation,
+        "native_hint": regenerated.native_hint,
+        "content_id": regenerated.content_id,
+        "variant": regenerated.variant,
+        "accepted_answers": regenerated.accepted_answers,
+        "metadata": regenerated.metadata,
+        "skills": regenerated.skills,
+    }
+    content_exercises[await _get_exercise_index(exercise, lesson, db)] = regenerated_content
+    content["exercises"] = content_exercises
+    lesson.content = content
+
+    await db.commit()
+    await db.refresh(exercise)
+    await db.refresh(lesson)
+
+    return _build_exercise_response(
+        exercise,
+        content=regenerated_content,
+        content_id=regenerated.content_id,
+        variant=regenerated.variant,
+    )
+
