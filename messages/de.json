@@ -693,6 +693,7 @@
     "masteryReviewAction": "Schwächste Fähigkeit wiederholen",
     "masteryReviewLoading": "Auswahl…",
     "masteryReviewNone": "Keine weitere Meisterschafts-Wiederholung nötig.",
+    "masteryReviewLowest": "Geringste Beherrschung",
     "masteryReviewReasons": {
       "struggling": "Meisterschafts-Wiederholung",
       "unseen": "unbearbeitete Übung",
