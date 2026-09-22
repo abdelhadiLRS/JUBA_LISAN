@@ -46,6 +46,33 @@ def select_next_mastery_candidate(
     return selected[1] if selected is not None else None
 
 
+
+def select_next_skill_exercise(
+    exercises: Sequence[object],
+    attempts: Sequence[object],
+    *,
+    skill: object,
+    get_content_id: Callable[[object], object],
+    get_exercise_id: Callable[[object], object],
+    get_skills: Callable[[object], Sequence[object] | object | None],
+) -> LessonMasteryCandidate | None:
+    """Select the next non-mastered exercise belonging to one normalized skill."""
+    requested = normalise_skill_labels(skill)
+    if not requested:
+        return None
+    requested_skill = requested[0]
+    scoped_exercises = [
+        exercise
+        for exercise in exercises
+        if requested_skill in normalise_skill_labels(get_skills(exercise))
+    ]
+    return select_next_mastery_candidate(
+        scoped_exercises,
+        attempts,
+        get_content_id=get_content_id,
+        get_exercise_id=get_exercise_id,
+    )
+
 def mastery_reason(state: str) -> str:
     """Return a stable UI/API reason for a mastery recommendation."""
     return {
