@@ -221,18 +221,6 @@ async def test_goal_milestone_history_is_user_scoped(client, test_user, db_sessi
     db_session.add(other)
     await db_session.flush()
     db_session.add(UserLanguage(user_id=other.id, target_language="fr-FR", is_active=True))
-    plan = await make_study_plan(
-        db_session,
-        user_id=user.id,
-        cefr_level="A1",
-        target_language="en-US",
-        goals=["grammar"],
-        duration_weeks=4,
-        days_per_week=4,
-        current_unit="",
-        generated_plan={},
-        is_active=True,
-    )
     other_plan = await make_study_plan(
         db_session,
         user_id=other.id,
