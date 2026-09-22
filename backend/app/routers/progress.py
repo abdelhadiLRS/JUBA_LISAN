@@ -840,6 +840,79 @@ async def reject_legacy_game_summary(
     )
 
 
+@router.get("/history/summary", response_model=ProgressRangeSummary)
+@limiter.limit("60/minute")
+async def get_history_summary(
+    request: Request,
+    range: str = "week",
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    if range not in {"week", "month", "all"}:
+        raise HTTPException(status_code=422, detail="range must be week, month or all")
+
+    plan = await _get_active_plan_or_none(db, current_user.id)
+    if plan is None:
+        return ProgressRangeSummary(period=range)
+
+    today = date.today()
+    start_date = None
+    if range == "week":
+        start_date = today - timedelta(days=6)
+    elif range == "month":
+        start_date = today - timedelta(days=29)
+
+    query = select(Progress).where(
+        Progress.user_id == current_user.id,
+        Progress.study_plan_id == plan.id,
+    )
+    if start_date is not None:
+        query = query.where(Progress.date >= start_date)
+
+    result = await db.execute(query.order_by(Progress.date.asc()))
+    entries = result.scalars().all()
+    if not entries:
+        return ProgressRangeSummary(
+            period=range,
+            from_date=start_date,
+            to_date=today if start_date is not None else None,
+        )
+
+    total_xp = sum(entry.xp_earned for entry in entries)
+    total_lessons = sum(entry.lessons_completed for entry in entries)
+    total_exercises = sum(entry.exercises_total for entry in entries)
+    exercises_correct = sum(entry.exercises_correct for entry in entries)
+    accuracy = exercises_correct / total_exercises if total_exercises else 0.0
+
+    skill_totals: dict[str, list[float]] = {}
+    for entry in entries:
+        for skill, score in (entry.skills or {}).items():
+            if isinstance(score, (int, float)) and not isinstance(score, bool):
+                skill_totals.setdefault(str(skill), []).append(float(score))
+
+    skills = {
+        skill: round(sum(scores) / len(scores), 3)
+        for skill, scores in sorted(skill_totals.items())
+        if scores
+    }
+
+    first_date = entries[0].date
+    last_date = entries[-1].date
+    return ProgressRangeSummary(
+        period=range,
+        from_date=start_date or first_date,
+        to_date=today if start_date is not None else last_date,
+        total_xp=total_xp,
+        total_lessons=total_lessons,
+        total_exercises=total_exercises,
+        exercises_correct=exercises_correct,
+        accuracy=round(accuracy, 3),
+        active_days=len({entry.date for entry in entries}),
+        average_daily_xp=round(total_xp / len({entry.date for entry in entries}), 2),
+        skills=skills,
+    )
+
+
 @router.get("/history", response_model=ProgressHistoryResponse)
 @limiter.limit("60/minute")
 async def get_history(
