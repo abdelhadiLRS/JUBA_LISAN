@@ -59,6 +59,7 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 - ✅ Lesson exercises now render an optional transcript/caption block from persisted metadata alongside safe audio sources.
 - ✅ Listening-shaped lesson exercises now expose a localized handoff to the dedicated listening practice surface, preserving the existing listening engine instead of duplicating it.
 - ✅ Lesson audio controls now expose a localized, non-blocking load-error state so transcript-backed exercises remain usable when media cannot be fetched.
+- ✅ The dedicated listening audio player now uses localized Play/Pause labels across all supported UI locales, and lesson media is exposed as a semantic region for assistive technology.
 - 🔜 Remaining: broader exercise/media types (speaking) where backend payloads expose them.
 ### Phase 9 — Smart Review 🟡
 - ✅ Review session rebuilt (v1.8.43): session progress bar, keyboard-accessible flip card, semantic rating colors; standard/speaking modes, audio, generation, and SM-2 stats preserved. Built on the existing `GET /api/flashcards/due` + `POST /api/flashcards/{id}/review` endpoints — no backend changes needed.
