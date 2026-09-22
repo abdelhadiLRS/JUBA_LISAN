@@ -821,6 +821,9 @@
     "dailyTarget": "Дневная цель XP",
     "weeklyTarget": "Недельная цель XP",
     "saveGoals": "Сохранить цели",
+    "goalHistory": "История целей",
+    "milestones": "Вехи",
+    "rewardXp": "Наградной XP"
   },
   "grammar": {
     "title": "Справочник по грамматике",
