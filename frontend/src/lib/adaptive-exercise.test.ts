@@ -86,3 +86,9 @@ describe('adaptive action helpers', () => {
     expect(isAdaptiveRetryAction('advance')).toBe(false)
     expect(isAdaptiveRetryAction('retry')).toBe(false)
   })
+
+  it('normalizes adaptive action casing and surrounding whitespace', () => {
+    expect(isAdaptiveRetryAction(' RETRY_EASIER ')).toBe(true)
+    expect(isAdaptiveRetryAction(' Advance_Harder ')).toBe(true)
+    expect(isAdaptiveReinforcementAction(' Reinforce ')).toBe(true)
+  })
