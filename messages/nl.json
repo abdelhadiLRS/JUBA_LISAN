@@ -699,8 +699,9 @@
     "masteryReviewFinish": "Herhaling beëindigen",
     "masteryReviewNext": "Volgende beheersingsoefening",
     "masteryReviewImproved": "Beheersing verbeterd",
-    "masteryReviewImprovedDesc": "Je beheersingspercentage is tijdens deze herhaling verbeterd. De sessie is voltooid."
-
+    "masteryReviewImprovedDesc": "Je beheersingspercentage is tijdens deze herhaling verbeterd. De sessie is voltooid.",
+    "masteryReviewExhausted": "Beheersingsreview voltooid",
+    "masteryReviewExhaustedDesc": "Er zijn geen oefeningen meer om te herhalen voor beheersing."
   },
   "flashcards": {
     "title": "Flashcards",
