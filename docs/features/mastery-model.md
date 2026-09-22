@@ -50,6 +50,17 @@ Skill mastery is designed to be an aggregation layer above the existing content 
 
 This keeps **lesson mastery** (coverage of a lesson's exercises) distinct from **skill mastery** (coverage of a reusable learning objective across lessons). Until skill mappings are persisted, the application should not present a fabricated skill percentage.
 
+## Skill aggregate state
+
+Each skill aggregate now also exposes a single `mastery_state` derived from its exercise states:
+
+- `unseen` when the skill has no attempted exercises;
+- `struggling` when at least one exercise is struggling and the skill is not fully mastered;
+- `mastered` only when every exercise mapped to the skill is mastered;
+- `learning` for the remaining mixed/partially learned state.
+
+This state is presentation metadata over the existing per-content mastery model; it does not introduce a second scoring system. The UI can therefore show both the numeric mastery rate and a stable localized state label without changing attempt history or mastery thresholds.
+
 ## Localization contract
 
 User-facing mastery states and review lifecycle messages must be translated through the locale message catalog. API reason values remain stable machine-readable identifiers:
