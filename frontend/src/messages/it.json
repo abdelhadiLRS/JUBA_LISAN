@@ -698,7 +698,15 @@
     "saveError": "Errore",
     "keepLearning": "Continua con un ripasso.",
     "retryHarderVariant": "Continua con una variante più difficile",
-    "retryEasierVariant": "Riprova con una variante più semplice"
+    "retryEasierVariant": "Riprova con una variante più semplice",
+    "mastery": "Padronanza",
+    "masteryVariants": "{count} varianti coperte",
+    "masteryStates": {
+      "unseen": "Non iniziato",
+      "struggling": "Richiede pratica",
+      "learning": "In apprendimento",
+      "mastered": "Padroneggiato"
+    }
   },
   "flashcards": {
     "title": "Schede",
