@@ -741,11 +741,13 @@
     "masteryReviewImproved": "Mastery improved",
     "masteryReviewImprovedDesc": "Your mastery rate improved during this review. The session is complete.",
     "masteryReviewExhausted": "Mastery review complete",
-    "masteryReviewExhaustedDesc": "There are no remaining exercises to review for mastery."
+    "masteryReviewExhaustedDesc": "There are no remaining exercises to review for mastery.",
     "skillMastery": "Skill mastery",
     "skillMasteryDesc": "See how well each learning skill is mastered in this lesson.",
     "skillMasteryMastered": "mastered",
     "skillMasteryAttempted": "attempted",
+    "skillMasteryAttemptRate": "Attempt rate: {rate}%",
+    "skillMasteryVariants": "variants",
   },
   "flashcards": {
     "title": "Flashcards",
