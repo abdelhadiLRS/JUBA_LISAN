@@ -807,7 +807,13 @@
     "rangeXp": "XP in periode",
     "rangeAccuracy": "Nauwkeurigheid in periode",
     "activeDays": "Actieve dagen",
-    "avgDailyXp": "Gem. XP per dag"
+    "avgDailyXp": "Gem. XP per dag",
+    "achievements": "Prestaties",
+    "gamesPlayed": "Gespeelde spellen",
+    "bestStreak": "Beste antwoordenreeks",
+    "dailyChallenges": "Dagelijkse uitdagingen",
+    "unlocked": "Ontgrendeld",
+    "noAchievements": "Speel om prestaties te ontgrendelen."
   },
   "grammar": {
     "title": "Grammaticareferentie",
