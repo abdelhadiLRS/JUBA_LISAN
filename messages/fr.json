@@ -679,7 +679,13 @@
     "lessonFlowHint": "Apprendre → pratiquer → mémoriser. Restez actif et tirez parti de chaque réponse.",
     "exerciseProgress": "Exercice {current}/{total}",
     "tapToHear": "Touchez le mot pour l'écouter",
-    "lessonProgress": "Progression de la leçon"
+    "lessonProgress": "Progression de la leçon",
+    "masteryOverview": "Maîtrise de la leçon",
+    "masteryCoverage": "{{covered}} variantes couvertes",
+    "masteryAttempted": "Tentées",
+    "masteryLearning": "En apprentissage",
+    "masteryStruggling": "En difficulté",
+    "masteryUnseen": "Non vues"
   },
   "flashcards": {
     "title": "Fiches",
