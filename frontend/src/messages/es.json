@@ -698,7 +698,15 @@
     "saveError": "Error",
     "keepLearning": "Sigue avanzando con un repaso.",
     "retryHarderVariant": "Continuar con una variante más difícil",
-    "retryEasierVariant": "Reintentar con una variante más fácil"
+    "retryEasierVariant": "Reintentar con una variante más fácil",
+    "mastery": "Dominio",
+    "masteryVariants": "{count} variantes cubiertas",
+    "masteryStates": {
+      "unseen": "Sin empezar",
+      "struggling": "Necesita práctica",
+      "learning": "Aprendiendo",
+      "mastered": "Dominado"
+    }
   },
   "flashcards": {
     "title": "Tarjetas",
