@@ -746,7 +746,8 @@
       "struggling": "Needs practice",
       "learning": "Learning",
       "mastered": "Mastered"
-    }
+    },
+    "transcriptLabel": "Transcript"
   },
   "flashcards": {
     "title": "Flashcards",
