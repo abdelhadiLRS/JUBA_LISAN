@@ -571,3 +571,208 @@ async def test_get_lesson_skill_mastery(client, test_user, db_session):
     assert grammar["mastery_rate"] == 0.5
     assert vocabulary["total_exercises"] == 1
     assert vocabulary["learning_exercises"] == 1
+
+@pytest.mark.asyncio
+async def test_lesson_mastery_endpoints_expose_lesson_and_skill_coverage(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    from app.models.lesson import Exercise, ExerciseAttempt, Lesson
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A2",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    lesson = Lesson(
+        study_plan_id=plan.id,
+        title="Mastery coverage",
+        lesson_type="grammar",
+        cefr_level="A2",
+        week_number=1,
+        day_number=1,
+        content={
+            "exercises": [
+                {
+                    "type": "multiple_choice",
+                    "question": "Grammar?",
+                    "options": ["A", "B"],
+                    "correct": "A",
+                    "content_id": "grammar-item",
+                    "skills": ["Grammar", " grammar "],
+                },
+                {
+                    "type": "multiple_choice",
+                    "question": "Vocabulary?",
+                    "options": ["A", "B"],
+                    "correct": "B",
+                    "content_id": "vocabulary-item",
+                    "skills": ["Vocabulary"],
+                },
+            ]
+        },
+    )
+    db_session.add(lesson)
+    await db_session.flush()
+
+    first = Exercise(
+        lesson_id=lesson.id,
+        exercise_type="multiple_choice",
+        question="Grammar?",
+        options=["A", "B"],
+        correct_answer="A",
+    )
+    second = Exercise(
+        lesson_id=lesson.id,
+        exercise_type="multiple_choice",
+        question="Vocabulary?",
+        options=["A", "B"],
+        correct_answer="B",
+    )
+    db_session.add_all([first, second])
+    await db_session.flush()
+
+    db_session.add_all(
+        [
+            ExerciseAttempt(
+                user_id=user.id,
+                exercise_id=first.id,
+                lesson_id=lesson.id,
+                content_id="grammar-item",
+                variant="a",
+                attempt_number=1,
+                user_answer="A",
+                score=0.9,
+                feedback="Correct",
+            ),
+            ExerciseAttempt(
+                user_id=user.id,
+                exercise_id=first.id,
+                lesson_id=lesson.id,
+                content_id="grammar-item",
+                variant="b",
+                attempt_number=2,
+                user_answer="A",
+                score=0.9,
+                feedback="Correct",
+            ),
+            ExerciseAttempt(
+                user_id=user.id,
+                exercise_id=second.id,
+                lesson_id=lesson.id,
+                content_id="vocabulary-item",
+                variant="a",
+                attempt_number=1,
+                user_answer="A",
+                score=0.6,
+                feedback="Keep practicing",
+            ),
+        ]
+    )
+    await db_session.commit()
+
+    mastery_response = await client.get(
+        f"/api/lessons/{lesson.id}/mastery",
+        headers=headers,
+    )
+    assert mastery_response.status_code == 200
+    mastery = mastery_response.json()
+    assert mastery["total_exercises"] == 2
+    assert mastery["mastered_exercises"] == 1
+    assert mastery["learning_exercises"] == 1
+    assert mastery["mastery_rate"] == 0.5
+    assert mastery["covered_variants"] == 3
+
+    skills_response = await client.get(
+        f"/api/lessons/{lesson.id}/mastery/skills",
+        headers=headers,
+    )
+    assert skills_response.status_code == 200
+    skills = skills_response.json()
+    assert [item["skill"] for item in skills] == ["grammar", "vocabulary"]
+
+    grammar = skills[0]
+    assert grammar["total_exercises"] == 1
+    assert grammar["mastered_exercises"] == 1
+    assert grammar["mastery_rate"] == 1.0
+    assert grammar["covered_variants"] == 2
+
+    vocabulary = skills[1]
+    assert vocabulary["total_exercises"] == 1
+    assert vocabulary["learning_exercises"] == 1
+    assert vocabulary["mastery_rate"] == 0.0
+    assert vocabulary["covered_variants"] == 1
+
+
+@pytest.mark.asyncio
+async def test_lesson_mastery_next_returns_skill_metadata_and_reason(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    from app.models.lesson import Exercise, Lesson
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A2",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    lesson = Lesson(
+        study_plan_id=plan.id,
+        title="Next mastery target",
+        lesson_type="grammar",
+        cefr_level="A2",
+        week_number=1,
+        day_number=1,
+        content={
+            "exercises": [
+                {
+                    "type": "multiple_choice",
+                    "question": "Weak?",
+                    "options": ["A", "B"],
+                    "correct": "A",
+                    "content_id": "weak-item",
+                    "variant": "target-a",
+                    "skills": ["Grammar"],
+                }
+            ]
+        },
+    )
+    db_session.add(lesson)
+    await db_session.flush()
+    exercise = Exercise(
+        lesson_id=lesson.id,
+        exercise_type="multiple_choice",
+        question="Weak?",
+        options=["A", "B"],
+        correct_answer="A",
+    )
+    db_session.add(exercise)
+    await db_session.commit()
+
+    response = await client.get(
+        f"/api/lessons/{lesson.id}/mastery/next",
+        headers=headers,
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["reason"] == "unseen"
+    assert data["exercise"]["content_id"] == "weak-item"
+    assert data["exercise"]["variant"] == "target-a"
+    assert data["exercise"]["skills"] == ["Grammar"]
+    assert data["exercise"]["mastery_state"] == "unseen"
+    assert data["exercise"]["mastery_score"] == 0.0
+\n
