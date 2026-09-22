@@ -8,6 +8,7 @@ from app.services.lesson_mastery import (
     summarize_skill_mastery,
     select_next_skill_mastery,
     normalise_skill_labels,
+    MASTERY_STATE_PRIORITY,
 )
 
 
@@ -580,6 +581,38 @@ def test_lesson_mastery_response_embeds_skill_snapshots():
     assert len(response.skills) == 1
     assert response.skills[0].skill == "grammar"
     assert response.skills[0].mastery_rate == 0.5
+
+
+def test_mastery_state_priority_is_shared_by_lesson_and_skill_selection():
+    assert MASTERY_STATE_PRIORITY == {
+        "struggling": 0,
+        "unseen": 1,
+        "learning": 2,
+        "mastered": 3,
+    }
+
+    aggregates = [
+        SimpleNamespace(
+            skill="learning",
+            mastery_state="learning",
+            mastery_rate=0.01,
+            average_mastery_score=0.10,
+        ),
+        SimpleNamespace(
+            skill="unseen",
+            mastery_state="unseen",
+            mastery_rate=0.0,
+            average_mastery_score=0.0,
+        ),
+        SimpleNamespace(
+            skill="struggling",
+            mastery_state="struggling",
+            mastery_rate=0.90,
+            average_mastery_score=0.90,
+        ),
+    ]
+
+    assert select_next_skill_mastery(aggregates).skill == "struggling"
 
 
 def test_next_skill_mastery_prioritizes_struggling_then_unseen_then_learning():
