@@ -698,7 +698,15 @@
     "saveError": "Fehler",
     "keepLearning": "Bleib dran und wiederhole weiter.",
     "retryHarderVariant": "Mit einer schwierigeren Variante fortfahren",
-    "retryEasierVariant": "Mit einer einfacheren Variante erneut versuchen"
+    "retryEasierVariant": "Mit einer einfacheren Variante erneut versuchen",
+    "mastery": "Beherrschung",
+    "masteryVariants": "{count} Varianten abgedeckt",
+    "masteryStates": {
+      "unseen": "Nicht begonnen",
+      "struggling": "Übung nötig",
+      "learning": "Lernen",
+      "mastered": "Beherrscht"
+    }
   },
   "flashcards": {
     "title": "Karteikarten",
