@@ -1751,5 +1751,55 @@
     "label": "Maintenance",
     "title": "Under Maintenance",
     "description": "This section is temporarily unavailable while we perform maintenance. Please check back later."
+  },
+  "courseLevel": {
+    "notFound": "Course not found",
+    "choose": "Choose a CEFR level.",
+    "back": "Back to courses",
+    "all": "All courses",
+    "units": "units",
+    "completed": "lessons completed",
+    "ready": "ready now",
+    "notUnlocked": "This level is not unlocked yet.",
+    "unlockDesc": "Continue your current learning plan to unlock later CEFR levels.",
+    "unit": "Unit",
+    "grammar": "Grammar",
+    "vocab": "Vocabulary sets",
+    "competencies": "Competencies",
+    "byEnd": "By the end of this unit",
+    "mastery": "mastery",
+    "lessons": "lessons",
+    "openPlan": "Open plan",
+    "locked": "Locked",
+    "keepMoving": "Keep moving",
+    "continue": "Continue your active plan.",
+    "continueDesc": "Open the generated daily lessons and keep the journey moving.",
+    "openLearning": "Open learning plan",
+    "levels": {
+      "A1": {
+        "title": "A1 · Starter",
+        "description": "Build a practical foundation for everyday communication."
+      },
+      "A2": {
+        "title": "A2 · Elementary",
+        "description": "Handle familiar situations with growing confidence."
+      },
+      "B1": {
+        "title": "B1 · Intermediate",
+        "description": "Communicate independently across everyday topics."
+      },
+      "B2": {
+        "title": "B2 · Upper Intermediate",
+        "description": "Express ideas with greater range, accuracy and nuance."
+      },
+      "C1": {
+        "title": "C1 · Advanced",
+        "description": "Communicate fluently in demanding academic and professional contexts."
+      },
+      "C2": {
+        "title": "C2 · Mastery",
+        "description": "Refine precision, flexibility and natural expression."
+      }
+    }
   }
 }
