@@ -43,6 +43,7 @@ from app.services.lesson_mastery import (
     summarize_lesson_mastery,
     summarize_skill_mastery,
     select_next_skill_mastery,
+    normalise_skill_labels,
 )
 from app.services.lesson_generator import (
     evaluate_fill_blank,
@@ -1144,13 +1145,7 @@ async def get_next_lesson_skill_mastery(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="All lesson skills are mastered",
         )
-    reason = (
-        "struggling"
-        if candidate.mastery_state == "struggling"
-        else "unseen"
-        if candidate.mastery_state == "unseen"
-        else "lowest_mastery"
-    )
+    reason = mastery_reason(candidate.mastery_state)
     return SkillMasteryNextResponse(
         skill=SkillMasteryResponse(**candidate.__dict__),
         reason=reason,
@@ -1191,9 +1186,8 @@ async def get_next_lesson_skill_exercise(
     skill_exercises = [
         exercise
         for exercise in exercises
-        if any(
-            isinstance(raw_skill, str) and raw_skill.strip().casefold() == requested_skill
-            for raw_skill in (content_by_exercise_id.get(exercise.id, {}).get("skills") or [])
+        if requested_skill in normalise_skill_labels(
+            content_by_exercise_id.get(exercise.id, {}).get("skills")
         )
     ]
     if not skill_exercises:
