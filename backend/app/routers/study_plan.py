@@ -247,7 +247,8 @@ async def get_today_lessons(
 
     week = None
     for w in weekly_plan:
-        w_week = _get_plan_value(w, "week")        if isinstance(w_week, int) and w_week == current_week:
+        w_week = _get_plan_value(w, "week")
+        if isinstance(w_week, int) and w_week == current_week:
             week = w
             break
 
