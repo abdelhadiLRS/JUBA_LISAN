@@ -701,11 +701,13 @@
     "masteryReviewImproved": "Освоение улучшилось",
     "masteryReviewImprovedDesc": "Ваш уровень освоения улучшился во время этого повторения. Сеанс завершён.",
     "masteryReviewExhausted": "Повторение для закрепления завершено",
-    "masteryReviewExhaustedDesc": "Больше нет упражнений для повторения с целью закрепления материала."
+    "masteryReviewExhaustedDesc": "Больше нет упражнений для повторения с целью закрепления материала.",
     "skillMastery": "Освоение навыков",
     "skillMasteryDesc": "Посмотрите, насколько хорошо освоен каждый учебный навык в этом уроке.",
     "skillMasteryMastered": "освоено",
     "skillMasteryAttempted": "попыток",
+    "skillMasteryAttemptRate": "Доля попыток: {rate}%",
+    "skillMasteryVariants": "варианта",
   },
   "flashcards": {
     "title": "Карточки",
