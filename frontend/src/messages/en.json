@@ -747,7 +747,8 @@
       "learning": "Learning",
       "mastered": "Mastered"
     },
-    "transcriptLabel": "Transcript"
+    "transcriptLabel": "Transcript",
+    "listeningPractice": "Open listening practice"
   },
   "flashcards": {
     "title": "Flashcards",
