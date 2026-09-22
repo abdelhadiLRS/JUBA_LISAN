@@ -706,6 +706,8 @@
     "skillMasteryExhaustedDesc": "Für {skill} gibt es keine weiteren Übungen zur Festigung.",
     "skillMastery": "Kompetenzbeherrschung",
     "skillMasteryDesc": "Sieh, wie gut jede Lernkompetenz in dieser Lektion beherrscht wird.",
+    "skillMasteryComplete": "Alle Lernkompetenzen sind gemeistert",
+    "skillMasteryCompleteDesc": "Alle in dieser Lektion erfassten Kompetenzen haben den Meisterstatus erreicht.",
     "skillMasteryPractice": "Diese Kompetenz üben",
     "skillMasteryMastered": "gemeistert",
     "skillMasteryAttempted": "bearbeitet",
