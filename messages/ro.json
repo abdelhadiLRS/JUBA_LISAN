@@ -855,7 +855,15 @@
     "last7Days": "Ultimele 7 zile",
     "exercises": "Exerciții",
     "sevenDayXp": "XP din 7 zile",
-    "reviewLink": "Recapitulează"
+    "reviewLink": "Recapitulează",
+    "masteryCenter": "Centrul de stăpânire",
+    "masteryOverview": "Prezentarea stăpânirii",
+    "masteryRate": "Rata de stăpânire",
+    "attempted": "Încercate",
+    "coveredVariants": "Variante acoperite",
+    "averageMastery": "Stăpânire medie",
+    "nextSkill": "Următoarea abilitate",
+    "practice": "Exersează"
   },
   "grammar": {
     "title": "Referință gramaticală",
