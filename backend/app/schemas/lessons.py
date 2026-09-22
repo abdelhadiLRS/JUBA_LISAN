@@ -6,6 +6,10 @@ from typing import Literal, Self
 from pydantic import Field, BaseModel, field_serializer, field_validator, model_validator
 
 
+MasteryState = Literal["unseen", "struggling", "learning", "mastered"]
+MasteryReason = Literal["struggling", "unseen", "lowest_mastery"]
+
+
 class ExerciseContent(BaseModel):
     type: str
     question: str
@@ -109,7 +113,7 @@ class ExerciseResponse(BaseModel):
     skills: list[str] | None = None
     answered_at: datetime | None = None
     mastery_score: float = 0.0
-    mastery_state: str = "unseen"
+    mastery_state: MasteryState = "unseen"
     mastery_variants: int = 0
 
     model_config = {"from_attributes": True}
@@ -167,7 +171,7 @@ class ExerciseAttemptSummaryResponse(BaseModel):
     mastered: bool
     needs_retry: bool
     mastery_score: float = 0.0
-    mastery_state: str = "unseen"
+    mastery_state: MasteryState = "unseen"
     mastery_variants: int = 0
     latest_variant: str | None = None
     recommended_action: str = "reinforce"
@@ -176,7 +180,7 @@ class ExerciseAttemptSummaryResponse(BaseModel):
 
 
 class LessonMasteryResponse(BaseModel):
-    mastery_state: Literal["unseen", "struggling", "learning", "mastered"]
+    mastery_state: MasteryState
     total_exercises: int
     attempted_exercises: int
     mastered_exercises: int
@@ -192,7 +196,7 @@ class LessonMasteryResponse(BaseModel):
 
 class LessonMasteryNextResponse(BaseModel):
     exercise: ExerciseResponse
-    reason: Literal["struggling", "unseen", "lowest_mastery"]
+    reason: MasteryReason
 
 
 class SkillMasteryResponse(BaseModel):
