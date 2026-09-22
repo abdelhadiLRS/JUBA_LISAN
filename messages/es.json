@@ -713,7 +713,8 @@
       "struggling": "Con dificultades",
       "learning": "En aprendizaje",
       "mastered": "Dominado"
-    },
+    }
+  },
   "flashcards": {
     "title": "Tarjetas",
     "due": "Para hoy",
