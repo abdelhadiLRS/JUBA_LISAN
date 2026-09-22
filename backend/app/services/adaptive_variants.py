@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable, Collection, Sequence
+import math
 from typing import TypeVar
 
 from app.services.exercise_retry import (
@@ -102,8 +103,11 @@ def select_unanswered_variant(
 
 
 def _normalise_score(score: object) -> float:
-    """Coerce runtime score values before applying the shared score policy."""
-    return float(score)
+    """Coerce finite runtime score values before applying the shared score policy."""
+    normalized = float(score)
+    if not math.isfinite(normalized):
+        raise ValueError("score must be finite")
+    return normalized
 
 
 def recommend_adaptive_action(
