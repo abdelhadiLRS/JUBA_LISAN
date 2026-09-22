@@ -1763,7 +1763,7 @@
     "saved": "salvate",
     "title": "Ripasso dilazionato",
     "complete": "Ripasso completato",
-    "reviewed": "Hai ripassato {count} schede.",
+    "reviewed": "Hai ripassato {count} {count, plural, one {scheda} other {schede}}.",
     "reviewAgain": "Ripassa di nuovo",
     "reveal": "Mostra traduzione",
     "again": "Ancora",
