@@ -47,6 +47,42 @@ def collect_attempted_exercise_ids(
     return attempted
 
 
+def _normalise_content_id(value: object) -> str:
+    return value.strip() if isinstance(value, str) else ""
+
+
+def _normalise_attempted_adaptive_identities(
+    values: Collection[object] | None,
+) -> set[tuple[str, str]]:
+    identities: set[tuple[str, str]] = set()
+    for value in values or set():
+        if not isinstance(value, (tuple, list)) or len(value) != 2:
+            continue
+        content_id = _normalise_content_id(value[0])
+        raw_variant = value[1]
+        variant = normalise_variant(raw_variant if isinstance(raw_variant, str) else None)
+        if content_id and variant:
+            identities.add((content_id, variant))
+    return identities
+
+
+def collect_attempted_adaptive_identities(
+    attempts: Sequence[object],
+    *,
+    get_content_id: Callable[[object], object] = _get_attr("content_id"),
+    get_variant: Callable[[object], object] = _get_attr("variant"),
+) -> set[tuple[str, str]]:
+    """Return canonical content/variant identities represented in attempt history."""
+    attempted: set[tuple[str, str]] = set()
+    for attempt in attempts:
+        content_id = _normalise_content_id(get_content_id(attempt))
+        raw_variant = get_variant(attempt)
+        variant = normalise_variant(raw_variant if isinstance(raw_variant, str) else None)
+        if content_id and variant:
+            attempted.add((content_id, variant))
+    return attempted
+
+
 def select_unanswered_variant(
     exercises: Sequence[ExerciseT],
     *,
@@ -54,6 +90,7 @@ def select_unanswered_variant(
     current_variant: str | None,
     succeeded: bool,
     attempted_exercise_ids: Collection[object] | None = None,
+    attempted_adaptive_identities: Collection[object] | None = None,
     get_exercise_id: Callable[[ExerciseT], object] = _get_attr("id"),
     get_variant: Callable[[ExerciseT], object] = _get_attr("variant"),
     get_content_id: Callable[[ExerciseT], object] = _get_attr("content_id"),
@@ -69,6 +106,9 @@ def select_unanswered_variant(
         return None
 
     attempted = _normalise_attempted_exercise_ids(attempted_exercise_ids)
+    attempted_identities = _normalise_attempted_adaptive_identities(
+        attempted_adaptive_identities
+    )
     candidates: list[tuple[ExerciseT, str]] = []
     available_variants: list[str] = []
 
@@ -84,7 +124,12 @@ def select_unanswered_variant(
         available_variants.append(variant)
 
         exercise_id = _normalise_exercise_id(get_exercise_id(exercise))
-        if exercise_id is None or exercise_id in attempted:
+        identity = (normalized_content_id, variant)
+        if (
+            exercise_id is None
+            or exercise_id in attempted
+            or identity in attempted_identities
+        ):
             continue
         candidates.append((exercise, variant))
 
@@ -141,6 +186,7 @@ def recommend_adaptive_variant(
     current_variant: str | None,
     score: object,
     attempted_exercise_ids: Collection[object] | None = None,
+    attempted_adaptive_identities: Collection[object] | None = None,
     get_exercise_id: Callable[[ExerciseT], object] = _get_attr("id"),
     get_variant: Callable[[ExerciseT], object] = _get_attr("variant"),
     get_content_id: Callable[[ExerciseT], object] = _get_attr("content_id"),
@@ -160,6 +206,7 @@ def recommend_adaptive_variant(
         current_variant=current_variant,
         succeeded=classification == "success",
         attempted_exercise_ids=attempted_exercise_ids,
+        attempted_adaptive_identities=attempted_adaptive_identities,
         get_exercise_id=get_exercise_id,
         get_variant=get_variant,
         get_content_id=get_content_id,
