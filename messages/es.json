@@ -694,11 +694,13 @@
     "masteryReviewLoading": "Eligiendo…",
     "masteryReviewNone": "No se necesita más repaso de dominio.",
     "masteryReviewLowest": "Menor dominio",
-    "masteryReviewReasons": {
-      "struggling": "Repaso de dominio",
-      "unseen": "ejercicio no visto",
-      "lowest_mastery": "menor dominio"
-    }
+    "masteryReviewSession": "Sesión de repaso de dominio",
+    "masteryReviewProgress": "{count} ejercicios repasados",
+    "masteryReviewFinish": "Terminar repaso",
+    "masteryReviewNext": "Siguiente ejercicio de dominio",
+    "masteryReviewImproved": "Dominio mejorado",
+    "masteryReviewImprovedDesc": "Tu tasa de dominio mejoró durante este repaso. La sesión ha terminado."
+
   },
   "flashcards": {
     "title": "Tarjetas",
