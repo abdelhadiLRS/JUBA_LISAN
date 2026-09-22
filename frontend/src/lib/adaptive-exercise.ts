@@ -33,8 +33,10 @@ export function hasAdaptiveTarget(recommendation: Pick<AdaptiveExerciseLike, 're
 }
 
 
+const ADAPTIVE_RETRY_ACTIONS = new Set(['retry_easier', 'advance_harder'])
+
 export function isAdaptiveRetryAction(action?: string | null): boolean {
-  return action === 'retry_easier' || action === 'advance_harder'
+  return typeof action === 'string' && ADAPTIVE_RETRY_ACTIONS.has(action)
 }
 
 export function isAdaptiveReinforcementAction(action?: string | null): boolean {
