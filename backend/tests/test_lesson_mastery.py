@@ -754,6 +754,32 @@ def test_next_skill_exercise_scopes_case_insensitively_and_skips_mastered():
     assert result.exercise is exercises[1]
 
 
+def test_next_skill_exercise_reuses_mastery_priority_within_skill_scope():
+    exercises = [
+        SimpleNamespace(id=1, content_id="learning", skills=["grammar"]),
+        SimpleNamespace(id=2, content_id="struggling", skills=["grammar"]),
+        SimpleNamespace(id=3, content_id="other", skills=["vocabulary"]),
+    ]
+    attempts = [
+        SimpleNamespace(content_id="learning", variant="a", score=0.70),
+        SimpleNamespace(content_id="struggling", variant="a", score=0.20),
+    ]
+
+    result = select_next_skill_exercise(
+        exercises,
+        attempts,
+        skill="GRAMMAR",
+        get_content_id=lambda item: item.content_id,
+        get_exercise_id=lambda item: item.id,
+        get_skills=lambda item: item.skills,
+    )
+
+    assert result is not None
+    assert result.exercise is exercises[1]
+    assert result.mastery_state == "struggling"
+    assert result.mastery_score == 0.20
+
+
 def test_next_skill_exercise_returns_none_for_empty_or_unknown_skill():
     exercises = [
         SimpleNamespace(id=1, content_id="target", skills=["grammar"]),
