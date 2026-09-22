@@ -1723,5 +1723,7 @@
     "shortcutHint": "Leertaste zum Aufdecken · 1–4 zum Bewerten",
     "spaceShortcut": "Leertaste zum Aufdecken",
     "rateKeys": "1 Nochmal · 2 Schwer · 3 Gut · 4 Leicht"
-  }
+  },
+  "masteryReviewExhausted": "Meisterungswiederholung abgeschlossen",
+  "masteryReviewExhaustedDesc": "Alle Übungen dieser Lektion sind gemeistert. Du kannst weiterlernen oder später erneut wiederholen."
 }
