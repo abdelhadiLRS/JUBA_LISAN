@@ -44,6 +44,15 @@ def select_next_mastery_candidate(
     return selected[1] if selected is not None else None
 
 
+def mastery_reason(state: str) -> str:
+    """Return a stable UI/API reason for a mastery recommendation."""
+    return {
+        "struggling": "struggling",
+        "unseen": "unseen",
+        "learning": "lowest_mastery",
+    }.get(state, "lowest_mastery")
+
+
 @dataclass(frozen=True)
 class LessonMasteryAggregate:
     total_exercises: int
