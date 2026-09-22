@@ -776,3 +776,88 @@ async def test_lesson_mastery_next_returns_skill_metadata_and_reason(
     assert data["exercise"]["mastery_state"] == "unseen"
     assert data["exercise"]["mastery_score"] == 0.0
 \n
+
+@pytest.mark.asyncio
+async def test_lesson_mastery_next_returns_404_when_all_exercises_are_mastered(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    from app.models.lesson import Exercise, ExerciseAttempt, Lesson
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A2",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    lesson = Lesson(
+        study_plan_id=plan.id,
+        title="Completed mastery",
+        lesson_type="grammar",
+        cefr_level="A2",
+        week_number=1,
+        day_number=1,
+        content={
+            "exercises": [
+                {
+                    "type": "multiple_choice",
+                    "question": "Mastered?",
+                    "options": ["A", "B"],
+                    "correct": "A",
+                    "content_id": "mastered-item",
+                }
+            ]
+        },
+    )
+    db_session.add(lesson)
+    await db_session.flush()
+    exercise = Exercise(
+        lesson_id=lesson.id,
+        exercise_type="multiple_choice",
+        question="Mastered?",
+        options=["A", "B"],
+        correct_answer="A",
+    )
+    db_session.add(exercise)
+    await db_session.flush()
+    db_session.add_all(
+        [
+            ExerciseAttempt(
+                user_id=user.id,
+                exercise_id=exercise.id,
+                lesson_id=lesson.id,
+                content_id="mastered-item",
+                variant="a",
+                attempt_number=1,
+                user_answer="A",
+                score=0.8,
+                feedback="Correct",
+            ),
+            ExerciseAttempt(
+                user_id=user.id,
+                exercise_id=exercise.id,
+                lesson_id=lesson.id,
+                content_id="mastered-item",
+                variant="b",
+                attempt_number=2,
+                user_answer="A",
+                score=0.8,
+                feedback="Correct",
+            ),
+        ]
+    )
+    await db_session.commit()
+
+    response = await client.get(
+        f"/api/lessons/{lesson.id}/mastery/next",
+        headers=headers,
+    )
+    assert response.status_code == 404
+    assert response.json()["detail"] == "All lesson exercises are mastered"
+\n
