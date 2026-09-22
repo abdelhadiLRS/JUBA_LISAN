@@ -14,9 +14,8 @@ from app.core.limiter import limiter
 from app.data._types import CEFRLevel
 from app.data.vocabulary import get_vocabulary_by_level
 from app.models.flashcard import Flashcard
-from app.models.exercise import Exercise
+from app.models.lesson import Exercise, Lesson
 from app.models.exercise_attempt import ExerciseAttempt
-from app.models.lesson import Lesson
 from app.models.game_progress import GameProgress
 from app.models.game_progress_event import GameProgressEvent
 from app.models.game_session import GameSession
