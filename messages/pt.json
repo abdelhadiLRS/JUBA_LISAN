@@ -687,7 +687,17 @@
     "masteryAttempted": "Tentadas",
     "masteryLearning": "Em aprendizagem",
     "masteryStruggling": "Com dificuldade",
-    "masteryUnseen": "Não vistas"
+    "masteryUnseen": "Não vistas",
+    "masteryReview": "Revisão de domínio",
+    "masteryReviewReady": "Revise o exercício que mais precisa de prática.",
+    "masteryReviewAction": "Rever habilidade mais fraca",
+    "masteryReviewLoading": "A selecionar…",
+    "masteryReviewNone": "Não é necessária mais revisão de domínio.",
+    "masteryReviewReasons": {
+      "struggling": "Revisão de domínio",
+      "unseen": "exercício não visto",
+      "lowest_mastery": "menor domínio"
+    }
   },
   "flashcards": {
     "title": "Cartões",
