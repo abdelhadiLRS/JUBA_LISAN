@@ -660,6 +660,46 @@ async def test_answer_exercise_not_found(client, test_user):
 
 
 @pytest.mark.asyncio
+async def test_answer_persists_canonical_adaptive_identity(client, test_user, db_session):
+    """Answer persistence canonicalizes content ids and variant aliases."""
+    from app.models.exercise_attempt import ExerciseAttempt
+
+    user, headers = test_user
+    lesson, exercise = await _create_lesson_with_exercise(
+        db_session,
+        user.id,
+        exercise_type="fill_blank",
+        question="I ___ at home.",
+        correct_answer="am",
+    )
+    lesson.content = {
+        "exercises": [
+            {
+                "content_id": "  sentence-42  ",
+                "variant": "Fill-Blank",
+            }
+        ]
+    }
+    await db_session.commit()
+
+    response = await client.post(
+        f"/api/lessons/exercises/{exercise.id}/answer",
+        headers=headers,
+        json={"answer": "am"},
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["content_id"] == "sentence-42"
+    assert data["variant"] == "fill_blank"
+
+    attempt = await db_session.get(ExerciseAttempt, data["attempt_id"])
+    assert attempt is not None
+    assert attempt.content_id == "sentence-42"
+    assert attempt.variant == "fill_blank"
+
+
+@pytest.mark.asyncio
 async def test_answer_exercise_already_answered(client, test_user, db_session):
     """Answering an already-answered exercise records a second attempt."""
     from datetime import UTC, datetime
