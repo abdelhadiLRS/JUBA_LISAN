@@ -864,15 +864,11 @@ async def get_next_mastery_exercise(
         else []
     )
 
+    content_by_exercise_id = _map_content_exercises(exercises, content_exercises)
     candidate = select_next_mastery_candidate(
         exercises,
         attempts,
-        get_content_id=lambda item: (
-            content_exercises[item.id - exercises[0].id].get("content_id")
-            if 0 <= item.id - exercises[0].id < len(content_exercises)
-            and isinstance(content_exercises[item.id - exercises[0].id], dict)
-            else ""
-        ),
+        get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
         get_exercise_id=lambda item: item.id,
     )
     if candidate is None:
