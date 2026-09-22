@@ -807,7 +807,13 @@
     "rangeXp": "XP sur la période",
     "rangeAccuracy": "Précision sur la période",
     "activeDays": "Jours actifs",
-    "avgDailyXp": "XP quotidien moyen"
+    "avgDailyXp": "XP quotidien moyen",
+    "achievements": "Succès",
+    "gamesPlayed": "Parties jouées",
+    "bestStreak": "Meilleure série de réponses",
+    "dailyChallenges": "Défis quotidiens",
+    "unlocked": "Débloqués",
+    "noAchievements": "Jouez pour débloquer des succès."
   },
   "grammar": {
     "title": "Grammaire",
