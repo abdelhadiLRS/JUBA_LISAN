@@ -96,7 +96,7 @@ export function ExerciseAudioPlayer({
   }, [])
 
   const icon = state === 'loading' ? '◌' : state === 'playing' ? '▐▐' : '▶'
-  const label = state === 'playing' ? 'Pause' : 'Play'
+  const label = state === 'playing' ? t('audioPause') : t('audioPlay')
 
   return (
     <div className="juba-card space-y-3 p-4">
