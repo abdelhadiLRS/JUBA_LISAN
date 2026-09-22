@@ -23,7 +23,7 @@ function load(file) {
 }
 
 function placeholders(value) {
-  return [...String(value).matchAll(/\{([a-zA-Z0-9_]+)(?:,[^{}]+)?\}/g)]
+  return [...String(value).matchAll(/\{([a-zA-Z0-9_]+)(?:\s*,[^}]*)?\}/g)]
     .map((match) => match[1])
     .sort();
 }
