@@ -698,7 +698,15 @@
     "saveError": "Fout",
     "keepLearning": "Blijf oefenen met een herhaling.",
     "retryHarderVariant": "Doorgaan met een moeilijkere variant",
-    "retryEasierVariant": "Opnieuw proberen met een eenvoudigere variant"
+    "retryEasierVariant": "Opnieuw proberen met een eenvoudigere variant",
+    "mastery": "Beheersing",
+    "masteryVariants": "{count} varianten behandeld",
+    "masteryStates": {
+      "unseen": "Niet gestart",
+      "struggling": "Meer oefening nodig",
+      "learning": "Aan het leren",
+      "mastered": "Beheerst"
+    }
   },
   "flashcards": {
     "title": "Flashcards",
