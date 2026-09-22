@@ -702,6 +702,10 @@
     "masteryReviewImprovedDesc": "Il tuo tasso di padronanza è migliorato durante questo ripasso. La sessione è completa.",
     "masteryReviewExhausted": "Ripasso della padronanza completato",
     "masteryReviewExhaustedDesc": "Non ci sono altri esercizi da ripassare per consolidare la padronanza."
+    "skillMastery": "Padronanza delle competenze",
+    "skillMasteryDesc": "Scopri quanto è consolidata ogni competenza di apprendimento in questa lezione.",
+    "skillMasteryMastered": "acquisite",
+    "skillMasteryAttempted": "svolte",
   },
   "flashcards": {
     "title": "Schede",
