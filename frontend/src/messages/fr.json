@@ -1558,6 +1558,7 @@
     "audioError": "Impossible de charger l'audio",
     "audioPlay": "Lire",
     "audioPause": "Pause",
+    "audioProgress": "Progression audio",
     "alreadyAttempted": "Vous avez déjà complété cet exercice.",
     "errorLoading": "Impossible de charger l'exercice. Veuillez réessayer.",
     "errorSubmit": "Impossible de soumettre les réponses. Veuillez réessayer.",
