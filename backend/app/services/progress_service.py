@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.competency import UserCompetency
 from app.models.learning_goal import LearningGoal
+from app.models.learning_goal_milestone import LearningGoalMilestone
 from app.models.progress import Progress
 
 XP_LESSON_COMPLETE = 20
@@ -127,7 +128,7 @@ async def update_daily_progress(
         select(LearningGoal).where(
             LearningGoal.user_id == user_id,
             LearningGoal.study_plan_id == study_plan_id,
-        )
+        ).with_for_update()
     )
     goal = goal_result.scalar_one_or_none()
     if goal is None:
@@ -162,12 +163,37 @@ async def update_daily_progress(
     weekly_xp_before_rewards = sum(weekly_result.scalars().all())
 
     if entry.xp_earned >= goal.daily_xp_target and goal.daily_reward_date != today:
+        achieved_xp = entry.xp_earned
         entry.xp_earned += GOAL_DAILY_REWARD_XP
         goal.daily_reward_date = today
+        db.add(
+            LearningGoalMilestone(
+                user_id=user_id,
+                study_plan_id=study_plan_id,
+                goal_type="daily",
+                period_start=today,
+                period_end=today,
+                target_xp=goal.daily_xp_target,
+                achieved_xp=achieved_xp,
+                reward_xp=GOAL_DAILY_REWARD_XP,
+            )
+        )
 
     if weekly_xp_before_rewards >= goal.weekly_xp_target and goal.weekly_reward_start != week_start:
         entry.xp_earned += GOAL_WEEKLY_REWARD_XP
         goal.weekly_reward_start = week_start
+        db.add(
+            LearningGoalMilestone(
+                user_id=user_id,
+                study_plan_id=study_plan_id,
+                goal_type="weekly",
+                period_start=week_start,
+                period_end=week_start + timedelta(days=6),
+                target_xp=goal.weekly_xp_target,
+                achieved_xp=weekly_xp_before_rewards,
+                reward_xp=GOAL_WEEKLY_REWARD_XP,
+            )
+        )
 
     if commit:
         await db.commit()
