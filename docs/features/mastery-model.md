@@ -17,11 +17,14 @@ The score is the average of the best score achieved for each distinct normalized
 
 The lesson aggregate exposes:
 
+- one stable aggregate `mastery_state` (`unseen`, `struggling`, `learning`, or `mastered`);
 - attempted and unseen exercise counts;
 - struggling, learning, and mastered counts;
 - average mastery score;
 - attempt and mastery coverage rates;
 - the number of covered variants.
+
+The lesson aggregate state follows the same precedence used for presentation: `unseen` when there are no attempted exercises, `mastered` when every exercise is mastered, `struggling` when any exercise is struggling, otherwise `learning`.
 
 The next-target selector uses the same state model:
 
