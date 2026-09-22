@@ -707,7 +707,8 @@
       "learning": "W trakcie nauki",
       "mastered": "Opanowane"
     },
-    "transcriptLabel": "Transkrypcja"
+    "transcriptLabel": "Transkrypcja",
+    "listeningPractice": "Otwórz ćwiczenia ze słuchania"
   },
   "flashcards": {
     "title": "Fiszki",
