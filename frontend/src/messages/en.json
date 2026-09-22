@@ -847,7 +847,13 @@
     "rangeXp": "XP in range",
     "rangeAccuracy": "Accuracy in range",
     "activeDays": "Active days",
-    "avgDailyXp": "Avg. daily XP"
+    "avgDailyXp": "Avg. daily XP",
+    "achievements": "Achievements",
+    "gamesPlayed": "Games played",
+    "bestStreak": "Best answer streak",
+    "dailyChallenges": "Daily challenges",
+    "unlocked": "Unlocked",
+    "noAchievements": "Complete games to unlock achievements."
   },
   "grammar": {
     "title": "Grammar Reference",
