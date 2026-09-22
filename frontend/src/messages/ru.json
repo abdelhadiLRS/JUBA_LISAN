@@ -707,7 +707,8 @@
       "learning": "В процессе",
       "mastered": "Освоено"
     },
-    "transcriptLabel": "Транскрипция"
+    "transcriptLabel": "Транскрипция",
+    "listeningPractice": "Открыть практику аудирования"
   },
   "flashcards": {
     "title": "Карточки",
