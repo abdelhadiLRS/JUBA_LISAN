@@ -34,6 +34,7 @@ from app.schemas.lessons import (
     NativeExplanationResponse,
 )
 from app.services.language_helpers import get_language_name, get_native_language_name
+from app.services.lesson_mastery import summarize_lesson_mastery
 from app.services.lesson_generator import (
     evaluate_fill_blank,
     evaluate_free_write,
@@ -940,37 +941,12 @@ async def get_lesson_mastery(
     content_exercises = lesson.content.get("exercises", []) if isinstance(lesson.content, dict) else []
     content_by_exercise_id = _map_content_exercises(exercises, content_exercises)
 
-    scores: list[float] = []
-    covered_variants = 0
-    mastered = learning = struggling = unseen = attempted = 0
-    for exercise in exercises:
-        content_id = content_by_exercise_id.get(exercise.id, {}).get("content_id") or ""
-        score, state, variants = summarize_adaptive_mastery(attempts, content_id=content_id)
-        scores.append(score)
-        covered_variants += variants
-        if state == "mastered":
-            mastered += 1
-            attempted += 1
-        elif state == "learning":
-            learning += 1
-            attempted += 1
-        elif state == "struggling":
-            struggling += 1
-            attempted += 1
-        else:
-            unseen += 1
-
-    total = len(exercises)
-    return LessonMasteryResponse(
-        total_exercises=total,
-        attempted_exercises=attempted,
-        mastered_exercises=mastered,
-        learning_exercises=learning,
-        struggling_exercises=struggling,
-        unseen_exercises=unseen,
-        average_mastery_score=round(sum(scores) / total, 3) if total else 0.0,
-        covered_variants=covered_variants,
+    aggregate = summarize_lesson_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
     )
+    return LessonMasteryResponse(**aggregate.__dict__)
 
 
 @router.post(
