@@ -144,6 +144,7 @@ def _skill_mastery_state(aggregate: "LessonMasteryAggregate") -> str:
 
 @dataclass(frozen=True)
 class LessonMasteryAggregate:
+    mastery_state: str
     total_exercises: int
     attempted_exercises: int
     mastered_exercises: int
@@ -154,6 +155,23 @@ class LessonMasteryAggregate:
     attempt_rate: float
     mastery_rate: float
     covered_variants: int
+
+
+def _lesson_mastery_state(
+    total: int,
+    mastered: int,
+    learning: int,
+    struggling: int,
+    unseen: int,
+) -> str:
+    """Collapse a lesson's exercise states into one stable summary state."""
+    if total == 0 or unseen == total:
+        return "unseen"
+    if mastered == total:
+        return "mastered"
+    if struggling > 0:
+        return "struggling"
+    return "learning"
 
 
 def summarize_lesson_mastery(
@@ -187,6 +205,7 @@ def summarize_lesson_mastery(
 
     attempted = total - unseen
     return LessonMasteryAggregate(
+        mastery_state=_lesson_mastery_state(total, mastered, learning, struggling, unseen),
         total_exercises=total,
         attempted_exercises=attempted,
         mastered_exercises=mastered,
