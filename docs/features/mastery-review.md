@@ -76,3 +76,23 @@ The lesson mastery response now includes a skills collection derived from the sa
 - covered adaptive variants
 
 The dedicated GET /api/lessons/{lesson_id}/mastery/skills endpoint remains available for clients that only need skill coverage. `GET /api/lessons/{lesson_id}/mastery/skills/next` now returns the highest-priority non-mastered skill using the same struggling → unseen → learning policy, with lower mastery coverage as the tie-break. The lesson-level GET /api/lessons/{lesson_id}/mastery response is the preferred lesson-screen snapshot: it carries both lesson and skill progress, so the lesson UI hydrates both views from one request and refreshes them together after an answer.
+
+
+## Mastery state model
+
+Mastery is derived from the best score for each distinct adaptive variant of a content identity. The thresholds are centralized in the adaptive mastery service:
+
+| State | Rule |
+| --- | --- |
+| `unseen` | No valid adaptive variant attempt exists for the content identity. |
+| `struggling` | Mastery score is below `0.50`. |
+| `learning` | Mastery score is at least `0.50` but the mastery requirement is not yet met. |
+| `mastered` | Average best score is at least `0.80` **and** at least two distinct variants are covered. |
+
+Repeated attempts on the same normalized variant improve its best score but do not increase variant coverage. This prevents repeated retries of one prompt from being treated as equivalent to demonstrated mastery across multiple variants.
+
+## Skill aggregation semantics
+
+Skills are a reporting layer over lesson exercises, not a second scoring engine. Each exercise can contribute to more than one skill. Skill aggregates reuse the exact exercise-level mastery state, so lesson and skill percentages cannot silently diverge because of separate threshold logic.
+
+Skill labels are trimmed, case-normalized, and deduplicated per exercise. Empty and non-string labels are ignored. Skills are returned in deterministic order, while the skills/next selector applies the action order `struggling → unseen → learning → mastered`; within a state it uses mastery coverage, then average mastery score, then the skill name as deterministic tie-breakers.
