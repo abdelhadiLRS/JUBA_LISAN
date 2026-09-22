@@ -45,7 +45,7 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 ### Phase 12 — Speaking / Lingu ❌ (exists, not rebuilt)
 ### Phase 13 — Progress 🟡
 - ✅ Progress Center rebuilt (v1.8.43): header with level pill and icon stat tiles, competency status badges, segmented vocab toggle, skill bars with warm accent for weak skills.
-- 🔜 Remaining: weekly/monthly/all-time ranges (needs backend history aggregation).
+- ✅ Backend history aggregation added: `GET /api/progress/history/summary?range=week|month|all` with totals, accuracy, active days, average daily XP, and averaged skill scores.\n- 🔜 Remaining: weekly/monthly/all-time range selector UI.
 ### Phase 14 — Mastery ❌ (competencies exist, not surfaced as mastery center)
 ### Phase 15 — Streak / Goals / XP ❌ (goals exist at onboarding, no streak/XP system)
 ### Phase 16 — Discover / Social ❌
