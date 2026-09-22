@@ -1723,5 +1723,7 @@
     "shortcutHint": "Espaço para revelar · 1–4 para avaliar",
     "spaceShortcut": "Espaço para revelar",
     "rateKeys": "1 Novamente · 2 Difícil · 3 Bom · 4 Fácil"
-  }
+  },
+  "masteryReviewExhausted": "Revisão de domínio concluída",
+  "masteryReviewExhaustedDesc": "Todos os exercícios desta lição foram dominados. Você pode continuar aprendendo ou revisar novamente mais tarde."
 }
