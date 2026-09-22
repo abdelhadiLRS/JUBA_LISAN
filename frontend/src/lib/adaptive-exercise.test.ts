@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   hasAdaptiveTarget,
   isAdaptiveReinforcementAction,
+  isAdaptiveAdvanceAction,
   isAdaptiveRetryAction,
   mergeAdaptiveRecommendations,
   normaliseAdaptiveAction,
@@ -114,6 +115,9 @@ describe('adaptive action helpers', () => {
     expect(isAdaptiveRetryAction(null)).toBe(false)
     expect(isAdaptiveRetryAction('advance')).toBe(false)
     expect(isAdaptiveRetryAction('retry')).toBe(false)
+    expect(isAdaptiveAdvanceAction('advance')).toBe(true)
+    expect(isAdaptiveAdvanceAction(' ADVANCE ')).toBe(true)
+    expect(isAdaptiveAdvanceAction('reinforce')).toBe(false)
   })
 
   it('returns the canonical action used by adaptive UI labels', () => {
