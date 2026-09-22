@@ -699,8 +699,9 @@
     "masteryReviewFinish": "Terminar revisão",
     "masteryReviewNext": "Próximo exercício de domínio",
     "masteryReviewImproved": "Domínio melhorado",
-    "masteryReviewImprovedDesc": "A sua taxa de domínio melhorou durante esta revisão. A sessão terminou."
-
+    "masteryReviewImprovedDesc": "A sua taxa de domínio melhorou durante esta revisão. A sessão terminou.",
+    "masteryReviewExhausted": "Revisão de domínio concluída",
+    "masteryReviewExhaustedDesc": "Não há mais exercícios para revisar e consolidar o domínio."
   },
   "flashcards": {
     "title": "Cartões",
