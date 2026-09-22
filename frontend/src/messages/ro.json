@@ -706,7 +706,8 @@
       "struggling": "Necesită exersare",
       "learning": "În învățare",
       "mastered": "Stăpânit"
-    }
+    },
+    "transcriptLabel": "Transcriere"
   },
   "flashcards": {
     "title": "Carduri flash",
