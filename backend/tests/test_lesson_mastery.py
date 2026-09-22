@@ -4,6 +4,7 @@ from app.schemas.lessons import LessonMasteryResponse
 from app.services.adaptive_variants import summarize_adaptive_mastery
 from app.services.lesson_mastery import (
     select_next_mastery_candidate,
+    select_next_skill_exercise,
     summarize_lesson_mastery,
     summarize_skill_mastery,
     select_next_skill_mastery,
@@ -727,3 +728,51 @@ def test_skill_mastery_deduplicates_case_variants_without_double_counting_exerci
     assert result[0].total_exercises == 2
     assert result[0].unseen_exercises == 2
     assert result[0].covered_variants == 0
+
+
+def test_next_skill_exercise_scopes_case_insensitively_and_skips_mastered():
+    exercises = [
+        SimpleNamespace(id=1, content_id="mastered", skills=["Grammar"]),
+        SimpleNamespace(id=2, content_id="target", skills=["GRAMMAR"]),
+        SimpleNamespace(id=3, content_id="other", skills=["Vocabulary"]),
+    ]
+    attempts = [
+        SimpleNamespace(content_id="mastered", variant="a", score=0.90),
+        SimpleNamespace(content_id="mastered", variant="b", score=0.90),
+    ]
+
+    result = select_next_skill_exercise(
+        exercises,
+        attempts,
+        skill=" grammar ",
+        get_content_id=lambda item: item.content_id,
+        get_exercise_id=lambda item: item.id,
+        get_skills=lambda item: item.skills,
+    )
+
+    assert result is not None
+    assert result.exercise is exercises[1]
+
+
+def test_next_skill_exercise_returns_none_for_empty_or_unknown_skill():
+    exercises = [
+        SimpleNamespace(id=1, content_id="target", skills=["grammar"]),
+    ]
+
+    assert select_next_skill_exercise(
+        exercises,
+        [],
+        skill=" ",
+        get_content_id=lambda item: item.content_id,
+        get_exercise_id=lambda item: item.id,
+        get_skills=lambda item: item.skills,
+    ) is None
+
+    assert select_next_skill_exercise(
+        exercises,
+        [],
+        skill="speaking",
+        get_content_id=lambda item: item.content_id,
+        get_exercise_id=lambda item: item.id,
+        get_skills=lambda item: item.skills,
+    ) is None
