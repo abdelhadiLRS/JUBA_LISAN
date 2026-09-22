@@ -855,7 +855,15 @@
     "last7Days": "Afgelopen 7 dagen",
     "exercises": "Oefeningen",
     "sevenDayXp": "XP van 7 dagen",
-    "reviewLink": "Herhalen"
+    "reviewLink": "Herhalen",
+    "masteryCenter": "Beheersingscentrum",
+    "masteryOverview": "Overzicht van beheersing",
+    "masteryRate": "Beheersingspercentage",
+    "attempted": "Pogingen",
+    "coveredVariants": "Gedekte varianten",
+    "averageMastery": "Gemiddelde beheersing",
+    "nextSkill": "Volgende vaardigheid",
+    "practice": "Oefenen"
   },
   "grammar": {
     "title": "Grammaticareferentie",
