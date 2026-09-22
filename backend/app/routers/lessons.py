@@ -1048,7 +1048,16 @@ async def get_lesson_mastery(
         attempts,
         get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
     )
-    return LessonMasteryResponse(**aggregate.__dict__)
+    skill_aggregates = summarize_skill_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
+        get_skills=lambda item: content_by_exercise_id.get(item.id, {}).get("skills"),
+    )
+    return LessonMasteryResponse(
+        **aggregate.__dict__,
+        skills=[SkillMasteryResponse(**item.__dict__) for item in skill_aggregates],
+    )
 
 
 @router.get(
