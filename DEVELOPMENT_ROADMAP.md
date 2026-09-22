@@ -40,8 +40,13 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 - ✅ Course roadmap is now connected to the active study plan and competency progress instead of hardcoded progress state.
 - ✅ CEFR roadmap now covers A1→C2 and reflects the learner's current level/unlocked range.
 - ✅ Course cards derive lesson counts from the active generated plan/curriculum and show a loading state while data resolves.
-- 🔜 Remaining: localized course copy, per-level curriculum previews, and direct level/unit exploration.
-### Phase 8 — First Lesson ❌ (lesson player exists, not rebuilt)
+- ✅ All six CEFR levels now load curriculum metadata in parallel, so roadmap cards show real per-level unit/lesson structure.
+- ✅ Level cards now open dedicated `/courses/[level]` explorers with unit metadata, prerequisites, mastery progress, and persisted lesson links when available.
+- ✅ Current-level progress now prefers the server learning-path state and falls back to competency records.
+- 🔜 Remaining: localized course copy and richer unit content previews (vocabulary/grammar/listening counts).
+### Phase 8 — First Lesson 🟡 (lesson player exists, not rebuilt)
+- ✅ Course level explorer can now hand off directly to persisted lesson routes when the learning path exposes an available lesson.
+- 🔜 Remaining: rebuild the lesson player presentation around the JUBA LISAN design system while preserving the existing adaptive mastery engine.
 ### Phase 9 — Smart Review 🟡
 - ✅ Review session rebuilt (v1.8.43): session progress bar, keyboard-accessible flip card, semantic rating colors; standard/speaking modes, audio, generation, and SM-2 stats preserved. Built on the existing `GET /api/flashcards/due` + `POST /api/flashcards/{id}/review` endpoints — no backend changes needed.
 - 🔜 Remaining: multi-surface review queue (grammar, listening, reading, speaking items feeding the same scheduler).
