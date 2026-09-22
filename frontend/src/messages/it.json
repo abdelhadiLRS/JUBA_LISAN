@@ -1556,6 +1556,8 @@
     "noExercises": "Nessun esercizio disponibile per il tuo livello.",
     "generate": "Genera esercizio",
     "audioError": "Impossibile caricare l'audio",
+    "audioPlay": "Riproduci",
+    "audioPause": "Pausa",
     "alreadyAttempted": "Hai già completato questo esercizio.",
     "errorLoading": "Impossibile caricare l'esercizio. Riprova.",
     "errorSubmit": "Impossibile inviare le risposte. Riprova.",
