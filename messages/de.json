@@ -702,6 +702,8 @@
     "masteryReviewImprovedDesc": "Deine Beherrschungsrate hat sich während dieser Wiederholung verbessert. Die Sitzung ist abgeschlossen.",
     "masteryReviewExhausted": "Meisterungswiederholung abgeschlossen",
     "masteryReviewExhaustedDesc": "Es gibt keine weiteren Übungen zur Wiederholung für die Beherrschung.",
+    "skillMasteryExhausted": "Fähigkeits-Mastery-Review abgeschlossen",
+    "skillMasteryExhaustedDesc": "Für {skill} gibt es keine weiteren Übungen zur Festigung.",
     "skillMastery": "Kompetenzbeherrschung",
     "skillMasteryDesc": "Sieh, wie gut jede Lernkompetenz in dieser Lektion beherrscht wird.",
     "skillMasteryPractice": "Diese Kompetenz üben",
@@ -1737,6 +1739,4 @@
     "spaceShortcut": "Leertaste zum Aufdecken",
     "rateKeys": "1 Nochmal · 2 Schwer · 3 Gut · 4 Leicht"
   },
-  "masteryReviewExhausted": "Meisterungswiederholung abgeschlossen",
-  "masteryReviewExhaustedDesc": "Alle Übungen dieser Lektion sind gemeistert. Du kannst weiterlernen oder später erneut wiederholen."
 }
