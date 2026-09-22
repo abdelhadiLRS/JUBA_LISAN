@@ -29,6 +29,7 @@ from app.schemas.lessons import (
     LessonDetailResponse,
     LessonMasteryNextResponse,
     LessonMasteryResponse,
+    SkillMasteryResponse,
     LessonResponse,
     NativeExerciseExplanationResponse,
     NativeExerciseHintResponse,
@@ -39,6 +40,7 @@ from app.services.lesson_mastery import (
     mastery_reason,
     select_next_mastery_candidate,
     summarize_lesson_mastery,
+    summarize_skill_mastery,
 )
 from app.services.lesson_generator import (
     evaluate_fill_blank,
@@ -202,6 +204,11 @@ def _build_exercise_response(
         metadata=(
             content.get("metadata")
             if isinstance(content.get("metadata"), dict)
+            else None
+        ),
+        skills=(
+            [skill.strip() for skill in content.get("skills", []) if isinstance(skill, str) and skill.strip()]
+            if isinstance(content.get("skills"), list)
             else None
         ),
         answered_at=exercise.answered_at,
@@ -1042,6 +1049,46 @@ async def get_lesson_mastery(
         get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
     )
     return LessonMasteryResponse(**aggregate.__dict__)
+
+
+@router.get(
+    "/{lesson_id}/mastery/skills",
+    response_model=list[SkillMasteryResponse],
+)
+@limiter.limit("60/minute")
+async def get_lesson_skill_mastery(
+    request: Request,
+    lesson_id: int,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return mastery coverage grouped by the skills attached to lesson exercises."""
+    lesson = await _get_lesson_for_user(lesson_id, current_user.id, db)
+    attempts_result = await db.execute(
+        select(ExerciseAttempt).where(
+            ExerciseAttempt.lesson_id == lesson.id,
+            ExerciseAttempt.user_id == current_user.id,
+        )
+    )
+    attempts = attempts_result.scalars().all()
+    exercise_result = await db.execute(
+        select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
+    )
+    exercises = exercise_result.scalars().all()
+    content_exercises = (
+        lesson.content.get("exercises", [])
+        if isinstance(lesson.content, dict)
+        else []
+    )
+    content_by_exercise_id = _map_content_exercises(exercises, content_exercises)
+
+    aggregates = summarize_skill_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
+        get_skills=lambda item: content_by_exercise_id.get(item.id, {}).get("skills"),
+    )
+    return [SkillMasteryResponse(**aggregate.__dict__) for aggregate in aggregates]
 
 
 @router.post(
