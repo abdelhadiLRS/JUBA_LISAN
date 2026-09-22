@@ -814,6 +814,13 @@
     "dailyChallenges": "Dagelijkse uitdagingen",
     "unlocked": "Ontgrendeld",
     "noAchievements": "Speel om prestaties te ontgrendelen."
+    "goals": "Doelen",
+    "dailyWeeklyGoals": "Dagelijkse en wekelijkse doelen",
+    "dailyGoal": "Dagdoel",
+    "weeklyGoal": "Weekdoel",
+    "dailyTarget": "Dagelijks XP-doel",
+    "weeklyTarget": "Wekelijks XP-doel",
+    "saveGoals": "Doelen opslaan",
   },
   "grammar": {
     "title": "Grammaticareferentie",
