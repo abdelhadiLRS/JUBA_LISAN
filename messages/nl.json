@@ -679,7 +679,13 @@
     "lessonFlowHint": "Leer → oefen → onthoud. Blijf actief en haal het meeste uit elk antwoord.",
     "exerciseProgress": "Oefening {current}/{total}",
     "tapToHear": "Tik op het woord om het te horen",
-    "lessonProgress": "Lesvoortgang"
+    "lessonProgress": "Lesvoortgang",
+    "masteryOverview": "Beheersing van de les",
+    "masteryCoverage": "{{covered}} varianten behandeld",
+    "masteryAttempted": "Geprobeerd",
+    "masteryLearning": "In ontwikkeling",
+    "masteryStruggling": "Moeilijk",
+    "masteryUnseen": "Ongezien"
   },
   "flashcards": {
     "title": "Flashcards",
