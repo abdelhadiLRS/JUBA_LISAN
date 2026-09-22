@@ -706,6 +706,8 @@
     "skillMasteryExhaustedDesc": "Nie ma już ćwiczeń wymagających powtórki dla umiejętności {skill}.",
     "skillMastery": "Opanowanie umiejętności",
     "skillMasteryDesc": "Zobacz, jak dobrze opanowana jest każda umiejętność w tej lekcji.",
+    "skillMasteryComplete": "Wszystkie umiejętności są opanowane",
+    "skillMasteryCompleteDesc": "Każda umiejętność śledzona w tej lekcji została opanowana.",
     "skillMasteryPractice": "Ćwicz tę umiejętność",
     "skillMasteryMastered": "opanowane",
     "skillMasteryAttempted": "wykonane",
