@@ -17,10 +17,11 @@ from app.models.flashcard import Flashcard
 from app.models.game_progress import GameProgress
 from app.models.game_progress_event import GameProgressEvent
 from app.models.game_session import GameSession
+from app.models.learning_goal import LearningGoal
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import (GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
+from app.schemas.progress import (GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalResponse, LearningGoalUpdate, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
 from app.services.progress_service import get_unit_competencies, update_daily_progress
 from app.services.user_language_service import get_active_language
 
@@ -304,6 +305,109 @@ async def get_game_summary(
         achievements=entry.achievements or [],
         skills=await _get_game_skills(db, current_user.id, plan),
     )
+
+
+async def _get_or_create_learning_goal(
+    db: AsyncSession, user_id: int, plan: StudyPlan
+) -> LearningGoal:
+    result = await db.execute(
+        select(LearningGoal).where(
+            LearningGoal.user_id == user_id,
+            LearningGoal.study_plan_id == plan.id,
+        )
+    )
+    goal = result.scalar_one_or_none()
+    if goal is not None:
+        return goal
+
+    goal = LearningGoal(
+        user_id=user_id,
+        study_plan_id=plan.id,
+        daily_xp_target=50,
+        weekly_xp_target=250,
+    )
+    try:
+        async with db.begin_nested():
+            db.add(goal)
+            await db.flush()
+    except IntegrityError:
+        result = await db.execute(
+            select(LearningGoal).where(
+                LearningGoal.user_id == user_id,
+                LearningGoal.study_plan_id == plan.id,
+            )
+        )
+        goal = result.scalar_one()
+    return goal
+
+
+async def _learning_goal_response(
+    db: AsyncSession, user_id: int, plan: StudyPlan, goal: LearningGoal
+) -> LearningGoalResponse:
+    today = date.today()
+    week_start = today - timedelta(days=today.weekday())
+    week_end = week_start + timedelta(days=6)
+
+    result = await db.execute(
+        select(Progress).where(
+            Progress.user_id == user_id,
+            Progress.study_plan_id == plan.id,
+            Progress.date >= week_start,
+            Progress.date <= today,
+        )
+    )
+    entries = result.scalars().all()
+    daily_xp = sum(entry.xp_earned for entry in entries if entry.date == today)
+    weekly_xp = sum(entry.xp_earned for entry in entries)
+
+    return LearningGoalResponse(
+        daily_xp_target=goal.daily_xp_target,
+        weekly_xp_target=goal.weekly_xp_target,
+        daily_xp=daily_xp,
+        weekly_xp=weekly_xp,
+        daily_progress=round(min(daily_xp / goal.daily_xp_target, 1.0), 3),
+        weekly_progress=round(min(weekly_xp / goal.weekly_xp_target, 1.0), 3),
+        daily_completed=daily_xp >= goal.daily_xp_target,
+        weekly_completed=weekly_xp >= goal.weekly_xp_target,
+        day=today,
+        week_start=week_start,
+        week_end=week_end,
+    )
+
+
+@router.get("/goals", response_model=LearningGoalResponse)
+@limiter.limit("60/minute")
+async def get_learning_goals(
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    plan = await _get_active_plan_or_none(db, current_user.id)
+    if plan is None:
+        raise HTTPException(status_code=404, detail="No active study plan")
+    goal = await _get_or_create_learning_goal(db, current_user.id, plan)
+    await db.commit()
+    await db.refresh(goal)
+    return await _learning_goal_response(db, current_user.id, plan, goal)
+
+
+@router.put("/goals", response_model=LearningGoalResponse)
+@limiter.limit("30/minute")
+async def update_learning_goals(
+    request: Request,
+    data: LearningGoalUpdate,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    plan = await _get_active_plan_or_none(db, current_user.id)
+    if plan is None:
+        raise HTTPException(status_code=404, detail="No active study plan")
+    goal = await _get_or_create_learning_goal(db, current_user.id, plan)
+    goal.daily_xp_target = data.daily_xp_target
+    goal.weekly_xp_target = data.weekly_xp_target
+    await db.commit()
+    await db.refresh(goal)
+    return await _learning_goal_response(db, current_user.id, plan, goal)
 
 
 def _server_game_questions(game_id: str, language: str, difficulty: int, target_language: str = "en-GB") -> list[dict]:
