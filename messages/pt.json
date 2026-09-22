@@ -704,6 +704,7 @@
     "masteryReviewExhaustedDesc": "Não há mais exercícios para revisar e consolidar o domínio.",
     "skillMastery": "Domínio de competências",
     "skillMasteryDesc": "Veja o nível de domínio de cada competência de aprendizagem nesta lição.",
+    "skillMasteryPractice": "Praticar esta competência",
     "skillMasteryMastered": "dominadas",
     "skillMasteryAttempted": "tentadas",
     "skillMasteryAttemptRate": "Taxa de tentativas: {rate}%",
