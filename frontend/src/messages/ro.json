@@ -821,6 +821,9 @@
     "dailyTarget": "Obiectiv XP zilnic",
     "weeklyTarget": "Obiectiv XP săptămânal",
     "saveGoals": "Salvează obiectivele",
+    "goalHistory": "Istoricul obiectivelor",
+    "milestones": "Etape",
+    "rewardXp": "XP recompensă"
   },
   "grammar": {
     "title": "Referință gramaticală",
