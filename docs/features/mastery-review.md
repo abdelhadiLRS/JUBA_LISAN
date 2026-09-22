@@ -46,3 +46,7 @@ A review session now ends when the exercise just reviewed reaches the `mastered`
 ### Immediate candidate state hydration
 
 After each review answer, the client reconciles the answered exercise with the refreshed attempt summary before deciding whether to continue the session. The candidate's `mastery_score`, `mastery_state`, and `mastery_variants` are written into the local exercise model immediately, preventing the mastery card from displaying the pre-answer state while the aggregate mastery request is completing.
+
+### Exhausted review state
+
+When the mastery-next endpoint reports that every lesson exercise is mastered, the lesson UI now exits the active review loop into an explicit exhausted state. The state is localized, announces completion through the live status region, and provides the existing Finish action instead of silently clearing the candidate.
