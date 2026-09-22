@@ -32,7 +32,16 @@ export default function ProgressPage() {
   const t = useTranslations('progress'); const tVocab = useTranslations('vocabulary'); const activeLanguage = useLanguageStore((s) => s.activeLanguage)
   const [summary, setSummary] = useState<ProgressSummary | null>(null); const [historyRange, setHistoryRange] = useState<'week' | 'month' | 'all'>('week'); const [rangeSummary, setRangeSummary] = useState<HistoryRangeSummary | null>(null); const [competencies, setCompetencies] = useState<CompetencyRecord[]>([]); const [plan, setPlan] = useState<StudyPlan | null>(null); const [loading, setLoading] = useState(true); const [levelUnits, setLevelUnits] = useState<CurriculumUnit[]>([]); const [flashcards, setFlashcards] = useState<FlashcardProgress[]>([]); const [showAllLevels, setShowAllLevels] = useState(false); const [history, setHistory] = useState<HistoryEntry[]>([])
 
-  useEffect(() => { async function load() { try { const [sumRes, compRes, planRes, flashRes, historyRes] = await Promise.all([apiFetch('/api/progress/summary'), apiFetch('/api/progress/competencies'), apiFetch('/api/study-plan/current'), apiFetch('/api/flashcards/all').catch(() => null), apiFetch('/api/progress/history').catch(() => null)]); if (sumRes.ok) setSummary((await sumRes.json()) as ProgressSummary); if (compRes.ok) setCompetencies((await compRes.json()) as CompetencyRecord[]); if (planRes.ok) setPlan((await planRes.json()) as StudyPlan); if (flashRes?.ok) setFlashcards((await flashRes.json()) as FlashcardProgress[]); if (historyRes?.ok) { const data = (await historyRes.json()) as { entries?: HistoryEntry[] }; setHistory(data.entries ?? []) } } catch { /* ignore */ } finally { setLoading(false) } } void load() }, [activeLanguage?.code])
+  useEffect(() => { async function load() { try { const [sumRes, compRes, planRes, flashRes] = await Promise.all([apiFetch('/api/progress/summary'), apiFetch('/api/progress/competencies'), apiFetch('/api/study-plan/current'), apiFetch('/api/flashcards/all').catch(() => null)]); if (sumRes.ok) setSummary((await sumRes.json()) as ProgressSummary); if (compRes.ok) setCompetencies((await compRes.json()) as CompetencyRecord[]); if (planRes.ok) setPlan((await planRes.json()) as StudyPlan); if (flashRes?.ok) setFlashcards((await flashRes.json()) as FlashcardProgress[]) } catch { /* ignore */ } finally { setLoading(false) } } void load() }, [activeLanguage?.code])
+
+  useEffect(() => {
+    let cancelled = false
+    apiFetch(`/api/progress/history?range=${historyRange}`)
+      .then((res) => res.ok ? res.json() as Promise<{ entries?: HistoryEntry[] }> : Promise.reject(new Error('history request failed')))
+      .then((data) => { if (!cancelled) setHistory(data.entries ?? []) })
+      .catch(() => { if (!cancelled) setHistory([]) })
+    return () => { cancelled = true }
+  }, [historyRange, activeLanguage?.code])
   useEffect(() => {
     let cancelled = false
     setSummaryRangeLoading(true)
@@ -52,7 +61,7 @@ export default function ProgressPage() {
   const [vocabSets, setVocabSets] = useState<VocabularySet[]>([])
   useEffect(() => { apiFetch(`/api/vocabulary?language=${targetLanguageCode}`).then((r) => r.json()).then((d: { sets: VocabularySet[] }) => setVocabSets(d.sets)).catch(() => setVocabSets([])) }, [targetLanguageCode])
   const compMap = Object.fromEntries(competencies.map((c) => [c.unit_id, c]))
-  const recentHistory = useMemo(() => history.slice(0, 7).reverse(), [history])
+  const recentHistory = useMemo(() => history.slice(0, historyRange === 'week' ? 7 : historyRange === 'month' ? 30 : history.length).reverse(), [history, historyRange])
   const maxDailyXp = Math.max(1, ...recentHistory.map((entry) => entry.xp_earned))
   if (loading) return <PageLoading label={t('loading')} />
   if (!plan) return <NoPlanBanner />
