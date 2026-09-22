@@ -50,3 +50,10 @@ After each review answer, the client reconciles the answered exercise with the r
 ### Exhausted review state
 
 When the mastery-next endpoint reports that every lesson exercise is mastered, the lesson UI now exits the active review loop into an explicit exhausted state. The state is localized, announces completion through the live status region, and provides the existing Finish action instead of silently clearing the candidate.
+
+
+## Skill mastery contract
+
+Lesson mastery is the exercise-level aggregate for one lesson. Skill mastery reuses the same adaptive mastery states but groups exercises by the normalized `skills` metadata attached to lesson content. A single exercise may contribute to multiple skills, while duplicate skill labels on the same exercise are counted once.
+
+The skill endpoint is `GET /api/lessons/{lesson_id}/mastery/skills`. Each skill reports total, attempted, mastered, learning, struggling, and unseen exercises, average mastery score, mastery rate, attempt rate, and covered adaptive variants. This keeps the lesson UI able to explain both **how much of the lesson is mastered** and **which learning skills still need coverage**.
