@@ -79,6 +79,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   const [nativeExplanation, setNativeExplanation] = useState<string | null>(null)
   const [loadingHint, setLoadingHint] = useState(false)
   const [loadingExplanation, setLoadingExplanation] = useState(false)
+  const [audioLoadFailed, setAudioLoadFailed] = useState(false)
   const allSkillsMastered = skillMastery.length > 0 && skillMastery.every((item) => item.mastery_state === 'mastered')
 
   const loadLessonMastery = useCallback(async (lessonId: number) => {
@@ -153,6 +154,8 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
     if (value.startsWith('/') || value.startsWith('https://') || value.startsWith('http://')) return value
     return null
   }, [exercise?.metadata])
+
+  useEffect(() => { setAudioLoadFailed(false) }, [exercise?.id, exerciseAudioUrl])
 
   const exerciseTranscript = useMemo(() => {
     const metadata = exercise?.metadata
@@ -496,7 +499,15 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
                 <div className="mb-2 flex items-center justify-between gap-3">
                   <span className="text-sm font-extrabold text-[var(--juba-text)]">{t('listen')}</span>
                 </div>
-                <audio controls preload="metadata" src={exerciseAudioUrl} className="w-full" aria-label={t('listen')} />
+                <audio
+                  controls
+                  preload="metadata"
+                  src={exerciseAudioUrl}
+                  className="w-full"
+                  aria-label={t('listen')}
+                  onError={() => setAudioLoadFailed(true)}
+                />
+                {audioLoadFailed && <p className="mt-2 text-xs font-semibold text-[var(--juba-muted)]" role="status" aria-live="polite">{t('audioLoadError')}</p>}
               </div>}
               {exerciseTranscript && <details className={cn('text-sm font-medium text-[var(--juba-muted)]', exerciseAudioUrl && 'mt-4 border-t border-[var(--juba-border)] pt-4')}>
                 <summary className="cursor-pointer font-extrabold text-[var(--juba-text)]">{t('transcriptLabel')}</summary>
