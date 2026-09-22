@@ -30,6 +30,7 @@ export function apiUrl(path: string): string { return `${BASE_URL}${path}` }
 
 export type SkillMasterySnapshot = {
   skill: string
+  mastery_state: 'unseen' | 'struggling' | 'learning' | 'mastered'
   total_exercises: number
   attempted_exercises: number
   mastered_exercises: number
