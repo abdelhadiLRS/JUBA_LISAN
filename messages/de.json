@@ -707,8 +707,13 @@
     "skillMasteryMastered": "gemeistert",
     "skillMasteryAttempted": "bearbeitet",
     "skillMasteryAttemptRate": "Versuchsquote: {rate}%",
-    "skillMasteryVariants": "Varianten"
-  \n    "masteryStates": {\n      "unseen": "Unbearbeitet",\n      "struggling": "Schwierig",\n      "learning": "Lernend",\n      "mastered": "Gemeistert"\n    },},
+    "skillMasteryVariants": "Varianten",
+    "masteryStates": {
+      "unseen": "Unbearbeitet",
+      "struggling": "Schwierig",
+      "learning": "Lernend",
+      "mastered": "Gemeistert"
+    },
   "flashcards": {
     "title": "Karteikarten",
     "due": "Fällig",
