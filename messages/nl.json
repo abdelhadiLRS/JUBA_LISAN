@@ -707,7 +707,7 @@
     "skillMasteryMastered": "beheerst",
     "skillMasteryAttempted": "pogingen",
     "skillMasteryAttemptRate": "Pogingpercentage: {rate}%",
-    "skillMasteryVariants": "varianten",
+    "skillMasteryVariants": "varianten"
   },
   "flashcards": {
     "title": "Flashcards",
