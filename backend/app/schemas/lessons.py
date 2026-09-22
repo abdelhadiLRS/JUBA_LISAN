@@ -106,6 +106,9 @@ class ExerciseResponse(BaseModel):
     accepted_answers: list[str] | None = None
     metadata: dict[str, str] | None = None
     answered_at: datetime | None = None
+    mastery_score: float = 0.0
+    mastery_state: str = "unseen"
+    mastery_variants: int = 0
 
     model_config = {"from_attributes": True}
 
