@@ -790,7 +790,8 @@ def test_recommendation_preserves_boundary_semantics_for_numeric_strings():
     assert action == "advance_harder"
     assert variant == "fill_blank"
     assert target is exercises[1]
-\n
+
+
 
 def test_recommend_adaptive_action_rejects_non_finite_scores():
     import pytest
