@@ -854,6 +854,13 @@
     "dailyChallenges": "Daily challenges",
     "unlocked": "Unlocked",
     "noAchievements": "Complete games to unlock achievements."
+    "goals": "Goals",
+    "dailyWeeklyGoals": "Daily & weekly goals",
+    "dailyGoal": "Daily goal",
+    "weeklyGoal": "Weekly goal",
+    "dailyTarget": "Daily XP target",
+    "weeklyTarget": "Weekly XP target",
+    "saveGoals": "Save goals",
   },
   "grammar": {
     "title": "Grammar Reference",
