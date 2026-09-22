@@ -707,7 +707,8 @@
       "learning": "In apprendimento",
       "mastered": "Padroneggiato"
     },
-    "transcriptLabel": "Trascrizione"
+    "transcriptLabel": "Trascrizione",
+    "listeningPractice": "Apri pratica di ascolto"
   },
   "flashcards": {
     "title": "Schede",
