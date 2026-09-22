@@ -360,6 +360,50 @@ def test_skill_mastery_ignores_non_string_and_blank_skill_labels():
     assert result[0].covered_variants == 3
 
 
+def test_skill_mastery_exposes_aggregate_state_from_exercise_states():
+    exercises = [
+        SimpleNamespace(id=1, content_id="alpha", skills=["grammar"]),
+        SimpleNamespace(id=2, content_id="beta", skills=["grammar"]),
+        SimpleNamespace(id=3, content_id="gamma", skills=["grammar"]),
+    ]
+    attempts = [
+        SimpleNamespace(content_id="alpha", variant="a", score=0.90),
+        SimpleNamespace(content_id="alpha", variant="b", score=0.90),
+        SimpleNamespace(content_id="beta", variant="a", score=0.20),
+    ]
+
+    result = summarize_skill_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: item.content_id,
+        get_skills=lambda item: item.skills,
+    )
+
+    assert result[0].mastery_state == "struggling"
+
+
+def test_skill_mastery_is_mastered_only_when_every_exercise_is_mastered():
+    exercises = [
+        SimpleNamespace(id=1, content_id="alpha", skills=["grammar"]),
+        SimpleNamespace(id=2, content_id="beta", skills=["grammar"]),
+    ]
+    attempts = [
+        SimpleNamespace(content_id="alpha", variant="a", score=0.90),
+        SimpleNamespace(content_id="alpha", variant="b", score=0.90),
+        SimpleNamespace(content_id="beta", variant="a", score=0.90),
+        SimpleNamespace(content_id="beta", variant="b", score=0.90),
+    ]
+
+    result = summarize_skill_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: item.content_id,
+        get_skills=lambda item: item.skills,
+    )
+
+    assert result[0].mastery_state == "mastered"
+
+
 def test_skill_mastery_exposes_attempt_rate_and_variant_coverage():
     exercises = [
         SimpleNamespace(id=1, content_id="alpha", skills=["grammar"]),
