@@ -65,6 +65,7 @@ class SkillMasteryAggregate:
     unseen_exercises: int
     average_mastery_score: float
     mastery_rate: float
+    attempt_rate: float
     covered_variants: int
 
 
@@ -120,6 +121,7 @@ def summarize_skill_mastery(
                 unseen_exercises=lesson.unseen_exercises,
                 average_mastery_score=lesson.average_mastery_score,
                 mastery_rate=lesson.mastery_rate,
+                attempt_rate=lesson.attempt_rate,
                 covered_variants=lesson.covered_variants,
             )
         )
