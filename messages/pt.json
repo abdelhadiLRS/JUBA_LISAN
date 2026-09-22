@@ -694,11 +694,13 @@
     "masteryReviewLoading": "A selecionar…",
     "masteryReviewNone": "Não é necessária mais revisão de domínio.",
     "masteryReviewLowest": "Menor domínio",
-    "masteryReviewReasons": {
-      "struggling": "Revisão de domínio",
-      "unseen": "exercício não visto",
-      "lowest_mastery": "menor domínio"
-    }
+    "masteryReviewSession": "Sessão de revisão de domínio",
+    "masteryReviewProgress": "{count} exercícios revistos",
+    "masteryReviewFinish": "Terminar revisão",
+    "masteryReviewNext": "Próximo exercício de domínio",
+    "masteryReviewImproved": "Domínio melhorado",
+    "masteryReviewImprovedDesc": "A sua taxa de domínio melhorou durante esta revisão. A sessão terminou."
+
   },
   "flashcards": {
     "title": "Cartões",
