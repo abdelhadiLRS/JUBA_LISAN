@@ -265,6 +265,44 @@ async def _get_exercise_content_entry(
     return content, content_exercises, content_exercise
 
 
+async def _get_latest_attempt(
+    db: AsyncSession,
+    *,
+    user_id: int,
+    exercise_id: int,
+    for_update: bool = False,
+) -> ExerciseAttempt | None:
+    """Load the authoritative persisted attempt by monotonically increasing identity."""
+    query = (
+        select(ExerciseAttempt)
+        .where(
+            ExerciseAttempt.user_id == user_id,
+            ExerciseAttempt.exercise_id == exercise_id,
+        )
+        .order_by(ExerciseAttempt.attempt_number.desc())
+        .limit(1)
+    )
+    if for_update:
+        query = query.with_for_update()
+    return await db.scalar(query)
+
+
+def _persisted_attempt_identity(
+    attempt: ExerciseAttempt,
+    *,
+    fallback_content_id: object,
+    fallback_variant: object,
+) -> tuple[str, str] | None:
+    """Return normalized content/variant identity, preferring the persisted attempt."""
+    content_id = attempt.content_id or fallback_content_id
+    variant = attempt.variant or fallback_variant
+    if not isinstance(content_id, str) or not content_id.strip():
+        return None
+    if not isinstance(variant, str) or not variant.strip():
+        return None
+    return content_id.strip(), variant.strip()
+
+
 async def _get_exercise_index(exercise: Exercise, lesson: Lesson, db: AsyncSession) -> int:
     result = await db.execute(
         select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
@@ -568,14 +606,10 @@ async def answer_exercise(
     exercise.user_answer = data.answer
     exercise.answered_at = datetime.now(UTC).replace(tzinfo=None)
 
-    latest_attempt = await db.scalar(
-        select(ExerciseAttempt)
-        .where(
-            ExerciseAttempt.user_id == current_user.id,
-            ExerciseAttempt.exercise_id == exercise.id,
-        )
-        .order_by(ExerciseAttempt.attempt_number.desc())
-        .limit(1)
+    latest_attempt = await _get_latest_attempt(
+        db,
+        user_id=current_user.id,
+        exercise_id=exercise.id,
     )
     max_attempt = latest_attempt.attempt_number if latest_attempt else None
     attempt_number = int(max_attempt or 0) + 1
@@ -868,14 +902,10 @@ async def adaptive_next_exercise(
             detail="Exercise does not have a stable content identity",
         )
 
-    latest_attempt = await db.scalar(
-        select(ExerciseAttempt)
-        .where(
-            ExerciseAttempt.user_id == current_user.id,
-            ExerciseAttempt.exercise_id == exercise.id,
-        )
-        .order_by(ExerciseAttempt.attempt_number.desc())
-        .limit(1)
+    latest_attempt = await _get_latest_attempt(
+        db,
+        user_id=current_user.id,
+        exercise_id=exercise.id,
     )
     if latest_attempt is None:
         raise HTTPException(
@@ -886,14 +916,17 @@ async def adaptive_next_exercise(
     # Base adaptive progression on the persisted attempt identity. The lesson
     # content can be regenerated or normalized after an answer, but the latest
     # attempt remains the authoritative variant/content identity for the score.
-    attempted_content_id = latest_attempt.content_id or content_id
-    attempted_variant = latest_attempt.variant or current_variant
-    if not isinstance(attempted_content_id, str) or not attempted_content_id.strip():
+    persisted_identity = _persisted_attempt_identity(
+        latest_attempt,
+        fallback_content_id=content_id,
+        fallback_variant=current_variant,
+    )
+    if persisted_identity is None:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="Latest attempt does not have a stable content identity",
         )
-    attempted_content_id = attempted_content_id.strip()
+    attempted_content_id, attempted_variant = persisted_identity
 
     result = await db.execute(
         select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
@@ -969,15 +1002,11 @@ async def retry_exercise(
             detail="Exercise does not have a stable content identity for retry",
         )
 
-    latest_attempt = await db.scalar(
-        select(ExerciseAttempt)
-        .where(
-            ExerciseAttempt.user_id == current_user.id,
-            ExerciseAttempt.exercise_id == exercise.id,
-        )
-        .order_by(ExerciseAttempt.attempt_number.desc())
-        .limit(1)
-        .with_for_update()
+    latest_attempt = await _get_latest_attempt(
+        db,
+        user_id=current_user.id,
+        exercise_id=exercise.id,
+        for_update=True,
     )
     if latest_attempt is None:
         raise HTTPException(
@@ -1007,14 +1036,17 @@ async def retry_exercise(
     )
     attempted_exercise_ids = collect_attempted_exercise_ids(attempt_result.scalars().all())
 
-    attempted_content_id = latest_attempt.content_id or content_id
-    attempted_variant = latest_attempt.variant or content_exercise.get("variant") or exercise.exercise_type
-    if not isinstance(attempted_content_id, str) or not attempted_content_id.strip():
+    persisted_identity = _persisted_attempt_identity(
+        latest_attempt,
+        fallback_content_id=content_id,
+        fallback_variant=content_exercise.get("variant") or exercise.exercise_type,
+    )
+    if persisted_identity is None:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="Latest attempt does not have a stable content identity for retry",
         )
-    attempted_content_id = attempted_content_id.strip()
+    attempted_content_id, attempted_variant = persisted_identity
 
     _action, target_variant, target = recommend_adaptive_variant(
         lesson_exercises,
