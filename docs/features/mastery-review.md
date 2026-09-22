@@ -41,3 +41,8 @@ When a review answer scores below the struggling threshold, the session keeps th
 ### Candidate mastery completion
 
 A review session now ends when the exercise just reviewed reaches the `mastered` state in the refreshed attempt summary. The lesson mastery aggregate is refreshed before the completion state is displayed, so the final mastery rate and delta reflect the post-answer state. If the candidate is not yet mastered, the existing session selection and struggling-answer retention rules continue to apply.
+
+
+### Immediate candidate state hydration
+
+After each review answer, the client reconciles the answered exercise with the refreshed attempt summary before deciding whether to continue the session. The candidate's `mastery_score`, `mastery_state`, and `mastery_variants` are written into the local exercise model immediately, preventing the mastery card from displaying the pre-answer state while the aggregate mastery request is completing.
