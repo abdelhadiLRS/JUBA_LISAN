@@ -97,3 +97,16 @@ export async function fetchNextMasteryExercise(lessonId: number): Promise<Lesson
   if (!response.ok) throw new Error('mastery_next_failed')
   return response.json() as Promise<LessonMasteryNextResponse>
 }
+
+
+export async function fetchNextSkillMasteryExercise(
+  lessonId: number,
+  skill: string,
+): Promise<LessonMasteryNextResponse | null> {
+  const response = await apiFetch(
+    `/api/lessons/${lessonId}/mastery/skills/${encodeURIComponent(skill)}/next`,
+  )
+  if (response.status === 404) return null
+  if (!response.ok) throw new Error('skill_mastery_next_failed')
+  return response.json() as Promise<LessonMasteryNextResponse>
+}
