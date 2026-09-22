@@ -855,7 +855,15 @@
     "last7Days": "7 derniers jours",
     "exercises": "Exercices",
     "sevenDayXp": "XP sur 7 jours",
-    "reviewLink": "Réviser"
+    "reviewLink": "Réviser",
+    "masteryCenter": "Centre de maîtrise",
+    "masteryOverview": "Vue d’ensemble de la maîtrise",
+    "masteryRate": "Taux de maîtrise",
+    "attempted": "Tentés",
+    "coveredVariants": "Variantes couvertes",
+    "averageMastery": "Maîtrise moyenne",
+    "nextSkill": "Compétence suivante",
+    "practice": "Pratiquer"
   },
   "grammar": {
     "title": "Grammaire",
