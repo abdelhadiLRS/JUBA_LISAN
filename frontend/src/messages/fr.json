@@ -798,7 +798,16 @@
     "noActivePlanDesc": "Faites l'évaluation pour commencer à suivre vos compétences.",
     "vocabularyHeader": "Vocabulaire {level}",
     "currentLevelOnly": "Niveau actuel uniquement",
-    "allLevels": "Tous les niveaux"
+    "allLevels": "Tous les niveaux",
+    "activityRange": "Période d’activité",
+    "sevenDays": "7 jours",
+    "thirtyDays": "30 jours",
+    "last30Days": "30 derniers jours",
+    "allTime": "Depuis le début",
+    "rangeXp": "XP sur la période",
+    "rangeAccuracy": "Précision sur la période",
+    "activeDays": "Jours actifs",
+    "avgDailyXp": "XP quotidien moyen"
   },
   "grammar": {
     "title": "Grammaire",
