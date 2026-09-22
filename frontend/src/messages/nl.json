@@ -798,7 +798,16 @@
     "noActivePlanDesc": "Voltooi de beoordeling om je vaardigheden bij te houden.",
     "vocabularyHeader": "{level} woordenschat",
     "currentLevelOnly": "Alleen huidig niveau",
-    "allLevels": "Alle niveaus"
+    "allLevels": "Alle niveaus",
+    "activityRange": "Activiteitsperiode",
+    "sevenDays": "7 dagen",
+    "thirtyDays": "30 dagen",
+    "last30Days": "Laatste 30 dagen",
+    "allTime": "Altijd",
+    "rangeXp": "XP in periode",
+    "rangeAccuracy": "Nauwkeurigheid in periode",
+    "activeDays": "Actieve dagen",
+    "avgDailyXp": "Gem. XP per dag"
   },
   "grammar": {
     "title": "Grammaticareferentie",
