@@ -694,11 +694,13 @@
     "masteryReviewLoading": "Se selectează…",
     "masteryReviewNone": "Nu mai este necesară recapitularea stăpânirii.",
     "masteryReviewLowest": "Cea mai mică stăpânire",
-    "masteryReviewReasons": {
-      "struggling": "Recapitulare a stăpânirii",
-      "unseen": "exercițiu nevăzut",
-      "lowest_mastery": "cea mai mică stăpânire"
-    }
+    "masteryReviewSession": "Sesiune de recapitulare a stăpânirii",
+    "masteryReviewProgress": "{count} exerciții revizuite",
+    "masteryReviewFinish": "Încheie recapitularea",
+    "masteryReviewNext": "Următorul exercițiu de stăpânire",
+    "masteryReviewImproved": "Stăpânire îmbunătățită",
+    "masteryReviewImprovedDesc": "Rata ta de stăpânire s-a îmbunătățit în timpul acestei recapitulări. Sesiunea s-a încheiat."
+
   },
   "flashcards": {
     "title": "Carduri flash",
