@@ -107,3 +107,10 @@ The lesson UI can start a mastery review for the highest-priority skill without 
 filters the lesson's exercises by the requested skill, applies the same struggling → unseen → learning priority and excludes mastered exercises. Skill matching is case-insensitive and ignores surrounding whitespace. A missing skill or a skill with no remaining mastery target returns a documented 4xx response.
 
 When a skill-focused review is active, subsequent mastery targets remain scoped to that skill until the review is finished or the target is exhausted. This keeps the user's practice intent stable instead of silently switching back to another skill.
+
+
+## Skill label normalization contract
+
+Skill labels are canonicalized in one shared backend helper before aggregation or skill-focused targeting. A label is trimmed, case-folded, and ignored when it is empty or non-string; duplicate labels on the same exercise are collapsed. The same normalization is used by the aggregate service and by `/{lesson_id}/mastery/skills/{skill}/next`, so a skill such as `Grammar`, ` grammar `, or `GRAMMAR` addresses the same mastery bucket.
+
+The skill-focused endpoint also uses the same stable `mastery_reason()` mapping as lesson-level targeting. This keeps recommendation reasons consistent across lesson-wide and skill-scoped review clients.
