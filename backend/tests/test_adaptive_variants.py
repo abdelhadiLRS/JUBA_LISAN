@@ -398,6 +398,25 @@ def test_recommendation_reinforces_middle_score_without_target():
     ) == ("reinforce", None, None)
 
 
+def test_recommend_adaptive_action_rejects_boolean_scores():
+    import pytest
+
+    with pytest.raises(ValueError, match="score must be numeric"):
+        recommend_adaptive_action(True, "multiple_choice", ["fill_blank"])
+
+
+def test_recommend_adaptive_variant_rejects_boolean_scores():
+    import pytest
+
+    with pytest.raises(ValueError, match="score must be numeric"):
+        recommend_adaptive_variant(
+            [VariantExercise(1, "c1", "multiple_choice")],
+            content_id="c1",
+            current_variant="multiple_choice",
+            score=False,
+        )
+
+
 def test_recommend_adaptive_action_normalizes_runtime_score_values():
     assert recommend_adaptive_action(
         "0.90",
