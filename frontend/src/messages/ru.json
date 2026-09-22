@@ -798,7 +798,16 @@
     "noActivePlanDesc": "Завершите оценку для отслеживания навыков.",
     "vocabularyHeader": "Словарный запас {level}",
     "currentLevelOnly": "Только текущий уровень",
-    "allLevels": "Все уровни"
+    "allLevels": "Все уровни",
+    "activityRange": "Период активности",
+    "sevenDays": "7 дней",
+    "thirtyDays": "30 дней",
+    "last30Days": "Последние 30 дней",
+    "allTime": "За всё время",
+    "rangeXp": "XP за период",
+    "rangeAccuracy": "Точность за период",
+    "activeDays": "Активные дни",
+    "avgDailyXp": "Средний XP в день"
   },
   "grammar": {
     "title": "Справочник по грамматике",
