@@ -35,7 +35,10 @@ from app.schemas.lessons import (
     NativeExplanationResponse,
 )
 from app.services.language_helpers import get_language_name, get_native_language_name
-from app.services.lesson_mastery import summarize_lesson_mastery
+from app.services.lesson_mastery import (
+    select_next_mastery_candidate,
+    summarize_lesson_mastery,
+)
 from app.services.lesson_generator import (
     evaluate_fill_blank,
     evaluate_free_write,
@@ -861,50 +864,39 @@ async def get_next_mastery_exercise(
         else []
     )
 
-    candidates: list[tuple[tuple[int, float, int], ExerciseResponse]] = []
-    state_priority = {"struggling": 0, "unseen": 1, "learning": 2, "mastered": 3}
-
-    for index, exercise in enumerate(exercises):
-        content = content_exercises[index] if index < len(content_exercises) else {}
-        if not isinstance(content, dict):
-            content = {}
-        content_id = content.get("content_id")
-        mastery_score, mastery_state, mastery_variants = summarize_adaptive_mastery(
-            attempts,
-            content_id=content_id if isinstance(content_id, str) else "",
-        )
-        response = _build_exercise_response(
-            exercise,
-            content=content,
-            content_id=content_id if isinstance(content_id, str) else None,
-            variant=content.get("variant"),
-            mastery_score=mastery_score,
-            mastery_state=mastery_state,
-            mastery_variants=mastery_variants,
-        )
-        candidates.append(
-            (
-                (
-                    state_priority.get(mastery_state, 2),
-                    mastery_score,
-                    exercise.id,
-                ),
-                response,
-            )
-        )
-
-    candidates.sort(key=lambda item: item[0])
-    selected = next(
-        (item for item in candidates if item[1].mastery_state != "mastered"),
-        None,
+    candidate = select_next_mastery_candidate(
+        exercises,
+        attempts,
+        get_content_id=lambda item: (
+            content_exercises[item.id - exercises[0].id].get("content_id")
+            if 0 <= item.id - exercises[0].id < len(content_exercises)
+            and isinstance(content_exercises[item.id - exercises[0].id], dict)
+            else ""
+        ),
+        get_exercise_id=lambda item: item.id,
     )
-    if selected is None:
+    if candidate is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="All lesson exercises are mastered",
         )
+
+    exercise = candidate.exercise
+    index = next(index for index, item in enumerate(exercises) if item.id == exercise.id)
+    content = content_exercises[index] if index < len(content_exercises) else {}
+    if not isinstance(content, dict):
+        content = {}
+
     return LessonMasteryNextResponse(
-        exercise=selected[1],
+        exercise=_build_exercise_response(
+            exercise,
+            content=content,
+            content_id=content.get("content_id"),
+            variant=content.get("variant"),
+            mastery_score=candidate.mastery_score,
+            mastery_state=candidate.mastery_state,
+            mastery_variants=candidate.mastery_variants,
+        ),
         reason="lowest_mastery",
     )
 
