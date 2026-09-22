@@ -693,6 +693,7 @@
     "masteryReviewAction": "Réviser la compétence la plus faible",
     "masteryReviewLoading": "Sélection…",
     "masteryReviewNone": "Aucune autre révision de maîtrise n’est nécessaire.",
+    "masteryReviewLowest": "Maîtrise la plus faible",
     "masteryReviewReasons": {
       "struggling": "Révision de maîtrise",
       "unseen": "exercice non vu",
