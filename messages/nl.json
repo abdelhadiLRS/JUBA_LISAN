@@ -707,8 +707,13 @@
     "skillMasteryMastered": "beheerst",
     "skillMasteryAttempted": "pogingen",
     "skillMasteryAttemptRate": "Pogingpercentage: {rate}%",
-    "skillMasteryVariants": "varianten"
-  \n    "masteryStates": {\n      "unseen": "Ongezien",\n      "struggling": "Moeite",\n      "learning": "In ontwikkeling",\n      "mastered": "Beheerst"\n    },},
+    "skillMasteryVariants": "varianten",
+    "masteryStates": {
+      "unseen": "Ongezien",
+      "struggling": "Moeite",
+      "learning": "In ontwikkeling",
+      "mastered": "Beheerst"
+    },
   "flashcards": {
     "title": "Flashcards",
     "due": "Te herhalen",
