@@ -734,11 +734,13 @@
     "masteryReviewLoading": "Choosing…",
     "masteryReviewNone": "No further mastery review is needed.",
     "masteryReviewLowest": "Lowest mastery",
-    "masteryReviewReasons": {
-      "struggling": "Mastery review",
-      "unseen": "unseen exercise",
-      "lowest_mastery": "lowest mastery"
-    }
+    "masteryReviewSession": "Mastery review session",
+    "masteryReviewProgress": "{count} exercises reviewed",
+    "masteryReviewFinish": "Finish review",
+    "masteryReviewNext": "Next mastery exercise",
+    "masteryReviewImproved": "Mastery improved",
+    "masteryReviewImprovedDesc": "Your mastery rate improved during this review. The session is complete."
+
   },
   "flashcards": {
     "title": "Flashcards",
