@@ -708,7 +708,8 @@
       "mastered": "Beherrscht"
     },
     "transcriptLabel": "Transkript",
-    "listeningPractice": "Hörtraining öffnen"
+    "listeningPractice": "Hörtraining öffnen",
+    "audioLoadError": "Audio konnte nicht geladen werden. Du kannst mit dem Transkript fortfahren."
   },
   "flashcards": {
     "title": "Karteikarten",
