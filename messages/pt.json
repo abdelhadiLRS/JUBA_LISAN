@@ -693,6 +693,7 @@
     "masteryReviewAction": "Rever habilidade mais fraca",
     "masteryReviewLoading": "A selecionar…",
     "masteryReviewNone": "Não é necessária mais revisão de domínio.",
+    "masteryReviewLowest": "Menor domínio",
     "masteryReviewReasons": {
       "struggling": "Revisão de domínio",
       "unseen": "exercício não visto",
