@@ -702,6 +702,10 @@
     "masteryReviewImprovedDesc": "A sua taxa de domínio melhorou durante esta revisão. A sessão terminou.",
     "masteryReviewExhausted": "Revisão de domínio concluída",
     "masteryReviewExhaustedDesc": "Não há mais exercícios para revisar e consolidar o domínio."
+    "skillMastery": "Domínio de competências",
+    "skillMasteryDesc": "Veja o nível de domínio de cada competência de aprendizagem nesta lição.",
+    "skillMasteryMastered": "dominadas",
+    "skillMasteryAttempted": "tentadas",
   },
   "flashcards": {
     "title": "Cartões",
