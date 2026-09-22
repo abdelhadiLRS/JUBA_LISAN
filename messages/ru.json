@@ -699,8 +699,9 @@
     "masteryReviewFinish": "Завершить повторение",
     "masteryReviewNext": "Следующее упражнение на освоение",
     "masteryReviewImproved": "Освоение улучшилось",
-    "masteryReviewImprovedDesc": "Ваш уровень освоения улучшился во время этого повторения. Сеанс завершён."
-
+    "masteryReviewImprovedDesc": "Ваш уровень освоения улучшился во время этого повторения. Сеанс завершён.",
+    "masteryReviewExhausted": "Повторение для закрепления завершено",
+    "masteryReviewExhaustedDesc": "Больше нет упражнений для повторения с целью закрепления материала."
   },
   "flashcards": {
     "title": "Карточки",
