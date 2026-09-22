@@ -92,7 +92,8 @@ export default function CourseLevelPage() {
             const readingCount = lessons.filter((lesson) => /read|reading/i.test(lesson.lesson_type)).length
             const state = journey?.state ?? (unit.prerequisite_unit ? 'locked' : 'available')
             const canOpen = levelUnlocked && state !== 'locked'
-            return <article key={unit.id} className={state === 'completed' ? 'juba-card p-6 ring-1 ring-[var(--juba-primary)]' : 'juba-card p-6'}>
+            return (
+              <article key={unit.id} className={state === 'completed' ? 'juba-card p-6 ring-1 ring-[var(--juba-primary)]' : 'juba-card p-6'}>
               <div className='flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between'><div className='min-w-0'><div className='flex items-center gap-3'><span className='flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--juba-primary-soft)] text-sm font-black text-[var(--juba-primary-dark)]'>{String(unit.unit_number).padStart(2, '0')}</span><div><p className='text-xs font-bold uppercase tracking-[.16em] text-fl-muted-2'>{unit.level} · {t('unit')} {unit.unit_number}</p><h2 className='mt-1 text-xl font-black text-fl-fg'>{unit.title}</h2></div></div>
               <div className='mt-5 flex flex-wrap gap-2'>{unit.lesson_types.map((type) => <span key={type} className='rounded-full border border-fl-border bg-fl-surface-2 px-3 py-1 text-xs font-bold text-fl-muted'>{formatLessonType(type)}</span>)}{unit.grammar_points.slice(0, 3).map((point) => <span key={point} className='rounded-full border border-fl-border bg-fl-surface px-3 py-1 text-xs text-fl-muted-2'>{point}</span>)}</div>
               <div className='mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5'>
@@ -147,7 +148,8 @@ export default function CourseLevelPage() {
                   <LockKeyhole className='h-4 w-4' /> {t('locked')}
                 </span>
               )}</div></div>
-            </article>
+              </article>
+            )
           })}
         </section>
         {isCurrentLevel && <section className='juba-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between'><div><p className='juba-eyebrow'>{t('keepMoving')}</p><h2 className='mt-2 text-2xl font-black text-fl-fg'>{t('continue')}</h2><p className='mt-1 text-sm text-fl-muted-2'>{t('continueDesc')}</p></div><Link href='/plan' className='inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--juba-text)] px-5 py-3 font-bold text-[var(--juba-surface)]'>{t('openLearning')} <BookOpen className='h-4 w-4' /></Link></section>}
