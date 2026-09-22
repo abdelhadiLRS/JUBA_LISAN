@@ -699,8 +699,9 @@
     "masteryReviewFinish": "Încheie recapitularea",
     "masteryReviewNext": "Următorul exercițiu de stăpânire",
     "masteryReviewImproved": "Stăpânire îmbunătățită",
-    "masteryReviewImprovedDesc": "Rata ta de stăpânire s-a îmbunătățit în timpul acestei recapitulări. Sesiunea s-a încheiat."
-
+    "masteryReviewImprovedDesc": "Rata ta de stăpânire s-a îmbunătățit în timpul acestei recapitulări. Sesiunea s-a încheiat.",
+    "masteryReviewExhausted": "Recapitularea stăpânirii s-a încheiat",
+    "masteryReviewExhaustedDesc": "Nu mai există exerciții de repetat pentru consolidarea stăpânirii."
   },
   "flashcards": {
     "title": "Carduri flash",
