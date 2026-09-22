@@ -101,7 +101,7 @@ export default function LessonPage() {
       if (!cancelled) { setLesson(data.lesson); setExercises(data.exercises || []); setCompleted(!!data.lesson.is_completed); void loadAttemptSummary(data.lesson.id); void loadLessonMastery(data.lesson.id); void loadNextMasteryExercise(data.lesson.id) }
     }).catch(() => { if (!cancelled) router.replace('/plan') })
     return () => { cancelled = true }
-  }, [id, router, loadAttemptSummary, loadLessonMastery])
+  }, [id, router, loadAttemptSummary, loadLessonMastery, loadNextMasteryExercise])
 
   const attemptStats = useMemo(() => {
     if (!attemptSummary.length) return null
@@ -241,7 +241,7 @@ export default function LessonPage() {
       setNativeHint(null)
       setNativeExplanation(null)
       void loadAttempts(result.id)
-      if (lesson) { void loadAttemptSummary(lesson.id); void loadLessonMastery(lesson.id) }
+      if (lesson) { void loadAttemptSummary(lesson.id); void loadLessonMastery(lesson.id); void loadNextMasteryExercise(lesson.id) }
     } catch { /* keep the answered exercise visible when no adaptive variant is available */ } finally { setEvaluating(false) }
   }
 
@@ -268,7 +268,7 @@ export default function LessonPage() {
       setDayComplete(false)
       setAnswer('')
       void loadAttempts(result.id)
-      if (lesson) { void loadAttemptSummary(lesson.id); void loadLessonMastery(lesson.id) }
+      if (lesson) { void loadAttemptSummary(lesson.id); void loadLessonMastery(lesson.id); void loadNextMasteryExercise(lesson.id) }
     } catch { /* keep the failed exercise visible so the user can retry later */ } finally { setEvaluating(false) }
   }
 
@@ -279,7 +279,7 @@ export default function LessonPage() {
       const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/answer`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ answer: answer.trim() }) })
       if (!res.ok) throw new Error('answer_failed')
       const result = await res.json()
-      setExercises((prev) => prev.map((item) => item.id === exercise.id ? { ...item, ...result } : item)); setAnswer(''); void loadAttempts(exercise.id); if (lesson) { void loadAttemptSummary(lesson.id); void loadLessonMastery(lesson.id) }; markLearningProgressUpdated()
+      setExercises((prev) => prev.map((item) => item.id === exercise.id ? { ...item, ...result } : item)); setAnswer(''); void loadAttempts(exercise.id); if (lesson) { void loadAttemptSummary(lesson.id); void loadLessonMastery(lesson.id); void loadNextMasteryExercise(lesson.id) }; markLearningProgressUpdated()
     } catch { /* keep answer so the user can retry */ } finally { setEvaluating(false) }
   }
 
