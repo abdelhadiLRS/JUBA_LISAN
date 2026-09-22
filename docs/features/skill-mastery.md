@@ -49,6 +49,7 @@ Skill-focused exercise selection uses the same lesson mastery selector, so the s
 
 The lesson screen exposes:
 
+- an explicit completion state when every tracked skill is mastered;
 - a lesson-level mastery snapshot;
 - a prioritized skill coverage section;
 - a direct practice action on every non-mastered skill;
