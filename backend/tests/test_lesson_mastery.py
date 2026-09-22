@@ -56,3 +56,19 @@ def test_lesson_mastery_treats_blank_or_non_string_content_as_unseen():
     assert result.attempt_rate == 0.0
     assert result.mastery_rate == 0.0
     assert result.covered_variants == 0
+
+
+def test_lesson_mastery_rate_is_zero_for_empty_lesson():
+    result = summarize_lesson_mastery(
+        [],
+        [],
+        get_content_id=lambda item: item.content_id,
+    )
+
+    assert result.total_exercises == 0
+    assert result.attempted_exercises == 0
+    assert result.mastered_exercises == 0
+    assert result.average_mastery_score == 0.0
+    assert result.attempt_rate == 0.0
+    assert result.mastery_rate == 0.0
+    assert result.covered_variants == 0
