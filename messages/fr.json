@@ -1723,5 +1723,7 @@
     "shortcutHint": "Espace pour révéler · 1–4 pour évaluer",
     "spaceShortcut": "Espace pour révéler",
     "rateKeys": "1 Encore · 2 Difficile · 3 Bien · 4 Facile"
-  }
+  },
+  "masteryReviewExhausted": "Révision de maîtrise terminée",
+  "masteryReviewExhaustedDesc": "Tous les exercices de cette leçon sont maîtrisés. Vous pouvez continuer à apprendre ou réviser plus tard."
 }
