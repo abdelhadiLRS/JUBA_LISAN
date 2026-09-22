@@ -306,3 +306,50 @@ async def test_mastery_center_does_not_count_unmapped_exercise_content_as_attemp
     assert data["unseen_exercises"] == 1
     assert data["average_mastery_score"] == 0.0
 
+@pytest.mark.asyncio
+async def test_mastery_center_normalizes_and_deduplicates_skill_labels(client, test_user, db_session):
+    from app.models.lesson import Exercise, Lesson
+    from tests.conftest import make_study_plan
+
+    user, headers = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    lesson = Lesson(
+        study_plan_id=plan.id,
+        title="Normalized skills",
+        lesson_type="lesson",
+        cefr_level="A1",
+        week_number=1,
+        day_number=1,
+        content={"exercises": [{
+            "content_id": "normalized-1",
+            "skills": [" Grammar ", "grammar", "", 7],
+        }]},
+    )
+    db_session.add(lesson)
+    await db_session.flush()
+    db_session.add(Exercise(
+        lesson_id=lesson.id,
+        exercise_type="multiple_choice",
+        question="q",
+        correct_answer="a",
+    ))
+    await db_session.commit()
+
+    response = await client.get("/api/progress/mastery", headers=headers)
+
+    assert response.status_code == 200
+    data = response.json()
+    assert [skill["skill"] for skill in data["skills"]] == ["grammar"]
+    assert data["skills"][0]["total_exercises"] == 1
+    assert data["next_skill"]["skill"] == "grammar"
