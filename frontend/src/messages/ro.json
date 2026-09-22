@@ -798,7 +798,16 @@
     "noActivePlanDesc": "Finalizează evaluarea pentru a urmări abilitățile.",
     "vocabularyHeader": "Vocabular {level}",
     "currentLevelOnly": "Doar nivelul curent",
-    "allLevels": "Toate nivelurile"
+    "allLevels": "Toate nivelurile",
+    "activityRange": "Interval de activitate",
+    "sevenDays": "7 zile",
+    "thirtyDays": "30 zile",
+    "last30Days": "Ultimele 30 de zile",
+    "allTime": "Tot timpul",
+    "rangeXp": "XP în interval",
+    "rangeAccuracy": "Precizie în interval",
+    "activeDays": "Zile active",
+    "avgDailyXp": "XP zilnic mediu"
   },
   "grammar": {
     "title": "Referință gramaticală",
