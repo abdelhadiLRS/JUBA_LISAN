@@ -31,3 +31,8 @@ The lesson UI now turns the next-target endpoint into a focused review session:
 ### Session progress feedback
 
 The review session records the mastery rate at session start. When a completed review raises the lesson mastery rate, the session ends and the UI keeps the final rate so it can show the exact positive delta (for example, `Δ +8%`). The active session card also exposes the current candidate reason and uses an ARIA live region so progress changes are announced to assistive technology.
+
+
+### Struggling-answer retention
+
+When a review answer scores below the struggling threshold, the session keeps the answered exercise in place instead of immediately replacing it with another candidate. Existing retry and adaptive-variant actions remain available, allowing the learner to reinforce the same weak item before the session moves on.
