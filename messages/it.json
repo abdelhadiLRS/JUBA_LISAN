@@ -704,6 +704,7 @@
     "masteryReviewExhaustedDesc": "Non ci sono altri esercizi da ripassare per consolidare la padronanza.",
     "skillMastery": "Padronanza delle competenze",
     "skillMasteryDesc": "Scopri quanto è consolidata ogni competenza di apprendimento in questa lezione.",
+    "skillMasteryPractice": "Pratica questa competenza",
     "skillMasteryMastered": "acquisite",
     "skillMasteryAttempted": "svolte",
     "skillMasteryAttemptRate": "Tasso di tentativi: {rate}%",
