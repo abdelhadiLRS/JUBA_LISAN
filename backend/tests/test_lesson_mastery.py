@@ -28,6 +28,7 @@ def test_lesson_mastery_aggregates_states_and_variants():
         get_content_id=lambda item: item.content_id,
     )
 
+    assert result.mastery_state == "struggling"
     assert result.total_exercises == 4
     assert result.attempted_exercises == 3
     assert result.mastered_exercises == 1
@@ -55,6 +56,7 @@ def test_lesson_mastery_treats_blank_or_non_string_content_as_unseen():
         get_content_id=lambda item: item.content_id,
     )
 
+    assert result.mastery_state == "unseen"
     assert result.attempted_exercises == 0
     assert result.unseen_exercises == 2
     assert result.average_mastery_score == 0.0
@@ -70,6 +72,7 @@ def test_lesson_mastery_rate_is_zero_for_empty_lesson():
         get_content_id=lambda item: item.content_id,
     )
 
+    assert result.mastery_state == "unseen"
     assert result.total_exercises == 0
     assert result.attempted_exercises == 0
     assert result.mastered_exercises == 0
@@ -77,6 +80,46 @@ def test_lesson_mastery_rate_is_zero_for_empty_lesson():
     assert result.attempt_rate == 0.0
     assert result.mastery_rate == 0.0
     assert result.covered_variants == 0
+
+
+def test_lesson_mastery_state_is_learning_when_attempted_without_struggling():
+    exercises = [
+        SimpleNamespace(content_id="alpha"),
+        SimpleNamespace(content_id="beta"),
+    ]
+    attempts = [
+        SimpleNamespace(content_id="alpha", variant="a", score=0.70),
+        SimpleNamespace(content_id="beta", variant="a", score=0.90),
+    ]
+
+    result = summarize_lesson_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: item.content_id,
+    )
+
+    assert result.mastery_state == "learning"
+
+
+def test_lesson_mastery_state_is_mastered_when_every_exercise_is_mastered():
+    exercises = [
+        SimpleNamespace(content_id="alpha"),
+        SimpleNamespace(content_id="beta"),
+    ]
+    attempts = [
+        SimpleNamespace(content_id="alpha", variant="a", score=0.80),
+        SimpleNamespace(content_id="alpha", variant="b", score=0.80),
+        SimpleNamespace(content_id="beta", variant="a", score=0.80),
+        SimpleNamespace(content_id="beta", variant="b", score=0.80),
+    ]
+
+    result = summarize_lesson_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: item.content_id,
+    )
+
+    assert result.mastery_state == "mastered"
 
 
 def test_next_mastery_candidate_prioritizes_struggling_then_unseen_then_learning():
