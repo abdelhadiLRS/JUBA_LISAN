@@ -110,3 +110,17 @@ export interface MemoryListResponse {
 export interface ClearMemoriesResponse {
   deleted: number
 }
+
+
+export interface SkillMastery {
+  skill: string
+  total_exercises: number
+  attempted_exercises: number
+  mastered_exercises: number
+  learning_exercises: number
+  struggling_exercises: number
+  unseen_exercises: number
+  average_mastery_score: number
+  mastery_rate: number
+  covered_variants: number
+}
