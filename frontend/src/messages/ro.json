@@ -1711,5 +1711,55 @@
     "label": "Întreținere",
     "title": "În mentenanță",
     "description": "Această secțiune este temporar indisponibilă pentru lucrări de întreținere. Încearcă din nou mai târziu."
+  },
+  "courseLevel": {
+    "notFound": "Cursul nu a fost găsit",
+    "choose": "Alege un nivel CEFR.",
+    "back": "Înapoi la cursuri",
+    "all": "Toate cursurile",
+    "units": "unități",
+    "completed": "lecții finalizate",
+    "ready": "disponibile acum",
+    "notUnlocked": "Acest nivel nu este încă deblocat.",
+    "unlockDesc": "Continuă planul actual de învățare pentru a debloca nivelurile CEFR următoare.",
+    "unit": "Unitate",
+    "grammar": "Gramatică",
+    "vocab": "Seturi de vocabular",
+    "competencies": "Competențe",
+    "byEnd": "La finalul acestei unități",
+    "mastery": "stăpânire",
+    "lessons": "lecții",
+    "openPlan": "Deschide planul",
+    "locked": "Blocat",
+    "keepMoving": "Continuă progresul",
+    "continue": "Continuă planul activ.",
+    "continueDesc": "Deschide lecțiile zilnice generate și continuă parcursul de învățare.",
+    "openLearning": "Deschide planul de învățare",
+    "levels": {
+      "A1": {
+        "title": "A1 · Începător",
+        "description": "Construiește o bază practică pentru comunicarea de zi cu zi."
+      },
+      "A2": {
+        "title": "A2 · Elementar",
+        "description": "Gestionează situații familiare cu mai multă încredere."
+      },
+      "B1": {
+        "title": "B1 · Intermediar",
+        "description": "Comunică independent pe teme cotidiene."
+      },
+      "B2": {
+        "title": "B2 · Intermediar superior",
+        "description": "Exprimă idei cu mai multă varietate, precizie și nuanță."
+      },
+      "C1": {
+        "title": "C1 · Avansat",
+        "description": "Comunică fluent în contexte academice și profesionale solicitante."
+      },
+      "C2": {
+        "title": "C2 · Măiestrie",
+        "description": "Rafinează precizia, flexibilitatea și exprimarea naturală."
+      }
+    }
   }
 }
