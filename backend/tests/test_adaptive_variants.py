@@ -6,6 +6,7 @@ from app.services.adaptive_variants import (
     collect_attempted_exercise_ids,
     recommend_adaptive_action,
     select_unanswered_variant,
+    summarize_adaptive_mastery,
     recommend_adaptive_variant,
 )
 
@@ -844,3 +845,65 @@ def test_recommendation_rejects_non_finite_numeric_strings():
                 current_variant="multiple_choice",
                 score=value,
             )
+
+
+def test_mastery_uses_best_score_once_per_distinct_variant():
+    attempts = [
+        {"content_id": "c1", "variant": "multiple-choice", "score": 1.0},
+        {"content_id": "c1", "variant": "multiple-choice", "score": 0.2},
+        {"content_id": "c1", "variant": "fill_blank", "score": 0.8},
+        {"content_id": "other", "variant": "translate", "score": 1.0},
+    ]
+
+    score, state, covered = summarize_adaptive_mastery(
+        attempts,
+        content_id="c1",
+        get_content_id=lambda item: item["content_id"],
+        get_variant=lambda item: item["variant"],
+        get_score=lambda item: item["score"],
+    )
+
+    assert score == 0.9
+    assert state == "mastered"
+    assert covered == 2
+
+
+def test_mastery_distinguishes_struggling_from_learning():
+    attempts = [
+        {"content_id": "c1", "variant": "multiple_choice", "score": 0.4},
+        {"content_id": "c1", "variant": "fill_blank", "score": 0.6},
+    ]
+
+    assert summarize_adaptive_mastery(
+        attempts,
+        content_id="c1",
+        get_content_id=lambda item: item["content_id"],
+        get_variant=lambda item: item["variant"],
+        get_score=lambda item: item["score"],
+    ) == (0.5, "learning", 2)
+
+    score, state, covered = summarize_adaptive_mastery(
+        [{"content_id": "c1", "variant": "multiple_choice", "score": 0.3}],
+        content_id="c1",
+        get_content_id=lambda item: item["content_id"],
+        get_variant=lambda item: item["variant"],
+        get_score=lambda item: item["score"],
+    )
+    assert (score, state, covered) == (0.3, "struggling", 1)
+
+
+def test_mastery_ignores_invalid_scores_and_empty_identity():
+    attempts = [
+        {"content_id": "c1", "variant": "translate", "score": float("nan")},
+        {"content_id": "c1", "variant": True, "score": 1.0},
+    ]
+
+    assert summarize_adaptive_mastery(
+        attempts,
+        content_id="c1",
+        get_content_id=lambda item: item["content_id"],
+        get_variant=lambda item: item["variant"],
+        get_score=lambda item: item["score"],
+    ) == (0.0, "unseen", 0)
+
+    assert summarize_adaptive_mastery(attempts, content_id=" ") == (0.0, "unseen", 0)
