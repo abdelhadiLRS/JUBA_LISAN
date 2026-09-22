@@ -1723,5 +1723,7 @@
     "shortcutHint": "Spazio per rivelare · 1–4 per valutare",
     "spaceShortcut": "Spazio per rivelare",
     "rateKeys": "1 Ancora · 2 Difficile · 3 Bene · 4 Facile"
-  }
+  },
+  "masteryReviewExhausted": "Ripasso della padronanza completato",
+  "masteryReviewExhaustedDesc": "Tutti gli esercizi di questa lezione sono stati padroneggiati. Puoi continuare a imparare o ripassare più tardi."
 }
