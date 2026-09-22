@@ -1711,5 +1711,55 @@
     "label": "Onderhoud",
     "title": "In onderhoud",
     "description": "Dit gedeelte is tijdelijk niet beschikbaar vanwege onderhoud. Probeer het later opnieuw."
+  },
+  "courseLevel": {
+    "notFound": "Cursus niet gevonden",
+    "choose": "Kies een ERK-niveau.",
+    "back": "Terug naar cursussen",
+    "all": "Alle cursussen",
+    "units": "eenheden",
+    "completed": "lessen voltooid",
+    "ready": "nu beschikbaar",
+    "notUnlocked": "Dit niveau is nog niet ontgrendeld.",
+    "unlockDesc": "Ga door met je huidige leerplan om latere ERK-niveaus te ontgrendelen.",
+    "unit": "Eenheid",
+    "grammar": "Grammatica",
+    "vocab": "Woordenschatsets",
+    "competencies": "Competenties",
+    "byEnd": "Aan het einde van deze eenheid",
+    "mastery": "beheersing",
+    "lessons": "lessen",
+    "openPlan": "Plan openen",
+    "locked": "Vergrendeld",
+    "keepMoving": "Blijf doorgaan",
+    "continue": "Ga door met je actieve plan.",
+    "continueDesc": "Open de gegenereerde dagelijkse lessen en blijf je leertraject volgen.",
+    "openLearning": "Leerplan openen",
+    "levels": {
+      "A1": {
+        "title": "A1 · Starter",
+        "description": "Bouw een praktische basis voor dagelijkse communicatie."
+      },
+      "A2": {
+        "title": "A2 · Elementair",
+        "description": "Ga steeds zelfverzekerder om met vertrouwde situaties."
+      },
+      "B1": {
+        "title": "B1 · Gemiddeld",
+        "description": "Communiceer zelfstandig over alledaagse onderwerpen."
+      },
+      "B2": {
+        "title": "B2 · Hoger gemiddeld",
+        "description": "Druk ideeën uit met meer bereik, nauwkeurigheid en nuance."
+      },
+      "C1": {
+        "title": "C1 · Gevorderd",
+        "description": "Communiceer vloeiend in veeleisende academische en professionele contexten."
+      },
+      "C2": {
+        "title": "C2 · Meesterschap",
+        "description": "Verfijn precisie, flexibiliteit en natuurlijke uitdrukking."
+      }
+    }
   }
 }
