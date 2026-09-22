@@ -70,6 +70,29 @@ class SkillMasteryAggregate:
     covered_variants: int
 
 
+def normalise_skill_labels(raw_skills: Sequence[object] | object | None) -> tuple[str, ...]:
+    """Return canonical, non-empty skill labels with duplicates removed."""
+    if isinstance(raw_skills, str):
+        raw_skills = [raw_skills]
+    if raw_skills is None:
+        return ()
+
+    labels: list[str] = []
+    seen: set[str] = set()
+    for raw_skill in raw_skills:
+        if not isinstance(raw_skill, str):
+            continue
+        skill = raw_skill.strip()
+        if not skill:
+            continue
+        canonical_skill = skill.casefold()
+        if canonical_skill in seen:
+            continue
+        seen.add(canonical_skill)
+        labels.append(canonical_skill)
+    return tuple(labels)
+
+
 def summarize_skill_mastery(
     exercises: Sequence[object],
     attempts: Sequence[object],
@@ -85,23 +108,7 @@ def summarize_skill_mastery(
     grouped: dict[str, list[object]] = {}
 
     for exercise in exercises:
-        raw_skills = get_skills(exercise)
-        if isinstance(raw_skills, str):
-            raw_skills = [raw_skills]
-        if raw_skills is None:
-            continue
-
-        seen_skills: set[str] = set()
-        for raw_skill in raw_skills:
-            if not isinstance(raw_skill, str):
-                continue
-            skill = raw_skill.strip()
-            if not skill:
-                continue
-            canonical_skill = skill.casefold()
-            if canonical_skill in seen_skills:
-                continue
-            seen_skills.add(canonical_skill)
+        for canonical_skill in normalise_skill_labels(get_skills(exercise)):
             grouped.setdefault(canonical_skill, []).append(exercise)
 
     aggregates: list[SkillMasteryAggregate] = []
