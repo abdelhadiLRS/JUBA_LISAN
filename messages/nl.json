@@ -693,6 +693,7 @@
     "masteryReviewAction": "Zwakste vaardigheid herhalen",
     "masteryReviewLoading": "Selecteren…",
     "masteryReviewNone": "Geen verdere beheersingsherhaling nodig.",
+    "masteryReviewLowest": "Laagste beheersing",
     "masteryReviewReasons": {
       "struggling": "Beheersingsherhaling",
       "unseen": "ongeziene oefening",
