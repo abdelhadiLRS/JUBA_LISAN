@@ -1157,6 +1157,88 @@ async def get_next_lesson_skill_mastery(
     )
 
 
+@router.get(
+    "/{lesson_id}/mastery/skills/{skill}/next",
+    response_model=LessonMasteryNextResponse,
+)
+@limiter.limit("60/minute")
+async def get_next_lesson_skill_exercise(
+    request: Request,
+    lesson_id: int,
+    skill: str,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return the next mastery exercise belonging to a requested skill."""
+    lesson = await _get_lesson_for_user(lesson_id, current_user.id, db)
+    requested_skill = skill.strip().casefold()
+    if not requested_skill:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Skill must not be empty",
+        )
+
+    exercise_result = await db.execute(
+        select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
+    )
+    exercises = exercise_result.scalars().all()
+    content_exercises = (
+        lesson.content.get("exercises", [])
+        if isinstance(lesson.content, dict)
+        else []
+    )
+    content_by_exercise_id = _map_content_exercises(exercises, content_exercises)
+    skill_exercises = [
+        exercise
+        for exercise in exercises
+        if any(
+            isinstance(raw_skill, str) and raw_skill.strip().casefold() == requested_skill
+            for raw_skill in (content_by_exercise_id.get(exercise.id, {}).get("skills") or [])
+        )
+    ]
+    if not skill_exercises:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No exercises found for this skill",
+        )
+
+    attempt_result = await db.execute(
+        select(ExerciseAttempt).where(
+            ExerciseAttempt.lesson_id == lesson.id,
+            ExerciseAttempt.user_id == current_user.id,
+        )
+    )
+    attempts = attempt_result.scalars().all()
+    candidate = select_next_mastery_candidate(
+        skill_exercises,
+        attempts,
+        get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
+        get_exercise_id=lambda item: item.id,
+    )
+    if candidate is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="All exercises for this skill are mastered",
+        )
+
+    exercise = candidate.exercise
+    content = content_by_exercise_id.get(exercise.id, {})
+    if not isinstance(content, dict):
+        content = {}
+    return LessonMasteryNextResponse(
+        exercise=_build_exercise_response(
+            exercise,
+            content=content,
+            content_id=content.get("content_id"),
+            variant=content.get("variant"),
+            mastery_score=candidate.mastery_score,
+            mastery_state=candidate.mastery_state,
+            mastery_variants=candidate.mastery_variants,
+        ),
+        reason=mastery_reason(candidate.mastery_state),
+    )
+
+
 @router.post(
     "/exercises/{exercise_id}/adaptive-next",
     response_model=AdaptiveNextResponse,
