@@ -861,3 +861,170 @@ async def test_lesson_mastery_next_returns_404_when_all_exercises_are_mastered(
     assert response.status_code == 404
     assert response.json()["detail"] == "All lesson exercises are mastered"
 \n
+
+@pytest.mark.asyncio
+async def test_lesson_mastery_skill_next_filters_exercises_by_skill(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    from app.models.lesson import Exercise, ExerciseAttempt, Lesson
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A2",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    lesson = Lesson(
+        study_plan_id=plan.id,
+        title="Skill focused mastery",
+        lesson_type="grammar",
+        cefr_level="A2",
+        week_number=1,
+        day_number=1,
+        content={
+            "exercises": [
+                {
+                    "type": "multiple_choice",
+                    "question": "Vocabulary target?",
+                    "options": ["A", "B"],
+                    "correct": "A",
+                    "content_id": "vocab-item",
+                    "variant": "vocab-a",
+                    "skills": ["Vocabulary"],
+                },
+                {
+                    "type": "multiple_choice",
+                    "question": "Grammar target?",
+                    "options": ["A", "B"],
+                    "correct": "B",
+                    "content_id": "grammar-item",
+                    "variant": "grammar-a",
+                    "skills": ["Grammar"],
+                },
+            ]
+        },
+    )
+    db_session.add(lesson)
+    await db_session.flush()
+    vocabulary = Exercise(
+        lesson_id=lesson.id,
+        exercise_type="multiple_choice",
+        question="Vocabulary target?",
+        options=["A", "B"],
+        correct_answer="A",
+    )
+    grammar = Exercise(
+        lesson_id=lesson.id,
+        exercise_type="multiple_choice",
+        question="Grammar target?",
+        options=["A", "B"],
+        correct_answer="B",
+    )
+    db_session.add_all([vocabulary, grammar])
+    await db_session.commit()
+
+    response = await client.get(
+        f"/api/lessons/{lesson.id}/mastery/skills/GRAMMAR/next",
+        headers=headers,
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["exercise"]["question"] == "Grammar target?"
+    assert data["exercise"]["content_id"] == "grammar-item"
+    assert data["exercise"]["skills"] == ["Grammar"]
+    assert data["reason"] == "unseen"
+
+
+@pytest.mark.asyncio
+async def test_lesson_mastery_skill_next_returns_404_when_skill_is_mastered(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    from app.models.lesson import Exercise, ExerciseAttempt, Lesson
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A2",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    lesson = Lesson(
+        study_plan_id=plan.id,
+        title="Mastered skill",
+        lesson_type="grammar",
+        cefr_level="A2",
+        week_number=1,
+        day_number=1,
+        content={
+            "exercises": [
+                {
+                    "type": "multiple_choice",
+                    "question": "Grammar mastered?",
+                    "options": ["A", "B"],
+                    "correct": "A",
+                    "content_id": "grammar-item",
+                    "skills": ["grammar"],
+                }
+            ]
+        },
+    )
+    db_session.add(lesson)
+    await db_session.flush()
+    exercise = Exercise(
+        lesson_id=lesson.id,
+        exercise_type="multiple_choice",
+        question="Grammar mastered?",
+        options=["A", "B"],
+        correct_answer="A",
+    )
+    db_session.add(exercise)
+    await db_session.flush()
+    db_session.add_all([
+        ExerciseAttempt(
+            user_id=user.id,
+            exercise_id=exercise.id,
+            lesson_id=lesson.id,
+            study_plan_id=plan.id,
+            content_id="grammar-item",
+            variant="a",
+            attempt_number=1,
+            user_answer="A",
+            score=0.8,
+            feedback="Correct",
+        ),
+        ExerciseAttempt(
+            user_id=user.id,
+            exercise_id=exercise.id,
+            lesson_id=lesson.id,
+            study_plan_id=plan.id,
+            content_id="grammar-item",
+            variant="b",
+            attempt_number=2,
+            user_answer="A",
+            score=0.8,
+            feedback="Correct",
+        ),
+    ])
+    await db_session.commit()
+
+    response = await client.get(
+        f"/api/lessons/{lesson.id}/mastery/skills/grammar/next",
+        headers=headers,
+    )
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == "All exercises for this skill are mastered"
