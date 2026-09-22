@@ -748,7 +748,8 @@
       "mastered": "Mastered"
     },
     "transcriptLabel": "Transcript",
-    "listeningPractice": "Open listening practice"
+    "listeningPractice": "Open listening practice",
+    "audioLoadError": "Audio could not be loaded. You can continue with the transcript."
   },
   "flashcards": {
     "title": "Flashcards",
