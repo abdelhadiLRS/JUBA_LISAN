@@ -682,6 +682,8 @@
     "lessonProgress": "Lesvoortgang",
     "masteryOverview": "Beheersing van de les",
     "masteryCoverage": "{{covered}} varianten behandeld",
+    "masteryAttemptRate": "Pogingspercentage: {{rate}}%",
+    "masteryRate": "Beheersingspercentage: {{rate}}%",
     "masteryAttempted": "Geprobeerd",
     "masteryLearning": "In ontwikkeling",
     "masteryStruggling": "Moeilijk",
