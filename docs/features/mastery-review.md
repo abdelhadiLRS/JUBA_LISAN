@@ -14,3 +14,15 @@ JUBA LISAN exposes lesson-level mastery targeting through:
 5. Response reasons are stable: `struggling`, `unseen`, or `lowest_mastery`.
 
 The selection logic is isolated in `backend/app/services/lesson_mastery.py` so API and future UI review flows can reuse the same policy.
+
+
+## Review session
+
+The lesson UI now turns the next-target endpoint into a focused review session:
+
+- Starting review captures the current lesson mastery rate.
+- Each completed review exercise advances to a fresh mastery candidate.
+- The session does not complete the lesson itself.
+- If the lesson mastery rate increases during the session, the review session ends and reports the improvement.
+- The learner can also finish the review session manually at any time.
+- If no non-mastered candidate remains, the session ends automatically.
