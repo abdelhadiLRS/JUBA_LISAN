@@ -706,7 +706,8 @@
       "struggling": "Necesita práctica",
       "learning": "Aprendiendo",
       "mastered": "Dominado"
-    }
+    },
+    "transcriptLabel": "Transcripción"
   },
   "flashcards": {
     "title": "Tarjetas",
