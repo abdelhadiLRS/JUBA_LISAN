@@ -52,6 +52,7 @@ from app.services.adaptive_variants import (
     collect_attempted_exercise_ids,
     recommend_adaptive_action,
     recommend_adaptive_variant,
+    summarize_adaptive_mastery,
 )
 from app.services.progress_service import update_daily_progress, upsert_unit_competency
 
@@ -749,6 +750,11 @@ async def answer_exercise(
             exercise.score, attempt.variant
         )
 
+    answer_mastery_score, answer_mastery_state, answer_mastery_variants = summarize_adaptive_mastery(
+        history_attempts,
+        content_id=attempt.content_id or "",
+    )
+
     return ExerciseAnswerResponse(
         id=exercise.id,
         score=exercise.score,
@@ -762,7 +768,10 @@ async def answer_exercise(
         score_delta=round(
             exercise.score - latest_attempt.score, 3
         ) if latest_attempt is not None else 0.0,
-        mastered=exercise.score >= 0.80,
+        mastered=answer_mastery_state == "mastered",
+        mastery_score=answer_mastery_score,
+        mastery_state=answer_mastery_state,
+        mastery_variants=answer_mastery_variants,
         recommended_action=recommended_action,
         recommended_variant=recommended_variant,
     )
@@ -835,6 +844,10 @@ async def list_lesson_attempt_summary(
         latest = max(items, key=lambda item: (item.attempt_number, item.answered_at))
         first = min(items, key=lambda item: item.attempt_number)
         best_score = max(item.score for item in items)
+        mastery_score, mastery_state, covered_variants = summarize_adaptive_mastery(
+            all_attempts,
+            content_id=latest.content_id or content_by_exercise_id.get(exercise_id, {}).get("content_id") or "",
+        )
 
         current_exercise = next(
             (exercise for exercise in lesson_exercises if exercise.id == exercise_id),
@@ -884,8 +897,11 @@ async def list_lesson_attempt_summary(
                 latest_score=latest.score,
                 first_score=first.score,
                 improvement=round(latest.score - first.score, 3),
-                mastered=best_score >= 0.80,
-                needs_retry=best_score < 0.50,
+                mastered=mastery_state == "mastered",
+                needs_retry=mastery_state == "struggling",
+                mastery_score=mastery_score,
+                mastery_state=mastery_state,
+                mastery_variants=covered_variants,
                 latest_variant=latest_variant,
                 recommended_action=action,
                 recommended_variant=recommended_variant,
