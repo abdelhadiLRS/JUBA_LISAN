@@ -1226,7 +1226,7 @@ def test_persisted_attempt_identity_prefers_saved_values_and_normalizes_them():
     ("saved_variant", "expected_variant"),
     [
         (" Fill-Blank ", "fill_blank"),
-        ("MULTIPLE_CHOICE", "multiple-choice"),
+        ("MULTIPLE_CHOICE", "multiple_choice"),
         ("choice", "multiple_choice"),
     ],
 )
