@@ -27,6 +27,28 @@ export async function refreshAuthSession(): Promise<string | null> { return refr
 export async function apiFetch(url: string, options: RequestInit = {}): Promise<Response> { const { inc, dec } = useLoadingStore.getState(); inc(); try { return await _apiFetch(url, options) } finally { dec() } }
 async function _apiFetch(url: string, options: RequestInit = {}): Promise<Response> { const token = useAuthStore.getState().accessToken; const headers = new Headers(options.headers); headers.set('Accept', 'application/json'); if (token) headers.set('Authorization', `Bearer ${token}`); const requestOptions = { ...options, headers, credentials: 'include' as const, cache: 'no-store' as const }; const shouldTimeout = url === '/api/auth/me' || url === '/api/auth/refresh'; let res = shouldTimeout ? await fetchAuthRequest(`${BASE_URL}${url}`, requestOptions) : await fetch(`${BASE_URL}${url}`, requestOptions); const isAuthEntryPoint = url === '/api/auth/login' || url === '/api/auth/register'; if (res.status === 401 && token && !isAuthEntryPoint) { const newToken = await refreshToken(); if (newToken) { headers.set('Authorization', `Bearer ${newToken}`); res = await fetch(`${BASE_URL}${url}`, { ...requestOptions, headers }) } } return res }
 export function apiUrl(path: string): string { return `${BASE_URL}${path}` }
+
+export type SkillMasterySnapshot = {
+  skill: string
+  total_exercises: number
+  attempted_exercises: number
+  mastered_exercises: number
+  learning_exercises: number
+  struggling_exercises: number
+  unseen_exercises: number
+  average_mastery_score: number
+  attempt_rate: number
+  mastery_rate: number
+  covered_variants: number
+}
+
+export async function fetchLessonSkillMastery(lessonId: number, skill: string): Promise<SkillMasterySnapshot | null> {
+  const normalizedSkill = skill.trim()
+  if (!normalizedSkill) return null
+  const res = await apiFetch('/api/lessons/' + lessonId + '/mastery/skills/' + encodeURIComponent(normalizedSkill))
+  if (!res.ok) return null
+  return (await res.json()) as SkillMasterySnapshot
+}
 export type TranslatorSavedWord = { source: string; target: string; word: string; translation: string; createdAt?: string }
 const TRANSLATOR_STORAGE_KEY = 'juba_lisan_saved_vocabulary'; const REVIEW_STORAGE_KEY = 'juba_lisan_review_state'
 type GuestReviewCard = { repetitions: number; interval: number; ease: number; due: number }
