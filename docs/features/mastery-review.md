@@ -14,6 +14,7 @@ JUBA LISAN exposes lesson-level mastery targeting through:
 5. Response reasons are stable: `struggling`, `unseen`, or `lowest_mastery`.
 
 The selection logic is isolated in `backend/app/services/lesson_mastery.py` so API and future UI review flows can reuse the same policy.
+The lesson-wide and skill-wide selectors share one canonical state-priority table in `lesson_mastery.py`, so `struggling → unseen → learning → mastered` cannot drift between review surfaces.
 
 
 ## Review session
