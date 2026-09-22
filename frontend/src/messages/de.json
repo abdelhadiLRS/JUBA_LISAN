@@ -1558,6 +1558,7 @@
     "audioError": "Audio konnte nicht geladen werden",
     "audioPlay": "Abspielen",
     "audioPause": "Pausieren",
+    "audioProgress": "Audiofortschritt",
     "alreadyAttempted": "Du hast diese Übung bereits abgeschlossen.",
     "errorLoading": "Übung konnte nicht geladen werden. Bitte erneut versuchen.",
     "errorSubmit": "Antworten konnten nicht gesendet werden. Bitte erneut versuchen.",
