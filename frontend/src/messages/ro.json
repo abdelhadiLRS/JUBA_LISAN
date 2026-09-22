@@ -1558,6 +1558,7 @@
     "audioError": "Imposibil de încărcat audio",
     "audioPlay": "Redă",
     "audioPause": "Pauză",
+    "audioProgress": "Progresul audio",
     "alreadyAttempted": "Ai completat deja acest exercițiu.",
     "errorLoading": "Nu s-a putut încărca exercițiul. Încearcă din nou.",
     "errorSubmit": "Nu s-au putut trimite răspunsurile. Încearcă din nou.",
