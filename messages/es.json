@@ -707,8 +707,13 @@
     "skillMasteryMastered": "dominadas",
     "skillMasteryAttempted": "intentadas",
     "skillMasteryAttemptRate": "Tasa de intento: {rate}%",
-    "skillMasteryVariants": "variantes"
-  \n    "masteryStates": {\n      "unseen": "Sin explorar",\n      "struggling": "Con dificultades",\n      "learning": "En aprendizaje",\n      "mastered": "Dominado"\n    },},
+    "skillMasteryVariants": "variantes",
+    "masteryStates": {
+      "unseen": "Sin explorar",
+      "struggling": "Con dificultades",
+      "learning": "En aprendizaje",
+      "mastered": "Dominado"
+    },
   "flashcards": {
     "title": "Tarjetas",
     "due": "Para hoy",
