@@ -706,7 +706,8 @@
       "struggling": "Richiede pratica",
       "learning": "In apprendimento",
       "mastered": "Padroneggiato"
-    }
+    },
+    "transcriptLabel": "Trascrizione"
   },
   "flashcards": {
     "title": "Schede",
