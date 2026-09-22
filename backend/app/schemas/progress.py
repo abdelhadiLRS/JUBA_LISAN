@@ -55,6 +55,27 @@ class ProgressRangeSummary(BaseModel):
     average_daily_xp: float = 0.0
     skills: dict[str, float] = Field(default_factory=dict)
 
+class LearningGoalUpdate(BaseModel):
+    daily_xp_target: int = Field(default=50, ge=1, le=10000)
+    weekly_xp_target: int = Field(default=250, ge=1, le=70000)
+
+
+class LearningGoalResponse(BaseModel):
+    daily_xp_target: int
+    weekly_xp_target: int
+    daily_xp: int
+    weekly_xp: int
+    daily_progress: float
+    weekly_progress: float
+    daily_completed: bool
+    weekly_completed: bool
+    day: date
+    week_start: date
+    week_end: date
+
+    model_config = {"from_attributes": True}
+
+
 class GameStatsResponse(BaseModel):
     total_xp: int = 0
     games_played: int
