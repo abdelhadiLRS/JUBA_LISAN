@@ -403,7 +403,8 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
               } else if (masteryReviewMode && result.score !== null && result.score < 0.5) {
                 setMasteryNext(null)
               } else {
-                void loadNextMasteryExercise(lesson.id)
+                // Keep skill-focused sessions scoped to the selected skill.
+                void openMasteryCandidate()
               }
             }
           } catch { /* keep the review session usable when mastery refresh is unavailable */ }
