@@ -53,6 +53,73 @@ def mastery_reason(state: str) -> str:
     }.get(state, "lowest_mastery")
 
 
+
+@dataclass(frozen=True)
+class SkillMasteryAggregate:
+    skill: str
+    total_exercises: int
+    attempted_exercises: int
+    mastered_exercises: int
+    learning_exercises: int
+    struggling_exercises: int
+    unseen_exercises: int
+    average_mastery_score: float
+    mastery_rate: float
+    covered_variants: int
+
+
+def summarize_skill_mastery(
+    exercises: Sequence[object],
+    attempts: Sequence[object],
+    *,
+    get_content_id: Callable[[object], object],
+    get_skills: Callable[[object], Sequence[object] | object | None],
+) -> list[SkillMasteryAggregate]:
+    """Aggregate existing content mastery into reusable learning skills.
+
+    Skill mappings are supplied by the caller so the mastery engine does not
+    impose a storage format. Exercises may belong to multiple skills.
+    """
+    grouped: dict[str, list[object]] = {}
+
+    for exercise in exercises:
+        raw_skills = get_skills(exercise)
+        if isinstance(raw_skills, str):
+            raw_skills = [raw_skills]
+        if raw_skills is None:
+            continue
+        for raw_skill in raw_skills:
+            if not isinstance(raw_skill, str):
+                continue
+            skill = raw_skill.strip()
+            if skill:
+                grouped.setdefault(skill, []).append(exercise)
+
+    aggregates: list[SkillMasteryAggregate] = []
+    for skill in sorted(grouped):
+        lesson = summarize_lesson_mastery(
+            grouped[skill],
+            attempts,
+            get_content_id=get_content_id,
+        )
+        aggregates.append(
+            SkillMasteryAggregate(
+                skill=skill,
+                total_exercises=lesson.total_exercises,
+                attempted_exercises=lesson.attempted_exercises,
+                mastered_exercises=lesson.mastered_exercises,
+                learning_exercises=lesson.learning_exercises,
+                struggling_exercises=lesson.struggling_exercises,
+                unseen_exercises=lesson.unseen_exercises,
+                average_mastery_score=lesson.average_mastery_score,
+                mastery_rate=lesson.mastery_rate,
+                covered_variants=lesson.covered_variants,
+            )
+        )
+
+    return aggregates
+
+
 @dataclass(frozen=True)
 class LessonMasteryAggregate:
     total_exercises: int
