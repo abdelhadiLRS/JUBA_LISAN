@@ -97,7 +97,7 @@ export function ExerciseAudioPlayer({
         playedRef.current = true
         onFirstPlay?.()
       }
-    } catch (error) {
+    } catch {
       if (controller.signal.aborted || requestId !== requestIdRef.current) return
       setState('error')
     } finally {
@@ -117,6 +117,11 @@ export function ExerciseAudioPlayer({
   }
 
   useEffect(() => {
+    setState('idle')
+    setProgress(0)
+    setDuration(0)
+    playedRef.current = false
+
     return () => {
       requestIdRef.current += 1
       requestControllerRef.current?.abort()
