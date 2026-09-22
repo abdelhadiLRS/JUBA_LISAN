@@ -77,7 +77,6 @@ describe('adaptive action helpers', () => {
     expect(isAdaptiveReinforcementAction('reinforce')).toBe(true)
     expect(isAdaptiveReinforcementAction(null)).toBe(false)
   })
-})
 
   it('rejects blank or unrelated actions as retry targets', async () => {
     const { isAdaptiveRetryAction } = await import('@/lib/adaptive-exercise')
@@ -86,4 +85,3 @@ describe('adaptive action helpers', () => {
     expect(isAdaptiveRetryAction('advance')).toBe(false)
     expect(isAdaptiveRetryAction('retry')).toBe(false)
   })
-\n
