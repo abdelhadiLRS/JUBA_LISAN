@@ -49,6 +49,17 @@ export async function fetchLessonSkillMastery(lessonId: number, skill: string): 
   if (!res.ok) return null
   return (await res.json()) as SkillMasterySnapshot
 }
+
+export type SkillMasteryNextSnapshot = {
+  skill: SkillMasterySnapshot
+  reason: 'struggling' | 'unseen' | 'lowest_mastery'
+}
+
+export async function fetchNextLessonSkillMastery(lessonId: number): Promise<SkillMasteryNextSnapshot | null> {
+  const res = await apiFetch('/api/lessons/' + lessonId + '/mastery/skills/next')
+  if (!res.ok) return null
+  return (await res.json()) as SkillMasteryNextSnapshot
+}
 export type TranslatorSavedWord = { source: string; target: string; word: string; translation: string; createdAt?: string }
 const TRANSLATOR_STORAGE_KEY = 'juba_lisan_saved_vocabulary'; const REVIEW_STORAGE_KEY = 'juba_lisan_review_state'
 type GuestReviewCard = { repetitions: number; interval: number; ease: number; due: number }
