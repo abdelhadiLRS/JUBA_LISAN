@@ -106,6 +106,19 @@ async def _create_lesson_with_exercise(
 # ── GET /api/lessons/{lesson_id} ─────────────────────────────────────────────
 
 
+def test_persisted_attempt_identity_normalizes_missing_or_alias_values():
+    """Persisted adaptive identity always uses canonical variant names."""
+    from types import SimpleNamespace
+
+    attempt = SimpleNamespace(content_id=" saved-content ", variant=" Fill-Blank ")
+
+    assert _persisted_attempt_identity(
+        attempt,
+        fallback_content_id="fallback",
+        fallback_variant="multiple_choice",
+    ) == ("saved-content", "fill_blank")
+
+
 @pytest.mark.asyncio
 async def test_get_lesson_requires_auth(client):
     """GET /lessons/{id} without token returns 401."""
