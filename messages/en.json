@@ -742,6 +742,8 @@
     "masteryReviewImprovedDesc": "Your mastery rate improved during this review. The session is complete.",
     "masteryReviewExhausted": "Mastery review complete",
     "masteryReviewExhaustedDesc": "There are no remaining exercises to review for mastery.",
+    "skillMasteryExhausted": "Skill mastery review complete",
+    "skillMasteryExhaustedDesc": "No remaining exercises need mastery review for {skill}.",
     "skillMastery": "Skill mastery",
     "skillMasteryDesc": "See how well each learning skill is mastered in this lesson.",
     "skillMasteryPractice": "Practice this skill",
@@ -1777,6 +1779,4 @@
     "spaceShortcut": "Space to reveal",
     "rateKeys": "1 Again · 2 Hard · 3 Good · 4 Easy"
   },
-  "masteryReviewExhausted": "Mastery review complete",
-  "masteryReviewExhaustedDesc": "All exercises in this lesson are mastered. You can continue learning or review again later."
 }
