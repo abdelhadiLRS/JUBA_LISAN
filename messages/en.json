@@ -739,8 +739,9 @@
     "masteryReviewFinish": "Finish review",
     "masteryReviewNext": "Next mastery exercise",
     "masteryReviewImproved": "Mastery improved",
-    "masteryReviewImprovedDesc": "Your mastery rate improved during this review. The session is complete."
-
+    "masteryReviewImprovedDesc": "Your mastery rate improved during this review. The session is complete.",
+    "masteryReviewExhausted": "Mastery review complete",
+    "masteryReviewExhaustedDesc": "There are no remaining exercises to review for mastery."
   },
   "flashcards": {
     "title": "Flashcards",
