@@ -143,6 +143,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   const isLongFormExercise = /free write|free text|writing|open text|long text|essay|sentence/.test(normalizedExerciseType)
   const isChoiceExercise = Boolean(exercise?.options?.length)
   const isShortAnswerExercise = !isChoiceExercise && !isLongFormExercise
+  const isListeningExercise = /listen|listening|audio/.test(normalizedExerciseType)
   const exerciseAudioUrl = useMemo(() => {
     const metadata = exercise?.metadata
     if (!metadata) return null
@@ -489,6 +490,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
               <span className="rounded-full border border-[var(--juba-border)] bg-[var(--juba-surface)] px-3 py-1 text-[11px] font-extrabold text-[var(--juba-muted)]">{variantLabel}</span>
             </div>
             <h2 className="mt-5 text-2xl font-bold sm:text-3xl">{exercise.question}</h2>
+            {isListeningExercise && <Link href="/listening" className="mt-5 inline-flex items-center rounded-full border border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2 text-sm font-bold text-[var(--juba-text)] transition-colors hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)]">{t('listeningPractice')}</Link>}
             {(exerciseAudioUrl || exerciseTranscript) && <div className="mt-5 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4">
               {exerciseAudioUrl && <div>
                 <div className="mb-2 flex items-center justify-between gap-3">
