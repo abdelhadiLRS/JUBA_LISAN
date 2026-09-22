@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { hasAdaptiveTarget, mergeAdaptiveRecommendations } from '@/lib/adaptive-exercise'
+import {
+  hasAdaptiveTarget,
+  isAdaptiveReinforcementAction,
+  isAdaptiveRetryAction,
+  mergeAdaptiveRecommendations,
+} from '@/lib/adaptive-exercise'
 
 describe('mergeAdaptiveRecommendations', () => {
   it('hydrates persisted adaptive recommendations onto matching exercises', () => {
@@ -64,13 +69,10 @@ describe('mergeAdaptiveRecommendations', () => {
     expect(hasAdaptiveTarget({ exercise_id: 3, recommended_variant: '   ' })).toBe(false)
     expect(hasAdaptiveTarget({ exercise_id: 4, recommended_variant: null })).toBe(false)
   })
-
 })
-
 
 describe('adaptive action helpers', () => {
   it('classifies actionable adaptive targets', async () => {
-    const { isAdaptiveRetryAction, isAdaptiveReinforcementAction } = await import('@/lib/adaptive-exercise')
     expect(isAdaptiveRetryAction('retry_easier')).toBe(true)
     expect(isAdaptiveRetryAction('advance_harder')).toBe(true)
     expect(isAdaptiveRetryAction('reinforce')).toBe(false)
@@ -79,7 +81,6 @@ describe('adaptive action helpers', () => {
   })
 
   it('rejects blank or unrelated actions as retry targets', async () => {
-    const { isAdaptiveRetryAction } = await import('@/lib/adaptive-exercise')
     expect(isAdaptiveRetryAction()).toBe(false)
     expect(isAdaptiveRetryAction(null)).toBe(false)
     expect(isAdaptiveRetryAction('advance')).toBe(false)
