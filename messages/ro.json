@@ -701,11 +701,13 @@
     "masteryReviewImproved": "Stăpânire îmbunătățită",
     "masteryReviewImprovedDesc": "Rata ta de stăpânire s-a îmbunătățit în timpul acestei recapitulări. Sesiunea s-a încheiat.",
     "masteryReviewExhausted": "Recapitularea stăpânirii s-a încheiat",
-    "masteryReviewExhaustedDesc": "Nu mai există exerciții de repetat pentru consolidarea stăpânirii."
+    "masteryReviewExhaustedDesc": "Nu mai există exerciții de repetat pentru consolidarea stăpânirii.",
     "skillMastery": "Stăpânirea abilităților",
     "skillMasteryDesc": "Vezi cât de bine este stăpânită fiecare abilitate de învățare în această lecție.",
     "skillMasteryMastered": "stăpânite",
     "skillMasteryAttempted": "încercate",
+    "skillMasteryAttemptRate": "Rata încercărilor: {rate}%",
+    "skillMasteryVariants": "variante",
   },
   "flashcards": {
     "title": "Carduri flash",
