@@ -699,8 +699,9 @@
     "masteryReviewFinish": "Zakończ powtórkę",
     "masteryReviewNext": "Następne ćwiczenie opanowania",
     "masteryReviewImproved": "Opanowanie wzrosło",
-    "masteryReviewImprovedDesc": "Twój poziom opanowania wzrósł podczas tej powtórki. Sesja jest zakończona."
-
+    "masteryReviewImprovedDesc": "Twój poziom opanowania wzrósł podczas tej powtórki. Sesja jest zakończona.",
+    "masteryReviewExhausted": "Powtórka opanowania ukończona",
+    "masteryReviewExhaustedDesc": "Nie ma więcej ćwiczeń do powtórzenia w celu opanowania materiału."
   },
   "flashcards": {
     "title": "Fiszki",
