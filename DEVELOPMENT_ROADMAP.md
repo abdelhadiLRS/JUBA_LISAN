@@ -30,8 +30,9 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 ### Phase 4 — Onboarding ✅
 - ✅ Rebuilt with the JUBA LISAN identity (v1.8.42): JL monogram header, animated step-progress dots, rounded goal chips, modernized trial/subscription cards. Logic, endpoints, and edge cases unchanged.
 ### Phase 5 — Dashboard 🟡
-- ✅ Dashboard rebuilt with the JUBA LISAN identity (v1.8.41): hero next-step card, icon stat tiles (streak/XP/lessons/accuracy), rounded progress bars, skill performance grid with warm accent for weak skills, modernized premium banner and quick actions. All data contracts and behaviors preserved.
-- ❌ Retention-loop surfaces on home (items due for review, daily goal ring, smart motivation messages) — pending Smart Review backend surfaces (Phase 9).
+- ✅ Dashboard rebuilt with the JUBA LISAN identity (v1.8.41): hero next-step card, icon stat tiles (streak/XP/lessons/accuracy), rounded progress bars, skill performance grid with warm accent for weak skills, modernized premium banner and quick actions.
+- ✅ Daily Momentum surface now combines next lesson, server-provided review-due count, and server-authoritative daily XP goal progress.
+- 🔜 Remaining: richer retention-loop surfaces (smart motivation and additional review types) as the shared review queue expands.
 ### Phase 6 — Timeline A1–C2 🟡
 - ✅ Plan page rebuilt (v1.8.42): status-badge unit journey (check/play/lock/ribbon), warm active ring, pill progress bars, highlighted pending-lessons card, modernized unit drawer.
 - 🔜 Remaining: multi-level overview (A1→C2 progression map beyond the user's current plan level), unit content previews (vocabulary/grammar/listening counts as visual chips).
@@ -45,9 +46,18 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 ### Phase 12 — Speaking / Lingu ❌ (exists, not rebuilt)
 ### Phase 13 — Progress 🟡
 - ✅ Progress Center rebuilt (v1.8.43): header with level pill and icon stat tiles, competency status badges, segmented vocab toggle, skill bars with warm accent for weak skills.
-- ✅ Backend history aggregation added: `GET /api/progress/history/summary?range=week|month|all` with totals, accuracy, active days, average daily XP, and averaged skill scores.\n- ✅ Weekly/monthly/all-time range selector UI is wired to the range-aware history endpoint.
+- ✅ Backend history aggregation added: `GET /api/progress/history/summary?range=week|month|all` with totals, accuracy, active days, average daily XP, and averaged skill scores.
+- ✅ Weekly/monthly/all-time range selector UI is wired to the range-aware history endpoint.
+- ✅ Learning-goal milestone history and aggregate reward summaries are exposed and surfaced in the Progress Center.
+- 🔜 Remaining: dedicated mastery center and deeper retention analytics.
 ### Phase 14 — Mastery ❌ (competencies exist, not surfaced as mastery center)
-### Phase 15 — Streak / Goals / XP ❌ (goals exist at onboarding, no streak/XP system)
+### Phase 15 — Streak / Goals / XP 🟡
+- ✅ Persistent daily/weekly XP goals with configurable targets scoped to the active study plan.
+- ✅ Server-authoritative goal rewards: +25 XP daily and +75 XP weekly, once per period.
+- ✅ Reward XP tracked separately from learning XP so rewards cannot inflate goal completion.
+- ✅ Daily/weekly milestone history, aggregate reward summaries, and current-period reward claim state.
+- ✅ Dashboard daily XP goal and Progress Center reward/milestone surfaces are wired to the backend.
+- 🔜 Remaining: streak/retention analytics and richer achievement/profile presentation.
 ### Phase 16 — Discover / Social ❌
 ### Phase 17 — Profile 🟡
 - ✅ Settings shell + session-security + legal blocks modernized (v1.8.43); action cards RTL-aware.
