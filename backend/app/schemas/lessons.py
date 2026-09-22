@@ -161,6 +161,9 @@ class ExerciseAttemptSummaryResponse(BaseModel):
     improvement: float
     mastered: bool
     needs_retry: bool
+    mastery_score: float = 0.0
+    mastery_state: str = "unseen"
+    mastery_variants: int = 0
     latest_variant: str | None = None
     recommended_action: str = "reinforce"
     recommended_variant: str | None = None
@@ -185,6 +188,9 @@ class ExerciseAnswerResponse(BaseModel):
     attempts_count: int = 1
     score_delta: float = 0.0
     mastered: bool = False
+    mastery_score: float = 0.0
+    mastery_state: str = "unseen"
+    mastery_variants: int = 0
     recommended_action: str = "reinforce"
     recommended_variant: str | None = None
 
