@@ -748,7 +748,7 @@
     "skillMasteryAttempted": "attempted",
     "skillMasteryAttemptRate": "Attempt rate: {rate}%",
     "skillMasteryVariants": "variants"
-  },
+  \n    "masteryStates": {\n      "unseen": "Unseen",\n      "struggling": "Struggling",\n      "learning": "Learning",\n      "mastered": "Mastered"\n    },},
   "flashcards": {
     "title": "Flashcards",
     "due": "Due",
