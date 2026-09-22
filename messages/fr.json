@@ -1,6 +1,5 @@
 {
   "landing": {
-    "hero": "Apprenez les langues avec un vrai partenaire de conversation vocale",
     "heroSub": "Parlez. Écoutez. Progressez.",
     "signIn": "Se connecter",
     "dashboard": "Continuer",
@@ -16,7 +15,6 @@
     "feature5Desc": "Révision du vocabulaire par répétition espacée. L'algorithme SM-2 planifie chaque carte au moment optimal pour maximiser la rétention à long terme.",
     "feature6Title": "Progrès et séries",
     "feature6Desc": "XP, séries quotidiennes, scores de compétences et aptitudes par unité. Suivez votre progression semaine après semaine et testez votre niveau à la fin de chaque étape CECRL.",
-    "footer": "Open source · Auto-hébergez gratuitement ou abonnez-vous au service hébergé",
     "navFeatures": "Fonctionnalités",
     "navReviews": "Avis",
     "navPricing": "Tarifs",
