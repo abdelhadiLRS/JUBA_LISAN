@@ -1,6 +1,6 @@
 import random
 from datetime import UTC, date, datetime, timedelta
-from typing import cast
+from typing import Literal, cast
 from uuid import uuid4
 
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -917,6 +917,7 @@ async def get_history_summary(
 @limiter.limit("60/minute")
 async def get_history(
     request: Request,
+    range: Literal["week", "month", "all"] = "week",
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
@@ -924,15 +925,19 @@ async def get_history(
     if plan is None:
         return ProgressHistoryResponse(entries=[])
 
-    result = await db.execute(
+    query = (
         select(Progress)
         .where(
             Progress.user_id == current_user.id,
             Progress.study_plan_id == plan.id,
         )
         .order_by(Progress.date.desc())
-        .limit(90)
     )
+    if range == "week":
+        query = query.limit(7)
+    elif range == "month":
+        query = query.limit(30)
+    result = await db.execute(query)
     entries = result.scalars().all()
     return ProgressHistoryResponse(entries=entries)
 
