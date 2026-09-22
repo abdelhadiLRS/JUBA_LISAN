@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import math
-from datetime import date
+from datetime import date, datetime
 
 from pydantic import BaseModel, Field, field_serializer, field_validator
 
@@ -68,7 +68,7 @@ class LearningGoalMilestoneResponse(BaseModel):
     target_xp: int
     achieved_xp: int
     reward_xp: int
-    achieved_at: str
+    achieved_at: datetime
 
     model_config = {"from_attributes": True}
 
