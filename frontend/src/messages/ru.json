@@ -706,7 +706,8 @@
       "struggling": "Нужна практика",
       "learning": "В процессе",
       "mastered": "Освоено"
-    }
+    },
+    "transcriptLabel": "Транскрипция"
   },
   "flashcards": {
     "title": "Карточки",
