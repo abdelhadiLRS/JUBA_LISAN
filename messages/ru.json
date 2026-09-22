@@ -708,7 +708,7 @@
     "skillMasteryAttempted": "попыток",
     "skillMasteryAttemptRate": "Доля попыток: {rate}%",
     "skillMasteryVariants": "варианта"
-  },
+  \n    "masteryStates": {\n      "unseen": "Не изучено",\n      "struggling": "Сложно",\n      "learning": "В процессе",\n      "mastered": "Освоено"\n    },},
   "flashcards": {
     "title": "Карточки",
     "due": "К повторению",
