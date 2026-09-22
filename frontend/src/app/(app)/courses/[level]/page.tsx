@@ -27,12 +27,13 @@ export default function CourseLevelPage() {
 
   useEffect(() => {
     if (!level) { setLoading(false); return }
+    const curriculumLevel = level
     let cancelled = false
     async function load() {
       setLoading(true)
       const language = activeLanguage?.code ?? 'en-GB'
       const [curriculum, planRes, journeyRes] = await Promise.all([
-        getCurriculumUnits(level, language).catch(() => []),
+        getCurriculumUnits(curriculumLevel, language).catch(() => []),
         apiFetch('/api/study-plan/current').catch(() => null),
         apiFetch('/api/study-plan/learning-path').catch(() => null),
       ])
