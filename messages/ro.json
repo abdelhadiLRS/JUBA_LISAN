@@ -682,6 +682,8 @@
     "lessonProgress": "Progresul lecției",
     "masteryOverview": "Stăpânirea lecției",
     "masteryCoverage": "{{covered}} variante acoperite",
+    "masteryAttemptRate": "Rată de încercare: {{rate}}%",
+    "masteryRate": "Rată de stăpânire: {{rate}}%",
     "masteryAttempted": "Încercate",
     "masteryLearning": "În învățare",
     "masteryStruggling": "Dificile",
