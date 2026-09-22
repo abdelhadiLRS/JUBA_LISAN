@@ -704,6 +704,7 @@
     "masteryReviewExhaustedDesc": "Es gibt keine weiteren Übungen zur Wiederholung für die Beherrschung.",
     "skillMastery": "Kompetenzbeherrschung",
     "skillMasteryDesc": "Sieh, wie gut jede Lernkompetenz in dieser Lektion beherrscht wird.",
+    "skillMasteryPractice": "Diese Kompetenz üben",
     "skillMasteryMastered": "gemeistert",
     "skillMasteryAttempted": "bearbeitet",
     "skillMasteryAttemptRate": "Versuchsquote: {rate}%",
