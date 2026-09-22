@@ -27,6 +27,7 @@ from app.schemas.lessons import (
     ExerciseAttemptSummaryResponse,
     ExerciseResponse,
     LessonDetailResponse,
+    LessonMasteryNextResponse,
     LessonMasteryResponse,
     LessonResponse,
     NativeExerciseExplanationResponse,
@@ -822,6 +823,90 @@ async def list_exercise_attempts(
         .order_by(ExerciseAttempt.attempt_number)
     )
     return result.scalars().all()
+
+
+@router.get(
+    "/{lesson_id}/mastery/next",
+    response_model=LessonMasteryNextResponse,
+)
+@limiter.limit("60/minute")
+async def get_next_mastery_exercise(
+    request: Request,
+    lesson_id: int,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return the next lesson exercise that needs the most mastery work."""
+    lesson = await _get_lesson_for_user(lesson_id, current_user.id, db)
+    exercise_result = await db.execute(
+        select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
+    )
+    exercises = exercise_result.scalars().all()
+    if not exercises:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No exercises available for mastery",
+        )
+
+    attempt_result = await db.execute(
+        select(ExerciseAttempt).where(
+            ExerciseAttempt.lesson_id == lesson.id,
+            ExerciseAttempt.user_id == current_user.id,
+        )
+    )
+    attempts = attempt_result.scalars().all()
+    content_exercises = (
+        lesson.content.get("exercises", [])
+        if isinstance(lesson.content, dict)
+        else []
+    )
+
+    candidates: list[tuple[tuple[int, float, int], ExerciseResponse]] = []
+    state_priority = {"struggling": 0, "unseen": 1, "learning": 2, "mastered": 3}
+
+    for index, exercise in enumerate(exercises):
+        content = content_exercises[index] if index < len(content_exercises) else {}
+        if not isinstance(content, dict):
+            content = {}
+        content_id = content.get("content_id")
+        mastery_score, mastery_state, mastery_variants = summarize_adaptive_mastery(
+            attempts,
+            content_id=content_id if isinstance(content_id, str) else "",
+        )
+        response = _build_exercise_response(
+            exercise,
+            content=content,
+            content_id=content_id if isinstance(content_id, str) else None,
+            variant=content.get("variant"),
+            mastery_score=mastery_score,
+            mastery_state=mastery_state,
+            mastery_variants=mastery_variants,
+        )
+        candidates.append(
+            (
+                (
+                    state_priority.get(mastery_state, 2),
+                    mastery_score,
+                    exercise.id,
+                ),
+                response,
+            )
+        )
+
+    candidates.sort(key=lambda item: item[0])
+    selected = next(
+        (item for item in candidates if item[1].mastery_state != "mastered"),
+        None,
+    )
+    if selected is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="All lesson exercises are mastered",
+        )
+    return LessonMasteryNextResponse(
+        exercise=selected[1],
+        reason="lowest_mastery",
+    )
 
 
 @router.get(
