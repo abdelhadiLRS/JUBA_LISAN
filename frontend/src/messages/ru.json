@@ -698,7 +698,15 @@
     "saveError": "Ошибка",
     "keepLearning": "Продолжайте обучение с повторением.",
     "retryHarderVariant": "Продолжить с более сложным вариантом",
-    "retryEasierVariant": "Повторить с более простым вариантом"
+    "retryEasierVariant": "Повторить с более простым вариантом",
+    "mastery": "Освоение",
+    "masteryVariants": "Охвачено вариантов: {count}",
+    "masteryStates": {
+      "unseen": "Не начато",
+      "struggling": "Нужна практика",
+      "learning": "В процессе",
+      "mastered": "Освоено"
+    }
   },
   "flashcards": {
     "title": "Карточки",
