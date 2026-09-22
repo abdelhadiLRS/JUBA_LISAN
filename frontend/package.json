@@ -20,7 +20,8 @@
     "test:run": "vitest run",
     "postinstall": "node scripts/copy-vad-models.js",
     "desktop:build": "powershell -ExecutionPolicy Bypass -File ../scripts/build-desktop.ps1",
-    "desktop:dev": "npm run dev:electron"
+    "desktop:dev": "npm run dev:electron",
+    "check:i18n": "node ../scripts/check-message-keys.mjs"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.3",
