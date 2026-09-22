@@ -814,6 +814,13 @@
     "dailyChallenges": "Desafios diários",
     "unlocked": "Desbloqueadas",
     "noAchievements": "Jogue para desbloquear conquistas."
+    "goals": "Metas",
+    "dailyWeeklyGoals": "Metas diárias e semanais",
+    "dailyGoal": "Meta diária",
+    "weeklyGoal": "Meta semanal",
+    "dailyTarget": "Meta diária de XP",
+    "weeklyTarget": "Meta semanal de XP",
+    "saveGoals": "Salvar metas",
   },
   "grammar": {
     "title": "Gramática",
