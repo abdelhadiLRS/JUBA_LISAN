@@ -706,6 +706,8 @@
     "skillMasteryExhaustedDesc": "No quedan ejercicios que necesiten repaso de dominio para {skill}.",
     "skillMastery": "Dominio de habilidades",
     "skillMasteryDesc": "Consulta qué tan bien se domina cada habilidad de aprendizaje en esta lección.",
+    "skillMasteryComplete": "Todas las habilidades de aprendizaje están dominadas",
+    "skillMasteryCompleteDesc": "Todas las habilidades seguidas en esta lección han alcanzado el dominio.",
     "skillMasteryPractice": "Practicar esta habilidad",
     "skillMasteryMastered": "dominadas",
     "skillMasteryAttempted": "intentadas",
