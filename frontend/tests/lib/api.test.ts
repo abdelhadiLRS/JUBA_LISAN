@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { apiFetch } from '@/lib/api'
+import { apiFetch, fetchLessonSkillMastery } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
 import { useLoadingStore } from '@/store/loading'
 
@@ -93,6 +93,31 @@ describe('apiFetch', () => {
     await Promise.all([apiFetch('/api/test1'), apiFetch('/api/test2')])
 
     expect(refreshCallCount).toBe(1)
+  })
+
+
+  it('fetches a normalized lesson skill mastery snapshot', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(
+      new Response(JSON.stringify({ skill: 'grammar', mastery_rate: 0.75 }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+
+    const result = await fetchLessonSkillMastery(42, '  Grammar  ')
+
+    expect(result).toEqual({ skill: 'grammar', mastery_rate: 0.75 })
+    expect(fetch).toHaveBeenCalledWith(
+      '/api/lessons/42/mastery/skills/Grammar',
+      expect.objectContaining({ credentials: 'include', cache: 'no-store' }),
+    )
+  })
+
+  it('does not request skill mastery for an empty skill', async () => {
+    const result = await fetchLessonSkillMastery(42, '   ')
+
+    expect(result).toBeNull()
+    expect(fetch).not.toHaveBeenCalled()
   })
 
   it('increments and decrements loading counter', async () => {
