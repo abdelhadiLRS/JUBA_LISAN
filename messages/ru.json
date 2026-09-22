@@ -679,7 +679,13 @@
     "lessonFlowHint": "Учитесь → практикуйтесь → вспоминайте. Будьте активны и используйте каждый ответ.",
     "exerciseProgress": "Упражнение {current}/{total}",
     "tapToHear": "Нажмите на слово, чтобы услышать его",
-    "lessonProgress": "Прогресс урока"
+    "lessonProgress": "Прогресс урока",
+    "masteryOverview": "Освоение урока",
+    "masteryCoverage": "Охвачено вариантов: {{covered}}",
+    "masteryAttempted": "Пройдено",
+    "masteryLearning": "В изучении",
+    "masteryStruggling": "Сложно",
+    "masteryUnseen": "Не просмотрено"
   },
   "flashcards": {
     "title": "Карточки",
