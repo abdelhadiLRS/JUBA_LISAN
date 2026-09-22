@@ -46,6 +46,7 @@ from app.services.llm_adapter import (
     LLMUnavailableError,
     llm_adapter,
 )
+from app.services.exercise_retry import normalise_variant
 from app.services.adaptive_variants import (
     collect_attempted_exercise_ids,
     recommend_adaptive_action,
@@ -300,7 +301,10 @@ def _persisted_attempt_identity(
         return None
     if not isinstance(variant, str) or not variant.strip():
         return None
-    return content_id.strip(), variant.strip()
+    normalized_variant = normalise_variant(variant)
+    if not normalized_variant:
+        return None
+    return content_id.strip(), normalized_variant
 
 
 async def _get_exercise_index(exercise: Exercise, lesson: Lesson, db: AsyncSession) -> int:
