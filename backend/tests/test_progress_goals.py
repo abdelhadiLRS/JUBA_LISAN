@@ -127,6 +127,64 @@ async def test_daily_goal_reward_is_claimed_once(db_session, test_user):
 
 
 @pytest.mark.asyncio
+async def test_goal_rewards_do_not_count_toward_learning_goal_xp(db_session, test_user):
+    from app.models.learning_goal import LearningGoal
+    from app.models.learning_goal_milestone import LearningGoalMilestone
+    from app.models.progress import Progress
+    from app.services.progress_service import update_daily_progress
+    from tests.conftest import make_study_plan
+
+    user, _ = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add(LearningGoal(
+        user_id=user.id,
+        study_plan_id=plan.id,
+        daily_xp_target=1000,
+        weekly_xp_target=250,
+    ))
+    db_session.add(Progress(
+        user_id=user.id,
+        study_plan_id=plan.id,
+        date=date.today() - timedelta(days=1),
+        xp_earned=275,
+        reward_xp=75,
+        lessons_completed=0,
+        exercises_correct=0,
+        exercises_total=0,
+        streak_day=1,
+        skills={},
+    ))
+    await db_session.commit()
+
+    result = await update_daily_progress(
+        db_session, user.id, study_plan_id=plan.id, xp=5, commit=True
+    )
+    assert result is not None
+    assert result.reward_xp == 0
+
+    milestones = (
+        await db_session.execute(
+            select(LearningGoalMilestone).where(
+                LearningGoalMilestone.user_id == user.id,
+                LearningGoalMilestone.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert milestones == []
+
+
+@pytest.mark.asyncio
 async def test_goal_milestone_history_records_daily_and_weekly_rewards(client, test_user, db_session):
     from app.models.learning_goal_milestone import LearningGoalMilestone
     from app.models.progress import Progress
