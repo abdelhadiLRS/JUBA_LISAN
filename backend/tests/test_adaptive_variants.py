@@ -907,3 +907,45 @@ def test_mastery_ignores_invalid_scores_and_empty_identity():
     ) == (0.0, "unseen", 0)
 
     assert summarize_adaptive_mastery(attempts, content_id=" ") == (0.0, "unseen", 0)
+
+
+def test_middle_score_advances_after_mastery_is_established():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+        VariantExercise(3, "c1", "translate"),
+    ]
+    history = [
+        {"content_id": "c1", "variant": "multiple_choice", "score": 0.90},
+        {"content_id": "c1", "variant": "fill_blank", "score": 0.85},
+    ]
+
+    assert recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="fill_blank",
+        score=0.70,
+        attempt_history=history,
+        attempted_exercise_ids={1, 2},
+        attempted_adaptive_identities={("c1", "multiple_choice"), ("c1", "fill_blank")},
+    ) == ("advance", None, None)
+
+
+def test_middle_score_stays_reinforcement_before_mastery():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+    ]
+    history = [
+        {"content_id": "c1", "variant": "multiple_choice", "score": 0.90},
+    ]
+
+    assert recommend_adaptive_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        score=0.70,
+        attempt_history=history,
+        attempted_exercise_ids={1},
+        attempted_adaptive_identities={("c1", "multiple_choice")},
+    ) == ("reinforce", None, None)
