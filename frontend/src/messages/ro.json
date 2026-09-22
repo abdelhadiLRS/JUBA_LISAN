@@ -707,7 +707,8 @@
       "learning": "În învățare",
       "mastered": "Stăpânit"
     },
-    "transcriptLabel": "Transcriere"
+    "transcriptLabel": "Transcriere",
+    "listeningPractice": "Deschide practica de ascultare"
   },
   "flashcards": {
     "title": "Carduri flash",
