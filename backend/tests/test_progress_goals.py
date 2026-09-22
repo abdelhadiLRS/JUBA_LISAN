@@ -135,3 +135,129 @@ async def test_daily_goal_reward_is_claimed_once(db_session, test_user):
     )
     assert second is not None
     assert second.xp_earned == 80
+
+
+@pytest.mark.asyncio
+async def test_goal_milestone_history_records_daily_and_weekly_rewards(client, test_user, db_session):
+    from app.models.learning_goal_milestone import LearningGoalMilestone
+    from app.models.progress import Progress
+    from app.models.learning_goal import LearningGoal
+    from app.services.progress_service import update_daily_progress
+    from tests.conftest import make_study_plan
+
+    user, headers = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    goal = LearningGoal(
+        user_id=user.id,
+        study_plan_id=plan.id,
+        daily_xp_target=50,
+        weekly_xp_target=60,
+    )
+    db_session.add(goal)
+    db_session.add(
+        Progress(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            date=date.today(),
+            xp_earned=55,
+            lessons_completed=0,
+            exercises_correct=0,
+            exercises_total=0,
+            streak_day=1,
+            skills={},
+        )
+    )
+    await db_session.commit()
+
+    result = await update_daily_progress(
+        db_session,
+        user.id,
+        study_plan_id=plan.id,
+        xp=5,
+        commit=True,
+    )
+    assert result is not None
+
+    rows = (
+        await db_session.execute(
+            __import__("sqlalchemy").select(LearningGoalMilestone).where(
+                LearningGoalMilestone.user_id == user.id,
+                LearningGoalMilestone.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert {(row.goal_type, row.reward_xp) for row in rows} == {
+        ("daily", 25),
+        ("weekly", 75),
+    }
+
+    response = await client.get("/api/progress/goals/history", headers=headers)
+    assert response.status_code == 200
+    history = response.json()
+    assert len(history) == 2
+    assert {item["goal_type"] for item in history} == {"daily", "weekly"}
+    assert all(item["target_xp"] in {50, 60} for item in history)
+
+
+@pytest.mark.asyncio
+async def test_goal_milestone_history_is_user_scoped(client, test_user, db_session):
+    from app.models.learning_goal_milestone import LearningGoalMilestone
+    from app.models.user import User
+    from tests.conftest import make_study_plan
+
+    user, headers = test_user
+    other = User(email="other-goal-history@example.com", hashed_password="test-password")
+    db_session.add(other)
+    await db_session.flush()
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    other_plan = await make_study_plan(
+        db_session,
+        user_id=other.id,
+        cefr_level="A1",
+        target_language="fr-FR",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add(
+        LearningGoalMilestone(
+            user_id=other.id,
+            study_plan_id=other_plan.id,
+            goal_type="daily",
+            period_start=date.today(),
+            period_end=date.today(),
+            target_xp=50,
+            achieved_xp=60,
+            reward_xp=25,
+        )
+    )
+    await db_session.commit()
+
+    response = await client.get("/api/progress/goals/history", headers=headers)
+    assert response.status_code == 200
+    assert response.json() == []
