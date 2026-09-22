@@ -131,3 +131,4 @@ describe('adaptive action helpers', () => {
     expect(isAdaptiveRetryAction(' Advance_Harder ')).toBe(true)
     expect(isAdaptiveReinforcementAction(' Reinforce ')).toBe(true)
   })
+})
