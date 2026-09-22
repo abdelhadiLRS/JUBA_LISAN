@@ -708,7 +708,8 @@
       "mastered": "Maîtrisé"
     },
     "transcriptLabel": "Transcription",
-    "listeningPractice": "Ouvrir la pratique d’écoute"
+    "listeningPractice": "Ouvrir la pratique d’écoute",
+    "audioLoadError": "L’audio n’a pas pu être chargé. Vous pouvez continuer avec la transcription."
   },
   "flashcards": {
     "title": "Fiches",
