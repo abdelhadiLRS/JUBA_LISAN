@@ -883,6 +883,17 @@ async def adaptive_next_exercise(
             detail="Exercise must be answered before adaptive progression",
         )
 
+    # Base adaptive progression on the persisted attempt identity. The lesson
+    # content can be regenerated or normalized after an answer, but the latest
+    # attempt remains the authoritative variant/content identity for the score.
+    attempted_content_id = latest_attempt.content_id or content_id
+    attempted_variant = latest_attempt.variant or current_variant
+    if not isinstance(attempted_content_id, str) or not attempted_content_id.strip():
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Latest attempt does not have a stable content identity",
+        )
+
     result = await db.execute(
         select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
     )
@@ -900,8 +911,8 @@ async def adaptive_next_exercise(
 
     action, target_variant, target = recommend_adaptive_variant(
         lesson_exercises,
-        content_id=content_id,
-        current_variant=current_variant,
+        content_id=attempted_content_id,
+        current_variant=attempted_variant,
         score=latest_attempt.score,
         attempted_exercise_ids=attempted_exercise_ids,
         get_exercise_id=lambda item: item.id,
@@ -923,7 +934,7 @@ async def adaptive_next_exercise(
         exercise=_build_exercise_response(
             target,
             content=target_content,
-            content_id=content_id,
+            content_id=attempted_content_id,
             variant=target_variant,
         ),
     )
@@ -995,10 +1006,18 @@ async def retry_exercise(
     )
     attempted_exercise_ids = collect_attempted_exercise_ids(attempt_result.scalars().all())
 
+    attempted_content_id = latest_attempt.content_id or content_id
+    attempted_variant = latest_attempt.variant or content_exercise.get("variant") or exercise.exercise_type
+    if not isinstance(attempted_content_id, str) or not attempted_content_id.strip():
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Latest attempt does not have a stable content identity for retry",
+        )
+
     _action, target_variant, target = recommend_adaptive_variant(
         lesson_exercises,
-        content_id=content_id,
-        current_variant=content_exercise.get("variant") or exercise.exercise_type,
+        content_id=attempted_content_id,
+        current_variant=attempted_variant,
         score=latest_attempt.score,
         attempted_exercise_ids=attempted_exercise_ids,
         get_exercise_id=lambda item: item.id,
@@ -1017,7 +1036,7 @@ async def retry_exercise(
     return _build_exercise_response(
         target,
         content=target_content,
-        content_id=content_id,
+        content_id=attempted_content_id,
         variant=target_variant,
     )
 
