@@ -26,3 +26,8 @@ The lesson UI now turns the next-target endpoint into a focused review session:
 - If the lesson mastery rate increases during the session, the review session ends and reports the improvement.
 - The learner can also finish the review session manually at any time.
 - If no non-mastered candidate remains, the session ends automatically.
+
+
+### Session progress feedback
+
+The review session records the mastery rate at session start. When a completed review raises the lesson mastery rate, the session ends and the UI keeps the final rate so it can show the exact positive delta (for example, `Δ +8%`). The active session card also exposes the current candidate reason and uses an ARIA live region so progress changes are announced to assistive technology.
