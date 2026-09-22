@@ -1763,7 +1763,7 @@
     "saved": "enregistrées",
     "title": "Révision espacée",
     "complete": "Révision terminée",
-    "reviewed": "Vous avez révisé {count} cartes.",
+    "reviewed": "Vous avez révisé {count} {count, plural, one {carte} other {cartes}}.",
     "reviewAgain": "Réviser à nouveau",
     "reveal": "Afficher la traduction",
     "again": "Encore",
