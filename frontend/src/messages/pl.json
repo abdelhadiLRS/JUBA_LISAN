@@ -814,6 +814,13 @@
     "dailyChallenges": "Dzienne wyzwania",
     "unlocked": "Odblokowane",
     "noAchievements": "Graj, aby odblokować osiągnięcia."
+    "goals": "Cele",
+    "dailyWeeklyGoals": "Dzienne i tygodniowe cele",
+    "dailyGoal": "Cel dzienny",
+    "weeklyGoal": "Cel tygodniowy",
+    "dailyTarget": "Dzienny cel XP",
+    "weeklyTarget": "Tygodniowy cel XP",
+    "saveGoals": "Zapisz cele",
   },
   "grammar": {
     "title": "Podręcznik gramatyki",
