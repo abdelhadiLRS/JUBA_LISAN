@@ -1238,11 +1238,6 @@ async def get_next_lesson_skill_exercise(
         else []
     )
     content_by_exercise_id = _map_content_exercises(exercises, content_exercises)
-    if not requested_skill:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Skill must not be empty",
-        )
 
     attempt_result = await db.execute(
         select(ExerciseAttempt).where(
