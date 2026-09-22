@@ -1,3 +1,5 @@
+import { apiFetch } from '@/lib/api'
+
 export interface AdaptiveExerciseRecommendation {
   exercise_id: number
   recommended_action?: string | null
@@ -90,7 +92,7 @@ export interface LessonMasteryNextResponse {
 }
 
 export async function fetchNextMasteryExercise(lessonId: number): Promise<LessonMasteryNextResponse | null> {
-  const response = await fetch(`/api/lessons/${lessonId}/mastery/next`)
+  const response = await apiFetch(`/api/lessons/${lessonId}/mastery/next`)
   if (response.status === 404) return null
   if (!response.ok) throw new Error('mastery_next_failed')
   return response.json() as Promise<LessonMasteryNextResponse>
