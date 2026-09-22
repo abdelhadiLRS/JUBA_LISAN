@@ -56,3 +56,42 @@ export function isAdaptiveAdvanceAction(action?: string | null): boolean {
 export function isAdaptiveReinforcementAction(action?: string | null): boolean {
   return normaliseAdaptiveAction(action) === 'reinforce'
 }
+
+
+export interface LessonMasteryNextExercise {
+  id: number
+  lesson_id: number
+  exercise_type: string
+  question: string
+  options: string[] | null
+  correct_answer: string
+  explanation: string | null
+  native_explanation: string | null
+  user_answer: string | null
+  score: number | null
+  feedback: string | null
+  native_hint: string | null
+  content_id?: string | null
+  variant?: string | null
+  accepted_answers?: string[] | null
+  metadata?: Record<string, string> | null
+  recommended_action?: string
+  recommended_variant?: string | null
+  mastery_score?: number
+  mastery_state?: string
+  mastery_variants?: number
+}
+
+export type LessonMasteryNextReason = 'struggling' | 'unseen' | 'lowest_mastery'
+
+export interface LessonMasteryNextResponse {
+  exercise: LessonMasteryNextExercise
+  reason: LessonMasteryNextReason
+}
+
+export async function fetchNextMasteryExercise(lessonId: number): Promise<LessonMasteryNextResponse | null> {
+  const response = await fetch(`/api/lessons/${lessonId}/mastery/next`)
+  if (response.status === 404) return null
+  if (!response.ok) throw new Error('mastery_next_failed')
+  return response.json() as Promise<LessonMasteryNextResponse>
+}
