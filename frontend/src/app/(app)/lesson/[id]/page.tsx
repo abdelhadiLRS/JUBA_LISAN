@@ -316,17 +316,12 @@ export default function LessonPage() {
         if (masteryReviewMode) {
           try {
             const currentSummary = refreshedSummary?.find((item) => item.exercise_id === exercise.id)
-            if (currentSummary?.mastery_state === 'mastered' || currentSummary?.mastered) {
-              setMasteryReviewFinalRate(lessonMastery?.mastery_rate ?? null)
-              setMasteryReviewImproved(true)
-              setMasteryReviewMode(false)
-              return
-            }
+            const candidateMastered = currentSummary?.mastery_state === 'mastered' || currentSummary?.mastered
             const masteryRes = await apiFetch(`/api/lessons/${lesson.id}/mastery`)
             if (masteryRes.ok) {
               const refreshedMastery: LessonMasterySnapshot = await masteryRes.json()
               setLessonMastery(refreshedMastery)
-              if (masteryReviewInitialRate !== null && refreshedMastery.mastery_rate > masteryReviewInitialRate) {
+              if (candidateMastered || (masteryReviewInitialRate !== null && refreshedMastery.mastery_rate > masteryReviewInitialRate)) {
                 setMasteryReviewFinalRate(refreshedMastery.mastery_rate)
                 setMasteryReviewImproved(true)
                 setMasteryReviewMode(false)
