@@ -52,7 +52,8 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 - ✅ Exercise answer surfaces now adapt to the persisted exercise shape: choice options, short-answer input, and long-form writing use distinct interaction patterns while preserving the same answer/mastery APIs.
 - ✅ Lesson completion now transitions into a compact learning summary with attempt/best/latest performance and direct review/course continuation.
 - ✅ Lesson exercises now render safe audio controls when persisted exercise metadata exposes an HTTP(S) or relative audio source.
-- 🔜 Remaining: localized course copy and broader exercise/media types (audio/speaking) where backend payloads expose them.
+- ✅ Lesson exercises now render an optional transcript/caption block from persisted metadata alongside safe audio sources.
+- 🔜 Remaining: broader exercise/media types (speaking) where backend payloads expose them.
 ### Phase 9 — Smart Review 🟡
 - ✅ Review session rebuilt (v1.8.43): session progress bar, keyboard-accessible flip card, semantic rating colors; standard/speaking modes, audio, generation, and SM-2 stats preserved. Built on the existing `GET /api/flashcards/due` + `POST /api/flashcards/{id}/review` endpoints — no backend changes needed.
 - 🔜 Remaining: multi-surface review queue (grammar, listening, reading, speaking items feeding the same scheduler).
