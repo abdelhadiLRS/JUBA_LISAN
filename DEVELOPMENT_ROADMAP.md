@@ -43,14 +43,16 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 - ✅ All six CEFR levels now load curriculum metadata in parallel, so roadmap cards show real per-level unit/lesson structure.
 - ✅ Level cards now open dedicated `/courses/[level]` explorers with unit metadata, prerequisites, mastery progress, and persisted lesson links when available.
 - ✅ Current-level progress now prefers the server learning-path state and falls back to competency records.
-- 🔜 Remaining: localized course copy and richer unit content previews (vocabulary/grammar/listening counts).
+- ✅ Level explorers now show richer unit previews: grammar-point, vocabulary-set, competency counts, and the first competency outcomes.
+- 🔜 Remaining: localized course copy and richer listening/media counts.
 ### Phase 8 — First Lesson 🟡
 - ✅ Course level explorer can hand off directly to persisted lesson routes when the learning path exposes an available lesson.
 - ✅ Lesson player is wired to persisted lesson/exercise/mastery APIs and JUBA design tokens.
 - ✅ Added compact exercise step navigation so learners can return to previously answered exercises without exposing locked future steps.
 - ✅ Exercise answer surfaces now adapt to the persisted exercise shape: choice options, short-answer input, and long-form writing use distinct interaction patterns while preserving the same answer/mastery APIs.
 - ✅ Lesson completion now transitions into a compact learning summary with attempt/best/latest performance and direct review/course continuation.
-- 🔜 Remaining: localized course copy, richer unit previews, and broader exercise/media types (audio/speaking) where backend payloads expose them.
+- ✅ Lesson exercises now render safe audio controls when persisted exercise metadata exposes an HTTP(S) or relative audio source.
+- 🔜 Remaining: localized course copy and broader exercise/media types (audio/speaking) where backend payloads expose them.
 ### Phase 9 — Smart Review 🟡
 - ✅ Review session rebuilt (v1.8.43): session progress bar, keyboard-accessible flip card, semantic rating colors; standard/speaking modes, audio, generation, and SM-2 stats preserved. Built on the existing `GET /api/flashcards/due` + `POST /api/flashcards/{id}/review` endpoints — no backend changes needed.
 - 🔜 Remaining: multi-surface review queue (grammar, listening, reading, speaking items feeding the same scheduler).
