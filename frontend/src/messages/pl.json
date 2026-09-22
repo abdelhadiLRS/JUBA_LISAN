@@ -1558,6 +1558,7 @@
     "audioError": "Nie można załadować audio",
     "audioPlay": "Odtwórz",
     "audioPause": "Wstrzymaj",
+    "audioProgress": "Postęp odtwarzania",
     "alreadyAttempted": "To ćwiczenie zostało już ukończone.",
     "errorLoading": "Nie można załadować ćwiczenia. Spróbuj ponownie.",
     "errorSubmit": "Nie można przesłać odpowiedzi. Spróbuj ponownie.",
