@@ -1763,7 +1763,7 @@
     "saved": "gespeichert",
     "title": "Wiederholung mit Abständen",
     "complete": "Wiederholung abgeschlossen",
-    "reviewed": "Du hast {count} Karten wiederholt.",
+    "reviewed": "Du hast {count} {count, plural, one {Karte} other {Karten}} wiederholt.",
     "reviewAgain": "Erneut wiederholen",
     "reveal": "Übersetzung anzeigen",
     "again": "Nochmal",
