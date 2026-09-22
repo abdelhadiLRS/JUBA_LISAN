@@ -798,7 +798,16 @@
     "noActivePlanDesc": "Faça a avaliação para começar a rastrear suas habilidades.",
     "vocabularyHeader": "Vocabulário {level}",
     "currentLevelOnly": "Apenas nível atual",
-    "allLevels": "Todos os níveis"
+    "allLevels": "Todos os níveis",
+    "activityRange": "Período de atividade",
+    "sevenDays": "7 dias",
+    "thirtyDays": "30 dias",
+    "last30Days": "Últimos 30 dias",
+    "allTime": "Todo o período",
+    "rangeXp": "XP no período",
+    "rangeAccuracy": "Precisão no período",
+    "activeDays": "Dias ativos",
+    "avgDailyXp": "XP diário médio"
   },
   "grammar": {
     "title": "Gramática",
