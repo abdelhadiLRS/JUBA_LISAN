@@ -798,7 +798,16 @@
     "noActivePlanDesc": "Ukończ ocenę poziomu, aby zacząć śledzić umiejętności.",
     "vocabularyHeader": "Słownictwo {level}",
     "currentLevelOnly": "Tylko bieżący poziom",
-    "allLevels": "Wszystkie poziomy"
+    "allLevels": "Wszystkie poziomy",
+    "activityRange": "Zakres aktywności",
+    "sevenDays": "7 dni",
+    "thirtyDays": "30 dni",
+    "last30Days": "Ostatnie 30 dni",
+    "allTime": "Cały czas",
+    "rangeXp": "XP w okresie",
+    "rangeAccuracy": "Dokładność w okresie",
+    "activeDays": "Aktywne dni",
+    "avgDailyXp": "Śr. XP dziennie"
   },
   "grammar": {
     "title": "Podręcznik gramatyki",
