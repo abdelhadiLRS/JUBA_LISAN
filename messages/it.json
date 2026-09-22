@@ -687,7 +687,17 @@
     "masteryAttempted": "Tentate",
     "masteryLearning": "In apprendimento",
     "masteryStruggling": "In difficoltà",
-    "masteryUnseen": "Non viste"
+    "masteryUnseen": "Non viste",
+    "masteryReview": "Ripasso della padronanza",
+    "masteryReviewReady": "Ripassa l'esercizio che richiede più pratica.",
+    "masteryReviewAction": "Ripassa abilità più debole",
+    "masteryReviewLoading": "Selezione…",
+    "masteryReviewNone": "Non sono necessari altri ripassi di padronanza.",
+    "masteryReviewReasons": {
+      "struggling": "Ripasso della padronanza",
+      "unseen": "esercizio non visto",
+      "lowest_mastery": "padronanza più bassa"
+    }
   },
   "flashcards": {
     "title": "Schede",
