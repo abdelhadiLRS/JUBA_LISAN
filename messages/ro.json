@@ -706,6 +706,8 @@
     "skillMasteryExhaustedDesc": "Nu mai există exerciții de exersat pentru stăpânirea competenței {skill}.",
     "skillMastery": "Stăpânirea abilităților",
     "skillMasteryDesc": "Vezi cât de bine este stăpânită fiecare abilitate de învățare în această lecție.",
+    "skillMasteryComplete": "Toate abilitățile de învățare sunt stăpânite",
+    "skillMasteryCompleteDesc": "Fiecare abilitate urmărită în această lecție a ajuns la nivelul de stăpânire.",
     "skillMasteryPractice": "Exersează această abilitate",
     "skillMasteryMastered": "stăpânite",
     "skillMasteryAttempted": "încercate",
