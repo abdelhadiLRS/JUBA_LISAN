@@ -701,11 +701,13 @@
     "masteryReviewImproved": "Beherrschung verbessert",
     "masteryReviewImprovedDesc": "Deine Beherrschungsrate hat sich während dieser Wiederholung verbessert. Die Sitzung ist abgeschlossen.",
     "masteryReviewExhausted": "Meisterungswiederholung abgeschlossen",
-    "masteryReviewExhaustedDesc": "Es gibt keine weiteren Übungen zur Wiederholung für die Beherrschung."
+    "masteryReviewExhaustedDesc": "Es gibt keine weiteren Übungen zur Wiederholung für die Beherrschung.",
     "skillMastery": "Kompetenzbeherrschung",
     "skillMasteryDesc": "Sieh, wie gut jede Lernkompetenz in dieser Lektion beherrscht wird.",
     "skillMasteryMastered": "gemeistert",
     "skillMasteryAttempted": "bearbeitet",
+    "skillMasteryAttemptRate": "Versuchsquote: {rate}%",
+    "skillMasteryVariants": "Varianten",
   },
   "flashcards": {
     "title": "Karteikarten",
