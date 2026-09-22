@@ -201,7 +201,7 @@ class LessonMasteryNextResponse(BaseModel):
 
 class SkillMasteryResponse(BaseModel):
     skill: str
-    mastery_state: Literal["unseen", "struggling", "learning", "mastered"]
+    mastery_state: MasteryState
     total_exercises: int
     attempted_exercises: int
     mastered_exercises: int
@@ -239,7 +239,7 @@ class ExerciseAnswerResponse(BaseModel):
     score_delta: float = 0.0
     mastered: bool = False
     mastery_score: float = 0.0
-    mastery_state: str = "unseen"
+    mastery_state: MasteryState = "unseen"
     mastery_variants: int = 0
     recommended_action: str = "reinforce"
     recommended_variant: str | None = None
