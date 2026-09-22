@@ -2,6 +2,9 @@ export interface AdaptiveExerciseRecommendation {
   exercise_id: number
   recommended_action?: string | null
   recommended_variant?: string | null
+  mastery_score?: number
+  mastery_state?: string
+  mastery_variants?: number
 }
 
 export interface AdaptiveExerciseLike {
@@ -24,6 +27,9 @@ export function mergeAdaptiveRecommendations<T extends AdaptiveExerciseLike>(
       ...exercise,
       recommended_action: summary.recommended_action ?? undefined,
       recommended_variant: summary.recommended_variant ?? null,
+      mastery_score: summary.mastery_score,
+      mastery_state: summary.mastery_state,
+      mastery_variants: summary.mastery_variants,
     }
   })
 }
