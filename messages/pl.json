@@ -682,6 +682,8 @@
     "lessonProgress": "Postęp lekcji",
     "masteryOverview": "Opanowanie lekcji",
     "masteryCoverage": "{{covered}} warianty objęte",
+    "masteryAttemptRate": "Wskaźnik prób: {{rate}}%",
+    "masteryRate": "Wskaźnik opanowania: {{rate}}%",
     "masteryAttempted": "Wykonane",
     "masteryLearning": "W trakcie nauki",
     "masteryStruggling": "Trudne",
