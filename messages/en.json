@@ -719,7 +719,13 @@
     "lessonFlowHint": "Learn → practice → recall. Stay active and make every answer count.",
     "exerciseProgress": "Exercise {current}/{total}",
     "tapToHear": "Tap the word to hear it",
-    "lessonProgress": "Lesson progress"
+    "lessonProgress": "Lesson progress",
+    "masteryOverview": "Lesson mastery",
+    "masteryCoverage": "{{covered}} variants covered",
+    "masteryAttempted": "Attempted",
+    "masteryLearning": "Learning",
+    "masteryStruggling": "Struggling",
+    "masteryUnseen": "Unseen"
   },
   "flashcards": {
     "title": "Flashcards",
