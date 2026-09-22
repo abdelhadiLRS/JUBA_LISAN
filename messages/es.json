@@ -1,6 +1,5 @@
 {
   "landing": {
-    "hero": "Aprende idiomas con un compañero de conversación por voz real",
     "heroSub": "Habla. Escucha. Mejora.",
     "signIn": "Iniciar sesión",
     "dashboard": "Continuar",
@@ -16,7 +15,6 @@
     "feature5Desc": "Repaso de vocabulario con repetición espaciada. El algoritmo SM-2 programa cada tarjeta en el momento óptimo para maximizar la retención a largo plazo.",
     "feature6Title": "Progreso y rachas",
     "feature6Desc": "XP, rachas diarias, puntuaciones de habilidades y competencias por unidad. Sigue tu evolución semana a semana y pon a prueba tu nivel al final de cada etapa MCER.",
-    "footer": "Código abierto · Autoalójalo gratis o suscríbete al servicio alojado",
     "navFeatures": "Funcionalidades",
     "navReviews": "Reseñas",
     "navPricing": "Precios",
