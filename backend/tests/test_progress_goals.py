@@ -352,3 +352,41 @@ async def test_goal_milestone_history_is_user_scoped(client, test_user, db_sessi
     response = await client.get("/api/progress/goals/history", headers=headers)
     assert response.status_code == 200
     assert response.json() == []
+
+
+@pytest.mark.asyncio
+async def test_goal_response_excludes_reward_xp(client, test_user, db_session):
+    user, headers = test_user
+    from app.models.progress import Progress
+    from app.models.learning_goal import LearningGoal
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add(LearningGoal(
+        user_id=user.id, study_plan_id=plan.id,
+        daily_xp_target=100, weekly_xp_target=300,
+    ))
+    db_session.add(Progress(
+        user_id=user.id, study_plan_id=plan.id, date=date.today(),
+        xp_earned=125, reward_xp=75, skills={},
+    ))
+    await db_session.commit()
+
+    response = await client.get("/api/progress/goals", headers=headers)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["daily_xp"] == 50
+    assert data["weekly_xp"] == 50
+    assert data["daily_completed"] is False
+    assert data["daily_reward_claimed"] is False
