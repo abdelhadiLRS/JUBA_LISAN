@@ -10,6 +10,8 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
+from app.routers.lessons import _persisted_attempt_identity
+
 from app.schemas.lessons import (
     FillBlankEvaluation,
     FreeWriteEvaluation,
@@ -1205,6 +1207,38 @@ async def test_answer_pronunciation_llm_fallback_mismatch(client, test_user, db_
     assert data["score"] == 0.0
     assert "Good morning" in data["feedback"]
     assert "La frase objetivo" in data["feedback"]
+
+
+def test_persisted_attempt_identity_prefers_saved_values_and_normalizes_them():
+    """Adaptive progression must keep the identity captured when the answer was saved."""
+    from types import SimpleNamespace
+
+    attempt = SimpleNamespace(content_id="  saved-content  ", variant="  fill_blank  ")
+
+    assert _persisted_attempt_identity(
+        attempt,
+        fallback_content_id="regenerated-content",
+        fallback_variant="multiple_choice",
+    ) == ("saved-content", "fill_blank")
+
+
+def test_persisted_attempt_identity_falls_back_only_when_saved_values_are_missing():
+    """Legacy attempts without identity can still use current lesson metadata."""
+    from types import SimpleNamespace
+
+    attempt = SimpleNamespace(content_id=None, variant=None)
+
+    assert _persisted_attempt_identity(
+        attempt,
+        fallback_content_id="  current-content  ",
+        fallback_variant="  multiple_choice  ",
+    ) == ("current-content", "multiple_choice")
+
+    assert _persisted_attempt_identity(
+        attempt,
+        fallback_content_id="   ",
+        fallback_variant="multiple_choice",
+    ) is None
 
 
 @pytest.mark.asyncio
