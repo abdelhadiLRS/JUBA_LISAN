@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from app.services.exercise_retry import classify_score
 from app.services.adaptive_variants import (
+    collect_attempted_adaptive_identities,
     collect_attempted_exercise_ids,
     recommend_adaptive_action,
     select_unanswered_variant,
@@ -33,6 +34,8 @@ class VariantExercise:
 @dataclass
 class Attempt:
     exercise_id: int
+    content_id: str | None = None
+    variant: str | None = None
 
 
 
@@ -67,6 +70,63 @@ def test_collect_attempted_exercise_ids_supports_custom_getter():
         )
         == {4, 5}
     )
+
+
+def test_collect_attempted_adaptive_identities_canonicalize_history():
+    attempts = [
+        Attempt(1, " c1 ", "Fill-Blank"),
+        Attempt(2, "c1", "fill_blank"),
+        Attempt(3, "c2", "multiple-choice"),
+        Attempt(4, None, "translate"),
+    ]
+
+    assert collect_attempted_adaptive_identities(attempts) == {
+        ("c1", "fill_blank"),
+        ("c2", "multiple_choice"),
+    }
+
+
+def test_selector_skips_regenerated_duplicate_variant_by_identity():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+        VariantExercise(3, "c1", "fill-blank"),
+        VariantExercise(4, "c1", "translate"),
+    ]
+
+    selected = select_unanswered_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        succeeded=True,
+        attempted_exercise_ids={1, 2},
+        attempted_adaptive_identities={("c1", "fill_blank")},
+    )
+
+    assert selected is exercises[3]
+
+
+def test_selector_accepts_malformed_adaptive_identity_history():
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+        VariantExercise(3, "c1", "translate"),
+    ]
+
+    selected = select_unanswered_variant(
+        exercises,
+        content_id="c1",
+        current_variant="multiple_choice",
+        succeeded=True,
+        attempted_adaptive_identities=[
+            ("c1", "fill_blank"),
+            ("", "translate"),
+            ("c1", True),
+            "invalid",
+        ],
+    )
+
+    assert selected is exercises[2]
 
 
 
