@@ -59,6 +59,10 @@ export default function VocabularyReviewPage() {
     void loadReviewCards()
   }, [loadReviewCards])
 
+  const current = words[index]
+  const remainingDue = Math.max(0, words.length - done)
+  const progress = words.length ? Math.min(100, Math.round(done / words.length * 100)) : 0
+
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null
@@ -80,8 +84,6 @@ export default function VocabularyReviewPage() {
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [current, loading, reviewing, revealed])
-
-  const current = words[index]; const remainingDue = Math.max(0, words.length - done); const progress = words.length ? Math.min(100, Math.round(done / words.length * 100)) : 0
 
   async function review(rating: Rating) {
     if (!current || reviewing) return
