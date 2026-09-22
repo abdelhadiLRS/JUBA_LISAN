@@ -707,7 +707,7 @@
     "skillMasteryMastered": "освоено",
     "skillMasteryAttempted": "попыток",
     "skillMasteryAttemptRate": "Доля попыток: {rate}%",
-    "skillMasteryVariants": "варианта",
+    "skillMasteryVariants": "варианта"
   },
   "flashcards": {
     "title": "Карточки",
