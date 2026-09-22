@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import math
 from datetime import date, datetime
+from typing import Literal
 
 from pydantic import BaseModel, Field, field_serializer, field_validator
 
@@ -95,6 +96,10 @@ class LearningGoalResponse(BaseModel):
     weekly_progress: float
     daily_completed: bool
     weekly_completed: bool
+    daily_reward_xp: int = 0
+    weekly_reward_xp: int = 0
+    daily_reward_claimed: bool = False
+    weekly_reward_claimed: bool = False
     day: date
     week_start: date
     week_end: date
