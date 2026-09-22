@@ -56,6 +56,38 @@ class ProgressRangeSummary(BaseModel):
     average_daily_xp: float = 0.0
     skills: dict[str, float] = Field(default_factory=dict)
 
+class MasteryCenterLessonResponse(BaseModel):
+    lesson_id: int
+    title: str
+    mastery_state: Literal["unseen", "struggling", "learning", "mastered"]
+    total_exercises: int
+    attempted_exercises: int
+    mastered_exercises: int
+    struggling_exercises: int
+    unseen_exercises: int
+    average_mastery_score: float
+    mastery_rate: float
+    attempt_rate: float
+    covered_variants: int
+
+
+class MasteryCenterResponse(BaseModel):
+    mastery_state: Literal["unseen", "struggling", "learning", "mastered"]
+    total_exercises: int = 0
+    attempted_exercises: int = 0
+    mastered_exercises: int = 0
+    learning_exercises: int = 0
+    struggling_exercises: int = 0
+    unseen_exercises: int = 0
+    average_mastery_score: float = 0.0
+    mastery_rate: float = 0.0
+    attempt_rate: float = 0.0
+    covered_variants: int = 0
+    skills: list[dict] = Field(default_factory=list)
+    lessons: list[MasteryCenterLessonResponse] = Field(default_factory=list)
+    next_skill: dict | None = None
+
+
 class LearningGoalUpdate(BaseModel):
     daily_xp_target: int = Field(default=50, ge=1, le=10000)
     weekly_xp_target: int = Field(default=250, ge=1, le=70000)
