@@ -855,7 +855,15 @@
     "last7Days": "Letzte 7 Tage",
     "exercises": "Übungen",
     "sevenDayXp": "XP der letzten 7 Tage",
-    "reviewLink": "Wiederholen"
+    "reviewLink": "Wiederholen",
+    "masteryCenter": "Meisterschaft",
+    "masteryOverview": "Meisterschaftsübersicht",
+    "masteryRate": "Meisterschaftsrate",
+    "attempted": "Bearbeitet",
+    "coveredVariants": "Abgedeckte Varianten",
+    "averageMastery": "Durchschnittliche Meisterschaft",
+    "nextSkill": "Nächste Fähigkeit",
+    "practice": "Üben"
   },
   "grammar": {
     "title": "Grammatik",
