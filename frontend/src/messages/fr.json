@@ -707,7 +707,8 @@
       "learning": "En apprentissage",
       "mastered": "Maîtrisé"
     },
-    "transcriptLabel": "Transcription"
+    "transcriptLabel": "Transcription",
+    "listeningPractice": "Ouvrir la pratique d’écoute"
   },
   "flashcards": {
     "title": "Fiches",
