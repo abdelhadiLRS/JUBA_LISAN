@@ -49,6 +49,10 @@ export function isAdaptiveRetryAction(action?: string | null): boolean {
   return ADAPTIVE_RETRY_ACTIONS.has(normaliseAdaptiveAction(action))
 }
 
+export function isAdaptiveAdvanceAction(action?: string | null): boolean {
+  return normaliseAdaptiveAction(action) === 'advance'
+}
+
 export function isAdaptiveReinforcementAction(action?: string | null): boolean {
   return normaliseAdaptiveAction(action) === 'reinforce'
 }
