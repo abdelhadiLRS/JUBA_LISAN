@@ -1214,8 +1214,8 @@ async def test_attempt_summary_uses_latest_attempt_number_not_timestamp(
     """The latest persisted attempt wins even when timestamps arrive out of order."""
     from datetime import datetime, timedelta
 
-    from app.models.exercise import Exercise
     from app.models.exercise_attempt import ExerciseAttempt
+    from app.models.lesson import Exercise
 
     user, headers = test_user
     lesson = await _create_lesson_with_plan(
