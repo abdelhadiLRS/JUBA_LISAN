@@ -855,7 +855,15 @@
     "last7Days": "Последние 7 дней",
     "exercises": "Упражнения",
     "sevenDayXp": "XP за 7 дней",
-    "reviewLink": "Повторить"
+    "reviewLink": "Повторить",
+    "masteryCenter": "Центр освоения",
+    "masteryOverview": "Обзор освоения",
+    "masteryRate": "Уровень освоения",
+    "attempted": "Попытки",
+    "coveredVariants": "Охваченные варианты",
+    "averageMastery": "Средний уровень освоения",
+    "nextSkill": "Следующий навык",
+    "practice": "Практиковаться"
   },
   "grammar": {
     "title": "Справочник по грамматике",
