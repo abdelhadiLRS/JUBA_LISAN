@@ -949,3 +949,34 @@ def test_middle_score_stays_reinforcement_before_mastery():
         attempted_exercise_ids={1},
         attempted_adaptive_identities={("c1", "multiple_choice")},
     ) == ("reinforce", None, None)
+
+
+def test_mastery_boundaries_require_threshold_score_and_variant_coverage():
+    base = [
+        {"content_id": "c1", "variant": "multiple_choice", "score": 0.80},
+        {"content_id": "c1", "variant": "fill_blank", "score": 0.80},
+    ]
+
+    assert summarize_adaptive_mastery(
+        base,
+        content_id="c1",
+        get_content_id=lambda item: item["content_id"],
+        get_variant=lambda item: item["variant"],
+        get_score=lambda item: item["score"],
+    ) == (0.80, "mastered", 2)
+
+    assert summarize_adaptive_mastery(
+        [*base, {"content_id": "c1", "variant": "translate", "score": 0.20}],
+        content_id="c1",
+        get_content_id=lambda item: item["content_id"],
+        get_variant=lambda item: item["variant"],
+        get_score=lambda item: item["score"],
+    ) == (0.60, "learning", 3)
+
+    assert summarize_adaptive_mastery(
+        [{"content_id": "c1", "variant": "multiple_choice", "score": 0.80}],
+        content_id="c1",
+        get_content_id=lambda item: item["content_id"],
+        get_variant=lambda item: item["variant"],
+        get_score=lambda item: item["score"],
+    ) == (0.80, "learning", 1)
