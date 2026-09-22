@@ -71,4 +71,4 @@ The lesson API exposes:
 - `GET /api/lessons/{lesson_id}/mastery/skills` for per-skill mastery aggregates.
 - `GET /api/lessons/{lesson_id}/mastery/next` for the next exercise requiring mastery work.
 
-An exercise can contribute to multiple skills. Skills without a valid non-empty string label are ignored, and returned skill aggregates are sorted deterministically by skill name. This keeps lesson mastery and skill mastery on the same score, state, and variant-coverage semantics.
+An exercise can contribute to multiple skills. Skill labels are trimmed, case-folded, and deduplicated per exercise before aggregation; blank or non-string labels are ignored. Returned skill aggregates are sorted deterministically by canonical skill name. This prevents formatting differences or repeated labels from inflating skill coverage while keeping lesson mastery and skill mastery on the same score, state, and variant-coverage semantics.
