@@ -1,6 +1,5 @@
 {
   "landing": {
-    "hero": "Lerne Sprachen mit einem echten Sprachgesprächspartner",
     "heroSub": "Sprechen. Zuhören. Verbessern.",
     "signIn": "Anmelden",
     "dashboard": "Weiter",
@@ -16,7 +15,6 @@
     "feature5Desc": "Vokabelwiederholung mit Spaced Repetition. Der SM-2-Algorithmus plant jede Karte zum optimalen Zeitpunkt für maximale Langzeitspeicherung.",
     "feature6Title": "Fortschritt & Serien",
     "feature6Desc": "XP, tägliche Serien, Kompetenzwerte und Einheitenkompetenzen. Verfolge dein Wachstum Woche für Woche und teste dein Niveau am Ende jeder CEFR-Stufe.",
-    "footer": "Open Source · Selbst hosten (kostenlos) oder gehosteten Dienst abonnieren",
     "navFeatures": "Funktionen",
     "navReviews": "Bewertungen",
     "navPricing": "Preise",
