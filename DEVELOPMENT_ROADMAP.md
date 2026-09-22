@@ -36,7 +36,11 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 ### Phase 6 — Timeline A1–C2 🟡
 - ✅ Plan page rebuilt (v1.8.42): status-badge unit journey (check/play/lock/ribbon), warm active ring, pill progress bars, highlighted pending-lessons card, modernized unit drawer.
 - 🔜 Remaining: multi-level overview (A1→C2 progression map beyond the user's current plan level), unit content previews (vocabulary/grammar/listening counts as visual chips).
-### Phase 7 — Courses ❌
+### Phase 7 — Courses 🟡
+- ✅ Course roadmap is now connected to the active study plan and competency progress instead of hardcoded progress state.
+- ✅ CEFR roadmap now covers A1→C2 and reflects the learner's current level/unlocked range.
+- ✅ Course cards derive lesson counts from the active generated plan/curriculum and show a loading state while data resolves.
+- 🔜 Remaining: localized course copy, per-level curriculum previews, and direct level/unit exploration.
 ### Phase 8 — First Lesson ❌ (lesson player exists, not rebuilt)
 ### Phase 9 — Smart Review 🟡
 - ✅ Review session rebuilt (v1.8.43): session progress bar, keyboard-accessible flip card, semantic rating colors; standard/speaking modes, audio, generation, and SM-2 stats preserved. Built on the existing `GET /api/flashcards/due` + `POST /api/flashcards/{id}/review` endpoints — no backend changes needed.
