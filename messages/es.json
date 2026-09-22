@@ -687,7 +687,17 @@
     "masteryAttempted": "Intentadas",
     "masteryLearning": "En aprendizaje",
     "masteryStruggling": "Con dificultad",
-    "masteryUnseen": "Sin ver"
+    "masteryUnseen": "Sin ver",
+    "masteryReview": "Repaso de dominio",
+    "masteryReviewReady": "Repasa el ejercicio que más práctica necesita.",
+    "masteryReviewAction": "Repasar habilidad más débil",
+    "masteryReviewLoading": "Eligiendo…",
+    "masteryReviewNone": "No se necesita más repaso de dominio.",
+    "masteryReviewReasons": {
+      "struggling": "Repaso de dominio",
+      "unseen": "ejercicio no visto",
+      "lowest_mastery": "menor dominio"
+    }
   },
   "flashcards": {
     "title": "Tarjetas",
