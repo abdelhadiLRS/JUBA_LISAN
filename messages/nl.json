@@ -1723,5 +1723,7 @@
     "shortcutHint": "Spatie om te onthullen · 1–4 om te beoordelen",
     "spaceShortcut": "Spatie om te onthullen",
     "rateKeys": "1 Opnieuw · 2 Moeilijk · 3 Goed · 4 Makkelijk"
-  }
+  },
+  "masteryReviewExhausted": "Beheersingsreview voltooid",
+  "masteryReviewExhaustedDesc": "Alle oefeningen in deze les zijn beheerst. Je kunt verder leren of later opnieuw oefenen."
 }
