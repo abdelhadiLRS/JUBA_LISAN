@@ -855,7 +855,15 @@
     "last7Days": "Ultimi 7 giorni",
     "exercises": "Esercizi",
     "sevenDayXp": "XP degli ultimi 7 giorni",
-    "reviewLink": "Ripassa"
+    "reviewLink": "Ripassa",
+    "masteryCenter": "Centro della padronanza",
+    "masteryOverview": "Panoramica della padronanza",
+    "masteryRate": "Tasso di padronanza",
+    "attempted": "Tentati",
+    "coveredVariants": "Varianti coperte",
+    "averageMastery": "Padronanza media",
+    "nextSkill": "Prossima abilità",
+    "practice": "Esercitati"
   },
   "grammar": {
     "title": "Grammatica",
