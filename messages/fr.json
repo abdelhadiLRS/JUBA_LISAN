@@ -704,6 +704,7 @@
     "masteryReviewExhaustedDesc": "Il ne reste aucun exercice à revoir pour consolider la maîtrise.",
     "skillMastery": "Maîtrise des compétences",
     "skillMasteryDesc": "Voyez dans quelle mesure chaque compétence d’apprentissage est maîtrisée dans cette leçon.",
+    "skillMasteryPractice": "Pratiquer cette compétence",
     "skillMasteryMastered": "maîtrisées",
     "skillMasteryAttempted": "tentées",
     "skillMasteryAttemptRate": "Taux de tentative : {rate} %",
