@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Translation key parity
+        run: npm run check:i18n
+
       - name: Lint
         run: npm run lint
 
