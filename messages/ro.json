@@ -1763,7 +1763,7 @@
     "saved": "salvate",
     "title": "Recapitulare spațiată",
     "complete": "Recapitulare finalizată",
-    "reviewed": "Ai recapitulat {count} carduri.",
+    "reviewed": "Ai recapitulat {count} {count, plural, one {card} other {carduri}}.",
     "reviewAgain": "Recapitulează din nou",
     "reveal": "Afișează traducerea",
     "again": "Din nou",
