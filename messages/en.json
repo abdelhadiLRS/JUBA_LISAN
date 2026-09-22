@@ -722,6 +722,8 @@
     "lessonProgress": "Lesson progress",
     "masteryOverview": "Lesson mastery",
     "masteryCoverage": "{{covered}} variants covered",
+    "masteryAttemptRate": "Attempt rate: {{rate}}%",
+    "masteryRate": "Mastery rate: {{rate}}%",
     "masteryAttempted": "Attempted",
     "masteryLearning": "Learning",
     "masteryStruggling": "Struggling",
