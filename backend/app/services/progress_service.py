@@ -73,6 +73,7 @@ async def update_daily_progress(
             user_id=user_id,
             date=today,
             xp_earned=0,
+            reward_xp=0,
             lessons_completed=0,
             exercises_correct=0,
             exercises_total=0,
@@ -160,11 +161,23 @@ async def update_daily_progress(
             Progress.date <= today,
         )
     )
-    weekly_xp_before_rewards = sum(weekly_result.scalars().all())
+    weekly_xp_result = await db.execute(
+        select(Progress.xp_earned, Progress.reward_xp).where(
+            Progress.user_id == user_id,
+            Progress.study_plan_id == study_plan_id,
+            Progress.date >= week_start,
+            Progress.date <= today,
+        )
+    )
+    weekly_xp_before_rewards = sum(
+        max(xp - reward_xp, 0) for xp, reward_xp in weekly_xp_result.all()
+    )
+    daily_activity_xp = max(entry.xp_earned - entry.reward_xp, 0)
 
-    if entry.xp_earned >= goal.daily_xp_target and goal.daily_reward_date != today:
-        achieved_xp = entry.xp_earned
+    if daily_activity_xp >= goal.daily_xp_target and goal.daily_reward_date != today:
+        achieved_xp = daily_activity_xp
         entry.xp_earned += GOAL_DAILY_REWARD_XP
+        entry.reward_xp += GOAL_DAILY_REWARD_XP
         goal.daily_reward_date = today
         db.add(
             LearningGoalMilestone(
@@ -181,6 +194,7 @@ async def update_daily_progress(
 
     if weekly_xp_before_rewards >= goal.weekly_xp_target and goal.weekly_reward_start != week_start:
         entry.xp_earned += GOAL_WEEKLY_REWARD_XP
+        entry.reward_xp += GOAL_WEEKLY_REWARD_XP
         goal.weekly_reward_start = week_start
         db.add(
             LearningGoalMilestone(
