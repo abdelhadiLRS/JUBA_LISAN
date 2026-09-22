@@ -572,9 +572,7 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                 if candidate not in alternatives:
                     alternatives.append(candidate)
             rng.shuffle(alternatives)
-            choices, prompt = alternatives, f"Remember this order:
-
-{answer}"
+            choices, prompt = alternatives, f"Remember this order:\n{answer}"
             skill, topic = "memory", "memory-sequence"
         elif game_id == "matching":
             pairs = {
