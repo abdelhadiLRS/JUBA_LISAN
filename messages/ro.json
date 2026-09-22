@@ -707,7 +707,7 @@
     "skillMasteryMastered": "stăpânite",
     "skillMasteryAttempted": "încercate",
     "skillMasteryAttemptRate": "Rata încercărilor: {rate}%",
-    "skillMasteryVariants": "variante",
+    "skillMasteryVariants": "variante"
   },
   "flashcards": {
     "title": "Carduri flash",
