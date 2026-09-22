@@ -96,3 +96,14 @@ Repeated attempts on the same normalized variant improve its best score but do n
 Skills are a reporting layer over lesson exercises, not a second scoring engine. Each exercise can contribute to more than one skill. Skill aggregates reuse the exact exercise-level mastery state, so lesson and skill percentages cannot silently diverge because of separate threshold logic.
 
 Skill labels are trimmed, case-normalized, and deduplicated per exercise. Empty and non-string labels are ignored. Skills are returned in deterministic order, while the skills/next selector applies the action order `struggling → unseen → learning → mastered`; within a state it uses mastery coverage, then average mastery score, then the skill name as deterministic tie-breakers.
+
+
+## Skill-focused mastery practice
+
+The lesson UI can start a mastery review for the highest-priority skill without losing the lesson-level mastery model. The endpoint:
+
+`GET /api/lessons/{lesson_id}/mastery/skills/{skill}/next`
+
+filters the lesson's exercises by the requested skill, applies the same struggling → unseen → learning priority and excludes mastered exercises. Skill matching is case-insensitive and ignores surrounding whitespace. A missing skill or a skill with no remaining mastery target returns a documented 4xx response.
+
+When a skill-focused review is active, subsequent mastery targets remain scoped to that skill until the review is finished or the target is exhausted. This keeps the user's practice intent stable instead of silently switching back to another skill.
