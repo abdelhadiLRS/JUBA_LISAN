@@ -702,6 +702,8 @@
     "masteryReviewImprovedDesc": "Rata ta de stăpânire s-a îmbunătățit în timpul acestei recapitulări. Sesiunea s-a încheiat.",
     "masteryReviewExhausted": "Recapitularea stăpânirii s-a încheiat",
     "masteryReviewExhaustedDesc": "Nu mai există exerciții de repetat pentru consolidarea stăpânirii.",
+    "skillMasteryExhausted": "Revizuirea stăpânirii competenței s-a încheiat",
+    "skillMasteryExhaustedDesc": "Nu mai există exerciții de exersat pentru stăpânirea competenței {skill}.",
     "skillMastery": "Stăpânirea abilităților",
     "skillMasteryDesc": "Vezi cât de bine este stăpânită fiecare abilitate de învățare în această lecție.",
     "skillMasteryPractice": "Exersează această abilitate",
@@ -1737,6 +1739,4 @@
     "spaceShortcut": "Spațiu pentru dezvăluire",
     "rateKeys": "1 Din nou · 2 Greu · 3 Bine · 4 Ușor"
   },
-  "masteryReviewExhausted": "Recapitularea stăpânirii s-a încheiat",
-  "masteryReviewExhaustedDesc": "Toate exercițiile din această lecție sunt stăpânite. Poți continua să înveți sau să repeți mai târziu."
 }
