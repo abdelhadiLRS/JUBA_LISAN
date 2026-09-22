@@ -682,6 +682,8 @@
     "lessonProgress": "Progresso da lição",
     "masteryOverview": "Domínio da lição",
     "masteryCoverage": "{{covered}} variantes cobertas",
+    "masteryAttemptRate": "Taxa de tentativas: {{rate}}%",
+    "masteryRate": "Taxa de domínio: {{rate}}%",
     "masteryAttempted": "Tentadas",
     "masteryLearning": "Em aprendizagem",
     "masteryStruggling": "Com dificuldade",
