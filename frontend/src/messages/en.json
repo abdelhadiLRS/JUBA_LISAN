@@ -738,7 +738,15 @@
     "saveError": "Error",
     "keepLearning": "Keep the momentum going with a review.",
     "retryHarderVariant": "Continue with a harder variant",
-    "retryEasierVariant": "Retry with an easier variant"
+    "retryEasierVariant": "Retry with an easier variant",
+    "mastery": "Mastery",
+    "masteryVariants": "{count} variants covered",
+    "masteryStates": {
+      "unseen": "Not started",
+      "struggling": "Needs practice",
+      "learning": "Learning",
+      "mastered": "Mastered"
+    }
   },
   "flashcards": {
     "title": "Flashcards",
