@@ -702,6 +702,8 @@
     "masteryReviewImprovedDesc": "Votre taux de maîtrise s’est amélioré pendant cette révision. La session est terminée.",
     "masteryReviewExhausted": "Révision de maîtrise terminée",
     "masteryReviewExhaustedDesc": "Il ne reste aucun exercice à revoir pour consolider la maîtrise.",
+    "skillMasteryExhausted": "Révision de maîtrise de la compétence terminée",
+    "skillMasteryExhaustedDesc": "Il ne reste aucun exercice à revoir pour maîtriser « {skill} ».",
     "skillMastery": "Maîtrise des compétences",
     "skillMasteryDesc": "Voyez dans quelle mesure chaque compétence d’apprentissage est maîtrisée dans cette leçon.",
     "skillMasteryPractice": "Pratiquer cette compétence",
@@ -1737,6 +1739,4 @@
     "spaceShortcut": "Espace pour révéler",
     "rateKeys": "1 Encore · 2 Difficile · 3 Bien · 4 Facile"
   },
-  "masteryReviewExhausted": "Révision de maîtrise terminée",
-  "masteryReviewExhaustedDesc": "Tous les exercices de cette leçon sont maîtrisés. Vous pouvez continuer à apprendre ou réviser plus tard."
 }
