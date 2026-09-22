@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import UTC, date, datetime
 
-from sqlalchemy import DateTime, ForeignKey, Integer, UniqueConstraint
+from sqlalchemy import Date, DateTime, ForeignKey, Integer, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base
@@ -28,7 +28,7 @@ class LearningGoal(Base):
     )
     daily_xp_target: Mapped[int] = mapped_column(Integer, nullable=False, default=50)
     weekly_xp_target: Mapped[int] = mapped_column(Integer, nullable=False, default=250)
-    daily_reward_date: Mapped[date | None] = mapped_column(DateTime, nullable=True)
+    daily_reward_date: Mapped[date | None] = mapped_column(Date, nullable=True)
     weekly_reward_start: Mapped[date | None] = mapped_column(DateTime, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, default=lambda: datetime.now(UTC).replace(tzinfo=None)
