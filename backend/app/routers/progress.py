@@ -13,7 +13,7 @@ from app.core.deps import get_current_user
 from app.core.limiter import limiter
 from app.data._types import CEFRLevel
 from app.data.vocabulary import get_vocabulary_by_level
-from app.models.flashcard import Flashcard
+from app.models.flashcard import Flashcard\nfrom app.models.exercise import Exercise\nfrom app.models.exercise_attempt import ExerciseAttempt\nfrom app.models.lesson import Lesson
 from app.models.game_progress import GameProgress
 from app.models.game_progress_event import GameProgressEvent
 from app.models.game_session import GameSession
@@ -22,8 +22,8 @@ from app.models.learning_goal_milestone import LearningGoalMilestone
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import (GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalMilestoneSummary, LearningGoalResponse, LearningGoalUpdate, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
-from app.services.progress_service import get_unit_competencies, update_daily_progress
+from app.schemas.progress import (GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalMilestoneSummary, LearningGoalResponse, LearningGoalUpdate, MasteryCenterResponse, MasteryCenterLessonResponse, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
+from app.services.progress_service import get_unit_competencies, update_daily_progress\nfrom app.services.lesson_mastery import _skill_mastery_state, normalise_skill_labels, select_next_skill_mastery, summarize_lesson_mastery, summarize_skill_mastery
 from app.services.user_language_service import get_active_language
 
 router = APIRouter(prefix="/api/progress", tags=["progress"])
@@ -1116,3 +1116,127 @@ async def get_competencies(
     if plan is None:
         return []
     return await get_unit_competencies(db, current_user.id, study_plan_id=plan.id)
+
+
+@router.get("/mastery", response_model=MasteryCenterResponse)
+@limiter.limit("60/minute")
+async def get_mastery_center(
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return a cross-lesson mastery snapshot for the active study plan."""
+    plan = await _get_active_plan_or_none(db, current_user.id)
+    if plan is None:
+        return MasteryCenterResponse(mastery_state="unseen")
+
+    lesson_result = await db.execute(
+        select(Lesson).where(Lesson.study_plan_id == plan.id).order_by(Lesson.week_number, Lesson.day_number, Lesson.id)
+    )
+    lessons = lesson_result.scalars().all()
+    if not lessons:
+        return MasteryCenterResponse(mastery_state="unseen")
+
+    exercise_result = await db.execute(
+        select(Exercise).join(Lesson, Exercise.lesson_id == Lesson.id).where(Lesson.study_plan_id == plan.id).order_by(Exercise.id)
+    )
+    exercises = exercise_result.scalars().all()
+    attempt_result = await db.execute(
+        select(ExerciseAttempt).join(Lesson, ExerciseAttempt.lesson_id == Lesson.id).where(
+            ExerciseAttempt.user_id == current_user.id,
+            Lesson.study_plan_id == plan.id,
+        )
+    )
+    attempts = attempt_result.scalars().all()
+    attempts_by_lesson: dict[int, list[ExerciseAttempt]] = {}
+    for attempt in attempts:
+        attempts_by_lesson.setdefault(attempt.lesson_id, []).append(attempt)
+
+    exercises_by_lesson: dict[int, list[Exercise]] = {}
+    for exercise in exercises:
+        exercises_by_lesson.setdefault(exercise.lesson_id, []).append(exercise)
+
+    def content_map(lesson: Lesson, lesson_exercises: list[Exercise]) -> dict[int, dict]:
+        raw = lesson.content.get("exercises", []) if isinstance(lesson.content, dict) else []
+        mapped: dict[int, dict] = {}
+        for index, exercise in enumerate(lesson_exercises):
+            item = raw[index] if index < len(raw) and isinstance(raw[index], dict) else {}
+            mapped[exercise.id] = item
+        return mapped
+
+    lesson_summaries = []
+    all_skill_aggregates: dict[str, list] = {}
+    for lesson in lessons:
+        lesson_exercises = exercises_by_lesson.get(lesson.id, [])
+        if not lesson_exercises:
+            continue
+        cmap = content_map(lesson, lesson_exercises)
+        lesson_attempts = attempts_by_lesson.get(lesson.id, [])
+        aggregate = summarize_lesson_mastery(
+            lesson_exercises,
+            lesson_attempts,
+            get_content_id=lambda item: cmap.get(item.id, {}).get("content_id"),
+        )
+        lesson_summaries.append(MasteryCenterLessonResponse(
+            lesson_id=lesson.id,
+            title=lesson.title,
+            mastery_state=aggregate.mastery_state,
+            total_exercises=aggregate.total_exercises,
+            attempted_exercises=aggregate.attempted_exercises,
+            mastered_exercises=aggregate.mastered_exercises,
+            struggling_exercises=aggregate.struggling_exercises,
+            unseen_exercises=aggregate.unseen_exercises,
+            average_mastery_score=aggregate.average_mastery_score,
+            mastery_rate=aggregate.mastery_rate,
+            attempt_rate=aggregate.attempt_rate,
+            covered_variants=aggregate.covered_variants,
+        ))
+        skills = summarize_skill_mastery(
+            lesson_exercises,
+            lesson_attempts,
+            get_content_id=lambda item: cmap.get(item.id, {}).get("content_id"),
+            get_skills=lambda item: cmap.get(item.id, {}).get("skills"),
+        )
+        for skill in skills:
+            all_skill_aggregates.setdefault(skill.skill, []).append(skill)
+
+    total = sum(item.total_exercises for item in lesson_summaries)
+    attempted = sum(item.attempted_exercises for item in lesson_summaries)
+    mastered = sum(item.mastered_exercises for item in lesson_summaries)
+    learning = sum(item.total_exercises - item.mastered_exercises - item.struggling_exercises - item.unseen_exercises for item in lesson_summaries)
+    struggling = sum(item.struggling_exercises for item in lesson_summaries)
+    unseen = sum(item.unseen_exercises for item in lesson_summaries)
+    covered = sum(item.covered_variants for item in lesson_summaries)
+    weighted_score = sum(item.average_mastery_score * item.total_exercises for item in lesson_summaries)
+    overall_state = _skill_mastery_state(type("Aggregate", (), {"total_exercises": total, "unseen_exercises": unseen, "mastered_exercises": mastered, "struggling_exercises": struggling})())
+
+    skill_rows = []
+    for skill_name, rows in sorted(all_skill_aggregates.items()):
+        skill_total = sum(row.total_exercises for row in rows)
+        skill_attempted = sum(row.attempted_exercises for row in rows)
+        skill_mastered = sum(row.mastered_exercises for row in rows)
+        skill_unseen = sum(row.unseen_exercises for row in rows)
+        skill_struggling = sum(row.struggling_exercises for row in rows)
+        skill_learning = sum(row.learning_exercises for row in rows)
+        skill_covered = sum(row.covered_variants for row in rows)
+        skill_score = round(sum(row.average_mastery_score * row.total_exercises for row in rows) / skill_total, 3) if skill_total else 0.0
+        skill_state = "unseen" if skill_unseen == skill_total else "mastered" if skill_mastered == skill_total else "struggling" if skill_struggling else "learning"
+        skill_rows.append({"skill": skill_name, "mastery_state": skill_state, "total_exercises": skill_total, "attempted_exercises": skill_attempted, "mastered_exercises": skill_mastered, "learning_exercises": skill_learning, "struggling_exercises": skill_struggling, "unseen_exercises": skill_unseen, "average_mastery_score": skill_score, "attempt_rate": round(skill_attempted / skill_total, 3) if skill_total else 0.0, "mastery_rate": round(skill_mastered / skill_total, 3) if skill_total else 0.0, "covered_variants": skill_covered})
+
+    next_skill = select_next_skill_mastery([type("Skill", (), row)() for row in skill_rows])
+    return MasteryCenterResponse(
+        mastery_state=overall_state,
+        total_exercises=total,
+        attempted_exercises=attempted,
+        mastered_exercises=mastered,
+        learning_exercises=learning,
+        struggling_exercises=struggling,
+        unseen_exercises=unseen,
+        average_mastery_score=round(weighted_score / total, 3) if total else 0.0,
+        mastery_rate=round(mastered / total, 3) if total else 0.0,
+        attempt_rate=round(attempted / total, 3) if total else 0.0,
+        covered_variants=covered,
+        skills=skill_rows,
+        lessons=lesson_summaries,
+        next_skill=next_skill.__dict__ if next_skill is not None else None,
+    )
