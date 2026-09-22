@@ -702,6 +702,10 @@
     "masteryReviewImprovedDesc": "Twój poziom opanowania wzrósł podczas tej powtórki. Sesja jest zakończona.",
     "masteryReviewExhausted": "Powtórka opanowania ukończona",
     "masteryReviewExhaustedDesc": "Nie ma więcej ćwiczeń do powtórzenia w celu opanowania materiału."
+    "skillMastery": "Opanowanie umiejętności",
+    "skillMasteryDesc": "Zobacz, jak dobrze opanowana jest każda umiejętność w tej lekcji.",
+    "skillMasteryMastered": "opanowane",
+    "skillMasteryAttempted": "wykonane",
   },
   "flashcards": {
     "title": "Fiszki",
