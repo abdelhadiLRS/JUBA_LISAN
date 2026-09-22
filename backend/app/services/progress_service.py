@@ -137,8 +137,18 @@ async def update_daily_progress(
             daily_xp_target=50,
             weekly_xp_target=250,
         )
-        db.add(goal)
-        await db.flush()
+        try:
+            async with db.begin_nested():
+                db.add(goal)
+                await db.flush()
+        except IntegrityError:
+            goal_result = await db.execute(
+                select(LearningGoal).where(
+                    LearningGoal.user_id == user_id,
+                    LearningGoal.study_plan_id == study_plan_id,
+                )
+            )
+            goal = goal_result.scalar_one()
 
     week_start = today - timedelta(days=today.weekday())
     weekly_result = await db.execute(
