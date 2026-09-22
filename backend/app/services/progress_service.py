@@ -153,14 +153,6 @@ async def update_daily_progress(
             goal = goal_result.scalar_one()
 
     week_start = today - timedelta(days=today.weekday())
-    weekly_result = await db.execute(
-        select(Progress.xp_earned).where(
-            Progress.user_id == user_id,
-            Progress.study_plan_id == study_plan_id,
-            Progress.date >= week_start,
-            Progress.date <= today,
-        )
-    )
     weekly_xp_result = await db.execute(
         select(Progress.xp_earned, Progress.reward_xp).where(
             Progress.user_id == user_id,
