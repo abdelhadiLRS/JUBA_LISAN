@@ -879,8 +879,7 @@ async def get_next_mastery_exercise(
         )
 
     exercise = candidate.exercise
-    index = next(index for index, item in enumerate(exercises) if item.id == exercise.id)
-    content = content_exercises[index] if index < len(content_exercises) else {}
+    content = content_by_exercise_id.get(exercise.id, {})
     if not isinstance(content, dict):
         content = {}
 
