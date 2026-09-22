@@ -814,6 +814,13 @@
     "dailyChallenges": "Provocări zilnice",
     "unlocked": "Deblocate",
     "noAchievements": "Joacă pentru a debloca realizări."
+    "goals": "Obiective",
+    "dailyWeeklyGoals": "Obiective zilnice și săptămânale",
+    "dailyGoal": "Obiectiv zilnic",
+    "weeklyGoal": "Obiectiv săptămânal",
+    "dailyTarget": "Obiectiv XP zilnic",
+    "weeklyTarget": "Obiectiv XP săptămânal",
+    "saveGoals": "Salvează obiectivele",
   },
   "grammar": {
     "title": "Referință gramaticală",
