@@ -7,12 +7,15 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.competency import UserCompetency
+from app.models.learning_goal import LearningGoal
 from app.models.progress import Progress
 
 XP_LESSON_COMPLETE = 20
 XP_EXERCISE_CORRECT = 5
 XP_EXERCISE_WRONG = 1
 XP_FLASHCARD_REVIEW = 2
+GOAL_DAILY_REWARD_XP = 25
+GOAL_WEEKLY_REWARD_XP = 75
 
 
 async def update_daily_progress(
@@ -117,6 +120,44 @@ async def update_daily_progress(
         old = skills.get(skill, skill_score)
         skills[skill] = round(old * 0.7 + skill_score * 0.3, 3)
         entry.skills = skills
+
+    # Goal rewards are awarded exactly once per period and are calculated
+    # against learning XP before the reward itself is added.
+    goal_result = await db.execute(
+        select(LearningGoal).where(
+            LearningGoal.user_id == user_id,
+            LearningGoal.study_plan_id == study_plan_id,
+        )
+    )
+    goal = goal_result.scalar_one_or_none()
+    if goal is None:
+        goal = LearningGoal(
+            user_id=user_id,
+            study_plan_id=study_plan_id,
+            daily_xp_target=50,
+            weekly_xp_target=250,
+        )
+        db.add(goal)
+        await db.flush()
+
+    week_start = today - timedelta(days=today.weekday())
+    weekly_result = await db.execute(
+        select(Progress.xp_earned).where(
+            Progress.user_id == user_id,
+            Progress.study_plan_id == study_plan_id,
+            Progress.date >= week_start,
+            Progress.date <= today,
+        )
+    )
+    weekly_xp_before_rewards = sum(weekly_result.scalars().all())
+
+    if entry.xp_earned >= goal.daily_xp_target and goal.daily_reward_date != today:
+        entry.xp_earned += GOAL_DAILY_REWARD_XP
+        goal.daily_reward_date = today
+
+    if weekly_xp_before_rewards >= goal.weekly_xp_target and goal.weekly_reward_start != week_start:
+        entry.xp_earned += GOAL_WEEKLY_REWARD_XP
+        goal.weekly_reward_start = week_start
 
     if commit:
         await db.commit()
