@@ -673,3 +673,57 @@ def test_next_skill_mastery_accepts_real_skill_aggregate_shape():
     result = select_next_skill_mastery([aggregate])
 
     assert result is aggregate
+
+def test_next_skill_mastery_excludes_mastered_and_uses_deterministic_ties():
+    aggregates = [
+        SimpleNamespace(skill="zeta", mastery_state="mastered", mastery_rate=1.0, average_mastery_score=0.95),
+        SimpleNamespace(skill="beta", mastery_state="learning", mastery_rate=0.40, average_mastery_score=0.70),
+        SimpleNamespace(skill="alpha", mastery_state="learning", mastery_rate=0.40, average_mastery_score=0.70),
+    ]
+
+    result = select_next_skill_mastery(aggregates)
+
+    assert result is aggregates[2]
+    assert result.skill == "alpha"
+
+
+def test_skill_mastery_state_is_struggling_when_any_exercise_is_struggling():
+    exercises = [
+        SimpleNamespace(id=1, content_id="alpha", skills=["grammar"]),
+        SimpleNamespace(id=2, content_id="beta", skills=["grammar"]),
+    ]
+    attempts = [
+        SimpleNamespace(content_id="alpha", variant="a", score=0.49),
+        SimpleNamespace(content_id="beta", variant="a", score=0.90),
+        SimpleNamespace(content_id="beta", variant="b", score=0.90),
+    ]
+
+    result = summarize_skill_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: item.content_id,
+        get_skills=lambda item: item.skills,
+    )
+
+    assert result[0].mastery_state == "struggling"
+    assert result[0].mastery_rate == 0.5
+
+
+def test_skill_mastery_deduplicates_case_variants_without_double_counting_exercises():
+    exercises = [
+        SimpleNamespace(id=1, content_id="alpha", skills=["Grammar", "grammar", " GRAMMAR "]),
+        SimpleNamespace(id=2, content_id="beta", skills=["grammar"]),
+    ]
+
+    result = summarize_skill_mastery(
+        exercises,
+        [],
+        get_content_id=lambda item: item.content_id,
+        get_skills=lambda item: item.skills,
+    )
+
+    assert len(result) == 1
+    assert result[0].skill == "grammar"
+    assert result[0].total_exercises == 2
+    assert result[0].unseen_exercises == 2
+    assert result[0].covered_variants == 0
