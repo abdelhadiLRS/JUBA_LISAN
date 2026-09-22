@@ -780,6 +780,36 @@ def test_next_skill_exercise_reuses_mastery_priority_within_skill_scope():
     assert result.mastery_score == 0.20
 
 
+def test_next_skill_exercise_selects_lowest_mastery_and_ignores_mastered_variants():
+    exercises = [
+        SimpleNamespace(id=10, content_id="mastered", skills=["grammar"]),
+        SimpleNamespace(id=20, content_id="weak", skills=["grammar"]),
+        SimpleNamespace(id=30, content_id="learning", skills=["grammar"]),
+        SimpleNamespace(id=40, content_id="other", skills=["vocabulary"]),
+    ]
+    attempts = [
+        SimpleNamespace(content_id="mastered", variant="a", score=0.90),
+        SimpleNamespace(content_id="mastered", variant="b", score=0.90),
+        SimpleNamespace(content_id="weak", variant="a", score=0.20),
+        SimpleNamespace(content_id="learning", variant="a", score=0.60),
+    ]
+
+    result = select_next_skill_exercise(
+        exercises,
+        attempts,
+        skill=" Grammar ",
+        get_content_id=lambda item: item.content_id,
+        get_exercise_id=lambda item: item.id,
+        get_skills=lambda item: item.skills,
+    )
+
+    assert result is not None
+    assert result.exercise is exercises[1]
+    assert result.mastery_state == "struggling"
+    assert result.mastery_score == 0.20
+    assert result.mastery_variants == 1
+
+
 def test_next_skill_exercise_returns_none_for_empty_or_unknown_skill():
     exercises = [
         SimpleNamespace(id=1, content_id="target", skills=["grammar"]),
