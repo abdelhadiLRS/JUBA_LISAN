@@ -104,6 +104,8 @@ def select_unanswered_variant(
 
 def _normalise_score(score: object) -> float:
     """Coerce finite runtime score values before applying the shared score policy."""
+    if isinstance(score, bool):
+        raise ValueError("score must be numeric")
     normalized = float(score)
     if not math.isfinite(normalized):
         raise ValueError("score must be finite")
