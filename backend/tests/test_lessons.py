@@ -459,3 +459,115 @@ async def test_regenerate_rejects_completed_lesson(client, test_user, db_session
     )
 
     assert response.status_code == 409
+
+
+
+@pytest.mark.asyncio
+async def test_get_lesson_skill_mastery(client, test_user, db_session):
+    user, headers = test_user
+
+    from app.models.exercise_attempt import ExerciseAttempt
+    from app.models.lesson import Exercise, Lesson
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A2",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    lesson = Lesson(
+        study_plan_id=plan.id,
+        title="Skill mastery",
+        lesson_type="grammar",
+        cefr_level="A2",
+        week_number=1,
+        day_number=1,
+        content={
+            "exercises": [
+                {"content_id": "grammar-1", "skills": ["grammar"]},
+                {"content_id": "grammar-2", "skills": ["grammar", "vocabulary"]},
+            ]
+        },
+    )
+    db_session.add(lesson)
+    await db_session.flush()
+
+    first = Exercise(
+        lesson_id=lesson.id,
+        exercise_type="multiple_choice",
+        question="Q1",
+        options=["A", "B"],
+        correct_answer="A",
+    )
+    second = Exercise(
+        lesson_id=lesson.id,
+        exercise_type="multiple_choice",
+        question="Q2",
+        options=["A", "B"],
+        correct_answer="B",
+    )
+    db_session.add_all([first, second])
+    await db_session.flush()
+
+    db_session.add_all([
+        ExerciseAttempt(
+            user_id=user.id,
+            exercise_id=first.id,
+            lesson_id=lesson.id,
+            study_plan_id=plan.id,
+            content_id="grammar-1",
+            variant="mcq-a",
+            attempt_number=1,
+            user_answer="A",
+            score=0.9,
+            feedback="ok",
+        ),
+        ExerciseAttempt(
+            user_id=user.id,
+            exercise_id=first.id,
+            lesson_id=lesson.id,
+            study_plan_id=plan.id,
+            content_id="grammar-1",
+            variant="mcq-b",
+            attempt_number=2,
+            user_answer="A",
+            score=0.9,
+            feedback="ok",
+        ),
+        ExerciseAttempt(
+            user_id=user.id,
+            exercise_id=second.id,
+            lesson_id=lesson.id,
+            study_plan_id=plan.id,
+            content_id="grammar-2",
+            variant="mcq-a",
+            attempt_number=1,
+            user_answer="A",
+            score=0.6,
+            feedback="keep practicing",
+        ),
+    ])
+    await db_session.commit()
+
+    response = await client.get(
+        f"/api/lessons/{lesson.id}/mastery/skills",
+        headers=headers,
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert [item["skill"] for item in data] == ["grammar", "vocabulary"]
+    grammar = data[0]
+    vocabulary = data[1]
+    assert grammar["total_exercises"] == 2
+    assert grammar["mastered_exercises"] == 1
+    assert grammar["learning_exercises"] == 1
+    assert grammar["mastery_rate"] == 0.5
+    assert vocabulary["total_exercises"] == 1
+    assert vocabulary["learning_exercises"] == 1
