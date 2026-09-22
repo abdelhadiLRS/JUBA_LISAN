@@ -181,6 +181,22 @@ def _skill_mastery_state(aggregate: "LessonMasteryAggregate") -> str:
 
 
 @dataclass(frozen=True)
+class SkillMasteryAggregate:
+    skill: str
+    mastery_state: str
+    total_exercises: int
+    attempted_exercises: int
+    mastered_exercises: int
+    learning_exercises: int
+    struggling_exercises: int
+    unseen_exercises: int
+    average_mastery_score: float
+    attempt_rate: float
+    mastery_rate: float
+    covered_variants: int
+
+
+@dataclass(frozen=True)
 class LessonMasteryAggregate:
     mastery_state: str
     total_exercises: int
