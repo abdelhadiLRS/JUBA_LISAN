@@ -15,6 +15,8 @@ class LessonMasteryAggregate:
     struggling_exercises: int
     unseen_exercises: int
     average_mastery_score: float
+    attempt_rate: float
+    mastery_rate: float
     covered_variants: int
 
 
@@ -56,5 +58,7 @@ def summarize_lesson_mastery(
         struggling_exercises=struggling,
         unseen_exercises=unseen,
         average_mastery_score=round(sum(scores) / total, 3) if total else 0.0,
+        attempt_rate=round(attempted / total, 3) if total else 0.0,
+        mastery_rate=round(mastered / total, 3) if total else 0.0,
         covered_variants=covered_variants,
     )
