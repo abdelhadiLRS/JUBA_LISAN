@@ -704,6 +704,7 @@
     "masteryReviewExhaustedDesc": "Nu mai există exerciții de repetat pentru consolidarea stăpânirii.",
     "skillMastery": "Stăpânirea abilităților",
     "skillMasteryDesc": "Vezi cât de bine este stăpânită fiecare abilitate de învățare în această lecție.",
+    "skillMasteryPractice": "Exersează această abilitate",
     "skillMasteryMastered": "stăpânite",
     "skillMasteryAttempted": "încercate",
     "skillMasteryAttemptRate": "Rata încercărilor: {rate}%",
