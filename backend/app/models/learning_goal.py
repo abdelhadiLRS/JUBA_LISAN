@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 
 from sqlalchemy import DateTime, ForeignKey, Integer, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
@@ -28,6 +28,8 @@ class LearningGoal(Base):
     )
     daily_xp_target: Mapped[int] = mapped_column(Integer, nullable=False, default=50)
     weekly_xp_target: Mapped[int] = mapped_column(Integer, nullable=False, default=250)
+    daily_reward_date: Mapped[date | None] = mapped_column(DateTime, nullable=True)
+    weekly_reward_start: Mapped[date | None] = mapped_column(DateTime, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, default=lambda: datetime.now(UTC).replace(tzinfo=None)
     )
