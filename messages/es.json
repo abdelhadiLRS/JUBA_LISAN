@@ -704,6 +704,7 @@
     "masteryReviewExhaustedDesc": "No quedan ejercicios para repasar y dominar.",
     "skillMastery": "Dominio de habilidades",
     "skillMasteryDesc": "Consulta qué tan bien se domina cada habilidad de aprendizaje en esta lección.",
+    "skillMasteryPractice": "Practicar esta habilidad",
     "skillMasteryMastered": "dominadas",
     "skillMasteryAttempted": "intentadas",
     "skillMasteryAttemptRate": "Tasa de intento: {rate}%",
