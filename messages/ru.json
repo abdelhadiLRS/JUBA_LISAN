@@ -687,7 +687,17 @@
     "masteryAttempted": "Пройдено",
     "masteryLearning": "В изучении",
     "masteryStruggling": "Сложно",
-    "masteryUnseen": "Не просмотрено"
+    "masteryUnseen": "Не просмотрено",
+    "masteryReview": "Повторение освоения",
+    "masteryReviewReady": "Повторите упражнение, которому нужно больше всего практики.",
+    "masteryReviewAction": "Повторить слабый навык",
+    "masteryReviewLoading": "Выбор…",
+    "masteryReviewNone": "Дополнительное повторение освоения не требуется.",
+    "masteryReviewReasons": {
+      "struggling": "Повторение освоения",
+      "unseen": "непросмотренное упражнение",
+      "lowest_mastery": "наименьшее освоение"
+    }
   },
   "flashcards": {
     "title": "Карточки",
