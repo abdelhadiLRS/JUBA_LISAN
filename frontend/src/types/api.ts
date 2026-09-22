@@ -122,5 +122,6 @@ export interface SkillMastery {
   unseen_exercises: number
   average_mastery_score: number
   mastery_rate: number
+  attempt_rate: number
   covered_variants: number
 }
