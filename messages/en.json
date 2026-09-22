@@ -733,6 +733,7 @@
     "masteryReviewAction": "Review weakest skill",
     "masteryReviewLoading": "Choosing…",
     "masteryReviewNone": "No further mastery review is needed.",
+    "masteryReviewLowest": "Lowest mastery",
     "masteryReviewReasons": {
       "struggling": "Mastery review",
       "unseen": "unseen exercise",
