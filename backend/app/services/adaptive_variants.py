@@ -133,6 +133,7 @@ def select_unanswered_variant(
     succeeded: bool,
     attempted_exercise_ids: Collection[object] | None = None,
     attempted_adaptive_identities: Collection[object] | None = None,
+    attempt_history: Sequence[object] | None = None,
     get_exercise_id: Callable[[ExerciseT], object] = _get_attr("id"),
     get_variant: Callable[[ExerciseT], object] = _get_attr("variant"),
     get_content_id: Callable[[ExerciseT], object] = _get_attr("content_id"),
@@ -240,6 +241,12 @@ def recommend_adaptive_variant(
     """
     classification = classify_score(_normalise_score(score))
     if classification == "middle":
+        mastery_score, mastery_state, _covered_variants = summarize_adaptive_mastery(
+            attempt_history or (),
+            content_id=content_id,
+        )
+        if mastery_state == "mastered" and mastery_score >= 0.80:
+            return "advance", None, None
         return "reinforce", None, None
 
     target = select_unanswered_variant(
