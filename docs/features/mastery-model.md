@@ -59,3 +59,16 @@ User-facing mastery states and review lifecycle messages must be translated thro
 - `lowest_mastery`
 
 This separation lets the UI localize wording without changing API behavior.
+
+
+## Skill mastery
+
+Lesson exercises may declare one or more learning skills through the exercise `skills` field. The mastery engine reuses the same adaptive variant history used for lesson mastery, but groups exercises by normalized skill label.
+
+The lesson API exposes:
+
+- `GET /api/lessons/{lesson_id}/mastery` for the lesson aggregate.
+- `GET /api/lessons/{lesson_id}/mastery/skills` for per-skill mastery aggregates.
+- `GET /api/lessons/{lesson_id}/mastery/next` for the next exercise requiring mastery work.
+
+An exercise can contribute to multiple skills. Skills without a valid non-empty string label are ignored, and returned skill aggregates are sorted deterministically by skill name. This keeps lesson mastery and skill mastery on the same score, state, and variant-coverage semantics.
