@@ -198,7 +198,7 @@ export default function LessonPage() {
       setNativeHint(null)
       setNativeExplanation(null)
       void loadAttempts(result.id)
-      if (lesson) void loadAttemptSummary(lesson.id)
+      if (lesson) { void loadAttemptSummary(lesson.id); void loadLessonMastery(lesson.id) }
     } catch { /* keep the answered exercise visible when no adaptive variant is available */ } finally { setEvaluating(false) }
   }
 
@@ -225,7 +225,7 @@ export default function LessonPage() {
       setDayComplete(false)
       setAnswer('')
       void loadAttempts(result.id)
-      if (lesson) void loadAttemptSummary(lesson.id)
+      if (lesson) { void loadAttemptSummary(lesson.id); void loadLessonMastery(lesson.id) }
     } catch { /* keep the failed exercise visible so the user can retry later */ } finally { setEvaluating(false) }
   }
 
