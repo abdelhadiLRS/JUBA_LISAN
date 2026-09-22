@@ -694,11 +694,13 @@
     "masteryReviewLoading": "Wybieranie…",
     "masteryReviewNone": "Nie jest potrzebna dalsza powtórka opanowania.",
     "masteryReviewLowest": "Najniższe opanowanie",
-    "masteryReviewReasons": {
-      "struggling": "Powtórka opanowania",
-      "unseen": "niewidziane ćwiczenie",
-      "lowest_mastery": "najniższe opanowanie"
-    }
+    "masteryReviewSession": "Sesja powtórki opanowania",
+    "masteryReviewProgress": "Powtórzono ćwiczeń: {count}",
+    "masteryReviewFinish": "Zakończ powtórkę",
+    "masteryReviewNext": "Następne ćwiczenie opanowania",
+    "masteryReviewImproved": "Opanowanie wzrosło",
+    "masteryReviewImprovedDesc": "Twój poziom opanowania wzrósł podczas tej powtórki. Sesja jest zakończona."
+
   },
   "flashcards": {
     "title": "Fiszki",
