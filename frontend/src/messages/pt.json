@@ -1711,5 +1711,55 @@
     "label": "Manutenção",
     "title": "Em manutenção",
     "description": "Esta seção está temporariamente indisponível para manutenção. Volte mais tarde."
+  },
+  "courseLevel": {
+    "notFound": "Curso não encontrado",
+    "choose": "Escolha um nível do QECR.",
+    "back": "Voltar aos cursos",
+    "all": "Todos os cursos",
+    "units": "unidades",
+    "completed": "lições concluídas",
+    "ready": "prontas agora",
+    "notUnlocked": "Este nível ainda não está desbloqueado.",
+    "unlockDesc": "Continue o seu plano de aprendizagem atual para desbloquear níveis QECR posteriores.",
+    "unit": "Unidade",
+    "grammar": "Gramática",
+    "vocab": "Conjuntos de vocabulário",
+    "competencies": "Competências",
+    "byEnd": "No final desta unidade",
+    "mastery": "domínio",
+    "lessons": "lições",
+    "openPlan": "Abrir plano",
+    "locked": "Bloqueado",
+    "keepMoving": "Continue a avançar",
+    "continue": "Continue o seu plano ativo.",
+    "continueDesc": "Abra as lições diárias geradas e continue o seu percurso.",
+    "openLearning": "Abrir plano de aprendizagem",
+    "levels": {
+      "A1": {
+        "title": "A1 · Iniciante",
+        "description": "Construa uma base prática para a comunicação quotidiana."
+      },
+      "A2": {
+        "title": "A2 · Elementar",
+        "description": "Lide com situações familiares com confiança crescente."
+      },
+      "B1": {
+        "title": "B1 · Intermédio",
+        "description": "Comunique de forma autónoma sobre temas do quotidiano."
+      },
+      "B2": {
+        "title": "B2 · Intermédio superior",
+        "description": "Expresse ideias com maior alcance, precisão e nuance."
+      },
+      "C1": {
+        "title": "C1 · Avançado",
+        "description": "Comunique fluentemente em contextos académicos e profissionais exigentes."
+      },
+      "C2": {
+        "title": "C2 · Domínio",
+        "description": "Aperfeiçoe a precisão, a flexibilidade e a expressão natural."
+      }
+    }
   }
 }
