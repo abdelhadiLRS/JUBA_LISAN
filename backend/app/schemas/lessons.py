@@ -210,6 +210,12 @@ class SkillMasteryResponse(BaseModel):
     covered_variants: int
 
 
+
+class SkillMasteryNextResponse(BaseModel):
+    skill: SkillMasteryResponse
+    reason: Literal["struggling", "unseen", "lowest_mastery"]
+
+
 class AdaptiveNextResponse(BaseModel):
     action: str
     recommended_variant: str | None = None
