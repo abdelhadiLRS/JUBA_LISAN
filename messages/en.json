@@ -747,7 +747,7 @@
     "skillMasteryMastered": "mastered",
     "skillMasteryAttempted": "attempted",
     "skillMasteryAttemptRate": "Attempt rate: {rate}%",
-    "skillMasteryVariants": "variants",
+    "skillMasteryVariants": "variants"
   },
   "flashcards": {
     "title": "Flashcards",
