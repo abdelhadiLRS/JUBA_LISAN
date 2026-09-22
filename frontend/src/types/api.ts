@@ -114,6 +114,7 @@ export interface ClearMemoriesResponse {
 
 export interface SkillMastery {
   skill: string
+  mastery_state: 'unseen' | 'struggling' | 'learning' | 'mastered'
   total_exercises: number
   attempted_exercises: number
   mastered_exercises: number
