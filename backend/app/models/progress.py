@@ -21,6 +21,8 @@ class Progress(Base):
     )
     date: Mapped[date] = mapped_column(Date, nullable=False, default=date.today)
     xp_earned: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    # XP granted by goal rewards, kept separate from learning activity XP.
+    reward_xp: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     lessons_completed: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     exercises_correct: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     exercises_total: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
