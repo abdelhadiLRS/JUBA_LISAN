@@ -694,11 +694,13 @@
     "masteryReviewLoading": "Выбор…",
     "masteryReviewNone": "Дополнительное повторение освоения не требуется.",
     "masteryReviewLowest": "Наименьшее освоение",
-    "masteryReviewReasons": {
-      "struggling": "Повторение освоения",
-      "unseen": "непросмотренное упражнение",
-      "lowest_mastery": "наименьшее освоение"
-    }
+    "masteryReviewSession": "Сеанс повторения освоения",
+    "masteryReviewProgress": "Повторено упражнений: {count}",
+    "masteryReviewFinish": "Завершить повторение",
+    "masteryReviewNext": "Следующее упражнение на освоение",
+    "masteryReviewImproved": "Освоение улучшилось",
+    "masteryReviewImprovedDesc": "Ваш уровень освоения улучшился во время этого повторения. Сеанс завершён."
+
   },
   "flashcards": {
     "title": "Карточки",
