@@ -507,6 +507,45 @@ def test_skill_mastery_exposes_attempt_rate_and_variant_coverage():
     assert result[0].covered_variants == 3
 
 
+def test_lesson_mastery_response_uses_independent_skill_defaults():
+    base = dict(
+        mastery_state="unseen",
+        total_exercises=0,
+        attempted_exercises=0,
+        mastered_exercises=0,
+        learning_exercises=0,
+        struggling_exercises=0,
+        unseen_exercises=0,
+        average_mastery_score=0.0,
+        attempt_rate=0.0,
+        mastery_rate=0.0,
+        covered_variants=0,
+    )
+
+    first = LessonMasteryResponse(**base)
+    second = LessonMasteryResponse(**base)
+
+    first.skills.append(
+        {
+            "skill": "grammar",
+            "mastery_state": "unseen",
+            "total_exercises": 0,
+            "attempted_exercises": 0,
+            "mastered_exercises": 0,
+            "learning_exercises": 0,
+            "struggling_exercises": 0,
+            "unseen_exercises": 0,
+            "average_mastery_score": 0.0,
+            "mastery_rate": 0.0,
+            "attempt_rate": 0.0,
+            "covered_variants": 0,
+        }
+    )
+
+    assert len(first.skills) == 1
+    assert second.skills == []
+
+
 def test_lesson_mastery_response_embeds_skill_snapshots():
     response = LessonMasteryResponse(
         mastery_state="learning",
