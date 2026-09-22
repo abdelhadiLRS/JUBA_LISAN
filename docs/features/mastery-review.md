@@ -131,3 +131,9 @@ The lesson-wide aggregate is still refreshed after every answer, but focused-ses
 ## Skill-focused completion semantics
 
 A skill-focused review captures that skill's mastery rate at session start rather than the lesson-wide rate. After each answer, the refreshed skill aggregate is the completion source of truth: the review ends when the selected skill becomes mastered, or when its skill-scoped next-target endpoint is exhausted. A change in the selected skill's mastery rate is reported as the session delta; progress in unrelated skills does not prematurely end the focused review.
+
+## Focused skill targeting contract
+
+Skill-focused review now scopes exercise selection to the normalized skill label before applying the shared mastery priority rules. Skill labels are trimmed and case-folded, so Grammar, grammar, and surrounding whitespace address the same skill. Mastered exercises are excluded from the focused target set; when no eligible exercise remains, the focused session can terminate through its exhausted state rather than selecting an unrelated skill.
+
+This keeps the lesson-wide mastery aggregate and skill-focused review aligned: both use the same adaptive-variant mastery thresholds, while the focused selector adds only the skill scope.
