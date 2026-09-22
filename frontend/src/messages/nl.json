@@ -706,7 +706,8 @@
       "struggling": "Meer oefening nodig",
       "learning": "Aan het leren",
       "mastered": "Beheerst"
-    }
+    },
+    "transcriptLabel": "Transcript"
   },
   "flashcards": {
     "title": "Flashcards",
