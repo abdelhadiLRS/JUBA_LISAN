@@ -36,6 +36,7 @@ from app.schemas.lessons import (
 )
 from app.services.language_helpers import get_language_name, get_native_language_name
 from app.services.lesson_mastery import (
+    mastery_reason,
     select_next_mastery_candidate,
     summarize_lesson_mastery,
 )
@@ -893,7 +894,7 @@ async def get_next_mastery_exercise(
             mastery_state=candidate.mastery_state,
             mastery_variants=candidate.mastery_variants,
         ),
-        reason="lowest_mastery",
+        reason=mastery_reason(candidate.mastery_state),
     )
 
 
