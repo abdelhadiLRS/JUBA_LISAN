@@ -50,7 +50,11 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 - ✅ Weekly/monthly/all-time range selector UI is wired to the range-aware history endpoint.
 - ✅ Learning-goal milestone history and aggregate reward summaries are exposed and surfaced in the Progress Center.
 - 🔜 Remaining: dedicated mastery center and deeper retention analytics.
-### Phase 14 — Mastery ❌ (competencies exist, not surfaced as mastery center)
+### Phase 14 — Mastery 🟡
+- ✅ Backend lesson mastery engine now tracks mastery state, score, attempt rate, variant coverage, skill-level aggregates, and deterministic next-exercise selection.
+- ✅ Lesson mastery endpoints expose aggregate mastery, next mastery exercise, per-skill mastery, and attempt summaries with user scoping.
+- ✅ Adaptive mastery tests cover struggling/unseen/learning/mastered states, variant coverage, skill normalization, deterministic selection, and response validation.
+- 🔜 Remaining: dedicated cross-lesson mastery center in the Progress/learning surfaces and richer retention analytics.
 ### Phase 15 — Streak / Goals / XP 🟡
 - ✅ Persistent daily/weekly XP goals with configurable targets scoped to the active study plan.
 - ✅ Server-authoritative goal rewards: +25 XP daily and +75 XP weekly, once per period.
