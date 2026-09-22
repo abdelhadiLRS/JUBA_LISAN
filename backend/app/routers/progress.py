@@ -22,7 +22,7 @@ from app.models.learning_goal_milestone import LearningGoalMilestone
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import (GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalResponse, LearningGoalUpdate, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
+from app.schemas.progress import (GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalMilestoneSummary, LearningGoalResponse, LearningGoalUpdate, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
 from app.services.progress_service import get_unit_competencies, update_daily_progress
 from app.services.user_language_service import get_active_language
 
@@ -409,6 +409,36 @@ async def update_learning_goals(
     await db.commit()
     await db.refresh(goal)
     return await _learning_goal_response(db, current_user.id, plan, goal)
+
+
+@router.get("/goals/milestones/summary", response_model=LearningGoalMilestoneSummary)
+@limiter.limit("60/minute")
+async def get_learning_goal_milestone_summary(
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    plan = await _get_active_plan_or_none(db, current_user.id)
+    if plan is None:
+        return LearningGoalMilestoneSummary()
+
+    result = await db.execute(
+        select(LearningGoalMilestone).where(
+            LearningGoalMilestone.user_id == current_user.id,
+            LearningGoalMilestone.study_plan_id == plan.id,
+        )
+    )
+    rows = result.scalars().all()
+    daily = [row for row in rows if row.goal_type == "daily"]
+    weekly = [row for row in rows if row.goal_type == "weekly"]
+    return LearningGoalMilestoneSummary(
+        total_milestones=len(rows),
+        daily_milestones=len(daily),
+        weekly_milestones=len(weekly),
+        total_reward_xp=sum(row.reward_xp for row in rows),
+        daily_reward_xp=sum(row.reward_xp for row in daily),
+        weekly_reward_xp=sum(row.reward_xp for row in weekly),
+    )
 
 
 @router.get("/goals/history", response_model=list[LearningGoalMilestoneResponse])
