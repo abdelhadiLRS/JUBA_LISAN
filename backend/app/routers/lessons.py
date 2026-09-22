@@ -852,6 +852,19 @@ async def list_lesson_attempt_summary(
                 latest.score, latest.variant
             )
 
+        latest_identity = _persisted_attempt_identity(
+            latest,
+            fallback_content_id=(
+                content_by_exercise_id.get(exercise_id, {}).get("content_id")
+            ),
+            fallback_variant=(
+                latest.variant
+                or content_by_exercise_id.get(exercise_id, {}).get("variant")
+                or (current_exercise.exercise_type if current_exercise is not None else None)
+            ),
+        )
+        latest_variant = latest_identity[1] if latest_identity is not None else latest.variant
+
         summaries.append(
             ExerciseAttemptSummaryResponse(
                 exercise_id=exercise_id,
@@ -862,7 +875,7 @@ async def list_lesson_attempt_summary(
                 improvement=round(latest.score - first.score, 3),
                 mastered=best_score >= 0.80,
                 needs_retry=best_score < 0.50,
-                latest_variant=latest.variant,
+                latest_variant=latest_variant,
                 recommended_action=action,
                 recommended_variant=recommended_variant,
                 latest_answered_at=latest.answered_at,
