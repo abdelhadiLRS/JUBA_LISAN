@@ -708,7 +708,8 @@
       "mastered": "Stăpânit"
     },
     "transcriptLabel": "Transcriere",
-    "listeningPractice": "Deschide practica de ascultare"
+    "listeningPractice": "Deschide practica de ascultare",
+    "audioLoadError": "Audio nu a putut fi încărcat. Poți continua cu transcrierea."
   },
   "flashcards": {
     "title": "Carduri flash",
