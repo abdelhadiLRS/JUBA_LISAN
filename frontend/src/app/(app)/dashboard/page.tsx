@@ -114,7 +114,7 @@ export default function DashboardPage() {
   // Daily Momentum State - answers three core questions
   const [nextAction, setNextAction] = useState<TodayLessonItem | null>(null) // What should I do now?
   const [reviewDueCount, setReviewDueCount] = useState(0) // What is due for review?
-  const [goalProgress, setGoalProgress] = useState({ current: 0, target: 0 }) // How close to today's goal?
+  const [goalProgress, setGoalProgress] = useState({ current: 0, target: 0 }) // How close to today's XP goal?
 
   useEffect(() => {
     if (freemiumTrialActive && user?.freemium_trial_ends_at) {
@@ -161,9 +161,10 @@ export default function DashboardPage() {
 
   const loadData = useCallback(async () => {
     try {
-      const [progRes, planRes] = await Promise.all([
+      const [progRes, planRes, goalRes] = await Promise.all([
         apiFetch('/api/progress/summary'),
         apiFetch('/api/study-plan/today'),
+        apiFetch('/api/progress/goals'),
       ])
       if (progRes.ok) {
         const prog = await progRes.json()
@@ -181,6 +182,13 @@ export default function DashboardPage() {
         setVocabularyTotal(prog.vocabulary_total ?? 0)
         setVocabularyProgress(prog.vocabulary_progress ?? 0)
         
+        if (goalRes.ok) {
+          const goal = await goalRes.json()
+          setGoalProgress({
+            current: Math.max(0, Number(goal.daily_xp) || 0),
+            target: Math.max(1, Number(goal.daily_xp_target) || 50),
+          })
+        }
       } else {
         setProgress({ streak: 0, xp: 0, skills: {} })
         setTotalLessons(0)
@@ -191,7 +199,7 @@ export default function DashboardPage() {
         setVocabularyMastered(0)
         setVocabularyTotal(0)
         setVocabularyProgress(0)
-        setGoalProgress({ current: 0, target: 3 })
+        setGoalProgress({ current: 0, target: 50 })
       }
       if (planRes.ok) {
         const plan = await planRes.json()
@@ -207,10 +215,12 @@ export default function DashboardPage() {
         const normalizedLessons = normalizeDashboardLessons(plan.lessons)
         setTodayLessons(normalizedLessons)
         const currentCompleted = normalizedLessons.filter((lesson) => lesson.isCompleted).length
-        setGoalProgress({
-          current: currentCompleted,
-          target: normalizedLessons.length || 3,
-        })
+        if (!goalRes.ok) {
+          setGoalProgress((current) => ({
+            current: current.current,
+            target: current.target || 50,
+          }))
+        }
         
         // Daily Momentum: Set next action. Review count comes from the same
         // study-plan response so the dashboard has one consistent source of truth.
@@ -418,7 +428,7 @@ export default function DashboardPage() {
               <p className="text-fl-muted-2 mb-2 text-xs font-semibold uppercase tracking-wide">{t('todayGoal')}</p>
               <div className="mb-2 flex items-end justify-between">
                 <span className="text-fl-fg text-2xl font-bold">{goalProgress.current}</span>
-                <span className="text-fl-muted-2 text-sm">/ {goalProgress.target}</span>
+                <span className="text-fl-muted-2 text-sm">/ {goalProgress.target} {t('xp')}</span>
               </div>
               <div className="bg-fl-surface-2 h-2 w-full overflow-hidden rounded-full">
                 <div 
@@ -426,7 +436,7 @@ export default function DashboardPage() {
                   style={{ width: `${Math.min(100, (goalProgress.current / goalProgress.target) * 100)}%`, background: 'var(--juba-accent)' }}
                 />
               </div>
-              <p className="text-fl-muted-2 mt-2 text-xs">{t('lessonsCompletedToday')}</p>
+              <p className="text-fl-muted-2 mt-2 text-xs">{goalProgress.current >= goalProgress.target ? t('goalCompleted') : t('xp')}</p>
             </div>
           </div>
         </section>
