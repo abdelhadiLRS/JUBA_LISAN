@@ -146,3 +146,12 @@ def test_next_mastery_candidate_returns_none_when_everything_is_mastered():
         get_content_id=lambda item: item.content_id,
         get_exercise_id=lambda item: item.id,
     ) is None
+
+
+def test_mastery_reason_maps_states_to_stable_reasons():
+    from app.services.lesson_mastery import mastery_reason
+
+    assert mastery_reason("struggling") == "struggling"
+    assert mastery_reason("unseen") == "unseen"
+    assert mastery_reason("learning") == "lowest_mastery"
+    assert mastery_reason("unknown") == "lowest_mastery"
