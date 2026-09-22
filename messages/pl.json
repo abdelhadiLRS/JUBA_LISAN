@@ -687,7 +687,17 @@
     "masteryAttempted": "Wykonane",
     "masteryLearning": "W trakcie nauki",
     "masteryStruggling": "Trudne",
-    "masteryUnseen": "Niewidziane"
+    "masteryUnseen": "Niewidziane",
+    "masteryReview": "Powtórka opanowania",
+    "masteryReviewReady": "Powtórz ćwiczenie, które wymaga najwięcej praktyki.",
+    "masteryReviewAction": "Powtórz najsłabszą umiejętność",
+    "masteryReviewLoading": "Wybieranie…",
+    "masteryReviewNone": "Nie jest potrzebna dalsza powtórka opanowania.",
+    "masteryReviewReasons": {
+      "struggling": "Powtórka opanowania",
+      "unseen": "niewidziane ćwiczenie",
+      "lowest_mastery": "najniższe opanowanie"
+    }
   },
   "flashcards": {
     "title": "Fiszki",
