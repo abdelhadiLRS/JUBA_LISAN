@@ -178,6 +178,8 @@ class LessonMasteryResponse(BaseModel):
     struggling_exercises: int
     unseen_exercises: int
     average_mastery_score: float
+    attempt_rate: float
+    mastery_rate: float
     covered_variants: int
 
 
