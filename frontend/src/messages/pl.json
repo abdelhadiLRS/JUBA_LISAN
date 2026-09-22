@@ -706,7 +706,8 @@
       "struggling": "Wymaga ćwiczeń",
       "learning": "W trakcie nauki",
       "mastered": "Opanowane"
-    }
+    },
+    "transcriptLabel": "Transkrypcja"
   },
   "flashcards": {
     "title": "Fiszki",
