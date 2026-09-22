@@ -1,5 +1,6 @@
 from types import SimpleNamespace
 
+from app.services.adaptive_variants import summarize_adaptive_mastery
 from app.services.lesson_mastery import (
     select_next_mastery_candidate,
     summarize_lesson_mastery,
@@ -178,3 +179,45 @@ def test_next_mastery_candidate_breaks_equal_scores_by_exercise_id():
     assert result.exercise is exercises[1]
     assert result.mastery_state == "learning"
     assert result.mastery_score == 0.60
+
+
+def test_adaptive_mastery_boundary_at_struggling_threshold():
+    score, state, variants = summarize_adaptive_mastery(
+        [SimpleNamespace(variant="a", score=0.49)],
+    )
+    assert score == 0.49
+    assert state == "struggling"
+    assert variants == 1
+
+
+def test_adaptive_mastery_boundary_at_learning_threshold():
+    score, state, variants = summarize_adaptive_mastery(
+        [SimpleNamespace(variant="a", score=0.50)],
+    )
+    assert score == 0.50
+    assert state == "learning"
+    assert variants == 1
+
+
+def test_adaptive_mastery_requires_two_distinct_variants_at_required_score():
+    score, state, variants = summarize_adaptive_mastery(
+        [
+            SimpleNamespace(variant="a", score=0.80),
+            SimpleNamespace(variant="a", score=0.90),
+        ],
+    )
+    assert score == 0.90
+    assert state == "learning"
+    assert variants == 1
+
+
+def test_adaptive_mastery_becomes_mastered_with_two_distinct_variants():
+    score, state, variants = summarize_adaptive_mastery(
+        [
+            SimpleNamespace(variant="a", score=0.80),
+            SimpleNamespace(variant="b", score=0.80),
+        ],
+    )
+    assert score == 0.80
+    assert state == "mastered"
+    assert variants == 2
