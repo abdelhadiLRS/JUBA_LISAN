@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Self
+from typing import Literal, Self
 
 from pydantic import BaseModel, field_serializer, field_validator, model_validator
 
@@ -188,7 +188,7 @@ class LessonMasteryResponse(BaseModel):
 
 class LessonMasteryNextResponse(BaseModel):
     exercise: ExerciseResponse
-    reason: str
+    reason: Literal["struggling", "unseen", "lowest_mastery"]
 
 
 class AdaptiveNextResponse(BaseModel):
