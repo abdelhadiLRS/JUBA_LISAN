@@ -1,5 +1,6 @@
 from types import SimpleNamespace
 
+from app.schemas.lessons import LessonMasteryResponse
 from app.services.adaptive_variants import summarize_adaptive_mastery
 from app.services.lesson_mastery import (
     select_next_mastery_candidate,
@@ -492,3 +493,39 @@ def test_skill_mastery_exposes_attempt_rate_and_variant_coverage():
     assert len(result) == 1
     assert result[0].attempt_rate == 1.0
     assert result[0].covered_variants == 3
+
+
+def test_lesson_mastery_response_embeds_skill_snapshots():
+    response = LessonMasteryResponse(
+        mastery_state="learning",
+        total_exercises=2,
+        attempted_exercises=2,
+        mastered_exercises=1,
+        learning_exercises=1,
+        struggling_exercises=0,
+        unseen_exercises=0,
+        average_mastery_score=0.75,
+        attempt_rate=1.0,
+        mastery_rate=0.5,
+        covered_variants=3,
+        skills=[
+            {
+                "skill": "grammar",
+                "mastery_state": "learning",
+                "total_exercises": 2,
+                "attempted_exercises": 2,
+                "mastered_exercises": 1,
+                "learning_exercises": 1,
+                "struggling_exercises": 0,
+                "unseen_exercises": 0,
+                "average_mastery_score": 0.75,
+                "mastery_rate": 0.5,
+                "attempt_rate": 1.0,
+                "covered_variants": 3,
+            }
+        ],
+    )
+
+    assert len(response.skills) == 1
+    assert response.skills[0].skill == "grammar"
+    assert response.skills[0].mastery_rate == 0.5
