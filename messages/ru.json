@@ -704,6 +704,7 @@
     "masteryReviewExhaustedDesc": "Больше нет упражнений для повторения с целью закрепления материала.",
     "skillMastery": "Освоение навыков",
     "skillMasteryDesc": "Посмотрите, насколько хорошо освоен каждый учебный навык в этом уроке.",
+    "skillMasteryPractice": "Практиковать этот навык",
     "skillMasteryMastered": "освоено",
     "skillMasteryAttempted": "попыток",
     "skillMasteryAttemptRate": "Доля попыток: {rate}%",
