@@ -77,6 +77,15 @@ class LearningGoalMilestoneResponse(BaseModel):
         return v.isoformat()
 
 
+class LearningGoalMilestoneSummary(BaseModel):
+    total_milestones: int = 0
+    daily_milestones: int = 0
+    weekly_milestones: int = 0
+    total_reward_xp: int = 0
+    daily_reward_xp: int = 0
+    weekly_reward_xp: int = 0
+
+
 class LearningGoalResponse(BaseModel):
     daily_xp_target: int
     weekly_xp_target: int
