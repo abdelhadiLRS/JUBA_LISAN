@@ -170,6 +170,17 @@ class ExerciseAttemptSummaryResponse(BaseModel):
     latest_answered_at: datetime
 
 
+class LessonMasteryResponse(BaseModel):
+    total_exercises: int
+    attempted_exercises: int
+    mastered_exercises: int
+    learning_exercises: int
+    struggling_exercises: int
+    unseen_exercises: int
+    average_mastery_score: float
+    covered_variants: int
+
+
 class AdaptiveNextResponse(BaseModel):
     action: str
     recommended_variant: str | None = None
