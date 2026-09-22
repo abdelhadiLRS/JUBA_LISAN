@@ -1711,5 +1711,55 @@
     "label": "Mantenimiento",
     "title": "En mantenimiento",
     "description": "Esta sección no está disponible temporalmente por tareas de mantenimiento. Vuelve más tarde."
+  },
+  "courseLevel": {
+    "notFound": "Curso no encontrado",
+    "choose": "Elige un nivel del MCER.",
+    "back": "Volver a los cursos",
+    "all": "Todos los cursos",
+    "units": "unidades",
+    "completed": "lecciones completadas",
+    "ready": "listas ahora",
+    "notUnlocked": "Este nivel aún no está desbloqueado.",
+    "unlockDesc": "Continúa tu plan de aprendizaje actual para desbloquear niveles posteriores del MCER.",
+    "unit": "Unidad",
+    "grammar": "Gramática",
+    "vocab": "Conjuntos de vocabulario",
+    "competencies": "Competencias",
+    "byEnd": "Al final de esta unidad",
+    "mastery": "dominio",
+    "lessons": "lecciones",
+    "openPlan": "Abrir plan",
+    "locked": "Bloqueado",
+    "keepMoving": "Sigue avanzando",
+    "continue": "Continúa tu plan activo.",
+    "continueDesc": "Abre las lecciones diarias generadas y sigue avanzando en tu recorrido.",
+    "openLearning": "Abrir plan de aprendizaje",
+    "levels": {
+      "A1": {
+        "title": "A1 · Inicial",
+        "description": "Construye una base práctica para la comunicación cotidiana."
+      },
+      "A2": {
+        "title": "A2 · Elemental",
+        "description": "Gestiona situaciones habituales con mayor confianza."
+      },
+      "B1": {
+        "title": "B1 · Intermedio",
+        "description": "Comunícate de forma independiente sobre temas cotidianos."
+      },
+      "B2": {
+        "title": "B2 · Intermedio alto",
+        "description": "Expresa ideas con mayor variedad, precisión y matices."
+      },
+      "C1": {
+        "title": "C1 · Avanzado",
+        "description": "Comunícate con fluidez en contextos académicos y profesionales exigentes."
+      },
+      "C2": {
+        "title": "C2 · Dominio",
+        "description": "Perfecciona la precisión, la flexibilidad y la expresión natural."
+      }
+    }
   }
 }
