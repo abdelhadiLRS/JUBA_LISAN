@@ -55,6 +55,7 @@ export default function CoursesPage() {
   const [plan, setPlan] = useState<StudyPlan | null>(null)
   const [competencies, setCompetencies] = useState<Record<string, number>>({})
   const [levelUnits, setLevelUnits] = useState<Record<CEFRLevel, CurriculumUnit[]>>({} as Record<CEFRLevel, CurriculumUnit[]>)
+  const [journeyUnits, setJourneyUnits] = useState<Record<string, { id: string; progress: number; state: string; lessons?: Array<{ id: number; is_completed: boolean; state: string }> }>>({})
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -63,8 +64,13 @@ export default function CoursesPage() {
     async function load() {
       setLoading(true)
       try {
-        const planRes = await apiFetch('/api/study-plan/current').catch(() => null)
-        const compRes = await apiFetch('/api/progress/competencies').catch(() => null)
+        const language = activeLanguage?.code ?? 'en-GB'
+        const [planRes, compRes, journeyRes, ...curriculumResponses] = await Promise.all([
+          apiFetch('/api/study-plan/current').catch(() => null),
+          apiFetch('/api/progress/competencies').catch(() => null),
+          apiFetch('/api/study-plan/learning-path').catch(() => null),
+          ...CEFR_LEVELS.map((level) => getCurriculumUnits(level, language).catch(() => [])),
+        ])
         const nextPlan = planRes?.ok ? (await planRes.json() as StudyPlan) : null
 
         if (cancelled) return
@@ -81,14 +87,19 @@ export default function CoursesPage() {
           if (!cancelled) setCompetencies(next)
         }
 
-        const language = activeLanguage?.code ?? 'en-GB'
-        const levelsToLoad = nextPlan?.cefr_level ? [nextPlan.cefr_level] : [CEFR_LEVELS[0]]
-        const units = await Promise.all(
-          levelsToLoad.map(async (level) => [level, await getCurriculumUnits(level, language)] as const),
-        )
-        if (!cancelled) {
-          setLevelUnits(Object.fromEntries(units) as Record<CEFRLevel, CurriculumUnit[]>)
+        if (journeyRes?.ok) {
+          const journey = await journeyRes.json()
+          const nextJourney: Record<string, { id: string; progress: number; state: string; lessons?: Array<{ id: number; is_completed: boolean; state: string }> }> = {}
+          for (const section of journey.sections ?? []) {
+            for (const unit of section.units ?? []) nextJourney[unit.id] = unit
+          }
+          setJourneyUnits(nextJourney)
         }
+
+        const units = Object.fromEntries(
+          CEFR_LEVELS.map((level, index) => [level, curriculumResponses[index] ?? []]),
+        ) as Record<CEFRLevel, CurriculumUnit[]>
+        setLevelUnits(units)
       } finally {
         if (!cancelled) setLoading(false)
       }
@@ -103,10 +114,10 @@ export default function CoursesPage() {
   const currentUnits = currentLevel ? (levelUnits[currentLevel] ?? []) : []
   const currentProgress = useMemo(() => {
     if (currentUnits.length === 0) return 0
-    return Math.round(
-      (currentUnits.reduce((sum, unit) => sum + (competencies[unit.id] ?? 0), 0) / currentUnits.length) * 100,
-    )
-  }, [competencies, currentUnits])
+    const journeyScores = currentUnits.map((unit) => journeyUnits[unit.id]?.progress).filter((score): score is number => typeof score === 'number')
+    if (journeyScores.length) return Math.round((journeyScores.reduce((sum, score) => sum + score, 0) / journeyScores.length) * 100)
+    return Math.round((currentUnits.reduce((sum, unit) => sum + (competencies[unit.id] ?? 0), 0) / currentUnits.length) * 100)
+  }, [competencies, currentUnits, journeyUnits])
   const currentLessonCount = getPlanLessonCount(plan)
 
   return (
@@ -151,8 +162,14 @@ export default function CoursesPage() {
                 const unlocked = currentLevel ? index <= currentIndex : index === 0
                 const current = level === currentLevel
                 const units = levelUnits[level] ?? []
-                const progress = current ? currentProgress : 0
-                const lessonCount = current ? currentLessonCount : units.reduce((sum, unit) => sum + unit.lesson_types.length, 0)
+                const journeyLevelUnits = units.map((unit) => journeyUnits[unit.id]).filter(Boolean)
+                const totalLessons = journeyLevelUnits.reduce((sum, unit) => sum + (unit?.lessons?.length ?? 0), 0)
+                const progress = current
+                  ? currentProgress
+                  : journeyLevelUnits.length
+                    ? Math.round((journeyLevelUnits.reduce((sum, unit) => sum + (unit?.progress ?? 0), 0) / journeyLevelUnits.length) * 100)
+                    : 0
+                const lessonCount = current ? Math.max(currentLessonCount, totalLessons) : totalLessons || units.reduce((sum, unit) => sum + unit.lesson_types.length, 0)
 
                 return (
                   <article key={level} className={`juba-card relative p-6 ${current ? 'ring-2 ring-[var(--juba-primary)]' : ''}`}>
@@ -167,7 +184,7 @@ export default function CoursesPage() {
                     <div className="mt-6 flex items-center justify-between text-sm font-bold text-fl-fg"><span>{lessonCount} lessons</span><span>{progress}%</span></div>
                     <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-fl-surface-2"><div className="h-full rounded-full bg-[var(--juba-warm)] transition-all" style={{ width: `${progress}%` }} /></div>
                     {unlocked ? (
-                      <Link href={current ? '/plan' : '/learning-journey'} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[var(--juba-primary-soft)] px-5 py-3 font-bold text-[var(--juba-primary-dark)] transition hover:bg-[var(--juba-primary)]">
+                      <Link href={current ? '/plan' : `/courses/${level}`} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[var(--juba-primary-soft)] px-5 py-3 font-bold text-[var(--juba-primary-dark)] transition hover:bg-[var(--juba-primary)]">
                         {current ? 'Open learning plan' : 'Explore level'} <ArrowRight className="h-4 w-4" />
                       </Link>
                     ) : (
