@@ -687,7 +687,17 @@
     "masteryAttempted": "Tentées",
     "masteryLearning": "En apprentissage",
     "masteryStruggling": "En difficulté",
-    "masteryUnseen": "Non vues"
+    "masteryUnseen": "Non vues",
+    "masteryReview": "Révision de maîtrise",
+    "masteryReviewReady": "Révisez l’exercice qui nécessite le plus de pratique.",
+    "masteryReviewAction": "Réviser la compétence la plus faible",
+    "masteryReviewLoading": "Sélection…",
+    "masteryReviewNone": "Aucune autre révision de maîtrise n’est nécessaire.",
+    "masteryReviewReasons": {
+      "struggling": "Révision de maîtrise",
+      "unseen": "exercice non vu",
+      "lowest_mastery": "maîtrise la plus faible"
+    }
   },
   "flashcards": {
     "title": "Fiches",
