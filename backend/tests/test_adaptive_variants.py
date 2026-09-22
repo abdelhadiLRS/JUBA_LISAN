@@ -711,3 +711,32 @@ def test_recommendation_preserves_boundary_semantics_for_numeric_strings():
     assert variant == "fill_blank"
     assert target is exercises[1]
 \n
+
+def test_recommend_adaptive_action_rejects_non_finite_scores():
+    import pytest
+
+    with pytest.raises(ValueError, match="score must be finite"):
+        recommend_adaptive_action(float("nan"), "multiple_choice", ["fill_blank"])
+
+    with pytest.raises(ValueError, match="score must be finite"):
+        recommend_adaptive_action(float("inf"), "multiple_choice", ["fill_blank"])
+
+    with pytest.raises(ValueError, match="score must be finite"):
+        recommend_adaptive_action(float("-inf"), "multiple_choice", ["fill_blank"])
+
+
+def test_recommendation_rejects_non_finite_scores():
+    import pytest
+
+    exercises = [
+        VariantExercise(1, "c1", "multiple_choice"),
+        VariantExercise(2, "c1", "fill_blank"),
+    ]
+
+    with pytest.raises(ValueError, match="score must be finite"):
+        recommend_adaptive_variant(
+            exercises,
+            content_id="c1",
+            current_variant="multiple_choice",
+            score=float("nan"),
+        )
