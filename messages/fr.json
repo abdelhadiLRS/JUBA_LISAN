@@ -706,6 +706,8 @@
     "skillMasteryExhaustedDesc": "Il ne reste aucun exercice à revoir pour maîtriser « {skill} ».",
     "skillMastery": "Maîtrise des compétences",
     "skillMasteryDesc": "Voyez dans quelle mesure chaque compétence d’apprentissage est maîtrisée dans cette leçon.",
+    "skillMasteryComplete": "Toutes les compétences d’apprentissage sont maîtrisées",
+    "skillMasteryCompleteDesc": "Toutes les compétences suivies dans cette leçon ont atteint la maîtrise.",
     "skillMasteryPractice": "Pratiquer cette compétence",
     "skillMasteryMastered": "maîtrisées",
     "skillMasteryAttempted": "tentées",
