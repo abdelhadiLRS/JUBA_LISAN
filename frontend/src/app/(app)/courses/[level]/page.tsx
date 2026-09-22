@@ -105,7 +105,48 @@ export default function CourseLevelPage() {
               {unit.competency_checklist.length > 0 && <div className='mt-4 rounded-2xl border border-fl-border bg-fl-surface p-4'><p className='text-xs font-extrabold uppercase tracking-[.14em] text-fl-muted-2'>{t('byEnd')}</p><ul className='mt-2 space-y-1.5 text-sm font-medium leading-6 text-fl-muted-2'>{unit.competency_checklist.slice(0, 2).map((item) => <li key={item} className='flex gap-2'><span className='text-[var(--juba-primary)]'>•</span><span>{item}</span></li>)}</ul></div>}
             </div></div>
               <div className='w-full lg:max-w-sm'><div className='flex items-center justify-between text-sm font-bold text-fl-fg'><span>{progress}% {t('mastery')}</span><span>{lessons.length} {t('lessons')}</span></div><div className='mt-2 h-2.5 overflow-hidden rounded-full bg-fl-surface-2' role='progressbar' aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label={`${progress}% ${t('mastery')}`}><div className='h-full rounded-full bg-[var(--juba-warm)]' style={{ width: progress + '%' }} /></div>
-              {canOpen && lessons.length > 0 ? <div className='mt-4 space-y-2'>{lessons.slice(0, 3).map((lesson) => lesson.available || lesson.is_completed ? <Link key={lesson.id} href={'/lesson/' + lesson.id} aria-label={lesson.title + ' — ' + formatLessonType(lesson.lesson_type)} className='flex items-center justify-between rounded-xl border border-fl-border bg-fl-surface-2 px-4 py-3 text-sm font-bold text-fl-fg'><span className='min-w-0 truncate'>{lesson.title}</span><span className='shrink-0 rounded-full border border-fl-border bg-fl-surface px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-fl-muted-2'>{formatLessonType(lesson.lesson_type)}</span>{lesson.is_completed ? <CheckCircle2 aria-hidden='true' className='h-4 w-4 shrink-0' /> : <ArrowRight aria-hidden='true' className='h-4 w-4 shrink-0' />}</Link> : <div key={lesson.id} aria-disabled='true' aria-label={lesson.title + ' — ' + t('locked')} className='flex items-center justify-between rounded-xl border border-fl-border bg-fl-surface-2 px-4 py-3 text-sm font-bold text-fl-muted-2'><span className='truncate'>{lesson.title}</span><LockKeyhole aria-hidden='true' className='h-4 w-4 shrink-0' /></div>)}</div> : canOpen ? <Link href='/plan' className='mt-4 inline-flex items-center gap-2 rounded-xl bg-[var(--juba-primary-soft)] px-4 py-2.5 text-sm font-bold text-[var(--juba-primary-dark)]'>{t('openPlan')} <ArrowRight className='h-4 w-4' /></Link> : <span className='mt-4 inline-flex items-center gap-2 rounded-xl bg-fl-surface-2 px-4 py-2.5 text-sm font-bold text-fl-muted-2'><LockKeyhole className='h-4 w-4' /> {t('locked')}</span>}</div></div>
+              {canOpen && lessons.length > 0 ? (
+                <div className='mt-4 space-y-2'>
+                  {lessons.slice(0, 3).map((lesson) => (
+                    lesson.available || lesson.is_completed ? (
+                      <Link
+                        key={lesson.id}
+                        href={'/lesson/' + lesson.id}
+                        aria-label={lesson.title + ' — ' + formatLessonType(lesson.lesson_type)}
+                        className='flex items-center justify-between rounded-xl border border-fl-border bg-fl-surface-2 px-4 py-3 text-sm font-bold text-fl-fg'
+                      >
+                        <span className='min-w-0 truncate'>{lesson.title}</span>
+                        <span className='shrink-0 rounded-full border border-fl-border bg-fl-surface px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-fl-muted-2'>
+                          {formatLessonType(lesson.lesson_type)}
+                        </span>
+                        {lesson.is_completed ? (
+                          <CheckCircle2 aria-hidden='true' className='h-4 w-4 shrink-0' />
+                        ) : (
+                          <ArrowRight aria-hidden='true' className='h-4 w-4 shrink-0' />
+                        )}
+                      </Link>
+                    ) : (
+                      <div
+                        key={lesson.id}
+                        aria-disabled='true'
+                        aria-label={lesson.title + ' — ' + t('locked')}
+                        className='flex items-center justify-between rounded-xl border border-fl-border bg-fl-surface-2 px-4 py-3 text-sm font-bold text-fl-muted-2'
+                      >
+                        <span className='truncate'>{lesson.title}</span>
+                        <LockKeyhole aria-hidden='true' className='h-4 w-4 shrink-0' />
+                      </div>
+                    )
+                  ))}
+                </div>
+              ) : canOpen ? (
+                <Link href='/plan' className='mt-4 inline-flex items-center gap-2 rounded-xl bg-[var(--juba-primary-soft)] px-4 py-2.5 text-sm font-bold text-[var(--juba-primary-dark)]'>
+                  {t('openPlan')} <ArrowRight className='h-4 w-4' />
+                </Link>
+              ) : (
+                <span className='mt-4 inline-flex items-center gap-2 rounded-xl bg-fl-surface-2 px-4 py-2.5 text-sm font-bold text-fl-muted-2'>
+                  <LockKeyhole className='h-4 w-4' /> {t('locked')}
+                </span>
+              )}</div></div>
             </article>
           })}
         </section>
