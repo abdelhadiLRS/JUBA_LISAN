@@ -814,6 +814,13 @@
     "dailyChallenges": "Défis quotidiens",
     "unlocked": "Débloqués",
     "noAchievements": "Jouez pour débloquer des succès."
+    "goals": "Objectifs",
+    "dailyWeeklyGoals": "Objectifs quotidiens et hebdomadaires",
+    "dailyGoal": "Objectif quotidien",
+    "weeklyGoal": "Objectif hebdomadaire",
+    "dailyTarget": "Objectif XP quotidien",
+    "weeklyTarget": "Objectif XP hebdomadaire",
+    "saveGoals": "Enregistrer les objectifs",
   },
   "grammar": {
     "title": "Grammaire",
