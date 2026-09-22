@@ -20,7 +20,6 @@ def upgrade() -> None:
         "progress",
         sa.Column("reward_xp", sa.Integer(), nullable=False, server_default="0"),
     )
-    op.alter_column("progress", "reward_xp", server_default=None)
 
 
 def downgrade() -> None:
