@@ -838,7 +838,16 @@
     "noActivePlanDesc": "Complete the assessment to start tracking your skills.",
     "vocabularyHeader": "{level} Vocabulary",
     "currentLevelOnly": "Current level only",
-    "allLevels": "All levels"
+    "allLevels": "All levels",
+    "activityRange": "Activity range",
+    "sevenDays": "7 days",
+    "thirtyDays": "30 days",
+    "last30Days": "Last 30 days",
+    "allTime": "All time",
+    "rangeXp": "XP in range",
+    "rangeAccuracy": "Accuracy in range",
+    "activeDays": "Active days",
+    "avgDailyXp": "Avg. daily XP"
   },
   "grammar": {
     "title": "Grammar Reference",
