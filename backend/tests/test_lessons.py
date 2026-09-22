@@ -1263,3 +1263,54 @@ async def test_lesson_skill_mastery_detail_returns_404_for_unknown_skill(
 
     assert response.status_code == 404
     assert response.json()["detail"] == "No mastery data found for this skill"
+
+@pytest.mark.asyncio
+async def test_lesson_mastery_skill_next_route_is_not_captured_by_skill_detail(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    from app.models.lesson import Exercise, Lesson
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A2",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    lesson = Lesson(
+        study_plan_id=plan.id,
+        title="Skill next route",
+        lesson_type="grammar",
+        cefr_level="A2",
+        week_number=1,
+        day_number=1,
+        content={"exercises": [{"content_id": "grammar-item", "skills": ["grammar"]}]},
+    )
+    db_session.add(lesson)
+    await db_session.flush()
+    db_session.add(
+        Exercise(
+            lesson_id=lesson.id,
+            exercise_type="multiple_choice",
+            question="Grammar?",
+            options=["A", "B"],
+            correct_answer="A",
+        )
+    )
+    await db_session.commit()
+
+    response = await client.get(
+        f"/api/lessons/{lesson.id}/mastery/skills/next",
+        headers=headers,
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["skill"]["skill"] == "grammar"
+    assert data["reason"] == "unseen"
