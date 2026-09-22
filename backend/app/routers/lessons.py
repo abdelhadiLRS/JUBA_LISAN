@@ -893,6 +893,7 @@ async def adaptive_next_exercise(
             status_code=status.HTTP_409_CONFLICT,
             detail="Latest attempt does not have a stable content identity",
         )
+    attempted_content_id = attempted_content_id.strip()
 
     result = await db.execute(
         select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
@@ -1013,6 +1014,7 @@ async def retry_exercise(
             status_code=status.HTTP_409_CONFLICT,
             detail="Latest attempt does not have a stable content identity for retry",
         )
+    attempted_content_id = attempted_content_id.strip()
 
     _action, target_variant, target = recommend_adaptive_variant(
         lesson_exercises,
