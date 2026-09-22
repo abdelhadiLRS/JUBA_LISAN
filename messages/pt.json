@@ -1,6 +1,5 @@
 {
   "landing": {
-    "hero": "Aprenda idiomas com um parceiro de conversa por voz real",
     "heroSub": "Fale. Ouça. Melhore.",
     "signIn": "Entrar",
     "dashboard": "Continuar",
@@ -16,7 +15,6 @@
     "feature5Desc": "Revisão de vocabulário com repetição espaçada. O algoritmo SM-2 agenda cada cartão no momento ideal para maximizar a retenção a longo prazo.",
     "feature6Title": "Progresso e sequências",
     "feature6Desc": "XP, sequências diárias, pontuações de habilidades e competências por unidade. Acompanhe seu crescimento semana a semana e teste seu nível ao final de cada etapa CEFR.",
-    "footer": "Código aberto · Auto-hospede gratuitamente ou assine o serviço hospedado",
     "navFeatures": "Funcionalidades",
     "navReviews": "Avaliações",
     "navPricing": "Preços",
