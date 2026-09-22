@@ -693,6 +693,7 @@
     "masteryReviewAction": "Повторить слабый навык",
     "masteryReviewLoading": "Выбор…",
     "masteryReviewNone": "Дополнительное повторение освоения не требуется.",
+    "masteryReviewLowest": "Наименьшее освоение",
     "masteryReviewReasons": {
       "struggling": "Повторение освоения",
       "unseen": "непросмотренное упражнение",
