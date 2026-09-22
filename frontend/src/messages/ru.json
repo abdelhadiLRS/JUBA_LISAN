@@ -807,7 +807,13 @@
     "rangeXp": "XP за период",
     "rangeAccuracy": "Точность за период",
     "activeDays": "Активные дни",
-    "avgDailyXp": "Средний XP в день"
+    "avgDailyXp": "Средний XP в день",
+    "achievements": "Достижения",
+    "gamesPlayed": "Сыграно игр",
+    "bestStreak": "Лучшая серия ответов",
+    "dailyChallenges": "Ежедневные задания",
+    "unlocked": "Открыто",
+    "noAchievements": "Играйте, чтобы открывать достижения."
   },
   "grammar": {
     "title": "Справочник по грамматике",
