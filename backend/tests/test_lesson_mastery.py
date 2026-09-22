@@ -4,6 +4,7 @@ from app.services.adaptive_variants import summarize_adaptive_mastery
 from app.services.lesson_mastery import (
     select_next_mastery_candidate,
     summarize_lesson_mastery,
+    summarize_skill_mastery,
 )
 
 
@@ -255,3 +256,56 @@ def test_adaptive_mastery_ignores_invalid_scores_and_non_string_content_ids():
     assert score == 0.60
     assert state == "learning"
     assert variants == 1
+
+
+def test_skill_mastery_aggregates_shared_exercises_deterministically():
+    exercises = [
+        SimpleNamespace(id=1, content_id="alpha", skills=["grammar"]),
+        SimpleNamespace(id=2, content_id="beta", skills=["vocabulary", "grammar"]),
+        SimpleNamespace(id=3, content_id="gamma", skills=[]),
+    ]
+    attempts = [
+        SimpleNamespace(content_id="alpha", variant="a", score=0.90),
+        SimpleNamespace(content_id="alpha", variant="b", score=0.90),
+        SimpleNamespace(content_id="beta", variant="a", score=0.60),
+    ]
+
+    result = summarize_skill_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: item.content_id,
+        get_skills=lambda item: item.skills,
+    )
+
+    assert [item.skill for item in result] == ["grammar", "vocabulary"]
+    grammar, vocabulary = result
+    assert grammar.total_exercises == 2
+    assert grammar.mastered_exercises == 1
+    assert grammar.learning_exercises == 1
+    assert grammar.mastery_rate == 0.5
+    assert grammar.covered_variants == 3
+    assert vocabulary.total_exercises == 1
+    assert vocabulary.mastered_exercises == 0
+    assert vocabulary.learning_exercises == 1
+    assert vocabulary.mastery_rate == 0.0
+
+
+def test_skill_mastery_accepts_single_skill_strings_and_ignores_blank_labels():
+    exercises = [
+        SimpleNamespace(id=1, content_id="alpha", skills="pronunciation"),
+        SimpleNamespace(id=2, content_id="beta", skills=["", " "]),
+    ]
+    attempts = [
+        SimpleNamespace(content_id="alpha", variant="a", score=0.80),
+    ]
+
+    result = summarize_skill_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: item.content_id,
+        get_skills=lambda item: item.skills,
+    )
+
+    assert len(result) == 1
+    assert result[0].skill == "pronunciation"
+    assert result[0].attempted_exercises == 1
