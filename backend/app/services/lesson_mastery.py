@@ -7,6 +7,44 @@ from app.services.adaptive_variants import summarize_adaptive_mastery
 
 
 @dataclass(frozen=True)
+class LessonMasteryCandidate:
+    exercise: object
+    mastery_score: float
+    mastery_state: str
+    mastery_variants: int
+
+
+def select_next_mastery_candidate(
+    exercises: Sequence[object],
+    attempts: Sequence[object],
+    *,
+    get_content_id: Callable[[object], object],
+    get_exercise_id: Callable[[object], object],
+) -> LessonMasteryCandidate | None:
+    """Select the lowest-priority mastery target without returning mastered items."""
+    state_priority = {"struggling": 0, "unseen": 1, "learning": 2, "mastered": 3}
+    selected: tuple[tuple[int, float, int], LessonMasteryCandidate] | None = None
+
+    for exercise in exercises:
+        raw_content_id = get_content_id(exercise)
+        content_id = raw_content_id.strip() if isinstance(raw_content_id, str) else ""
+        score, state, variants = summarize_adaptive_mastery(
+            attempts,
+            content_id=content_id,
+        )
+        if state == "mastered":
+            continue
+        raw_id = get_exercise_id(exercise)
+        exercise_id = raw_id if isinstance(raw_id, int) and not isinstance(raw_id, bool) else 0
+        candidate = LessonMasteryCandidate(exercise, score, state, variants)
+        key = (state_priority.get(state, 2), score, exercise_id)
+        if selected is None or key < selected[0]:
+            selected = (key, candidate)
+
+    return selected[1] if selected is not None else None
+
+
+@dataclass(frozen=True)
 class LessonMasteryAggregate:
     total_exercises: int
     attempted_exercises: int
