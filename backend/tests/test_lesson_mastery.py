@@ -7,6 +7,7 @@ from app.services.lesson_mastery import (
     summarize_lesson_mastery,
     summarize_skill_mastery,
     select_next_skill_mastery,
+    normalise_skill_labels,
 )
 
 
@@ -333,6 +334,16 @@ def test_skill_mastery_aggregates_shared_exercises_deterministically():
     assert vocabulary.mastered_exercises == 0
     assert vocabulary.learning_exercises == 1
     assert vocabulary.mastery_rate == 0.0
+
+
+def test_normalise_skill_labels_handles_strings_blanks_case_and_duplicates():
+    assert normalise_skill_labels(" Grammar ") == ("grammar",)
+    assert normalise_skill_labels(["Grammar", " grammar ", "GRAMMAR", "Vocabulary"]) == (
+        "grammar",
+        "vocabulary",
+    )
+    assert normalise_skill_labels([None, "", "  ", 42]) == ()
+    assert normalise_skill_labels(None) == ()
 
 
 def test_skill_mastery_normalizes_case_and_deduplicates_labels_per_exercise():
