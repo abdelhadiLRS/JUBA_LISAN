@@ -394,3 +394,95 @@ async def test_streak_does_not_cross_study_plans(db_session, test_user):
     assert entry is not None
     assert entry.streak_day == 1
     assert entry.study_plan_id == current_plan.id
+
+
+@pytest.mark.asyncio
+async def test_progress_history_summary_supports_ranges_and_aggregates_skills(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    from app.models.progress import Progress
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    today = date.today()
+    db_session.add_all([
+        Progress(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            date=today,
+            xp_earned=30,
+            lessons_completed=2,
+            exercises_correct=8,
+            exercises_total=10,
+            streak_day=3,
+            skills={"grammar": 0.6, "vocabulary": 0.4},
+        ),
+        Progress(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            date=today - timedelta(days=1),
+            xp_earned=20,
+            lessons_completed=1,
+            exercises_correct=4,
+            exercises_total=5,
+            streak_day=2,
+            skills={"grammar": 0.8},
+        ),
+        Progress(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            date=today - timedelta(days=40),
+            xp_earned=100,
+            lessons_completed=9,
+            exercises_correct=9,
+            exercises_total=10,
+            streak_day=1,
+            skills={"grammar": 1.0},
+        ),
+    ])
+    await db_session.commit()
+
+    week = await client.get("/api/progress/history/summary?range=week", headers=headers)
+    assert week.status_code == 200
+    data = week.json()
+    assert data["period"] == "week"
+    assert data["total_xp"] == 50
+    assert data["total_lessons"] == 3
+    assert data["total_exercises"] == 15
+    assert data["exercises_correct"] == 12
+    assert data["accuracy"] == 0.8
+    assert data["active_days"] == 2
+    assert data["average_daily_xp"] == 25.0
+    assert data["skills"]["grammar"] == 0.7
+    assert data["skills"]["vocabulary"] == 0.4
+
+    month = await client.get("/api/progress/history/summary?range=month", headers=headers)
+    assert month.status_code == 200
+    assert month.json()["total_xp"] == 50
+
+    all_time = await client.get("/api/progress/history/summary?range=all", headers=headers)
+    assert all_time.status_code == 200
+    assert all_time.json()["total_xp"] == 150
+    assert all_time.json()["active_days"] == 3
+
+
+@pytest.mark.asyncio
+async def test_progress_history_summary_rejects_invalid_range(client, test_user):
+    _, headers = test_user
+    response = await client.get(
+        "/api/progress/history/summary?range=quarter",
+        headers=headers,
+    )
+    assert response.status_code == 422
