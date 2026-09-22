@@ -13,7 +13,10 @@ from app.core.deps import get_current_user
 from app.core.limiter import limiter
 from app.data._types import CEFRLevel
 from app.data.vocabulary import get_vocabulary_by_level
-from app.models.flashcard import Flashcard\nfrom app.models.exercise import Exercise\nfrom app.models.exercise_attempt import ExerciseAttempt\nfrom app.models.lesson import Lesson
+from app.models.flashcard import Flashcard
+from app.models.exercise import Exercise
+from app.models.exercise_attempt import ExerciseAttempt
+from app.models.lesson import Lesson
 from app.models.game_progress import GameProgress
 from app.models.game_progress_event import GameProgressEvent
 from app.models.game_session import GameSession
@@ -23,7 +26,8 @@ from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
 from app.schemas.progress import (GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalMilestoneSummary, LearningGoalResponse, LearningGoalUpdate, MasteryCenterResponse, MasteryCenterLessonResponse, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
-from app.services.progress_service import get_unit_competencies, update_daily_progress\nfrom app.services.lesson_mastery import _skill_mastery_state, select_next_skill_mastery, summarize_lesson_mastery, summarize_skill_mastery
+from app.services.progress_service import get_unit_competencies, update_daily_progress
+from app.services.lesson_mastery import _skill_mastery_state, select_next_skill_mastery, summarize_lesson_mastery, summarize_skill_mastery
 from app.services.user_language_service import get_active_language
 
 router = APIRouter(prefix="/api/progress", tags=["progress"])
@@ -568,7 +572,9 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                 if candidate not in alternatives:
                     alternatives.append(candidate)
             rng.shuffle(alternatives)
-            choices, prompt = alternatives, f"Remember this order:\n\n{answer}"
+            choices, prompt = alternatives, f"Remember this order:
+
+{answer}"
             skill, topic = "memory", "memory-sequence"
         elif game_id == "matching":
             pairs = {
