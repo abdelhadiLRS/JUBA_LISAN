@@ -707,8 +707,13 @@
     "skillMasteryMastered": "acquisite",
     "skillMasteryAttempted": "svolte",
     "skillMasteryAttemptRate": "Tasso di tentativi: {rate}%",
-    "skillMasteryVariants": "varianti"
-  \n    "masteryStates": {\n      "unseen": "Non iniziato",\n      "struggling": "In difficoltà",\n      "learning": "In apprendimento",\n      "mastered": "Padroneggiato"\n    },},
+    "skillMasteryVariants": "varianti",
+    "masteryStates": {
+      "unseen": "Non iniziato",
+      "struggling": "In difficoltà",
+      "learning": "In apprendimento",
+      "mastered": "Padroneggiato"
+    },
   "flashcards": {
     "title": "Schede",
     "due": "Da rivedere",
