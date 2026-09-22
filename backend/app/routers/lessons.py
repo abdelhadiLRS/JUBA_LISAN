@@ -909,6 +909,61 @@ async def get_next_mastery_exercise(
 
 
 @router.get(
+    "/{lesson_id}/mastery/skills/{skill}",
+    response_model=SkillMasteryResponse,
+)
+@limiter.limit("60/minute")
+async def get_lesson_skill_mastery_detail(
+    request: Request,
+    lesson_id: int,
+    skill: str,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return one normalized skill mastery snapshot for a lesson."""
+    lesson = await _get_lesson_for_user(lesson_id, current_user.id, db)
+    requested_skill = skill.strip().casefold()
+    if not requested_skill:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Skill must not be empty",
+        )
+
+    attempts_result = await db.execute(
+        select(ExerciseAttempt).where(
+            ExerciseAttempt.lesson_id == lesson.id,
+            ExerciseAttempt.user_id == current_user.id,
+        )
+    )
+    attempts = attempts_result.scalars().all()
+    exercise_result = await db.execute(
+        select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
+    )
+    exercises = exercise_result.scalars().all()
+    content_exercises = (
+        lesson.content.get("exercises", [])
+        if isinstance(lesson.content, dict)
+        else []
+    )
+    content_by_exercise_id = _map_content_exercises(exercises, content_exercises)
+    aggregates = summarize_skill_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
+        get_skills=lambda item: content_by_exercise_id.get(item.id, {}).get("skills"),
+    )
+    candidate = next((item for item in aggregates if item.skill == requested_skill), None)
+    if candidate is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No mastery data found for this skill",
+        )
+    return SkillMasteryResponse(**candidate.__dict__)
+
+
+
+
+@router.get(
     "/{lesson_id}/attempt-summary",
     response_model=list[ExerciseAttemptSummaryResponse],
 )
@@ -1151,60 +1206,6 @@ async def get_next_lesson_skill_mastery(
         skill=SkillMasteryResponse(**candidate.__dict__),
         reason=reason,
     )
-
-
-@router.get(
-    "/{lesson_id}/mastery/skills/{skill}",
-    response_model=SkillMasteryResponse,
-)
-@limiter.limit("60/minute")
-async def get_lesson_skill_mastery_detail(
-    request: Request,
-    lesson_id: int,
-    skill: str,
-    current_user: User = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db),
-):
-    """Return one normalized skill mastery snapshot for a lesson."""
-    lesson = await _get_lesson_for_user(lesson_id, current_user.id, db)
-    requested_skill = skill.strip().casefold()
-    if not requested_skill:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Skill must not be empty",
-        )
-
-    attempts_result = await db.execute(
-        select(ExerciseAttempt).where(
-            ExerciseAttempt.lesson_id == lesson.id,
-            ExerciseAttempt.user_id == current_user.id,
-        )
-    )
-    attempts = attempts_result.scalars().all()
-    exercise_result = await db.execute(
-        select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
-    )
-    exercises = exercise_result.scalars().all()
-    content_exercises = (
-        lesson.content.get("exercises", [])
-        if isinstance(lesson.content, dict)
-        else []
-    )
-    content_by_exercise_id = _map_content_exercises(exercises, content_exercises)
-    aggregates = summarize_skill_mastery(
-        exercises,
-        attempts,
-        get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
-        get_skills=lambda item: content_by_exercise_id.get(item.id, {}).get("skills"),
-    )
-    candidate = next((item for item in aggregates if item.skill == requested_skill), None)
-    if candidate is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="No mastery data found for this skill",
-        )
-    return SkillMasteryResponse(**candidate.__dict__)
-
 
 
 @router.get(
