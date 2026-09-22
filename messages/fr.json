@@ -702,6 +702,10 @@
     "masteryReviewImprovedDesc": "Votre taux de maîtrise s’est amélioré pendant cette révision. La session est terminée.",
     "masteryReviewExhausted": "Révision de maîtrise terminée",
     "masteryReviewExhaustedDesc": "Il ne reste aucun exercice à revoir pour consolider la maîtrise."
+    "skillMastery": "Maîtrise des compétences",
+    "skillMasteryDesc": "Voyez dans quelle mesure chaque compétence d’apprentissage est maîtrisée dans cette leçon.",
+    "skillMasteryMastered": "maîtrisées",
+    "skillMasteryAttempted": "tentées",
   },
   "flashcards": {
     "title": "Fiches",
