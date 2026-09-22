@@ -48,6 +48,7 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 - ✅ Unit mastery bars now expose semantic progressbar state, and unavailable lesson previews no longer use inert `#` links.
 - ✅ Level explorers now surface persisted listening and reading lesson counts per unit, with localized media labels across all supported UI locales.
 - ✅ Unit lesson-type chips and persisted lesson previews now use localized labels for listening, reading, writing, grammar, vocabulary, and review.
+- ✅ Lesson preview links now expose localized type-aware accessible names, while locked previews remain explicitly non-interactive and decorative icons are hidden from assistive technology.
 ### Phase 8 — First Lesson 🟡
 - ✅ Course level explorer can hand off directly to persisted lesson routes when the learning path exposes an available lesson.
 - ✅ Lesson player is wired to persisted lesson/exercise/mastery APIs and JUBA design tokens.
