@@ -1763,7 +1763,7 @@
     "saved": "zapisanych",
     "title": "Powtórka rozłożona w czasie",
     "complete": "Powtórka zakończona",
-    "reviewed": "Powtórzono {count} kart.",
+    "reviewed": "Powtórzono {count} {count, plural, one {kartę} other {kart}}.",
     "reviewAgain": "Powtórz ponownie",
     "reveal": "Pokaż tłumaczenie",
     "again": "Jeszcze raz",
