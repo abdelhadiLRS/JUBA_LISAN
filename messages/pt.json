@@ -702,6 +702,8 @@
     "masteryReviewImprovedDesc": "A sua taxa de domínio melhorou durante esta revisão. A sessão terminou.",
     "masteryReviewExhausted": "Revisão de domínio concluída",
     "masteryReviewExhaustedDesc": "Não há mais exercícios para revisar e consolidar o domínio.",
+    "skillMasteryExhausted": "Revisão de domínio da habilidade concluída",
+    "skillMasteryExhaustedDesc": "Não há mais exercícios para praticar o domínio de {skill}.",
     "skillMastery": "Domínio de competências",
     "skillMasteryDesc": "Veja o nível de domínio de cada competência de aprendizagem nesta lição.",
     "skillMasteryPractice": "Praticar esta competência",
@@ -1737,6 +1739,4 @@
     "spaceShortcut": "Espaço para revelar",
     "rateKeys": "1 Novamente · 2 Difícil · 3 Bom · 4 Fácil"
   },
-  "masteryReviewExhausted": "Revisão de domínio concluída",
-  "masteryReviewExhaustedDesc": "Todos os exercícios desta lição foram dominados. Você pode continuar aprendendo ou revisar novamente mais tarde."
 }
