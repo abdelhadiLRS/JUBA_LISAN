@@ -821,6 +821,9 @@
     "dailyTarget": "Objetivo de XP diario",
     "weeklyTarget": "Objetivo de XP semanal",
     "saveGoals": "Guardar objetivos",
+    "goalHistory": "Historial de objetivos",
+    "milestones": "Hitos",
+    "rewardXp": "XP de recompensa"
   },
   "grammar": {
     "title": "Gramática",
