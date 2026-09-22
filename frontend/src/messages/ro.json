@@ -1556,6 +1556,8 @@
     "noExercises": "Nu există exerciții disponibile pentru nivelul tău.",
     "generate": "Generează exercițiu",
     "audioError": "Imposibil de încărcat audio",
+    "audioPlay": "Redă",
+    "audioPause": "Pauză",
     "alreadyAttempted": "Ai completat deja acest exercițiu.",
     "errorLoading": "Nu s-a putut încărca exercițiul. Încearcă din nou.",
     "errorSubmit": "Nu s-au putut trimite răspunsurile. Încearcă din nou.",
