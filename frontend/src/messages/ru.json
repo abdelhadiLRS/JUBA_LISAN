@@ -814,6 +814,13 @@
     "dailyChallenges": "Ежедневные задания",
     "unlocked": "Открыто",
     "noAchievements": "Играйте, чтобы открывать достижения."
+    "goals": "Цели",
+    "dailyWeeklyGoals": "Ежедневные и еженедельные цели",
+    "dailyGoal": "Дневная цель",
+    "weeklyGoal": "Недельная цель",
+    "dailyTarget": "Дневная цель XP",
+    "weeklyTarget": "Недельная цель XP",
+    "saveGoals": "Сохранить цели",
   },
   "grammar": {
     "title": "Справочник по грамматике",
