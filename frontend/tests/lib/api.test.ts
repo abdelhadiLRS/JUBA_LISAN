@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { apiFetch, fetchLessonSkillMastery } from '@/lib/api'
+import { apiFetch, fetchLessonSkillMastery, fetchNextLessonSkillMastery } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
 import { useLoadingStore } from '@/store/loading'
 
@@ -118,6 +118,23 @@ describe('apiFetch', () => {
 
     expect(result).toBeNull()
     expect(fetch).not.toHaveBeenCalled()
+  })
+
+  it('fetches the next lesson skill mastery snapshot', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(
+      new Response(JSON.stringify({ skill: { skill: 'grammar' }, reason: 'unseen' }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+
+    const result = await fetchNextLessonSkillMastery(42)
+
+    expect(result).toEqual({ skill: { skill: 'grammar' }, reason: 'unseen' })
+    expect(fetch).toHaveBeenCalledWith(
+      '/api/lessons/42/mastery/skills/next',
+      expect.objectContaining({ credentials: 'include', cache: 'no-store' }),
+    )
   })
 
   it('increments and decrements loading counter', async () => {
