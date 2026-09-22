@@ -694,11 +694,13 @@
     "masteryReviewLoading": "Selezione…",
     "masteryReviewNone": "Non sono necessari altri ripassi di padronanza.",
     "masteryReviewLowest": "Padronanza più bassa",
-    "masteryReviewReasons": {
-      "struggling": "Ripasso della padronanza",
-      "unseen": "esercizio non visto",
-      "lowest_mastery": "padronanza più bassa"
-    }
+    "masteryReviewSession": "Sessione di ripasso della padronanza",
+    "masteryReviewProgress": "{count} esercizi ripassati",
+    "masteryReviewFinish": "Termina ripasso",
+    "masteryReviewNext": "Prossimo esercizio di padronanza",
+    "masteryReviewImproved": "Padronanza migliorata",
+    "masteryReviewImprovedDesc": "Il tuo tasso di padronanza è migliorato durante questo ripasso. La sessione è completa."
+
   },
   "flashcards": {
     "title": "Schede",
