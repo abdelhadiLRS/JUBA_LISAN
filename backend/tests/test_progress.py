@@ -396,7 +396,7 @@ async def test_streak_does_not_cross_study_plans(db_session, test_user):
     assert entry.study_plan_id == current_plan.id
 
 
-@pytest.mark.asyncio@pytest.mark.asyncio
+@pytest.mark.asyncio
 async def test_progress_history_supports_selected_ranges(client, test_user, db_session):
     user, headers = test_user
     from app.models.progress import Progress
@@ -446,6 +446,7 @@ async def test_progress_history_rejects_invalid_range(client, test_user):
 
 
 
+@pytest.mark.asyncio
 async def test_progress_history_summary_supports_ranges_and_aggregates_skills(
     client, test_user, db_session
 ):
