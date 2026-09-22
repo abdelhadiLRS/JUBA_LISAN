@@ -693,6 +693,7 @@
     "masteryReviewAction": "Repetă abilitatea cea mai slabă",
     "masteryReviewLoading": "Se selectează…",
     "masteryReviewNone": "Nu mai este necesară recapitularea stăpânirii.",
+    "masteryReviewLowest": "Cea mai mică stăpânire",
     "masteryReviewReasons": {
       "struggling": "Recapitulare a stăpânirii",
       "unseen": "exercițiu nevăzut",
