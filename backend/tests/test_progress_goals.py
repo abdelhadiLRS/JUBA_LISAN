@@ -80,3 +80,58 @@ async def test_learning_goals_reject_invalid_targets(client, test_user):
         headers=headers,
     )
     assert response.status_code == 422
+
+
+@pytest.mark.asyncio
+async def test_daily_goal_reward_is_claimed_once(db_session, test_user):
+    from app.models.progress import Progress
+    from app.services.progress_service import update_daily_progress
+    from tests.conftest import make_study_plan
+
+    user, _ = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add(
+        Progress(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            date=date.today(),
+            xp_earned=45,
+            lessons_completed=0,
+            exercises_correct=0,
+            exercises_total=0,
+            streak_day=1,
+            skills={},
+        )
+    )
+    await db_session.commit()
+
+    first = await update_daily_progress(
+        db_session,
+        user.id,
+        study_plan_id=plan.id,
+        xp=5,
+        commit=True,
+    )
+    assert first is not None
+    assert first.xp_earned == 75
+
+    second = await update_daily_progress(
+        db_session,
+        user.id,
+        study_plan_id=plan.id,
+        xp=5,
+        commit=True,
+    )
+    assert second is not None
+    assert second.xp_earned == 80
