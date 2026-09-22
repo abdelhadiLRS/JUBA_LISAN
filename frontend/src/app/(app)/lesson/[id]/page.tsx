@@ -494,7 +494,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
             </div>
             <h2 className="mt-5 text-2xl font-bold sm:text-3xl">{exercise.question}</h2>
             {isListeningExercise && <Link href="/listening" className="mt-5 inline-flex items-center rounded-full border border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2 text-sm font-bold text-[var(--juba-text)] transition-colors hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)]">{t('listeningPractice')}</Link>}
-            {(exerciseAudioUrl || exerciseTranscript) && <div className="mt-5 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4">
+            {(exerciseAudioUrl || exerciseTranscript) && <div className="mt-5 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4" role="region" aria-label={t('listen')}>
               {exerciseAudioUrl && <div>
                 <div className="mb-2 flex items-center justify-between gap-3">
                   <span className="text-sm font-extrabold text-[var(--juba-text)]">{t('listen')}</span>
