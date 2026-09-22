@@ -708,7 +708,8 @@
       "mastered": "Opanowane"
     },
     "transcriptLabel": "Transkrypcja",
-    "listeningPractice": "Otwórz ćwiczenia ze słuchania"
+    "listeningPractice": "Otwórz ćwiczenia ze słuchania",
+    "audioLoadError": "Nie można wczytać dźwięku. Możesz kontynuować z transkrypcją."
   },
   "flashcards": {
     "title": "Fiszki",
