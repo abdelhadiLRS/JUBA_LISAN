@@ -707,7 +707,7 @@
     "skillMasteryMastered": "opanowane",
     "skillMasteryAttempted": "wykonane",
     "skillMasteryAttemptRate": "Wskaźnik prób: {rate}%",
-    "skillMasteryVariants": "warianty",
+    "skillMasteryVariants": "warianty"
   },
   "flashcards": {
     "title": "Fiszki",
