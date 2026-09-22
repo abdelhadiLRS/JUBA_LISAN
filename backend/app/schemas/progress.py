@@ -42,6 +42,19 @@ class ProgressHistoryResponse(BaseModel):
     entries: list[ProgressResponse]
 
 
+class ProgressRangeSummary(BaseModel):
+    period: str
+    from_date: date | None = None
+    to_date: date | None = None
+    total_xp: int = 0
+    total_lessons: int = 0
+    total_exercises: int = 0
+    exercises_correct: int = 0
+    accuracy: float = 0.0
+    active_days: int = 0
+    average_daily_xp: float = 0.0
+    skills: dict[str, float] = Field(default_factory=dict)
+
 class GameStatsResponse(BaseModel):
     total_xp: int = 0
     games_played: int
