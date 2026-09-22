@@ -1763,7 +1763,7 @@
     "saved": "salvos",
     "title": "Revisão espaçada",
     "complete": "Revisão concluída",
-    "reviewed": "Você revisou {count} cartões.",
+    "reviewed": "Você revisou {count} {count, plural, one {cartão} other {cartões}}.",
     "reviewAgain": "Revisar novamente",
     "reveal": "Mostrar tradução",
     "again": "Novamente",
