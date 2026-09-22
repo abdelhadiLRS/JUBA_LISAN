@@ -1598,6 +1598,7 @@
     "audioError": "Unable to load audio",
     "audioPlay": "Play",
     "audioPause": "Pause",
+    "audioProgress": "Audio progress",
     "alreadyAttempted": "You have already completed this exercise.",
     "errorLoading": "Failed to load exercise. Please try again.",
     "errorSubmit": "Failed to submit answers. Please try again.",
