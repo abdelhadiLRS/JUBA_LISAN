@@ -785,7 +785,7 @@ async def list_lesson_attempt_summary(
 
     summaries = []
     for exercise_id, items in grouped.items():
-        latest = max(items, key=lambda item: item.answered_at)
+        latest = max(items, key=lambda item: (item.attempt_number, item.answered_at))
         first = min(items, key=lambda item: item.attempt_number)
         best_score = max(item.score for item in items)
 
