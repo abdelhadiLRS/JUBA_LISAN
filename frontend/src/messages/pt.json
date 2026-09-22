@@ -706,7 +706,8 @@
       "struggling": "Precisa de prática",
       "learning": "Em aprendizagem",
       "mastered": "Dominado"
-    }
+    },
+    "transcriptLabel": "Transcrição"
   },
   "flashcards": {
     "title": "Cartões",
