@@ -75,4 +75,4 @@ The lesson mastery response now includes a skills collection derived from the sa
 - attempt and mastery rates
 - covered adaptive variants
 
-The dedicated GET /api/lessons/{lesson_id}/mastery/skills endpoint remains available for clients that only need skill coverage. The lesson-level GET /api/lessons/{lesson_id}/mastery response is the preferred lesson-screen snapshot: it carries both lesson and skill progress, so the lesson UI hydrates both views from one request and refreshes them together after an answer.
+The dedicated GET /api/lessons/{lesson_id}/mastery/skills endpoint remains available for clients that only need skill coverage. `GET /api/lessons/{lesson_id}/mastery/skills/next` now returns the highest-priority non-mastered skill using the same struggling → unseen → learning policy, with lower mastery coverage as the tie-break. The lesson-level GET /api/lessons/{lesson_id}/mastery response is the preferred lesson-screen snapshot: it carries both lesson and skill progress, so the lesson UI hydrates both views from one request and refreshes them together after an answer.
