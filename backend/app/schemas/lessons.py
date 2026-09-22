@@ -195,6 +195,7 @@ class LessonMasteryNextResponse(BaseModel):
 
 class SkillMasteryResponse(BaseModel):
     skill: str
+    mastery_state: Literal["unseen", "struggling", "learning", "mastered"]
     total_exercises: int
     attempted_exercises: int
     mastered_exercises: int
