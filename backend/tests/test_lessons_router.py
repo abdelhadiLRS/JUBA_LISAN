@@ -1207,6 +1207,83 @@ async def test_answer_pronunciation_llm_fallback_mismatch(client, test_user, db_
     assert "La frase objetivo" in data["feedback"]
 
 
+@pytest.mark.asyncio
+async def test_attempt_summary_uses_latest_attempt_number_not_timestamp(
+    client, test_user, db_session
+):
+    """The latest persisted attempt wins even when timestamps arrive out of order."""
+    from datetime import datetime, timedelta
+
+    from app.models.exercise import Exercise
+    from app.models.exercise_attempt import ExerciseAttempt
+
+    user, headers = test_user
+    lesson = await _create_lesson_with_plan(
+        db_session,
+        user.id,
+        content={
+            "exercises": [
+                {"content_id": "content-1", "variant": "multiple_choice"}
+            ]
+        },
+    )
+    exercise = Exercise(
+        lesson_id=lesson.id,
+        exercise_type="multiple_choice",
+        question="Choose A.",
+        options=["A", "B"],
+        correct_answer="A",
+    )
+    db_session.add(exercise)
+    await db_session.flush()
+
+    now = datetime.now()
+    db_session.add_all(
+        [
+            ExerciseAttempt(
+                user_id=user.id,
+                exercise_id=exercise.id,
+                lesson_id=lesson.id,
+                study_plan_id=lesson.study_plan_id,
+                content_id="content-1",
+                variant="multiple_choice",
+                attempt_number=1,
+                user_answer="B",
+                score=0.2,
+                feedback="first",
+                answered_at=now,
+            ),
+            ExerciseAttempt(
+                user_id=user.id,
+                exercise_id=exercise.id,
+                lesson_id=lesson.id,
+                study_plan_id=lesson.study_plan_id,
+                content_id="content-1",
+                variant="multiple_choice",
+                attempt_number=2,
+                user_answer="A",
+                score=0.9,
+                feedback="latest",
+                answered_at=now - timedelta(minutes=5),
+            ),
+        ]
+    )
+    await db_session.commit()
+
+    response = await client.get(
+        f"/api/lessons/{lesson.id}/attempt-summary",
+        headers=headers,
+    )
+
+    assert response.status_code == 200
+    summary = response.json()[0]
+    assert summary["attempts"] == 2
+    assert summary["latest_score"] == 0.9
+    assert summary["first_score"] == 0.2
+    assert summary["improvement"] == 0.7
+    assert summary["latest_variant"] == "multiple_choice"
+
+
 # ── lifecycle: start → answer → complete ─────────────────────────────────────
 
 
