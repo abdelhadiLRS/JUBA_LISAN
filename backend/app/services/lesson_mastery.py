@@ -88,12 +88,19 @@ def summarize_skill_mastery(
             raw_skills = [raw_skills]
         if raw_skills is None:
             continue
+
+        seen_skills: set[str] = set()
         for raw_skill in raw_skills:
             if not isinstance(raw_skill, str):
                 continue
             skill = raw_skill.strip()
-            if skill:
-                grouped.setdefault(skill, []).append(exercise)
+            if not skill:
+                continue
+            canonical_skill = skill.casefold()
+            if canonical_skill in seen_skills:
+                continue
+            seen_skills.add(canonical_skill)
+            grouped.setdefault(canonical_skill, []).append(exercise)
 
     aggregates: list[SkillMasteryAggregate] = []
     for skill in sorted(grouped):
