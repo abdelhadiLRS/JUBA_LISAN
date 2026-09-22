@@ -47,6 +47,10 @@ export function ExerciseAudioPlayer({
       const res = await apiFetch(`/api/listening/audio/${exerciseId}`)
       if (!res.ok) throw new Error(`${res.status}`)
       const blob = await res.blob()
+      audioRef.current?.pause()
+      if (blobUrlRef.current) {
+        URL.revokeObjectURL(blobUrlRef.current)
+      }
       const url = URL.createObjectURL(blob)
       blobUrlRef.current = url
 
@@ -102,6 +106,7 @@ export function ExerciseAudioPlayer({
     <div className="juba-card space-y-3 p-4">
       <div className="flex items-center gap-4">
         <button
+          type="button"
           onClick={handlePlayPause}
           disabled={state === 'loading'}
           aria-label={label}
@@ -155,7 +160,10 @@ export function ExerciseAudioPlayer({
         )}
       </div>
       {state === 'error' && (
-        <p className="text-xs font-medium text-[var(--juba-danger)]">
+        <p
+          className="text-xs font-medium text-[var(--juba-danger)]"
+          role="alert"
+        >
           {t('audioError')}
         </p>
       )}
