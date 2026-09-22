@@ -617,21 +617,25 @@ async def answer_exercise(
     )
     max_attempt = latest_attempt.attempt_number if latest_attempt else None
     attempt_number = int(max_attempt or 0) + 1
+
+    # Persist adaptive identity in its canonical form so later regeneration or
+    # retry requests can rely on a stable content/variant pair.
+    raw_content_id = content_exercise.get("content_id")
+    persisted_content_id = (
+        raw_content_id.strip() if isinstance(raw_content_id, str) and raw_content_id.strip() else None
+    )
+    raw_variant = content_exercise.get("variant")
+    persisted_variant = normalise_variant(
+        raw_variant if isinstance(raw_variant, str) and raw_variant.strip() else exercise.exercise_type
+    ) or normalise_variant(exercise.exercise_type)
+
     attempt = ExerciseAttempt(
         user_id=current_user.id,
         exercise_id=exercise.id,
         lesson_id=lesson.id,
         study_plan_id=lesson.study_plan_id,
-        content_id=(
-            content_exercise.get("content_id")
-            if isinstance(content_exercise.get("content_id"), str)
-            else None
-        ),
-        variant=(
-            content_exercise.get("variant")
-            if isinstance(content_exercise.get("variant"), str)
-            else exercise.exercise_type
-        ),
+        content_id=persisted_content_id,
+        variant=persisted_variant,
         attempt_number=attempt_number,
         user_answer=data.answer,
         score=exercise.score,
