@@ -43,6 +43,7 @@ from app.services.lesson_mastery import (
     summarize_lesson_mastery,
     summarize_skill_mastery,
     select_next_skill_mastery,
+    select_next_skill_exercise,
     normalise_skill_labels,
 )
 from app.services.lesson_generator import (
@@ -1237,17 +1238,10 @@ async def get_next_lesson_skill_exercise(
         else []
     )
     content_by_exercise_id = _map_content_exercises(exercises, content_exercises)
-    skill_exercises = [
-        exercise
-        for exercise in exercises
-        if requested_skill in normalise_skill_labels(
-            content_by_exercise_id.get(exercise.id, {}).get("skills")
-        )
-    ]
-    if not skill_exercises:
+    if not requested_skill:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="No exercises found for this skill",
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Skill must not be empty",
         )
 
     attempt_result = await db.execute(
@@ -1257,11 +1251,13 @@ async def get_next_lesson_skill_exercise(
         )
     )
     attempts = attempt_result.scalars().all()
-    candidate = select_next_mastery_candidate(
-        skill_exercises,
+    candidate = select_next_skill_exercise(
+        exercises,
         attempts,
+        skill=requested_skill,
         get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
         get_exercise_id=lambda item: item.id,
+        get_skills=lambda item: content_by_exercise_id.get(item.id, {}).get("skills"),
     )
     if candidate is None:
         raise HTTPException(
