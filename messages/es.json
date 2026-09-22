@@ -707,7 +707,7 @@
     "skillMasteryMastered": "dominadas",
     "skillMasteryAttempted": "intentadas",
     "skillMasteryAttemptRate": "Tasa de intento: {rate}%",
-    "skillMasteryVariants": "variantes",
+    "skillMasteryVariants": "variantes"
   },
   "flashcards": {
     "title": "Tarjetas",
