@@ -83,7 +83,7 @@ export function ExerciseAudioPlayer({
     const audio = audioRef.current
     if (!audio || audio.duration === 0) return
     const rect = e.currentTarget.getBoundingClientRect()
-    const ratio = (e.clientX - rect.left) / rect.width
+    const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width))
     audio.currentTime = ratio * audio.duration
     setProgress(ratio * 100)
   }
@@ -116,15 +116,28 @@ export function ExerciseAudioPlayer({
           onKeyDown={(e) => {
             const audio = audioRef.current
             if (!audio || audio.duration === 0) return
-            if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+            if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return
             e.preventDefault()
-            const delta = audio.duration * 0.05
-            audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + (e.key === 'ArrowRight' ? delta : -delta)))
+            if (e.key === 'Home') {
+              audio.currentTime = 0
+            } else if (e.key === 'End') {
+              audio.currentTime = audio.duration
+            } else {
+              const delta = audio.duration * 0.05
+              audio.currentTime = Math.max(
+                0,
+                Math.min(
+                  audio.duration,
+                  audio.currentTime + (e.key === 'ArrowRight' ? delta : -delta)
+                )
+              )
+            }
             setProgress((audio.currentTime / audio.duration) * 100)
           }}
           role="slider"
           tabIndex={0}
           aria-label={t('audioProgress')}
+          aria-orientation="horizontal"
           aria-valuenow={Math.round(progress)}
           aria-valuemin={0}
           aria-valuemax={100}
