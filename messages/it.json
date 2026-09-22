@@ -693,6 +693,7 @@
     "masteryReviewAction": "Ripassa abilità più debole",
     "masteryReviewLoading": "Selezione…",
     "masteryReviewNone": "Non sono necessari altri ripassi di padronanza.",
+    "masteryReviewLowest": "Padronanza più bassa",
     "masteryReviewReasons": {
       "struggling": "Ripasso della padronanza",
       "unseen": "esercizio non visto",
