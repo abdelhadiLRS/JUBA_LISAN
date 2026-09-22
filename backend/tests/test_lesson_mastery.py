@@ -382,6 +382,30 @@ def test_skill_mastery_exposes_aggregate_state_from_exercise_states():
     assert result[0].mastery_state == "struggling"
 
 
+def test_skill_mastery_reports_unseen_and_learning_states():
+    unseen = summarize_skill_mastery(
+        [SimpleNamespace(id=1, content_id="alpha", skills=["grammar"])],
+        [],
+        get_content_id=lambda item: item.content_id,
+        get_skills=lambda item: item.skills,
+    )
+    assert unseen[0].mastery_state == "unseen"
+
+    learning = summarize_skill_mastery(
+        [
+            SimpleNamespace(id=1, content_id="alpha", skills=["grammar"]),
+            SimpleNamespace(id=2, content_id="beta", skills=["grammar"]),
+        ],
+        [
+            SimpleNamespace(content_id="alpha", variant="a", score=0.70),
+            SimpleNamespace(content_id="beta", variant="a", score=0.90),
+        ],
+        get_content_id=lambda item: item.content_id,
+        get_skills=lambda item: item.skills,
+    )
+    assert learning[0].mastery_state == "learning"
+
+
 def test_skill_mastery_is_mastered_only_when_every_exercise_is_mastered():
     exercises = [
         SimpleNamespace(id=1, content_id="alpha", skills=["grammar"]),
