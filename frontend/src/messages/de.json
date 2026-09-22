@@ -706,7 +706,8 @@
       "struggling": "Übung nötig",
       "learning": "Lernen",
       "mastered": "Beherrscht"
-    }
+    },
+    "transcriptLabel": "Transkript"
   },
   "flashcards": {
     "title": "Karteikarten",
