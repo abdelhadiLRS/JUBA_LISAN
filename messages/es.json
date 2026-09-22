@@ -702,6 +702,8 @@
     "masteryReviewImprovedDesc": "Tu tasa de dominio mejoró durante este repaso. La sesión ha terminado.",
     "masteryReviewExhausted": "Repaso de dominio completado",
     "masteryReviewExhaustedDesc": "No quedan ejercicios para repasar y dominar.",
+    "skillMasteryExhausted": "Revisión de dominio de la habilidad completada",
+    "skillMasteryExhaustedDesc": "No quedan ejercicios que necesiten repaso de dominio para {skill}.",
     "skillMastery": "Dominio de habilidades",
     "skillMasteryDesc": "Consulta qué tan bien se domina cada habilidad de aprendizaje en esta lección.",
     "skillMasteryPractice": "Practicar esta habilidad",
@@ -1737,6 +1739,4 @@
     "spaceShortcut": "Espacio para revelar",
     "rateKeys": "1 Otra vez · 2 Difícil · 3 Bien · 4 Fácil"
   },
-  "masteryReviewExhausted": "Revisión de dominio completada",
-  "masteryReviewExhaustedDesc": "Todos los ejercicios de esta lección están dominados. Puedes continuar aprendiendo o volver a repasar más tarde."
 }
