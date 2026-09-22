@@ -161,6 +161,9 @@ def _build_exercise_response(
     explanation: str | None = None,
     content_id: str | None = None,
     variant: str | None = None,
+    mastery_score: float = 0.0,
+    mastery_state: str = "unseen",
+    mastery_variants: int = 0,
 ) -> ExerciseResponse:
     """Build the public exercise payload with optional lesson-content metadata."""
     return ExerciseResponse(
@@ -197,6 +200,9 @@ def _build_exercise_response(
             else None
         ),
         answered_at=exercise.answered_at,
+        mastery_score=mastery_score,
+        mastery_state=mastery_state,
+        mastery_variants=mastery_variants,
     )
 
 
@@ -347,6 +353,14 @@ async def get_lesson(
     if isinstance(lesson.content, dict) and isinstance(lesson.content.get("exercises"), list):
         content_exercises = lesson.content["exercises"]
 
+    attempt_result = await db.execute(
+        select(ExerciseAttempt).where(
+            ExerciseAttempt.lesson_id == lesson.id,
+            ExerciseAttempt.user_id == current_user.id,
+        )
+    )
+    lesson_attempts = attempt_result.scalars().all()
+
     fixed: list[ExerciseResponse] = []
     for index, ex in enumerate(exercises):
         q, exp = ex.question, ex.explanation
@@ -356,14 +370,22 @@ async def get_lesson(
         content_item = content_exercises[index] if index < len(content_exercises) else {}
         if not isinstance(content_item, dict):
             content_item = {}
+        exercise_content_id = content_item.get("content_id")
+        mastery_score, mastery_state, mastery_variants = summarize_adaptive_mastery(
+            lesson_attempts,
+            content_id=exercise_content_id if isinstance(exercise_content_id, str) else "",
+        )
         fixed.append(
             _build_exercise_response(
                 ex,
                 content=content_item,
                 question=q,
                 explanation=exp,
-                content_id=content_item.get("content_id"),
+                content_id=exercise_content_id,
                 variant=content_item.get("variant"),
+                mastery_score=mastery_score,
+                mastery_state=mastery_state,
+                mastery_variants=mastery_variants,
             )
         )
 
