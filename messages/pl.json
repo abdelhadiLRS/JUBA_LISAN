@@ -702,6 +702,8 @@
     "masteryReviewImprovedDesc": "Twój poziom opanowania wzrósł podczas tej powtórki. Sesja jest zakończona.",
     "masteryReviewExhausted": "Powtórka opanowania ukończona",
     "masteryReviewExhaustedDesc": "Nie ma więcej ćwiczeń do powtórzenia w celu opanowania materiału.",
+    "skillMasteryExhausted": "Przegląd opanowania umiejętności zakończony",
+    "skillMasteryExhaustedDesc": "Nie ma już ćwiczeń wymagających powtórki dla umiejętności {skill}.",
     "skillMastery": "Opanowanie umiejętności",
     "skillMasteryDesc": "Zobacz, jak dobrze opanowana jest każda umiejętność w tej lekcji.",
     "skillMasteryPractice": "Ćwicz tę umiejętność",
@@ -1737,6 +1739,4 @@
     "spaceShortcut": "Spacja, aby odkryć",
     "rateKeys": "1 Ponownie · 2 Trudne · 3 Dobrze · 4 Łatwe"
   },
-  "masteryReviewExhausted": "Powtórka opanowania zakończona",
-  "masteryReviewExhaustedDesc": "Wszystkie ćwiczenia w tej lekcji zostały opanowane. Możesz kontynuować naukę lub powtórzyć je później."
 }
