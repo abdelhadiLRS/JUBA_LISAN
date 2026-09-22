@@ -753,7 +753,8 @@
       "struggling": "Struggling",
       "learning": "Learning",
       "mastered": "Mastered"
-    },
+    }
+  },
   "flashcards": {
     "title": "Flashcards",
     "due": "Due",
