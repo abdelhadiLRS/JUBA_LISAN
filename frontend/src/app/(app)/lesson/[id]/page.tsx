@@ -269,9 +269,10 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
 
   const startSkillMasteryReview = async (skill: string) => {
     if (!lesson || loadingMasteryNext || !lessonMastery || !skill.trim()) return
+    const selectedSkill = lessonMastery.skills.find((item) => item.skill === skill)
     setMasteryReviewMode(true)
     setMasteryReviewCompleted(0)
-    setMasteryReviewInitialRate(lessonMastery.mastery_rate)
+    setMasteryReviewInitialRate(selectedSkill?.mastery_rate ?? null)
     setMasteryReviewFinalRate(null)
     setMasteryReviewImproved(false)
     setMasteryReviewExhausted(false)
@@ -374,8 +375,44 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
               const refreshedMastery: LessonMasterySnapshot = await masteryRes.json()
               setLessonMastery(refreshedMastery)
               setSkillMastery(refreshedMastery.skills ?? [])
-              if (candidateMastered || (masteryReviewInitialRate !== null && refreshedMastery.mastery_rate > masteryReviewInitialRate)) {
-                setMasteryReviewFinalRate(refreshedMastery.mastery_rate)
+              setNextSkillMastery(
+                refreshedMastery.skills
+                  ?.filter((item) => item.mastery_state !== 'mastered')
+                  .sort(
+                    (a, b) =>
+                      skillMasteryPriority[a.mastery_state] - skillMasteryPriority[b.mastery_state] ||
+                      a.mastery_rate - b.mastery_rate ||
+                      a.skill.localeCompare(b.skill),
+                  )[0]
+                  ? {
+                      skill: refreshedMastery.skills
+                        .filter((item) => item.mastery_state !== 'mastered')
+                        .sort(
+                          (a, b) =>
+                            skillMasteryPriority[a.mastery_state] - skillMasteryPriority[b.mastery_state] ||
+                            a.mastery_rate - b.mastery_rate ||
+                            a.skill.localeCompare(b.skill),
+                        )[0],
+                      reason: 'lowest_mastery',
+                    }
+                  : null,
+              )
+              const activeSkill = masteryReviewSkill
+                ? refreshedMastery.skills.find((item) => item.skill === masteryReviewSkill)
+                : null
+              const reviewMastered = masteryReviewSkill
+                ? activeSkill?.mastery_state === 'mastered'
+                : candidateMastered
+              const reviewRate = masteryReviewSkill
+                ? activeSkill?.mastery_rate ?? null
+                : refreshedMastery.mastery_rate
+              if (
+                reviewMastered ||
+                (masteryReviewInitialRate !== null &&
+                  reviewRate !== null &&
+                  reviewRate > masteryReviewInitialRate)
+              ) {
+                setMasteryReviewFinalRate(reviewRate)
                 setMasteryReviewImproved(true)
                 setMasteryReviewMode(false)
               } else if (masteryReviewMode && result.score !== null && result.score < 0.5) {
