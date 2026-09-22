@@ -88,14 +88,15 @@ export default function LessonPage() {
     }
   }, [])
 
-  const loadAttemptSummary = useCallback(async (lessonId: number) => {
+  const loadAttemptSummary = useCallback(async (lessonId: number): Promise<ExerciseAttemptSummary[] | null> => {
     try {
       const res = await apiFetch(`/api/lessons/${lessonId}/attempt-summary`)
-      if (!res.ok) return
+      if (!res.ok) return null
       const data: ExerciseAttemptSummary[] = await res.json()
       setAttemptSummary(data)
       setExercises((prev) => mergeAdaptiveRecommendations(prev, data))
-    } catch { /* summary is optional UI */ }
+      return data
+    } catch { /* summary is optional UI */ return null }
   }, [])
 
   useEffect(() => { void getGrammarTopics(activeLanguage?.code ?? 'en-GB').catch(() => undefined) }, [activeLanguage?.code])
@@ -243,7 +244,7 @@ export default function LessonPage() {
 
   const continueMasteryReview = async () => {
     if (!masteryReviewMode || masteryReviewImproved || loadingMasteryNext) return
-    await openMasteryCandidate(false)
+    await openMasteryCandidate()
   }
 
   const adaptiveNextExercise = async () => {
@@ -311,9 +312,16 @@ export default function LessonPage() {
       if (masteryReviewMode) setMasteryReviewCompleted((value) => value + 1)
       void loadAttempts(exercise.id)
       if (lesson) {
-        void loadAttemptSummary(lesson.id)
+        const refreshedSummary = await loadAttemptSummary(lesson.id)
         if (masteryReviewMode) {
           try {
+            const currentSummary = refreshedSummary?.find((item) => item.exercise_id === exercise.id)
+            if (currentSummary?.mastery_state === 'mastered' || currentSummary?.mastered) {
+              setMasteryReviewFinalRate(lessonMastery?.mastery_rate ?? null)
+              setMasteryReviewImproved(true)
+              setMasteryReviewMode(false)
+              return
+            }
             const masteryRes = await apiFetch(`/api/lessons/${lesson.id}/mastery`)
             if (masteryRes.ok) {
               const refreshedMastery: LessonMasterySnapshot = await masteryRes.json()
