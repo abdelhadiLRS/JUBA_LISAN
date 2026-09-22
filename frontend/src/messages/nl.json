@@ -1558,6 +1558,7 @@
     "audioError": "Audio kan niet worden geladen",
     "audioPlay": "Afspelen",
     "audioPause": "Pauzeren",
+    "audioProgress": "Audiovoortgang",
     "alreadyAttempted": "Je hebt deze oefening al voltooid.",
     "errorLoading": "Oefening laden mislukt. Probeer opnieuw.",
     "errorSubmit": "Antwoorden indienen mislukt. Probeer opnieuw.",
