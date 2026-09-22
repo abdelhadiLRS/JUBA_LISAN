@@ -60,6 +60,8 @@ The skill endpoint is `GET /api/lessons/{lesson_id}/mastery/skills`. Each skill 
 
 ## Skill mastery presentation
 
+The lesson screen presents skills in action priority rather than alphabetical order: struggling skills first, then unseen, learning, and mastered. Within the same state, lower mastery coverage appears first and skill names provide a deterministic tie-break. This makes the existing snapshot immediately actionable without changing the API's canonical skill ordering.
+
 The lesson screen presents each normalized skill as a compact coverage card. The card shows the mastery percentage, mastered/learning/review-needed exercise counts, attempt rate, average mastery score, and covered adaptive variants. The API remains the source of truth; the UI refreshes skill mastery after review answers so the skill breakdown stays aligned with the lesson-level aggregate.
 
 
