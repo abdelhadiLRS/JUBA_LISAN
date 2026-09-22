@@ -679,7 +679,13 @@
     "lessonFlowHint": "Ucz się → ćwicz → przypominaj sobie. Bądź aktywny i wykorzystuj każdą odpowiedź.",
     "exerciseProgress": "Ćwiczenie {current}/{total}",
     "tapToHear": "Dotknij słowa, aby go posłuchać",
-    "lessonProgress": "Postęp lekcji"
+    "lessonProgress": "Postęp lekcji",
+    "masteryOverview": "Opanowanie lekcji",
+    "masteryCoverage": "{{covered}} warianty objęte",
+    "masteryAttempted": "Wykonane",
+    "masteryLearning": "W trakcie nauki",
+    "masteryStruggling": "Trudne",
+    "masteryUnseen": "Niewidziane"
   },
   "flashcards": {
     "title": "Fiszki",
