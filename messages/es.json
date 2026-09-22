@@ -708,7 +708,7 @@
     "skillMasteryAttempted": "intentadas",
     "skillMasteryAttemptRate": "Tasa de intento: {rate}%",
     "skillMasteryVariants": "variantes"
-  },
+  \n    "masteryStates": {\n      "unseen": "Sin explorar",\n      "struggling": "Con dificultades",\n      "learning": "En aprendizaje",\n      "mastered": "Dominado"\n    },},
   "flashcards": {
     "title": "Tarjetas",
     "due": "Para hoy",
