@@ -77,6 +77,7 @@ export interface LessonMasteryNextExercise {
   variant?: string | null
   accepted_answers?: string[] | null
   metadata?: Record<string, string> | null
+  skills?: string[] | null
   recommended_action?: string
   recommended_variant?: string | null
   mastery_score?: number
