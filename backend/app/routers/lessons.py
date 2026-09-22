@@ -896,11 +896,6 @@ async def adaptive_next_exercise(
     )
     content_id = content_exercise.get("content_id")
     current_variant = content_exercise.get("variant") or exercise.exercise_type
-    if not isinstance(content_id, str) or not content_id.strip():
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="Exercise does not have a stable content identity",
-        )
 
     latest_attempt = await _get_latest_attempt(
         db,
@@ -996,11 +991,6 @@ async def retry_exercise(
         exercise, lesson, db
     )
     content_id = content_exercise.get("content_id")
-    if not isinstance(content_id, str) or not content_id.strip():
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="Exercise does not have a stable content identity for retry",
-        )
 
     latest_attempt = await _get_latest_attempt(
         db,
