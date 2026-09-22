@@ -707,7 +707,7 @@
     "skillMasteryMastered": "gemeistert",
     "skillMasteryAttempted": "bearbeitet",
     "skillMasteryAttemptRate": "Versuchsquote: {rate}%",
-    "skillMasteryVariants": "Varianten",
+    "skillMasteryVariants": "Varianten"
   },
   "flashcards": {
     "title": "Karteikarten",
