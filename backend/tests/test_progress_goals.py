@@ -602,3 +602,77 @@ async def test_goal_response_excludes_reward_xp(client, test_user, db_session):
     assert data["weekly_xp"] == 50
     assert data["daily_completed"] is False
     assert data["daily_reward_claimed"] is False
+
+@pytest.mark.asyncio
+async def test_goal_response_exposes_current_period_reward_claims(
+    client, test_user, db_session
+):
+    from app.models.learning_goal import LearningGoal
+    from app.models.progress import Progress
+    from app.services.progress_service import update_daily_progress
+    from tests.conftest import make_study_plan
+
+    user, headers = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add(
+        LearningGoal(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            daily_xp_target=50,
+            weekly_xp_target=100,
+        )
+    )
+    db_session.add(
+        Progress(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            date=date.today(),
+            xp_earned=45,
+            reward_xp=0,
+            skills={},
+        )
+    )
+    await db_session.commit()
+
+    before = await client.get("/api/progress/goals", headers=headers)
+    assert before.status_code == 200
+    before_data = before.json()
+    assert before_data["daily_reward_xp"] == 0
+    assert before_data["weekly_reward_xp"] == 0
+    assert before_data["daily_reward_claimed"] is False
+    assert before_data["weekly_reward_claimed"] is False
+
+    await update_daily_progress(
+        db_session, user.id, study_plan_id=plan.id, xp=5, commit=True
+    )
+
+    after_daily = await client.get("/api/progress/goals", headers=headers)
+    assert after_daily.status_code == 200
+    daily_data = after_daily.json()
+    assert daily_data["daily_reward_xp"] == 25
+    assert daily_data["daily_reward_claimed"] is True
+    assert daily_data["weekly_reward_xp"] == 0
+    assert daily_data["weekly_reward_claimed"] is False
+
+    await update_daily_progress(
+        db_session, user.id, study_plan_id=plan.id, xp=50, commit=True
+    )
+
+    after_weekly = await client.get("/api/progress/goals", headers=headers)
+    assert after_weekly.status_code == 200
+    weekly_data = after_weekly.json()
+    assert weekly_data["daily_reward_xp"] == 25
+    assert weekly_data["daily_reward_claimed"] is True
+    assert weekly_data["weekly_reward_xp"] == 75
+    assert weekly_data["weekly_reward_claimed"] is True
