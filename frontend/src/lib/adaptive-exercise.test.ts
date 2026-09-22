@@ -94,10 +94,10 @@ describe('mergeAdaptiveRecommendations', () => {
   })
 
   it('recognizes only non-empty recommended variants as adaptive targets', () => {
-    expect(hasAdaptiveTarget({ exercise_id: 1, recommended_variant: 'fill_blank' })).toBe(true)
-    expect(hasAdaptiveTarget({ exercise_id: 2, recommended_variant: '' })).toBe(false)
-    expect(hasAdaptiveTarget({ exercise_id: 3, recommended_variant: '   ' })).toBe(false)
-    expect(hasAdaptiveTarget({ exercise_id: 4, recommended_variant: null })).toBe(false)
+    expect(hasAdaptiveTarget({ id: 1, recommended_variant: 'fill_blank' })).toBe(true)
+    expect(hasAdaptiveTarget({ id: 2, recommended_variant: '' })).toBe(false)
+    expect(hasAdaptiveTarget({ id: 3, recommended_variant: '   ' })).toBe(false)
+    expect(hasAdaptiveTarget({ id: 4, recommended_variant: null })).toBe(false)
   })
 })
 
