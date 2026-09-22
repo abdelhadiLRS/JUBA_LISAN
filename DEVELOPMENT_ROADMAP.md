@@ -46,7 +46,7 @@ Status legend: ✅ Complete · 🟡 Partially complete (started, needs work) · 
 - ✅ Level explorers now show richer unit previews: grammar-point, vocabulary-set, competency counts, and the first competency outcomes.
 - ✅ CEFR level explorer header copy is localized across all supported UI locales.
 - ✅ Unit mastery bars now expose semantic progressbar state, and unavailable lesson previews no longer use inert `#` links.
-- 🔜 Remaining: richer listening/media counts.
+- ✅ Level explorers now surface persisted listening and reading lesson counts per unit, with localized media labels across all supported UI locales.
 ### Phase 8 — First Lesson 🟡
 - ✅ Course level explorer can hand off directly to persisted lesson routes when the learning path exposes an available lesson.
 - ✅ Lesson player is wired to persisted lesson/exercise/mastery APIs and JUBA design tokens.
