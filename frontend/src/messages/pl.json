@@ -807,7 +807,13 @@
     "rangeXp": "XP w okresie",
     "rangeAccuracy": "Dokładność w okresie",
     "activeDays": "Aktywne dni",
-    "avgDailyXp": "Śr. XP dziennie"
+    "avgDailyXp": "Śr. XP dziennie",
+    "achievements": "Osiągnięcia",
+    "gamesPlayed": "Rozegrane gry",
+    "bestStreak": "Najlepsza seria odpowiedzi",
+    "dailyChallenges": "Dzienne wyzwania",
+    "unlocked": "Odblokowane",
+    "noAchievements": "Graj, aby odblokować osiągnięcia."
   },
   "grammar": {
     "title": "Podręcznik gramatyki",
