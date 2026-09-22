@@ -701,11 +701,13 @@
     "masteryReviewImproved": "Beheersing verbeterd",
     "masteryReviewImprovedDesc": "Je beheersingspercentage is tijdens deze herhaling verbeterd. De sessie is voltooid.",
     "masteryReviewExhausted": "Beheersingsreview voltooid",
-    "masteryReviewExhaustedDesc": "Er zijn geen oefeningen meer om te herhalen voor beheersing."
+    "masteryReviewExhaustedDesc": "Er zijn geen oefeningen meer om te herhalen voor beheersing.",
     "skillMastery": "Beheersing van vaardigheden",
     "skillMasteryDesc": "Bekijk hoe goed elke leervaardigheid in deze les wordt beheerst.",
     "skillMasteryMastered": "beheerst",
     "skillMasteryAttempted": "pogingen",
+    "skillMasteryAttemptRate": "Pogingpercentage: {rate}%",
+    "skillMasteryVariants": "varianten",
   },
   "flashcards": {
     "title": "Flashcards",
