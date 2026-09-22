@@ -565,3 +565,28 @@ def test_next_skill_mastery_returns_none_when_all_skills_are_mastered():
     ]
 
     assert select_next_skill_mastery(aggregates) is None
+
+
+
+def test_next_skill_mastery_uses_mastery_rate_before_average_score():
+    aggregates = [
+        SimpleNamespace(skill="score-lower", mastery_state="learning", mastery_rate=0.30, average_mastery_score=0.90),
+        SimpleNamespace(skill="rate-lower", mastery_state="learning", mastery_rate=0.20, average_mastery_score=0.95),
+    ]
+
+    result = select_next_skill_mastery(aggregates)
+
+    assert result is aggregates[1]
+
+
+def test_next_skill_mastery_accepts_real_skill_aggregate_shape():
+    aggregate = SimpleNamespace(
+        skill="grammar",
+        mastery_state="learning",
+        mastery_rate=0.5,
+        average_mastery_score=0.7,
+    )
+
+    result = select_next_skill_mastery([aggregate])
+
+    assert result is aggregate
