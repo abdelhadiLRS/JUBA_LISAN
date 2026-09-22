@@ -853,7 +853,7 @@
     "bestStreak": "Best answer streak",
     "dailyChallenges": "Daily challenges",
     "unlocked": "Unlocked",
-    "noAchievements": "Complete games to unlock achievements."
+    "noAchievements": "Complete games to unlock achievements.",
     "goals": "Goals",
     "dailyWeeklyGoals": "Daily & weekly goals",
     "dailyGoal": "Daily goal",
@@ -861,6 +861,9 @@
     "dailyTarget": "Daily XP target",
     "weeklyTarget": "Weekly XP target",
     "saveGoals": "Save goals",
+    "goalHistory": "Goal history",
+    "milestones": "Milestones",
+    "rewardXp": "reward XP"
   },
   "grammar": {
     "title": "Grammar Reference",
