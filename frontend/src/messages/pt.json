@@ -708,7 +708,8 @@
       "mastered": "Dominado"
     },
     "transcriptLabel": "Transcrição",
-    "listeningPractice": "Abrir prática de compreensão oral"
+    "listeningPractice": "Abrir prática de compreensão oral",
+    "audioLoadError": "Não foi possível carregar o áudio. Pode continuar com a transcrição."
   },
   "flashcards": {
     "title": "Cartões",
