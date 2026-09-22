@@ -707,7 +707,7 @@
     "skillMasteryMastered": "acquisite",
     "skillMasteryAttempted": "svolte",
     "skillMasteryAttemptRate": "Tasso di tentativi: {rate}%",
-    "skillMasteryVariants": "varianti",
+    "skillMasteryVariants": "varianti"
   },
   "flashcards": {
     "title": "Schede",
