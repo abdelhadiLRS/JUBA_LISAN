@@ -734,6 +734,7 @@ async def answer_exercise(
             score=exercise.score,
             attempted_exercise_ids=attempted_exercise_ids,
             attempted_adaptive_identities=attempted_adaptive_identities,
+            attempt_history=history_attempts,
             get_exercise_id=lambda item: item.id,
             get_variant=lambda item: (
                 content_by_exercise_id.get(item.id, {}).get("variant")
@@ -847,6 +848,7 @@ async def list_lesson_attempt_summary(
                 score=latest.score,
                 attempted_exercise_ids=attempted_exercise_ids,
                 attempted_adaptive_identities=attempted_adaptive_identities,
+                attempt_history=all_attempts,
                 get_exercise_id=lambda item: item.id,
                 get_variant=lambda item: (
                     content_by_exercise_id.get(item.id, {}).get("variant")
@@ -973,6 +975,7 @@ async def adaptive_next_exercise(
         score=latest_attempt.score,
         attempted_exercise_ids=attempted_exercise_ids,
         attempted_adaptive_identities=attempted_adaptive_identities,
+        attempt_history=attempt_history,
         get_exercise_id=lambda item: item.id,
         get_variant=lambda item: (
             content_by_exercise_id.get(item.id, {}).get("variant") or item.exercise_type
@@ -1076,6 +1079,7 @@ async def retry_exercise(
         score=latest_attempt.score,
         attempted_exercise_ids=attempted_exercise_ids,
         attempted_adaptive_identities=attempted_adaptive_identities,
+        attempt_history=attempt_history,
         get_exercise_id=lambda item: item.id,
         get_variant=lambda item: (
             content_by_exercise_id.get(item.id, {}).get("variant") or item.exercise_type
