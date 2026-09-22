@@ -24,6 +24,34 @@ describe('mergeAdaptiveRecommendations', () => {
     ])
   })
 
+  it('hydrates mastery state from persisted summaries', () => {
+    const exercises = [
+      { id: 12, recommended_action: undefined, recommended_variant: null },
+    ]
+
+    expect(
+      mergeAdaptiveRecommendations(exercises, [
+        {
+          exercise_id: 12,
+          recommended_action: 'reinforce',
+          recommended_variant: null,
+          mastery_score: 0.875,
+          mastery_state: 'mastered',
+          mastery_variants: 3,
+        },
+      ]),
+    ).toEqual([
+      {
+        id: 12,
+        recommended_action: 'reinforce',
+        recommended_variant: null,
+        mastery_score: 0.875,
+        mastery_state: 'mastered',
+        mastery_variants: 3,
+      },
+    ])
+  })
+
   it('clears a stale recommendation when the latest summary has no target variant', () => {
     const exercises = [
       { id: 7, recommended_action: 'retry_easier', recommended_variant: 'fill_blank' },
