@@ -225,3 +225,33 @@ def test_adaptive_mastery_becomes_mastered_with_two_distinct_variants():
     assert score == 0.80
     assert state == "mastered"
     assert variants == 2
+
+
+
+def test_adaptive_mastery_normalizes_duplicate_variant_labels_before_counting():
+    score, state, variants = summarize_adaptive_mastery(
+        [
+            SimpleNamespace(content_id="x", variant="A", score=0.70),
+            SimpleNamespace(content_id="x", variant=" a ", score=0.90),
+            SimpleNamespace(content_id="x", variant="B", score=0.80),
+        ],
+        content_id="x",
+    )
+    assert score == 0.85
+    assert state == "mastered"
+    assert variants == 2
+
+
+def test_adaptive_mastery_ignores_invalid_scores_and_non_string_content_ids():
+    score, state, variants = summarize_adaptive_mastery(
+        [
+            SimpleNamespace(content_id=None, variant="a", score=1.0),
+            SimpleNamespace(content_id="x", variant="a", score=float("nan")),
+            SimpleNamespace(content_id="x", variant="b", score="not-a-score"),
+            SimpleNamespace(content_id="x", variant="c", score=0.60),
+        ],
+        content_id="x",
+    )
+    assert score == 0.60
+    assert state == "learning"
+    assert variants == 1
