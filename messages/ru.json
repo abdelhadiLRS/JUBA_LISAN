@@ -713,7 +713,8 @@
       "struggling": "Сложно",
       "learning": "В процессе",
       "mastered": "Освоено"
-    },
+    }
+  },
   "flashcards": {
     "title": "Карточки",
     "due": "К повторению",
