@@ -807,7 +807,13 @@
     "rangeXp": "XP în interval",
     "rangeAccuracy": "Precizie în interval",
     "activeDays": "Zile active",
-    "avgDailyXp": "XP zilnic mediu"
+    "avgDailyXp": "XP zilnic mediu",
+    "achievements": "Realizări",
+    "gamesPlayed": "Jocuri jucate",
+    "bestStreak": "Cea mai bună serie de răspunsuri",
+    "dailyChallenges": "Provocări zilnice",
+    "unlocked": "Deblocate",
+    "noAchievements": "Joacă pentru a debloca realizări."
   },
   "grammar": {
     "title": "Referință gramaticală",
