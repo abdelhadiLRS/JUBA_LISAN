@@ -36,3 +36,8 @@ The review session records the mastery rate at session start. When a completed r
 ### Struggling-answer retention
 
 When a review answer scores below the struggling threshold, the session keeps the answered exercise in place instead of immediately replacing it with another candidate. Existing retry and adaptive-variant actions remain available, allowing the learner to reinforce the same weak item before the session moves on.
+
+
+### Candidate mastery completion
+
+A review session now ends when the exercise just reviewed reaches the `mastered` state in the refreshed attempt summary. The lesson mastery aggregate is refreshed before the completion state is displayed, so the final mastery rate and delta reflect the post-answer state. If the candidate is not yet mastered, the existing session selection and struggling-answer retention rules continue to apply.
