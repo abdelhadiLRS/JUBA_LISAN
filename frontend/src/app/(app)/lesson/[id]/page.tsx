@@ -204,7 +204,6 @@ export default function LessonPage() {
         setMasteryReviewMode(false)
         return
       }
-      if (countAsCompleted) setMasteryReviewCompleted((value) => value + 1)
       setMasteryNext(next)
       const targetIndex = exercises.findIndex((item) => item.id === next.exercise.id)
       setExercises((prev) => {
@@ -242,7 +241,7 @@ export default function LessonPage() {
 
   const continueMasteryReview = async () => {
     if (!masteryReviewMode || masteryReviewImproved || loadingMasteryNext) return
-    await openMasteryCandidate(true)
+    await openMasteryCandidate(false)
   }
 
   const adaptiveNextExercise = async () => {
@@ -307,6 +306,7 @@ export default function LessonPage() {
       const result = await res.json()
       setExercises((prev) => prev.map((item) => item.id === exercise.id ? { ...item, ...result } : item))
       setAnswer('')
+      if (masteryReviewMode) setMasteryReviewCompleted((value) => value + 1)
       void loadAttempts(exercise.id)
       if (lesson) {
         void loadAttemptSummary(lesson.id)
