@@ -155,3 +155,26 @@ def test_mastery_reason_maps_states_to_stable_reasons():
     assert mastery_reason("unseen") == "unseen"
     assert mastery_reason("learning") == "lowest_mastery"
     assert mastery_reason("unknown") == "lowest_mastery"
+
+
+def test_next_mastery_candidate_breaks_equal_scores_by_exercise_id():
+    exercises = [
+        SimpleNamespace(id=30, content_id="later"),
+        SimpleNamespace(id=10, content_id="earlier"),
+    ]
+    attempts = [
+        SimpleNamespace(content_id="later", variant="a", score=0.60),
+        SimpleNamespace(content_id="earlier", variant="a", score=0.60),
+    ]
+
+    result = select_next_mastery_candidate(
+        exercises,
+        attempts,
+        get_content_id=lambda item: item.content_id,
+        get_exercise_id=lambda item: item.id,
+    )
+
+    assert result is not None
+    assert result.exercise is exercises[1]
+    assert result.mastery_state == "learning"
+    assert result.mastery_score == 0.60
