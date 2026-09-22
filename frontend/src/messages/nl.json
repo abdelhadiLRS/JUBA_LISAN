@@ -708,7 +708,8 @@
       "mastered": "Beheerst"
     },
     "transcriptLabel": "Transcript",
-    "listeningPractice": "Luisteroefening openen"
+    "listeningPractice": "Luisteroefening openen",
+    "audioLoadError": "De audio kon niet worden geladen. Je kunt doorgaan met het transcript."
   },
   "flashcards": {
     "title": "Flashcards",
