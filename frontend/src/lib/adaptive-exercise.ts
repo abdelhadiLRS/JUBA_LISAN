@@ -36,7 +36,7 @@ export function mergeAdaptiveRecommendations<T extends AdaptiveExerciseLike>(
   })
 }
 
-export function hasAdaptiveTarget(recommendation: Pick<AdaptiveExerciseRecommendation, 'exercise_id' | 'recommended_variant'>): boolean {
+export function hasAdaptiveTarget(recommendation: Pick<AdaptiveExerciseLike, 'id' | 'recommended_variant'>): boolean {
   return typeof recommendation.recommended_variant === 'string' && recommendation.recommended_variant.trim().length > 0
 }
 
