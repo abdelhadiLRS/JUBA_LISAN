@@ -1763,7 +1763,7 @@
     "saved": "guardadas",
     "title": "Repaso espaciado",
     "complete": "Repaso completado",
-    "reviewed": "Has repasado {count} tarjetas.",
+    "reviewed": "Has repasado {count} {count, plural, one {tarjeta} other {tarjetas}}.",
     "reviewAgain": "Repasar de nuevo",
     "reveal": "Mostrar traducción",
     "again": "Otra vez",
