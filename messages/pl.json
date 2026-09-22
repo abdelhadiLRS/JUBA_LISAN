@@ -704,6 +704,7 @@
     "masteryReviewExhaustedDesc": "Nie ma więcej ćwiczeń do powtórzenia w celu opanowania materiału.",
     "skillMastery": "Opanowanie umiejętności",
     "skillMasteryDesc": "Zobacz, jak dobrze opanowana jest każda umiejętność w tej lekcji.",
+    "skillMasteryPractice": "Ćwicz tę umiejętność",
     "skillMasteryMastered": "opanowane",
     "skillMasteryAttempted": "wykonane",
     "skillMasteryAttemptRate": "Wskaźnik prób: {rate}%",
