@@ -704,6 +704,7 @@
     "masteryReviewExhaustedDesc": "Er zijn geen oefeningen meer om te herhalen voor beheersing.",
     "skillMastery": "Beheersing van vaardigheden",
     "skillMasteryDesc": "Bekijk hoe goed elke leervaardigheid in deze les wordt beheerst.",
+    "skillMasteryPractice": "Deze vaardigheid oefenen",
     "skillMasteryMastered": "beheerst",
     "skillMasteryAttempted": "pogingen",
     "skillMasteryAttemptRate": "Pogingpercentage: {rate}%",
