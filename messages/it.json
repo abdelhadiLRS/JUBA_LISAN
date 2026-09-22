@@ -706,6 +706,8 @@
     "skillMasteryExhaustedDesc": "Non ci sono altri esercizi da ripassare per consolidare {skill}.",
     "skillMastery": "Padronanza delle competenze",
     "skillMasteryDesc": "Scopri quanto è consolidata ogni competenza di apprendimento in questa lezione.",
+    "skillMasteryComplete": "Tutte le competenze di apprendimento sono consolidate",
+    "skillMasteryCompleteDesc": "Tutte le competenze monitorate in questa lezione hanno raggiunto la padronanza.",
     "skillMasteryPractice": "Pratica questa competenza",
     "skillMasteryMastered": "acquisite",
     "skillMasteryAttempted": "svolte",
