@@ -45,6 +45,12 @@ Mastered skills are excluded. Within the same state, lower mastery rate is selec
 
 Skill-focused exercise selection uses the same lesson mastery selector, so the state priority and score ordering remain consistent between lesson-wide and skill-scoped practice.
 
+## Progress center
+
+The main progress screen surfaces the same mastery contract at account level. It shows the aggregate lesson mastery rate, a prioritized skill breakdown, and lesson coverage from the active study plan. Each visible skill reports its mastery state, average mastery score, attempted exercises versus total exercises, and covered adaptive variants so learners can distinguish score improvement from variant coverage.
+
+The progress center does not create a second mastery model: its values come from the mastery API and therefore remain aligned with lesson review and skill-targeted practice.
+
 ## UI behavior
 
 The lesson screen exposes:
