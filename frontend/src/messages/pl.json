@@ -1711,5 +1711,55 @@
     "label": "Konserwacja",
     "title": "W trakcie konserwacji",
     "description": "Ta sekcja jest tymczasowo niedostępna z powodu prac konserwacyjnych. Spróbuj ponownie później."
+  },
+  "courseLevel": {
+    "notFound": "Nie znaleziono kursu",
+    "choose": "Wybierz poziom CEFR.",
+    "back": "Wróć do kursów",
+    "all": "Wszystkie kursy",
+    "units": "jednostki",
+    "completed": "ukończonych lekcji",
+    "ready": "gotowych teraz",
+    "notUnlocked": "Ten poziom nie jest jeszcze odblokowany.",
+    "unlockDesc": "Kontynuuj obecny plan nauki, aby odblokować kolejne poziomy CEFR.",
+    "unit": "Jednostka",
+    "grammar": "Gramatyka",
+    "vocab": "Zestawy słownictwa",
+    "competencies": "Kompetencje",
+    "byEnd": "Pod koniec tej jednostki",
+    "mastery": "opanowanie",
+    "lessons": "lekcji",
+    "openPlan": "Otwórz plan",
+    "locked": "Zablokowane",
+    "keepMoving": "Działaj dalej",
+    "continue": "Kontynuuj aktywny plan.",
+    "continueDesc": "Otwórz wygenerowane lekcje na dziś i kontynuuj naukę.",
+    "openLearning": "Otwórz plan nauki",
+    "levels": {
+      "A1": {
+        "title": "A1 · Początkujący",
+        "description": "Zbuduj praktyczne podstawy codziennej komunikacji."
+      },
+      "A2": {
+        "title": "A2 · Podstawowy",
+        "description": "Radź sobie w znanych sytuacjach z coraz większą pewnością."
+      },
+      "B1": {
+        "title": "B1 · Średnio zaawansowany",
+        "description": "Komunikuj się samodzielnie na codzienne tematy."
+      },
+      "B2": {
+        "title": "B2 · Wyższy średnio zaawansowany",
+        "description": "Wyrażaj myśli z większym zakresem, precyzją i niuansami."
+      },
+      "C1": {
+        "title": "C1 · Zaawansowany",
+        "description": "Komunikuj się płynnie w wymagających kontekstach akademickich i zawodowych."
+      },
+      "C2": {
+        "title": "C2 · Biegłość",
+        "description": "Doskonal precyzję, elastyczność i naturalność wypowiedzi."
+      }
+    }
   }
 }
