@@ -186,6 +186,11 @@ class LessonMasteryResponse(BaseModel):
     covered_variants: int
 
 
+class LessonMasteryNextResponse(BaseModel):
+    exercise: ExerciseResponse
+    reason: str
+
+
 class AdaptiveNextResponse(BaseModel):
     action: str
     recommended_variant: str | None = None
