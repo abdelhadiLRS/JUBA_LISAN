@@ -217,12 +217,13 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [currentExercise, evaluating, exercise, exercises.length, finishLesson, masteryReviewMode, continueMasteryReview])
 
-  const openMasteryCandidate = async () => {
+  const openMasteryCandidate = async (skillOverride?: string | null) => {
     if (!lesson || loadingMasteryNext) return
     setLoadingMasteryNext(true)
     try {
-      const next = masteryReviewSkill
-        ? await fetchNextSkillMasteryExercise(lesson.id, masteryReviewSkill)
+      const activeSkill = skillOverride === undefined ? masteryReviewSkill : skillOverride
+      const next = activeSkill
+        ? await fetchNextSkillMasteryExercise(lesson.id, activeSkill)
         : await fetchNextMasteryExercise(lesson.id)
       if (!next) {
         setMasteryNext(null)
@@ -263,7 +264,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
     setMasteryReviewImproved(false)
     setMasteryReviewExhausted(false)
     setMasteryReviewSkill(null)
-    await openMasteryCandidate()
+    await openMasteryCandidate(null)
   }
 
   const startSkillMasteryReview = async (skill: string) => {
@@ -275,7 +276,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
     setMasteryReviewImproved(false)
     setMasteryReviewExhausted(false)
     setMasteryReviewSkill(skill)
-    await openMasteryCandidate()
+    await openMasteryCandidate(skill)
   }
 
   const finishMasteryReview = () => {
