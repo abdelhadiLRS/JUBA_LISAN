@@ -708,7 +708,7 @@
     "skillMasteryAttempted": "încercate",
     "skillMasteryAttemptRate": "Rata încercărilor: {rate}%",
     "skillMasteryVariants": "variante"
-  },
+  \n    "masteryStates": {\n      "unseen": "Neevaluat",\n      "struggling": "Cu dificultăți",\n      "learning": "În învățare",\n      "mastered": "Stăpânit"\n    },},
   "flashcards": {
     "title": "Carduri flash",
     "due": "De repetat",
