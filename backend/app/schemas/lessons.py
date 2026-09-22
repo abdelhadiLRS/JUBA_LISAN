@@ -187,6 +187,7 @@ class LessonMasteryResponse(BaseModel):
     attempt_rate: float
     mastery_rate: float
     covered_variants: int
+    skills: list["SkillMasteryResponse"] = []
 
 
 class LessonMasteryNextResponse(BaseModel):
