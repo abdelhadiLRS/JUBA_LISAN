@@ -708,7 +708,8 @@
       "mastered": "Padroneggiato"
     },
     "transcriptLabel": "Trascrizione",
-    "listeningPractice": "Apri pratica di ascolto"
+    "listeningPractice": "Apri pratica di ascolto",
+    "audioLoadError": "L’audio non può essere caricato. Puoi continuare con la trascrizione."
   },
   "flashcards": {
     "title": "Schede",
