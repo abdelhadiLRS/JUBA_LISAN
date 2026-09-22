@@ -698,7 +698,15 @@
     "saveError": "Erro",
     "keepLearning": "Continue praticando com uma revisão.",
     "retryHarderVariant": "Continuar com uma variante mais difícil",
-    "retryEasierVariant": "Tentar novamente com uma variante mais fácil"
+    "retryEasierVariant": "Tentar novamente com uma variante mais fácil",
+    "mastery": "Domínio",
+    "masteryVariants": "{count} variantes cobertas",
+    "masteryStates": {
+      "unseen": "Não iniciado",
+      "struggling": "Precisa de prática",
+      "learning": "Em aprendizagem",
+      "mastered": "Dominado"
+    }
   },
   "flashcards": {
     "title": "Cartões",
