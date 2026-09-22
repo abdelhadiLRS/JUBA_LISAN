@@ -83,6 +83,48 @@ def collect_attempted_adaptive_identities(
     return attempted
 
 
+def summarize_adaptive_mastery(
+    attempts: Sequence[object],
+    *,
+    content_id: str,
+    get_content_id: Callable[[object], object] = _get_attr("content_id"),
+    get_variant: Callable[[object], object] = _get_attr("variant"),
+    get_score: Callable[[object], object] = _get_attr("score"),
+) -> tuple[float, str, int]:
+    """Summarize mastery from the best score achieved on each distinct variant."""
+    normalized_content_id = _normalise_content_id(content_id)
+    if not normalized_content_id:
+        return 0.0, "unseen", 0
+
+    best_by_variant: dict[str, float] = {}
+    for attempt in attempts:
+        candidate_content_id = _normalise_content_id(get_content_id(attempt))
+        if candidate_content_id != normalized_content_id:
+            continue
+        raw_variant = get_variant(attempt)
+        variant = normalise_variant(raw_variant if isinstance(raw_variant, str) else None)
+        if not variant:
+            continue
+        try:
+            score = _normalise_score(get_score(attempt))
+        except (TypeError, ValueError):
+            continue
+        best_by_variant[variant] = max(best_by_variant.get(variant, 0.0), score)
+
+    if not best_by_variant:
+        return 0.0, "unseen", 0
+
+    mastery_score = sum(best_by_variant.values()) / len(best_by_variant)
+    covered_variants = len(best_by_variant)
+    if mastery_score >= 0.80 and covered_variants >= 2:
+        state = "mastered"
+    elif mastery_score < 0.50:
+        state = "struggling"
+    else:
+        state = "learning"
+    return round(mastery_score, 3), state, covered_variants
+
+
 def select_unanswered_variant(
     exercises: Sequence[ExerciseT],
     *,
