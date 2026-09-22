@@ -746,6 +746,8 @@
     "skillMasteryExhaustedDesc": "No remaining exercises need mastery review for {skill}.",
     "skillMastery": "Skill mastery",
     "skillMasteryDesc": "See how well each learning skill is mastered in this lesson.",
+    "skillMasteryComplete": "All learning skills are mastered",
+    "skillMasteryCompleteDesc": "Every skill tracked in this lesson has reached mastery.",
     "skillMasteryPractice": "Practice this skill",
     "skillMasteryMastered": "mastered",
     "skillMasteryAttempted": "attempted",
