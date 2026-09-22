@@ -1,6 +1,7 @@
 from datetime import date, timedelta
 
 import pytest
+from sqlalchemy import select
 
 
 @pytest.mark.asyncio
@@ -9,19 +10,7 @@ async def test_learning_goals_default_and_progress(client, test_user, db_session
     from app.models.progress import Progress
     from tests.conftest import make_study_plan
 
-    plan = await make_study_plan(
-        db_session,
-        user_id=user.id,
-        cefr_level="A1",
-        target_language="en-US",
-        goals=["grammar"],
-        duration_weeks=4,
-        days_per_week=4,
-        current_unit="",
-        generated_plan={},
-        is_active=True,
-    )
-    db_session.add_all([
+    plan = await make_study_plan(\n        db_session, user_id=user.id, cefr_level="A1", target_language="en-US", goals=["grammar"], duration_weeks=4, days_per_week=4, current_unit="", generated_plan={}, is_active=True\n    )\n    db_session.add_all([
         Progress(user_id=user.id, study_plan_id=plan.id, date=date.today(), xp_earned=30, skills={}),
         Progress(user_id=user.id, study_plan_id=plan.id, date=date.today() - timedelta(days=2), xp_earned=40, skills={}),
     ])
@@ -191,7 +180,7 @@ async def test_goal_milestone_history_records_daily_and_weekly_rewards(client, t
 
     rows = (
         await db_session.execute(
-            __import__("sqlalchemy").select(LearningGoalMilestone).where(
+            select(LearningGoalMilestone).where(
                 LearningGoalMilestone.user_id == user.id,
                 LearningGoalMilestone.study_plan_id == plan.id,
             )
@@ -213,13 +202,25 @@ async def test_goal_milestone_history_records_daily_and_weekly_rewards(client, t
 @pytest.mark.asyncio
 async def test_goal_milestone_history_is_user_scoped(client, test_user, db_session):
     from app.models.learning_goal_milestone import LearningGoalMilestone
+    from app.core.security import hash_password
     from app.models.user import User
+    from app.models.user_language import UserLanguage
     from tests.conftest import make_study_plan
 
     user, headers = test_user
-    other = User(email="other-goal-history@example.com", hashed_password="test-password")
+    other = User(
+        username="othergoalhistory",
+        email="other-goal-history@example.com",
+        display_name="Other Goal History",
+        hashed_password=hash_password("test-password"),
+        role="user",
+        native_language="es",
+        target_language="fr-FR",
+        is_active=True,
+    )
     db_session.add(other)
     await db_session.flush()
+    db_session.add(UserLanguage(user_id=other.id, target_language="fr-FR", is_active=True))
     plan = await make_study_plan(
         db_session,
         user_id=user.id,
