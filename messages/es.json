@@ -701,11 +701,13 @@
     "masteryReviewImproved": "Dominio mejorado",
     "masteryReviewImprovedDesc": "Tu tasa de dominio mejoró durante este repaso. La sesión ha terminado.",
     "masteryReviewExhausted": "Repaso de dominio completado",
-    "masteryReviewExhaustedDesc": "No quedan ejercicios para repasar y dominar."
+    "masteryReviewExhaustedDesc": "No quedan ejercicios para repasar y dominar.",
     "skillMastery": "Dominio de habilidades",
     "skillMasteryDesc": "Consulta qué tan bien se domina cada habilidad de aprendizaje en esta lección.",
     "skillMasteryMastered": "dominadas",
     "skillMasteryAttempted": "intentadas",
+    "skillMasteryAttemptRate": "Tasa de intento: {rate}%",
+    "skillMasteryVariants": "variantes",
   },
   "flashcards": {
     "title": "Tarjetas",
