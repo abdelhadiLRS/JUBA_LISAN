@@ -83,22 +83,6 @@ def mastery_reason(state: str) -> str:
 
 
 
-@dataclass(frozen=True)
-class SkillMasteryAggregate:
-    skill: str
-    mastery_state: str
-    total_exercises: int
-    attempted_exercises: int
-    mastered_exercises: int
-    learning_exercises: int
-    struggling_exercises: int
-    unseen_exercises: int
-    average_mastery_score: float
-    mastery_rate: float
-    attempt_rate: float
-    covered_variants: int
-
-
 def normalise_skill_labels(raw_skills: Sequence[object] | object | None) -> tuple[str, ...]:
     """Return canonical, non-empty skill labels with duplicates removed."""
     if isinstance(raw_skills, str):
