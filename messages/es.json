@@ -693,6 +693,7 @@
     "masteryReviewAction": "Repasar habilidad más débil",
     "masteryReviewLoading": "Eligiendo…",
     "masteryReviewNone": "No se necesita más repaso de dominio.",
+    "masteryReviewLowest": "Menor dominio",
     "masteryReviewReasons": {
       "struggling": "Repaso de dominio",
       "unseen": "ejercicio no visto",
