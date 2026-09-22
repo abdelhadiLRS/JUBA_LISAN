@@ -152,6 +152,14 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
     if (value.startsWith('/') || value.startsWith('https://') || value.startsWith('http://')) return value
     return null
   }, [exercise?.metadata])
+
+  const exerciseTranscript = useMemo(() => {
+    const metadata = exercise?.metadata
+    if (!metadata) return null
+    const candidate = metadata.transcript ?? metadata.transcript_text ?? metadata.transcriptText ?? metadata.caption ?? metadata.captions
+    const value = candidate?.trim()
+    return value || null
+  }, [exercise?.metadata])
   const currentMastery = exercise ? attemptSummary.find((item) => item.exercise_id === exercise.id) : undefined
   const masteryScore = currentMastery?.mastery_score ?? exercise?.mastery_score ?? 0
   const masteryState = currentMastery?.mastery_state ?? exercise?.mastery_state ?? 'unseen'
@@ -481,11 +489,17 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
               <span className="rounded-full border border-[var(--juba-border)] bg-[var(--juba-surface)] px-3 py-1 text-[11px] font-extrabold text-[var(--juba-muted)]">{variantLabel}</span>
             </div>
             <h2 className="mt-5 text-2xl font-bold sm:text-3xl">{exercise.question}</h2>
-            {exerciseAudioUrl && <div className="mt-5 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4">
-              <div className="mb-2 flex items-center justify-between gap-3">
-                <span className="text-sm font-extrabold text-[var(--juba-text)]">{t('listen')}</span>
-              </div>
-              <audio controls preload="metadata" src={exerciseAudioUrl} className="w-full" aria-label={t('listen')} />
+            {(exerciseAudioUrl || exerciseTranscript) && <div className="mt-5 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4">
+              {exerciseAudioUrl && <div>
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <span className="text-sm font-extrabold text-[var(--juba-text)]">{t('listen')}</span>
+                </div>
+                <audio controls preload="metadata" src={exerciseAudioUrl} className="w-full" aria-label={t('listen')} />
+              </div>}
+              {exerciseTranscript && <details className={cn('text-sm font-medium text-[var(--juba-muted)]', exerciseAudioUrl && 'mt-4 border-t border-[var(--juba-border)] pt-4')}>
+                <summary className="cursor-pointer font-extrabold text-[var(--juba-text)]">{t('transcriptLabel')}</summary>
+                <p className="mt-3 whitespace-pre-wrap leading-7">{exerciseTranscript}</p>
+              </details>}
             </div>}
             {isChoiceExercise && <div className="mt-6 grid gap-3 sm:grid-cols-2" role="group" aria-label={variantLabel}>{exercise.options?.map((option, optionIndex) => <button type="button" key={option} aria-pressed={answer === option} onClick={() => setAnswer(option)} className={cn('group flex min-h-16 items-center gap-3 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4 text-left font-semibold text-[var(--juba-text)] transition-all hover:-translate-y-0.5 hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)]', answer === option && 'border-[var(--juba-primary-dark)] bg-[var(--juba-primary-soft)] shadow-sm')}><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--juba-border)] text-xs font-extrabold">{String.fromCharCode(65 + optionIndex)}</span><span className="flex-1">{option}</span>{answer === option && <span aria-hidden="true" className="font-extrabold">✓</span>}</button>)}</div>}
             {isLongFormExercise && <textarea value={answer} onChange={(e) => setAnswer(e.target.value)} className="mt-6 min-h-36 w-full resize-y rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4 font-semibold leading-7 text-[var(--juba-text)] outline-none transition-shadow focus:ring-2 focus:ring-[var(--juba-primary)]" placeholder={t('typeAnswer')} aria-label={t('typeAnswer')} disabled={evaluating || !!exercise.feedback} />}
