@@ -1,6 +1,7 @@
 from types import SimpleNamespace
 
 from app.schemas.lessons import LessonMasteryResponse
+from app.routers.lessons import router as lessons_router
 from app.services.adaptive_variants import summarize_adaptive_mastery
 from app.services.lesson_mastery import (
     select_next_mastery_candidate,
@@ -858,3 +859,12 @@ def test_mastery_response_rejects_unknown_state_and_reason():
             exercise={},
             reason="unknown",
         )
+
+
+def test_skill_mastery_next_route_precedes_dynamic_skill_detail():
+    paths = [getattr(route, "path", "") for route in lessons_router.routes]
+    next_path = "/api/lessons/{lesson_id}/mastery/skills/next"
+    detail_path = "/api/lessons/{lesson_id}/mastery/skills/{skill}"
+    assert next_path in paths
+    assert detail_path in paths
+    assert paths.index(next_path) < paths.index(detail_path)
