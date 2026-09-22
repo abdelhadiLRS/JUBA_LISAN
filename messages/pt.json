@@ -679,7 +679,13 @@
     "lessonFlowHint": "Aprenda → pratique → relembre. Mantenha-se ativo e aproveite cada resposta.",
     "exerciseProgress": "Exercício {current}/{total}",
     "tapToHear": "Toque na palavra para ouvi-la",
-    "lessonProgress": "Progresso da lição"
+    "lessonProgress": "Progresso da lição",
+    "masteryOverview": "Domínio da lição",
+    "masteryCoverage": "{{covered}} variantes cobertas",
+    "masteryAttempted": "Tentadas",
+    "masteryLearning": "Em aprendizagem",
+    "masteryStruggling": "Com dificuldade",
+    "masteryUnseen": "Não vistas"
   },
   "flashcards": {
     "title": "Cartões",
