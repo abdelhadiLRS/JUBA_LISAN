@@ -687,7 +687,17 @@
     "masteryAttempted": "Încercate",
     "masteryLearning": "În învățare",
     "masteryStruggling": "Dificile",
-    "masteryUnseen": "Nevăzute"
+    "masteryUnseen": "Nevăzute",
+    "masteryReview": "Recapitulare a stăpânirii",
+    "masteryReviewReady": "Repetă exercițiul care are nevoie de cea mai multă practică.",
+    "masteryReviewAction": "Repetă abilitatea cea mai slabă",
+    "masteryReviewLoading": "Se selectează…",
+    "masteryReviewNone": "Nu mai este necesară recapitularea stăpânirii.",
+    "masteryReviewReasons": {
+      "struggling": "Recapitulare a stăpânirii",
+      "unseen": "exercițiu nevăzut",
+      "lowest_mastery": "cea mai mică stăpânire"
+    }
   },
   "flashcards": {
     "title": "Carduri flash",
