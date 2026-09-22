@@ -105,9 +105,14 @@ async def security_headers_middleware(request: Request, call_next) -> Response:
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     response.headers["X-XSS-Protection"] = "0"
-    response.headers["Content-Security-Policy"] = (
-        "default-src 'self'; object-src 'none'; base-uri 'self'"
-    )
+
+    # FastAPI's built-in Swagger/ReDoc pages load their UI assets from external
+    # CDNs and use inline bootstrap code. Keep the strict CSP for the application
+    # and API while allowing the documentation UI to render normally.
+    if request.url.path not in {"/docs", "/redoc", "/docs/oauth2-redirect"}:
+        response.headers["Content-Security-Policy"] = (
+            "default-src 'self'; object-src 'none'; base-uri 'self'"
+        )
     return response
 
 
