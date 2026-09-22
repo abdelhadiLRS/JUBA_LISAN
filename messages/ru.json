@@ -682,6 +682,8 @@
     "lessonProgress": "Прогресс урока",
     "masteryOverview": "Освоение урока",
     "masteryCoverage": "Охвачено вариантов: {{covered}}",
+    "masteryAttemptRate": "Процент попыток: {{rate}}%",
+    "masteryRate": "Процент освоения: {{rate}}%",
     "masteryAttempted": "Пройдено",
     "masteryLearning": "В изучении",
     "masteryStruggling": "Сложно",
