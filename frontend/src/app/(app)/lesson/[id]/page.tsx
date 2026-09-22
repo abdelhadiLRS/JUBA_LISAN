@@ -192,7 +192,7 @@ export default function LessonPage() {
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [currentExercise, evaluating, exercise, exercises.length, finishLesson])
+  }, [currentExercise, evaluating, exercise, exercises.length, finishLesson, masteryReviewMode, continueMasteryReview])
 
   const openMasteryCandidate = async (countAsCompleted: boolean) => {
     if (!lesson || loadingMasteryNext) return
