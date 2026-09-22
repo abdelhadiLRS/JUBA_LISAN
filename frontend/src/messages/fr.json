@@ -706,7 +706,8 @@
       "struggling": "À pratiquer",
       "learning": "En apprentissage",
       "mastered": "Maîtrisé"
-    }
+    },
+    "transcriptLabel": "Transcription"
   },
   "flashcards": {
     "title": "Fiches",
