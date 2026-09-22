@@ -699,8 +699,9 @@
     "masteryReviewFinish": "Terminer la révision",
     "masteryReviewNext": "Exercice de maîtrise suivant",
     "masteryReviewImproved": "Maîtrise améliorée",
-    "masteryReviewImprovedDesc": "Votre taux de maîtrise s’est amélioré pendant cette révision. La session est terminée."
-
+    "masteryReviewImprovedDesc": "Votre taux de maîtrise s’est amélioré pendant cette révision. La session est terminée.",
+    "masteryReviewExhausted": "Révision de maîtrise terminée",
+    "masteryReviewExhaustedDesc": "Il ne reste aucun exercice à revoir pour consolider la maîtrise."
   },
   "flashcards": {
     "title": "Fiches",
