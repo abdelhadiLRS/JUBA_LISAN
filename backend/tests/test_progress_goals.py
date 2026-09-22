@@ -200,6 +200,50 @@ async def test_goal_milestone_history_records_daily_and_weekly_rewards(client, t
 
 
 @pytest.mark.asyncio
+async def test_goal_milestone_summary_counts_rewards(client, test_user, db_session):
+    from app.models.learning_goal_milestone import LearningGoalMilestone
+    from tests.conftest import make_study_plan
+
+    user, headers = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add_all([
+        LearningGoalMilestone(
+            user_id=user.id, study_plan_id=plan.id, goal_type="daily",
+            period_start=date.today(), period_end=date.today(),
+            target_xp=50, achieved_xp=55, reward_xp=25,
+        ),
+        LearningGoalMilestone(
+            user_id=user.id, study_plan_id=plan.id, goal_type="weekly",
+            period_start=date.today(), period_end=date.today() + timedelta(days=6),
+            target_xp=250, achieved_xp=260, reward_xp=75,
+        ),
+    ])
+    await db_session.commit()
+
+    response = await client.get("/api/progress/goals/milestones/summary", headers=headers)
+    assert response.status_code == 200
+    assert response.json() == {
+        "total_milestones": 2,
+        "daily_milestones": 1,
+        "weekly_milestones": 1,
+        "total_reward_xp": 100,
+        "daily_reward_xp": 25,
+        "weekly_reward_xp": 75,
+    }
+
+
+@pytest.mark.asyncio
 async def test_goal_milestone_history_is_user_scoped(client, test_user, db_session):
     from app.models.learning_goal_milestone import LearningGoalMilestone
     from app.core.security import hash_password
