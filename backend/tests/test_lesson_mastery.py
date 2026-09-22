@@ -30,6 +30,8 @@ def test_lesson_mastery_aggregates_states_and_variants():
     assert result.struggling_exercises == 1
     assert result.unseen_exercises == 1
     assert result.average_mastery_score == 0.4
+    assert result.attempt_rate == 0.75
+    assert result.mastery_rate == 0.25
     assert result.covered_variants == 4
 
 
@@ -51,4 +53,6 @@ def test_lesson_mastery_treats_blank_or_non_string_content_as_unseen():
     assert result.attempted_exercises == 0
     assert result.unseen_exercises == 2
     assert result.average_mastery_score == 0.0
+    assert result.attempt_rate == 0.0
+    assert result.mastery_rate == 0.0
     assert result.covered_variants == 0
