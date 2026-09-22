@@ -1711,5 +1711,55 @@
     "label": "Wartung",
     "title": "Wartungsarbeiten",
     "description": "Dieser Bereich ist wegen Wartungsarbeiten vorübergehend nicht verfügbar. Bitte versuche es später erneut."
+  },
+  "courseLevel": {
+    "notFound": "Kurs nicht gefunden",
+    "choose": "Wähle ein GER-Niveau.",
+    "back": "Zurück zu den Kursen",
+    "all": "Alle Kurse",
+    "units": "Einheiten",
+    "completed": "Lektionen abgeschlossen",
+    "ready": "jetzt bereit",
+    "notUnlocked": "Dieses Niveau ist noch nicht freigeschaltet.",
+    "unlockDesc": "Setze deinen aktuellen Lernplan fort, um weitere GER-Niveaus freizuschalten.",
+    "unit": "Einheit",
+    "grammar": "Grammatik",
+    "vocab": "Wortschatzsets",
+    "competencies": "Kompetenzen",
+    "byEnd": "Am Ende dieser Einheit",
+    "mastery": "Beherrschung",
+    "lessons": "Lektionen",
+    "openPlan": "Plan öffnen",
+    "locked": "Gesperrt",
+    "keepMoving": "Weiterlernen",
+    "continue": "Setze deinen aktiven Plan fort.",
+    "continueDesc": "Öffne die erstellten täglichen Lektionen und setze deinen Lernweg fort.",
+    "openLearning": "Lernplan öffnen",
+    "levels": {
+      "A1": {
+        "title": "A1 · Anfänger",
+        "description": "Baue eine praktische Grundlage für die Alltagskommunikation auf."
+      },
+      "A2": {
+        "title": "A2 · Grundstufe",
+        "description": "Bewältige vertraute Situationen mit wachsendem Selbstvertrauen."
+      },
+      "B1": {
+        "title": "B1 · Mittelstufe",
+        "description": "Kommuniziere selbstständig über Alltagsthemen."
+      },
+      "B2": {
+        "title": "B2 · Obere Mittelstufe",
+        "description": "Drücke Ideen mit größerer Bandbreite, Genauigkeit und Nuance aus."
+      },
+      "C1": {
+        "title": "C1 · Fortgeschritten",
+        "description": "Kommuniziere fließend in anspruchsvollen akademischen und beruflichen Kontexten."
+      },
+      "C2": {
+        "title": "C2 · Meisterschaft",
+        "description": "Verfeinere Präzision, Flexibilität und natürlichen Ausdruck."
+      }
+    }
   }
 }
