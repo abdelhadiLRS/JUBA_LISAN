@@ -3,7 +3,7 @@ from datetime import UTC, date, datetime, timedelta
 from typing import Literal, cast
 from uuid import uuid4
 
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from sqlalchemy import select, text, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -18,10 +18,11 @@ from app.models.game_progress import GameProgress
 from app.models.game_progress_event import GameProgressEvent
 from app.models.game_session import GameSession
 from app.models.learning_goal import LearningGoal
+from app.models.learning_goal_milestone import LearningGoalMilestone
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import (GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalResponse, LearningGoalUpdate, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
+from app.schemas.progress import (GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalResponse, LearningGoalUpdate, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
 from app.services.progress_service import get_unit_competencies, update_daily_progress
 from app.services.user_language_service import get_active_language
 
@@ -408,6 +409,30 @@ async def update_learning_goals(
     await db.commit()
     await db.refresh(goal)
     return await _learning_goal_response(db, current_user.id, plan, goal)
+
+
+@router.get("/goals/history", response_model=list[LearningGoalMilestoneResponse])
+@limiter.limit("60/minute")
+async def get_learning_goal_history(
+    request: Request,
+    limit: int = Query(default=30, ge=1, le=100),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    plan = await _get_active_plan_or_none(db, current_user.id)
+    if plan is None:
+        raise HTTPException(status_code=404, detail="No active study plan")
+
+    result = await db.execute(
+        select(LearningGoalMilestone)
+        .where(
+            LearningGoalMilestone.user_id == current_user.id,
+            LearningGoalMilestone.study_plan_id == plan.id,
+        )
+        .order_by(LearningGoalMilestone.period_start.desc(), LearningGoalMilestone.id.desc())
+        .limit(limit)
+    )
+    return result.scalars().all()
 
 
 def _server_game_questions(game_id: str, language: str, difficulty: int, target_language: str = "en-GB") -> list[dict]:
