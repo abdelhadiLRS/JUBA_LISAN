@@ -12,6 +12,10 @@ from app.services.exercise_retry import (
 
 ExerciseT = TypeVar("ExerciseT")
 
+MASTERY_STRUGGLING_THRESHOLD = 0.50
+MASTERY_REQUIRED_SCORE = 0.80
+MASTERY_REQUIRED_VARIANTS = 2
+
 
 def _get_attr(name: str) -> Callable[[object], object]:
     return lambda exercise: getattr(exercise, name, None)
@@ -116,9 +120,12 @@ def summarize_adaptive_mastery(
 
     mastery_score = sum(best_by_variant.values()) / len(best_by_variant)
     covered_variants = len(best_by_variant)
-    if mastery_score >= 0.80 and covered_variants >= 2:
+    if (
+        mastery_score >= MASTERY_REQUIRED_SCORE
+        and covered_variants >= MASTERY_REQUIRED_VARIANTS
+    ):
         state = "mastered"
-    elif mastery_score < 0.50:
+    elif mastery_score < MASTERY_STRUGGLING_THRESHOLD:
         state = "struggling"
     else:
         state = "learning"
@@ -245,7 +252,7 @@ def recommend_adaptive_variant(
             attempt_history or (),
             content_id=content_id,
         )
-        if mastery_state == "mastered" and mastery_score >= 0.80:
+        if mastery_state == "mastered" and mastery_score >= MASTERY_REQUIRED_SCORE:
             return "advance", None, None
         return "reinforce", None, None
 
