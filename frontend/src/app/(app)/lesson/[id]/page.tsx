@@ -484,7 +484,6 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
             {exerciseAudioUrl && <div className="mt-5 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4">
               <div className="mb-2 flex items-center justify-between gap-3">
                 <span className="text-sm font-extrabold text-[var(--juba-text)]">{t('listen')}</span>
-                <span className="text-xs font-medium text-[var(--juba-muted)]">{t('audioAvailable')}</span>
               </div>
               <audio controls preload="metadata" src={exerciseAudioUrl} className="w-full" aria-label={t('listen')} />
             </div>}
