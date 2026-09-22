@@ -707,7 +707,8 @@
       "learning": "Lernen",
       "mastered": "Beherrscht"
     },
-    "transcriptLabel": "Transkript"
+    "transcriptLabel": "Transkript",
+    "listeningPractice": "Hörtraining öffnen"
   },
   "flashcards": {
     "title": "Karteikarten",
