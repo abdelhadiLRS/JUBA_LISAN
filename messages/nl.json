@@ -1,6 +1,5 @@
 {
   "landing": {
-    "hero": "Leer talen met een echte gesprekspartner via spraak",
     "heroSub": "Praat. Luister. Verbeter.",
     "signIn": "Inloggen",
     "dashboard": "Verdergaan",
@@ -16,7 +15,6 @@
     "feature5Desc": "Vocabulairerevision met spaced repetition. Het SM-2-algoritme plant elke kaart op het optimale moment voor maximale langetermijnretentie.",
     "feature6Title": "Voortgang & reeksen",
     "feature6Desc": "XP, dagelijkse reeksen, vaardigheidsscores en eenheidscompetenties. Volg je groei week na week en test je niveau aan het einde van elke CEFR-fase.",
-    "footer": "Open source · Zelf hosten gratis of abonneer op de gehoste dienst",
     "navFeatures": "Functies",
     "navReviews": "Reviews",
     "navPricing": "Prijzen",
