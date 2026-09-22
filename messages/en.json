@@ -855,7 +855,15 @@
     "last7Days": "Last 7 days",
     "exercises": "Exercises",
     "sevenDayXp": "7-day XP",
-    "reviewLink": "Review"
+    "reviewLink": "Review",
+    "masteryCenter": "Mastery Center",
+    "masteryOverview": "Mastery overview",
+    "masteryRate": "Mastery rate",
+    "attempted": "Attempted",
+    "coveredVariants": "Covered variants",
+    "averageMastery": "Average mastery",
+    "nextSkill": "Next skill",
+    "practice": "Practice"
   },
   "grammar": {
     "title": "Grammar Reference",
