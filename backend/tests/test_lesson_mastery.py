@@ -183,7 +183,8 @@ def test_next_mastery_candidate_breaks_equal_scores_by_exercise_id():
 
 def test_adaptive_mastery_boundary_at_struggling_threshold():
     score, state, variants = summarize_adaptive_mastery(
-        [SimpleNamespace(variant="a", score=0.49)],
+        [SimpleNamespace(content_id="x", variant="a", score=0.49)],
+        content_id="x",
     )
     assert score == 0.49
     assert state == "struggling"
@@ -192,7 +193,8 @@ def test_adaptive_mastery_boundary_at_struggling_threshold():
 
 def test_adaptive_mastery_boundary_at_learning_threshold():
     score, state, variants = summarize_adaptive_mastery(
-        [SimpleNamespace(variant="a", score=0.50)],
+        [SimpleNamespace(content_id="x", variant="a", score=0.50)],
+        content_id="x",
     )
     assert score == 0.50
     assert state == "learning"
@@ -202,9 +204,10 @@ def test_adaptive_mastery_boundary_at_learning_threshold():
 def test_adaptive_mastery_requires_two_distinct_variants_at_required_score():
     score, state, variants = summarize_adaptive_mastery(
         [
-            SimpleNamespace(variant="a", score=0.80),
-            SimpleNamespace(variant="a", score=0.90),
+            SimpleNamespace(content_id="x", variant="a", score=0.80),
+            SimpleNamespace(content_id="x", variant="a", score=0.90),
         ],
+        content_id="x",
     )
     assert score == 0.90
     assert state == "learning"
@@ -214,9 +217,10 @@ def test_adaptive_mastery_requires_two_distinct_variants_at_required_score():
 def test_adaptive_mastery_becomes_mastered_with_two_distinct_variants():
     score, state, variants = summarize_adaptive_mastery(
         [
-            SimpleNamespace(variant="a", score=0.80),
-            SimpleNamespace(variant="b", score=0.80),
+            SimpleNamespace(content_id="x", variant="a", score=0.80),
+            SimpleNamespace(content_id="x", variant="b", score=0.80),
         ],
+        content_id="x",
     )
     assert score == 0.80
     assert state == "mastered"
