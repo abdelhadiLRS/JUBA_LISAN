@@ -1763,7 +1763,7 @@
     "saved": "opgeslagen",
     "title": "Gespreide herhaling",
     "complete": "Herhaling voltooid",
-    "reviewed": "Je hebt {count} kaarten herhaald.",
+    "reviewed": "Je hebt {count} {count, plural, one {kaart} other {kaarten}} herhaald.",
     "reviewAgain": "Opnieuw herhalen",
     "reveal": "Vertaling tonen",
     "again": "Opnieuw",
