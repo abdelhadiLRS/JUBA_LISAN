@@ -114,3 +114,8 @@ When a skill-focused review is active, subsequent mastery targets remain scoped 
 Skill labels are canonicalized in one shared backend helper before aggregation or skill-focused targeting. A label is trimmed, case-folded, and ignored when it is empty or non-string; duplicate labels on the same exercise are collapsed. The same normalization is used by the aggregate service and by `/{lesson_id}/mastery/skills/{skill}/next`, so a skill such as `Grammar`, ` grammar `, or `GRAMMAR` addresses the same mastery bucket.
 
 The skill-focused endpoint also uses the same stable `mastery_reason()` mapping as lesson-level targeting. This keeps recommendation reasons consistent across lesson-wide and skill-scoped review clients.
+
+
+### Skill-focused completion semantics
+
+A skill-focused review captures that skill's mastery rate at session start rather than the lesson-wide rate. After each answer, the refreshed skill aggregate is the completion source of truth: the review ends when the selected skill becomes mastered, or when its skill-scoped next-target endpoint is exhausted. A change in the selected skill's mastery rate is reported as the session delta; progress in unrelated skills does not prematurely end the focused review.
