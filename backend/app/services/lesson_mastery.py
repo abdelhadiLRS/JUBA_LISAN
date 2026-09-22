@@ -131,6 +131,25 @@ def summarize_skill_mastery(
     return aggregates
 
 
+def select_next_skill_mastery(
+    aggregates: Sequence[SkillMasteryAggregate],
+) -> SkillMasteryAggregate | None:
+    """Select the skill that should receive mastery attention next."""
+    state_priority = {"struggling": 0, "unseen": 1, "learning": 2, "mastered": 3}
+    candidates = [item for item in aggregates if item.mastery_state != "mastered"]
+    if not candidates:
+        return None
+    return min(
+        candidates,
+        key=lambda item: (
+            state_priority.get(item.mastery_state, 2),
+            item.mastery_rate,
+            item.average_mastery_score,
+            item.skill,
+        ),
+    )
+
+
 def _skill_mastery_state(aggregate: "LessonMasteryAggregate") -> str:
     """Collapse a skill's exercise states into one stable summary state."""
     if aggregate.total_exercises == 0 or aggregate.unseen_exercises == aggregate.total_exercises:
