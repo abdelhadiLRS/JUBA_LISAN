@@ -10,7 +10,10 @@ async def test_learning_goals_default_and_progress(client, test_user, db_session
     from app.models.progress import Progress
     from tests.conftest import make_study_plan
 
-    plan = await make_study_plan(\n        db_session, user_id=user.id, cefr_level="A1", target_language="en-US", goals=["grammar"], duration_weeks=4, days_per_week=4, current_unit="", generated_plan={}, is_active=True\n    )\n    db_session.add_all([
+    plan = await make_study_plan(
+        db_session, user_id=user.id, cefr_level="A1", target_language="en-US", goals=["grammar"], duration_weeks=4, days_per_week=4, current_unit="", generated_plan={}, is_active=True
+    )
+    db_session.add_all([
         Progress(user_id=user.id, study_plan_id=plan.id, date=date.today(), xp_earned=30, skills={}),
         Progress(user_id=user.id, study_plan_id=plan.id, date=date.today() - timedelta(days=2), xp_earned=40, skills={}),
     ])
@@ -352,6 +355,215 @@ async def test_goal_milestone_history_is_user_scoped(client, test_user, db_sessi
     response = await client.get("/api/progress/goals/history", headers=headers)
     assert response.status_code == 200
     assert response.json() == []
+
+
+@pytest.mark.asyncio
+async def test_weekly_reward_resets_for_new_week(db_session, test_user):
+    from app.models.learning_goal import LearningGoal
+    from app.models.progress import Progress
+    from app.services.progress_service import update_daily_progress
+    from tests.conftest import make_study_plan
+
+    user, _ = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    today = date.today()
+    current_week = today - timedelta(days=today.weekday())
+    previous_week = current_week - timedelta(days=7)
+    db_session.add(
+        LearningGoal(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            daily_xp_target=1000,
+            weekly_xp_target=100,
+            weekly_reward_start=previous_week,
+        )
+    )
+    db_session.add(
+        Progress(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            date=today,
+            xp_earned=99,
+            reward_xp=0,
+            lessons_completed=0,
+            exercises_correct=0,
+            exercises_total=0,
+            streak_day=1,
+            skills={},
+        )
+    )
+    await db_session.commit()
+
+    result = await update_daily_progress(
+        db_session,
+        user.id,
+        study_plan_id=plan.id,
+        xp=1,
+        commit=True,
+    )
+
+    assert result is not None
+    assert result.xp_earned == 175
+    assert result.reward_xp == 75
+
+    goal = (
+        await db_session.execute(
+            select(LearningGoal).where(
+                LearningGoal.user_id == user.id,
+                LearningGoal.study_plan_id == plan.id,
+            )
+        )
+    ).scalar_one()
+    assert goal.weekly_reward_start == current_week
+
+
+@pytest.mark.asyncio
+async def test_daily_reward_does_not_count_toward_weekly_goal(db_session, test_user):
+    from app.models.learning_goal import LearningGoal
+    from app.models.learning_goal_milestone import LearningGoalMilestone
+    from app.models.progress import Progress
+    from app.services.progress_service import update_daily_progress
+    from tests.conftest import make_study_plan
+
+    user, _ = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add(
+        LearningGoal(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            daily_xp_target=50,
+            weekly_xp_target=100,
+        )
+    )
+    db_session.add(
+        Progress(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            date=date.today(),
+            xp_earned=45,
+            reward_xp=0,
+            lessons_completed=0,
+            exercises_correct=0,
+            exercises_total=0,
+            streak_day=1,
+            skills={},
+        )
+    )
+    await db_session.commit()
+
+    first = await update_daily_progress(
+        db_session, user.id, study_plan_id=plan.id, xp=5, commit=True
+    )
+    assert first is not None
+    assert first.xp_earned == 75
+    assert first.reward_xp == 25
+
+    milestones = (
+        await db_session.execute(
+            select(LearningGoalMilestone).where(
+                LearningGoalMilestone.user_id == user.id,
+                LearningGoalMilestone.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert {(row.goal_type, row.reward_xp) for row in milestones} == {("daily", 25)}
+
+    second = await update_daily_progress(
+        db_session, user.id, study_plan_id=plan.id, xp=50, commit=True
+    )
+    assert second is not None
+    assert second.xp_earned == 150
+    assert second.reward_xp == 100
+
+    milestones = (
+        await db_session.execute(
+            select(LearningGoalMilestone).where(
+                LearningGoalMilestone.user_id == user.id,
+                LearningGoalMilestone.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert {(row.goal_type, row.reward_xp) for row in milestones} == {
+        ("daily", 25),
+        ("weekly", 75),
+    }
+
+
+@pytest.mark.asyncio
+async def test_repeated_activity_cannot_duplicate_goal_milestones(db_session, test_user):
+    from app.models.learning_goal import LearningGoal
+    from app.models.learning_goal_milestone import LearningGoalMilestone
+    from app.models.progress import Progress
+    from app.services.progress_service import update_daily_progress
+    from tests.conftest import make_study_plan
+
+    user, _ = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        target_language="en-US",
+        goals=["grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="",
+        generated_plan={},
+        is_active=True,
+    )
+    db_session.add(
+        LearningGoal(
+            user_id=user.id,
+            study_plan_id=plan.id,
+            daily_xp_target=10,
+            weekly_xp_target=20,
+        )
+    )
+    await db_session.commit()
+
+    first = await update_daily_progress(
+        db_session, user.id, study_plan_id=plan.id, xp=20, commit=True
+    )
+    assert first is not None
+    assert first.reward_xp == 100
+
+    second = await update_daily_progress(
+        db_session, user.id, study_plan_id=plan.id, xp=1, commit=True
+    )
+    assert second is not None
+    assert second.reward_xp == 100
+
+    milestones = (
+        await db_session.execute(
+            select(LearningGoalMilestone).where(
+                LearningGoalMilestone.user_id == user.id,
+                LearningGoalMilestone.study_plan_id == plan.id,
+            )
+        )
+    ).scalars().all()
+    assert len(milestones) == 2
+    assert {row.goal_type for row in milestones} == {"daily", "weekly"}
 
 
 @pytest.mark.asyncio
