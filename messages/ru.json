@@ -706,6 +706,8 @@
     "skillMasteryExhaustedDesc": "Для навыка {skill} больше нет упражнений, требующих повторения.",
     "skillMastery": "Освоение навыков",
     "skillMasteryDesc": "Посмотрите, насколько хорошо освоен каждый учебный навык в этом уроке.",
+    "skillMasteryComplete": "Все учебные навыки освоены",
+    "skillMasteryCompleteDesc": "Все навыки, отслеживаемые в этом уроке, достигли уровня освоения.",
     "skillMasteryPractice": "Практиковать этот навык",
     "skillMasteryMastered": "освоено",
     "skillMasteryAttempted": "попыток",
