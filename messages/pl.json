@@ -1723,5 +1723,7 @@
     "shortcutHint": "Spacja, aby odkryć · 1–4, aby ocenić",
     "spaceShortcut": "Spacja, aby odkryć",
     "rateKeys": "1 Ponownie · 2 Trudne · 3 Dobrze · 4 Łatwe"
-  }
+  },
+  "masteryReviewExhausted": "Powtórka opanowania zakończona",
+  "masteryReviewExhaustedDesc": "Wszystkie ćwiczenia w tej lekcji zostały opanowane. Możesz kontynuować naukę lub powtórzyć je później."
 }
