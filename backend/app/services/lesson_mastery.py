@@ -57,6 +57,7 @@ def mastery_reason(state: str) -> str:
 @dataclass(frozen=True)
 class SkillMasteryAggregate:
     skill: str
+    mastery_state: str
     total_exercises: int
     attempted_exercises: int
     mastered_exercises: int
@@ -113,6 +114,7 @@ def summarize_skill_mastery(
         aggregates.append(
             SkillMasteryAggregate(
                 skill=skill,
+                mastery_state=_skill_mastery_state(lesson),
                 total_exercises=lesson.total_exercises,
                 attempted_exercises=lesson.attempted_exercises,
                 mastered_exercises=lesson.mastered_exercises,
@@ -127,6 +129,17 @@ def summarize_skill_mastery(
         )
 
     return aggregates
+
+
+def _skill_mastery_state(aggregate: "LessonMasteryAggregate") -> str:
+    """Collapse a skill's exercise states into one stable summary state."""
+    if aggregate.total_exercises == 0 or aggregate.unseen_exercises == aggregate.total_exercises:
+        return "unseen"
+    if aggregate.mastered_exercises == aggregate.total_exercises:
+        return "mastered"
+    if aggregate.struggling_exercises > 0:
+        return "struggling"
+    return "learning"
 
 
 @dataclass(frozen=True)
