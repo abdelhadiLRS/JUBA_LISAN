@@ -22,6 +22,8 @@ export function ExerciseAudioPlayer({
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const blobUrlRef = useRef<string | null>(null)
   const playedRef = useRef(false)
+  const requestControllerRef = useRef<AbortController | null>(null)
+  const requestIdRef = useRef(0)
 
   async function handlePlayPause() {
     if (state === 'loading') return
@@ -43,10 +45,19 @@ export function ExerciseAudioPlayer({
     }
 
     setState('loading')
+    const requestId = ++requestIdRef.current
+    const controller = new AbortController()
+    requestControllerRef.current?.abort()
+    requestControllerRef.current = controller
+
     try {
-      const res = await apiFetch(`/api/listening/audio/${exerciseId}`)
+      const res = await apiFetch(`/api/listening/audio/${exerciseId}`, {
+        signal: controller.signal,
+      })
       if (!res.ok) throw new Error(`${res.status}`)
       const blob = await res.blob()
+      if (controller.signal.aborted || requestId !== requestIdRef.current) return
+
       audioRef.current?.pause()
       if (blobUrlRef.current) {
         URL.revokeObjectURL(blobUrlRef.current)
@@ -56,30 +67,43 @@ export function ExerciseAudioPlayer({
 
       const audio = new Audio(url)
       audioRef.current = audio
+      const isCurrentRequest = () =>
+        !controller.signal.aborted && requestId === requestIdRef.current
 
       audio.addEventListener('loadedmetadata', () => {
+        if (!isCurrentRequest()) return
         setDuration(audio.duration)
       })
       audio.addEventListener('timeupdate', () => {
+        if (!isCurrentRequest()) return
         if (audio.duration > 0) {
           setProgress((audio.currentTime / audio.duration) * 100)
         }
       })
       audio.addEventListener('ended', () => {
+        if (!isCurrentRequest()) return
         setProgress(100)
         setState('idle')
       })
-      audio.addEventListener('error', () => setState('error'))
+      audio.addEventListener('error', () => {
+        if (isCurrentRequest()) setState('error')
+      })
 
       await audio.play()
+      if (!isCurrentRequest()) return
       setState('playing')
 
       if (!playedRef.current) {
         playedRef.current = true
         onFirstPlay?.()
       }
-    } catch {
+    } catch (error) {
+      if (controller.signal.aborted || requestId !== requestIdRef.current) return
       setState('error')
+    } finally {
+      if (requestId === requestIdRef.current) {
+        requestControllerRef.current = null
+      }
     }
   }
 
@@ -94,10 +118,23 @@ export function ExerciseAudioPlayer({
 
   useEffect(() => {
     return () => {
-      audioRef.current?.pause()
-      if (blobUrlRef.current) URL.revokeObjectURL(blobUrlRef.current)
+      requestIdRef.current += 1
+      requestControllerRef.current?.abort()
+      requestControllerRef.current = null
+
+      const audio = audioRef.current
+      audio?.pause()
+      if (audio) {
+        audio.src = ''
+      }
+      audioRef.current = null
+
+      if (blobUrlRef.current) {
+        URL.revokeObjectURL(blobUrlRef.current)
+        blobUrlRef.current = null
+      }
     }
-  }, [])
+  }, [exerciseId])
 
   const icon = state === 'loading' ? '◌' : state === 'playing' ? '▐▐' : '▶'
   const label = state === 'playing' ? t('audioPause') : t('audioPlay')
