@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Literal, Self
 
-from pydantic import BaseModel, field_serializer, field_validator, model_validator
+from pydantic import Field, BaseModel, field_serializer, field_validator, model_validator
 
 
 class ExerciseContent(BaseModel):
@@ -66,7 +66,7 @@ class LessonContent(BaseModel):
     native_explanation: dict | None = None
     exercises: list[ExerciseContent]
     vocabulary: list[LessonVocabularyItem] | None = None
-    grammar_refs: list[str] = []
+    grammar_refs: list[str] = Field(default_factory=list)
     unit_id: str | None = None
 
 
@@ -187,7 +187,7 @@ class LessonMasteryResponse(BaseModel):
     attempt_rate: float
     mastery_rate: float
     covered_variants: int
-    skills: list["SkillMasteryResponse"] = []
+    skills: list["SkillMasteryResponse"] = Field(default_factory=list)
 
 
 class LessonMasteryNextResponse(BaseModel):
