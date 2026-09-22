@@ -855,7 +855,15 @@
     "last7Days": "Ostatnie 7 dni",
     "exercises": "Ćwiczenia",
     "sevenDayXp": "XP z 7 dni",
-    "reviewLink": "Powtórz"
+    "reviewLink": "Powtórz",
+    "masteryCenter": "Centrum biegłości",
+    "masteryOverview": "Przegląd biegłości",
+    "masteryRate": "Wskaźnik biegłości",
+    "attempted": "Podjęte próby",
+    "coveredVariants": "Pokryte warianty",
+    "averageMastery": "Średnia biegłość",
+    "nextSkill": "Następna umiejętność",
+    "practice": "Ćwicz"
   },
   "grammar": {
     "title": "Podręcznik gramatyki",
