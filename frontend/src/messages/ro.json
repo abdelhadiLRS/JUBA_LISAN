@@ -698,7 +698,15 @@
     "saveError": "Eroare",
     "keepLearning": "Continuă cu o recapitulare.",
     "retryHarderVariant": "Continuă cu o variantă mai dificilă",
-    "retryEasierVariant": "Încearcă din nou cu o variantă mai ușoară"
+    "retryEasierVariant": "Încearcă din nou cu o variantă mai ușoară",
+    "mastery": "Stăpânire",
+    "masteryVariants": "{count} variante acoperite",
+    "masteryStates": {
+      "unseen": "Neînceput",
+      "struggling": "Necesită exersare",
+      "learning": "În învățare",
+      "mastered": "Stăpânit"
+    }
   },
   "flashcards": {
     "title": "Carduri flash",
