@@ -1104,6 +1104,55 @@ async def get_lesson_skill_mastery(
 
 
 @router.get(
+    "/{lesson_id}/mastery/skills/next",
+    response_model=SkillMasteryNextResponse,
+)
+@limiter.limit("60/minute")
+async def get_next_lesson_skill_mastery(
+    request: Request,
+    lesson_id: int,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return the highest-priority skill that still needs mastery work."""
+    lesson = await _get_lesson_for_user(lesson_id, current_user.id, db)
+    attempts_result = await db.execute(
+        select(ExerciseAttempt).where(
+            ExerciseAttempt.lesson_id == lesson.id,
+            ExerciseAttempt.user_id == current_user.id,
+        )
+    )
+    attempts = attempts_result.scalars().all()
+    exercise_result = await db.execute(
+        select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
+    )
+    exercises = exercise_result.scalars().all()
+    content_exercises = (
+        lesson.content.get("exercises", [])
+        if isinstance(lesson.content, dict)
+        else []
+    )
+    content_by_exercise_id = _map_content_exercises(exercises, content_exercises)
+    aggregates = summarize_skill_mastery(
+        exercises,
+        attempts,
+        get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
+        get_skills=lambda item: content_by_exercise_id.get(item.id, {}).get("skills"),
+    )
+    candidate = select_next_skill_mastery(aggregates)
+    if candidate is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="All lesson skills are mastered",
+        )
+    reason = mastery_reason(candidate.mastery_state)
+    return SkillMasteryNextResponse(
+        skill=SkillMasteryResponse(**candidate.__dict__),
+        reason=reason,
+    )
+
+
+@router.get(
     "/{lesson_id}/mastery/skills/{skill}",
     response_model=SkillMasteryResponse,
 )
@@ -1155,54 +1204,6 @@ async def get_lesson_skill_mastery_detail(
         )
     return SkillMasteryResponse(**candidate.__dict__)
 
-
-@router.get(
-    "/{lesson_id}/mastery/skills/next",
-    response_model=SkillMasteryNextResponse,
-)
-@limiter.limit("60/minute")
-async def get_next_lesson_skill_mastery(
-    request: Request,
-    lesson_id: int,
-    current_user: User = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db),
-):
-    """Return the highest-priority skill that still needs mastery work."""
-    lesson = await _get_lesson_for_user(lesson_id, current_user.id, db)
-    attempts_result = await db.execute(
-        select(ExerciseAttempt).where(
-            ExerciseAttempt.lesson_id == lesson.id,
-            ExerciseAttempt.user_id == current_user.id,
-        )
-    )
-    attempts = attempts_result.scalars().all()
-    exercise_result = await db.execute(
-        select(Exercise).where(Exercise.lesson_id == lesson.id).order_by(Exercise.id)
-    )
-    exercises = exercise_result.scalars().all()
-    content_exercises = (
-        lesson.content.get("exercises", [])
-        if isinstance(lesson.content, dict)
-        else []
-    )
-    content_by_exercise_id = _map_content_exercises(exercises, content_exercises)
-    aggregates = summarize_skill_mastery(
-        exercises,
-        attempts,
-        get_content_id=lambda item: content_by_exercise_id.get(item.id, {}).get("content_id"),
-        get_skills=lambda item: content_by_exercise_id.get(item.id, {}).get("skills"),
-    )
-    candidate = select_next_skill_mastery(aggregates)
-    if candidate is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="All lesson skills are mastered",
-        )
-    reason = mastery_reason(candidate.mastery_state)
-    return SkillMasteryNextResponse(
-        skill=SkillMasteryResponse(**candidate.__dict__),
-        reason=reason,
-    )
 
 
 @router.get(
@@ -1498,45 +1499,3 @@ async def regenerate_invalid_exercise(
     exercise_id: int,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
-):
-    exercise = await db.get(Exercise, exercise_id)
-    if not exercise:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exercise not found")
-
-    lesson = await _get_lesson_for_user(exercise.lesson_id, current_user.id, db)
-    if lesson.is_completed:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="Completed lesson exercises cannot be regenerated",
-        )
-    if exercise.answered_at is not None or exercise.score is not None:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="Answered exercises cannot be regenerated",
-        )
-    if not _exercise_has_technical_error(exercise):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Exercise does not need regeneration",
-        )
-
-    plan = await db.get(StudyPlan, lesson.study_plan_id)
-    if not plan:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Study plan not found for lesson",
-        )
-
-    content, content_exercises, _content_exercise = await _get_exercise_content_entry(
-        exercise, lesson, db
-    )
-    exercise_index = await _get_exercise_index(exercise, lesson, db)
-    invalid_exercise = {
-        "type": exercise.exercise_type,
-        "question": exercise.question,
-        "options": exercise.options,
-        "correct": exercise.correct_answer,
-        "explanation": exercise.explanation,
-    }
-
-    try:
