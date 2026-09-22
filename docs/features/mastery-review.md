@@ -122,6 +122,12 @@ Skill labels are canonicalized in one shared backend helper before aggregation o
 The skill-focused endpoint also uses the same stable `mastery_reason()` mapping as lesson-level targeting. This keeps recommendation reasons consistent across lesson-wide and skill-scoped review clients.
 
 
-### Skill-focused completion semantics
+### Skill mastery completion and retry semantics
+
+A focused skill review has three terminal paths: the selected skill becomes mastered, the selected skill has no remaining non-mastered exercise, or the learner explicitly finishes the session. Only the first two are automatic. A failed answer does not switch the session to another skill; it keeps the current target available for retry/reinforcement before requesting another candidate.
+
+The lesson-wide aggregate is still refreshed after every answer, but focused-session completion is evaluated against the selected skill snapshot. This prevents progress in an unrelated skill from ending a focused review. The client also refreshes the global next-skill recommendation alongside the lesson aggregate so the skill dashboard remains actionable after each answer.
+
+## Skill-focused completion semantics
 
 A skill-focused review captures that skill's mastery rate at session start rather than the lesson-wide rate. After each answer, the refreshed skill aggregate is the completion source of truth: the review ends when the selected skill becomes mastered, or when its skill-scoped next-target endpoint is exhausted. A change in the selected skill's mastery rate is reported as the session delta; progress in unrelated skills does not prematurely end the focused review.
