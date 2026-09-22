@@ -57,3 +57,7 @@ When the mastery-next endpoint reports that every lesson exercise is mastered, t
 Lesson mastery is the exercise-level aggregate for one lesson. Skill mastery reuses the same adaptive mastery states but groups exercises by the normalized `skills` metadata attached to lesson content. A single exercise may contribute to multiple skills, while duplicate skill labels on the same exercise are counted once.
 
 The skill endpoint is `GET /api/lessons/{lesson_id}/mastery/skills`. Each skill reports total, attempted, mastered, learning, struggling, and unseen exercises, average mastery score, mastery rate, attempt rate, and covered adaptive variants. This keeps the lesson UI able to explain both **how much of the lesson is mastered** and **which learning skills still need coverage**.
+
+## Skill mastery presentation
+
+The lesson screen presents each normalized skill as a compact coverage card. The card shows the mastery percentage, mastered/learning/review-needed exercise counts, attempt rate, average mastery score, and covered adaptive variants. The API remains the source of truth; the UI refreshes skill mastery after review answers so the skill breakdown stays aligned with the lesson-level aggregate.
