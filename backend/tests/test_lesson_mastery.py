@@ -776,3 +776,29 @@ def test_next_skill_exercise_returns_none_for_empty_or_unknown_skill():
         get_exercise_id=lambda item: item.id,
         get_skills=lambda item: item.skills,
     ) is None
+
+def test_mastery_response_rejects_unknown_state_and_reason():
+    from pydantic import ValidationError
+    from app.schemas.lessons import LessonMasteryNextResponse, SkillMasteryResponse
+
+    with pytest.raises(ValidationError):
+        SkillMasteryResponse(
+            skill="grammar",
+            mastery_state="blocked",
+            total_exercises=1,
+            attempted_exercises=0,
+            mastered_exercises=0,
+            learning_exercises=0,
+            struggling_exercises=0,
+            unseen_exercises=1,
+            average_mastery_score=0.0,
+            mastery_rate=0.0,
+            attempt_rate=0.0,
+            covered_variants=0,
+        )
+
+    with pytest.raises(ValidationError):
+        LessonMasteryNextResponse(
+            exercise={},
+            reason="unknown",
+        )
