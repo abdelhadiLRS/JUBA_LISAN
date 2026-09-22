@@ -1711,5 +1711,55 @@
     "label": "Manutenzione",
     "title": "In manutenzione",
     "description": "Questa sezione è temporaneamente non disponibile per manutenzione. Riprova più tardi."
+  },
+  "courseLevel": {
+    "notFound": "Corso non trovato",
+    "choose": "Scegli un livello QCER.",
+    "back": "Torna ai corsi",
+    "all": "Tutti i corsi",
+    "units": "unità",
+    "completed": "lezioni completate",
+    "ready": "pronte ora",
+    "notUnlocked": "Questo livello non è ancora sbloccato.",
+    "unlockDesc": "Continua il tuo piano di apprendimento attuale per sbloccare i livelli QCER successivi.",
+    "unit": "Unità",
+    "grammar": "Grammatica",
+    "vocab": "Set di vocabolario",
+    "competencies": "Competenze",
+    "byEnd": "Alla fine di questa unità",
+    "mastery": "padronanza",
+    "lessons": "lezioni",
+    "openPlan": "Apri piano",
+    "locked": "Bloccato",
+    "keepMoving": "Continua a progredire",
+    "continue": "Continua il tuo piano attivo.",
+    "continueDesc": "Apri le lezioni giornaliere generate e continua il tuo percorso.",
+    "openLearning": "Apri piano di apprendimento",
+    "levels": {
+      "A1": {
+        "title": "A1 · Principiante",
+        "description": "Costruisci una base pratica per la comunicazione quotidiana."
+      },
+      "A2": {
+        "title": "A2 · Elementare",
+        "description": "Gestisci situazioni familiari con crescente sicurezza."
+      },
+      "B1": {
+        "title": "B1 · Intermedio",
+        "description": "Comunica in autonomia su argomenti quotidiani."
+      },
+      "B2": {
+        "title": "B2 · Intermedio superiore",
+        "description": "Esprimi idee con maggiore varietà, precisione e sfumatura."
+      },
+      "C1": {
+        "title": "C1 · Avanzato",
+        "description": "Comunica fluentemente in contesti accademici e professionali impegnativi."
+      },
+      "C2": {
+        "title": "C2 · Padronanza",
+        "description": "Affina precisione, flessibilità ed espressione naturale."
+      }
+    }
   }
 }
