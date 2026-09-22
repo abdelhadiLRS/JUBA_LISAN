@@ -6,6 +6,7 @@ from app.services.lesson_mastery import (
     select_next_mastery_candidate,
     summarize_lesson_mastery,
     summarize_skill_mastery,
+    select_next_skill_mastery,
 )
 
 
@@ -529,3 +530,38 @@ def test_lesson_mastery_response_embeds_skill_snapshots():
     assert len(response.skills) == 1
     assert response.skills[0].skill == "grammar"
     assert response.skills[0].mastery_rate == 0.5
+
+
+def test_next_skill_mastery_prioritizes_struggling_then_unseen_then_learning():
+    aggregates = [
+        SimpleNamespace(skill="learning", mastery_state="learning", mastery_rate=0.10, average_mastery_score=0.60),
+        SimpleNamespace(skill="unseen", mastery_state="unseen", mastery_rate=0.0, average_mastery_score=0.0),
+        SimpleNamespace(skill="struggling", mastery_state="struggling", mastery_rate=0.25, average_mastery_score=0.20),
+        SimpleNamespace(skill="mastered", mastery_state="mastered", mastery_rate=1.0, average_mastery_score=0.90),
+    ]
+
+    result = select_next_skill_mastery(aggregates)
+
+    assert result is aggregates[2]
+
+
+def test_next_skill_mastery_breaks_equal_priority_by_rate_then_score_then_name():
+    aggregates = [
+        SimpleNamespace(skill="zeta", mastery_state="learning", mastery_rate=0.40, average_mastery_score=0.50),
+        SimpleNamespace(skill="alpha", mastery_state="learning", mastery_rate=0.40, average_mastery_score=0.50),
+        SimpleNamespace(skill="beta", mastery_state="learning", mastery_rate=0.40, average_mastery_score=0.60),
+        SimpleNamespace(skill="gamma", mastery_state="learning", mastery_rate=0.30, average_mastery_score=0.90),
+    ]
+
+    result = select_next_skill_mastery(aggregates)
+
+    assert result is aggregates[3]
+
+
+def test_next_skill_mastery_returns_none_when_all_skills_are_mastered():
+    aggregates = [
+        SimpleNamespace(skill="grammar", mastery_state="mastered", mastery_rate=1.0, average_mastery_score=0.90),
+        SimpleNamespace(skill="vocabulary", mastery_state="mastered", mastery_rate=1.0, average_mastery_score=0.90),
+    ]
+
+    assert select_next_skill_mastery(aggregates) is None
