@@ -693,6 +693,7 @@
     "masteryReviewAction": "Powtórz najsłabszą umiejętność",
     "masteryReviewLoading": "Wybieranie…",
     "masteryReviewNone": "Nie jest potrzebna dalsza powtórka opanowania.",
+    "masteryReviewLowest": "Najniższe opanowanie",
     "masteryReviewReasons": {
       "struggling": "Powtórka opanowania",
       "unseen": "niewidziane ćwiczenie",
