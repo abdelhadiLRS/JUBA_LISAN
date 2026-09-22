@@ -1491,7 +1491,7 @@ async def regenerate_invalid_exercise(
     exercise_id: int,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
-
+):
     exercise = await db.get(Exercise, exercise_id)
     if exercise is None:
         raise HTTPException(
