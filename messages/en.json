@@ -744,6 +744,7 @@
     "masteryReviewExhaustedDesc": "There are no remaining exercises to review for mastery.",
     "skillMastery": "Skill mastery",
     "skillMasteryDesc": "See how well each learning skill is mastered in this lesson.",
+    "skillMasteryPractice": "Practice this skill",
     "skillMasteryMastered": "mastered",
     "skillMasteryAttempted": "attempted",
     "skillMasteryAttemptRate": "Attempt rate: {rate}%",
