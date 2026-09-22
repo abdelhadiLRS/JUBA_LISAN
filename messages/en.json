@@ -727,7 +727,17 @@
     "masteryAttempted": "Attempted",
     "masteryLearning": "Learning",
     "masteryStruggling": "Struggling",
-    "masteryUnseen": "Unseen"
+    "masteryUnseen": "Unseen",
+    "masteryReview": "Mastery review",
+    "masteryReviewReady": "Review the exercise that needs the most practice.",
+    "masteryReviewAction": "Review weakest skill",
+    "masteryReviewLoading": "Choosing…",
+    "masteryReviewNone": "No further mastery review is needed.",
+    "masteryReviewReasons": {
+      "struggling": "Mastery review",
+      "unseen": "unseen exercise",
+      "lowest_mastery": "lowest mastery"
+    }
   },
   "flashcards": {
     "title": "Flashcards",
