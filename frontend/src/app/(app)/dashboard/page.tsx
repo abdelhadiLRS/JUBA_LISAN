@@ -199,7 +199,12 @@ export default function DashboardPage() {
         setVocabularyMastered(0)
         setVocabularyTotal(0)
         setVocabularyProgress(0)
-        setGoalProgress({ current: 0, target: 50 })
+      }
+      if (!goalRes.ok) {
+        setGoalProgress((current) => ({
+          current: current.current,
+          target: current.target || 50,
+        }))
       }
       if (planRes.ok) {
         const plan = await planRes.json()
@@ -214,12 +219,6 @@ export default function DashboardPage() {
         )
         const normalizedLessons = normalizeDashboardLessons(plan.lessons)
         setTodayLessons(normalizedLessons)
-        if (!goalRes.ok) {
-          setGoalProgress((current) => ({
-            current: current.current,
-            target: current.target || 50,
-          }))
-        }
         
         // Daily Momentum: Set next action. Review count comes from the same
         // study-plan response so the dashboard has one consistent source of truth.
@@ -303,7 +302,7 @@ export default function DashboardPage() {
     .map(([skill, value]) => ({ skill, value: value as number }))
     .sort((a, b) => a.value - b.value)
   
-  // Daily Momentum: Calculate completed lessons for goal progress
+  // Daily Momentum: completed lesson count is a plan-status metric, not XP goal progress.
   const completedLessonCount = todayLessons.filter(
     (lesson) =>
       (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
