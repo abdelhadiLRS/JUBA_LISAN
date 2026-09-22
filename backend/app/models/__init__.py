@@ -11,6 +11,7 @@ from app.models.game_session import GameSession
 from app.models.exercise_attempt import ExerciseAttempt
 from app.models.lesson import Exercise, Lesson
 from app.models.listening import ListeningAttempt, ListeningExercise
+from app.models.learning_goal import LearningGoal
 from app.models.llm_usage import LLMUsage
 from app.models.memory import Memory
 from app.models.progress import Progress
@@ -43,6 +44,7 @@ __all__ = [
     "Lesson",
     "ListeningAttempt",
     "ListeningExercise",
+    "LearningGoal",
     "LLMUsage",
     "Memory",
     "Progress",
