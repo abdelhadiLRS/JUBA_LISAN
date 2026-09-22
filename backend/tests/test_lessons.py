@@ -796,7 +796,8 @@ async def test_lesson_mastery_next_returns_skill_metadata_and_reason(
     assert data["exercise"]["skills"] == ["grammar"]
     assert data["exercise"]["mastery_state"] == "unseen"
     assert data["exercise"]["mastery_score"] == 0.0
-\n
+
+
 
 @pytest.mark.asyncio
 async def test_lesson_mastery_next_returns_404_when_all_exercises_are_mastered(
@@ -881,7 +882,8 @@ async def test_lesson_mastery_next_returns_404_when_all_exercises_are_mastered(
     )
     assert response.status_code == 404
     assert response.json()["detail"] == "All lesson exercises are mastered"
-\n
+
+
 
 @pytest.mark.asyncio
 async def test_lesson_mastery_skill_next_filters_exercises_by_skill(
