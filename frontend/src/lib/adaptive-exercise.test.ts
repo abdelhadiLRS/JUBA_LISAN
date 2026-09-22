@@ -4,6 +4,7 @@ import {
   isAdaptiveReinforcementAction,
   isAdaptiveRetryAction,
   mergeAdaptiveRecommendations,
+  normaliseAdaptiveAction,
 } from '@/lib/adaptive-exercise'
 
 describe('mergeAdaptiveRecommendations', () => {
@@ -85,6 +86,12 @@ describe('adaptive action helpers', () => {
     expect(isAdaptiveRetryAction(null)).toBe(false)
     expect(isAdaptiveRetryAction('advance')).toBe(false)
     expect(isAdaptiveRetryAction('retry')).toBe(false)
+  })
+
+  it('returns the canonical action used by adaptive UI labels', () => {
+    expect(normaliseAdaptiveAction(' Advance_Harder ')).toBe('advance_harder')
+    expect(normaliseAdaptiveAction(' Reinforce ')).toBe('reinforce')
+    expect(normaliseAdaptiveAction(null)).toBe('')
   })
 
   it('normalizes adaptive action casing and surrounding whitespace', () => {
