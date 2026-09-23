@@ -306,16 +306,19 @@ def get_arabic_a1_content_quality_report() -> dict[str, object]:
     lexical_hits = 0
     lexical_total = 0
     signatures: Counter[tuple[tuple[str, ...], tuple[str, ...]]] = Counter()
+    lesson_grounding: dict[str, float] = {}
 
     for lesson in get_arabic_a1_lessons():
         seed = seed_by_id[lesson.id]
         lesson_words = set().union(*(vocab_by_id.get(v, set()) for v in lesson.vocabulary_set_ids))
         searchable = seed.target_phrases + seed.model_sentences
-        lexical_total += len(searchable)
-        lexical_hits += sum(
+        lesson_hits = sum(
             1 for text in searchable
             if any(word and word in text for word in lesson_words)
         )
+        lexical_total += len(searchable)
+        lexical_hits += lesson_hits
+        lesson_grounding[lesson.id] = round(lesson_hits / len(searchable), 3) if searchable else 0.0
         signatures[(seed.target_phrases, seed.model_sentences)] += 1
 
     duplicate_groups = sum(1 for count in signatures.values() if count > 1)
@@ -327,4 +330,6 @@ def get_arabic_a1_content_quality_report() -> dict[str, object]:
         "duplicate_seed_groups": duplicate_groups,
         "duplicate_seed_lessons": duplicate_seed_lessons,
         "fully_unique_seed_signatures": sum(1 for count in signatures.values() if count == 1),
+        "lesson_grounding": lesson_grounding,
+        "low_grounding_lessons": tuple(sorted(lesson_id for lesson_id, ratio in lesson_grounding.items() if ratio < 0.8)),
     }
