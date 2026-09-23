@@ -308,14 +308,14 @@ function ListeningPage() {
   // ── History ───────────────────────────────────────────────────────────────
   if (pageState === 'history') {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-6 md:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-6 md:px-8">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-fl-fg font-mono text-sm font-bold tracking-widest uppercase">
+          <h1 className="text-[var(--juba-text)] font-mono text-sm font-bold tracking-widest uppercase">
             {t('historyTitle')}
           </h1>
           <button
             onClick={loadNext}
-            className="text-fl-label text-fl-muted-2 hover:text-fl-fg font-mono tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-mono tracking-widest uppercase transition-colors"
           >
             {t('practiceMore')}
           </button>
@@ -324,8 +324,8 @@ function ListeningPage() {
         {historyLoading && history.length === 0 ? (
           <PageLoading fullScreen={false} className="block p-5" />
         ) : history.length === 0 ? (
-          <div className="border-fl-border bg-fl-surface border p-6 text-center">
-            <p className="text-fl-muted-3 font-mono text-xs tracking-wide">
+          <div className="rounded-[28px] border-2 border-[var(--juba-lilac)] bg-white shadow-[0_18px_45px_rgba(61,42,130,0.08)] p-6 text-center">
+            <p className="text-[var(--juba-muted)] font-mono text-xs tracking-wide">
               {t('historyEmpty')}
             </p>
           </div>
@@ -334,22 +334,22 @@ function ListeningPage() {
             {history.map((item) => (
               <div
                 key={item.id}
-                className="border-fl-border bg-fl-surface border p-4"
+                className="rounded-[28px] border-2 border-[var(--juba-lilac)] bg-white shadow-[0_18px_45px_rgba(61,42,130,0.08)] p-4"
               >
                 <div className="mb-3 flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="text-fl-fg truncate font-mono text-xs font-bold tracking-wide">
+                    <p className="text-[var(--juba-text)] truncate font-mono text-xs font-bold tracking-wide">
                       {item.exercise.topic}
                     </p>
-                    <p className="text-fl-label text-fl-muted-3 mt-0.5 font-mono tracking-widest uppercase">
+                    <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mt-0.5 font-mono tracking-widest uppercase">
                       {item.exercise.level} · {item.exercise.exercise_type}
                     </p>
                   </div>
                   <div className="shrink-0 text-right">
-                    <p className="text-fl-fg font-mono text-xs font-bold">
+                    <p className="text-[var(--juba-text)] font-mono text-xs font-bold">
                       {item.score}/{item.exercise.questions.length}
                     </p>
-                    <p className="text-fl-label text-fl-accent font-mono">
+                    <p className="text-[var(--juba-text)] text-[var(--juba-violet)] font-mono">
                       +{item.xp_earned} XP
                     </p>
                   </div>
@@ -357,7 +357,7 @@ function ListeningPage() {
                 <TargetLanguageText
                   as="p"
                   languageCode={item.exercise.target_language}
-                  className="text-fl-muted-2 border-fl-border word-selectable mb-3 cursor-text border-t pt-3 select-text"
+                  className="text-[var(--juba-muted)] border-[var(--juba-lilac)] word-selectable mb-3 cursor-text border-t pt-3 select-text"
                   onPointerUp={() =>
                     handleTextSelection(item.text, item.exercise.level ?? 'B1')
                   }
@@ -372,7 +372,7 @@ function ListeningPage() {
                     setIsReplay(true)
                     setPageState('exercise')
                   }}
-                  className="text-fl-label text-fl-muted-2 hover:text-fl-fg font-mono tracking-widest uppercase transition-colors"
+                  className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-mono tracking-widest uppercase transition-colors"
                 >
                   {t('practiceAgain')}
                 </button>
@@ -413,28 +413,28 @@ function ListeningPage() {
   // ── Results ───────────────────────────────────────────────────────────────
   if (pageState === 'results' && result && exercise) {
     return (
-      <div className="mx-auto max-w-4xl space-y-5 px-4 py-6 md:px-8">
+      <div className="mx-auto max-w-6xl space-y-5 px-4 py-6 md:px-8">
         {/* Score card */}
-        <div className="border-fl-border bg-fl-surface border p-5">
+        <div className="rounded-[28px] border-2 border-[var(--juba-lilac)] bg-white shadow-[0_18px_45px_rgba(61,42,130,0.08)] p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+              <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
                 {t('resultsLabel')}
               </p>
-              <p className="text-fl-fg mt-1 font-mono text-2xl font-bold">
+              <p className="text-[var(--juba-text)] mt-1 font-mono text-2xl font-bold">
                 {result.score}/{exercise.questions.length}
               </p>
             </div>
             <div className="text-right">
-              <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+              <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
                 XP
               </p>
               {isReplay ? (
-                <p className="text-fl-label text-fl-muted-3 mt-1 font-mono">
+                <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mt-1 font-mono">
                   {t('replayNoXp')}
                 </p>
               ) : (
-                <p className="text-fl-accent mt-1 font-mono text-xl font-bold">
+                <p className="text-[var(--juba-violet)] mt-1 font-mono text-xl font-bold">
                   +{result.xp_earned}
                 </p>
               )}
@@ -444,14 +444,14 @@ function ListeningPage() {
 
         {/* Transcript */}
         <div>
-          <p className="text-fl-label text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
+          <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-2 font-mono tracking-widest uppercase">
             {t('transcript')}
           </p>
-          <div className="border-fl-border bg-fl-surface border p-4">
+          <div className="rounded-[28px] border-2 border-[var(--juba-lilac)] bg-white shadow-[0_18px_45px_rgba(61,42,130,0.08)] p-4">
             <TargetLanguageText
               as="p"
               languageCode={exercise.target_language}
-              className="text-fl-fg word-selectable cursor-text select-text"
+              className="text-[var(--juba-text)] word-selectable cursor-text select-text"
               onPointerUp={() =>
                 handleTextSelection(result.text, exercise?.level ?? 'B1')
               }
@@ -463,7 +463,7 @@ function ListeningPage() {
 
         {/* Question review */}
         <div className="space-y-3">
-          <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+          <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
             {t('review')}
           </p>
           {exercise.questions.map((q) => {
@@ -484,7 +484,7 @@ function ListeningPage() {
                 <TargetLanguageText
                   as="p"
                   languageCode={targetLanguageCode}
-                  className="text-fl-fg mb-3"
+                  className="text-[var(--juba-text)] mb-3"
                 >
                   {q.index + 1}. {q.question}
                 </TargetLanguageText>
@@ -497,10 +497,10 @@ function ListeningPage() {
                           ? 'font-bold text-green-400'
                           : k === userAnswer && !isCorrect
                             ? 'text-red-400 line-through opacity-70'
-                            : 'text-fl-muted-3'
+                            : 'text-[var(--juba-muted)]'
                       }`}
                     >
-                      <span className="text-fl-label font-mono font-bold">
+                      <span className="text-[var(--juba-text)] font-mono font-bold">
                         {k}.
                       </span>{' '}
                       <TargetLanguageText languageCode={targetLanguageCode}>
@@ -518,13 +518,13 @@ function ListeningPage() {
         <div className="flex gap-3 pt-1">
           <button
             onClick={loadNext}
-            className="border-fl-border bg-fl-surface text-fl-fg hover:bg-fl-surface-2 flex-1 border py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+            className="border-[var(--juba-lilac)] bg-white text-[var(--juba-text)] hover:bg-[var(--juba-lilac)] flex-1 border py-3 font-mono text-xs tracking-widest uppercase transition-colors"
           >
             {t('nextExercise')}
           </button>
           <button
             onClick={() => loadHistory(0)}
-            className="border-fl-border bg-fl-surface text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface-2 border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+            className="border-[var(--juba-lilac)] bg-white text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:bg-[var(--juba-lilac)] border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
           >
             {t('viewHistory')}
           </button>
@@ -557,21 +557,21 @@ function ListeningPage() {
   // ── Idle (no exercises available) ─────────────────────────────────────────
   if (pageState === 'idle') {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-6 md:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-6 md:px-8">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-fl-fg font-mono text-sm font-bold tracking-widest uppercase">
+          <h1 className="text-[var(--juba-text)] font-mono text-sm font-bold tracking-widest uppercase">
             {t('title')}
           </h1>
           <button
             onClick={() => loadHistory(0)}
-            className="text-fl-label text-fl-muted-2 hover:text-fl-fg font-mono tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-mono tracking-widest uppercase transition-colors"
           >
             {t('history')}
           </button>
         </div>
 
         {error && (
-          <p className="text-fl-label mb-4 font-mono text-red-500">{error}</p>
+          <p className="text-[var(--juba-text)] mb-4 font-mono text-red-500">{error}</p>
         )}
 
         <FreemiumQuotaBanner feature="listening" className="mb-4" />
@@ -579,13 +579,13 @@ function ListeningPage() {
         {freemiumExhausted ? (
           <PaywallBanner feature="listening" compact />
         ) : (
-          <div className="border-fl-border bg-fl-surface flex flex-col items-center gap-5 border p-8 text-center">
-            <p className="text-fl-muted-2 font-mono text-xs tracking-wide">
+          <div className="border-[var(--juba-lilac)] bg-white flex flex-col items-center gap-5 border p-8 text-center">
+            <p className="text-[var(--juba-muted)] font-mono text-xs tracking-wide">
               {t('noExercises')}
             </p>
             <button
               onClick={handleGenerate}
-              className="border-fl-border bg-fl-surface text-fl-fg hover:bg-fl-surface-2 border px-8 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+              className="border-[var(--juba-lilac)] bg-white text-[var(--juba-text)] hover:bg-[var(--juba-lilac)] border px-8 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
             >
               {t('generate')}
             </button>
@@ -599,20 +599,20 @@ function ListeningPage() {
   if (!exercise) return null
 
   return (
-    <div className="mx-auto max-w-4xl space-y-5 px-4 py-6 md:px-8">
+    <div className="mx-auto max-w-6xl space-y-5 px-4 py-6 md:px-8">
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-fl-fg font-mono text-sm font-bold tracking-widest uppercase">
+          <h1 className="text-[var(--juba-text)] font-mono text-sm font-bold tracking-widest uppercase">
             {t('title')}
           </h1>
-          <p className="text-fl-label text-fl-muted-3 mt-0.5 font-mono tracking-widest uppercase">
+          <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mt-0.5 font-mono tracking-widest uppercase">
             {exercise.level} · {exercise.exercise_type}
           </p>
         </div>
         <button
           onClick={() => loadHistory(0)}
-          className="text-fl-label text-fl-muted-2 hover:text-fl-fg shrink-0 font-mono tracking-widest uppercase transition-colors"
+          className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] shrink-0 font-mono tracking-widest uppercase transition-colors"
         >
           {t('history')}
         </button>
@@ -625,18 +625,18 @@ function ListeningPage() {
       ) : (
         <>
           {/* Topic */}
-          <div className="border-fl-border bg-fl-surface border px-4 py-3">
-            <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+          <div className="rounded-[28px] border-2 border-[var(--juba-lilac)] bg-white shadow-[0_18px_45px_rgba(61,42,130,0.08)] px-4 py-3">
+            <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
               {t('topic')}
             </p>
-            <p className="text-fl-fg mt-1 font-mono text-xs font-bold">
+            <p className="text-[var(--juba-text)] mt-1 font-mono text-xs font-bold">
               {exercise.topic}
             </p>
           </div>
 
           {/* Audio player */}
           <div>
-            <p className="text-fl-label text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
+            <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-2 font-mono tracking-widest uppercase">
               {t('listenLabel')}
             </p>
             <ExerciseAudioPlayer exerciseId={exercise.id} />
@@ -644,14 +644,14 @@ function ListeningPage() {
 
           {/* Questions */}
           <div>
-            <p className="text-fl-label text-fl-muted-3 mb-3 font-mono tracking-widest uppercase">
+            <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-3 font-mono tracking-widest uppercase">
               {t('questionsLabel')}
             </p>
             <div className="space-y-4">
               {exercise.questions.map((q) => (
                 <div
                   key={q.index}
-                  className="border-fl-border bg-fl-surface border p-4"
+                  className="rounded-[28px] border-2 border-[var(--juba-lilac)] bg-white shadow-[0_18px_45px_rgba(61,42,130,0.08)] p-4"
                 >
                   <TargetLanguageText
                     as="p"
@@ -659,7 +659,7 @@ function ListeningPage() {
                     onPointerUp={() =>
                       handleTextSelection(q.question, exercise.level)
                     }
-                    className="text-fl-fg word-selectable mb-3 cursor-text select-text"
+                    className="text-[var(--juba-text)] word-selectable mb-3 cursor-text select-text"
                   >
                     {q.index + 1}. {q.question}
                   </TargetLanguageText>
@@ -677,11 +677,11 @@ function ListeningPage() {
                           }
                           className={`w-full border px-3 py-2 text-left transition-colors ${
                             selected
-                              ? 'border-fl-accent bg-fl-surface-2 text-fl-fg'
-                              : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg hover:bg-fl-surface-2'
+                              ? 'border-fl-accent bg-[var(--juba-lilac)] text-[var(--juba-text)]'
+                              : 'border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)] hover:bg-[var(--juba-lilac)]'
                           }`}
                         >
-                          <span className="text-fl-label font-mono font-bold">
+                          <span className="text-[var(--juba-text)] font-mono font-bold">
                             {k}.
                           </span>{' '}
                           <TargetLanguageText
@@ -700,14 +700,14 @@ function ListeningPage() {
 
           {/* Error */}
           {error && (
-            <p className="text-fl-label font-mono text-red-500">{error}</p>
+            <p className="text-[var(--juba-text)] font-mono text-red-500">{error}</p>
           )}
 
           {/* Submit */}
           <button
             onClick={handleSubmit}
             disabled={!allAnswered || submitting}
-            className="border-fl-border bg-fl-surface text-fl-fg hover:bg-fl-surface-2 w-full border py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+            className="border-[var(--juba-lilac)] bg-white text-[var(--juba-text)] hover:bg-[var(--juba-lilac)] w-full border py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
           >
             {submitting ? tCommon('checking') : t('submit')}
           </button>
