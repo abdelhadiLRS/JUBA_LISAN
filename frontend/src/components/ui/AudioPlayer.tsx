@@ -179,7 +179,7 @@ export function AudioPlayer({
       onClick={handleClick}
       title={state === 'playing' ? t('stop') : t('listen')}
       aria-label={state === 'playing' ? t('ariaStop') : t('ariaListen')}
-      className={`rounded-full border font-medium tracking-wide transition-all duration-200 ${colorClass} ${sizeClass} ${className}`}
+      className={`rounded-full border-2 font-medium tracking-wide shadow-[2px_2px_0_var(--juba-border)] transition-all duration-200 ${colorClass} ${sizeClass} ${className}`}
     >
       {label}
     </button>
