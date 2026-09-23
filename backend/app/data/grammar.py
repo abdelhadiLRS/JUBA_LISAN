@@ -22,6 +22,7 @@ _LANG_MODULES: dict[str, str] = {
     "ko": "app.data.ko.grammar",
     "pt": "app.data.pt.grammar",
     "zh": "app.data.zh.grammar",
+    "ar": "app.data.ar.grammar",
 }
 
 _CACHE: dict[str, list[GrammarTopic]] = {}
