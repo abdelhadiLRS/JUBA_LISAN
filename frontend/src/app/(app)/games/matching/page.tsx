@@ -13,8 +13,11 @@ export default function MatchingGamePage() {
   const searchParams = useSearchParams()
   const [lang, setLang] = useState<Lang>('ar')
   const [sessionId, setSessionId] = useState<string | null>(null)
+  const [dailyChallenge, setDailyChallenge] = useState(false)
+  const [dailyChallengeDate, setDailyChallengeDate] = useState('')
   const [challenge, setChallenge] = useState<InteractiveGameChallenge>()
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
   const [difficulty, setDifficulty] = useState(1)
   const setProgress = useProgressStore((state) => state.setProgress)
 
@@ -28,15 +31,20 @@ export default function MatchingGamePage() {
   useEffect(() => {
     let cancelled = false
     setLoading(true)
+    setError(false)
     setSessionId(null)
+    setDailyChallenge(false)
+    setDailyChallengeDate('')
     setChallenge(undefined)
     void startGameSession('matching', lang, difficulty).then((session) => {
       if (cancelled) return
       setSessionId(session.session_id)
+      setDailyChallenge(session.daily_challenge)
+      setDailyChallengeDate(session.daily_challenge_date)
       setChallenge(session.interaction)
       setLoading(false)
     }).catch(() => {
-      if (!cancelled) setLoading(false)
+      if (!cancelled) { setLoading(false); setError(true) }
     })
     return () => { cancelled = true }
   }, [lang, difficulty])
@@ -44,7 +52,7 @@ export default function MatchingGamePage() {
   async function complete(trace: InteractiveGameTrace[]) {
     if (!sessionId) return false
     try {
-      const server = await completeGameSession(sessionId, [], false, '', trace)
+      const server = await completeGameSession(sessionId, [], dailyChallenge, dailyChallengeDate, trace)
       setProgress({
         streak: useProgressStore.getState().streak,
         xp: server.total_xp,
@@ -76,7 +84,7 @@ export default function MatchingGamePage() {
           </button>
         ))}
       </div>
-      {loading || !challenge ? <p className="interactive-instruction">Loading challenge…</p> : (
+      {loading ? <p className="interactive-instruction">Loading challenge…</p> : error ? <div className="interactive-instruction"><p>Unable to load the challenge.</p><button type="button" onClick={() => window.location.reload()}>Retry</button></div> : !challenge ? <p className="interactive-instruction">No challenge available.</p> : (
         <InteractiveGameBoard mode="matching" lang={lang} challenge={challenge} onComplete={complete} />
       )}
     </main>
