@@ -65,3 +65,39 @@
     padding:.9rem;
   }
 }
+
+@media(max-width:640px){
+  .interactive-game{
+    background:linear-gradient(180deg,#ffffff 0%,#f8f4ff 100%);
+  }
+  .interactive-toolbar{
+    position:relative;
+  }
+  .interactive-toolbar:after{
+    content:"";
+    position:absolute;
+    width:58px;height:58px;
+    border-radius:50%;
+    background:rgba(255,216,90,.42);
+    inset-inline-end:-20px;
+    top:-28px;
+    pointer-events:none;
+  }
+  .memory-card{
+    min-height:78px;
+    box-shadow:0 7px 14px rgba(39,28,72,.08);
+  }
+  .memory-card:active,
+  .match-option:active,
+  .ordering-pool button:active{
+    transform:scale(.98);
+  }
+  .matching-board,
+  .ordering-pool,
+  .order-row{
+    touch-action:manipulation;
+  }
+  .interactive-complete{
+    background:linear-gradient(180deg,#fff 0%,#eefcf6 100%);
+  }
+}
