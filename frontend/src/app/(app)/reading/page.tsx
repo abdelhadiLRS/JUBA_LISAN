@@ -633,7 +633,7 @@ function ReadingPage() {
                             className={`w-full border-2 border-[var(--juba-lilac)] px-3 py-2 text-left transition-colors ${
                               selected
                                 ? 'border-[var(--juba-violet-dark)] text-[var(--juba-text)] bg-[var(--juba-lilac)]'
-                                : 'border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-fl-muted-2 hover:text-[var(--juba-text)]'
+                                : 'border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-juba-muted hover:text-[var(--juba-text)]'
                             }`}
                           >
                             <span className="text-[var(--juba-text)] font-mono font-bold">
