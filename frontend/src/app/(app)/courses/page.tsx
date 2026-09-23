@@ -157,7 +157,8 @@ export default function CoursesPage() {
               {CEFR_LEVELS.map((level) => <div key={level} className="juba-card h-64 animate-pulse p-6" />)}
             </div>
           ) : (
-            <div className="grid gap-5 lg:grid-cols-2">
+            <div className="relative space-y-5">
+              <div className="absolute bottom-8 left-5 top-8 hidden w-0.5 bg-gradient-to-b from-[var(--juba-primary)] via-[var(--juba-warm)] to-fl-border md:block" aria-hidden="true" />
               {CEFR_LEVELS.map((level, index) => {
                 const unlocked = currentLevel ? index <= currentIndex : index === 0
                 const current = level === currentLevel
@@ -172,7 +173,8 @@ export default function CoursesPage() {
                 const lessonCount = current ? Math.max(currentLessonCount, totalLessons) : totalLessons || units.reduce((sum, unit) => sum + unit.lesson_types.length, 0)
 
                 return (
-                  <article key={level} className={`juba-card relative p-6 ${current ? 'ring-2 ring-[var(--juba-primary)]' : ''}`}>
+                  <article key={level} className={`juba-card relative overflow-hidden p-6 pl-6 md:pl-20 ${current ? 'ring-2 ring-[var(--juba-primary)] shadow-[0_16px_45px_rgba(15,23,42,0.10)]' : ''}`}>
+                    <div className={`absolute left-3 top-7 hidden h-5 w-5 items-center justify-center rounded-full border-4 border-fl-surface text-[9px] font-black md:flex ${current ? 'bg-[var(--juba-primary)] text-white' : unlocked ? 'bg-[var(--juba-warm)] text-[var(--juba-text)]' : 'bg-fl-surface-2 text-fl-muted-2'}`} aria-hidden="true">{index + 1}</div>
                     {current && <span className="absolute -top-3 right-5 rounded-full bg-[var(--juba-warm)] px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-[var(--juba-text)]">Current level</span>}
                     <div className="flex items-start justify-between gap-4">
                       <div><span className="text-xs font-bold uppercase tracking-[.16em] text-fl-muted-2">Level {index + 1}</span><h3 className="mt-2 text-2xl font-black text-fl-fg">{LEVEL_META[level].title}</h3></div>
