@@ -530,3 +530,56 @@ html[data-theme='dark'] {
   .juba-page-shell{padding-inline:0}
   .juba-page-hero,.juba-panel{border-radius:22px;padding:16px}
 }
+
+
+/* Dashboard / learner visual correction: one geometry, one hierarchy. */
+.juba-mobile-dashboard{
+  width:100%;
+  max-width:var(--j-shell-content)!important;
+  margin-inline:auto;
+  padding-inline:clamp(14px,3vw,42px)!important;
+}
+.juba-mobile-dashboard .juba-card,
+.juba-mobile-dashboard .juba-mobile-daily,
+.juba-mobile-dashboard [aria-label="planProgress"],
+.juba-mobile-dashboard [aria-label="today"],
+.juba-mobile-dashboard [aria-label="recentPerformance"]{
+  border:2px solid var(--juba-border)!important;
+  border-radius:var(--j-shell-radius)!important;
+  box-shadow:var(--j-shell-shadow)!important;
+}
+.juba-mobile-dashboard .juba-mobile-daily > div:first-child{
+  background:var(--juba-surface)!important;
+  border-bottom:1px solid var(--juba-border)!important;
+}
+.juba-mobile-dashboard .juba-mobile-daily > div:last-child > div{
+  border:1px solid var(--juba-border)!important;
+  border-radius:var(--juba-radius-md)!important;
+  box-shadow:none!important;
+  background:var(--juba-surface-soft)!important;
+}
+.juba-mobile-dashboard .juba-mobile-daily a button,
+.juba-mobile-dashboard .juba-card a button{
+  border-radius:999px!important;
+}
+.juba-mobile-dashboard .juba-mobile-greeting{
+  border:2px solid var(--juba-border);
+  box-shadow:var(--j-shell-shadow);
+}
+@media(max-width:700px){
+  .juba-mobile-dashboard{padding-inline:12px!important}
+  .juba-mobile-dashboard .juba-card,
+  .juba-mobile-dashboard .juba-mobile-daily,
+  .juba-mobile-dashboard [aria-label="planProgress"],
+  .juba-mobile-dashboard [aria-label="today"],
+  .juba-mobile-dashboard [aria-label="recentPerformance"]{
+    border-radius:22px!important;
+  }
+}
+
+/* Keep the desktop header calm: content first, navigation second. */
+@media(min-width:1121px){
+  .juba-app-nav-inner{gap:12px}
+  .juba-app-nav-links{flex:1;justify-content:center}
+  .juba-app-nav-link{padding-inline:10px;font-size:12px}
+}
