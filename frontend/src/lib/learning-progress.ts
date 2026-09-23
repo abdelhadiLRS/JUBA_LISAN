@@ -32,7 +32,7 @@ export function markLearningProgressUpdated(): void {
     // Local storage can be unavailable in private/restricted browser contexts.
   }
 
-  window.dispatchEvent(new Event(LEARNING_PROGRESS_EVENT))
+  window.dispatchEvent(new CustomEvent(LEARNING_PROGRESS_EVENT, { detail: { timestamp } }))
 
   try {
     progressChannel?.postMessage({ type: LEARNING_PROGRESS_EVENT, timestamp })
@@ -72,7 +72,7 @@ export function subscribeToLearningProgressUpdated(listener: () => void): () => 
     if (!active) return
     active = false
 
-    window.removeEventListener(LEARNING_PROGRESS_EVENT, listener)
+    window.removeEventListener(LEARNING_PROGRESS_EVENT, onLocalEvent)
     window.removeEventListener('storage', onStorage)
     channel?.removeEventListener('message', onChannelMessage)
     if (channel) {
