@@ -320,8 +320,8 @@ export default function ChatPage() {
 
         {/* Sidebar */}
         {sidebarOpen && (
-          <aside className="border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/40 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
-            <div className="border-[var(--juba-lilac)] flex items-center justify-between border-b px-4 py-3">
+          <aside className="border-[#e2f2d3] bg-[#e2f2d3]/40 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
+            <div className="border-[#e2f2d3] flex items-center justify-between border-b px-4 py-3">
               <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-semibold tracking-wide">
                 {t('conversations')}
               </span>
@@ -355,7 +355,7 @@ export default function ChatPage() {
                         })
                         .finally(() => setLoadingConvs(false))
                     }}
-                    className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)] border px-4 py-2 font-semibold tracking-wide transition-colors"
+                    className="border-[#e2f2d3] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[#39751d] border px-4 py-2 font-semibold tracking-wide transition-colors"
                   >
                     {tCommon('retry')}
                   </button>
@@ -369,9 +369,9 @@ export default function ChatPage() {
                   <div
                     key={c.id}
                     onClick={() => selectConversation(c.id)}
-                    className={`group border-[var(--juba-lilac)] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
+                    className={`group border-[#e2f2d3] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
                       activeId === c.id
-                        ? 'bg-[var(--juba-lilac)] border-l-fl-fg border-l-2'
+                        ? 'bg-[#e2f2d3] border-l-fl-fg border-l-2'
                         : 'hover:bg-white border-l-2 border-l-transparent'
                     }`}
                   >
@@ -408,7 +408,7 @@ export default function ChatPage() {
         {/* Main chat area */}
         <div className="flex flex-1 flex-col overflow-hidden">
           {/* Header */}
-          <div className="border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/40 flex shrink-0 items-center gap-2 border-b px-5 py-4">
+          <div className="border-[#e2f2d3] bg-[#e2f2d3]/40 flex shrink-0 items-center gap-2 border-b px-5 py-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] mr-1 text-lg transition-colors"
@@ -474,7 +474,7 @@ export default function ChatPage() {
                   className={`flex items-end gap-2 ${msg.role === 'user' ? 'ml-auto max-w-[75%] flex-row-reverse' : 'flex-row'}`}
                 >
                   {/* Avatar */}
-                  <div className="border-[var(--juba-lilac)] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
+                  <div className="border-[#e2f2d3] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
                     {msg.role === 'assistant' ? (
                       <Image
                         src="/logo_head.png"
@@ -491,7 +491,7 @@ export default function ChatPage() {
                         height={28}
                         className="h-full w-full object-cover"
                         fallback={
-                          <div className="bg-[var(--juba-lilac)] flex h-full w-full items-center justify-center">
+                          <div className="bg-[#e2f2d3] flex h-full w-full items-center justify-center">
                             <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-mono select-none">
                               {(user?.displayName ||
                                 user?.username ||
@@ -501,7 +501,7 @@ export default function ChatPage() {
                         }
                       />
                     ) : (
-                      <div className="bg-[var(--juba-lilac)] flex h-full w-full items-center justify-center">
+                      <div className="bg-[#e2f2d3] flex h-full w-full items-center justify-center">
                         <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-mono select-none">
                           {(user?.displayName ||
                             user?.username ||
@@ -516,8 +516,8 @@ export default function ChatPage() {
                       languageCode={targetLanguageCode}
                       className={`word-selectable border px-4 py-3 text-left ${
                         msg.role === 'user'
-                          ? 'bg-[var(--juba-violet)] text-[var(--juba-violet)]-fg border-[var(--juba-violet)]'
-                          : 'bg-white text-[var(--juba-text)] border-[var(--juba-lilac)]'
+                          ? 'bg-[#39751d] text-[#39751d]-fg border-[#39751d]'
+                          : 'bg-white text-[var(--juba-text)] border-[#e2f2d3]'
                       }`}
                       onPointerUp={
                         msg.role === 'assistant' &&
@@ -556,7 +556,7 @@ export default function ChatPage() {
           </div>
 
           {/* Input */}
-          <div className="border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/40 shrink-0 border-t px-4 py-4">
+          <div className="border-[#e2f2d3] bg-[#e2f2d3]/40 shrink-0 border-t px-4 py-4">
             {freemiumExhausted ? (
               <PaywallBanner feature="chat" compact />
             ) : (
@@ -572,12 +572,12 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="bg-white border-[var(--juba-lilac)] text-[var(--juba-text)] placeholder:text-fl-border-2 focus:border-[var(--juba-violet)] flex-1 border px-4 py-3 font-mono text-base transition-colors focus:outline-none disabled:opacity-40"
+                    className="bg-white border-[#e2f2d3] text-[var(--juba-text)] placeholder:text-fl-border-2 focus:border-[#39751d] flex-1 border px-4 py-3 font-mono text-base transition-colors focus:outline-none disabled:opacity-40"
                   />
                   <button
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || loadingMsgs}
-                    className="bg-[var(--juba-violet)] text-[var(--juba-violet)]-fg text-[var(--juba-text)] hover:bg-[var(--juba-violet)]/90 px-5 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-30"
+                    className="bg-[#39751d] text-[#39751d]-fg text-[var(--juba-text)] hover:bg-[#39751d]/90 px-5 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-30"
                   >
                     {sending ? '...' : t('send')}
                   </button>
