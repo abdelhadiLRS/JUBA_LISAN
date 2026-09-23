@@ -686,7 +686,8 @@
     "hintPrefix": "Hinweis: ",
     "retryEasier": "Einfacher wiederholen",
     "checking": "Prüfe…",
-"answerError": "Die Antwort konnte nicht überprüft werden. Bitte versuche es erneut.",
+"answerError": "Die Antwort konnte nicht überprüft werden. Bitte versuche es erneut.",,
+"actionError": "Diese Aktion konnte nicht abgeschlossen werden. Bitte versuche es erneut."
     "next": "Weiter",
     "finish": "Lektion beenden",
     "completed": "Abgeschlossen",
