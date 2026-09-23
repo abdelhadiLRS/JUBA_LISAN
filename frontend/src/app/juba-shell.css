@@ -695,3 +695,118 @@
     border-radius: 14px;
   }
 }
+
+
+/* Funfluent mobile learning surfaces — vocabulary, flashcards, listening,
+   reading, grammar and assessment. Keep interaction logic untouched while
+   giving each surface the same app-like rhythm and touch targets. */
+@media (max-width: 640px) {
+  .juba-mobile-vocabulary,
+  .juba-mobile-flashcards,
+  .juba-mobile-listening,
+  .juba-mobile-reading,
+  .juba-mobile-grammar,
+  .juba-mobile-assessment {
+    width: 100%;
+    padding-inline: 0 !important;
+    padding-top: 6px !important;
+    padding-bottom: 14px !important;
+  }
+
+  .juba-mobile-vocabulary > section,
+  .juba-mobile-vocabulary > div,
+  .juba-mobile-flashcards > div,
+  .juba-mobile-listening section,
+  .juba-mobile-reading section,
+  .juba-mobile-grammar > section,
+  .juba-mobile-assessment > div {
+    border-radius: 26px;
+  }
+
+  .juba-mobile-vocabulary input,
+  .juba-mobile-flashcards input,
+  .juba-mobile-flashcards select,
+  .juba-mobile-listening input,
+  .juba-mobile-reading input,
+  .juba-mobile-grammar input,
+  .juba-mobile-assessment input,
+  .juba-mobile-assessment select {
+    min-height: 46px;
+    border-radius: 17px;
+  }
+
+  .juba-mobile-vocabulary button,
+  .juba-mobile-vocabulary a,
+  .juba-mobile-flashcards button,
+  .juba-mobile-flashcards a,
+  .juba-mobile-listening button,
+  .juba-mobile-listening a,
+  .juba-mobile-reading button,
+  .juba-mobile-reading a,
+  .juba-mobile-grammar button,
+  .juba-mobile-grammar a,
+  .juba-mobile-assessment button,
+  .juba-mobile-assessment a {
+    min-height: 44px;
+  }
+
+  /* Vocabulary: make the level rail and set grid feel like a mobile library. */
+  .juba-mobile-vocabulary > div.juba-card,
+  .juba-mobile-vocabulary > section {
+    box-shadow: 0 10px 28px rgba(39,28,72,.07);
+  }
+  .juba-mobile-vocabulary > div.juba-card {
+    padding: 0 !important;
+  }
+  .juba-mobile-vocabulary .grid {
+    min-width: 0;
+  }
+  .juba-mobile-vocabulary .grid > a {
+    min-height: 92px;
+    border-radius: 22px;
+  }
+
+  /* Flashcards: turn the review card into the focal mobile object. */
+  .juba-mobile-flashcards {
+    --mobile-card-radius: 28px;
+  }
+  .juba-mobile-flashcards > div {
+    box-shadow: 0 12px 30px rgba(39,28,72,.08);
+  }
+  .juba-mobile-flashcards [role="button"] {
+    min-height: 180px;
+    border-radius: var(--mobile-card-radius);
+  }
+
+  /* Listening / Reading: controls stay thumb-friendly and content gets
+     comfortable line length rather than desktop density. */
+  .juba-mobile-listening section,
+  .juba-mobile-reading section {
+    box-shadow: 0 10px 28px rgba(39,28,72,.07);
+  }
+  .juba-mobile-listening article,
+  .juba-mobile-reading article {
+    border-radius: 24px;
+  }
+  .juba-mobile-listening p,
+  .juba-mobile-reading p {
+    line-height: 1.7;
+  }
+
+  /* Grammar: compact topic cards with the same colorful app cadence. */
+  .juba-mobile-grammar > section {
+    box-shadow: 0 10px 28px rgba(39,28,72,.07);
+  }
+  .juba-mobile-grammar article,
+  .juba-mobile-grammar a {
+    border-radius: 22px !important;
+  }
+
+  /* Assessment: keep each step centered and clear above bottom navigation. */
+  .juba-mobile-assessment {
+    min-height: calc(100svh - 72px);
+  }
+  .juba-mobile-assessment > div {
+    box-shadow: 0 12px 32px rgba(39,28,72,.08);
+  }
+}
