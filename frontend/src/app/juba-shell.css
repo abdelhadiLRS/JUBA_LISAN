@@ -30,7 +30,7 @@
 
 .juba-desktop-sidebar {
   width: var(--j-shell-sidebar);
-  background: #fff;
+  background: #ffffff;
   border-inline-end: 0;
   box-shadow: 7px 0 30px rgba(39,28,72,.055);
   position: relative;
@@ -48,7 +48,7 @@
   height: 42px;
   border-radius: 15px;
   background: var(--juba-violet) !important;
-  color: #fff !important;
+  color: #ffffff !important;
   box-shadow: 0 8px 0 var(--juba-violet-dark);
   font-weight: 950;
   letter-spacing: -.08em;
@@ -121,7 +121,7 @@
   height: 46px;
   border: 2px solid #ebe7f5;
   border-radius: 18px;
-  background: #fff;
+  background: #ffffff;
   box-shadow: 0 7px 20px rgba(39,28,72,.05);
   color: #817b95;
 }
@@ -158,7 +158,7 @@
 }
 
 .juba-surface {
-  background: #fff;
+  background: #ffffff;
   border: 0;
   border-radius: var(--j-shell-radius);
   box-shadow: var(--j-shell-shadow);
@@ -167,7 +167,7 @@
 .juba-stat {
   min-height: 126px;
   padding: 20px;
-  background: #fff;
+  background: #ffffff;
   border: 0;
   border-radius: 24px;
   box-shadow: var(--j-shell-shadow);
@@ -178,7 +178,7 @@
   border-radius: 16px;
   padding: 0 20px;
   background: var(--juba-violet);
-  color: #fff;
+  color: #ffffff;
   font-weight: 850;
   box-shadow: 0 6px 0 var(--juba-violet-dark);
   transition: transform .15s ease, box-shadow .15s ease;
@@ -186,7 +186,7 @@
 
 .juba-primary-action:hover {
   background: var(--juba-violet);
-  color: #fff;
+  color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 8px 0 var(--juba-violet-dark);
 }
@@ -209,9 +209,9 @@
   color: var(--juba-ink) !important;
 }
 
-.juba-desktop-sidebar .text-fl-muted-2,
-.juba-desktop-sidebar .text-fl-muted-3,
-.juba-desktop-sidebar .text-fl-muted-4 {
+.juba-desktop-sidebar .text-[var(--juba-muted)],
+.juba-desktop-sidebar .text-[var(--juba-muted)],
+.juba-desktop-sidebar .text-[var(--juba-muted)] {
   color: #938da2 !important;
 }
 
