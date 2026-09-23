@@ -113,7 +113,7 @@ export default function ProgressPage() {
       .then((data) => { if (!cancelled) setGoalMilestoneSummary(data) })
       .catch(() => { if (!cancelled) setGoalMilestoneSummary(null) })
     return () => { cancelled = true }
-  }, [activeLanguage?.code])
+  }, [activeLanguage?.code, progressRefresh])
   useEffect(() => {
     let cancelled = false
     apiFetch('/api/progress/goals/history?limit=12')
@@ -129,7 +129,7 @@ export default function ProgressPage() {
       .then((data) => { if (!cancelled) setHistory(data.entries ?? []) })
       .catch(() => { if (!cancelled) setHistory([]) })
     return () => { cancelled = true }
-  }, [historyRange, activeLanguage?.code])
+  }, [historyRange, activeLanguage?.code, progressRefresh])
   useEffect(() => {
     let cancelled = false
     setSummaryRangeLoading(true)
@@ -142,7 +142,7 @@ export default function ProgressPage() {
       .catch(() => { if (!cancelled) setRangeSummary(null) })
       .finally(() => { if (!cancelled) setSummaryRangeLoading(false) })
     return () => { cancelled = true }
-  }, [historyRange, activeLanguage?.code])
+  }, [historyRange, activeLanguage?.code, progressRefresh])
 
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
   useEffect(() => {
@@ -155,7 +155,7 @@ export default function ProgressPage() {
       .then((nextUnits) => { if (!cancelled) setLevelUnits(nextUnits) })
       .catch(() => { if (!cancelled) setLevelUnits([]) })
     return () => { cancelled = true }
-  }, [plan?.cefr_level, targetLanguageCode])
+  }, [plan?.cefr_level, targetLanguageCode, progressRefresh])
 
   const [vocabSets, setVocabSets] = useState<VocabularySet[]>([])
   useEffect(() => {
@@ -168,7 +168,7 @@ export default function ProgressPage() {
       .then((data) => { if (!cancelled) setVocabSets(Array.isArray(data.sets) ? data.sets : []) })
       .catch(() => { if (!cancelled) setVocabSets([]) })
     return () => { cancelled = true }
-  }, [targetLanguageCode])
+  }, [targetLanguageCode, progressRefresh])
   const compMap = Object.fromEntries(competencies.map((c) => [c.unit_id, c]))
   const recentHistory = useMemo(() => history.slice(0, historyRange === 'week' ? 7 : historyRange === 'month' ? 30 : history.length).reverse(), [history, historyRange])
   const maxDailyXp = Math.max(1, ...recentHistory.map((entry) => entry.xp_earned))
