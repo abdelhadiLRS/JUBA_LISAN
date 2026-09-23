@@ -60,7 +60,7 @@ export function PageLoading({
       aria-busy="true"
       aria-label={text}
     >
-      <div className="juba-card flex min-w-44 flex-col items-center gap-3 px-5 py-4">
+      <div className="juba-card flex min-w-44 flex-col items-center gap-3 border-2 border-[var(--juba-border)] px-5 py-4 shadow-[4px_4px_0_var(--juba-border)]">
         <span className="text-[var(--juba-muted)] animate-pulse text-xs font-medium tracking-[0.12em] uppercase">
           {showDot && <span className="mr-1.5 text-[var(--juba-primary-dark)]">●</span>}
           {text}
