@@ -229,3 +229,38 @@
   .juba-surface { border-radius: 20px; }
   .juba-stat { border-radius: 20px; }
 }
+
+
+/* Direction-safe interaction rules for Arabic/RTL and mixed-script content. */
+.juba-app-shell[dir="rtl"] .juba-sidebar-nav a:hover,
+.juba-app-shell[dir="rtl"] .juba-sidebar-nav button:hover {
+  transform: translateX(-2px);
+}
+
+.juba-app-shell[dir="rtl"] .juba-topbar,
+.juba-app-shell[dir="rtl"] .juba-mobile-bar {
+  direction: rtl;
+}
+
+.juba-app-shell[dir="ltr"] .juba-topbar,
+.juba-app-shell[dir="ltr"] .juba-mobile-bar {
+  direction: ltr;
+}
+
+.juba-app-shell :where(button, a, input, textarea, select) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.juba-app-shell :where(input, textarea, select) {
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .juba-topbar {
+    gap: 10px;
+  }
+
+  .juba-workspace-main > * {
+    max-width: 100%;
+  }
+}
