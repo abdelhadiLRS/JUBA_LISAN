@@ -4,15 +4,15 @@
 :root {
   --j-shell-content: 1440px;
   --j-shell-radius: 28px;
-  --j-shell-shadow: 0 18px 50px rgba(48, 35, 90, .09);
-  --juba-ink: #242033;
-  --juba-violet: #6c45f5;
-  --juba-violet-dark: #4f2bd1;
-  --juba-lilac: #eee8ff;
-  --juba-yellow: #ffd85a;
+  --j-shell-shadow: 0 8px 0 rgba(37,48,42,.12);
+  --juba-ink: #25302a;
+  --juba-violet: #5a9b32;
+  --juba-violet-dark: #39751d;
+  --juba-lilac: #e2f2d3;
+  --juba-yellow: #ffd35a;
   --juba-mint: #bff5df;
-  --juba-coral: #ff8d79;
-  --juba-sky: #bdeaff;
+  --juba-coral: #ef816f;
+  --juba-sky: #9edcf0;
 }
 
 .juba-app-shell {
@@ -21,7 +21,7 @@
   background:
     radial-gradient(circle at 4% 7%, rgba(255,216,90,.28), transparent 18rem),
     radial-gradient(circle at 96% 9%, rgba(189,234,255,.42), transparent 22rem),
-    #fbfaff;
+    #fbfaf4;
 }
 
 /* The same rounded top navigation is used at every viewport width. */
@@ -32,7 +32,7 @@
   width: 100%;
   border-bottom: 0;
   background: rgba(255,255,255,.88);
-  box-shadow: 0 8px 30px rgba(48,35,90,.055);
+  box-shadow: 0 8px 30px rgba(37,48,42,.08);
   backdrop-filter: blur(18px);
 }
 
@@ -150,9 +150,9 @@
 }
 
 .juba-app-drawer {
-  border-top: 1px solid #eee8ff;
+  border-top: 1px solid #d9e8cf;
   background: rgba(255,255,255,.98);
-  box-shadow: 0 20px 40px rgba(48,35,90,.12);
+  box-shadow: 0 20px 40px rgba(37,48,42,.14);
 }
 .juba-app-drawer-inner {
   width: min(100%, var(--j-shell-content));
@@ -270,7 +270,7 @@
   justify-content: center;
   border-radius: 34px;
   background: rgba(255,255,255,.72);
-  box-shadow: 0 12px 24px rgba(39,28,72,.10);
+  box-shadow: 0 12px 24px rgba(37,48,42,.10);
   transform: rotate(4deg);
 }
 .juba-mobile-greeting-art span { font-size: 58px; }
@@ -311,7 +311,7 @@
 .juba-mobile-daily > div:last-child > div {
   border: 0 !important;
   border-radius: 22px !important;
-  background: #f8f5ff !important;
+  background: #f2f0e8 !important;
 }
 
 .juba-mobile-plan,
