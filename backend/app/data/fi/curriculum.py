@@ -1,0 +1,3 @@
+from app.data._types import CurriculumUnit
+def _u(l,n,t,g): return CurriculumUnit(id=f"{l.lower()}-unit-{n}",level=l,unit_number=n,title=t,grammar_points=g,vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Develop CEFR communication skills"],default_weeks=2)
+CURRICULUM={"A1":[_u("A1",1,"A1 communication",["pronouns"])],"A2":[_u("A2",1,"A2 communication",["present-tense"])],"B1":[_u("B1",1,"B1 communication",["past-tense"])],"B2":[_u("B2",1,"B2 communication",["conditionals"])],"C1":[_u("C1",1,"C1 communication",["passive"])],"C2":[_u("C2",1,"C2 communication",["advanced-style"])]}
