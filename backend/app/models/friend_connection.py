@@ -31,3 +31,4 @@ class FriendConnection(Base):
         default=lambda: datetime.now(UTC).replace(tzinfo=None),
         onupdate=lambda: datetime.now(UTC).replace(tzinfo=None),
     )
+    pair_key: Mapped[str] = mapped_column(String(40), nullable=False, index=True)
