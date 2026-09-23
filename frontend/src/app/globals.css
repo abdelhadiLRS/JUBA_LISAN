@@ -794,3 +794,139 @@ body:has(.juba-site-nav) .juba-mobile-menu{background:var(--juba-surface)!import
   .juba-workspace-main{padding:16px 12px 40px}
   .juba-mobile-drawer-nav{grid-template-columns:1fr}
 }
+
+
+/* =========================================================
+   JUBA LISAN — learning surfaces visual unification
+   Keep route logic intact; normalize legacy utility styling
+   into the same native JUBA visual language.
+   ========================================================= */
+.juba-app-shell .juba-mobile-dashboard,
+.juba-app-shell .juba-mobile-plan,
+.juba-app-shell .juba-mobile-progress,
+.juba-app-shell .juba-mobile-listening,
+.juba-app-shell .juba-mobile-reading,
+.juba-app-shell .juba-mobile-conversation,
+.juba-app-shell .juba-mobile-assessment,
+.juba-app-shell .juba-mobile-grammar,
+.juba-app-shell .juba-mobile-vocabulary,
+.juba-app-shell .juba-mobile-flashcards,
+.juba-app-shell .juba-games{
+  width:100%;
+}
+.juba-app-shell :is(.rounded-\[30px\],.rounded-\[32px\],.rounded-\[28px\]){
+  border-radius:24px;
+}
+.juba-app-shell :is(.shadow-\[3px_3px_0_var\(--juba-border\)\],.shadow-\[4px_4px_0_var\(--juba-border\)\],.shadow-\[7px_7px_0_var\(--juba-ink\)\]){
+  box-shadow:var(--juba-shadow-md);
+}
+.juba-app-shell :is(.border-2,.border-\[2px\]){
+  border-color:var(--juba-border);
+}
+.juba-app-shell input,
+.juba-app-shell select,
+.juba-app-shell textarea{
+  border-color:var(--juba-border);
+  background:var(--juba-surface);
+  color:var(--juba-text);
+}
+.juba-app-shell input:focus,
+.juba-app-shell select:focus,
+.juba-app-shell textarea:focus{
+  border-color:var(--juba-violet);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--juba-violet) 13%,transparent);
+  outline:0;
+}
+.juba-app-shell :is(button,a)[class*="shadow-[3px_3px_0"]{
+  transition:transform .16s ease,box-shadow .16s ease,background-color .16s ease,border-color .16s ease;
+}
+.juba-app-shell :is(button,a)[class*="shadow-[3px_3px_0"]:hover{
+  transform:translateY(-1px);
+}
+.juba-app-shell .juba-mobile-dashboard h1,
+.juba-app-shell .juba-mobile-plan h1,
+.juba-app-shell .juba-mobile-progress h1,
+.juba-app-shell .juba-mobile-listening h1,
+.juba-app-shell .juba-mobile-reading h1,
+.juba-app-shell .juba-mobile-conversation h1,
+.juba-app-shell .juba-mobile-assessment h1,
+.juba-app-shell .juba-mobile-grammar h1,
+.juba-app-shell .juba-mobile-vocabulary h1,
+.juba-app-shell .juba-mobile-flashcards h1,
+.juba-app-shell .juba-games h1{
+  letter-spacing:-.035em;
+}
+.juba-app-shell .juba-mobile-dashboard section,
+.juba-app-shell .juba-mobile-plan section,
+.juba-app-shell .juba-mobile-progress section{
+  scroll-margin-top:90px;
+}
+.juba-app-shell .juba-mobile-plan .juba-ff-unit-card,
+.juba-app-shell .juba-mobile-progress .juba-card,
+.juba-app-shell .juba-mobile-flashcards .juba-card{
+  border-color:var(--juba-border);
+  box-shadow:var(--juba-shadow-sm);
+}
+.juba-app-shell .juba-mobile-plan .juba-ff-unit-card:hover,
+.juba-app-shell .juba-mobile-flashcards .juba-card:hover{
+  box-shadow:var(--juba-shadow-md);
+}
+.juba-app-shell .juba-mobile-plan .juba-ff-unit-active{
+  border-color:color-mix(in srgb,var(--juba-violet) 45%,var(--juba-border));
+  background:linear-gradient(135deg,#fff 0%,#f5faef 100%);
+}
+.juba-app-shell .juba-mobile-plan .juba-ff-unit-locked{
+  opacity:.72;
+  background:#f7f9f6;
+}
+.juba-app-shell .juba-mobile-progress .juba-progress-hero,
+.juba-app-shell .juba-mobile-progress .juba-progress-card{
+  border-color:var(--juba-border);
+}
+.juba-app-shell .juba-mobile-listening,
+.juba-app-shell .juba-mobile-reading,
+.juba-app-shell .juba-mobile-conversation,
+.juba-app-shell .juba-mobile-assessment,
+.juba-app-shell .juba-mobile-grammar,
+.juba-app-shell .juba-mobile-vocabulary,
+.juba-app-shell .juba-mobile-flashcards,
+.juba-app-shell .juba-games{
+  color:var(--juba-text);
+}
+.juba-app-shell .juba-mobile-listening > div,
+.juba-app-shell .juba-mobile-reading > div,
+.juba-app-shell .juba-mobile-conversation > div,
+.juba-app-shell .juba-mobile-assessment > div,
+.juba-app-shell .juba-mobile-grammar > div,
+.juba-app-shell .juba-mobile-vocabulary > div,
+.juba-app-shell .juba-mobile-flashcards > div,
+.juba-app-shell .juba-games > div{
+  max-width:100%;
+}
+.juba-app-shell .juba-primary-button,
+.juba-app-shell button[class*="bg-[var(--juba-violet)]"]{
+  box-shadow:0 5px 14px color-mix(in srgb,var(--juba-violet) 18%,transparent);
+}
+.juba-app-shell .juba-primary-button:hover,
+.juba-app-shell button[class*="bg-[var(--juba-violet)]"]:hover{
+  box-shadow:0 8px 20px color-mix(in srgb,var(--juba-violet) 24%,transparent);
+}
+.juba-app-shell .juba-resource-strip,
+.juba-app-shell .juba-app-nav{
+  display:none!important;
+}
+@media(max-width:900px){
+  .juba-app-shell .juba-mobile-dashboard,
+  .juba-app-shell .juba-mobile-plan,
+  .juba-app-shell .juba-mobile-progress,
+  .juba-app-shell .juba-mobile-listening,
+  .juba-app-shell .juba-mobile-reading,
+  .juba-app-shell .juba-mobile-conversation,
+  .juba-app-shell .juba-mobile-assessment,
+  .juba-app-shell .juba-mobile-grammar,
+  .juba-app-shell .juba-mobile-vocabulary,
+  .juba-app-shell .juba-mobile-flashcards,
+  .juba-app-shell .juba-games{
+    padding-inline:0;
+  }
+}
