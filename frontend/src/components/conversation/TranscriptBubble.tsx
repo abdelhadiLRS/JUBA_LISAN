@@ -84,7 +84,7 @@ export default function TranscriptBubble({
           className={`border px-4 py-3 ${
             isUser
               ? 'bg-[var(--juba-violet)] text-white border-[var(--juba-violet-dark)]'
-              : 'bg-fl-surface text-fl-fg border-[var(--juba-border)]'
+              : 'bg-[var(--juba-surface)] text-[var(--juba-text)] border-[var(--juba-border)]'
           }`}
         >
           {text}
