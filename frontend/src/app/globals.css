@@ -823,3 +823,206 @@ main [dir="rtl"] h3,
   .juba-dashboard { padding-top: 1.25rem; padding-bottom: 2rem; }
   .juba-dashboard h1 { font-size: 1.75rem; }
 }
+
+
+/* JUBA LISAN — Funfluent reference fidelity pass */
+/* The reference shot uses a bright illustrated world, playful rounded geometry,
+   book-like cards, soft clouds, and a strong editorial hero. This pass makes
+   the existing JUBA LISAN landing structure visually follow that composition
+   without changing its content, routes, or product functionality. */
+.juba-funfluent-page.juba-ff-reference{
+  --landing-sky:#b9eef0;
+  --landing-sky-deep:#8bdcdf;
+  --landing-paper:#f8f7f2;
+  --landing-green:#3f861d;
+  --landing-green-dark:#245d14;
+  --landing-ink:#18251b;
+  --landing-yellow:#ffd44f;
+  background:var(--landing-paper);
+}
+.juba-ff-reference .juba-site-nav{
+  background:rgba(255,255,255,.78);
+  border-bottom:1px solid rgba(24,37,27,.1);
+  box-shadow:0 2px 16px rgba(24,37,27,.06);
+}
+.juba-ff-reference .juba-ff-nav-inner{height:70px}
+.juba-ff-reference .juba-brand-mark{
+  width:40px;height:40px;border-radius:12px;
+  background:var(--landing-yellow);
+  border:2px solid var(--landing-ink);
+  box-shadow:2px 3px 0 var(--landing-ink);
+}
+.juba-ff-reference .juba-ff-hero{
+  min-height:690px;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(255,255,255,.7),transparent 120px),
+    radial-gradient(circle at 86% 20%,rgba(255,255,255,.45),transparent 180px),
+    linear-gradient(180deg,var(--landing-sky) 0%,#c9f2e5 55%,#dff3c8 100%);
+}
+.juba-ff-reference .juba-ff-hero-inner{
+  width:min(1220px,calc(100% - 40px));
+  min-height:650px;
+  grid-template-columns:minmax(420px,.86fr) minmax(0,1.14fr);
+  gap:16px;
+}
+.juba-ff-reference .juba-ff-hero-copy{padding:80px 0 112px}
+.juba-ff-reference .juba-ff-pill{
+  background:#fff;
+  border:2px solid var(--landing-ink);
+  box-shadow:3px 3px 0 rgba(24,37,27,.16);
+  color:var(--landing-green-dark);
+}
+.juba-ff-reference .juba-ff-hero-copy h1{
+  max-width:620px;
+  font-size:clamp(3.2rem,6vw,5.75rem);
+  line-height:.91;
+  letter-spacing:-.075em;
+  color:var(--landing-ink);
+}
+.juba-ff-reference .juba-ff-hero-copy h1{
+  text-wrap:balance;
+}
+.juba-ff-reference .juba-ff-hero-copy h1::first-line{
+  color:#102017;
+}
+.juba-ff-reference .juba-ff-hero-copy h1{
+  padding:.08em .12em .14em;
+  border-radius:.22em;
+  background:linear-gradient(180deg,transparent 0 15%,rgba(106,173,52,.84) 15% 76%,transparent 76%);
+}
+.juba-ff-reference .juba-ff-hero-copy p{
+  max-width:480px;
+  color:#335040;
+  font-size:1rem;
+}
+.juba-ff-reference .juba-ff-primary{
+  background:var(--landing-yellow);
+  color:var(--landing-ink);
+  border:2px solid var(--landing-ink);
+  box-shadow:4px 4px 0 var(--landing-ink);
+  border-radius:10px;
+  padding:12px 18px;
+}
+.juba-ff-reference .juba-ff-hero-link{
+  color:var(--landing-ink);
+  font-weight:850;
+}
+.juba-ff-reference .juba-ff-hero-art{
+  min-height:590px;
+  align-self:end;
+}
+.juba-ff-reference .juba-ff-sun{
+  right:22%;top:6%;
+  width:175px;height:175px;
+  background:#ffd85c;
+  box-shadow:0 0 0 24px rgba(255,216,92,.15);
+}
+.juba-ff-reference .juba-ff-mountain{
+  bottom:96px;
+  border-radius:55% 55% 10% 10%;
+}
+.juba-ff-reference .mountain-back{
+  right:-3%;width:100%;height:285px;
+  background:#80c8ba;
+  transform:skewX(-15deg) rotate(-2deg);
+}
+.juba-ff-reference .mountain-front{
+  right:0;width:92%;height:245px;
+  background:#62a94e;
+  transform:skewX(13deg) rotate(1deg);
+}
+.juba-ff-reference .juba-ff-island{
+  bottom:45px;
+  background:#2f791e;
+  box-shadow:inset 0 -10px 0 rgba(24,37,27,.08);
+}
+.juba-ff-reference .juba-ff-character{
+  font-size:66px;
+  filter:drop-shadow(0 9px 4px rgba(24,37,27,.16));
+}
+.juba-ff-reference .juba-ff-float-label{
+  border:2px solid var(--landing-ink);
+  box-shadow:3px 3px 0 var(--landing-ink);
+  border-radius:12px;
+}
+.juba-ff-reference .juba-ff-book-float{
+  border:2px solid var(--landing-ink);
+  box-shadow:5px 5px 0 var(--landing-ink);
+  border-radius:12px;
+}
+.juba-ff-reference .juba-ff-wave{
+  height:105px;
+  background:var(--landing-paper);
+  clip-path:ellipse(64% 60% at 50% 100%);
+}
+.juba-ff-reference .juba-ff-books{
+  padding-top:64px;
+  background:var(--landing-paper);
+}
+.juba-ff-reference .juba-ff-section-head{
+  max-width:760px;
+  margin-bottom:48px;
+}
+.juba-ff-reference .juba-ff-section-head h2{
+  font-size:clamp(2rem,3.6vw,3.15rem);
+}
+.juba-ff-reference .juba-ff-book-shelf{
+  width:min(1080px,100%);
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+  align-items:end;
+}
+.juba-ff-reference .juba-ff-book{
+  min-height:340px;
+  padding:18px;
+  border:3px solid var(--landing-ink);
+  border-radius:8px 8px 18px 18px;
+  box-shadow:8px 8px 0 rgba(24,37,27,.9);
+  transform-origin:center bottom;
+}
+.juba-ff-reference .juba-ff-book:nth-child(1){transform:rotate(-4deg) translateY(10px)}
+.juba-ff-reference .juba-ff-book:nth-child(2){transform:rotate(2deg) translateY(2px)}
+.juba-ff-reference .juba-ff-book:nth-child(3){transform:rotate(-2deg) translateY(-10px)}
+.juba-ff-reference .juba-ff-book:nth-child(4){transform:rotate(4deg) translateY(8px)}
+.juba-ff-reference .juba-ff-book:hover{transform:translateY(-10px) rotate(0deg)}
+.juba-ff-reference .juba-ff-book .book-art{
+  font-size:64px;
+  border-radius:6px;
+  background:rgba(255,255,255,.25);
+}
+.juba-ff-reference .juba-ff-feature-card,
+.juba-ff-reference .juba-ff-chat-card,
+.juba-ff-reference .juba-ff-dashboard-card,
+.juba-ff-reference .juba-ff-step,
+.juba-ff-reference .juba-ff-practice{
+  border-color:var(--landing-ink);
+  box-shadow:6px 6px 0 var(--landing-ink);
+}
+.juba-ff-reference .juba-funfluent-features{
+  background:var(--landing-paper);
+}
+.juba-ff-reference .juba-funfluent-demo{
+  background:#e8f3d9;
+}
+.juba-ff-reference .juba-ff-open-source-card{
+  border:2px solid var(--landing-ink);
+}
+@media(max-width:900px){
+  .juba-ff-reference .juba-ff-hero-inner{grid-template-columns:1fr}
+  .juba-ff-reference .juba-ff-hero-copy{padding-bottom:20px}
+  .juba-ff-reference .juba-ff-hero-art{min-height:460px}
+  .juba-ff-reference .juba-ff-book-shelf{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .juba-ff-reference .juba-ff-hero{min-height:0}
+  .juba-ff-reference .juba-ff-hero-inner{width:min(100% - 24px,700px)}
+  .juba-ff-reference .juba-ff-hero-copy{padding-top:48px}
+  .juba-ff-reference .juba-ff-hero-copy h1{
+    font-size:clamp(2.7rem,14vw,4rem);
+    background:linear-gradient(180deg,transparent 0 18%,rgba(106,173,52,.84) 18% 76%,transparent 76%);
+  }
+  .juba-ff-reference .juba-ff-hero-art{min-height:350px}
+  .juba-ff-reference .juba-ff-wave{height:72px}
+  .juba-ff-reference .juba-ff-book-shelf{grid-template-columns:1fr}
+  .juba-ff-reference .juba-ff-book:nth-child(n){transform:none}
+}
