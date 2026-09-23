@@ -156,6 +156,7 @@ export default function ConversationPage() {
 
   return (
     <MaintenanceGate>
+      <div className="juba-mobile-conversation">
       {voiceTrial ? (
         <ConversationMode
           initialContext={initialContext}
@@ -185,6 +186,7 @@ export default function ConversationPage() {
           }
         />
       )}
+      </div>
     </MaintenanceGate>
   )
 }
