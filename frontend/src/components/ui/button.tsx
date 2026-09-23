@@ -12,7 +12,7 @@ const buttonVariants = cva(
         outline:
           'border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-text)] shadow-[0_3px_0_var(--juba-border)] hover:bg-[var(--juba-surface-soft)] hover:border-[var(--juba-primary-dark)] hover:-translate-y-px aria-expanded:bg-[var(--juba-surface-soft)]',
         secondary:
-          'border-[var(--juba-border)] bg-[var(--juba-surface-soft)] text-[var(--juba-text)] shadow-[0_3px_0_var(--juba-border)] hover:bg-[var(--juba-primary-soft)] aria-expanded:bg-[var(--juba-primary-soft)]',
+          'border-[var(--juba-border)] bg-[var(--juba-surface-soft)] text-[var(--juba-text)] shadow-[0_3px_0_var(--juba-border)] hover:bg-[var(--juba-lilac)] aria-expanded:bg-[var(--juba-lilac)]',
         ghost:
           'text-[var(--juba-muted)] hover:bg-[var(--juba-surface-soft)] hover:text-[var(--juba-text)]',
         destructive:
