@@ -14,6 +14,7 @@ import {
 } from '@/lib/games/persist'
 import { useProgressStore } from '@/store/progress'
 import './games.css'
+import { InteractiveGameBoard } from '@/components/games/InteractiveGameBoard'
 
 type Lang = GameLanguage
 function getLocalDateKey() {
@@ -79,6 +80,7 @@ export default function GamesPage() {
   const [roundScore, setRoundScore] = useState(0)
   const [round, setRound] = useState(0)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
+  const [interactionChallenge, setInteractionChallenge] = useState<import('@/lib/games/persist').InteractiveGameChallenge | null>(null)
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
@@ -124,6 +126,7 @@ export default function GamesPage() {
       setAnswers([])
       setSessionId(session.session_id)
       setSessionQuestions(session.questions)
+      setInteractionChallenge(session.interaction ?? null)
       setNewAchievements([])
       setQuestion(session.questions[0] ?? null)
     } catch {
@@ -175,6 +178,46 @@ export default function GamesPage() {
     }
   }
 
+  async function finishInteractive(trace: import('@/lib/games/persist').InteractiveGameTrace[]) {
+    if (!sessionId) return false
+    const previousAchievements = new Set(achievements)
+    try {
+      const server = await completeGameSession(
+        sessionId,
+        [],
+        dailyMode,
+        dailyMode ? dailyChallengeDate : '',
+        trace,
+      )
+      const fresh = (server.new_achievements as AchievementId[]).filter((id) => !previousAchievements.has(id))
+      if (fresh.length) setNewAchievements(fresh)
+      setRoundScore(server.round_score)
+      setProgress({
+        streak,
+        xp: server.total_xp,
+        skills: server.skills,
+        gameStats: {
+          gamesPlayed: server.games_played,
+          questionsAnswered: server.questions_answered,
+          correctAnswers: server.correct_answers,
+          bestRoundScore: server.best_round_score,
+          dailyChallengesCompleted: server.daily_challenges_completed,
+          lastDailyChallengeDate: server.last_daily_challenge_date,
+          currentCorrectStreak: server.current_correct_streak,
+          bestCorrectStreak: server.best_correct_streak,
+        },
+        achievements: server.achievements as AchievementId[],
+      })
+      setGame(null)
+      setInteractionChallenge(null)
+      setSessionId(null)
+      setSessionQuestions([])
+      return true
+    } catch {
+      return false
+    }
+  }
+
   function next() {
     if (!game || !question) return
     if (round >= ROUND_SIZE - 1) {
@@ -200,6 +243,7 @@ export default function GamesPage() {
     setQuestion(null)
     setSessionId(null)
     setSessionQuestions([])
+    setInteractionChallenge(null)
     setAnswers([])
     setRound(0)
     setRoundScore(0)
@@ -295,7 +339,9 @@ export default function GamesPage() {
           <section className="play-card">
             <button className="back" onClick={() => { setGame(null); setDailyMode(false) }}>← {t.back}</button>
             <div className="round-meta">{dailyMode ? `📅 ${t.daily} · ` : ''}{round + 1} / {ROUND_SIZE} · +XP</div>
-            {question && (
+            {interactionChallenge ? (
+              <InteractiveGameBoard mode={game as 'memory' | 'matching' | 'ordering'} lang={lang} challenge={interactionChallenge} onComplete={finishInteractive} />
+            ) : question && (
               <>
                 <h2 style={{ whiteSpace: 'pre-line' }}>{question.prompt}</h2>
                 <p className="choose">{t.choose}</p>
