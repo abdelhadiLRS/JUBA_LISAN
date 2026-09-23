@@ -45,6 +45,8 @@ export default function FlashcardsPage() {
   const [generating, setGenerating] = useState(false)
   const [genError, setGenError] = useState('')
   const [speakingMode, setSpeakingMode] = useState(false)
+  const [reviewError, setReviewError] = useState('')
+  const [reviewingCardId, setReviewingCardId] = useState<number | null>(null)
   const loadRequestRef = useRef(0)
 
   const loadDue = useCallback(async () => {
@@ -73,21 +75,31 @@ export default function FlashcardsPage() {
   }, [loadDue, activeLangCode])
 
   async function reviewCard(quality: number) {
-    if (cards.length === 0) return
+    if (cards.length === 0 || reviewingCardId !== null) return
     const card = cards[current]
-    await apiFetch(`/api/flashcards/${card.id}/review`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ quality }),
-    })
-    if (current < cards.length - 1) {
-      setCurrent(current + 1)
-      setFlipped(false)
-    } else {
-      await loadDue()
+    const requestId = card.id
+    setReviewingCardId(requestId)
+    setReviewError('')
+    try {
+      const response = await apiFetch(`/api/flashcards/${requestId}/review`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ quality }),
+      })
+      if (!response.ok) throw new Error(`Review failed (${response.status})`)
+      if (cards[current]?.id !== requestId) return
+      if (current < cards.length - 1) {
+        setCurrent(current + 1)
+        setFlipped(false)
+      } else {
+        await loadDue()
+      }
+    } catch {
+      setReviewError(tCommon('errorMessage'))
+    } finally {
+      setReviewingCardId((id) => (id === requestId ? null : id))
     }
   }
-
   async function handleSpeakingTranscription(transcription: string) {
     if (cards.length === 0) return
     const card = cards[current]
@@ -340,6 +352,20 @@ export default function FlashcardsPage() {
             </div>
           </div>
 
+          {reviewError && (
+            <div
+              className="rounded-xl px-4 py-3 text-sm"
+              role="alert"
+              style={{
+                color: 'var(--juba-danger)',
+                background: 'color-mix(in srgb, var(--juba-danger) 8%, transparent)',
+                border: '1px solid color-mix(in srgb, var(--juba-danger) 30%, transparent)',
+              }}
+            >
+              {reviewError}
+            </div>
+          )}
+
           {/* ── Standard mode ── */}
           {!speakingMode && (
             <>
@@ -433,7 +459,8 @@ export default function FlashcardsPage() {
                   ].map(({ key, q, style }) => (
                     <button
                       key={q}
-                      onClick={() => reviewCard(q)}
+                      onClick={() => void reviewCard(q)}
+                      disabled={reviewingCardId !== null}
                       className="border-fl-border min-w-[80px] rounded-xl border py-3 text-sm font-semibold transition-all hover:border-[color-mix(in_srgb,var(--juba-border)_60%,var(--juba-text))] hover:bg-[var(--juba-surface-soft)]"
                       style={style}
                     >
