@@ -33,13 +33,13 @@ CurriculumUnit(id="he-a1-unit-5",level="A1",unit_number=5,title="Food and shoppi
 CurriculumUnit(id="he-a1-unit-6",level="A1",unit_number=6,title="Places and directions",grammar_points=["definite-article"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2),
 CurriculumUnit(id="he-a1-unit-7",level="A1",unit_number=7,title="Communication and help",grammar_points=["gender-agreement"],vocabulary_set_ids=["communication_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2),
 CurriculumUnit(id="he-a1-unit-8",level="A1",unit_number=8,title="Review and A1 communication",grammar_points=["possessive"],vocabulary_set_ids=["family_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2)]}
-ASSESSMENT_BANK=[AssessmentQuestion(id="he-a1-001",skill="vocabulary",difficulty="A1",question="A1 thanks check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="he-a1-002",skill="vocabulary",difficulty="A1",question="A1 student check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="he-a1-003",skill="vocabulary",difficulty="A1",question="A1 question check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="he-a1-004",skill="vocabulary",difficulty="A1",question="A1 negative check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="he-a1-005",skill="vocabulary",difficulty="A1",question="A1 mother check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="he-a1-006",skill="vocabulary",difficulty="A1",question="A1 shop check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="he-a1-007",skill="vocabulary",difficulty="A1",question="A1 water check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="he-a1-008",skill="vocabulary",difficulty="A1",question="A1 help check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="he-a1-009",skill="vocabulary",difficulty="A1",question="A1 name check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="he-a1-010",skill="vocabulary",difficulty="A1",question="A1 present check",options=["A","B","C","D"],correct="A")]
+ASSESSMENT_BANK=[AssessmentQuestion(id="he-a1-001",skill="vocabulary",difficulty="A1",question="Which word means 'thanks'?",options=["תודה","שלום","להתראות","בוקר טוב"],correct="תודה"),
+AssessmentQuestion(id="he-a1-002",skill="grammar",difficulty="A1",question="Choose the correct A1 sentence.",options=["אני סטודנט.","אני סטודנטית.","סטודנט אני.","אני סטודנט הוא."],correct="אני סטודנט."),
+AssessmentQuestion(id="he-a1-003",skill="grammar",difficulty="A1",question="Choose the correct question.",options=["איפה אתה גר?","מי אתה גר?","איפה גר אתה הוא?","אתה איפה גר הוא?"],correct="איפה אתה גר?"),
+AssessmentQuestion(id="he-a1-004",skill="vocabulary",difficulty="A1",question="Choose the correct negative sentence.",options=["אני לא מבין.","אני מבין לא.","לא מבינה.","אני לא להבין."],correct="אני לא מבין."),
+AssessmentQuestion(id="he-a1-005",skill="grammar",difficulty="A1",question="Which word means 'mother'?",options=["אמא","אבא","אחות","אח"],correct="אמא"),
+AssessmentQuestion(id="he-a1-006",skill="grammar",difficulty="A1",question="Which word means 'shop'?",options=["חנות","תחנה","חדר","בית"],correct="חנות"),
+AssessmentQuestion(id="he-a1-007",skill="vocabulary",difficulty="A1",question="Which word means 'water'?",options=["מים","קפה","לחם","תפוח"],correct="מים"),
+AssessmentQuestion(id="he-a1-008",skill="grammar",difficulty="A1",question="Choose the phrase for asking for help.",options=["אני צריך עזרה.","תודה.","אני בבית.","שלום."],correct="אני צריך עזרה."),
+AssessmentQuestion(id="he-a1-009",skill="grammar",difficulty="A1",question="Which word means 'name'?",options=["שם","גיל","משפחה","בית"],correct="שם"),
+AssessmentQuestion(id="he-a1-010",skill="vocabulary",difficulty="A1",question="Choose the correct present-tense form.",options=["מדבר","מדברת","מדברים","לדבר"],correct="מדבר")]
