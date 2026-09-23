@@ -80,14 +80,14 @@ export function ConfirmDialog({
     >
       <div
         ref={dialogRef}
-        className="juba-card w-full max-w-sm overflow-hidden border shadow-[var(--juba-shadow)]"
+        className="juba-card w-full max-w-sm overflow-hidden border-2 border-[var(--juba-border)] shadow-[5px_5px_0_var(--juba-border)]"
         onClick={(e) => e.stopPropagation()}
         role="alertdialog"
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
       >
-        <div className="flex items-center gap-3 border-b border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-6 py-4">
+        <div className="flex items-center gap-3 border-b-2 border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-6 py-4">
           <span
             className={`flex h-8 w-8 items-center justify-center rounded-full text-sm ${danger ? 'bg-[color-mix(in_srgb,var(--juba-danger)_12%,var(--juba-surface))] text-[var(--juba-danger)]' : 'bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)]'}`}
             aria-hidden="true"
@@ -110,12 +110,12 @@ export function ConfirmDialog({
           )}
         </div>
 
-        <div className="flex gap-3 border-t border-[var(--juba-border-soft)] bg-[var(--juba-surface-soft)] px-6 py-4">
+        <div className="flex gap-3 border-t-2 border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-6 py-4">
           <button
             ref={cancelRef}
             onClick={onCancel}
             disabled={confirming}
-            className="flex-1 rounded-xl border border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2.5 text-sm font-semibold text-[var(--juba-muted)] transition hover:border-[var(--juba-primary)] hover:text-[var(--juba-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 rounded-xl border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] shadow-[2px_2px_0_var(--juba-border)] px-4 py-2.5 text-sm font-semibold text-[var(--juba-muted)] transition hover:border-[var(--juba-primary)] hover:text-[var(--juba-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {cancelLabel ?? tCommon('cancel')}
           </button>
@@ -123,7 +123,7 @@ export function ConfirmDialog({
             onClick={onConfirm}
             disabled={confirming}
             aria-busy={confirming}
-            className={`flex-1 rounded-xl px-4 py-2.5 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
+            className={`flex-1 rounded-xl border-2 border-transparent px-4 py-2.5 text-sm font-semibold shadow-[3px_3px_0_var(--juba-border)] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
               danger
                 ? 'bg-[var(--juba-danger)] text-white hover:opacity-90 focus-visible:ring-[var(--juba-danger)]'
                 : 'bg-[var(--juba-primary-dark)] text-white hover:opacity-90 focus-visible:ring-[var(--juba-primary)]'
