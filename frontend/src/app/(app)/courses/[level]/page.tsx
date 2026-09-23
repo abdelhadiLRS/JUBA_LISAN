@@ -31,25 +31,40 @@ export default function CourseLevelPage() {
     let cancelled = false
     async function load() {
       setLoading(true)
-      const language = activeLanguage?.code ?? 'en-GB'
-      const [curriculum, planRes, journeyRes] = await Promise.all([
-        getCurriculumUnits(curriculumLevel, language).catch(() => []),
-        apiFetch('/api/study-plan/current').catch(() => null),
-        apiFetch('/api/study-plan/learning-path').catch(() => null),
-      ])
-      if (cancelled) return
-      const nextPlan = planRes?.ok ? await planRes.json() as StudyPlan : null
-      const nextJourney = journeyRes?.ok ? await journeyRes.json() as JourneyResponse : null
-      if (cancelled) return
-      setUnits(curriculum)
-      setPlan(nextPlan)
-      if (nextJourney) {
-        const journey = nextJourney
-        const map: Record<string, JourneyUnit> = {}
-        for (const section of journey.sections ?? []) for (const unit of section.units ?? []) map[unit.id] = unit
-        setJourneyUnits(map)
+      try {
+        const language = activeLanguage?.code ?? 'en-GB'
+        const [curriculum, planRes, journeyRes] = await Promise.all([
+          getCurriculumUnits(curriculumLevel, language).catch(() => []),
+          apiFetch('/api/study-plan/current').catch(() => null),
+          apiFetch('/api/study-plan/learning-path').catch(() => null),
+        ])
+        if (cancelled) return
+
+        const [nextPlan, nextJourney] = await Promise.all([
+          planRes?.ok ? planRes.json() as Promise<StudyPlan> : Promise.resolve(null),
+          journeyRes?.ok ? journeyRes.json() as Promise<JourneyResponse> : Promise.resolve(null),
+        ])
+        if (cancelled) return
+
+        const nextJourneyUnits: Record<string, JourneyUnit> = {}
+        for (const section of nextJourney?.sections ?? []) {
+          for (const unit of section.units ?? []) {
+            nextJourneyUnits[unit.id] = unit
+          }
+        }
+
+        setUnits(curriculum)
+        setPlan(nextPlan)
+        setJourneyUnits(nextJourneyUnits)
+      } catch {
+        if (!cancelled) {
+          setUnits([])
+          setPlan(null)
+          setJourneyUnits({})
+        }
+      } finally {
+        if (!cancelled) setLoading(false)
       }
-      setLoading(false)
     }
     void load()
     return () => { cancelled = true }
