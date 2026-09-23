@@ -432,9 +432,9 @@
 .juba-mobile-plan,
 .juba-mobile-progress {
   --page-ink: var(--juba-ink);
-  --page-muted: #617068;
-  --page-border: rgba(37,48,42,.12);
-  --page-soft: #f2f0e8;
+  --page-muted: var(--juba-muted);
+  --page-border: var(--juba-border);
+  --page-soft: var(--juba-surface-soft);
 }
 .juba-mobile-plan :where([class*="border-[#ebe7f5]"]),
 .juba-mobile-progress :where([class*="border-[var(--juba-border)]"]) {
