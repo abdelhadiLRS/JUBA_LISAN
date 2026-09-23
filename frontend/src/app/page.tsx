@@ -161,6 +161,10 @@ export default async function Home() {
             <div className="juba-ff-character char-two">🧙🏽‍♀️</div>
             <div className="juba-ff-character char-three">🧑🏻‍🚀</div>
             <div className="juba-ff-character char-four">🧑🏽‍🏴‍☠️</div>
+            <div className="juba-ff-orbit orbit-one" aria-hidden="true" />
+            <div className="juba-ff-orbit orbit-two" aria-hidden="true" />
+            <div className="juba-ff-spark spark-one" aria-hidden="true">✦</div>
+            <div className="juba-ff-spark spark-two" aria-hidden="true">✦</div>
             <div className="juba-ff-float-label label-one">Hello!</div>
             <div className="juba-ff-float-label label-two">Bonjour</div>
             <div className="juba-ff-float-label label-three">Hola</div>
