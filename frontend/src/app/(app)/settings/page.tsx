@@ -90,14 +90,14 @@ export default function SettingsPage() {
         <SettingsPanel id="account" title={t('sectionAccount')}>
           <ProfileSection title={t('cardProfileAccess')} />
 
-          <div className="border-fl-border bg-fl-surface rounded-2xl border p-6">
-            <p className="text-fl-muted-2 mb-4 text-xs font-semibold tracking-wide uppercase">
+          <div className="border-[var(--juba-lilac)] bg-white rounded-[28px] border p-6">
+            <p className="text-[var(--juba-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
               {t('cardSessionSecurity')}
             </p>
             <div className="space-y-2">
               <button
                 onClick={() => setLogoutConfirm(true)}
-                className="border-fl-border text-fl-muted-2 w-full rounded-xl border py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-surface-soft)]"
+                className="border-[var(--juba-lilac)] text-[var(--juba-muted)] w-full rounded-[20px] border py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-surface-soft)]"
               >
                 {tCommon('logout')}
               </button>
@@ -106,7 +106,7 @@ export default function SettingsPage() {
                 <button
                   onClick={() => setDeleteConfirm(true)}
                   disabled={deleting}
-                  className="w-full rounded-xl border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
+                  className="w-full rounded-[20px] border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
                   style={{
                     color: 'var(--juba-danger)',
                     borderColor:
@@ -143,20 +143,20 @@ export default function SettingsPage() {
         </SettingsPanel>
 
         <SettingsPanel id="legal" title={t('sectionLegal')}>
-          <div className="border-fl-border bg-fl-surface rounded-2xl border p-6">
-            <p className="text-fl-muted-2 mb-4 text-xs font-semibold tracking-wide uppercase">
+          <div className="border-[var(--juba-lilac)] bg-white rounded-[28px] border p-6">
+            <p className="text-[var(--juba-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
               {t('cardLegalDocuments')}
             </p>
             <div className="flex flex-col gap-2">
               <a
                 href="/terms?from=settings"
-                className="text-fl-muted-2 hover:text-fl-fg text-sm font-medium transition-colors"
+                className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] text-sm font-medium transition-colors"
               >
                 {t('termsOfService')}
               </a>
               <a
                 href="/privacy?from=settings"
-                className="text-fl-muted-2 hover:text-fl-fg text-sm font-medium transition-colors"
+                className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] text-sm font-medium transition-colors"
               >
                 {t('privacyPolicy')}
               </a>
