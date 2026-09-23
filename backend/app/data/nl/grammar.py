@@ -1,16 +1,16 @@
-"""Nederlands grammar topics — initial CEFR foundation."""
+"""Nederlands A1 grammar — expanded learner-ready foundation."""
 from app.data._types import GrammarTopic, GrammarExample
-GRAMMAR_TOPICS = [
-GrammarTopic(slug="pronouns", title="Persoonlijke voornaamwoorden", level="A1", category="core", summary="Persoonlijke voornaamwoorden", explanation="Core Persoonlijke voornaamwoorden.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="word-order", title="Woordvolgorde", level="A1", category="core", summary="Woordvolgorde", explanation="Core Woordvolgorde.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="present-tense", title="Tegenwoordige tijd", level="A1", category="core", summary="Tegenwoordige tijd", explanation="Core Tegenwoordige tijd.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="past-tense", title="Verleden tijd", level="A2", category="core", summary="Verleden tijd", explanation="Core Verleden tijd.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="perfect", title="Voltooide tijd", level="A2", category="core", summary="Voltooide tijd", explanation="Core Voltooide tijd.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="separable-verbs", title="Scheidbare werkwoorden", level="B1", category="core", summary="Scheidbare werkwoorden", explanation="Core Scheidbare werkwoorden.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="conditionals", title="Voorwaardelijke zinnen", level="B1", category="core", summary="Voorwaardelijke zinnen", explanation="Core Voorwaardelijke zinnen.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="passive", title="Lijdende vorm", level="B2", category="core", summary="Lijdende vorm", explanation="Core Lijdende vorm.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="reported-speech", title="Indirecte rede", level="B2", category="core", summary="Indirecte rede", explanation="Core Indirecte rede.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="academic-register", title="Academisch register", level="C1", category="core", summary="Academisch register", explanation="Core Academisch register.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="discourse", title="Discourse en stijl", level="C2", category="core", summary="Discourse en stijl", explanation="Core Discourse en stijl.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="style", title="Stijl en formulering", level="C2", category="core", summary="Stijl en formulering", explanation="Core Stijl en formulering.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[])
+def _g(slug,title,summary,explanation,examples,rules=None):
+    return GrammarTopic(slug=slug,title=title,level="A1",category="core",summary=summary,explanation=explanation,structure=None,rules=rules or [],examples=[GrammarExample(text=x) for x in examples],common_mistakes=[],related=[])
+GRAMMAR_TOPICS=[
+_g("pronouns","Persoonlijke voornaamwoorden","Ik, jij, hij, zij, wij en jullie gebruiken.","Persoonlijke voornaamwoorden geven aan wie iets doet of is.",["Ik ben student.","Zij woont in Amsterdam.","Wij leren Nederlands."]),
+_g("word-order","Woordvolgorde","Eenvoudige Nederlandse zinnen bouwen.","In een gewone hoofdzin staat de persoonsvorm op de tweede plaats.",["Ik woon in Brussel.","Vandaag werk ik thuis.","Hij leest een boek."]),
+_g("present-tense","Tegenwoordige tijd","Praten over gewoonten en acties.","Gebruik de juiste persoonsvorm van het werkwoord in de tegenwoordige tijd.",["Ik werk vandaag.","Jij woont hier.","Zij leert Nederlands."]),
+_g("articles","De en het","Basisartikelen gebruiken.","Nederlandse zelfstandige naamwoorden hebben meestal de of het als bepaald lidwoord.",["de tafel","het huis","de student"]),
+_g("questions","Vragen stellen","Wie, wat, waar en hoe gebruiken.","Vraagwoorden en inversie maken eenvoudige vragen.",["Waar woon je?","Wat doe je?","Hoe heet je?"]),
+_g("negation","Ontkenning","Niet en geen gebruiken.","Niet ontkent vaak werkwoorden of eigenschappen; geen ontkent een zelfstandig naamwoord zonder bepaald lidwoord.",["Ik werk niet.","Ik heb geen auto.","Hij is niet thuis."]),
+_g("plural","Meervoud","Meervouden herkennen en vormen.","Veel zelfstandige naamwoorden krijgen -en of -s in het meervoud.",["boek → boeken","tafel → tafels","student → studenten"]),
+_g("adjectives","Bijvoeglijke naamwoorden","Eenvoudige beschrijvingen geven.","Bijvoeglijke naamwoorden krijgen in veel bepaalde naamwoordgroepen een -e.",["een grote stad","een klein huis","de nieuwe auto"]),
+_g("present-perfect","Voltooide tijd","Recente of afgeronde gebeurtenissen noemen.","De voltooide tijd gebruikt hebben of zijn met een voltooid deelwoord.",["Ik heb gewerkt.","Zij heeft gegeten.","We zijn gekomen."]),
+_g("separable-verbs","Scheidbare werkwoorden","Veelgebruikte scheidbare werkwoorden begrijpen.","In een hoofdzin staat het voorvoegsel vaak aan het einde.",["Ik sta om zeven uur op.","Hij belt mij terug."]),
 ]

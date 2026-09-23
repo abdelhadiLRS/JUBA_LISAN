@@ -1,16 +1,16 @@
-"""Русский grammar topics — initial CEFR foundation."""
+"""Русский A1 grammar — expanded learner-ready foundation."""
 from app.data._types import GrammarTopic, GrammarExample
-GRAMMAR_TOPICS = [
-GrammarTopic(slug="pronouns", title="Личные местоимения", level="A1", category="core", summary="Личные местоимения", explanation="Core Личные местоимения.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="gender", title="Род существительных", level="A1", category="core", summary="Род существительных", explanation="Core Род существительных.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="present-tense", title="Настоящее время", level="A1", category="core", summary="Настоящее время", explanation="Core Настоящее время.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="past-tense", title="Прошедшее время", level="A2", category="core", summary="Прошедшее время", explanation="Core Прошедшее время.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="cases", title="Падежи", level="A2", category="core", summary="Падежи", explanation="Core Падежи.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="aspect", title="Вид глагола", level="B1", category="core", summary="Вид глагола", explanation="Core Вид глагола.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="conditionals", title="Условные конструкции", level="B1", category="core", summary="Условные конструкции", explanation="Core Условные конструкции.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="passive", title="Страдательный залог", level="B2", category="core", summary="Страдательный залог", explanation="Core Страдательный залог.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="reported-speech", title="Косвенная речь", level="B2", category="core", summary="Косвенная речь", explanation="Core Косвенная речь.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="academic-register", title="Академический стиль", level="C1", category="core", summary="Академический стиль", explanation="Core Академический стиль.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="discourse", title="Дискурс и стилистика", level="C2", category="core", summary="Дискурс и стилистика", explanation="Core Дискурс и стилистика.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="style", title="Стилистические средства", level="C2", category="core", summary="Стилистические средства", explanation="Core Стилистические средства.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[])
+def _g(slug,title,summary,explanation,examples,rules=None):
+    return GrammarTopic(slug=slug,title=title,level="A1",category="core",summary=summary,explanation=explanation,structure=None,rules=rules or [],examples=[GrammarExample(text=x) for x in examples],common_mistakes=[],related=[])
+GRAMMAR_TOPICS=[
+_g("pronouns","Личные местоимения","Я, ты, он, она, мы, вы, они.","Используйте личные местоимения для обозначения участников разговора.",["Я студент.","Она врач.","Мы дома."]),
+_g("gender","Род существительных","Мужской, женский и средний род.","Род существительного влияет на согласование прилагательных и прошедшего времени.",["новый дом","новая книга","новое слово"]),
+_g("present-tense","Настоящее время","Говорить о настоящем.","Личные окончания глагола показывают лицо и число.",["Я читаю.","Ты говоришь по-русски.","Они работают."]),
+_g("negation","Отрицание","Использовать не для отрицания.","Частица не обычно стоит перед отрицаемым словом или глаголом.",["Я не понимаю.","Он не дома.","Мы не работаем."]),
+_g("questions","Базовые вопросы","Задавать простые вопросы.","Вопросительная интонация и вопросительные слова помогают получать информацию.",["Как тебя зовут?","Где вы живёте?","Что это?"]),
+_g("adjectives","Прилагательные","Согласовывать описание с существительным.","Прилагательное изменяется по роду и числу существительного.",["большой дом","большая комната","большое окно"]),
+_g("prepositions","Предлоги места","Говорить о месте.","Предлоги в, на и у помогают описывать базовое расположение.",["Я в школе.","Книга на столе.","Я у дома."]),
+_g("basic-cases","Базовые падежные модели","Использовать формы в простых ситуациях.","На A1 полезно освоить готовые модели места, направления и объекта.",["Я иду в школу.","Я живу в Москве.","Я читаю книгу."]),
+_g("past-tense","Прошедшее время","Рассказывать о прошлом.","Прошедшее время образуется от основы инфинитива с формами рода и числа.",["Я был дома.","Она работала.","Мы читали."]),
+_g("future-tense","Будущее время","Говорить о планах.","Составное будущее образуется с буду и инфинитивом.",["Я буду учиться.","Мы будем работать."]),
 ]

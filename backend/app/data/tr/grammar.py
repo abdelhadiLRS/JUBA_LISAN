@@ -1,16 +1,17 @@
-"""Türkçe grammar topics — initial CEFR foundation."""
+"""Türkçe A1 grammar — expanded learner-ready foundation."""
 from app.data._types import GrammarTopic, GrammarExample
+
+def _g(slug,title,summary,explanation,examples,rules=None):
+    return GrammarTopic(slug=slug,title=title,level="A1",category="core",summary=summary,explanation=explanation,structure=None,rules=rules or [],examples=[GrammarExample(text=x) for x in examples],common_mistakes=[],related=[])
+
 GRAMMAR_TOPICS = [
-GrammarTopic(slug="pronouns", title="Kişi zamirleri", level="A1", category="core", summary="Kişi zamirleri", explanation="Core Kişi zamirleri.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="nominal-sentence", title="İsim cümleleri", level="A1", category="core", summary="İsim cümleleri", explanation="Core İsim cümleleri.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="present-progressive", title="Şimdiki zaman", level="A1", category="core", summary="Şimdiki zaman", explanation="Core Şimdiki zaman.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="past-tense", title="Geçmiş zaman", level="A2", category="core", summary="Geçmiş zaman", explanation="Core Geçmiş zaman.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="future-tense", title="Gelecek zaman", level="A2", category="core", summary="Gelecek zaman", explanation="Core Gelecek zaman.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="cases", title="Hâl ekleri", level="B1", category="core", summary="Hâl ekleri", explanation="Core Hâl ekleri.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="conditionals", title="Koşul cümleleri", level="B1", category="core", summary="Koşul cümleleri", explanation="Core Koşul cümleleri.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="passive", title="Edilgen yapı", level="B2", category="core", summary="Edilgen yapı", explanation="Core Edilgen yapı.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="reported-speech", title="Dolaylı anlatım", level="B2", category="core", summary="Dolaylı anlatım", explanation="Core Dolaylı anlatım.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="academic-register", title="Akademik dil", level="C1", category="core", summary="Akademik dil", explanation="Core Akademik dil.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="discourse", title="Söylem ve üslup", level="C2", category="core", summary="Söylem ve üslup", explanation="Core Söylem ve üslup.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
-GrammarTopic(slug="style", title="Üslup ve ifade", level="C2", category="core", summary="Üslup ve ifade", explanation="Core Üslup ve ifade.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[])
+    _g("pronouns","Kişi zamirleri","Ben, sen, o ve çoğul kişi zamirlerini kullanma.","Türkçede kişi zamirleri özneyi belirtir; günlük konuşmada fiil eki de kişiyi gösterebilir.",["Ben öğrenciyim.","Sen öğretmensin.","O Ankara'da."],[ "Ben / sen / o / biz / siz / onlar temel kişi zamirleridir."]),
+    _g("nominal-sentence","İsim cümleleri","İsim ve sıfatlarla temel cümleler kurma.","Türkçede şimdiki zamanda isim cümlelerinde kişi ekleri kullanılır.",["Ben öğrenciyim.","Sen yorgunsun.","Biz hazırız."],[ "Ben öğrenciyim; sen öğrencisin; o öğrenci."]),
+    _g("vowel-harmony","Ünlü uyumu","Ekleri kelimenin ses yapısına göre seçme.","Türkçedeki birçok ek, kelimedeki son ünlünün özelliklerine göre biçim değiştirir.",["evler","kitaplar","günler"],["Çoğul eki -ler/-lar, son ünlüye göre değişir."]),
+    _g("possessive","İyelik ekleri","Sahiplik ifade etme.","İyelik ekleri bir şeyin kime ait olduğunu gösterir.",["Benim adım Ayşe.","Bu benim kitabım.","Onun evi Ankara'da."],["Benim kitabım; senin kitabın; onun kitabı."]),
+    _g("plural","Çoğul eki","İsimleri çoğul yapma.","İsimlerin çoğulu temel olarak -ler veya -lar ekiyle yapılır.",["kitaplar","evler","öğrenciler"],["-lar ve -ler ekleri ünlü uyumuna göre seçilir."]),
+    _g("present-progressive","Şimdiki zaman","Şu anda olan eylemleri anlatma.","-iyor yapısı devam eden eylemleri anlatmak için kullanılır ve kişi ekleri alır.",["Ben Türkçe öğreniyorum.","Sen ne yapıyorsun?","O çalışıyor."],["Fiil + -iyor + kişi eki temel kalıptır."]),
+    _g("question-particle","Soru eki mi","Evet-hayır soruları kurma.","mi soru parçacığı ayrı yazılır ve sonraki kişi eki ona bağlanır.",["Öğrenci misin?","Hazır mısın?","Türk müsünüz?"],["mi/mı/mu/mü ayrı yazılır."]),
+    _g("negation","Olumsuzluk","Temel cümleleri olumsuz yapma.","Fiillerde -me/-ma, isim cümlelerinde değil kullanılır.",["Türkçe bilmiyorum.","Meşgul değilim.","O burada değil."],["Fiil: gelmiyorum. İsim/sıfat: değilim."]),
+    _g("basic-cases","Temel hâl ekleri","Yer, yönelme ve belirtme ilişkilerini ifade etme.","A1 düzeyinde -e/-a, -de/-da ve -i/-ı/-u/-ü ekleriyle temel ilişkiler kurulur.",["Okula gidiyorum.","Evdeyim.","Kahveyi içiyorum."],["Ek seçimi ünlü uyumu ve ses uyumlarına bağlıdır."]),
 ]
