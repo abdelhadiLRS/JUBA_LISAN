@@ -133,7 +133,10 @@
     "nativeHelpPhraseNotes": "Phrase notes",
     "nativeHelpStudyTips": "Study tips",
     "nativeHelpWordNotes": "Word notes",
-    "nativeHelpPractice": "Practice"
+    "nativeHelpPractice": "Practice",
+    "contact": "Contact",
+    "menu": "Menu",
+    "logoutConfirm": "Are you sure you want to log out?"
   },
   "nav": {
     "home": "Home",
