@@ -836,3 +836,17 @@ html[data-theme='dark'] {
     border-radius: 22px !important;
   }
 }
+
+
+.juba-mobile-conversation {
+  width: 100%;
+  max-width: var(--j-shell-content);
+  margin-inline: auto;
+  min-height: calc(100svh - 78px);
+  padding: 24px clamp(14px, 3vw, 42px) 72px;
+  color: var(--juba-text);
+}
+.juba-mobile-conversation > * { min-width: 0; }
+@media (max-width: 700px) {
+  .juba-mobile-conversation { min-height: calc(100svh - 70px); padding: 16px 12px 44px; }
+}
