@@ -81,3 +81,22 @@
   .game-card:nth-child(4n+3){background:linear-gradient(145deg,#fff,#e9fbf3)}
   .game-card:nth-child(4n){background:linear-gradient(145deg,#fff,#fff0ec)}
 }
+
+
+/* Final desktop/mobile alignment with the shared JUBA LISAN surface system. */
+.juba-games{
+  color:var(--juba-ink);
+  background:var(--juba-app-bg,#fbfaf4);
+}
+.games-header{
+  background:linear-gradient(135deg,#5a9b32 0%,#78b94b 62%,#9bd66d 100%);
+  box-shadow:var(--j-shell-shadow);
+}
+.game-card,.games-panel,.play-card,.stats-grid>div{
+  border-color:rgba(37,48,42,.12);
+  box-shadow:var(--j-shell-shadow);
+}
+.game-card:hover{box-shadow:0 12px 0 rgba(37,48,42,.10);}
+.start{color:var(--juba-violet-dark);}
+.next{background:var(--juba-violet);box-shadow:0 5px 0 var(--juba-violet-dark);}
+.choice:hover,.choice.selected{border-color:var(--juba-violet);background:var(--juba-lilac);}
