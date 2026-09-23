@@ -90,7 +90,7 @@ export default function SettingsPage() {
         <SettingsPanel id="account" title={t('sectionAccount')}>
           <ProfileSection title={t('cardProfileAccess')} />
 
-          <div className="border-[var(--juba-lilac)] bg-white rounded-[28px] border p-6">
+          <div className="juba-panel">
             <p className="text-[var(--juba-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
               {t('cardSessionSecurity')}
             </p>
