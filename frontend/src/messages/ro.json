@@ -686,6 +686,7 @@
     "hintPrefix": "Indiciu: ",
     "retryEasier": "Reîncearcă mai ușor",
     "checking": "Se verifică…",
+"answerError": "Nu am putut verifica răspunsul. Încearcă din nou.",
     "next": "Următorul",
     "finish": "Finalizează lecția",
     "completed": "Finalizată",
