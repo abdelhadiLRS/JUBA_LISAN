@@ -208,7 +208,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
       if (!res.ok) throw new Error('hint_failed')
       const data: { native_hint: string } = await res.json()
       setNativeHint(data.native_hint)
-    } catch { /* keep exercise usable when hint generation is unavailable */ } finally { setLoadingHint(false) }
+    } catch { setActionError(true) } finally { setLoadingHint(false) }
   }
 
   const loadNativeExplanation = async () => {
@@ -220,7 +220,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
       if (!res.ok) throw new Error('explanation_failed')
       const data: { native_explanation: string } = await res.json()
       setNativeExplanation(data.native_explanation)
-    } catch { /* keep exercise usable when explanation generation is unavailable */ } finally { setLoadingExplanation(false) }
+    } catch { setActionError(true) } finally { setLoadingExplanation(false) }
   }
 
   useEffect(() => {
