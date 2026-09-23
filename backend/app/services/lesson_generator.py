@@ -197,8 +197,6 @@ async def generate_lesson(
         topic=topic,
         unit_id=unit_id,
     )
-    if scheduled is not None and hasattr(lesson, "objective"):
-        lesson.objective = scheduled["objective"]
     return lesson
 
 
