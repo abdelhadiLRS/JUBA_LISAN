@@ -155,6 +155,7 @@ async def generate_lesson(
         vocabulary_set_ids = scheduled["vocabulary_set_ids"]
         unit_id = scheduled["unit_id"]
 
+    scheduled_objective = ""
     seed = (
         get_arabic_a1_content_seed(f"a1-u{unit_id.split('-')[-1]}-w{week}-d{day}")
         if target_language == "ar" and cefr_level == "A1" and unit_id.startswith("a1-unit-")
@@ -169,6 +170,9 @@ async def generate_lesson(
             "model_sentences": seed.model_sentences,
             "comprehension_prompt": seed.comprehension_prompt,
             "production_prompt": seed.production_prompt,
+            "course_objective": scheduled_objective,
+            "grammar_points": grammar_points or [],
+            "vocabulary_set_ids": vocabulary_set_ids or [],
         }, ensure_ascii=False)
     target_language_name = get_language_name(target_language)
     native_language_name = get_native_language_name(native_language) if native_language else "none"
