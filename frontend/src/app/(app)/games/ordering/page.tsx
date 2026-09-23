@@ -77,7 +77,7 @@ export default function OrderingGamePage() {
 
   return (
     <main className="juba-games" dir={lang === 'ar' ? 'rtl' : 'ltr'}><div className="games-shell">
-      <div className="mb-4 flex flex-wrap items-center gap-2">
+      <div className="mb-3 flex flex-wrap items-center gap-2 rounded-[20px] bg-white/80 p-2 shadow-sm backdrop-blur-sm">
         {(['ar', 'fr', 'en'] as const).map((value) => (
           <button key={value} type="button" onClick={() => setLang(value)} className="rounded-full border px-3 py-1.5 text-sm">
             {value.toUpperCase()}
