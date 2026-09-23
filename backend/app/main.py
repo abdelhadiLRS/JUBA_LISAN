@@ -120,7 +120,7 @@ from app.routers import (
     admin, admin_dashboard_banner, ai_tutor, assessment, auth, chat, contact,
     conversation, curriculum, dashboard_banner, feedback, flashcards, freemium,
     grammar, languages, lessons, listening, memories, phrasebook, progress,
-    reading, reviews, stt, study_plan, tts, vocabulary,
+    reading, reviews, social, stt, study_plan, tts, vocabulary,
 )
 from app.routers import config as config_router
 from app.routers import health as health_router
@@ -154,6 +154,7 @@ app.include_router(phrasebook.router)
 app.include_router(languages.router)
 app.include_router(health_router.router)
 app.include_router(vocabulary.router)
+app.include_router(social.router)
 app.include_router(community_router.router)
 
 if settings.STRIPE_ENABLED:
