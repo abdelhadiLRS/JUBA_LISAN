@@ -128,7 +128,6 @@ body:has(.juba-site-nav) .juba-mobile-menu .juba-nav-link,
 body:has(.juba-site-nav) .juba-mobile-menu .juba-nav-signin { color: var(--juba-landing-ink) !important; }
 
 @media (max-width: 640px) {
-  .juba-container { width: min(100% - 1.25rem, 1120px); }
   .juba-card { border-radius: var(--juba-radius-md); }
   body:has(.juba-site-nav) .juba-site-nav,
   body:has(.juba-site-nav) .juba-site-nav > div { height: 64px; }
