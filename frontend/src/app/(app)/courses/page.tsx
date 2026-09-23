@@ -6,6 +6,7 @@ import { ArrowRight, BookOpen, CheckCircle2, Headphones, LockKeyhole, Mic2, Spar
 import { apiFetch } from '@/lib/api'
 import { CEFR_LEVELS, getCurriculumUnits, type CEFRLevel, type CurriculumUnit } from '@/data/curriculum'
 import { useLanguageStore } from '@/store/language'
+import { useLearningProgressSync } from '@/hooks/use-learning-progress'
 
 interface StudyPlan {
   cefr_level: CEFRLevel
@@ -57,6 +58,7 @@ export default function CoursesPage() {
   const [levelUnits, setLevelUnits] = useState<Record<CEFRLevel, CurriculumUnit[]>>({} as Record<CEFRLevel, CurriculumUnit[]>)
   const [journeyUnits, setJourneyUnits] = useState<Record<string, { id: string; progress: number; state: string; lessons?: Array<{ id: number; is_completed: boolean; state: string }> }>>({})
   const [loading, setLoading] = useState(true)
+  const [progressRefresh, setProgressRefresh] = useState(0)
 
   useEffect(() => {
     let cancelled = false
@@ -109,7 +111,11 @@ export default function CoursesPage() {
 
     void load()
     return () => { cancelled = true }
-  }, [activeLanguage?.code])
+  }, [activeLanguage?.code, progressRefresh]
+
+  useLearningProgressSync(() => {
+    setProgressRefresh((value) => value + 1)
+  })
 
   const currentLevel = plan?.cefr_level ?? null
   const currentIndex = currentLevel ? CEFR_LEVELS.indexOf(currentLevel) : 0
