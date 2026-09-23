@@ -25,11 +25,26 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const tNav = useTranslations('nav'); const tCommon = useTranslations('common'); const tBilling = useTranslations('billing'); const pathname = usePathname(); const router = useRouter()
   const user = useAuthStore((s) => s.user); const xp = useProgressStore((s) => s.xp); const accessToken = useAuthStore((s) => s.accessToken); const setProgress = useProgressStore((s) => s.setProgress); const setUser = useAuthStore((s) => s.setUser); const logout = useAuthStore((s) => s.logout); const handleLogout = useLogout(); const [initializing, setInitializing] = useState(true); const loadConfig = useConfigStore((s) => s.load); const [logoutConfirm, setLogoutConfirm] = useState(false); const [menuOpen, setMenuOpen] = useState(false); const [contactOpen, setContactOpen] = useState(false); const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
   const mainNavItems = [
-    { href: '/dashboard', label: tNav('home') }, { href: '/plan', label: tNav('myPlan') }, { href: '/progress', label: tNav('progress') },
-    { href: '/games', label: tNav('games') }, { href: '/flashcards', label: tNav('flashcards') }, { href: '/friends', label: 'Friends' }, { href: '/chat', label: tNav('tutor') },
-    { href: '/listening', label: tNav('listening') }, { href: '/reading', label: tNav('reading') }, { href: '/conversation', label: tNav('conversation') }, { href: '/assessment', label: tNav('assessment') }
+    { href: '/dashboard', label: tNav('home') },
+    { href: '/plan', label: tNav('myPlan') },
+    { href: '/progress', label: tNav('progress') },
+    { href: '/games', label: tNav('games') },
+    { href: '/flashcards', label: tNav('flashcards') },
+    { href: '/friends', label: 'Friends' },
+    { href: '/chat', label: tNav('tutor') },
   ]
-  const resourceNavItems = [{ href: '/grammar', label: tNav('grammar') }, { href: '/vocabulary', label: tNav('vocabulary') }, { href: '/phrasebook', label: tNav('phrasebook') }, { href: '/settings', label: tNav('settings') }, { href: '/faq', label: tNav('faq') }, { href: '/feedback', label: tNav('feedback') }]
+  const resourceNavItems = [
+    { href: '/listening', label: tNav('listening') },
+    { href: '/reading', label: tNav('reading') },
+    { href: '/conversation', label: tNav('conversation') },
+    { href: '/assessment', label: tNav('assessment') },
+    { href: '/grammar', label: tNav('grammar') },
+    { href: '/vocabulary', label: tNav('vocabulary') },
+    { href: '/phrasebook', label: tNav('phrasebook') },
+    { href: '/settings', label: tNav('settings') },
+    { href: '/faq', label: tNav('faq') },
+    { href: '/feedback', label: tNav('feedback') },
+  ]
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled); const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled); const [trialDaysLeft, setTrialDaysLeft] = useState(0)
   async function handleResendVerification() { const res = await apiFetch('/api/auth/resend-verification', { method: 'POST' }); if (res.ok) window.location.reload() }
   useEffect(() => { async function init() { loadConfig(); try { if (!accessToken) { const token = await refreshAuthSession(); if (!token) { router.push('/login'); return } } const meRes = await apiFetch('/api/auth/me'); if (!meRes.ok) { logout(); router.push('/login'); return } const me = await meRes.json(); const mappedUser = mapUser(me); setUser(mappedUser); if (mappedUser.role === 'admin' && !pathname.startsWith('/admin')) { router.replace('/admin'); return } if (mappedUser.role !== 'admin' && pathname.startsWith('/admin')) { router.replace('/dashboard'); return } if (mappedUser.role === 'admin') { setInitializing(false); return }
