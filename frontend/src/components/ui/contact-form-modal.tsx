@@ -83,10 +83,10 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
       onClick={onClose}
     >
       <div
-        className="juba-card w-full max-w-md overflow-hidden border shadow-[var(--juba-shadow)]"
+        className="juba-card w-full max-w-md overflow-hidden border-2 border-[var(--juba-border)] shadow-[5px_5px_0_var(--juba-border)]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-3 border-b border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-6 py-4">
+        <div className="flex items-center gap-3 border-b-2 border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-6 py-4">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--juba-primary-soft)] text-sm text-[var(--juba-primary-dark)]" aria-hidden="true">
             ●
           </span>
@@ -95,7 +95,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
           </span>
           <button
             onClick={onClose}
-            className="rounded-lg px-2 py-1 text-[var(--juba-muted)] transition hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)]"
+            className="rounded-xl border-2 border-transparent px-2 py-1 text-[var(--juba-muted)] transition hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)]"
             aria-label={tCommon('close')}
           >
             ✕
@@ -119,7 +119,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isLoading}
-                  className="rounded-xl border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-3 py-2.5 text-sm text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] transition focus:border-[var(--juba-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-primary)]/30 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-xl border-2 border-[var(--juba-border)] bg-[var(--juba-surface-soft)] shadow-[2px_2px_0_var(--juba-border)] px-3 py-2.5 text-sm text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] transition focus:border-[var(--juba-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-primary)]/30 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderEmail')}
                 />
               </div>
@@ -147,7 +147,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   disabled={isLoading}
-                  className="min-h-[120px] resize-y rounded-xl border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-3 py-2.5 text-sm leading-6 text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] transition focus:border-[var(--juba-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-primary)]/30 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="min-h-[120px] resize-y rounded-xl border-2 border-[var(--juba-border)] bg-[var(--juba-surface-soft)] shadow-[2px_2px_0_var(--juba-border)] px-3 py-2.5 text-sm leading-6 text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] transition focus:border-[var(--juba-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-primary)]/30 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderDescription')}
                 />
               </div>
@@ -159,19 +159,19 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
               )}
             </div>
 
-            <div className="flex gap-3 border-t border-[var(--juba-border-soft)] bg-[var(--juba-surface-soft)] px-6 py-4">
+            <div className="flex gap-3 border-t-2 border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-6 py-4">
               <button
                 type="button"
                 onClick={onClose}
                 disabled={isLoading}
-                className="flex-1 rounded-xl border border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2.5 text-sm font-semibold text-[var(--juba-muted)] transition hover:border-[var(--juba-primary)] hover:text-[var(--juba-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)] disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex-1 rounded-xl border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] shadow-[2px_2px_0_var(--juba-border)] px-4 py-2.5 text-sm font-semibold text-[var(--juba-muted)] transition hover:border-[var(--juba-primary)] hover:text-[var(--juba-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {tCommon('cancel')}
               </button>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="flex-1 rounded-xl bg-[var(--juba-primary-dark)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex-1 rounded-xl border-2 border-[var(--juba-border)] bg-[var(--juba-primary-dark)] shadow-[3px_3px_0_var(--juba-border)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isLoading ? (
                   <>
