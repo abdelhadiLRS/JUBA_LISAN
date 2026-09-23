@@ -175,13 +175,17 @@ export default function PlanPage() {
       }
 
       const [planData, journey, compData, todayData, pendingData, generatedLessons] = await Promise.all([
-        planRes.json() as Promise<StudyPlan>,
-        journeyRes?.ok ? journeyRes.json() as Promise<LearningJourneyResponse> : Promise.resolve(null),
-        compRes?.ok ? compRes.json() : Promise.resolve(null),
-        todayRes?.ok ? todayRes.json() as Promise<{ lessons: TodayLesson[] }> : Promise.resolve(null),
-        pendingRes?.ok ? pendingRes.json() as Promise<PendingLesson[]> : Promise.resolve(null),
-        lessonsRes?.ok ? lessonsRes.json() as Promise<PlanLesson[]> : Promise.resolve(null),
+        readJsonOrNull<StudyPlan>(planRes),
+        readJsonOrNull<LearningJourneyResponse>(journeyRes),
+        readJsonOrNull<unknown>(compRes),
+        readJsonOrNull<{ lessons: TodayLesson[] }>(todayRes),
+        readJsonOrNull<PendingLesson[]>(pendingRes),
+        readJsonOrNull<PlanLesson[]>(lessonsRes),
       ])
+
+      if (!planData) {
+        throw new Error('Failed to parse learning plan') 
+      }
 
       if (cancelled || requestId !== loadRequestRef.current) return
 
@@ -535,4 +539,13 @@ export default function PlanPage() {
       )}
     </div>
   )
+}async function readJsonOrNull<T>(response: Response | null): Promise<T | null> {
+  if (!response?.ok) return null
+  try {
+    return (await response.json()) as T
+  } catch {
+    return null
+  }
 }
+
+
