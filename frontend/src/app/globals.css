@@ -156,6 +156,22 @@ button,a{ -webkit-tap-highlight-color:transparent }
 .juba-app-nav-link:hover{background:var(--juba-lilac);color:var(--juba-violet-dark);transform:translateY(-1px)}
 .juba-app-nav-link.is-active{background:var(--juba-yellow);color:var(--juba-ink);box-shadow:0 2px 0 color-mix(in srgb,var(--juba-ink) 12%,transparent)}
 .juba-app-nav-actions{margin-inline-start:auto;display:flex;align-items:center;gap:7px;flex:0 0 auto}
+.juba-app-brand-copy{display:flex;flex-direction:column;line-height:.9;gap:2px}
+.juba-app-brand-copy strong{font-size:15px;letter-spacing:.04em}
+.juba-app-brand-copy small{font-size:8px;letter-spacing:.28em;color:var(--juba-muted);font-weight:900}
+.juba-resource-strip{border-top:1px solid color-mix(in srgb,var(--juba-border) 72%,transparent);background:color-mix(in srgb,var(--juba-surface-soft) 92%,transparent)}
+.juba-resource-strip-inner{width:min(100%,var(--j-shell-content));min-height:42px;margin:auto;padding:0 clamp(14px,3vw,34px);box-sizing:border-box;display:flex;align-items:center;gap:12px}
+.juba-resource-label{font-size:9px;letter-spacing:.14em;font-weight:950;color:var(--juba-primary-dark);padding-inline-end:8px;border-inline-end:1px solid var(--juba-border)}
+.juba-resource-strip nav{display:flex;align-items:center;gap:2px;min-width:0;flex:1;overflow-x:auto;scrollbar-width:none}
+.juba-resource-strip nav::-webkit-scrollbar{display:none}
+.juba-resource-strip .juba-app-nav-link{min-height:34px;padding:0 9px;font-size:11px}
+.juba-resource-strip .juba-app-nav-link.is-active{background:var(--juba-surface);color:var(--juba-primary-dark);box-shadow:inset 0 -2px 0 var(--juba-primary)}
+.juba-resource-tools{display:flex;align-items:center;gap:5px;margin-inline-start:auto}
+.juba-resource-tools button{border:0;background:transparent;color:var(--juba-muted);font-size:10px;font-weight:800;cursor:pointer;padding:6px 7px;border-radius:8px}
+.juba-resource-tools button:hover{background:var(--juba-primary-soft);color:var(--juba-primary-dark)}
+@media(max-width:1120px){
+  .juba-resource-strip{display:none}
+}
 .juba-xp-pill{
   display:inline-flex;align-items:center;min-height:38px;padding:0 11px;border-radius:var(--juba-radius-pill);
   background:var(--juba-mint);color:var(--juba-ink);font-size:11px;font-weight:900
