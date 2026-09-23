@@ -179,7 +179,7 @@ export default function OnboardingPage() {
         : t(trialEligible ? 'trialHeadline' : 'trialHeadlineTrialUsed')
 
   return (
-    <div className="bg-[var(--juba-bg)] bg-[radial-gradient(circle_at_top_right,var(--juba-lilac)_0,transparent_32%),radial-gradient(circle_at_bottom_left,var(--juba-sky)_0,transparent_28%)] flex min-h-screen items-center justify-center px-4 py-10">
+    <div className="juba-auth-mobile juba-onboarding-mobile bg-[var(--juba-bg)] bg-[radial-gradient(circle_at_top_right,var(--juba-lilac)_0,transparent_32%),radial-gradient(circle_at_bottom_left,var(--juba-sky)_0,transparent_28%)] flex min-h-screen items-center justify-center px-4 py-10">
       <div className="w-full max-w-md">
         {/* Brand header */}
         <div className="mb-8 flex flex-col items-center">
