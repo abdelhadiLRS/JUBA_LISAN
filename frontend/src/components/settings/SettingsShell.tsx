@@ -1,6 +1,6 @@
 'use client'
 
-import { type ReactNode } from 'react'
+import { type CSSProperties, type ReactNode } from 'react'
 import Link from 'next/link'
 import { ChevronRight, type LucideIcon } from 'lucide-react'
 
@@ -51,7 +51,7 @@ export function SettingsNav({
             style={
               {
                 '--tw-ring-color': 'var(--juba-violet)',
-              } as React.CSSProperties
+              } as CSSProperties
             }
           >
             <Icon className="size-3.5" aria-hidden="true" />
@@ -100,7 +100,7 @@ export function SettingsActionCard({
   return (
     <Link
       href={href}
-      className="border-[var(--juba-border)] bg-[var(--juba-surface)] hover:border-[var(--juba-border)] group block rounded-2xl border p-5 transition-all hover:shadow-[var(--juba-shadow-sm)]"
+      className="border-[var(--juba-border)] bg-[var(--juba-surface)] group block rounded-2xl border p-5 transition-all hover:shadow-[var(--juba-shadow-sm)]"
     >
       <div className="mb-4 flex items-center justify-between gap-3">
         <span
