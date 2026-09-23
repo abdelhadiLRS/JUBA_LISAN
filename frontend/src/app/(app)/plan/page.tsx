@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { PageLoading } from '@/components/ui/page-loading'
@@ -147,8 +147,11 @@ export default function PlanPage() {
     Record<string, Pick<Lesson, 'id' | 'completed' | 'action'>>
   >({})
   const [units, setUnits] = useState<CurriculumUnit[]>([])
+  const loadRequestRef = useRef(0)
 
   const loadPlan = useCallback(async () => {
+    const requestId = ++loadRequestRef.current
+    let cancelled = false
     setLoading(true)
     setError('')
     try {
@@ -171,6 +174,7 @@ export default function PlanPage() {
       }
 
       const planData = (await planRes.json()) as StudyPlan
+      if (cancelled || requestId !== loadRequestRef.current) return
       setPlan(planData)
 
       if (journeyRes?.ok) {
@@ -256,11 +260,12 @@ export default function PlanPage() {
 
       setLessonStates(states)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load')
+      if (!cancelled && requestId === loadRequestRef.current) setError(err instanceof Error ? err.message : 'Failed to load')
     } finally {
-      setLoading(false)
+      if (!cancelled && requestId === loadRequestRef.current) setLoading(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- re-fetch when active language changes
+    return () => { cancelled = true }
   }, [router, activeLanguage?.code])
 
   useEffect(() => {
