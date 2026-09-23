@@ -82,31 +82,77 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </div>
     )
   }
-  return <><LearningProgressBridge /><div className="juba-app-shell"><header className="juba-app-nav">
-  <div className="juba-app-nav-inner">
-    <Link href="/dashboard" className="juba-app-brand" aria-label="JUBA LISAN">
-      <span className="juba-brand-mark">JL</span>
-      <span className="juba-app-brand-copy"><strong>JUBA</strong><small>LISAN</small></span>
-    </Link>
-    <nav className="juba-app-nav-links" aria-label="Main navigation">{navLinks}</nav>
-    <div className="juba-app-nav-actions">
-      <span className="juba-xp-pill">✦ {Math.floor(xp || 0)} XP</span>
-      <LanguageSwitcher />
-      <button type="button" className="juba-app-menu-button" onClick={() => setMenuOpen((v) => !v)} aria-label={menuOpen ? tCommon('close') : tCommon('menu')}>
-        {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-      </button>
-    </div>
-  </div>
-  <div className="juba-resource-strip">
-    <div className="juba-resource-strip-inner">
-      <span className="juba-resource-label">LEARN</span>
-      <nav aria-label="Learning resources">{resourceLinks}</nav>
-      <div className="juba-resource-tools">
-        <button type="button" onClick={() => setContactOpen(true)}>{tCommon('contact')}</button>
-        <button type="button" onClick={() => setLogoutConfirm(true)}>{tCommon('logout')}</button>
+  return (
+    <>
+      <LearningProgressBridge />
+      <div className="juba-app-shell">
+        <aside className="juba-sidebar" aria-label="JUBA LISAN navigation">
+          <div className="juba-sidebar-top">
+            <Link href="/dashboard" className="juba-sidebar-brand" aria-label="JUBA LISAN">
+              <span className="juba-brand-mark">JL</span>
+              <span className="juba-sidebar-brand-copy"><strong>JUBA</strong><small>LISAN</small></span>
+            </Link>
+          </div>
+          <div className="juba-sidebar-scroll">
+            <div className="juba-sidebar-section">
+              <span className="juba-sidebar-label">LEARN</span>
+              <nav className="juba-sidebar-nav" aria-label="Main navigation">{navLinks}</nav>
+            </div>
+            <div className="juba-sidebar-section">
+              <span className="juba-sidebar-label">PRACTICE</span>
+              <nav className="juba-sidebar-nav" aria-label="Learning resources">{resourceLinks}</nav>
+            </div>
+          </div>
+          <div className="juba-sidebar-bottom">
+            <button type="button" className="juba-sidebar-action" onClick={() => setContactOpen(true)}>{tCommon('contact')}</button>
+            <button type="button" className="juba-sidebar-action" onClick={() => setLogoutConfirm(true)}>{tCommon('logout')}</button>
+          </div>
+        </aside>
+
+        <div className="juba-app-content">
+          <header className="juba-topbar">
+            <div className="juba-topbar-inner">
+              <button type="button" className="juba-mobile-menu-button" onClick={() => setMenuOpen((v) => !v)} aria-label={menuOpen ? tCommon('close') : tCommon('menu')}>
+                {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+              <div className="juba-topbar-title">
+                <span>{mainNavItems.find((item) => isActive(item.href))?.label || resourceNavItems.find((item) => isActive(item.href))?.label || 'JUBA LISAN'}</span>
+                <small>JUBA LISAN</small>
+              </div>
+              <div className="juba-topbar-actions">
+                <span className="juba-xp-pill">✦ {Math.floor(xp || 0)} XP</span>
+                <LanguageSwitcher />
+                <button type="button" className="juba-avatar-button" onClick={() => router.push('/settings')} aria-label="Open settings">
+                  <span>{(user?.displayName || user?.username || 'J').slice(0,1).toUpperCase()}</span>
+                </button>
+              </div>
+            </div>
+          </header>
+
+          {menuOpen && (
+            <div className="juba-mobile-drawer">
+              <div className="juba-mobile-drawer-head">
+                <div className="juba-sidebar-brand">
+                  <span className="juba-brand-mark">JL</span>
+                  <span className="juba-sidebar-brand-copy"><strong>JUBA</strong><small>LISAN</small></span>
+                </div>
+                <button type="button" className="juba-icon-button" onClick={() => setMenuOpen(false)} aria-label={tCommon('close')}><X className="h-5 w-5" /></button>
+              </div>
+              <nav className="juba-mobile-drawer-nav" aria-label="Mobile navigation">{navLinks}{resourceLinks}</nav>
+              <div className="juba-mobile-drawer-actions">
+                <button type="button" className="juba-secondary-button" onClick={() => setContactOpen(true)}>{tCommon('contact')}</button>
+                <button type="button" className="juba-secondary-button" onClick={() => setLogoutConfirm(true)}>{tCommon('logout')}</button>
+              </div>
+            </div>
+          )}
+
+          <main className="juba-workspace-main">{children}</main>
+        </div>
+
+        <ConfirmDialog open={logoutConfirm} title={tCommon('logout')} message={tCommon('logoutConfirm')} confirmLabel={tCommon('logout')} onCancel={() => setLogoutConfirm(false)} onConfirm={() => handleLogout()} />
+        <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
+        <LoadingBar />
       </div>
-    </div>
-  </div>
-  {menuOpen && <div className="juba-app-drawer"><div className="juba-app-drawer-inner">{navLinks}{resourceLinks}<button type="button" onClick={() => setContactOpen(true)} className="juba-app-nav-link">{tCommon('contact')}</button><button type="button" onClick={() => setLogoutConfirm(true)} className="juba-app-nav-link">{tCommon('logout')}</button></div></div>}
-</header><main className="juba-workspace-main">{children}</main><ConfirmDialog open={logoutConfirm} title={tCommon('logout')} message={tCommon('logoutConfirm')} confirmLabel={tCommon('logout')} onCancel={() => setLogoutConfirm(false)} onConfirm={() => handleLogout()} /><ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} /><LoadingBar /></div></>
+    </>
+  )
 }
