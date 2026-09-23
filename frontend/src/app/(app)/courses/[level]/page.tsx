@@ -33,6 +33,9 @@ export default function CourseLevelPage() {
     let cancelled = false
     async function load() {
       setLoading(true)
+      setUnits([])
+      setPlan(null)
+      setJourneyUnits({})
       try {
         const language = activeLanguage?.code ?? 'en-GB'
         const [curriculum, planRes, journeyRes] = await Promise.all([
