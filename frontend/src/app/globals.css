@@ -1665,3 +1665,175 @@ main [dir="rtl"] h3,
   .juba-ff-reference .juba-ff-book{min-height:310px}
   .juba-ff-reference .juba-ff-book .book-art{height:165px}
 }
+
+
+/* Funfluent fidelity pass 3 — floating navigation, hero-to-shelf transition, footer finish. */
+.juba-ff-reference .juba-ff-site-nav{
+  position:sticky;
+  top:12px;
+  width:min(1240px,calc(100% - 28px));
+  margin:12px auto 0;
+  border:2px solid var(--ff-ink);
+  border-radius:18px;
+  background:rgba(255,253,248,.9);
+  box-shadow:5px 5px 0 var(--ff-ink);
+  backdrop-filter:blur(16px);
+}
+.juba-ff-reference .juba-ff-nav-inner{
+  height:68px;
+  max-width:none;
+  padding-left:18px;
+  padding-right:18px;
+}
+.juba-ff-reference .juba-ff-brand-mark{
+  width:42px;
+  height:42px;
+  border:2px solid var(--ff-ink);
+  border-radius:12px;
+  box-shadow:3px 3px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-brand-name{
+  font-size:17px;
+  letter-spacing:-.045em;
+}
+.juba-ff-reference .juba-ff-nav-link{
+  color:var(--ff-ink);
+  font-size:11px;
+  font-weight:850;
+  letter-spacing:-.01em;
+}
+.juba-ff-reference .juba-ff-nav-link:hover{
+  color:var(--ff-green);
+  transform:translateY(-1px);
+}
+.juba-ff-reference .juba-ff-nav-signin{
+  color:var(--ff-ink);
+  font-size:11px;
+  font-weight:850;
+}
+.juba-ff-reference .juba-ff-nav-cta{
+  background:var(--ff-yellow);
+  color:var(--ff-ink);
+  border:2px solid var(--ff-ink);
+  border-radius:11px;
+  box-shadow:3px 3px 0 var(--ff-ink);
+  padding:10px 16px;
+}
+.juba-ff-reference .juba-ff-nav-cta:hover{
+  transform:translate(-1px,-1px);
+  box-shadow:4px 4px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-menu{
+  border:2px solid var(--ff-ink);
+  background:var(--ff-yellow);
+  box-shadow:2px 2px 0 var(--ff-ink);
+}
+
+.juba-ff-reference .juba-ff-hero{
+  margin-top:-2px;
+  border-top:0;
+}
+.juba-ff-reference .juba-ff-hero::after{
+  content:"";
+  position:absolute;
+  z-index:7;
+  left:-4%;
+  right:-4%;
+  bottom:-72px;
+  height:145px;
+  border-radius:50% 50% 0 0 / 100% 100% 0 0;
+  background:var(--ff-cream);
+  border-top:3px solid var(--ff-ink);
+  transform:rotate(-1deg);
+}
+.juba-ff-reference .juba-ff-wave{
+  z-index:8;
+  height:120px;
+}
+.juba-ff-reference .juba-ff-wave::before{
+  border-top:3px solid var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-books{
+  background:
+    radial-gradient(circle at 50% 0%,rgba(255,217,90,.18),transparent 360px),
+    var(--ff-cream);
+}
+.juba-ff-reference .juba-ff-books .juba-ff-section-head{
+  position:relative;
+  z-index:2;
+}
+.juba-ff-reference .juba-ff-book-shelf::before{
+  content:"";
+  position:absolute;
+  left:2%;
+  right:2%;
+  bottom:-18px;
+  height:20px;
+  border-radius:50%;
+  background:rgba(23,35,26,.12);
+  filter:blur(8px);
+}
+.juba-ff-reference .juba-ff-book:nth-child(1){transform:rotate(-4deg) translateY(12px)}
+.juba-ff-reference .juba-ff-book:nth-child(2){transform:rotate(-1.5deg) translateY(-2px)}
+.juba-ff-reference .juba-ff-book:nth-child(3){transform:rotate(2deg) translateY(10px)}
+.juba-ff-reference .juba-ff-book:nth-child(4){transform:rotate(4deg) translateY(-4px)}
+.juba-ff-reference .juba-ff-book:nth-child(n):hover{
+  transform:translateY(-12px) rotate(0deg);
+}
+
+.juba-ff-reference .juba-ff-footer{
+  position:relative;
+  overflow:hidden;
+  padding-top:82px;
+  background:var(--ff-cream);
+  color:var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-footer::before{
+  content:"";
+  position:absolute;
+  width:420px;
+  height:180px;
+  left:-120px;
+  top:-110px;
+  border-radius:50%;
+  background:var(--ff-yellow);
+  border:3px solid var(--ff-ink);
+  transform:rotate(-8deg);
+  opacity:.85;
+}
+.juba-ff-reference .juba-ff-footer h4{
+  color:var(--ff-ink);
+  letter-spacing:.08em;
+  font-size:10px;
+}
+.juba-ff-reference .juba-ff-footer a{
+  color:#53645a;
+}
+.juba-ff-reference .juba-ff-footer a:hover{
+  color:var(--ff-green-dark);
+}
+.juba-ff-reference .juba-ff-footer > div{
+  position:relative;
+  z-index:1;
+}
+@media(max-width:900px){
+  .juba-ff-reference .juba-ff-site-nav{
+    width:calc(100% - 20px);
+    margin-top:10px;
+  }
+}
+@media(max-width:600px){
+  .juba-ff-reference .juba-ff-site-nav{
+    top:8px;
+    margin-top:8px;
+    border-radius:14px;
+  }
+  .juba-ff-reference .juba-ff-nav-inner{height:60px}
+  .juba-ff-reference .juba-ff-brand-name{font-size:15px}
+  .juba-ff-reference .juba-ff-brand-mark{width:38px;height:38px}
+  .juba-ff-reference .juba-ff-hero::after{height:85px;bottom:-46px}
+  .juba-ff-reference .juba-ff-wave{height:76px}
+  .juba-ff-reference .juba-ff-book-shelf{padding-bottom:20px}
+  .juba-ff-reference .juba-ff-book:nth-child(n){transform:none}
+  .juba-ff-reference .juba-ff-footer{padding-top:64px}
+}
