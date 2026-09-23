@@ -1,0 +1,189 @@
+/* JUBA LISAN — unified application shell
+ * A single visual layer for the authenticated workspace.
+ * It deliberately stays above page-specific styles so every module shares
+ * the same navigation, spacing, surfaces, focus states and responsive behavior.
+ */
+:root {
+  --j-shell-sidebar: 272px;
+  --j-shell-topbar: 68px;
+  --j-shell-content: 1440px;
+  --j-shell-radius: 18px;
+  --j-shell-shadow: 0 12px 35px rgba(20,18,23,.055);
+}
+
+.juba-app-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 88% 0%, color-mix(in srgb, var(--juba-primary) 10%, transparent), transparent 28rem),
+    var(--juba-bg);
+}
+
+.juba-desktop-sidebar {
+  width: var(--j-shell-sidebar);
+  background: color-mix(in srgb, var(--juba-surface) 96%, transparent);
+  border-inline-end: 1px solid var(--juba-border);
+  box-shadow: 1px 0 0 rgba(20,18,23,.015);
+}
+
+.juba-sidebar-brand {
+  min-height: var(--j-shell-topbar);
+  padding: 0 20px;
+  border-bottom: 1px solid var(--juba-border);
+}
+
+.juba-brand-mark {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: var(--juba-text) !important;
+  color: var(--juba-primary) !important;
+  font-weight: 900;
+  letter-spacing: -.05em;
+}
+
+.juba-sidebar-nav {
+  padding: 14px 12px;
+}
+
+.juba-sidebar-nav a,
+.juba-sidebar-nav button {
+  min-height: 42px;
+  border-radius: 12px;
+}
+
+.juba-sidebar-nav a[aria-current='page'] {
+  background: var(--juba-primary-soft) !important;
+  color: var(--juba-primary-dark) !important;
+  font-weight: 750;
+}
+
+.juba-sidebar-nav a[aria-current='page']::before {
+  content: '';
+  width: 3px;
+  height: 22px;
+  position: absolute;
+  inset-inline-start: 0;
+  border-radius: 999px;
+  background: var(--juba-primary-dark);
+}
+
+.juba-sidebar-nav a {
+  position: relative;
+}
+
+.juba-workspace {
+  min-width: 0;
+  background: var(--juba-bg);
+}
+
+.juba-topbar {
+  min-height: var(--j-shell-topbar);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px;
+  background: color-mix(in srgb, var(--juba-bg) 91%, transparent);
+  border-bottom: 1px solid var(--juba-border);
+  backdrop-filter: blur(18px);
+}
+
+.juba-topbar-search {
+  min-width: 220px;
+  max-width: 520px;
+  flex: 1;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 13px;
+  border: 1px solid var(--juba-border);
+  border-radius: 12px;
+  background: var(--juba-surface);
+  color: var(--juba-muted);
+}
+
+.juba-topbar-search kbd {
+  margin-inline-start: auto;
+  border: 1px solid var(--juba-border);
+  border-radius: 7px;
+  padding: 2px 6px;
+  font-size: 10px;
+  color: var(--juba-muted);
+}
+
+.juba-workspace-main {
+  width: min(100%, var(--j-shell-content));
+  margin-inline: auto;
+  padding: 28px clamp(16px, 2.5vw, 36px) 64px;
+}
+
+.juba-page-heading {
+  margin-bottom: 24px;
+}
+
+.juba-page-heading h1 {
+  color: var(--juba-text);
+  font-size: clamp(1.55rem, 2vw, 2.15rem);
+  font-weight: 800;
+  letter-spacing: -.045em;
+}
+
+.juba-page-heading p {
+  color: var(--juba-muted);
+  margin-top: 5px;
+}
+
+.juba-surface {
+  background: var(--juba-surface);
+  border: 1px solid var(--juba-border);
+  border-radius: var(--j-shell-radius);
+  box-shadow: var(--j-shell-shadow);
+}
+
+.juba-stat {
+  min-height: 112px;
+  padding: 18px;
+  background: var(--juba-surface);
+  border: 1px solid var(--juba-border);
+  border-radius: 16px;
+}
+
+.juba-primary-action {
+  min-height: 42px;
+  border-radius: 12px;
+  padding: 0 16px;
+  background: var(--juba-text);
+  color: var(--juba-bg);
+  font-weight: 750;
+}
+
+.juba-primary-action:hover {
+  background: var(--juba-primary-dark);
+  color: white;
+}
+
+.juba-mobile-bar {
+  min-height: 60px;
+  background: color-mix(in srgb, var(--juba-surface) 94%, transparent);
+  border-bottom: 1px solid var(--juba-border);
+  backdrop-filter: blur(18px);
+}
+
+@media (max-width: 900px) {
+  .juba-topbar { padding-inline: 16px; }
+  .juba-topbar-search { max-width: none; }
+  .juba-workspace-main { padding-top: 22px; }
+}
+
+@media (max-width: 640px) {
+  .juba-workspace-main { padding-inline: 12px; padding-bottom: 32px; }
+  .juba-topbar-search { display: none; }
+  .juba-page-heading { margin-bottom: 18px; }
+  .juba-surface { border-radius: 14px; }
+}
