@@ -129,128 +129,62 @@ export default async function Home() {
         dashboard={t('dashboard')}
       />
 
-      {/* Hero Section */}
-      <section className="juba-funfluent-hero">
-        <div className="juba-funfluent-hero-inner">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-
-            {/* Left Column: Hero Text & Actions */}
-            <div className="juba-funfluent-copy">
-
-              {/* Floating Language Pills Header */}
-              <div className="mb-4">
-                <LanguageBubbles />
-              </div>
-
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 rounded-[18px] bg-[var(--juba-lilac)] border-2 border-[var(--juba-border)] px-3.5 py-1.5 text-xs font-bold text-[var(--juba-violet)] uppercase tracking-wider mb-6">
-                <Sparkles className="h-4 w-4" />
-                {t('heroBadge')}
-              </div>
-
-              {/* Main Headline */}
-              <h1>
-                {t('heroTitle')}
-              </h1>
-
-              {/* Subtitle */}
-              <p>
-                {t('heroSub')}
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-                <Link
-                  href={hasSession ? '/dashboard' : '/register'}
-                  className="juba-ff-primary w-full sm:w-auto gap-2"
-                >
-                  {hasSession ? t('dashboard') : t('ctaStart')}
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-                <a
-                  href="#features"
-                  className="juba-ff-secondary w-full sm:w-auto gap-2"
-                >
-                  {t('ctaExplore')}
-                </a>
-              </div>
-
-              {/* Key Trust Highlights */}
-              <div className="mt-10 pt-8 border-t border-[var(--juba-border)] flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs font-semibold text-[var(--juba-muted)]">
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-emerald-500" /> Free 7-Day Access
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Real-time Voice VAD
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500" /> CEFR Structured Curriculum
-                </div>
-              </div>
+      {/* Funfluent reference hero */}
+      <section className="juba-ff-hero">
+        <div className="juba-ff-hero-cloud cloud-one" aria-hidden="true" />
+        <div className="juba-ff-hero-cloud cloud-two" aria-hidden="true" />
+        <div className="juba-ff-hero-inner">
+          <div className="juba-ff-hero-copy">
+            <div className="juba-ff-pill"><Sparkles className="h-4 w-4" /> {t('heroBadge')}</div>
+            <h1>{t('heroTitle')}</h1>
+            <p>{t('heroSub')}</p>
+            <div className="juba-ff-hero-actions">
+              <Link href={hasSession ? '/dashboard' : '/register'} className="juba-ff-primary">
+                {hasSession ? t('dashboard') : t('ctaStart')} <ArrowRight className="w-5 h-5" />
+              </Link>
+              <a href="#features" className="juba-ff-hero-link">{t('ctaExplore')}</a>
             </div>
-
-            {/* Right Column: AI Tutor Card Showcase */}
-            <div className="juba-ff-art"><div className="ff-orbit" aria-hidden="true" /><div className="ff-card"><span className="ff-emoji">🦜</span>Speak & learn</div><div className="ff-card"><span className="ff-emoji">📚</span>Read stories</div><div className="ff-card"><span className="ff-emoji">🎧</span>Listen naturally</div>
-              <div className="relative z-10 mx-auto w-full max-w-md rounded-[30px] border-[6px] border-white bg-white/90 p-6 shadow-[0_18px_0_rgba(57,117,29,.10),0_30px_55px_rgba(57,117,29,.16)] backdrop-blur-xl">
-                <div className="flex items-center justify-between pb-4 border-b border-[var(--juba-border)] mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="relative flex h-12 w-12 items-center justify-center rounded-[28px] bg-gradient-to-tr from-[var(--juba-violet)] to-[var(--juba-coral)] text-white font-extrabold text-xl shadow-md">
-                      <Bot className="w-6 h-6" />
-                      <span className="absolute -bottom-0.5 -right-0.5 flex h-3.5 w-3.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-[18px] bg-emerald-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-[18px] h-3.5 w-3.5 bg-emerald-500"></span>
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="font-extrabold text-base text-[var(--juba-text)]">JUBA AI Tutor</h3>
-                      <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">Active & Ready to speak</p>
-                    </div>
-                  </div>
-                  <span className="text-xs px-2.5 py-1 rounded-[18px] bg-[var(--juba-yellow)]/25 text-[var(--juba-violet)] font-bold border border-[var(--juba-border)]">
-                    B2 Upper Intermediate
-                  </span>
-                </div>
-
-                {/* Simulated Conversation Preview */}
-                <div className="space-y-4 mb-6">
-                  <div className="bg-[var(--juba-surface-soft)] p-4 rounded-[28px] border border-[var(--juba-border)]">
-                    <p className="text-xs text-[var(--juba-muted)] font-semibold mb-1">JUBA Tutor says:</p>
-                    <p className="text-sm text-[var(--juba-text)] font-medium leading-relaxed">
-                      "Bonjour ! Comment puis-je vous aider aujourd'hui ?"
-                    </p>
-                  </div>
-
-                  {/* Audio Waveform Widget */}
-                  <div className="flex items-center justify-between bg-[var(--juba-yellow)]/35 p-4 rounded-[28px] border border-[var(--juba-border)]">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-[18px] bg-[var(--juba-violet)] text-[var(--juba-ink)] flex items-center justify-center shrink-0 shadow-md">
-                        <Mic className="w-5 h-5 animate-pulse" />
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold text-[var(--juba-text)]">Voice Input Ready</p>
-                        <p className="text-[11px] text-[var(--juba-violet)]">Speech detection active</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 h-5">
-                      <span className="w-1 bg-[var(--juba-violet)] h-3 rounded-[18px] animate-pulse"></span>
-                      <span className="w-1 bg-[var(--juba-violet)] h-5 rounded-[18px] animate-pulse delay-75"></span>
-                      <span className="w-1 bg-[var(--juba-violet)] h-2 rounded-[18px] animate-pulse delay-150"></span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-2">
-                  <Link
-                    href={hasSession ? '/dashboard' : '/register'}
-                    className="w-full flex items-center justify-center gap-2 py-3 rounded-[18px] bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)] text-white font-bold text-xs transition-all"
-                  >
-                    Try Conversation Mode <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
+            <div className="juba-ff-mini-proof">
+              <span><CheckCircle2 className="h-4 w-4" /> CEFR lessons</span>
+              <span><CheckCircle2 className="h-4 w-4" /> Voice practice</span>
+              <span><CheckCircle2 className="h-4 w-4" /> AI tutor</span>
             </div>
-
           </div>
+
+          <div className="juba-ff-hero-art" aria-label="JUBA LISAN learning illustration">
+            <div className="juba-ff-sun" aria-hidden="true" />
+            <div className="juba-ff-mountain mountain-back" aria-hidden="true" />
+            <div className="juba-ff-mountain mountain-front" aria-hidden="true" />
+            <div className="juba-ff-island island-one" aria-hidden="true" />
+            <div className="juba-ff-island island-two" aria-hidden="true" />
+            <div className="juba-ff-character char-one">🧑🏽‍🎓</div>
+            <div className="juba-ff-character char-two">🧙🏽‍♀️</div>
+            <div className="juba-ff-character char-three">🧑🏻‍🚀</div>
+            <div className="juba-ff-character char-four">🧑🏽‍🏴‍☠️</div>
+            <div className="juba-ff-float-label label-one">Hello!</div>
+            <div className="juba-ff-float-label label-two">Bonjour</div>
+            <div className="juba-ff-float-label label-three">Hola</div>
+            <div className="juba-ff-book-float">
+              <div className="book-cover">📖</div>
+              <div><strong>Your next story</strong><span>Read · Listen · Learn</span></div>
+            </div>
+          </div>
+        </div>
+        <div className="juba-ff-wave" aria-hidden="true" />
+      </section>
+
+      {/* Reference-style book shelf */}
+      <section id="features" className="juba-ff-books">
+        <div className="juba-ff-section-head">
+          <span className="juba-ff-section-tag">Popular books</span>
+          <h2>Learn a language one story at a time</h2>
+          <p>Explore stories, listen to natural speech, and build vocabulary while you read.</p>
+        </div>
+        <div className="juba-ff-book-shelf">
+          <article className="juba-ff-book book-green"><div className="book-art">🌲<br />🧑🏽‍🎓</div><strong>Adventure Stories</strong><span>Reading · A2</span></article>
+          <article className="juba-ff-book book-yellow"><div className="book-art">🗺️<br />🧙🏽‍♀️</div><strong>World Adventures</strong><span>Listening · B1</span></article>
+          <article className="juba-ff-book book-purple"><div className="book-art">🌙<br />🚀</div><strong>Night Journey</strong><span>Reading · B2</span></article>
+          <article className="juba-ff-book book-coral"><div className="book-art">🌴<br />🏝️</div><strong>Island Tales</strong><span>Vocabulary · A1</span></article>
         </div>
       </section>
 
