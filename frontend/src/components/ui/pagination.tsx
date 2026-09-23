@@ -68,7 +68,7 @@ export function Pagination({
       >
         {prevLabel}
       </button>
-      <span className="rounded-lg border border-[var(--juba-border-soft)] bg-[var(--juba-surface-soft)] px-3 py-1.5 text-xs font-bold tabular-nums text-[var(--juba-muted)]">
+      <span className="rounded-lg border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-3 py-1.5 text-xs font-bold tabular-nums text-[var(--juba-muted)]">
         {info}
       </span>
       <button
