@@ -509,3 +509,288 @@ body:has(.juba-site-nav) .juba-mobile-menu{background:var(--juba-surface)!import
   .juba-mobile-progress > section:first-child{border-radius:22px!important}
   .juba-mobile-plan > section:nth-child(2){border-radius:18px!important}
 }
+
+
+/* =========================================================
+   JUBA LISAN — unified Funfluent-inspired workspace shell
+   One shell for desktop + mobile. No secondary legacy chrome.
+   ========================================================= */
+.juba-app-shell{
+  min-height:100svh;
+  display:flex;
+  background:
+    radial-gradient(circle at 78% 0%,rgba(255,212,92,.13),transparent 26rem),
+    linear-gradient(180deg,#fbfdf9 0%,var(--juba-bg) 48%,#f5faf3 100%);
+}
+.juba-sidebar{
+  position:sticky;
+  top:0;
+  z-index:40;
+  width:248px;
+  height:100svh;
+  flex:0 0 248px;
+  display:flex;
+  flex-direction:column;
+  box-sizing:border-box;
+  background:rgba(255,255,255,.94);
+  border-inline-end:1px solid var(--juba-border);
+  box-shadow:8px 0 28px rgba(30,52,38,.045);
+  backdrop-filter:blur(18px);
+}
+.juba-sidebar-top{
+  padding:22px 18px 18px;
+  border-bottom:1px solid var(--juba-border);
+}
+.juba-sidebar-brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  text-decoration:none;
+  color:var(--juba-ink);
+}
+.juba-sidebar-brand-copy{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  line-height:.9;
+}
+.juba-sidebar-brand-copy strong{
+  font-size:16px;
+  font-weight:950;
+  letter-spacing:.045em;
+}
+.juba-sidebar-brand-copy small{
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.31em;
+  color:var(--juba-muted);
+}
+.juba-sidebar-scroll{
+  flex:1;
+  overflow:auto;
+  padding:18px 12px;
+  scrollbar-width:thin;
+}
+.juba-sidebar-section + .juba-sidebar-section{margin-top:22px}
+.juba-sidebar-label{
+  display:block;
+  padding:0 11px 8px;
+  color:var(--juba-muted);
+  font-size:9px;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:.16em;
+}
+.juba-sidebar-nav{
+  display:grid;
+  gap:4px;
+}
+.juba-sidebar-nav .juba-app-nav-link{
+  width:100%;
+  min-height:46px;
+  box-sizing:border-box;
+  justify-content:flex-start;
+  padding:0 12px;
+  border-radius:14px;
+  color:var(--juba-muted);
+  font-size:12px;
+  font-weight:800;
+}
+.juba-sidebar-nav .juba-app-nav-link:hover{
+  background:var(--juba-primary-soft);
+  color:var(--juba-primary-dark);
+  transform:none;
+}
+.juba-sidebar-nav .juba-app-nav-link.is-active{
+  background:var(--juba-yellow);
+  color:var(--juba-ink);
+  box-shadow:0 3px 0 color-mix(in srgb,var(--juba-ink) 13%,transparent);
+}
+.juba-sidebar-nav .juba-app-nav-link.is-active svg{
+  color:var(--juba-violet-dark)!important;
+}
+.juba-sidebar-bottom{
+  padding:12px;
+  display:grid;
+  gap:5px;
+  border-top:1px solid var(--juba-border);
+}
+.juba-sidebar-action{
+  width:100%;
+  min-height:36px;
+  border:0;
+  border-radius:10px;
+  background:transparent;
+  color:var(--juba-muted);
+  text-align:start;
+  padding:0 11px;
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+}
+.juba-sidebar-action:hover{
+  background:var(--juba-surface-soft);
+  color:var(--juba-text);
+}
+.juba-app-content{
+  min-width:0;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+.juba-topbar{
+  position:sticky;
+  top:0;
+  z-index:35;
+  min-height:72px;
+  background:rgba(255,255,255,.86);
+  border-bottom:1px solid var(--juba-border);
+  backdrop-filter:blur(18px);
+}
+.juba-topbar-inner{
+  width:100%;
+  min-height:72px;
+  padding:0 clamp(18px,3vw,38px);
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.juba-topbar-title{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.juba-topbar-title span{
+  color:var(--juba-text);
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:-.025em;
+}
+.juba-topbar-title small{
+  color:var(--juba-muted);
+  font-size:8px;
+  font-weight:850;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.juba-topbar-actions{
+  margin-inline-start:auto;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.juba-avatar-button{
+  width:40px;
+  height:40px;
+  padding:0;
+  border:1px solid var(--juba-border);
+  border-radius:13px;
+  background:var(--juba-primary-soft);
+  color:var(--juba-primary-dark);
+  font-size:13px;
+  font-weight:950;
+  cursor:pointer;
+}
+.juba-avatar-button:hover{
+  border-color:var(--juba-primary);
+  transform:translateY(-1px);
+}
+.juba-mobile-menu-button{
+  display:none;
+  width:40px;
+  height:40px;
+  place-items:center;
+  border:1px solid var(--juba-border);
+  border-radius:12px;
+  background:var(--juba-surface);
+  color:var(--juba-text);
+  cursor:pointer;
+}
+.juba-mobile-drawer{
+  position:fixed;
+  inset:72px 0 0;
+  z-index:60;
+  overflow:auto;
+  padding:14px;
+  background:rgba(247,250,246,.98);
+  box-shadow:var(--juba-shadow-lg);
+}
+.juba-mobile-drawer-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:4px 2px 16px;
+}
+.juba-mobile-drawer-nav{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:6px;
+}
+.juba-mobile-drawer-nav .juba-app-nav-link{
+  width:100%;
+  min-height:46px;
+  justify-content:flex-start;
+  box-sizing:border-box;
+}
+.juba-mobile-drawer-actions{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+.juba-mobile-drawer-actions>*{flex:1}
+.juba-workspace-main{
+  width:100%;
+  max-width:none;
+  flex:1;
+  margin:0;
+  padding:30px clamp(18px,3.5vw,44px) 70px;
+  box-sizing:border-box;
+}
+.juba-page-shell{
+  max-width:1180px;
+}
+.juba-app-shell .juba-mobile-dashboard,
+.juba-app-shell .juba-mobile-plan,
+.juba-app-shell .juba-mobile-progress,
+.juba-app-shell .juba-mobile-listening,
+.juba-app-shell .juba-mobile-reading,
+.juba-app-shell .juba-mobile-conversation,
+.juba-app-shell .juba-mobile-assessment,
+.juba-app-shell .juba-mobile-grammar,
+.juba-app-shell .juba-mobile-vocabulary,
+.juba-app-shell .juba-mobile-flashcards,
+.juba-app-shell .juba-games{
+  max-width:1180px;
+  margin-inline:auto;
+}
+.juba-app-shell .juba-mobile-greeting,
+.juba-app-shell .juba-mobile-daily,
+.juba-app-shell .juba-card,
+.juba-app-shell .juba-panel,
+.juba-app-shell .juba-path-card,
+.juba-app-shell .juba-learning-card{
+  box-shadow:0 8px 26px rgba(30,52,38,.065);
+}
+.juba-app-shell .juba-mobile-greeting{
+  border-radius:26px;
+  border-color:#d5e5d3;
+}
+@media(max-width:900px){
+  .juba-sidebar{display:none}
+  .juba-mobile-menu-button{display:grid}
+  .juba-topbar-title{margin-inline-start:1px}
+  .juba-workspace-main{padding:22px 16px 48px}
+}
+@media(max-width:600px){
+  .juba-topbar,.juba-topbar-inner{min-height:64px}
+  .juba-topbar-inner{padding:0 12px}
+  .juba-mobile-drawer{inset:64px 0 0}
+  .juba-topbar-title span{font-size:14px}
+  .juba-topbar-title small{display:none}
+  .juba-xp-pill{min-height:36px;padding-inline:9px;font-size:10px}
+  .juba-avatar-button{width:36px;height:36px;border-radius:11px}
+  .juba-workspace-main{padding:16px 12px 40px}
+  .juba-mobile-drawer-nav{grid-template-columns:1fr}
+}
