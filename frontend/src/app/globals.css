@@ -13,7 +13,6 @@
 .juba-ff-unit-progress{background:var(--juba-surface-soft)}
 .juba-ff-unit-cta{background:var(--juba-yellow);color:var(--juba-ink);border:2px solid var(--juba-ink);box-shadow:3px 3px 0 var(--juba-ink)}
 
-
 /* Funfluent route pass: lesson + learning plan */
 .juba-mobile-plan,
 .juba-mobile-lesson{
@@ -58,7 +57,6 @@
   .juba-mobile-plan .juba-card,
   .juba-mobile-lesson .juba-card{box-shadow:4px 4px 0 var(--route-ink)!important}
 }
-
 
 /* Final route palette bridge */
 .juba-mobile-progress{
