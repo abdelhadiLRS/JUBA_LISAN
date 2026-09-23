@@ -306,7 +306,7 @@ export default function FlashcardsPage() {
                   }}
                   className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
                     !speakingMode
-                      ? 'text-[var(--juba-text)] bg-[white] shadow-sm'
+                      ? 'text-[var(--juba-text)] bg-[white] shadow-[3px_3px_0_var(--juba-border)]'
                       : 'text-[var(--juba-muted)] hover:text-[var(--juba-text)]'
                   }`}
                 >
@@ -319,7 +319,7 @@ export default function FlashcardsPage() {
                   }}
                   className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
                     speakingMode
-                      ? 'text-[var(--juba-text)] bg-[white] shadow-sm'
+                      ? 'text-[var(--juba-text)] bg-[white] shadow-[3px_3px_0_var(--juba-border)]'
                       : 'text-[var(--juba-muted)] hover:text-[var(--juba-text)]'
                   }`}
                 >
