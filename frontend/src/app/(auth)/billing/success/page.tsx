@@ -116,26 +116,26 @@ export default function BillingSuccessPage() {
   }[status]
 
   return (
-    <div className="bg-fl-bg bg-dot-grid flex min-h-screen items-center justify-center px-4">
-      <div className="border-fl-border bg-fl-surface w-full max-w-sm space-y-5 border p-8 text-center">
-        <div className="text-fl-accent text-2xl">{content.icon}</div>
-        <p className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+    <div className="flex min-h-screen items-center justify-center bg-[var(--juba-bg)] px-4">
+      <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] w-full max-w-sm space-y-5 border-2 border-[var(--juba-border)] p-8 text-center">
+        <div className="text-[var(--juba-violet)] text-2xl">{content.icon}</div>
+        <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
           {content.label}
         </p>
-        <h1 className="text-fl-fg font-mono text-base font-bold">
+        <h1 className="text-[var(--juba-text)] font-sans text-base font-bold">
           {content.title}
         </h1>
-        <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
+        <p className="text-[var(--juba-muted)] font-sans text-xs leading-relaxed">
           {content.desc}
         </p>
         {status === 'confirmed' && (
-          <p className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
+          <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-semibold tracking-wide">
             {t('successRedirect', { seconds: countdown })}
           </p>
         )}
         <Link
           href="/dashboard"
-          className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 block py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+          className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 block py-3 font-sans text-xs font-bold tracking-wide transition-colors"
         >
           {t('successCta')}
         </Link>
