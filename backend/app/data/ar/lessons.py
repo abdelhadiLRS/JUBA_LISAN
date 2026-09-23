@@ -246,3 +246,51 @@ def get_arabic_a1_lessons(unit_id: str | None = None) -> tuple[ArabicA1Lesson, .
     if unit_id is None:
         return ARABIC_A1_LESSONS
     return tuple(lesson for lesson in ARABIC_A1_LESSONS if lesson.unit_id == unit_id)
+
+
+def validate_arabic_a1_content_quality() -> list[str]:
+    """Return deterministic content-integrity issues for the complete A1 course map."""
+    from app.data.ar.grammar import GRAMMAR_TOPICS
+    from app.data.ar.vocabulary import VOCABULARY_SETS
+    from app.data.ar.phrasebook import PHRASEBOOK_CATEGORIES
+
+    issues: list[str] = []
+    lessons = get_arabic_a1_lessons()
+    lesson_ids = {lesson.id for lesson in lessons}
+    seed_ids = [seed.lesson_id for seed in ARABIC_A1_CONTENT_SEEDS]
+
+    if len(lessons) != 80:
+        issues.append(f"expected 80 lessons, found {len(lessons)}")
+    if len(seed_ids) != 80:
+        issues.append(f"expected 80 seeds, found {len(seed_ids)}")
+    if len(seed_ids) != len(set(seed_ids)):
+        issues.append("duplicate content-seed lesson IDs")
+    if set(seed_ids) != lesson_ids:
+        issues.append("lesson/seed coverage mismatch")
+
+    grammar_ids = {topic.slug for topic in GRAMMAR_TOPICS}
+    vocabulary_ids = {item.id for item in VOCABULARY_SETS}
+    phrasebook_ids = {item.id for item in PHRASEBOOK_CATEGORIES}
+
+    for lesson in lessons:
+        for slug in lesson.grammar_refs:
+            if slug not in grammar_ids:
+                issues.append(f"{lesson.id}: missing grammar ref {slug}")
+        for vocab_id in lesson.vocabulary_set_ids:
+            if vocab_id not in vocabulary_ids:
+                issues.append(f"{lesson.id}: missing vocabulary set {vocab_id}")
+        for phrase_id in lesson.phrasebook_ids:
+            if phrase_id not in phrasebook_ids:
+                issues.append(f"{lesson.id}: missing phrasebook category {phrase_id}")
+
+    for seed in ARABIC_A1_CONTENT_SEEDS:
+        if len(seed.target_phrases) < 4:
+            issues.append(f"{seed.lesson_id}: fewer than 4 target phrases")
+        if len(seed.model_sentences) < 2:
+            issues.append(f"{seed.lesson_id}: fewer than 2 model sentences")
+        if not seed.comprehension_prompt.strip():
+            issues.append(f"{seed.lesson_id}: empty comprehension prompt")
+        if not seed.production_prompt.strip():
+            issues.append(f"{seed.lesson_id}: empty production prompt")
+
+    return issues
