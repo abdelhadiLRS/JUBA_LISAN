@@ -28,10 +28,10 @@ export default function TargetLanguageSelector({
           key={lang.code}
           type="button"
           onClick={() => onChange(lang.code)}
-          className={`flex items-center gap-2 border px-3 py-3 font-mono text-xs tracking-widest uppercase transition-colors ${
+          className={`flex items-center gap-2 rounded-xl border-2 px-3 py-3 text-xs font-bold tracking-wide uppercase transition-colors ${
             value === lang.code
-              ? 'border-fl-accent bg-fl-accent text-fl-accent-fg'
-              : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
+              ? 'border-[var(--juba-primary-dark)] bg-[var(--juba-yellow)] text-[var(--juba-text)] shadow-[2px_2px_0_var(--juba-border)]'
+              : 'border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-muted)] hover:border-[var(--juba-primary)] hover:text-[var(--juba-text)]'
           }`}
         >
           <Image
