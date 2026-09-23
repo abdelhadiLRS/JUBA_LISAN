@@ -271,6 +271,9 @@ export default function PlanPage() {
 
   useEffect(() => {
     void loadPlan()
+    return () => {
+      loadRequestRef.current += 1
+    }
   }, [loadPlan])
 
   useLearningProgressSync(() => loadPlan())
