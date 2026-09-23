@@ -81,6 +81,8 @@ export default function GamesPage() {
   const [round, setRound] = useState(0)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
   const [interactionChallenge, setInteractionChallenge] = useState<import('@/lib/games/persist').InteractiveGameChallenge | null>(null)
+  const [gameLoading, setGameLoading] = useState(false)
+  const [gameError, setGameError] = useState<string | null>(null)
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
@@ -115,6 +117,8 @@ export default function GamesPage() {
 
   async function startGame(id: GameId, daily = false) {
     if (daily && dailyCompletedToday) return
+    setGameLoading(true)
+    setGameError(null)
     try {
       const session = await startGameSession(id, lang, level)
       setGame(id)
@@ -130,9 +134,12 @@ export default function GamesPage() {
       setNewAchievements([])
       setQuestion(session.questions[0] ?? null)
     } catch {
+      setGameError('Unable to load this game. Please try again.')
       setGame(null)
       setQuestion(null)
       setSessionId(null)
+    } finally {
+      setGameLoading(false)
     }
   }
 
@@ -145,6 +152,7 @@ export default function GamesPage() {
   async function finishRound() {
     if (!sessionId) return
     const previousAchievements = new Set(achievements)
+    setGameError(null)
     try {
       const server = await completeGameSession(
         sessionId,
@@ -174,6 +182,7 @@ export default function GamesPage() {
         achievements: server.achievements as AchievementId[],
       })
     } catch {
+      setGameError('Unable to save the round. Please try again.')
       return
     }
   }
@@ -181,6 +190,7 @@ export default function GamesPage() {
   async function finishInteractive(trace: import('@/lib/games/persist').InteractiveGameTrace[]) {
     if (!sessionId) return false
     const previousAchievements = new Set(achievements)
+    setGameError(null)
     try {
       const server = await completeGameSession(
         sessionId,
@@ -214,6 +224,7 @@ export default function GamesPage() {
       setSessionQuestions([])
       return true
     } catch {
+      setGameError('Unable to save the game result. Please try again.')
       return false
     }
   }
@@ -277,10 +288,11 @@ export default function GamesPage() {
 
         {!game ? (
           <>
+            {gameError && <div className="achievement-toast" role="alert">⚠️ <strong>{gameError}</strong></div>}
             <div className="achievement-toast" style={{ display: newAchievements.length ? 'block' : 'none' }}>
               🏅 <strong>{t.newBadge}</strong> {newAchievements.map((id) => ACHIEVEMENTS[id].title).join(' · ')}
             </div>
-            <button className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} onClick={() => startGame(dailyGame, true)} disabled={dailyCompletedToday} aria-disabled={dailyCompletedToday}>
+            <button className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} onClick={() => void startGame(dailyGame, true)} disabled={dailyCompletedToday || gameLoading} aria-disabled={dailyCompletedToday}>
               <span className="daily-icon">📅</span>
               <span><strong>{t.daily}</strong><small>{t.dailyDesc}</small></span>
               <span className="start">{dailyCompletedToday ? '✓' : t.start} {dailyCompletedToday ? '' : '→'}</span>
@@ -293,7 +305,7 @@ export default function GamesPage() {
 
             <section className="game-grid">
               {gameCards.map((card) => (
-                <button key={card.id} className="game-card" onClick={() => startGame(card.id)}>
+                <button key={card.id} className="game-card" onClick={() => void startGame(card.id)} disabled={gameLoading}>
                   <span className="game-icon">{card.icon}</span>
                   <span className="game-title">{card.title}</span>
                   <span className="game-desc">{card.desc}</span>
@@ -337,8 +349,9 @@ export default function GamesPage() {
           </>
         ) : (
           <section className="play-card">
-            <button className="back" onClick={() => { setGame(null); setDailyMode(false) }}>← {t.back}</button>
+            <button className="back" onClick={() => { setGame(null); setDailyMode(false); setInteractionChallenge(null); setSessionId(null) }}>← {t.back}</button>
             <div className="round-meta">{dailyMode ? `📅 ${t.daily} · ` : ''}{round + 1} / {ROUND_SIZE} · +XP</div>
+            {gameError && <div className="feedback" role="alert">⚠️ {gameError}</div>}
             {interactionChallenge ? (
               <InteractiveGameBoard mode={game as 'memory' | 'matching' | 'ordering'} lang={lang} challenge={interactionChallenge} onComplete={finishInteractive} />
             ) : question && (
