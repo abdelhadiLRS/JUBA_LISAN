@@ -169,7 +169,7 @@ export default async function Home() {
                 </Link>
                 <a
                   href="#features"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-[28px] border border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] hover:bg-[var(--juba-lilac)] text-[var(--juba-text)] px-8 py-4 text-base font-bold transition-all shadow-sm"
+                  className="juba-ff-secondary w-full sm:w-auto gap-2"
                 >
                   {t('ctaExplore')}
                 </a>
