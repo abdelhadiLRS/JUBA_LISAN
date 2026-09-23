@@ -23,19 +23,15 @@ body { background-image: none !important; }
 /* Landing page: the same SaaS identity extends to the public surface.
  * The composition remains original JUBA LISAN rather than a pixel-for-pixel copy. */
 body:has(.juba-site-nav) {
-  --juba-landing-paper: var(--juba-bg);
-  --juba-landing-ink: var(--juba-text);
-  --juba-landing-lime: var(--juba-primary);
-  --juba-landing-lime-dark: var(--juba-primary-dark);
-  background: var(--juba-landing-paper) !important;
-  color: var(--juba-landing-ink) !important;
+  background: var(--juba-bg) !important;
+  color: var(--juba-text) !important;
 }
 
 body:has(.juba-site-nav) .juba-site-nav {
   height: 72px;
   border-bottom: 1px solid var(--juba-border) !important;
   background: color-mix(in srgb, var(--juba-surface) 94%, transparent) !important;
-  color: var(--juba-landing-ink);
+  color: var(--juba-text);
   backdrop-filter: blur(14px);
 }
 
@@ -53,10 +49,10 @@ body:has(.juba-site-nav) .juba-brand-mark {
   color: var(--juba-primary) !important;
   box-shadow: none !important;
 }
-body:has(.juba-site-nav) .juba-brand-accent { color: var(--juba-landing-ink) !important; }
+body:has(.juba-site-nav) .juba-brand-accent { color: var(--juba-text) !important; }
 body:has(.juba-site-nav) .juba-nav-link,
 body:has(.juba-site-nav) .juba-nav-signin {
-  color: var(--juba-landing-ink) !important;
+  color: var(--juba-text) !important;
   font-weight: 650;
 }
 body:has(.juba-site-nav) .juba-nav-link:hover,
@@ -123,7 +119,7 @@ body:has(.juba-site-nav) .juba-mobile-menu {
 }
 
 body:has(.juba-site-nav) .juba-mobile-menu .juba-nav-link,
-body:has(.juba-site-nav) .juba-mobile-menu .juba-nav-signin { color: var(--juba-landing-ink) !important; }
+body:has(.juba-site-nav) .juba-mobile-menu .juba-nav-signin { color: var(--juba-text) !important; }
 
 @media (max-width: 640px) {
   .juba-card { border-radius: var(--juba-radius-md); }
