@@ -686,8 +686,8 @@
     "hintPrefix": "Dica: ",
     "retryEasier": "Tentar novamente mais fácil",
     "checking": "A verificar…",
-"answerError": "Não foi possível verificar a sua resposta. Tente novamente.",,
-"actionError": "Não foi possível concluir esta ação. Tente novamente."
+"answerError": "Não foi possível verificar a sua resposta. Tente novamente.",
+    "actionError": "Não foi possível concluir esta ação. Tente novamente.",
     "next": "Seguinte",
     "finish": "Concluir lição",
     "completed": "Concluída",
