@@ -187,7 +187,7 @@ export default function AdminReviewsPage() {
             onChange={(event) =>
               setApprovalFilter(event.target.value as ApprovalFilter)
             }
-            className="border-fl-border bg-fl-bg text-fl-fg border px-3 py-2 font-mono text-sm"
+            className="border-[var(--juba-border)] bg-[var(--juba-bg)] text-[var(--juba-text)] border px-3 py-2 font-sans text-sm"
             aria-label={t('approvalFilter')}
           >
             {approvalFilterOptions.map((option) => (
@@ -199,7 +199,7 @@ export default function AdminReviewsPage() {
           <select
             value={ratingFilter}
             onChange={(event) => setRatingFilter(event.target.value)}
-            className="border-fl-border bg-fl-bg text-fl-fg border px-3 py-2 font-mono text-sm"
+            className="border-[var(--juba-border)] bg-[var(--juba-bg)] text-[var(--juba-text)] border px-3 py-2 font-sans text-sm"
             aria-label={t('ratingFilter')}
           >
             <option value="">{t('allRatings')}</option>
@@ -212,7 +212,7 @@ export default function AdminReviewsPage() {
           <button
             type="button"
             onClick={clearFilters}
-            className="border-fl-border text-fl-label text-fl-muted-2 hover:text-fl-fg flex items-center justify-center gap-2 border px-4 py-2 font-mono tracking-widest uppercase"
+            className="border-[var(--juba-border)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] flex items-center justify-center gap-2 border px-4 py-2 font-semibold tracking-wide"
           >
             <FilterX className="size-3.5" /> {t('clear')}
           </button>
@@ -220,7 +220,7 @@ export default function AdminReviewsPage() {
       </AdminPanel>
 
       {error && (
-        <div className="border-fl-error text-fl-error-fg border px-4 py-3 font-mono text-sm">
+        <div className="border-red-200 text-red-600-fg border px-4 py-3 font-sans text-sm border-[var(--juba-border)]">
           {error}
         </div>
       )}
@@ -233,11 +233,11 @@ export default function AdminReviewsPage() {
           meta={<AdminBadge>{t('total', { total })}</AdminBadge>}
         >
           {reviews.length === 0 ? (
-            <div className="text-fl-muted-2 p-8 text-center font-mono text-sm">
+            <div className="text-[var(--juba-muted)] p-8 text-center font-sans text-sm">
               {t('empty')}
             </div>
           ) : (
-            <div className="divide-fl-border divide-y">
+            <div className="divide-fl-border divide-y border-[var(--juba-border)]">
               {reviews.map((review) => (
                 <article
                   key={review.id}
@@ -245,7 +245,7 @@ export default function AdminReviewsPage() {
                 >
                   <div className="min-w-0 space-y-3">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h2 className="text-fl-fg font-sans text-sm font-semibold tracking-tight">
+                      <h2 className="text-[var(--juba-text)] font-sans text-sm font-semibold tracking-tight">
                         {review.user_display_name}
                       </h2>
                       <AdminBadge
@@ -254,19 +254,19 @@ export default function AdminReviewsPage() {
                         {review.is_approved ? t('approved') : t('pending')}
                       </AdminBadge>
                       <span
-                        className="text-fl-muted-2 font-mono text-xs"
+                        className="text-[var(--juba-muted)] font-sans text-xs"
                         aria-label={t('starsLabel', { rating: review.rating })}
                       >
                         {stars(review.rating)}
                       </span>
                     </div>
-                    <p className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
+                    <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-semibold tracking-wide">
                       {t('learningLanguage', {
                         language: languageLabel(review.target_language),
                       })}{' '}
                       · {formatDate(review.created_at)}
                     </p>
-                    <p className="text-fl-muted-1 font-mono text-sm leading-relaxed">
+                    <p className="text-[var(--juba-muted)] font-sans text-sm leading-relaxed">
                       {review.comment || t('ratingOnly')}
                     </p>
                   </div>
@@ -277,7 +277,7 @@ export default function AdminReviewsPage() {
                         handleApproval(review, !review.is_approved)
                       }
                       disabled={savingId === review.id}
-                      className="border-fl-border text-fl-label text-fl-muted-1 hover:text-fl-fg flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase disabled:opacity-60"
+                      className="border-[var(--juba-border)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide disabled:opacity-60"
                     >
                       {savingId === review.id ? (
                         <Loader2 className="size-3.5 animate-spin" />
@@ -288,7 +288,7 @@ export default function AdminReviewsPage() {
                       type="button"
                       onClick={() => setDeletePending(review)}
                       disabled={deletingId === review.id}
-                      className="border-fl-error/30 text-fl-error-fg text-fl-label hover:bg-fl-error/10 flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase disabled:opacity-60"
+                      className="border-red-200/30 text-red-600-fg text-[var(--juba-text)] hover:bg-fl-error/10 flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide disabled:opacity-60 border-[var(--juba-border)]"
                     >
                       <Trash2 className="size-3.5" /> {t('delete')}
                     </button>
