@@ -121,7 +121,7 @@ export default function ProgressPage() {
       .then((data) => { if (!cancelled) setGoalHistory(data) })
       .catch(() => { if (!cancelled) setGoalHistory([]) })
     return () => { cancelled = true }
-  }, [activeLanguage?.code])
+  }, [activeLanguage?.code, progressRefresh])
   useEffect(() => {
     let cancelled = false
     apiFetch(`/api/progress/history?range=${historyRange}`)
