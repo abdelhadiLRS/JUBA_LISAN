@@ -273,7 +273,7 @@ export default function FlashcardsPage() {
             className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-[28px]"
             style={{
               color: 'var(--juba-violet-dark)',
-              background: '#e2f2d3',
+              background: 'var(--juba-lilac)',
             }}
           >
             <CheckBadgeIcon />
@@ -432,7 +432,7 @@ export default function FlashcardsPage() {
                     <button
                       key={q}
                       onClick={() => reviewCard(q)}
-                      className="border-[var(--juba-lilac)] min-w-[80px] rounded-[20px] border-2 border-[var(--juba-lilac)] py-3 text-sm font-semibold transition-all hover:border-[color-mix(in_srgb,#e2f2d3_60%,var(--juba-text))] hover:bg-[var(--juba-lilac)]"
+                      className="border-[var(--juba-lilac)] min-w-[80px] rounded-[20px] border-2 border-[var(--juba-lilac)] py-3 text-sm font-semibold transition-all hover:border-[color-mix(in_srgb,var(--juba-lilac)_60%,var(--juba-text))] hover:bg-[var(--juba-lilac)]"
                       style={style}
                     >
                       {t(key)}
