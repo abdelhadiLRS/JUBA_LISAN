@@ -80,6 +80,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   const [loadingHint, setLoadingHint] = useState(false)
   const [loadingExplanation, setLoadingExplanation] = useState(false)
   const [audioLoadFailed, setAudioLoadFailed] = useState(false)
+  const [audioLoading, setAudioLoading] = useState(false)
   const allSkillsMastered = skillMastery.length > 0 && skillMastery.every((item) => item.mastery_state === 'mastered')
 
   const loadLessonMastery = useCallback(async (lessonId: number) => {
@@ -155,7 +156,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
     return null
   }, [exercise?.metadata])
 
-  useEffect(() => { setAudioLoadFailed(false) }, [exercise?.id, exerciseAudioUrl])
+  useEffect(() => { setAudioLoadFailed(false); setAudioLoading(Boolean(exerciseAudioUrl)) }, [exercise?.id, exerciseAudioUrl])
 
   const exerciseTranscript = useMemo(() => {
     const metadata = exercise?.metadata
@@ -533,8 +534,12 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
                   src={exerciseAudioUrl}
                   className="w-full"
                   aria-label={t('listen')}
-                  onError={() => setAudioLoadFailed(true)}
+                  onLoadStart={() => { setAudioLoadFailed(false); setAudioLoading(true) }}
+                  onCanPlay={() => setAudioLoading(false)}
+                  onLoadedMetadata={() => setAudioLoading(false)}
+                  onError={() => { setAudioLoading(false); setAudioLoadFailed(true) }}
                 />
+                {audioLoading && !audioLoadFailed && <p className="mt-2 text-xs font-semibold text-[var(--juba-muted)]" role="status" aria-live="polite">{t('loading')}</p>}
                 {audioLoadFailed && <p className="mt-2 text-xs font-semibold text-[var(--juba-muted)]" role="status" aria-live="polite">{t('audioLoadError')}</p>}
               </div>}
               {exerciseTranscript && <details className={cn('text-sm font-medium text-[var(--juba-muted)]', exerciseAudioUrl && 'mt-4 border-t border-[var(--juba-border)] pt-4')}>
@@ -542,7 +547,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
                 <p className="mt-3 whitespace-pre-wrap leading-7">{exerciseTranscript}</p>
               </details>}
             </div>}
-            {isChoiceExercise && <div className="mt-6 grid gap-3 sm:grid-cols-2" role="group" aria-label={variantLabel}>{exercise.options?.map((option, optionIndex) => <button type="button" key={option} aria-pressed={answer === option} onClick={() => setAnswer(option)} className={cn('group flex min-h-16 items-center gap-3 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4 text-left font-semibold text-[var(--juba-text)] transition-all hover:-translate-y-0.5 hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)]', answer === option && 'border-[var(--juba-primary-dark)] bg-[var(--juba-primary-soft)] shadow-sm')}><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--juba-border)] text-xs font-extrabold">{String.fromCharCode(65 + optionIndex)}</span><span className="flex-1">{option}</span>{answer === option && <span aria-hidden="true" className="font-extrabold">✓</span>}</button>)}</div>}
+            {isChoiceExercise && <div className="mt-6 grid gap-3 sm:grid-cols-2" role="group" aria-label={variantLabel}>{exercise.options?.map((option, optionIndex) => <button type="button" key={option} aria-pressed={answer === option} onClick={() => !exercise.feedback && !evaluating && setAnswer(option)} disabled={evaluating || !!exercise.feedback} className={cn('group flex min-h-16 items-center gap-3 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4 text-left font-semibold text-[var(--juba-text)] transition-all hover:-translate-y-0.5 hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)]', answer === option && !exercise.feedback && 'border-[var(--juba-primary-dark)] bg-[var(--juba-primary-soft)] shadow-sm', exercise.feedback && answer === option && 'border-[var(--juba-primary-dark)] bg-[var(--juba-primary-soft)]', 'disabled:cursor-not-allowed disabled:opacity-70')}><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--juba-border)] text-xs font-extrabold">{String.fromCharCode(65 + optionIndex)}</span><span className="flex-1">{option}</span>{answer === option && <span aria-hidden="true" className="font-extrabold">✓</span>}</button>)}</div>}
             {isLongFormExercise && <textarea value={answer} onChange={(e) => setAnswer(e.target.value)} className="mt-6 min-h-36 w-full resize-y rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4 font-semibold leading-7 text-[var(--juba-text)] outline-none transition-shadow focus:ring-2 focus:ring-[var(--juba-primary)]" placeholder={t('typeAnswer')} aria-label={t('typeAnswer')} disabled={evaluating || !!exercise.feedback} />}
             {isShortAnswerExercise && <input value={answer} onChange={(e) => setAnswer(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') void submitAnswer() }} className="mt-6 w-full rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4 font-semibold text-[var(--juba-text)] outline-none transition-shadow focus:ring-2 focus:ring-[var(--juba-primary)]" placeholder={t('typeAnswer')} aria-label={t('typeAnswer')} disabled={evaluating || !!exercise.feedback} />}{exercise.feedback && <div className={cn(
               'mt-5 rounded-2xl border p-4 font-semibold',
