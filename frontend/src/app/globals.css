@@ -774,3 +774,180 @@ html[data-theme='dark'] .juba-glass {
   .juba-path-node .path-bubble{flex-basis:68px;width:68px;height:68px;border-width:5px;border-radius:23px;font-size:20px}
   .juba-path-node .path-copy{padding:15px 16px;border-radius:20px}
 }
+
+
+/* Funfluent reference pass — unified landing composition */
+.juba-funfluent-page {
+  --ff-green: #5a9b32;
+  --ff-green-dark: #39751d;
+  --ff-cream: #fbfaf4;
+  --ff-paper: #f2f0e8;
+  --ff-yellow: #ffd35a;
+  --ff-blue: #9edcf0;
+  --ff-coral: #ef816f;
+  --ff-ink: #25302a;
+  background: var(--ff-cream);
+  color: var(--ff-ink);
+}
+.juba-funfluent-page .juba-site-nav {
+  height: 82px;
+  background: var(--ff-cream);
+  border-bottom: 2px solid rgba(57,117,29,.10);
+  backdrop-filter: none;
+}
+.juba-funfluent-page .juba-site-nav > div {
+  height: 100%;
+  max-width: 1380px;
+}
+.juba-funfluent-page .juba-brand-mark {
+  width: 48px;
+  height: 48px;
+  border-radius: 18px;
+  background: var(--ff-green);
+  color: #fff;
+  box-shadow: 0 5px 0 var(--ff-green-dark);
+  transform: rotate(-4deg);
+}
+.juba-funfluent-page .juba-brand {
+  color: var(--ff-green-dark);
+}
+.juba-funfluent-page .juba-brand-accent {
+  color: var(--ff-green);
+}
+.juba-funfluent-page .juba-nav-link {
+  padding: 10px 15px;
+  border-radius: 999px;
+  color: var(--ff-green-dark) !important;
+  font-weight: 800;
+}
+.juba-funfluent-page .juba-nav-link:hover {
+  background: #e6f3dc;
+  color: var(--ff-green-dark) !important;
+}
+.juba-funfluent-page .juba-nav-signin {
+  color: var(--ff-green-dark) !important;
+  font-weight: 800;
+}
+.juba-funfluent-page .juba-nav-cta {
+  border-radius: 999px !important;
+  background: var(--ff-yellow) !important;
+  color: var(--ff-ink) !important;
+  box-shadow: 0 5px 0 #d3a72c !important;
+  padding: 13px 22px !important;
+  font-weight: 900 !important;
+}
+.juba-funfluent-page .juba-nav-cta:hover { filter: none; transform: translateY(-1px); }
+.juba-funfluent-page .juba-menu {
+  border-radius: 16px;
+  color: var(--ff-green-dark);
+}
+.juba-funfluent-page .juba-mobile-menu {
+  background: var(--ff-cream);
+  border-color: rgba(57,117,29,.12);
+}
+.juba-funfluent-page .juba-funfluent-features,
+.juba-funfluent-page .juba-funfluent-languages,
+.juba-funfluent-page .juba-funfluent-experience {
+  background: var(--ff-cream);
+  color: var(--ff-ink);
+}
+.juba-funfluent-page .juba-funfluent-features .juba-card,
+.juba-funfluent-page .juba-funfluent-languages .juba-card,
+.juba-funfluent-page .juba-funfluent-experience .juba-card {
+  border: 3px solid var(--ff-ink);
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0 7px 0 rgba(37,48,42,.95);
+}
+.juba-funfluent-page .juba-funfluent-features .juba-card:hover,
+.juba-funfluent-page .juba-funfluent-languages .juba-card:hover,
+.juba-funfluent-page .juba-funfluent-experience .juba-card:hover {
+  transform: translateY(-5px) rotate(-.4deg);
+  box-shadow: 0 11px 0 rgba(37,48,42,.95);
+}
+.juba-funfluent-page .juba-funfluent-features .juba-card:nth-child(3n) {
+  background: #e9f7df;
+}
+.juba-funfluent-page .juba-funfluent-features .juba-card:nth-child(4n) {
+  background: #dff4fb;
+}
+.juba-funfluent-page .juba-funfluent-features .juba-card:nth-child(5n) {
+  background: #fff0b8;
+}
+.juba-funfluent-page .juba-funfluent-features h2,
+.juba-funfluent-page .juba-funfluent-languages h2,
+.juba-funfluent-page .juba-funfluent-experience h2 {
+  color: var(--ff-green-dark);
+  font-weight: 950;
+}
+.juba-funfluent-page .juba-funfluent-features p,
+.juba-funfluent-page .juba-funfluent-languages p,
+.juba-funfluent-page .juba-funfluent-experience p {
+  color: #526057;
+}
+.juba-funfluent-page .juba-funfluent-features .text-amber-500,
+.juba-funfluent-page .juba-funfluent-features .text-amber-600,
+.juba-funfluent-page .juba-funfluent-languages .text-amber-500,
+.juba-funfluent-page .juba-funfluent-languages .text-amber-600,
+.juba-funfluent-page .juba-funfluent-experience .text-amber-500,
+.juba-funfluent-page .juba-funfluent-experience .text-amber-600 {
+  color: var(--ff-green) !important;
+}
+.juba-funfluent-page .juba-funfluent-languages .grid > .juba-card:nth-child(4n) { transform: rotate(-1deg); background: #dff4fb; }
+.juba-funfluent-page .juba-funfluent-languages .grid > .juba-card:nth-child(4n+1) { transform: rotate(1deg); background: #fff0b8; }
+.juba-funfluent-page .juba-funfluent-languages .grid > .juba-card:nth-child(4n+2) { background: #e9f7df; }
+.juba-funfluent-page .juba-funfluent-languages .grid > .juba-card:nth-child(4n+3) { background: #ffe0d8; }
+.juba-funfluent-page .juba-funfluent-demo {
+  background: var(--ff-green-dark);
+  color: #fff;
+}
+.juba-funfluent-page .juba-funfluent-demo > div {
+  max-width: 1180px;
+}
+.juba-funfluent-page .juba-funfluent-demo > div > div:last-child {
+  border: 4px solid var(--ff-ink);
+  border-radius: 34px;
+  background: var(--ff-cream);
+  box-shadow: 0 9px 0 #172019, 0 30px 55px rgba(0,0,0,.18);
+}
+.juba-funfluent-page .juba-funfluent-demo button {
+  border-radius: 999px;
+  background: var(--ff-yellow);
+  color: var(--ff-ink);
+  font-weight: 900;
+}
+.juba-funfluent-page .juba-funfluent-experience .rounded-2xl {
+  border-radius: 24px;
+}
+.juba-funfluent-page .juba-ff-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--ff-ink);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ff-green-dark);
+  padding: 16px 30px;
+  font-size: 1rem;
+  font-weight: 900;
+  box-shadow: 0 5px 0 var(--ff-ink);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.juba-funfluent-page .juba-ff-secondary:hover {
+  background: #e9f7df;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 var(--ff-ink);
+}
+.juba-funfluent-page .juba-ff-secondary:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--ff-ink);
+}
+@media (max-width: 700px) {
+  .juba-funfluent-page .juba-site-nav { height: 72px; }
+  .juba-funfluent-page .juba-brand-mark { width: 42px; height: 42px; }
+  .juba-funfluent-page .juba-funfluent-features .juba-card,
+  .juba-funfluent-page .juba-funfluent-languages .juba-card,
+  .juba-funfluent-page .juba-funfluent-experience .juba-card {
+    border-radius: 25px;
+  }
+}
