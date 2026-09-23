@@ -1,28 +1,17 @@
 [object Object]
 
-/* Funfluent continuation: pricing */
-.juba-funfluent-page .juba-ff-pricing{padding-top:24px}
-.juba-funfluent-page .juba-ff-pricing-title{color:var(--ff-ink)}
-.juba-funfluent-page .juba-ff-pricing-subtitle{color:#617068}
-.juba-funfluent-page .juba-ff-plan-card{border:3px solid var(--ff-ink);border-radius:28px;background:#fff;box-shadow:7px 7px 0 var(--ff-ink);transition:transform .2s ease,box-shadow .2s ease}
-.juba-funfluent-page .juba-ff-plan-card:hover{transform:translateY(-4px);box-shadow:10px 10px 0 var(--ff-ink)}
-.juba-funfluent-page .juba-ff-plan-free{background:#e2f2d3}
-.juba-funfluent-page .juba-ff-plan-yearly{background:#fff0b8}
-.juba-funfluent-page .juba-ff-plan-paid{background:#e8f5fa}
-.juba-funfluent-page .juba-ff-plan-head{border-color:rgba(37,48,42,.16)}
-.juba-funfluent-page .juba-ff-plan-icon{color:var(--ff-green-dark)}
-.juba-funfluent-page .juba-ff-plan-name,.juba-funfluent-page .juba-ff-plan-price{color:var(--ff-ink)}
-.juba-funfluent-page .juba-ff-plan-badge{border-color:rgba(37,48,42,.22);color:var(--ff-green-dark);background:rgba(255,255,255,.55)}
-.juba-funfluent-page .juba-ff-plan-old{color:#8b8f89}
-.juba-funfluent-page .juba-ff-plan-period,.juba-funfluent-page .juba-ff-plan-desc{color:#617068}
-.juba-funfluent-page .juba-ff-plan-cta{background:var(--ff-yellow);color:var(--ff-ink);border:2px solid var(--ff-ink);box-shadow:3px 3px 0 var(--ff-ink)}
-.juba-funfluent-page .juba-ff-plan-cta:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ff-ink)}
-.juba-funfluent-page .juba-ff-comparison{border:3px solid var(--ff-ink);border-radius:28px;box-shadow:7px 7px 0 var(--ff-ink);background:#fff}
-.juba-funfluent-page .juba-ff-comparison-head{background:#f4f1e8;border-color:rgba(37,48,42,.16)}
-.juba-funfluent-page .juba-ff-table-label,.juba-funfluent-page .juba-ff-table-cell{color:var(--ff-ink)}
-.juba-funfluent-page .juba-ff-table-row{border-color:rgba(37,48,42,.12)}
-.juba-funfluent-page .juba-ff-limited{color:#8b7650}
-.juba-funfluent-page .juba-ff-check{color:var(--ff-green-dark)}
-.juba-funfluent-page .juba-ff-minus{color:#aaa8a0}
-.juba-funfluent-page .juba-ff-plan-error{color:#c84f3c}
-@media(max-width:700px){.juba-funfluent-page .juba-ff-plan-card,.juba-funfluent-page .juba-ff-comparison{border-radius:22px;box-shadow:5px 5px 0 var(--ff-ink)}}
+/* Funfluent continuation: learning path cards */
+.juba-funfluent-page .juba-ff-unit-card{border:3px solid var(--ff-ink);border-radius:28px;background:#fff;box-shadow:6px 6px 0 var(--ff-ink);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
+.juba-funfluent-page .juba-ff-unit-card:hover{box-shadow:9px 9px 0 var(--ff-ink)}
+.juba-funfluent-page .juba-ff-unit-active{border-color:var(--ff-green-dark);box-shadow:6px 6px 0 var(--ff-green-dark)}
+.juba-funfluent-page .juba-ff-unit-active:hover{box-shadow:9px 9px 0 var(--ff-green-dark)}
+.juba-funfluent-page .juba-ff-unit-locked{opacity:.58;box-shadow:4px 4px 0 #a8aaa4}
+.juba-funfluent-page .juba-ff-unit-index{background:#e2f2d3;color:var(--ff-green-dark)}
+.juba-funfluent-page .juba-ff-unit-start{background:var(--ff-yellow);color:var(--ff-ink)}
+.juba-funfluent-page .juba-ff-unit-title{color:var(--ff-ink)}
+.juba-funfluent-page .juba-ff-unit-title-locked{color:#8d918b}
+.juba-funfluent-page .juba-ff-unit-meta{color:#7a837c}
+.juba-funfluent-page .juba-ff-unit-percent{background:#fff0b8;color:var(--ff-ink)}
+.juba-funfluent-page .juba-ff-unit-progress{background:#eef0e9}
+.juba-funfluent-page .juba-ff-unit-progress>div{border-radius:999px}
+.juba-funfluent-page .juba-ff-unit-cta{background:var(--ff-yellow);color:var(--ff-ink);border:2px solid var(--ff-ink);box-shadow:3px 3px 0 var(--ff-ink)}
