@@ -1,8 +1,6 @@
 /* JUBA LISAN — route-specific compatibility and presentation rules.
  * Canonical design tokens live in juba-shell.css; this file preserves
  * legacy route selectors while they are progressively consolidated. */
-html, body { background: var(--juba-bg) !important; color: var(--juba-text); }
-body { background-image: none !important; }
 .bg-fl-bg { background-color: var(--juba-bg) !important; }
 .bg-fl-bg-alt { background-color: var(--juba-surface-soft) !important; }
 .bg-fl-surface { background: var(--juba-surface) !important; border-color: var(--juba-border) !important; box-shadow: none !important; backdrop-filter: none !important; }
