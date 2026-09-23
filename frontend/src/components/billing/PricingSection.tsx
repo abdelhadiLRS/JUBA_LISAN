@@ -262,7 +262,7 @@ export default function PricingSection({
                   href={plan.href}
                   className={`inline-block px-6 py-2.5 text-center font-mono text-xs font-bold tracking-widest uppercase transition-colors ${
                     plan.isFree
-                      ? 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-border)] border'
+                      ? 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] border'
                       : 'juba-ff-plan-cta'
                   }`}
                 >
@@ -279,13 +279,13 @@ export default function PricingSection({
         <table className="w-full table-fixed">
           <thead>
             <tr className="juba-ff-comparison-head border-b">
-              <th className="text-[var(--juba-text)] text-[var(--juba-muted)] w-[42%] px-3 py-3 text-left font-mono tracking-widest uppercase sm:w-auto sm:px-5">
+              <th className="text-[var(--juba-muted)] w-[42%] px-3 py-3 text-left font-mono tracking-widest uppercase sm:w-auto sm:px-5">
                 &nbsp;
               </th>
-              <th className="text-[var(--juba-muted)] text-[var(--juba-muted)] sm:text-[var(--juba-text)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
+              <th className="text-[var(--juba-muted)] sm:text-[var(--juba-text)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
                 {tBilling('planFreeName')}
               </th>
-              <th className="text-[var(--juba-muted)] text-[var(--juba-muted)] sm:text-[var(--juba-text)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
+              <th className="text-[var(--juba-muted)] sm:text-[var(--juba-text)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
                 {tBilling('planMonthlyName')}
               </th>
               <th className="text-[var(--juba-muted)] text-[var(--juba-muted)] sm:text-[var(--juba-text)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
