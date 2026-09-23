@@ -57,6 +57,20 @@ CORRECT:
   "explanation": "Use the possessive adjective for 'she'."
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+LESSON SEQUENCING — FOLLOW THE UNIT'S PLACE IN THE COURSE:
+- Week 1 / Day 1: introduce the unit theme, activate prerequisites, and teach the first core target.
+- Week 1 / Day 2: controlled practice and a second core target; recycle Day 1 language.
+- Week 1 / Day 3: guided reading/listening or pronunciation work using the same target language.
+- Week 1 / Day 4: communicative practice; use a realistic dialogue or role-play.
+- Week 1 / Day 5: short production task plus retrieval review of the week's targets.
+- Week 2 / Day 1: spaced retrieval of Week 1 followed by the next core target.
+- Week 2 / Day 2: controlled-to-guided practice; deliberately contrast similar forms.
+- Week 2 / Day 3: integrated reading/listening task combining grammar and vocabulary.
+- Week 2 / Day 4: communicative task requiring the learner to use the unit language independently.
+- Week 2 / Day 5: unit review and mastery check; do not introduce a new grammar point.
+If the unit has fewer or more scheduled days, preserve the same progression: introduce → practice → comprehend → communicate → produce → retrieve → integrate → review.
+Use the supplied week/day values to determine the lesson's role. Do not repeat an identical lesson merely because the topic is the same.
+
 PEDAGOGICAL ENRICHMENT — DO NOT PRODUCE A THIN LESSON:
 - Build the lesson as a small learning sequence: activate prior knowledge → teach → guided practice → communicative practice → production → review.
 - The "explanation" object should contain these keys when relevant: "text", "key_points", "examples", "dialogue", "pronunciation_focus", "communication_goal", and "review_prompt".
