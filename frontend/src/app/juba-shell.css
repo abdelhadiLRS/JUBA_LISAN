@@ -426,3 +426,45 @@
 .juba-secondary-button:hover{border-color:#39751d;background:#e2f2d3}
 .juba-icon-button{height:40px;width:40px;border:2px solid #e2f2d3;background:#fff;color:#25302a}
 .juba-icon-button:hover{border-color:#39751d;background:#e2f2d3}
+
+
+/* Unified page surfaces — normalize legacy per-page purple styling into the shared system. */
+.juba-mobile-plan,
+.juba-mobile-progress {
+  --page-ink: var(--juba-ink);
+  --page-muted: #617068;
+  --page-border: rgba(37,48,42,.12);
+  --page-soft: #f2f0e8;
+}
+.juba-mobile-plan :where([class*="border-[#ebe7f5]"]),
+.juba-mobile-progress :where([class*="border-[var(--juba-border)]"]) {
+  border-color: var(--page-border) !important;
+}
+.juba-mobile-plan :where([class*="bg-white"]),
+.juba-mobile-progress :where([class*="bg-[var(--juba-surface)]"]) {
+  border-color: var(--page-border);
+}
+.juba-mobile-plan :where([class*="text-[#242033]"]),
+.juba-mobile-progress :where([class*="text-[var(--juba-text)]"]) {
+  color: var(--page-ink) !important;
+}
+.juba-mobile-plan :where([class*="text-[#777087]"]),
+.juba-mobile-plan :where([class*="text-[#938da2]"]),
+.juba-mobile-progress :where([class*="text-[#617068]"]) {
+  color: var(--page-muted);
+}
+.juba-mobile-plan :where([class*="bg-[#f2f0e8]"]),
+.juba-mobile-progress :where([class*="bg-[#f2f0e8]"]) {
+  background: var(--page-soft) !important;
+}
+.juba-mobile-plan :where([class*="shadow-[0_14px_32px_rgba(39,28,72"]),
+.juba-mobile-progress :where([class*="shadow-[0_14px_32px_rgba(39,28,72"]) {
+  box-shadow: var(--j-shell-shadow) !important;
+}
+.juba-mobile-plan :where(button):focus-visible,
+.juba-mobile-progress :where(button):focus-visible,
+.juba-mobile-plan :where(a):focus-visible,
+.juba-mobile-progress :where(a):focus-visible {
+  outline: 3px solid rgba(57,117,29,.25);
+  outline-offset: 3px;
+}
