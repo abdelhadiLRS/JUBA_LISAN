@@ -268,7 +268,7 @@ export default function OnboardingPage() {
                         setLanguagesLoaded(false)
                         fetchLanguages()
                       }}
-                      className="text-fl-accent text-sm font-medium underline transition-all hover:no-underline"
+                      className="text-[var(--juba-violet)] text-sm font-medium underline transition-all hover:no-underline"
                     >
                       {tCommon('retry')}
                     </button>
