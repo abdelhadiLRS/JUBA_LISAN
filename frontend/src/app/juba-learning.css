@@ -136,6 +136,3 @@ body:has(.juba-site-nav) .juba-mobile-menu .juba-nav-signin { color: var(--juba-
   body:has(.juba-site-nav) nav + section .juba-card { box-shadow: 5px 5px 0 var(--juba-text); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
-}
