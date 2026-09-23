@@ -320,16 +320,16 @@ export default function PlanPage() {
   return (
     <div className="juba-mobile-plan mx-auto max-w-6xl space-y-8 px-3 py-5 sm:px-6 sm:py-8">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-[32px] border-[3px] border-[#25302a] bg-[#5a9b32] px-6 py-7 text-white shadow-[7px_7px_0_#25302a] sm:px-9 sm:py-9">
+      <section className="relative overflow-hidden rounded-[32px] border-[3px] border-[var(--juba-ink)] bg-[var(--juba-violet)] px-6 py-7 text-white shadow-[7px_7px_0_var(--juba-ink)] sm:px-9 sm:py-9">
         <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--juba-yellow)] opacity-95" />
         <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--juba-coral)] opacity-80" />
         <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[18px] bg-[var(--juba-mint)]" />
         <div className="relative z-10 max-w-3xl">
           <div className="mb-5 flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-white/15 px-3 py-1.5 text-xs font-black tracking-wide backdrop-blur-sm">
+            <span className="rounded-full bg-[var(--juba-surface)]/15 px-3 py-1.5 text-xs font-black tracking-wide backdrop-blur-sm">
               {t('learningRoadmap')}
             </span>
-            <span className="rounded-full bg-[var(--juba-yellow)] px-3 py-1.5 text-xs font-black text-[#242033]">
+            <span className="rounded-full bg-[var(--juba-yellow)] px-3 py-1.5 text-xs font-black text-[var(--juba-text)]">
               {level}
             </span>
           </div>
@@ -340,15 +340,15 @@ export default function PlanPage() {
             {t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <div className="rounded-2xl bg-white/12 px-4 py-3 backdrop-blur-sm">
+            <div className="rounded-2xl bg-[var(--juba-surface)]/12 px-4 py-3 backdrop-blur-sm">
               <p className="text-[11px] font-bold text-white/65">{t('unitsLabel')}</p>
               <p className="mt-0.5 text-xl font-black">{units.length}</p>
             </div>
-            <div className="rounded-2xl bg-white/12 px-4 py-3 backdrop-blur-sm">
+            <div className="rounded-2xl bg-[var(--juba-surface)]/12 px-4 py-3 backdrop-blur-sm">
               <p className="text-[11px] font-bold text-white/65">{t('pendingLessons')}</p>
               <p className="mt-0.5 text-xl font-black">{pendingLessons.length}</p>
             </div>
-            <div className="rounded-2xl bg-white/12 px-4 py-3 backdrop-blur-sm">
+            <div className="rounded-2xl bg-[var(--juba-surface)]/12 px-4 py-3 backdrop-blur-sm">
               <p className="text-[11px] font-bold text-white/65">{t('level')}</p>
               <p className="mt-0.5 text-xl font-black">{Math.round((competencies[currentUnitId] ?? 0) * 100)}%</p>
             </div>
@@ -358,16 +358,16 @@ export default function PlanPage() {
 
       {/* Resume */}
       {activeLessonId != null && (
-        <section className="relative overflow-hidden rounded-[28px] bg-[var(--juba-yellow)] px-5 py-5 shadow-[0_14px_32px_rgba(39,28,72,0.08)] sm:px-7">
+        <section className="relative overflow-hidden rounded-[28px] bg-[var(--juba-yellow)] px-5 py-5 shadow-[var(--j-shell-shadow)] sm:px-7">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.12em] text-[#6b5920]">{t('learningRoadmap')}</p>
-              <h2 className="mt-1 text-xl font-black tracking-tight text-[#242033]">{t('resume')}</h2>
-              <p className="mt-1 text-sm font-medium text-[#6b5920]">{t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}</p>
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-ink)]">{t('learningRoadmap')}</p>
+              <h2 className="mt-1 text-xl font-black tracking-tight text-[var(--juba-text)]">{t('resume')}</h2>
+              <p className="mt-1 text-sm font-medium text-[var(--juba-ink)]">{t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}</p>
             </div>
             <button
               onClick={() => void launchLesson(activeLessonId)}
-              className="rounded-2xl border-[3px] border-[#25302a] bg-[#ffd35a] px-6 py-3 text-sm font-black text-[#25302a] shadow-[4px_4px_0_#25302a] transition-transform hover:-translate-y-0.5 active:translate-y-1"
+              className="rounded-2xl border-[3px] border-[var(--juba-ink)] bg-[var(--juba-yellow)] px-6 py-3 text-sm font-black text-[var(--juba-ink)] shadow-[4px_4px_0_var(--juba-ink)] transition-transform hover:-translate-y-0.5 active:translate-y-1"
             >
               {t('resume')} →
             </button>
@@ -380,26 +380,26 @@ export default function PlanPage() {
         <section>
           <div className="mb-4 flex items-end justify-between gap-4 px-1">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.12em] text-[#39751d]">{t('pendingLessons')}</p>
-              <h2 className="mt-1 text-2xl font-black tracking-tight text-[#242033]">{t('learningRoadmap')}</h2>
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-violet-dark)]">{t('pendingLessons')}</p>
+              <h2 className="mt-1 text-2xl font-black tracking-tight text-[var(--juba-text)]">{t('learningRoadmap')}</h2>
             </div>
-            <span className="rounded-full bg-[#e2f2d3] px-3 py-1 text-xs font-black text-[#39751d]">{pendingLessons.length}</span>
+            <span className="rounded-full bg-[var(--juba-lilac)] px-3 py-1 text-xs font-black text-[var(--juba-violet-dark)]">{pendingLessons.length}</span>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
             {pendingLessons.map((lesson, i) => (
               <button
                 key={lesson.id}
                 onClick={() => void launchLesson(lesson.id)}
-                className="group flex items-center gap-4 rounded-[24px] border-2 border-[#ebe7f5] bg-white p-4 text-start shadow-[0_12px_28px_rgba(39,28,72,0.06)] transition-all hover:-translate-y-1 hover:border-[#5a9b32]"
+                className="group flex items-center gap-4 rounded-[24px] border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] p-4 text-start shadow-[var(--j-shell-shadow)] transition-all hover:-translate-y-1 hover:border-[var(--juba-violet)]"
               >
-                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[17px] text-sm font-black ${i % 2 === 0 ? 'bg-[var(--juba-mint)]' : 'bg-[var(--juba-sky)]'} text-[#242033]`}>
+                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[17px] text-sm font-black ${i % 2 === 0 ? 'bg-[var(--juba-mint)]' : 'bg-[var(--juba-sky)]'} text-[var(--juba-text)]`}>
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-black text-[#242033]">{lesson.title}</span>
-                  <span className="mt-1 block text-xs font-semibold text-[#938da2]">W{lesson.week_number} · D{lesson.day_number} · {lesson.lesson_type}</span>
+                  <span className="block truncate text-sm font-black text-[var(--juba-text)]">{lesson.title}</span>
+                  <span className="mt-1 block text-xs font-semibold text-[var(--juba-muted)]">W{lesson.week_number} · D{lesson.day_number} · {lesson.lesson_type}</span>
                 </span>
-                <span className="text-xl font-black text-[#39751d] transition-transform group-hover:translate-x-1">→</span>
+                <span className="text-xl font-black text-[var(--juba-violet-dark)] transition-transform group-hover:translate-x-1">→</span>
               </button>
             ))}
           </div>
@@ -409,16 +409,16 @@ export default function PlanPage() {
       {/* Path */}
       <section>
         <div className="mb-5 px-1">
-          <p className="text-xs font-black uppercase tracking-[0.12em] text-[#39751d]">{t('learningRoadmap')}</p>
-          <h2 className="mt-1 text-2xl font-black tracking-tight text-[#242033]">{langName || t('level')} · {level}</h2>
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-violet-dark)]">{t('learningRoadmap')}</p>
+          <h2 className="mt-1 text-2xl font-black tracking-tight text-[var(--juba-text)]">{langName || t('level')} · {level}</h2>
         </div>
 
         <div className="relative space-y-4">
-          <div className="pointer-events-none absolute start-[28px] top-8 bottom-8 hidden w-1 rounded-full bg-[#e2f2d3] sm:block" />
+          <div className="pointer-events-none absolute start-[28px] top-8 bottom-8 hidden w-1 rounded-full bg-[var(--juba-lilac)] sm:block" />
           {units.length === 0 && (
-            <div className="rounded-[28px] border-2 border-[#ebe7f5] bg-white px-6 py-12 text-center shadow-[0_14px_32px_rgba(39,28,72,0.06)]">
-              <p className="text-sm font-black text-[#777087]">{t('noUnitsForLevel', { level })}</p>
-              <p className="mt-2 text-xs font-medium text-[#aaa4b5]">{t('noUnitsDesc')}</p>
+            <div className="rounded-[28px] border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] px-6 py-12 text-center shadow-[var(--j-shell-shadow)]">
+              <p className="text-sm font-black text-[var(--juba-muted)]">{t('noUnitsForLevel', { level })}</p>
+              <p className="mt-2 text-xs font-medium text-[var(--juba-muted)]">{t('noUnitsDesc')}</p>
             </div>
           )}
           {units.map((unit, i) => {
@@ -433,7 +433,7 @@ export default function PlanPage() {
 
             return (
               <div key={unit.id} className="relative sm:ps-16">
-                <div className="absolute start-3 top-5 z-10 hidden h-8 w-8 items-center justify-center rounded-full border-4 border-[#fbfaff] bg-[#39751d] shadow-sm sm:flex">
+                <div className="absolute start-3 top-5 z-10 hidden h-8 w-8 items-center justify-center rounded-full border-4 border-[#fbfaff] bg-[var(--juba-violet-dark)] shadow-sm sm:flex">
                   <span className="text-[10px] font-black text-white">{i + 1}</span>
                 </div>
                 <UnitCard
@@ -476,12 +476,12 @@ export default function PlanPage() {
       {allUnitsCompleted && !plan.completion_test_taken && <LevelTestBanner planId={plan.id} level={level} />}
 
       {plan.completion_test_taken && (
-        <section className="rounded-[28px] border-2 border-[#ebe7f5] bg-white px-5 py-5 shadow-[0_14px_32px_rgba(39,28,72,0.06)] sm:px-7">
-          <p className="text-xs font-black uppercase tracking-[0.12em] text-[#39751d]">{t('levelTestResult')}</p>
-          <p className="mt-2 text-sm font-semibold text-[#5f596e]">
-            {t('testScore')} <span className="font-black text-[#242033]">{plan.completion_test_score != null ? `${Math.round(plan.completion_test_score * 100)}%` : 'n/a'}</span>
+        <section className="rounded-[28px] border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] px-5 py-5 shadow-[var(--j-shell-shadow)] sm:px-7">
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-violet-dark)]">{t('levelTestResult')}</p>
+          <p className="mt-2 text-sm font-semibold text-[var(--juba-muted)]">
+            {t('testScore')} <span className="font-black text-[var(--juba-text)]">{plan.completion_test_score != null ? `${Math.round(plan.completion_test_score * 100)}%` : 'n/a'}</span>
           </p>
-          {plan.completion_test_recommendation && <p className="mt-2 text-sm text-[#777087]">{plan.completion_test_recommendation}</p>}
+          {plan.completion_test_recommendation && <p className="mt-2 text-sm text-[var(--juba-muted)]">{plan.completion_test_recommendation}</p>}
         </section>
       )}
 
