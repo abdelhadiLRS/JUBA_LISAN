@@ -121,10 +121,10 @@ export default function FAQPage() {
     <div className="mx-auto max-w-4xl space-y-6 p-5 sm:p-8">
       {/* Header */}
       <div className="rounded-[30px] bg-[var(--juba-violet)] p-7 text-white shadow-[var(--juba-shadow-md)]">
-        <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-1 font-semibold tracking-wide">
+        <p className="mb-1 font-semibold tracking-wide text-white/90">
           {t('title')}
         </p>
-        <h1 className="text-[var(--juba-text)] font-mono text-2xl font-bold tracking-tight">
+        <h1 className="font-mono text-2xl font-bold tracking-tight text-white">
           {t('subtitle')}
         </h1>
       </div>
@@ -138,7 +138,7 @@ export default function FAQPage() {
           >
             <button
               onClick={() => setOpen(open === i ? null : i)}
-              className="hover:bg-white flex w-full items-center justify-between px-5 py-4 text-left transition-colors"
+              className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[var(--juba-surface-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--juba-violet)]"
             >
               <span className="text-[var(--juba-text)] pr-4 text-sm tracking-wide">
                 {item.q}
