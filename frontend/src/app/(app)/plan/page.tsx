@@ -275,6 +275,8 @@ export default function PlanPage() {
       setActiveLessonId(nextLessonId)
       setPendingLessons(pendingData ?? [])
       setActiveLessonId(nextLessonId)
+      if (!pendingData) setPendingLessons([])
+      if (!todayData && !journey) setActiveLessonId(null)
       setLessonStates(states)
     } catch (err) {
       if (!cancelled && requestId === loadRequestRef.current) setError(err instanceof Error ? err.message : 'Failed to load')
