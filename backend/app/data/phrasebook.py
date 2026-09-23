@@ -28,6 +28,16 @@ _LANG_MODULES: dict[str, str] = {
     "nl": "app.data.nl.phrasebook",
     "pl": "app.data.pl.phrasebook",
     "el": "app.data.el.phrasebook",
+    "sv": "app.data.language_foundations.sv",
+    "da": "app.data.language_foundations.da",
+    "no": "app.data.language_foundations.no",
+    "fi": "app.data.language_foundations.fi",
+    "cs": "app.data.language_foundations.cs",
+    "ro": "app.data.language_foundations.ro",
+    "hu": "app.data.language_foundations.hu",
+    "uk": "app.data.language_foundations.uk",
+    "he": "app.data.language_foundations.he",
+    "vi": "app.data.language_foundations.vi",
 }
 
 _CACHE: dict[str, list[PhrasebookCategory]] = {}
