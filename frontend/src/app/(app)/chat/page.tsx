@@ -305,7 +305,7 @@ export default function ChatPage() {
 
   return (
     <MaintenanceGate>
-      <div className="flex h-[calc(100dvh-56px)] w-full overflow-hidden md:h-screen">
+      <div className="juba-chat-shell flex h-[calc(100dvh-56px)] w-full overflow-hidden md:h-screen">
         <MemorySavedToast
           visible={memoryToast}
           announcementId={memoryToastId}
@@ -320,7 +320,7 @@ export default function ChatPage() {
 
         {/* Sidebar */}
         {sidebarOpen && (
-          <aside className="border-[#e2f2d3] bg-[#e2f2d3]/40 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
+          <aside className="juba-chat-sidebar border-[#e2f2d3] bg-[#e2f2d3]/40 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
             <div className="border-[#e2f2d3] flex items-center justify-between border-b-2 px-4 py-3">
               <span className="text-[var(--juba-muted)] font-semibold tracking-wide">
                 {t('conversations')}
@@ -408,7 +408,7 @@ export default function ChatPage() {
         {/* Main chat area */}
         <div className="flex flex-1 flex-col overflow-hidden">
           {/* Header */}
-          <div className="border-[#e2f2d3] bg-[#e2f2d3]/40 flex shrink-0 items-center gap-2 border-b px-5 py-4">
+          <div className="juba-chat-header border-[#e2f2d3] bg-[#e2f2d3]/40 flex shrink-0 items-center gap-2 border-b px-5 py-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] mr-1 text-lg transition-colors"
@@ -471,10 +471,10 @@ export default function ChatPage() {
               messages.map((msg, i) => (
                 <div
                   key={i}
-                  className={`flex items-end gap-2 ${msg.role === 'user' ? 'ml-auto max-w-[75%] flex-row-reverse' : 'flex-row'}`}
+                  className={`juba-chat-message-row flex items-end gap-2 ${msg.role === 'user' ? 'ml-auto max-w-[75%] flex-row-reverse' : 'flex-row'}`}
                 >
                   {/* Avatar */}
-                  <div className="border-[#e2f2d3] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#e2f2d3]">
+                  <div className="juba-chat-avatar border-[#e2f2d3] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#e2f2d3]">
                     {msg.role === 'assistant' ? (
                       <Image
                         src="/logo_head.png"
@@ -514,7 +514,7 @@ export default function ChatPage() {
                     <TargetLanguageText
                       as="div"
                       languageCode={targetLanguageCode}
-                      className={`word-selectable border-2 border-[#e2f2d3] px-4 py-3 text-left ${
+                      className={`juba-chat-message word-selectable border-2 border-[#e2f2d3] px-4 py-3 text-left ${
                         msg.role === 'user'
                           ? 'bg-[#39751d] text-white border-[#25302a] shadow-[3px_3px_0_#25302a]'
                           : 'bg-white text-[var(--juba-text)] border-2 border-[#e2f2d3] shadow-[2px_2px_0_var(--juba-border)]'
