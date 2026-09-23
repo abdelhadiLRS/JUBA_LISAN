@@ -1,5 +1,3 @@
-[object Object]
-
 /* Learning path is its own app route; keep the same visual system outside the landing wrapper */
 .juba-ff-unit-card{border:3px solid #25302a;border-radius:28px;background:#fff;box-shadow:6px 6px 0 #25302a;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
 .juba-ff-unit-card:hover{transform:translateY(-2px);box-shadow:9px 9px 0 #25302a}
