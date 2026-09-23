@@ -172,12 +172,12 @@ export default function PricingSection({
   ]
 
   return (
-    <section className="mx-auto w-full max-w-5xl px-6 pb-24">
+    <section className="juba-ff-pricing mx-auto w-full max-w-6xl px-4 pb-24 sm:px-6">
       <div className="mb-10 text-center">
-        <h2 className="text-fl-fg mb-2 font-sans text-xl font-bold tracking-tight">
+        <h2 className="juba-ff-pricing-title mb-2 font-sans text-3xl font-black tracking-tight">
           {tBilling('pricingTitle')}
         </h2>
-        <p className="text-fl-muted-1 font-sans text-sm">
+        <p className="juba-ff-pricing-subtitle font-sans text-sm">
           {tBilling(trialUsed ? 'pricingDescTrialUsed' : 'pricingDesc', {
             days: trialDays,
           })}
@@ -191,18 +191,18 @@ export default function PricingSection({
           return (
             <div
               key={plan.name}
-              className={`flex flex-col gap-4 border p-6 ${
+              className={`juba-ff-plan-card flex flex-col gap-4 p-6 ${
                 plan.isFree
-                  ? 'border-fl-border-2 bg-fl-bg-alt'
+                  ? 'juba-ff-plan-free'
                   : plan.name === tBilling('planYearlyName')
-                    ? 'border-fl-accent/30 bg-fl-surface'
-                    : 'border-fl-border bg-fl-surface'
+                    ? 'juba-ff-plan-yearly'
+                    : 'juba-ff-plan-paid'
               }`}
             >
-              <div className="border-fl-border flex items-center justify-between border-b pb-3">
+              <div className="juba-ff-plan-head flex items-center justify-between border-b pb-3">
                 <div className="flex items-center gap-2">
-                  <Icon className="text-fl-muted-2 h-4 w-4" />
-                  <span className="text-fl-label text-fl-muted-2 font-sans text-sm font-semibold tracking-tight">
+                  <Icon className="juba-ff-plan-icon h-5 w-5" />
+                  <span className="juba-ff-plan-name font-sans text-sm font-black tracking-tight">
                     {plan.name}
                   </span>
                 </div>
@@ -218,13 +218,13 @@ export default function PricingSection({
               <div className="min-h-[4.25rem]">
                 {plan.price !== null ? (
                   <>
-                    <p className="text-fl-muted-2 font-mono text-sm line-through">
+                    <p className="juba-ff-plan-old font-mono text-sm line-through">
                       {tBilling('priceOriginal', {
                         price: plan.originalPrice,
                         period: plan.priceLabel,
                       })}
                     </p>
-                    <p className="text-fl-fg flex items-baseline gap-2 font-mono text-xl font-bold">
+                    <p className="juba-ff-plan-price flex items-baseline gap-2 font-mono text-2xl font-black">
                       {tBilling('priceAmount', { amount: plan.price })}
                       <span className="text-fl-muted-1 text-sm">
                         {tBilling('pricePerPeriod', {
@@ -241,7 +241,7 @@ export default function PricingSection({
                     >
                       &nbsp;
                     </p>
-                    <p className="text-fl-muted-1 font-sans text-sm leading-relaxed">
+                    <p className="juba-ff-plan-desc font-sans text-sm leading-relaxed">
                       {plan.desc}
                     </p>
                   </>
@@ -253,7 +253,7 @@ export default function PricingSection({
                   type="button"
                   disabled={checkoutLoading !== null}
                   onClick={() => startCheckout(plan.interval)}
-                  className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 inline-block px-6 py-2.5 text-center font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+                  className="juba-ff-plan-cta inline-block px-6 py-2.5 text-center font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
                 >
                   {checkoutLoading === plan.interval ? '...' : plan.cta}
                 </button>
@@ -263,7 +263,7 @@ export default function PricingSection({
                   className={`inline-block px-6 py-2.5 text-center font-mono text-xs font-bold tracking-widest uppercase transition-colors ${
                     plan.isFree
                       ? 'border-fl-border-2 text-fl-muted-1 hover:text-fl-fg hover:border-fl-border border'
-                      : 'bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90'
+                      : 'juba-ff-plan-cta'
                   }`}
                 >
                   {plan.cta}
@@ -275,10 +275,10 @@ export default function PricingSection({
       </div>
 
       {/* Comparison table */}
-      <div className="border-fl-border overflow-hidden border">
+      <div className="juba-ff-comparison overflow-hidden border">
         <table className="w-full table-fixed">
           <thead>
-            <tr className="border-fl-border bg-fl-surface border-b">
+            <tr className="juba-ff-comparison-head border-b">
               <th className="text-fl-label text-fl-muted-2 w-[42%] px-3 py-3 text-left font-mono tracking-widest uppercase sm:w-auto sm:px-5">
                 &nbsp;
               </th>
@@ -301,18 +301,18 @@ export default function PricingSection({
                   i < tableRows.length - 1 ? 'border-fl-border border-b' : ''
                 }
               >
-                <td className="text-fl-muted-1 px-3 py-3 font-mono text-xs sm:px-5">
+                <td className="juba-ff-table-cell px-3 py-3 font-mono text-xs sm:px-5">
                   {row.label}
                 </td>
                 <td className="px-1 py-3 text-center sm:px-4">
                   {row.free === 'limited' ? (
-                    <span className="text-fl-muted-2 font-mono text-[0.6rem] tracking-widest uppercase">
+                    <span className="juba-ff-limited font-mono text-[0.6rem] tracking-widest uppercase">
                       {tBilling('limitedLabel')}
                     </span>
                   ) : row.free ? (
-                    <Check className="text-fl-accent mx-auto h-3.5 w-3.5" />
+                    <Check className="juba-ff-check mx-auto h-4 w-4" />
                   ) : (
-                    <Minus className="text-fl-muted-4 mx-auto h-3.5 w-3.5" />
+                    <Minus className="juba-ff-minus mx-auto h-4 w-4" />
                   )}
                 </td>
                 <td className="px-1 py-3 text-center sm:px-4">
@@ -341,7 +341,7 @@ export default function PricingSection({
             type="button"
             disabled={checkoutLoading !== null}
             onClick={() => startCheckout('yearly')}
-            className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 inline-block px-10 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+            className="juba-ff-plan-cta inline-block px-10 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
           >
             {checkoutLoading === 'yearly'
               ? '...'
@@ -350,13 +350,13 @@ export default function PricingSection({
         ) : (
           <Link
             href="/register?plan=yearly"
-            className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 inline-block px-10 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+            className="juba-ff-plan-cta inline-block px-10 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
           >
             {tBilling(trialUsed ? 'ctaRegisterTrialUsed' : 'ctaRegister')}
           </Link>
         )}
         {checkoutError && (
-          <p className="text-fl-error mt-3 font-mono text-xs">
+          <p className="juba-ff-plan-error mt-3 font-mono text-xs">
             {checkoutError}
           </p>
         )}
