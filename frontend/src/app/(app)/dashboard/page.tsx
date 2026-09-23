@@ -356,7 +356,7 @@ export default function DashboardPage() {
             {hasPlan && totalDays > 0 && <span className="juba-mobile-day">{Math.min(progressDay + 1, totalDays)}/{totalDays}</span>}
           </div>
           <div className="relative z-10">
-            <p className="text-sm font-semibold text-[#3d6375]">{t('welcomeBack')}</p>
+            <p className="text-sm font-semibold text-[var(--juba-muted)]">{t('welcomeBack')}</p>
             <h1 className="mt-1 text-[2rem] font-black leading-[1.05] tracking-[-.05em] text-[var(--juba-ink)]">
               {user?.displayName || user?.username} 👋
             </h1>
