@@ -620,3 +620,156 @@ html[data-theme='light'] {
   .juba-brand{gap:10px}.juba-brand-mark{width:36px;height:36px}
   .juba-ff-nav-inner{padding-left:18px;padding-right:18px}
 }
+
+
+/* JUBA LISAN — internal application typography.
+   Deliberately stronger than the legacy utility typography so headings,
+   labels, body copy, controls and lesson content have visible hierarchy. */
+main,
+[role="main"] {
+  font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+main h1,
+[role="main"] h1 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 0.98;
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  margin: 0;
+}
+
+main h2,
+[role="main"] h2 {
+  font-size: clamp(1.45rem, 2.4vw, 2.15rem);
+  line-height: 1.05;
+  font-weight: 850;
+  letter-spacing: -0.04em;
+}
+
+main h3,
+[role="main"] h3 {
+  font-size: 1.15rem;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+main p,
+[role="main"] p {
+  line-height: 1.7;
+}
+
+main small,
+[role="main"] small {
+  font-size: .75rem;
+  line-height: 1.45;
+}
+
+main label,
+[role="main"] label {
+  font-size: .72rem;
+  line-height: 1.3;
+  font-weight: 800;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
+main button,
+main a,
+main input,
+main select,
+main textarea,
+[role="main"] button,
+[role="main"] a,
+[role="main"] input,
+[role="main"] select,
+[role="main"] textarea {
+  font-family: inherit;
+}
+
+main button,
+[role="main"] button {
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+main input,
+main select,
+main textarea,
+[role="main"] input,
+[role="main"] select,
+[role="main"] textarea {
+  font-size: .92rem;
+  line-height: 1.55;
+}
+
+main input::placeholder,
+main textarea::placeholder,
+[role="main"] input::placeholder,
+[role="main"] textarea::placeholder {
+  opacity: .62;
+}
+
+main [data-lesson-content],
+main .lesson-content,
+main .prose,
+[role="main"] [data-lesson-content],
+[role="main"] .lesson-content,
+[role="main"] .prose {
+  font-size: 1rem;
+  line-height: 1.85;
+}
+
+main [data-lesson-content] h1,
+main [data-lesson-content] h2,
+main [data-lesson-content] h3,
+main .lesson-content h1,
+main .lesson-content h2,
+main .lesson-content h3,
+[role="main"] [data-lesson-content] h1,
+[role="main"] [data-lesson-content] h2,
+[role="main"] [data-lesson-content] h3,
+[role="main"] .lesson-content h1,
+[role="main"] .lesson-content h2,
+[role="main"] .lesson-content h3 {
+  margin-top: 1.5em;
+  margin-bottom: .55em;
+}
+
+main [dir="rtl"],
+[role="main"] [dir="rtl"] {
+  line-height: 1.9;
+  letter-spacing: 0;
+}
+
+main [dir="rtl"] h1,
+main [dir="rtl"] h2,
+main [dir="rtl"] h3,
+[role="main"] [dir="rtl"] h1,
+[role="main"] [dir="rtl"] h2,
+[role="main"] [dir="rtl"] h3 {
+  letter-spacing: 0;
+}
+
+@media (max-width: 640px) {
+  main,
+  [role="main"] {
+    font-size: 14px;
+  }
+
+  main h1,
+  [role="main"] h1 {
+    font-size: clamp(1.85rem, 10vw, 2.6rem);
+    line-height: 1.02;
+  }
+
+  main h2,
+  [role="main"] h2 {
+    font-size: clamp(1.3rem, 7vw, 1.8rem);
+  }
+}
