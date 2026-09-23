@@ -125,15 +125,24 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     if (matched.length + (correct ? 2 : 0) >= challenge.left.length * 2) void finish(trace)
   }, [left, right, completed, mode, challenge, matchingTrace, matched.length, finish])
 
-  function submitOrder() {
-    if (completed || !challenge || challenge.type !== 'ordering' || order.length !== challenge.items.length) return
+  async function submitOrder() {
+    if (completed || finishing.current || !challenge || challenge.type !== 'ordering' || order.length !== challenge.items.length) return
     const trace = [...orderingTrace, { order: [...order] } as InteractiveGameTrace]
     setOrderingTrace(trace)
     setMoves(value => value + 1)
-    void Promise.resolve(onComplete?.(trace)).then((accepted) => {
+    finishing.current = true
+    try {
+      const accepted = await onComplete?.(trace)
       if (accepted !== false) setCompleted(true)
-      else { setFeedback(t.tryAgain); setOrder([]) }
-    })
+      else {
+        finishing.current = false
+        setFeedback(t.tryAgain)
+        setOrder([])
+      }
+    } catch {
+      finishing.current = false
+      setFeedback(t.tryAgain)
+    }
   }
 
   function reset() {
@@ -187,7 +196,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
         })}</div>
         <button type="button" className="interactive-secondary" onClick={() => setOrder(value => value.slice(0, -1))} disabled={!order.length}>{t.undo}</button>
         <button type="button" className="interactive-secondary" onClick={() => setOrder([])} disabled={!order.length}>{t.clear}</button>
-        <button type="button" className="interactive-secondary" onClick={submitOrder} disabled={order.length !== items.length}>✓</button>
+        <button type="button" className="interactive-secondary" onClick={() => void submitOrder()} disabled={order.length !== items.length || finishing.current}>✓</button>
       </>}
 
 {feedback && !completed && <div className="interactive-feedback" role="status" aria-live="polite">{feedback}</div>}
