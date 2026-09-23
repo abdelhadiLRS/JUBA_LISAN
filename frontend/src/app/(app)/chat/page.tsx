@@ -84,6 +84,7 @@ export default function ChatPage() {
   const inputRef = useRef<HTMLInputElement>(null)
   const assistantContentRef = useRef('')
   const assistantFlushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const streamGenerationRef = useRef(0)
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
 
   const flushAssistantContent = useCallback(() => {
@@ -200,6 +201,7 @@ export default function ChatPage() {
   }, [activeLanguage?.code])
 
   async function selectConversation(id: number) {
+    streamGenerationRef.current += 1
     dismissTooltip()
     if (window.innerWidth < 768) setSidebarOpen(false)
     setActiveId(id)
@@ -223,6 +225,7 @@ export default function ChatPage() {
   }
 
   async function newChat() {
+    streamGenerationRef.current += 1
     // Don't create — let the first message auto-create the conversation
     dismissTooltip()
     setActiveId(null)
@@ -277,6 +280,7 @@ export default function ChatPage() {
 
   async function sendMessage() {
     if (!input.trim() || sending) return
+    const streamGeneration = streamGenerationRef.current
     const text = input.trim()
     setInput('')
     setError('')
@@ -301,6 +305,7 @@ export default function ChatPage() {
 
       if (!res.body) throw new Error(t('errorMessage'))
       for await (const data of readSseData<ChatSseEvent>(res.body)) {
+        if (streamGeneration !== streamGenerationRef.current) break
         if (data.conversation_id && !activeId) {
           setActiveId(data.conversation_id)
           loadConversations().then((list) => list && setConversations(list))
@@ -321,6 +326,13 @@ export default function ChatPage() {
         if (data.error) {
           streamCompleted = true
           setError(data.error)
+          assistantContentRef.current = ''
+          setMessages((prev) => {
+            const last = prev[prev.length - 1]
+            if (!last || last.role !== 'assistant') return prev
+            return prev.slice(0, -1)
+          })
+          break
         }
         if (data.done) {
           streamCompleted = true
@@ -334,12 +346,20 @@ export default function ChatPage() {
         }
         if (data.memory_updated) showMemoryToast()
       }
+      if (streamGeneration !== streamGenerationRef.current) return
       flushAssistantContent()
       if (!streamCompleted) throw new Error(t('errorMessage'))
     } catch (e) {
+      if (streamGeneration !== streamGenerationRef.current) return
       setError(e instanceof Error ? e.message : t('errorMessage'))
+      assistantContentRef.current = ''
+      setMessages((prev) => {
+        const last = prev[prev.length - 1]
+        if (!last || last.role !== 'assistant') return prev
+        return last.content ? prev : prev.slice(0, -1)
+      })
     } finally {
-      flushAssistantContent()
+      if (streamGeneration === streamGenerationRef.current) flushAssistantContent()
       setSending(false)
       inputRef.current?.focus()
     }
