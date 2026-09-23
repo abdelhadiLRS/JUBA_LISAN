@@ -17,6 +17,8 @@ export default function FriendsPage() {
   const [query,setQuery]=useState('')
   const [loading,setLoading]=useState(true)
   const [error,setError]=useState('')
+  const [searching,setSearching]=useState(false)
+  const [actionId,setActionId]=useState<number|null>(null)
 
   async function load() {
     setLoading(true); setError('')
@@ -37,23 +39,37 @@ export default function FriendsPage() {
 
   async function search() {
     if (query.trim().length < 2) { setResults([]); return }
-    const res=await apiFetch('/api/social/users?q='+encodeURIComponent(query.trim()))
-    if (res.ok) setResults(await res.json())
+    setSearching(true); setError('')
+    try {
+      const res=await apiFetch('/api/social/users?q='+encodeURIComponent(query.trim()))
+      if (!res.ok) throw new Error()
+      setResults(await res.json())
+    } catch { setError('Unable to search learners right now.') }
+    finally { setSearching(false) }
   }
 
   async function addFriend(id:number) {
+    setActionId(id)
     const res=await apiFetch('/api/social/requests',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_id:id})})
     if (res.ok) { setResults(prev=>prev.filter(p=>p.id!==id)); await load() }
+    else setError((await res.json().catch(()=>({detail:'Unable to send friend request.'}))).detail || 'Unable to send friend request.')
+    setActionId(null)
   }
 
   async function accept(id:number) {
+    setActionId(id)
     const res=await apiFetch('/api/social/requests/'+id+'/accept',{method:'POST'})
     if (res.ok) await load()
+    else setError('Unable to accept this request.')
+    setActionId(null)
   }
 
   async function remove(id:number) {
+    setActionId(id)
     const res=await apiFetch('/api/social/friends/'+id,{method:'DELETE'})
     if (res.ok) await load()
+    else setError('Unable to remove this friend.')
+    setActionId(null)
   }
 
   return (
@@ -73,19 +89,19 @@ export default function FriendsPage() {
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--juba-muted)]" />
               <input value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>e.key==='Enter'&&search()} placeholder="Search learners by name or username" className="juba-input pl-10" />
             </div>
-            <button onClick={search} className="juba-primary-button"><Search className="h-4 w-4" /> Search</button>
+            <button onClick={search} disabled={searching} className="juba-primary-button"><Search className="h-4 w-4" /> {searching?'Searching…':'Search'}</button>
           </div>
-          {results.length>0 && <div className="grid gap-3 md:grid-cols-2">{results.map(person=><PersonCard key={person.id} person={person}><button onClick={()=>addFriend(person.id)} className="juba-secondary-button"><UserPlus className="h-4 w-4"/> Add</button></PersonCard>)}</div>}
+          {results.length>0 && <div className="grid gap-3 md:grid-cols-2">{results.map(person=><PersonCard key={person.id} person={person}><button onClick={()=>addFriend(person.id)} disabled={actionId===person.id} className="juba-secondary-button"><UserPlus className="h-4 w-4"/> {actionId===person.id?'Adding…':'Add'}</button></PersonCard>)}</div>}
           <div className="flex items-center justify-between pt-2"><h2 className="juba-section-title">Your learning friends</h2><span className="juba-badge">{friends.length}</span></div>
           {loading ? <p className="juba-muted">Loading…</p> : friends.length===0 ? <Empty text="No friends yet. Search for another learner to start practising together."/> :
-            <div className="grid gap-3 md:grid-cols-2">{friends.map(person=><PersonCard key={person.id} person={person}><div className="flex gap-2"><Link href={'/friends/chat/'+person.id} className="juba-primary-button"><MessageCircle className="h-4 w-4"/> Chat</Link><button onClick={()=>remove(person.id)} className="juba-secondary-button" title="Remove friend"><UserMinus className="h-4 w-4"/></button></div></PersonCard>)}</div>}
+            <div className="grid gap-3 md:grid-cols-2">{friends.map(person=><PersonCard key={person.id} person={person}><div className="flex gap-2"><Link href={'/friends/chat/'+person.id} className="juba-primary-button"><MessageCircle className="h-4 w-4"/> Chat</Link><button onClick={()=>remove(person.id)} disabled={actionId===person.id} className="juba-secondary-button" title="Remove friend"><UserMinus className="h-4 w-4"/></button></div></PersonCard>)}</div>}
           {error && <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</p>}
         </div>
 
         <div className="juba-panel">
           <h2 className="juba-section-title">Friend requests</h2>
           <div className="mt-4 space-y-3">
-            {incoming.map(item=><PersonCard key={item.id} person={item.user}><button onClick={()=>accept(item.id)} className="juba-primary-button"><Check className="h-4 w-4"/> Accept</button></PersonCard>)}
+            {incoming.map(item=><PersonCard key={item.id} person={item.user}><button onClick={()=>accept(item.id)} disabled={actionId===item.id} className="juba-primary-button"><Check className="h-4 w-4"/> {actionId===item.id?'Accepting…':'Accept'}</button></PersonCard>)}
             {outgoing.map(item=><PersonCard key={'o'+item.id} person={item.user}><span className="juba-badge">Pending</span></PersonCard>)}
             {!incoming.length&&!outgoing.length&&<Empty text="No pending requests."/>}
           </div>
