@@ -712,7 +712,8 @@
     },
     "transcriptLabel": "Transcripción",
     "listeningPractice": "Abrir práctica de escucha",
-    "audioLoadError": "No se pudo cargar el audio. Puedes continuar con la transcripción."
+    "audioLoadError": "No se pudo cargar el audio. Puedes continuar con la transcripción.",
+    "choiceKeyboardHint": "Elige una respuesta haciendo clic o pulsando 1–9."
   },
   "flashcards": {
     "title": "Tarjetas",
