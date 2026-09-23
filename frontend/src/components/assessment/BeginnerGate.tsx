@@ -17,37 +17,37 @@ export default function BeginnerGate({
   const tLang = useTranslations('targetLanguages')
 
   return (
-    <div className="flex min-h-[60vh] items-center justify-center p-6">
-      <div className="border-fl-border bg-fl-surface w-full max-w-md border">
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-3">●</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+    <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
+      <div className="w-full max-w-xl overflow-hidden rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[0_22px_55px_rgba(61,42,130,0.12)]">
+        <div className="flex items-center gap-3 border-b-2 border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/40 px-6 py-4">
+          <span className="text-xs text-[var(--juba-muted)]">●</span>
+          <span className="text-xs text-[var(--juba-muted)] font-semibold tracking-[0.12em] uppercase">
             {t('step1')}
           </span>
         </div>
-        <div className="space-y-6 p-8">
-          <div className="space-y-2 text-center">
-            <p className="text-fl-body text-fl-fg font-mono">
+        <div className="space-y-7 p-6 sm:p-8">
+          <div className="space-y-3 text-center">
+            <p className="text-2xl font-extrabold tracking-tight text-[var(--juba-text)]">
               {t('studiedBefore', { language: tLang(languageCode) })}
             </p>
-            <p className="text-fl-label text-fl-muted-3 font-mono">
+            <p className="text-xs text-[var(--juba-muted)] font-mono">
               {t('studiedBeforeHint')}
             </p>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <button
               onClick={onBeginner}
-              className="border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg w-full border px-5 py-4 text-left font-mono text-xs tracking-widest uppercase transition-colors"
+              className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:border-[var(--juba-border)]-2 hover:text-fl-fg w-full border px-5 py-4 text-left font-mono text-xs tracking-widest uppercase transition-colors"
             >
-              <span className="text-fl-muted-3 mr-3">○</span>
+              <span className="text-[var(--juba-muted)] mr-3">○</span>
               {t('beginnerOption')}
-              <span className="text-fl-hint text-fl-muted-3 mt-1 ml-6 block normal-case">
+              <span className="text-xs text-[var(--juba-muted)] mt-1 ml-6 block normal-case">
                 {t('beginnerOptionHint')}
               </span>
             </button>
             <button
               onClick={onHasExperience}
-              className="bg-fl-fg text-fl-bg hover:bg-fl-fg-bright w-full px-5 py-4 text-left font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+              className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet-dark)] w-full px-5 py-4 text-left font-mono text-xs font-bold tracking-widest uppercase transition-colors"
             >
               <span className="mr-3">●</span>
               {t('hasExperienceOption')}
