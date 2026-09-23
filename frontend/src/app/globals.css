@@ -600,3 +600,23 @@ html[data-theme='light'] {
 .juba-ff-hero-cloud.cloud-two{width:125px;height:34px;top:29%;right:4%;left:auto;opacity:.58}
 .juba-ff-demo-cloud{width:145px;height:38px;top:12%;left:3%;opacity:.55}.juba-ff-demo-cloud.cloud-b{top:58%;right:3%;left:auto;opacity:.42}
 @media(max-width:600px){.juba-ff-hero-cloud{transform:scale(.72);left:-15px}.juba-ff-hero-cloud.cloud-two{right:-20px}.juba-ff-demo-cloud{display:none}}
+
+
+/* Landing navigation aliases — keep the public landing header fully styled
+   while retaining the single global stylesheet architecture. */
+.juba-nav-link{color:var(--landing-ink);text-decoration:none}
+.juba-nav-link:hover{color:var(--landing-green)}
+.juba-brand{color:var(--landing-ink);text-decoration:none}
+.juba-brand-mark{background:var(--landing-yellow);color:var(--landing-ink);border:2px solid var(--landing-ink);box-shadow:3px 3px 0 var(--landing-ink)}
+.juba-brand:hover .juba-brand-mark{transform:translateY(-2px) rotate(-3deg)}
+.juba-nav-signin{color:var(--landing-ink);text-decoration:none}
+.juba-nav-signin:hover{color:var(--landing-green)}
+.juba-nav-cta{background:var(--landing-green);color:#fff;border:2px solid var(--landing-ink);box-shadow:3px 3px 0 var(--landing-ink);text-decoration:none}
+.juba-nav-cta:hover{background:var(--landing-green-dark);transform:translate(-1px,-1px)}
+.juba-menu{color:var(--landing-ink);border:2px solid var(--landing-ink);background:#fff;box-shadow:2px 2px 0 var(--landing-ink)}
+.juba-menu:hover{background:var(--landing-yellow)}
+.juba-mobile-menu{background:var(--landing-bg);border-color:var(--landing-border)!important}
+@media(max-width:600px){
+  .juba-brand{gap:10px}.juba-brand-mark{width:36px;height:36px}
+  .juba-ff-nav-inner{padding-left:18px;padding-right:18px}
+}
