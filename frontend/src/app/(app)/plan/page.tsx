@@ -383,14 +383,14 @@ export default function PlanPage() {
               <p className="text-xs font-black uppercase tracking-[0.12em] text-[#39751d]">{t('pendingLessons')}</p>
               <h2 className="mt-1 text-2xl font-black tracking-tight text-[#242033]">{t('learningRoadmap')}</h2>
             </div>
-            <span className="rounded-full bg-[var(--juba-lilac)] px-3 py-1 text-xs font-black text-[#39751d]">{pendingLessons.length}</span>
+            <span className="rounded-full bg-[#e2f2d3] px-3 py-1 text-xs font-black text-[#39751d]">{pendingLessons.length}</span>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
             {pendingLessons.map((lesson, i) => (
               <button
                 key={lesson.id}
                 onClick={() => void launchLesson(lesson.id)}
-                className="group flex items-center gap-4 rounded-[24px] border-2 border-[#ebe7f5] bg-white p-4 text-start shadow-[0_12px_28px_rgba(39,28,72,0.06)] transition-all hover:-translate-y-1 hover:border-[var(--juba-violet)]"
+                className="group flex items-center gap-4 rounded-[24px] border-2 border-[#ebe7f5] bg-white p-4 text-start shadow-[0_12px_28px_rgba(39,28,72,0.06)] transition-all hover:-translate-y-1 hover:border-[#5a9b32]"
               >
                 <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[17px] text-sm font-black ${i % 2 === 0 ? 'bg-[var(--juba-mint)]' : 'bg-[var(--juba-sky)]'} text-[#242033]`}>
                   {String(i + 1).padStart(2, '0')}
@@ -414,7 +414,7 @@ export default function PlanPage() {
         </div>
 
         <div className="relative space-y-4">
-          <div className="pointer-events-none absolute start-[28px] top-8 bottom-8 hidden w-1 rounded-full bg-[var(--juba-lilac)] sm:block" />
+          <div className="pointer-events-none absolute start-[28px] top-8 bottom-8 hidden w-1 rounded-full bg-[#e2f2d3] sm:block" />
           {units.length === 0 && (
             <div className="rounded-[28px] border-2 border-[#ebe7f5] bg-white px-6 py-12 text-center shadow-[0_14px_32px_rgba(39,28,72,0.06)]">
               <p className="text-sm font-black text-[#777087]">{t('noUnitsForLevel', { level })}</p>
