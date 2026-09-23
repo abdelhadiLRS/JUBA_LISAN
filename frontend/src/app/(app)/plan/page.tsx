@@ -280,8 +280,8 @@ export default function PlanPage() {
     } finally {
       if (!cancelled && requestId === loadRequestRef.current) setLoading(false)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- re-fetch when active language changes
-    return () => { cancelled = true }
+    // The effect owns cancellation through loadRequestRef; do not return a cleanup
+    // function from the async loader itself.
   }, [router, activeLanguage?.code])
 
   useEffect(() => {
