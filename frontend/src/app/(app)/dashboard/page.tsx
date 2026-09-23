@@ -290,7 +290,7 @@ export default function DashboardPage() {
             setLoading(true)
             loadData()
           }}
-          className="text-fl-accent text-sm font-medium underline transition-all hover:no-underline"
+          className="text-[var(--juba-violet)] text-sm font-medium underline transition-all hover:no-underline"
         >
           {tError('retry')}
         </button>
