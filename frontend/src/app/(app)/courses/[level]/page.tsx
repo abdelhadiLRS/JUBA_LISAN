@@ -38,10 +38,13 @@ export default function CourseLevelPage() {
         apiFetch('/api/study-plan/learning-path').catch(() => null),
       ])
       if (cancelled) return
+      const nextPlan = planRes?.ok ? await planRes.json() as StudyPlan : null
+      const nextJourney = journeyRes?.ok ? await journeyRes.json() as JourneyResponse : null
+      if (cancelled) return
       setUnits(curriculum)
-      if (planRes?.ok) setPlan(await planRes.json())
-      if (journeyRes?.ok) {
-        const journey = await journeyRes.json() as JourneyResponse
+      setPlan(nextPlan)
+      if (nextJourney) {
+        const journey = nextJourney
         const map: Record<string, JourneyUnit> = {}
         for (const section of journey.sections ?? []) for (const unit of section.units ?? []) map[unit.id] = unit
         setJourneyUnits(map)
