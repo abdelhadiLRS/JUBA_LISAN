@@ -349,7 +349,7 @@ function ListeningPage() {
                     <p className="text-[var(--juba-text)] font-mono text-xs font-bold">
                       {item.score}/{item.exercise.questions.length}
                     </p>
-                    <p className="text-[var(--juba-text)] text-[#39751d] font-mono">
+                    <p className="text-[var(--juba-text)] text-[var(--juba-violet-dark)] font-mono">
                       +{item.xp_earned} XP
                     </p>
                   </div>
@@ -357,7 +357,7 @@ function ListeningPage() {
                 <TargetLanguageText
                   as="p"
                   languageCode={item.exercise.target_language}
-                  className="text-[var(--juba-muted)] border-[#e2f2d3] word-selectable mb-3 cursor-text border-t pt-3 select-text"
+                  className="text-[var(--juba-muted)] border-[var(--juba-lilac)] word-selectable mb-3 cursor-text border-t pt-3 select-text"
                   onPointerUp={() =>
                     handleTextSelection(item.text, item.exercise.level ?? 'B1')
                   }
@@ -434,7 +434,7 @@ function ListeningPage() {
                   {t('replayNoXp')}
                 </p>
               ) : (
-                <p className="text-[#39751d] mt-1 font-mono text-xl font-bold">
+                <p className="text-[var(--juba-violet-dark)] mt-1 font-mono text-xl font-bold">
                   +{result.xp_earned}
                 </p>
               )}
@@ -518,13 +518,13 @@ function ListeningPage() {
         <div className="flex gap-3 pt-1">
           <button
             onClick={loadNext}
-            className="juba-primary-button flex-1 border-2 border-[#e2f2d3] py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+            className="juba-primary-button flex-1 border-2 border-[var(--juba-lilac)] py-3 font-mono text-xs tracking-widest uppercase transition-colors"
           >
             {t('nextExercise')}
           </button>
           <button
             onClick={() => loadHistory(0)}
-            className="juba-secondary-button border-2 border-[#e2f2d3] px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+            className="juba-secondary-button border-2 border-[var(--juba-lilac)] px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
           >
             {t('viewHistory')}
           </button>
@@ -585,7 +585,7 @@ function ListeningPage() {
             </p>
             <button
               onClick={handleGenerate}
-              className="juba-primary-button border-2 border-[#e2f2d3] px-8 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+              className="juba-primary-button border-2 border-[var(--juba-lilac)] px-8 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
             >
               {t('generate')}
             </button>
@@ -677,8 +677,8 @@ function ListeningPage() {
                           }
                           className={`w-full border-2 rounded-2xl border-2 border-[var(--juba-border)] px-3 py-2 text-left transition-colors ${
                             selected
-                              ? 'border-[#39751d] bg-[#e2f2d3] text-[var(--juba-text)]'
-                              : 'border-[#e2f2d3] text-[var(--juba-muted)] hover:border-[#39751d] hover:text-[var(--juba-text)] hover:bg-[#e2f2d3]'
+                              ? 'border-[var(--juba-violet-dark)] bg-[var(--juba-lilac)] text-[var(--juba-text)]'
+                              : 'border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet-dark)] hover:text-[var(--juba-text)] hover:bg-[var(--juba-lilac)]'
                           }`}
                         >
                           <span className="text-[var(--juba-text)] font-mono font-bold">
@@ -707,7 +707,7 @@ function ListeningPage() {
           <button
             onClick={handleSubmit}
             disabled={!allAnswered || submitting}
-            className="juba-primary-button w-full border-2 border-[#e2f2d3] py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+            className="juba-primary-button w-full border-2 border-[var(--juba-lilac)] py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
           >
             {submitting ? tCommon('checking') : t('submit')}
           </button>
