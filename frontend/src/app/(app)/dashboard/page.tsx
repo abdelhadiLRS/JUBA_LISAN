@@ -96,7 +96,7 @@ function normalizeDashboardLessons(value: unknown): TodayLessonItem[] {
 const btnPrimary =
   'inline-flex items-center justify-center gap-2 rounded-[18px] border-2 border-[var(--juba-border)] px-4 py-2.5 text-sm font-semibold text-white shadow-[3px_3px_0_var(--juba-border)] transition-all hover:-translate-y-0.5 hover:shadow-[4px_4px_0_var(--juba-border)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--juba-border)] disabled:opacity-50'
 const btnSecondary =
-  'inline-flex items-center justify-center gap-2 rounded-[18px] border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2.5 text-sm font-medium shadow-[3px_3px_0_var(--juba-border)] transition-all hover:-translate-y-0.5 hover:bg-[var(--juba-surface-soft)] hover:shadow-[4px_4px_0_var(--juba-border)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--juba-border)] hover:bg-[var(--juba-surface-soft)]'
+  'inline-flex items-center justify-center gap-2 rounded-[18px] border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2.5 text-sm font-medium shadow-[3px_3px_0_var(--juba-border)] transition-all hover:-translate-y-0.5 hover:bg-[var(--juba-surface-soft)] hover:shadow-[4px_4px_0_var(--juba-border)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--juba-border)]'
 
 export default function DashboardPage() {
   const t = useTranslations('dashboard')
