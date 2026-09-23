@@ -31,7 +31,8 @@ export function useLearningProgressSync(
       }
 
       refreshInFlight = true
-      Promise.resolve(refreshRef.current())
+      Promise.resolve()
+        .then(() => refreshRef.current())
         .catch(() => {
           // Refresh failures are owned by the caller; lifecycle sync must stay alive.
         })
