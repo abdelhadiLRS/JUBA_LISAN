@@ -13,7 +13,7 @@ export function WordTooltip({ word, pos, saveState, onSave, onDismiss, labels }:
     <div style={{ left: pos.x, top: pos.y }} className="pointer-events-auto fixed z-50 -translate-x-1/2 -translate-y-full">
       <div className="juba-card flex items-center gap-3 border-2 border-[var(--juba-border)] px-3 py-2.5 text-xs shadow-[4px_4px_0_var(--juba-border)]">
         <span className="text-[var(--juba-text)] font-semibold">{word}</span>
-        {saveState === 'idle' && <button onClick={onSave} className="border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-primary-dark)] hover:bg-[var(--juba-primary-soft)] rounded-xl px-2.5 py-1 shadow-[2px_2px_0_var(--juba-border)] text-[11px] font-semibold tracking-wide uppercase transition-colors">{labels.saveWord}</button>}
+        {saveState === 'idle' && <button onClick={onSave} className="border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-primary-dark)] hover:bg-[var(--juba-lilac)] rounded-xl px-2.5 py-1 shadow-[2px_2px_0_var(--juba-border)] text-[11px] font-semibold tracking-wide uppercase transition-colors">{labels.saveWord}</button>}
         {saveState === 'saving' && <span className="text-[var(--juba-muted)] animate-pulse tracking-widest uppercase">...</span>}
         {saveState === 'saved' && <span className="text-[var(--juba-primary-dark)] font-semibold tracking-wide uppercase">✓ {labels.wordSaved}</span>}
         {saveState === 'error' && <span className="text-[var(--juba-danger)] font-semibold tracking-wide uppercase">{labels.wordSaveError}</span>}
