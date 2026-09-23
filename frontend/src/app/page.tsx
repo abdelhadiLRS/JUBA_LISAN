@@ -110,7 +110,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="juba-funfluent-page min-h-screen flex flex-col font-sans selection:bg-[var(--juba-yellow)]/25 overflow-x-hidden">
+    <div className="juba-funfluent-page min-h-screen flex flex-col font-sans selection:bg-[#ffd45c]/30 overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -275,7 +275,7 @@ export default async function Home() {
           className="mx-auto w-full max-w-5xl scroll-mt-20 px-4 sm:px-6 pb-20"
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold tracking-tight text-[var(--juba-text)]">
+            <h2 className="text-3xl font-extrabold tracking-tight text-[#183022]">
               {t('faqTitle')}
             </h2>
           </div>
