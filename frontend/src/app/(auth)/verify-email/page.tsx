@@ -57,17 +57,17 @@ function VerifyEmailContent() {
   }, [verify])
 
   return (
-    <div className="bg-fl-bg bg-dot-grid flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm">
+    <div className="bg-[var(--juba-bg)] bg-dot-grid flex min-h-screen items-center justify-center px-4">
+      <div className="w-full max-w-md">
         <div className="mb-10 flex flex-col items-center">
-          <h1 className="text-fl-fg font-mono text-xl font-bold tracking-widest uppercase">
+          <h1 className="text-[var(--juba-text)] font-sans text-xl font-bold tracking-wide">
             FreeLingo
           </h1>
         </div>
-        <div className="border-fl-border bg-fl-surface space-y-6 border p-8 text-center">
+        <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] space-y-6 border-2 border-[var(--juba-border)] p-8 text-center">
           <div className="flex items-center justify-center gap-2">
-            <span className="text-fl-label text-fl-muted-2">●</span>
-            <span className="text-fl-caption text-fl-muted-2 font-mono tracking-widest uppercase">
+            <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
+            <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-semibold tracking-wide">
               {t('title')}
             </span>
           </div>
@@ -76,10 +76,10 @@ function VerifyEmailContent() {
 
           {status === 'success' && (
             <>
-              <p className="text-fl-fg font-mono text-sm">{t('success')}</p>
+              <p className="text-[var(--juba-text)] font-sans text-sm">{t('success')}</p>
               <Link
                 href="/login"
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 block w-full py-3 text-center font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 block w-full py-3 text-center font-sans text-xs font-bold tracking-wide transition-colors"
               >
                 {t('goToLogin')}
               </Link>
@@ -88,16 +88,16 @@ function VerifyEmailContent() {
 
           {status === 'error' && (
             <>
-              <p className="text-fl-error font-mono text-xs">{t('error')}</p>
+              <p className="text-red-600 font-sans text-xs">{t('error')}</p>
               <button
                 onClick={verify}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 block w-full py-3 text-center font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 block w-full py-3 text-center font-sans text-xs font-bold tracking-wide transition-colors"
               >
                 {tCommon('retry')}
               </button>
               <Link
                 href="/login"
-                className="text-fl-muted-2 hover:text-fl-fg block font-mono text-xs underline transition-colors"
+                className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] block font-sans text-xs underline transition-colors"
               >
                 {t('goToLogin')}
               </Link>
