@@ -13,6 +13,7 @@ Parameters:
 - Grammar points to cover (focus ONLY on these): {grammar_points}
 - Vocabulary sets relevant to this unit: {vocabulary_set_ids}
 - Week: {week}, Day: {day}
+- Curated content seed: {content_seed}
 
 {language_prompt_overlay}
 
@@ -397,7 +398,8 @@ def build_lesson_generation_prompt(
     unit_id: str,
     grammar_points: str,
     vocabulary_set_ids: str,
-    week: int,
+    content_seed: str = "none",
+    week: int = 1,
     day: int,
     valid_slugs: str,
     language_prompt_overlay: str = "",
@@ -412,6 +414,7 @@ def build_lesson_generation_prompt(
         unit_id=unit_id,
         grammar_points=grammar_points,
         vocabulary_set_ids=vocabulary_set_ids,
+        content_seed=content_seed,
         week=week,
         day=day,
         valid_slugs=valid_slugs,

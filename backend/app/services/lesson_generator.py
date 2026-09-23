@@ -4,7 +4,7 @@ import re
 from typing import Any
 
 from app.data.curriculum import get_curriculum
-from app.data.ar.lessons import get_arabic_a1_lessons
+from app.data.ar.lessons import get_arabic_a1_lessons, get_arabic_a1_content_seed
 from app.schemas.lessons import (
     ExerciseContent,
     FillBlankEvaluation,
@@ -155,8 +155,21 @@ async def generate_lesson(
         vocabulary_set_ids = scheduled["vocabulary_set_ids"]
         unit_id = scheduled["unit_id"]
 
+    seed = (
+        get_arabic_a1_content_seed(f"a1-u{unit_id.split('-')[-1]}-w{week}-d{day}")
+        if target_language == "ar" and cefr_level == "A1" and unit_id.startswith("a1-unit-")
+        else None
+    )
     gp_str = ", ".join(grammar_points) if grammar_points else "none specified"
     vs_str = ", ".join(vocabulary_set_ids) if vocabulary_set_ids else "general"
+    seed_str = "none"
+    if seed is not None:
+        seed_str = json.dumps({
+            "target_phrases": seed.target_phrases,
+            "model_sentences": seed.model_sentences,
+            "comprehension_prompt": seed.comprehension_prompt,
+            "production_prompt": seed.production_prompt,
+        }, ensure_ascii=False)
     target_language_name = get_language_name(target_language)
     native_language_name = get_native_language_name(native_language) if native_language else "none"
     language_prompt_overlay = get_language_prompt_overlay(target_language)
@@ -171,6 +184,7 @@ async def generate_lesson(
         unit_id=unit_id or "—",
         grammar_points=gp_str,
         vocabulary_set_ids=vs_str,
+        content_seed=seed_str,
         week=week,
         day=day,
         valid_slugs=valid_slugs_str,
