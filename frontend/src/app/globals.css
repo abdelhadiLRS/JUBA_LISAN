@@ -3,7 +3,7 @@
 .juba-ff-unit-card:hover{transform:translateY(-2px);box-shadow:9px 9px 0 var(--juba-ink)}
 .juba-ff-unit-active{border-color:var(--juba-violet-dark);box-shadow:6px 6px 0 var(--juba-violet-dark)}
 .juba-ff-unit-active:hover{box-shadow:9px 9px 0 var(--juba-violet-dark)}
-.juba-ff-unit-locked{opacity:.58;box-shadow:4px 4px 0 #a8aaa4}
+.juba-ff-unit-locked{opacity:.58;box-shadow:4px 4px 0 color-mix(in srgb, var(--juba-muted) 72%, var(--juba-surface))}
 .juba-ff-unit-index{background:var(--juba-lilac);color:var(--juba-violet-dark)}
 .juba-ff-unit-start{background:var(--juba-yellow);color:var(--juba-ink)}
 .juba-ff-unit-title{color:var(--juba-ink)}
