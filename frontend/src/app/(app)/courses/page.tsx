@@ -123,7 +123,7 @@ export default function CoursesPage() {
   return (
     <main className="juba-mobile-courses min-h-screen px-4 py-8 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-6xl space-y-8">
-        <section className="juba-card relative overflow-hidden rounded-[32px] border-2 border-[#eee8ff] bg-[#6c45f5] p-7 text-white shadow-[0_22px_48px_rgba(108,69,245,.22)] sm:p-10">
+        <section className="juba-card relative overflow-hidden rounded-[32px] border-2 border-[#eee8ff] bg-[#39751d] p-7 text-white shadow-[0_22px_48px_rgba(108,69,245,.22)] sm:p-10">
           <div className="relative z-10 max-w-3xl">
             <div className="juba-eyebrow"><Sparkles className="h-4 w-4" /> Your learning world</div>
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-6xl">Learn language you can actually use.</h1>
