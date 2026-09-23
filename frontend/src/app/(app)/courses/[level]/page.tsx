@@ -79,7 +79,7 @@ export default function CourseLevelPage() {
     <main className='min-h-screen px-4 py-8 sm:px-6 lg:px-10'>
       <div className='mx-auto max-w-6xl space-y-7'>
         <Link href='/courses' className='inline-flex items-center gap-2 text-sm font-bold text-[var(--juba-muted)] hover:text-[var(--juba-text)]'><ArrowLeft className='h-4 w-4' /> {t('all')}</Link>
-        <section className='relative overflow-hidden rounded-[32px] border-2 border-[var(--juba-violet)] bg-[var(--juba-violet)] p-7 text-white shadow-[var(--juba-shadow-md)] sm:p-10]'>
+        <section className='relative overflow-hidden rounded-[32px] border-2 border-[var(--juba-violet)] bg-[var(--juba-violet)] p-7 text-white shadow-[var(--juba-shadow-md)] sm:p-10'>
           <div className='relative z-10 max-w-3xl'><div className='juba-eyebrow'><Sparkles className='h-4 w-4' /> {t('cefrLevel')} {level}</div><h1 className='mt-4 text-4xl font-black tracking-tight text-[var(--juba-text)] sm:text-6xl'>{t(`levels.${level}.title`)}</h1><p className='mt-4 text-base leading-7 text-[var(--juba-muted)] sm:text-lg'>{t(`levels.${level}.description`)}</p><div className='mt-6 flex flex-wrap gap-3 text-sm font-bold text-[var(--juba-text)]'><span className='rounded-full border border-[var(--juba-border)] bg-[var(--juba-lilac)] px-4 py-2'>{units.length} {t('units')}</span>{isCurrentLevel && <><span className='rounded-full border border-[var(--juba-border)] bg-[var(--juba-lilac)] px-4 py-2'>{totals.completed} {t('completed')}</span><span className='rounded-full border border-[var(--juba-border)] bg-[var(--juba-lilac)] px-4 py-2'>{totals.available} {t('ready')}</span></>}</div></div>
           <div className='juba-hero-glow' aria-hidden='true' />
         </section>
