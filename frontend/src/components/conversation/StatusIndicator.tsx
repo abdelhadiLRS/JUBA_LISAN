@@ -58,7 +58,7 @@ export default function StatusIndicator({
   }
 
   return (
-    <div className="flex items-center gap-2 rounded-full border border-[var(--juba-border-soft)] bg-[var(--juba-surface-soft)] px-3 py-1.5">
+    <div className="flex items-center gap-2 rounded-full border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-3 py-1.5">
       <span
         className={`text-xs leading-none ${dotClass} ${pulse ? 'animate-pulse' : ''}`}
         aria-hidden="true"
