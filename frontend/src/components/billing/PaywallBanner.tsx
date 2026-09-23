@@ -111,17 +111,17 @@ export function PaywallBanner({
   }
 
   const containerClass = compact
-    ? 'border-fl-border bg-fl-surface w-full border p-5 text-center'
+    ? 'border-[var(--juba-border)] bg-[var(--juba-surface)] w-full border p-5 text-center'
     : 'flex min-h-[60vh] flex-col items-center justify-center px-6 py-16 text-center'
 
   return (
     <div className={containerClass}>
       {compact ? (
-        <div className="border-fl-border bg-fl-surface mx-auto w-full max-w-md border p-8">
+        <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] mx-auto w-full max-w-md border p-8">
           <PaywallContent />
         </div>
       ) : (
-        <div className="border-fl-border bg-fl-surface w-full max-w-md border p-8">
+        <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] w-full max-w-md border p-8">
           <PaywallContent />
         </div>
       )}
@@ -132,17 +132,17 @@ export function PaywallBanner({
     return (
       <>
         <Icon
-          className="text-fl-muted-2 mx-auto mb-4 h-6 w-6"
+          className="text-[var(--juba-muted)] mx-auto mb-4 h-6 w-6"
           aria-hidden="true"
         />
 
-        <p className="text-fl-label text-fl-muted-2 mb-2 font-mono tracking-widest uppercase">
+        <p className="text-fl-label text-[var(--juba-muted)] mb-2 font-mono tracking-widest uppercase">
           {t('paywallLabel')}
         </p>
-        <h2 className="text-fl-fg mb-3 font-mono text-base font-bold">
+        <h2 className="text-[var(--juba-text)] mb-3 font-mono text-base font-bold">
           {t(paymentRecovery ? 'premiumBannerPastDueTitle' : context.title)}
         </h2>
-        <p className="text-fl-muted-1 mb-6 font-mono text-xs leading-relaxed">
+        <p className="text-[var(--juba-muted)] mb-6 font-mono text-xs leading-relaxed">
           {paymentRecovery
             ? t('premiumBannerPastDueDesc')
             : t(
@@ -156,7 +156,7 @@ export function PaywallBanner({
           <button
             onClick={handleManageBilling}
             disabled={portalLoading}
-            className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+            className="bg-[var(--juba-violet)] text-[var(--juba-violet-dark)]-fg hover:bg-[var(--juba-violet)]/90 w-full px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
           >
             {portalLoading ? '...' : t('updatePayment')}
           </button>
@@ -165,7 +165,7 @@ export function PaywallBanner({
             <button
               onClick={() => handleCheckout('yearly')}
               disabled={loading !== null}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+              className="bg-[var(--juba-violet)] text-[var(--juba-violet-dark)]-fg hover:bg-[var(--juba-violet)]/90 w-full px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
             >
               {loading === 'yearly' ? (
                 '...'
@@ -173,7 +173,7 @@ export function PaywallBanner({
                 <span className="flex flex-col items-center gap-0.5 leading-relaxed">
                   <span>{yearlyCta.main}</span>
                   {yearlyCta.savings && (
-                    <span className="text-fl-accent-fg/80 text-[0.68rem]">
+                    <span className="text-[var(--juba-violet-dark)]-fg/80 text-[0.68rem]">
                       {yearlyCta.savings}
                     </span>
                   )}
@@ -183,7 +183,7 @@ export function PaywallBanner({
             <button
               onClick={() => handleCheckout('monthly')}
               disabled={loading !== null}
-              className="border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 w-full border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+              className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-border)]-2 w-full border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
             >
               {loading === 'monthly'
                 ? '...'
@@ -204,7 +204,7 @@ export function PaywallBanner({
 
         <button
           onClick={() => router.push('/dashboard')}
-          className="text-fl-hint text-fl-muted-4 hover:text-fl-muted-2 mt-5 w-full font-mono tracking-widest uppercase transition-colors"
+          className="text-fl-hint text-fl-muted-4 hover:text-[var(--juba-muted)] mt-5 w-full font-mono tracking-widest uppercase transition-colors"
         >
           {t('paywallSkip')}
         </button>
