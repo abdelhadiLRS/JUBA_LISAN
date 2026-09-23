@@ -228,9 +228,6 @@ export default function PlanPage() {
         }
       }
 
-      setActiveLessonId(nextLessonId)
-      setPendingLessons(pendingData ?? [])
-      if (!journey && !compData) setCompetencies({})
 
       const states: Record<
         string,
@@ -280,13 +277,6 @@ export default function PlanPage() {
       setCompetencies(competencySnapshot)
       setActiveLessonId(nextLessonId)
       setPendingLessons(pendingData ?? [])
-      setActiveLessonId(nextLessonId)
-      if (!journeyMap && !compData) {
-        setCompetencies({})
-      }
-      if (!journey && !todayData) {
-        setActiveLessonId(null)
-      }
       setLessonStates(states)
     } catch (err) {
       if (!cancelled && requestId === loadRequestRef.current) setError(err instanceof Error ? err.message : 'Failed to load')
