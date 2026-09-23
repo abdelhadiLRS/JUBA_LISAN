@@ -25,6 +25,7 @@ _LANG_MODULES: dict[str, str] = {
     "ko": "app.data.ko.curriculum",
     "pt": "app.data.pt.curriculum",
     "zh": "app.data.zh.curriculum",
+    "ar": "app.data.ar.curriculum",
 }
 
 _CACHE: dict[str, object] = {}
@@ -110,6 +111,12 @@ _I18N = {
             "이 레벨의 모든 문법 항목을 복습하기",
             "평가를 완료하여 다음 레벨 잠금 해제하기",
         ],
+    },
+    "ar": {
+        "lesson_title": "{title} - الدرس {n}",
+        "test_unit_title": "اختبار إتمام المستوى {level}",
+        "test_title": "اختبار إتمام المستوى {level}",
+        "test_objectives": ["مراجعة موضوعات هذا المستوى", "إتمام التقييم للانتقال إلى المستوى التالي"],
     },
     "zh-CN": {
         "lesson_title": "{title} - 第 {n} 课",
