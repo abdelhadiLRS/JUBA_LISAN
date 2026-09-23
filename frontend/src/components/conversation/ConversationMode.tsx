@@ -192,7 +192,7 @@ function TrialPremiumCta() {
 
   return (
     <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] mb-4 border p-5 text-center">
-      <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-2 font-mono tracking-widest uppercase">
+      <p className="text-[var(--juba-muted)] mb-2 font-mono tracking-widest uppercase">
         {tConversation('trialCtaLabel')}
       </p>
       <h2 className="text-[var(--juba-text)] mb-2 font-mono text-base font-bold">
@@ -231,11 +231,11 @@ function TrialPremiumCta() {
         </button>
       </div>
       {error && (
-        <p className="text-[var(--juba-muted)] mt-4 font-mono text-[var(--juba-danger)]">{error}</p>
+        <p className="mt-4 font-mono text-[var(--juba-danger)]">{error}</p>
       )}
       <button
         onClick={() => router.push('/plan')}
-        className="text-[var(--juba-muted)] text-[var(--juba-muted)] hover:text-[var(--juba-muted)] mt-5 w-full font-mono tracking-widest uppercase transition-colors"
+        className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] mt-5 w-full font-mono tracking-widest uppercase transition-colors"
       >
         {t('paywallSkip')}
       </button>
