@@ -1,6 +1,6 @@
 /* JUBA LISAN — route-specific compatibility and presentation rules.
  * Canonical design tokens live in juba-shell.css; this file preserves
- * route-specific presentation lives in the canonical JUBA shell. */
+ * route-specific presentation stays in this compatibility layer. */
 
 /* Map remaining amber/emerald utilities from the old landing palette into the new identity. */
 [class*='bg-amber-500'] { background-color: var(--juba-primary) !important; }
