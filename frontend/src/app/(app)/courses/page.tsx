@@ -72,12 +72,14 @@ export default function CoursesPage() {
           ...CEFR_LEVELS.map((level) => getCurriculumUnits(level, language).catch(() => [])),
         ])
         const nextPlan = planRes?.ok ? (await planRes.json() as StudyPlan) : null
+        const rawCompetencies = compRes?.ok ? await compRes.json() : null
+        const rawJourney = journeyRes?.ok ? await journeyRes.json() : null
 
         if (cancelled) return
         setPlan(nextPlan)
 
-        if (compRes?.ok) {
-          const raw = await compRes.json()
+        if (rawCompetencies != null) {
+          const raw = rawCompetencies
           const next: Record<string, number> = {}
           if (Array.isArray(raw)) {
             for (const item of raw as CompetencyRecord[]) next[item.unit_id] = item.score
@@ -87,8 +89,8 @@ export default function CoursesPage() {
           if (!cancelled) setCompetencies(next)
         }
 
-        if (journeyRes?.ok) {
-          const journey = await journeyRes.json()
+        if (rawJourney != null) {
+          const journey = rawJourney
           const nextJourney: Record<string, { id: string; progress: number; state: string; lessons?: Array<{ id: number; is_completed: boolean; state: string }> }> = {}
           for (const section of journey.sections ?? []) {
             for (const unit of section.units ?? []) nextJourney[unit.id] = unit
