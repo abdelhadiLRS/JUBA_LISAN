@@ -8,39 +8,127 @@
 ![Redis](https://img.shields.io/badge/Redis-7-dc382d?style=flat-square)
 ![Windows](https://img.shields.io/badge/Windows-desktop-0078D4?style=flat-square)
 
-## Overview
+## 🌍 What is JUBA LISAN?
 
-**JUBA LISAN** is a multilingual, AI-assisted language-learning platform built around structured CEFR learning, personalized study plans, interactive lessons, vocabulary, grammar, reading, listening, writing, spaced repetition, AI conversation, speech, assessment, progress tracking, learner memory, and multilingual support.
+**JUBA LISAN is a living language-learning universe.**
 
-The project is designed as a self-hostable platform and can use local AI services such as Ollama as well as configurable external AI and speech providers. The backend is the integration boundary for AI, speech, database, cache, authentication, quotas, and business logic.
+It is not just a vocabulary trainer, not just an AI chatbot, and not just a collection of lessons. JUBA LISAN brings the main parts of language learning into one connected experience: **learn → practise → speak → listen → read → write → review → remember → measure progress → continue**.
 
-> **Status:** actively developed. The repository already contains the core learning platform, multi-language learning architecture, study-plan engine, AI tutor, voice pipeline, generated reading/listening exercises, learner memory, feedback, reviews, subscriptions, administration, CI/CD, and Windows desktop packaging.
+The learner chooses a language, receives a structured learning path, studies through CEFR levels, practises with interactive activities, speaks with the AI tutor **Lingu**, listens to generated audio, saves vocabulary, revises with spaced repetition, and builds a persistent learning history.
 
-## Vision
+The project is being built with a deliberately ambitious goal: **make one learning engine capable of serving many languages, many learner profiles, and many learning styles without rebuilding the application every time a new language is added.**
 
-JUBA LISAN is intended to be a complete language-learning environment rather than a simple vocabulary application.
+> **JUBA LISAN = languages + curriculum + AI + voice + memory + progress + practice, in one platform.**
 
-Its architecture combines:
+### ✨ The learning journey
 
-- CEFR-oriented progression from A1 to C2.
-- Placement and level assessment.
-- Personalized study plans.
-- Grammar, vocabulary and phrasebook foundations.
-- Reading, listening, writing and conversation.
-- AI-generated exercises and learning material.
-- AI tutoring through the persona **Lingu**.
-- Text and real-time voice conversation.
-- Spaced repetition and flashcards.
-- XP, streaks, competencies, skill scores and progress.
-- Multiple simultaneously learned target languages.
-- Native-language explanations and translations.
-- Persistent learner memory.
-- Multilingual UI.
-- Optional subscriptions and quotas.
-- Self-hosted/server deployment.
-- Windows desktop deployment.
+~~~text
+Choose a language
+       ↓
+Discover your level
+       ↓
+Get a personalised study plan
+       ↓
+Learn vocabulary + grammar + phrases
+       ↓
+Read + listen + write
+       ↓
+Practise with Lingu
+       ↓
+Speak with real-time AI voice
+       ↓
+Review with spaced repetition
+       ↓
+Track skills, XP, streaks and competencies
+       ↓
+Move to the next level
+~~~
 
-## Learning model
+### 🚀 What has already been built
+
+JUBA LISAN already brings together:
+
+- 📚 CEFR learning from **A1 to C2**.
+- 🧭 Placement and level assessment.
+- 🗺️ Personalised study plans.
+- 🧩 Lessons, exercises, competencies and progression.
+- 📖 Reading and comprehension.
+- 🎧 AI-generated listening and audio.
+- ✍️ Writing and language production workflows.
+- 🗣️ Text and real-time voice conversation.
+- 🤖 The **Lingu** AI tutor.
+- 🧠 Learner memory.
+- 🃏 Flashcards and spaced repetition.
+- 📈 XP, streaks, skills and progress tracking.
+- 🌐 Multilingual interface and native-language support.
+- 👥 Accounts, profiles and authentication.
+- 💬 Feedback and community reviews.
+- 🛠️ Administration and announcements.
+- 💳 Optional subscriptions and quotas.
+- 🖥️ Windows desktop packaging.
+- 📱 A mobile application foundation.
+- 🏠 Self-hosted/local-AI operation.
+
+## 🌐 Languages already built
+
+One of the central achievements of JUBA LISAN is its language architecture. The repository already contains **dedicated language data for 24 languages**, while **10 languages currently have the full integrated CEFR target-language curriculum architecture with A1–C2 curriculum, grammar, vocabulary, phrasebook and assessment data**.
+
+### 🏆 Full integrated learning languages — A1 → C2
+
+| Flag | Language | Code | Current role |
+|---|---|---|---|
+| 🇬🇧 | English (British) | `en_GB` | Full A1–C2 target language |
+| 🇺🇸 | English (American) | `en_US` | Full A1–C2 target language |
+| 🇪🇸 | Spanish | `es` | Full A1–C2 target language |
+| 🇫🇷 | French | `fr` | Full A1–C2 target language |
+| 🇩🇪 | German | `de` | Full A1–C2 target language |
+| 🇮🇹 | Italian | `it` | Full A1–C2 target language |
+| 🇵🇹 | Portuguese | `pt` | Full A1–C2 target language |
+| 🇯🇵 | Japanese | `ja` | Full A1–C2 target language |
+| 🇰🇷 | Korean | `ko` | Full A1–C2 target language |
+| 🇨🇳 | Chinese / Mandarin | `zh` | Full A1–C2 target language |
+
+These are not merely interface translations: the repository contains language-specific learning data for the integrated curriculum, including level-oriented curriculum, grammar, vocabulary, phrasebook and assessment resources.
+
+### 🌍 Additional language data already prepared
+
+The language-data layer has also been expanded with dedicated packages/foundations for:
+
+| Flag | Language | Code |
+|---|---|---|
+| 🇸🇦 | Arabic | `ar` |
+| 🇩🇰 | Danish | `da` |
+| 🇬🇷 | Greek | `el` |
+| 🇮🇷 | Persian | `fa` |
+| 🇫🇮 | Finnish | `fi` |
+| 🇮🇳 | Hindi | `hi` |
+| 🇮🇩 | Indonesian | `id` |
+| 🇲🇾 | Malay | `ms` |
+| 🇳🇱 | Dutch | `nl` |
+| 🇳🇴 | Norwegian | `no` |
+| 🇵🇱 | Polish | `pl` |
+| 🇷🇴 | Romanian | `ro` |
+| 🇷🇺 | Russian | `ru` |
+| 🇸🇪 | Swedish | `sv` |
+| 🇹🇷 | Turkish | `tr` |
+
+These packages form the expansion layer around the core learning engine. Their presence in the repository should not be confused with claiming that every one of them already has the same A1–C2 depth as the ten full integrated target languages above.
+
+### 🗺️ The world-language foundation
+
+Beyond the 24 dedicated language packages, JUBA LISAN contains a broad **language-foundations** catalogue intended to make the platform ready for a much larger world-language ecosystem. It includes language resources spanning African, Asian, European, Pacific, Indigenous and constructed-language families.
+
+Examples include:
+
+🇿🇦 Afrikaans · 🇪🇹 Amharic · 🇮🇳 Assamese · 🇦🇲 Armenian · 🇦🇿 Azerbaijani · 🇧🇾 Belarusian · 🇧🇦 Bosnian · 🇧🇬 Bulgarian · 🇹🇿 Chichewa · 🇨🇿 Czech · 🇪🇪 Estonian · 🇪🇺 Basque · 🇮🇸 Icelandic · 🇬🇪 Georgian · 🇭🇷 Croatian · 🇭🇺 Hungarian · 🇮🇪 Irish · 🇮🇱 Hebrew · 🇰🇿 Kazakh · 🇰🇭 Khmer · 🇱🇻 Latvian · 🇱🇹 Lithuanian · 🇲🇰 Macedonian · 🇲🇳 Mongolian · 🇳🇵 Nepali · 🇵🇭 Cebuano · 🇸🇰 Slovak · 🇸🇮 Slovenian · 🇺🇦 Ukrainian · 🇺🇿 Uzbek · 🇻🇳 Vietnamese · 🇿🇼 Xhosa · 🇳🇬 Yoruba · 🇿🇦 Zulu · and many more.
+
+This is the foundation for the long-term goal of making JUBA LISAN a **truly global language platform** rather than a product restricted to a small fixed list of popular languages.
+
+### 🏳️ Why the flags matter
+
+The flags in this section are visual language markers, not statements that a language belongs exclusively to a particular country. Languages such as Arabic, Spanish, Portuguese, Chinese, English and French are spoken across many countries and regions. The product therefore treats the **language code and linguistic identity** as the technical source of truth, while flags provide a quick visual cue for the README.
+
+## 🧠 Learning model
 
 The platform separates the user account from individual learning tracks.
 
@@ -59,30 +147,25 @@ The current default target language is **en-GB**. **en-US** is also supported bu
 
 Lesson progression is designed around explicit lifecycle states. The plan can contain current, pending, skipped and completed lessons. A completed lesson can be reviewed without awarding progress again, while skipped pending lessons can be resumed.
 
-## Language architecture
+## 🏗️ Language architecture
 
-Current fully integrated target-language support includes:
+JUBA LISAN uses a language-code-driven architecture instead of hard-coding one target language into the application.
 
-- en-GB — English (United Kingdom)
-- en-US — English (United States)
-- es-ES — Spanish
-- it-IT — Italian
-- pt-PT — Portuguese
-- de-DE — German
-- fr-FR — French
-- ja-JP — Japanese
-- ko-KR — Korean
-- zh-CN — Mainland Chinese
+A new language can become part of the platform through a modular package containing the relevant:
 
-The repository also contains an expanding language-data foundation for additional languages and native-language/resource coverage, including Arabic, Danish, Dutch, Finnish, Greek, Hindi, Indonesian, Malay, Norwegian, Persian, Polish, Russian, Swedish, Turkish and others.
+- curriculum;
+- CEFR levels;
+- grammar;
+- vocabulary;
+- phrasebook;
+- assessment bank;
+- translations/explanations;
+- language metadata;
+- frontend selector/locale integration.
 
-The project distinguishes three concepts:
+This means the learning engine, study-plan engine, AI tutor, progress system, review system and account model can remain shared while the linguistic content evolves independently.
 
-1. **Target language:** a language with complete learning-track/application integration.
-2. **Native/resource language:** a language available for translations, explanations, static resources, onboarding, UI or future curriculum expansion.
-3. **Future world-language catalogue:** the architecture is designed to expand substantially beyond the currently integrated target-language set without rewriting the learning engine.
-
-New target languages should follow the canonical process documented in specs/add-target-language.instructions.md.
+New target languages should follow the canonical process documented in `specs/add-target-language.instructions.md`.
 
 ## AI tutor — Lingu
 
