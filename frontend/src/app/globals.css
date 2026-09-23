@@ -1,1116 +1,334 @@
-/* Learning path is its own app route; keep the same visual system outside the landing wrapper */
-.juba-ff-unit-card{border:2px solid var(--juba-border);border-radius:var(--j-shell-radius);background:var(--juba-surface);box-shadow:var(--j-shell-shadow);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
-.juba-ff-unit-card:hover{transform:translateY(-2px);box-shadow:0 11px 0 rgba(37,48,42,.14)}
-.juba-ff-unit-active{border-color:var(--juba-violet);box-shadow:var(--j-shell-shadow)}
-.juba-ff-unit-active:hover{box-shadow:0 11px 0 rgba(57,117,29,.16)}
-.juba-ff-unit-locked{opacity:.58;box-shadow:4px 4px 0 color-mix(in srgb, var(--juba-muted) 72%, var(--juba-surface))}
-.juba-ff-unit-index{background:var(--juba-lilac);color:var(--juba-violet-dark)}
-.juba-ff-unit-start{background:var(--juba-yellow);color:var(--juba-ink)}
-.juba-ff-unit-title{color:var(--juba-ink)}
-.juba-ff-unit-title-locked{color:var(--juba-muted)}
-.juba-ff-unit-meta{color:var(--juba-muted)}
-.juba-ff-unit-percent{background:var(--juba-surface);color:var(--juba-ink)}
-.juba-ff-unit-progress{background:var(--juba-surface-soft)}
-.juba-ff-unit-cta{background:var(--juba-yellow);color:var(--juba-ink);border:2px solid var(--juba-ink);box-shadow:3px 3px 0 var(--juba-ink)}
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
-.juba-mobile-plan,
-.juba-mobile-lesson{
-  --route-ink:var(--juba-ink);
-  --route-green:var(--juba-violet);
-  --route-green-dark:var(--juba-violet-dark);
-  --route-cream:var(--juba-bg);
-  --route-paper:var(--juba-surface-soft);
-  --route-yellow:var(--juba-yellow);
-  --route-blue:var(--juba-sky);
-  --route-coral:var(--juba-coral);
-  color:var(--route-ink);
-}
-.juba-mobile-plan{background:var(--route-cream);border-radius:32px}
-.juba-mobile-lesson{background:var(--route-cream)}
-.juba-mobile-plan .juba-card,
-.juba-mobile-lesson .juba-card{
-  border:3px solid var(--route-ink)!important;
-  border-radius:28px!important;
-  box-shadow:6px 6px 0 var(--route-ink)!important;
-  background:var(--juba-surface)!important;
-}
-.juba-mobile-plan .juba-card:hover,
-.juba-mobile-lesson .juba-card:hover{transform:translateY(-2px)}
-.juba-mobile-plan .route-lilac-surface,
-.juba-mobile-lesson .route-lilac-surface{background:var(--juba-lilac)!important}
-.juba-mobile-plan .route-yellow-surface{border:3px solid var(--route-ink);box-shadow:5px 5px 0 var(--route-ink)}
-@media (max-width:700px){
-  .juba-mobile-plan,.juba-mobile-lesson{border-radius:0}
-  .juba-mobile-plan .juba-card,.juba-mobile-lesson .juba-card{box-shadow:4px 4px 0 var(--route-ink)!important}
-}
+@custom-variant dark (&:where(html:not([data-theme='light']), html:not([data-theme='light']) *));
 
-.juba-mobile-progress{
-  --route-ink:var(--juba-ink);
-  --route-green:var(--juba-violet);
-  --route-green-dark:var(--juba-violet-dark);
-  --route-cream:var(--juba-bg);
-  --route-yellow:var(--juba-yellow);
-  --route-coral:var(--juba-coral);
-  color:var(--route-ink);
-  background:var(--route-cream);
-  border-radius:32px;
-}
-.juba-mobile-progress .juba-card{border:3px solid var(--route-ink)!important;border-radius:28px!important;box-shadow:6px 6px 0 var(--route-ink)!important}
-.juba-mobile-progress .route-primary-surface{background:var(--route-green-dark)!important}
-.juba-mobile-progress .route-primary-text{color:var(--route-green-dark)!important}
-.juba-mobile-progress .route-lilac-surface{background:var(--juba-lilac)!important}
-@media(max-width:700px){
- .juba-mobile-progress{border-radius:0}
- .juba-mobile-progress .juba-card{box-shadow:4px 4px 0 var(--route-ink)!important}
-}
-
-/* JUBA LISAN visual foundation — native global stylesheet only. */
-:root{
-  --j-shell-content:1440px;
-  --j-shell-radius:20px;
-  --j-shell-shadow:0 10px 30px rgba(30,52,38,.08);
-  --juba-ink:#183022;
-  --juba-violet:#4f8f2f;
-  --juba-violet-dark:#2f6b1c;
-  --juba-lilac:#e9f5df;
-  --juba-yellow:#ffd45c;
-  --juba-mint:#c9f1df;
-  --juba-coral:#ef806e;
-  --juba-sky:#bfeaf6;
-  --juba-text:var(--juba-ink);
-  --juba-muted:#65756b;
-  --juba-border:#dce7dc;
-  --juba-surface:#fff;
-  --juba-surface-soft:#f6f9f5;
-  --juba-bg:#f7faf6;
-  --juba-primary:var(--juba-violet);
-  --juba-primary-dark:var(--juba-violet-dark);
-  --juba-primary-soft:var(--juba-lilac);
-  --juba-accent:var(--juba-yellow);
-  --juba-danger:var(--juba-coral);
-  --juba-radius-sm:10px;
-  --juba-radius-md:14px;
-  --juba-radius-lg:20px;
-  --juba-radius-pill:999px;
-  --juba-shadow-sm:0 3px 12px rgba(30,52,38,.06);
-  --juba-shadow-md:0 10px 30px rgba(30,52,38,.09);
-  --juba-shadow-lg:0 18px 50px rgba(30,52,38,.13);
-}
-html[data-theme='dark']{
-  --juba-ink:#edf6ef;
-  --juba-text:#edf6ef;
-  --juba-muted:#aab9ad;
-  --juba-border:#344338;
-  --juba-surface:#172019;
-  --juba-surface-soft:#202b22;
-  --juba-bg:#0e140f;
-  --juba-violet:#75b94e;
-  --juba-violet-dark:#9bd779;
-  --juba-lilac:#263a27;
-  --juba-mint:#214b39;
-  --juba-sky:#203f49;
-  --juba-primary:var(--juba-violet);
-  --juba-primary-dark:var(--juba-violet-dark);
-  --juba-primary-soft:var(--juba-lilac);
-}
-html,body{background:var(--juba-bg);color:var(--juba-text)}
-body{margin:0;background-image:none}
-html,body,button,input,textarea,select{
-  font-family:var(--font-geist-sans),ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
-button,a,input,textarea,select{font:inherit}
-button,a{ -webkit-tap-highlight-color:transparent }
-:focus-visible{outline:3px solid color-mix(in srgb,var(--juba-primary) 35%,transparent);outline-offset:3px}
-
-.juba-app-shell{
-  min-height:100svh;
-  width:100%;
-  display:flex;
-  align-items:stretch;
-  color:var(--juba-text);
-  background:
-    radial-gradient(circle at 0 0,rgba(255,212,92,.16),transparent 22rem),
-    radial-gradient(circle at 100% 8%,rgba(191,234,246,.22),transparent 25rem),
-    var(--juba-bg);
-}
-.juba-app-nav{
-  position:sticky;top:0;z-index:50;
-  background:color-mix(in srgb,var(--juba-surface) 92%,transparent);
-  border-bottom:1px solid var(--juba-border);
-  backdrop-filter:blur(18px);
-}
-.juba-app-nav-inner{
-  width:min(100%,var(--j-shell-content));
-  min-height:70px;margin:auto;padding:10px clamp(14px,3vw,34px);
-  box-sizing:border-box;display:flex;align-items:center;gap:14px;
-}
-.juba-app-brand{display:inline-flex;align-items:center;gap:10px;color:var(--juba-text);text-decoration:none;font-size:15px;font-weight:900;letter-spacing:-.035em;flex:0 0 auto}
-.juba-brand-mark{
-  width:40px;height:40px;display:grid;place-items:center;border-radius:12px;
-  background:var(--juba-violet);color:#fff!important;font-weight:950;
-  box-shadow:0 4px 0 var(--juba-violet-dark);transform:rotate(-2deg);
-}
-.juba-app-nav-links{display:flex;align-items:center;gap:3px;min-width:0;flex:1;justify-content:center;overflow:hidden}
-.juba-app-nav-link{
-  min-height:40px;display:inline-flex;align-items:center;gap:7px;padding:0 10px;
-  border-radius:11px;color:var(--juba-muted);font-size:12px;font-weight:750;
-  text-decoration:none;white-space:nowrap;transition:background .16s,color .16s,transform .16s;
-}
-.juba-app-nav-link:hover{background:var(--juba-lilac);color:var(--juba-violet-dark);transform:translateY(-1px)}
-.juba-app-nav-link.is-active{background:var(--juba-yellow);color:var(--juba-ink);box-shadow:0 2px 0 color-mix(in srgb,var(--juba-ink) 12%,transparent)}
-.juba-app-nav-actions{margin-inline-start:auto;display:flex;align-items:center;gap:7px;flex:0 0 auto}
-.juba-app-brand-copy{display:flex;flex-direction:column;line-height:.9;gap:2px}
-.juba-app-brand-copy strong{font-size:15px;letter-spacing:.04em}
-.juba-app-brand-copy small{font-size:8px;letter-spacing:.28em;color:var(--juba-muted);font-weight:900}
-.juba-resource-strip{border-top:1px solid color-mix(in srgb,var(--juba-border) 72%,transparent);background:color-mix(in srgb,var(--juba-surface-soft) 92%,transparent)}
-.juba-resource-strip-inner{width:min(100%,var(--j-shell-content));min-height:42px;margin:auto;padding:0 clamp(14px,3vw,34px);box-sizing:border-box;display:flex;align-items:center;gap:12px}
-.juba-resource-label{font-size:9px;letter-spacing:.14em;font-weight:950;color:var(--juba-primary-dark);padding-inline-end:8px;border-inline-end:1px solid var(--juba-border)}
-.juba-resource-strip nav{display:flex;align-items:center;gap:2px;min-width:0;flex:1;overflow-x:auto;scrollbar-width:none}
-.juba-resource-strip nav::-webkit-scrollbar{display:none}
-.juba-resource-strip .juba-app-nav-link{min-height:34px;padding:0 9px;font-size:11px}
-.juba-resource-strip .juba-app-nav-link.is-active{background:var(--juba-surface);color:var(--juba-primary-dark);box-shadow:inset 0 -2px 0 var(--juba-primary)}
-.juba-resource-tools{display:flex;align-items:center;gap:5px;margin-inline-start:auto}
-.juba-resource-tools button{border:0;background:transparent;color:var(--juba-muted);font-size:10px;font-weight:800;cursor:pointer;padding:6px 7px;border-radius:8px}
-.juba-resource-tools button:hover{background:var(--juba-primary-soft);color:var(--juba-primary-dark)}
-@media(max-width:1120px){
-  .juba-resource-strip{display:none}
-}
-.juba-xp-pill{
-  display:inline-flex;align-items:center;min-height:38px;padding:0 11px;border-radius:var(--juba-radius-pill);
-  background:var(--juba-mint);color:var(--juba-ink);font-size:11px;font-weight:900
-}
-.juba-app-menu-button{
-  width:40px;height:40px;display:none;place-items:center;border:1px solid var(--juba-border);
-  border-radius:11px;background:var(--juba-surface-soft);color:var(--juba-text);cursor:pointer
-}
-.juba-app-drawer{border-top:1px solid var(--juba-border);background:var(--juba-surface);box-shadow:var(--juba-shadow-lg)}
-.juba-app-drawer-inner{width:min(100%,var(--j-shell-content));margin:auto;padding:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
-.juba-app-drawer .juba-app-nav-link{width:100%;justify-content:flex-start}
-.juba-workspace-main{width:min(100%,var(--j-shell-content));margin:auto;padding:28px clamp(14px,3vw,36px) 64px;box-sizing:border-box}
-.juba-page-shell{width:100%;max-width:var(--j-shell-content);margin:auto;color:var(--juba-text)}
-.juba-page-hero,.juba-page-hero,.juba-panel,.juba-surface,.juba-card{
-  background:var(--juba-surface);border:1px solid var(--juba-border);
-  border-radius:var(--j-shell-radius);box-shadow:var(--j-shell-shadow)
-}
-.juba-page-hero{padding:24px}
-.juba-panel{padding:20px}
-.juba-page-title,.juba-page-heading h1{color:var(--juba-text);font-weight:900;letter-spacing:-.05em}
-.juba-page-title{font-size:clamp(2rem,4vw,3rem)}
-.juba-page-subtitle,.juba-page-heading p{color:var(--juba-muted);line-height:1.65}
-.juba-eyebrow{
-  display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:var(--juba-radius-pill);
-  background:var(--juba-primary-soft);color:var(--juba-primary-dark);font-size:11px;font-weight:850;letter-spacing:.04em
-}
-.juba-section-title{font-size:1rem;font-weight:850;color:var(--juba-text)}
-.juba-muted{color:var(--juba-muted)}
-.juba-badge{display:inline-flex;align-items:center;border:1px solid var(--juba-border);border-radius:var(--juba-radius-pill);background:var(--juba-yellow);padding:4px 9px;font-size:11px;font-weight:850}
-.juba-input{width:100%;box-sizing:border-box;border:1px solid var(--juba-border);border-radius:var(--juba-radius-md);background:var(--juba-surface);padding:11px 13px;color:var(--juba-text)}
-.juba-input:focus{border-color:var(--juba-primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--juba-primary) 12%,transparent);outline:none}
-.juba-primary-button,.juba-secondary-button,.juba-icon-button{
-  display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:var(--juba-radius-md);
-  font-size:12px;font-weight:850;transition:transform .15s,box-shadow .15s,background .15s,border-color .15s;cursor:pointer
-}
-.juba-primary-button{border:1px solid var(--juba-primary);background:var(--juba-primary);color:#fff;padding:10px 15px;box-shadow:0 3px 0 var(--juba-primary-dark)}
-.juba-primary-button:hover{transform:translateY(-1px);box-shadow:0 4px 0 var(--juba-primary-dark)}
-.juba-secondary-button{border:1px solid var(--juba-border);background:var(--juba-surface);color:var(--juba-text);padding:9px 13px}
-.juba-secondary-button:hover{border-color:var(--juba-primary);background:var(--juba-primary-soft)}
-.juba-icon-button{width:40px;height:40px;border:1px solid var(--juba-border);background:var(--juba-surface);color:var(--juba-text)}
-.juba-icon-button:hover{background:var(--juba-primary-soft);border-color:var(--juba-primary)}
-
-.juba-stat{min-height:116px;padding:18px;background:var(--juba-surface);border:1px solid var(--juba-border);border-radius:var(--juba-radius-lg);box-shadow:var(--juba-shadow-sm)}
-.juba-primary-action{min-height:46px;border:0;border-radius:var(--juba-radius-pill);padding:0 18px;background:var(--juba-primary);color:#fff;font-weight:850;box-shadow:0 4px 0 var(--juba-primary-dark);cursor:pointer}
-.juba-primary-action:hover{transform:translateY(-1px)}
-.juba-path-card,.juba-learning-card{position:relative;overflow:hidden;border:1px solid var(--juba-border);border-radius:var(--juba-radius-lg);background:var(--juba-surface);box-shadow:var(--juba-shadow-sm);transition:transform .18s,box-shadow .18s}
-.juba-path-card:hover,.juba-learning-card:hover{transform:translateY(-2px);box-shadow:var(--juba-shadow-md)}
-.juba-path-card::before,.juba-learning-card::before{content:"";position:absolute;inset-inline-end:-50px;top:-55px;width:140px;height:140px;border-radius:50%;background:rgba(255,212,92,.22);pointer-events:none}
-.juba-path-card:nth-child(3n)::before{background:rgba(191,234,246,.28)}
-.juba-path-card:nth-child(4n)::before{background:rgba(201,241,223,.30)}
-
-.juba-mobile-greeting{position:relative;min-height:230px;padding:24px;border-radius:24px;overflow:hidden;border:1px solid var(--juba-border);background:linear-gradient(135deg,#dff5fb 0%,#eef8e9 100%);box-shadow:var(--juba-shadow-md)}
-.juba-mobile-greeting-art{position:absolute;inset-inline-end:8%;top:52px;width:96px;height:96px;display:grid;place-items:center;border-radius:26px;background:rgba(255,255,255,.58);box-shadow:var(--juba-shadow-sm);transform:rotate(3deg)}
-.juba-mobile-greeting-art span{font-size:52px}
-.juba-mobile-greeting-top{position:relative;z-index:2;display:flex;gap:7px;margin-bottom:72px}
-.juba-mobile-pill,.juba-mobile-language,.juba-mobile-day{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border-radius:var(--juba-radius-pill);background:rgba(255,255,255,.82);color:var(--juba-ink);font-size:10px;font-weight:850}
-.juba-mobile-pill{background:var(--juba-primary);color:#fff}
-.juba-mobile-day{margin-inline-start:auto;background:var(--juba-yellow)}
-.juba-mobile-greeting-progress{position:absolute;inset-inline:24px;bottom:18px;height:7px;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.6)}
-.juba-mobile-greeting-progress span{display:block;height:100%;width:44%;background:var(--juba-primary);border-radius:inherit}
-
-.juba-mobile-plan,.juba-mobile-lesson,.juba-mobile-progress,.juba-mobile-courses,.juba-mobile-vocabulary,.juba-mobile-flashcards,.juba-mobile-listening,.juba-mobile-reading,.juba-mobile-grammar,.juba-mobile-assessment,.juba-mobile-journey{
-  width:100%;color:var(--juba-text)
-}
-.juba-mobile-plan,.juba-mobile-lesson,.juba-mobile-progress{background:transparent;border-radius:0}
-.juba-mobile-plan .juba-card,.juba-mobile-lesson .juba-card,.juba-mobile-progress .juba-card{
-  background:var(--juba-surface)!important;border:1px solid var(--juba-border)!important;border-radius:var(--juba-radius-lg)!important;box-shadow:var(--juba-shadow-sm)!important
-}
-.juba-mobile-plan .juba-card:hover,.juba-mobile-lesson .juba-card:hover,.juba-mobile-progress .juba-card:hover{box-shadow:var(--juba-shadow-md)!important}
-.juba-mobile-plan .route-lilac-surface,.juba-mobile-lesson .route-lilac-surface,.juba-mobile-progress .route-lilac-surface{background:var(--juba-primary-soft)!important}
-.juba-mobile-plan .route-primary-surface,.juba-mobile-progress .route-primary-surface{background:var(--juba-primary)!important}
-.juba-mobile-plan .route-primary-text,.juba-mobile-progress .route-primary-text{color:var(--juba-primary-dark)!important}
-.juba-mobile-plan :where(button),.juba-mobile-lesson :where(button),.juba-mobile-progress :where(button){touch-action:manipulation}
-.juba-mobile-listening,.juba-mobile-reading,.juba-mobile-assessment{
-  width:100%;color:var(--juba-text)
-}
-.juba-mobile-listening .juba-panel,.juba-mobile-reading .juba-panel,.juba-mobile-assessment .juba-panel{
-  border:1px solid var(--juba-border)!important;border-radius:var(--juba-radius-lg)!important;background:var(--juba-surface)!important;box-shadow:var(--juba-shadow-sm)!important
-}
-.juba-mobile-flashcards,.juba-mobile-vocabulary,.juba-mobile-grammar{width:100%}
-.juba-mobile-flashcards .juba-card,.juba-mobile-vocabulary .juba-card,.juba-mobile-grammar .juba-card{
-  background:var(--juba-surface)!important;border:1px solid var(--juba-border)!important;border-radius:var(--juba-radius-lg)!important;box-shadow:var(--juba-shadow-sm)!important
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  /* Legacy UI alias: existing font-mono classes follow the interface font. */
+  --font-mono: var(--font-geist-sans);
+  --font-heading: var(--font-geist-sans);
+  /* Explicit fixed-width font for branding and technical content. */
+  --font-code: var(--font-geist-mono);
+  /* FreeLingo semantic font-size tokens */
+  --text-fl-hint: 10px;
+  --text-fl-label: 11px;
+  --text-fl-caption: 12px;
+  /* FreeLingo semantic color tokens */
+  --color-fl-bg: var(--fl-bg);
+  --color-fl-bg-alt: var(--fl-bg-alt);
+  --color-fl-surface: var(--fl-surface);
+  --color-fl-surface-2: var(--fl-surface-2);
+  --color-fl-border: var(--fl-border);
+  --color-fl-border-2: var(--fl-border-2);
+  --color-fl-muted: var(--fl-muted-1);
+  --color-fl-muted-4: var(--fl-muted-4);
+  --color-fl-muted-3: var(--fl-muted-3);
+  --color-fl-muted-2: var(--fl-muted-2);
+  --color-fl-muted-1: var(--fl-muted-1);
+  --color-fl-muted-0: var(--fl-muted-0);
+  --color-fl-fg-2: var(--fl-fg-2);
+  --color-fl-fg: var(--fl-fg);
+  --color-fl-fg-bright: var(--fl-fg-bright);
+  /* FreeLingo error/danger tokens */
+  --color-fl-error: var(--fl-error);
+  --color-fl-error-fg: var(--fl-error-fg);
+  --color-fl-error-dim: var(--fl-error-dim);
+  --color-fl-error-hover: var(--fl-error-hover);
+  --color-fl-success: var(--fl-success);
+  --color-fl-warning: var(--fl-warning);
+  /* FreeLingo accent tokens */
+  --color-fl-accent: var(--fl-accent);
+  --color-fl-accent-fg: var(--fl-accent-fg);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  /* Avatar halo animations */
+  --animate-halo-idle: halo-idle 3s ease-in-out infinite;
+  --animate-halo-speaking: halo-speaking 0.65s ease-in-out infinite;
 }
 
-.juba-mobile-daily{background:var(--juba-surface)!important;border:1px solid var(--juba-border)!important;border-radius:var(--juba-radius-lg)!important;box-shadow:var(--juba-shadow-sm)!important}
-.juba-mobile-daily > div:last-child > div{border:1px solid var(--juba-border)!important;border-radius:var(--juba-radius-md)!important;background:var(--juba-surface-soft)!important;box-shadow:none!important}
-
-.juba-mobile-bottom-nav,.juba-mobile-bar{display:none!important}
-
-.juba-games{width:100%;color:var(--juba-text)}
-.juba-games .games-header,.juba-games .stats-grid>div,.juba-games .games-panel,.juba-games .game-card,.juba-games .play-card{
-  border:1px solid var(--juba-border);border-radius:var(--juba-radius-lg);background:var(--juba-surface);box-shadow:var(--juba-shadow-sm)
-}
-.juba-games .game-card:hover{transform:translateY(-2px);box-shadow:var(--juba-shadow-md)}
-.juba-games .next{border-radius:var(--juba-radius-pill)}
-
-body:has(.juba-site-nav){background:var(--juba-bg)!important;color:var(--juba-text)!important}
-body:has(.juba-site-nav) .juba-site-nav{height:72px;border-bottom:1px solid var(--juba-border)!important;background:color-mix(in srgb,var(--juba-surface) 94%,transparent)!important;backdrop-filter:blur(16px)}
-body:has(.juba-site-nav) .juba-site-nav>div{height:72px;max-width:1320px}
-body:has(.juba-site-nav) .juba-brand-mark{background:var(--juba-ink)!important;color:var(--juba-yellow)!important;box-shadow:none!important}
-body:has(.juba-site-nav) .juba-nav-link,body:has(.juba-site-nav) .juba-nav-signin{color:var(--juba-text)!important}
-body:has(.juba-site-nav) .juba-nav-link:hover,body:has(.juba-site-nav) .juba-nav-signin:hover{color:var(--juba-primary-dark)!important}
-body:has(.juba-site-nav) .juba-nav-cta{border:1px solid var(--juba-ink);border-radius:var(--juba-radius-pill);background:var(--juba-ink)!important;color:var(--juba-bg)!important;box-shadow:none!important}
-body:has(.juba-site-nav) nav+section{border-bottom:1px solid var(--juba-border)}
-body:has(.juba-site-nav) nav+section h1{font-weight:900;letter-spacing:-.065em}
-body:has(.juba-site-nav) nav+section .juba-card{border:1px solid var(--juba-border);border-radius:28px;background:var(--juba-surface)!important;box-shadow:var(--juba-shadow-lg)}
-body:has(.juba-site-nav) .juba-mobile-menu{background:var(--juba-surface)!important;border-color:var(--juba-border)!important}
-
-@media(max-width:1120px){
-  .juba-app-nav-links{display:none}
-  .juba-app-menu-button{display:grid}
-}
-@media(max-width:700px){
-  .juba-app-nav-inner{min-height:64px;padding:8px 12px}
-  .juba-app-brand{font-size:13px}
-  .juba-brand-mark{width:38px;height:38px;border-radius:11px}
-  .juba-xp-pill{min-height:36px;padding:0 9px}
-  .juba-workspace-main{padding:18px 12px 42px}
-  .juba-app-drawer-inner{grid-template-columns:1fr}
-  .juba-page-hero,.juba-panel{padding:16px;border-radius:16px}
-  .juba-mobile-greeting{min-height:218px;padding:20px;border-radius:20px}
-  .juba-mobile-greeting-art{width:78px;height:78px;top:58px;inset-inline-end:20px;border-radius:21px}
-  .juba-mobile-greeting-art span{font-size:42px}
-  .juba-mobile-greeting-top{margin-bottom:66px}
-  .juba-mobile-greeting-progress{inset-inline:20px}
-  .juba-mobile-plan,.juba-mobile-lesson,.juba-mobile-progress,.juba-mobile-listening,.juba-mobile-reading,.juba-mobile-assessment,.juba-mobile-flashcards,.juba-mobile-vocabulary,.juba-mobile-grammar{padding-inline:0!important}
-  .juba-mobile-plan .juba-card,.juba-mobile-lesson .juba-card,.juba-mobile-progress .juba-card,.juba-mobile-flashcards .juba-card,.juba-mobile-vocabulary .juba-card,.juba-mobile-grammar .juba-card{border-radius:16px!important}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
-}
-
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   Route composition polish — keeps Dashboard / Plan / Progress on one native
-   JUBA visual system without introducing route-specific stylesheets.
-   ───────────────────────────────────────────────────────────────────────────── */
-
-.juba-mobile-dashboard{
-  max-width:1120px!important;
-}
-.juba-mobile-dashboard > section,
-.juba-mobile-dashboard > .mb-6,
-.juba-mobile-dashboard > .grid{
-  position:relative;
-}
-.juba-mobile-dashboard .juba-mobile-greeting{
-  min-height:214px;
-  background:
-    radial-gradient(circle at 88% 20%,rgba(255,212,92,.72),transparent 110px),
-    linear-gradient(135deg,#e4f6fb 0%,#f2f8e9 58%,#fff9dc 100%);
-  border:1px solid var(--juba-border);
-  border-radius:28px;
-  box-shadow:var(--juba-shadow-md);
-}
-.juba-mobile-dashboard .juba-mobile-greeting-art{
-  width:108px;height:108px;inset-inline-end:8%;top:42px;
-  border:1px solid rgba(255,255,255,.7);
-  background:rgba(255,255,255,.52);
-  border-radius:30px;
-}
-.juba-mobile-dashboard .juba-mobile-greeting-progress{
-  height:8px;
-  background:rgba(255,255,255,.7);
-}
-.juba-mobile-dashboard .juba-mobile-greeting-progress span{
-  width:48%;
-  background:linear-gradient(90deg,var(--juba-primary),var(--juba-violet-dark));
-}
-.juba-mobile-dashboard .juba-mobile-daily{
-  border-radius:24px!important;
-  box-shadow:var(--juba-shadow-md)!important;
-}
-.juba-mobile-dashboard .juba-mobile-daily > div:first-child{
-  background:linear-gradient(90deg,color-mix(in srgb,var(--juba-yellow) 14%,var(--juba-surface)),var(--juba-surface))!important;
-}
-.juba-mobile-dashboard .juba-mobile-daily > div:last-child > div{
-  min-height:150px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  border:1px solid var(--juba-border)!important;
-  background:var(--juba-surface)!important;
-  border-radius:18px!important;
-  box-shadow:var(--juba-shadow-sm)!important;
-}
-.juba-mobile-dashboard .juba-mobile-daily > div:last-child > div:first-child{
-  border-color:color-mix(in srgb,var(--juba-primary) 35%,var(--juba-border))!important;
-  background:color-mix(in srgb,var(--juba-primary-soft) 48%,var(--juba-surface))!important;
-}
-.juba-mobile-dashboard > section.juba-card:not(.juba-mobile-daily),
-.juba-mobile-dashboard > .mb-6 section,
-.juba-mobile-dashboard > .mb-6 > section{
-  border:1px solid var(--juba-border)!important;
-  border-radius:22px!important;
-  box-shadow:var(--juba-shadow-sm);
-}
-.juba-mobile-dashboard .border-\[var\(--juba-border\)\].bg-\[var\(--juba-surface\)\]{
-  border-radius:20px!important;
-}
-.juba-mobile-dashboard .juba-primary-button,
-.juba-mobile-dashboard button[class*="bg-[var(--juba-violet)]"]{
-  box-shadow:0 3px 0 var(--juba-violet-dark)!important;
-}
-.juba-mobile-dashboard .grid.grid-cols-2.gap-3.lg\:grid-cols-4 > div{
-  min-height:116px;
-  border-radius:20px!important;
-  box-shadow:var(--juba-shadow-sm);
-  transition:transform .16s,box-shadow .16s;
-}
-.juba-mobile-dashboard .grid.grid-cols-2.gap-3.lg\:grid-cols-4 > div:hover{
-  transform:translateY(-2px);
-  box-shadow:var(--juba-shadow-md);
-}
-.juba-mobile-dashboard .grid.lg\:grid-cols-2 > section{
-  border-radius:22px!important;
-  box-shadow:var(--juba-shadow-sm);
-}
-.juba-mobile-dashboard .juba-mobile-daily .h-2{
-  height:9px;
-}
-.juba-mobile-dashboard .juba-mobile-daily .h-2 > div{
-  background:var(--juba-primary)!important;
+:root {
+  /* FreeLingo semantic tokens — dark (default) */
+  --fl-bg: #0c1316;
+  --fl-bg-alt: #0d0d0d;
+  --fl-surface: #131d22;
+  --fl-surface-2: #1a1a1a;
+  --fl-border: #29383f;
+  --fl-border-2: #444444;
+  --fl-muted-4: #666666;
+  --fl-muted-3: #777777;
+  --fl-muted-2: #888888;
+  --fl-muted-1: #999999;
+  --fl-muted-0: #aaaaaa;
+  --fl-fg-2: #e0e0e0;
+  --fl-fg: #f5f5f5;
+  --fl-fg-bright: #ffffff;
+  --fl-error: #ff3b3b;
+  --fl-error-fg: #ff6b6b;
+  --fl-error-dim: #cc6666;
+  --fl-error-hover: #ff5555;
+  --fl-success: #4ade80;
+  --fl-warning: #fbbf24;
+  --fl-accent: #75b7c5;
+  --fl-accent-fg: #0a0a0a;
+  /* shadcn tokens */
+  --background: var(--fl-bg);
+  --foreground: #f5f5f5;
+  --card: var(--fl-surface);
+  --card-foreground: #f5f5f5;
+  --popover: var(--fl-surface);
+  --popover-foreground: #f5f5f5;
+  --primary: #f5f5f5;
+  --primary-foreground: var(--fl-bg);
+  --secondary: #1a1a1a;
+  --secondary-foreground: #f5f5f5;
+  --muted: #1a1a1a;
+  --muted-foreground: #666666;
+  --accent: #1a1a1a;
+  --accent-foreground: #f5f5f5;
+  --destructive: #ff3b3b;
+  --border: var(--fl-border);
+  --input: #1a1a1a;
+  --ring: #444444;
+  --radius: 0px;
+  --sidebar: var(--fl-bg);
+  --sidebar-foreground: #f5f5f5;
+  --sidebar-primary: #f5f5f5;
+  --sidebar-primary-foreground: var(--fl-bg);
+  --sidebar-accent: #1a1a1a;
+  --sidebar-accent-foreground: #f5f5f5;
+  --sidebar-border: var(--fl-border);
+  --sidebar-ring: #444444;
 }
 
-.juba-mobile-plan,
-.juba-mobile-progress{
-  max-width:1120px!important;
-}
-.juba-mobile-plan > section:first-child,
-.juba-mobile-progress > section:first-child{
-  border:1px solid var(--juba-border)!important;
-  border-radius:28px!important;
-  background:
-    radial-gradient(circle at 94% 12%,rgba(255,212,92,.7),transparent 150px),
-    linear-gradient(135deg,var(--juba-primary) 0%,var(--juba-violet-dark) 72%)!important;
-  box-shadow:var(--juba-shadow-lg)!important;
-}
-.juba-mobile-plan > section:first-child .rounded-full{
-  border:1px solid rgba(255,255,255,.18);
-}
-.juba-mobile-plan > section:first-child .bg-\[var\(--juba-yellow\)\]{
-  box-shadow:0 2px 0 rgba(24,48,34,.12);
-}
-.juba-mobile-plan > section:nth-child(2){
-  border:1px solid color-mix(in srgb,var(--juba-yellow) 55%,var(--juba-border))!important;
-  border-radius:22px!important;
-  background:linear-gradient(90deg,color-mix(in srgb,var(--juba-yellow) 24%,var(--juba-surface)),var(--juba-surface))!important;
-  box-shadow:var(--juba-shadow-sm)!important;
-}
-.juba-mobile-plan > section:nth-child(2) button{
-  border:1px solid var(--juba-ink)!important;
-  border-radius:14px!important;
-  box-shadow:0 3px 0 var(--juba-ink)!important;
-}
-.juba-mobile-plan .juba-ff-unit-card{
-  border:1px solid var(--juba-border)!important;
-  border-radius:22px!important;
-  background:var(--juba-surface)!important;
-  box-shadow:var(--juba-shadow-sm)!important;
-}
-.juba-mobile-plan .juba-ff-unit-card:hover{
-  box-shadow:var(--juba-shadow-md)!important;
-}
-.juba-mobile-plan .juba-ff-unit-active{
-  border-color:color-mix(in srgb,var(--juba-primary) 55%,var(--juba-border))!important;
-  box-shadow:0 0 0 3px color-mix(in srgb,var(--juba-primary) 9%,transparent),var(--juba-shadow-md)!important;
-}
-.juba-mobile-plan .juba-ff-unit-locked{
-  opacity:.62;
-  box-shadow:var(--juba-shadow-sm)!important;
-}
-.juba-mobile-plan .juba-ff-unit-cta{
-  border:1px solid var(--juba-ink)!important;
-  border-radius:14px!important;
-  box-shadow:0 3px 0 var(--juba-ink)!important;
-}
-.juba-mobile-plan .juba-ff-unit-index{
-  border-radius:13px!important;
-}
-.juba-mobile-plan > section:last-of-type{
-  border-radius:22px;
-}
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
 
-.juba-mobile-progress > section:first-child{
-  background:
-    radial-gradient(circle at 94% 10%,rgba(255,212,92,.7),transparent 150px),
-    linear-gradient(135deg,var(--juba-primary) 0%,var(--juba-violet-dark) 72%)!important;
-}
-.juba-mobile-progress > .juba-panel{
-  border-radius:22px!important;
-  box-shadow:var(--juba-shadow-sm)!important;
-}
-.juba-mobile-progress .juba-panel > div > div{
-  border-radius:18px!important;
-}
-.juba-mobile-progress .juba-panel .shadow-\[3px_3px_0_var\(--juba-border\)\]{
-  box-shadow:var(--juba-shadow-sm)!important;
-}
-.juba-mobile-progress section.juba-panel{
-  border:1px solid var(--juba-border)!important;
-}
-.juba-mobile-progress .bg-\[var\(--juba-app-bg\,\#fbfaf4\)\]{
-  background:var(--juba-surface-soft)!important;
-}
-.juba-mobile-progress .rounded-\[28px\]{
-  border-radius:20px!important;
-}
-.juba-mobile-progress .rounded-\[20px\]{
-  border-radius:17px!important;
-}
-.juba-mobile-progress input[type="number"]{
-  min-height:42px;
-}
-.juba-mobile-progress .grid.grid-cols-7 > div > div{
-  background:color-mix(in srgb,var(--juba-primary-soft) 60%,var(--juba-surface-soft))!important;
-}
-.juba-mobile-progress .grid.grid-cols-7 > div > div > div{
-  background:var(--juba-primary)!important;
-}
-.juba-mobile-progress a{
-  transition:color .15s,transform .15s;
-}
-.juba-mobile-progress a:hover{
-  color:var(--juba-violet-dark)!important;
-}
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
 
-@media(max-width:700px){
-  .juba-mobile-dashboard{padding-top:14px!important}
-  .juba-mobile-dashboard .juba-mobile-greeting{min-height:205px;border-radius:22px}
-  .juba-mobile-dashboard .juba-mobile-greeting-art{width:82px;height:82px;top:54px;inset-inline-end:18px}
-  .juba-mobile-dashboard .juba-mobile-greeting-art span{font-size:42px}
-  .juba-mobile-dashboard .grid.grid-cols-2.gap-3.lg\:grid-cols-4 > div{min-height:104px}
-  .juba-mobile-plan > section:first-child,
-  .juba-mobile-progress > section:first-child{border-radius:22px!important}
-  .juba-mobile-plan > section:nth-child(2){border-radius:18px!important}
-}
+  html {
+    @apply scroll-smooth font-sans;
+  }
 
+  code,
+  pre,
+  kbd,
+  samp {
+    @apply font-code;
+  }
 
-/* =========================================================
-   JUBA LISAN — unified Funfluent-inspired workspace shell
-   One shell for desktop + mobile. No secondary legacy chrome.
-   ========================================================= */
-.juba-app-shell{
-  min-height:100svh;
-  display:flex;
-  background:
-    radial-gradient(circle at 78% 0%,rgba(255,212,92,.13),transparent 26rem),
-    linear-gradient(180deg,#fbfdf9 0%,var(--juba-bg) 48%,#f5faf3 100%);
-}
-.juba-sidebar{
-  position:sticky;
-  top:0;
-  z-index:40;
-  width:248px;
-  height:100svh;
-  flex:0 0 248px;
-  display:flex;
-  flex-direction:column;
-  box-sizing:border-box;
-  background:rgba(255,255,255,.94);
-  border-inline-end:1px solid var(--juba-border);
-  box-shadow:8px 0 28px rgba(30,52,38,.045);
-  backdrop-filter:blur(18px);
-}
-.juba-sidebar-top{
-  padding:22px 18px 18px;
-  border-bottom:1px solid var(--juba-border);
-}
-.juba-sidebar-brand{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  text-decoration:none;
-  color:var(--juba-ink);
-}
-.juba-sidebar-brand-copy{
-  display:flex;
-  flex-direction:column;
-  gap:3px;
-  line-height:.9;
-}
-.juba-sidebar-brand-copy strong{
-  font-size:16px;
-  font-weight:950;
-  letter-spacing:.045em;
-}
-.juba-sidebar-brand-copy small{
-  font-size:8px;
-  font-weight:900;
-  letter-spacing:.31em;
-  color:var(--juba-muted);
-}
-.juba-sidebar-scroll{
-  flex:1;
-  overflow:auto;
-  padding:18px 12px;
-  scrollbar-width:thin;
-}
-.juba-sidebar-section + .juba-sidebar-section{margin-top:22px}
-.juba-sidebar-label{
-  display:block;
-  padding:0 11px 8px;
-  color:var(--juba-muted);
-  font-size:9px;
-  line-height:1;
-  font-weight:950;
-  letter-spacing:.16em;
-}
-.juba-sidebar-nav{
-  display:grid;
-  gap:4px;
-}
-.juba-sidebar-nav .juba-app-nav-link{
-  width:100%;
-  min-height:46px;
-  box-sizing:border-box;
-  justify-content:flex-start;
-  padding:0 12px;
-  border-radius:14px;
-  color:var(--juba-muted);
-  font-size:12px;
-  font-weight:800;
-}
-.juba-sidebar-nav .juba-app-nav-link:hover{
-  background:var(--juba-primary-soft);
-  color:var(--juba-primary-dark);
-  transform:none;
-}
-.juba-sidebar-nav .juba-app-nav-link.is-active{
-  background:var(--juba-yellow);
-  color:var(--juba-ink);
-  box-shadow:0 3px 0 color-mix(in srgb,var(--juba-ink) 13%,transparent);
-}
-.juba-sidebar-nav .juba-app-nav-link.is-active svg{
-  color:var(--juba-violet-dark)!important;
-}
-.juba-sidebar-bottom{
-  padding:12px;
-  display:grid;
-  gap:5px;
-  border-top:1px solid var(--juba-border);
-}
-.juba-sidebar-action{
-  width:100%;
-  min-height:36px;
-  border:0;
-  border-radius:10px;
-  background:transparent;
-  color:var(--juba-muted);
-  text-align:start;
-  padding:0 11px;
-  font-size:11px;
-  font-weight:800;
-  cursor:pointer;
-}
-.juba-sidebar-action:hover{
-  background:var(--juba-surface-soft);
-  color:var(--juba-text);
-}
-.juba-app-content{
-  min-width:0;
-  flex:1;
-  display:flex;
-  flex-direction:column;
-}
-.juba-topbar{
-  position:sticky;
-  top:0;
-  z-index:35;
-  min-height:72px;
-  background:rgba(255,255,255,.86);
-  border-bottom:1px solid var(--juba-border);
-  backdrop-filter:blur(18px);
-}
-.juba-topbar-inner{
-  width:100%;
-  min-height:72px;
-  padding:0 clamp(18px,3vw,38px);
-  box-sizing:border-box;
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-.juba-topbar-title{
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-  gap:3px;
-}
-.juba-topbar-title span{
-  color:var(--juba-text);
-  font-size:15px;
-  font-weight:900;
-  letter-spacing:-.025em;
-}
-.juba-topbar-title small{
-  color:var(--juba-muted);
-  font-size:8px;
-  font-weight:850;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-}
-.juba-topbar-actions{
-  margin-inline-start:auto;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.juba-avatar-button{
-  width:40px;
-  height:40px;
-  padding:0;
-  border:1px solid var(--juba-border);
-  border-radius:13px;
-  background:var(--juba-primary-soft);
-  color:var(--juba-primary-dark);
-  font-size:13px;
-  font-weight:950;
-  cursor:pointer;
-}
-.juba-avatar-button:hover{
-  border-color:var(--juba-primary);
-  transform:translateY(-1px);
-}
-.juba-mobile-menu-button{
-  display:none;
-  width:40px;
-  height:40px;
-  place-items:center;
-  border:1px solid var(--juba-border);
-  border-radius:12px;
-  background:var(--juba-surface);
-  color:var(--juba-text);
-  cursor:pointer;
-}
-.juba-mobile-drawer{
-  position:fixed;
-  inset:72px 0 0;
-  z-index:60;
-  overflow:auto;
-  padding:14px;
-  background:rgba(247,250,246,.98);
-  box-shadow:var(--juba-shadow-lg);
-}
-.juba-mobile-drawer-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:4px 2px 16px;
-}
-.juba-mobile-drawer-nav{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:6px;
-}
-.juba-mobile-drawer-nav .juba-app-nav-link{
-  width:100%;
-  min-height:46px;
-  justify-content:flex-start;
-  box-sizing:border-box;
-}
-.juba-mobile-drawer-actions{
-  display:flex;
-  gap:8px;
-  margin-top:12px;
-}
-.juba-mobile-drawer-actions>*{flex:1}
-.juba-workspace-main{
-  width:100%;
-  max-width:none;
-  flex:1;
-  margin:0;
-  padding:30px clamp(18px,3.5vw,44px) 70px;
-  box-sizing:border-box;
-}
-.juba-page-shell{
-  max-width:1180px;
-}
-.juba-app-shell .juba-mobile-dashboard,
-.juba-app-shell .juba-mobile-plan,
-.juba-app-shell .juba-mobile-progress,
-.juba-app-shell .juba-mobile-listening,
-.juba-app-shell .juba-mobile-reading,
-.juba-app-shell .juba-mobile-conversation,
-.juba-app-shell .juba-mobile-assessment,
-.juba-app-shell .juba-mobile-grammar,
-.juba-app-shell .juba-mobile-vocabulary,
-.juba-app-shell .juba-mobile-flashcards,
-.juba-app-shell .juba-games{
-  max-width:1180px;
-  margin-inline:auto;
-}
-.juba-app-shell .juba-mobile-greeting,
-.juba-app-shell .juba-mobile-daily,
-.juba-app-shell .juba-card,
-.juba-app-shell .juba-panel,
-.juba-app-shell .juba-path-card,
-.juba-app-shell .juba-learning-card{
-  box-shadow:0 8px 26px rgba(30,52,38,.065);
-}
-.juba-app-shell .juba-mobile-greeting{
-  border-radius:26px;
-  border-color:#d5e5d3;
-}
-@media(max-width:900px){
-  .juba-sidebar{display:none}
-  .juba-mobile-menu-button{display:grid}
-  .juba-topbar-title{margin-inline-start:1px}
-  .juba-workspace-main{padding:22px 16px 48px}
-}
-@media(max-width:600px){
-  .juba-topbar,.juba-topbar-inner{min-height:64px}
-  .juba-topbar-inner{padding:0 12px}
-  .juba-mobile-drawer{inset:64px 0 0}
-  .juba-topbar-title span{font-size:14px}
-  .juba-topbar-title small{display:none}
-  .juba-xp-pill{min-height:36px;padding-inline:9px;font-size:10px}
-  .juba-avatar-button{width:36px;height:36px;border-radius:11px}
-  .juba-workspace-main{padding:16px 12px 40px}
-  .juba-mobile-drawer-nav{grid-template-columns:1fr}
-}
-
-
-/* =========================================================
-   JUBA LISAN — learning surfaces visual unification
-   Keep route logic intact; normalize legacy utility styling
-   into the same native JUBA visual language.
-   ========================================================= */
-.juba-app-shell .juba-mobile-dashboard,
-.juba-app-shell .juba-mobile-plan,
-.juba-app-shell .juba-mobile-progress,
-.juba-app-shell .juba-mobile-listening,
-.juba-app-shell .juba-mobile-reading,
-.juba-app-shell .juba-mobile-conversation,
-.juba-app-shell .juba-mobile-assessment,
-.juba-app-shell .juba-mobile-grammar,
-.juba-app-shell .juba-mobile-vocabulary,
-.juba-app-shell .juba-mobile-flashcards,
-.juba-app-shell .juba-games{
-  width:100%;
-}
-.juba-app-shell :is(.rounded-\[30px\],.rounded-\[32px\],.rounded-\[28px\]){
-  border-radius:24px;
-}
-.juba-app-shell :is(.shadow-\[3px_3px_0_var\(--juba-border\)\],.shadow-\[4px_4px_0_var\(--juba-border\)\],.shadow-\[7px_7px_0_var\(--juba-ink\)\]){
-  box-shadow:var(--juba-shadow-md);
-}
-.juba-app-shell :is(.border-2,.border-\[2px\]){
-  border-color:var(--juba-border);
-}
-.juba-app-shell input,
-.juba-app-shell select,
-.juba-app-shell textarea{
-  border-color:var(--juba-border);
-  background:var(--juba-surface);
-  color:var(--juba-text);
-}
-.juba-app-shell input:focus,
-.juba-app-shell select:focus,
-.juba-app-shell textarea:focus{
-  border-color:var(--juba-violet);
-  box-shadow:0 0 0 3px color-mix(in srgb,var(--juba-violet) 13%,transparent);
-  outline:0;
-}
-.juba-app-shell :is(button,a)[class*="shadow-[3px_3px_0"]{
-  transition:transform .16s ease,box-shadow .16s ease,background-color .16s ease,border-color .16s ease;
-}
-.juba-app-shell :is(button,a)[class*="shadow-[3px_3px_0"]:hover{
-  transform:translateY(-1px);
-}
-.juba-app-shell .juba-mobile-dashboard h1,
-.juba-app-shell .juba-mobile-plan h1,
-.juba-app-shell .juba-mobile-progress h1,
-.juba-app-shell .juba-mobile-listening h1,
-.juba-app-shell .juba-mobile-reading h1,
-.juba-app-shell .juba-mobile-conversation h1,
-.juba-app-shell .juba-mobile-assessment h1,
-.juba-app-shell .juba-mobile-grammar h1,
-.juba-app-shell .juba-mobile-vocabulary h1,
-.juba-app-shell .juba-mobile-flashcards h1,
-.juba-app-shell .juba-games h1{
-  letter-spacing:-.035em;
-}
-.juba-app-shell .juba-mobile-dashboard section,
-.juba-app-shell .juba-mobile-plan section,
-.juba-app-shell .juba-mobile-progress section{
-  scroll-margin-top:90px;
-}
-.juba-app-shell .juba-mobile-plan .juba-ff-unit-card,
-.juba-app-shell .juba-mobile-progress .juba-card,
-.juba-app-shell .juba-mobile-flashcards .juba-card{
-  border-color:var(--juba-border);
-  box-shadow:var(--juba-shadow-sm);
-}
-.juba-app-shell .juba-mobile-plan .juba-ff-unit-card:hover,
-.juba-app-shell .juba-mobile-flashcards .juba-card:hover{
-  box-shadow:var(--juba-shadow-md);
-}
-.juba-app-shell .juba-mobile-plan .juba-ff-unit-active{
-  border-color:color-mix(in srgb,var(--juba-violet) 45%,var(--juba-border));
-  background:linear-gradient(135deg,#fff 0%,#f5faef 100%);
-}
-.juba-app-shell .juba-mobile-plan .juba-ff-unit-locked{
-  opacity:.72;
-  background:#f7f9f6;
-}
-.juba-app-shell .juba-mobile-progress .juba-progress-hero,
-.juba-app-shell .juba-mobile-progress .juba-progress-card{
-  border-color:var(--juba-border);
-}
-.juba-app-shell .juba-mobile-listening,
-.juba-app-shell .juba-mobile-reading,
-.juba-app-shell .juba-mobile-conversation,
-.juba-app-shell .juba-mobile-assessment,
-.juba-app-shell .juba-mobile-grammar,
-.juba-app-shell .juba-mobile-vocabulary,
-.juba-app-shell .juba-mobile-flashcards,
-.juba-app-shell .juba-games{
-  color:var(--juba-text);
-}
-.juba-app-shell .juba-mobile-listening > div,
-.juba-app-shell .juba-mobile-reading > div,
-.juba-app-shell .juba-mobile-conversation > div,
-.juba-app-shell .juba-mobile-assessment > div,
-.juba-app-shell .juba-mobile-grammar > div,
-.juba-app-shell .juba-mobile-vocabulary > div,
-.juba-app-shell .juba-mobile-flashcards > div,
-.juba-app-shell .juba-games > div{
-  max-width:100%;
-}
-.juba-app-shell .juba-primary-button,
-.juba-app-shell button[class*="bg-[var(--juba-violet)]"]{
-  box-shadow:0 5px 14px color-mix(in srgb,var(--juba-violet) 18%,transparent);
-}
-.juba-app-shell .juba-primary-button:hover,
-.juba-app-shell button[class*="bg-[var(--juba-violet)]"]:hover{
-  box-shadow:0 8px 20px color-mix(in srgb,var(--juba-violet) 24%,transparent);
-}
-.juba-app-shell .juba-resource-strip,
-.juba-app-shell .juba-app-nav{
-  display:none!important;
-}
-@media(max-width:900px){
-  .juba-app-shell .juba-mobile-dashboard,
-  .juba-app-shell .juba-mobile-plan,
-  .juba-app-shell .juba-mobile-progress,
-  .juba-app-shell .juba-mobile-listening,
-  .juba-app-shell .juba-mobile-reading,
-  .juba-app-shell .juba-mobile-conversation,
-  .juba-app-shell .juba-mobile-assessment,
-  .juba-app-shell .juba-mobile-grammar,
-  .juba-app-shell .juba-mobile-vocabulary,
-  .juba-app-shell .juba-mobile-flashcards,
-  .juba-app-shell .juba-games{
-    padding-inline:0;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    letter-spacing: -0.02em;
   }
 }
 
+@utility font-target-latin {
+  font-family:
+    var(--font-geist-sans),
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+}
 
-/* =========================================================
-   JUBA LISAN — final shell correction
-   The learner pages keep their existing content; this block
-   changes only the application chrome so the interface is
-   visually unmistakable.
-   ========================================================= */
-.juba-app-shell{
-  background:#f3f7f1;
+@utility font-target-ja {
+  font-family:
+    var(--font-noto-ja), 'Hiragino Sans', 'Yu Gothic', Meiryo, system-ui,
+    sans-serif;
 }
-.juba-sidebar{
-  width:276px;
-  flex-basis:276px;
-  background:#173a2a;
-  border-inline-end:0;
-  box-shadow:10px 0 34px rgba(18,48,35,.14);
-  color:#fff;
+
+@utility font-target-ko {
+  font-family:
+    var(--font-noto-ko), 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui,
+    sans-serif;
 }
-.juba-sidebar-top{
-  padding:24px 20px 22px;
-  border-bottom:1px solid rgba(255,255,255,.11);
+
+@utility font-target-zh {
+  font-family:
+    var(--font-noto-zh), 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC',
+    system-ui, sans-serif;
 }
-.juba-sidebar-brand{
-  color:#fff;
+
+::-webkit-scrollbar {
+  width: 4px;
 }
-.juba-sidebar-brand-copy strong{
-  color:#fff;
-  font-size:17px;
+
+::-webkit-scrollbar-track {
+  background: var(--fl-bg);
 }
-.juba-sidebar-brand-copy small{
-  color:rgba(255,255,255,.58);
+
+::-webkit-scrollbar-thumb {
+  background: var(--fl-border);
 }
-.juba-sidebar-scroll{
-  padding:22px 14px;
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fl-border-2);
 }
-.juba-sidebar-section + .juba-sidebar-section{
-  margin-top:26px;
+
+/* ── Light theme ── */
+html[data-theme='light'] {
+  --fl-bg: #f2f6f7;
+  --fl-bg-alt: #f0f0f0;
+  --fl-surface: #fbfcfc;
+  --fl-surface-2: #eeeeee;
+  --fl-border: #d7e1e5;
+  --fl-border-2: #aaaaaa;
+  --fl-muted-4: #999999;
+  --fl-muted-3: #888888;
+  --fl-muted-2: #777777;
+  --fl-muted-1: #666666;
+  --fl-muted-0: #555555;
+  --fl-fg-2: #1a1a1a;
+  --fl-fg: #0a0a0a;
+  --fl-fg-bright: #000000;
+  --fl-error: #e03030;
+  --fl-error-fg: #cc3333;
+  --fl-error-dim: #994444;
+  --fl-error-hover: #c02020;
+  --fl-success: #15803d;
+  --fl-warning: #92400e;
+  --fl-accent: #286779;
+  --fl-accent-fg: #ffffff;
+  /* shadcn token overrides (light) */
+  --background: var(--fl-bg);
+  --foreground: #0a0a0a;
+  --card: var(--fl-surface);
+  --card-foreground: #0a0a0a;
+  --popover: var(--fl-surface);
+  --popover-foreground: #0a0a0a;
+  --primary: #0a0a0a;
+  --primary-foreground: var(--fl-bg);
+  --secondary: #eeeeee;
+  --secondary-foreground: #0a0a0a;
+  --muted: #eeeeee;
+  --muted-foreground: #666666;
+  --accent: #eeeeee;
+  --accent-foreground: #0a0a0a;
+  --border: var(--fl-border);
+  --input: #eeeeee;
+  --ring: #aaaaaa;
+  --sidebar: var(--fl-bg);
+  --sidebar-foreground: #0a0a0a;
+  --sidebar-primary: #0a0a0a;
+  --sidebar-primary-foreground: var(--fl-bg);
+  --sidebar-accent: #eeeeee;
+  --sidebar-accent-foreground: #0a0a0a;
+  --sidebar-border: var(--fl-border);
+  --sidebar-ring: #aaaaaa;
 }
-.juba-sidebar-label{
-  color:rgba(255,255,255,.46);
-  padding-inline:12px;
-  font-size:9px;
-}
-.juba-sidebar-nav{
-  gap:6px;
-}
-.juba-sidebar-nav .juba-app-nav-link{
-  min-height:48px;
-  padding:0 14px;
-  border-radius:14px;
-  color:rgba(255,255,255,.72);
-  font-size:12px;
-  font-weight:800;
-}
-.juba-sidebar-nav .juba-app-nav-link svg{
-  color:rgba(255,255,255,.58);
-}
-.juba-sidebar-nav .juba-app-nav-link:hover{
-  background:rgba(255,255,255,.09);
-  color:#fff;
-}
-.juba-sidebar-nav .juba-app-nav-link.is-active{
-  background:#ffd45c;
-  color:#173a2a;
-  box-shadow:0 4px 0 rgba(0,0,0,.13);
-}
-.juba-sidebar-nav .juba-app-nav-link.is-active svg{
-  color:#2f6b1c!important;
-}
-.juba-sidebar-bottom{
-  padding:14px;
-  border-top:1px solid rgba(255,255,255,.11);
-}
-.juba-sidebar-action{
-  color:rgba(255,255,255,.62);
-  min-height:38px;
-}
-.juba-sidebar-action:hover{
-  background:rgba(255,255,255,.08);
-  color:#fff;
-}
-.juba-app-content{
-  background:#f3f7f1;
-}
-.juba-topbar{
-  min-height:78px;
-  background:rgba(255,255,255,.96);
-  border-bottom:1px solid #dce7dc;
-  box-shadow:0 3px 18px rgba(30,52,38,.055);
-}
-.juba-topbar-inner{
-  min-height:78px;
-  padding-inline:clamp(20px,3vw,42px);
-}
-.juba-topbar-title span{
-  font-size:16px;
-}
-.juba-topbar-title small{
-  color:#739080;
-}
-.juba-xp-pill{
-  min-height:40px;
-  padding-inline:14px;
-  background:#fff3c5;
-  border:1px solid #f2d56d;
-}
-.juba-avatar-button{
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  background:#e9f5df;
-  border-color:#c9dfbe;
-}
-.juba-workspace-main{
-  padding-top:34px;
-  padding-bottom:80px;
-}
-.juba-app-shell .juba-mobile-dashboard,
-.juba-app-shell .juba-mobile-plan,
-.juba-app-shell .juba-mobile-progress,
-.juba-app-shell .juba-mobile-listening,
-.juba-app-shell .juba-mobile-reading,
-.juba-app-shell .juba-mobile-conversation,
-.juba-app-shell .juba-mobile-assessment,
-.juba-app-shell .juba-mobile-grammar,
-.juba-app-shell .juba-mobile-vocabulary,
-.juba-app-shell .juba-mobile-flashcards,
-.juba-app-shell .juba-games{
-  max-width:1180px;
-}
-.juba-mobile-drawer{
-  background:#173a2a;
-  color:#fff;
-}
-.juba-mobile-drawer-head{
-  border-bottom:1px solid rgba(255,255,255,.12);
-}
-.juba-mobile-drawer .juba-sidebar-brand{
-  color:#fff;
-}
-.juba-mobile-drawer .juba-sidebar-brand-copy strong{
-  color:#fff;
-}
-.juba-mobile-drawer .juba-sidebar-brand-copy small{
-  color:rgba(255,255,255,.58);
-}
-.juba-mobile-drawer-nav{
-  padding-top:16px;
-}
-.juba-mobile-drawer-nav .juba-app-nav-link{
-  min-height:50px;
-  border-radius:14px;
-  color:rgba(255,255,255,.76);
-  background:rgba(255,255,255,.045);
-}
-.juba-mobile-drawer-nav .juba-app-nav-link:hover{
-  background:rgba(255,255,255,.1);
-  color:#fff;
-}
-.juba-mobile-drawer-nav .juba-app-nav-link.is-active{
-  background:#ffd45c;
-  color:#173a2a;
-}
-.juba-mobile-drawer-actions{
-  padding-top:14px;
-}
-@media(max-width:900px){
-  .juba-app-content{
-    background:#f3f7f1;
+
+/* ── Avatar halo keyframes ── */
+@keyframes halo-idle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(1);
   }
-  .juba-topbar,
-  .juba-topbar-inner{
-    min-height:68px;
+
+  50% {
+    opacity: 0.32;
+    transform: scale(1.07);
   }
-  .juba-mobile-menu-button{
-    background:#173a2a;
-    color:#fff;
-    border-color:#173a2a;
+}
+
+@keyframes halo-speaking {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
   }
+
+  40% {
+    opacity: 0.92;
+    transform: scale(1.14);
+  }
+}
+
+.word-selectable::selection,
+.word-selectable *::selection {
+  background: rgba(217, 119, 6, 0.35);
+}
+
+/* ── Scroll-reveal animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Language bubbles floating animation ── */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-bubble-in {
+  animation: bubble-in 0.4s ease-out forwards;
+  opacity: 0;
 }
