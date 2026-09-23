@@ -1,28 +1,28 @@
 /* Learning path is its own app route; keep the same visual system outside the landing wrapper */
-.juba-ff-unit-card{border:3px solid #25302a;border-radius:28px;background:#fff;box-shadow:6px 6px 0 #25302a;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
-.juba-ff-unit-card:hover{transform:translateY(-2px);box-shadow:9px 9px 0 #25302a}
-.juba-ff-unit-active{border-color:#39751d;box-shadow:6px 6px 0 #39751d}
-.juba-ff-unit-active:hover{box-shadow:9px 9px 0 #39751d}
+.juba-ff-unit-card{border:3px solid var(--juba-ink);border-radius:28px;background:var(--juba-surface);box-shadow:6px 6px 0 var(--juba-ink);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
+.juba-ff-unit-card:hover{transform:translateY(-2px);box-shadow:9px 9px 0 var(--juba-ink)}
+.juba-ff-unit-active{border-color:var(--juba-violet-dark);box-shadow:6px 6px 0 var(--juba-violet-dark)}
+.juba-ff-unit-active:hover{box-shadow:9px 9px 0 var(--juba-violet-dark)}
 .juba-ff-unit-locked{opacity:.58;box-shadow:4px 4px 0 #a8aaa4}
-.juba-ff-unit-index{background:#e2f2d3;color:#39751d}
-.juba-ff-unit-start{background:#ffd35a;color:#25302a}
-.juba-ff-unit-title{color:#25302a}
+.juba-ff-unit-index{background:var(--juba-lilac);color:var(--juba-violet-dark)}
+.juba-ff-unit-start{background:var(--juba-yellow);color:var(--juba-ink)}
+.juba-ff-unit-title{color:var(--juba-ink)}
 .juba-ff-unit-title-locked{color:#8d918b}
 .juba-ff-unit-meta{color:#7a837c}
-.juba-ff-unit-percent{background:#fff0b8;color:#25302a}
+.juba-ff-unit-percent{background:var(--juba-surface)0b8;color:var(--juba-ink)}
 .juba-ff-unit-progress{background:#eef0e9}
-.juba-ff-unit-cta{background:#ffd35a;color:#25302a;border:2px solid #25302a;box-shadow:3px 3px 0 #25302a}
+.juba-ff-unit-cta{background:var(--juba-yellow);color:var(--juba-ink);border:2px solid var(--juba-ink);box-shadow:3px 3px 0 var(--juba-ink)}
 
 
 /* Funfluent route pass: lesson + learning plan */
 .juba-mobile-plan,
 .juba-mobile-lesson{
-  --route-ink:#25302a;
+  --route-ink:var(--juba-ink);
   --route-green:#5a9b32;
-  --route-green-dark:#39751d;
-  --route-cream:#fbfaf4;
+  --route-green-dark:var(--juba-violet-dark);
+  --route-cream:var(--juba-bg);
   --route-paper:#f2f0e8;
-  --route-yellow:#ffd35a;
+  --route-yellow:var(--juba-yellow);
   --route-blue:#9edcf0;
   --route-coral:#ef816f;
   color:var(--route-ink);
@@ -34,7 +34,7 @@
   border:3px solid var(--route-ink)!important;
   border-radius:28px!important;
   box-shadow:6px 6px 0 var(--route-ink)!important;
-  background:#fff!important;
+  background:var(--juba-surface)!important;
 }
 .juba-mobile-plan .juba-card:hover,
 .juba-mobile-lesson .juba-card:hover{
@@ -46,7 +46,7 @@
 }
 .juba-mobile-plan .bg-[var(--juba-lilac)],
 .juba-mobile-lesson .bg-[var(--juba-lilac)]{
-  background:#e2f2d3!important;
+  background:var(--juba-lilac)!important;
 }
 .juba-mobile-plan .bg-[var(--juba-yellow)]{
   border:3px solid var(--route-ink);
@@ -62,11 +62,11 @@
 
 /* Final route palette bridge */
 .juba-mobile-progress{
-  --route-ink:#25302a;
+  --route-ink:var(--juba-ink);
   --route-green:#5a9b32;
-  --route-green-dark:#39751d;
-  --route-cream:#fbfaf4;
-  --route-yellow:#ffd35a;
+  --route-green-dark:var(--juba-violet-dark);
+  --route-cream:var(--juba-bg);
+  --route-yellow:var(--juba-yellow);
   --route-coral:#ef816f;
   color:var(--route-ink);
   background:var(--route-cream);
@@ -79,7 +79,7 @@
 }
 .juba-mobile-progress .bg-[var(--juba-violet)]{background:var(--route-green-dark)!important}
 .juba-mobile-progress .text-[var(--juba-violet)]{color:var(--route-green-dark)!important}
-.juba-mobile-progress .bg-[var(--juba-lilac)]{background:#e2f2d3!important}
+.juba-mobile-progress .bg-[var(--juba-lilac)]{background:var(--juba-lilac)!important}
 @media(max-width:700px){
  .juba-mobile-progress{border-radius:0}
  .juba-mobile-progress .juba-card{box-shadow:4px 4px 0 var(--route-ink)!important}
