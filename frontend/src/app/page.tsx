@@ -188,52 +188,100 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Bento Features Section */}
-      <ScrollReveal>
-        <BentoFeatures t={t} />
-      </ScrollReveal>
+      {/* Funfluent-style product story: every JUBA LISAN capability stays real,
+          but the presentation follows the reference from top to bottom. */}
+      <section className="juba-ff-story juba-ff-story-features">
+        <ScrollReveal>
+          <div className="juba-ff-story-inner">
+            <div className="juba-ff-story-heading">
+              <span className="juba-ff-section-tag">Your language adventure</span>
+              <h2>Read. Listen. Speak. Learn.</h2>
+              <p>JUBA LISAN keeps the playful story-driven feeling of the reference while powering it with AI tutoring, CEFR lessons, voice practice and real progress tracking.</p>
+            </div>
+            <BentoFeatures t={t} />
+          </div>
+        </ScrollReveal>
+      </section>
 
-      {/* AI Conversation Showcase Section */}
-      <ScrollReveal>
-        <AiConversationShowcase t={t} />
-      </ScrollReveal>
+      <section className="juba-ff-story juba-ff-story-ai">
+        <ScrollReveal>
+          <div className="juba-ff-story-inner">
+            <div className="juba-ff-story-heading">
+              <span className="juba-ff-section-tag">Meet your tutor</span>
+              <h2>A conversation that feels alive.</h2>
+              <p>Practice naturally with the JUBA LISAN AI tutor, with voice interaction and feedback built into the learning flow.</p>
+            </div>
+            <AiConversationShowcase t={t} />
+          </div>
+        </ScrollReveal>
+      </section>
 
-      {/* Dashboard Preview Mockup Section */}
-      <ScrollReveal>
-        <DashboardPreview t={t} />
-      </ScrollReveal>
+      <section className="juba-ff-story juba-ff-story-dashboard">
+        <ScrollReveal>
+          <div className="juba-ff-story-inner">
+            <div className="juba-ff-story-heading">
+              <span className="juba-ff-section-tag">Your learning journey</span>
+              <h2>Everything you learn, in one colorful place.</h2>
+            </div>
+            <DashboardPreview t={t} />
+          </div>
+        </ScrollReveal>
+      </section>
 
-      {/* Supported Languages Showcase Section */}
-      <ScrollReveal>
-        <LanguageShowcase t={t} />
-      </ScrollReveal>
+      <section className="juba-ff-story juba-ff-story-languages">
+        <ScrollReveal>
+          <div className="juba-ff-story-inner">
+            <div className="juba-ff-story-heading">
+              <span className="juba-ff-section-tag">Languages around the world</span>
+              <h2>Choose a language. Start an adventure.</h2>
+              <p>Keep JUBA LISAN multilingual while presenting every language as part of the same illustrated world.</p>
+            </div>
+            <LanguageShowcase t={t} />
+          </div>
+        </ScrollReveal>
+      </section>
 
-      {/* Learning Experience Timeline Section */}
-      <ScrollReveal>
-        <LearningExperience t={t} />
-      </ScrollReveal>
+      <section className="juba-ff-story juba-ff-story-learning">
+        <ScrollReveal>
+          <div className="juba-ff-story-inner">
+            <div className="juba-ff-story-heading">
+              <span className="juba-ff-section-tag">From first word to fluency</span>
+              <h2>A playful path with real CEFR structure.</h2>
+            </div>
+            <LearningExperience t={t} />
+          </div>
+        </ScrollReveal>
+      </section>
 
-      {/* Reviews Section */}
-      <ScrollReveal>
-        <div id="reviews" className="scroll-mt-20">
-          <LandingReviewsCarousel reviews={reviews} />
-        </div>
-      </ScrollReveal>
+      {/* Social proof */}
+      <section id="reviews" className="juba-ff-story juba-ff-story-reviews scroll-mt-20">
+        <ScrollReveal>
+          <div className="juba-ff-story-inner juba-ff-contained-card">
+            <LandingReviewsCarousel reviews={reviews} />
+          </div>
+        </ScrollReveal>
+      </section>
 
-      {/* Pricing Section */}
-      <ScrollReveal>
-        <div id="pricing" className="scroll-mt-20">
-          <PricingSection
-            stripeEnabled={stripeEnabled}
-            trialDays={trialDays}
-            hasSession={hasSession}
-            priceMonthly={priceMonthly}
-            priceYearly={priceYearly}
-            totalPriceMonthly={totalPriceMonthly}
-            totalPriceYearly={totalPriceYearly}
-          />
-        </div>
-      </ScrollReveal>
+      {/* Pricing */}
+      <section id="pricing" className="juba-ff-story juba-ff-story-pricing scroll-mt-20">
+        <ScrollReveal>
+          <div className="juba-ff-story-inner">
+            <div className="juba-ff-story-heading">
+              <span className="juba-ff-section-tag">Plans for every learner</span>
+              <h2>Keep learning at your own pace.</h2>
+            </div>
+            <PricingSection
+              stripeEnabled={stripeEnabled}
+              trialDays={trialDays}
+              hasSession={hasSession}
+              priceMonthly={priceMonthly}
+              priceYearly={priceYearly}
+              totalPriceMonthly={totalPriceMonthly}
+              totalPriceYearly={totalPriceYearly}
+            />
+          </div>
+        </ScrollReveal>
+      </section>
 
       {/* Open Source Banner */}
       <ScrollReveal>
