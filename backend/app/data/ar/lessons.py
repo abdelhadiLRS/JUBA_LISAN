@@ -241,6 +241,86 @@ ARABIC_A1_LESSONS: tuple[ArabicA1Lesson, ...] = (
 )
 
 
+GRAMMAR_GROUNDING_PATTERNS: dict[str, tuple[str, ...]] = {
+    "pronouns": ("\\b(?:أنا|نحن|أنت|أنتِ|أنتَ|هو|هي|هم|هن)\\b",),
+    "gender-agreement": ("(?:هذا|هذه)\\s+[^؟.!،]+", "ط(?:الب|البة)", "صغير(?:ة)?", "كبير(?:ة)?", "جديد(?:ة)?", "نظيف(?:ة)?"),
+    "nominal-sentence": ("(?:أنا|نحن|هو|هي|هذا|هذه)\\s+[^؟.!،]+",),
+    "definite-article": ("\\bال[\\u0621-\\u064A]{2,}",),
+    "demonstratives": ("\\b(?:هذا|هذه|ذلك|تلك)\\b",),
+    "question-words": ("\\b(?:ما|من|ماذا|أين|متى|كيف|كم|لماذا|هل)\\b",),
+    "present-tense": ("\\b(?:أستيقظ|أشرب|أذهب|أدرس|أعمل|أقرأ|أكتب|أنام|أعود|أحب|أريد|أبدأ|ينتهي|يذهب|تدرس|يعمل|يقرأ|تقرأ|تبدأ)\\b",),
+    "present-subject-agreement": ("(?:أنا|هو|هي|هم|نحن)\\s+(?:أ|ي|ت|ن)[\\u0621-\\u064A]+", "هم\\s+ي[\\u0621-\\u064A]+"),
+    "negation": ("\\bلا\\b",),
+    "prepositions": ("\\b(?:في|على|إلى|من|مع|عند|بجانب|أمام|خلف|بين)\\b",),
+    "possessive-construct": ("(?:كتاب|هاتف|حقيبة|غرفة|صورة|رقم|عنوان|بيت|باب)\\s+(?:أبي|أمي|أخي|أختي|البيت|الطالب|عائلتي)",),
+    "adjectives": ("\\b(?:صغير|صغيرة|كبير|كبيرة|جديد|جديدة|قديم|قديمة|نظيف|نظيفة|طيب|طيبة|مريح|مريحة)\\b",),
+    "numbers": ("\\b(?:واحد|واحدة|اثنان|اثنتان|اثنا|ثلاثة|أربعة|خمسة|ستة|سبعة|ثمانية|تسعة|عشرة|أحد عشر|اثنا عشر|عشرون|الثانية|الثالثة|الرابعة|الخامسة|السادسة|السابعة|الثامنة|التاسعة|العاشرة|الحادية عشرة|الثانية عشرة)\\b",),
+    "clock-time": ("(?:الساعة|موعد|كم الساعة)",),
+    "accusative-intro": ("(?:أقرأ|أشرب|أحب|أريد|أشتري)\\s+[^؟.!،]+",),
+    "imperative-intro": ("\\b(?:اقرأ|اكتب|اسمع|تعال|خذ|اذهب|اذكر|اسأل|قل)\\b",),
+    "there-is-there-are": ("\\b(?:يوجد|توجد|عندي|لدي)\\b",),
+    "possessive-pronouns": ("\\b(?:هاتفي|عنواني|كتابي|كتابك|حقيبتي|عائلتي|سريري|غرفتي|هاتفك|عنوانك)\\b",),
+    "adverbs-frequency": ("\\b(?:دائمًا|أحيانًا|غالبًا|نادرًا)\\b",),
+    "quantifiers": ("\\b(?:كثير|قليل|بعض|واحد|واحدة|كم)\\b",),
+    "place-expressions": ("\\b(?:أمام|خلف|بجانب|بين|قريب|بعيد)\\b",),
+    "basic-questions": ("\\b(?:هل|ما|من|ماذا|أين|متى|كيف|لماذا)\\b",),
+}
+
+
+def _grammar_seed_text(seed: ArabicA1ContentSeed) -> str:
+    return " ".join((*seed.target_phrases, *seed.model_sentences))
+
+
+def _grammar_topic_is_grounded(grammar_slug: str, text: str) -> bool:
+    import re
+
+    patterns = GRAMMAR_GROUNDING_PATTERNS.get(grammar_slug, ())
+    return any(re.search(pattern, text) for pattern in patterns)
+
+
+def get_arabic_a1_grammar_quality_report() -> dict[str, object]:
+    """Measure whether curated seed language visibly teaches each referenced A1 grammar topic."""
+    seed_by_id = {seed.lesson_id: seed for seed in ARABIC_A1_CONTENT_SEEDS}
+    lesson_coverage: dict[str, dict[str, bool]] = {}
+    lesson_grounding: dict[str, float] = {}
+    topic_coverage: dict[str, int] = {}
+    topic_usage: dict[str, int] = {}
+
+    for lesson in get_arabic_a1_lessons():
+        seed = seed_by_id[lesson.id]
+        text = _grammar_seed_text(seed)
+        coverage = {
+            slug: _grammar_topic_is_grounded(slug, text)
+            for slug in lesson.grammar_refs
+        }
+        lesson_coverage[lesson.id] = coverage
+        grounded = sum(coverage.values())
+        lesson_grounding[lesson.id] = round(grounded / len(coverage), 3) if coverage else 1.0
+        for slug, matched in coverage.items():
+            topic_usage[slug] = topic_usage.get(slug, 0) + 1
+            if matched:
+                topic_coverage[slug] = topic_coverage.get(slug, 0) + 1
+
+    low = tuple(sorted(
+        lesson_id for lesson_id, ratio in lesson_grounding.items()
+        if ratio < 0.75
+    ))
+    grammar_grounding_ratio = (
+        round(sum(topic_coverage.values()) / sum(topic_usage.values()), 3)
+        if topic_usage else 0.0
+    )
+    return {
+        "lesson_grammar_coverage": lesson_coverage,
+        "lesson_grammar_grounding": lesson_grounding,
+        "low_grammar_grounding_lessons": low,
+        "grammar_grounding_ratio": grammar_grounding_ratio,
+        "grammar_topic_coverage": {
+            slug: round(topic_coverage.get(slug, 0) / count, 3)
+            for slug, count in topic_usage.items()
+        },
+    }
+
+
 def get_arabic_a1_lessons(unit_id: str | None = None) -> tuple[ArabicA1Lesson, ...]:
     """Return the full A1 sequence or only lessons belonging to one unit."""
     if unit_id is None:
