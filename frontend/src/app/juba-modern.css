@@ -1,6 +1,6 @@
 /* JUBA LISAN — route-specific compatibility and presentation rules.
  * Canonical design tokens live in juba-shell.css; this file preserves
- * legacy route selectors while they are progressively consolidated. */
+ * route-specific presentation lives in the canonical JUBA shell. */
 
 /* Map remaining amber/emerald utilities from the old landing palette into the new identity. */
 [class*='bg-amber-500'] { background-color: var(--juba-primary) !important; }
@@ -25,7 +25,6 @@ h1, h2, h3, h4, h5, h6 { letter-spacing: -.025em; font-weight: 700; }
 .juba-section-header { max-width: 760px; margin-inline: auto; text-align: center; }
 .mx-auto.max-w-5xl, .mx-auto.max-w-4xl { padding-top: clamp(1.25rem,3vw,2.5rem); padding-bottom: 4rem; }
 .mx-auto.max-w-4xl .font-mono { font-family: inherit; }
-.mx-auto.max-w-4xl .bg-fl-accent.h-px { height: .3rem !important; border-radius: 999px; }
 /* Route-specific legacy presentation blocks were removed after the learner routes migrated to canonical JUBA classes. */
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; } }
@@ -36,6 +35,5 @@ h1, h2, h3, h4, h5, h6 { letter-spacing: -.025em; font-weight: 700; }
   main .juba-card[aria-label] a button { width: 100%; }
   main .juba-card.cursor-pointer.select-none { min-height: 20rem; }
   main .juba-card.cursor-pointer.select-none > div:last-child { min-height: 14rem; }
-  main .mx-auto.max-w-5xl .border-fl-border.bg-fl-surface.p-5 .reading-text { font-size: 1rem; line-height: 1.8; }
   main aside { width: min(88vw, 20rem); }
 }
