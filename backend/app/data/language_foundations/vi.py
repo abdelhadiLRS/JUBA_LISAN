@@ -33,13 +33,13 @@ CurriculumUnit(id="vi-a1-unit-5",level="A1",unit_number=5,title="Food and shoppi
 CurriculumUnit(id="vi-a1-unit-6",level="A1",unit_number=6,title="Places and directions",grammar_points=["classifiers-intro"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2),
 CurriculumUnit(id="vi-a1-unit-7",level="A1",unit_number=7,title="Communication and help",grammar_points=["adjectives"],vocabulary_set_ids=["communication_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2),
 CurriculumUnit(id="vi-a1-unit-8",level="A1",unit_number=8,title="Review and A1 communication",grammar_points=["modal-verbs"],vocabulary_set_ids=["family_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2)]}
-ASSESSMENT_BANK=[AssessmentQuestion(id="vi-a1-001",skill="vocabulary",difficulty="A1",question="A1 thanks check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="vi-a1-002",skill="vocabulary",difficulty="A1",question="A1 student check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="vi-a1-003",skill="vocabulary",difficulty="A1",question="A1 question check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="vi-a1-004",skill="vocabulary",difficulty="A1",question="A1 negative check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="vi-a1-005",skill="vocabulary",difficulty="A1",question="A1 mother check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="vi-a1-006",skill="vocabulary",difficulty="A1",question="A1 shop check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="vi-a1-007",skill="vocabulary",difficulty="A1",question="A1 water check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="vi-a1-008",skill="vocabulary",difficulty="A1",question="A1 help check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="vi-a1-009",skill="vocabulary",difficulty="A1",question="A1 name check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="vi-a1-010",skill="vocabulary",difficulty="A1",question="A1 present check",options=["A","B","C","D"],correct="A")]
+ASSESSMENT_BANK=[AssessmentQuestion(id="vi-a1-001",skill="vocabulary",difficulty="A1",question="Which word means 'thanks'?",options=["Cảm ơn","Xin chào","Tạm biệt","Chào buổi sáng"],correct="Cảm ơn"),
+AssessmentQuestion(id="vi-a1-002",skill="grammar",difficulty="A1",question="Choose the correct A1 sentence.",options=["Tôi là sinh viên.","Tôi sinh viên là.","Sinh viên tôi.","Tôi là sinh viên không."],correct="Tôi là sinh viên."),
+AssessmentQuestion(id="vi-a1-003",skill="grammar",difficulty="A1",question="Choose the correct question.",options=["Bạn sống ở đâu?","Bạn ở đâu sống?","Ai bạn sống?","Bạn sống là đâu?"],correct="Bạn sống ở đâu?"),
+AssessmentQuestion(id="vi-a1-004",skill="vocabulary",difficulty="A1",question="Choose the correct negative sentence.",options=["Tôi không hiểu.","Tôi hiểu không.","Không tôi hiểu.","Tôi không hiểu là."],correct="Tôi không hiểu."),
+AssessmentQuestion(id="vi-a1-005",skill="grammar",difficulty="A1",question="Which word means 'mother'?",options=["mẹ","bố","chị gái","anh trai"],correct="mẹ"),
+AssessmentQuestion(id="vi-a1-006",skill="grammar",difficulty="A1",question="Which word means 'shop'?",options=["cửa hàng","ga","phòng","nhà"],correct="cửa hàng"),
+AssessmentQuestion(id="vi-a1-007",skill="vocabulary",difficulty="A1",question="Which word means 'water'?",options=["nước","cà phê","bánh mì","táo"],correct="nước"),
+AssessmentQuestion(id="vi-a1-008",skill="grammar",difficulty="A1",question="Choose the phrase for asking for help.",options=["Tôi cần giúp đỡ.","Cảm ơn.","Tôi ở nhà.","Xin chào."],correct="Tôi cần giúp đỡ."),
+AssessmentQuestion(id="vi-a1-009",skill="grammar",difficulty="A1",question="Which word means 'name'?",options=["tên","tuổi","gia đình","nhà"],correct="tên"),
+AssessmentQuestion(id="vi-a1-010",skill="vocabulary",difficulty="A1",question="Choose the correct present-tense form.",options=["nói","nói không","nói đã","nói là"],correct="nói")]
