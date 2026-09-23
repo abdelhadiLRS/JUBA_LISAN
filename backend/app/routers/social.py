@@ -184,12 +184,14 @@ async def send_friend_request(
             raise HTTPException(status_code=409, detail="Friend request already pending")
         connection.requester_id = current_user.id
         connection.addressee_id = target.id
+        connection.pair_key = f"{min(current_user.id, target.id)}:{max(current_user.id, target.id)}"
         connection.status = "pending"
         connection.updated_at = datetime.now(UTC).replace(tzinfo=None)
     else:
         connection = FriendConnection(
             requester_id=current_user.id,
             addressee_id=target.id,
+            pair_key=f"{min(current_user.id, target.id)}:{max(current_user.id, target.id)}",
             status="pending",
         )
         db.add(connection)
