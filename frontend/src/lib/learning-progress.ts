@@ -47,10 +47,14 @@ export function subscribeToLearningProgressUpdated(listener: () => void): () => 
   const channel = getProgressChannel()
   if (channel) progressSubscriberCount += 1
   let lastSignalTimestamp = ''
-  const notify = (timestamp?: string) => {
-    if (timestamp && timestamp === lastSignalTimestamp) return
-    if (timestamp) lastSignalTimestamp = timestamp
+  const notify = (timestamp: string) => {
+    if (!timestamp || timestamp === lastSignalTimestamp) return
+    lastSignalTimestamp = timestamp
     listener()
+  }
+  const onLocalEvent = (event: Event) => {
+    const timestamp = (event as CustomEvent<{ timestamp?: string }>).detail?.timestamp
+    if (timestamp) notify(timestamp)
   }
   const onChannelMessage = (event: MessageEvent<{ type?: string; timestamp?: string }>) => {
     if (event.data?.type === LEARNING_PROGRESS_EVENT) {
@@ -63,7 +67,7 @@ export function subscribeToLearningProgressUpdated(listener: () => void): () => 
     }
   }
 
-  window.addEventListener(LEARNING_PROGRESS_EVENT, listener)
+  window.addEventListener(LEARNING_PROGRESS_EVENT, onLocalEvent)
   window.addEventListener('storage', onStorage)
   channel?.addEventListener('message', onChannelMessage)
 
