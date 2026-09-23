@@ -51,9 +51,9 @@ export function subscribeToLearningProgressUpdated(listener: () => void): () => 
   const channel = getProgressChannel()
   if (channel) progressSubscriberCount += 1
   let lastSignalTimestamp = ''
-  const notify = (timestamp: string) => {
-    if (!timestamp || timestamp === lastSignalTimestamp) return
-    lastSignalTimestamp = timestamp
+  const notify = (timestamp?: string) => {
+    if (timestamp && timestamp === lastSignalTimestamp) return
+    if (timestamp) lastSignalTimestamp = timestamp
     listener()
   }
   const onLocalEvent = (event: Event) => {
