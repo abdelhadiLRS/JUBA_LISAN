@@ -755,34 +755,28 @@ html[data-theme='dark'] {
   .juba-mobile-grammar > div:first-child { border-radius: 22px !important; }
 }
 
-/* Visual alignment pass — keep existing page structure and behavior, only refine presentation. */
+/* Route visual consistency: CSS-only, no layout or behavior changes. */
 .juba-mobile-listening,
 .juba-mobile-reading,
-.juba-mobile-assessment,
-.juba-mobile-conversation {
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+.juba-mobile-assessment {
+  width: min(100%, var(--j-shell-content)) !important;
+  margin-inline: auto !important;
   color: var(--juba-text);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif !important;
 }
 
 .juba-mobile-listening :where(.font-mono),
 .juba-mobile-reading :where(.font-mono),
-.juba-mobile-assessment :where(.font-mono),
-.juba-mobile-conversation :where(.font-mono) {
+.juba-mobile-assessment :where(.font-mono) {
   font-family: inherit !important;
-  letter-spacing: normal;
+  letter-spacing: normal !important;
 }
 
-.juba-mobile-listening h1,
-.juba-mobile-reading h1,
-.juba-mobile-assessment h1,
-.juba-mobile-conversation h1 {
+.juba-mobile-listening :where(h1,h2,h3),
+.juba-mobile-reading :where(h1,h2,h3),
+.juba-mobile-assessment :where(h1,h2,h3) {
   font-weight: 900;
-  letter-spacing: -.045em;
-}
-
-.juba-mobile-listening > div:first-child,
-.juba-mobile-reading > div:first-child {
-  min-width: 0;
+  letter-spacing: -.04em;
 }
 
 .juba-mobile-listening .juba-panel,
@@ -795,61 +789,25 @@ html[data-theme='dark'] {
 
 .juba-mobile-listening :where(button),
 .juba-mobile-reading :where(button),
-.juba-mobile-assessment :where(button),
-.juba-mobile-conversation :where(button) {
-  border-radius: var(--juba-radius-pill);
+.juba-mobile-assessment :where(button) {
+  min-height: 42px;
 }
 
-.juba-mobile-listening :where(input, textarea),
-.juba-mobile-reading :where(input, textarea),
-.juba-mobile-assessment :where(input, textarea),
-.juba-mobile-conversation :where(input, textarea) {
-  color: var(--juba-text);
-  background: var(--juba-surface);
-  border-color: var(--juba-border);
+.juba-mobile-listening :where(button:not(.juba-primary-button):not(.juba-secondary-button)),
+.juba-mobile-reading :where(button:not(.juba-primary-button):not(.juba-secondary-button)) {
+  border-radius: var(--juba-radius-md);
 }
 
 .juba-mobile-assessment {
-  color: var(--juba-text);
+  padding-inline: clamp(12px, 3vw, 24px) !important;
 }
 
 .juba-mobile-assessment :where(.bg-white) {
   background: var(--juba-surface) !important;
 }
 
-.juba-mobile-assessment :where([class*="bg-[var(--juba-lilac)]"]) {
-  background: var(--juba-lilac) !important;
-}
-
-.juba-mobile-assessment :where([class*="border-[var(--juba-lilac)]"]) {
+.juba-mobile-assessment :where(.border-[var(--juba-lilac)]) {
   border-color: var(--juba-border) !important;
-}
-
-.juba-mobile-conversation {
-  width: min(100%, var(--j-shell-content)) !important;
-  min-height: min(760px, calc(100svh - 118px));
-  margin-inline: auto !important;
-  padding: clamp(18px, 3vw, 30px) !important;
-  border: 2px solid var(--juba-border);
-  border-radius: var(--j-shell-radius);
-  background: var(--juba-surface);
-  box-shadow: var(--j-shell-shadow);
-}
-
-.juba-mobile-conversation > div:first-child {
-  border-bottom-color: var(--juba-border) !important;
-}
-
-.juba-mobile-conversation :where(.border) {
-  border-color: var(--juba-border);
-}
-
-.juba-mobile-conversation :where(.bg-[var(--juba-surface)]) {
-  background: var(--juba-surface);
-}
-
-.juba-mobile-conversation :where(.bg-[var(--juba-surface-soft)]) {
-  background: var(--juba-surface-soft);
 }
 
 @media (max-width: 700px) {
@@ -859,14 +817,8 @@ html[data-theme='dark'] {
     padding-inline: 12px !important;
   }
 
-  .juba-mobile-conversation {
-    min-height: calc(100svh - 94px);
-    padding: 16px !important;
-    border-radius: 22px;
-  }
-
-  .juba-mobile-conversation > div:first-child {
-    margin-bottom: 16px !important;
-    padding-bottom: 14px !important;
+  .juba-mobile-listening .juba-panel,
+  .juba-mobile-reading .juba-panel {
+    border-radius: 22px !important;
   }
 }
