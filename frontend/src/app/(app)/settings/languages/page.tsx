@@ -142,7 +142,7 @@ export default function MyLanguagesPage() {
         <div className="juba-hero-glow" aria-hidden="true" />
       </section>
 
-      {/* Header + Add button */
+      {/* Header + Add button */}
       <div className="mb-2 flex items-center justify-between">
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[.16em] text-fl-muted-2"><Sparkles className="h-4 w-4" /> {t('myLanguages')}</div>
       </div>
