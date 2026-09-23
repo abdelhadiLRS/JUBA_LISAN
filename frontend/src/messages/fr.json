@@ -712,7 +712,8 @@
     },
     "transcriptLabel": "Transcription",
     "listeningPractice": "Ouvrir la pratique d’écoute",
-    "audioLoadError": "L’audio n’a pas pu être chargé. Vous pouvez continuer avec la transcription."
+    "audioLoadError": "L’audio n’a pas pu être chargé. Vous pouvez continuer avec la transcription.",
+    "choiceKeyboardHint": "Choisissez une réponse en cliquant dessus ou en appuyant sur 1–9."
   },
   "flashcards": {
     "title": "Fiches",
