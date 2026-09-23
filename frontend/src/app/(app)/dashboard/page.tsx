@@ -290,7 +290,7 @@ export default function DashboardPage() {
             setLoading(true)
             loadData()
           }}
-          className="text-[#39751d] text-sm font-medium underline transition-all hover:no-underline"
+          className="text-[var(--juba-violet-dark)] text-sm font-medium underline transition-all hover:no-underline"
         >
           {tError('retry')}
         </button>
@@ -468,12 +468,12 @@ export default function DashboardPage() {
           {stats.map((stat) => (
             <div key={stat.label} className="border-[var(--juba-border)] bg-[var(--juba-surface)] rounded-[26px] border p-4 sm:p-5">
               <div className="mb-2 flex items-center gap-2">
-                <span className={`flex h-7 w-7 items-center justify-center rounded-lg ${stat.highlight ? 'bg-[color-mix(in srgb, var(--juba-yellow) 35%, transparent)] text-[#39751d]' : 'bg-[var(--juba-lilac)] text-[#39751d]'}`}>
+                <span className={`flex h-7 w-7 items-center justify-center rounded-lg ${stat.highlight ? 'bg-[color-mix(in srgb, var(--juba-yellow) 35%, transparent)] text-[var(--juba-violet-dark)]' : 'bg-[var(--juba-lilac)] text-[var(--juba-violet-dark)]'}`}>
                   <stat.Icon className="h-4 w-4" aria-hidden="true" />
                 </span>
                 <p className="text-[var(--juba-muted)] truncate text-xs font-medium">{stat.label}</p>
               </div>
-              <p className={`text-2xl font-bold tracking-tight sm:text-3xl ${stat.highlight ? 'text-[#39751d]' : 'text-[var(--juba-text)]'}`}>{stat.value}</p>
+              <p className={`text-2xl font-bold tracking-tight sm:text-3xl ${stat.highlight ? 'text-[var(--juba-violet-dark)]' : 'text-[var(--juba-text)]'}`}>{stat.value}</p>
               {'detail' in stat && stat.detail && <p className="text-[var(--juba-muted)] mt-1 text-xs">{stat.detail}</p>}
             </div>
           ))}
