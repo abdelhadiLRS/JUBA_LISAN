@@ -968,3 +968,42 @@
     white-space:nowrap;
   }
 }
+
+@media (max-width: 640px) {
+  .juba-mobile-dashboard .juba-mobile-greeting {
+    position:relative;
+    min-height:194px;
+    padding:20px 18px !important;
+    background:linear-gradient(145deg,#c8f3df 0%,#c9edff 55%,#eee8ff 100%);
+  }
+  .juba-mobile-dashboard .juba-mobile-greeting:after {
+    content:"";
+    position:absolute;
+    width:118px;
+    height:118px;
+    border-radius:50%;
+    background:rgba(255,255,255,.30);
+    inset-inline-end:-34px;
+    top:24px;
+    pointer-events:none;
+  }
+  .juba-mobile-dashboard .juba-mobile-greeting-progress {
+    height:8px;
+    border-radius:999px;
+    background:rgba(255,255,255,.55);
+  }
+  .juba-mobile-dashboard .juba-mobile-greeting-progress span {
+    border-radius:999px;
+  }
+  .juba-mobile-dashboard .juba-mobile-daily {
+    overflow:hidden;
+  }
+  .juba-mobile-dashboard .juba-mobile-daily [role="progressbar"] {
+    height:8px;
+  }
+  .juba-mobile-dashboard .juba-mobile-daily a,
+  .juba-mobile-dashboard .juba-mobile-daily button {
+    min-height:46px;
+    border-radius:17px;
+  }
+}
