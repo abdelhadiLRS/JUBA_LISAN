@@ -92,7 +92,7 @@ function RegisterForm() {
   }, [username, displayName, email, password, confirmPassword, nativeLanguage, targetLanguage, termsAccepted, invite, selectedPlan, router, setTokens, t])
 
   return (
-    <main className="min-h-screen bg-[var(--juba-bg)] text-[var(--juba-text)]">
+    <main className="juba-auth-mobile min-h-screen bg-[var(--juba-bg)] text-[var(--juba-text)]">
       <div className="mx-auto grid min-h-screen max-w-7xl lg:grid-cols-[.9fr_1.1fr]">
         <section className="relative hidden overflow-hidden px-10 py-10 lg:flex lg:flex-col lg:justify-between xl:px-16">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,color-mix(in_srgb,var(--juba-primary)_26%,transparent),transparent_34%),radial-gradient(circle_at_80%_80%,color-mix(in_srgb,var(--juba-warm)_18%,transparent),transparent_38%)]" />
