@@ -11,7 +11,7 @@ from app.core.database import Base
 class FriendConnection(Base):
     __tablename__ = "friend_connections"
     __table_args__ = (
-        UniqueConstraint("requester_id", "addressee_id", name="uq_friend_connection_pair"),
+        UniqueConstraint("pair_key", name="uq_friend_connection_pair_key"),
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
