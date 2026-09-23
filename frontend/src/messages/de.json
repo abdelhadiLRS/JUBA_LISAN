@@ -712,7 +712,8 @@
     },
     "transcriptLabel": "Transkript",
     "listeningPractice": "Hörtraining öffnen",
-    "audioLoadError": "Audio konnte nicht geladen werden. Du kannst mit dem Transkript fortfahren."
+    "audioLoadError": "Audio konnte nicht geladen werden. Du kannst mit dem Transkript fortfahren.",
+    "choiceKeyboardHint": "Wähle eine Antwort per Klick oder mit 1–9."
   },
   "flashcards": {
     "title": "Karteikarten",
