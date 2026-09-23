@@ -58,6 +58,7 @@ export default function LessonPage() {
   const [submittedAnswer, setSubmittedAnswer] = useState('')
   const [evaluating, setEvaluating] = useState(false)
   const [answerError, setAnswerError] = useState(false)
+  const [actionError, setActionError] = useState(false)
   const [completed, setCompleted] = useState(false)
   const [dayComplete, setDayComplete] = useState(false)
   const [attempts, setAttempts] = useState<ExerciseAttempt[]>([])
@@ -186,7 +187,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
       const updated: LessonData = await res.json()
       setLesson(updated); setCompleted(true); completeLesson(lesson.id); setDayComplete(true)
       markLearningProgressUpdated()
-    } catch { /* keep lesson active so the user can retry */ } finally { setEvaluating(false) }
+    } catch { setActionError(true) } finally { setEvaluating(false) }
   }, [lesson, completed, completeLesson])
   const loadAttempts = useCallback(async (exerciseId: number) => {
     try {
@@ -222,6 +223,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   useEffect(() => {
     setSubmittedAnswer('')
     setAnswerError(false)
+    setActionError(false)
     setAttempts([]); setAttemptsOpen(false); setNativeHint(null); setNativeExplanation(null)
     if (exercise) void loadAttempts(exercise.id)
   }, [exercise?.id, loadAttempts])
@@ -354,7 +356,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
       setNativeExplanation(null)
       void loadAttempts(result.id)
       if (lesson) { void loadAttemptSummary(lesson.id); void loadLessonMastery(lesson.id); if (!masteryReviewMode) void loadNextMasteryExercise(lesson.id) }
-    } catch { /* keep the answered exercise visible when no adaptive variant is available */ } finally { setEvaluating(false) }
+    } catch { setActionError(true) } finally { setEvaluating(false) }
   }
 
   const retryExercise = async () => {
@@ -382,12 +384,13 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
       setSubmittedAnswer('')
       void loadAttempts(result.id)
       if (lesson) { void loadAttemptSummary(lesson.id); void loadLessonMastery(lesson.id); if (!masteryReviewMode) void loadNextMasteryExercise(lesson.id) }
-    } catch { /* keep the failed exercise visible so the user can retry later */ } finally { setEvaluating(false) }
+    } catch { setActionError(true) } finally { setEvaluating(false) }
   }
 
   const submitAnswer = async () => {
     if (!exercise || !answer.trim() || evaluating || exercise.feedback) return
     setAnswerError(false)
+    setActionError(false)
     setEvaluating(true)
     try {
       const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/answer`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ answer: answer.trim() }) })
@@ -591,6 +594,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
             </div>}
             {isLongFormExercise && <textarea value={answer} onChange={(e) => setAnswer(e.target.value)} className="mt-6 min-h-36 w-full resize-y rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4 font-semibold leading-7 text-[var(--juba-text)] outline-none transition-shadow focus:ring-2 focus:ring-[var(--juba-primary)]" placeholder={t('typeAnswer')} aria-label={t('typeAnswer')} disabled={evaluating || !!exercise.feedback} />}
             {isShortAnswerExercise && <input value={answer} onChange={(e) => setAnswer(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') void submitAnswer() }} className="mt-6 w-full rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4 font-semibold text-[var(--juba-text)] outline-none transition-shadow focus:ring-2 focus:ring-[var(--juba-primary)]" placeholder={t('typeAnswer')} aria-label={t('typeAnswer')} disabled={evaluating || !!exercise.feedback} />}
+            {actionError && <div className="mt-4 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-warm-soft)] px-4 py-3 text-sm font-semibold text-[var(--juba-text)]" role="alert">{t('actionError')}</div>}
             {exercise.feedback && displayedSubmittedAnswer && <div className="mt-4 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4" role="region" aria-label={t('yourAnswer')}><p className="text-xs font-extrabold uppercase tracking-[.12em] text-[var(--juba-muted)]">{t('yourAnswer')}</p><p className="mt-2 whitespace-pre-wrap break-words font-semibold leading-7 text-[var(--juba-text)]">{displayedSubmittedAnswer}</p></div>}
             {exercise.feedback && <div className={cn(
               'mt-5 rounded-[22px] border p-5 font-semibold',
