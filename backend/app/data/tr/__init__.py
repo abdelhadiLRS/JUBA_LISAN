@@ -1,0 +1,1 @@
+"""Türkçe learning data."""
