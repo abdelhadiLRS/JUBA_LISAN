@@ -712,7 +712,8 @@
     },
     "transcriptLabel": "Trascrizione",
     "listeningPractice": "Apri pratica di ascolto",
-    "audioLoadError": "L’audio non può essere caricato. Puoi continuare con la trascrizione."
+    "audioLoadError": "L’audio non può essere caricato. Puoi continuare con la trascrizione.",
+    "choiceKeyboardHint": "Scegli una risposta facendo clic oppure premendo 1–9."
   },
   "flashcards": {
     "title": "Schede",
