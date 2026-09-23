@@ -51,7 +51,7 @@ export default function MicButton({ status, onStart, onStop }: Props) {
     return (
       <button
         onClick={onStart}
-        className="bg-[var(--juba-primary-dark)] text-white hover:brightness-95 rounded-xl px-8 py-3 text-xs font-bold tracking-widest uppercase shadow-[0_8px_20px_rgba(125,109,150,.16)] transition-all"
+        className="bg-[var(--juba-primary-dark)] text-white hover:brightness-95 rounded-xl px-8 py-3 text-xs font-bold tracking-widest uppercase shadow-[0_8px_20px_rgba(37,48,42,.08)] transition-all"
       >
         {t('start')}
       </button>
