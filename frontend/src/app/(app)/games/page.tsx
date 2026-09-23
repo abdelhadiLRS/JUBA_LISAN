@@ -113,6 +113,16 @@ export default function GamesPage() {
 
   async function startGame(id: GameId, daily = false) {
     if (daily && dailyCompletedToday) return
+
+    // Interactive games have their own board and completion flow. The generic
+    // question renderer expects a non-interactive question payload, so route
+    // these game types to their dedicated pages instead of opening an empty
+    // round shell.
+    if (id === 'memory' || id === 'matching' || id === 'ordering') {
+      window.location.assign(`/games/${id}?lang=${lang}`)
+      return
+    }
+
     try {
       const session = await startGameSession(id, lang, level)
       setGame(id)
