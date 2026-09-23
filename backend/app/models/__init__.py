@@ -4,6 +4,8 @@ from app.models.competency import UserCompetency
 from app.models.conversation import Conversation
 from app.models.dashboard_banner import DashboardBanner
 from app.models.feedback import FeedbackComment, FeedbackEntry, FeedbackReadState, FeedbackVote
+from app.models.friend_connection import FriendConnection
+from app.models.direct_message import DirectMessage
 from app.models.flashcard import Flashcard
 from app.models.game_progress import GameProgress
 from app.models.game_progress_event import GameProgressEvent
@@ -37,6 +39,8 @@ __all__ = [
     "FeedbackEntry",
     "FeedbackReadState",
     "FeedbackVote",
+    "FriendConnection",
+    "DirectMessage",
     "Flashcard",
     "GameProgress",
     "GameProgressEvent", "GameSession",
