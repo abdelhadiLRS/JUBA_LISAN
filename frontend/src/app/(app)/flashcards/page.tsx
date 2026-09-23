@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { BookMarked, Layers, Sparkles, Volume2 } from 'lucide-react'
@@ -45,22 +45,24 @@ export default function FlashcardsPage() {
   const [generating, setGenerating] = useState(false)
   const [genError, setGenError] = useState('')
   const [speakingMode, setSpeakingMode] = useState(false)
+  const loadRequestRef = useRef(0)
 
   const loadDue = useCallback(async () => {
+    const requestId = ++loadRequestRef.current
     setLoading(true)
     try {
       const res = await apiFetch('/api/flashcards/due')
-      if (res.ok) {
-        const data = await res.json()
-        setCards(data.due)
-        setTotal(data.total)
-        setCurrent(0)
-        setFlipped(false)
-      }
+      if (!res.ok || requestId !== loadRequestRef.current) return
+      const data = await res.json()
+      if (requestId !== loadRequestRef.current) return
+      setCards(Array.isArray(data?.due) ? data.due : [])
+      setTotal(typeof data?.total === 'number' ? Math.max(0, data.total) : 0)
+      setCurrent(0)
+      setFlipped(false)
     } catch {
       /* ignore */
     } finally {
-      setLoading(false)
+      if (requestId === loadRequestRef.current) setLoading(false)
     }
   }, [])
 
