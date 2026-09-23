@@ -643,7 +643,7 @@
   }
 
   /* Roadmap becomes a stack of friendly cards instead of a desktop rail. */
-  .juba-mobile-plan .sm\\:ps-16 {
+  .juba-mobile-plan [class~="sm:ps-16"] {
     padding-inline-start: 0 !important;
   }
 
