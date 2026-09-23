@@ -5,19 +5,23 @@ def _u(level, n, title, grammar, vocab, goals, weeks=2, prereq=None):
     return CurriculumUnit(
         id=f"{level.lower()}-unit-{n}", level=level, unit_number=n, title=title,
         grammar_points=grammar, vocabulary_set_ids=vocab,
-        lesson_types=["grammar","vocabulary","reading","writing","review"],
+        lesson_types=["grammar","vocabulary","reading","writing","listening","review"],
         competency_checklist=goals, default_weeks=weeks, prerequisite_unit=prereq,
     )
 
 CURRICULUM = {
 "A1": [
-_u("A1",1,"التحية والتعارف",["pronouns","nominal-sentence","question-words"],["greetings_a1","identity_a1"],["التعريف بالنفس","طرح أسئلة شخصية بسيطة","فهم التحيات الأساسية"]),
-_u("A1",2,"الأسرة والحياة اليومية",["possessive-construct","definite-article","present-tense"],["family_a1","daily-life_a1"],["وصف الأسرة","الحديث عن الروتين اليومي"]),
-_u("A1",3,"الوقت والأماكن",["numbers","prepositions","demonstratives"],["numbers_time_a1","places_a1"],["ذكر الوقت والمكان","طلب الاتجاهات البسيطة"]),
-_u("A1",4,"المراجعة والتواصل",["adjectives","negation","basic-questions"],["common-verbs_a1","adjectives_a1"],["إجراء حوار قصير","قراءة نصوص يومية بسيطة"]),
+_u("A1",1,"التحية والتعارف",["pronouns","nominal-sentence","question-words","gender-agreement"],["greetings_a1","identity_a1"],["التعريف بالنفس والآخرين","السؤال عن الاسم والجنسية والمهنة","فهم التحيات الأساسية"]),
+_u("A1",2,"الأسرة والملكية",["possessive-construct","possessive-pronouns","definite-article","gender-agreement"],["family_a1","personal-info_a1"],["وصف الأسرة","التعبير عن الملكية","استخدام المفرد والمذكر والمؤنث"]),
+_u("A1",3,"البيت والأشياء",["demonstratives","adjectives","definite-article","prepositions"],["home_a1","objects_a1"],["وصف المنزل والغرف","تحديد الأشياء ومواقعها","استخدام الصفة مع الاسم"]),
+_u("A1",4,"الأفعال والروتين اليومي",["present-tense","subject-agreement","negation","adverbs-frequency"],["daily-life_a1","common-verbs_a1"],["وصف اليوم المعتاد","التحدث عن الأفعال الأساسية","النفي في الجمل البسيطة"]),
+_u("A1",5,"الأرقام والوقت والمواعيد",["numbers","clock-time","idafa","prepositions"],["numbers_time_a1","appointments_a1"],["ذكر الأرقام والأسعار","السؤال عن الوقت","تحديد موعد بسيط"]),
+_u("A1",6,"الطعام والشراء",["accusative-intro","quantifiers","question-words","imperative-intro"],["food_a1","shopping_a1"],["طلب الطعام والشراب","السؤال عن السعر والكمية","إجراء حوار شراء بسيط"]),
+_u("A1",7,"الأماكن والاتجاهات",["prepositions","there-is-there-are","imperative-intro","place-expressions"],["places_a1","directions_a1"],["السؤال عن مكان","فهم الاتجاهات الأساسية","وصف موقع شيء أو شخص"]),
+_u("A1",8,"المراجعة والتواصل",["basic-questions","negation","adjectives","present-tense"],["review_a1","communication_a1"],["إجراء حوار يومي قصير","قراءة نصوص A1 بسيطة","كتابة فقرة تعريفية قصيرة"],weeks=2,prereq="a1-unit-7"),
 ],
 "A2": [
-_u("A2",1,"الماضي والسرد البسيط",["past-tense","verb-agreement","time-expressions"],["travel_a2","events_a2"],["وصف أحداث سابقة","سرد تجربة قصيرة"],prereq="a1-unit-4"),
+_u("A2",1,"الماضي والسرد البسيط",["past-tense","verb-agreement","time-expressions"],["travel_a2","events_a2"],["وصف أحداث سابقة","سرد تجربة قصيرة"],prereq="a1-unit-8"),
 _u("A2",2,"الصحة والطعام",["imperative","negation-past","quantifiers"],["health_a2","food_a2"],["طلب الطعام","وصف أعراض بسيطة"]),
 _u("A2",3,"العمل والتسوق",["comparatives","adverbs","object-pronouns"],["work_a2","shopping_a2"],["التعامل في متجر","وصف المنتجات والأسعار"]),
 _u("A2",4,"المستقبل والخطط",["future-particles","intention","connected-sentences"],["plans_a2","weather_a2"],["الحديث عن الخطط","فهم محادثات يومية متوسطة"]),
