@@ -319,10 +319,12 @@ def get_arabic_a1_content_quality_report() -> dict[str, object]:
         signatures[(seed.target_phrases, seed.model_sentences)] += 1
 
     duplicate_groups = sum(1 for count in signatures.values() if count > 1)
+    duplicate_seed_lessons = sum(count for count in signatures.values() if count > 1)
     return {
         "lesson_count": len(get_arabic_a1_lessons()),
         "seed_count": len(ARABIC_A1_CONTENT_SEEDS),
         "lexical_grounding_ratio": round(lexical_hits / lexical_total, 3) if lexical_total else 0.0,
         "duplicate_seed_groups": duplicate_groups,
+        "duplicate_seed_lessons": duplicate_seed_lessons,
         "fully_unique_seed_signatures": sum(1 for count in signatures.values() if count == 1),
     }
