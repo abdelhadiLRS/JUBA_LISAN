@@ -433,7 +433,7 @@ function ReadingPage() {
             return (
               <div
                 key={q.index}
-                className={`border p-4 ${
+                className={`border-2 border-[var(--juba-border)] p-4 ${
                   isCorrect
                     ? 'border-green-600/50 bg-green-950/30'
                     : 'border-red-600/50 bg-red-950/30'
@@ -476,13 +476,13 @@ function ReadingPage() {
         <div className="flex gap-3 pt-1">
           <button
             onClick={loadNext}
-            className="border-[#e2f2d3] bg-white text-[var(--juba-text)] hover:bg-[#e2f2d3] flex-1 border py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+            className="border-[#e2f2d3] bg-white text-[var(--juba-text)] hover:bg-[#e2f2d3] flex-1 border-2 border-[#e2f2d3] py-3 font-mono text-xs tracking-widest uppercase transition-colors"
           >
             {t('nextExercise')}
           </button>
           <button
             onClick={() => loadHistory(0)}
-            className="border-[#e2f2d3] bg-white text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:bg-[#e2f2d3] border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+            className="border-[#e2f2d3] bg-white text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:bg-[#e2f2d3] border-2 border-[#e2f2d3] px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
           >
             {t('viewHistory')}
           </button>
@@ -521,13 +521,13 @@ function ReadingPage() {
         {freemiumExhausted ? (
           <PaywallBanner feature="reading" compact />
         ) : (
-          <div className="border-[#e2f2d3] bg-white flex flex-col items-center gap-5 border p-8 text-center">
+          <div className="border-[#e2f2d3] bg-white flex flex-col items-center gap-5 border-2 border-[#e2f2d3] p-8 text-center">
             <p className="text-[var(--juba-muted)] font-mono text-xs tracking-wide">
               {t('noExercises')}
             </p>
             <button
               onClick={handleGenerate}
-              className="border-[#e2f2d3] bg-white text-[var(--juba-text)] hover:bg-[#e2f2d3] border px-8 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+              className="border-[#e2f2d3] bg-white text-[var(--juba-text)] hover:bg-[#e2f2d3] border-2 border-[#e2f2d3] px-8 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
             >
               {t('generate')}
             </button>
@@ -573,7 +573,7 @@ function ReadingPage() {
               <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-2 font-mono tracking-widest uppercase">
                 {t('textLabel')}
               </p>
-              <div className="border-[#e2f2d3] bg-white relative border p-5">
+              <div className="border-[#e2f2d3] bg-white relative border-2 border-[#e2f2d3] p-5">
                 <div
                   ref={textRef}
                   onPointerUp={() =>
@@ -630,9 +630,9 @@ function ReadingPage() {
                                 [String(q.index)]: k,
                               }))
                             }
-                            className={`w-full border px-3 py-2 text-left transition-colors ${
+                            className={`w-full border-2 border-[#e2f2d3] px-3 py-2 text-left transition-colors ${
                               selected
-                                ? 'border-fl-accent text-[var(--juba-text)] bg-[#e2f2d3]'
+                                ? 'border-[#39751d] text-[var(--juba-text)] bg-[#e2f2d3]'
                                 : 'border-[#e2f2d3] text-[var(--juba-muted)] hover:border-fl-muted-2 hover:text-[var(--juba-text)]'
                             }`}
                           >
@@ -661,7 +661,7 @@ function ReadingPage() {
               <button
                 onClick={handleSubmit}
                 disabled={!allAnswered || submitting}
-                className="border-[#e2f2d3] bg-white text-[var(--juba-text)] hover:bg-[#e2f2d3] mt-4 w-full border py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+                className="border-[#e2f2d3] bg-white text-[var(--juba-text)] hover:bg-[#e2f2d3] mt-4 w-full border-2 border-[#e2f2d3] py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {submitting ? '...' : t('submit')}
               </button>
