@@ -21,10 +21,10 @@
   --route-green:var(--juba-violet);
   --route-green-dark:var(--juba-violet-dark);
   --route-cream:var(--juba-bg);
-  --route-paper:#f2f0e8;
+  --route-paper:var(--juba-surface-soft);
   --route-yellow:var(--juba-yellow);
-  --route-blue:#9edcf0;
-  --route-coral:#ef816f;
+  --route-blue:var(--juba-sky);
+  --route-coral:var(--juba-coral);
   color:var(--route-ink);
 }
 .juba-mobile-plan{background:var(--route-cream);border-radius:32px}
@@ -63,11 +63,11 @@
 /* Final route palette bridge */
 .juba-mobile-progress{
   --route-ink:var(--juba-ink);
-  --route-green:#5a9b32;
+  --route-green:var(--juba-violet);
   --route-green-dark:var(--juba-violet-dark);
   --route-cream:var(--juba-bg);
   --route-yellow:var(--juba-yellow);
-  --route-coral:#ef816f;
+  --route-coral:var(--juba-coral);
   color:var(--route-ink);
   background:var(--route-cream);
   border-radius:32px;
