@@ -33,13 +33,13 @@ CurriculumUnit(id="uk-a1-unit-5",level="A1",unit_number=5,title="Food and shoppi
 CurriculumUnit(id="uk-a1-unit-6",level="A1",unit_number=6,title="Places and directions",grammar_points=["gender-nouns"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2),
 CurriculumUnit(id="uk-a1-unit-7",level="A1",unit_number=7,title="Communication and help",grammar_points=["accusative-intro"],vocabulary_set_ids=["communication_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2),
 CurriculumUnit(id="uk-a1-unit-8",level="A1",unit_number=8,title="Review and A1 communication",grammar_points=["locative-intro"],vocabulary_set_ids=["family_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2)]}
-ASSESSMENT_BANK=[AssessmentQuestion(id="uk-a1-001",skill="vocabulary",difficulty="A1",question="A1 thanks check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="uk-a1-002",skill="vocabulary",difficulty="A1",question="A1 student check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="uk-a1-003",skill="vocabulary",difficulty="A1",question="A1 question check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="uk-a1-004",skill="vocabulary",difficulty="A1",question="A1 negative check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="uk-a1-005",skill="vocabulary",difficulty="A1",question="A1 mother check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="uk-a1-006",skill="vocabulary",difficulty="A1",question="A1 shop check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="uk-a1-007",skill="vocabulary",difficulty="A1",question="A1 water check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="uk-a1-008",skill="vocabulary",difficulty="A1",question="A1 help check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="uk-a1-009",skill="vocabulary",difficulty="A1",question="A1 name check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="uk-a1-010",skill="vocabulary",difficulty="A1",question="A1 present check",options=["A","B","C","D"],correct="A")]
+ASSESSMENT_BANK=[AssessmentQuestion(id="uk-a1-001",skill="vocabulary",difficulty="A1",question="Which word means 'thanks'?",options=["Дякую","Привіт","До побачення","Доброго ранку"],correct="Дякую"),
+AssessmentQuestion(id="uk-a1-002",skill="grammar",difficulty="A1",question="Choose the correct A1 sentence.",options=["Я студент.","Я студента.","Студент я є.","Я студентка."],correct="Я студент."),
+AssessmentQuestion(id="uk-a1-003",skill="grammar",difficulty="A1",question="Choose the correct question.",options=["Де ти живеш?","Хто ти живеш?","Де живеш є?","Ти де живеш є?"],correct="Де ти живеш?"),
+AssessmentQuestion(id="uk-a1-004",skill="vocabulary",difficulty="A1",question="Choose the correct negative sentence.",options=["Я не розумію.","Я розумію не.","Не розуміє.","Я не розуміти."],correct="Я не розумію."),
+AssessmentQuestion(id="uk-a1-005",skill="grammar",difficulty="A1",question="Which word means 'mother'?",options=["мати","батько","сестра","брат"],correct="мати"),
+AssessmentQuestion(id="uk-a1-006",skill="grammar",difficulty="A1",question="Which word means 'shop'?",options=["магазин","станція","кімната","дім"],correct="магазин"),
+AssessmentQuestion(id="uk-a1-007",skill="vocabulary",difficulty="A1",question="Which word means 'water'?",options=["вода","кава","хліб","яблуко"],correct="вода"),
+AssessmentQuestion(id="uk-a1-008",skill="grammar",difficulty="A1",question="Choose the phrase for asking for help.",options=["Мені потрібна допомога.","Дякую.","Я вдома.","Привіт."],correct="Мені потрібна допомога."),
+AssessmentQuestion(id="uk-a1-009",skill="grammar",difficulty="A1",question="Which word means 'name'?",options=["ім'я","вік","сім'я","дім"],correct="ім'я"),
+AssessmentQuestion(id="uk-a1-010",skill="vocabulary",difficulty="A1",question="Choose the correct present-tense form.",options=["говорю","говориш","говорить","говорити"],correct="говорю")]
