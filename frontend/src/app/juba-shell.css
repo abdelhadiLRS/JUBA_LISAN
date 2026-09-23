@@ -28,6 +28,36 @@
   --juba-shadow-sm: 0 4px 14px rgba(37,48,42,.08);
   --juba-shadow-md: 0 10px 28px rgba(37,48,42,.12);
   --juba-shadow-lg: 0 18px 44px rgba(37,48,42,.16);
+  --juba-radius-sm: 12px;
+  --juba-radius-md: 16px;
+  --juba-radius-lg: 24px;
+  --juba-radius-pill: 999px;
+}
+
+html[data-theme='dark'] {
+  --juba-ink: #f3f7f1;
+  --juba-violet: #78b94b;
+  --juba-violet-dark: #9bd66d;
+  --juba-lilac: #263820;
+  --juba-yellow: #ffd35a;
+  --juba-mint: #214a39;
+  --juba-coral: #ef816f;
+  --juba-sky: #224453;
+  --juba-text: #f3f7f1;
+  --juba-muted: #a9b7ad;
+  --juba-border: #39483c;
+  --juba-surface: #182019;
+  --juba-surface-soft: #222c23;
+  --juba-bg: #111711;
+  --juba-surface-2: var(--juba-surface-soft);
+  --juba-accent: var(--juba-yellow);
+  --juba-accent-dark: var(--juba-violet-dark);
+  --juba-primary: var(--juba-violet);
+  --juba-primary-dark: var(--juba-violet-dark);
+  --juba-danger: var(--juba-coral);
+  --juba-shadow-sm: 0 4px 14px rgba(0,0,0,.18);
+  --juba-shadow-md: 0 10px 28px rgba(0,0,0,.24);
+  --juba-shadow-lg: 0 18px 44px rgba(0,0,0,.30);
 }
 
 .juba-app-shell {
