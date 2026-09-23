@@ -27,7 +27,7 @@ export function ScrollReveal({ children, className }: ScrollRevealProps) {
   }, [])
 
   return (
-    <div ref={ref} className={`reveal ${className ?? ''}`}>
+    <div ref={ref} className={`reveal overflow-x-clip ${className ?? ''}`}>
       {children}
     </div>
   )
