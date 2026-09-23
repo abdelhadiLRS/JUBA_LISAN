@@ -2123,3 +2123,188 @@ main [dir="rtl"] h3,
   .juba-ff-reference #faq{padding-top:82px;padding-bottom:82px}
   .juba-ff-reference #faq::before{top:28px}
 }
+
+
+/* Funfluent fidelity pass 6 — typography, depth, hover choreography and mobile polish. */
+.juba-ff-reference{
+  --ff-shadow:rgba(23,35,26,.16);
+}
+.juba-ff-reference .juba-ff-story-heading,
+.juba-ff-reference .juba-ff-section-head,
+.juba-ff-reference .juba-ff-demo-intro{
+  position:relative;
+}
+.juba-ff-reference .juba-ff-section-head::after,
+.juba-ff-reference .juba-ff-story-heading::after{
+  content:"";
+  display:block;
+  width:72px;
+  height:6px;
+  margin:22px auto 0;
+  border:2px solid var(--ff-ink);
+  border-radius:999px;
+  background:var(--ff-yellow);
+  box-shadow:2px 2px 0 var(--ff-ink);
+  transform:rotate(-2deg);
+}
+.juba-ff-reference .juba-ff-feature-card:nth-child(3n+1){
+  border-radius:24px 14px 24px 16px;
+}
+.juba-ff-reference .juba-ff-feature-card:nth-child(3n+2){
+  border-radius:15px 25px 17px 23px;
+}
+.juba-ff-reference .juba-ff-feature-card:nth-child(3n){
+  border-radius:22px 17px 25px 14px;
+}
+.juba-ff-reference .juba-ff-feature-card::after{
+  content:"";
+  position:absolute;
+  right:-30px;
+  bottom:-34px;
+  width:110px;
+  height:110px;
+  border:2px solid rgba(23,35,26,.12);
+  border-radius:50%;
+  pointer-events:none;
+}
+.juba-ff-reference .juba-ff-feature-card:hover .juba-ff-feature-art{
+  opacity:.5;
+  transform:rotate(-4deg) scale(1.06);
+  transition:transform .2s ease,opacity .2s ease;
+}
+.juba-ff-reference .juba-ff-book .book-art{
+  position:relative;
+  overflow:hidden;
+  border-radius:5px;
+}
+.juba-ff-reference .juba-ff-book .book-art::after{
+  content:"";
+  position:absolute;
+  width:95px;
+  height:95px;
+  right:-30px;
+  top:-38px;
+  border:2px solid rgba(23,35,26,.18);
+  border-radius:50%;
+}
+.juba-ff-reference .juba-ff-book:nth-child(2) .book-art::after{
+  left:-35px;
+  right:auto;
+  top:auto;
+  bottom:-42px;
+}
+.juba-ff-reference .juba-ff-book:hover{
+  box-shadow:11px 11px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-chat-card,
+.juba-ff-reference .juba-ff-dashboard-card{
+  position:relative;
+}
+.juba-ff-reference .juba-ff-chat-card::before,
+.juba-ff-reference .juba-ff-dashboard-card::before{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  border:2px solid var(--ff-ink);
+  border-radius:50%;
+  background:var(--ff-yellow);
+  left:22px;
+  top:-11px;
+  box-shadow:2px 2px 0 var(--ff-ink);
+  z-index:3;
+}
+.juba-ff-reference .juba-ff-dashboard-grid > *,
+.juba-ff-reference .juba-ff-chat-message span{
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.juba-ff-reference .juba-ff-chat-message:hover span{
+  transform:translateY(-2px);
+}
+.juba-ff-reference .juba-ff-metric:hover,
+.juba-ff-reference .juba-ff-today:hover,
+.juba-ff-reference .juba-ff-skill-panel:hover{
+  transform:translateY(-2px);
+  box-shadow:3px 3px 0 rgba(23,35,26,.12);
+}
+.juba-ff-reference .juba-ff-story-languages .juba-ff-language-card{
+  position:relative;
+  overflow:hidden;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.juba-ff-reference .juba-ff-story-languages .juba-ff-language-card::after{
+  content:"";
+  position:absolute;
+  width:44px;
+  height:44px;
+  right:-18px;
+  bottom:-18px;
+  border:2px solid rgba(23,35,26,.16);
+  border-radius:50%;
+}
+.juba-ff-reference .juba-ff-story-languages .juba-ff-language-card:hover{
+  transform:translateY(-4px) rotate(-1deg);
+  box-shadow:8px 8px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-story-learning .juba-ff-step{
+  position:relative;
+  overflow:hidden;
+}
+.juba-ff-reference .juba-ff-story-learning .juba-ff-step:nth-child(odd){
+  transform:rotate(-1deg);
+}
+.juba-ff-reference .juba-ff-story-learning .juba-ff-step:nth-child(even){
+  transform:rotate(1deg) translateY(10px);
+}
+.juba-ff-reference .juba-ff-story-learning .juba-ff-step:hover{
+  transform:translateY(-5px) rotate(0deg);
+}
+.juba-ff-reference .juba-ff-story-learning .juba-ff-step::after{
+  content:"✦";
+  position:absolute;
+  right:12px;
+  top:8px;
+  font-size:22px;
+  color:var(--ff-yellow);
+  -webkit-text-stroke:1px var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-open-source{
+  padding-top:28px;
+  padding-bottom:78px;
+}
+.juba-ff-reference .juba-ff-open-source-card{
+  min-height:112px;
+}
+.juba-ff-reference .juba-ff-footer{
+  margin-top:0;
+}
+.juba-ff-reference .juba-ff-footer .juba-ff-brand-mark{
+  border:3px solid var(--ff-ink);
+}
+@media(max-width:900px){
+  .juba-ff-reference .juba-ff-feature-card:nth-child(2n){
+    transform:none;
+  }
+  .juba-ff-reference .juba-ff-story-learning .juba-ff-step:nth-child(odd),
+  .juba-ff-reference .juba-ff-story-learning .juba-ff-step:nth-child(even){
+    transform:none;
+  }
+}
+@media(max-width:600px){
+  .juba-ff-reference .juba-ff-section-head::after,
+  .juba-ff-reference .juba-ff-story-heading::after{
+    margin-top:16px;
+    width:58px;
+    height:5px;
+  }
+  .juba-ff-reference .juba-ff-feature-card{
+    min-height:240px;
+  }
+  .juba-ff-reference .juba-ff-chat-card::before,
+  .juba-ff-reference .juba-ff-dashboard-card::before{
+    left:14px;
+  }
+  .juba-ff-reference .juba-ff-open-source{
+    padding-bottom:52px;
+  }
+}
