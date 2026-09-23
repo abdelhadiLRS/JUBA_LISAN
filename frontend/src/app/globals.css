@@ -1026,3 +1026,172 @@ main [dir="rtl"] h3,
   .juba-ff-reference .juba-ff-book-shelf{grid-template-columns:1fr}
   .juba-ff-reference .juba-ff-book:nth-child(n){transform:none}
 }
+
+
+/* JUBA LISAN — internal app reference visual system v2 */
+:root{
+  --juba-app-bg:#f7f7f2;
+  --juba-app-surface:#fff;
+  --juba-app-ink:#18251b;
+  --juba-app-muted:#66736b;
+  --juba-app-line:#dfe6dc;
+  --juba-app-green:#3f861d;
+  --juba-app-green-soft:#e9f4df;
+  --juba-app-yellow:#ffd44f;
+}
+.juba-dashboard{
+  color:var(--juba-app-ink);
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,212,79,.14),transparent 280px),
+    var(--juba-app-bg);
+  border-radius:28px;
+  min-height:calc(100vh - 80px);
+}
+.juba-dashboard > div{border-radius:20px}
+.juba-dashboard .border-fl-border.bg-fl-surface,
+.juba-dashboard .bg-fl-border{
+  border-color:transparent;
+  background:transparent;
+}
+.juba-dashboard .bg-fl-border > .bg-fl-surface,
+.juba-dashboard .bg-fl-border > .bg-fl-bg{
+  border:1px solid var(--juba-app-line);
+  border-radius:20px;
+  background:var(--juba-app-surface);
+  box-shadow:0 8px 24px rgba(24,37,27,.055);
+}
+.juba-dashboard .border-fl-border.bg-fl-surface{
+  border:1px solid var(--juba-app-line);
+  background:var(--juba-app-surface);
+  box-shadow:0 8px 24px rgba(24,37,27,.055);
+}
+.juba-dashboard h1,.juba-dashboard h2,.juba-dashboard h3,
+.juba-dashboard p,.juba-dashboard span,.juba-dashboard button,
+.juba-dashboard a{font-family:var(--font-geist-sans),system-ui,sans-serif}
+.juba-dashboard h1,.juba-dashboard h2,.juba-dashboard h3{letter-spacing:-.045em}
+.juba-dashboard button{
+  border-radius:11px;
+  text-transform:none;
+  letter-spacing:-.01em;
+}
+.juba-dashboard .bg-fl-fg{
+  background:var(--juba-app-ink);
+  border:2px solid var(--juba-app-ink);
+  box-shadow:3px 3px 0 var(--juba-app-green);
+}
+.juba-dashboard .border-fl-border{
+  border-color:var(--juba-app-line);
+  border-radius:12px;
+}
+.juba-dashboard .bg-fl-border .bg-fl-border{
+  background:var(--juba-app-line);
+  border-radius:999px;
+}
+.juba-dashboard .bg-fl-accent{background:var(--juba-app-green)}
+.juba-dashboard .text-fl-accent{color:var(--juba-app-green)}
+.juba-dashboard .text-fl-fg{color:var(--juba-app-ink)}
+.juba-dashboard .text-fl-muted-2,.juba-dashboard .text-fl-muted-1,
+.juba-dashboard .text-fl-muted-3{color:var(--juba-app-muted)}
+.juba-dashboard .font-mono{font-family:var(--font-geist-sans),system-ui,sans-serif!important}
+.juba-dashboard .uppercase{letter-spacing:.035em}
+.juba-dashboard .h-1{height:8px}
+.juba-dashboard .h-full{border-radius:999px}
+.juba-dashboard .mb-8{margin-bottom:1.5rem}
+.juba-dashboard .p-5{padding:1.35rem}
+.juba-dashboard .space-y-2 > :not([hidden]) ~ :not([hidden]){margin-top:.7rem}
+
+.juba-chat-shell{
+  background:var(--juba-app-bg);
+  color:var(--juba-app-ink);
+}
+.juba-chat-shell .juba-chat-sidebar{
+  background:#eef6e8;
+  border-right:1px solid var(--juba-app-line);
+}
+.juba-chat-shell .juba-chat-header{
+  background:rgba(255,255,255,.86);
+  border-bottom:1px solid var(--juba-app-line);
+  box-shadow:0 4px 18px rgba(24,37,27,.045);
+  backdrop-filter:blur(16px);
+}
+.juba-chat-shell .juba-chat-compose{
+  background:rgba(255,255,255,.94);
+  border:1px solid var(--juba-app-line);
+  border-radius:18px;
+  box-shadow:0 8px 26px rgba(24,37,27,.08);
+}
+.juba-chat-shell .juba-chat-message{
+  border-radius:20px;
+  border:1px solid var(--juba-app-line);
+  box-shadow:0 5px 18px rgba(24,37,27,.045);
+}
+.juba-chat-shell .juba-chat-message-user{
+  background:#fff1b9;
+  border-color:#e7cd68;
+}
+.juba-chat-shell .juba-chat-message-ai{background:#fff}
+.juba-chat-shell .juba-chat-avatar{
+  border:2px solid #fff;
+  box-shadow:0 3px 10px rgba(24,37,27,.1);
+}
+.juba-chat-shell .juba-chat-conversation{
+  border-radius:12px;
+  margin:4px 8px;
+  border:1px solid transparent;
+}
+.juba-chat-shell .juba-chat-conversation-active{
+  background:#fff;
+  border-color:#d5e5cb;
+  box-shadow:0 4px 12px rgba(24,37,27,.05);
+}
+.juba-chat-shell button{border-radius:11px}
+.juba-chat-shell input{
+  border-radius:12px;
+}
+.juba-chat-shell .font-mono{font-family:var(--font-geist-sans),system-ui,sans-serif!important}
+
+.juba-lesson-shell{
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,212,79,.12),transparent 260px),
+    var(--juba-app-bg);
+  color:var(--juba-app-ink);
+}
+.juba-lesson-shell .juba-lesson-card{
+  border:1px solid var(--juba-app-line);
+  background:#fff;
+  border-radius:24px;
+  box-shadow:0 10px 30px rgba(24,37,27,.06);
+}
+.juba-lesson-shell .juba-lesson-progress{
+  height:9px;
+  border-radius:999px;
+  background:#e5ebe1;
+  overflow:hidden;
+}
+.juba-lesson-shell .juba-lesson-progress > *{
+  height:100%;
+  border-radius:inherit;
+  background:var(--juba-app-green);
+}
+.juba-lesson-shell .juba-exercise-option{
+  border:1px solid var(--juba-app-line);
+  border-radius:15px;
+  background:#fff;
+  transition:transform .15s,box-shadow .15s,border-color .15s;
+}
+.juba-lesson-shell .juba-exercise-option:hover{
+  transform:translateY(-2px);
+  border-color:#a9c79a;
+  box-shadow:0 7px 18px rgba(24,37,27,.06);
+}
+.juba-lesson-shell .juba-lesson-title{
+  font-size:clamp(2rem,5vw,3.5rem);
+  line-height:.95;
+  letter-spacing:-.065em;
+}
+@media(max-width:700px){
+  .juba-dashboard{border-radius:18px}
+  .juba-dashboard .p-5{padding:1rem}
+  .juba-chat-shell .juba-chat-sidebar{width:18rem}
+  .juba-lesson-shell .juba-lesson-title{font-size:2.25rem}
+}
