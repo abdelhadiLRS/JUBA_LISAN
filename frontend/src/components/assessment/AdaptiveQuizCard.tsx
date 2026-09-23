@@ -29,36 +29,36 @@ export default function AdaptiveQuizCard({
   }
 
   return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center p-6">
-      <div className="border-fl-border bg-fl-surface w-full max-w-lg border">
+    <div className="flex min-h-[60vh] flex-col items-center justify-center p-4 sm:p-6">
+      <div className="w-full max-w-2xl overflow-hidden rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[0_22px_55px_rgba(61,42,130,0.12)]">
         {/* Header */}
-        <div className="border-fl-border flex items-center justify-between border-b px-6 py-4">
+        <div className="flex items-center justify-between border-b-2 border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/40 px-5 py-4 sm:px-6">
           <div className="flex items-center gap-2">
-            <span className="text-fl-label text-fl-muted-3">●</span>
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+            <span className="text-xs text-[var(--juba-muted)]">●</span>
+            <span className="text-xs text-[var(--juba-muted)] font-semibold tracking-[0.12em] uppercase">
               {t('step2', { questionNumber, totalQuestions })}
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-fl-hint text-fl-muted-3 border-fl-border border px-2 py-1 font-mono tracking-widest uppercase">
+            <span className="text-xs text-[var(--juba-muted)] border-[var(--juba-border)] border px-2 py-1 font-semibold tracking-[0.12em] uppercase">
               {question.difficulty}
             </span>
-            <span className="text-fl-hint text-fl-muted-3 border-fl-border border px-2 py-1 font-mono tracking-widest uppercase">
+            <span className="text-xs text-[var(--juba-muted)] border-[var(--juba-border)] border px-2 py-1 font-semibold tracking-[0.12em] uppercase">
               {skillLabelMap[question.skill] ?? question.skill}
             </span>
           </div>
         </div>
 
         {/* Progress bar */}
-        <div className="bg-fl-border h-px">
+        <div className="bg-[var(--juba-lilac)] h-1">
           <div
-            className="bg-fl-fg h-px transition-all duration-300"
+            className="bg-[var(--juba-violet)] h-1 transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
         </div>
 
         {/* Question */}
-        <div className="space-y-6 p-8">
+        <div className="space-y-7 p-6 sm:p-9">
           <TargetLanguageText
             as="p"
             languageCode={languageCode}
@@ -75,9 +75,9 @@ export default function AdaptiveQuizCard({
                 <button
                   key={option}
                   onClick={() => onAnswer(option)}
-                  className="border-fl-border text-fl-muted-1 hover:border-fl-border-2 hover:text-fl-fg hover:bg-fl-surface-2 flex w-full items-start gap-3 border px-4 py-3 text-left transition-colors"
+                  className="border-[var(--juba-border)] text-[var(--juba-text)] hover:border-[var(--juba-border)]-2 hover:text-fl-fg hover:bg-fl-surface-2 flex w-full items-start gap-3 border px-4 py-3 text-left transition-colors"
                 >
-                  <span className="text-fl-label text-fl-muted-3 shrink-0 font-mono">
+                  <span className="text-xs text-[var(--juba-muted)] shrink-0 font-mono">
                     {labels[i]}.
                   </span>
                   <TargetLanguageText languageCode={languageCode}>
