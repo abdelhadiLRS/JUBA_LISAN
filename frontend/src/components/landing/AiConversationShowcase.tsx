@@ -6,7 +6,7 @@ interface AiConversationShowcaseProps {
 
 export function AiConversationShowcase({ t }: AiConversationShowcaseProps) {
   return (
-    <section id="demo" className="scroll-mt-24 py-20 bg-neutral-900 text-white relative overflow-hidden">
+    <section id="demo" className="juba-funfluent-demo scroll-mt-24 py-20 relative overflow-hidden">
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
