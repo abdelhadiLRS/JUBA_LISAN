@@ -1,17 +1,16 @@
 [object Object]
 
-/* Funfluent continuation: learning path cards */
-.juba-funfluent-page .juba-ff-unit-card{border:3px solid var(--ff-ink);border-radius:28px;background:#fff;box-shadow:6px 6px 0 var(--ff-ink);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
-.juba-funfluent-page .juba-ff-unit-card:hover{box-shadow:9px 9px 0 var(--ff-ink)}
-.juba-funfluent-page .juba-ff-unit-active{border-color:var(--ff-green-dark);box-shadow:6px 6px 0 var(--ff-green-dark)}
-.juba-funfluent-page .juba-ff-unit-active:hover{box-shadow:9px 9px 0 var(--ff-green-dark)}
-.juba-funfluent-page .juba-ff-unit-locked{opacity:.58;box-shadow:4px 4px 0 #a8aaa4}
-.juba-funfluent-page .juba-ff-unit-index{background:#e2f2d3;color:var(--ff-green-dark)}
-.juba-funfluent-page .juba-ff-unit-start{background:var(--ff-yellow);color:var(--ff-ink)}
-.juba-funfluent-page .juba-ff-unit-title{color:var(--ff-ink)}
-.juba-funfluent-page .juba-ff-unit-title-locked{color:#8d918b}
-.juba-funfluent-page .juba-ff-unit-meta{color:#7a837c}
-.juba-funfluent-page .juba-ff-unit-percent{background:#fff0b8;color:var(--ff-ink)}
-.juba-funfluent-page .juba-ff-unit-progress{background:#eef0e9}
-.juba-funfluent-page .juba-ff-unit-progress>div{border-radius:999px}
-.juba-funfluent-page .juba-ff-unit-cta{background:var(--ff-yellow);color:var(--ff-ink);border:2px solid var(--ff-ink);box-shadow:3px 3px 0 var(--ff-ink)}
+/* Learning path is its own app route; keep the same visual system outside the landing wrapper */
+.juba-ff-unit-card{border:3px solid #25302a;border-radius:28px;background:#fff;box-shadow:6px 6px 0 #25302a;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
+.juba-ff-unit-card:hover{transform:translateY(-2px);box-shadow:9px 9px 0 #25302a}
+.juba-ff-unit-active{border-color:#39751d;box-shadow:6px 6px 0 #39751d}
+.juba-ff-unit-active:hover{box-shadow:9px 9px 0 #39751d}
+.juba-ff-unit-locked{opacity:.58;box-shadow:4px 4px 0 #a8aaa4}
+.juba-ff-unit-index{background:#e2f2d3;color:#39751d}
+.juba-ff-unit-start{background:#ffd35a;color:#25302a}
+.juba-ff-unit-title{color:#25302a}
+.juba-ff-unit-title-locked{color:#8d918b}
+.juba-ff-unit-meta{color:#7a837c}
+.juba-ff-unit-percent{background:#fff0b8;color:#25302a}
+.juba-ff-unit-progress{background:#eef0e9}
+.juba-ff-unit-cta{background:#ffd35a;color:#25302a;border:2px solid #25302a;box-shadow:3px 3px 0 #25302a}
