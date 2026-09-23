@@ -7,10 +7,10 @@
 .juba-ff-unit-index{background:var(--juba-lilac);color:var(--juba-violet-dark)}
 .juba-ff-unit-start{background:var(--juba-yellow);color:var(--juba-ink)}
 .juba-ff-unit-title{color:var(--juba-ink)}
-.juba-ff-unit-title-locked{color:#8d918b}
-.juba-ff-unit-meta{color:#7a837c}
-.juba-ff-unit-percent{background:var(--juba-surface)0b8;color:var(--juba-ink)}
-.juba-ff-unit-progress{background:#eef0e9}
+.juba-ff-unit-title-locked{color:var(--juba-muted)}
+.juba-ff-unit-meta{color:var(--juba-muted)}
+.juba-ff-unit-percent{background:var(--juba-surface);color:var(--juba-ink)}
+.juba-ff-unit-progress{background:var(--juba-surface-soft)}
 .juba-ff-unit-cta{background:var(--juba-yellow);color:var(--juba-ink);border:2px solid var(--juba-ink);box-shadow:3px 3px 0 var(--juba-ink)}
 
 
@@ -18,7 +18,7 @@
 .juba-mobile-plan,
 .juba-mobile-lesson{
   --route-ink:var(--juba-ink);
-  --route-green:#5a9b32;
+  --route-green:var(--juba-violet);
   --route-green-dark:var(--juba-violet-dark);
   --route-cream:var(--juba-bg);
   --route-paper:#f2f0e8;
@@ -42,7 +42,7 @@
 }
 .juba-mobile-plan .rounded-[26px],
 .juba-mobile-lesson .rounded-[26px]{
-  border-color:rgba(37,48,42,.18);
+  border-color:var(--juba-border);
 }
 .juba-mobile-plan .bg-[var(--juba-lilac)],
 .juba-mobile-lesson .bg-[var(--juba-lilac)]{
