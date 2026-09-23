@@ -311,7 +311,7 @@ function ReadingPage() {
           </h1>
           <button
             onClick={loadNext}
-            className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-mono tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-mono tracking-widest uppercase transition-colors"
           >
             {t('practiceMore')}
           </button>
