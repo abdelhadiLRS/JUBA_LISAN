@@ -25,9 +25,9 @@ interface CardData {
 }
 
 const btnPrimary =
-  'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
+  'inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-[var(--juba-violet)]' px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
 const btnSecondary =
-  'inline-flex items-center justify-center gap-2 rounded-xl border border-fl-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-surface-soft)]'
+  'inline-flex items-center justify-center gap-2 rounded-[20px] border border-[var(--juba-lilac)] px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-lilac)]'
 
 export default function FlashcardsPage() {
   const t = useTranslations('flashcards')
@@ -142,18 +142,18 @@ export default function FlashcardsPage() {
     cards.length > 0 ? Math.round(((current + 1) / cards.length) * 100) : 0
 
   return (
-    <div className="mx-auto max-w-4xl space-y-5 px-4 py-6 sm:px-6 md:py-8">
+    <div className="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 md:py-8">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white p-5 shadow-[0_18px_45px_rgba(61,42,130,0.09)] sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-fl-fg text-xl font-bold tracking-tight">
+          <h1 className="text-[var(--juba-text)] text-xl font-bold tracking-tight">
             {t('title')}
           </h1>
-          <p className="text-fl-muted-2 mt-1 text-sm">
+          <p className="text-[var(--juba-muted)] mt-1 text-sm">
             {total} {t('total')} ·{' '}
             <span
               className="font-semibold"
-              style={{ color: 'var(--juba-warm)' }}
+              style={{ color: 'var(--juba-yellow)' }}
             >
               {cards.length} {t('due')}
             </span>
@@ -168,23 +168,23 @@ export default function FlashcardsPage() {
             onClick={() => {
               setShowGenerate(!showGenerate)
             }}
-            className={`${btnPrimary} ${showGenerate ? 'bg-[var(--juba-primary-dark)]' : 'bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]'}`}
+            className={`${btnPrimary} ${showGenerate ? 'bg-[var(--juba-violet-dark)]' : 'bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)]'}`}
           >
             <Sparkles className="h-4 w-4" aria-hidden="true" />
             {t('generateBtn')}
           </button>
         </div>
-      </div>
+      </div></div>
 
       {/* Generate panel */}
       {showGenerate && (
-        <div className="border-fl-border bg-fl-surface rounded-2xl border p-5">
-          <p className="text-fl-muted-2 mb-4 text-xs font-semibold tracking-wide uppercase">
+        <div className="border-[var(--juba-lilac)] bg-white rounded-[28px] border p-5">
+          <p className="text-[var(--juba-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
             {t('generate')}
           </p>
           {genError && (
             <div
-              className="mb-4 rounded-xl px-4 py-3 text-sm"
+              className="mb-4 rounded-[20px] px-4 py-3 text-sm"
               role="alert"
               style={{
                 color: 'var(--juba-danger)',
@@ -199,7 +199,7 @@ export default function FlashcardsPage() {
           )}
           <form onSubmit={generateCards} className="space-y-4">
             <div>
-              <label className="text-fl-muted-1 mb-2 block text-xs font-semibold tracking-wide uppercase">
+              <label className="text-[var(--juba-text)] mb-2 block text-xs font-semibold tracking-wide uppercase">
                 {t('topic')}
               </label>
               <input
@@ -208,18 +208,18 @@ export default function FlashcardsPage() {
                 onChange={(e) => setGenTopic(e.target.value)}
                 required
                 placeholder={t('topicPlaceholder')}
-                className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-border-2 focus:border-fl-border-2 w-full rounded-xl border px-4 py-3 text-sm transition-colors focus:outline-none"
+                className="bg-[var(--juba-lilac)]/40 border-[var(--juba-lilac)] text-[var(--juba-text)] placeholder:text-fl-border-2 focus:border-[var(--juba-lilac)]-2 w-full rounded-[20px] border px-4 py-3 text-sm transition-colors focus:outline-none"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-fl-muted-1 mb-2 block text-xs font-semibold tracking-wide uppercase">
+                <label className="text-[var(--juba-text)] mb-2 block text-xs font-semibold tracking-wide uppercase">
                   {t('count')}
                 </label>
                 <select
                   value={genCount}
                   onChange={(e) => setGenCount(Number(e.target.value))}
-                  className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full rounded-xl border px-4 py-3 text-sm focus:outline-none"
+                  className="bg-[var(--juba-lilac)]/40 border-[var(--juba-lilac)] text-[var(--juba-text)] focus:border-[var(--juba-lilac)]-2 w-full rounded-[20px] border px-4 py-3 text-sm focus:outline-none"
                 >
                   {[5, 10, 15, 20].map((n) => (
                     <option key={n} value={n}>
@@ -229,13 +229,13 @@ export default function FlashcardsPage() {
                 </select>
               </div>
               <div>
-                <label className="text-fl-muted-1 mb-2 block text-xs font-semibold tracking-wide uppercase">
+                <label className="text-[var(--juba-text)] mb-2 block text-xs font-semibold tracking-wide uppercase">
                   {t('level')}
                 </label>
                 <select
                   value={genCefr}
                   onChange={(e) => setGenCefr(e.target.value)}
-                  className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full rounded-xl border px-4 py-3 text-sm focus:outline-none"
+                  className="bg-[var(--juba-lilac)]/40 border-[var(--juba-lilac)] text-[var(--juba-text)] focus:border-[var(--juba-lilac)]-2 w-full rounded-[20px] border px-4 py-3 text-sm focus:outline-none"
                 >
                   {CEFR_LEVELS.map((l) => (
                     <option key={l} value={l}>
@@ -248,7 +248,7 @@ export default function FlashcardsPage() {
             <button
               type="submit"
               disabled={generating || !genTopic.trim()}
-              className={`${btnPrimary} w-full bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}
+              className={`${btnPrimary} w-full bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)]`}
             >
               {generating ? (
                 <>
@@ -268,19 +268,19 @@ export default function FlashcardsPage() {
 
       {/* No cards */}
       {cards.length === 0 && (
-        <div className="border-fl-border bg-fl-surface rounded-2xl border px-6 py-12 text-center">
+        <div className="border-[var(--juba-lilac)] bg-white rounded-[28px] border px-6 py-12 text-center">
           <span
-            className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl"
+            className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-[28px]"
             style={{
-              color: 'var(--juba-primary)',
-              background: 'var(--juba-primary-soft)',
+              color: 'var(--juba-violet)',
+              background: 'var(--juba-lilac)',
             }}
           >
             <CheckBadgeIcon />
           </span>
-          <p className="text-fl-muted-1 text-sm font-medium">{t('noDue')}</p>
+          <p className="text-[var(--juba-text)] text-sm font-medium">{t('noDue')}</p>
           {total === 0 && (
-            <p className="text-fl-muted-2 mt-2 text-sm">{t('noCardsHint')}</p>
+            <p className="text-[var(--juba-muted)] mt-2 text-sm">{t('noCardsHint')}</p>
           )}
           <button onClick={loadDue} className={btnSecondary + ' mt-6'}>
             {t('refresh')}
@@ -294,11 +294,11 @@ export default function FlashcardsPage() {
           {/* Session progress */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-fl-muted-2 text-xs font-semibold">
+              <span className="text-[var(--juba-muted)] text-xs font-semibold">
                 {current + 1} / {cards.length} due
               </span>
               {/* Mode toggle */}
-              <div className="bg-fl-surface-2 inline-flex rounded-xl p-1">
+              <div className="bg-[var(--juba-lilac)]/60 inline-flex rounded-[20px] p-1">
                 <button
                   onClick={() => {
                     setSpeakingMode(false)
@@ -306,8 +306,8 @@ export default function FlashcardsPage() {
                   }}
                   className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
                     !speakingMode
-                      ? 'text-fl-fg bg-[var(--juba-surface)] shadow-sm'
-                      : 'text-fl-muted-2 hover:text-fl-fg'
+                      ? 'text-[var(--juba-text)] bg-[white] shadow-sm'
+                      : 'text-[var(--juba-muted)] hover:text-[var(--juba-text)]'
                   }`}
                 >
                   {t('standardMode')}
@@ -319,20 +319,20 @@ export default function FlashcardsPage() {
                   }}
                   className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
                     speakingMode
-                      ? 'text-fl-fg bg-[var(--juba-surface)] shadow-sm'
-                      : 'text-fl-muted-2 hover:text-fl-fg'
+                      ? 'text-[var(--juba-text)] bg-[white] shadow-sm'
+                      : 'text-[var(--juba-muted)] hover:text-[var(--juba-text)]'
                   }`}
                 >
                   {t('speakingMode')}
                 </button>
               </div>
             </div>
-            <div className="bg-fl-surface-2 h-1.5 overflow-hidden rounded-full">
+            <div className="bg-[var(--juba-lilac)]/60 h-1.5 overflow-hidden rounded-full">
               <div
                 className="h-full rounded-full transition-all duration-500"
                 style={{
                   width: `${sessionProgress}%`,
-                  background: 'var(--juba-primary)',
+                  background: 'var(--juba-violet)',
                 }}
               />
             </div>
@@ -342,7 +342,7 @@ export default function FlashcardsPage() {
           {!speakingMode && (
             <>
               <div
-                className="juba-card cursor-pointer select-none"
+                className="juba-card cursor-pointer select-none overflow-hidden border-2 border-[var(--juba-lilac)] shadow-[0_24px_60px_rgba(61,42,130,0.12)]"
                 onClick={() => setFlipped(!flipped)}
                 role="button"
                 tabIndex={0}
@@ -354,11 +354,11 @@ export default function FlashcardsPage() {
                 }}
                 aria-label={flipped ? t('tapToHide') : t('tapToReveal')}
               >
-                <div className="border-fl-border flex items-center justify-between border-b px-6 py-3.5">
-                  <span className="text-fl-muted-2 text-xs font-semibold tracking-wide uppercase">
+                <div className="border-[var(--juba-lilac)] flex items-center justify-between border-b px-6 py-3.5">
+                  <span className="text-[var(--juba-muted)] text-xs font-semibold tracking-wide uppercase">
                     {flipped ? t('back') : t('front')}
                   </span>
-                  <span className="text-fl-muted-3 text-xs">
+                  <span className="text-[var(--juba-muted)] text-xs">
                     {flipped ? t('tapToHide') : t('tapToReveal')}
                   </span>
                 </div>
@@ -369,7 +369,7 @@ export default function FlashcardsPage() {
                       <TargetLanguageText
                         as="p"
                         languageCode={targetLanguageCode}
-                        className="text-fl-fg text-3xl font-bold"
+                        className="text-[var(--juba-text)] text-3xl font-bold"
                       >
                         {cards[current].word}
                       </TargetLanguageText>
@@ -382,7 +382,7 @@ export default function FlashcardsPage() {
                       <TargetLanguageText
                         as="p"
                         languageCode={targetLanguageCode}
-                        className="text-fl-fg-2"
+                        className="text-[var(--juba-text)]-2"
                       >
                         {cards[current].definition}
                       </TargetLanguageText>
@@ -390,13 +390,13 @@ export default function FlashcardsPage() {
                         <TargetLanguageText
                           as="p"
                           languageCode={targetLanguageCode}
-                          className="text-fl-muted-1 italic"
+                          className="text-[var(--juba-text)] italic"
                         >
                           {cards[current].example_sentence}
                         </TargetLanguageText>
                       )}
                       {cards[current].translation && (
-                        <p className="text-fl-muted-3 border-fl-border mt-1 border-t pt-3 text-sm">
+                        <p className="text-[var(--juba-muted)] border-[var(--juba-lilac)] mt-1 border-t pt-3 text-sm">
                           {cards[current].translation}
                         </p>
                       )}
@@ -423,16 +423,16 @@ export default function FlashcardsPage() {
                       key: 'easy',
                       q: 5,
                       style: {
-                        color: 'var(--juba-primary-dark)',
+                        color: 'var(--juba-violet-dark)',
                         borderColor:
-                          'color-mix(in srgb, var(--juba-primary) 45%, var(--juba-border))',
+                          'color-mix(in srgb, var(--juba-violet) 45%, var(--juba-lilac))',
                       },
                     },
                   ].map(({ key, q, style }) => (
                     <button
                       key={q}
                       onClick={() => reviewCard(q)}
-                      className="border-fl-border min-w-[80px] rounded-xl border py-3 text-sm font-semibold transition-all hover:border-[color-mix(in_srgb,var(--juba-border)_60%,var(--juba-text))] hover:bg-[var(--juba-surface-soft)]"
+                      className="border-[var(--juba-lilac)] min-w-[80px] rounded-[20px] border py-3 text-sm font-semibold transition-all hover:border-[color-mix(in_srgb,var(--juba-lilac)_60%,var(--juba-text))] hover:bg-[var(--juba-lilac)]"
                       style={style}
                     >
                       {t(key)}
@@ -445,9 +445,9 @@ export default function FlashcardsPage() {
 
           {/* ── Speaking mode ── */}
           {speakingMode && (
-            <div className="border-fl-border bg-fl-surface rounded-2xl border">
-              <div className="border-fl-border flex items-center justify-between border-b px-5 py-3.5">
-                <p className="text-fl-muted-2 text-xs font-semibold tracking-wide uppercase">
+            <div className="border-[var(--juba-lilac)] bg-white rounded-[28px] border">
+              <div className="border-[var(--juba-lilac)] flex items-center justify-between border-b px-5 py-3.5">
+                <p className="text-[var(--juba-muted)] text-xs font-semibold tracking-wide uppercase">
                   {t('speakingMode')}
                 </p>
                 <span className="flex items-center gap-1.5 text-xs text-[var(--juba-muted)]">
@@ -460,7 +460,7 @@ export default function FlashcardsPage() {
                 <TargetLanguageText
                   as="p"
                   languageCode={targetLanguageCode}
-                  className="text-fl-fg-2"
+                  className="text-[var(--juba-text)]-2"
                 >
                   {cards[current].definition}
                 </TargetLanguageText>
@@ -468,13 +468,13 @@ export default function FlashcardsPage() {
                   <TargetLanguageText
                     as="p"
                     languageCode={targetLanguageCode}
-                    className="text-fl-muted-1 italic"
+                    className="text-[var(--juba-text)] italic"
                   >
                     {cards[current].example_sentence}
                   </TargetLanguageText>
                 )}
                 {cards[current].translation && (
-                  <p className="text-fl-muted-3 border-fl-border mt-1 border-t pt-3 text-sm">
+                  <p className="text-[var(--juba-muted)] border-[var(--juba-lilac)] mt-1 border-t pt-3 text-sm">
                     {cards[current].translation}
                   </p>
                 )}
@@ -487,7 +487,7 @@ export default function FlashcardsPage() {
             </div>
           )}
 
-          <p className="text-fl-muted-4 text-center text-xs tabular-nums">
+          <p className="text-[var(--juba-muted)] text-center text-xs tabular-nums">
             EF {cards[current].ease_factor.toFixed(2)} · {t('interval')}{' '}
             {cards[current].interval}d · {t('repetitions')}{' '}
             {cards[current].repetitions}
