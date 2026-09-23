@@ -7,19 +7,19 @@ interface LandingFooterProps {
 
 export function LandingFooter({ t }: LandingFooterProps) {
   return (
-    <footer className="border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 pt-16 pb-12">
+    <footer className="juba-ff-footer border-t pt-16 pb-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-12">
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500 text-white font-bold text-lg shadow-md shadow-amber-500/20">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--ff-yellow)] text-[var(--ff-ink)] font-bold text-lg shadow-[0_4px_0_var(--ff-ink)] border-2 border-[var(--ff-ink)]">
                 J
               </div>
-              <span className="font-sans text-xl font-extrabold tracking-tight text-neutral-900 dark:text-white">
-                JUBA <span className="text-amber-600 dark:text-amber-400">LISAN</span>
+              <span className="font-sans text-xl font-extrabold tracking-tight text-[var(--ff-ink)]">
+                JUBA <span className="text-[var(--ff-green-dark)]">LISAN</span>
               </span>
             </Link>
-            <p className="text-neutral-600 dark:text-neutral-400 text-sm max-w-sm leading-relaxed mb-6">
+            <p className="text-[#617068] text-sm max-w-sm leading-relaxed mb-6">
               {t('footerTagline')}
             </p>
             <p className="text-xs text-neutral-400">
@@ -28,7 +28,7 @@ export function LandingFooter({ t }: LandingFooterProps) {
           </div>
 
           <div>
-            <h4 className="font-bold text-sm text-neutral-900 dark:text-white uppercase tracking-wider mb-4">
+            <h4 className="font-bold text-sm text-[var(--ff-ink)] uppercase tracking-wider mb-4">
               {t('footerProduct')}
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -40,7 +40,7 @@ export function LandingFooter({ t }: LandingFooterProps) {
           </div>
 
           <div>
-            <h4 className="font-bold text-sm text-neutral-900 dark:text-white uppercase tracking-wider mb-4">
+            <h4 className="font-bold text-sm text-[var(--ff-ink)] uppercase tracking-wider mb-4">
               {t('footerResources')}
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -51,7 +51,7 @@ export function LandingFooter({ t }: LandingFooterProps) {
           </div>
 
           <div>
-            <h4 className="font-bold text-sm text-neutral-900 dark:text-white uppercase tracking-wider mb-4">
+            <h4 className="font-bold text-sm text-[var(--ff-ink)] uppercase tracking-wider mb-4">
               {t('footerLegal')}
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -61,7 +61,7 @@ export function LandingFooter({ t }: LandingFooterProps) {
           </div>
         </div>
 
-        <div className="border-t border-neutral-200 dark:border-neutral-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-400">
+        <div className="border-t border-[rgba(37,48,42,.18)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-400">
           <span>Built for learners everywhere.</span>
           <span>AI-powered · Privacy-conscious · CEFR-aligned</span>
         </div>
