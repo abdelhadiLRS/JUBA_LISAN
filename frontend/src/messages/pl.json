@@ -712,7 +712,8 @@
     },
     "transcriptLabel": "Transkrypcja",
     "listeningPractice": "Otwórz ćwiczenia ze słuchania",
-    "audioLoadError": "Nie można wczytać dźwięku. Możesz kontynuować z transkrypcją."
+    "audioLoadError": "Nie można wczytać dźwięku. Możesz kontynuować z transkrypcją.",
+    "choiceKeyboardHint": "Wybierz odpowiedź, klikając ją lub naciskając 1–9."
   },
   "flashcards": {
     "title": "Fiszki",
