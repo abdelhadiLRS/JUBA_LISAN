@@ -1,47 +1,65 @@
-/* JUBA LISAN — unified application shell
- * A single visual layer for the authenticated workspace.
- * It deliberately stays above page-specific styles so every module shares
- * the same navigation, spacing, surfaces, focus states and responsive behavior.
+/* JUBA LISAN — Funfluent-inspired visual system
+ * The application shell is intentionally playful, rounded, colorful and
+ * illustration-friendly. Product identity remains JUBA LISAN.
  */
+
 :root {
-  --j-shell-sidebar: 272px;
-  --j-shell-topbar: 68px;
-  --j-shell-content: 1440px;
-  --j-shell-radius: 18px;
-  --j-shell-shadow: 0 12px 35px rgba(20,18,23,.055);
+  --j-shell-sidebar: 248px;
+  --j-shell-topbar: 76px;
+  --j-shell-content: 1500px;
+  --j-shell-radius: 28px;
+  --j-shell-shadow: 0 18px 50px rgba(39, 28, 72, .08);
+  --juba-ink: #242033;
+  --juba-violet: #6c45f5;
+  --juba-violet-dark: #4f2bd1;
+  --juba-lilac: #eee8ff;
+  --juba-yellow: #ffd85a;
+  --juba-mint: #bff5df;
+  --juba-coral: #ff8d79;
+  --juba-sky: #bdeaff;
 }
 
 .juba-app-shell {
   min-height: 100vh;
+  color: var(--juba-ink);
   background:
-    radial-gradient(circle at 88% 0%, color-mix(in srgb, var(--juba-primary) 10%, transparent), transparent 28rem),
-    var(--juba-bg);
+    radial-gradient(circle at 8% 8%, rgba(255,216,90,.24), transparent 19rem),
+    radial-gradient(circle at 92% 4%, rgba(189,234,255,.34), transparent 22rem),
+    #fbfaff;
 }
 
 .juba-desktop-sidebar {
   width: var(--j-shell-sidebar);
-  background: color-mix(in srgb, var(--juba-surface) 96%, transparent);
-  border-inline-end: 1px solid var(--juba-border);
-  box-shadow: 1px 0 0 rgba(20,18,23,.015);
+  background: #fff;
+  border-inline-end: 0;
+  box-shadow: 7px 0 30px rgba(39,28,72,.055);
+  position: relative;
+  z-index: 40;
 }
 
 .juba-sidebar-brand {
   min-height: var(--j-shell-topbar);
-  padding: 0 20px;
-  border-bottom: 1px solid var(--juba-border);
+  padding: 16px 18px;
+  border-bottom: 0;
 }
 
 .juba-brand-mark {
-  width: 34px;
-  height: 34px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 11px;
-  background: var(--juba-text) !important;
-  color: var(--juba-primary) !important;
+  width: 42px;
+  height: 42px;
+  border-radius: 15px;
+  background: var(--juba-violet) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 0 var(--juba-violet-dark);
+  font-weight: 950;
+  letter-spacing: -.08em;
+  transform: rotate(-3deg);
+}
+
+.juba-sidebar-brand > span:last-child {
+  color: var(--juba-ink) !important;
+  font-size: 15px;
   font-weight: 900;
-  letter-spacing: -.05em;
+  letter-spacing: -.03em;
 }
 
 .juba-sidebar-nav {
@@ -50,33 +68,37 @@
 
 .juba-sidebar-nav a,
 .juba-sidebar-nav button {
-  min-height: 42px;
-  border-radius: 12px;
+  min-height: 46px;
+  border-radius: 15px;
+  transition: transform .16s ease, background .16s ease, color .16s ease;
+}
+
+.juba-sidebar-nav a:hover,
+.juba-sidebar-nav button:hover {
+  transform: translateX(2px);
 }
 
 .juba-sidebar-nav a[aria-current='page'] {
-  background: var(--juba-primary-soft) !important;
-  color: var(--juba-primary-dark) !important;
-  font-weight: 750;
+  background: var(--juba-lilac) !important;
+  color: var(--juba-violet-dark) !important;
+  font-weight: 850;
 }
 
 .juba-sidebar-nav a[aria-current='page']::before {
-  content: '';
-  width: 3px;
-  height: 22px;
-  position: absolute;
-  inset-inline-start: 0;
+  width: 5px;
+  height: 25px;
+  inset-inline-start: 2px;
   border-radius: 999px;
-  background: var(--juba-primary-dark);
+  background: var(--juba-violet);
 }
 
-.juba-sidebar-nav a {
-  position: relative;
+.juba-sidebar-nav a[aria-current='page'] svg {
+  color: var(--juba-violet) !important;
 }
 
 .juba-workspace {
   min-width: 0;
-  background: var(--juba-bg);
+  background: transparent;
 }
 
 .juba-topbar {
@@ -86,104 +108,124 @@
   z-index: 30;
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 0 24px;
-  background: color-mix(in srgb, var(--juba-bg) 91%, transparent);
-  border-bottom: 1px solid var(--juba-border);
+  gap: 18px;
+  padding: 10px clamp(16px, 3vw, 42px);
+  background: rgba(251,250,255,.84);
+  border-bottom: 0;
   backdrop-filter: blur(18px);
 }
 
 .juba-topbar-search {
-  min-width: 220px;
-  max-width: 520px;
-  flex: 1;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 0 13px;
-  border: 1px solid var(--juba-border);
-  border-radius: 12px;
-  background: var(--juba-surface);
-  color: var(--juba-muted);
+  min-width: 260px;
+  max-width: 560px;
+  height: 46px;
+  border: 2px solid #ebe7f5;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(39,28,72,.05);
+  color: #817b95;
 }
 
 .juba-topbar-search kbd {
-  margin-inline-start: auto;
-  border: 1px solid var(--juba-border);
-  border-radius: 7px;
-  padding: 2px 6px;
-  font-size: 10px;
-  color: var(--juba-muted);
+  border: 0;
+  border-radius: 9px;
+  background: #f3f0fa;
+  color: #817b95;
 }
 
 .juba-workspace-main {
   width: min(100%, var(--j-shell-content));
   margin-inline: auto;
-  padding: 28px clamp(16px, 2.5vw, 36px) 64px;
+  padding: 24px clamp(16px, 3vw, 48px) 72px;
 }
 
 .juba-page-heading {
-  margin-bottom: 24px;
+  margin-bottom: 26px;
 }
 
 .juba-page-heading h1 {
-  color: var(--juba-text);
-  font-size: clamp(1.55rem, 2vw, 2.15rem);
-  font-weight: 800;
-  letter-spacing: -.045em;
+  color: var(--juba-ink);
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  font-weight: 950;
+  letter-spacing: -.055em;
+  line-height: 1.02;
 }
 
 .juba-page-heading p {
-  color: var(--juba-muted);
-  margin-top: 5px;
+  color: #777087;
+  margin-top: 8px;
+  font-size: 1rem;
 }
 
 .juba-surface {
-  background: var(--juba-surface);
-  border: 1px solid var(--juba-border);
+  background: #fff;
+  border: 0;
   border-radius: var(--j-shell-radius);
   box-shadow: var(--j-shell-shadow);
 }
 
 .juba-stat {
-  min-height: 112px;
-  padding: 18px;
-  background: var(--juba-surface);
-  border: 1px solid var(--juba-border);
-  border-radius: 16px;
+  min-height: 126px;
+  padding: 20px;
+  background: #fff;
+  border: 0;
+  border-radius: 24px;
+  box-shadow: var(--j-shell-shadow);
 }
 
 .juba-primary-action {
-  min-height: 42px;
-  border-radius: 12px;
-  padding: 0 16px;
-  background: var(--juba-text);
-  color: var(--juba-bg);
-  font-weight: 750;
+  min-height: 48px;
+  border-radius: 16px;
+  padding: 0 20px;
+  background: var(--juba-violet);
+  color: #fff;
+  font-weight: 850;
+  box-shadow: 0 6px 0 var(--juba-violet-dark);
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 
 .juba-primary-action:hover {
-  background: var(--juba-primary-dark);
-  color: white;
+  background: var(--juba-violet);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 var(--juba-violet-dark);
+}
+
+.juba-primary-action:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--juba-violet-dark);
 }
 
 .juba-mobile-bar {
-  min-height: 60px;
-  background: color-mix(in srgb, var(--juba-surface) 94%, transparent);
-  border-bottom: 1px solid var(--juba-border);
+  min-height: 64px;
+  background: rgba(255,255,255,.92);
+  border-bottom: 0;
+  box-shadow: 0 5px 20px rgba(39,28,72,.06);
   backdrop-filter: blur(18px);
 }
 
+.juba-mobile-bar a {
+  font-weight: 950 !important;
+  color: var(--juba-ink) !important;
+}
+
+.juba-desktop-sidebar .text-fl-muted-2,
+.juba-desktop-sidebar .text-fl-muted-3,
+.juba-desktop-sidebar .text-fl-muted-4 {
+  color: #938da2 !important;
+}
+
 @media (max-width: 900px) {
-  .juba-topbar { padding-inline: 16px; }
+  .juba-topbar { padding-inline: 18px; }
   .juba-topbar-search { max-width: none; }
-  .juba-workspace-main { padding-top: 22px; }
+  .juba-workspace-main { padding-top: 20px; }
 }
 
 @media (max-width: 640px) {
-  .juba-workspace-main { padding-inline: 12px; padding-bottom: 32px; }
+  .juba-workspace-main { padding-inline: 12px; padding-bottom: 34px; }
   .juba-topbar-search { display: none; }
-  .juba-page-heading { margin-bottom: 18px; }
-  .juba-surface { border-radius: 14px; }
+  .juba-page-heading { margin-bottom: 20px; }
+  .juba-page-heading h1 { font-size: 2rem; }
+  .juba-surface { border-radius: 20px; }
+  .juba-stat { border-radius: 20px; }
 }
