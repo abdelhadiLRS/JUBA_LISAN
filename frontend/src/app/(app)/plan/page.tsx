@@ -7,6 +7,7 @@ import { PageLoading } from '@/components/ui/page-loading'
 import { apiFetch } from '@/lib/api'
 import { getCurriculumUnits, type CurriculumUnit } from '@/data/curriculum'
 import { useLanguageStore } from '@/store/language'
+import { useLearningProgressSync } from '@/hooks/use-learning-progress'
 import UnitCard from '@/components/plan/UnitCard'
 import UnitDrawer from '@/components/plan/UnitDrawer'
 import LevelTestBanner from '@/components/plan/LevelTestBanner'
@@ -271,6 +272,8 @@ export default function PlanPage() {
   useEffect(() => {
     void loadPlan()
   }, [loadPlan])
+
+  useLearningProgressSync(() => loadPlan())
 
   const launchLesson = useCallback(
     async (lessonId: number) => {
