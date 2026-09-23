@@ -304,7 +304,7 @@ function ReadingPage() {
   // ── History ───────────────────────────────────────────────────────────────
   if (pageState === 'history') {
     return (
-      <div className="mx-auto max-w-6xl px-4 py-6 md:px-8">
+      <div className="juba-mobile-reading mx-auto max-w-6xl px-4 py-6 md:px-8">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-[var(--juba-text)] font-mono text-sm font-bold tracking-widest uppercase">
             {t('historyTitle')}
@@ -390,7 +390,7 @@ function ReadingPage() {
   // ── Results ───────────────────────────────────────────────────────────────
   if (pageState === 'results' && result && exercise) {
     return (
-      <div className="mx-auto max-w-6xl space-y-5 px-4 py-6 md:px-8">
+      <div className="juba-mobile-reading mx-auto max-w-6xl space-y-5 px-4 py-6 md:px-8">
         {/* Score card */}
         <div className="rounded-[28px] border-2 border-[var(--juba-lilac)] bg-white shadow-[0_18px_45px_rgba(61,42,130,0.08)] p-5">
           <div className="flex items-center justify-between">
@@ -499,7 +499,7 @@ function ReadingPage() {
   // ── Idle (no exercises available) ─────────────────────────────────────────
   if (pageState === 'idle') {
     return (
-      <div className="mx-auto max-w-6xl px-4 py-6 md:px-8">
+      <div className="juba-mobile-reading mx-auto max-w-6xl px-4 py-6 md:px-8">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-[var(--juba-text)] font-mono text-sm font-bold tracking-widest uppercase">
             {t('title')}
@@ -541,7 +541,7 @@ function ReadingPage() {
   if (!exercise) return null
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-6 md:px-8">
+    <div className="juba-mobile-reading mx-auto max-w-5xl px-4 py-6 md:px-8">
       {/* Header */}
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
