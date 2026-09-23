@@ -35,7 +35,8 @@ def test_arabic_a1_semantic_quality_report_is_structurally_complete():
     assert report["lesson_count"] == 80
     assert report["seed_count"] == 80
     assert 0.0 <= report["lexical_grounding_ratio"] <= 1.0
-    assert report["duplicate_seed_groups"] >= 0
+    assert report["duplicate_seed_groups"] == 0
+    assert report["duplicate_seed_lessons"] == 0
 
 
 def test_arabic_a1_duplicate_seed_lessons_are_exposed():
