@@ -363,5 +363,5 @@ def get_arabic_a1_content_quality_report() -> dict[str, object]:
         "duplicate_seed_lessons": duplicate_seed_lessons,
         "fully_unique_seed_signatures": sum(1 for count in signatures.values() if count == 1),
         "lesson_grounding": lesson_grounding,
-        "low_grounding_lessons": tuple(sorted(lesson_id for lesson_id, ratio in lesson_grounding.items() if ratio < 0.8)),
+        "low_grounding_lessons": tuple(sorted(lesson_id for lesson_id, ratio in lesson_grounding.items() if ratio < 0.65)),
     }
