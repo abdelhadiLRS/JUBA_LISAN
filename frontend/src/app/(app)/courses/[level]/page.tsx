@@ -8,6 +8,7 @@ import { apiFetch } from '@/lib/api'
 import { CEFR_LEVELS, getCurriculumUnits, type CEFRLevel, type CurriculumUnit } from '@/data/curriculum'
 import { useLanguageStore } from '@/store/language'
 import { useTranslations } from 'next-intl'
+import { useLearningProgressSync } from '@/hooks/use-learning-progress'
 
 interface StudyPlan { cefr_level: CEFRLevel }
 interface JourneyUnit { id: string; progress: number; state: string; lessons?: Array<{ id: number; title: string; lesson_type: string; is_completed: boolean; available: boolean; state: string }> }
@@ -24,6 +25,7 @@ export default function CourseLevelPage() {
   const [plan, setPlan] = useState<StudyPlan | null>(null)
   const [journeyUnits, setJourneyUnits] = useState<Record<string, JourneyUnit>>({})
   const [loading, setLoading] = useState(true)
+  const [progressRefresh, setProgressRefresh] = useState(0)
 
   useEffect(() => {
     if (!level) { setLoading(false); return }
@@ -68,7 +70,11 @@ export default function CourseLevelPage() {
     }
     void load()
     return () => { cancelled = true }
-  }, [activeLanguage?.code, level])
+  }, [activeLanguage?.code, level, progressRefresh])
+
+  useLearningProgressSync(() => {
+    setProgressRefresh((value) => value + 1)
+  })
 
   const isCurrentLevel = !!level && plan?.cefr_level === level
   const currentIndex = plan ? CEFR_LEVELS.indexOf(plan.cefr_level) : -1
