@@ -19,7 +19,7 @@ export function MemorySavedToast({
         role="status"
         aria-live="polite"
         aria-atomic="true"
-        className="border-fl-border bg-fl-surface text-fl-muted-1 animate-in fade-in slide-in-from-top-2 border px-4 py-3 font-mono text-xs shadow-lg"
+        className="border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-muted)] animate-in fade-in slide-in-from-top-2 border px-4 py-3 font-mono text-xs shadow-lg"
       >
         <span>{t('memorySavedToast')}</span>
       </div>
