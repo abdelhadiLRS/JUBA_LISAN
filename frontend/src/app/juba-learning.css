@@ -5,10 +5,6 @@
 html, body { background: var(--juba-bg); color: var(--juba-text); }
 body { background-image: none !important; }
 
-.juba-learning-page { min-height: 100%; background: var(--juba-bg); color: var(--juba-text); }
-.juba-container { width: min(1120px, calc(100% - 2rem)); margin-inline: auto; }
-.juba-card-interactive { transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
-.juba-card-interactive:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--juba-primary) 32%, var(--juba-border)); box-shadow: var(--juba-shadow-md); }
 
 .juba-eyebrow {
   display: inline-flex; align-items: center; gap: .45rem;
@@ -16,16 +12,6 @@ body { background-image: none !important; }
   border-radius: var(--juba-radius-pill); background: var(--juba-primary-soft); color: var(--juba-primary-dark);
   font-size: .72rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase;
 }
-
-.juba-progress-track { width: 100%; height: .5rem; overflow: hidden; border-radius: var(--juba-radius-pill); background: var(--juba-surface-soft); }
-.juba-progress-value { height: 100%; border-radius: inherit; background: var(--juba-primary); transition: width 240ms ease; }
-.juba-progress-value-warm { background: var(--juba-warm); }
-
-.juba-focus-ring:focus-visible { outline: 3px solid color-mix(in srgb, var(--juba-primary) 55%, transparent); outline-offset: 3px; }
-.juba-muted { color: var(--juba-muted); }
-.juba-primary { color: var(--juba-primary); }
-.juba-primary-surface { background: var(--juba-primary-soft); }
-.juba-warm-surface { background: var(--juba-warm-soft); }
 
 /* Semantic compatibility: old learning screens keep their class names,
  * but their success/error states now inherit the JUBA SaaS palette. */
