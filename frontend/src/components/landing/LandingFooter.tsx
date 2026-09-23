@@ -12,11 +12,11 @@ export function LandingFooter({ t }: LandingFooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-12">
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--ff-yellow)] text-[var(--ff-ink)] font-bold text-lg shadow-[0_4px_0_var(--ff-ink)] border-2 border-[var(--ff-ink)]">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#ffd45c] text-[#183022] font-bold text-lg shadow-[0_4px_0_#183022] border-2 border-[#183022]">
                 J
               </div>
-              <span className="font-sans text-xl font-extrabold tracking-tight text-[var(--ff-ink)]">
-                JUBA <span className="text-[var(--ff-green-dark)]">LISAN</span>
+              <span className="font-sans text-xl font-extrabold tracking-tight text-[#183022]">
+                JUBA <span className="text-[#285b17]">LISAN</span>
               </span>
             </Link>
             <p className="text-[#617068] text-sm max-w-sm leading-relaxed mb-6">
@@ -28,7 +28,7 @@ export function LandingFooter({ t }: LandingFooterProps) {
           </div>
 
           <div>
-            <h4 className="font-bold text-sm text-[var(--ff-ink)] uppercase tracking-wider mb-4">
+            <h4 className="font-bold text-sm text-[#183022] uppercase tracking-wider mb-4">
               {t('footerProduct')}
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -40,7 +40,7 @@ export function LandingFooter({ t }: LandingFooterProps) {
           </div>
 
           <div>
-            <h4 className="font-bold text-sm text-[var(--ff-ink)] uppercase tracking-wider mb-4">
+            <h4 className="font-bold text-sm text-[#183022] uppercase tracking-wider mb-4">
               {t('footerResources')}
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -51,7 +51,7 @@ export function LandingFooter({ t }: LandingFooterProps) {
           </div>
 
           <div>
-            <h4 className="font-bold text-sm text-[var(--ff-ink)] uppercase tracking-wider mb-4">
+            <h4 className="font-bold text-sm text-[#183022] uppercase tracking-wider mb-4">
               {t('footerLegal')}
             </h4>
             <ul className="space-y-2.5 text-sm">
