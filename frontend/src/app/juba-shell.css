@@ -846,3 +846,190 @@ html[data-theme='dark'] {
     border-radius: 22px !important;
   }
 }
+
+
+/* JUBA LISAN — FINAL PROFESSIONAL SHELL */
+:root{
+  --juba-bg:#f4f7f2;
+  --juba-surface:#ffffff;
+  --juba-surface-soft:#f8faf7;
+  --juba-ink:#172019;
+  --juba-text:#172019;
+  --juba-muted:#68746b;
+  --juba-border:#dce5dc;
+  --juba-violet:#4f8f2c;
+  --juba-violet-dark:#2f6419;
+  --juba-lilac:#eaf3e5;
+  --juba-yellow:#f5c84b;
+  --juba-mint:#dff3e8;
+  --juba-shadow-sm:0 2px 8px rgba(23,32,25,.06);
+  --juba-shadow-md:0 8px 24px rgba(23,32,25,.08);
+  --juba-shadow-lg:0 18px 48px rgba(23,32,25,.11);
+  --j-shell-content:1480px;
+  --j-shell-radius:18px;
+}
+html[data-theme='dark']{
+  --juba-bg:#0e1510;
+  --juba-surface:#172019;
+  --juba-surface-soft:#1d2820;
+  --juba-ink:#edf4ee;
+  --juba-text:#edf4ee;
+  --juba-muted:#9dac9f;
+  --juba-border:#304036;
+  --juba-violet:#70b34c;
+  --juba-violet-dark:#9ad477;
+  --juba-lilac:#23351f;
+  --juba-yellow:#f5c84b;
+  --juba-mint:#1d3d2d;
+}
+
+.juba-app-shell{
+  min-height:100svh;
+  background:var(--juba-bg);
+  color:var(--juba-text);
+}
+.juba-app-nav{
+  position:sticky;
+  top:0;
+  z-index:50;
+  border-bottom:1px solid var(--juba-border);
+  background:color-mix(in srgb,var(--juba-surface) 94%,transparent);
+  box-shadow:0 1px 0 rgba(23,32,25,.03);
+  backdrop-filter:blur(18px);
+}
+.juba-app-nav-inner{
+  width:min(100%,var(--j-shell-content));
+  min-height:72px;
+  padding:0 28px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  gap:26px;
+}
+.juba-app-brand{
+  gap:10px;
+  color:var(--juba-text);
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:-.02em;
+}
+.juba-brand-mark{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  background:var(--juba-violet);
+  color:#fff!important;
+  box-shadow:0 3px 0 var(--juba-violet-dark);
+  transform:none;
+  font-size:12px;
+}
+.juba-app-nav-links{gap:2px}
+.juba-app-nav-link{
+  min-height:38px;
+  padding:0 11px;
+  border-radius:9px;
+  color:var(--juba-muted);
+  font-size:12px;
+  font-weight:650;
+}
+.juba-app-nav-link:hover{
+  transform:none;
+  background:var(--juba-surface-soft);
+  color:var(--juba-text);
+}
+.juba-app-nav-link.is-active{
+  background:var(--juba-lilac);
+  color:var(--juba-violet-dark);
+}
+.juba-app-nav-actions{gap:8px}
+.juba-xp-pill{
+  min-height:36px;
+  padding:0 11px;
+  border:1px solid var(--juba-border);
+  background:var(--juba-surface-soft);
+  color:var(--juba-text);
+  font-size:11px;
+}
+.juba-app-nav-cta{
+  min-height:38px;
+  padding:0 14px;
+  border-radius:9px;
+  box-shadow:none;
+}
+.juba-app-menu-button{
+  width:38px;height:38px;border-radius:9px;
+  background:var(--juba-surface-soft);
+  color:var(--juba-text);
+}
+.juba-workspace-main{
+  width:min(100%,var(--j-shell-content));
+  padding:32px 28px 72px;
+}
+.juba-page-heading{margin-bottom:24px}
+.juba-page-heading h1{
+  font-size:clamp(1.75rem,3vw,2.7rem);
+  letter-spacing:-.045em;
+  line-height:1.05;
+}
+.juba-page-heading p{margin-top:7px;color:var(--juba-muted)}
+.juba-surface,.juba-card{
+  border:1px solid var(--juba-border);
+  border-radius:var(--j-shell-radius);
+  box-shadow:var(--juba-shadow-sm);
+}
+.juba-panel,.juba-page-hero{
+  border:1px solid var(--juba-border);
+  border-radius:var(--j-shell-radius);
+  box-shadow:var(--juba-shadow-sm);
+}
+.juba-primary-action{
+  min-height:44px;
+  border-radius:9px;
+  background:var(--juba-violet);
+  box-shadow:0 2px 0 var(--juba-violet-dark);
+}
+.juba-primary-button{
+  border-radius:9px;
+  background:var(--juba-violet);
+  color:#fff;
+  box-shadow:0 2px 0 var(--juba-violet-dark);
+}
+.juba-secondary-button,.juba-icon-button{
+  border-color:var(--juba-border);
+  border-radius:9px;
+  background:var(--juba-surface);
+}
+.juba-input{
+  border:1px solid var(--juba-border);
+  border-radius:9px;
+  background:var(--juba-surface);
+}
+.juba-input:focus{
+  border-color:var(--juba-violet);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--juba-violet) 13%,transparent);
+}
+.juba-path-card,.juba-learning-card{
+  border:1px solid var(--juba-border);
+  border-radius:16px;
+  box-shadow:var(--juba-shadow-sm);
+}
+.juba-path-card::before,.juba-learning-card::before{display:none}
+.juba-stat{
+  border:1px solid var(--juba-border);
+  border-radius:16px;
+  box-shadow:var(--juba-shadow-sm);
+}
+.juba-app-drawer{
+  border-top:1px solid var(--juba-border);
+  box-shadow:var(--juba-shadow-lg);
+}
+@media(max-width:1120px){
+  .juba-app-nav-inner{padding:0 20px}
+}
+@media(max-width:700px){
+  .juba-app-nav-inner{min-height:64px;padding:0 12px}
+  .juba-workspace-main{padding:20px 12px 48px}
+  .juba-page-heading{margin-bottom:18px}
+  .juba-page-heading h1{font-size:1.85rem}
+  .juba-surface,.juba-card,.juba-panel,.juba-page-hero{border-radius:14px}
+}
