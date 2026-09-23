@@ -15,7 +15,7 @@ interface BentoFeaturesProps {
 
 export function BentoFeatures({ t }: BentoFeaturesProps) {
   return (
-    <section id="features" className="scroll-mt-24 py-20 bg-neutral-50/50 dark:bg-neutral-900/30">
+    <section id="features" className="juba-funfluent-features scroll-mt-24 py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-semibold text-xs tracking-wider uppercase mb-3">
