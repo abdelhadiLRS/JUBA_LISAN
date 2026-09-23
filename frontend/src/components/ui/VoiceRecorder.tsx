@@ -183,7 +183,7 @@ export function VoiceRecorder({
       onClick={handleClick}
       disabled={disabled && state === 'idle'}
       aria-label={state === 'recording' ? t('ariaStop') : t('ariaRecord')}
-      className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-medium tracking-wide transition-all duration-200 ${colorClass} ${className}`}
+      className={`inline-flex items-center gap-2 rounded-xl border-2 px-3 py-2 text-xs font-semibold tracking-wide shadow-[2px_2px_0_var(--juba-border)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--juba-border)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--juba-border)] ${colorClass} ${className}`}
     >
       {label}
     </button>
