@@ -16,7 +16,7 @@ const habits = [
 
 export default function LearningJourneyPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[var(--juba-bg)] text-[var(--juba-text)]">
+    <main className="juba-mobile-journey min-h-screen overflow-hidden bg-[var(--juba-bg)] text-[var(--juba-text)]">
       <section className="relative border-b-2 border-[var(--juba-violet)] bg-[var(--juba-violet)] text-white">
         <div className="mx-auto max-w-6xl px-5 pb-16 pt-8 sm:px-8 lg:pb-24 lg:pt-12">
           <nav className="mb-16 flex items-center justify-between">
