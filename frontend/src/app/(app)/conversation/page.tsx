@@ -7,7 +7,7 @@
  */
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import type { ChatContextItem } from '@/lib/conversation-ws'
 import { PageLoading } from '@/components/ui/page-loading'
@@ -64,7 +64,7 @@ export default function ConversationPage() {
   const [autoStart, setAutoStart] = useState(false)
   const [cefrLevel, setCefrLevel] = useState<string | null>(null)
   const [planReady, setPlanReady] = useState(false)
-  const [voiceTrial, setVoiceTrial] = useState<{
+  const planLoadRef = useRef(0)\n  const [voiceTrial, setVoiceTrial] = useState<{
     token: string
     durationSeconds: number
     cefrLevel?: string
@@ -140,16 +140,21 @@ export default function ConversationPage() {
         // malformed — ignore
       }
     }
+    const requestId = ++planLoadRef.current
     setPlanReady(false)
     apiFetch('/api/study-plan/today')
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
-        if (data?.cefr_level) setCefrLevel(data.cefr_level)
+        if (requestId !== planLoadRef.current) return
+        setCefrLevel(data?.cefr_level ?? null)
       })
       .catch(() => {
-        /* sin plan — usa default 1500ms */
+        if (requestId !== planLoadRef.current) return
+        setCefrLevel(null)
       })
-      .finally(() => setPlanReady(true))
+      .finally(() => {
+        if (requestId === planLoadRef.current) setPlanReady(true)
+      })
   }, [activeLanguage?.code])
 
   if (!planReady) return null
