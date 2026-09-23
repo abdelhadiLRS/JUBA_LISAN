@@ -10,12 +10,6 @@ body { background-image: none !important; }
 .juba-section { padding-block: clamp(2.5rem, 6vw, 5rem); }
 .juba-section-header { max-width: 760px; margin-inline: auto; text-align: center; }
 
-.juba-card {
-  background: var(--juba-surface);
-  border: 1px solid var(--juba-border);
-  border-radius: var(--juba-radius-lg);
-  box-shadow: var(--juba-shadow-sm);
-}
 .juba-card-interactive { transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
 .juba-card-interactive:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--juba-primary) 32%, var(--juba-border)); box-shadow: var(--juba-shadow-md); }
 
