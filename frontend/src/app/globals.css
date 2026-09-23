@@ -590,3 +590,13 @@ html[data-theme='light'] {
 .juba-ff-footer a.flex > span{color:var(--landing-ink)!important}
 .juba-ff-footer a.flex > span span{color:var(--landing-green-dark)!important}
 .juba-ff-footer .border-t{border-color:var(--landing-border)!important}
+
+
+/* Landing decorative clouds */
+.juba-ff-hero-cloud,.juba-ff-demo-cloud{position:absolute;pointer-events:none;border-radius:999px;background:rgba(255,255,255,.72);filter:blur(.2px);opacity:.72}
+.juba-ff-hero-cloud:before,.juba-ff-hero-cloud:after,.juba-ff-demo-cloud:before,.juba-ff-demo-cloud:after{content:"";position:absolute;border-radius:50%;background:inherit}
+.juba-ff-hero-cloud{width:150px;height:42px;top:17%;left:4%}
+.juba-ff-hero-cloud:before{width:64px;height:64px;left:24px;bottom:0}.juba-ff-hero-cloud:after{width:50px;height:50px;left:76px;bottom:0}
+.juba-ff-hero-cloud.cloud-two{width:125px;height:34px;top:29%;right:4%;left:auto;opacity:.58}
+.juba-ff-demo-cloud{width:145px;height:38px;top:12%;left:3%;opacity:.55}.juba-ff-demo-cloud.cloud-b{top:58%;right:3%;left:auto;opacity:.42}
+@media(max-width:600px){.juba-ff-hero-cloud{transform:scale(.72);left:-15px}.juba-ff-hero-cloud.cloud-two{right:-20px}.juba-ff-demo-cloud{display:none}}
