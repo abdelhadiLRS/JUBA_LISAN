@@ -712,7 +712,8 @@
     },
     "transcriptLabel": "Transcrição",
     "listeningPractice": "Abrir prática de compreensão oral",
-    "audioLoadError": "Não foi possível carregar o áudio. Pode continuar com a transcrição."
+    "audioLoadError": "Não foi possível carregar o áudio. Pode continuar com a transcrição.",
+    "choiceKeyboardHint": "Escolha uma resposta clicando nela ou pressionando 1–9."
   },
   "flashcards": {
     "title": "Cartões",
