@@ -71,9 +71,9 @@ function statusBadgeClass(status: string) {
     case 'incomplete_expired':
       return 'border-orange-500/40 text-orange-400'
     case 'canceled':
-      return 'border-fl-border text-fl-muted-2'
+      return 'border-[var(--juba-border)] text-[var(--juba-muted)]'
     default:
-      return 'border-fl-border text-fl-muted-3'
+      return 'border-[var(--juba-border)] text-[var(--juba-muted)]'
   }
 }
 
@@ -408,7 +408,7 @@ export default function AdminUsersPage() {
   }
 
   const inputCls =
-    'w-full bg-fl-bg border border-fl-border px-4 py-3 font-mono text-xs text-fl-fg placeholder:text-fl-muted-4 focus:outline-none focus:border-fl-border-2 transition-colors'
+    'w-full bg-[var(--juba-bg)] border border-[var(--juba-border)] px-4 py-3 font-sans text-xs text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] focus:outline-none focus:border-[var(--juba-violet)] transition-colors'
 
   const hasFilters =
     searchTerm ||
@@ -431,7 +431,7 @@ export default function AdminUsersPage() {
             <button
               onClick={generateInvite}
               disabled={actionBusy === 'invite'}
-              className="border-fl-border text-fl-label text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 inline-flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase transition-colors disabled:opacity-40"
+              className="border-[var(--juba-border)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:opacity-40"
             >
               {actionBusy === 'invite' ? (
                 <Loader2 className="size-3.5 animate-spin" aria-hidden="true" />
@@ -442,7 +442,7 @@ export default function AdminUsersPage() {
             </button>
             <button
               onClick={openCreateUser}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 inline-flex items-center gap-2 px-3 py-2 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+              className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 inline-flex items-center gap-2 px-3 py-2 font-sans text-xs font-bold tracking-wide transition-colors"
             >
               <Plus className="size-3.5" aria-hidden="true" />
               {t('createUserBtn')}
@@ -454,14 +454,14 @@ export default function AdminUsersPage() {
       <AdminNav />
 
       {inviteUrl && (
-        <div className="border-fl-border bg-fl-surface border px-5 py-4">
+        <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] border px-5 py-4">
           <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-            <p className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+            <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
               {t('inviteLink')}
             </p>
             <button
               onClick={copyInvite}
-              className="border-fl-border text-fl-label text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 inline-flex items-center gap-2 border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors"
+              className="border-[var(--juba-border)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)] inline-flex items-center gap-2 border px-3 py-1.5 font-semibold tracking-wide transition-colors"
             >
               {inviteCopied ? (
                 <Check className="size-3.5" aria-hidden="true" />
@@ -471,39 +471,39 @@ export default function AdminUsersPage() {
               {inviteCopied ? t('inviteCopied') : t('copyLink')}
             </button>
           </div>
-          <p className="text-fl-muted-1 font-mono text-xs break-all">
+          <p className="text-[var(--juba-muted)] font-sans text-xs break-all">
             {inviteUrl}
           </p>
-          <p className="text-fl-hint text-fl-muted-4 mt-2 font-mono">
+          <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] mt-2 font-sans">
             {t('inviteExpiry')}
           </p>
         </div>
       )}
 
       {error && (
-        <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+        <div className="border-red-200/40 text-red-600 border px-4 py-3 font-sans text-xs border-[var(--juba-border)]">
           {error}
         </div>
       )}
 
-      <div className="border-fl-border bg-fl-surface border">
-        <div className="border-fl-border flex flex-wrap items-center gap-2 border-b px-5 py-4">
-          <span className="text-fl-label text-fl-muted-2">●</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+      <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] border">
+        <div className="border-[var(--juba-border)] flex flex-wrap items-center gap-2 border-b px-5 py-4">
+          <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
+          <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
             {t('users')}
           </span>
           {loading && (
             <Loader2
-              className="text-fl-muted-3 size-3.5 animate-spin"
+              className="text-[var(--juba-muted)] size-3.5 animate-spin"
               aria-hidden="true"
             />
           )}
-          <span className="text-fl-hint text-fl-muted-4 ml-auto font-mono tracking-widest uppercase">
+          <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] ml-auto font-semibold tracking-wide">
             {total} {t('total')}
           </span>
         </div>
 
-        <div className="border-fl-border grid gap-2 border-b px-5 py-3 lg:grid-cols-[minmax(14rem,1fr)_auto_auto_auto_auto]">
+        <div className="border-[var(--juba-border)] grid gap-2 border-b px-5 py-3 lg:grid-cols-[minmax(14rem,1fr)_auto_auto_auto_auto]">
           <div className="flex min-w-0">
             <input
               type="search"
@@ -516,12 +516,12 @@ export default function AdminUsersPage() {
               autoCorrect="off"
               autoCapitalize="none"
               spellCheck={false}
-              className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 min-w-0 flex-1 border px-4 py-2 font-mono text-xs transition-colors focus:outline-none"
+              className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] focus:border-[var(--juba-violet)] min-w-0 flex-1 border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             />
             <button
               type="button"
               onClick={handleSearch}
-              className="bg-fl-bg border-fl-border text-fl-muted-3 hover:text-fl-fg hover:border-fl-border-2 -ml-px inline-flex w-10 shrink-0 items-center justify-center border transition-colors"
+              className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)] -ml-px inline-flex w-10 shrink-0 items-center justify-center border transition-colors"
               aria-label={t('searchAction')}
             >
               <Search className="size-3.5" aria-hidden="true" />
@@ -530,7 +530,7 @@ export default function AdminUsersPage() {
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 appearance-none border px-4 py-2 font-mono text-xs transition-colors focus:outline-none"
+            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] focus:border-[var(--juba-violet)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={t('roleFilter')}
           >
             <option value="">{t('allRoles')}</option>
@@ -543,7 +543,7 @@ export default function AdminUsersPage() {
           <select
             value={activeFilter}
             onChange={(e) => setActiveFilter(e.target.value)}
-            className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 appearance-none border px-4 py-2 font-mono text-xs transition-colors focus:outline-none"
+            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] focus:border-[var(--juba-violet)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={t('statusFilter')}
           >
             <option value="">{t('allStatuses')}</option>
@@ -556,7 +556,7 @@ export default function AdminUsersPage() {
           <select
             value={subscriptionFilter}
             onChange={(e) => setSubscriptionFilter(e.target.value)}
-            className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 appearance-none border px-4 py-2 font-mono text-xs transition-colors focus:outline-none"
+            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] focus:border-[var(--juba-violet)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={t('subscriptionFilter')}
           >
             <option value="">{t('allSubscriptions')}</option>
@@ -570,7 +570,7 @@ export default function AdminUsersPage() {
             type="button"
             onClick={clearFilters}
             disabled={!hasFilters}
-            className="border-fl-border text-fl-label text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2 inline-flex items-center justify-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-30"
+            className="border-[var(--juba-border)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)] inline-flex items-center justify-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
           >
             <FilterX className="size-3.5" aria-hidden="true" />
             {t('clearFilters')}
@@ -578,31 +578,31 @@ export default function AdminUsersPage() {
         </div>
 
         {users.length === 0 ? (
-          <p className="text-fl-muted-2 px-6 py-10 text-center font-mono text-xs">
+          <p className="text-[var(--juba-muted)] px-6 py-10 text-center font-sans text-xs">
             {t('noUsers')}
           </p>
         ) : (
           <>
             <div className="hidden lg:block">
-              <table className="w-full table-fixed border-collapse">
+              <table className="w-full table-fixed border-collapse border-[var(--juba-border)]">
                 <thead>
-                  <tr className="border-fl-border border-b">
-                    <th className="text-fl-label text-fl-muted-4 w-[25%] px-5 py-3 text-left font-mono tracking-widest uppercase">
+                  <tr className="border-[var(--juba-border)] border-b">
+                    <th className="text-[var(--juba-text)] text-[var(--juba-muted)] w-[25%] px-5 py-3 text-left font-semibold tracking-wide">
                       {t('userColumn')}
                     </th>
-                    <th className="text-fl-label text-fl-muted-4 w-[25%] px-5 py-3 text-left font-mono tracking-widest uppercase">
+                    <th className="text-[var(--juba-text)] text-[var(--juba-muted)] w-[25%] px-5 py-3 text-left font-semibold tracking-wide">
                       {t('fieldEmail')}
                     </th>
-                    <th className="text-fl-label text-fl-muted-4 w-[12.5%] px-5 py-3 text-left font-mono tracking-widest uppercase">
+                    <th className="text-[var(--juba-text)] text-[var(--juba-muted)] w-[12.5%] px-5 py-3 text-left font-semibold tracking-wide">
                       {t('role')}
                     </th>
-                    <th className="text-fl-label text-fl-muted-4 w-[12.5%] px-5 py-3 text-left font-mono tracking-widest uppercase">
+                    <th className="text-[var(--juba-text)] text-[var(--juba-muted)] w-[12.5%] px-5 py-3 text-left font-semibold tracking-wide">
                       {t('status')}
                     </th>
-                    <th className="text-fl-label text-fl-muted-4 w-[15%] px-5 py-3 text-left font-mono tracking-widest uppercase">
+                    <th className="text-[var(--juba-text)] text-[var(--juba-muted)] w-[15%] px-5 py-3 text-left font-semibold tracking-wide">
                       {t('fieldSubscription')}
                     </th>
-                    <th className="text-fl-label text-fl-muted-4 w-[10%] px-5 py-3 text-right font-mono tracking-widest uppercase">
+                    <th className="text-[var(--juba-text)] text-[var(--juba-muted)] w-[10%] px-5 py-3 text-right font-semibold tracking-wide">
                       {t('actions')}
                     </th>
                   </tr>
@@ -611,26 +611,26 @@ export default function AdminUsersPage() {
                   {users.map((u) => (
                     <tr
                       key={u.id}
-                      className="border-fl-border hover:bg-fl-bg/60 border-b last:border-0"
+                      className="border-[var(--juba-border)] hover:bg-[var(--juba-bg)]/60 border-b last:border-0"
                     >
                       <td className="px-5 py-4 align-middle">
-                        <p className="text-fl-fg truncate font-mono text-sm">
+                        <p className="text-[var(--juba-text)] truncate font-sans text-sm">
                           {u.display_name}
                         </p>
-                        <p className="text-fl-label text-fl-muted-3 truncate font-mono">
+                        <p className="text-[var(--juba-text)] text-[var(--juba-muted)] truncate font-sans">
                           #{u.id} / @{u.username.toLowerCase()} /{' '}
                           {u.native_language}
                         </p>
                       </td>
-                      <td className="text-fl-muted-2 truncate px-5 py-4 align-middle font-mono text-xs">
+                      <td className="text-[var(--juba-muted)] truncate px-5 py-4 align-middle font-sans text-xs">
                         {u.email || '—'}
                       </td>
                       <td className="px-5 py-4 align-middle">
                         <span
-                          className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${
+                          className={`text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
                             u.role === 'admin'
-                              ? 'border-fl-fg/40 text-fl-fg'
-                              : 'border-fl-border text-fl-muted-2'
+                              ? 'border-fl-fg/40 text-[var(--juba-text)]'
+                              : 'border-[var(--juba-border)] text-[var(--juba-muted)]'
                           }`}
                         >
                           {u.role === 'admin' ? t('roleAdmin') : t('roleUser')}
@@ -638,10 +638,10 @@ export default function AdminUsersPage() {
                       </td>
                       <td className="px-5 py-4 align-middle">
                         <span
-                          className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${
+                          className={`text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
                             u.is_active
                               ? 'border-green-500/40 text-green-400'
-                              : 'border-fl-error/30 text-fl-error-fg'
+                              : 'border-red-200/30 text-red-600-fg'
                           }`}
                         >
                           {u.is_active ? t('active') : t('inactive')}
@@ -649,7 +649,7 @@ export default function AdminUsersPage() {
                       </td>
                       <td className="px-5 py-4 align-middle">
                         <span
-                          className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${statusBadgeClass(u.subscription_status)}`}
+                          className={`text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide ${statusBadgeClass(u.subscription_status)}`}
                         >
                           {subscriptionLabel(u.subscription_status, tBilling)}
                         </span>
@@ -658,7 +658,7 @@ export default function AdminUsersPage() {
                         <div className="flex justify-end gap-1">
                           <Link
                             href={`/admin/users/${u.id}`}
-                            className="border-fl-border text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2 inline-flex size-8 items-center justify-center border transition-colors"
+                            className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)] inline-flex size-8 items-center justify-center border transition-colors"
                             aria-label={t('viewStats')}
                           >
                             <ExternalLink
@@ -673,8 +673,8 @@ export default function AdminUsersPage() {
                               u.id === currentUserId
                                 ? 'cursor-not-allowed opacity-20'
                                 : u.is_active
-                                  ? 'border-fl-error/30 text-fl-error-fg hover:border-fl-error'
-                                  : 'border-fl-border text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2'
+                                  ? 'border-red-200/30 text-red-600-fg hover:border-red-200'
+                                  : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)]'
                             }`}
                             aria-label={
                               u.is_active ? t('deactivate') : t('activate')
@@ -702,7 +702,7 @@ export default function AdminUsersPage() {
                           <button
                             onClick={() => setDeletePending(u)}
                             disabled={u.id === currentUserId}
-                            className="border-fl-error/30 text-fl-error-fg hover:border-fl-error hover:text-fl-error inline-flex size-8 items-center justify-center border transition-colors disabled:cursor-not-allowed disabled:opacity-20"
+                            className="border-red-200/30 text-red-600-fg hover:border-red-200 hover:text-red-600 inline-flex size-8 items-center justify-center border transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[var(--juba-border)]"
                             aria-label={t('delete')}
                             title={
                               u.id === currentUserId
@@ -731,39 +731,39 @@ export default function AdminUsersPage() {
               {users.map((u, i) => (
                 <div
                   key={u.id}
-                  className={`space-y-3 px-4 py-4 ${i < users.length - 1 ? 'border-fl-border border-b' : ''}`}
+                  className={`space-y-3 px-4 py-4 ${i < users.length - 1 ? 'border-[var(--juba-border)] border-b' : ''}`}
                 >
                   <div className="min-w-0 space-y-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-fl-fg font-mono text-sm">
+                      <span className="text-[var(--juba-text)] font-sans text-sm">
                         {u.display_name}
                       </span>
                       <span
-                        className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${
+                        className={`text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
                           u.role === 'admin'
-                            ? 'border-fl-fg/40 text-fl-fg'
-                            : 'border-fl-border text-fl-muted-2'
+                            ? 'border-fl-fg/40 text-[var(--juba-text)]'
+                            : 'border-[var(--juba-border)] text-[var(--juba-muted)]'
                         }`}
                       >
                         {u.role === 'admin' ? t('roleAdmin') : t('roleUser')}
                       </span>
                       <span
-                        className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${
+                        className={`text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
                           u.is_active
                             ? 'border-green-500/40 text-green-400'
-                            : 'border-fl-error/30 text-fl-error-fg'
+                            : 'border-red-200/30 text-red-600-fg'
                         }`}
                       >
                         {u.is_active ? t('active') : t('inactive')}
                       </span>
                     </div>
-                    <p className="text-fl-label text-fl-muted-2 font-mono break-all">
-                      <span className="text-fl-muted-4">#{u.id}</span> /{' '}
+                    <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-sans break-all">
+                      <span className="text-[var(--juba-muted)]">#{u.id}</span> /{' '}
                       {u.username.toLowerCase()} {u.email ? `/ ${u.email}` : ''}{' '}
                       / {u.native_language}
                     </p>
                     <span
-                      className={`text-fl-hint inline-flex border px-2 py-0.5 font-mono tracking-widest uppercase ${statusBadgeClass(u.subscription_status)}`}
+                      className={`text-[var(--juba-muted)] inline-flex border px-2 py-0.5 font-semibold tracking-wide ${statusBadgeClass(u.subscription_status)}`}
                     >
                       {subscriptionLabel(u.subscription_status, tBilling)}
                     </span>
@@ -771,7 +771,7 @@ export default function AdminUsersPage() {
                   <div className="flex flex-wrap gap-2">
                     <Link
                       href={`/admin/users/${u.id}`}
-                      className="border-fl-border text-fl-label text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 inline-flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase transition-colors"
+                      className="border-[var(--juba-border)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors"
                     >
                       <ExternalLink className="size-3.5" aria-hidden="true" />
                       {t('viewStats')}
@@ -779,12 +779,12 @@ export default function AdminUsersPage() {
                     <button
                       onClick={() => setActivePending(u)}
                       disabled={u.id === currentUserId}
-                      className={`text-fl-label inline-flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase transition-colors ${
+                      className={`text-[var(--juba-text)] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors ${
                         u.id === currentUserId
                           ? 'cursor-not-allowed opacity-20'
                           : u.is_active
-                            ? 'border-fl-error/30 text-fl-error-fg hover:border-fl-error'
-                            : 'border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2'
+                            ? 'border-red-200/30 text-red-600-fg hover:border-red-200'
+                            : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)]'
                       }`}
                     >
                       {actionBusy === `active-${u.id}` && (
@@ -798,7 +798,7 @@ export default function AdminUsersPage() {
                     <button
                       onClick={() => setDeletePending(u)}
                       disabled={u.id === currentUserId}
-                      className="border-fl-error/30 text-fl-label text-fl-error-fg hover:border-fl-error hover:text-fl-error inline-flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-20"
+                      className="border-red-200/30 text-[var(--juba-text)] text-red-600-fg hover:border-red-200 hover:text-red-600 inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[var(--juba-border)]"
                     >
                       {actionBusy === `delete-${u.id}` && (
                         <Loader2
@@ -831,30 +831,30 @@ export default function AdminUsersPage() {
           onClick={() => setShowCreate(false)}
         >
           <div
-            className="border-fl-border bg-fl-surface max-h-[calc(100vh-2rem)] w-full max-w-md overflow-y-auto border shadow-2xl"
+            className="border-[var(--juba-border)] bg-[var(--juba-surface)] max-h-[calc(100vh-2rem)] w-full max-w-md overflow-y-auto border shadow-2xl"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
             aria-labelledby="admin-create-user-title"
             aria-describedby="admin-create-user-description"
           >
-            <div className="border-fl-border flex items-start justify-between gap-4 border-b px-6 py-5">
+            <div className="border-[var(--juba-border)] flex items-start justify-between gap-4 border-b px-6 py-5">
               <div>
                 <div className="flex items-center gap-2">
                   <UserPlus
-                    className="text-fl-muted-2 size-4"
+                    className="text-[var(--juba-muted)] size-4"
                     aria-hidden="true"
                   />
                   <h2
                     id="admin-create-user-title"
-                    className="text-fl-fg font-mono text-sm tracking-widest uppercase"
+                    className="text-[var(--juba-text)] font-sans text-sm tracking-wide"
                   >
                     {t('createUser')}
                   </h2>
                 </div>
                 <p
                   id="admin-create-user-description"
-                  className="text-fl-muted-2 mt-2 font-mono text-xs"
+                  className="text-[var(--juba-muted)] mt-2 font-sans text-xs"
                 >
                   {t('createUserSheetDesc')}
                 </p>
@@ -862,7 +862,7 @@ export default function AdminUsersPage() {
               <button
                 type="button"
                 onClick={() => setShowCreate(false)}
-                className="text-fl-muted-2 hover:text-fl-fg p-1 transition-colors"
+                className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] p-1 transition-colors"
                 aria-label={tCommon('cancel')}
               >
                 <X className="size-4" aria-hidden="true" />
@@ -875,7 +875,7 @@ export default function AdminUsersPage() {
               className="space-y-4 px-6 py-5"
             >
               {error && (
-                <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+                <div className="border-red-200/40 text-red-600 border px-4 py-3 font-sans text-xs border-[var(--juba-border)]">
                   {error}
                 </div>
               )}
@@ -906,7 +906,7 @@ export default function AdminUsersPage() {
                 },
               ].map(({ key, label, required, type }) => (
                 <label key={key} className="block">
-                  <span className="text-fl-label text-fl-muted-3 mb-1 block font-mono text-xs tracking-widest uppercase">
+                  <span className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-1 block font-sans text-xs tracking-wide">
                     {label}
                   </span>
                   <input
@@ -936,7 +936,7 @@ export default function AdminUsersPage() {
                 </label>
               ))}
               <label className="block">
-                <span className="text-fl-label text-fl-muted-3 mb-1 block font-mono text-xs tracking-widest uppercase">
+                <span className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-1 block font-sans text-xs tracking-wide">
                   {t('fieldNativeLanguage')}
                 </span>
                 <select
@@ -956,7 +956,7 @@ export default function AdminUsersPage() {
                 </select>
               </label>
               <label className="block">
-                <span className="text-fl-label text-fl-muted-3 mb-1 block font-mono text-xs tracking-widest uppercase">
+                <span className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-1 block font-sans text-xs tracking-wide">
                   {t('fieldTargetLanguage')}
                 </span>
                 <select
@@ -974,7 +974,7 @@ export default function AdminUsersPage() {
                 </select>
               </label>
               <label className="block">
-                <span className="text-fl-label text-fl-muted-3 mb-1 block font-mono text-xs tracking-widest uppercase">
+                <span className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-1 block font-sans text-xs tracking-wide">
                   {t('fieldRole')}
                 </span>
                 <select
@@ -991,11 +991,11 @@ export default function AdminUsersPage() {
               </label>
             </form>
 
-            <div className="border-fl-border grid grid-cols-2 gap-2 border-t px-6 py-5">
+            <div className="border-[var(--juba-border)] grid grid-cols-2 gap-2 border-t px-6 py-5">
               <button
                 type="button"
                 onClick={() => setShowCreate(false)}
-                className="border-fl-border text-fl-label text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg border py-3 font-mono font-bold tracking-widest uppercase transition-colors"
+                className="border-[var(--juba-border)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)] border py-3 font-sans font-bold tracking-wide transition-colors"
               >
                 {tCommon('cancel')}
               </button>
@@ -1003,7 +1003,7 @@ export default function AdminUsersPage() {
                 type="submit"
                 form="admin-create-user-form"
                 disabled={createSaving}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 inline-flex items-center justify-center gap-2 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 inline-flex items-center justify-center gap-2 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-50"
               >
                 {createSaving && (
                   <Loader2
