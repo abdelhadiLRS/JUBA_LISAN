@@ -686,6 +686,7 @@
     "hintPrefix": "Indice : ",
     "retryEasier": "Réessayer plus facilement",
     "checking": "Vérification…",
+"answerError": "Nous n’avons pas pu vérifier votre réponse. Réessayez.",
     "next": "Suivant",
     "finish": "Terminer la leçon",
     "completed": "Terminée",
