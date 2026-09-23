@@ -348,31 +348,26 @@ export default function DashboardPage() {
       <OnboardingTour />
       <WhatsNew />
       <div className="juba-mobile-dashboard mx-auto max-w-5xl px-4 py-6 sm:px-6 md:py-8">
-        <div className="mb-6">
-          <p className="text-[var(--juba-muted)] mb-1 text-sm">{t('welcomeBack')}</p>
-          <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
-            <div>
-              <h1 className="text-[var(--juba-text)] text-2xl font-bold tracking-tight sm:text-3xl">
-                {user?.displayName || user?.username}
-              </h1>
-              {activeLanguage && (
-                <p className="text-[var(--juba-muted)] mt-1 text-sm">
-                  {tTarget(activeLanguage.code)}{cefrLevel ? ` · ${cefrLevel}` : ''}
-                </p>
-              )}
-            </div>
-            {hasPlan && totalDays > 0 && (
-              <p className="text-[var(--juba-muted)] text-sm font-medium">
-                {t('dayProgress', { current: Math.min(progressDay + 1, totalDays), total: totalDays })}
-              </p>
-            )}
+        <section className="juba-mobile-greeting mb-6 overflow-hidden" aria-label={t('welcomeBack')}>
+          <div className="juba-mobile-greeting-art" aria-hidden="true"><span>🦜</span></div>
+          <div className="juba-mobile-greeting-top">
+            <span className="juba-mobile-pill">{cefrLevel || 'A1'}</span>
+            {activeLanguage && <span className="juba-mobile-language">{tTarget(activeLanguage.code)}</span>}
+            {hasPlan && totalDays > 0 && <span className="juba-mobile-day">{Math.min(progressDay + 1, totalDays)}/{totalDays}</span>}
           </div>
-        </div>
+          <div className="relative z-10">
+            <p className="text-sm font-semibold text-[#3d6375]">{t('welcomeBack')}</p>
+            <h1 className="mt-1 text-[2rem] font-black leading-[1.05] tracking-[-.05em] text-[var(--juba-ink)]">
+              {user?.displayName || user?.username} 👋
+            </h1>
+          </div>
+          <div className="juba-mobile-greeting-progress" aria-hidden="true"><span /></div>
+        </section>
 
         <DashboardAnnouncement />
 
         {/* Daily Momentum Hero Section - answers three core questions */}
-        <section className="juba-card mb-6 overflow-hidden p-0" aria-label={t('dailyMomentum')}>
+        <section className="juba-card juba-mobile-daily mb-6 overflow-hidden p-0" aria-label={t('dailyMomentum')}>
           <div className="border-b border-[var(--juba-border)] bg-gradient-to-r from-[var(--juba-accent)]/5 to-transparent p-5 sm:p-6">
             <div className="flex items-center gap-2">
               <Flame className="h-5 w-5 text-[var(--juba-accent)]" />
