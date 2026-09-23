@@ -155,6 +155,10 @@ export default function PlanPage() {
     let cancelled = false
     setLoading(true)
     setError('')
+    setPendingLessons([])
+    setLessonStates({})
+    setActiveLessonId(null)
+    setCompetencies({})
     try {
       const [planRes, journeyRes, compRes, todayRes, pendingRes, lessonsRes] =
         await Promise.all([
