@@ -72,7 +72,7 @@ ARABIC_A1_LESSONS: tuple[ArabicA1Lesson, ...] = (
     _lesson(2,2,1,"grammar","أل التعريف مع الأسرة","التمييز بين الاسم المعرفة والنكرة في وصف الأشخاص والأشياء.",("definite-article","gender-agreement"),("family_a1",),()),
     _lesson(2,2,2,"vocabulary","العلاقات والملكية","إعادة تدوير مفردات الأسرة مع كتابي وبيتي وأخي ونحوها.",("possessive-pronouns","definite-article"),("family_a1","personal-info_a1"),()),
     _lesson(2,2,3,"reading","صورة عائلية","فهم نص قصير يصف صورة عائلية.",("definite-article","adjectives","possessive-construct"),("family_a1",),()),
-    _lesson(2,2,4,"speaking","التحدث عن الأسرة","إجراء حوار سؤال وجواب عن الأسرة والملكية.",("question-words","possessive-pronouns"),("family_a1",),()),
+    _lesson(2,2,4,"review","التحدث عن الأسرة","إجراء حوار سؤال وجواب عن الأسرة والملكية.",("question-words","possessive-pronouns"),("family_a1",),()),
     _lesson(2,2,5,"review","مراجعة الأسرة والملكية","استرجاع مفردات الأسرة والإضافة وضمائر الملكية دون قاعدة جديدة.",("possessive-construct","possessive-pronouns","definite-article","gender-agreement"),("family_a1","personal-info_a1"),()),
 
     # Unit 3 — Home and objects
@@ -84,7 +84,7 @@ ARABIC_A1_LESSONS: tuple[ArabicA1Lesson, ...] = (
     _lesson(3,2,1,"grammar","حروف الجر والمكان","استخدام في وعلى ومن وإلى ومع لوصف الموقع.",("prepositions","place-expressions"),("home_a1","objects_a1"),()),
     _lesson(3,2,2,"vocabulary","الموقع والاتجاه داخل البيت","استخدام أمام وخلف وبجانب وبين مع مفردات المنزل.",("prepositions","place-expressions"),("home_a1","objects_a1"),()),
     _lesson(3,2,3,"listening","أين الشيء؟","فهم وصف شفهي لموقع الأشياء داخل المنزل.",("prepositions","place-expressions","demonstratives"),("home_a1","objects_a1"),()),
-    _lesson(3,2,4,"speaking","جولة في البيت","وصف موقع 5 أشياء في حوار قصير.",("prepositions","place-expressions","adjectives"),("home_a1","objects_a1"),()),
+    _lesson(3,2,4,"review","جولة في البيت","وصف موقع 5 أشياء في حوار قصير.",("prepositions","place-expressions","adjectives"),("home_a1","objects_a1"),()),
     _lesson(3,2,5,"review","مراجعة البيت","دمج أسماء الإشارة والصفات وحروف الجر وتعبيرات المكان.",("demonstratives","adjectives","prepositions","place-expressions"),("home_a1","objects_a1"),()),
 
     # Unit 4 — Daily routine
@@ -96,29 +96,29 @@ ARABIC_A1_LESSONS: tuple[ArabicA1Lesson, ...] = (
     _lesson(4,2,1,"grammar","مطابقة الفعل والفاعل","تثبيت صيغ المضارع مع أنا وهو وهي ونحن وهم.",("present-subject-agreement","present-tense"),("common-verbs_a1",),("daily_a1",)),
     _lesson(4,2,2,"vocabulary","دائمًا وأحيانًا","تمييز ظروف التكرار واستخدامها في جمل جديدة.",("adverbs-frequency","present-tense"),("daily-life_a1",),("daily_a1",)),
     _lesson(4,2,3,"reading","روتين شخصين","مقارنة روتين شخصين في نص قصير.",("present-tense","negation","adverbs-frequency"),("daily-life_a1","common-verbs_a1"),("daily_a1",)),
-    _lesson(4,2,4,"speaking","ما الذي تفعله؟","إجراء مقابلة قصيرة عن الروتين اليومي.",("question-words","present-tense","negation"),("daily-life_a1","common-verbs_a1"),("daily_a1",)),
+    _lesson(4,2,4,"review","ما الذي تفعله؟","إجراء مقابلة قصيرة عن الروتين اليومي.",("question-words","present-tense","negation"),("daily-life_a1","common-verbs_a1"),("daily_a1",)),
     _lesson(4,2,5,"review","مراجعة الروتين","استرجاع المضارع والنفي ومفردات الروتين والتكرار.",("present-tense","present-subject-agreement","negation","adverbs-frequency"),("daily-life_a1","common-verbs_a1"),("daily_a1",)),
 
     # Units 5–8 use the same explicit progression and existing content IDs.
     _lesson(5,1,1,"grammar","الأعداد والوقت","استخدام الأعداد الأساسية والسؤال عن الساعة.",("numbers","clock-time"),("numbers_time_a1","appointments_a1"),("time_a1",)),
     _lesson(5,1,2,"vocabulary","المواعيد","ذكر الوقت والموعد واليوم في مواقف يومية.",("clock-time","prepositions"),("numbers_time_a1","appointments_a1"),("time_a1",)),
     _lesson(5,1,3,"listening","موعد في الساعة","فهم وقت وموعد من حوار قصير.",("clock-time","numbers"),("numbers_time_a1","appointments_a1"),("time_a1",)),
-    _lesson(5,1,4,"speaking","تحديد موعد","اقتراح موعد والسؤال عن الوقت.",("clock-time","question-words"),("appointments_a1","numbers_time_a1"),("time_a1",)),
+    _lesson(5,1,4,"review","تحديد موعد","اقتراح موعد والسؤال عن الوقت.",("clock-time","question-words"),("appointments_a1","numbers_time_a1"),("time_a1",)),
     _lesson(5,1,5,"review","مراجعة الوقت","تثبيت الأعداد والساعة والمواعيد دون قاعدة جديدة.",("numbers","clock-time","prepositions"),("numbers_time_a1","appointments_a1"),("time_a1",)),
     _lesson(6,1,1,"grammar","الكمية والسعر","استخدام كلمات الكمية والمفعول به في طلبات بسيطة.",("quantifiers","accusative-intro"),("food_a1","shopping_a1"),("restaurant_a1","shopping_a1")),
     _lesson(6,1,2,"vocabulary","الطعام والشراء","تسمية أطعمة وأسعار وطرق دفع أساسية.",("quantifiers","question-words"),("food_a1","shopping_a1"),("restaurant_a1","shopping_a1")),
     _lesson(6,1,3,"listening","في المطعم","فهم طلب طعام وسؤال عن السعر أو الحساب.",("accusative-intro","question-words"),("food_a1","shopping_a1"),("restaurant_a1",)),
-    _lesson(6,1,4,"speaking","في المتجر","إجراء حوار شراء قصير عن السعر والكمية.",("question-words","quantifiers"),("shopping_a1","food_a1"),("shopping_a1",)),
+    _lesson(6,1,4,"review","في المتجر","إجراء حوار شراء قصير عن السعر والكمية.",("question-words","quantifiers"),("shopping_a1","food_a1"),("shopping_a1",)),
     _lesson(6,1,5,"review","مراجعة الطعام والشراء","دمج الطلب والسعر والكمية والدفع.",("quantifiers","accusative-intro","question-words"),("food_a1","shopping_a1"),("restaurant_a1","shopping_a1")),
     _lesson(7,1,1,"grammar","أين يوجد؟","استخدام يوجد وتوجد مع تعبيرات المكان.",("there-is-there-are","place-expressions"),("places_a1","directions_a1"),("directions_a1",)),
     _lesson(7,1,2,"vocabulary","الأماكن والاتجاهات","تسمية الأماكن واليمين واليسار وأمام وخلف.",("place-expressions","prepositions"),("places_a1","directions_a1"),("directions_a1",)),
     _lesson(7,1,3,"listening","اسأل عن الطريق","فهم تعليمات اتجاه قصيرة.",("imperative-intro","place-expressions"),("places_a1","directions_a1"),("directions_a1",)),
-    _lesson(7,1,4,"speaking","إعطاء الاتجاهات","إعطاء طريق بسيط من مكان إلى آخر.",("imperative-intro","prepositions","place-expressions"),("places_a1","directions_a1"),("directions_a1",)),
+    _lesson(7,1,4,"review","إعطاء الاتجاهات","إعطاء طريق بسيط من مكان إلى آخر.",("imperative-intro","prepositions","place-expressions"),("places_a1","directions_a1"),("directions_a1",)),
     _lesson(7,1,5,"review","مراجعة الأماكن","دمج سؤال المكان والوجود والاتجاهات.",("there-is-there-are","place-expressions","prepositions","imperative-intro"),("places_a1","directions_a1"),("directions_a1",)),
     _lesson(8,1,1,"grammar","أسئلة التواصل","استخدام هل وماذا وكيف ولماذا في مواقف يومية.",("basic-questions","question-words"),("communication_a1","review_a1"),("help_a1",)),
     _lesson(8,1,2,"vocabulary","طلب المساعدة","استخدام عبارات عدم الفهم وطلب التكرار والإبطاء.",("basic-questions","negation"),("communication_a1","review_a1"),("help_a1",)),
     _lesson(8,1,3,"reading","نص A1 متكامل","قراءة نص قصير يجمع التعارف والبيت والروتين والشراء.",("pronouns","present-tense","adjectives","question-words"),("review_a1","communication_a1"),("help_a1",)),
-    _lesson(8,1,4,"speaking","مهمة تواصل نهائية","إدارة حوار قصير يجمع عدة مواقف من مستوى A1.",("question-words","present-tense","prepositions","negation"),("review_a1","communication_a1"),("help_a1",)),
+    _lesson(8,1,4,"review","مهمة تواصل نهائية","إدارة حوار قصير يجمع عدة مواقف من مستوى A1.",("question-words","present-tense","prepositions","negation"),("review_a1","communication_a1"),("help_a1",)),
     _lesson(8,1,5,"review","اختبار نهاية A1","استرجاع القواعد والمفردات والتعبيرات الأساسية والاستعداد لـA2.",("pronouns","question-words","present-tense","prepositions"),("review_a1","communication_a1"),("help_a1",)),
 )
 
