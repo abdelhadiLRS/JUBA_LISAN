@@ -51,7 +51,7 @@ export function LearningExperience({ t }: LearningExperienceProps) {
   ]
 
   return (
-    <section className="relative overflow-hidden border-y border-neutral-200/60 bg-neutral-50/50 py-20 dark:border-neutral-800/60 dark:bg-neutral-900/40 sm:py-24">
+    <section className="juba-funfluent-experience relative overflow-hidden py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-14 max-w-3xl text-center">
           <span className="mb-2 block text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">THE METHODOLOGY</span>
