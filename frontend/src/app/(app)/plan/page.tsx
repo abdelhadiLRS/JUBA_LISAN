@@ -318,202 +318,177 @@ export default function PlanPage() {
     units.length > 0 && units.every((u) => (competencies[u.id] ?? 0) >= 0.8)
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6 px-4 py-8">
-      {/* ── Header ── */}
-      <div className="border-fl-border bg-fl-surface rounded-2xl border p-5 sm:p-6">
-        <p className="text-fl-muted-2 mb-3 text-xs font-semibold tracking-wide uppercase">
-          {t('learningRoadmap')}
-        </p>
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
-          <div>
-            <p className="text-fl-muted-3 text-xs font-medium">
-              {langName ? `${langName} — ${t('level')}` : t('level')}
-            </p>
-            <p
-              className="text-3xl font-black tracking-tight"
-              style={{ color: 'var(--juba-primary)' }}
-            >
+    <div className="mx-auto max-w-6xl space-y-8 px-3 py-5 sm:px-6 sm:py-8">
+      {/* Hero */}
+      <section className="relative overflow-hidden rounded-[32px] bg-[var(--juba-violet)] px-6 py-7 text-white shadow-[0_18px_50px_rgba(108,69,245,0.22)] sm:px-9 sm:py-9">
+        <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--juba-yellow)] opacity-95" />
+        <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--juba-coral)] opacity-80" />
+        <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[18px] bg-[var(--juba-mint)]" />
+        <div className="relative z-10 max-w-3xl">
+          <div className="mb-5 flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-white/15 px-3 py-1.5 text-xs font-black tracking-wide backdrop-blur-sm">
+              {t('learningRoadmap')}
+            </span>
+            <span className="rounded-full bg-[var(--juba-yellow)] px-3 py-1.5 text-xs font-black text-[#242033]">
               {level}
-            </p>
+            </span>
           </div>
-          <div>
-            <p className="text-fl-muted-3 text-xs font-medium">
-              {t('duration')}
-            </p>
-            <p className="text-fl-muted-1 text-sm font-medium">
-              {t('durationDetail', {
-                weeks: plan.duration_weeks,
-                days: plan.days_per_week,
-              })}
-            </p>
-          </div>
-          <div>
-            <p className="text-fl-muted-3 text-xs font-medium">
-              {t('unitsLabel')}
-            </p>
-            <p className="text-fl-muted-1 text-sm font-semibold">
-              {units.length}
-            </p>
+          <h1 className="max-w-2xl text-3xl font-black tracking-[-0.045em] sm:text-5xl">
+            {langName ? `${langName} · ${t('level')}` : t('level')}
+          </h1>
+          <p className="mt-3 max-w-xl text-sm font-medium leading-6 text-white/80 sm:text-base">
+            {t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <div className="rounded-2xl bg-white/12 px-4 py-3 backdrop-blur-sm">
+              <p className="text-[11px] font-bold text-white/65">{t('unitsLabel')}</p>
+              <p className="mt-0.5 text-xl font-black">{units.length}</p>
+            </div>
+            <div className="rounded-2xl bg-white/12 px-4 py-3 backdrop-blur-sm">
+              <p className="text-[11px] font-bold text-white/65">{t('pendingLessons')}</p>
+              <p className="mt-0.5 text-xl font-black">{pendingLessons.length}</p>
+            </div>
+            <div className="rounded-2xl bg-white/12 px-4 py-3 backdrop-blur-sm">
+              <p className="text-[11px] font-bold text-white/65">{t('level')}</p>
+              <p className="mt-0.5 text-xl font-black">{Math.round((competencies[currentUnitId] ?? 0) * 100)}%</p>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* ── Pending lessons ── */}
+      {/* Resume */}
+      {activeLessonId != null && (
+        <section className="relative overflow-hidden rounded-[28px] bg-[var(--juba-yellow)] px-5 py-5 shadow-[0_14px_32px_rgba(39,28,72,0.08)] sm:px-7">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-[#6b5920]">{t('learningRoadmap')}</p>
+              <h2 className="mt-1 text-xl font-black tracking-tight text-[#242033]">{t('resume')}</h2>
+              <p className="mt-1 text-sm font-medium text-[#6b5920]">{t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}</p>
+            </div>
+            <button
+              onClick={() => void launchLesson(activeLessonId)}
+              className="rounded-2xl bg-[var(--juba-violet)] px-6 py-3 text-sm font-black text-white shadow-[0_5px_0_var(--juba-violet-dark)] transition-transform hover:-translate-y-0.5 active:translate-y-1"
+            >
+              {t('resume')} →
+            </button>
+          </div>
+        </section>
+      )}
+
+      {/* Pending lessons */}
       {pendingLessons.length > 0 && (
-        <div
-          className="rounded-2xl border p-5"
-          style={{
-            borderColor:
-              'color-mix(in srgb, var(--juba-warm) 40%, var(--juba-border))',
-            background: 'var(--juba-warm-soft)',
-          }}
-        >
-          <p
-            className="mb-3 text-xs font-bold tracking-wide uppercase"
-            style={{ color: 'var(--juba-warm)' }}
-          >
-            {pendingLessons.length} {t('pendingLessons')}
-          </p>
-          <div className="space-y-2">
-            {pendingLessons.map((lesson) => (
-              <div
+        <section>
+          <div className="mb-4 flex items-end justify-between gap-4 px-1">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-violet)]">{t('pendingLessons')}</p>
+              <h2 className="mt-1 text-2xl font-black tracking-tight text-[#242033]">{t('learningRoadmap')}</h2>
+            </div>
+            <span className="rounded-full bg-[var(--juba-lilac)] px-3 py-1 text-xs font-black text-[var(--juba-violet-dark)]">{pendingLessons.length}</span>
+          </div>
+          <div className="grid gap-3 md:grid-cols-2">
+            {pendingLessons.map((lesson, i) => (
+              <button
                 key={lesson.id}
-                className="border-fl-border bg-fl-surface flex items-center justify-between gap-3 rounded-xl border px-4 py-3"
+                onClick={() => void launchLesson(lesson.id)}
+                className="group flex items-center gap-4 rounded-[24px] border-2 border-[#ebe7f5] bg-white p-4 text-start shadow-[0_12px_28px_rgba(39,28,72,0.06)] transition-all hover:-translate-y-1 hover:border-[var(--juba-violet)]"
               >
-                <div className="min-w-0">
-                  <p className="text-fl-fg truncate text-sm font-medium">
-                    {lesson.title}
-                  </p>
-                  <p className="text-fl-muted-3 mt-0.5 text-xs">
-                    W{lesson.week_number} D{lesson.day_number} ·{' '}
-                    {lesson.lesson_type}
-                  </p>
-                </div>
-                <button
-                  onClick={() => void launchLesson(lesson.id)}
-                  className="shrink-0 rounded-lg bg-[var(--juba-primary)] px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[var(--juba-primary-dark)]"
-                >
-                  {t('resume')}
-                </button>
-              </div>
+                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[17px] text-sm font-black ${i % 2 === 0 ? 'bg-[var(--juba-mint)]' : 'bg-[var(--juba-sky)]'} text-[#242033]`}>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm font-black text-[#242033]">{lesson.title}</span>
+                  <span className="mt-1 block text-xs font-semibold text-[#938da2]">W{lesson.week_number} · D{lesson.day_number} · {lesson.lesson_type}</span>
+                </span>
+                <span className="text-xl font-black text-[var(--juba-violet)] transition-transform group-hover:translate-x-1">→</span>
+              </button>
             ))}
           </div>
+        </section>
+      )}
+
+      {/* Path */}
+      <section>
+        <div className="mb-5 px-1">
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-violet)]">{t('learningRoadmap')}</p>
+          <h2 className="mt-1 text-2xl font-black tracking-tight text-[#242033]">{langName || t('level')} · {level}</h2>
         </div>
-      )}
 
-      {/* ── Unit list ── */}
-      <div className="space-y-2">
-        {units.length === 0 && (
-          <div className="border-fl-border bg-fl-surface space-y-2 rounded-2xl border px-6 py-10 text-center">
-            <p className="text-fl-muted-2 text-sm font-medium">
-              {t('noUnitsForLevel', { level })}
-            </p>
-            <p className="text-fl-muted-4 text-xs">{t('noUnitsDesc')}</p>
-          </div>
-        )}
-        {units.map((unit, i) => {
-          const unitLessons = byUnit[unit.id] ?? []
-          const completedLessons = unitLessons.filter((l) => l.completed).length
-          const isActive = unit.id === currentUnitId
-          const unitComp = competencies[unit.id] ?? 0
-          const isCompleted =
-            unitComp >= 0.8 ||
-            (completedLessons > 0 && completedLessons === unitLessons.length)
+        <div className="relative space-y-4">
+          <div className="pointer-events-none absolute start-[28px] top-8 bottom-8 hidden w-1 rounded-full bg-[var(--juba-lilac)] sm:block" />
+          {units.length === 0 && (
+            <div className="rounded-[28px] border-2 border-[#ebe7f5] bg-white px-6 py-12 text-center shadow-[0_14px_32px_rgba(39,28,72,0.06)]">
+              <p className="text-sm font-black text-[#777087]">{t('noUnitsForLevel', { level })}</p>
+              <p className="mt-2 text-xs font-medium text-[#aaa4b5]">{t('noUnitsDesc')}</p>
+            </div>
+          )}
+          {units.map((unit, i) => {
+            const unitLessons = byUnit[unit.id] ?? []
+            const completedLessons = unitLessons.filter((l) => l.completed).length
+            const isActive = unit.id === currentUnitId
+            const unitComp = competencies[unit.id] ?? 0
+            const isCompleted = unitComp >= 0.8 || (completedLessons > 0 && completedLessons === unitLessons.length)
+            const prereqUnit = unit.prerequisite_unit
+            const prereqCompleted = prereqUnit ? (competencies[prereqUnit] ?? 0) >= 0.8 : true
+            const isLocked = !isActive && !isCompleted && !prereqCompleted && i > 0
 
-          // A unit is locked if its prerequisite is not completed
-          const prereqUnit = unit.prerequisite_unit
-          const prereqCompleted = prereqUnit
-            ? (competencies[prereqUnit] ?? 0) >= 0.8
-            : true
-          const isLocked =
-            !isActive && !isCompleted && !prereqCompleted && i > 0
+            return (
+              <div key={unit.id} className="relative sm:ps-16">
+                <div className="absolute start-3 top-5 z-10 hidden h-8 w-8 items-center justify-center rounded-full border-4 border-[#fbfaff] bg-[var(--juba-violet)] shadow-sm sm:flex">
+                  <span className="text-[10px] font-black text-white">{i + 1}</span>
+                </div>
+                <UnitCard
+                  title={unit.title}
+                  index={i}
+                  lessonCount={unitLessons.length || unit.lesson_types.length}
+                  grammarCount={unit.grammar_points.length}
+                  competency={unitComp}
+                  status={{ completed: isCompleted, active: isActive, locked: isLocked, isLevelTest: false }}
+                  onClick={() => setActiveDrawer(unit)}
+                  onStartLesson={isActive && activeLessonId != null ? () => void launchLesson(activeLessonId) : undefined}
+                />
+              </div>
+            )
+          })}
 
-          return (
-            <UnitCard
-              key={unit.id}
-              title={unit.title}
-              index={i}
-              lessonCount={unitLessons.length || unit.lesson_types.length}
-              grammarCount={unit.grammar_points.length}
-              competency={unitComp}
-              status={{
-                completed: isCompleted,
-                active: isActive,
-                locked: isLocked,
-                isLevelTest: false,
-              }}
-              onClick={() => setActiveDrawer(unit)}
-              onStartLesson={
-                isActive && activeLessonId != null
-                  ? () => void launchLesson(activeLessonId)
-                  : undefined
-              }
-            />
-          )
-        })}
-
-        {/* Level test pseudo-unit */}
-        {units.length > 0 && (
-          <UnitCard
-            title={t('completionTestTitle', { level })}
-            index={units.length}
-            lessonCount={1}
-            grammarCount={0}
-            competency={
-              plan.completion_test_score != null
-                ? plan.completion_test_score
-                : 0
-            }
-            status={{
-              completed: plan.completion_test_taken,
-              active: allUnitsCompleted && !plan.completion_test_taken,
-              locked: !allUnitsCompleted,
-              isLevelTest: true,
-            }}
-            onClick={() => {
-              if (allUnitsCompleted && !plan.completion_test_taken) {
-                router.push(`/assessment/level-test?plan=${plan.id}`)
-              }
-            }}
-          />
-        )}
-      </div>
-
-      {/* ── Level test banner ── */}
-      {allUnitsCompleted && !plan.completion_test_taken && (
-        <LevelTestBanner planId={plan.id} level={level} />
-      )}
-
-      {/* ── Completion test result ── */}
-      {plan.completion_test_taken && (
-        <div className="border-fl-border bg-fl-surface space-y-2 rounded-2xl border px-5 py-5 sm:px-6">
-          <p className="text-fl-muted-3 text-xs font-semibold tracking-wide uppercase">
-            {t('levelTestResult')}
-          </p>
-          <p className="text-fl-fg text-sm">
-            {t('testScore')}{' '}
-            <span className="font-bold">
-              {plan.completion_test_score != null
-                ? `${Math.round(plan.completion_test_score * 100)}%`
-                : 'n/a'}
-            </span>
-          </p>
-          {plan.completion_test_recommendation && (
-            <p className="text-fl-muted-1 text-sm">
-              {plan.completion_test_recommendation}
-            </p>
+          {units.length > 0 && (
+            <div className="relative sm:ps-16">
+              <UnitCard
+                title={t('completionTestTitle', { level })}
+                index={units.length}
+                lessonCount={1}
+                grammarCount={0}
+                competency={plan.completion_test_score ?? 0}
+                status={{
+                  completed: plan.completion_test_taken,
+                  active: allUnitsCompleted && !plan.completion_test_taken,
+                  locked: !allUnitsCompleted,
+                  isLevelTest: true,
+                }}
+                onClick={() => {
+                  if (allUnitsCompleted && !plan.completion_test_taken) router.push(`/assessment/level-test?plan=${plan.id}`)
+                }}
+              />
+            </div>
           )}
         </div>
+      </section>
+
+      {allUnitsCompleted && !plan.completion_test_taken && <LevelTestBanner planId={plan.id} level={level} />}
+
+      {plan.completion_test_taken && (
+        <section className="rounded-[28px] border-2 border-[#ebe7f5] bg-white px-5 py-5 shadow-[0_14px_32px_rgba(39,28,72,0.06)] sm:px-7">
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-violet)]">{t('levelTestResult')}</p>
+          <p className="mt-2 text-sm font-semibold text-[#5f596e]">
+            {t('testScore')} <span className="font-black text-[#242033]">{plan.completion_test_score != null ? `${Math.round(plan.completion_test_score * 100)}%` : 'n/a'}</span>
+          </p>
+          {plan.completion_test_recommendation && <p className="mt-2 text-sm text-[#777087]">{plan.completion_test_recommendation}</p>}
+        </section>
       )}
 
-      {/* ── Active drawer ── */}
       {activeDrawer && (
         <UnitDrawer
           unit={activeDrawer}
-          lessons={(byUnit[activeDrawer.id] ?? []).map((l) => ({
-            ...l,
-            completed: l.completed ?? false,
-          }))}
+          lessons={(byUnit[activeDrawer.id] ?? []).map((l) => ({ ...l, completed: l.completed ?? false }))}
           onClose={() => setActiveDrawer(null)}
           onStartLesson={(lessonId) => {
             setActiveDrawer(null)
