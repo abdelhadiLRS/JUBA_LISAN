@@ -1,0 +1,8 @@
+"""Sundanese foundation data for JUBA LISAN."""
+from app.data._types import CurriculumUnit, GrammarExample, GrammarTopic, VocabularyEntry, VocabularySet, PhrasebookCategory, PhrasebookEntry, AssessmentQuestion
+LEVELS=["A1","A2","B1","B2","C1","C2"]
+CURRICULUM={level:[CurriculumUnit(id=f"su-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Sundanese {level} communication",grammar_points=["basic sentence structure","core verb forms"],vocabulary_set_ids=["identity_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Introduce yourself","Handle basic everyday exchanges"],default_weeks=2)] for level in LEVELS}
+GRAMMAR_TOPICS=[GrammarTopic(slug="basic-sentence-structure",title="Basic sentence structure",level="A1",category="syntax",summary="Build simple sentences.",explanation="Learn foundational sentence structure in Sundanese.",examples=[GrammarExample(text="A basic sentence.")])]
+VOCABULARY_SETS=[VocabularySet(id="identity_a1",level="A1",topic="Greetings and identity",unit_ref=f"su-a1-unit-1",words=[VocabularyEntry(word="greeting",pos="phrase",definition="greeting",example="Everyday greeting"),VocabularyEntry(word="thanks",pos="phrase",definition="thanks",example="Express thanks")])]
+PHRASEBOOK_CATEGORIES=[PhrasebookCategory(id="greetings_a1",level="A1",situation="Greetings and introductions",icon="👋",phrases=[PhrasebookEntry(text="Hello",context="greeting",register="neutral"),PhrasebookEntry(text="Thank you",context="thanks",register="neutral")])]
+ASSESSMENT_BANK=[AssessmentQuestion(id=f"su-a1-001",skill="vocabulary",difficulty="A1",question="Which phrase is used to express thanks?",options=["Thank you","A","B","C"],correct="Thank you")]
