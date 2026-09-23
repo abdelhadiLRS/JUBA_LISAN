@@ -280,6 +280,13 @@ export default function PlanPage() {
       setCompetencies(competencySnapshot)
       setActiveLessonId(nextLessonId)
       setPendingLessons(pendingData ?? [])
+      setActiveLessonId(nextLessonId)
+      if (!journeyMap && !compData) {
+        setCompetencies({})
+      }
+      if (!journey && !todayData) {
+        setActiveLessonId(null)
+      }
       setLessonStates(states)
     } catch (err) {
       if (!cancelled && requestId === loadRequestRef.current) setError(err instanceof Error ? err.message : 'Failed to load')
