@@ -1,18 +1,6 @@
 /* JUBA LISAN — route-specific compatibility and presentation rules.
  * Canonical design tokens live in juba-shell.css; this file preserves
  * legacy route selectors while they are progressively consolidated. */
-.bg-fl-bg { background-color: var(--juba-bg) !important; }
-.bg-fl-bg-alt { background-color: var(--juba-surface-soft) !important; }
-.bg-fl-surface { background: var(--juba-surface) !important; border-color: var(--juba-border) !important; box-shadow: none !important; backdrop-filter: none !important; }
-.bg-fl-surface-2 { background: var(--juba-surface-soft) !important; }
-.bg-fl-border { background-color: var(--juba-border) !important; }
-.border-fl-border { border-color: var(--juba-border) !important; }
-.border-fl-border-2 { border-color: var(--juba-border) !important; }
-.text-fl-fg, .text-fl-muted-0 { color: var(--juba-text) !important; }
-.text-fl-muted-1, .text-fl-muted-2 { color: var(--juba-muted) !important; }
-.text-fl-muted-3, .text-fl-muted-4 { color: color-mix(in srgb, var(--juba-muted) 82%, var(--juba-bg)) !important; }
-.text-fl-accent { color: var(--juba-primary-dark) !important; }
-.bg-fl-accent { background: var(--juba-primary) !important; color: var(--juba-text) !important; border-radius: .8rem !important; box-shadow: none !important; }
 
 /* Map remaining amber/emerald utilities from the old landing palette into the new identity. */
 [class*='bg-amber-500'] { background-color: var(--juba-primary) !important; }
