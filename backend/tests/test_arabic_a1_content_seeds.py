@@ -20,3 +20,9 @@ def test_seed_contains_teaching_material():
 
 def test_unknown_lesson_has_no_seed():
     assert get_arabic_a1_content_seed("a1-u9-w1-d1") is None
+
+
+def test_arabic_a1_course_content_integrity():
+    from app.data.ar.lessons import validate_arabic_a1_content_quality
+
+    assert validate_arabic_a1_content_quality() == []
