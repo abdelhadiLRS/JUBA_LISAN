@@ -19,6 +19,7 @@ import WhatsNew from '@/components/whats-new/WhatsNew'
 import { PageLoading } from '@/components/ui/page-loading'
 import { SubscriptionPlanButtons } from '@/components/billing/SubscriptionPlanButtons'
 import { DashboardAnnouncement } from '@/components/dashboard/DashboardAnnouncement'
+import { useLearningProgressSync } from '@/hooks/use-learning-progress'
 
 interface TodayLessonItem {
   id: number | null
@@ -161,7 +162,9 @@ export default function DashboardPage() {
   const loadRequestRef = useRef(0)
 
   const loadData = useCallback(async () => {
-    const requestId = ++loadRequestRef.current
+
+
+  useLearningProgressSync(() => loadData())    const requestId = ++loadRequestRef.current
     try {
       const [progRes, planRes, goalRes] = await Promise.all([
         apiFetch('/api/progress/summary'),
