@@ -110,7 +110,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--juba-bg)] text-[var(--juba-text)] font-sans selection:bg-[var(--juba-yellow)]/25 selection:text-[var(--juba-violet)] overflow-x-hidden">
+    <div className="juba-funfluent-page min-h-screen flex flex-col font-sans selection:bg-[var(--juba-yellow)]/25 overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -130,12 +130,12 @@ export default async function Home() {
       />
 
       {/* Hero Section */}
-      <section className="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden bg-gradient-to-b from-[var(--juba-lilac)]/50 via-[var(--juba-bg)] to-[var(--juba-bg)]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+      <section className="juba-funfluent-hero">
+        <div className="juba-funfluent-hero-inner">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 
             {/* Left Column: Hero Text & Actions */}
-            <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <div className="juba-funfluent-copy">
 
               {/* Floating Language Pills Header */}
               <div className="mb-4">
@@ -149,12 +149,12 @@ export default async function Home() {
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[var(--juba-text)] leading-[1.15] mb-6">
+              <h1>
                 {t('heroTitle')}
               </h1>
 
               {/* Subtitle */}
-              <p className="text-lg sm:text-xl text-[var(--juba-muted)] font-normal leading-relaxed max-w-2xl mb-8">
+              <p>
                 {t('heroSub')}
               </p>
 
@@ -162,7 +162,7 @@ export default async function Home() {
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
                 <Link
                   href={hasSession ? '/dashboard' : '/register'}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-[28px] bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)] text-[var(--juba-ink)] px-8 py-4 text-base font-bold shadow-lg shadow-[var(--j-shell-shadow)] transition-all hover:shadow-[var(--j-shell-shadow)] active:scale-95"
+                  className="juba-ff-primary w-full sm:w-auto gap-2"
                 >
                   {hasSession ? t('dashboard') : t('ctaStart')}
                   <ArrowRight className="w-5 h-5" />
@@ -190,8 +190,8 @@ export default async function Home() {
             </div>
 
             {/* Right Column: AI Tutor Card Showcase */}
-            <div className="lg:col-span-5 relative flex justify-center">
-              <div className="w-full max-w-md juba-card p-6 bg-[var(--juba-surface)]/95 backdrop-blur-xl relative z-10">
+            <div className="juba-ff-art"><div className="ff-orbit" aria-hidden="true" /><div className="ff-card"><span className="ff-emoji">🦜</span>Speak & learn</div><div className="ff-card"><span className="ff-emoji">📚</span>Read stories</div><div className="ff-card"><span className="ff-emoji">🎧</span>Listen naturally</div>
+              <div className="relative z-10 mx-auto w-full max-w-md rounded-[30px] border-[6px] border-white bg-white/90 p-6 shadow-[0_18px_0_rgba(57,117,29,.10),0_30px_55px_rgba(57,117,29,.16)] backdrop-blur-xl">
                 <div className="flex items-center justify-between pb-4 border-b border-[var(--juba-border)] mb-6">
                   <div className="flex items-center gap-3">
                     <div className="relative flex h-12 w-12 items-center justify-center rounded-[28px] bg-gradient-to-tr from-[var(--juba-violet)] to-[var(--juba-coral)] text-white font-extrabold text-xl shadow-md">
