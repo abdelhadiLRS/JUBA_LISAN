@@ -294,3 +294,35 @@ def validate_arabic_a1_content_quality() -> list[str]:
             issues.append(f"{seed.lesson_id}: empty production prompt")
 
     return issues
+
+
+def get_arabic_a1_content_quality_report() -> dict[str, object]:
+    """Summarize lexical grounding and duplication without blocking valid course data."""
+    from collections import Counter
+    from app.data.ar.vocabulary import VOCABULARY_SETS
+
+    vocab_by_id = {item.id: {word.word for word in item.words} for item in VOCABULARY_SETS}
+    seed_by_id = {seed.lesson_id: seed for seed in ARABIC_A1_CONTENT_SEEDS}
+    lexical_hits = 0
+    lexical_total = 0
+    signatures: Counter[tuple[tuple[str, ...], tuple[str, ...]]] = Counter()
+
+    for lesson in get_arabic_a1_lessons():
+        seed = seed_by_id[lesson.id]
+        lesson_words = set().union(*(vocab_by_id.get(v, set()) for v in lesson.vocabulary_set_ids))
+        searchable = seed.target_phrases + seed.model_sentences
+        lexical_total += len(searchable)
+        lexical_hits += sum(
+            1 for text in searchable
+            if any(word and word in text for word in lesson_words)
+        )
+        signatures[(seed.target_phrases, seed.model_sentences)] += 1
+
+    duplicate_groups = sum(1 for count in signatures.values() if count > 1)
+    return {
+        "lesson_count": len(get_arabic_a1_lessons()),
+        "seed_count": len(ARABIC_A1_CONTENT_SEEDS),
+        "lexical_grounding_ratio": round(lexical_hits / lexical_total, 3) if lexical_total else 0.0,
+        "duplicate_seed_groups": duplicate_groups,
+        "fully_unique_seed_signatures": sum(1 for count in signatures.values() if count == 1),
+    }
