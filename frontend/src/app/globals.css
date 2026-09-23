@@ -39,9 +39,6 @@
 .juba-mobile-lesson .juba-card:hover{
   transform:translateY(-2px);
 }
-.juba-mobile-plan .rounded-\\[26px\\],
-.juba-mobile-lesson .rounded-\\[26px\\]{
-  border-color:var(--juba-border);
 }
 .juba-mobile-plan .bg-[var(--juba-lilac)],
 .juba-mobile-lesson .bg-[var(--juba-lilac)]{
