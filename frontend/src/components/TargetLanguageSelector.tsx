@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { Check, Sparkles } from 'lucide-react'
 import { TARGET_LANGUAGE_CATALOG } from '@/lib/target-languages'
 
 interface Props {
@@ -22,28 +23,47 @@ export default function TargetLanguageSelector({
   ).sort((a, b) => t(a.code).localeCompare(t(b.code)))
 
   return (
-    <div className="grid grid-cols-2 gap-2">
-      {filtered.map((lang) => (
-        <button
-          key={lang.code}
-          type="button"
-          onClick={() => onChange(lang.code)}
-          className={`flex items-center gap-2 border px-3 py-3 font-mono text-xs tracking-widest uppercase transition-colors ${
-            value === lang.code
-              ? 'border-fl-accent bg-fl-accent text-fl-accent-fg'
-              : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
-          }`}
-        >
-          <Image
-            src={lang.flagPath}
-            alt={lang.code}
-            width={20}
-            height={16}
-            className="object-cover"
-          />
-          {t(lang.code)}
-        </button>
-      ))}
+    <div className="grid gap-3 sm:grid-cols-2">
+      {filtered.map((lang) => {
+        const selected = value === lang.code
+
+        return (
+          <button
+            key={lang.code}
+            type="button"
+            onClick={() => onChange(lang.code)}
+            aria-pressed={selected}
+            className={`group relative flex min-h-20 items-center gap-3 rounded-2xl border p-4 text-left transition-all ${
+              selected
+                ? 'border-[var(--juba-primary)] bg-[var(--juba-primary-soft)] shadow-[0_8px_25px_rgba(15,23,42,0.08)]'
+                : 'border-fl-border bg-fl-surface hover:-translate-y-0.5 hover:border-[var(--juba-primary)]/40 hover:shadow-sm'
+            }`}
+          >
+            <span className="flex h-10 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-fl-surface-2 shadow-sm">
+              <Image
+                src={lang.flagPath}
+                alt=""
+                width={28}
+                height={20}
+                className="object-cover"
+              />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-sm font-black text-fl-fg">{t(lang.code)}</span>
+              <span className="mt-0.5 block truncate text-xs text-fl-muted-2">
+                {t(`${lang.code}-description`)}
+              </span>
+            </span>
+            {selected ? (
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--juba-primary)] text-white">
+                <Check className="h-4 w-4" />
+              </span>
+            ) : (
+              <Sparkles className="h-4 w-4 shrink-0 text-fl-muted-3 opacity-0 transition-opacity group-hover:opacity-100" />
+            )}
+          </button>
+        )
+      })}
     </div>
   )
 }
