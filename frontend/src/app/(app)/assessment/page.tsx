@@ -326,7 +326,7 @@ export default function AssessmentPage() {
     }
   }
 
-  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[0_22px_55px_rgba(61,42,130,0.12)]'
+  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[var(--j-shell-shadow)]'
   const panelClass = 'rounded-[22px] border-2 border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/45 p-4'
   const actionClass = 'w-full rounded-[18px] bg-[var(--juba-violet-dark)] px-4 py-3 font-bold text-white shadow-[0_6px_0_var(--juba-violet-dark)] transition hover:-translate-y-0.5 hover:bg-[var(--juba-violet-dark)]'
 
