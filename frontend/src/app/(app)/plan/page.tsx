@@ -168,7 +168,9 @@ export default function PlanPage() {
 
       if (!planRes.ok) {
         if (planRes.status === 404) {
-          router.push('/assessment')
+          if (!cancelled && requestId === loadRequestRef.current) {
+            router.push('/assessment')
+          }
           return
         }
         throw new Error(`Failed to load plan (${planRes.status})`)
