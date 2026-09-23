@@ -291,7 +291,7 @@ export default function PlanPage() {
     }
   }, [loadPlan])
 
-  useLearningProgressSync(() => loadPlan())
+  useLearningProgressSync(() => loadPlan(), { refreshOnPageShow: false, refreshOnVisibility: false })
 
   const launchLesson = useCallback(
     async (lessonId: number) => {
