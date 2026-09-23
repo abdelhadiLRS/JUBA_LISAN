@@ -87,6 +87,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   const helperRequestRef = useRef(0)
   const lessonRequestRef = useRef(0)
   const attemptRequestRef = useRef(0)
+  const answerRequestRef = useRef(0)
   const allSkillsMastered = skillMastery.length > 0 && skillMastery.every((item) => item.mastery_state === 'mastered')
 
   const loadLessonMastery = useCallback(async (lessonId: number) => {
@@ -424,19 +425,23 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
 
   const submitAnswer = async () => {
     if (!exercise || !answer.trim() || evaluating || exercise.feedback) return
+    const requestId = ++answerRequestRef.current
+    const lessonId = lesson?.id ?? 0
+    const exerciseId = exercise.id
     setAnswerError(false)
     setActionError(false)
     setEvaluating(true)
     try {
-      const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/answer`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ answer: answer.trim() }) })
+      const res = await apiFetch(`/api/lessons/exercises/${exerciseId}/answer`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ answer: answer.trim() }) })
       if (!res.ok) throw new Error('answer_failed')
       const result = await res.json()
-      setExercises((prev) => prev.map((item) => item.id === exercise.id ? { ...item, ...result } : item))
+      if (answerRequestRef.current !== requestId || lessonRequestRef.current !== lessonId) return
+      setExercises((prev) => prev.map((item) => item.id === exerciseId ? { ...item, ...result } : item))
       setSubmittedAnswer(answer.trim())
       setAnswer('')
       if (masteryReviewMode) setMasteryReviewCompleted((value) => value + 1)
-      void loadAttempts(exercise.id)
-      if (lesson) {
+      void loadAttempts(exerciseId)
+      if (lesson && lesson.id === lessonId && lessonRequestRef.current === lessonId) {
         const refreshedSummary = await loadAttemptSummary(lesson.id)
         if (masteryReviewMode) {
           try {
@@ -492,7 +497,11 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
         }
       }
       markLearningProgressUpdated()
-    } catch { setAnswerError(true) } finally { setEvaluating(false) }
+    } catch {
+      if (answerRequestRef.current === requestId) setAnswerError(true)
+    } finally {
+      if (answerRequestRef.current === requestId) setEvaluating(false)
+    }
   }
 
   if (!lesson) return <PageLoading />
