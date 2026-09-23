@@ -723,6 +723,7 @@
     "hintPrefix": "Hint: ",
     "retryEasier": "Retry easier",
     "checking": "Checking…",
+"answerError": "We could not check your answer. Please try again.",
     "next": "Next",
     "finish": "Finish lesson",
     "completed": "Completed",
