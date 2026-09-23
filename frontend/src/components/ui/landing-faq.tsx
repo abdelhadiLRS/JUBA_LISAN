@@ -42,7 +42,7 @@ export function LandingFAQ() {
         <ol className="list-none space-y-2">
           {steps.map((step, i) => (
             <li key={i} className="flex items-start gap-3">
-              <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[var(--juba-primary-soft)] text-xs font-semibold text-[var(--juba-primary-dark)]">
+              <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[var(--juba-lilac)] text-xs font-semibold text-[var(--juba-primary-dark)]">
                 {i + 1}
               </span>
               <span>{step}</span>
