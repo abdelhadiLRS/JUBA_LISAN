@@ -167,12 +167,12 @@ export function AudioPlayer({
 
   const colorClass =
     state === 'playing'
-      ? 'border-[var(--juba-primary)] bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)]'
+      ? 'border-[var(--juba-primary)] bg-[var(--juba-lilac)] text-[var(--juba-primary-dark)]'
       : state === 'loading'
         ? 'border-[var(--juba-border)] bg-[var(--juba-surface-soft)] text-[var(--juba-muted)] animate-pulse'
         : state === 'error'
           ? 'border-[color-mix(in_srgb,var(--juba-danger)_40%,var(--juba-border))] bg-[color-mix(in_srgb,var(--juba-danger)_8%,var(--juba-surface))] text-[var(--juba-danger)]'
-          : 'border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-muted)] hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-primary-dark)]'
+          : 'border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-muted)] hover:border-[var(--juba-primary)] hover:bg-[var(--juba-lilac)] hover:text-[var(--juba-primary-dark)]'
 
   return (
     <button
