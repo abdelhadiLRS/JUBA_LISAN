@@ -320,7 +320,7 @@ export default function PlanPage() {
   return (
     <div className="juba-mobile-plan mx-auto max-w-6xl space-y-8 px-3 py-5 sm:px-6 sm:py-8">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-[32px] bg-[var(--juba-violet)] px-6 py-7 text-white shadow-[0_18px_50px_rgba(108,69,245,0.22)] sm:px-9 sm:py-9">
+      <section className="relative overflow-hidden rounded-[32px] border-[3px] border-[#25302a] bg-[#5a9b32] px-6 py-7 text-white shadow-[7px_7px_0_#25302a] sm:px-9 sm:py-9">
         <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--juba-yellow)] opacity-95" />
         <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--juba-coral)] opacity-80" />
         <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[18px] bg-[var(--juba-mint)]" />
@@ -367,7 +367,7 @@ export default function PlanPage() {
             </div>
             <button
               onClick={() => void launchLesson(activeLessonId)}
-              className="rounded-2xl bg-[var(--juba-violet)] px-6 py-3 text-sm font-black text-white shadow-[0_5px_0_var(--juba-violet-dark)] transition-transform hover:-translate-y-0.5 active:translate-y-1"
+              className="rounded-2xl border-[3px] border-[#25302a] bg-[#ffd35a] px-6 py-3 text-sm font-black text-[#25302a] shadow-[4px_4px_0_#25302a] transition-transform hover:-translate-y-0.5 active:translate-y-1"
             >
               {t('resume')} →
             </button>
@@ -380,10 +380,10 @@ export default function PlanPage() {
         <section>
           <div className="mb-4 flex items-end justify-between gap-4 px-1">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-violet)]">{t('pendingLessons')}</p>
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-[#39751d]">{t('pendingLessons')}</p>
               <h2 className="mt-1 text-2xl font-black tracking-tight text-[#242033]">{t('learningRoadmap')}</h2>
             </div>
-            <span className="rounded-full bg-[var(--juba-lilac)] px-3 py-1 text-xs font-black text-[var(--juba-violet-dark)]">{pendingLessons.length}</span>
+            <span className="rounded-full bg-[var(--juba-lilac)] px-3 py-1 text-xs font-black text-[#39751d]">{pendingLessons.length}</span>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
             {pendingLessons.map((lesson, i) => (
@@ -399,7 +399,7 @@ export default function PlanPage() {
                   <span className="block truncate text-sm font-black text-[#242033]">{lesson.title}</span>
                   <span className="mt-1 block text-xs font-semibold text-[#938da2]">W{lesson.week_number} · D{lesson.day_number} · {lesson.lesson_type}</span>
                 </span>
-                <span className="text-xl font-black text-[var(--juba-violet)] transition-transform group-hover:translate-x-1">→</span>
+                <span className="text-xl font-black text-[#39751d] transition-transform group-hover:translate-x-1">→</span>
               </button>
             ))}
           </div>
@@ -409,7 +409,7 @@ export default function PlanPage() {
       {/* Path */}
       <section>
         <div className="mb-5 px-1">
-          <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-violet)]">{t('learningRoadmap')}</p>
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-[#39751d]">{t('learningRoadmap')}</p>
           <h2 className="mt-1 text-2xl font-black tracking-tight text-[#242033]">{langName || t('level')} · {level}</h2>
         </div>
 
@@ -433,7 +433,7 @@ export default function PlanPage() {
 
             return (
               <div key={unit.id} className="relative sm:ps-16">
-                <div className="absolute start-3 top-5 z-10 hidden h-8 w-8 items-center justify-center rounded-full border-4 border-[#fbfaff] bg-[var(--juba-violet)] shadow-sm sm:flex">
+                <div className="absolute start-3 top-5 z-10 hidden h-8 w-8 items-center justify-center rounded-full border-4 border-[#fbfaff] bg-[#39751d] shadow-sm sm:flex">
                   <span className="text-[10px] font-black text-white">{i + 1}</span>
                 </div>
                 <UnitCard
@@ -477,7 +477,7 @@ export default function PlanPage() {
 
       {plan.completion_test_taken && (
         <section className="rounded-[28px] border-2 border-[#ebe7f5] bg-white px-5 py-5 shadow-[0_14px_32px_rgba(39,28,72,0.06)] sm:px-7">
-          <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-violet)]">{t('levelTestResult')}</p>
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-[#39751d]">{t('levelTestResult')}</p>
           <p className="mt-2 text-sm font-semibold text-[#5f596e]">
             {t('testScore')} <span className="font-black text-[#242033]">{plan.completion_test_score != null ? `${Math.round(plan.completion_test_score * 100)}%` : 'n/a'}</span>
           </p>
