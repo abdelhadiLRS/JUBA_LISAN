@@ -11,7 +11,7 @@ const badgeVariants = cva(
       variant: {
         default: 'bg-[var(--juba-primary)] text-[var(--juba-text)] [a]:hover:opacity-80',
         secondary:
-          'bg-[var(--juba-surface-soft)] text-[var(--juba-text)] [a]:hover:bg-[var(--juba-border-soft)]',
+          'bg-[var(--juba-surface-soft)] text-[var(--juba-text)] [a]:hover:bg-[var(--juba-border)]',
         destructive:
           'border-[color-mix(in_srgb,var(--juba-danger)_24%,var(--juba-border))] bg-[color-mix(in_srgb,var(--juba-danger)_10%,var(--juba-surface))] text-[var(--juba-danger)] [a]:hover:bg-[color-mix(in_srgb,var(--juba-danger)_16%,var(--juba-surface))]',
         outline:
