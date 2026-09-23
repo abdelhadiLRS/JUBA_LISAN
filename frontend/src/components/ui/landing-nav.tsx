@@ -91,7 +91,7 @@ export function LandingNav({
         <div className="juba-mobile-menu juba-ff-mobile-menu border-b px-6 pt-4 pb-6 md:hidden animate-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col gap-4">
             {links}
-            <div className="pt-2 border-t border-[var(--juba-border)] flex flex-col gap-3">
+            <div className="pt-2 border-t border-[#dce7dc] flex flex-col gap-3">
               <Link href={hasSession ? '/dashboard' : '/login'} onClick={() => setOpen(false)} className="juba-nav-signin juba-ff-nav-signin w-full text-center py-2 text-sm font-semibold">{hasSession ? dashboard : signIn}</Link>
               <Link href={hasSession ? '/dashboard' : '/register'} onClick={() => setOpen(false)} className="juba-nav-cta juba-ff-nav-cta w-full text-center rounded-xl py-2.5 text-sm font-semibold">{hasSession ? dashboard : 'Get Started'}</Link>
             </div>
