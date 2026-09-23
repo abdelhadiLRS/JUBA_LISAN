@@ -933,3 +933,184 @@ body:has(.juba-site-nav) .juba-mobile-menu{background:var(--juba-surface)!import
     padding-inline:0;
   }
 }
+
+
+/* =========================================================
+   JUBA LISAN — final shell correction
+   The learner pages keep their existing content; this block
+   changes only the application chrome so the interface is
+   visually unmistakable.
+   ========================================================= */
+.juba-app-shell{
+  background:#f3f7f1;
+}
+.juba-sidebar{
+  width:276px;
+  flex-basis:276px;
+  background:#173a2a;
+  border-inline-end:0;
+  box-shadow:10px 0 34px rgba(18,48,35,.14);
+  color:#fff;
+}
+.juba-sidebar-top{
+  padding:24px 20px 22px;
+  border-bottom:1px solid rgba(255,255,255,.11);
+}
+.juba-sidebar-brand{
+  color:#fff;
+}
+.juba-sidebar-brand-copy strong{
+  color:#fff;
+  font-size:17px;
+}
+.juba-sidebar-brand-copy small{
+  color:rgba(255,255,255,.58);
+}
+.juba-sidebar-scroll{
+  padding:22px 14px;
+}
+.juba-sidebar-section + .juba-sidebar-section{
+  margin-top:26px;
+}
+.juba-sidebar-label{
+  color:rgba(255,255,255,.46);
+  padding-inline:12px;
+  font-size:9px;
+}
+.juba-sidebar-nav{
+  gap:6px;
+}
+.juba-sidebar-nav .juba-app-nav-link{
+  min-height:48px;
+  padding:0 14px;
+  border-radius:14px;
+  color:rgba(255,255,255,.72);
+  font-size:12px;
+  font-weight:800;
+}
+.juba-sidebar-nav .juba-app-nav-link svg{
+  color:rgba(255,255,255,.58);
+}
+.juba-sidebar-nav .juba-app-nav-link:hover{
+  background:rgba(255,255,255,.09);
+  color:#fff;
+}
+.juba-sidebar-nav .juba-app-nav-link.is-active{
+  background:#ffd45c;
+  color:#173a2a;
+  box-shadow:0 4px 0 rgba(0,0,0,.13);
+}
+.juba-sidebar-nav .juba-app-nav-link.is-active svg{
+  color:#2f6b1c!important;
+}
+.juba-sidebar-bottom{
+  padding:14px;
+  border-top:1px solid rgba(255,255,255,.11);
+}
+.juba-sidebar-action{
+  color:rgba(255,255,255,.62);
+  min-height:38px;
+}
+.juba-sidebar-action:hover{
+  background:rgba(255,255,255,.08);
+  color:#fff;
+}
+.juba-app-content{
+  background:#f3f7f1;
+}
+.juba-topbar{
+  min-height:78px;
+  background:rgba(255,255,255,.96);
+  border-bottom:1px solid #dce7dc;
+  box-shadow:0 3px 18px rgba(30,52,38,.055);
+}
+.juba-topbar-inner{
+  min-height:78px;
+  padding-inline:clamp(20px,3vw,42px);
+}
+.juba-topbar-title span{
+  font-size:16px;
+}
+.juba-topbar-title small{
+  color:#739080;
+}
+.juba-xp-pill{
+  min-height:40px;
+  padding-inline:14px;
+  background:#fff3c5;
+  border:1px solid #f2d56d;
+}
+.juba-avatar-button{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:#e9f5df;
+  border-color:#c9dfbe;
+}
+.juba-workspace-main{
+  padding-top:34px;
+  padding-bottom:80px;
+}
+.juba-app-shell .juba-mobile-dashboard,
+.juba-app-shell .juba-mobile-plan,
+.juba-app-shell .juba-mobile-progress,
+.juba-app-shell .juba-mobile-listening,
+.juba-app-shell .juba-mobile-reading,
+.juba-app-shell .juba-mobile-conversation,
+.juba-app-shell .juba-mobile-assessment,
+.juba-app-shell .juba-mobile-grammar,
+.juba-app-shell .juba-mobile-vocabulary,
+.juba-app-shell .juba-mobile-flashcards,
+.juba-app-shell .juba-games{
+  max-width:1180px;
+}
+.juba-mobile-drawer{
+  background:#173a2a;
+  color:#fff;
+}
+.juba-mobile-drawer-head{
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.juba-mobile-drawer .juba-sidebar-brand{
+  color:#fff;
+}
+.juba-mobile-drawer .juba-sidebar-brand-copy strong{
+  color:#fff;
+}
+.juba-mobile-drawer .juba-sidebar-brand-copy small{
+  color:rgba(255,255,255,.58);
+}
+.juba-mobile-drawer-nav{
+  padding-top:16px;
+}
+.juba-mobile-drawer-nav .juba-app-nav-link{
+  min-height:50px;
+  border-radius:14px;
+  color:rgba(255,255,255,.76);
+  background:rgba(255,255,255,.045);
+}
+.juba-mobile-drawer-nav .juba-app-nav-link:hover{
+  background:rgba(255,255,255,.1);
+  color:#fff;
+}
+.juba-mobile-drawer-nav .juba-app-nav-link.is-active{
+  background:#ffd45c;
+  color:#173a2a;
+}
+.juba-mobile-drawer-actions{
+  padding-top:14px;
+}
+@media(max-width:900px){
+  .juba-app-content{
+    background:#f3f7f1;
+  }
+  .juba-topbar,
+  .juba-topbar-inner{
+    min-height:68px;
+  }
+  .juba-mobile-menu-button{
+    background:#173a2a;
+    color:#fff;
+    border-color:#173a2a;
+  }
+}
