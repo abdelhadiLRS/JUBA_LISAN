@@ -27,7 +27,6 @@ h1, h2, h3, h4, h5, h6 { letter-spacing: -.025em; font-weight: 700; }
 .mx-auto.max-w-4xl .font-mono { font-family: inherit; }
 /* Route-specific legacy presentation blocks were removed after the learner routes migrated to canonical JUBA classes. */
 
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; } }
 @media (max-width:640px) {
   .mx-auto.max-w-4xl, .mx-auto.max-w-5xl { padding-inline: 1rem; }
   .juba-card { border-radius: 1rem; }
