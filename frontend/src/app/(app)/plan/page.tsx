@@ -193,34 +193,26 @@ export default function PlanPage() {
 
       if (cancelled || requestId !== loadRequestRef.current) return
 
-      setPlan(planData)
-      setActiveLessonId(null)
-      setPendingLessons(pendingData ?? [])
+      let competencySnapshot: CompetencyMap = {}
+      let nextLessonId: number | null = null
 
-      let journeyMap: CompetencyMap = {}
       if (journey) {
-        if (journey.next_lesson_id != null) {
-          setActiveLessonId(journey.next_lesson_id)
-        }
+        nextLessonId = journey.next_lesson_id
         for (const section of journey.sections) {
           for (const unit of section.units) {
-            journeyMap[unit.id] = unit.progress
+            competencySnapshot[unit.id] = unit.progress
           }
         }
       }
 
-      if (Object.keys(journeyMap).length > 0) {
-        setCompetencies(journeyMap)
-      } else if (Array.isArray(compData)) {
-        const map: CompetencyMap = {}
-        for (const item of compData as { unit_id: string; score: number }[]) {
-          map[item.unit_id] = item.score
+      if (Object.keys(competencySnapshot).length === 0) {
+        if (Array.isArray(compData)) {
+          for (const item of compData as { unit_id: string; score: number }[]) {
+            competencySnapshot[item.unit_id] = item.score
+          }
+        } else if (compData && typeof compData === 'object') {
+          competencySnapshot = compData as CompetencyMap
         }
-        setCompetencies(map)
-      } else if (compData && typeof compData === 'object') {
-        setCompetencies(compData as CompetencyMap)
-      } else {
-        setCompetencies({})
       }
 
       const states: Record<
@@ -230,9 +222,7 @@ export default function PlanPage() {
 
       if (generatedLessons) {
         for (const lesson of generatedLessons) {
-          states[
-            lessonKey(lesson.week_number, lesson.day_number, lesson.title)
-          ] = {
+          states[lessonKey(lesson.week_number, lesson.day_number, lesson.title)] = {
             id: lesson.id,
             completed: lesson.is_completed,
             action: lesson.is_completed ? 'review' : undefined,
@@ -242,9 +232,7 @@ export default function PlanPage() {
 
       if (pendingData) {
         for (const lesson of pendingData) {
-          states[
-            lessonKey(lesson.week_number, lesson.day_number, lesson.title)
-          ] = {
+          states[lessonKey(lesson.week_number, lesson.day_number, lesson.title)] = {
             id: lesson.id,
             completed: false,
             action: 'continue',
@@ -254,9 +242,9 @@ export default function PlanPage() {
 
       if (todayData) {
         const nextLesson = todayData.lessons.find(
-          (l) => l.id != null && !l.is_completed
+          (l) => l.id != null && !l.is_completed,
         )
-        setActiveLessonId(nextLesson?.id ?? null)
+        nextLessonId = nextLesson?.id ?? null
         for (const lesson of todayData.lessons) {
           if (lesson.id == null) continue
           states[lessonKey(lesson.week, lesson.day, lesson.title)] = {
@@ -267,6 +255,12 @@ export default function PlanPage() {
         }
       }
 
+      if (cancelled || requestId !== loadRequestRef.current) return
+
+      setPlan(planData)
+      setCompetencies(competencySnapshot)
+      setActiveLessonId(nextLessonId)
+      setPendingLessons(pendingData ?? [])
       setLessonStates(states)
     } catch (err) {
       if (!cancelled && requestId === loadRequestRef.current) setError(err instanceof Error ? err.message : 'Failed to load')
