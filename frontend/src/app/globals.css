@@ -39,12 +39,11 @@
 .juba-mobile-lesson .juba-card:hover{
   transform:translateY(-2px);
 }
-}
-.juba-mobile-plan .bg-[var(--juba-lilac)],
-.juba-mobile-lesson .bg-[var(--juba-lilac)]{
+.juba-mobile-plan .route-lilac-surface,
+.juba-mobile-lesson .route-lilac-surface{
   background:var(--juba-lilac)!important;
 }
-.juba-mobile-plan .bg-[var(--juba-yellow)]{
+.juba-mobile-plan .route-yellow-surface{
   border:3px solid var(--route-ink);
   box-shadow:5px 5px 0 var(--route-ink);
 }
@@ -72,9 +71,9 @@
   border-radius:28px!important;
   box-shadow:6px 6px 0 var(--route-ink)!important;
 }
-.juba-mobile-progress .bg-[var(--juba-violet)]{background:var(--route-green-dark)!important}
-.juba-mobile-progress .text-[var(--juba-violet)]{color:var(--route-green-dark)!important}
-.juba-mobile-progress .bg-[var(--juba-lilac)]{background:var(--juba-lilac)!important}
+.juba-mobile-progress .route-primary-surface{background:var(--route-green-dark)!important}
+.juba-mobile-progress .route-primary-text{color:var(--route-green-dark)!important}
+.juba-mobile-progress .route-lilac-surface{background:var(--juba-lilac)!important}
 @media(max-width:700px){
  .juba-mobile-progress{border-radius:0}
  .juba-mobile-progress .juba-card{box-shadow:4px 4px 0 var(--route-ink)!important}
