@@ -71,6 +71,8 @@ export default function ChatPage() {
   const [loadingConvs, setLoadingConvs] = useState(true)
   const [convLoadError, setConvLoadError] = useState(false)
   const [loadingMsgs, setLoadingMsgs] = useState(false)
+  const [messageLoadError, setMessageLoadError] = useState(false)
+  const [deleteError, setDeleteError] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [deletePending, setDeletePending] = useState<number | null>(null)
   const {
@@ -203,15 +205,18 @@ export default function ChatPage() {
     setActiveId(id)
     setMessages([])
     setError('')
+    setMessageLoadError(false)
     setLoadingMsgs(true)
     try {
       const res = await apiFetch(`/api/chat/conversations/${id}/messages`)
-      if (res.ok) {
-        const data = await res.json()
-        setMessages(data.messages || [])
+      if (!res.ok) {
+        setMessageLoadError(true)
+        return
       }
+      const data = await res.json()
+      setMessages(data.messages || [])
     } catch {
-      /* ignore */
+      setMessageLoadError(true)
     } finally {
       setLoadingMsgs(false)
     }
@@ -245,7 +250,15 @@ export default function ChatPage() {
   }
 
   async function deleteConversation(id: number) {
-    await apiFetch(`/api/chat/conversations/${id}`, { method: 'DELETE' })
+    setDeleteError(false)
+    try {
+      const res = await apiFetch(`/api/chat/conversations/${id}`, { method: 'DELETE' })
+      if (!res.ok) throw new Error('delete_failed')
+    } catch {
+      setDeleteError(true)
+      setDeletePending(null)
+      return
+    }
     setDeletePending(null)
     const updated = await loadConversations()
     if (updated === null) {
@@ -479,9 +492,21 @@ export default function ChatPage() {
 
           {/* Messages */}
           <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-6 py-4">
+            {deleteError && (
+              <div className="mx-auto max-w-lg border border-fl-error/30 bg-fl-error/10 px-4 py-3 text-fl-error-fg text-sm" role="alert">
+                {tCommon('errorMessage')}
+              </div>
+            )}
             {loadingMsgs ? (
               <div className="flex h-full items-center justify-center">
                 <PageLoading fullScreen={false} />
+              </div>
+            ) : messageLoadError ? (
+              <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
+                <p className="text-fl-error font-mono text-xs">{tCommon('error')}</p>
+                <button type="button" onClick={() => { if (activeId !== null) void selectConversation(activeId) }} className="border-fl-border px-4 py-2 text-fl-label text-fl-muted-1 hover:text-fl-fg">
+                  {tCommon('retry')}
+                </button>
               </div>
             ) : messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
