@@ -98,6 +98,8 @@ export default function AssessmentPage() {
   const [existingPlan, setExistingPlan] = useState<ExistingPlan | null>(null)
   const [error, setError] = useState('')
   const [bank, setBank] = useState<AssessmentQuestion[]>([])
+  const [bankLoading, setBankLoading] = useState(true)
+  const [bankError, setBankError] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState<AssessmentQuestion | null>(null)
   const [questionNumber, setQuestionNumber] = useState(0)
   const [answers, setAnswers] = useState<AnswerRecord[]>([])
@@ -118,32 +120,51 @@ export default function AssessmentPage() {
 
   useEffect(() => { void loadConfig() }, [loadConfig])
 
-  useEffect(() => {
-    async function check() {
-      try {
-        const lang = activeLanguage?.code ?? 'en-GB'
-        const [planRes, bankRes] = await Promise.all([
-          apiFetch('/api/study-plan/current'),
-          apiFetch(`/api/assessment/bank?language=${lang}`),
-        ])
-        if (bankRes.ok) {
-          const bankData = (await bankRes.json()) as { questions: AssessmentQuestion[] }
-          setBank(bankData.questions)
+  const loadAssessment = async () => {
+    setBankLoading(true)
+    setBankError(false)
+    setError('')
+    try {
+      const lang = activeLanguage?.code ?? 'en-GB'
+      const [planRes, bankRes] = await Promise.all([
+        apiFetch('/api/study-plan/current'),
+        apiFetch(`/api/assessment/bank?language=${encodeURIComponent(lang)}`),
+      ])
+      if (!bankRes.ok) {
+        setBank([])
+        setBankError(true)
+        setStep('beginner-gate')
+        return
+      }
+      const bankData = (await bankRes.json()) as { questions?: AssessmentQuestion[] }
+      const questions = Array.isArray(bankData.questions) ? bankData.questions : []
+      setBank(questions)
+      if (questions.length === 0) {
+        setBankError(true)
+        setStep('beginner-gate')
+        return
+      }
+      if (planRes.ok) {
+        const plan = await planRes.json()
+        if (plan?.cefr_level) {
+          setExistingPlan(plan as ExistingPlan)
+          setStep('existing')
+          return
         }
-        if (planRes.ok) {
-          const plan = await planRes.json()
-          if (plan?.cefr_level) {
-            setExistingPlan(plan as ExistingPlan)
-            setStep('existing')
-            return
-          }
-        }
-      } catch {
-        /* no plan */
       }
       setStep('beginner-gate')
+    } catch {
+      setBank([])
+      setBankError(true)
+      setStep('beginner-gate')
+    } finally {
+      setBankLoading(false)
     }
-    void check()
+  }
+
+  useEffect(() => {
+    void loadAssessment()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeLanguage?.code])
 
   const canOfferVoiceTrial =
@@ -161,7 +182,9 @@ export default function AssessmentPage() {
   }
 
   function startQuiz() {
+    if (bankLoading) return
     if (bank.length === 0) {
+      setBankError(true)
       setError(tCommon('errorMessage'))
       return
     }
@@ -379,6 +402,17 @@ export default function AssessmentPage() {
   if (step === 'beginner-gate') {
     return (
       <>
+        {bankError && (
+          <div className="mx-auto mb-4 w-full max-w-md px-6 pt-6">
+            <div role="alert" className="rounded-2xl border border-[var(--juba-danger)]/30 bg-[var(--juba-danger)]/10 px-4 py-3 text-sm text-[var(--juba-danger)]">
+              <p className="font-semibold">{tCommon('error')}</p>
+              <p className="mt-1">{tCommon('errorMessage')}</p>
+              <button type="button" onClick={() => void loadAssessment()} disabled={bankLoading} className="mt-3 font-semibold underline disabled:opacity-50">
+                {bankLoading ? tCommon('loading') : tCommon('retry')}
+              </button>
+            </div>
+          </div>
+        )}
         <BeginnerGate
           languageCode={activeLanguage?.iso639 ?? ''}
           onBeginner={() => {
