@@ -136,7 +136,7 @@ export function PaywallBanner({
           aria-hidden="true"
         />
 
-        <p className="text-fl-label text-[var(--juba-muted)] mb-2 font-mono tracking-widest uppercase">
+        <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-2 font-mono tracking-widest uppercase">
           {t('paywallLabel')}
         </p>
         <h2 className="text-[var(--juba-text)] mb-3 font-mono text-base font-bold">
@@ -156,7 +156,7 @@ export function PaywallBanner({
           <button
             onClick={handleManageBilling}
             disabled={portalLoading}
-            className="bg-[var(--juba-violet)] text-[var(--juba-violet-dark)]-fg hover:bg-[var(--juba-violet)]/90 w-full px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+            className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 w-full px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
           >
             {portalLoading ? '...' : t('updatePayment')}
           </button>
@@ -165,7 +165,7 @@ export function PaywallBanner({
             <button
               onClick={() => handleCheckout('yearly')}
               disabled={loading !== null}
-              className="bg-[var(--juba-violet)] text-[var(--juba-violet-dark)]-fg hover:bg-[var(--juba-violet)]/90 w-full px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+              className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 w-full px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
             >
               {loading === 'yearly' ? (
                 '...'
@@ -173,7 +173,7 @@ export function PaywallBanner({
                 <span className="flex flex-col items-center gap-0.5 leading-relaxed">
                   <span>{yearlyCta.main}</span>
                   {yearlyCta.savings && (
-                    <span className="text-[var(--juba-violet-dark)]-fg/80 text-[0.68rem]">
+                    <span className="text-white/80 text-[0.68rem]">
                       {yearlyCta.savings}
                     </span>
                   )}
@@ -183,7 +183,7 @@ export function PaywallBanner({
             <button
               onClick={() => handleCheckout('monthly')}
               disabled={loading !== null}
-              className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-border)]-2 w-full border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+              className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet-dark)] w-full border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
             >
               {loading === 'monthly'
                 ? '...'
@@ -193,18 +193,18 @@ export function PaywallBanner({
         )}
 
         {error && (
-          <p className="text-fl-hint mt-4 font-mono text-red-500">{error}</p>
+          <p className="text-[var(--juba-muted)] mt-4 font-mono text-red-500">{error}</p>
         )}
 
         {!paymentRecovery && (
-          <p className="text-fl-hint text-fl-muted-3 mt-6 font-mono tracking-widest uppercase">
+          <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] mt-6 font-mono tracking-widest uppercase">
             {t(trialEligible ? 'paywallNoCharge' : 'paywallNoChargeTrialUsed')}
           </p>
         )}
 
         <button
           onClick={() => router.push('/dashboard')}
-          className="text-fl-hint text-fl-muted-4 hover:text-[var(--juba-muted)] mt-5 w-full font-mono tracking-widest uppercase transition-colors"
+          className="text-[var(--juba-muted)] text-[var(--juba-muted)] hover:text-[var(--juba-muted)] mt-5 w-full font-mono tracking-widest uppercase transition-colors"
         >
           {t('paywallSkip')}
         </button>
