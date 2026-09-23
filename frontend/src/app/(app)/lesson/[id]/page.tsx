@@ -133,6 +133,9 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   useEffect(() => {
     const requestId = Number(id)
     lessonRequestRef.current = requestId
+    answerRequestRef.current += 1
+    attemptRequestRef.current += 1
+    helperRequestRef.current += 1
     let cancelled = false
     apiFetch(`/api/lessons/${id}`).then(async (res) => { if (!res.ok) throw new Error('lesson_fetch_failed'); return res.json() }).then((data: { lesson: LessonData; exercises: ExerciseItem[] }) => {
       if (!cancelled && lessonRequestRef.current === requestId) {
@@ -374,6 +377,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
       const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/adaptive-next`, { method: 'POST' })
       if (!res.ok) throw new Error('adaptive_next_failed')
       const payload: { action: string; recommended_variant?: string | null; exercise: ExerciseItem } = await res.json()
+      if (lessonRequestRef.current !== lesson.id) return
       const result: ExerciseItem = { ...payload.exercise, recommended_action: undefined, recommended_variant: null }
       const targetIndex = exercises.findIndex((item) => item.id === result.id)
       const nextIndex = targetIndex >= 0 ? targetIndex : exercises.length
@@ -406,6 +410,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
       const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/retry`, { method: 'POST' })
       if (!res.ok) throw new Error('retry_failed')
       const result: ExerciseItem = await res.json()
+      if (lessonRequestRef.current !== lesson.id) return
       const targetIndex = exercises.findIndex((item) => item.id === result.id)
       const nextIndex = targetIndex >= 0 ? targetIndex : exercises.length
       setExercises((prev) => {
