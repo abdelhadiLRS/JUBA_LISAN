@@ -26,3 +26,13 @@ def test_arabic_a1_course_content_integrity():
     from app.data.ar.lessons import validate_arabic_a1_content_quality
 
     assert validate_arabic_a1_content_quality() == []
+
+
+def test_arabic_a1_semantic_quality_report_is_structurally_complete():
+    from app.data.ar.lessons import get_arabic_a1_content_quality_report
+
+    report = get_arabic_a1_content_quality_report()
+    assert report["lesson_count"] == 80
+    assert report["seed_count"] == 80
+    assert 0.0 <= report["lexical_grounding_ratio"] <= 1.0
+    assert report["duplicate_seed_groups"] >= 0
