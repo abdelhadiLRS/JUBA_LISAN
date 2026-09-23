@@ -174,39 +174,41 @@ export default function PlanPage() {
         throw new Error(`Failed to load plan (${planRes.status})`)
       }
 
-      const planData = (await planRes.json()) as StudyPlan
+      const [planData, journey, compData, todayData, pendingData, generatedLessons] = await Promise.all([
+        planRes.json() as Promise<StudyPlan>,
+        journeyRes?.ok ? journeyRes.json() as Promise<LearningJourneyResponse> : Promise.resolve(null),
+        compRes?.ok ? compRes.json() : Promise.resolve(null),
+        todayRes?.ok ? todayRes.json() as Promise<{ lessons: TodayLesson[] }> : Promise.resolve(null),
+        pendingRes?.ok ? pendingRes.json() as Promise<PendingLesson[]> : Promise.resolve(null),
+        lessonsRes?.ok ? lessonsRes.json() as Promise<PlanLesson[]> : Promise.resolve(null),
+      ])
+
       if (cancelled || requestId !== loadRequestRef.current) return
+
       setPlan(planData)
 
-      if (journeyRes?.ok) {
-        const journey = (await journeyRes.json()) as LearningJourneyResponse
+      let journeyMap: CompetencyMap = {}
+      if (journey) {
         if (journey.next_lesson_id != null) {
           setActiveLessonId(journey.next_lesson_id)
         }
-        const journeyMap: CompetencyMap = {}
         for (const section of journey.sections) {
           for (const unit of section.units) {
             journeyMap[unit.id] = unit.progress
           }
         }
-        if (Object.keys(journeyMap).length > 0) {
-          setCompetencies(journeyMap)
-        }
       }
 
-      // Learning Journey is the authoritative progression snapshot.
-      // Use the legacy competency endpoint only if the journey request failed.
-      if (compRes?.ok && !journeyRes?.ok) {
-        const compData = await compRes.json()
-        if (Array.isArray(compData)) {
-          const map: CompetencyMap = {}
-          for (const item of compData as { unit_id: string; score: number }[]) {
-            map[item.unit_id] = item.score
-          }
-          setCompetencies(map)
-        } else {
-          setCompetencies(compData as CompetencyMap)
+      if (Object.keys(journeyMap).length > 0) {
+        setCompetencies(journeyMap)
+      } else if (Array.isArray(compData)) {
+        const map: CompetencyMap = {}
+        for (const item of compData as { unit_id: string; score: number }[]) {
+          map[item.unit_id] = item.score
         }
+        setCompetencies(map)
+      } else if (compData && typeof compData === 'object') {
+        setCompetencies(compData as CompetencyMap)
       }
 
       const states: Record<
@@ -214,8 +216,7 @@ export default function PlanPage() {
         Pick<Lesson, 'id' | 'completed' | 'action'>
       > = {}
 
-      if (lessonsRes?.ok) {
-        const generatedLessons = (await lessonsRes.json()) as PlanLesson[]
+      if (generatedLessons) {
         for (const lesson of generatedLessons) {
           states[
             lessonKey(lesson.week_number, lesson.day_number, lesson.title)
@@ -227,8 +228,7 @@ export default function PlanPage() {
         }
       }
 
-      if (pendingRes?.ok) {
-        const pendingData = (await pendingRes.json()) as PendingLesson[]
+      if (pendingData) {
         setPendingLessons(pendingData)
         for (const lesson of pendingData) {
           states[
@@ -241,10 +241,7 @@ export default function PlanPage() {
         }
       }
 
-      if (todayRes?.ok) {
-        const todayData = (await todayRes.json()) as {
-          lessons: TodayLesson[]
-        }
+      if (todayData) {
         const nextLesson = todayData.lessons.find(
           (l) => l.id != null && !l.is_completed
         )
