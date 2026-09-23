@@ -577,3 +577,16 @@ html[data-theme='light'] {
   .juba-ff-practice{padding:18px}.juba-ff-practice-copy h3{font-size:27px}
   .juba-ff-chat-controls{align-items:flex-start;gap:12px;flex-direction:column}
 }
+
+
+/* Landing footer legacy utility aliases are normalized here so no undefined
+   reference tokens can leave visible text or controls unstyled. */
+.juba-ff-footer a.flex > div:first-child{
+  background:var(--landing-yellow)!important;
+  color:var(--landing-ink)!important;
+  border:2px solid var(--landing-ink);
+  box-shadow:3px 3px 0 var(--landing-ink);
+}
+.juba-ff-footer a.flex > span{color:var(--landing-ink)!important}
+.juba-ff-footer a.flex > span span{color:var(--landing-green-dark)!important}
+.juba-ff-footer .border-t{border-color:var(--landing-border)!important}
