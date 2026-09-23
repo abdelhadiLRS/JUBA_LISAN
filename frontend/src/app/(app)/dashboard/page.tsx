@@ -94,9 +94,9 @@ function normalizeDashboardLessons(value: unknown): TodayLessonItem[] {
 }
 
 const btnPrimary =
-  'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
+  'inline-flex items-center justify-center gap-2 rounded-[20px] px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
 const btnSecondary =
-  'inline-flex items-center justify-center gap-2 rounded-xl border border-fl-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-surface-soft)]'
+  'inline-flex items-center justify-center gap-2 rounded-[20px] border border-[var(--juba-border)] px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-surface-soft)]'
 
 export default function DashboardPage() {
   const t = useTranslations('dashboard')
@@ -282,112 +282,288 @@ export default function DashboardPage() {
 
   if (loadError) {
     return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4">
+        <p className="text-[var(--juba-muted)] text-sm">{tError('body')}</p>
+        <button
+          onClick={() => {
+            setLoadError(false)
+            setLoading(true)
+            loadData()
+          }}
+          className="text-fl-accent text-sm font-medium underline transition-all hover:no-underline"
+        >
+          {tError('retry')}
+        </button>
+      </div>
+    )
+  }
+
+  const skillEntries = Object.entries(skills)
+    .map(([skill, value]) => ({ skill, value: value as number }))
+    .sort((a, b) => a.value - b.value)
+  
+  // Daily Momentum: completed lesson count is a plan-status metric, not XP goal progress.
+  const completedLessonCount = todayLessons.filter(
+    (lesson) =>
+      (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
+  ).length
+  
+  const nextLesson = todayLessons.find(
+    (lesson) =>
+      lesson.id && !completedToday.includes(lesson.id) && !lesson.isCompleted
+  )
+  const planCompletion =
+    hasPlan && totalDays > 0
+      ? Math.min(100, Math.round((progressDay / totalDays) * 100))
+      : 0
+  const daysRemaining = hasPlan ? Math.max(totalDays - progressDay, 0) : 0
+  const vocabularyProgressPct = Math.round(vocabularyProgress * 100)
+  const paymentRecovery = needsPaymentRecovery(user)
+  const showPremiumBanner = stripeEnabled && !isSubscribed(user, stripeEnabled)
+
+  function getPerformanceLabel(value: number) {
+    if (value < 0.5) return t('performanceNeedsPractice')
+    if (value < 0.8) return t('performanceInProgress')
+    return t('performanceStrong')
+  }
+
+  const stats = [
+    { label: t('streak'), value: `${streak}d`, Icon: Flame, highlight: streak > 0 },
+    { label: t('xp'), value: xp, Icon: Sparkles, highlight: false },
+    { label: t('lessonsCompleted'), value: totalLessons, Icon: BookOpen, highlight: false },
+    {
+      label: t('accuracy'),
+      value: totalExercises > 0 ? `${Math.round(accuracy * 100)}%` : '—',
+      Icon: Target,
+      highlight: false,
+      detail:
+        totalExercises > 0
+          ? t('exerciseStats', { correct: exercisesCorrect, total: totalExercises })
+          : t('noExercisesYet'),
+    },
+  ]
+
+  return (
     <>
       <OnboardingTour />
       <WhatsNew />
-      <div className="mx-auto max-w-[1180px] px-4 py-6 sm:px-6 lg:py-10">
-        <section className="relative mb-7 overflow-hidden rounded-[34px] bg-[#6c45f5] px-6 py-7 text-white shadow-[0_18px_45px_rgba(108,69,245,.22)] sm:px-9 sm:py-9">
-          <div className="pointer-events-none absolute -end-10 -top-16 h-48 w-48 rounded-full bg-[#ffd85a] opacity-90" />
-          <div className="pointer-events-none absolute -bottom-24 start-1/3 h-48 w-48 rounded-full bg-[#ff8d79] opacity-70" />
-          <div className="relative z-10 max-w-2xl">
-            <p className="mb-2 text-sm font-bold tracking-wide text-white/75">{t('welcomeBack')}</p>
-            <h1 className="text-3xl font-black tracking-[-.04em] sm:text-5xl">{user?.displayName || user?.username} 👋</h1>
-            <p className="mt-3 max-w-xl text-sm leading-6 text-white/80 sm:text-base">
-              {activeLanguage ? tTarget(activeLanguage.code) : ''}{cefrLevel ? ` · ${cefrLevel}` : ''}
-            </p>
-            {nextAction ? (
-              <Link href={`/lesson/${nextAction.id}`} className="mt-6 inline-flex rounded-2xl bg-[#ffd85a] px-5 py-3 text-sm font-black text-[#242033] shadow-[0_5px_0_#c79e18] transition-transform hover:-translate-y-0.5">
-                {t('startLesson')} <ArrowRight className="ms-2 h-4 w-4" />
-              </Link>
-            ) : !hasPlan ? (
-              <Link href="/assessment" className="mt-6 inline-flex rounded-2xl bg-[#ffd85a] px-5 py-3 text-sm font-black text-[#242033] shadow-[0_5px_0_#c79e18]">
-                {t('takeAssessmentArrow')}
-              </Link>
-            ) : null}
+      <div className="juba-mobile-dashboard mx-auto max-w-5xl px-4 py-6 sm:px-6 md:py-8">
+        <div className="mb-6">
+          <p className="text-[var(--juba-muted)] mb-1 text-sm">{t('welcomeBack')}</p>
+          <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
+            <div>
+              <h1 className="text-[var(--juba-text)] text-2xl font-bold tracking-tight sm:text-3xl">
+                {user?.displayName || user?.username}
+              </h1>
+              {activeLanguage && (
+                <p className="text-[var(--juba-muted)] mt-1 text-sm">
+                  {tTarget(activeLanguage.code)}{cefrLevel ? ` · ${cefrLevel}` : ''}
+                </p>
+              )}
+            </div>
+            {hasPlan && totalDays > 0 && (
+              <p className="text-[var(--juba-muted)] text-sm font-medium">
+                {t('dayProgress', { current: Math.min(progressDay + 1, totalDays), total: totalDays })}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <DashboardAnnouncement />
+
+        {/* Daily Momentum Hero Section - answers three core questions */}
+        <section className="juba-card mb-6 overflow-hidden p-0" aria-label={t('dailyMomentum')}>
+          <div className="border-b border-[var(--juba-border)] bg-gradient-to-r from-[var(--juba-accent)]/5 to-transparent p-5 sm:p-6">
+            <div className="flex items-center gap-2">
+              <Flame className="h-5 w-5 text-[var(--juba-accent)]" />
+              <h2 className="text-[var(--juba-text)] text-lg font-bold">{t('dailyMomentum')}</h2>
+            </div>
+            <p className="text-[var(--juba-muted)] mt-1 text-sm">{t('dailyMomentumSubtitle')}</p>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-4 p-5 sm:p-6 md:grid-cols-3">
+            {/* What should I do now? */}
+            <div className="rounded-[20px] border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4">
+              <p className="text-[var(--juba-muted)] mb-2 text-xs font-semibold uppercase tracking-wide">{t('whatNow')}</p>
+              {nextAction ? (
+                <>
+                  <h3 className="text-[var(--juba-text)] text-base font-bold">{nextAction.title}</h3>
+                  <p className="text-[var(--juba-muted)] mt-1 text-sm">{tPlan(getLessonTypeLabelKey(nextAction.lessonType))} · {nextAction.estimatedMinutes}min</p>
+                  <Link href={`/lesson/${nextAction.id}`} className="mt-3 inline-flex">
+                    <button className={`${btnPrimary} bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)]`}>
+                      {t('startLesson')} <ArrowRight className="h-4 w-4" />
+                    </button>
+                  </Link>
+                </>
+              ) : hasPlan ? (
+                <p className="text-[var(--juba-muted)] text-sm font-medium">{t('allCaughtUp')}</p>
+              ) : (
+                <Link href="/assessment"><p className="text-[var(--juba-accent)] text-sm font-semibold">{t('takeAssessment')}</p></Link>
+              )}
+            </div>
+            
+            {/* What is due for review? */}
+            <div className="rounded-[20px] border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4">
+              <p className="text-[var(--juba-muted)] mb-2 text-xs font-semibold uppercase tracking-wide">{t('dueForReview')}</p>
+              {reviewDueCount > 0 ? (
+                <>
+                  <h3 className="text-[var(--juba-text)] text-2xl font-bold text-[var(--juba-accent)]">{reviewDueCount}</h3>
+                  <p className="text-[var(--juba-muted)] mt-1 text-sm">{t('itemsToReview')}</p>
+                  <Link href="/review" className="mt-3 inline-flex">
+                    <button className={btnSecondary}>{t('reviewNow')}</button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <h3 className="text-[var(--juba-text)] text-2xl font-bold">✓</h3>
+                  <p className="text-[var(--juba-muted)] mt-1 text-sm">{t('noReviewsDue')}</p>
+                </>
+              )}
+            </div>
+            
+            {/* How close to today's goal? */}
+            <div className="rounded-[20px] border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4">
+              <p className="text-[var(--juba-muted)] mb-2 text-xs font-semibold uppercase tracking-wide">{t('todayGoal')}</p>
+              <div className="mb-2 flex items-end justify-between">
+                <span className="text-[var(--juba-text)] text-2xl font-bold">{goalProgress.current}</span>
+                <span className="text-[var(--juba-muted)] text-sm">/ {goalProgress.target} {t('xp')}</span>
+              </div>
+              <div className="bg-[var(--juba-surface-soft)] h-2 w-full overflow-hidden rounded-full">
+                <div 
+                  className="h-full rounded-full transition-all duration-500" 
+                  style={{ width: `${Math.min(100, (goalProgress.current / goalProgress.target) * 100)}%`, background: 'var(--juba-accent)' }}
+                />
+              </div>
+              <p className="text-[var(--juba-muted)] mt-2 text-xs">{goalProgress.current >= goalProgress.target ? t('goalCompleted') : t('xp')}</p>
+            </div>
           </div>
         </section>
 
-        <div className="mb-7 grid grid-cols-2 gap-3 md:grid-cols-4">
-          {[
-            { label: t('streak'), value: `${streak}d`, Icon: Flame, bg: '#fff0a8' },
-            { label: t('xp'), value: xp, Icon: Sparkles, bg: '#e7ddff' },
-            { label: t('lessonsCompleted'), value: totalLessons, Icon: BookOpen, bg: '#c9f5e3' },
-            { label: t('accuracy'), value: totalExercises > 0 ? `${Math.round(accuracy * 100)}%` : '—', Icon: Target, bg: '#ffd9d0' },
-          ].map(({ label, value, Icon, bg }) => (
-            <div key={label} className="rounded-[24px] bg-white p-4 shadow-[0_12px_30px_rgba(39,28,72,.07)] sm:p-5">
-              <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl" style={{ background: bg }}>
-                <Icon className="h-5 w-5 text-[#242033]" />
-              </span>
-              <p className="text-xs font-bold text-[#8b849b]">{label}</p>
-              <p className="mt-1 text-2xl font-black tracking-tight text-[#242033] sm:text-3xl">{value}</p>
+        <section className="juba-card mb-6 p-5 sm:p-6" aria-label={t('nextStep')}>
+          <p className="text-[var(--juba-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">{t('nextStep')}</p>
+          {!hasPlan ? (
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h2 className="text-[var(--juba-text)] text-xl font-bold tracking-tight">{t('startWithAssessment')}</h2>
+                <p className="text-[var(--juba-muted)] mt-2 max-w-xl text-sm">{t('assessmentCreatesPlan')}</p>
+              </div>
+              <Link href="/assessment"><button className={`${btnPrimary} bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)]`}>{t('takeAssessmentArrow')}</button></Link>
+            </div>
+          ) : nextLesson ? (
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-[var(--juba-muted)] mb-2 text-xs font-medium tracking-wide uppercase">{t('lessonReady')}</p>
+                <h2 className="text-[var(--juba-text)] text-xl font-bold tracking-tight">{nextLesson.title}</h2>
+                <p className="text-[var(--juba-muted)] mt-2 text-sm">{tPlan(getLessonTypeLabelKey(nextLesson.lessonType))} · {nextLesson.estimatedMinutes}min</p>
+              </div>
+              <Link href={`/lesson/${nextLesson.id}`}><button className={`${btnPrimary} bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)]`}>{t('startLesson')}</button></Link>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h2 className="text-[var(--juba-text)] text-xl font-bold tracking-tight">{t('allCaughtUp')}</h2>
+                <p className="text-[var(--juba-muted)] mt-2 text-sm">{pendingCount > 0 ? t('pendingStillAvailable', { count: pendingCount }) : t('noPendingToday')}</p>
+              </div>
+              <Link href="/plan"><button className={btnSecondary}>{t('goToMyPlan')}</button></Link>
+            </div>
+          )}
+        </section>
+
+        <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          {stats.map((stat) => (
+            <div key={stat.label} className="border-[var(--juba-border)] bg-[var(--juba-surface)] rounded-[26px] border p-4 sm:p-5">
+              <div className="mb-2 flex items-center gap-2">
+                <span className={`flex h-7 w-7 items-center justify-center rounded-lg ${stat.highlight ? 'bg-[color-mix(in srgb, var(--juba-yellow) 35%, transparent)] text-[var(--juba-violet)]' : 'bg-[var(--juba-lilac)] text-[var(--juba-violet)]'}`}>
+                  <stat.Icon className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <p className="text-[var(--juba-muted)] truncate text-xs font-medium">{stat.label}</p>
+              </div>
+              <p className={`text-2xl font-bold tracking-tight sm:text-3xl ${stat.highlight ? 'text-[var(--juba-violet)]' : 'text-[var(--juba-text)]'}`}>{stat.value}</p>
+              {'detail' in stat && stat.detail && <p className="text-[var(--juba-muted)] mt-1 text-xs">{stat.detail}</p>}
             </div>
           ))}
         </div>
 
-        <section className="mb-7 grid gap-5 lg:grid-cols-[1.45fr_.85fr]">
-          <div className="rounded-[30px] bg-white p-6 shadow-[0_14px_35px_rgba(39,28,72,.07)] sm:p-7">
-            <div className="mb-5 flex items-center justify-between gap-4">
-              <div>
-                <p className="text-xs font-black uppercase tracking-[.12em] text-[#91899f]">{t('dailyMomentum')}</p>
-                <h2 className="mt-1 text-2xl font-black tracking-tight text-[#242033]">{nextAction?.title || t('allCaughtUp')}</h2>
-              </div>
-              <span className="rounded-2xl bg-[#eee8ff] px-3 py-2 text-sm font-black text-[#5b36db]">{goalProgress.current}/{goalProgress.target} XP</span>
+        <div className="mb-6 grid gap-4 lg:grid-cols-2">
+          <section className="border-[var(--juba-border)] bg-[var(--juba-surface)] rounded-[26px] border p-5" aria-label={t('planProgress')}>
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <h3 className="text-[var(--juba-text)] text-sm font-semibold">{t('planProgress')}</h3>
+              {hasPlan && totalDays > 0 && <span className="text-[var(--juba-muted)] text-sm font-semibold">{planCompletion}%</span>}
             </div>
-            <div className="h-3 overflow-hidden rounded-full bg-[#f0edf6]">
-              <div className="h-full rounded-full bg-[#6c45f5] transition-all" style={{ width: `${Math.min(100, (goalProgress.current / goalProgress.target) * 100)}%` }} />
-            </div>
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl bg-[#f8f6fc] p-4"><p className="text-xs font-bold text-[#91899f]">{t('whatNow')}</p><p className="mt-1 font-black text-[#242033]">{nextAction ? `${tPlan(getLessonTypeLabelKey(nextAction.lessonType))} · ${nextAction.estimatedMinutes}min` : t('allCaughtUp')}</p></div>
-              <div className="rounded-2xl bg-[#f8f6fc] p-4"><p className="text-xs font-bold text-[#91899f]">{t('dueForReview')}</p><p className="mt-1 text-2xl font-black text-[#6c45f5]">{reviewDueCount}</p></div>
-              <div className="rounded-2xl bg-[#f8f6fc] p-4"><p className="text-xs font-bold text-[#91899f]">{t('completedToday', { completed: completedLessonCount, total: todayLessons.length })}</p><p className="mt-1 text-2xl font-black text-[#242033]">{completedLessonCount}</p></div>
-            </div>
-          </div>
-
-          <div className="rounded-[30px] bg-[#ffd85a] p-6 shadow-[0_14px_35px_rgba(39,28,72,.07)] sm:p-7">
-            <p className="text-xs font-black uppercase tracking-[.12em] text-[#705b12]">{t('planProgress')}</p>
-            <p className="mt-2 text-4xl font-black text-[#242033]">{planCompletion}%</p>
-            <div className="mt-4 h-3 overflow-hidden rounded-full bg-white/55"><div className="h-full rounded-full bg-[#242033]" style={{ width: `${planCompletion}%` }} /></div>
-            <p className="mt-4 text-sm font-bold text-[#5f531f]">{hasPlan ? t('dayProgress', { current: Math.min(progressDay + 1, totalDays), total: totalDays }) : t('startWithAssessment')}</p>
-            {hasPlan && <Link href="/plan" className="mt-5 inline-flex rounded-2xl bg-[#242033] px-4 py-3 text-sm font-black text-white">{t('goToMyPlan')}</Link>}
-          </div>
-        </section>
-
-        <section className="rounded-[30px] bg-white p-6 shadow-[0_14px_35px_rgba(39,28,72,.07)] sm:p-7">
-          <div className="mb-5 flex items-end justify-between gap-4">
-            <div><p className="text-xs font-black uppercase tracking-[.12em] text-[#91899f]">{t('today')}</p><h2 className="mt-1 text-2xl font-black text-[#242033]">{t('nextStep')}</h2></div>
-            {hasPlan && <span className="rounded-full bg-[#c9f5e3] px-3 py-1.5 text-xs font-black text-[#247356]">{completedLessonCount}/{todayLessons.length}</span>}
-          </div>
-          {todayLessons.length ? (
-            <div className="grid gap-3 md:grid-cols-2">
-              {todayLessons.map((lesson, i) => {
-                const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
-                const isNext = nextLesson?.id === lesson.id
-                return <div key={i} className={`flex items-center justify-between gap-4 rounded-[22px] p-4 ${isNext ? 'bg-[#eee8ff]' : 'bg-[#f8f6fc]'}`}>
-                  <div className="min-w-0"><p className="truncate font-black text-[#242033]">{lesson.title}</p><p className="mt-1 text-xs font-semibold text-[#91899f]">{tPlan(getLessonTypeLabelKey(lesson.lessonType))} · {lesson.estimatedMinutes}min</p></div>
-                  {done ? <span className="shrink-0 rounded-full bg-[#c9f5e3] px-3 py-1.5 text-xs font-black text-[#247356]">✓ {t('lessonDone')}</span> : lesson.id ? <Link href={`/lesson/${lesson.id}`} className={`shrink-0 rounded-xl px-3 py-2 text-xs font-black ${isNext ? 'bg-[#6c45f5] text-white' : 'bg-white text-[#5b36db] shadow-sm'}`}>{t('startLesson')}</Link> : null}
+            {hasPlan && totalDays > 0 ? (
+              <>
+                <div className="bg-[var(--juba-surface-soft)] mb-4 h-2 w-full overflow-hidden rounded-full"><div className="h-full rounded-full transition-all duration-500" style={{ width: `${planCompletion}%`, background: 'var(--juba-violet)' }} /></div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-[var(--juba-surface-soft)] rounded-[20px] p-3"><p className="text-[var(--juba-muted)] mb-1 text-xs font-medium">{t('currentDay')}</p><p className="text-[var(--juba-text)] text-lg font-bold">{Math.min(progressDay + 1, totalDays)} / {totalDays}</p></div>
+                  <div className="bg-[var(--juba-surface-soft)] rounded-[20px] p-3"><p className="text-[var(--juba-muted)] mb-1 text-xs font-medium">{t('daysRemaining')}</p><p className="text-[var(--juba-text)] text-lg font-bold">{daysRemaining}</p></div>
                 </div>
-              })}
+                {vocabularyTotal > 0 && (
+                  <div className="mt-5">
+                    <div className="flex items-center justify-between gap-3"><p className="text-[var(--juba-muted)] text-xs font-medium">{t('vocabularyProgress', { level: vocabularyLevel ?? cefrLevel ?? '' })}</p><p className="text-[var(--juba-muted)] text-xs font-semibold">{vocabularyProgressPct}%</p></div>
+                    <p className="text-[var(--juba-muted)] mt-1 text-xs">{t('vocabularyWords', { mastered: vocabularyMastered, total: vocabularyTotal })}</p>
+                    <div className="bg-[var(--juba-surface-soft)] mt-2 h-2 w-full overflow-hidden rounded-full"><div className="h-full rounded-full transition-all duration-500" style={{ width: `${vocabularyProgressPct}%`, background: 'var(--juba-violet)' }} /></div>
+                  </div>
+                )}
+              </>
+            ) : <p className="text-[var(--juba-muted)] text-sm">{t('startWithAssessment')}</p>}
+          </section>
+
+          <section className="border-[var(--juba-border)] bg-[var(--juba-surface)] rounded-[26px] border p-5" aria-label={t('today')}>
+            <div className="mb-4 flex items-center justify-between"><h3 className="text-[var(--juba-text)] text-sm font-semibold">{t('today')}</h3>{todayLessons.length > 0 && <span className="text-[var(--juba-muted)] text-xs font-medium">{t('completedToday', { completed: completedLessonCount, total: todayLessons.length })}</span>}</div>
+            {todayLessons.length > 0 ? (
+              <div className="space-y-2">
+                {todayLessons.map((lesson, i) => {
+                  const isDone = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
+                  const isNext = nextLesson?.id === lesson.id
+                  return (
+                    <div key={i} className={`rounded-[20px] border px-4 py-3 transition-colors ${isNext ? 'border-[color-mix(in_srgb,var(--juba-violet)_45%,var(--juba-border))] bg-[var(--juba-lilac)]' : 'border-[var(--juba-border)]'}`}>
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="min-w-0"><p className="text-[var(--juba-text)] truncate text-sm font-medium">{lesson.title}</p><p className="text-[var(--juba-muted)] mt-0.5 text-xs">{tPlan(getLessonTypeLabelKey(lesson.lessonType))} · {lesson.estimatedMinutes}min</p></div>
+                        {isDone ? <span className="text-[var(--juba-muted)] shrink-0 text-xs font-medium">✓ {t('lessonDone')}</span> : lesson.id ? <Link href={`/lesson/${lesson.id}`} className="shrink-0"><button className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${isNext ? 'bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet-dark)]' : 'border-[var(--juba-border)] text-[var(--juba-text)] border hover:bg-[var(--juba-surface-soft)]'}`}>{t('startLesson')}</button></Link> : null}
+                      </div>
+                    </div>
+                  )
+                })}
+                <div className="pt-1"><button onClick={skipDay} disabled={skipping} className="text-[var(--juba-muted)] hover:text-[var(--juba-muted)] text-xs font-medium transition-colors disabled:opacity-40">{skipping ? '...' : t('skipDay')}</button>{skipError && <p className="text-[var(--juba-danger)] mt-1 text-xs">{tError('title')}</p>}</div>
+              </div>
+            ) : (
+              <div className="space-y-3"><p className="text-[var(--juba-muted)] text-sm">{hasPlan ? t('allCaughtUp') : t('startWithAssessment')}</p>{!hasPlan && <Link href="/assessment"><button className={`${btnPrimary} bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)]`}>{t('takeAssessmentArrow')}</button></Link>}</div>
+            )}
+          </section>
+
+          <section className="border-[var(--juba-border)] bg-[var(--juba-surface)] rounded-[26px] border p-5 lg:col-span-2" aria-label={t('recentPerformance')}>
+            <div className="mb-4"><h3 className="text-[var(--juba-text)] text-sm font-semibold">{t('recentPerformance')}</h3><p className="text-[var(--juba-muted)] mt-1 text-xs">{t('recentPerformanceDescription')}</p></div>
+            {skillEntries.length > 0 ? (
+              <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+                {skillEntries.map(({ skill, value }) => (
+                  <div key={skill}>
+                    <div className="mb-1.5 flex items-center justify-between gap-2"><span className="text-[var(--juba-muted)] truncate text-xs font-medium">{tPlan(getLessonTypeLabelKey(skill))}</span><span className="text-[var(--juba-muted)] shrink-0 text-xs font-semibold">{getPerformanceLabel(value)} · {Math.round(value * 100)}%</span></div>
+                    <div className="bg-[var(--juba-surface-soft)] h-2 w-full overflow-hidden rounded-full"><div className="h-full rounded-full transition-all duration-500" style={{ width: `${value * 100}%`, background: value < 0.5 ? 'var(--juba-violet)' : 'var(--juba-violet)' }} /></div>
+                  </div>
+                ))}
+              </div>
+            ) : <p className="text-[var(--juba-muted)] text-sm">{t('noSkills')}</p>}
+          </section>
+        </div>
+
+        {showPremiumBanner && (
+          <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] mb-6 rounded-[26px] border p-5">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div className="flex gap-3"><span className="mt-0.5 text-sm leading-none" style={{ color: 'var(--juba-violet)' }} aria-hidden="true">★</span><div><p className="text-[var(--juba-text)] mb-1 text-sm font-semibold">{freemiumTrialActive ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft }) : t(paymentRecovery ? 'premiumBannerPastDueTitle' : 'premiumBannerTitle')}</p><p className="text-[var(--juba-muted)] text-sm leading-relaxed">{freemiumTrialActive ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft }) : paymentRecovery ? t('premiumBannerPastDueDesc') : t(trialEligible ? 'premiumBannerDesc' : 'premiumBannerDescTrialUsed')}</p></div></div>
+              {!freemiumTrialActive && <span className="shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap" style={{ color: 'var(--juba-violet)', background: 'color-mix(in srgb, var(--juba-yellow) 35%, transparent)' }}>{paymentRecovery ? t('premiumBannerPastDueCta') : t(trialEligible ? 'premiumBannerCta' : 'premiumBannerCtaTrialUsed')}</span>}
             </div>
-          ) : <p className="text-sm font-semibold text-[#91899f]">{hasPlan ? t('allCaughtUp') : t('startWithAssessment')}</p>}
-        </section>
+            {!freemiumTrialActive && (paymentRecovery ? <div className="border-[var(--juba-border)] mt-4 border-t pt-4"><button onClick={handleManageSubscription} disabled={portalLoading} className={`${btnPrimary} bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)] sm:w-auto`}>{portalLoading ? '...' : tBilling('updatePayment')}</button>{portalError && <p className="mt-3 text-xs text-[var(--juba-danger)]">{portalError}</p>}</div> : <SubscriptionPlanButtons className="border-[var(--juba-border)] mt-4 border-t pt-4" />)}
+          </div>
+        )}
 
-        <section className="mt-5 rounded-[30px] bg-[#bdeaff] p-6 shadow-[0_14px_35px_rgba(39,28,72,.06)] sm:p-7" aria-label={t('recentPerformance')}>
-          <div className="mb-5"><p className="text-xs font-black uppercase tracking-[.12em] text-[#46708a]">{t('recentPerformance')}</p><p className="mt-1 text-sm font-semibold text-[#3f657c]">{t('recentPerformanceDescription')}</p></div>
-          {skillEntries.length ? <div className="grid gap-4 sm:grid-cols-2">{skillEntries.map(({skill,value}) => <div key={skill} className="rounded-2xl bg-white/70 p-4"><div className="mb-2 flex justify-between gap-3"><span className="truncate text-xs font-black text-[#242033]">{tPlan(getLessonTypeLabelKey(skill))}</span><span className="text-xs font-bold text-[#5d7280]">{Math.round(value*100)}%</span></div><div className="h-3 overflow-hidden rounded-full bg-white"><div className="h-full rounded-full bg-[#6c45f5]" style={{width:`${value*100}%`}} /></div></div>)}</div> : <p className="text-sm font-semibold text-[#3f657c]">{t('noSkills')}</p>}
-        </section>
-
-        {showPremiumBanner && <section className="mt-5 rounded-[30px] bg-[#fff0a8] p-6 shadow-[0_14px_35px_rgba(39,28,72,.06)]">
-          <p className="font-black text-[#242033]">{freemiumTrialActive ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft }) : t(paymentRecovery ? 'premiumBannerPastDueTitle' : 'premiumBannerTitle')}</p>
-          <p className="mt-2 text-sm font-semibold text-[#6d5e25]">{freemiumTrialActive ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft }) : paymentRecovery ? t('premiumBannerPastDueDesc') : t(trialEligible ? 'premiumBannerDesc' : 'premiumBannerDescTrialUsed')}</p>
-          {!freemiumTrialActive && (paymentRecovery ? <button onClick={handleManageSubscription} disabled={portalLoading} className="mt-4 rounded-2xl bg-[#242033] px-5 py-3 text-sm font-black text-white">{portalLoading ? '...' : tBilling('updatePayment')}</button> : <SubscriptionPlanButtons className="mt-4" />)}
-        </section>}
-
-        <div className="mt-6 flex flex-wrap gap-2">
-          {hasPlan && <Link href="/plan" className="rounded-2xl bg-[#6c45f5] px-5 py-3 text-sm font-black text-white shadow-[0_4px_0_#4f2bd1]">{t('goToMyPlan')}</Link>}
-          <Link href="/flashcards" className="rounded-2xl bg-white px-5 py-3 text-sm font-bold text-[#5b36db] shadow-sm">{tNav('flashcards')}</Link>
-          <Link href="/chat" className="rounded-2xl bg-white px-5 py-3 text-sm font-bold text-[#5b36db] shadow-sm">{tNav('tutor')}</Link>
-          <Link href="/assessment" className="rounded-2xl bg-white px-5 py-3 text-sm font-bold text-[#5b36db] shadow-sm">{tNav('assessment')}</Link>
+        <div className="flex flex-wrap gap-2">
+          {hasPlan && <Link href="/plan"><button className={`${btnPrimary} bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)]`}>{t('goToMyPlan')}</button></Link>}
+          {pendingCount > 0 && <Link href="/plan"><button className="rounded-[20px] border px-4 py-2.5 text-sm font-medium transition-colors" style={{ borderColor: 'color-mix(in srgb, var(--juba-violet) 45%, var(--juba-border))', color: 'var(--juba-violet-dark)' }}>{pendingCount} {t('pendingLessons')} →</button></Link>}
+          <Link href="/flashcards"><button className={btnSecondary}>{tNav('flashcards')}</button></Link>
+          <Link href="/chat"><button className={btnSecondary}>{tNav('tutor')}</button></Link>
+          <Link href="/assessment"><button className={btnSecondary}>{tNav('assessment')}</button></Link>
         </div>
       </div>
     </>
   )
+}
