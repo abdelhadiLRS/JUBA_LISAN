@@ -405,3 +405,24 @@
 /* Never create a second bottom/mobile navigation style. */
 .juba-mobile-bottom-nav { display: none !important; }
 .juba-mobile-bar { display: none !important; }
+
+
+/* Learner social surfaces — same Funfluent visual language */
+.juba-page-shell{max-width:1180px;margin:0 auto;color:var(--juba-text)}
+.juba-page-hero{border:3px solid #25302a;border-radius:28px;background:#fbfaf4;padding:24px;box-shadow:6px 6px 0 #25302a}
+.juba-eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.12em;color:#39751d}
+.juba-page-title{margin-top:6px;font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-.04em}
+.juba-page-subtitle{margin-top:8px;max-width:680px;color:var(--juba-muted);line-height:1.6}
+.juba-panel{border:3px solid #25302a;border-radius:26px;background:#fff;padding:20px;box-shadow:5px 5px 0 #25302a}
+.juba-section-title{font-size:1rem;font-weight:800}
+.juba-muted{color:var(--juba-muted);font-size:.875rem}
+.juba-badge{display:inline-flex;align-items:center;justify-content:center;border:2px solid #25302a;border-radius:999px;background:#fff0b8;padding:.2rem .55rem;font-size:.72rem;font-weight:800}
+.juba-input{width:100%;border:2px solid #e2f2d3;border-radius:14px;background:#fff;padding:.75rem 1rem;color:var(--juba-text);outline:none}
+.juba-input:focus{border-color:#39751d;box-shadow:0 0 0 3px rgba(57,117,29,.12)}
+.juba-primary-button,.juba-secondary-button,.juba-icon-button{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;border-radius:14px;font-size:.78rem;font-weight:800;transition:transform .15s ease,box-shadow .15s ease}
+.juba-primary-button{border:2px solid #25302a;background:#ffd35a;color:#25302a;padding:.65rem .85rem;box-shadow:3px 3px 0 #25302a}
+.juba-primary-button:hover{transform:translateY(-1px);box-shadow:4px 4px 0 #25302a}
+.juba-secondary-button{border:2px solid #e2f2d3;background:#fff;color:#25302a;padding:.62rem .8rem}
+.juba-secondary-button:hover{border-color:#39751d;background:#e2f2d3}
+.juba-icon-button{height:40px;width:40px;border:2px solid #e2f2d3;background:#fff;color:#25302a}
+.juba-icon-button:hover{border-color:#39751d;background:#e2f2d3}
