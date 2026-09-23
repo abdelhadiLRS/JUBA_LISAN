@@ -326,9 +326,9 @@ export default function AssessmentPage() {
     }
   }
 
-  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[30px] border-2 border-[#e2f2d3] bg-white shadow-[0_22px_55px_rgba(61,42,130,0.12)]'
-  const panelClass = 'rounded-[22px] border-2 border-[#e2f2d3] bg-[#e2f2d3]/45 p-4'
-  const actionClass = 'w-full rounded-[18px] bg-[#39751d] px-4 py-3 font-bold text-white shadow-[0_6px_0_#39751d] transition hover:-translate-y-0.5 hover:bg-[#39751d]'
+  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[0_22px_55px_rgba(61,42,130,0.12)]'
+  const panelClass = 'rounded-[22px] border-2 border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/45 p-4'
+  const actionClass = 'w-full rounded-[18px] bg-[var(--juba-violet-dark)] px-4 py-3 font-bold text-white shadow-[0_6px_0_var(--juba-violet-dark)] transition hover:-translate-y-0.5 hover:bg-[var(--juba-violet-dark)]'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
     return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
@@ -337,10 +337,10 @@ export default function AssessmentPage() {
   if (step === 'existing' && existingPlan) {
     const assessedDate = new Date(existingPlan.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
     return (
-      <div className="flex min-h-[60vh] items-center justify-center bg-gradient-to-br from-[#e2f2d3]/30 via-white to-[var(--juba-sky)]/20 p-4 sm:p-6">
+      <div className="flex min-h-[60vh] items-center justify-center bg-gradient-to-br from-[var(--juba-lilac)]/30 via-white to-[var(--juba-sky)]/20 p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border-[var(--juba-border)] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[#e2f2d3] text-sm font-bold text-[#39751d]">A</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[var(--juba-lilac)] text-sm font-bold text-[var(--juba-violet-dark)]">A</span>
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('title')}</p>
               <p className="text-xs text-[var(--juba-muted)]">{t('currentLevel')}</p>
@@ -404,12 +404,12 @@ export default function AssessmentPage() {
   if (step === 'quiz' && currentQuestion) {
     return (
       <div className="juba-mobile-assessment mx-auto w-full max-w-4xl px-4 py-6 sm:py-10">
-        <div className="mb-5 flex items-center justify-between rounded-[22px] border-2 border-[#e2f2d3] bg-white px-5 py-4 shadow-sm">
+        <div className="mb-5 flex items-center justify-between rounded-[22px] border-2 border-[var(--juba-lilac)] bg-white px-5 py-4 shadow-sm">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('title')}</p>
             <p className="mt-1 text-sm font-semibold text-[var(--juba-text)]">{currentLevel}</p>
           </div>
-          <div className="rounded-[18px] bg-[#e2f2d3] px-3 py-1.5 text-xs font-bold text-[#39751d]">{questionNumber}/{MAX_QUESTIONS}</div>
+          <div className="rounded-[18px] bg-[var(--juba-lilac)] px-3 py-1.5 text-xs font-bold text-[var(--juba-violet-dark)]">{questionNumber}/{MAX_QUESTIONS}</div>
         </div>
         <AdaptiveQuizCard question={currentQuestion} questionNumber={questionNumber} totalQuestions={MAX_QUESTIONS} onAnswer={handleAnswer} languageCode={activeLanguage?.code} />
       </div>
@@ -424,7 +424,7 @@ export default function AssessmentPage() {
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border-[var(--juba-border)] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[var(--juba-yellow)] text-sm font-bold text-[#39751d]">✓</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[var(--juba-yellow)] text-sm font-bold text-[var(--juba-violet-dark)]">✓</span>
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('resultStep')}</p>
               <p className="text-xs text-[var(--juba-muted)]">{t('cefrLevel')}</p>
@@ -443,7 +443,7 @@ export default function AssessmentPage() {
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('overrideLevel')}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {CEFR_LEVELS.map((lvl) => (
-                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[18px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[#39751d] bg-[#e2f2d3] text-[#39751d]' : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:bg-[var(--juba-surface-soft)]'}`}>
+                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[18px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--juba-violet-dark)] bg-[var(--juba-lilac)] text-[var(--juba-violet-dark)]' : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:bg-[var(--juba-surface-soft)]'}`}>
                     {lvl}
                   </button>
                 ))}
@@ -453,7 +453,7 @@ export default function AssessmentPage() {
             {result.strengths.length > 0 && (
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('strengths')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[18px] border border-[var(--juba-border)] bg-[var(--juba-yellow)] px-3 py-1.5 text-xs font-medium text-[#39751d]">{s}</span>)}</div>
+                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[18px] border border-[var(--juba-border)] bg-[var(--juba-yellow)] px-3 py-1.5 text-xs font-medium text-[var(--juba-violet-dark)]">{s}</span>)}</div>
               </div>
             )}
             {result.weaknesses.length > 0 && (
@@ -494,7 +494,7 @@ export default function AssessmentPage() {
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border-[var(--juba-border)] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[#e2f2d3] text-sm font-bold text-[#39751d]">◉</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[var(--juba-lilac)] text-sm font-bold text-[var(--juba-violet-dark)]">◉</span>
             <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('voiceTrialLabel')}</p>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
