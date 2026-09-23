@@ -7,9 +7,6 @@ body { background-image: none !important; }
 
 .juba-learning-page { min-height: 100%; background: var(--juba-bg); color: var(--juba-text); }
 .juba-container { width: min(1120px, calc(100% - 2rem)); margin-inline: auto; }
-.juba-section { padding-block: clamp(2.5rem, 6vw, 5rem); }
-.juba-section-header { max-width: 760px; margin-inline: auto; text-align: center; }
-
 .juba-card-interactive { transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
 .juba-card-interactive:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--juba-primary) 32%, var(--juba-border)); box-shadow: var(--juba-shadow-md); }
 
@@ -29,10 +26,6 @@ body { background-image: none !important; }
 .juba-primary { color: var(--juba-primary); }
 .juba-primary-surface { background: var(--juba-primary-soft); }
 .juba-warm-surface { background: var(--juba-warm-soft); }
-
-button, a { -webkit-tap-highlight-color: transparent; }
-button:not(:disabled), a[role='button'] { transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
-button:not(:disabled):hover, a[role='button']:hover { transform: translateY(-1px); }
 
 /* Semantic compatibility: old learning screens keep their class names,
  * but their success/error states now inherit the JUBA SaaS palette. */
