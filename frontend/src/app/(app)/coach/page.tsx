@@ -103,7 +103,7 @@ export default function CoachPage() {
           <button
             onClick={() => { setRefreshing(true); load() }}
             disabled={refreshing}
-            className="inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-2 border-[var(--juba-lilac)] bg-white px-4 py-2.5 text-sm font-bold text-[var(--juba-text)] transition hover:border-[var(--juba-primary)] disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-2 border-[#e2f2d3] bg-white px-4 py-2.5 text-sm font-bold text-[var(--juba-text)] transition hover:border-[var(--juba-primary)] disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh coaching
@@ -127,7 +127,7 @@ export default function CoachPage() {
                   <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-fl-fg px-5 py-3 text-sm font-bold text-[var(--juba-text)] transition hover:opacity-90">
                     Start focused practice <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[var(--juba-lilac)] px-5 py-3 text-sm font-bold text-[var(--juba-text)] transition hover:bg-[var(--juba-lilac)]">
+                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[#e2f2d3] px-5 py-3 text-sm font-bold text-[var(--juba-text)] transition hover:bg-[#e2f2d3]">
                     View my plan
                   </Link>
                 </div>
@@ -165,11 +165,11 @@ export default function CoachPage() {
                 <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-primary-dark)]">Adaptive queue</p>
                 <h2 className="mt-1 text-2xl font-black text-[var(--juba-text)]">Your best work for today</h2>
               </div>
-              <span className="rounded-full bg-[var(--juba-lilac)] px-3 py-1 text-xs font-bold text-[var(--juba-muted)]">{completed}/{total} complete</span>
+              <span className="rounded-full bg-[#e2f2d3] px-3 py-1 text-xs font-bold text-[var(--juba-muted)]">{completed}/{total} complete</span>
             </div>
             <div className="space-y-3">
               {(plan.lessons ?? []).slice(0, 4).map((lesson, index) => (
-                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[28px] border-2 border-2 border-[var(--juba-lilac)] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-primary)]">
+                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[28px] border-2 border-2 border-[#e2f2d3] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-primary)]">
                   <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[20px] ${lesson.is_completed ? 'bg-[var(--juba-warm-soft)] text-[var(--juba-primary-dark)]' : 'bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)]'}`}>
                     {lesson.is_completed ? <CheckCircle2 className="h-5 w-5" /> : <span className="text-sm font-black">{index + 1}</span>}
                   </div>
@@ -180,7 +180,7 @@ export default function CoachPage() {
                   <ArrowRight className="h-4 w-4 text-[var(--juba-muted)] transition group-hover:translate-x-1" />
                 </Link>
               ))}
-              {!plan.lessons?.length && !loading && <p className="rounded-[28px] border border-dashed border-[var(--juba-lilac)] p-6 text-center text-sm text-[var(--juba-muted)]">Complete your assessment to unlock an adaptive learning plan.</p>}
+              {!plan.lessons?.length && !loading && <p className="rounded-[28px] border border-dashed border-[#e2f2d3] p-6 text-center text-sm text-[var(--juba-muted)]">Complete your assessment to unlock an adaptive learning plan.</p>}
             </div>
           </div>
 
@@ -190,7 +190,7 @@ export default function CoachPage() {
             <p className="mt-2 text-sm leading-6 text-[var(--juba-muted)]">Stop memorizing isolated sentences. Practice what you actually need to say.</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
-                <Link key={scenario.title} href={scenario.href} className="rounded-[28px] border-2 border-[var(--juba-lilac)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)]">
+                <Link key={scenario.title} href={scenario.href} className="rounded-[28px] border-2 border-[#e2f2d3] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)]">
                   <span className="text-2xl">{scenario.icon}</span>
                   <p className="mt-3 text-sm font-black text-[var(--juba-text)]">{scenario.title}</p>
                   <p className="mt-1 text-xs leading-5 text-[var(--juba-muted)]">{scenario.desc}</p>
@@ -200,7 +200,7 @@ export default function CoachPage() {
           </div>
         </section>
 
-        <footer className="flex flex-col gap-2 border-t border-[var(--juba-lilac)] pt-6 text-xs text-[var(--juba-muted)] sm:flex-row sm:items-center sm:justify-between">
+        <footer className="flex flex-col gap-2 border-t border-[#e2f2d3] pt-6 text-xs text-[var(--juba-muted)] sm:flex-row sm:items-center sm:justify-between">
           <span>Learning {language?.name ? `· ${language.name}` : '· personalized for you'}</span>
           <span>CEFR {plan.cefr_level || 'adaptive'} · JUBA LISAN Coach</span>
         </footer>
@@ -211,7 +211,7 @@ export default function CoachPage() {
 
 function Metric({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
   return (
-    <div className="rounded-[28px] bg-[var(--juba-lilac)] p-3">
+    <div className="rounded-[28px] bg-[#e2f2d3] p-3">
       <div className="mb-2 h-4 w-4 text-[var(--juba-primary-dark)]">{icon}</div>
       <p className="text-lg font-black text-[var(--juba-text)]">{value}</p>
       <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--juba-muted)]">{label}</p>
