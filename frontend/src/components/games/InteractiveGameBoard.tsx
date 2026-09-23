@@ -70,7 +70,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
   }, [completed, onComplete])
 
   function flipCard(index: number) {
-    if (locked || completed || !memoryCards[index] || memoryCards[index].flipped || memoryCards[index].matched) return
+    if (locked || completed || finishingState || !memoryCards[index] || memoryCards[index].flipped || memoryCards[index].matched) return
     const card = memoryCards[index]
     setFeedback(null)
     const next = memoryCards.map((item, i) => i === index ? { ...item, flipped: true } : item)
@@ -131,7 +131,9 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     setFeedback(correct ? t.correct : t.incorrect)
     if (correct) setMatched(current => [...current, left, right])
     setLeft(null); setRight(null)
-    if (matched.length + (correct ? 2 : 0) >= challenge.left.length * 2) void finish(trace)
+    const nextMatchedCount = new Set(correct ? [...matched, left, right] : matched).size
+    const totalMatchable = challenge.left.length + challenge.right.length
+    if (nextMatchedCount >= totalMatchable) void finish(trace)
   }, [left, right, completed, finishingState, mode, challenge, matchingTrace, matched.length, finish])
 
   async function submitOrder() {
