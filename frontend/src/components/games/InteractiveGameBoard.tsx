@@ -33,6 +33,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
   const [order, setOrder] = useState<string[]>([])
   const [orderingTrace, setOrderingTrace] = useState<InteractiveGameTrace[]>([])
   const [completed, setCompleted] = useState(false)
+  const [completionError, setCompletionError] = useState(false)
   const memoryTimer = useRef<number | null>(null)
 
   useEffect(() => {
@@ -50,7 +51,12 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
   const finish = useCallback(async (trace: InteractiveGameTrace[]) => {
     if (completed) return
     const accepted = await onComplete?.(trace)
-    if (accepted !== false) setCompleted(true)
+    if (accepted !== false) {
+      setCompletionError(false)
+      setCompleted(true)
+    } else {
+      setCompletionError(true)
+    }
   }, [completed, onComplete])
 
   function flipCard(index: number) {
@@ -131,7 +137,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
       window.clearTimeout(memoryTimer.current)
       memoryTimer.current = null
     }
-    setCompleted(false); setFirst(null); setLocked(false); setMoves(0)
+    setCompleted(false); setCompletionError(false); setFirst(null); setLocked(false); setMoves(0)
     setMemoryTrace([]); setLeft(null); setRight(null); setMatched([]); setMatchingTrace([])
     setOrder([]); setOrderingTrace([])
     if (challenge.type === 'memory') setMemoryCards(challenge.cards.map(card => ({ ...card, flipped: false, matched: false })))
@@ -143,7 +149,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
       <div className="interactive-toolbar">
         <strong>{mode === 'memory' ? t.memory : mode === 'matching' ? t.matching : t.ordering}</strong>
         <span>{t.moves}: {moves}</span>
-        <button type="button" onClick={reset} disabled={!challenge}>{t.reset}</button>
+        <button type="button" onClick={reset} disabled={!challenge || completed}>{t.reset}</button>
       </div>
 
       {!challenge && <p className="interactive-instruction">Loading challenge…</p>}
@@ -179,7 +185,8 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
         <button type="button" className="interactive-secondary" onClick={submitOrder} disabled={order.length !== items.length}>✓</button>
       </>}
 
-      {completed && <div className="interactive-complete">🏆 {t.complete}</div>}
+      {completionError && !completed && <div className="interactive-error" role="alert"><p>Unable to save the result. Reset and try again.</p><button type="button" onClick={reset}>{t.reset}</button></div>}
+      {completed && <div className="interactive-complete" role="status">🏆 {t.complete}</div>}
     </div>
   )
 }
