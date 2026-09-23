@@ -85,6 +85,8 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   const [audioLoadFailed, setAudioLoadFailed] = useState(false)
   const [audioLoading, setAudioLoading] = useState(false)
   const helperRequestRef = useRef(0)
+  const lessonRequestRef = useRef(0)
+  const attemptRequestRef = useRef(0)
   const allSkillsMastered = skillMastery.length > 0 && skillMastery.every((item) => item.mastery_state === 'mastered')
 
   const loadLessonMastery = useCallback(async (lessonId: number) => {
@@ -92,12 +94,14 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
       const res = await apiFetch(`/api/lessons/${lessonId}/mastery`)
       if (!res.ok) return
       const data: LessonMasterySnapshot = await res.json()
+      if (lessonRequestRef.current !== lessonId) return
       setLessonMastery(data)
       setSkillMastery(data.skills ?? [])
       try {
-        setNextSkillMastery(await fetchNextLessonSkillMastery(lessonId))
+        const nextSkill = await fetchNextLessonSkillMastery(lessonId)
+        if (lessonRequestRef.current === lessonId) setNextSkillMastery(nextSkill)
       } catch {
-        setNextSkillMastery(null)
+        if (lessonRequestRef.current === lessonId) setNextSkillMastery(null)
       }
     } catch { /* aggregate mastery is optional UI */ }
   }, [])
@@ -105,9 +109,9 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   const loadNextMasteryExercise = useCallback(async (lessonId: number) => {
     try {
       const next = await fetchNextMasteryExercise(lessonId)
-      setMasteryNext(next)
+      if (lessonRequestRef.current === lessonId) setMasteryNext(next)
     } catch {
-      setMasteryNext(null)
+      if (lessonRequestRef.current === lessonId) setMasteryNext(null)
     }
   }, [])
 
@@ -116,6 +120,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
       const res = await apiFetch(`/api/lessons/${lessonId}/attempt-summary`)
       if (!res.ok) return null
       const data: ExerciseAttemptSummary[] = await res.json()
+      if (lessonRequestRef.current !== lessonId) return null
       setAttemptSummary(data)
       setExercises((prev) => mergeAdaptiveRecommendations(prev, data))
       return data
@@ -125,11 +130,28 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   useEffect(() => { void getGrammarTopics(activeLanguage?.code ?? 'en-GB').catch(() => undefined) }, [activeLanguage?.code])
   useEffect(() => { void fetchFreemium().catch(() => undefined) }, [fetchFreemium])
   useEffect(() => {
+    const requestId = Number(id)
+    lessonRequestRef.current = requestId
     let cancelled = false
     apiFetch(`/api/lessons/${id}`).then(async (res) => { if (!res.ok) throw new Error('lesson_fetch_failed'); return res.json() }).then((data: { lesson: LessonData; exercises: ExerciseItem[] }) => {
-      if (!cancelled) { setLesson(data.lesson); setExercises(data.exercises || []); setCompleted(!!data.lesson.is_completed); void loadAttemptSummary(data.lesson.id); void loadLessonMastery(data.lesson.id); void loadNextMasteryExercise(data.lesson.id) }
-    }).catch(() => { if (!cancelled) router.replace('/plan') })
-    return () => { cancelled = true }
+      if (!cancelled && lessonRequestRef.current === requestId) {
+        setLesson(data.lesson)
+        setExercises(data.exercises || [])
+        setCompleted(!!data.lesson.is_completed)
+        setAttemptSummary([])
+        setLessonMastery(null)
+        setSkillMastery([])
+        setNextSkillMastery(null)
+        setMasteryNext(null)
+        void loadAttemptSummary(data.lesson.id)
+        void loadLessonMastery(data.lesson.id)
+        void loadNextMasteryExercise(data.lesson.id)
+      }
+    }).catch(() => { if (!cancelled && lessonRequestRef.current === requestId) router.replace('/plan') })
+    return () => {
+      cancelled = true
+      if (lessonRequestRef.current === requestId) lessonRequestRef.current = 0
+    }
   }, [id, router, loadAttemptSummary, loadLessonMastery, loadNextMasteryExercise])
 
   const attemptStats = useMemo(() => {
@@ -192,11 +214,12 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
     } catch { setActionError(true) } finally { setEvaluating(false) }
   }, [lesson, completed, completeLesson])
   const loadAttempts = useCallback(async (exerciseId: number) => {
+    const requestId = ++attemptRequestRef.current
     try {
       const res = await apiFetch(`/api/lessons/exercises/${exerciseId}/attempts`)
-      if (!res.ok) return
+      if (!res.ok || requestId !== attemptRequestRef.current) return
       const data: ExerciseAttempt[] = await res.json()
-      setAttempts(data)
+      if (requestId === attemptRequestRef.current) setAttempts(data)
     } catch { /* attempt history is optional UI */ }
   }, [])
 
