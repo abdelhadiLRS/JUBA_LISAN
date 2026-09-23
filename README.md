@@ -7,6 +7,9 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?style=flat-square)
 ![Redis](https://img.shields.io/badge/Redis-7-dc382d?style=flat-square)
 ![Windows](https://img.shields.io/badge/Windows-desktop-0078D4?style=flat-square)
+![Languages](https://img.shields.io/badge/language%20packages-24-7c3aed?style=flat-square)
+![CEFR](https://img.shields.io/badge/CEFR-A1%E2%86%92C2-16a34a?style=flat-square)
+![AI Tutor](https://img.shields.io/badge/AI%20Tutor-Lingu-f59e0b?style=flat-square)
 
 ## 🌍 What is JUBA LISAN?
 
@@ -18,7 +21,36 @@ The learner chooses a language, receives a structured learning path, studies thr
 
 The project is being built with a deliberately ambitious goal: **make one learning engine capable of serving many languages, many learner profiles, and many learning styles without rebuilding the application every time a new language is added.**
 
-> **JUBA LISAN = languages + curriculum + AI + voice + memory + progress + practice, in one platform.**
+> **JUBA LISAN = languages + curriculum + AI + voice + memory + progress + practice — one learning universe.**
+
+### 🌟 More than an app: a language engine
+
+JUBA LISAN is designed around a simple idea: **the interface should stay familiar while the language underneath it can change completely.**
+
+A learner may move from English to Japanese, from French to Arabic, or from Spanish to Korean without switching products. The same core engine can carry the learner's identity, goals, progress, memories, review history and competencies while the linguistic content changes underneath.
+
+That separation is the heart of the project:
+
+~~~text
+                         ┌─────────────────────┐
+                         │      JUBA LISAN     │
+                         │   One learning core │
+                         └──────────┬──────────┘
+                                    │
+          ┌─────────────────────────┼─────────────────────────┐
+          ▼                         ▼                         ▼
+   🌍 Language data            🤖 AI + Lingu             🧠 Learner data
+   curriculum / grammar       text / voice / feedback    progress / memory
+   vocabulary / phrases       correction / explanation   XP / streaks / review
+          │                         │                         │
+          └─────────────────────────┴─────────────────────────┘
+                                    │
+                                    ▼
+                         🎯 Personal learning path
+                                    │
+                                    ▼
+                         A1 → A2 → B1 → B2 → C1 → C2
+~~~
 
 ### ✨ The learning journey
 
@@ -92,7 +124,7 @@ These are not merely interface translations: the repository contains language-sp
 
 ### 🌍 Additional language data already prepared
 
-The language-data layer has also been expanded with dedicated packages/foundations for:
+The language-data layer also contains these additional dedicated packages:
 
 | Flag | Language | Code |
 |---|---|---|
@@ -107,14 +139,13 @@ The language-data layer has also been expanded with dedicated packages/foundatio
 | 🇳🇱 | Dutch | `nl` |
 | 🇳🇴 | Norwegian | `no` |
 | 🇵🇱 | Polish | `pl` |
-| 🇷🇴 | Romanian | `ro` |
 | 🇷🇺 | Russian | `ru` |
 | 🇸🇪 | Swedish | `sv` |
 | 🇹🇷 | Turkish | `tr` |
 
-These packages form the expansion layer around the core learning engine. Their presence in the repository should not be confused with claiming that every one of them already has the same A1–C2 depth as the ten full integrated target languages above.
+These packages form the expansion layer around the core learning engine. Their presence in the repository means language-specific data exists; it does **not** mean every package already has the same A1–C2 depth as the ten full integrated target languages above.
 
-### 🗺️ The world-language foundation
+### 🗺️ A bridge toward the world's languages
 
 Beyond the 24 dedicated language packages, JUBA LISAN contains a broad **language-foundations** catalogue intended to make the platform ready for a much larger world-language ecosystem. It includes language resources spanning African, Asian, European, Pacific, Indigenous and constructed-language families.
 
@@ -122,11 +153,43 @@ Examples include:
 
 🇿🇦 Afrikaans · 🇪🇹 Amharic · 🇮🇳 Assamese · 🇦🇲 Armenian · 🇦🇿 Azerbaijani · 🇧🇾 Belarusian · 🇧🇦 Bosnian · 🇧🇬 Bulgarian · 🇹🇿 Chichewa · 🇨🇿 Czech · 🇪🇪 Estonian · 🇪🇺 Basque · 🇮🇸 Icelandic · 🇬🇪 Georgian · 🇭🇷 Croatian · 🇭🇺 Hungarian · 🇮🇪 Irish · 🇮🇱 Hebrew · 🇰🇿 Kazakh · 🇰🇭 Khmer · 🇱🇻 Latvian · 🇱🇹 Lithuanian · 🇲🇰 Macedonian · 🇲🇳 Mongolian · 🇳🇵 Nepali · 🇵🇭 Cebuano · 🇸🇰 Slovak · 🇸🇮 Slovenian · 🇺🇦 Ukrainian · 🇺🇿 Uzbek · 🇻🇳 Vietnamese · 🇿🇼 Xhosa · 🇳🇬 Yoruba · 🇿🇦 Zulu · and many more.
 
-This is the foundation for the long-term goal of making JUBA LISAN a **truly global language platform** rather than a product restricted to a small fixed list of popular languages.
+This catalogue is intentionally broader than the currently integrated curricula. It is the foundation for the long-term goal of making JUBA LISAN a **truly global language platform**, where adding a new language means extending linguistic data rather than cloning the application.
 
-### 🏳️ Why the flags matter
+### 🏳️ A visual language wall
 
-The flags in this section are visual language markers, not statements that a language belongs exclusively to a particular country. Languages such as Arabic, Spanish, Portuguese, Chinese, English and French are spoken across many countries and regions. The product therefore treats the **language code and linguistic identity** as the technical source of truth, while flags provide a quick visual cue for the README.
+The flags are visual language markers, not statements that a language belongs exclusively to one country. JUBA LISAN treats the **language code and linguistic identity** as the technical source of truth, while flags make the README easier to scan.
+
+## 🔥 What makes the experience different
+
+JUBA LISAN connects the learning loop instead of scattering it across disconnected tools:
+
+~~~text
+DISCOVER
+   ↓
+ASSESS
+   ↓
+PLAN
+   ↓
+LEARN ────────┐
+   ↓           │
+PRACTISE      │
+   ↓           │
+SPEAK ◀── Lingu ┤
+   ↓           │
+LISTEN         │
+   ↓           │
+READ + WRITE   │
+   ↓           │
+REVIEW ────────┘
+   ↓
+MEASURE
+   ↓
+ADAPT
+   ↓
+NEXT LESSON / NEXT LEVEL
+~~~
+
+Every major surface feeds the next one. A useful word can become a flashcard. A conversation can reinforce a lesson. An assessment can change the learner's path. A review can strengthen a weak competency. The goal is a **continuous learning system**, not a pile of independent screens.
 
 ## 🧠 Learning model
 
@@ -719,6 +782,21 @@ Documentation is part of the implementation. Changes to behavior, models, endpoi
 10. Design internationalization for expansion rather than one fixed language.
 11. Keep language data modular and independently expandable.
 12. Keep learner memory manageable and non-essential to basic conversation.
+
+## 🛸 The long-term vision
+
+The destination is larger than “support more languages”.
+
+JUBA LISAN is being shaped toward a platform where a learner can open one product, choose almost any language, discover an appropriate level, learn through a structured curriculum, practise with an AI tutor, speak naturally, review intelligently, and carry the same learning identity across languages.
+
+The architecture is deliberately preparing for that future:
+
+- **One core engine** instead of one application per language.
+- **One learner identity** across multiple target languages.
+- **One AI tutor architecture** with replaceable model providers.
+- **One progress model** connecting lessons, skills, competencies and assessment.
+- **One language-data contract** for adding new linguistic worlds.
+- **One deployment story** spanning self-hosted servers and Windows desktop.
 
 ## Roadmap direction
 
