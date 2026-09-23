@@ -75,24 +75,24 @@ const AITutorChat: React.FC = () => {
   };
 
   return (
-    <div className="juba-card bg-white dark:bg-slate-800 flex flex-col h-[600px]">
+    <div className="juba-card flex h-[600px] flex-col overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b border-slate-200 dark:border-slate-700">
+      <div className="border-b-2 border-[var(--juba-border)] bg-[var(--juba-surface-soft)] p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
-              <span className="text-white text-xl">🤖</span>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--juba-yellow)] shadow-[3px_3px_0_var(--juba-ink)]">
+              <span className="text-xl">🤖</span>
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 dark:text-white">المدرس الذكي</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">متصل الآن</p>
+              <h3 className="font-bold text-[var(--juba-text)]">المدرس الذكي</h3>
+              <p className="text-xs text-[var(--juba-muted)]">متصل الآن</p>
             </div>
           </div>
           
           <select
             value={selectedLanguage}
             onChange={(e) => setSelectedLanguage(e.target.value)}
-            className="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-sm text-slate-900 dark:text-white border-none focus:ring-2 focus:ring-amber-500"
+            className="rounded-xl border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] px-3 py-2 text-sm text-[var(--juba-text)] outline-none focus:border-[var(--juba-primary)] focus:ring-2 focus:ring-[var(--juba-primary)]/20"
           >
             <option value="العربية">العربية</option>
             <option value="الإنجليزية">الإنجليزية</option>
@@ -104,7 +104,7 @@ const AITutorChat: React.FC = () => {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 space-y-4 overflow-y-auto bg-[var(--juba-bg)] p-4">
         {messages.map((message) => (
           <motion.div
             key={message.id}
@@ -121,7 +121,7 @@ const AITutorChat: React.FC = () => {
             >
               <p className="text-sm">{message.content}</p>
               <p className={`text-xs mt-2 ${
-                message.role === 'user' ? 'text-amber-100' : 'text-slate-500 dark:text-slate-400'
+                message.role === 'user' ? 'text-[var(--juba-mint)]' : 'text-[var(--juba-muted)]'
               }`}>
                 {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </p>
@@ -135,9 +135,9 @@ const AITutorChat: React.FC = () => {
             animate={{ opacity: 1 }}
             className="flex justify-start"
           >
-            <div className="bg-slate-100 dark:bg-slate-700 p-4 rounded-2xl rounded-bl-md">
+            <div className="rounded-2xl rounded-bl-md border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] p-4">
               <div className="flex gap-2">
-                <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                <div className="h-2 w-2 animate-bounce rounded-full bg-[var(--juba-primary)]" style={{ animationDelay: '0ms' }} />
                 <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                 <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
               </div>
@@ -147,7 +147,7 @@ const AITutorChat: React.FC = () => {
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t border-slate-200 dark:border-slate-700">
+      <div className="border-t-2 border-[var(--juba-border)] bg-[var(--juba-surface)] p-4">
         <div className="flex gap-2">
           <input
             type="text"
@@ -155,13 +155,13 @@ const AITutorChat: React.FC = () => {
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="اكتب رسالتك هنا..."
-            className="flex-1 px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white border-none focus:ring-2 focus:ring-amber-500 placeholder-slate-500"
+            className="juba-input flex-1"
             disabled={isLoading}
           />
           <motion.button
             onClick={sendMessage}
             disabled={isLoading || !input.trim()}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            className="juba-primary-button min-h-12 px-6"
             whileHover={{ scale: isLoading ? 1 : 1.05 }}
             whileTap={{ scale: isLoading ? 1 : 0.95 }}
           >
