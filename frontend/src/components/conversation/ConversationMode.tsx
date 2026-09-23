@@ -1030,7 +1030,7 @@ export default function ConversationMode({
       </div>
 
       {trialMode && (
-        <div className="border-fl-accent/40 bg-[var(--juba-surface)] text-[var(--juba-muted)] mb-4 border px-4 py-3 text-center font-mono text-xs tracking-widest uppercase">
+        <div className="border-[var(--juba-violet)]/40 bg-[var(--juba-surface)] text-[var(--juba-muted)] mb-4 border px-4 py-3 text-center font-mono text-xs tracking-widest uppercase">
           {t('trialBanner', {
             minutes: Math.round((voiceTrialDurationSeconds ?? 300) / 60),
           })}
