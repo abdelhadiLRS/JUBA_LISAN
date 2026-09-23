@@ -1,22 +1,6 @@
-/* JUBA LISAN — Minimal language-learning SaaS identity
- * Inspired by the referenced minimal language-learning SaaS dashboard:
- * #FDFDFD / #EBEBF0 neutrals, #B1BDE8 lavender, #C3EC6C lime,
- * #7D6D96 muted purple and #141217 ink. Existing routes and functionality stay intact.
- */
-:root {
-  --juba-bg: #fdfdfd; --juba-surface: #ffffff; --juba-surface-soft: #ebebf0;
-  --juba-border: #dedee5; --juba-border-soft: #ebebf0; --juba-text: #141217;
-  --juba-muted: #77757d; --juba-primary: #b1bde8; --juba-primary-dark: #7d6d96;
-  --juba-primary-soft: #eef0fa; --juba-warm: #c3ec6c; --juba-warm-soft: #f1fadf;
-  --juba-danger: #d95c66; --juba-shadow: 0 10px 30px rgba(20,18,23,.06);
-}
-html[data-theme='dark'] {
-  --juba-bg: #141217; --juba-surface: #1b191f; --juba-surface-soft: #25232a;
-  --juba-border: #34313a; --juba-border-soft: #2b2930; --juba-text: #f7f6f8;
-  --juba-muted: #aaa7b0; --juba-primary: #9daee2; --juba-primary-dark: #b1bde8;
-  --juba-primary-soft: #292b3b; --juba-warm: #c3ec6c; --juba-warm-soft: #29351c;
-  --juba-danger: #f1848d; --juba-shadow: 0 12px 34px rgba(0,0,0,.2);
-}
+/* JUBA LISAN — route-specific compatibility and presentation rules.
+ * Canonical design tokens live in juba-shell.css; this file preserves
+ * legacy route selectors while they are progressively consolidated. */
 html, body { background: var(--juba-bg) !important; color: var(--juba-text); }
 body { background-image: none !important; }
 .bg-fl-bg { background-color: var(--juba-bg) !important; }
