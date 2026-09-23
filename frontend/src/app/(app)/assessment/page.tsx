@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { apiFetch } from '@/lib/api'
@@ -117,10 +117,12 @@ export default function AssessmentPage() {
   const [createdPlanId, setCreatedPlanId] = useState<number | null>(null)
   const [voiceTrial, setVoiceTrial] = useState<VoiceTrialOffer | null>(null)
   const [showStartWarning, setShowStartWarning] = useState(false)
+  const assessmentLoadRef = useRef(0)
 
   useEffect(() => { void loadConfig() }, [loadConfig])
 
   const loadAssessment = async () => {
+    const loadId = ++assessmentLoadRef.current
     setBankLoading(true)
     setBankError(false)
     setError('')
@@ -130,6 +132,7 @@ export default function AssessmentPage() {
         apiFetch('/api/study-plan/current'),
         apiFetch(`/api/assessment/bank?language=${encodeURIComponent(lang)}`),
       ])
+      if (loadId !== assessmentLoadRef.current) return
       if (!bankRes.ok) {
         setBank([])
         setBankError(true)
@@ -137,6 +140,7 @@ export default function AssessmentPage() {
         return
       }
       const bankData = (await bankRes.json()) as { questions?: AssessmentQuestion[] }
+      if (loadId !== assessmentLoadRef.current) return
       const questions = Array.isArray(bankData.questions) ? bankData.questions : []
       setBank(questions)
       if (questions.length === 0) {
@@ -261,7 +265,7 @@ export default function AssessmentPage() {
       setStep('result')
     } catch (err) {
       const msg = err instanceof Error ? err.message : ''
-      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || 'Evaluation failed')
+      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || tCommon('errorMessage'))
     } finally {
       setEvaluating(false)
     }
@@ -301,7 +305,7 @@ export default function AssessmentPage() {
       router.push('/plan')
     } catch (err) {
       const msg = err instanceof Error ? err.message : ''
-      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || 'Failed to create plan')
+      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || tCommon('errorMessage'))
       setSubmitting(false)
     }
   }
