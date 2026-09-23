@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { BookOpen, Flame, Sparkles, Target, ArrowRight } from 'lucide-react'
+import { BookOpen, Flame, Sparkles, Target, ArrowRight, Trophy, PlayCircle } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import {
   isSubscribed,
@@ -372,8 +372,27 @@ export default function DashboardPage() {
         <DashboardAnnouncement />
 
         {/* Daily Momentum Hero Section - answers three core questions */}
-        <section className="juba-card mb-6 overflow-hidden p-0" aria-label={t('dailyMomentum')}>
-          <div className="border-b border-fl-border bg-gradient-to-r from-[var(--juba-accent)]/5 to-transparent p-5 sm:p-6">
+        <section className="juba-card mb-6 overflow-hidden border-0 p-0 shadow-[0_18px_55px_rgba(15,23,42,0.10)]" aria-label={t('dailyMomentum')}>
+          <div className="relative overflow-hidden bg-gradient-to-br from-[var(--juba-primary)] via-[var(--juba-primary-dark)] to-[var(--juba-accent)] p-6 text-white sm:p-7">
+            <div className="absolute -right-12 -top-16 h-44 w-44 rounded-full border-[28px] border-white/10" aria-hidden="true" />
+            <div className="absolute -bottom-20 right-24 h-36 w-36 rounded-full bg-white/10 blur-2xl" aria-hidden="true" />
+            <div className="relative flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+              <div>
+                <div className="mb-2 flex items-center gap-2 text-sm font-bold text-white/90">
+                  <Flame className="h-5 w-5" /> {t('dailyMomentum')}
+                </div>
+                <h2 className="text-2xl font-black tracking-tight sm:text-3xl">{nextAction ? nextAction.title : t('allCaughtUp')}</h2>
+                <p className="mt-2 max-w-xl text-sm leading-6 text-white/80">{t('dailyMomentumSubtitle')}</p>
+              </div>
+              <div className="flex shrink-0 items-center gap-3 rounded-2xl bg-white/10 px-4 py-3 backdrop-blur-sm">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/35 bg-white/10">
+                  <Trophy className="h-5 w-5" />
+                </div>
+                <div><p className="text-xs font-semibold text-white/70">{t('todayGoal')}</p><p className="text-xl font-black">{goalProgress.current} / {goalProgress.target} {t('xp')}</p></div>
+              </div>
+            </div>
+          </div>
+          <div className="border-b border-fl-border bg-fl-surface p-5 sm:p-6">
             <div className="flex items-center gap-2">
               <Flame className="h-5 w-5 text-[var(--juba-accent)]" />
               <h2 className="text-fl-fg text-lg font-bold">{t('dailyMomentum')}</h2>
@@ -382,12 +401,12 @@ export default function DashboardPage() {
           </div>
           
           <div className="grid grid-cols-1 gap-4 p-5 sm:p-6 md:grid-cols-3">
-            {/* What should I do now? */}
+            {/* What should I do now? */
             <div className="rounded-xl border border-fl-border bg-fl-surface p-4">
               <p className="text-fl-muted-2 mb-2 text-xs font-semibold uppercase tracking-wide">{t('whatNow')}</p>
               {nextAction ? (
                 <>
-                  <h3 className="text-fl-fg text-base font-bold">{nextAction.title}</h3>
+                  <div className="mb-1 flex items-center gap-2"><PlayCircle className="h-4 w-4 text-[var(--juba-primary)]" /><h3 className="text-fl-fg text-base font-bold">{nextAction.title}</h3></div>
                   <p className="text-fl-muted-2 mt-1 text-sm">{tPlan(getLessonTypeLabelKey(nextAction.lessonType))} · {nextAction.estimatedMinutes}min</p>
                   <Link href={`/lesson/${nextAction.id}`} className="mt-3 inline-flex">
                     <button className={`${btnPrimary} bg-[var(--juba-primary)] hover:bg-[var(--juba-primary-dark)]`}>
