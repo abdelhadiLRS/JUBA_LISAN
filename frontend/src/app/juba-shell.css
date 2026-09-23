@@ -209,12 +209,6 @@
   color: var(--juba-ink) !important;
 }
 
-.juba-desktop-sidebar .text-[var(--juba-muted)],
-.juba-desktop-sidebar .text-[var(--juba-muted)],
-.juba-desktop-sidebar .text-[var(--juba-muted)] {
-  color: #938da2 !important;
-}
-
 @media (max-width: 900px) {
   .juba-topbar { padding-inline: 18px; }
   .juba-topbar-search { max-width: none; }
