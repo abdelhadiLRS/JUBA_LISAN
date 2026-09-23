@@ -296,11 +296,15 @@ export default function PlanPage() {
   )
 
   useEffect(() => {
+    let cancelled = false
     if (plan?.cefr_level && activeLanguage?.code) {
       getCurriculumUnits(plan.cefr_level, activeLanguage.code)
-        .then(setUnits)
-        .catch(() => setUnits([]))
+        .then((nextUnits) => { if (!cancelled) setUnits(nextUnits) })
+        .catch(() => { if (!cancelled) setUnits([]) })
+    } else {
+      setUnits([])
     }
+    return () => { cancelled = true }
   }, [plan?.cefr_level, activeLanguage?.code])
 
   if (loading) {
