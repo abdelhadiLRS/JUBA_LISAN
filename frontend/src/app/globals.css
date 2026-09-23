@@ -124,6 +124,9 @@ button,a{ -webkit-tap-highlight-color:transparent }
 
 .juba-app-shell{
   min-height:100svh;
+  width:100%;
+  display:flex;
+  align-items:stretch;
   color:var(--juba-text);
   background:
     radial-gradient(circle at 0 0,rgba(255,212,92,.16),transparent 22rem),
