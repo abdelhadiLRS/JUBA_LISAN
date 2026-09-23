@@ -136,7 +136,7 @@ export function PaywallBanner({
           aria-hidden="true"
         />
 
-        <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-2 font-mono tracking-widest uppercase">
+        <p className="text-[var(--juba-muted)] mb-2 font-mono tracking-widest uppercase">
           {t('paywallLabel')}
         </p>
         <h2 className="text-[var(--juba-text)] mb-3 font-mono text-base font-bold">
@@ -197,14 +197,14 @@ export function PaywallBanner({
         )}
 
         {!paymentRecovery && (
-          <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] mt-6 font-mono tracking-widest uppercase">
+          <p className="text-[var(--juba-muted)] mt-6 font-mono tracking-widest uppercase">
             {t(trialEligible ? 'paywallNoCharge' : 'paywallNoChargeTrialUsed')}
           </p>
         )}
 
         <button
           onClick={() => router.push('/dashboard')}
-          className="text-[var(--juba-muted)] text-[var(--juba-muted)] hover:text-[var(--juba-muted)] mt-5 w-full font-mono tracking-widest uppercase transition-colors"
+          className="text-[var(--juba-muted)] hover:text-[var(--juba-muted)] mt-5 w-full font-mono tracking-widest uppercase transition-colors"
         >
           {t('paywallSkip')}
         </button>
