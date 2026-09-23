@@ -80,7 +80,37 @@ export default function ChatPage() {
   } = useTransientToast()
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const assistantContentRef = useRef('')
+  const assistantFlushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
+
+  const flushAssistantContent = useCallback(() => {
+    if (assistantFlushTimerRef.current) {
+      clearTimeout(assistantFlushTimerRef.current)
+      assistantFlushTimerRef.current = null
+    }
+    const content = assistantContentRef.current
+    setMessages((prev) => {
+      if (!prev.length || prev[prev.length - 1].role !== 'assistant') return prev
+      const copy = [...prev]
+      copy[copy.length - 1] = { role: 'assistant', content }
+      return copy
+    })
+  }, [])
+
+  const scheduleAssistantFlush = useCallback(() => {
+    if (assistantFlushTimerRef.current) return
+    assistantFlushTimerRef.current = setTimeout(() => {
+      assistantFlushTimerRef.current = null
+      const content = assistantContentRef.current
+      setMessages((prev) => {
+        if (!prev.length || prev[prev.length - 1].role !== 'assistant') return prev
+        const copy = [...prev]
+        copy[copy.length - 1] = { role: 'assistant', content }
+        return copy
+      })
+    }, 50)
+  }, [])
 
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const freemiumStatus = useFreemiumStore((s) => s.status)
@@ -101,6 +131,10 @@ export default function ChatPage() {
 
   const scrollBottom = useCallback(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [])
+
+  useEffect(() => () => {
+    if (assistantFlushTimerRef.current) clearTimeout(assistantFlushTimerRef.current)
   }, [])
 
   useEffect(() => {
@@ -248,7 +282,7 @@ export default function ChatPage() {
         throw new Error(data.detail || `Error ${res.status}`)
       }
 
-      let assistantContent = ''
+      assistantContentRef.current = ''
       let streamCompleted = false
       setMessages((prev) => [...prev, { role: 'assistant', content: '' }])
 
@@ -260,7 +294,7 @@ export default function ChatPage() {
         }
         if (data.response_reset) {
           dismissTooltip()
-          assistantContent = ''
+          assistantContentRef.current = ''
           setMessages((prev) => {
             const copy = [...prev]
             copy[copy.length - 1] = { role: 'assistant', content: '' }
@@ -268,15 +302,8 @@ export default function ChatPage() {
           })
         }
         if (data.token) {
-          assistantContent += data.token
-          setMessages((prev) => {
-            const copy = [...prev]
-            copy[copy.length - 1] = {
-              role: 'assistant',
-              content: assistantContent,
-            }
-            return copy
-          })
+          assistantContentRef.current += data.token
+          scheduleAssistantFlush()
         }
         if (data.error) {
           streamCompleted = true
@@ -294,10 +321,12 @@ export default function ChatPage() {
         }
         if (data.memory_updated) showMemoryToast()
       }
+      flushAssistantContent()
       if (!streamCompleted) throw new Error(t('errorMessage'))
     } catch (e) {
       setError(e instanceof Error ? e.message : t('errorMessage'))
     } finally {
+      flushAssistantContent()
       setSending(false)
       inputRef.current?.focus()
     }
