@@ -13,7 +13,7 @@ Parameters:
 - Grammar points to cover (focus ONLY on these): {grammar_points}
 - Vocabulary sets relevant to this unit: {vocabulary_set_ids}
 - Week: {week}, Day: {day}
-- Curated content seed: {content_seed}
+- Curated content seed and course context: {content_seed}
 
 {language_prompt_overlay}
 
