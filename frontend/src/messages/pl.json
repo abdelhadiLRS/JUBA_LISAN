@@ -686,8 +686,8 @@
     "hintPrefix": "Wskazówka: ",
     "retryEasier": "Spróbuj łatwiejszego",
     "checking": "Sprawdzanie…",
-"answerError": "Nie udało się sprawdzić odpowiedzi. Spróbuj ponownie.",,
-"actionError": "Nie udało się wykonać tej czynności. Spróbuj ponownie."
+"answerError": "Nie udało się sprawdzić odpowiedzi. Spróbuj ponownie.",
+    "actionError": "Nie udało się wykonać tej czynności. Spróbuj ponownie.",
     "next": "Dalej",
     "finish": "Zakończ lekcję",
     "completed": "Ukończono",
