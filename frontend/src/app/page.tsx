@@ -110,7 +110,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--juba-bg)] text-[var(--juba-text)] font-sans selection:bg-[var(--juba-yellow)]/25 selection:text-amber-600 overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-[var(--juba-bg)] text-[var(--juba-text)] font-sans selection:bg-[var(--juba-yellow)]/25 selection:text-[var(--juba-violet)] overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -162,7 +162,7 @@ export default async function Home() {
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
                 <Link
                   href={hasSession ? '/dashboard' : '/register'}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-[28px] bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)] text-neutral-950 px-8 py-4 text-base font-bold shadow-lg shadow-[var(--juba-shadow-md)] transition-all hover:shadow-[var(--juba-shadow-md)] active:scale-95"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-[28px] bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)] text-[var(--juba-ink)] px-8 py-4 text-base font-bold shadow-lg shadow-[var(--j-shell-shadow)] transition-all hover:shadow-[var(--j-shell-shadow)] active:scale-95"
                 >
                   {hasSession ? t('dashboard') : t('ctaStart')}
                   <ArrowRight className="w-5 h-5" />
@@ -191,7 +191,7 @@ export default async function Home() {
 
             {/* Right Column: AI Tutor Card Showcase */}
             <div className="lg:col-span-5 relative flex justify-center">
-              <div className="w-full max-w-md juba-card p-6 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl relative z-10">
+              <div className="w-full max-w-md juba-card p-6 bg-[var(--juba-surface)]/95 backdrop-blur-xl relative z-10">
                 <div className="flex items-center justify-between pb-4 border-b border-[var(--juba-border)] mb-6">
                   <div className="flex items-center gap-3">
                     <div className="relative flex h-12 w-12 items-center justify-center rounded-[28px] bg-gradient-to-tr from-[var(--juba-violet)] to-[var(--juba-coral)] text-white font-extrabold text-xl shadow-md">
@@ -206,7 +206,7 @@ export default async function Home() {
                       <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">Active & Ready to speak</p>
                     </div>
                   </div>
-                  <span className="text-xs px-2.5 py-1 rounded-[18px] bg-amber-500/10 text-[var(--juba-violet)] font-bold border border-amber-500/20">
+                  <span className="text-xs px-2.5 py-1 rounded-[18px] bg-[var(--juba-yellow)]/25 text-[var(--juba-violet)] font-bold border border-[var(--juba-border)]">
                     B2 Upper Intermediate
                   </span>
                 </div>
@@ -214,16 +214,16 @@ export default async function Home() {
                 {/* Simulated Conversation Preview */}
                 <div className="space-y-4 mb-6">
                   <div className="bg-[var(--juba-surface-soft)] p-4 rounded-[28px] border border-[var(--juba-border)]">
-                    <p className="text-xs text-neutral-500 font-semibold mb-1">JUBA Tutor says:</p>
+                    <p className="text-xs text-[var(--juba-muted)] font-semibold mb-1">JUBA Tutor says:</p>
                     <p className="text-sm text-[var(--juba-text)] font-medium leading-relaxed">
                       "Bonjour ! Comment puis-je vous aider aujourd'hui ?"
                     </p>
                   </div>
 
                   {/* Audio Waveform Widget */}
-                  <div className="flex items-center justify-between bg-[var(--juba-yellow)]/35 p-4 rounded-[28px] border border-amber-500/20">
+                  <div className="flex items-center justify-between bg-[var(--juba-yellow)]/35 p-4 rounded-[28px] border border-[var(--juba-border)]">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-amber-500 text-neutral-950 flex items-center justify-center shrink-0 shadow-md">
+                      <div className="w-9 h-9 rounded-[18px] bg-[var(--juba-violet)] text-[var(--juba-ink)] flex items-center justify-center shrink-0 shadow-md">
                         <Mic className="w-5 h-5 animate-pulse" />
                       </div>
                       <div>
@@ -232,9 +232,9 @@ export default async function Home() {
                       </div>
                     </div>
                     <div className="flex items-center gap-1 h-5">
-                      <span className="w-1 bg-amber-500 h-3 rounded-[18px] animate-pulse"></span>
-                      <span className="w-1 bg-amber-500 h-5 rounded-[18px] animate-pulse delay-75"></span>
-                      <span className="w-1 bg-amber-500 h-2 rounded-[18px] animate-pulse delay-150"></span>
+                      <span className="w-1 bg-[var(--juba-violet)] h-3 rounded-[18px] animate-pulse"></span>
+                      <span className="w-1 bg-[var(--juba-violet)] h-5 rounded-[18px] animate-pulse delay-75"></span>
+                      <span className="w-1 bg-[var(--juba-violet)] h-2 rounded-[18px] animate-pulse delay-150"></span>
                     </div>
                   </div>
                 </div>
@@ -242,7 +242,7 @@ export default async function Home() {
                 <div className="pt-2">
                   <Link
                     href={hasSession ? '/dashboard' : '/register'}
-                    className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)] text-white font-bold text-xs transition-all"
+                    className="w-full flex items-center justify-center gap-2 py-3 rounded-[18px] bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)] text-white font-bold text-xs transition-all"
                   >
                     Try Conversation Mode <ArrowRight className="w-4 h-4" />
                   </Link>
@@ -326,7 +326,7 @@ export default async function Home() {
               href="https://github.com/abdelhadiLRS/JUBA_LISAN"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl border border-white/20 bg-white/10 hover:bg-white/20 text-white px-6 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors whitespace-nowrap"
+              className="rounded-[18px] border border-white/20 bg-white/10 hover:bg-white/20 text-white px-6 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors whitespace-nowrap"
             >
               {tBilling('openSourceCta')}
             </a>
