@@ -145,9 +145,30 @@ export default function ProgressPage() {
   }, [historyRange, activeLanguage?.code])
 
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
-  useEffect(() => { if (plan?.cefr_level) getCurriculumUnits(plan.cefr_level, targetLanguageCode).then(setLevelUnits).catch(() => setLevelUnits([])) }, [plan?.cefr_level, targetLanguageCode])
+  useEffect(() => {
+    let cancelled = false
+    if (!plan?.cefr_level) {
+      setLevelUnits([])
+      return () => { cancelled = true }
+    }
+    getCurriculumUnits(plan.cefr_level, targetLanguageCode)
+      .then((nextUnits) => { if (!cancelled) setLevelUnits(nextUnits) })
+      .catch(() => { if (!cancelled) setLevelUnits([]) })
+    return () => { cancelled = true }
+  }, [plan?.cefr_level, targetLanguageCode])
+
   const [vocabSets, setVocabSets] = useState<VocabularySet[]>([])
-  useEffect(() => { apiFetch(`/api/vocabulary?language=${targetLanguageCode}`).then((r) => r.json()).then((d: { sets: VocabularySet[] }) => setVocabSets(d.sets)).catch(() => setVocabSets([])) }, [targetLanguageCode])
+  useEffect(() => {
+    let cancelled = false
+    apiFetch(`/api/vocabulary?language=${targetLanguageCode}`)
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`Vocabulary request failed (${response.status})`)
+        return (await response.json()) as { sets?: VocabularySet[] }
+      })
+      .then((data) => { if (!cancelled) setVocabSets(Array.isArray(data.sets) ? data.sets : []) })
+      .catch(() => { if (!cancelled) setVocabSets([]) })
+    return () => { cancelled = true }
+  }, [targetLanguageCode])
   const compMap = Object.fromEntries(competencies.map((c) => [c.unit_id, c]))
   const recentHistory = useMemo(() => history.slice(0, historyRange === 'week' ? 7 : historyRange === 'month' ? 30 : history.length).reverse(), [history, historyRange])
   const maxDailyXp = Math.max(1, ...recentHistory.map((entry) => entry.xp_earned))
