@@ -60,3 +60,29 @@
   .juba-mobile-plan .juba-card,
   .juba-mobile-lesson .juba-card{box-shadow:4px 4px 0 var(--route-ink)!important}
 }
+
+
+/* Final route palette bridge */
+.juba-mobile-progress{
+  --route-ink:#25302a;
+  --route-green:#5a9b32;
+  --route-green-dark:#39751d;
+  --route-cream:#fbfaf4;
+  --route-yellow:#ffd35a;
+  --route-coral:#ef816f;
+  color:var(--route-ink);
+  background:var(--route-cream);
+  border-radius:32px;
+}
+.juba-mobile-progress .juba-card{
+  border:3px solid var(--route-ink)!important;
+  border-radius:28px!important;
+  box-shadow:6px 6px 0 var(--route-ink)!important;
+}
+.juba-mobile-progress .bg-[var(--juba-violet)]{background:var(--route-green-dark)!important}
+.juba-mobile-progress .text-[var(--juba-violet)]{color:var(--route-green-dark)!important}
+.juba-mobile-progress .bg-[var(--juba-lilac)]{background:#e2f2d3!important}
+@media(max-width:700px){
+ .juba-mobile-progress{border-radius:0}
+ .juba-mobile-progress .juba-card{box-shadow:4px 4px 0 var(--route-ink)!important}
+}
