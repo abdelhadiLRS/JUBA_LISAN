@@ -46,47 +46,47 @@ export default function TermsPage() {
             className="mb-3"
           />
         </Link>
-        <h1 className="text-fl-fg font-mono text-xl font-bold tracking-widest uppercase">JUBA LISAN</h1>
-        <p className="text-fl-caption text-fl-muted-2 mt-1 font-mono tracking-widest uppercase">
+        <h1 className="text-[var(--juba-text)] font-sans text-xl font-bold tracking-wide">JUBA LISAN</h1>
+        <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] mt-1 font-semibold tracking-wide">
           {tCommon('tagline')}
         </p>
       </div>
 
-      <div className="border-fl-border bg-fl-surface space-y-8 border p-8">
-        <div className="border-fl-border flex items-center gap-2 border-b pb-4">
-          <span className="text-fl-label text-fl-muted-2">●</span>
-          <span className="text-fl-muted-2 font-mono text-xs tracking-widest uppercase">
+      <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] space-y-8 border-2 border-[var(--juba-border)] p-8">
+        <div className="border-[var(--juba-border)] flex items-center gap-2 border-b pb-4">
+          <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
+          <span className="text-[var(--juba-muted)] font-sans text-xs tracking-wide">
             {t('pageTitle')}
           </span>
         </div>
 
-        <p className="text-fl-hint text-fl-muted-2 font-mono tracking-wide">
+        <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-sans tracking-wide">
           {t('updated')}
         </p>
 
         <section className="space-y-3">
-          <h2 className="text-fl-fg font-mono text-sm font-bold tracking-widest uppercase">
+          <h2 className="text-[var(--juba-text)] font-sans text-sm font-bold tracking-wide">
             {t('s1Title')}
           </h2>
-          <p className="text-fl-fg-2 font-mono text-sm leading-relaxed">
+          <p className="text-[var(--juba-text)] font-sans text-sm leading-relaxed">
             {t('s1Body')}
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-fl-fg font-mono text-sm font-bold tracking-widest uppercase">
+          <h2 className="text-[var(--juba-text)] font-sans text-sm font-bold tracking-wide">
             {t('s2Title')}
           </h2>
-          <p className="text-fl-fg-2 font-mono text-sm leading-relaxed">
+          <p className="text-[var(--juba-text)] font-sans text-sm leading-relaxed">
             {t('s2Intro')}
           </p>
           <ul className="space-y-1 pl-4">
             {s2Items.map((item) => (
               <li
                 key={item}
-                className="text-fl-fg-2 flex gap-2 font-mono text-sm leading-relaxed"
+                className="text-[var(--juba-text)] flex gap-2 font-sans text-sm leading-relaxed"
               >
-                <span className="text-fl-muted-2 flex-shrink-0">—</span>
+                <span className="text-[var(--juba-muted)] flex-shrink-0">—</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -105,29 +105,29 @@ export default function TermsPage() {
           { title: t('s11Title'), body: t('s11Body') },
         ].map((section) => (
           <section key={section.title} className="space-y-3">
-            <h2 className="text-fl-fg font-mono text-sm font-bold tracking-widest uppercase">
+            <h2 className="text-[var(--juba-text)] font-sans text-sm font-bold tracking-wide">
               {section.title}
             </h2>
-            <p className="text-fl-fg-2 font-mono text-sm leading-relaxed">
+            <p className="text-[var(--juba-text)] font-sans text-sm leading-relaxed">
               {section.body}
             </p>
           </section>
         ))}
 
-        <p className="text-fl-muted-2 font-mono text-xs tracking-wide">
+        <p className="text-[var(--juba-muted)] font-sans text-xs tracking-wide">
           {t('linkContact')}
         </p>
 
-        <div className="border-fl-border flex gap-6 border-t pt-4">
+        <div className="border-[var(--juba-border)] flex gap-6 border-t pt-4">
           <Link
             href={privacyHref}
-            className="text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-sans text-xs tracking-wide transition-colors"
           >
             {t('linkPrivacy')}
           </Link>
           <Link
             href={backHref}
-            className="text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-sans text-xs tracking-wide transition-colors"
           >
             {backLabel}
           </Link>
