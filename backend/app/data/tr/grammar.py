@@ -1,0 +1,16 @@
+"""Türkçe grammar topics — initial CEFR foundation."""
+from app.data._types import GrammarTopic, GrammarExample
+GRAMMAR_TOPICS = [
+GrammarTopic(slug="pronouns", title="Kişi zamirleri", level="A1", category="core", summary="Kişi zamirleri", explanation="Core Kişi zamirleri.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="nominal-sentence", title="İsim cümleleri", level="A1", category="core", summary="İsim cümleleri", explanation="Core İsim cümleleri.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="present-progressive", title="Şimdiki zaman", level="A1", category="core", summary="Şimdiki zaman", explanation="Core Şimdiki zaman.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="past-tense", title="Geçmiş zaman", level="A2", category="core", summary="Geçmiş zaman", explanation="Core Geçmiş zaman.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="future-tense", title="Gelecek zaman", level="A2", category="core", summary="Gelecek zaman", explanation="Core Gelecek zaman.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="cases", title="Hâl ekleri", level="B1", category="core", summary="Hâl ekleri", explanation="Core Hâl ekleri.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="conditionals", title="Koşul cümleleri", level="B1", category="core", summary="Koşul cümleleri", explanation="Core Koşul cümleleri.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="passive", title="Edilgen yapı", level="B2", category="core", summary="Edilgen yapı", explanation="Core Edilgen yapı.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="reported-speech", title="Dolaylı anlatım", level="B2", category="core", summary="Dolaylı anlatım", explanation="Core Dolaylı anlatım.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="academic-register", title="Akademik dil", level="C1", category="core", summary="Akademik dil", explanation="Core Akademik dil.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="discourse", title="Söylem ve üslup", level="C2", category="core", summary="Söylem ve üslup", explanation="Core Söylem ve üslup.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="style", title="Üslup ve ifade", level="C2", category="core", summary="Üslup ve ifade", explanation="Core Üslup ve ifade.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[])
+]
