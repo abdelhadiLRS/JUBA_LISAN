@@ -579,3 +579,119 @@
     -webkit-tap-highlight-color: transparent;
   }
 }
+
+
+/* Funfluent Mobile continuation: learning surfaces share the same compact,
+   illustration-friendly rhythm as the dashboard. */
+@media (max-width: 640px) {
+  .juba-mobile-plan,
+  .juba-mobile-courses,
+  .juba-mobile-lesson,
+  .juba-mobile-progress {
+    width: 100%;
+  }
+
+  .juba-mobile-plan,
+  .juba-mobile-courses,
+  .juba-mobile-lesson,
+  .juba-mobile-progress {
+    padding-inline: 0 !important;
+    padding-top: 6px !important;
+    padding-bottom: 12px !important;
+  }
+
+  .juba-mobile-plan > section,
+  .juba-mobile-courses section,
+  .juba-mobile-progress section {
+    border-radius: 26px;
+  }
+
+  .juba-mobile-plan > section:first-child,
+  .juba-mobile-courses > div > section:first-child,
+  .juba-mobile-progress > section:first-child {
+    min-height: 230px;
+    padding: 22px 18px !important;
+    border-radius: 28px;
+  }
+
+  .juba-mobile-plan > section:first-child h1,
+  .juba-mobile-courses > div > section:first-child h1,
+  .juba-mobile-progress > section:first-child h1 {
+    font-size: 2rem !important;
+    line-height: 1.05;
+  }
+
+  .juba-mobile-plan button,
+  .juba-mobile-courses a,
+  .juba-mobile-courses button,
+  .juba-mobile-lesson button,
+  .juba-mobile-progress button {
+    min-height: 44px;
+  }
+
+  .juba-mobile-plan .grid,
+  .juba-mobile-courses .grid,
+  .juba-mobile-progress .grid {
+    min-width: 0;
+  }
+
+  .juba-mobile-plan .rounded-\[24px\],
+  .juba-mobile-plan .rounded-\[28px\],
+  .juba-mobile-courses .juba-card,
+  .juba-mobile-progress .rounded-\[28px\] {
+    box-shadow: 0 10px 26px rgba(39,28,72,.07);
+  }
+
+  /* Roadmap becomes a stack of friendly cards instead of a desktop rail. */
+  .juba-mobile-plan .sm\\:ps-16 {
+    padding-inline-start: 0 !important;
+  }
+
+  .juba-mobile-plan .sm\\:flex {
+    display: flex;
+  }
+
+  .juba-mobile-plan .sm\\:flex.absolute {
+    display: none;
+  }
+
+  /* Courses: preserve content, but make each level feel like an app card. */
+  .juba-mobile-courses > div {
+    gap: 18px !important;
+  }
+
+  .juba-mobile-courses article {
+    border-radius: 25px !important;
+    padding: 18px !important;
+  }
+
+  /* Lesson: give the exercise area breathing room above the fixed nav. */
+  .juba-mobile-lesson {
+    padding-bottom: 22px !important;
+  }
+
+  .juba-mobile-lesson > div:first-child {
+    border-radius: 28px;
+  }
+
+  .juba-mobile-lesson [aria-label^="Exercise "] {
+    min-width: 38px;
+  }
+
+  /* Progress: emphasize the primary metrics and keep dense analytics readable. */
+  .juba-mobile-progress .grid-cols-2,
+  .juba-mobile-progress .grid-cols-3,
+  .juba-mobile-progress .grid-cols-4 {
+    gap: 8px;
+  }
+
+  .juba-mobile-progress .grid-cols-7 {
+    gap: 4px;
+  }
+
+  .juba-mobile-progress input,
+  .juba-mobile-progress select {
+    min-height: 44px;
+    border-radius: 14px;
+  }
+}
