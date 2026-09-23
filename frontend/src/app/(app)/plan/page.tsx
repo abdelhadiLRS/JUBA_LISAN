@@ -274,7 +274,6 @@ export default function PlanPage() {
       setCompetencies(competencySnapshot)
       setActiveLessonId(nextLessonId)
       setPendingLessons(pendingData ?? [])
-      setPendingLessons(pendingData ?? [])
       setActiveLessonId(nextLessonId)
       setLessonStates(states)
     } catch (err) {
