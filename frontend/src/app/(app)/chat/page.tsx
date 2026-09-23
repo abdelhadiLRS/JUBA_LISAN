@@ -320,8 +320,8 @@ export default function ChatPage() {
 
         {/* Sidebar */}
         {sidebarOpen && (
-          <aside className="border-[#e2f2d3] bg-[#e2f2d3]/40 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
-            <div className="border-[#e2f2d3] flex items-center justify-between border-b px-4 py-3">
+          <aside className="border-[#e2f2d3] bg-[#e2f2d3]/40 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
+            <div className="border-[#e2f2d3] flex items-center justify-between border-b-2 px-4 py-3">
               <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-semibold tracking-wide">
                 {t('conversations')}
               </span>
@@ -355,7 +355,7 @@ export default function ChatPage() {
                         })
                         .finally(() => setLoadingConvs(false))
                     }}
-                    className="border-[#e2f2d3] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[#39751d] border px-4 py-2 font-semibold tracking-wide transition-colors"
+                    className="rounded-xl border-2 border-[#e2f2d3] bg-[var(--juba-surface)] px-4 py-2 font-semibold tracking-wide text-[var(--juba-text)] shadow-[2px_2px_0_var(--juba-border)] transition-all hover:-translate-y-0.5 hover:border-[#39751d]"
                   >
                     {tCommon('retry')}
                   </button>
@@ -371,7 +371,7 @@ export default function ChatPage() {
                     onClick={() => selectConversation(c.id)}
                     className={`group border-[#e2f2d3] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
                       activeId === c.id
-                        ? 'bg-[#e2f2d3] border-l-fl-fg border-l-2'
+                        ? 'bg-[#e2f2d3] border-l-[#39751d] border-l-2'
                         : 'hover:bg-white border-l-2 border-l-transparent'
                     }`}
                   >
@@ -545,7 +545,7 @@ export default function ChatPage() {
               ))
             )}
             {error && (
-              <div className="text-[var(--juba-text)] text-rose-600 border-fl-error/30 border px-4 py-2 font-mono">
+              <div className="text-[var(--juba-text)] text-rose-600 rounded-xl border-2 border-rose-300 bg-rose-50 px-4 py-2 font-mono">
                 ✕{' '}
                 {error === 'No active study plan found'
                   ? tCommon('noActivePlan')
@@ -572,17 +572,17 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="bg-white border-[#e2f2d3] text-[var(--juba-text)] placeholder:text-fl-border-2 focus:border-[#39751d] flex-1 border px-4 py-3 font-mono text-base transition-colors focus:outline-none disabled:opacity-40"
+                    className="flex-1 rounded-xl border-2 border-[#e2f2d3] bg-white px-4 py-3 font-mono text-base text-[var(--juba-text)] shadow-[2px_2px_0_var(--juba-border)] transition-all placeholder:text-[#8a918c] focus:border-[#39751d] focus:outline-none focus:ring-2 focus:ring-[#39751d]/15 disabled:opacity-40"
                   />
                   <button
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || loadingMsgs}
-                    className="bg-[#39751d] text-[#39751d]-fg text-[var(--juba-text)] hover:bg-[#39751d]/90 px-5 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-30"
+                    className="rounded-xl border-2 border-[#25302a] bg-[#39751d] px-5 font-mono font-bold uppercase tracking-widest text-white shadow-[3px_3px_0_#25302a] transition-all hover:-translate-y-0.5 hover:bg-[#39751d] hover:shadow-[4px_4px_0_#25302a] active:translate-y-0.5 active:shadow-[1px_1px_0_#25302a] disabled:opacity-30"
                   >
                     {sending ? '...' : t('send')}
                   </button>
                 </div>
-                <p className="text-[var(--juba-muted)] text-fl-border-2 mt-2 font-mono tracking-wide">
+                <p className="text-[var(--juba-muted)] text-[#8a918c] mt-2 font-mono tracking-wide">
                   {t('enterToSend')}
                 </p>
               </>
