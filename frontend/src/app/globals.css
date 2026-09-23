@@ -1930,3 +1930,196 @@ main [dir="rtl"] h3,
   .juba-ff-reference .orbit-two{width:260px;height:130px}
   .juba-ff-reference .juba-ff-spark{font-size:20px}
 }
+
+
+/* Funfluent fidelity pass 5 — continuous editorial rhythm from shelf to footer. */
+.juba-ff-reference .juba-ff-story{
+  isolation:isolate;
+}
+.juba-ff-reference .juba-ff-story + .juba-ff-story{
+  border-top:3px solid var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-story-features{
+  position:relative;
+  background:
+    radial-gradient(circle at 82% 18%,rgba(255,217,90,.22),transparent 220px),
+    var(--ff-cream);
+}
+.juba-ff-reference .juba-ff-story-ai{
+  position:relative;
+  background:
+    radial-gradient(circle at 12% 78%,rgba(185,237,240,.42),transparent 260px),
+    #e8f4dc;
+}
+.juba-ff-reference .juba-ff-story-dashboard{
+  background:
+    radial-gradient(circle at 88% 20%,rgba(255,217,90,.18),transparent 240px),
+    var(--ff-cream);
+}
+.juba-ff-reference .juba-ff-story-languages{
+  background:
+    radial-gradient(circle at 18% 25%,rgba(255,255,255,.42),transparent 240px),
+    #dff1d3;
+}
+.juba-ff-reference .juba-ff-story-learning{
+  background:
+    radial-gradient(circle at 86% 72%,rgba(185,237,240,.28),transparent 260px),
+    var(--ff-cream);
+}
+.juba-ff-reference .juba-ff-story-reviews{
+  padding-top:94px;
+  padding-bottom:112px;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(255,217,90,.2),transparent 210px),
+    #e8f4dc;
+}
+.juba-ff-reference .juba-ff-story-reviews .juba-ff-contained-card{
+  position:relative;
+  padding:34px;
+  background:var(--ff-paper);
+}
+.juba-ff-reference .juba-ff-story-reviews .juba-ff-contained-card::before{
+  content:"“";
+  position:absolute;
+  top:-35px;
+  right:28px;
+  font-size:110px;
+  line-height:1;
+  font-weight:950;
+  color:var(--ff-yellow);
+  -webkit-text-stroke:3px var(--ff-ink);
+  transform:rotate(5deg);
+  pointer-events:none;
+}
+.juba-ff-reference .juba-ff-story-pricing{
+  padding-top:106px;
+  padding-bottom:106px;
+  background:
+    radial-gradient(circle at 82% 14%,rgba(255,217,90,.2),transparent 230px),
+    var(--ff-cream);
+}
+.juba-ff-reference .juba-ff-story-pricing .juba-ff-story-inner{
+  position:relative;
+}
+.juba-ff-reference .juba-ff-story-pricing .juba-ff-story-inner::before{
+  content:"";
+  position:absolute;
+  width:92px;
+  height:92px;
+  left:-36px;
+  top:12px;
+  border:3px solid var(--ff-ink);
+  border-radius:50%;
+  background:var(--ff-yellow);
+  box-shadow:5px 5px 0 var(--ff-ink);
+  transform:rotate(-8deg);
+  opacity:.9;
+}
+.juba-ff-reference .juba-ff-open-source{
+  position:relative;
+  background:var(--ff-cream);
+}
+.juba-ff-reference .juba-ff-open-source-card{
+  position:relative;
+  overflow:hidden;
+  border:3px solid var(--ff-ink);
+  border-radius:22px;
+  background:var(--ff-green);
+  color:#fff;
+  box-shadow:8px 8px 0 var(--ff-ink);
+  padding:24px 28px;
+}
+.juba-ff-reference .juba-ff-open-source-card::after{
+  content:"✦";
+  position:absolute;
+  right:24px;
+  bottom:-18px;
+  font-size:82px;
+  line-height:1;
+  color:var(--ff-yellow);
+  transform:rotate(12deg);
+  opacity:.95;
+}
+.juba-ff-reference .juba-ff-open-source-title,
+.juba-ff-reference .juba-ff-open-source-desc{
+  position:relative;
+  z-index:1;
+}
+.juba-ff-reference .juba-ff-open-source-title{color:#fff}
+.juba-ff-reference .juba-ff-open-source-desc{color:rgba(255,255,255,.82)}
+.juba-ff-reference .juba-ff-open-source-cta{
+  position:relative;
+  z-index:2;
+  border:2px solid var(--ff-ink);
+  background:var(--ff-yellow);
+  color:var(--ff-ink);
+  box-shadow:4px 4px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-open-source-cta:hover{
+  transform:translate(-1px,-1px);
+  box-shadow:5px 5px 0 var(--ff-ink);
+}
+.juba-ff-reference #faq{
+  position:relative;
+  max-width:none;
+  padding-top:104px;
+  padding-bottom:116px;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(255,217,90,.22),transparent 230px),
+    var(--ff-cream);
+}
+.juba-ff-reference #faq::before{
+  content:"FAQ";
+  position:absolute;
+  left:50%;
+  top:38px;
+  transform:translateX(-50%) rotate(-2deg);
+  padding:7px 13px;
+  border:2px solid var(--ff-ink);
+  border-radius:999px;
+  background:var(--ff-yellow);
+  box-shadow:3px 3px 0 var(--ff-ink);
+  color:var(--ff-ink);
+  font-size:10px;
+  font-weight:950;
+  letter-spacing:.08em;
+}
+.juba-ff-reference #faq > div{
+  width:min(900px,100%);
+  margin:0 auto;
+}
+.juba-ff-reference #faq > div > div:first-child{
+  margin-bottom:34px;
+}
+.juba-ff-reference #faq > div > div:first-child h2{
+  margin:0;
+  font-size:clamp(2.8rem,6vw,4.8rem);
+  line-height:.9;
+  font-weight:950;
+}
+.juba-ff-reference #faq [data-slot="accordion-item"],
+.juba-ff-reference #faq [role="region"]{
+  border-color:var(--ff-ink);
+}
+.juba-ff-reference #faq [data-slot="accordion-item"]{
+  border-width:2px;
+  border-radius:14px;
+  margin-bottom:10px;
+  background:var(--ff-paper);
+  box-shadow:4px 4px 0 var(--ff-ink);
+}
+@media(max-width:900px){
+  .juba-ff-reference .juba-ff-story-reviews .juba-ff-contained-card{padding:24px}
+  .juba-ff-reference .juba-ff-story-pricing .juba-ff-story-inner::before{left:-12px}
+  .juba-ff-reference #faq{padding-top:92px}
+}
+@media(max-width:600px){
+  .juba-ff-reference .juba-ff-story-reviews{padding-top:72px;padding-bottom:82px}
+  .juba-ff-reference .juba-ff-story-reviews .juba-ff-contained-card{padding:18px;box-shadow:5px 5px 0 var(--ff-ink)}
+  .juba-ff-reference .juba-ff-story-reviews .juba-ff-contained-card::before{right:12px;top:-26px;font-size:76px}
+  .juba-ff-reference .juba-ff-story-pricing{padding-top:78px;padding-bottom:78px}
+  .juba-ff-reference .juba-ff-story-pricing .juba-ff-story-inner::before{width:58px;height:58px;left:2px;top:-28px;box-shadow:3px 3px 0 var(--ff-ink)}
+  .juba-ff-reference .juba-ff-open-source-card{padding:20px;box-shadow:5px 5px 0 var(--ff-ink)}
+  .juba-ff-reference #faq{padding-top:82px;padding-bottom:82px}
+  .juba-ff-reference #faq::before{top:28px}
+}
