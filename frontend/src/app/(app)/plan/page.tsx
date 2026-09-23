@@ -318,7 +318,7 @@ export default function PlanPage() {
     units.length > 0 && units.every((u) => (competencies[u.id] ?? 0) >= 0.8)
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8 px-3 py-5 sm:px-6 sm:py-8">
+    <div className="juba-mobile-plan mx-auto max-w-6xl space-y-8 px-3 py-5 sm:px-6 sm:py-8">
       {/* Hero */}
       <section className="relative overflow-hidden rounded-[32px] bg-[var(--juba-violet)] px-6 py-7 text-white shadow-[0_18px_50px_rgba(108,69,245,0.22)] sm:px-9 sm:py-9">
         <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--juba-yellow)] opacity-95" />
