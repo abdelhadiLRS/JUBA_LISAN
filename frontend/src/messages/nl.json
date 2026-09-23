@@ -686,8 +686,8 @@
     "hintPrefix": "Hint: ",
     "retryEasier": "Makkelijker opnieuw proberen",
     "checking": "Controleren…",
-"answerError": "We konden je antwoord niet controleren. Probeer het opnieuw.",,
-"actionError": "Deze actie kon niet worden voltooid. Probeer het opnieuw."
+"answerError": "We konden je antwoord niet controleren. Probeer het opnieuw.",
+    "actionError": "Deze actie kon niet worden voltooid. Probeer het opnieuw.",
     "next": "Volgende",
     "finish": "Les afronden",
     "completed": "Voltooid",
