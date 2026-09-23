@@ -301,17 +301,17 @@
 }
 .juba-mobile-greeting-progress span { display:block; width:44%; height:100%; border-radius:inherit; background:var(--juba-violet); }
 
-.juba-mobile-daily {
-  border: 0 !important;
+ .juba-mobile-daily {
   border-radius: 30px !important;
   background: #fff !important;
   box-shadow: var(--j-shell-shadow);
 }
 .juba-mobile-daily > div:first-child { border: 0 !important; border-radius: 30px 30px 0 0; }
 .juba-mobile-daily > div:last-child > div {
-  border: 0 !important;
+  border: 2px solid rgba(37,48,42,.12) !important;
   border-radius: 22px !important;
   background: #f2f0e8 !important;
+  box-shadow: 3px 3px 0 rgba(37,48,42,.12);
 }
 
 .juba-mobile-plan,
