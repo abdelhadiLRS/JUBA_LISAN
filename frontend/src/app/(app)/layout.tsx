@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { Menu, X, type LucideIcon, Home, Map, BarChart3, Gamepad2, Layers, MessageCircle, Headphones, BookOpen, MessageSquare, ClipboardCheck, BookMarked, GraduationCap, Settings, HelpCircle, MessageSquarePlus, Shield } from 'lucide-react'
+import { Menu, X, type LucideIcon, Home, Map, BarChart3, Gamepad2, Layers, MessageCircle, Headphones, BookOpen, MessageSquare, ClipboardCheck, BookMarked, GraduationCap, Settings, HelpCircle, MessageSquarePlus, Shield, Users } from 'lucide-react'
 import { useAuthStore, isSubscribed } from '@/store/auth'
 import { useConfigStore } from '@/store/config'
 import { apiFetch, refreshAuthSession } from '@/lib/api'
@@ -19,22 +19,22 @@ import { AuthAvatarImage } from '@/components/AuthAvatarImage'
 import { useProgressStore } from '@/store/progress'
 import { LearningProgressBridge } from '@/components/LearningProgressBridge'
 
-const NAV_ICONS: Record<string, LucideIcon> = {'/dashboard': Home, '/plan': Map, '/progress': BarChart3, '/games': Gamepad2, '/flashcards': Layers, '/chat': MessageCircle, '/listening': Headphones, '/reading': BookOpen, '/conversation': MessageCircle, '/assessment': ClipboardCheck, '/grammar': BookMarked, '/vocabulary': GraduationCap, '/phrasebook': MessageSquare, '/settings': Settings, '/faq': HelpCircle, '/feedback': MessageSquarePlus, '/admin': Shield}
+const NAV_ICONS: Record<string, LucideIcon> = {'/dashboard': Home, '/plan': Map, '/progress': BarChart3, '/games': Gamepad2, '/flashcards': Layers, '/chat': MessageCircle, '/listening': Headphones, '/reading': BookOpen, '/conversation': MessageCircle, '/assessment': ClipboardCheck, '/grammar': BookMarked, '/vocabulary': GraduationCap, '/phrasebook': MessageSquare, '/settings': Settings, '/faq': HelpCircle, '/feedback': MessageSquarePlus, '/friends': Users, '/admin': Shield}
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const tNav = useTranslations('nav'); const tCommon = useTranslations('common'); const tBilling = useTranslations('billing'); const pathname = usePathname(); const router = useRouter()
   const user = useAuthStore((s) => s.user); const accessToken = useAuthStore((s) => s.accessToken); const setProgress = useProgressStore((s) => s.setProgress); const setUser = useAuthStore((s) => s.setUser); const logout = useAuthStore((s) => s.logout); const handleLogout = useLogout(); const [initializing, setInitializing] = useState(true); const loadConfig = useConfigStore((s) => s.load); const [logoutConfirm, setLogoutConfirm] = useState(false); const [menuOpen, setMenuOpen] = useState(false); const [contactOpen, setContactOpen] = useState(false); const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
   const mainNavItems = [
     { href: '/dashboard', label: tNav('home') }, { href: '/plan', label: tNav('myPlan') }, { href: '/progress', label: tNav('progress') },
-    { href: '/games', label: tNav('games') }, { href: '/flashcards', label: tNav('flashcards') }, { href: '/chat', label: tNav('tutor') },
+    { href: '/games', label: tNav('games') }, { href: '/flashcards', label: tNav('flashcards') }, { href: '/friends', label: 'Friends' }, { href: '/chat', label: tNav('tutor') },
     { href: '/listening', label: tNav('listening') }, { href: '/reading', label: tNav('reading') }, { href: '/conversation', label: tNav('conversation') }, { href: '/assessment', label: tNav('assessment') }
   ]
   const resourceNavItems = [{ href: '/grammar', label: tNav('grammar') }, { href: '/vocabulary', label: tNav('vocabulary') }, { href: '/phrasebook', label: tNav('phrasebook') }, { href: '/settings', label: tNav('settings') }, { href: '/faq', label: tNav('faq') }, { href: '/feedback', label: tNav('feedback') }]
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled); const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled); const [trialDaysLeft, setTrialDaysLeft] = useState(0)
   async function handleResendVerification() { const res = await apiFetch('/api/auth/resend-verification', { method: 'POST' }); if (res.ok) window.location.reload() }
-  useEffect(() => { async function init() { loadConfig(); try { if (!accessToken) { const token = await refreshAuthSession(); if (!token) { router.push('/login'); return } } const meRes = await apiFetch('/api/auth/me'); if (!meRes.ok) { logout(); router.push('/login'); return } const me = await meRes.json(); setUser(mapUser(me));
+  useEffect(() => { async function init() { loadConfig(); try { if (!accessToken) { const token = await refreshAuthSession(); if (!token) { router.push('/login'); return } } const meRes = await apiFetch('/api/auth/me'); if (!meRes.ok) { logout(); router.push('/login'); return } const me = await meRes.json(); const mappedUser = mapUser(me); setUser(mappedUser); if (mappedUser.role === 'admin' && !pathname.startsWith('/admin')) { router.replace('/admin'); return } if (mappedUser.role !== 'admin' && pathname.startsWith('/admin')) { router.replace('/dashboard'); return }
         try { const progressRes = await apiFetch('/api/progress/summary'); if (progressRes.ok) { const progress = await progressRes.json(); setProgress({ streak: typeof progress.current_streak === 'number' ? Math.max(0, progress.current_streak) : 0, xp: typeof progress.total_xp === 'number' ? Math.max(0, progress.total_xp) : 0, skills: progress.skills && typeof progress.skills === 'object' ? progress.skills : {} }); const gameRes = await apiFetch('/api/progress/game-summary'); if (gameRes.ok) { const game = await gameRes.json(); setProgress({ streak: typeof progress.current_streak === 'number' ? Math.max(0, progress.current_streak) : 0, xp: typeof progress.total_xp === 'number' ? Math.max(0, progress.total_xp) : 0, skills: progress.skills && typeof progress.skills === 'object' ? progress.skills : {}, gameStats: { gamesPlayed: Math.max(0, Number(game.games_played) || 0), questionsAnswered: Math.max(0, Number(game.questions_answered) || 0), correctAnswers: Math.max(0, Number(game.correct_answers) || 0), bestRoundScore: Math.max(0, Number(game.best_round_score) || 0), dailyChallengesCompleted: Math.max(0, Number(game.daily_challenges_completed) || 0), lastDailyChallengeDate: typeof game.last_daily_challenge_date === 'string' ? game.last_daily_challenge_date : '', currentCorrectStreak: Math.max(0, Number(game.current_correct_streak) || 0), bestCorrectStreak: Math.max(0, Number(game.best_correct_streak) || 0) }, achievements: Array.isArray(game.achievements) ? game.achievements : [] }) } } } } catch { /* best effort */ }
-        if (me.learning_goals === null) { router.replace('/onboarding'); return }
+        if (mappedUser.role !== 'admin' && me.learning_goals === null) { router.replace('/onboarding'); return }
       } catch { logout(); router.push('/login') } finally { setInitializing(false) } } init(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => { if (user?.subscription_status === 'trialing' && user?.subscription_ends_at && stripeEnabled) { const days = Math.max(1, Math.ceil((new Date(user.subscription_ends_at).getTime() - Date.now()) / 86400000)); setTrialDaysLeft(days); return } if (user?.freemium_trial_ends_at && stripeEnabled && user?.subscription_status !== 'active' && user?.subscription_status !== 'trialing') { const end = new Date(user.freemium_trial_ends_at); if (end > new Date()) { setTrialDaysLeft(Math.max(1, Math.ceil((end.getTime() - Date.now()) / 86400000))); return } } setTrialDaysLeft(0) }, [user?.subscription_status, user?.subscription_ends_at, user?.freemium_trial_ends_at, stripeEnabled])
@@ -44,5 +44,28 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const renderNavIcon = (href: string, active: boolean) => { const Icon = NAV_ICONS[href] ?? Layers; return <Icon className="h-4 w-4" aria-hidden="true" style={{ color: active ? '#39751d' : 'currentColor' }} /> }
   const navLinks = mainNavItems.map((item) => { const active = isActive(item.href); return <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)} className={active ? 'juba-app-nav-link is-active' : 'juba-app-nav-link'} aria-current={active ? 'page' : undefined}>{renderNavIcon(item.href, active)}<span>{item.label}</span>{showPremiumBadge && ['/chat','/listening','/reading','/conversation'].includes(item.href) && <span aria-label="Premium">★</span>}</Link> })
   const resourceLinks = resourceNavItems.map((item) => { const active = isActive(item.href); return <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)} className={active ? 'juba-app-nav-link is-active' : 'juba-app-nav-link'} aria-current={active ? 'page' : undefined}>{renderNavIcon(item.href, active)}<span>{item.label}</span>{item.href === '/feedback' && feedbackBadgeText && <span className="ms-auto rounded-full bg-red-600 px-1.5 py-0.5 text-[10px] text-white">{feedbackBadgeText}</span>}</Link> })
+  if (user?.role === 'admin') {
+    return (
+      <div className="min-h-screen bg-[var(--juba-bg)] text-[var(--juba-text)]">
+        <header className="border-b border-[var(--juba-border)] bg-[var(--juba-surface)]">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+            <Link href="/admin" className="flex items-center gap-3 font-bold tracking-tight">
+              <span className="juba-brand-mark">JL</span>
+              <span>JUBA LISAN <span className="text-[var(--juba-muted)]">Admin</span></span>
+            </Link>
+            <div className="flex items-center gap-3">
+              <span className="hidden text-xs text-[var(--juba-muted)] sm:inline">{user.displayName || user.username}</span>
+              <button type="button" onClick={() => setLogoutConfirm(true)} className="rounded-xl border border-[var(--juba-border)] px-3 py-2 text-xs font-semibold transition hover:bg-[var(--juba-bg)]">
+                {tCommon('logout')}
+              </button>
+            </div>
+          </div>
+        </header>
+        <main className="mx-auto w-full max-w-7xl px-4 py-5 sm:px-6">{children}</main>
+        <ConfirmDialog open={logoutConfirm} title={tCommon('logout')} message={tCommon('logoutConfirm')} confirmLabel={tCommon('logout')} onCancel={() => setLogoutConfirm(false)} onConfirm={() => handleLogout()} />
+        <LoadingBar />
+      </div>
+    )
+  }
   return <><LearningProgressBridge /><div className="juba-app-shell"><header className="juba-app-nav"><div className="juba-app-nav-inner"><Link href="/dashboard" className="juba-app-brand" aria-label="JUBA LISAN"><span className="juba-brand-mark">JL</span><span>JUBA LISAN</span></Link><nav className="juba-app-nav-links" aria-label="Main navigation">{navLinks}</nav><div className="juba-app-nav-actions"><span className="juba-xp-pill">✦ {Math.floor(useProgressStore.getState().xp || 0)} XP</span><LanguageSwitcher /><Link href="/plan" className="juba-app-nav-cta">Continue</Link><button type="button" className="juba-app-menu-button" onClick={() => setMenuOpen((v) => !v)} aria-label={menuOpen ? tCommon('close') : tCommon('menu')}>{menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button></div></div>{menuOpen && <div className="juba-app-drawer"><div className="juba-app-drawer-inner">{navLinks}{resourceLinks}<button type="button" onClick={() => setContactOpen(true)} className="juba-app-nav-link">{tCommon('contact')}</button><button type="button" onClick={() => setLogoutConfirm(true)} className="juba-app-nav-link">{tCommon('logout')}</button></div></div>}</header><main className="juba-workspace-main">{children}</main><ConfirmDialog open={logoutConfirm} title={tCommon('logout')} message={tCommon('logoutConfirm')} confirmLabel={tCommon('logout')} onCancel={() => setLogoutConfirm(false)} onConfirm={() => handleLogout()} /><ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} /><LoadingBar /></div></>
 }
