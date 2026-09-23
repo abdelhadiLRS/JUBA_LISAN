@@ -879,3 +879,29 @@
     min-height: 48px;
   }
 }
+
+@media (max-width: 640px) {
+  /* Mobile learning chrome: the shell should feel like one coherent app. */
+  .juba-mobile-bottom-nav{
+    padding-bottom:max(8px, env(safe-area-inset-bottom));
+    padding-inline:max(8px, env(safe-area-inset-left));
+    padding-right:max(8px, env(safe-area-inset-right));
+  }
+  .juba-mobile-bottom-link{
+    min-height:50px;
+    border-radius:18px;
+  }
+  .juba-mobile-bottom-link:active{
+    transform:scale(.96);
+  }
+  .juba-mobile-greeting{
+    border:0;
+    box-shadow:0 14px 32px rgba(39,28,72,.08);
+  }
+  .juba-mobile-greeting-art{
+    filter:saturate(1.05);
+  }
+  .juba-mobile-daily{
+    box-shadow:0 10px 28px rgba(39,28,72,.07);
+  }
+}
