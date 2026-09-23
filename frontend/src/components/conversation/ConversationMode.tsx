@@ -53,11 +53,11 @@ function QuotaBar({
   const exceeded = !unlimited && limit > 0 && used >= limit
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] w-36 shrink-0 font-mono tracking-widest uppercase">
+      <span className="text-[var(--juba-muted)] w-36 shrink-0 font-mono tracking-widest uppercase">
         {label}
       </span>
       {unlimited ? (
-        <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-mono">∞</span>
+        <span className="text-[var(--juba-muted)] font-mono">∞</span>
       ) : (
         <>
           <div className="bg-[var(--juba-surface-soft)] h-1 flex-1 overflow-hidden">
