@@ -94,9 +94,9 @@ function normalizeDashboardLessons(value: unknown): TodayLessonItem[] {
 }
 
 const btnPrimary =
-  'inline-flex items-center justify-center gap-2 rounded-[20px] px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50'
+  'inline-flex items-center justify-center gap-2 rounded-[18px] border-2 border-[var(--juba-border)] px-4 py-2.5 text-sm font-semibold text-white shadow-[3px_3px_0_var(--juba-border)] transition-all hover:-translate-y-0.5 hover:shadow-[4px_4px_0_var(--juba-border)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--juba-border)] disabled:opacity-50'
 const btnSecondary =
-  'inline-flex items-center justify-center gap-2 rounded-[20px] border border-[var(--juba-border)] px-4 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-surface-soft)]'
+  'inline-flex items-center justify-center gap-2 rounded-[18px] border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2.5 text-sm font-medium shadow-[3px_3px_0_var(--juba-border)] transition-all hover:-translate-y-0.5 hover:bg-[var(--juba-surface-soft)] hover:shadow-[4px_4px_0_var(--juba-border)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--juba-border)] hover:bg-[var(--juba-surface-soft)]'
 
 export default function DashboardPage() {
   const t = useTranslations('dashboard')
@@ -378,7 +378,7 @@ export default function DashboardPage() {
           
           <div className="grid grid-cols-1 gap-4 p-5 sm:p-6 md:grid-cols-3">
             {/* What should I do now? */}
-            <div className="rounded-[20px] border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4">
+            <div className="rounded-[20px] border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] p-4 shadow-[3px_3px_0_var(--juba-border)]">
               <p className="text-[var(--juba-muted)] mb-2 text-xs font-semibold uppercase tracking-wide">{t('whatNow')}</p>
               {nextAction ? (
                 <>
