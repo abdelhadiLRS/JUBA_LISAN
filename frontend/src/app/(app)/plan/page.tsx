@@ -129,6 +129,15 @@ function lessonKey(week: number, day: number, title: string): string {
   return `${week}:${day}:${title}`
 }
 
+async function readJsonOrNull<T>(response: Response | null): Promise<T | null> {
+  if (!response?.ok) return null
+  try {
+    return (await response.json()) as T
+  } catch {
+    return null
+  }
+}
+
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function PlanPage() {
