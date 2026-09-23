@@ -89,7 +89,7 @@ export function ConfirmDialog({
       >
         <div className="flex items-center gap-3 border-b-2 border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-6 py-4">
           <span
-            className={`flex h-8 w-8 items-center justify-center rounded-full text-sm ${danger ? 'bg-[color-mix(in_srgb,var(--juba-danger)_12%,var(--juba-surface))] text-[var(--juba-danger)]' : 'bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)]'}`}
+            className={`flex h-8 w-8 items-center justify-center rounded-full text-sm ${danger ? 'bg-[color-mix(in_srgb,var(--juba-danger)_12%,var(--juba-surface))] text-[var(--juba-danger)]' : 'bg-[var(--juba-lilac)] text-[var(--juba-primary-dark)]'}`}
             aria-hidden="true"
           >
             ●
