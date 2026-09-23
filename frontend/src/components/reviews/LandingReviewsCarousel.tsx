@@ -66,7 +66,7 @@ export function LandingReviewsCarousel({
       aria-labelledby="reviews-title"
     >
       <div className="mb-8 flex flex-col gap-3 text-center">
-        <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
+        <span className="text-[var(--juba-muted)] font-mono tracking-widest uppercase">
           {t('eyebrow')}
         </span>
         <h2
@@ -78,7 +78,7 @@ export function LandingReviewsCarousel({
         <p className="text-[var(--juba-muted)] mx-auto max-w-2xl font-mono text-xs leading-relaxed">
           {t('subtitle')}
         </p>
-        <div className="border-[var(--juba-border)] bg-[var(--juba-surface)]/60 text-[var(--juba-text)] text-[var(--juba-muted)] mx-auto inline-flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase">
+        <div className="border-[var(--juba-border)] bg-[var(--juba-surface)]/60 text-[var(--juba-muted)] mx-auto inline-flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase">
           <Star
             className="size-3.5 fill-yellow-400 text-yellow-400"
             aria-hidden="true"
@@ -106,7 +106,7 @@ export function LandingReviewsCarousel({
                 <h3 className="text-[var(--juba-text)] font-sans text-sm font-semibold tracking-tight">
                   {review.user_display_name}
                 </h3>
-                <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] mt-1 font-mono tracking-widest uppercase">
+                <p className="text-[var(--juba-muted)] mt-1 font-mono tracking-widest uppercase">
                   {t('learningLanguage', {
                     language: languageLabel(review.target_language),
                   })}
