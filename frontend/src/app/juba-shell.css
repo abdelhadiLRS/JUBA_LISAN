@@ -1,14 +1,10 @@
-/* JUBA LISAN — Funfluent-inspired visual system
- * The application shell is intentionally playful, rounded, colorful and
- * illustration-friendly. Product identity remains JUBA LISAN.
- */
+/* JUBA LISAN — single Funfluent-inspired responsive visual system.
+   One visual language on desktop, tablet and phone. No separate mobile theme. */
 
 :root {
-  --j-shell-sidebar: 248px;
-  --j-shell-topbar: 76px;
-  --j-shell-content: 1500px;
+  --j-shell-content: 1440px;
   --j-shell-radius: 28px;
-  --j-shell-shadow: 0 18px 50px rgba(39, 28, 72, .08);
+  --j-shell-shadow: 0 18px 50px rgba(48, 35, 90, .09);
   --juba-ink: #242033;
   --juba-violet: #6c45f5;
   --juba-violet-dark: #4f2bd1;
@@ -20,145 +16,173 @@
 }
 
 .juba-app-shell {
-  min-height: 100vh;
+  min-height: 100svh;
   color: var(--juba-ink);
   background:
-    radial-gradient(circle at 8% 8%, rgba(255,216,90,.24), transparent 19rem),
-    radial-gradient(circle at 92% 4%, rgba(189,234,255,.34), transparent 22rem),
+    radial-gradient(circle at 4% 7%, rgba(255,216,90,.28), transparent 18rem),
+    radial-gradient(circle at 96% 9%, rgba(189,234,255,.42), transparent 22rem),
     #fbfaff;
 }
 
-.juba-desktop-sidebar {
-  width: var(--j-shell-sidebar);
-  background: #ffffff;
-  border-inline-end: 0;
-  box-shadow: 7px 0 30px rgba(39,28,72,.055);
-  position: relative;
-  z-index: 40;
-}
-
-.juba-sidebar-brand {
-  min-height: var(--j-shell-topbar);
-  padding: 16px 18px;
-  border-bottom: 0;
-}
-
-.juba-brand-mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 15px;
-  background: var(--juba-violet) !important;
-  color: #ffffff !important;
-  box-shadow: 0 8px 0 var(--juba-violet-dark);
-  font-weight: 950;
-  letter-spacing: -.08em;
-  transform: rotate(-3deg);
-}
-
-.juba-sidebar-brand > span:last-child {
-  color: var(--juba-ink) !important;
-  font-size: 15px;
-  font-weight: 900;
-  letter-spacing: -.03em;
-}
-
-.juba-sidebar-nav {
-  padding: 14px 12px;
-}
-
-.juba-sidebar-nav a,
-.juba-sidebar-nav button {
-  min-height: 46px;
-  border-radius: 15px;
-  transition: transform .16s ease, background .16s ease, color .16s ease;
-}
-
-.juba-sidebar-nav a:hover,
-.juba-sidebar-nav button:hover {
-  transform: translateX(2px);
-}
-
-.juba-sidebar-nav a[aria-current='page'] {
-  background: var(--juba-lilac) !important;
-  color: var(--juba-violet-dark) !important;
-  font-weight: 850;
-}
-
-.juba-sidebar-nav a[aria-current='page']::before {
-  width: 5px;
-  height: 25px;
-  inset-inline-start: 2px;
-  border-radius: 999px;
-  background: var(--juba-violet);
-}
-
-.juba-sidebar-nav a[aria-current='page'] svg {
-  color: var(--juba-violet) !important;
-}
-
-.juba-workspace {
-  min-width: 0;
-  background: transparent;
-}
-
-.juba-topbar {
-  min-height: var(--j-shell-topbar);
+/* The same rounded top navigation is used at every viewport width. */
+.juba-app-nav {
   position: sticky;
   top: 0;
-  z-index: 30;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 10px clamp(16px, 3vw, 42px);
-  background: rgba(251,250,255,.84);
+  z-index: 50;
+  width: 100%;
   border-bottom: 0;
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 8px 30px rgba(48,35,90,.055);
   backdrop-filter: blur(18px);
 }
 
-.juba-topbar-search {
-  min-width: 260px;
-  max-width: 560px;
-  height: 46px;
-  border: 2px solid #ebe7f5;
-  border-radius: 18px;
-  background: #ffffff;
-  box-shadow: 0 7px 20px rgba(39,28,72,.05);
-  color: #817b95;
+.juba-app-nav-inner {
+  width: min(100%, var(--j-shell-content));
+  min-height: 78px;
+  margin-inline: auto;
+  padding: 12px clamp(14px, 3vw, 38px);
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
-.juba-topbar-search kbd {
+.juba-app-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex: 0 0 auto;
+  color: var(--juba-ink);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 950;
+  letter-spacing: -.045em;
+}
+
+.juba-brand-mark {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: var(--juba-violet);
+  color: #fff !important;
+  box-shadow: 0 5px 0 var(--juba-violet-dark);
+  font-weight: 950;
+  transform: rotate(-3deg);
+}
+
+.juba-app-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.juba-app-nav-links::-webkit-scrollbar { display: none; }
+
+.juba-app-nav-link {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 13px;
+  border-radius: 999px;
+  color: #756d87;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: transform .16s ease, background .16s ease, color .16s ease;
+}
+.juba-app-nav-link:hover { transform: translateY(-1px); background: var(--juba-lilac); color: var(--juba-violet-dark); }
+.juba-app-nav-link.is-active { background: var(--juba-yellow); color: var(--juba-ink); }
+
+.juba-app-nav-actions {
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.juba-xp-pill {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 13px;
+  border-radius: 999px;
+  background: var(--juba-mint);
+  color: var(--juba-ink);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.juba-app-nav-cta {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 17px;
+  border-radius: 999px;
+  background: var(--juba-violet);
+  color: #fff !important;
+  font-size: 12px;
+  font-weight: 900;
+  box-shadow: 0 4px 0 var(--juba-violet-dark);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.juba-app-nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 0 var(--juba-violet-dark); }
+.juba-app-nav-cta:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--juba-violet-dark); }
+
+.juba-app-menu-button {
+  width: 44px;
+  height: 44px;
+  display: none;
+  align-items: center;
+  justify-content: center;
   border: 0;
-  border-radius: 9px;
-  background: #f3f0fa;
-  color: #817b95;
+  border-radius: 15px;
+  background: var(--juba-lilac);
+  color: var(--juba-violet-dark);
 }
 
+.juba-app-drawer {
+  border-top: 1px solid #eee8ff;
+  background: rgba(255,255,255,.98);
+  box-shadow: 0 20px 40px rgba(48,35,90,.12);
+}
+.juba-app-drawer-inner {
+  width: min(100%, var(--j-shell-content));
+  margin-inline: auto;
+  padding: 14px;
+  display: grid;
+  gap: 6px;
+}
+.juba-app-drawer .juba-app-nav-link { justify-content: flex-start; width: 100%; }
+
+.juba-workspace { min-width: 0; background: transparent; }
 .juba-workspace-main {
   width: min(100%, var(--j-shell-content));
   margin-inline: auto;
-  padding: 24px clamp(16px, 3vw, 48px) 72px;
+  padding: 30px clamp(14px, 3vw, 42px) 78px;
 }
 
-.juba-page-heading {
-  margin-bottom: 26px;
-}
-
+.juba-page-heading { margin-bottom: 28px; }
 .juba-page-heading h1 {
   color: var(--juba-ink);
-  font-size: clamp(1.8rem, 3vw, 3rem);
+  font-size: clamp(1.9rem, 3.6vw, 3.35rem);
   font-weight: 950;
-  letter-spacing: -.055em;
-  line-height: 1.02;
+  letter-spacing: -.06em;
+  line-height: 1;
 }
+.juba-page-heading p { margin-top: 9px; color: #777087; }
 
-.juba-page-heading p {
-  color: #777087;
-  margin-top: 8px;
-  font-size: 1rem;
-}
-
-.juba-surface {
-  background: #ffffff;
+.juba-surface,
+.juba-card {
+  background: #fff;
   border: 0;
   border-radius: var(--j-shell-radius);
   box-shadow: var(--j-shell-shadow);
@@ -167,933 +191,217 @@
 .juba-stat {
   min-height: 126px;
   padding: 20px;
-  background: #ffffff;
-  border: 0;
+  background: #fff;
   border-radius: 24px;
   box-shadow: var(--j-shell-shadow);
 }
 
 .juba-primary-action {
   min-height: 48px;
-  border-radius: 16px;
+  border: 0;
+  border-radius: 999px;
   padding: 0 20px;
   background: var(--juba-violet);
-  color: #ffffff;
-  font-weight: 850;
-  box-shadow: 0 6px 0 var(--juba-violet-dark);
+  color: #fff;
+  font-weight: 900;
+  box-shadow: 0 5px 0 var(--juba-violet-dark);
   transition: transform .15s ease, box-shadow .15s ease;
 }
+.juba-primary-action:hover { transform: translateY(-2px); box-shadow: 0 7px 0 var(--juba-violet-dark); }
+.juba-primary-action:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--juba-violet-dark); }
 
-.juba-primary-action:hover {
-  background: var(--juba-violet);
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 0 var(--juba-violet-dark);
-}
-
-.juba-primary-action:active {
-  transform: translateY(3px);
-  box-shadow: 0 2px 0 var(--juba-violet-dark);
-}
-
-.juba-mobile-bar {
-  min-height: 64px;
-  background: rgba(255,255,255,.92);
-  border-bottom: 0;
-  box-shadow: 0 5px 20px rgba(39,28,72,.06);
-  backdrop-filter: blur(18px);
-}
-
-.juba-mobile-bar a {
-  font-weight: 950 !important;
-  color: var(--juba-ink) !important;
-}
-
-@media (max-width: 900px) {
-  .juba-topbar { padding-inline: 18px; }
-  .juba-topbar-search { max-width: none; }
-  .juba-workspace-main { padding-top: 20px; }
-}
-
-@media (max-width: 640px) {
-  .juba-workspace-main { padding-inline: 12px; padding-bottom: 34px; }
-  .juba-topbar-search { display: none; }
-  .juba-page-heading { margin-bottom: 20px; }
-  .juba-page-heading h1 { font-size: 2rem; }
-  .juba-surface { border-radius: 20px; }
-  .juba-stat { border-radius: 20px; }
-}
-
-
-/* Direction-safe interaction rules for Arabic/RTL and mixed-script content. */
-.juba-app-shell[dir="rtl"] .juba-sidebar-nav a:hover,
-.juba-app-shell[dir="rtl"] .juba-sidebar-nav button:hover {
-  transform: translateX(-2px);
-}
-
-.juba-app-shell[dir="rtl"] .juba-topbar,
-.juba-app-shell[dir="rtl"] .juba-mobile-bar {
-  direction: rtl;
-}
-
-.juba-app-shell[dir="ltr"] .juba-topbar,
-.juba-app-shell[dir="ltr"] .juba-mobile-bar {
-  direction: ltr;
-}
-
-.juba-app-shell :where(button, a, input, textarea, select) {
-  -webkit-tap-highlight-color: transparent;
-}
-
-.juba-app-shell :where(input, textarea, select) {
-  min-width: 0;
-}
-
-@media (max-width: 640px) {
-  .juba-topbar {
-    gap: 10px;
-  }
-
-  .juba-workspace-main > * {
-    max-width: 100%;
-  }
-}
-
-
-/* Funfluent-inspired mobile app shell: content-first, illustrated-feeling,
-   soft sky backdrop, white cards and a persistent five-tab navigation. */
-.juba-mobile-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--juba-ink);
-  font-size: 14px;
-  font-weight: 950;
-  letter-spacing: -.04em;
-}
-.juba-mobile-brand-mark {
-  display: inline-flex;
-  width: 34px;
-  height: 34px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  background: var(--juba-violet);
-  color: #fff;
-  box-shadow: 0 4px 0 var(--juba-violet-dark);
-  transform: rotate(-3deg);
-  font-size: 11px;
-  font-weight: 950;
-}
-.juba-mobile-profile {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 74px;
-  border: 0;
-  background: transparent;
-  padding: 0;
-}
-.juba-mobile-avatar {
-  display: inline-flex;
-  width: 34px;
-  height: 34px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  background: var(--juba-yellow);
-  color: var(--juba-ink);
-  font-size: 12px;
-  font-weight: 950;
-}
-.juba-mobile-level {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  line-height: 1;
-}
-.juba-mobile-level span {
-  color: var(--juba-muted);
-  font-size: 8px;
-  font-weight: 900;
-  letter-spacing: .06em;
-}
-.juba-mobile-level strong {
-  margin-top: 3px;
-  color: var(--juba-ink);
-  font-size: 10px;
-  font-weight: 950;
-}
-.juba-mobile-bottom-nav {
-  position: fixed;
-  inset-inline: 10px;
-  bottom: 10px;
-  z-index: 45;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  min-height: 66px;
-  padding: 7px;
-  border: 2px solid rgba(238,232,255,.92);
-  border-radius: 25px;
-  background: rgba(255,255,255,.94);
-  box-shadow: 0 18px 42px rgba(39,28,72,.14);
-  backdrop-filter: blur(20px);
-}
-.juba-mobile-bottom-link {
-  display: flex;
-  min-width: 0;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 3px;
-  border-radius: 18px;
-  color: #938da2;
-  font-size: 9px;
-  font-weight: 850;
-  text-decoration: none;
-  transition: transform .16s ease, background .16s ease, color .16s ease;
-}
-.juba-mobile-bottom-link.is-active {
-  color: var(--juba-violet);
-  background: var(--juba-yellow);
-}
-.juba-mobile-bottom-link:active {
-  transform: scale(.95);
-}
-.juba-app-shell:has(.juba-mobile-bottom-nav) .juba-workspace-main {
-  padding-bottom: 96px;
-}
-
-@media (max-width: 640px) {
-  .juba-app-shell {
-    min-height: 100svh;
-    background:
-      radial-gradient(circle at 8% 7%, rgba(255,216,90,.30), transparent 12rem),
-      radial-gradient(circle at 94% 11%, rgba(189,234,255,.50), transparent 15rem),
-      linear-gradient(180deg, #eefbff 0%, #fbfaff 25%, #fbfaff 100%);
-  }
-
-  .juba-mobile-bar {
-    height: 72px;
-    min-height: 72px;
-    border: 0;
-    background: rgba(238,251,255,.84);
-  }
-
-  .juba-workspace-main {
-    padding-top: 10px;
-    padding-inline: 10px;
-  }
-
-  .juba-page-heading h1 {
-    font-size: 1.85rem;
-  }
-
-  .juba-mobile-dashboard {
-    width: 100%;
-    padding-inline: 2px;
-  }
-
-  .juba-mobile-dashboard > * {
-    max-width: 100%;
-  }
-
-  .juba-mobile-dashboard .juba-mobile-hero,
-  .juba-mobile-dashboard [data-mobile-card] {
-    border-radius: 24px;
-  }
-
-  .juba-mobile-dashboard .juba-mobile-hero {
-    min-height: 300px;
-    padding: 24px 20px;
-    background:
-      radial-gradient(circle at 82% 20%, rgba(255,216,90,.95) 0 22px, transparent 23px),
-      radial-gradient(circle at 93% 42%, rgba(255,141,121,.75) 0 34px, transparent 35px),
-      linear-gradient(165deg, #70d2f4 0%, #9ee7f6 48%, #c7f3e2 100%);
-    color: var(--juba-ink);
-    box-shadow: 0 14px 34px rgba(66,137,167,.13);
-  }
-}
-
-
-.juba-mobile-greeting,
-.juba-mobile-daily {
+.juba-path-card,
+.juba-learning-card {
   position: relative;
-}
-.juba-mobile-greeting {
-  min-height: 245px;
-  padding: 18px 20px 20px;
-  border-radius: 28px;
-  background:
-    radial-gradient(circle at 78% 30%, rgba(255,255,255,.62) 0 18px, transparent 19px),
-    radial-gradient(circle at 91% 18%, rgba(255,216,90,.90) 0 24px, transparent 25px),
-    linear-gradient(165deg, #8bdcf5 0%, #b8ebf7 48%, #c9f4df 100%);
-  box-shadow: 0 14px 34px rgba(66,137,167,.13);
   overflow: hidden;
+  border: 0;
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: var(--j-shell-shadow);
 }
-.juba-mobile-greeting::before {
+.juba-path-card::before,
+.juba-learning-card::before {
   content: "";
   position: absolute;
-  width: 210px;
-  height: 90px;
-  right: -45px;
-  bottom: -42px;
-  border-radius: 50% 50% 0 0;
-  background: rgba(74,168,128,.20);
+  inset-inline-end: -45px;
+  top: -55px;
+  width: 145px;
+  height: 145px;
+  border-radius: 50%;
+  background: rgba(255,216,90,.34);
+  pointer-events: none;
+}
+.juba-path-card:nth-child(3n)::before { background: rgba(189,234,255,.48); }
+.juba-path-card:nth-child(4n)::before { background: rgba(191,245,223,.52); }
+
+.juba-app-shell :where(button, a, input, textarea, select) { -webkit-tap-highlight-color: transparent; }
+.juba-app-shell :where(input, textarea, select) { min-width: 0; }
+
+.juba-mobile-greeting {
+  position: relative;
+  min-height: 250px;
+  padding: 24px 26px;
+  overflow: hidden;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 86% 25%, rgba(255,216,90,.95) 0 28px, transparent 29px),
+    radial-gradient(circle at 94% 70%, rgba(255,141,121,.65) 0 45px, transparent 46px),
+    linear-gradient(135deg, #8bdcf5 0%, #bceef5 48%, #c8f3dd 100%);
+  box-shadow: 0 18px 40px rgba(66,137,167,.14);
 }
 .juba-mobile-greeting::after {
   content: "";
   position: absolute;
-  width: 140px;
-  height: 55px;
-  left: -35px;
-  top: 82px;
+  width: 280px;
+  height: 120px;
+  inset-inline-end: -70px;
+  bottom: -58px;
   border-radius: 50%;
-  background: rgba(255,255,255,.42);
+  background: rgba(74,168,128,.18);
 }
 .juba-mobile-greeting-art {
   position: absolute;
-  inset-inline-end: 24px;
-  top: 66px;
-  z-index: 2;
+  inset-inline-end: 9%;
+  top: 58px;
+  width: 104px;
+  height: 104px;
   display: flex;
-  width: 78px;
-  height: 78px;
   align-items: center;
   justify-content: center;
-  border-radius: 28px;
-  background: rgba(255,255,255,.66);
-  box-shadow: 0 10px 20px rgba(39,28,72,.10);
-  transform: rotate(3deg);
+  border-radius: 34px;
+  background: rgba(255,255,255,.72);
+  box-shadow: 0 12px 24px rgba(39,28,72,.10);
+  transform: rotate(4deg);
 }
-.juba-mobile-greeting-art span {
-  font-size: 45px;
-  line-height: 1;
-}
-.juba-mobile-greeting-top {
-  position: relative;
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 70px;
-}
+.juba-mobile-greeting-art span { font-size: 58px; }
+.juba-mobile-greeting-top { position: relative; z-index: 2; display: flex; gap: 8px; margin-bottom: 80px; }
 .juba-mobile-pill,
 .juba-mobile-language,
 .juba-mobile-day {
   display: inline-flex;
-  min-height: 27px;
+  min-height: 30px;
   align-items: center;
   border-radius: 999px;
-  padding: 0 10px;
-  background: rgba(255,255,255,.88);
+  padding: 0 11px;
+  background: rgba(255,255,255,.9);
   color: var(--juba-ink);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 900;
-  box-shadow: 0 4px 12px rgba(39,28,72,.06);
 }
-.juba-mobile-pill {
-  background: var(--juba-violet);
-  color: #fff;
-}
-.juba-mobile-day {
-  margin-inline-start: auto;
-  background: var(--juba-yellow);
-}
+.juba-mobile-pill { background: var(--juba-violet); color: #fff; }
+.juba-mobile-day { margin-inline-start: auto; background: var(--juba-yellow); }
 .juba-mobile-greeting-progress {
   position: absolute;
-  inset-inline: 20px;
-  bottom: 16px;
-  height: 7px;
+  inset-inline: 26px;
+  bottom: 20px;
+  height: 8px;
   overflow: hidden;
   border-radius: 999px;
-  background: rgba(255,255,255,.58);
+  background: rgba(255,255,255,.62);
 }
-.juba-mobile-greeting-progress span {
-  display: block;
-  width: 44%;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--juba-violet);
+.juba-mobile-greeting-progress span { display:block; width:44%; height:100%; border-radius:inherit; background:var(--juba-violet); }
+
+.juba-mobile-daily {
+  border: 0 !important;
+  border-radius: 30px !important;
+  background: #fff !important;
+  box-shadow: var(--j-shell-shadow);
 }
-@media (min-width: 641px) {
-  .juba-mobile-greeting {
-    min-height: 0;
-    padding: 0;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-    overflow: visible;
-  }
-  .juba-mobile-greeting::before,
-  .juba-mobile-greeting::after,
-  .juba-mobile-greeting-art,
-  .juba-mobile-greeting-progress {
-    display: none;
-  }
-  .juba-mobile-greeting-top {
-    display: none;
-  }
+.juba-mobile-daily > div:first-child { border: 0 !important; border-radius: 30px 30px 0 0; }
+.juba-mobile-daily > div:last-child > div {
+  border: 0 !important;
+  border-radius: 22px !important;
+  background: #f8f5ff !important;
 }
 
-@media (max-width: 640px) {
-  .juba-mobile-dashboard .juba-mobile-daily {
-    border: 0;
-    border-radius: 26px;
-    background: var(--juba-surface);
-    box-shadow: 0 12px 30px rgba(39,28,72,.09);
-  }
-  .juba-mobile-dashboard .juba-mobile-daily > div:first-child {
-    border: 0;
-    background: transparent;
-    padding: 20px 18px 8px;
-  }
-  .juba-mobile-dashboard .juba-mobile-daily > div:first-child h2 {
-    font-size: 1.15rem;
-    font-weight: 950;
-  }
-  .juba-mobile-dashboard .juba-mobile-daily > div:first-child p {
-    color: var(--juba-muted);
-    font-size: 11px;
-  }
-  .juba-mobile-dashboard .juba-mobile-daily > div:last-child {
-    padding: 12px 18px 18px;
-  }
-  .juba-mobile-dashboard .juba-mobile-daily > div:last-child > div {
-    border: 0;
-    border-radius: 20px;
-    background: var(--juba-surface-soft);
-    box-shadow: none;
-  }
-  .juba-mobile-dashboard section {
-    border-radius: 26px;
-  }
-  .juba-mobile-dashboard button,
-  .juba-mobile-dashboard a {
-    -webkit-tap-highlight-color: transparent;
-  }
+.juba-mobile-plan,
+.juba-mobile-courses,
+.juba-mobile-lesson,
+.juba-mobile-progress,
+.juba-mobile-vocabulary,
+.juba-mobile-flashcards,
+.juba-mobile-listening,
+.juba-mobile-reading,
+.juba-mobile-grammar,
+.juba-mobile-assessment,
+.juba-mobile-journey {
+  width: 100%;
 }
 
+.juba-mobile-plan > section:first-child,
+.juba-mobile-courses > div > section:first-child,
+.juba-mobile-progress > section:first-child {
+  border-radius: 32px !important;
+}
 
-/* Funfluent Mobile continuation: learning surfaces share the same compact,
-   illustration-friendly rhythm as the dashboard. */
-@media (max-width: 640px) {
-  .juba-mobile-plan,
-  .juba-mobile-courses,
-  .juba-mobile-lesson,
-  .juba-mobile-progress {
-    width: 100%;
-  }
+.juba-mobile-lesson > div:first-child { border-radius: 32px !important; }
 
-  .juba-mobile-plan,
-  .juba-mobile-courses,
-  .juba-mobile-lesson,
-  .juba-mobile-progress {
-    padding-inline: 0 !important;
-    padding-top: 6px !important;
-    padding-bottom: 12px !important;
-  }
+.juba-mobile-plan button,
+.juba-mobile-courses a,
+.juba-mobile-courses button,
+.juba-mobile-lesson button,
+.juba-mobile-progress button,
+.juba-mobile-vocabulary button,
+.juba-mobile-vocabulary a,
+.juba-mobile-flashcards button,
+.juba-mobile-flashcards a,
+.juba-mobile-listening button,
+.juba-mobile-listening a,
+.juba-mobile-reading button,
+.juba-mobile-reading a,
+.juba-mobile-grammar button,
+.juba-mobile-grammar a,
+.juba-mobile-assessment button,
+.juba-mobile-assessment a {
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.juba-mobile-plan button:active,
+.juba-mobile-courses a:active,
+.juba-mobile-courses button:active,
+.juba-mobile-lesson button:active,
+.juba-mobile-progress button:active,
+.juba-mobile-vocabulary button:active,
+.juba-mobile-vocabulary a:active,
+.juba-mobile-flashcards button:active,
+.juba-mobile-flashcards a:active,
+.juba-mobile-listening button:active,
+.juba-mobile-listening a:active,
+.juba-mobile-reading button:active,
+.juba-mobile-reading a:active,
+.juba-mobile-grammar button:active,
+.juba-mobile-grammar a:active,
+.juba-mobile-assessment button:active,
+.juba-mobile-assessment a:active { transform: translateY(2px); }
 
-  .juba-mobile-plan > section,
-  .juba-mobile-courses section,
-  .juba-mobile-progress section {
-    border-radius: 26px;
-  }
+.juba-mobile-flashcards [role="button"] { border-radius: 30px; }
+.juba-mobile-listening p,
+.juba-mobile-reading p { line-height: 1.72; }
 
+@media (max-width: 1120px) {
+  .juba-app-nav-links { display: none; }
+  .juba-app-menu-button { display: inline-flex; }
+  .juba-app-nav-actions .juba-app-nav-cta { display: none; }
+}
+
+@media (max-width: 700px) {
+  .juba-app-nav-inner { min-height: 70px; padding: 10px 12px; }
+  .juba-app-brand { font-size: 14px; }
+  .juba-brand-mark { width: 40px; height: 40px; border-radius: 14px; }
+  .juba-app-nav-actions { gap: 5px; }
+  .juba-xp-pill { min-height: 38px; padding: 0 10px; }
+  .juba-workspace-main { padding: 18px 12px 44px; }
+  .juba-mobile-greeting { min-height: 230px; padding: 20px; border-radius: 28px; }
+  .juba-mobile-greeting-art { width: 82px; height: 82px; top: 62px; inset-inline-end: 20px; border-radius: 27px; }
+  .juba-mobile-greeting-art span { font-size: 46px; }
+  .juba-mobile-greeting-top { margin-bottom: 70px; }
+  .juba-mobile-greeting-progress { inset-inline: 20px; }
   .juba-mobile-plan > section:first-child,
   .juba-mobile-courses > div > section:first-child,
-  .juba-mobile-progress > section:first-child {
-    min-height: 230px;
-    padding: 22px 18px !important;
-    border-radius: 28px;
-  }
-
-  .juba-mobile-plan > section:first-child h1,
-  .juba-mobile-courses > div > section:first-child h1,
-  .juba-mobile-progress > section:first-child h1 {
-    font-size: 2rem !important;
-    line-height: 1.05;
-  }
-
-  .juba-mobile-plan button,
-  .juba-mobile-courses a,
-  .juba-mobile-courses button,
-  .juba-mobile-lesson button,
-  .juba-mobile-progress button {
-    min-height: 44px;
-  }
-
-  .juba-mobile-plan .grid,
-  .juba-mobile-courses .grid,
-  .juba-mobile-progress .grid {
-    min-width: 0;
-  }
-
-  .juba-mobile-plan .rounded-\[24px\],
-  .juba-mobile-plan .rounded-\[28px\],
-  .juba-mobile-courses .juba-card,
-  .juba-mobile-progress .rounded-\[28px\] {
-    box-shadow: 0 10px 26px rgba(39,28,72,.07);
-  }
-
-  /* Roadmap becomes a stack of friendly cards instead of a desktop rail. */
-  .juba-mobile-plan [class~="sm:ps-16"] {
-    padding-inline-start: 0 !important;
-  }
-
-  .juba-mobile-plan .sm\\:flex {
-    display: flex;
-  }
-
-  .juba-mobile-plan .sm\\:flex.absolute {
-    display: none;
-  }
-
-  /* Courses: preserve content, but make each level feel like an app card. */
-  .juba-mobile-courses > div {
-    gap: 18px !important;
-  }
-
-  .juba-mobile-courses article {
-    border-radius: 25px !important;
-    padding: 18px !important;
-  }
-
-  /* Lesson: give the exercise area breathing room above the fixed nav. */
-  .juba-mobile-lesson {
-    padding-bottom: 22px !important;
-  }
-
-  .juba-mobile-lesson > div:first-child {
-    border-radius: 28px;
-  }
-
-  .juba-mobile-lesson [aria-label^="Exercise "] {
-    min-width: 38px;
-  }
-
-  /* Progress: emphasize the primary metrics and keep dense analytics readable. */
-  .juba-mobile-progress .grid-cols-2,
-  .juba-mobile-progress .grid-cols-3,
-  .juba-mobile-progress .grid-cols-4 {
-    gap: 8px;
-  }
-
-  .juba-mobile-progress .grid-cols-7 {
-    gap: 4px;
-  }
-
-  .juba-mobile-progress input,
-  .juba-mobile-progress select {
-    min-height: 44px;
-    border-radius: 14px;
-  }
+  .juba-mobile-progress > section:first-child,
+  .juba-mobile-lesson > div:first-child { border-radius: 28px !important; }
+  .juba-page-heading h1 { font-size: 2rem; }
 }
 
-
-/* Funfluent mobile learning surfaces — vocabulary, flashcards, listening,
-   reading, grammar and assessment. Keep interaction logic untouched while
-   giving each surface the same app-like rhythm and touch targets. */
-@media (max-width: 640px) {
-  .juba-mobile-vocabulary,
-  .juba-mobile-flashcards,
-  .juba-mobile-listening,
-  .juba-mobile-reading,
-  .juba-mobile-grammar,
-  .juba-mobile-assessment {
-    width: 100%;
-    padding-inline: 0 !important;
-    padding-top: 6px !important;
-    padding-bottom: 14px !important;
-  }
-
-  .juba-mobile-vocabulary > section,
-  .juba-mobile-vocabulary > div,
-  .juba-mobile-flashcards > div,
-  .juba-mobile-listening section,
-  .juba-mobile-reading section,
-  .juba-mobile-grammar > section,
-  .juba-mobile-assessment > div {
-    border-radius: 26px;
-  }
-
-  .juba-mobile-vocabulary input,
-  .juba-mobile-flashcards input,
-  .juba-mobile-flashcards select,
-  .juba-mobile-listening input,
-  .juba-mobile-reading input,
-  .juba-mobile-grammar input,
-  .juba-mobile-assessment input,
-  .juba-mobile-assessment select {
-    min-height: 46px;
-    border-radius: 17px;
-  }
-
-  .juba-mobile-vocabulary button,
-  .juba-mobile-vocabulary a,
-  .juba-mobile-flashcards button,
-  .juba-mobile-flashcards a,
-  .juba-mobile-listening button,
-  .juba-mobile-listening a,
-  .juba-mobile-reading button,
-  .juba-mobile-reading a,
-  .juba-mobile-grammar button,
-  .juba-mobile-grammar a,
-  .juba-mobile-assessment button,
-  .juba-mobile-assessment a {
-    min-height: 44px;
-  }
-
-  /* Vocabulary: make the level rail and set grid feel like a mobile library. */
-  .juba-mobile-vocabulary > div.juba-card,
-  .juba-mobile-vocabulary > section {
-    box-shadow: 0 10px 28px rgba(39,28,72,.07);
-  }
-  .juba-mobile-vocabulary > div.juba-card {
-    padding: 0 !important;
-  }
-  .juba-mobile-vocabulary .grid {
-    min-width: 0;
-  }
-  .juba-mobile-vocabulary .grid > a {
-    min-height: 92px;
-    border-radius: 22px;
-  }
-
-  /* Flashcards: turn the review card into the focal mobile object. */
-  .juba-mobile-flashcards {
-    --mobile-card-radius: 28px;
-  }
-  .juba-mobile-flashcards > div {
-    box-shadow: 0 12px 30px rgba(39,28,72,.08);
-  }
-  .juba-mobile-flashcards [role="button"] {
-    min-height: 180px;
-    border-radius: var(--mobile-card-radius);
-  }
-
-  /* Listening / Reading: controls stay thumb-friendly and content gets
-     comfortable line length rather than desktop density. */
-  .juba-mobile-listening section,
-  .juba-mobile-reading section {
-    box-shadow: 0 10px 28px rgba(39,28,72,.07);
-  }
-  .juba-mobile-listening article,
-  .juba-mobile-reading article {
-    border-radius: 24px;
-  }
-  .juba-mobile-listening p,
-  .juba-mobile-reading p {
-    line-height: 1.7;
-  }
-
-  /* Grammar: compact topic cards with the same colorful app cadence. */
-  .juba-mobile-grammar > section {
-    box-shadow: 0 10px 28px rgba(39,28,72,.07);
-  }
-  .juba-mobile-grammar article,
-  .juba-mobile-grammar a {
-    border-radius: 22px !important;
-  }
-
-  /* Assessment: keep each step centered and clear above bottom navigation. */
-  .juba-mobile-assessment {
-    min-height: calc(100svh - 72px);
-  }
-  .juba-mobile-assessment > div {
-    box-shadow: 0 12px 32px rgba(39,28,72,.08);
-  }
-}
-
-
-/* Entry and public surfaces: mobile gets the same playful JUBA language
-   instead of inheriting a desktop/admin composition. */
-@media (max-width: 640px) {
-  .juba-auth-mobile {
-    min-height: 100svh;
-    padding: 18px 12px;
-    background:
-      radial-gradient(circle at 8% 8%, rgba(255,216,90,.24), transparent 11rem),
-      radial-gradient(circle at 92% 18%, rgba(189,234,255,.42), transparent 13rem),
-      linear-gradient(180deg, #eefbff 0%, #fbfaff 48%, #fffaf4 100%);
-  }
-
-  .juba-auth-mobile > div {
-    width: 100%;
-    max-width: 520px;
-  }
-
-  .juba-auth-mobile form {
-    border-radius: 28px !important;
-    padding: 20px !important;
-    box-shadow: 0 14px 34px rgba(39,28,72,.09);
-  }
-
-  .juba-auth-mobile input,
-  .juba-auth-mobile select {
-    min-height: 48px;
-    border-radius: 17px;
-  }
-
-  .juba-auth-mobile button,
-  .juba-auth-mobile a {
-    min-height: 46px;
-    border-radius: 17px;
-  }
-
-  .juba-auth-mobile .rounded-2xl {
-    border-radius: 20px;
-  }
-
-  .juba-onboarding-mobile {
-    align-items: flex-start;
-    padding-top: 26px;
-    padding-bottom: 30px;
-  }
-
-  .juba-onboarding-mobile > div {
-    margin-top: 0;
-  }
-
-  .juba-onboarding-mobile > div > div:last-child {
-    border-radius: 28px;
-    box-shadow: 0 14px 34px rgba(39,28,72,.09);
-  }
-
-  .juba-landing-mobile {
-    min-height: 100svh;
-  }
-
-  .juba-landing-mobile section,
-  .juba-landing-mobile article {
-    border-radius: 26px;
-  }
-
-  .juba-landing-mobile a {
-    min-height: 48px;
-  }
-}
-
-@media (max-width: 640px) {
-  /* Mobile learning chrome: the shell should feel like one coherent app. */
-  .juba-mobile-bottom-nav{
-    padding-bottom:max(8px, env(safe-area-inset-bottom));
-    padding-inline:max(8px, env(safe-area-inset-left));
-    padding-right:max(8px, env(safe-area-inset-right));
-  }
-  .juba-mobile-bottom-link{
-    min-height:50px;
-    border-radius:18px;
-  }
-  .juba-mobile-bottom-link:active{
-    transform:scale(.96);
-  }
-  .juba-mobile-greeting{
-    border:0;
-    box-shadow:0 14px 32px rgba(39,28,72,.08);
-  }
-  .juba-mobile-greeting-art{
-    filter:saturate(1.05);
-  }
-  .juba-mobile-daily{
-    box-shadow:0 10px 28px rgba(39,28,72,.07);
-  }
-}
-
-@media (max-width: 640px) {
-  /* Roadmap cards: make progress immediately scannable on a phone. */
-  .juba-mobile-plan .juba-card,
-  .juba-mobile-plan article {
-    overflow:hidden;
-  }
-  .juba-mobile-plan [role="progressbar"] {
-    height:8px;
-    border-radius:999px;
-  }
-  .juba-mobile-plan .rounded-full {
-    flex-shrink:0;
-  }
-  .juba-mobile-plan a[class*="rounded-"],
-  .juba-mobile-plan button[class*="rounded-"] {
-    box-shadow:0 4px 0 rgba(79,43,209,.10);
-  }
-
-  /* Course levels: a clear visual rhythm between current, locked and next. */
-  .juba-mobile-courses article {
-    position:relative;
-    overflow:hidden;
-    box-shadow:0 12px 28px rgba(39,28,72,.07);
-  }
-  .juba-mobile-courses article:after {
-    content:"";
-    position:absolute;
-    width:82px;
-    height:82px;
-    border-radius:50%;
-    background:rgba(255,216,90,.16);
-    inset-inline-end:-30px;
-    bottom:-34px;
-    pointer-events:none;
-  }
-  .juba-mobile-courses article h2,
-  .juba-mobile-courses article h3 {
-    position:relative;
-    z-index:1;
-  }
-  .juba-mobile-courses .grid > * {
-    min-width:0;
-  }
-
-  /* Progress: metrics read like compact mobile widgets, not a desktop table. */
-  .juba-mobile-progress .grid-cols-2 > *,
-  .juba-mobile-progress .grid-cols-3 > *,
-  .juba-mobile-progress .grid-cols-4 > * {
-    min-width:0;
-    border-radius:20px;
-  }
-  .juba-mobile-progress table {
-    display:block;
-    width:100%;
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-  }
-  .juba-mobile-progress th,
-  .juba-mobile-progress td {
-    white-space:nowrap;
-  }
-}
-
-@media (max-width: 640px) {
-  .juba-mobile-dashboard .juba-mobile-greeting {
-    position:relative;
-    min-height:194px;
-    padding:20px 18px !important;
-    background:linear-gradient(145deg,#c8f3df 0%,#c9edff 55%,#eee8ff 100%);
-  }
-  .juba-mobile-dashboard .juba-mobile-greeting:after {
-    content:"";
-    position:absolute;
-    width:118px;
-    height:118px;
-    border-radius:50%;
-    background:rgba(255,255,255,.30);
-    inset-inline-end:-34px;
-    top:24px;
-    pointer-events:none;
-  }
-  .juba-mobile-dashboard .juba-mobile-greeting-progress {
-    height:8px;
-    border-radius:999px;
-    background:rgba(255,255,255,.55);
-  }
-  .juba-mobile-dashboard .juba-mobile-greeting-progress span {
-    border-radius:999px;
-  }
-  .juba-mobile-dashboard .juba-mobile-daily {
-    overflow:hidden;
-  }
-  .juba-mobile-dashboard .juba-mobile-daily [role="progressbar"] {
-    height:8px;
-  }
-  .juba-mobile-dashboard .juba-mobile-daily a,
-  .juba-mobile-dashboard .juba-mobile-daily button {
-    min-height:46px;
-    border-radius:17px;
-  }
-}
-
-@media (max-width: 640px) {
-  /* Learning Journey: convert the marketing-style desktop page into a
-     compact, playful in-app route on phones. */
-  .juba-mobile-journey{
-    padding-bottom:18px;
-  }
-  .juba-mobile-journey > section:first-child{
-    border-bottom:0;
-    border-radius:0 0 32px 32px;
-    background:
-      radial-gradient(circle at 92% 14%,rgba(255,216,90,.38),transparent 7rem),
-      linear-gradient(160deg,#6c45f5 0%,#7654ef 58%,#8a6cf3 100%);
-  }
-  .juba-mobile-journey > section:first-child > div{
-    padding:18px 16px 28px;
-  }
-  .juba-mobile-journey nav{
-    margin-bottom:44px;
-  }
-  .juba-mobile-journey nav a{
-    min-height:44px;
-    display:inline-flex;
-    align-items:center;
-  }
-  .juba-mobile-journey h1{
-    font-size:clamp(2.65rem,13vw,4.1rem);
-    line-height:.92;
-  }
-  .juba-mobile-journey > section:first-child p{
-    font-size:15px;
-    line-height:1.65;
-  }
-  .juba-mobile-journey > section:first-child a{
-    min-height:50px;
-    border-radius:18px;
-  }
-  .juba-mobile-journey > section:not(:first-child){
-    padding:38px 14px !important;
-  }
-  .juba-mobile-journey > section:not(:first-child) > div{
-    padding-inline:0 !important;
-  }
-  .juba-mobile-journey article{
-    border-radius:24px !important;
-    padding:19px !important;
-    box-shadow:0 10px 26px rgba(39,28,72,.07);
-  }
-  .juba-mobile-journey article h3{
-    margin-top:24px;
-    font-size:21px;
-  }
-  .juba-mobile-journey .grid{
-    gap:10px !important;
-  }
-  .juba-mobile-journey .grid > div{
-    border-radius:22px;
-    padding:17px;
-  }
-  .juba-mobile-journey > section:last-child > div{
-    border-radius:26px;
-    padding:22px 18px !important;
-  }
-  .juba-mobile-journey > section:last-child a{
-    min-height:50px;
-    border-radius:18px;
-  }
-}
-
-@media (max-width: 640px) {
-  .juba-mobile-flashcards .juba-card,
-  .juba-mobile-vocabulary .juba-card,
-  .juba-mobile-listening .juba-card,
-  .juba-mobile-reading .juba-card{
-    overflow:hidden;
-  }
-  .juba-mobile-flashcards [role="button"]{
-    background:linear-gradient(145deg,#ffffff 0%,#f0ebff 100%);
-  }
-  .juba-mobile-flashcards .grid{
-    gap:8px;
-  }
-  .juba-mobile-vocabulary .grid > a:active,
-  .juba-mobile-flashcards button:active,
-  .juba-mobile-listening button:active,
-  .juba-mobile-reading button:active{
-    transform:scale(.98);
-  }
-  .juba-mobile-listening audio{
-    width:100%;
-    border-radius:18px;
-  }
-  .juba-mobile-reading article{
-    background:linear-gradient(180deg,#fff 0%,#fbf9ff 100%);
-  }
-}
+/* Never create a second bottom/mobile navigation style. */
+.juba-mobile-bottom-nav { display: none !important; }
+.juba-mobile-bar { display: none !important; }
