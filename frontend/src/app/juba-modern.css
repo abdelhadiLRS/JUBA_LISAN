@@ -29,7 +29,6 @@ h1, h2, h3, h4, h5, h6 { letter-spacing: -.025em; font-weight: 700; }
 button:not(:disabled), a[role='button'] { transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease, border-color 150ms ease; }
 button:not(:disabled):hover, a[role='button']:hover { transform: translateY(-1px); }
 button:not(:disabled):active, a[role='button']:active { transform: translateY(0); }
-input, select, textarea { border-radius: .75rem; }
 
 /* Quiet sidebar and mobile navigation. */
 .md\:flex > aside { width: 16rem !important; background: var(--juba-surface) !important; border-color: var(--juba-border) !important; padding-block: .25rem; }
@@ -70,8 +69,7 @@ main .bg-fl-surface-2.inline-flex button[class*='shadow-sm'] { border: 0; backgr
 main .border-fl-border.bg-fl-surface.rounded-2xl { border: 1px solid var(--juba-border) !important; box-shadow: var(--juba-shadow-md); }
 
 /* Reading workspace: modern cards without changing the exercise DOM or logic. */
-main .mx-auto.max-w-5xl .border-fl-border.bg-fl-surface,
-main .mx-auto.max-w-4xl .border-fl-border.bg-fl-surface { border: 1px solid var(--juba-border) !important; border-radius: 18px; background: var(--juba-surface) !important; box-shadow: var(--juba-shadow-md); }
+main .mx-auto.max-w-5xl .border-fl-border.bg-fl-surface { border-radius: 18px; background: var(--juba-surface) !important; box-shadow: var(--juba-shadow-md); }
 main .mx-auto.max-w-5xl .border-fl-border.bg-fl-surface.p-5 .reading-text { font-size: clamp(1.05rem, 1.25vw, 1.2rem); line-height: 1.95; }
 main .mx-auto.max-w-5xl .border-fl-border.bg-fl-surface.p-4 { transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
 main .mx-auto.max-w-5xl .border-fl-border.bg-fl-surface.p-4:hover { transform: translateY(-1px); border-color: var(--juba-border) !important; box-shadow: 0 14px 30px rgba(20,18,23,.06); }
