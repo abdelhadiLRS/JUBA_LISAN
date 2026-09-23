@@ -65,6 +65,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
   function flipCard(index: number) {
     if (locked || completed || !memoryCards[index] || memoryCards[index].flipped || memoryCards[index].matched) return
     const card = memoryCards[index]
+    setFeedback(null)
     const next = memoryCards.map((item, i) => i === index ? { ...item, flipped: true } : item)
     setMemoryCards(next)
     if (first === null) {
@@ -107,6 +108,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
 
   function chooseMatching(side: 'left' | 'right', id: string) {
     if (completed || matched.includes(id)) return
+    setFeedback(null)
     if (side === 'left') setLeft(id); else setRight(id)
   }
 
@@ -186,11 +188,11 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
 
       {challenge?.type === 'ordering' && <>
         <p className="interactive-instruction">{t.order}</p>
-        <div className="ordering-pool">{items.map(item => <button key={item.id} type="button" disabled={order.includes(item.id)} onClick={() => setOrder(current => [...current, item.id])}>{item.label}</button>)}</div>
+        <div className="ordering-pool">{items.map(item => <button key={item.id} type="button" disabled={order.includes(item.id)} onClick={() => { setFeedback(null); setOrder(current => [...current, item.id]) }}>{item.label}</button>)}</div>
         <div className="ordering-result">{order.map((id, index) => {
           const item = items.find(entry => entry.id === id)
           return <div key={id} className="order-row"><span>{index + 1}. {item?.label}</span>
-            <button type="button" onClick={() => setOrder(current => { const next=[...current]; [next[index-1], next[index]]=[next[index], next[index-1]]; return next })} disabled={index === 0}>{t.up}</button>
+            <button type="button" onClick={() => { setFeedback(null); setOrder(current => { const next=[...current]; [next[index-1], next[index]]=[next[index], next[index-1]]; return next })} disabled={index === 0}>{t.up}</button>
             <button type="button" onClick={() => setOrder(current => { const next=[...current]; [next[index], next[index+1]]=[next[index+1], next[index]]; return next })} disabled={index === order.length - 1}>{t.down}</button>
           </div>
         })}</div>
