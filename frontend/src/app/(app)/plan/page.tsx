@@ -166,6 +166,8 @@ export default function PlanPage() {
           apiFetch('/api/study-plan/lessons').catch(() => null),
         ])
 
+      if (cancelled || requestId !== loadRequestRef.current) return
+
       if (!planRes.ok) {
         if (planRes.status === 404) {
           if (!cancelled && requestId === loadRequestRef.current) {
