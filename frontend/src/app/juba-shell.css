@@ -662,3 +662,95 @@ html[data-theme='dark'] {
     border-radius: 22px !important;
   }
 }
+
+
+/* Content-route visual cleanup: remove legacy purple/cream lesson surfaces. */
+.juba-mobile-lesson {
+  width: min(100%, var(--j-shell-content)) !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(14px, 3vw, 42px) !important;
+  color: var(--juba-text) !important;
+}
+.juba-mobile-lesson > div:first-child {
+  border: 2px solid var(--juba-border) !important;
+  border-radius: var(--j-shell-radius) !important;
+  background: var(--juba-surface) !important;
+  color: var(--juba-text) !important;
+  box-shadow: var(--j-shell-shadow) !important;
+}
+.juba-mobile-lesson > div:first-child [class*="text-white"] { color: var(--juba-text) !important; }
+.juba-mobile-lesson > div:first-child [class*="bg-white/"] { background: var(--juba-surface-soft) !important; }
+.juba-mobile-lesson > div:first-child [class*="bg-[#5a9b32]"] { background: var(--juba-primary) !important; }
+.juba-mobile-lesson > div > header {
+  border: 2px solid var(--juba-border) !important;
+  border-radius: var(--juba-radius-lg) !important;
+  background: color-mix(in srgb, var(--juba-surface) 94%, transparent) !important;
+  box-shadow: var(--juba-shadow-sm) !important;
+}
+.juba-mobile-lesson .juba-card {
+  border: 2px solid var(--juba-border) !important;
+  border-radius: var(--j-shell-radius) !important;
+  box-shadow: var(--j-shell-shadow) !important;
+}
+.juba-mobile-lesson article,
+.juba-mobile-lesson [role="region"],
+.juba-mobile-lesson textarea,
+.juba-mobile-lesson input {
+  border-color: var(--juba-border) !important;
+  border-radius: var(--juba-radius-md) !important;
+  background: var(--juba-surface-soft) !important;
+  color: var(--juba-text) !important;
+}
+.juba-mobile-lesson button:not([disabled]) { touch-action: manipulation; }
+.juba-mobile-lesson button[class*="bg-[#39751d]"] {
+  background: var(--juba-primary) !important;
+  color: #fff !important;
+}
+.juba-mobile-lesson [class*="bg-[#e2f2d3]"] {
+  background: var(--juba-lilac) !important;
+}
+.juba-mobile-lesson [class*="bg-[#f2f0e8]"] {
+  background: var(--juba-surface-soft) !important;
+}
+.juba-mobile-lesson [class*="border-[#ebe7f5]"] {
+  border-color: var(--juba-border) !important;
+}
+.juba-mobile-lesson [class*="text-[#242033]"] { color: var(--juba-text) !important; }
+.juba-mobile-lesson [class*="text-[#777087]"] { color: var(--juba-muted) !important; }
+@media (max-width:700px) {
+  .juba-mobile-lesson { padding-inline: 12px !important; }
+  .juba-mobile-lesson > div:first-child { border-radius: 22px !important; }
+  .juba-mobile-lesson .juba-card { border-radius: 22px !important; padding: 18px !important; }
+}
+.juba-mobile-flashcards,
+.juba-mobile-vocabulary,
+.juba-mobile-grammar {
+  width: min(100%, var(--j-shell-content)) !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(14px, 3vw, 42px) !important;
+}
+.juba-mobile-flashcards .juba-card,
+.juba-mobile-vocabulary .juba-card,
+.juba-mobile-grammar .juba-card {
+  border: 2px solid var(--juba-border) !important;
+  border-radius: var(--j-shell-radius) !important;
+  box-shadow: var(--j-shell-shadow) !important;
+}
+.juba-mobile-flashcards > div:first-child,
+.juba-mobile-vocabulary > div:first-child,
+.juba-mobile-grammar > div:first-child {
+  border-color: var(--juba-border) !important;
+  border-radius: var(--j-shell-radius) !important;
+  box-shadow: var(--j-shell-shadow) !important;
+}
+@media (max-width:700px) {
+  .juba-mobile-flashcards,
+  .juba-mobile-vocabulary,
+  .juba-mobile-grammar { padding-inline: 12px !important; }
+  .juba-mobile-flashcards .juba-card,
+  .juba-mobile-vocabulary .juba-card,
+  .juba-mobile-grammar .juba-card,
+  .juba-mobile-flashcards > div:first-child,
+  .juba-mobile-vocabulary > div:first-child,
+  .juba-mobile-grammar > div:first-child { border-radius: 22px !important; }
+}
