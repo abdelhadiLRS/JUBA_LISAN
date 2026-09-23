@@ -1075,3 +1075,31 @@
     border-radius:18px;
   }
 }
+
+@media (max-width: 640px) {
+  .juba-mobile-flashcards .juba-card,
+  .juba-mobile-vocabulary .juba-card,
+  .juba-mobile-listening .juba-card,
+  .juba-mobile-reading .juba-card{
+    overflow:hidden;
+  }
+  .juba-mobile-flashcards [role="button"]{
+    background:linear-gradient(145deg,#ffffff 0%,#f0ebff 100%);
+  }
+  .juba-mobile-flashcards .grid{
+    gap:8px;
+  }
+  .juba-mobile-vocabulary .grid > a:active,
+  .juba-mobile-flashcards button:active,
+  .juba-mobile-listening button:active,
+  .juba-mobile-reading button:active{
+    transform:scale(.98);
+  }
+  .juba-mobile-listening audio{
+    width:100%;
+    border-radius:18px;
+  }
+  .juba-mobile-reading article{
+    background:linear-gradient(180deg,#fff 0%,#fbf9ff 100%);
+  }
+}
