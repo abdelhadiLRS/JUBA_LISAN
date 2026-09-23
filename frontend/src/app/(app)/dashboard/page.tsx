@@ -398,7 +398,7 @@ export default function DashboardPage() {
             </div>
             
             {/* What is due for review? */}
-            <div className="rounded-[20px] border border-[var(--juba-border)] bg-[var(--juba-surface)] p-4">
+            <div className="rounded-[20px] border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] p-4 shadow-[3px_3px_0_var(--juba-border)]">
               <p className="text-[var(--juba-muted)] mb-2 text-xs font-semibold uppercase tracking-wide">{t('dueForReview')}</p>
               {reviewDueCount > 0 ? (
                 <>
