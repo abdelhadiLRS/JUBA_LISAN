@@ -1,0 +1,16 @@
+"""Русский grammar topics — initial CEFR foundation."""
+from app.data._types import GrammarTopic, GrammarExample
+GRAMMAR_TOPICS = [
+GrammarTopic(slug="pronouns", title="Личные местоимения", level="A1", category="core", summary="Личные местоимения", explanation="Core Личные местоимения.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="gender", title="Род существительных", level="A1", category="core", summary="Род существительных", explanation="Core Род существительных.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="present-tense", title="Настоящее время", level="A1", category="core", summary="Настоящее время", explanation="Core Настоящее время.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="past-tense", title="Прошедшее время", level="A2", category="core", summary="Прошедшее время", explanation="Core Прошедшее время.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="cases", title="Падежи", level="A2", category="core", summary="Падежи", explanation="Core Падежи.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="aspect", title="Вид глагола", level="B1", category="core", summary="Вид глагола", explanation="Core Вид глагола.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="conditionals", title="Условные конструкции", level="B1", category="core", summary="Условные конструкции", explanation="Core Условные конструкции.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="passive", title="Страдательный залог", level="B2", category="core", summary="Страдательный залог", explanation="Core Страдательный залог.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="reported-speech", title="Косвенная речь", level="B2", category="core", summary="Косвенная речь", explanation="Core Косвенная речь.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="academic-register", title="Академический стиль", level="C1", category="core", summary="Академический стиль", explanation="Core Академический стиль.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="discourse", title="Дискурс и стилистика", level="C2", category="core", summary="Дискурс и стилистика", explanation="Core Дискурс и стилистика.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[]),
+GrammarTopic(slug="style", title="Стилистические средства", level="C2", category="core", summary="Стилистические средства", explanation="Core Стилистические средства.", structure=None, rules=[], examples=[GrammarExample(text="Example sentence.")], common_mistakes=[], related=[])
+]

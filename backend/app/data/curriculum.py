@@ -26,6 +26,11 @@ _LANG_MODULES: dict[str, str] = {
     "pt": "app.data.pt.curriculum",
     "zh": "app.data.zh.curriculum",
     "ar": "app.data.ar.curriculum",
+    "tr": "app.data.tr.curriculum",
+    "ru": "app.data.ru.curriculum",
+    "nl": "app.data.nl.curriculum",
+    "pl": "app.data.pl.curriculum",
+    "el": "app.data.el.curriculum",
 }
 
 _CACHE: dict[str, object] = {}
