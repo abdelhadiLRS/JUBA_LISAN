@@ -1,121 +1,425 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 import { useTranslations } from 'next-intl'
-import { Award, BookOpen, Check, Circle, Flame, LoaderCircle, Sparkles, type LucideIcon } from 'lucide-react'
 import { PageLoading } from '@/components/ui/page-loading'
 import { apiFetch } from '@/lib/api'
 import { useLanguageStore } from '@/store/language'
 import NoPlanBanner from '@/components/plan/NoPlanBanner'
-import { getCurriculumUnits, type CurriculumUnit, type CEFRLevel } from '@/data/curriculum'
+import {
+  getCurriculumUnits,
+  type CurriculumUnit,
+  type CEFRLevel,
+} from '@/data/curriculum'
 import type { VocabularySet } from '@/data/types'
 
-interface CompetencyRecord { unit_id: string; score: number; mastered_count: number; total_count: number }
-interface ProgressSummary { total_xp: number; current_streak: number; total_lessons: number; total_exercises: number; exercises_correct: number; accuracy: number; skills: Record<string, number>; vocabulary_level?: string; vocabulary_mastered?: number; vocabulary_total?: number; vocabulary_progress?: number }
-interface FlashcardProgress { id: number; word: string; repetitions: number }
-interface StudyPlan { id: number; cefr_level: string }
-interface HistoryEntry { id: number; user_id: number; date: string; xp_earned: number; lessons_completed: number; exercises_correct: number; exercises_total: number; streak_day: number; skills: Record<string, number> }
-interface GameStats { total_xp: number; games_played: number; questions_answered: number; correct_answers: number; best_round_score: number; daily_challenges_completed: number; last_daily_challenge_date: string; current_correct_streak: number; best_correct_streak: number; achievements: string[]; skills: Record<string, number> }
-interface GoalMilestoneSummary { total_milestones: number; daily_milestones: number; weekly_milestones: number; total_reward_xp: number; daily_reward_xp: number; weekly_reward_xp: number }
-interface GoalMilestone { id: number; goal_type: 'daily' | 'weekly'; period_start: string; period_end: string; target_xp: number; achieved_xp: number; reward_xp: number; achieved_at: string }
-interface LearningGoals { daily_xp_target: number; weekly_xp_target: number; daily_xp: number; weekly_xp: number; daily_progress: number; weekly_progress: number; daily_completed: boolean; weekly_completed: boolean; daily_reward_xp: number; weekly_reward_xp: number; daily_reward_claimed: boolean; weekly_reward_claimed: boolean; day: string; week_start: string; week_end: string }
-interface MasteryLesson { lesson_id: number; title: string; mastery_state: 'unseen' | 'struggling' | 'learning' | 'mastered'; total_exercises: number; attempted_exercises: number; mastered_exercises: number; struggling_exercises: number; average_mastery_score: number; mastery_rate: number; attempt_rate: number; covered_variants: number }
-interface MasteryCenter { mastery_state: 'unseen' | 'struggling' | 'learning' | 'mastered'; total_exercises: number; attempted_exercises: number; mastered_exercises: number; learning_exercises: number; struggling_exercises: number; unseen_exercises: number; average_mastery_score: number; mastery_rate: number; attempt_rate: number; covered_variants: number; skills: Array<{ skill: string; mastery_state: string; total_exercises: number; attempted_exercises: number; mastered_exercises: number; average_mastery_score: number; mastery_rate: number; attempt_rate: number; covered_variants: number }>; lessons: MasteryLesson[]; next_skill: { skill?: string; mastery_state?: string; average_mastery_score?: number; mastery_rate?: number } | null }
-interface HistoryRangeSummary { period: 'week' | 'month' | 'all'; from_date?: string | null; to_date?: string | null; total_xp: number; total_lessons: number; total_exercises: number; exercises_correct: number; accuracy: number; active_days: number; average_daily_xp: number; skills: Record<string, number> }
-type CompetencyStatus = 'mastered' | 'in-progress' | 'not-started'
+// ── Types ──────────────────────────────────────────────────────────────────────
 
-function getCompetencyStatus(itemIndex: number, masteredCount: number, totalCount: number, score: number): CompetencyStatus { if (itemIndex < masteredCount) return 'mastered'; if (score > 0 && itemIndex < totalCount) return 'in-progress'; return 'not-started' }
-const STATUS_BADGE: Record<CompetencyStatus, { Icon: LucideIcon; color: string; background: string }> = { mastered: { Icon: Check, color: 'var(--juba-surface)', background: 'var(--route-green-dark)' }, 'in-progress': { Icon: LoaderCircle, color: 'var(--juba-coral)', background: 'color-mix(in srgb, var(--juba-yellow) 30%, transparent)' }, 'not-started': { Icon: Circle, color: 'var(--juba-muted)', background: 'transparent' } }
-
-function UnitCompetencyBlock({ unit, record }: { unit: CurriculumUnit; record: CompetencyRecord | undefined }) {
-  const t = useTranslations('progress'); const tPlan = useTranslations('plan'); const masteredCount = record?.mastered_count ?? 0; const totalCount = unit.competency_checklist.length; const score = record?.score ?? 0; const pct = totalCount > 0 ? Math.round((masteredCount / totalCount) * 100) : 0; const complete = pct === 100
-  return <div className={`border-[var(--juba-border)] bg-[var(--juba-surface)] rounded-[28px] border-2 ${complete ? '' : 'overflow-hidden'}`}><div className="flex items-center justify-between gap-4 px-5 pt-4 pb-3"><div className="min-w-0"><span className="text-xs font-semibold" style={{ color: 'var(--route-green-dark)' }}>{tPlan('unitLabel')} {unit.unit_number}</span><p className="text-[var(--juba-text)] truncate text-sm font-bold">{unit.title}</p></div><div className="flex shrink-0 items-center gap-3"><span className="text-[var(--juba-muted)] text-xs font-medium">{masteredCount}/{totalCount} {t('mastered')}</span>{record && <span className="text-[var(--juba-muted)] text-xs font-semibold tabular-nums">{Math.round(score * 100)}%</span>}</div></div><div className="bg-[var(--juba-app-bg,#fbfaf4)] mx-5 mb-3 h-1.5 overflow-hidden rounded-full"><div role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: complete ? 'var(--route-green-dark)' : 'var(--juba-coral)' }} /></div><ul className="space-y-2.5 px-5 pb-4">{unit.competency_checklist.map((text, idx) => { const status = getCompetencyStatus(idx, masteredCount, record?.total_count ?? 0, score); const { Icon, color, background } = STATUS_BADGE[status]; return <li key={idx} className="flex items-start gap-3"><span className="mt-0.5 flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full" style={status === 'not-started' ? { border: '1px solid var(--juba-border)' } : { background }}><Icon className="h-3 w-3" style={{ color }} aria-hidden="true" /></span><span className={`flex-1 text-xs leading-relaxed ${status === 'mastered' ? 'text-[var(--juba-muted)]' : status === 'in-progress' ? 'text-[var(--juba-text)] font-medium' : 'text-[var(--juba-muted)]'}`}>{text}</span>{status === 'in-progress' && record && <span className="text-[var(--juba-muted)] shrink-0 text-xs tabular-nums">{Math.round(score * 100)}%</span>}</li> })}</ul></div>
+interface CompetencyRecord {
+  unit_id: string
+  score: number // 0–1 average
+  mastered_count: number
+  total_count: number
 }
 
+interface ProgressSummary {
+  total_xp: number
+  current_streak: number
+  total_lessons: number
+  total_exercises: number
+  exercises_correct: number
+  accuracy: number
+  skills: Record<string, number>
+}
+
+interface FlashcardProgress {
+  id: number
+  word: string
+  repetitions: number
+}
+
+interface StudyPlan {
+  id: number
+  cefr_level: string
+}
+
+type CompetencyStatus = 'mastered' | 'in-progress' | 'not-started'
+
+// ── Helpers ────────────────────────────────────────────────────────────────────
+
+function getCompetencyStatus(
+  itemIndex: number,
+  masteredCount: number,
+  totalCount: number,
+  score: number
+): CompetencyStatus {
+  if (itemIndex < masteredCount) return 'mastered'
+  if (score > 0 && itemIndex < totalCount) return 'in-progress'
+  return 'not-started'
+}
+
+const STATUS_ICON: Record<CompetencyStatus, string> = {
+  mastered: '✅',
+  'in-progress': '🔄',
+  'not-started': '⬜',
+}
+
+const STATUS_COLOR: Record<CompetencyStatus, string> = {
+  mastered: 'text-fl-fg',
+  'in-progress': 'text-amber-600 dark:text-amber-400',
+  'not-started': 'text-fl-muted-4',
+}
+
+// ── Sub-components ────────────────────────────────────────────────────────────
+
+function UnitCompetencyBlock({
+  unit,
+  record,
+}: {
+  unit: CurriculumUnit
+  record: CompetencyRecord | undefined
+}) {
+  const t = useTranslations('progress')
+  const tPlan = useTranslations('plan')
+  const masteredCount = record?.mastered_count ?? 0
+  const totalCount = unit.competency_checklist.length
+  const score = record?.score ?? 0
+  const pct =
+    totalCount > 0 ? Math.round((masteredCount / totalCount) * 100) : 0
+
+  return (
+    <div className="border-fl-border bg-fl-surface border">
+      {/* Unit header */}
+      <div className="border-fl-border flex items-center justify-between border-b px-5 py-4">
+        <div className="flex items-center gap-2">
+          <span className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+            {tPlan('unitLabel')} {unit.unit_number}
+          </span>
+          <span className="text-fl-fg font-mono text-xs font-bold">
+            {unit.title}
+          </span>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-fl-label text-fl-muted-3 font-mono">
+            {masteredCount}/{totalCount} {t('mastered')}
+          </span>
+          {record && (
+            <span className="text-fl-label text-fl-muted-2 font-mono">
+              {Math.round(score * 100)}%
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Progress bar */}
+      <div className="bg-fl-border h-0.5">
+        <div
+          className="bg-fl-accent h-full transition-all"
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+
+      {/* Competency list */}
+      <ul className="space-y-2 px-5 py-3">
+        {unit.competency_checklist.map((text, idx) => {
+          const status = getCompetencyStatus(
+            idx,
+            masteredCount,
+            record?.total_count ?? 0,
+            score
+          )
+          return (
+            <li key={idx} className="flex items-start gap-3">
+              <span className="mt-0.5 shrink-0 text-base leading-none">
+                {STATUS_ICON[status]}
+              </span>
+              <span
+                className={`font-mono text-xs leading-relaxed ${STATUS_COLOR[status]}`}
+              >
+                {text}
+              </span>
+              {status === 'in-progress' && record && (
+                <span className="text-fl-label text-fl-muted-3 ml-auto shrink-0 font-mono">
+                  {Math.round(score * 100)}%
+                </span>
+              )}
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  )
+}
+
+// ── Page ──────────────────────────────────────────────────────────────────────
+
 export default function ProgressPage() {
-  const t = useTranslations('progress'); const tVocab = useTranslations('vocabulary'); const activeLanguage = useLanguageStore((s) => s.activeLanguage)
-  const [goals, setGoals] = useState<LearningGoals | null>(null); const [goalMilestoneSummary, setGoalMilestoneSummary] = useState<GoalMilestoneSummary | null>(null); const [goalHistory, setGoalHistory] = useState<GoalMilestone[]>([]); const [dailyGoalTarget, setDailyGoalTarget] = useState('50'); const [weeklyGoalTarget, setWeeklyGoalTarget] = useState('250'); const [savingGoals, setSavingGoals] = useState(false); const [summary, setSummary] = useState<ProgressSummary | null>(null); const [gameStats, setGameStats] = useState<GameStats | null>(null); const [historyRange, setHistoryRange] = useState<'week' | 'month' | 'all'>('week'); const [rangeSummary, setRangeSummary] = useState<HistoryRangeSummary | null>(null); const [summaryRangeLoading, setSummaryRangeLoading] = useState(false); const [competencies, setCompetencies] = useState<CompetencyRecord[]>([]); const [plan, setPlan] = useState<StudyPlan | null>(null); const [loading, setLoading] = useState(true); const [levelUnits, setLevelUnits] = useState<CurriculumUnit[]>([]); const [flashcards, setFlashcards] = useState<FlashcardProgress[]>([]); const [showAllLevels, setShowAllLevels] = useState(false); const [history, setHistory] = useState<HistoryEntry[]>([]); const [mastery, setMastery] = useState<MasteryCenter | null>(null)
+  const t = useTranslations('progress')
+  const tVocab = useTranslations('vocabulary')
+  const activeLanguage = useLanguageStore((s) => s.activeLanguage)
+  const [summary, setSummary] = useState<ProgressSummary | null>(null)
+  const [competencies, setCompetencies] = useState<CompetencyRecord[]>([])
+  const [plan, setPlan] = useState<StudyPlan | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [levelUnits, setLevelUnits] = useState<CurriculumUnit[]>([])
+  const [flashcards, setFlashcards] = useState<FlashcardProgress[]>([])
+  const [showAllLevels, setShowAllLevels] = useState(false)
 
-  useEffect(() => { async function load() { try { const [sumRes, compRes, planRes, flashRes, gameRes, goalsRes, masteryRes] = await Promise.all([apiFetch('/api/progress/summary'), apiFetch('/api/progress/competencies'), apiFetch('/api/study-plan/current'), apiFetch('/api/flashcards/all').catch(() => null), apiFetch('/api/progress/game-summary').catch(() => null), apiFetch('/api/progress/goals').catch(() => null), apiFetch('/api/progress/mastery').catch(() => null)]); if (sumRes.ok) setSummary((await sumRes.json()) as ProgressSummary); if (gameRes?.ok) setGameStats((await gameRes.json()) as GameStats); if (goalsRes?.ok) { const nextGoals = (await goalsRes.json()) as LearningGoals; setGoals(nextGoals); setDailyGoalTarget(String(nextGoals.daily_xp_target)); setWeeklyGoalTarget(String(nextGoals.weekly_xp_target)); } if (compRes.ok) setCompetencies((await compRes.json()) as CompetencyRecord[]); if (planRes.ok) setPlan((await planRes.json()) as StudyPlan); if (flashRes?.ok) setFlashcards((await flashRes.json()) as FlashcardProgress[]); if (masteryRes?.ok) setMastery((await masteryRes.json()) as MasteryCenter) } catch { /* ignore */ } finally { setLoading(false) } } void load() }, [activeLanguage?.code])
-
   useEffect(() => {
-    let cancelled = false
-    apiFetch('/api/progress/goals/milestones/summary')
-      .then((res) => res.ok ? res.json() as Promise<GoalMilestoneSummary> : Promise.reject(new Error('goal milestone summary failed')))
-      .then((data) => { if (!cancelled) setGoalMilestoneSummary(data) })
-      .catch(() => { if (!cancelled) setGoalMilestoneSummary(null) })
-    return () => { cancelled = true }
+    async function load() {
+      try {
+        const [sumRes, compRes, planRes, flashRes] = await Promise.all([
+          apiFetch('/api/progress/summary'),
+          apiFetch('/api/progress/competencies'),
+          apiFetch('/api/study-plan/current'),
+          apiFetch('/api/flashcards/all').catch(() => null),
+        ])
+        if (sumRes.ok) setSummary((await sumRes.json()) as ProgressSummary)
+        if (compRes.ok)
+          setCompetencies((await compRes.json()) as CompetencyRecord[])
+        if (planRes.ok) setPlan((await planRes.json()) as StudyPlan)
+        if (flashRes?.ok)
+          setFlashcards((await flashRes.json()) as FlashcardProgress[])
+      } catch {
+        /* ignore */
+      } finally {
+        setLoading(false)
+      }
+    }
+    void load()
   }, [activeLanguage?.code])
-  useEffect(() => {
-    let cancelled = false
-    apiFetch('/api/progress/goals/history?limit=12')
-      .then((res) => res.ok ? res.json() as Promise<GoalMilestone[]> : Promise.reject(new Error('goal history failed')))
-      .then((data) => { if (!cancelled) setGoalHistory(data) })
-      .catch(() => { if (!cancelled) setGoalHistory([]) })
-    return () => { cancelled = true }
-  }, [activeLanguage?.code])
-  useEffect(() => {
-    let cancelled = false
-    apiFetch(`/api/progress/history?range=${historyRange}`)
-      .then((res) => res.ok ? res.json() as Promise<{ entries?: HistoryEntry[] }> : Promise.reject(new Error('history request failed')))
-      .then((data) => { if (!cancelled) setHistory(data.entries ?? []) })
-      .catch(() => { if (!cancelled) setHistory([]) })
-    return () => { cancelled = true }
-  }, [historyRange, activeLanguage?.code])
-  useEffect(() => {
-    let cancelled = false
-    setSummaryRangeLoading(true)
-    apiFetch(`/api/progress/history/summary?range=${historyRange}`)
-      .then(async (response) => {
-        if (!response.ok) throw new Error('history summary failed')
-        return (await response.json()) as HistoryRangeSummary
-      })
-      .then((data) => { if (!cancelled) setRangeSummary(data) })
-      .catch(() => { if (!cancelled) setRangeSummary(null) })
-      .finally(() => { if (!cancelled) setSummaryRangeLoading(false) })
-    return () => { cancelled = true }
-  }, [historyRange, activeLanguage?.code])
 
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
-  useEffect(() => { if (plan?.cefr_level) getCurriculumUnits(plan.cefr_level, targetLanguageCode).then(setLevelUnits).catch(() => setLevelUnits([])) }, [plan?.cefr_level, targetLanguageCode])
+
+  useEffect(() => {
+    if (plan?.cefr_level) {
+      getCurriculumUnits(plan.cefr_level, targetLanguageCode)
+        .then(setLevelUnits)
+        .catch(() => setLevelUnits([]))
+    }
+  }, [plan?.cefr_level, targetLanguageCode])
+
   const [vocabSets, setVocabSets] = useState<VocabularySet[]>([])
-  useEffect(() => { apiFetch(`/api/vocabulary?language=${targetLanguageCode}`).then((r) => r.json()).then((d: { sets: VocabularySet[] }) => setVocabSets(d.sets)).catch(() => setVocabSets([])) }, [targetLanguageCode])
+
+  useEffect(() => {
+    apiFetch(`/api/vocabulary?language=${targetLanguageCode}`)
+      .then((r) => r.json())
+      .then((d: { sets: VocabularySet[] }) => setVocabSets(d.sets))
+      .catch(() => setVocabSets([]))
+  }, [targetLanguageCode])
+
   const compMap = Object.fromEntries(competencies.map((c) => [c.unit_id, c]))
-  const recentHistory = useMemo(() => history.slice(0, historyRange === 'week' ? 7 : historyRange === 'month' ? 30 : history.length).reverse(), [history, historyRange])
-  const maxDailyXp = Math.max(1, ...recentHistory.map((entry) => entry.xp_earned))
-  if (loading) return <PageLoading label={t('loading')} />
-  if (!plan) return <NoPlanBanner />
-  const cefrLevel = plan.cefr_level as CEFRLevel; const displayVocabSets = showAllLevels ? vocabSets : vocabSets.filter((s) => s.level === cefrLevel); const totalDisplayWords = displayVocabSets.reduce((a, s) => a + s.words.length, 0)
-  const masteredWordSet = new Set(flashcards.filter((f) => f.repetitions > 0).map((f) => f.word.toLowerCase())); const totalMastered = displayVocabSets.reduce((a, s) => a + s.words.filter((w) => masteredWordSet.has(w.word.toLowerCase())).length, 0)
-  const statTiles = summary ? [{ label: t('xp'), value: summary.total_xp.toLocaleString(), Icon: Sparkles, highlight: false }, { label: t('streak'), value: `${summary.current_streak} ${t('days')}`, Icon: Flame, highlight: summary.current_streak > 0 }, { label: t('lessons'), value: summary.total_lessons, Icon: BookOpen, highlight: false }, { label: t('accuracy'), value: `${Math.round(summary.accuracy * 100)}%`, Icon: Check, highlight: false }] : []
 
-  return <div className="juba-mobile-progress mx-auto max-w-6xl space-y-7 px-3 py-5 sm:px-6 sm:py-8">
-    <section className="relative overflow-hidden rounded-[32px] border-[3px] border-[var(--juba-ink)] bg-[var(--juba-violet)] px-6 py-7 text-white shadow-[7px_7px_0_var(--juba-ink)] sm:px-9 sm:py-9">
-      <div className="pointer-events-none absolute -end-10 -top-16 h-44 w-44 rounded-full bg-[var(--juba-yellow)]"/>
-      <div className="pointer-events-none absolute -bottom-14 start-1/3 h-32 w-32 rounded-full bg-[var(--juba-coral)] opacity-80"/>
-      <div className="relative z-10 flex flex-wrap items-end justify-between gap-5">
-        <div><p className="text-xs font-black uppercase tracking-[.14em] text-white/70">{t('subtitle')}</p><h1 className="mt-2 text-3xl font-black tracking-[-.045em] sm:text-5xl">{t('subtitle')}</h1><p className="mt-2 text-sm font-medium text-white/75">{activeLanguage?.name ?? ''} · {cefrLevel}</p></div>
-        {summary && <div className="rounded-[24px] bg-white/12 px-5 py-4 backdrop-blur-sm"><p className="text-xs font-black text-white/65">{t('xp')}</p><p className="text-3xl font-black">{summary.total_xp.toLocaleString()}</p></div>}
+  if (loading) {
+    return <PageLoading label={t('loading')} />
+  }
+
+  if (!plan) {
+    return <NoPlanBanner />
+  }
+
+  const cefrLevel = plan.cefr_level as CEFRLevel
+  const displayVocabSets = showAllLevels
+    ? vocabSets
+    : vocabSets.filter((s) => s.level === cefrLevel)
+  const totalDisplayWords = displayVocabSets.reduce(
+    (a, s) => a + s.words.length,
+    0
+  )
+
+  const masteredWordSet = new Set(
+    flashcards.filter((f) => f.repetitions > 0).map((f) => f.word.toLowerCase())
+  )
+  const totalMastered = displayVocabSets.reduce(
+    (a, s) =>
+      a +
+      s.words.filter((w) => masteredWordSet.has(w.word.toLowerCase())).length,
+    0
+  )
+
+  return (
+    <div className="mx-auto max-w-4xl space-y-8 p-6">
+      {/* Header */}
+      <div className="border-fl-border bg-fl-surface border">
+        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-fl-label text-fl-muted-3">●</span>
+          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+            {t('subtitle')}
+          </span>
+          {activeLanguage && cefrLevel && (
+            <span className="border-fl-border text-fl-label text-fl-muted-3 ml-auto border px-2 py-0.5 font-mono tracking-widest uppercase">
+              {activeLanguage.name} · {cefrLevel}
+            </span>
+          )}
+        </div>
+
+        {/* XP + streak */}
+        {summary && (
+          <div className="divide-fl-border border-fl-border grid grid-cols-2 divide-x border-b sm:grid-cols-4">
+            {[
+              { label: t('xp'), value: summary.total_xp.toLocaleString() },
+              { label: t('streak'), value: `${summary.current_streak}d 🔥` },
+              { label: t('lessons'), value: summary.total_lessons },
+              {
+                label: t('accuracy'),
+                value: `${Math.round(summary.accuracy * 100)}%`,
+              },
+            ].map(({ label, value }) => (
+              <div key={label} className="px-5 py-4 text-center">
+                <p className="text-fl-label text-fl-muted-3 mb-1 font-mono tracking-widest uppercase">
+                  {label}
+                </p>
+                <p className="text-fl-fg font-mono text-sm font-bold">
+                  {value}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-    </section>
-    <div className="juba-panel p-5 sm:p-6"><div className="mb-4 flex flex-wrap items-center justify-between gap-3"><h1 className="text-[var(--juba-text)] text-lg font-bold tracking-tight">{t('subtitle')}</h1>{activeLanguage && cefrLevel && <span className="rounded-full px-3 py-1 text-xs font-semibold" style={{ color: 'var(--juba-violet-dark)', background: 'var(--juba-lilac)' }}>{activeLanguage.name} · {cefrLevel}</span>}</div>{statTiles.length > 0 && <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">{statTiles.map((stat) => <div key={stat.label} className="bg-[var(--juba-app-bg,#fbfaf4)] rounded-[20px] border-2 border-[var(--juba-border)] p-3.5 shadow-[3px_3px_0_var(--juba-border)] text-center sm:text-start"><div className="mb-1.5 flex items-center justify-center gap-1.5 sm:justify-start"><stat.Icon className={`h-3.5 w-3.5 ${stat.highlight ? 'text-[var(--juba-coral)]' : 'text-[var(--route-green-dark)]'}`} aria-hidden="true" /><p className="text-[var(--juba-muted)] truncate text-xs font-medium">{stat.label}</p></div><p className={`text-xl font-bold tracking-tight ${stat.highlight ? 'text-[var(--juba-coral)]' : 'text-[var(--juba-text)]'}`}>{stat.value}</p></div>)}</div>}</div>
 
-    {goals && <section className="juba-panel p-5 sm:p-6"><div className="mb-5 flex items-center justify-between gap-3"><div><span className="text-[var(--juba-muted)] text-xs font-mono tracking-widest uppercase">{t('goals')}</span><h2 className="text-[var(--juba-text)] mt-1 text-lg font-bold">{t('dailyWeeklyGoals')}</h2></div><button type="button" disabled={savingGoals} onClick={async () => { const daily = Number(dailyGoalTarget); const weekly = Number(weeklyGoalTarget); if (!Number.isInteger(daily) || !Number.isInteger(weekly) || daily < 1 || weekly < 1) return; setSavingGoals(true); try { const response = await apiFetch('/api/progress/goals', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ daily_xp_target: daily, weekly_xp_target: weekly }) }); if (response.ok) { const nextGoals = (await response.json()) as LearningGoals; setGoals(nextGoals); setDailyGoalTarget(String(nextGoals.daily_xp_target)); setWeeklyGoalTarget(String(nextGoals.weekly_xp_target)); } } finally { setSavingGoals(false) } }} className="rounded-[16px] px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-50" style={{ background: 'var(--route-green-dark)' }}>{savingGoals ? t('loading') : t('saveGoals')}</button></div><div className="grid gap-4 sm:grid-cols-2"><div className="bg-[var(--juba-app-bg,#fbfaf4)] rounded-[20px] border-2 border-[var(--juba-border)] p-4 shadow-[3px_3px_0_var(--juba-border)]"><div className="mb-2 flex items-center justify-between gap-3"><div><p className="text-[var(--juba-text)] text-sm font-bold">{t('dailyGoal')}</p><p className="text-[var(--juba-muted)] text-xs">{goals.daily_xp} / {goals.daily_xp_target} {t('xp')}</p>{goals.daily_reward_claimed && <span className="mt-1 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold" style={{ color: 'var(--juba-violet-dark)', background: 'var(--juba-lilac)' }}><Check className="h-3 w-3" aria-hidden="true" />+{goals.daily_reward_xp} {t('rewardXp')}</span>}</div><span className="text-[var(--juba-text)] text-sm font-bold">{Math.round(goals.daily_progress * 100)}%</span></div><div className="bg-[var(--juba-border)] h-2 overflow-hidden rounded-full"><div className="h-full rounded-full transition-all" style={{ width: (Math.round(goals.daily_progress * 100) + '%'), background: 'var(--route-green-dark)' }} /></div><label className="text-[var(--juba-muted)] mt-4 block text-xs">{t('dailyTarget')}<input type="number" min="1" max="10000" value={dailyGoalTarget} onChange={(event) => setDailyGoalTarget(event.target.value)} className="border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-text)] mt-1 w-full rounded-[16px] border-2 border-[var(--juba-border)] px-3 py-2 text-sm" /></label></div><div className="bg-[var(--juba-app-bg,#fbfaf4)] rounded-[20px] p-4"><div className="mb-2 flex items-center justify-between gap-3"><div><p className="text-[var(--juba-text)] text-sm font-bold">{t('weeklyGoal')}</p><p className="text-[var(--juba-muted)] text-xs">{goals.weekly_xp} / {goals.weekly_xp_target} {t('xp')}</p>{goals.weekly_reward_claimed && <span className="mt-1 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold" style={{ color: 'var(--juba-violet-dark)', background: 'var(--juba-lilac)' }}><Check className="h-3 w-3" aria-hidden="true" />+{goals.weekly_reward_xp} {t('rewardXp')}</span>}</div><span className="text-[var(--juba-text)] text-sm font-bold">{Math.round(goals.weekly_progress * 100)}%</span></div><div className="bg-[var(--juba-border)] h-2 overflow-hidden rounded-full"><div className="h-full rounded-full transition-all" style={{ width: (Math.round(goals.weekly_progress * 100) + '%'), background: 'var(--route-green-dark)' }} /></div><label className="text-[var(--juba-muted)] mt-4 block text-xs">{t('weeklyTarget')}<input type="number" min="1" max="70000" value={weeklyGoalTarget} onChange={(event) => setWeeklyGoalTarget(event.target.value)} className="border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-text)] mt-1 w-full rounded-[16px] border-2 border-[var(--juba-border)] px-3 py-2 text-sm" /></label></div></div></section>}
+      {/* Grammar Competencies */}
+      {levelUnits.length > 0 && (
+        <section className="space-y-4">
+          <div className="flex items-center gap-3">
+            <span className="text-fl-fg font-mono text-base font-bold tracking-widest">
+              {cefrLevel
+                ? t('competenciesSection', { level: cefrLevel })
+                : t('competencies')}
+            </span>
+            <div className="bg-fl-border h-px flex-1" />
+          </div>
 
-    {mastery && mastery.total_exercises > 0 && <section className="juba-panel p-5 sm:p-6"><div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><span className="text-[var(--juba-muted)] text-xs font-mono tracking-widest uppercase">{t('masteryCenter')}</span><h2 className="text-[var(--juba-text)] mt-1 text-lg font-bold">{t('masteryOverview')}</h2></div><span className="rounded-full px-2.5 py-1 text-xs font-bold" style={{ color: 'var(--juba-violet-dark)', background: 'var(--juba-lilac)' }}>{Math.round(mastery.mastery_rate * 100)}% {t('masteryRate')}</span></div><div className="grid grid-cols-2 gap-3 sm:grid-cols-4"><div className="bg-[var(--juba-app-bg,#fbfaf4)] rounded-[20px] p-3"><p className="text-[var(--juba-muted)] text-xs">{t('mastered')}</p><p className="text-[var(--juba-text)] mt-1 text-lg font-bold">{mastery.mastered_exercises}</p></div><div className="bg-[var(--juba-app-bg,#fbfaf4)] rounded-[20px] p-3"><p className="text-[var(--juba-muted)] text-xs">{t('attempted')}</p><p className="text-[var(--juba-text)] mt-1 text-lg font-bold">{mastery.attempted_exercises}/{mastery.total_exercises}</p></div><div className="bg-[var(--juba-app-bg,#fbfaf4)] rounded-[20px] p-3"><p className="text-[var(--juba-muted)] text-xs">{t('coveredVariants')}</p><p className="text-[var(--juba-text)] mt-1 text-lg font-bold">{mastery.covered_variants}</p></div><div className="bg-[var(--juba-app-bg,#fbfaf4)] rounded-[20px] p-3"><p className="text-[var(--juba-muted)] text-xs">{t('averageMastery')}</p><p className="text-[var(--juba-text)] mt-1 text-lg font-bold">{Math.round(mastery.average_mastery_score * 100)}%</p></div></div>{mastery.next_skill?.skill && <div className="bg-[var(--juba-app-bg,#fbfaf4)] mt-4 flex items-center justify-between gap-4 rounded-[20px] p-4"><div><p className="text-[var(--juba-muted)] text-xs">{t('nextSkill')}</p><p className="text-[var(--juba-text)] mt-1 text-sm font-bold">{mastery.next_skill.skill}</p>{mastery.next_skill.mastery_state && <p className="text-[var(--juba-muted)] mt-1 text-[11px]">{t(mastery.next_skill.mastery_state)}</p>}</div><Link href="/lesson" className="text-xs font-bold" style={{ color: 'var(--route-green-dark)' }}>{t('practice')}</Link></div>}{mastery.skills.length > 0 && <div className="mt-5"><div className="mb-3 flex items-center justify-between gap-3"><p className="text-[var(--juba-text)] text-sm font-bold">{t('skills')}</p><span className="text-[var(--juba-muted)] text-[11px]">{mastery.skills.length}</span></div><div className="grid gap-2 sm:grid-cols-2">{mastery.skills.slice(0, 8).map((skill) => <div key={skill.skill} className="bg-[var(--juba-app-bg,#fbfaf4)] rounded-[20px] p-3"><div className="mb-2 flex items-center justify-between gap-3"><span className="text-[var(--juba-text)] min-w-0 truncate text-xs font-semibold">{skill.skill}</span><span className="text-[var(--juba-muted)] shrink-0 text-[11px] font-bold">{Math.round(skill.mastery_rate * 100)}%</span></div><div className="bg-[var(--juba-border)] h-1.5 overflow-hidden rounded-full"><div className="h-full rounded-full" style={{ width: `${Math.round(skill.mastery_rate * 100)}%`, background: skill.mastery_state === 'mastered' ? 'var(--route-green-dark)' : 'var(--juba-coral)' }} /></div><div className="text-[var(--juba-muted)] mt-1.5 flex flex-wrap justify-between gap-x-3 gap-y-1 text-[10px]"><span>{t(skill.mastery_state)}</span><span className="tabular-nums">{skill.attempted_exercises}/{skill.total_exercises} · {skill.covered_variants} {t("coveredVariants")}</span></div></div>)}</div></div>}<div className="mt-5 space-y-3">{mastery.lessons.slice(0, 5).map((lesson) => <div key={lesson.lesson_id} className="bg-[var(--juba-app-bg,#fbfaf4)] rounded-[20px] p-4"><div className="mb-2 flex items-center justify-between gap-3"><p className="text-[var(--juba-text)] min-w-0 truncate text-sm font-semibold">{lesson.title}</p><span className="text-[var(--juba-muted)] shrink-0 text-xs font-bold">{Math.round(lesson.mastery_rate * 100)}%</span></div><div className="bg-[var(--juba-border)] h-1.5 overflow-hidden rounded-full"><div className="h-full rounded-full" style={{ width: `${Math.round(lesson.mastery_rate * 100)}%`, background: lesson.mastery_state === 'mastered' ? 'var(--route-green-dark)' : 'var(--juba-coral)' }} /></div></div>)}</div></section>}
+          {levelUnits.map((unit) => (
+            <UnitCompetencyBlock
+              key={unit.id}
+              unit={unit}
+              record={compMap[unit.id]}
+            />
+          ))}
 
-    {goalHistory.length > 0 && <section className="juba-panel p-5 sm:p-6"><div className="mb-4 flex items-center justify-between gap-3"><div><span className="text-[var(--juba-muted)] text-xs font-mono tracking-widest uppercase">{t('goalHistory')}</span><h2 className="text-[var(--juba-text)] mt-1 text-lg font-bold">{t('milestones')}</h2></div><span className="text-[var(--juba-muted)] text-xs">{goalMilestoneSummary?.total_reward_xp ?? goalHistory.reduce((sum, item) => sum + item.reward_xp, 0)} {t('rewardXp')}</span></div><div className="divide-[var(--juba-border)] divide-y">{goalHistory.map((item) => <div key={item.id} className="flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0"><div className="min-w-0"><p className="text-[var(--juba-text)] text-sm font-semibold">{item.goal_type === 'daily' ? t('dailyGoal') : t('weeklyGoal')}</p><p className="text-[var(--juba-muted)] text-xs">{item.period_start} · {item.achieved_xp}/{item.target_xp} {t('xp')}</p></div><span className="shrink-0 rounded-full px-2.5 py-1 text-xs font-bold" style={{ color: 'var(--juba-violet-dark)', background: 'var(--juba-lilac)' }}>+{item.reward_xp} {t('xp')}</span></div>)}</div></section>}
+          {competencies.length === 0 && (
+            <div className="border-fl-border bg-fl-surface border px-6 py-8 text-center">
+              <p className="text-fl-muted-3 font-mono text-xs leading-relaxed">
+                {t('noCompetencies')}
+              </p>
+              <Link
+                href="/plan"
+                className="text-fl-label text-fl-muted-2 hover:text-fl-fg mt-4 inline-block font-mono tracking-widest uppercase transition-colors"
+              >
+                {t('goToMyPlan')}
+              </Link>
+            </div>
+          )}
+        </section>
+      )}
 
-    {recentHistory.length > 0 && <section className="juba-panel p-5 sm:p-6"><div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><span className="text-[var(--juba-muted)] text-xs font-mono tracking-widest uppercase">{t('learningActivity')}</span><h2 className="text-[var(--juba-text)] mt-1 text-lg font-bold">{historyRange === 'week' ? t('last7Days') : historyRange === 'month' ? t('last30Days') : t('allTime')}</h2></div><div className="bg-[var(--juba-app-bg,#fbfaf4)] inline-flex rounded-[20px] p-1" role="group" aria-label={t('activityRange')}><button type="button" aria-pressed={historyRange === 'week'} onClick={() => setHistoryRange('week')} className={`rounded-[16px] px-3 py-1.5 text-xs font-semibold ${historyRange === 'week' ? 'text-[var(--juba-text)] bg-[var(--juba-surface)] shadow-[3px_3px_0_var(--juba-border)]' : 'text-[var(--juba-muted)]'}`}>{t('sevenDays')}</button><button type="button" aria-pressed={historyRange === 'month'} onClick={() => setHistoryRange('month')} className={`rounded-[16px] px-3 py-1.5 text-xs font-semibold ${historyRange === 'month' ? 'text-[var(--juba-text)] bg-[var(--juba-surface)] shadow-[3px_3px_0_var(--juba-border)]' : 'text-[var(--juba-muted)]'}`}>{t('thirtyDays')}</button><button type="button" aria-pressed={historyRange === 'all'} onClick={() => setHistoryRange('all')} className={`rounded-[16px] px-3 py-1.5 text-xs font-semibold ${historyRange === 'all' ? 'text-[var(--juba-text)] bg-[var(--juba-surface)] shadow-[3px_3px_0_var(--juba-border)]' : 'text-[var(--juba-muted)]'}`}>{t('allTime')}</button></div><Link href="/vocabulary/review" className="text-sm font-bold" aria-label={t('reviewLink')} style={{ color: 'var(--route-green-dark)' }}>{t('reviewLink')} →</Link></div><div className="grid grid-cols-7 items-end gap-2 sm:gap-3">{recentHistory.map((entry) => { const height = Math.max(8, Math.round((entry.xp_earned / maxDailyXp) * 100)); const dateLabel = new Date(`${entry.date}T00:00:00`).toLocaleDateString(undefined, { weekday: 'short' }); return <div key={entry.date} className="flex min-w-0 flex-col items-center gap-2"><span className="text-[var(--juba-muted)] text-[10px] tabular-nums">{entry.xp_earned} {t('xp')}</span><div className="bg-[var(--juba-app-bg,#fbfaf4)] flex h-28 w-full max-w-10 items-end overflow-hidden rounded-[16px]"><div className="w-full rounded-t-lg transition-all" style={{ height: `${height}%`, background: 'var(--route-green-dark)' }} /></div><span className="text-[var(--juba-muted)] truncate text-[10px] font-medium">{dateLabel}</span></div> })}</div>{rangeSummary && <div className="mt-5 grid grid-cols-2 gap-3 border-t border-[var(--juba-border)] pt-4 text-center sm:grid-cols-4"><div><p className="text-[var(--juba-text)] text-lg font-black">{rangeSummary.total_xp}</p><p className="text-[var(--juba-muted)] text-[10px] font-mono tracking-widest uppercase">{t('rangeXp')}</p></div><div><p className="text-[var(--juba-text)] text-lg font-black">{Math.round(rangeSummary.accuracy * 100)}%</p><p className="text-[var(--juba-muted)] text-[10px] font-mono tracking-widest uppercase">{t('rangeAccuracy')}</p></div><div><p className="text-[var(--juba-text)] text-lg font-black">{rangeSummary.active_days}</p><p className="text-[var(--juba-muted)] text-[10px] font-mono tracking-widest uppercase">{t('activeDays')}</p></div><div><p className="text-[var(--juba-text)] text-lg font-black">{rangeSummary.average_daily_xp}</p><p className="text-[var(--juba-muted)] text-[10px] font-mono tracking-widest uppercase">{t('avgDailyXp')}</p></div></div>}{summaryRangeLoading && <p className="text-[var(--juba-muted)] mt-3 text-center text-xs">{t('loading')}</p>}<div className="mt-5 grid grid-cols-3 gap-3 border-t border-[var(--juba-border)] pt-4 text-center"><div><p className="text-[var(--juba-text)] text-lg font-black">{recentHistory.reduce((a, e) => a + e.exercises_total, 0)}</p><p className="text-[var(--juba-muted)] text-[10px] font-mono tracking-widest uppercase">{t('exercises')}</p></div><div><p className="text-[var(--juba-text)] text-lg font-black">{recentHistory.reduce((a, e) => a + e.lessons_completed, 0)}</p><p className="text-[var(--juba-muted)] text-[10px] font-mono tracking-widest uppercase">{t('lessons')}</p></div><div><p className="text-[var(--juba-text)] text-lg font-black">{recentHistory.reduce((a, e) => a + e.xp_earned, 0)}</p><p className="text-[var(--juba-muted)] text-[10px] font-mono tracking-widest uppercase">{t('sevenDayXp')}</p></div></div></section>}
+      {/* Vocabulary Progress */}
+      {displayVocabSets.length > 0 && (
+        <section className="space-y-4">
+          <div className="flex items-center gap-3">
+            <span className="text-fl-fg font-mono text-base font-bold tracking-widest">
+              {showAllLevels
+                ? t('vocabularySection')
+                : cefrLevel
+                  ? t('vocabularyHeader', { level: cefrLevel })
+                  : t('vocabularySection')}
+            </span>
+            <div className="bg-fl-border h-px flex-1" />
+            <span className="text-fl-label text-fl-muted-3 font-mono">
+              {totalMastered}/{totalDisplayWords} {tVocab('words')}
+            </span>
+          </div>
 
-    {levelUnits.length > 0 && <section className="space-y-4"><div className="flex items-center gap-3"><h2 className="text-[var(--juba-text)] text-sm font-bold">{cefrLevel ? t('competenciesSection', { level: cefrLevel }) : t('competencies')}</h2><div className="bg-[var(--juba-border)] h-px flex-1" /></div>{levelUnits.map((unit) => <UnitCompetencyBlock key={unit.id} unit={unit} record={compMap[unit.id]} />)}{competencies.length === 0 && <div className="juba-panel px-6 py-8 text-center"><p className="text-[var(--juba-muted)] text-sm leading-relaxed">{t('noCompetencies')}</p><Link href="/plan" className="mt-4 inline-block text-sm font-medium underline transition-all hover:no-underline" style={{ color: 'var(--route-green-dark)' }}>{t('goToMyPlan')}</Link></div>}</section>}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowAllLevels(false)}
+              className={`text-fl-label border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
+                !showAllLevels
+                  ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
+                  : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
+              }`}
+            >
+              {t('currentLevelOnly')}
+            </button>
+            <button
+              onClick={() => setShowAllLevels(true)}
+              className={`text-fl-label border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
+                showAllLevels
+                  ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
+                  : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
+              }`}
+            >
+              {t('allLevels')}
+            </button>
+          </div>
 
-    {displayVocabSets.length > 0 && <section className="space-y-4"><div className="flex items-center gap-3"><h2 className="text-[var(--juba-text)] text-sm font-bold">{showAllLevels ? t('vocabularySection') : cefrLevel ? t('vocabularyHeader', { level: cefrLevel }) : t('vocabularySection')}</h2><div className="bg-[var(--juba-border)] h-px flex-1" /><span className="text-[var(--juba-muted)] shrink-0 text-xs font-medium">{totalMastered}/{totalDisplayWords} {tVocab('words')}</span></div><div className="bg-[var(--juba-app-bg,#fbfaf4)] inline-flex rounded-[20px] p-1"><button type="button" aria-pressed={!showAllLevels} onClick={() => setShowAllLevels(false)} className={`rounded-[16px] px-3.5 py-1.5 text-xs font-semibold transition-colors ${!showAllLevels ? 'text-[var(--juba-text)] bg-[var(--juba-surface)] shadow-[3px_3px_0_var(--juba-border)]' : 'text-[var(--juba-muted)] hover:text-[var(--juba-text)]'}`}>{t('currentLevelOnly')}</button><button type="button" aria-pressed={showAllLevels} onClick={() => setShowAllLevels(true)} className={`rounded-[16px] px-3.5 py-1.5 text-xs font-semibold transition-colors ${showAllLevels ? 'text-[var(--juba-text)] bg-[var(--juba-surface)] shadow-[3px_3px_0_var(--juba-border)]' : 'text-[var(--juba-muted)] hover:text-[var(--juba-text)]'}`}>{t('allLevels')}</button></div><div className="border-[var(--juba-border)] bg-[var(--juba-surface)] divide-[var(--juba-border)] divide-y rounded-[28px] border">{displayVocabSets.map((s) => { const mastered = s.words.filter((w) => masteredWordSet.has(w.word.toLowerCase())).length; const pct = s.words.length > 0 ? Math.round((mastered / s.words.length) * 100) : 0; return <div key={s.id} className="flex items-center gap-4 px-5 py-3.5"><Link href={`/vocabulary/${s.id}`} className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] min-w-0 flex-1 truncate text-sm font-medium transition-colors">{s.topic}</Link><div className="flex shrink-0 items-center gap-3"><div className="bg-[var(--juba-app-bg,#fbfaf4)] h-1.5 w-24 overflow-hidden rounded-full"><div role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: 'var(--route-green-dark)' }} /></div><span className="text-[var(--juba-muted)] w-12 text-end text-xs tabular-nums">{mastered}/{s.words.length}</span></div></div> })}</div></section>}
+          <div className="border-fl-border bg-fl-surface divide-fl-border divide-y border">
+            {displayVocabSets.map((s) => {
+              const mastered = s.words.filter((w) =>
+                masteredWordSet.has(w.word.toLowerCase())
+              ).length
+              const pct =
+                s.words.length > 0
+                  ? Math.round((mastered / s.words.length) * 100)
+                  : 0
+              return (
+                <div key={s.id} className="flex items-center gap-4 px-5 py-3">
+                  <Link
+                    href={`/vocabulary/${s.id}`}
+                    className="text-fl-muted-1 hover:text-fl-fg min-w-0 flex-1 truncate font-mono text-xs transition-colors"
+                  >
+                    {s.topic}
+                  </Link>
+                  <div className="flex items-center gap-3">
+                    <div className="bg-fl-border h-1.5 w-24">
+                      <div
+                        className="bg-fl-accent h-full transition-all"
+                        style={{ width: `${pct}%` }}
+                      />
+                    </div>
+                    <span className="text-fl-label text-fl-muted-3 w-12 text-right font-mono">
+                      {mastered}/{s.words.length}
+                    </span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </section>
+      )}
 
-    {gameStats && <section className="space-y-4"><div className="flex items-center gap-3"><h2 className="text-[var(--juba-text)] text-sm font-bold">{t('achievements')}</h2><div className="bg-[var(--juba-border)] h-px flex-1" /></div><div className="juba-panel p-5"><div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4"><div><p className="text-[var(--juba-muted)] text-xs">{t('gamesPlayed')}</p><p className="text-[var(--juba-text)] mt-1 text-lg font-bold">{gameStats.games_played}</p></div><div><p className="text-[var(--juba-muted)] text-xs">{t('bestStreak')}</p><p className="text-[var(--juba-text)] mt-1 text-lg font-bold">{gameStats.best_correct_streak}</p></div><div><p className="text-[var(--juba-muted)] text-xs">{t('dailyChallenges')}</p><p className="text-[var(--juba-text)] mt-1 text-lg font-bold">{gameStats.daily_challenges_completed}</p></div><div><p className="text-[var(--juba-muted)] text-xs">{t('unlocked')}</p><p className="text-[var(--juba-text)] mt-1 text-lg font-bold">{gameStats.achievements.length}</p></div></div>{gameStats.achievements.length > 0 ? <div className="flex flex-wrap gap-2">{gameStats.achievements.map((id) => <span key={id} className="border-[var(--juba-border)] bg-[var(--juba-app-bg,#fbfaf4)] text-[var(--juba-text)] inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold"><Award className="h-3.5 w-3.5" style={{ color: 'var(--route-green-dark)' }} />{id.replaceAll('_', ' ')}</span>)}</div> : <p className="text-[var(--juba-muted)] text-sm">{t('noAchievements')}</p>}</div></section>}
-
-    {summary && Object.keys(summary.skills).length > 0 && <section className="space-y-4"><div className="flex items-center gap-3"><h2 className="text-[var(--juba-text)] text-sm font-bold">{t('skills')}</h2><div className="bg-[var(--juba-border)] h-px flex-1" /></div><div className="border-[var(--juba-border)] bg-[var(--juba-surface)] divide-[var(--juba-border)] divide-y rounded-[28px] border">{Object.entries(summary.skills).map(([skill, value]) => <div key={skill} className="flex items-center gap-4 px-5 py-3.5"><span className="text-[var(--juba-muted)] w-24 shrink-0 truncate text-sm font-medium">{skill}</span><div className="bg-[var(--juba-app-bg,#fbfaf4)] h-1.5 flex-1 overflow-hidden rounded-full"><div role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(value * 100)} className="h-full rounded-full transition-all duration-500" style={{ width: `${Math.round(value * 100)}%`, background: value < 0.5 ? 'var(--juba-coral)' : 'var(--route-green-dark)' }} /></div><span className="text-[var(--juba-muted)] w-10 shrink-0 text-end text-xs font-semibold tabular-nums">{Math.round(value * 100)}%</span></div>)}</div></section>}
-  </div>
+      {/* Skills breakdown */}
+      {summary && Object.keys(summary.skills).length > 0 && (
+        <section className="space-y-4">
+          <div className="flex items-center gap-3">
+            <span className="text-fl-fg font-mono text-base font-bold tracking-widest">
+              {t('skills')}
+            </span>
+            <div className="bg-fl-border h-px flex-1" />
+          </div>
+          <div className="border-fl-border bg-fl-surface divide-fl-border divide-y border">
+            {Object.entries(summary.skills).map(([skill, value]) => (
+              <div key={skill} className="flex items-center gap-4 px-5 py-3">
+                <span className="text-fl-label text-fl-muted-2 w-24 font-mono tracking-widest uppercase">
+                  {skill}
+                </span>
+                <div className="bg-fl-border h-1.5 flex-1">
+                  <div
+                    className="bg-fl-accent h-full"
+                    style={{ width: `${Math.round(value * 100)}%` }}
+                  />
+                </div>
+                <span className="text-fl-label text-fl-muted-2 w-10 text-right font-mono">
+                  {Math.round(value * 100)}%
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  )
 }
