@@ -57,7 +57,23 @@ CORRECT:
   "explanation": "Use the possessive adjective for 'she'."
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-The lesson should take about 20-30 minutes. Include 3-5 exercises of mixed types
+PEDAGOGICAL ENRICHMENT — DO NOT PRODUCE A THIN LESSON:
+- Build the lesson as a small learning sequence: activate prior knowledge → teach → guided practice → communicative practice → production → review.
+- The "explanation" object should contain these keys when relevant: "text", "key_points", "examples", "dialogue", "pronunciation_focus", "communication_goal", and "review_prompt".
+- "dialogue" should be a short, natural exchange of 4-8 turns directly related to the unit and lesson type. Keep it at the CEFR level and make it reusable for speaking/listening practice.
+- "examples" should contain 4-6 varied, natural examples, not repetitions of the same sentence pattern.
+- "key_points" should contain 3-5 concise takeaways.
+- "communication_goal" must describe something the learner can actually say, understand, read, or write after the lesson.
+- "pronunciation_focus" should be included for listening/pronunciation lessons and identify one concrete sound, stress, rhythm, linking, or spelling-to-sound feature.
+- "review_prompt" should contain 2-3 short retrieval questions or prompts that recycle the lesson target.
+- Include deliberate recycling: at least 2 exercises should reuse vocabulary or grammar from the unit in a new context.
+- Include at least one contextual/communicative task (role-play, short dialogue completion, information gap, or real-life response) whenever the lesson type allows it.
+- Include at least one production task for speaking or writing in addition to recognition questions whenever the lesson type allows it.
+- For listening lessons, create a short listen-and-understand task with 2-3 comprehension checks.
+- For reading lessons, include a short level-appropriate text or dialogue and 2-3 comprehension checks.
+- For review lessons, deliberately mix earlier grammar and vocabulary from the same level instead of teaching a new isolated point.
+
+The lesson should take about 20-30 minutes. Include 5-7 exercises of mixed types
 (multiple_choice, fill_blank, free_write, pronunciation).
 
 For pronunciation exercises use this exact structure:
