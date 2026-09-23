@@ -110,7 +110,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="juba-funfluent-page min-h-screen flex flex-col font-sans selection:bg-[#ffd45c]/30 overflow-x-hidden">
+    <div className="juba-funfluent-page juba-ff-reference min-h-screen flex flex-col font-sans selection:bg-[#ffd45c]/30 overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
