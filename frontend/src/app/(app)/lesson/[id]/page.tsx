@@ -84,6 +84,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   const [loadingExplanation, setLoadingExplanation] = useState(false)
   const [audioLoadFailed, setAudioLoadFailed] = useState(false)
   const [audioLoading, setAudioLoading] = useState(false)
+  const helperRequestRef = useRef(0)
   const allSkillsMastered = skillMastery.length > 0 && skillMastery.every((item) => item.mastery_state === 'mastered')
 
   const loadLessonMastery = useCallback(async (lessonId: number) => {
@@ -201,26 +202,30 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
 
   const loadNativeHint = async () => {
     if (!exercise || loadingHint) return
+    const requestId = ++helperRequestRef.current
+    const exerciseId = exercise.id
     setActionError(false)
     setLoadingHint(true)
     try {
-      const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/native-hint`, { method: 'POST' })
+      const res = await apiFetch(`/api/lessons/exercises/${exerciseId}/native-hint`, { method: 'POST' })
       if (!res.ok) throw new Error('hint_failed')
       const data: { native_hint: string } = await res.json()
-      setNativeHint(data.native_hint)
-    } catch { setActionError(true) } finally { setLoadingHint(false) }
+      if (requestId === helperRequestRef.current) setNativeHint(data.native_hint)
+    } catch { if (requestId === helperRequestRef.current) setActionError(true) } finally { if (requestId === helperRequestRef.current) setLoadingHint(false) }
   }
 
   const loadNativeExplanation = async () => {
     if (!exercise || loadingExplanation) return
+    const requestId = ++helperRequestRef.current
+    const exerciseId = exercise.id
     setActionError(false)
     setLoadingExplanation(true)
     try {
-      const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/native-explanation`, { method: 'POST' })
+      const res = await apiFetch(`/api/lessons/exercises/${exerciseId}/native-explanation`, { method: 'POST' })
       if (!res.ok) throw new Error('explanation_failed')
       const data: { native_explanation: string } = await res.json()
-      setNativeExplanation(data.native_explanation)
-    } catch { setActionError(true) } finally { setLoadingExplanation(false) }
+      if (requestId === helperRequestRef.current) setNativeExplanation(data.native_explanation)
+    } catch { if (requestId === helperRequestRef.current) setActionError(true) } finally { if (requestId === helperRequestRef.current) setLoadingExplanation(false) }
   }
 
   useEffect(() => {
