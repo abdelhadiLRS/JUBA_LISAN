@@ -7,7 +7,7 @@ from app.data.ar.lessons import ARABIC_A1_LESSONS
 
 
 def test_arabic_a1_sequence_is_complete():
-    assert len(ARABIC_A1_LESSONS) == 40
+    assert len(ARABIC_A1_LESSONS) == 80
     assert [x.id for x in ARABIC_A1_LESSONS] == list(dict.fromkeys(x.id for x in ARABIC_A1_LESSONS))
     assert {x.unit_id for x in ARABIC_A1_LESSONS} == {f"a1-unit-{n}" for n in range(1, 9)}
     for unit in range(1, 9):
