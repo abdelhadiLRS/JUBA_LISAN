@@ -90,7 +90,7 @@ export function ReviewForm({
     <>
       <div className="space-y-5 px-5 py-5">
         <div>
-          <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-3 font-mono tracking-widest uppercase">
+          <p className="text-[var(--juba-muted)] mb-3 font-mono tracking-widest uppercase">
             {t('ratingLabel')}
           </p>
           <div
@@ -121,7 +121,7 @@ export function ReviewForm({
         <div>
           <label
             htmlFor="review-comment"
-            className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-2 block font-mono tracking-widest uppercase"
+            className="text-[var(--juba-muted)] mb-2 block font-mono tracking-widest uppercase"
           >
             {t('commentLabel')}
           </label>
@@ -144,7 +144,7 @@ export function ReviewForm({
           <button
             type="button"
             onClick={onCancel}
-            className="border-[var(--juba-border)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] flex-1 border py-3 font-mono font-bold tracking-widest uppercase transition-colors"
+            className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] flex-1 border py-3 font-mono font-bold tracking-widest uppercase transition-colors"
           >
             {cancelLabel ?? t('cancel')}
           </button>
@@ -153,7 +153,7 @@ export function ReviewForm({
           type="button"
           onClick={handleSubmit}
           disabled={submitting}
-          className="bg-[var(--juba-yellow)] text-[var(--juba-ink)] text-[var(--juba-text)] hover:bg-[var(--juba-yellow)]/90 flex flex-1 items-center justify-center gap-2 py-3 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-60"
+          className="bg-[var(--juba-yellow)] text-[var(--juba-ink)] hover:bg-[var(--juba-yellow)]/90 flex flex-1 items-center justify-center gap-2 py-3 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-60"
         >
           {submitting && <Loader2 className="size-3.5 animate-spin" />}
           {submitLabel ?? t('submit')}
@@ -210,7 +210,7 @@ export function ReviewPrompt({
       <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] w-full max-w-md border shadow-2xl">
         <div className="border-[var(--juba-border)] flex items-center justify-between border-b px-5 py-4">
           <div>
-            <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
+            <p className="text-[var(--juba-muted)] font-mono tracking-widest uppercase">
               {t('eyebrow')}
             </p>
             <h2 className="text-[var(--juba-text)] mt-1 font-sans text-lg font-semibold tracking-tight">
