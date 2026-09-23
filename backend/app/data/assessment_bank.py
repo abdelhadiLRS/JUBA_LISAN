@@ -23,6 +23,11 @@ _LANG_MODULES: dict[str, str] = {
     "pt": "app.data.pt.assessment_bank",
     "zh": "app.data.zh.assessment_bank",
     "ar": "app.data.ar.assessment_bank",
+    "tr": "app.data.tr.assessment_bank",
+    "ru": "app.data.ru.assessment_bank",
+    "nl": "app.data.nl.assessment_bank",
+    "pl": "app.data.pl.assessment_bank",
+    "el": "app.data.el.assessment_bank",
 }
 
 _CACHE: dict[str, list[AssessmentQuestion]] = {}
