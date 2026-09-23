@@ -686,7 +686,8 @@
     "hintPrefix": "Indice : ",
     "retryEasier": "Réessayer plus facilement",
     "checking": "Vérification…",
-"answerError": "Nous n’avons pas pu vérifier votre réponse. Réessayez.",
+"answerError": "Nous n’avons pas pu vérifier votre réponse. Réessayez.",,
+"actionError": "Cette action n’a pas pu être effectuée. Veuillez réessayer."
     "next": "Suivant",
     "finish": "Terminer la leçon",
     "completed": "Terminée",
