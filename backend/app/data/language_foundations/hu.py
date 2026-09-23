@@ -33,13 +33,13 @@ CurriculumUnit(id="hu-a1-unit-5",level="A1",unit_number=5,title="Food and shoppi
 CurriculumUnit(id="hu-a1-unit-6",level="A1",unit_number=6,title="Places and directions",grammar_points=["accusative-intro"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2),
 CurriculumUnit(id="hu-a1-unit-7",level="A1",unit_number=7,title="Communication and help",grammar_points=["possessive"],vocabulary_set_ids=["communication_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2),
 CurriculumUnit(id="hu-a1-unit-8",level="A1",unit_number=8,title="Review and A1 communication",grammar_points=["modal-verbs"],vocabulary_set_ids=["family_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2)]}
-ASSESSMENT_BANK=[AssessmentQuestion(id="hu-a1-001",skill="vocabulary",difficulty="A1",question="A1 thanks check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="hu-a1-002",skill="vocabulary",difficulty="A1",question="A1 student check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="hu-a1-003",skill="vocabulary",difficulty="A1",question="A1 question check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="hu-a1-004",skill="vocabulary",difficulty="A1",question="A1 negative check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="hu-a1-005",skill="vocabulary",difficulty="A1",question="A1 mother check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="hu-a1-006",skill="vocabulary",difficulty="A1",question="A1 shop check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="hu-a1-007",skill="vocabulary",difficulty="A1",question="A1 water check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="hu-a1-008",skill="vocabulary",difficulty="A1",question="A1 help check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="hu-a1-009",skill="vocabulary",difficulty="A1",question="A1 name check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="hu-a1-010",skill="vocabulary",difficulty="A1",question="A1 present check",options=["A","B","C","D"],correct="A")]
+ASSESSMENT_BANK=[AssessmentQuestion(id="hu-a1-001",skill="vocabulary",difficulty="A1",question="Which word means 'thanks'?",options=["Köszönöm","Szia","Viszlát","Jó reggelt"],correct="Köszönöm"),
+AssessmentQuestion(id="hu-a1-002",skill="grammar",difficulty="A1",question="Choose the correct A1 sentence.",options=["Diák vagyok.","Diák vagy.","Vagyok diákot.","Diák én."],correct="Diák vagyok."),
+AssessmentQuestion(id="hu-a1-003",skill="grammar",difficulty="A1",question="Choose the correct question.",options=["Hol laksz?","Ki laksz?","Hol lakod?","Laksz hol van?"],correct="Hol laksz?"),
+AssessmentQuestion(id="hu-a1-004",skill="vocabulary",difficulty="A1",question="Choose the correct negative sentence.",options=["Nem értem.","Értem nem.","Nem ért.","Nem érteni."],correct="Nem értem."),
+AssessmentQuestion(id="hu-a1-005",skill="grammar",difficulty="A1",question="Which word means 'mother'?",options=["anya","apa","testvér","fiú"],correct="anya"),
+AssessmentQuestion(id="hu-a1-006",skill="grammar",difficulty="A1",question="Which word means 'shop'?",options=["bolt","állomás","szoba","ház"],correct="bolt"),
+AssessmentQuestion(id="hu-a1-007",skill="vocabulary",difficulty="A1",question="Which word means 'water'?",options=["víz","kávé","kenyér","alma"],correct="víz"),
+AssessmentQuestion(id="hu-a1-008",skill="grammar",difficulty="A1",question="Choose the phrase for asking for help.",options=["Segítségre van szükségem.","Köszönöm.","Otthon vagyok.","Viszlát."],correct="Segítségre van szükségem."),
+AssessmentQuestion(id="hu-a1-009",skill="grammar",difficulty="A1",question="Which word means 'name'?",options=["név","kor","ház","család"],correct="név"),
+AssessmentQuestion(id="hu-a1-010",skill="vocabulary",difficulty="A1",question="Choose the correct present-tense form.",options=["beszélek","beszélsz","beszél","beszélni"],correct="beszélek")]
