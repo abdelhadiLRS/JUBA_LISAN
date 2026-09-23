@@ -38,7 +38,7 @@ const copy = {
     mathDesc: 'عمليات حسابية قصيرة مع مكافآت فورية.', wordsDesc: 'طابق الكلمة مع معناها.',
     sequenceDesc: 'اكتشف الرقم التالي في السلسلة.', memoryDesc: 'تذكّر ترتيب العناصر واختره من البدائل.',
     matchingDesc: 'طابق الكلمة مع ترجمتها الصحيحة.', orderingDesc: 'رتّب العناصر بالترتيب الصحيح.',
-    start: 'ابدأ اللعبة', next: 'السؤال التالي', correct: 'إجابة صحيحة!', wrong: 'ليست صحيحة',
+    start: 'ابدأ اللعبة', loadError: 'تعذر تحميل اللعبة. حاول مرة أخرى.', saveError: 'تعذر حفظ نتيجة اللعبة. حاول مرة أخرى.', next: 'السؤال التالي', correct: 'إجابة صحيحة!', wrong: 'ليست صحيحة',
     hint: 'تلميح', back: 'الألعاب', score: 'نتيجة الجولة', done: 'أحسنت! أكملت الجولة.', choose: 'اختر الإجابة الصحيحة',
     reset: 'إعادة التقدم', lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائياتك', gamesPlayed: 'الألعاب',
     questions: 'الأسئلة', accuracy: 'الدقة', best: 'أفضل نتيجة', badges: 'الإنجازات', unlocked: 'مفتوح', newBadge: 'إنجاز جديد!', answered: 'تم تسجيل إجابتك.',
@@ -49,7 +49,7 @@ const copy = {
     math: 'Défi de calcul', words: 'Chasse aux mots', sequence: 'Complète la suite', memory: 'Défi mémoire',
     matching: 'Jeu d’association', ordering: 'Jeu de classement', mathDesc: 'De courts calculs avec récompenses immédiates.',
     wordsDesc: 'Associe le mot à sa signification.', sequenceDesc: 'Trouve le prochain nombre.', memoryDesc: 'Mémorise l’ordre et retrouve la bonne séquence.',
-    matchingDesc: 'Associe le mot à sa bonne traduction.', orderingDesc: 'Classe les éléments dans le bon ordre.', start: 'Commencer', next: 'Question suivante',
+    matchingDesc: 'Associe le mot à sa bonne traduction.', orderingDesc: 'Classe les éléments dans le bon ordre.', start: 'Commencer', loadError: 'Impossible de charger le jeu. Réessaie.', saveError: 'Impossible d’enregistrer le résultat. Réessaie.', next: 'Question suivante',
     correct: 'Bonne réponse !', wrong: 'Pas encore', hint: 'Indice', back: 'Jeux', score: 'Score de la partie', done: 'Bravo ! Partie terminée.',
     choose: 'Choisis la bonne réponse', reset: 'Réinitialiser', lang: 'Langue', xp: 'XP', skills: 'Compétences', stats: 'Tes statistiques',
     gamesPlayed: 'Parties', questions: 'Questions', accuracy: 'Précision', best: 'Meilleur score', badges: 'Succès', unlocked: 'débloqué', newBadge: 'Nouveau succès !', answered: 'Réponse enregistrée.',
@@ -60,7 +60,7 @@ const copy = {
     math: 'Math challenge', words: 'Word hunt', sequence: 'Complete the pattern', memory: 'Memory challenge',
     matching: 'Matching game', ordering: 'Ordering game', mathDesc: 'Short calculations with instant rewards.', wordsDesc: 'Match each word with its meaning.',
     sequenceDesc: 'Find the next number in the sequence.', memoryDesc: 'Remember the order and choose the matching sequence.',
-    matchingDesc: 'Match each word with the correct translation.', orderingDesc: 'Put the items in the correct order.', start: 'Start game', next: 'Next question',
+    matchingDesc: 'Match each word with the correct translation.', orderingDesc: 'Put the items in the correct order.', start: 'Start game', loadError: 'Unable to load this game. Please try again.', saveError: 'Unable to save the game result. Please try again.', next: 'Next question',
     correct: 'Correct!', wrong: 'Not quite', hint: 'Hint', back: 'Games', score: 'Round score', done: 'Great job! Round complete.',
     choose: 'Choose the correct answer', reset: 'Reset progress', lang: 'Language', xp: 'XP', skills: 'Skills', stats: 'Your stats',
     gamesPlayed: 'Games', questions: 'Questions', accuracy: 'Accuracy', best: 'Best score', badges: 'Achievements', unlocked: 'unlocked', newBadge: 'New achievement!', answered: 'Answer recorded.',
@@ -134,7 +134,7 @@ export default function GamesPage() {
       setNewAchievements([])
       setQuestion(session.questions[0] ?? null)
     } catch {
-      setGameError('Unable to load this game. Please try again.')
+      setGameError(t.loadError)
       setGame(null)
       setQuestion(null)
       setSessionId(null)
@@ -182,7 +182,7 @@ export default function GamesPage() {
         achievements: server.achievements as AchievementId[],
       })
     } catch {
-      setGameError('Unable to save the round. Please try again.')
+      setGameError(t.saveError)
       return
     }
   }
@@ -219,12 +219,14 @@ export default function GamesPage() {
         achievements: server.achievements as AchievementId[],
       })
       setGame(null)
+      setDailyMode(false)
+      setDailyChallengeDate('')
       setInteractionChallenge(null)
       setSessionId(null)
       setSessionQuestions([])
       return true
     } catch {
-      setGameError('Unable to save the game result. Please try again.')
+      setGameError(t.saveError)
       return false
     }
   }
@@ -273,7 +275,7 @@ export default function GamesPage() {
           <div className="language-control">
             <span>{t.lang}</span>
             {(['ar', 'fr', 'en'] as Lang[]).map((value) => (
-              <button key={value} className={lang === value ? 'active' : ''} onClick={() => setLang(value)}>
+              <button key={value} className={lang === value ? 'active' : ''} type="button" onClick={() => setLang(value)}>
                 {value.toUpperCase()}
               </button>
             ))}
@@ -292,7 +294,7 @@ export default function GamesPage() {
             <div className="achievement-toast" style={{ display: newAchievements.length ? 'block' : 'none' }}>
               🏅 <strong>{t.newBadge}</strong> {newAchievements.map((id) => ACHIEVEMENTS[id].title).join(' · ')}
             </div>
-            <button className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} onClick={() => void startGame(dailyGame, true)} disabled={dailyCompletedToday || gameLoading} aria-disabled={dailyCompletedToday}>
+            <button className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} type="button" onClick={() => void startGame(dailyGame, true)} disabled={dailyCompletedToday || gameLoading} aria-disabled={dailyCompletedToday}>
               <span className="daily-icon">📅</span>
               <span><strong>{t.daily}</strong><small>{t.dailyDesc}</small></span>
               <span className="start">{dailyCompletedToday ? '✓' : t.start} {dailyCompletedToday ? '' : '→'}</span>
@@ -300,12 +302,12 @@ export default function GamesPage() {
 
             <div className="section-heading">
               <h2>{t.games}</h2>
-              <button className="reset" onClick={reset}>{t.reset}</button>
+              <button className="reset" type="button" onClick={reset}>{t.reset}</button>
             </div>
 
             <section className="game-grid">
               {gameCards.map((card) => (
-                <button key={card.id} className="game-card" onClick={() => void startGame(card.id)} disabled={gameLoading}>
+                <button key={card.id} className="game-card" type="button" onClick={() => void startGame(card.id)} disabled={gameLoading}>
                   <span className="game-icon">{card.icon}</span>
                   <span className="game-title">{card.title}</span>
                   <span className="game-desc">{card.desc}</span>
