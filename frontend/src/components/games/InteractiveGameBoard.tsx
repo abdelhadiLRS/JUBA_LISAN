@@ -52,9 +52,14 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
   const finish = useCallback(async (trace: InteractiveGameTrace[]) => {
     if (completed || finishing.current) return
     finishing.current = true
-    const accepted = await onComplete?.(trace)
-    if (accepted !== false) setCompleted(true)
-    else finishing.current = false
+    try {
+      const accepted = await onComplete?.(trace)
+      if (accepted !== false) setCompleted(true)
+      else finishing.current = false
+    } catch {
+      finishing.current = false
+      setFeedback(t.tryAgain)
+    }
   }, [completed, onComplete])
 
   function flipCard(index: number) {
