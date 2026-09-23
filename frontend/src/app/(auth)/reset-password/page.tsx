@@ -50,35 +50,35 @@ function ResetPasswordContent() {
   }
 
   return (
-    <div className="bg-fl-bg bg-dot-grid flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm">
+    <div className="bg-[var(--juba-bg)] bg-dot-grid flex min-h-screen items-center justify-center px-4">
+      <div className="w-full max-w-md">
         <div className="mb-10 flex flex-col items-center">
-          <h1 className="text-fl-fg font-mono text-xl font-bold tracking-widest uppercase">
+          <h1 className="text-[var(--juba-text)] font-sans text-xl font-bold tracking-wide">
             FreeLingo
           </h1>
         </div>
 
-        <div className="border-fl-border bg-fl-surface space-y-6 border p-8">
+        <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] space-y-6 border-2 border-[var(--juba-border)] p-8">
           <div className="flex items-center gap-2">
-            <span className="text-fl-label text-fl-muted-2">●</span>
-            <span className="text-fl-caption text-fl-muted-2 font-mono tracking-widest uppercase">
+            <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
+            <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-semibold tracking-wide">
               {t('title')}
             </span>
           </div>
 
           {done ? (
-            <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
+            <p className="text-[var(--juba-muted)] font-sans text-xs leading-relaxed">
               {t('success')}
             </p>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               {!token && (
-                <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+                <div className="border-red-200 text-red-600 border px-4 py-3 font-sans text-xs">
                   {t('missingToken')}
                 </div>
               )}
               {error && (
-                <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+                <div className="border-red-200 text-red-600 border px-4 py-3 font-sans text-xs">
                   ✕ {error}
                 </div>
               )}
@@ -89,7 +89,7 @@ function ResetPasswordContent() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete="new-password"
-                className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 w-full border px-4 py-3 font-mono text-xs transition-colors focus:outline-none"
+                className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] focus:border-[var(--juba-violet)] w-full border px-4 py-3 font-sans text-xs transition-colors focus:outline-none"
               />
               <input
                 type="password"
@@ -98,12 +98,12 @@ function ResetPasswordContent() {
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
                 autoComplete="new-password"
-                className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 w-full border px-4 py-3 font-mono text-xs transition-colors focus:outline-none"
+                className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] focus:border-[var(--juba-violet)] w-full border px-4 py-3 font-sans text-xs transition-colors focus:outline-none"
               />
               <button
                 type="submit"
                 disabled={loading || !token}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 w-full py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-50"
               >
                 {loading ? (
                   <>
@@ -116,7 +116,7 @@ function ResetPasswordContent() {
               </button>
               <Link
                 href="/login"
-                className="text-fl-muted-4 hover:text-fl-muted-2 block text-center font-mono text-xs transition-colors"
+                className="text-[var(--juba-muted)] hover:text-[var(--juba-muted)] block text-center font-sans text-xs transition-colors"
               >
                 {t('backToLogin')}
               </Link>
