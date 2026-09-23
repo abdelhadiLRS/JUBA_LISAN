@@ -117,45 +117,45 @@ export default function SettingsMemoriesPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl p-6">
+    <div className="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
       <nav
         aria-label={t('memoryBreadcrumb')}
-        className="text-fl-label text-fl-muted-3 mb-8 flex items-center gap-2 font-mono"
+        className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-8 flex items-center gap-2 font-mono"
       >
         <Link
           href="/settings"
-          className="hover:text-fl-fg tracking-widest uppercase transition-colors"
+          className="hover:text-[var(--juba-text)] tracking-widest uppercase transition-colors"
         >
           {t('title')}
         </Link>
         <span aria-hidden="true">›</span>
-        <h1 className="text-fl-fg tracking-widest uppercase">
+        <h1 className="text-[var(--juba-text)] tracking-widest uppercase">
           {t('sectionMemory')}
         </h1>
       </nav>
 
-      <div className="border-fl-border bg-fl-surface border p-6">
-        <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-4">
-          <span aria-hidden="true" className="text-fl-label text-fl-muted-2">
+      <div className="rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white p-6 shadow-[0_18px_45px_rgba(61,42,130,0.08)]">
+        <div className="border-[var(--juba-lilac)] mb-4 flex items-center gap-2 border-b pb-4">
+          <span aria-hidden="true" className="text-[var(--juba-text)] text-[var(--juba-muted)]">
             ●
           </span>
-          <h2 className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+          <h2 className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
             {t('sectionMemory')}
           </h2>
         </div>
 
-        <p className="text-fl-muted-2 mb-5 font-mono text-xs leading-relaxed">
+        <p className="text-[var(--juba-muted)] mb-5 font-mono text-xs leading-relaxed">
           {t('memoryDescription')}
         </p>
 
         <form
           onSubmit={handleAdd}
           aria-busy={adding}
-          className="border-fl-border mb-6 border-b pb-6"
+          className="border-[var(--juba-lilac)] mb-6 border-b pb-6"
         >
           <label
             htmlFor="memory-content"
-            className="text-fl-label text-fl-muted-2 mb-2 block font-mono tracking-widest uppercase"
+            className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-2 block font-mono tracking-widest uppercase"
           >
             {t('memoryInputLabel')}
           </label>
@@ -168,19 +168,19 @@ export default function SettingsMemoriesPage() {
             required
             aria-describedby="memory-hint"
             placeholder={t('memoryInputPlaceholder')}
-            className="border-fl-border bg-fl-bg text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 mb-2 w-full resize-y border p-3 font-mono text-sm outline-none"
+            className="border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/40 text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] focus:border-[var(--juba-violet)] mb-2 w-full resize-y border p-3 font-mono text-sm outline-none"
           />
           <div className="flex items-center justify-between gap-4">
             <p
               id="memory-hint"
-              className="text-fl-label text-fl-muted-3 font-mono"
+              className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono"
             >
               {t('memoryInputHint', { max: 200 })}
             </p>
             <button
               type="submit"
               disabled={loading || loadError || mutating || !content.trim()}
-              className="bg-fl-fg text-fl-bg text-fl-label hover:bg-fl-fg-bright flex min-w-28 items-center justify-center gap-2 px-4 py-2 font-mono font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+              className="bg-fl-fg text-[var(--juba-text)] text-[var(--juba-text)] hover:bg-fl-fg-bright flex min-w-28 items-center justify-center gap-2 px-4 py-2 font-mono font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-50"
             >
               {adding && (
                 <Loader2
@@ -197,7 +197,7 @@ export default function SettingsMemoriesPage() {
           {message && (
             <p
               role={message.type === 'error' ? 'alert' : 'status'}
-              className={`mb-4 font-mono text-xs ${message.type === 'error' ? 'text-fl-error-fg' : 'text-fl-success'}`}
+              className={`mb-4 font-mono text-xs ${message.type === 'error' ? 'text-rose-600' : 'text-emerald-600'}`}
             >
               {message.text}
             </p>
@@ -208,18 +208,18 @@ export default function SettingsMemoriesPage() {
           <PageLoading fullScreen={false} />
         ) : loadError ? (
           <div role="alert" className="border-fl-error/40 border p-4">
-            <p className="text-fl-error-fg mb-3 font-mono text-xs">
+            <p className="text-rose-600 mb-3 font-mono text-xs">
               {t('memoryLoadError')}
             </p>
             <button
               onClick={() => void loadMemories()}
-              className="border-fl-border text-fl-label text-fl-muted-1 hover:text-fl-fg border px-4 py-2 font-mono tracking-widest uppercase"
+              className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] border px-4 py-2 font-mono tracking-widest uppercase"
             >
               {tCommon('retry')}
             </button>
           </div>
         ) : memories.length === 0 ? (
-          <p className="text-fl-hint text-fl-muted-2 font-mono">
+          <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-mono">
             {t('memoryEmpty')}
           </p>
         ) : (
@@ -228,13 +228,13 @@ export default function SettingsMemoriesPage() {
               {memories.map((memory) => (
                 <li
                   key={memory.id}
-                  className="border-fl-border flex items-start justify-between gap-3 border p-3"
+                  className="border-[var(--juba-lilac)] flex items-start justify-between gap-3 border p-3"
                 >
                   <div className="flex-1 space-y-1">
-                    <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
+                    <p className="text-[var(--juba-muted)] font-mono text-xs leading-relaxed">
                       {memory.content}
                     </p>
-                    <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+                    <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
                       {sourceLabel(memory.source)}
                     </p>
                   </div>
@@ -245,7 +245,7 @@ export default function SettingsMemoriesPage() {
                       content: memory.content,
                     })}
                     aria-busy={deletingId === memory.id}
-                    className="text-fl-muted-2 hover:text-fl-error shrink-0 p-2 transition-colors disabled:opacity-50"
+                    className="text-[var(--juba-muted)] hover:text-rose-600 shrink-0 p-2 transition-colors disabled:opacity-50"
                   >
                     {deletingId === memory.id ? (
                       <Loader2
@@ -265,7 +265,7 @@ export default function SettingsMemoriesPage() {
                 setClearConfirm(true)
               }}
               disabled={mutating}
-              className="text-fl-hint text-fl-muted-2 border-fl-border hover:text-fl-error hover:border-fl-error/40 w-full border py-2 font-mono tracking-widest uppercase transition-colors"
+              className="text-[var(--juba-muted)] text-[var(--juba-muted)] border-[var(--juba-lilac)] hover:text-rose-600 hover:border-fl-error/40 w-full border py-2 font-mono tracking-widest uppercase transition-colors"
             >
               {t('memoryClearAll')}
             </button>
