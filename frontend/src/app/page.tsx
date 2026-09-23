@@ -237,21 +237,21 @@ export default async function Home() {
 
       {/* Open Source Banner */}
       <ScrollReveal>
-        <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 pt-8">
-          <div className="juba-card p-8 flex flex-col items-center justify-between gap-6 sm:flex-row bg-gradient-to-r from-[var(--juba-violet-dark)] to-[var(--juba-violet)] text-white">
+        <section className="juba-ff-open-source mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 pt-8">
+          <div className="juba-ff-open-source-card flex flex-col items-center justify-between gap-6 sm:flex-row">
             <div className="flex items-center gap-4">
               <Image
                 src="/github_white.svg"
                 alt="GitHub"
                 width={28}
                 height={28}
-                className="opacity-90"
+                className="juba-ff-open-source-icon opacity-90"
               />
               <div className="text-left">
-                <p className="font-bold text-base tracking-tight text-white">
+                <p className="juba-ff-open-source-title font-bold text-base tracking-tight">
                   {tBilling('openSourceTitle')}
                 </p>
-                <p className="text-xs text-white/70 mt-1">
+                <p className="juba-ff-open-source-desc text-xs mt-1">
                   {tBilling('openSourceDesc')}
                 </p>
               </div>
@@ -260,7 +260,7 @@ export default async function Home() {
               href="https://github.com/abdelhadiLRS/JUBA_LISAN"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-[18px] border border-white/20 bg-white/10 hover:bg-white/20 text-white px-6 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors whitespace-nowrap"
+              className="juba-ff-open-source-cta rounded-[18px] px-6 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors whitespace-nowrap"
             >
               {tBilling('openSourceCta')}
             </a>
