@@ -51,7 +51,7 @@ export function SubscriptionPlanButtons({
           type="button"
           onClick={() => startCheckout('yearly')}
           disabled={loading !== null}
-          className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 flex-1 px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+          className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 flex-1 px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
         >
           {loading === 'yearly' ? (
             '...'
@@ -59,7 +59,7 @@ export function SubscriptionPlanButtons({
             <span className="flex flex-col items-center gap-0.5 leading-relaxed">
               <span>{yearlyCta.main}</span>
               {yearlyCta.savings && (
-                <span className="text-fl-accent-fg/80 text-[0.68rem]">
+                <span className="text-white/80 text-[0.68rem]">
                   {yearlyCta.savings}
                 </span>
               )}
@@ -70,14 +70,14 @@ export function SubscriptionPlanButtons({
           type="button"
           onClick={() => startCheckout('monthly')}
           disabled={loading !== null}
-          className="border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 flex-1 border px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+          className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-border)]-2 flex-1 border px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
         >
           {loading === 'monthly'
             ? '...'
             : tBilling('planMonthly', { price: String(priceMonthly) })}
         </button>
       </div>
-      {error && <p className="text-fl-error font-mono text-xs">{error}</p>}
+      {error && <p className="text-[var(--juba-danger)] font-mono text-xs">{error}</p>}
     </div>
   )
 }
