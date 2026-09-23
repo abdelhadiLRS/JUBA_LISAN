@@ -13,6 +13,21 @@
   --juba-mint: #bff5df;
   --juba-coral: #ef816f;
   --juba-sky: #9edcf0;
+  --juba-text: var(--juba-ink);
+  --juba-muted: #617068;
+  --juba-border: #dfe8d8;
+  --juba-surface: #ffffff;
+  --juba-surface-soft: #f5f8ef;
+  --juba-bg: #fbfaf4;
+  --juba-surface-2: var(--juba-surface-soft);
+  --juba-accent: var(--juba-yellow);
+  --juba-accent-dark: var(--juba-violet-dark);
+  --juba-primary: var(--juba-violet);
+  --juba-primary-dark: var(--juba-violet-dark);
+  --juba-danger: var(--juba-coral);
+  --juba-shadow-sm: 0 4px 14px rgba(37,48,42,.08);
+  --juba-shadow-md: 0 10px 28px rgba(37,48,42,.12);
+  --juba-shadow-lg: 0 18px 44px rgba(37,48,42,.16);
 }
 
 .juba-app-shell {
