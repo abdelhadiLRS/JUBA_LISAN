@@ -461,23 +461,23 @@ html[data-theme='dark'] {
 
 
 /* Learner social surfaces — same Funfluent visual language */
-.juba-page-shell{max-width:1180px;margin:0 auto;color:var(--juba-text)}
-.juba-page-hero{border:3px solid var(--juba-ink);border-radius:28px;background:var(--juba-bg);padding:24px;box-shadow:6px 6px 0 var(--juba-ink)}
+.juba-page-shell{width:100%;max-width:var(--j-shell-content);margin:0 auto;color:var(--juba-text)}
+.juba-page-hero{border:2px solid var(--juba-border);border-radius:var(--j-shell-radius);background:var(--juba-surface);padding:24px;box-shadow:var(--j-shell-shadow)}
 .juba-eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.12em;color:var(--juba-violet-dark)}
 .juba-page-title{margin-top:6px;font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-.04em}
 .juba-page-subtitle{margin-top:8px;max-width:680px;color:var(--juba-muted);line-height:1.6}
-.juba-panel{border:3px solid var(--juba-ink);border-radius:26px;background:var(--juba-surface);padding:20px;box-shadow:5px 5px 0 var(--juba-ink)}
+.juba-panel{border:2px solid var(--juba-border);border-radius:var(--j-shell-radius);background:var(--juba-surface);padding:20px;box-shadow:var(--j-shell-shadow)}
 .juba-section-title{font-size:1rem;font-weight:800}
 .juba-muted{color:var(--juba-muted);font-size:.875rem}
-.juba-badge{display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--juba-ink);border-radius:999px;background:var(--juba-yellow);padding:.2rem .55rem;font-size:.72rem;font-weight:800}
+.juba-badge{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--juba-border);border-radius:999px;background:var(--juba-yellow);padding:.2rem .55rem;font-size:.72rem;font-weight:800}
 .juba-input{width:100%;border:2px solid var(--juba-lilac);border-radius:14px;background:var(--juba-surface);padding:.75rem 1rem;color:var(--juba-text);outline:none}
 .juba-input:focus{border-color:var(--juba-violet-dark);box-shadow:0 0 0 3px color-mix(in srgb, var(--juba-primary-dark) 12%, transparent)}
 .juba-primary-button,.juba-secondary-button,.juba-icon-button{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;border-radius:14px;font-size:.78rem;font-weight:800;transition:transform .15s ease,box-shadow .15s ease}
-.juba-primary-button{border:2px solid var(--juba-ink);background:var(--juba-yellow);color:var(--juba-ink);padding:.65rem .85rem;box-shadow:3px 3px 0 var(--juba-ink)}
-.juba-primary-button:hover{transform:translateY(-1px);box-shadow:4px 4px 0 var(--juba-ink)}
-.juba-secondary-button{border:2px solid var(--juba-lilac);background:var(--juba-surface);color:var(--juba-ink);padding:.62rem .8rem}
+.juba-primary-button{border:0;background:var(--juba-yellow);color:var(--juba-ink);padding:.65rem .85rem;box-shadow:0 4px 0 color-mix(in srgb,var(--juba-ink) 78%,transparent)}
+.juba-primary-button:hover{transform:translateY(-1px);box-shadow:0 5px 0 color-mix(in srgb,var(--juba-ink) 78%,transparent)}
+.juba-secondary-button{border:1px solid var(--juba-border);background:var(--juba-surface);color:var(--juba-ink);padding:.62rem .8rem}
 .juba-secondary-button:hover{border-color:var(--juba-violet-dark);background:var(--juba-lilac)}
-.juba-icon-button{height:40px;width:40px;border:2px solid var(--juba-lilac);background:var(--juba-surface);color:var(--juba-ink)}
+.juba-icon-button{height:40px;width:40px;border:1px solid var(--juba-border);background:var(--juba-surface);color:var(--juba-ink)}
 .juba-icon-button:hover{border-color:var(--juba-violet-dark);background:var(--juba-lilac)}
 
 
@@ -520,4 +520,13 @@ html[data-theme='dark'] {
 .juba-mobile-progress :where(a):focus-visible {
   outline: 3px solid color-mix(in srgb, var(--juba-primary-dark) 25%, transparent);
   outline-offset: 3px;
+}
+
+
+/* Final consistency pass: social/resource pages must use the same surface geometry as the learner shell. */
+.juba-page-shell .juba-page-hero + .juba-panel,
+.juba-page-shell .juba-panel { min-width: 0; }
+@media (max-width:700px){
+  .juba-page-shell{padding-inline:0}
+  .juba-page-hero,.juba-panel{border-radius:22px;padding:16px}
 }
