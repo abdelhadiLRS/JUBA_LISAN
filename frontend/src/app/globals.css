@@ -1,8 +1,8 @@
 /* Learning path is its own app route; keep the same visual system outside the landing wrapper */
-.juba-ff-unit-card{border:3px solid var(--juba-ink);border-radius:28px;background:var(--juba-surface);box-shadow:6px 6px 0 var(--juba-ink);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
-.juba-ff-unit-card:hover{transform:translateY(-2px);box-shadow:9px 9px 0 var(--juba-ink)}
-.juba-ff-unit-active{border-color:var(--juba-violet-dark);box-shadow:6px 6px 0 var(--juba-violet-dark)}
-.juba-ff-unit-active:hover{box-shadow:9px 9px 0 var(--juba-violet-dark)}
+.juba-ff-unit-card{border:2px solid var(--juba-border);border-radius:var(--j-shell-radius);background:var(--juba-surface);box-shadow:var(--j-shell-shadow);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
+.juba-ff-unit-card:hover{transform:translateY(-2px);box-shadow:0 11px 0 rgba(37,48,42,.14)}
+.juba-ff-unit-active{border-color:var(--juba-violet);box-shadow:var(--j-shell-shadow)}
+.juba-ff-unit-active:hover{box-shadow:0 11px 0 rgba(57,117,29,.16)}
 .juba-ff-unit-locked{opacity:.58;box-shadow:4px 4px 0 color-mix(in srgb, var(--juba-muted) 72%, var(--juba-surface))}
 .juba-ff-unit-index{background:var(--juba-lilac);color:var(--juba-violet-dark)}
 .juba-ff-unit-start{background:var(--juba-yellow);color:var(--juba-ink)}
