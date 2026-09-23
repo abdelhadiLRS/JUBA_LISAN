@@ -11,6 +11,8 @@ import { useLanguageStore } from '@/store/language'
 import NoPlanBanner from '@/components/plan/NoPlanBanner'
 import { getCurriculumUnits, type CurriculumUnit, type CEFRLevel } from '@/data/curriculum'
 import type { VocabularySet } from '@/data/types'
+import { useLearningProgressSync } from '@/hooks/use-learning-progress'
+
 
 interface CompetencyRecord { unit_id: string; score: number; mastered_count: number; total_count: number }
 interface ProgressSummary { total_xp: number; current_streak: number; total_lessons: number; total_exercises: number; exercises_correct: number; accuracy: number; skills: Record<string, number>; vocabulary_level?: string; vocabulary_mastered?: number; vocabulary_total?: number; vocabulary_progress?: number }
@@ -40,7 +42,27 @@ export default function ProgressPage() {
   const loadRequestRef = useRef(0);
   const [goalMilestoneSummary, setGoalMilestoneSummary] = useState<GoalMilestoneSummary | null>(null); const [goalHistory, setGoalHistory] = useState<GoalMilestone[]>([]); const [dailyGoalTarget, setDailyGoalTarget] = useState('50'); const [weeklyGoalTarget, setWeeklyGoalTarget] = useState('250'); const [savingGoals, setSavingGoals] = useState(false); const [summary, setSummary] = useState<ProgressSummary | null>(null); const [gameStats, setGameStats] = useState<GameStats | null>(null); const [historyRange, setHistoryRange] = useState<'week' | 'month' | 'all'>('week'); const [rangeSummary, setRangeSummary] = useState<HistoryRangeSummary | null>(null); const [summaryRangeLoading, setSummaryRangeLoading] = useState(false); const [competencies, setCompetencies] = useState<CompetencyRecord[]>([]); const [plan, setPlan] = useState<StudyPlan | null>(null); const [loading, setLoading] = useState(true); const [levelUnits, setLevelUnits] = useState<CurriculumUnit[]>([]); const [flashcards, setFlashcards] = useState<FlashcardProgress[]>([]); const [showAllLevels, setShowAllLevels] = useState(false); const [history, setHistory] = useState<HistoryEntry[]>([]); const [mastery, setMastery] = useState<MasteryCenter | null>(null)
 
-  useEffect(() => { const requestId = ++loadRequestRef.current; let cancelled = false; async function load() { try { const [sumRes, compRes, planRes, flashRes, gameRes, goalsRes, masteryRes] = await Promise.all([apiFetch('/api/progress/summary'), apiFetch('/api/progress/competencies'), apiFetch('/api/study-plan/current'), apiFetch('/api/flashcards/all').catch(() => null), apiFetch('/api/progress/game-summary').catch(() => null), apiFetch('/api/progress/goals').catch(() => null), apiFetch('/api/progress/mastery').catch(() => null)]); if (cancelled || requestId !== loadRequestRef.current) return; if (sumRes.ok) setSummary((await sumRes.json()) as ProgressSummary); if (gameRes?.ok) setGameStats((await gameRes.json()) as GameStats); if (goalsRes?.ok) { const nextGoals = (await goalsRes.json()) as LearningGoals; setGoals(nextGoals); setDailyGoalTarget(String(nextGoals.daily_xp_target)); setWeeklyGoalTarget(String(nextGoals.weekly_xp_target)); } if (compRes.ok) setCompetencies((await compRes.json()) as CompetencyRecord[]); if (planRes.ok) setPlan((await planRes.json()) as StudyPlan); if (flashRes?.ok) setFlashcards((await flashRes.json()) as FlashcardProgress[]); if (masteryRes?.ok) setMastery((await masteryRes.json()) as MasteryCenter) } catch { /* ignore */ } finally { if (!cancelled && requestId === loadRequestRef.current) setLoading(false) } } void load(); return () => { cancelled = true } }, [activeLanguage?.code])
+
+
+  useLearningProgressSync(() => {
+    const requestId = loadRequestRef.current + 1
+    loadRequestRef.current = requestId
+    return (async () => {
+      const [sumRes, compRes, planRes, flashRes, gameRes, goalsRes, masteryRes] = await Promise.all([
+        apiFetch('/api/progress/summary'), apiFetch('/api/progress/competencies'), apiFetch('/api/study-plan/current'),
+        apiFetch('/api/flashcards/all').catch(() => null), apiFetch('/api/progress/game-summary').catch(() => null),
+        apiFetch('/api/progress/goals').catch(() => null), apiFetch('/api/progress/mastery').catch(() => null),
+      ])
+      if (requestId !== loadRequestRef.current) return
+      if (sumRes.ok) setSummary((await sumRes.json()) as ProgressSummary)
+      if (gameRes?.ok) setGameStats((await gameRes.json()) as GameStats)
+      if (goalsRes?.ok) { const nextGoals = (await goalsRes.json()) as LearningGoals; setGoals(nextGoals); setDailyGoalTarget(String(nextGoals.daily_xp_target)); setWeeklyGoalTarget(String(nextGoals.weekly_xp_target)) }
+      if (compRes.ok) setCompetencies((await compRes.json()) as CompetencyRecord[])
+      if (planRes.ok) setPlan((await planRes.json()) as StudyPlan)
+      if (flashRes?.ok) setFlashcards((await flashRes.json()) as FlashcardProgress[])
+      if (masteryRes?.ok) setMastery((await masteryRes.json()) as MasteryCenter)
+    })()
+  })  useEffect(() => { const requestId = ++loadRequestRef.current; let cancelled = false; async function load() { try { const [sumRes, compRes, planRes, flashRes, gameRes, goalsRes, masteryRes] = await Promise.all([apiFetch('/api/progress/summary'), apiFetch('/api/progress/competencies'), apiFetch('/api/study-plan/current'), apiFetch('/api/flashcards/all').catch(() => null), apiFetch('/api/progress/game-summary').catch(() => null), apiFetch('/api/progress/goals').catch(() => null), apiFetch('/api/progress/mastery').catch(() => null)]); if (cancelled || requestId !== loadRequestRef.current) return; if (sumRes.ok) setSummary((await sumRes.json()) as ProgressSummary); if (gameRes?.ok) setGameStats((await gameRes.json()) as GameStats); if (goalsRes?.ok) { const nextGoals = (await goalsRes.json()) as LearningGoals; setGoals(nextGoals); setDailyGoalTarget(String(nextGoals.daily_xp_target)); setWeeklyGoalTarget(String(nextGoals.weekly_xp_target)); } if (compRes.ok) setCompetencies((await compRes.json()) as CompetencyRecord[]); if (planRes.ok) setPlan((await planRes.json()) as StudyPlan); if (flashRes?.ok) setFlashcards((await flashRes.json()) as FlashcardProgress[]); if (masteryRes?.ok) setMastery((await masteryRes.json()) as MasteryCenter) } catch { /* ignore */ } finally { if (!cancelled && requestId === loadRequestRef.current) setLoading(false) } } void load(); return () => { cancelled = true } }, [activeLanguage?.code])
 
   useEffect(() => {
     let cancelled = false
