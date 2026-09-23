@@ -15,31 +15,19 @@
     Consolas, monospace;
   --font-heading: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 
-  --text-fl-hint: 10px;
-  --text-fl-label: 11px;
-  --text-fl-caption: 12px;
+  --text-juba-hint: 10px;
+  --text-juba-label: 11px;
+  --text-juba-caption: 12px;
 
-  --color-fl-bg: var(--fl-bg);
-  --color-fl-bg-alt: var(--fl-bg-alt);
-  --color-fl-surface: var(--fl-surface);
-  --color-fl-surface-2: var(--fl-surface-2);
-  --color-fl-border: var(--fl-border);
-  --color-fl-border-2: var(--fl-border-2);
-  --color-fl-muted: var(--fl-muted-1);
-  --color-fl-muted-4: var(--fl-muted-4);
-  --color-fl-muted-3: var(--fl-muted-3);
-  --color-fl-muted-2: var(--fl-muted-2);
-  --color-fl-muted-1: var(--fl-muted-1);
-  --color-fl-muted-0: var(--fl-muted-0);
-  --color-fl-fg-2: var(--fl-fg-2);
-  --color-fl-fg: var(--fl-fg);
-  --color-fl-fg-bright: var(--fl-fg-bright);
-  --color-fl-error: var(--fl-error);
-  --color-fl-error-fg: var(--fl-error-fg);
-  --color-fl-error-dim: var(--fl-error-dim);
-  --color-fl-error-hover: var(--fl-error-hover);
-  --color-fl-accent: var(--fl-accent);
-  --color-fl-accent-fg: var(--fl-accent-fg);
+  --color-juba-bg: var(--juba-bg);
+  --color-juba-surface: var(--juba-surface);
+  --color-juba-border: var(--juba-border);
+  --color-juba-muted: var(--juba-muted);
+  --color-juba-text: var(--juba-text);
+  --color-juba-violet: var(--juba-violet);
+  --color-juba-yellow: var(--juba-yellow);
+  --color-juba-coral: var(--juba-coral);
+
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -77,102 +65,67 @@
 
 :root {
   color-scheme: light;
-  --fl-bg: #f8fafc;
-  --fl-bg-alt: #f1f5f9;
-  --fl-surface: #ffffff;
-  --fl-surface-2: #f8fafc;
-  --fl-border: #e2e8f0;
-  --fl-border-2: #cbd5e1;
-  --fl-muted-4: #94a3b8;
-  --fl-muted-3: #64748b;
-  --fl-muted-2: #475569;
-  --fl-muted-1: #334155;
-  --fl-muted-0: #1e293b;
-  --fl-fg-2: #0f172a;
-  --fl-fg: #0f172a;
-  --fl-fg-bright: #020617;
-  --fl-dot: #e2e8f0;
-  --fl-error: #dc2626;
-  --fl-error-fg: #b91c1c;
-  --fl-error-dim: #991b1b;
-  --fl-error-hover: #ef4444;
-  --fl-accent: #d97706;
-  --fl-accent-fg: #ffffff;
 
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --card: #ffffff;
-  --card-foreground: #0f172a;
-  --popover: #ffffff;
-  --popover-foreground: #0f172a;
-  --primary: #0f172a;
+  --background: var(--juba-bg);
+  --foreground: var(--juba-text);
+  --card: var(--juba-surface);
+  --card-foreground: var(--juba-text);
+  --popover: var(--juba-surface);
+  --popover-foreground: var(--juba-text);
+  --primary: var(--juba-violet);
   --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #fff7ed;
-  --accent-foreground: #9a3412;
-  --destructive: #dc2626;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #f59e0b;
+  --secondary: var(--juba-lilac);
+  --secondary-foreground: var(--juba-text);
+  --muted: var(--juba-surface-soft);
+  --muted-foreground: var(--juba-muted);
+  --accent: var(--juba-yellow);
+  --accent-foreground: var(--juba-text);
+  --destructive: var(--juba-danger);
+  --border: var(--juba-border);
+  --input: var(--juba-border);
+  --ring: var(--juba-violet);
 
-  --sidebar: #ffffff;
-  --sidebar-foreground: #0f172a;
-  --sidebar-primary: #0f172a;
+  --sidebar: var(--juba-surface);
+  --sidebar-foreground: var(--juba-text);
+  --sidebar-primary: var(--juba-violet);
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f8fafc;
-  --sidebar-accent-foreground: #0f172a;
-  --sidebar-border: #e2e8f0;
-  --sidebar-ring: #f59e0b;
+  --sidebar-accent: var(--juba-lilac);
+  --sidebar-accent-foreground: var(--juba-text);
+  --sidebar-border: var(--juba-border);
+  --sidebar-ring: var(--juba-violet);
 }
 
 html[data-theme='dark'],
 .dark {
   color-scheme: dark;
-  --fl-bg: #080b10;
-  --fl-bg-alt: #0f141b;
-  --fl-surface: #121820;
-  --fl-surface-2: #18212b;
-  --fl-border: #253241;
-  --fl-border-2: #3b4a5a;
-  --fl-muted-4: #64748b;
-  --fl-muted-3: #94a3b8;
-  --fl-muted-2: #aeb9c8;
-  --fl-muted-1: #cbd5e1;
-  --fl-muted-0: #e2e8f0;
-  --fl-fg-2: #e5e7eb;
-  --fl-fg: #f8fafc;
-  --fl-fg-bright: #ffffff;
-  --fl-dot: #253241;
-  --fl-accent: #f59e0b;
-  --fl-accent-fg: #111827;
-  --background: #080b10;
-  --foreground: #f8fafc;
-  --card: #121820;
-  --card-foreground: #f8fafc;
-  --popover: #121820;
-  --popover-foreground: #f8fafc;
-  --primary: #f8fafc;
-  --primary-foreground: #111827;
-  --secondary: #18212b;
-  --secondary-foreground: #f8fafc;
-  --muted: #18212b;
-  --muted-foreground: #94a3b8;
-  --accent: #18212b;
-  --accent-foreground: #f8fafc;
-  --border: #253241;
-  --input: #253241;
-  --ring: #f59e0b;
-  --sidebar: #080b10;
-  --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #f8fafc;
-  --sidebar-primary-foreground: #111827;
-  --sidebar-accent: #121820;
-  --sidebar-accent-foreground: #f8fafc;
-  --sidebar-border: #253241;
-  --sidebar-ring: #f59e0b;
+
+  --background: var(--juba-bg);
+  --foreground: var(--juba-text);
+  --card: var(--juba-surface);
+  --card-foreground: var(--juba-text);
+  --popover: var(--juba-surface);
+  --popover-foreground: var(--juba-text);
+  --primary: var(--juba-violet);
+  --primary-foreground: #ffffff;
+  --secondary: var(--juba-lilac);
+  --secondary-foreground: var(--juba-text);
+  --muted: var(--juba-surface-soft);
+  --muted-foreground: var(--juba-muted);
+  --accent: var(--juba-yellow);
+  --accent-foreground: var(--juba-text);
+  --destructive: var(--juba-danger);
+  --border: var(--juba-border);
+  --input: var(--juba-border);
+  --ring: var(--juba-violet);
+
+  --sidebar: var(--juba-surface);
+  --sidebar-foreground: var(--juba-text);
+  --sidebar-primary: var(--juba-violet);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--juba-lilac);
+  --sidebar-accent-foreground: var(--juba-text);
+  --sidebar-border: var(--juba-border);
+  --sidebar-ring: var(--juba-violet);
 }
 
 @layer base {
@@ -213,12 +166,12 @@ html[data-theme='dark'],
   }
 
   ::selection {
-    background: rgba(245, 158, 11, 0.22);
+    background: color-mix(in srgb, var(--juba-yellow) 22%, transparent);
   }
 }
 
 @utility bg-dot-grid {
-  background-image: radial-gradient(circle, var(--fl-dot) 1px, transparent 1px);
+  background-image: radial-gradient(circle, var(--juba-border-soft) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -277,7 +230,7 @@ html[data-theme='dark'] .juba-glass {
 }
 
 .juba-gradient-text {
-  background: linear-gradient(100deg, #b45309 0%, #d97706 45%, #f59e0b 100%);
+  background: linear-gradient(100deg, var(--juba-violet-dark) 0%, var(--juba-violet) 45%, var(--juba-yellow) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -290,8 +243,8 @@ html[data-theme='dark'] .juba-glass {
   border-radius: 999px;
   background: radial-gradient(
     circle,
-    rgba(245, 158, 11, 0.16) 0%,
-    rgba(245, 158, 11, 0.05) 38%,
+    color-mix(in srgb, var(--juba-violet) 16%, transparent) 0%,
+    color-mix(in srgb, var(--juba-violet) 5%, transparent) 38%,
     transparent 70%
   );
   filter: blur(10px);
@@ -315,7 +268,7 @@ html[data-theme='dark'] .juba-glass {
   align-items: center;
   gap: 0.5rem;
   border: 1px solid rgba(217, 119, 6, 0.18);
-  background: rgba(245, 158, 11, 0.08);
+  background: color-mix(in srgb, var(--juba-violet) 8%, transparent);
   color: #b45309;
   border-radius: 999px;
   padding: 0.45rem 0.8rem;
@@ -373,7 +326,7 @@ html[data-theme='dark'] .juba-glass {
 
 .word-selectable::selection,
 .word-selectable *::selection {
-  background: rgba(217, 119, 6, 0.25);
+  background: color-mix(in srgb, var(--juba-violet) 25%, transparent);
 }
 
 .reveal {
@@ -478,12 +431,12 @@ html[data-theme='dark'] .juba-glass {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--fl-bg);
+  background: var(--juba-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--fl-border-2);
+  background: var(--juba-border);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--fl-muted-3);
+  background: var(--juba-muted);
 }
