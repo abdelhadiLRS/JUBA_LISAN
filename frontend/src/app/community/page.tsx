@@ -37,9 +37,9 @@ const culturalData = [
 
 export default function CommunityPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
+    <div className="min-h-screen overflow-hidden bg-[var(--juba-bg)] text-[var(--juba-text)]">
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20">
+      <section className="relative overflow-hidden bg-[var(--juba-violet)] py-20 text-white">
         <div className="absolute inset-0 juba-hero-glow opacity-30" />
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -49,10 +49,10 @@ export default function CommunityPage() {
             className="text-center max-w-3xl mx-auto"
           >
             <span className="juba-eyebrow inline-block mb-4">Community & Culture</span>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 juba-gradient-text">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
               Learn Together, Grow Together
             </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">
+            <p className="text-xl text-white\/80 mb-8">
               Join weekly challenges, explore cultures, and connect with learners worldwide
             </p>
           </motion.div>
@@ -60,7 +60,7 @@ export default function CommunityPage() {
       </section>
 
       {/* Weekly Challenge */}
-      <section className="py-16 bg-white dark:bg-slate-900">
+      <section className="border-y-2 border-[var(--juba-lilac)] bg-white py-16">
         <div className="container mx-auto px-4">
           <WeeklyChallenge />
         </div>
@@ -75,10 +75,10 @@ export default function CommunityPage() {
             viewport={{ once: true }}
             className="mb-12"
           >
-            <h2 className="text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+            <h2 className="text-4xl font-bold mb-4 text-[var(--juba-text)]">
               Explore Cultures
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl">
+            <p className="text-lg text-white\/80 max-w-2xl">
               Language is more than words—it's culture, traditions, and human connection.
             </p>
           </motion.div>
@@ -113,7 +113,7 @@ export default function CommunityPage() {
             <h2 className="text-4xl font-bold mb-4 text-slate-900 dark:text-white">
               Connect & Learn
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+            <p className="text-lg text-white\/80 max-w-2xl mx-auto">
               Join study groups, find language partners, and practice together
             </p>
           </motion.div>
@@ -142,13 +142,13 @@ export default function CommunityPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="juba-card p-8 text-center hover:juba-card-hover"
+                className="rounded-[28px] border-2 border-[var(--juba-lilac)] bg-white p-8 text-center shadow-[var(--juba-shadow-sm)] transition-transform hover:-translate-y-1"
               >
                 <div className="text-5xl mb-4">{feature.icon}</div>
                 <h3 className="text-2xl font-bold mb-3 text-slate-900 dark:text-white">
                   {feature.title}
                 </h3>
-                <p className="text-slate-600 dark:text-slate-300">
+                <p className="text-white\/80">
                   {feature.description}
                 </p>
               </motion.div>
