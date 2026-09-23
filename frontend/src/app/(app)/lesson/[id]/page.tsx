@@ -55,6 +55,7 @@ export default function LessonPage() {
   const [exercises, setExercises] = useState<ExerciseItem[]>([])
   const [currentExercise, setCurrentExercise] = useState(0)
   const [answer, setAnswer] = useState('')
+  const [submittedAnswer, setSubmittedAnswer] = useState('')
   const [evaluating, setEvaluating] = useState(false)
   const [completed, setCompleted] = useState(false)
   const [dayComplete, setDayComplete] = useState(false)
@@ -146,7 +147,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   const isChoiceExercise = Boolean(exercise?.options?.length)
   const isShortAnswerExercise = !isChoiceExercise && !isLongFormExercise
   const isListeningExercise = /listen|listening|audio/.test(normalizedExerciseType)
-  const selectedChoice = exercise?.user_answer ?? (exercise?.feedback ? '' : answer)
+  const selectedChoice = exercise?.user_answer ?? (exercise?.feedback ? submittedAnswer : answer)
   const choiceIsCorrect = exercise?.feedback && exercise.score !== null && exercise.score >= 0.5
   const exerciseAudioUrl = useMemo(() => {
     const metadata = exercise?.metadata
@@ -216,6 +217,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   }
 
   useEffect(() => {
+    setSubmittedAnswer('')
     setAttempts([]); setAttemptsOpen(false); setNativeHint(null); setNativeExplanation(null)
     if (exercise) void loadAttempts(exercise.id)
   }, [exercise?.id, loadAttempts])
@@ -343,6 +345,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
       setCompleted(false)
       setDayComplete(false)
       setAnswer('')
+      setSubmittedAnswer('')
       setNativeHint(null)
       setNativeExplanation(null)
       void loadAttempts(result.id)
@@ -372,6 +375,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
       setCompleted(false)
       setDayComplete(false)
       setAnswer('')
+      setSubmittedAnswer('')
       void loadAttempts(result.id)
       if (lesson) { void loadAttemptSummary(lesson.id); void loadLessonMastery(lesson.id); if (!masteryReviewMode) void loadNextMasteryExercise(lesson.id) }
     } catch { /* keep the failed exercise visible so the user can retry later */ } finally { setEvaluating(false) }
@@ -385,6 +389,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
       if (!res.ok) throw new Error('answer_failed')
       const result = await res.json()
       setExercises((prev) => prev.map((item) => item.id === exercise.id ? { ...item, ...result } : item))
+      setSubmittedAnswer(answer.trim())
       setAnswer('')
       if (masteryReviewMode) setMasteryReviewCompleted((value) => value + 1)
       void loadAttempts(exercise.id)
