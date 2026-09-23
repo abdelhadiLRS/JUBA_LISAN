@@ -1,10 +1,8 @@
 /* JUBA LISAN — learning route compatibility styles.
  * Canonical design tokens live in juba-shell.css. */
 
-
 html, body { background: var(--juba-bg); color: var(--juba-text); }
 body { background-image: none !important; }
-
 
 .juba-eyebrow {
   display: inline-flex; align-items: center; gap: .45rem;
