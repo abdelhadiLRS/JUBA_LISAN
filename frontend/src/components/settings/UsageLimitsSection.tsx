@@ -19,17 +19,17 @@ export function UsageLimitsSection({ title }: { title?: string } = {}) {
   }, [])
 
   return (
-    <div className="border-fl-border bg-fl-surface border p-6">
-      <div className="border-fl-border mb-5 flex items-center gap-2 border-b pb-4">
-        <span className="text-fl-label text-fl-muted-2">●</span>
-        <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+    <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] border p-6">
+      <div className="border-[var(--juba-border)] mb-5 flex items-center gap-2 border-b pb-4">
+        <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
+        <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
           {title ?? t('sectionUsageLimits')}
         </span>
       </div>
       {quota === null ? (
         <div className="animate-pulse space-y-3">
           {[0, 1, 2, 3].map((i) => (
-            <div key={i} className="bg-fl-surface-2 h-4" />
+            <div key={i} className="bg-[var(--juba-surface)]-2 h-4" />
           ))}
         </div>
       ) : (
@@ -71,23 +71,23 @@ export function UsageLimitsSection({ title }: { title?: string } = {}) {
             const exceeded = !unlimited && limit > 0 && used >= limit
             return (
               <div key={label} className="flex items-center gap-3">
-                <span className="text-fl-hint text-fl-muted-4 w-36 shrink-0 font-mono tracking-widest uppercase">
+                <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] w-36 shrink-0 font-mono tracking-widest uppercase">
                   {label}
                 </span>
                 {unlimited ? (
-                  <span className="text-fl-hint text-fl-muted-2 font-mono">
+                  <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-mono">
                     {t('quotaUnlimited')}
                   </span>
                 ) : (
                   <>
-                    <div className="bg-fl-surface-2 h-1 flex-1 overflow-hidden">
+                    <div className="bg-[var(--juba-surface)]-2 h-1 flex-1 overflow-hidden">
                       <div
-                        className={`h-full transition-all ${exceeded ? 'bg-fl-error' : 'bg-fl-accent'}`}
+                        className={`h-full transition-all ${exceeded ? 'bg-[var(--juba-coral)]' : 'bg-[var(--juba-violet)]'}`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
                     <span
-                      className={`text-fl-hint font-mono tabular-nums ${exceeded ? 'text-fl-error' : 'text-fl-muted-2'}`}
+                      className={`text-[var(--juba-muted)] font-mono tabular-nums ${exceeded ? 'text-[var(--juba-coral)]' : 'text-[var(--juba-muted)]'}`}
                     >
                       {format(used)}&thinsp;/&thinsp;{format(limit)}
                     </span>
@@ -96,7 +96,7 @@ export function UsageLimitsSection({ title }: { title?: string } = {}) {
               </div>
             )
           })}
-          <p className="text-fl-hint text-fl-muted-3 pt-1 font-mono">
+          <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] pt-1 font-mono">
             {t('quotaHint')}
           </p>
         </div>
