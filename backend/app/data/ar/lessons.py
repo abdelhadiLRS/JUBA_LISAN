@@ -296,6 +296,38 @@ def validate_arabic_a1_content_quality() -> list[str]:
     return issues
 
 
+def _normalize_arabic_lexeme(token: str) -> str:
+    """Normalize common Arabic clitics and simple present-tense/person endings for grounding checks."""
+    token = token.strip(" ،؛؟!,.\"'()[]{}:؛")
+    if token.startswith("ال") and len(token) > 3:
+        token = token[2:]
+    for suffix in ("كما", "كم", "كن", "هما", "هم", "هن", "ها", "نا", "ني", "ك", "ه", "ي"):
+        if token.endswith(suffix) and len(token) - len(suffix) >= 3:
+            token = token[: -len(suffix)]
+            break
+    if token.endswith("ت") and len(token) >= 4:
+        token = token[:-1] + "ة"
+    for prefix in ("أ", "ن", "ت", "ي"):
+        if token.startswith(prefix) and len(token) >= 4:
+            token = token[1:]
+            break
+    for suffix in ("ون", "ين", "ان"):
+        if token.endswith(suffix) and len(token) - len(suffix) >= 3:
+            token = token[:-len(suffix)]
+            break
+    return token
+
+
+def _seed_matches_vocab(text: str, lesson_words: set[str]) -> bool:
+    normalized_words = {_normalize_arabic_lexeme(word) for word in lesson_words if word}
+    tokens = [part for part in text.split() if part]
+    return any(
+        _normalize_arabic_lexeme(token) in normalized_words
+        or any(word and word in token for word in lesson_words)
+        for token in tokens
+    )
+
+
 def get_arabic_a1_content_quality_report() -> dict[str, object]:
     """Summarize lexical grounding and duplication without blocking valid course data."""
     from collections import Counter
@@ -314,7 +346,7 @@ def get_arabic_a1_content_quality_report() -> dict[str, object]:
         searchable = seed.target_phrases + seed.model_sentences
         lesson_hits = sum(
             1 for text in searchable
-            if any(word and word in text for word in lesson_words)
+            if _seed_matches_vocab(text, lesson_words)
         )
         lexical_total += len(searchable)
         lexical_hits += lesson_hits
