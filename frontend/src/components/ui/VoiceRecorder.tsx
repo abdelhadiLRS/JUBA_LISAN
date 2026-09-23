@@ -176,7 +176,7 @@ export function VoiceRecorder({
           ? 'border-[color-mix(in_srgb,var(--juba-danger)_40%,var(--juba-border))] bg-[color-mix(in_srgb,var(--juba-danger)_8%,var(--juba-surface))] text-[var(--juba-danger)]'
           : disabled
             ? 'border-[var(--juba-border)] bg-[var(--juba-surface-soft)] text-[var(--juba-muted)] cursor-not-allowed opacity-40'
-            : 'border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-muted)] hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-primary-dark)]'
+            : 'border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-muted)] hover:border-[var(--juba-primary)] hover:bg-[var(--juba-lilac)] hover:text-[var(--juba-primary-dark)]'
 
   return (
     <button
