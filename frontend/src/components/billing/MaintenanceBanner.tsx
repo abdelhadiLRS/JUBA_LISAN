@@ -9,16 +9,16 @@ export function MaintenanceBanner() {
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 py-16 text-center">
-      <div className="w-full max-w-md border border-yellow-500/40 bg-yellow-500/5 p-8">
+      <div className="w-full max-w-md border-[color-mix(in_srgb,var(--juba-yellow)_40%,transparent)] bg-[color-mix(in_srgb,var(--juba-yellow)_8%,var(--juba-surface))] p-8">
         <div className="mb-4 text-2xl">⚙</div>
 
-        <p className="text-fl-label mb-2 font-mono tracking-widest text-yellow-500 uppercase">
+        <p className="text-[var(--juba-text)] mb-2 font-mono tracking-widest text-[var(--juba-violet-dark)] uppercase">
           {t('label')}
         </p>
-        <h2 className="text-fl-fg mb-3 font-mono text-base font-bold">
+        <h2 className="text-[var(--juba-text)] mb-3 font-mono text-base font-bold">
           {t('title')}
         </h2>
-        <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
+        <p className="text-[var(--juba-muted)] font-mono text-xs leading-relaxed">
           {t('description')}
         </p>
       </div>
