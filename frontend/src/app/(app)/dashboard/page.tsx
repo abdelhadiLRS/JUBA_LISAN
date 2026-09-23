@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { BookOpen, Flame, Sparkles, Target, ArrowRight, Trophy, PlayCircle } from 'lucide-react'
@@ -158,14 +158,17 @@ export default function DashboardPage() {
   const [skipError, setSkipError] = useState(false)
   const [portalLoading, setPortalLoading] = useState(false)
   const [portalError, setPortalError] = useState<string | null>(null)
+  const loadRequestRef = useRef(0)
 
   const loadData = useCallback(async () => {
+    const requestId = ++loadRequestRef.current
     try {
       const [progRes, planRes, goalRes] = await Promise.all([
         apiFetch('/api/progress/summary'),
         apiFetch('/api/study-plan/today'),
         apiFetch('/api/progress/goals'),
       ])
+      if (requestId !== loadRequestRef.current) return
       if (progRes.ok) {
         const prog = await progRes.json()
         setProgress({
@@ -182,13 +185,14 @@ export default function DashboardPage() {
         setVocabularyTotal(prog.vocabulary_total ?? 0)
         setVocabularyProgress(prog.vocabulary_progress ?? 0)
         
-        if (goalRes.ok) {
-          const goal = await goalRes.json()
-          setGoalProgress({
-            current: Math.max(0, Number(goal.daily_xp) || 0),
-            target: Math.max(1, Number(goal.daily_xp_target) || 50),
-          })
-        }
+      }
+      if (goalRes.ok) {
+        const goal = await goalRes.json()
+        if (requestId !== loadRequestRef.current) return
+        setGoalProgress({
+          current: Math.max(0, Number(goal.daily_xp) || 0),
+          target: Math.max(1, Number(goal.daily_xp_target) || 50),
+        })
       } else {
         setProgress({ streak: 0, xp: 0, skills: {} })
         setTotalLessons(0)
@@ -208,6 +212,7 @@ export default function DashboardPage() {
       }
       if (planRes.ok) {
         const plan = await planRes.json()
+        if (requestId !== loadRequestRef.current) return
         setCefrLevel(plan.cefr_level ?? null)
         setProgressDay(plan.progress_day ?? 0)
         setTotalDays(plan.total_days ?? 0)
@@ -236,9 +241,9 @@ export default function DashboardPage() {
         setHasPlan(false)
       }
     } catch {
-      setLoadError(true)
+      if (requestId === loadRequestRef.current) setLoadError(true)
     } finally {
-      setLoading(false)
+      if (requestId === loadRequestRef.current) setLoading(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- re-fetch when active language changes
   }, [setProgress, setTodayLessons, activeLanguage?.code])
@@ -251,7 +256,8 @@ export default function DashboardPage() {
     if (skipping) return
     setSkipping(true)
     try {
-      await apiFetch('/api/study-plan/skip-day', { method: 'POST' })
+      const res = await apiFetch('/api/study-plan/skip-day', { method: 'POST' })
+      if (!res.ok) throw new Error('skip-day failed')
       await loadData()
     } catch {
       setSkipError(true)
