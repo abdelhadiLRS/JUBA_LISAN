@@ -686,6 +686,7 @@
     "hintPrefix": "Wskazówka: ",
     "retryEasier": "Spróbuj łatwiejszego",
     "checking": "Sprawdzanie…",
+"answerError": "Nie udało się sprawdzić odpowiedzi. Spróbuj ponownie.",
     "next": "Dalej",
     "finish": "Zakończ lekcję",
     "completed": "Ukończono",
