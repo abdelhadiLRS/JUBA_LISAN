@@ -810,6 +810,30 @@ html[data-theme='dark'] {
   border-color: var(--juba-border) !important;
 }
 
+.juba-mobile-listening :where(.rounded-2xl,.rounded-3xl),
+.juba-mobile-reading :where(.rounded-2xl,.rounded-3xl),
+.juba-mobile-assessment :where(.rounded-2xl,.rounded-3xl) {
+  border-radius: var(--juba-radius-lg);
+}
+
+.juba-mobile-listening :where(.shadow,.shadow-md,.shadow-lg),
+.juba-mobile-reading :where(.shadow,.shadow-md,.shadow-lg),
+.juba-mobile-assessment :where(.shadow,.shadow-md,.shadow-lg) {
+  box-shadow: var(--juba-shadow-sm);
+}
+
+.juba-mobile-listening :where([class*="bg-zinc-"]),
+.juba-mobile-reading :where([class*="bg-zinc-"]),
+.juba-mobile-assessment :where([class*="bg-zinc-"]) {
+  background: var(--juba-surface-soft) !important;
+}
+
+.juba-mobile-listening :where([class*="text-zinc-"]),
+.juba-mobile-reading :where([class*="text-zinc-"]),
+.juba-mobile-assessment :where([class*="text-zinc-"]) {
+  color: var(--juba-text) !important;
+}
+
 @media (max-width: 700px) {
   .juba-mobile-listening,
   .juba-mobile-reading,
