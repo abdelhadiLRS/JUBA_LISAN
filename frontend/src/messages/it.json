@@ -686,8 +686,8 @@
     "hintPrefix": "Suggerimento: ",
     "retryEasier": "Riprova più facilmente",
     "checking": "Verifica…",
-"answerError": "Non è stato possibile verificare la risposta. Riprova.",,
-"actionError": "Non è stato possibile completare questa azione. Riprova."
+"answerError": "Non è stato possibile verificare la risposta. Riprova.",
+    "actionError": "Non è stato possibile completare questa azione. Riprova.",
     "next": "Avanti",
     "finish": "Termina lezione",
     "completed": "Completata",
