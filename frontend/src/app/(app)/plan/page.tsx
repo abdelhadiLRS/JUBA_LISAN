@@ -228,6 +228,10 @@ export default function PlanPage() {
         }
       }
 
+      setActiveLessonId(nextLessonId)
+      setPendingLessons(pendingData ?? [])
+      if (!journey && !compData) setCompetencies({})
+
       const states: Record<
         string,
         Pick<Lesson, 'id' | 'completed' | 'action'>
