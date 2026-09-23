@@ -468,3 +468,15 @@
   outline: 3px solid rgba(57,117,29,.25);
   outline-offset: 3px;
 }
+
+
+/* Accessibility + interaction normalization for all shared learner surfaces. */
+.juba-app-shell :where(button,a,input,textarea,select):focus-visible { outline:3px solid rgba(57,117,29,.28); outline-offset:3px; }
+.juba-app-shell :where(button,a):disabled { cursor:not-allowed; opacity:.58; transform:none !important; box-shadow:none !important; }
+.juba-app-shell :where(button,a) { touch-action:manipulation; }
+@media (max-width:700px) {
+  .juba-page-shell { padding-inline: 0; }
+  .juba-page-hero, .juba-panel { border-radius:22px; }
+  .juba-panel { padding:16px; }
+  .juba-primary-button, .juba-secondary-button { min-height:44px; }
+}
