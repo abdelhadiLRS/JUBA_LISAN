@@ -441,11 +441,39 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   return (
     <main className="min-h-screen bg-[var(--juba-bg)] px-4 py-5 text-[var(--juba-text)] sm:px-7 lg:px-10">
       <div className="mx-auto max-w-5xl">
-        <header className="sticky top-0 z-20 mb-5 rounded-[22px] border border-[var(--juba-border)] bg-[color:var(--juba-surface)]/95 p-4 shadow-[var(--juba-shadow)] backdrop-blur"><div className="flex items-center gap-4"><Link href="/courses" className="rounded-full border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-3 py-2 text-sm font-bold text-[var(--juba-text)] transition-colors hover:bg-[var(--juba-primary-soft)]">←</Link><div className="min-w-0 flex-1"><div className="flex items-center justify-between gap-3"><p className="truncate text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-muted)]">{lesson.cefr_level} · {lesson.lesson_type}</p><span className="text-sm font-bold text-[var(--juba-text)]">{progress}%</span></div><div className="mt-2 h-2 overflow-hidden rounded-full bg-[var(--juba-surface-soft)]"><div role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label={t('lessonProgress')} className="h-full rounded-full bg-[var(--juba-primary)] transition-all" style={{ width: `${progress}%` }} /></div></div></div></header>
+        <header className="sticky top-0 z-20 mb-5 rounded-[24px] border border-[var(--juba-border)] bg-[color:var(--juba-surface)]/95 p-3 shadow-[var(--juba-shadow)] backdrop-blur sm:p-4">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <Link href="/courses" aria-label={t('backToPlan')} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] text-lg font-bold text-[var(--juba-text)] transition-all hover:-translate-y-0.5 hover:bg-[var(--juba-primary-soft)]">←</Link>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="truncate text-[11px] font-extrabold uppercase tracking-[.16em] text-[var(--juba-muted)]">{lesson.cefr_level} · {lesson.lesson_type}</p>
+                  <p className="mt-0.5 truncate text-sm font-extrabold sm:text-base">{lesson.title}</p>
+                </div>
+                <span className="shrink-0 rounded-full bg-[var(--juba-primary-soft)] px-3 py-1 text-xs font-extrabold text-[var(--juba-primary-dark)]">{progress}%</span>
+              </div>
+              <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-[var(--juba-surface-soft)]" aria-hidden="true">
+                <div role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label={t('lessonProgress')} className="h-full rounded-full bg-[var(--juba-primary)] transition-[width] duration-500" style={{ width: `${progress}%` }} />
+              </div>
+            </div>
+          </div>
+        </header>
         {freemiumExhausted && <div className="mb-5"><FreemiumQuotaBanner feature="lessons" /></div>}
         {dayComplete && <div className="juba-card mb-5 border-[var(--juba-border)] bg-[var(--juba-warm-soft)] p-4 font-bold text-[var(--juba-text)]">{t('dailyGoalComplete')}</div>}
         <section className="juba-card rounded-[28px] p-6 sm:p-9">
-          <div className="mb-8"><p className="text-xs font-bold uppercase tracking-[.18em] text-[var(--juba-muted)]">{t('lessonLabel')} {id}</p><h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-5xl">{lesson.title}</h1><p className="mt-3 max-w-2xl font-medium text-[var(--juba-muted)]">{t('lessonFlowHint')}</p></div>
+          <div className="mb-8 rounded-[24px] border border-[var(--juba-border)] bg-[linear-gradient(135deg,var(--juba-primary-soft),var(--juba-surface))] p-5 sm:p-7">
+            <div className="flex flex-wrap items-start justify-between gap-5">
+              <div className="max-w-2xl">
+                <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[var(--juba-primary-dark)]">{t('lessonLabel')} {id}</p>
+                <h1 className="mt-2 text-3xl font-black tracking-tight sm:text-5xl">{lesson.title}</h1>
+                <p className="mt-3 font-medium leading-7 text-[var(--juba-muted)]">{t('lessonFlowHint')}</p>
+              </div>
+              <div className="rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-3 text-center shadow-sm">
+                <p className="text-[11px] font-extrabold uppercase tracking-wider text-[var(--juba-muted)]">{t('exerciseProgress', { current: Math.min(currentExercise + 1, Math.max(exercises.length, 1)), total: Math.max(exercises.length, 1) })}</p>
+                <p className="mt-1 text-2xl font-black text-[var(--juba-primary-dark)]">{progress}%</p>
+              </div>
+            </div>
+          </div>
           {contentItems.length > 0 && <div className="mb-9 grid gap-4 sm:grid-cols-2">{contentItems.slice(0, 4).map((item, i) => <article key={`${item.word}-${i}`} onMouseUp={() => handleTextSelection(item.example ?? '', lesson.cefr_level)} className="rounded-[20px] border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] p-5"><p className="text-2xl font-bold">{item.word}</p>{item.translation && <p className="mt-2 font-semibold text-[var(--juba-primary-dark)]">{item.translation}</p>}{item.example && <p className="mt-4 text-sm font-medium text-[var(--juba-text)]">“{item.example}”</p>}{item.word && <button type="button" onClick={() => { window.getSelection()?.removeAllRanges(); handleTextSelection(item.example ?? '', lesson.cefr_level); setTimeout(() => handleSaveWord(), 0) }} className="mt-4 rounded-full border border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2 text-xs font-bold text-[var(--juba-text)] transition-colors hover:bg-[var(--juba-primary-soft)]">{t('saveWord')}</button>}</article>)}</div>}
           {masteryReviewMode && <div className="mb-5 rounded-2xl border border-[var(--juba-primary)] bg-[var(--juba-primary-soft)] p-4" role="status" aria-live="polite"><div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs font-bold uppercase tracking-[.12em] text-[var(--juba-muted)]">{t('masteryReviewSession')}</p><p className="mt-1 text-sm font-semibold">{t('masteryReviewProgress', { count: masteryReviewCompleted })}</p>{masteryReviewSkill && <p className="mt-1 text-xs font-extrabold text-[var(--juba-primary-dark)]">{t('skillMastery')}: {masteryReviewSkill}</p>}{masteryNext && <p className="mt-1 text-xs font-medium text-[var(--juba-muted)]">{masteryNext.reason === 'struggling' ? t('masteryStruggling') : masteryNext.reason === 'unseen' ? t('masteryUnseen') : t('masteryReviewLowest')}</p>}</div><button type="button" onClick={finishMasteryReview} disabled={loadingMasteryNext} className="rounded-full border border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2 text-xs font-bold disabled:opacity-40">{t('masteryReviewFinish')}</button></div></div>}
           {masteryReviewImproved && <div className="mb-5 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-warm-soft)] p-4" role="status" aria-live="polite"><div className="flex flex-wrap items-center justify-between gap-3"><div><p className="font-extrabold">{t('masteryReviewImproved')}</p><p className="mt-1 text-sm font-medium text-[var(--juba-muted)]">{t('masteryReviewImprovedDesc')}</p></div>{masteryReviewInitialRate !== null && masteryReviewFinalRate !== null && <span className="rounded-full bg-[var(--juba-surface)] px-3 py-1 text-sm font-extrabold">Δ +{Math.max(0, Math.round((masteryReviewFinalRate - masteryReviewInitialRate) * 100))}%</span>}</div><button type="button" onClick={() => setMasteryReviewImproved(false)} className="mt-3 rounded-full border border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2 text-xs font-bold">{t('masteryReviewFinish')}</button></div>}
