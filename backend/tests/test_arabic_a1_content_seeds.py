@@ -45,3 +45,11 @@ def test_arabic_a1_duplicate_seed_lessons_are_exposed():
     report = get_arabic_a1_content_quality_report()
     assert "duplicate_seed_lessons" in report
     assert report["duplicate_seed_lessons"] >= report["duplicate_seed_groups"]
+
+
+def test_arabic_a1_lexical_grounding_is_available_per_lesson():
+    from app.data.ar.lessons import get_arabic_a1_content_quality_report
+
+    report = get_arabic_a1_content_quality_report()
+    assert len(report["lesson_grounding"]) == 80
+    assert report["low_grounding_lessons"] == ()
