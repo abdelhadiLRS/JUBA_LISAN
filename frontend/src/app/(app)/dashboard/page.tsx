@@ -162,9 +162,7 @@ export default function DashboardPage() {
   const loadRequestRef = useRef(0)
 
   const loadData = useCallback(async () => {
-
-
-  useLearningProgressSync(() => loadData())    const requestId = ++loadRequestRef.current
+    const requestId = ++loadRequestRef.current
     try {
       const [progRes, planRes, goalRes] = await Promise.all([
         apiFetch('/api/progress/summary'),
@@ -252,8 +250,10 @@ export default function DashboardPage() {
   }, [setProgress, setTodayLessons, activeLanguage?.code])
 
   useEffect(() => {
-    loadData()
+    void loadData()
   }, [loadData])
+
+  useLearningProgressSync(() => loadData())
 
   async function skipDay() {
     if (skipping) return
