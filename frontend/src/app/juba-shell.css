@@ -85,7 +85,7 @@ html[data-theme='dark'] {
   width: 100%;
   border-bottom: 0;
   background: color-mix(in srgb, var(--juba-surface) 88%, transparent);
-  box-shadow: 0 8px 30px rgba(37,48,42,.08);
+  box-shadow: var(--juba-shadow-md);
   backdrop-filter: blur(18px);
 }
 
@@ -205,7 +205,7 @@ html[data-theme='dark'] {
 .juba-app-drawer {
   border-top: 2px solid var(--juba-border);
   background: color-mix(in srgb, var(--juba-surface) 98%, transparent);
-  box-shadow: 0 20px 40px rgba(37,48,42,.14);
+  box-shadow: var(--juba-shadow-lg);
 }
 .juba-app-drawer-inner {
   width: min(100%, var(--j-shell-content));
@@ -361,7 +361,7 @@ html[data-theme='dark'] {
 }
 .juba-mobile-daily > div:first-child { border: 0 !important; border-radius: 30px 30px 0 0; }
 .juba-mobile-daily > div:last-child > div {
-  border: 2px solid rgba(37,48,42,.12) !important;
+  border: 2px solid var(--juba-border) !important;
   border-radius: 22px !important;
   background: var(--juba-surface-soft) !important;
   box-shadow: 3px 3px 0 var(--juba-border);
@@ -518,6 +518,6 @@ html[data-theme='dark'] {
 .juba-mobile-progress :where(button):focus-visible,
 .juba-mobile-plan :where(a):focus-visible,
 .juba-mobile-progress :where(a):focus-visible {
-  outline: 3px solid rgba(57,117,29,.25);
+  outline: 3px solid color-mix(in srgb, var(--juba-primary-dark) 25%, transparent);
   outline-offset: 3px;
 }
