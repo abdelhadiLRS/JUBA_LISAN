@@ -474,7 +474,7 @@ export default function ChatPage() {
                   className={`flex items-end gap-2 ${msg.role === 'user' ? 'ml-auto max-w-[75%] flex-row-reverse' : 'flex-row'}`}
                 >
                   {/* Avatar */}
-                  <div className="border-[#e2f2d3] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
+                  <div className="border-[#e2f2d3] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#e2f2d3]">
                     {msg.role === 'assistant' ? (
                       <Image
                         src="/logo_head.png"
@@ -516,8 +516,8 @@ export default function ChatPage() {
                       languageCode={targetLanguageCode}
                       className={`word-selectable border px-4 py-3 text-left ${
                         msg.role === 'user'
-                          ? 'bg-[#39751d] text-[#39751d]-fg border-[#39751d]'
-                          : 'bg-white text-[var(--juba-text)] border-[#e2f2d3]'
+                          ? 'bg-[#39751d] text-white border-[#25302a] shadow-[3px_3px_0_#25302a]'
+                          : 'bg-white text-[var(--juba-text)] border-2 border-[#e2f2d3] shadow-[2px_2px_0_var(--juba-border)]'
                       }`}
                       onPointerUp={
                         msg.role === 'assistant' &&
@@ -556,7 +556,7 @@ export default function ChatPage() {
           </div>
 
           {/* Input */}
-          <div className="border-[#e2f2d3] bg-[#e2f2d3]/40 shrink-0 border-t px-4 py-4">
+          <div className="border-t-2 border-[#e2f2d3] bg-[#e2f2d3]/40 shrink-0 px-4 py-4">
             {freemiumExhausted ? (
               <PaywallBanner feature="chat" compact />
             ) : (
