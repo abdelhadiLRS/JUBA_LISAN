@@ -70,7 +70,7 @@ export function SubscriptionPlanButtons({
           type="button"
           onClick={() => startCheckout('monthly')}
           disabled={loading !== null}
-          className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-border)]-2 flex-1 border px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+          className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet-dark)] flex-1 border px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
         >
           {loading === 'monthly'
             ? '...'
