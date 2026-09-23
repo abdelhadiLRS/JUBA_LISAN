@@ -33,13 +33,13 @@ CurriculumUnit(id="ro-a1-unit-5",level="A1",unit_number=5,title="Food and shoppi
 CurriculumUnit(id="ro-a1-unit-6",level="A1",unit_number=6,title="Places and directions",grammar_points=["definite-nouns"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2),
 CurriculumUnit(id="ro-a1-unit-7",level="A1",unit_number=7,title="Communication and help",grammar_points=["adjectives"],vocabulary_set_ids=["communication_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2),
 CurriculumUnit(id="ro-a1-unit-8",level="A1",unit_number=8,title="Review and A1 communication",grammar_points=["modal-verbs"],vocabulary_set_ids=["family_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle an everyday exchange","Use A1 language in context"],default_weeks=2)]}
-ASSESSMENT_BANK=[AssessmentQuestion(id="ro-a1-001",skill="vocabulary",difficulty="A1",question="A1 thanks check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="ro-a1-002",skill="vocabulary",difficulty="A1",question="A1 student check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="ro-a1-003",skill="vocabulary",difficulty="A1",question="A1 question check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="ro-a1-004",skill="vocabulary",difficulty="A1",question="A1 negative check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="ro-a1-005",skill="vocabulary",difficulty="A1",question="A1 mother check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="ro-a1-006",skill="vocabulary",difficulty="A1",question="A1 shop check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="ro-a1-007",skill="vocabulary",difficulty="A1",question="A1 water check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="ro-a1-008",skill="vocabulary",difficulty="A1",question="A1 help check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="ro-a1-009",skill="vocabulary",difficulty="A1",question="A1 name check",options=["A","B","C","D"],correct="A"),
-AssessmentQuestion(id="ro-a1-010",skill="vocabulary",difficulty="A1",question="A1 present check",options=["A","B","C","D"],correct="A")]
+ASSESSMENT_BANK=[AssessmentQuestion(id="ro-a1-001",skill="vocabulary",difficulty="A1",question="Which word means 'thanks'?",options=["Mulțumesc","Salut","Pa","Bună"],correct="Mulțumesc"),
+AssessmentQuestion(id="ro-a1-002",skill="grammar",difficulty="A1",question="Choose the correct A1 sentence.",options=["Sunt student.","Student sunt.","Eu student.","Studentă eu."],correct="Sunt student."),
+AssessmentQuestion(id="ro-a1-003",skill="grammar",difficulty="A1",question="Choose the correct question.",options=["Unde locuiești?","Cine locuiești?","Locuiești unde este?","Unde locuiești este?"],correct="Unde locuiești?"),
+AssessmentQuestion(id="ro-a1-004",skill="vocabulary",difficulty="A1",question="Choose the correct negative sentence.",options=["Nu înțeleg.","Înțeleg nu.","Nu înțelegi.","Nu înțelege."],correct="Nu înțeleg."),
+AssessmentQuestion(id="ro-a1-005",skill="grammar",difficulty="A1",question="Which word means 'mother'?",options=["mamă","tată","soră","frate"],correct="mamă"),
+AssessmentQuestion(id="ro-a1-006",skill="grammar",difficulty="A1",question="Which word means 'shop'?",options=["magazin","gară","cameră","casă"],correct="magazin"),
+AssessmentQuestion(id="ro-a1-007",skill="vocabulary",difficulty="A1",question="Which word means 'water'?",options=["apă","cafea","pâine","măr"],correct="apă"),
+AssessmentQuestion(id="ro-a1-008",skill="grammar",difficulty="A1",question="Choose the phrase for asking for help.",options=["Am nevoie de ajutor.","Mulțumesc.","Sunt acasă.","La revedere."],correct="Am nevoie de ajutor."),
+AssessmentQuestion(id="ro-a1-009",skill="grammar",difficulty="A1",question="Which word means 'name'?",options=["nume","vârstă","familie","casă"],correct="nume"),
+AssessmentQuestion(id="ro-a1-010",skill="vocabulary",difficulty="A1",question="Choose the correct present-tense form.",options=["vorbesc","vorbești","vorbește","vorbi"],correct="vorbesc")]
