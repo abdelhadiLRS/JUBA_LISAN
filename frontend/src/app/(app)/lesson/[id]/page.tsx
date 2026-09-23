@@ -180,6 +180,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   const contentItems = useMemo(() => { const value = lesson?.content?.vocabulary; return Array.isArray(value) ? value as LessonVocabularyItem[] : [] }, [lesson])
   const finishLesson = useCallback(async () => {
     if (!lesson || completed) return
+    setActionError(false)
     setEvaluating(true)
     try {
       const res = await apiFetch(`/api/lessons/${lesson.id}/complete`, { method: 'POST' })
@@ -200,6 +201,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
 
   const loadNativeHint = async () => {
     if (!exercise || loadingHint) return
+    setActionError(false)
     setLoadingHint(true)
     try {
       const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/native-hint`, { method: 'POST' })
@@ -211,6 +213,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
 
   const loadNativeExplanation = async () => {
     if (!exercise || loadingExplanation) return
+    setActionError(false)
     setLoadingExplanation(true)
     try {
       const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/native-explanation`, { method: 'POST' })
@@ -334,6 +337,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
 
   const adaptiveNextExercise = async () => {
     if (!exercise || evaluating || !exercise.feedback || !hasAdaptiveTarget(exercise) || !isAdaptiveRetryAction(exercise.recommended_action)) return
+    setActionError(false)
     setEvaluating(true)
     try {
       const res = await apiFetch(`/api/lessons/exercises/${exercise.id}/adaptive-next`, { method: 'POST' })
@@ -361,6 +365,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
 
   const retryExercise = async () => {
     if (!exercise || evaluating || !exercise.feedback) return
+    setActionError(false)
     if (exercise.recommended_variant) {
       await adaptiveNextExercise()
       return
