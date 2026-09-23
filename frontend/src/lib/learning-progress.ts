@@ -4,6 +4,7 @@ const LEARNING_PROGRESS_CHANNEL = 'juba:learning-progress'
 
 let progressChannel: BroadcastChannel | null = null
 let progressSubscriberCount = 0
+let lastPublishedTimestamp = 0
 
 function getProgressChannel(): BroadcastChannel | null {
   if (typeof window === 'undefined' || typeof BroadcastChannel === 'undefined') {
@@ -18,7 +19,10 @@ function getProgressChannel(): BroadcastChannel | null {
 export function markLearningProgressUpdated(): void {
   if (typeof window === 'undefined') return
 
-  const timestamp = String(Date.now())
+  const now = Date.now()
+  const timestampNumber = Math.max(now, lastPublishedTimestamp + 1)
+  lastPublishedTimestamp = timestampNumber
+  const timestamp = String(timestampNumber)
 
   try {
     sessionStorage.setItem(LEARNING_PROGRESS_KEY, timestamp)
