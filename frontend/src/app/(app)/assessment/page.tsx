@@ -17,6 +17,7 @@ import { type AssessmentQuestion, type CEFRLevel } from '@/data/types'
 import { CEFR_LEVELS } from '@/data/curriculum'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { PageLoading } from '@/components/ui/page-loading'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
 
 interface AnswerRecord {
   question_id: string
@@ -295,6 +296,7 @@ export default function AssessmentPage() {
         throw new Error((d as { detail?: string }).detail ?? `Error ${res.status}`)
       }
       const data = (await res.json()) as AssessmentCompleteResponse
+      markLearningProgressUpdated()
       setCreatedPlanId(data.plan_id)
       if (data.voice_trial?.available && data.voice_trial.token) {
         setVoiceTrial(data.voice_trial)
