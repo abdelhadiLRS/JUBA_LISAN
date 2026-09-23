@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { BookMarked, Layers, Sparkles, Volume2 } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
 import { useLanguageStore } from '@/store/language'
 import { AudioPlayer } from '@/components/ui/AudioPlayer'
 import { VoiceRecorder } from '@/components/ui/VoiceRecorder'
@@ -87,6 +88,7 @@ export default function FlashcardsPage() {
         body: JSON.stringify({ quality }),
       })
       if (!response.ok) throw new Error(`Review failed (${response.status})`)
+      markLearningProgressUpdated()
       if (cards[current]?.id !== requestId) return
       if (current < cards.length - 1) {
         setCurrent(current + 1)
