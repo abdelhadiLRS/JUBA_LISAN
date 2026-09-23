@@ -96,7 +96,7 @@ export default function GrammarIndexPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8 p-4 sm:p-6">
+    <div className="juba-mobile-grammar mx-auto max-w-6xl space-y-8 p-4 sm:p-6">
       <div className="juba-card rounded-[30px] border-2 border-[var(--juba-lilac)] p-0 shadow-[0_18px_45px_rgba(61,42,130,0.08)]">
         <div className="border-b border-[var(--juba-lilac)] px-6 py-4">
           <div className="flex items-center gap-2">
