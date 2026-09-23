@@ -237,6 +237,8 @@ export default function PlanPage() {
         Pick<Lesson, 'id' | 'completed' | 'action'>
       > = {}
 
+      setPendingLessons(pendingData ?? [])
+
       if (generatedLessons) {
         for (const lesson of generatedLessons) {
           states[lessonKey(lesson.week_number, lesson.day_number, lesson.title)] = {
