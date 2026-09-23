@@ -71,24 +71,24 @@ export function LandingFAQ() {
   }
 
   return (
-    <div className="juba-card overflow-hidden p-0">
+    <div className="juba-ff-faq overflow-hidden p-0">
       {FAQ_KEYS.map((key, i) => (
         <div
           key={key}
-          className={i < FAQ_KEYS.length - 1 ? 'border-b border-[var(--juba-border-soft)]' : ''}
+          className={i < FAQ_KEYS.length - 1 ? 'juba-ff-faq-row border-b' : 'juba-ff-faq-row'}
         >
           <button
             onClick={() => setOpen(open === i ? null : i)}
             aria-expanded={open === i}
-            className="flex w-full items-center justify-between px-5 py-4 text-left text-sm transition-colors hover:bg-[var(--juba-surface-soft)]"
+            className="juba-ff-faq-question flex w-full items-center justify-between px-5 py-4 text-left text-sm transition-colors"
           >
-            <span className="pr-4 font-medium text-[var(--juba-text)]">{t(key)}</span>
-            <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[var(--juba-surface-soft)] text-sm font-medium text-[var(--juba-primary-dark)]">
+            <span className="juba-ff-faq-question-label pr-4 font-medium">{t(key)}</span>
+            <span className="juba-ff-faq-toggle flex size-7 shrink-0 items-center justify-center rounded-full text-sm font-medium">
               {open === i ? '−' : '+'}
             </span>
           </button>
           {open === i && (
-            <div className="border-t border-[var(--juba-border-soft)] bg-[var(--juba-surface-soft)]/45 px-5 pt-4 pb-5 text-sm leading-6 text-[var(--juba-muted)]">
+            <div className="juba-ff-faq-answer border-t px-5 pt-4 pb-5 text-sm leading-6">
               {renderAnswer(key)}
             </div>
           )}
