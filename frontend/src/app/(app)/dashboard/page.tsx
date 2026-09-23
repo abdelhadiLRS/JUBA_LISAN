@@ -264,7 +264,7 @@ export default function DashboardPage() {
     <>
       <OnboardingTour />
       <WhatsNew />
-      <div className="mx-auto max-w-4xl p-6">
+      <main className="juba-dashboard mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="border-fl-border mb-6 border-b pb-4">
           <p className="text-fl-label text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
@@ -778,7 +778,7 @@ export default function DashboardPage() {
             </button>
           </Link>
         </div>
-      </div>
+      </main>
     </>
   )
 }
