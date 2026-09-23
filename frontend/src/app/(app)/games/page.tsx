@@ -15,6 +15,7 @@ import {
 import { useProgressStore } from '@/store/progress'
 import './games.css'
 import { InteractiveGameBoard } from '@/components/games/InteractiveGameBoard'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
 
 type Lang = GameLanguage
 function getLocalDateKey() {
@@ -183,6 +184,7 @@ export default function GamesPage() {
         },
         achievements: server.achievements as AchievementId[],
       })
+      markLearningProgressUpdated()
     } catch {
       setGameError(t.saveError)
       return false
@@ -223,6 +225,7 @@ export default function GamesPage() {
         },
         achievements: server.achievements as AchievementId[],
       })
+      markLearningProgressUpdated()
       setGame(null)
       setDailyMode(false)
       setDailyChallengeDate('')
