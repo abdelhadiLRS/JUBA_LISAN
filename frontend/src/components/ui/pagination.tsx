@@ -60,23 +60,21 @@ export function Pagination({
   const info = pageInfo ?? `${page + 1} / ${totalPages}`
 
   return (
-    <div
-      className={`juba-card flex items-center justify-between gap-3 px-4 py-3 md:px-5`}
-    >
+    <div className={`juba-card flex items-center justify-between gap-3 px-4 py-3 md:px-5 ${className}`}>
       <button
         onClick={() => onPageChange(Math.max(0, page - 1))}
         disabled={isFirst || isDisabled}
-        className="rounded-xl border border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--juba-muted)] transition-colors hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-primary-dark)] disabled:cursor-not-allowed disabled:opacity-30"
+        className="rounded-xl border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--juba-muted)] shadow-[0_3px_0_var(--juba-border)] transition-all hover:-translate-y-px hover:border-[var(--juba-primary-dark)] hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-primary-dark)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
       >
         {prevLabel}
       </button>
-      <span className="rounded-lg bg-[var(--juba-surface-soft)] px-3 py-1.5 text-xs font-semibold tabular-nums text-[var(--juba-muted)]">
+      <span className="rounded-lg border border-[var(--juba-border-soft)] bg-[var(--juba-surface-soft)] px-3 py-1.5 text-xs font-bold tabular-nums text-[var(--juba-muted)]">
         {info}
       </span>
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={isLast || isDisabled}
-        className="rounded-xl border border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--juba-muted)] transition-colors hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-primary-dark)] disabled:cursor-not-allowed disabled:opacity-30"
+        className="rounded-xl border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--juba-muted)] shadow-[0_3px_0_var(--juba-border)] transition-all hover:-translate-y-px hover:border-[var(--juba-primary-dark)] hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-primary-dark)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
       >
         {nextLabel}
       </button>
