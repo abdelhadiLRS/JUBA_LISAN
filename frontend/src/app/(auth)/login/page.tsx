@@ -18,6 +18,7 @@ function LoginForm() {
   const registered = searchParams.get('registered') === 'true'
   const setTokens = useAuthStore((s) => s.setTokens)
   const setUser = useAuthStore((s) => s.setUser)
+  const clearAuth = useAuthStore((s) => s.logout)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -27,6 +28,8 @@ function LoginForm() {
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    // A failed login must never leave a stale in-memory session visible while the error is shown.
+    clearAuth()
     const normalizedEmail = email.trim().toLowerCase()
     if (!normalizedEmail) return setError(t('emailRequired'))
     if (!password) return setError(t('passwordRequired'))
@@ -47,11 +50,12 @@ function LoginForm() {
       await syncGuestMemoryAfterLogin()
       router.replace('/dashboard')
     } catch (err: unknown) {
+      clearAuth()
       setError(err instanceof Error ? err.message : t('loginFailed'))
     } finally {
       setLoading(false)
     }
-  }, [email, password, router, setTokens, setUser, t])
+  }, [clearAuth, email, password, router, setTokens, setUser, t])
 
   return (
     <main className="min-h-screen bg-[var(--juba-bg)] text-[var(--juba-text)]">
