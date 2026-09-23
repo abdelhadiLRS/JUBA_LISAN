@@ -4,6 +4,7 @@ import re
 from typing import Any
 
 from app.data.curriculum import get_curriculum
+from app.data.ar.lessons import get_arabic_a1_lessons
 from app.schemas.lessons import (
     ExerciseContent,
     FillBlankEvaluation,
@@ -97,6 +98,31 @@ def _attach_stable_exercise_metadata(
             exercise.variant = exercise.type
 
 
+def _resolve_scheduled_lesson(
+    *,
+    target_language: str,
+    cefr_level: str,
+    unit_id: str,
+    week: int,
+    day: int,
+) -> dict[str, Any] | None:
+    """Resolve a deterministic course-map entry when one exists."""
+    if target_language != "ar" or cefr_level != "A1" or not unit_id:
+        return None
+    scheduled = get_arabic_a1_lessons(unit_id)
+    match = next((lesson for lesson in scheduled if lesson.week == week and lesson.day == day), None)
+    if match is None:
+        return None
+    return {
+        "lesson_type": match.lesson_type,
+        "topic": match.title,
+        "grammar_points": list(match.grammar_refs),
+        "vocabulary_set_ids": list(match.vocabulary_set_ids),
+        "unit_id": match.unit_id,
+        "objective": match.objective,
+    }
+
+
 def get_valid_grammar_slugs(target_language: str = "en-GB") -> set[str]:
     """Return the set of valid grammar slugs for a given target language."""
     curriculum = get_curriculum(target_language)
@@ -115,6 +141,20 @@ async def generate_lesson(
     target_language: str = "en-GB",
     native_language: str | None = None,
 ) -> LessonContent:
+    scheduled = _resolve_scheduled_lesson(
+        target_language=target_language,
+        cefr_level=cefr_level,
+        unit_id=unit_id,
+        week=week,
+        day=day,
+    )
+    if scheduled is not None:
+        lesson_type = scheduled["lesson_type"]
+        topic = scheduled["topic"]
+        grammar_points = scheduled["grammar_points"]
+        vocabulary_set_ids = scheduled["vocabulary_set_ids"]
+        unit_id = scheduled["unit_id"]
+
     gp_str = ", ".join(grammar_points) if grammar_points else "none specified"
     vs_str = ", ".join(vocabulary_set_ids) if vocabulary_set_ids else "general"
     target_language_name = get_language_name(target_language)
@@ -157,6 +197,8 @@ async def generate_lesson(
         topic=topic,
         unit_id=unit_id,
     )
+    if scheduled is not None and hasattr(lesson, "objective"):
+        lesson.objective = scheduled["objective"]
     return lesson
 
 
