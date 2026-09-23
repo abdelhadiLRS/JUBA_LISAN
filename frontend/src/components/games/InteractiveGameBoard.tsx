@@ -39,6 +39,10 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
   const finishing = useRef(false)
 
   useEffect(() => {
+    if (memoryTimer.current !== null) {
+      window.clearTimeout(memoryTimer.current)
+      memoryTimer.current = null
+    }
     if (!challenge || challenge.type !== mode) return
     setFirst(null); setLocked(false); setMoves(0); setCompleted(false); setFinishingState(false); setFeedback(null); finishing.current = false
     setMemoryTrace([]); setLeft(null); setRight(null); setMatched([]); setMatchingTrace([])
