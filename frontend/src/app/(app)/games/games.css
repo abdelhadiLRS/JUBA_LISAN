@@ -62,3 +62,22 @@
   .choice{min-height:52px;border-radius:18px;padding:14px;font-size:16px}
   .next{min-height:52px;border-radius:18px}
 }
+
+@media(max-width:640px){
+  .game-card:active{
+    transform:translateY(1px) scale(.995);
+  }
+  .daily-challenge .start,
+  .next{
+    box-shadow:0 7px 0 rgba(79,43,209,.14);
+  }
+  .daily-challenge .start:active,
+  .next:active{
+    transform:translateY(2px);
+    box-shadow:0 4px 0 rgba(79,43,209,.14);
+  }
+  .game-card:nth-child(4n+1){background:linear-gradient(145deg,#fff,#f0ebff)}
+  .game-card:nth-child(4n+2){background:linear-gradient(145deg,#fff,#fff7d8)}
+  .game-card:nth-child(4n+3){background:linear-gradient(145deg,#fff,#e9fbf3)}
+  .game-card:nth-child(4n){background:linear-gradient(145deg,#fff,#fff0ec)}
+}
