@@ -10,10 +10,10 @@ function isLearningPlanRoute(pathname: string): boolean {
 
 export function refreshLearningPlan(
   pathname: string,
-  reload: () => void = () => window.location.reload(),
+  refresh: () => void = () => window.location.reload(),
 ): void {
   if (isLearningPlanRoute(pathname)) {
-    reload()
+    refresh()
   }
 }
 
