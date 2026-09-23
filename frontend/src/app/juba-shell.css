@@ -264,3 +264,159 @@
     max-width: 100%;
   }
 }
+
+
+/* Funfluent-inspired mobile app shell: content-first, illustrated-feeling,
+   soft sky backdrop, white cards and a persistent five-tab navigation. */
+.juba-mobile-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--juba-ink);
+  font-size: 14px;
+  font-weight: 950;
+  letter-spacing: -.04em;
+}
+.juba-mobile-brand-mark {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--juba-violet);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--juba-violet-dark);
+  transform: rotate(-3deg);
+  font-size: 11px;
+  font-weight: 950;
+}
+.juba-mobile-profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 74px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+.juba-mobile-avatar {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--juba-yellow);
+  color: var(--juba-ink);
+  font-size: 12px;
+  font-weight: 950;
+}
+.juba-mobile-level {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+}
+.juba-mobile-level span {
+  color: var(--juba-muted);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+.juba-mobile-level strong {
+  margin-top: 3px;
+  color: var(--juba-ink);
+  font-size: 10px;
+  font-weight: 950;
+}
+.juba-mobile-bottom-nav {
+  position: fixed;
+  inset-inline: 10px;
+  bottom: 10px;
+  z-index: 45;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  min-height: 66px;
+  padding: 7px;
+  border: 2px solid rgba(238,232,255,.92);
+  border-radius: 25px;
+  background: rgba(255,255,255,.94);
+  box-shadow: 0 18px 42px rgba(39,28,72,.14);
+  backdrop-filter: blur(20px);
+}
+.juba-mobile-bottom-link {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3px;
+  border-radius: 18px;
+  color: #938da2;
+  font-size: 9px;
+  font-weight: 850;
+  text-decoration: none;
+  transition: transform .16s ease, background .16s ease, color .16s ease;
+}
+.juba-mobile-bottom-link.is-active {
+  color: var(--juba-violet);
+  background: var(--juba-yellow);
+}
+.juba-mobile-bottom-link:active {
+  transform: scale(.95);
+}
+.juba-app-shell:has(.juba-mobile-bottom-nav) .juba-workspace-main {
+  padding-bottom: 96px;
+}
+
+@media (max-width: 640px) {
+  .juba-app-shell {
+    min-height: 100svh;
+    background:
+      radial-gradient(circle at 8% 7%, rgba(255,216,90,.30), transparent 12rem),
+      radial-gradient(circle at 94% 11%, rgba(189,234,255,.50), transparent 15rem),
+      linear-gradient(180deg, #eefbff 0%, #fbfaff 25%, #fbfaff 100%);
+  }
+
+  .juba-mobile-bar {
+    height: 72px;
+    min-height: 72px;
+    border: 0;
+    background: rgba(238,251,255,.84);
+  }
+
+  .juba-workspace-main {
+    padding-top: 10px;
+    padding-inline: 10px;
+  }
+
+  .juba-page-heading h1 {
+    font-size: 1.85rem;
+  }
+
+  .juba-mobile-dashboard {
+    width: 100%;
+    padding-inline: 2px;
+  }
+
+  .juba-mobile-dashboard > * {
+    max-width: 100%;
+  }
+
+  .juba-mobile-dashboard .juba-mobile-hero,
+  .juba-mobile-dashboard [data-mobile-card] {
+    border-radius: 24px;
+  }
+
+  .juba-mobile-dashboard .juba-mobile-hero {
+    min-height: 300px;
+    padding: 24px 20px;
+    background:
+      radial-gradient(circle at 82% 20%, rgba(255,216,90,.95) 0 22px, transparent 23px),
+      radial-gradient(circle at 93% 42%, rgba(255,141,121,.75) 0 34px, transparent 35px),
+      linear-gradient(165deg, #70d2f4 0%, #9ee7f6 48%, #c7f3e2 100%);
+    color: var(--juba-ink);
+    box-shadow: 0 14px 34px rgba(66,137,167,.13);
+  }
+}
