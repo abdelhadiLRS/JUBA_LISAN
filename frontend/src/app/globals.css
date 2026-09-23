@@ -1379,3 +1379,289 @@ main [dir="rtl"] h3,
   .juba-ff-reference .juba-ff-story-heading h2{font-size:clamp(2.05rem,11vw,3.2rem)}
   .juba-ff-reference .juba-ff-contained-card{padding:16px;box-shadow:5px 5px 0 var(--ff-ink)}
 }
+
+
+/* Funfluent fidelity pass 2 — stronger editorial proportions and playful edges. */
+.juba-ff-reference .juba-ff-hero{
+  min-height:760px;
+  position:relative;
+  overflow:hidden;
+}
+.juba-ff-reference .juba-ff-hero-inner{
+  width:min(1320px,calc(100% - 64px));
+  min-height:700px;
+  grid-template-columns:minmax(470px,.82fr) minmax(520px,1.18fr);
+  gap:0;
+}
+.juba-ff-reference .juba-ff-hero-copy{
+  position:relative;
+  z-index:5;
+  align-self:center;
+  padding:80px 0 120px 28px;
+}
+.juba-ff-reference .juba-ff-hero-copy h1{
+  max-width:690px;
+  font-size:clamp(4rem,7.2vw,7rem);
+  line-height:.86;
+  letter-spacing:-.085em;
+  margin:18px 0 26px;
+  padding:0;
+  background:none;
+  text-shadow:0 2px 0 rgba(255,255,255,.22);
+}
+.juba-ff-reference .juba-ff-hero-copy h1::first-line{color:var(--ff-ink)}
+.juba-ff-reference .juba-ff-hero-copy h1::after{
+  content:"";
+  display:block;
+  width:min(280px,48%);
+  height:14px;
+  margin-top:18px;
+  border-radius:999px;
+  background:var(--ff-yellow);
+  border:2px solid var(--ff-ink);
+  transform:rotate(-2deg);
+  box-shadow:4px 4px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-hero-copy p{
+  max-width:520px;
+  font-size:16px;
+  line-height:1.7;
+  margin-top:24px;
+}
+.juba-ff-reference .juba-ff-pill{
+  width:max-content;
+  padding:9px 14px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:900;
+}
+.juba-ff-reference .juba-ff-hero-actions{
+  margin-top:28px;
+}
+.juba-ff-reference .juba-ff-primary{
+  min-height:54px;
+  padding:13px 21px;
+  border-width:3px;
+  border-radius:13px;
+  box-shadow:5px 5px 0 var(--ff-ink);
+  font-size:13px;
+}
+.juba-ff-reference .juba-ff-primary:hover{
+  transform:translate(-2px,-2px);
+  box-shadow:7px 7px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-mini-proof{
+  margin-top:30px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+.juba-ff-reference .juba-ff-mini-proof span{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 11px;
+  border:1.5px solid var(--ff-ink);
+  border-radius:999px;
+  background:rgba(255,255,255,.66);
+  font-size:10px;
+  font-weight:850;
+}
+.juba-ff-reference .juba-ff-hero-art{
+  min-height:680px;
+  align-self:end;
+  transform:translateX(20px);
+}
+.juba-ff-reference .juba-ff-sun{
+  width:220px;height:220px;
+  right:22%;top:4%;
+  border:3px solid var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-mountain{
+  bottom:102px;
+}
+.juba-ff-reference .mountain-back{
+  height:340px;
+  background:#83cbbf;
+}
+.juba-ff-reference .mountain-front{
+  height:300px;
+  background:#68aa50;
+}
+.juba-ff-reference .juba-ff-island{
+  bottom:48px;
+}
+.juba-ff-reference .juba-ff-character{
+  font-size:78px;
+  z-index:8;
+  animation:landing-float 4.5s ease-in-out infinite;
+}
+.juba-ff-reference .char-two{animation-delay:-1.1s}
+.juba-ff-reference .char-three{animation-delay:-2.2s}
+.juba-ff-reference .char-four{animation-delay:-3.3s}
+.juba-ff-reference .juba-ff-float-label{
+  padding:9px 13px;
+  background:#fffdf3;
+  font-size:12px;
+  font-weight:900;
+}
+.juba-ff-reference .juba-ff-book-float{
+  min-width:230px;
+  padding:13px;
+  background:#fffdf3;
+}
+.juba-ff-reference .juba-ff-books{
+  padding-top:88px;
+  padding-bottom:125px;
+}
+.juba-ff-reference .juba-ff-section-head{
+  width:min(760px,100%);
+  text-align:center;
+  margin:0 auto 58px;
+}
+.juba-ff-reference .juba-ff-section-tag{
+  border:2px solid var(--ff-ink);
+  box-shadow:3px 3px 0 var(--ff-ink);
+  background:var(--ff-yellow);
+  color:var(--ff-ink);
+  border-radius:999px;
+  padding:8px 13px;
+  font-size:10px;
+  font-weight:950;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.juba-ff-reference .juba-ff-section-head h2{
+  margin:18px 0 10px;
+  font-size:clamp(2.7rem,5vw,4.6rem);
+  line-height:.91;
+  letter-spacing:-.075em;
+}
+.juba-ff-reference .juba-ff-section-head p{
+  max-width:610px;
+  margin:auto;
+  font-size:14px;
+  line-height:1.7;
+}
+.juba-ff-reference .juba-ff-book-shelf{
+  position:relative;
+  width:min(1160px,100%);
+  gap:30px;
+  perspective:1000px;
+}
+.juba-ff-reference .juba-ff-book{
+  min-height:370px;
+  border-width:3px;
+  border-radius:10px 10px 20px 20px;
+  box-shadow:9px 9px 0 var(--ff-ink);
+  padding:20px;
+}
+.juba-ff-reference .juba-ff-book .book-art{
+  height:210px;
+  display:grid;
+  place-items:center;
+  align-content:center;
+  font-size:72px;
+  line-height:1.15;
+  border:2px solid rgba(23,35,26,.18);
+}
+.juba-ff-reference .juba-ff-book strong{
+  display:block;
+  margin-top:18px;
+  font-size:17px;
+  letter-spacing:-.025em;
+}
+.juba-ff-reference .juba-ff-book span{
+  display:block;
+  margin-top:5px;
+  font-size:10px;
+  font-weight:800;
+  opacity:.7;
+}
+.juba-ff-reference .juba-ff-story{
+  padding-top:110px;
+  padding-bottom:110px;
+}
+.juba-ff-reference .juba-ff-story > .scroll-reveal,
+.juba-ff-reference .juba-ff-story .juba-ff-story-inner{
+  width:100%;
+}
+.juba-ff-reference .juba-ff-story .juba-funfluent-features,
+.juba-ff-reference .juba-ff-story .juba-funfluent-demo,
+.juba-ff-reference .juba-ff-story .juba-funfluent-dashboard,
+.juba-ff-reference .juba-ff-story .juba-funfluent-languages,
+.juba-ff-reference .juba-ff-story .juba-funfluent-experience{
+  padding-top:0;
+  padding-bottom:0;
+}
+.juba-ff-reference .juba-ff-feature-grid{
+  gap:18px;
+}
+.juba-ff-reference .juba-ff-feature-card{
+  min-height:270px;
+  border-width:3px;
+  border-radius:18px;
+  box-shadow:7px 7px 0 var(--ff-ink);
+  padding:25px;
+}
+.juba-ff-reference .juba-ff-feature-card:nth-child(2n){
+  transform:translateY(14px);
+}
+.juba-ff-reference .juba-ff-feature-card:hover{
+  transform:translateY(-5px) rotate(-.5deg);
+}
+.juba-ff-reference .juba-ff-story-ai .juba-ff-chat-card{
+  border-radius:24px;
+  box-shadow:10px 10px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-chat-body{padding:34px}
+.juba-ff-reference .juba-ff-chat-message span{border-width:2px}
+.juba-ff-reference .juba-ff-story-dashboard .juba-ff-dashboard-card{
+  border-radius:24px;
+  box-shadow:10px 10px 0 var(--ff-ink);
+  padding:22px;
+}
+.juba-ff-reference .juba-ff-metric{
+  border-width:2px;
+  border-radius:15px;
+}
+.juba-ff-reference .juba-ff-story-languages .juba-ff-language-cloud{
+  gap:18px;
+}
+.juba-ff-reference .juba-ff-story-learning .juba-ff-steps{
+  gap:18px;
+}
+.juba-ff-reference .juba-ff-story-learning .juba-ff-practice{
+  border-width:3px;
+  border-radius:24px;
+  box-shadow:9px 9px 0 var(--ff-ink);
+}
+@media(max-width:900px){
+  .juba-ff-reference .juba-ff-hero-inner{
+    width:min(100% - 32px,760px);
+    grid-template-columns:1fr;
+  }
+  .juba-ff-reference .juba-ff-hero-copy{
+    padding:64px 0 10px;
+  }
+  .juba-ff-reference .juba-ff-hero-copy h1{
+    font-size:clamp(3.5rem,11vw,5.5rem);
+  }
+  .juba-ff-reference .juba-ff-hero-art{
+    min-height:510px;
+    transform:none;
+  }
+}
+@media(max-width:600px){
+  .juba-ff-reference .juba-ff-hero{min-height:0}
+  .juba-ff-reference .juba-ff-hero-inner{width:calc(100% - 24px)}
+  .juba-ff-reference .juba-ff-hero-copy{padding:48px 0 0}
+  .juba-ff-reference .juba-ff-hero-copy h1{font-size:clamp(3rem,15vw,4.6rem)}
+  .juba-ff-reference .juba-ff-hero-copy p{font-size:14px}
+  .juba-ff-reference .juba-ff-hero-art{min-height:390px}
+  .juba-ff-reference .juba-ff-character{font-size:50px}
+  .juba-ff-reference .juba-ff-sun{width:135px;height:135px}
+  .juba-ff-reference .juba-ff-story{padding-top:72px;padding-bottom:72px}
+  .juba-ff-reference .juba-ff-book{min-height:310px}
+  .juba-ff-reference .juba-ff-book .book-art{height:165px}
+}
