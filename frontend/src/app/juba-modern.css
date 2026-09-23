@@ -32,8 +32,6 @@ body { background-image: none !important; }
 html, body, button, input, textarea, select { font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
 h1, h2, h3, h4, h5, h6 { letter-spacing: -.025em; font-weight: 700; }
 
-.juba-card { background: var(--juba-surface); border: 1px solid var(--juba-border); border-radius: 18px; box-shadow: var(--juba-shadow-md); transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
-.juba-card:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(20,18,23,.09); border-color: #d4d2dc; }
 .juba-glass { background: color-mix(in srgb, var(--juba-surface) 92%, transparent); border: 1px solid var(--juba-border); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 .juba-gradient-text { background: none; color: var(--juba-text); -webkit-background-clip: initial; background-clip: initial; }
 .juba-hero-glow { display: block; position: absolute; pointer-events: none; width: 22rem; height: 22rem; border-radius: 50%; background: var(--juba-lilac); filter: blur(12px); opacity: .7; }
