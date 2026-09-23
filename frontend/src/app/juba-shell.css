@@ -74,7 +74,7 @@ html[data-theme='dark'] {
   background:
     radial-gradient(circle at 4% 7%, rgba(255,216,90,.28), transparent 18rem),
     radial-gradient(circle at 96% 9%, rgba(189,234,255,.42), transparent 22rem),
-    #fbfaf4;
+    var(--juba-bg);
 }
 
 /* The same rounded top navigation is used at every viewport width. */
