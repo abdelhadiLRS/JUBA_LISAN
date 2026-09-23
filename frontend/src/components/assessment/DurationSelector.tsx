@@ -59,30 +59,30 @@ export default function DurationSelector({
   }
 
   return (
-    <div className="flex min-h-[60vh] items-center justify-center p-6">
-      <div className="border-fl-border bg-fl-surface w-full max-w-md border">
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-3">●</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+    <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
+      <div className="w-full max-w-2xl overflow-hidden rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[0_22px_55px_rgba(61,42,130,0.12)]">
+        <div className="flex items-center gap-3 border-b-2 border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/40 px-6 py-4">
+          <span className="text-xs text-[var(--juba-muted)]">●</span>
+          <span className="text-xs text-[var(--juba-muted)] font-semibold tracking-[0.12em] uppercase">
             {t('step3')}
           </span>
         </div>
 
-        <div className="space-y-8 p-8">
+        <div className="space-y-8 p-6 sm:p-8">
           {/* Duration */}
           <div>
-            <p className="text-fl-hint text-fl-muted-3 mb-3 font-mono tracking-widest uppercase">
+            <p className="text-xs text-[var(--juba-muted)] mb-3 font-semibold tracking-[0.12em] uppercase">
               {t('howManyWeeks', { cefr_level })}
             </p>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-3">
               {DURATION_OPTIONS.map((opt) => (
                 <button
                   key={opt.weeks}
                   onClick={() => onSelectDuration(opt)}
-                  className={`border px-4 py-3 text-left transition-colors ${
+                  className={`rounded-[20px] border-2 px-4 py-4 text-left transition-all ${
                     selectedWeeks === opt.weeks
-                      ? 'bg-fl-fg text-fl-bg border-fl-fg'
-                      : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
+                      ? 'bg-[var(--juba-violet)] text-white border-fl-fg'
+                      : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:border-[var(--juba-border)]-2 hover:text-fl-fg'
                   }`}
                 >
                   <p className="font-mono text-xs font-bold tracking-widest uppercase">
@@ -92,7 +92,7 @@ export default function DurationSelector({
                     className={`text-fl-hint mt-0.5 font-mono ${
                       selectedWeeks === opt.weeks
                         ? 'opacity-70'
-                        : 'text-fl-muted-3'
+                        : 'text-[var(--juba-muted)]'
                     }`}
                   >
                     {intensityMap[opt.intensity]} ·{' '}
@@ -102,7 +102,7 @@ export default function DurationSelector({
                     className={`text-fl-hint mt-0.5 font-mono ${
                       selectedWeeks === opt.weeks
                         ? 'opacity-60'
-                        : 'text-fl-muted-3'
+                        : 'text-[var(--juba-muted)]'
                     }`}
                   >
                     {t('daysPerWeek', { count: opt.daysPerWeek })}
@@ -114,7 +114,7 @@ export default function DurationSelector({
 
           {/* Goals */}
           <div>
-            <p className="text-fl-hint text-fl-muted-3 mb-3 font-mono tracking-widest uppercase">
+            <p className="text-xs text-[var(--juba-muted)] mb-3 font-semibold tracking-[0.12em] uppercase">
               {t('mainGoals')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -122,10 +122,10 @@ export default function DurationSelector({
                 <button
                   key={g.id}
                   onClick={() => onToggleGoal(g.id)}
-                  className={`border px-3 py-1.5 font-mono text-xs tracking-widest uppercase transition-colors ${
+                  className={`rounded-full border-2 px-3 py-2 text-xs font-semibold tracking-[0.08em] uppercase transition-all ${
                     selectedGoals.includes(g.id)
-                      ? 'bg-fl-fg text-fl-bg border-fl-fg'
-                      : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
+                      ? 'bg-[var(--juba-violet)] text-white border-fl-fg'
+                      : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:border-[var(--juba-border)]-2 hover:text-fl-fg'
                   }`}
                 >
                   {selectedGoals.includes(g.id) ? '✓ ' : ''}
@@ -138,7 +138,7 @@ export default function DurationSelector({
           </div>
 
           {/* Summary */}
-          <div className="border-fl-border text-fl-label text-fl-muted-1 space-y-1 border px-4 py-3 font-mono tracking-wide">
+          <div className="border-[var(--juba-border)] text-fl-label text-[var(--juba-text)] space-y-1 border px-4 py-3 font-mono tracking-wide">
             <p>
               {t('summaryLevel')}:{' '}
               <span className="text-fl-fg font-bold">{cefr_level}</span>
@@ -172,14 +172,14 @@ export default function DurationSelector({
           <div className="flex gap-2">
             <button
               onClick={onBack}
-              className="border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg flex-1 border py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+              className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:border-[var(--juba-border)]-2 hover:text-fl-fg flex-1 border py-3 font-mono text-xs tracking-widest uppercase transition-colors"
             >
               ← {tCommon('back')}
             </button>
             <button
               onClick={onConfirm}
               disabled={loading || selectedGoals.length === 0}
-              className="bg-fl-fg text-fl-bg hover:bg-fl-fg-bright flex-[2] py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+              className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet-dark)] flex-[2] py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
             >
               {loading ? t('buildingPlan') : `${t('startMyPlan')} →`}
             </button>
