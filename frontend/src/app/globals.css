@@ -3398,3 +3398,233 @@ main [dir="rtl"] h3,
     translate:0 0;
   }
 }
+
+
+/* Funfluent fidelity pass 12 — continuous editorial rhythm through the product story. */
+.juba-ff-reference .juba-ff-story{
+  position:relative;
+  padding-top:108px;
+  padding-bottom:112px;
+}
+.juba-ff-reference .juba-ff-story + .juba-ff-story{
+  border-top:0;
+}
+.juba-ff-reference .juba-ff-story::before{
+  content:"";
+  position:absolute;
+  top:-1px;
+  left:50%;
+  width:96px;
+  height:10px;
+  transform:translateX(-50%);
+  border:2px solid var(--ff-ink);
+  border-top:0;
+  border-radius:0 0 999px 999px;
+  background:var(--ff-yellow);
+  z-index:3;
+}
+.juba-ff-reference .juba-ff-story-inner{
+  position:relative;
+}
+.juba-ff-reference .juba-ff-story-inner::after{
+  content:"✦";
+  position:absolute;
+  right:-18px;
+  top:8px;
+  color:var(--ff-yellow);
+  font-size:34px;
+  -webkit-text-stroke:1.5px var(--ff-ink);
+  rotate:12deg;
+  pointer-events:none;
+}
+.juba-ff-reference .juba-ff-section-head,
+.juba-ff-reference .juba-ff-demo-intro{
+  margin-bottom:48px;
+}
+.juba-ff-reference .juba-ff-section-head h2,
+.juba-ff-reference .juba-ff-demo-intro h2{
+  text-wrap:balance;
+}
+.juba-ff-reference .juba-funfluent-features{
+  background:
+    radial-gradient(circle at 8% 20%,rgba(255,217,90,.20),transparent 190px),
+    var(--ff-cream);
+}
+.juba-ff-reference .juba-funfluent-demo{
+  background:
+    radial-gradient(circle at 92% 18%,rgba(185,237,240,.52),transparent 250px),
+    #eaf5df;
+}
+.juba-ff-reference .juba-funfluent-dashboard{
+  background:
+    radial-gradient(circle at 10% 78%,rgba(236,229,255,.62),transparent 260px),
+    #fffdf4;
+}
+.juba-ff-reference .juba-funfluent-languages{
+  background:
+    radial-gradient(circle at 90% 22%,rgba(255,217,90,.25),transparent 230px),
+    var(--ff-cream);
+}
+.juba-ff-reference .juba-funfluent-experience{
+  background:
+    radial-gradient(circle at 12% 18%,rgba(185,237,240,.45),transparent 230px),
+    #eef8e9;
+}
+.juba-ff-reference .juba-funfluent-features .juba-ff-feature-card:nth-child(1){
+  background:#fff4bf;
+}
+.juba-ff-reference .juba-funfluent-features .juba-ff-feature-card:nth-child(2){
+  background:#e2f4f5;
+}
+.juba-ff-reference .juba-funfluent-features .juba-ff-feature-card:nth-child(3){
+  background:#e9e1ff;
+}
+.juba-ff-reference .juba-funfluent-features .juba-ff-feature-card:nth-child(4){
+  background:#ffe1d9;
+}
+.juba-ff-reference .juba-funfluent-features .juba-ff-feature-card:nth-child(5){
+  background:#e4f4df;
+}
+.juba-ff-reference .juba-funfluent-features .juba-ff-feature-card:nth-child(6){
+  background:#fff0b7;
+}
+.juba-ff-reference .juba-ff-feature-card{
+  box-shadow:7px 7px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-feature-card:hover{
+  transform:translateY(-6px) rotate(-.35deg);
+  box-shadow:10px 10px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-feature-card:nth-child(2n):hover{
+  transform:translateY(-6px) rotate(.35deg);
+}
+.juba-ff-reference .juba-ff-feature-icon{
+  width:48px;height:48px;
+  border-width:2px;
+  border-radius:14px 11px 14px 11px;
+  box-shadow:3px 3px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-feature-link{
+  padding:6px 9px;
+  border:1px solid rgba(23,35,26,.25);
+  border-radius:999px;
+  background:rgba(255,255,255,.5);
+}
+.juba-ff-reference .juba-ff-chat-card{
+  border-width:3px;
+  border-radius:30px 22px 30px 22px;
+}
+.juba-ff-reference .juba-ff-chat-top{
+  background:#fffdf8;
+  padding:20px 24px;
+}
+.juba-ff-reference .juba-ff-chat-message span{
+  border-width:2px;
+  box-shadow:3px 3px 0 rgba(23,35,26,.12);
+}
+.juba-ff-reference .juba-ff-chat-message.user span{
+  background:#fff1b7;
+}
+.juba-ff-reference .juba-ff-chat-message.ai span{
+  background:#e6f4df;
+}
+.juba-ff-reference .juba-ff-chat-controls{
+  background:#f1f7eb;
+}
+.juba-ff-reference .juba-ff-dashboard-card{
+  border-width:3px;
+  border-radius:30px 22px 30px 22px;
+}
+.juba-ff-reference .juba-ff-metric{
+  border-width:2px;
+  background:#fffdf8;
+}
+.juba-ff-reference .juba-ff-metric:hover,
+.juba-ff-reference .juba-ff-today:hover,
+.juba-ff-reference .juba-ff-skill-panel:hover{
+  transform:translateY(-3px);
+  box-shadow:4px 4px 0 rgba(23,35,26,.13);
+}
+.juba-ff-reference .juba-ff-today,
+.juba-ff-reference .juba-ff-skill-panel{
+  background:#fffdf8;
+  border-width:2px;
+}
+.juba-ff-reference .juba-ff-language-card{
+  background:#fffdf8;
+  box-shadow:5px 5px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-language-card:nth-child(3n+1){
+  background:#e5f3de;
+}
+.juba-ff-reference .juba-ff-language-card:nth-child(3n+2){
+  background:#fff0b8;
+}
+.juba-ff-reference .juba-ff-language-card:nth-child(3n){
+  background:#e4f2f5;
+}
+.juba-ff-reference .juba-ff-language-card:hover{
+  transform:translateY(-5px);
+  box-shadow:8px 8px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-funfluent-experience .juba-ff-step{
+  background:#fffdf8;
+  box-shadow:6px 6px 0 var(--ff-ink);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.juba-ff-reference .juba-funfluent-experience .juba-ff-step:nth-child(1){
+  background:#fff0b7;
+}
+.juba-ff-reference .juba-funfluent-experience .juba-ff-step:nth-child(2){
+  background:#e2f3f4;
+}
+.juba-ff-reference .juba-funfluent-experience .juba-ff-step:nth-child(3){
+  background:#e9e1ff;
+}
+.juba-ff-reference .juba-funfluent-experience .juba-ff-step:nth-child(4){
+  background:#ffe1d9;
+}
+.juba-ff-reference .juba-funfluent-experience .juba-ff-step:nth-child(5){
+  background:#e4f4df;
+}
+.juba-ff-reference .juba-funfluent-experience .juba-ff-step:hover{
+  transform:translateY(-5px) rotate(0deg);
+  box-shadow:9px 9px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-funfluent-experience .juba-ff-step-number{
+  border:2px solid var(--ff-ink);
+  box-shadow:3px 3px 0 var(--ff-ink);
+  background:var(--ff-yellow);
+}
+@media(max-width:900px){
+  .juba-ff-reference .juba-ff-story{
+    padding-top:86px;
+    padding-bottom:88px;
+  }
+  .juba-ff-reference .juba-ff-story-inner::after{
+    right:2px;
+  }
+}
+@media(max-width:600px){
+  .juba-ff-reference .juba-ff-story{
+    padding-top:68px;
+    padding-bottom:72px;
+  }
+  .juba-ff-reference .juba-ff-story::before{
+    width:70px;height:8px;
+  }
+  .juba-ff-reference .juba-ff-story-inner::after{
+    right:0;
+    top:0;
+    font-size:25px;
+  }
+  .juba-ff-reference .juba-ff-section-head,
+  .juba-ff-reference .juba-ff-demo-intro{
+    margin-bottom:34px;
+  }
+  .juba-ff-reference .juba-ff-feature-card:hover,
+  .juba-ff-reference .juba-ff-language-card:hover,
+  .juba-ff-reference .juba-funfluent-experience .juba-ff-step:hover{
+    transform:none;
+  }
+}
