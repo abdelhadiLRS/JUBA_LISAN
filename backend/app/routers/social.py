@@ -156,7 +156,7 @@ async def send_friend_request(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    _require_learner(current_user)\n    if data.user_id == current_user.id:
+    if data.user_id == current_user.id:
         raise HTTPException(status_code=400, detail="You cannot add yourself")
     target = await db.get(User, data.user_id)
     if not target or not target.is_active or target.role != "user":
@@ -241,7 +241,7 @@ async def list_messages(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    _require_learner(current_user)\n    if not await _accepted(db, current_user.id, user_id):
+    if not await _accepted(db, current_user.id, user_id):
         raise HTTPException(status_code=403, detail="You can only message accepted friends")
     result = await db.execute(
         select(DirectMessage)
@@ -274,7 +274,7 @@ async def send_message(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    _require_learner(current_user)\n    content = data.content.strip()
+    content = data.content.strip()
     if not content:
         raise HTTPException(status_code=422, detail="Message cannot be empty")
     if not await _accepted(db, current_user.id, user_id):
