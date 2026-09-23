@@ -810,3 +810,72 @@
     box-shadow: 0 12px 32px rgba(39,28,72,.08);
   }
 }
+
+
+/* Entry and public surfaces: mobile gets the same playful JUBA language
+   instead of inheriting a desktop/admin composition. */
+@media (max-width: 640px) {
+  .juba-auth-mobile {
+    min-height: 100svh;
+    padding: 18px 12px;
+    background:
+      radial-gradient(circle at 8% 8%, rgba(255,216,90,.24), transparent 11rem),
+      radial-gradient(circle at 92% 18%, rgba(189,234,255,.42), transparent 13rem),
+      linear-gradient(180deg, #eefbff 0%, #fbfaff 48%, #fffaf4 100%);
+  }
+
+  .juba-auth-mobile > div {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .juba-auth-mobile form {
+    border-radius: 28px !important;
+    padding: 20px !important;
+    box-shadow: 0 14px 34px rgba(39,28,72,.09);
+  }
+
+  .juba-auth-mobile input,
+  .juba-auth-mobile select {
+    min-height: 48px;
+    border-radius: 17px;
+  }
+
+  .juba-auth-mobile button,
+  .juba-auth-mobile a {
+    min-height: 46px;
+    border-radius: 17px;
+  }
+
+  .juba-auth-mobile .rounded-2xl {
+    border-radius: 20px;
+  }
+
+  .juba-onboarding-mobile {
+    align-items: flex-start;
+    padding-top: 26px;
+    padding-bottom: 30px;
+  }
+
+  .juba-onboarding-mobile > div {
+    margin-top: 0;
+  }
+
+  .juba-onboarding-mobile > div > div:last-child {
+    border-radius: 28px;
+    box-shadow: 0 14px 34px rgba(39,28,72,.09);
+  }
+
+  .juba-landing-mobile {
+    min-height: 100svh;
+  }
+
+  .juba-landing-mobile section,
+  .juba-landing-mobile article {
+    border-radius: 26px;
+  }
+
+  .juba-landing-mobile a {
+    min-height: 48px;
+  }
+}
