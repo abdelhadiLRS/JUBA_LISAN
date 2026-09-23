@@ -14,9 +14,9 @@ type Props = {
 type MemoryCard = { id: string; label: string; pair_key?: string; flipped: boolean; matched: boolean }
 
 const copy = {
-  ar: { memory: 'الذاكرة', matching: 'المطابقة', ordering: 'الترتيب', reset: 'إعادة', moves: 'المحاولات', match: 'طابق العنصرين المتشابهين', chooseLeft: 'اختر كلمة', chooseRight: 'اختر ترجمتها', order: 'اضغط العناصر بالترتيب الصحيح', complete: 'أحسنت! أكملت التحدي.', up: 'أعلى', down: 'أسفل', undo: 'تراجع', clear: 'مسح', loading: 'جاري تحميل التحدي…', tryAgain: 'ليست هذه المرة — حاول ترتيب العناصر مجددًا.' },
-  fr: { memory: 'Mémoire', matching: 'Association', ordering: 'Classement', reset: 'Réinitialiser', moves: 'Coups', match: 'Associe les deux éléments', chooseLeft: 'Choisis un mot', chooseRight: 'Choisis sa traduction', order: 'Appuie sur les éléments dans le bon ordre', complete: 'Bravo ! Défi terminé.', up: 'Monter', down: 'Descendre', undo: 'Annuler', clear: 'Effacer', loading: 'Chargement du défi…', tryAgain: 'Pas cette fois — réessaie de classer les éléments.' },
-  en: { memory: 'Memory', matching: 'Matching', ordering: 'Ordering', reset: 'Reset', moves: 'Moves', match: 'Match the two items', chooseLeft: 'Choose a word', chooseRight: 'Choose its translation', order: 'Tap the items in the correct order', complete: 'Great job! Challenge complete.', up: 'Up', down: 'Down', undo: 'Undo', clear: 'Clear', loading: 'Loading challenge…', tryAgain: 'Not this time — try ordering the items again.' },
+  ar: { memory: 'الذاكرة', matching: 'المطابقة', ordering: 'الترتيب', reset: 'إعادة', moves: 'المحاولات', match: 'طابق العنصرين المتشابهين', chooseLeft: 'اختر كلمة', chooseRight: 'اختر ترجمتها', order: 'اضغط العناصر بالترتيب الصحيح', complete: 'أحسنت! أكملت التحدي.', up: 'أعلى', down: 'أسفل', undo: 'تراجع', clear: 'مسح', loading: 'جاري تحميل التحدي…', tryAgain: 'ليست هذه المرة — حاول ترتيب العناصر مجددًا.', correct: 'مطابقة صحيحة!', incorrect: 'ليست مطابقة.', hidden: 'بطاقة مخفية' },
+  fr: { memory: 'Mémoire', matching: 'Association', ordering: 'Classement', reset: 'Réinitialiser', moves: 'Coups', match: 'Associe les deux éléments', chooseLeft: 'Choisis un mot', chooseRight: 'Choisis sa traduction', order: 'Appuie sur les éléments dans le bon ordre', complete: 'Bravo ! Défi terminé.', up: 'Monter', down: 'Descendre', undo: 'Annuler', clear: 'Effacer', loading: 'Chargement du défi…', tryAgain: 'Pas cette fois — réessaie de classer les éléments.', correct: 'Bonne association !', incorrect: 'Ce n’est pas la bonne association.', hidden: 'Carte cachée' },
+  en: { memory: 'Memory', matching: 'Matching', ordering: 'Ordering', reset: 'Reset', moves: 'Moves', match: 'Match the two items', chooseLeft: 'Choose a word', chooseRight: 'Choose its translation', order: 'Tap the items in the correct order', complete: 'Great job! Challenge complete.', up: 'Up', down: 'Down', undo: 'Undo', clear: 'Clear', loading: 'Loading challenge…', tryAgain: 'Not this time — try ordering the items again.', correct: 'Correct match!', incorrect: 'Not a match.', hidden: 'Hidden card' },
 } as const
 
 export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Props) {
@@ -35,10 +35,11 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
   const [completed, setCompleted] = useState(false)
   const [feedback, setFeedback] = useState<string | null>(null)
   const memoryTimer = useRef<number | null>(null)
+  const finishing = useRef(false)
 
   useEffect(() => {
     if (!challenge || challenge.type !== mode) return
-    setFirst(null); setLocked(false); setMoves(0); setCompleted(false); setFeedback(null)
+    setFirst(null); setLocked(false); setMoves(0); setCompleted(false); setFeedback(null); finishing.current = false
     setMemoryTrace([]); setLeft(null); setRight(null); setMatched([]); setMatchingTrace([])
     setOrder([]); setOrderingTrace([])
     if (challenge.type === 'memory') {
@@ -49,9 +50,11 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
   }, [challenge, mode])
 
   const finish = useCallback(async (trace: InteractiveGameTrace[]) => {
-    if (completed) return
+    if (completed || finishing.current) return
+    finishing.current = true
     const accepted = await onComplete?.(trace)
     if (accepted !== false) setCompleted(true)
+    else finishing.current = false
   }, [completed, onComplete])
 
   function flipCard(index: number) {
@@ -75,6 +78,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
         const a = current.find(item => item.id === firstId)
         const b = current.find(item => item.id === card.id)
         const samePair = Boolean(a && b && a.pair_key === b.pair_key)
+        setFeedback(samePair ? t.correct : t.incorrect)
         if (!samePair) return current.map(item => item.id === firstId || item.id === card.id ? { ...item, flipped: false } : item)
         return current.map(item => item.id === firstId || item.id === card.id ? { ...item, matched: true } : item)
       })
@@ -110,6 +114,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     const leftItem = challenge.left.find(item => item.id === left)
     const rightItem = challenge.right.find(item => item.id === right)
     const correct = Boolean(leftItem && rightItem && leftItem.pair_key === rightItem.pair_key)
+    setFeedback(correct ? t.correct : t.incorrect)
     if (correct) setMatched(current => [...current, left, right])
     setLeft(null); setRight(null)
     if (matched.length + (correct ? 2 : 0) >= challenge.left.length * 2) void finish(trace)
@@ -132,7 +137,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
       window.clearTimeout(memoryTimer.current)
       memoryTimer.current = null
     }
-    setCompleted(false); setFirst(null); setLocked(false); setMoves(0); setFeedback(null)
+    setCompleted(false); setFirst(null); setLocked(false); setMoves(0); setFeedback(null); finishing.current = false
     setMemoryTrace([]); setLeft(null); setRight(null); setMatched([]); setMatchingTrace([])
     setOrder([]); setOrderingTrace([])
     if (challenge.type === 'memory') setMemoryCards(challenge.cards.map(card => ({ ...card, flipped: false, matched: false })))
@@ -152,7 +157,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
       {challenge?.type === 'memory' && <>
         <p className="interactive-instruction">{t.match}</p>
         <div className="memory-board">{memoryCards.map((card, index) =>
-          <button key={card.id} type="button" className={`memory-card ${card.flipped || card.matched ? 'revealed' : ''} ${card.matched ? 'matched' : ''}`} onClick={() => flipCard(index)} aria-label={card.flipped || card.matched ? card.label : 'Hidden card'}>
+          <button key={card.id} type="button" className={`memory-card ${card.flipped || card.matched ? 'revealed' : ''} ${card.matched ? 'matched' : ''}`} onClick={() => flipCard(index)} aria-label={card.flipped || card.matched ? card.label : t.hidden}>
             <span>{card.flipped || card.matched ? card.label : '✦'}</span>
           </button>)}</div>
       </>}
@@ -180,7 +185,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
         <button type="button" className="interactive-secondary" onClick={submitOrder} disabled={order.length !== items.length}>✓</button>
       </>}
 
-{feedback && !completed && <div className="interactive-feedback" role="status" aria-live="polite">↻ {feedback}</div>}
+{feedback && !completed && <div className="interactive-feedback" role="status" aria-live="polite">{feedback}</div>}
       {completed && <div className="interactive-complete" role="status" aria-live="polite">🏆 {t.complete}</div>}
     </div>
   )
