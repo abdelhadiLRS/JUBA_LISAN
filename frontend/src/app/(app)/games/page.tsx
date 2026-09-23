@@ -38,7 +38,7 @@ const copy = {
     mathDesc: 'عمليات حسابية قصيرة مع مكافآت فورية.', wordsDesc: 'طابق الكلمة مع معناها.',
     sequenceDesc: 'اكتشف الرقم التالي في السلسلة.', memoryDesc: 'تذكّر ترتيب العناصر واختره من البدائل.',
     matchingDesc: 'طابق الكلمة مع ترجمتها الصحيحة.', orderingDesc: 'رتّب العناصر بالترتيب الصحيح.',
-    start: 'ابدأ اللعبة', loadError: 'تعذر تحميل اللعبة. حاول مرة أخرى.', saveError: 'تعذر حفظ نتيجة اللعبة. حاول مرة أخرى.', next: 'السؤال التالي', correct: 'إجابة صحيحة!', wrong: 'ليست صحيحة',
+    start: 'ابدأ اللعبة', loadError: 'تعذر تحميل اللعبة. حاول مرة أخرى.', saveError: 'تعذر حفظ نتيجة اللعبة. حاول مرة أخرى.', saving: 'جاري حفظ النتيجة…', next: 'السؤال التالي', correct: 'إجابة صحيحة!', wrong: 'ليست صحيحة',
     hint: 'تلميح', back: 'الألعاب', score: 'نتيجة الجولة', done: 'أحسنت! أكملت الجولة.', choose: 'اختر الإجابة الصحيحة',
     reset: 'إعادة التقدم', lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائياتك', gamesPlayed: 'الألعاب',
     questions: 'الأسئلة', accuracy: 'الدقة', best: 'أفضل نتيجة', badges: 'الإنجازات', unlocked: 'مفتوح', newBadge: 'إنجاز جديد!', answered: 'تم تسجيل إجابتك.',
@@ -49,7 +49,7 @@ const copy = {
     math: 'Défi de calcul', words: 'Chasse aux mots', sequence: 'Complète la suite', memory: 'Défi mémoire',
     matching: 'Jeu d’association', ordering: 'Jeu de classement', mathDesc: 'De courts calculs avec récompenses immédiates.',
     wordsDesc: 'Associe le mot à sa signification.', sequenceDesc: 'Trouve le prochain nombre.', memoryDesc: 'Mémorise l’ordre et retrouve la bonne séquence.',
-    matchingDesc: 'Associe le mot à sa bonne traduction.', orderingDesc: 'Classe les éléments dans le bon ordre.', start: 'Commencer', loadError: 'Impossible de charger le jeu. Réessaie.', saveError: 'Impossible d’enregistrer le résultat. Réessaie.', next: 'Question suivante',
+    matchingDesc: 'Associe le mot à sa bonne traduction.', orderingDesc: 'Classe les éléments dans le bon ordre.', start: 'Commencer', loadError: 'Impossible de charger le jeu. Réessaie.', saveError: 'Impossible d’enregistrer le résultat. Réessaie.', saving: 'Enregistrement…', next: 'Question suivante',
     correct: 'Bonne réponse !', wrong: 'Pas encore', hint: 'Indice', back: 'Jeux', score: 'Score de la partie', done: 'Bravo ! Partie terminée.',
     choose: 'Choisis la bonne réponse', reset: 'Réinitialiser', lang: 'Langue', xp: 'XP', skills: 'Compétences', stats: 'Tes statistiques',
     gamesPlayed: 'Parties', questions: 'Questions', accuracy: 'Précision', best: 'Meilleur score', badges: 'Succès', unlocked: 'débloqué', newBadge: 'Nouveau succès !', answered: 'Réponse enregistrée.',
@@ -60,7 +60,7 @@ const copy = {
     math: 'Math challenge', words: 'Word hunt', sequence: 'Complete the pattern', memory: 'Memory challenge',
     matching: 'Matching game', ordering: 'Ordering game', mathDesc: 'Short calculations with instant rewards.', wordsDesc: 'Match each word with its meaning.',
     sequenceDesc: 'Find the next number in the sequence.', memoryDesc: 'Remember the order and choose the matching sequence.',
-    matchingDesc: 'Match each word with the correct translation.', orderingDesc: 'Put the items in the correct order.', start: 'Start game', loadError: 'Unable to load this game. Please try again.', saveError: 'Unable to save the game result. Please try again.', next: 'Next question',
+    matchingDesc: 'Match each word with the correct translation.', orderingDesc: 'Put the items in the correct order.', start: 'Start game', loadError: 'Unable to load this game. Please try again.', saveError: 'Unable to save the game result. Please try again.', saving: 'Saving result…', next: 'Next question',
     correct: 'Correct!', wrong: 'Not quite', hint: 'Hint', back: 'Games', score: 'Round score', done: 'Great job! Round complete.',
     choose: 'Choose the correct answer', reset: 'Reset progress', lang: 'Language', xp: 'XP', skills: 'Skills', stats: 'Your stats',
     gamesPlayed: 'Games', questions: 'Questions', accuracy: 'Accuracy', best: 'Best score', badges: 'Achievements', unlocked: 'unlocked', newBadge: 'New achievement!', answered: 'Answer recorded.',
@@ -83,6 +83,7 @@ export default function GamesPage() {
   const [interactionChallenge, setInteractionChallenge] = useState<import('@/lib/games/persist').InteractiveGameChallenge | null>(null)
   const [gameLoading, setGameLoading] = useState(false)
   const [gameError, setGameError] = useState<string | null>(null)
+  const [finishingRound, setFinishingRound] = useState(false)
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
@@ -150,7 +151,8 @@ export default function GamesPage() {
   }
 
   async function finishRound() {
-    if (!sessionId) return
+    if (!sessionId || finishingRound) return false
+    setFinishingRound(true)
     const previousAchievements = new Set(achievements)
     setGameError(null)
     try {
@@ -183,8 +185,11 @@ export default function GamesPage() {
       })
     } catch {
       setGameError(t.saveError)
-      return
+      return false
+    } finally {
+      setFinishingRound(false)
     }
+    return true
   }
 
   async function finishInteractive(trace: import('@/lib/games/persist').InteractiveGameTrace[]) {
@@ -231,10 +236,11 @@ export default function GamesPage() {
     }
   }
 
-  function next() {
-    if (!game || !question) return
+  async function next() {
+    if (!game || !question || finishingRound) return
     if (round >= ROUND_SIZE - 1) {
-      void finishRound()
+      const saved = await finishRound()
+      if (!saved) return
       setGame(null)
       setDailyMode(false)
       setDailyChallengeDate('')
@@ -262,6 +268,7 @@ export default function GamesPage() {
     setRoundScore(0)
     setSelected(null)
     setNewAchievements([])
+    setFinishingRound(false)
   }
 
   return (
@@ -376,7 +383,7 @@ export default function GamesPage() {
                     <span>{question.hint}</span>
                   </div>
                 )}
-                {selected && <button className="next" onClick={next}>{round >= ROUND_SIZE - 1 ? t.done : t.next} →</button>}
+                {selected && <button className="next" type="button" onClick={() => void next()} disabled={finishingRound} aria-busy={finishingRound}>{finishingRound ? t.saving : round >= ROUND_SIZE - 1 ? t.done : t.next} →</button>}
               </>
             )}
             <div className="round-score">{t.score}: <strong>{roundScore}</strong></div>
