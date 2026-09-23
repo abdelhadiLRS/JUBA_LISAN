@@ -471,7 +471,7 @@ html[data-theme='dark'] {
 .juba-muted{color:var(--juba-muted);font-size:.875rem}
 .juba-badge{display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--juba-ink);border-radius:999px;background:var(--juba-yellow);padding:.2rem .55rem;font-size:.72rem;font-weight:800}
 .juba-input{width:100%;border:2px solid var(--juba-lilac);border-radius:14px;background:var(--juba-surface);padding:.75rem 1rem;color:var(--juba-text);outline:none}
-.juba-input:focus{border-color:var(--juba-violet-dark);box-shadow:0 0 0 3px rgba(57,117,29,.12)}
+.juba-input:focus{border-color:var(--juba-violet-dark);box-shadow:0 0 0 3px color-mix(in srgb, var(--juba-primary-dark) 12%, transparent)}
 .juba-primary-button,.juba-secondary-button,.juba-icon-button{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;border-radius:14px;font-size:.78rem;font-weight:800;transition:transform .15s ease,box-shadow .15s ease}
 .juba-primary-button{border:2px solid var(--juba-ink);background:var(--juba-yellow);color:var(--juba-ink);padding:.65rem .85rem;box-shadow:3px 3px 0 var(--juba-ink)}
 .juba-primary-button:hover{transform:translateY(-1px);box-shadow:4px 4px 0 var(--juba-ink)}
