@@ -65,6 +65,10 @@ export default function CoursesPage() {
 
     async function load() {
       setLoading(true)
+      setPlan(null)
+      setCompetencies({})
+      setJourneyUnits({})
+      setLevelUnits({} as Record<CEFRLevel, CurriculumUnit[]>)
       try {
         const language = activeLanguage?.code ?? 'en-GB'
         const [planRes, compRes, journeyRes, ...curriculumResponses] = await Promise.all([
