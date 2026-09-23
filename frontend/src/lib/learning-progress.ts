@@ -4,7 +4,6 @@ const LEARNING_PROGRESS_CHANNEL = 'juba:learning-progress'
 
 let progressChannel: BroadcastChannel | null = null
 let progressSubscriberCount = 0
-let progressEventSequence = 0
 let lastPublishedTimestamp = 0
 
 function getProgressChannel(): BroadcastChannel | null {
@@ -67,7 +66,7 @@ export function subscribeToLearningProgressUpdated(listener: () => void): () => 
     }
   }
   const onStorage = (event: StorageEvent) => {
-    if (event.key === LEARNING_PROGRESS_KEY && event.newValue) {
+    if (event.storageArea === localStorage && event.key === LEARNING_PROGRESS_KEY && event.newValue) {
       notify(event.newValue)
     }
   }
