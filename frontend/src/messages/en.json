@@ -749,7 +749,8 @@
     },
     "transcriptLabel": "Transcript",
     "listeningPractice": "Open listening practice",
-    "audioLoadError": "Audio could not be loaded. You can continue with the transcript."
+    "audioLoadError": "Audio could not be loaded. You can continue with the transcript.",
+    "answerFeedbackRetry": "Use the feedback above, then try the next recommended step."
   },
   "flashcards": {
     "title": "Flashcards",
