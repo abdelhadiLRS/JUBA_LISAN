@@ -192,6 +192,8 @@ export default function PlanPage() {
       if (cancelled || requestId !== loadRequestRef.current) return
 
       setPlan(planData)
+      setActiveLessonId(null)
+      setPendingLessons(pendingData ?? [])
 
       let journeyMap: CompetencyMap = {}
       if (journey) {
@@ -215,6 +217,8 @@ export default function PlanPage() {
         setCompetencies(map)
       } else if (compData && typeof compData === 'object') {
         setCompetencies(compData as CompetencyMap)
+      } else {
+        setCompetencies({})
       }
 
       const states: Record<
@@ -235,7 +239,6 @@ export default function PlanPage() {
       }
 
       if (pendingData) {
-        setPendingLessons(pendingData)
         for (const lesson of pendingData) {
           states[
             lessonKey(lesson.week_number, lesson.day_number, lesson.title)
