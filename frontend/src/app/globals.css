@@ -1837,3 +1837,96 @@ main [dir="rtl"] h3,
   .juba-ff-reference .juba-ff-book:nth-child(n){transform:none}
   .juba-ff-reference .juba-ff-footer{padding-top:64px}
 }
+
+
+/* Funfluent fidelity pass 4 — hero illustration micro-details. */
+.juba-ff-reference .juba-ff-hero-art::before{
+  content:"";
+  position:absolute;
+  width:92px;
+  height:92px;
+  left:7%;
+  top:23%;
+  border-radius:28px 38px 24px 42px;
+  background:rgba(255,217,90,.72);
+  border:3px solid var(--ff-ink);
+  transform:rotate(-14deg);
+  box-shadow:5px 5px 0 var(--ff-ink);
+  opacity:.9;
+}
+.juba-ff-reference .juba-ff-hero-art::after{
+  content:"Aa";
+  position:absolute;
+  right:4%;
+  top:31%;
+  width:62px;
+  height:62px;
+  display:grid;
+  place-items:center;
+  border:3px solid var(--ff-ink);
+  border-radius:50%;
+  background:#fffdf3;
+  color:var(--ff-green-dark);
+  font-size:22px;
+  font-weight:950;
+  transform:rotate(9deg);
+  box-shadow:4px 4px 0 var(--ff-ink);
+  z-index:9;
+}
+.juba-ff-reference .juba-ff-orbit{
+  position:absolute;
+  border:2px dashed rgba(23,35,26,.28);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:3;
+}
+.juba-ff-reference .orbit-one{
+  width:300px;height:150px;
+  right:9%;top:17%;
+  transform:rotate(-16deg);
+}
+.juba-ff-reference .orbit-two{
+  width:430px;height:210px;
+  right:0;top:24%;
+  transform:rotate(13deg);
+  border-style:solid;
+  border-color:rgba(77,151,39,.18);
+}
+.juba-ff-reference .juba-ff-spark{
+  position:absolute;
+  z-index:10;
+  color:var(--ff-ink);
+  font-size:27px;
+  line-height:1;
+  text-shadow:2px 2px 0 var(--ff-yellow);
+  animation:landing-spark 2.8s ease-in-out infinite;
+}
+.juba-ff-reference .spark-one{left:19%;top:14%}
+.juba-ff-reference .spark-two{right:18%;top:14%;animation-delay:-1.4s}
+@keyframes landing-spark{
+  0%,100%{transform:scale(.82) rotate(0deg);opacity:.65}
+  50%{transform:scale(1.12) rotate(12deg);opacity:1}
+}
+.juba-ff-reference .juba-ff-float-label{
+  border:3px solid var(--ff-ink);
+  box-shadow:4px 4px 0 var(--ff-ink);
+}
+.juba-ff-reference .label-one{transform:rotate(-5deg)}
+.juba-ff-reference .label-two{transform:rotate(4deg)}
+.juba-ff-reference .label-three{transform:rotate(-3deg)}
+.juba-ff-reference .juba-ff-book-float{
+  border:3px solid var(--ff-ink);
+  border-radius:14px;
+  box-shadow:6px 6px 0 var(--ff-ink);
+  transform:rotate(3deg);
+}
+@media(max-width:900px){
+  .juba-ff-reference .orbit-two{width:340px;height:170px}
+}
+@media(max-width:600px){
+  .juba-ff-reference .juba-ff-hero-art::before{width:58px;height:58px;left:3%;top:20%}
+  .juba-ff-reference .juba-ff-hero-art::after{width:46px;height:46px;right:2%;top:29%;font-size:16px}
+  .juba-ff-reference .orbit-one{width:190px;height:95px;right:7%}
+  .juba-ff-reference .orbit-two{width:260px;height:130px}
+  .juba-ff-reference .juba-ff-spark{font-size:20px}
+}
