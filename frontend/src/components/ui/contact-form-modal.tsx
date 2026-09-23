@@ -87,7 +87,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-3 border-b-2 border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-6 py-4">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--juba-primary-soft)] text-sm text-[var(--juba-primary-dark)]" aria-hidden="true">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--juba-lilac)] text-sm text-[var(--juba-primary-dark)]" aria-hidden="true">
             ●
           </span>
           <span className="flex-1 text-sm font-semibold tracking-tight text-[var(--juba-text)]">
@@ -95,7 +95,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
           </span>
           <button
             onClick={onClose}
-            className="rounded-xl border-2 border-transparent px-2 py-1 text-[var(--juba-muted)] transition hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)]"
+            className="rounded-xl border-2 border-transparent px-2 py-1 text-[var(--juba-muted)] transition hover:bg-[var(--juba-lilac)] hover:text-[var(--juba-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)]"
             aria-label={tCommon('close')}
           >
             ✕
@@ -104,7 +104,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
 
         {status === 'success' ? (
           <div className="flex flex-col items-center gap-3 px-6 py-10">
-            <span className="rounded-full bg-[var(--juba-warm-soft)] px-4 py-2 text-sm font-semibold text-[var(--juba-primary-dark)]">
+            <span className="rounded-full bg-[color-mix(in srgb, var(--juba-yellow) 28%, var(--juba-surface))] px-4 py-2 text-sm font-semibold text-[var(--juba-primary-dark)]">
               ✓ {t('sent')}
             </span>
           </div>
