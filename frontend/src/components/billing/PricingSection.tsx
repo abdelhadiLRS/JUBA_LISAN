@@ -54,7 +54,7 @@ export default function PricingSection({
   if (subscribed === null) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center">
-        <div className="bg-fl-bg/80 absolute inset-0 backdrop-blur-sm" />
+        <div className="bg-[var(--juba-bg)]/80 absolute inset-0 backdrop-blur-sm" />
         <PageLoading fullScreen={false} showDot={false} className="relative" />
       </div>
     )
@@ -149,7 +149,7 @@ export default function PricingSection({
       originalPrice: totalPriceMonthly,
       badge: tBilling(trialUsed ? 'trialBadgeTrialUsed' : 'trialBadge'),
       desc: null,
-      badgeStyle: 'text-fl-accent border-fl-accent/30',
+      badgeStyle: 'text-[var(--juba-violet-dark)] border-[var(--juba-violet)]/30',
       href: hasSession ? '/dashboard' : '/register?plan=monthly',
       cta: tBilling(trialUsed ? 'ctaRegisterTrialUsed' : 'ctaRegister'),
       isFree: false as const,
@@ -163,7 +163,7 @@ export default function PricingSection({
       originalPrice: totalPriceYearly,
       badge: tBilling('bestValue'),
       desc: null,
-      badgeStyle: 'text-fl-accent border-fl-accent/30',
+      badgeStyle: 'text-[var(--juba-violet-dark)] border-[var(--juba-violet)]/30',
       href: hasSession ? '/dashboard' : '/register?plan=yearly',
       cta: tBilling(trialUsed ? 'ctaRegisterTrialUsed' : 'ctaRegister'),
       isFree: false as const,
@@ -208,7 +208,7 @@ export default function PricingSection({
                 </div>
                 {plan.badge && (
                   <span
-                    className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${plan.badgeStyle}`}
+                    className={`text-[var(--juba-muted)] border px-2 py-0.5 font-mono tracking-widest uppercase ${plan.badgeStyle}`}
                   >
                     {plan.badge}
                   </span>
@@ -226,7 +226,7 @@ export default function PricingSection({
                     </p>
                     <p className="juba-ff-plan-price flex items-baseline gap-2 font-mono text-2xl font-black">
                       {tBilling('priceAmount', { amount: plan.price })}
-                      <span className="text-fl-muted-1 text-sm">
+                      <span className="text-[var(--juba-muted)] text-sm">
                         {tBilling('pricePerPeriod', {
                           period: plan.priceLabel,
                         })}
@@ -236,7 +236,7 @@ export default function PricingSection({
                 ) : (
                   <>
                     <p
-                      className="text-fl-muted-2 invisible font-mono text-sm"
+                      className="text-[var(--juba-muted)] invisible font-mono text-sm"
                       aria-hidden
                     >
                       &nbsp;
@@ -262,7 +262,7 @@ export default function PricingSection({
                   href={plan.href}
                   className={`inline-block px-6 py-2.5 text-center font-mono text-xs font-bold tracking-widest uppercase transition-colors ${
                     plan.isFree
-                      ? 'border-fl-border-2 text-fl-muted-1 hover:text-fl-fg hover:border-fl-border border'
+                      ? 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-border)] border'
                       : 'juba-ff-plan-cta'
                   }`}
                 >
@@ -279,16 +279,16 @@ export default function PricingSection({
         <table className="w-full table-fixed">
           <thead>
             <tr className="juba-ff-comparison-head border-b">
-              <th className="text-fl-label text-fl-muted-2 w-[42%] px-3 py-3 text-left font-mono tracking-widest uppercase sm:w-auto sm:px-5">
+              <th className="text-[var(--juba-text)] text-[var(--juba-muted)] w-[42%] px-3 py-3 text-left font-mono tracking-widest uppercase sm:w-auto sm:px-5">
                 &nbsp;
               </th>
-              <th className="text-fl-hint text-fl-muted-2 sm:text-fl-label w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
+              <th className="text-[var(--juba-muted)] text-[var(--juba-muted)] sm:text-[var(--juba-text)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
                 {tBilling('planFreeName')}
               </th>
-              <th className="text-fl-hint text-fl-muted-2 sm:text-fl-label w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
+              <th className="text-[var(--juba-muted)] text-[var(--juba-muted)] sm:text-[var(--juba-text)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
                 {tBilling('planMonthlyName')}
               </th>
-              <th className="text-fl-hint text-fl-muted-2 sm:text-fl-label w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
+              <th className="text-[var(--juba-muted)] text-[var(--juba-muted)] sm:text-[var(--juba-text)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
                 {tBilling('planYearlyName')}
               </th>
             </tr>
@@ -298,7 +298,7 @@ export default function PricingSection({
               <tr
                 key={i}
                 className={
-                  i < tableRows.length - 1 ? 'border-fl-border border-b' : ''
+                  i < tableRows.length - 1 ? 'border-[var(--juba-border)] border-b' : ''
                 }
               >
                 <td className="juba-ff-table-cell px-3 py-3 font-mono text-xs sm:px-5">
@@ -317,16 +317,16 @@ export default function PricingSection({
                 </td>
                 <td className="px-1 py-3 text-center sm:px-4">
                   {row.monthly ? (
-                    <Check className="text-fl-accent mx-auto h-3.5 w-3.5" />
+                    <Check className="text-[var(--juba-violet-dark)] mx-auto h-3.5 w-3.5" />
                   ) : (
-                    <Minus className="text-fl-muted-4 mx-auto h-3.5 w-3.5" />
+                    <Minus className="text-[var(--juba-muted)] mx-auto h-3.5 w-3.5" />
                   )}
                 </td>
                 <td className="px-1 py-3 text-center sm:px-4">
                   {row.yearly ? (
-                    <Check className="text-fl-accent mx-auto h-3.5 w-3.5" />
+                    <Check className="text-[var(--juba-violet-dark)] mx-auto h-3.5 w-3.5" />
                   ) : (
-                    <Minus className="text-fl-muted-4 mx-auto h-3.5 w-3.5" />
+                    <Minus className="text-[var(--juba-muted)] mx-auto h-3.5 w-3.5" />
                   )}
                 </td>
               </tr>
