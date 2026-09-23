@@ -2,7 +2,7 @@
 
 import { type ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
-import { Check, Circle, Lock, PlayCircle, Ribbon } from 'lucide-react'
+import { Check, Circle, Lock, Play, Ribbon, Sparkles } from 'lucide-react'
 
 interface UnitStatus {
   completed: boolean
@@ -16,174 +16,73 @@ interface Props {
   index: number
   lessonCount: number
   grammarCount: number
-  competency: number // 0–1, completion ratio
+  competency: number
   status: UnitStatus
   onClick: () => void
-  /** When provided and status.active, a start CTA is rendered on the card */
   onStartLesson?: () => void
 }
 
-function StatusBadge({ status }: { status: UnitStatus }): ReactNode {
+function StatusBadge({ status, index }: { status: UnitStatus; index: number }): ReactNode {
+  const palettes = [
+    { bg: 'var(--juba-mint)', fg: 'var(--juba-violet-dark)' },
+    { bg: 'var(--juba-sky)', fg: 'var(--juba-violet-dark)' },
+    { bg: 'var(--juba-yellow)', fg: 'var(--juba-violet-dark)' },
+    { bg: 'var(--juba-lilac)', fg: 'var(--juba-violet-dark)' },
+    { bg: '#ffd9d1', fg: 'var(--juba-violet-dark)' },
+  ]
+  const palette = palettes[index % palettes.length]
+
   if (status.isLevelTest) {
-    return (
-      <span
-        className="flex h-12 w-12 items-center justify-center rounded-[18px]"
-        style={{
-          background: status.active
-            ? 'var(--juba-lilac)'
-            : '#f5f2ff',
-          color: status.active ? 'var(--juba-violet-dark)' : '#938da2',
-        }}
-      >
-        <Ribbon className="h-5 w-5" aria-hidden="true" />
-      </span>
-    )
+    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[22px] bg-[var(--juba-lilac)] text-[var(--juba-violet-dark)] shadow-[0_7px_0_#d8ccff]"><Ribbon className="h-7 w-7" /></span>
   }
   if (status.completed) {
-    return (
-      <span
-        className="flex h-12 w-12 items-center justify-center rounded-[18px]"
-        style={{
-          background: 'var(--juba-violet)',
-          color: '#fff',
-        }}
-      >
-        <Check className="h-5 w-5" aria-hidden="true" />
-      </span>
-    )
+    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[22px] bg-[var(--juba-violet)] text-white shadow-[0_7px_0_var(--juba-violet-dark)]"><Check className="h-7 w-7" strokeWidth={3} /></span>
   }
   if (status.active) {
-    return (
-      <span
-        className="flex h-12 w-12 items-center justify-center rounded-[18px]"
-        style={{
-          background: 'var(--juba-yellow)',
-          color: 'var(--juba-violet-dark)',
-        }}
-      >
-        <PlayCircle className="h-5 w-5" aria-hidden="true" />
-      </span>
-    )
+    return <span className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-[22px] text-[var(--juba-violet-dark)] shadow-[0_7px_0_rgba(79,43,209,.16)]" style={{ background: palette.bg }}><span className="absolute -end-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white text-[var(--juba-violet)] shadow-sm"><Sparkles className="h-3.5 w-3.5" /></span><Play className="h-7 w-7 fill-current" /></span>
   }
   if (status.locked) {
-    return (
-      <span className="bg-white-2 text-[#938da2] flex h-12 w-12 items-center justify-center rounded-[18px]">
-        <Lock className="h-4 w-4" aria-hidden="true" />
-      </span>
-    )
+    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[22px] bg-[#f2eff9] text-[#aaa4b5]"><Lock className="h-5 w-5" /></span>
   }
-  return (
-    <span className="border-[#ebe7f5] text-[#938da2] flex h-12 w-12 items-center justify-center rounded-[18px] border">
-      <Circle className="h-3.5 w-3.5" aria-hidden="true" />
-    </span>
-  )
+  return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[22px] text-[var(--juba-violet-dark)]" style={{ background: palette.bg }}><Circle className="h-6 w-6" /></span>
 }
 
-export default function UnitCard({
-  title,
-  index,
-  lessonCount,
-  grammarCount,
-  competency,
-  status,
-  onClick,
-  onStartLesson,
-}: Props) {
+export default function UnitCard({ title, index, lessonCount, grammarCount, competency, status, onClick, onStartLesson }: Props) {
   const t = useTranslations('plan')
   const tCommon = useTranslations('common')
   const barWidth = Math.round(competency * 100)
-
-  const barColor = status.completed
-    ? 'var(--juba-violet)'
-    : status.active
-      ? 'var(--juba-coral)'
-      : '#938da2'
+  const barColor = status.completed ? 'var(--juba-violet)' : status.active ? 'var(--juba-coral)' : 'var(--juba-sky)'
 
   return (
-    <div
-      className={`border-[#ebe7f5] bg-white rounded-[26px] border-2 transition-all ${
-        status.locked
-          ? 'opacity-55'
-          : 'hover:shadow-[0_14px_32px_rgba(39,28,72,0.08)]'
-      } ${status.active ? 'ring-1' : ''}`}
-      style={
-        status.active
-          ? {
-              // @ts-expect-error CSS custom property
-              '--tw-ring-color':
-                'color-mix(in srgb, var(--juba-coral) 45%, transparent)',
-            }
-          : undefined
-      }
-    >
+    <div className={`juba-path-card group border-2 border-transparent ${status.locked ? 'opacity-55' : status.active ? 'ring-2 ring-[var(--juba-yellow)]' : ''}`}>
       <button
         onClick={onClick}
         disabled={status.locked}
-        className={`group w-full rounded-[24px] text-start ${
-          status.locked ? 'cursor-default' : ''
-        }`}
+        className={`w-full rounded-[26px] p-5 text-start sm:p-6 ${status.locked ? 'cursor-default' : 'hover:-translate-y-0.5'} transition-transform`}
         aria-label={t('unitAriaLabel', { index: index + 1, title })}
       >
-        <div className="flex items-center gap-3.5 px-5 py-5 sm:px-6">
-          <StatusBadge status={status} />
+        <div className="flex items-center gap-4">
+          <StatusBadge status={status} index={index} />
           <div className="min-w-0 flex-1">
-            <div className="flex items-baseline gap-2">
-              <span className="text-[#938da2] shrink-0 text-xs font-semibold tabular-nums">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-              <span
-                className={`truncate text-sm font-semibold ${
-                  status.locked
-                    ? 'text-[#938da2]'
-                    : 'text-[#242033] group-hover:text-[var(--juba-violet-dark)]'
-                }`}
-              >
-                {title}
-              </span>
+            <div className="mb-1 flex items-center gap-2">
+              <span className="rounded-full bg-[var(--juba-lilac)] px-2.5 py-1 text-[10px] font-black text-[var(--juba-violet-dark)]">{String(index + 1).padStart(2, '0')}</span>
+              {status.active && <span className="rounded-full bg-[var(--juba-yellow)] px-2.5 py-1 text-[10px] font-black text-[#5b4a12]">{tCommon('start')}</span>}
             </div>
-            <div className="mt-1 flex items-center gap-3 text-xs text-[#938da2]">
+            <h3 className={`truncate text-lg font-black tracking-tight ${status.locked ? 'text-[#938da2]' : 'text-[#242033] group-hover:text-[var(--juba-violet-dark)]'}`}>{title}</h3>
+            <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs font-semibold text-[#8f879f]">
               <span>{t('nLessons', { count: lessonCount })}</span>
-              {grammarCount > 0 && (
-                <span>{t('nGrammar', { count: grammarCount })}</span>
-              )}
-              {status.isLevelTest && (
-                <span
-                  className="rounded-full px-2 py-0.5 text-[11px] font-semibold"
-                  style={{
-                    color: 'var(--juba-violet-dark)',
-                    background: 'var(--juba-lilac)',
-                  }}
-                >
-                  {t('levelTestLabel')}
-                </span>
-              )}
+              {grammarCount > 0 && <><span aria-hidden="true">•</span><span>{t('nGrammar', { count: grammarCount })}</span></>}
+              {status.isLevelTest && <span className="rounded-full bg-[var(--juba-lilac)] px-2 py-0.5 text-[10px] font-black text-[var(--juba-violet-dark)]">{t('levelTestLabel')}</span>}
             </div>
           </div>
-          {!status.locked && (
-            <span className="text-[#777087] shrink-0 text-sm font-semibold tabular-nums">
-              {barWidth}%
-            </span>
-          )}
+          {!status.locked && <div className="hidden shrink-0 rounded-full bg-[var(--juba-yellow)] px-3 py-1.5 text-xs font-black text-[#5b4a12] sm:block">{barWidth}%</div>}
         </div>
-
-        {!status.locked && (
-          <div className="bg-white-2 mx-5 mb-5 h-2 overflow-hidden rounded-full sm:mx-5">
-            <div
-              className="h-full rounded-full transition-all duration-500"
-              style={{ width: `${barWidth}%`, background: barColor }}
-            />
-          </div>
-        )}
+        {!status.locked && <div className="mt-5 h-3 overflow-hidden rounded-full bg-[#f1edfb]"><div className="h-full rounded-full transition-all duration-700" style={{ width: `${barWidth}%`, background: barColor }} /></div>}
       </button>
 
       {status.active && onStartLesson && (
-        <div className="border-[#ebe7f5] flex justify-end border-t px-4 py-3 sm:px-5">
-          <button
-            onClick={onStartLesson}
-            className="rounded-xl bg-[var(--juba-violet)] px-4 py-2 text-xs font-bold text-[#fff] transition-colors hover:bg-[var(--juba-violet-dark)]"
-          >
-            {tCommon('start')} →
-          </button>
+        <div className="flex justify-end px-5 pb-5 sm:px-6">
+          <button onClick={onStartLesson} className="rounded-full bg-[var(--juba-violet)] px-5 py-2.5 text-xs font-black text-white shadow-[0_4px_0_var(--juba-violet-dark)] transition-transform hover:-translate-y-0.5 active:translate-y-1">{tCommon('start')} →</button>
         </div>
       )}
     </div>
