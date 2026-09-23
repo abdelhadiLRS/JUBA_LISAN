@@ -91,7 +91,7 @@ export default function ProgressPage() {
   const masteredWordSet = new Set(flashcards.filter((f) => f.repetitions > 0).map((f) => f.word.toLowerCase())); const totalMastered = displayVocabSets.reduce((a, s) => a + s.words.filter((w) => masteredWordSet.has(w.word.toLowerCase())).length, 0)
   const statTiles = summary ? [{ label: t('xp'), value: summary.total_xp.toLocaleString(), Icon: Sparkles, highlight: false }, { label: t('streak'), value: `${summary.current_streak} ${t('days')}`, Icon: Flame, highlight: summary.current_streak > 0 }, { label: t('lessons'), value: summary.total_lessons, Icon: BookOpen, highlight: false }, { label: t('accuracy'), value: `${Math.round(summary.accuracy * 100)}%`, Icon: Check, highlight: false }] : []
 
-  return <div className="mx-auto max-w-6xl space-y-7 px-3 py-5 sm:px-6 sm:py-8">
+  return <div className="juba-mobile-progress mx-auto max-w-6xl space-y-7 px-3 py-5 sm:px-6 sm:py-8">
     <section className="relative overflow-hidden rounded-[32px] bg-[var(--juba-violet)] px-6 py-7 text-white shadow-[0_18px_50px_rgba(108,69,245,.20)] sm:px-9 sm:py-9">
       <div className="pointer-events-none absolute -end-10 -top-16 h-44 w-44 rounded-full bg-[var(--juba-yellow)]"/>
       <div className="pointer-events-none absolute -bottom-14 start-1/3 h-32 w-32 rounded-full bg-[var(--juba-coral)] opacity-80"/>
