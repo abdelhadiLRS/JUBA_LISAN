@@ -76,7 +76,7 @@ export default function OrderingGamePage() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-4 py-8">
+    <main className="juba-games" dir={lang === 'ar' ? 'rtl' : 'ltr'}><div className="games-shell">
       <div className="mb-4 flex flex-wrap items-center gap-2">
         {(['ar', 'fr', 'en'] as const).map((value) => (
           <button key={value} type="button" onClick={() => setLang(value)} className="rounded-full border px-3 py-1.5 text-sm">
@@ -87,6 +87,6 @@ export default function OrderingGamePage() {
       {loading ? <p className="interactive-instruction">Loading challenge…</p> : error ? <div className="interactive-instruction"><p>Unable to load the challenge.</p><button type="button" onClick={() => window.location.reload()}>Retry</button></div> : !challenge ? <p className="interactive-instruction">No challenge available.</p> : (
         <InteractiveGameBoard mode="ordering" lang={lang} challenge={challenge} onComplete={complete} />
       )}
-    </main>
+    </div></main>
   )
 }
