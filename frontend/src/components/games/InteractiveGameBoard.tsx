@@ -192,12 +192,12 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
         <div className="ordering-result">{order.map((id, index) => {
           const item = items.find(entry => entry.id === id)
           return <div key={id} className="order-row"><span>{index + 1}. {item?.label}</span>
-            <button type="button" onClick={() => { setFeedback(null); setOrder(current => { const next=[...current]; [next[index-1], next[index]]=[next[index], next[index-1]]; return next })} disabled={index === 0}>{t.up}</button>
-            <button type="button" onClick={() => setOrder(current => { const next=[...current]; [next[index], next[index+1]]=[next[index+1], next[index]]; return next })} disabled={index === order.length - 1}>{t.down}</button>
+            <button type="button" onClick={() => { setFeedback(null); setOrder(current => { const next=[...current]; [next[index-1], next[index]]=[next[index], next[index-1]]; return next }) }} disabled={index === 0}>{t.up}</button>
+            <button type="button" onClick={() => { setFeedback(null); setOrder(current => { const next=[...current]; [next[index], next[index+1]]=[next[index+1], next[index]]; return next }) }} disabled={index === order.length - 1}>{t.down}</button>
           </div>
         })}</div>
-        <button type="button" className="interactive-secondary" onClick={() => setOrder(value => value.slice(0, -1))} disabled={!order.length}>{t.undo}</button>
-        <button type="button" className="interactive-secondary" onClick={() => setOrder([])} disabled={!order.length}>{t.clear}</button>
+        <button type="button" className="interactive-secondary" onClick={() => { setFeedback(null); setOrder(value => value.slice(0, -1)) }} disabled={!order.length}>{t.undo}</button>
+        <button type="button" className="interactive-secondary" onClick={() => { setFeedback(null); setOrder([]) }} disabled={!order.length}>{t.clear}</button>
         <button type="button" className="interactive-secondary" onClick={() => void submitOrder()} disabled={order.length !== items.length || finishing.current}>✓</button>
       </>}
 
