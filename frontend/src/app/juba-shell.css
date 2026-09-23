@@ -905,3 +905,66 @@
     box-shadow:0 10px 28px rgba(39,28,72,.07);
   }
 }
+
+@media (max-width: 640px) {
+  /* Roadmap cards: make progress immediately scannable on a phone. */
+  .juba-mobile-plan .juba-card,
+  .juba-mobile-plan article {
+    overflow:hidden;
+  }
+  .juba-mobile-plan [role="progressbar"] {
+    height:8px;
+    border-radius:999px;
+  }
+  .juba-mobile-plan .rounded-full {
+    flex-shrink:0;
+  }
+  .juba-mobile-plan a[class*="rounded-"],
+  .juba-mobile-plan button[class*="rounded-"] {
+    box-shadow:0 4px 0 rgba(79,43,209,.10);
+  }
+
+  /* Course levels: a clear visual rhythm between current, locked and next. */
+  .juba-mobile-courses article {
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 12px 28px rgba(39,28,72,.07);
+  }
+  .juba-mobile-courses article:after {
+    content:"";
+    position:absolute;
+    width:82px;
+    height:82px;
+    border-radius:50%;
+    background:rgba(255,216,90,.16);
+    inset-inline-end:-30px;
+    bottom:-34px;
+    pointer-events:none;
+  }
+  .juba-mobile-courses article h2,
+  .juba-mobile-courses article h3 {
+    position:relative;
+    z-index:1;
+  }
+  .juba-mobile-courses .grid > * {
+    min-width:0;
+  }
+
+  /* Progress: metrics read like compact mobile widgets, not a desktop table. */
+  .juba-mobile-progress .grid-cols-2 > *,
+  .juba-mobile-progress .grid-cols-3 > *,
+  .juba-mobile-progress .grid-cols-4 > * {
+    min-width:0;
+    border-radius:20px;
+  }
+  .juba-mobile-progress table {
+    display:block;
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .juba-mobile-progress th,
+  .juba-mobile-progress td {
+    white-space:nowrap;
+  }
+}
