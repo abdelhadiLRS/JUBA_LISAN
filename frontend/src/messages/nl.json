@@ -712,7 +712,8 @@
     },
     "transcriptLabel": "Transcript",
     "listeningPractice": "Luisteroefening openen",
-    "audioLoadError": "De audio kon niet worden geladen. Je kunt doorgaan met het transcript."
+    "audioLoadError": "De audio kon niet worden geladen. Je kunt doorgaan met het transcript.",
+    "choiceKeyboardHint": "Kies een antwoord door erop te klikken of 1–9 in te drukken."
   },
   "flashcards": {
     "title": "Flashcards",
