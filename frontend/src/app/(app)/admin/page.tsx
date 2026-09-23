@@ -134,7 +134,7 @@ export default function AdminOverviewPage() {
       </div>
 
       {statsError && (
-        <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+        <div className="border-red-200/40 text-red-600 border px-4 py-3 font-sans text-xs border-[var(--juba-border)]">
           {statsError}
         </div>
       )}
@@ -143,21 +143,21 @@ export default function AdminOverviewPage() {
         className={`border px-5 py-4 ${
           maintenanceMode
             ? 'border-yellow-500/40 bg-yellow-500/5'
-            : 'border-fl-border bg-fl-surface'
+            : 'border-[var(--juba-border)] bg-[var(--juba-surface)]'
         }`}
       >
         <div className="flex flex-wrap items-center gap-3">
           <ShieldAlert
             className={`size-5 ${
-              maintenanceMode ? 'text-yellow-500' : 'text-fl-muted-3'
+              maintenanceMode ? 'text-yellow-500' : 'text-[var(--juba-muted)]'
             }`}
             aria-hidden="true"
           />
           <div className="min-w-0">
-            <p className="text-fl-muted-1 font-mono text-xs tracking-widest uppercase">
+            <p className="text-[var(--juba-muted)] font-sans text-xs tracking-wide">
               {t('maintenanceTitle')}
             </p>
-            <p className="text-fl-hint text-fl-muted-3 mt-1 font-mono">
+            <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] mt-1 font-sans">
               {maintenanceMode
                 ? t('maintenanceOnDesc')
                 : t('maintenanceOffDesc')}
@@ -165,7 +165,7 @@ export default function AdminOverviewPage() {
           </div>
           <Link
             href="/admin/system"
-            className="border-fl-border text-fl-label text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 ml-auto border px-3 py-2 font-mono tracking-widest uppercase transition-colors"
+            className="border-[var(--juba-border)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)] ml-auto border px-3 py-2 font-semibold tracking-wide transition-colors"
           >
             {t('openSystemControls')}
           </Link>
@@ -173,18 +173,18 @@ export default function AdminOverviewPage() {
       </div>
 
       <AdminPanel title={t('operationalAlerts')}>
-        <div className="divide-fl-border divide-y">
+        <div className="divide-fl-border divide-y border-[var(--juba-border)]">
           <Link
             href="/admin/feedback?status=pending&type=bug"
-            className="hover:bg-fl-bg/60 flex flex-wrap items-center gap-3 px-5 py-4 transition-colors"
+            className="hover:bg-[var(--juba-bg)]/60 flex flex-wrap items-center gap-3 px-5 py-4 transition-colors"
           >
             <Bug
-              className={`size-5 ${stats?.feedback_bug_pending ? 'text-fl-error-fg' : 'text-fl-muted-3'}`}
+              className={`size-5 ${stats?.feedback_bug_pending ? 'text-red-600-fg' : 'text-[var(--juba-muted)]'}`}
               aria-hidden="true"
             />
             <div className="min-w-0 flex-1">
-              <p className="text-fl-fg font-mono text-sm">{t('pendingBugs')}</p>
-              <p className="text-fl-muted-3 mt-1 font-mono text-xs">
+              <p className="text-[var(--juba-text)] font-sans text-sm">{t('pendingBugs')}</p>
+              <p className="text-[var(--juba-muted)] mt-1 font-sans text-xs">
                 {t('pendingBugsDesc')}
               </p>
             </div>
@@ -196,17 +196,17 @@ export default function AdminOverviewPage() {
           </Link>
           <Link
             href="/admin/users?subscription=past_due"
-            className="hover:bg-fl-bg/60 flex flex-wrap items-center gap-3 px-5 py-4 transition-colors"
+            className="hover:bg-[var(--juba-bg)]/60 flex flex-wrap items-center gap-3 px-5 py-4 transition-colors"
           >
             <AlertTriangle
-              className={`size-5 ${stats?.subscriptions_past_due ? 'text-yellow-500' : 'text-fl-muted-3'}`}
+              className={`size-5 ${stats?.subscriptions_past_due ? 'text-yellow-500' : 'text-[var(--juba-muted)]'}`}
               aria-hidden="true"
             />
             <div className="min-w-0 flex-1">
-              <p className="text-fl-fg font-mono text-sm">
+              <p className="text-[var(--juba-text)] font-sans text-sm">
                 {t('pastDueSubscriptions')}
               </p>
-              <p className="text-fl-muted-3 mt-1 font-mono text-xs">
+              <p className="text-[var(--juba-muted)] mt-1 font-sans text-xs">
                 {t('pastDueSubscriptionsDesc')}
               </p>
             </div>
@@ -228,22 +228,22 @@ export default function AdminOverviewPage() {
             <Link
               key={action.href}
               href={action.href}
-              className="border-fl-border bg-fl-surface hover:border-fl-border-2 group border p-5 transition-colors"
+              className="border-[var(--juba-border)] bg-[var(--juba-surface)] hover:border-[var(--juba-violet)] group border p-5 transition-colors"
             >
               <div className="mb-5 flex items-center justify-between">
                 <Icon
-                  className="text-fl-muted-2 group-hover:text-fl-fg size-5 transition-colors"
+                  className="text-[var(--juba-muted)] group-hover:text-[var(--juba-text)] size-5 transition-colors"
                   aria-hidden="true"
                 />
                 <Ticket
-                  className="text-fl-muted-4 group-hover:text-fl-muted-2 size-4 transition-colors"
+                  className="text-[var(--juba-muted)] group-hover:text-[var(--juba-muted)] size-4 transition-colors"
                   aria-hidden="true"
                 />
               </div>
-              <p className="text-fl-fg font-mono text-sm tracking-widest uppercase">
+              <p className="text-[var(--juba-text)] font-sans text-sm tracking-wide">
                 {t(action.key)}
               </p>
-              <p className="text-fl-muted-2 mt-2 font-mono text-xs leading-relaxed">
+              <p className="text-[var(--juba-muted)] mt-2 font-sans text-xs leading-relaxed">
                 {t(action.descriptionKey)}
               </p>
             </Link>
