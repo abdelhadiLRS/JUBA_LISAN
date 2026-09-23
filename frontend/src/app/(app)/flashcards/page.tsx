@@ -142,7 +142,7 @@ export default function FlashcardsPage() {
     cards.length > 0 ? Math.round(((current + 1) / cards.length) * 100) : 0
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 md:py-8">
+    <div className="juba-mobile-flashcards mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 md:py-8">
       {/* Header */}
       <div className="rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white p-5 shadow-[0_18px_45px_rgba(61,42,130,0.09)] sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3">
         <div>
@@ -208,7 +208,7 @@ export default function FlashcardsPage() {
                 onChange={(e) => setGenTopic(e.target.value)}
                 required
                 placeholder={t('topicPlaceholder')}
-                className="bg-[var(--juba-lilac)]/40 border-[var(--juba-lilac)] text-[var(--juba-text)] placeholder:text-fl-border-2 focus:border-[var(--juba-lilac)]-2 w-full rounded-[20px] border px-4 py-3 text-sm transition-colors focus:outline-none"
+                className="bg-[var(--juba-lilac)]/40 border-[var(--juba-lilac)] text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] focus:border-[var(--juba-violet)] w-full rounded-[20px] border px-4 py-3 text-sm transition-colors focus:outline-none"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
