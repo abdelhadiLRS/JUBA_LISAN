@@ -2740,3 +2740,238 @@ main [dir="rtl"] h3,
   .juba-ff-reference .juba-ff-feature-card:nth-child(n){grid-column:auto}
   .juba-ff-reference .juba-ff-story-inner{width:calc(100% - 24px)}
 }
+
+
+/* Funfluent fidelity pass 9 — cohesive editorial rhythm for the lower landing journey. */
+.juba-ff-reference .juba-funfluent-features,
+.juba-ff-reference .juba-funfluent-demo,
+.juba-ff-reference .juba-funfluent-dashboard,
+.juba-ff-reference .juba-funfluent-languages,
+.juba-ff-reference .juba-funfluent-experience,
+.juba-ff-reference .juba-funfluent-reviews,
+.juba-ff-reference .juba-funfluent-pricing,
+.juba-ff-reference .juba-ff-open-source,
+.juba-ff-reference .juba-ff-faq{
+  position:relative;
+}
+.juba-ff-reference .juba-funfluent-features::before,
+.juba-ff-reference .juba-funfluent-languages::before,
+.juba-ff-reference .juba-funfluent-experience::before{
+  content:"";
+  position:absolute;
+  top:0;left:50%;width:120px;height:8px;
+  transform:translateX(-50%);
+  border:2px solid var(--ff-ink);
+  border-top:0;
+  border-radius:0 0 999px 999px;
+  background:var(--ff-yellow);
+}
+.juba-ff-reference .juba-ff-story .juba-ff-section-head{
+  position:relative;
+  padding-top:12px;
+}
+.juba-ff-reference .juba-ff-story .juba-ff-section-head::after,
+.juba-ff-reference .juba-ff-demo-intro::after{
+  content:"✦";
+  display:block;
+  width:max-content;
+  margin:18px auto 0;
+  color:var(--ff-yellow);
+  font-size:24px;
+  line-height:1;
+  -webkit-text-stroke:1px var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-feature-card{
+  border-radius:28px 18px 28px 18px;
+}
+.juba-ff-reference .juba-ff-feature-card:nth-child(2),
+.juba-ff-reference .juba-ff-feature-card:nth-child(5){
+  border-radius:18px 28px 18px 28px;
+}
+.juba-ff-reference .juba-ff-feature-card::after{
+  content:"";
+  position:absolute;
+  left:-26px;bottom:-30px;
+  width:88px;height:88px;
+  border:2px solid rgba(23,35,26,.13);
+  border-radius:50%;
+}
+.juba-ff-reference .juba-ff-chat-controls button{
+  box-shadow:3px 3px 0 var(--ff-ink);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.juba-ff-reference .juba-ff-chat-controls button:hover{
+  transform:translate(-1px,-1px);
+  box-shadow:4px 4px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-metric,
+.juba-ff-reference .juba-ff-today,
+.juba-ff-reference .juba-ff-skill-panel{
+  transition:transform .16s ease,box-shadow .16s ease;
+}
+.juba-ff-reference .juba-ff-dashboard-grid > *{
+  border-width:2px;
+}
+.juba-ff-reference .juba-ff-language-grid{
+  gap:16px;
+}
+.juba-ff-reference .juba-ff-language-card{
+  min-height:148px;
+  border-radius:20px 28px 20px 28px;
+}
+.juba-ff-reference .juba-ff-language-card:nth-child(3n){
+  rotate:1.2deg;
+}
+.juba-ff-reference .juba-ff-language-card:nth-child(3n+1){
+  rotate:-1deg;
+}
+.juba-ff-reference .juba-ff-language-card:hover{
+  rotate:0deg;
+}
+.juba-ff-reference .juba-ff-step{
+  border-radius:24px 16px 24px 16px;
+}
+.juba-ff-reference .juba-ff-step:nth-child(2),
+.juba-ff-reference .juba-ff-step:nth-child(4){
+  border-radius:16px 24px 16px 24px;
+}
+.juba-ff-reference .juba-funfluent-reviews{
+  background:
+    radial-gradient(circle at 15% 30%,rgba(255,217,90,.23),transparent 190px),
+    radial-gradient(circle at 85% 70%,rgba(185,237,240,.32),transparent 220px),
+    var(--ff-cream);
+}
+.juba-ff-reference .juba-ff-review-card{
+  border:2px solid var(--ff-ink);
+  box-shadow:6px 6px 0 var(--ff-ink);
+  border-radius:26px 18px 26px 18px;
+}
+.juba-ff-reference .juba-ff-review-card:nth-child(2){
+  rotate:1deg;
+}
+.juba-ff-reference .juba-ff-review-card:nth-child(3){
+  rotate:-1deg;
+}
+.juba-ff-reference .juba-funfluent-pricing{
+  background:#fffdf4;
+}
+.juba-ff-reference .juba-ff-pricing-card{
+  border:2px solid var(--ff-ink);
+  box-shadow:8px 8px 0 var(--ff-ink);
+  border-radius:30px 20px 30px 20px;
+}
+.juba-ff-reference .juba-ff-pricing-card .juba-ff-pricing-button{
+  border:2px solid var(--ff-ink);
+  box-shadow:4px 4px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-open-source-card{
+  position:relative;
+  overflow:hidden;
+  border:3px solid var(--ff-ink);
+  border-radius:30px 18px 30px 18px;
+  box-shadow:9px 9px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-open-source-card::before{
+  content:"✦";
+  position:absolute;
+  right:28px;top:14px;
+  font-size:48px;
+  color:var(--ff-yellow);
+  -webkit-text-stroke:2px var(--ff-ink);
+  rotate:12deg;
+}
+.juba-ff-reference .juba-ff-faq{
+  background:var(--ff-cream);
+}
+.juba-ff-reference .juba-ff-faq-item{
+  border:2px solid var(--ff-ink);
+  border-radius:18px;
+  background:#fffdf8;
+  box-shadow:3px 3px 0 rgba(23,35,26,.18);
+  overflow:hidden;
+}
+.juba-ff-reference .juba-ff-faq-item + .juba-ff-faq-item{
+  margin-top:12px;
+}
+.juba-ff-reference .juba-ff-faq-question{
+  font-weight:900;
+}
+.juba-ff-reference .juba-ff-footer{
+  position:relative;
+  background:var(--ff-ink);
+  color:#fff;
+  border-top:0;
+  overflow:hidden;
+}
+.juba-ff-reference .juba-ff-footer::before{
+  content:"";
+  position:absolute;
+  width:420px;height:220px;
+  right:-110px;top:-120px;
+  border:3px solid rgba(255,217,90,.38);
+  border-radius:50%;
+  transform:rotate(-12deg);
+}
+.juba-ff-reference .juba-ff-footer::after{
+  content:"✦";
+  position:absolute;
+  left:7%;top:34px;
+  font-size:30px;
+  color:var(--ff-yellow);
+  -webkit-text-stroke:1px #fff;
+}
+.juba-ff-reference .juba-ff-footer .juba-ff-brand-mark{
+  background:var(--ff-yellow);
+  color:var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-footer .juba-ff-brand-name,
+.juba-ff-reference .juba-ff-footer h4{
+  color:#fff;
+}
+.juba-ff-reference .juba-ff-footer p,
+.juba-ff-reference .juba-ff-footer li,
+.juba-ff-reference .juba-ff-footer a,
+.juba-ff-reference .juba-ff-footer span{
+  color:rgba(255,255,255,.72);
+}
+.juba-ff-reference .juba-ff-footer a:hover{
+  color:var(--ff-yellow);
+}
+.juba-ff-reference .juba-ff-footer .border-t{
+  border-color:rgba(255,255,255,.16);
+}
+.juba-ff-reference .juba-ff-footer .juba-brand-accent{
+  color:var(--ff-yellow);
+}
+@media(max-width:900px){
+  .juba-ff-reference .juba-ff-language-card:nth-child(n){
+    rotate:0deg;
+  }
+  .juba-ff-reference .juba-ff-review-card:nth-child(n){
+    rotate:0deg;
+  }
+}
+@media(max-width:600px){
+  .juba-ff-reference .juba-funfluent-features::before,
+  .juba-ff-reference .juba-funfluent-languages::before,
+  .juba-ff-reference .juba-funfluent-experience::before{
+    width:80px;
+  }
+  .juba-ff-reference .juba-ff-story .juba-ff-section-head h2,
+  .juba-ff-reference .juba-ff-story .juba-ff-demo-intro h2{
+    font-size:clamp(2.2rem,12vw,3.3rem);
+  }
+  .juba-ff-reference .juba-ff-feature-card{
+    min-height:230px;
+    padding:20px;
+  }
+  .juba-ff-reference .juba-ff-language-card{
+    min-height:128px;
+  }
+  .juba-ff-reference .juba-ff-open-source-card{
+    box-shadow:5px 5px 0 var(--ff-ink);
+  }
+  .juba-ff-reference .juba-ff-footer::after{
+    left:auto;right:8%;top:18px;
+  }
+}
