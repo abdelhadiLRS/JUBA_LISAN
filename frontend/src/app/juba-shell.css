@@ -1007,3 +1007,71 @@
     border-radius:17px;
   }
 }
+
+@media (max-width: 640px) {
+  /* Learning Journey: convert the marketing-style desktop page into a
+     compact, playful in-app route on phones. */
+  .juba-mobile-journey{
+    padding-bottom:18px;
+  }
+  .juba-mobile-journey > section:first-child{
+    border-bottom:0;
+    border-radius:0 0 32px 32px;
+    background:
+      radial-gradient(circle at 92% 14%,rgba(255,216,90,.38),transparent 7rem),
+      linear-gradient(160deg,#6c45f5 0%,#7654ef 58%,#8a6cf3 100%);
+  }
+  .juba-mobile-journey > section:first-child > div{
+    padding:18px 16px 28px;
+  }
+  .juba-mobile-journey nav{
+    margin-bottom:44px;
+  }
+  .juba-mobile-journey nav a{
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+  }
+  .juba-mobile-journey h1{
+    font-size:clamp(2.65rem,13vw,4.1rem);
+    line-height:.92;
+  }
+  .juba-mobile-journey > section:first-child p{
+    font-size:15px;
+    line-height:1.65;
+  }
+  .juba-mobile-journey > section:first-child a{
+    min-height:50px;
+    border-radius:18px;
+  }
+  .juba-mobile-journey > section:not(:first-child){
+    padding:38px 14px !important;
+  }
+  .juba-mobile-journey > section:not(:first-child) > div{
+    padding-inline:0 !important;
+  }
+  .juba-mobile-journey article{
+    border-radius:24px !important;
+    padding:19px !important;
+    box-shadow:0 10px 26px rgba(39,28,72,.07);
+  }
+  .juba-mobile-journey article h3{
+    margin-top:24px;
+    font-size:21px;
+  }
+  .juba-mobile-journey .grid{
+    gap:10px !important;
+  }
+  .juba-mobile-journey .grid > div{
+    border-radius:22px;
+    padding:17px;
+  }
+  .juba-mobile-journey > section:last-child > div{
+    border-radius:26px;
+    padding:22px 18px !important;
+  }
+  .juba-mobile-journey > section:last-child a{
+    min-height:50px;
+    border-radius:18px;
+  }
+}
