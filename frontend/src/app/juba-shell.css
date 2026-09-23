@@ -46,7 +46,7 @@
   z-index: 50;
   width: 100%;
   border-bottom: 0;
-  background: rgba(255,255,255,.88);
+  background: color-mix(in srgb, var(--juba-surface) 88%, transparent);
   box-shadow: 0 8px 30px rgba(37,48,42,.08);
   backdrop-filter: blur(18px);
 }
@@ -81,7 +81,7 @@
   justify-content: center;
   border-radius: 16px;
   background: var(--juba-violet);
-  color: #fff !important;
+  color: var(--juba-surface) !important;
   box-shadow: 0 5px 0 var(--juba-violet-dark);
   font-weight: 950;
   transform: rotate(-3deg);
@@ -143,7 +143,7 @@
   padding: 0 17px;
   border-radius: 999px;
   background: var(--juba-violet);
-  color: #fff !important;
+  color: var(--juba-surface) !important;
   font-size: 12px;
   font-weight: 900;
   box-shadow: 0 4px 0 var(--juba-violet-dark);
@@ -166,7 +166,7 @@
 
 .juba-app-drawer {
   border-top: 2px solid var(--juba-border);
-  background: rgba(255,255,255,.98);
+  background: color-mix(in srgb, var(--juba-surface) 98%, transparent);
   box-shadow: 0 20px 40px rgba(37,48,42,.14);
 }
 .juba-app-drawer-inner {
@@ -217,7 +217,7 @@
   border-radius: 999px;
   padding: 0 20px;
   background: var(--juba-violet);
-  color: #fff;
+  color: var(--juba-surface);
   font-weight: 900;
   box-shadow: 0 5px 0 var(--juba-violet-dark);
   transition: transform .15s ease, box-shadow .15s ease;
@@ -284,7 +284,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 34px;
-  background: rgba(255,255,255,.72);
+  background: color-mix(in srgb, var(--juba-surface) 72%, transparent);
   box-shadow: 0 12px 24px rgba(37,48,42,.10);
   transform: rotate(4deg);
 }
@@ -298,12 +298,12 @@
   align-items: center;
   border-radius: 999px;
   padding: 0 11px;
-  background: rgba(255,255,255,.9);
+  background: color-mix(in srgb, var(--juba-surface) 90%, transparent);
   color: var(--juba-ink);
   font-size: 11px;
   font-weight: 900;
 }
-.juba-mobile-pill { background: var(--juba-violet); color: #fff; }
+.juba-mobile-pill { background: var(--juba-violet); color: var(--juba-surface); }
 .juba-mobile-day { margin-inline-start: auto; background: var(--juba-yellow); }
 .juba-mobile-greeting-progress {
   position: absolute;
@@ -312,13 +312,13 @@
   height: 8px;
   overflow: hidden;
   border-radius: 999px;
-  background: rgba(255,255,255,.62);
+  background: color-mix(in srgb, var(--juba-surface) 62%, transparent);
 }
 .juba-mobile-greeting-progress span { display:block; width:44%; height:100%; border-radius:inherit; background:var(--juba-violet); }
 
  .juba-mobile-daily {
   border-radius: 30px !important;
-  background: #fff !important;
+  background: var(--juba-surface) !important;
   box-shadow: var(--j-shell-shadow);
 }
 .juba-mobile-daily > div:first-child { border: 0 !important; border-radius: 30px 30px 0 0; }
@@ -424,22 +424,22 @@
 
 /* Learner social surfaces — same Funfluent visual language */
 .juba-page-shell{max-width:1180px;margin:0 auto;color:var(--juba-text)}
-.juba-page-hero{border:3px solid var(--juba-ink);border-radius:28px;background:#fbfaf4;padding:24px;box-shadow:6px 6px 0 var(--juba-ink)}
+.juba-page-hero{border:3px solid var(--juba-ink);border-radius:28px;background:var(--juba-bg);padding:24px;box-shadow:6px 6px 0 var(--juba-ink)}
 .juba-eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.12em;color:var(--juba-violet-dark)}
 .juba-page-title{margin-top:6px;font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-.04em}
 .juba-page-subtitle{margin-top:8px;max-width:680px;color:var(--juba-muted);line-height:1.6}
-.juba-panel{border:3px solid var(--juba-ink);border-radius:26px;background:#fff;padding:20px;box-shadow:5px 5px 0 var(--juba-ink)}
+.juba-panel{border:3px solid var(--juba-ink);border-radius:26px;background:var(--juba-surface);padding:20px;box-shadow:5px 5px 0 var(--juba-ink)}
 .juba-section-title{font-size:1rem;font-weight:800}
 .juba-muted{color:var(--juba-muted);font-size:.875rem}
 .juba-badge{display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--juba-ink);border-radius:999px;background:var(--juba-yellow);padding:.2rem .55rem;font-size:.72rem;font-weight:800}
-.juba-input{width:100%;border:2px solid var(--juba-lilac);border-radius:14px;background:#fff;padding:.75rem 1rem;color:var(--juba-text);outline:none}
+.juba-input{width:100%;border:2px solid var(--juba-lilac);border-radius:14px;background:var(--juba-surface);padding:.75rem 1rem;color:var(--juba-text);outline:none}
 .juba-input:focus{border-color:var(--juba-violet-dark);box-shadow:0 0 0 3px rgba(57,117,29,.12)}
 .juba-primary-button,.juba-secondary-button,.juba-icon-button{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;border-radius:14px;font-size:.78rem;font-weight:800;transition:transform .15s ease,box-shadow .15s ease}
 .juba-primary-button{border:2px solid var(--juba-ink);background:var(--juba-yellow);color:var(--juba-ink);padding:.65rem .85rem;box-shadow:3px 3px 0 var(--juba-ink)}
 .juba-primary-button:hover{transform:translateY(-1px);box-shadow:4px 4px 0 var(--juba-ink)}
-.juba-secondary-button{border:2px solid var(--juba-lilac);background:#fff;color:var(--juba-ink);padding:.62rem .8rem}
+.juba-secondary-button{border:2px solid var(--juba-lilac);background:var(--juba-surface);color:var(--juba-ink);padding:.62rem .8rem}
 .juba-secondary-button:hover{border-color:var(--juba-violet-dark);background:var(--juba-lilac)}
-.juba-icon-button{height:40px;width:40px;border:2px solid var(--juba-lilac);background:#fff;color:var(--juba-ink)}
+.juba-icon-button{height:40px;width:40px;border:2px solid var(--juba-lilac);background:var(--juba-surface);color:var(--juba-ink)}
 .juba-icon-button:hover{border-color:var(--juba-violet-dark);background:var(--juba-lilac)}
 
 
@@ -482,16 +482,4 @@
 .juba-mobile-progress :where(a):focus-visible {
   outline: 3px solid rgba(57,117,29,.25);
   outline-offset: 3px;
-}
-
-
-/* Accessibility + interaction normalization for all shared learner surfaces. */
-.juba-app-shell :where(button,a,input,textarea,select):focus-visible { outline:3px solid rgba(57,117,29,.28); outline-offset:3px; }
-.juba-app-shell :where(button,a):disabled { cursor:not-allowed; opacity:.58; transform:none !important; box-shadow:none !important; }
-.juba-app-shell :where(button,a) { touch-action:manipulation; }
-@media (max-width:700px) {
-  .juba-page-shell { padding-inline: 0; }
-  .juba-page-hero, .juba-panel { border-radius:22px; }
-  .juba-panel { padding:16px; }
-  .juba-primary-button, .juba-secondary-button { min-height:44px; }
 }
