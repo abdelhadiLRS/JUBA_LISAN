@@ -583,3 +583,82 @@ html[data-theme='dark'] {
   .juba-app-nav-links{flex:1;justify-content:center}
   .juba-app-nav-link{padding-inline:10px;font-size:12px}
 }
+
+
+/* Final route normalization: plan, progress and games share the canonical shell. */
+.juba-mobile-plan,
+.juba-mobile-progress {
+  width: min(100%, var(--j-shell-content)) !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(14px, 3vw, 42px) !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+.juba-mobile-plan > section:first-child,
+.juba-mobile-progress > section:first-child {
+  border: 2px solid var(--juba-border) !important;
+  border-radius: var(--j-shell-radius) !important;
+  background: var(--juba-surface) !important;
+  color: var(--juba-text) !important;
+  box-shadow: var(--j-shell-shadow) !important;
+}
+.juba-mobile-plan > section:first-child [class*="text-white"],
+.juba-mobile-progress > section:first-child [class*="text-white"] {
+  color: var(--juba-text) !important;
+}
+.juba-mobile-plan > section:first-child .bg-\[var\(--juba-yellow\)\],
+.juba-mobile-progress > section:first-child .bg-\[var\(--juba-yellow\)\] {
+  color: var(--juba-text) !important;
+}
+.juba-mobile-plan .juba-card,
+.juba-mobile-progress .juba-card {
+  border: 2px solid var(--juba-border) !important;
+  border-radius: var(--j-shell-radius) !important;
+  box-shadow: var(--j-shell-shadow) !important;
+}
+.juba-mobile-plan button,
+.juba-mobile-progress button {
+  border-radius: var(--juba-radius-pill);
+}
+.juba-games {
+  width: min(100%, var(--j-shell-content)) !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(14px, 3vw, 42px) !important;
+  background: transparent !important;
+}
+.juba-games .games-header {
+  border: 2px solid var(--juba-border);
+  border-radius: var(--j-shell-radius);
+  background: var(--juba-surface) !important;
+  color: var(--juba-text);
+  box-shadow: var(--j-shell-shadow);
+}
+.juba-games .games-header h1,
+.juba-games .games-header p,
+.juba-games .games-header .games-brand {
+  color: var(--juba-text);
+}
+.juba-games .stats-grid > div,
+.juba-games .games-panel,
+.juba-games .game-card,
+.juba-games .play-card {
+  border: 2px solid var(--juba-border);
+  border-radius: var(--j-shell-radius);
+  box-shadow: var(--j-shell-shadow);
+}
+.juba-games .game-card:hover { box-shadow: 0 11px 0 rgba(37,48,42,.14); }
+.juba-games .next { border-radius: var(--juba-radius-pill); }
+@media (max-width:700px) {
+  .juba-mobile-plan,
+  .juba-mobile-progress,
+  .juba-games { padding-inline: 12px !important; }
+  .juba-mobile-plan > section:first-child,
+  .juba-mobile-progress > section:first-child,
+  .juba-games .games-header,
+  .juba-games .stats-grid > div,
+  .juba-games .games-panel,
+  .juba-games .game-card,
+  .juba-games .play-card {
+    border-radius: 22px !important;
+  }
+}
