@@ -62,27 +62,27 @@ export default function UnitDrawer({
   }
 
   return (
-    <div className="bg-fl-bg/80 fixed inset-0 z-50 flex items-end justify-center p-0 backdrop-blur-sm sm:items-center sm:p-4">
+    <div className="bg-[#242033]/35 fixed inset-0 z-50 flex items-end justify-center p-0 backdrop-blur-sm sm:items-center sm:p-4">
       <div
         ref={ref}
-        className="border-fl-border bg-fl-surface max-h-[80vh] w-full overflow-y-auto rounded-t-2xl border shadow-xl sm:max-w-xl sm:rounded-2xl"
+        className="border-[#ebe7f5] bg-white max-h-[80vh] w-full overflow-y-auto rounded-t-[30px] border shadow-[0_24px_70px_rgba(39,28,72,0.2)] sm:max-w-xl sm:rounded-[30px]"
       >
         {/* Header */}
-        <div className="border-fl-border bg-fl-surface sticky top-0 z-10 flex items-center justify-between gap-4 border-b px-5 py-4 sm:px-6">
+        <div className="border-[#ebe7f5] bg-white sticky top-0 z-10 flex items-center justify-between gap-4 border-b px-6 py-5 sm:px-7">
           <div className="min-w-0">
             <span
               className="text-xs font-semibold"
-              style={{ color: 'var(--juba-primary-dark)' }}
+              style={{ color: 'var(--juba-violet-dark)' }}
             >
               {unit.level} · {t('unitLabel')}
             </span>
-            <p className="text-fl-fg mt-0.5 truncate text-base font-bold">
+            <p className="text-[#242033] mt-0.5 truncate text-base font-bold">
               {unit.title}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="text-fl-muted-3 hover:text-fl-fg shrink-0 rounded-lg p-1.5 transition-colors hover:bg-[var(--juba-surface-soft)]"
+            className="text-[#938da2] hover:text-[#242033] shrink-0 rounded-2xl p-2 transition-colors hover:bg-[var(--juba-lilac)]"
             aria-label={tCommon('close')}
           >
             <X className="h-4.5 w-4.5" aria-hidden="true" />
@@ -91,15 +91,15 @@ export default function UnitDrawer({
 
         {/* Grammar points */}
         {unit.grammar_points.length > 0 && (
-          <div className="border-fl-border border-b px-5 py-4 sm:px-6">
-            <p className="text-fl-muted-3 mb-2.5 text-xs font-semibold tracking-wide uppercase">
+          <div className="border-[#ebe7f5] border-b px-6 py-5 sm:px-7">
+            <p className="text-[#938da2] mb-2.5 text-xs font-semibold tracking-wide uppercase">
               {t('grammarCovered')}
             </p>
             <div className="flex flex-wrap gap-1.5">
               {unit.grammar_points.map((gp) => (
                 <span
                   key={gp}
-                  className="bg-fl-surface-2 text-fl-muted-1 rounded-full px-2.5 py-1 text-xs font-medium"
+                  className="bg-white-2 text-[#5f596e] rounded-full px-2.5 py-1 text-xs font-medium"
                 >
                   {gp}
                 </span>
@@ -110,44 +110,44 @@ export default function UnitDrawer({
 
         {/* Lessons */}
         <div>
-          <div className="border-fl-border border-b px-5 py-3 sm:px-6">
-            <p className="text-fl-muted-3 text-xs font-semibold tracking-wide uppercase">
+          <div className="border-[#ebe7f5] border-b px-5 py-3 sm:px-6">
+            <p className="text-[#938da2] text-xs font-semibold tracking-wide uppercase">
               {t('lessonsHeader', { count: lessons.length })}
             </p>
           </div>
           <div className="divide-fl-border divide-y">
             {lessons.length === 0 ? (
               <div className="px-5 py-6 sm:px-6">
-                <p className="text-fl-muted-3 text-sm">{t('noLessons')}</p>
+                <p className="text-[#938da2] text-sm">{t('noLessons')}</p>
               </div>
             ) : (
               lessons.map((lesson, i) => (
                 <div
                   key={lesson.id ?? i}
-                  className={`flex items-center gap-3 px-5 py-3.5 transition-colors sm:px-6 ${lesson.action ? 'hover:bg-[var(--juba-surface-soft)]' : ''}`}
+                  className={`flex items-center gap-3 px-5 py-3.5 transition-colors sm:px-6 ${lesson.action ? 'hover:bg-[var(--juba-lilac)]' : ''}`}
                 >
                   {lesson.completed ? (
                     <span
                       className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
                       style={{
-                        background: 'var(--juba-primary)',
+                        background: 'var(--juba-violet)',
                         color: 'var(--juba-text)',
                       }}
                     >
                       <Check className="h-3.5 w-3.5" aria-hidden="true" />
                     </span>
                   ) : (
-                    <span className="border-fl-border text-fl-muted-3 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border">
+                    <span className="border-[#ebe7f5] text-[#938da2] flex h-6 w-6 shrink-0 items-center justify-center rounded-full border">
                       <Circle className="h-2.5 w-2.5" aria-hidden="true" />
                     </span>
                   )}
                   <div className="min-w-0 flex-1">
                     <p
-                      className={`truncate text-sm font-medium ${lesson.completed ? 'text-fl-muted-2 line-through' : 'text-fl-fg'}`}
+                      className={`truncate text-sm font-medium ${lesson.completed ? 'text-[#777087] line-through' : 'text-[#242033]'}`}
                     >
                       {lesson.title}
                     </p>
-                    <p className="text-fl-muted-3 mt-0.5 text-xs">
+                    <p className="text-[#938da2] mt-0.5 text-xs">
                       {t('weekDay', { week: lesson.week, day: lesson.day })} ·{' '}
                       {lessonTypeLabel[lesson.lesson_type] ??
                         lesson.lesson_type}
@@ -156,7 +156,7 @@ export default function UnitDrawer({
                   {lesson.id != null && lesson.action && (
                     <button
                       onClick={() => onStartLesson(lesson.id!)}
-                      className="shrink-0 rounded-lg bg-[var(--juba-primary)] px-3 py-2 text-xs font-bold text-[var(--juba-text)] transition-colors hover:bg-[var(--juba-primary-dark)]"
+                      className="shrink-0 rounded-2xl bg-[var(--juba-violet)] px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-[var(--juba-violet-dark)]"
                     >
                       {lesson.action === 'review'
                         ? t('reviewLesson')
@@ -172,10 +172,10 @@ export default function UnitDrawer({
         </div>
 
         {/* Close */}
-        <div className="border-fl-border bg-fl-surface sticky bottom-0 border-t px-5 py-4 sm:px-6">
+        <div className="border-[#ebe7f5] bg-white sticky bottom-0 border-t px-6 py-5 sm:px-7">
           <button
             onClick={onClose}
-            className="border-fl-border text-fl-muted-2 hover:text-fl-fg w-full rounded-xl border py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-surface-soft)]"
+            className="border-[#ebe7f5] text-[#777087] hover:text-[#242033] w-full rounded-2xl border-2 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-lilac)]"
           >
             {tCommon('close')}
           </button>
