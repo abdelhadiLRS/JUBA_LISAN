@@ -24,7 +24,7 @@ export default function SessionTimeoutBanner({ seconds }: Props) {
   }, [remaining])
 
   return (
-    <div className="border-fl-error/40 bg-fl-surface text-fl-error mb-4 flex items-center gap-3 border px-4 py-3 font-mono text-xs">
+    <div className="border-[color-mix(in_srgb,var(--juba-danger)_40%,transparent)] bg-[var(--juba-surface)] text-[var(--juba-danger)] mb-4 flex items-center gap-3 border px-4 py-3 font-mono text-xs">
       <span className="animate-pulse">▲</span>
       <span>{t('warningTimeout', { seconds: remaining })}</span>
     </div>
