@@ -439,7 +439,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
 
   if (!lesson) return <PageLoading />
   return (
-    <main className="min-h-screen bg-[var(--juba-bg)] px-4 py-5 text-[#242033] sm:px-7 lg:px-10">
+    <main className="juba-mobile-lesson min-h-screen bg-[var(--juba-bg)] px-4 py-5 text-[#242033] sm:px-7 lg:px-10">
       <div className="relative mb-6 overflow-hidden rounded-[32px] bg-[var(--juba-violet)] px-6 py-7 text-white shadow-[0_18px_50px_rgba(108,69,245,.20)] sm:px-9 sm:py-8">
   <div className="pointer-events-none absolute -end-10 -top-16 h-44 w-44 rounded-full bg-[var(--juba-yellow)]"/>
   <div className="pointer-events-none absolute -bottom-14 start-1/3 h-32 w-32 rounded-full bg-[var(--juba-coral)] opacity-80"/>
