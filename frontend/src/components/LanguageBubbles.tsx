@@ -308,6 +308,7 @@ export function LanguageBubbles() {
                       onClick={() => {
                         setActiveLanguage(language.code)
                         setActiveRegion(language.regions[0] ?? null)
+                        setActiveCountry(null)
                       }}
                       className={`rounded-full border px-2 py-1 text-[10px] font-bold transition-colors ${active ? 'border-[var(--juba-app-green)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:text-[var(--juba-app-ink)]'}`}
                     >
@@ -348,6 +349,7 @@ export function LanguageBubbles() {
                   onClick={() => {
                     setActiveRegion(region.id)
                     setActiveLanguage(null)
+                    setActiveCountry(null)
                   }}
                   className={[
                     'rounded-xl px-3 py-2 text-[10px] font-black uppercase tracking-[.1em] transition',
