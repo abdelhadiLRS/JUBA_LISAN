@@ -45,6 +45,7 @@ SUPPORTED_TARGET_LANGUAGES: set[str] = {
     "zh-CN",
     "ar",
     "ru-RU",
+    "nl-NL",
 }
 
 
