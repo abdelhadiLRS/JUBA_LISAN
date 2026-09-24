@@ -29,7 +29,7 @@ _LANG_MODULES: dict[str, str] = {
     "pl": "app.data.pl.assessment_bank",
     "el": "app.data.el.assessment_bank",
     "sv": "app.data.language_foundations.sv",
-    "da": "app.data.language_foundations.da",
+    "da": "app.data.da.assessment_bank",
     "no": "app.data.language_foundations.no",
     "fi": "app.data.language_foundations.fi",
     "cs": "app.data.language_foundations.cs",
