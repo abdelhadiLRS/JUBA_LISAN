@@ -34,7 +34,7 @@ export default function LanguageSwitcher() {
 
   async function handleSwitch(code: string) {
     setOpen(false)
-    const canonicalCode = getLanguageByCode(code)?.code ?? code.trim()
+    const canonicalCode = normalizeLanguageCode(code)
     if (canonicalCode === activeLanguage?.code) return
     const targetInfo = userLanguages.find((l) => l.target_language === canonicalCode)
     const ok = await switchLanguage(canonicalCode)
