@@ -955,10 +955,10 @@
   "grammar": {
     "title": "Grammar Reference",
     "subtitle": "Reference",
-    "searchPlaceholder": "Search grammar topics...",
+    "searchPlaceholder": "Search grammar topics",
     "allLevels": "All Levels",
-    "allCategories": "All",
-    "noResults": "No topics found.",
+    "allCategories": "All categories",
+    "noResults": "No grammar topics found.",
     "structure": "Structure",
     "keyRules": "Key Rules",
     "examples": "Examples",
@@ -968,7 +968,11 @@
     "explanation": "Explanation",
     "backLink": "Back to Grammar",
     "notFound": "Topic not found.",
-    "topicsFound": "{count, plural, one {# topic found} other {# topics found}}"
+    "topicsFound": "{count} topics",
+    "all": "All",
+    "clearFilters": "Clear filters",
+    "error": "Unable to load grammar topics.",
+    "retry": "Retry"
   },
   "vocabulary": {
     "title": "Vocabulary Hub",
