@@ -24,16 +24,15 @@ GrammarTopic(slug="ne-a1-g7",title="Locative",level="A1",category="grammar",summ
 GrammarTopic(slug="ne-a1-g8",title="Plural",level="A1",category="grammar",summary="Use plural in basic communication.",explanation="Practice plural through short everyday exchanges.",examples=[GrammarExample(text="मान्छेहरू यहाँ छन्।")])
 ]
 VOCABULARY_SETS=[
-VocabularySet(id="greetings_a1",level="A1",topic="greetings",unit_ref="ne-a1-unit-1",words=[VocabularyEntry(word="नमस्ते",pos="noun",definition="hello",example="नमस्ते!")]),
-VocabularySet(id="identity_a1",level="A1",topic="identity",unit_ref="ne-a1-unit-2",words=[VocabularyEntry(word="नाम",pos="noun",definition="name",example="मेरो नाम सीता हो।")]),
-VocabularySet(id="family_a1",level="A1",topic="family",unit_ref="ne-a1-unit-3",words=[VocabularyEntry(word="आमा",pos="noun",definition="mother",example="आमा घरमा हुनुहुन्छ।")]),
-VocabularySet(id="home_a1",level="A1",topic="home",unit_ref="ne-a1-unit-4",words=[VocabularyEntry(word="घर",pos="noun",definition="house",example="मेरो घर ठूलो छ।")]),
-VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="ne-a1-unit-5",words=[VocabularyEntry(word="पढ्नु",pos="noun",definition="to study",example="म बिहान पढ्छु।")]),
-VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="ne-a1-unit-6",words=[VocabularyEntry(word="समय",pos="noun",definition="time",example="समय कति भयो?")]),
-VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="ne-a1-unit-7",words=[VocabularyEntry(word="पानी",pos="noun",definition="water",example="मलाई पानी चाहिन्छ।")]),
-VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="ne-a1-unit-8",words=[VocabularyEntry(word="विद्यालय",pos="noun",definition="school",example="म विद्यालयमा छु।")])
-]
-PHRASEBOOK_CATEGORIES=[
+VocabularySet(id="greetings_a1",level="A1",topic="greetings",unit_ref="ne-a1-unit-1",words=[VocabularyEntry(word="नमस्ते",pos="phrase",definition="hello",example="नमस्ते! तपाईंलाई कस्तो छ?"),VocabularyEntry(word="धन्यवाद",pos="phrase",definition="thank you",example="तपाईंलाई धेरै धन्यवाद।"),VocabularyEntry(word="शुभ बिहान",pos="phrase",definition="good morning",example="शुभ बिहान!")]),
+VocabularySet(id="identity_a1",level="A1",topic="identity",unit_ref="ne-a1-unit-2",words=[VocabularyEntry(word="नाम",pos="noun",definition="name",example="मेरो नाम सीता हो।"),VocabularyEntry(word="म",pos="pronoun",definition="I",example="म विद्यार्थी हुँ।"),VocabularyEntry(word="तपाईं",pos="pronoun",definition="you (polite)",example="तपाईं कहाँ हुनुहुन्छ?")]),
+VocabularySet(id="family_a1",level="A1",topic="family",unit_ref="ne-a1-unit-3",words=[VocabularyEntry(word="आमा",pos="noun",definition="mother",example="आमा घरमा हुनुहुन्छ।"),VocabularyEntry(word="बुबा",pos="noun",definition="father",example="बुबा काममा हुनुहुन्छ।"),VocabularyEntry(word="दाजु",pos="noun",definition="older brother",example="मेरो दाजु विद्यार्थी हुनुहुन्छ।")]),
+VocabularySet(id="home_a1",level="A1",topic="home",unit_ref="ne-a1-unit-4",words=[VocabularyEntry(word="घर",pos="noun",definition="house",example="मेरो घर ठूलो छ।"),VocabularyEntry(word="कोठा",pos="noun",definition="room",example="मेरो कोठा सफा छ।"),VocabularyEntry(word="ढोका",pos="noun",definition="door",example="ढोका खुला छ।")]),
+VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="ne-a1-unit-5",words=[VocabularyEntry(word="पढ्नु",pos="verb",definition="to study",example="म बिहान पढ्छु।"),VocabularyEntry(word="जानु",pos="verb",definition="to go",example="म विद्यालय जान्छु।"),VocabularyEntry(word="खानु",pos="verb",definition="to eat",example="म बिहान खाना खान्छु।")]),
+VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="ne-a1-unit-6",words=[VocabularyEntry(word="समय",pos="noun",definition="time",example="समय कति भयो?"),VocabularyEntry(word="आज",pos="adverb",definition="today",example="आज म घरमा छु।"),VocabularyEntry(word="भोलि",pos="adverb",definition="tomorrow",example="भोलि म विद्यालय जान्छु।")]),
+VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="ne-a1-unit-7",words=[VocabularyEntry(word="पानी",pos="noun",definition="water",example="मलाई पानी चाहिन्छ।"),VocabularyEntry(word="चिया",pos="noun",definition="tea",example="म बिहान चिया पिउँछु।"),VocabularyEntry(word="खाना",pos="noun",definition="food/meal",example="खाना तयार छ।")]),
+VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="ne-a1-unit-8",words=[VocabularyEntry(word="विद्यालय",pos="noun",definition="school",example="म विद्यालयमा छु।"),VocabularyEntry(word="बजार",pos="noun",definition="market",example="बजार नजिकै छ।"),VocabularyEntry(word="यहाँ",pos="adverb",definition="here",example="म यहाँ छु।")])
+]PHRASEBOOK_CATEGORIES=[
 PhrasebookCategory(id="ne_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="नमस्ते।",context="Hello.",register="neutral")]),
 PhrasebookCategory(id="ne_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="धन्यवाद।",context="Thank you.",register="neutral")]),
 PhrasebookCategory(id="ne_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="कृपया मद्दत गर्नुहोस्।",context="Please help me.",register="neutral")]),
