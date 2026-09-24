@@ -149,7 +149,8 @@
     "supportedLanguages": "Supported Languages",
     "builtForLearners": "Built for learners everywhere.",
     "footerPositioning": "AI-powered · Privacy-conscious · CEFR-aligned",
-    "audioReply": "Audio reply"
+    "audioReply": "Audio reply",
+    "worldMapLabel": "World language map"
   },
   "common": {
     "loading": "Loading...",
