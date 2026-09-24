@@ -173,7 +173,15 @@ async def get_today_lessons(
 ):
     active_lang = await get_active_language(db, current_user.id)
     if not active_lang:
-        raise HTTPException(status_code=404, detail="No active language set")
+        return {
+            "plan_id": 0,
+            "cefr_level": "",
+            "lessons": [],
+            "progress_day": 0,
+            "total_days": 0,
+            "pending_count": 0,
+            "review_due_count": 0,
+        }
     plan_result = await db.execute(
         select(StudyPlan).where(
             StudyPlan.user_language_id == active_lang.id,
@@ -182,7 +190,15 @@ async def get_today_lessons(
     )
     plan = plan_result.scalar_one_or_none()
     if not plan:
-        raise HTTPException(status_code=404, detail="No active study plan found")
+        return {
+            "plan_id": 0,
+            "cefr_level": "",
+            "lessons": [],
+            "progress_day": 0,
+            "total_days": 0,
+            "pending_count": 0,
+            "review_due_count": 0,
+        }
     total_days = plan.duration_weeks * plan.days_per_week
     due_result = await db.execute(
         select(Flashcard.id).where(
