@@ -5717,3 +5717,99 @@ main [dir="rtl"] h3,
     box-shadow:4px 4px 0 rgba(24,37,27,.06);
   }
 }
+
+
+/* JUBA LISAN — AI tutor chat workspace */
+.juba-chat-shell{
+  color:var(--juba-app-ink);
+  background:
+    radial-gradient(circle at 92% 0%,rgba(255,212,79,.12),transparent 260px),
+    var(--juba-app-bg);
+}
+.juba-chat-shell .juba-chat-sidebar{
+  background:rgba(233,244,223,.72)!important;
+  border-color:var(--juba-app-line)!important;
+}
+.juba-chat-shell .juba-chat-sidebar > div:first-child{
+  border-color:var(--juba-app-line)!important;
+  background:rgba(255,253,248,.72);
+}
+.juba-chat-shell .juba-chat-sidebar > div:first-child button{
+  border:2px solid var(--juba-app-ink);
+  border-radius:10px;
+  padding:5px 8px;
+  background:var(--juba-app-yellow);
+  color:var(--juba-app-ink);
+  box-shadow:2px 2px 0 var(--juba-app-ink);
+  font-size:10px;
+  font-weight:850;
+}
+.juba-chat-shell .juba-chat-sidebar > div:first-child button:hover{
+  transform:translateY(-1px);
+}
+.juba-chat-shell .juba-chat-header{
+  border-color:var(--juba-app-line)!important;
+  background:rgba(233,244,223,.64)!important;
+}
+.juba-chat-shell .juba-chat-header > button{
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  border:1px solid var(--juba-app-line);
+  border-radius:10px;
+  background:#fff;
+}
+.juba-chat-shell .juba-chat-header > button:hover{
+  border-color:#a9c79a;
+  background:#f9fbf7;
+}
+.juba-chat-shell .juba-chat-message{
+  border-radius:18px;
+  border-color:var(--juba-app-line)!important;
+}
+.juba-chat-shell .juba-chat-message-row{
+  animation:juba-chat-message-in .18s ease-out both;
+}
+.juba-chat-shell .juba-chat-avatar{
+  border-color:var(--juba-app-line)!important;
+  background:var(--juba-app-green-soft);
+}
+.juba-chat-shell input{
+  border-color:var(--juba-app-line)!important;
+  background:#fff!important;
+  color:var(--juba-app-ink)!important;
+}
+.juba-chat-shell input:focus{
+  border-color:#9fbd91!important;
+  box-shadow:0 0 0 3px rgba(63,134,29,.1)!important;
+}
+.juba-chat-shell .juba-chat-header button:last-child{
+  color:var(--juba-app-green-dark)!important;
+  font-weight:800;
+}
+@keyframes juba-chat-message-in{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@media(max-width:767px){
+  .juba-chat-shell{
+    height:calc(100dvh - 56px);
+  }
+  .juba-chat-shell .juba-chat-sidebar{
+    width:min(18rem,88vw);
+    box-shadow:8px 0 24px rgba(24,37,27,.1);
+  }
+  .juba-chat-shell .juba-chat-header{
+    padding:.7rem .8rem;
+  }
+  .juba-chat-shell .juba-chat-message-row{
+    max-width:92%!important;
+  }
+  .juba-chat-shell .juba-chat-message{
+    padding:.7rem .8rem;
+  }
+  .juba-chat-shell > div > div:last-child{
+    padding:.75rem;
+  }
+}
