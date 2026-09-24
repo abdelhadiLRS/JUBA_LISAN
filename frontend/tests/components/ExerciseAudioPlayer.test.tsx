@@ -74,15 +74,19 @@ describe('ExerciseAudioPlayer', () => {
   })
 
   it('ignores a stale paused-play resolution after exerciseId changes', async () => {
-    let resolvePlay!: () => void
-    const playPromise = new Promise<void>((resolve) => {
-      resolvePlay = resolve
+    let resolveResume!: () => void
+    const resumePromise = new Promise<void>((resolve) => {
+      resolveResume = resolve
     })
+    let playCount = 0
 
     vi.stubGlobal(
       'Audio',
       vi.fn(function MockAudio() {
-        currentAudio = makeAudio(() => playPromise)
+        currentAudio = makeAudio(() => {
+          playCount += 1
+          return playCount === 1 ? Promise.resolve() : resumePromise
+        })
         return currentAudio
       })
     )
@@ -91,33 +95,42 @@ describe('ExerciseAudioPlayer', () => {
     fireEvent.click(screen.getByRole('button', { name: 'audioPlay' }))
 
     await waitFor(() => {
-      expect(screen.getByRole('slider')).toBeDefined()
-      expect(currentAudio?.play).toHaveBeenCalled()
+      expect(currentAudio?.play).toHaveBeenCalledTimes(1)
+      expect(screen.getByRole('button', { name: 'audioPause' })).toBeDefined()
     })
 
-    await act(async () => {
-      fireEvent.click(screen.getByRole('button', { name: 'audioPause' }))
+    fireEvent.click(screen.getByRole('button', { name: 'audioPause' }))
+    fireEvent.click(screen.getByRole('button', { name: 'audioPlay' }))
+
+    await waitFor(() => {
+      expect(currentAudio?.play).toHaveBeenCalledTimes(2)
     })
 
     rerender(<ExerciseAudioPlayer exerciseId={2} />)
 
     await act(async () => {
-      resolvePlay()
+      resolveResume()
     })
 
     expect(screen.getByRole('button', { name: 'audioPlay' })).toBeDefined()
   })
 
   it('ignores a stale paused-play rejection after exerciseId changes', async () => {
-    let rejectPlay!: (error: Error) => void
-    const playPromise = new Promise<void>((_, reject) => {
-      rejectPlay = reject
+    let rejectResume!: (error: Error) => void
+    const resumePromise = new Promise<void>((_, reject) => {
+      rejectResume = reject
     })
+    let playCount = 0
 
     vi.stubGlobal(
       'Audio',
       vi.fn(function MockAudio() {
-        currentAudio = makeAudio(() => playPromise)
+        currentAudio = makeAudio(() => {
+          playCount += 1
+          return playCount === 1
+            ? Promise.resolve()
+            : resumePromise
+        })
         return currentAudio
       })
     )
@@ -126,17 +139,21 @@ describe('ExerciseAudioPlayer', () => {
     fireEvent.click(screen.getByRole('button', { name: 'audioPlay' }))
 
     await waitFor(() => {
-      expect(currentAudio?.play).toHaveBeenCalled()
+      expect(currentAudio?.play).toHaveBeenCalledTimes(1)
+      expect(screen.getByRole('button', { name: 'audioPause' })).toBeDefined()
     })
 
-    await act(async () => {
-      fireEvent.click(screen.getByRole('button', { name: 'audioPause' }))
+    fireEvent.click(screen.getByRole('button', { name: 'audioPause' }))
+    fireEvent.click(screen.getByRole('button', { name: 'audioPlay' }))
+
+    await waitFor(() => {
+      expect(currentAudio?.play).toHaveBeenCalledTimes(2)
     })
 
     rerender(<ExerciseAudioPlayer exerciseId={2} />)
 
     await act(async () => {
-      rejectPlay(new Error('stale playback failure'))
+      rejectResume(new Error('stale playback failure'))
     })
 
     expect(screen.queryByRole('alert')).toBeNull()
