@@ -61,7 +61,6 @@ export function LandingReviewsCarousel({
 
   return (
     <section
-      id="reviews"
       className="mx-auto w-full max-w-5xl scroll-mt-16 px-6 pb-24"
       aria-labelledby="reviews-title"
     >
