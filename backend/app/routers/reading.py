@@ -14,7 +14,8 @@ from app.core.deps import (
     require_not_maintenance,
     require_subscription_or_freemium,
     require_subscription_or_freemium_readonly,
-
+    require_learner,
+)
 from app.core.limiter import limiter
 from app.models.study_plan import StudyPlan
 from app.models.user import User
