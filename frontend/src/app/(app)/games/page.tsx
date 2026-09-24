@@ -124,6 +124,23 @@ export default function GamesPage() {
     }
 
     try {
+      // A game session is persisted against the active study plan. Avoid
+      // sending a request that can only return 404 when a learner has not
+      // created a plan yet; send them to plan setup instead.
+      const planResponse = await fetch('/api/study-plan/current', {
+        credentials: 'include',
+        cache: 'no-store',
+      })
+      if (!planResponse.ok) {
+        window.location.assign('/plan')
+        return
+      }
+      const plan = await planResponse.json().catch(() => null)
+      if (!plan || typeof plan !== 'object' || !('id' in plan)) {
+        window.location.assign('/plan')
+        return
+      }
+
       const session = await startGameSession(id, lang, level)
       setGame(id)
       setDailyMode(session.daily_challenge)
