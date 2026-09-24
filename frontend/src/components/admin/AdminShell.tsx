@@ -95,7 +95,7 @@ export function AdminBadge({
     info: 'border-blue-500/40 text-blue-400',
     success: 'border-green-500/40 text-green-400',
     warning: 'border-yellow-500/40 text-yellow-400',
-    danger: 'border-fl-error/30 text-[var(--juba-app-error)]-fg',
+    danger: 'border-red-500/30 text-[var(--juba-app-error)]',
   }[tone]
 
   return (
