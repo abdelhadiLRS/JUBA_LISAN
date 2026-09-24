@@ -128,11 +128,26 @@ export function LanguageBubbles() {
   }, [])
 
   const selectedCountries = selected ? new Set(selected.countries) : new Set<string>()
+  const countryLanguages = useMemo(() => {
+    const map = new Map<string, string[]>()
+    for (const language of DISPLAY_LANGUAGES) {
+      for (const country of language.countries) {
+        const list = map.get(country) ?? []
+        list.push(language.name)
+        map.set(country, list)
+      }
+    }
+    return map
+  }, [])
 
   return (
     <div className="relative overflow-hidden rounded-[36px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] p-3 shadow-[6px_6px_0_var(--juba-app-ink)] sm:p-5">
       <div className="relative min-h-[430px] overflow-hidden rounded-[28px] border border-[var(--juba-app-line)] bg-[#f5f8f1] sm:min-h-[560px]">
-        <WorldMap highlightedCountries={activeRegion ? (regionCountries.get(activeRegion) ?? new Set<string>()) : selectedCountries} selectedCountry={null} onCountrySelect={() => undefined} />
+        <WorldMap
+          highlightedCountries={activeRegion ? (regionCountries.get(activeRegion) ?? new Set<string>()) : selectedCountries}
+          selectedCountry={null}
+          onCountrySelect={() => undefined}
+        />
 
         <div className="absolute inset-x-4 top-4 z-20 flex flex-wrap items-center justify-between gap-3 sm:inset-x-6 sm:top-6">
           <div className="inline-flex items-center gap-2 rounded-full border border-[var(--juba-app-ink)] bg-white/95 px-3 py-2 text-[10px] font-black uppercase tracking-[.16em] text-[var(--juba-app-ink)] shadow-sm">
@@ -157,6 +172,13 @@ export function LanguageBubbles() {
         </div>
 
         <div className="absolute inset-0 z-10">
+          <div className="absolute right-3 top-20 z-20 hidden max-w-[230px] rounded-2xl border border-[var(--juba-app-line)] bg-white/95 p-3 shadow-sm lg:block">
+            <p className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">Map coverage</p>
+            <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">
+              Select a language to reveal all mapped speaking territories.
+            </p>
+          </div>
+
           {visibleLanguages.map((language) => {
             const point = WORLD_MAP_CENTROIDS[language.markerCountry]
             if (!point) return null
