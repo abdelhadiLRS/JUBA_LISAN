@@ -26,7 +26,14 @@ const PROTECTED_ROUTES = [
 ]
 
 function detectLocale(req: NextRequest): Locale {
-  // 1. Cookie already set — always respect an explicit user choice.
+  // 1. An explicit /:locale URL prefix always wins. This keeps old/shared
+  // locale-prefixed links such as /ar working with cookie/header-based i18n.
+  const firstSegment = req.nextUrl.pathname.split('/').filter(Boolean)[0]?.toLowerCase()
+  if (firstSegment && (SUPPORTED_LOCALES as readonly string[]).includes(firstSegment)) {
+    return firstSegment as Locale
+  }
+
+  // 2. Cookie already set — always respect an explicit user choice.
   const cookie = req.cookies.get('NEXT_LOCALE')?.value
   if (cookie && (SUPPORTED_LOCALES as readonly string[]).includes(cookie)) {
     return cookie as Locale
@@ -115,10 +122,18 @@ export function middleware(req: NextRequest) {
   // This is needed because request.ts reads incoming request headers/cookies;
   // a cookie set only on the response is not visible on that same request cycle.
   const locale = detectLocale(req)
+  const pathname = req.nextUrl.pathname
+  const firstSegment = pathname.split('/').filter(Boolean)[0]?.toLowerCase()
+  const hasLocalePrefix = Boolean(
+    firstSegment && (SUPPORTED_LOCALES as readonly string[]).includes(firstSegment)
+  )
+  const normalizedPath = hasLocalePrefix
+    ? pathname.slice(firstSegment!.length + 1) || '/'
+    : pathname
 
   const hasRefreshToken = req.cookies.has('refresh_token')
   const isProtected = PROTECTED_ROUTES.some((r) =>
-    req.nextUrl.pathname.startsWith(r)
+    normalizedPath === r || normalizedPath.startsWith(r + '/')
   )
 
   if (!hasRefreshToken && isProtected) {
@@ -132,6 +147,16 @@ export function middleware(req: NextRequest) {
       })
     }
     return response
+  }
+
+  // Support public links such as /ar and /fr without requiring a separate
+  // App Router segment for every locale. The browser URL remains unchanged.
+  if (hasLocalePrefix) {
+    const target = req.nextUrl.clone()
+    target.pathname = normalizedPath
+    const requestHeaders = new Headers(req.headers)
+    requestHeaders.set('x-next-locale', locale)
+    return NextResponse.rewrite(target, { request: { headers: requestHeaders } })
   }
 
   // Inject locale as a request header so request.ts picks it up immediately
