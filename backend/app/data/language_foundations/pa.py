@@ -40,14 +40,14 @@ PhrasebookCategory(id="pa_a1_phrase_3",level="A1",situation="help",icon="💬",p
 PhrasebookCategory(id="pa_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="ਸਕੂਲ ਕਿੱਥੇ ਹੈ?",context="Where is the school?",register="neutral")])
 ]
 ASSESSMENT_BANK=[
-AssessmentQuestion(id="pa-a1-001",skill="vocabulary",difficulty="A1",question="Choose the correct Punjabi expression for this A1 task.",options=["ਸਤ ਸ੍ਰੀ ਅਕਾਲ","ਨਾਮ","ਮਾਂ","ਘਰ"],correct="ਸਤ ਸ੍ਰੀ ਅਕਾਲ"),
-AssessmentQuestion(id="pa-a1-002",skill="grammar",difficulty="A1",question="Choose the correct Punjabi expression for this A1 task.",options=["ਨਾਮ","ਮਾਂ","ਘਰ","ਪੜ੍ਹਨਾ"],correct="ਨਾਮ"),
-AssessmentQuestion(id="pa-a1-003",skill="reading",difficulty="A1",question="Choose the correct Punjabi expression for this A1 task.",options=["ਮਾਂ","ਘਰ","ਪੜ੍ਹਨਾ","ਸਮਾਂ"],correct="ਮਾਂ"),
-AssessmentQuestion(id="pa-a1-004",skill="speaking",difficulty="A1",question="Choose the correct Punjabi expression for this A1 task.",options=["ਘਰ","ਪੜ੍ਹਨਾ","ਸਮਾਂ","ਪਾਣੀ"],correct="ਘਰ"),
-AssessmentQuestion(id="pa-a1-005",skill="vocabulary",difficulty="A1",question="Choose the correct Punjabi expression for this A1 task.",options=["ਪੜ੍ਹਨਾ","ਸਮਾਂ","ਪਾਣੀ","ਸਕੂਲ"],correct="ਪੜ੍ਹਨਾ"),
-AssessmentQuestion(id="pa-a1-006",skill="grammar",difficulty="A1",question="Choose the correct Punjabi expression for this A1 task.",options=["ਸਮਾਂ","ਪਾਣੀ","ਸਕੂਲ","ਸਤ ਸ੍ਰੀ ਅਕਾਲ"],correct="ਸਮਾਂ"),
-AssessmentQuestion(id="pa-a1-007",skill="reading",difficulty="A1",question="Choose the correct Punjabi expression for this A1 task.",options=["ਪਾਣੀ","ਸਕੂਲ","ਸਤ ਸ੍ਰੀ ਅਕਾਲ","ਨਾਮ"],correct="ਪਾਣੀ"),
-AssessmentQuestion(id="pa-a1-008",skill="speaking",difficulty="A1",question="Choose the correct Punjabi expression for this A1 task.",options=["ਸਕੂਲ","ਸਤ ਸ੍ਰੀ ਅਕਾਲ","ਨਾਮ","ਮਾਂ"],correct="ਸਕੂਲ"),
-AssessmentQuestion(id="pa-a1-009",skill="vocabulary",difficulty="A1",question="Choose the correct Punjabi expression for this A1 task.",options=["ਸਤ ਸ੍ਰੀ ਅਕਾਲ","ਨਾਮ","ਮਾਂ","ਘਰ"],correct="ਸਤ ਸ੍ਰੀ ਅਕਾਲ"),
-AssessmentQuestion(id="pa-a1-010",skill="grammar",difficulty="A1",question="Choose the correct Punjabi expression for this A1 task.",options=["ਨਾਮ","ਮਾਂ","ਘਰ","ਪੜ੍ਹਨਾ"],correct="ਨਾਮ")
+AssessmentQuestion(id="pa-a1-001",skill="vocabulary",difficulty="A1",question="Which Punjabi word means 'water'?",options=["ਪਾਣੀ","ਘਰ","ਮਾਂ","ਸਕੂਲ"],correct="ਪਾਣੀ"),
+AssessmentQuestion(id="pa-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।","ਮੈਂ ਸਕੂਲ ਜਾਂਦਾ ਹਾਂ।","ਮੈਂ ਪਾਣੀ ਪੀਂਦਾ ਹਾਂ।","ਇਹ ਕਿਤਾਬ ਹੈ।"],correct="ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।"),
+AssessmentQuestion(id="pa-a1-003",skill="vocabulary",difficulty="A1",question="What does ਮਾਂ mean?",options=["mother","father","friend","teacher"],correct="mother"),
+AssessmentQuestion(id="pa-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?","ਤੁਸੀਂ ਕਿੱਥੇ ਹੋ?","ਇਹ ਕੀ ਹੈ?","ਕੀਮਤ ਕਿੰਨੀ ਹੈ?"],"correct"="ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?"),
+AssessmentQuestion(id="pa-a1-005",skill="reading",difficulty="A1",question="ਕਿਤਾਬ ਮੇਜ਼ ਉੱਤੇ ਹੈ। Where is the book?",options=["On the table","At school","At home","In the market"],correct="On the table"),
+AssessmentQuestion(id="pa-a1-006",skill="vocabulary",difficulty="A1",question="Which word means 'name'?",options=["ਨਾਮ","ਸਮਾਂ","ਪਾਣੀ","ਘਰ"],correct="ਨਾਮ"),
+AssessmentQuestion(id="pa-a1-007",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["ਫਿਰ ਦੱਸੋ ਜੀ।","ਧੰਨਵਾਦ।","ਸਤ ਸ੍ਰੀ ਅਕਾਲ।","ਫਿਰ ਮਿਲਾਂਗੇ।"],correct="ਫਿਰ ਦੱਸੋ ਜੀ।"),
+AssessmentQuestion(id="pa-a1-008",skill="grammar",difficulty="A1",question="Which sentence says 'I drink water'?",options=["ਮੈਂ ਪਾਣੀ ਪੀਂਦਾ ਹਾਂ।","ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।","ਮੈਂ ਪੜ੍ਹਦਾ ਹਾਂ।","ਇਹ ਘਰ ਹੈ।"],correct="ਮੈਂ ਪਾਣੀ ਪੀਂਦਾ ਹਾਂ।"),
+AssessmentQuestion(id="pa-a1-009",skill="vocabulary",difficulty="A1",question="What does ਸਮਾਂ mean?",options=["time","school","water","name"],correct="time"),
+AssessmentQuestion(id="pa-a1-010",skill="communication",difficulty="A1",question="Which is a natural greeting?",options=["ਸਤ ਸ੍ਰੀ ਅਕਾਲ!","ਮੈਨੂੰ ਪਾਣੀ ਚਾਹੀਦਾ ਹੈ।","ਸਕੂਲ ਕਿੱਥੇ ਹੈ?","ਮੈਨੂੰ ਸਮਝ ਨਹੀਂ ਆਈ।"],correct="ਸਤ ਸ੍ਰੀ ਅਕਾਲ!")
 ]
