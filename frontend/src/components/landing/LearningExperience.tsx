@@ -35,15 +35,27 @@ export function LearningExperience({ t }: LearningExperienceProps) {
           <p>{t('experienceSubtitle')}</p>
         </div>
 
-        <div className="juba-ff-steps grid grid-cols-1 gap-5 md:grid-cols-5">
+        <div className="juba-ff-steps grid grid-cols-1 gap-3 md:grid-cols-5 md:gap-0">
           {steps.map(([Icon, title, desc, art, href], i) => (
-            <Link href={href} key={title} className="juba-ff-step flex h-full flex-col">
-              <div className="juba-ff-step-number">{String(i + 1).padStart(2, '0')}</div>
-              <div className="juba-ff-step-art">{art}</div>
-              <Icon className="juba-ff-step-icon" aria-hidden="true" />
-              <h3>{t(title)}</h3>
-              <p>{t(desc)}</p>
-              <span className="mt-auto pt-3 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider">Open <ArrowRight className="h-3.5 w-3.5" /></span>
+            <Link
+              href={href}
+              key={title}
+              className="group relative flex min-h-[230px] flex-col border-b border-[#dce7dc] px-5 py-6 transition-colors md:min-h-[250px] md:border-b-0 md:border-r md:last:border-r-0 md:px-6"
+            >
+              <div className="mb-7 flex items-center justify-between">
+                <span className="text-[11px] font-black tracking-[0.18em] text-[#39751d]">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <Icon className="h-5 w-5 text-[#39751d] transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+              </div>
+              <div className="mb-5 text-[10px] font-black tracking-[0.2em] text-[#718078]">{art}</div>
+              <h3 className="max-w-[180px] text-[20px] font-black leading-[1.05] tracking-[-0.035em] text-[#183022]">
+                {t(title)}
+              </h3>
+              <p className="mt-3 max-w-[190px] text-[12px] leading-5 text-[#617068]">{t(desc)}</p>
+              <span className="mt-auto inline-flex items-center gap-1 pt-5 text-[10px] font-black uppercase tracking-[0.16em] text-[#39751d]">
+                Explore <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />
+              </span>
             </Link>
           ))}
         </div>
