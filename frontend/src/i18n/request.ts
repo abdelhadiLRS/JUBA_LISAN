@@ -22,6 +22,7 @@ export default getRequestConfig(async () => {
   )
 
   const messagesDirCandidates = [
+    path.join(process.cwd(), 'src', 'messages'),
     path.join(process.cwd(), 'messages'),
     path.join(process.cwd(), '..', 'messages'),
     path.join(process.cwd(), '..', '..', 'messages'),
