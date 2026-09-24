@@ -142,11 +142,12 @@ export function LandingNav({
   function CountryFlag({ code, className = 'h-5 w-7' }: { code: string; className?: string }) {
     return (
       <img
-        src={`https://flagcdn.com/w80/${code.toLowerCase()}.png`}
+        src={`https://flagcdn.io/${code.toLowerCase()}.svg`}
         alt=""
         aria-hidden="true"
-        className={`inline-block rounded-[2px] object-cover shadow-sm ${className}`}
+        className={`inline-block aspect-[4/3] rounded-[3px] object-cover shadow-sm ring-1 ring-black/10 ${className}`}
         loading="eager"
+        referrerPolicy="no-referrer"
       />
     )
   }
