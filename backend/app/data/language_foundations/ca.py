@@ -16,14 +16,14 @@ _g("prepositions","Prepositions","Prepositions in basic A1 use.",["Sóc de Giron
 def _v(i,t,words):
     return VocabularySet(id=i,level="A1",topic=t,unit_ref="ca-a1",words=[VocabularyEntry(word=w,pos=p,definition=d,example=e) for w,p,d,e in words])
 
-VOCABULARY_SETS=[_v("greetings_a1","hello",[["hola","noun","hello","hola."]]),
-_v("family_a1","mother",[["mare","noun","mother","mare."]]),
-_v("home_a1","house",[["casa","noun","house","casa."]]),
-_v("daily_a1","morning",[["matí","noun","morning","matí."]]),
-_v("food_a1","water",[["aigua","noun","water","aigua."]]),
-_v("places_a1","station",[["estació","noun","station","estació."]]),
-_v("communication_a1","help",[["ajuda","noun","help","ajuda."]]),
-_v("review_a1","friend",[["amic","noun","friend","amic."]])]
+VOCABULARY_SETS=[_v("greetings_a1","Salutacions",[["hola","phrase","hello","Hola!"],["adéu","phrase","goodbye","Adéu!"],["gràcies","phrase","thanks","Gràcies!"],["si us plau","phrase","please","Si us plau."]]),
+_v("family_a1","Família",[["mare","noun","mother","La meva mare és a casa."],["pare","noun","father","El meu pare treballa."],["germana","noun","sister","Tinc una germana."],["germà","noun","brother","Tinc un germà."]]),
+_v("home_a1","Casa",[["casa","noun","house","La casa és petita."],["habitació","noun","room","La meva habitació és gran."],["taula","noun","table","El llibre és a la taula."],["porta","noun","door","La porta és oberta."]]),
+_v("daily_a1","Vida quotidiana",[["matí","noun","morning","Al matí treballo."],["menjar","verb","eat","Menjo al matí."],["beure","verb","drink","Bec aigua."],["dormir","verb","sleep","Vaig a dormir."]]),
+_v("food_a1","Menjar i compres",[["aigua","noun","water","Bec aigua."],["pa","noun","bread","Compro pa."],["llet","noun","milk","Vull llet."],["preu","noun","price","Quin és el preu?"]]),
+_v("places_a1","Llocs i direccions",[["botiga","noun","shop","La botiga és aquí."],["estació","noun","station","On és l’estació?"],["dreta","noun","right","Gira a la dreta."],["esquerra","noun","left","Gira a l’esquerra."]]),
+_v("communication_a1","Comunicació",[["ajudar","verb","help","Em pots ajudar?"],["entendre","verb","understand","Ho entenc."],["preguntar","verb","ask","Vull preguntar."],["lentament","adverb","slowly","Parla lentament."]]),
+_v("review_a1","Repàs A1",[["amic","noun","friend","És el meu amic."],["avui","adverb","today","Avui treballo."],["demà","adverb","tomorrow","Demà estudio."],["hora","noun","time","Quina hora és?"]])]
 
 def _p(i,s,items):
     return PhrasebookCategory(id=i,level="A1",situation=s,icon="💬",phrases=[PhrasebookEntry(text=t,context=c,register=r) for t,c,r in items])
