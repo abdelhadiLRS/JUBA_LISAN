@@ -1,9 +1,7 @@
 """Finnish assessment bank with balanced CEFR coverage."""
 from app.data._types import AssessmentQuestion
-
 def _q(i,level,skill,q,options,correct,slug=None):
     return AssessmentQuestion(id=f"fi-{level.lower()}-{i:03}",skill=skill,difficulty=level,question=q,options=options,correct=correct,grammar_slug=slug)
-
 ASSESSMENT_BANK=[
 _q(1,"A1","grammar","Which sentence correctly says “I speak Finnish”?",["Puhun suomea.","Puhua suomea.","Puhuin suomea.","Puhut suomea."],"Puhun suomea.","present-tense"),
 _q(2,"A1","grammar","Choose the correct negative sentence.",["En ymmärrä.","Ei ymmärrän.","En ymmärtää.","Minä ei ymmärrä."],"En ymmärrä.","negation"),
@@ -12,7 +10,7 @@ _q(4,"A1","grammar","How do you ask “Where do you live?”",["Missä asut?","M
 _q(1,"A2","grammar","Which sentence correctly expresses a completed past action?",["Eilen kävin Helsingissä.","Eilen käyn Helsingissä.","Eilen käydä Helsingissä.","Eilen käynyt Helsingissä."],"Eilen kävin Helsingissä.","past-tense"),
 _q(2,"A2","grammar","Choose the natural total-object sentence.",["Luen kirjan.","Luen kirjaa loppuun.","Luen kirja.","Luen kirjassa."],"Luen kirjan.","object-cases"),
 _q(3,"A2","vocabulary","What does “matkalippu” mean?",["travel ticket","passport","hotel","appointment"],"travel ticket"),
-_q(4,"A2","grammar","Choose the correct polite instruction.",["Tule tänne!","Tulla tänne!","Tulevat tänne!","Tulen tänne!"],"Tule tänne!","imperative"),
+_q(4,"A2","grammar","Choose the correct imperative.",["Tule tänne!","Tulla tänne!","Tulevat tänne!","Tulen tänne!"],"Tule tänne!","imperative"),
 _q(1,"B1","grammar","Which sentence correctly uses a relative clause?",["Tämä on kirja, jonka ostin.","Tämä on kirja, jonka ostaa.","Tämä on kirja, joka ostin sen.","Tämä on kirja, missä ostin."],"Tämä on kirja, jonka ostin.","relative-clauses"),
 _q(2,"B1","grammar","Choose the Finnish passive form for a general statement.",["Suomessa puhutaan suomea.","Suomessa puhuvat suomea.","Suomessa puhun suomea.","Suomessa puhua suomea."],"Suomessa puhutaan suomea.","passive"),
 _q(3,"B1","vocabulary","Which word means “deadline”?",["määräaika","palaute","tausta","ystävyyys"],"määräaika"),
