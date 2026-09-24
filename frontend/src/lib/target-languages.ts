@@ -180,7 +180,7 @@ export function getLanguageByCode(code: string): TargetLanguage | undefined {
 export function getTargetLanguageCapability(
   code: string
 ): TargetLanguageCapability {
-  return TARGET_LANGUAGE_CAPABILITIES[code] ?? LATIN_LANGUAGE_CAPABILITY
+  const language = getLanguageByCode(code)\n  return (language && TARGET_LANGUAGE_CAPABILITIES[language.code]) ??\n    LATIN_LANGUAGE_CAPABILITY
 }
 
 export function getTargetLanguageTextClass(code: string): string {
