@@ -30,6 +30,7 @@ export function useSafeMicVAD(
   const [userSpeaking, setUserSpeaking] = useState(false)
   const vadRef = useRef<MicVAD | null>(null)
   const mountedRef = useRef(true)
+  const startedRef = useRef(false)
   const optionsRef = useRef(options)
   const userSpeakingThreshold = options.userSpeakingThreshold ?? 0.6
 
@@ -80,6 +81,7 @@ export function useSafeMicVAD(
       }
 
       await vad.start()
+      startedRef.current = true
       if (!mountedRef.current) return
       setListening(true)
     } catch (error) {
@@ -122,11 +124,11 @@ export function useSafeMicVAD(
       mountedRef.current = false
       const vad = vadRef.current
       vadRef.current = null
-      if (vad) {
+      if (vad && startedRef.current) {
         // Only destroy an instance after it has successfully started.
         // The upstream react wrapper destroys unstarted instances and
         // triggers "MicVAD has null stream..." during React/Next dev remounts.
-        void vad.pause().catch(() => {})
+        void vad.destroy().catch(() => {})
       }
     }
   }, [])
