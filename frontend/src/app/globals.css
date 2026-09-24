@@ -6041,3 +6041,64 @@ main [dir="rtl"] h3,
     border-radius:18px;
   }
 }
+
+
+/* JUBA LISAN — assessment workspace */
+.juba-mobile-assessment{
+  color:var(--juba-app-ink);
+  background:
+    radial-gradient(circle at 96% 0%,rgba(255,212,79,.14),transparent 300px),
+    var(--juba-app-bg);
+}
+.juba-mobile-assessment [class*="--juba-lilac"],
+.juba-mobile-assessment [class*="--juba-sky"],
+.juba-mobile-assessment [class*="--juba-violet"],
+.juba-mobile-assessment [class*="--juba-purple"]{
+  --juba-lilac:var(--juba-app-green-soft)!important;
+  --juba-sky:#edf5e8!important;
+  --juba-violet-dark:var(--juba-app-green-dark)!important;
+  --juba-purple:var(--juba-app-green)!important;
+}
+.juba-mobile-assessment .juba-card,
+.juba-mobile-assessment [class*="border-[var(--juba-border)]"]{
+  border-color:var(--juba-app-line)!important;
+  border-radius:20px;
+  background:var(--juba-app-surface)!important;
+  box-shadow:0 7px 20px rgba(24,37,27,.045);
+}
+.juba-mobile-assessment [class*="bg-[var(--juba-lilac)]"]{
+  background:var(--juba-app-green-soft)!important;
+}
+.juba-mobile-assessment [class*="text-[var(--juba-violet-dark)]"],
+.juba-mobile-assessment [class*="text-[var(--juba-text)]"]{
+  color:var(--juba-app-ink)!important;
+}
+.juba-mobile-assessment [class*="text-[var(--juba-muted)]"]{
+  color:var(--juba-app-muted)!important;
+}
+.juba-mobile-assessment [class*="bg-[var(--juba-yellow)]"]{
+  background:var(--juba-app-yellow)!important;
+  color:var(--juba-app-ink)!important;
+}
+.juba-mobile-assessment button,
+.juba-mobile-assessment a{
+  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease,background .16s ease;
+}
+.juba-mobile-assessment button:hover:not(:disabled),
+.juba-mobile-assessment a:hover{
+  transform:translateY(-1px);
+}
+.juba-mobile-assessment [class*="border-[var(--juba-lilac)]"]{
+  border-color:#b8d1aa!important;
+}
+.juba-mobile-assessment [class*="border-[var(--juba-danger)]"]{
+  border-color:rgba(179,58,50,.3)!important;
+}
+.juba-mobile-assessment [class*="bg-[var(--juba-danger)]"]{
+  background:rgba(179,58,50,.055)!important;
+}
+@media(max-width:700px){
+  .juba-mobile-assessment{padding-top:1rem;padding-bottom:1.25rem}
+  .juba-mobile-assessment .juba-card,
+  .juba-mobile-assessment [class*="border-[var(--juba-border)]"]{border-radius:18px}
+}
