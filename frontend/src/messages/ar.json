@@ -223,5 +223,10 @@
     },
     "listening": "الاستماع",
     "reading": "القراءة"
+  },
+  "chat": {
+    "voiceSession": "جلسة صوتية",
+    "delete": "حذف",
+    "tutor": "المدرّس"
   }
 }
