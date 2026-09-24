@@ -161,7 +161,7 @@ export default function FlashcardsPage() {
         <div className="flex items-center gap-2">
           <Link
             href="/flashcards/vocabulary"
-            className="text-[var(--juba-app-ink)] border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-line)]-2 border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-app-ink)] border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-ink)] border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
           >
             {t('myVocabularyBtn')}
           </Link>
@@ -171,8 +171,8 @@ export default function FlashcardsPage() {
             }}
             className={`text-[var(--juba-app-ink)] border px-4 py-2 font-sans tracking-widest uppercase transition-colors ${
               showGenerate
-                ? 'border-[var(--juba-app-line)]-2 text-[var(--juba-app-ink)]'
-                : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-line)]-2'
+                ? 'border-[var(--juba-app-ink)] text-[var(--juba-app-ink)]'
+                : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-ink)]'
             }`}
           >
             + {t('generateBtn')}
@@ -232,7 +232,7 @@ export default function FlashcardsPage() {
                 <select
                   value={genCefr}
                   onChange={(e) => setGenCefr(e.target.value)}
-                  className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] focus:border-[var(--juba-app-line)]-2 w-full appearance-none border px-4 py-3 font-sans text-sm focus:outline-none"
+                  className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] focus:border-[var(--juba-app-ink)] w-full appearance-none border px-4 py-3 font-sans text-sm focus:outline-none"
                 >
                   {CEFR_LEVELS.map((l) => (
                     <option key={l} value={l}>
@@ -276,7 +276,7 @@ export default function FlashcardsPage() {
         <>
           <div className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] flex items-center justify-between font-sans tracking-widest uppercase">
             <span>
-              {current + 1} / {cards.length} due
+              {current + 1} / {cards.length} {t('due')}
             </span>
             {/* Mode toggle */}
             <div className="flex gap-1">
@@ -286,7 +286,7 @@ export default function FlashcardsPage() {
                   setSpeakingMode(false)
                   setFlipped(false)
                 }}
-                className={`text-[var(--juba-app-muted)] border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${!speakingMode ? 'border-[var(--juba-app-line)]-2 text-[var(--juba-app-ink)]' : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-muted)]'}`}
+                className={`text-[var(--juba-app-muted)] border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${!speakingMode ? 'border-[var(--juba-app-ink)] text-[var(--juba-app-ink)]' : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-muted)]'}`}
               >
                 {t('standardMode')}
               </button>
@@ -296,7 +296,7 @@ export default function FlashcardsPage() {
                   setSpeakingMode(true)
                   setFlipped(false)
                 }}
-                className={`text-[var(--juba-app-muted)] border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${speakingMode ? 'border-[var(--juba-app-line)]-2 text-[var(--juba-app-ink)]' : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-muted)]'}`}
+                className={`text-[var(--juba-app-muted)] border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${speakingMode ? 'border-[var(--juba-app-ink)] text-[var(--juba-app-ink)]' : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-muted)]'}`}
               >
                 {t('speakingMode')}
               </button>
