@@ -1340,4 +1340,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         ],
         correct="demonstrativ / betont zur Schau gestellt",
     ),
+    AssessmentQuestion(id="g-a1-999", skill="grammar", difficulty="A1", question="Welcher Satz ist grammatisch korrekt?", options=["Ich bin müde.", "Ich bist müde.", "Ich ist müde.", "Ich sind müde."], correct="Ich bin müde.", grammar_slug="to-be"),
+    AssessmentQuestion(id="g-a2-999", skill="grammar", difficulty="A2", question="Welcher Satz steht korrekt im Perfekt?", options=["Ich habe gestern einen Film gesehen.", "Ich habe gestern einen Film sehen.", "Ich bin gestern einen Film gesehen.", "Ich hatte gestern einen Film sehen."], correct="Ich habe gestern einen Film gesehen.", grammar_slug="perfekt"),
+    AssessmentQuestion(id="g-b1-999", skill="grammar", difficulty="B1", question="Welcher Satz verwendet einen korrekten Relativsatz?", options=["Das ist die Frau, die nebenan wohnt.", "Das ist die Frau, der nebenan wohnt.", "Das ist die Frau, die nebenan wohnen.", "Das ist die Frau, den nebenan wohnt."], correct="Das ist die Frau, die nebenan wohnt.", grammar_slug="relativsaetze"),
 ]
