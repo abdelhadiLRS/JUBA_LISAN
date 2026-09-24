@@ -278,6 +278,16 @@ export function createAudioQueue(
     const url = URL.createObjectURL(blob)
     const audio = new Audio(url)
     fallbackAudios.push(audio)
+
+    // Cancellation can race with Audio construction. If cancel() advanced the
+    // generation while the fallback element was being created, release the
+    // object URL immediately instead of leaving an orphaned audio resource.
+    if (generationToken !== generation) {
+      const idx = fallbackAudios.indexOf(audio)
+      if (idx !== -1) fallbackAudios.splice(idx, 1)
+      URL.revokeObjectURL(url)
+      return
+    }
     audioQueueLogger.warn('using HTMLAudio fallback for TTS chunk', {
       chunkId,
       bytes: arrayBuffer.byteLength,
