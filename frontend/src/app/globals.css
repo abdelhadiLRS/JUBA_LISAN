@@ -6183,3 +6183,83 @@ main [dir="rtl"] h3,
 @media(max-width:700px){
   .juba-faq-shell .juba-card{border-radius:18px;box-shadow:4px 4px 0 rgba(24,37,27,.05);}
 }
+
+
+/* JUBA LISAN — settings, translator and friends workspaces */
+.juba-settings-shell,
+.juba-translator-shell,
+.juba-friends-shell{
+  color:var(--juba-app-ink);
+}
+.juba-settings-shell{
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,212,79,.12),transparent 300px),
+    var(--juba-app-bg);
+}
+.juba-settings-shell .juba-card,
+.juba-settings-shell .border-fl-border.bg-fl-surface{
+  border-color:var(--juba-app-line)!important;
+  border-radius:20px;
+  background:var(--juba-app-surface)!important;
+  box-shadow:0 7px 20px rgba(24,37,27,.045);
+}
+.juba-settings-shell .juba-page-title{font-weight:950;letter-spacing:-.05em}
+.juba-settings-shell .juba-page-hero,
+.juba-settings-shell [class*="SettingsPageHeader"]{border-bottom:2px solid var(--juba-app-ink)}
+.juba-settings-shell button:not(.juba-primary-button),
+.juba-settings-shell a{transition:transform .15s ease,border-color .15s ease,background .15s ease,color .15s ease}
+.juba-settings-shell button:hover:not(:disabled),
+.juba-settings-shell a:hover{transform:translateY(-1px)}
+.juba-settings-shell .text-fl-error{color:var(--juba-app-error)!important}
+.juba-settings-shell .border-fl-error\\/40{border-color:rgba(179,58,50,.35)!important}
+.juba-settings-shell .hover\\:border-fl-error\\/40:hover{border-color:rgba(179,58,50,.5)!important}
+.juba-translator-shell{
+  background:
+    radial-gradient(circle at 4% 0%,rgba(255,212,79,.15),transparent 280px),
+    var(--juba-app-bg);
+}
+.juba-translator-shell .juba-card{
+  border-color:var(--juba-app-line)!important;
+  border-radius:24px;
+  background:var(--juba-app-surface)!important;
+  box-shadow:6px 6px 0 rgba(24,37,27,.055);
+}
+.juba-translator-shell textarea,
+.juba-translator-shell select,
+.juba-translator-shell input{
+  border-radius:14px!important;
+}
+.juba-translator-shell textarea:focus,
+.juba-translator-shell select:focus{
+  border-color:#9fbd91!important;
+  box-shadow:0 0 0 3px rgba(63,134,29,.1)!important;
+  outline:none;
+}
+.juba-translator-shell button{transition:transform .15s ease,box-shadow .15s ease,filter .15s ease}
+.juba-translator-shell button:hover:not(:disabled){transform:translateY(-1px);filter:saturate(1.03)}
+.juba-translator-shell .juba-eyebrow{display:inline-flex;align-items:center;border:1px solid #cfe0c9;border-radius:999px;padding:6px 10px;background:var(--juba-app-green-soft);color:var(--juba-app-green-dark);font-size:11px;font-weight:850;letter-spacing:.05em}
+.juba-translator-shell .juba-hero-glow{position:absolute;width:190px;height:190px;border-radius:42% 58% 61% 39%;background:rgba(255,212,79,.18)}
+.juba-friends-shell{
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,212,79,.12),transparent 280px),
+    var(--juba-app-bg);
+}
+.juba-friends-shell .juba-page-hero{border-bottom:2px solid var(--juba-app-ink);padding-bottom:1.25rem}
+.juba-friends-shell .juba-panel{
+  border:1px solid var(--juba-app-line);
+  border-radius:22px;
+  background:var(--juba-app-surface);
+  padding:1rem;
+  box-shadow:5px 5px 0 rgba(24,37,27,.055);
+}
+.juba-friends-shell .juba-section-title{font-weight:900;letter-spacing:-.025em}
+.juba-friends-shell .juba-panel > div > .juba-input{min-height:44px}
+.juba-friends-shell .juba-panel > .juba-card,
+.juba-friends-shell .juba-panel [class*="rounded-2xl"]{transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+.juba-friends-shell .juba-panel [class*="rounded-2xl"]:hover{transform:translateY(-1px);border-color:#b8d1aa;box-shadow:0 5px 14px rgba(24,37,27,.055)}
+@media(max-width:700px){
+  .juba-settings-shell,.juba-translator-shell,.juba-friends-shell{padding-top:1rem;padding-bottom:1.25rem}
+  .juba-settings-shell .juba-card,.juba-translator-shell .juba-card{border-radius:18px;box-shadow:4px 4px 0 rgba(24,37,27,.05)}
+  .juba-friends-shell .juba-panel{border-radius:18px;box-shadow:4px 4px 0 rgba(24,37,27,.05)}
+  .juba-translator-shell .grid{grid-template-columns:1fr}
+}
