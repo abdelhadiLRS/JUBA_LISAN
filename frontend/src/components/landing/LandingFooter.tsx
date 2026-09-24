@@ -28,7 +28,7 @@ export function LandingFooter({ t }: LandingFooterProps) {
           </div>
 
           <div>
-            <h4 className="font-bold text-sm text-[#183022] uppercase tracking-wider mb-4">
+            <h4 className="font-bold text-sm text-[var(--juba-app-ink)] uppercase tracking-wider mb-4">
               {t('footerProduct')}
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -40,7 +40,7 @@ export function LandingFooter({ t }: LandingFooterProps) {
           </div>
 
           <div>
-            <h4 className="font-bold text-sm text-[#183022] uppercase tracking-wider mb-4">
+            <h4 className="font-bold text-sm text-[var(--juba-app-ink)] uppercase tracking-wider mb-4">
               {t('footerResources')}
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -51,7 +51,7 @@ export function LandingFooter({ t }: LandingFooterProps) {
           </div>
 
           <div>
-            <h4 className="font-bold text-sm text-[#183022] uppercase tracking-wider mb-4">
+            <h4 className="font-bold text-sm text-[var(--juba-app-ink)] uppercase tracking-wider mb-4">
               {t('footerLegal')}
             </h4>
             <ul className="space-y-2.5 text-sm">
