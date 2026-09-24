@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState, useRef, useMemo } from 'react'
-import Image from 'next/image'
 import { Check, ChevronDown, ChevronUp, Languages, Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
@@ -48,7 +47,6 @@ export default function LanguageSwitcher() {
 
   const skeleton = useMemo(() => (
     <div className="flex items-center gap-2 rounded-[14px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-3 py-2.5 shadow-[2px_2px_0_var(--juba-app-ink)] animate-pulse" aria-label="Loading languages">
-      <div className="h-3.5 w-5 rounded bg-[var(--juba-app-line)]" />
       <div className="h-3 w-20 rounded bg-[var(--juba-app-line)]" />
     </div>
   ), [])
@@ -78,7 +76,7 @@ export default function LanguageSwitcher() {
         className="group flex w-full items-center gap-3 rounded-[14px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-3.5 py-2.5 text-left text-sm font-bold text-[var(--juba-app-ink)] shadow-[2px_2px_0_var(--juba-app-ink)] transition-all hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-[2px_2px_0_var(--juba-app-ink)]"
       >
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-[var(--juba-app-green-soft)]">
-          <Image src={activeLanguage.flagPath} alt="" width={22} height={15} className="rounded-sm object-cover ring-1 ring-black/10" />
+          <Languages className="h-4 w-4 text-[var(--juba-app-green)]" aria-hidden="true" />
         </span>
         <span className="min-w-0 flex-1 truncate">{isSwitching ? 'Switching…' : tTarget(activeLanguage.code)}</span>
         {isSwitching ? (
@@ -111,7 +109,7 @@ export default function LanguageSwitcher() {
                     : 'text-[var(--juba-app-ink)] hover:bg-[var(--juba-app-green-soft)]'
                 }`}
               >
-                <Image src={lang.flagPath} alt="" width={22} height={15} className="shrink-0 rounded-sm object-cover ring-1 ring-black/10" />
+                <Languages className="h-4 w-4 shrink-0 text-[var(--juba-app-green)]" aria-hidden="true" />
                 <span className="min-w-0 flex-1 truncate">{tTarget(lang.code)}</span>
                 {ulang.plan?.cefr_level && (
                   <span className="rounded-full bg-[var(--juba-app-yellow)] px-2 py-0.5 text-[10px] font-black text-[var(--juba-app-ink)]">
