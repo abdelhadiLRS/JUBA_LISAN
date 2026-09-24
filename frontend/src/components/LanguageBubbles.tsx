@@ -76,6 +76,7 @@ function WorldMap({
   selectedCountry,
   onCountrySelect,
   ariaLabel,
+  countryName,
 }: {
   highlightedCountries: Set<string>
   selectedCountry: string | null
@@ -184,11 +185,11 @@ export function LanguageBubbles() {
     return offsets
   }, [visibleLanguages])
   const countryLanguages = useMemo(() => {
-    const map = new Map<string, string[]>()
+    const map = new Map<string, DisplayLanguage[]>()
     for (const language of DISPLAY_LANGUAGES) {
       for (const country of language.countries) {
         const list = map.get(country) ?? []
-        list.push(language.name)
+        list.push(language)
         map.set(country, list)
       }
     }
@@ -260,7 +261,7 @@ export function LanguageBubbles() {
                 }}
                 aria-label={language.name}
                 aria-pressed={isActive}
-                title={countryLanguages.get(language.markerCountry)?.join(' · ')}
+                title={(countryLanguages.get(language.markerCountry) ?? []).map((item) => item.name).join(' · ')}
               >
                 <span
                   className={[
@@ -294,15 +295,13 @@ export function LanguageBubbles() {
                 <button type="button" onClick={() => setActiveCountry(null)} className="text-xs font-black text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)]" aria-label={t('closeCountryDetails')}>×</button>
               </div>
               <div className="mt-3 flex flex-wrap gap-1.5">
-                {(countryLanguages.get(activeCountry) ?? []).map((name) => {
-                  const language = DISPLAY_LANGUAGES.find((item) => item.name === name)
-                  const active = activeLanguage === language?.code
+                {(countryLanguages.get(activeCountry) ?? []).map((language) => {
+                  const active = activeLanguage === language.code
                   return (
                     <button
-                      key={name}
+                      key={language.code}
                       type="button"
                       onClick={() => {
-                        if (!language) return
                         setActiveLanguage(language.code)
                         setActiveRegion(language.regions[0] ?? null)
                       }}
