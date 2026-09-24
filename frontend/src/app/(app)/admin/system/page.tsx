@@ -195,7 +195,7 @@ export default function AdminSystemPage() {
   const sourceComplete = Object.values(source).every((value) => value.trim())
 
   return (
-    <div className="mx-auto max-w-6xl space-y-4 p-6">
+    <div className="juba-admin-system-shell mx-auto max-w-6xl space-y-4 p-6">
       <AdminPageHeader
         eyebrow={`${t('title')} / ${t('system')}`}
         title={t('system')}
