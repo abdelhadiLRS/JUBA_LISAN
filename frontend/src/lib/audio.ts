@@ -223,6 +223,12 @@ export function createAudioQueue(
     source.onended = () => {
       const idx = sources.indexOf(source)
       if (idx !== -1) sources.splice(idx, 1)
+
+      // A source can dispatch a late ended event after cancel() has moved
+      // the queue to a new generation. The cancellation path already handled
+      // idle notification, so stale events must not notify again.
+      if (generationToken !== generation) return
+
       audioQueueLogger.warn('TTS chunk playback ended', {
         chunkId,
         remainingSources: sources.length,
