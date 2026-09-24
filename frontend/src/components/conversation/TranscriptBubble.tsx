@@ -34,11 +34,11 @@ export default function TranscriptBubble({
         <span
           className={`pointer-events-none absolute inset-[-5px] rounded-full border-2 transition-[border-color,opacity] duration-700 ${
             speaking
-              ? 'border-[color-mix(in_srgb,var(--juba-violet)_65%,transparent)] animate-halo-speaking'
-              : 'border-[color-mix(in_srgb,var(--juba-violet)_15%,transparent)] animate-halo-idle'
+              ? 'border-[color-mix(in_srgb,var(--juba-app-green)_65%,transparent)] animate-halo-speaking'
+              : 'border-[color-mix(in_srgb,var(--juba-app-green)_15%,transparent)] animate-halo-idle'
           }`}
         />
-        <div className="border-[var(--juba-border)] h-7 w-7 overflow-hidden rounded-full border">
+        <div className="border-[var(--juba-app-line)] h-7 w-7 overflow-hidden rounded-full border">
           {!isUser ? (
             <Image
               src="/logo_head.png"
@@ -55,16 +55,16 @@ export default function TranscriptBubble({
               height={28}
               className="h-full w-full object-cover"
               fallback={
-                <div className="bg-[var(--juba-surface-soft)] flex h-full w-full items-center justify-center">
-                  <span className="text-[var(--juba-muted)] font-mono select-none">
+                <div className="bg-[#f3f7ef] flex h-full w-full items-center justify-center">
+                  <span className="text-[var(--juba-app-muted)] font-mono select-none">
                     {(userInitial ?? '?').toUpperCase()}
                   </span>
                 </div>
               }
             />
           ) : (
-            <div className="bg-[var(--juba-surface-soft)] flex h-full w-full items-center justify-center">
-              <span className="text-[var(--juba-muted)] font-mono select-none">
+            <div className="bg-[#f3f7ef] flex h-full w-full items-center justify-center">
+              <span className="text-[var(--juba-app-muted)] font-mono select-none">
                 {(userInitial ?? '?').toUpperCase()}
               </span>
             </div>
@@ -75,7 +75,7 @@ export default function TranscriptBubble({
       <div
         className={`flex max-w-[75%] flex-col gap-1 ${isUser ? 'items-end' : 'items-start'}`}
       >
-        <span className="text-[var(--juba-muted)] font-mono tracking-widest uppercase">
+        <span className="text-[var(--juba-app-muted)] font-mono tracking-widest uppercase">
           {isUser ? t('you') : t('assistant')}
         </span>
         <TargetLanguageText
@@ -83,8 +83,8 @@ export default function TranscriptBubble({
           languageCode={languageCode}
           className={`border px-4 py-3 ${
             isUser
-              ? 'bg-[var(--juba-violet)] text-white border-[var(--juba-violet-dark)]'
-              : 'bg-[var(--juba-surface)] text-[var(--juba-text)] border-[var(--juba-border)]'
+              ? 'bg-[var(--juba-app-green)] text-white border-[var(--juba-app-green-dark)]'
+              : 'bg-[var(--juba-app-surface)] text-[var(--juba-app-ink)] border-[var(--juba-app-line)]'
           }`}
         >
           {text}
