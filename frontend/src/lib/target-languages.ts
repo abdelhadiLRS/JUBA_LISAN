@@ -11,6 +11,8 @@ export interface TargetLanguage {
 
 export type TargetLanguageScript =
   | 'latin'
+  | 'cyrillic'
+  | 'greek'
   | 'hiragana-katakana-kanji'
   | 'hangul'
   | 'simplified-hanzi'
