@@ -1,14 +1,15 @@
+import Link from 'next/link'
 import { BookOpen, MessageSquare, Mic, Headphones, Layers, TrendingUp, Sparkles } from 'lucide-react'
 
 interface BentoFeaturesProps { t: (key: string) => string }
 
 const cards = [
-  { key: 'feature1', icon: BookOpen, art: '📚', tone: 'green' },
-  { key: 'feature2', icon: MessageSquare, art: '💬', tone: 'yellow' },
-  { key: 'feature3', icon: Mic, art: '🎙️', tone: 'blue' },
-  { key: 'feature4', icon: Headphones, art: '🎧', tone: 'purple' },
-  { key: 'feature6', icon: Layers, art: '🃏', tone: 'coral' },
-  { key: 'feature8', icon: TrendingUp, art: '🏆', tone: 'mint' },
+  { key: 'feature1', icon: BookOpen, art: '📚', tone: 'green', href: '/assessment' },
+  { key: 'feature2', icon: MessageSquare, art: '💬', tone: 'yellow', href: '/chat' },
+  { key: 'feature3', icon: Mic, art: '🎙️', tone: 'blue', href: '/conversation' },
+  { key: 'feature4', icon: Headphones, art: '🎧', tone: 'purple', href: '/dashboard' },
+  { key: 'feature6', icon: Layers, art: '🃏', tone: 'coral', href: '/dashboard' },
+  { key: 'feature8', icon: TrendingUp, art: '🏆', tone: 'mint', href: '/dashboard' },
 ]
 
 export function BentoFeatures({ t }: BentoFeaturesProps) {
@@ -27,7 +28,7 @@ export function BentoFeatures({ t }: BentoFeaturesProps) {
               <div className="juba-ff-feature-icon"><Icon className="h-5 w-5" /></div>
               <h3>{t(`${key}Title`)}</h3>
               <p>{t(`${key}Desc`)}</p>
-              <span className="juba-ff-feature-link">Explore <span aria-hidden="true">→</span></span>
+              <Link href={cards.find((card) => card.key === key)?.href ?? '/dashboard'} className="juba-ff-feature-link">Open in JUBA LISAN <span aria-hidden="true">→</span></Link>
             </article>
           ))}
         </div>
