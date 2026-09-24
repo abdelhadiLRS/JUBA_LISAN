@@ -2014,6 +2014,17 @@
       "practice": "Practice",
       "recall": "Recall",
       "review": "Review"
+    },
+    "cefrEyebrow": "CEFR proficiency map",
+    "cefrTitle": "What you can do at each level",
+    "cefrDescription": "JUBA LISAN organizes progress around practical CEFR-aligned outcomes across listening, reading, interaction, speaking and writing.",
+    "cefrLevelLabel": "Level",
+    "cefrSkills": {
+      "listening": "Listening",
+      "reading": "Reading",
+      "interaction": "Interaction",
+      "speaking": "Speaking",
+      "writing": "Writing"
     }
   },
   "translator": {
