@@ -90,6 +90,12 @@ export function ExerciseAudioPlayer({
         if (!isCurrentRequest()) return
         setProgress(100)
         setState('idle')
+        audioRef.current = null
+        audio.src = ''
+        if (blobUrlRef.current === url) {
+          URL.revokeObjectURL(url)
+          blobUrlRef.current = null
+        }
       })
       audio.addEventListener('error', () => {
         if (!isCurrentRequest()) return
