@@ -115,7 +115,8 @@
     "contact": "Контакт",
     "feedback": "Feedback",
     "reviews": "Отзывы",
-    "switchLanguage": "Сменить язык"
+    "switchLanguage": "Сменить язык",
+    "games": "Игры"
   },
   "auth": {
     "login": {
