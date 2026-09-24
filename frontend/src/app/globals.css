@@ -5561,3 +5561,106 @@ main [dir="rtl"] h3,
 .juba-admin-shell .juba-admin-nav a{
   border-radius:12px;
 }
+
+
+/* JUBA LISAN — shared authenticated UI primitives */
+.juba-app-shell .juba-page-shell{
+  color:var(--juba-app-ink);
+  background:var(--juba-app-bg);
+}
+.juba-app-shell .juba-card{
+  border:1px solid var(--juba-app-line);
+  border-radius:20px;
+  background:var(--juba-app-surface);
+  box-shadow:0 7px 20px rgba(24,37,27,.045);
+}
+.juba-app-shell .juba-primary-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.5rem;
+  min-height:42px;
+  border:2px solid var(--juba-app-ink);
+  border-radius:12px;
+  padding:.65rem 1rem;
+  background:var(--juba-app-green);
+  color:#fff;
+  font-weight:800;
+  box-shadow:3px 3px 0 var(--juba-app-ink);
+  transition:transform .16s ease,box-shadow .16s ease,filter .16s ease;
+}
+.juba-app-shell .juba-primary-button:hover:not(:disabled){
+  transform:translate(-1px,-1px);
+  box-shadow:4px 4px 0 var(--juba-app-ink);
+  filter:saturate(1.04);
+}
+.juba-app-shell .juba-primary-button:active:not(:disabled){
+  transform:translate(1px,1px);
+  box-shadow:1px 1px 0 var(--juba-app-ink);
+}
+.juba-app-shell .juba-primary-button:disabled{
+  cursor:not-allowed;
+  opacity:.55;
+}
+.juba-app-shell .juba-secondary-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.5rem;
+  min-height:42px;
+  border:1px solid var(--juba-app-line);
+  border-radius:12px;
+  padding:.65rem 1rem;
+  background:#fffdf8;
+  color:var(--juba-app-ink);
+  font-weight:750;
+  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease,background .16s ease;
+}
+.juba-app-shell .juba-secondary-button:hover:not(:disabled){
+  transform:translateY(-1px);
+  border-color:#b8d1aa;
+  background:#fff;
+  box-shadow:0 4px 12px rgba(24,37,27,.05);
+}
+.juba-app-shell .juba-input{
+  width:100%;
+  border:1px solid var(--juba-app-line);
+  border-radius:12px;
+  background:#f9fbf7;
+  color:var(--juba-app-ink);
+  outline:none;
+  transition:border-color .16s ease,box-shadow .16s ease,background .16s ease;
+}
+.juba-app-shell .juba-input:focus{
+  border-color:#9fbd91;
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(63,134,29,.1);
+}
+.juba-app-shell .juba-input::placeholder{
+  color:#8a968f;
+}
+.juba-app-shell .juba-muted{
+  color:var(--juba-app-muted);
+}
+.juba-app-shell .juba-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  border:1px solid #cfe0c9;
+  border-radius:999px;
+  padding:.25rem .55rem;
+  background:var(--juba-app-green-soft);
+  color:var(--juba-app-green-dark);
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:.04em;
+}
+@media(max-width:700px){
+  .juba-app-shell .juba-card{
+    border-radius:18px;
+  }
+  .juba-app-shell .juba-primary-button,
+  .juba-app-shell .juba-secondary-button{
+    min-height:40px;
+  }
+}
