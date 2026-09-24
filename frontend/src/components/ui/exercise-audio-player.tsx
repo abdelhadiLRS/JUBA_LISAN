@@ -92,7 +92,15 @@ export function ExerciseAudioPlayer({
         setState('idle')
       })
       audio.addEventListener('error', () => {
-        if (isCurrentRequest()) setState('error')
+        if (!isCurrentRequest()) return
+        audio.pause()
+        audio.src = ''
+        audioRef.current = null
+        if (blobUrlRef.current === url) {
+          URL.revokeObjectURL(url)
+          blobUrlRef.current = null
+        }
+        setState('error')
       })
 
       await audio.play()
