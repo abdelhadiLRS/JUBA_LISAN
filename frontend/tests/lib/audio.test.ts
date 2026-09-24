@@ -462,6 +462,49 @@ describe('createAudioQueue', () => {
     expect(idle).toHaveBeenCalledTimes(1)
   })
 
+  it('reanchors Web Audio after fallback construction fails following a scheduled chunk', async () => {
+    const { ctx, sources } = createContext()
+    let createCount = 0
+    const originalCreate = ctx.createBufferSource
+    ctx.createBufferSource = vi.fn(() => {
+      createCount += 1
+      if (createCount === 2) {
+        throw new Error('source creation failed')
+      }
+      return originalCreate()
+    }) as typeof ctx.createBufferSource
+
+    let audioAttempts = 0
+    vi.stubGlobal('Audio', vi.fn(() => {
+      audioAttempts += 1
+      throw new Error('audio construction failed')
+    }))
+    vi.stubGlobal('URL', {
+      createObjectURL: vi.fn(() => 'blob:construction-failure'),
+      revokeObjectURL: vi.fn(),
+    })
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx)
+
+    await queue.enqueue(new ArrayBuffer(4))
+    const failedFallback = queue.enqueue(new ArrayBuffer(8))
+
+    await Promise.resolve()
+    await Promise.resolve()
+
+    expect(audioAttempts).toBe(1)
+    expect(sources).toHaveLength(1)
+    expect(failedFallback).resolves.toBeUndefined()
+
+    await failedFallback
+    await queue.enqueue(new ArrayBuffer(16))
+
+    expect(createCount).toBe(3)
+    expect(sources).toHaveLength(2)
+    expect(sources[1].start).toHaveBeenCalledWith(0.005)
+  })
+
   it('continues draining later chunks when fallback construction fails', async () => {
     const { ctx, sources } = createContext()
     let createCount = 0
