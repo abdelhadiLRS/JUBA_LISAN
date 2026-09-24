@@ -163,12 +163,20 @@ export default function AdminUsersPage() {
     )
   }, [availableLanguageCodes])
 
+  const targetLanguageLabel = useCallback(
+    (code: string, fallback: string) =>
+      tTarget.has(code) ? tTarget(code) : fallback,
+    [tTarget]
+  )
+
   const targetLanguageOptions = useMemo(
     () =>
       [...visibleTargetLanguages].sort((a, b) =>
-        tTarget(a.code).localeCompare(tTarget(b.code))
+        targetLanguageLabel(a.code, a.nameEn).localeCompare(
+          targetLanguageLabel(b.code, b.nameEn)
+        )
       ),
-    [tTarget, visibleTargetLanguages]
+    [targetLanguageLabel, visibleTargetLanguages]
   )
 
   const roleOptions = useMemo(
@@ -968,7 +976,7 @@ export default function AdminUsersPage() {
                 >
                   {targetLanguageOptions.map((lang) => (
                     <option key={lang.code} value={lang.code}>
-                      {tTarget(lang.code)}
+                      {targetLanguageLabel(lang.code, lang.nameEn)}
                     </option>
                   ))}
                 </select>
