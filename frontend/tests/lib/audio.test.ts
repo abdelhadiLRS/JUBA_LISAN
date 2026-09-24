@@ -203,6 +203,31 @@ describe('createAudioQueue', () => {
     expect(ctx.createBufferSource).not.toHaveBeenCalled()
   })
 
+  it('falls back when a Web Audio source cannot be created', async () => {
+    const ctx = createMockAudioContext()
+    vi.spyOn(ctx, 'createBufferSource').mockImplementation(() => {
+      throw new Error('source creation failed')
+    })
+    const play = vi.fn().mockResolvedValue(undefined)
+    vi.stubGlobal('Audio', vi.fn(() => ({
+      play,
+      pause: vi.fn(),
+      addEventListener: vi.fn((event, handler) => {
+        if (event === 'ended') queueMicrotask(handler)
+      }),
+      removeEventListener: vi.fn(),
+      src: 'blob:test',
+    })))
+    vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:test')
+    vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => undefined)
+
+    const queue = createAudioQueue(ctx as AudioContext)
+    await queue.enqueue(new ArrayBuffer(8))
+
+    expect(play).toHaveBeenCalledTimes(1)
+    expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:test')
+  })
+
   it('resolves an enqueue promise when fallback playback is cancelled', async () => {
     const { ctx } = createContext()
     ctx.decodeAudioData = vi.fn(async () => {
