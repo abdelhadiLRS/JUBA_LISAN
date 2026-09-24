@@ -47,14 +47,12 @@ function isLanguageRecord(value: unknown): value is Record<string, unknown> {
 function normalizeSupportedCodes(value: unknown): string[] {
   if (!Array.isArray(value)) return []
 
-  return Array.from(
-    new Set(
-      value.filter(
-        (code: unknown): code is string =>
-          typeof code === 'string' && Boolean(getLanguageByCode(code))
-      )
-    )
-  )
+  const canonicalCodes = value
+    .filter((code): code is string => typeof code === 'string')
+    .map((code) => getLanguageByCode(code)?.code ?? null)
+    .filter((code): code is string => code !== null)
+
+  return Array.from(new Set(canonicalCodes))
 }
 
 export const useLanguageStore = create<LanguageStore>((set, get) => ({
