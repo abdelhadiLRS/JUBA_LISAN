@@ -52,7 +52,7 @@ const STATUS_STYLES: Record<string, string> = {
   planned: 'border-blue-500/40 text-blue-400',
   in_progress: 'border-yellow-500/40 text-yellow-400',
   done: 'border-green-500/40 text-green-400',
-  declined: 'border-rose-200/30 text-[var(#b33a32)]',
+  declined: 'border-rose-200/30 text-[#b33a32]',
 }
 
 // ---------------------------------------------------------------------------
@@ -169,7 +169,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-3 p-6">
           {error && (
-            <div className="border-[var(#b33a32)]/40 text-[var(#b33a32)] border-2 px-4 py-3 text-sm">
+            <div className="border-[#b33a32]/40 text-[#b33a32] border-2 px-4 py-3 text-sm">
               ✕ {error}
             </div>
           )}
@@ -395,7 +395,7 @@ function DetailView({
             {(currentUserId === entry.author.id || isAdmin) && (
               <button
                 onClick={() => setDeleteEntryPending(true)}
-                className="text-[var(--juba-app-muted)] border-rose-200/30 text-[var(#b33a32)] hover:border-rose-200 ml-auto border-2 px-3 py-1 font-semibold tracking-wide transition-colors"
+                className="text-[var(--juba-app-muted)] border-rose-200/30 text-[#b33a32] hover:border-rose-200 ml-auto border-2 px-3 py-1 font-semibold tracking-wide transition-colors"
               >
                 {t('deleteEntry')}
               </button>
@@ -421,7 +421,7 @@ function DetailView({
                   {currentUserId === c.author.id && (
                     <button
                       onClick={() => setDeletePendingComment(c)}
-                      className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] hover:text-[var(#b33a32)] font-semibold tracking-wide transition-colors"
+                      className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] hover:text-[#b33a32] font-semibold tracking-wide transition-colors"
                     >
                       {t('deleteComment')}
                     </button>
@@ -441,7 +441,7 @@ function DetailView({
           className="border-[var(--juba-app-line)] space-y-2 border-t px-6 py-4"
         >
           {error && (
-            <div className="border-[var(#b33a32)]/40 text-[var(#b33a32)] border-2 px-4 py-2 text-sm">
+            <div className="border-[#b33a32]/40 text-[#b33a32] border-2 px-4 py-2 text-sm">
               ✕ {error}
             </div>
           )}
@@ -712,7 +712,7 @@ export default function FeedbackPage() {
 
       {/* Error */}
       {error && (
-        <div className="border-[var(#b33a32)]/40 text-[var(#b33a32)] border-2 px-4 py-3 text-sm">
+        <div className="border-[#b33a32]/40 text-[#b33a32] border-2 px-4 py-3 text-sm">
           ✕ {error}
         </div>
       )}
@@ -822,7 +822,7 @@ export default function FeedbackPage() {
                             e.stopPropagation()
                             setDeletePending(entry)
                           }}
-                          className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] hover:text-[var(#b33a32)] ml-auto font-semibold tracking-wide transition-colors"
+                          className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] hover:text-[#b33a32] ml-auto font-semibold tracking-wide transition-colors"
                         >
                           {t('deleteEntry')}
                         </button>
