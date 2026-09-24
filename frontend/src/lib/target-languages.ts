@@ -2,7 +2,6 @@ export interface TargetLanguage {
   code: string
   name: string
   nameEn: string
-  flagPath: string
   iso639: string
   script: TargetLanguageScript
   fontClass: string
@@ -86,77 +85,66 @@ export const TARGET_LANGUAGE_CATALOG: TargetLanguage[] = [
     code: 'en-US',
     name: 'English (US)',
     nameEn: 'English (US)',
-    flagPath: '/flags/usa.jpg',
     iso639: 'en',
   }),
   withCapabilities({
     code: 'en-GB',
     name: 'English (UK)',
     nameEn: 'English (UK)',
-    flagPath: '/flags/uk.jpg',
     iso639: 'en',
   }),
   withCapabilities({
     code: 'es-ES',
     name: 'Español',
     nameEn: 'Spanish',
-    flagPath: '/flags/spain.jpg',
     iso639: 'es',
   }),
   withCapabilities({
     code: 'it-IT',
     name: 'Italiano',
     nameEn: 'Italian',
-    flagPath: '/flags/italy.jpg',
     iso639: 'it',
   }),
   withCapabilities({
     code: 'pt-PT',
     name: 'Português',
     nameEn: 'Portuguese',
-    flagPath: '/flags/portugal.jpg',
     iso639: 'pt',
   }),
   withCapabilities({
     code: 'fr-FR',
     name: 'Français',
     nameEn: 'French',
-    flagPath: '/flags/france.jpg',
     iso639: 'fr',
   }),
   withCapabilities({
     code: 'de-DE',
     name: 'Deutsch',
     nameEn: 'German',
-    flagPath: '/flags/germany.jpg',
     iso639: 'de',
   }),
   withCapabilities({
     code: 'ja-JP',
     name: '日本語',
     nameEn: 'Japanese',
-    flagPath: '/flags/japan.jpg',
     iso639: 'ja',
   }),
   withCapabilities({
     code: 'ko-KR',
     name: '한국어',
     nameEn: 'Korean',
-    flagPath: '/flags/south_korea.jpg',
     iso639: 'ko',
   }),
   withCapabilities({
     code: 'zh-CN',
     name: '中文（中国）',
     nameEn: 'Chinese (Mainland China)',
-    flagPath: '/flags/china.jpg',
     iso639: 'zh',
   }),
   withCapabilities({
     code: 'ar',
     name: 'العربية',
     nameEn: 'Arabic',
-    flagPath: '/flags/ar.svg',
     iso639: 'ar',
   }),
 ]
