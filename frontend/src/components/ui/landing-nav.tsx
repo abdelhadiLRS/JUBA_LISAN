@@ -199,7 +199,7 @@ export function LandingNav({
         <div className="hidden items-center gap-3 md:flex">
           <div className="relative">
             <button type="button" onClick={() => setRegionOpen((value) => !value)} aria-expanded={regionOpen} aria-haspopup="menu" className="juba-nav-region flex items-center gap-2 rounded-full border border-[var(--juba-app-line)] bg-white/80 px-3 py-2 text-xs font-bold text-[var(--juba-app-ink)] backdrop-blur transition hover:-translate-y-0.5 hover:shadow-sm">
-              <span aria-hidden="true" className="text-base leading-none">{currentCountry.flag}</span><span>{visitorCountry}</span><span className="mx-0.5 text-[var(--juba-app-line)]">·</span><span aria-hidden="true">{currentLanguage.flag}</span><span>{locale}</span><ChevronDown className="h-3 w-3" aria-hidden="true" />
+              <span aria-hidden="true" className="text-base leading-none">{currentCountry.flag}</span><span className="sr-only">{currentCountry.name}</span><span className="mx-0.5 text-[var(--juba-app-line)]">·</span><span aria-hidden="true" className="text-base leading-none">{currentLanguage.flag}</span><span className="sr-only">{currentLanguage.native}</span><ChevronDown className="h-3 w-3" aria-hidden="true" />
             </button>
             {regionOpen && <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-50 w-72 rounded-2xl border border-[var(--juba-app-line)] bg-white p-3 shadow-xl">
               <div className="mb-2 flex items-center gap-2 px-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><Globe2 className="h-3.5 w-3.5" /> Region & language</div>
@@ -242,7 +242,7 @@ export function LandingNav({
       {open && (
         <div id="juba-mobile-navigation" className="juba-mobile-menu juba-ff-mobile-menu border-b px-6 pt-4 pb-6 md:hidden animate-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col gap-4">
-            <div className="rounded-2xl border border-[var(--juba-app-line)] bg-white/80 p-3"><div className="text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]">{currentCountry.flag} {currentCountry.name} · {currentLanguage.flag} {locale}</div></div>
+            <div className="rounded-2xl border border-[var(--juba-app-line)] bg-white/80 p-3"><div className="text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><span aria-hidden="true">{currentCountry.flag}</span><span className="sr-only">{currentCountry.name}</span><span className="mx-1">·</span><span aria-hidden="true">{currentLanguage.flag}</span><span className="sr-only">{currentLanguage.native}</span></div></div>
             {links}
             <div className="juba-mobile-actions pt-2 flex flex-col gap-3">
               <Link href={hasSession ? '/dashboard' : '/login'} onClick={closeMenu} className="juba-nav-signin juba-ff-nav-signin w-full text-center py-2 text-sm font-semibold">{hasSession ? dashboard : signIn}</Link>
