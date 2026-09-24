@@ -34,11 +34,10 @@ VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="pa-a1-unit-7",words
 VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="pa-a1-unit-8",words=[VocabularyEntry(word="ਸਕੂਲ",pos="noun",definition="school",example="ਮੈਂ ਸਕੂਲ ਵਿੱਚ ਹਾਂ।")])
 ]
 PHRASEBOOK_CATEGORIES=[
-PhrasebookCategory(id="pa_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="ਸਤ ਸ੍ਰੀ ਅਕਾਲ।",context="Hello.",register="neutral")]),
-PhrasebookCategory(id="pa_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="ਧੰਨਵਾਦ।",context="Thank you.",register="neutral")]),
-PhrasebookCategory(id="pa_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="ਕਿਰਪਾ ਕਰਕੇ ਮਦਦ ਕਰੋ।",context="Please help me.",register="neutral")]),
-PhrasebookCategory(id="pa_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="ਸਕੂਲ ਕਿੱਥੇ ਹੈ?",context="Where is the school?",register="neutral")])
-]
+PhrasebookCategory(id="pa_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="ਸਤ ਸ੍ਰੀ ਅਕਾਲ।",context="Greetings",register="neutral"),PhrasebookEntry(text="ਸ਼ੁਭ ਸਵੇਰ।",context="Greetings",register="neutral"),PhrasebookEntry(text="ਤੁਸੀਂ ਕਿਵੇਂ ਹੋ?",context="Greetings",register="neutral")]),
+PhrasebookCategory(id="pa_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="ਧੰਨਵਾਦ।",context="Thanks",register="neutral"),PhrasebookEntry(text="ਬਹੁਤ ਧੰਨਵਾਦ।",context="Thanks",register="neutral"),PhrasebookEntry(text="ਕੋਈ ਗੱਲ ਨਹੀਂ।",context="Thanks",register="neutral")]),
+PhrasebookCategory(id="pa_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="ਕਿਰਪਾ ਕਰਕੇ ਮਦਦ ਕਰੋ।",context="Help",register="neutral"),PhrasebookEntry(text="ਮੈਨੂੰ ਸਮਝ ਨਹੀਂ ਆਈ।",context="Help",register="neutral"),PhrasebookEntry(text="ਫਿਰ ਦੱਸੋ ਜੀ।",context="Help",register="neutral")]),
+PhrasebookCategory(id="pa_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="ਸਕੂਲ ਕਿੱਥੇ ਹੈ?",context="Directions",register="neutral"),PhrasebookEntry(text="ਬਾਜ਼ਾਰ ਕਿੱਥੇ ਹੈ?",context="Directions",register="neutral"),PhrasebookEntry(text="ਸੱਜੇ ਪਾਸੇ ਜਾਓ।",context="Directions",register="neutral")])]
 ASSESSMENT_BANK=[
 AssessmentQuestion(id="pa-a1-001",skill="vocabulary",difficulty="A1",question="Which Punjabi word means 'water'?",options=["ਪਾਣੀ","ਘਰ","ਮਾਂ","ਸਕੂਲ"],correct="ਪਾਣੀ"),
 AssessmentQuestion(id="pa-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।","ਮੈਂ ਸਕੂਲ ਜਾਂਦਾ ਹਾਂ।","ਮੈਂ ਪਾਣੀ ਪੀਂਦਾ ਹਾਂ।","ਇਹ ਕਿਤਾਬ ਹੈ।"],correct="ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।"),

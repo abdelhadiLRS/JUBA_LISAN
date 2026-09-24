@@ -34,11 +34,10 @@ VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="ne-a1-unit-7",words
 VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="ne-a1-unit-8",words=[VocabularyEntry(word="विद्यालय",pos="noun",definition="school",example="म विद्यालयमा छु।")])
 ]
 PHRASEBOOK_CATEGORIES=[
-PhrasebookCategory(id="ne_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="नमस्ते।",context="Hello.",register="neutral")]),
-PhrasebookCategory(id="ne_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="धन्यवाद।",context="Thank you.",register="neutral")]),
-PhrasebookCategory(id="ne_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="कृपया मद्दत गर्नुहोस्।",context="Please help me.",register="neutral")]),
-PhrasebookCategory(id="ne_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="विद्यालय कहाँ छ?",context="Where is the school?",register="neutral")])
-]
+PhrasebookCategory(id="ne_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="नमस्ते।",context="Greetings",register="neutral"),PhrasebookEntry(text="नमस्ते! तपाईंलाई भेटेर खुशी लाग्यो।",context="Greetings",register="neutral"),PhrasebookEntry(text="शुभ प्रभात!",context="Greetings",register="neutral")]),
+PhrasebookCategory(id="ne_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="धन्यवाद।",context="Thanks",register="neutral"),PhrasebookEntry(text="धेरै धन्यवाद।",context="Thanks",register="neutral"),PhrasebookEntry(text="स्वागत छ।",context="Thanks",register="neutral")]),
+PhrasebookCategory(id="ne_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="कृपया मद्दत गर्नुहोस्।",context="Help",register="neutral"),PhrasebookEntry(text="म बुझिनँ।",context="Help",register="neutral"),PhrasebookEntry(text="फेरि भन्नुहोस्, कृपया।",context="Help",register="neutral")]),
+PhrasebookCategory(id="ne_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="विद्यालय कहाँ छ?",context="Directions",register="neutral"),PhrasebookEntry(text="बजार कहाँ छ?",context="Directions",register="neutral"),PhrasebookEntry(text="बायाँ जानुहोस्।",context="Directions",register="neutral")])]
 ASSESSMENT_BANK=[
 AssessmentQuestion(id="ne-a1-001",skill="vocabulary",difficulty="A1",question="Which Nepali word means 'water'?",options=["पानी","घर","आमा","विद्यालय"],correct="पानी"),
 AssessmentQuestion(id="ne-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["म घरमा छु।","म विद्यालय जान्छु।","म पानी पिउँछु।","यो किताब हो।"],correct="म घरमा छु।"),

@@ -34,11 +34,10 @@ VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="si-a1-unit-7",words
 VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="si-a1-unit-8",words=[VocabularyEntry(word="පාසල",pos="noun",definition="school",example="මම පාසලේ ඉන්නවා.")])
 ]
 PHRASEBOOK_CATEGORIES=[
-PhrasebookCategory(id="si_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="ආයුබෝවන්.",context="Hello.",register="neutral")]),
-PhrasebookCategory(id="si_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="ස්තුතියි.",context="Thank you.",register="neutral")]),
-PhrasebookCategory(id="si_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="කරුණාකර උදව් කරන්න.",context="Please help me.",register="neutral")]),
-PhrasebookCategory(id="si_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="පාසල කොහෙද?",context="Where is the school?",register="neutral")])
-]
+PhrasebookCategory(id="si_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="ආයුබෝවන්.",context="Greetings",register="neutral"),PhrasebookEntry(text="සුභ උදෑසනක්.",context="Greetings",register="neutral"),PhrasebookEntry(text="ඔබට කොහොමද?",context="Greetings",register="neutral")]),
+PhrasebookCategory(id="si_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="ස්තුතියි.",context="Thanks",register="neutral"),PhrasebookEntry(text="බොහොම ස්තුතියි.",context="Thanks",register="neutral"),PhrasebookEntry(text="කමක් නැහැ.",context="Thanks",register="neutral")]),
+PhrasebookCategory(id="si_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="කරුණාකර උදව් කරන්න.",context="Help",register="neutral"),PhrasebookEntry(text="මට තේරෙන්නේ නැහැ.",context="Help",register="neutral"),PhrasebookEntry(text="ආයෙත් කියන්න, කරුණාකර.",context="Help",register="neutral")]),
+PhrasebookCategory(id="si_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="පාසල කොහෙද?",context="Directions",register="neutral"),PhrasebookEntry(text="වෙළඳසැල කොහෙද?",context="Directions",register="neutral"),PhrasebookEntry(text="දකුණට යන්න.",context="Directions",register="neutral")])]
 ASSESSMENT_BANK=[
 AssessmentQuestion(id="si-a1-001",skill="vocabulary",difficulty="A1",question="Which Sinhala word means 'water'?",options=["වතුර","ගෙදර","අම්මා","පාසල"],correct="වතුර"),
 AssessmentQuestion(id="si-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["මම ගෙදර ඉන්නවා.","මම පාසලට යනවා.","මම වතුර බොනවා.","මේ පොතක්."],correct="මම ගෙදර ඉන්නවා."),
