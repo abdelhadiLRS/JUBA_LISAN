@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Circle, CircleDot, Diamond, Check, Minus } from 'lucide-react'
+import { Circle, CircleDot, Diamond, Check, Minus, ArrowRight, Loader2 } from 'lucide-react'
 import { PageLoading } from '@/components/ui/page-loading'
 import { getLandingSubscriptionState } from '@/lib/landing-subscription'
 import { apiFetch } from '@/lib/api'
@@ -208,7 +208,7 @@ export default function PricingSection({
                 </div>
                 {plan.badge && (
                   <span
-                    className={`text-[var(--landing-muted)] border px-2 py-0.5 font-mono tracking-widest uppercase ${plan.badgeStyle}`}
+                    className={`text-[var(--landing-muted)] border px-2 py-0.5 font-sans text-[0.65rem] font-extrabold tracking-wide uppercase ${plan.badgeStyle}`}
                   >
                     {plan.badge}
                   </span>
@@ -218,13 +218,13 @@ export default function PricingSection({
               <div className="min-h-[4.25rem]">
                 {plan.price !== null ? (
                   <>
-                    <p className="juba-ff-plan-old font-mono text-sm line-through">
+                    <p className="juba-ff-plan-old font-sans text-sm line-through">
                       {tBilling('priceOriginal', {
                         price: plan.originalPrice,
                         period: plan.priceLabel,
                       })}
                     </p>
-                    <p className="juba-ff-plan-price flex items-baseline gap-2 font-mono text-2xl font-black">
+                    <p className="juba-ff-plan-price flex items-baseline gap-2 font-sans text-2xl font-black">
                       {tBilling('priceAmount', { amount: plan.price })}
                       <span className="text-[var(--landing-muted)] text-sm">
                         {tBilling('pricePerPeriod', {
@@ -253,9 +253,9 @@ export default function PricingSection({
                   type="button"
                   disabled={checkoutLoading !== null}
                   onClick={() => startCheckout(plan.interval)}
-                  className="juba-ff-plan-cta inline-block px-6 py-2.5 text-center font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+                  className="juba-ff-plan-cta inline-block px-6 py-2.5 text-center font-sans text-sm font-extrabold transition-colors disabled:opacity-50"
                 >
-                  {checkoutLoading === plan.interval ? '...' : plan.cta}
+                  {checkoutLoading === plan.interval ? 'Loading…' : plan.cta}
                 </button>
               ) : (
                 <Link
@@ -343,9 +343,7 @@ export default function PricingSection({
             onClick={() => startCheckout('yearly')}
             className="juba-ff-plan-cta inline-block px-10 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
           >
-            {checkoutLoading === 'yearly'
-              ? '...'
-              : tBilling(trialUsed ? 'ctaRegisterTrialUsed' : 'ctaRegister')}
+            {checkoutLoading === 'yearly' ? 'Loading…' : tBilling(trialUsed ? 'ctaRegisterTrialUsed' : 'ctaRegister')}
           </button>
         ) : (
           <Link
@@ -356,7 +354,7 @@ export default function PricingSection({
           </Link>
         )}
         {checkoutError && (
-          <p className="juba-ff-plan-error mt-3 font-mono text-xs">
+          <p className="juba-ff-plan-error mx-auto mt-3 max-w-xl rounded-xl border border-[var(--landing-green-dark)]/20 bg-white/70 px-3 py-2 font-sans text-xs leading-5">
             {checkoutError}
           </p>
         )}
