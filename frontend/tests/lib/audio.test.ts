@@ -405,6 +405,31 @@ describe('createAudioQueue', () => {
     expect(revokeObjectURL).toHaveBeenCalledWith('blob:fallback-error')
   })
 
+  it('releases the blob URL when HTMLAudio construction fails', async () => {
+    const { ctx } = createContext()
+    ctx.decodeAudioData = vi.fn(async () => {
+      throw new Error('decode failed')
+    }) as typeof ctx.decodeAudioData
+
+    const createObjectURL = vi.fn(() => 'blob:construction-failure')
+    const revokeObjectURL = vi.fn()
+    const idle = vi.fn()
+
+    vi.stubGlobal('Audio', vi.fn(() => {
+      throw new Error('audio construction failed')
+    }))
+    vi.stubGlobal('URL', { createObjectURL, revokeObjectURL })
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx, idle)
+
+    await expect(queue.enqueue(new ArrayBuffer(4))).resolves.toBeUndefined()
+
+    expect(createObjectURL).toHaveBeenCalledWith(expect.any(Blob))
+    expect(revokeObjectURL).toHaveBeenCalledWith('blob:construction-failure')
+    expect(idle).toHaveBeenCalledTimes(1)
+  })
+
   it('falls back when a Web Audio source cannot be created', async () => {
     const { ctx } = createContext()
     vi.spyOn(ctx, 'createBufferSource').mockImplementation(() => {
