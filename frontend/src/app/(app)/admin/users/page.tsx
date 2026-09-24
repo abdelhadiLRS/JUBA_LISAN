@@ -136,7 +136,9 @@ export default function AdminUsersPage() {
   const [actionBusy, setActionBusy] = useState<string | null>(null)
   const [deletePending, setDeletePending] = useState<AdminUserItem | null>(null)
   const [activePending, setActivePending] = useState<AdminUserItem | null>(null)
-  const currentUserId = useAuthStore((s) => s.user?.id)
+  const currentUser = useAuthStore((s) => s.user)
+  const isAdmin = currentUser?.role === 'admin'
+  const currentUserId = currentUser?.id
   const availableLanguageCodes = useLanguageStore(
     (s) => s.availableLanguageCodes
   )
@@ -436,18 +438,6 @@ export default function AdminUsersPage() {
         title={t('users')}
         actions={
           <>
-            <button
-              onClick={generateInvite}
-              disabled={actionBusy === 'invite'}
-              className="border-[var(--juba-app-line)] text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-green)] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:opacity-40"
-            >
-              {actionBusy === 'invite' ? (
-                <Loader2 className="size-3.5 animate-spin" aria-hidden="true" />
-              ) : (
-                <LinkIcon className="size-3.5" aria-hidden="true" />
-              )}
-              {t('inviteBtn')}
-            </button>
             <button
               onClick={openCreateUser}
               className="bg-[var(--juba-app-green)] text-white hover:bg-[var(--juba-app-green)]/90 inline-flex items-center gap-2 px-3 py-2 font-sans text-xs font-bold tracking-wide transition-colors"
