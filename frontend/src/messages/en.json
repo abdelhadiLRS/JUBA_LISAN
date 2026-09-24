@@ -744,7 +744,9 @@
     "noPlanLabel": "GET STARTED",
     "noPlanTitle": "Create your study plan",
     "noPlanDesc": "Take a quick assessment to discover your level and get a personalized learning path.",
-    "noPlanHint": "Takes about 10 minutes"
+    "noPlanHint": "Takes about 10 minutes",
+    "planLoadFailed": "Failed to load plan ({status})",
+    "loadFailed": "Failed to load"
   },
   "lesson": {
     "loading": "Loading lesson...",
