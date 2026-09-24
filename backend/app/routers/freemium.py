@@ -10,7 +10,10 @@ from app.core.limiter import limiter
 from app.models.user import User
 from app.services.freemium_service import get_freemium_status
 
-router = APIRouter(\n    prefix="/api/freemium",\n    tags=["freemium"],\n    dependencies=[Depends(require_learner)],
+router = APIRouter(
+    prefix="/api/freemium",
+    tags=["freemium"],
+    dependencies=[Depends(require_learner)],
 )
 
 
