@@ -44,6 +44,16 @@ CurriculumUnit(id="et-a1-unit-8",level="A1",unit_number=8,title="Kordamine",gram
 for level in ["A2","B1","B2","C1","C2"]:
     CURRICULUM[level]=[CurriculumUnit(id=f"et-{level.lower()}-foundation",level=level,unit_number=1,title=f"Estonian {level}",grammar_points=["review A1"],vocabulary_set_ids=["review_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=[f"Build {level} communication"],default_weeks=2)]
 
+ASSESSMENT_BANK=[AssessmentQuestion(id="et-a1-001",skill="vocabulary",difficulty="A1",question="What does “aitäh” mean?",options=["hello","thank you","goodbye","help"],correct="thank you"),
+AssessmentQuestion(id="et-a1-002",skill="grammar",difficulty="A1",question="Choose the correct sentence for “I am a student.”",options=["Mina olen õpilane.","Mina õpilane olen.","Mina on õpilane.","Õpilane mina olen."],correct="Mina olen õpilane."),
+AssessmentQuestion(id="et-a1-003",skill="grammar",difficulty="A1",question="Which sentence is negative?",options=["Ma ei tööta täna.","Ma tööta täna.","Ma ei töötan täna.","Ma töötan ei täna."],correct="Ma ei tööta täna."),
+AssessmentQuestion(id="et-a1-004",skill="grammar",difficulty="A1",question="Which question asks where someone is?",options=["Kus sa oled?","Mis see on?","Kui palju see maksab?","Mis su nimi on?"],correct="Kus sa oled?"),
+AssessmentQuestion(id="et-a1-005",skill="vocabulary",difficulty="A1",question="Which word means “mother”?",options=["ema","isa","õde","vend"],correct="ema"),
+AssessmentQuestion(id="et-a1-006",skill="vocabulary",difficulty="A1",question="Which word means “shop”?",options=["pood","jaam","kodu","tuba"],correct="pood"),
+AssessmentQuestion(id="et-a1-007",skill="grammar",difficulty="A1",question="Choose the correct sentence for “I drink water.”",options=["Ma joon vett.","Ma joo vett.","Ma joon vesi.","Mina jooma vett."],correct="Ma joon vett."),
+AssessmentQuestion(id="et-a1-008",skill="communication",difficulty="A1",question="Which phrase asks for help?",options=["Kas sa saad mind aidata?","Hüvasti!","Aitäh!","Minu nimi on Mari."],correct="Kas sa saad mind aidata?"),
+AssessmentQuestion(id="et-a1-009",skill="communication",difficulty="A1",question="Which phrase asks for the station's location?",options=["Kus jaam on?","Kui palju see maksab?","Ma soovin seda.","Tere!"],correct="Kus jaam on?"),
+AssessmentQuestion(id="et-a1-010",skill="vocabulary",difficulty="A1",question="Which word means “friend”?",options=["sõber","aeg","homme","tänа"],correct="sõber")]
 ASSESSMENT_BANK=[
     AssessmentQuestion(id="et-a1-001",skill="vocabulary",difficulty="A1",question="Which word is the greeting?",options=["tere","station","water","book"],correct="tere"),
     AssessmentQuestion(id="et-a1-002",skill="grammar",difficulty="A1",question="Choose the first model sentence.",options=["Mina olen õpilane.","Tema on õpetaja.","No sentence","Tomorrow"],correct="Mina olen õpilane."),
