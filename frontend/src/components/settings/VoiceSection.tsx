@@ -100,14 +100,14 @@ export function VoiceSection({ title }: { title?: string } = {}) {
           {title ?? t('sectionVoice')}
         </span>
       </div>
-      <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mb-4 font-mono">
+      <p className="mb-4 font-mono text-[var(--juba-app-muted)]">
         {t('voiceHint')}
       </p>
       <div className="flex items-center gap-3">
         <select
           value={selectedVoice}
           onChange={(e) => selectVoice(e.target.value)}
-          className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] focus:border-[var(--juba-app-line)]-2 flex-1 appearance-none border px-4 py-3 font-mono text-sm tracking-widest uppercase transition-colors focus:outline-none"
+          className="flex-1 appearance-none border border-[var(--juba-app-line)] bg-[var(--juba-app-bg)] px-4 py-3 font-mono text-sm tracking-widest uppercase text-[var(--juba-app-ink)] transition-colors focus:border-[var(--juba-app-line)] focus:outline-none"
         >
           {OPENAI_VOICES.map((voice) => (
             <option key={voice} value={voice}>
@@ -119,7 +119,7 @@ export function VoiceSection({ title }: { title?: string } = {}) {
           type="button"
           onClick={() => void togglePreview(selectedVoice)}
           disabled={loadingVoice === selectedVoice}
-          className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] border-[var(--juba-app-line)] hover:border-[var(--juba-app-line)]-2 border px-4 py-3 font-mono tracking-widest whitespace-nowrap uppercase transition-colors disabled:opacity-40"
+          className="whitespace-nowrap border border-[var(--juba-app-line)] px-4 py-3 font-mono tracking-widest uppercase text-[var(--juba-app-muted)] transition-colors hover:border-[var(--juba-app-line)] hover:text-[var(--juba-app-ink)] disabled:opacity-40"
         >
           {loadingVoice === selectedVoice
             ? '...'
