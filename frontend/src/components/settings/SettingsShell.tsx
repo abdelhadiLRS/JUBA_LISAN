@@ -47,7 +47,7 @@ export function SettingsNav({
           <a
             key={item.href}
             href={item.href}
-            className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] focus:text-[var(--juba-app-ink)] flex min-h-9 items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium transition-colors hover:bg-[var(#f3f7ef)] focus:bg-[var(#f3f7ef)] focus:outline-none focus-visible:ring-2"
+            className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] focus:text-[var(--juba-app-ink)] flex min-h-9 items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium transition-colors hover:bg-[#f3f7ef] focus:bg-[#f3f7ef] focus:outline-none focus-visible:ring-2"
             style={
               {
                 '--tw-ring-color': 'var(--juba-app-green)',
