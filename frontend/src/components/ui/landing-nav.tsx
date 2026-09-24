@@ -18,6 +18,10 @@ interface LandingNavProps {
   signIn: string
   dashboard: string
   getStarted: string
+  homeLabel: string
+  brandTagline: string
+  openMenuLabel: string
+  closeMenuLabel: string
 }
 
 export function LandingNav({
@@ -33,6 +37,10 @@ export function LandingNav({
   signIn,
   dashboard,
   getStarted,
+  homeLabel,
+  brandTagline,
+  openMenuLabel,
+  closeMenuLabel,
 }: LandingNavProps) {
   const [open, setOpen] = useState(false)
   const [showPricing, setShowPricing] = useState(stripeEnabled && !hasSession)
@@ -78,14 +86,14 @@ export function LandingNav({
   return (
     <nav className="juba-site-nav juba-ff-site-nav sticky top-0 z-50 w-full transition-all">
       <div className="juba-ff-nav-inner mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="juba-brand juba-ff-brand flex items-center gap-3 group" aria-label="JUBA LISAN home">
+        <Link href="/" className="juba-brand juba-ff-brand flex items-center gap-3 group" aria-label={homeLabel}>
           <span className="juba-brand-mark juba-ff-brand-mark relative flex h-10 w-10 items-center justify-center rounded-xl font-black text-lg transition-transform">
             J
             <i className="juba-brand-spark" aria-hidden="true">✦</i>
           </span>
           <span className="juba-ff-brand-copy">
             <span className="juba-ff-brand-name font-sans text-lg font-black tracking-tight">JUBA <span className="juba-brand-accent">LISAN</span></span>
-            <small>Learn · Speak · Grow</small>
+            <small>{brandTagline}</small>
           </span>
         </Link>
 
@@ -103,7 +111,7 @@ export function LandingNav({
           type="button"
           onClick={() => setOpen((value) => !value)}
           className="juba-menu juba-ff-menu rounded-xl p-2 md:hidden"
-          aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-label={open ? closeMenuLabel : openMenuLabel}
           aria-expanded={open}
           aria-controls="juba-mobile-navigation"
         >
