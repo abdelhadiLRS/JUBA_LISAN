@@ -256,14 +256,16 @@ export default async function Home() {
         </ScrollReveal>
       </section>
 
-      {/* Social proof */}
-      <section id="reviews" className="juba-ff-story juba-ff-story-reviews scroll-mt-20">
-        <ScrollReveal>
-          <div className="juba-ff-story-inner juba-ff-contained-card">
-            <LandingReviewsCarousel reviews={reviews} />
-          </div>
-        </ScrollReveal>
-      </section>
+      {/* Social proof — render only when real public reviews are available. */}
+      {reviews.length > 0 && (
+        <section id="reviews" className="juba-ff-story juba-ff-story-reviews scroll-mt-20">
+          <ScrollReveal>
+            <div className="juba-ff-story-inner juba-ff-contained-card">
+              <LandingReviewsCarousel reviews={reviews} />
+            </div>
+          </ScrollReveal>
+        </section>
+      )}
 
       {/* Pricing */}
       <section id="pricing" className="juba-ff-story juba-ff-story-pricing scroll-mt-20">
