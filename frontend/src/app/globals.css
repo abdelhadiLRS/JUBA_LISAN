@@ -4519,3 +4519,53 @@ main [dir="rtl"] h3,
     padding:1rem;
   }
 }
+
+
+/* JUBA LISAN — vocabulary review surface v6 */
+.juba-review-shell{
+  color:var(--juba-app-ink);
+}
+.juba-review-shell .juba-review-card{
+  border:2px solid var(--juba-app-ink);
+  border-radius:26px;
+  background:var(--juba-app-surface);
+  box-shadow:7px 7px 0 var(--juba-app-ink);
+}
+.juba-review-shell .text-\\[var\\(--juba-muted\\)\\]{
+  color:var(--juba-app-muted);
+}
+.juba-review-shell .border-\\[var\\(--juba-lilac\\)\\]{
+  border-color:var(--juba-app-line);
+}
+.juba-review-shell .bg-\\[var\\(--juba-lilac\\)\\]{
+  background:#e4ebe0;
+}
+.juba-review-shell .bg-\\[var\\(--juba-violet\\)\\]{
+  background:var(--juba-app-yellow);
+  color:var(--juba-app-ink);
+}
+.juba-review-shell button{
+  border-radius:14px;
+  border-color:var(--juba-app-line);
+  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+}
+.juba-review-shell button:hover:not(:disabled){
+  transform:translateY(-2px);
+  border-color:#a9c79a;
+  box-shadow:3px 3px 0 rgba(24,37,27,.12);
+}
+.juba-review-shell .juba-review-card > .bg-white-soft,
+.juba-review-shell [class*="bg-white-soft"]{
+  background:#eef6e8;
+  border-color:var(--juba-app-line);
+}
+.juba-review-shell [role="progressbar"]{
+  border:1px solid var(--juba-app-line);
+}
+.juba-review-shell [role="progressbar"] > div{
+  background:var(--juba-app-green);
+}
+@media(max-width:700px){
+  .juba-review-shell{padding:1rem;}
+  .juba-review-shell .juba-review-card{box-shadow:4px 4px 0 var(--juba-app-ink);}
+}
