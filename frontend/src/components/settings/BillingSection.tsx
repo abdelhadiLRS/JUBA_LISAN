@@ -35,17 +35,17 @@ export function BillingSection() {
   }
 
   return (
-    <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] border p-6">
-      <div className="border-[var(--juba-border)] mb-4 flex items-center gap-2 border-b pb-4">
-        <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-        <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
+    <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border p-6">
+      <div className="border-[var(--juba-app-line)] mb-4 flex items-center gap-2 border-b pb-4">
+        <span className="text-[var(--juba-app-muted)]">●</span>
+        <span className="text-[var(--juba-app-muted)] font-mono tracking-widest uppercase">
           {tBilling('section')}
         </span>
       </div>
       <div className="space-y-4">
         {/* Status badge */}
         <div className="flex items-center justify-between">
-          <span className="text-[var(--juba-muted)] font-mono text-xs tracking-widest uppercase">
+          <span className="text-[var(--juba-app-muted)] font-mono text-xs tracking-widest uppercase">
             {tBilling('status')}
           </span>
           <span
@@ -55,12 +55,12 @@ export function BillingSection() {
                 ? 'border-green-600/40 text-green-500'
                 : user?.subscription_status === 'active' &&
                     user?.cancel_at_period_end
-                  ? 'border-[var(--juba-violet)]/40 text-[var(--juba-violet-dark)]'
+                  ? 'border-[var(--juba-app-green)]/40 text-[var(--juba-app-green-dark)]'
                   : user?.subscription_status === 'trialing'
-                    ? 'border-[var(--juba-violet)]/40 text-[var(--juba-violet-dark)]'
+                    ? 'border-[var(--juba-app-green)]/40 text-[var(--juba-app-green-dark)]'
                     : paymentRecovery
                       ? 'border-yellow-500/40 text-yellow-500'
-                      : 'border-[var(--juba-border)] text-[var(--juba-muted)]'
+                      : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)]'
             }`}
           >
             {user?.subscription_status === 'active' &&
@@ -98,13 +98,13 @@ export function BillingSection() {
             user.cancel_at_period_end) &&
           new Date(user.subscription_ends_at) > new Date() && (
             <div className="flex items-center justify-between">
-              <span className="text-[var(--juba-muted)] font-mono text-xs tracking-widest uppercase">
+              <span className="text-[var(--juba-app-muted)] font-mono text-xs tracking-widest uppercase">
                 {user.subscription_status === 'canceled' ||
                 user.cancel_at_period_end
                   ? tBilling('accessUntil')
                   : tBilling('nextBilling')}
               </span>
-              <span className="text-[var(--juba-muted)] font-mono text-xs">
+              <span className="text-[var(--juba-app-muted)] font-mono text-xs">
                 {new Date(user.subscription_ends_at).toLocaleDateString()}
               </span>
             </div>
@@ -115,7 +115,7 @@ export function BillingSection() {
             <p className="font-mono text-xs font-bold tracking-widest text-yellow-500 uppercase">
               {tBilling('pastDueTitle')}
             </p>
-            <p className="text-[var(--juba-muted)] mt-2 font-mono text-xs leading-relaxed">
+            <p className="text-[var(--juba-app-muted)] mt-2 font-mono text-xs leading-relaxed">
               {tBilling('pastDueDesc')}
             </p>
           </div>
@@ -126,7 +126,7 @@ export function BillingSection() {
           <button
             onClick={handleManageSubscription}
             disabled={portalLoading}
-            className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-border)]-2 w-full border py-2.5 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+            className="border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-line)]-2 w-full border py-2.5 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
           >
             {portalLoading
               ? '...'
@@ -137,7 +137,7 @@ export function BillingSection() {
         )}
 
         {portalError && (
-          <p className="text-[var(--juba-muted)] font-mono text-red-500">{portalError}</p>
+          <p className="text-[var(--juba-app-muted)] font-mono text-red-500">{portalError}</p>
         )}
       </div>
     </div>
