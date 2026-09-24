@@ -51,7 +51,7 @@ function normalizeSupportedCodes(value: unknown): string[] {
 
   const canonicalCodes = value
     .filter((code): code is string => typeof code === 'string')
-    .map((code) => getLanguageByCode(code)?.code ?? null)
+    .map((code) => getCanonicalLanguageCode(code) ?? null)
     .filter((code): code is string => code !== null)
 
   return Array.from(new Set(canonicalCodes))
