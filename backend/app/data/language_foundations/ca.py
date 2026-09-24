@@ -44,6 +44,16 @@ CurriculumUnit(id="ca-a1-unit-8",level="A1",unit_number=8,title="Repàs",grammar
 for level in ["A2","B1","B2","C1","C2"]:
     CURRICULUM[level]=[CurriculumUnit(id=f"ca-{level.lower()}-foundation",level=level,unit_number=1,title=f"Catalan {level}",grammar_points=["review A1"],vocabulary_set_ids=["review_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=[f"Build {level} communication"],default_weeks=2)]
 
+ASSESSMENT_BANK=[AssessmentQuestion(id="ca-a1-001",skill="vocabulary",difficulty="A1",question="What does “gràcies” mean?",options=["hello","thanks","goodbye","please"],correct="thanks"),
+AssessmentQuestion(id="ca-a1-002",skill="grammar",difficulty="A1",question="Choose the correct sentence for “I am a student.”",options=["Jo sóc estudiant.","Jo és estudiant.","Jo sóc estudiants.","Jo estudiant sóc."],correct="Jo sóc estudiant."),
+AssessmentQuestion(id="ca-a1-003",skill="grammar",difficulty="A1",question="Which sentence uses estar correctly?",options=["Estic a casa.","Sóc a casa.","Estic casa sóc.","A casa és jo."],correct="Estic a casa."),
+AssessmentQuestion(id="ca-a1-004",skill="grammar",difficulty="A1",question="Which question asks “Where are you?”",options=["On ets?","Què és això?","Quin és el preu?","Com et dius?"],correct="On ets?"),
+AssessmentQuestion(id="ca-a1-005",skill="vocabulary",difficulty="A1",question="Which word means “mother”?",options=["mare","pare","germana","germà"],correct="mare"),
+AssessmentQuestion(id="ca-a1-006",skill="vocabulary",difficulty="A1",question="Which word means “station”?",options=["botiga","estació","casa","porta"],correct="estació"),
+AssessmentQuestion(id="ca-a1-007",skill="grammar",difficulty="A1",question="Choose the correct negative sentence.",options=["No estudio avui.","No estudiar avui.","Estudio no avui.","No estudis avui."],correct="No estudio avui."),
+AssessmentQuestion(id="ca-a1-008",skill="communication",difficulty="A1",question="Which phrase asks for help?",options=["Em pots ajudar?","Adéu!","Gràcies!","Sóc estudiant."],correct="Em pots ajudar?"),
+AssessmentQuestion(id="ca-a1-009",skill="communication",difficulty="A1",question="Which phrase asks for a location?",options=["On és l’estació?","Vull llet.","Gràcies!","Adéu!"],correct="On és l’estació?"),
+AssessmentQuestion(id="ca-a1-010",skill="vocabulary",difficulty="A1",question="Which word means “friend”?",options=["amic","aigua","hora","botiga"],correct="amic")]
 ASSESSMENT_BANK=[
     AssessmentQuestion(id="ca-a1-001",skill="vocabulary",difficulty="A1",question="Which word is the greeting?",options=["hola","station","water","book"],correct="hola"),
     AssessmentQuestion(id="ca-a1-002",skill="grammar",difficulty="A1",question="Choose the first model sentence.",options=["Jo sóc estudiant.","Ella és professora.","No sentence","Tomorrow"],correct="Jo sóc estudiant."),
