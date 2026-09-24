@@ -573,16 +573,16 @@ export default function DashboardPage() {
                             {t('lessonDone')}
                           </span>
                         ) : lesson.id ? (
-                          <Link href={`/lesson/${lesson.id}`}>
-                            <button
-                              className={`text-[var(--juba-app-muted)] focus-visible:outline-fl-fg px-3 py-1 font-sans text-xs font-semibold tracking-[.12em] uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                                isNext
-                                  ? 'text-[var(--juba-app-bg)] bg-[var(--juba-app-ink)] hover:bg-[var(--juba-app-ink)]/90 font-bold'
-                                  : 'text-[var(--juba-app-ink)] border-[var(--juba-app-line)] hover:border-[var(--juba-app-line)]-2 border'
-                              }`}
-                            >
-                              {t('startLesson')}
-                            </Link>
+                          <Link
+                            href={`/lesson/${lesson.id}`}
+                            className={`inline-flex items-center rounded-xl px-3 py-1.5 font-sans text-xs font-semibold tracking-[.12em] uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--juba-app-ink)] ${
+                              isNext
+                                ? 'text-white bg-[var(--juba-app-ink)] hover:bg-[var(--juba-app-ink)]/90 font-bold'
+                                : 'text-[var(--juba-app-ink)] border border-[var(--juba-app-line)] hover:bg-[var(--juba-app-green-soft)]'
+                            }`}
+                          >
+                            {t('startLesson')}
+                          </Link>
                         ) : null}
                       </div>
                     </div>
@@ -594,7 +594,7 @@ export default function DashboardPage() {
                     disabled={skipping}
                     className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase transition-colors disabled:opacity-40"
                   >
-                    {skipping ? '...' : t('skipDay')}
+                    {skipping ? '…' : t('skipDay')}
                   </button>
                   {skipError && (
                     <p className="text-[var(--juba-app-error)] mt-1 font-sans text-xs">
@@ -747,18 +747,15 @@ export default function DashboardPage() {
                 {pendingCount} {t('pendingLessons')} →
               </Link>
           )}
-          <Link href="/flashcards">
-            <button className="juba-secondary-button text-xs tracking-widest uppercase">
-              {tNav('flashcards')}
-            </Link>
-          <Link href="/chat">
-            <button className="juba-secondary-button text-xs tracking-widest uppercase">
-              {tNav('tutor')}
-            </Link>
-          <Link href="/assessment">
-            <button className="juba-secondary-button text-xs tracking-widest uppercase">
-              {tNav('assessment')}
-            </Link>
+          <Link href="/flashcards" className="juba-secondary-button text-xs tracking-widest uppercase">
+            {tNav('flashcards')}
+          </Link>
+          <Link href="/chat" className="juba-secondary-button text-xs tracking-widest uppercase">
+            {tNav('tutor')}
+          </Link>
+          <Link href="/assessment" className="juba-secondary-button text-xs tracking-widest uppercase">
+            {tNav('assessment')}
+          </Link>
         </div>
       </main>
     </>
