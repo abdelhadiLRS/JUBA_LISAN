@@ -16,7 +16,7 @@ export default function LevelTestBanner({ planId, level }: Props) {
   return (
     <div className="juba-card mt-2 overflow-hidden">
       <div className="flex items-center gap-3 border-b border-[var(--juba-app-line)] px-5 py-4 sm:px-6">
-        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--juba-warm-soft)] text-[var(--juba-app-green-dark)]">
+        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--juba-app-yellow)] text-[var(--juba-app-green-dark)]">
           <Award className="h-4.5 w-4.5" aria-hidden="true" />
         </span>
         <div>
@@ -33,6 +33,7 @@ export default function LevelTestBanner({ planId, level }: Props) {
           {t('levelCompleteDesc', { level })}
         </p>
         <button
+          type="button"
           onClick={() => router.push(`/assessment/level-test?plan=${planId}`)}
           className="juba-primary-button"
         >
