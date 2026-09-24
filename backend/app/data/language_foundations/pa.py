@@ -24,14 +24,31 @@ GrammarTopic(slug="pa-a1-g7",title="Locative",level="A1",category="grammar",summ
 GrammarTopic(slug="pa-a1-g8",title="Plural",level="A1",category="grammar",summary="Use plural in basic communication.",explanation="Practice plural through short everyday exchanges.",examples=[GrammarExample(text="ਲੋਕ ਇੱਥੇ ਹਨ।")])
 ]
 VOCABULARY_SETS=[
-VocabularySet(id="greetings_a1",level="A1",topic="greetings",unit_ref="pa-a1-unit-1",words=[VocabularyEntry(word="ਸਤ ਸ੍ਰੀ ਅਕਾਲ",pos="noun",definition="hello",example="ਸਤ ਸ੍ਰੀ ਅਕਾਲ!")]),
-VocabularySet(id="identity_a1",level="A1",topic="identity",unit_ref="pa-a1-unit-2",words=[VocabularyEntry(word="ਨਾਮ",pos="noun",definition="name",example="ਮੇਰਾ ਨਾਮ ਅਮਨ ਹੈ।")]),
-VocabularySet(id="family_a1",level="A1",topic="family",unit_ref="pa-a1-unit-3",words=[VocabularyEntry(word="ਮਾਂ",pos="noun",definition="mother",example="ਮਾਂ ਘਰ ਵਿੱਚ ਹੈ।")]),
-VocabularySet(id="home_a1",level="A1",topic="home",unit_ref="pa-a1-unit-4",words=[VocabularyEntry(word="ਘਰ",pos="noun",definition="house",example="ਮੇਰਾ ਘਰ ਵੱਡਾ ਹੈ।")]),
-VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="pa-a1-unit-5",words=[VocabularyEntry(word="ਪੜ੍ਹਨਾ",pos="noun",definition="to study",example="ਮੈਂ ਸਵੇਰੇ ਪੜ੍ਹਦਾ ਹਾਂ।")]),
-VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="pa-a1-unit-6",words=[VocabularyEntry(word="ਸਮਾਂ",pos="noun",definition="time",example="ਸਮਾਂ ਕੀ ਹੋਇਆ ਹੈ?")]),
-VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="pa-a1-unit-7",words=[VocabularyEntry(word="ਪਾਣੀ",pos="noun",definition="water",example="ਮੈਨੂੰ ਪਾਣੀ ਚਾਹੀਦਾ ਹੈ।")]),
-VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="pa-a1-unit-8",words=[VocabularyEntry(word="ਸਕੂਲ",pos="noun",definition="school",example="ਮੈਂ ਸਕੂਲ ਵਿੱਚ ਹਾਂ।")])
+VocabularySet(id="greetings_a1",level="A1",topic="greetings",unit_ref="pa-a1-unit-1",words=[VocabularyEntry(word="ਸਤ ਸ੍ਰੀ ਅਕਾਲ",pos="phrase",definition="hello",example="ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਤੁਸੀਂ ਕਿਵੇਂ ਹੋ?"),VocabularyEntry(word="ਧੰਨਵਾਦ",pos="phrase",definition="thank you",example="ਤੁਹਾਡਾ ਬਹੁਤ ਧੰਨਵਾਦ।"),VocabularyEntry(word="ਸ਼ੁਭ ਸਵੇਰ",pos="phrase",definition="good morning",example="ਸ਼ੁਭ ਸਵੇਰ!")]),
+VocabularySet(id="identity_a1",level="A1",topic="identity",unit_ref="pa-a1-unit-2",words=[VocabularyEntry(word="ਨਾਮ",pos="noun",definition="name",example="ਮੇਰਾ ਨਾਮ ਅਮਨ ਹੈ।"),VocabularyEntry(word="ਮੈਂ",pos="pronoun",definition="I",example="ਮੈਂ ਵਿਦਿਆਰਥੀ ਹਾਂ।"),VocabularyEntry(word="ਤੁਸੀਂ",pos="pronoun",definition="you",example="ਤੁਸੀਂ ਕਿੱਥੇ ਹੋ?")]),
+VocabularySet(id="family_a1",level="A1",topic="family",unit_ref="pa-a1-unit-3",words=[VocabularyEntry(word="ਮਾਂ",pos="noun",definition="mother",example="ਮਾਂ ਘਰ ਵਿੱਚ ਹੈ।"),VocabularyEntry(word="ਪਿਤਾ",pos="noun",definition="father",example="ਪਿਤਾ ਕੰਮ ਤੇ ਹਨ।"),VocabularyEntry(word="ਭਰਾ",pos="noun",definition="brother",example="ਮੇਰਾ ਭਰਾ ਸਕੂਲ ਵਿੱਚ ਹੈ।")]),
+VocabularySet(id="home_a1",level="A1",topic="home",unit_ref="pa-a1-unit-4",words=[VocabularyEntry(word="ਘਰ",pos="noun",definition="house",example="ਮੇਰਾ ਘਰ ਵੱਡਾ ਹੈ।"),VocabularyEntry(word="ਕਮਰਾ",pos="noun",definition="room",example="ਮੇਰਾ ਕਮਰਾ ਸਾਫ਼ ਹੈ।"),VocabularyEntry(word="ਦਰਵਾਜ਼ਾ",pos="noun",definition="door",example="ਦਰਵਾਜ਼ਾ ਖੁੱਲ੍ਹਾ ਹੈ।")]),
+VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="pa-a1-unit-5",words=[VocabularyEntry(word="ਪੜ੍ਹਨਾ",pos="verb",definition="to study",example="ਮੈਂ ਸਵੇਰੇ ਪੜ੍ਹਦਾ ਹਾਂ।"),VocabularyEntry(word="ਜਾਣਾ",pos="verb",definition="to go",example="ਮੈਂ ਸਕੂਲ ਜਾਂਦਾ ਹਾਂ।"),VocabularyEntry(word="ਖਾਣਾ",pos="verb",definition="to eat",example="ਮੈਂ ਸਵੇਰੇ ਖਾਣਾ ਖਾਂਦਾ ਹਾਂ।")]),
+VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="pa-a1-unit-6",words=[VocabularyEntry(word="ਸਮਾਂ",pos="noun",definition="time",example="ਸਮਾਂ ਕੀ ਹੋਇਆ ਹੈ?"),VocabularyEntry(word="ਅੱਜ",pos="adverb",definition="today",example="ਅੱਜ ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।"),VocabularyEntry(word="ਕੱਲ੍ਹ",pos="adverb",definition="tomorrow",example="ਕੱਲ੍ਹ ਮੈਂ ਸਕੂਲ ਜਾਵਾਂਗਾ।")]),
+VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="pa-a1-unit-7",words=[VocabularyEntry(word="ਪਾਣੀ",pos="noun",definition="water",example="ਮੈਨੂੰ ਪਾਣੀ ਚਾਹੀਦਾ ਹੈ।"),VocabularyEntry(word="ਚਾਹ",pos="noun",definition="tea",example="ਮੈਂ ਚਾਹ ਪੀਂਦਾ ਹਾਂ।"),VocabularyEntry(word="ਰੋਟੀ",pos="noun",definition="bread/flatbread",example="ਮੈਂ ਰੋਟੀ ਖਾਂਦਾ ਹਾਂ।")]),
+VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="pa-a1-unit-8",words=[VocabularyEntry(word="ਸਕੂਲ",pos="noun",definition="school",example="ਮੈਂ ਸਕੂਲ ਵਿੱਚ ਹਾਂ।"),VocabularyEntry(word="ਬਾਜ਼ਾਰ",pos="noun",definition="market",example="ਬਾਜ਼ਾਰ ਨੇੜੇ ਹੈ।"),VocabularyEntry(word="ਇੱਥੇ",pos="adverb",definition="here",example="ਮੈਂ ਇੱਥੇ ਹਾਂ।")])
+]PHRASEBOOK_CATEGORIES=[
+PhrasebookCategory(id="pa_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="ਸਤ ਸ੍ਰੀ ਅਕਾਲ।",context="Hello.",register="neutral")]),
+PhrasebookCategory(id="pa_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="ਧੰਨਵਾਦ।",context="Thank you.",register="neutral")]),
+PhrasebookCategory(id="pa_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="ਕਿਰਪਾ ਕਰਕੇ ਮਦਦ ਕਰੋ।",context="Please help me.",register="neutral")]),
+PhrasebookCategory(id="pa_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="ਸਕੂਲ ਕਿੱਥੇ ਹੈ?",context="Where is the school?",register="neutral")])
+]
+ASSESSMENT_BANK=[
+AssessmentQuestion(id="pa-a1-001",skill="vocabulary",difficulty="A1",question="Which Punjabi word means 'water'?",options=["ਪਾਣੀ","ਘਰ","ਮਾਂ","ਸਕੂਲ"],correct="ਪਾਣੀ"),
+AssessmentQuestion(id="pa-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।","ਮੈਂ ਸਕੂਲ ਜਾਂਦਾ ਹਾਂ।","ਮੈਂ ਪਾਣੀ ਪੀਂਦਾ ਹਾਂ।","ਇਹ ਕਿਤਾਬ ਹੈ।"],correct="ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।"),
+AssessmentQuestion(id="pa-a1-003",skill="vocabulary",difficulty="A1",question="What does ਮਾਂ mean?",options=["mother","father","friend","teacher"],correct="mother"),
+AssessmentQuestion(id="pa-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?","ਤੁਸੀਂ ਕਿੱਥੇ ਹੋ?","ਇਹ ਕੀ ਹੈ?","ਕੀਮਤ ਕਿੰਨੀ ਹੈ?"],"correct"="ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?"),
+AssessmentQuestion(id="pa-a1-005",skill="reading",difficulty="A1",question="ਕਿਤਾਬ ਮੇਜ਼ ਉੱਤੇ ਹੈ। Where is the book?",options=["On the table","At school","At home","In the market"],correct="On the table"),
+AssessmentQuestion(id="pa-a1-006",skill="vocabulary",difficulty="A1",question="Which word means 'name'?",options=["ਨਾਮ","ਸਮਾਂ","ਪਾਣੀ","ਘਰ"],correct="ਨਾਮ"),
+AssessmentQuestion(id="pa-a1-007",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["ਫਿਰ ਦੱਸੋ ਜੀ।","ਧੰਨਵਾਦ।","ਸਤ ਸ੍ਰੀ ਅਕਾਲ।","ਫਿਰ ਮਿਲਾਂਗੇ।"],correct="ਫਿਰ ਦੱਸੋ ਜੀ।"),
+AssessmentQuestion(id="pa-a1-008",skill="grammar",difficulty="A1",question="Which sentence says 'I drink water'?",options=["ਮੈਂ ਪਾਣੀ ਪੀਂਦਾ ਹਾਂ।","ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।","ਮੈਂ ਪੜ੍ਹਦਾ ਹਾਂ।","ਇਹ ਘਰ ਹੈ।"],correct="ਮੈਂ ਪਾਣੀ ਪੀਂਦਾ ਹਾਂ।"),
+AssessmentQuestion(id="pa-a1-009",skill="vocabulary",difficulty="A1",question="What does ਸਮਾਂ mean?",options=["time","school","water","name"],correct="time"),
+AssessmentQuestion(id="pa-a1-010",skill="communication",difficulty="A1",question="Which is a natural greeting?",options=["ਸਤ ਸ੍ਰੀ ਅਕਾਲ!","ਮੈਨੂੰ ਪਾਣੀ ਚਾਹੀਦਾ ਹੈ।","ਸਕੂਲ ਕਿੱਥੇ ਹੈ?","ਮੈਨੂੰ ਸਮਝ ਨਹੀਂ ਆਈ।"],correct="ਸਤ ਸ੍ਰੀ ਅਕਾਲ!")
 ]
 PHRASEBOOK_CATEGORIES=[
 PhrasebookCategory(id="pa_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="ਸਤ ਸ੍ਰੀ ਅਕਾਲ।",context="greetings",register="neutral"),PhrasebookEntry(text="ਸ਼ੁਭ ਸਵੇਰ।",context="greetings",register="neutral"),PhrasebookEntry(text="ਤੁਸੀਂ ਕਿਵੇਂ ਹੋ?",context="greetings",register="neutral")]),
