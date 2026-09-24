@@ -17,7 +17,7 @@ export function BentoFeatures({ t }: BentoFeaturesProps) {
     <section className="juba-funfluent-features scroll-mt-24 py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="juba-ff-section-head">
-          <span className="juba-ff-section-tag"><Sparkles className="mr-1 inline h-3.5 w-3.5" />Everything in one place</span>
+          <span className="juba-ff-section-tag"><Sparkles className="mr-1 inline h-3.5 w-3.5" />{t('featureSectionLabel')}</span>
           <h2>{t('bentoTitle')}</h2>
           <p>{t('bentoSubtitle')}</p>
         </div>
@@ -28,7 +28,7 @@ export function BentoFeatures({ t }: BentoFeaturesProps) {
               <div className="juba-ff-feature-icon"><Icon className="h-5 w-5" /></div>
               <h3>{t(`${key}Title`)}</h3>
               <p>{t(`${key}Desc`)}</p>
-              <Link href={href} className="juba-ff-feature-link">Open in JUBA LISAN <span aria-hidden="true">→</span></Link>
+              <Link href={href} className="juba-ff-feature-link">{t('openInJuba')} <span aria-hidden="true">→</span></Link>
             </article>
           ))}
         </div>
