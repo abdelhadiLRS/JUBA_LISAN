@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useLanguageStore } from '@/store/language'
@@ -172,15 +171,6 @@ export default function MyLanguagesPage() {
                 >
                   {/* Top row: flag + name + status */}
                   <div className="mb-3 flex items-center gap-3">
-                    {lang && (
-                      <Image
-                        src={lang.flagPath}
-                        alt={lang.code}
-                        width={28}
-                        height={20}
-                        className="shrink-0 object-cover"
-                      />
-                    )}
                     <span className="text-[var(--juba-text)] flex-1 font-mono text-sm font-bold">
                       {tTarget(ulang.target_language)}
                     </span>
