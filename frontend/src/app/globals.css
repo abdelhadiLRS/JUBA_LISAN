@@ -3628,3 +3628,115 @@ main [dir="rtl"] h3,
     transform:none;
   }
 }
+
+
+/* Product-truth pass — real entry points keep the playful visual language without fake metrics. */
+.juba-ff-reference .juba-ff-book{
+  text-decoration:none;
+  color:var(--ff-ink);
+  cursor:pointer;
+}
+.juba-ff-reference .juba-ff-book .book-art{
+  font-family:var(--font-geist-sans),system-ui,sans-serif;
+  font-weight:950;
+  letter-spacing:.04em;
+}
+.juba-ff-reference .juba-ff-book .book-art span{
+  font-size:12px;
+  letter-spacing:.16em;
+}
+.juba-ff-reference .juba-ff-dashboard-real-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+.juba-ff-reference .juba-ff-real-panel{
+  display:flex;
+  align-items:flex-start;
+  gap:15px;
+  min-height:150px;
+  padding:20px;
+  border:2px solid var(--ff-ink);
+  border-radius:20px 14px 20px 14px;
+  background:#fffdf8;
+  box-shadow:4px 4px 0 rgba(23,35,26,.16);
+}
+.juba-ff-reference .juba-ff-real-panel:nth-child(2){
+  background:#fff1b7;
+}
+.juba-ff-reference .juba-ff-real-panel:nth-child(3){
+  background:#e4f4df;
+}
+.juba-ff-reference .juba-ff-real-panel:nth-child(4){
+  background:#e4f2f5;
+}
+.juba-ff-reference .juba-ff-real-icon{
+  display:grid;
+  place-items:center;
+  width:44px;height:44px;
+  flex:none;
+  border:2px solid var(--ff-ink);
+  border-radius:12px;
+  background:var(--ff-yellow);
+  box-shadow:3px 3px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-real-icon svg{
+  width:20px;height:20px;
+}
+.juba-ff-reference .juba-ff-real-panel strong{
+  display:block;
+  font-size:15px;
+  font-weight:950;
+}
+.juba-ff-reference .juba-ff-real-panel p{
+  margin:7px 0 0;
+  color:var(--ff-muted);
+  font-size:12px;
+  line-height:1.65;
+}
+.juba-ff-reference .juba-ff-real-note{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-top:18px;
+  padding:14px 4px 0;
+  border-top:2px dashed rgba(23,35,26,.2);
+  color:var(--ff-muted);
+  font-size:11px;
+}
+.juba-ff-reference .juba-ff-real-note a{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  flex:none;
+  padding:9px 13px;
+  border:2px solid var(--ff-ink);
+  border-radius:12px;
+  background:var(--ff-yellow);
+  color:var(--ff-ink);
+  font-weight:900;
+  box-shadow:3px 3px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-language-card small{
+  display:block;
+  margin-top:4px;
+  color:var(--ff-muted);
+  font-size:10px;
+}
+.juba-ff-reference .juba-ff-language-card .juba-ff-language-flag{
+  width:46px;height:34px;
+  flex:none;
+  border:2px solid var(--ff-ink);
+  border-radius:9px;
+  box-shadow:2px 2px 0 rgba(23,35,26,.14);
+}
+@media(max-width:700px){
+  .juba-ff-reference .juba-ff-dashboard-real-grid{
+    grid-template-columns:1fr;
+  }
+  .juba-ff-reference .juba-ff-real-note{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+}
