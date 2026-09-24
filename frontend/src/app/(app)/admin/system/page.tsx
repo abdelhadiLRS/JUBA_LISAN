@@ -210,7 +210,7 @@ export default function AdminSystemPage() {
       )}
 
       <div
-        className={`border px-5 py-4 ${maintenanceMode ? 'border-yellow-500/40 bg-yellow-500/5' : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)]'}`}
+        className={`juba-card border px-5 py-4 ${maintenanceMode ? 'border-yellow-500/40 bg-yellow-500/5' : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)]'}`}
       >
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex gap-3">
@@ -233,7 +233,7 @@ export default function AdminSystemPage() {
                   {maintenanceMode ? t('maintenanceOn') : t('maintenanceOff')}
                 </span>
               </div>
-              <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans">
+              <p className="text-[var(--juba-app-muted)] font-sans">
                 {t('maintenanceDesc')}
               </p>
             </div>
