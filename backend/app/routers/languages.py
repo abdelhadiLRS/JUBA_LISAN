@@ -30,7 +30,11 @@ from app.services.user_language_service import (
 
 logger = get_logger(__name__)
 
-router = APIRouter(\n    prefix="/api/languages",\n    tags=["languages"],\n    dependencies=[Depends(require_learner)],\n)
+router = APIRouter(
+    prefix="/api/languages",
+    tags=["languages"],
+    dependencies=[Depends(require_learner)],
+)
 
 
 async def _build_plan_info(
