@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { apiFetch } from '@/lib/api'
+import { Loader2, Pause, Play, AlertCircle } from 'lucide-react'
 
 interface ExerciseAudioPlayerProps {
   exerciseId: number
@@ -141,7 +142,6 @@ export function ExerciseAudioPlayer({
     }
   }, [exerciseId])
 
-  const icon = state === 'loading' ? '◌' : state === 'playing' ? '▐▐' : '▶'
   const label = state === 'playing' ? t('audioPause') : t('audioPlay')
 
   return (
@@ -150,11 +150,11 @@ export function ExerciseAudioPlayer({
         <button
           type="button"
           onClick={handlePlayPause}
-          disabled={state === 'loading'}
+          disabled={state === 'loading'} aria-busy={state === 'loading'}
           aria-label={label}
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)] font-sans text-sm font-bold shadow-[2px_2px_0_var(--juba-app-line)] transition-colors hover:bg-[var(--juba-app-green)] hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {icon}
+          {state === 'loading' ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : state === 'playing' ? <Pause className="h-4 w-4" aria-hidden="true" /> : <Play className="h-4 w-4" aria-hidden="true" />}
         </button>
 
         <div
@@ -203,10 +203,10 @@ export function ExerciseAudioPlayer({
       </div>
       {state === 'error' && (
         <p
-          className="text-xs font-medium text-[#b33a32]"
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-[#b33a32]"
           role="alert"
         >
-          {t('audioError')}
+          <AlertCircle className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />{t('audioError')}
         </p>
       )}
     </div>
