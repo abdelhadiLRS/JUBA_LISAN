@@ -48,11 +48,11 @@ type SortOption = 'votes' | 'date'
 const PAGE_SIZE = 10
 
 const STATUS_STYLES: Record<string, string> = {
-  pending: 'border-[var(--juba-lilac)] text-[var(--juba-muted)]',
+  pending: 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)]',
   planned: 'border-blue-500/40 text-blue-400',
   in_progress: 'border-yellow-500/40 text-yellow-400',
   done: 'border-green-500/40 text-green-400',
-  declined: 'border-rose-200/30 text-[var(--juba-coral)]',
+  declined: 'border-rose-200/30 text-[var(#b33a32)]',
 }
 
 // ---------------------------------------------------------------------------
@@ -75,7 +75,7 @@ function StatusBadge({ status, label }: { status: string; label: string }) {
   const cls = STATUS_STYLES[status] ?? STATUS_STYLES.pending
   return (
     <span
-      className={`text-[var(--juba-muted)] border-2 px-2 py-0.5 font-semibold tracking-wide ${cls}`}
+      className={`text-[var(--juba-app-muted)] border-2 px-2 py-0.5 font-semibold tracking-wide ${cls}`}
     >
       {label}
     </span>
@@ -100,9 +100,9 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
   const [error, setError] = useState('')
 
   const inputCls =
-    'w-full bg-[var(--juba-bg)] border-2 border-[var(--juba-lilac)] px-4 py-3 text-sm text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] focus:outline-none focus:border-[var(--juba-violet)] transition-colors resize-none'
+    'w-full bg-[var(--juba-app-bg)] border-2 border-[var(--juba-app-line)] px-4 py-3 text-sm text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] focus:outline-none focus:border-[var(--juba-app-green)] transition-colors resize-none'
   const textareaCls =
-    'w-full bg-[var(--juba-bg)] border-2 border-[var(--juba-lilac)] px-4 py-3 text-sm text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] focus:outline-none focus:border-[var(--juba-violet)] transition-colors resize-y min-h-[106px]'
+    'w-full bg-[var(--juba-app-bg)] border-2 border-[var(--juba-app-line)] px-4 py-3 text-sm text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] focus:outline-none focus:border-[var(--juba-app-green)] transition-colors resize-y min-h-[106px]'
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -145,14 +145,14 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
       onClick={onClose}
     >
       <div
-        className="border-[var(--juba-lilac)] bg-white w-full max-w-md border-2 shadow-2xl"
+        className="border-[var(--juba-app-line)] bg-white w-full max-w-md border-2 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="border-[var(--juba-lilac)] flex items-center justify-between border-b px-6 py-4">
+        <div className="border-[var(--juba-app-line)] flex items-center justify-between border-b px-6 py-4">
           <div className="flex items-center gap-2">
-            <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-            <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+            <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)]">●</span>
+            <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-semibold tracking-wide">
               {type === 'feature'
                 ? t('modalCreateTitleFeature')
                 : t('modalCreateTitleBug')}
@@ -160,7 +160,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
           </div>
           <button
             onClick={onClose}
-            className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-mono transition-colors"
+            className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] font-mono transition-colors"
           >
             ✕
           </button>
@@ -169,12 +169,12 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-3 p-6">
           {error && (
-            <div className="border-[var(--juba-coral)]/40 text-[var(--juba-coral)] border-2 px-4 py-3 text-sm">
+            <div className="border-[var(#b33a32)]/40 text-[var(#b33a32)] border-2 px-4 py-3 text-sm">
               ✕ {error}
             </div>
           )}
           <div>
-            <label className="text-[var(--juba-muted)] text-[var(--juba-muted)] mb-1 block font-semibold tracking-wide">
+            <label className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mb-1 block font-semibold tracking-wide">
               {t('labelTitle')}
             </label>
             <input
@@ -193,7 +193,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
             />
           </div>
           <div>
-            <label className="text-[var(--juba-muted)] text-[var(--juba-muted)] mb-1 block font-semibold tracking-wide">
+            <label className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mb-1 block font-semibold tracking-wide">
               {t('labelDescription')}
             </label>
             <textarea
@@ -214,14 +214,14 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
             <button
               type="button"
               onClick={onClose}
-              className="border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)] flex-1 border-2 px-4 py-3 text-sm tracking-widest uppercase transition-colors"
+              className="border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-green)] flex-1 border-2 px-4 py-3 text-sm tracking-widest uppercase transition-colors"
             >
               {t('cancel')}
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 flex-1 py-3 text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+              className="bg-[var(--juba-app-green)] text-white hover:bg-[var(--juba-app-green)]/90 flex-1 py-3 text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
             >
               {submitting ? t('submitting') : t('submit')}
             </button>
@@ -352,25 +352,25 @@ function DetailView({
       {/* Back */}
       <button
         onClick={onBack}
-        className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-semibold tracking-wide transition-colors"
+        className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] font-semibold tracking-wide transition-colors"
       >
         {t('backToList')}
       </button>
 
       {/* Entry card */}
-      <div className="rounded-[28px] border-2 border-[var(--juba-lilac)] bg-white shadow-[var(--juba-shadow-sm)]">
-        <div className="border-[var(--juba-lilac)] space-y-3 border-b px-6 py-5">
+      <div className="rounded-[28px] border-2 border-[var(--juba-app-line)] bg-white shadow-[var(0 6px 18px rgba(24,37,27,.06))]">
+        <div className="border-[var(--juba-app-line)] space-y-3 border-b px-6 py-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
-            <h2 className="text-[var(--juba-text)] min-w-0 flex-1 font-mono text-base leading-snug font-bold">
+            <h2 className="text-[var(--juba-app-ink)] min-w-0 flex-1 font-mono text-base leading-snug font-bold">
               {entry.title}
             </h2>
             <StatusBadge status={entry.status} label={statusLabel} />
           </div>
-          <p className="text-[var(--juba-muted)] text-sm leading-relaxed whitespace-pre-wrap">
+          <p className="text-[var(--juba-app-muted)] text-sm leading-relaxed whitespace-pre-wrap">
             {entry.description}
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] inline-flex flex-wrap items-center gap-x-1 font-mono">
+            <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] inline-flex flex-wrap items-center gap-x-1 font-mono">
               <span>
                 {t('by')} {entry.author.display_name}
               </span>
@@ -382,10 +382,10 @@ function DetailView({
               <button
                 onClick={handleVote}
                 disabled={voting}
-                className={`text-[var(--juba-muted)] border-2 px-3 py-1 font-semibold tracking-wide transition-colors disabled:opacity-50 ${
+                className={`text-[var(--juba-app-muted)] border-2 px-3 py-1 font-semibold tracking-wide transition-colors disabled:opacity-50 ${
                   entry.voted_by_me
-                    ? 'border-[var(--juba-violet)]/60 text-[var(--juba-violet-dark)] bg-[var(--juba-violet)]/10'
-                    : 'border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)]'
+                    ? 'border-[var(--juba-app-green)]/60 text-[var(--juba-app-green-dark)] bg-[var(--juba-app-green)]/10'
+                    : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:text-[var(--juba-app-ink)]'
                 }`}
               >
                 ▲ {entry.vote_count}
@@ -395,7 +395,7 @@ function DetailView({
             {(currentUserId === entry.author.id || isAdmin) && (
               <button
                 onClick={() => setDeleteEntryPending(true)}
-                className="text-[var(--juba-muted)] border-rose-200/30 text-[var(--juba-coral)] hover:border-rose-200 ml-auto border-2 px-3 py-1 font-semibold tracking-wide transition-colors"
+                className="text-[var(--juba-app-muted)] border-rose-200/30 text-[var(#b33a32)] hover:border-rose-200 ml-auto border-2 px-3 py-1 font-semibold tracking-wide transition-colors"
               >
                 {t('deleteEntry')}
               </button>
@@ -406,14 +406,14 @@ function DetailView({
         {/* Comments */}
         <div className="divide-fl-border-2 divide-y">
           {comments.length === 0 ? (
-            <p className="text-[var(--juba-muted)] px-6 py-6 text-center text-sm">
+            <p className="text-[var(--juba-app-muted)] px-6 py-6 text-center text-sm">
               {t('addComment')}
             </p>
           ) : (
             comments.map((c) => (
               <div key={c.id} className="space-y-1 px-6 py-4">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] inline-flex flex-wrap items-center gap-x-1 font-mono">
+                  <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] inline-flex flex-wrap items-center gap-x-1 font-mono">
                     <span>{c.author.display_name}</span>
                     <AdminAuthorBadge role={c.author.role} />
                     <span>· {formatDate(c.created_at)}</span>
@@ -421,13 +421,13 @@ function DetailView({
                   {currentUserId === c.author.id && (
                     <button
                       onClick={() => setDeletePendingComment(c)}
-                      className="text-[var(--juba-muted)] text-[var(--juba-muted)] hover:text-[var(--juba-coral)] font-semibold tracking-wide transition-colors"
+                      className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] hover:text-[var(#b33a32)] font-semibold tracking-wide transition-colors"
                     >
                       {t('deleteComment')}
                     </button>
                   )}
                 </div>
-                <p className="text-[var(--juba-muted)] text-sm leading-relaxed whitespace-pre-wrap">
+                <p className="text-[var(--juba-app-muted)] text-sm leading-relaxed whitespace-pre-wrap">
                   {c.body}
                 </p>
               </div>
@@ -438,10 +438,10 @@ function DetailView({
         {/* Add comment form */}
         <form
           onSubmit={handlePostComment}
-          className="border-[var(--juba-lilac)] space-y-2 border-t px-6 py-4"
+          className="border-[var(--juba-app-line)] space-y-2 border-t px-6 py-4"
         >
           {error && (
-            <div className="border-[var(--juba-coral)]/40 text-[var(--juba-coral)] border-2 px-4 py-2 text-sm">
+            <div className="border-[var(#b33a32)]/40 text-[var(#b33a32)] border-2 px-4 py-2 text-sm">
               ✕ {error}
             </div>
           )}
@@ -451,12 +451,12 @@ function DetailView({
             onChange={(e) => setCommentBody(e.target.value)}
             placeholder={t('commentPlaceholder')}
             maxLength={2000}
-            className="bg-[var(--juba-bg)] border-[var(--juba-lilac)] text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] focus:border-[var(--juba-violet)] min-h-[50px] w-full resize-y border-2 px-4 py-2 text-sm transition-colors focus:outline-none"
+            className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] focus:border-[var(--juba-app-green)] min-h-[50px] w-full resize-y border-2 px-4 py-2 text-sm transition-colors focus:outline-none"
           />
           <button
             type="submit"
             disabled={postingComment || !commentBody.trim()}
-            className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)] border-2 px-4 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
+            className="border-[var(--juba-app-line)] text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-green)] border-2 px-4 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
           >
             {postingComment ? t('postingComment') : t('postComment')}
           </button>
@@ -642,25 +642,25 @@ export default function FeedbackPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-4 p-6">
       {/* Page header */}
-      <div className="border-[var(--juba-lilac)] border-b pb-4">
-        <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-1 font-semibold tracking-wide">
+      <div className="border-[var(--juba-app-line)] border-b pb-4">
+        <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] mb-1 font-semibold tracking-wide">
           {t('title')}
         </p>
-        <h1 className="text-[var(--juba-text)] font-mono text-2xl font-bold tracking-tight">
+        <h1 className="text-[var(--juba-app-ink)] font-mono text-2xl font-bold tracking-tight">
           {t('subtitle')}
         </h1>
       </div>
 
       {/* Tabs */}
-      <div className="border-[var(--juba-lilac)] flex border-b">
+      <div className="border-[var(--juba-app-line)] flex border-b">
         {(['feature', 'bug'] as Tab[]).map((tabOption) => (
           <button
             key={tabOption}
             onClick={() => setTab(tabOption)}
-            className={`text-[var(--juba-text)] -mb-px border-b-2 px-5 py-2 font-semibold tracking-wide transition-colors ${
+            className={`text-[var(--juba-app-ink)] -mb-px border-b-2 px-5 py-2 font-semibold tracking-wide transition-colors ${
               tab === tabOption
-                ? 'border-fl-fg text-[var(--juba-text)]'
-                : 'text-[var(--juba-muted)] hover:text-[var(--juba-text)] border-transparent'
+                ? 'border-fl-fg text-[var(--juba-app-ink)]'
+                : 'text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] border-transparent'
             }`}
           >
             {tabOption === 'feature' ? t('tabFeatures') : t('tabBugs')}
@@ -669,7 +669,7 @@ export default function FeedbackPage() {
         <div className="flex-1" />
         <button
           onClick={() => setShowCreate(true)}
-          className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] px-4 py-2 font-semibold tracking-wide transition-colors"
+          className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] px-4 py-2 font-semibold tracking-wide transition-colors"
         >
           {tab === 'feature' ? t('newFeature') : t('newBug')}
         </button>
@@ -677,30 +677,30 @@ export default function FeedbackPage() {
 
       {/* Filters + sort row */}
       <div className="flex flex-wrap items-center gap-3">
-        <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-semibold tracking-wide">
+        <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-semibold tracking-wide">
           {t('sortBy')}
         </span>
         {(['votes', 'date'] as SortOption[]).map((s) => (
           <button
             key={s}
             onClick={() => setSort(s)}
-            className={`text-[var(--juba-muted)] border-2 px-3 py-1 font-semibold tracking-wide transition-colors ${
+            className={`text-[var(--juba-app-muted)] border-2 px-3 py-1 font-semibold tracking-wide transition-colors ${
               sort === s
-                ? 'border-fl-fg/40 text-[var(--juba-text)]'
-                : 'border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)]'
+                ? 'border-fl-fg/40 text-[var(--juba-app-ink)]'
+                : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:text-[var(--juba-app-ink)]'
             }`}
           >
             {s === 'votes' ? t('sortVotes') : t('sortDate')}
           </button>
         ))}
 
-        <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] ml-2 font-semibold tracking-wide">
+        <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] ml-2 font-semibold tracking-wide">
           {t('filterStatus')}
         </span>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="bg-[var(--juba-bg)] border-[var(--juba-lilac)] text-[var(--juba-muted)] text-[var(--juba-muted)] focus:border-[var(--juba-violet)] appearance-none border-2 px-3 py-1 font-mono transition-colors focus:outline-none"
+          className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] focus:border-[var(--juba-app-green)] appearance-none border-2 px-3 py-1 font-mono transition-colors focus:outline-none"
         >
           {statusOptions.map((o) => (
             <option key={o.value} value={o.value}>
@@ -712,20 +712,20 @@ export default function FeedbackPage() {
 
       {/* Error */}
       {error && (
-        <div className="border-[var(--juba-coral)]/40 text-[var(--juba-coral)] border-2 px-4 py-3 text-sm">
+        <div className="border-[var(#b33a32)]/40 text-[var(#b33a32)] border-2 px-4 py-3 text-sm">
           ✕ {error}
         </div>
       )}
 
       {/* List */}
-      <div className="rounded-[28px] border-2 border-[var(--juba-lilac)] bg-white shadow-[var(--juba-shadow-sm)]">
+      <div className="rounded-[28px] border-2 border-[var(--juba-app-line)] bg-white shadow-[var(0 6px 18px rgba(24,37,27,.06))]">
         {loading ? (
           <PageLoading
             fullScreen={false}
             className="block px-6 py-10 text-center"
           />
         ) : entries.length === 0 ? (
-          <p className="text-[var(--juba-muted)] px-6 py-10 text-center text-sm">
+          <p className="text-[var(--juba-app-muted)] px-6 py-10 text-center text-sm">
             {t('noEntries')}
           </p>
         ) : (
@@ -735,8 +735,8 @@ export default function FeedbackPage() {
               return (
                 <div
                   key={entry.id}
-                  className={`hover:bg-[var(--juba-lilac)] flex cursor-pointer gap-4 px-5 py-4 transition-colors ${
-                    i < entries.length - 1 ? 'border-[var(--juba-lilac)] border-b' : ''
+                  className={`hover:bg-[var(--juba-app-line)] flex cursor-pointer gap-4 px-5 py-4 transition-colors ${
+                    i < entries.length - 1 ? 'border-[var(--juba-app-line)] border-b' : ''
                   }`}
                   onClick={() => setSelectedEntry(entry)}
                 >
@@ -766,14 +766,14 @@ export default function FeedbackPage() {
                         }}
                         className={`border-2 px-2 py-1 text-sm leading-none transition-colors ${
                           entry.voted_by_me
-                            ? 'border-[var(--juba-violet)]/60 text-[var(--juba-violet-dark)] bg-[var(--juba-violet)]/10'
-                            : 'border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)]'
+                            ? 'border-[var(--juba-app-green)]/60 text-[var(--juba-app-green-dark)] bg-[var(--juba-app-green)]/10'
+                            : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:text-[var(--juba-app-ink)]'
                         }`}
                         title={entry.voted_by_me ? 'Remove vote' : 'Vote'}
                       >
                         ▲
                       </button>
-                      <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-mono tabular-nums">
+                      <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-mono tabular-nums">
                         {entry.vote_count}
                       </span>
                     </div>
@@ -784,7 +784,7 @@ export default function FeedbackPage() {
                   {/* Content */}
                   <div className="min-w-0 flex-1 space-y-1.5">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-[var(--juba-text)] truncate text-sm font-semibold">
+                      <span className="text-[var(--juba-app-ink)] truncate text-sm font-semibold">
                         {entry.title}
                       </span>
                       <StatusBadge
@@ -797,11 +797,11 @@ export default function FeedbackPage() {
                         </span>
                       )}
                     </div>
-                    <p className="text-[var(--juba-muted)] line-clamp-2 text-sm leading-relaxed">
+                    <p className="text-[var(--juba-app-muted)] line-clamp-2 text-sm leading-relaxed">
                       {entry.description}
                     </p>
                     <div className="flex flex-wrap items-center gap-3">
-                      <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] inline-flex flex-wrap items-center gap-x-1 font-mono">
+                      <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] inline-flex flex-wrap items-center gap-x-1 font-mono">
                         <span>
                           {t('by')} {entry.author.display_name}
                         </span>
@@ -809,7 +809,7 @@ export default function FeedbackPage() {
                         <span>· {formatDate(entry.created_at)}</span>
                       </span>
                       {entry.comment_count > 0 && (
-                        <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-mono">
+                        <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-mono">
                           ◌{' '}
                           {entry.comment_count === 1
                             ? t('comment')
@@ -822,7 +822,7 @@ export default function FeedbackPage() {
                             e.stopPropagation()
                             setDeletePending(entry)
                           }}
-                          className="text-[var(--juba-muted)] text-[var(--juba-muted)] hover:text-[var(--juba-coral)] ml-auto font-semibold tracking-wide transition-colors"
+                          className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] hover:text-[var(#b33a32)] ml-auto font-semibold tracking-wide transition-colors"
                         >
                           {t('deleteEntry')}
                         </button>
