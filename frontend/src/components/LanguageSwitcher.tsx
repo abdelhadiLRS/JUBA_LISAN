@@ -34,9 +34,10 @@ export default function LanguageSwitcher() {
 
   async function handleSwitch(code: string) {
     setOpen(false)
-    if (code === activeLanguage?.code) return
-    const targetInfo = userLanguages.find((l) => l.target_language === code)
-    const ok = await switchLanguage(code)
+    const canonicalCode = getLanguageByCode(code)?.code ?? code.trim()
+    if (canonicalCode === activeLanguage?.code) return
+    const targetInfo = userLanguages.find((l) => l.target_language === canonicalCode)
+    const ok = await switchLanguage(canonicalCode)
     if (ok) {
       const langName = targetLabel(code)
       setToastMsg(targetInfo?.plan?.cefr_level ? tLang('switched', { language: langName, level: targetInfo.plan.cefr_level }) : langName)
