@@ -746,10 +746,9 @@ export default function DashboardPage() {
               </Link>
           )}
           {pendingCount > 0 && (
-            <Link href="/plan">
-              <button className="juba-secondary-button text-xs tracking-widest uppercase">
-                {pendingCount} {t('pendingLessons')} →
-              </Link>
+            <Link href="/plan" className="juba-secondary-button text-xs tracking-widest uppercase">
+              {pendingCount} {t('pendingLessons')} →
+            </Link>
           )}
           <Link href="/flashcards" className="juba-secondary-button text-xs tracking-widest uppercase">
             {tNav('flashcards')}
