@@ -70,9 +70,12 @@ export function LearningExperience({ t }: LearningExperienceProps) {
             {['CEFR level', 'Streak & XP', 'Lessons completed', 'Vocabulary progress'].map((label) => (
               <div className="juba-ff-score" key={label}>
                 <span>{label}</span>
-                <i><em style={{ width: '100%' }} /></i>
+                <i><em style={{ width: '38%' }} /></i>
               </div>
             ))}
+            <p className="mt-3 text-xs leading-5 opacity-75">
+              Illustrative UI only — your actual values are loaded from your account in the dashboard.
+            </p>
             <div className="juba-ff-intelligence">
               {intelligence.map(([Icon, title, desc]) => (
                 <div key={title}><Icon /><span><strong>{title}</strong>{desc}</span></div>
