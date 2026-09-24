@@ -212,6 +212,17 @@
       "practice": "مارس",
       "recall": "استدعِ",
       "review": "راجع"
+    },
+    "cefrEyebrow": "خريطة الكفاءة وفق CEFR",
+    "cefrTitle": "ما الذي تستطيع فعله في كل مستوى؟",
+    "cefrDescription": "ينظم JUBA LISAN تقدمك حول مخرجات عملية متوافقة مع CEFR في الاستماع والقراءة والتفاعل والمحادثة والكتابة.",
+    "cefrLevelLabel": "المستوى",
+    "cefrSkills": {
+      "listening": "الاستماع",
+      "reading": "القراءة",
+      "interaction": "التفاعل والمحادثة",
+      "speaking": "التحدث",
+      "writing": "الكتابة"
     }
   },
   "courseLevel": {
