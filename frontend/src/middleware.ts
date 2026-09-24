@@ -26,13 +26,68 @@ const PROTECTED_ROUTES = [
 ]
 
 function detectLocale(req: NextRequest): Locale {
-  // 1. Cookie already set — respect user choice
+  // 1. Cookie already set — always respect an explicit user choice.
   const cookie = req.cookies.get('NEXT_LOCALE')?.value
   if (cookie && (SUPPORTED_LOCALES as readonly string[]).includes(cookie)) {
     return cookie as Locale
   }
 
-  // 2. Parse Accept-Language header with q-weight sorting
+  // 2. Use the visitor's country when the hosting/CDN exposes it.
+  // This avoids browser geolocation permission prompts and works before hydration.
+  const country = (
+    req.headers.get('x-vercel-ip-country') ??
+    req.headers.get('cf-ipcountry') ??
+    req.headers.get('x-country-code') ??
+    ''
+  ).trim().toUpperCase()
+
+  const countryLocale: Record<string, Locale> = {
+    DZ: 'ar',
+    MA: 'ar',
+    TN: 'ar',
+    EG: 'ar',
+    SA: 'ar',
+    AE: 'ar',
+    QA: 'ar',
+    KW: 'ar',
+    BH: 'ar',
+    OM: 'ar',
+    JO: 'ar',
+    LB: 'ar',
+    IQ: 'ar',
+    SY: 'ar',
+    YE: 'ar',
+    FR: 'fr',
+    BE: 'fr',
+    LU: 'fr',
+    CH: 'fr',
+    ES: 'es',
+    MX: 'es',
+    AR: 'es',
+    CL: 'es',
+    CO: 'es',
+    PE: 'es',
+    DE: 'de',
+    AT: 'de',
+    IT: 'it',
+    PT: 'pt',
+    BR: 'pt',
+    PL: 'pl',
+    NL: 'nl',
+    RO: 'ro',
+    RU: 'ru',
+    UA: 'ru',
+    GB: 'en',
+    US: 'en',
+    CA: 'en',
+    AU: 'en',
+    NZ: 'en',
+  }
+
+  const locationLocale = countryLocale[country]
+  if (locationLocale) return locationLocale
+
+  // 3. Parse Accept-Language header with q-weight sorting
   const accept = req.headers.get('accept-language') ?? ''
   const parsed = accept
     .split(',')
@@ -51,7 +106,7 @@ function detectLocale(req: NextRequest): Locale {
     }
   }
 
-  // 3. Default to English
+  // 4. Default to English
   return 'en'
 }
 
