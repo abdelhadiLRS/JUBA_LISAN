@@ -120,7 +120,7 @@ from app.routers import (
     admin, admin_dashboard_banner, ai_tutor, assessment, auth, chat, contact,
     conversation, curriculum, dashboard_banner, feedback, flashcards, freemium,
     grammar, languages, lessons, listening, memories, phrasebook, progress,
-    reading, reviews, social, stt, study_plan, tts, vocabulary,
+    reading, reviews, social, stt, study_plan, tts, vocabulary, translate,
 )
 from app.routers import config as config_router
 from app.routers import health as health_router
@@ -142,6 +142,7 @@ app.include_router(reading.router)
 app.include_router(reviews.router)
 app.include_router(tts.router)
 app.include_router(stt.router)
+app.include_router(translate.router)
 app.include_router(conversation.router)
 app.include_router(config_router.router)
 app.include_router(contact.router)
