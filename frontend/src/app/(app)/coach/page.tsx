@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { apiFetch } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
@@ -19,10 +20,10 @@ import {
   Zap,
 } from 'lucide-react'
 
-interface ProgressSummary {
+interface {t('progress')}Summary {
   current_streak?: number
   total_xp?: number
-  accuracy?: number
+  {t('accuracy')}?: number
   vocabulary_mastered?: number
   vocabulary_total?: number
   vocabulary_progress?: number
@@ -43,15 +44,16 @@ interface TodayPlan {
 
 const scenarios = [
   { icon: '✈️', title: 'Airport', desc: 'Check in, ask for directions, handle delays.', href: '/conversation' },
-  { icon: '💼', title: 'Job interview', desc: 'Practice answers, confidence and professional vocabulary.', href: '/conversation' },
+  { icon: '💼', title: 'Job interview', desc: '{t('practice')} answers, confidence and professional vocabulary.', href: '/conversation' },
   { icon: '🍽️', title: 'Restaurant', desc: 'Order naturally and handle a real conversation.', href: '/conversation' },
   { icon: '🏨', title: 'Hotel', desc: 'Book a room, solve problems and make requests.', href: '/conversation' },
 ]
 
 export default function CoachPage() {
+  const t = useTranslations('coach')
   const user = useAuthStore((s) => s.user)
   const language = useLanguageStore((s) => s.activeLanguage)
-  const [progress, setProgress] = useState<ProgressSummary>({})
+  const [progress, set{t('progress')}] = useState<{t('progress')}Summary>({})
   const [plan, setPlan] = useState<TodayPlan>({})
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
@@ -62,7 +64,7 @@ export default function CoachPage() {
         apiFetch('/api/progress/summary'),
         apiFetch('/api/study-plan/today'),
       ])
-      if (progressRes.ok) setProgress(await progressRes.json())
+      if (progressRes.ok) set{t('progress')}(await progressRes.json())
       if (planRes.ok) setPlan(await planRes.json())
     } finally {
       setLoading(false)
@@ -80,9 +82,9 @@ export default function CoachPage() {
     return entries.sort((a, b) => Number(a[1]) - Number(b[1]))[0][0]
   }, [progress.skills])
 
-  const completed = (plan.lessons ?? []).filter((l) => l.is_completed).length
+  const {t('complete')}d = (plan.lessons ?? []).filter((l) => l.is_completed).length
   const total = plan.lessons?.length ?? 0
-  const vocabProgress = Math.round((progress.vocabulary_progress ?? 0) * 100)
+  const vocab{t('progress')} = Math.round((progress.vocabulary_progress ?? 0) * 100)
 
   return (
     <main className="juba-coach-shell min-h-screen px-4 py-8 sm:px-6 lg:px-10">
@@ -91,13 +93,13 @@ export default function CoachPage() {
           <div>
             <div className="juba-eyebrow mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-3 py-1.5 text-[var(--juba-app-green-dark)]">
               <BrainCircuit className="h-4 w-4" />
-              Your AI Learning Coach
+              {t('eyebrow')}
             </div>
             <h1 className="text-3xl font-black tracking-tight text-[var(--juba-app-ink)] sm:text-4xl">
-              {user?.displayName || user?.username || 'Learner'}, here is your next best move.
+              {user?.displayName || user?.username || 'Learner'}, {t('headlineSuffix')}
             </h1>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--juba-app-muted)] sm:text-base">
-              JUBA LISAN turns your activity into a focused daily plan instead of asking you to decide what to study next.
+              {t('description')}
             </p>
           </div>
           <button
@@ -107,7 +109,7 @@ export default function CoachPage() {
             className="inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-[var(--juba-app-line)] bg-white px-4 py-2.5 text-sm font-bold text-[var(--juba-app-ink)] transition hover:border-[var(--juba-app-green)] disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
-            Refresh coaching
+            {t('refresh')}
           </button>
         </header>
 
@@ -119,17 +121,17 @@ export default function CoachPage() {
                 <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full border-2 border-[var(--juba-app-surface)] bg-[var(--juba-app-yellow)]" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[var(--juba-app-green-dark)]">Coach insight</p>
-                <h2 className="mt-2 text-2xl font-black text-[var(--juba-app-ink)]">Focus on {weakestSkill.replaceAll('_', ' ')} today.</h2>
+                <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[var(--juba-app-green-dark)]">{t('insight')}</p>
+                <h2 className="mt-2 text-2xl font-black text-[var(--juba-app-ink)]">{t('focusOn')} {weakestSkill.replaceAll('_', ' ')} {t('today')}</h2>
                 <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--juba-app-muted)]">
-                  Your recent activity suggests this is the highest-impact skill to practice next. A short session is better than skipping the day.
+                  {t('insightDescription')}
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-[var(--juba-app-green)] px-5 py-3 text-sm font-bold text-white shadow-[3px_3px_0_var(--juba-app-ink)] transition hover:opacity-90">
-                    Start focused practice <ArrowRight className="h-4 w-4" />
+                    {t('start{t('practice')}')} <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[var(--juba-app-line)] px-5 py-3 text-sm font-bold text-[var(--juba-app-ink)] transition hover:bg-[var(--juba-app-green-soft)]">
-                    View my plan
+                    {t('viewPlan')}
                   </Link>
                 </div>
               </div>
@@ -139,34 +141,34 @@ export default function CoachPage() {
           <div className="juba-card p-6">
             <div className="mb-5 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-muted)]">Today's momentum</p>
-                <p className="mt-1 text-xl font-black text-[var(--juba-app-ink)]">Keep the streak alive</p>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-muted)]">{t('momentum')}</p>
+                <p className="mt-1 text-xl font-black text-[var(--juba-app-ink)]">{t('keepStreak')}</p>
               </div>
               <Flame className="h-6 w-6 text-[var(--juba-app-green-dark)]" />
             </div>
             <div className="grid grid-cols-3 gap-3">
-              <Metric icon={<Flame />} value={`${progress.current_streak ?? 0}`} label="day streak" />
-              <Metric icon={<Zap />} value={`${progress.total_xp ?? 0}`} label="total XP" />
-              <Metric icon={<Target />} value={`${progress.accuracy ? Math.round(progress.accuracy * 100) : 0}%`} label="accuracy" />
+              <Metric icon={<Flame />} value={`${progress.current_streak ?? 0}`} label="{t('dayStreak')}" />
+              <Metric icon={<Zap />} value={`${progress.total_xp ?? 0}`} label="{t('totalXp')}" />
+              <Metric icon={<Target />} value={`${progress.{t('accuracy')} ? Math.round(progress.{t('accuracy')} * 100) : 0}%`} label="{t('accuracy')}" />
             </div>
           </div>
         </section>
 
         <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          <CoachCard icon={<Mic />} title="Speak" value="Conversation" detail="Build fluency with live correction." href="/conversation" />
-          <CoachCard icon={<Volume2 />} title="Listen" value="Practice" detail="Train comprehension with targeted audio." href="/listening" />
-          <CoachCard icon={<RefreshCw />} title="Review" value="Flashcards" detail="Refresh the words most likely to fade." href="/flashcards" />
-          <CoachCard icon={<TrendingUp />} title="Progress" value={`${vocabProgress}%`} detail={`${progress.vocabulary_mastered ?? 0} words mastered so far.`} href="/progress" />
+          <CoachCard icon={<Mic />} title="{t('speak')}" value="{t('conversation')}" detail="{t('speakDetail')}" href="/conversation" />
+          <CoachCard icon={<Volume2 />} title="{t('listen')}" value="{t('practice')}" detail="{t('listenDetail')}" href="/listening" />
+          <CoachCard icon={<RefreshCw />} title="{t('review')}" value="{t('flashcards')}" detail="{t('reviewDetail')}" href="/flashcards" />
+          <CoachCard icon={<TrendingUp />} title="{t('progress')}" value={`${vocab{t('progress')}}%`} detail={`${progress.vocabulary_mastered ?? 0} {t('wordsMastered')}`} href="/progress" />
         </section>
 
         <section className="grid gap-5 lg:grid-cols-[1.35fr_1fr]">
           <div className="juba-card p-6 sm:p-8">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">Adaptive queue</p>
-                <h2 className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">Your best work for today</h2>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{t('{t('adaptive')}Queue')}</p>
+                <h2 className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">{t('bestWork')}</h2>
               </div>
-              <span className="rounded-full bg-[var(--juba-app-green-soft)] px-3 py-1 text-xs font-bold text-[var(--juba-app-muted)]">{completed}/{total} complete</span>
+              <span className="rounded-full bg-[var(--juba-app-green-soft)] px-3 py-1 text-xs font-bold text-[var(--juba-app-muted)]">{completed}/{total} {t('complete')}</span>
             </div>
             <div className="space-y-3">
               {(plan.lessons ?? []).slice(0, 4).map((lesson, index) => (
@@ -181,14 +183,14 @@ export default function CoachPage() {
                   <ArrowRight className="h-4 w-4 text-[var(--juba-app-muted)] transition group-hover:translate-x-1" />
                 </Link>
               ))}
-              {!plan.lessons?.length && !loading && <p className="rounded-[28px] border border-dashed border-[var(--juba-app-line)] p-6 text-center text-sm text-[var(--juba-app-muted)]">Complete your assessment to unlock an adaptive learning plan.</p>}
+              {!plan.lessons?.length && !loading && <p className="rounded-[28px] border border-dashed border-[var(--juba-app-line)] p-6 text-center text-sm text-[var(--juba-app-muted)]">{t('assessmentPrompt')}</p>}
             </div>
           </div>
 
           <div className="juba-card p-6 sm:p-8">
-            <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">Practice in context</p>
-            <h2 className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">Real-world rooms</h2>
-            <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">Stop memorizing isolated sentences. Practice what you actually need to say.</p>
+            <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{t('contextEyebrow')}</p>
+            <h2 className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">{t('rooms')}</h2>
+            <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">{t('roomsDescription')}</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
                 <Link key={scenario.title} href={scenario.href} className="rounded-[28px] border-2 border-[var(--juba-app-line)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)]">
@@ -202,8 +204,8 @@ export default function CoachPage() {
         </section>
 
         <footer className="flex flex-col gap-2 border-t border-[var(--juba-app-line)] pt-6 text-xs text-[var(--juba-app-muted)] sm:flex-row sm:items-center sm:justify-between">
-          <span>Learning {language?.name ? `· ${language.name}` : '· personalized for you'}</span>
-          <span>CEFR {plan.cefr_level || 'adaptive'} · JUBA LISAN Coach</span>
+          <span>{t('learning')} {language?.name ? `· ${language.name}` : '· {t('personalized')}'}</span>
+          <span>CEFR {plan.cefr_level || '{t('adaptive')}'} · JUBA LISAN Coach</span>
         </footer>
       </div>
     </main>
