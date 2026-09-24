@@ -3,12 +3,12 @@ import openai
 from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile, status
 
 from app.core.app_logger import get_logger
-from app.core.deps import get_current_user
+from app.core.deps import get_current_user, require_learner
 from app.core.limiter import limiter
 from app.models.user import User
 from app.schemas.tts_stt import STTResponse
 
-router = APIRouter(prefix="/api", tags=["stt"])
+router = APIRouter(prefix="/api", tags=["stt"], dependencies=[Depends(require_learner)])
 logger = get_logger(__name__)
 
 
