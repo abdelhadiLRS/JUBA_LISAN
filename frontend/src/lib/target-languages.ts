@@ -183,6 +183,10 @@ export function getLanguageByCode(code: string): TargetLanguage | undefined {
   )
 }
 
+export function getCanonicalLanguageCode(code: string): string | undefined {
+  return getLanguageByCode(code)?.code
+}
+
 export function getTargetLanguageCapability(
   code: string
 ): TargetLanguageCapability {
