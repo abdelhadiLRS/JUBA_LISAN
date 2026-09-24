@@ -210,6 +210,7 @@ export default function DashboardPage() {
       <div className="flex min-h-screen flex-col items-center justify-center gap-4">
         <p className="text-[var(--juba-app-muted)] font-sans text-sm">{tError('body')}</p>
         <button
+          type="button"
           onClick={() => {
             setLoadError(false)
             setLoading(true)
@@ -267,7 +268,7 @@ export default function DashboardPage() {
       <main className="juba-dashboard mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="juba-dashboard-header mb-7 rounded-[24px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-5 shadow-[0_8px_24px_rgba(24,37,27,.05)] sm:p-6">
-          <p className="text-[var(--juba-app-muted)] mb-1 font-sans tracking-[.12em] uppercase">
+          <p className="text-[var(--juba-app-muted)] mb-1 font-sans text-xs font-semibold tracking-[.12em] uppercase">
             {t('welcomeBack')}
           </p>
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
@@ -283,7 +284,7 @@ export default function DashboardPage() {
               )}
             </div>
             {hasPlan && totalDays > 0 && (
-              <p className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+              <p className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
                 {t('dayProgress', {
                   current: currentDayDisplay,
                   total: totalDays,
@@ -298,11 +299,11 @@ export default function DashboardPage() {
         {/* Next step */}
         <div className="juba-card mb-8 p-5 sm:p-6">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-            <p className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+            <p className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
               {t('nextStep')}
             </p>
             {hasPlan && todayLessons.length > 0 && (
-              <div className="text-[var(--juba-app-muted)] font-sans">
+              <div className="text-[var(--juba-app-muted)] font-sans text-sm">
                 <p className="text-[var(--juba-app-muted)]">{t('planDayGoal')}</p>
                 <p className="text-[var(--juba-app-ink)] mt-1">
                   {t('completedToday', {
@@ -323,11 +324,9 @@ export default function DashboardPage() {
                   {t('assessmentCreatesPlan')}
                 </p>
               </div>
-              <Link href="/assessment">
-                <button className="juba-primary-button">
+              <Link href="/assessment" className="juba-primary-button">
                   {t('takeAssessmentArrow')}
-                </button>
-              </Link>
+                </Link>
             </div>
           ) : completion?.state === 'taken' ? (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -345,17 +344,13 @@ export default function DashboardPage() {
                 </p>
               </div>
               {completion.next_level != null ? (
-                <Link href="/assessment">
-                  <button className="juba-primary-button">
+                <Link href="/assessment" className="juba-primary-button">
                     {tAssessment('retake')}
-                  </button>
-                </Link>
+                  </Link>
               ) : (
-                <Link href="/plan">
-                  <button className="juba-primary-button">
+                <Link href="/plan" className="juba-primary-button">
                     {t('goToMyPlan')}
-                  </button>
-                </Link>
+                  </Link>
               )}
             </div>
           ) : completion?.state === 'ready' ? (
@@ -372,14 +367,13 @@ export default function DashboardPage() {
                 <Link href={`/assessment/level-test?plan=${planId}`}>
                   <button className="juba-primary-button">
                     {tPlan('beginLevelTest')}
-                  </button>
-                </Link>
+                  </Link>
               )}
             </div>
           ) : nextLesson ? (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-[var(--juba-app-muted)] mb-2 font-sans tracking-[.12em] uppercase">
+                <p className="text-[var(--juba-app-muted)] mb-2 font-sans text-xs font-semibold tracking-[.12em] uppercase">
                   {t('lessonReady')}
                 </p>
                 <h2 className="text-[var(--juba-app-ink)] font-sans text-xl font-black tracking-tight">
@@ -393,8 +387,7 @@ export default function DashboardPage() {
               <Link href={`/lesson/${nextLesson.id}`}>
                 <button className="juba-primary-button">
                   {t('startLesson')}
-                </button>
-              </Link>
+                </Link>
             </div>
           ) : (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -408,11 +401,9 @@ export default function DashboardPage() {
                     : t('noPendingToday')}
                 </p>
               </div>
-              <Link href="/plan">
-                <button className="juba-primary-button">
+              <Link href="/plan" className="juba-primary-button">
                   {t('goToMyPlan')}
-                </button>
-              </Link>
+                </Link>
             </div>
           )}
         </div>
@@ -442,7 +433,7 @@ export default function DashboardPage() {
             },
           ].map((stat) => (
             <div key={stat.label} className="juba-card px-5 py-5">
-              <p className="text-[var(--juba-app-muted)] mb-2 font-sans tracking-[.12em] uppercase">
+              <p className="text-[var(--juba-app-muted)] mb-2 font-sans text-xs font-semibold tracking-[.12em] uppercase">
                 {stat.label}
               </p>
               <p
@@ -451,7 +442,7 @@ export default function DashboardPage() {
                 {stat.value}
               </p>
               {'detail' in stat && stat.detail && (
-                <p className="text-[var(--juba-app-muted)] mt-2 font-sans">
+                <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-sm">
                   {stat.detail}
                 </p>
               )}
@@ -465,7 +456,7 @@ export default function DashboardPage() {
             <div className="mb-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
-                <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+                <span className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
                   {t('planProgress')}
                 </span>
               </div>
@@ -485,7 +476,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="rounded-2xl bg-[var(--juba-app-green-soft)] p-3">
-                    <p className="text-[var(--juba-app-muted)] mb-1 font-sans tracking-[.12em] uppercase">
+                    <p className="text-[var(--juba-app-muted)] mb-1 font-sans text-xs font-semibold tracking-[.12em] uppercase">
                       {t('currentDay')}
                     </p>
                     <p className="text-[var(--juba-app-ink)] font-sans text-lg font-black">
@@ -493,7 +484,7 @@ export default function DashboardPage() {
                     </p>
                   </div>
                   <div className="rounded-2xl bg-[var(--juba-app-green-soft)] p-3">
-                    <p className="text-[var(--juba-app-muted)] mb-1 font-sans tracking-[.12em] uppercase">
+                    <p className="text-[var(--juba-app-muted)] mb-1 font-sans text-xs font-semibold tracking-[.12em] uppercase">
                       {t('daysRemaining')}
                     </p>
                     <p className="text-[var(--juba-app-ink)] font-sans text-lg font-black">
@@ -504,16 +495,16 @@ export default function DashboardPage() {
                 {vocabularyTotal > 0 && (
                   <div className="mt-4">
                     <div className="flex items-center justify-between gap-3">
-                      <p className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+                      <p className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
                         {t('vocabularyProgress', {
                           level: vocabularyLevel ?? cefrLevel ?? '',
                         })}
                       </p>
-                      <p className="text-[var(--juba-app-muted)] font-sans">
+                      <p className="text-[var(--juba-app-muted)] font-sans text-sm">
                         {vocabularyProgressPct}%
                       </p>
                     </div>
-                    <p className="text-[var(--juba-app-muted)] mt-2 font-sans">
+                    <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-sm">
                       {t('vocabularyWords', {
                         mastered: vocabularyMastered,
                         total: vocabularyTotal,
@@ -540,7 +531,7 @@ export default function DashboardPage() {
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
-                <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+                <span className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
                   {t('today')}
                 </span>
               </div>
@@ -574,7 +565,7 @@ export default function DashboardPage() {
                           </p>
                         </div>
                         {isDone ? (
-                          <span className="text-[var(--juba-app-muted)] inline-flex items-center gap-1.5 font-sans tracking-[.12em] uppercase">
+                          <span className="text-[var(--juba-app-muted)] inline-flex items-center gap-1.5 font-sans text-xs font-semibold tracking-[.12em] uppercase">
                             <Check
                               className="size-4 shrink-0"
                               aria-hidden="true"
@@ -584,15 +575,14 @@ export default function DashboardPage() {
                         ) : lesson.id ? (
                           <Link href={`/lesson/${lesson.id}`}>
                             <button
-                              className={`text-[var(--juba-app-muted)] focus-visible:outline-fl-fg px-3 py-1 font-sans tracking-[.12em] uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                              className={`text-[var(--juba-app-muted)] focus-visible:outline-fl-fg px-3 py-1 font-sans text-xs font-semibold tracking-[.12em] uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${
                                 isNext
                                   ? 'text-[var(--juba-app-bg)] bg-[var(--juba-app-ink)] hover:bg-[var(--juba-app-ink)]/90 font-bold'
                                   : 'text-[var(--juba-app-ink)] border-[var(--juba-app-line)] hover:border-[var(--juba-app-line)]-2 border'
                               }`}
                             >
                               {t('startLesson')}
-                            </button>
-                          </Link>
+                            </Link>
                         ) : null}
                       </div>
                     </div>
@@ -602,7 +592,7 @@ export default function DashboardPage() {
                   <button
                     onClick={skipDay}
                     disabled={skipping}
-                    className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase transition-colors disabled:opacity-40"
+                    className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase transition-colors disabled:opacity-40"
                   >
                     {skipping ? '...' : t('skipDay')}
                   </button>
@@ -625,11 +615,9 @@ export default function DashboardPage() {
                     : t('startWithAssessment')}
                 </p>
                 {!hasPlan && (
-                  <Link href="/assessment">
-                    <button className="juba-primary-button">
+                  <Link href="/assessment" className="juba-primary-button">
                       {t('takeAssessmentArrow')}
-                    </button>
-                  </Link>
+                    </Link>
                 )}
               </div>
             )}
@@ -640,7 +628,7 @@ export default function DashboardPage() {
             <div className="mb-4">
               <div className="mb-2 flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
-                <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+                <span className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
                   {t('recentPerformance')}
                 </span>
               </div>
@@ -653,14 +641,14 @@ export default function DashboardPage() {
                 {skillEntries.map(({ skill, value }) => (
                   <div key={skill}>
                     <div className="mb-1 flex justify-between">
-                      <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+                      <span className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
                         {tPlan(`lessonTypes.${skill}`)}
                       </span>
                       <div className="flex items-center gap-2">
-                        <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+                        <span className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
                           {getPerformanceLabel(value)}
                         </span>
-                        <span className="text-[var(--juba-app-muted)] font-sans">
+                        <span className="text-[var(--juba-app-muted)] font-sans text-sm">
                           {Math.round(value * 100)}%
                         </span>
                       </div>
@@ -690,7 +678,7 @@ export default function DashboardPage() {
                   ★
                 </span>
                 <div>
-                  <p className="text-[var(--juba-app-muted)] mb-2 font-sans tracking-[.12em] uppercase">
+                  <p className="text-[var(--juba-app-muted)] mb-2 font-sans text-xs font-semibold tracking-[.12em] uppercase">
                     {freemiumTrialActive
                       ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft })
                       : t(
@@ -749,34 +737,28 @@ export default function DashboardPage() {
         {/* Quick actions */}
         <div className="flex flex-wrap gap-3">
           {hasPlan && (
-            <Link href="/plan">
-              <button className="juba-primary-button">
+            <Link href="/plan" className="juba-primary-button">
                 {t('goToMyPlan')}
-              </button>
-            </Link>
+              </Link>
           )}
           {pendingCount > 0 && (
             <Link href="/plan">
               <button className="juba-secondary-button text-xs tracking-widest uppercase">
                 {pendingCount} {t('pendingLessons')} →
-              </button>
-            </Link>
+              </Link>
           )}
           <Link href="/flashcards">
             <button className="juba-secondary-button text-xs tracking-widest uppercase">
               {tNav('flashcards')}
-            </button>
-          </Link>
+            </Link>
           <Link href="/chat">
             <button className="juba-secondary-button text-xs tracking-widest uppercase">
               {tNav('tutor')}
-            </button>
-          </Link>
+            </Link>
           <Link href="/assessment">
             <button className="juba-secondary-button text-xs tracking-widest uppercase">
               {tNav('assessment')}
-            </button>
-          </Link>
+            </Link>
         </div>
       </main>
     </>
