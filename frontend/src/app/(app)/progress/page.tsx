@@ -94,7 +94,7 @@ function UnitCompetencyBlock({
       {/* Unit header */}
       <div className="border-[var(--juba-app-line)] flex items-center justify-between border-b px-5 py-4">
         <div className="flex items-center gap-2">
-          <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+          <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
             {tPlan('unitLabel')} {unit.unit_number}
           </span>
           <span className="text-[var(--juba-app-ink)] font-mono text-xs font-bold">
@@ -102,11 +102,11 @@ function UnitCompetencyBlock({
           </span>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-mono">
+          <span className="text-[var(--juba-app-muted)] font-mono">
             {masteredCount}/{totalCount} {t('mastered')}
           </span>
           {record && (
-            <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-mono">
+            <span className="text-[var(--juba-app-muted)] font-mono">
               {Math.round(score * 100)}%
             </span>
           )}
@@ -141,7 +141,7 @@ function UnitCompetencyBlock({
                 {text}
               </span>
               {status === 'in-progress' && record && (
-                <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] ml-auto shrink-0 font-mono">
+                <span className="text-[var(--juba-app-muted)] ml-auto shrink-0 font-mono">
                   {Math.round(score * 100)}%
                 </span>
               )}
@@ -244,12 +244,12 @@ export default function ProgressPage() {
       {/* Header */}
       <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border">
         <div className="border-[var(--juba-app-line)] flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)]">●</span>
-          <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+          <span className="text-[var(--juba-app-muted)]">●</span>
+          <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
             {t('subtitle')}
           </span>
           {activeLanguage && cefrLevel && (
-            <span className="border-[var(--juba-app-line)] text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] ml-auto border px-2 py-0.5 font-sans tracking-[.12em] uppercase">
+            <span className="border-[var(--juba-app-line)] text-[var(--juba-app-muted)] ml-auto border px-2 py-0.5 font-sans tracking-[.12em] uppercase">
               {activeLanguage.name} · {cefrLevel}
             </span>
           )}
@@ -268,7 +268,7 @@ export default function ProgressPage() {
               },
             ].map(({ label, value }) => (
               <div key={label} className="px-5 py-4 text-center">
-                <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mb-1 font-sans tracking-[.12em] uppercase">
+                <p className="text-[var(--juba-app-muted)] mb-1 font-sans tracking-[.12em] uppercase">
                   {label}
                 </p>
                 <p className="text-[var(--juba-app-ink)] font-mono text-sm font-bold">
@@ -328,7 +328,7 @@ export default function ProgressPage() {
                   : t('vocabularySection')}
             </span>
             <div className="bg-[var(--juba-app-line)] h-px flex-1" />
-            <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-mono">
+            <span className="text-[var(--juba-app-muted)] font-mono">
               {totalMastered}/{totalDisplayWords} {tVocab('words')}
             </span>
           </div>
@@ -380,7 +380,7 @@ export default function ProgressPage() {
                         style={{ width: `${pct}%` }}
                       />
                     </div>
-                    <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] w-12 text-right font-mono">
+                    <span className="text-[var(--juba-app-muted)] w-12 text-right font-mono">
                       {mastered}/{s.words.length}
                     </span>
                   </div>
@@ -403,7 +403,7 @@ export default function ProgressPage() {
           <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] divide-fl-border divide-y border">
             {Object.entries(summary.skills).map(([skill, value]) => (
               <div key={skill} className="flex items-center gap-4 px-5 py-3">
-                <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] w-24 font-sans tracking-[.12em] uppercase">
+                <span className="text-[var(--juba-app-muted)] w-24 font-sans tracking-[.12em] uppercase">
                   {skill}
                 </span>
                 <div className="bg-[var(--juba-app-line)] h-1.5 flex-1">
