@@ -1411,4 +1411,22 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         correct="Adjustments for inflation and population growth.",
     ),
 
+    AssessmentQuestion(
+        id="g-c2-011",
+        skill="grammar",
+        difficulty="C2",
+        question="Little ___ that the decision would have such far-reaching consequences.",
+        options=["did they suspect", "they suspected", "had they suspected", "they had suspected"],
+        correct="did they suspect",
+        grammar_slug="inversion-little-did",
+    ),
+    AssessmentQuestion(
+        id="v-c2-008",
+        skill="vocabulary",
+        difficulty="C2",
+        question="What does 'intransigent' mean?",
+        options=["unwilling to compromise", "highly enthusiastic", "easy to understand", "temporarily unavailable"],
+        correct="unwilling to compromise",
+    ),
+
 ]
