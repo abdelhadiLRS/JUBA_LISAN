@@ -173,8 +173,14 @@ export const SUPPORTED_TARGET_LANGUAGES: TargetLanguage[] =
   TARGET_LANGUAGE_CATALOG
 
 export function getLanguageByCode(code: string): TargetLanguage | undefined {
-  const upper = code.toUpperCase()
-  return TARGET_LANGUAGE_CATALOG.find((l) => l.code.toUpperCase() === upper)
+  if (typeof code !== 'string') return undefined
+
+  const normalized = code.trim().toUpperCase()
+  if (!normalized) return undefined
+
+  return TARGET_LANGUAGE_CATALOG.find(
+    (language) => language.code.toUpperCase() === normalized
+  )
 }
 
 export function getTargetLanguageCapability(
