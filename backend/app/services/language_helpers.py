@@ -73,6 +73,11 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
         "self_name": "Norsk",
         "iso639": "no",
     },
+    "fi-FI": {
+        "name": "Finnish",
+        "self_name": "Suomi",
+        "iso639": "fi",
+    },
     "el-GR": {
         "name": "Greek",
         "self_name": "Ελληνικά",
@@ -177,6 +182,12 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
         "uses_word_spacing": True,
         "reading_length_unit": "words",
     },
+    "fi-FI": {
+        "script": "latin",
+        "romanization": "",
+        "uses_word_spacing": True,
+        "reading_length_unit": "words",
+    },
 }
 
 _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
@@ -194,6 +205,7 @@ _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "el": "el-GR",
     "sv": "sv-SE",
     "no": "no-NO",
+    "fi": "fi-FI",
 }
 
 _VOICE_SESSION_TITLES: dict[str, str] = {
