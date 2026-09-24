@@ -210,7 +210,7 @@ _I18N = {
         "test_objectives": ["Kerrata kaikki tämän tason kielioppiaiheet","Suorittaa arviointi seuraavan tason avaamiseksi"],
     },
 
-    "zh-CN": {
+    "cs-CZ": {\n        "lesson_title": "{title} - Lekce {n}",\n        "test_unit_title": "Závěrečný test úrovně {level}",\n        "test_title": "Závěrečný test úrovně {level}",\n        "test_objectives": [\n            "Zopakovat všechna gramatická témata této úrovně",\n            "Dokončit hodnocení a odemknout další úroveň",\n        ],\n    },\n    "zh-CN": {
         "lesson_title": "{title} - 第 {n} 课",
         "test_unit_title": "{level} 等级完成测试",
         "test_title": "{level} 等级完成测试",
