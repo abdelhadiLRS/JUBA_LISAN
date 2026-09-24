@@ -153,7 +153,7 @@ export default function MyLanguagesPage() {
         <div className="space-y-3">
           {[...userLanguages]
             .sort((a, b) =>
-              targetLabel(a.target_language).localeCompare(targetLabel(b.target_language))
+              (() => {\n                const aLabel = targetLabel(a.target_language).toLocaleLowerCase()\n                const bLabel = targetLabel(b.target_language).toLocaleLowerCase()\n                return aLabel < bLabel ? -1 : aLabel > bLabel ? 1 : a.target_language < b.target_language ? -1 : a.target_language > b.target_language ? 1 : 0\n              })()
             )
             .map((ulang) => {
               const lang = getLangInfo(ulang.target_language)
@@ -196,7 +196,7 @@ export default function MyLanguagesPage() {
                       {progress && (
                         <>
                           <span>
-                            {t('xpLabel')}: {progress.total_xp.toLocaleString()}
+                            {t('xpLabel')}: {progress.total_xp.toLocaleString('en-US')}
                           </span>
                           <span>
                             {t('streakLabel')}: {progress.current_streak}d
