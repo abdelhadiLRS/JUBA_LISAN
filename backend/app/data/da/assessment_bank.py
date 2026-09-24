@@ -3,7 +3,7 @@ from app.data._types import AssessmentQuestion
 ASSESSMENT_BANK=[
 AssessmentQuestion(id="da-a1-001",skill="grammar",difficulty="A1",question="Vælg den korrekte sætning.",options=["Jeg er studerende.","Jeg er studerende?","Jeg studerende er.","Er jeg studerende."],correct="Jeg er studerende.",grammar_slug="at-vaere"),
 AssessmentQuestion(id="da-a1-002",skill="grammar",difficulty="A1",question="Hvilket ord passer: '___ hedder Anna'?",options=["Jeg","Mig","Min","Mit"],correct="Jeg",grammar_slug="personlige-pronominer"),
-AssessmentQuestion(id="da-a1-003",skill="vocabulary",difficulty="A1",question="Hvad betyder 'morgen'?",options=["morgen","aften","uge","måned"],correct="morgen"),
+AssessmentQuestion(id="da-a1-003",skill="vocabulary",difficulty="A1",question="Hvad betyder 'morgen'?",options=["tidligt på dagen","sent på dagen","en periode på syv dage","en periode på cirka tredive dage"],correct="tidligt på dagen"),
 AssessmentQuestion(id="da-a1-004",skill="vocabulary",difficulty="A1",question="Hvad bruger man til at betale?",options=["penge","familie","station","navn"],correct="penge"),
 AssessmentQuestion(id="da-a2-001",skill="grammar",difficulty="A2",question="Vælg korrekt datid.",options=["Jeg arbejdede.","Jeg arbejde.","Jeg arbejdet.","Jeg arbejderede."],correct="Jeg arbejdede.",grammar_slug="datid"),
 AssessmentQuestion(id="da-a2-002",skill="grammar",difficulty="A2",question="Vælg korrekt modalverbum.",options=["Jeg skal rejse.","Jeg skal rejser.","Jeg skal rejste.","Jeg skal rejserede."],correct="Jeg skal rejse.",grammar_slug="modalverber"),
