@@ -430,6 +430,59 @@ describe('createAudioQueue', () => {
     expect(idle).toHaveBeenCalledTimes(1)
   })
 
+  it('continues draining later chunks when fallback construction fails', async () => {
+    const { ctx, sources } = createContext()
+    let createCount = 0
+    const originalCreate = ctx.createBufferSource
+    ctx.createBufferSource = vi.fn(() => {
+      createCount += 1
+      return originalCreate()
+    }) as typeof ctx.createBufferSource
+
+    let audioAttempts = 0
+    vi.stubGlobal('Audio', vi.fn(() => {
+      audioAttempts += 1
+      if (audioAttempts === 1) {
+        throw new Error('audio construction failed')
+      }
+      return {
+        src: 'blob:second',
+        play: vi.fn(async () => {}),
+        pause: vi.fn(),
+        addEventListener: vi.fn((event: string, handler: () => void) => {
+          if (event === 'ended') queueMicrotask(handler)
+        }),
+        removeEventListener: vi.fn(),
+      }
+    }))
+    vi.stubGlobal('URL', {
+      createObjectURL: vi.fn(() => 'blob:fallback'),
+      revokeObjectURL: vi.fn(),
+    })
+
+    const decode = ctx.decodeAudioData
+    let decodeCount = 0
+    ctx.decodeAudioData = vi.fn(async (buffer: ArrayBuffer) => {
+      decodeCount += 1
+      if (decodeCount === 1) throw new Error('decode failed')
+      return decode(buffer)
+    }) as typeof ctx.decodeAudioData
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx)
+
+    const first = queue.enqueue(new ArrayBuffer(4))
+    const second = queue.enqueue(new ArrayBuffer(8))
+
+    await expect(first).resolves.toBeUndefined()
+    await expect(second).resolves.toBeUndefined()
+
+    expect(audioAttempts).toBe(1)
+    expect(ctx.createBufferSource).toHaveBeenCalledTimes(1)
+    expect(sources).toHaveLength(1)
+    expect(sources[0].start).toHaveBeenCalledWith(0.005)
+  })
+
   it('falls back when a Web Audio source cannot be created', async () => {
     const { ctx } = createContext()
     vi.spyOn(ctx, 'createBufferSource').mockImplementation(() => {
