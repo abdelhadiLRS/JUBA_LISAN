@@ -124,7 +124,7 @@ export function LandingNav({
         'America/Argentina/Buenos_Aires': 'AR',
       }
 
-      let detected = browserRegion && countryLabels[browserRegion] ? browserRegion : timezoneCountries[timezone]
+      let detected = timezoneCountries[timezone] ?? (browserRegion && countryLabels[browserRegion] ? browserRegion : undefined)
 
       // Time zone is the primary signal. If it is ambiguous/unknown,
       // use the browser locale's region as a secondary hint.
@@ -143,18 +143,18 @@ export function LandingNav({
 
   function CountryFlag({ code, className = 'h-5 w-7' }: { code: string; className?: string }) {
     return (
-      <img
-        src={`https://flagcdn.com/${code.toLowerCase()}.svg`}
-        alt=""
-        aria-hidden="true"
-        className={`inline-block aspect-[4/3] rounded-[3px] object-cover shadow-sm ring-1 ring-black/10 ${className}`}
-        loading="eager"
-        referrerPolicy="no-referrer"
-      />
+      <span className={`flex shrink-0 items-center justify-center overflow-hidden rounded-[4px] bg-white ring-1 ring-black/10 ${className}`}>
+        <img
+          src={`https://indstatic.io/indstatic-main/flags/${code.toUpperCase()}.svg`}
+          alt={`${code.toUpperCase()} flag`}
+          className="h-full w-full object-cover"
+          loading="eager"
+          referrerPolicy="no-referrer"
+        />
+      </span>
     )
   }
 
-  const currentLanguage = languageLabels[locale]
   const currentCountry = countryLabels[visitorCountry] ?? countryLabels.DZ
   const localeLinks = (Object.entries(languageLabels) as Array<[Locale, { native: string; flag: string }]>).map(([code, language]) => ({ code, ...language }))
 
@@ -214,8 +214,8 @@ export function LandingNav({
 
         <div className="hidden items-center gap-3 md:flex">
           <div className="relative">
-            <button type="button" onClick={() => setRegionOpen((value) => !value)} aria-expanded={regionOpen} aria-haspopup="menu" className="juba-nav-region flex items-center gap-2 rounded-full border border-[var(--juba-app-line)] bg-white/80 px-3 py-2 text-xs font-bold text-[var(--juba-app-ink)] backdrop-blur transition hover:-translate-y-0.5 hover:shadow-sm">
-              <CountryFlag code={visitorCountry} className="h-5 w-7" /><span className="text-sm font-black uppercase tracking-wide">{locale}</span><ChevronDown className="h-3 w-3" aria-hidden="true" />
+            <button type="button" onClick={() => setRegionOpen((value) => !value)} aria-expanded={regionOpen} aria-haspopup="menu" aria-label="Click here to change the region or language" className="juba-nav-region flex items-center gap-2 rounded-full border border-[var(--juba-app-line)] bg-white/80 px-3 py-2 text-xs font-bold text-[var(--juba-app-ink)] backdrop-blur transition hover:-translate-y-0.5 hover:shadow-sm">
+              <CountryFlag code={visitorCountry} className="h-7 w-8" /><span className="text-base font-black capitalize">{locale}</span><ChevronDown className="h-3 w-3" aria-hidden="true" />
             </button>
             {regionOpen && <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-50 w-72 rounded-2xl border border-[var(--juba-app-line)] bg-white p-3 shadow-xl">
               <div className="mb-2 flex items-center gap-2 px-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><Globe2 className="h-3.5 w-3.5" /> Region & language</div>
@@ -236,7 +236,7 @@ export function LandingNav({
                   ))}
                 </div>
               </div>
-              <p className="mt-2 px-2 text-[10px] leading-4 text-[var(--juba-app-muted)]">Your region is detected from your browser time zone. It is only an estimate and is not precise location data.</p>
+              <p className="mt-2 px-2 text-[10px] leading-4 text-[var(--juba-app-muted)]">Your region is detected from your browser time zone when available. It is only an estimate and is not precise location data.</p>
             </div>}
           </div>
           <Link href={hasSession ? '/dashboard' : '/login'} className="juba-nav-signin juba-ff-nav-signin text-sm font-semibold transition-colors">{hasSession ? dashboard : signIn}</Link>
@@ -258,7 +258,7 @@ export function LandingNav({
       {open && (
         <div id="juba-mobile-navigation" className="juba-mobile-menu juba-ff-mobile-menu border-b px-6 pt-4 pb-6 md:hidden animate-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col gap-4">
-            <div className="rounded-2xl border border-[var(--juba-app-line)] bg-white/80 p-3"><div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><CountryFlag code={visitorCountry} className="h-5 w-7" /><span className="text-sm font-black">{locale}</span></div></div>
+            <div className="rounded-2xl border border-[var(--juba-app-line)] bg-white/80 p-3"><div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><CountryFlag code={visitorCountry} className="h-7 w-8" /><span className="text-base font-black capitalize">{locale}</span></div></div>
             {links}
             <div className="juba-mobile-actions pt-2 flex flex-col gap-3">
               <Link href={hasSession ? '/dashboard' : '/login'} onClick={closeMenu} className="juba-nav-signin juba-ff-nav-signin w-full text-center py-2 text-sm font-semibold">{hasSession ? dashboard : signIn}</Link>
