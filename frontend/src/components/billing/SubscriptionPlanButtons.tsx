@@ -45,13 +45,13 @@ export function SubscriptionPlanButtons({
   }
 
   return (
-    <div className={`space-y-3 ${className}`}>
+    <div className={`space-y-3 juba-billing-actions ${className}`}>
       <div className="flex flex-col gap-3 sm:flex-row">
         <button
           type="button"
           onClick={() => startCheckout('yearly')}
           disabled={loading !== null}
-          className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 flex-1 px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+          className="juba-primary-button flex-1 px-4 py-2.5 text-xs disabled:opacity-50"
         >
           {loading === 'yearly' ? (
             '...'
@@ -70,14 +70,14 @@ export function SubscriptionPlanButtons({
           type="button"
           onClick={() => startCheckout('monthly')}
           disabled={loading !== null}
-          className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet-dark)] flex-1 border px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+          className="juba-secondary-button flex-1 px-4 py-2.5 text-xs disabled:opacity-50"
         >
           {loading === 'monthly'
             ? '...'
             : tBilling('planMonthly', { price: String(priceMonthly) })}
         </button>
       </div>
-      {error && <p className="text-[var(--juba-danger)] font-mono text-xs">{error}</p>}
+      {error && <p className="text-[var(--juba-app-error)] font-mono text-xs">{error}</p>}
     </div>
   )
 }
