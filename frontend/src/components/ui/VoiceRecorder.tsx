@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import { Mic, Square, Loader2, AlertCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { apiFetch } from '@/lib/api'
 import { float32ToWav } from '@/lib/audio'
@@ -139,6 +140,7 @@ export function VoiceRecorder({
         stopRecording()
       }, maxSeconds * 1000)
     } catch {
+      cleanupAudio()
       setState('error')
       setTimeout(() => setState('idle'), 2000)
     }
@@ -159,31 +161,47 @@ export function VoiceRecorder({
   }
 
   const label =
-    state === 'recording'
-      ? `■ ${t('stop')}`
-      : state === 'transcribing'
-        ? `... ${t('processing')}`
-        : state === 'error'
-          ? `✕ ${t('error')}`
-          : `● ${t('record')}`
+    state === 'recording' ? (
+      <>
+        <Square className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
+        {t('stop')}
+      </>
+    ) : state === 'transcribing' ? (
+      <>
+        <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+        {t('processing')}
+      </>
+    ) : state === 'error' ? (
+      <>
+        <AlertCircle className="h-4 w-4" aria-hidden="true" />
+        {t('error')}
+      </>
+    ) : (
+      <>
+        <Mic className="h-4 w-4" aria-hidden="true" />
+        {t('record')}
+      </>
+    )
 
   const colorClass =
     state === 'recording'
-      ? 'border-[color-mix(in_srgb,#b33a32_55%,var(--juba-app-line))] bg-[color-mix(in_srgb,#b33a32_8%,var(--juba-app-surface))] text-[#b33a32] animate-pulse'
+      ? 'border-[color-mix(in_srgb,#b33a32_55%,var(--juba-app-line))] bg-[color-mix(in_srgb,#b33a32_8%,var(--juba-app-surface))] text-[var(--juba-app-error)] animate-pulse'
       : state === 'transcribing'
-        ? 'border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-muted)] animate-pulse'
+        ? 'border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-muted)]'
         : state === 'error'
-          ? 'border-[color-mix(in_srgb,#b33a32_40%,var(--juba-app-line))] bg-[color-mix(in_srgb,#b33a32_8%,var(--juba-app-surface))] text-[#b33a32]'
+          ? 'border-[color-mix(in_srgb,#b33a32_40%,var(--juba-app-line))] bg-[color-mix(in_srgb,#b33a32_8%,var(--juba-app-surface))] text-[var(--juba-app-error)]'
           : disabled
             ? 'border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-muted)] cursor-not-allowed opacity-40'
             : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-green-dark)]'
 
   return (
     <button
+      type="button"
       onClick={handleClick}
-      disabled={disabled && state === 'idle'}
+      disabled={disabled || state === 'transcribing'}
       aria-label={state === 'recording' ? t('ariaStop') : t('ariaRecord')}
-      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border-2 px-4 py-2.5 text-xs font-semibold tracking-wide shadow-[2px_2px_0_var(--juba-app-line)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--juba-app-line)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--juba-app-line)] ${colorClass} ${className}`}
+      aria-busy={state === 'transcribing'}
+      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border-2 px-4 py-2.5 text-xs font-semibold shadow-[2px_2px_0_var(--juba-app-line)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--juba-app-line)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--juba-app-line)] disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[2px_2px_0_var(--juba-app-line)] ${colorClass} ${className}`}
     >
       {label}
     </button>
