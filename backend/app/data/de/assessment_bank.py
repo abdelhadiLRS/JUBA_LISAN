@@ -116,7 +116,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         skill="vocabulary",
         difficulty="A1",
         question='Was bedeutet "der Tisch"?',
-        options=["table", "chair", "door", "window"],
+        options=["Tisch", "Stuhl", "Tür", "Fenster"],
         correct="table",
     ),
     AssessmentQuestion(
@@ -496,7 +496,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         skill="vocabulary",
         difficulty="B1",
         question='Was bedeutet "die Bewerbung"?',
-        options=["application", "evaluation", "movement", "approval"],
+        options=["Bewerbung", "Bewertung", "Bewegung", "Genehmigung"],
         correct="application",
     ),
     AssessmentQuestion(
@@ -712,7 +712,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         skill="vocabulary",
         difficulty="B2",
         question='Was bedeutet "die Voraussetzung"?',
-        options=["prerequisite", "presentation", "preparation", "assumption"],
+        options=["Voraussetzung", "Präsentation", "Vorbereitung", "Annahme"],
         correct="prerequisite",
     ),
     AssessmentQuestion(
