@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { ArrowRight, BookOpen, CheckCircle2, Headphones, LockKeyhole, Mic2, Sparkles } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
@@ -29,6 +29,7 @@ function getPlanLessonCount(plan: StudyPlan | null): number {
 
 export default function CoursesPage() {
   const t = useTranslations('courses')
+  const locale = useLocale()
   const activeLanguage = useLanguageStore((s) => s.activeLanguage)
   const [plan, setPlan] = useState<StudyPlan | null>(null)
   const [competencies, setCompetencies] = useState<Record<string, number>>({})
@@ -177,7 +178,7 @@ export default function CoursesPage() {
                   {CEFR_SKILLS.map((skill: CEFRSkill) => (
                     <div key={skill} className="rounded-2xl bg-white p-3 ring-1 ring-[var(--juba-app-line)]">
                       <p className="text-xs font-black uppercase tracking-[.12em] text-[var(--juba-app-green-dark)]">{t(`cefrSkills.${skill}`)}</p>
-                      <p className="mt-1 text-sm leading-5 text-[var(--juba-app-ink)]">{CEFR_DESCRIPTORS[level][skill]}</p>
+                      <p className="mt-1 text-sm leading-5 text-[var(--juba-app-ink)]">{CEFR_DESCRIPTORS[locale === 'ar' ? 'ar' : 'en'][level][skill]}</p>
                     </div>
                   ))}
                 </div>
