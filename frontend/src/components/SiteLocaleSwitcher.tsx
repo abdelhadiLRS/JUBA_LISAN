@@ -50,7 +50,7 @@ export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
         {open && (
           <div
             role="listbox"
-            aria-label="Site language"
+            aria-label={locale === 'ar' ? 'لغة الموقع' : 'Site language'}
             className="absolute bottom-[calc(100%+8px)] left-0 w-52 overflow-hidden rounded-2xl border border-[var(--juba-app-line)] bg-white p-1.5 shadow-lg"
           >
             {LOCALES.map((item) => (
