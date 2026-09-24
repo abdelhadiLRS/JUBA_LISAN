@@ -1378,7 +1378,8 @@
       "Weekend plans",
       "Work & career goals",
       "Working from home"
-    ]
+    ],
+    "assessmentVoiceContext": "I just completed the placement assessment. Please start a short, friendly voice conversation adapted to my level."
   },
   "voiceRecorder": {
     "record": "Record",
