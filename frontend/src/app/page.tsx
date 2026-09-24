@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { cookies } from 'next/headers'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import {
   Sparkles,
@@ -70,6 +70,7 @@ const jsonLd = {
 export default async function Home() {
   const cookieStore = await cookies()
   const hasSession = cookieStore.has('refresh_token')
+  const locale = await getLocale()
   const t = await getTranslations('landing')
   const tBilling = await getTranslations('billing')
 
