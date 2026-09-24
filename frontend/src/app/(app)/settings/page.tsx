@@ -63,7 +63,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl space-y-4 p-6">
+    <div className="juba-settings-shell mx-auto max-w-6xl space-y-4 p-6">
       <SettingsPageHeader
         eyebrow={`${t('sectionAccount')} / ${t('title')}`}
         title={t('title')}
