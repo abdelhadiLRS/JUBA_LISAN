@@ -9,13 +9,13 @@ from fastapi.responses import FileResponse, Response
 
 from app.core.app_logger import get_logger
 from app.core.config import settings
-from app.core.deps import get_current_user
+from app.core.deps import get_current_user, require_learner
 from app.core.limiter import limiter
 from app.models.user import User
 from app.schemas.tts_stt import TTSRequest
 from app.services.prompts.common import TUTOR_DISPLAY_NAME
 
-router = APIRouter(prefix="/api", tags=["tts"])
+router = APIRouter(prefix="/api", tags=["tts"], dependencies=[Depends(require_learner)])
 logger = get_logger(__name__)
 
 _PREVIEW_DIR = "/app/tts_previews"
