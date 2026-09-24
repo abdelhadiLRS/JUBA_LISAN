@@ -271,9 +271,24 @@ export function LanguageBubbles() {
                 <button type="button" onClick={() => setActiveCountry(null)} className="text-xs font-black text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)]" aria-label="Close country details">×</button>
               </div>
               <div className="mt-3 flex flex-wrap gap-1.5">
-                {(countryLanguages.get(activeCountry) ?? []).map((name) => (
-                  <span key={name} className="rounded-full border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-bold text-[var(--juba-app-muted)]">{name}</span>
-                ))}
+                {(countryLanguages.get(activeCountry) ?? []).map((name) => {
+                  const language = DISPLAY_LANGUAGES.find((item) => item.name === name)
+                  const active = activeLanguage === language?.code
+                  return (
+                    <button
+                      key={name}
+                      type="button"
+                      onClick={() => {
+                        if (!language) return
+                        setActiveLanguage(language.code)
+                        setActiveRegion(language.regions[0] ?? null)
+                      }}
+                      className={`rounded-full border px-2 py-1 text-[10px] font-bold transition-colors ${active ? 'border-[var(--juba-app-green)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:text-[var(--juba-app-ink)]'}`}
+                    >
+                      {name}
+                    </button>
+                  )
+                })}
               </div>
             </div>
           )}
