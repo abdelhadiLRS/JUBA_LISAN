@@ -40,10 +40,30 @@ export default getRequestConfig(async () => {
     return null
   }
 
-  let messages = await loadMessages(locale)
-  if (!messages && locale !== 'en') {
-    messages = await loadMessages('en')
+  const englishMessages = await loadMessages('en')
+  let messages = locale === 'en' ? englishMessages : await loadMessages(locale)
+
+  if (!englishMessages && !messages) {
+    throw new Error('No locale messages were found in the application runtime.')
   }
+
+  // Locale files can be translated incrementally without missing-key failures:
+  // every locale inherits the complete English message tree.
+  const mergeMessages = (base: unknown, override: unknown): unknown => {
+    if (!base || typeof base !== 'object' || Array.isArray(base)) return override ?? base
+    if (!override || typeof override !== 'object' || Array.isArray(override)) return base
+    const merged: Record<string, unknown> = { ...(base as Record<string, unknown>) }
+    for (const [key, value] of Object.entries(override as Record<string, unknown>)) {
+      merged[key] = mergeMessages(merged[key], value)
+    }
+    return merged
+  }
+
+  if (englishMessages && messages && locale !== 'en') {
+    messages = mergeMessages(englishMessages, messages)
+  }
+
+  messages ??= englishMessages
   if (!messages) {
     throw new Error('No locale messages were found in the application runtime.')
   }
