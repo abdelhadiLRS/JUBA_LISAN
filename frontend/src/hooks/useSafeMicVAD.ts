@@ -37,7 +37,17 @@ export function useSafeMicVAD(
   optionsRef.current = options
 
   const start = useCallback(async (audioContext?: AudioContext) => {
-    if (loading || listening || vadRef.current) return
+    if (loading || listening) return
+
+    if (vadRef.current) {
+      try {
+        await vadRef.current.destroy()
+      } catch {
+        // A partially initialized VAD may not have audio instances yet.
+      }
+      vadRef.current = null
+      startedRef.current = false
+    }
 
     setLoading(true)
     setErrored(false)
