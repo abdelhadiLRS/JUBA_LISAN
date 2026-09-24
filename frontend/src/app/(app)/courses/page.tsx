@@ -129,7 +129,7 @@ export default function CoursesPage() {
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-6xl">Learn language you can actually use.</h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[18px] bg-white px-5 py-3 font-black text-[#5a35dc] shadow-[0_5px_0_#d7ceff] transition hover:-translate-y-0.5">Continue journey <ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/courses" className="inline-flex items-center gap-2 rounded-[18px] bg-white px-5 py-3 font-black text-[#5a35dc] shadow-[0_5px_0_#d7ceff] transition hover:-translate-y-0.5">Open course roadmap <ArrowRight className="h-4 w-4" /></Link>
               <Link href="/assessment" className="inline-flex items-center gap-2 rounded-[18px] border-2 border-white/25 bg-white/10 px-5 py-3 font-black text-white transition hover:bg-white/20">Find my level</Link>
             </div>
           </div>
@@ -198,7 +198,7 @@ export default function CoursesPage() {
         </section>
 
         <section className="juba-card rounded-[30px] border-2 border-[#eee8ff] bg-white p-6 shadow-[0_12px_28px_rgba(52,37,90,.07)] sm:p-7">
-          <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="juba-eyebrow">Real-world missions</p><h2 className="mt-2 text-2xl font-black text-[var(--juba-text)]">Practice language where it matters.</h2></div><Link href="/learning-journey" className="font-bold text-[#5a35dc] underline underline-offset-4">See my journey</Link></div>
+          <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="juba-eyebrow">Real-world missions</p><h2 className="mt-2 text-2xl font-black text-[var(--juba-text)]">Practice language where it matters.</h2></div><Link href="/learning-journey" className="font-bold text-[#5a35dc] underline underline-offset-4">Open course roadmap</Link></div>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {places.map((place) => <div key={place.title} className="rounded-2xl border border-[var(--juba-border)] bg-[#f2f0e8] p-4"><span className="text-2xl" aria-hidden="true">{place.icon}</span><p className="mt-3 font-black text-[var(--juba-text)]">{place.title}</p><p className="mt-1 text-sm text-[#617068]">{place.text}</p></div>)}
           </div>
