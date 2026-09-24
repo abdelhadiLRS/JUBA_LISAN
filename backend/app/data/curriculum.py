@@ -34,6 +34,7 @@ _LANG_MODULES: dict[str, str] = {
     "sv": "app.data.language_foundations.sv",
     "da": "app.data.da.curriculum",
     "no": "app.data.no.curriculum",
+    "fi": "app.data.fi.curriculum",
     "fi": "app.data.language_foundations.fi",
     "cs": "app.data.language_foundations.cs",
     "ro": "app.data.language_foundations.ro",
@@ -202,6 +203,13 @@ _I18N = {
             "Fullføre vurderingen for å låse opp neste nivå",
         ],
     },
+    "fi-FI": {
+        "lesson_title": "{title} - Oppitunti {n}",
+        "test_unit_title": "Tason {level} lopputesti",
+        "test_title": "Tason {level} lopputesti",
+        "test_objectives": ["Kerrata kaikki tämän tason kielioppiaiheet","Suorittaa arviointi seuraavan tason avaamiseksi"],
+    },
+
     "zh-CN": {
         "lesson_title": "{title} - 第 {n} 课",
         "test_unit_title": "{level} 等级完成测试",
