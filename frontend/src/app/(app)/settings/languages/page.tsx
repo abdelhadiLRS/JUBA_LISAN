@@ -17,6 +17,7 @@ import type { UserLanguageInfo } from '@/store/language'
 export default function MyLanguagesPage() {
   const t = useTranslations('languages')
   const tTarget = useTranslations('targetLanguages')
+  const targetLabel = (code: string) => (tTarget.has(code) ? tTarget(code) : getLanguageByCode(code)?.name ?? code)
   const tSettings = useTranslations('settings')
   const tCommon = useTranslations('common')
   const router = useRouter()
@@ -57,7 +58,7 @@ export default function MyLanguagesPage() {
     if (ok) {
       const level = info.plan?.cefr_level ?? ''
       setToast(
-        t('switched', { language: tTarget(info.target_language), level })
+        t('switched', { language: targetLabel(info.target_language), level })
       )
       setTimeout(() => setToast(''), 2500)
       router.refresh()
@@ -70,7 +71,7 @@ export default function MyLanguagesPage() {
     if (!ok) {
       setToast(
         t('deleteError', {
-          language: tTarget(deleteTarget.target_language),
+          language: targetLabel(deleteTarget.target_language),
         })
       )
       setDeleteTarget(null)
@@ -152,9 +153,7 @@ export default function MyLanguagesPage() {
         <div className="space-y-3">
           {[...userLanguages]
             .sort((a, b) =>
-              tTarget(a.target_language).localeCompare(
-                tTarget(b.target_language)
-              )
+              targetLabel(a.target_language).localeCompare(targetLabel(b.target_language))
             )
             .map((ulang) => {
               const lang = getLangInfo(ulang.target_language)
@@ -172,7 +171,7 @@ export default function MyLanguagesPage() {
                   {/* Top row: flag + name + status */}
                   <div className="mb-3 flex items-center gap-3">
                     <span className="text-[var(--juba-text)] flex-1 font-mono text-sm font-bold">
-                      {tTarget(ulang.target_language)}
+                      {targetLabel(ulang.target_language)}
                     </span>
                     {isActive ? (
                       <span className="text-[var(--juba-text)] bg-[var(--juba-violet)]/20 text-[var(--juba-violet)] px-2 py-0.5 font-mono text-xs tracking-widest uppercase">
