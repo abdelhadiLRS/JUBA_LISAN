@@ -10,6 +10,7 @@ import { getLanguageByCode } from '@/lib/target-languages'
 export default function LanguageSwitcher() {
   const tLang = useTranslations('languages')
   const tTarget = useTranslations('targetLanguages')
+  const targetLabel = (code: string, fallback?: string) => (tTarget.has(code) ? targetLabel(code) : fallback ?? code)
   const router = useRouter()
   const activeLanguage = useLanguageStore((s) => s.activeLanguage)
   const userLanguages = useLanguageStore((s) => s.userLanguages)
@@ -72,7 +73,7 @@ export default function LanguageSwitcher() {
         disabled={!multiple || isSwitching}
         aria-expanded={multiple ? open : undefined}
         aria-haspopup={multiple ? 'listbox' : undefined}
-        aria-label={multiple ? 'Switch target language' : `Current target language: ${tTarget(activeLanguage.code)}`}
+        aria-label={multiple ? 'Switch target language' : `Current target language: ${targetLabel(activeLanguage.code, getLanguageByCode(activeLanguage.code)?.name ?? activeLanguage.code)}`}
         className="group flex w-full items-center gap-3 rounded-[14px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-3.5 py-2.5 text-left text-sm font-bold text-[var(--juba-app-ink)] shadow-[2px_2px_0_var(--juba-app-ink)] transition-all hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-[2px_2px_0_var(--juba-app-ink)]"
       >
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-[var(--juba-app-green-soft)]">
@@ -92,7 +93,7 @@ export default function LanguageSwitcher() {
             <Languages className="h-3.5 w-3.5" aria-hidden="true" />
             Your languages
           </div>
-          {[...supportedUserLanguages].sort((a, b) => tTarget(a.target_language).localeCompare(tTarget(b.target_language))).map((ulang) => {
+          {[...supportedUserLanguages].sort((a, b) => targetLabel(a.target_language, getLanguageByCode(a.target_language)?.nameEn).localeCompare(targetLabel(b.target_language, getLanguageByCode(b.target_language)?.nameEn))).map((ulang) => {
             const lang = getLanguageByCode(ulang.target_language)
             if (!lang) return null
             return (
@@ -110,7 +111,7 @@ export default function LanguageSwitcher() {
                 }`}
               >
                 <Languages className="h-4 w-4 shrink-0 text-[var(--juba-app-green)]" aria-hidden="true" />
-                <span className="min-w-0 flex-1 truncate">{tTarget(lang.code)}</span>
+                <span className="min-w-0 flex-1 truncate">{targetLabel(lang.code, lang.name)}</span>
                 {ulang.plan?.cefr_level && (
                   <span className="rounded-full bg-[var(--juba-app-yellow)] px-2 py-0.5 text-[10px] font-black text-[var(--juba-app-ink)]">
                     {ulang.plan.cefr_level}
