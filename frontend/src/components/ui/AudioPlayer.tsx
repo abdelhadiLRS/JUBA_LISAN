@@ -167,19 +167,19 @@ export function AudioPlayer({
 
   const colorClass =
     state === 'playing'
-      ? 'border-[var(--juba-primary)] bg-[var(--juba-lilac)] text-[var(--juba-primary-dark)]'
+      ? 'border-[var(--juba-app-green)] bg-[#e9f4df] text-[var(--juba-app-green-dark)]'
       : state === 'loading'
-        ? 'border-[var(--juba-border)] bg-[var(--juba-surface-soft)] text-[var(--juba-muted)] animate-pulse'
+        ? 'border-[var(--juba-app-line)] bg-[#f3f7ef] text-[var(--juba-app-muted)] animate-pulse'
         : state === 'error'
-          ? 'border-[color-mix(in_srgb,var(--juba-danger)_40%,var(--juba-border))] bg-[color-mix(in_srgb,var(--juba-danger)_8%,var(--juba-surface))] text-[var(--juba-danger)]'
-          : 'border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-muted)] hover:border-[var(--juba-primary)] hover:bg-[var(--juba-lilac)] hover:text-[var(--juba-primary-dark)]'
+          ? 'border-[color-mix(in_srgb,#b33a32_40%,var(--juba-app-line))] bg-[color-mix(in_srgb,#b33a32_8%,var(--juba-app-surface))] text-[#b33a32]'
+          : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:bg-[#e9f4df] hover:text-[var(--juba-app-green-dark)]'
 
   return (
     <button
       onClick={handleClick}
       title={state === 'playing' ? t('stop') : t('listen')}
       aria-label={state === 'playing' ? t('ariaStop') : t('ariaListen')}
-      className={`rounded-full border-2 font-medium tracking-wide shadow-[2px_2px_0_var(--juba-border)] transition-all duration-200 ${colorClass} ${sizeClass} ${className}`}
+      className={`rounded-full border-2 font-medium tracking-wide shadow-[2px_2px_0_var(--juba-app-line)] transition-all duration-200 ${colorClass} ${sizeClass} ${className}`}
     >
       {label}
     </button>
