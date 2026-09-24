@@ -1,107 +1,187 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import Image from 'next/image'
+import { ArrowRight, Globe2, MapPinned } from 'lucide-react'
+
+type RegionId = 'americas' | 'europe' | 'africa-middle-east' | 'asia' | 'pacific'
 
 type DisplayLanguage = {
   code: string
   name: string
+  region: RegionId
 }
 
-const DISPLAY_LANGUAGES: DisplayLanguage[] = [
-  { code: 'en-US', name: 'English (US)' },
-  { code: 'en-GB', name: 'English (UK)' },
-  { code: 'fr', name: 'Français' },
-  { code: 'es', name: 'Español' },
-  { code: 'de', name: 'Deutsch' },
-  { code: 'it', name: 'Italiano' },
-  { code: 'pt', name: 'Português' },
-  { code: 'nl', name: 'Nederlands' },
-  { code: 'ru', name: 'Русский' },
-  { code: 'tr', name: 'Türkçe' },
-  { code: 'el', name: 'Ελληνικά' },
-  { code: 'ro', name: 'Română' },
-  { code: 'hu', name: 'Magyar' },
-  { code: 'uk', name: 'Українська' },
-  { code: 'fi', name: 'Suomi' },
-  { code: 'sv', name: 'Svenska' },
-  { code: 'vi', name: 'Tiếng Việt' },
-  { code: 'ja', name: '日本語' },
-  { code: 'ko', name: '한국어' },
-  { code: 'zh', name: '中文' },
-  { code: 'ar', name: 'العربية' },
-  { code: 'he', name: 'עברית' },
-  { code: 'mi', name: 'Māori' },
-  { code: 'sm', name: 'Gagana Sāmoa' },
-  { code: 'to', name: 'Lea faka-Tonga' },
-  { code: 'sq', name: 'Shqip' },
-  { code: 'eu', name: 'Euskara' },
-  { code: 'gl', name: 'Galego' },
-  { code: 'yo', name: 'Yorùbá' },
-  { code: 'xh', name: 'isiXhosa' },
-  { code: 'mg', name: 'Malagasy' },
-  { code: 'ny', name: 'Chichewa' },
+const REGIONS: Array<{ id: RegionId; label: string; short: string }> = [
+  { id: 'americas', label: 'Americas', short: 'AM' },
+  { id: 'europe', label: 'Europe', short: 'EU' },
+  { id: 'africa-middle-east', label: 'Africa & Middle East', short: 'AF' },
+  { id: 'asia', label: 'Asia', short: 'AS' },
+  { id: 'pacific', label: 'Pacific', short: 'PA' },
 ]
 
-function circlePosition(index: number, total: number, radius: number) {
-  const angle = (index / total) * 2 * Math.PI - Math.PI / 2
-  const x = Math.cos(angle) * radius
-  const y = Math.sin(angle) * radius
-  // Round coordinates so SSR and browser serialization produce identical style strings.
-  return { x: Math.round(x * 100) / 100, y: Math.round(y * 100) / 100 }
+const DISPLAY_LANGUAGES: DisplayLanguage[] = [
+  { code: 'en-US', name: 'English (US)', region: 'americas' },
+  { code: 'en-GB', name: 'English (UK)', region: 'europe' },
+  { code: 'fr', name: 'Français', region: 'europe' },
+  { code: 'es', name: 'Español', region: 'europe' },
+  { code: 'de', name: 'Deutsch', region: 'europe' },
+  { code: 'it', name: 'Italiano', region: 'europe' },
+  { code: 'pt', name: 'Português', region: 'europe' },
+  { code: 'nl', name: 'Nederlands', region: 'europe' },
+  { code: 'ru', name: 'Русский', region: 'europe' },
+  { code: 'tr', name: 'Türkçe', region: 'africa-middle-east' },
+  { code: 'el', name: 'Ελληνικά', region: 'europe' },
+  { code: 'ro', name: 'Română', region: 'europe' },
+  { code: 'hu', name: 'Magyar', region: 'europe' },
+  { code: 'uk', name: 'Українська', region: 'europe' },
+  { code: 'fi', name: 'Suomi', region: 'europe' },
+  { code: 'sv', name: 'Svenska', region: 'europe' },
+  { code: 'ar', name: 'العربية', region: 'africa-middle-east' },
+  { code: 'he', name: 'עברית', region: 'africa-middle-east' },
+  { code: 'yo', name: 'Yorùbá', region: 'africa-middle-east' },
+  { code: 'xh', name: 'isiXhosa', region: 'africa-middle-east' },
+  { code: 'mg', name: 'Malagasy', region: 'africa-middle-east' },
+  { code: 'ny', name: 'Chichewa', region: 'africa-middle-east' },
+  { code: 'vi', name: 'Tiếng Việt', region: 'asia' },
+  { code: 'ja', name: '日本語', region: 'asia' },
+  { code: 'ko', name: '한국어', region: 'asia' },
+  { code: 'zh', name: '中文', region: 'asia' },
+  { code: 'mi', name: 'Māori', region: 'pacific' },
+  { code: 'sm', name: 'Gagana Sāmoa', region: 'pacific' },
+  { code: 'to', name: 'Lea faka-Tonga', region: 'pacific' },
+  { code: 'sq', name: 'Shqip', region: 'europe' },
+  { code: 'eu', name: 'Euskara', region: 'europe' },
+  { code: 'gl', name: 'Galego', region: 'europe' },
+]
+
+const REGION_POSITION: Record<RegionId, { left: string; top: string }> = {
+  americas: { left: '18%', top: '52%' },
+  europe: { left: '48%', top: '31%' },
+  'africa-middle-east': { left: '48%', top: '60%' },
+  asia: { left: '73%', top: '43%' },
+  pacific: { left: '84%', top: '73%' },
+}
+
+function MapSilhouette() {
+  return (
+    <svg viewBox="0 0 1000 500" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" preserveAspectRatio="none">
+      <path d="M95 118c45-37 93-48 133-31l35 29 17 47-22 34-34 5-18 43-32 16-19-22-31 6-21-30-27-18 8-29-19-22z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="3" />
+      <path d="M238 257l42 16 32 35 15 51-20 56-35 38-31-12-9-42-25-36 13-44-18-34z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="3" />
+      <path d="M446 105l37-25 50 7 34 28 38 8 30 34-18 28-43-2-24 25-43-5-32-31-39-9-19-28z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="3" />
+      <path d="M492 211l52-12 44 25 26 48-14 45-38 27-15 63-38 26-29-26 9-58-25-42 16-45z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="3" />
+      <path d="M624 137l54-35 74 12 49 34 74 10 42 35-18 37-61-3-25 31-61-8-41-30-53 7-27-32z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="3" />
+      <path d="M812 331l55-10 45 24 20 37-35 29-52-10-35-29z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="3" />
+    </svg>
+  )
 }
 
 export function LanguageBubbles() {
-  const positions = useMemo(
-    () => DISPLAY_LANGUAGES.map((_, i) => circlePosition(i, DISPLAY_LANGUAGES.length, 155)),
+  const [activeRegion, setActiveRegion] = useState<RegionId | null>(null)
+
+  const languagesByRegion = useMemo(
+    () =>
+      Object.fromEntries(
+        REGIONS.map((region) => [
+          region.id,
+          DISPLAY_LANGUAGES.filter((language) => language.region === region.id),
+        ])
+      ) as Record<RegionId, DisplayLanguage[]>,
     []
   )
 
+  const visibleRegions = activeRegion
+    ? REGIONS.filter((region) => region.id === activeRegion)
+    : REGIONS
+
   return (
-    <div className="relative h-[360px] w-full sm:h-[380px]" aria-label="JUBA LISAN supported languages">
-      <div
-        className="absolute left-1/2 top-1/2 z-[1] flex h-[140px] w-[140px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] p-5 shadow-[5px_5px_0_var(--juba-app-ink)]"
-        aria-label="JUBA LISAN"
-      >
-        <Image
-          src="/logo.png"
-          alt="JUBA LISAN"
-          width={96}
-          height={96}
-          className="h-auto w-auto object-contain"
-        />
+    <div className="relative overflow-hidden rounded-[36px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] p-3 shadow-[6px_6px_0_var(--juba-app-ink)] sm:p-5">
+      <div className="relative min-h-[560px] overflow-hidden rounded-[28px] border border-[var(--juba-app-line)] bg-[#f5f8f1]">
+        <MapSilhouette />
+
+        <div className="absolute inset-x-4 top-4 z-20 flex flex-wrap items-center justify-between gap-3 sm:inset-x-6 sm:top-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--juba-app-ink)] bg-white/90 px-3 py-2 text-[10px] font-black uppercase tracking-[.16em] text-[var(--juba-app-ink)] backdrop-blur">
+            <MapPinned className="h-3.5 w-3.5" aria-hidden="true" />
+            Language atlas
+          </div>
+          <button type="button" onClick={() => setActiveRegion(null)} className="rounded-full border border-[var(--juba-app-line)] bg-white/90 px-3 py-2 text-[10px] font-black uppercase tracking-[.12em] text-[var(--juba-app-muted)] transition hover:border-[var(--juba-app-ink)] hover:text-[var(--juba-app-ink)]">
+            All regions
+          </button>
+        </div>
+
+        <div className="absolute inset-0 z-10">
+          {visibleRegions.map((region) => {
+            const languages = languagesByRegion[region.id]
+            const position = REGION_POSITION[region.id]
+            const isActive = activeRegion === region.id
+
+            return (
+              <button
+                type="button"
+                key={region.id}
+                onClick={() => setActiveRegion(isActive ? null : region.id)}
+                className="group absolute -translate-x-1/2 -translate-y-1/2 text-left"
+                style={position}
+                aria-pressed={isActive}
+                aria-label={region.label + ': ' + languages.length + ' languages'}
+              >
+                <span className={[
+                  'block w-[190px] rounded-[22px] border-2 p-3 shadow-[3px_3px_0_rgba(24,37,27,.12)] transition-all sm:w-[230px] sm:p-4',
+                  isActive
+                    ? 'border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] shadow-[5px_5px_0_var(--juba-app-ink)]'
+                    : 'border-[var(--juba-app-line)] bg-white/95 hover:-translate-y-1 hover:border-[var(--juba-app-ink)]',
+                ].join(' ')}>
+                  <span className="flex items-center justify-between gap-2">
+                    <span>
+                      <span className="block text-[9px] font-black uppercase tracking-[.18em] text-[var(--juba-app-green)]">{region.short}</span>
+                      <span className="mt-1 block text-sm font-black text-[var(--juba-app-ink)] sm:text-base">{region.label}</span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 shrink-0 text-[var(--juba-app-green)] transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </span>
+
+                  <span className="mt-3 flex flex-wrap gap-1.5">
+                    {languages.map((language) => (
+                      <span key={language.code} className="rounded-full border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-2 py-1 text-[10px] font-bold text-[var(--juba-app-ink)]">
+                        {language.name}
+                      </span>
+                    ))}
+                  </span>
+                </span>
+              </button>
+            )
+          })}
+        </div>
+
+        <div className="absolute bottom-4 left-1/2 z-20 w-[calc(100%-2rem)] -translate-x-1/2 sm:bottom-6 sm:w-auto">
+          <div className="flex flex-wrap justify-center gap-1.5 rounded-2xl border border-[var(--juba-app-line)] bg-white/90 p-2 backdrop-blur">
+            {REGIONS.map((region) => (
+              <button type="button" key={region.id} onClick={() => setActiveRegion(region.id)} className={[
+                'rounded-xl px-3 py-2 text-[10px] font-black uppercase tracking-[.1em] transition',
+                activeRegion === region.id
+                  ? 'bg-[var(--juba-app-ink)] text-white'
+                  : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]',
+              ].join(' ')}>
+                {region.short}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {DISPLAY_LANGUAGES.map((lang, i) => {
-        const { x, y } = positions[i]
-        const greeting = lang.name
-        const delay = i * 0.35
-        return (
-          <div
-            key={lang.code}
-            className="absolute z-0 w-max"
-            style={{
-              left: `calc(50% + ${x}px)`,
-              top: `calc(50% + ${y}px)`,
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            <div
-              className="animate-float animate-bubble-in w-max"
-              style={{
-                animationDelay: `${delay}s, ${delay}s`,
-                animationDuration: '3.4s, 0.4s',
-              }}
-            >
-              <div className="flex items-center gap-1.5 rounded-full border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-2.5 py-1 shadow-[2px_2px_0_rgba(24,37,27,.08)] transition-all hover:-translate-y-0.5 hover:shadow-[3px_3px_0_rgba(24,37,27,.12)]">
-                <span className="whitespace-nowrap text-[11px] font-bold text-[var(--juba-app-ink)]">
-                  {greeting}
-                </span>
-              </div>
-            </div>
+      <div className="mt-4 flex flex-col gap-3 rounded-2xl border border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-start gap-3">
+          <Globe2 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--juba-app-green)]" aria-hidden="true" />
+          <div>
+            <p className="text-sm font-black text-[var(--juba-app-ink)]">Languages by region</p>
+            <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">Explore the JUBA LISAN language catalog geographically instead of as one long list.</p>
           </div>
-        )
-      })}
+        </div>
+        <span className="text-xs font-black text-[var(--juba-app-green)]">{DISPLAY_LANGUAGES.length} languages</span>
+      </div>
+
+      <div className="sr-only">
+        <Image src="/logo.png" alt="JUBA LISAN" width={1} height={1} />
+      </div>
     </div>
   )
 }
