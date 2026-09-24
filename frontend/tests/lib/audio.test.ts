@@ -515,6 +515,52 @@ describe('createAudioQueue', () => {
     expect(sources[0].start).toHaveBeenCalledWith(0.005)
   })
 
+  it('ignores a suspended-context resume completion after cancellation', async () => {
+    const { ctx } = createContext()
+    Object.defineProperty(ctx, 'state', {
+      value: 'suspended',
+      configurable: true,
+    })
+
+    let resolveResume!: () => void
+    ctx.resume = vi.fn(
+      () =>
+        new Promise<void>((resolve) => {
+          resolveResume = resolve
+        })
+    ) as typeof ctx.resume
+
+    const play = vi.fn(async () => {})
+    vi.stubGlobal(
+      'Audio',
+      vi.fn(() => ({
+        src: 'blob:stale-resume',
+        play,
+        pause: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      }))
+    )
+    vi.stubGlobal('URL', {
+      createObjectURL: vi.fn(() => 'blob:stale-resume'),
+      revokeObjectURL: vi.fn(),
+    })
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx)
+    const playback = queue.enqueue(new ArrayBuffer(4))
+
+    await Promise.resolve()
+    expect(ctx.resume).toHaveBeenCalledTimes(1)
+
+    queue.cancel()
+    resolveResume()
+
+    await expect(playback).resolves.toBeUndefined()
+    expect(play).not.toHaveBeenCalled()
+    expect(ctx.createBufferSource).not.toHaveBeenCalled()
+  })
+
   it('falls back when a Web Audio source cannot be created', async () => {
     const { ctx } = createContext()
     vi.spyOn(ctx, 'createBufferSource').mockImplementation(() => {
