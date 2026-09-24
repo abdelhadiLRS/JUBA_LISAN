@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import Image from 'next/image'
 import { ArrowRight, Globe2, MapPinned } from 'lucide-react'
 
 type RegionId = 'americas' | 'europe' | 'africa-middle-east' | 'asia' | 'pacific'
@@ -179,9 +178,6 @@ export function LanguageBubbles() {
         <span className="text-xs font-black text-[var(--juba-app-green)]">{DISPLAY_LANGUAGES.length} languages</span>
       </div>
 
-      <div className="sr-only">
-        <Image src="/logo.png" alt="JUBA LISAN" width={1} height={1} />
-      </div>
     </div>
   )
 }
