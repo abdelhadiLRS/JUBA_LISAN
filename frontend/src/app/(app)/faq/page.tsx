@@ -16,26 +16,26 @@ export default function FAQPage() {
   const isAdmin = useAuthStore((s) => s.user?.role === 'admin')
 
   const strong = (chunks: React.ReactNode) => (
-    <strong className="text-fl-fg">{chunks}</strong>
+    <strong className="text-[var(--juba-app-ink)]">{chunks}</strong>
   )
   const code = (chunks: React.ReactNode) => (
-    <code className="text-fl-fg bg-fl-surface-2 px-1">{chunks}</code>
+    <code className="text-[var(--juba-app-ink)] bg-[var(--juba-app-surface)]-2 px-1">{chunks}</code>
   )
   const adminLink = (chunks: React.ReactNode) => (
     <Link
       href="/admin/users"
-      className="text-fl-fg underline underline-offset-2"
+      className="text-[var(--juba-app-ink)] underline underline-offset-2"
     >
       {chunks}
     </Link>
   )
   const settingsLink = (chunks: React.ReactNode) => (
-    <Link href="/settings" className="text-fl-fg underline underline-offset-2">
+    <Link href="/settings" className="text-[var(--juba-app-ink)] underline underline-offset-2">
       {chunks}
     </Link>
   )
   const feedbackLink = (chunks: React.ReactNode) => (
-    <Link href="/feedback" className="text-fl-fg underline underline-offset-2">
+    <Link href="/feedback" className="text-[var(--juba-app-ink)] underline underline-offset-2">
       {chunks}
     </Link>
   )
@@ -66,7 +66,7 @@ export default function FAQPage() {
           <ol className="list-none space-y-1">
             {workflowSteps.map((step, i) => (
               <li key={i} className="flex items-start gap-3">
-                <span className="text-fl-label text-fl-muted-4 mt-0.5 shrink-0 font-mono">
+                <span className="text-fl-label text-[var(--juba-app-muted)] mt-0.5 shrink-0 font-sans">
                   {i + 1}.
                 </span>
                 <span>{step}</span>
@@ -102,8 +102,8 @@ export default function FAQPage() {
               <ul className="mt-2 list-none space-y-1">
                 {providers.map(([name, desc]) => (
                   <li key={name} className="flex items-start gap-2">
-                    <code className="text-fl-muted-1 shrink-0">{name}</code>
-                    <span className="text-fl-muted-2">— {desc}</span>
+                    <code className="text-[var(--juba-app-muted)] shrink-0">{name}</code>
+                    <span className="text-[var(--juba-app-muted)]">— {desc}</span>
                   </li>
                 ))}
               </ul>
@@ -118,37 +118,37 @@ export default function FAQPage() {
   })()
 
   return (
-    <div className="juba-faq-shell mx-auto max-w-4xl space-y-6 p-6">
+    <div className="juba-faq-shell mx-auto max-w-4xl space-y-6 p-4 sm:p-6">
       {/* Header */}
-      <div className="border-fl-border mb-8 border-b pb-4">
-        <p className="text-fl-label text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
+      <div className="border-[var(--juba-app-line)] mb-8 border-b pb-4">
+        <p className="text-fl-label text-[var(--juba-app-muted)] mb-1 font-sans tracking-widest uppercase">
           {t('title')}
         </p>
-        <h1 className="text-fl-fg font-mono text-2xl font-bold tracking-tight">
+        <h1 className="text-[var(--juba-app-ink)] font-sans text-2xl font-bold tracking-tight">
           {t('subtitle')}
         </h1>
       </div>
 
       {/* Accordion */}
-      <div className="border-fl-border border">
+      <div className="juba-card border-[var(--juba-app-line)] border">
         {faqs.map((item, i) => (
           <div
             key={i}
-            className={i < faqs.length - 1 ? 'border-fl-border border-b' : ''}
+            className={i < faqs.length - 1 ? 'border-[var(--juba-app-line)] border-b' : ''}
           >
             <button
               onClick={() => setOpen(open === i ? null : i)}
-              className="juba-faq-question hover:bg-fl-surface flex w-full items-center justify-between px-5 py-4 text-left transition-colors"
+              className="juba-faq-question hover:bg-[var(--juba-app-surface)] flex w-full items-center justify-between px-5 py-4 text-left transition-colors"
             >
-              <span className="text-fl-fg pr-4 font-mono text-xs tracking-wide">
+              <span className="text-[var(--juba-app-ink)] pr-4 font-sans text-sm font-semibold tracking-tight">
                 {item.q}
               </span>
-              <span className="text-fl-muted-2 shrink-0 font-mono text-sm">
+              <span className="text-[var(--juba-app-muted)] shrink-0 font-sans text-sm">
                 {open === i ? '−' : '+'}
               </span>
             </button>
             {open === i && (
-              <div className="juba-faq-answer text-fl-muted-1 border-fl-border bg-fl-bg-alt border-t px-5 pt-4 pb-5 font-mono text-xs leading-relaxed">
+              <div className="juba-faq-answer text-[var(--juba-app-muted)] border-[var(--juba-app-line)] bg-[#fffdf8] border-t px-5 pt-4 pb-5 font-sans text-sm leading-relaxed">
                 {item.a}
               </div>
             )}
