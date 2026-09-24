@@ -39,20 +39,20 @@ VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="mg-a1-unit-7",words
 VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="mg-a1-unit-8",words=[VocabularyEntry(word="sekoly",pos="noun",definition="school",example="Any an-tsekoly aho.")])
 ]
 PHRASEBOOK_CATEGORIES=[
-PhrasebookCategory(id="greetings_a1_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Salama.",context="Hello.",register="neutral")]),
-PhrasebookCategory(id="greetings_a1_2",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Misaotra.",context="Thank you.",register="neutral")]),
-PhrasebookCategory(id="help_a1_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="Azafady.",context="Please / excuse me.",register="neutral")]),
-PhrasebookCategory(id="directions_a1_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="Aiza ny sekoly?",context="Where is the school?",register="neutral")])
+PhrasebookCategory(id="mg-greetings-a1",level="A1",situation="greetings",icon="👋",phrases=[PhrasebookEntry(text="Salama.",context="Hello.",register="neutral"),PhrasebookEntry(text="Manao ahoana?",context="How are you?",register="neutral"),PhrasebookEntry(text="Ny anarako dia Lova.",context="My name is Lova.",register="neutral")]),
+PhrasebookCategory(id="mg-thanks-a1",level="A1",situation="thanks",icon="🙏",phrases=[PhrasebookEntry(text="Misaotra.",context="Thank you.",register="neutral"),PhrasebookEntry(text="Misaotra betsaka.",context="Thank you very much.",register="neutral"),PhrasebookEntry(text="Tsy misy fisaorana.",context="You are welcome.",register="neutral")]),
+PhrasebookCategory(id="mg-shopping-a1",level="A1",situation="shopping",icon="🛒",phrases=[PhrasebookEntry(text="Ohatrinona ity?",context="How much is this?",register="neutral"),PhrasebookEntry(text="Tiako ity.",context="I want this.",register="neutral"),PhrasebookEntry(text="Afaka mampihena ny vidiny ve?",context="Can you lower the price?",register="neutral")]),
+PhrasebookCategory(id="mg-help-a1",level="A1",situation="help",icon="🆘",phrases=[PhrasebookEntry(text="Azafady, ampio aho.",context="Please help me.",register="neutral"),PhrasebookEntry(text="Tsy azoko.",context="I do not understand.",register="neutral"),PhrasebookEntry(text="Azafady, avereno.",context="Please repeat.",register="neutral")]),
 ]
 ASSESSMENT_BANK=[
-AssessmentQuestion(id="mg-a1-001",skill="vocabulary",difficulty="A1",question="Choose the correct Malagasy form for A1.",options=["salama","anarana","reny","trano"],correct="salama"),
-AssessmentQuestion(id="mg-a1-002",skill="grammar",difficulty="A1",question="Choose the correct Malagasy form for A1.",options=["anarana","reny","trano","mianatra"],correct="anarana"),
-AssessmentQuestion(id="mg-a1-003",skill="reading",difficulty="A1",question="Choose the correct Malagasy form for A1.",options=["reny","trano","mianatra","fotoana"],correct="reny"),
-AssessmentQuestion(id="mg-a1-004",skill="speaking",difficulty="A1",question="Choose the correct Malagasy form for A1.",options=["trano","mianatra","fotoana","rano"],correct="trano"),
-AssessmentQuestion(id="mg-a1-005",skill="vocabulary",difficulty="A1",question="Choose the correct Malagasy form for A1.",options=["mianatra","fotoana","rano","sekoly"],correct="mianatra"),
-AssessmentQuestion(id="mg-a1-006",skill="grammar",difficulty="A1",question="Choose the correct Malagasy form for A1.",options=["fotoana","rano","sekoly","salama"],correct="fotoana"),
-AssessmentQuestion(id="mg-a1-007",skill="reading",difficulty="A1",question="Choose the correct Malagasy form for A1.",options=["rano","sekoly","salama","anarana"],correct="rano"),
-AssessmentQuestion(id="mg-a1-008",skill="speaking",difficulty="A1",question="Choose the correct Malagasy form for A1.",options=["sekoly","salama","anarana","reny"],correct="sekoly"),
-AssessmentQuestion(id="mg-a1-009",skill="vocabulary",difficulty="A1",question="Choose the correct Malagasy form for A1.",options=["salama","anarana","reny","trano"],correct="salama"),
-AssessmentQuestion(id="mg-a1-010",skill="grammar",difficulty="A1",question="Choose the correct Malagasy form for A1.",options=["anarana","reny","trano","mianatra"],correct="anarana")
+AssessmentQuestion(id="mg-a1-001",skill="communication",difficulty="A1",question="You meet someone. Which Malagasy phrase means “Hello”?",options=["Salama.","Misaotra.","Tsy azoko.","Ohatrinona ity?"],correct="Salama."),
+AssessmentQuestion(id="mg-a1-002",skill="speaking",difficulty="A1",question="You introduce yourself. Which sentence means “My name is Lova”?",options=["Ny anarako dia Lova.","Mianatra aho.","Mila rano aho.","Ao an-trano aho."],correct="Ny anarako dia Lova."),
+AssessmentQuestion(id="mg-a1-003",skill="communication",difficulty="A1",question="Someone helps you. Which phrase means “Thank you very much”?",options=["Misaotra betsaka.","Manao ahoana?","Azafady, avereno.","Tsy azoko."],correct="Misaotra betsaka."),
+AssessmentQuestion(id="mg-a1-004",skill="shopping",difficulty="A1",question="At a shop, how do you ask “How much is this?”",options=["Ohatrinona ity?","Salama.","Tiako ity.","Azafady, ampio aho."],correct="Ohatrinona ity?"),
+AssessmentQuestion(id="mg-a1-005",skill="shopping",difficulty="A1",question="You want an item. Which phrase means “I want this”?",options=["Tiako ity.","Misaotra.","Manao ahoana?","Tsy misy fisaorana."],correct="Tiako ity."),
+AssessmentQuestion(id="mg-a1-006",skill="help",difficulty="A1",question="You need assistance. Which phrase asks someone to help you?",options=["Azafady, ampio aho.","Ohatrinona ity?","Ny anarako dia Lova.","Misaotra betsaka."],correct="Azafady, ampio aho."),
+AssessmentQuestion(id="mg-a1-007",skill="listening",difficulty="A1",question="You did not understand. Which Malagasy phrase should you say?",options=["Tsy azoko.","Salama.","Tiako ity.","Misaotra."],correct="Tsy azoko."),
+AssessmentQuestion(id="mg-a1-008",skill="help",difficulty="A1",question="You want the speaker to repeat. Which phrase means “Please repeat”?",options=["Azafady, avereno.","Manao ahoana?","Ohatrinona ity?","Misaotra betsaka."],correct="Azafady, avereno."),
+AssessmentQuestion(id="mg-a1-009",skill="shopping",difficulty="A1",question="You want to ask if the seller can lower the price. Which phrase fits?",options=["Afaka mampihena ny vidiny ve?","Salama.","Tsy azoko.","Ny anarako dia Lova."],correct="Afaka mampihena ny vidiny ve?"),
+AssessmentQuestion(id="mg-a1-010",skill="communication",difficulty="A1",question="Someone thanks you. Which Malagasy response means “You are welcome”?",options=["Tsy misy fisaorana.","Ohatrinona ity?","Tiako ity.","Azafady, ampio aho."],correct="Tsy misy fisaorana."),
 ]
