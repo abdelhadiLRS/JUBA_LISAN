@@ -18,14 +18,14 @@ export function SettingsPageHeader({
   return (
     <div className="flex flex-wrap items-end justify-between gap-4">
       <div className="min-w-0">
-        <p className="text-[var(--juba-muted)] mb-1.5 text-xs font-semibold tracking-wide uppercase">
+        <p className="text-[var(--juba-app-muted)] mb-1.5 text-xs font-semibold tracking-wide uppercase">
           {eyebrow}
         </p>
-        <h1 className="text-[var(--juba-text)] text-2xl font-bold tracking-tight">
+        <h1 className="text-[var(--juba-app-ink)] text-2xl font-bold tracking-tight">
           {title}
         </h1>
         {description && (
-          <p className="text-[var(--juba-muted)] mt-2 max-w-2xl text-sm leading-relaxed">
+          <p className="text-[var(--juba-app-muted)] mt-2 max-w-2xl text-sm leading-relaxed">
             {description}
           </p>
         )}
@@ -40,17 +40,17 @@ export function SettingsNav({
   items: { href: string; label: string; icon: LucideIcon }[]
 }) {
   return (
-    <nav className="border-[var(--juba-border)] bg-[var(--juba-surface)] flex flex-wrap items-center gap-1 rounded-2xl border p-1.5">
+    <nav className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] flex flex-wrap items-center gap-1 rounded-2xl border p-1.5">
       {items.map((item) => {
         const Icon = item.icon
         return (
           <a
             key={item.href}
             href={item.href}
-            className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] focus:text-[var(--juba-text)] flex min-h-9 items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium transition-colors hover:bg-[var(--juba-surface-soft)] focus:bg-[var(--juba-surface-soft)] focus:outline-none focus-visible:ring-2"
+            className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] focus:text-[var(--juba-app-ink)] flex min-h-9 items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium transition-colors hover:bg-[var(#f3f7ef)] focus:bg-[var(#f3f7ef)] focus:outline-none focus-visible:ring-2"
             style={
               {
-                '--tw-ring-color': 'var(--juba-violet)',
+                '--tw-ring-color': 'var(--juba-app-green)',
               } as CSSProperties
             }
           >
@@ -76,7 +76,7 @@ export function SettingsPanel({
     <section id={id} className="scroll-mt-24 space-y-3">
       {title && (
         <div className="px-1">
-          <h2 className="text-[var(--juba-muted)] text-xs font-semibold tracking-wide uppercase">
+          <h2 className="text-[var(--juba-app-muted)] text-xs font-semibold tracking-wide uppercase">
             {title}
           </h2>
         </div>
@@ -100,25 +100,25 @@ export function SettingsActionCard({
   return (
     <Link
       href={href}
-      className="border-[var(--juba-border)] bg-[var(--juba-surface)] group block rounded-2xl border p-5 transition-all hover:shadow-[var(--juba-shadow-sm)]"
+      className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] group block rounded-2xl border p-5 transition-all hover:shadow-[var(0 4px 12px rgba(24,37,27,.05))]"
     >
       <div className="mb-4 flex items-center justify-between gap-3">
         <span
           className="flex h-9 w-9 items-center justify-center rounded-xl"
           style={{
-            color: 'var(--juba-violet)',
-            background: 'var(--juba-lilac)',
+            color: 'var(--juba-app-green)',
+            background: 'var(--juba-app-green-soft)',
           }}
         >
           <Icon className="size-4.5" aria-hidden="true" />
         </span>
         <ChevronRight
-          className="text-[var(--juba-muted)] group-hover:text-[var(--juba-muted)] size-5 transition-all group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
+          className="text-[var(--juba-app-muted)] group-hover:text-[var(--juba-app-muted)] size-5 transition-all group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
           aria-hidden="true"
         />
       </div>
-      <p className="text-[var(--juba-text)] text-sm font-semibold">{label}</p>
-      <p className="text-[var(--juba-muted)] mt-1.5 text-xs leading-relaxed">
+      <p className="text-[var(--juba-app-ink)] text-sm font-semibold">{label}</p>
+      <p className="text-[var(--juba-app-muted)] mt-1.5 text-xs leading-relaxed">
         {description}
       </p>
     </Link>
