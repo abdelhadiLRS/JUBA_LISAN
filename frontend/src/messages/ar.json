@@ -106,7 +106,8 @@
     "supportedLanguages": "اللغات المدعومة",
     "builtForLearners": "صُمّم للمتعلمين في كل مكان.",
     "footerPositioning": "مدعوم بالذكاء الاصطناعي · يراعي الخصوصية · متوافق مع CEFR",
-    "audioReply": "رد صوتي"
+    "audioReply": "رد صوتي",
+    "worldMapLabel": "خريطة لغات العالم"
   },
   "common": {
     "loading": "جارٍ التحميل...",
