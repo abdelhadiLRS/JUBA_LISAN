@@ -93,7 +93,7 @@ export default function LanguageSwitcher() {
             <Languages className="h-3.5 w-3.5" aria-hidden="true" />
             Your languages
           </div>
-          {[...supportedUserLanguages].sort((a, b) => targetLabel(a.target_language, getLanguageByCode(a.target_language)?.nameEn).localeCompare(targetLabel(b.target_language, getLanguageByCode(b.target_language)?.nameEn))).map((ulang) => {
+          {[...supportedUserLanguages].sort((a, b) => {\n            const aLabel = targetLabel(a.target_language, getLanguageByCode(a.target_language)?.nameEn).toLocaleLowerCase()\n            const bLabel = targetLabel(b.target_language, getLanguageByCode(b.target_language)?.nameEn).toLocaleLowerCase()\n            return aLabel < bLabel ? -1 : aLabel > bLabel ? 1 : a.target_language < b.target_language ? -1 : a.target_language > b.target_language ? 1 : 0\n          }).map((ulang) => {
             const lang = getLanguageByCode(ulang.target_language)
             if (!lang) return null
             return (
