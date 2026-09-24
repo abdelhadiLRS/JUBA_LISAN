@@ -1542,4 +1542,12 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
 ],
         correct="fosse",
     ),
+    AssessmentQuestion(
+        id="g-c1-991",
+        skill="grammar",
+        difficulty="C1",
+        question="Scegli la forma corretta: È improbabile che il problema ___ risolto in tempi brevi.",
+        options=["venga","viene","verrà","veniva"],
+        correct="venga",
+    ),
 ]
