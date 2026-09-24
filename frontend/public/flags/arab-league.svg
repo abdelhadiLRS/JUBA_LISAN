@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Arab League flag">
+<rect width="900" height="600" fill="#0b7a3b"/>
+<circle cx="450" cy="300" r="185" fill="none" stroke="#fff" stroke-width="28"/>
+<path d="M450 165c-78 0-141 60-141 135s63 135 141 135 141-60 141-135-63-135-141-135Z" fill="none" stroke="#fff" stroke-width="10"/>
+<text x="450" y="285" text-anchor="middle" fill="#fff" font-size="54" font-family="Arial, sans-serif" font-weight="700">جامعة</text>
+<text x="450" y="350" text-anchor="middle" fill="#fff" font-size="42" font-family="Arial, sans-serif">الدول العربية</text>
+</svg>
