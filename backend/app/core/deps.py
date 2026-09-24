@@ -76,6 +76,13 @@ async def check_maintenance_mode(redis: Redis | None = None) -> None:
         pass  # Redis failure → allow through
 
 
+async def require_learner(current_user: User = Depends(get_current_user)) -> User:
+    """Allow learner-only application APIs; administrators use the admin API surface."""
+    if current_user.role == "admin":
+        raise HTTPException(status_code=403, detail="Learning features are available to learners only")
+    return current_user
+
+
 async def require_subscription(
     current_user: User = Depends(get_current_user),
 ) -> User:
