@@ -1,4 +1,5 @@
-import { Mic, Volume2, Sparkles, User, Bot, Circle } from 'lucide-react'
+import Link from 'next/link'
+import { Mic, Volume2, Sparkles, User, Bot, Circle, ArrowRight, MessageSquare } from 'lucide-react'
 
 interface AiConversationShowcaseProps { t: (key: string) => string }
 
@@ -9,25 +10,29 @@ export function AiConversationShowcase({ t }: AiConversationShowcaseProps) {
       <div className="juba-ff-demo-cloud cloud-b" aria-hidden="true" />
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="juba-ff-demo-intro">
-          <span className="juba-ff-section-tag"><Sparkles className="mr-1 inline h-3.5 w-3.5" />Meet your AI tutor</span>
+          <span className="juba-ff-section-tag"><Sparkles className="mr-1 inline h-3.5 w-3.5" />JUBA LISAN AI practice</span>
           <h2>{t('showcaseTitle')}</h2>
           <p>{t('showcaseSubtitle')}</p>
         </div>
         <div className="juba-ff-chat-card">
           <div className="juba-ff-chat-top">
             <div className="juba-ff-avatar"><Bot className="h-6 w-6" /><i /></div>
-            <div><strong>JUBA AI Tutor</strong><span><Circle className="mr-1 inline h-2 w-2 fill-current" />B2 · Ready to speak</span></div>
-            <span className="juba-ff-live-pill">● LIVE</span>
+            <div><strong>JUBA AI Tutor</strong><span><Circle className="mr-1 inline h-2 w-2 fill-current" />Available in the app</span></div>
+            <span className="juba-ff-live-pill">AI TUTOR</span>
           </div>
           <div className="juba-ff-chat-body">
             <div className="juba-ff-chat-message user"><span>{t('showcaseUserMsg')}</span><User /></div>
-            <div className="juba-ff-chat-message ai"><Bot /><span>{t('showcaseAiMsg')}<em><Volume2 /> 00:04</em></span></div>
+            <div className="juba-ff-chat-message ai"><Bot /><span>{t('showcaseAiMsg')}<em><Volume2 /> Audio reply</em></span></div>
           </div>
           <div className="juba-ff-chat-controls">
-            <span><Mic /> {t('showcaseMicActive')}</span>
-            <button><Mic /> Hold to speak</button>
+            <span><Mic /> Voice practice</span>
+            <div className="flex gap-2">
+              <Link href="/chat" className="juba-ff-demo-action"><MessageSquare /> Open AI Tutor <ArrowRight /></Link>
+              <Link href="/conversation" className="juba-ff-demo-action"><Mic /> Start conversation <ArrowRight /></Link>
+            </div>
           </div>
         </div>
+        <p className="mt-5 text-center text-xs text-[#617068]">The conversation shown above is an illustrative preview; the buttons open the real JUBA LISAN AI workflows.</p>
       </div>
     </section>
   )
