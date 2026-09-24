@@ -87,25 +87,26 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-3 border-b-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-6 py-4">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--juba-app-green-soft)] text-sm text-[var(--juba-app-green-dark)]" aria-hidden="true">
-            ●
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--juba-app-yellow)] text-[var(--juba-app-green-dark)]" aria-hidden="true">
+            <CircleHelp className="h-4 w-4" />
           </span>
           <span className="flex-1 text-sm font-semibold tracking-tight text-[var(--juba-app-ink)]">
             {t('title')}
           </span>
           <button
+            type="button"
             onClick={onClose}
             className="rounded-xl border-2 border-transparent px-2 py-1 text-[var(--juba-app-muted)] transition hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)]"
             aria-label={tCommon('close')}
           >
-            ✕
+            <X className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
 
         {status === 'success' ? (
           <div className="flex flex-col items-center gap-3 px-6 py-10">
-            <span className="rounded-full bg-[color-mix(in srgb, var(--juba-app-yellow) 28%, var(--juba-app-surface))] px-4 py-2 text-sm font-semibold text-[var(--juba-app-green-dark)]">
-              ✓ {t('sent')}
+            <span className="inline-flex items-center gap-2 rounded-full bg-[color-mix(in srgb, var(--juba-app-yellow) 28%, var(--juba-app-surface))] px-4 py-2 text-sm font-semibold text-[var(--juba-app-green-dark)]">
+              <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> {t('sent')}
             </span>
           </div>
         ) : (
