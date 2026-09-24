@@ -30,8 +30,8 @@ export default function TargetLanguageSelector({
           onClick={() => onChange(lang.code)}
           className={`flex items-center gap-2 rounded-xl border-2 px-3 py-3 text-xs font-bold tracking-wide uppercase transition-colors ${
             value === lang.code
-              ? 'border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] text-[var(--juba-app-ink)] shadow-[2px_2px_0_var(--juba-app-line)]'
-              : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:text-[var(--juba-app-ink)]'
+              ? 'border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] text-[var(--juba-app-ink)] shadow-[2px_2px_0_var(--juba-app-ink)]'
+              : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'
           }`}
         >
           <Image
