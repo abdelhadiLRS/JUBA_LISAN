@@ -1886,7 +1886,17 @@
         "description": "Refine precision, flexibility and natural expression."
       }
     },
-    "cefrLevel": "CEFR level"
+    "cefrLevel": "CEFR level",
+    "lessonTypes": {
+      "listening": "Listening",
+      "reading": "Reading",
+      "writing": "Writing",
+      "grammar": "Grammar",
+      "vocabulary": "Vocabulary",
+      "review": "Review"
+    },
+    "listening": "Listening",
+    "reading": "Reading"
   },
   "courses": {
     "heroEyebrow": "Your learning world",
