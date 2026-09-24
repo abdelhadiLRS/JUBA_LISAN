@@ -115,6 +115,7 @@ function WorldMap({
 export function LanguageBubbles() {
   const [activeRegion, setActiveRegion] = useState<RegionId | null>(null)
   const [activeLanguage, setActiveLanguage] = useState<string | null>(null)
+  const [activeCountry, setActiveCountry] = useState<string | null>(null)
 
   const visibleLanguages = useMemo(
     () => DISPLAY_LANGUAGES.filter((language) => !activeRegion || language.regions.includes(activeRegion)),
@@ -177,8 +178,11 @@ export function LanguageBubbles() {
       <div className="relative min-h-[430px] overflow-hidden rounded-[28px] border border-[var(--juba-app-line)] bg-[#f5f8f1] sm:min-h-[560px]">
         <WorldMap
           highlightedCountries={activeRegion ? (regionCountries.get(activeRegion) ?? new Set<string>()) : selectedCountries}
-          selectedCountry={null}
-          onCountrySelect={() => undefined}
+          selectedCountry={activeCountry}
+          onCountrySelect={(country) => {
+            setActiveCountry((current) => (current === country ? null : country))
+            setActiveLanguage(null)
+          }}
           countryLanguages={countryLanguages}
         />
 
@@ -256,6 +260,23 @@ export function LanguageBubbles() {
               </button>
             )
           })}
+
+          {activeCountry && (
+            <div className="absolute right-3 top-20 z-20 max-w-[250px] rounded-2xl border border-[var(--juba-app-line)] bg-white p-4 shadow-sm lg:right-6">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <span className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">Country languages</span>
+                  <h3 className="mt-1 text-lg font-black text-[var(--juba-app-ink)]">{activeCountry}</h3>
+                </div>
+                <button type="button" onClick={() => setActiveCountry(null)} className="text-xs font-black text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)]" aria-label="Close country details">×</button>
+              </div>
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {(countryLanguages.get(activeCountry) ?? []).map((name) => (
+                  <span key={name} className="rounded-full border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-bold text-[var(--juba-app-muted)]">{name}</span>
+                ))}
+              </div>
+            </div>
+          )}
 
           {selected && selectedRegion && (
             <div className="absolute bottom-20 left-3 z-20 max-w-[calc(100%-1.5rem)] rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[4px_4px_0_var(--juba-app-ink)] sm:bottom-24 sm:left-6 sm:max-w-[280px]">
