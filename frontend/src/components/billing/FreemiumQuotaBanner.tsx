@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { useFreemiumStore } from '@/store/freemium'
 import { useAuthStore, isSubscribed, isFreemiumTrialActive } from '@/store/auth'
 import { useConfigStore } from '@/store/config'
+import { Clock3, LockKeyhole, AlertCircle } from 'lucide-react'
 
 interface FreemiumQuotaBannerProps {
   feature: 'chat' | 'lessons' | 'listening' | 'reading' | 'voice'
@@ -42,8 +43,9 @@ export function FreemiumQuotaBanner({
       <div
         className={`juba-billing-quota flex items-center justify-between border px-3 py-2 text-xs ${className}`}
       >
-        <span className="text-[var(--juba-app-muted)]">
-          ★ {t('trialDaysLeft', { days: trialDaysLeft })}
+        <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--juba-app-muted)]">
+          <Clock3 className="h-3.5 w-3.5" aria-hidden="true" />
+          {t('trialDaysLeft', { days: trialDaysLeft })}
         </span>
         <span className="juba-badge tracking-widest uppercase">
           {t('trialUnlimited')}
@@ -95,7 +97,8 @@ export function FreemiumQuotaBanner({
         className={`border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] flex items-center justify-between border px-3 py-2 font-sans text-xs ${className}`}
       >
         <span className="font-semibold text-[var(--juba-app-muted)]">{info.label}</span>
-        <span className="text-[var(--juba-app-green-dark)] tracking-widest uppercase">
+        <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--juba-app-green-dark)]">
+          <LockKeyhole className="h-3.5 w-3.5" aria-hidden="true" />
           {t('requiresSubscription')}
         </span>
       </div>
@@ -116,7 +119,8 @@ export function FreemiumQuotaBanner({
         </span>
       </span>
       {low && (
-        <span className="text-[var(--juba-app-green-dark)] tracking-widest uppercase">
+        <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--juba-app-green-dark)]">
+          <AlertCircle className="h-3.5 w-3.5" aria-hidden="true" />
           {t('freeLimit')}
         </span>
       )}
