@@ -167,12 +167,12 @@ export function AudioPlayer({
 
   const colorClass =
     state === 'playing'
-      ? 'border-[var(--juba-app-green)] bg-[#e9f4df] text-[var(--juba-app-green-dark)]'
+      ? 'border-[var(--juba-app-green)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)]'
       : state === 'loading'
-        ? 'border-[var(--juba-app-line)] bg-[#f3f7ef] text-[var(--juba-app-muted)] animate-pulse'
+        ? 'border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-muted)] animate-pulse'
         : state === 'error'
           ? 'border-[color-mix(in_srgb,#b33a32_40%,var(--juba-app-line))] bg-[color-mix(in_srgb,#b33a32_8%,var(--juba-app-surface))] text-[#b33a32]'
-          : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:bg-[#e9f4df] hover:text-[var(--juba-app-green-dark)]'
+          : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-green-dark)]'
 
   return (
     <button
