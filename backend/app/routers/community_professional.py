@@ -11,7 +11,10 @@ from app.core.database import get_db
 from app.core.deps import require_learner
 from app.models.user import User
 
-router = APIRouter(\n    prefix="/api",\n    tags=["community", "professional"],\n    dependencies=[Depends(require_learner)],
+router = APIRouter(
+    prefix="/api",
+    tags=["community", "professional"],
+    dependencies=[Depends(require_learner)],
 )
 
 
