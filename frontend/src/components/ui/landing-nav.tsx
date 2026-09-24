@@ -80,6 +80,7 @@ export function LandingNav({
 
   const currentLanguage = languageLabels[locale]
   const currentCountry = countryLabels[visitorCountry] ?? countryLabels.DZ
+  const localeLinks = (Object.entries(languageLabels) as Array<[Locale, { native: string; flag: string }]>).map(([code, language]) => ({ code, ...language }))
 
   useEffect(() => {
     let canceled = false
@@ -143,8 +144,22 @@ export function LandingNav({
             {regionOpen && <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-50 w-72 rounded-2xl border border-[var(--juba-app-line)] bg-white p-3 shadow-xl">
               <div className="mb-2 flex items-center gap-2 px-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><Globe2 className="h-3.5 w-3.5" /> Region & language</div>
               <div className="rounded-xl bg-[var(--juba-app-green-soft)] px-3 py-2.5"><div className="text-[10px] font-bold text-[var(--juba-app-muted)]">Visitor region</div><div className="mt-0.5 font-black text-[var(--juba-app-ink)]">{currentCountry.flag} {currentCountry.name} <span className="text-xs font-bold text-[var(--juba-app-muted)]">({visitorCountry})</span></div></div>
-              <div className="mt-2 text-[10px] font-bold text-[var(--juba-app-muted)]">Interface language</div>
-              <Link href={locale === 'ar' ? '/en' : '/ar'} onClick={() => setRegionOpen(false)} className="mt-1 flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-bold hover:bg-[var(--juba-app-green-soft)]"><span>{currentLanguage.flag} {currentLanguage.native}</span><Check className="h-4 w-4 text-[var(--juba-app-green)]" /></Link>
+              <div className="mt-3 border-t border-[var(--juba-app-line)] pt-3">
+                <div className="px-2 text-[10px] font-bold text-[var(--juba-app-muted)]">Interface language</div>
+                <div className="mt-1 grid max-h-56 grid-cols-2 gap-1 overflow-auto">
+                  {localeLinks.map((language) => (
+                    <Link
+                      key={language.code}
+                      href={`/${language.code}`}
+                      onClick={() => setRegionOpen(false)}
+                      className={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-bold transition ${locale === language.code ? 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'}`}
+                    >
+                      <span>{language.flag} {language.native}</span>
+                      {locale === language.code && <Check className="h-3.5 w-3.5 text-[var(--juba-app-green)]" />}
+                    </Link>
+                  ))}
+                </div>
+              </div>
               <p className="mt-2 px-2 text-[10px] leading-4 text-[var(--juba-app-muted)]">Your region is detected from your browser time zone. It is only an estimate and is not precise location data.</p>
             </div>}
           </div>
