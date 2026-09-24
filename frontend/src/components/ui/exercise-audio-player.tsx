@@ -36,11 +36,16 @@ export function ExerciseAudioPlayer({
     }
 
     if (state === 'paused' && audioRef.current) {
+      const requestId = requestIdRef.current
+      const audio = audioRef.current
       try {
-        await audioRef.current.play()
+        await audio.play()
+        if (requestId !== requestIdRef.current || audioRef.current !== audio) return
         setState('playing')
       } catch {
-        setState('error')
+        if (requestId === requestIdRef.current && audioRef.current === audio) {
+          setState('error')
+        }
       }
       return
     }
@@ -150,7 +155,8 @@ export function ExerciseAudioPlayer({
         <button
           type="button"
           onClick={handlePlayPause}
-          disabled={state === 'loading'} aria-busy={state === 'loading'}
+          disabled={state === 'loading'}
+          aria-busy={state === 'loading'}
           aria-label={label}
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)] font-sans text-sm font-bold shadow-[2px_2px_0_var(--juba-app-line)] transition-colors hover:bg-[var(--juba-app-green)] hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
         >
@@ -186,6 +192,11 @@ export function ExerciseAudioPlayer({
           aria-label={t('audioProgress')}
           aria-orientation="horizontal"
           aria-valuenow={Math.round(progress)}
+          aria-valuetext={
+            duration > 0
+              ? `${Math.round((progress / 100) * duration)}s / ${Math.ceil(duration)}s`
+              : '0s'
+          }
           aria-valuemin={0}
           aria-valuemax={100}
         >
