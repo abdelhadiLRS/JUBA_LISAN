@@ -150,18 +150,18 @@ export default function FlashcardsPage() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <span className="text-fl-label text-fl-muted-3">●</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+          <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)]">●</span>
+          <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
             {t('title')}
           </span>
-          <span className="text-fl-hint text-fl-muted-2 font-mono tracking-widest">
+          <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans tracking-widest">
             {total} {t('total')} · {cards.length} {t('due')}
           </span>
         </div>
         <div className="flex items-center gap-2">
           <Link
             href="/flashcards/vocabulary"
-            className="text-fl-label border-fl-border text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2 border px-4 py-2 font-mono tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-app-ink)] border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-line)]-2 border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
           >
             {t('myVocabularyBtn')}
           </Link>
@@ -169,10 +169,10 @@ export default function FlashcardsPage() {
             onClick={() => {
               setShowGenerate(!showGenerate)
             }}
-            className={`text-fl-label border px-4 py-2 font-mono tracking-widest uppercase transition-colors ${
+            className={`text-[var(--juba-app-ink)] border px-4 py-2 font-sans tracking-widest uppercase transition-colors ${
               showGenerate
-                ? 'border-fl-border-2 text-fl-fg'
-                : 'border-fl-border text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2'
+                ? 'border-[var(--juba-app-line)]-2 text-[var(--juba-app-ink)]'
+                : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-line)]-2'
             }`}
           >
             + {t('generateBtn')}
@@ -183,20 +183,20 @@ export default function FlashcardsPage() {
       {/* Generate panel */}
       {showGenerate && (
         <div className="juba-card overflow-hidden">
-          <div className="border-fl-border flex items-center gap-2 border-b px-5 py-4">
-            <span className="text-fl-label text-fl-muted-3">●</span>
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+          <div className="border-[var(--juba-app-line)] flex items-center gap-2 border-b px-5 py-4">
+            <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)]">●</span>
+            <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
               {t('generate')}
             </span>
           </div>
           {genError && (
-            <div className="border-fl-error/40 text-fl-error-fg mx-5 mt-4 border px-4 py-3 font-mono text-xs">
+            <div className="border-[var(--juba-app-error)]/40 text-[var(--juba-app-error)] mx-5 mt-4 border px-4 py-3 font-sans text-xs">
               ✕ {genError}
             </div>
           )}
           <form onSubmit={generateCards} className="space-y-3 p-5">
             <div>
-              <label className="text-fl-muted-3 mb-2 block font-mono text-xs tracking-widest uppercase">
+              <label className="text-[var(--juba-app-muted)] mb-2 block font-sans text-xs tracking-widest uppercase">
                 {t('topic')}
               </label>
               <input
@@ -205,18 +205,18 @@ export default function FlashcardsPage() {
                 onChange={(e) => setGenTopic(e.target.value)}
                 required
                 placeholder={t('topicPlaceholder')}
-                className="juba-input px-4 py-3 font-mono text-sm"
+                className="juba-input px-4 py-3 font-sans text-sm"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-fl-muted-3 mb-2 block font-mono text-xs tracking-widest uppercase">
+                <label className="text-[var(--juba-app-muted)] mb-2 block font-sans text-xs tracking-widest uppercase">
                   {t('count')}
                 </label>
                 <select
                   value={genCount}
                   onChange={(e) => setGenCount(Number(e.target.value))}
-                  className="juba-input appearance-none px-4 py-3 font-mono text-sm"
+                  className="juba-input appearance-none px-4 py-3 font-sans text-sm"
                 >
                   {[5, 10, 15, 20].map((n) => (
                     <option key={n} value={n}>
@@ -226,13 +226,13 @@ export default function FlashcardsPage() {
                 </select>
               </div>
               <div>
-                <label className="text-fl-muted-3 mb-2 block font-mono text-xs tracking-widest uppercase">
+                <label className="text-[var(--juba-app-muted)] mb-2 block font-sans text-xs tracking-widest uppercase">
                   {t('level')}
                 </label>
                 <select
                   value={genCefr}
                   onChange={(e) => setGenCefr(e.target.value)}
-                  className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full appearance-none border px-4 py-3 font-mono text-sm focus:outline-none"
+                  className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] focus:border-[var(--juba-app-line)]-2 w-full appearance-none border px-4 py-3 font-sans text-sm focus:outline-none"
                 >
                   {CEFR_LEVELS.map((l) => (
                     <option key={l} value={l}>
@@ -255,10 +255,10 @@ export default function FlashcardsPage() {
 
       {/* No cards */}
       {cards.length === 0 && (
-        <div className="border-fl-border bg-fl-surface border px-6 py-10 text-center">
-          <p className="text-fl-muted-1 font-mono text-sm">{t('noDue')}</p>
+        <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border px-6 py-10 text-center">
+          <p className="text-[var(--juba-app-muted)] font-sans text-sm">{t('noDue')}</p>
           {total === 0 && (
-            <p className="text-fl-muted-2 mt-2 font-mono text-xs">
+            <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-xs">
               {t('noCardsHint')}
             </p>
           )}
@@ -274,7 +274,7 @@ export default function FlashcardsPage() {
       {/* Card review */}
       {cards.length > 0 && (
         <>
-          <div className="text-fl-label text-fl-muted-3 flex items-center justify-between font-mono tracking-widest uppercase">
+          <div className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] flex items-center justify-between font-sans tracking-widest uppercase">
             <span>
               {current + 1} / {cards.length} due
             </span>
@@ -286,7 +286,7 @@ export default function FlashcardsPage() {
                   setSpeakingMode(false)
                   setFlipped(false)
                 }}
-                className={`text-fl-hint border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${!speakingMode ? 'border-fl-border-2 text-fl-fg' : 'border-fl-border text-fl-muted-3 hover:text-fl-muted-1'}`}
+                className={`text-[var(--juba-app-muted)] border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${!speakingMode ? 'border-[var(--juba-app-line)]-2 text-[var(--juba-app-ink)]' : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-muted)]'}`}
               >
                 {t('standardMode')}
               </button>
@@ -296,7 +296,7 @@ export default function FlashcardsPage() {
                   setSpeakingMode(true)
                   setFlipped(false)
                 }}
-                className={`text-fl-hint border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${speakingMode ? 'border-fl-border-2 text-fl-fg' : 'border-fl-border text-fl-muted-3 hover:text-fl-muted-1'}`}
+                className={`text-[var(--juba-app-muted)] border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${speakingMode ? 'border-[var(--juba-app-line)]-2 text-[var(--juba-app-ink)]' : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-muted)]'}`}
               >
                 {t('speakingMode')}
               </button>
@@ -310,14 +310,14 @@ export default function FlashcardsPage() {
                 className="juba-card min-h-[220px] cursor-pointer transition-colors select-none hover:-translate-y-0.5"
                 onClick={() => setFlipped(!flipped)}
               >
-                <div className="border-fl-border flex items-center justify-between border-b px-6 py-4">
+                <div className="border-[var(--juba-app-line)] flex items-center justify-between border-b px-6 py-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-fl-label text-fl-muted-3">●</span>
-                    <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+                    <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)]">●</span>
+                    <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
                       {flipped ? t('back') : t('front')}
                     </span>
                   </div>
-                  <span className="text-fl-caption text-fl-muted-1 font-sans leading-relaxed">
+                  <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans leading-relaxed">
                     {flipped ? t('tapToHide') : t('tapToReveal')}
                   </span>
                 </div>
@@ -328,7 +328,7 @@ export default function FlashcardsPage() {
                       <TargetLanguageText
                         as="p"
                         languageCode={targetLanguageCode}
-                        className="text-fl-fg text-3xl font-bold"
+                        className="text-[var(--juba-app-ink)] text-3xl font-bold"
                       >
                         {cards[current].word}
                       </TargetLanguageText>
@@ -341,7 +341,7 @@ export default function FlashcardsPage() {
                       <TargetLanguageText
                         as="p"
                         languageCode={targetLanguageCode}
-                        className="text-fl-fg-2"
+                        className="text-[var(--juba-app-ink)]"
                       >
                         {cards[current].definition}
                       </TargetLanguageText>
@@ -349,13 +349,13 @@ export default function FlashcardsPage() {
                         <TargetLanguageText
                           as="p"
                           languageCode={targetLanguageCode}
-                          className="text-fl-muted-1 italic"
+                          className="text-[var(--juba-app-muted)] italic"
                         >
                           {cards[current].example_sentence}
                         </TargetLanguageText>
                       )}
                       {cards[current].translation && (
-                        <p className="text-fl-muted-1 border-fl-border mt-1 border-t pt-3 font-sans text-sm leading-relaxed">
+                        <p className="text-[var(--juba-app-muted)] border-[var(--juba-app-line)] mt-1 border-t pt-3 font-sans text-sm leading-relaxed">
                           {cards[current].translation}
                         </p>
                       )}
@@ -368,9 +368,9 @@ export default function FlashcardsPage() {
                 <div className="flex flex-wrap gap-2">
                   {[
                     { key: 'again', q: 0, color: '#ff5555' },
-                    { key: 'hard', q: 3, color: 'var(--fl-muted-1)' },
-                    { key: 'good', q: 4, color: 'var(--fl-muted-0)' },
-                    { key: 'easy', q: 5, color: 'var(--fl-fg)' },
+                    { key: 'hard', q: 3, color: 'var(--juba-app-muted)' },
+                    { key: 'good', q: 4, color: 'var(--juba-app-muted)' },
+                    { key: 'easy', q: 5, color: 'var(--juba-app-ink)' },
                   ].map(({ key, q, color }) => (
                     <button
                       key={q}
@@ -390,14 +390,14 @@ export default function FlashcardsPage() {
           {/* ── Speaking mode ── */}
           {speakingMode && (
             <div className="juba-card overflow-hidden">
-              <div className="border-fl-border flex items-center justify-between border-b px-6 py-4">
+              <div className="border-[var(--juba-app-line)] flex items-center justify-between border-b px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-fl-label text-fl-muted-3">●</span>
-                  <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+                  <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)]">●</span>
+                  <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
                     {t('speakingMode')}
                   </span>
                 </div>
-                <span className="text-fl-caption text-fl-muted-1 font-sans leading-relaxed">
+                <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans leading-relaxed">
                   {t('sayWord')}
                 </span>
               </div>
@@ -406,7 +406,7 @@ export default function FlashcardsPage() {
                 <TargetLanguageText
                   as="p"
                   languageCode={targetLanguageCode}
-                  className="text-fl-fg-2"
+                  className="text-[var(--juba-app-ink)]"
                 >
                   {cards[current].definition}
                 </TargetLanguageText>
@@ -414,13 +414,13 @@ export default function FlashcardsPage() {
                   <TargetLanguageText
                     as="p"
                     languageCode={targetLanguageCode}
-                    className="text-fl-muted-1 italic"
+                    className="text-[var(--juba-app-muted)] italic"
                   >
                     {cards[current].example_sentence}
                   </TargetLanguageText>
                 )}
                 {cards[current].translation && (
-                  <p className="text-fl-muted-1 border-fl-border mt-1 border-t pt-3 font-sans text-sm leading-relaxed">
+                  <p className="text-[var(--juba-app-muted)] border-[var(--juba-app-line)] mt-1 border-t pt-3 font-sans text-sm leading-relaxed">
                     {cards[current].translation}
                   </p>
                 )}
@@ -435,7 +435,7 @@ export default function FlashcardsPage() {
             </div>
           )}
 
-          <p className="text-fl-hint text-fl-border-2 text-center font-mono tracking-widest uppercase">
+          <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-line)] text-center font-sans tracking-widest uppercase">
             EF {cards[current].ease_factor.toFixed(2)} · {t('interval')}{' '}
             {cards[current].interval}d · {t('repetitions')}{' '}
             {cards[current].repetitions}
