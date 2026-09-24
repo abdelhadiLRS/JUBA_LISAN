@@ -1,7 +1,7 @@
 'use client'
 
-import { useMemo, useState } from 'react'
-import { ArrowRight, Globe2, MapPinned } from 'lucide-react'
+import { useState } from 'react'
+import { Globe2, MapPinned } from 'lucide-react'
 
 type RegionId = 'americas' | 'europe' | 'africa-middle-east' | 'asia' | 'pacific'
 
@@ -80,20 +80,9 @@ export function LanguageBubbles() {
   const [activeRegion, setActiveRegion] = useState<RegionId | null>(null)
   const [activeLanguage, setActiveLanguage] = useState<string | null>(null)
 
-  const languagesByRegion = useMemo(
-    () =>
-      Object.fromEntries(
-        REGIONS.map((region) => [
-          region.id,
-          DISPLAY_LANGUAGES.filter((language) => language.region === region.id),
-        ])
-      ) as Record<RegionId, DisplayLanguage[]>,
-    []
-  )
-
   return (
     <div className="relative overflow-hidden rounded-[36px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] p-3 shadow-[6px_6px_0_var(--juba-app-ink)] sm:p-5">
-      <div className="relative min-h-[560px] overflow-hidden rounded-[28px] border border-[var(--juba-app-line)] bg-[#f5f8f1]">
+      <div className="relative min-h-[430px] overflow-hidden rounded-[28px] sm:min-h-[560px] border border-[var(--juba-app-line)] bg-[#f5f8f1]">
         <MapSilhouette />
 
         <div className="absolute inset-x-4 top-4 z-20 flex flex-wrap items-center justify-between gap-3 sm:inset-x-6 sm:top-6">
@@ -143,7 +132,7 @@ export function LanguageBubbles() {
           const region = selected ? REGIONS.find((item) => item.id === selected.region) : null
           if (!selected || !region) return null
           return (
-            <div className="absolute bottom-20 left-4 z-20 max-w-[280px] rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[4px_4px_0_var(--juba-app-ink)] sm:bottom-24 sm:left-6">
+            <div className="absolute bottom-20 left-3 z-20 max-w-[calc(100%-1.5rem)] sm:left-6 sm:max-w-[280px] rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[4px_4px_0_var(--juba-app-ink)] sm:bottom-24 sm:left-6">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <span className="text-[9px] font-black uppercase tracking-[.18em] text-[var(--juba-app-green)]">{region.label}</span>
@@ -156,7 +145,7 @@ export function LanguageBubbles() {
           )
         })()}
 
-        <div className="absolute bottom-4 left-1/2 z-20 w-[calc(100%-2rem)] -translate-x-1/2 sm:bottom-6 sm:w-auto">
+        <div className="absolute bottom-3 left-1/2 z-20 w-[calc(100%-1.25rem)] sm:bottom-6 sm:w-auto -translate-x-1/2 sm:bottom-6 sm:w-auto">
           <div className="flex flex-wrap justify-center gap-1.5 rounded-2xl border border-[var(--juba-app-line)] bg-white/90 p-2 backdrop-blur">
             {REGIONS.map((region) => (
               <button type="button" key={region.id} onClick={() => { setActiveRegion(region.id); setActiveLanguage(null) }} className={[
