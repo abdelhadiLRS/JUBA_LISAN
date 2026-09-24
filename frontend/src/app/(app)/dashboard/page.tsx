@@ -266,7 +266,7 @@ export default function DashboardPage() {
       <WhatsNew />
       <main className="juba-dashboard mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="border-fl-border mb-6 border-b pb-4">
+        <div className="juba-dashboard-header mb-6 border-b pb-4">
           <p className="text-fl-label text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
             {t('welcomeBack')}
           </p>
@@ -296,7 +296,7 @@ export default function DashboardPage() {
         <DashboardAnnouncement />
 
         {/* Next step */}
-        <div className="border-fl-border bg-fl-surface mb-8 border p-5">
+        <div className="juba-card mb-8 p-5">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
             <p className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
               {t('nextStep')}
@@ -324,7 +324,7 @@ export default function DashboardPage() {
                 </p>
               </div>
               <Link href="/assessment">
-                <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                <button className="juba-primary-button">
                   {t('takeAssessmentArrow')}
                 </button>
               </Link>
@@ -346,13 +346,13 @@ export default function DashboardPage() {
               </div>
               {completion.next_level != null ? (
                 <Link href="/assessment">
-                  <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                  <button className="juba-primary-button">
                     {tAssessment('retake')}
                   </button>
                 </Link>
               ) : (
                 <Link href="/plan">
-                  <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                  <button className="juba-primary-button">
                     {t('goToMyPlan')}
                   </button>
                 </Link>
@@ -370,7 +370,7 @@ export default function DashboardPage() {
               </div>
               {planId != null && (
                 <Link href={`/assessment/level-test?plan=${planId}`}>
-                  <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                  <button className="juba-primary-button">
                     {tPlan('beginLevelTest')}
                   </button>
                 </Link>
@@ -391,7 +391,7 @@ export default function DashboardPage() {
                 </p>
               </div>
               <Link href={`/lesson/${nextLesson.id}`}>
-                <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                <button className="juba-primary-button">
                   {t('startLesson')}
                 </button>
               </Link>
@@ -409,7 +409,7 @@ export default function DashboardPage() {
                 </p>
               </div>
               <Link href="/plan">
-                <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                <button className="juba-primary-button">
                   {t('goToMyPlan')}
                 </button>
               </Link>
@@ -418,7 +418,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Stats row */}
-        <div className="bg-fl-border mb-8 grid grid-cols-2 gap-px sm:grid-cols-4">
+        <div className="juba-dashboard-stats mb-8 grid grid-cols-2 gap-px sm:grid-cols-4">
           {[
             { label: t('streak'), value: `${streak}d`, accent: streak > 0 },
             { label: t('xp'), value: xp, accent: false },
@@ -441,7 +441,7 @@ export default function DashboardPage() {
                   : t('noExercisesYet'),
             },
           ].map((stat) => (
-            <div key={stat.label} className="bg-fl-surface px-5 py-5">
+            <div key={stat.label} className="juba-dashboard-stat bg-fl-surface px-5 py-5">
               <p className="text-fl-caption text-fl-muted-1 mb-2 font-mono tracking-widest uppercase">
                 {stat.label}
               </p>
@@ -459,9 +459,9 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        <div className="bg-fl-border mb-8 grid gap-px sm:grid-cols-2">
+        <div className="juba-dashboard-panels mb-8 grid gap-px sm:grid-cols-2">
           {/* Plan progress */}
-          <div className="bg-fl-surface p-5">
+          <div className="juba-dashboard-panel bg-fl-surface p-5">
             <div className="mb-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-fl-label text-fl-muted-2">●</span>
@@ -536,7 +536,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Today's lessons */}
-          <div className="bg-fl-surface p-5">
+          <div className="juba-dashboard-panel bg-fl-surface p-5">
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-fl-label text-fl-muted-2">●</span>
@@ -626,7 +626,7 @@ export default function DashboardPage() {
                 </p>
                 {!hasPlan && (
                   <Link href="/assessment">
-                    <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                    <button className="juba-primary-button">
                       {t('takeAssessmentArrow')}
                     </button>
                   </Link>
@@ -636,7 +636,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Recent performance */}
-          <div className="bg-fl-surface p-5 sm:col-span-2">
+          <div className="juba-dashboard-panel bg-fl-surface p-5 sm:col-span-2">
             <div className="mb-4">
               <div className="mb-2 flex items-center gap-2">
                 <span className="text-fl-label text-fl-muted-2">●</span>
@@ -683,10 +683,10 @@ export default function DashboardPage() {
         </div>
 
         {showPremiumBanner && (
-          <div className="border-fl-border bg-fl-surface mb-6 border p-5">
+          <div className="juba-card mb-6 p-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex gap-3">
-                <span className="text-fl-accent font-mono text-sm leading-none">
+                <span className="text-[var(--juba-app-green)] font-mono text-sm leading-none">
                   ★
                 </span>
                 <div>
@@ -730,7 +730,7 @@ export default function DashboardPage() {
                   <button
                     onClick={handleManageSubscription}
                     disabled={portalLoading}
-                    className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full px-4 py-2.5 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-50 sm:w-auto"
+                    className="juba-primary-button w-full sm:w-auto"
                   >
                     {portalLoading ? '...' : tBilling('updatePayment')}
                   </button>
@@ -750,30 +750,30 @@ export default function DashboardPage() {
         <div className="flex flex-wrap gap-2">
           {hasPlan && (
             <Link href="/plan">
-              <button className="text-fl-bg bg-fl-fg hover:bg-fl-accent/90 px-4 py-2 font-mono text-sm tracking-widest uppercase transition-colors">
+              <button className="juba-primary-button">
                 {t('goToMyPlan')}
               </button>
             </Link>
           )}
           {pendingCount > 0 && (
             <Link href="/plan">
-              <button className="text-fl-fg border-fl-accent/50 hover:border-fl-accent border px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors">
+              <button className="juba-secondary-button text-xs tracking-widest uppercase">
                 {pendingCount} {t('pendingLessons')} →
               </button>
             </Link>
           )}
           <Link href="/flashcards">
-            <button className="text-fl-fg border-fl-border hover:border-fl-border-2 border px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors">
+            <button className="juba-secondary-button text-xs tracking-widest uppercase">
               {tNav('flashcards')}
             </button>
           </Link>
           <Link href="/chat">
-            <button className="text-fl-fg border-fl-border hover:border-fl-border-2 border px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors">
+            <button className="juba-secondary-button text-xs tracking-widest uppercase">
               {tNav('tutor')}
             </button>
           </Link>
           <Link href="/assessment">
-            <button className="text-fl-fg border-fl-border hover:border-fl-border-2 border px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors">
+            <button className="juba-secondary-button text-xs tracking-widest uppercase">
               {tNav('assessment')}
             </button>
           </Link>
