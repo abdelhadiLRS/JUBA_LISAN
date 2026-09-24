@@ -157,6 +157,15 @@ _I18N = {
         "test_title": "اختبار إتمام المستوى {level}",
         "test_objectives": ["مراجعة موضوعات هذا المستوى", "إتمام التقييم للانتقال إلى المستوى التالي"],
     },
+    "sv-SE": {
+        "lesson_title": "{title} - Lektion {n}",
+        "test_unit_title": "Sluttest för nivå {level}",
+        "test_title": "Sluttest för nivå {level}",
+        "test_objectives": [
+            "Repetera alla grammatikområden på denna nivå",
+            "Slutför bedömningen för att låsa upp nästa nivå",
+        ],
+    },
     "el-GR": {
         "lesson_title": "{title} - Μάθημα {n}",
         "test_unit_title": "Τελική αξιολόγηση επιπέδου {level}",
