@@ -164,7 +164,7 @@ export default async function Home() {
                 <span className="juba-mascot-eye eye-left" />
                 <span className="juba-mascot-eye eye-right" />
                 <span className="juba-mascot-mouth" />
-                <span className="juba-mascot-badge">A1</span>
+                <span className="juba-mascot-badge">AI</span>
               </div>
               <span className="juba-mascot-orbit orbit-a" />
               <span className="juba-mascot-orbit orbit-b" />
