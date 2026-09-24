@@ -135,21 +135,22 @@ export function LanguageBubbles() {
         </div>
 
         <div className="absolute inset-0 z-10">
-          {Object.entries(WORLD_MAP_PATHS).map(([code, path]) => {
-            const isSelected = selectedCountry === code
-            const isRegionCountry = activeRegion ? regionCountries.get(activeRegion)?.has(code) : false
+          <svg viewBox="0 0 1000 507" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+            {Object.entries(WORLD_MAP_PATHS).map(([code, path]) => {
+              const isSelected = selectedCountry === code
+              const isRegionCountry = activeRegion ? regionCountries.get(activeRegion)?.has(code) : false
 
-            return (
-              <svg key={code} viewBox="0 0 1000 507" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              return (
                 <path
+                  key={code}
                   d={path}
                   fill={isSelected ? 'var(--juba-app-yellow)' : isRegionCountry ? 'var(--juba-app-green)' : 'transparent'}
                   fillOpacity={isSelected ? '.75' : isRegionCountry ? '.12' : '0'}
                   stroke="none"
                 />
-              </svg>
-            )
-          })}
+              )
+            })}
+          </svg>
 
           {visibleLanguages.map((language) => {
             const point = WORLD_MAP_CENTROIDS[language.country]
