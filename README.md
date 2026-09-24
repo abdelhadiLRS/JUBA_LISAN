@@ -103,7 +103,7 @@ JUBA LISAN already brings together:
 
 ## 🌐 Languages already built
 
-One of the central achievements of JUBA LISAN is its language architecture. The repository already contains **dedicated language data for 24 languages**, while **10 languages currently have the full integrated CEFR target-language curriculum architecture with A1–C2 curriculum, grammar, vocabulary, phrasebook and assessment data**.
+One of the central achievements of JUBA LISAN is its language architecture. The repository already contains **dedicated language data for 24 languages**, while **11 languages currently have the full integrated CEFR target-language curriculum architecture with A1–C2 curriculum, grammar, vocabulary, phrasebook and assessment data**.
 
 ### 🏆 Full integrated learning languages — A1 → C2
 
@@ -119,6 +119,7 @@ One of the central achievements of JUBA LISAN is its language architecture. The 
 | 🇯🇵 | Japanese | `ja` | Full A1–C2 target language |
 | 🇰🇷 | Korean | `ko` | Full A1–C2 target language |
 | 🇨🇳 | Chinese / Mandarin | `zh` | Full A1–C2 target language |
+| 🇸🇦 | Arabic (Modern Standard Arabic) | `ar` | Full A1–C2 target language |
 
 These are not merely interface translations: the repository contains language-specific learning data for the integrated curriculum, including level-oriented curriculum, grammar, vocabulary, phrasebook and assessment resources.
 
@@ -128,7 +129,6 @@ The language-data layer also contains these additional dedicated packages:
 
 | Flag | Language | Code |
 |---|---|---|
-| 🇸🇦 | Arabic | `ar` |
 | 🇩🇰 | Danish | `da` |
 | 🇬🇷 | Greek | `el` |
 | 🇮🇷 | Persian | `fa` |
@@ -143,7 +143,7 @@ The language-data layer also contains these additional dedicated packages:
 | 🇸🇪 | Swedish | `sv` |
 | 🇹🇷 | Turkish | `tr` |
 
-These packages form the expansion layer around the core learning engine. Their presence in the repository means language-specific data exists; it does **not** mean every package already has the same A1–C2 depth as the ten full integrated target languages above.
+These packages form the expansion layer around the core learning engine. Their presence in the repository means language-specific data exists; it does **not** mean every package already has the same A1–C2 depth as the eleven full integrated target languages above.
 
 ### 🗺️ A bridge toward the world's languages
 
