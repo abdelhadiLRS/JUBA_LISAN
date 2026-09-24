@@ -67,14 +67,21 @@ export function LearningExperience({ t }: LearningExperienceProps) {
 
           <div className="juba-ff-coach-card">
             <div className="juba-ff-coach-head"><div><TrendingUp /><strong>What JUBA LISAN tracks</strong></div><span>Real progress</span></div>
-            {['CEFR level', 'Streak & XP', 'Lessons completed', 'Vocabulary progress'].map((label) => (
-              <div className="juba-ff-score" key={label}>
-                <span>{label}</span>
-                <i aria-hidden="true"><em style={{ width: '0%' }} /></i>
-              </div>
-            ))}
+            <div className="juba-ff-real-progress-list">
+              {[
+                ['CEFR level', 'Your current level is shown from your account.'],
+                ['Streak & XP', 'Daily activity and XP are calculated from your learning history.'],
+                ['Lessons completed', 'Completed lessons are reflected in your study progress.'],
+                ['Vocabulary progress', 'Vocabulary practice and review contribute to your progress.'],
+              ].map(([label, desc]) => (
+                <div className="juba-ff-real-progress-item" key={label}>
+                  <span className="juba-ff-real-progress-dot" aria-hidden="true" />
+                  <span><strong>{label}</strong><small>{desc}</small></span>
+                </div>
+              ))}
+            </div>
             <p className="mt-3 text-xs leading-5 opacity-75">
-              Illustrative UI only — your actual values are loaded from your account in the dashboard.
+              No sample progress values are shown here. Open the dashboard to view the values calculated for your account.
             </p>
             <div className="juba-ff-intelligence">
               {intelligence.map(([Icon, title, desc]) => (
