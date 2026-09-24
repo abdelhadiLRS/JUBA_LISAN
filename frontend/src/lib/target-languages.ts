@@ -15,6 +15,7 @@ export type TargetLanguageScript =
   | 'hiragana-katakana-kanji'
   | 'hangul'
   | 'simplified-hanzi'
+  | 'arabic'
 
 export type TargetLanguageRomanization =
   | 'romaji'
@@ -64,8 +65,8 @@ export const TARGET_LANGUAGE_CAPABILITIES: Record<
     romanization: 'pinyin',
   },
   ar: {
-    script: 'latin',
-    fontClass: 'font-target-ar',
+    script: 'arabic',
+    fontClass: 'font-sans',
     usesWordSpacing: true,
   },
 }
