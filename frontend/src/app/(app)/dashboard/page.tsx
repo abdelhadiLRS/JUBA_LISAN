@@ -451,8 +451,6 @@ export default function DashboardPage() {
             )
           })}
         </div>
-          ))}
-        </div>
 
         <div className="juba-dashboard-panels mb-7 grid gap-4 sm:grid-cols-2">
           {/* Plan progress */}
