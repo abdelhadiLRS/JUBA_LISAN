@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, Query, Request
 
-from app.core.deps import get_current_user
+from app.core.deps import get_current_user, require_learner
 from app.core.limiter import limiter
 from app.data._types import CurriculumUnit
 from app.data.curriculum import get_curriculum, get_curriculum_units
 from app.models.user import User
 from app.schemas.curriculum import CurriculumResponse, CurriculumUnitResponse
 
-router = APIRouter(prefix="/api/curriculum", tags=["curriculum"])
+router = APIRouter(prefix="/api/curriculum", tags=["curriculum"], dependencies=[Depends(require_learner)])
 
 
 def _to_response(u: CurriculumUnit) -> dict:
