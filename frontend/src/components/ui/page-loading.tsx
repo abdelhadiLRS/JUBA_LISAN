@@ -42,12 +42,12 @@ export function PageLoading({
   if (!fullScreen) {
     return (
       <span
-        className={`text-[var(--juba-muted)] animate-pulse text-xs font-medium tracking-[0.12em] uppercase ${className}`}
+        className={`text-[var(--juba-app-muted)] animate-pulse text-xs font-medium tracking-[0.12em] uppercase ${className}`}
         role="status"
         aria-busy="true"
         aria-label={text}
       >
-        {showDot && <span className="mr-1.5 text-[var(--juba-primary-dark)]">●</span>}
+        {showDot && <span className="mr-1.5 text-[var(--juba-app-green-dark)]">●</span>}
         {text}
       </span>
     )
@@ -60,13 +60,13 @@ export function PageLoading({
       aria-busy="true"
       aria-label={text}
     >
-      <div className="juba-card flex min-w-44 flex-col items-center gap-3 border-2 border-[var(--juba-border)] px-5 py-4 shadow-[4px_4px_0_var(--juba-border)]">
-        <span className="text-[var(--juba-muted)] animate-pulse text-xs font-medium tracking-[0.12em] uppercase">
-          {showDot && <span className="mr-1.5 text-[var(--juba-primary-dark)]">●</span>}
+      <div className="juba-card flex min-w-44 flex-col items-center gap-3 border-2 border-[var(--juba-app-line)] px-5 py-4 shadow-[4px_4px_0_var(--juba-app-line)]">
+        <span className="text-[var(--juba-app-muted)] animate-pulse text-xs font-medium tracking-[0.12em] uppercase">
+          {showDot && <span className="mr-1.5 text-[var(--juba-app-green-dark)]">●</span>}
           {text}
         </span>
         {subtext && (
-          <p className="text-[var(--juba-muted)] max-w-xs text-center text-xs leading-5">
+          <p className="text-[var(--juba-app-muted)] max-w-xs text-center text-xs leading-5">
             {subtext}
           </p>
         )}
