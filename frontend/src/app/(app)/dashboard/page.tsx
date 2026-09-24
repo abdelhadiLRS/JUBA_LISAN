@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { Check } from 'lucide-react'
+import { BookOpen, Check, Flame, Target, Zap } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import {
   isSubscribed,
@@ -265,15 +265,15 @@ export default function DashboardPage() {
     <>
       <OnboardingTour />
       <WhatsNew />
-      <main className="juba-dashboard mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
+      <main className="juba-dashboard mx-auto max-w-6xl px-4 py-5 sm:px-6 sm:py-7 lg:px-8">
         {/* Header */}
-        <div className="juba-dashboard-header mb-7 rounded-[24px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-5 shadow-[0_8px_24px_rgba(24,37,27,.05)] sm:p-6">
-          <p className="text-[var(--juba-app-muted)] mb-1 font-sans text-xs font-semibold tracking-[.12em] uppercase">
+        <div className="juba-dashboard-header mb-6 overflow-hidden rounded-[28px] border border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] p-5 shadow-[6px_6px_0_var(--juba-app-ink)] sm:p-7">
+          <p className="juba-dashboard-kicker text-[var(--juba-app-green-dark)] mb-2 font-sans text-xs font-black tracking-[.14em] uppercase">
             {t('welcomeBack')}
           </p>
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
-              <h1 className="text-[var(--juba-app-ink)] font-sans text-3xl font-black tracking-tight">
+              <h1 className="text-[var(--juba-app-ink)] font-sans text-3xl font-black tracking-[-.045em] sm:text-4xl">
                 {user?.displayName || user?.username}
               </h1>
               {activeLanguage && (
@@ -297,7 +297,7 @@ export default function DashboardPage() {
         <DashboardAnnouncement />
 
         {/* Next step */}
-        <div className="juba-card mb-8 p-5 sm:p-6">
+        <div className="juba-dashboard-next juba-card mb-7 p-5 sm:p-7">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
             <p className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
               {t('nextStep')}
@@ -413,50 +413,50 @@ export default function DashboardPage() {
         </div>
 
         {/* Stats row */}
-        <div className="juba-dashboard-stats mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="juba-dashboard-stats mb-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { label: t('streak'), value: `${streak}d`, accent: streak > 0 },
-            { label: t('xp'), value: xp, accent: false },
-            {
-              label: t('lessonsCompleted'),
-              value: totalLessons,
-              accent: false,
-            },
+            { label: t('streak'), value: `${streak}d`, accent: streak > 0, icon: Flame },
+            { label: t('xp'), value: xp, accent: false, icon: Zap },
+            { label: t('lessonsCompleted'), value: totalLessons, accent: false, icon: BookOpen },
             {
               label: t('accuracy'),
-              value:
-                totalExercises > 0 ? `${Math.round(accuracy * 100)}%` : '—',
+              value: totalExercises > 0 ? `${Math.round(accuracy * 100)}%` : '—',
               accent: false,
-              detail:
-                totalExercises > 0
-                  ? t('exerciseStats', {
-                      correct: exercisesCorrect,
-                      total: totalExercises,
-                    })
-                  : t('noExercisesYet'),
+              icon: Target,
+              detail: totalExercises > 0
+                ? t('exerciseStats', { correct: exercisesCorrect, total: totalExercises })
+                : t('noExercisesYet'),
             },
-          ].map((stat) => (
-            <div key={stat.label} className="juba-card px-5 py-5">
-              <p className="text-[var(--juba-app-muted)] mb-2 font-sans text-xs font-semibold tracking-[.12em] uppercase">
-                {stat.label}
-              </p>
-              <p
-                className={`font-sans text-3xl font-black tracking-tight ${stat.accent ? 'text-[var(--juba-app-green-dark)]' : 'text-[var(--juba-app-ink)]'}`}
-              >
-                {stat.value}
-              </p>
-              {'detail' in stat && stat.detail && (
-                <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-sm">
-                  {stat.detail}
+          ].map((stat) => {
+            const StatIcon = stat.icon
+            return (
+              <div key={stat.label} className="juba-dashboard-stat juba-card p-5">
+                <div className="mb-6 flex items-start justify-between gap-3">
+                  <p className="text-[var(--juba-app-muted)] font-sans text-xs font-black tracking-[.12em] uppercase">
+                    {stat.label}
+                  </p>
+                  <span className={`juba-dashboard-stat-icon ${stat.accent ? 'is-accent' : ''}`}>
+                    <StatIcon className="size-4" aria-hidden="true" />
+                  </span>
+                </div>
+                <p className={`font-sans text-3xl font-black tracking-[-.04em] ${stat.accent ? 'text-[var(--juba-app-green-dark)]' : 'text-[var(--juba-app-ink)]'}`}>
+                  {stat.value}
                 </p>
-              )}
-            </div>
+                {'detail' in stat && stat.detail && (
+                  <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-xs leading-relaxed">
+                    {stat.detail}
+                  </p>
+                )}
+              </div>
+            )
+          })}
+        </div>
           ))}
         </div>
 
-        <div className="juba-dashboard-panels mb-8 grid gap-4 sm:grid-cols-2">
+        <div className="juba-dashboard-panels mb-7 grid gap-4 sm:grid-cols-2">
           {/* Plan progress */}
-          <div className="juba-card p-5 sm:p-6">
+          <div className="juba-dashboard-panel juba-card p-5 sm:p-6">
             <div className="mb-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
@@ -628,7 +628,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Recent performance */}
-          <div className="juba-card p-5 sm:col-span-2 sm:p-6">
+          <div className="juba-dashboard-panel juba-card p-5 sm:col-span-2 sm:p-6">
             <div className="mb-4">
               <div className="mb-2 flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
@@ -739,7 +739,7 @@ export default function DashboardPage() {
         )}
 
         {/* Quick actions */}
-        <div className="flex flex-wrap gap-3">
+        <div className="juba-dashboard-actions flex flex-wrap gap-3">
           {hasPlan && (
             <Link href="/plan" className="juba-primary-button">
                 {t('goToMyPlan')}
