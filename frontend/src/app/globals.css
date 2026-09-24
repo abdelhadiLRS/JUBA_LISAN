@@ -1039,6 +1039,7 @@ main [dir="rtl"] h3,
   --juba-app-green-dark:#2f6816;
   --juba-app-green-soft:#e9f4df;
   --juba-app-yellow:#ffd44f;
+  --juba-app-error:#b33a32;
 }
 .juba-dashboard{
   color:var(--juba-app-ink);
