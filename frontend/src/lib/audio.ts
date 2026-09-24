@@ -155,7 +155,12 @@ export function createAudioQueue(
       source = ctx.createBufferSource()
       source.buffer = decoded
       source.connect(ctx.destination)
-    } catch {
+    } catch (error) {
+      audioQueueLogger.warn('failed to create TTS buffer source; using fallback', {
+        chunkId,
+        error: error instanceof Error ? error.message : String(error),
+      })
+      await _fallbackPlay(arrayBuffer.slice(0), generationToken, chunkId)
       return
     }
 
