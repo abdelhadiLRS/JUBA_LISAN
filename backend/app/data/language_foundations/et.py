@@ -51,7 +51,7 @@ ASSESSMENT_BANK=[
     AssessmentQuestion(id="et-a1-004",skill="vocabulary",difficulty="A1",question="Which word means mother?",options=["ema","station","friend","water"],correct="ema"),
     AssessmentQuestion(id="et-a1-005",skill="vocabulary",difficulty="A1",question="Which word belongs to the home theme?",options=["kodu","tomorrow","thanks","station"],correct="kodu"),
     AssessmentQuestion(id="et-a1-006",skill="reading",difficulty="A1",question="Read the first model sentence and identify its function.",options=["Basic A1 communication","Advanced literature","Past narrative","Formal report"],correct="Basic A1 communication"),
-    AssessmentQuestion(id="et-a1-007",skill="grammar",difficulty="A1",question="Which example belongs to the questions topic?",options=["Ma õpin eesti keelt.","Ma ei tööta täna.","Hello","Thank you"],correct="Ma õpin eesti keelt."),
+    AssessmentQuestion(id="et-a1-007",skill="grammar",difficulty="A1",question="Which example is a basic question?",options=["Kus sa oled?","Ma õpin eesti keelt.","Ma ei tööta täna.","See on raamat."],correct="Kus sa oled?"),
     AssessmentQuestion(id="et-a1-008",skill="communication",difficulty="A1",question="Which phrase asks for help?",options=["Please help me.","Goodbye.","Thank you.","My name is..."],correct="Please help me."),
     AssessmentQuestion(id="et-a1-009",skill="communication",difficulty="A1",question="Which phrase asks for a location?",options=["Where is the station?","Thank you.","Goodbye.","I am a student."],correct="Where is the station?"),
     AssessmentQuestion(id="et-a1-010",skill="vocabulary",difficulty="A1",question="Which word is the review/friend item?",options=["sõber","water","station","morning"],correct="sõber")
