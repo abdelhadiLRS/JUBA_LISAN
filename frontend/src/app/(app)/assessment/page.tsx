@@ -326,9 +326,9 @@ export default function AssessmentPage() {
     }
   }
 
-  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[var(--j-shell-shadow)]'
-  const panelClass = 'rounded-[22px] border-2 border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/45 p-4'
-  const actionClass = 'w-full rounded-[18px] bg-[var(--juba-violet-dark)] px-4 py-3 font-bold text-white shadow-[0_6px_0_var(--juba-violet-dark)] transition hover:-translate-y-0.5 hover:bg-[var(--juba-violet-dark)]'
+  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[26px] border-2 border-[var(--juba-app-line)] bg-white shadow-[8px_8px_0_var(--juba-app-ink)]'
+  const panelClass = 'rounded-[18px] border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] p-4'
+  const actionClass = 'w-full rounded-[14px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] px-4 py-3 font-bold text-[var(--juba-app-ink)] shadow-[4px_4px_0_var(--juba-app-ink)] transition hover:-translate-y-0.5'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
     return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
