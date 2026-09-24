@@ -127,10 +127,8 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
             type="button"
             onClick={onClose}
             disabled={isLoading}
-            aria-disabled={isLoading}
             aria-label={tCommon('close')}
-            className="rounded-xl border-2 border-transparent px-2 py-1 text-[var(--juba-app-muted)] transition hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)]"
-            aria-label={tCommon('close')}
+            className="rounded-xl border-2 border-transparent px-2 py-1 text-[var(--juba-app-muted)] transition hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             <X className="h-4 w-4" aria-hidden="true" />
           </button>
