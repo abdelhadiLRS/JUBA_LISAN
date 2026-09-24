@@ -39,20 +39,20 @@ VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="ny-a1-unit-7",words
 VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="ny-a1-unit-8",words=[VocabularyEntry(word="sukulu",pos="noun",definition="school",example="Ndili kusukulu.")])
 ]
 PHRASEBOOK_CATEGORIES=[
-PhrasebookCategory(id="greetings_a1_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Moni.",context="Hello.",register="neutral")]),
-PhrasebookCategory(id="greetings_a1_2",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Zikomo.",context="Thank you.",register="neutral")]),
-PhrasebookCategory(id="help_a1_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="Chonde.",context="Please.",register="neutral")]),
-PhrasebookCategory(id="directions_a1_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="Sukulu ili kuti?",context="Where is the school?",register="neutral")])
+PhrasebookCategory(id="ny-greetings-a1",level="A1",situation="greetings",icon="👋",phrases=[PhrasebookEntry(text="Moni.",context="Hello.",register="neutral"),PhrasebookEntry(text="Muli bwanji?",context="How are you?",register="neutral"),PhrasebookEntry(text="Dzina langa ndi Banda.",context="My name is Banda.",register="neutral")]),
+PhrasebookCategory(id="ny-thanks-a1",level="A1",situation="thanks",icon="🙏",phrases=[PhrasebookEntry(text="Zikomo.",context="Thank you.",register="neutral"),PhrasebookEntry(text="Zikomo kwambiri.",context="Thank you very much.",register="neutral"),PhrasebookEntry(text="Palibe kanthu.",context="You are welcome.",register="neutral")]),
+PhrasebookCategory(id="ny-shopping-a1",level="A1",situation="shopping",icon="🛒",phrases=[PhrasebookEntry(text="Izi ndi ndalama zingati?",context="How much does this cost?",register="neutral"),PhrasebookEntry(text="Ndikufuna ichi.",context="I want this.",register="neutral"),PhrasebookEntry(text="Chonde, chepetsani mtengo.",context="Please lower the price.",register="neutral")]),
+PhrasebookCategory(id="ny-help-a1",level="A1",situation="help",icon="🆘",phrases=[PhrasebookEntry(text="Chonde ndithandizeni.",context="Please help me.",register="neutral"),PhrasebookEntry(text="Sindikumvetsa.",context="I do not understand.",register="neutral"),PhrasebookEntry(text="Chonde bwerezaninso.",context="Please repeat.",register="neutral")]),
 ]
 ASSESSMENT_BANK=[
-AssessmentQuestion(id="ny-a1-001",skill="vocabulary",difficulty="A1",question="Choose the correct Chichewa form for A1.",options=["moni","dzina","mayi","nyumba"],correct="moni"),
-AssessmentQuestion(id="ny-a1-002",skill="grammar",difficulty="A1",question="Choose the correct Chichewa form for A1.",options=["dzina","mayi","nyumba","kuphunzira"],correct="dzina"),
-AssessmentQuestion(id="ny-a1-003",skill="reading",difficulty="A1",question="Choose the correct Chichewa form for A1.",options=["mayi","nyumba","kuphunzira","nthawi"],correct="mayi"),
-AssessmentQuestion(id="ny-a1-004",skill="speaking",difficulty="A1",question="Choose the correct Chichewa form for A1.",options=["nyumba","kuphunzira","nthawi","madzi"],correct="nyumba"),
-AssessmentQuestion(id="ny-a1-005",skill="vocabulary",difficulty="A1",question="Choose the correct Chichewa form for A1.",options=["kuphunzira","nthawi","madzi","sukulu"],correct="kuphunzira"),
-AssessmentQuestion(id="ny-a1-006",skill="grammar",difficulty="A1",question="Choose the correct Chichewa form for A1.",options=["nthawi","madzi","sukulu","moni"],correct="nthawi"),
-AssessmentQuestion(id="ny-a1-007",skill="reading",difficulty="A1",question="Choose the correct Chichewa form for A1.",options=["madzi","sukulu","moni","dzina"],correct="madzi"),
-AssessmentQuestion(id="ny-a1-008",skill="speaking",difficulty="A1",question="Choose the correct Chichewa form for A1.",options=["sukulu","moni","dzina","mayi"],correct="sukulu"),
-AssessmentQuestion(id="ny-a1-009",skill="vocabulary",difficulty="A1",question="Choose the correct Chichewa form for A1.",options=["moni","dzina","mayi","nyumba"],correct="moni"),
-AssessmentQuestion(id="ny-a1-010",skill="grammar",difficulty="A1",question="Choose the correct Chichewa form for A1.",options=["dzina","mayi","nyumba","kuphunzira"],correct="dzina")
+AssessmentQuestion(id="ny-a1-001",skill="communication",difficulty="A1",question="You meet someone. Which Chichewa phrase means “Hello”?",options=["Moni.","Zikomo.","Sindikumvetsa.","Izi ndi ndalama zingati?"],correct="Moni."),
+AssessmentQuestion(id="ny-a1-002",skill="speaking",difficulty="A1",question="You introduce yourself. Which sentence means “My name is Banda”?",options=["Dzina langa ndi Banda.","Ndimaphunzira tsiku lililonse.","Ndikufuna madzi.","Ndili kusukulu."],correct="Dzina langa ndi Banda."),
+AssessmentQuestion(id="ny-a1-003",skill="communication",difficulty="A1",question="Someone helps you. Which phrase means “Thank you very much”?",options=["Zikomo kwambiri.","Muli bwanji?","Chonde bwerezaninso.","Sindikumvetsa."],correct="Zikomo kwambiri."),
+AssessmentQuestion(id="ny-a1-004",skill="shopping",difficulty="A1",question="At a shop, how do you ask “How much does this cost?”",options=["Izi ndi ndalama zingati?","Moni.","Ndikufuna ichi.","Chonde ndithandizeni."],correct="Izi ndi ndalama zingati?"),
+AssessmentQuestion(id="ny-a1-005",skill="shopping",difficulty="A1",question="You want an item. Which phrase means “I want this”?",options=["Ndikufuna ichi.","Zikomo.","Muli bwanji?","Palibe kanthu."],correct="Ndikufuna ichi."),
+AssessmentQuestion(id="ny-a1-006",skill="help",difficulty="A1",question="You need assistance. Which phrase asks someone to help you?",options=["Chonde ndithandizeni.","Izi ndi ndalama zingati?","Dzina langa ndi Banda.","Zikomo kwambiri."],correct="Chonde ndithandizeni."),
+AssessmentQuestion(id="ny-a1-007",skill="listening",difficulty="A1",question="You did not understand. Which Chichewa phrase should you say?",options=["Sindikumvetsa.","Moni.","Ndikufuna ichi.","Zikomo."],correct="Sindikumvetsa."),
+AssessmentQuestion(id="ny-a1-008",skill="help",difficulty="A1",question="You want the speaker to repeat. Which phrase means “Please repeat”?",options=["Chonde bwerezaninso.","Muli bwanji?","Izi ndi ndalama zingati?","Zikomo kwambiri."],correct="Chonde bwerezaninso."),
+AssessmentQuestion(id="ny-a1-009",skill="shopping",difficulty="A1",question="You want to ask the seller to lower the price. Which phrase fits?",options=["Chonde, chepetsani mtengo.","Moni.","Sindikumvetsa.","Dzina langa ndi Banda."],correct="Chonde, chepetsani mtengo."),
+AssessmentQuestion(id="ny-a1-010",skill="communication",difficulty="A1",question="Someone thanks you. Which Chichewa response means “You are welcome”?",options=["Palibe kanthu.","Izi ndi ndalama zingati?","Ndikufuna ichi.","Chonde ndithandizeni."],correct="Palibe kanthu."),
 ]
