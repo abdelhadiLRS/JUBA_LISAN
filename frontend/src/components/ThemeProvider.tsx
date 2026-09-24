@@ -16,6 +16,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const theme = useThemeStore((s) => s.theme)
 
   useEffect(() => {
+    void useThemeStore.persist.rehydrate()
+  }, [])
+
+  useEffect(() => {
     if (theme !== 'system') {
       applyTheme(theme)
       return
