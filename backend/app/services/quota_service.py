@@ -54,16 +54,28 @@ def _seconds_until_midnight() -> int:
 
 
 async def get_quota_status(
-    redis: object,
+    redis: object | None,
     user_id: int,
     weekly_limit: int,
     daily_minutes_limit: int,
     weekly_minutes_limit: int = 0,
 ) -> dict:
     """Return current usage without modifying any counter."""
-    sessions_used = int(await redis.get(_week_key(user_id)) or 0)  # type: ignore[attr-defined]
-    seconds_used = int(await redis.get(_day_key(user_id)) or 0)  # type: ignore[attr-defined]
-    weekly_seconds_used = int(await redis.get(_weekly_seconds_key(user_id)) or 0)  # type: ignore[attr-defined]
+    # Redis is optional in local/Desktop mode. Report zero live usage when it is disabled.
+    if redis is None:
+        sessions_used = 0
+        seconds_used = 0
+        weekly_seconds_used = 0
+    else:
+        try:
+            sessions_used = int(await redis.get(_week_key(user_id)) or 0)  # type: ignore[attr-defined]
+            seconds_used = int(await redis.get(_day_key(user_id)) or 0)  # type: ignore[attr-defined]
+            weekly_seconds_used = int(await redis.get(_weekly_seconds_key(user_id)) or 0)  # type: ignore[attr-defined]
+        except Exception:
+            # A temporarily unavailable Redis instance must not break the admin quota panel.
+            sessions_used = 0
+            seconds_used = 0
+            weekly_seconds_used = 0
     minutes_used = seconds_used // 60
     weekly_minutes_used = weekly_seconds_used // 60
 
