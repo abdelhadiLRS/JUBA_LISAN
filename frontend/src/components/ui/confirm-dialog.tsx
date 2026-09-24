@@ -2,7 +2,7 @@
 
 import { useEffect, useEffectEvent, useId, useRef } from 'react'
 import { useTranslations } from 'next-intl'
-import { AlertTriangle, CheckCircle2, Loader2 } from 'lucide-react'
+import { AlertTriangle, CheckCircle2, Loader2, X } from 'lucide-react'
 
 interface ConfirmDialogProps {
   open: boolean
