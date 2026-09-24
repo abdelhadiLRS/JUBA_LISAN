@@ -6,7 +6,7 @@ from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.deps import get_current_user, get_redis
+from app.core.deps import get_current_user, get_redis, require_learner
 from app.core.limiter import limiter
 from app.data._types import GrammarTopic
 from app.data.grammar import get_grammar_topic, get_grammar_topics
@@ -30,7 +30,7 @@ from app.services.resource_native_help import (
     upsert_native_help,
 )
 
-router = APIRouter(prefix="/api/grammar", tags=["grammar"])
+router = APIRouter(prefix="/api/grammar", tags=["grammar"], dependencies=[Depends(require_learner)])
 
 
 def _topic_to_response(t: GrammarTopic) -> GrammarTopicResponse:
