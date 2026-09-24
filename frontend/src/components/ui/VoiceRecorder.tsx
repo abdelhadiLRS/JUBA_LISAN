@@ -169,21 +169,21 @@ export function VoiceRecorder({
 
   const colorClass =
     state === 'recording'
-      ? 'border-[color-mix(in_srgb,var(--juba-danger)_55%,var(--juba-border))] bg-[color-mix(in_srgb,var(--juba-danger)_8%,var(--juba-surface))] text-[var(--juba-danger)] animate-pulse'
+      ? 'border-[color-mix(in_srgb,#b33a32_55%,var(--juba-app-line))] bg-[color-mix(in_srgb,#b33a32_8%,var(--juba-app-surface))] text-[#b33a32] animate-pulse'
       : state === 'transcribing'
-        ? 'border-[var(--juba-border)] bg-[var(--juba-surface-soft)] text-[var(--juba-muted)] animate-pulse'
+        ? 'border-[var(--juba-app-line)] bg-[#f3f7ef] text-[var(--juba-app-muted)] animate-pulse'
         : state === 'error'
-          ? 'border-[color-mix(in_srgb,var(--juba-danger)_40%,var(--juba-border))] bg-[color-mix(in_srgb,var(--juba-danger)_8%,var(--juba-surface))] text-[var(--juba-danger)]'
+          ? 'border-[color-mix(in_srgb,#b33a32_40%,var(--juba-app-line))] bg-[color-mix(in_srgb,#b33a32_8%,var(--juba-app-surface))] text-[#b33a32]'
           : disabled
-            ? 'border-[var(--juba-border)] bg-[var(--juba-surface-soft)] text-[var(--juba-muted)] cursor-not-allowed opacity-40'
-            : 'border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-muted)] hover:border-[var(--juba-primary)] hover:bg-[var(--juba-lilac)] hover:text-[var(--juba-primary-dark)]'
+            ? 'border-[var(--juba-app-line)] bg-[#f3f7ef] text-[var(--juba-app-muted)] cursor-not-allowed opacity-40'
+            : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:bg-[#e9f4df] hover:text-[var(--juba-app-green-dark)]'
 
   return (
     <button
       onClick={handleClick}
       disabled={disabled && state === 'idle'}
       aria-label={state === 'recording' ? t('ariaStop') : t('ariaRecord')}
-      className={`inline-flex items-center gap-2 rounded-xl border-2 px-3 py-2 text-xs font-semibold tracking-wide shadow-[2px_2px_0_var(--juba-border)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--juba-border)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--juba-border)] ${colorClass} ${className}`}
+      className={`inline-flex items-center gap-2 rounded-xl border-2 px-3 py-2 text-xs font-semibold tracking-wide shadow-[2px_2px_0_var(--juba-app-line)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--juba-app-line)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--juba-app-line)] ${colorClass} ${className}`}
     >
       {label}
     </button>
