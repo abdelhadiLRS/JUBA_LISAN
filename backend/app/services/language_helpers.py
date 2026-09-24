@@ -49,6 +49,12 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
         "iso639": "zh",
         "flag": "🇨🇳",
     },
+    "ru-RU": {
+        "name": "Russian",
+        "self_name": "Русский",
+        "iso639": "ru",
+        "flag": "🇷🇺",
+    },
 }
 
 _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
@@ -111,6 +117,12 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
         "romanization": "pinyin",
         "uses_word_spacing": False,
         "reading_length_unit": "characters",
+    },
+    "ru-RU": {
+        "script": "cyrillic",
+        "romanization": "",
+        "uses_word_spacing": True,
+        "reading_length_unit": "words",
     },
 }
 
