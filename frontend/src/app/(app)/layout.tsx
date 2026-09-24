@@ -6,7 +6,6 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useAuthStore, isSubscribed } from '@/store/auth'
 import { useProgressStore } from '@/store/progress'
-import { LearningProgressBridge } from '@/components/LearningProgressBridge'
 import { useConfigStore } from '@/store/config'
 import { apiFetch } from '@/lib/api'
 import { mapUser } from '@/lib/mappers'
@@ -23,6 +22,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const tCommon = useTranslations('common')
   const tBilling = useTranslations('billing')
   const pathname = usePathname()
+  const user = useAuthStore((s) => s.user)
+  const isAdmin = user?.role === 'admin'
+  const isAdminRoute = pathname === '/admin' || pathname.startsWith('/admin/')
 
   const mainNavItems = [
     { href: '/dashboard', label: tNav('home') },
@@ -55,7 +57,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   ]
 
   const router = useRouter()
-  const user = useAuthStore((s) => s.user)
   const xp = useProgressStore((s) => s.xp)
   const accessToken = useAuthStore((s) => s.accessToken)
   const setTokens = useAuthStore((s) => s.setTokens)
@@ -118,7 +119,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         const me = await meRes.json()
         setUser(mapUser(me))
 
-        if (me.learning_goals === null) {
+        if (me.learning_goals === null && me.role !== 'admin') {
           router.replace('/onboarding')
           return
         }
@@ -132,6 +133,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     init()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (initializing || !isAdmin || isAdminRoute) return
+    router.replace('/admin')
+  }, [initializing, isAdmin, isAdminRoute, router])
 
   useEffect(() => {
     const endsAt =
@@ -192,7 +198,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     }
   }, [initializing])
 
-  if (initializing) {
+  if (initializing || (isAdmin && !isAdminRoute)) {
     return (
       <PageLoading
         label={tCommon('initializing')}
@@ -201,6 +207,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       />
     )
   }
+
+  const visibleMainNavItems = isAdmin ? [] : mainNavItems
+  const visibleResourceNavItems = isAdmin ? [] : resourceNavItems
+  const visibleBottomNavItems = isAdmin ? [] : bottomNavItems
 
   const feedbackBadgeText =
     feedbackUnreadCount > 99
@@ -229,7 +239,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto py-4">
           {/* Main items */}
-          {mainNavItems.map((item) => {
+          {visibleMainNavItems.map((item) => {
             const active =
               pathname === item.href || pathname.startsWith(item.href + '/')
             return (
@@ -255,6 +265,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             )
           })}
 
+          {!isAdmin && <>
           {/* Resources group */}
           <div className="mt-2">
             <button
@@ -265,7 +276,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <span className="text-fl-label">{resourcesOpen ? '▴' : '▾'}</span>
             </button>
             {resourcesOpen &&
-              resourceNavItems.map((item) => {
+              visibleResourceNavItems.map((item) => {
                 const active =
                   pathname === item.href || pathname.startsWith(item.href + '/')
                 return (
@@ -289,9 +300,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               })}
           </div>
 
+          </>
+          }
+
           {/* Bottom items */}
           <div className="border-fl-border mt-2 border-t pt-2">
-            {bottomNavItems.map((item) => {
+            {visibleBottomNavItems.map((item) => {
               const active =
                 pathname === item.href || pathname.startsWith(item.href + '/')
               return (
@@ -421,7 +435,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <div className="border-fl-border border-b">
               <LanguageSwitcher />
             </div>
-            {mainNavItems.map((item) => {
+            {visibleMainNavItems.map((item) => {
               const active =
                 pathname === item.href || pathname.startsWith(item.href + '/')
               return (
@@ -448,6 +462,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               )
             })}
 
+            {!isAdmin && <>
             {/* Resources group (mobile) */}
             <div>
               <button
@@ -460,7 +475,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </span>
               </button>
               {resourcesOpen &&
-                resourceNavItems.map((item) => {
+                visibleResourceNavItems.map((item) => {
                   const active =
                     pathname === item.href ||
                     pathname.startsWith(item.href + '/')
@@ -486,8 +501,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 })}
             </div>
 
+            </>
+            }
+
             {/* Bottom items (mobile) */}
-            {bottomNavItems.map((item) => {
+            {visibleBottomNavItems.map((item) => {
               const active =
                 pathname === item.href || pathname.startsWith(item.href + '/')
               return (
