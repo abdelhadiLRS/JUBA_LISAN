@@ -73,7 +73,7 @@ export default function FriendsPage() {
   }
 
   return (
-    <div className="juba-page-shell space-y-6 px-4 py-6 sm:px-6">
+    <div className="juba-friends-shell juba-page-shell space-y-6 px-4 py-6 sm:px-6">
       <section className="juba-page-hero">
         <div>
           <p className="juba-eyebrow"><Users className="inline h-4 w-4" /> LEARN TOGETHER</p>
