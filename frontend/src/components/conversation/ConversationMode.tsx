@@ -53,21 +53,21 @@ function QuotaBar({
   const exceeded = !unlimited && limit > 0 && used >= limit
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[var(--juba-muted)] w-36 shrink-0 font-mono tracking-widest uppercase">
+      <span className="text-[var(--juba-app-muted)] w-36 shrink-0 font-mono tracking-widest uppercase">
         {label}
       </span>
       {unlimited ? (
-        <span className="text-[var(--juba-muted)] font-mono">∞</span>
+        <span className="text-[var(--juba-app-muted)] font-mono">∞</span>
       ) : (
         <>
-          <div className="bg-[var(--juba-surface-soft)] h-1 flex-1 overflow-hidden">
+          <div className="bg-[#f3f7ef] h-1 flex-1 overflow-hidden">
             <div
-              className={`h-full transition-all ${exceeded ? 'bg-[var(--juba-danger)]' : 'bg-[var(--juba-violet)]'}`}
+              className={`h-full transition-all ${exceeded ? 'bg-[#b33a32]' : 'bg-[var(--juba-app-green)]'}`}
               style={{ width: `${pct}%` }}
             />
           </div>
           <span
-            className={`text-[var(--juba-muted)] font-mono tabular-nums ${exceeded ? 'text-[var(--juba-danger)]' : 'text-[var(--juba-muted)]'}`}
+            className={`text-[var(--juba-app-muted)] font-mono tabular-nums ${exceeded ? 'text-[#b33a32]' : 'text-[var(--juba-app-muted)]'}`}
           >
             {used}&thinsp;/&thinsp;{limit}
           </span>
@@ -119,18 +119,18 @@ function QuotaPill({
     <div className="w-full">
       <button
         onClick={() => setOpen((v) => !v)}
-        className={`text-[var(--juba-muted)] flex w-full items-center justify-between border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
+        className={`text-[var(--juba-app-muted)] flex w-full items-center justify-between border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
           alert
-            ? 'border-[var(--juba-danger)]/50 text-[var(--juba-danger)] hover:border-[var(--juba-danger)]'
-            : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:border-[var(--juba-violet-dark)] hover:text-[var(--juba-muted)]'
+            ? 'border-[#b33a32]/50 text-[#b33a32] hover:border-[#b33a32]'
+            : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green-dark)] hover:text-[var(--juba-app-muted)]'
         }`}
       >
         <span>● {text}</span>
-        <span className="text-[var(--juba-muted)]">{open ? '▴' : '▾'}</span>
+        <span className="text-[var(--juba-app-muted)]">{open ? '▴' : '▾'}</span>
       </button>
 
       {open && (
-        <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] space-y-1.5 border border-t-0 px-4 py-3">
+        <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] space-y-1.5 border border-t-0 px-4 py-3">
           <QuotaBar
             label={t('quotaSessions')}
             used={quota.sessions_this_week}
@@ -191,21 +191,21 @@ function TrialPremiumCta() {
   }
 
   return (
-    <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] mb-4 border p-5 text-center">
-      <p className="text-[var(--juba-muted)] mb-2 font-mono tracking-widest uppercase">
+    <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] mb-4 border p-5 text-center">
+      <p className="text-[var(--juba-app-muted)] mb-2 font-mono tracking-widest uppercase">
         {tConversation('trialCtaLabel')}
       </p>
-      <h2 className="text-[var(--juba-text)] mb-2 font-mono text-base font-bold">
+      <h2 className="text-[var(--juba-app-ink)] mb-2 font-mono text-base font-bold">
         {tConversation('trialCtaTitle')}
       </h2>
-      <p className="text-[var(--juba-muted)] mb-5 font-mono text-xs leading-relaxed">
+      <p className="text-[var(--juba-app-muted)] mb-5 font-mono text-xs leading-relaxed">
         {tConversation('trialCtaDesc')}
       </p>
       <div className="flex flex-col gap-3">
         <button
           onClick={() => handleCheckout('yearly')}
           disabled={loading !== null}
-          className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 w-full px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+          className="bg-[var(--juba-app-green)] text-white hover:bg-[var(--juba-app-green)]/90 w-full px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
         >
           {loading === 'yearly' ? (
             '...'
@@ -223,7 +223,7 @@ function TrialPremiumCta() {
         <button
           onClick={() => handleCheckout('monthly')}
           disabled={loading !== null}
-          className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet-dark)] w-full border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+          className="border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-green-dark)] w-full border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
         >
           {loading === 'monthly'
             ? '...'
@@ -231,11 +231,11 @@ function TrialPremiumCta() {
         </button>
       </div>
       {error && (
-        <p className="mt-4 font-mono text-[var(--juba-danger)]">{error}</p>
+        <p className="mt-4 font-mono text-[#b33a32]">{error}</p>
       )}
       <button
         onClick={() => router.push('/plan')}
-        className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] mt-5 w-full font-mono tracking-widest uppercase transition-colors"
+        className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] mt-5 w-full font-mono tracking-widest uppercase transition-colors"
       >
         {t('paywallSkip')}
       </button>
@@ -1010,19 +1010,19 @@ export default function ConversationMode({
   return (
     <div className="juba-conversation-shell mx-auto flex h-full max-w-4xl flex-col overflow-hidden p-4 md:p-6">
       {/* Header */}
-      <div className="border-[var(--juba-border)] mb-6 flex items-end justify-between border-b pb-4">
+      <div className="border-[var(--juba-app-line)] mb-6 flex items-end justify-between border-b pb-4">
         <div>
-          <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-1 font-mono tracking-widest uppercase">
+          <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] mb-1 font-mono tracking-widest uppercase">
             {t('subtitle')}
           </p>
-          <h1 className="text-[var(--juba-text)] font-mono text-2xl font-bold tracking-tight">
+          <h1 className="text-[var(--juba-app-ink)] font-mono text-2xl font-bold tracking-tight">
             {t('title')}
           </h1>
         </div>
         {onClose && (
           <button
             onClick={onClose}
-            className="text-[var(--juba-muted)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-mono tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] font-mono tracking-widest uppercase transition-colors"
           >
             ← {tCommon('back')}
           </button>
@@ -1030,7 +1030,7 @@ export default function ConversationMode({
       </div>
 
       {trialMode && (
-        <div className="border-[var(--juba-violet)]/40 bg-[var(--juba-surface)] text-[var(--juba-muted)] mb-4 border px-4 py-3 text-center font-mono text-xs tracking-widest uppercase">
+        <div className="border-[var(--juba-app-green)]/40 bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] mb-4 border px-4 py-3 text-center font-mono text-xs tracking-widest uppercase">
           {t('trialBanner', {
             minutes: Math.round((voiceTrialDurationSeconds ?? 300) / 60),
           })}
@@ -1042,7 +1042,7 @@ export default function ConversationMode({
       {/* Transcript area */}
       <div className="mb-4 min-h-0 flex-1 space-y-3 overflow-y-auto px-2">
         {transcript.length === 0 && !streamingText && status === 'live' && (
-          <p className="text-[var(--juba-text)] text-[var(--juba-muted)] py-8 text-center font-mono">
+          <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] py-8 text-center font-mono">
             {t('tapToStart')}
           </p>
         )}
@@ -1081,12 +1081,12 @@ export default function ConversationMode({
 
       {/* Status message */}
       {status === 'error' && errorMsg && (
-        <div className="border-[var(--juba-danger)]/40 bg-[var(--juba-surface)] text-[var(--juba-danger)] mb-4 border px-4 py-3 font-mono text-xs">
+        <div className="border-[#b33a32]/40 bg-[var(--juba-app-surface)] text-[#b33a32] mb-4 border px-4 py-3 font-mono text-xs">
           ✕ {errorMsg}
         </div>
       )}
       {status === 'ended' && (
-        <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-muted)] mb-4 border px-4 py-3 font-mono text-xs">
+        <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] mb-4 border px-4 py-3 font-mono text-xs">
           {t('sessionEnded')}
         </div>
       )}
@@ -1097,7 +1097,7 @@ export default function ConversationMode({
         !sessionActive &&
         (status === 'ready' || status === 'ended' || status === 'error') && (
           <div className="mb-4">
-            <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] mb-3 text-center font-mono tracking-widest uppercase">
+            <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mb-3 text-center font-mono tracking-widest uppercase">
               {t('startersHint')}
             </p>
             <div className="flex flex-wrap justify-center gap-2">
@@ -1112,7 +1112,7 @@ export default function ConversationMode({
                       },
                     ])
                   }
-                  className="text-[var(--juba-muted)] border-[var(--juba-border)] hover:border-[var(--juba-violet-dark)] hover:text-[var(--juba-text)] border px-3 py-2 font-mono text-xs tracking-wide transition-colors"
+                  className="text-[var(--juba-app-muted)] border-[var(--juba-app-line)] hover:border-[var(--juba-app-green-dark)] hover:text-[var(--juba-app-ink)] border px-3 py-2 font-mono text-xs tracking-wide transition-colors"
                 >
                   {topic}
                 </button>
@@ -1132,7 +1132,7 @@ export default function ConversationMode({
         {/* Quota pill — freemium gets a simplified voice counter, premium gets full quota bars */}
         {freemiumVoiceRemaining != null && freemiumVoiceLimit != null ? (
           <span
-            className={`text-[var(--juba-text)] font-mono tracking-widest uppercase ${freemiumVoiceRemaining <= 0 ? 'text-[var(--juba-danger)]' : 'text-[var(--juba-muted)]'}`}
+            className={`text-[var(--juba-app-ink)] font-mono tracking-widest uppercase ${freemiumVoiceRemaining <= 0 ? 'text-[#b33a32]' : 'text-[var(--juba-app-muted)]'}`}
           >
             {t('freemiumVoiceRemaining', {
               remaining: freemiumVoiceRemaining,
