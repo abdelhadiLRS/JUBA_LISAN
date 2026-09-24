@@ -4822,3 +4822,170 @@ main [dir="rtl"] h3,
     box-shadow:4px 4px 0 var(--juba-app-ink);
   }
 }
+
+
+/* JUBA LISAN — community, coach and games surfaces */
+.juba-friends-shell,
+.juba-coach-shell{
+  color:var(--juba-app-ink);
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,212,79,.12),transparent 280px),
+    var(--juba-app-bg);
+  min-height:calc(100vh - 64px);
+}
+
+.juba-friends-shell .juba-panel,
+.juba-coach-shell .juba-card{
+  border-color:var(--juba-app-line);
+  border-radius:22px;
+  background:var(--juba-app-surface);
+  box-shadow:0 8px 24px rgba(24,37,27,.05);
+}
+
+.juba-friends-shell .juba-page-hero{
+  border:2px solid var(--juba-app-ink);
+  border-radius:24px;
+  background:#e8f4df;
+  box-shadow:6px 6px 0 var(--juba-app-ink);
+}
+
+.juba-friends-shell .juba-page-title,
+.juba-friends-shell .juba-section-title,
+.juba-coach-shell h1,
+.juba-coach-shell h2,
+.juba-coach-shell h3{
+  color:var(--juba-app-ink);
+  letter-spacing:-.045em;
+}
+
+.juba-friends-shell .juba-input{
+  border-color:var(--juba-app-line);
+  border-radius:12px;
+  background:#f9fbf7;
+}
+
+.juba-friends-shell .juba-primary-button{
+  border-radius:12px;
+  border:2px solid var(--juba-app-ink);
+  background:var(--juba-app-ink);
+  color:#fff;
+  box-shadow:3px 3px 0 var(--juba-app-green);
+}
+
+.juba-friends-shell .juba-secondary-button{
+  border-radius:12px;
+  border:2px solid var(--juba-app-line);
+  background:#fff;
+  color:var(--juba-app-ink);
+}
+
+.juba-friends-shell .juba-badge{
+  border:1px solid #cbdac3;
+  border-radius:999px;
+  background:var(--juba-app-green-soft);
+  color:var(--juba-app-green-dark);
+}
+
+.juba-coach-shell .juba-card{
+  border-width:1px;
+}
+
+.juba-coach-shell button,
+.juba-coach-shell a{
+  border-radius:12px;
+}
+
+.juba-coach-shell [class*="bg-[var(--juba-primary)]"]{
+  background:var(--juba-app-green)!important;
+}
+
+.juba-coach-shell [class*="bg-[var(--juba-warm)]"]{
+  background:var(--juba-app-yellow)!important;
+}
+
+.juba-coach-shell [class*="bg-[var(--juba-primary-soft)]"]{
+  background:var(--juba-app-green-soft)!important;
+}
+
+.juba-coach-shell [class*="text-[var(--juba-primary-dark)]"]{
+  color:var(--juba-app-green-dark)!important;
+}
+
+.juba-coach-shell [class*="text-[var(--juba-text)]"]{
+  color:var(--juba-app-ink)!important;
+}
+
+.juba-coach-shell [class*="text-[var(--juba-muted)]"]{
+  color:var(--juba-app-muted)!important;
+}
+
+.juba-coach-shell [class*="border-[var(--juba-border)]"]{
+  border-color:var(--juba-app-line)!important;
+}
+
+.juba-coach-shell [class*="border-[#e2f2d3]"]{
+  border-color:var(--juba-app-line)!important;
+}
+
+.juba-coach-shell .juba-card:first-of-type{
+  border:2px solid var(--juba-app-ink);
+  box-shadow:6px 6px 0 var(--juba-app-ink);
+}
+
+.juba-games{
+  color:var(--juba-app-ink);
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,212,79,.12),transparent 300px),
+    var(--juba-app-bg);
+}
+
+.juba-games .games-header{
+  background:linear-gradient(135deg,#245d18 0%,#4d9727 65%,#8fcf63 100%);
+  border:2px solid var(--juba-app-ink);
+  box-shadow:7px 7px 0 var(--juba-app-ink);
+}
+
+.juba-games .games-panel,
+.juba-games .game-card,
+.juba-games .play-card,
+.juba-games .stats-grid > div{
+  border-color:var(--juba-app-line);
+  border-radius:22px;
+  box-shadow:0 8px 24px rgba(24,37,27,.055);
+}
+
+.juba-games .daily-challenge{
+  border-color:#e2c94f;
+  border-radius:22px;
+  box-shadow:5px 5px 0 var(--juba-app-ink);
+}
+
+.juba-games .game-card:hover{
+  border-color:#a9c79a;
+  box-shadow:5px 5px 0 rgba(24,37,27,.12);
+}
+
+.juba-games .games-brand{
+  background:rgba(255,255,255,.18);
+}
+
+@media(max-width:700px){
+  .juba-friends-shell,
+  .juba-coach-shell{
+    min-height:calc(100vh - 56px);
+  }
+  .juba-friends-shell .juba-page-hero{
+    box-shadow:4px 4px 0 var(--juba-app-ink);
+  }
+  .juba-coach-shell{
+    padding:1rem;
+  }
+  .juba-games{
+    padding:1rem 1rem 3rem;
+  }
+  .juba-games .games-header{
+    box-shadow:4px 4px 0 var(--juba-app-ink);
+    border-radius:22px;
+    padding:1.5rem;
+  }
+}
