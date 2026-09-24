@@ -170,7 +170,7 @@ export default function CoachPage() {
             <div className="space-y-3">
               {(plan.lessons ?? []).slice(0, 4).map((lesson, index) => (
                 <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[28px] border-2 border-[var(--juba-app-line)] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-app-green)]">
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[20px] ${lesson.is_completed ? 'bg-[#fff5d6] text-[var(--juba-app-green-dark)]' : 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)]'}`}>
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[20px] ${lesson.is_completed ? 'bg-[var(--juba-app-yellow)] text-[var(--juba-app-green-dark)]' : 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)]'}`}>
                     {lesson.is_completed ? <CheckCircle2 className="h-5 w-5" /> : <span className="text-sm font-black">{index + 1}</span>}
                   </div>
                   <div className="min-w-0 flex-1">
