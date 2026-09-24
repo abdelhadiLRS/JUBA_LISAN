@@ -12,14 +12,14 @@ export function LandingFooter({ t }: LandingFooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-12">
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="juba-footer-brand-mark flex h-9 w-9 items-center justify-center rounded-xl bg-[#ffd45c] text-[#183022] font-bold text-lg shadow-[0_4px_0_#183022] border-2 border-[#183022]">
+              <div className="juba-footer-brand-mark flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--juba-app-yellow)] text-[var(--juba-app-ink)] font-bold text-lg shadow-[0_4px_0_var(--juba-app-ink)] border-2 border-[var(--juba-app-ink)]">
                 J
               </div>
-              <span className="font-sans text-xl font-extrabold tracking-tight text-[#183022]">
-                JUBA <span className="text-[#285b17]">LISAN</span>
+              <span className="font-sans text-xl font-extrabold tracking-tight text-[var(--juba-app-ink)]">
+                JUBA <span className="text-[var(--juba-app-green-dark)]">LISAN</span>
               </span>
             </Link>
-            <p className="text-[#617068] text-sm max-w-sm leading-relaxed mb-6">
+            <p className="text-[var(--juba-app-muted)] text-sm max-w-sm leading-relaxed mb-6">
               {t('footerTagline')}
             </p>
             <p className="juba-footer-note text-xs">
@@ -32,10 +32,10 @@ export function LandingFooter({ t }: LandingFooterProps) {
               {t('footerProduct')}
             </h4>
             <ul className="space-y-2.5 text-sm">
-              <li><a href="#features" className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">{t('navFeatures')}</a></li>
-              <li><a href="#demo" className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">AI Voice Demo</a></li>
-              <li><a href="#languages" className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">Supported Languages</a></li>
-              <li><a href="#pricing" className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">{t('navPricing')}</a></li>
+              <li><a href="#features" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('navFeatures')}</a></li>
+              <li><a href="#demo" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">AI Voice Demo</a></li>
+              <li><a href="#languages" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">Supported Languages</a></li>
+              <li><a href="#pricing" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('navPricing')}</a></li>
             </ul>
           </div>
 
@@ -44,8 +44,8 @@ export function LandingFooter({ t }: LandingFooterProps) {
               {t('footerResources')}
             </h4>
             <ul className="space-y-2.5 text-sm">
-              <li><a href="#faq" className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">{t('navFAQ')}</a></li>
-              <li><a href="https://github.com/abdelhadiLRS/JUBA_LISAN" target="_blank" rel="noopener noreferrer" className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">{t('github')}</a></li>
+              <li><a href="#faq" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('navFAQ')}</a></li>
+              <li><a href="https://github.com/abdelhadiLRS/JUBA_LISAN" target="_blank" rel="noopener noreferrer" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('github')}</a></li>
               <li className="pt-1"><ContactButton /></li>
             </ul>
           </div>
@@ -55,8 +55,8 @@ export function LandingFooter({ t }: LandingFooterProps) {
               {t('footerLegal')}
             </h4>
             <ul className="space-y-2.5 text-sm">
-              <li><Link href="/privacy?from=landing" className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">{t('privacy')}</Link></li>
-              <li><Link href="/terms?from=landing" className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">{t('terms')}</Link></li>
+              <li><Link href="/privacy?from=landing" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('privacy')}</Link></li>
+              <li><Link href="/terms?from=landing" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('terms')}</Link></li>
             </ul>
           </div>
         </div>
