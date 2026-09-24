@@ -80,7 +80,7 @@ function CategoryCard({
   }
 
   return (
-    <div className="border-fl-border bg-fl-surface border">
+    <div className="juba-phrasebook-category border-fl-border bg-fl-surface border">
       <div className="border-fl-border flex items-center gap-3 border-b px-5 py-4">
         <span className="text-xl">{cat.icon}</span>
         <div className="min-w-0 flex-1">
