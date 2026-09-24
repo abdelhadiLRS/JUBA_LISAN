@@ -33,32 +33,32 @@ function StatusBadge({ status, index }: { status: UnitStatus; index: number }): 
   const palette = palettes[index % palettes.length]
 
   if (status.isLevelTest) {
-    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[22px] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)] shadow-[0_7px_0_#d8ccff]"><Ribbon className="h-7 w-7" /></span>
+    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)] shadow-[0_5px_0_var(--juba-app-ink)]"><Ribbon className="h-7 w-7" /></span>
   }
   if (status.completed) {
-    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[22px] bg-[var(--juba-app-green)] text-white shadow-[0_6px_0_var(--juba-app-green-dark)]"><Check className="h-7 w-7" strokeWidth={3} /></span>
+    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[var(--juba-app-green)] text-white shadow-[0_6px_0_var(--juba-app-green-dark)]"><Check className="h-7 w-7" strokeWidth={3} /></span>
   }
   if (status.active) {
-    return <span className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-[22px] text-[var(--juba-app-green-dark)] shadow-[0_7px_0_rgba(79,43,209,.16)]" style={{ background: palette.bg }}><span className="absolute -end-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white text-[var(--juba-app-green)] shadow-sm"><Sparkles className="h-3.5 w-3.5" /></span><Play className="h-7 w-7 fill-current" /></span>
+    return <span className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl text-[var(--juba-app-green-dark)] shadow-[0_5px_0_rgba(24,37,27,.12)]" style={{ background: palette.bg }}><span className="absolute -end-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white text-[var(--juba-app-green)] shadow-sm"><Sparkles className="h-3.5 w-3.5" /></span><Play className="h-7 w-7 fill-current" /></span>
   }
   if (status.locked) {
-    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[22px] bg-[#eef2eb] text-[#8b978f]"><Lock className="h-5 w-5" /></span>
+    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#eef2eb] text-[#8b978f]"><Lock className="h-5 w-5" /></span>
   }
-  return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[22px] text-[var(--juba-app-green-dark)]" style={{ background: palette.bg }}><Circle className="h-6 w-6" /></span>
+  return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl text-[var(--juba-app-green-dark)]" style={{ background: palette.bg }}><Circle className="h-6 w-6" /></span>
 }
 
 export default function UnitCard({ title, index, lessonCount, grammarCount, competency, status, onClick, onStartLesson }: Props) {
   const t = useTranslations('plan')
   const tCommon = useTranslations('common')
   const barWidth = Math.round(competency * 100)
-  const barColor = status.completed ? 'var(--juba-app-green)' : status.active ? '#b33a32' : 'var(--juba-app-green-soft)'
+  const barColor = status.completed ? 'var(--juba-app-green)' : status.active ? 'var(--juba-app-yellow)' : 'var(--juba-app-green-soft)'
 
   return (
     <div className={`juba-ff-unit-card group ${status.locked ? 'juba-ff-unit-locked' : status.active ? 'juba-ff-unit-active' : ''}`}>
       <button
         onClick={onClick}
         disabled={status.locked}
-        className={`w-full rounded-[20px] p-5 text-start sm:p-6 ${status.locked ? 'cursor-default' : 'hover:-translate-y-0.5'} transition-transform`}
+        className={`w-full rounded-2xl p-5 text-start sm:p-6 ${status.locked ? 'cursor-default' : 'hover:-translate-y-0.5'} transition-transform`}
         aria-label={t('unitAriaLabel', { index: index + 1, title })}
       >
         <div className="flex items-center gap-4">
