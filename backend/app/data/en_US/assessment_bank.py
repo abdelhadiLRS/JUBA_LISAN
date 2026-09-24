@@ -1410,14 +1410,5 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         ],
         correct="Adjustments for inflation and population growth.",
     ),
-    AssessmentQuestion(
-        id="g-c2-008",
-        skill="grammar",
-        difficulty="C2",
-        question="Were the proposal ___ accepted, the implementation would begin immediately.",
-        options=["to be", "being", "been", "be"],
-        correct="to be",
-        grammar_slug="formal-conditional-inversion",
-    ),
 
 ]
