@@ -11,7 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.app_logger import get_logger
 from app.core.config import settings
 from app.core.database import get_db
-from app.core.deps import get_current_user, get_redis
+from app.core.deps import get_current_user, get_redis, require_learner
 from app.core.limiter import limiter
 from app.data._types import PhrasebookCategory
 from app.data.phrasebook import (
@@ -38,7 +38,7 @@ from app.services.resource_native_help import (
     upsert_native_help,
 )
 
-router = APIRouter(prefix="/api/phrasebook", tags=["phrasebook"])
+router = APIRouter(prefix="/api/phrasebook", tags=["phrasebook"], dependencies=[Depends(require_learner)])
 logger = get_logger(__name__)
 
 
