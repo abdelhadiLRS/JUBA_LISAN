@@ -42,12 +42,12 @@ export function LoadingBar() {
 
   return (
     <div
-      className="fixed top-0 right-0 left-0 z-[300] h-1 overflow-hidden border-b border-[var(--juba-border)] bg-[var(--juba-surface-soft)]"
+      className="fixed top-0 right-0 left-0 z-[300] h-1 overflow-hidden border-b border-[var(--juba-app-line)] bg-[#f3f7ef]"
       role="progressbar"
       aria-label="Loading"
     >
       <div
-        className={`h-full bg-[var(--juba-primary-dark)] ${
+        className={`h-full bg-[var(--juba-app-green-dark)] ${
           phase === 'completing'
             ? 'animate-loading-bar-complete'
             : 'animate-loading-bar'
