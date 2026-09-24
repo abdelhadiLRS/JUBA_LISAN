@@ -122,11 +122,12 @@ export const useLanguageStore = create<LanguageStore>((set, get) => ({
   },
 
   addLanguage: async (code: string): Promise<boolean> => {
+    const canonicalCode = getLanguageByCode(code)?.code ?? code.trim()
     try {
       const res = await apiFetch('/api/languages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ target_language: code }),
+        body: JSON.stringify({ target_language: canonicalCode }),
       })
       if (!res.ok) return false
       await get().fetchLanguages()
