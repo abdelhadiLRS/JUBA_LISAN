@@ -112,23 +112,23 @@ export function DashboardAnnouncement() {
         <section
           role="status"
           dir={isArabic ? 'rtl' : 'ltr'}
-          className={`relative mb-6 rounded-2xl border p-4 pr-12 ${
+          className={`juba-card relative mb-6 p-4 pr-12 ${
             syncNotice.status === 'synced'
-              ? 'border-[color-mix(in_srgb,var(--juba-primary)_45%,var(--juba-border))] bg-[var(--juba-primary-soft)]'
-              : 'border-fl-border bg-fl-surface'
+              ? 'border-[color-mix(in_srgb,var(--juba-app-green)_45%,var(--juba-app-line))] bg-[var(--juba-app-green-soft)]'
+              : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)]'
           }`}
         >
           <div className="flex items-start gap-3">
             <CheckCircle2
               className={`mt-0.5 size-5 shrink-0 ${
                 syncNotice.status === 'synced'
-                  ? 'text-[var(--juba-primary)]'
-                  : 'text-fl-muted-1'
+                  ? 'text-[var(--juba-app-green)]'
+                  : 'text-[var(--juba-app-muted)]'
               }`}
               aria-hidden="true"
             />
             <div className="min-w-0">
-              <p className="text-fl-fg text-sm font-semibold">
+              <p className="text-[var(--juba-app-ink)] text-sm font-semibold">
                 {syncNotice.status === 'synced'
                   ? isArabic
                     ? `تمت مزامنة ${syncNotice.count} ${syncNotice.count === 1 ? 'كلمة' : 'كلمات'} محفوظة من وضع الزائر.`
@@ -137,7 +137,7 @@ export function DashboardAnnouncement() {
                     ? 'احتفظنا بالكلمات المحفوظة على هذا الجهاز. يمكنك مزامنتها لاحقًا.'
                     : 'Your saved words are still on this device and can be synced later.'}
               </p>
-              <p className="text-fl-muted-2 mt-1 text-xs leading-relaxed">
+              <p className="text-[var(--juba-app-muted)] mt-1 text-xs leading-relaxed">
                 {syncNotice.status === 'synced'
                   ? isArabic
                     ? 'أصبحت الآن جزءًا من مفردات حسابك.'
@@ -151,7 +151,7 @@ export function DashboardAnnouncement() {
                   type="button"
                   onClick={retryGuestSync}
                   disabled={syncing}
-                  className="mt-3 inline-flex items-center gap-2 rounded-full border border-fl-border bg-fl-surface px-3 py-1.5 text-xs font-semibold text-fl-fg transition-colors hover:bg-[var(--juba-surface-soft)] disabled:cursor-wait disabled:opacity-50"
+                  className="mt-3 inline-flex items-center gap-2 rounded-full border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-3 py-1.5 text-xs font-semibold text-[var(--juba-app-ink)] transition-colors hover:bg-[#f3f7ef] disabled:cursor-wait disabled:opacity-50"
                 >
                   <RefreshCw className={`size-3.5 ${syncing ? 'animate-spin' : ''}`} aria-hidden="true" />
                   {isArabic ? 'إعادة المزامنة' : 'Retry sync'}
@@ -163,7 +163,7 @@ export function DashboardAnnouncement() {
             type="button"
             onClick={dismissSyncNotice}
             aria-label={isArabic ? 'إغلاق' : 'Dismiss'}
-            className="text-fl-muted-2 hover:text-fl-fg absolute top-3 right-3 inline-flex size-8 items-center justify-center transition-colors"
+            className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] absolute top-3 right-3 inline-flex size-8 items-center justify-center transition-colors"
           >
             <X className="size-4" aria-hidden="true" />
           </button>
@@ -173,28 +173,28 @@ export function DashboardAnnouncement() {
       {showAnnouncement && translation && (
         <section
           aria-labelledby="dashboard-announcement-title"
-          className="border-fl-accent/50 bg-fl-accent/5 relative mb-6 border p-5 pr-14"
+          className="juba-card relative mb-6 border-[color-mix(in_srgb,var(--juba-app-green)_35%,var(--juba-app-line))] bg-[var(--juba-app-green-soft)] p-5 pr-14"
         >
           <div className="flex gap-3">
             <Megaphone
-              className="text-fl-accent mt-0.5 size-5 shrink-0"
+              className="text-[var(--juba-app-green-dark)] mt-0.5 size-5 shrink-0"
               aria-hidden="true"
             />
             <div className="min-w-0">
               <h2
                 id="dashboard-announcement-title"
-                className="text-fl-fg font-mono text-lg font-bold whitespace-pre-wrap"
+                className="text-[var(--juba-app-ink)] text-lg font-extrabold leading-tight whitespace-pre-wrap"
               >
                 {translation.title}
               </h2>
-              <p className="text-fl-accent mt-1 font-mono text-xs font-bold tracking-wide whitespace-pre-wrap">
+              <p className="text-[var(--juba-app-green-dark)] mt-1 text-xs font-extrabold tracking-[.12em] uppercase whitespace-pre-wrap">
                 {translation.subtitle}
               </p>
-              <p className="text-fl-muted-1 mt-3 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+              <p className="text-[var(--juba-app-muted)] mt-3 text-sm leading-relaxed whitespace-pre-wrap">
                 {translation.description}
               </p>
               {error && (
-                <p role="alert" className="text-fl-error mt-3 font-mono text-xs">
+                <p role="alert" className="text-[var(--juba-app-error)] mt-3 font-sans text-xs">
                   {t('announcementDismissError')}
                 </p>
               )}
@@ -205,7 +205,7 @@ export function DashboardAnnouncement() {
             onClick={dismiss}
             disabled={pending}
             aria-label={t('announcementDismiss')}
-            className="text-fl-muted-2 hover:text-fl-fg absolute top-3 right-3 inline-flex size-9 items-center justify-center transition-colors disabled:cursor-wait disabled:opacity-40"
+            className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] absolute top-3 right-3 inline-flex size-9 items-center justify-center transition-colors disabled:cursor-wait disabled:opacity-40"
           >
             <X className="size-5" aria-hidden="true" />
           </button>
