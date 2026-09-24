@@ -383,7 +383,7 @@ export default function ChatPage() {
                       {c.source === 'voice' && (
                         <span
                           className="text-[var(--juba-app-muted)] mr-1.5"
-                          title="Voice session"
+                          title={t('voiceSession')}
                         >
                           🎤
                         </span>
@@ -396,7 +396,7 @@ export default function ChatPage() {
                         setDeletePending(c.id)
                       }}
                       className="text-[var(--juba-app-ink)] text-[#b33a32] hover:text-[#b33a32] shrink-0 font-mono opacity-0 transition-all group-hover:opacity-100"
-                      title="Delete"
+                      title={t('delete')}
                     >
                       ✕
                     </button>
@@ -482,7 +482,7 @@ export default function ChatPage() {
                     {msg.role === 'assistant' ? (
                       <Image
                         src="/logo_head.png"
-                        alt="Tutor"
+                        alt={t('tutor')}
                         width={28}
                         height={28}
                         className="h-full w-full object-cover"
