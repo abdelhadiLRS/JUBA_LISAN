@@ -10,7 +10,7 @@ import { getLanguageByCode } from '@/lib/target-languages'
 export default function LanguageSwitcher() {
   const tLang = useTranslations('languages')
   const tTarget = useTranslations('targetLanguages')
-  const targetLabel = (code: string, fallback?: string) => (tTarget.has(code) ? targetLabel(code) : fallback ?? code)
+  const targetLabel = (code: string, fallback?: string) => (tTarget.has(code) ? targetLabel(code, getLanguageByCode(code)?.name) : fallback ?? getLanguageByCode(code)?.name ?? code)
   const router = useRouter()
   const activeLanguage = useLanguageStore((s) => s.activeLanguage)
   const userLanguages = useLanguageStore((s) => s.userLanguages)
@@ -79,7 +79,7 @@ export default function LanguageSwitcher() {
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-[var(--juba-app-green-soft)]">
           <Languages className="h-4 w-4 text-[var(--juba-app-green)]" aria-hidden="true" />
         </span>
-        <span className="min-w-0 flex-1 truncate">{isSwitching ? 'Switching…' : tTarget(activeLanguage.code)}</span>
+        <span className="min-w-0 flex-1 truncate">{isSwitching ? 'Switching…' : targetLabel(activeLanguage.code, getLanguageByCode(activeLanguage.code)?.name)}</span>
         {isSwitching ? (
           <Loader2 className="h-4 w-4 shrink-0 animate-spin text-[var(--juba-app-green)]" aria-hidden="true" />
         ) : multiple && (open
