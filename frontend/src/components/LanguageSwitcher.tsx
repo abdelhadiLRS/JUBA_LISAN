@@ -44,7 +44,7 @@ export default function LanguageSwitcher() {
   }
 
   const skeleton = useMemo(() => (
-    <div className="flex items-center gap-2 rounded-2xl border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-4 py-2.5 shadow-[0 3px 10px rgba(24,37,27,.05)] animate-pulse">
+    <div className="flex items-center gap-2 rounded-2xl border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-4 py-2.5 shadow-[3px_3px_0_var(--juba-app-ink)] animate-pulse">
       <div className="h-3.5 w-5 rounded bg-[var(--juba-app-line)]" />
       <div className="h-3 w-20 rounded bg-[var(--juba-app-line)]" />
     </div>
@@ -56,20 +56,20 @@ export default function LanguageSwitcher() {
 
   return (
     <div ref={ref} className="relative w-full">
-      {toast && <div className="pointer-events-none fixed inset-x-0 top-20 z-[100] flex justify-center px-4"><div className="pointer-events-auto rounded-2xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-5 py-3 text-xs font-bold tracking-wide text-[var(--juba-app-ink)] shadow-[0 6px 18px rgba(24,37,27,.06)]">{toastMsg}</div></div>}
-      <button onClick={() => multiple && setOpen(!open)} disabled={!multiple} className="group flex w-full items-center gap-3 rounded-2xl border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-4 py-2.5 text-left text-sm font-bold text-[var(--juba-app-ink)] shadow-[0 3px 10px rgba(24,37,27,.05)] transition-all hover:-translate-y-0.5 hover:shadow-[0 6px 18px rgba(24,37,27,.06)] disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-[0 3px 10px rgba(24,37,27,.05)]">
+      {toast && <div className="pointer-events-none fixed inset-x-0 top-20 z-[100] flex justify-center px-4"><div className="pointer-events-auto rounded-2xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-5 py-3 text-xs font-bold tracking-wide text-[var(--juba-app-ink)] shadow-[4px_4px_0_var(--juba-app-ink)]">{toastMsg}</div></div>}
+      <button onClick={() => multiple && setOpen(!open)} disabled={!multiple} className="group flex w-full items-center gap-3 rounded-2xl border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-4 py-2.5 text-left text-sm font-bold text-[var(--juba-app-ink)] shadow-[3px_3px_0_var(--juba-app-ink)] transition-all hover:-translate-y-0.5 hover:shadow-[4px_4px_0_var(--juba-app-ink)] disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-[3px_3px_0_var(--juba-app-ink)]">
         <Image src={activeLanguage.flagPath} alt={activeLanguage.code} width={22} height={15} className="shrink-0 rounded-sm object-cover" />
         <span className="truncate">{isSwitching ? '...' : tTarget(activeLanguage.code)}</span>
-        {multiple && <span className="ml-auto rounded-full bg-[#f3f7ef] px-2 py-0.5 text-xs text-[var(--juba-app-muted)]">{open ? '⌃' : '⌄'}</span>}
+        {multiple && <span className="ml-auto rounded-full bg-[var(--juba-app-green-soft)] px-2 py-0.5 text-xs text-[var(--juba-app-muted)]">{open ? '⌃' : '⌄'}</span>}
       </button>
-      {open && multiple && <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-2xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-1.5 shadow-[0 10px 28px rgba(24,37,27,.08)]">
+      {open && multiple && <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-2xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-1.5 shadow-[5px_5px_0_var(--juba-app-ink)]">
         {[...supportedUserLanguages].sort((a, b) => tTarget(a.target_language).localeCompare(tTarget(b.target_language))).map((ulang) => {
           const lang = getLanguageByCode(ulang.target_language)
           if (!lang) return null
-          return <button key={ulang.target_language} onClick={() => handleSwitch(ulang.target_language)} className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-bold transition-colors ${ulang.is_active ? 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'text-[var(--juba-app-ink)] hover:bg-[#f3f7ef]'}`}>
+          return <button key={ulang.target_language} onClick={() => handleSwitch(ulang.target_language)} className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-bold transition-colors ${ulang.is_active ? 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'text-[var(--juba-app-ink)] hover:bg-[var(--juba-app-green-soft)]'}`}>
             <Image src={lang.flagPath} alt={lang.code} width={22} height={15} className="shrink-0 rounded-sm object-cover" />
             <span className="truncate">{tTarget(lang.code)}</span>
-            {ulang.plan?.cefr_level && <span className="ml-1 rounded-full bg-[#f3f7ef] px-2 py-0.5 text-[11px] font-black text-[var(--juba-app-green-dark)]">{ulang.plan.cefr_level}</span>}
+            {ulang.plan?.cefr_level && <span className="ml-1 rounded-full bg-[var(--juba-app-green-soft)] px-2 py-0.5 text-[11px] font-black text-[var(--juba-app-green-dark)]">{ulang.plan.cefr_level}</span>}
             {ulang.is_active && <span className="ml-auto font-black">✓</span>}
           </button>
         })}
