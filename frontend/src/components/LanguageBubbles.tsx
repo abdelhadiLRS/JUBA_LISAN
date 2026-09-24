@@ -56,6 +56,17 @@ const DISPLAY_LANGUAGES: DisplayLanguage[] = [
   { code: 'sq', name: 'Shqip', regions: ['europe'], markerCountry: 'ALB', countries: ['ALB','XKX','MKD','MNE','SRB'] },
   { code: 'eu', name: 'Euskara', regions: ['europe'], markerCountry: 'ESP', countries: ['ESP','FRA'] },
   { code: 'gl', name: 'Galego', regions: ['europe'], markerCountry: 'ESP', countries: ['ESP'] },
+  { code: 'no', name: 'Norsk', regions: ['europe'], markerCountry: 'NOR', countries: ['NOR'] },
+  { code: 'da', name: 'Dansk', regions: ['europe'], markerCountry: 'DNK', countries: ['DNK'] },
+  { code: 'pl', name: 'Polski', regions: ['europe'], markerCountry: 'POL', countries: ['POL','LTU','BLR','UKR','CZE','SVK'] },
+  { code: 'cs', name: 'Čeština', regions: ['europe'], markerCountry: 'CZE', countries: ['CZE','SVK'] },
+  { code: 'sk', name: 'Slovenčina', regions: ['europe'], markerCountry: 'SVK', countries: ['SVK','CZE'] },
+  { code: 'fa', name: 'فارسی', regions: ['asia','africa-middle-east'], markerCountry: 'IRN', countries: ['IRN','AFG','TJK'] },
+  { code: 'hi', name: 'हिन्दी', regions: ['asia'], markerCountry: 'IND', countries: ['IND','FJI'] },
+  { code: 'bn', name: 'বাংলা', regions: ['asia'], markerCountry: 'BGD', countries: ['BGD','IND'] },
+  { code: 'id', name: 'Bahasa Indonesia', regions: ['asia'], markerCountry: 'IDN', countries: ['IDN'] },
+  { code: 'ms', name: 'Bahasa Melayu', regions: ['asia'], markerCountry: 'MYS', countries: ['MYS','BRN','SGP','IDN'] },
+  { code: 'th', name: 'ไทย', regions: ['asia'], markerCountry: 'THA', countries: ['THA'] },
 ]
 
 function WorldMap({
