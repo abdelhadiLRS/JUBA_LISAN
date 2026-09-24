@@ -6283,3 +6283,36 @@ main [dir="rtl"] h3,
   transform:translateY(-2px);
 }
 .juba-billing-actions p{color:var(--juba-app-error)!important}
+
+/* JUBA LISAN — landing navigation polish */
+.juba-ff-site-nav{
+  background:rgba(255,253,248,.94);
+  border-bottom:1px solid var(--landing-border);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.juba-ff-nav-link,.juba-ff-nav-signin{position:relative}
+.juba-ff-nav-link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-7px;
+  height:2px;
+  border-radius:999px;
+  background:var(--landing-green);
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform .16s ease;
+}
+.juba-ff-nav-link:hover::after,.juba-ff-nav-link:focus-visible::after{transform:scaleX(1)}
+.juba-ff-brand-mark{transition:transform .16s ease,box-shadow .16s ease}
+.juba-ff-brand:hover .juba-ff-brand-mark,.juba-ff-brand:focus-visible .juba-ff-brand-mark{transform:rotate(-4deg) translateY(-1px);box-shadow:4px 4px 0 rgba(24,48,34,.2)}
+.juba-ff-menu{background:var(--landing-surface);transition:background .16s ease,transform .16s ease}
+.juba-ff-menu:hover{background:var(--landing-green-soft);transform:translateY(-1px)}
+.juba-mobile-actions{border-top:1px solid var(--landing-border)}
+.juba-ff-mobile-menu{box-shadow:0 14px 28px rgba(24,48,34,.08)}
+@media(max-width:767px){
+  .juba-ff-site-nav{background:rgba(255,253,248,.97)}
+  .juba-ff-nav-link::after{display:none}
+}
