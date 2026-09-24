@@ -25,7 +25,7 @@ const tabsListVariants = cva(
   {
     variants: {
       variant: {
-        default: 'border-2 border-[var(--juba-app-line)] bg-[#f3f7ef]',
+        default: 'border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)]',
         line: 'gap-1 bg-transparent',
       },
     },
