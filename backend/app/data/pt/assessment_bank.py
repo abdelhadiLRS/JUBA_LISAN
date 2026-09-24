@@ -1236,4 +1236,303 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         ],
         correct="Alternância de acontecimentos favoráveis e desfavoráveis",
     ),
+    AssessmentQuestion(
+        id="g-a1-999",
+        skill="grammar",
+        difficulty="A1",
+        question="Completa: Nós ___ portugueses.",
+        options=[
+          "somos",
+          "sou",
+          "és",
+          "é"
+],
+        correct="somos",
+    ),
+    AssessmentQuestion(
+        id="g-a2-999",
+        skill="grammar",
+        difficulty="A2",
+        question="Completa: Ontem ___ ao mercado com a Ana.",
+        options=[
+          "fui",
+          "vou",
+          "ia",
+          "irei"
+],
+        correct="fui",
+    ),
+    AssessmentQuestion(
+        id="g-b1-999",
+        skill="grammar",
+        difficulty="B1",
+        question="Escolhe a forma correta: Procuro alguém que ___ falar alemão.",
+        options=[
+          "saiba",
+          "sabe",
+          "saberá",
+          "sabia"
+],
+        correct="saiba",
+    ),
+    AssessmentQuestion(
+        id="g-b2-999",
+        skill="grammar",
+        difficulty="B2",
+        question="Completa: Quando chegámos, a reunião já ___.",
+        options=[
+          "tinha começado",
+          "começou",
+          "tem começado",
+          "começará"
+],
+        correct="tinha começado",
+    ),
+    AssessmentQuestion(
+        id="g-b2-998",
+        skill="grammar",
+        difficulty="B2",
+        question="Escolhe o conector correto: Estava cansado; ___, continuou a trabalhar.",
+        options=[
+          "no entanto",
+          "porque",
+          "portanto",
+          "para que"
+],
+        correct="no entanto",
+    ),
+    AssessmentQuestion(
+        id="g-b2-997",
+        skill="grammar",
+        difficulty="B2",
+        question="Completa: Se tivesse mais tempo, ___ mais.",
+        options=[
+          "viajaria",
+          "viajo",
+          "viajava",
+          "viajarei"
+],
+        correct="viajaria",
+    ),
+    AssessmentQuestion(
+        id="g-b2-996",
+        skill="grammar",
+        difficulty="B2",
+        question="Escolhe a forma correta: É possível que eles ___ amanhã.",
+        options=[
+          "venham",
+          "vêm",
+          "virão",
+          "vinham"
+],
+        correct="venham",
+    ),
+    AssessmentQuestion(
+        id="g-b2-995",
+        skill="grammar",
+        difficulty="B2",
+        question="Completa: A pessoa ___ te falei chega amanhã.",
+        options=[
+          "de quem",
+          "que",
+          "onde",
+          "quem"
+],
+        correct="de quem",
+    ),
+    AssessmentQuestion(
+        id="g-b2-994",
+        skill="grammar",
+        difficulty="B2",
+        question="Escolhe a forma correta: Se soubesse disso, não ___ assim.",
+        options=[
+          "teria agido",
+          "agiria",
+          "agia",
+          "agirei"
+],
+        correct="teria agido",
+    ),
+    AssessmentQuestion(
+        id="g-b2-993",
+        skill="grammar",
+        difficulty="B2",
+        question="Completa: Embora ___ difícil, vale a pena tentar.",
+        options=[
+          "seja",
+          "é",
+          "será",
+          "era"
+],
+        correct="seja",
+    ),
+    AssessmentQuestion(
+        id="g-b2-992",
+        skill="grammar",
+        difficulty="B2",
+        question="Escolhe a forma correta: É uma medida ___ objetivo é reduzir os custos.",
+        options=[
+          "cujo",
+          "que o",
+          "onde o",
+          "qual"
+],
+        correct="cujo",
+    ),
+    AssessmentQuestion(
+        id="g-c1-999",
+        skill="grammar",
+        difficulty="C1",
+        question="Completa: Por mais que ___, não o convencerá.",
+        options=[
+          "insista",
+          "insiste",
+          "insistirá",
+          "insistia"
+],
+        correct="insista",
+    ),
+    AssessmentQuestion(
+        id="g-c1-998",
+        skill="grammar",
+        difficulty="C1",
+        question="Escolhe a forma correta: Não é que não ___ razão, mas faltam provas.",
+        options=[
+          "tenhas",
+          "tens",
+          "terás",
+          "tinhas"
+],
+        correct="tenhas",
+    ),
+    AssessmentQuestion(
+        id="g-c1-997",
+        skill="grammar",
+        difficulty="C1",
+        question="Completa: Longe de ___ um problema, a medida resolveu a situação.",
+        options=[
+          "ser",
+          "é",
+          "ter",
+          "estar"
+],
+        correct="ser",
+    ),
+    AssessmentQuestion(
+        id="g-c1-996",
+        skill="grammar",
+        difficulty="C1",
+        question="Escolhe o conector: Os dados são sólidos; ___, são necessárias mais verificações.",
+        options=[
+          "no entanto",
+          "portanto",
+          "porque",
+          "assim"
+],
+        correct="no entanto",
+    ),
+    AssessmentQuestion(
+        id="g-c1-995",
+        skill="grammar",
+        difficulty="C1",
+        question="Completa: Duvida-se que os resultados ___ representativos.",
+        options=[
+          "sejam",
+          "são",
+          "serão",
+          "eram"
+],
+        correct="sejam",
+    ),
+    AssessmentQuestion(
+        id="g-c1-994",
+        skill="grammar",
+        difficulty="C1",
+        question="Escolhe a formulação correta: É uma questão à qual ___ especial atenção.",
+        options=[
+          "é preciso prestar",
+          "é preciso de prestar",
+          "é preciso que prestar",
+          "é preciso prestando"
+],
+        correct="é preciso prestar",
+    ),
+    AssessmentQuestion(
+        id="g-c1-993",
+        skill="grammar",
+        difficulty="C1",
+        question="Completa: Na ausência de provas, a conclusão não pode ___ definitiva.",
+        options=[
+          "ser",
+          "é",
+          "ter",
+          "estar"
+],
+        correct="ser",
+    ),
+    AssessmentQuestion(
+        id="g-c1-992",
+        skill="grammar",
+        difficulty="C1",
+        question="Escolhe a forma correta: O estudo revelou uma tendência que ___ a consolidar-se.",
+        options=[
+          "se está",
+          "está a",
+          "tem de",
+          "vem a"
+],
+        correct="está a",
+    ),
+    AssessmentQuestion(
+        id="g-c2-999",
+        skill="grammar",
+        difficulty="C2",
+        question="Completa: Caso ___ necessário, será feita uma nova verificação.",
+        options=[
+          "seja",
+          "é",
+          "será",
+          "era"
+],
+        correct="seja",
+    ),
+    AssessmentQuestion(
+        id="g-c2-998",
+        skill="grammar",
+        difficulty="C2",
+        question="Escolhe a forma correta: Ainda que ___ reservas, aceitou a proposta.",
+        options=[
+          "tenha",
+          "tem",
+          "terá",
+          "tinha"
+],
+        correct="tenha",
+    ),
+    AssessmentQuestion(
+        id="g-c2-997",
+        skill="grammar",
+        difficulty="C2",
+        question="Completa: A hipótese, longe de ___ descartada, foi reformulada.",
+        options=[
+          "ser",
+          "é",
+          "ter",
+          "estar"
+],
+        correct="ser",
+    ),
+    AssessmentQuestion(
+        id="g-c2-996",
+        skill="grammar",
+        difficulty="C2",
+        question="Escolhe o conector: A interpretação é plausível; ___, continua difícil de demonstrar.",
+        options=[
+          "contudo",
+          "assim",
+          "porque",
+          "logo"
+],
+        correct="contudo",
+    ),
 ]
