@@ -288,7 +288,7 @@ export default function AdminReviewsPage() {
                       type="button"
                       onClick={() => setDeletePending(review)}
                       disabled={deletingId === review.id}
-                      className="border-red-200/50/30 text-[var(--juba-app-error)] text-[var(--juba-app-ink)] hover:bg-fl-error/10 flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide disabled:opacity-60 border-[var(--juba-app-line)]"
+                      className="border-red-200/60 text-[var(--juba-app-error)] hover:bg-red-50 flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide disabled:opacity-60"
                     >
                       <Trash2 className="size-3.5" /> {t('delete')}
                     </button>
