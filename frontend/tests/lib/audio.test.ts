@@ -493,11 +493,13 @@ describe('createAudioQueue', () => {
     await Promise.resolve()
     await Promise.resolve()
 
-    expect(audioAttempts).toBe(1)
+    expect(audioAttempts).toBe(0)
     expect(sources).toHaveLength(1)
-    expect(failedFallback).resolves.toBeUndefined()
 
+    sources[0].onended?.()
     await failedFallback
+
+    expect(audioAttempts).toBe(1)
     await queue.enqueue(new ArrayBuffer(16))
 
     expect(createCount).toBe(3)
