@@ -56,14 +56,16 @@ export function LandingNav({
     }
   }, [hasSession, stripeEnabled])
 
+  const closeMenu = () => setOpen(false)
+
   const links = (
     <>
-      <a href="#features" onClick={() => setOpen(false)} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navFeatures}</a>
-      <a href="#demo" onClick={() => setOpen(false)} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">AI Demo</a>
-      <a href="#languages" onClick={() => setOpen(false)} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">Languages</a>
-      {showReviews && <a href="#reviews" onClick={() => setOpen(false)} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navReviews}</a>}
-      {showPricing && <a href="#pricing" onClick={() => setOpen(false)} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navPricing}</a>}
-      <a href="#faq" onClick={() => setOpen(false)} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navFAQ}</a>
+      <a href="#features" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navFeatures}</a>
+      <a href="#demo" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">AI Demo</a>
+      <a href="#languages" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">Languages</a>
+      {showReviews && <a href="#reviews" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navReviews}</a>}
+      {showPricing && <a href="#pricing" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navPricing}</a>}
+      <a href="#faq" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navFAQ}</a>
     </>
   )
 
@@ -91,18 +93,25 @@ export function LandingNav({
           </Link>
         </div>
 
-        <button onClick={() => setOpen(!open)} className="juba-menu juba-ff-menu rounded-xl p-2 md:hidden" aria-label="Toggle menu">
+        <button
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          className="juba-menu juba-ff-menu rounded-xl p-2 md:hidden"
+          aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={open}
+          aria-controls="juba-mobile-navigation"
+        >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
       {open && (
-        <div className="juba-mobile-menu juba-ff-mobile-menu border-b px-6 pt-4 pb-6 md:hidden animate-in slide-in-from-top-2 duration-200">
+        <div id="juba-mobile-navigation" className="juba-mobile-menu juba-ff-mobile-menu border-b px-6 pt-4 pb-6 md:hidden animate-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col gap-4">
             {links}
-            <div className="pt-2 border-t border-[#dce7dc] flex flex-col gap-3">
-              <Link href={hasSession ? '/dashboard' : '/login'} onClick={() => setOpen(false)} className="juba-nav-signin juba-ff-nav-signin w-full text-center py-2 text-sm font-semibold">{hasSession ? dashboard : signIn}</Link>
-              <Link href={hasSession ? '/dashboard' : '/register'} onClick={() => setOpen(false)} className="juba-nav-cta juba-ff-nav-cta flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-black">
+            <div className="juba-mobile-actions pt-2 flex flex-col gap-3">
+              <Link href={hasSession ? '/dashboard' : '/login'} onClick={closeMenu} className="juba-nav-signin juba-ff-nav-signin w-full text-center py-2 text-sm font-semibold">{hasSession ? dashboard : signIn}</Link>
+              <Link href={hasSession ? '/dashboard' : '/register'} onClick={closeMenu} className="juba-nav-cta juba-ff-nav-cta flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-black">
                 <span>{hasSession ? dashboard : 'Get Started'}</span><span aria-hidden="true">✦</span>
               </Link>
             </div>
