@@ -2001,5 +2001,16 @@
       "recall": "Recall",
       "review": "Review"
     }
+  },
+  "translator": {
+    "eyebrow": "JUBA LISAN · Instant Translator",
+    "title": "Translate. Understand. Learn.",
+    "description": "Instant translation for visitors without registration. Save words optionally to build your language memory.",
+    "inputPlaceholder": "Type or paste anything…",
+    "ariaLabel": "Instant translator",
+    "translationFailed": "Translation failed.",
+    "translationUnavailable": "Unable to translate right now.",
+    "saveFailed": "Could not save this word to your learning deck.",
+    "saveUnavailable": "Unable to save this word right now."
   }
 }
