@@ -439,7 +439,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
 
   if (!lesson) return <PageLoading />
   return (
-    <main className="juba-mobile-lesson min-h-screen bg-[var(--juba-bg)] px-4 py-5 text-[#242033] sm:px-7 lg:px-10">
+    <main className="juba-lesson-shell min-h-screen px-4 py-5 text-[var(--juba-app-ink)] sm:px-7 lg:px-10">
       <div className="relative mb-6 overflow-hidden rounded-[32px] border-[3px] border-[#25302a] bg-[#5a9b32] px-6 py-7 text-white shadow-[7px_7px_0_#25302a] sm:px-9 sm:py-8">
   <div className="pointer-events-none absolute -end-10 -top-16 h-44 w-44 rounded-full bg-[var(--juba-yellow)]"/>
   <div className="pointer-events-none absolute -bottom-14 start-1/3 h-32 w-32 rounded-full bg-[var(--juba-coral)] opacity-80"/>
@@ -455,7 +455,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
     </div>}
   </div>
 </div><div className="mx-auto max-w-5xl">
-        <header className="sticky top-0 z-20 mb-5 rounded-[22px] border-[3px] border-[#25302a] bg-[#fffdf5]/95 p-4 shadow-[5px_5px_0_#25302a] backdrop-blur"><div className="flex items-center gap-4"><Link href="/courses" className="rounded-[18px] border border-[#ebe7f5] bg-[#ffffff] px-3 py-2 text-sm font-bold text-[#242033] transition-colors hover:bg-[#e2f2d3]">←</Link><div className="min-w-0 flex-1"><div className="flex items-center justify-between gap-3"><p className="truncate text-xs font-bold uppercase tracking-[.16em] text-[#777087]">{lesson.cefr_level} · {lesson.lesson_type}</p><span className="text-sm font-bold text-[#242033]">{progress}%</span></div><div className="mt-2 h-2 overflow-hidden rounded-[18px] bg-[#ffffff]"><div role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label={t('lessonProgress')} className="h-full rounded-[18px] bg-[#39751d] transition-all" style={{ width: `${progress}%` }} /></div></div></div></header>
+        <header className="sticky top-0 z-20 mb-5 rounded-[22px] border-[3px] border-[#25302a] bg-[#fffdf5]/95 p-4 shadow-[5px_5px_0_#25302a] backdrop-blur"><div className="flex items-center gap-4"><Link href="/plan" className="rounded-[18px] border border-[#ebe7f5] bg-[#ffffff] px-3 py-2 text-sm font-bold text-[#242033] transition-colors hover:bg-[#e2f2d3]">←</Link><div className="min-w-0 flex-1"><div className="flex items-center justify-between gap-3"><p className="truncate text-xs font-bold uppercase tracking-[.16em] text-[#777087]">{lesson.cefr_level} · {lesson.lesson_type}</p><span className="text-sm font-bold text-[#242033]">{progress}%</span></div><div className="mt-2 h-2 overflow-hidden rounded-[18px] bg-[#ffffff]"><div role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label={t('lessonProgress')} className="h-full rounded-[18px] bg-[#39751d] transition-all" style={{ width: `${progress}%` }} /></div></div></div></header>
         {freemiumExhausted && <div className="mb-5"><FreemiumQuotaBanner feature="lessons" /></div>}
         {dayComplete && <div className="juba-card mb-5 border-[#ebe7f5] bg-[rgba(255,216,90,.30)] p-4 font-bold text-[#242033]">{t('dailyGoalComplete')}</div>}
         <section className="juba-card rounded-[28px] p-6 sm:p-9">
@@ -541,7 +541,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
               <div className="rounded-[26px] border border-[#ebe7f5] bg-[#f2f0e8] p-4"><p className="text-xs font-bold text-[#777087]">{t('best')}</p><p className="mt-1 text-2xl font-extrabold">{Math.round(attemptStats.bestScore * 100)}%</p></div>
               <div className="rounded-[26px] border border-[#ebe7f5] bg-[#f2f0e8] p-4"><p className="text-xs font-bold text-[#777087]">{t('latest')}</p><p className="mt-1 text-2xl font-extrabold">{Math.round(attemptStats.latestScore * 100)}%</p></div>
             </div>}
-            <div className="mt-6 flex flex-wrap justify-center gap-3"><Link href="/review" className="rounded-[18px] bg-[#39751d] px-6 py-3 font-bold text-white transition-transform hover:-translate-y-0.5">{t('reviewNow')}</Link><Link href="/courses" className="rounded-[18px] border border-[#ebe7f5] bg-[#f2f0e8] px-6 py-3 font-bold text-[#242033] transition-colors hover:bg-[#e2f2d3]">{t('nextCourse')}</Link></div>
+            <div className="mt-6 flex flex-wrap justify-center gap-3"><Link href="/vocabulary/review" className="rounded-[18px] bg-[#39751d] px-6 py-3 font-bold text-white transition-transform hover:-translate-y-0.5">{t('reviewNow')}</Link><Link href="/courses" className="rounded-[18px] border border-[#ebe7f5] bg-[#f2f0e8] px-6 py-3 font-bold text-[#242033] transition-colors hover:bg-[#e2f2d3]">{t('nextCourse')}</Link></div>
           </div>}
         </section>
       </div>
