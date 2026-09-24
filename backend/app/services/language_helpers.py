@@ -397,7 +397,6 @@ def get_iso639(target_language: str) -> str:
 
 def get_language_flag(target_language: str) -> str:
     """Flags are intentionally disabled; kept only as a compatibility accessor."""
-    info = _LANGUAGE_INFO.get(target_language)
     return ""
 
 
