@@ -131,7 +131,6 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     setOrderingTrace(trace)
     setMoves(value => value + 1)
     void finish(trace).then(() => {
-      if (!completed) return
       setOrder([])
     })
   }
