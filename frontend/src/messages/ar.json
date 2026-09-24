@@ -428,6 +428,19 @@
     "planLoadFailed": "تعذر تحميل الخطة ({status})",
     "loadFailed": "تعذر التحميل"
   },
+  "contact": {
+    "description": "هل لديك سؤال أو تحتاج إلى مساعدة أو ترغب في مشاركة ملاحظاتك؟ أرسل لنا رسالتك وسيرد عليك فريق JUBA LISAN.",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "message": "الرسالة",
+    "send": "إرسال الرسالة",
+    "sending": "جارٍ الإرسال…",
+    "success": "تم إرسال رسالتك بنجاح.",
+    "error": "تعذر إرسال رسالتك حاليًا. حاول مرة أخرى.",
+    "namePlaceholder": "اسمك",
+    "emailPlaceholder": "you@example.com",
+    "messagePlaceholder": "كيف يمكننا مساعدتك؟"
+  },
   "visitorTranslator": {
     "open": "فتح المترجم الفوري",
     "translate": "ترجمة",
