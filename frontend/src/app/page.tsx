@@ -121,12 +121,15 @@ export default async function Home() {
         hasSession={hasSession}
         stripeEnabled={stripeEnabled}
         navFeatures={t('navFeatures')}
+        navDemo={t('navDemo')}
+        navLanguages={t('navLanguages')}
         navReviews={t('navReviews')}
         navPricing={t('navPricing')}
         navFAQ={t('navFAQ')}
         showReviews={reviews.length > 0}
         signIn={t('signIn')}
         dashboard={t('dashboard')}
+        getStarted={t('ctaStart')}
       />
 
       {/* Funfluent reference hero */}
@@ -188,7 +191,7 @@ export default async function Home() {
       </section>
 
       {/* Language constellation — all supported learning languages are visible on the public page. */}
-      <section className="juba-ff-story juba-ff-story-languages">
+      <section id="languages" className="juba-ff-story juba-ff-story-languages scroll-mt-20">
         <ScrollReveal>
           <div className="juba-ff-story-inner">
             <div className="mb-8 text-center">
@@ -242,7 +245,7 @@ export default async function Home() {
         </ScrollReveal>
       </section>
 
-      <section className="juba-ff-story juba-ff-story-ai">
+      <section id="demo" className="juba-ff-story juba-ff-story-ai scroll-mt-20">
         <ScrollReveal>
           <div className="juba-ff-story-inner">
             <AiConversationShowcase t={t} />
