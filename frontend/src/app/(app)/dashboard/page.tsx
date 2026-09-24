@@ -364,10 +364,12 @@ export default function DashboardPage() {
                 </p>
               </div>
               {planId != null && (
-                <Link href={`/assessment/level-test?plan=${planId}`}>
-                  <button className="juba-primary-button">
-                    {tPlan('beginLevelTest')}
-                  </Link>
+                <Link
+                  href={`/assessment/level-test?plan=${planId}`}
+                  className="juba-primary-button"
+                >
+                  {tPlan('beginLevelTest')}
+                </Link>
               )}
             </div>
           ) : nextLesson ? (
@@ -384,10 +386,12 @@ export default function DashboardPage() {
                   {nextLesson.estimatedMinutes}min
                 </p>
               </div>
-              <Link href={`/lesson/${nextLesson.id}`}>
-                <button className="juba-primary-button">
-                  {t('startLesson')}
-                </Link>
+              <Link
+                href={`/lesson/${nextLesson.id}`}
+                className="juba-primary-button"
+              >
+                {t('startLesson')}
+              </Link>
             </div>
           ) : (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
