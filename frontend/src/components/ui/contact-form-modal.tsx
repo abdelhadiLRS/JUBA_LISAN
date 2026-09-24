@@ -220,7 +220,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                     {t('sending')}
                   </span>
                 ) : (
-                  t('send')
+                  <><Send className="mr-2 h-4 w-4" aria-hidden="true" />{t('send')}</>
                 )}
               </button>
             </div>
