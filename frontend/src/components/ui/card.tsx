@@ -12,7 +12,7 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn(
-        'group/card flex flex-col gap-4 overflow-hidden rounded-[20px] border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] py-4 text-sm text-[var(--juba-text)] shadow-[0_5px_0_var(--juba-border)] transition-transform hover:-translate-y-px has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-[18px] *:[img:last-child]:rounded-b-[18px]',
+        'group/card flex flex-col gap-4 overflow-hidden rounded-[20px] border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] py-4 text-sm text-[var(--juba-app-ink)] shadow-[0_5px_0_var(--juba-app-line)] transition-transform hover:-translate-y-px has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-[18px] *:[img:last-child]:rounded-b-[18px]',
         className
       )}
       {...props}
@@ -38,7 +38,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="card-title"
       className={cn(
-        'text-base leading-snug font-semibold tracking-[-0.02em] text-[var(--juba-text)] group-data-[size=sm]/card:text-sm',
+        'text-base leading-snug font-semibold tracking-[-0.02em] text-[var(--juba-app-ink)] group-data-[size=sm]/card:text-sm',
         className
       )}
       {...props}
@@ -48,11 +48,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<'div'>) {
 
 function CardDescription({ className, ...props }: React.ComponentProps<'div'>) {
   return (
-    <div
-      data-slot="card-description"
-      className={cn('text-sm text-[var(--juba-muted)]', className)}
-      {...props}
-    />
+    <div data-slot="card-description" className={cn('text-sm text-[var(--juba-app-muted)]', className)} {...props} />
   )
 }
 
@@ -60,10 +56,7 @@ function CardAction({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="card-action"
-      className={cn(
-        'col-start-2 row-span-2 row-start-1 self-start justify-self-end',
-        className
-      )}
+      className={cn('col-start-2 row-span-2 row-start-1 self-start justify-self-end', className)}
       {...props}
     />
   )
@@ -71,11 +64,7 @@ function CardAction({ className, ...props }: React.ComponentProps<'div'>) {
 
 function CardContent({ className, ...props }: React.ComponentProps<'div'>) {
   return (
-    <div
-      data-slot="card-content"
-      className={cn('px-4 group-data-[size=sm]/card:px-3', className)}
-      {...props}
-    />
+    <div data-slot="card-content" className={cn('px-4 group-data-[size=sm]/card:px-3', className)} {...props} />
   )
 }
 
@@ -84,7 +73,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="card-footer"
       className={cn(
-        'flex items-center rounded-b-[18px] border-t-2 border-[var(--juba-border)] bg-[var(--juba-surface-soft)] p-4 group-data-[size=sm]/card:p-3',
+        'flex items-center rounded-b-[18px] border-t-2 border-[var(--juba-app-line)] bg-[#f3f7ef] p-4 group-data-[size=sm]/card:p-3',
         className
       )}
       {...props}
