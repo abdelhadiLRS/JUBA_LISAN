@@ -9,7 +9,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.deps import get_current_user
+from app.core.deps import get_current_user, require_learner
 from app.core.limiter import limiter
 from app.data._types import CEFRLevel
 from app.data.vocabulary import get_vocabulary_by_level
@@ -29,7 +29,7 @@ from app.services.progress_service import get_unit_competencies, update_daily_pr
 from app.services.lesson_mastery import _skill_mastery_state, select_next_skill_mastery, summarize_lesson_mastery, summarize_skill_mastery
 from app.services.user_language_service import get_active_language
 
-router = APIRouter(prefix="/api/progress", tags=["progress"])
+router = APIRouter(prefix="/api/progress", tags=["progress"], dependencies=[Depends(require_learner)])
 
 
 GAME_SKILL_MAP = {
