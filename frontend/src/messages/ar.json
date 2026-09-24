@@ -338,5 +338,18 @@
     "voiceTrialDesc": "تحدث مع Lingu لمدة {minutes} دقائق مجانًا. سيتكيف المدرّس مع المستوى الذي فتحته للتو.",
     "voiceTrialStart": "ابدأ المحادثة المجانية",
     "voiceTrialSkip": "تخطي الآن"
+  },
+  "vocabulary": {
+    "streak": "السلسلة",
+    "days": "يومًا",
+    "accuracy": "الدقة",
+    "mastered": "المتقن",
+    "progress": "تقدم المفردات",
+    "startReview": "بدء المراجعة",
+    "deviceMemory": "JUBA MEMORY · الجهاز",
+    "savedWords": "كلماتك المحفوظة",
+    "savedWordsCount": "كلمات محفوظة من المترجم الفوري",
+    "translateMore": "ترجمة المزيد",
+    "topicCount": "{count} موضوعًا"
   }
 }
