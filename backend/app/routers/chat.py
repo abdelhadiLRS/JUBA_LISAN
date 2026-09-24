@@ -13,7 +13,7 @@ from app.core.deps import (
     require_not_maintenance,
     require_subscription_or_freemium,
     require_subscription_or_freemium_readonly,
-)
+
 from app.core.limiter import limiter
 from app.models.chat_history import ChatHistory
 from app.models.conversation import Conversation
@@ -41,7 +41,7 @@ from app.services.prompts.common import get_language_prompt_overlay
 from app.services.prompts.tutor import build_tutor_system_prompt
 from app.utils.db import db_session
 
-router = APIRouter(prefix="/api/chat", tags=["chat"])
+router = APIRouter(prefix="/api/chat", tags=["chat"], dependencies=[Depends(require_learner)])
 logger = get_logger(__name__)
 
 
