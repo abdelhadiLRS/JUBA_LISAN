@@ -86,10 +86,10 @@ const nextConfig: NextConfig = {
     ]
   },
   async rewrites() {
-    // Desktop builds call the dynamically allocated FastAPI port directly.
-    // Rewrites are only needed by the server/Docker build.
-    if (isDesktopBuild) return []
-
+    // Keep the browser API surface available in every runtime. Desktop builds
+    // normally bypass this through api.ts when Electron exposes a dynamic
+    // backendUrl; the rewrite remains as a safe development fallback when that
+    // runtime value is not available yet.
     return [
       {
         source: '/api/health',
