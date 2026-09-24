@@ -229,6 +229,18 @@ async def conversation_ws(
 
     async with db_session() as db:
         user = await db.get(User, user_id)
+        if user.role == "admin":
+            logger.info("[conversation] Admin access denied — closing WS 1008")
+            await websocket.send_json(
+                {
+                    "type": "error",
+                    "code": "learner_only",
+                    "message": "Voice conversation is available to learners only.",
+                }
+            )
+            await websocket.close(code=1008)
+            return
+
         if not user or not user.is_active:
             logger.warning(
                 "[conversation] User %s not found or inactive — closing WS 1008",
