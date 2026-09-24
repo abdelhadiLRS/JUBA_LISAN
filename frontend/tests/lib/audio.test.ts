@@ -597,12 +597,16 @@ describe('createAudioQueue', () => {
     const { createAudioQueue } = await import('@/lib/audio')
     const queue = createAudioQueue(ctx, idle)
     const playback = queue.enqueue(new ArrayBuffer(4))
+    let settled = false
+    void playback.then(() => {
+      settled = true
+    })
 
     await Promise.resolve()
     await Promise.resolve()
 
     expect(audio.play).toHaveBeenCalledTimes(1)
-    expect(playback).not.toHaveResolved
+    expect(settled).toBe(false)
 
     queue.cancel()
 
