@@ -70,16 +70,25 @@ export function LandingNav({
   return (
     <nav className="juba-site-nav juba-ff-site-nav sticky top-0 z-50 w-full transition-all">
       <div className="juba-ff-nav-inner mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="juba-brand flex items-center gap-3 group">
-          <div className="juba-brand-mark juba-ff-brand-mark relative flex h-9 w-9 items-center justify-center rounded-xl font-bold text-lg transition-transform">J</div>
-          <span className="juba-ff-brand-name font-sans text-lg font-extrabold tracking-tight">JUBA <span className="juba-brand-accent">LISAN</span></span>
+        <Link href="/" className="juba-brand juba-ff-brand flex items-center gap-3 group" aria-label="JUBA LISAN home">
+          <span className="juba-brand-mark juba-ff-brand-mark relative flex h-10 w-10 items-center justify-center rounded-xl font-black text-lg transition-transform">
+            J
+            <i className="juba-brand-spark" aria-hidden="true">✦</i>
+          </span>
+          <span className="juba-ff-brand-copy">
+            <span className="juba-ff-brand-name font-sans text-lg font-black tracking-tight">JUBA <span className="juba-brand-accent">LISAN</span></span>
+            <small>Learn · Speak · Grow</small>
+          </span>
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">{links}</div>
 
         <div className="hidden items-center gap-4 md:flex">
           <Link href={hasSession ? '/dashboard' : '/login'} className="juba-nav-signin juba-ff-nav-signin text-sm font-semibold transition-colors">{hasSession ? dashboard : signIn}</Link>
-          <Link href={hasSession ? '/dashboard' : '/register'} className="juba-nav-cta juba-ff-nav-cta rounded-xl px-5 py-2.5 text-sm font-semibold transition-all active:scale-95">{hasSession ? dashboard : 'Get Started'}</Link>
+          <Link href={hasSession ? '/dashboard' : '/register'} className="juba-nav-cta juba-ff-nav-cta rounded-xl px-5 py-2.5 text-sm font-black transition-all active:scale-95">
+            <span>{hasSession ? dashboard : 'Get Started'}</span>
+            <span aria-hidden="true">✦</span>
+          </Link>
         </div>
 
         <button onClick={() => setOpen(!open)} className="juba-menu juba-ff-menu rounded-xl p-2 md:hidden" aria-label="Toggle menu">
@@ -93,7 +102,9 @@ export function LandingNav({
             {links}
             <div className="pt-2 border-t border-[#dce7dc] flex flex-col gap-3">
               <Link href={hasSession ? '/dashboard' : '/login'} onClick={() => setOpen(false)} className="juba-nav-signin juba-ff-nav-signin w-full text-center py-2 text-sm font-semibold">{hasSession ? dashboard : signIn}</Link>
-              <Link href={hasSession ? '/dashboard' : '/register'} onClick={() => setOpen(false)} className="juba-nav-cta juba-ff-nav-cta w-full text-center rounded-xl py-2.5 text-sm font-semibold">{hasSession ? dashboard : 'Get Started'}</Link>
+              <Link href={hasSession ? '/dashboard' : '/register'} onClick={() => setOpen(false)} className="juba-nav-cta juba-ff-nav-cta flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-black">
+                <span>{hasSession ? dashboard : 'Get Started'}</span><span aria-hidden="true">✦</span>
+              </Link>
             </div>
           </div>
         </div>
