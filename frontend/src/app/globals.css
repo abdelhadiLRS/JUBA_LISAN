@@ -6212,8 +6212,8 @@ main [dir="rtl"] h3,
 .juba-settings-shell button:hover:not(:disabled),
 .juba-settings-shell a:hover{transform:translateY(-1px)}
 .juba-settings-shell .text-fl-error{color:var(--juba-app-error)!important}
-.juba-settings-shell .border-fl-error\\/40{border-color:rgba(179,58,50,.35)!important}
-.juba-settings-shell .hover\\:border-fl-error\\/40:hover{border-color:rgba(179,58,50,.5)!important}
+.juba-settings-shell .border-fl-error\/40{border-color:rgba(179,58,50,.35)!important}
+.juba-settings-shell .hover\:border-fl-error\/40:hover{border-color:rgba(179,58,50,.5)!important}
 .juba-translator-shell{
   background:
     radial-gradient(circle at 4% 0%,rgba(255,212,79,.15),transparent 280px),
