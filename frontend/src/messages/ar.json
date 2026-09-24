@@ -105,7 +105,8 @@
     "aiVoiceDemo": "تجربة الصوت بالذكاء الاصطناعي",
     "supportedLanguages": "اللغات المدعومة",
     "builtForLearners": "صُمّم للمتعلمين في كل مكان.",
-    "footerPositioning": "مدعوم بالذكاء الاصطناعي · يراعي الخصوصية · متوافق مع CEFR"
+    "footerPositioning": "مدعوم بالذكاء الاصطناعي · يراعي الخصوصية · متوافق مع CEFR",
+    "audioReply": "رد صوتي"
   },
   "common": {
     "loading": "جارٍ التحميل...",
