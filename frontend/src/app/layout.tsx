@@ -33,7 +33,15 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <meta name="theme-color" content="#fdfdfd" />
         <meta name="color-scheme" content="light dark" />
         <Script id="juba-theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeScript }} />
-        {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (\n          <Script\n            id="juba-umami"\n            src="/umami/script.js"\n            strategy="afterInteractive"\n            data-host-url="/umami"\n            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}\n          />\n        )}
+        {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
+          <Script
+            id="juba-umami"
+            src="/umami/script.js"
+            strategy="afterInteractive"
+            data-host-url="/umami"
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+          />
+        )}
       </head>
       <body className="min-h-full bg-[var(--juba-bg)] text-[var(--juba-text)]">
         <NextIntlClientProvider locale={locale} messages={messages}>
