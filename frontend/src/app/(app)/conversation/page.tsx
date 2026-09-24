@@ -19,6 +19,7 @@ import { useLanguageStore } from '@/store/language'
 import { useConfigStore } from '@/store/config'
 import { useAuthStore, isSubscribed, isFreemiumTrialActive } from '@/store/auth'
 import { useFreemiumStore } from '@/store/freemium'
+import { useTranslations } from 'next-intl'
 
 function ConversationLoading() {
   return <PageLoading minHeight="min-h-[calc(100vh-56px)] md:min-h-screen" />
@@ -33,6 +34,7 @@ const ConversationMode = dynamic(
 )
 
 export default function ConversationPage() {
+  const t = useTranslations('conversation')
   const activeLanguage = useLanguageStore((s) => s.activeLanguage)
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const user = useAuthStore((s) => s.user)
@@ -131,7 +133,7 @@ export default function ConversationPage() {
             {
               role: 'user',
               content:
-                'I just completed the placement assessment. Please start a short, friendly voice conversation adapted to my level.',
+                t('assessmentVoiceContext'),
             },
           ])
           setAutoStart(true)
