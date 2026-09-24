@@ -56,14 +56,6 @@ const DISPLAY_LANGUAGES: DisplayLanguage[] = [
   { code: 'gl', name: 'Galego', region: 'europe', x: 44, y: 38 },
 ]
 
-const REGION_POSITION: Record<RegionId, { left: string; top: string }> = {
-  americas: { left: '18%', top: '52%' },
-  europe: { left: '48%', top: '31%' },
-  'africa-middle-east': { left: '48%', top: '60%' },
-  asia: { left: '73%', top: '43%' },
-  pacific: { left: '84%', top: '73%' },
-}
-
 function MapSilhouette() {
   return (
     <svg viewBox="0 0 1000 500" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" preserveAspectRatio="none">
@@ -92,10 +84,6 @@ export function LanguageBubbles() {
     []
   )
 
-  const visibleRegions = activeRegion
-    ? REGIONS.filter((region) => region.id === activeRegion)
-    : REGIONS
-
   return (
     <div className="relative overflow-hidden rounded-[36px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] p-3 shadow-[6px_6px_0_var(--juba-app-ink)] sm:p-5">
       <div className="relative min-h-[560px] overflow-hidden rounded-[28px] border border-[var(--juba-app-line)] bg-[#f5f8f1]">
@@ -106,6 +94,9 @@ export function LanguageBubbles() {
             <MapPinned className="h-3.5 w-3.5" aria-hidden="true" />
             Language atlas
           </div>
+          <span className="hidden rounded-full border border-[var(--juba-app-line)] bg-white/90 px-3 py-2 text-[10px] font-bold text-[var(--juba-app-muted)] backdrop-blur sm:inline">
+            Select a point to explore a language
+          </span>
           <button type="button" onClick={() => { setActiveRegion(null); setActiveLanguage(null) }} className="rounded-full border border-[var(--juba-app-line)] bg-white/90 px-3 py-2 text-[10px] font-black uppercase tracking-[.12em] text-[var(--juba-app-muted)] transition hover:border-[var(--juba-app-ink)] hover:text-[var(--juba-app-ink)]">
             All regions
           </button>
@@ -141,47 +132,25 @@ export function LanguageBubbles() {
               )
             })}
           </div>
-          {visibleRegions.map((region) => {
-            const languages = languagesByRegion[region.id]
-            const position = REGION_POSITION[region.id]
-            const isActive = activeRegion === region.id
 
-            return (
-              <button
-                type="button"
-                key={region.id}
-                onClick={() => { setActiveRegion(isActive ? null : region.id); setActiveLanguage(null) }}
-                className="group absolute -translate-x-1/2 -translate-y-1/2 text-left"
-                style={position}
-                aria-pressed={isActive}
-                aria-label={region.label + ': ' + languages.length + ' languages'}
-              >
-                <span className={[
-                  'block w-[190px] rounded-[22px] border-2 p-3 shadow-[3px_3px_0_rgba(24,37,27,.12)] transition-all sm:w-[230px] sm:p-4',
-                  isActive
-                    ? 'border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] shadow-[5px_5px_0_var(--juba-app-ink)]'
-                    : 'border-[var(--juba-app-line)] bg-white/95 hover:-translate-y-1 hover:border-[var(--juba-app-ink)]',
-                ].join(' ')}>
-                  <span className="flex items-center justify-between gap-2">
-                    <span>
-                      <span className="block text-[9px] font-black uppercase tracking-[.18em] text-[var(--juba-app-green)]">{region.short}</span>
-                      <span className="mt-1 block text-sm font-black text-[var(--juba-app-ink)] sm:text-base">{region.label}</span>
-                    </span>
-                    <ArrowRight className="h-4 w-4 shrink-0 text-[var(--juba-app-green)] transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                  </span>
 
-                  <span className="mt-3 flex flex-wrap gap-1.5">
-                    {languages.map((language) => (
-                      <span key={language.code} className="rounded-full border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-2 py-1 text-[10px] font-bold text-[var(--juba-app-ink)]">
-                        {language.name}
-                      </span>
-                    ))}
-                  </span>
-                </span>
-              </button>
-            )
-          })}
-        </div>
+        {activeLanguage && (() => {
+          const selected = DISPLAY_LANGUAGES.find((language) => language.code === activeLanguage)
+          const region = selected ? REGIONS.find((item) => item.id === selected.region) : null
+          if (!selected || !region) return null
+          return (
+            <div className="absolute bottom-20 left-4 z-20 max-w-[280px] rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[4px_4px_0_var(--juba-app-ink)] sm:bottom-24 sm:left-6">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <span className="text-[9px] font-black uppercase tracking-[.18em] text-[var(--juba-app-green)]">{region.label}</span>
+                  <h3 className="mt-1 text-lg font-black text-[var(--juba-app-ink)]">{selected.name}</h3>
+                </div>
+                <button type="button" onClick={() => setActiveLanguage(null)} className="text-xs font-black text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)]" aria-label="Close language details">×</button>
+              </div>
+              <p className="mt-2 text-xs leading-5 text-[var(--juba-app-muted)]">Explore this language in the JUBA LISAN learning experience.</p>
+            </div>
+          )
+        })()}
 
         <div className="absolute bottom-4 left-1/2 z-20 w-[calc(100%-2rem)] -translate-x-1/2 sm:bottom-6 sm:w-auto">
           <div className="flex flex-wrap justify-center gap-1.5 rounded-2xl border border-[var(--juba-app-line)] bg-white/90 p-2 backdrop-blur">
