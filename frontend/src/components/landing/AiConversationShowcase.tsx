@@ -32,7 +32,7 @@ export function AiConversationShowcase({ t }: AiConversationShowcaseProps) {
             </div>
           </div>
         </div>
-        <p className="mt-5 text-center text-xs text-[#617068]">The conversation shown above is an illustrative preview; the buttons open the real JUBA LISAN AI workflows.</p>
+        <p className="juba-ff-demo-note mt-5 text-center text-xs">The conversation shown above is an illustrative preview; the buttons open the real JUBA LISAN AI workflows.</p>
       </div>
     </section>
   )
