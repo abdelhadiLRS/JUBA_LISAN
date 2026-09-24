@@ -10,7 +10,7 @@ import { getLanguageByCode } from '@/lib/target-languages'
 export default function LanguageSwitcher() {
   const tLang = useTranslations('languages')
   const tTarget = useTranslations('targetLanguages')
-  const targetLabel = (code: string, fallback?: string) => (tTarget.has(code) ? targetLabel(code, getLanguageByCode(code)?.name) : fallback ?? getLanguageByCode(code)?.name ?? code)
+  const targetLabel = (code: string, fallback?: string) => (tTarget.has(code) ? tTarget(code) : fallback ?? getLanguageByCode(code)?.name ?? code)
   const router = useRouter()
   const activeLanguage = useLanguageStore((s) => s.activeLanguage)
   const userLanguages = useLanguageStore((s) => s.userLanguages)
