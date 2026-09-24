@@ -126,13 +126,14 @@ export function LanguageBubbles() {
               </button>
             )
           })}
+        </div>
 
         {activeLanguage && (() => {
           const selected = DISPLAY_LANGUAGES.find((language) => language.code === activeLanguage)
           const region = selected ? REGIONS.find((item) => item.id === selected.region) : null
           if (!selected || !region) return null
           return (
-            <div className="absolute bottom-20 left-3 z-20 max-w-[calc(100%-1.5rem)] sm:left-6 sm:max-w-[280px] rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[4px_4px_0_var(--juba-app-ink)] sm:bottom-24 sm:left-6">
+            <div className="absolute bottom-20 left-3 z-20 max-w-[calc(100%-1.5rem)] sm:left-6 sm:max-w-[280px] rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[4px_4px_0_var(--juba-app-ink)] sm:bottom-24">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <span className="text-[9px] font-black uppercase tracking-[.18em] text-[var(--juba-app-green)]">{region.label}</span>
@@ -145,7 +146,7 @@ export function LanguageBubbles() {
           )
         })()}
 
-        <div className="absolute bottom-3 left-1/2 z-20 w-[calc(100%-1.25rem)] sm:bottom-6 sm:w-auto -translate-x-1/2 sm:bottom-6 sm:w-auto">
+        <div className="absolute bottom-3 left-1/2 z-20 w-[calc(100%-1.25rem)] -translate-x-1/2 sm:bottom-6 sm:w-auto">
           <div className="flex flex-wrap justify-center gap-1.5 rounded-2xl border border-[var(--juba-app-line)] bg-white/90 p-2 backdrop-blur">
             {REGIONS.map((region) => (
               <button type="button" key={region.id} onClick={() => { setActiveRegion(region.id); setActiveLanguage(null) }} className={[
