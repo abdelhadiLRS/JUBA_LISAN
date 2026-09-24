@@ -231,7 +231,8 @@
     "contact": "Contact",
     "feedback": "Feedback",
     "reviews": "Avis",
-    "switchLanguage": "Changer de langue"
+    "switchLanguage": "Changer de langue",
+    "games": "Jeux"
   },
   "auth": {
     "login": {
