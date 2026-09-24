@@ -6102,3 +6102,55 @@ main [dir="rtl"] h3,
   .juba-mobile-assessment .juba-card,
   .juba-mobile-assessment [class*="border-[var(--juba-border)]"]{border-radius:18px}
 }
+
+
+/* JUBA LISAN — final legacy-token compatibility layer */
+.juba-conversation-shell [class*="--juba-border"],
+.juba-review-shell [class*="--juba-border"],
+.juba-coach-shell [class*="--juba-border"],
+.juba-translator-shell [class*="--juba-border"],
+.juba-feedback-shell [class*="--juba-border"],
+.juba-admin-shell [class*="--juba-border"],
+.juba-admin-users-shell [class*="--juba-border"],
+.juba-admin-feedback-shell [class*="--juba-border"],
+.juba-admin-reviews-shell [class*="--juba-border"],
+.juba-admin-system-shell [class*="--juba-border"],
+.juba-friend-chat-shell [class*="--juba-border"]{
+  border-color:var(--juba-app-line)!important;
+}
+.juba-conversation-shell [class*="--juba-surface"],
+.juba-review-shell [class*="--juba-surface"],
+.juba-coach-shell [class*="--juba-surface"],
+.juba-admin-shell [class*="--juba-surface"],
+.juba-admin-users-shell [class*="--juba-surface"],
+.juba-admin-feedback-shell [class*="--juba-surface"],
+.juba-admin-reviews-shell [class*="--juba-surface"],
+.juba-admin-system-shell [class*="--juba-surface"],
+.juba-friend-chat-shell [class*="--juba-surface"]{
+  background:var(--juba-app-surface)!important;
+}
+.juba-conversation-shell [class*="--juba-text"],
+.juba-review-shell [class*="--juba-text"],
+.juba-coach-shell [class*="--juba-text"],
+.juba-feedback-shell [class*="--juba-text"],
+.juba-admin-shell [class*="--juba-text"],
+.juba-admin-users-shell [class*="--juba-text"],
+.juba-admin-feedback-shell [class*="--juba-text"],
+.juba-admin-reviews-shell [class*="--juba-text"],
+.juba-admin-system-shell [class*="--juba-text"],
+.juba-friend-chat-shell [class*="--juba-text"]{
+  color:var(--juba-app-ink)!important;
+}
+.juba-conversation-shell [class*="--juba-muted"],
+.juba-review-shell [class*="--juba-muted"],
+.juba-coach-shell [class*="--juba-muted"],
+.juba-translator-shell [class*="--juba-muted"],
+.juba-feedback-shell [class*="--juba-muted"],
+.juba-admin-shell [class*="--juba-muted"],
+.juba-admin-users-shell [class*="--juba-muted"],
+.juba-admin-feedback-shell [class*="--juba-muted"],
+.juba-admin-reviews-shell [class*="--juba-muted"],
+.juba-admin-system-shell [class*="--juba-muted"],
+.juba-friend-chat-shell [class*="--juba-muted"]{
+  color:var(--juba-app-muted)!important;
+}
