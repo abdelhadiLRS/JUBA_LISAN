@@ -4051,3 +4051,112 @@ main [dir="rtl"] h3,
   .juba-ff-reference .juba-ff-brand-mark{width:38px;height:38px}
   .juba-ff-reference .juba-ff-book .book-art-mark{width:68px;height:68px}
 }
+
+
+/* JUBA LISAN — real social proof and pricing surfaces. */
+.juba-ff-reference .juba-ff-story-reviews{
+  background:
+    radial-gradient(circle at 8% 20%,rgba(255,212,79,.22),transparent 210px),
+    #f7f4e8;
+}
+.juba-ff-reference .juba-ff-story-reviews .juba-ff-contained-card{
+  max-width:1120px;
+}
+.juba-ff-reference .juba-ff-story-reviews article{
+  border:3px solid var(--ff-ink);
+  border-radius:18px 24px 18px 24px;
+  background:#fffdf7;
+  box-shadow:6px 6px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-story-reviews article:nth-child(3n+2){
+  background:#e8f4df;
+  transform:rotate(1deg);
+}
+.juba-ff-reference .juba-ff-story-reviews article:nth-child(3n){
+  background:#e5f2f4;
+  transform:rotate(-1deg);
+}
+.juba-ff-reference .juba-ff-story-reviews article h3{
+  font-weight:950;
+  color:var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-story-pricing{
+  background:
+    radial-gradient(circle at 92% 18%,rgba(217,201,255,.55),transparent 240px),
+    #fffdf4;
+}
+.juba-ff-reference .juba-ff-pricing{
+  color:var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-pricing-title{
+  font-size:clamp(2rem,4vw,3.6rem);
+  letter-spacing:-.06em;
+}
+.juba-ff-reference .juba-ff-pricing-subtitle{
+  color:var(--ff-muted);
+}
+.juba-ff-reference .juba-ff-plan-card{
+  position:relative;
+  overflow:hidden;
+  border:3px solid var(--ff-ink);
+  border-radius:20px 28px 20px 28px;
+  box-shadow:7px 7px 0 var(--ff-ink);
+  background:#fffdf7;
+}
+.juba-ff-reference .juba-ff-plan-card:nth-child(2){
+  background:#e6f3f4;
+  transform:translateY(-8px) rotate(-1deg);
+}
+.juba-ff-reference .juba-ff-plan-card:nth-child(3){
+  background:#e9e1ff;
+  transform:rotate(1deg);
+}
+.juba-ff-reference .juba-ff-plan-card .juba-ff-plan-head{
+  border-color:rgba(23,35,26,.2);
+}
+.juba-ff-reference .juba-ff-plan-name,
+.juba-ff-reference .juba-ff-plan-price{
+  color:var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-plan-old{
+  color:var(--ff-muted);
+}
+.juba-ff-reference .juba-ff-plan-cta{
+  border:2px solid var(--ff-ink);
+  border-radius:12px;
+  background:var(--ff-yellow);
+  color:var(--ff-ink);
+  box-shadow:3px 3px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-plan-cta:hover{
+  transform:translate(-1px,-1px);
+  box-shadow:4px 4px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-comparison{
+  border:3px solid var(--ff-ink);
+  border-radius:20px;
+  background:#fffdf7;
+  box-shadow:6px 6px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-comparison-head,
+.juba-ff-reference .juba-ff-comparison tr{
+  border-color:rgba(23,35,26,.18);
+}
+.juba-ff-reference .juba-ff-table-cell{
+  color:var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-check{
+  color:var(--ff-green-dark);
+}
+.juba-ff-reference .juba-ff-minus{
+  color:var(--ff-muted);
+}
+.juba-ff-reference .juba-ff-plan-error{
+  color:#a33b2b;
+}
+@media(max-width:700px){
+  .juba-ff-reference .juba-ff-plan-card:nth-child(2),
+  .juba-ff-reference .juba-ff-plan-card:nth-child(3){
+    transform:none;
+  }
+}
