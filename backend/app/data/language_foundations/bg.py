@@ -15,21 +15,21 @@ GRAMMAR_TOPICS=[
 ]
 
 VOCABULARY_SETS=[
-    VocabularySet(id="greetings_a1",level="A1",topic="Поздрави",unit_ref="bg-a1-unit-1",words=[VocabularyEntry(word="Здравейте",pos="phrase",definition="hello",example="Здравейте")]),
-    VocabularySet(id="identity_a1",level="A1",topic="Представяне",unit_ref="bg-a1-unit-2",words=[VocabularyEntry(word="Казвам се...",pos="phrase",definition="my name is...",example="Казвам се...")]),
-    VocabularySet(id="family_a1",level="A1",topic="Семейство",unit_ref="bg-a1-unit-3",words=[VocabularyEntry(word="семейство",pos="phrase",definition="family",example="семейство")]),
-    VocabularySet(id="routine_a1",level="A1",topic="Рутина",unit_ref="bg-a1-unit-4",words=[VocabularyEntry(word="работя",pos="phrase",definition="I work",example="работя")]),
-    VocabularySet(id="time_a1",level="A1",topic="Време",unit_ref="bg-a1-unit-5",words=[VocabularyEntry(word="днес",pos="phrase",definition="today",example="днес")]),
-    VocabularySet(id="food_a1",level="A1",topic="Храна",unit_ref="bg-a1-unit-6",words=[VocabularyEntry(word="вода",pos="phrase",definition="water",example="вода")]),
-    VocabularySet(id="places_a1",level="A1",topic="Места",unit_ref="bg-a1-unit-7",words=[VocabularyEntry(word="вкъщи",pos="phrase",definition="at home",example="вкъщи")]),
-    VocabularySet(id="review_a1",level="A1",topic="Преговор",unit_ref="bg-a1-unit-8",words=[VocabularyEntry(word="Благодаря",pos="phrase",definition="thank you",example="Благодаря")]),
+    VocabularySet(id="greetings_a1",level="A1",topic="Поздрави",unit_ref="bg-a1-unit-1",words=[VocabularyEntry(word="Здравейте",pos="phrase",definition="hello",example="Здравейте! Как сте?")]),
+    VocabularySet(id="identity_a1",level="A1",topic="Представяне",unit_ref="bg-a1-unit-2",words=[VocabularyEntry(word="Казвам се...",pos="phrase",definition="my name is...",example="Казвам се Иван.")]),
+    VocabularySet(id="family_a1",level="A1",topic="Семейство",unit_ref="bg-a1-unit-3",words=[VocabularyEntry(word="семейство",pos="phrase",definition="family",example="Моето семейство е в София.")]),
+    VocabularySet(id="routine_a1",level="A1",topic="Рутина",unit_ref="bg-a1-unit-4",words=[VocabularyEntry(word="работя",pos="phrase",definition="I work",example="Днес работя в офиса.")]),
+    VocabularySet(id="time_a1",level="A1",topic="Време",unit_ref="bg-a1-unit-5",words=[VocabularyEntry(word="днес",pos="phrase",definition="today",example="Днес уча български.")]),
+    VocabularySet(id="food_a1",level="A1",topic="Храна",unit_ref="bg-a1-unit-6",words=[VocabularyEntry(word="вода",pos="phrase",definition="water",example="Искам чаша вода, моля.")]),
+    VocabularySet(id="places_a1",level="A1",topic="Места",unit_ref="bg-a1-unit-7",words=[VocabularyEntry(word="вкъщи",pos="phrase",definition="at home",example="Аз съм вкъщи.")]),
+    VocabularySet(id="review_a1",level="A1",topic="Преговор",unit_ref="bg-a1-unit-8",words=[VocabularyEntry(word="Благодаря",pos="phrase",definition="thank you",example="Благодаря за помощта.")]),
 ]
 
 PHRASEBOOK_CATEGORIES=[
-    PhrasebookCategory(id="greetings_a1",level="A1",situation="Поздрави",icon="👋",phrases=[PhrasebookEntry(text="Здравейте",context="hello",register="neutral")]),
-    PhrasebookCategory(id="identity_a1",level="A1",situation="Представяне",icon="🪪",phrases=[PhrasebookEntry(text="Казвам се...",context="my name is...",register="neutral")]),
-    PhrasebookCategory(id="family_a1",level="A1",situation="Семейство",icon="👨‍👩‍👧",phrases=[PhrasebookEntry(text="семейство",context="family",register="neutral")]),
-    PhrasebookCategory(id="routine_a1",level="A1",situation="Рутина",icon="⏰",phrases=[PhrasebookEntry(text="работя",context="I work",register="neutral")]),
+    PhrasebookCategory(id="greetings_a1",level="A1",situation="Поздрави",icon="👋",phrases=[PhrasebookEntry(text="Здравейте!",context="greeting",register="neutral"),PhrasebookEntry(text="Как сте?",context="asking how someone is",register="neutral"),PhrasebookEntry(text="Казвам се Иван.",context="introducing yourself",register="neutral")]),
+    PhrasebookCategory(id="shopping_a1",level="A1",situation="Пазаруване",icon="🛒",phrases=[PhrasebookEntry(text="Колко струва това?",context="asking the price",register="neutral"),PhrasebookEntry(text="Искам това, моля.",context="requesting an item",register="neutral"),PhrasebookEntry(text="Може ли вода?",context="asking for water",register="neutral")]),
+    PhrasebookCategory(id="directions_a1",level="A1",situation="Посоки",icon="🧭",phrases=[PhrasebookEntry(text="Къде е училището?",context="asking for a location",register="neutral"),PhrasebookEntry(text="Къде е гарата?",context="asking for a station",register="neutral"),PhrasebookEntry(text="Наляво или надясно?",context="checking a direction",register="neutral")]),
+    PhrasebookCategory(id="help_a1",level="A1",situation="Помощ",icon="🆘",phrases=[PhrasebookEntry(text="Моля, помогнете ми.",context="asking for help",register="neutral"),PhrasebookEntry(text="Не разбирам.",context="saying you do not understand",register="neutral"),PhrasebookEntry(text="Може ли да повторите?",context="asking someone to repeat",register="neutral")]),
 ]
 
 CURRICULUM={}
@@ -48,15 +48,13 @@ for level in LEVELS:
     else:
         CURRICULUM[level]=[CurriculumUnit(id=f"bg-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Bulgarian {level} communication",grammar_points=["progressive grammar and communication"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Build level-appropriate communication"],default_weeks=2)]
 
-ASSESSMENT_BANK=[
-    AssessmentQuestion(id="bg-a1-001",skill="speaking",difficulty="A1",question="Which expression matches the lesson meaning 'hello'?",options=["Здравейте","technical term","advanced idiom","unrelated expression"],correct="Здравейте"),
-    AssessmentQuestion(id="bg-a1-002",skill="vocabulary",difficulty="A1",question="Which expression matches the lesson meaning 'my name is...'?",options=["Казвам се...","technical term","advanced idiom","unrelated expression"],correct="Казвам се..."),
-    AssessmentQuestion(id="bg-a1-003",skill="grammar",difficulty="A1",question="Which expression matches the lesson meaning 'family'?",options=["семейство","technical term","advanced idiom","unrelated expression"],correct="семейство"),
-    AssessmentQuestion(id="bg-a1-004",skill="speaking",difficulty="A1",question="Which expression matches the lesson meaning 'I work'?",options=["работя","technical term","advanced idiom","unrelated expression"],correct="работя"),
-    AssessmentQuestion(id="bg-a1-005",skill="vocabulary",difficulty="A1",question="Which expression matches the lesson meaning 'today'?",options=["днес","technical term","advanced idiom","unrelated expression"],correct="днес"),
-    AssessmentQuestion(id="bg-a1-006",skill="grammar",difficulty="A1",question="Which expression matches the lesson meaning 'water'?",options=["вода","technical term","advanced idiom","unrelated expression"],correct="вода"),
-    AssessmentQuestion(id="bg-a1-007",skill="speaking",difficulty="A1",question="Which expression matches the lesson meaning 'at home'?",options=["вкъщи","technical term","advanced idiom","unrelated expression"],correct="вкъщи"),
-    AssessmentQuestion(id="bg-a1-008",skill="vocabulary",difficulty="A1",question="Which expression matches the lesson meaning 'thank you'?",options=["Благодаря","technical term","advanced idiom","unrelated expression"],correct="Благодаря"),
-    AssessmentQuestion(id="bg-a1-009",skill="reading",difficulty="A1",question="Select the everyday A1 expression.",options=["Здравейте","advanced academic phrase","technical formula","rare literary term"],correct="Здравейте"),
-    AssessmentQuestion(id="bg-a1-010",skill="production",difficulty="A1",question="Select the polite expression for closing an everyday exchange.",options=["Благодаря","technical term","advanced idiom","unrelated expression"],correct="Благодаря"),
-]
+ASSESSMENT_BANK=[AssessmentQuestion(id="bg-a1-001",skill="speaking",difficulty="A1",question="You meet someone in the morning. Which Bulgarian phrase is a natural greeting?",options=["Здравейте!","Колко струва това?","Не разбирам.","Къде е училището?"],correct="Здравейте!"),
+AssessmentQuestion(id="bg-a1-002",skill="communication",difficulty="A1",question="You introduce yourself as Ivan. Which Bulgarian sentence should you use?",options=["Казвам се Иван.","Искам това, моля.","Днес уча български.","Аз съм вкъщи."],correct="Казвам се Иван."),
+AssessmentQuestion(id="bg-a1-003",skill="vocabulary",difficulty="A1",question="You are talking about your relatives. Which Bulgarian word means “family”?",options=["семейство","вода","днес","училище"],correct="семейство"),
+AssessmentQuestion(id="bg-a1-004",skill="grammar",difficulty="A1",question="You tell a friend that you are working today. Which sentence is appropriate?",options=["Днес работя в офиса.","Моето семейство е в София.","Искам чаша вода, моля.","Аз съм вкъщи."],correct="Днес работя в офиса."),
+AssessmentQuestion(id="bg-a1-005",skill="vocabulary",difficulty="A1",question="You are thirsty in a café. Which Bulgarian word means “water”?",options=["вода","семейство","работя","гара"],correct="вода"),
+AssessmentQuestion(id="bg-a1-006",skill="communication",difficulty="A1",question="You want to ask the price in a shop. Which Bulgarian phrase should you use?",options=["Колко струва това?","Как сте?","Не разбирам.","Къде е гарата?"],correct="Колко струва това?"),
+AssessmentQuestion(id="bg-a1-007",skill="communication",difficulty="A1",question="You need directions to the school. Which Bulgarian question should you use?",options=["Къде е училището?","Може ли вода?","Благодаря за помощта.","Казвам се Иван."],correct="Къде е училището?"),
+AssessmentQuestion(id="bg-a1-008",skill="communication",difficulty="A1",question="You do not understand what someone said. Which Bulgarian phrase should you use?",options=["Не разбирам.","Здравейте!","Колко струва това?","Къде е гарата?"],correct="Не разбирам."),
+AssessmentQuestion(id="bg-a1-009",skill="communication",difficulty="A1",question="You need someone to repeat their words. Which Bulgarian phrase is appropriate?",options=["Може ли да повторите?","Аз съм вкъщи.","Искам това, моля.","Как сте?"],correct="Може ли да повторите?"),
+AssessmentQuestion(id="bg-a1-010",skill="production",difficulty="A1",question="Someone helps you and you want to thank them. Which Bulgarian phrase should you use?",options=["Благодаря за помощта.","Не разбирам.","Къде е училището?","Колко струва това?"],correct="Благодаря за помощта.")]
