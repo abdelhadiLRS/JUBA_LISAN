@@ -4569,3 +4569,70 @@ main [dir="rtl"] h3,
   .juba-review-shell{padding:1rem;}
   .juba-review-shell .juba-review-card{box-shadow:4px 4px 0 var(--juba-app-ink);}
 }
+
+
+/* JUBA LISAN — lesson interaction layer v7 */
+.juba-lesson-shell{
+  background:
+    radial-gradient(circle at 92% 0%,rgba(255,212,79,.12),transparent 280px),
+    var(--juba-app-bg);
+}
+.juba-lesson-shell > div > header{
+  border-color:var(--juba-app-ink)!important;
+  background:rgba(255,253,248,.94)!important;
+  color:var(--juba-app-ink);
+  box-shadow:5px 5px 0 var(--juba-app-ink)!important;
+}
+.juba-lesson-shell > div > header a{
+  border-color:var(--juba-app-line)!important;
+  background:#fff!important;
+  color:var(--juba-app-ink)!important;
+}
+.juba-lesson-shell > div > section.juba-card{
+  border:2px solid var(--juba-app-ink);
+  background:var(--juba-app-surface);
+  box-shadow:7px 7px 0 var(--juba-app-ink);
+}
+.juba-lesson-shell [class*="border-[#ebe7f5]"]{
+  border-color:var(--juba-app-line)!important;
+}
+.juba-lesson-shell [class*="bg-[#f2f0e8]"]{
+  background:#f2f5ee!important;
+}
+.juba-lesson-shell [class*="bg-[#e2f2d3]"]{
+  background:var(--juba-app-green-soft)!important;
+}
+.juba-lesson-shell [class*="text-[#777087]"]{
+  color:var(--juba-app-muted)!important;
+}
+.juba-lesson-shell [class*="text-[#242033]"]{
+  color:var(--juba-app-ink)!important;
+}
+.juba-lesson-shell [class*="bg-[#39751d]"]{
+  background:var(--juba-app-green)!important;
+}
+.juba-lesson-shell [class*="bg-[var(--juba-yellow)]"]{
+  background:var(--juba-app-yellow)!important;
+}
+.juba-lesson-shell input,
+.juba-lesson-shell textarea{
+  border-color:var(--juba-app-line)!important;
+  background:#f9fbf7!important;
+  border-radius:16px!important;
+}
+.juba-lesson-shell button,
+.juba-lesson-shell a{
+  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+}
+.juba-lesson-shell button:hover:not(:disabled),
+.juba-lesson-shell a:hover{
+  border-color:#a9c79a;
+}
+.juba-lesson-shell [class*="rounded-[26px]"],
+.juba-lesson-shell [class*="rounded-[24px]"]{
+  border-radius:20px;
+}
+@media(max-width:700px){
+  .juba-lesson-shell{padding:1rem;}
+  .juba-lesson-shell > div > section.juba-card{box-shadow:4px 4px 0 var(--juba-app-ink);}
+}
