@@ -115,7 +115,8 @@
     "contact": "Contact",
     "feedback": "Feedback",
     "reviews": "Recenzii",
-    "switchLanguage": "Schimbă limba"
+    "switchLanguage": "Schimbă limba",
+    "games": "Jocuri"
   },
   "auth": {
     "login": {
