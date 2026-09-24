@@ -6316,3 +6316,27 @@ main [dir="rtl"] h3,
   .juba-ff-site-nav{background:rgba(255,253,248,.97)}
   .juba-ff-nav-link::after{display:none}
 }
+
+
+/* JUBA LISAN — real review surface */
+.juba-ff-reviews{position:relative}
+.juba-ff-reviews .juba-ff-review-card{
+  border:2px solid var(--landing-ink)!important;
+  border-radius:20px 26px 20px 26px;
+  box-shadow:5px 5px 0 var(--landing-ink);
+  background:var(--landing-surface)!important;
+  transition:transform .16s ease,box-shadow .16s ease;
+}
+.juba-ff-reviews .juba-ff-review-card:nth-child(3n+1){transform:rotate(-.6deg)}
+.juba-ff-reviews .juba-ff-review-card:nth-child(3n+2){transform:rotate(.7deg)}
+.juba-ff-reviews .juba-ff-review-card:nth-child(3n){transform:rotate(-.25deg)}
+.juba-ff-reviews .juba-ff-review-card:hover{
+  transform:translateY(-3px) rotate(0deg);
+  box-shadow:7px 7px 0 var(--landing-ink);
+}
+.juba-ff-reviews .scrollbar-thin{scrollbar-color:var(--landing-green) transparent}
+.juba-ff-reviews .scrollbar-thin::-webkit-scrollbar{height:8px}
+.juba-ff-reviews .scrollbar-thin::-webkit-scrollbar-thumb{background:var(--landing-green);border-radius:999px}
+@media(max-width:700px){
+  .juba-ff-reviews .juba-ff-review-card{box-shadow:4px 4px 0 var(--landing-ink)}
+}
