@@ -235,7 +235,7 @@ export default function GamesPage() {
           </div>
         </header>
 
-        <section className="stats-grid" aria-label="progress">
+        <section className="stats-grid" aria-label={t.stats}>
           <div><span>⭐</span><strong>{xp}</strong><small>{t.points}</small></div>
           <div><span>🔥</span><strong>{streak}</strong><small>{t.streak}</small></div>
           <div><span>🏆</span><strong>{level}</strong><small>{t.level}</small></div>
