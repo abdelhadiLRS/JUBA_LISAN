@@ -43,9 +43,15 @@ export function ExerciseAudioPlayer({
         if (requestId !== requestIdRef.current || audioRef.current !== audio) return
         setState('playing')
       } catch {
-        if (requestId === requestIdRef.current && audioRef.current === audio) {
-          setState('error')
+        if (requestId !== requestIdRef.current || audioRef.current !== audio) return
+        audio.pause()
+        audio.src = ''
+        audioRef.current = null
+        if (blobUrlRef.current) {
+          URL.revokeObjectURL(blobUrlRef.current)
+          blobUrlRef.current = null
         }
+        setState('error')
       }
       return
     }
