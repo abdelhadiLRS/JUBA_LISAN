@@ -15,12 +15,12 @@ type DisplayLanguage = {
   markerCountry: string
 }
 
-const REGIONS: Array<{ id: RegionId; label: string; short: string }> = [
-  { id: 'americas', label: 'Americas', short: 'AM' },
-  { id: 'europe', label: 'Europe', short: 'EU' },
-  { id: 'africa-middle-east', label: 'Africa & Middle East', short: 'AF' },
-  { id: 'asia', label: 'Asia', short: 'AS' },
-  { id: 'pacific', label: 'Pacific', short: 'PA' },
+const REGIONS: Array<{ id: RegionId; key: string; short: string }> = [
+  { id: 'americas', key: 'regionAmericas', short: 'AM' },
+  { id: 'europe', key: 'regionEurope', short: 'EU' },
+  { id: 'africa-middle-east', key: 'regionAfricaMiddleEast', short: 'AF' },
+  { id: 'asia', key: 'regionAsia', short: 'AS' },
+  { id: 'pacific', key: 'regionPacific', short: 'PA' },
 ]
 
 // Coverage uses established native, official, or major regional use.
@@ -74,10 +74,12 @@ function WorldMap({
   highlightedCountries,
   selectedCountry,
   onCountrySelect,
+  ariaLabel,
 }: {
   highlightedCountries: Set<string>
   selectedCountry: string | null
   onCountrySelect: (country: string) => void
+  ariaLabel: string
 }) {
   return (
     <div className="absolute inset-0">
@@ -85,7 +87,7 @@ function WorldMap({
         viewBox="0 0 1000 507"
         className="absolute inset-0 h-full w-full"
         preserveAspectRatio="xMidYMid meet"
-        aria-label={t('worldMapLabel')}
+        aria-label={ariaLabel}
         role="img"
       >
         <defs>
@@ -199,6 +201,7 @@ export function LanguageBubbles() {
             setActiveCountry((current) => (current === country ? null : country))
             setActiveLanguage(null)
           }}
+          ariaLabel={t('worldMapLabel')}
         />
 
         <div className="absolute inset-x-4 top-4 z-20 flex flex-wrap items-center justify-between gap-3 sm:inset-x-6 sm:top-6">
@@ -312,7 +315,7 @@ export function LanguageBubbles() {
             <div className="absolute bottom-20 left-3 z-20 max-w-[calc(100%-1.5rem)] rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[4px_4px_0_var(--juba-app-ink)] sm:bottom-24 sm:left-6 sm:max-w-[280px]">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <span className="text-[9px] font-black uppercase tracking-[.18em] text-[var(--juba-app-green)]">{selectedRegion.label}</span>
+                  <span className="text-[9px] font-black uppercase tracking-[.18em] text-[var(--juba-app-green)]">{t(selectedRegion.key)}</span>
                   <h3 className="mt-1 text-lg font-black text-[var(--juba-app-ink)]">{selected.name}</h3>
                 </div>
                 <button
@@ -345,7 +348,7 @@ export function LanguageBubbles() {
                       : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]',
                   ].join(' ')}
                 >
-                  {region.short}
+                  {t(region.key)}
                 </button>
               ))}
             </div>
