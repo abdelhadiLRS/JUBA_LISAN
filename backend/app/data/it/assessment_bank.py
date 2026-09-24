@@ -1282,4 +1282,264 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         ],
         correct="L'italiano ha sempre assorbito prestiti e la sfida è governare l'innovazione, non respingerla",
     ),
+    AssessmentQuestion(
+        id="g-a1-999",
+        skill="grammar",
+        difficulty="A1",
+        question="Completa: Noi ___ italiani.",
+        options=[
+          "siamo",
+          "sono",
+          "sei",
+          "è"
+],
+        correct="siamo",
+    ),
+    AssessmentQuestion(
+        id="g-a2-999",
+        skill="grammar",
+        difficulty="A2",
+        question="Completa: Ieri ___ al cinema con Luca.",
+        options=[
+          "sono andato",
+          "vado",
+          "andavo",
+          "andrò"
+],
+        correct="sono andato",
+    ),
+    AssessmentQuestion(
+        id="g-b1-999",
+        skill="grammar",
+        difficulty="B1",
+        question="Scegli la forma corretta: Cerco qualcuno che ___ parlare italiano.",
+        options=[
+          "sappia",
+          "sa",
+          "saprà",
+          "sapeva"
+],
+        correct="sappia",
+    ),
+    AssessmentQuestion(
+        id="g-b2-999",
+        skill="grammar",
+        difficulty="B2",
+        question="Completa: Quando sono arrivato, la lezione ___.",
+        options=[
+          "era già iniziata",
+          "è già iniziata",
+          "inizierà",
+          "inizia"
+],
+        correct="era già iniziata",
+    ),
+    AssessmentQuestion(
+        id="g-b2-998",
+        skill="grammar",
+        difficulty="B2",
+        question="Scegli il connettivo corretto: Era stanco; ___, ha continuato a lavorare.",
+        options=[
+          "tuttavia",
+          "perché",
+          "quindi",
+          "affinché"
+],
+        correct="tuttavia",
+    ),
+    AssessmentQuestion(
+        id="g-b2-997",
+        skill="grammar",
+        difficulty="B2",
+        question="Completa: Se avessi più tempo, ___ di più.",
+        options=[
+          "viaggerei",
+          "viaggio",
+          "viaggiavo",
+          "viaggerò"
+],
+        correct="viaggerei",
+    ),
+    AssessmentQuestion(
+        id="g-b2-996",
+        skill="grammar",
+        difficulty="B2",
+        question="Scegli la forma corretta: È possibile che loro ___ domani.",
+        options=[
+          "vengano",
+          "vengono",
+          "verranno",
+          "venivano"
+],
+        correct="vengano",
+    ),
+    AssessmentQuestion(
+        id="g-b2-995",
+        skill="grammar",
+        difficulty="B2",
+        question="Completa: La persona ___ ti ho parlato arriverà domani.",
+        options=[
+          "di cui",
+          "che",
+          "dove",
+          "chi"
+],
+        correct="di cui",
+    ),
+    AssessmentQuestion(
+        id="g-b2-994",
+        skill="grammar",
+        difficulty="B2",
+        question="Scegli la forma corretta: Se lo avessi saputo, non ___ così.",
+        options=[
+          "avrei agito",
+          "agirei",
+          "agivo",
+          "agirò"
+],
+        correct="avrei agito",
+    ),
+    AssessmentQuestion(
+        id="g-b2-993",
+        skill="grammar",
+        difficulty="B2",
+        question="Completa: Benché ___ difficile, vale la pena provarci.",
+        options=[
+          "sia",
+          "è",
+          "sarà",
+          "era"
+],
+        correct="sia",
+    ),
+    AssessmentQuestion(
+        id="g-b2-992",
+        skill="grammar",
+        difficulty="B2",
+        question="Scegli la forma corretta: È una proposta ___ obiettivo è ridurre i costi.",
+        options=[
+          "il cui",
+          "che il",
+          "dove il",
+          "quale"
+],
+        correct="il cui",
+    ),
+    AssessmentQuestion(
+        id="g-c1-999",
+        skill="grammar",
+        difficulty="C1",
+        question="Completa: Per quanto ___, non riuscirà a convincerli.",
+        options=[
+          "insista",
+          "insiste",
+          "insisterà",
+          "insisteva"
+],
+        correct="insista",
+    ),
+    AssessmentQuestion(
+        id="g-c1-998",
+        skill="grammar",
+        difficulty="C1",
+        question="Scegli la forma corretta: Non è che non ___ ragione, ma mancano prove.",
+        options=[
+          "abbia",
+          "ha",
+          "avrà",
+          "aveva"
+],
+        correct="abbia",
+    ),
+    AssessmentQuestion(
+        id="g-c1-997",
+        skill="grammar",
+        difficulty="C1",
+        question="Completa: Lungi dall'___ un problema, la misura ha risolto la situazione.",
+        options=[
+          "essere",
+          "è",
+          "avere",
+          "stare"
+],
+        correct="essere",
+    ),
+    AssessmentQuestion(
+        id="g-c1-996",
+        skill="grammar",
+        difficulty="C1",
+        question="Scegli il connettivo: I dati sono convincenti; ___, servono ulteriori verifiche.",
+        options=[
+          "tuttavia",
+          "quindi",
+          "infatti",
+          "perché"
+],
+        correct="tuttavia",
+    ),
+    AssessmentQuestion(
+        id="g-c1-995",
+        skill="grammar",
+        difficulty="C1",
+        question="Completa: Si dubita che i risultati ___ rappresentativi.",
+        options=[
+          "siano",
+          "sono",
+          "saranno",
+          "erano"
+],
+        correct="siano",
+    ),
+    AssessmentQuestion(
+        id="g-c1-994",
+        skill="grammar",
+        difficulty="C1",
+        question="Scegli la formulazione corretta: È una questione alla quale ___ particolare attenzione.",
+        options=[
+          "occorre prestare",
+          "occorre di prestare",
+          "occorre che prestare",
+          "occorre prestando"
+],
+        correct="occorre prestare",
+    ),
+    AssessmentQuestion(
+        id="g-c1-993",
+        skill="grammar",
+        difficulty="C1",
+        question="Completa: In assenza di prove, la conclusione non può ___ definitiva.",
+        options=[
+          "essere",
+          "è",
+          "avere",
+          "stare"
+],
+        correct="essere",
+    ),
+    AssessmentQuestion(
+        id="g-c1-992",
+        skill="grammar",
+        difficulty="C1",
+        question="Scegli la forma corretta: La ricerca ha evidenziato un fenomeno che ___ diffondendosi.",
+        options=[
+          "si sta",
+          "sta a",
+          "ha da",
+          "viene a"
+],
+        correct="si sta",
+    ),
+    AssessmentQuestion(
+        id="g-c2-999",
+        skill="grammar",
+        difficulty="C2",
+        question="Completa: Qualora ___ necessario, si procederà a una nuova verifica.",
+        options=[
+          "fosse",
+          "è",
+          "sarà",
+          "era"
+],
+        correct="fosse",
+    ),
 ]
