@@ -1,40 +1,8 @@
-// Single source of truth for supported locales.
-// This file must remain a pure ES module (no Node.js APIs) so it can be
-// imported from both the Edge-runtime middleware and server-side code.
-
+// Single source of truth for supported site UI locales.
+// Learning-language coverage is maintained separately by the language atlas.
 export const SUPPORTED_LOCALES = [
   'en',
   'ar',
-  'sv',
-  'fi',
-  'uk',
-  'hu',
-  'tr',
-  'el',
-  'sq',
-  'eu',
-  'gl',
-  'no',
-  'da',
-  'cs',
-  'sk',
-  'fa',
-  'hi',
-  'bn',
-  'id',
-  'ms',
-  'th',
-  'vi',
-  'ja',
-  'ko',
-  'zh',
-  'mi',
-  'sm',
-  'to',
-  'yo',
-  'xh',
-  'mg',
-  'ny',
   'es',
   'fr',
   'pt',
