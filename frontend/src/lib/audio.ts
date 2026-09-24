@@ -295,8 +295,12 @@ export function createAudioQueue(
         error: error instanceof Error ? error.message : String(error),
       })
       // A single fallback construction failure must not abort the serialized
-      // drain. The current chunk cannot be played, but later queued chunks
-      // should still get a chance to use Web Audio or another fallback.
+      // drain. Re-anchor the Web Audio timeline as well: the fallback path
+      // may follow a previously scheduled chunk, and retaining its old
+      // nextTime would make later Web Audio chunks start at a stale timestamp.
+      if (generationToken === generation) {
+        nextTime = ctx.currentTime
+      }
       return
     }
 
