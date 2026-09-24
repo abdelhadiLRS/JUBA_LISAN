@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import Script from 'next/script'
 import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
@@ -107,7 +108,8 @@ export default async function Home() {
 
   return (
     <div className="juba-funfluent-page juba-ff-reference min-h-screen flex flex-col font-sans selection:bg-[#ffd45c]/30 overflow-x-hidden">
-      <script
+      <Script
+        id="juba-lisan-structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
