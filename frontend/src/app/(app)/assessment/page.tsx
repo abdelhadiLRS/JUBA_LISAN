@@ -238,7 +238,7 @@ export default function AssessmentPage() {
       setStep('result')
     } catch (err) {
       const msg = err instanceof Error ? err.message : ''
-      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || 'Evaluation failed')
+      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || t('evaluationFailed'))
     } finally {
       setEvaluating(false)
     }
@@ -278,7 +278,7 @@ export default function AssessmentPage() {
       router.push('/plan')
     } catch (err) {
       const msg = err instanceof Error ? err.message : ''
-      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || 'Failed to create plan')
+      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || t('planCreationFailed'))
       setSubmitting(false)
     }
   }
