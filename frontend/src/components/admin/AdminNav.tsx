@@ -24,7 +24,7 @@ export function AdminNav() {
   const t = useTranslations('admin')
 
   return (
-    <div className="border-fl-border bg-fl-surface flex flex-wrap items-center gap-1 border p-1">
+    <div className="juba-admin-nav border-fl-border bg-fl-surface flex flex-wrap items-center gap-1 border p-1.5">
       {items.map((item) => {
         const Icon = item.icon
         const active =
@@ -34,9 +34,9 @@ export function AdminNav() {
           <Link
             key={item.href}
             href={item.href}
-            className={`text-fl-label flex min-h-9 items-center gap-2 px-3 py-2 font-mono tracking-widest uppercase transition-colors ${
+            className={`juba-admin-nav-item text-fl-label flex min-h-9 items-center gap-2 px-3 py-2 font-semibold transition-colors ${
               active
-                ? 'bg-fl-bg text-fl-fg border-fl-accent border-l-2'
+                ? 'juba-admin-nav-active bg-fl-bg text-fl-fg border-l-2'
                 : 'text-fl-muted-2 hover:bg-fl-bg hover:text-fl-fg border-l-2 border-transparent'
             }`}
           >
