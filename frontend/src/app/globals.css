@@ -3740,3 +3740,11 @@ main [dir="rtl"] h3,
     flex-direction:column;
   }
 }
+
+
+/* Real product entry-point affordances */
+.juba-ff-demo-action{display:inline-flex;align-items:center;gap:.45rem;border:2px solid var(--ff-ink);background:var(--ff-yellow);padding:.65rem .85rem;font-size:.7rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;box-shadow:3px 3px 0 var(--ff-ink);transition:transform .18s ease,box-shadow .18s ease}
+.juba-ff-demo-action svg{width:15px;height:15px;flex:none}
+.juba-ff-demo-action:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ff-ink)}
+.juba-ff-scenario-grid>a{position:relative;text-decoration:none;cursor:pointer}
+.juba-ff-scenario-grid>a>svg:last-child{margin-left:auto;width:15px;height:15px}
