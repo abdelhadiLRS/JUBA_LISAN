@@ -118,7 +118,14 @@ export function createAudioQueue(
     chunkId: number
   ): Promise<void> {
     if (generationToken !== generation) return
-    if (ctx.state === 'closed') return
+    if (ctx.state === 'closed') {
+      audioQueueLogger.warn('audio context is closed; using HTMLAudio fallback', {
+        chunkId,
+        generationToken,
+      })
+      await _fallbackPlay(arrayBuffer.slice(0), generationToken, chunkId)
+      return
+    }
 
     if (ctx.state === 'suspended') {
       audioQueueLogger.warn('resuming suspended audio context', {
