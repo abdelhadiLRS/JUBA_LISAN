@@ -1719,7 +1719,7 @@
   "landingReviews": {
     "eyebrow": "Learner stories",
     "title": "Learning feels more real when you tell it yourself",
-    "subtitle": "Reviews from students already practicing with Lingu on JUBA LISAN.",
+    "subtitle": "Public reviews shared by learners who have practiced with JUBA LISAN.",
     "averageLabel": "{average}/5 · {count, plural, one {# total review} other {# total reviews}}",
     "learningLanguage": "Learning {language}",
     "starsLabel": "{rating} out of 5 stars",
