@@ -22,7 +22,7 @@ export function LandingFooter({ t }: LandingFooterProps) {
             <p className="text-[#617068] text-sm max-w-sm leading-relaxed mb-6">
               {t('footerTagline')}
             </p>
-            <p className="text-xs text-neutral-400">
+            <p className="juba-footer-note text-xs">
               © {new Date().getFullYear()} JUBA LISAN. All rights reserved.
             </p>
           </div>
@@ -61,7 +61,7 @@ export function LandingFooter({ t }: LandingFooterProps) {
           </div>
         </div>
 
-        <div className="border-t border-[rgba(37,48,42,.18)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-400">
+        <div className="juba-footer-bottom border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
           <span>Built for learners everywhere.</span>
           <span>AI-powered · Privacy-conscious · CEFR-aligned</span>
         </div>
