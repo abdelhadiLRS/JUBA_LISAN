@@ -44,7 +44,7 @@ export function LoadingBar() {
     <div
       className="fixed top-0 right-0 left-0 z-[300] h-1 overflow-hidden border-b border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)]"
       role="progressbar"
-      aria-label="Loading"
+      aria-label="Loading" aria-valuemin={0} aria-valuemax={100} aria-valuetext="Loading content"
     >
       <div
         className={`h-full bg-[var(--juba-app-green-dark)] ${
