@@ -1,6 +1,6 @@
 'use client'
 
-import { useId, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { Globe2, MapPinned } from 'lucide-react'
 import { WORLD_MAP_CENTROIDS, WORLD_MAP_PATHS } from './world-map-data'
@@ -94,11 +94,11 @@ function WorldMap({
         role="img"
       >
         <defs>
-          <pattern id={`atlas-graticule-${mapId}`} width="100" height="84" patternUnits="userSpaceOnUse">
+          <pattern id="atlas-graticule" width="100" height="84" patternUnits="userSpaceOnUse">
             <path d="M 100 0 L 0 0 0 84" fill="none" stroke="var(--juba-app-line)" strokeWidth="0.7" opacity="0.32" />
           </pattern>
         </defs>
-        <rect width="1000" height="507" fill={`url(#atlas-graticule-${mapId})`} />
+        <rect width="1000" height="507" fill="url(#atlas-graticule)" />
         <g>
           {Object.entries(WORLD_MAP_PATHS).map(([code, path]) => {
             const highlighted = highlightedCountries.has(code)
@@ -135,7 +135,6 @@ function WorldMap({
 export function LanguageBubbles() {
   const t = useTranslations('landing')
   const locale = useLocale() === 'ar' ? 'ar' : 'en'
-  const mapId = useId().replace(/:/g, '')
   const countryName = (code: string) => COUNTRY_NAMES[code]?.[locale] ?? code
   const [activeRegion, setActiveRegion] = useState<RegionId | null>(null)
   const [activeLanguage, setActiveLanguage] = useState<string | null>(null)
