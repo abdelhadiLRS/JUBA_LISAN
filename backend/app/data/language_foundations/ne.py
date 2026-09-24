@@ -40,14 +40,14 @@ PhrasebookCategory(id="ne_a1_phrase_3",level="A1",situation="help",icon="💬",p
 PhrasebookCategory(id="ne_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="विद्यालय कहाँ छ?",context="Where is the school?",register="neutral")])
 ]
 ASSESSMENT_BANK=[
-AssessmentQuestion(id="ne-a1-001",skill="vocabulary",difficulty="A1",question="Choose the correct Nepali expression for this A1 task.",options=["नमस्ते","नाम","आमा","घर"],correct="नमस्ते"),
-AssessmentQuestion(id="ne-a1-002",skill="grammar",difficulty="A1",question="Choose the correct Nepali expression for this A1 task.",options=["नाम","आमा","घर","पढ्नु"],correct="नाम"),
-AssessmentQuestion(id="ne-a1-003",skill="reading",difficulty="A1",question="Choose the correct Nepali expression for this A1 task.",options=["आमा","घर","पढ्नु","समय"],correct="आमा"),
-AssessmentQuestion(id="ne-a1-004",skill="speaking",difficulty="A1",question="Choose the correct Nepali expression for this A1 task.",options=["घर","पढ्नु","समय","पानी"],correct="घर"),
-AssessmentQuestion(id="ne-a1-005",skill="vocabulary",difficulty="A1",question="Choose the correct Nepali expression for this A1 task.",options=["पढ्नु","समय","पानी","विद्यालय"],correct="पढ्नु"),
-AssessmentQuestion(id="ne-a1-006",skill="grammar",difficulty="A1",question="Choose the correct Nepali expression for this A1 task.",options=["समय","पानी","विद्यालय","नमस्ते"],correct="समय"),
-AssessmentQuestion(id="ne-a1-007",skill="reading",difficulty="A1",question="Choose the correct Nepali expression for this A1 task.",options=["पानी","विद्यालय","नमस्ते","नाम"],correct="पानी"),
-AssessmentQuestion(id="ne-a1-008",skill="speaking",difficulty="A1",question="Choose the correct Nepali expression for this A1 task.",options=["विद्यालय","नमस्ते","नाम","आमा"],correct="विद्यालय"),
-AssessmentQuestion(id="ne-a1-009",skill="vocabulary",difficulty="A1",question="Choose the correct Nepali expression for this A1 task.",options=["नमस्ते","नाम","आमा","घर"],correct="नमस्ते"),
-AssessmentQuestion(id="ne-a1-010",skill="grammar",difficulty="A1",question="Choose the correct Nepali expression for this A1 task.",options=["नाम","आमा","घर","पढ्नु"],correct="नाम")
+AssessmentQuestion(id="ne-a1-001",skill="vocabulary",difficulty="A1",question="Which Nepali word means 'water'?",options=["पानी","घर","आमा","विद्यालय"],correct="पानी"),
+AssessmentQuestion(id="ne-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["म घरमा छु।","म विद्यालय जान्छु।","म पानी पिउँछु।","यो किताब हो।"],correct="म घरमा छु।"),
+AssessmentQuestion(id="ne-a1-003",skill="vocabulary",difficulty="A1",question="What does आमा mean?",options=["mother","father","friend","teacher"],correct="mother"),
+AssessmentQuestion(id="ne-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["तपाईंको नाम के हो?","तपाईं कहाँ हुनुहुन्छ?","यो के हो?","कति बजे हो?"],"correct"="तपाईंको नाम के हो?"),
+AssessmentQuestion(id="ne-a1-005",skill="reading",difficulty="A1",question="विद्यालय नजिकै छ। Where is the school?",options=["Nearby","At home","In the market","Far away"],correct="Nearby"),
+AssessmentQuestion(id="ne-a1-006",skill="vocabulary",difficulty="A1",question="Which word means 'name'?",options=["नाम","समय","पानी","घर"],correct="नाम"),
+AssessmentQuestion(id="ne-a1-007",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["फेरि भन्नुहोस्।","धन्यवाद।","नमस्ते।","बिदा।"],correct="फेरि भन्नुहोस्।"),
+AssessmentQuestion(id="ne-a1-008",skill="grammar",difficulty="A1",question="Which sentence says 'I drink water'?",options=["म पानी पिउँछु।","म घरमा छु।","म पढ्छु।","यो घर हो।"],correct="म पानी पिउँछु।"),
+AssessmentQuestion(id="ne-a1-009",skill="vocabulary",difficulty="A1",question="What does समय mean?",options=["time","school","water","name"],correct="time"),
+AssessmentQuestion(id="ne-a1-010",skill="communication",difficulty="A1",question="Which is a natural greeting?",options=["नमस्ते!","पानी चाहिन्छ।","घर कहाँ छ?","म बुझिनँ।"],correct="नमस्ते!")
 ]
