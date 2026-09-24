@@ -211,5 +211,17 @@
       "recall": "استدعِ",
       "review": "راجع"
     }
+  },
+  "courseLevel": {
+    "lessonTypes": {
+      "listening": "استماع",
+      "reading": "قراءة",
+      "writing": "كتابة",
+      "grammar": "قواعد",
+      "vocabulary": "مفردات",
+      "review": "مراجعة"
+    },
+    "listening": "الاستماع",
+    "reading": "القراءة"
   }
 }
