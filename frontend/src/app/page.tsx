@@ -187,6 +187,24 @@ export default async function Home() {
         <div className="juba-ff-wave" aria-hidden="true" />
       </section>
 
+      {/* Language constellation — all supported learning languages are visible on the public page. */}
+      <section className="juba-ff-story juba-ff-story-languages">
+        <ScrollReveal>
+          <div className="juba-ff-story-inner">
+            <div className="mb-8 text-center">
+              <span className="juba-ff-section-tag">JUBA LISAN languages</span>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-[#183022] sm:text-4xl">Learn across languages</h2>
+              <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-[#617068]">
+                Explore the languages available across the JUBA LISAN learning experience.
+              </p>
+            </div>
+            <div className="mx-auto max-w-4xl">
+              <LanguageBubbles />
+            </div>
+          </div>
+        </ScrollReveal>
+      </section>
+
       {/* Real product entry points — visual treatment only follows the reference */}
       <section id="features" className="juba-ff-books">
         <div className="juba-ff-section-head">
