@@ -262,7 +262,7 @@ export default function PricingSection({
                   href={plan.href}
                   className={`inline-block px-6 py-2.5 text-center font-mono text-xs font-bold tracking-widest uppercase transition-colors ${
                     plan.isFree
-                      ? 'border-[var(--juba-border)] text-[var(--landing-muted)] hover:text-[var(--juba-text)] border'
+                      ? 'border-[var(--landing-border)] text-[var(--landing-muted)] hover:text-[var(--landing-ink)] border'
                       : 'juba-ff-plan-cta'
                   }`}
                 >
@@ -282,13 +282,13 @@ export default function PricingSection({
               <th className="text-[var(--landing-muted)] w-[42%] px-3 py-3 text-left font-mono tracking-widest uppercase sm:w-auto sm:px-5">
                 &nbsp;
               </th>
-              <th className="text-[var(--landing-muted)] sm:text-[var(--juba-text)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
+              <th className="text-[var(--landing-muted)] sm:text-[var(--landing-ink)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
                 {tBilling('planFreeName')}
               </th>
-              <th className="text-[var(--landing-muted)] sm:text-[var(--juba-text)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
+              <th className="text-[var(--landing-muted)] sm:text-[var(--landing-ink)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
                 {tBilling('planMonthlyName')}
               </th>
-              <th className="text-[var(--landing-muted)] text-[var(--landing-muted)] sm:text-[var(--juba-text)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
+              <th className="text-[var(--landing-muted)] text-[var(--landing-muted)] sm:text-[var(--landing-ink)] w-[19.333%] px-1 py-3 text-center font-mono tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
                 {tBilling('planYearlyName')}
               </th>
             </tr>
@@ -298,7 +298,7 @@ export default function PricingSection({
               <tr
                 key={i}
                 className={
-                  i < tableRows.length - 1 ? 'border-[var(--juba-border)] border-b' : ''
+                  i < tableRows.length - 1 ? 'border-[var(--landing-border)] border-b' : ''
                 }
               >
                 <td className="juba-ff-table-cell px-3 py-3 font-mono text-xs sm:px-5">
