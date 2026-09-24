@@ -29,7 +29,7 @@ import type { ReviewPublic } from '@/types/api'
 export const metadata: Metadata = {
   title: 'JUBA LISAN: AI-Powered Language Learning Platform',
   description:
-    'Learn languages naturally with your personal {t('proofTutor')}. Master real-time voice conversations, structured CEFR lessons, interactive reading & listening, and smart flashcards.',
+    'Learn languages naturally with your personal AI tutor. Master real-time voice conversations, structured CEFR lessons, interactive reading & listening, and smart flashcards.',
   robots: { index: true, follow: true },
   openGraph: {
     title: 'JUBA LISAN: AI-Powered Language Learning Platform',
@@ -154,7 +154,7 @@ export default async function Home() {
             <div className="juba-ff-mini-proof">
               <span><CheckCircle2 className="h-4 w-4" /> {t('proofCefr')}</span>
               <span><CheckCircle2 className="h-4 w-4" /> {t('proofVoice')}</span>
-              <span><CheckCircle2 className="h-4 w-4" /> AI tutor</span>
+              <span><CheckCircle2 className="h-4 w-4" /> {t('proofTutor')}</span>
             </div>
           </div>
 
@@ -229,7 +229,7 @@ export default async function Home() {
             <strong>{t('flowPlanTitle')}</strong><span>{t('flowPlanDescription')}</span>
           </Link>
           <Link href="/chat" className="juba-ff-book book-purple">
-            <div className="book-art" aria-hidden="true"><span className="book-art-mark">03</span><span>AI</span></div>
+            <div className="book-art" aria-hidden="true"><span className="book-art-mark">03</span><span>{t('flowAiLabel')}</span></div>
             <strong>{t('flowAiTitle')}</strong><span>{t('flowAiDescription')}</span>
           </Link>
           <Link href="/conversation" className="juba-ff-book book-coral">
