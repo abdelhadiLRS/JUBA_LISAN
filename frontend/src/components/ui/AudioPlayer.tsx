@@ -135,10 +135,44 @@ export function AudioPlayer({
       const url = URL.createObjectURL(blob)
       const audio = new Audio(url)
       audioRef.current = audio
+
+      audio.onended = () => {
+        if (requestId !== requestIdRef.current || audioRef.current !== audio) return
+        URL.revokeObjectURL(url)
+        audioRef.current = null
+        setState('idle')
+      }
+      audio.onerror = () => {
+        if (requestId !== requestIdRef.current || audioRef.current !== audio) return
+        URL.revokeObjectURL(url)
+        audioRef.current = null
+        setState('error')
+        timeoutRef.current = setTimeout(() => {
+          timeoutRef.current = null
+          if (requestId === requestIdRef.current) setState('idle')
+        }, 2000)
+      }
+
       setState('playing')
 
       const playStart = performance.now()
-      await audio.play()
+      try {
+        await audio.play()
+      } catch (error) {
+        if (requestId !== requestIdRef.current || controller.signal.aborted) return
+        if (audioRef.current === audio) audioRef.current = null
+        URL.revokeObjectURL(url)
+        setState('error')
+        timeoutRef.current = setTimeout(() => {
+          timeoutRef.current = null
+          if (requestId === requestIdRef.current) setState('idle')
+        }, 2000)
+        ttsLogger.warn('tts playback failed', {
+          traceId,
+          error: error instanceof Error ? error.message : String(error),
+        })
+        return
+      }
       if (requestId !== requestIdRef.current || controller.signal.aborted) return
       const playMs = performance.now() - playStart
       const totalMs = performance.now() - t0
@@ -173,21 +207,6 @@ export function AudioPlayer({
         })
       }
 
-      audio.onended = () => {
-        if (requestId !== requestIdRef.current || audioRef.current !== audio) return
-        URL.revokeObjectURL(url)
-        audioRef.current = null
-        setState('idle')
-      }
-      audio.onerror = () => {
-        if (requestId !== requestIdRef.current || audioRef.current !== audio) return
-        URL.revokeObjectURL(url)
-        audioRef.current = null
-        setState('error')
-        setTimeout(() => {
-          if (requestId === requestIdRef.current) setState('idle')
-        }, 2000)
-      }
     } catch {
       if (requestId !== requestIdRef.current || controller.signal.aborted) return
       if (timeoutRef.current) {
