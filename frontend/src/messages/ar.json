@@ -416,5 +416,30 @@
   "plan": {
     "planLoadFailed": "تعذر تحميل الخطة ({status})",
     "loadFailed": "تعذر التحميل"
+  },
+  "visitorTranslator": {
+    "open": "فتح المترجم الفوري",
+    "translate": "ترجمة",
+    "title": "المترجم الفوري",
+    "description": "ترجم بحرية واحفظ الكلمات المفيدة على جهازك. سجّل الدخول فقط عندما تريد مزامنتها سحابيًا.",
+    "close": "إغلاق المترجم",
+    "from": "من",
+    "sourceLanguage": "لغة المصدر",
+    "autoDetect": "اكتشاف تلقائي",
+    "inputPlaceholder": "اكتب أو الصق النص هنا…",
+    "textToTranslate": "النص المراد ترجمته",
+    "detected": "تم اكتشاف",
+    "automaticDetection": "اكتشاف تلقائي",
+    "swap": "تبديل لغتي المصدر والهدف",
+    "to": "إلى",
+    "targetLanguage": "اللغة المستهدفة",
+    "savedLocally": "تم الحفظ محليًا ✓",
+    "learnThis": "تعلّم هذه",
+    "savedWords": "كلماتي المحفوظة",
+    "savedNote": "تم الحفظ على هذا المتصفح. سجّل الدخول لاحقًا لمزامنتها مع بطاقات تعلّمك.",
+    "translationPlaceholder": "ستظهر ترجمتك هنا.",
+    "workflow": "ترجم ← احفظ ← تعلّم ← راجع.",
+    "translating": "جارٍ الترجمة…",
+    "translationFailed": "فشلت الترجمة."
   }
 }
