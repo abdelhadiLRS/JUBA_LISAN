@@ -93,21 +93,21 @@ export function VoiceSection({ title }: { title?: string } = {}) {
   if (ttsProvider !== 'openai') return null
 
   return (
-    <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] border p-6">
-      <div className="border-[var(--juba-border)] mb-5 flex items-center gap-2 border-b pb-4">
-        <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-        <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
+    <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border p-6">
+      <div className="border-[var(--juba-app-line)] mb-5 flex items-center gap-2 border-b pb-4">
+        <span className="text-[var(--juba-app-muted)]">●</span>
+        <span className="text-[var(--juba-app-muted)] font-mono tracking-widest uppercase">
           {title ?? t('sectionVoice')}
         </span>
       </div>
-      <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] mb-4 font-mono">
+      <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mb-4 font-mono">
         {t('voiceHint')}
       </p>
       <div className="flex items-center gap-3">
         <select
           value={selectedVoice}
           onChange={(e) => selectVoice(e.target.value)}
-          className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] focus:border-[var(--juba-border)]-2 flex-1 appearance-none border px-4 py-3 font-mono text-sm tracking-widest uppercase transition-colors focus:outline-none"
+          className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] focus:border-[var(--juba-app-line)]-2 flex-1 appearance-none border px-4 py-3 font-mono text-sm tracking-widest uppercase transition-colors focus:outline-none"
         >
           {OPENAI_VOICES.map((voice) => (
             <option key={voice} value={voice}>
@@ -119,7 +119,7 @@ export function VoiceSection({ title }: { title?: string } = {}) {
           type="button"
           onClick={() => void togglePreview(selectedVoice)}
           disabled={loadingVoice === selectedVoice}
-          className="text-[var(--juba-muted)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] border-[var(--juba-border)] hover:border-[var(--juba-border)]-2 border px-4 py-3 font-mono tracking-widest whitespace-nowrap uppercase transition-colors disabled:opacity-40"
+          className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] border-[var(--juba-app-line)] hover:border-[var(--juba-app-line)]-2 border px-4 py-3 font-mono tracking-widest whitespace-nowrap uppercase transition-colors disabled:opacity-40"
         >
           {loadingVoice === selectedVoice
             ? '...'
