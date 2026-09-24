@@ -526,6 +526,40 @@ describe('createAudioQueue', () => {
 
     await expect(pending).resolves.toBeUndefined()
     expect(audio.pause).toHaveBeenCalledTimes(1)
+  it('notifies idle only once when cancelling active fallback playback', async () => {
+    const { ctx } = createContext()
+    ctx.decodeAudioData = vi.fn(async () => {
+      throw new Error('decode failed')
+    }) as typeof ctx.decodeAudioData
+
+    const audio = {
+      src: 'blob:cancel-idle',
+      play: vi.fn(async () => {}),
+      pause: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }
+
+    const idle = vi.fn()
+    vi.stubGlobal('Audio', vi.fn(() => audio))
+    vi.stubGlobal('URL', {
+      createObjectURL: vi.fn(() => 'blob:cancel-idle'),
+      revokeObjectURL: vi.fn(),
+    })
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx, idle)
+    const pending = queue.enqueue(new ArrayBuffer(4))
+
+    await Promise.resolve()
+    await Promise.resolve()
+
+    queue.cancel()
+
+    await expect(pending).resolves.toBeUndefined()
+    expect(idle).toHaveBeenCalledTimes(1)
+  })
+
     expect(audio.src).toBe('')
     expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:test')
     expect(listeners.get('ended')).toBeDefined()
