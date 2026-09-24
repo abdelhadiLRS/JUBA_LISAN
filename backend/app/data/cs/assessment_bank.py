@@ -18,7 +18,7 @@ ASSESSMENT_BANK = [
         difficulty="A1",
         question="Co znamená „Dobrý den“?",
         options=["Pozdrav používaný během dne", "Přání na dobrou noc", "Poděkování", "Rozloučení"],
-        correct="Hello / good day",
+        correct="Pozdrav používaný během dne",
     ),
     AssessmentQuestion(
         id="cs-a1-003",
@@ -87,7 +87,7 @@ ASSESSMENT_BANK = [
         difficulty="B1",
         question="Co v odborném textu nejlépe znamená slovo „důkaz“?",
         options=["důkaz nebo podklad potvrzující tvrzení", "otázka", "zvyk", "cesta"],
-        correct="evidence",
+        correct="důkaz nebo podklad potvrzující tvrzení",
     ),
     AssessmentQuestion(
         id="cs-b1-003",
@@ -124,7 +124,7 @@ ASSESSMENT_BANK = [
         difficulty="B2",
         question="Co v argumentaci znamená „námitka“?",
         options=["námitka nebo nesouhlas s tvrzením", "souhlas", "časový plán", "adresa"],
-        correct="objection",
+        correct="námitka nebo nesouhlas s tvrzením",
     ),
     AssessmentQuestion(
         id="cs-b2-003",
@@ -166,7 +166,7 @@ ASSESSMENT_BANK = [
         difficulty="C1",
         question="Co v akademickém textu znamená „hypotéza“?",
         options=["předpoklad, který lze ověřit", "závěr", "faktura", "schůzka"],
-        correct="hypothesis",
+        correct="předpoklad, který lze ověřit",
     ),
     AssessmentQuestion(
         id="cs-c1-003",
@@ -208,7 +208,7 @@ ASSESSMENT_BANK = [
         difficulty="C2",
         question="Co znamená „jednoznačný“ v odborném nebo právním kontextu?",
         options=["jednoznačný a bez více možných výkladů", "nejistý", "neformální", "opakovaný"],
-        correct="unambiguous",
+        correct="jednoznačný a bez více možných výkladů",
     ),
     AssessmentQuestion(
         id="cs-c2-003",
