@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
-import { useMicVAD } from '@ricky0123/vad-react'
+import { useSafeMicVAD } from '@/hooks/useSafeMicVAD'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useAuthStore } from '@/store/auth'
@@ -395,7 +395,7 @@ export default function ConversationMode({
   // MicVAD.new() loads the ONNX model but does NOT request mic permission yet.
   // getUserMedia() is called only when vad.start() is invoked (inside handleStart,
   // which runs during a user-gesture click).
-  const vad = useMicVAD({
+  const vad = useSafeMicVAD({
     baseAssetPath: '/vad/',
     onnxWASMBasePath: '/vad/',
     model: 'v5',
@@ -886,7 +886,7 @@ export default function ConversationMode({
     // Pass the same user-gesture AudioContext into VAD through its runtime
     // options when supported. This prevents MicVAD from owning a second
     // context that can race with the stream/processor initialization.
-    vad.start().catch((e: unknown) => {
+    vad.start(ctx).catch((e: unknown) => {
       if (!mountedRef.current || startAttemptRef.current !== startAttempt)
         return
       startAttemptRef.current++
