@@ -5396,3 +5396,71 @@ main [dir="rtl"] h3,
     padding:1rem;
   }
 }
+
+
+/* JUBA LISAN — direct learner chat */
+.juba-friend-chat-shell{
+  color:var(--juba-app-ink);
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,212,79,.12),transparent 260px),
+    var(--juba-app-bg);
+}
+.juba-friend-chat-shell .juba-icon-button{
+  border:1px solid var(--juba-app-line);
+  background:#fff;
+  color:var(--juba-app-ink);
+  border-radius:12px;
+  box-shadow:0 3px 10px rgba(24,37,27,.05);
+}
+.juba-friend-chat-shell .juba-panel{
+  border:2px solid var(--juba-app-ink);
+  border-radius:24px;
+  background:var(--juba-app-surface);
+  box-shadow:7px 7px 0 var(--juba-app-ink);
+}
+.juba-friend-chat-shell .juba-panel > div:last-child{
+  border-color:var(--juba-app-line)!important;
+  background:#fffdf8;
+}
+.juba-friend-chat-shell .juba-input{
+  border-color:var(--juba-app-line);
+  border-radius:14px;
+  background:#f9fbf7;
+}
+.juba-friend-chat-shell .juba-primary-button{
+  border:2px solid var(--juba-app-ink);
+  border-radius:12px;
+  background:var(--juba-app-green);
+  color:#fff;
+  box-shadow:3px 3px 0 var(--juba-app-ink);
+}
+.juba-friend-chat-shell .juba-primary-button:hover:not(:disabled){
+  transform:translateY(-1px);
+}
+.juba-friend-chat-shell .juba-muted{
+  color:var(--juba-app-muted);
+}
+.juba-friend-chat-shell [class*="bg-[#39751d]"]{
+  background:var(--juba-app-green)!important;
+  box-shadow:3px 3px 0 var(--juba-app-ink)!important;
+}
+.juba-friend-chat-shell [class*="border-[var(--juba-border)]"]{
+  border-color:var(--juba-app-line)!important;
+}
+.juba-friend-chat-shell [class*="bg-[var(--juba-surface)]"]{
+  background:#fff!important;
+}
+.juba-friend-chat-shell [class*="bg-[var(--juba-bg)]"]{
+  background:#f2f5ee!important;
+}
+.juba-friend-chat-shell [class*="text-[var(--juba-muted)]"]{
+  color:var(--juba-app-muted)!important;
+}
+@media(max-width:700px){
+  .juba-friend-chat-shell{
+    padding:1rem;
+  }
+  .juba-friend-chat-shell .juba-panel{
+    box-shadow:4px 4px 0 var(--juba-app-ink);
+  }
+}
