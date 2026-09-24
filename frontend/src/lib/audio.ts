@@ -133,20 +133,7 @@ export function createAudioQueue(
         generationToken,
       })
       try {
-        await Promise.race([
-          ctx.resume(),
-          new Promise<void>((resolve) => {
-            const checkGeneration = () => {
-              if (generationToken !== generation) {
-                resolve()
-                return
-              }
-              queueMicrotask(checkGeneration)
-            }
-            queueMicrotask(checkGeneration)
-          }),
-        ])
-        if (generationToken !== generation) return
+        await ctx.resume()
         audioQueueLogger.warn('audio context resumed', {
           chunkId,
           state: ctx.state,
