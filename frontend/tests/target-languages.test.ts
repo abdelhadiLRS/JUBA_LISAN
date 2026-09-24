@@ -67,4 +67,13 @@ describe('target language catalog', () => {
       ).map((language) => language.code)
     ).toEqual(['en-GB', 'el-GR', 'cs-CZ'])
   })
+
+  it('canonicalizes language mutation payloads', () => {
+    const canonicalize = (code: string) =>
+      getLanguageByCode(code)?.code ?? code.trim()
+
+    expect(canonicalize(' CS-cz ')).toBe('cs-CZ')
+    expect(canonicalize('el-gr')).toBe('el-GR')
+    expect(canonicalize('en-US')).toBe('en-US')
+  })
 })
