@@ -53,7 +53,7 @@ AssessmentQuestion(id="et-a1-006",skill="vocabulary",difficulty="A1",question="W
 AssessmentQuestion(id="et-a1-007",skill="grammar",difficulty="A1",question="Choose the correct sentence for “I drink water.”",options=["Ma joon vett.","Ma joo vett.","Ma joon vesi.","Mina jooma vett."],correct="Ma joon vett."),
 AssessmentQuestion(id="et-a1-008",skill="communication",difficulty="A1",question="Which phrase asks for help?",options=["Kas sa saad mind aidata?","Hüvasti!","Aitäh!","Minu nimi on Mari."],correct="Kas sa saad mind aidata?"),
 AssessmentQuestion(id="et-a1-009",skill="communication",difficulty="A1",question="Which phrase asks for the station's location?",options=["Kus jaam on?","Kui palju see maksab?","Ma soovin seda.","Tere!"],correct="Kus jaam on?"),
-AssessmentQuestion(id="et-a1-010",skill="vocabulary",difficulty="A1",question="Which word means “friend”?",options=["sõber","aeg","homme","tänа"],correct="sõber")]
+AssessmentQuestion(id="et-a1-010",skill="vocabulary",difficulty="A1",question="Which word means “friend”?",options=["sõber","aeg","homme","täna"],correct="sõber")]
 ASSESSMENT_BANK=[
     AssessmentQuestion(id="et-a1-001",skill="vocabulary",difficulty="A1",question="Which word is the greeting?",options=["tere","station","water","book"],correct="tere"),
     AssessmentQuestion(id="et-a1-002",skill="grammar",difficulty="A1",question="Choose the first model sentence.",options=["Mina olen õpilane.","Tema on õpetaja.","No sentence","Tomorrow"],correct="Mina olen õpilane."),
