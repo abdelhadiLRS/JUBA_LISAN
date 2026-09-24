@@ -64,3 +64,54 @@ def test_czech_and_swedish_are_not_foundation_fallbacks() -> None:
     assert get_curriculum("sv-SE")["A1"][0].id.startswith("sv-a1-")
     assert get_grammar_topics("cs-CZ")[0].slug.startswith("cs-")
     assert get_grammar_topics("sv-SE")[0].slug.startswith("sv-")
+
+ACTIVATED_TARGET_LANGUAGES = (
+    "de-DE",
+    "en-GB",
+    "en-US",
+    "es-ES",
+    "fr-FR",
+    "it-IT",
+    "ja-JP",
+    "ko-KR",
+    "pt-PT",
+    "zh-CN",
+    "ar",
+    "ru-RU",
+    "nl-NL",
+    "pl-PL",
+    "da-DK",
+    "el-GR",
+    "sv-SE",
+    "no-NO",
+    "fi-FI",
+    "cs-CZ",
+)
+
+
+def test_all_activated_languages_have_complete_curriculum_and_vocabulary_links() -> None:
+    for target_language in ACTIVATED_TARGET_LANGUAGES:
+        curriculum = get_curriculum(target_language)
+        vocabulary = get_vocabulary_sets(target_language)
+
+        assert set(curriculum) == {"A1", "A2", "B1", "B2", "C1", "C2"}, target_language
+        units = [unit for level in curriculum.values() for unit in level]
+        assert len(units) == 24, target_language
+
+        vocabulary_ids = {entry.id for entry in vocabulary}
+        assert len(vocabulary) >= 24, target_language
+        assert all(
+            vocabulary_id in vocabulary_ids
+            for unit in units
+            for vocabulary_id in unit.vocabulary_set_ids
+        ), target_language
+
+
+def test_all_activated_languages_have_metadata_and_no_flags() -> None:
+    for target_language in ACTIVATED_TARGET_LANGUAGES:
+        assert get_language_name(target_language)
+        assert get_language_self_name(target_language)
+        assert get_iso639(target_language)
+        assert get_language_script(target_language)
+        assert get_language_romanization(target_language) == ""
+        assert get_language_flag(target_language) == ""
