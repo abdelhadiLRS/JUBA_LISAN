@@ -526,6 +526,11 @@ describe('createAudioQueue', () => {
 
     await expect(pending).resolves.toBeUndefined()
     expect(audio.pause).toHaveBeenCalledTimes(1)
+    expect(audio.src).toBe('')
+    expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:test')
+    expect(listeners.get('ended')).toBeDefined()
+  })
+
   it('notifies idle only once when cancelling active fallback playback', async () => {
     const { ctx } = createContext()
     ctx.decodeAudioData = vi.fn(async () => {
@@ -558,10 +563,5 @@ describe('createAudioQueue', () => {
 
     await expect(pending).resolves.toBeUndefined()
     expect(idle).toHaveBeenCalledTimes(1)
-  })
-
-    expect(audio.src).toBe('')
-    expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:test')
-    expect(listeners.get('ended')).toBeDefined()
   })
 })
