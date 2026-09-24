@@ -347,6 +347,46 @@ describe('createAudioQueue', () => {
     expect(createCount).toBe(2)
   })
 
+  it('cleans up fallback resources when HTMLAudio playback fails', async () => {
+    const { ctx } = createContext()
+    const listeners = new Map<string, () => void>()
+    const audio = {
+      src: 'blob:test',
+      play: vi.fn(async () => {
+        listeners.get('error')?.()
+      }),
+      pause: vi.fn(),
+      addEventListener: vi.fn((type: string, handler: () => void) => {
+        listeners.set(type, handler)
+      }),
+      removeEventListener: vi.fn(),
+    }
+
+    const idle = vi.fn()
+    vi.stubGlobal('Audio', vi.fn(() => audio))
+    vi.stubGlobal('URL', {
+      createObjectURL: vi.fn(() => 'blob:test'),
+      revokeObjectURL: vi.fn(),
+    })
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx, idle)
+
+    await queue.enqueue(new ArrayBuffer(4))
+
+    expect(audio.play).toHaveBeenCalledTimes(1)
+    expect(audio.removeEventListener).toHaveBeenCalledWith(
+      'ended',
+      expect.any(Function)
+    )
+    expect(audio.removeEventListener).toHaveBeenCalledWith(
+      'error',
+      expect.any(Function)
+    )
+    expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:test')
+    expect(idle).toHaveBeenCalledTimes(1)
+  })
+
   it('resolves an enqueue promise when fallback playback is cancelled', async () => {
     const { ctx } = createContext()
     ctx.decodeAudioData = vi.fn(async () => {
