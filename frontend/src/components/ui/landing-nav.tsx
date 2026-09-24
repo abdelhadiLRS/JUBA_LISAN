@@ -87,7 +87,7 @@ export function LandingNav({
 
         <div className="hidden items-center gap-4 md:flex">
           <Link href={hasSession ? '/dashboard' : '/login'} className="juba-nav-signin juba-ff-nav-signin text-sm font-semibold transition-colors">{hasSession ? dashboard : signIn}</Link>
-          <Link href={hasSession ? '/dashboard' : '/register'} className="juba-nav-cta juba-ff-nav-cta rounded-xl px-5 py-2.5 text-sm font-black transition-all active:scale-95">
+          <Link href={hasSession ? '/dashboard' : '/register'} className="juba-nav-cta juba-ff-nav-cta rounded-xl px-5 py-2.5 text-sm font-black transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--landing-green)] focus-visible:ring-offset-2">
             <span>{hasSession ? dashboard : 'Get Started'}</span>
             <span aria-hidden="true">✦</span>
           </Link>
