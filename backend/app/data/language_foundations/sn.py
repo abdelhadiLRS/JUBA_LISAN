@@ -40,14 +40,14 @@ PhrasebookCategory(id="sn_a1_phrase_3",level="A1",situation="help",icon="💬",p
 PhrasebookCategory(id="sn_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="Chikoro chiri kupi?",context="Where is the school?",register="neutral")])
 ]
 ASSESSMENT_BANK=[
-AssessmentQuestion(id="sn-a1-001",skill="vocabulary",difficulty="A1",question="Choose the correct Shona expression for this A1 task.",options=["mhoro","zita","amai","imba"],correct="mhoro"),
-AssessmentQuestion(id="sn-a1-002",skill="grammar",difficulty="A1",question="Choose the correct Shona expression for this A1 task.",options=["zita","amai","imba","kudzidza"],correct="zita"),
-AssessmentQuestion(id="sn-a1-003",skill="reading",difficulty="A1",question="Choose the correct Shona expression for this A1 task.",options=["amai","imba","kudzidza","nguva"],correct="amai"),
-AssessmentQuestion(id="sn-a1-004",skill="speaking",difficulty="A1",question="Choose the correct Shona expression for this A1 task.",options=["imba","kudzidza","nguva","mvura"],correct="imba"),
-AssessmentQuestion(id="sn-a1-005",skill="vocabulary",difficulty="A1",question="Choose the correct Shona expression for this A1 task.",options=["kudzidza","nguva","mvura","chikoro"],correct="kudzidza"),
-AssessmentQuestion(id="sn-a1-006",skill="grammar",difficulty="A1",question="Choose the correct Shona expression for this A1 task.",options=["nguva","mvura","chikoro","mhoro"],correct="nguva"),
-AssessmentQuestion(id="sn-a1-007",skill="reading",difficulty="A1",question="Choose the correct Shona expression for this A1 task.",options=["mvura","chikoro","mhoro","zita"],correct="mvura"),
-AssessmentQuestion(id="sn-a1-008",skill="speaking",difficulty="A1",question="Choose the correct Shona expression for this A1 task.",options=["chikoro","mhoro","zita","amai"],correct="chikoro"),
-AssessmentQuestion(id="sn-a1-009",skill="vocabulary",difficulty="A1",question="Choose the correct Shona expression for this A1 task.",options=["mhoro","zita","amai","imba"],correct="mhoro"),
-AssessmentQuestion(id="sn-a1-010",skill="grammar",difficulty="A1",question="Choose the correct Shona expression for this A1 task.",options=["zita","amai","imba","kudzidza"],correct="zita")
+AssessmentQuestion(id="sn-a1-001",skill="vocabulary",difficulty="A1",question="Which Shona word means 'water'?",options=["mvura","imba","amai","chikoro"],correct="mvura"),
+AssessmentQuestion(id="sn-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["Ndiri kumba.","Ndinoenda kuchikoro.","Ndinonwa mvura.","Iri ibhuku."],correct="Ndiri kumba."),
+AssessmentQuestion(id="sn-a1-003",skill="vocabulary",difficulty="A1",question="What does amai mean?",options=["mother","father","friend","teacher"],correct="mother"),
+AssessmentQuestion(id="sn-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["Unonzi ani?","Uri kupi?","Ichi chii?","Inguvai?"],"correct"="Unonzi ani?"),
+AssessmentQuestion(id="sn-a1-005",skill="reading",difficulty="A1",question="Bhuku riri patafura. Where is the book?",options=["On the table","At school","At home","In the shop"],correct="On the table"),
+AssessmentQuestion(id="sn-a1-006",skill="vocabulary",difficulty="A1",question="Which word means 'name'?",options=["zita","nguva","mvura","imba"],correct="zita"),
+AssessmentQuestion(id="sn-a1-007",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["Dzokorora, ndapota.","Ndatenda.","Mhoro.","Sara zvakanaka."],correct="Dzokorora, ndapota."),
+AssessmentQuestion(id="sn-a1-008",skill="grammar",difficulty="A1",question="Which sentence says 'I drink water'?",options=["Ndinonwa mvura.","Ndiri kumba.","Ndinodzidza.","Iyi imba."],correct="Ndinonwa mvura."),
+AssessmentQuestion(id="sn-a1-009",skill="vocabulary",difficulty="A1",question="What does nguva mean?",options=["time","school","water","name"],correct="time"),
+AssessmentQuestion(id="sn-a1-010",skill="communication",difficulty="A1",question="Which is a natural greeting?",options=["Mhoro!","Ndinoda mvura.","Chikoro chiri kupi?","Handisi kunzwisisa."],correct="Mhoro!")
 ]
