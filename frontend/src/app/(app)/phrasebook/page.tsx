@@ -296,8 +296,8 @@ function CopyButton({ text }: { text: string }) {
     <button
       onClick={handleCopy}
       className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] px-1 font-sans transition-colors"
-      title="Copy"
-      aria-label="Copy phrase"
+      title={tCommon('copy')}
+      aria-label={tCommon('copyPhrase')}
     >
       {copied ? '\u2713' : '\u{1f4cb}'}
     </button>
