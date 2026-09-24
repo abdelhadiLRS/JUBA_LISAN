@@ -3,32 +3,32 @@ from app.data._types import CurriculumUnit, GrammarExample, GrammarTopic, Vocabu
 
 LEVELS=["A1","A2","B1","B2","C1","C2"]
 GRAMMAR_TOPICS=[
-    GrammarTopic(slug="greetings-a1",title="Greetings and introductions",level="A1",category="phrase",summary="Use common greetings in Haitian Creole.",explanation="Use common greetings in Haitian Creole.",examples=[GrammarExample(text="Bonjou")]),
-    GrammarTopic(slug="identity-a1",title="Personal identity",level="A1",category="grammar",summary="Build simple first-person identity statements in Haitian Creole.",explanation="Build simple first-person identity statements in Haitian Creole.",examples=[GrammarExample(text="Mwen rele...")]),
-    GrammarTopic(slug="family-a1",title="Family and possession",level="A1",category="grammar",summary="Talk about family and simple possession in Haitian Creole.",explanation="Talk about family and simple possession in Haitian Creole.",examples=[GrammarExample(text="fanmi")]),
-    GrammarTopic(slug="routine-a1",title="Daily routine",level="A1",category="verb",summary="Use basic present-tense or habitual expressions in Haitian Creole.",explanation="Use basic present-tense or habitual expressions in Haitian Creole.",examples=[GrammarExample(text="mwen ale")]),
-    GrammarTopic(slug="time-a1",title="Time and dates",level="A1",category="time",summary="Express basic time and day references in Haitian Creole.",explanation="Express basic time and day references in Haitian Creole.",examples=[GrammarExample(text="jodi a")]),
-    GrammarTopic(slug="food-a1",title="Food and needs",level="A1",category="vocabulary",summary="Ask for and identify everyday food and drink in Haitian Creole.",explanation="Ask for and identify everyday food and drink in Haitian Creole.",examples=[GrammarExample(text="dlo")]),
-    GrammarTopic(slug="places-a1",title="Places and directions",level="A1",category="syntax",summary="Name places and make simple location statements in Haitian Creole.",explanation="Name places and make simple location statements in Haitian Creole.",examples=[GrammarExample(text="lakay")]),
-    GrammarTopic(slug="review-a1",title="A1 review and repair",level="A1",category="discourse",summary="Combine familiar A1 patterns into short exchanges in Haitian Creole.",explanation="Combine familiar A1 patterns into short exchanges in Haitian Creole.",examples=[GrammarExample(text="mèsi")]),
+    GrammarTopic(slug="greetings-a1",title="Greetings and introductions",level="A1",category="phrase",summary="Use common greetings in Haitian Creole.",explanation="Use common greetings in Haitian Creole.",examples=[GrammarExample(text="Bonjou, kijan ou ye?")]),
+    GrammarTopic(slug="identity-a1",title="Personal identity",level="A1",category="grammar",summary="Build simple first-person identity statements in Haitian Creole.",explanation="Build simple first-person identity statements in Haitian Creole.",examples=[GrammarExample(text="Mwen rele Marie.")]),
+    GrammarTopic(slug="family-a1",title="Family and possession",level="A1",category="grammar",summary="Talk about family and simple possession in Haitian Creole.",explanation="Talk about family and simple possession in Haitian Creole.",examples=[GrammarExample(text="Frè mwen rele Paul.")]),
+    GrammarTopic(slug="routine-a1",title="Daily routine",level="A1",category="verb",summary="Use basic present-tense or habitual expressions in Haitian Creole.",explanation="Use basic present-tense or habitual expressions in Haitian Creole.",examples=[GrammarExample(text="Mwen ale lekòl chak jou.")]),
+    GrammarTopic(slug="time-a1",title="Time and dates",level="A1",category="time",summary="Express basic time and day references in Haitian Creole.",explanation="Express basic time and day references in Haitian Creole.",examples=[GrammarExample(text="Jodi a se lendi.")]),
+    GrammarTopic(slug="food-a1",title="Food and needs",level="A1",category="vocabulary",summary="Ask for and identify everyday food and drink in Haitian Creole.",explanation="Ask for and identify everyday food and drink in Haitian Creole.",examples=[GrammarExample(text="Mwen bwè dlo.")]),
+    GrammarTopic(slug="places-a1",title="Places and directions",level="A1",category="syntax",summary="Name places and make simple location statements in Haitian Creole.",explanation="Name places and make simple location statements in Haitian Creole.",examples=[GrammarExample(text="Mwen lakay mwen.")]),
+    GrammarTopic(slug="review-a1",title="A1 review and repair",level="A1",category="discourse",summary="Combine familiar A1 patterns into short exchanges in Haitian Creole.",explanation="Combine familiar A1 patterns into short exchanges in Haitian Creole.",examples=[GrammarExample(text="Mèsi anpil pou èd la.")]),
 ]
 
 VOCABULARY_SETS=[
-    VocabularySet(id="saludos_a1",level="A1",topic="Saludos",unit_ref="ht-a1-unit-1",words=[VocabularyEntry(word="Bonjou",pos="phrase",definition="good morning/hello",example="Bonjou")]),
-    VocabularySet(id="identidad_a1",level="A1",topic="Identidad",unit_ref="ht-a1-unit-2",words=[VocabularyEntry(word="Mwen rele...",pos="phrase",definition="my name is...",example="Mwen rele...")]),
-    VocabularySet(id="familia_a1",level="A1",topic="Familia",unit_ref="ht-a1-unit-3",words=[VocabularyEntry(word="fanmi",pos="phrase",definition="family",example="fanmi")]),
-    VocabularySet(id="rutina_a1",level="A1",topic="Rutina",unit_ref="ht-a1-unit-4",words=[VocabularyEntry(word="mwen ale",pos="phrase",definition="I go",example="mwen ale")]),
-    VocabularySet(id="tiempo_a1",level="A1",topic="Tiempo",unit_ref="ht-a1-unit-5",words=[VocabularyEntry(word="jodi a",pos="phrase",definition="today",example="jodi a")]),
-    VocabularySet(id="comida_a1",level="A1",topic="Comida",unit_ref="ht-a1-unit-6",words=[VocabularyEntry(word="dlo",pos="phrase",definition="water",example="dlo")]),
-    VocabularySet(id="lugares_a1",level="A1",topic="Lugares",unit_ref="ht-a1-unit-7",words=[VocabularyEntry(word="lakay",pos="phrase",definition="home",example="lakay")]),
-    VocabularySet(id="repaso_a1",level="A1",topic="Repaso",unit_ref="ht-a1-unit-8",words=[VocabularyEntry(word="mèsi",pos="phrase",definition="thank you",example="mèsi")]),
+    VocabularySet(id="saludos_a1",level="A1",topic="Saludos",unit_ref="ht-a1-unit-1",words=[VocabularyEntry(word="Bonjou",pos="phrase",definition="good morning/hello",example="Bonjou, kijan ou ye?")]),
+    VocabularySet(id="identidad_a1",level="A1",topic="Identidad",unit_ref="ht-a1-unit-2",words=[VocabularyEntry(word="Mwen rele...",pos="phrase",definition="my name is...",example="Mwen rele Marie.")]),
+    VocabularySet(id="familia_a1",level="A1",topic="Familia",unit_ref="ht-a1-unit-3",words=[VocabularyEntry(word="fanmi",pos="phrase",definition="family",example="Frè mwen rele Paul.")]),
+    VocabularySet(id="rutina_a1",level="A1",topic="Rutina",unit_ref="ht-a1-unit-4",words=[VocabularyEntry(word="mwen ale",pos="phrase",definition="I go",example="Mwen ale lekòl chak jou.")]),
+    VocabularySet(id="tiempo_a1",level="A1",topic="Tiempo",unit_ref="ht-a1-unit-5",words=[VocabularyEntry(word="jodi a",pos="phrase",definition="today",example="Jodi a se lendi.")]),
+    VocabularySet(id="comida_a1",level="A1",topic="Comida",unit_ref="ht-a1-unit-6",words=[VocabularyEntry(word="dlo",pos="phrase",definition="water",example="Mwen bwè dlo.")]),
+    VocabularySet(id="lugares_a1",level="A1",topic="Lugares",unit_ref="ht-a1-unit-7",words=[VocabularyEntry(word="lakay",pos="phrase",definition="home",example="Mwen lakay mwen.")]),
+    VocabularySet(id="repaso_a1",level="A1",topic="Repaso",unit_ref="ht-a1-unit-8",words=[VocabularyEntry(word="mèsi",pos="phrase",definition="thank you",example="Mèsi anpil pou èd la.")]),
 ]
 
 PHRASEBOOK_CATEGORIES=[
-    PhrasebookCategory(id="greetings_a1",level="A1",situation="Saludos",icon="👋",phrases=[PhrasebookEntry(text="Bonjou",context="good morning/hello",register="neutral")]),
-    PhrasebookCategory(id="identity_a1",level="A1",situation="Identidad",icon="🪪",phrases=[PhrasebookEntry(text="Mwen rele...",context="my name is...",register="neutral")]),
-    PhrasebookCategory(id="family_a1",level="A1",situation="Familia",icon="👨‍👩‍👧",phrases=[PhrasebookEntry(text="fanmi",context="family",register="neutral")]),
-    PhrasebookCategory(id="routine_a1",level="A1",situation="Rutina",icon="⏰",phrases=[PhrasebookEntry(text="mwen ale",context="I go",register="neutral")]),
+    PhrasebookCategory(id="greetings_a1",level="A1",situation="Saludos",icon="👋",phrases=[PhrasebookEntry(text="Bonjou, kijan ou ye?",context="good morning/hello",register="neutral")]),
+    PhrasebookCategory(id="identity_a1",level="A1",situation="Identidad",icon="🪪",phrases=[PhrasebookEntry(text="Mwen rele Marie.",context="my name is...",register="neutral")]),
+    PhrasebookCategory(id="family_a1",level="A1",situation="Familia",icon="👨‍👩‍👧",phrases=[PhrasebookEntry(text="Frè mwen rele Paul.",context="family",register="neutral")]),
+    PhrasebookCategory(id="routine_a1",level="A1",situation="Rutina",icon="⏰",phrases=[PhrasebookEntry(text="Mwen ale lekòl chak jou.",context="I go",register="neutral")]),
 ]
 
 CURRICULUM={}
@@ -48,14 +48,14 @@ for level in LEVELS:
         CURRICULUM[level]=[CurriculumUnit(id=f"ht-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Haitian Creole {level} communication",grammar_points=["progressive grammar and communication"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Build level-appropriate communication"],default_weeks=2)]
 
 ASSESSMENT_BANK=[
-    AssessmentQuestion(id="ht-a1-001",skill="speaking",difficulty="A1",question="What does Bonjou mean in this lesson?",options=["good morning/hello","family","school","yesterday"],correct="good morning/hello"),
-    AssessmentQuestion(id="ht-a1-002",skill="vocabulary",difficulty="A1",question="What does Mwen rele... mean in this lesson?",options=["my name is...","family","school","yesterday"],correct="my name is..."),
-    AssessmentQuestion(id="ht-a1-003",skill="grammar",difficulty="A1",question="What does fanmi mean in this lesson?",options=["family","family","school","yesterday"],correct="family"),
-    AssessmentQuestion(id="ht-a1-004",skill="speaking",difficulty="A1",question="What does mwen ale mean in this lesson?",options=["I go","family","school","yesterday"],correct="I go"),
-    AssessmentQuestion(id="ht-a1-005",skill="vocabulary",difficulty="A1",question="What does jodi a mean in this lesson?",options=["today","family","school","yesterday"],correct="today"),
-    AssessmentQuestion(id="ht-a1-006",skill="grammar",difficulty="A1",question="What does dlo mean in this lesson?",options=["water","family","school","yesterday"],correct="water"),
-    AssessmentQuestion(id="ht-a1-007",skill="speaking",difficulty="A1",question="What does lakay mean in this lesson?",options=["home","family","school","yesterday"],correct="home"),
-    AssessmentQuestion(id="ht-a1-008",skill="vocabulary",difficulty="A1",question="What does mèsi mean in this lesson?",options=["thank you","family","school","yesterday"],correct="thank you"),
-    AssessmentQuestion(id="ht-a1-009",skill="reading",difficulty="A1",question="Choose the expression that belongs to an everyday A1 exchange.",options=["Bonjou","B2 academic term","technical formula","rare literary phrase"],correct="Bonjou"),
-    AssessmentQuestion(id="ht-a1-010",skill="production",difficulty="A1",question="Choose the expression learners can use to close a polite exchange.",options=["mèsi","technical term","advanced idiom","academic citation"],correct="mèsi"),
+    AssessmentQuestion(id="ht-a1-001",skill="speaking",difficulty="A1",question="You meet a neighbor in the morning. Which Haitian Creole greeting fits?",options=["good morning/hello","family","school","yesterday"],correct="good morning/hello"),
+    AssessmentQuestion(id="ht-a1-002",skill="vocabulary",difficulty="A1",question="You introduce yourself. Which phrase completes the introduction?",options=["my name is...","family","school","yesterday"],correct="my name is..."),
+    AssessmentQuestion(id="ht-a1-003",skill="grammar",difficulty="A1",question="You say who your brother is. Which sentence fits?",options=["family","family","school","yesterday"],correct="family"),
+    AssessmentQuestion(id="ht-a1-004",skill="speaking",difficulty="A1",question="You say where you go every day. Which sentence fits?",options=["I go","family","school","yesterday"],correct="I go"),
+    AssessmentQuestion(id="ht-a1-005",skill="vocabulary",difficulty="A1",question="You talk about today. Which expression fits?",options=["today","family","school","yesterday"],correct="today"),
+    AssessmentQuestion(id="ht-a1-006",skill="grammar",difficulty="A1",question="You ask for a drink of water. Which phrase fits?",options=["water","family","school","yesterday"],correct="water"),
+    AssessmentQuestion(id="ht-a1-007",skill="speaking",difficulty="A1",question="You tell someone you are at home. Which sentence fits?",options=["home","family","school","yesterday"],correct="home"),
+    AssessmentQuestion(id="ht-a1-008",skill="vocabulary",difficulty="A1",question="You thank someone for their help. Which phrase fits?",options=["thank you","family","school","yesterday"],correct="thank you"),
+    AssessmentQuestion(id="ht-a1-009",skill="reading",difficulty="A1",question="Which phrase is useful when meeting someone for the first time?",options=["Bonjou","B2 academic term","technical formula","rare literary phrase"],correct="Bonjou"),
+    AssessmentQuestion(id="ht-a1-010",skill="production",difficulty="A1",question="Which phrase can end a simple polite exchange?",options=["mèsi","technical term","advanced idiom","academic citation"],correct="mèsi"),
 ]
