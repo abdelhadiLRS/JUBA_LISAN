@@ -458,5 +458,38 @@
   },
   "nav": {
     "games": "الألعاب"
+  },
+  "languages": {
+    "en": "الإنجليزية",
+    "es": "الإسبانية",
+    "fr": "الفرنسية",
+    "pt": "البرتغالية",
+    "de": "الألمانية",
+    "it": "الإيطالية",
+    "pl": "البولندية",
+    "nl": "الهولندية",
+    "ro": "الرومانية",
+    "ru": "الروسية",
+    "myLanguages": "لغاتي",
+    "addLanguage": "إضافة لغة جديدة",
+    "selectLanguage": "اختر اللغة التي تريد تعلمها",
+    "activeLanguage": "نشطة",
+    "switchTo": "التبديل إليها",
+    "switching": "جارٍ التبديل إلى {language}...",
+    "switched": "تم التبديل إلى {language} ({level})",
+    "removeLanguage": "إزالة اللغة",
+    "removeConfirmTitle": "إزالة {language}؟",
+    "removeConfirmMessage": "سيتم حذف جميع التقدم والدروس والبطاقات والمحادثات المرتبطة بهذه اللغة نهائيًا. ستبقى ذكريات حسابك محفوظة. لا يمكن التراجع عن هذا الإجراء.",
+    "removeConfirmButton": "إزالة",
+    "deleteError": "تعذر حذف {language}. حاول مرة أخرى.",
+    "noLanguages": "لا توجد لغات مهيأة لديك.",
+    "progressLabel": "التقدم",
+    "levelLabel": "المستوى",
+    "xpLabel": "إجمالي XP",
+    "streakLabel": "السلسلة",
+    "lessonsLabel": "الدروس",
+    "flashcardsLabel": "البطاقات",
+    "viewDetails": "عرض التفاصيل",
+    "supportedLanguages": "اللغات المتاحة"
   }
 }
