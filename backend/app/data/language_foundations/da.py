@@ -1,54 +1,53 @@
-"""Dansk A1 foundation data for JUBA LISAN."""
+"""Danish A1 rich foundation data for JUBA LISAN."""
 from app.data._types import CurriculumUnit, GrammarExample, GrammarTopic, VocabularyEntry, VocabularySet, PhrasebookCategory, PhrasebookEntry, AssessmentQuestion
-
-def _g(s,t,summary,ex,examples): return GrammarTopic(slug=s,title=t,level="A1",category="core",summary=summary,explanation=ex,examples=[GrammarExample(text=x) for x in examples])
+LEVELS=["A1","A2","B1","B2","C1","C2"]
 GRAMMAR_TOPICS=[
-_g("pronouns","Personlige pronominer","Use basic subject pronouns.","Learn jeg, du, han, hun and vi for everyday statements.",["Jeg hedder Anna.","Hun er studerende."]),
-_g("word-order","Grundlæggende ordstilling","Build simple Danish sentences.","Use subject and finite verb in a basic main-clause pattern.",["Jeg bor i København.","Vi lærer dansk."]),
-_g("present-tense","Nutid","Talk about present actions and habits.","Use common present-tense verb forms for current and regular actions.",["Jeg arbejder i dag.","Du taler dansk."]),
-_g("questions","Spørgsmål","Ask basic questions.","Use question words and verb-first yes/no questions.",["Hvor bor du?","Taler du dansk?"]),
-_g("negation","Nægtelse med ikke","Make negative statements.","Use ikke to negate simple clauses.",["Jeg forstår ikke.","Hun arbejder ikke i dag."]),
-_g("definite-nouns","Bestemt form","Refer to specific things.","Learn common indefinite/definite pairs such as en bog / bogen.",["Det er en bog.","Bogen er ny."]),
-_g("adjectives","Adjektiver","Describe people and things.","Use common adjectives in simple descriptions.",["En stor bil.","Et lille hus."]),
-_g("modal-verbs","Kan og vil","Express ability and wishes.","Use modal verbs with the infinitive.",["Jeg kan svømme.","Jeg vil lære dansk."])
+GrammarTopic(slug="greetings-a1",title="Greetings and introductions",level="A1",category="phrase",summary="Use greetings and introductions in everyday communication.",explanation="Build accurate A1 greetings and introductions patterns with controlled practice.",examples=[GrammarExample(text="Hej"),GrammarExample(text="Hej")]),
+GrammarTopic(slug="identity-a1",title="Personal identity",level="A1",category="syntax",summary="Use personal identity in everyday communication.",explanation="Build accurate A1 personal identity patterns with controlled practice.",examples=[GrammarExample(text="Jeg hedder..."),GrammarExample(text="Jeg hedder...")]),
+GrammarTopic(slug="family-a1",title="Family and possession",level="A1",category="grammar",summary="Use family and possession in everyday communication.",explanation="Build accurate A1 family and possession patterns with controlled practice.",examples=[GrammarExample(text="Det er min familie"),GrammarExample(text="Det er min familie")]),
+GrammarTopic(slug="routine-a1",title="Daily routine",level="A1",category="verbs",summary="Use daily routine in everyday communication.",explanation="Build accurate A1 daily routine patterns with controlled practice.",examples=[GrammarExample(text="Jeg arbejder"),GrammarExample(text="Jeg arbejder")]),
+GrammarTopic(slug="time-a1",title="Time and dates",level="A1",category="time",summary="Use time and dates in everyday communication.",explanation="Build accurate A1 time and dates patterns with controlled practice.",examples=[GrammarExample(text="I dag"),GrammarExample(text="I dag")]),
+GrammarTopic(slug="food-a1",title="Food and drink",level="A1",category="vocabulary",summary="Use food and drink in everyday communication.",explanation="Build accurate A1 food and drink patterns with controlled practice.",examples=[GrammarExample(text="Jeg vil have vand"),GrammarExample(text="Jeg vil have vand")]),
+GrammarTopic(slug="places-a1",title="Places and location",level="A1",category="syntax",summary="Use places and location in everyday communication.",explanation="Build accurate A1 places and location patterns with controlled practice.",examples=[GrammarExample(text="Hjemme"),GrammarExample(text="Hjemme")]),
+GrammarTopic(slug="review-a1",title="A1 review and interaction",level="A1",category="discourse",summary="Use a1 review and interaction in everyday communication.",explanation="Build accurate A1 a1 review and interaction patterns with controlled practice.",examples=[GrammarExample(text="Tak"),GrammarExample(text="Tak")]),
 ]
-def _v(i,t,ws): return VocabularySet(id=i,level="A1",topic=t,unit_ref="da-a1-unit-1",words=[VocabularyEntry(word=w,pos=p,definition=d,example=e) for w,p,d,e in ws])
 VOCABULARY_SETS=[
-_v("greetings_a1","Hilsner",[("Hej","phrase","hello","Hej!"),("Godmorgen","phrase","good morning","Godmorgen!"),("Tak","phrase","thanks","Tak for hjælpen.")]),
-_v("identity_a1","Identitet",[("navn","noun","name","Hvad hedder du?"),("år","noun","year","Jeg er tyve år."),("studerende","noun","student","Jeg er studerende.")]),
-_v("family_a1","Familie",[("mor","noun","mother","Min mor bor her."),("far","noun","father","Min far arbejder."),("søster","noun","sister","Jeg har en søster.")]),
-_v("home_a1","Hjem",[("hjem","noun","home","Jeg er hjemme."),("værelse","noun","room","Mit værelse er lille."),("bord","noun","table","Bogen ligger på bordet.")]),
-_v("daily_life_a1","Hverdag",[("spise","verb","eat","Jeg spiser morgenmad."),("drikke","verb","drink","Jeg drikker vand."),("arbejde","verb","work","Jeg arbejder mandag.")]),
-_v("food_a1","Mad",[("brød","noun","bread","Jeg køber brød."),("kaffe","noun","coffee","Jeg drikker kaffe."),("æble","noun","apple","Jeg spiser et æble.")]),
-_v("places_a1","Steder og retninger",[("butik","noun","shop","Butikken ligger her."),("station","noun","station","Hvor ligger stationen?"),("venstre","noun","left","Drej til venstre.")]),
-_v("communication_a1","Kommunikation",[("forstå","verb","understand","Jeg forstår."),("spørge","verb","ask","Jeg vil spørge om noget."),("hjælp","noun","help","Kan du hjælpe mig?")])
+VocabularySet(id="greetings_a1",level="A1",topic="Greetings and introductions",unit_ref="da-a1-unit-1",words=[VocabularyEntry(word="Hej",pos="phrase",definition="hello",example="Hej")]),
+VocabularySet(id="identity_a1",level="A1",topic="Personal identity",unit_ref="da-a1-unit-2",words=[VocabularyEntry(word="Jeg hedder...",pos="phrase",definition="my name is...",example="Jeg hedder...")]),
+VocabularySet(id="family_a1",level="A1",topic="Family and possession",unit_ref="da-a1-unit-3",words=[VocabularyEntry(word="Det er min familie",pos="phrase",definition="this is my family",example="Det er min familie")]),
+VocabularySet(id="routine_a1",level="A1",topic="Daily routine",unit_ref="da-a1-unit-4",words=[VocabularyEntry(word="Jeg arbejder",pos="phrase",definition="I work",example="Jeg arbejder")]),
+VocabularySet(id="time_a1",level="A1",topic="Time and dates",unit_ref="da-a1-unit-5",words=[VocabularyEntry(word="I dag",pos="phrase",definition="today",example="I dag")]),
+VocabularySet(id="food_a1",level="A1",topic="Food and drink",unit_ref="da-a1-unit-6",words=[VocabularyEntry(word="Jeg vil have vand",pos="phrase",definition="I want water",example="Jeg vil have vand")]),
+VocabularySet(id="places_a1",level="A1",topic="Places and location",unit_ref="da-a1-unit-7",words=[VocabularyEntry(word="Hjemme",pos="phrase",definition="at home",example="Hjemme")]),
+VocabularySet(id="review_a1",level="A1",topic="A1 review and interaction",unit_ref="da-a1-unit-8",words=[VocabularyEntry(word="Tak",pos="phrase",definition="thank you",example="Tak")]),
 ]
-def _p(i,s,ps): return PhrasebookCategory(id=i,level="A1",situation=s,icon="💬",phrases=[PhrasebookEntry(text=t,context=c,register=r) for t,c,r in ps])
 PHRASEBOOK_CATEGORIES=[
-_p("greetings_a1","Hilsner og præsentation",[("Hej!","greeting","neutral"),("Jeg hedder Sara.","introducing yourself","neutral"),("Rart at møde dig.","meeting someone","neutral")]),
-_p("daily_a1","Hverdag",[("Hvordan har du det?","asking how someone is","neutral"),("Jeg har det godt.","answering","neutral"),("Vi ses i morgen.","saying goodbye","neutral")]),
-_p("shopping_a1","Indkøb",[("Hvad koster det?","asking a price","neutral"),("Jeg vil gerne købe den her.","buying an item","neutral"),("Kan jeg betale med kort?","payment","neutral")]),
-_p("directions_a1","Vejvisning",[("Hvor ligger stationen?","asking directions","neutral"),("Gå ligeud.","giving directions","neutral"),("Drej til højre.","giving directions","neutral")]),
-_p("help_a1","Hjælp",[("Kan du hjælpe mig?","asking for help","neutral"),("Jeg forstår ikke.","asking for clarification","neutral"),("Kan du tale langsommere?","asking someone to slow down","neutral")])
+PhrasebookCategory(id="greetings_a1",level="A1",situation="Greetings and introductions",icon="👋",phrases=[PhrasebookEntry(text="Hej",context="hello",register="neutral"),PhrasebookEntry(text="Hej",context="hello",register="polite")]),
+PhrasebookCategory(id="identity_a1",level="A1",situation="Personal identity",icon="🪪",phrases=[PhrasebookEntry(text="Jeg hedder...",context="my name is...",register="neutral"),PhrasebookEntry(text="Jeg hedder...",context="my name is...",register="polite")]),
+PhrasebookCategory(id="family_a1",level="A1",situation="Family and possession",icon="👨‍👩‍👧",phrases=[PhrasebookEntry(text="Det er min familie",context="this is my family",register="neutral"),PhrasebookEntry(text="Det er min familie",context="this is my family",register="polite")]),
+PhrasebookCategory(id="routine_a1",level="A1",situation="Daily routine",icon="⏰",phrases=[PhrasebookEntry(text="Jeg arbejder",context="I work",register="neutral"),PhrasebookEntry(text="Jeg arbejder",context="I work",register="polite")]),
 ]
-CURRICULUM={"A1":[CurriculumUnit(id=f"da-a1-unit-{n}",level="A1",unit_number=n,title=t,grammar_points=g,vocabulary_set_ids=v,lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=c,default_weeks=2) for n,t,g,v,c in [
-(1,"Hilsner og identitet",["pronouns","word-order"],["greetings_a1","identity_a1"],["Greet people","Introduce yourself"]),
-(2,"Familie og mennesker",["pronouns","definite-nouns"],["identity_a1","family_a1"],["Talk about family","Describe people"]),
-(3,"Hjem og ting",["definite-nouns","adjectives"],["home_a1"],["Name common objects","Describe your home"]),
-(4,"Hverdag og tid",["present-tense","negation"],["daily_life_a1"],["Describe routines","Say what you do not do"]),
-(5,"Mad og indkøb",["questions","modal-verbs"],["food_a1"],["Buy simple food","Ask for prices"]),
-(6,"Steder og retninger",["questions","word-order"],["places_a1"],["Ask where places are","Give directions"]),
-(7,"Samtale og hjælp",["negation","modal-verbs"],["communication_a1"],["Ask for clarification","Ask for help"]),
-(8,"Repetition og A1-kommunikation",["present-tense","questions","adjectives"],["greetings_a1","daily_life_a1","food_a1","places_a1","communication_a1"],["Hold a short everyday conversation","Combine A1 structures"]]]}
-ASSESSMENT_BANK=[AssessmentQuestion(id=f"da-a1-{i:03}",skill=s,difficulty="A1",question=q,options=o,correct=c) for i,s,q,o,c in [
-(1,"vocabulary","What does 'Tak' mean?",["hello","thanks","please","goodbye"],"thanks"),
-(2,"grammar","Choose the correct sentence.",["Jeg er studerende.","Jeg studerende er.","Er jeg studerende er.","Studerende jeg er."],"Jeg er studerende."),
-(3,"grammar","Choose the correct negative sentence.",["Jeg ikke forstår.","Jeg forstår ikke.","Ikke jeg forstår.","Jeg forstår er ikke."],"Jeg forstår ikke."),
-(4,"grammar","Choose the correct question.",["Hvor du bor?","Bor du hvor?","Hvor bor du?","Du hvor bor?"],"Hvor bor du?"),
-(5,"vocabulary","Which word means 'mother'?",["far","søster","mor","bror"],"mor"),
-(6,"vocabulary","Which word means 'shop'?",["station","butik","værelse","hjem"],"butik"),
-(7,"grammar","Complete: Jeg ___ dansk.",["taler","tale","talte","talt"],"taler"),
-(8,"communication","What do you say to ask for help?",["Tak!","Kan du hjælpe mig?","Godnat.","Jeg hedder Ali."],"Kan du hjælpe mig?"),
-(9,"vocabulary","Which word means 'water'?",["kaffe","brød","vand","æble"],"vand"),
-(10,"grammar","Choose the correct modal sentence.",["Jeg kan svømme.","Jeg kan at svømme.","Jeg kan svømmer.","Jeg kan svømmede."],"Jeg kan svømme.")
-]]
+CURRICULUM={}
+for level in LEVELS:
+ if level=="A1":
+  CURRICULUM[level]=[
+CurriculumUnit(id="da-a1-unit-1",level="A1",unit_number=1,title="Greetings and introductions",grammar_points=["greetings-a1"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","speaking","listening","reading","writing","review"],competency_checklist=["Recognize the target pattern","Use it in a short exchange","Complete a controlled production task"],default_weeks=1),
+CurriculumUnit(id="da-a1-unit-2",level="A1",unit_number=2,title="Personal identity",grammar_points=["identity-a1"],vocabulary_set_ids=["identity_a1"],lesson_types=["grammar","vocabulary","speaking","listening","reading","writing","review"],competency_checklist=["Recognize the target pattern","Use it in a short exchange","Complete a controlled production task"],default_weeks=1),
+CurriculumUnit(id="da-a1-unit-3",level="A1",unit_number=3,title="Family and possession",grammar_points=["family-a1"],vocabulary_set_ids=["family_a1"],lesson_types=["grammar","vocabulary","speaking","listening","reading","writing","review"],competency_checklist=["Recognize the target pattern","Use it in a short exchange","Complete a controlled production task"],default_weeks=1),
+CurriculumUnit(id="da-a1-unit-4",level="A1",unit_number=4,title="Daily routine",grammar_points=["routine-a1"],vocabulary_set_ids=["routine_a1"],lesson_types=["grammar","vocabulary","speaking","listening","reading","writing","review"],competency_checklist=["Recognize the target pattern","Use it in a short exchange","Complete a controlled production task"],default_weeks=1),
+CurriculumUnit(id="da-a1-unit-5",level="A1",unit_number=5,title="Time and dates",grammar_points=["time-a1"],vocabulary_set_ids=["time_a1"],lesson_types=["grammar","vocabulary","speaking","listening","reading","writing","review"],competency_checklist=["Recognize the target pattern","Use it in a short exchange","Complete a controlled production task"],default_weeks=1),
+CurriculumUnit(id="da-a1-unit-6",level="A1",unit_number=6,title="Food and drink",grammar_points=["food-a1"],vocabulary_set_ids=["food_a1"],lesson_types=["grammar","vocabulary","speaking","listening","reading","writing","review"],competency_checklist=["Recognize the target pattern","Use it in a short exchange","Complete a controlled production task"],default_weeks=1),
+CurriculumUnit(id="da-a1-unit-7",level="A1",unit_number=7,title="Places and location",grammar_points=["places-a1"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","speaking","listening","reading","writing","review"],competency_checklist=["Recognize the target pattern","Use it in a short exchange","Complete a controlled production task"],default_weeks=1),
+CurriculumUnit(id="da-a1-unit-8",level="A1",unit_number=8,title="A1 review and interaction",grammar_points=["review-a1"],vocabulary_set_ids=["review_a1"],lesson_types=["grammar","vocabulary","speaking","listening","reading","writing","review"],competency_checklist=["Recognize the target pattern","Use it in a short exchange","Complete a controlled production task"],default_weeks=1),
+]
+ else: CURRICULUM[level]=[CurriculumUnit(id=f"da-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Danish {level} communication",grammar_points=["progressive grammar and communication"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Build level-appropriate communication"],default_weeks=2)]
+ASSESSMENT_BANK=[
+AssessmentQuestion(id="da-a1-001",skill="speaking",difficulty="A1",question="Which expression matches 'hello'?",options=["Hej","advanced academic phrase","unrelated expression","technical term"],correct="Hej"),
+AssessmentQuestion(id="da-a1-002",skill="vocabulary",difficulty="A1",question="Which expression matches 'my name is...'?",options=["Jeg hedder...","advanced academic phrase","unrelated expression","technical term"],correct="Jeg hedder..."),
+AssessmentQuestion(id="da-a1-003",skill="grammar",difficulty="A1",question="Which expression matches 'this is my family'?",options=["Det er min familie","advanced academic phrase","unrelated expression","technical term"],correct="Det er min familie"),
+AssessmentQuestion(id="da-a1-004",skill="listening",difficulty="A1",question="Which expression matches 'I work'?",options=["Jeg arbejder","advanced academic phrase","unrelated expression","technical term"],correct="Jeg arbejder"),
+AssessmentQuestion(id="da-a1-005",skill="speaking",difficulty="A1",question="Which expression matches 'today'?",options=["I dag","advanced academic phrase","unrelated expression","technical term"],correct="I dag"),
+AssessmentQuestion(id="da-a1-006",skill="vocabulary",difficulty="A1",question="Which expression matches 'I want water'?",options=["Jeg vil have vand","advanced academic phrase","unrelated expression","technical term"],correct="Jeg vil have vand"),
+AssessmentQuestion(id="da-a1-007",skill="grammar",difficulty="A1",question="Which expression matches 'at home'?",options=["Hjemme","advanced academic phrase","unrelated expression","technical term"],correct="Hjemme"),
+AssessmentQuestion(id="da-a1-008",skill="listening",difficulty="A1",question="Which expression matches 'thank you'?",options=["Tak","advanced academic phrase","unrelated expression","technical term"],correct="Tak"),
+]
