@@ -55,6 +55,12 @@ describe('target language catalog', () => {
     expect(getTargetLanguageCapability('EL-gr').script).toBe('greek')
   })
 
+  it('resolves trimmed and empty codes safely', () => {
+    expect(getLanguageByCode('  cs-CZ  ')?.code).toBe('cs-CZ')
+    expect(getLanguageByCode('   ')).toBeUndefined()
+  })
+
+
   it('normalizes mixed-case available codes in the selector contract', () => {
     const availableCodes = ['en-gb', 'CS-cz', 'EL-gr']
     const availableCodeSet = new Set(
