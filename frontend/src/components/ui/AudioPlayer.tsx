@@ -139,6 +139,7 @@ export function AudioPlayer({
 
       const playStart = performance.now()
       await audio.play()
+      if (requestId !== requestIdRef.current || controller.signal.aborted) return
       const playMs = performance.now() - playStart
       const totalMs = performance.now() - t0
 
