@@ -688,7 +688,9 @@
     "voiceTrialTitle": "Try a real conversation now",
     "voiceTrialDesc": "Talk with Lingu for {minutes} minutes, free. Your tutor will adapt to the level you just unlocked.",
     "voiceTrialStart": "Start free conversation",
-    "voiceTrialSkip": "Skip for now"
+    "voiceTrialSkip": "Skip for now",
+    "evaluationFailed": "Evaluation failed",
+    "planCreationFailed": "Failed to create plan"
   },
   "plan": {
     "title": "My Plan",
