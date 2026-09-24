@@ -4,20 +4,20 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-xl border-2 border-transparent bg-clip-padding text-sm font-semibold whitespace-nowrap transition-all outline-none select-none focus-visible:border-[var(--juba-primary-dark)] focus-visible:ring-3 focus-visible:ring-[var(--juba-primary)]/30 active:not-aria-[haspopup]:translate-y-[2px] disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-[var(--juba-danger)] aria-invalid:ring-3 aria-invalid:ring-[var(--juba-danger)]/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-xl border-2 border-transparent bg-clip-padding text-sm font-semibold whitespace-nowrap transition-all outline-none select-none focus-visible:border-[var(--juba-app-green-dark)] focus-visible:ring-3 focus-visible:ring-[var(--juba-app-green)]/30 active:not-aria-[haspopup]:translate-y-[2px] disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-[#b33a32] aria-invalid:ring-3 aria-invalid:ring-[#b33a32]/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        default: 'border-[var(--juba-primary-dark)] bg-[var(--juba-primary-dark)] text-white shadow-[0_4px_0_var(--juba-primary-dark)] hover:brightness-105 hover:-translate-y-px',
+        default: 'border-[var(--juba-app-ink)] bg-[var(--juba-app-green)] text-white shadow-[0_4px_0_var(--juba-app-ink)] hover:brightness-105 hover:-translate-y-px',
         outline:
-          'border-[var(--juba-border)] bg-[var(--juba-surface)] text-[var(--juba-text)] shadow-[0_3px_0_var(--juba-border)] hover:bg-[var(--juba-surface-soft)] hover:border-[var(--juba-primary-dark)] hover:-translate-y-px aria-expanded:bg-[var(--juba-surface-soft)]',
+          'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-ink)] shadow-[0_3px_0_var(--juba-app-line)] hover:bg-[var(--juba-app-bg)] hover:border-[#b8d1aa] hover:-translate-y-px aria-expanded:bg-[var(--juba-app-bg)]',
         secondary:
-          'border-[var(--juba-border)] bg-[var(--juba-surface-soft)] text-[var(--juba-text)] shadow-[0_3px_0_var(--juba-border)] hover:bg-[var(--juba-lilac)] aria-expanded:bg-[var(--juba-lilac)]',
+          'border-[var(--juba-app-line)] bg-[#f3f7ef] text-[var(--juba-app-ink)] shadow-[0_3px_0_var(--juba-app-line)] hover:bg-[var(--juba-app-green-soft)] aria-expanded:bg-[var(--juba-app-green-soft)]',
         ghost:
-          'text-[var(--juba-muted)] hover:bg-[var(--juba-surface-soft)] hover:text-[var(--juba-text)]',
+          'text-[var(--juba-app-muted)] hover:bg-[#f3f7ef] hover:text-[var(--juba-app-ink)]',
         destructive:
-          'border-[var(--juba-danger)]/30 bg-[var(--juba-danger)]/10 text-[var(--juba-danger)] hover:bg-[var(--juba-danger)]/20 focus-visible:border-[var(--juba-danger)]/40 focus-visible:ring-[var(--juba-danger)]/20',
-        link: 'text-[var(--juba-primary-dark)] underline-offset-4 hover:underline',
+          'border-[#b33a32]/30 bg-[#b33a32]/10 text-[#b33a32] hover:bg-[#b33a32]/20 focus-visible:border-[#b33a32]/40 focus-visible:ring-[#b33a32]/20',
+        link: 'text-[var(--juba-app-green-dark)] underline-offset-4 hover:underline',
       },
       size: {
         default:
