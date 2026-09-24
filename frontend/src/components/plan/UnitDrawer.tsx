@@ -65,7 +65,7 @@ export default function UnitDrawer({
     <div className="bg-[rgba(24,37,27,.48)] fixed inset-0 z-50 flex items-end justify-center p-0 backdrop-blur-sm sm:items-center sm:p-4">
       <div
         ref={ref}
-        className="border-[var(--juba-app-line)] bg-white max-h-[80vh] w-full overflow-y-auto rounded-t-[30px] border shadow-[0_24px_70px_rgba(24,37,27,.18)] sm:max-w-xl sm:rounded-[30px]"
+        className="border-[var(--juba-app-line)] bg-white max-h-[80vh] w-full overflow-y-auto rounded-t-[28px] border shadow-[0_24px_70px_rgba(24,37,27,.18)] sm:max-w-xl sm:rounded-[28px]"
       >
         {/* Header */}
         <div className="border-[var(--juba-app-line)] bg-white sticky top-0 z-10 flex items-center justify-between gap-4 border-b px-6 py-5 sm:px-7">
@@ -115,7 +115,7 @@ export default function UnitDrawer({
               {t('lessonsHeader', { count: lessons.length })}
             </p>
           </div>
-          <div className="divide-fl-border divide-y">
+          <div className="divide-y divide-[var(--juba-app-line)]">
             {lessons.length === 0 ? (
               <div className="px-5 py-6 sm:px-6">
                 <p className="text-[var(--juba-app-muted)] text-sm">{t('noLessons')}</p>
