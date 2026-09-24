@@ -1,6 +1,7 @@
 'use client'
 
-import { FormEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import type { FormEvent } from 'react'
 import { useTranslations } from 'next-intl'
 import { ArrowRightLeft, BookOpenCheck, Languages, Loader2, Sparkles, X } from 'lucide-react'
 import Link from 'next/link'
@@ -9,7 +10,9 @@ import { TARGET_LANGUAGE_CATALOG } from '@/lib/target-languages'
 
 const LANGUAGES = TARGET_LANGUAGE_CATALOG.map((language) => ({ code: language.iso639, label: language.name }))
 const UNIQUE_LANGUAGES = LANGUAGES.filter((language, index, all) => all.findIndex((item) => item.code === language.code) === index)
-function languageLabel(code: string) { if (code === 'auto') return 'Auto detect'; return UNIQUE_LANGUAGES.find((l) => l.code === code)?.label ?? code.toUpperCase() }
+function languageLabel(code: string) {
+  return UNIQUE_LANGUAGES.find((language) => language.code === code)?.label ?? code.toUpperCase()
+}
 
 export function VisitorTranslator() {
   const t = useTranslations('visitorTranslator')
@@ -39,7 +42,7 @@ export function VisitorTranslator() {
       <div role="dialog" aria-modal="true" aria-labelledby="visitor-translator-title" aria-describedby="visitor-translator-description" className="w-full max-w-5xl overflow-hidden rounded-[32px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] shadow-[5px_5px_0_var(--juba-app-ink)]">
         <div className="flex items-start justify-between border-b-2 border-[var(--juba-app-ink)] p-5 sm:p-8">
           <div>
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] px-3 py-1 text-[10px] font-black uppercase tracking-[.16em]"><Sparkles className="h-3 w-3" aria-hidden="true" />JUBA LISAN</div>
+            
             <h2 id="visitor-translator-title" className="text-3xl font-black tracking-tight text-[var(--juba-app-ink)] sm:text-4xl">{t('title')}</h2>
             <p id="visitor-translator-description" className="mt-2 max-w-xl text-sm font-medium text-[var(--juba-app-muted)]">{t('description')}</p>
           </div>
