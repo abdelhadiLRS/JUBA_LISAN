@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useId } from 'react'
 import { useTranslations } from 'next-intl'
-import { CheckCircle2, CircleHelp, Loader2, X, AlertCircle } from 'lucide-react'
+import { CheckCircle2, CircleHelp, Loader2, X, AlertCircle, Send } from 'lucide-react'
 
 interface ContactFormModalProps {
   open: boolean
@@ -176,7 +176,10 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label htmlFor="contact-description" className="text-xs font-semibold text-[var(--juba-app-muted)]">{t('labelDescription')}</label>
+                <div className="flex items-center justify-between gap-3">
+                  <label htmlFor="contact-description" className="text-xs font-semibold text-[var(--juba-app-muted)]">{t('labelDescription')}</label>
+                  <span className="text-[10px] font-medium tabular-nums text-[var(--juba-app-muted)]">{description.length}/5000</span>
+                </div>
                 <textarea
                   id="contact-description"
                   required
@@ -210,12 +213,12 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="inline-flex flex-1 items-center justify-center rounded-xl border-2 border-transparent bg-[var(--juba-app-green)] shadow-[3px_3px_0_var(--juba-app-ink)] px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex flex-1 items-center justify-center rounded-xl border-2 border-transparent bg-[var(--juba-app-green)] shadow-[3px_3px_0_var(--juba-app-ink)] px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" aria-busy={isLoading}
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="mr-2 inline h-4 w-4 animate-spin" />
-                    {t('sending')}
+                    
+                    <><Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />{t('sending')}</>
                   </>
                 ) : (
                   t('send')
