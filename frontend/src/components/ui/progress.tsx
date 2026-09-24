@@ -29,7 +29,7 @@ function ProgressTrack({ className, ...props }: ProgressPrimitive.Track.Props) {
   return (
     <ProgressPrimitive.Track
       className={cn(
-        'relative flex h-2 w-full items-center overflow-x-hidden rounded-full border border-[var(--juba-app-line)] bg-[#f3f7ef]',
+        'relative flex h-2 w-full items-center overflow-x-hidden rounded-full border border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)]',
         className
       )}
       data-slot="progress-track"
