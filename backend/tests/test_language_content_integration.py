@@ -115,3 +115,17 @@ def test_all_activated_languages_have_metadata_and_no_flags() -> None:
         assert get_language_script(target_language)
         assert get_language_romanization(target_language) == ""
         assert get_language_flag(target_language) == ""
+
+
+def test_all_activated_languages_have_balanced_assessment_banks() -> None:
+    for target_language in ACTIVATED_TARGET_LANGUAGES:
+        bank = get_assessment_bank(target_language)
+        assert len(bank) == 24, target_language
+        assert {question.difficulty for question in bank} == {"A1", "A2", "B1", "B2", "C1", "C2"}, target_language
+        for level in ("A1", "A2", "B1", "B2", "C1", "C2"):
+            level_questions = [question for question in bank if question.difficulty == level]
+            assert len(level_questions) == 4, (target_language, level)
+        assert all(question.question.strip() for question in bank)
+        assert all(question.options for question in bank)
+        assert all(question.correct in question.options for question in bank)
+        assert all(question.skill in {"grammar", "vocabulary", "reading"} for question in bank)
