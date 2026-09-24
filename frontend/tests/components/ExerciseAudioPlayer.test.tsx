@@ -1,0 +1,182 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
+import React from 'react'
+import { ExerciseAudioPlayer } from '@/components/ui/exercise-audio-player'
+
+const { mockApiFetch } = vi.hoisted(() => ({
+  mockApiFetch: vi.fn(),
+}))
+
+vi.mock('@/lib/api', () => ({
+  apiFetch: mockApiFetch,
+}))
+
+vi.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => key,
+}))
+
+type MockAudio = {
+  play: ReturnType<typeof vi.fn>
+  pause: ReturnType<typeof vi.fn>
+  addEventListener: ReturnType<typeof vi.fn>
+  emit: (event: string) => void
+  duration: number
+  currentTime: number
+  src: string
+}
+
+let currentAudio: MockAudio | null = null
+let urlCounter = 0
+
+function makeAudio(playImpl?: () => Promise<void>): MockAudio {
+  const listeners = new Map<string, () => void>()
+  const audio: MockAudio = {
+    play: vi.fn(playImpl ?? (() => Promise.resolve())),
+    pause: vi.fn(),
+    addEventListener: vi.fn((event: string, handler: () => void) => {
+      listeners.set(event, handler)
+    }),
+    emit: (event: string) => listeners.get(event)?.(),
+    duration: 100,
+    currentTime: 0,
+    src: '',
+  }
+  return audio
+}
+
+function okResponse() {
+  return {
+    ok: true,
+    status: 200,
+    blob: () => Promise.resolve(new Blob(['audio'], { type: 'audio/mpeg' })),
+  } as Response
+}
+
+describe('ExerciseAudioPlayer', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    urlCounter = 0
+    currentAudio = null
+
+    vi.stubGlobal(
+      'Audio',
+      vi.fn(function MockAudio() {
+        currentAudio = makeAudio()
+        return currentAudio
+      })
+    )
+    vi.spyOn(URL, 'createObjectURL').mockImplementation(() => {
+      urlCounter += 1
+      return `blob:exercise-${urlCounter}`
+    })
+    vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => undefined)
+    mockApiFetch.mockResolvedValue(okResponse())
+  })
+
+  it('ignores a stale paused-play resolution after exerciseId changes', async () => {
+    let resolvePlay!: () => void
+    const playPromise = new Promise<void>((resolve) => {
+      resolvePlay = resolve
+    })
+
+    vi.stubGlobal(
+      'Audio',
+      vi.fn(function MockAudio() {
+        currentAudio = makeAudio(() => playPromise)
+        return currentAudio
+      })
+    )
+
+    const { rerender } = render(<ExerciseAudioPlayer exerciseId={1} />)
+    fireEvent.click(screen.getByRole('button', { name: 'audioPlay' }))
+
+    await waitFor(() => {
+      expect(screen.getByRole('slider')).toBeDefined()
+      expect(currentAudio?.play).toHaveBeenCalled()
+    })
+
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'audioPause' }))
+    })
+
+    rerender(<ExerciseAudioPlayer exerciseId={2} />)
+
+    await act(async () => {
+      resolvePlay()
+    })
+
+    expect(screen.getByRole('button', { name: 'audioPlay' })).toBeDefined()
+  })
+
+  it('ignores a stale paused-play rejection after exerciseId changes', async () => {
+    let rejectPlay!: (error: Error) => void
+    const playPromise = new Promise<void>((_, reject) => {
+      rejectPlay = reject
+    })
+
+    vi.stubGlobal(
+      'Audio',
+      vi.fn(function MockAudio() {
+        currentAudio = makeAudio(() => playPromise)
+        return currentAudio
+      })
+    )
+
+    const { rerender } = render(<ExerciseAudioPlayer exerciseId={1} />)
+    fireEvent.click(screen.getByRole('button', { name: 'audioPlay' }))
+
+    await waitFor(() => {
+      expect(currentAudio?.play).toHaveBeenCalled()
+    })
+
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'audioPause' }))
+    })
+
+    rerender(<ExerciseAudioPlayer exerciseId={2} />)
+
+    await act(async () => {
+      rejectPlay(new Error('stale playback failure'))
+    })
+
+    expect(screen.queryByRole('alert')).toBeNull()
+    expect(screen.getByRole('button', { name: 'audioPlay' })).toBeDefined()
+  })
+
+  it('supports Home, End and arrow-key seeking on the progress slider', async () => {
+    render(<ExerciseAudioPlayer exerciseId={1} />)
+    fireEvent.click(screen.getByRole('button', { name: 'audioPlay' }))
+
+    await waitFor(() => {
+      expect(screen.getByRole('slider')).toBeDefined()
+    })
+
+    currentAudio!.emit('loadedmetadata')
+    const slider = screen.getByRole('slider')
+
+    fireEvent.keyDown(slider, { key: 'End' })
+    expect(currentAudio!.currentTime).toBe(100)
+
+    fireEvent.keyDown(slider, { key: 'Home' })
+    expect(currentAudio!.currentTime).toBe(0)
+
+    fireEvent.keyDown(slider, { key: 'ArrowRight' })
+    expect(currentAudio!.currentTime).toBe(5)
+
+    fireEvent.keyDown(slider, { key: 'ArrowLeft' })
+    expect(currentAudio!.currentTime).toBe(0)
+  })
+
+  it('revokes the exercise audio blob URL when the exercise changes', async () => {
+    const { rerender } = render(<ExerciseAudioPlayer exerciseId={1} />)
+    fireEvent.click(screen.getByRole('button', { name: 'audioPlay' }))
+
+    await waitFor(() => {
+      expect(URL.createObjectURL).toHaveBeenCalled()
+    })
+
+    rerender(<ExerciseAudioPlayer exerciseId={2} />)
+
+    expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:exercise-1')
+  })
+})
