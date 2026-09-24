@@ -1,7 +1,9 @@
 import { create } from 'zustand'
 import {
   SUPPORTED_TARGET_LANGUAGES,
+  getCanonicalLanguageCode,
   getLanguageByCode,
+  normalizeLanguageCode,
 } from '@/lib/target-languages'
 import type { TargetLanguage } from '@/lib/target-languages'
 import { apiFetch } from '@/lib/api'
@@ -78,7 +80,7 @@ export const useLanguageStore = create<LanguageStore>((set, get) => ({
             Boolean(getLanguageByCode(language.target_language))
         )
         .map((language: Record<string, unknown>) => {
-          const canonicalCode = getLanguageByCode(language.target_language as string)?.code
+          const canonicalCode = getCanonicalLanguageCode(language.target_language as string)
           return mapUserLanguageInfo({
             ...language,
             target_language: canonicalCode ?? language.target_language,
@@ -103,7 +105,7 @@ export const useLanguageStore = create<LanguageStore>((set, get) => ({
   },
 
   switchLanguage: async (code: string): Promise<boolean> => {
-    const canonicalCode = getLanguageByCode(code)?.code ?? code.trim()
+    const canonicalCode = normalizeLanguageCode(code)
     set({ isSwitching: true })
     try {
       const res = await apiFetch('/api/languages/active', {
@@ -122,7 +124,7 @@ export const useLanguageStore = create<LanguageStore>((set, get) => ({
   },
 
   addLanguage: async (code: string): Promise<boolean> => {
-    const canonicalCode = getLanguageByCode(code)?.code ?? code.trim()
+    const canonicalCode = normalizeLanguageCode(code)
     try {
       const res = await apiFetch('/api/languages', {
         method: 'POST',
@@ -138,7 +140,7 @@ export const useLanguageStore = create<LanguageStore>((set, get) => ({
   },
 
   removeLanguage: async (code: string): Promise<boolean> => {
-    const canonicalCode = getLanguageByCode(code)?.code ?? code.trim()
+    const canonicalCode = normalizeLanguageCode(code)
     try {
       const res = await apiFetch(`/api/languages/${encodeURIComponent(canonicalCode)}`, {
         method: 'DELETE',
