@@ -5643,6 +5643,7 @@ main [dir="rtl"] h3,
 .juba-app-shell .juba-muted{
   color:var(--juba-app-muted);
 }
+.juba-billing-quota{border-color:var(--juba-app-line);border-radius:12px;background:var(--juba-app-surface);box-shadow:2px 2px 0 rgba(24,37,27,.08)}
 .juba-app-shell .juba-badge{
   display:inline-flex;
   align-items:center;
