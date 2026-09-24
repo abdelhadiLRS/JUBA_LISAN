@@ -16,14 +16,14 @@ _g("markers","Basic markers","Basic markers in basic A1 use.",["Nasa bahay ako."
 def _v(i,t,words):
     return VocabularySet(id=i,level="A1",topic=t,unit_ref="fil-a1",words=[VocabularyEntry(word=w,pos=p,definition=d,example=e) for w,p,d,e in words])
 
-VOCABULARY_SETS=[_v("greetings_a1","hello",[["kumusta","noun","hello","kumusta."]]),
-_v("family_a1","mother",[["nanay","noun","mother","nanay."]]),
-_v("home_a1","house",[["bahay","noun","house","bahay."]]),
-_v("daily_a1","morning",[["umaga","noun","morning","umaga."]]),
-_v("food_a1","water",[["tubig","noun","water","tubig."]]),
-_v("places_a1","station",[["istasyon","noun","station","istasyon."]]),
-_v("communication_a1","help",[["tulong","noun","help","tulong."]]),
-_v("review_a1","friend",[["kaibigan","noun","friend","kaibigan."]])]
+VOCABULARY_SETS=[_v("greetings_a1","Pagbati",[["kumusta","phrase","hello / how are you","Kumusta!"],["salamat","phrase","thank you","Salamat!"],["paalam","phrase","goodbye","Paalam!"],["pakiusap","phrase","please","Pakiusap."]]),
+_v("family_a1","Pamilya",[["nanay","noun","mother","Nasa bahay ang nanay ko."],["tatay","noun","father","Nagtatrabaho ang tatay ko."],["ate","noun","older sister","May ate ako."],["kuya","noun","older brother","May kuya ako."]]),
+_v("home_a1","Bahay",[["bahay","noun","house","Malaki ang bahay namin."],["kuwarto","noun","room","Maliit ang kuwarto ko."],["mesa","noun","table","Nasa mesa ang libro."],["pinto","noun","door","Bukas ang pinto."]]),
+_v("daily_a1","Araw-araw",[["umaga","noun","morning","Sa umaga ako nag-aaral."],["kumain","verb","eat","Kumakain ako."],["uminom","verb","drink","Umiinom ako ng tubig."],["matulog","verb","sleep","Matutulog ako mamaya."]]),
+_v("food_a1","Pagkain at pamimili",[["tubig","noun","water","Umiinom ako ng tubig."],["tinapay","noun","bread","Bumibili ako ng tinapay."],["gatas","noun","milk","Gusto ko ng gatas."],["presyo","noun","price","Magkano ang presyo?"]]),
+_v("places_a1","Mga lugar at direksyon",[["tindahan","noun","shop","Malapit ang tindahan."],["istasyon","noun","station","Nasaan ang istasyon?"],["kanan","noun","right","Kumanan ka."],["kaliwa","noun","left","Kumaliwa ka."]]),
+_v("communication_a1","Komunikasyon",[["tulong","noun","help","Kailangan ko ng tulong."],["tumulong","verb","help","Maaari mo ba akong tulungan?"],["maintindihan","verb","understand","Hindi ko maintindihan."],["dahan-dahan","adverb","slowly","Magsalita ka nang dahan-dahan."]]),
+_v("review_a1","Pagbabalik-aral",[["kaibigan","noun","friend","Kaibigan ko siya."],["ngayon","adverb","today","Ngayon ako nagtatrabaho."],["bukas","adverb","tomorrow","Bukas ako mag-aaral."],["oras","noun","time","Anong oras na?"])]
 
 def _p(i,s,items):
     return PhrasebookCategory(id=i,level="A1",situation=s,icon="💬",phrases=[PhrasebookEntry(text=t,context=c,register=r) for t,c,r in items])
