@@ -43,7 +43,7 @@ export default function GrammarIndexPage() {
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState(false)
   const [search, setSearch] = useState('')
-  const [activeCategory, setActiveCategory] = useState<GrammarCategory | 'All'>(
+  const [activeCategory, setActiveCategory] = useState<GrammarCategory | t('all')>(
     'All'
   )
 
