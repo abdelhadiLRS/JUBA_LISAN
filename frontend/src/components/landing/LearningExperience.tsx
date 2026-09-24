@@ -70,7 +70,7 @@ export function LearningExperience({ t }: LearningExperienceProps) {
             {['CEFR level', 'Streak & XP', 'Lessons completed', 'Vocabulary progress'].map((label) => (
               <div className="juba-ff-score" key={label}>
                 <span>{label}</span>
-                <i><em style={{ width: '38%' }} /></i>
+                <i aria-hidden="true"><em style={{ width: '0%' }} /></i>
               </div>
             ))}
             <p className="mt-3 text-xs leading-5 opacity-75">
