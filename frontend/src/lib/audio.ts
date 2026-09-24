@@ -179,6 +179,12 @@ export function createAudioQueue(
         })
         lastScheduleFailTs = now
       }
+      try {
+        source.disconnect()
+      } catch {
+        // ignore
+      }
+      await _fallbackPlay(arrayBuffer.slice(0), generationToken, chunkId)
       return
     }
 
