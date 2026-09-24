@@ -34,6 +34,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
   const [orderingTrace, setOrderingTrace] = useState<InteractiveGameTrace[]>([])
   const [completed, setCompleted] = useState(false)
   const [completionError, setCompletionError] = useState(false)
+  const [saving, setSaving] = useState(false)
   const memoryTimer = useRef<number | null>(null)
 
   useEffect(() => {
@@ -49,15 +50,19 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
   }, [challenge, mode])
 
   const finish = useCallback(async (trace: InteractiveGameTrace[]) => {
-    if (completed) return
-    const accepted = await onComplete?.(trace)
-    if (accepted !== false) {
-      setCompletionError(false)
-      setCompleted(true)
-    } else {
+    if (completed || saving) return
+    setSaving(true)
+    setCompletionError(false)
+    try {
+      const accepted = await onComplete?.(trace)
+      if (accepted !== false) setCompleted(true)
+      else setCompletionError(true)
+    } catch {
       setCompletionError(true)
+    } finally {
+      setSaving(false)
     }
-  }, [completed, onComplete])
+  }, [completed, onComplete, saving])
 
   function flipCard(index: number) {
     if (locked || completed || !memoryCards[index] || memoryCards[index].flipped || memoryCards[index].matched) return
@@ -125,9 +130,9 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
     const trace = [...orderingTrace, { order: [...order] } as InteractiveGameTrace]
     setOrderingTrace(trace)
     setMoves(value => value + 1)
-    void Promise.resolve(onComplete?.(trace)).then((accepted) => {
-      if (accepted !== false) setCompleted(true)
-      else setOrder([])
+    void finish(trace).then(() => {
+      if (!completed) return
+      setOrder([])
     })
   }
 
@@ -137,7 +142,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
       window.clearTimeout(memoryTimer.current)
       memoryTimer.current = null
     }
-    setCompleted(false); setCompletionError(false); setFirst(null); setLocked(false); setMoves(0)
+    setCompleted(false); setCompletionError(false); setSaving(false); setFirst(null); setLocked(false); setMoves(0)
     setMemoryTrace([]); setLeft(null); setRight(null); setMatched([]); setMatchingTrace([])
     setOrder([]); setOrderingTrace([])
     if (challenge.type === 'memory') setMemoryCards(challenge.cards.map(card => ({ ...card, flipped: false, matched: false })))
@@ -149,7 +154,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
       <div className="interactive-toolbar">
         <strong>{mode === 'memory' ? t.memory : mode === 'matching' ? t.matching : t.ordering}</strong>
         <span>{t.moves}: {moves}</span>
-        <button type="button" onClick={reset} disabled={!challenge || completed}>{t.reset}</button>
+        <button type="button" onClick={reset} disabled={!challenge || completed || locked || saving}>{saving ? '…' : t.reset}</button>
       </div>
 
       {!challenge && <p className="interactive-instruction">Loading challenge…</p>}
@@ -182,7 +187,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
         })}</div>
         <button type="button" className="interactive-secondary" onClick={() => setOrder(value => value.slice(0, -1))} disabled={!order.length}>{t.undo}</button>
         <button type="button" className="interactive-secondary" onClick={() => setOrder([])} disabled={!order.length}>{t.clear}</button>
-        <button type="button" className="interactive-secondary" onClick={submitOrder} disabled={order.length !== items.length}>✓</button>
+        <button type="button" className="interactive-secondary" onClick={submitOrder} disabled={order.length !== items.length || saving}>{saving ? '…' : '✓'}</button>
       </>}
 
       {completionError && !completed && <div className="interactive-error" role="alert"><p>Unable to save the result. Reset and try again.</p><button type="button" onClick={reset}>{t.reset}</button></div>}
