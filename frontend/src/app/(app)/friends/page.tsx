@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { MessageCircle, Search, UserPlus, Users, Check, UserMinus } from 'lucide-react'
+import { MessageCircle, Search, UserPlus, Users, Check, UserMinus, Link as LinkIcon, Clipboard, CheckCheck } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
 
@@ -19,6 +19,9 @@ export default function FriendsPage() {
   const [error,setError]=useState('')
   const [searching,setSearching]=useState(false)
   const [actionId,setActionId]=useState<number|null>(null)
+  const [inviteUrl,setInviteUrl]=useState('')
+  const [inviteCopied,setInviteCopied]=useState(false)
+  const [inviteLoading,setInviteLoading]=useState(false)
 
   async function load() {
     setLoading(true); setError('')
@@ -46,6 +49,27 @@ export default function FriendsPage() {
       setResults(await res.json())
     } catch { setError('Unable to search learners right now.') }
     finally { setSearching(false) }
+  }
+
+  async function createInvite() {
+    setInviteLoading(true); setError(''); setInviteCopied(false)
+    try {
+      const res=await apiFetch('/api/invites/create',{method:'POST'})
+      const data=await res.json().catch(()=>({}))
+      if (!res.ok) throw new Error(data.detail || 'Unable to create invitation.')
+      setInviteUrl(window.location.origin + data.invite_url)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to create invitation.')
+    } finally { setInviteLoading(false) }
+  }
+
+  async function copyInvite() {
+    if (!inviteUrl) return
+    try {
+      await navigator.clipboard.writeText(inviteUrl)
+      setInviteCopied(true)
+      window.setTimeout(()=>setInviteCopied(false),2000)
+    } catch { setError('Unable to copy invitation link.') }
   }
 
   async function addFriend(id:number) {
@@ -80,6 +104,28 @@ export default function FriendsPage() {
           <h1 className="juba-page-title">Friends</h1>
           <p className="juba-page-subtitle">Find learners, practise together, and keep your language journey social.</p>
         </div>
+      </section>
+
+      <section className="juba-panel flex flex-wrap items-center justify-between gap-4">
+        <div className="min-w-0">
+          <p className="juba-eyebrow"><LinkIcon className="inline h-4 w-4" /> INVITE MEMBERS</p>
+          <h2 className="juba-section-title mt-1">Invite a learner to JUBA LISAN</h2>
+          <p className="juba-muted mt-1">Create a registration link and share it with someone you want to learn with.</p>
+        </div>
+        <button onClick={createInvite} disabled={inviteLoading} className="juba-primary-button shrink-0">
+          <UserPlus className="h-4 w-4" /> {inviteLoading ? 'Creating…' : 'Create invite'}
+        </button>
+        {inviteUrl && (
+          <div className="w-full rounded-2xl border border-[var(--juba-app-line)] bg-[var(--juba-app-bg)] p-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="min-w-0 flex-1 break-all text-xs text-[var(--juba-app-muted)]">{inviteUrl}</p>
+              <button onClick={copyInvite} className="juba-secondary-button shrink-0">
+                {inviteCopied ? <CheckCheck className="h-4 w-4"/> : <Clipboard className="h-4 w-4"/>}
+                {inviteCopied ? 'Copied' : 'Copy link'}
+              </button>
+            </div>
+          </div>
+        )}
       </section>
 
       <section className="grid gap-4 lg:grid-cols-[1.35fr_.65fr]">
