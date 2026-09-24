@@ -40,14 +40,14 @@ PhrasebookCategory(id="st_a1_phrase_3",level="A1",situation="help",icon="💬",p
 PhrasebookCategory(id="st_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="Sekolo se hokae?",context="Where is the school?",register="neutral")])
 ]
 ASSESSMENT_BANK=[
-AssessmentQuestion(id="st-a1-001",skill="vocabulary",difficulty="A1",question="Choose the correct Southern Sotho expression for this A1 task.",options=["lumela","lebitso","mme","ntlo"],correct="lumela"),
-AssessmentQuestion(id="st-a1-002",skill="grammar",difficulty="A1",question="Choose the correct Southern Sotho expression for this A1 task.",options=["lebitso","mme","ntlo","ithuta"],correct="lebitso"),
-AssessmentQuestion(id="st-a1-003",skill="reading",difficulty="A1",question="Choose the correct Southern Sotho expression for this A1 task.",options=["mme","ntlo","ithuta","nako"],correct="mme"),
-AssessmentQuestion(id="st-a1-004",skill="speaking",difficulty="A1",question="Choose the correct Southern Sotho expression for this A1 task.",options=["ntlo","ithuta","nako","metsi"],correct="ntlo"),
-AssessmentQuestion(id="st-a1-005",skill="vocabulary",difficulty="A1",question="Choose the correct Southern Sotho expression for this A1 task.",options=["ithuta","nako","metsi","sekolo"],correct="ithuta"),
-AssessmentQuestion(id="st-a1-006",skill="grammar",difficulty="A1",question="Choose the correct Southern Sotho expression for this A1 task.",options=["nako","metsi","sekolo","lumela"],correct="nako"),
-AssessmentQuestion(id="st-a1-007",skill="reading",difficulty="A1",question="Choose the correct Southern Sotho expression for this A1 task.",options=["metsi","sekolo","lumela","lebitso"],correct="metsi"),
-AssessmentQuestion(id="st-a1-008",skill="speaking",difficulty="A1",question="Choose the correct Southern Sotho expression for this A1 task.",options=["sekolo","lumela","lebitso","mme"],correct="sekolo"),
-AssessmentQuestion(id="st-a1-009",skill="vocabulary",difficulty="A1",question="Choose the correct Southern Sotho expression for this A1 task.",options=["lumela","lebitso","mme","ntlo"],correct="lumela"),
-AssessmentQuestion(id="st-a1-010",skill="grammar",difficulty="A1",question="Choose the correct Southern Sotho expression for this A1 task.",options=["lebitso","mme","ntlo","ithuta"],correct="lebitso")
+AssessmentQuestion(id="st-a1-001",skill="vocabulary",difficulty="A1",question="Which Southern Sotho word means 'water'?",options=["lumela","lebitso","mme","ntlo"],correct="lumela"),
+AssessmentQuestion(id="st-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["lebitso","mme","ntlo","ithuta"],correct="lebitso"),
+AssessmentQuestion(id="st-a1-003",skill="reading",difficulty="A1",question="What does mme mean?",options=["mme","ntlo","ithuta","nako"],correct="mme"),
+AssessmentQuestion(id="st-a1-004",skill="speaking",difficulty="A1",question="Which question asks 'Where are you?'",options=["ntlo","ithuta","nako","metsi"],correct="ntlo"),
+AssessmentQuestion(id="st-a1-005",skill="vocabulary",difficulty="A1",question="Buka e holim'a tafole. Where is the book?",options=["ithuta","nako","metsi","sekolo"],correct="ithuta"),
+AssessmentQuestion(id="st-a1-006",skill="grammar",difficulty="A1",question="Which word means 'name'?",options=["nako","metsi","sekolo","lumela"],correct="nako"),
+AssessmentQuestion(id="st-a1-007",skill="reading",difficulty="A1",question="Which phrase asks someone to repeat?",options=["metsi","sekolo","lumela","lebitso"],correct="metsi"),
+AssessmentQuestion(id="st-a1-008",skill="speaking",difficulty="A1",question="Which sentence says 'I drink water'?",options=["sekolo","lumela","lebitso","mme"],correct="sekolo"),
+AssessmentQuestion(id="st-a1-009",skill="vocabulary",difficulty="A1",question="What does nako mean?",options=["lumela","lebitso","mme","ntlo"],correct="lumela"),
+AssessmentQuestion(id="st-a1-010",skill="grammar",difficulty="A1",question="Which is a natural greeting?",options=["lebitso","mme","ntlo","ithuta"],correct="lebitso")
 ]
