@@ -5180,3 +5180,136 @@ main [dir="rtl"] h3,
     box-shadow:4px 4px 0 var(--juba-app-ink);
   }
 }
+
+
+/* JUBA LISAN — support, feedback and admin surfaces */
+.juba-faq-shell,
+.juba-feedback-shell,
+.juba-admin-shell{
+  color:var(--juba-app-ink);
+}
+.juba-faq-shell .border-fl-border,
+.juba-feedback-shell .border-fl-border,
+.juba-admin-shell .border-fl-border{
+  border-color:var(--juba-app-line)!important;
+}
+.juba-faq-shell{
+  min-height:calc(100vh - 64px);
+  background:radial-gradient(circle at 100% 0%,rgba(255,212,79,.12),transparent 280px),var(--juba-app-bg);
+}
+.juba-faq-shell > div:first-child{
+  border-color:var(--juba-app-ink)!important;
+  border-width:0 0 2px;
+}
+.juba-faq-shell > div:first-child p{
+  color:var(--juba-app-green-dark)!important;
+}
+.juba-faq-shell > div:first-child h1{
+  color:var(--juba-app-ink)!important;
+  font-family:var(--font-geist-sans),system-ui,sans-serif!important;
+  letter-spacing:-.045em;
+}
+.juba-faq-shell > div:nth-child(2){
+  overflow:hidden;
+  border:1px solid var(--juba-app-line)!important;
+  border-radius:20px;
+  background:var(--juba-app-surface);
+  box-shadow:0 8px 24px rgba(24,37,27,.05);
+}
+.juba-faq-shell > div:nth-child(2) button{
+  border-radius:0;
+  color:var(--juba-app-ink);
+}
+.juba-faq-shell > div:nth-child(2) button:hover{
+  background:#f3f7ef!important;
+}
+.juba-faq-shell > div:nth-child(2) button span:first-child{
+  font-family:var(--font-geist-sans),system-ui,sans-serif!important;
+  font-size:.9rem;
+  font-weight:750;
+}
+.juba-faq-shell > div:nth-child(2) > div > div:last-child{
+  background:#f9fbf7!important;
+  color:var(--juba-app-muted)!important;
+  border-color:var(--juba-app-line)!important;
+  font-family:var(--font-geist-sans),system-ui,sans-serif!important;
+}
+.juba-faq-shell a{
+  color:var(--juba-app-green)!important;
+}
+.juba-feedback-shell{
+  min-height:calc(100vh - 64px);
+  background:radial-gradient(circle at 100% 0%,rgba(255,212,79,.12),transparent 300px),var(--juba-app-bg);
+}
+.juba-feedback-shell > *{
+  font-family:var(--font-geist-sans),system-ui,sans-serif;
+}
+.juba-feedback-shell [class*="border-[var(--juba-lilac)]"],
+.juba-feedback-shell [class*="border-[var(--juba-violet)]"]{
+  border-color:var(--juba-app-line)!important;
+}
+.juba-feedback-shell [class*="bg-[var(--juba-lilac)]"]{
+  background:var(--juba-app-green-soft)!important;
+}
+.juba-feedback-shell [class*="bg-[var(--juba-bg)]"]{
+  background:#f9fbf7!important;
+}
+.juba-feedback-shell [class*="text-[var(--juba-text)]"]{
+  color:var(--juba-app-ink)!important;
+}
+.juba-feedback-shell [class*="text-[var(--juba-muted)]"]{
+  color:var(--juba-app-muted)!important;
+}
+.juba-feedback-shell [class*="text-[var(--juba-violet)]"],
+.juba-feedback-shell [class*="text-[var(--juba-violet-dark)]"]{
+  color:var(--juba-app-green)!important;
+}
+.juba-feedback-shell [class*="border-[var(--juba-coral)]"]{
+  border-color:#d7b2ad!important;
+}
+.juba-feedback-shell button,
+.juba-feedback-shell input,
+.juba-feedback-shell textarea,
+.juba-feedback-shell select{
+  border-radius:12px;
+}
+.juba-feedback-shell > div.rounded-\[28px\]{
+  border:1px solid var(--juba-app-line);
+  border-radius:22px;
+  box-shadow:0 8px 24px rgba(24,37,27,.05);
+}
+.juba-admin-shell{
+  min-height:calc(100vh - 64px);
+  background:radial-gradient(circle at 100% 0%,rgba(255,212,79,.1),transparent 280px),var(--juba-app-bg);
+}
+.juba-admin-shell > div[class*="grid"] > *{
+  border-color:var(--juba-app-line)!important;
+  border-radius:18px;
+  background:var(--juba-app-surface)!important;
+  box-shadow:0 7px 20px rgba(24,37,27,.045);
+}
+.juba-admin-shell a{
+  border-radius:12px;
+}
+.juba-admin-shell [class*="border-[var(--juba-border)]"]{
+  border-color:var(--juba-app-line)!important;
+}
+.juba-admin-shell [class*="bg-[var(--juba-surface)]"]{
+  background:var(--juba-app-surface)!important;
+}
+.juba-admin-shell [class*="text-[var(--juba-text)]"]{
+  color:var(--juba-app-ink)!important;
+}
+.juba-admin-shell [class*="text-[var(--juba-muted)]"]{
+  color:var(--juba-app-muted)!important;
+}
+.juba-admin-shell [class*="text-[var(--juba-violet)]"]{
+  color:var(--juba-app-green)!important;
+}
+@media(max-width:700px){
+  .juba-faq-shell,
+  .juba-feedback-shell,
+  .juba-admin-shell{
+    padding:1rem;
+  }
+}
