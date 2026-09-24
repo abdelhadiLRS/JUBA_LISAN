@@ -1,7 +1,7 @@
 """Helpers for BCP-47 target_language codes.
 
 Used by service layer to translate the generic target_language field into
-human-readable names, self-names, ISO 639-1 codes, and flag emojis.
+human-readable names, self-names, and ISO 639-1 codes.
 """
 
 from __future__ import annotations
@@ -13,20 +13,17 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
         "name": "English (US)",
         "self_name": "English (US)",
         "iso639": "en",
-        "flag": "🇺🇸",
     },
     "en-GB": {
         "name": "English (UK)",
         "self_name": "English (UK)",
         "iso639": "en",
-        "flag": "🇬🇧",
     },
     "de-DE": {"name": "German", "self_name": "Deutsch", "iso639": "de", "flag": "🇩🇪"},
     "es-ES": {
         "name": "Spanish (Spain)",
         "self_name": "Español (España)",
         "iso639": "es",
-        "flag": "🇪🇸",
     },
     "fr-FR": {"name": "French", "self_name": "Français", "iso639": "fr", "flag": "🇫🇷"},
     "it-IT": {"name": "Italian", "self_name": "Italiano", "iso639": "it", "flag": "🇮🇹"},
@@ -34,32 +31,27 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
         "name": "European Portuguese",
         "self_name": "Português (Portugal)",
         "iso639": "pt",
-        "flag": "🇵🇹",
     },
     "ja-JP": {"name": "Japanese", "self_name": "日本語", "iso639": "ja", "flag": "🇯🇵"},
     "ko-KR": {
         "name": "Korean (South Korea)",
         "self_name": "한국어",
         "iso639": "ko",
-        "flag": "🇰🇷",
     },
     "zh-CN": {
         "name": "Chinese (Mainland China)",
         "self_name": "中文（中国）",
         "iso639": "zh",
-        "flag": "🇨🇳",
     },
     "ru-RU": {
         "name": "Russian",
         "self_name": "Русский",
         "iso639": "ru",
-        "flag": "🇷🇺",
     },
     "nl-NL": {
         "name": "Dutch",
         "self_name": "Nederlands",
         "iso639": "nl",
-        "flag": "🇳🇱",
     },
     "pl-PL": {
         "name": "Polish",
@@ -348,9 +340,9 @@ def get_iso639(target_language: str) -> str:
 
 
 def get_language_flag(target_language: str) -> str:
-    """'es-ES' → '🇪🇸', 'it-IT' → '🇮🇹'"""
+    """Flags are intentionally disabled; kept only as a compatibility accessor."""
     info = _LANGUAGE_INFO.get(target_language)
-    return info["flag"] if info else ""
+    return ""
 
 
 def _get_language_capability(target_language: str) -> dict[str, str | bool]:
