@@ -23,8 +23,8 @@ PhrasebookCategory(id="phrase_4_a1",level="A1",situation="Help and directions",i
 
 AssessmentQuestion(id="to-a1-001",skill="communication",difficulty="A1",question="You greet someone politely. Which phrase should you use?",options=["Mālō e lelei!","hingoa","faʻē","ʻapi"],correct="Mālō e lelei!"),
 AssessmentQuestion(id="to-a1-002",skill="communication",difficulty="A1",question="You introduce your name. Which word means “name”?",options=["hingoa","faʻē","ʻapi","ngāue"],correct="hingoa"),
-AssessmentQuestion(id="to-a1-003",skill="vocabulary",difficulty="A1",question="You talk about your mother. Which word means “mother”?",options=["faʻē","ʻapi","ngāue","vai"],correct="faʻē"),
-AssessmentQuestion(id="to-a1-004",skill="vocabulary",difficulty="A1",question="You say you are at home. Which word means “home”?",options=["ʻapi","ngāue","vai","falekoloa"],correct="ʻapi"),
+AssessmentQuestion(id="to-a1-003",skill="reading",difficulty="A1",question="You read “ʻOku nofo hoku faʻē ʻi Nukuʻalofa.” Which Tongan sentence says that your mother lives in Nukuʻalofa?",options=["ʻOku nofo hoku faʻē ʻi Nukuʻalofa.","ʻOku ngāue hoku tamai.","ʻOku ʻi ʻapi ʻa e fānau.","ʻOku ou inu vai ʻi he pongipongi."],correct="ʻOku nofo hoku faʻē ʻi Nukuʻalofa."),
+AssessmentQuestion(id="to-a1-004",skill="grammar",difficulty="A1",question="You want to say “This is my home.” Which Tongan sentence should you use?",options=["Ko hoku ʻapi ʻeni.","ʻOku lahi hoku fale.","Ko hoku kaungāmeʻa ia.","ʻOku ou ako ʻi he ʻapiako."],correct="Ko hoku ʻapi ʻeni."),
 AssessmentQuestion(id="to-a1-005",skill="vocabulary",difficulty="A1",question="You say you are working today. Which word means “work”?",options=["ngāue","vai","falekoloa","tokoni"],correct="ngāue"),
 AssessmentQuestion(id="to-a1-006",skill="vocabulary",difficulty="A1",question="You ask for water. Which word means “water”?",options=["vai","falekoloa","tokoni","Mālō e lelei!"],correct="vai"),
 AssessmentQuestion(id="to-a1-007",skill="vocabulary",difficulty="A1",question="You ask where the shop is. Which word means “shop”?",options=["falekoloa","tokoni","Mālō e lelei!","hingoa"],correct="falekoloa"),
