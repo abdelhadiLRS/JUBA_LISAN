@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useId } from 'react'
 import { useTranslations } from 'next-intl'
 import { CheckCircle2, CircleHelp, Loader2, X } from 'lucide-react'
 
@@ -21,6 +21,8 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
   const [status, setStatus] = useState<Status>('idle')
   const [errorMsg, setErrorMsg] = useState('')
   const dialogRef = useRef<HTMLDivElement>(null)
+  const titleId = useId()
+  const descriptionId = useId()
   const firstFieldRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -103,7 +105,8 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="contact-modal-title"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
         className="juba-card w-full max-w-md overflow-hidden border-2 border-[var(--juba-app-line)] shadow-[5px_5px_0_var(--juba-app-line)]"
         onClick={(e) => e.stopPropagation()}
       >
@@ -111,7 +114,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--juba-app-yellow)] text-[var(--juba-app-green-dark)]" aria-hidden="true">
             <CircleHelp className="h-4 w-4" />
           </span>
-          <span id="contact-modal-title" className="flex-1 text-sm font-semibold tracking-tight text-[var(--juba-app-ink)]">
+          <span id={titleId} className="flex-1 text-sm font-semibold tracking-tight text-[var(--juba-app-ink)]">
             {t('title')}
           </span>
           <button
@@ -132,6 +135,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
+            <p id={descriptionId} className="sr-only">{t('description')}</p>
             <div className="flex flex-col gap-5 px-6 py-6">
               <div className="flex flex-col gap-2">
                 <label htmlFor="contact-email" className="text-xs font-semibold text-[var(--juba-app-muted)]">{t('labelEmail')}</label>
@@ -179,7 +183,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
               </div>
 
               {status === 'error' && (
-                <p role="alert" className="rounded-xl bg-[color-mix(in_srgb,#b33a32_10%,var(--juba-app-surface))] px-3 py-2.5 text-sm leading-relaxed text-[#b33a32]">
+                <p role="alert" className="inline-flex w-full items-start gap-2 rounded-xl bg-[color-mix(in_srgb,#b33a32_10%,var(--juba-app-surface))] px-3 py-2.5 text-sm leading-relaxed text-[#b33a32]">
                   {errorMsg}
                 </p>
               )}
