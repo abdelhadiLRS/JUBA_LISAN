@@ -2,6 +2,7 @@
 
 import { useEffect, useEffectEvent, useId, useRef } from 'react'
 import { useTranslations } from 'next-intl'
+import { AlertTriangle, CheckCircle2, Loader2 } from 'lucide-react'
 
 interface ConfirmDialogProps {
   open: boolean
@@ -73,63 +74,65 @@ export function ConfirmDialog({
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center p-4"
       style={{
-        backgroundColor: 'color-mix(in srgb, var(--juba-text) 55%, transparent)',
+        backgroundColor: 'color-mix(in srgb, var(--juba-app-ink) 55%, transparent)',
         backdropFilter: 'blur(8px)',
       }}
       onClick={() => !confirming && onCancel()}
     >
       <div
         ref={dialogRef}
-        className="juba-card w-full max-w-sm overflow-hidden border-2 border-[var(--juba-border)] shadow-[5px_5px_0_var(--juba-border)]"
+        className="juba-card w-full max-w-sm overflow-hidden border-2 border-[var(--juba-app-line)] shadow-[5px_5px_0_var(--juba-app-line)]"
         onClick={(e) => e.stopPropagation()}
         role="alertdialog"
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
       >
-        <div className="flex items-center gap-3 border-b-2 border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-6 py-4">
+        <div className="flex items-center gap-3 border-b-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-6 py-4">
           <span
-            className={`flex h-8 w-8 items-center justify-center rounded-full text-sm ${danger ? 'bg-[color-mix(in_srgb,var(--juba-danger)_12%,var(--juba-surface))] text-[var(--juba-danger)]' : 'bg-[var(--juba-lilac)] text-[var(--juba-primary-dark)]'}`}
+            className={`flex h-8 w-8 items-center justify-center rounded-full text-sm ${danger ? 'bg-[color-mix(in_srgb,#b33a32_12%,var(--juba-app-surface))] text-[#b33a32]' : 'bg-[var(--juba-app-yellow)] text-[var(--juba-app-green-dark)]'}`}
             aria-hidden="true"
           >
-            ●
+            {danger ? <AlertTriangle className="size-4" /> : <CheckCircle2 className="size-4" />}
           </span>
-          <span id={titleId} className="text-sm font-semibold tracking-tight text-[var(--juba-text)]">
+          <span id={titleId} className="text-sm font-semibold tracking-tight text-[var(--juba-app-ink)]">
             {title}
           </span>
         </div>
 
         <div className="px-6 py-6">
-          <p id={descriptionId} className="text-sm leading-6 text-[var(--juba-muted)]">
+          <p id={descriptionId} className="text-sm leading-6 text-[var(--juba-app-muted)]">
             {message}
           </p>
           {error && (
-            <p role="alert" className="mt-3 text-sm leading-5 text-[var(--juba-danger)]">
+            <p role="alert" className="mt-3 text-sm leading-5 text-[#b33a32]">
               {error}
             </p>
           )}
         </div>
 
-        <div className="flex gap-3 border-t-2 border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-6 py-4">
+        <div className="flex gap-3 border-t-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-6 py-4">
           <button
+            type="button"
             ref={cancelRef}
             onClick={onCancel}
             disabled={confirming}
-            className="flex-1 rounded-xl border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] shadow-[2px_2px_0_var(--juba-border)] px-4 py-2.5 text-sm font-semibold text-[var(--juba-muted)] transition hover:border-[var(--juba-primary)] hover:text-[var(--juba-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-primary)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 rounded-xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] shadow-[2px_2px_0_var(--juba-app-line)] px-4 py-2.5 text-sm font-semibold text-[var(--juba-app-muted)] transition hover:border-[var(--juba-app-green)] hover:text-[var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {cancelLabel ?? tCommon('cancel')}
           </button>
           <button
+            type="button"
             onClick={onConfirm}
             disabled={confirming}
             aria-busy={confirming}
-            className={`flex-1 rounded-xl border-2 border-transparent px-4 py-2.5 text-sm font-semibold shadow-[3px_3px_0_var(--juba-border)] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
+            className={`flex-1 rounded-xl border-2 border-transparent px-4 py-2.5 text-sm font-semibold shadow-[3px_3px_0_var(--juba-app-line)] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
               danger
-                ? 'bg-[var(--juba-danger)] text-white hover:opacity-90 focus-visible:ring-[var(--juba-danger)]'
-                : 'bg-[var(--juba-primary-dark)] text-white hover:opacity-90 focus-visible:ring-[var(--juba-primary)]'
+                ? 'bg-[#b33a32] text-white hover:opacity-90 focus-visible:ring-[#b33a32]'
+                : 'bg-[var(--juba-app-green-dark)] text-white hover:opacity-90 focus-visible:ring-[var(--juba-app-green)]'
             }`}
           >
-            {confirming ? '…' : confirmLabel}
+            {confirming ? <span className="inline-flex items-center gap-2"><Loader2 className="size-4 animate-spin" />{confirmLabel}</span> : confirmLabel}
           </button>
         </div>
       </div>
