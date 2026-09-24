@@ -40,14 +40,14 @@ PhrasebookCategory(id="si_a1_phrase_3",level="A1",situation="help",icon="💬",p
 PhrasebookCategory(id="si_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="පාසල කොහෙද?",context="Where is the school?",register="neutral")])
 ]
 ASSESSMENT_BANK=[
-AssessmentQuestion(id="si-a1-001",skill="vocabulary",difficulty="A1",question="Choose the correct Sinhala expression for this A1 task.",options=["ආයුබෝවන්","නම","අම්මා","ගෙදර"],correct="ආයුබෝවන්"),
-AssessmentQuestion(id="si-a1-002",skill="grammar",difficulty="A1",question="Choose the correct Sinhala expression for this A1 task.",options=["නම","අම්මා","ගෙදර","ඉගෙන ගන්නවා"],correct="නම"),
-AssessmentQuestion(id="si-a1-003",skill="reading",difficulty="A1",question="Choose the correct Sinhala expression for this A1 task.",options=["අම්මා","ගෙදර","ඉගෙන ගන්නවා","වේලාව"],correct="අම්මා"),
-AssessmentQuestion(id="si-a1-004",skill="speaking",difficulty="A1",question="Choose the correct Sinhala expression for this A1 task.",options=["ගෙදර","ඉගෙන ගන්නවා","වේලාව","වතුර"],correct="ගෙදර"),
-AssessmentQuestion(id="si-a1-005",skill="vocabulary",difficulty="A1",question="Choose the correct Sinhala expression for this A1 task.",options=["ඉගෙන ගන්නවා","වේලාව","වතුර","පාසල"],correct="ඉගෙන ගන්නවා"),
-AssessmentQuestion(id="si-a1-006",skill="grammar",difficulty="A1",question="Choose the correct Sinhala expression for this A1 task.",options=["වේලාව","වතුර","පාසල","ආයුබෝවන්"],correct="වේලාව"),
-AssessmentQuestion(id="si-a1-007",skill="reading",difficulty="A1",question="Choose the correct Sinhala expression for this A1 task.",options=["වතුර","පාසල","ආයුබෝවන්","නම"],correct="වතුර"),
-AssessmentQuestion(id="si-a1-008",skill="speaking",difficulty="A1",question="Choose the correct Sinhala expression for this A1 task.",options=["පාසල","ආයුබෝවන්","නම","අම්මා"],correct="පාසල"),
-AssessmentQuestion(id="si-a1-009",skill="vocabulary",difficulty="A1",question="Choose the correct Sinhala expression for this A1 task.",options=["ආයුබෝවන්","නම","අම්මා","ගෙදර"],correct="ආයුබෝවන්"),
-AssessmentQuestion(id="si-a1-010",skill="grammar",difficulty="A1",question="Choose the correct Sinhala expression for this A1 task.",options=["නම","අම්මා","ගෙදර","ඉගෙන ගන්නවා"],correct="නම")
+AssessmentQuestion(id="si-a1-001",skill="vocabulary",difficulty="A1",question="Which Sinhala word means 'water'?",options=["වතුර","ගෙදර","අම්මා","පාසල"],correct="වතුර"),
+AssessmentQuestion(id="si-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["මම ගෙදර ඉන්නවා.","මම පාසලට යනවා.","මම වතුර බොනවා.","මේ පොතක්."],correct="මම ගෙදර ඉන්නවා."),
+AssessmentQuestion(id="si-a1-003",skill="vocabulary",difficulty="A1",question="What does අම්මා mean?",options=["mother","father","friend","teacher"],correct="mother"),
+AssessmentQuestion(id="si-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'Where are you?'",options=["ඔයා කොහෙද ඉන්නේ?","ඔයාගේ නම මොකක්ද?","මේ මොකක්ද?","මිල කීයද?"],"correct"="ඔයා කොහෙද ඉන්නේ?"),
+AssessmentQuestion(id="si-a1-005",skill="reading",difficulty="A1",question="පොත මේසය උඩ තියෙනවා. Where is the book?",options=["On the table","At school","At home","In the shop"],correct="On the table"),
+AssessmentQuestion(id="si-a1-006",skill="vocabulary",difficulty="A1",question="Which word means 'name'?",options=["නම","වේලාව","වතුර","ගෙදර"],correct="නම"),
+AssessmentQuestion(id="si-a1-007",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["ආයෙත් කියන්න.","ස්තුතියි.","ආයුබෝවන්.","ගිහින් එන්නම්."],correct="ආයෙත් කියන්න."),
+AssessmentQuestion(id="si-a1-008",skill="grammar",difficulty="A1",question="Which sentence says 'I drink water'?",options=["මම වතුර බොනවා.","මම ගෙදර ඉන්නවා.","මම ඉගෙන ගන්නවා.","මේ ගෙදරක්."],correct="මම වතුර බොනවා."),
+AssessmentQuestion(id="si-a1-009",skill="vocabulary",difficulty="A1",question="What does වේලාව mean?",options=["time","school","water","name"],correct="time"),
+AssessmentQuestion(id="si-a1-010",skill="communication",difficulty="A1",question="Which is a natural greeting?",options=["ආයුබෝවන්!","මට වතුර ඕනේ.","පාසල කොහෙද?","මට තේරෙන්නේ නැහැ."],correct="ආයුබෝවන්!")
 ]
