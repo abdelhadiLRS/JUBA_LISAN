@@ -118,7 +118,7 @@ export default function FAQPage() {
   })()
 
   return (
-    <div className="mx-auto max-w-4xl p-6">
+    <div className="juba-faq-shell mx-auto max-w-4xl space-y-6 p-6">
       {/* Header */}
       <div className="border-fl-border mb-8 border-b pb-4">
         <p className="text-fl-label text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
