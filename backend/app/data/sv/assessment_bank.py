@@ -1,2 +1,28 @@
 from app.data._types import AssessmentQuestion
-ASSESSMENT_BANK=[AssessmentQuestion(id="sv-a1-001",skill="grammar",difficulty="A1",question="Choose the correct A1 structure.",options=["A","B","C","D"],correct="A"),AssessmentQuestion(id="sv-a2-001",skill="grammar",difficulty="A2",question="Choose the correct A2 structure.",options=["A","B","C","D"],correct="A"),AssessmentQuestion(id="sv-b1-001",skill="grammar",difficulty="B1",question="Choose the correct B1 structure.",options=["A","B","C","D"],correct="A"),AssessmentQuestion(id="sv-b2-001",skill="grammar",difficulty="B2",question="Choose the correct B2 structure.",options=["A","B","C","D"],correct="A"),AssessmentQuestion(id="sv-c1-001",skill="grammar",difficulty="C1",question="Choose the correct C1 structure.",options=["A","B","C","D"],correct="A"),AssessmentQuestion(id="sv-c2-001",skill="grammar",difficulty="C2",question="Choose the correct C2 structure.",options=["A","B","C","D"],correct="A")]
+
+ASSESSMENT_BANK = [
+    AssessmentQuestion("sv-a1-001","grammar","A1","Välj rätt mening.",["Jag är student.","Jag student är.","Är jag student är.","Jag är en studentar."],"Jag är student."),
+    AssessmentQuestion("sv-a1-002","grammar","A1","Vilken form är bestämd?",["bok","böcker","boken","bokar"],"boken"),
+    AssessmentQuestion("sv-a1-003","vocabulary","A1","Vad betyder 'tack'?",["please","thanks","hello","goodbye"],"thanks"),
+    AssessmentQuestion("sv-a1-004","reading","A1","Läs: 'Anna bor i Malmö.' Var bor Anna?",["Stockholm","Göteborg","Malmö","Uppsala"],"Malmö"),
+    AssessmentQuestion("sv-a2-001","grammar","A2","Vilken ordföljd är korrekt?",["Idag jag arbetar hemma.","Idag arbetar jag hemma.","Idag hemma arbetar jag.","Arbetar idag hemma jag."],"Idag arbetar jag hemma."),
+    AssessmentQuestion("sv-a2-002","grammar","A2","Välj rätt bisats.",["Jag vet att han kommer inte.","Jag vet att han inte kommer.","Jag vet inte att han kommer.","Jag vet att inte han kommer."],"Jag vet att han inte kommer."),
+    AssessmentQuestion("sv-a2-003","vocabulary","A2","Vad är en 'bokning'?",["en reservation","en försening","en biljettmaskin","en adress"],"en reservation"),
+    AssessmentQuestion("sv-a2-004","reading","A2","Läs: 'Tåget avgår klockan åtta men är tio minuter försenat.' När skulle tåget avgå?",["07:50","08:00","08:10","08:20"],"08:00"),
+    AssessmentQuestion("sv-b1-001","grammar","B1","Välj korrekt perfektform.",["Jag har läser boken.","Jag har läst boken.","Jag hade läser boken.","Jag är läst boken."],"Jag har läst boken."),
+    AssessmentQuestion("sv-b1-002","grammar","B1","Vilken mening är passiv?",["De publicerar rapporten.","Rapporten publiceras idag.","De har en rapport.","Rapporten är intressant."],"Rapporten publiceras idag."),
+    AssessmentQuestion("sv-b1-003","vocabulary","B1","Vad betyder 'belägg' i en argumenterande text?",["evidence","salary","journey","schedule"],"evidence"),
+    AssessmentQuestion("sv-b1-004","reading","B1","Läs: 'Rapporten visar ett samband mellan sömn och prestation.' Vad visar rapporten?",["En resa","Ett samband","En lag","En intervju"],"Ett samband"),
+    AssessmentQuestion("sv-b2-001","grammar","B2","Välj den kontrafaktiska formuleringen.",["Om jag vet skulle jag komma.","Om jag visste skulle jag komma.","Om jag visste kommer jag.","Om jag vet kom jag."],"Om jag visste skulle jag komma."),
+    AssessmentQuestion("sv-b2-002","grammar","B2","Vilken koncessiv konstruktion är korrekt?",["Även om det regnar går vi.","Även det regnar om går vi.","Om även regnar det går vi.","Det regnar även om går vi."],"Även om det regnar går vi."),
+    AssessmentQuestion("sv-b2-003","vocabulary","B2","Vad betyder 'nyansera'?",["göra mer detaljerad","avsluta","översätta","förkorta"],"göra mer detaljerad"),
+    AssessmentQuestion("sv-b2-004","reading","B2","Läs: 'Förslaget har fördelar, men det finns också en viktig invändning.' Vad nämns?",["Bara fördelar","En invändning","Ingen bedömning","En resa"],"En invändning"),
+    AssessmentQuestion("sv-c1-001","grammar","C1","Vilket uttryck markerar försiktighet?",["Det är bevisat att","Resultaten tyder på att","Det är alltid så att","Det kan aldrig vara"],"Resultaten tyder på att"),
+    AssessmentQuestion("sv-c1-002","grammar","C1","Vilket uttryck passar bäst i ett formellt brev?",["Tjena!","Skulle ni kunna återkomma?","Vad händer?","Ses!"],"Skulle ni kunna återkomma?"),
+    AssessmentQuestion("sv-c1-003","vocabulary","C1","Vad är en 'tolkningsram'?",["ett perspektiv för att förstå material","en tågbiljett","en löneform","en möteslokal"],"ett perspektiv för att förstå material"),
+    AssessmentQuestion("sv-c1-004","reading","C1","Läs: 'Resultaten bör tolkas med försiktighet eftersom urvalet var begränsat.' Varför behövs försiktighet?",["Urvalet var begränsat.","Resultaten saknas.","Studien var lång.","Språket var enkelt."],"Urvalet var begränsat."),
+    AssessmentQuestion("sv-c2-001","grammar","C2","Vilken mening uttrycker ett kontrafaktiskt dåtidsvillkor korrekt?",["Om vi hade vetat det skulle vi ha agerat.","Om vi vet det skulle vi agera igår.","Om vi visste det har vi agerat.","Om vi hade vetat det agerar vi."],"Om vi hade vetat det skulle vi ha agerat."),
+    AssessmentQuestion("sv-c2-002","grammar","C2","Vilken formulering är mest semantiskt försiktig?",["Det bevisar orsaken.","Det kan tyda på ett samband.","Det bevisar alltid allt.","Det är utan tvekan orsaken."],"Det kan tyda på ett samband."),
+    AssessmentQuestion("sv-c2-003","vocabulary","C2","Vad betyder 'generaliserbarhet'?",["möjligheten att överföra resultat till andra sammanhang","antalet deltagare","längden på en text","språkets uttal"],"möjligheten att överföra resultat till andra sammanhang"),
+    AssessmentQuestion("sv-c2-004","reading","C2","Läs: 'Korrelationen är tydlig, men kausaliteten kan inte fastställas.' Vad kan inte fastställas?",["Korrelationen","Kausaliteten","Terminologin","Urvalet"],"Kausaliteten"),
+]
