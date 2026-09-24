@@ -9,7 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.app_logger import get_logger
 from app.core.database import get_db
-from app.core.deps import get_active_study_plan, get_current_user
+from app.core.deps import get_active_study_plan, get_current_user, require_learner
 from app.core.limiter import limiter
 from app.models.flashcard import Flashcard
 from app.models.lesson import Exercise, Lesson
@@ -37,7 +37,7 @@ from app.services.progress_service import get_unit_competencies
 
 logger = get_logger(__name__)
 
-router = APIRouter(prefix="/api/study-plan", tags=["study-plan"])
+router = APIRouter(prefix="/api/study-plan", tags=["study-plan"], dependencies=[Depends(require_learner)])
 
 
 def _get_weekly_plan_items(generated_plan: object) -> list:
