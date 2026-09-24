@@ -158,7 +158,7 @@ export default function PlanPage() {
           router.push('/assessment')
           return
         }
-        throw new Error(`Failed to load plan (${planRes.status})`)
+        throw new Error(t('planLoadFailed', { status: planRes.status }))
       }
 
       const planData = (await planRes.json()) as StudyPlan
@@ -232,7 +232,7 @@ export default function PlanPage() {
 
       setLessonStates(states)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load')
+      setError(err instanceof Error ? err.message : t('loadFailed'))
     } finally {
       setLoading(false)
     }
