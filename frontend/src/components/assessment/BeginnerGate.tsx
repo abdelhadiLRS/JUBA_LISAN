@@ -14,7 +14,7 @@ export default function BeginnerGate({
   languageCode,
 }: Props) {
   const t = useTranslations('assessment')
-  const tLang = useTranslations('targetLanguages')
+  const tLang = useTranslations('languages')
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
