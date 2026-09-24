@@ -410,5 +410,9 @@
     "learning": "التعلّم",
     "personalized": "مخصص لك",
     "adaptive": "متكيف"
+  },
+  "plan": {
+    "planLoadFailed": "تعذر تحميل الخطة ({status})",
+    "loadFailed": "تعذر التحميل"
   }
 }
