@@ -272,7 +272,7 @@ export default function PlanPage() {
   const levelTestReady = completion?.state === 'ready'
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6 px-4 py-8">
+    <div className="juba-plan-shell mx-auto max-w-4xl space-y-6 px-4 py-8">
       {/* ── Header ── */}
       <div className="border-fl-border bg-fl-surface border">
         <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
