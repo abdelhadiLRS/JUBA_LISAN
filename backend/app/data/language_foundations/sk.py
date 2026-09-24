@@ -15,21 +15,21 @@ GRAMMAR_TOPICS=[
 ]
 
 VOCABULARY_SETS=[
-    VocabularySet(id="greetings_a1",level="A1",topic="Pozdravy",unit_ref="sk-a1-unit-1",words=[VocabularyEntry(word="Dobrý deň",pos="phrase",definition="hello/good day",example="Dobrý deň")]),
-    VocabularySet(id="identity_a1",level="A1",topic="Predstavenie",unit_ref="sk-a1-unit-2",words=[VocabularyEntry(word="Volám sa...",pos="phrase",definition="my name is...",example="Volám sa...")]),
-    VocabularySet(id="family_a1",level="A1",topic="Rodina",unit_ref="sk-a1-unit-3",words=[VocabularyEntry(word="rodina",pos="phrase",definition="family",example="rodina")]),
-    VocabularySet(id="routine_a1",level="A1",topic="Rutina",unit_ref="sk-a1-unit-4",words=[VocabularyEntry(word="pracujem",pos="phrase",definition="I work",example="pracujem")]),
-    VocabularySet(id="time_a1",level="A1",topic="Čas",unit_ref="sk-a1-unit-5",words=[VocabularyEntry(word="dnes",pos="phrase",definition="today",example="dnes")]),
-    VocabularySet(id="food_a1",level="A1",topic="Jedlo",unit_ref="sk-a1-unit-6",words=[VocabularyEntry(word="voda",pos="phrase",definition="water",example="voda")]),
-    VocabularySet(id="places_a1",level="A1",topic="Miesta",unit_ref="sk-a1-unit-7",words=[VocabularyEntry(word="doma",pos="phrase",definition="at home",example="doma")]),
-    VocabularySet(id="review_a1",level="A1",topic="Opakovanie",unit_ref="sk-a1-unit-8",words=[VocabularyEntry(word="Ďakujem",pos="phrase",definition="thank you",example="Ďakujem")]),
+    VocabularySet(id="greetings_a1",level="A1",topic="Pozdravy",unit_ref="sk-a1-unit-1",words=[VocabularyEntry(word="Dobrý deň",pos="phrase",definition="hello/good day",example="Dobrý deň! Ako sa máte?")]),
+    VocabularySet(id="identity_a1",level="A1",topic="Predstavenie",unit_ref="sk-a1-unit-2",words=[VocabularyEntry(word="Volám sa...",pos="phrase",definition="my name is...",example="Volám sa Peter.")]),
+    VocabularySet(id="family_a1",level="A1",topic="Rodina",unit_ref="sk-a1-unit-3",words=[VocabularyEntry(word="rodina",pos="phrase",definition="family",example="Moja rodina býva v Bratislave.")]),
+    VocabularySet(id="routine_a1",level="A1",topic="Rutina",unit_ref="sk-a1-unit-4",words=[VocabularyEntry(word="pracujem",pos="phrase",definition="I work",example="Dnes pracujem v kancelárii.")]),
+    VocabularySet(id="time_a1",level="A1",topic="Čas",unit_ref="sk-a1-unit-5",words=[VocabularyEntry(word="dnes",pos="phrase",definition="today",example="Dnes sa učím po slovensky.")]),
+    VocabularySet(id="food_a1",level="A1",topic="Jedlo",unit_ref="sk-a1-unit-6",words=[VocabularyEntry(word="voda",pos="phrase",definition="water",example="Prosím si pohár vody.")]),
+    VocabularySet(id="places_a1",level="A1",topic="Miesta",unit_ref="sk-a1-unit-7",words=[VocabularyEntry(word="doma",pos="phrase",definition="at home",example="Som dnes doma.")]),
+    VocabularySet(id="review_a1",level="A1",topic="Opakovanie",unit_ref="sk-a1-unit-8",words=[VocabularyEntry(word="Ďakujem",pos="phrase",definition="thank you",example="Ďakujem za pomoc.")]),
 ]
 
 PHRASEBOOK_CATEGORIES=[
-    PhrasebookCategory(id="greetings_a1",level="A1",situation="Pozdravy",icon="👋",phrases=[PhrasebookEntry(text="Dobrý deň",context="hello/good day",register="neutral")]),
-    PhrasebookCategory(id="identity_a1",level="A1",situation="Predstavenie",icon="🪪",phrases=[PhrasebookEntry(text="Volám sa...",context="my name is...",register="neutral")]),
-    PhrasebookCategory(id="family_a1",level="A1",situation="Rodina",icon="👨‍👩‍👧",phrases=[PhrasebookEntry(text="rodina",context="family",register="neutral")]),
-    PhrasebookCategory(id="routine_a1",level="A1",situation="Rutina",icon="⏰",phrases=[PhrasebookEntry(text="pracujem",context="I work",register="neutral")]),
+    PhrasebookCategory(id="greetings_a1",level="A1",situation="Pozdravy",icon="👋",phrases=[PhrasebookEntry(text="Dobrý deň!",context="greeting",register="neutral"),PhrasebookEntry(text="Ako sa máte?",context="asking how someone is",register="neutral"),PhrasebookEntry(text="Volám sa Peter.",context="introducing yourself",register="neutral")]),
+    PhrasebookCategory(id="shopping_a1",level="A1",situation="Nakupovanie",icon="🛒",phrases=[PhrasebookEntry(text="Koľko to stojí?",context="asking the price",register="neutral"),PhrasebookEntry(text="Prosím si toto.",context="requesting an item",register="neutral"),PhrasebookEntry(text="Prosím si vodu.",context="asking for water",register="neutral")]),
+    PhrasebookCategory(id="directions_a1",level="A1",situation="Smer",icon="🧭",phrases=[PhrasebookEntry(text="Kde je škola?",context="asking for a location",register="neutral"),PhrasebookEntry(text="Kde je stanica?",context="asking for a station",register="neutral"),PhrasebookEntry(text="Doľava alebo doprava?",context="checking a direction",register="neutral")]),
+    PhrasebookCategory(id="help_a1",level="A1",situation="Pomoc",icon="🆘",phrases=[PhrasebookEntry(text="Prosím, pomôžte mi.",context="asking for help",register="neutral"),PhrasebookEntry(text="Nerozumiem.",context="saying you do not understand",register="neutral"),PhrasebookEntry(text="Môžete to zopakovať?",context="asking someone to repeat",register="neutral")]),
 ]
 
 CURRICULUM={}
@@ -48,15 +48,13 @@ for level in LEVELS:
     else:
         CURRICULUM[level]=[CurriculumUnit(id=f"sk-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Slovak {level} communication",grammar_points=["progressive grammar and communication"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Build level-appropriate communication"],default_weeks=2)]
 
-ASSESSMENT_BANK=[
-    AssessmentQuestion(id="sk-a1-001",skill="speaking",difficulty="A1",question="Which expression matches the lesson meaning 'hello/good day'?",options=["Dobrý deň","technical term","advanced idiom","unrelated expression"],correct="Dobrý deň"),
-    AssessmentQuestion(id="sk-a1-002",skill="vocabulary",difficulty="A1",question="Which expression matches the lesson meaning 'my name is...'?",options=["Volám sa...","technical term","advanced idiom","unrelated expression"],correct="Volám sa..."),
-    AssessmentQuestion(id="sk-a1-003",skill="grammar",difficulty="A1",question="Which expression matches the lesson meaning 'family'?",options=["rodina","technical term","advanced idiom","unrelated expression"],correct="rodina"),
-    AssessmentQuestion(id="sk-a1-004",skill="speaking",difficulty="A1",question="Which expression matches the lesson meaning 'I work'?",options=["pracujem","technical term","advanced idiom","unrelated expression"],correct="pracujem"),
-    AssessmentQuestion(id="sk-a1-005",skill="vocabulary",difficulty="A1",question="Which expression matches the lesson meaning 'today'?",options=["dnes","technical term","advanced idiom","unrelated expression"],correct="dnes"),
-    AssessmentQuestion(id="sk-a1-006",skill="grammar",difficulty="A1",question="Which expression matches the lesson meaning 'water'?",options=["voda","technical term","advanced idiom","unrelated expression"],correct="voda"),
-    AssessmentQuestion(id="sk-a1-007",skill="speaking",difficulty="A1",question="Which expression matches the lesson meaning 'at home'?",options=["doma","technical term","advanced idiom","unrelated expression"],correct="doma"),
-    AssessmentQuestion(id="sk-a1-008",skill="vocabulary",difficulty="A1",question="Which expression matches the lesson meaning 'thank you'?",options=["Ďakujem","technical term","advanced idiom","unrelated expression"],correct="Ďakujem"),
-    AssessmentQuestion(id="sk-a1-009",skill="reading",difficulty="A1",question="Select the everyday A1 expression.",options=["Dobrý deň","advanced academic phrase","technical formula","rare literary term"],correct="Dobrý deň"),
-    AssessmentQuestion(id="sk-a1-010",skill="production",difficulty="A1",question="Select the polite expression for closing an everyday exchange.",options=["Ďakujem","technical term","advanced idiom","unrelated expression"],correct="Ďakujem"),
-]
+ASSESSMENT_BANK=[AssessmentQuestion(id="sk-a1-001",skill="speaking",difficulty="A1",question="You meet someone during the day. Which Slovak phrase is a natural greeting?",options=["Dobrý deň!","Koľko to stojí?","Nerozumiem.","Kde je škola?"],correct="Dobrý deň!"),
+AssessmentQuestion(id="sk-a1-002",skill="communication",difficulty="A1",question="You introduce yourself as Peter. Which Slovak sentence should you use?",options=["Volám sa Peter.","Prosím si toto.","Dnes sa učím po slovensky.","Som dnes doma."],correct="Volám sa Peter."),
+AssessmentQuestion(id="sk-a1-003",skill="vocabulary",difficulty="A1",question="You are talking about your relatives. Which Slovak word means “family”?",options=["rodina","voda","dnes","škola"],correct="rodina"),
+AssessmentQuestion(id="sk-a1-004",skill="grammar",difficulty="A1",question="You tell a friend that you are working today. Which sentence is appropriate?",options=["Dnes pracujem v kancelárii.","Moja rodina býva v Bratislave.","Prosím si pohár vody.","Som dnes doma."],correct="Dnes pracujem v kancelárii."),
+AssessmentQuestion(id="sk-a1-005",skill="vocabulary",difficulty="A1",question="You are thirsty. Which Slovak word means “water”?",options=["voda","rodina","pracujem","stanica"],correct="voda"),
+AssessmentQuestion(id="sk-a1-006",skill="communication",difficulty="A1",question="You want to ask the price in a shop. Which Slovak phrase should you use?",options=["Koľko to stojí?","Ako sa máte?","Nerozumiem.","Kde je stanica?"],correct="Koľko to stojí?"),
+AssessmentQuestion(id="sk-a1-007",skill="communication",difficulty="A1",question="You need directions to the school. Which Slovak question should you use?",options=["Kde je škola?","Prosím si vodu.","Ďakujem za pomoc.","Volám sa Peter."],correct="Kde je škola?"),
+AssessmentQuestion(id="sk-a1-008",skill="communication",difficulty="A1",question="You do not understand what someone said. Which Slovak phrase should you use?",options=["Nerozumiem.","Dobrý deň!","Koľko to stojí?","Kde je stanica?"],correct="Nerozumiem."),
+AssessmentQuestion(id="sk-a1-009",skill="communication",difficulty="A1",question="You need someone to repeat their words. Which Slovak phrase is appropriate?",options=["Môžete to zopakovať?","Som dnes doma.","Prosím si toto.","Ako sa máte?"],correct="Môžete to zopakovať?"),
+AssessmentQuestion(id="sk-a1-010",skill="production",difficulty="A1",question="Someone helps you and you want to thank them. Which Slovak phrase should you use?",options=["Ďakujem za pomoc.","Nerozumiem.","Kde je škola?","Koľko to stojí?"],correct="Ďakujem za pomoc.")]
