@@ -85,7 +85,7 @@ export default function CoachPage() {
   const vocabProgress = Math.round((progress.vocabulary_progress ?? 0) * 100)
 
   return (
-    <main className="min-h-screen bg-[var(--juba-bg)] px-4 py-8 sm:px-6 lg:px-10">
+    <main className="juba-coach-shell min-h-screen px-4 py-8 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-7xl space-y-8">
         <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
