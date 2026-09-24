@@ -11,7 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.core.database import get_db
-from app.core.deps import get_current_user, get_redis
+from app.core.deps import get_current_user, get_redis, require_learner
 from app.core.limiter import limiter
 from app.models.study_plan import StudyPlan
 from app.models.user import User
@@ -50,7 +50,7 @@ from app.services.prompts.common import get_language_prompt_overlay
 from app.services.study_plan_generator import generate_study_plan
 from app.services.user_language_service import ensure_user_language
 
-router = APIRouter(prefix="/api/assessment", tags=["assessment"])
+router = APIRouter(prefix="/api/assessment", tags=["assessment"], dependencies=[Depends(require_learner)])
 
 _ASSESSMENT_TTL = 1800  # 30 minutes
 
