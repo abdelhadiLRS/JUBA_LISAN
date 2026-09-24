@@ -49,7 +49,8 @@ function circlePosition(index: number, total: number, radius: number) {
   const angle = (index / total) * 2 * Math.PI - Math.PI / 2
   const x = Math.cos(angle) * radius
   const y = Math.sin(angle) * radius
-  return { x, y }
+  // Round coordinates so SSR and browser serialization produce identical style strings.
+  return { x: Math.round(x * 100) / 100, y: Math.round(y * 100) / 100 }
 }
 
 export function LanguageBubbles() {
