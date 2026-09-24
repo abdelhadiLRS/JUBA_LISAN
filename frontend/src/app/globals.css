@@ -6340,3 +6340,16 @@ main [dir="rtl"] h3,
 @media(max-width:700px){
   .juba-ff-reviews .juba-ff-review-card{box-shadow:4px 4px 0 var(--landing-ink)}
 }
+
+
+/* JUBA LISAN — landing interaction consistency */
+.juba-ff-demo-note{color:var(--landing-muted);line-height:1.6}
+.juba-ff-demo-action{display:inline-flex;align-items:center;gap:7px;border:2px solid var(--landing-ink);border-radius:12px;padding:9px 13px;background:var(--landing-yellow);color:var(--landing-ink);font-size:11px;font-weight:850;box-shadow:3px 3px 0 var(--landing-ink);transition:transform .15s ease,box-shadow .15s ease}
+.juba-ff-demo-action:hover,.juba-ff-demo-action:focus-visible{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--landing-ink)}
+.juba-ff-scenario-grid>a{display:grid;grid-template-columns:auto 1fr auto;column-gap:9px;align-items:center;padding:12px;border-radius:15px;background:#f6faf4;color:var(--landing-ink);transition:transform .15s ease,background .15s ease,box-shadow .15s ease}
+.juba-ff-scenario-grid>a:hover,.juba-ff-scenario-grid>a:focus-visible{transform:translateY(-2px);background:#eef7e9;box-shadow:3px 3px 0 rgba(24,48,34,.12)}
+.juba-ff-scenario-grid>a svg:first-child{grid-row:span 2;color:var(--landing-green);width:18px}
+.juba-ff-scenario-grid>a svg:last-child{width:14px;color:var(--landing-green-dark)}
+.juba-ff-scenario-grid>a strong{font-size:11px}
+.juba-ff-scenario-grid>a span{font-size:9px;color:var(--landing-muted);margin-top:3px}
+@media(max-width:600px){.juba-ff-demo-action{padding:8px 10px}.juba-ff-scenario-grid{grid-template-columns:1fr}}
