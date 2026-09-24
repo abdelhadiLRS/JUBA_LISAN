@@ -10,13 +10,13 @@ from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.deps import get_current_user
+from app.core.deps import get_current_user, require_learner
 from app.models.ai_session import AISession, SpeechAnalysis, SessionStatus, SpeechQuality
 from app.models.user import User
 from app.services.openai_service import OpenAIService
 from app.services.speech_service import SpeechService
 
-router = APIRouter(prefix="/api/ai", tags=["AI Tutor"])
+router = APIRouter(prefix="/api/ai", tags=["AI Tutor"], dependencies=[Depends(require_learner)])
 
 
 class ChatMessage(BaseModel):
