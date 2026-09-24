@@ -126,6 +126,8 @@ def test_all_activated_languages_have_balanced_assessment_banks() -> None:
             level_questions = [question for question in bank if question.difficulty == level]
             assert len(level_questions) == 4, (target_language, level)
         assert all(question.question.strip() for question in bank)
+        assert len({question.id for question in bank}) == 24, target_language
+        assert all(len(question.options) == 4 for question in bank)
         assert all(question.options for question in bank)
         assert all(question.correct in question.options for question in bank)
         assert all(question.skill in {"grammar", "vocabulary", "reading"} for question in bank)
