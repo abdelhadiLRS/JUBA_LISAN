@@ -27,7 +27,6 @@ from app.schemas.admin import (
     AdminUserResponse,
     AdminUserStatsResponse,
     AdminUserUpdate,
-    InviteResponse,
     LanguageStats,
     MaintenanceModeUpdate,
     PaginatedAdminUsersResponse,
@@ -457,30 +456,6 @@ async def delete_user(
     await db.delete(user)
     await db.commit()
     return {"detail": "User deleted"}
-
-
-@router.post("/invite", response_model=InviteResponse)
-@limiter.limit("60/minute")
-async def create_invite(
-    request: Request,
-    admin: User = Depends(require_admin),
-    redis: Redis | None = Depends(get_redis),
-):
-    token = secrets.token_urlsafe(32)
-
-    # Desktop/self-hosted mode intentionally runs without Redis. Registration is
-    # open by default there, so the invite URL is a convenience link and does
-    # not need a Redis-backed token. Keep Redis storage when registration is
-    # restricted so invite validation remains enforced.
-    if redis is not None:
-        await redis.setex(f"invite:{token}", 172800, "1")
-    elif not settings.ALLOW_REGISTRATION:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Invite registration requires Redis when registration is closed",
-        )
-
-    return {"invite_url": f"/register?invite={token}"}
 
 
 @router.get("/maintenance")
