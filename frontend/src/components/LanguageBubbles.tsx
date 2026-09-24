@@ -59,12 +59,19 @@ const DISPLAY_LANGUAGES: DisplayLanguage[] = [
 function MapSilhouette() {
   return (
     <svg viewBox="0 0 1000 500" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" preserveAspectRatio="none">
-      <path d="M95 118c45-37 93-48 133-31l35 29 17 47-22 34-34 5-18 43-32 16-19-22-31 6-21-30-27-18 8-29-19-22z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="3" />
-      <path d="M238 257l42 16 32 35 15 51-20 56-35 38-31-12-9-42-25-36 13-44-18-34z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="3" />
-      <path d="M446 105l37-25 50 7 34 28 38 8 30 34-18 28-43-2-24 25-43-5-32-31-39-9-19-28z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="3" />
-      <path d="M492 211l52-12 44 25 26 48-14 45-38 27-15 63-38 26-29-26 9-58-25-42 16-45z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="3" />
-      <path d="M624 137l54-35 74 12 49 34 74 10 42 35-18 37-61-3-25 31-61-8-41-30-53 7-27-32z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="3" />
-      <path d="M812 331l55-10 45 24 20 37-35 29-52-10-35-29z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="3" />
+      <defs>
+        <pattern id="atlas-grid" width="80" height="60" patternUnits="userSpaceOnUse">
+          <path d="M80 0H0V60" fill="none" stroke="var(--juba-app-line)" strokeWidth="1" opacity=".35" />
+        </pattern>
+      </defs>
+      <rect width="1000" height="500" fill="url(#atlas-grid)" opacity=".55" />
+      <path d="M74 116c31-31 70-50 111-51l46 13 40 34 17 39-23 32-35 2-18 30-37 8-23 35-36-16-16-31-39-11-23-31 14-25-15-21z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="2.5" />
+      <path d="M253 264l38 8 28 27 16 46-10 48-30 45-27 31-24-17-7-38-22-31 11-43-17-35 18-27z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="2.5" />
+      <path d="M421 91l38-20 49 7 37 24 39 8 34 31-11 29-36 10-30 28-37-10-35-24-39-5-24-27 10-28z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="2.5" />
+      <path d="M505 193l47-9 45 20 34 40 6 37-19 34-31 21-9 55-31 48-29-11-11-51-23-28 12-47-15-36 15-39z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="2.5" />
+      <path d="M616 124l58-29 70 11 49 28 66 7 62 32-9 34-50 12-24 27-54-5-45-25-53 10-39-20-30-30z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="2.5" />
+      <path d="M828 325l47-8 44 20 29 29-24 31-47 14-48-18-29-28z" className="fill-[var(--juba-app-green-soft)] stroke-[var(--juba-app-line)]" strokeWidth="2.5" />
+      <path d="M420 173c-31 14-52 32-72 55M611 169c-32 20-57 35-83 48M693 247c36 10 75 20 108 30" fill="none" stroke="var(--juba-app-line)" strokeWidth="1.5" strokeDasharray="5 8" opacity=".7" />
     </svg>
   )
 }
