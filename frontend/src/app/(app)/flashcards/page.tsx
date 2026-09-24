@@ -146,7 +146,7 @@ export default function FlashcardsPage() {
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
 
   return (
-    <div className="juba-flashcards-shell mx-auto max-w-4xl space-y-4 p-6">
+    <div className="juba-flashcards-shell mx-auto max-w-4xl space-y-5 p-4 sm:p-6">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
@@ -182,7 +182,7 @@ export default function FlashcardsPage() {
 
       {/* Generate panel */}
       {showGenerate && (
-        <div className="border-fl-border bg-fl-surface border">
+        <div className="juba-card overflow-hidden">
           <div className="border-fl-border flex items-center gap-2 border-b px-5 py-4">
             <span className="text-fl-label text-fl-muted-3">●</span>
             <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
@@ -205,7 +205,7 @@ export default function FlashcardsPage() {
                 onChange={(e) => setGenTopic(e.target.value)}
                 required
                 placeholder={t('topicPlaceholder')}
-                className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-border-2 focus:border-fl-border-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+                className="juba-input px-4 py-3 font-mono text-sm"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -216,7 +216,7 @@ export default function FlashcardsPage() {
                 <select
                   value={genCount}
                   onChange={(e) => setGenCount(Number(e.target.value))}
-                  className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full appearance-none border px-4 py-3 font-mono text-sm focus:outline-none"
+                  className="juba-input appearance-none px-4 py-3 font-mono text-sm"
                 >
                   {[5, 10, 15, 20].map((n) => (
                     <option key={n} value={n}>
@@ -245,7 +245,7 @@ export default function FlashcardsPage() {
             <button
               type="submit"
               disabled={generating || !genTopic.trim()}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+              className="juba-primary-button w-full disabled:opacity-40"
             >
               {generating ? t('generating') : t('submit')}
             </button>
@@ -264,7 +264,7 @@ export default function FlashcardsPage() {
           )}
           <button
             onClick={loadDue}
-            className="border-fl-border text-fl-label text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2 mt-6 border px-6 py-2 font-mono tracking-widest uppercase transition-colors"
+            className="juba-secondary-button mt-6 text-xs tracking-widest uppercase"
           >
             {t('refresh')}
           </button>
@@ -307,7 +307,7 @@ export default function FlashcardsPage() {
           {!speakingMode && (
             <>
               <div
-                className="border-fl-border bg-fl-surface hover:border-fl-border-2 min-h-[220px] cursor-pointer border transition-colors select-none"
+                className="juba-card min-h-[220px] cursor-pointer transition-colors select-none hover:-translate-y-0.5"
                 onClick={() => setFlipped(!flipped)}
               >
                 <div className="border-fl-border flex items-center justify-between border-b px-6 py-4">
@@ -376,7 +376,7 @@ export default function FlashcardsPage() {
                       key={q}
                       disabled={reviewing}
                       onClick={() => reviewCard(q)}
-                      className="border-fl-border text-fl-label hover:border-fl-border-2 min-w-[80px] flex-1 border py-3 font-mono tracking-widest uppercase transition-all disabled:cursor-not-allowed disabled:opacity-50"
+                      className="juba-secondary-button min-w-[80px] flex-1 text-xs tracking-widest uppercase disabled:cursor-not-allowed disabled:opacity-50"
                       style={{ color }}
                     >
                       {t(key)}
@@ -389,7 +389,7 @@ export default function FlashcardsPage() {
 
           {/* ── Speaking mode ── */}
           {speakingMode && (
-            <div className="border-fl-border bg-fl-surface border">
+            <div className="juba-card overflow-hidden">
               <div className="border-fl-border flex items-center justify-between border-b px-6 py-4">
                 <div className="flex items-center gap-2">
                   <span className="text-fl-label text-fl-muted-3">●</span>
