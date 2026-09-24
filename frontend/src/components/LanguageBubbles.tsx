@@ -23,12 +23,19 @@ export function LanguageBubbles() {
   )
 
   return (
-    <div className="relative h-[360px] w-full sm:h-[380px]">
+    <div className="relative h-[360px] w-full sm:h-[380px]" aria-label="JUBA LISAN supported languages">
       <div
-        className="absolute top-1/2 left-1/2 z-[1] h-[140px] w-[140px] -translate-x-1/2 -translate-y-1/2 bg-contain bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(/logo.png)' }}
-        aria-label="FreeLingo"
-      />
+        className="absolute left-1/2 top-1/2 z-[1] flex h-[140px] w-[140px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] p-5 shadow-[5px_5px_0_var(--juba-app-ink)]"
+        aria-label="JUBA LISAN"
+      >
+        <Image
+          src="/logo.png"
+          alt="JUBA LISAN"
+          width={96}
+          height={96}
+          className="h-auto w-auto object-contain"
+        />
+      </div>
 
       {SUPPORTED_TARGET_LANGUAGES.map((lang, i) => {
         const { x, y } = positions[i]
@@ -51,15 +58,15 @@ export function LanguageBubbles() {
                 animationDuration: '3.4s, 0.4s',
               }}
             >
-              <div className="border-fl-border bg-fl-surface flex items-center gap-1.5 rounded-full border px-2.5 py-1 shadow-sm transition-shadow hover:shadow-md">
+              <div className="flex items-center gap-1.5 rounded-full border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-2.5 py-1 shadow-[2px_2px_0_rgba(24,37,27,.08)] transition-all hover:-translate-y-0.5 hover:shadow-[3px_3px_0_rgba(24,37,27,.12)]">
                 <Image
                   src={lang.flagPath}
-                  alt={lang.nameEn}
+                  alt=""
                   width={14}
                   height={10}
-                  className="rounded-[2px]"
+                  className="rounded-[2px] object-cover ring-1 ring-black/10"
                 />
-                <span className="text-fl-fg font-sans text-[11px] font-medium whitespace-nowrap">
+                <span className="whitespace-nowrap text-[11px] font-bold text-[var(--juba-app-ink)]">
                   {greeting}
                 </span>
               </div>
