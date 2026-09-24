@@ -132,6 +132,34 @@ export function LanguageBubbles() {
   }, [])
 
   const selectedCountries = selected ? new Set(selected.countries) : new Set<string>()
+
+  const markerOffsets = useMemo(() => {
+    const groups = new Map<string, DisplayLanguage[]>()
+    for (const language of visibleLanguages) {
+      const group = groups.get(language.markerCountry) ?? []
+      group.push(language)
+      groups.set(language.markerCountry, group)
+    }
+
+    const offsets = new Map<string, { x: number; y: number }>()
+    for (const languages of groups.values()) {
+      if (languages.length === 1) {
+        offsets.set(languages[0].code, { x: 0, y: 0 })
+        continue
+      }
+
+      const radius = languages.length <= 3 ? 14 : 18
+      languages.forEach((language, index) => {
+        const angle = (index / languages.length) * 2 * Math.PI - Math.PI / 2
+        offsets.set(language.code, {
+          x: Math.round(Math.cos(angle) * radius * 100) / 100,
+          y: Math.round(Math.sin(angle) * radius * 100) / 100,
+        })
+      })
+    }
+
+    return offsets
+  }, [visibleLanguages])
   const countryLanguages = useMemo(() => {
     const map = new Map<string, string[]>()
     for (const language of DISPLAY_LANGUAGES) {
@@ -197,8 +225,12 @@ export function LanguageBubbles() {
                 key={language.code}
                 type="button"
                 onClick={() => setActiveLanguage(isActive ? null : language.code)}
-                className="group absolute -translate-x-1/2 -translate-y-1/2"
-                style={{ left: `${left}%`, top: `${top}%` }}
+                className="group absolute"
+                style={{
+                  left: `${left}%`,
+                  top: `${top}%`,
+                  transform: `translate(calc(-50% + ${markerOffsets.get(language.code)?.x ?? 0}px), calc(-50% + ${markerOffsets.get(language.code)?.y ?? 0}px))`,
+                }}
                 aria-label={language.name}
                 aria-pressed={isActive}
                 title={countryLanguages.get(language.markerCountry)?.join(' · ')}
