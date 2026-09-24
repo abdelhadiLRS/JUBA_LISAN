@@ -30,6 +30,8 @@ export function AudioPlayer({
   const [state, setState] = useState<PlayerState>('idle')
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const controllerRef = useRef<AbortController | null>(null)
+  const requestIdRef = useRef(0)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const accessToken = useAuthStore((s) => s.accessToken)
   const t = useTranslations('audioPlayer')
 
@@ -41,8 +43,13 @@ export function AudioPlayer({
 
   useEffect(() => {
     return () => {
+      requestIdRef.current += 1
       controllerRef.current?.abort()
       controllerRef.current = null
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = null
+      }
 
       const audio = audioRef.current
       audio?.pause()
@@ -61,17 +68,25 @@ export function AudioPlayer({
     if (state === 'loading') return
 
     if (state === 'playing') {
-      audioRef.current?.pause()
+      const audio = audioRef.current
+      audio?.pause()
       audioRef.current = null
+      const src = audio?.src
+      if (src?.startsWith('blob:')) URL.revokeObjectURL(src)
+      requestIdRef.current += 1
+      controllerRef.current?.abort()
+      controllerRef.current = null
       setState('idle')
       return
     }
 
     setState('loading')
     controllerRef.current?.abort()
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    const requestId = ++requestIdRef.current
     const controller = new AbortController()
     controllerRef.current = controller
-    const timeoutId = setTimeout(() => controller.abort(), TTS_TIMEOUT_MS)
+    timeoutRef.current = setTimeout(() => controller.abort(), TTS_TIMEOUT_MS)
 
     try {
       const traceId = `tts-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
@@ -103,13 +118,19 @@ export function AudioPlayer({
               signal: controller.signal,
             }
       )
-      clearTimeout(timeoutId)
+      if (requestId !== requestIdRef.current || controller.signal.aborted) return
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = null
+      }
       const fetchMs = performance.now() - fetchStart
       if (!res.ok) throw new Error(`TTS error ${res.status}`)
 
       const blobStart = performance.now()
       const blob = await res.blob()
       const blobMs = performance.now() - blobStart
+
+      if (requestId !== requestIdRef.current || controller.signal.aborted) return
 
       const url = URL.createObjectURL(blob)
       const audio = new Audio(url)
@@ -152,20 +173,38 @@ export function AudioPlayer({
       }
 
       audio.onended = () => {
+        if (requestId !== requestIdRef.current || audioRef.current !== audio) return
         URL.revokeObjectURL(url)
         audioRef.current = null
         setState('idle')
       }
       audio.onerror = () => {
+        if (requestId !== requestIdRef.current || audioRef.current !== audio) return
         URL.revokeObjectURL(url)
         audioRef.current = null
         setState('error')
-        setTimeout(() => setState('idle'), 2000)
+        setTimeout(() => {
+          if (requestId === requestIdRef.current) setState('idle')
+        }, 2000)
       }
     } catch {
-      clearTimeout(timeoutId)
+      if (requestId !== requestIdRef.current || controller.signal.aborted) return
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = null
+      }
       setState('error')
-      setTimeout(() => setState('idle'), 2000)
+      setTimeout(() => {
+        if (requestId === requestIdRef.current) setState('idle')
+      }, 2000)
+    } finally {
+      if (requestId === requestIdRef.current) {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current)
+          timeoutRef.current = null
+        }
+        if (controllerRef.current === controller) controllerRef.current = null
+      }
     }
   }
 
