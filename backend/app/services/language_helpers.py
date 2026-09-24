@@ -78,6 +78,11 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
         "self_name": "Suomi",
         "iso639": "fi",
     },
+    "cs-CZ": {
+        "name": "Czech",
+        "self_name": "Čeština",
+        "iso639": "cs",
+    },
     "el-GR": {
         "name": "Greek",
         "self_name": "Ελληνικά",
@@ -211,7 +216,8 @@ _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "el": "el-GR",
     "sv": "sv-SE",
     "no": "no-NO",
-    "fi": "fi-FI",\n    "cs": "cs-CZ",
+    "fi": "fi-FI",
+    "cs": "cs-CZ",
 }
 
 _VOICE_SESSION_TITLES: dict[str, str] = {
