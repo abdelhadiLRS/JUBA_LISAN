@@ -5813,3 +5813,75 @@ main [dir="rtl"] h3,
     padding:.75rem;
   }
 }
+
+
+/* JUBA LISAN — progress and vocabulary workspaces */
+.juba-progress-shell,
+.juba-vocabulary-shell,
+.juba-review-shell{
+  color:var(--juba-app-ink);
+  background:
+    radial-gradient(circle at 96% 0%,rgba(255,212,79,.1),transparent 280px),
+    var(--juba-app-bg);
+}
+.juba-progress-shell .juba-card,
+.juba-vocabulary-shell .juba-card,
+.juba-review-shell .juba-review-card{
+  border-color:var(--juba-app-line)!important;
+  border-radius:20px;
+  background:var(--juba-app-surface)!important;
+  box-shadow:0 7px 20px rgba(24,37,27,.045);
+}
+.juba-progress-shell .juba-progress-header,
+.juba-vocabulary-shell .juba-vocabulary-header{
+  border-bottom:2px solid var(--juba-app-ink);
+}
+.juba-progress-shell [class*="bg-fl-accent"],
+.juba-vocabulary-shell [class*="bg-fl-accent"]{
+  background:var(--juba-app-green)!important;
+}
+.juba-progress-shell [class*="text-fl-accent"],
+.juba-vocabulary-shell [class*="text-fl-accent"]{
+  color:var(--juba-app-green)!important;
+}
+.juba-progress-shell [class*="border-fl-border"],
+.juba-vocabulary-shell [class*="border-fl-border"]{
+  border-color:var(--juba-app-line)!important;
+}
+.juba-progress-shell [class*="bg-fl-surface"],
+.juba-vocabulary-shell [class*="bg-fl-surface"]{
+  background:var(--juba-app-surface)!important;
+}
+.juba-progress-shell .juba-progress-stat,
+.juba-vocabulary-shell .juba-vocabulary-stat{
+  border:1px solid var(--juba-app-line);
+  border-radius:16px;
+  background:#fffdf8;
+}
+.juba-progress-shell .juba-progress-stat:hover,
+.juba-vocabulary-shell .juba-vocabulary-stat:hover{
+  border-color:#b8d1aa;
+  transform:translateY(-1px);
+}
+.juba-review-shell{
+  min-height:calc(100vh - 64px);
+}
+.juba-review-shell .juba-review-card{
+  border:2px solid var(--juba-app-ink)!important;
+  box-shadow:7px 7px 0 var(--juba-app-ink);
+}
+.juba-review-shell button{
+  border-radius:12px;
+}
+@media(max-width:700px){
+  .juba-progress-shell,
+  .juba-vocabulary-shell,
+  .juba-review-shell{
+    padding-top:1rem;
+    padding-bottom:1.25rem;
+  }
+  .juba-review-shell .juba-review-card{
+    box-shadow:4px 4px 0 var(--juba-app-ink);
+    border-radius:18px;
+  }
+}
