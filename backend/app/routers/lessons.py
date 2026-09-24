@@ -12,6 +12,7 @@ from app.core.database import get_db
 from app.core.deps import (
     check_subscription_or_freemium_access,
     get_current_user,
+    require_learner,
     get_redis,
 )
 from app.core.limiter import limiter
@@ -69,7 +70,7 @@ from app.services.adaptive_variants import (
 )
 from app.services.progress_service import update_daily_progress, upsert_unit_competency
 
-router = APIRouter(prefix="/api/lessons", tags=["lessons"])
+router = APIRouter(prefix="/api/lessons", tags=["lessons"], dependencies=[Depends(require_learner)])
 
 
 _ANSWER_FEEDBACK: dict[str, dict[str, str]] = {
