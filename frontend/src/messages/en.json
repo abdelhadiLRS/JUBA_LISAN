@@ -234,7 +234,8 @@
     "contact": "Contact",
     "feedback": "Feedback",
     "reviews": "Reviews",
-    "switchLanguage": "Switch language"
+    "switchLanguage": "Switch language",
+    "games": "Games"
   },
   "auth": {
     "login": {
