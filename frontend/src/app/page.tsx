@@ -29,7 +29,7 @@ import type { ReviewPublic } from '@/types/api'
 export const metadata: Metadata = {
   title: 'JUBA LISAN: AI-Powered Language Learning Platform',
   description:
-    'Learn languages naturally with your personal AI tutor. Master real-time voice conversations, structured CEFR lessons, interactive reading & listening, and smart flashcards.',
+    'Learn languages naturally with your personal {t('proofTutor')}. Master real-time voice conversations, structured CEFR lessons, interactive reading & listening, and smart flashcards.',
   robots: { index: true, follow: true },
   openGraph: {
     title: 'JUBA LISAN: AI-Powered Language Learning Platform',
@@ -130,6 +130,10 @@ export default async function Home() {
         signIn={t('signIn')}
         dashboard={t('dashboard')}
         getStarted={t('ctaStart')}
+        homeLabel={t('homeLabel')}
+        brandTagline={t('brandTagline')}
+        openMenuLabel={t('openMenuLabel')}
+        closeMenuLabel={t('closeMenuLabel')}
       />
 
       {/* Funfluent reference hero */}
@@ -148,8 +152,8 @@ export default async function Home() {
               <a href="#features" className="juba-ff-hero-link">{t('ctaExplore')}</a>
             </div>
             <div className="juba-ff-mini-proof">
-              <span><CheckCircle2 className="h-4 w-4" /> CEFR-aligned learning</span>
-              <span><CheckCircle2 className="h-4 w-4" /> Voice practice</span>
+              <span><CheckCircle2 className="h-4 w-4" /> {t('proofCefr')}</span>
+              <span><CheckCircle2 className="h-4 w-4" /> {t('proofVoice')}</span>
               <span><CheckCircle2 className="h-4 w-4" /> AI tutor</span>
             </div>
           </div>
@@ -176,7 +180,7 @@ export default async function Home() {
             <div className="juba-ff-character char-one" aria-hidden="true"><span>EN</span></div>
             <div className="juba-ff-character char-two" aria-hidden="true"><span>FR</span></div>
             <div className="juba-ff-character char-three" aria-hidden="true"><span>ES</span></div>
-            <div className="juba-ff-character char-four" aria-hidden="true"><span>AI</span></div>
+            <div className="juba-ff-character char-four" aria-hidden="true"><span>{t('flowAiLabel')}</span></div>
 
             <div className="juba-ff-float-label label-one">Hello!</div>
             <div className="juba-ff-float-label label-two">Bonjour</div>
@@ -195,10 +199,10 @@ export default async function Home() {
         <ScrollReveal>
           <div className="juba-ff-story-inner">
             <div className="mb-8 text-center">
-              <span className="juba-ff-section-tag">JUBA LISAN languages</span>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-[#183022] sm:text-4xl">Learn across languages</h2>
+              <span className="juba-ff-section-tag">{t('languagesEyebrow')}</span>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-[#183022] sm:text-4xl">{t('languagesHeadline')}</h2>
               <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-[#617068]">
-                Explore the languages available across the JUBA LISAN learning experience.
+                {t('languagesDescription')}
               </p>
             </div>
             <div className="mx-auto max-w-4xl">
@@ -211,26 +215,26 @@ export default async function Home() {
       {/* Real product entry points — visual treatment only follows the reference */}
       <section id="features" className="juba-ff-books">
         <div className="juba-ff-section-head">
-          <span className="juba-ff-section-tag">JUBA LISAN learning flow</span>
-          <h2>Start with your real learning path</h2>
-          <p>Each entry below opens an actual JUBA LISAN workflow rather than a decorative demo.</p>
+          <span className="juba-ff-section-tag">{t('flowEyebrow')}</span>
+          <h2>{t('flowHeadline')}</h2>
+          <p>{t('flowDescription')}</p>
         </div>
         <div className="juba-ff-book-shelf">
           <Link href="/assessment" className="juba-ff-book book-green">
-            <div className="book-art" aria-hidden="true"><span className="book-art-mark">01</span><span>ASSESS</span></div>
-            <strong>Level Assessment</strong><span>Find your CEFR starting point</span>
+            <div className="book-art" aria-hidden="true"><span className="book-art-mark">01</span><span>{t('flowAssessLabel')}</span></div>
+            <strong>{t('flowAssessTitle')}</strong><span>{t('flowAssessDescription')}</span>
           </Link>
           <Link href="/dashboard" className="juba-ff-book book-yellow">
-            <div className="book-art" aria-hidden="true"><span className="book-art-mark">02</span><span>PLAN</span></div>
-            <strong>Study Plan</strong><span>Follow today’s lessons and objectives</span>
+            <div className="book-art" aria-hidden="true"><span className="book-art-mark">02</span><span>{t('flowPlanLabel')}</span></div>
+            <strong>{t('flowPlanTitle')}</strong><span>{t('flowPlanDescription')}</span>
           </Link>
           <Link href="/chat" className="juba-ff-book book-purple">
             <div className="book-art" aria-hidden="true"><span className="book-art-mark">03</span><span>AI</span></div>
-            <strong>AI Tutor</strong><span>Practice through real conversations</span>
+            <strong>{t('flowAiTitle')}</strong><span>{t('flowAiDescription')}</span>
           </Link>
           <Link href="/conversation" className="juba-ff-book book-coral">
-            <div className="book-art" aria-hidden="true"><span className="book-art-mark">04</span><span>VOICE</span></div>
-            <strong>Voice Conversation</strong><span>Continue practice by speaking</span>
+            <div className="book-art" aria-hidden="true"><span className="book-art-mark">04</span><span>{t('flowVoiceLabel')}</span></div>
+            <strong>{t('flowVoiceTitle')}</strong><span>{t('flowVoiceDescription')}</span>
           </Link>
         </div>
       </section>
