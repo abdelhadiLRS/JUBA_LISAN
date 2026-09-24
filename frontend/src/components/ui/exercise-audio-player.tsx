@@ -152,7 +152,7 @@ export function ExerciseAudioPlayer({
           onClick={handlePlayPause}
           disabled={state === 'loading'}
           aria-label={label}
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)] font-mono text-sm font-bold shadow-[2px_2px_0_var(--juba-app-line)] transition-colors hover:bg-[var(--juba-app-green)] hover:text-[var(--juba-app-ink)] disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)] font-sans text-sm font-bold shadow-[2px_2px_0_var(--juba-app-line)] transition-colors hover:bg-[var(--juba-app-green)] hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
         >
           {icon}
         </button>
