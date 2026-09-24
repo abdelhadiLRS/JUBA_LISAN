@@ -9,6 +9,8 @@ type DisplayLanguage = {
   code: string
   name: string
   region: RegionId
+  x: number
+  y: number
 }
 
 const REGIONS: Array<{ id: RegionId; label: string; short: string }> = [
@@ -20,38 +22,38 @@ const REGIONS: Array<{ id: RegionId; label: string; short: string }> = [
 ]
 
 const DISPLAY_LANGUAGES: DisplayLanguage[] = [
-  { code: 'en-US', name: 'English (US)', region: 'americas' },
-  { code: 'en-GB', name: 'English (UK)', region: 'europe' },
-  { code: 'fr', name: 'Français', region: 'europe' },
-  { code: 'es', name: 'Español', region: 'europe' },
-  { code: 'de', name: 'Deutsch', region: 'europe' },
-  { code: 'it', name: 'Italiano', region: 'europe' },
-  { code: 'pt', name: 'Português', region: 'europe' },
-  { code: 'nl', name: 'Nederlands', region: 'europe' },
-  { code: 'ru', name: 'Русский', region: 'europe' },
-  { code: 'tr', name: 'Türkçe', region: 'africa-middle-east' },
-  { code: 'el', name: 'Ελληνικά', region: 'europe' },
-  { code: 'ro', name: 'Română', region: 'europe' },
-  { code: 'hu', name: 'Magyar', region: 'europe' },
-  { code: 'uk', name: 'Українська', region: 'europe' },
-  { code: 'fi', name: 'Suomi', region: 'europe' },
-  { code: 'sv', name: 'Svenska', region: 'europe' },
-  { code: 'ar', name: 'العربية', region: 'africa-middle-east' },
-  { code: 'he', name: 'עברית', region: 'africa-middle-east' },
-  { code: 'yo', name: 'Yorùbá', region: 'africa-middle-east' },
-  { code: 'xh', name: 'isiXhosa', region: 'africa-middle-east' },
-  { code: 'mg', name: 'Malagasy', region: 'africa-middle-east' },
-  { code: 'ny', name: 'Chichewa', region: 'africa-middle-east' },
-  { code: 'vi', name: 'Tiếng Việt', region: 'asia' },
-  { code: 'ja', name: '日本語', region: 'asia' },
-  { code: 'ko', name: '한국어', region: 'asia' },
-  { code: 'zh', name: '中文', region: 'asia' },
-  { code: 'mi', name: 'Māori', region: 'pacific' },
-  { code: 'sm', name: 'Gagana Sāmoa', region: 'pacific' },
-  { code: 'to', name: 'Lea faka-Tonga', region: 'pacific' },
-  { code: 'sq', name: 'Shqip', region: 'europe' },
-  { code: 'eu', name: 'Euskara', region: 'europe' },
-  { code: 'gl', name: 'Galego', region: 'europe' },
+  { code: 'en-US', name: 'English (US)', region: 'americas', x: 23, y: 38 },
+  { code: 'en-GB', name: 'English (UK)', region: 'europe', x: 47, y: 29 },
+  { code: 'fr', name: 'Français', region: 'europe', x: 48, y: 34 },
+  { code: 'es', name: 'Español', region: 'europe', x: 45, y: 39 },
+  { code: 'de', name: 'Deutsch', region: 'europe', x: 52, y: 33 },
+  { code: 'it', name: 'Italiano', region: 'europe', x: 52, y: 39 },
+  { code: 'pt', name: 'Português', region: 'europe', x: 43, y: 41 },
+  { code: 'nl', name: 'Nederlands', region: 'europe', x: 49, y: 30 },
+  { code: 'ru', name: 'Русский', region: 'europe', x: 61, y: 28 },
+  { code: 'tr', name: 'Türkçe', region: 'africa-middle-east', x: 57, y: 43 },
+  { code: 'el', name: 'Ελληνικά', region: 'europe', x: 55, y: 45 },
+  { code: 'ro', name: 'Română', region: 'europe', x: 56, y: 38 },
+  { code: 'hu', name: 'Magyar', region: 'europe', x: 54, y: 36 },
+  { code: 'uk', name: 'Українська', region: 'europe', x: 57, y: 33 },
+  { code: 'fi', name: 'Suomi', region: 'europe', x: 55, y: 22 },
+  { code: 'sv', name: 'Svenska', region: 'europe', x: 52, y: 23 },
+  { code: 'ar', name: 'العربية', region: 'africa-middle-east', x: 56, y: 55 },
+  { code: 'he', name: 'עברית', region: 'africa-middle-east', x: 59, y: 52 },
+  { code: 'yo', name: 'Yorùbá', region: 'africa-middle-east', x: 48, y: 67 },
+  { code: 'xh', name: 'isiXhosa', region: 'africa-middle-east', x: 52, y: 84 },
+  { code: 'mg', name: 'Malagasy', region: 'africa-middle-east', x: 60, y: 78 },
+  { code: 'ny', name: 'Chichewa', region: 'africa-middle-east', x: 55, y: 75 },
+  { code: 'vi', name: 'Tiếng Việt', region: 'asia', x: 73, y: 57 },
+  { code: 'ja', name: '日本語', region: 'asia', x: 84, y: 45 },
+  { code: 'ko', name: '한국어', region: 'asia', x: 81, y: 43 },
+  { code: 'zh', name: '中文', region: 'asia', x: 76, y: 43 },
+  { code: 'mi', name: 'Māori', region: 'pacific', x: 92, y: 78 },
+  { code: 'sm', name: 'Gagana Sāmoa', region: 'pacific', x: 88, y: 70 },
+  { code: 'to', name: 'Lea faka-Tonga', region: 'pacific', x: 90, y: 74 },
+  { code: 'sq', name: 'Shqip', region: 'europe', x: 53, y: 43 },
+  { code: 'eu', name: 'Euskara', region: 'europe', x: 46, y: 36 },
+  { code: 'gl', name: 'Galego', region: 'europe', x: 44, y: 38 },
 ]
 
 const REGION_POSITION: Record<RegionId, { left: string; top: string }> = {
@@ -77,6 +79,7 @@ function MapSilhouette() {
 
 export function LanguageBubbles() {
   const [activeRegion, setActiveRegion] = useState<RegionId | null>(null)
+  const [activeLanguage, setActiveLanguage] = useState<string | null>(null)
 
   const languagesByRegion = useMemo(
     () =>
@@ -103,12 +106,41 @@ export function LanguageBubbles() {
             <MapPinned className="h-3.5 w-3.5" aria-hidden="true" />
             Language atlas
           </div>
-          <button type="button" onClick={() => setActiveRegion(null)} className="rounded-full border border-[var(--juba-app-line)] bg-white/90 px-3 py-2 text-[10px] font-black uppercase tracking-[.12em] text-[var(--juba-app-muted)] transition hover:border-[var(--juba-app-ink)] hover:text-[var(--juba-app-ink)]">
+          <button type="button" onClick={() => { setActiveRegion(null); setActiveLanguage(null) }} className="rounded-full border border-[var(--juba-app-line)] bg-white/90 px-3 py-2 text-[10px] font-black uppercase tracking-[.12em] text-[var(--juba-app-muted)] transition hover:border-[var(--juba-app-ink)] hover:text-[var(--juba-app-ink)]">
             All regions
           </button>
         </div>
 
         <div className="absolute inset-0 z-10">
+          <div className="absolute inset-0">
+            {DISPLAY_LANGUAGES.filter((language) => !activeRegion || language.region === activeRegion).map((language) => {
+              const isActive = activeLanguage === language.code
+              return (
+                <button
+                  key={language.code}
+                  type="button"
+                  onClick={() => setActiveLanguage(isActive ? null : language.code)}
+                  className="group absolute -translate-x-1/2 -translate-y-1/2"
+                  style={{ left: language.x + '%', top: language.y + '%' }}
+                  aria-label={language.name}
+                  aria-pressed={isActive}
+                >
+                  <span className={[
+                    'flex h-4 w-4 items-center justify-center rounded-full border-2 border-white shadow-[0_1px_5px_rgba(24,37,27,.2)] transition-all',
+                    isActive ? 'h-5 w-5 bg-[var(--juba-app-yellow)] ring-2 ring-[var(--juba-app-ink)]' : 'bg-[var(--juba-app-green)] group-hover:scale-125',
+                  ].join(' ')}>
+                    <span className="h-1.5 w-1.5 rounded-full bg-white" aria-hidden="true" />
+                  </span>
+                  <span className={[
+                    'pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-full border px-2 py-1 text-[9px] font-black shadow-sm transition-opacity',
+                    isActive ? 'border-[var(--juba-app-ink)] bg-white text-[var(--juba-app-ink)] opacity-100' : 'border-[var(--juba-app-line)] bg-white/95 text-[var(--juba-app-muted)] opacity-0 group-hover:opacity-100',
+                  ].join(' ')}>
+                    {language.name}
+                  </span>
+                </button>
+              )
+            })}
+          </div>
           {visibleRegions.map((region) => {
             const languages = languagesByRegion[region.id]
             const position = REGION_POSITION[region.id]
@@ -118,7 +150,7 @@ export function LanguageBubbles() {
               <button
                 type="button"
                 key={region.id}
-                onClick={() => setActiveRegion(isActive ? null : region.id)}
+                onClick={() => { setActiveRegion(isActive ? null : region.id); setActiveLanguage(null) }}
                 className="group absolute -translate-x-1/2 -translate-y-1/2 text-left"
                 style={position}
                 aria-pressed={isActive}
@@ -154,7 +186,7 @@ export function LanguageBubbles() {
         <div className="absolute bottom-4 left-1/2 z-20 w-[calc(100%-2rem)] -translate-x-1/2 sm:bottom-6 sm:w-auto">
           <div className="flex flex-wrap justify-center gap-1.5 rounded-2xl border border-[var(--juba-app-line)] bg-white/90 p-2 backdrop-blur">
             {REGIONS.map((region) => (
-              <button type="button" key={region.id} onClick={() => setActiveRegion(region.id)} className={[
+              <button type="button" key={region.id} onClick={() => { setActiveRegion(region.id); setActiveLanguage(null) }} className={[
                 'rounded-xl px-3 py-2 text-[10px] font-black uppercase tracking-[.1em] transition',
                 activeRegion === region.id
                   ? 'bg-[var(--juba-app-ink)] text-white'
