@@ -77,7 +77,13 @@ export const useLanguageStore = create<LanguageStore>((set, get) => ({
             typeof language.target_language === 'string' &&
             Boolean(getLanguageByCode(language.target_language))
         )
-        .map((language: Record<string, unknown>) => mapUserLanguageInfo(language))
+        .map((language: Record<string, unknown>) => {
+          const canonicalCode = getLanguageByCode(language.target_language as string)?.code
+          return mapUserLanguageInfo({
+            ...language,
+            target_language: canonicalCode ?? language.target_language,
+          })
+        })
 
       const active = languages.find((l) => l.is_active)
       const activeLang = active
