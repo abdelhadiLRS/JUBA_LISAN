@@ -40,12 +40,12 @@ export function FreemiumQuotaBanner({
   if (trial) {
     return (
       <div
-        className={`border-[var(--juba-border)] bg-[var(--juba-surface)] flex items-center justify-between border px-3 py-2 font-mono text-xs ${className}`}
+        className={`juba-billing-quota flex items-center justify-between border px-3 py-2 text-xs ${className}`}
       >
-        <span className="text-[var(--juba-muted)]">
+        <span className="text-[var(--juba-app-muted)]">
           ★ {t('trialDaysLeft', { days: trialDaysLeft })}
         </span>
-        <span className="text-[var(--juba-violet-dark)] tracking-widest uppercase">
+        <span className="juba-badge tracking-widest uppercase">
           {t('trialUnlimited')}
         </span>
       </div>
@@ -92,10 +92,10 @@ export function FreemiumQuotaBanner({
   if (info.limit === 0) {
     return (
       <div
-        className={`border-[var(--juba-border)] bg-[var(--juba-surface)] flex items-center justify-between border px-3 py-2 font-mono text-xs ${className}`}
+        className={`border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] flex items-center justify-between border px-3 py-2 font-sans text-xs ${className}`}
       >
-        <span className="text-[var(--juba-muted)]">{info.label}</span>
-        <span className="text-[var(--juba-violet-dark)] tracking-widest uppercase">
+        <span className="font-semibold text-[var(--juba-app-muted)]">{info.label}</span>
+        <span className="text-[var(--juba-app-green-dark)] tracking-widest uppercase">
           {t('requiresSubscription')}
         </span>
       </div>
@@ -107,16 +107,16 @@ export function FreemiumQuotaBanner({
 
   return (
     <div
-      className={`border-[var(--juba-border)] bg-[var(--juba-surface)] flex items-center justify-between border px-3 py-2 font-mono text-xs ${className}`}
+      className={`border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] flex items-center justify-between border px-3 py-2 font-sans text-xs ${className}`}
     >
-      <span className="text-[var(--juba-muted)]">
+      <span className="text-[var(--juba-app-muted)]">
         {info.label}:{' '}
-        <span className={low ? 'text-red-500' : 'text-[var(--juba-muted)]'}>
+        <span className={low ? 'font-bold text-[var(--juba-app-error)]' : 'font-semibold text-[var(--juba-app-muted)]'}>
           {info.remaining}/{info.limit}
         </span>
       </span>
       {low && (
-        <span className="text-[var(--juba-violet-dark)] tracking-widest uppercase">
+        <span className="text-[var(--juba-app-green-dark)] tracking-widest uppercase">
           {t('freeLimit')}
         </span>
       )}
