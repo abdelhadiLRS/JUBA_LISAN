@@ -12,7 +12,7 @@ export function LandingFooter({ t }: LandingFooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-12">
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#ffd45c] text-[#183022] font-bold text-lg shadow-[0_4px_0_#183022] border-2 border-[#183022]">
+              <div className="juba-footer-brand-mark flex h-9 w-9 items-center justify-center rounded-xl bg-[#ffd45c] text-[#183022] font-bold text-lg shadow-[0_4px_0_#183022] border-2 border-[#183022]">
                 J
               </div>
               <span className="font-sans text-xl font-extrabold tracking-tight text-[#183022]">
