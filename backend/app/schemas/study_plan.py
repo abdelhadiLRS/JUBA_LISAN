@@ -181,8 +181,8 @@ class TodayLesson(BaseModel):
 
 
 class TodayResponse(BaseModel):
-    plan_id: int
-    cefr_level: str
+    plan_id: int = 0
+    cefr_level: str = ""
     lessons: list[TodayLesson]
     progress_day: int = 0
     total_days: int = 0
