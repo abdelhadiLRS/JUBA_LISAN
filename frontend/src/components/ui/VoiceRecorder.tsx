@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Mic, Square, Loader2, AlertCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { apiFetch } from '@/lib/api'
@@ -27,7 +27,16 @@ export function VoiceRecorder({
   const chunksRef = useRef<Float32Array[]>([])
   const processorRef = useRef<ScriptProcessorNode | null>(null)
   const autoStopRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const mountedRef = useRef(true)
   const t = useTranslations('voiceRecorder')
+
+  useEffect(() => {
+    mountedRef.current = true
+    return () => {
+      mountedRef.current = false
+      cleanupAudio()
+    }
+  }, [])
 
   function cleanupAudio() {
     if (autoStopRef.current) {
@@ -52,6 +61,7 @@ export function VoiceRecorder({
       return
     }
 
+    if (!mountedRef.current) return
     setState('transcribing')
 
     const totalLength = chunks.reduce((sum, c) => sum + c.length, 0)
@@ -76,6 +86,7 @@ export function VoiceRecorder({
       source.connect(offlineCtx.destination)
       source.start(0)
       const rendered = await offlineCtx.startRendering()
+      if (!mountedRef.current) return
       samples = rendered.getChannelData(0)
     }
 
@@ -94,11 +105,15 @@ export function VoiceRecorder({
       })
       if (!res.ok) throw new Error(`STT error ${res.status}`)
       const { text } = (await res.json()) as { text: string }
+      if (!mountedRef.current) return
       onTranscription(text)
       setState('idle')
     } catch {
+      if (!mountedRef.current) return
       setState('error')
-      setTimeout(() => setState('idle'), 2000)
+      setTimeout(() => {
+        if (mountedRef.current) setState('idle')
+      }, 2000)
     }
   }
 
@@ -119,6 +134,10 @@ export function VoiceRecorder({
           autoGainControl: true,
         },
       })
+      if (!mountedRef.current) {
+        stream.getTracks().forEach((track) => track.stop())
+        return
+      }
       streamRef.current = stream
 
       const audioCtx = new AudioContext()
@@ -141,8 +160,11 @@ export function VoiceRecorder({
       }, maxSeconds * 1000)
     } catch {
       cleanupAudio()
+      if (!mountedRef.current) return
       setState('error')
-      setTimeout(() => setState('idle'), 2000)
+      setTimeout(() => {
+        if (mountedRef.current) setState('idle')
+      }, 2000)
     }
   }
 
