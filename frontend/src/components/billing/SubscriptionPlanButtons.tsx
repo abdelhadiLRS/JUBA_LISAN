@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { ArrowRight, Loader2 } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import { splitYearlyCta, type BillingInterval } from '@/lib/billing-copy'
 import { useConfigStore } from '@/store/config'
@@ -54,7 +55,7 @@ export function SubscriptionPlanButtons({
           className="juba-primary-button flex-1 px-4 py-2.5 text-xs disabled:opacity-50"
         >
           {loading === 'yearly' ? (
-            '...'
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
           ) : (
             <span className="flex flex-col items-center gap-0.5 leading-relaxed">
               <span>{yearlyCta.main}</span>
@@ -72,12 +73,14 @@ export function SubscriptionPlanButtons({
           disabled={loading !== null}
           className="juba-secondary-button flex-1 px-4 py-2.5 text-xs disabled:opacity-50"
         >
-          {loading === 'monthly'
-            ? '...'
-            : tBilling('planMonthly', { price: String(priceMonthly) })}
+          {loading === 'monthly' ? (
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+          ) : (
+            <><span>{tBilling('planMonthly', { price: String(priceMonthly) })}</span><ArrowRight className="h-4 w-4" /></>
+          )}
         </button>
       </div>
-      {error && <p className="text-[var(--juba-app-error)] font-mono text-xs">{error}</p>}
+      {error && <p className="rounded-xl border border-[var(--juba-app-error)]/25 bg-red-50 px-3 py-2 text-[var(--juba-app-error)] font-sans text-xs leading-5">{error}</p>}
     </div>
   )
 }
