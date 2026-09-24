@@ -208,14 +208,14 @@ export default function DashboardPage() {
   if (loadError) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4">
-        <p className="text-[var(--juba-app-muted)] font-mono text-sm">{tError('body')}</p>
+        <p className="text-[var(--juba-app-muted)] font-sans text-sm">{tError('body')}</p>
         <button
           onClick={() => {
             setLoadError(false)
             setLoading(true)
             loadData()
           }}
-          className="text-[var(--juba-app-green-dark)] font-mono text-xs tracking-widest uppercase underline"
+          className="text-[var(--juba-app-green-dark)] font-sans text-xs tracking-widest uppercase underline"
         >
           {tError('retry')}
         </button>
@@ -266,24 +266,24 @@ export default function DashboardPage() {
       <WhatsNew />
       <main className="juba-dashboard mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="juba-dashboard-header mb-6 border-b pb-4">
-          <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mb-1 font-sans tracking-[.12em] uppercase">
+        <div className="juba-dashboard-header mb-7 rounded-[24px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-5 shadow-[0_8px_24px_rgba(24,37,27,.05)] sm:p-6">
+          <p className="text-[var(--juba-app-muted)] mb-1 font-sans tracking-[.12em] uppercase">
             {t('welcomeBack')}
           </p>
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
-              <h1 className="text-[var(--juba-app-ink)] font-mono text-2xl font-bold tracking-tight">
+              <h1 className="text-[var(--juba-app-ink)] font-sans text-3xl font-black tracking-tight">
                 {user?.displayName || user?.username}
               </h1>
               {activeLanguage && (
-                <p className="text-[var(--juba-app-muted)] mt-2 font-mono text-sm">
+                <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-sm">
                   {tTarget(activeLanguage.code)}
                   {cefrLevel ? ` (${cefrLevel})` : ''}
                 </p>
               )}
             </div>
             {hasPlan && totalDays > 0 && (
-              <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+              <p className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
                 {t('dayProgress', {
                   current: currentDayDisplay,
                   total: totalDays,
@@ -296,13 +296,13 @@ export default function DashboardPage() {
         <DashboardAnnouncement />
 
         {/* Next step */}
-        <div className="juba-card mb-8 p-5">
+        <div className="juba-card mb-8 p-5 sm:p-6">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-            <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+            <p className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
               {t('nextStep')}
             </p>
             {hasPlan && todayLessons.length > 0 && (
-              <div className="text-[var(--juba-app-muted)] font-mono">
+              <div className="text-[var(--juba-app-muted)] font-sans">
                 <p className="text-[var(--juba-app-muted)]">{t('planDayGoal')}</p>
                 <p className="text-[var(--juba-app-ink)] mt-1">
                   {t('completedToday', {
@@ -316,10 +316,10 @@ export default function DashboardPage() {
           {!hasPlan ? (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-[var(--juba-app-ink)] font-mono text-xl font-bold tracking-tight">
+                <h2 className="text-[var(--juba-app-ink)] font-sans text-xl font-black tracking-tight">
                   {t('startWithAssessment')}
                 </h2>
-                <p className="text-[var(--juba-app-muted)] mt-2 max-w-xl font-mono text-sm">
+                <p className="text-[var(--juba-app-muted)] mt-2 max-w-xl font-sans text-sm">
                   {t('assessmentCreatesPlan')}
                 </p>
               </div>
@@ -332,10 +332,10 @@ export default function DashboardPage() {
           ) : completion?.state === 'taken' ? (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-[var(--juba-app-ink)] font-mono text-xl font-bold tracking-tight">
+                <h2 className="text-[var(--juba-app-ink)] font-sans text-xl font-black tracking-tight">
                   {t('levelTestCompleted')}
                 </h2>
-                <p className="text-[var(--juba-app-muted)] mt-2 font-mono text-sm">
+                <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-sm">
                   {t('levelTestScoreLine', {
                     score:
                       completion.score != null
@@ -361,10 +361,10 @@ export default function DashboardPage() {
           ) : completion?.state === 'ready' ? (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-[var(--juba-app-ink)] font-mono text-xl font-bold tracking-tight">
+                <h2 className="text-[var(--juba-app-ink)] font-sans text-xl font-black tracking-tight">
                   {t('levelTestReady')}
                 </h2>
-                <p className="text-[var(--juba-app-muted)] mt-2 max-w-xl font-mono text-sm">
+                <p className="text-[var(--juba-app-muted)] mt-2 max-w-xl font-sans text-sm">
                   {t('levelTestReadyDesc')}
                 </p>
               </div>
@@ -379,13 +379,13 @@ export default function DashboardPage() {
           ) : nextLesson ? (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mb-2 font-sans tracking-[.12em] uppercase">
+                <p className="text-[var(--juba-app-muted)] mb-2 font-sans tracking-[.12em] uppercase">
                   {t('lessonReady')}
                 </p>
-                <h2 className="text-[var(--juba-app-ink)] font-mono text-xl font-bold tracking-tight">
+                <h2 className="text-[var(--juba-app-ink)] font-sans text-xl font-black tracking-tight">
                   {nextLesson.title}
                 </h2>
-                <p className="text-[var(--juba-app-muted)] mt-2 font-mono text-sm">
+                <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-sm">
                   {tPlan(`lessonTypes.${nextLesson.lessonType}`)} ·{' '}
                   {nextLesson.estimatedMinutes}min
                 </p>
@@ -399,10 +399,10 @@ export default function DashboardPage() {
           ) : (
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-[var(--juba-app-ink)] font-mono text-xl font-bold tracking-tight">
+                <h2 className="text-[var(--juba-app-ink)] font-sans text-xl font-black tracking-tight">
                   {t('allCaughtUp')}
                 </h2>
-                <p className="text-[var(--juba-app-muted)] mt-2 font-mono text-sm">
+                <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-sm">
                   {pendingCount > 0
                     ? t('pendingStillAvailable', { count: pendingCount })
                     : t('noPendingToday')}
@@ -418,7 +418,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Stats row */}
-        <div className="juba-dashboard-stats mb-8 grid grid-cols-2 gap-px sm:grid-cols-4">
+        <div className="juba-dashboard-stats mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { label: t('streak'), value: `${streak}d`, accent: streak > 0 },
             { label: t('xp'), value: xp, accent: false },
@@ -441,17 +441,17 @@ export default function DashboardPage() {
                   : t('noExercisesYet'),
             },
           ].map((stat) => (
-            <div key={stat.label} className="juba-dashboard-stat bg-[var(--juba-app-surface)] px-5 py-5">
-              <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mb-2 font-sans tracking-[.12em] uppercase">
+            <div key={stat.label} className="juba-card px-5 py-5">
+              <p className="text-[var(--juba-app-muted)] mb-2 font-sans tracking-[.12em] uppercase">
                 {stat.label}
               </p>
               <p
-                className={`font-mono text-3xl font-bold tracking-tight ${stat.accent ? 'text-[var(--juba-app-green-dark)]' : 'text-[var(--juba-app-ink)]'}`}
+                className={`font-sans text-3xl font-black tracking-tight ${stat.accent ? 'text-[var(--juba-app-green-dark)]' : 'text-[var(--juba-app-ink)]'}`}
               >
                 {stat.value}
               </p>
               {'detail' in stat && stat.detail && (
-                <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mt-2 font-mono">
+                <p className="text-[var(--juba-app-muted)] mt-2 font-sans">
                   {stat.detail}
                 </p>
               )}
@@ -459,44 +459,44 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        <div className="juba-dashboard-panels mb-8 grid gap-px sm:grid-cols-2">
+        <div className="juba-dashboard-panels mb-8 grid gap-4 sm:grid-cols-2">
           {/* Plan progress */}
-          <div className="juba-dashboard-panel bg-[var(--juba-app-surface)] p-5">
+          <div className="juba-card p-5 sm:p-6">
             <div className="mb-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
-                <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)]">●</span>
-                <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+                <span className="text-[var(--juba-app-muted)]">●</span>
+                <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
                   {t('planProgress')}
                 </span>
               </div>
               {hasPlan && totalDays > 0 && (
-                <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] shrink-0 font-mono tracking-widest">
+                <span className="text-[var(--juba-app-muted)] shrink-0 font-sans tracking-widest">
                   {planCompletion}%
                 </span>
               )}
             </div>
             {hasPlan && totalDays > 0 ? (
               <>
-                <div className="bg-[var(--juba-app-line)] mb-4 h-1 w-full">
+                <div className="mb-4 h-2 w-full overflow-hidden rounded-full bg-[var(--juba-app-line)]">
                   <div
-                    className="bg-[var(--juba-app-green)] h-full transition-[width] duration-300 motion-reduce:transition-none"
+                    className="h-full rounded-full bg-[var(--juba-app-green)] transition-[width] duration-300 motion-reduce:transition-none"
                     style={{ width: `${planCompletion}%` }}
                   />
                 </div>
-                <div className="bg-[var(--juba-app-line)] grid grid-cols-2 gap-px">
-                  <div className="bg-[var(--juba-app-bg)] p-3">
-                    <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mb-1 font-sans tracking-[.12em] uppercase">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-2xl bg-[var(--juba-app-green-soft)] p-3">
+                    <p className="text-[var(--juba-app-muted)] mb-1 font-sans tracking-[.12em] uppercase">
                       {t('currentDay')}
                     </p>
-                    <p className="text-[var(--juba-app-ink)] font-mono text-lg font-bold">
+                    <p className="text-[var(--juba-app-ink)] font-sans text-lg font-black">
                       {currentDayDisplay} / {totalDays}
                     </p>
                   </div>
-                  <div className="bg-[var(--juba-app-bg)] p-3">
-                    <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mb-1 font-sans tracking-[.12em] uppercase">
+                  <div className="rounded-2xl bg-[var(--juba-app-green-soft)] p-3">
+                    <p className="text-[var(--juba-app-muted)] mb-1 font-sans tracking-[.12em] uppercase">
                       {t('daysRemaining')}
                     </p>
-                    <p className="text-[var(--juba-app-ink)] font-mono text-lg font-bold">
+                    <p className="text-[var(--juba-app-ink)] font-sans text-lg font-black">
                       {daysRemaining}
                     </p>
                   </div>
@@ -504,24 +504,24 @@ export default function DashboardPage() {
                 {vocabularyTotal > 0 && (
                   <div className="mt-4">
                     <div className="flex items-center justify-between gap-3">
-                      <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+                      <p className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
                         {t('vocabularyProgress', {
                           level: vocabularyLevel ?? cefrLevel ?? '',
                         })}
                       </p>
-                      <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-mono">
+                      <p className="text-[var(--juba-app-muted)] font-sans">
                         {vocabularyProgressPct}%
                       </p>
                     </div>
-                    <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mt-2 font-mono">
+                    <p className="text-[var(--juba-app-muted)] mt-2 font-sans">
                       {t('vocabularyWords', {
                         mastered: vocabularyMastered,
                         total: vocabularyTotal,
                       })}
                     </p>
-                    <div className="bg-[var(--juba-app-line)] mt-2 h-1 w-full">
+                    <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-[var(--juba-app-line)]">
                       <div
-                        className="bg-[var(--juba-app-green)] h-full transition-[width] duration-300 motion-reduce:transition-none"
+                        className="h-full rounded-full bg-[var(--juba-app-green)] transition-[width] duration-300 motion-reduce:transition-none"
                         style={{ width: `${vocabularyProgressPct}%` }}
                       />
                     </div>
@@ -529,18 +529,18 @@ export default function DashboardPage() {
                 )}
               </>
             ) : (
-              <p className="text-[var(--juba-app-muted)] font-mono text-xs">
+              <p className="text-[var(--juba-app-muted)] font-sans text-xs">
                 {t('startWithAssessment')}
               </p>
             )}
           </div>
 
           {/* Today's lessons */}
-          <div className="juba-dashboard-panel bg-[var(--juba-app-surface)] p-5">
+          <div className="juba-card p-5 sm:p-6">
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)]">●</span>
-                <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+                <span className="text-[var(--juba-app-muted)]">●</span>
+                <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
                   {t('today')}
                 </span>
               </div>
@@ -557,7 +557,7 @@ export default function DashboardPage() {
                   return (
                     <div
                       key={i}
-                      className={`border px-4 py-3 ${
+                      className={`rounded-2xl border px-4 py-3 transition-colors ${
                         isNext
                           ? 'border-[var(--juba-app-green)]/60 bg-[var(--juba-app-green)]/5'
                           : 'border-[var(--juba-app-line)]'
@@ -565,16 +565,16 @@ export default function DashboardPage() {
                     >
                       <div className="flex items-center justify-between gap-4">
                         <div>
-                          <p className="text-[var(--juba-app-ink)] font-mono text-xs">
+                          <p className="text-[var(--juba-app-ink)] font-sans text-xs">
                             {lesson.title}
                           </p>
-                          <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mt-0.5 font-mono tracking-wider uppercase">
+                          <p className="text-[var(--juba-app-muted)] mt-0.5 font-sans tracking-wider uppercase">
                             {tPlan(`lessonTypes.${lesson.lessonType}`)} ·{' '}
                             {lesson.estimatedMinutes}min
                           </p>
                         </div>
                         {isDone ? (
-                          <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] inline-flex items-center gap-1.5 font-sans tracking-[.12em] uppercase">
+                          <span className="text-[var(--juba-app-muted)] inline-flex items-center gap-1.5 font-sans tracking-[.12em] uppercase">
                             <Check
                               className="size-4 shrink-0"
                               aria-hidden="true"
@@ -602,12 +602,12 @@ export default function DashboardPage() {
                   <button
                     onClick={skipDay}
                     disabled={skipping}
-                    className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase transition-colors disabled:opacity-40"
+                    className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase transition-colors disabled:opacity-40"
                   >
                     {skipping ? '...' : t('skipDay')}
                   </button>
                   {skipError && (
-                    <p className="text-[var(--juba-app-error)] mt-1 font-mono text-xs">
+                    <p className="text-[var(--juba-app-error)] mt-1 font-sans text-xs">
                       {tError('title')}
                     </p>
                   )}
@@ -615,7 +615,7 @@ export default function DashboardPage() {
               </div>
             ) : (
               <div className="space-y-3">
-                <p className="text-[var(--juba-app-muted)] font-mono text-xs">
+                <p className="text-[var(--juba-app-muted)] font-sans text-xs">
                   {hasPlan
                     ? completion?.state === 'ready'
                       ? t('levelTestReady')
@@ -636,15 +636,15 @@ export default function DashboardPage() {
           </div>
 
           {/* Recent performance */}
-          <div className="juba-dashboard-panel bg-[var(--juba-app-surface)] p-5 sm:col-span-2">
+          <div className="juba-card p-5 sm:col-span-2 sm:p-6">
             <div className="mb-4">
               <div className="mb-2 flex items-center gap-2">
-                <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)]">●</span>
-                <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+                <span className="text-[var(--juba-app-muted)]">●</span>
+                <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
                   {t('recentPerformance')}
                 </span>
               </div>
-              <p className="text-[var(--juba-app-muted)] font-mono text-xs">
+              <p className="text-[var(--juba-app-muted)] font-sans text-xs">
                 {t('recentPerformanceDescription')}
               </p>
             </div>
@@ -653,21 +653,21 @@ export default function DashboardPage() {
                 {skillEntries.map(({ skill, value }) => (
                   <div key={skill}>
                     <div className="mb-1 flex justify-between">
-                      <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+                      <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
                         {tPlan(`lessonTypes.${skill}`)}
                       </span>
                       <div className="flex items-center gap-2">
-                        <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
+                        <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
                           {getPerformanceLabel(value)}
                         </span>
-                        <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-mono">
+                        <span className="text-[var(--juba-app-muted)] font-sans">
                           {Math.round(value * 100)}%
                         </span>
                       </div>
                     </div>
-                    <div className="bg-[var(--juba-app-line)] h-1 w-full">
+                    <div className="h-2 w-full overflow-hidden rounded-full bg-[var(--juba-app-line)]">
                       <div
-                        className="bg-[var(--juba-app-green)] h-full transition-[width] duration-300 motion-reduce:transition-none"
+                        className="h-full rounded-full bg-[var(--juba-app-green)] transition-[width] duration-300 motion-reduce:transition-none"
                         style={{ width: `${value * 100}%` }}
                       />
                     </div>
@@ -675,7 +675,7 @@ export default function DashboardPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-[var(--juba-app-muted)] font-mono text-xs">
+              <p className="text-[var(--juba-app-muted)] font-sans text-xs">
                 {t('noSkills')}
               </p>
             )}
@@ -683,14 +683,14 @@ export default function DashboardPage() {
         </div>
 
         {showPremiumBanner && (
-          <div className="juba-card mb-6 p-5">
+          <div className="juba-card mb-6 p-5 sm:p-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex gap-3">
-                <span className="text-[var(--juba-app-green)] font-mono text-sm leading-none">
+                <span className="text-[var(--juba-app-green)] font-sans text-sm leading-none">
                   ★
                 </span>
                 <div>
-                  <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mb-2 font-sans tracking-[.12em] uppercase">
+                  <p className="text-[var(--juba-app-muted)] mb-2 font-sans tracking-[.12em] uppercase">
                     {freemiumTrialActive
                       ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft })
                       : t(
@@ -699,7 +699,7 @@ export default function DashboardPage() {
                             : 'premiumBannerTitle'
                         )}
                   </p>
-                  <p className="text-[var(--juba-app-muted)] font-mono text-xs leading-relaxed">
+                  <p className="text-[var(--juba-app-muted)] font-sans text-xs leading-relaxed">
                     {freemiumTrialActive
                       ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft })
                       : paymentRecovery
@@ -713,7 +713,7 @@ export default function DashboardPage() {
                 </div>
               </div>
               {!freemiumTrialActive && (
-                <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-green-dark)] border-[var(--juba-app-green)]/30 border px-3 py-1.5 font-mono tracking-widest whitespace-nowrap uppercase">
+                <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-green-dark)] border-[var(--juba-app-green)]/30 border px-3 py-1.5 font-sans tracking-widest whitespace-nowrap uppercase">
                   {paymentRecovery
                     ? t('premiumBannerPastDueCta')
                     : t(
@@ -735,7 +735,7 @@ export default function DashboardPage() {
                     {portalLoading ? '...' : tBilling('updatePayment')}
                   </button>
                   {portalError && (
-                    <p className="text-[var(--juba-app-muted)] mt-3 font-mono text-red-500">
+                    <p className="text-[var(--juba-app-muted)] mt-3 font-sans text-red-500">
                       {portalError}
                     </p>
                   )}
@@ -747,7 +747,7 @@ export default function DashboardPage() {
         )}
 
         {/* Quick actions */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-3">
           {hasPlan && (
             <Link href="/plan">
               <button className="juba-primary-button">
