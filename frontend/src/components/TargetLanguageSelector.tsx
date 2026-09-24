@@ -20,7 +20,7 @@ export default function TargetLanguageSelector({
 
   const filtered = TARGET_LANGUAGE_CATALOG.filter((lang) =>
     availableCodes.includes(lang.code)
-  ).sort((a, b) => label(a.code, a.nameEn).localeCompare(label(b.code, b.nameEn)))
+  ).sort((a, b) => {\n    const aLabel = label(a.code, a.nameEn).toLocaleLowerCase()\n    const bLabel = label(b.code, b.nameEn).toLocaleLowerCase()\n    return aLabel < bLabel ? -1 : aLabel > bLabel ? 1 : a.code < b.code ? -1 : a.code > b.code ? 1 : 0\n  })
 
   return (
     <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
