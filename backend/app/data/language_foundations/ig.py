@@ -39,20 +39,20 @@ VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="ig-a1-unit-7",words
 VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="ig-a1-unit-8",words=[VocabularyEntry(word="ụlọ akwụkwọ",pos="noun",definition="school",example="Aga m ụlọ akwụkwọ.")])
 ]
 PHRASEBOOK_CATEGORIES=[
-PhrasebookCategory(id="greetings_a1_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Ndewo.",context="Hello.",register="neutral")]),
-PhrasebookCategory(id="greetings_a1_2",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Daalụ.",context="Thank you.",register="neutral")]),
-PhrasebookCategory(id="help_a1_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="Biko nyere m aka.",context="Please help me.",register="neutral")]),
-PhrasebookCategory(id="directions_a1_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="Ebee ka ụlọ akwụkwọ dị?",context="Where is the school?",register="neutral")])
+PhrasebookCategory(id="ig-greetings-a1",level="A1",situation="greetings",icon="👋",phrases=[PhrasebookEntry(text="Ndewo.",context="Hello.",register="neutral"),PhrasebookEntry(text="Kedu?",context="How are you?",register="neutral"),PhrasebookEntry(text="Ọ dị mma.",context="I am fine / It is good.",register="neutral")]),
+PhrasebookCategory(id="ig-thanks-a1",level="A1",situation="thanks",icon="🙏",phrases=[PhrasebookEntry(text="Daalụ.",context="Thank you.",register="neutral"),PhrasebookEntry(text="Daalụ nke ukwuu.",context="Thank you very much.",register="neutral"),PhrasebookEntry(text="Ọ dịghị ihe.",context="You're welcome / It's nothing.",register="neutral")]),
+PhrasebookCategory(id="ig-shopping-a1",level="A1",situation="shopping",icon="🛒",phrases=[PhrasebookEntry(text="Ego ole ka nke a bụ?",context="How much is this?",register="neutral"),PhrasebookEntry(text="Achọrọ m nke a.",context="I want this.",register="neutral"),PhrasebookEntry(text="Biko, belata ọnụ ahịa ya.",context="Please reduce the price.",register="polite")]),
+PhrasebookCategory(id="ig-help-a1",level="A1",situation="help",icon="🆘",phrases=[PhrasebookEntry(text="Biko nyere m aka.",context="Please help me.",register="polite"),PhrasebookEntry(text="Aghọtaghị m.",context="I don't understand.",register="neutral"),PhrasebookEntry(text="Biko kwuo ya ọzọ.",context="Please say it again.",register="polite")])
 ]
 ASSESSMENT_BANK=[
-AssessmentQuestion(id="ig-a1-001",skill="vocabulary",difficulty="A1",question="Choose the correct Igbo form for A1.",options=["ndewo","aha","nne","ụlọ"],correct="ndewo"),
-AssessmentQuestion(id="ig-a1-002",skill="grammar",difficulty="A1",question="Choose the correct Igbo form for A1.",options=["aha","nne","ụlọ","ịmụ ihe"],correct="aha"),
-AssessmentQuestion(id="ig-a1-003",skill="reading",difficulty="A1",question="Choose the correct Igbo form for A1.",options=["nne","ụlọ","ịmụ ihe","oge"],correct="nne"),
-AssessmentQuestion(id="ig-a1-004",skill="speaking",difficulty="A1",question="Choose the correct Igbo form for A1.",options=["ụlọ","ịmụ ihe","oge","mmiri"],correct="ụlọ"),
-AssessmentQuestion(id="ig-a1-005",skill="vocabulary",difficulty="A1",question="Choose the correct Igbo form for A1.",options=["ịmụ ihe","oge","mmiri","ụlọ akwụkwọ"],correct="ịmụ ihe"),
-AssessmentQuestion(id="ig-a1-006",skill="grammar",difficulty="A1",question="Choose the correct Igbo form for A1.",options=["oge","mmiri","ụlọ akwụkwọ","ndewo"],correct="oge"),
-AssessmentQuestion(id="ig-a1-007",skill="reading",difficulty="A1",question="Choose the correct Igbo form for A1.",options=["mmiri","ụlọ akwụkwọ","ndewo","aha"],correct="mmiri"),
-AssessmentQuestion(id="ig-a1-008",skill="speaking",difficulty="A1",question="Choose the correct Igbo form for A1.",options=["ụlọ akwụkwọ","ndewo","aha","nne"],correct="ụlọ akwụkwọ"),
-AssessmentQuestion(id="ig-a1-009",skill="vocabulary",difficulty="A1",question="Choose the correct Igbo form for A1.",options=["ndewo","aha","nne","ụlọ"],correct="ndewo"),
-AssessmentQuestion(id="ig-a1-010",skill="grammar",difficulty="A1",question="Choose the correct Igbo form for A1.",options=["aha","nne","ụlọ","ịmụ ihe"],correct="aha")
+AssessmentQuestion(id="ig-a1-001",skill="communication",difficulty="A1",question="You meet someone. Which Igbo phrase means “Hello”?",options=["Ndewo.","Daalụ.","Ego ole ka nke a bụ?","Aghọtaghị m."],correct="Ndewo."),
+AssessmentQuestion(id="ig-a1-002",skill="communication",difficulty="A1",question="Which phrase asks “How are you?”",options=["Kedu?","Ọ dị mma.","Achọrọ m nke a.","Daalụ."],correct="Kedu?"),
+AssessmentQuestion(id="ig-a1-003",skill="vocabulary",difficulty="A1",question="Which phrase means “Thank you”?",options=["Daalụ.","Ndewo.","Ọ dịghị ihe.","Biko nyere m aka."],correct="Daalụ."),
+AssessmentQuestion(id="ig-a1-004",skill="shopping",difficulty="A1",question="At a shop, how do you ask “How much is this?”",options=["Ego ole ka nke a bụ?","Aghọtaghị m.","Ọ dị mma.","Daalụ."],correct="Ego ole ka nke a bụ?"),
+AssessmentQuestion(id="ig-a1-005",skill="shopping",difficulty="A1",question="Which phrase means “I want this”?",options=["Achọrọ m nke a.","Ndewo.","Ọ dịghị ihe.","Kedu?"],correct="Achọrọ m nke a."),
+AssessmentQuestion(id="ig-a1-006",skill="help",difficulty="A1",question="Which phrase means “Please help me”?",options=["Biko nyere m aka.","Daalụ.","Ego ole ka nke a bụ?","Ọ dị mma."],correct="Biko nyere m aka."),
+AssessmentQuestion(id="ig-a1-007",skill="communication",difficulty="A1",question="You do not understand. Which phrase should you use?",options=["Aghọtaghị m.","Ndewo.","Achọrọ m nke a.","Daalụ nke ukwuu."],correct="Aghọtaghị m."),
+AssessmentQuestion(id="ig-a1-008",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat what they said?",options=["Biko kwuo ya ọzọ.","Ọ dịghị ihe.","Ego ole ka nke a bụ?","Ọ dị mma."],correct="Biko kwuo ya ọzọ."),
+AssessmentQuestion(id="ig-a1-009",skill="politeness",difficulty="A1",question="Someone thanks you. Which phrase can mean “You're welcome / It's nothing”?",options=["Ọ dịghị ihe.","Ndewo.","Kedu?","Achọrọ m nke a."],correct="Ọ dịghị ihe."),
+AssessmentQuestion(id="ig-a1-010",skill="communication",difficulty="A1",question="Which phrase means “I am fine / It is good”?",options=["Ọ dị mma.","Daalụ nke ukwuu.","Aghọtaghị m.","Ego ole ka nke a bụ?"],correct="Ọ dị mma.")
 ]
