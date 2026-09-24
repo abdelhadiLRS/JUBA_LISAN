@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import { CookieBanner } from '@/components/CookieBanner'
 import { VisitorTranslator } from '@/components/VisitorTranslator'
+import Script from 'next/script'
 
 const themeScript = `(function(){try{var t='system';var s=localStorage.getItem('fl-theme');if(s){var p=JSON.parse(s);t=p&&p.state&&p.state.theme?p.state.theme:t}var l=t==='light'||(t==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);if(l){document.documentElement.setAttribute('data-theme','light')}else{document.documentElement.removeAttribute('data-theme')}}catch(e){}})();`
 
@@ -31,8 +32,8 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <head>
         <meta name="theme-color" content="#fdfdfd" />
         <meta name="color-scheme" content="light dark" />
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && <script defer src="/umami/script.js" data-host-url="/umami" data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID} />}
+        <Script id="juba-theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (\n          <Script\n            id="juba-umami"\n            src="/umami/script.js"\n            strategy="afterInteractive"\n            data-host-url="/umami"\n            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}\n          />\n        )}
       </head>
       <body className="min-h-full bg-[var(--juba-bg)] text-[var(--juba-text)]">
         <NextIntlClientProvider locale={locale} messages={messages}>
