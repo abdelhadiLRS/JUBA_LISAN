@@ -7,6 +7,7 @@ import { ArrowRight, BookOpen, CheckCircle2, Headphones, LockKeyhole, Mic2, Spar
 import { apiFetch } from '@/lib/api'
 import { CEFR_LEVELS, getCurriculumUnits, type CEFRLevel, type CurriculumUnit } from '@/data/curriculum'
 import { useLanguageStore } from '@/store/language'
+import { CEFR_DESCRIPTORS, CEFR_SKILLS, type CEFRSkill } from '@/data/cefr-descriptors'
 
 interface StudyPlan {
   cefr_level: CEFRLevel
@@ -150,6 +151,39 @@ export default function CoursesPage() {
               })}
             </div>
           )}
+        </section>
+
+        <section className="juba-card rounded-[30px] border-2 border-[var(--juba-app-line)] bg-white p-6 shadow-[0_12px_28px_rgba(52,37,90,.07)] sm:p-7">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="juba-eyebrow">{t('cefrEyebrow')}</p>
+              <h2 className="mt-2 text-2xl font-black text-[var(--juba-app-ink)] sm:text-3xl">{t('cefrTitle')}</h2>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-[var(--juba-app-muted)]">{t('cefrDescription')}</p>
+            </div>
+            <span className="rounded-full bg-[var(--juba-app-green-soft)] px-4 py-2 text-xs font-black text-[var(--juba-app-green-dark)]">CEFR · A1–C2</span>
+          </div>
+          <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {CEFR_LEVELS.map((level) => (
+              <article key={level} className="rounded-[24px] border border-[var(--juba-app-line)] bg-[#fbfcf8] p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <span className="text-xs font-black uppercase tracking-[.16em] text-[var(--juba-app-muted)]">{t('cefrLevelLabel')}</span>
+                    <h3 className="mt-1 text-xl font-black text-[var(--juba-app-ink)]">{level} · {t(`levels.${level}.title`).replace(`${level} · `, '')}</h3>
+                  </div>
+                  <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-[var(--juba-app-green-dark)] ring-1 ring-[var(--juba-app-line)]">{level}</span>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-[var(--juba-app-muted)]">{t(`levels.${level}.desc`)}</p>
+                <div className="mt-5 space-y-3">
+                  {CEFR_SKILLS.map((skill: CEFRSkill) => (
+                    <div key={skill} className="rounded-2xl bg-white p-3 ring-1 ring-[var(--juba-app-line)]">
+                      <p className="text-xs font-black uppercase tracking-[.12em] text-[var(--juba-app-green-dark)]">{t(`cefrSkills.${skill}`)}</p>
+                      <p className="mt-1 text-sm leading-5 text-[var(--juba-app-ink)]">{CEFR_DESCRIPTORS[level][skill]}</p>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="juba-card rounded-[30px] border-2 border-[var(--juba-app-line)] bg-white p-6 shadow-[0_12px_28px_rgba(52,37,90,.07)] sm:p-7">
