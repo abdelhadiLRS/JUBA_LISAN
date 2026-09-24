@@ -41,6 +41,8 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
     }
   }, [open])
 
+  const isLoading = status === 'loading'
+
   useEffect(() => {
     if (!open) return
     function onKey(e: KeyboardEvent) {
@@ -94,8 +96,6 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
       setStatus('error')
     }
   }
-
-  const isLoading = status === 'loading'
 
   return (
     <div
