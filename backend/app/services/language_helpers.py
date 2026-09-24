@@ -188,6 +188,12 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
         "uses_word_spacing": True,
         "reading_length_unit": "words",
     },
+    "cs-CZ": {
+        "script": "latin",
+        "romanization": "",
+        "uses_word_spacing": True,
+        "reading_length_unit": "words",
+    },
 }
 
 _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
