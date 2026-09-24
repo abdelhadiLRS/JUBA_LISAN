@@ -34,11 +34,10 @@ VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="sn-a1-unit-7",words
 VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="sn-a1-unit-8",words=[VocabularyEntry(word="chikoro",pos="noun",definition="school",example="Ndiri kuchikoro.")])
 ]
 PHRASEBOOK_CATEGORIES=[
-PhrasebookCategory(id="sn_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Mhoro.",context="Hello.",register="neutral")]),
-PhrasebookCategory(id="sn_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="Ndatenda.",context="Thank you.",register="neutral")]),
-PhrasebookCategory(id="sn_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="Ndibatsirei.",context="Please help me.",register="neutral")]),
-PhrasebookCategory(id="sn_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="Chikoro chiri kupi?",context="Where is the school?",register="neutral")])
-]
+PhrasebookCategory(id="sn_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Mhoro.",context="greetings",register="neutral"),PhrasebookEntry(text="Mangwanani.",context="greetings",register="neutral"),PhrasebookEntry(text="Makadii?",context="greetings",register="neutral")]),
+PhrasebookCategory(id="sn_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="Ndatenda.",context="thanks",register="neutral"),PhrasebookEntry(text="Ndatenda zvikuru.",context="thanks",register="neutral"),PhrasebookEntry(text="Hapana chakaipa.",context="thanks",register="neutral")]),
+PhrasebookCategory(id="sn_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="Ndibatsirei, ndapota.",context="help",register="neutral"),PhrasebookEntry(text="Handisi kunzwisisa.",context="help",register="neutral"),PhrasebookEntry(text="Dzokororai, ndapota.",context="help",register="neutral")]),
+PhrasebookCategory(id="sn_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="Chikoro chiri kupi?",context="directions",register="neutral"),PhrasebookEntry(text="Musika uri kupi?",context="directions",register="neutral"),PhrasebookEntry(text="Enda kurudyi.",context="directions",register="neutral")])]
 ASSESSMENT_BANK=[
 AssessmentQuestion(id="sn-a1-001",skill="vocabulary",difficulty="A1",question="Which Shona word means 'water'?",options=["mvura","imba","amai","chikoro"],correct="mvura"),
 AssessmentQuestion(id="sn-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["Ndiri kumba.","Ndinoenda kuchikoro.","Ndinonwa mvura.","Iri ibhuku."],correct="Ndiri kumba."),
