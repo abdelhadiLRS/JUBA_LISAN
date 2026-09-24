@@ -86,7 +86,7 @@ export default function FriendsPage() {
         <div className="juba-panel space-y-4">
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--juba-muted)]" />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--juba-app-muted)]" />
               <input value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>e.key==='Enter'&&search()} placeholder="Search learners by name or username" className="juba-input pl-10" />
             </div>
             <button onClick={search} disabled={searching} className="juba-primary-button"><Search className="h-4 w-4" /> {searching?'Searching…':'Search'}</button>
@@ -112,12 +112,12 @@ export default function FriendsPage() {
 }
 
 function PersonCard({person,children}:{person:Person;children:React.ReactNode}) {
-  return <div className="flex items-center gap-3 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] p-3 shadow-sm">
-    <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-[var(--juba-border)] bg-[var(--juba-bg)]">
-      {person.avatar ? <AuthAvatarImage avatar={person.avatar} alt="" width={44} height={44} className="h-full w-full object-cover"/> : <div className="flex h-full w-full items-center justify-center font-bold text-[var(--juba-muted)]">{(person.display_name||person.username||'?')[0].toUpperCase()}</div>}
+  return <div className="flex items-center gap-3 rounded-2xl border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-3 shadow-sm">
+    <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-[var(--juba-app-line)] bg-[var(--juba-app-bg)]">
+      {person.avatar ? <AuthAvatarImage avatar={person.avatar} alt="" width={44} height={44} className="h-full w-full object-cover"/> : <div className="flex h-full w-full items-center justify-center font-bold text-[var(--juba-app-muted)]">{(person.display_name||person.username||'?')[0].toUpperCase()}</div>}
     </div>
-    <div className="min-w-0 flex-1"><p className="truncate font-semibold">{person.display_name||person.username}</p><p className="truncate text-xs text-[var(--juba-muted)]">@{person.username}{person.target_language?' · '+person.target_language:''}</p></div>
+    <div className="min-w-0 flex-1"><p className="truncate font-semibold">{person.display_name||person.username}</p><p className="truncate text-xs text-[var(--juba-app-muted)]">@{person.username}{person.target_language?' · '+person.target_language:''}</p></div>
     {children}
   </div>
 }
-function Empty({text}:{text:string}) { return <div className="rounded-2xl border border-dashed border-[var(--juba-border)] bg-[var(--juba-bg)] p-6 text-center text-sm text-[var(--juba-muted)]">{text}</div> }
+function Empty({text}:{text:string}) { return <div className="rounded-2xl border border-dashed border-[var(--juba-app-line)] bg-[var(--juba-app-bg)] p-6 text-center text-sm text-[var(--juba-app-muted)]">{text}</div> }
