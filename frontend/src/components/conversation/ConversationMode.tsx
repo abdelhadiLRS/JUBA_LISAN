@@ -846,6 +846,9 @@ export default function ConversationMode({
     const startAttempt = ++startAttemptRef.current
 
     // AudioContext MUST be created during a user-gesture (this click handler)
+    // Reuse the user-gesture AudioContext for MicVAD. Creating a separate
+    // context here while MicVAD creates its own can leave the VAD processor
+    // detached from the stream on some Chromium/Windows combinations.
     const ctx = new AudioContext()
     audioCtxRef.current = ctx
     try {
@@ -880,6 +883,9 @@ export default function ConversationMode({
     setStatus('warming')
 
     // Start mic (requests permission if not already granted)
+    // Pass the same user-gesture AudioContext into VAD through its runtime
+    // options when supported. This prevents MicVAD from owning a second
+    // context that can race with the stream/processor initialization.
     vad.start().catch((e: unknown) => {
       if (!mountedRef.current || startAttemptRef.current !== startAttempt)
         return
