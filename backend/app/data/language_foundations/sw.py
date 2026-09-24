@@ -16,14 +16,14 @@ _g("prepositions","Prepositions","Prepositions in basic A1 use.",["Niko nyumbani
 def _v(i,t,words):
     return VocabularySet(id=i,level="A1",topic=t,unit_ref="sw-a1",words=[VocabularyEntry(word=w,pos=p,definition=d,example=e) for w,p,d,e in words])
 
-VOCABULARY_SETS=[_v("greetings_a1","hello",[["habari","noun","hello","habari."]]),
-_v("family_a1","mother",[["mama","noun","mother","mama."]]),
-_v("home_a1","house",[["nyumba","noun","house","nyumba."]]),
-_v("daily_a1","morning",[["asubuhi","noun","morning","asubuhi."]]),
-_v("food_a1","water",[["maji","noun","water","maji."]]),
-_v("places_a1","station",[["kituo","noun","station","kituo."]]),
-_v("communication_a1","help",[["msaada","noun","help","msaada."]]),
-_v("review_a1","friend",[["rafiki","noun","friend","rafiki."]])]
+VOCABULARY_SETS=[_v("greetings_a1","Salamu",[["habari","phrase","hello","Habari!"],["asante","phrase","thank you","Asante sana."],["kwaheri","phrase","goodbye","Kwaheri!"],["tafadhali","phrase","please","Tafadhali."]]),
+_v("family_a1","Familia",[["mama","noun","mother","Mama yangu yuko nyumbani."],["baba","noun","father","Baba yangu anafanya kazi."],["dada","noun","sister","Nina dada."],["kaka","noun","brother","Nina kaka."]]),
+_v("home_a1","Nyumbani",[["nyumba","noun","house","Nyumba yangu ni kubwa."],["chumba","noun","room","Chumba changu ni kidogo."],["meza","noun","table","Kitabu kiko mezani."],["mlango","noun","door","Mlango umefungwa."]]),
+_v("daily_a1","Maisha ya kila siku",[["asubuhi","noun","morning","Asubuhi ninafanya kazi."],["kula","verb","eat","Ninakula asubuhi."],["kunywa","verb","drink","Ninakunywa maji."],["kulala","verb","sleep","Ninalala usiku."]]),
+_v("food_a1","Chakula na manunuzi",[["maji","noun","water","Ninakunywa maji."],["mkate","noun","bread","Ninanunua mkate."],["maziwa","noun","milk","Nataka maziwa."],["bei","noun","price","Bei ni gani?"]]),
+_v("places_a1","Maeneo na maelekezo",[["duka","noun","shop","Duka liko hapa."],["kituo","noun","station","Kituo kiko wapi?"],["kulia","adverb","right","Geuka kulia."],["kushoto","adverb","left","Geuka kushoto."]]),
+_v("communication_a1","Mawasiliano",[["msaada","noun","help","Nahitaji msaada."],["kusaidia","verb","help","Unaweza kunisaidia?"],["kuelewa","verb","understand","Naelewa."],["polepole","adverb","slowly","Sema polepole."]]),
+_v("review_a1","Marudio A1",[["rafiki","noun","friend","Huyu ni rafiki yangu."],["leo","adverb","today","Leo ninafanya kazi."],["kesho","adverb","tomorrow","Kesho nitasoma."],["saa","noun","time","Ni saa ngapi?"]])]
 
 def _p(i,s,items):
     return PhrasebookCategory(id=i,level="A1",situation=s,icon="💬",phrases=[PhrasebookEntry(text=t,context=c,register=r) for t,c,r in items])
