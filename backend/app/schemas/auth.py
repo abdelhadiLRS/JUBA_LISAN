@@ -51,6 +51,7 @@ SUPPORTED_TARGET_LANGUAGES: set[str] = {
     "el-GR",
     "sv-SE",
     "no-NO",
+    "fi-FI",
 }
 
 
