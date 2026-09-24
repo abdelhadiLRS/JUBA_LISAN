@@ -5,7 +5,7 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.deps import get_current_user
+from app.core.deps import get_current_user, require_learner
 from app.core.limiter import limiter
 from app.models.flashcard import Flashcard
 from app.models.study_plan import StudyPlan
@@ -31,7 +31,7 @@ from app.services.llm_adapter import (
 from app.services.progress_service import update_daily_progress
 from app.services.user_language_service import get_active_language
 
-router = APIRouter(prefix="/api/flashcards", tags=["flashcards"])
+router = APIRouter(prefix="/api/flashcards", tags=["flashcards"], dependencies=[Depends(require_learner)])
 
 
 def _normalize_flashcard_word(value: str) -> str:
