@@ -20,7 +20,7 @@ _v("identity_a1","Jag och du",[("namn","noun","name","Vad heter du?"),("ålder",
 _v("family_a1","Familj",[("mamma","noun","mother","Min mamma bor här."),("pappa","noun","father","Min pappa arbetar."),("syster","noun","sister","Jag har en syster."),("bror","noun","brother","Jag har en bror.")]),
 _v("home_a1","Hemmet",[("hem","noun","home","Jag är hemma."),("rum","noun","room","Mitt rum är litet."),("bord","noun","table","Boken ligger på bordet."),("dörr","noun","door","Dörren är öppen.")]),
 _v("daily_life_a1","Vardag",[("morgon","noun","morning","På morgonen arbetar jag."),("äta","verb","eat","Jag äter frukost."),("dricka","verb","drink","Jag dricker vatten."),("sova","verb","sleep","Jag ska sova.")]),
-_v("food_a1","Mat och shopping",[("bröd","noun","bread","Jag köper bröd."),("kaffe","noun","coffee","Jag dricker kaffe."),("äpple","noun","apple","Jag äter ett äpple."),("pris","noun","price","Vad är priset?")]),
+_v("food_a1","Mat och shopping",[("bröd","noun","bread","Jag köper bröd."),("kaffe","noun","coffee","Jag dricker kaffe."),("äpple","noun","apple","Jag äter ett äpple."),("vatten","noun","water","Jag dricker vatten."),("pris","noun","price","Vad är priset?")]),
 _v("places_a1","Platser och riktningar",[("butik","noun","shop","Butiken ligger här."),("station","noun","station","Var ligger stationen?"),("vänster","noun","left","Sväng till vänster."),("höger","noun","right","Sväng till höger.")]),
 _v("communication_a1","Kommunikation",[("förstå","verb","understand","Jag förstår."),("fråga","verb","ask","Jag vill fråga något."),("hjälp","noun","help","Kan du hjälpa mig?"),("långsamt","adverb","slowly","Kan du tala långsamt?")])
 ]
