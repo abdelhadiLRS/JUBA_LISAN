@@ -28,11 +28,7 @@ _v("review_a1","Marudio A1",[["rafiki","noun","friend","Huyu ni rafiki yangu."],
 def _p(i,s,items):
     return PhrasebookCategory(id=i,level="A1",situation=s,icon="💬",phrases=[PhrasebookEntry(text=t,context=c,register=r) for t,c,r in items])
 
-PHRASEBOOK_CATEGORIES=[_p("greetings_a1","Greetings",[["Hello!","greeting","neutral"]]),
-_p("shopping_a1","Shopping",[["How much is this?","asking price","neutral"]]),
-_p("directions_a1","Directions",[["Where is the station?","asking location","neutral"]]),
-_p("help_a1","Help",[["Please help me.","asking for help","neutral"]])]
-
+PHRASEBOOK_CATEGORIES=[_p("greetings_a1","Salamu",[["Habari!","greeting someone","neutral"],["Jina langu ni Asha.","introducing yourself","neutral"],["Nafurahi kukutana nawe.","meeting someone","neutral"]]),_p("daily_a1","Maisha ya kila siku",[["Ninaenda kazini saa mbili.","talking about routine","neutral"],["Niko nyumbani leo.","saying where you are","neutral"],["Sielewi.","asking for clarification","neutral"]]),_p("shopping_a1","Manunuzi",[["Bei ya hii ni gani?","asking the price","neutral"],["Nataka hii, tafadhali.","requesting an item","neutral"],["Naweza kulipa kwa kadi?","asking about payment","neutral"]]),_p("directions_a1","Maelekezo",[["Kituo kiko wapi?","asking for a location","neutral"],["Nenda moja kwa moja.","giving directions","neutral"],["Geuka kulia.","giving a direction","neutral"]]),_p("help_a1","Msaada",[["Unaweza kunisaidia?","asking for help","neutral"],["Tafadhali sema polepole.","asking someone to slow down","neutral"],["Tafadhali rudia.","asking someone to repeat","neutral"]) ]
 CURRICULUM={"A1":[CurriculumUnit(id="sw-a1-unit-1",level="A1",unit_number=1,title="Salamu na utambulisho",grammar_points=["pronouns"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle Salamu na utambulisho","Use core A1 language"],default_weeks=2),
 CurriculumUnit(id="sw-a1-unit-2",level="A1",unit_number=2,title="Familia",grammar_points=["copula"],vocabulary_set_ids=["family_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle Familia","Use core A1 language"],default_weeks=2),
 CurriculumUnit(id="sw-a1-unit-3",level="A1",unit_number=3,title="Nyumba",grammar_points=["demonstratives"],vocabulary_set_ids=["home_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle Nyumba","Use core A1 language"],default_weeks=2),
@@ -44,6 +40,16 @@ CurriculumUnit(id="sw-a1-unit-8",level="A1",unit_number=8,title="Marudio",gramma
 for level in ["A2","B1","B2","C1","C2"]:
     CURRICULUM[level]=[CurriculumUnit(id=f"sw-{level.lower()}-foundation",level=level,unit_number=1,title=f"Swahili {level}",grammar_points=["review A1"],vocabulary_set_ids=["review_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=[f"Build {level} communication"],default_weeks=2)]
 
+ASSESSMENT_BANK=[AssessmentQuestion(id="sw-a1-001",skill="vocabulary",difficulty="A1",question="What does “asante” mean?",options=["hello","thank you","goodbye","help"],correct="thank you"),
+AssessmentQuestion(id="sw-a1-002",skill="grammar",difficulty="A1",question="Choose the correct sentence for “I am a student.”",options=["Mimi ni mwanafunzi.","Mimi mwanafunzi ni.","Mimi ni wanafunzi.","Mwanafunzi mimi."],correct="Mimi ni mwanafunzi."),
+AssessmentQuestion(id="sw-a1-003",skill="grammar",difficulty="A1",question="Which sentence uses the present-tense subject prefix correctly?",options=["Ninasoma Kiswahili.","Nasoma Kiswahili ni.","Nina soma Kiswahili.","Ninasomi Kiswahili."],correct="Ninasoma Kiswahili."),
+AssessmentQuestion(id="sw-a1-004",skill="grammar",difficulty="A1",question="Which sentence is a basic question?",options=["Uko wapi?","Niko nyumbani.","Ninakunywa maji.","Hii ni nyumba."],correct="Uko wapi?"),
+AssessmentQuestion(id="sw-a1-005",skill="vocabulary",difficulty="A1",question="Which word means “mother”?",options=["mama","baba","dada","kaka"],correct="mama"),
+AssessmentQuestion(id="sw-a1-006",skill="vocabulary",difficulty="A1",question="Which word means “price”?",options=["bei","maji","duka","mkate"],correct="bei"),
+AssessmentQuestion(id="sw-a1-007",skill="grammar",difficulty="A1",question="Choose the correct negative sentence.",options=["Hii si nyumba.","Hii ni si nyumba.","Si hii nyumba ni.","Hii sio nyumba ni."],correct="Hii si nyumba."),
+AssessmentQuestion(id="sw-a1-008",skill="communication",difficulty="A1",question="Which phrase asks for help?",options=["Unaweza kunisaidia?","Kwaheri!","Asante sana.","Jina langu ni Asha."],correct="Unaweza kunisaidia?"),
+AssessmentQuestion(id="sw-a1-009",skill="communication",difficulty="A1",question="Which phrase asks where the station is?",options=["Kituo kiko wapi?","Bei ya hii ni gani?","Sielewi.","Nataka hii."],correct="Kituo kiko wapi?"),
+AssessmentQuestion(id="sw-a1-010",skill="vocabulary",difficulty="A1",question="Which word means “friend”?",options=["rafiki","saa","leo","kesho"],correct="rafiki")]
 ASSESSMENT_BANK=[
     AssessmentQuestion(id="sw-a1-001",skill="vocabulary",difficulty="A1",question="Which word is the greeting?",options=["habari","station","water","book"],correct="habari"),
     AssessmentQuestion(id="sw-a1-002",skill="grammar",difficulty="A1",question="Choose the first model sentence.",options=["Mimi ni mwanafunzi.","Yeye ni mwalimu.","No sentence","Tomorrow"],correct="Mimi ni mwanafunzi."),
