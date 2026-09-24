@@ -187,6 +187,10 @@ export function getCanonicalLanguageCode(code: string): string | undefined {
   return getLanguageByCode(code)?.code
 }
 
+export function normalizeLanguageCode(code: string): string {
+  return getCanonicalLanguageCode(code) ?? code.trim()
+}
+
 export function getTargetLanguageCapability(
   code: string
 ): TargetLanguageCapability {
