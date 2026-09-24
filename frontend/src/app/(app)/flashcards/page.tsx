@@ -146,7 +146,7 @@ export default function FlashcardsPage() {
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
 
   return (
-    <div className="mx-auto max-w-4xl space-y-4 p-6">
+    <div className="juba-flashcards-shell mx-auto max-w-4xl space-y-4 p-6">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
