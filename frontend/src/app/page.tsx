@@ -151,26 +151,36 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="juba-ff-hero-art" aria-label="JUBA LISAN learning illustration">
+          <div className="juba-ff-hero-art" aria-label="JUBA LISAN brand illustration">
             <div className="juba-ff-sun" aria-hidden="true" />
             <div className="juba-ff-mountain mountain-back" aria-hidden="true" />
             <div className="juba-ff-mountain mountain-front" aria-hidden="true" />
             <div className="juba-ff-island island-one" aria-hidden="true" />
             <div className="juba-ff-island island-two" aria-hidden="true" />
-            <div className="juba-ff-character char-one">🧑🏽‍🎓</div>
-            <div className="juba-ff-character char-two">🧙🏽‍♀️</div>
-            <div className="juba-ff-character char-three">🧑🏻‍🚀</div>
-            <div className="juba-ff-character char-four">🧑🏽‍🏴‍☠️</div>
-            <div className="juba-ff-orbit orbit-one" aria-hidden="true" />
-            <div className="juba-ff-orbit orbit-two" aria-hidden="true" />
-            <div className="juba-ff-spark spark-one" aria-hidden="true">✦</div>
-            <div className="juba-ff-spark spark-two" aria-hidden="true">✦</div>
+
+            <div className="juba-mascot mascot-main" aria-hidden="true">
+              <div className="juba-mascot-shadow" />
+              <div className="juba-mascot-body">
+                <span className="juba-mascot-eye eye-left" />
+                <span className="juba-mascot-eye eye-right" />
+                <span className="juba-mascot-mouth" />
+                <span className="juba-mascot-badge">A1</span>
+              </div>
+              <span className="juba-mascot-orbit orbit-a" />
+              <span className="juba-mascot-orbit orbit-b" />
+            </div>
+
+            <div className="juba-ff-character char-one" aria-hidden="true"><span>EN</span></div>
+            <div className="juba-ff-character char-two" aria-hidden="true"><span>FR</span></div>
+            <div className="juba-ff-character char-three" aria-hidden="true"><span>ES</span></div>
+            <div className="juba-ff-character char-four" aria-hidden="true"><span>AI</span></div>
+
             <div className="juba-ff-float-label label-one">Hello!</div>
             <div className="juba-ff-float-label label-two">Bonjour</div>
             <div className="juba-ff-float-label label-three">Hola</div>
             <div className="juba-ff-book-float">
-              <div className="book-cover">🧭</div>
-              <div><strong>Choose your next step</strong><span>Assess · Plan · Practice</span></div>
+              <div className="book-cover">J</div>
+              <div><strong>Your language companion</strong><span>Assess · Learn · Practice</span></div>
             </div>
           </div>
         </div>
