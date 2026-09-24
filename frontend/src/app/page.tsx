@@ -145,7 +145,7 @@ export default async function Home() {
               <a href="#features" className="juba-ff-hero-link">{t('ctaExplore')}</a>
             </div>
             <div className="juba-ff-mini-proof">
-              <span><CheckCircle2 className="h-4 w-4" /> CEFR lessons</span>
+              <span><CheckCircle2 className="h-4 w-4" /> CEFR-aligned learning</span>
               <span><CheckCircle2 className="h-4 w-4" /> Voice practice</span>
               <span><CheckCircle2 className="h-4 w-4" /> AI tutor</span>
             </div>
@@ -169,8 +169,8 @@ export default async function Home() {
             <div className="juba-ff-float-label label-two">Bonjour</div>
             <div className="juba-ff-float-label label-three">Hola</div>
             <div className="juba-ff-book-float">
-              <div className="book-cover">📖</div>
-              <div><strong>Your next story</strong><span>Read · Listen · Learn</span></div>
+              <div className="book-cover">🧭</div>
+              <div><strong>Choose your next step</strong><span>Assess · Plan · Practice</span></div>
             </div>
           </div>
         </div>
