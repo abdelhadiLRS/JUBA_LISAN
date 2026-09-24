@@ -8,9 +8,11 @@ from pydantic import BaseModel, Field
 from datetime import datetime
 
 from app.core.database import get_db
+from app.core.deps import require_learner
 from app.models.user import User
 
-router = APIRouter(\n    prefix="/api",\n    tags=["community", "professional"],\n    dependencies=[Depends(require_learner)],\n)
+router = APIRouter(\n    prefix="/api",\n    tags=["community", "professional"],\n    dependencies=[Depends(require_learner)],
+)
 
 
 # ==================== Community Models ====================
