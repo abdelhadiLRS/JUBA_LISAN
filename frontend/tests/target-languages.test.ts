@@ -54,4 +54,17 @@ describe('target language catalog', () => {
     expect(getTargetLanguageCapability('CS-cz').script).toBe('latin')
     expect(getTargetLanguageCapability('EL-gr').script).toBe('greek')
   })
+
+  it('normalizes mixed-case available codes in the selector contract', () => {
+    const availableCodes = ['en-gb', 'CS-cz', 'EL-gr']
+    const availableCodeSet = new Set(
+      availableCodes.map((code) => code.trim().toUpperCase()).filter(Boolean)
+    )
+
+    expect(
+      TARGET_LANGUAGE_CATALOG.filter((language) =>
+        availableCodeSet.has(language.code.toUpperCase())
+      ).map((language) => language.code)
+    ).toEqual(['en-GB', 'el-GR', 'cs-CZ'])
+  })
 })
