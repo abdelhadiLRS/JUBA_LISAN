@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { Globe2, MapPinned } from 'lucide-react'
 import { WORLD_MAP_CENTROIDS, WORLD_MAP_PATHS } from './world-map-data'
 
@@ -73,12 +74,10 @@ function WorldMap({
   highlightedCountries,
   selectedCountry,
   onCountrySelect,
-  countryLanguages,
 }: {
   highlightedCountries: Set<string>
   selectedCountry: string | null
   onCountrySelect: (country: string) => void
-  countryLanguages: Map<string, string[]>
 }) {
   return (
     <div className="absolute inset-0">
@@ -109,11 +108,16 @@ function WorldMap({
                 strokeWidth={selected ? 1.8 : highlighted ? 1.25 : 1.05}
                 vectorEffect="non-scaling-stroke"
                 className="cursor-pointer transition-[fill,fill-opacity,stroke-width] duration-200"
-                tabIndex={-1}
+                tabIndex={0}
                 onClick={() => onCountrySelect(code)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault()
+                    onCountrySelect(code)
+                  }
+                }}
                 aria-label={code}
                 role="button"
-                onMouseEnter={() => undefined}
               />
             )
           })}
@@ -124,6 +128,7 @@ function WorldMap({
 }
 
 export function LanguageBubbles() {
+  const t = useTranslations('landing')
   const [activeRegion, setActiveRegion] = useState<RegionId | null>(null)
   const [activeLanguage, setActiveLanguage] = useState<string | null>(null)
   const [activeCountry, setActiveCountry] = useState<string | null>(null)
@@ -194,17 +199,16 @@ export function LanguageBubbles() {
             setActiveCountry((current) => (current === country ? null : country))
             setActiveLanguage(null)
           }}
-          countryLanguages={countryLanguages}
         />
 
         <div className="absolute inset-x-4 top-4 z-20 flex flex-wrap items-center justify-between gap-3 sm:inset-x-6 sm:top-6">
           <div className="inline-flex items-center gap-2 rounded-full border border-[var(--juba-app-ink)] bg-white/95 px-3 py-2 text-[10px] font-black uppercase tracking-[.16em] text-[var(--juba-app-ink)] shadow-sm">
             <MapPinned className="h-3.5 w-3.5" aria-hidden="true" />
-            Language atlas
+            {t('languageAtlasLabel')}
           </div>
 
           <span className="hidden rounded-full border border-[var(--juba-app-line)] bg-white/95 px-3 py-2 text-[10px] font-bold text-[var(--juba-app-muted)] shadow-sm sm:inline">
-            221 countries · {DISPLAY_LANGUAGES.length} learning languages
+            {t('atlasCoverage', { count: DISPLAY_LANGUAGES.length })}
           </span>
 
           <button
@@ -215,7 +219,7 @@ export function LanguageBubbles() {
             }}
             className="rounded-full border border-[var(--juba-app-line)] bg-white/95 px-3 py-2 text-[10px] font-black uppercase tracking-[.12em] text-[var(--juba-app-muted)] transition hover:border-[var(--juba-app-ink)] hover:text-[var(--juba-app-ink)]"
           >
-            All regions
+            {t('allRegions')}
           </button>
         </div>
 
@@ -223,7 +227,7 @@ export function LanguageBubbles() {
           <div className="absolute right-3 top-20 z-20 hidden max-w-[230px] rounded-2xl border border-[var(--juba-app-line)] bg-white/95 p-3 shadow-sm lg:block">
             <p className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">Map coverage</p>
             <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">
-              Select a language to reveal all mapped speaking territories.
+              {t('mapCoverageDescription')}
             </p>
           </div>
 
@@ -276,10 +280,10 @@ export function LanguageBubbles() {
             <div className="absolute right-3 top-20 z-20 max-w-[250px] rounded-2xl border border-[var(--juba-app-line)] bg-white p-4 shadow-sm lg:right-6">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <span className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">Country languages</span>
+                  <span className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">{t('countryLanguages')}</span>
                   <h3 className="mt-1 text-lg font-black text-[var(--juba-app-ink)]">{activeCountry}</h3>
                 </div>
-                <button type="button" onClick={() => setActiveCountry(null)} className="text-xs font-black text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)]" aria-label="Close country details">×</button>
+                <button type="button" onClick={() => setActiveCountry(null)} className="text-xs font-black text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)]" aria-label={t('closeCountryDetails')}>×</button>
               </div>
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {(countryLanguages.get(activeCountry) ?? []).map((name) => {
@@ -315,12 +319,12 @@ export function LanguageBubbles() {
                   type="button"
                   onClick={() => setActiveLanguage(null)}
                   className="text-xs font-black text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)]"
-                  aria-label="Close language details"
+                  aria-label={t('closeLanguageDetails')}
                 >
                   ×
                 </button>
               </div>
-              <p className="mt-2 text-xs leading-5 text-[var(--juba-app-muted)]">Explore this language in the JUBA LISAN learning experience.</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--juba-app-muted)]">{t('exploreLanguage')}</p>
             </div>
           )}
 
@@ -353,11 +357,11 @@ export function LanguageBubbles() {
         <div className="flex items-start gap-3">
           <Globe2 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--juba-app-green)]" aria-hidden="true" />
           <div>
-            <p className="text-sm font-black text-[var(--juba-app-ink)]">Languages by region</p>
-            <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">A real country-level atlas connects each learning language to its geographic home.</p>
+            <p className="text-sm font-black text-[var(--juba-app-ink)]">{t('languagesByRegion')}</p>
+            <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">{t('atlasDescription')}</p>
           </div>
         </div>
-        <span className="text-xs font-black text-[var(--juba-app-green)]">{DISPLAY_LANGUAGES.length} languages</span>
+        <span className="text-xs font-black text-[var(--juba-app-green)]">{t('languagesCount', { count: DISPLAY_LANGUAGES.length })}</span>
       </div>
     </div>
   )
