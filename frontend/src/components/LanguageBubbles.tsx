@@ -3,7 +3,50 @@
 import { useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { SUPPORTED_TARGET_LANGUAGES } from '@/lib/target-languages'
+
+type DisplayLanguage = {
+  code: string
+  name: string
+  flag?: string
+  flagPath?: string
+  symbol?: string
+}
+
+const DISPLAY_LANGUAGES: DisplayLanguage[] = [
+  { code: 'en-US', name: 'English (US)', flag: '🇺🇸' },
+  { code: 'en-GB', name: 'English (UK)', flag: '🇬🇧' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  { code: 'es', name: 'Español', flag: '🇪🇸' },
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+  { code: 'pt', name: 'Português', flag: '🇵🇹' },
+  { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
+  { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+  { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
+  { code: 'el', name: 'Ελληνικά', flag: '🇬🇷' },
+  { code: 'ro', name: 'Română', flag: '🇷🇴' },
+  { code: 'hu', name: 'Magyar', flag: '🇭🇺' },
+  { code: 'uk', name: 'Українська', flag: '🇺🇦' },
+  { code: 'fi', name: 'Suomi', flag: '🇫🇮' },
+  { code: 'sv', name: 'Svenska', flag: '🇸🇪' },
+  { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
+  { code: 'ja', name: '日本語', flag: '🇯🇵' },
+  { code: 'ko', name: '한국어', flag: '🇰🇷' },
+  { code: 'zh', name: '中文', flag: '🇨🇳' },
+  { code: 'ar', name: 'العربية', flagPath: '/flags/arab-league.svg' },
+  { code: 'he', name: 'עברית', flagPath: '/flags/hebrew-star.svg' },
+  { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
+  { code: 'mi', name: 'Māori', flag: '🇳🇿' },
+  { code: 'sm', name: 'Gagana Sāmoa', flag: '🇼🇸' },
+  { code: 'to', name: 'Lea faka-Tonga', flag: '🇹🇴' },
+  { code: 'sq', name: 'Shqip', flag: '🇦🇱' },
+  { code: 'eu', name: 'Euskara', flag: '🇪🇺' },
+  { code: 'gl', name: 'Galego', flag: '🇪🇸' },
+  { code: 'yo', name: 'Yorùbá', flag: '🇳🇬' },
+  { code: 'xh', name: 'isiXhosa', flag: '🇿🇦' },
+  { code: 'mg', name: 'Malagasy', flag: '🇲🇬' },
+  { code: 'ny', name: 'Chichewa', flag: '🇲🇼' },
+]
 
 function circlePosition(index: number, total: number, radius: number) {
   const angle = (index / total) * 2 * Math.PI - Math.PI / 2
@@ -13,12 +56,8 @@ function circlePosition(index: number, total: number, radius: number) {
 }
 
 export function LanguageBubbles() {
-  const t = useTranslations('landing')
   const positions = useMemo(
-    () =>
-      SUPPORTED_TARGET_LANGUAGES.map((_, i) =>
-        circlePosition(i, SUPPORTED_TARGET_LANGUAGES.length, 135)
-      ),
+    () => DISPLAY_LANGUAGES.map((_, i) => circlePosition(i, DISPLAY_LANGUAGES.length, 155)),
     []
   )
 
@@ -37,9 +76,9 @@ export function LanguageBubbles() {
         />
       </div>
 
-      {SUPPORTED_TARGET_LANGUAGES.map((lang, i) => {
+      {DISPLAY_LANGUAGES.map((lang, i) => {
         const { x, y } = positions[i]
-        const greeting = t(`languageGreetings.${lang.code}`) ?? lang.name
+        const greeting = lang.name
         const delay = i * 0.35
         return (
           <div
@@ -59,13 +98,17 @@ export function LanguageBubbles() {
               }}
             >
               <div className="flex items-center gap-1.5 rounded-full border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-2.5 py-1 shadow-[2px_2px_0_rgba(24,37,27,.08)] transition-all hover:-translate-y-0.5 hover:shadow-[3px_3px_0_rgba(24,37,27,.12)]">
-                <Image
-                  src={lang.flagPath}
-                  alt=""
-                  width={14}
-                  height={10}
-                  className="rounded-[2px] object-cover ring-1 ring-black/10"
-                />
+                {lang.flagPath ? (
+                  <Image
+                    src={lang.flagPath}
+                    alt=""
+                    width={16}
+                    height={11}
+                    className="h-[11px] w-[16px] rounded-[2px] object-cover ring-1 ring-black/10"
+                  />
+                ) : (
+                  <span className="text-[14px] leading-none" aria-hidden="true">{lang.flag}</span>
+                )}
                 <span className="whitespace-nowrap text-[11px] font-bold text-[var(--juba-app-ink)]">
                   {greeting}
                 </span>
