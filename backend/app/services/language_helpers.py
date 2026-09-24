@@ -68,11 +68,10 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
         "self_name": "Svenska",
         "iso639": "sv",
     },
-    "sv-SE": {
-        "script": "latin",
-        "romanization": "",
-        "uses_word_spacing": True,
-        "reading_length_unit": "words",
+    "no-NO": {
+        "name": "Norwegian",
+        "self_name": "Norsk",
+        "iso639": "no",
     },
     "el-GR": {
         "name": "Greek",
@@ -172,6 +171,12 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
         "uses_word_spacing": True,
         "reading_length_unit": "words",
     },
+    "no-NO": {
+        "script": "latin",
+        "romanization": "",
+        "uses_word_spacing": True,
+        "reading_length_unit": "words",
+    },
 }
 
 _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
@@ -188,6 +193,7 @@ _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "da": "da-DK",
     "el": "el-GR",
     "sv": "sv-SE",
+    "no": "no-NO",
 }
 
 _VOICE_SESSION_TITLES: dict[str, str] = {
@@ -200,6 +206,7 @@ _VOICE_SESSION_TITLES: dict[str, str] = {
     "nl": "Spraaksessie",
     "ro": "Sesiune vocală",
     "ru": "Голосовая сессия",
+    "no": "Taleøkt",
 }
 
 _NATIVE_LANGUAGE_NAMES: dict[str, str] = {
@@ -213,6 +220,7 @@ _NATIVE_LANGUAGE_NAMES: dict[str, str] = {
     "nl": "Dutch",
     "ro": "Romanian",
     "ru": "Russian",
+    "no": "Norwegian",
 }
 
 _MONTH_NAMES: dict[str, list[str]] = {
