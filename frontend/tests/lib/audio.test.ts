@@ -738,6 +738,49 @@ describe('createAudioQueue', () => {
     expect(listeners.get('ended')).toBeDefined()
   })
 
+  it('cleans up fallback resources when HTMLAudio play rejects', async () => {
+    const { ctx } = createContext()
+    ctx.decodeAudioData = vi.fn(async () => {
+      throw new Error('decode failed')
+    }) as typeof ctx.decodeAudioData
+
+    const audio = {
+      src: 'blob:play-rejected',
+      play: vi.fn(async () => {
+        throw new Error('autoplay blocked')
+      }),
+      pause: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }
+    const revokeObjectURL = vi.fn()
+
+    vi.stubGlobal('Audio', vi.fn(() => audio))
+    vi.stubGlobal('URL', {
+      createObjectURL: vi.fn(() => 'blob:play-rejected'),
+      revokeObjectURL,
+    })
+
+    const idle = vi.fn()
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx, idle)
+
+    await expect(queue.enqueue(new ArrayBuffer(4))).resolves.toBeUndefined()
+
+    expect(audio.play).toHaveBeenCalledTimes(1)
+    expect(audio.pause).not.toHaveBeenCalled()
+    expect(audio.removeEventListener).toHaveBeenCalledWith(
+      'ended',
+      expect.any(Function)
+    )
+    expect(audio.removeEventListener).toHaveBeenCalledWith(
+      'error',
+      expect.any(Function)
+    )
+    expect(revokeObjectURL).toHaveBeenCalledWith('blob:play-rejected')
+    expect(idle).toHaveBeenCalledTimes(1)
+  })
+
   it('cleans up an active fallback when cancel races with play resolution', async () => {
     const { ctx } = createContext()
     ctx.decodeAudioData = vi.fn(async () => {
