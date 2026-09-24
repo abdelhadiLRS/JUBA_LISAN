@@ -32,7 +32,7 @@ export default function TargetLanguageSelector({
             type="button"
             onClick={() => onChange(lang.code)}
             aria-pressed={selected}
-            className={`group relative flex min-h-14 items-center gap-2.5 rounded-[14px] border-2 px-3 py-2.5 text-left text-xs font-black transition-all ${
+            className={`group relative flex min-h-14 items-center gap-2.5 rounded-[14px] border-2 px-3 py-2.5 text-left text-xs font-black transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 ${
               selected
                 ? 'border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] text-[var(--juba-app-ink)] shadow-[3px_3px_0_var(--juba-app-ink)] -translate-y-0.5'
                 : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:-translate-y-0.5 hover:border-[var(--juba-app-ink)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'
@@ -43,7 +43,7 @@ export default function TargetLanguageSelector({
               alt=""
               width={22}
               height={16}
-              className="shrink-0 rounded-sm object-cover"
+              className="shrink-0 rounded-sm object-cover ring-1 ring-black/10"
             />
             <span className="min-w-0 truncate">{t(lang.code)}</span>
             {selected && (
