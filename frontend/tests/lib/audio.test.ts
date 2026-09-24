@@ -352,6 +352,57 @@ describe('createAudioQueue', () => {
     await expect(playback).resolves.toBeUndefined()
   })
 
+  it('releases fallback resources when HTMLAudio playback errors', async () => {
+    const { ctx } = createContext()
+    ctx.decodeAudioData = vi.fn(async () => ({
+      duration: 0.5,
+      sampleRate: 16000,
+      numberOfChannels: 1,
+    })) as typeof ctx.decodeAudioData
+
+    const listeners = new Map<string, () => void>()
+    const audio = {
+      src: 'blob:fallback-error',
+      play: vi.fn(async () => {}),
+      pause: vi.fn(),
+      addEventListener: vi.fn((event: string, handler: () => void) => {
+        listeners.set(event, handler)
+      }),
+      removeEventListener: vi.fn((event: string) => {
+        listeners.delete(event)
+      }),
+    }
+
+    const createObjectURL = vi.fn(() => 'blob:fallback-error')
+    const revokeObjectURL = vi.fn()
+    vi.stubGlobal('Audio', vi.fn(() => audio))
+    vi.stubGlobal('URL', { createObjectURL, revokeObjectURL })
+
+    ctx.createBufferSource = vi.fn(() => {
+      throw new Error('source creation failed')
+    }) as typeof ctx.createBufferSource
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx)
+
+    const playback = queue.enqueue(new ArrayBuffer(4))
+    await Promise.resolve()
+    await Promise.resolve()
+
+    listeners.get('error')?.()
+    await expect(playback).resolves.toBeUndefined()
+
+    expect(audio.removeEventListener).toHaveBeenCalledWith(
+      'ended',
+      expect.any(Function)
+    )
+    expect(audio.removeEventListener).toHaveBeenCalledWith(
+      'error',
+      expect.any(Function)
+    )
+    expect(revokeObjectURL).toHaveBeenCalledWith('blob:fallback-error')
+  })
+
   it('falls back when a Web Audio source cannot be created', async () => {
     const { ctx } = createContext()
     vi.spyOn(ctx, 'createBufferSource').mockImplementation(() => {
