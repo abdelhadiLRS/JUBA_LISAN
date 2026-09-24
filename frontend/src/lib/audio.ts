@@ -289,7 +289,10 @@ export function createAudioQueue(
         chunkId,
         error: error instanceof Error ? error.message : String(error),
       })
-      throw error
+      // A single fallback construction failure must not abort the serialized
+      // drain. The current chunk cannot be played, but later queued chunks
+      // should still get a chance to use Web Audio or another fallback.
+      return
     }
 
     fallbackAudios.push(audio)
