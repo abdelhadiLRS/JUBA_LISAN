@@ -16,10 +16,11 @@ export default function TargetLanguageSelector({
   availableCodes,
 }: Props) {
   const t = useTranslations('targetLanguages')
+  const label = (code: string, fallback: string) => (t.has(code) ? t(code) : fallback)
 
   const filtered = TARGET_LANGUAGE_CATALOG.filter((lang) =>
     availableCodes.includes(lang.code)
-  ).sort((a, b) => t(a.code).localeCompare(t(b.code)))
+  ).sort((a, b) => label(a.code, a.nameEn).localeCompare(label(b.code, b.nameEn)))
 
   return (
     <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
@@ -37,7 +38,7 @@ export default function TargetLanguageSelector({
                 : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:-translate-y-0.5 hover:border-[var(--juba-app-ink)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'
             }`}
           >
-            <span className="min-w-0 truncate">{t(lang.code)}</span>
+            <span className="min-w-0 truncate">{label(lang.code, lang.name)}</span>
             {selected && (
               <span className="ml-auto flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--juba-app-ink)] text-white">
                 <Check className="h-3 w-3" aria-hidden="true" />
