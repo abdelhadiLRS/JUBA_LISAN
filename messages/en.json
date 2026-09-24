@@ -80,7 +80,8 @@
       "pt-PT": "Olá!",
       "ja-JP": "こんにちは！",
       "ko-KR": "안녕하세요!",
-      "zh-CN": "你好！"
+      "zh-CN": "你好！",
+      "ar": "مرحبًا!"
     }
   },
   "common": {
@@ -1350,7 +1351,9 @@
     "de-DE-description": "German as spoken in Germany.",
     "ja-JP-description": "Japanese as spoken in Japan.",
     "ko-KR-description": "Korean as spoken in South Korea.",
-    "zh-CN-description": "Mandarin Chinese as spoken in Mainland China, using simplified characters."
+    "zh-CN-description": "Mandarin Chinese as spoken in Mainland China, using simplified characters.",
+    "ar": "Arabic",
+    "ar-description": "Modern Standard Arabic for global communication, study, and travel."
   },
   "onboarding": {
     "title": "Choose your language",
