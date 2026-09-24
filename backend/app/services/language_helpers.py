@@ -55,6 +55,12 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
         "iso639": "ru",
         "flag": "🇷🇺",
     },
+    "nl-NL": {
+        "name": "Dutch",
+        "self_name": "Nederlands",
+        "iso639": "nl",
+        "flag": "🇳🇱",
+    },
 }
 
 _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
@@ -124,6 +130,12 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
         "uses_word_spacing": True,
         "reading_length_unit": "words",
     },
+    "nl-NL": {
+        "script": "latin",
+        "romanization": "",
+        "uses_word_spacing": True,
+        "reading_length_unit": "words",
+    },
 }
 
 _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
@@ -135,6 +147,7 @@ _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "ja": "ja-JP",
     "ko": "ko-KR",
     "zh": "zh-CN",
+    "nl": "nl-NL",
 }
 
 _VOICE_SESSION_TITLES: dict[str, str] = {
