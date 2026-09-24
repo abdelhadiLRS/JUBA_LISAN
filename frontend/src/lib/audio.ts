@@ -73,6 +73,7 @@ export function createAudioQueue(
   let generation = 0
   const sources: AudioBufferSourceNode[] = []
   const fallbackAudios: HTMLAudioElement[] = []
+  const fallbackCleanups: Array<() => void> = []
   const pendingChunks: ArrayBuffer[] = []
   let draining = false
   // Serialize decoding+scheduling so that chunks are always played in the
@@ -220,15 +221,30 @@ export function createAudioQueue(
     })
 
     await new Promise<void>((resolve) => {
+      let settled = false
       const done = () => {
+        if (settled) return
+        settled = true
         audio.removeEventListener('ended', done)
         audio.removeEventListener('error', done)
         URL.revokeObjectURL(url)
         const idx = fallbackAudios.indexOf(audio)
         if (idx !== -1) fallbackAudios.splice(idx, 1)
+        const cleanupIdx = fallbackCleanups.indexOf(cancelFallback)
+        if (cleanupIdx !== -1) fallbackCleanups.splice(cleanupIdx, 1)
         notifyIdle()
         resolve()
       }
+      const cancelFallback = () => {
+        try {
+          audio.pause()
+          audio.src = ''
+        } catch {
+          // ignore
+        }
+        done()
+      }
+      fallbackCleanups.push(cancelFallback)
 
       audio.addEventListener('ended', done)
       audio.addEventListener('error', done)
@@ -313,14 +329,10 @@ export function createAudioQueue(
         // already stopped — ignore
       }
     }
-    for (const audio of fallbackAudios) {
-      try {
-        audio.pause()
-        audio.src = ''
-      } catch {
-        // ignore
-      }
+    for (const cancelFallback of [...fallbackCleanups]) {
+      cancelFallback()
     }
+    fallbackCleanups.length = 0
     while (fallbackAudios.length) {
       fallbackAudios.pop()
     }
