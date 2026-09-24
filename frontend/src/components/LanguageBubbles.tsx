@@ -110,36 +110,33 @@ export function LanguageBubbles() {
         </div>
 
         <div className="absolute inset-0 z-10">
-          <div className="absolute inset-0">
-            {DISPLAY_LANGUAGES.filter((language) => !activeRegion || language.region === activeRegion).map((language) => {
-              const isActive = activeLanguage === language.code
-              return (
-                <button
-                  key={language.code}
-                  type="button"
-                  onClick={() => setActiveLanguage(isActive ? null : language.code)}
-                  className="group absolute -translate-x-1/2 -translate-y-1/2"
-                  style={{ left: language.x + '%', top: language.y + '%' }}
-                  aria-label={language.name}
-                  aria-pressed={isActive}
-                >
-                  <span className={[
-                    'flex h-4 w-4 items-center justify-center rounded-full border-2 border-white shadow-[0_1px_5px_rgba(24,37,27,.2)] transition-all',
-                    isActive ? 'h-5 w-5 bg-[var(--juba-app-yellow)] ring-2 ring-[var(--juba-app-ink)]' : 'bg-[var(--juba-app-green)] group-hover:scale-125',
-                  ].join(' ')}>
-                    <span className="h-1.5 w-1.5 rounded-full bg-white" aria-hidden="true" />
-                  </span>
-                  <span className={[
-                    'pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-full border px-2 py-1 text-[9px] font-black shadow-sm transition-opacity',
-                    isActive ? 'border-[var(--juba-app-ink)] bg-white text-[var(--juba-app-ink)] opacity-100' : 'border-[var(--juba-app-line)] bg-white/95 text-[var(--juba-app-muted)] opacity-0 group-hover:opacity-100',
-                  ].join(' ')}>
-                    {language.name}
-                  </span>
-                </button>
-              )
-            })}
-          </div>
-
+          {DISPLAY_LANGUAGES.filter((language) => !activeRegion || language.region === activeRegion).map((language) => {
+            const isActive = activeLanguage === language.code
+            return (
+              <button
+                key={language.code}
+                type="button"
+                onClick={() => setActiveLanguage(isActive ? null : language.code)}
+                className="group absolute -translate-x-1/2 -translate-y-1/2"
+                style={{ left: language.x + '%', top: language.y + '%' }}
+                aria-label={language.name}
+                aria-pressed={isActive}
+              >
+                <span className={[
+                  'flex h-4 w-4 items-center justify-center rounded-full border-2 border-white shadow-[0_1px_5px_rgba(24,37,27,.2)] transition-all',
+                  isActive ? 'h-5 w-5 bg-[var(--juba-app-yellow)] ring-2 ring-[var(--juba-app-ink)]' : 'bg-[var(--juba-app-green)] group-hover:scale-125',
+                ].join(' ')}>
+                  <span className="h-1.5 w-1.5 rounded-full bg-white" aria-hidden="true" />
+                </span>
+                <span className={[
+                  'pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-full border px-2 py-1 text-[9px] font-black shadow-sm transition-opacity',
+                  isActive ? 'border-[var(--juba-app-ink)] bg-white text-[var(--juba-app-ink)] opacity-100' : 'border-[var(--juba-app-line)] bg-white/95 text-[var(--juba-app-muted)] opacity-0 group-hover:opacity-100',
+                ].join(' ')}>
+                  {language.name}
+                </span>
+              </button>
+            )
+          })}
 
         {activeLanguage && (() => {
           const selected = DISPLAY_LANGUAGES.find((language) => language.code === activeLanguage)
