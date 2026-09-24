@@ -6,7 +6,7 @@ from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.deps import get_current_user, get_redis
+from app.core.deps import get_current_user, get_redis, require_learner
 from app.core.limiter import limiter
 from app.data._types import VocabularySet
 from app.data.vocabulary import (
@@ -33,7 +33,7 @@ from app.services.resource_native_help import (
     upsert_native_help,
 )
 
-router = APIRouter(prefix="/api/vocabulary", tags=["vocabulary"])
+router = APIRouter(prefix="/api/vocabulary", tags=["vocabulary"], dependencies=[Depends(require_learner)])
 
 
 def _set_to_response(s: VocabularySet) -> VocabularySetResponse:
