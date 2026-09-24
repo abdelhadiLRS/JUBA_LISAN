@@ -691,3 +691,39 @@ async def test_register_sets_freemium_trial(client):
     body = me.json()
     assert body["freemium_trial_used"] is True
     assert body["freemium_trial_ends_at"] is not None
+
+
+@pytest.mark.asyncio
+async def test_register_arabic_target_language(client):
+    response = await client.post(
+        "/api/auth/register",
+        json={
+            "username": "arabic_target",
+            "email": "arabic-target@test.com",
+            "password": "Test1234!@",
+            "display_name": "Arabic Target",
+            "native_language": "en",
+            "target_language": "ar",
+        },
+    )
+    assert response.status_code == 200
+    token = response.json()["access_token"]
+    me = await client.get("/api/auth/me", headers={"Authorization": f"Bearer {token}"})
+    assert me.status_code == 200
+    assert me.json()["target_language"] == "ar"
+
+
+@pytest.mark.asyncio
+async def test_register_arabic_native_language(client):
+    response = await client.post(
+        "/api/auth/register",
+        json={
+            "username": "arabic_native",
+            "email": "arabic-native@test.com",
+            "password": "Test1234!@",
+            "display_name": "Arabic Native",
+            "native_language": "ar",
+            "target_language": "en-GB",
+        },
+    )
+    assert response.status_code == 200
