@@ -56,8 +56,11 @@ export function VoiceRecorder({
     chunksRef.current = []
 
     if (chunks.length === 0) {
+      if (!mountedRef.current) return
       setState('error')
-      setTimeout(() => setState('idle'), 2000)
+      setTimeout(() => {
+        if (mountedRef.current) setState('idle')
+      }, 2000)
       return
     }
 
