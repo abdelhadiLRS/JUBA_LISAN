@@ -68,11 +68,71 @@ export function LandingNav({
     try {
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
       const timezoneCountries: Record<string, string> = {
-        'Africa/Algiers': 'DZ', 'Europe/Paris': 'FR', 'Europe/London': 'GB', 'Europe/Madrid': 'ES',
-        'Europe/Berlin': 'DE', 'Europe/Rome': 'IT', 'Europe/Lisbon': 'PT', 'Europe/Warsaw': 'PL',
-        'Europe/Amsterdam': 'NL', 'Europe/Bucharest': 'RO', 'Europe/Moscow': 'RU', 'America/New_York': 'US',
+        'Africa/Algiers': 'DZ',
+        'Africa/Casablanca': 'MA',
+        'Africa/Cairo': 'EG',
+        'Africa/Tunis': 'TN',
+        'Africa/Tripoli': 'LY',
+        'Africa/Lagos': 'NG',
+        'Africa/Johannesburg': 'ZA',
+        'Africa/Nairobi': 'KE',
+        'Europe/Paris': 'FR',
+        'Europe/London': 'GB',
+        'Europe/Dublin': 'IE',
+        'Europe/Madrid': 'ES',
+        'Europe/Lisbon': 'PT',
+        'Europe/Berlin': 'DE',
+        'Europe/Rome': 'IT',
+        'Europe/Amsterdam': 'NL',
+        'Europe/Brussels': 'BE',
+        'Europe/Zurich': 'CH',
+        'Europe/Warsaw': 'PL',
+        'Europe/Prague': 'CZ',
+        'Europe/Vienna': 'AT',
+        'Europe/Bucharest': 'RO',
+        'Europe/Sofia': 'BG',
+        'Europe/Athens': 'GR',
+        'Europe/Moscow': 'RU',
+        'Europe/Kyiv': 'UA',
+        'Asia/Dubai': 'AE',
+        'Asia/Riyadh': 'SA',
+        'Asia/Qatar': 'QA',
+        'Asia/Kuwait': 'KW',
+        'Asia/Amman': 'JO',
+        'Asia/Beirut': 'LB',
+        'Asia/Jerusalem': 'IL',
+        'Asia/Kolkata': 'IN',
+        'Asia/Dhaka': 'BD',
+        'Asia/Bangkok': 'TH',
+        'Asia/Singapore': 'SG',
+        'Asia/Tokyo': 'JP',
+        'Asia/Seoul': 'KR',
+        'Asia/Shanghai': 'CN',
+        'Asia/Taipei': 'TW',
+        'Australia/Sydney': 'AU',
+        'Pacific/Auckland': 'NZ',
+        'America/New_York': 'US',
+        'America/Chicago': 'US',
+        'America/Denver': 'US',
+        'America/Los_Angeles': 'US',
+        'America/Toronto': 'CA',
+        'America/Vancouver': 'CA',
+        'America/Mexico_City': 'MX',
+        'America/Sao_Paulo': 'BR',
+        'America/Argentina/Buenos_Aires': 'AR',
       }
-      setVisitorCountry(timezoneCountries[timezone] ?? 'DZ')
+
+      let detected = timezoneCountries[timezone]
+
+      // Time zone is the primary signal. If it is ambiguous/unknown,
+      // use the browser locale's region as a secondary hint.
+      if (!detected) {
+        const language = navigator.language || ''
+        const region = language.match(/[-_](\\w{2}|\\d{3})$/)?.[1]?.toUpperCase()
+        if (region && countryLabels[region]) detected = region
+      }
+
+      setVisitorCountry(detected ?? 'DZ')
     } catch {
       setVisitorCountry('DZ')
     }
@@ -138,8 +198,8 @@ export function LandingNav({
 
         <div className="hidden items-center gap-3 md:flex">
           <div className="relative">
-            <button type="button" onClick={() => setRegionOpen((value) => !value)} aria-expanded={regionOpen} aria-haspopup="menu" className="juba-nav-region flex items-center gap-1.5 rounded-full border border-[var(--juba-app-line)] bg-white/80 px-3 py-2 text-xs font-bold text-[var(--juba-app-ink)] backdrop-blur transition hover:-translate-y-0.5 hover:shadow-sm">
-              <span aria-hidden="true">{currentCountry.flag}</span><span>{visitorCountry}</span><span className="mx-0.5 text-[var(--juba-app-line)]">·</span><span aria-hidden="true">{currentLanguage.flag}</span><span>{locale}</span><ChevronDown className="h-3 w-3" aria-hidden="true" />
+            <button type="button" onClick={() => setRegionOpen((value) => !value)} aria-expanded={regionOpen} aria-haspopup="menu" className="juba-nav-region flex items-center gap-2 rounded-full border border-[var(--juba-app-line)] bg-white/80 px-3 py-2 text-xs font-bold text-[var(--juba-app-ink)] backdrop-blur transition hover:-translate-y-0.5 hover:shadow-sm">
+              <span aria-hidden="true" className="text-base leading-none">{currentCountry.flag}</span><span>{visitorCountry}</span><span className="mx-0.5 text-[var(--juba-app-line)]">·</span><span aria-hidden="true">{currentLanguage.flag}</span><span>{locale}</span><ChevronDown className="h-3 w-3" aria-hidden="true" />
             </button>
             {regionOpen && <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-50 w-72 rounded-2xl border border-[var(--juba-app-line)] bg-white p-3 shadow-xl">
               <div className="mb-2 flex items-center gap-2 px-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><Globe2 className="h-3.5 w-3.5" /> Region & language</div>
