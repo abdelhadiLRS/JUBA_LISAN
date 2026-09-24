@@ -35,15 +35,15 @@ export function LearningExperience({ t }: LearningExperienceProps) {
           <p>{t('experienceSubtitle')}</p>
         </div>
 
-        <div className="juba-ff-steps">
+        <div className="juba-ff-steps grid grid-cols-1 gap-5 md:grid-cols-5">
           {steps.map(([Icon, title, desc, art, href], i) => (
-            <Link href={href} key={title} className={`juba-ff-step step-${i}`}>
+            <Link href={href} key={title} className="juba-ff-step flex h-full flex-col">
               <div className="juba-ff-step-number">{String(i + 1).padStart(2, '0')}</div>
               <div className="juba-ff-step-art">{art}</div>
-              <Icon className="juba-ff-step-icon" />
+              <Icon className="juba-ff-step-icon" aria-hidden="true" />
               <h3>{t(title)}</h3>
               <p>{t(desc)}</p>
-              <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider">Open <ArrowRight className="h-3.5 w-3.5" /></span>
+              <span className="mt-auto pt-3 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider">Open <ArrowRight className="h-3.5 w-3.5" /></span>
             </Link>
           ))}
         </div>
