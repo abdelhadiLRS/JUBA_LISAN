@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { ArrowRightLeft, BookOpenCheck, Languages, Loader2, Sparkles, X } from 'lucide-react'
 import Link from 'next/link'
 import { saveTranslatedWordLocally } from '@/lib/api'
@@ -14,6 +14,15 @@ export function VisitorTranslator() {
   const [open, setOpen] = useState(false), [text, setText] = useState(''), [source, setSource] = useState('auto'), [target, setTarget] = useState('ar')
   const [translation, setTranslation] = useState(''), [detectedSource, setDetectedSource] = useState(''), [loading, setLoading] = useState(false), [error, setError] = useState(''), [saved, setSaved] = useState(false)
 
+  useEffect(() => {
+    if (!open) return
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [open])
+
   async function translate(event?: FormEvent) {
     event?.preventDefault(); if (!text.trim()) return; setLoading(true); setError(''); setSaved(false)
     try { const response = await fetch('/api/translate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, source, target }) }); const data = await response.json(); if (!response.ok) throw new Error(data?.error || 'Translation failed'); setTranslation(data.translation || ''); setDetectedSource(data.source || source) }
@@ -23,14 +32,60 @@ export function VisitorTranslator() {
   function swapLanguages() { if (source === 'auto') return; setSource(target); setTarget(source); setTranslation(''); setDetectedSource(''); setSaved(false) }
 
   return <>
-    <button type="button" onClick={() => setOpen(true)} aria-label="Open instant translator" className="fixed bottom-5 end-5 z-40 inline-flex items-center gap-2 rounded-full border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] px-5 py-3 text-sm font-black text-[var(--juba-app-ink)] shadow-[4px_4px_0_var(--juba-app-ink)] transition hover:-translate-y-1 hover:shadow-[5px_5px_0_var(--juba-app-ink)]"><Languages className="h-4 w-4" />Translate</button>
-    {open && <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-[rgba(24,37,27,.55)] p-3 backdrop-blur-md sm:p-6"><div role="dialog" aria-modal="true" aria-labelledby="visitor-translator-title" className="w-full max-w-5xl overflow-hidden rounded-[32px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] shadow-[5px_5px_0_var(--juba-app-ink)]">
-      <div className="flex items-start justify-between border-b-2 border-[var(--juba-app-ink)] p-5 sm:p-8"><div><div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] px-3 py-1 text-[10px] font-black uppercase tracking-[.16em]"><Sparkles className="h-3 w-3" />JUBA LISAN</div><h2 id="visitor-translator-title" className="text-3xl font-black tracking-tight text-[var(--juba-app-ink)] sm:text-4xl">Instant translator</h2><p className="mt-2 max-w-xl text-sm font-medium text-[var(--juba-app-muted)]">Translate freely. Save useful words locally. Sign in only when you want cloud sync.</p></div><button type="button" onClick={() => setOpen(false)} aria-label="Close translator" className="rounded-full border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-green-soft)] p-2 text-[var(--juba-app-ink)]"><X className="h-5 w-5" /></button></div>
-      <form onSubmit={translate} className="p-4 sm:p-7"><div className="grid gap-3 lg:grid-cols-[1fr_auto_1fr] lg:items-stretch">
-        <section className="flex min-h-[300px] flex-col rounded-[26px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-green-soft)] p-4 sm:p-5"><div className="mb-4 flex items-center gap-2"><span className="rounded-full bg-[var(--juba-app-ink)] px-3 py-1.5 text-[11px] font-black uppercase text-white">From</span><select value={source} onChange={e => { setSource(e.target.value); setTranslation(''); setDetectedSource(''); setSaved(false) }} className="rounded-full border border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] px-3 py-1.5 text-sm font-bold text-[var(--juba-app-ink)] outline-none"><option value="auto">Auto detect</option>{UNIQUE_LANGUAGES.map(l => <option key={l.code} value={l.code}>{l.label}</option>)}</select></div><textarea value={text} onChange={e => { setText(e.target.value); setSaved(false) }} maxLength={2000} rows={7} autoFocus placeholder="Type or paste your text here…" className="min-h-[190px] flex-1 resize-none bg-transparent text-xl font-semibold leading-relaxed text-[var(--juba-app-ink)] outline-none placeholder:text-[var(--juba-app-muted)]" /><div className="mt-3 flex justify-between text-xs font-semibold text-[var(--juba-app-muted)]"><span>{text.length}/2000</span><span>{detectedSource && source === 'auto' ? `Detected: ${languageLabel(detectedSource)}` : source === 'auto' ? 'Automatic detection' : languageLabel(source)}</span></div></section>
-        <div className="flex items-center justify-center"><button type="button" onClick={swapLanguages} disabled={source === 'auto'} aria-label="Swap languages" className="rounded-full border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] p-3 shadow-[3px_3px_0_var(--juba-app-ink)] transition hover:rotate-180 disabled:opacity-35"><ArrowRightLeft className="h-5 w-5" /></button></div>
-        <section className="flex min-h-[300px] flex-col rounded-[26px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] p-4 sm:p-5"><div className="mb-4 flex items-center gap-2"><span className="rounded-full bg-[var(--juba-app-ink)] px-3 py-1.5 text-[11px] font-black uppercase text-white">To</span><select value={target} onChange={e => { setTarget(e.target.value); setTranslation(''); setSaved(false) }} className="rounded-full border border-black/20 bg-white/70 px-3 py-1.5 text-sm font-bold text-[var(--juba-app-ink)] outline-none">{UNIQUE_LANGUAGES.map(l => <option key={l.code} value={l.code}>{l.label}</option>)}</select></div><div className="flex flex-1 items-start">{error ? <p className="text-sm font-bold text-red-700">{error}</p> : translation ? <div className="w-full"><p className="text-xl font-black leading-relaxed text-[var(--juba-app-ink)] sm:text-2xl">{translation}</p><div className="mt-5 flex flex-wrap gap-2"><button type="button" onClick={saveToLearning} className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--juba-app-ink)] bg-white px-4 py-2.5 text-sm font-black text-[var(--juba-app-ink)] shadow-[3px_3px_0_var(--juba-app-ink)] transition hover:-translate-y-0.5"><BookOpenCheck className="h-4 w-4" />{saved ? 'Saved locally ✓' : 'Learn this'}</button><Link href="/saved-words" onClick={() => setOpen(false)} className="inline-flex items-center rounded-full border-2 border-[var(--juba-app-ink)]/30 px-4 py-2.5 text-sm font-black text-[var(--juba-app-ink)]">My saved words</Link></div>{saved && <p className="mt-3 text-xs font-bold text-[var(--juba-app-ink)]">Saved on this browser. Sign in later to sync it with your learning deck.</p>}</div> : <p className="text-lg font-semibold text-[var(--juba-app-muted)]">Your translation will appear here.</p>}</div><div className="mt-3 text-xs font-black uppercase tracking-wider text-[var(--juba-app-ink)]/55">{languageLabel(target)}</div></section>
-      </div><div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between"><p className="text-xs font-semibold leading-relaxed text-[var(--juba-app-muted)]">Translate → save → learn → review.</p><button type="submit" disabled={!text.trim() || loading} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-ink)] px-7 py-3 text-sm font-black text-white shadow-[4px_4px_0_var(--juba-app-yellow)] transition hover:-translate-y-0.5 disabled:opacity-45">{loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Languages className="h-4 w-4" />}{loading ? 'Translating…' : 'Translate'}</button></div></form>
-    </div></div>}
+    <button type="button" onClick={() => setOpen(true)} aria-label="Open instant translator" className="fixed bottom-5 end-5 z-40 inline-flex items-center gap-2 rounded-full border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] px-5 py-3 text-sm font-black text-[var(--juba-app-ink)] shadow-[4px_4px_0_var(--juba-app-ink)] transition hover:-translate-y-1 hover:shadow-[5px_5px_0_var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2"><Languages className="h-4 w-4" aria-hidden="true" />Translate</button>
+    {open && <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-[rgba(24,37,27,.55)] p-3 backdrop-blur-md sm:p-6" onMouseDown={(event) => { if (event.target === event.currentTarget) setOpen(false) }}>
+      <div role="dialog" aria-modal="true" aria-labelledby="visitor-translator-title" aria-describedby="visitor-translator-description" className="w-full max-w-5xl overflow-hidden rounded-[32px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] shadow-[5px_5px_0_var(--juba-app-ink)]">
+        <div className="flex items-start justify-between border-b-2 border-[var(--juba-app-ink)] p-5 sm:p-8">
+          <div>
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] px-3 py-1 text-[10px] font-black uppercase tracking-[.16em]"><Sparkles className="h-3 w-3" aria-hidden="true" />JUBA LISAN</div>
+            <h2 id="visitor-translator-title" className="text-3xl font-black tracking-tight text-[var(--juba-app-ink)] sm:text-4xl">Instant translator</h2>
+            <p id="visitor-translator-description" className="mt-2 max-w-xl text-sm font-medium text-[var(--juba-app-muted)]">Translate freely. Save useful words locally. Sign in only when you want cloud sync.</p>
+          </div>
+          <button type="button" onClick={() => setOpen(false)} aria-label="Close translator" className="rounded-full border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-green-soft)] p-2 text-[var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2"><X className="h-5 w-5" aria-hidden="true" /></button>
+        </div>
+
+        <form onSubmit={translate} className="p-4 sm:p-7">
+          <div className="grid gap-3 lg:grid-cols-[1fr_auto_1fr] lg:items-stretch">
+            <section className="flex min-h-[300px] flex-col rounded-[26px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-green-soft)] p-4 sm:p-5">
+              <div className="mb-4 flex items-center gap-2">
+                <span className="rounded-full bg-[var(--juba-app-ink)] px-3 py-1.5 text-[11px] font-black uppercase text-white">From</span>
+                <label className="sr-only" htmlFor="visitor-translator-source">Source language</label>
+                <select id="visitor-translator-source" value={source} onChange={e => { setSource(e.target.value); setTranslation(''); setDetectedSource(''); setSaved(false) }} className="rounded-full border border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] px-3 py-1.5 text-sm font-bold text-[var(--juba-app-ink)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)]">
+                  <option value="auto">Auto detect</option>{UNIQUE_LANGUAGES.map(l => <option key={l.code} value={l.code}>{l.label}</option>)}
+                </select>
+              </div>
+              <textarea value={text} onChange={e => { setText(e.target.value); setSaved(false) }} maxLength={2000} rows={7} autoFocus placeholder="Type or paste your text here…" aria-label="Text to translate" className="min-h-[190px] flex-1 resize-none bg-transparent text-xl font-semibold leading-relaxed text-[var(--juba-app-ink)] outline-none placeholder:text-[var(--juba-app-muted)] focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2" />
+              <div className="mt-3 flex justify-between text-xs font-semibold text-[var(--juba-app-muted)]"><span>{text.length}/2000</span><span>{detectedSource && source === 'auto' ? `Detected: ${languageLabel(detectedSource)}` : source === 'auto' ? 'Automatic detection' : languageLabel(source)}</span></div>
+            </section>
+
+            <div className="flex items-center justify-center">
+              <button type="button" onClick={swapLanguages} disabled={source === 'auto' || loading} aria-label="Swap source and target languages" className="rounded-full border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] p-3 shadow-[3px_3px_0_var(--juba-app-ink)] transition hover:rotate-180 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 disabled:opacity-35"><ArrowRightLeft className="h-5 w-5" aria-hidden="true" /></button>
+            </div>
+
+            <section className="flex min-h-[300px] flex-col rounded-[26px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] p-4 sm:p-5">
+              <div className="mb-4 flex items-center gap-2">
+                <span className="rounded-full bg-[var(--juba-app-ink)] px-3 py-1.5 text-[11px] font-black uppercase text-white">To</span>
+                <label className="sr-only" htmlFor="visitor-translator-target">Target language</label>
+                <select id="visitor-translator-target" value={target} onChange={e => { setTarget(e.target.value); setTranslation(''); setSaved(false) }} className="rounded-full border border-black/20 bg-white/70 px-3 py-1.5 text-sm font-bold text-[var(--juba-app-ink)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)]">
+                  {UNIQUE_LANGUAGES.map(l => <option key={l.code} value={l.code}>{l.label}</option>)}
+                </select>
+              </div>
+              <div className="flex flex-1 items-start">
+                {error ? <p className="rounded-[14px] border border-red-200 bg-red-50 px-3 py-2 text-sm font-bold text-red-700" role="alert">{error}</p> : translation ? <div className="w-full"><p className="text-xl font-black leading-relaxed text-[var(--juba-app-ink)] sm:text-2xl">{translation}</p><div className="mt-5 flex flex-wrap gap-2"><button type="button" onClick={saveToLearning} className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--juba-app-ink)] bg-white px-4 py-2.5 text-sm font-black text-[var(--juba-app-ink)] shadow-[3px_3px_0_var(--juba-app-ink)] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2"><BookOpenCheck className="h-4 w-4" aria-hidden="true" />{saved ? 'Saved locally ✓' : 'Learn this'}</button><Link href="/saved-words" onClick={() => setOpen(false)} className="inline-flex items-center rounded-full border-2 border-[var(--juba-app-ink)]/30 px-4 py-2.5 text-sm font-black text-[var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2">My saved words</Link></div>{saved && <p className="mt-3 text-xs font-bold text-[var(--juba-app-ink)]" role="status">Saved on this browser. Sign in later to sync it with your learning deck.</p>}</div> : <p className="text-lg font-semibold text-[var(--juba-app-muted)]">Your translation will appear here.</p>}
+              </div>
+              <div className="mt-3 text-xs font-black uppercase tracking-wider text-[var(--juba-app-ink)]/55">{languageLabel(target)}</div>
+            </section>
+          </div>
+
+          <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs font-semibold leading-relaxed text-[var(--juba-app-muted)]">Translate → save → learn → review.</p>
+            <button type="submit" disabled={!text.trim() || loading} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-ink)] px-7 py-3 text-sm font-black text-white shadow-[4px_4px_0_var(--juba-app-yellow)] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 disabled:opacity-45">
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Languages className="h-4 w-4" aria-hidden="true" />}
+              {loading ? 'Translating…' : 'Translate'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>}
   </>
 }
