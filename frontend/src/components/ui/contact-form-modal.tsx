@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { Loader2 } from 'lucide-react'
+import { CheckCircle2, CircleHelp, Loader2, X } from 'lucide-react'
 
 interface ContactFormModalProps {
   open: boolean
@@ -86,7 +86,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
         className="juba-card w-full max-w-md overflow-hidden border-2 border-[var(--juba-app-line)] shadow-[5px_5px_0_var(--juba-app-line)]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-3 border-b-2 border-[var(--juba-app-line)] bg-[#fffdf8] px-6 py-4">
+        <div className="flex items-center gap-3 border-b-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-6 py-4">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--juba-app-green-soft)] text-sm text-[var(--juba-app-green-dark)]" aria-hidden="true">
             ●
           </span>
@@ -119,7 +119,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isLoading}
-                  className="rounded-xl border-2 border-[var(--juba-app-line)] bg-[#fffdf8] shadow-[2px_2px_0_var(--juba-app-line)] px-3 py-2.5 text-sm text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] transition focus:border-[var(--juba-app-green)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-app-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="juba-input rounded-xl border-2 border-[var(--juba-app-line)] bg-[#fffdf8] shadow-[2px_2px_0_var(--juba-app-line)] px-3 py-2.5 text-sm text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] transition focus:border-[var(--juba-app-green)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-app-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderEmail')}
                 />
               </div>
@@ -133,7 +133,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   disabled={isLoading}
-                  className="rounded-xl border border-[var(--juba-app-line)] bg-[#fffdf8] px-3 py-2.5 text-sm text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] transition focus:border-[var(--juba-app-green)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-app-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="juba-input rounded-xl border border-[var(--juba-app-line)] bg-[#fffdf8] px-3 py-2.5 text-sm text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] transition focus:border-[var(--juba-app-green)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-app-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderSubject')}
                 />
               </div>
@@ -147,13 +147,13 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   disabled={isLoading}
-                  className="min-h-[120px] resize-y rounded-xl border-2 border-[var(--juba-app-line)] bg-[#fffdf8] shadow-[2px_2px_0_var(--juba-app-line)] px-3 py-2.5 text-sm leading-6 text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] transition focus:border-[var(--juba-app-green)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-app-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="juba-input min-h-[120px] resize-y rounded-xl border-2 border-[var(--juba-app-line)] bg-[#fffdf8] shadow-[2px_2px_0_var(--juba-app-line)] px-3 py-2.5 text-sm leading-6 text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] transition focus:border-[var(--juba-app-green)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-app-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderDescription')}
                 />
               </div>
 
               {status === 'error' && (
-                <p className="rounded-xl bg-[color-mix(in_srgb,#b33a32_10%,var(--juba-app-surface))] px-3 py-2.5 text-sm leading-relaxed text-[#b33a32]">
+                <p role="alert" className="rounded-xl bg-[color-mix(in_srgb,#b33a32_10%,var(--juba-app-surface))] px-3 py-2.5 text-sm leading-relaxed text-[#b33a32]">
                   {errorMsg}
                 </p>
               )}
