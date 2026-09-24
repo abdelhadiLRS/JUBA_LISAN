@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { Check, Loader2, Save, X, AlertCircle } from 'lucide-react'
 import { apiFetch, readApiError, saveTranslatedWordLocally } from '@/lib/api'
 import { useLanguageStore } from '@/store/language'
 
@@ -13,11 +14,11 @@ export function WordTooltip({ word, pos, saveState, onSave, onDismiss, labels }:
     <div style={{ left: pos.x, top: pos.y }} className="pointer-events-auto fixed z-50 -translate-x-1/2 -translate-y-full">
       <div className="juba-card flex items-center gap-3 border-2 border-[var(--juba-app-line)] px-3 py-2.5 text-xs shadow-[4px_4px_0_var(--juba-app-line)]">
         <span className="text-[var(--juba-app-ink)] font-semibold">{word}</span>
-        {saveState === 'idle' && <button onClick={onSave} className="border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-green-dark)] hover:bg-[var(--juba-app-green-soft)] rounded-xl px-2.5 py-1 shadow-[2px_2px_0_var(--juba-app-line)] text-[11px] font-semibold tracking-wide uppercase transition-colors">{labels.saveWord}</button>}
-        {saveState === 'saving' && <span className="text-[var(--juba-app-muted)] animate-pulse tracking-widest uppercase">...</span>}
-        {saveState === 'saved' && <span className="text-[var(--juba-app-green-dark)] font-semibold tracking-wide uppercase">✓ {labels.wordSaved}</span>}
-        {saveState === 'error' && <span className="text-[#b33a32] font-semibold tracking-wide uppercase">{labels.wordSaveError}</span>}
-        <button onClick={onDismiss} className="text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)] ml-1 rounded-lg border-2 border-transparent px-1 transition-colors" aria-label="dismiss">✕</button>
+        {saveState === 'idle' && <button type="button" onClick={onSave} className="inline-flex items-center gap-1.5 border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-green-dark)] hover:bg-[var(--juba-app-green-soft)] rounded-xl px-2.5 py-1 shadow-[2px_2px_0_var(--juba-app-line)] text-[11px] font-semibold tracking-wide uppercase transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-1"><Save className="h-3.5 w-3.5" aria-hidden="true" />{labels.saveWord}</button>}
+        {saveState === 'saving' && <span className="inline-flex items-center gap-1.5 text-[var(--juba-app-muted)] tracking-widest uppercase"><Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />Saving</span>}
+        {saveState === 'saved' && <span className="inline-flex items-center gap-1.5 text-[var(--juba-app-green-dark)] font-semibold tracking-wide uppercase"><Check className="h-3.5 w-3.5" aria-hidden="true" />{labels.wordSaved}</span>}
+        {saveState === 'error' && <span className="inline-flex items-center gap-1.5 text-[#b33a32] font-semibold tracking-wide uppercase"><AlertCircle className="h-3.5 w-3.5" aria-hidden="true" />{labels.wordSaveError}</span>}
+        <button type="button" onClick={onDismiss} className="ml-1 rounded-lg border-2 border-transparent px-1 text-[var(--juba-app-muted)] transition-colors hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-1" aria-label="dismiss"><X className="h-3.5 w-3.5" aria-hidden="true" /></button>
       </div>
       <div className="border-t-[var(--juba-app-line)] mx-auto mt-px h-0 w-0 border-x-4 border-t-4 border-x-transparent" />
     </div>
