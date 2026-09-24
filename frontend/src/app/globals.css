@@ -5664,3 +5664,56 @@ main [dir="rtl"] h3,
     min-height:40px;
   }
 }
+
+
+/* JUBA LISAN — dashboard editorial rhythm */
+.juba-dashboard{
+  color:var(--juba-app-ink);
+}
+.juba-dashboard-header{
+  border-color:var(--juba-app-ink)!important;
+}
+.juba-dashboard .juba-card{
+  border-radius:22px;
+  box-shadow:6px 6px 0 rgba(24,37,27,.08);
+}
+.juba-dashboard-stats{
+  overflow:hidden;
+  border:1px solid var(--juba-app-ink);
+  border-radius:20px;
+  box-shadow:5px 5px 0 rgba(24,37,27,.08);
+}
+.juba-dashboard-stats .juba-dashboard-stat{
+  min-height:118px;
+}
+.juba-dashboard-panels{
+  overflow:hidden;
+  border:1px solid var(--juba-app-line);
+  border-radius:20px;
+  box-shadow:5px 5px 0 rgba(24,37,27,.06);
+}
+.juba-dashboard-panel{
+  min-width:0;
+}
+@media(max-width:700px){
+  .juba-dashboard{
+    padding-top:1.25rem;
+    padding-bottom:1.5rem;
+  }
+  .juba-dashboard .juba-card{
+    border-radius:18px;
+    box-shadow:4px 4px 0 rgba(24,37,27,.07);
+  }
+  .juba-dashboard-stats{
+    border-radius:18px;
+    box-shadow:4px 4px 0 rgba(24,37,27,.07);
+  }
+  .juba-dashboard-stats .juba-dashboard-stat{
+    min-height:104px;
+    padding:1rem;
+  }
+  .juba-dashboard-panels{
+    border-radius:18px;
+    box-shadow:4px 4px 0 rgba(24,37,27,.06);
+  }
+}
