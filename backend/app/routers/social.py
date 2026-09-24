@@ -13,15 +13,9 @@ from app.models.direct_message import DirectMessage
 from app.models.friend_connection import FriendConnection
 from app.models.user import User
 
-async def _learner_only(current_user: User = Depends(get_current_user)) -> None:
-    if current_user.role != "user":
-        raise HTTPException(status_code=403, detail="Social features are available to learners only")
-
-
 router = APIRouter(
     prefix="/api/social",
     tags=["social"],
-    dependencies=[Depends(_learner_only)],
 )
 
 
