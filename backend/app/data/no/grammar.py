@@ -5,7 +5,7 @@ def _g(slug: str, title: str, level: str, category: str, summary: str, explanati
         slug=slug, title=title, level=level, category=category, summary=summary,
         explanation=explanation, structure=structure, rules=rules,
         examples=[GrammarExample(text=t, translation=tr) for t, tr in examples],
-        common_mistakes=[GrammarMistake(wrong=w, correct=c) for w, c in mistakes],
+        common_mistakes=[GrammarMistake(wrong=w, correct=c, note="Use the corrected Norwegian form in this context.") for w, c in mistakes],
         related=[],
     )
 
