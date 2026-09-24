@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo } from 'react'
-import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 
 type DisplayLanguage = {
@@ -9,7 +8,6 @@ type DisplayLanguage = {
   name: string
   flag?: string
   flagPath?: string
-  symbol?: string
 }
 
 const DISPLAY_LANGUAGES: DisplayLanguage[] = [
@@ -35,7 +33,6 @@ const DISPLAY_LANGUAGES: DisplayLanguage[] = [
   { code: 'zh', name: '中文', flag: '🇨🇳' },
   { code: 'ar', name: 'العربية', flagPath: '/flags/arab-league.svg' },
   { code: 'he', name: 'עברית', flagPath: '/flags/hebrew-star.svg' },
-  { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
   { code: 'mi', name: 'Māori', flag: '🇳🇿' },
   { code: 'sm', name: 'Gagana Sāmoa', flag: '🇼🇸' },
   { code: 'to', name: 'Lea faka-Tonga', flag: '🇹🇴' },
