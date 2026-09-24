@@ -392,6 +392,8 @@ describe('createAudioQueue', () => {
     listeners.get('error')?.()
     await expect(playback).resolves.toBeUndefined()
 
+    expect(audio.src).toBe('blob:fallback-error')
+
     expect(audio.removeEventListener).toHaveBeenCalledWith(
       'ended',
       expect.any(Function)
