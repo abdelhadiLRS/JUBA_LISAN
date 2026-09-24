@@ -3889,3 +3889,64 @@ main [dir="rtl"] h3,
   .juba-ff-reference .char-three{right:13%;bottom:70px}
   .juba-ff-reference .char-four{right:-2%;bottom:150px}
 }
+\n
+/* JUBA LISAN — brand application across editorial cards and footer */
+.juba-ff-reference .juba-ff-feature-art{
+  right:14px;top:12px;
+  width:auto;height:auto;
+  opacity:1;
+  transform:rotate(-6deg);
+}
+.juba-ff-reference .juba-ff-feature-art span{
+  display:grid;place-items:center;
+  min-width:92px;height:48px;padding:0 12px;
+  border:3px solid var(--landing-ink);
+  border-radius:12px 12px 18px 18px;
+  background:var(--landing-yellow);
+  color:var(--landing-ink);
+  box-shadow:4px 4px 0 var(--landing-ink);
+  font-size:10px;font-weight:950;letter-spacing:.09em;
+}
+.juba-ff-reference .juba-ff-feature-card:nth-child(2) .juba-ff-feature-art span{background:#b9eef0}
+.juba-ff-reference .juba-ff-feature-card:nth-child(3) .juba-ff-feature-art span{background:#d9c9ff}
+.juba-ff-reference .juba-ff-feature-card:nth-child(4) .juba-ff-feature-art span{background:#fff}
+.juba-ff-reference .juba-ff-feature-card:nth-child(5) .juba-ff-feature-art span{background:#ffd5c9}
+.juba-ff-reference .juba-ff-feature-card:nth-child(6) .juba-ff-feature-art span{background:#bfe8a9}
+.juba-ff-reference .juba-ff-feature-icon{
+  border:3px solid var(--landing-ink);
+  box-shadow:3px 3px 0 var(--landing-ink);
+  border-radius:11px;
+}
+.juba-ff-reference .juba-ff-feature-link{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:7px 10px;
+  border:2px solid var(--landing-ink);
+  border-radius:9px;
+  background:#fff;
+  box-shadow:3px 3px 0 var(--landing-ink);
+  text-decoration:none;
+}
+.juba-ff-reference .juba-ff-feature-link:hover{
+  transform:translate(-1px,-1px);
+  box-shadow:4px 4px 0 var(--landing-ink);
+}
+.juba-ff-reference .juba-ff-footer{
+  background:#e8f3d9;
+  border-top:3px solid var(--landing-ink)!important;
+}
+.juba-ff-reference .juba-footer-brand-mark{
+  background:var(--landing-yellow);
+  color:var(--landing-ink);
+  border:3px solid var(--landing-ink);
+  box-shadow:4px 4px 0 var(--landing-ink);
+  transform:rotate(-4deg);
+}
+.juba-ff-reference .juba-footer-note{color:var(--landing-muted)}
+.juba-ff-reference .juba-footer-bottom{
+  border-color:rgba(24,37,27,.18)!important;
+  color:#617068;
+}
+.juba-ff-reference .juba-ff-footer a:hover{color:var(--landing-green-dark)!important}
+@media(max-width:600px){
+  .juba-ff-reference .juba-ff-feature-art span{min-width:78px;height:40px;font-size:9px}
+}
