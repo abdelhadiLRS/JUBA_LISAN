@@ -132,7 +132,7 @@ export function LanguageBubbles() {
   return (
     <div className="relative overflow-hidden rounded-[36px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] p-3 shadow-[6px_6px_0_var(--juba-app-ink)] sm:p-5">
       <div className="relative min-h-[430px] overflow-hidden rounded-[28px] border border-[var(--juba-app-line)] bg-[#f5f8f1] sm:min-h-[560px]">
-        <WorldMap />
+        <WorldMap highlightedCountries={activeRegion ? (regionCountries.get(activeRegion) ?? new Set<string>()) : selectedCountries} selectedCountry={null} onCountrySelect={() => undefined} />
 
         <div className="absolute inset-x-4 top-4 z-20 flex flex-wrap items-center justify-between gap-3 sm:inset-x-6 sm:top-6">
           <div className="inline-flex items-center gap-2 rounded-full border border-[var(--juba-app-ink)] bg-white/95 px-3 py-2 text-[10px] font-black uppercase tracking-[.16em] text-[var(--juba-app-ink)] shadow-sm">
@@ -157,23 +157,6 @@ export function LanguageBubbles() {
         </div>
 
         <div className="absolute inset-0 z-10">
-          <svg viewBox="0 0 1000 507" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
-            {Object.entries(WORLD_MAP_PATHS).map(([code, path]) => {
-              const isSelected = selectedCountries.has(code)
-              const isRegionCountry = activeRegion ? regionCountries.get(activeRegion)?.has(code) : false
-
-              return (
-                <path
-                  key={code}
-                  d={path}
-                  fill={isSelected ? 'var(--juba-app-yellow)' : isRegionCountry ? 'var(--juba-app-green)' : 'transparent'}
-                  fillOpacity={isSelected ? '.75' : isRegionCountry ? '.12' : '0'}
-                  stroke="none"
-                />
-              )
-            })}
-          </svg>
-
           {visibleLanguages.map((language) => {
             const point = WORLD_MAP_CENTROIDS[language.markerCountry]
             if (!point) return null
