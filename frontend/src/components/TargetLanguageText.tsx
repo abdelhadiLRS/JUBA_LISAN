@@ -20,6 +20,8 @@ export function TargetLanguageText({
   ...props
 }: TargetLanguageTextProps) {
   const code = languageCode ?? ''
+  const accessibleReading = reading?.trim()
+  const accessibleTranslation = translation?.trim()
 
   return (
     <Component
@@ -28,9 +30,9 @@ export function TargetLanguageText({
       {...props}
     >
       {children}
-      {(reading || translation) && (
-        <span className="mt-1 block font-mono text-xs leading-relaxed tracking-normal normal-case opacity-70">
-          {[reading, translation].filter(Boolean).join(' · ')}
+      {(accessibleReading || accessibleTranslation) && (
+        <span className="mt-1 block font-sans text-xs leading-relaxed tracking-normal normal-case text-[var(--juba-app-muted)] opacity-90">
+          {[accessibleReading, accessibleTranslation].filter(Boolean).join(' · ')}
         </span>
       )}
     </Component>
