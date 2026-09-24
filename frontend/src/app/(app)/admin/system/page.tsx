@@ -204,7 +204,7 @@ export default function AdminSystemPage() {
       <AdminNav />
 
       {maintenanceError && (
-        <div className="border-red-200/50/40 text-[var(--juba-app-error)] border px-4 py-3 font-sans text-xs border-[var(--juba-app-line)]">
+        <div className="border-red-200/60 text-[var(--juba-app-error)] border px-4 py-3 font-sans text-xs border-[var(--juba-app-line)]">
           {maintenanceError}
         </div>
       )}
@@ -243,7 +243,7 @@ export default function AdminSystemPage() {
             disabled={maintenanceLoading}
             className={`inline-flex shrink-0 items-center justify-center gap-2 px-4 py-3 font-sans text-xs font-bold tracking-wide transition-colors ${
               maintenanceMode
-                ? 'bg-fl-fg text-fl-bg hover:bg-fl-fg/90'
+                ? 'bg-[var(--juba-app-ink)] text-white hover:opacity-90'
                 : 'bg-[var(--juba-app-green)] text-white hover:bg-[var(--juba-app-green)]/90'
             } disabled:opacity-50`}
           >
@@ -281,13 +281,13 @@ export default function AdminSystemPage() {
             {bannerError && (
               <p
                 role="alert"
-                className="border-red-200/50/40 text-[var(--juba-app-error)] border px-4 py-3 font-sans text-xs border-[var(--juba-app-line)]"
+                className="border-red-200/60 text-[var(--juba-app-error)] border px-4 py-3 font-sans text-xs border-[var(--juba-app-line)]"
               >
                 {bannerError}
               </p>
             )}
             {bannerSuccess && (
-              <p className="border-fl-accent/40 text-[var(--juba-app-green)] border px-4 py-3 font-sans text-xs border-[var(--juba-app-line)]">
+              <p className="border-[var(--juba-app-green)]/30 text-[var(--juba-app-green)] border px-4 py-3 font-sans text-xs border-[var(--juba-app-line)]">
                 {bannerSuccess}
               </p>
             )}
@@ -316,7 +316,7 @@ export default function AdminSystemPage() {
                   type="checkbox"
                   checked={isActive}
                   onChange={(event) => setIsActive(event.target.checked)}
-                  className="accent-fl-accent size-4"
+                  className="accent-[var(--juba-app-green)] size-4"
                 />
                 <span>
                   <span className="text-[var(--juba-app-ink)] block font-bold">
