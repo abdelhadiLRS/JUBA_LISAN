@@ -5885,3 +5885,159 @@ main [dir="rtl"] h3,
     border-radius:18px;
   }
 }
+
+
+/* JUBA LISAN learning workspaces — listening / reading / grammar / phrasebook */
+.juba-listening-shell,
+.juba-reading-shell,
+.juba-grammar-shell,
+.juba-phrasebook-shell{
+  position:relative;
+  color:var(--juba-app-ink);
+}
+.juba-listening-shell::before,
+.juba-reading-shell::before,
+.juba-grammar-shell::before,
+.juba-phrasebook-shell::before{
+  content:"";
+  position:absolute;
+  top:0;
+  right:0;
+  width:180px;
+  height:180px;
+  border-radius:42% 58% 61% 39%;
+  background:rgba(255,212,79,.12);
+  pointer-events:none;
+  z-index:0;
+}
+.juba-listening-shell > *,
+.juba-reading-shell > *,
+.juba-grammar-shell > *,
+.juba-phrasebook-shell > *{
+  position:relative;
+  z-index:1;
+}
+.juba-listening-shell .border-fl-border.bg-fl-surface,
+.juba-reading-shell .border-fl-border.bg-fl-surface,
+.juba-grammar-shell .border-fl-border.bg-fl-surface,
+.juba-phrasebook-shell .border-fl-border.bg-fl-surface{
+  border-color:var(--juba-app-line)!important;
+  border-radius:20px;
+  background:var(--juba-app-surface)!important;
+  box-shadow:0 6px 18px rgba(24,37,27,.045);
+}
+.juba-listening-shell input,
+.juba-reading-shell input,
+.juba-grammar-shell input,
+.juba-phrasebook-shell input{
+  border-color:var(--juba-app-line)!important;
+  border-radius:12px;
+  background:#fffdf8!important;
+  color:var(--juba-app-ink)!important;
+}
+.juba-listening-shell input:focus,
+.juba-reading-shell input:focus,
+.juba-grammar-shell input:focus,
+.juba-phrasebook-shell input:focus{
+  border-color:#9fbd91!important;
+  box-shadow:0 0 0 3px rgba(63,134,29,.1)!important;
+}
+.juba-listening-shell button:not([aria-label]),
+.juba-reading-shell button:not([aria-label]),
+.juba-grammar-shell button:not([aria-label]),
+.juba-phrasebook-shell button:not([aria-label]){
+  transition:transform .15s ease,border-color .15s ease,background .15s ease,box-shadow .15s ease;
+}
+.juba-listening-shell button:hover:not(:disabled),
+.juba-reading-shell button:hover:not(:disabled),
+.juba-grammar-shell button:hover:not(:disabled),
+.juba-phrasebook-shell button:hover:not(:disabled){
+  transform:translateY(-1px);
+}
+.juba-listening-shell .text-fl-accent,
+.juba-reading-shell .text-fl-accent,
+.juba-grammar-shell .text-fl-accent,
+.juba-phrasebook-shell .text-fl-accent{
+  color:var(--juba-app-green)!important;
+}
+.juba-listening-shell .bg-fl-accent,
+.juba-reading-shell .bg-fl-accent,
+.juba-grammar-shell .bg-fl-accent,
+.juba-phrasebook-shell .bg-fl-accent{
+  background:var(--juba-app-green)!important;
+}
+.juba-listening-shell .border-fl-success,
+.juba-reading-shell .border-fl-success,
+.juba-grammar-shell .border-fl-success,
+.juba-phrasebook-shell .border-fl-success{
+  border-color:#a9c79d!important;
+}
+.juba-listening-shell .bg-fl-success\/5,
+.juba-reading-shell .bg-fl-success\/5{
+  background:var(--juba-app-green-soft)!important;
+}
+.juba-listening-shell .border-fl-error-fg\/50,
+.juba-reading-shell .border-fl-error-fg\/50{
+  border-color:rgba(179,58,50,.35)!important;
+}
+.juba-listening-shell .bg-fl-error-fg\/5,
+.juba-reading-shell .bg-fl-error-fg\/5{
+  background:rgba(179,58,50,.055)!important;
+}
+.juba-grammar-shell section > div:first-child,
+.juba-phrasebook-shell section > div:first-child{
+  border-bottom-color:var(--juba-app-ink)!important;
+}
+.juba-grammar-shell section > div:first-child > span:first-child,
+.juba-phrasebook-shell section > div:first-child > span:first-child{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:42px;
+  min-height:30px;
+  border:2px solid var(--juba-app-ink);
+  border-radius:999px;
+  background:var(--juba-app-yellow);
+  box-shadow:2px 2px 0 var(--juba-app-ink);
+}
+.juba-phrasebook-shell ul > li{
+  transition:background .15s ease,padding-left .15s ease;
+}
+.juba-phrasebook-shell ul > li:hover{
+  background:#fbfcf8;
+}
+.juba-phrasebook-shell .juba-phrasebook-category{
+  overflow:hidden;
+  border:1px solid var(--juba-app-line);
+  border-radius:20px;
+  background:var(--juba-app-surface);
+  box-shadow:0 6px 18px rgba(24,37,27,.045);
+}
+.juba-listening-shell audio,
+.juba-reading-shell audio,
+.juba-grammar-shell audio,
+.juba-phrasebook-shell audio{
+  accent-color:var(--juba-app-green);
+}
+@media(max-width:700px){
+  .juba-listening-shell,
+  .juba-reading-shell,
+  .juba-grammar-shell,
+  .juba-phrasebook-shell{
+    padding-top:1rem;
+    padding-bottom:1.25rem;
+  }
+  .juba-listening-shell::before,
+  .juba-reading-shell::before,
+  .juba-grammar-shell::before,
+  .juba-phrasebook-shell::before{
+    width:120px;
+    height:120px;
+  }
+  .juba-listening-shell .border-fl-border.bg-fl-surface,
+  .juba-reading-shell .border-fl-border.bg-fl-surface,
+  .juba-grammar-shell .border-fl-border.bg-fl-surface,
+  .juba-phrasebook-shell .border-fl-border.bg-fl-surface{
+    border-radius:18px;
+  }
+}
