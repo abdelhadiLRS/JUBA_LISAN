@@ -62,10 +62,12 @@ function WorldMap({
   highlightedCountries,
   selectedCountry,
   onCountrySelect,
+  countryLanguages,
 }: {
   highlightedCountries: Set<string>
   selectedCountry: string | null
   onCountrySelect: (country: string) => void
+  countryLanguages: Map<string, string[]>
 }) {
   return (
     <div className="absolute inset-0">
@@ -99,6 +101,8 @@ function WorldMap({
                 tabIndex={-1}
                 onClick={() => onCountrySelect(code)}
                 aria-label={code}
+                role="button"
+                onMouseEnter={() => undefined}
               />
             )
           })}
@@ -147,6 +151,7 @@ export function LanguageBubbles() {
           highlightedCountries={activeRegion ? (regionCountries.get(activeRegion) ?? new Set<string>()) : selectedCountries}
           selectedCountry={null}
           onCountrySelect={() => undefined}
+          countryLanguages={countryLanguages}
         />
 
         <div className="absolute inset-x-4 top-4 z-20 flex flex-wrap items-center justify-between gap-3 sm:inset-x-6 sm:top-6">
@@ -196,6 +201,7 @@ export function LanguageBubbles() {
                 style={{ left: `${left}%`, top: `${top}%` }}
                 aria-label={language.name}
                 aria-pressed={isActive}
+                title={countryLanguages.get(language.markerCountry)?.join(' · ')}
               >
                 <span
                   className={[
