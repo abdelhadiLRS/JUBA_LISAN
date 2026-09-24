@@ -4533,16 +4533,16 @@ main [dir="rtl"] h3,
   background:var(--juba-app-surface);
   box-shadow:7px 7px 0 var(--juba-app-ink);
 }
-.juba-review-shell .text-\\[var\\(--juba-muted\\)\\]{
+.juba-review-shell [class*="text-[var(--juba-muted)]"]{
   color:var(--juba-app-muted);
 }
-.juba-review-shell .border-\\[var\\(--juba-lilac\\)\\]{
+.juba-review-shell [class*="border-[var(--juba-lilac)]"]{
   border-color:var(--juba-app-line);
 }
-.juba-review-shell .bg-\\[var\\(--juba-lilac\\)\\]{
+.juba-review-shell [class*="bg-[var(--juba-lilac)]"]{
   background:#e4ebe0;
 }
-.juba-review-shell .bg-\\[var\\(--juba-violet\\)\\]{
+.juba-review-shell [class*="bg-[var(--juba-violet)]"]{
   background:var(--juba-app-yellow);
   color:var(--juba-app-ink);
 }
