@@ -1468,4 +1468,134 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         ],
         correct="Leur siècle était supérieur à l'Antiquité",
     ),
+    AssessmentQuestion(
+        id="g-c1-999",
+        skill="grammar",
+        difficulty="C1",
+        question="Complétez : Bien qu'il ___ tard, nous continuerons.",
+        options=[
+          "soit",
+          "est",
+          "sera",
+          "était"
+],
+        correct="soit",
+    ),
+    AssessmentQuestion(
+        id="g-c1-998",
+        skill="grammar",
+        difficulty="C1",
+        question="Choisissez la forme correcte : Il est possible qu'elle ___ demain.",
+        options=[
+          "vienne",
+          "vient",
+          "viendra",
+          "venait"
+],
+        correct="vienne",
+    ),
+    AssessmentQuestion(
+        id="g-c1-997",
+        skill="grammar",
+        difficulty="C1",
+        question="Complétez : Ce rapport met en évidence une tendance qui ___ se confirmer.",
+        options=[
+          "semble",
+          "semble de",
+          "est à",
+          "vient de"
+],
+        correct="semble",
+    ),
+    AssessmentQuestion(
+        id="g-c1-996",
+        skill="grammar",
+        difficulty="C1",
+        question="Choisissez le connecteur approprié : Les données sont solides ; ___, certaines limites subsistent.",
+        options=[
+          "cependant",
+          "donc",
+          "parce que",
+          "afin que"
+],
+        correct="cependant",
+    ),
+    AssessmentQuestion(
+        id="g-c2-999",
+        skill="grammar",
+        difficulty="C2",
+        question="Complétez : Encore qu'il ___ des réserves, il a accepté la proposition.",
+        options=[
+          "ait",
+          "a",
+          "aura",
+          "avait"
+],
+        correct="ait",
+    ),
+    AssessmentQuestion(
+        id="g-c2-998",
+        skill="grammar",
+        difficulty="C2",
+        question="Choisissez la formulation correcte : Il importe que les résultats ___ interprétés avec prudence.",
+        options=[
+          "soient",
+          "sont",
+          "seront",
+          "étaient"
+],
+        correct="soient",
+    ),
+    AssessmentQuestion(
+        id="g-c2-997",
+        skill="grammar",
+        difficulty="C2",
+        question="Complétez : Loin de ___ un échec, cette expérience a fourni des données utiles.",
+        options=[
+          "constituer",
+          "constitue",
+          "constituerait",
+          "avoir constitué"
+],
+        correct="constituer",
+    ),
+    AssessmentQuestion(
+        id="g-c2-996",
+        skill="grammar",
+        difficulty="C2",
+        question="Choisissez le connecteur : Cette interprétation est plausible ; ___, elle reste difficile à démontrer.",
+        options=[
+          "néanmoins",
+          "ainsi",
+          "car",
+          "puisque"
+],
+        correct="néanmoins",
+    ),
+    AssessmentQuestion(
+        id="g-c2-995",
+        skill="grammar",
+        difficulty="C2",
+        question="Complétez : À supposer qu'il ___ raison, les conséquences resteraient limitées.",
+        options=[
+          "ait",
+          "a",
+          "aura",
+          "avait"
+],
+        correct="ait",
+    ),
+    AssessmentQuestion(
+        id="g-c2-994",
+        skill="grammar",
+        difficulty="C2",
+        question="Choisissez la formulation la plus précise : Il ne s'agit pas de ___ la question, mais d'en préciser les termes.",
+        options=[
+          "trancher",
+          "tranche",
+          "tranchait",
+          "tranchera"
+],
+        correct="trancher",
+    ),
 ]
