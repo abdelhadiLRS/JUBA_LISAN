@@ -727,4 +727,17 @@ describe('AudioPlayer', () => {
     })
     expect(fetchMock).toHaveBeenCalledTimes(2)
   })
+  it('revokes the synthesized blob URL when audio.play rejects', async () => {
+    vi.spyOn(HTMLMediaElement.prototype, 'play').mockRejectedValueOnce(new Error('autoplay blocked'))
+    vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:tts-play-reject')
+    const revoke = vi.spyOn(URL, 'revokeObjectURL')
+
+    render(<AudioPlayer text="hello" />)
+    fireEvent.click(screen.getByRole('button', { name: /listen/i }))
+
+    await waitFor(() => {
+      expect(revoke).toHaveBeenCalledWith('blob:tts-play-reject')
+    })
+  })
+
 })
