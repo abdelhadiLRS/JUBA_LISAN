@@ -24,14 +24,31 @@ GrammarTopic(slug="sn-a1-g7",title="Locative",level="A1",category="grammar",summ
 GrammarTopic(slug="sn-a1-g8",title="Plural",level="A1",category="grammar",summary="Use plural in basic communication.",explanation="Practice plural through short everyday exchanges.",examples=[GrammarExample(text="Vanhu vari pano.")])
 ]
 VOCABULARY_SETS=[
-VocabularySet(id="greetings_a1",level="A1",topic="greetings",unit_ref="sn-a1-unit-1",words=[VocabularyEntry(word="mhoro",pos="noun",definition="hello",example="Mhoro, shamwari.")]),
-VocabularySet(id="identity_a1",level="A1",topic="identity",unit_ref="sn-a1-unit-2",words=[VocabularyEntry(word="zita",pos="noun",definition="name",example="Zita rangu ndiTariro.")]),
-VocabularySet(id="family_a1",level="A1",topic="family",unit_ref="sn-a1-unit-3",words=[VocabularyEntry(word="amai",pos="noun",definition="mother",example="Amai vari kumba.")]),
-VocabularySet(id="home_a1",level="A1",topic="home",unit_ref="sn-a1-unit-4",words=[VocabularyEntry(word="imba",pos="noun",definition="house",example="Imba yedu yakakura.")]),
-VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="sn-a1-unit-5",words=[VocabularyEntry(word="kudzidza",pos="noun",definition="study",example="Ndinodzidza mangwanani.")]),
-VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="sn-a1-unit-6",words=[VocabularyEntry(word="nguva",pos="noun",definition="time",example="Inguvai?")]),
-VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="sn-a1-unit-7",words=[VocabularyEntry(word="mvura",pos="noun",definition="water",example="Ndinoda mvura.")]),
-VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="sn-a1-unit-8",words=[VocabularyEntry(word="chikoro",pos="noun",definition="school",example="Ndiri kuchikoro.")])
+VocabularySet(id="greetings_a1",level="A1",topic="greetings",unit_ref="sn-a1-unit-1",words=[VocabularyEntry(word="mhoro",pos="phrase",definition="hello",example="Mhoro, shamwari."),VocabularyEntry(word="mazvita",pos="phrase",definition="thank you",example="Mazvita zvikuru."),VocabularyEntry(word="mangwanani",pos="noun",definition="morning",example="Mangwanani akanaka.")]),
+VocabularySet(id="identity_a1",level="A1",topic="identity",unit_ref="sn-a1-unit-2",words=[VocabularyEntry(word="zita",pos="noun",definition="name",example="Zita rangu ndiTariro."),VocabularyEntry(word="ini",pos="pronoun",definition="I",example="Ini ndiri mudzidzi."),VocabularyEntry(word="iwe",pos="pronoun",definition="you",example="Iwe uri kupi?")]),
+VocabularySet(id="family_a1",level="A1",topic="family",unit_ref="sn-a1-unit-3",words=[VocabularyEntry(word="amai",pos="noun",definition="mother",example="Amai vari kumba."),VocabularyEntry(word="baba",pos="noun",definition="father",example="Baba vari kubasa."),VocabularyEntry(word="mwana",pos="noun",definition="child",example="Mwana ari kuchikoro.")]),
+VocabularySet(id="home_a1",level="A1",topic="home",unit_ref="sn-a1-unit-4",words=[VocabularyEntry(word="imba",pos="noun",definition="house",example="Imba yedu yakakura."),VocabularyEntry(word="kamuri",pos="noun",definition="room",example="Kamuri kangu kakachena."),VocabularyEntry(word="gonhi",pos="noun",definition="door",example="Gonhi rakavhurika.")]),
+VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="sn-a1-unit-5",words=[VocabularyEntry(word="kudzidza",pos="verb",definition="to study",example="Ndinodzidza mangwanani."),VocabularyEntry(word="kuenda",pos="verb",definition="to go",example="Ndinoenda kuchikoro."),VocabularyEntry(word="kudya",pos="verb",definition="to eat",example="Ndinodya mangwanani.")]),
+VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="sn-a1-unit-6",words=[VocabularyEntry(word="nguva",pos="noun",definition="time",example="Inguvai?"),VocabularyEntry(word="nhasi",pos="adverb",definition="today",example="Nhasi ndiri kumba."),VocabularyEntry(word="mangwana",pos="adverb",definition="tomorrow",example="Mangwana ndinoenda kuchikoro.")]),
+VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="sn-a1-unit-7",words=[VocabularyEntry(word="mvura",pos="noun",definition="water",example="Ndinoda mvura."),VocabularyEntry(word="sadza",pos="noun",definition="sadza, maize meal",example="Ndinodya sadza."),VocabularyEntry(word="tii",pos="noun",definition="tea",example="Ndinonwa tii.")]),
+VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="sn-a1-unit-8",words=[VocabularyEntry(word="chikoro",pos="noun",definition="school",example="Ndiri kuchikoro."),VocabularyEntry(word="musika",pos="noun",definition="market",example="Musika uri pedyo."),VocabularyEntry(word="pano",pos="adverb",definition="here",example="Ndiri pano.")])
+]PHRASEBOOK_CATEGORIES=[
+PhrasebookCategory(id="sn_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Mhoro.",context="Hello.",register="neutral")]),
+PhrasebookCategory(id="sn_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="Ndatenda.",context="Thank you.",register="neutral")]),
+PhrasebookCategory(id="sn_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="Ndibatsirei.",context="Please help me.",register="neutral")]),
+PhrasebookCategory(id="sn_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="Chikoro chiri kupi?",context="Where is the school?",register="neutral")])
+]
+ASSESSMENT_BANK=[
+AssessmentQuestion(id="sn-a1-001",skill="vocabulary",difficulty="A1",question="Which Shona word means 'water'?",options=["mvura","imba","amai","chikoro"],correct="mvura"),
+AssessmentQuestion(id="sn-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["Ndiri kumba.","Ndinoenda kuchikoro.","Ndinonwa mvura.","Iri ibhuku."],correct="Ndiri kumba."),
+AssessmentQuestion(id="sn-a1-003",skill="vocabulary",difficulty="A1",question="What does amai mean?",options=["mother","father","friend","teacher"],correct="mother"),
+AssessmentQuestion(id="sn-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["Unonzi ani?","Uri kupi?","Ichi chii?","Inguvai?"],"correct"="Unonzi ani?"),
+AssessmentQuestion(id="sn-a1-005",skill="reading",difficulty="A1",question="Bhuku riri patafura. Where is the book?",options=["On the table","At school","At home","In the shop"],correct="On the table"),
+AssessmentQuestion(id="sn-a1-006",skill="vocabulary",difficulty="A1",question="Which word means 'name'?",options=["zita","nguva","mvura","imba"],correct="zita"),
+AssessmentQuestion(id="sn-a1-007",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["Dzokorora, ndapota.","Ndatenda.","Mhoro.","Sara zvakanaka."],correct="Dzokorora, ndapota."),
+AssessmentQuestion(id="sn-a1-008",skill="grammar",difficulty="A1",question="Which sentence says 'I drink water'?",options=["Ndinonwa mvura.","Ndiri kumba.","Ndinodzidza.","Iyi imba."],correct="Ndinonwa mvura."),
+AssessmentQuestion(id="sn-a1-009",skill="vocabulary",difficulty="A1",question="What does nguva mean?",options=["time","school","water","name"],correct="time"),
+AssessmentQuestion(id="sn-a1-010",skill="communication",difficulty="A1",question="Which is a natural greeting?",options=["Mhoro!","Ndinoda mvura.","Chikoro chiri kupi?","Handisi kunzwisisa."],correct="Mhoro!")
 ]
 PHRASEBOOK_CATEGORIES=[
 PhrasebookCategory(id="sn_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Mhoro.",context="greetings",register="neutral"),PhrasebookEntry(text="Mangwanani.",context="greetings",register="neutral"),PhrasebookEntry(text="Makadii?",context="greetings",register="neutral")]),
