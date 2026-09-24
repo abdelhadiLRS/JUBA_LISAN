@@ -1,7 +1,7 @@
 """Regression tests for fully integrated target-language content."""
 
 from app.data.assessment_bank import get_assessment_bank
-from app.data.curriculum import get_curriculum, get_curriculum_units
+from app.data.curriculum import get_curriculum
 from app.data.grammar import get_grammar_topics
 from app.data.phrasebook import get_phrasebook_categories
 from app.data.vocabulary import get_vocabulary_sets
@@ -16,7 +16,9 @@ from app.services.language_helpers import (
 
 
 def test_czech_dispatchers_resolve_dedicated_content() -> None:
-    assert len(get_curriculum("cs-CZ")) == 6
+    curriculum = get_curriculum("cs-CZ")
+    assert set(curriculum) == {"A1", "A2", "B1", "B2", "C1", "C2"}
+    assert sum(len(units) for units in curriculum.values()) == 24
     assert len(get_grammar_topics("cs-CZ")) == 45
     assert len(get_vocabulary_sets("cs-CZ")) == 48
     assert len(get_phrasebook_categories("cs-CZ")) == 18
