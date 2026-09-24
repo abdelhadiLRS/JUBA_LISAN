@@ -285,7 +285,7 @@ export default function MyLanguagesPage() {
       <ConfirmDialog
         open={deleteTarget !== null}
         title={t('removeConfirmTitle', {
-          language: deleteTarget ? tTarget(deleteTarget.target_language) : '',
+          language: deleteTarget ? targetLabel(deleteTarget.target_language) : '',
         })}
         message={t('removeConfirmMessage')}
         confirmLabel={t('removeConfirmButton')}
