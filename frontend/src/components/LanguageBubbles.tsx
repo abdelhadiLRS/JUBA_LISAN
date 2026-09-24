@@ -85,7 +85,7 @@ function WorldMap({
         viewBox="0 0 1000 507"
         className="absolute inset-0 h-full w-full"
         preserveAspectRatio="xMidYMid meet"
-        aria-label="World language map"
+        aria-label={t('worldMapLabel')}
         role="img"
       >
         <defs>
@@ -225,7 +225,7 @@ export function LanguageBubbles() {
 
         <div className="absolute inset-0 z-10">
           <div className="absolute right-3 top-20 z-20 hidden max-w-[230px] rounded-2xl border border-[var(--juba-app-line)] bg-white/95 p-3 shadow-sm lg:block">
-            <p className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">Map coverage</p>
+            <p className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">{t('mapCoverage')}</p>
             <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">
               {t('mapCoverageDescription')}
             </p>
