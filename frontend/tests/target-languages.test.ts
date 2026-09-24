@@ -50,6 +50,6 @@ describe('target language catalog', () => {
 
   it('resolves target language codes case-insensitively', () => {
     expect(getLanguageByCode('cs-cz')?.code).toBe('cs-CZ')
-    expect(getLanguageByCode('EL-gr')?.code).toBe('el-GR')
+    expect(getLanguageByCode('EL-gr')?.code).toBe('el-GR')\n    expect(getTargetLanguageCapability('CS-cz').script).toBe('latin')\n    expect(getTargetLanguageCapability('EL-gr').script).toBe('greek')
   })
 })
