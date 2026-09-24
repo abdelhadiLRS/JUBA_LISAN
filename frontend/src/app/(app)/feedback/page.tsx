@@ -75,7 +75,7 @@ function StatusBadge({ status, label }: { status: string; label: string }) {
   const cls = STATUS_STYLES[status] ?? STATUS_STYLES.pending
   return (
     <span
-      className={`text-[var(--juba-app-muted)] border-2 px-2 py-0.5 font-semibold tracking-wide ${cls}`}
+      className={`text-[var(--juba-app-muted)] rounded-full border px-2 py-0.5 font-semibold tracking-wide ${cls}`}
     >
       {label}
     </span>
@@ -145,7 +145,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
       onClick={onClose}
     >
       <div
-        className="border-[var(--juba-app-line)] bg-white w-full max-w-md border-2 shadow-2xl"
+        className="juba-card w-full max-w-md border-2 bg-[var(--juba-app-surface)] shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -160,7 +160,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
           </div>
           <button
             onClick={onClose}
-            className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] font-mono transition-colors"
+            className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] font-sans transition-colors"
           >
             ✕
           </button>
@@ -361,7 +361,7 @@ function DetailView({
       <div className="rounded-[28px] border-2 border-[var(--juba-app-line)] bg-white shadow-[var(0 6px 18px rgba(24,37,27,.06))]">
         <div className="border-[var(--juba-app-line)] space-y-3 border-b px-6 py-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
-            <h2 className="text-[var(--juba-app-ink)] min-w-0 flex-1 font-mono text-base leading-snug font-bold">
+            <h2 className="text-[var(--juba-app-ink)] min-w-0 flex-1 font-sans text-base leading-snug font-bold">
               {entry.title}
             </h2>
             <StatusBadge status={entry.status} label={statusLabel} />
@@ -370,7 +370,7 @@ function DetailView({
             {entry.description}
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] inline-flex flex-wrap items-center gap-x-1 font-mono">
+            <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] inline-flex flex-wrap items-center gap-x-1 font-sans">
               <span>
                 {t('by')} {entry.author.display_name}
               </span>
@@ -413,7 +413,7 @@ function DetailView({
             comments.map((c) => (
               <div key={c.id} className="space-y-1 px-6 py-4">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] inline-flex flex-wrap items-center gap-x-1 font-mono">
+                  <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] inline-flex flex-wrap items-center gap-x-1 font-sans">
                     <span>{c.author.display_name}</span>
                     <AdminAuthorBadge role={c.author.role} />
                     <span>· {formatDate(c.created_at)}</span>
@@ -646,7 +646,7 @@ export default function FeedbackPage() {
         <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] mb-1 font-semibold tracking-wide">
           {t('title')}
         </p>
-        <h1 className="text-[var(--juba-app-ink)] font-mono text-2xl font-bold tracking-tight">
+        <h1 className="text-[var(--juba-app-ink)] font-sans text-2xl font-bold tracking-tight">
           {t('subtitle')}
         </h1>
       </div>
@@ -700,7 +700,7 @@ export default function FeedbackPage() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] focus:border-[var(--juba-app-green)] appearance-none border-2 px-3 py-1 font-mono transition-colors focus:outline-none"
+          className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] focus:border-[var(--juba-app-green)] appearance-none border-2 px-3 py-1 font-sans transition-colors focus:outline-none"
         >
           {statusOptions.map((o) => (
             <option key={o.value} value={o.value}>
@@ -773,7 +773,7 @@ export default function FeedbackPage() {
                       >
                         ▲
                       </button>
-                      <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-mono tabular-nums">
+                      <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans tabular-nums">
                         {entry.vote_count}
                       </span>
                     </div>
@@ -792,7 +792,7 @@ export default function FeedbackPage() {
                         label={getStatusLabel(entry.status)}
                       />
                       {entry.unread_by_me && (
-                        <span className="border-2 border-red-500/40 px-2 py-0.5 font-mono text-[10px] leading-none font-bold tracking-widest text-red-400 uppercase">
+                        <span className="border-2 border-red-500/40 px-2 py-0.5 font-sans text-[10px] leading-none font-bold tracking-widest text-red-400 uppercase">
                           {t('unread')}
                         </span>
                       )}
@@ -801,7 +801,7 @@ export default function FeedbackPage() {
                       {entry.description}
                     </p>
                     <div className="flex flex-wrap items-center gap-3">
-                      <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] inline-flex flex-wrap items-center gap-x-1 font-mono">
+                      <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] inline-flex flex-wrap items-center gap-x-1 font-sans">
                         <span>
                           {t('by')} {entry.author.display_name}
                         </span>
@@ -809,7 +809,7 @@ export default function FeedbackPage() {
                         <span>· {formatDate(entry.created_at)}</span>
                       </span>
                       {entry.comment_count > 0 && (
-                        <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-mono">
+                        <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans">
                           ◌{' '}
                           {entry.comment_count === 1
                             ? t('comment')
