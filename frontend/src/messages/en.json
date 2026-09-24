@@ -988,7 +988,18 @@
     "cardsAdded": "{count} cards added to your flashcard deck.",
     "goToFlashcards": "Go to Flashcards →",
     "addFailed": "Failed to add flashcards.",
-    "noResults": "No vocabulary sets match your search"
+    "noResults": "No vocabulary sets match your search",
+    "streak": "Streak",
+    "days": "days",
+    "accuracy": "Accuracy",
+    "mastered": "Mastered",
+    "progress": "Vocabulary progress",
+    "startReview": "Start Review",
+    "deviceMemory": "JUBA MEMORY · DEVICE",
+    "savedWords": "Your saved words",
+    "savedWordsCount": "saved words from Instant Translator",
+    "translateMore": "Translate more",
+    "topicCount": "{count} topics"
   },
   "phrasebook": {
     "title": "Phrasebook",
