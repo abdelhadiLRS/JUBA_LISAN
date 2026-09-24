@@ -8,7 +8,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.deps import get_current_user, require_admin
+from app.core.deps import get_current_user, require_admin, require_learner
 from app.core.limiter import limiter
 from app.models.review import Review
 from app.models.user import User
@@ -35,7 +35,7 @@ from app.utils.pagination import paginate
 router = APIRouter(tags=["reviews"])
 
 
-@router.get("/api/reviews/me", response_model=ReviewMeResponse)
+@router.get("/api/reviews/me", response_model=ReviewMeResponse, dependencies=[Depends(require_learner)])
 @limiter.limit("60/minute")
 async def get_my_review(
     request: Request,
@@ -46,7 +46,7 @@ async def get_my_review(
     return ReviewMeResponse(has_review=review is not None, review=review)
 
 
-@router.post("/api/reviews", response_model=ReviewAdminOut, status_code=status.HTTP_201_CREATED)
+@router.post("/api/reviews", response_model=ReviewAdminOut, status_code=status.HTTP_201_CREATED, dependencies=[Depends(require_learner)])
 @limiter.limit("5/hour")
 async def create_my_review(
     request: Request,
@@ -71,7 +71,7 @@ async def create_my_review(
     return review
 
 
-@router.patch("/api/reviews/me", response_model=ReviewAdminOut)
+@router.patch("/api/reviews/me", response_model=ReviewAdminOut, dependencies=[Depends(require_learner)])
 @limiter.limit("10/hour")
 async def patch_my_review(
     request: Request,
@@ -82,7 +82,7 @@ async def patch_my_review(
     return await update_user_review(db, current_user, rating=data.rating, comment=data.comment)
 
 
-@router.delete("/api/reviews/me", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/api/reviews/me", status_code=status.HTTP_204_NO_CONTENT, dependencies=[Depends(require_learner)])
 @limiter.limit("10/hour")
 async def delete_my_review(
     request: Request,
