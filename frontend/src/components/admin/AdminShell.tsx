@@ -15,15 +15,15 @@ export function AdminPageHeader({
   actions,
 }: AdminPageHeaderProps) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="juba-admin-page-header flex flex-wrap items-center justify-between gap-4">
       <div className="min-w-0">
         <div className="mb-2 flex items-center gap-2">
-          <span className="text-fl-label text-fl-muted-2">●</span>
-          <span className="text-fl-muted-1 font-mono text-xs tracking-widest uppercase">
+          <span className="juba-admin-kicker-dot" aria-hidden="true">✦</span>
+          <span className="juba-admin-kicker">
             {eyebrow}
           </span>
         </div>
-        <h1 className="text-fl-fg font-mono text-xl font-semibold tracking-normal">
+        <h1 className="juba-admin-title text-fl-fg text-xl font-black tracking-tight">
           {title}
         </h1>
       </div>
@@ -42,13 +42,13 @@ export function AdminPanel({
   children: ReactNode
 }) {
   return (
-    <div className="border-fl-border bg-fl-surface border">
+    <div className="juba-admin-panel border-fl-border bg-fl-surface border">
       {(title || meta) && (
-        <div className="border-fl-border flex flex-wrap items-center gap-2 border-b px-5 py-4">
+        <div className="juba-admin-panel-head border-fl-border flex flex-wrap items-center gap-2 border-b px-5 py-4">
           {title && (
             <>
-              <span className="text-fl-label text-fl-muted-2">●</span>
-              <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+              <span className="juba-admin-kicker-dot" aria-hidden="true">✦</span>
+              <span className="juba-admin-panel-title">
                 {title}
               </span>
             </>
@@ -71,14 +71,14 @@ export function AdminMetric({
   icon: LucideIcon
 }) {
   return (
-    <div className="border-fl-border bg-fl-surface flex items-center justify-between gap-3 border px-4 py-3">
+    <div className="juba-admin-metric border-fl-border bg-fl-surface flex items-center justify-between gap-3 border px-4 py-3">
       <div className="min-w-0">
-        <p className="text-fl-label text-fl-muted-4 mb-1 font-mono tracking-widest uppercase">
+        <p className="juba-admin-metric-label text-fl-label text-fl-muted-4 mb-1 font-mono tracking-widest uppercase">
           {label}
         </p>
-        <p className="text-fl-fg truncate font-mono text-lg">{value}</p>
+        <p className="juba-admin-metric-value text-fl-fg truncate text-lg font-black">{value}</p>
       </div>
-      <Icon className="text-fl-muted-3 size-5 shrink-0" aria-hidden="true" />
+      <span className="juba-admin-metric-icon"><Icon className="size-5 shrink-0" aria-hidden="true" /></span>
     </div>
   )
 }
@@ -100,7 +100,7 @@ export function AdminBadge({
 
   return (
     <span
-      className={`text-fl-hint inline-flex border px-2 py-0.5 font-mono tracking-widest uppercase ${toneClass}`}
+      className={`juba-admin-badge text-fl-hint inline-flex border px-2 py-0.5 font-mono tracking-widest uppercase ${toneClass}`}
     >
       {children}
     </span>
