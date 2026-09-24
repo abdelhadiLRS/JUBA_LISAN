@@ -204,7 +204,7 @@ describe('createAudioQueue', () => {
   })
 
   it('falls back when a Web Audio source cannot be created', async () => {
-    const ctx = createMockAudioContext()
+    const { ctx } = createContext()
     vi.spyOn(ctx, 'createBufferSource').mockImplementation(() => {
       throw new Error('source creation failed')
     })
