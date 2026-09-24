@@ -33,8 +33,8 @@ export function LandingFooter({ t }: LandingFooterProps) {
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li><a href="#features" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('navFeatures')}</a></li>
-              <li><a href="#demo" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">AI Voice Demo</a></li>
-              <li><a href="#languages" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">Supported Languages</a></li>
+              <li><a href="#demo" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('aiVoiceDemo')}</a></li>
+              <li><a href="#languages" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('supportedLanguages')}</a></li>
               <li><a href="#pricing" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('navPricing')}</a></li>
             </ul>
           </div>
@@ -62,8 +62,8 @@ export function LandingFooter({ t }: LandingFooterProps) {
         </div>
 
         <div className="juba-footer-bottom border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-          <span>Built for learners everywhere.</span>
-          <span>AI-powered · Privacy-conscious · CEFR-aligned</span>
+          <span>{t('builtForLearners')}</span>
+          <span>{t('footerPositioning')}</span>
         </div>
       </div>
     </footer>
