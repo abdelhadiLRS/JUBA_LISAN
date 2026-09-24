@@ -6,10 +6,6 @@ import type { Metadata } from 'next'
 import {
   Sparkles,
   ArrowRight,
-  Bot,
-  Mic,
-  Volume2,
-  ShieldCheck,
   CheckCircle2,
 } from 'lucide-react'
 import PricingSection from '@/components/billing/PricingSection'
@@ -75,7 +71,6 @@ export default async function Home() {
   const cookieStore = await cookies()
   const hasSession = cookieStore.has('refresh_token')
   const t = await getTranslations('landing')
-  const tCommon = await getTranslations('common')
   const tBilling = await getTranslations('billing')
 
   let stripeEnabled = false
@@ -158,7 +153,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="juba-ff-hero-art" aria-label="JUBA LISAN brand illustration">
+          <div className="juba-ff-hero-art" aria-label="Language learning illustration">
             <div className="juba-ff-sun" aria-hidden="true" />
             <div className="juba-ff-mountain mountain-back" aria-hidden="true" />
             <div className="juba-ff-mountain mountain-front" aria-hidden="true" />
@@ -182,11 +177,11 @@ export default async function Home() {
             <div className="juba-ff-character char-three" aria-hidden="true"><span>ES</span></div>
             <div className="juba-ff-character char-four" aria-hidden="true"><span>{t('flowAiLabel')}</span></div>
 
-            <div className="juba-ff-float-label label-one">Hello!</div>
-            <div className="juba-ff-float-label label-two">Bonjour</div>
-            <div className="juba-ff-float-label label-three">Hola</div>
+            <div className="juba-ff-float-label label-one" aria-hidden="true">Hello!</div>
+            <div className="juba-ff-float-label label-two" aria-hidden="true">Bonjour</div>
+            <div className="juba-ff-float-label label-three" aria-hidden="true">Hola</div>
             <div className="juba-ff-book-float">
-              <div className="book-cover">J</div>
+              <div className="book-cover" aria-hidden="true">J</div>
               <div><strong>Your language companion</strong><span>Assess · Learn · Practice</span></div>
             </div>
           </div>
