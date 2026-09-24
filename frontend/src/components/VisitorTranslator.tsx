@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 import { useTranslations } from 'next-intl'
-import { ArrowRightLeft, BookOpenCheck, Languages, Loader2, Sparkles, X } from 'lucide-react'
+import { ArrowRightLeft, BookOpenCheck, Languages, Loader2, X } from 'lucide-react'
 import Link from 'next/link'
 import { saveTranslatedWordLocally } from '@/lib/api'
 import { TARGET_LANGUAGE_CATALOG } from '@/lib/target-languages'
