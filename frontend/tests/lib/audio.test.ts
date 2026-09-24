@@ -228,6 +228,62 @@ describe('createAudioQueue', () => {
     expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:test')
   })
 
+  it('waits for scheduled Web Audio chunks before starting HTMLAudio fallback', async () => {
+    const { ctx, sources } = createContext()
+    let createCount = 0
+    const originalCreate = ctx.createBufferSource
+    ctx.createBufferSource = vi.fn(() => {
+      createCount += 1
+      if (createCount === 2) {
+        throw new Error('source creation failed')
+      }
+      return originalCreate()
+    }) as typeof ctx.createBufferSource
+
+    const listeners = new Map<string, () => void>()
+    const play = vi.fn(async () => {})
+    const audio = {
+      src: 'blob:test',
+      play,
+      pause: vi.fn(),
+      addEventListener: vi.fn((type: string, handler: () => void) => {
+        listeners.set(type, handler)
+      }),
+      removeEventListener: vi.fn(),
+    }
+
+    vi.stubGlobal('Audio', vi.fn(() => audio))
+    vi.stubGlobal('URL', {
+      createObjectURL: vi.fn(() => 'blob:test'),
+      revokeObjectURL: vi.fn(),
+    })
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx)
+
+    await queue.enqueue(new ArrayBuffer(4))
+    const fallback = queue.enqueue(new ArrayBuffer(8))
+
+    await Promise.resolve()
+    await Promise.resolve()
+
+    expect(play).not.toHaveBeenCalled()
+    expect(sources).toHaveLength(1)
+
+    sources[0].onended?.()
+    await fallback
+
+    expect(play).toHaveBeenCalledTimes(1)
+
+    listeners.get('ended')?.()
+    await Promise.resolve()
+
+    await queue.enqueue(new ArrayBuffer(16))
+    expect(createCount).toBe(3)
+    expect(sources).toHaveLength(1)
+    expect(sources[0].start).toHaveBeenCalledWith(0.005)
+  })
+
   it('resolves an enqueue promise when fallback playback is cancelled', async () => {
     const { ctx } = createContext()
     ctx.decodeAudioData = vi.fn(async () => {
