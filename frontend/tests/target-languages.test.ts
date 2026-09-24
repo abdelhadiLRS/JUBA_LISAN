@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   TARGET_LANGUAGE_CATALOG,
+  getCanonicalLanguageCode,
   TARGET_LANGUAGE_CAPABILITIES,
   getLanguageByCode,
   getTargetLanguageCapability,
@@ -58,6 +59,12 @@ describe('target language catalog', () => {
   it('resolves trimmed and empty codes safely', () => {
     expect(getLanguageByCode('  cs-CZ  ')?.code).toBe('cs-CZ')
     expect(getLanguageByCode('   ')).toBeUndefined()
+  })
+
+  it('returns canonical language codes', () => {
+    expect(getCanonicalLanguageCode(' CS-cz ')).toBe('cs-CZ')
+    expect(getCanonicalLanguageCode('el-gr')).toBe('el-GR')
+    expect(getCanonicalLanguageCode('unknown')).toBeUndefined()
   })
 
 
