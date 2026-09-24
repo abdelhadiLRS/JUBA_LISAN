@@ -6155,3 +6155,31 @@ main [dir="rtl"] h3,
 .juba-friend-chat-shell [class*="--juba-muted"]{
   color:var(--juba-app-muted)!important;
 }
+
+/* JUBA LISAN — FAQ interaction */
+.juba-faq-shell{
+  color:var(--juba-app-ink);
+  background:
+    radial-gradient(circle at 96% 0%,rgba(255,212,79,.11),transparent 280px),
+    var(--juba-app-bg);
+}
+.juba-faq-shell .juba-card{
+  border-color:var(--juba-app-line)!important;
+  border-radius:22px;
+  background:var(--juba-app-surface)!important;
+  box-shadow:5px 5px 0 rgba(24,37,27,.055);
+  overflow:hidden;
+}
+.juba-faq-shell .juba-faq-question{
+  color:var(--juba-app-ink)!important;
+}
+.juba-faq-shell .juba-faq-question:hover{
+  background:#f4f8ef!important;
+}
+.juba-faq-shell .juba-faq-answer{
+  color:var(--juba-app-muted)!important;
+  background:#fffdf8!important;
+}
+@media(max-width:700px){
+  .juba-faq-shell .juba-card{border-radius:18px;box-shadow:4px 4px 0 rgba(24,37,27,.05);}
+}
