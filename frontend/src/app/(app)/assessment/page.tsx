@@ -360,15 +360,15 @@ export default function AssessmentPage() {
               <div className={panelClass + ' space-y-3'}>
                 <p className="font-semibold text-[var(--juba-app-ink)]">{t('voiceTrialTitle')}</p>
                 <p className="text-xs leading-relaxed text-[var(--juba-app-muted)]">{t('voiceTrialDesc', { minutes: 5 })}</p>
-                <button onClick={requestVoiceTrial} disabled={trialLoading} className={actionClass + ' disabled:opacity-50'}>
+                <button type="button" onClick={requestVoiceTrial} disabled={trialLoading} className={actionClass + ' disabled:opacity-50'}>
                   {trialLoading ? '...' : `${t('voiceTrialStart')} →`}
                 </button>
               </div>
             )}
             {error && <div className="rounded-[18px] border border-[var(--juba-app-error)]/30 bg-[var(--juba-app-error)]/10 px-4 py-3 text-xs text-[var(--juba-app-error)]">✕ {error}</div>}
             <div className="flex gap-2">
-              <button onClick={() => router.push('/dashboard')} className="flex-1 rounded-[18px] border border-[var(--juba-app-line)] px-3 py-3 text-xs font-semibold text-[var(--juba-app-muted)] transition hover:bg-[var(#f3f7ef)]">← {tCommon('backToDashboard')}</button>
-              <button onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
+              <button type="button" onClick={() => router.push('/dashboard')} className="flex-1 rounded-[18px] border border-[var(--juba-app-line)] px-3 py-3 text-xs font-semibold text-[var(--juba-app-muted)] transition hover:bg-[#f3f7ef]">← {tCommon('backToDashboard')}</button>
+              <button type="button" onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
             </div>
           </div>
         </div>
@@ -443,7 +443,7 @@ export default function AssessmentPage() {
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-app-muted)]">{t('overrideLevel')}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {CEFR_LEVELS.map((lvl) => (
-                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[18px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--juba-app-green-dark)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)]' : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:bg-[var(#f3f7ef)]'}`}>
+                  <button key={lvl} type="button" onClick={() => setSelectedLevel(lvl)} className={`rounded-[18px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--juba-app-green-dark)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)]' : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:bg-[#f3f7ef]'}`}>
                     {lvl}
                   </button>
                 ))}
@@ -463,7 +463,7 @@ export default function AssessmentPage() {
               </div>
             )}
             {error && <div className="rounded-[18px] border border-[var(--juba-app-error)]/30 bg-[var(--juba-app-error)]/10 px-4 py-3 text-xs text-[var(--juba-app-error)]">✕ {error}</div>}
-            <button onClick={() => setStep('duration')} className={actionClass}>{t('createPlan')} →</button>
+            <button type="button" onClick={() => setStep('duration')} className={actionClass}>{t('createPlan')} →</button>
           </div>
         </div>
       </div>
@@ -506,8 +506,8 @@ export default function AssessmentPage() {
               <p className="mb-2 font-semibold text-[var(--juba-app-ink)]">{t('voiceTrialTitle')}</p>
               <p className="text-xs leading-relaxed text-[var(--juba-app-muted)]">{t('voiceTrialDesc', { minutes })}</p>
             </div>
-            <button onClick={startVoiceTrial} className={actionClass}>{t('voiceTrialStart')} →</button>
-            <button onClick={() => router.push('/plan')} className="w-full py-2 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--juba-app-muted)] transition hover:text-[var(--juba-app-ink)]">{t('voiceTrialSkip')}</button>
+            <button type="button" onClick={startVoiceTrial} className={actionClass}>{t('voiceTrialStart')} →</button>
+            <button type="button" onClick={() => router.push('/plan')} className="w-full py-2 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--juba-app-muted)] transition hover:text-[var(--juba-app-ink)]">{t('voiceTrialSkip')}</button>
           </div>
         </div>
       </div>
