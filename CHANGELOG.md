@@ -1,5 +1,18 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- Arabic (`ar`) is now enabled as a full target language, with A1–C2 curriculum, grammar, vocabulary, phrasebook, assessment data, frontend catalog support, Arabic flag asset, and native-language registration support.
+- Arabic target-language labels and greeting are available in all six existing UI locales.
+- Authentication tests cover Arabic as both target and native language.
+
+### Changed
+
+- The backend target-language allowlist and available-language configuration now include Arabic.
+
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)

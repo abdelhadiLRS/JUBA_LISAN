@@ -38,7 +38,8 @@
       "pt-PT": "Olá!",
       "ja-JP": "こんにちは！",
       "ko-KR": "안녕하세요!",
-      "zh-CN": "你好！"
+      "zh-CN": "你好！",
+      "ar": "مرحبًا!"
     },
     "heroBadge": "AI-POWERED LANGUAGE LEARNING",
     "heroTitle": "Learn languages naturally with your personal AI tutor",
@@ -1350,7 +1351,9 @@
     "de-DE-description": "Deutsch, wie es in Deutschland gesprochen wird.",
     "ja-JP-description": "Japanisch, wie es in Japan gesprochen wird.",
     "ko-KR-description": "Koreanisch, wie es in Südkorea gesprochen wird.",
-    "zh-CN-description": "Mandarin-Chinesisch aus Festlandchina mit vereinfachten Schriftzeichen."
+    "zh-CN-description": "Mandarin-Chinesisch aus Festlandchina mit vereinfachten Schriftzeichen.",
+    "ar": "Arabisch",
+    "ar-description": "Modernes Hocharabisch für Kommunikation, Studium und Reisen."
   },
   "onboarding": {
     "title": "Wähle deine Sprache",

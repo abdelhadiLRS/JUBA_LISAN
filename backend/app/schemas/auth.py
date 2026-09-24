@@ -29,6 +29,7 @@ SUPPORTED_LANGUAGES = {
     "nl",
     "pl",
     "ro",
+    "ar",
 }
 
 SUPPORTED_TARGET_LANGUAGES: set[str] = {
