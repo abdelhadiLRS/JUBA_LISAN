@@ -285,6 +285,44 @@ describe('createAudioQueue', () => {
     await expect(playback).resolves.toBeUndefined()
   })
 
+  it('falls back when resume succeeds but the context remains suspended', async () => {
+    const { ctx } = createContext()
+    Object.defineProperty(ctx, 'state', { value: 'suspended', configurable: true })
+    ctx.resume = vi.fn(async () => {}) as typeof ctx.resume
+
+    const play = vi.fn(async () => {})
+    const listeners = new Map<string, () => void>()
+    const audio = {
+      src: 'blob:still-suspended',
+      play,
+      pause: vi.fn(),
+      addEventListener: vi.fn((type: string, handler: () => void) => {
+        listeners.set(type, handler)
+      }),
+      removeEventListener: vi.fn(),
+    }
+
+    vi.stubGlobal('Audio', vi.fn(() => audio))
+    vi.stubGlobal('URL', {
+      createObjectURL: vi.fn(() => 'blob:still-suspended'),
+      revokeObjectURL: vi.fn(),
+    })
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx)
+
+    const playback = queue.enqueue(new ArrayBuffer(4))
+
+    await Promise.resolve()
+    await Promise.resolve()
+
+    expect(ctx.resume).toHaveBeenCalledTimes(1)
+    expect(play).toHaveBeenCalledTimes(1)
+
+    listeners.get('ended')?.()
+    await expect(playback).resolves.toBeUndefined()
+  })
+
   it('falls back when a Web Audio source cannot be created', async () => {
     const { ctx } = createContext()
     vi.spyOn(ctx, 'createBufferSource').mockImplementation(() => {
