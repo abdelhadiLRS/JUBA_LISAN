@@ -184,6 +184,20 @@ describe('ExerciseAudioPlayer', () => {
     expect(currentAudio!.currentTime).toBe(0)
   })
 
+  it('revokes the exercise audio blob URL when playback ends', async () => {
+    render(<ExerciseAudioPlayer exerciseId={1} />)
+    fireEvent.click(screen.getByRole('button', { name: 'audioPlay' }))
+
+    await waitFor(() => {
+      expect(URL.createObjectURL).toHaveBeenCalled()
+    })
+
+    currentAudio!.emit('ended')
+
+    expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:exercise-1')
+    expect(screen.getByRole('button', { name: 'audioPlay' })).toBeDefined()
+  })
+
   it('revokes the exercise audio blob URL when the exercise changes', async () => {
     const { rerender } = render(<ExerciseAudioPlayer exerciseId={1} />)
     fireEvent.click(screen.getByRole('button', { name: 'audioPlay' }))
