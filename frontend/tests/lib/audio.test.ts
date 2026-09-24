@@ -114,3 +114,131 @@ describe('float32ToWav', () => {
     expect(view.getUint32(28, true)).toBe(88200)
   })
 })
+
+
+describe('createAudioQueue', () => {
+  function createContext() {
+    const sources: Array<{
+      start: ReturnType<typeof vi.fn>
+      stop: ReturnType<typeof vi.fn>
+      connect: ReturnType<typeof vi.fn>
+      onended?: () => void
+      buffer?: AudioBuffer
+    }> = []
+
+    const ctx = {
+      state: 'running',
+      currentTime: 0,
+      destination: {},
+      resume: vi.fn(async () => {}),
+      decodeAudioData: vi.fn(async () => ({
+        duration: 0.5,
+        sampleRate: 16000,
+        numberOfChannels: 1,
+      })),
+      createBufferSource: vi.fn(() => {
+        const source = {
+          start: vi.fn(),
+          stop: vi.fn(),
+          connect: vi.fn(),
+          onended: undefined as (() => void) | undefined,
+          buffer: undefined as AudioBuffer | undefined,
+        }
+        sources.push(source)
+        return source
+      }),
+    } as unknown as AudioContext
+
+    return { ctx, sources }
+  }
+
+  it('decodes and schedules queued chunks in enqueue order', async () => {
+    const { ctx, sources } = createContext()
+    const idle = vi.fn()
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx, idle)
+
+    const first = queue.enqueue(new ArrayBuffer(4))
+    const second = queue.enqueue(new ArrayBuffer(8))
+
+    await Promise.all([first, second])
+
+    expect(ctx.decodeAudioData).toHaveBeenCalledTimes(2)
+    expect(ctx.createBufferSource).toHaveBeenCalledTimes(2)
+    expect(sources[0].start).toHaveBeenCalledWith(0.005)
+    expect(sources[1].start).toHaveBeenCalledWith(0.505)
+    expect(idle).not.toHaveBeenCalled()
+
+    sources[0].onended?.()
+    expect(idle).not.toHaveBeenCalled()
+    sources[1].onended?.()
+    expect(idle).toHaveBeenCalledTimes(1)
+  })
+
+  it('cancels pending chunks and prevents stale decode completion from scheduling audio', async () => {
+    const { ctx, sources } = createContext()
+    let resolveDecode!: (value: AudioBuffer) => void
+    ctx.decodeAudioData = vi.fn(
+      () =>
+        new Promise<AudioBuffer>((resolve) => {
+          resolveDecode = resolve
+        })
+    ) as typeof ctx.decodeAudioData
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx)
+    const pending = queue.enqueue(new ArrayBuffer(4))
+
+    queue.cancel()
+
+    resolveDecode({
+      duration: 1,
+      sampleRate: 16000,
+      numberOfChannels: 1,
+    } as AudioBuffer)
+
+    await pending
+
+    expect(sources).toHaveLength(0)
+    expect(ctx.createBufferSource).not.toHaveBeenCalled()
+  })
+
+  it('resolves an enqueue promise when fallback playback is cancelled', async () => {
+    const { ctx } = createContext()
+    ctx.decodeAudioData = vi.fn(async () => {
+      throw new Error('decode failed')
+    }) as typeof ctx.decodeAudioData
+
+    const listeners = new Map<string, () => void>()
+    const audio = {
+      src: 'blob:test',
+      play: vi.fn(async () => {}),
+      pause: vi.fn(),
+      addEventListener: vi.fn((type: string, handler: () => void) => {
+        listeners.set(type, handler)
+      }),
+      removeEventListener: vi.fn(),
+    }
+
+    vi.stubGlobal('Audio', vi.fn(() => audio))
+    vi.stubGlobal('URL', {
+      createObjectURL: vi.fn(() => 'blob:test'),
+      revokeObjectURL: vi.fn(),
+    })
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx)
+    const pending = queue.enqueue(new ArrayBuffer(4))
+
+    await Promise.resolve()
+    await Promise.resolve()
+
+    queue.cancel()
+
+    await expect(pending).resolves.toBeUndefined()
+    expect(audio.pause).toHaveBeenCalledTimes(1)
+    expect(audio.src).toBe('')
+    expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:test')
+    expect(listeners.get('ended')).toBeDefined()
+  })
+})
