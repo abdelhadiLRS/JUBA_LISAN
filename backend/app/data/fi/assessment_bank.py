@@ -13,7 +13,7 @@ _q(3,"A2","vocabulary","What does “matkalippu” mean?",["travel ticket","pass
 _q(4,"A2","grammar","Choose the correct imperative.",["Tule tänne!","Tulla tänne!","Tulevat tänne!","Tulen tänne!"],"Tule tänne!","imperative"),
 _q(1,"B1","grammar","Which sentence correctly uses a relative clause?",["Tämä on kirja, jonka ostin.","Tämä on kirja, jonka ostaa.","Tämä on kirja, joka ostin sen.","Tämä on kirja, missä ostin."],"Tämä on kirja, jonka ostin.","relative-clauses"),
 _q(2,"B1","grammar","Choose the Finnish passive form for a general statement.",["Suomessa puhutaan suomea.","Suomessa puhuvat suomea.","Suomessa puhun suomea.","Suomessa puhua suomea."],"Suomessa puhutaan suomea.","passive"),
-_q(3,"B1","vocabulary","Which word means “deadline”?",["määräaika","palaute","tausta","ystävyyys"],"määräaika"),
+_q(3,"B1","vocabulary","Which word means “deadline”?",["määräaika","palaute","tausta","ystävällisyys"],"määräaika"),
 _q(4,"B1","reading","Read: “Vaikka satoi, menimme ulos.” What happened?",["They went outside despite the rain.","They stayed home because it rained.","They went outside before the rain.","They stopped the rain."],"They went outside despite the rain.","subordinate-clauses"),
 _q(1,"B2","grammar","Which sentence expresses concession correctly?",["Vaikka tehtävä oli vaikea, hän onnistui.","Vaikka tehtävä oli vaikea, hän onnistua.","Vaikka tehtävä vaikea, hän onnistui.","Vaikka tehtävä on vaikea, hän onnistunut."],"Vaikka tehtävä oli vaikea, hän onnistui.","concessive-clauses"),
 _q(2,"B2","grammar","Choose the natural verb-government construction for “I like music.”",["Pidän musiikista.","Pidän musiikin.","Pidän musiikkia.","Pidän musiikissa."],"Pidän musiikista.","verb-government"),
