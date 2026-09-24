@@ -68,6 +68,11 @@ describe('target language catalog', () => {
     expect(getCanonicalLanguageCode('unknown')).toBeUndefined()
   })
 
+  it('normalizes capability lookups with mixed case and whitespace', () => {
+    expect(getTargetLanguageCapability('  CS-cz  ').script).toBe('latin')
+    expect(getTargetLanguageCapability(' EL-gr ').script).toBe('greek')
+  })
+
   it('normalizes known and unknown language codes consistently', () => {
     expect(normalizeLanguageCode(' CS-cz ')).toBe('cs-CZ')
     expect(normalizeLanguageCode(' el-gr ')).toBe('el-GR')
