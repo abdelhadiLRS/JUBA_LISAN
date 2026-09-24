@@ -53,7 +53,6 @@ SUPPORTED_TARGET_LANGUAGES: set[str] = {
     "no-NO",
     "fi-FI",
     "cs-CZ",
-    "cs-CZ",
 }
 
 
