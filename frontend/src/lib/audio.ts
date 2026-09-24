@@ -237,6 +237,11 @@ export function createAudioQueue(
       } catch {
         // ignore
       }
+      try {
+        source.disconnect()
+      } catch {
+        // ignore
+      }
       return
     }
     nextTime = startAt + decoded.duration
