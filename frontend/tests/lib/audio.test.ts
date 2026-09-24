@@ -175,6 +175,21 @@ describe('createAudioQueue', () => {
     expect(idle).toHaveBeenCalledTimes(1)
   })
 
+  it('ignores a late source ended event after cancellation', async () => {
+    const { ctx, sources } = createContext()
+    const idle = vi.fn()
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx, idle)
+
+    await queue.enqueue(new ArrayBuffer(4))
+    expect(sources).toHaveLength(1)
+
+    queue.cancel()
+    expect(idle).toHaveBeenCalledTimes(1)
+
+    sources[0].onended?.()
+    expect(idle).toHaveBeenCalledTimes(1)
+  })
   it('cancels pending chunks and prevents stale decode completion from scheduling audio', async () => {
     const { ctx, sources } = createContext()
     let resolveDecode!: (value: AudioBuffer) => void
