@@ -175,6 +175,38 @@ describe('createAudioQueue', () => {
     expect(idle).toHaveBeenCalledTimes(1)
   })
 
+  it('disconnects a source when cancellation races immediately after scheduling', async () => {
+    const { ctx, sources } = createContext()
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx)
+
+    let cancelled = false
+    const originalStart = sources
+    ctx.createBufferSource = vi.fn(() => {
+      const source = {
+        start: vi.fn(() => {
+          if (!cancelled) {
+            cancelled = true
+            queue.cancel()
+          }
+        }),
+        stop: vi.fn(),
+        connect: vi.fn(),
+        disconnect: vi.fn(),
+        onended: undefined as (() => void) | undefined,
+        buffer: undefined as AudioBuffer | undefined,
+      }
+      originalStart.push(source)
+      return source
+    }) as typeof ctx.createBufferSource
+
+    await queue.enqueue(new ArrayBuffer(4))
+
+    expect(sources).toHaveLength(1)
+    expect(sources[0].stop).toHaveBeenCalledWith(0)
+    expect(sources[0].disconnect).toHaveBeenCalledTimes(1)
+  })
+
   it('ignores a late source ended event after cancellation', async () => {
     const { ctx, sources } = createContext()
     const idle = vi.fn()
