@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const messages = await getMessages()
 
   return (
-    <html suppressHydrationWarning lang={locale} className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}>
+    <html suppressHydrationWarning lang={locale} data-scroll-behavior="smooth" className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}>
       <head>
         <meta name="theme-color" content="#fdfdfd" />
         <meta name="color-scheme" content="light dark" />
