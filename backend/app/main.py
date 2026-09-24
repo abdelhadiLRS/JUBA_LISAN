@@ -119,7 +119,7 @@ async def security_headers_middleware(request: Request, call_next) -> Response:
 from app.routers import (
     admin, admin_dashboard_banner, ai_tutor, assessment, auth, chat, contact,
     conversation, curriculum, dashboard_banner, feedback, flashcards, freemium,
-    grammar, languages, lessons, listening, memories, phrasebook, progress,
+    grammar, invites, languages, lessons, listening, memories, phrasebook, progress,
     reading, reviews, social, stt, study_plan, tts, vocabulary, translate,
 )
 from app.routers import config as config_router
@@ -153,6 +153,7 @@ app.include_router(freemium.router)
 app.include_router(memories.router)
 app.include_router(phrasebook.router)
 app.include_router(languages.router)
+app.include_router(invites.router)
 app.include_router(health_router.router)
 app.include_router(vocabulary.router)
 app.include_router(social.router)
