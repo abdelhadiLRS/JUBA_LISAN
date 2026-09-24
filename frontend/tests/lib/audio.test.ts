@@ -285,6 +285,35 @@ describe('createAudioQueue', () => {
     await expect(playback).resolves.toBeUndefined()
   })
 
+  it('ignores a stale suspended-context resume after cancellation', async () => {
+    const { ctx, sources } = createContext()
+    Object.defineProperty(ctx, 'state', { value: 'suspended', configurable: true })
+
+    let resolveResume!: () => void
+    ctx.resume = vi.fn(
+      () =>
+        new Promise<void>((resolve) => {
+          resolveResume = resolve
+        })
+    ) as typeof ctx.resume
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx)
+
+    const pending = queue.enqueue(new ArrayBuffer(4))
+    await Promise.resolve()
+
+    expect(ctx.resume).toHaveBeenCalledTimes(1)
+
+    queue.cancel()
+    resolveResume()
+
+    await expect(pending).resolves.toBeUndefined()
+    expect(ctx.decodeAudioData).not.toHaveBeenCalled()
+    expect(ctx.createBufferSource).not.toHaveBeenCalled()
+    expect(sources).toHaveLength(0)
+  })
+
   it('falls back when resume succeeds but the context remains suspended', async () => {
     const { ctx } = createContext()
     Object.defineProperty(ctx, 'state', { value: 'suspended', configurable: true })
