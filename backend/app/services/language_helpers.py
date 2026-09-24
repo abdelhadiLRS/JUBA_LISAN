@@ -63,6 +63,11 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
         "self_name": "Dansk",
         "iso639": "da",
     },
+    "el-GR": {
+        "name": "Greek",
+        "self_name": "Ελληνικά",
+        "iso639": "el",
+    },
 }
 
 _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
@@ -150,6 +155,12 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
         "uses_word_spacing": True,
         "reading_length_unit": "words",
     },
+    "el-GR": {
+        "script": "greek",
+        "romanization": "",
+        "uses_word_spacing": True,
+        "reading_length_unit": "words",
+    },
 }
 
 _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
@@ -164,6 +175,7 @@ _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "nl": "nl-NL",
     "pl": "pl-PL",
     "da": "da-DK",
+    "el": "el-GR",
 }
 
 _VOICE_SESSION_TITLES: dict[str, str] = {
