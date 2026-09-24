@@ -205,7 +205,7 @@ _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "el": "el-GR",
     "sv": "sv-SE",
     "no": "no-NO",
-    "fi": "fi-FI",
+    "fi": "fi-FI",\n    "cs": "cs-CZ",
 }
 
 _VOICE_SESSION_TITLES: dict[str, str] = {
