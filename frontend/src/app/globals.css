@@ -4636,3 +4636,42 @@ main [dir="rtl"] h3,
   .juba-lesson-shell{padding:1rem;}
   .juba-lesson-shell > div > section.juba-card{box-shadow:4px 4px 0 var(--juba-app-ink);}
 }
+
+
+/* JUBA LISAN — course discovery surface v8 */
+.juba-mobile-courses{
+  color:var(--juba-app-ink);
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,212,79,.13),transparent 300px),
+    var(--juba-app-bg);
+}
+.juba-mobile-courses .juba-card{
+  border-color:var(--juba-app-line)!important;
+  border-radius:24px;
+}
+.juba-mobile-courses .juba-card.bg-white{
+  background:var(--juba-app-surface)!important;
+}
+.juba-mobile-courses [class*="border-[#eee8ff]"]{border-color:var(--juba-app-line)!important}
+.juba-mobile-courses [class*="text-[#617068]"]{color:var(--juba-app-muted)!important}
+.juba-mobile-courses [class*="text-[var(--juba-text)]"]{color:var(--juba-app-ink)!important}
+.juba-mobile-courses [class*="bg-[#f2f0e8]"]{background:#f2f5ee!important}
+.juba-mobile-courses [class*="bg-[#ffd85a]"]{background:var(--juba-app-yellow)!important}
+.juba-mobile-courses a,
+.juba-mobile-courses button{transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+.juba-mobile-courses a:hover{transform:translateY(-2px)}
+.juba-mobile-courses > div > section:first-child{
+  border-color:var(--juba-app-ink)!important;
+  box-shadow:7px 7px 0 var(--juba-app-ink)!important;
+}
+.juba-mobile-courses > div > section:first-child a:first-of-type{
+  color:var(--juba-app-ink)!important;
+  box-shadow:4px 4px 0 var(--juba-app-ink)!important;
+}
+.juba-mobile-courses > div > section:nth-child(2) > .juba-card{
+  box-shadow:0 8px 24px rgba(24,37,27,.055)!important;
+}
+@media(max-width:700px){
+  .juba-mobile-courses{padding-top:1rem;padding-bottom:1rem}
+  .juba-mobile-courses > div > section:first-child{box-shadow:4px 4px 0 var(--juba-app-ink)!important}
+}
