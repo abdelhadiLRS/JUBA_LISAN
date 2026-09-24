@@ -63,6 +63,17 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
         "self_name": "Dansk",
         "iso639": "da",
     },
+    "sv-SE": {
+        "name": "Swedish",
+        "self_name": "Svenska",
+        "iso639": "sv",
+    },
+    "sv-SE": {
+        "script": "latin",
+        "romanization": "",
+        "uses_word_spacing": True,
+        "reading_length_unit": "words",
+    },
     "el-GR": {
         "name": "Greek",
         "self_name": "Ελληνικά",
@@ -176,6 +187,7 @@ _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "pl": "pl-PL",
     "da": "da-DK",
     "el": "el-GR",
+    "sv": "sv-SE",
 }
 
 _VOICE_SESSION_TITLES: dict[str, str] = {
