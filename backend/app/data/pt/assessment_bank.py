@@ -1535,4 +1535,20 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
 ],
         correct="contudo",
     ),
+    AssessmentQuestion(
+        id="g-c1-991",
+        skill="grammar",
+        difficulty="C1",
+        question="Completa: É improvável que a questão ___ resolvida rapidamente.",
+        options=["seja","é","será","era"],
+        correct="seja",
+    ),
+    AssessmentQuestion(
+        id="g-c1-990",
+        skill="grammar",
+        difficulty="C1",
+        question="Escolhe a forma correta: Por muito que ___, não conseguirá alterar os resultados.",
+        options=["tente","tenta","tentará","tentava"],
+        correct="tente",
+    ),
 ]
