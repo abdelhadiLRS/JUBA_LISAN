@@ -24,14 +24,31 @@ GrammarTopic(slug="st-a1-g7",title="Locative",level="A1",category="grammar",summ
 GrammarTopic(slug="st-a1-g8",title="Plural",level="A1",category="grammar",summary="Use plural in basic communication.",explanation="Practice plural through short everyday exchanges.",examples=[GrammarExample(text="Batho ba teng.")])
 ]
 VOCABULARY_SETS=[
-VocabularySet(id="greetings_a1",level="A1",topic="greetings",unit_ref="st-a1-unit-1",words=[VocabularyEntry(word="lumela",pos="noun",definition="hello",example="Lumela, ntate.")]),
-VocabularySet(id="identity_a1",level="A1",topic="identity",unit_ref="st-a1-unit-2",words=[VocabularyEntry(word="lebitso",pos="noun",definition="name",example="Lebitso la ka ke Thabo.")]),
-VocabularySet(id="family_a1",level="A1",topic="family",unit_ref="st-a1-unit-3",words=[VocabularyEntry(word="mme",pos="noun",definition="mother",example="Mme o lapeng.")]),
-VocabularySet(id="home_a1",level="A1",topic="home",unit_ref="st-a1-unit-4",words=[VocabularyEntry(word="ntlo",pos="noun",definition="house",example="Ntlo e kholo.")]),
-VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="st-a1-unit-5",words=[VocabularyEntry(word="ithuta",pos="noun",definition="study",example="Ke ithuta letsatsi le leng le le leng.")]),
-VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="st-a1-unit-6",words=[VocabularyEntry(word="nako",pos="noun",definition="time",example="Ke nako mang?")]),
-VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="st-a1-unit-7",words=[VocabularyEntry(word="metsi",pos="noun",definition="water",example="Ke batla metsi.")]),
-VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="st-a1-unit-8",words=[VocabularyEntry(word="sekolo",pos="noun",definition="school",example="Ke sekolong.")])
+VocabularySet(id="greetings_a1",level="A1",topic="greetings",unit_ref="st-a1-unit-1",words=[VocabularyEntry(word="lumela",pos="phrase",definition="hello",example="Lumela, ntate."),VocabularyEntry(word="kea leboha",pos="phrase",definition="thank you",example="Kea leboha haholo."),VocabularyEntry(word="hoseng",pos="noun",definition="morning",example="Hoseng ho monate.")]),
+VocabularySet(id="identity_a1",level="A1",topic="identity",unit_ref="st-a1-unit-2",words=[VocabularyEntry(word="lebitso",pos="noun",definition="name",example="Lebitso la ka ke Thabo."),VocabularyEntry(word="nna",pos="pronoun",definition="I",example="Nna ke moithuti."),VocabularyEntry(word="uena",pos="pronoun",definition="you",example="Uena o hokae?")]),
+VocabularySet(id="family_a1",level="A1",topic="family",unit_ref="st-a1-unit-3",words=[VocabularyEntry(word="mme",pos="noun",definition="mother",example="Mme o lapeng."),VocabularyEntry(word="ntate",pos="noun",definition="father",example="Ntate o mosebetsing."),VocabularyEntry(word="ngoana",pos="noun",definition="child",example="Ngoana o sekolong.")]),
+VocabularySet(id="home_a1",level="A1",topic="home",unit_ref="st-a1-unit-4",words=[VocabularyEntry(word="ntlo",pos="noun",definition="house",example="Ntlo e kholo."),VocabularyEntry(word="kamore",pos="noun",definition="room",example="Kamore e hloekile."),VocabularyEntry(word="monyako",pos="noun",definition="door",example="Monyako o butsoe.")]),
+VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="st-a1-unit-5",words=[VocabularyEntry(word="ithuta",pos="verb",definition="to study",example="Ke ithuta letsatsi le leng le le leng."),VocabularyEntry(word="ea",pos="verb",definition="to go",example="Ke ea sekolong."),VocabularyEntry(word="ja",pos="verb",definition="to eat",example="Ke ja hoseng.")]),
+VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="st-a1-unit-6",words=[VocabularyEntry(word="nako",pos="noun",definition="time",example="Ke nako mang?"),VocabularyEntry(word="kajeno",pos="adverb",definition="today",example="Kajeno ke lapeng."),VocabularyEntry(word="hosane",pos="adverb",definition="tomorrow",example="Hosane ke ea sekolong.")]),
+VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="st-a1-unit-7",words=[VocabularyEntry(word="metsi",pos="noun",definition="water",example="Ke batla metsi."),VocabularyEntry(word="bohobe",pos="noun",definition="bread",example="Ke ja bohobe."),VocabularyEntry(word="tee",pos="noun",definition="tea",example="Ke noa tee.")]),
+VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="st-a1-unit-8",words=[VocabularyEntry(word="sekolo",pos="noun",definition="school",example="Ke sekolong."),VocabularyEntry(word="mmaraka",pos="noun",definition="market",example="Mmaraka o haufi."),VocabularyEntry(word="mona",pos="adverb",definition="here",example="Ke mona.")])
+]PHRASEBOOK_CATEGORIES=[
+PhrasebookCategory(id="st_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Lumela.",context="Hello.",register="neutral")]),
+PhrasebookCategory(id="st_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="Kea leboha.",context="Thank you.",register="neutral")]),
+PhrasebookCategory(id="st_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="Nthuse ka kopo.",context="Please help me.",register="neutral")]),
+PhrasebookCategory(id="st_a1_phrase_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="Sekolo se hokae?",context="Where is the school?",register="neutral")])
+]
+ASSESSMENT_BANK=[
+AssessmentQuestion(id="st-a1-001",skill="vocabulary",difficulty="A1",question="Which Southern Sotho word means 'water'?",options=["lumela","lebitso","mme","ntlo"],correct="lumela"),
+AssessmentQuestion(id="st-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["lebitso","mme","ntlo","ithuta"],correct="lebitso"),
+AssessmentQuestion(id="st-a1-003",skill="reading",difficulty="A1",question="What does mme mean?",options=["mme","ntlo","ithuta","nako"],correct="mme"),
+AssessmentQuestion(id="st-a1-004",skill="speaking",difficulty="A1",question="Which question asks 'Where are you?'",options=["ntlo","ithuta","nako","metsi"],correct="ntlo"),
+AssessmentQuestion(id="st-a1-005",skill="vocabulary",difficulty="A1",question="Buka e holim'a tafole. Where is the book?",options=["ithuta","nako","metsi","sekolo"],correct="ithuta"),
+AssessmentQuestion(id="st-a1-006",skill="grammar",difficulty="A1",question="Which word means 'name'?",options=["nako","metsi","sekolo","lumela"],correct="nako"),
+AssessmentQuestion(id="st-a1-007",skill="reading",difficulty="A1",question="Which phrase asks someone to repeat?",options=["metsi","sekolo","lumela","lebitso"],correct="metsi"),
+AssessmentQuestion(id="st-a1-008",skill="speaking",difficulty="A1",question="Which sentence says 'I drink water'?",options=["sekolo","lumela","lebitso","mme"],correct="sekolo"),
+AssessmentQuestion(id="st-a1-009",skill="vocabulary",difficulty="A1",question="What does nako mean?",options=["lumela","lebitso","mme","ntlo"],correct="lumela"),
+AssessmentQuestion(id="st-a1-010",skill="grammar",difficulty="A1",question="Which is a natural greeting?",options=["lebitso","mme","ntlo","ithuta"],correct="lebitso")
 ]
 PHRASEBOOK_CATEGORIES=[
 PhrasebookCategory(id="st_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Lumela.",context="Hello.",register="neutral")]),
