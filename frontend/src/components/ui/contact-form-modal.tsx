@@ -128,8 +128,9 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
             onClick={onClose}
             disabled={isLoading}
             aria-disabled={isLoading}
+            aria-label={tCommon('close')}
             className="rounded-xl border-2 border-transparent px-2 py-1 text-[var(--juba-app-muted)] transition hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)]"
-            aria-label={tCommon('close')} aria-describedby={undefined}
+            aria-label={tCommon('close')}
           >
             <X className="h-4 w-4" aria-hidden="true" />
           </button>
@@ -216,10 +217,10 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                 className="inline-flex flex-1 items-center justify-center rounded-xl border-2 border-transparent bg-[var(--juba-app-green)] shadow-[3px_3px_0_var(--juba-app-ink)] px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" aria-busy={isLoading}
               >
                 {isLoading ? (
-                  <>
-                    
-                    <><Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />{t('sending')}</>
-                  </>
+                  <span className="inline-flex items-center">
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
+                    {t('sending')}
+                  </span>
                 ) : (
                   t('send')
                 )}
