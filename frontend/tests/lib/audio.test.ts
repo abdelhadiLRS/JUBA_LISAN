@@ -271,12 +271,12 @@ describe('createAudioQueue', () => {
     expect(sources).toHaveLength(1)
 
     sources[0].onended?.()
-    await fallback
+    await Promise.resolve()
 
     expect(play).toHaveBeenCalledTimes(1)
 
     listeners.get('ended')?.()
-    await Promise.resolve()
+    await fallback
 
     await queue.enqueue(new ArrayBuffer(16))
     expect(createCount).toBe(3)
