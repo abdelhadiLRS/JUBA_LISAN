@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.app_logger import get_logger
 from app.core.database import get_db
-from app.core.deps import get_current_user
+from app.core.deps import get_current_user, require_learner
 from app.core.limiter import limiter
 from app.models.chat_history import ChatHistory
 from app.models.conversation import Conversation
@@ -30,7 +30,7 @@ from app.services.user_language_service import (
 
 logger = get_logger(__name__)
 
-router = APIRouter(prefix="/api/languages", tags=["languages"])
+router = APIRouter(\n    prefix="/api/languages",\n    tags=["languages"],\n    dependencies=[Depends(require_learner)],\n)
 
 
 async def _build_plan_info(
