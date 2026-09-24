@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Check } from 'lucide-react'
 import { TARGET_LANGUAGE_CATALOG } from '@/lib/target-languages'
@@ -38,13 +37,6 @@ export default function TargetLanguageSelector({
                 : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:-translate-y-0.5 hover:border-[var(--juba-app-ink)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'
             }`}
           >
-            <Image
-              src={lang.flagPath}
-              alt=""
-              width={22}
-              height={16}
-              className="shrink-0 rounded-sm object-cover ring-1 ring-black/10"
-            />
             <span className="min-w-0 truncate">{t(lang.code)}</span>
             {selected && (
               <span className="ml-auto flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--juba-app-ink)] text-white">
