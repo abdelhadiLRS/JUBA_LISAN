@@ -143,7 +143,22 @@ export function createAudioQueue(
           chunkId,
           state: ctx.state,
         })
-        // Context may still be unusable in constrained browsers; fallback keeps us moving.
+        // A suspended context that could not be resumed cannot reliably
+        // produce audible playback. Use HTMLAudio instead of scheduling into
+        // a context that is still suspended.
+        if (generationToken !== generation) return
+        await _fallbackPlay(arrayBuffer.slice(0), generationToken, chunkId)
+        return
+      }
+
+      if (generationToken !== generation) return
+      if (ctx.state === 'closed' || ctx.state === 'suspended') {
+        audioQueueLogger.warn('audio context remains unavailable after resume', {
+          chunkId,
+          state: ctx.state,
+        })
+        await _fallbackPlay(arrayBuffer.slice(0), generationToken, chunkId)
+        return
       }
     }
 
