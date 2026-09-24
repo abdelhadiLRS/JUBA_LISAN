@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { Check } from 'lucide-react'
 import { TARGET_LANGUAGE_CATALOG } from '@/lib/target-languages'
 
 interface Props {
@@ -22,28 +23,37 @@ export default function TargetLanguageSelector({
   ).sort((a, b) => t(a.code).localeCompare(t(b.code)))
 
   return (
-    <div className="grid grid-cols-2 gap-2">
-      {filtered.map((lang) => (
-        <button
-          key={lang.code}
-          type="button"
-          onClick={() => onChange(lang.code)}
-          className={`flex items-center gap-2 rounded-xl border-2 px-3 py-3 text-xs font-bold tracking-wide uppercase transition-colors ${
-            value === lang.code
-              ? 'border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] text-[var(--juba-app-ink)] shadow-[2px_2px_0_var(--juba-app-ink)]'
-              : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'
-          }`}
-        >
-          <Image
-            src={lang.flagPath}
-            alt={lang.code}
-            width={20}
-            height={16}
-            className="object-cover"
-          />
-          {t(lang.code)}
-        </button>
-      ))}
+    <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+      {filtered.map((lang) => {
+        const selected = value === lang.code
+        return (
+          <button
+            key={lang.code}
+            type="button"
+            onClick={() => onChange(lang.code)}
+            aria-pressed={selected}
+            className={`group relative flex min-h-14 items-center gap-2.5 rounded-[14px] border-2 px-3 py-2.5 text-left text-xs font-black transition-all ${
+              selected
+                ? 'border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] text-[var(--juba-app-ink)] shadow-[3px_3px_0_var(--juba-app-ink)] -translate-y-0.5'
+                : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:-translate-y-0.5 hover:border-[var(--juba-app-ink)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'
+            }`}
+          >
+            <Image
+              src={lang.flagPath}
+              alt=""
+              width={22}
+              height={16}
+              className="shrink-0 rounded-sm object-cover"
+            />
+            <span className="min-w-0 truncate">{t(lang.code)}</span>
+            {selected && (
+              <span className="ml-auto flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--juba-app-ink)] text-white">
+                <Check className="h-3 w-3" aria-hidden="true" />
+              </span>
+            )}
+          </button>
+        )
+      })}
     </div>
   )
 }
