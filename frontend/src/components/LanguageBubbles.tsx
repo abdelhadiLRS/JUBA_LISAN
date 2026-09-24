@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { Globe2, MapPinned } from 'lucide-react'
 import { WORLD_MAP_CENTROIDS, WORLD_MAP_PATHS } from './world-map-data'
 import { COUNTRY_NAMES } from './country-names'
@@ -133,7 +133,7 @@ function WorldMap({
 
 export function LanguageBubbles() {
   const t = useTranslations('landing')
-  const locale = useMemo(() => document.documentElement.lang === 'ar' ? 'ar' : 'en', [])
+  const locale = useLocale() === 'ar' ? 'ar' : 'en'
   const countryName = (code: string) => COUNTRY_NAMES[code]?.[locale] ?? code
   const [activeRegion, setActiveRegion] = useState<RegionId | null>(null)
   const [activeLanguage, setActiveLanguage] = useState<string | null>(null)
