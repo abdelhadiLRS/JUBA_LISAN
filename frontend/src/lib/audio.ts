@@ -276,7 +276,22 @@ export function createAudioQueue(
 
     const blob = new Blob([arrayBuffer], { type: 'audio/mpeg' })
     const url = URL.createObjectURL(blob)
-    const audio = new Audio(url)
+
+    let audio: HTMLAudioElement
+    try {
+      audio = new Audio(url)
+    } catch (error) {
+      // Some browsers can reject HTMLAudio construction itself. The object URL
+      // has already been allocated, so release it before propagating the
+      // failure; _drain() will finish the queue without leaking the blob.
+      URL.revokeObjectURL(url)
+      audioQueueLogger.error('HTMLAudio fallback construction failed', {
+        chunkId,
+        error: error instanceof Error ? error.message : String(error),
+      })
+      throw error
+    }
+
     fallbackAudios.push(audio)
 
     // Cancellation can race with Audio construction. If cancel() advanced the
