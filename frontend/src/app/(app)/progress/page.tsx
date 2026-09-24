@@ -338,8 +338,8 @@ export default function ProgressPage() {
               onClick={() => setShowAllLevels(false)}
               className={`text-[var(--juba-app-muted)] border px-3 py-1.5 font-sans tracking-[.12em] uppercase transition-colors ${
                 !showAllLevels
-                  ? 'border-[var(--juba-app-ink)] text-[var(--juba-app-ink)] bg-[var(--juba-app-surface)]-2'
-                  : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-line)]-2 hover:text-[var(--juba-app-ink)]'
+                  ? 'border-[var(--juba-app-ink)] text-[var(--juba-app-ink)] bg-[var(--juba-app-green-soft)]'
+                  : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-ink)] hover:text-[var(--juba-app-ink)]'
               }`}
             >
               {t('currentLevelOnly')}
@@ -348,8 +348,8 @@ export default function ProgressPage() {
               onClick={() => setShowAllLevels(true)}
               className={`text-[var(--juba-app-muted)] border px-3 py-1.5 font-sans tracking-[.12em] uppercase transition-colors ${
                 showAllLevels
-                  ? 'border-[var(--juba-app-ink)] text-[var(--juba-app-ink)] bg-[var(--juba-app-surface)]-2'
-                  : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-line)]-2 hover:text-[var(--juba-app-ink)]'
+                  ? 'border-[var(--juba-app-ink)] text-[var(--juba-app-ink)] bg-[var(--juba-app-green-soft)]'
+                  : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-ink)] hover:text-[var(--juba-app-ink)]'
               }`}
             >
               {t('allLevels')}
