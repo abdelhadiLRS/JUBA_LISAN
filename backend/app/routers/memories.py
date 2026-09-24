@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.deps import get_current_user
+from app.core.deps import get_current_user, require_learner
 from app.core.limiter import limiter
 from app.models.user import User
 from app.schemas.memory import ClearAllResponse, MemoryCreate, MemoryListResponse, MemoryOut
@@ -18,7 +18,7 @@ from app.services.memory_service import (
     get_user_memories,
 )
 
-router = APIRouter(prefix="/api/memories", tags=["memories"])
+router = APIRouter(prefix="/api/memories", tags=["memories"], dependencies=[Depends(require_learner)])
 
 
 @router.get("", response_model=MemoryListResponse)
