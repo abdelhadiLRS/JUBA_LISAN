@@ -210,7 +210,9 @@
     "nativeHelpPractice": "Practice",
     "contact": "Contact",
     "menu": "Menu",
-    "logoutConfirm": "Are you sure you want to log out?"
+    "logoutConfirm": "Are you sure you want to log out?",
+    "copy": "Copy",
+    "copyPhrase": "Copy phrase"
   },
   "nav": {
     "home": "Home",
