@@ -17,7 +17,7 @@ export function DashboardPreview({t}:DashboardPreviewProps){
     <h2>{t('dashboardPreviewTitle')}</h2>
     <p>{t('dashboardPreviewSubtitle')}</p>
    </div>
-   <div className="juba-ff-dashboard-card">
+   <div className="juba-ff-dashboard-card" aria-label="JUBA LISAN dashboard overview">
     <div className="juba-ff-dashboard-real-grid">
       {dashboardAreas.map(([title,desc],i)=>{
         const Icon=[Target,BookOpen,TrendingUp,CheckCircle2][i]
@@ -27,9 +27,9 @@ export function DashboardPreview({t}:DashboardPreviewProps){
         </article>
       })}
     </div>
-    <div className="juba-ff-real-note">
+    <div className="juba-ff-real-note" role="note">
       <span>Data shown inside the dashboard comes from your account and learning activity.</span>
-      <Link href="/dashboard">Open Dashboard <ArrowRight /></Link>
+      <Link href="/dashboard" className="juba-ff-feature-link">Open Dashboard <ArrowRight /></Link>
     </div>
    </div>
   </div>
