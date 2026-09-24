@@ -351,5 +351,15 @@
     "savedWordsCount": "كلمات محفوظة من المترجم الفوري",
     "translateMore": "ترجمة المزيد",
     "topicCount": "{count} موضوعًا"
+  },
+  "grammar": {
+    "all": "الكل",
+    "allCategories": "كل الفئات",
+    "topicsFound": "{count} موضوعًا",
+    "noResults": "لم يتم العثور على موضوعات نحوية.",
+    "clearFilters": "مسح الفلاتر",
+    "searchPlaceholder": "ابحث في موضوعات القواعد",
+    "error": "تعذر تحميل موضوعات القواعد.",
+    "retry": "إعادة المحاولة"
   }
 }
