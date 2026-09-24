@@ -23,8 +23,8 @@ PhrasebookCategory(id="phrase_4_a1",level="A1",situation="Help and directions",i
 
 AssessmentQuestion(id="sm-a1-001",skill="communication",difficulty="A1",question="You greet someone. Which phrase should you use?",options=["Talofa!","igoa","tina","fale"],correct="Talofa!"),
 AssessmentQuestion(id="sm-a1-002",skill="communication",difficulty="A1",question="You introduce your name. Which word means “name”?",options=["igoa","tina","fale","galuega"],correct="igoa"),
-AssessmentQuestion(id="sm-a1-003",skill="vocabulary",difficulty="A1",question="You talk about your mother. Which word means “mother”?",options=["tina","fale","galuega","vai"],correct="tina"),
-AssessmentQuestion(id="sm-a1-004",skill="vocabulary",difficulty="A1",question="You say you are at home. Which word means “house/home”?",options=["fale","galuega","vai","faleoloa"],correct="fale"),
+AssessmentQuestion(id="sm-a1-003",skill="reading",difficulty="A1",question="You read “O lo'u tina e nofo i Apia.” Which Samoan sentence says that your mother lives in Apia?",options=["O lo'u tina e nofo i Apia.","O Sina o lo'u uo.","Ou te alu i le a'oga.","Ou te inu i le vai."],correct="O lo'u tina e nofo i Apia."),
+AssessmentQuestion(id="sm-a1-004",skill="grammar",difficulty="A1",question="You want to say “I go to school.” Which Samoan sentence should you use?",options=["Ou te alu i le a'oga.","Ou te inu i le vai.","O lo'u potu e laitiiti.","O lo'u aiga i le fale."],correct="Ou te alu i le a'oga."),
 AssessmentQuestion(id="sm-a1-005",skill="vocabulary",difficulty="A1",question="You say you are working today. Which word means “work”?",options=["galuega","vai","faleoloa","fesoasoani"],correct="galuega"),
 AssessmentQuestion(id="sm-a1-006",skill="vocabulary",difficulty="A1",question="You ask for water. Which word means “water”?",options=["vai","faleoloa","fesoasoani","Talofa!"],correct="vai"),
 AssessmentQuestion(id="sm-a1-007",skill="vocabulary",difficulty="A1",question="You ask where the shop is. Which word means “shop”?",options=["faleoloa","fesoasoani","Talofa!","igoa"],correct="faleoloa"),
