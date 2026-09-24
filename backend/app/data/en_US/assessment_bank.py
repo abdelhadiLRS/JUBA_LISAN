@@ -1411,15 +1411,6 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         correct="Adjustments for inflation and population growth.",
     ),
     AssessmentQuestion(
-        id="g-c2-007",
-        skill="grammar",
-        difficulty="C2",
-        question="No sooner ___ the announcement than questions began to arise.",
-        options=["had they made", "they had made", "did they make", "they made"],
-        correct="had they made",
-        grammar_slug="no-sooner-inversion",
-    ),
-    AssessmentQuestion(
         id="g-c2-008",
         skill="grammar",
         difficulty="C2",
