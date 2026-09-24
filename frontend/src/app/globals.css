@@ -4675,3 +4675,150 @@ main [dir="rtl"] h3,
   .juba-mobile-courses{padding-top:1rem;padding-bottom:1rem}
   .juba-mobile-courses > div > section:first-child{box-shadow:4px 4px 0 var(--juba-app-ink)!important}
 }
+
+
+/* JUBA LISAN — language practice and reference surfaces */
+.juba-listening-shell,
+.juba-reading-shell,
+.juba-grammar-shell,
+.juba-phrasebook-shell{
+  color:var(--juba-app-ink);
+}
+
+.juba-listening-shell .border-fl-border.bg-fl-surface,
+.juba-reading-shell .border-fl-border.bg-fl-surface,
+.juba-grammar-shell .border-fl-border.bg-fl-surface,
+.juba-phrasebook-shell .border-fl-border.bg-fl-surface{
+  border-color:var(--juba-app-line);
+  border-radius:20px;
+  background:var(--juba-app-surface);
+  box-shadow:0 8px 24px rgba(24,37,27,.05);
+}
+
+.juba-listening-shell .bg-fl-border,
+.juba-reading-shell .bg-fl-border,
+.juba-grammar-shell .bg-fl-border,
+.juba-phrasebook-shell .bg-fl-border{
+  background:#e4ebe0;
+}
+
+.juba-listening-shell .bg-fl-accent,
+.juba-reading-shell .bg-fl-accent,
+.juba-grammar-shell .bg-fl-accent,
+.juba-phrasebook-shell .bg-fl-accent{
+  background:var(--juba-app-green);
+}
+
+.juba-listening-shell .text-fl-accent,
+.juba-reading-shell .text-fl-accent,
+.juba-grammar-shell .text-fl-accent,
+.juba-phrasebook-shell .text-fl-accent{
+  color:var(--juba-app-green);
+}
+
+.juba-listening-shell .font-mono,
+.juba-reading-shell .font-mono,
+.juba-grammar-shell .font-mono,
+.juba-phrasebook-shell .font-mono{
+  font-family:var(--font-geist-sans),system-ui,sans-serif!important;
+}
+
+.juba-listening-shell button,
+.juba-listening-shell a,
+.juba-reading-shell button,
+.juba-reading-shell a,
+.juba-grammar-shell button,
+.juba-grammar-shell a,
+.juba-phrasebook-shell button,
+.juba-phrasebook-shell a{
+  border-radius:12px;
+}
+
+.juba-listening-shell input,
+.juba-listening-shell textarea,
+.juba-reading-shell input,
+.juba-reading-shell textarea,
+.juba-grammar-shell input,
+.juba-grammar-shell textarea,
+.juba-phrasebook-shell input,
+.juba-phrasebook-shell textarea{
+  border-color:var(--juba-app-line);
+  border-radius:12px;
+  background:#f9fbf7;
+}
+
+.juba-listening-shell .border-fl-border,
+.juba-reading-shell .border-fl-border,
+.juba-grammar-shell .border-fl-border,
+.juba-phrasebook-shell .border-fl-border{
+  border-color:var(--juba-app-line);
+}
+
+.juba-listening-shell [class*="rounded-"],
+.juba-reading-shell [class*="rounded-"],
+.juba-grammar-shell [class*="rounded-"],
+.juba-phrasebook-shell [class*="rounded-"]{
+  --juba-radius-soft:18px;
+}
+
+.juba-listening-shell > div > .mb-6,
+.juba-reading-shell > div > .mb-6,
+.juba-grammar-shell > div > .border-fl-border:first-child,
+.juba-phrasebook-shell > div > .border-fl-border:first-child{
+  border-radius:22px;
+}
+
+.juba-listening-shell > div > .mb-6 h1,
+.juba-reading-shell > div > .mb-6 h1,
+.juba-grammar-shell > div > .border-fl-border:first-child h1,
+.juba-phrasebook-shell > div > .border-fl-border:first-child h1{
+  letter-spacing:-.045em;
+  font-weight:800;
+}
+
+.juba-listening-shell .juba-listening-card,
+.juba-reading-shell .juba-reading-card{
+  border:2px solid var(--juba-app-ink);
+  border-radius:22px;
+  box-shadow:5px 5px 0 var(--juba-app-ink);
+}
+
+.juba-grammar-shell .group,
+.juba-phrasebook-shell .group{
+  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+}
+
+.juba-grammar-shell .group:hover,
+.juba-phrasebook-shell .group:hover{
+  transform:translateY(-2px);
+  border-color:#b8d1aa;
+  box-shadow:5px 5px 0 rgba(24,37,27,.1);
+}
+
+.juba-grammar-shell .grid > a,
+.juba-phrasebook-shell .grid > div{
+  border-radius:18px;
+}
+
+.juba-phrasebook-shell [class*="text-blue-600"],
+.juba-phrasebook-shell [class*="text-blue-400"]{
+  color:var(--juba-app-green)!important;
+}
+
+.juba-phrasebook-shell [class*="text-amber-600"],
+.juba-phrasebook-shell [class*="text-amber-400"]{
+  color:#9a7211!important;
+}
+
+@media(max-width:700px){
+  .juba-listening-shell,
+  .juba-reading-shell,
+  .juba-grammar-shell,
+  .juba-phrasebook-shell{
+    padding:1rem;
+  }
+  .juba-listening-shell .juba-listening-card,
+  .juba-reading-shell .juba-reading-card{
+    box-shadow:4px 4px 0 var(--juba-app-ink);
+  }
+}
