@@ -1887,5 +1887,89 @@
       }
     },
     "cefrLevel": "CEFR level"
+  },
+  "courses": {
+    "heroEyebrow": "Your learning world",
+    "heroTitle": "Learn language you can actually use.",
+    "heroDescription": "Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.",
+    "openRoadmap": "Open course roadmap",
+    "findLevel": "Find my level",
+    "roadmapEyebrow": "Your roadmap",
+    "roadmapTitle": "One path. Six levels.",
+    "levelCount": "{count} levels",
+    "loading": "Loading courses",
+    "currentLevel": "Current level",
+    "levelLabel": "Level {number}",
+    "lessons": "{count} lessons",
+    "openLearningPlan": "Open learning plan",
+    "exploreLevel": "Explore level",
+    "unlockLater": "Unlock later",
+    "missionsEyebrow": "Real-world missions",
+    "missionsTitle": "Practice language where it matters.",
+    "rhythmTitle": "The JUBA rhythm",
+    "skills": {
+      "learn": {
+        "title": "Learn",
+        "text": "Build useful language in small, focused steps."
+      },
+      "listen": {
+        "title": "Listen",
+        "text": "Train your ear with short real-world practice."
+      },
+      "speak": {
+        "title": "Speak",
+        "text": "Turn recognition into confident active recall."
+      }
+    },
+    "places": {
+      "cafe": {
+        "title": "Café",
+        "text": "Order, ask and respond."
+      },
+      "restaurant": {
+        "title": "Restaurant",
+        "text": "Food, requests and payment."
+      },
+      "travel": {
+        "title": "Travel",
+        "text": "Tickets, directions and arrival."
+      },
+      "work": {
+        "title": "Work",
+        "text": "Meetings and everyday tasks."
+      }
+    },
+    "levels": {
+      "A1": {
+        "title": "A1 · Starter",
+        "desc": "Build your first practical vocabulary and everyday phrases."
+      },
+      "A2": {
+        "title": "A2 · Elementary",
+        "desc": "Understand common situations and speak with more confidence."
+      },
+      "B1": {
+        "title": "B1 · Intermediate",
+        "desc": "Express ideas, follow conversations, and read with independence."
+      },
+      "B2": {
+        "title": "B2 · Upper Intermediate",
+        "desc": "Handle richer conversations and more precise language."
+      },
+      "C1": {
+        "title": "C1 · Advanced",
+        "desc": "Develop fluent, nuanced communication for demanding contexts."
+      },
+      "C2": {
+        "title": "C2 · Mastery",
+        "desc": "Refine precise, natural communication across demanding contexts."
+      }
+    },
+    "rhythm": {
+      "learn": "Learn",
+      "practice": "Practice",
+      "recall": "Recall",
+      "review": "Review"
+    }
   }
 }
