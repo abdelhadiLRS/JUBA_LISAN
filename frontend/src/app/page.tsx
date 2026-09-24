@@ -129,6 +129,7 @@ export default async function Home() {
         brandTagline={t('brandTagline')}
         openMenuLabel={t('openMenuLabel')}
         closeMenuLabel={t('closeMenuLabel')}
+        locale={locale}
       />
 
       {/* Funfluent reference hero */}
