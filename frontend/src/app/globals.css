@@ -4427,3 +4427,95 @@ main [dir="rtl"] h3,
     padding:1rem;
   }
 }
+
+
+/* JUBA LISAN — progress, vocabulary and settings surfaces v5 */
+.juba-progress-shell,
+.juba-vocabulary-shell,
+.juba-settings-shell{
+  color:var(--juba-app-ink);
+}
+.juba-progress-shell .border-fl-border.bg-fl-surface,
+.juba-vocabulary-shell .border-fl-border.bg-fl-surface,
+.juba-settings-shell .border-fl-border.bg-fl-surface{
+  border-color:var(--juba-app-line);
+  border-radius:20px;
+  background:var(--juba-app-surface);
+  box-shadow:0 8px 24px rgba(24,37,27,.05);
+}
+.juba-progress-shell .font-mono,
+.juba-vocabulary-shell .font-mono,
+.juba-settings-shell .font-mono{
+  font-family:var(--font-geist-sans),system-ui,sans-serif!important;
+}
+.juba-progress-shell .bg-fl-accent,
+.juba-vocabulary-shell .bg-fl-accent,
+.juba-settings-shell .bg-fl-accent{
+  background:var(--juba-app-green);
+}
+.juba-progress-shell .text-fl-accent,
+.juba-vocabulary-shell .text-fl-accent,
+.juba-settings-shell .text-fl-accent{
+  color:var(--juba-app-green);
+}
+.juba-progress-shell .bg-fl-border,
+.juba-vocabulary-shell .bg-fl-border{
+  background:#e4ebe0;
+}
+.juba-progress-shell [class*="h-1.5"] > *,
+.juba-vocabulary-shell [class*="h-full"]{
+  border-radius:999px;
+}
+.juba-progress-shell a,
+.juba-progress-shell button,
+.juba-vocabulary-shell a,
+.juba-vocabulary-shell button,
+.juba-settings-shell button{
+  border-radius:12px;
+}
+.juba-vocabulary-shell input{
+  border-radius:12px;
+  border-color:var(--juba-app-line);
+  background:#f9fbf7;
+}
+.juba-vocabulary-shell .group{
+  border-color:var(--juba-app-line);
+  border-radius:18px;
+  background:var(--juba-app-surface);
+  box-shadow:0 6px 18px rgba(24,37,27,.045);
+}
+.juba-vocabulary-shell .group:hover{
+  border-color:#b8d1aa;
+  box-shadow:0 9px 24px rgba(24,37,27,.07);
+}
+.juba-vocabulary-shell section.border-fl-border{
+  border-color:var(--juba-app-line);
+  border-radius:20px;
+}
+.juba-settings-shell > .grid > div > .border-fl-border.bg-fl-surface{
+  border:1px solid var(--juba-app-line);
+  border-radius:20px;
+  background:var(--juba-app-surface);
+  box-shadow:0 7px 22px rgba(24,37,27,.045);
+}
+.juba-settings-shell .border-fl-border{
+  border-color:var(--juba-app-line);
+}
+.juba-settings-shell input,
+.juba-settings-shell select,
+.juba-settings-shell textarea{
+  border-radius:12px;
+}
+.juba-settings-shell .text-fl-accent{
+  color:var(--juba-app-green);
+}
+.juba-settings-shell .bg-fl-accent{
+  background:var(--juba-app-green);
+}
+@media(max-width:700px){
+  .juba-progress-shell,
+  .juba-vocabulary-shell,
+  .juba-settings-shell{
+    padding:1rem;
+  }
+}
