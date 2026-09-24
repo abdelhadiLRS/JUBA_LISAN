@@ -103,12 +103,13 @@ export const useLanguageStore = create<LanguageStore>((set, get) => ({
   },
 
   switchLanguage: async (code: string): Promise<boolean> => {
+    const canonicalCode = getLanguageByCode(code)?.code ?? code.trim()
     set({ isSwitching: true })
     try {
       const res = await apiFetch('/api/languages/active', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ target_language: code }),
+        body: JSON.stringify({ target_language: canonicalCode }),
       })
       if (!res.ok) return false
       await get().fetchLanguages()
@@ -136,8 +137,9 @@ export const useLanguageStore = create<LanguageStore>((set, get) => ({
   },
 
   removeLanguage: async (code: string): Promise<boolean> => {
+    const canonicalCode = getLanguageByCode(code)?.code ?? code.trim()
     try {
-      const res = await apiFetch(`/api/languages/${encodeURIComponent(code)}`, {
+      const res = await apiFetch(`/api/languages/${encodeURIComponent(canonicalCode)}`, {
         method: 'DELETE',
       })
       if (!res.ok) return false
