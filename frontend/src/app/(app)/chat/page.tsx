@@ -395,7 +395,7 @@ export default function ChatPage() {
                         e.stopPropagation()
                         setDeletePending(c.id)
                       }}
-                      className="text-[var(--juba-app-ink)] text-[#b33a32] hover:text-[#b33a32] shrink-0 font-mono opacity-0 transition-all group-hover:opacity-100"
+                      className="text-[#b33a32] shrink-0 font-mono opacity-0 transition-all group-hover:opacity-100"
                       title={t('delete')}
                     >
                       ✕
@@ -478,7 +478,7 @@ export default function ChatPage() {
                   className={`juba-chat-message-row flex items-end gap-2 ${msg.role === 'user' ? 'ml-auto max-w-[75%] flex-row-reverse' : 'flex-row'}`}
                 >
                   {/* Avatar */}
-                  <div className="juba-chat-avatar border-[var(--juba-app-line)] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[var(--juba-app-line)]">
+                  <div className="juba-chat-avatar mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[var(--juba-app-line)]">
                     {msg.role === 'assistant' ? (
                       <Image
                         src="/logo_head.png"
