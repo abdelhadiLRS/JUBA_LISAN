@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useLoadingStore } from '@/store/loading'
 
@@ -9,7 +10,7 @@ interface PageLoadingProps {
   label?: string
   /** Optional subtext shown below the main label. */
   subtext?: string
-  /** Whether to show the ● decorative dot. Default true. */
+  /** Whether to show the loading indicator. Default true. */
   showDot?: boolean
   /** Container min-height Tailwind class. Default "min-h-[60vh]". */
   minHeight?: string
@@ -47,7 +48,7 @@ export function PageLoading({
         aria-busy="true"
         aria-label={text}
       >
-        {showDot && <span className="mr-1.5 text-[var(--juba-app-green-dark)]">●</span>}
+        {showDot && <Loader2 className="mr-1.5 inline-block h-3.5 w-3.5 animate-spin align-[-0.2em] text-[var(--juba-app-green-dark)]" aria-hidden="true" />}
         {text}
       </span>
     )
@@ -62,7 +63,7 @@ export function PageLoading({
     >
       <div className="juba-card flex min-w-44 flex-col items-center gap-3 border-2 border-[var(--juba-app-line)] px-5 py-4 shadow-[4px_4px_0_var(--juba-app-line)]">
         <span className="text-[var(--juba-app-muted)] animate-pulse text-xs font-medium tracking-[0.12em] uppercase">
-          {showDot && <span className="mr-1.5 text-[var(--juba-app-green-dark)]">●</span>}
+          {showDot && <Loader2 className="mr-1.5 inline-block h-3.5 w-3.5 animate-spin align-[-0.2em] text-[var(--juba-app-green-dark)]" aria-hidden="true" />}
           {text}
         </span>
         {subtext && (
