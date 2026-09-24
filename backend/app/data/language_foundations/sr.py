@@ -15,21 +15,21 @@ GRAMMAR_TOPICS=[
 ]
 
 VOCABULARY_SETS=[
-    VocabularySet(id="greetings_a1",level="A1",topic="Поздрави",unit_ref="sr-a1-unit-1",words=[VocabularyEntry(word="Здраво",pos="phrase",definition="hello",example="Здраво")]),
-    VocabularySet(id="identity_a1",level="A1",topic="Представљање",unit_ref="sr-a1-unit-2",words=[VocabularyEntry(word="Зовем се...",pos="phrase",definition="my name is...",example="Зовем се...")]),
-    VocabularySet(id="family_a1",level="A1",topic="Породица",unit_ref="sr-a1-unit-3",words=[VocabularyEntry(word="породица",pos="phrase",definition="family",example="породица")]),
-    VocabularySet(id="routine_a1",level="A1",topic="Рутина",unit_ref="sr-a1-unit-4",words=[VocabularyEntry(word="радим",pos="phrase",definition="I work",example="радим")]),
-    VocabularySet(id="time_a1",level="A1",topic="Време",unit_ref="sr-a1-unit-5",words=[VocabularyEntry(word="данас",pos="phrase",definition="today",example="данас")]),
-    VocabularySet(id="food_a1",level="A1",topic="Храна",unit_ref="sr-a1-unit-6",words=[VocabularyEntry(word="вода",pos="phrase",definition="water",example="вода")]),
-    VocabularySet(id="places_a1",level="A1",topic="Места",unit_ref="sr-a1-unit-7",words=[VocabularyEntry(word="код куће",pos="phrase",definition="at home",example="код куће")]),
-    VocabularySet(id="review_a1",level="A1",topic="Понављање",unit_ref="sr-a1-unit-8",words=[VocabularyEntry(word="Хвала",pos="phrase",definition="thank you",example="Хвала")]),
+    VocabularySet(id="greetings_a1",level="A1",topic="Поздрави",unit_ref="sr-a1-unit-1",words=[VocabularyEntry(word="Здраво",pos="phrase",definition="hello",example="Здраво! Како си?")]),
+    VocabularySet(id="identity_a1",level="A1",topic="Представљање",unit_ref="sr-a1-unit-2",words=[VocabularyEntry(word="Зовем се...",pos="phrase",definition="my name is...",example="Зовем се Марко.")]),
+    VocabularySet(id="family_a1",level="A1",topic="Породица",unit_ref="sr-a1-unit-3",words=[VocabularyEntry(word="породица",pos="phrase",definition="family",example="Моја породица живи у Београду.")]),
+    VocabularySet(id="routine_a1",level="A1",topic="Рутина",unit_ref="sr-a1-unit-4",words=[VocabularyEntry(word="радим",pos="phrase",definition="I work",example="Данас радим у канцеларији.")]),
+    VocabularySet(id="time_a1",level="A1",topic="Време",unit_ref="sr-a1-unit-5",words=[VocabularyEntry(word="данас",pos="phrase",definition="today",example="Данас учим српски.")]),
+    VocabularySet(id="food_a1",level="A1",topic="Храна",unit_ref="sr-a1-unit-6",words=[VocabularyEntry(word="вода",pos="phrase",definition="water",example="Молим вас, чашу воде.")]),
+    VocabularySet(id="places_a1",level="A1",topic="Места",unit_ref="sr-a1-unit-7",words=[VocabularyEntry(word="код куће",pos="phrase",definition="at home",example="Данас сам код куће.")]),
+    VocabularySet(id="review_a1",level="A1",topic="Понављање",unit_ref="sr-a1-unit-8",words=[VocabularyEntry(word="Хвала",pos="phrase",definition="thank you",example="Хвала вам на помоћи.")]),
 ]
 
 PHRASEBOOK_CATEGORIES=[
-    PhrasebookCategory(id="greetings_a1",level="A1",situation="Поздрави",icon="👋",phrases=[PhrasebookEntry(text="Здраво",context="hello",register="neutral")]),
-    PhrasebookCategory(id="identity_a1",level="A1",situation="Представљање",icon="🪪",phrases=[PhrasebookEntry(text="Зовем се...",context="my name is...",register="neutral")]),
-    PhrasebookCategory(id="family_a1",level="A1",situation="Породица",icon="👨‍👩‍👧",phrases=[PhrasebookEntry(text="породица",context="family",register="neutral")]),
-    PhrasebookCategory(id="routine_a1",level="A1",situation="Рутина",icon="⏰",phrases=[PhrasebookEntry(text="радим",context="I work",register="neutral")]),
+    PhrasebookCategory(id="greetings_a1",level="A1",situation="Поздрави",icon="👋",phrases=[PhrasebookEntry(text="Здраво!",context="greeting",register="neutral"),PhrasebookEntry(text="Како си?",context="asking how someone is",register="neutral"),PhrasebookEntry(text="Зовем се Марко.",context="introducing yourself",register="neutral")]),
+    PhrasebookCategory(id="shopping_a1",level="A1",situation="Куповина",icon="🛒",phrases=[PhrasebookEntry(text="Колико ово кошта?",context="asking the price",register="neutral"),PhrasebookEntry(text="Хтео бих ово, молим.",context="requesting an item",register="neutral"),PhrasebookEntry(text="Молим вас, воду.",context="asking for water",register="neutral")]),
+    PhrasebookCategory(id="directions_a1",level="A1",situation="Правци",icon="🧭",phrases=[PhrasebookEntry(text="Где је школа?",context="asking for a location",register="neutral"),PhrasebookEntry(text="Где је станица?",context="asking for a station",register="neutral"),PhrasebookEntry(text="Лево или десно?",context="checking a direction",register="neutral")]),
+    PhrasebookCategory(id="help_a1",level="A1",situation="Помоћ",icon="🆘",phrases=[PhrasebookEntry(text="Молим вас, помозите ми.",context="asking for help",register="neutral"),PhrasebookEntry(text="Не разумем.",context="saying you do not understand",register="neutral"),PhrasebookEntry(text="Можете ли да поновите?",context="asking someone to repeat",register="neutral")]),
 ]
 
 CURRICULUM={}
@@ -48,15 +48,13 @@ for level in LEVELS:
     else:
         CURRICULUM[level]=[CurriculumUnit(id=f"sr-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Serbian {level} communication",grammar_points=["progressive grammar and communication"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Build level-appropriate communication"],default_weeks=2)]
 
-ASSESSMENT_BANK=[
-    AssessmentQuestion(id="sr-a1-001",skill="speaking",difficulty="A1",question="Which expression matches the lesson meaning 'hello'?",options=["Здраво","technical term","advanced idiom","unrelated expression"],correct="Здраво"),
-    AssessmentQuestion(id="sr-a1-002",skill="vocabulary",difficulty="A1",question="Which expression matches the lesson meaning 'my name is...'?",options=["Зовем се...","technical term","advanced idiom","unrelated expression"],correct="Зовем се..."),
-    AssessmentQuestion(id="sr-a1-003",skill="grammar",difficulty="A1",question="Which expression matches the lesson meaning 'family'?",options=["породица","technical term","advanced idiom","unrelated expression"],correct="породица"),
-    AssessmentQuestion(id="sr-a1-004",skill="speaking",difficulty="A1",question="Which expression matches the lesson meaning 'I work'?",options=["радим","technical term","advanced idiom","unrelated expression"],correct="радим"),
-    AssessmentQuestion(id="sr-a1-005",skill="vocabulary",difficulty="A1",question="Which expression matches the lesson meaning 'today'?",options=["данас","technical term","advanced idiom","unrelated expression"],correct="данас"),
-    AssessmentQuestion(id="sr-a1-006",skill="grammar",difficulty="A1",question="Which expression matches the lesson meaning 'water'?",options=["вода","technical term","advanced idiom","unrelated expression"],correct="вода"),
-    AssessmentQuestion(id="sr-a1-007",skill="speaking",difficulty="A1",question="Which expression matches the lesson meaning 'at home'?",options=["код куће","technical term","advanced idiom","unrelated expression"],correct="код куће"),
-    AssessmentQuestion(id="sr-a1-008",skill="vocabulary",difficulty="A1",question="Which expression matches the lesson meaning 'thank you'?",options=["Хвала","technical term","advanced idiom","unrelated expression"],correct="Хвала"),
-    AssessmentQuestion(id="sr-a1-009",skill="reading",difficulty="A1",question="Select the everyday A1 expression.",options=["Здраво","advanced academic phrase","technical formula","rare literary term"],correct="Здраво"),
-    AssessmentQuestion(id="sr-a1-010",skill="production",difficulty="A1",question="Select the polite expression for closing an everyday exchange.",options=["Хвала","technical term","advanced idiom","unrelated expression"],correct="Хвала"),
-]
+ASSESSMENT_BANK=[AssessmentQuestion(id="sr-a1-001",skill="speaking",difficulty="A1",question="You meet someone informally. Which Serbian phrase is a natural greeting?",options=["Здраво!","Колико ово кошта?","Не разумем.","Где је школа?"],correct="Здраво!"),
+AssessmentQuestion(id="sr-a1-002",skill="communication",difficulty="A1",question="You introduce yourself as Marko. Which Serbian sentence should you use?",options=["Зовем се Марко.","Хтео бих ово, молим.","Данас учим српски.","Данас сам код куће."],correct="Зовем се Марко."),
+AssessmentQuestion(id="sr-a1-003",skill="vocabulary",difficulty="A1",question="You are talking about your relatives. Which Serbian word means “family”?",options=["породица","вода","данас","школа"],correct="породица"),
+AssessmentQuestion(id="sr-a1-004",skill="grammar",difficulty="A1",question="You tell a friend that you are working today. Which sentence is appropriate?",options=["Данас радим у канцеларији.","Моја породица живи у Београду.","Молим вас, чашу воде.","Данас сам код куће."],correct="Данас радим у канцеларији."),
+AssessmentQuestion(id="sr-a1-005",skill="vocabulary",difficulty="A1",question="You are thirsty. Which Serbian word means “water”?",options=["вода","породица","радим","станица"],correct="вода"),
+AssessmentQuestion(id="sr-a1-006",skill="communication",difficulty="A1",question="You want to ask the price in a shop. Which Serbian phrase should you use?",options=["Колико ово кошта?","Како си?","Не разумем.","Где је станица?"],correct="Колико ово кошта?"),
+AssessmentQuestion(id="sr-a1-007",skill="communication",difficulty="A1",question="You need directions to the school. Which Serbian question should you use?",options=["Где је школа?","Молим вас, воду.","Хвала вам на помоћи.","Зовем се Марко."],correct="Где је школа?"),
+AssessmentQuestion(id="sr-a1-008",skill="communication",difficulty="A1",question="You do not understand what someone said. Which Serbian phrase should you use?",options=["Не разумем.","Здраво!","Колико ово кошта?","Где је станица?"],correct="Не разумем."),
+AssessmentQuestion(id="sr-a1-009",skill="communication",difficulty="A1",question="You need someone to repeat their words. Which Serbian phrase is appropriate?",options=["Можете ли да поновите?","Данас сам код куће.","Хтео бих ово, молим.","Како си?"],correct="Можете ли да поновите?"),
+AssessmentQuestion(id="sr-a1-010",skill="production",difficulty="A1",question="Someone helps you and you want to thank them. Which Serbian phrase should you use?",options=["Хвала вам на помоћи.","Не разумем.","Где је школа?","Колико ово кошта?"],correct="Хвала вам на помоћи.")]
