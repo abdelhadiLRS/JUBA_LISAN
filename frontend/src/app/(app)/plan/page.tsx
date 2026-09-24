@@ -274,7 +274,7 @@ export default function PlanPage() {
   return (
     <div className="juba-plan-shell mx-auto max-w-4xl space-y-6 px-4 py-8">
       {/* ── Header ── */}
-      <div className="border-fl-border bg-fl-surface border">
+      <div className="juba-card overflow-hidden">
         <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
           <span className="text-fl-label text-fl-muted-3">●</span>
           <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
@@ -423,7 +423,7 @@ export default function PlanPage() {
                 </div>
                 <button
                   onClick={() => router.push(`/lesson/${lesson.id}`)}
-                  className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-3 py-1 font-mono text-sm tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+                  className="juba-primary-button px-3 py-1 text-xs tracking-widest uppercase"
                 >
                   {t('resume')}
                 </button>
@@ -440,7 +440,7 @@ export default function PlanPage() {
 
       {/* ── Completion test result ── */}
       {plan.completion_test_taken && (
-        <div className="border-fl-border bg-fl-surface space-y-2 border px-6 py-4">
+        <div className="juba-card space-y-2 px-6 py-4">
           <p className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
             {t('levelTestResult')}
           </p>
