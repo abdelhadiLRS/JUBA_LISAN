@@ -193,6 +193,15 @@ _I18N = {
             "Ukończyć ocenę, aby odblokować kolejny poziom",
         ],
     },
+    "no-NO": {
+        "lesson_title": "{title} - Leksjon {n}",
+        "test_unit_title": "Sluttprøve for nivå {level}",
+        "test_title": "Sluttprøve for nivå {level}",
+        "test_objectives": [
+            "Repetere alle grammatikktemaene på dette nivået",
+            "Fullføre vurderingen for å låse opp neste nivå",
+        ],
+    },
     "zh-CN": {
         "lesson_title": "{title} - 第 {n} 课",
         "test_unit_title": "{level} 等级完成测试",
