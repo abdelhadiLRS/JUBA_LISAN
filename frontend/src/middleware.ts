@@ -76,7 +76,7 @@ function detectLocale(req: NextRequest): Locale {
     NL: 'nl',
     RO: 'ro',
     RU: 'ru',
-    UA: 'uk',
+    UA: 'ru',
     GB: 'en',
     US: 'en',
     CA: 'en',
