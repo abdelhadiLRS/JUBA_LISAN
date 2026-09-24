@@ -117,6 +117,57 @@ def test_all_activated_languages_have_metadata_and_no_flags() -> None:
         assert get_language_flag(target_language) == ""
 
 
+def test_all_activated_languages_have_valid_grammar_and_phrasebooks() -> None:
+    for target_language in ACTIVATED_TARGET_LANGUAGES:
+        grammar = get_grammar_topics(target_language)
+        phrasebook = get_phrasebook_categories(target_language)
+
+        assert grammar, target_language
+        assert len({topic.slug for topic in grammar}) == len(grammar), target_language
+        assert all(
+            topic.level in {"A1", "A2", "B1", "B2", "C1", "C2"}
+            and topic.slug
+            and topic.title.strip()
+            and topic.summary.strip()
+            and topic.explanation.strip()
+            for topic in grammar
+        ), target_language
+
+        assert phrasebook, target_language
+        assert len({category.id for category in phrasebook}) == len(phrasebook), target_language
+        assert all(
+            category.level in {"A1", "A2", "B1", "B2", "C1", "C2"}
+            and category.id
+            and category.situation.strip()
+            and category.phrases
+            for category in phrasebook
+        ), target_language
+        assert all(
+            phrase.text.strip() and phrase.context.strip()
+            for category in phrasebook
+            for phrase in category.phrases
+        ), target_language
+
+
+def test_all_activated_languages_have_unique_vocabulary_sets_and_entries() -> None:
+    for target_language in ACTIVATED_TARGET_LANGUAGES:
+        vocabulary = get_vocabulary_sets(target_language)
+        assert len({entry.id for entry in vocabulary}) == len(vocabulary), target_language
+        assert all(
+            entry.level in {"A1", "A2", "B1", "B2", "C1", "C2"}
+            and entry.id
+            and entry.topic.strip()
+            and entry.unit_ref
+            and entry.words
+            for entry in vocabulary
+        ), target_language
+        assert all(
+            word.word.strip() and word.definition.strip() and word.example.strip()
+            for entry in vocabulary
+            for word in entry.words
+        ), target_language
+
+
 def test_all_activated_languages_have_balanced_assessment_banks() -> None:
     for target_language in ACTIVATED_TARGET_LANGUAGES:
         bank = get_assessment_bank(target_language)
