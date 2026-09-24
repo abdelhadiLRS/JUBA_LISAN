@@ -370,7 +370,11 @@ export function createAudioQueue(
     // The Web Audio timeline may still contain the old chunk boundary after
     // fallback playback has completed. Re-anchor subsequent Web Audio chunks
     // to the current context time so they cannot reuse a stale boundary.
-    nextTime = ctx.currentTime
+    // A cancellation can resolve the fallback promise while this drain is
+    // still unwinding; never let that stale completion mutate the new timeline.
+    if (generationToken === generation) {
+      nextTime = ctx.currentTime
+    }
   }
 
   async function _drain(generationToken: number): Promise<void> {
