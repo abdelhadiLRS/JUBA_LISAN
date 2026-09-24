@@ -28,7 +28,7 @@ const ROUND_SIZE = 5
 
 const copy = {
   ar: {
-    title: 'JUBA EDU',
+    title: 'JUBA LISAN',
     subtitle: 'تعلّم باللعب، وتقدّم كل يوم',
     points: 'النقاط', streak: 'سلسلة', level: 'المستوى', games: 'الألعاب التعليمية',
     daily: 'تحدي اليوم', dailyDesc: 'تحدٍ واحد ثابت يوميًا. أكمله لتحصل على XP وتبني عادتك التعليمية.',
@@ -43,7 +43,7 @@ const copy = {
     questions: 'الأسئلة', accuracy: 'الدقة', best: 'أفضل نتيجة', badges: 'الإنجازات', unlocked: 'مفتوح', newBadge: 'إنجاز جديد!', answered: 'تم تسجيل إجابتك.',
   },
   fr: {
-    title: 'JUBA EDU', subtitle: 'Apprendre en jouant, progresser chaque jour', points: 'Points', streak: 'Série', level: 'Niveau',
+    title: 'JUBA LISAN', subtitle: 'Apprendre en jouant, progresser chaque jour', points: 'Points', streak: 'Série', level: 'Niveau',
     games: 'Jeux éducatifs', daily: 'Défi du jour', dailyDesc: 'Un défi fixe chaque jour pour gagner de l’XP et construire une habitude.',
     math: 'Défi de calcul', words: 'Chasse aux mots', sequence: 'Complète la suite', memory: 'Défi mémoire',
     matching: 'Jeu d’association', ordering: 'Jeu de classement', mathDesc: 'De courts calculs avec récompenses immédiates.',
@@ -54,7 +54,7 @@ const copy = {
     gamesPlayed: 'Parties', questions: 'Questions', accuracy: 'Précision', best: 'Meilleur score', badges: 'Succès', unlocked: 'débloqué', newBadge: 'Nouveau succès !', answered: 'Réponse enregistrée.',
   },
   en: {
-    title: 'JUBA EDU', subtitle: 'Learn through play. Improve every day.', points: 'Points', streak: 'Streak', level: 'Level',
+    title: 'JUBA LISAN', subtitle: 'Learn through play. Improve every day.', points: 'Points', streak: 'Streak', level: 'Level',
     games: 'Educational games', daily: 'Daily Challenge', dailyDesc: 'One consistent challenge each day. Complete it to earn XP and build your habit.',
     math: 'Math challenge', words: 'Word hunt', sequence: 'Complete the pattern', memory: 'Memory challenge',
     matching: 'Matching game', ordering: 'Ordering game', mathDesc: 'Short calculations with instant rewards.', wordsDesc: 'Match each word with its meaning.',
@@ -228,7 +228,7 @@ export default function GamesPage() {
           <div className="language-control">
             <span>{t.lang}</span>
             {(['ar', 'fr', 'en'] as Lang[]).map((value) => (
-              <button key={value} className={lang === value ? 'active' : ''} onClick={() => setLang(value)}>
+              <button type="button" key={value} className={lang === value ? 'active' : ''} onClick={() => setLang(value)}>
                 {value.toUpperCase()}
               </button>
             ))}
@@ -246,7 +246,7 @@ export default function GamesPage() {
             <div className="achievement-toast" style={{ display: newAchievements.length ? 'block' : 'none' }}>
               🏅 <strong>{t.newBadge}</strong> {newAchievements.map((id) => ACHIEVEMENTS[id].title).join(' · ')}
             </div>
-            <button className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} onClick={() => startGame(dailyGame, true)} disabled={dailyCompletedToday} aria-disabled={dailyCompletedToday}>
+            <button type="button" className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} onClick={() => startGame(dailyGame, true)} disabled={dailyCompletedToday} aria-disabled={dailyCompletedToday}>
               <span className="daily-icon">📅</span>
               <span><strong>{t.daily}</strong><small>{t.dailyDesc}</small></span>
               <span className="start">{dailyCompletedToday ? '✓' : t.start} {dailyCompletedToday ? '' : '→'}</span>
@@ -254,12 +254,12 @@ export default function GamesPage() {
 
             <div className="section-heading">
               <h2>{t.games}</h2>
-              <button className="reset" onClick={reset}>{t.reset}</button>
+              <button type="button" className="reset" onClick={reset}>{t.reset}</button>
             </div>
 
             <section className="game-grid">
               {gameCards.map((card) => (
-                <button key={card.id} className="game-card" onClick={() => startGame(card.id)}>
+                <button type="button" key={card.id} className="game-card" onClick={() => startGame(card.id)}>
                   <span className="game-icon">{card.icon}</span>
                   <span className="game-title">{card.title}</span>
                   <span className="game-desc">{card.desc}</span>
@@ -303,7 +303,7 @@ export default function GamesPage() {
           </>
         ) : (
           <section className="play-card">
-            <button className="back" onClick={() => { setGame(null); setDailyMode(false) }}>← {t.back}</button>
+            <button type="button" className="back" onClick={() => { setGame(null); setDailyMode(false) }}>← {t.back}</button>
             <div className="round-meta">{dailyMode ? `📅 ${t.daily} · ` : ''}{round + 1} / {ROUND_SIZE} · +XP</div>
             {question && (
               <>
@@ -313,7 +313,7 @@ export default function GamesPage() {
                   {question.choices.map((choice) => {
                     const state = selected === choice ? 'selected' : ''
                     return (
-                      <button key={choice} className={`choice ${state}`} onClick={() => answer(choice)}>
+                      <button type="button" key={choice} className={`choice ${state}`} onClick={() => answer(choice)}>
                         {choice}
                       </button>
                     )
@@ -325,7 +325,7 @@ export default function GamesPage() {
                     <span>{question.hint}</span>
                   </div>
                 )}
-                {selected && <button className="next" onClick={next}>{round >= ROUND_SIZE - 1 ? t.done : t.next} →</button>}
+                {selected && <button type="button" className="next" onClick={next}>{round >= ROUND_SIZE - 1 ? t.done : t.next} →</button>}
               </>
             )}
             <div className="round-score">{t.score}: <strong>{roundScore}</strong></div>
