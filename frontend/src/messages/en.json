@@ -2054,5 +2054,30 @@
     "learning": "Learning",
     "personalized": "personalized for you",
     "adaptive": "adaptive"
+  },
+  "visitorTranslator": {
+    "open": "Open instant translator",
+    "translate": "Translate",
+    "title": "Instant translator",
+    "description": "Translate freely. Save useful words locally. Sign in only when you want cloud sync.",
+    "close": "Close translator",
+    "from": "From",
+    "sourceLanguage": "Source language",
+    "autoDetect": "Auto detect",
+    "inputPlaceholder": "Type or paste your text here…",
+    "textToTranslate": "Text to translate",
+    "detected": "Detected",
+    "automaticDetection": "Automatic detection",
+    "swap": "Swap source and target languages",
+    "to": "To",
+    "targetLanguage": "Target language",
+    "savedLocally": "Saved locally ✓",
+    "learnThis": "Learn this",
+    "savedWords": "My saved words",
+    "savedNote": "Saved on this browser. Sign in later to sync it with your learning deck.",
+    "translationPlaceholder": "Your translation will appear here.",
+    "workflow": "Translate → save → learn → review.",
+    "translating": "Translating…",
+    "translationFailed": "Translation failed."
   }
 }
