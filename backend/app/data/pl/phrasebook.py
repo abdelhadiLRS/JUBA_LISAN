@@ -1,14 +1,29 @@
-"""A1 phrasebook — practical pl situations."""
+"""Polski practical phrasebook A1-C2."""
 from app.data._types import PhrasebookCategory, PhrasebookEntry
 
-PHRASEBOOK_CATEGORIES=[
-    PhrasebookCategory(id="greetings_a1",level="A1",situation="Powitania",icon="👋",phrases=[PhrasebookEntry(phrase="Cześć.",translation="Hello."),PhrasebookEntry(phrase="Jak masz na imię?",translation="What is your name?"),PhrasebookEntry(phrase="Mam na imię Anna.",translation="My name is Anna."),PhrasebookEntry(phrase="Do widzenia.",translation="Goodbye.")]),
-    PhrasebookCategory(id="daily_a1",level="A1",situation="Codzienna rutyna",icon="⏰",phrases=[PhrasebookEntry(phrase="Która jest godzina?",translation="What time is it?"),PhrasebookEntry(phrase="Wstaję o siódmej.",translation="I get up at seven."),PhrasebookEntry(phrase="Idę do pracy.",translation="I am going to work."),PhrasebookEntry(phrase="Wieczorem jestem w domu.",translation="I am at home in the evening.")]),
-    PhrasebookCategory(id="shopping_a1",level="A1",situation="Zakupy",icon="🛒",phrases=[PhrasebookEntry(phrase="Ile to kosztuje?",translation="How much does this cost?"),PhrasebookEntry(phrase="Chcę to.",translation="I want this."),PhrasebookEntry(phrase="Czy jest inny rozmiar?",translation="Is there another size?"),PhrasebookEntry(phrase="Czy mogę zapłacić kartą?",translation="Can I pay by card?")]),
-    PhrasebookCategory(id="help_a1",level="A1",situation="Pomoc",icon="💬",phrases=[PhrasebookEntry(phrase="Nie rozumiem.",translation="I don't understand."),PhrasebookEntry(phrase="Czy może Pan/Pani powtórzyć?",translation="Could you repeat?"),PhrasebookEntry(phrase="Czy może Pan/Pani mówić wolniej?",translation="Could you speak more slowly?"),PhrasebookEntry(phrase="Czy może mi Pan/Pani pomóc?",translation="Could you help me?")]),
-    PhrasebookCategory(id="daily_a2",level="A2",situation="Daily life",icon="🏠",phrases=[]),
-    PhrasebookCategory(id="work_b1",level="B1",situation="Work",icon="💼",phrases=[]),
-    PhrasebookCategory(id="formal_b2",level="B2",situation="Formal communication",icon="📝",phrases=[]),
-    PhrasebookCategory(id="academic_c1",level="C1",situation="Academic communication",icon="🎓",phrases=[]),
-    PhrasebookCategory(id="advanced_c2",level="C2",situation="Advanced communication",icon="🧠",phrases=[]),
+def _p(text,context,register="neutral",unit=None):
+    return PhrasebookEntry(text=text,context=context,register=register,unit_ref=unit)
+
+def _c(id,level,situation,phrases,unit=None):
+    return PhrasebookCategory(id=id,level=level,situation=situation,icon="",phrases=[_p(*p,unit=unit) for p in phrases])
+
+PHRASEBOOK_CATEGORIES = [
+_c("greetings_a1","A1","Powitania i przedstawianie się",[("Dzień dobry.","Neutral greeting.","formal"),("Cześć.","Informal greeting.","informal"),("Jak masz na imię?","Ask someone's name.","neutral"),("Miło mi cię poznać.","First meeting.","neutral")]),
+_c("daily_a1","A1","Codzienna komunikacja",[("Jak się masz?","Ask about wellbeing.","neutral"),("Mam się dobrze, dziękuję.","Respond politely.","neutral"),("Nie rozumiem.","Signal difficulty understanding.","neutral"),("Proszę mówić wolniej.","Ask someone to slow down.","formal")]),
+_c("shopping_a1","A1","Zakupy",[("Ile to kosztuje?","Ask the price.","neutral"),("Czy mogę zapłacić kartą?","Ask about card payment.","neutral"),("Poproszę ten produkt.","Request an item.","neutral"),("Czy jest większy rozmiar?","Ask about size.","neutral")]),
+_c("restaurant_a1","A1","Restauracja",[("Poproszę menu.","Ask for the menu.","neutral"),("Poproszę wodę.","Order water.","neutral"),("Co pan/pani poleca?","Ask for a recommendation.","formal"),("Rachunek, proszę.","Ask for the bill.","neutral")]),
+_c("home_a2","A2","Dom i okolica",[("Gdzie jest najbliższa apteka?","Ask for a nearby pharmacy.","neutral"),("Mieszkam niedaleko centrum.","Describe where you live.","neutral"),("Czy to jest daleko?","Ask about distance.","neutral"),("Proszę skręcić w lewo.","Give a direction.","formal")]),
+_c("travel_a2","A2","Podróż",[("Gdzie jest dworzec?","Ask for the station.","neutral"),("O której odjeżdża pociąg?","Ask departure time.","neutral"),("Mam rezerwację.","Check in with a reservation.","neutral"),("Czy ten pociąg jedzie do Krakowa?","Check a destination.","neutral")]),
+_c("health_a2","A2","Zdrowie",[("Boli mnie głowa.","Describe a headache.","neutral"),("Potrzebuję lekarza.","Ask for medical help.","neutral"),("Od kiedy ma pan/pani gorączkę?","Ask when symptoms began.","formal"),("Czy może mi pan/pani pomóc?","Request help.","formal")]),
+_c("work_a2","A2","Praca",[("O której zaczyna pan/pani pracę?","Ask working hours.","formal"),("Pracuję od poniedziałku do piątku.","Describe schedule.","neutral"),("Mam dzisiaj spotkanie.","Explain an appointment.","neutral"),("Do zobaczenia jutro.","Say goodbye at work.","neutral")]),
+_c("education_b1","B1","Edukacja",[("Na jakim kierunku studiujesz?","Ask someone's field of study.","neutral"),("Przygotowuję się do egzaminu.","Talk about preparation.","neutral"),("Czy możesz to wyjaśnić?","Ask for an explanation.","neutral"),("Zależy mi na praktycznej wiedzy.","Express a learning priority.","neutral")]),
+_c("opinions_b1","B1","Opinie",[("Moim zdaniem...","Introduce an opinion.","neutral"),("Wydaje mi się, że...","Give a tentative opinion.","neutral"),("Zgadzam się z tym argumentem.","Agree with an argument.","neutral"),("Nie jestem do końca przekonany/przekonana.","Express reservation.","neutral")]),
+_c("problems_b1","B1","Problemy i rozwiązania",[("Mamy problem z...","Introduce a problem.","neutral"),("Spróbujmy znaleźć rozwiązanie.","Suggest solving it.","neutral"),("Co możemy z tym zrobić?","Ask for options.","neutral"),("To powinno zadziałać.","Express expectation.","neutral")]),
+_c("debate_b2","B2","Debata",[("Pozwolę sobie nie zgodzić się z tą tezą.","Disagree formally.","formal"),("Ten argument pomija ważny aspekt.","Critique an argument.","formal"),("Z drugiej strony...","Introduce a counterpoint.","neutral"),("Warto rozważyć inną perspektywę.","Suggest another perspective.","formal")]),
+_c("professional_b2","B2","Komunikacja zawodowa",[("Proponuję, żebyśmy wrócili do tej kwestii.","Suggest revisiting a matter.","formal"),("Czy możemy ustalić następne kroki?","Clarify action points.","formal"),("Przygotuję krótkie podsumowanie.","Offer a summary.","neutral"),("Zgadzam się co do priorytetów.","Confirm priorities.","formal")]),
+_c("academic_c1","C1","Język akademicki",[("Wyniki wskazują na...","Introduce findings.","formal"),("Należy jednak uwzględnić...","Introduce a limitation.","formal"),("Można przypuszczać, że...","Hedge a claim.","formal"),("Z perspektywy metodologicznej...","Frame an analysis.","formal")]),
+_c("society_c1","C1","Analiza społeczna",[("Zjawisko to ma kilka przyczyn.","Discuss causation.","neutral"),("Dane sugerują inną interpretację.","Offer an evidence-based alternative.","formal"),("Nie można pominąć kontekstu.","Highlight context.","formal"),("Konsekwencje są trudne do przewidzenia.","Discuss uncertainty.","formal")]),
+_c("style_c2","C2","Styl i redakcja",[("To sformułowanie jest zbyt kategoryczne.","Critique wording.","formal"),("Można to ująć bardziej precyzyjnie.","Suggest a precise rephrasing.","formal"),("W tym kontekście słowo ma inne znaczenie.","Discuss semantic nuance.","neutral"),("Autor celowo zmienia rejestr.","Analyse style.","formal")]),
+_c("rhetoric_c2","C2","Retoryka",[("Pytanie brzmi, czy rzeczywiście możemy to założyć.","Introduce a rhetorical challenge.","formal"),("Ten kontrast wzmacnia główną tezę.","Analyse rhetoric.","formal"),("Argumentacja opiera się na kilku przesłankach.","Describe reasoning.","formal"),("Warto oddzielić fakt od interpretacji.","Distinguish evidence from interpretation.","formal")]),
+_c("synthesis_c2","C2","Synteza",[("Zestawiając oba źródła, otrzymujemy podobny obraz.","Synthesize sources.","formal"),("Oba stanowiska mają mocne i słabe strony.","Compare positions.","neutral"),("Wniosek zależy od przyjętych założeń.","Qualify a conclusion.","formal"),("Podsumowując, najważniejsza jest precyzja.","Conclude a discussion.","formal")]),
 ]
