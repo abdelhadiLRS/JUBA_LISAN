@@ -14,7 +14,7 @@ export function LanguageShowcase({ t }: LanguageShowcaseProps) {
           <p>{t('languageCatalogDescription')}</p>
         </div>
         <div className="juba-ff-language-cloud">
-          {SUPPORTED_TARGET_LANGUAGES.map((language, i) => (
+          {SUPPORTED_TARGET_LANGUAGES.map((language) => (
             <article key={language.code} className="juba-ff-language-card">
               <div>
                 <strong>{language.nameEn}</strong>
