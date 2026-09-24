@@ -1,58 +1,47 @@
 """Bengali A1 foundation data for JUBA LISAN."""
 from app.data._types import CurriculumUnit, GrammarExample, GrammarTopic, VocabularyEntry, VocabularySet, PhrasebookCategory, PhrasebookEntry, AssessmentQuestion
 
-def _g(slug,title,summary,examples):
-    return GrammarTopic(slug=slug,title=title,level="A1",category="core",summary=summary,explanation=summary,examples=[GrammarExample(text=x) for x in examples])
-
-GRAMMAR_TOPICS=[_g("pronouns","Personal pronouns","Personal pronouns in basic A1 use.",["আমি ছাত্র।","সে শিক্ষক।"]),
-_g("copula","Basic identity","Basic identity in basic A1 use.",["আমি শিক্ষক।","এটা বই।"]),
-_g("demonstratives","Demonstratives","Demonstratives in basic A1 use.",["এই বই।","ওই বাড়ি।"]),
-_g("questions","Questions","Questions in basic A1 use.",["এটা কী؟","আপনি কোথায়?"]),
-_g("present","Present verbs","Present verbs in basic A1 use.",["আমি বাংলা পড়ি।","সে কাজ করে।"]),
-_g("negation","Negation","Negation in basic A1 use.",["আমি যাই না।","এটা বই নয়।"]),
-_g("plural","Plural nouns","Plural nouns in basic A1 use.",["ছাত্ররা আসে।","বইগুলো টেবিলে।"]),
-_g("postpositions","Postpositions","Postpositions in basic A1 use.",["বাড়িতে আছি।","বন্ধুর সঙ্গে যাই।"])]
-
-def _v(i,t,words):
-    return VocabularySet(id=i,level="A1",topic=t,unit_ref="bn-a1",words=[VocabularyEntry(word=w,pos=p,definition=d,example=e) for w,p,d,e in words])
-
-VOCABULARY_SETS=[_v("greetings_a1","hello",[["নমস্কার","noun","hello","নমস্কার."]]),
-_v("family_a1","mother",[["মা","noun","mother","মা."]]),
-_v("home_a1","home",[["বাড়ি","noun","home","বাড়ি."]]),
-_v("daily_a1","morning",[["সকাল","noun","morning","সকাল."]]),
-_v("food_a1","water",[["জল","noun","water","জল."]]),
-_v("places_a1","station",[["স্টেশন","noun","station","স্টেশন."]]),
-_v("communication_a1","help",[["সাহায্য","noun","help","সাহায্য."]]),
-_v("review_a1","friend",[["বন্ধু","noun","friend","বন্ধু."]])]
-
-def _p(i,s,items):
-    return PhrasebookCategory(id=i,level="A1",situation=s,icon="💬",phrases=[PhrasebookEntry(text=t,context=c,register=r) for t,c,r in items])
-
-PHRASEBOOK_CATEGORIES=[_p("greetings_a1","Greetings",[["Hello!","greeting","neutral"]]),
-_p("shopping_a1","Shopping",[["How much is this?","asking price","neutral"]]),
-_p("directions_a1","Directions",[["Where is the station?","asking location","neutral"]]),
-_p("help_a1","Help",[["Please help me.","asking for help","neutral"]])]
-
-CURRICULUM={"A1":[CurriculumUnit(id="bn-a1-unit-1",level="A1",unit_number=1,title="পরিচয়",grammar_points=["pronouns"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle পরিচয়","Use core A1 language"],default_weeks=2),
-CurriculumUnit(id="bn-a1-unit-2",level="A1",unit_number=2,title="পরিবার",grammar_points=["copula"],vocabulary_set_ids=["family_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle পরিবার","Use core A1 language"],default_weeks=2),
-CurriculumUnit(id="bn-a1-unit-3",level="A1",unit_number=3,title="বাড়ি",grammar_points=["demonstratives"],vocabulary_set_ids=["home_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle বাড়ি","Use core A1 language"],default_weeks=2),
-CurriculumUnit(id="bn-a1-unit-4",level="A1",unit_number=4,title="দৈনন্দিন জীবন",grammar_points=["questions"],vocabulary_set_ids=["daily_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle দৈনন্দিন জীবন","Use core A1 language"],default_weeks=2),
-CurriculumUnit(id="bn-a1-unit-5",level="A1",unit_number=5,title="খাবার ও কেনাকাটা",grammar_points=["present"],vocabulary_set_ids=["food_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle খাবার ও কেনাকাটা","Use core A1 language"],default_weeks=2),
-CurriculumUnit(id="bn-a1-unit-6",level="A1",unit_number=6,title="স্থান ও দিক",grammar_points=["negation"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle স্থান ও দিক","Use core A1 language"],default_weeks=2),
-CurriculumUnit(id="bn-a1-unit-7",level="A1",unit_number=7,title="যোগাযোগ",grammar_points=["plural"],vocabulary_set_ids=["communication_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle যোগাযোগ","Use core A1 language"],default_weeks=2),
-CurriculumUnit(id="bn-a1-unit-8",level="A1",unit_number=8,title="পুনরাবৃত্তি",grammar_points=["postpositions"],vocabulary_set_ids=["review_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle পুনরাবৃত্তি","Use core A1 language"],default_weeks=2)]}
-for level in ["A2","B1","B2","C1","C2"]:
-    CURRICULUM[level]=[CurriculumUnit(id=f"bn-{level.lower()}-foundation",level=level,unit_number=1,title=f"Bengali {level}",grammar_points=["review A1"],vocabulary_set_ids=["review_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=[f"Build {level} communication"],default_weeks=2)]
-
-ASSESSMENT_BANK=[
-    AssessmentQuestion(id="bn-a1-001",skill="vocabulary",difficulty="A1",question="Which word is the greeting?",options=["নমস্কার","station","water","book"],correct="নমস্কার"),
-    AssessmentQuestion(id="bn-a1-002",skill="grammar",difficulty="A1",question="Choose the first model sentence.",options=["আমি ছাত্র।","সে শিক্ষক।","No sentence","Tomorrow"],correct="আমি ছাত্র।"),
-    AssessmentQuestion(id="bn-a1-003",skill="grammar",difficulty="A1",question="Which sentence shows the target grammar?",options=["আমি শিক্ষক।","এটা বই।","Hello","Goodbye"],correct="আমি শিক্ষক।"),
-    AssessmentQuestion(id="bn-a1-004",skill="vocabulary",difficulty="A1",question="Which word means mother?",options=["মা","station","friend","water"],correct="মা"),
-    AssessmentQuestion(id="bn-a1-005",skill="vocabulary",difficulty="A1",question="Which word belongs to the home theme?",options=["বাড়ি","tomorrow","thanks","station"],correct="বাড়ি"),
-    AssessmentQuestion(id="bn-a1-006",skill="reading",difficulty="A1",question="Read the first model sentence and identify its function.",options=["Basic A1 communication","Advanced literature","Past narrative","Formal report"],correct="Basic A1 communication"),
-    AssessmentQuestion(id="bn-a1-007",skill="grammar",difficulty="A1",question="Which example belongs to the questions topic?",options=["এটা কী؟","আমি বাংলা পড়ি।","Hello","Thank you"],correct="এটা কী؟"),
-    AssessmentQuestion(id="bn-a1-008",skill="communication",difficulty="A1",question="Which phrase asks for help?",options=["Please help me.","Goodbye.","Thank you.","My name is..."],correct="Please help me."),
-    AssessmentQuestion(id="bn-a1-009",skill="communication",difficulty="A1",question="Which phrase asks for a location?",options=["Where is the station?","Thank you.","Goodbye.","I am a student."],correct="Where is the station?"),
-    AssessmentQuestion(id="bn-a1-010",skill="vocabulary",difficulty="A1",question="Which word is the review/friend item?",options=["বন্ধু","water","station","morning"],correct="বন্ধু")
-]
+def g(s,t,m,e): return GrammarTopic(slug=s,title=t,level="A1",category="core",summary=m,explanation=m,examples=[GrammarExample(text=x) for x in e])
+GRAMMAR_TOPICS=[g(*x) for x in [
+("pronouns","Personal pronouns","Use আমি, তুমি/আপনি, সে and আমরা in basic sentences.",["আমি ছাত্র।","আপনি শিক্ষক।"]),
+("copula","Identity and noun sentences","Build simple identity statements without an overt present-tense copula.",["আমি ছাত্র।","এটা বই।"]),
+("demonstratives","Demonstratives","Use এই, ওই and সেই with familiar nouns.",["এই বইটি নতুন।","ওই বাড়িটি বড়।"]),
+("questions","Question words","Ask what, where, who and how much.",["এটা কী?","আপনি কোথায় থাকেন?"]),
+("present","Present verbs","Use common present forms for routines and current facts.",["আমি বাংলা পড়ি।","সে কাজ করে।"]),
+("negation","Negation","Use না and নয় in simple negative sentences.",["আমি যাই না।","এটা বই নয়।"]),
+("plural","Plural markers","Use common plural markers such as -রা and -গুলো.",["ছাত্ররা আসে।","বইগুলো টেবিলে আছে।"]),
+("postpositions","Postpositions","Use -এ and সঙ্গে for location and accompaniment.",["আমি বাড়িতে আছি।","বন্ধুর সঙ্গে যাই।"])
+]]
+def v(i,t,ws): return VocabularySet(id=i,level="A1",topic=t,unit_ref="bn-a1",words=[VocabularyEntry(word=w,pos=p,definition=d,example=e) for w,p,d,e in ws])
+VOCABULARY_SETS=[v(*x) for x in [
+("greetings_a1","Greetings",[("নমস্কার","phrase","hello","নমস্কার!"),("হ্যালো","phrase","hello","হ্যালো, কেমন আছেন?"),("ধন্যবাদ","phrase","thank you","ধন্যবাদ।"),("নাম","noun","name","আমার নাম রাহুল।")]),
+("family_a1","Family",[("মা","noun","mother","আমার মা বাড়িতে আছেন।"),("বাবা","noun","father","আমার বাবা কাজ করেন।"),("ভাই","noun","brother","আমার ভাই ছাত্র।"),("বোন","noun","sister","আমার বোন স্কুলে যায়।")]),
+("home_a1","Home",[("বাড়ি","noun","home","আমার বাড়ি ঢাকায়।"),("ঘর","noun","room","ঘরটি পরিষ্কার।"),("টেবিল","noun","table","বইটি টেবিলে আছে।"),("দরজা","noun","door","দরজা খোলা।")]),
+("daily_a1","Daily life",[("সকাল","noun","morning","সকালে আমি কাজ করি।"),("কাজ করা","verb","to work","আমি প্রতিদিন কাজ করি।"),("পড়া","verb","to read/study","আমি রাতে পড়ি।"),("ঘুমানো","verb","to sleep","আমি রাতে ঘুমাই।")]),
+("food_a1","Food and shopping",[("জল","noun","water","আমি জল চাই।"),("ভাত","noun","rice","আমি ভাত খাই।"),("চা","noun","tea","আমি চা পান করি।"),("দাম","noun","price","এটার দাম কত?")]),
+("places_a1","Places and directions",[("রাস্তা","noun","street","এই রাস্তা কোথায় যায়?"),("স্টেশন","noun","station","স্টেশন কোথায়?"),("ডান","noun","right","ডান দিকে যান।"),("বাম","noun","left","বাম দিকে যান।")]),
+("communication_a1","Communication",[("সাহায্য","noun","help","আমার সাহায্য দরকার।"),("দয়া করে","phrase","please","দয়া করে আবার বলুন।"),("বোঝা","verb","to understand","আমি বুঝতে পারছি না।"),("আবার","adverb","again","দয়া করে আবার বলুন।")]),
+("review_a1","A1 review",[("আজ","adverb","today","আজ আমি বাড়িতে আছি।"),("কাল","adverb","tomorrow","কাল আমি স্কুলে যাব।"),("বন্ধু","noun","friend","সে আমার বন্ধু।"),("সময়","noun","time","আমার সময় আছে।")])
+]]
+def p(i,s,items): return PhrasebookCategory(id=i,level="A1",situation=s,icon="💬",phrases=[PhrasebookEntry(text=t,context=c,register="neutral") for t,c in items])
+PHRASEBOOK_CATEGORIES=[p(*x) for x in [
+("greetings_a1","Greetings",[("নমস্কার!","greeting"),("আমার নাম রাহুল।","introducing yourself"),("আমি বাংলাদেশ থেকে এসেছি।","saying where you are from")]),
+("shopping_a1","Shopping",[("এটার দাম কত?","asking price"),("আমি এক কেজি ভাত চাই।","requesting an item"),("কার্ডে দিতে পারি?","asking about payment")]),
+("directions_a1","Directions",[("স্টেশন কোথায়?","asking location"),("ডান দিকে যান।","giving directions"),("এখান থেকে কত দূর?","checking distance")]),
+("help_a1","Help",[("আমাকে সাহায্য করুন।","asking for help"),("আমি বুঝতে পারছি না।","clarification"),("দয়া করে ধীরে বলুন।","asking someone to slow down")])
+]]
+def u(i,t,g,v,a,b): return CurriculumUnit(id=f"bn-a1-unit-{i}",level="A1",unit_number=i,title=t,grammar_points=g,vocabulary_set_ids=[v],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=[a,b],default_weeks=2)
+CURRICULUM={"A1":[u(1,"পরিচয়",["pronouns","copula"],"greetings_a1","Introduce yourself","Exchange greetings"),u(2,"পরিবার",["pronouns","plural"],"family_a1","Describe family","Ask about relatives"),u(3,"বাড়ি",["demonstratives","postpositions"],"home_a1","Describe your home","Locate objects"),u(4,"দৈনন্দিন জীবন",["present","negation"],"daily_a1","Talk about routines","Say what you do not do"),u(5,"খাবার ও কেনাকাটা",["questions","negation"],"food_a1","Buy basic food","Ask prices"),u(6,"জায়গা ও দিকনির্দেশ",["postpositions","questions"],"places_a1","Ask directions","Give a simple route"),u(7,"যোগাযোগ",["questions","negation"],"communication_a1","Ask for help","Repair a misunderstanding"),u(8,"A1 পুনরাবৃত্তি",["pronouns","present","questions"],"review_a1","Review core A1","Handle familiar exchanges")]}
+for level in ["A2","B1","B2","C1","C2"]: CURRICULUM[level]=[CurriculumUnit(id=f"bn-{level.lower()}-foundation",level=level,unit_number=1,title=f"Bengali {level}",grammar_points=["review A1"],vocabulary_set_ids=["review_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=[f"Build {level} communication"],default_weeks=2)]
+ASSESSMENT_BANK=[AssessmentQuestion(id=f"bn-a1-{i:03}",skill=s,difficulty="A1",question=q,options=o,correct=c) for i,(s,q,o,c) in enumerate([
+("vocabulary","Which word means hello?",["নমস্কার","স্টেশন","জল","বই"],"নমস্কার"),
+("grammar","Which sentence means 'I am a student'?",["আমি ছাত্র।","সে শিক্ষক।","আমি যাই না।","বইটি টেবিলে আছে।"],"আমি ছাত্র।"),
+("grammar","Which is a question asking 'What is this?'",["এটা কী?","আমি বাংলা পড়ি।","এটা বই নয়।","সে কাজ করে।"],"এটা কী?"),
+("vocabulary","Which word means mother?",["মা","বাবা","বন্ধু","ভাই"],"মা"),
+("vocabulary","Which word means price?",["দাম","সকাল","সাহায্য","নাম"],"দাম"),
+("reading","বইটি টেবিলে আছে। Where is the book?",["On the table","At the station","In the street","At school"],"On the table"),
+("grammar","Which sentence is negative?",["আমি যাই না।","আমি যাই।","আমি ছাত্র।","এটা বই।"],"আমি যাই না।"),
+("communication","Which phrase asks for help?",["আমাকে সাহায্য করুন।","ধন্যবাদ।","নমস্কার।","বিদায়।"],"আমাকে সাহায্য করুন।"),
+("communication","Which phrase asks someone to repeat?",["দয়া করে আবার বলুন।","নমস্কার!","আমার নাম রাহুল।","কাল যাব।"],"দয়া করে আবার বলুন।"),
+("vocabulary","What does কাল mean in this lesson?",["tomorrow","today","morning","friend"],"tomorrow")
+],1)]
