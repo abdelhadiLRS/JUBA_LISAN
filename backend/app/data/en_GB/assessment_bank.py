@@ -1416,18 +1416,5 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         ],
         correct="Objectives versus practical consequences.",
     ),
-    AssessmentQuestion(
-        id="r-c2-010",
-        skill="reading",
-        difficulty="C2",
-        question="Read: "The passage does not claim that the correlation is meaningless; rather, it cautions against treating correlation as sufficient evidence of causation." — What caution is expressed?",
-        options=[
-            "Correlation always proves causation.",
-            "Correlation should never be measured.",
-            "Correlation alone does not establish a causal relationship.",
-            "Causation is impossible to study.",
-        ],
-        correct="Correlation alone does not establish a causal relationship.",
-    ),
 
 ]
