@@ -574,6 +574,45 @@ describe('createAudioQueue', () => {
     expect(idle).toHaveBeenCalledTimes(1)
   })
 
+  it('cancels active HTMLAudio fallback and releases its blob URL', async () => {
+    const { ctx } = createContext()
+    ctx.decodeAudioData = vi.fn(async () => {
+      throw new Error('decode failed')
+    }) as typeof ctx.decodeAudioData
+
+    const audio = {
+      src: 'blob:active-fallback',
+      play: vi.fn(async () => {}),
+      pause: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }
+    const createObjectURL = vi.fn(() => 'blob:active-fallback')
+    const revokeObjectURL = vi.fn()
+
+    vi.stubGlobal('Audio', vi.fn(() => audio))
+    vi.stubGlobal('URL', { createObjectURL, revokeObjectURL })
+
+    const idle = vi.fn()
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx, idle)
+    const playback = queue.enqueue(new ArrayBuffer(4))
+
+    await Promise.resolve()
+    await Promise.resolve()
+
+    expect(audio.play).toHaveBeenCalledTimes(1)
+    expect(playback).not.toHaveResolved
+
+    queue.cancel()
+
+    await expect(playback).resolves.toBeUndefined()
+    expect(audio.pause).toHaveBeenCalledTimes(1)
+    expect(audio.src).toBe('')
+    expect(revokeObjectURL).toHaveBeenCalledWith('blob:active-fallback')
+    expect(idle).toHaveBeenCalledTimes(1)
+  })
+
   it('resolves an enqueue promise when fallback playback is cancelled', async () => {
     const { ctx } = createContext()
     ctx.decodeAudioData = vi.fn(async () => {
