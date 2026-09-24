@@ -17,7 +17,7 @@ LANGUAGE_NAMES = {
     "fr": "French", "de": "German", "ja": "Japanese", "ko": "Korean",
     "zh": "Chinese", "ar": "Arabic", "ru": "Russian", "nl": "Dutch",
     "pl": "Polish", "da": "Danish", "el": "Greek", "sv": "Swedish",
-    "no": "Norwegian", "fi": "Finnish", "cs": "Czech",
+    "no": "Norwegian", "fi": "Finnish", "cs": "Czech", "tr": "Turkish",
 }
 
 class TranslationRequest(BaseModel):
@@ -34,12 +34,36 @@ def _normalize_language(code: str) -> str:
     return code.strip().lower().split("-")[0]
 
 def _guess_source(text: str) -> str:
-    if re.search(r"[\\u0600-\\u06ff]", text): return "ar"
-    if re.search(r"[\\u3040-\\u30ff]", text): return "ja"
-    if re.search(r"[\\uac00-\\ud7af]", text): return "ko"
-    if re.search(r"[\\u4e00-\\u9fff]", text): return "zh"
-    if re.search(r"[\\u0370-\\u03ff]", text): return "el"
-    if re.search(r"[\\u0400-\\u04ff]", text): return "ru"
+    """Detect the most likely source language locally and deterministically."""
+    value = text.strip().lower()
+
+    # Non-Latin scripts are high-confidence signals.
+    if re.search(r"[\u0600-\u06ff]", value): return "ar"
+    if re.search(r"[\u3040-\u30ff]", value): return "ja"
+    if re.search(r"[\uac00-\ud7af]", value): return "ko"
+    if re.search(r"[\u4e00-\u9fff]", value): return "zh"
+    if re.search(r"[\u0370-\u03ff]", value): return "el"
+    if re.search(r"[\u0400-\u04ff]", value): return "ru"
+
+    # Latin-script languages need lexical/orthographic signals.
+    patterns = {
+        "fr": r"\b(bonjour|merci|avec|pour|dans|une|des|les|est|sont|être|français)\b|[àâçéèêëîïôùûüÿœ]",
+        "es": r"\b(hola|gracias|para|como|qué|que|los|las|una|uno|está|español)\b|[áéíóúüñ¿¡]",
+        "pt": r"\b(olá|obrigado|obrigada|para|como|você|vocês|uma|não|português)\b|[ãõáàâçêéíóôú]",
+        "it": r"\b(ciao|grazie|perché|come|questa|questo|sono|una|uno|italiano)\b|[àèéìíîòóù]",
+        "de": r"\b(hallo|danke|bitte|und|der|die|das|ein|eine|nicht|deutsch)\b|[äöüß]",
+        "nl": r"\b(hallo|dank|voor|een|het|van|niet|nederlands)\b",
+        "pl": r"\b(cześć|dzień|dziękuję|proszę|jest|nie|jeden|polski)\b|[ąćęłńóśźż]",
+        "tr": r"\b(merhaba|teşekkür|lütfen|için|bir|bu|değil|türkçe)\b|[çğıöşü]",
+        "da": r"\b(hej|tak|ikke|det|jeg|du|en|et|dansk)\b|[æøå]",
+        "sv": r"\b(hej|tack|och|inte|det|jag|du|en|ett|svenska)\b|[åäö]",
+        "no": r"\b(hei|takk|og|ikke|det|jeg|du|en|et|norsk)\b|[æøå]",
+        "fi": r"\b(hei|kiitos|ja|ei|minä|sinä|suomi|suomen)\b|[äö]",
+        "cs": r"\b(ahoj|děkuji|prosím|pro|jsem|není|čeština)\b|[ěščřžýáíéůúďťň]",
+    }
+    for language, pattern in patterns.items():
+        if re.search(pattern, value, flags=re.IGNORECASE):
+            return language
     return "en"
 
 def _language_name(code: str) -> str:
