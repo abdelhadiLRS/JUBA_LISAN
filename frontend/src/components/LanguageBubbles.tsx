@@ -58,33 +58,53 @@ const DISPLAY_LANGUAGES: DisplayLanguage[] = [
   { code: 'gl', name: 'Galego', regions: ['europe'], markerCountry: 'ESP', countries: ['ESP'] },
 ]
 
-function WorldMap() {
+function WorldMap({
+  highlightedCountries,
+  selectedCountry,
+  onCountrySelect,
+}: {
+  highlightedCountries: Set<string>
+  selectedCountry: string | null
+  onCountrySelect: (country: string) => void
+}) {
   return (
-    <svg
-      viewBox="0 0 1000 507"
-      className="pointer-events-none absolute inset-0 h-full w-full"
-      aria-hidden="true"
-      preserveAspectRatio="xMidYMid meet"
-    >
-      <defs>
-        <pattern id="atlas-graticule" width="100" height="84.5" patternUnits="userSpaceOnUse">
-          <path d="M100 0H0V84.5" fill="none" stroke="var(--juba-app-line)" strokeWidth="1" opacity=".32" />
-        </pattern>
-      </defs>
-
-      <rect width="1000" height="507" fill="url(#atlas-graticule)" opacity=".42" />
-
-      {Object.entries(WORLD_MAP_PATHS).map(([code, path]) => (
-        <path
-          key={code}
-          d={path}
-          fill="var(--juba-app-green-soft)"
-          stroke="var(--juba-app-line)"
-          strokeWidth="1.15"
-          vectorEffect="non-scaling-stroke"
-        />
-      ))}
-    </svg>
+    <div className="absolute inset-0">
+      <svg
+        viewBox="0 0 1000 507"
+        className="absolute inset-0 h-full w-full"
+        preserveAspectRatio="xMidYMid meet"
+        aria-label="World language map"
+        role="img"
+      >
+        <defs>
+          <pattern id="atlas-graticule" width="100" height="84" patternUnits="userSpaceOnUse">
+            <path d="M 100 0 L 0 0 0 84" fill="none" stroke="var(--juba-app-line)" strokeWidth="0.7" opacity="0.32" />
+          </pattern>
+        </defs>
+        <rect width="1000" height="507" fill="url(#atlas-graticule)" />
+        <g>
+          {Object.entries(WORLD_MAP_PATHS).map(([code, path]) => {
+            const highlighted = highlightedCountries.has(code)
+            const selected = selectedCountry === code
+            return (
+              <path
+                key={code}
+                d={path}
+                fill={selected ? 'var(--juba-app-yellow)' : highlighted ? 'var(--juba-app-green)' : 'var(--juba-app-green-soft)'}
+                fillOpacity={selected || highlighted ? 0.92 : 0.72}
+                stroke={selected ? 'var(--juba-app-ink)' : 'var(--juba-app-line)'}
+                strokeWidth={selected ? 1.8 : highlighted ? 1.25 : 1.05}
+                vectorEffect="non-scaling-stroke"
+                className="cursor-pointer transition-[fill,fill-opacity,stroke-width] duration-200"
+                tabIndex={-1}
+                onClick={() => onCountrySelect(code)}
+                aria-label={code}
+              />
+            )
+          })}
+        </g>
+      </svg>
+    </div>
   )
 }
 
