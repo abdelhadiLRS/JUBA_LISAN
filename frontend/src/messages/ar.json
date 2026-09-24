@@ -107,7 +107,12 @@
     "builtForLearners": "صُمّم للمتعلمين في كل مكان.",
     "footerPositioning": "مدعوم بالذكاء الاصطناعي · يراعي الخصوصية · متوافق مع CEFR",
     "audioReply": "رد صوتي",
-    "worldMapLabel": "خريطة لغات العالم"
+    "worldMapLabel": "خريطة لغات العالم",
+    "regionAmericas": "الأمريكتان",
+    "regionEurope": "أوروبا",
+    "regionAfricaMiddleEast": "أفريقيا والشرق الأوسط",
+    "regionAsia": "آسيا",
+    "regionPacific": "المحيط الهادئ"
   },
   "common": {
     "loading": "جارٍ التحميل...",
