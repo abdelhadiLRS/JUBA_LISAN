@@ -82,7 +82,7 @@ class Settings(BaseSettings):
     AUDIO_STORAGE_PATH: str = ""
     AVAILABLE_TARGET_LANGUAGES: list[str] = [
         "de-DE", "en-GB", "en-US", "es-ES", "fr-FR",
-        "it-IT", "ja-JP", "ko-KR", "pt-PT", "zh-CN",
+        "it-IT", "ja-JP", "ko-KR", "pt-PT", "zh-CN", "ar",
     ]
 
     @field_validator(
