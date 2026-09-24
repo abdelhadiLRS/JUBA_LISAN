@@ -72,6 +72,7 @@ export function createAudioQueue(
   let nextTime = 0
   let generation = 0
   const sources: AudioBufferSourceNode[] = []
+  const sourceIdleWaiters: Array<() => void> = []
   const fallbackAudios: HTMLAudioElement[] = []
   const fallbackCleanups: Array<() => void> = []
   const pendingChunks: ArrayBuffer[] = []
@@ -84,6 +85,21 @@ export function createAudioQueue(
   let lastDecodeFailTs = 0
   let lastScheduleFailTs = 0
   let chunkSeq = 0
+
+  function waitForSourcesToFinish(generationToken: number): Promise<void> {
+    if (generationToken !== generation || sources.length === 0) {
+      return Promise.resolve()
+    }
+
+    return new Promise<void>((resolve) => {
+      sourceIdleWaiters.push(resolve)
+    })
+  }
+
+  function resolveSourceIdleWaiters(): void {
+    if (sources.length !== 0 || sourceIdleWaiters.length === 0) return
+    for (const resolve of sourceIdleWaiters.splice(0)) resolve()
+  }
 
   function notifyIdle(): void {
     if (
@@ -211,6 +227,7 @@ export function createAudioQueue(
         chunkId,
         remainingSources: sources.length,
       })
+      resolveSourceIdleWaiters()
       notifyIdle()
     }
   }
@@ -220,6 +237,13 @@ export function createAudioQueue(
     generationToken: number,
     chunkId: number
   ): Promise<void> {
+    if (generationToken !== generation) return
+
+    // A Web Audio chunk may already be scheduled when this chunk needs the
+    // HTMLAudio fallback. Wait for those scheduled sources to finish first;
+    // otherwise the fallback would start immediately and overlap the audio
+    // already queued on the Web Audio timeline.
+    await waitForSourcesToFinish(generationToken)
     if (generationToken !== generation) return
 
     const blob = new Blob([arrayBuffer], { type: 'audio/mpeg' })
@@ -274,6 +298,11 @@ export function createAudioQueue(
           done()
         })
     })
+
+    // The Web Audio timeline may still contain the old chunk boundary after
+    // fallback playback has completed. Re-anchor subsequent Web Audio chunks
+    // to the current context time so they cannot reuse a stale boundary.
+    nextTime = ctx.currentTime
   }
 
   async function _drain(generationToken: number): Promise<void> {
@@ -348,6 +377,7 @@ export function createAudioQueue(
       fallbackAudios.pop()
     }
     sources.length = 0
+    resolveSourceIdleWaiters()
     nextTime = 0
     draining = false
     chain = Promise.resolve()
