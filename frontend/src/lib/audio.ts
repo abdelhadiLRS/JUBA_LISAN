@@ -295,7 +295,10 @@ export function createAudioQueue(
         if (idx !== -1) fallbackAudios.splice(idx, 1)
         const cleanupIdx = fallbackCleanups.indexOf(cancelFallback)
         if (cleanupIdx !== -1) fallbackCleanups.splice(cleanupIdx, 1)
-        notifyIdle()
+        // cancel() increments the generation before invoking cleanup. The
+        // cancellation path owns the final idle notification, so avoid
+        // notifying here and firing onIdle twice for the same cancellation.
+        if (generationToken === generation) notifyIdle()
         resolve()
       }
       const cancelFallback = () => {
