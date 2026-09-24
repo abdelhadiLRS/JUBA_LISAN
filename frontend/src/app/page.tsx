@@ -294,6 +294,7 @@ export default async function Home() {
                 alt="GitHub"
                 width={28}
                 height={28}
+                style={{ width: '28px', height: 'auto' }}
                 className="juba-ff-open-source-icon opacity-90"
               />
               <div className="text-left">
