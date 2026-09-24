@@ -101,6 +101,7 @@ export default function CoachPage() {
             </p>
           </div>
           <button
+            type="button"
             onClick={() => { setRefreshing(true); load() }}
             disabled={refreshing}
             className="inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-[var(--juba-app-line)] bg-white px-4 py-2.5 text-sm font-bold text-[var(--juba-app-ink)] transition hover:border-[var(--juba-app-green)] disabled:opacity-50"
@@ -124,7 +125,7 @@ export default function CoachPage() {
                   Your recent activity suggests this is the highest-impact skill to practice next. A short session is better than skipping the day.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
-                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-fl-fg px-5 py-3 text-sm font-bold text-[var(--juba-app-ink)] transition hover:opacity-90">
+                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-[var(--juba-app-green)] px-5 py-3 text-sm font-bold text-white shadow-[3px_3px_0_var(--juba-app-ink)] transition hover:opacity-90">
                     Start focused practice <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[var(--juba-app-line)] px-5 py-3 text-sm font-bold text-[var(--juba-app-ink)] transition hover:bg-[var(--juba-app-green-soft)]">
@@ -152,9 +153,9 @@ export default function CoachPage() {
         </section>
 
         <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          <CoachCard icon={<Mic />} title="Speak" value="10 min" detail="Build fluency with live correction." href="/conversation" />
-          <CoachCard icon={<Volume2 />} title="Listen" value="8 min" detail="Train comprehension with targeted audio." href="/listening" />
-          <CoachCard icon={<RefreshCw />} title="Review" value={`${Math.max(0, 15 - (plan.pending_count ?? 0))} cards`} detail="Refresh the words most likely to fade." href="/flashcards" />
+          <CoachCard icon={<Mic />} title="Speak" value="Conversation" detail="Build fluency with live correction." href="/conversation" />
+          <CoachCard icon={<Volume2 />} title="Listen" value="Practice" detail="Train comprehension with targeted audio." href="/listening" />
+          <CoachCard icon={<RefreshCw />} title="Review" value="Flashcards" detail="Refresh the words most likely to fade." href="/flashcards" />
           <CoachCard icon={<TrendingUp />} title="Progress" value={`${vocabProgress}%`} detail={`${progress.vocabulary_mastered ?? 0} words mastered so far.`} href="/progress" />
         </section>
 
