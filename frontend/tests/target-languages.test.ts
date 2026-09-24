@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   TARGET_LANGUAGE_CATALOG,
   getCanonicalLanguageCode,
+  normalizeLanguageCode,
   TARGET_LANGUAGE_CAPABILITIES,
   getLanguageByCode,
   getTargetLanguageCapability,
@@ -65,6 +66,12 @@ describe('target language catalog', () => {
     expect(getCanonicalLanguageCode(' CS-cz ')).toBe('cs-CZ')
     expect(getCanonicalLanguageCode('el-gr')).toBe('el-GR')
     expect(getCanonicalLanguageCode('unknown')).toBeUndefined()
+  })
+
+  it('normalizes known and unknown language codes consistently', () => {
+    expect(normalizeLanguageCode(' CS-cz ')).toBe('cs-CZ')
+    expect(normalizeLanguageCode(' el-gr ')).toBe('el-GR')
+    expect(normalizeLanguageCode(' custom-code ')).toBe('custom-code')
   })
 
 
