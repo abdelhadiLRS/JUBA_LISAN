@@ -25,14 +25,19 @@ export function AuthAvatarImage({
 }: Props) {
   const accessToken = useAuthStore((state) => state.accessToken)
   const [src, setSrc] = useState<string | null>(null)
+  const [failed, setFailed] = useState(false)
 
   useEffect(() => {
-    const unsubscribe = subscribeAvatar(setSrc)
+    setFailed(false)
+    const unsubscribe = subscribeAvatar((nextSrc) => {
+      setFailed(false)
+      setSrc(nextSrc)
+    })
     void loadAvatar(avatar, accessToken)
     return unsubscribe
   }, [accessToken, avatar])
 
-  if (!src) return fallback
+  if (!src || failed) return fallback
 
   return (
     <Image
@@ -42,6 +47,7 @@ export function AuthAvatarImage({
       height={height}
       className={className}
       unoptimized
+      onError={() => setFailed(true)}
     />
   )
 }
