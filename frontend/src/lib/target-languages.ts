@@ -63,6 +63,11 @@ export const TARGET_LANGUAGE_CAPABILITIES: Record<
     usesWordSpacing: false,
     romanization: 'pinyin',
   },
+  ar: {
+    script: 'latin',
+    fontClass: 'font-target-ar',
+    usesWordSpacing: true,
+  },
 }
 
 function withCapabilities(
@@ -145,6 +150,13 @@ export const TARGET_LANGUAGE_CATALOG: TargetLanguage[] = [
     nameEn: 'Chinese (Mainland China)',
     flagPath: '/flags/china.jpg',
     iso639: 'zh',
+  }),
+  withCapabilities({
+    code: 'ar',
+    name: 'العربية',
+    nameEn: 'Arabic',
+    flagPath: '/flags/ar.svg',
+    iso639: 'ar',
   }),
 ]
 
