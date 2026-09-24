@@ -32,20 +32,21 @@ export function CookieBanner() {
   if (!visible) return null
 
   return (
-    <div className="border-fl-border bg-fl-surface fixed right-0 bottom-0 left-0 z-50 border-t">
-      <div className="mx-auto flex max-w-5xl flex-col items-start gap-4 px-6 py-4 sm:flex-row sm:items-center">
-        <p className="text-fl-fg-2 flex-1 font-mono text-xs leading-relaxed">
+    <div className="fixed inset-x-0 bottom-0 z-50 border-t-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] shadow-[0_-4px_0_var(--juba-app-ink)]">
+      <div className="mx-auto flex max-w-5xl flex-col items-start gap-4 px-4 py-4 sm:flex-row sm:items-center sm:px-6">
+        <p className="flex-1 text-xs font-medium leading-relaxed text-[var(--juba-app-muted)]">
           {t('message')}{' '}
           <Link
             href="/privacy"
-            className="text-fl-fg hover:text-fl-fg-bright underline"
+            className="font-bold text-[var(--juba-app-ink)] underline decoration-[var(--juba-app-green)] decoration-2 underline-offset-2 transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2"
           >
             {t('learnMore')}
           </Link>
         </p>
         <button
+          type="button"
           onClick={accept}
-          className="bg-fl-fg text-fl-bg hover:bg-fl-fg-bright flex-shrink-0 px-6 py-2 font-mono text-xs tracking-widest whitespace-nowrap uppercase transition-colors"
+          className="inline-flex min-h-10 flex-shrink-0 items-center justify-center rounded-[12px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-green)] px-5 py-2 text-xs font-black uppercase tracking-wider text-white shadow-[3px_3px_0_var(--juba-app-ink)] transition hover:-translate-y-0.5 hover:shadow-[4px_4px_0_var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2"
         >
           {t('accept')}
         </button>
