@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Globe2, MapPinned } from 'lucide-react'
 import { WORLD_MAP_CENTROIDS, WORLD_MAP_PATHS } from './world-map-data'
+import { COUNTRY_NAMES } from './country-names'
 
 type RegionId = 'americas' | 'europe' | 'africa-middle-east' | 'asia' | 'pacific'
 
@@ -80,6 +81,7 @@ function WorldMap({
   selectedCountry: string | null
   onCountrySelect: (country: string) => void
   ariaLabel: string
+  countryName: (code: string) => string
 }) {
   return (
     <div className="absolute inset-0">
@@ -118,7 +120,7 @@ function WorldMap({
                     onCountrySelect(code)
                   }
                 }}
-                aria-label={code}
+                aria-label={countryName(code)}
                 role="button"
               />
             )
@@ -131,6 +133,8 @@ function WorldMap({
 
 export function LanguageBubbles() {
   const t = useTranslations('landing')
+  const locale = useMemo(() => document.documentElement.lang === 'ar' ? 'ar' : 'en', [])
+  const countryName = (code: string) => COUNTRY_NAMES[code]?.[locale] ?? code
   const [activeRegion, setActiveRegion] = useState<RegionId | null>(null)
   const [activeLanguage, setActiveLanguage] = useState<string | null>(null)
   const [activeCountry, setActiveCountry] = useState<string | null>(null)
@@ -202,6 +206,7 @@ export function LanguageBubbles() {
             setActiveLanguage(null)
           }}
           ariaLabel={t('worldMapLabel')}
+          countryName={countryName}
         />
 
         <div className="absolute inset-x-4 top-4 z-20 flex flex-wrap items-center justify-between gap-3 sm:inset-x-6 sm:top-6">
@@ -284,7 +289,7 @@ export function LanguageBubbles() {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <span className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">{t('countryLanguages')}</span>
-                  <h3 className="mt-1 text-lg font-black text-[var(--juba-app-ink)]">{activeCountry}</h3>
+                  <h3 className="mt-1 text-lg font-black text-[var(--juba-app-ink)]">{countryName(activeCountry)}</h3>
                 </div>
                 <button type="button" onClick={() => setActiveCountry(null)} className="text-xs font-black text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)]" aria-label={t('closeCountryDetails')}>×</button>
               </div>
