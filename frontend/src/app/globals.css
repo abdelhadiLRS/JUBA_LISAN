@@ -6353,3 +6353,36 @@ main [dir="rtl"] h3,
 .juba-ff-scenario-grid>a strong{font-size:11px}
 .juba-ff-scenario-grid>a span{font-size:9px;color:var(--landing-muted);margin-top:3px}
 @media(max-width:600px){.juba-ff-demo-action{padding:8px 10px}.juba-ff-scenario-grid{grid-template-columns:1fr}}
+
+
+/* JUBA LISAN — dashboard visual refresh */
+.juba-dashboard{
+  color:var(--juba-app-ink);
+  background:
+    radial-gradient(circle at 96% 0%,rgba(255,212,79,.14),transparent 320px),
+    radial-gradient(circle at 0% 35%,rgba(195,236,108,.09),transparent 300px);
+}
+.juba-dashboard-header{position:relative;background:linear-gradient(135deg,var(--juba-app-surface) 0%,#f7fbf2 100%)!important}
+.juba-dashboard-header::after{content:"";position:absolute;right:-40px;bottom:-70px;width:190px;height:190px;border-radius:47% 53% 62% 38%;background:rgba(255,212,79,.25);transform:rotate(-14deg);pointer-events:none}
+.juba-dashboard-header>*{position:relative;z-index:1}
+.juba-dashboard-kicker{display:inline-flex;align-items:center;gap:7px}
+.juba-dashboard-kicker::before{content:"";width:8px;height:8px;border-radius:999px;background:var(--juba-app-yellow);border:1.5px solid var(--juba-app-ink);box-shadow:1px 1px 0 var(--juba-app-ink)}
+.juba-dashboard-next{border:2px solid var(--juba-app-ink)!important;box-shadow:5px 5px 0 rgba(24,37,27,.14)!important;background:var(--juba-app-surface)!important}
+.juba-dashboard-next .juba-primary-button{box-shadow:3px 3px 0 var(--juba-app-ink)}
+.juba-dashboard-stat{border-color:var(--juba-app-line)!important;border-radius:22px!important;background:var(--juba-app-surface)!important;box-shadow:0 7px 18px rgba(24,37,27,.045)!important;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+.juba-dashboard-stat:hover{transform:translateY(-3px);border-color:#b8d1aa!important;box-shadow:0 11px 24px rgba(24,37,27,.075)!important}
+.juba-dashboard-stat-icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--juba-app-line);border-radius:11px;background:#f3f7ef;color:var(--juba-app-green-dark)}
+.juba-dashboard-stat-icon.is-accent{background:var(--juba-app-yellow);border-color:var(--juba-app-ink);color:var(--juba-app-ink);box-shadow:2px 2px 0 var(--juba-app-ink)}
+.juba-dashboard-panel{border-radius:24px!important;box-shadow:0 7px 20px rgba(24,37,27,.045)!important;transition:box-shadow .16s ease,border-color .16s ease}
+.juba-dashboard-panel:hover{border-color:#b8d1aa!important;box-shadow:0 10px 25px rgba(24,37,27,.065)!important}
+.juba-dashboard-actions{border-top:1px solid var(--juba-app-line);padding-top:18px}
+.juba-dashboard-actions .juba-primary-button,.juba-dashboard-actions .juba-secondary-button{min-height:44px;border-radius:13px}
+@media(max-width:700px){
+ .juba-dashboard{padding-bottom:1.5rem}
+ .juba-dashboard-header{border-radius:22px!important;box-shadow:4px 4px 0 var(--juba-app-ink)!important}
+ .juba-dashboard-next{border-radius:20px!important;box-shadow:4px 4px 0 rgba(24,37,27,.12)!important}
+ .juba-dashboard-stat,.juba-dashboard-panel{border-radius:19px!important}
+ .juba-dashboard-header::after{width:120px;height:120px;right:-35px;bottom:-45px}
+ .juba-dashboard-actions{display:grid;grid-template-columns:1fr;padding-top:15px}
+ .juba-dashboard-actions a{width:100%;justify-content:center}
+}
