@@ -203,7 +203,7 @@ export function LandingNav({
             </button>
             {regionOpen && <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-50 w-72 rounded-2xl border border-[var(--juba-app-line)] bg-white p-3 shadow-xl">
               <div className="mb-2 flex items-center gap-2 px-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><Globe2 className="h-3.5 w-3.5" /> Region & language</div>
-              <div className="rounded-xl bg-[var(--juba-app-green-soft)] px-3 py-2.5"><div className="text-[10px] font-bold text-[var(--juba-app-muted)]">Visitor region</div><div className="mt-0.5 font-black text-[var(--juba-app-ink)]">{currentCountry.flag} {currentCountry.name} <span className="text-xs font-bold text-[var(--juba-app-muted)]">({visitorCountry})</span></div></div>
+              <div className="rounded-xl bg-[var(--juba-app-green-soft)] px-3 py-2.5"><div className="text-[10px] font-bold text-[var(--juba-app-muted)]">Visitor region</div><div className="mt-0.5 flex items-center gap-2 font-black text-[var(--juba-app-ink)]"><span aria-hidden="true" className="text-xl">{currentCountry.flag}</span><span>{currentCountry.name}</span></div></div>
               <div className="mt-3 border-t border-[var(--juba-app-line)] pt-3">
                 <div className="px-2 text-[10px] font-bold text-[var(--juba-app-muted)]">Interface language</div>
                 <div className="mt-1 grid max-h-56 grid-cols-2 gap-1 overflow-auto">
