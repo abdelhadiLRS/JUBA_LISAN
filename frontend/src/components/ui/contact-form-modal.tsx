@@ -120,6 +120,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
           <button
             type="button"
             onClick={onClose}
+            disabled={isLoading}
             className="rounded-xl border-2 border-transparent px-2 py-1 text-[var(--juba-app-muted)] transition hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)]"
             aria-label={tCommon('close')} aria-describedby={undefined}
           >
@@ -128,7 +129,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
         </div>
 
         {status === 'success' ? (
-          <div className="flex flex-col items-center gap-3 px-6 py-10">
+          <div className="flex flex-col items-center gap-3 px-6 py-10" role="status" aria-live="polite">
             <span className="inline-flex items-center gap-2 rounded-full bg-[color-mix(in srgb, var(--juba-app-yellow) 28%, var(--juba-app-surface))] px-4 py-2 text-sm font-semibold text-[var(--juba-app-green-dark)]">
               <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> {t('sent')}
             </span>
@@ -184,7 +185,8 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
 
               {status === 'error' && (
                 <p role="alert" className="inline-flex w-full items-start gap-2 rounded-xl bg-[color-mix(in_srgb,#b33a32_10%,var(--juba-app-surface))] px-3 py-2.5 text-sm leading-relaxed text-[#b33a32]">
-                  {errorMsg}
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>{errorMsg}</span>
                 </p>
               )}
             </div>
