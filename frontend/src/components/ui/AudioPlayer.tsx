@@ -39,7 +39,23 @@ export function AudioPlayer({
       ? (localStorage.getItem('tts_voice') ?? undefined)
       : undefined)
 
-  useEffect(() => () => controllerRef.current?.abort(), [])
+  useEffect(() => {
+    return () => {
+      controllerRef.current?.abort()
+      controllerRef.current = null
+
+      const audio = audioRef.current
+      audio?.pause()
+      audioRef.current = null
+
+      // AudioPlayer creates blob URLs for every synthesized response. Revoke the
+      // active URL when the component leaves the tree so playback cannot leak.
+      const src = audio?.src
+      if (src?.startsWith('blob:')) {
+        URL.revokeObjectURL(src)
+      }
+    }
+  }, [])
 
   async function handleClick() {
     if (state === 'loading') return
