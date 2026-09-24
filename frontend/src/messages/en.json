@@ -148,7 +148,8 @@
     "aiVoiceDemo": "AI Voice Demo",
     "supportedLanguages": "Supported Languages",
     "builtForLearners": "Built for learners everywhere.",
-    "footerPositioning": "AI-powered · Privacy-conscious · CEFR-aligned"
+    "footerPositioning": "AI-powered · Privacy-conscious · CEFR-aligned",
+    "audioReply": "Audio reply"
   },
   "common": {
     "loading": "Loading...",
