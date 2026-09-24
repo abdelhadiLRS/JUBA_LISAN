@@ -560,6 +560,53 @@ describe('createAudioQueue', () => {
     expect(listeners.get('ended')).toBeDefined()
   })
 
+  it('cleans up an active fallback when cancel races with play resolution', async () => {
+    const { ctx } = createContext()
+    ctx.decodeAudioData = vi.fn(async () => {
+      throw new Error('decode failed')
+    }) as typeof ctx.decodeAudioData
+
+    let resolvePlay!: () => void
+    const audio = {
+      src: 'blob:pending-play',
+      play: vi.fn(
+        () =>
+          new Promise<void>((resolve) => {
+            resolvePlay = resolve
+          })
+      ),
+      pause: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }
+
+    const revokeObjectURL = vi.fn()
+    vi.stubGlobal('Audio', vi.fn(() => audio))
+    vi.stubGlobal('URL', {
+      createObjectURL: vi.fn(() => 'blob:pending-play'),
+      revokeObjectURL,
+    })
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx)
+    const pending = queue.enqueue(new ArrayBuffer(4))
+
+    await Promise.resolve()
+    await Promise.resolve()
+
+    expect(audio.play).toHaveBeenCalledTimes(1)
+
+    queue.cancel()
+
+    expect(audio.pause).toHaveBeenCalledTimes(1)
+    expect(audio.src).toBe('')
+    expect(revokeObjectURL).toHaveBeenCalledWith('blob:pending-play')
+
+    resolvePlay()
+    await expect(pending).resolves.toBeUndefined()
+    expect(audio.pause).toHaveBeenCalledTimes(1)
+  })
+
   it('notifies idle only once when cancelling active fallback playback', async () => {
     const { ctx } = createContext()
     ctx.decodeAudioData = vi.fn(async () => {
