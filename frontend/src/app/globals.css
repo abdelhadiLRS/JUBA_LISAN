@@ -6263,3 +6263,23 @@ main [dir="rtl"] h3,
   .juba-friends-shell .juba-panel{border-radius:18px;box-shadow:4px 4px 0 rgba(24,37,27,.05)}
   .juba-translator-shell .grid{grid-template-columns:1fr}
 }
+
+
+/* JUBA LISAN — billing action polish */
+.juba-billing-actions .juba-primary-button,
+.juba-billing-actions .juba-secondary-button{
+  min-height:48px;
+  border-radius:13px;
+}
+.juba-billing-actions .juba-primary-button{
+  box-shadow:3px 3px 0 var(--juba-app-ink);
+}
+.juba-billing-actions .juba-secondary-button{
+  border:1px solid var(--juba-app-line);
+  box-shadow:none;
+}
+.juba-billing-actions .juba-primary-button:hover:not(:disabled),
+.juba-billing-actions .juba-secondary-button:hover:not(:disabled){
+  transform:translateY(-2px);
+}
+.juba-billing-actions p{color:var(--juba-app-error)!important}
