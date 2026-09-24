@@ -160,6 +160,42 @@ describe('ExerciseAudioPlayer', () => {
     expect(screen.getByRole('button', { name: 'audioPlay' })).toBeDefined()
   })
 
+  it('cleans up the audio and blob URL when paused playback resume fails', async () => {
+    let playCount = 0
+    vi.stubGlobal(
+      'Audio',
+      vi.fn(function MockAudio() {
+        currentAudio = makeAudio(() => {
+          playCount += 1
+          return playCount === 1
+            ? Promise.resolve()
+            : Promise.reject(new Error('resume failed'))
+        })
+        return currentAudio
+      })
+    )
+
+    render(<ExerciseAudioPlayer exerciseId={1} />)
+    fireEvent.click(screen.getByRole('button', { name: 'audioPlay' }))
+
+    await waitFor(() => {
+      expect(currentAudio?.play).toHaveBeenCalledTimes(1)
+      expect(screen.getByRole('button', { name: 'audioPause' })).toBeDefined()
+    })
+
+    fireEvent.click(screen.getByRole('button', { name: 'audioPause' }))
+    fireEvent.click(screen.getByRole('button', { name: 'audioPlay' }))
+
+    await waitFor(() => {
+      expect(currentAudio?.play).toHaveBeenCalledTimes(2)
+      expect(screen.getByRole('alert')).toBeDefined()
+    })
+
+    expect(currentAudio?.pause).toHaveBeenCalledTimes(2)
+    expect(currentAudio?.src).toBe('')
+    expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:exercise-1')
+  })
+
   it('supports Home, End and arrow-key seeking on the progress slider', async () => {
     render(<ExerciseAudioPlayer exerciseId={1} />)
     fireEvent.click(screen.getByRole('button', { name: 'audioPlay' }))
