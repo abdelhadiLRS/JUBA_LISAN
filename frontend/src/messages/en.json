@@ -890,7 +890,10 @@
     "deleteConfirm": "Delete",
     "enterToSend": "Enter to send",
     "continueInVoice": "Continue in voice",
-    "memoryUpdated": "Memory updated"
+    "memoryUpdated": "Memory updated",
+    "voiceSession": "Voice session",
+    "delete": "Delete",
+    "tutor": "Tutor"
   },
   "progress": {
     "title": "Progress",
