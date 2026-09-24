@@ -341,7 +341,7 @@ function ListeningPage() {
                     <p className="text-[var(--juba-app-ink)] truncate font-sans text-xs font-bold tracking-wide">
                       {item.exercise.topic}
                     </p>
-                    <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] mt-0.5 font-sans tracking-widest uppercase">
+                    <p className="text-[var(--juba-app-muted)] mt-0.5 font-sans tracking-widest uppercase">
                       {item.exercise.level} · {item.exercise.exercise_type}
                     </p>
                   </div>
@@ -419,7 +419,7 @@ function ListeningPage() {
         <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
+              <p className="text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
                 {t('resultsLabel')}
               </p>
               <p className="text-[var(--juba-app-ink)] mt-1 font-sans text-2xl font-bold">
@@ -427,11 +427,11 @@ function ListeningPage() {
               </p>
             </div>
             <div className="text-right">
-              <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
+              <p className="text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
                 XP
               </p>
               {isReplay ? (
-                <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] mt-1 font-sans">
+                <p className="text-[var(--juba-app-muted)] mt-1 font-sans">
                   {t('replayNoXp')}
                 </p>
               ) : (
@@ -445,7 +445,7 @@ function ListeningPage() {
 
         {/* Transcript */}
         <div>
-          <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] mb-2 font-sans tracking-widest uppercase">
+          <p className="text-[var(--juba-app-muted)] mb-2 font-sans tracking-widest uppercase">
             {t('transcript')}
           </p>
           <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border p-4">
@@ -464,7 +464,7 @@ function ListeningPage() {
 
         {/* Question review */}
         <div className="space-y-3">
-          <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
+          <p className="text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
             {t('review')}
           </p>
           {exercise.questions.map((q) => {
@@ -519,13 +519,13 @@ function ListeningPage() {
         <div className="flex gap-3 pt-1">
           <button
             onClick={loadNext}
-            className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-ink)] hover:bg-[var(--juba-app-surface)]-2 flex-1 border py-3 font-sans text-sm tracking-widest uppercase transition-colors"
+            className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-ink)] hover:bg-[var(--juba-app-surface)] flex-1 border py-3 font-sans text-sm tracking-widest uppercase transition-colors"
           >
             {t('nextExercise')}
           </button>
           <button
             onClick={() => loadHistory(0)}
-            className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:bg-[var(--juba-app-surface)]-2 border px-4 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+            className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:bg-[var(--juba-app-surface)] border px-4 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
           >
             {t('viewHistory')}
           </button>
@@ -589,7 +589,7 @@ function ListeningPage() {
             </p>
             <button
               onClick={handleGenerate}
-              className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-ink)] hover:bg-[var(--juba-app-surface)]-2 border px-8 py-3 font-sans text-sm tracking-widest uppercase transition-colors"
+              className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-ink)] hover:bg-[var(--juba-app-surface)] border px-8 py-3 font-sans text-sm tracking-widest uppercase transition-colors"
             >
               {t('generate')}
             </button>
@@ -610,7 +610,7 @@ function ListeningPage() {
           <h1 className="text-[var(--juba-app-ink)] font-sans text-sm font-bold tracking-widest uppercase">
             {t('title')}
           </h1>
-          <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] mt-0.5 font-sans tracking-widest uppercase">
+          <p className="text-[var(--juba-app-muted)] mt-0.5 font-sans tracking-widest uppercase">
             {exercise.level} · {exercise.exercise_type}
           </p>
         </div>
@@ -630,7 +630,7 @@ function ListeningPage() {
         <>
           {/* Topic */}
           <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border px-4 py-3">
-            <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
+            <p className="text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
               {t('topic')}
             </p>
             <p className="text-[var(--juba-app-ink)] mt-1 font-sans text-xs font-bold">
@@ -640,7 +640,7 @@ function ListeningPage() {
 
           {/* Audio player */}
           <div>
-            <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] mb-2 font-sans tracking-widest uppercase">
+            <p className="text-[var(--juba-app-muted)] mb-2 font-sans tracking-widest uppercase">
               {t('listenLabel')}
             </p>
             <ExerciseAudioPlayer exerciseId={exercise.id} />
@@ -648,7 +648,7 @@ function ListeningPage() {
 
           {/* Questions */}
           <div>
-            <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] mb-3 font-sans tracking-widest uppercase">
+            <p className="text-[var(--juba-app-muted)] mb-3 font-sans tracking-widest uppercase">
               {t('questionsLabel')}
             </p>
             <div className="space-y-4">
@@ -681,8 +681,8 @@ function ListeningPage() {
                           }
                           className={`w-full border px-3 py-2 text-left transition-colors ${
                             selected
-                              ? 'border-[var(--juba-app-green)] bg-[var(--juba-app-surface)]-2 text-[var(--juba-app-ink)]'
-                              : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-line)]-2 hover:text-[var(--juba-app-ink)] hover:bg-[var(--juba-app-surface)]-2'
+                              ? 'border-[var(--juba-app-green)] bg-[var(--juba-app-surface)] text-[var(--juba-app-ink)]'
+                              : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-line)] hover:text-[var(--juba-app-ink)] hover:bg-[var(--juba-app-surface)]'
                           }`}
                         >
                           <span className="text-[var(--juba-app-ink)] font-sans font-bold">
