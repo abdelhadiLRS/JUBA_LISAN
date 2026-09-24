@@ -307,7 +307,7 @@ export function LanguageBubbles() {
                       }}
                       className={`rounded-full border px-2 py-1 text-[10px] font-bold transition-colors ${active ? 'border-[var(--juba-app-green)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:text-[var(--juba-app-ink)]'}`}
                     >
-                      {name}
+                      {language.name}
                     </button>
                   )
                 })}
