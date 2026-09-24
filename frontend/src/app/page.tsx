@@ -177,18 +177,30 @@ export default async function Home() {
         <div className="juba-ff-wave" aria-hidden="true" />
       </section>
 
-      {/* Reference-style book shelf */}
+      {/* Real product entry points — visual treatment only follows the reference */}
       <section id="features" className="juba-ff-books">
         <div className="juba-ff-section-head">
-          <span className="juba-ff-section-tag">Popular books</span>
-          <h2>Learn a language one story at a time</h2>
-          <p>Explore stories, listen to natural speech, and build vocabulary while you read.</p>
+          <span className="juba-ff-section-tag">JUBA LISAN learning flow</span>
+          <h2>Start with your real learning path</h2>
+          <p>Each entry below opens an actual JUBA LISAN workflow rather than a decorative demo.</p>
         </div>
         <div className="juba-ff-book-shelf">
-          <article className="juba-ff-book book-green"><div className="book-art">🌲<br />🧑🏽‍🎓</div><strong>Adventure Stories</strong><span>Reading · A2</span></article>
-          <article className="juba-ff-book book-yellow"><div className="book-art">🗺️<br />🧙🏽‍♀️</div><strong>World Adventures</strong><span>Listening · B1</span></article>
-          <article className="juba-ff-book book-purple"><div className="book-art">🌙<br />🚀</div><strong>Night Journey</strong><span>Reading · B2</span></article>
-          <article className="juba-ff-book book-coral"><div className="book-art">🌴<br />🏝️</div><strong>Island Tales</strong><span>Vocabulary · A1</span></article>
+          <Link href="/assessment" className="juba-ff-book book-green">
+            <div className="book-art">🧭<br /><span>ASSESS</span></div>
+            <strong>Level Assessment</strong><span>Find your CEFR starting point</span>
+          </Link>
+          <Link href="/dashboard" className="juba-ff-book book-yellow">
+            <div className="book-art">📅<br /><span>PLAN</span></div>
+            <strong>Study Plan</strong><span>Follow today’s lessons and objectives</span>
+          </Link>
+          <Link href="/chat" className="juba-ff-book book-purple">
+            <div className="book-art">💬<br /><span>AI</span></div>
+            <strong>AI Tutor</strong><span>Practice through real conversations</span>
+          </Link>
+          <Link href="/conversation" className="juba-ff-book book-coral">
+            <div className="book-art">🎙️<br /><span>VOICE</span></div>
+            <strong>Voice Conversation</strong><span>Continue practice by speaking</span>
+          </Link>
         </div>
       </section>
 
