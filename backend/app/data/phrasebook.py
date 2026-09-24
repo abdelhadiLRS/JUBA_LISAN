@@ -30,7 +30,7 @@ _LANG_MODULES: dict[str, str] = {
     "el": "app.data.el.phrasebook",
     "sv": "app.data.language_foundations.sv",
     "da": "app.data.da.phrasebook",
-    "no": "app.data.language_foundations.no",
+    "no": "app.data.no.phrasebook",
     "fi": "app.data.language_foundations.fi",
     "cs": "app.data.language_foundations.cs",
     "ro": "app.data.language_foundations.ro",
