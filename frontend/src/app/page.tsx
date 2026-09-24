@@ -196,19 +196,19 @@ export default async function Home() {
         </div>
         <div className="juba-ff-book-shelf">
           <Link href="/assessment" className="juba-ff-book book-green">
-            <div className="book-art">🧭<br /><span>ASSESS</span></div>
+            <div className="book-art" aria-hidden="true"><span className="book-art-mark">01</span><span>ASSESS</span></div>
             <strong>Level Assessment</strong><span>Find your CEFR starting point</span>
           </Link>
           <Link href="/dashboard" className="juba-ff-book book-yellow">
-            <div className="book-art">📅<br /><span>PLAN</span></div>
+            <div className="book-art" aria-hidden="true"><span className="book-art-mark">02</span><span>PLAN</span></div>
             <strong>Study Plan</strong><span>Follow today’s lessons and objectives</span>
           </Link>
           <Link href="/chat" className="juba-ff-book book-purple">
-            <div className="book-art">💬<br /><span>AI</span></div>
+            <div className="book-art" aria-hidden="true"><span className="book-art-mark">03</span><span>AI</span></div>
             <strong>AI Tutor</strong><span>Practice through real conversations</span>
           </Link>
           <Link href="/conversation" className="juba-ff-book book-coral">
-            <div className="book-art">🎙️<br /><span>VOICE</span></div>
+            <div className="book-art" aria-hidden="true"><span className="book-art-mark">04</span><span>VOICE</span></div>
             <strong>Voice Conversation</strong><span>Continue practice by speaking</span>
           </Link>
         </div>
