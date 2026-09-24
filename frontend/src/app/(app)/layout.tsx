@@ -134,40 +134,33 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }, [])
 
   useEffect(() => {
-    // Stripe trial countdown
-    if (
-      user?.subscription_status === 'trialing' &&
-      user?.subscription_ends_at &&
-      stripeEnabled
-    ) {
-      const days = Math.max(
-        1,
-        Math.ceil(
-          (new Date(user.subscription_ends_at).getTime() - Date.now()) /
-            (1000 * 60 * 60 * 24)
-        )
-      )
-      setTrialDaysLeft(days)
+    const endsAt =
+      user?.subscription_status === 'trialing'
+        ? user.subscription_ends_at
+        : user?.freemium_trial_ends_at
+
+    const shouldCountDown =
+      stripeEnabled &&
+      Boolean(endsAt) &&
+      user?.subscription_status !== 'active'
+
+    if (!shouldCountDown || !endsAt) {
+      setTrialDaysLeft(0)
       return
     }
-    // Freemium trial countdown
-    if (
-      user?.freemium_trial_ends_at &&
-      stripeEnabled &&
-      user?.subscription_status !== 'active' &&
-      user?.subscription_status !== 'trialing'
-    ) {
-      const end = new Date(user.freemium_trial_ends_at)
-      if (end > new Date()) {
-        const days = Math.max(
-          1,
-          Math.ceil((end.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
-        )
-        setTrialDaysLeft(days)
-        return
-      }
+
+    const update = () => {
+      const remainingMs = new Date(endsAt).getTime() - Date.now()
+      setTrialDaysLeft(
+        remainingMs > 0
+          ? Math.max(1, Math.ceil(remainingMs / (1000 * 60 * 60 * 24)))
+          : 0
+      )
     }
-    setTrialDaysLeft(0)
+
+    update()
+    const interval = window.setInterval(update, 60 * 1000)
+    return () => window.clearInterval(interval)
   }, [
     user?.subscription_status,
     user?.subscription_ends_at,
