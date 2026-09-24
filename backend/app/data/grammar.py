@@ -31,6 +31,7 @@ _LANG_MODULES: dict[str, str] = {
     "sv": "app.data.language_foundations.sv",
     "da": "app.data.da.grammar",
     "no": "app.data.no.grammar",
+    "fi": "app.data.fi.grammar",
     "fi": "app.data.language_foundations.fi",
     "cs": "app.data.language_foundations.cs",
     "ro": "app.data.language_foundations.ro",
