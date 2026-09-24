@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Sparkles } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useLoadingStore } from '@/store/loading'
 
@@ -48,7 +48,7 @@ export function PageLoading({
         aria-busy="true"
         aria-label={text}
       >
-        {showDot && <Loader2 className="mr-1.5 inline-block h-3.5 w-3.5 animate-spin align-[-0.2em] text-[var(--juba-app-green-dark)]" aria-hidden="true" />}
+        {showDot && <Loader2 className="mr-1.5 inline-block h-3.5 w-3.5 animate-spin align-[-0.2em]" aria-hidden="true" />}
         {text}
       </span>
     )
@@ -61,13 +61,13 @@ export function PageLoading({
       aria-busy="true"
       aria-label={text}
     >
-      <div className="juba-card flex min-w-44 flex-col items-center gap-3 border-2 border-[var(--juba-app-line)] px-5 py-4 shadow-[4px_4px_0_var(--juba-app-line)]">
-        <span className="text-[var(--juba-app-muted)] animate-pulse text-xs font-medium tracking-[0.12em] uppercase">
+      <div className="juba-card flex min-w-52 flex-col items-center gap-3 border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-6 py-5 shadow-[4px_4px_0_var(--juba-app-line)]">
+        <span className="inline-flex items-center rounded-full border border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-3 py-1.5 text-[var(--juba-app-green-dark)] text-xs font-semibold tracking-[0.08em] uppercase">
           {showDot && <Loader2 className="mr-1.5 inline-block h-3.5 w-3.5 animate-spin align-[-0.2em] text-[var(--juba-app-green-dark)]" aria-hidden="true" />}
           {text}
         </span>
         {subtext && (
-          <p className="text-[var(--juba-app-muted)] max-w-xs text-center text-xs leading-5">
+          <p className="flex items-center gap-1.5 text-[var(--juba-app-muted)] max-w-xs text-center text-xs leading-5">
             {subtext}
           </p>
         )}
