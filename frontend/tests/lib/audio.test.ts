@@ -207,6 +207,58 @@ describe('createAudioQueue', () => {
     expect(sources[0].disconnect).toHaveBeenCalledTimes(1)
   })
 
+  it('does not let stale fallback completion move the timeline after cancellation', async () => {
+    const { ctx, sources } = createContext()
+    let createCount = 0
+    const originalCreate = ctx.createBufferSource
+    ctx.createBufferSource = vi.fn(() => {
+      createCount += 1
+      if (createCount === 2) throw new Error('source creation failed')
+      return originalCreate()
+    }) as typeof ctx.createBufferSource
+
+    let resolvePlay: (() => void) | undefined
+    const play = vi.fn(
+      () =>
+        new Promise<void>((resolve) => {
+          resolvePlay = resolve
+        })
+    )
+    const audio = {
+      src: 'blob:test',
+      play,
+      pause: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }
+
+    vi.stubGlobal('Audio', vi.fn(() => audio))
+    vi.stubGlobal('URL', {
+      createObjectURL: vi.fn(() => 'blob:test'),
+      revokeObjectURL: vi.fn(),
+    })
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx)
+    await queue.enqueue(new ArrayBuffer(4))
+
+    const fallback = queue.enqueue(new ArrayBuffer(8))
+    await Promise.resolve()
+    await Promise.resolve()
+    expect(play).toHaveBeenCalledTimes(1)
+
+    queue.cancel()
+    ctx.currentTime = 42
+    resolvePlay?.()
+    await expect(fallback).resolves.toBeUndefined()
+
+    const third = queue.enqueue(new ArrayBuffer(12))
+    await third
+
+    expect(sources).toHaveLength(2)
+    expect(sources[1].start).toHaveBeenCalledWith(42.005)
+  })
+
   it('ignores a late source ended event after cancellation', async () => {
     const { ctx, sources } = createContext()
     const idle = vi.fn()
