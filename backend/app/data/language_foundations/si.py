@@ -24,16 +24,15 @@ GrammarTopic(slug="si-a1-g7",title="Locative",level="A1",category="grammar",summ
 GrammarTopic(slug="si-a1-g8",title="Plural",level="A1",category="grammar",summary="Use plural in basic communication.",explanation="Practice plural through short everyday exchanges.",examples=[GrammarExample(text="මිනිසුන් මෙහි ඉන්නවා.")])
 ]
 VOCABULARY_SETS=[
-VocabularySet(id="greetings_a1",level="A1",topic="greetings",unit_ref="si-a1-unit-1",words=[VocabularyEntry(word="ආයුබෝවන්",pos="noun",definition="hello",example="ආයුබෝවන්!")]),
-VocabularySet(id="identity_a1",level="A1",topic="identity",unit_ref="si-a1-unit-2",words=[VocabularyEntry(word="නම",pos="noun",definition="name",example="මගේ නම නිමල්.")]),
-VocabularySet(id="family_a1",level="A1",topic="family",unit_ref="si-a1-unit-3",words=[VocabularyEntry(word="අම්මා",pos="noun",definition="mother",example="අම්මා ගෙදර ඉන්නවා.")]),
-VocabularySet(id="home_a1",level="A1",topic="home",unit_ref="si-a1-unit-4",words=[VocabularyEntry(word="ගෙදර",pos="noun",definition="home",example="මගේ ගෙදර ලොකුයි.")]),
-VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="si-a1-unit-5",words=[VocabularyEntry(word="ඉගෙන ගන්නවා",pos="noun",definition="study",example="මම උදේ ඉගෙන ගන්නවා.")]),
-VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="si-a1-unit-6",words=[VocabularyEntry(word="වේලාව",pos="noun",definition="time",example="වේලාව කීයද?")]),
-VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="si-a1-unit-7",words=[VocabularyEntry(word="වතුර",pos="noun",definition="water",example="මට වතුර ඕනේ.")]),
-VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="si-a1-unit-8",words=[VocabularyEntry(word="පාසල",pos="noun",definition="school",example="මම පාසලේ ඉන්නවා.")])
-]
-PHRASEBOOK_CATEGORIES=[
+VocabularySet(id="greetings_a1",level="A1",topic="greetings",unit_ref="si-a1-unit-1",words=[VocabularyEntry(word="ආයුබෝවන්",pos="phrase",definition="hello",example="ආයුබෝවන්! ඔබට කොහොමද?"),VocabularyEntry(word="ස්තුතියි",pos="phrase",definition="thank you",example="ඔබට බොහොම ස්තුතියි."),VocabularyEntry(word="සුභ උදෑසනක්",pos="phrase",definition="good morning",example="සුභ උදෑසනක්!")]),
+VocabularySet(id="identity_a1",level="A1",topic="identity",unit_ref="si-a1-unit-2",words=[VocabularyEntry(word="නම",pos="noun",definition="name",example="මගේ නම නිමල්."),VocabularyEntry(word="මම",pos="pronoun",definition="I",example="මම ශිෂ්‍යයෙක්."),VocabularyEntry(word="ඔබ",pos="pronoun",definition="you",example="ඔබ කොහෙද ඉන්නේ?")]),
+VocabularySet(id="family_a1",level="A1",topic="family",unit_ref="si-a1-unit-3",words=[VocabularyEntry(word="අම්මා",pos="noun",definition="mother",example="අම්මා ගෙදර ඉන්නවා."),VocabularyEntry(word="තාත්තා",pos="noun",definition="father",example="තාත්තා වැඩ කරනවා."),VocabularyEntry(word="සහෝදරයා",pos="noun",definition="brother",example="මගේ සහෝදරයා පාසලේ ඉන්නවා.")]),
+VocabularySet(id="home_a1",level="A1",topic="home",unit_ref="si-a1-unit-4",words=[VocabularyEntry(word="ගෙදර",pos="noun",definition="home",example="මගේ ගෙදර ලොකුයි."),VocabularyEntry(word="කාමරය",pos="noun",definition="room",example="කාමරය පිරිසිදුයි."),VocabularyEntry(word="දොර",pos="noun",definition="door",example="දොර ඇරලා තියෙනවා.")]),
+VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="si-a1-unit-5",words=[VocabularyEntry(word="ඉගෙන ගන්නවා",pos="verb",definition="to study",example="මම උදේ ඉගෙන ගන්නවා."),VocabularyEntry(word="යනවා",pos="verb",definition="to go",example="මම පාසලට යනවා."),VocabularyEntry(word="කනවා",pos="verb",definition="to eat",example="මම උදේ කනවා.")]),
+VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="si-a1-unit-6",words=[VocabularyEntry(word="වේලාව",pos="noun",definition="time",example="වේලාව කීයද?"),VocabularyEntry(word="අද",pos="adverb",definition="today",example="අද මම ගෙදර ඉන්නවා."),VocabularyEntry(word="හෙට",pos="adverb",definition="tomorrow",example="හෙට මම පාසලට යනවා.")]),
+VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="si-a1-unit-7",words=[VocabularyEntry(word="වතුර",pos="noun",definition="water",example="මට වතුර ඕනේ."),VocabularyEntry(word="බත්",pos="noun",definition="rice",example="මම බත් කනවා."),VocabularyEntry(word="තේ",pos="noun",definition="tea",example="මම තේ බොනවා.")]),
+VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="si-a1-unit-8",words=[VocabularyEntry(word="පාසල",pos="noun",definition="school",example="මම පාසලේ ඉන්නවා."),VocabularyEntry(word="වෙළඳසැල",pos="noun",definition="shop",example="වෙළඳසැල මෙතැන ළඟයි."),VocabularyEntry(word="මෙතැන",pos="adverb",definition="here",example="මම මෙතැන ඉන්නවා.")])
+]PHRASEBOOK_CATEGORIES=[
 PhrasebookCategory(id="si_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="ආයුබෝවන්.",context="Hello.",register="neutral")]),
 PhrasebookCategory(id="si_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="ස්තුතියි.",context="Thank you.",register="neutral")]),
 PhrasebookCategory(id="si_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="කරුණාකර උදව් කරන්න.",context="Please help me.",register="neutral")]),
