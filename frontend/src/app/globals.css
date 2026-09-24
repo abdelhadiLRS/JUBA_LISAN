@@ -4160,3 +4160,53 @@ main [dir="rtl"] h3,
     transform:none;
   }
 }
+
+
+/* JUBA LISAN — compatibility aliases for the editorial brand layer. */
+.juba-funfluent-page.juba-ff-reference{
+  --ff-ink:var(--landing-ink);
+  --ff-muted:var(--landing-muted);
+  --ff-cream:var(--landing-bg);
+  --ff-yellow:var(--landing-yellow);
+  --ff-green-dark:var(--landing-green-dark);
+}
+.juba-ff-reference .juba-mascot .eye-left{left:39px}
+.juba-ff-reference .juba-mascot .eye-right{right:39px}
+.juba-ff-reference .juba-mascot .orbit-a{left:0;top:54px}
+.juba-ff-reference .juba-mascot .orbit-b{left:31px;top:5px}
+.juba-ff-reference .juba-ff-faq{
+  border:3px solid var(--ff-ink);
+  border-radius:22px 28px 22px 28px;
+  background:#fffdf7;
+  box-shadow:6px 6px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-faq-row{border-color:rgba(23,35,26,.18)}
+.juba-ff-reference .juba-ff-faq-question{color:var(--ff-ink);font-weight:800}
+.juba-ff-reference .juba-ff-faq-question:hover{background:#fff0b8}
+.juba-ff-reference .juba-ff-faq-toggle{
+  border:2px solid var(--ff-ink);
+  background:var(--ff-yellow);
+  color:var(--ff-ink);
+  box-shadow:2px 2px 0 var(--ff-ink);
+}
+.juba-ff-reference .juba-ff-faq-answer{border-color:rgba(23,35,26,.14);color:var(--ff-muted)}
+.juba-ff-reference .juba-ff-faq-answer ol{color:var(--ff-ink)}
+.juba-ff-reference .juba-ff-faq-answer a{color:var(--ff-green-dark);font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.juba-ff-reference .juba-ff-footer{padding-top:72px}
+.juba-ff-reference .juba-ff-footer > div{position:relative}
+.juba-ff-reference .juba-ff-footer > div::before{
+  content:"✦";position:absolute;right:0;top:-28px;color:var(--ff-yellow);
+  font-size:28px;-webkit-text-stroke:1px var(--ff-ink);rotate:8deg;pointer-events:none;
+}
+@media(max-width:900px){
+  .juba-ff-reference .juba-ff-footer > div::before{right:8px}
+  .juba-ff-reference .juba-ff-story-reviews article:nth-child(n),
+  .juba-ff-reference .juba-ff-plan-card:nth-child(n){transform:none}
+}
+@media(max-width:600px){
+  .juba-ff-reference .juba-ff-footer{padding-top:58px}
+  .juba-ff-reference .juba-ff-footer > div::before{top:-20px;font-size:22px}
+  .juba-ff-reference .juba-ff-faq{border-width:2px;box-shadow:4px 4px 0 var(--ff-ink)}
+  .juba-ff-reference .juba-ff-faq-question{padding:14px 15px}
+  .juba-ff-reference .juba-ff-faq-answer{padding:13px 15px 17px}
+}
