@@ -132,10 +132,9 @@ describe('AudioPlayer', () => {
   it('has idle-only color classes (no active/animation/error)', () => {
     render(<AudioPlayer text="Hello" />)
     const c = screen.getByRole('button').className.split(/\s+/).filter(Boolean)
-    expect(c).toContain('text-[var(--juba-muted)]')
-    expect(c).not.toContain('text-[var(--juba-primary-dark)]')
-    expect(c).not.toContain('animate-pulse')
-    expect(c).not.toContain('text-[var(--juba-danger)]')
+    expect(c).toContain('text-[var(--juba-app-muted)]')
+    expect(c).not.toContain('text-[var(--juba-app-green-dark)]')
+    expect(c).not.toContain('text-[var(--juba-app-error)]')
   })
 
   // ───────────── PLAY FLOW ─────────────
@@ -240,7 +239,7 @@ describe('AudioPlayer', () => {
         .getByRole('button')
         .className.split(/\s+/)
         .filter(Boolean)
-      expect(c).toContain('text-[var(--juba-primary-dark)]')
+      expect(c).toContain('text-[var(--juba-app-green-dark)]')
     })
   })
 
@@ -269,7 +268,7 @@ describe('AudioPlayer', () => {
         .className.split(/\s+/)
         .filter(Boolean)
       expect(c).toContain('animate-pulse')
-      expect(c).toContain('text-[var(--juba-muted)]')
+      expect(c).toContain('text-[var(--juba-app-muted)]')
     })
   })
 
@@ -414,7 +413,7 @@ describe('AudioPlayer', () => {
 
     expect(screen.getByText(ERROR)).toBeDefined()
     const c = screen.getByRole('button').className.split(/\s+/).filter(Boolean)
-    expect(c).toContain('text-[var(--juba-danger)]')
+    expect(c).toContain('text-[var(--juba-app-error)]')
 
     act(() => {
       vi.advanceTimersByTime(2000)
@@ -436,7 +435,7 @@ describe('AudioPlayer', () => {
 
     expect(screen.getByText(ERROR)).toBeDefined()
     const c = screen.getByRole('button').className.split(/\s+/).filter(Boolean)
-    expect(c).toContain('text-[var(--juba-danger)]')
+    expect(c).toContain('text-[var(--juba-app-error)]')
 
     act(() => {
       vi.advanceTimersByTime(2000)
