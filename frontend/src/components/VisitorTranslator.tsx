@@ -54,10 +54,30 @@ export function VisitorTranslator() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, source, target }),
       })
-      const data = await response.json()
-      if (!response.ok) throw new Error(data?.error || t('translationFailed'))
-      setTranslation(data.translation || '')
-      setDetectedSource(data.source || source)
+      const contentType = response.headers.get('content-type') || ''
+      const raw = await response.text()
+      let data: { translation?: unknown; source?: unknown; detail?: unknown; error?: unknown } = {}
+      if (contentType.includes('application/json')) {
+        try {
+          data = JSON.parse(raw) as typeof data
+        } catch {
+          data = {}
+        }
+      }
+      if (!response.ok) {
+        const serverMessage =
+          typeof data.detail === 'string'
+            ? data.detail
+            : typeof data.error === 'string'
+              ? data.error
+              : raw.trim()
+        throw new Error(serverMessage || t('translationFailed'))
+      }
+      if (typeof data.translation !== 'string') {
+        throw new Error(t('translationFailed'))
+      }
+      setTranslation(data.translation)
+      setDetectedSource(typeof data.source === 'string' ? data.source : source)
     } catch (err) {
       setTranslation('')
       setDetectedSource('')
