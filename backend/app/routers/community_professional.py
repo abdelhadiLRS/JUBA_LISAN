@@ -10,7 +10,7 @@ from datetime import datetime
 from app.core.database import get_db
 from app.models.user import User
 
-router = APIRouter(prefix="/api", tags=["community", "professional"])
+router = APIRouter(\n    prefix="/api",\n    tags=["community", "professional"],\n    dependencies=[Depends(require_learner)],\n)
 
 
 # ==================== Community Models ====================
