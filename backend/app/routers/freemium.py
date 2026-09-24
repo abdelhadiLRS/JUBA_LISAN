@@ -5,12 +5,12 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, Request
 from redis.asyncio import Redis
 
-from app.core.deps import get_current_user, get_redis
+from app.core.deps import get_current_user, get_redis, require_learner
 from app.core.limiter import limiter
 from app.models.user import User
 from app.services.freemium_service import get_freemium_status
 
-router = APIRouter(prefix="/api/freemium", tags=["freemium"])
+router = APIRouter(\n    prefix="/api/freemium",\n    tags=["freemium"],\n    dependencies=[Depends(require_learner)],\n)
 
 
 @router.get("/status")
