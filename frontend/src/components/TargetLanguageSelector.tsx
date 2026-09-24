@@ -18,8 +18,14 @@ export default function TargetLanguageSelector({
   const t = useTranslations('targetLanguages')
   const label = (code: string, fallback: string) => (t.has(code) ? t(code) : fallback)
 
+  const availableCodeSet = new Set(
+    availableCodes
+      .map((code) => code.trim().toUpperCase())
+      .filter(Boolean)
+  )
+
   const filtered = TARGET_LANGUAGE_CATALOG.filter((lang) =>
-    availableCodes.includes(lang.code)
+    availableCodeSet.has(lang.code.toUpperCase())
   ).sort((a, b) => {
     const aLabel = label(a.code, a.nameEn).toLowerCase()
     const bLabel = label(b.code, b.nameEn).toLowerCase()
