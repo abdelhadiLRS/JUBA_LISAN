@@ -23,8 +23,8 @@ PhrasebookCategory(id="phrase_4_a1",level="A1",situation="Help and directions",i
 
 AssessmentQuestion(id="mi-a1-001",skill="communication",difficulty="A1",question="You greet a Māori speaker. Which phrase should you use?",options=["Kia ora!","E hia te utu?","Kei hea te kura?","Āwhinatia ahau, koa."],correct="Kia ora!"),
 AssessmentQuestion(id="mi-a1-002",skill="communication",difficulty="A1",question="You introduce your name. Which word do you need?",options=["ingoa","whānau","whare","mahi"],correct="ingoa"),
-AssessmentQuestion(id="mi-a1-003",skill="vocabulary",difficulty="A1",question="You talk about your family. Which word means “family”?",options=["whānau","whare","mahi","wai"],correct="whānau"),
-AssessmentQuestion(id="mi-a1-004",skill="vocabulary",difficulty="A1",question="You tell someone you are at home. Which word means “house/home”?",options=["whare","mahi","wai","kura"],correct="whare"),
+AssessmentQuestion(id="mi-a1-003",skill="reading",difficulty="A1",question="You read “Kei te kāinga tōku whānau.” Which Māori sentence says that your family is at home?",options=["Kei te kāinga tōku whānau.","Kei te kura ngā tamariki.","Kei te mahi au i tēnei rā.","Kei roto ahau i te rūma."],correct="Kei te kāinga tōku whānau."),
+AssessmentQuestion(id="mi-a1-004",skill="grammar",difficulty="A1",question="You want to say “I am a student.” Which Māori sentence should you use?",options=["He ākonga ahau.","He nui tōku whare.","Ko Hemi taku hoa.","Kei te mahi ahau i te kura."],correct="He ākonga ahau."),
 AssessmentQuestion(id="mi-a1-005",skill="vocabulary",difficulty="A1",question="You say you are working today. Which word means “work”?",options=["mahi","wai","kura","āwhina"],correct="mahi"),
 AssessmentQuestion(id="mi-a1-006",skill="vocabulary",difficulty="A1",question="You ask for water. Which word means “water”?",options=["wai","kura","āwhina","Kia ora!"],correct="wai"),
 AssessmentQuestion(id="mi-a1-007",skill="vocabulary",difficulty="A1",question="You ask where the school is. Which word means “school”?",options=["kura","āwhina","Kia ora!","ingoa"],correct="kura"),
