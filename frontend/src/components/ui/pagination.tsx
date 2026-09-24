@@ -64,17 +64,17 @@ export function Pagination({
       <button
         onClick={() => onPageChange(Math.max(0, page - 1))}
         disabled={isFirst || isDisabled}
-        className="rounded-xl border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--juba-muted)] shadow-[0_3px_0_var(--juba-border)] transition-all hover:-translate-y-px hover:border-[var(--juba-primary-dark)] hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-primary-dark)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
+        className="rounded-xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--juba-app-muted)] shadow-[0_3px_0_var(--juba-app-line)] transition-all hover:-translate-y-px hover:border-[var(--juba-app-green-dark)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-green-dark)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
       >
         {prevLabel}
       </button>
-      <span className="rounded-lg border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-3 py-1.5 text-xs font-bold tabular-nums text-[var(--juba-muted)]">
+      <span className="rounded-lg border border-[var(--juba-app-line)] bg-[#f3f7ef] px-3 py-1.5 text-xs font-bold tabular-nums text-[var(--juba-app-muted)]">
         {info}
       </span>
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={isLast || isDisabled}
-        className="rounded-xl border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--juba-muted)] shadow-[0_3px_0_var(--juba-border)] transition-all hover:-translate-y-px hover:border-[var(--juba-primary-dark)] hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-primary-dark)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
+        className="rounded-xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--juba-app-muted)] shadow-[0_3px_0_var(--juba-app-line)] transition-all hover:-translate-y-px hover:border-[var(--juba-app-green-dark)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-green-dark)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
       >
         {nextLabel}
       </button>
