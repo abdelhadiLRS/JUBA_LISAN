@@ -48,6 +48,7 @@ SUPPORTED_TARGET_LANGUAGES: set[str] = {
     "nl-NL",
     "pl-PL",
     "da-DK",
+    "el-GR",
 }
 
 
