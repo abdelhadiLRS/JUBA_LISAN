@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { Volume2, Square, Loader2, AlertCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useAuthStore } from '@/store/auth'
 import { getLogger } from '@/lib/logger'
@@ -32,7 +33,6 @@ export function AudioPlayer({
   const accessToken = useAuthStore((s) => s.accessToken)
   const t = useTranslations('audioPlayer')
 
-  // Resolve voice: explicit prop > user localStorage preference > backend default
   const resolvedVoice =
     voice ??
     (typeof window !== 'undefined'
@@ -56,6 +56,7 @@ export function AudioPlayer({
     const controller = new AbortController()
     controllerRef.current = controller
     const timeoutId = setTimeout(() => controller.abort(), TTS_TIMEOUT_MS)
+
     try {
       const traceId = `tts-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
       const t0 = performance.now()
@@ -111,7 +112,6 @@ export function AudioPlayer({
       const proxyTotalMs = res.headers.get('X-TTS-Proxy-Total-Ms')
       const responseTraceId = res.headers.get('X-TTS-Trace-ID') || traceId
 
-      // TTS latency metrics — only logged in development
       if (process.env.NODE_ENV === 'development') {
         ttsLogger.info('tts-metrics', {
           traceId: responseTraceId,
@@ -154,32 +154,39 @@ export function AudioPlayer({
   }
 
   const sizeClass =
-    size === 'sm' ? 'px-2.5 py-1.5 text-[11px]' : 'px-3 py-2 text-xs'
+    size === 'sm'
+      ? 'min-h-9 min-w-9 px-2.5 py-1.5 text-[11px]'
+      : 'min-h-10 min-w-10 px-3 py-2 text-xs'
 
   const label =
-    state === 'loading'
-      ? '...'
-      : state === 'playing'
-        ? '■'
-        : state === 'error'
-          ? '✕'
-          : '▶'
+    state === 'loading' ? (
+      <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+    ) : state === 'playing' ? (
+      <Square className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
+    ) : state === 'error' ? (
+      <AlertCircle className="h-4 w-4" aria-hidden="true" />
+    ) : (
+      <Volume2 className="h-4 w-4" aria-hidden="true" />
+    )
 
   const colorClass =
     state === 'playing'
       ? 'border-[var(--juba-app-green)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)]'
       : state === 'loading'
-        ? 'border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-muted)] animate-pulse'
+        ? 'border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-muted)]'
         : state === 'error'
-          ? 'border-[color-mix(in_srgb,#b33a32_40%,var(--juba-app-line))] bg-[color-mix(in_srgb,#b33a32_8%,var(--juba-app-surface))] text-[#b33a32]'
+          ? 'border-[color-mix(in_srgb,#b33a32_40%,var(--juba-app-line))] bg-[color-mix(in_srgb,#b33a32_8%,var(--juba-app-surface))] text-[var(--juba-app-error)]'
           : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-green-dark)]'
 
   return (
     <button
+      type="button"
       onClick={handleClick}
       title={state === 'playing' ? t('stop') : t('listen')}
       aria-label={state === 'playing' ? t('ariaStop') : t('ariaListen')}
-      className={`rounded-full border-2 font-medium tracking-wide shadow-[2px_2px_0_var(--juba-app-line)] transition-all duration-200 ${colorClass} ${sizeClass} ${className}`}
+      aria-busy={state === 'loading'}
+      disabled={state === 'loading'}
+      className={`inline-flex items-center justify-center rounded-full border-2 font-semibold shadow-[2px_2px_0_var(--juba-app-line)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-80 ${colorClass} ${sizeClass} ${className}`}
     >
       {label}
     </button>
