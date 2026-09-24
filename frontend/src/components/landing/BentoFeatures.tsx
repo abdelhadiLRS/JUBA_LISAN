@@ -4,12 +4,12 @@ import { BookOpen, MessageSquare, Mic, Headphones, Layers, TrendingUp, Sparkles 
 interface BentoFeaturesProps { t: (key: string) => string }
 
 const cards = [
-  { key: 'feature1', icon: BookOpen, art: '📚', tone: 'green', href: '/assessment' },
-  { key: 'feature2', icon: MessageSquare, art: '💬', tone: 'yellow', href: '/chat' },
-  { key: 'feature3', icon: Mic, art: '🎙️', tone: 'blue', href: '/conversation' },
-  { key: 'feature4', icon: Headphones, art: '🎧', tone: 'purple', href: '/dashboard' },
-  { key: 'feature6', icon: Layers, art: '🃏', tone: 'coral', href: '/dashboard' },
-  { key: 'feature8', icon: TrendingUp, art: '🏆', tone: 'mint', href: '/dashboard' },
+  { key: 'feature1', icon: BookOpen, art: 'ASSESS', tone: 'green', href: '/assessment' },
+  { key: 'feature2', icon: MessageSquare, art: 'AI', tone: 'yellow', href: '/chat' },
+  { key: 'feature3', icon: Mic, art: 'VOICE', tone: 'blue', href: '/conversation' },
+  { key: 'feature4', icon: Headphones, art: 'LISTEN', tone: 'purple', href: '/dashboard' },
+  { key: 'feature6', icon: Layers, art: 'REVIEW', tone: 'coral', href: '/dashboard' },
+  { key: 'feature8', icon: TrendingUp, art: 'PROGRESS', tone: 'mint', href: '/dashboard' },
 ]
 
 export function BentoFeatures({ t }: BentoFeaturesProps) {
@@ -24,7 +24,7 @@ export function BentoFeatures({ t }: BentoFeaturesProps) {
         <div className="juba-ff-feature-grid">
           {cards.map(({ key, icon: Icon, art, tone, href }) => (
             <article key={key} className={`juba-ff-feature-card tone-${tone}`}>
-              <div className="juba-ff-feature-art" aria-hidden="true">{art}</div>
+              <div className="juba-ff-feature-art" aria-hidden="true"><span>{art}</span></div>
               <div className="juba-ff-feature-icon"><Icon className="h-5 w-5" /></div>
               <h3>{t(`${key}Title`)}</h3>
               <p>{t(`${key}Desc`)}</p>
