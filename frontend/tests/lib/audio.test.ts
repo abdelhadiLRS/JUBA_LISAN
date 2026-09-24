@@ -580,6 +580,42 @@ describe('createAudioQueue', () => {
     expect(createCount).toBe(2)
   })
 
+  it('releases a fallback audio resource if cancellation races Audio creation', async () => {
+    const { ctx } = createContext()
+    ctx.decodeAudioData = vi.fn(async () => {
+      throw new Error('decode failed')
+    }) as typeof ctx.decodeAudioData
+
+    let revokeObjectURL!: ReturnType<typeof vi.fn>
+    const queueRef: { cancel?: () => void } = {}
+    const audio = {
+      src: 'blob:racing-fallback',
+      play: vi.fn(async () => {}),
+      pause: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }
+
+    vi.stubGlobal('Audio', vi.fn(() => {
+      queueRef.cancel?.()
+      return audio
+    }))
+    revokeObjectURL = vi.fn()
+    vi.stubGlobal('URL', {
+      createObjectURL: vi.fn(() => 'blob:racing-fallback'),
+      revokeObjectURL,
+    })
+
+    const { createAudioQueue } = await import('@/lib/audio')
+    const queue = createAudioQueue(ctx)
+    queueRef.cancel = queue.cancel
+
+    await queue.enqueue(new ArrayBuffer(4))
+
+    expect(audio.play).not.toHaveBeenCalled()
+    expect(revokeObjectURL).toHaveBeenCalledWith('blob:racing-fallback')
+  })
+
   it('cleans up fallback resources when HTMLAudio playback fails', async () => {
     const { ctx } = createContext()
     const listeners = new Map<string, () => void>()
