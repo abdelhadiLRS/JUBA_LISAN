@@ -225,6 +225,7 @@ export function LanguageBubbles() {
             onClick={() => {
               setActiveRegion(null)
               setActiveLanguage(null)
+              setActiveCountry(null)
             }}
             className="rounded-full border border-[var(--juba-app-line)] bg-white/95 px-3 py-2 text-[10px] font-black uppercase tracking-[.12em] text-[var(--juba-app-muted)] transition hover:border-[var(--juba-app-ink)] hover:text-[var(--juba-app-ink)]"
           >
@@ -252,7 +253,10 @@ export function LanguageBubbles() {
               <button
                 key={language.code}
                 type="button"
-                onClick={() => setActiveLanguage(isActive ? null : language.code)}
+                onClick={() => {
+                  setActiveLanguage(isActive ? null : language.code)
+                  setActiveCountry(null)
+                }}
                 className="group absolute"
                 style={{
                   left: `${left}%`,
