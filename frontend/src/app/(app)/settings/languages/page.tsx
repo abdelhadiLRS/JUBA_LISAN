@@ -172,7 +172,7 @@ export default function MyLanguagesPage() {
                     isActive ? 'border-[var(--juba-violet)]/50' : 'border-[var(--juba-lilac)]'
                   }`}
                 >
-                  {/* Top row: flag + name + status */}
+                  {/* Top row: language + status */}
                   <div className="mb-3 flex items-center gap-3">
                     <span className="text-[var(--juba-text)] flex-1 font-mono text-sm font-bold">
                       {targetLabel(ulang.target_language)}
