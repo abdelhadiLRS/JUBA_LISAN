@@ -150,11 +150,11 @@ export default function FlashcardsPage() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)]">●</span>
-          <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
+          <span className="text-[var(--juba-app-muted)]">●</span>
+          <span className="text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
             {t('title')}
           </span>
-          <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans tracking-widest">
+          <span className="text-[var(--juba-app-muted)] font-sans tracking-widest">
             {total} {t('total')} · {cards.length} {t('due')}
           </span>
         </div>
@@ -184,8 +184,8 @@ export default function FlashcardsPage() {
       {showGenerate && (
         <div className="juba-card overflow-hidden">
           <div className="border-[var(--juba-app-line)] flex items-center gap-2 border-b px-5 py-4">
-            <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)]">●</span>
-            <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
+            <span className="text-[var(--juba-app-muted)]">●</span>
+            <span className="text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
               {t('generate')}
             </span>
           </div>
@@ -274,7 +274,7 @@ export default function FlashcardsPage() {
       {/* Card review */}
       {cards.length > 0 && (
         <>
-          <div className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] flex items-center justify-between font-sans tracking-widest uppercase">
+          <div className="text-[var(--juba-app-muted)] flex items-center justify-between font-sans tracking-widest uppercase">
             <span>
               {current + 1} / {cards.length} {t('due')}
             </span>
@@ -312,12 +312,12 @@ export default function FlashcardsPage() {
               >
                 <div className="border-[var(--juba-app-line)] flex items-center justify-between border-b px-6 py-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)]">●</span>
-                    <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
+                    <span className="text-[var(--juba-app-muted)]">●</span>
+                    <span className="text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
                       {flipped ? t('back') : t('front')}
                     </span>
                   </div>
-                  <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans leading-relaxed">
+                  <span className="text-[var(--juba-app-muted)] font-sans leading-relaxed">
                     {flipped ? t('tapToHide') : t('tapToReveal')}
                   </span>
                 </div>
@@ -392,12 +392,12 @@ export default function FlashcardsPage() {
             <div className="juba-card overflow-hidden">
               <div className="border-[var(--juba-app-line)] flex items-center justify-between border-b px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)]">●</span>
-                  <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
+                  <span className="text-[var(--juba-app-muted)]">●</span>
+                  <span className="text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
                     {t('speakingMode')}
                   </span>
                 </div>
-                <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] font-sans leading-relaxed">
+                <span className="text-[var(--juba-app-muted)] font-sans leading-relaxed">
                   {t('sayWord')}
                 </span>
               </div>
