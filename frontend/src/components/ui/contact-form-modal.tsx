@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { CheckCircle2, CircleHelp, Loader2, X } from 'lucide-react'
 
@@ -20,9 +20,12 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
   const [description, setDescription] = useState('')
   const [status, setStatus] = useState<Status>('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const firstFieldRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (open) {
+      requestAnimationFrame(() => firstFieldRef.current?.focus())
       setEmail('')
       setSubject('')
       setDescription('')
@@ -35,6 +38,20 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
     if (!open) return
     function onKey(e: KeyboardEvent) {
       if (e.key === 'Escape') onClose()
+      if (e.key !== 'Tab') return
+      const controls = dialogRef.current?.querySelectorAll<HTMLElement>(
+        'button:not(:disabled), input:not(:disabled), textarea:not(:disabled)'
+      )
+      if (!controls?.length) return
+      const first = controls[0]
+      const last = controls[controls.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
@@ -83,6 +100,10 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
       onClick={onClose}
     >
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contact-modal-title"
         className="juba-card w-full max-w-md overflow-hidden border-2 border-[var(--juba-app-line)] shadow-[5px_5px_0_var(--juba-app-line)]"
         onClick={(e) => e.stopPropagation()}
       >
@@ -90,7 +111,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--juba-app-yellow)] text-[var(--juba-app-green-dark)]" aria-hidden="true">
             <CircleHelp className="h-4 w-4" />
           </span>
-          <span className="flex-1 text-sm font-semibold tracking-tight text-[var(--juba-app-ink)]">
+          <span id="contact-modal-title" className="flex-1 text-sm font-semibold tracking-tight text-[var(--juba-app-ink)]">
             {t('title')}
           </span>
           <button
@@ -113,8 +134,10 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-5 px-6 py-6">
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-semibold text-[var(--juba-app-muted)]">{t('labelEmail')}</label>
+                <label htmlFor="contact-email" className="text-xs font-semibold text-[var(--juba-app-muted)]">{t('labelEmail')}</label>
                 <input
+                  ref={firstFieldRef}
+                  id="contact-email"
                   type="email"
                   required
                   value={email}
@@ -126,8 +149,9 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-semibold text-[var(--juba-app-muted)]">{t('labelSubject')}</label>
+                <label htmlFor="contact-subject" className="text-xs font-semibold text-[var(--juba-app-muted)]">{t('labelSubject')}</label>
                 <input
+                  id="contact-subject"
                   type="text"
                   required
                   maxLength={200}
@@ -140,8 +164,9 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-semibold text-[var(--juba-app-muted)]">{t('labelDescription')}</label>
+                <label htmlFor="contact-description" className="text-xs font-semibold text-[var(--juba-app-muted)]">{t('labelDescription')}</label>
                 <textarea
+                  id="contact-description"
                   required
                   maxLength={5000}
                   rows={5}
