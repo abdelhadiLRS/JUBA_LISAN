@@ -22,13 +22,13 @@ export function BentoFeatures({ t }: BentoFeaturesProps) {
           <p>{t('bentoSubtitle')}</p>
         </div>
         <div className="juba-ff-feature-grid">
-          {cards.map(({ key, icon: Icon, art, tone }) => (
+          {cards.map(({ key, icon: Icon, art, tone, href }) => (
             <article key={key} className={`juba-ff-feature-card tone-${tone}`}>
               <div className="juba-ff-feature-art" aria-hidden="true">{art}</div>
               <div className="juba-ff-feature-icon"><Icon className="h-5 w-5" /></div>
               <h3>{t(`${key}Title`)}</h3>
               <p>{t(`${key}Desc`)}</p>
-              <Link href={cards.find((card) => card.key === key)?.href ?? '/dashboard'} className="juba-ff-feature-link">Open in JUBA LISAN <span aria-hidden="true">→</span></Link>
+              <Link href={href} className="juba-ff-feature-link">Open in JUBA LISAN <span aria-hidden="true">→</span></Link>
             </article>
           ))}
         </div>
