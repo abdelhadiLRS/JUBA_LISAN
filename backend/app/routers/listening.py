@@ -25,7 +25,7 @@ from app.core.deps import (
     require_not_maintenance,
     require_subscription_or_freemium,
     require_subscription_or_freemium_readonly,
-)
+
 from app.core.limiter import limiter
 from app.models.listening import ListeningExercise
 from app.models.study_plan import StudyPlan
@@ -50,7 +50,7 @@ from app.services.listening_service import (
 from app.utils.db import db_session
 from app.utils.redis import redis_client as _redis_client
 
-router = APIRouter(prefix="/api/listening", tags=["listening"])
+router = APIRouter(prefix="/api/listening", tags=["listening"], dependencies=[Depends(require_learner)])
 logger = logging.getLogger(__name__)
 
 
