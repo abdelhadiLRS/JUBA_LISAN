@@ -21,7 +21,7 @@ const REGISTERS: Register[] = ['formal', 'neutral', 'informal']
 
 const REGISTER_COLORS: Record<string, string> = {
   formal: 'text-blue-600 dark:text-blue-400',
-  neutral: 'text-fl-muted-2',
+  neutral: 'text-[var(--juba-app-muted)]',
   informal: 'text-amber-600 dark:text-amber-400',
 }
 
@@ -80,25 +80,25 @@ function CategoryCard({
   }
 
   return (
-    <div className="juba-phrasebook-category border-fl-border bg-fl-surface border">
-      <div className="border-fl-border flex items-center gap-3 border-b px-5 py-4">
+    <div className="juba-phrasebook-category border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border">
+      <div className="border-[var(--juba-app-line)] flex items-center gap-3 border-b px-5 py-4">
         <span className="text-xl">{cat.icon}</span>
         <div className="min-w-0 flex-1">
-          <p className="text-fl-fg truncate font-mono text-xs font-bold tracking-wide">
+          <p className="text-[var(--juba-app-ink)] truncate font-sans text-xs font-bold tracking-wide">
             {cat.situation}
           </p>
         </div>
-        <span className="border-fl-border text-fl-label text-fl-muted-3 shrink-0 border px-2 py-0.5 font-mono tracking-widest uppercase">
+        <span className="border-[var(--juba-app-line)] text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] shrink-0 border px-2 py-0.5 font-sans tracking-widest uppercase">
           {cat.level}
         </span>
       </div>
 
       {nativeLanguageName && (
-        <div className="border-fl-border border-b px-5 py-3">
+        <div className="border-[var(--juba-app-line)] border-b px-5 py-3">
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
-            className="text-fl-label text-fl-muted-3 hover:text-fl-fg flex w-full items-center justify-between font-mono tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] flex w-full items-center justify-between font-sans tracking-widest uppercase transition-colors"
             aria-expanded={nativeHelpOpen}
           >
             <span>
@@ -109,29 +109,29 @@ function CategoryCard({
           {nativeHelpOpen && (
             <div className="mt-3 space-y-3">
               {loadingNativeHelp ? (
-                <p className="text-fl-muted-3 font-mono text-xs">
+                <p className="text-[var(--juba-app-muted)] font-sans text-xs">
                   {tCommon('nativeHelpLoading', {
                     language: nativeLanguageName,
                   })}
                 </p>
               ) : nativeHelp ? (
                 <>
-                  <p className="text-fl-muted-1 max-w-[70ch] text-base leading-relaxed">
+                  <p className="text-[var(--juba-app-muted)] max-w-[70ch] text-base leading-relaxed">
                     {nativeHelp.summary}
                   </p>
 
                   {nativeHelp.usage_tips.length > 0 && (
                     <div className="space-y-1">
-                      <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+                      <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpUsageTips')}
                       </p>
                       <ul className="space-y-1">
                         {nativeHelp.usage_tips.map((tip, i) => (
                           <li
                             key={i}
-                            className="text-fl-muted-1 max-w-[70ch] text-sm leading-relaxed"
+                            className="text-[var(--juba-app-muted)] max-w-[70ch] text-sm leading-relaxed"
                           >
-                            <span className="text-fl-muted-3 mr-2">·</span>
+                            <span className="text-[var(--juba-app-muted)] mr-2">·</span>
                             {tip}
                           </li>
                         ))}
@@ -140,14 +140,14 @@ function CategoryCard({
                   )}
 
                   {nativeHelp.register_notes.length > 0 && (
-                    <div className="border-fl-border space-y-1 border-t pt-3">
-                      <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+                    <div className="border-[var(--juba-app-line)] space-y-1 border-t pt-3">
+                      <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpRegisterNotes')}
                       </p>
                       {nativeHelp.register_notes.map((note, i) => (
                         <p
                           key={i}
-                          className="text-fl-muted-1 max-w-[70ch] text-sm leading-relaxed"
+                          className="text-[var(--juba-app-muted)] max-w-[70ch] text-sm leading-relaxed"
                         >
                           {note}
                         </p>
@@ -156,19 +156,19 @@ function CategoryCard({
                   )}
 
                   {nativeHelp.phrase_notes.length > 0 && (
-                    <div className="border-fl-border space-y-2 border-t pt-3">
-                      <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+                    <div className="border-[var(--juba-app-line)] space-y-2 border-t pt-3">
+                      <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpPhraseNotes')}
                       </p>
                       {nativeHelp.phrase_notes.map((item, i) => (
                         <div key={i} className="space-y-0.5">
                           <TargetLanguageText
                             languageCode={language}
-                            className="text-fl-muted-1 text-sm italic"
+                            className="text-[var(--juba-app-muted)] text-sm italic"
                           >
                             {item.phrase}
                           </TargetLanguageText>
-                          <p className="text-fl-muted-1 text-sm leading-relaxed">
+                          <p className="text-[var(--juba-app-muted)] text-sm leading-relaxed">
                             {item.note}
                           </p>
                         </div>
@@ -177,16 +177,16 @@ function CategoryCard({
                   )}
 
                   {nativeHelp.common_traps.length > 0 && (
-                    <div className="border-fl-border space-y-2 border-t pt-3">
-                      <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+                    <div className="border-[var(--juba-app-line)] space-y-2 border-t pt-3">
+                      <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpCommonTraps')}
                       </p>
                       {nativeHelp.common_traps.map((trap, i) => (
                         <div key={i} className="space-y-0.5">
-                          <p className="text-fl-muted-2 text-sm">
+                          <p className="text-[var(--juba-app-muted)] text-sm">
                             {trap.mistake}
                           </p>
-                          <p className="text-fl-muted-1 text-sm leading-relaxed">
+                          <p className="text-[var(--juba-app-muted)] text-sm leading-relaxed">
                             {trap.fix}
                           </p>
                         </div>
@@ -195,23 +195,23 @@ function CategoryCard({
                   )}
 
                   {nativeHelp.mini_glossary.length > 0 && (
-                    <div className="border-fl-border space-y-2 border-t pt-3">
-                      <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+                    <div className="border-[var(--juba-app-line)] space-y-2 border-t pt-3">
+                      <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpMiniGlossary')}
                       </p>
                       {nativeHelp.mini_glossary.map((item, i) => (
                         <div key={i}>
                           <TargetLanguageText
                             languageCode={language}
-                            className="text-fl-muted-1 text-sm font-bold"
+                            className="text-[var(--juba-app-muted)] text-sm font-bold"
                           >
                             {item.term}
                           </TargetLanguageText>
-                          <p className="text-fl-muted-2 text-sm">
+                          <p className="text-[var(--juba-app-muted)] text-sm">
                             {item.meaning}
                           </p>
                           {item.note && (
-                            <p className="text-fl-muted-1 text-sm leading-relaxed">
+                            <p className="text-[var(--juba-app-muted)] text-sm leading-relaxed">
                               {item.note}
                             </p>
                           )}
@@ -224,7 +224,7 @@ function CategoryCard({
                 <button
                   type="button"
                   onClick={generateNativeHelp}
-                  className="text-fl-muted-3 hover:text-fl-fg font-mono text-sm transition-colors"
+                  className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] font-sans text-sm transition-colors"
                 >
                   {nativeHelpError
                     ? tCommon('retry')
@@ -245,13 +245,13 @@ function CategoryCard({
               <TargetLanguageText
                 as="p"
                 languageCode={language}
-                className="text-fl-fg flex-1"
+                className="text-[var(--juba-app-ink)] flex-1"
               >
                 {phrase.text}
               </TargetLanguageText>
               <div className="flex shrink-0 items-center gap-1">
                 <span
-                  className={`text-fl-label font-mono tracking-widest uppercase ${REGISTER_COLORS[phrase.register]}`}
+                  className={`text-[var(--juba-app-ink)] font-sans tracking-widest uppercase ${REGISTER_COLORS[phrase.register]}`}
                 >
                   {t(phrase.register)}
                 </span>
@@ -267,7 +267,7 @@ function CategoryCard({
               <TargetLanguageText
                 as="p"
                 languageCode={language}
-                className="text-fl-muted-1 italic"
+                className="text-[var(--juba-app-muted)] italic"
               >
                 {phrase.context}
               </TargetLanguageText>
@@ -295,7 +295,7 @@ function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="text-fl-label text-fl-muted-4 hover:text-fl-fg px-1 font-mono transition-colors"
+      className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] px-1 font-sans transition-colors"
       title="Copy"
       aria-label="Copy phrase"
     >
@@ -357,10 +357,10 @@ export default function PhrasebookPage() {
   if (loadError) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <p className="text-fl-muted-2 font-mono text-sm">{tCommon('error')}</p>
+        <p className="text-[var(--juba-app-muted)] font-sans text-sm">{tCommon('error')}</p>
         <button
           onClick={() => fetchCategories(activeLanguage?.code ?? 'en-GB')}
-          className="text-fl-accent font-mono text-xs tracking-widest uppercase underline"
+          className="text-[var(--juba-app-green)] font-sans text-xs tracking-widest uppercase underline"
         >
           {tCommon('retry')}
         </button>
@@ -373,15 +373,15 @@ export default function PhrasebookPage() {
 
   return (
     <div className="juba-phrasebook-shell mx-auto max-w-4xl space-y-8 p-6">
-      <div className="border-fl-border bg-fl-surface border">
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-3">{'\u25cf'}</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+      <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border">
+        <div className="border-[var(--juba-app-line)] flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)]">{'\u25cf'}</span>
+          <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
             {t('title')}
           </span>
         </div>
         <div className="space-y-4 px-6 py-5">
-          <p className="text-fl-muted-2 font-mono text-xs leading-relaxed">
+          <p className="text-[var(--juba-app-muted)] font-sans text-xs leading-relaxed">
             {t('statsLine', {
               situationCount: categories.length,
               phraseCount: totalPhrases,
@@ -395,12 +395,12 @@ export default function PhrasebookPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t('searchPlaceholder')}
-              className="border-fl-border bg-fl-surface-2 text-fl-fg placeholder:text-fl-muted-3 focus:border-fl-fg w-full border px-3 py-2 font-mono text-xs focus:outline-none"
+              className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)]-2 text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] focus:border-[var(--juba-app-ink)] w-full border px-3 py-2 font-sans text-xs focus:outline-none"
             />
           </div>
 
           <div className="space-y-2">
-            <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+            <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
               {t('level')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -408,10 +408,10 @@ export default function PhrasebookPage() {
                 <button
                   key={lvl}
                   onClick={() => setActiveLevel(lvl)}
-                  className={`text-fl-label border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
+                  className={`text-[var(--juba-app-ink)] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                     activeLevel === lvl
-                      ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
-                      : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
+                      ? 'border-[var(--juba-app-ink)] text-[var(--juba-app-ink)] bg-[var(--juba-app-surface)]-2'
+                      : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-line)]-2 hover:text-[var(--juba-app-ink)]'
                   }`}
                 >
                   {lvl === 'All' ? tCommon('all') : lvl}
@@ -421,7 +421,7 @@ export default function PhrasebookPage() {
           </div>
 
           <div className="space-y-2">
-            <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+            <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
               {t('register')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -429,10 +429,10 @@ export default function PhrasebookPage() {
                 <button
                   key={reg}
                   onClick={() => setActiveRegister(reg)}
-                  className={`text-fl-label border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
+                  className={`text-[var(--juba-app-ink)] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                     activeRegister === reg
-                      ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
-                      : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
+                      ? 'border-[var(--juba-app-ink)] text-[var(--juba-app-ink)] bg-[var(--juba-app-surface)]-2'
+                      : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-line)]-2 hover:text-[var(--juba-app-ink)]'
                   }`}
                 >
                   {reg === 'All' ? tCommon('all') : t(reg)}
@@ -444,7 +444,7 @@ export default function PhrasebookPage() {
       </div>
 
       {hasActiveFilters && (
-        <p className="text-fl-label text-fl-muted-3 font-mono">
+        <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans">
           {t('situationsShown', { count: filteredCategories.length })}
         </p>
       )}
@@ -455,10 +455,10 @@ export default function PhrasebookPage() {
         return (
           <section key={level} className="space-y-3">
             <div className="flex items-center gap-3">
-              <span className="text-fl-fg font-mono text-base font-bold tracking-widest">
+              <span className="text-[var(--juba-app-ink)] font-sans text-base font-bold tracking-widest">
                 {level}
               </span>
-              <div className="bg-fl-border h-px flex-1" />
+              <div className="bg-[var(--juba-app-line)] h-px flex-1" />
             </div>
             <div className="grid gap-4 md:grid-cols-2">
               {cats.map((cat) => (
@@ -476,8 +476,8 @@ export default function PhrasebookPage() {
       })}
 
       {filteredCategories.length === 0 && (
-        <div className="border-fl-border bg-fl-surface space-y-4 border px-6 py-10 text-center">
-          <p className="text-fl-muted-3 font-mono text-xs tracking-widest uppercase">
+        <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] space-y-4 border px-6 py-10 text-center">
+          <p className="text-[var(--juba-app-muted)] font-sans text-xs tracking-widest uppercase">
             {t('noResults')}
           </p>
           {hasActiveFilters && (
@@ -487,7 +487,7 @@ export default function PhrasebookPage() {
                 setActiveRegister('All')
                 setSearch('')
               }}
-              className="text-fl-label border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg border px-4 py-2 font-mono tracking-widest uppercase transition-colors"
+              className="text-[var(--juba-app-ink)] border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-line)]-2 hover:text-[var(--juba-app-ink)] border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
             >
               {tCommon('clearFilters')}
             </button>
