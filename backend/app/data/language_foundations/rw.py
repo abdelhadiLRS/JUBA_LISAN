@@ -39,20 +39,20 @@ VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="rw-a1-unit-7",words
 VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="rw-a1-unit-8",words=[VocabularyEntry(word="ishuri",pos="noun",definition="school",example="Ndi ku ishuri.")])
 ]
 PHRASEBOOK_CATEGORIES=[
-PhrasebookCategory(id="greetings_a1_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Muraho.",context="Hello.",register="neutral")]),
-PhrasebookCategory(id="greetings_a1_2",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Murakoze.",context="Thank you.",register="neutral")]),
-PhrasebookCategory(id="help_a1_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="Mfashe.",context="Help me.",register="neutral")]),
-PhrasebookCategory(id="directions_a1_4",level="A1",situation="directions",icon="💬",phrases=[PhrasebookEntry(text="Ishuri riri he?",context="Where is the school?",register="neutral")])
+PhrasebookCategory(id="rw-greetings-a1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Muraho.",context="Hello.",register="neutral"),PhrasebookEntry(text="Amakuru?",context="How are you?",register="neutral"),PhrasebookEntry(text="Ni meza, murakoze.",context="Fine, thank you.",register="neutral")]),
+PhrasebookCategory(id="rw-thanks-a1",level="A1",situation="thanks",icon="🙏",phrases=[PhrasebookEntry(text="Murakoze.",context="Thank you.",register="neutral"),PhrasebookEntry(text="Murakoze cyane.",context="Thank you very much.",register="neutral"),PhrasebookEntry(text="Nta kibazo.",context="No problem.",register="neutral")]),
+PhrasebookCategory(id="rw-shopping-a1",level="A1",situation="shopping",icon="🛒",phrases=[PhrasebookEntry(text="Ibi ni angahe?",context="How much is this?",register="neutral"),PhrasebookEntry(text="Ndashaka ibi.",context="I want this.",register="neutral"),PhrasebookEntry(text="Mpa ibi, ndakwinginze.",context="Please give me this.",register="polite")]),
+PhrasebookCategory(id="rw-help-a1",level="A1",situation="help",icon="🆘",phrases=[PhrasebookEntry(text="Mwamfasha, ndakwinginze?",context="Could you help me, please?",register="polite"),PhrasebookEntry(text="Sinumva.",context="I don't understand / I can't hear.",register="neutral"),PhrasebookEntry(text="Subiramo, ndakwinginze.",context="Please say it again.",register="polite")])
 ]
 ASSESSMENT_BANK=[
-AssessmentQuestion(id="rw-a1-001",skill="vocabulary",difficulty="A1",question="Choose the correct Kinyarwanda form for A1.",options=["muraho","izina","mama","inzu"],correct="muraho"),
-AssessmentQuestion(id="rw-a1-002",skill="grammar",difficulty="A1",question="Choose the correct Kinyarwanda form for A1.",options=["izina","mama","inzu","kwiga"],correct="izina"),
-AssessmentQuestion(id="rw-a1-003",skill="reading",difficulty="A1",question="Choose the correct Kinyarwanda form for A1.",options=["mama","inzu","kwiga","igihe"],correct="mama"),
-AssessmentQuestion(id="rw-a1-004",skill="speaking",difficulty="A1",question="Choose the correct Kinyarwanda form for A1.",options=["inzu","kwiga","igihe","amazi"],correct="inzu"),
-AssessmentQuestion(id="rw-a1-005",skill="vocabulary",difficulty="A1",question="Choose the correct Kinyarwanda form for A1.",options=["kwiga","igihe","amazi","ishuri"],correct="kwiga"),
-AssessmentQuestion(id="rw-a1-006",skill="grammar",difficulty="A1",question="Choose the correct Kinyarwanda form for A1.",options=["igihe","amazi","ishuri","muraho"],correct="igihe"),
-AssessmentQuestion(id="rw-a1-007",skill="reading",difficulty="A1",question="Choose the correct Kinyarwanda form for A1.",options=["amazi","ishuri","muraho","izina"],correct="amazi"),
-AssessmentQuestion(id="rw-a1-008",skill="speaking",difficulty="A1",question="Choose the correct Kinyarwanda form for A1.",options=["ishuri","muraho","izina","mama"],correct="ishuri"),
-AssessmentQuestion(id="rw-a1-009",skill="vocabulary",difficulty="A1",question="Choose the correct Kinyarwanda form for A1.",options=["muraho","izina","mama","inzu"],correct="muraho"),
-AssessmentQuestion(id="rw-a1-010",skill="grammar",difficulty="A1",question="Choose the correct Kinyarwanda form for A1.",options=["izina","mama","inzu","kwiga"],correct="izina")
+AssessmentQuestion(id="rw-a1-001",skill="communication",difficulty="A1",question="You meet someone. Which Kinyarwanda phrase means “Hello”?",options=["Muraho.","Murakoze.","Ibi ni angahe?","Sinumva."],correct="Muraho."),
+AssessmentQuestion(id="rw-a1-002",skill="communication",difficulty="A1",question="Which phrase asks “How are you?”",options=["Amakuru?","Ni meza, murakoze.","Ndashaka ibi.","Murakoze."],correct="Amakuru?"),
+AssessmentQuestion(id="rw-a1-003",skill="vocabulary",difficulty="A1",question="Which phrase means “Thank you”?",options=["Murakoze.","Muraho.","Nta kibazo.","Mwamfasha, ndakwinginze?"],correct="Murakoze."),
+AssessmentQuestion(id="rw-a1-004",skill="shopping",difficulty="A1",question="At a shop, how do you ask “How much is this?”",options=["Ibi ni angahe?","Sinumva.","Ni meza, murakoze.","Murakoze."],correct="Ibi ni angahe?"),
+AssessmentQuestion(id="rw-a1-005",skill="shopping",difficulty="A1",question="Which phrase means “I want this”?",options=["Ndashaka ibi.","Muraho.","Nta kibazo.","Amakuru?"],correct="Ndashaka ibi."),
+AssessmentQuestion(id="rw-a1-006",skill="help",difficulty="A1",question="Which phrase politely asks for help?",options=["Mwamfasha, ndakwinginze?","Murakoze.","Ibi ni angahe?","Ni meza, murakoze."],correct="Mwamfasha, ndakwinginze?"),
+AssessmentQuestion(id="rw-a1-007",skill="communication",difficulty="A1",question="You do not understand. Which phrase should you use?",options=["Sinumva.","Muraho.","Ndashaka ibi.","Murakoze cyane."],correct="Sinumva."),
+AssessmentQuestion(id="rw-a1-008",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["Subiramo, ndakwinginze.","Nta kibazo.","Ibi ni angahe?","Ni meza, murakoze."],correct="Subiramo, ndakwinginze."),
+AssessmentQuestion(id="rw-a1-009",skill="politeness",difficulty="A1",question="Which phrase means “No problem”?",options=["Nta kibazo.","Muraho.","Amakuru?","Ndashaka ibi."],correct="Nta kibazo."),
+AssessmentQuestion(id="rw-a1-010",skill="communication",difficulty="A1",question="Which phrase means “Fine, thank you”?",options=["Ni meza, murakoze.","Murakoze cyane.","Sinumva.","Ibi ni angahe?"],correct="Ni meza, murakoze.")
 ]
