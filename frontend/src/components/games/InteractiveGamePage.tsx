@@ -5,7 +5,6 @@ import { useSearchParams } from 'next/navigation'
 import { InteractiveGameBoard } from './InteractiveGameBoard'
 import { completeGameSession, startGameSession, type InteractiveGameChallenge, type InteractiveGameTrace, type GameId } from '@/lib/games/persist'
 import { useProgressStore } from '@/store/progress'
-import './interactive-games.css'
 
 type Mode = 'memory' | 'matching' | 'ordering'
 type Lang = 'ar' | 'fr' | 'en'
