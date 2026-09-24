@@ -5113,3 +5113,70 @@ main [dir="rtl"] h3,
     border-bottom:2px solid var(--juba-app-ink)!important;
   }
 }
+
+
+/* JUBA LISAN — translator product surface */
+.juba-translator-shell{
+  color:var(--juba-app-ink);
+  background:
+    radial-gradient(circle at 96% 0%,rgba(255,212,79,.13),transparent 300px),
+    var(--juba-app-bg);
+  min-height:calc(100vh - 64px);
+}
+.juba-translator-shell .juba-card{
+  border:1px solid var(--juba-app-line);
+  border-radius:24px;
+  background:var(--juba-app-surface);
+  box-shadow:0 8px 24px rgba(24,37,27,.055);
+}
+.juba-translator-shell .juba-card:first-child{
+  border:2px solid var(--juba-app-ink);
+  background:#e8f4df;
+  box-shadow:7px 7px 0 var(--juba-app-ink);
+}
+.juba-translator-shell .juba-eyebrow{
+  color:var(--juba-app-green-dark);
+}
+.juba-translator-shell textarea,
+.juba-translator-shell select{
+  border-color:var(--juba-app-line)!important;
+  border-radius:14px;
+  color:var(--juba-app-ink);
+}
+.juba-translator-shell textarea{
+  background:#f9fbf7!important;
+}
+.juba-translator-shell button{
+  border-radius:12px;
+  border-color:var(--juba-app-line)!important;
+  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+}
+.juba-translator-shell button:hover:not(:disabled){
+  transform:translateY(-2px);
+  border-color:#a9c79a!important;
+}
+.juba-translator-shell [class*="bg-[#39751d]"]{
+  background:var(--juba-app-green)!important;
+  color:#fff;
+}
+.juba-translator-shell [class*="border-[#e2f2d3]"]{
+  border-color:var(--juba-app-line)!important;
+}
+.juba-translator-shell [class*="bg-white-soft"]{
+  background:#f9fbf7!important;
+}
+.juba-translator-shell .text-\[var\(--juba-muted\)\]{
+  color:var(--juba-app-muted)!important;
+}
+.juba-translator-shell .juba-card[role="alert"]{
+  border-color:#d7b2ad;
+  background:#fff7f5;
+}
+@media(max-width:700px){
+  .juba-translator-shell{
+    padding:1rem;
+  }
+  .juba-translator-shell .juba-card:first-child{
+    box-shadow:4px 4px 0 var(--juba-app-ink);
+  }
+}
