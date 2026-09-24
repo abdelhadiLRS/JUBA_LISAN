@@ -117,7 +117,7 @@ export function VisitorTranslator() {
         </form>
       </div>
     </div>}
-  </>client'
+  </>
 
 import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
