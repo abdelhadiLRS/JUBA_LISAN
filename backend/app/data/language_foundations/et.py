@@ -16,22 +16,22 @@ _g("location","Location cases","Location cases in basic A1 use.",["Ma olen kodus
 def _v(i,t,words):
     return VocabularySet(id=i,level="A1",topic=t,unit_ref="et-a1",words=[VocabularyEntry(word=w,pos=p,definition=d,example=e) for w,p,d,e in words])
 
-VOCABULARY_SETS=[_v("greetings_a1","hello",[["tere","noun","hello","tere."]]),
-_v("family_a1","mother",[["ema","noun","mother","ema."]]),
-_v("home_a1","home",[["kodu","noun","home","kodu."]]),
-_v("daily_a1","morning",[["hommik","noun","morning","hommik."]]),
-_v("food_a1","water",[["vesi","noun","water","vesi."]]),
-_v("places_a1","station",[["jaam","noun","station","jaam."]]),
-_v("communication_a1","help",[["abi","noun","help","abi."]]),
-_v("review_a1","friend",[["sõber","noun","friend","sõber."]])]
+VOCABULARY_SETS=[_v("greetings_a1","Tervitused",[["tere","phrase","hello","Tere!"],["aitäh","phrase","thank you","Aitäh!"],["palun","phrase","please","Palun istu."],["hüvasti","phrase","goodbye","Hüvasti!"]]),
+_v("family_a1","Perekond",[["ema","noun","mother","Minu ema on kodus."],["isa","noun","father","Minu isa töötab."],["õde","noun","sister","Mul on õde."],["vend","noun","brother","Mul on vend."]]),
+_v("home_a1","Kodu",[["kodu","noun","home","Ma olen kodus."],["tuba","noun","room","Minu tuba on väike."],["laud","noun","table","Raamat on laual."],["uks","noun","door","Uks on lahti."]]),
+_v("daily_a1","Igapäev",[["hommik","noun","morning","Hommikul ma töötan."],["sööma","verb","eat","Ma söön."],["jooma","verb","drink","Ma joon vett."],["magama","verb","sleep","Ma lähen magama."]]),
+_v("food_a1","Toit ja ostud",[["vesi","noun","water","Ma joon vett."],["leib","noun","bread","Ma ostan leiba."],["piim","noun","milk","Palun piima."],["hind","noun","price","Mis on hind?"]]),
+_v("places_a1","Kohad ja suunad",[["pood","noun","shop","Pood on lähedal."],["jaam","noun","station","Kus on jaam?"],["parem","adverb","right","Pööra paremale."],["vasak","adverb","left","Pööra vasakule."]]),
+_v("communication_a1","Suhtlus",[["abi","noun","help","Vajan abi."],["aitama","verb","help","Kas sa saad mind aidata?"],["aru saama","verb","understand","Ma saan aru."],["aeglaselt","adverb","slowly","Palun räägi aeglaselt."]]),
+_v("review_a1","A1 kordamine",[["sõber","noun","friend","Ta on minu sõber."],["täna","adverb","today","Täna ma töötan."],["homme","adverb","tomorrow","Homme ma õpin."],["aeg","noun","time","Mul on aega."]])]
 
 def _p(i,s,items):
     return PhrasebookCategory(id=i,level="A1",situation=s,icon="💬",phrases=[PhrasebookEntry(text=t,context=c,register=r) for t,c,r in items])
 
-PHRASEBOOK_CATEGORIES=[_p("greetings_a1","Greetings",[["Hello!","greeting","neutral"]]),
-_p("shopping_a1","Shopping",[["How much is this?","asking price","neutral"]]),
-_p("directions_a1","Directions",[["Where is the station?","asking location","neutral"]]),
-_p("help_a1","Help",[["Please help me.","asking for help","neutral"]])]
+PHRASEBOOK_CATEGORIES=[_p("greetings_a1","Tervitused",[["Tere!","greeting","neutral"],["Minu nimi on Mari.","introducing yourself","neutral"],["Meeldiv tutvuda.","meeting someone","neutral"]]),
+_p("shopping_a1","Ostlemine",[["Kui palju see maksab?","asking price","neutral"],["Ma soovin seda.","requesting an item","neutral"],["Kas saan kaardiga maksta?","payment","neutral"]]),
+_p("directions_a1","Suunad",[["Kus jaam on?","asking location","neutral"],["Mine otse.","giving directions","neutral"],["Pööra paremale.","giving directions","neutral"]]),
+_p("help_a1","Abi",[["Kas sa saad mind aidata?","asking for help","neutral"],["Ma ei saa aru.","clarification","neutral"],["Palun räägi aeglasemalt.","asking someone to slow down","neutral"]]),_p("appointments_a1","Aeg ja kohtumised",[["Mis kell?","asking time","neutral"],["Kohtume kell viis.","making an appointment","neutral"],["Homme sobib.","accepting a time","neutral"]])]
 
 CURRICULUM={"A1":[CurriculumUnit(id="et-a1-unit-1",level="A1",unit_number=1,title="Tervitused ja tutvumine",grammar_points=["pronouns"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle Tervitused ja tutvumine","Use core A1 language"],default_weeks=2),
 CurriculumUnit(id="et-a1-unit-2",level="A1",unit_number=2,title="Perekond",grammar_points=["copula"],vocabulary_set_ids=["family_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle Perekond","Use core A1 language"],default_weeks=2),
@@ -51,7 +51,7 @@ ASSESSMENT_BANK=[
     AssessmentQuestion(id="et-a1-004",skill="vocabulary",difficulty="A1",question="Which word means mother?",options=["ema","station","friend","water"],correct="ema"),
     AssessmentQuestion(id="et-a1-005",skill="vocabulary",difficulty="A1",question="Which word belongs to the home theme?",options=["kodu","tomorrow","thanks","station"],correct="kodu"),
     AssessmentQuestion(id="et-a1-006",skill="reading",difficulty="A1",question="Read the first model sentence and identify its function.",options=["Basic A1 communication","Advanced literature","Past narrative","Formal report"],correct="Basic A1 communication"),
-    AssessmentQuestion(id="et-a1-007",skill="grammar",difficulty="A1",question="Which example belongs to the questions topic?",options=["Ma õpin eesti keelt.","Ma ei tööta täna.","Hello","Thank you"],correct="Ma õpin eesti keelt."),
+    AssessmentQuestion(id="et-a1-007",skill="grammar",difficulty="A1",question="Which example is a basic question?",options=["Kus sa oled?","Ma õpin eesti keelt.","Ma ei tööta täna.","See on raamat."],correct="Kus sa oled?"),
     AssessmentQuestion(id="et-a1-008",skill="communication",difficulty="A1",question="Which phrase asks for help?",options=["Please help me.","Goodbye.","Thank you.","My name is..."],correct="Please help me."),
     AssessmentQuestion(id="et-a1-009",skill="communication",difficulty="A1",question="Which phrase asks for a location?",options=["Where is the station?","Thank you.","Goodbye.","I am a student."],correct="Where is the station?"),
     AssessmentQuestion(id="et-a1-010",skill="vocabulary",difficulty="A1",question="Which word is the review/friend item?",options=["sõber","water","station","morning"],correct="sõber")
