@@ -78,6 +78,7 @@ export function LandingFAQ() {
           className={i < FAQ_KEYS.length - 1 ? 'juba-ff-faq-row border-b' : 'juba-ff-faq-row'}
         >
           <button
+            type="button"
             onClick={() => setOpen(open === i ? null : i)}
             aria-expanded={open === i}
             className="juba-ff-faq-question flex w-full items-center justify-between px-5 py-4 text-left text-sm transition-colors"
