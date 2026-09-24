@@ -24,22 +24,27 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
   const titleId = useId()
   const descriptionId = useId()
   const firstFieldRef = useRef<HTMLInputElement>(null)
+  const openerRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     if (open) {
+      openerRef.current = document.activeElement as HTMLElement | null
       requestAnimationFrame(() => firstFieldRef.current?.focus())
       setEmail('')
       setSubject('')
       setDescription('')
       setStatus('idle')
       setErrorMsg('')
+    } else {
+      openerRef.current?.focus()
+      openerRef.current = null
     }
   }, [open])
 
   useEffect(() => {
     if (!open) return
     function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape' && !isLoading) onClose()
       if (e.key !== 'Tab') return
       const controls = dialogRef.current?.querySelectorAll<HTMLElement>(
         'button:not(:disabled), input:not(:disabled), textarea:not(:disabled)'
@@ -57,7 +62,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [open, onClose])
+  }, [open, onClose, isLoading])
 
   useEffect(() => {
     if (status !== 'success') return
@@ -99,7 +104,8 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
         backgroundColor: 'color-mix(in srgb, var(--juba-app-ink) 55%, transparent)',
         backdropFilter: 'blur(8px)',
       }}
-      onClick={onClose}
+      onClick={() => !isLoading && onClose()}
+      aria-busy={isLoading}
     >
       <div
         ref={dialogRef}
@@ -121,6 +127,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
             type="button"
             onClick={onClose}
             disabled={isLoading}
+            aria-disabled={isLoading}
             className="rounded-xl border-2 border-transparent px-2 py-1 text-[var(--juba-app-muted)] transition hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)]"
             aria-label={tCommon('close')} aria-describedby={undefined}
           >
