@@ -9,24 +9,30 @@ interface LandingNavProps {
   hasSession: boolean
   stripeEnabled: boolean
   navFeatures: string
+  navDemo: string
+  navLanguages: string
   navReviews: string
   navPricing: string
   navFAQ: string
   showReviews: boolean
   signIn: string
   dashboard: string
+  getStarted: string
 }
 
 export function LandingNav({
   hasSession,
   stripeEnabled,
   navFeatures,
+  navDemo,
+  navLanguages,
   navReviews,
   navPricing,
   navFAQ,
   showReviews,
   signIn,
   dashboard,
+  getStarted,
 }: LandingNavProps) {
   const [open, setOpen] = useState(false)
   const [showPricing, setShowPricing] = useState(stripeEnabled && !hasSession)
@@ -61,8 +67,8 @@ export function LandingNav({
   const links = (
     <>
       <a href="#features" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navFeatures}</a>
-      <a href="#demo" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">AI Demo</a>
-      <a href="#languages" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">Languages</a>
+      <a href="#demo" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navDemo}</a>
+      <a href="#languages" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navLanguages}</a>
       {showReviews && <a href="#reviews" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navReviews}</a>}
       {showPricing && <a href="#pricing" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navPricing}</a>}
       <a href="#faq" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navFAQ}</a>
@@ -88,7 +94,7 @@ export function LandingNav({
         <div className="hidden items-center gap-4 md:flex">
           <Link href={hasSession ? '/dashboard' : '/login'} className="juba-nav-signin juba-ff-nav-signin text-sm font-semibold transition-colors">{hasSession ? dashboard : signIn}</Link>
           <Link href={hasSession ? '/dashboard' : '/register'} className="juba-nav-cta juba-ff-nav-cta rounded-xl px-5 py-2.5 text-sm font-black transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--landing-green)] focus-visible:ring-offset-2">
-            <span>{hasSession ? dashboard : 'Get Started'}</span>
+            <span>{hasSession ? dashboard : getStarted}</span>
             <span aria-hidden="true">✦</span>
           </Link>
         </div>
@@ -112,7 +118,7 @@ export function LandingNav({
             <div className="juba-mobile-actions pt-2 flex flex-col gap-3">
               <Link href={hasSession ? '/dashboard' : '/login'} onClick={closeMenu} className="juba-nav-signin juba-ff-nav-signin w-full text-center py-2 text-sm font-semibold">{hasSession ? dashboard : signIn}</Link>
               <Link href={hasSession ? '/dashboard' : '/register'} onClick={closeMenu} className="juba-nav-cta juba-ff-nav-cta flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-black">
-                <span>{hasSession ? dashboard : 'Get Started'}</span><span aria-hidden="true">✦</span>
+                <span>{hasSession ? dashboard : getStarted}</span><span aria-hidden="true">✦</span>
               </Link>
             </div>
           </div>
