@@ -5313,3 +5313,86 @@ main [dir="rtl"] h3,
     padding:1rem;
   }
 }
+
+
+/* JUBA LISAN — admin workspace refinements */
+.juba-admin-users-shell,
+.juba-admin-feedback-shell,
+.juba-admin-reviews-shell,
+.juba-admin-system-shell{
+  color:var(--juba-app-ink);
+  min-height:calc(100vh - 64px);
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,212,79,.1),transparent 280px),
+    var(--juba-app-bg);
+}
+.juba-admin-users-shell > *,
+.juba-admin-feedback-shell > *,
+.juba-admin-reviews-shell > *,
+.juba-admin-system-shell > *{
+  font-family:var(--font-geist-sans),system-ui,sans-serif;
+}
+.juba-admin-users-shell [class*="border-[var(--juba-border)]"],
+.juba-admin-feedback-shell [class*="border-[var(--juba-border)]"],
+.juba-admin-reviews-shell [class*="border-[var(--juba-border)]"],
+.juba-admin-system-shell [class*="border-[var(--juba-border)]"]{
+  border-color:var(--juba-app-line)!important;
+}
+.juba-admin-users-shell [class*="bg-[var(--juba-surface)]"],
+.juba-admin-feedback-shell [class*="bg-[var(--juba-surface)]"],
+.juba-admin-reviews-shell [class*="bg-[var(--juba-surface)]"],
+.juba-admin-system-shell [class*="bg-[var(--juba-surface)]"]{
+  background:var(--juba-app-surface)!important;
+}
+.juba-admin-users-shell [class*="text-[var(--juba-text)]"],
+.juba-admin-feedback-shell [class*="text-[var(--juba-text)]"],
+.juba-admin-reviews-shell [class*="text-[var(--juba-text)]"],
+.juba-admin-system-shell [class*="text-[var(--juba-text)]"]{
+  color:var(--juba-app-ink)!important;
+}
+.juba-admin-users-shell [class*="text-[var(--juba-muted)]"],
+.juba-admin-feedback-shell [class*="text-[var(--juba-muted)]"],
+.juba-admin-reviews-shell [class*="text-[var(--juba-muted)]"],
+.juba-admin-system-shell [class*="text-[var(--juba-muted)]"]{
+  color:var(--juba-app-muted)!important;
+}
+.juba-admin-users-shell button,
+.juba-admin-users-shell input,
+.juba-admin-users-shell select,
+.juba-admin-feedback-shell button,
+.juba-admin-feedback-shell input,
+.juba-admin-feedback-shell select,
+.juba-admin-reviews-shell button,
+.juba-admin-reviews-shell select,
+.juba-admin-system-shell button,
+.juba-admin-system-shell input,
+.juba-admin-system-shell select,
+.juba-admin-system-shell textarea{
+  border-radius:12px;
+}
+.juba-admin-users-shell > div[class*="space-y-4"] > div,
+.juba-admin-feedback-shell > div[class*="space-y-4"] > div,
+.juba-admin-reviews-shell > div[class*="space-y-4"] > div,
+.juba-admin-system-shell > div[class*="space-y-4"] > div{
+  border-color:var(--juba-app-line)!important;
+}
+.juba-admin-users-shell a,
+.juba-admin-feedback-shell a,
+.juba-admin-reviews-shell a,
+.juba-admin-system-shell a{
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+.juba-admin-users-shell a:hover,
+.juba-admin-feedback-shell a:hover,
+.juba-admin-reviews-shell a:hover,
+.juba-admin-system-shell a:hover{
+  border-color:#a9c79a;
+}
+@media(max-width:700px){
+  .juba-admin-users-shell,
+  .juba-admin-feedback-shell,
+  .juba-admin-reviews-shell,
+  .juba-admin-system-shell{
+    padding:1rem;
+  }
+}
