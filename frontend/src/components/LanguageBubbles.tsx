@@ -9,8 +9,9 @@ type RegionId = 'americas' | 'europe' | 'africa-middle-east' | 'asia' | 'pacific
 type DisplayLanguage = {
   code: string
   name: string
-  region: RegionId
-  country: string
+  regions: RegionId[]
+  countries: string[]
+  markerCountry: string
 }
 
 const REGIONS: Array<{ id: RegionId; label: string; short: string }> = [
@@ -21,39 +22,40 @@ const REGIONS: Array<{ id: RegionId; label: string; short: string }> = [
   { id: 'pacific', label: 'Pacific', short: 'PA' },
 ]
 
+// Coverage uses established native, official, or major regional use.
+// Diaspora communities are not plotted as separate territories.
 const DISPLAY_LANGUAGES: DisplayLanguage[] = [
-  { code: 'en-US', name: 'English (US)', region: 'americas', country: 'USA' },
-  { code: 'en-GB', name: 'English (UK)', region: 'europe', country: 'GBR' },
-  { code: 'fr', name: 'Français', region: 'europe', country: 'FRA' },
-  { code: 'es', name: 'Español', region: 'europe', country: 'ESP' },
-  { code: 'de', name: 'Deutsch', region: 'europe', country: 'DEU' },
-  { code: 'it', name: 'Italiano', region: 'europe', country: 'ITA' },
-  { code: 'pt', name: 'Português', region: 'europe', country: 'PRT' },
-  { code: 'nl', name: 'Nederlands', region: 'europe', country: 'NLD' },
-  { code: 'ru', name: 'Русский', region: 'europe', country: 'RUS' },
-  { code: 'tr', name: 'Türkçe', region: 'africa-middle-east', country: 'TUR' },
-  { code: 'el', name: 'Ελληνικά', region: 'europe', country: 'GRC' },
-  { code: 'ro', name: 'Română', region: 'europe', country: 'ROU' },
-  { code: 'hu', name: 'Magyar', region: 'europe', country: 'HUN' },
-  { code: 'uk', name: 'Українська', region: 'europe', country: 'UKR' },
-  { code: 'fi', name: 'Suomi', region: 'europe', country: 'FIN' },
-  { code: 'sv', name: 'Svenska', region: 'europe', country: 'SWE' },
-  { code: 'ar', name: 'العربية', region: 'africa-middle-east', country: 'SAU' },
-  { code: 'he', name: 'עברית', region: 'africa-middle-east', country: 'ISR' },
-  { code: 'yo', name: 'Yorùbá', region: 'africa-middle-east', country: 'NGA' },
-  { code: 'xh', name: 'isiXhosa', region: 'africa-middle-east', country: 'ZAF' },
-  { code: 'mg', name: 'Malagasy', region: 'africa-middle-east', country: 'MDG' },
-  { code: 'ny', name: 'Chichewa', region: 'africa-middle-east', country: 'MWI' },
-  { code: 'vi', name: 'Tiếng Việt', region: 'asia', country: 'VNM' },
-  { code: 'ja', name: '日本語', region: 'asia', country: 'JPN' },
-  { code: 'ko', name: '한국어', region: 'asia', country: 'KOR' },
-  { code: 'zh', name: '中文', region: 'asia', country: 'CHN' },
-  { code: 'mi', name: 'Māori', region: 'pacific', country: 'NZL' },
-  { code: 'sm', name: 'Gagana Sāmoa', region: 'pacific', country: 'WSM' },
-  { code: 'to', name: 'Lea faka-Tonga', region: 'pacific', country: 'TON' },
-  { code: 'sq', name: 'Shqip', region: 'europe', country: 'ALB' },
-  { code: 'eu', name: 'Euskara', region: 'europe', country: 'ESP' },
-  { code: 'gl', name: 'Galego', region: 'europe', country: 'ESP' },
+  { code: 'en', name: 'English', regions: ['americas','europe','africa-middle-east','asia','pacific'], markerCountry: 'USA', countries: ['USA','CAN','GBR','IRL','AUS','NZL','ZAF','NAM','BWA','ZMB','ZWE','UGA','KEN','TZA','NGA','GHA','SLE','LBR','GMB','GUY','JAM','TTO','BHS','BRB','BLZ','GRD','DMA','ATG','KNA','LCA','VCT','SGP','IND','PHL','PAK','FJI','WSM','TON','PNG','SLB','VUT','MLT','CYP'] },
+  { code: 'fr', name: 'Français', regions: ['americas','europe','africa-middle-east','pacific'], markerCountry: 'FRA', countries: ['FRA','BEL','CHE','LUX','MCO','CAN','HTI','USA','MAR','DZA','TUN','MRT','SEN','MLI','NER','BFA','CIV','GHA','TGO','BEN','GIN','GNB','SLE','LBR','CMR','CAF','TCD','GAB','COG','COD','RWA','BDI','DJI','COM','MDG','MUS','SYC','VUT','NCL','PYF'] },
+  { code: 'es', name: 'Español', regions: ['americas','europe','africa-middle-east'], markerCountry: 'ESP', countries: ['ESP','MEX','GTM','BLZ','HND','SLV','NIC','CRI','PAN','CUB','DOM','PRI','COL','VEN','ECU','PER','BOL','PRY','CHL','ARG','URY','GNQ','USA'] },
+  { code: 'de', name: 'Deutsch', regions: ['europe'], markerCountry: 'DEU', countries: ['DEU','AUT','CHE','LIE','LUX','BEL','ITA','POL','CZE','HUN','ROU','NAM'] },
+  { code: 'it', name: 'Italiano', regions: ['europe','africa-middle-east'], markerCountry: 'ITA', countries: ['ITA','SMR','CHE','VAT','SLO','HRV','LUX','MCO','ALB','MDA','MNE','ERI','SOM','LBY'] },
+  { code: 'pt', name: 'Português', regions: ['americas','europe','africa-middle-east','asia'], markerCountry: 'PRT', countries: ['PRT','BRA','AGO','MOZ','GNB','CPV','STP','TLS','GNQ','MAC','LUX'] },
+  { code: 'nl', name: 'Nederlands', regions: ['europe','americas','africa-middle-east','asia'], markerCountry: 'NLD', countries: ['NLD','BEL','SUR','ABW','CUW','SXM','BES','IDN','ZAF'] },
+  { code: 'ru', name: 'Русский', regions: ['europe','asia'], markerCountry: 'RUS', countries: ['RUS','BLR','KAZ','KGZ','TJK','TKM','UZB','UKR','MDA','LVA','EST','LTU','GEO','ARM','AZE','MNG','ISR'] },
+  { code: 'tr', name: 'Türkçe', regions: ['europe','asia'], markerCountry: 'TUR', countries: ['TUR','CYP'] },
+  { code: 'el', name: 'Ελληνικά', regions: ['europe'], markerCountry: 'GRC', countries: ['GRC','CYP'] },
+  { code: 'ro', name: 'Română', regions: ['europe'], markerCountry: 'ROU', countries: ['ROU','MDA','UKR','HUN','SRB'] },
+  { code: 'hu', name: 'Magyar', regions: ['europe'], markerCountry: 'HUN', countries: ['HUN','ROU','SVK','SRB','UKR','HRV','AUT','SLO'] },
+  { code: 'uk', name: 'Українська', regions: ['europe'], markerCountry: 'UKR', countries: ['UKR','POL','SVK','HUN','ROU','MDA'] },
+  { code: 'fi', name: 'Suomi', regions: ['europe'], markerCountry: 'FIN', countries: ['FIN','SWE','EST'] },
+  { code: 'sv', name: 'Svenska', regions: ['europe'], markerCountry: 'SWE', countries: ['SWE','FIN'] },
+  { code: 'ar', name: 'العربية', regions: ['africa-middle-east','asia'], markerCountry: 'SAU', countries: ['SAU','ARE','QAT','KWT','BHR','OMN','YEM','IRQ','JOR','SYR','LBN','PSE','EGY','LBY','TUN','DZA','MAR','MRT','SDN','SOM','DJI','COM','TCD'] },
+  { code: 'he', name: 'עברית', regions: ['africa-middle-east','asia'], markerCountry: 'ISR', countries: ['ISR'] },
+  { code: 'yo', name: 'Yorùbá', regions: ['africa-middle-east'], markerCountry: 'NGA', countries: ['NGA','BEN','TGO'] },
+  { code: 'xh', name: 'isiXhosa', regions: ['africa-middle-east'], markerCountry: 'ZAF', countries: ['ZAF','LSO'] },
+  { code: 'mg', name: 'Malagasy', regions: ['africa-middle-east'], markerCountry: 'MDG', countries: ['MDG','COM','REU'] },
+  { code: 'ny', name: 'Chichewa', regions: ['africa-middle-east'], markerCountry: 'MWI', countries: ['MWI','ZMB','MOZ','ZWE'] },
+  { code: 'vi', name: 'Tiếng Việt', regions: ['asia'], markerCountry: 'VNM', countries: ['VNM'] },
+  { code: 'ja', name: '日本語', regions: ['asia'], markerCountry: 'JPN', countries: ['JPN'] },
+  { code: 'ko', name: '한국어', regions: ['asia'], markerCountry: 'KOR', countries: ['KOR','PRK'] },
+  { code: 'zh', name: '中文', regions: ['asia'], markerCountry: 'CHN', countries: ['CHN','TWN','SGP'] },
+  { code: 'mi', name: 'Māori', regions: ['pacific'], markerCountry: 'NZL', countries: ['NZL'] },
+  { code: 'sm', name: 'Gagana Sāmoa', regions: ['pacific'], markerCountry: 'WSM', countries: ['WSM','ASM'] },
+  { code: 'to', name: 'Lea faka-Tonga', regions: ['pacific'], markerCountry: 'TON', countries: ['TON'] },
+  { code: 'sq', name: 'Shqip', regions: ['europe'], markerCountry: 'ALB', countries: ['ALB','XKX','MKD','MNE','SRB'] },
+  { code: 'eu', name: 'Euskara', regions: ['europe'], markerCountry: 'ESP', countries: ['ESP','FRA'] },
+  { code: 'gl', name: 'Galego', regions: ['europe'], markerCountry: 'ESP', countries: ['ESP'] },
 ]
 
 function WorldMap() {
@@ -91,21 +93,21 @@ export function LanguageBubbles() {
   const [activeLanguage, setActiveLanguage] = useState<string | null>(null)
 
   const visibleLanguages = useMemo(
-    () => DISPLAY_LANGUAGES.filter((language) => !activeRegion || language.region === activeRegion),
+    () => DISPLAY_LANGUAGES.filter((language) => !activeRegion || language.regions.includes(activeRegion)),
     [activeRegion],
   )
 
   const selected = DISPLAY_LANGUAGES.find((language) => language.code === activeLanguage)
-  const selectedRegion = selected ? REGIONS.find((region) => region.id === selected.region) : null
+  const selectedRegion = selected ? REGIONS.find((region) => selected.regions.includes(region.id)) : null
 
   const regionCountries = useMemo(() => {
     const map = new Map<RegionId, Set<string>>()
     for (const region of REGIONS) map.set(region.id, new Set())
-    for (const language of DISPLAY_LANGUAGES) map.get(language.region)?.add(language.country)
+    for (const language of DISPLAY_LANGUAGES) for (const region of language.regions) map.get(region)?.add(...language.countries)
     return map
   }, [])
 
-  const selectedCountry = selected?.country ?? null
+  const selectedCountries = selected ? new Set(selected.countries) : new Set<string>()
 
   return (
     <div className="relative overflow-hidden rounded-[36px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] p-3 shadow-[6px_6px_0_var(--juba-app-ink)] sm:p-5">
@@ -137,7 +139,7 @@ export function LanguageBubbles() {
         <div className="absolute inset-0 z-10">
           <svg viewBox="0 0 1000 507" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
             {Object.entries(WORLD_MAP_PATHS).map(([code, path]) => {
-              const isSelected = selectedCountry === code
+              const isSelected = selectedCountries.has(code)
               const isRegionCountry = activeRegion ? regionCountries.get(activeRegion)?.has(code) : false
 
               return (
@@ -153,7 +155,7 @@ export function LanguageBubbles() {
           </svg>
 
           {visibleLanguages.map((language) => {
-            const point = WORLD_MAP_CENTROIDS[language.country]
+            const point = WORLD_MAP_CENTROIDS[language.markerCountry]
             if (!point) return null
 
             const isActive = activeLanguage === language.code
