@@ -57,17 +57,17 @@ export function ConversationSection({ title }: { title?: string } = {}) {
   }
 
   return (
-    <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] border p-6">
-      <div className="border-[var(--juba-border)] mb-5 flex items-center gap-2 border-b pb-4">
-        <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-        <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
+    <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border p-6">
+      <div className="border-[var(--juba-app-line)] mb-5 flex items-center gap-2 border-b pb-4">
+        <span className="text-[var(--juba-app-muted)]">●</span>
+        <span className="text-[var(--juba-app-muted)] font-mono tracking-widest uppercase">
           {title ?? t('sectionConversation')}
         </span>
       </div>
 
       <div className="space-y-5">
         <div>
-          <label className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-2 block font-mono tracking-widest uppercase">
+          <label className="text-[var(--juba-app-muted)] mb-2 block font-mono tracking-widest uppercase">
             {t('conversationMaxDuration')}
           </label>
           <div className="flex gap-2">
@@ -78,8 +78,8 @@ export function ConversationSection({ title }: { title?: string } = {}) {
                 onClick={() => setConvMaxDuration(val)}
                 className={`flex-1 border py-3 font-mono text-xs tracking-widest uppercase transition-colors ${
                   convMaxDuration === val
-                    ? 'border-[var(--juba-violet)] bg-[var(--juba-violet)] text-[var(--juba-violet-dark)]-fg'
-                    : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:border-[var(--juba-border)]-2 hover:text-[var(--juba-text)]'
+                    ? 'border-[var(--juba-app-green)] bg-[var(--juba-app-green)] text-white'
+                    : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-line)]-2 hover:text-[var(--juba-app-ink)]'
                 }`}
               >
                 {val === 900 ? t('min15') : t('min30')}
@@ -89,7 +89,7 @@ export function ConversationSection({ title }: { title?: string } = {}) {
         </div>
 
         <div>
-          <label className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-2 block font-mono tracking-widest uppercase">
+          <label className="text-[var(--juba-app-muted)] mb-2 block font-mono tracking-widest uppercase">
             {t('conversationInactivityTimeout')}
           </label>
           <div className="flex gap-2">
@@ -100,8 +100,8 @@ export function ConversationSection({ title }: { title?: string } = {}) {
                 onClick={() => setConvInactivityTimeout(val)}
                 className={`flex-1 border py-3 font-mono text-xs tracking-widest uppercase transition-colors ${
                   convInactivityTimeout === val
-                    ? 'border-[var(--juba-violet)] bg-[var(--juba-violet)] text-[var(--juba-violet-dark)]-fg'
-                    : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:border-[var(--juba-border)]-2 hover:text-[var(--juba-text)]'
+                    ? 'border-[var(--juba-app-green)] bg-[var(--juba-app-green)] text-white'
+                    : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-line)]-2 hover:text-[var(--juba-app-ink)]'
                 }`}
               >
                 {val === 60 ? t('min1') : val === 180 ? t('min3') : t('min5')}
@@ -112,7 +112,7 @@ export function ConversationSection({ title }: { title?: string } = {}) {
 
         {convMessage && (
           <div
-            className={`border px-4 py-3 font-mono text-xs ${convMessage.type === 'ok' ? 'border-[var(--juba-border)] text-[var(--juba-muted)]' : 'border-[var(--juba-coral)]/40 text-[var(--juba-coral)]'}`}
+            className={`border px-4 py-3 font-mono text-xs ${convMessage.type === 'ok' ? 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)]' : 'border-[var(--juba-app-error)]/40 text-[var(--juba-app-error)]'}`}
           >
             {convMessage.type === 'ok' ? '✓ ' : '✕ '}
             {convMessage.text}
@@ -122,7 +122,7 @@ export function ConversationSection({ title }: { title?: string } = {}) {
         <button
           onClick={handleSaveConversation}
           disabled={savingConv}
-          className="bg-[var(--juba-violet)] text-[var(--juba-violet-dark)]-fg hover:bg-[var(--juba-violet)]/90 w-full py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+          className="bg-[var(--juba-app-green)] text-white hover:bg-[var(--juba-app-green)]/90 w-full py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
         >
           {savingConv ? t('saving') : t('saveConversation')}
         </button>
