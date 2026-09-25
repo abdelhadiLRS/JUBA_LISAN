@@ -1386,7 +1386,7 @@ def _apply_smart_review(
     result = list(questions)
     # Keep most of the round fresh while giving retrieval practice a meaningful
     # presence. The stored answer remains server-side in GameSession.questions.
-    review_count = min(3, len(eligible), len(result))
+    review_count = _mastery_review_count(eligible, len(result), int(result[0].get("difficulty", 1) or 1))
     for index, mistake in enumerate(eligible[:review_count]):
         replay = dict(mistake)
         replay["id"] = str(uuid4())
