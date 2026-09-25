@@ -25,7 +25,7 @@ _DATA={
 ("registerskift","Registerskift","Ordvalg og syntaks ændres efter situation og modtager.","Vi må drøfte sagen nærmere.","formelt / neutralt / uformelt"),
 ("retoriske-konstruktioner","Retoriske konstruktioner","Retoriske spørgsmål og gentagelser styrer læserens opmærksomhed.","Hvem kan ignorere dette?","spørgsmål / parallelisme"),
 ("syntaktisk-variation","Syntaktisk variation","Variation i sætningslængde og struktur giver præcision og rytme.","På trods af kritikken fortsatte projektet.","varieret syntaks")]
-]}
+}
 GRAMMAR_TOPICS=[]
 for level,rows in _DATA.items():
     for slug,title,summary,example,structure in rows:
