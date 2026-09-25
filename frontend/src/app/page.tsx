@@ -135,6 +135,18 @@ export default async function Home() {
 .juba-reference-page .juba-ref-faq .juba-ref-section-heading:after{content:"";display:block;width:74px;height:6px;margin:24px auto 0;border-radius:99px;background:var(--green);box-shadow:12px 0 0 var(--yellow),24px 0 0 #dff5fa}
 @media(max-width:900px){.juba-reference-page .juba-ref-cta-inner:before{left:auto;right:8%;top:-35px}.juba-reference-page .juba-ref-language-art{min-height:360px}}
 @media(max-width:560px){.juba-reference-page .juba-ref-cta-inner:before{font-size:48px;top:-20px}.juba-reference-page .juba-ref-language-art{min-height:300px}}
+.juba-reference-page :is(a,button,[role="button"]):focus-visible{outline:3px solid #f6a23a!important;outline-offset:4px!important;border-radius:8px}
+.juba-reference-page .juba-ref-section-heading{padding-inline:8px}
+.juba-reference-page .juba-ref-pillar h3,.juba-reference-page .juba-ref-pillar p{overflow-wrap:anywhere}
+.juba-reference-page .juba-ref-language-copy,.juba-reference-page .juba-ref-ai-copy{min-width:0}
+.juba-reference-page .juba-ref-language-art .animate-float{will-change:transform}
+.juba-reference-page .juba-ref-cta{background:linear-gradient(125deg,#dff5fa 0%,#68c7e4 72%,#9cdef0 100%)}
+.juba-reference-page .juba-ref-cta .juba-ref-button{background:#fff;color:var(--ink)}
+.juba-reference-page .juba-ref-faq{scroll-margin-top:90px}
+.juba-reference-page [id]{scroll-margin-top:88px}
+@media(max-width:900px){.juba-reference-page .juba-ref-section{padding:78px 18px}.juba-reference-page .juba-ref-review-grid{gap:18px}.juba-reference-page .juba-ref-ai-section{padding-top:85px;padding-bottom:85px}}
+@media(max-width:560px){.juba-reference-page .juba-ref-section{padding:64px 14px}.juba-reference-page .juba-ref-section-heading{margin-bottom:30px}.juba-reference-page .juba-ref-pillar{padding:21px;min-height:260px}.juba-reference-page .juba-ref-review-card{padding:19px}.juba-reference-page .juba-ref-cta-device{max-width:78%;height:310px}.juba-reference-page .juba-ref-hero-actions{gap:14px}.juba-reference-page .juba-ref-button{max-width:100%;white-space:normal}}
+@media(prefers-reduced-motion:reduce){.juba-reference-page *, .juba-reference-page *:before,.juba-reference-page *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 ` }} />
 
       <Script
