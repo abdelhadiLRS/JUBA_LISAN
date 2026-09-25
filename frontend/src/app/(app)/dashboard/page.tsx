@@ -542,7 +542,6 @@ export default function DashboardPage() {
             <Link href="/assessment" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{tNav('assessment')}</Link>
         </footer>
       </div>
-    </>
   )
 
 }
