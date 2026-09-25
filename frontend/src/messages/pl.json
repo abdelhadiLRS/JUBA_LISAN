@@ -470,7 +470,8 @@
     "reviewReminder": "Czas wzmocnić swoją pamięć",
     "goalCompleted": "🎉 Cel dzienny osiągnięty!",
     "keepGoing": "Tylko {remaining} więcej lekcji!",
-    "takeAssessment": "Zrób ocenę poziomu"
+    "takeAssessment": "Zrób ocenę poziomu",
+    "planDayGoal": "Cel lekcji na dziś"
   },
   "assessment": {
     "title": "Ocena poziomu",
