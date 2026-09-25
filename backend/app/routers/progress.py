@@ -1263,39 +1263,80 @@ async def _build_multi_skill_review_questions(
         "speaking": "context_quest",
     }
     due = await _get_recent_game_mistakes(db, user_id, plan.id, limit=100)
-    selected: list[dict] = []
-    seen_skills: set[str] = set()
-    for item in due:
+    eligible_due = [
+        item
+        for item in due
+        if str(item.get("skill", "")) in game_for_skill
+        and str(item.get("target_language", plan.target_language)) == plan.target_language
+        and str(item.get("cefr_level", plan.cefr_level)) == plan.cefr_level
+    ]
+
+    # Rank skills by both mastery weakness and due-review pressure. This avoids
+    # letting database order decide the composition of a mixed review round.
+    skills = await _get_game_skills(db, user_id, plan)
+    skill_order = {skill: index for index, skill in enumerate(game_for_skill)}
+    due_counts: dict[str, int] = {}
+    for item in eligible_due:
         skill = str(item.get("skill", ""))
-        if skill not in game_for_skill or skill in seen_skills:
+        due_counts[skill] = due_counts.get(skill, 0) + 1
+
+    ranked_skills = sorted(
+        (
+            skill
+            for skill in game_for_skill
+            if skill in due_counts or isinstance(skills.get(skill), (int, float))
+        ),
+        key=lambda skill: (
+            -due_counts.get(skill, 0),
+            float(skills.get(skill, 0.0)),
+            skill_order[skill],
+        ),
+    )
+
+    selected: list[dict] = []
+    selected_keys: set[str] = set()
+
+    # First pass: guarantee broad coverage of eligible weak skills, preferring
+    # due mistakes over fresh questions.
+    for skill in ranked_skills:
+        if len(selected) >= 5:
+            break
+        candidates = [item for item in eligible_due if str(item.get("skill", "")) == skill]
+        if not candidates:
             continue
-        if str(item.get("target_language", plan.target_language)) != plan.target_language:
-            continue
-        if str(item.get("cefr_level", plan.cefr_level)) != plan.cefr_level:
-            continue
-        replay = dict(item)
+        replay = dict(candidates[0])
         replay["id"] = str(uuid4())
         replay["review"] = True
         replay["target_language"] = plan.target_language
         replay["cefr_level"] = plan.cefr_level
         selected.append(replay)
-        seen_skills.add(skill)
-        if len(selected) >= 5:
-            break
+        selected_keys.add(str(replay.get("review_key") or _review_key(replay)))
 
-    # Fill remaining slots with fresh questions from the learner's weakest
-    # available skills, keeping the session useful even with a short queue.
+    # Second pass: use additional due mistakes to fill the remaining slots,
+    # still weighted toward skills with the most outstanding review pressure.
     if len(selected) < 5:
-        skills = await _get_game_skills(db, user_id, plan)
-        ranked = sorted(
-            (
-                (skill, float(score))
-                for skill, score in skills.items()
-                if skill in game_for_skill and isinstance(score, (int, float))
-            ),
-            key=lambda item: item[1],
-        )
-        for skill, _score in ranked:
+        for skill in ranked_skills:
+            if len(selected) >= 5:
+                break
+            candidates = [
+                item for item in eligible_due
+                if str(item.get("skill", "")) == skill
+                and str(item.get("review_key") or _review_key(item)) not in selected_keys
+            ]
+            for item in candidates:
+                if len(selected) >= 5:
+                    break
+                replay = dict(item)
+                replay["id"] = str(uuid4())
+                replay["review"] = True
+                replay["target_language"] = plan.target_language
+                replay["cefr_level"] = plan.cefr_level
+                selected.append(replay)
+                selected_keys.add(str(replay.get("review_key") or _review_key(replay)))
+
+    # Third pass: fill from the weakest skill records when the due queue is short.
+    if len(selected) < 5:
+        for skill in ranked_skills:
             if len(selected) >= 5:
                 break
             game_id = game_for_skill[skill]
