@@ -8,61 +8,66 @@ interface LandingFooterProps {
 
 export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
   return (
-    <footer dir={dir} className="juba-ff-footer border-t pt-16 pb-12">
+    <footer dir={dir} className="bg-[#1b2a1e] text-white border-t-4 border-[var(--juba-app-ink)] pt-16 pb-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-12">
+          {/* Brand Info */}
           <div className="md:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="juba-footer-brand-mark flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--juba-app-yellow)] text-[var(--juba-app-ink)] font-bold text-lg shadow-[0_4px_0_var(--juba-app-ink)] border-2 border-[var(--juba-app-ink)]">
+            <Link href="/" className="flex items-center gap-3 mb-4 group">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--juba-app-yellow)] text-[var(--juba-app-ink)] font-black text-xl shadow-[3px_3px_0_#000] border-2 border-black">
                 J
               </div>
-              <span className="font-sans text-xl font-extrabold tracking-tight text-[var(--juba-app-ink)]">
-                JUBA <span className="text-[var(--juba-app-green-dark)]">LISAN</span>
+              <span className="font-sans text-2xl font-black tracking-tight text-white">
+                JUBA <span className="text-[var(--juba-app-yellow)]">LISAN</span>
               </span>
             </Link>
-            <p className="text-[var(--juba-app-muted)] text-sm max-w-sm leading-relaxed mb-6">
+            <p className="text-gray-300 text-sm max-w-sm leading-relaxed mb-6 font-medium">
               {t('footerTagline')}
             </p>
-            <p className="juba-footer-note text-xs">
+            <p className="text-xs text-gray-400 font-semibold">
               © {new Date().getFullYear()} JUBA LISAN. All rights reserved.
             </p>
           </div>
 
+          {/* Product Links */}
           <div>
-            <h4 className="font-bold text-sm text-[var(--juba-app-ink)] uppercase tracking-wider mb-4">
+            <h4 className="font-black text-xs text-[var(--juba-app-yellow)] uppercase tracking-wider mb-4">
               {t('footerProduct')}
             </h4>
-            <ul className="space-y-2.5 text-sm">
-              <li><a href="#features" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('navFeatures')}</a></li>
-              <li><a href="#demo" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('aiVoiceDemo')}</a></li>
-              <li><a href="#languages" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('supportedLanguages')}</a></li>
-              <li><a href="#pricing" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('navPricing')}</a></li>
+            <ul className="space-y-3 text-sm font-bold">
+              <li><a href="#features" className="text-gray-300 hover:text-white transition-colors">{t('navFeatures')}</a></li>
+              <li><a href="#demo" className="text-gray-300 hover:text-white transition-colors">{t('aiVoiceDemo')}</a></li>
+              <li><a href="#languages" className="text-gray-300 hover:text-white transition-colors">{t('supportedLanguages')}</a></li>
+              <li><a href="#pricing" className="text-gray-300 hover:text-white transition-colors">{t('navPricing')}</a></li>
             </ul>
           </div>
 
+          {/* Resources Links */}
           <div>
-            <h4 className="font-bold text-sm text-[var(--juba-app-ink)] uppercase tracking-wider mb-4">
+            <h4 className="font-black text-xs text-[var(--juba-app-yellow)] uppercase tracking-wider mb-4">
               {t('footerResources')}
             </h4>
-            <ul className="space-y-2.5 text-sm">
-              <li><a href="#faq" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('navFAQ')}</a></li>
-              <li><a href="https://github.com/abdelhadiLRS/JUBA_LISAN" target="_blank" rel="noopener noreferrer" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('github')}</a></li>
+            <ul className="space-y-3 text-sm font-bold">
+              <li><a href="#faq" className="text-gray-300 hover:text-white transition-colors">{t('navFAQ')}</a></li>
+              <li><a href="https://github.com/abdelhadiLRS/JUBA_LISAN" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">{t('github')}</a></li>
               <li className="pt-1"><ContactButton /></li>
             </ul>
           </div>
 
+          {/* Legal Links */}
           <div>
-            <h4 className="font-bold text-sm text-[var(--juba-app-ink)] uppercase tracking-wider mb-4">
+            <h4 className="font-black text-xs text-[var(--juba-app-yellow)] uppercase tracking-wider mb-4">
               {t('footerLegal')}
             </h4>
-            <ul className="space-y-2.5 text-sm">
-              <li><Link href="/privacy?from=landing" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('privacy')}</Link></li>
-              <li><Link href="/terms?from=landing" className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] transition-colors">{t('terms')}</Link></li>
+            <ul className="space-y-3 text-sm font-bold">
+              <li><Link href="/privacy?from=landing" className="text-gray-300 hover:text-white transition-colors">{t('privacy')}</Link></li>
+              <li><Link href="/terms?from=landing" className="text-gray-300 hover:text-white transition-colors">{t('terms')}</Link></li>
             </ul>
           </div>
         </div>
 
-        <div className="juba-footer-bottom border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+        {/* Bottom bar */}
+        <div className="border-t border-gray-700 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold text-gray-400">
           <span>{t('builtForLearners')}</span>
           <span>{t('footerPositioning')}</span>
         </div>

@@ -1,36 +1,113 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" role="img" aria-labelledby="title desc">
-<title id="title">JUBA LISAN playful language learning characters</title><desc id="desc">Original illustrated characters learning languages with books and speech bubbles.</desc>
-<defs><filter id="s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="0" flood-color="#183022"/></filter></defs>
-<g stroke="#183022" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
-<circle cx="720" cy="115" r="54" fill="#FFE27A"/><path d="M720 40v-20M720 210v-20M645 115h-20M815 115h-20" fill="none"/>
-<path d="M90 150c35-32 78-26 100 5 31-12 63 7 63 38H70c0-23 7-35 20-43Z" fill="#fff"/>
-<path d="M615 225c55-24 111 2 116 45 47-5 74 25 65 59H558c-8-48 10-84 57-104Z" fill="#fff"/>
-<ellipse cx="452" cy="515" rx="285" ry="54" fill="#B9D99D" stroke="none"/>
-<!-- main character -->
-<path d="M340 492c-12-91 16-174 111-176 94-2 132 73 118 176Z" fill="#3D7B27" filter="url(#s)"/>
-<circle cx="448" cy="268" r="106" fill="#F7FFF1" filter="url(#s)"/>
-<path d="M355 242c15-87 162-117 193 4-33-26-59-38-92-37-35 1-65 13-101 33Z" fill="#183022"/>
-<circle cx="411" cy="270" r="8" fill="#183022" stroke="none"/><circle cx="486" cy="270" r="8" fill="#183022" stroke="none"/>
-<path d="M430 312q19 17 39 0" fill="none"/>
-<path d="M391 378h113" fill="none"/>
-<path d="M373 440q74 35 149 0" fill="none"/>
-<!-- left mini character -->
-<circle cx="205" cy="420" r="58" fill="#E5F4D8" filter="url(#s)"/>
-<circle cx="190" cy="410" r="5" fill="#183022" stroke="none"/><circle cx="220" cy="410" r="5" fill="#183022" stroke="none"/>
-<path d="M193 432q14 12 28 0" fill="none"/>
-<path d="M151 461q54-27 108 0v38H151Z" fill="#68C7E4"/>
-<!-- right mini character -->
-<circle cx="715" cy="395" r="58" fill="#EEE7FF" filter="url(#s)"/>
-<circle cx="700" cy="386" r="5" fill="#183022" stroke="none"/><circle cx="730" cy="386" r="5" fill="#183022" stroke="none"/>
-<path d="M702 408q13 11 26 0" fill="none"/>
-<path d="M663 440q52-24 104 0v59H663Z" fill="#F6A23A"/>
-<!-- book -->
-<path d="M265 488q76-31 151 0v78q-76-31-151 0Z" fill="#fff" filter="url(#s)"/>
-<path d="M416 488q76-31 151 0v78q-76-31-151 0Z" fill="#fff" filter="url(#s)"/>
-<path d="M416 488v78" fill="none"/><path d="M300 516h72M451 516h72" fill="none"/>
-<!-- speech bubbles -->
-<path d="M90 260h180q24 0 24 24v72q0 24-24 24H168l-35 32 5-32H90q-24 0-24-24v-72q0-24 24-24Z" fill="#fff" filter="url(#s)"/>
-<text x="156" y="309" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" font-weight="800" fill="#183022" stroke="none">HELLO!</text>
-<path d="M675 285h142q20 0 20 20v62q0 20-20 20h-51l-25 28 4-28h-70q-20 0-20-20v-62q0-20 20-20Z" fill="#FFF0B7" filter="url(#s)"/>
-<text x="746" y="325" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" font-weight="800" fill="#183022" stroke="none">مرحبا</text>
-</g></svg>
+<svg width="900" height="620" viewBox="0 0 900 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EBFBEE"/>
+      <stop offset="50%" stop-color="#FEF9E7"/>
+      <stop offset="100%" stop-color="#E8F8F5"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#1B2A1E" flood-opacity="0.12"/>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#18251B" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background organic backdrop blob -->
+  <path d="M120,310 Q80,120 280,70 T680,90 T840,280 T720,520 T310,560 Z" fill="url(#bgGrad)"/>
+
+  <!-- Character 1: Left - Friendly Juba Owl Mascot with headset -->
+  <g transform="translate(180, 160)" filter="url(#shadow)">
+    <!-- Body -->
+    <ellipse cx="110" cy="180" rx="90" ry="110" fill="#2E7D32"/>
+    <ellipse cx="110" cy="190" rx="65" ry="80" fill="#E8F5E9"/>
+
+    <!-- Belly details - Feather chevrons -->
+    <path d="M90 160 L110 175 L130 160 M90 190 L110 205 L130 190 M90 220 L110 235 L130 220" stroke="#81C784" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Eyes -->
+    <circle cx="75" cy="130" r="32" fill="#FFFFFF" stroke="#1B2A1E" stroke-width="5"/>
+    <circle cx="145" cy="130" r="32" fill="#FFFFFF" stroke="#1B2A1E" stroke-width="5"/>
+    <circle cx="82" cy="130" r="16" fill="#1B2A1E"/>
+    <circle cx="138" cy="130" r="16" fill="#1B2A1E"/>
+    <circle cx="86" cy="124" r="6" fill="#FFFFFF"/>
+    <circle cx="142" cy="124" r="6" fill="#FFFFFF"/>
+
+    <!-- Beak -->
+    <path d="M98 145 Q110 175 122 145 Z" fill="#FFB300" stroke="#1B2A1E" stroke-width="4" stroke-linejoin="round"/>
+
+    <!-- Headphones -->
+    <path d="M40 130 C40 50 180 50 180 130" stroke="#FF5722" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <rect x="30" y="110" width="22" height="40" rx="10" fill="#FF5722" stroke="#1B2A1E" stroke-width="4"/>
+    <rect x="168" y="110" width="22" height="40" rx="10" fill="#FF5722" stroke="#1B2A1E" stroke-width="4"/>
+    <!-- Mic -->
+    <path d="M40 145 Q30 190 80 185" stroke="#1B2A1E" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="84" cy="185" r="7" fill="#FF5722"/>
+
+    <!-- Wings waving -->
+    <path d="M25 180 C-10 140 10 220 30 220 Z" fill="#2E7D32" stroke="#1B2A1E" stroke-width="4"/>
+    <path d="M195 180 C235 130 215 220 190 220 Z" fill="#2E7D32" stroke="#1B2A1E" stroke-width="4"/>
+  </g>
+
+  <!-- Character 2: Right - Learner holding book -->
+  <g transform="translate(520, 140)" filter="url(#shadow)">
+    <!-- Body/Outfit -->
+    <path d="M80 220 C80 150 180 150 180 220 L200 320 L60 320 Z" fill="#42A5F5"/>
+    <circle cx="130" cy="120" r="60" fill="#FFCC80"/> <!-- Head -->
+    <!-- Hair -->
+    <path d="M70 120 C60 60 200 60 190 120 C180 80 80 80 70 120 Z" fill="#3E2723"/>
+    <!-- Glasses -->
+    <circle cx="105" cy="120" r="18" fill="none" stroke="#1B2A1E" stroke-width="4"/>
+    <circle cx="155" cy="120" r="18" fill="none" stroke="#1B2A1E" stroke-width="4"/>
+    <line x1="123" y1="120" x2="137" y2="120" stroke="#1B2A1E" stroke-width="4"/>
+    <path d="M110 145 Q130 160 150 145" stroke="#1B2A1E" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+    <!-- Book in hands -->
+    <rect x="70" y="210" width="120" height="85" rx="8" fill="#FFF" stroke="#1B2A1E" stroke-width="4"/>
+    <line x1="130" y1="210" x2="130" y2="295" stroke="#E0E0E0" stroke-width="3"/>
+    <!-- Book cover accents -->
+    <path d="M80 230 L115 230 M80 245 L110 245 M80 260 L120 260" stroke="#42A5F5" stroke-width="3" stroke-linecap="round"/>
+    <path d="M145 230 L180 230 M145 245 L175 245 M145 260 L170 260" stroke="#66BB6A" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Floating UI elements & speech bubbles around -->
+  <!-- Left Top Speech Bubble -->
+  <g transform="translate(80, 70)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="150" height="58" rx="20" fill="#FFFFFF" stroke="#1B2A1E" stroke-width="3"/>
+    <path d="M40 58 L50 72 L65 58 Z" fill="#FFFFFF"/>
+    <path d="M40 58 L50 72 L65 58" stroke="#1B2A1E" stroke-width="3" stroke-linejoin="round"/>
+    <text x="22" y="36" font-family="system-ui, sans-serif" font-weight="900" font-size="20" fill="#2E7D32">مرحباً! 👋</text>
+  </g>
+
+  <!-- Right Top Speech Bubble -->
+  <g transform="translate(640, 60)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="170" height="58" rx="20" fill="#FFFFFF" stroke="#1B2A1E" stroke-width="3"/>
+    <path d="M110 58 L120 72 L135 58 Z" fill="#FFFFFF"/>
+    <text x="20" y="36" font-family="system-ui, sans-serif" font-weight="900" font-size="18" fill="#FF9800">Hello Friend! 🌍</text>
+  </g>
+
+  <!-- Streak Badge Left Bottom -->
+  <g transform="translate(60, 430)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="160" height="60" rx="18" fill="#FFF" stroke="#1B2A1E" stroke-width="3"/>
+    <circle cx="35" cy="30" r="18" fill="#FF7043"/>
+    <path d="M35 18 C35 18 42 26 38 34 C44 32 42 40 35 42 C28 40 28 30 35 18 Z" fill="#FFEB3B"/>
+    <text x="65" y="28" font-family="system-ui, sans-serif" font-weight="900" font-size="14" fill="#1B2A1E">Daily Streak</text>
+    <text x="65" y="46" font-family="system-ui, sans-serif" font-weight="800" font-size="13" fill="#2E7D32">🔥 14 Days</text>
+  </g>
+
+  <!-- XP / Points Badge Right Bottom -->
+  <g transform="translate(660, 440)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="160" height="60" rx="18" fill="#FFF" stroke="#1B2A1E" stroke-width="3"/>
+    <circle cx="35" cy="30" r="18" fill="#FFCA28"/>
+    <text x="30" y="36" font-family="system-ui, sans-serif" font-weight="900" font-size="18" fill="#1B2A1E">★</text>
+    <text x="65" y="28" font-family="system-ui, sans-serif" font-weight="900" font-size="14" fill="#1B2A1E">XP Mastery</text>
+    <text x="65" y="46" font-family="system-ui, sans-serif" font-weight="800" font-size="13" fill="#1565C0">2,450 XP</text>
+  </g>
+
+  <!-- Floating Sparkles and Stars -->
+  <g stroke="#FFC107" stroke-width="3" stroke-linecap="round">
+    <path d="M430 80 L430 100 M420 90 L440 90"/>
+    <path d="M480 480 L480 500 M470 490 L490 490"/>
+    <path d="M240 520 L240 536 M232 528 L248 528"/>
+  </g>
+</svg>

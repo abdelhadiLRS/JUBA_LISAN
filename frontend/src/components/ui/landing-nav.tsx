@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Check, ChevronDown, Globe2, Menu, X } from 'lucide-react'
-import type { Locale } from '@/lib/locales'
+import { Check, ChevronDown, Globe2, Menu, X, Sparkles } from 'lucide-react'
 import { hasActiveLandingSubscription } from '@/lib/landing-subscription'
+import type { Locale } from '@/lib/locales'
 
 interface LandingNavProps {
   hasSession: boolean
   stripeEnabled: boolean
+  dir: 'ltr' | 'rtl'
   navFeatures: string
   navDemo: string
   navLanguages: string
@@ -24,12 +25,26 @@ interface LandingNavProps {
   openMenuLabel: string
   closeMenuLabel: string
   locale: Locale
-  dir?: 'ltr' | 'rtl'
+}
+
+const LOCALES_DATA: Record<Locale, { name: string; native: string }> = {
+  en: { name: 'English', native: 'English' },
+  ar: { name: 'Arabic', native: 'العربية' },
+  es: { name: 'Spanish', native: 'Español' },
+  fr: { name: 'French', native: 'Français' },
+  pt: { name: 'Portuguese', native: 'Português' },
+  de: { name: 'German', native: 'Deutsch' },
+  it: { name: 'Italian', native: 'Italiano' },
+  pl: { name: 'Polish', native: 'Polski' },
+  nl: { name: 'Dutch', native: 'Nederlands' },
+  ro: { name: 'Romanian', native: 'Română' },
+  ru: { name: 'Russian', native: 'Русский' },
 }
 
 export function LandingNav({
   hasSession,
   stripeEnabled,
+  dir,
   navFeatures,
   navDemo,
   navLanguages,
@@ -45,53 +60,32 @@ export function LandingNav({
   openMenuLabel,
   closeMenuLabel,
   locale,
-  dir = 'ltr',
 }: LandingNavProps) {
   const [open, setOpen] = useState(false)
-  const [showPricing, setShowPricing] = useState(stripeEnabled && !hasSession)
   const [regionOpen, setRegionOpen] = useState(false)
-  const [visitorCountry, setVisitorCountry] = useState('DZ')
-
-  const languageLabels: Record<Locale, { native: string }> = {
-    en: { native: 'English' }, ar: { native: 'العربية' }, es: { native: 'Español' },
-    fr: { native: 'Français' }, pt: { native: 'Português' }, de: { native: 'Deutsch' },
-    it: { native: 'Italiano' }, pl: { native: 'Polski' }, nl: { native: 'Nederlands' },
-    ro: { native: 'Română' }, ru: { native: 'Русский' },
-  }
+  const [showPricing, setShowPricing] = useState(true)
+  const [visitorCountry, setVisitorCountry] = useState<string>('DZ')
 
   const countryLabels: Record<string, { name: string }> = {
-    DZ: { name: 'Algeria' }, MA: { name: 'Morocco' }, TN: { name: 'Tunisia' }, EG: { name: 'Egypt' },
-    LY: { name: 'Libya' }, NG: { name: 'Nigeria' }, ZA: { name: 'South Africa' }, KE: { name: 'Kenya' },
-    FR: { name: 'France' }, GB: { name: 'United Kingdom' }, IE: { name: 'Ireland' }, ES: { name: 'Spain' },
-    PT: { name: 'Portugal' }, DE: { name: 'Germany' }, IT: { name: 'Italy' }, NL: { name: 'Netherlands' },
-    BE: { name: 'Belgium' }, CH: { name: 'Switzerland' }, PL: { name: 'Poland' }, CZ: { name: 'Czechia' },
-    AT: { name: 'Austria' }, RO: { name: 'Romania' }, BG: { name: 'Bulgaria' }, GR: { name: 'Greece' },
-    RU: { name: 'Russia' }, UA: { name: 'Ukraine' }, AE: { name: 'United Arab Emirates' }, SA: { name: 'Saudi Arabia' },
-    QA: { name: 'Qatar' }, KW: { name: 'Kuwait' }, JO: { name: 'Jordan' }, LB: { name: 'Lebanon' },
-    IL: { name: 'Israel' }, IN: { name: 'India' }, BD: { name: 'Bangladesh' }, TH: { name: 'Thailand' },
-    SG: { name: 'Singapore' }, JP: { name: 'Japan' }, KR: { name: 'South Korea' }, CN: { name: 'China' },
-    TW: { name: 'Taiwan' }, AU: { name: 'Australia' }, NZ: { name: 'New Zealand' }, US: { name: 'United States' },
-    CA: { name: 'Canada' }, MX: { name: 'Mexico' }, BR: { name: 'Brazil' }, AR: { name: 'Argentina' },
+    DZ: { name: 'Algeria' },
+    EG: { name: 'Egypt' },
+    SA: { name: 'Saudi Arabia' },
+    AE: { name: 'United Arab Emirates' },
+    US: { name: 'United States' },
+    FR: { name: 'France' },
+    DE: { name: 'Germany' },
+    ES: { name: 'Spain' },
+    IT: { name: 'Italy' },
+    GB: { name: 'United Kingdom' },
   }
 
   useEffect(() => {
     try {
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
       const timezoneCountries: Record<string, string> = {
-        'Africa/Algiers': 'DZ', 'Africa/Casablanca': 'MA', 'Africa/Cairo': 'EG', 'Africa/Tunis': 'TN',
-        'Africa/Tripoli': 'LY', 'Africa/Lagos': 'NG', 'Africa/Johannesburg': 'ZA', 'Africa/Nairobi': 'KE',
-        'Europe/Paris': 'FR', 'Europe/London': 'GB', 'Europe/Dublin': 'IE', 'Europe/Madrid': 'ES',
-        'Europe/Lisbon': 'PT', 'Europe/Berlin': 'DE', 'Europe/Rome': 'IT', 'Europe/Amsterdam': 'NL',
-        'Europe/Brussels': 'BE', 'Europe/Zurich': 'CH', 'Europe/Warsaw': 'PL', 'Europe/Prague': 'CZ',
-        'Europe/Vienna': 'AT', 'Europe/Bucharest': 'RO', 'Europe/Sofia': 'BG', 'Europe/Athens': 'GR',
-        'Europe/Moscow': 'RU', 'Europe/Kyiv': 'UA', 'Asia/Dubai': 'AE', 'Asia/Riyadh': 'SA',
-        'Asia/Qatar': 'QA', 'Asia/Kuwait': 'KW', 'Asia/Amman': 'JO', 'Asia/Beirut': 'LB',
-        'Asia/Jerusalem': 'IL', 'Asia/Kolkata': 'IN', 'Asia/Dhaka': 'BD', 'Asia/Bangkok': 'TH',
-        'Asia/Singapore': 'SG', 'Asia/Tokyo': 'JP', 'Asia/Seoul': 'KR', 'Asia/Shanghai': 'CN',
-        'Asia/Taipei': 'TW', 'Australia/Sydney': 'AU', 'Pacific/Auckland': 'NZ', 'America/New_York': 'US',
-        'America/Chicago': 'US', 'America/Denver': 'US', 'America/Los_Angeles': 'US', 'America/Toronto': 'CA',
-        'America/Vancouver': 'CA', 'America/Mexico_City': 'MX', 'America/Sao_Paulo': 'BR',
-        'America/Argentina/Buenos_Aires': 'AR',
+        'Africa/Algiers': 'DZ', 'Africa/Cairo': 'EG', 'Africa/Casablanca': 'MA', 'Africa/Tunis': 'TN',
+        'Europe/London': 'GB', 'Europe/Paris': 'FR', 'Europe/Madrid': 'ES', 'Europe/Rome': 'IT',
+        'Europe/Berlin': 'DE', 'Asia/Dubai': 'AE', 'Asia/Riyadh': 'SA', 'America/New_York': 'US',
       }
       setVisitorCountry(timezoneCountries[timezone] ?? 'DZ')
     } catch {
@@ -100,8 +94,11 @@ export function LandingNav({
   }, [])
 
   const currentCountry = countryLabels[visitorCountry] ?? countryLabels.DZ
-  const countryFlag = (code: string) => code.toUpperCase().replace(/[A-Z]/g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
-  const localeLinks = (Object.entries(languageLabels) as Array<[Locale, { native: string }]>).map(([code, language]) => ({ code, ...language }))
+  const countryFlag = (code: string) =>
+    code.toUpperCase().replace(/[A-Z]/g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
+  const localeLinks = (Object.entries(LOCALES_DATA) as Array<[Locale, { name: string; native: string }]>).map(
+    ([code, language]) => ({ code, ...language })
+  )
 
   useEffect(() => {
     let canceled = false
@@ -128,95 +125,186 @@ export function LandingNav({
 
   const links = (
     <>
-      <a href="#features" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navFeatures}</a>
-      <a href="#demo" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navDemo}</a>
-      <a href="#languages" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navLanguages}</a>
-      {showReviews && <a href="#reviews" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navReviews}</a>}
-      {showPricing && <a href="#pricing" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navPricing}</a>}
-      <a href="#faq" onClick={closeMenu} className="juba-nav-link juba-ff-nav-link text-sm font-medium transition-colors">{navFAQ}</a>
+      <a href="#features" onClick={closeMenu} className="text-sm font-black text-[var(--juba-app-ink)] hover:text-[var(--juba-app-green)] transition-colors">
+        {navFeatures}
+      </a>
+      <a href="#demo" onClick={closeMenu} className="text-sm font-black text-[var(--juba-app-ink)] hover:text-[var(--juba-app-green)] transition-colors">
+        {navDemo}
+      </a>
+      <a href="#languages" onClick={closeMenu} className="text-sm font-black text-[var(--juba-app-ink)] hover:text-[var(--juba-app-green)] transition-colors">
+        {navLanguages}
+      </a>
+      {showReviews && (
+        <a href="#reviews" onClick={closeMenu} className="text-sm font-black text-[var(--juba-app-ink)] hover:text-[var(--juba-app-green)] transition-colors">
+          {navReviews}
+        </a>
+      )}
+      {showPricing && (
+        <a href="#pricing" onClick={closeMenu} className="text-sm font-black text-[var(--juba-app-ink)] hover:text-[var(--juba-app-green)] transition-colors">
+          {navPricing}
+        </a>
+      )}
+      <a href="#faq" onClick={closeMenu} className="text-sm font-black text-[var(--juba-app-ink)] hover:text-[var(--juba-app-green)] transition-colors">
+        {navFAQ}
+      </a>
     </>
   )
 
   return (
-    <nav dir={dir} className="juba-site-nav juba-ff-site-nav sticky top-0 z-50 w-full transition-all">
-      <div className="juba-ff-nav-inner mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="juba-brand juba-ff-brand flex items-center gap-3 group" aria-label={homeLabel}>
-          <span className="juba-brand-mark juba-ff-brand-mark relative flex h-10 w-10 items-center justify-center rounded-xl font-black text-lg transition-transform">
+    <nav dir={dir} className="sticky top-0 z-50 w-full bg-[#fcfaf7]/90 backdrop-blur-md border-b border-[var(--juba-app-line)] transition-all">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Brand */}
+        <Link href="/" className="flex items-center gap-3 group" aria-label={homeLabel}>
+          <span className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--juba-app-green)] text-white font-black text-xl shadow-[3px_3px_0_var(--juba-app-ink)] group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform">
             J
-            <i className="juba-brand-spark" aria-hidden="true">✦</i>
+            <span className="absolute -top-1 -right-1 text-xs text-[var(--juba-app-yellow)]">✦</span>
           </span>
-          <span className="juba-ff-brand-copy">
-            <span className="juba-ff-brand-name font-sans text-lg font-black tracking-tight">JUBA <span className="juba-brand-accent">LISAN</span></span>
-            <small>{brandTagline}</small>
+          <span className="flex flex-col">
+            <span className="font-sans text-xl font-black tracking-tight text-[var(--juba-app-ink)]">
+              JUBA <span className="text-[var(--juba-app-green)]">LISAN</span>
+            </span>
+            <small className="text-[10px] font-bold text-[var(--juba-app-muted)] -mt-1">{brandTagline}</small>
           </span>
         </Link>
 
+        {/* Desktop Nav Links */}
         <div className="hidden items-center gap-8 md:flex">{links}</div>
 
-        <div className="hidden items-center gap-3 md:flex">
+        {/* Desktop Right Controls */}
+        <div className="hidden items-center gap-4 md:flex">
+          {/* Region / Language Selector Dropdown */}
           <div className="relative">
-            <button type="button" onClick={() => setRegionOpen((value) => !value)} aria-expanded={regionOpen} aria-haspopup="menu" aria-label={dir === 'rtl' ? 'تغيير المنطقة أو اللغة' : 'Change region or language'} className="juba-nav-region flex items-center gap-2 rounded-full border border-[var(--juba-app-line)] bg-white/80 px-3 py-2 text-xs font-bold text-[var(--juba-app-ink)] backdrop-blur transition hover:-translate-y-0.5 hover:shadow-sm">
-              <span className="text-base" aria-hidden="true">{countryFlag(visitorCountry)}</span><span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span><span className="text-base font-black uppercase">{locale}</span><ChevronDown className="h-3 w-3" aria-hidden="true" />
+            <button
+              type="button"
+              onClick={() => setRegionOpen((value) => !value)}
+              aria-expanded={regionOpen}
+              aria-haspopup="menu"
+              aria-label={dir === 'rtl' ? 'تغيير المنطقة أو اللغة' : 'Change region or language'}
+              className="flex items-center gap-2 rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white px-3.5 py-2 text-xs font-black text-[var(--juba-app-ink)] shadow-[2px_2px_0_var(--juba-app-ink)] hover:bg-[#f5f8f1] transition-all"
+            >
+              <span className="text-base">{countryFlag(visitorCountry)}</span>
+              <span className="rounded-md bg-[var(--juba-app-green-soft)] px-1.5 py-0.5 text-[10px] font-black">{visitorCountry}</span>
+              <span className="text-xs font-black uppercase">{locale}</span>
+              <ChevronDown className="h-4 w-4" />
             </button>
-            {regionOpen && <div role="menu" className="absolute end-0 top-[calc(100%+8px)] z-50 w-72 rounded-2xl border border-[var(--juba-app-line)] bg-white p-3 shadow-xl">
-              <div className="mb-2 flex items-center gap-2 px-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><Globe2 className="h-3.5 w-3.5" /> {dir === 'rtl' ? 'المنطقة واللغة' : 'Region & language'}</div>
-              <div className="rounded-xl bg-[var(--juba-app-green-soft)] px-3 py-2.5"><div className="text-[10px] font-bold text-[var(--juba-app-muted)]">{dir === 'rtl' ? 'منطقة الزائر' : 'Visitor region'}</div><div className="mt-0.5 flex items-center gap-2 font-black text-[var(--juba-app-ink)]"><span className="text-lg" aria-hidden="true">{countryFlag(visitorCountry)}</span><span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span><span>{currentCountry.name}</span></div></div>
-              <div className="mt-3 border-t border-[var(--juba-app-line)] pt-3">
-                <div className="px-2 text-[10px] font-bold text-[var(--juba-app-muted)]">{dir === 'rtl' ? 'لغة الواجهة' : 'Interface language'}</div>
-                <div className="mt-1 grid max-h-56 grid-cols-2 gap-1 overflow-auto">
-                  {localeLinks.map((language) => (
-                    <Link key={language.code} href={`/${language.code}`} onClick={() => setRegionOpen(false)} className={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-bold transition ${locale === language.code ? 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'}`}>
-                      <span>{language.native}</span>
-                      {locale === language.code && <Check className="h-3.5 w-3.5 text-[var(--juba-app-green)]" />}
-                    </Link>
-                  ))}
+
+            {regionOpen && (
+              <div role="menu" className="absolute end-0 top-[calc(100%+8px)] z-50 w-72 rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[6px_6px_0_var(--juba-app-ink)] animate-in fade-in zoom-in-95 duration-150">
+                <div className="mb-2 flex items-center gap-2 text-[10px] font-black uppercase tracking-wider text-[var(--juba-app-green)]">
+                  <Globe2 className="h-4 w-4" /> Region & Language
+                </div>
+                <div className="rounded-xl border border-[var(--juba-app-line)] bg-[#f5f8f1] p-3">
+                  <div className="text-[10px] font-bold text-[var(--juba-app-muted)]">Visitor Region</div>
+                  <div className="mt-1 flex items-center gap-2 font-black text-[var(--juba-app-ink)] text-xs">
+                    <span className="text-base">{countryFlag(visitorCountry)}</span>
+                    <span className="rounded bg-white px-1.5 py-0.5 text-[10px] border border-[var(--juba-app-line)]">{visitorCountry}</span>
+                    <span>{currentCountry.name}</span>
+                  </div>
+                </div>
+
+                <div className="mt-3 border-t border-[var(--juba-app-line)] pt-3">
+                  <div className="text-[10px] font-bold text-[var(--juba-app-muted)] mb-2">Interface Language</div>
+                  <div className="grid max-h-56 grid-cols-2 gap-1.5 overflow-auto">
+                    {localeLinks.map((language) => (
+                      <Link
+                        key={language.code}
+                        href={`/${language.code}`}
+                        onClick={() => setRegionOpen(false)}
+                        className={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-black transition ${
+                          locale === language.code
+                            ? 'border border-[var(--juba-app-ink)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]'
+                            : 'text-[var(--juba-app-muted)] hover:bg-[#f5f8f1] hover:text-[var(--juba-app-ink)]'
+                        }`}
+                      >
+                        <span>{language.native}</span>
+                        {locale === language.code && <Check className="h-3.5 w-3.5 text-[var(--juba-app-green)]" />}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <p className="mt-2 px-2 text-[10px] leading-4 text-[var(--juba-app-muted)]">Your region is detected from your browser time zone when available. It is only an estimate and is not precise location data.</p>
-            </div>}
+            )}
           </div>
-          <Link href={hasSession ? '/dashboard' : '/login'} className="juba-nav-signin juba-ff-nav-signin text-sm font-semibold transition-colors">{hasSession ? dashboard : signIn}</Link>
-          <Link href={hasSession ? '/dashboard' : '/register'} className="juba-nav-cta juba-ff-nav-cta rounded-xl px-5 py-2.5 text-sm font-black transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--landing-green)] focus-visible:ring-offset-2"><span>{hasSession ? dashboard : getStarted}</span><span aria-hidden="true">✦</span></Link>
+
+          <Link href={hasSession ? '/dashboard' : '/login'} className="text-sm font-black text-[var(--juba-app-ink)] hover:text-[var(--juba-app-green)] transition-colors">
+            {hasSession ? dashboard : signIn}
+          </Link>
+
+          <Link
+            href={hasSession ? '/dashboard' : '/register'}
+            className="flex items-center gap-2 rounded-2xl border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-green)] px-5 py-2.5 text-sm font-black text-white shadow-[3px_3px_0_var(--juba-app-ink)] hover:bg-[#236328] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-all"
+          >
+            <span>{hasSession ? dashboard : getStarted}</span>
+            <Sparkles className="h-4 w-4 text-[var(--juba-app-yellow)]" />
+          </Link>
         </div>
 
-        <button type="button" onClick={() => setOpen((value) => !value)} className="juba-menu juba-ff-menu rounded-xl p-2 md:hidden" aria-label={open ? closeMenuLabel : openMenuLabel} aria-expanded={open} aria-controls="juba-mobile-navigation">
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        {/* Mobile Hamburger Button */}
+        <button
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          className="flex h-11 w-11 items-center justify-center rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white shadow-[2px_2px_0_var(--juba-app-ink)] md:hidden"
+          aria-label={open ? closeMenuLabel : openMenuLabel}
+          aria-expanded={open}
+          aria-controls="juba-mobile-navigation"
+        >
+          {open ? <X className="h-6 w-6 text-[var(--juba-app-ink)]" /> : <Menu className="h-6 w-6 text-[var(--juba-app-ink)]" />}
         </button>
       </div>
 
+      {/* Mobile Full-width Sheet Navigation */}
       {open && (
-        <div className="fixed inset-0 z-40 bg-[rgba(24,48,34,.18)] backdrop-blur-[2px] md:hidden" onClick={closeMenu} aria-hidden="true">
-          <div
-            id="juba-mobile-navigation"
-            role="dialog"
-            aria-modal="true"
-            aria-label={openMenuLabel}
-            dir={dir}
-            onClick={(event) => event.stopPropagation()}
-            className="juba-mobile-menu juba-ff-mobile-menu absolute inset-x-3 top-[76px] max-h-[calc(100dvh-92px)] overflow-y-auto rounded-[26px] border-2 border-[var(--juba-app-ink)] bg-[rgba(255,253,247,.98)] p-5 shadow-[6px_7px_0_var(--juba-app-ink)] backdrop-blur-xl"
-          >
-            <div className="flex flex-col gap-4">
-              <div className="rounded-2xl border border-[var(--juba-app-line)] bg-white/90 p-3">
-                <div className="flex items-center justify-between gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]">
-                  <span>{dir === 'rtl' ? 'منطقة الزائر' : 'Visitor region'}</span>
-                  <span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span>
-                </div>
-                <div className="mt-2 text-[10px] font-bold text-[var(--juba-app-muted)]">{dir === 'rtl' ? 'لغة الواجهة' : 'Interface language'}</div>
-                <div className="mt-1 grid grid-cols-2 gap-1">
-                  {localeLinks.map((language) => (
-                    <Link key={language.code} href={`/${language.code}`} onClick={closeMenu} className={`rounded-xl px-3 py-2 text-xs font-bold transition ${locale === language.code ? 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'}`}>
-                      {language.native}
-                    </Link>
-                  ))}
-                </div>
-              </div>
+        <div
+          id="juba-mobile-navigation"
+          className="fixed inset-x-0 top-20 bottom-0 z-50 overflow-y-auto bg-[#fcfaf7] p-6 shadow-2xl border-t-2 border-[var(--juba-app-ink)] md:hidden animate-in slide-in-from-top-4 duration-200"
+        >
+          <div className="flex flex-col gap-6">
+            {/* Nav links */}
+            <div className="flex flex-col gap-4 text-lg font-black text-[var(--juba-app-ink)] border-b border-[var(--juba-app-line)] pb-6">
               {links}
-              <div className="juba-mobile-actions flex flex-col gap-3 border-t border-[var(--juba-app-line)] pt-4">
-                <Link href={hasSession ? '/dashboard' : '/login'} onClick={closeMenu} className="juba-nav-signin juba-ff-nav-signin w-full rounded-xl py-2.5 text-center text-sm font-semibold">{hasSession ? dashboard : signIn}</Link>
-                <Link href={hasSession ? '/dashboard' : '/register'} onClick={closeMenu} className="juba-nav-cta juba-ff-nav-cta flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-black">
-                  <span>{hasSession ? dashboard : getStarted}</span><span aria-hidden="true">✦</span>
-                </Link>
+            </div>
+
+            {/* Region / Language selection */}
+            <div className="rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[4px_4px_0_var(--juba-app-ink)]">
+              <div className="flex items-center justify-between text-xs font-black uppercase text-[var(--juba-app-green)] mb-3">
+                <span className="flex items-center gap-1.5"><Globe2 className="h-4 w-4" /> Region & Language</span>
+                <span className="rounded bg-[var(--juba-app-green-soft)] px-2 py-0.5 text-[10px] font-black border border-[var(--juba-app-line)]">{visitorCountry}</span>
               </div>
+              <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
+                {localeLinks.map((language) => (
+                  <Link
+                    key={language.code}
+                    href={`/${language.code}`}
+                    onClick={closeMenu}
+                    className={`rounded-xl px-3 py-2 text-xs font-black text-center border transition ${
+                      locale === language.code
+                        ? 'border-[var(--juba-app-ink)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]'
+                        : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-ink)]'
+                    }`}
+                  >
+                    {language.native}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile Actions */}
+            <div className="flex flex-col gap-3 pt-2">
+              <Link
+                href={hasSession ? '/dashboard' : '/login'}
+                onClick={closeMenu}
+                className="flex h-12 w-full items-center justify-center rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white text-base font-black text-[var(--juba-app-ink)] shadow-[3px_3px_0_var(--juba-app-ink)]"
+              >
+                {hasSession ? dashboard : signIn}
+              </Link>
+              <Link
+                href={hasSession ? '/dashboard' : '/register'}
+                onClick={closeMenu}
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-green)] text-base font-black text-white shadow-[3px_3px_0_var(--juba-app-ink)]"
+              >
+                <span>{hasSession ? dashboard : getStarted}</span>
+                <Sparkles className="h-5 w-5 text-[var(--juba-app-yellow)]" />
+              </Link>
             </div>
           </div>
         </div>
