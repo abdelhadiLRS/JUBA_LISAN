@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import Script from 'next/script'
 import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
@@ -121,6 +122,23 @@ export default async function Home() {
   padding:10px 15px!important;box-shadow:3px 3px 0 #183022!important;
 }
 .juba-reference-page .juba-nav-region{border:2px solid #183022!important;box-shadow:2px 2px 0 rgba(24,48,34,.12)}
+.juba-reference-page .juba-landing-image-art{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  min-height:520px;background:transparent!important;overflow:visible;
+}
+.juba-reference-page .juba-landing-real-image{
+  display:block;width:100%;height:auto;max-width:900px;
+  filter:drop-shadow(0 18px 0 rgba(24,48,34,.08));
+  animation:juba-landing-float 6s ease-in-out infinite;
+}
+.juba-reference-page .juba-ref-language-art{position:relative}
+.juba-reference-page .juba-ref-language-art>.juba-landing-real-image{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:0;
+  animation:juba-landing-float 7s ease-in-out infinite;
+}
+.juba-reference-page .juba-ref-language-overlay{position:relative;z-index:2;width:100%;height:100%}
+@keyframes juba-landing-float{0%,100%{transform:translateY(0) rotate(-.5deg)}50%{transform:translateY(-8px) rotate(.5deg)}}
+@media(prefers-reduced-motion:reduce){.juba-reference-page .juba-landing-real-image{animation:none}}
 .juba-reference-page .juba-ref-hero{
   margin-top:-80px;padding-top:78px;
   background:
@@ -292,31 +310,15 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="juba-ref-hero-art juba-landing-illustration" aria-label="JUBA LISAN visitor landing illustration">
-            <div className="landing-sun" aria-hidden="true" />
-            <div className="landing-cloud landing-cloud-one" aria-hidden="true" />
-            <div className="landing-cloud landing-cloud-two" aria-hidden="true" />
-            <div className="landing-ground" aria-hidden="true" />
-            <div className="landing-book" aria-hidden="true">
-              <BookOpen />
-              <span>{t('languagesHeadline')}</span>
-            </div>
-            <div className="landing-bubble landing-bubble-one">{t('heroBadge')}</div>
-            <div className="landing-bubble landing-bubble-two">{t('flowAiLabel')}</div>
-            <div className="landing-language-cluster" aria-hidden="true">
-              <span>EN</span><span>AR</span><span>FR</span><span>ES</span><span>DE</span>
-            </div>
-            <div className="landing-character landing-character-main" aria-hidden="true">
-              <div className="character-face">
-                <span className="eye eye-left" />
-                <span className="eye eye-right" />
-                <span className="mouth" />
-              </div>
-              <div className="character-body" />
-            </div>
-            <div className="landing-character landing-character-small character-small-one" aria-hidden="true"><span>EN</span></div>
-            <div className="landing-character landing-character-small character-small-two" aria-hidden="true"><span>AR</span></div>
-            <div className="landing-character landing-character-small character-small-three" aria-hidden="true"><span>FR</span></div>
+          <div className="juba-ref-hero-art juba-landing-image-art">
+            <Image
+              src="/landing/juba-hero-characters.svg"
+              alt={t('heroTitle')}
+              width={900}
+              height={620}
+              priority
+              className="juba-landing-real-image"
+            />
           </div>
         </div>
         <div className="juba-ref-hero-bottom" aria-hidden="true" />
@@ -363,19 +365,29 @@ export default async function Home() {
           <Link href="/register" className="juba-ref-button">{t('ctaStart')} <ArrowRight className="h-4 w-4" /></Link>
         </div>
         <div className="juba-ref-language-art">
-          <LanguageBubbles dir={locale === 'ar' ? 'rtl' : 'ltr'} />
+          <Image
+            src="/landing/juba-language-atlas.svg"
+            alt={t('languagesHeadline')}
+            width={760}
+            height={560}
+            className="juba-landing-real-image"
+          />
+          <div className="juba-ref-language-overlay">
+            <LanguageBubbles dir={locale === 'ar' ? 'rtl' : 'ltr'} />
+          </div>
         </div>
       </section>
 
       {/* AI / VOICE STORY — one visual block instead of the old dashboard-heavy landing. */}
       <section id="demo" className="juba-ref-ai-section">
-        <div className="juba-ref-ai-art" aria-hidden="true">
-          <div className="ai-orbit orbit-one" />
-          <div className="ai-orbit orbit-two" />
-          <div className="ai-avatar"><Sparkles /></div>
-          <div className="ai-bubble bubble-user">{t('flowAiTitle')}</div>
-          <div className="ai-bubble bubble-ai">{t('flowAiDescription')}</div>
-          <div className="ai-wave"><i /><i /><i /><i /><i /><i /><i /></div>
+        <div className="juba-ref-ai-art">
+          <Image
+            src="/landing/juba-ai-tutor.svg"
+            alt={t('flowAiTitle')}
+            width={760}
+            height={560}
+            className="juba-landing-real-image"
+          />
         </div>
         <div className="juba-ref-ai-copy">
           <span className="juba-ref-kicker">{t('flowAiLabel')}</span>
