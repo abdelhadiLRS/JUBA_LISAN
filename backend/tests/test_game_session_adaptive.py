@@ -296,3 +296,26 @@ async def test_answering_an_already_resolved_question_is_idempotency_safe(
 
     await db_session.refresh(session)
     assert len(session.questions[0]["_attempts"]) == 1
+
+def test_speaking_open_response_hides_authoritative_answer():
+    from app.routers.progress import _apply_skill_review_variant
+
+    question = {
+        "skill": "speaking",
+        "answer": "I am going to the market today.",
+        "word": "market",
+        "prompt": "Which sentence best uses 'market'?",
+        "language": "en",
+        "target_language": "en-GB",
+        "cefr_level": "A1",
+        "topic": "shopping",
+    }
+
+    replay = _apply_skill_review_variant(question, 2)
+
+    assert replay["mechanic_variant"] == "open_response"
+    assert replay["input_mode"] == "text"
+    assert replay["choices"] == []
+    assert question["answer"] not in replay["prompt"]
+    assert replay["hint"] == "Use a complete natural sentence."
+
