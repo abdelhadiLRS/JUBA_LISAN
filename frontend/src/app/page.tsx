@@ -82,40 +82,34 @@ export default async function Home() {
 
   return (
     <main className="juba-reference-page min-h-screen overflow-x-hidden">
-      <style dangerouslySetInnerHTML={{ __html: `.juba-reference-page{--bg:#fffdf7;--blue:#3d7b27;--blue2:#68c7e4;--lav:#ffe27a;--ink:#183022;--orange:#f6a23a;--mauve:#9f89bd;--plum:#f2edff;background:var(--bg);color:var(--ink);font-family:var(--font-geist-sans),Arial,sans-serif}.juba-reference-page .juba-site-nav{background:rgba(243,242,243,.92)!important;border-bottom:1px solid rgba(7,7,9,.08)!important;backdrop-filter:blur(18px)}.juba-reference-page .juba-ff-nav-inner{height:76px!important;max-width:1320px!important}.juba-reference-page .juba-ff-brand-mark{width:42px!important;height:42px!important;border-radius:13px!important;background:#3d7b27!important;color:#fff!important;box-shadow:4px 4px 0 #183022!important}.juba-reference-page .juba-brand-spark{color:#3d7b27!important}.juba-reference-page .juba-ff-brand-name{color:#183022!important}.juba-reference-page .juba-brand-accent{color:#3d7b27!important}.juba-reference-page .juba-ff-brand-copy small{display:block!important;margin-top:1px!important;color:#77747a!important;font-size:9px!important;font-weight:700!important}.juba-reference-page .juba-ff-nav-link{color:#070709!important;font-size:11px!important;font-weight:700!important}.juba-reference-page .juba-ff-nav-link:hover{color:#373FB8!important}.juba-reference-page .juba-nav-region{border-color:#d9e5d7!important;background:#fff!important}.juba-reference-page .juba-ff-nav-signin{color:#070709!important;font-size:11px!important}.juba-reference-page .juba-ff-nav-cta{background:#3d7b27!important;color:#fff!important;border-radius:12px!important;box-shadow:4px 4px 0 #070709!important;font-size:11px!important}.juba-reference-page .juba-landing-illustration{background:#DFF5FA!important;min-height:620px!important;position:relative!important;overflow:hidden!important;border-radius:34px!important;color:#070709!important}
-.juba-reference-page .juba-landing-illustration .landing-sun{position:absolute;width:190px;height:190px;border-radius:50%;right:9%;top:7%;background:#FFE27A;box-shadow:7px 7px 0 #070709}
-.juba-reference-page .juba-landing-illustration .landing-cloud{position:absolute;width:170px;height:54px;border-radius:999px;background:#fff;box-shadow:5px 5px 0 rgba(7,7,9,.12)}
-.juba-reference-page .juba-landing-illustration .landing-cloud:before,.juba-reference-page .juba-landing-illustration .landing-cloud:after{content:"";position:absolute;border-radius:50%;background:#fff}
-.juba-reference-page .juba-landing-illustration .landing-cloud:before{width:72px;height:72px;left:28px;top:-34px}
-.juba-reference-page .juba-landing-illustration .landing-cloud:after{width:58px;height:58px;left:84px;top:-22px}
-.juba-reference-page .juba-landing-illustration .landing-cloud-one{left:9%;top:14%;transform:scale(.82)}
-.juba-reference-page .juba-landing-illustration .landing-cloud-two{right:8%;top:39%;transform:scale(.58)}
-.juba-reference-page .juba-landing-illustration .landing-ground{position:absolute;left:4%;right:4%;bottom:4%;height:48%;border-radius:48% 48% 0 0;background:#E5F4D8;border-top:4px solid #070709}
-.juba-reference-page .juba-landing-illustration .landing-book{position:absolute;left:8%;bottom:10%;z-index:3;width:230px;min-height:120px;padding:18px;border:3px solid #070709;border-radius:22px;background:#F95D22;color:#fff;box-shadow:9px 10px 0 #070709;display:flex;align-items:flex-end;gap:12px;font-weight:900;font-size:14px;transform:rotate(-5deg)}
-.juba-reference-page .juba-landing-illustration .landing-book svg{width:42px;height:42px}
-.juba-reference-page .juba-landing-illustration .landing-bubble{position:absolute;z-index:6;padding:12px 16px;border:3px solid #070709;border-radius:16px;background:#fff;box-shadow:6px 7px 0 #070709;font-size:12px;font-weight:900}
-.juba-reference-page .juba-landing-illustration .landing-bubble-one{left:10%;top:30%;transform:rotate(-4deg)}
-.juba-reference-page .juba-landing-illustration .landing-bubble-two{right:7%;top:55%;background:#FFE27A;transform:rotate(4deg)}
-.juba-reference-page .juba-landing-illustration .landing-language-cluster{position:absolute;z-index:4;right:7%;bottom:10%;display:flex;gap:8px;flex-wrap:wrap;max-width:190px;justify-content:flex-end}
-.juba-reference-page .juba-landing-illustration .landing-language-cluster span{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#fff;border:3px solid #070709;box-shadow:4px 5px 0 #070709;font-size:10px;font-weight:950;transform:rotate(var(--r,0deg))}
-.juba-reference-page .juba-landing-illustration .landing-language-cluster span:nth-child(2){background:#9A9FF3;transform:translateY(-8px) rotate(-5deg)}
-.juba-reference-page .juba-landing-illustration .landing-language-cluster span:nth-child(3){background:#FFE27A;transform:rotate(5deg)}
-.juba-reference-page .juba-landing-illustration .landing-language-cluster span:nth-child(4){background:#F95D22;transform:translateY(8px) rotate(-4deg)}
-.juba-reference-page .juba-landing-illustration .landing-language-cluster span:nth-child(5){background:#E5F4D8;transform:rotate(6deg)}
-.juba-reference-page .juba-landing-illustration .landing-character{position:absolute;z-index:5}
-.juba-reference-page .juba-landing-illustration .landing-character-main{left:42%;bottom:9%;width:250px;height:300px}
-.juba-reference-page .juba-landing-illustration .character-body{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:220px;height:230px;border-radius:52% 48% 43% 57%;background:#3D7B27;border:4px solid #070709;box-shadow:12px 13px 0 #070709}
-.juba-reference-page .juba-landing-illustration .character-face{position:absolute;z-index:2;left:50%;top:8%;transform:translateX(-50%);width:172px;height:150px;border-radius:48% 52% 46% 54%;background:#9A9FF3;border:4px solid #070709;box-shadow:8px 9px 0 #070709}
-.juba-reference-page .juba-landing-illustration .eye{position:absolute;top:54px;width:18px;height:25px;border-radius:50%;background:#070709}
-.juba-reference-page .juba-landing-illustration .eye-left{left:48px}.juba-reference-page .juba-landing-illustration .eye-right{right:48px}
-.juba-reference-page .juba-landing-illustration .mouth{position:absolute;left:50%;bottom:30px;width:42px;height:20px;border-bottom:4px solid #070709;border-radius:50%;transform:translateX(-50%)}
-.juba-reference-page .juba-landing-illustration .landing-character-small{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;border:3px solid #070709;box-shadow:6px 7px 0 #070709;font-size:14px;font-weight:950}
-.juba-reference-page .juba-landing-illustration .character-small-one{left:29%;bottom:15%;background:#F95D22;transform:rotate(-8deg)}
-.juba-reference-page .juba-landing-illustration .character-small-two{right:22%;bottom:12%;background:#9F89BD;transform:rotate(8deg)}
-.juba-reference-page .juba-landing-illustration .character-small-three{right:8%;bottom:25%;background:#fff;transform:rotate(-7deg)}
-@media(max-width:900px){.juba-reference-page .juba-landing-illustration{min-height:520px!important}.juba-reference-page .juba-landing-illustration .landing-character-main{left:37%;transform:scale(.86);transform-origin:bottom center}.juba-reference-page .juba-landing-illustration .landing-book{width:190px}}
-@media(max-width:560px){.juba-reference-page .juba-landing-illustration .landing-language-cluster{right:4%;bottom:8%;max-width:130px;gap:5px}.juba-reference-page .juba-landing-illustration .landing-language-cluster span{width:31px;height:31px;font-size:8px;border-width:2px;box-shadow:3px 3px 0 #070709}.juba-reference-page .juba-landing-illustration{min-height:470px!important}.juba-reference-page .juba-landing-illustration .landing-character-main{left:31%;transform:scale(.67);transform-origin:bottom center}.juba-reference-page .juba-landing-illustration .landing-book{width:150px;min-height:90px;padding:12px;font-size:10px}.juba-reference-page .juba-landing-illustration .landing-book svg{width:28px;height:28px}.juba-reference-page .juba-landing-illustration .landing-bubble{font-size:9px;padding:8px 10px}.juba-reference-page .juba-landing-illustration .landing-character-small{width:52px;height:52px;font-size:10px}}
-
+      <style dangerouslySetInnerHTML={{ __html: `
+.juba-reference-page{--ink:#183022;--green:#3d7b27;--green-dark:#275d19;--mint:#e5f4d8;--blue:#dff5fa;--yellow:#ffe27a;--orange:#f6a23a;background:#fffdf7;color:var(--ink);font-family:var(--font-geist-sans),Arial,sans-serif}
+.juba-reference-page .juba-site-nav{background:rgba(255,253,247,.94)!important;border-bottom:1px solid #d9e5d7!important;backdrop-filter:blur(18px)}
+.juba-reference-page .juba-ff-nav-inner{height:76px!important;max-width:1240px!important}
+.juba-reference-page .juba-ff-brand-mark{background:var(--green)!important;color:#fff!important;box-shadow:4px 4px 0 var(--ink)!important}
+.juba-reference-page .juba-brand-spark,.juba-reference-page .juba-brand-accent{color:var(--green)!important}
+.juba-reference-page .juba-ff-brand-name,.juba-reference-page .juba-ff-nav-link,.juba-reference-page .juba-ff-nav-signin{color:var(--ink)!important}
+.juba-reference-page .juba-ff-nav-link:hover{color:var(--green)!important}
+.juba-reference-page .juba-nav-region{border-color:#d9e5d7!important;background:#fff!important}
+.juba-reference-page .juba-ff-nav-cta{background:var(--green)!important;color:#fff!important;border-radius:14px!important;box-shadow:4px 4px 0 var(--ink)!important}
+.juba-reference-page .juba-landing-illustration{background:linear-gradient(180deg,#dff5fa 0%,#f8fbe9 100%)!important}
+.juba-reference-page .juba-landing-illustration .landing-sun{background:var(--yellow);box-shadow:none}
+.juba-reference-page .juba-landing-illustration .landing-cloud{box-shadow:0 8px 30px rgba(24,48,34,.07)}
+.juba-reference-page .juba-landing-illustration .landing-ground{background:#b9d99d;border-top:4px solid var(--ink)}
+.juba-reference-page .juba-landing-illustration .landing-book{background:#fff;color:var(--ink);border-color:var(--ink);box-shadow:6px 6px 0 var(--ink)}
+.juba-reference-page .juba-landing-illustration .landing-book svg{color:var(--green)}
+.juba-reference-page .juba-landing-illustration .landing-bubble{border-color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.juba-reference-page .juba-landing-illustration .landing-bubble-two{background:#fff0b7}
+.juba-reference-page .juba-landing-illustration .landing-character-main{filter:none}
+.juba-reference-page .juba-landing-illustration .character-body{background:var(--green);border-color:var(--ink);box-shadow:9px 10px 0 var(--ink)}
+.juba-reference-page .juba-landing-illustration .character-face{background:#f7fff1;border-color:var(--ink);box-shadow:6px 7px 0 var(--ink)}
+.juba-reference-page .juba-landing-illustration .eye{background:var(--ink)}
+.juba-reference-page .juba-landing-illustration .mouth{border-color:var(--ink)}
+.juba-reference-page .juba-landing-illustration .landing-character-small{border-color:var(--ink);box-shadow:5px 6px 0 var(--ink)}
+.juba-reference-page .juba-landing-illustration .character-small-one{background:#e7f4dc}
+.juba-reference-page .juba-landing-illustration .character-small-two{background:#e5f5fa}
+.juba-reference-page .juba-landing-illustration .character-small-three{background:#eee7ff}
+.juba-reference-page .juba-landing-illustration .landing-language-cluster span{border-color:var(--ink);box-shadow:4px 5px 0 var(--ink)}
 ` }} />
 
       <Script
