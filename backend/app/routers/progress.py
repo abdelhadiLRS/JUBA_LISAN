@@ -504,12 +504,32 @@ async def get_learning_goal_history(
     return result.scalars().all()
 
 
+def _prioritize_curriculum_entries(entries: list[tuple[object, str]], preferred_topics: list[str] | None, count: int = 5) -> list[object]:
+    """Keep review-focused rounds diverse while prioritizing weak curriculum topics."""
+    rng = random.SystemRandom()
+    pairs = list(entries)
+    rng.shuffle(pairs)
+    if not preferred_topics:
+        return [entry for entry, _topic in pairs[:count]]
+    preferred = set(preferred_topics)
+    weak = [(entry, topic) for entry, topic in pairs if topic in preferred]
+    broad = [(entry, topic) for entry, topic in pairs if topic not in preferred]
+    rng.shuffle(weak)
+    rng.shuffle(broad)
+    selected = [entry for entry, _topic in weak[:min(3, count)]]
+    selected.extend(entry for entry, _topic in broad[:count-len(selected)])
+    if len(selected) < count:
+        selected.extend(entry for entry, _topic in weak[3:count])
+    return selected[:count]
+
+
 def _server_game_questions(
     game_id: str,
     language: str,
     difficulty: int,
     target_language: str = "en-GB",
     cefr_level: CEFRLevel = "A1",
+    preferred_topics: list[str] | None = None,
 ) -> list[dict]:
     rng = random.SystemRandom()
     hints = {
@@ -529,9 +549,8 @@ def _server_game_questions(
     if game_id == "words":
         level = cefr_level
         vocab_sets = get_vocabulary_by_level(level, target_language)
-        entries = [word for vocab_set in vocab_sets for word in vocab_set.words]
-        rng.shuffle(entries)
-        word_entries = entries[:5]
+        entries = [(word, vocab_set.topic) for vocab_set in vocab_sets for word in vocab_set.words]
+        word_entries = _prioritize_curriculum_entries(entries, preferred_topics)
         if len(word_entries) < 5:
             fallback = [
                 ("hello", "a greeting"),
@@ -548,9 +567,8 @@ def _server_game_questions(
     if game_id in {"quick_choice", "listen_choose", "listening_detective", "spelling", "word_scramble", "fill_blank"}:
         level = cefr_level
         vocab_sets = get_vocabulary_by_level(level, target_language)
-        entries = [word for vocab_set in vocab_sets for word in vocab_set.words]
-        rng.shuffle(entries)
-        word_entries = entries[:5]
+        entries = [(word, vocab_set.topic) for vocab_set in vocab_sets for word in vocab_set.words]
+        word_entries = _prioritize_curriculum_entries(entries, preferred_topics)
         if len(word_entries) < 5:
             raise HTTPException(status_code=503, detail="Not enough vocabulary content for this game")
 
@@ -634,8 +652,8 @@ def _server_game_questions(
                 for entry in vocab_set.words
                 if entry.word.strip()
             ]
-            rng.shuffle(category_entries)
-            selected = category_entries[:5]
+            selected_entries = _prioritize_curriculum_entries(category_entries, preferred_topics)
+            selected = [(entry, next(topic for candidate, topic in category_entries if candidate is entry)) for entry in selected_entries]
             if len(selected) < 5:
                 raise HTTPException(
                     status_code=503,
@@ -670,13 +688,8 @@ def _server_game_questions(
         if game_id == "context_quest":
             # Turn authored CEFR example sentences into situational choices.
             vocab_sets = get_vocabulary_by_level(cefr_level, target_language)
-            context_entries = [
-                entry
-                for vocab_set in vocab_sets
-                for entry in vocab_set.words
-                if entry.example.strip()
-            ]
-            rng.shuffle(context_entries)
+            context_pairs = [(entry, vocab_set.topic) for vocab_set in vocab_sets for entry in vocab_set.words if entry.example.strip()]
+            context_entries = _prioritize_curriculum_entries(context_pairs, preferred_topics)
             if len(context_entries) < 5:
                 raise HTTPException(
                     status_code=503,
@@ -715,16 +728,11 @@ def _server_game_questions(
             # Prefer curriculum-authored bilingual grammar examples at the
             # active CEFR level. This keeps translation practice aligned with
             # the same sentences learners encounter in lessons.
-            translation_examples = [
-                example
-                for topic in get_grammar_topics(target_language)
-                if topic.level == cefr_level
-                for example in topic.examples
-                if example.text.strip() and example.translation and example.translation.strip()
-            ]
-            rng.shuffle(translation_examples)
+            translation_pairs = [(example, topic.slug) for topic in get_grammar_topics(target_language) if topic.level == cefr_level for example in topic.examples if example.text.strip() and example.translation and example.translation.strip()]
+            translation_examples = _prioritize_curriculum_entries(translation_pairs, preferred_topics)
             if len(translation_examples) >= 5:
                 example = translation_examples[index]
+                example_topic = next(topic for candidate, topic in translation_pairs if candidate is example)
                 questions.append({
                     "id": question_id,
                     "prompt": f"Translate into the target language:\n{example.translation.strip()}",
@@ -733,7 +741,7 @@ def _server_game_questions(
                     "hint": hints.get(language, hints["en"]),
                     "skill": "writing",
                     "difficulty": difficulty,
-                    "topic": "cefr-translation",
+                    "topic": example_topic,
                     "input_mode": "text",
                 })
                 continue
@@ -856,6 +864,9 @@ def _server_game_questions(
                 for topic in get_grammar_topics(target_language)
                 if topic.level == cefr_level
             ]
+            if preferred_topics:
+                preferred = set(preferred_topics)
+                topics = sorted(topics, key=lambda topic: (0 if topic.slug in preferred or topic.category in preferred else 1, topic.slug))
             mistakes = [
                 (mistake, topic)
                 for topic in topics
@@ -887,13 +898,8 @@ def _server_game_questions(
                 hint = mistake.note.strip() or hints.get(language, hints["en"])
                 topic_slug = topic.slug
             else:
-                examples = [
-                    example
-                    for topic in topics
-                    for example in topic.examples
-                    if example.text.strip()
-                ]
-                rng.shuffle(examples)
+                example_pairs = [(example, topic.slug) for topic in topics for example in topic.examples if example.text.strip()]
+                examples = _prioritize_curriculum_entries(example_pairs, preferred_topics)
                 if len(examples) < 5:
                     raise HTTPException(
                         status_code=503,
@@ -909,7 +915,7 @@ def _server_game_questions(
                 rng.shuffle(choices)
                 prompt = "Which sentence is correct?"
                 hint = example.note.strip() if example.note else hints.get(language, hints["en"])
-                topic_slug = "grammar-example"
+                topic_slug = next(topic for candidate, topic in example_pairs if candidate is example)
 
             questions.append({
                 "id": question_id,
@@ -1001,6 +1007,25 @@ def _server_game_questions(
             "topic": topic,
         })
     return questions
+
+
+async def _get_adaptive_review_topics(db: AsyncSession, user_id: int, plan_id: int, skill: str | None, target_language: str, cefr_level: CEFRLevel) -> list[str]:
+    """Rank recurring weak topics while preserving the active language and CEFR."""
+    if not skill:
+        return []
+    mistakes = await _get_recent_game_mistakes(db, user_id, plan_id, limit=100, skill=skill)
+    scores: dict[str, float] = {}
+    for mistake in mistakes:
+        if str(mistake.get("target_language") or target_language) != target_language:
+            continue
+        if str(mistake.get("cefr_level") or cefr_level) != cefr_level:
+            continue
+        topic = str(mistake.get("topic", "")).strip()
+        if not topic:
+            continue
+        count = max(0, int(mistake.get("review_count", 0)))
+        scores[topic] = scores.get(topic, 0.0) + 1.0 + min(count, 5) * 0.5
+    return [topic for topic, _score in sorted(scores.items(), key=lambda item: (-item[1], item[0]))]
 
 
 def _review_key(question: dict) -> str:
@@ -1464,13 +1489,9 @@ async def start_game_session(
             "interaction": {"public": interaction_public, "solution": interaction_solution},
         }]
     else:
-        questions = _server_game_questions(
-            effective_game_id,
-            data.language,
-            effective_difficulty,
-            plan.target_language,
-            cast(CEFRLevel, plan.cefr_level),
-        )
+        cefr_level = cast(CEFRLevel, plan.cefr_level)
+        preferred_topics = await _get_adaptive_review_topics(db, current_user.id, plan.id, GAME_SKILL_MAP.get(effective_game_id), plan.target_language, cefr_level)
+        questions = _server_game_questions(effective_game_id, data.language, effective_difficulty, plan.target_language, cefr_level, preferred_topics)
     if (adaptive_mode == "review" or data.review) and effective_game_id not in {"memory", "matching", "ordering", "sentence_builder", "review_mix"}:
         mistakes = await _get_recent_game_mistakes(
             db,
