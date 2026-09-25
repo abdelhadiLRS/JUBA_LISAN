@@ -605,7 +605,7 @@ def _server_game_questions(
                 ),
                 "skill": "vocabulary",
                 "difficulty": difficulty,
-                "topic": "vocabulary",
+                "topic": next(topic for candidate, topic in entries if candidate is entry),
                 "input_mode": "choice",
             })
             continue
@@ -634,7 +634,7 @@ def _server_game_questions(
                 "hint": entry.definition.strip() or hints.get(language, hints["en"]),
                 "skill": "listening",
                 "difficulty": difficulty,
-                "topic": "cefr-listening",
+                "topic": next(topic for candidate, topic in entries if candidate is entry),
                 "input_mode": "choice",
                 "audio_text": entry.example.strip(),
                 "audio_language": target_language,
@@ -720,7 +720,7 @@ def _server_game_questions(
                 "hint": entry.definition.strip() or hints.get(language, hints["en"]),
                 "skill": "speaking",
                 "difficulty": difficulty,
-                "topic": "cefr-context",
+                "topic": next(topic for candidate, topic in context_pairs if candidate is entry),
                 "input_mode": "choice",
             })
             continue
