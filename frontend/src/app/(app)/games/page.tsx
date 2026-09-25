@@ -865,9 +865,7 @@ export default function GamesPage() {
                             disabled={Boolean(selected)}
                           >
                             {speechListening ? '⏹️ ' : '🎙️ '}
-                            {speechListening
-                              ? (lang === 'ar' ? 'إيقاف التسجيل' : lang === 'fr' ? 'Arrêter' : 'Stop recording')
-                              : (lang === 'ar' ? 'تحدث للإجابة' : lang === 'fr' ? 'Répondre à l’oral' : 'Speak your answer')}
+                            {speechListening ? speechCopy[lang].stop : speechCopy[lang].start}
                           </button>
                         ) : (
                           <small>{speechCopy[lang].fallback}</small>
