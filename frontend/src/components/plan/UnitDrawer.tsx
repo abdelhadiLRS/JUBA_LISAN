@@ -20,6 +20,7 @@ interface Props {
   lessons: Lesson[]
   onClose: () => void
   onStartLesson: (lessonId: number) => void
+  onStartUnit: () => void
 }
 
 export default function UnitDrawer({
@@ -27,6 +28,7 @@ export default function UnitDrawer({
   lessons,
   onClose,
   onStartLesson,
+  onStartUnit,
 }: Props) {
   const t = useTranslations('plan')
   const tCommon = useTranslations('common')
@@ -171,14 +173,22 @@ export default function UnitDrawer({
           </div>
         </div>
 
-        {/* Close */}
+        {/* Primary action */}
         <div className="border-[var(--juba-app-line)] bg-white sticky bottom-0 border-t px-6 py-5 sm:px-7">
-          <button
-            onClick={onClose}
-            className="juba-secondary-button w-full"
-          >
-            {tCommon('close')}
-          </button>
+          <div className="grid gap-2 sm:grid-cols-2">
+            <button
+              onClick={onStartUnit}
+              className="juba-primary-button w-full"
+            >
+              {tCommon('start')} →
+            </button>
+            <button
+              onClick={onClose}
+              className="juba-secondary-button w-full"
+            >
+              {tCommon('close')}
+            </button>
+          </div>
         </div>
       </div>
     </div>
