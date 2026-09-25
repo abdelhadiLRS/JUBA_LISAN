@@ -153,6 +153,11 @@ export default function GamesPage() {
   const [finishing, setFinishing] = useState(false)
   const [adaptiveMode, setAdaptiveMode] = useState<'new' | 'review' | 'steady' | 'challenge'>('new')
   const [effectiveDifficulty, setEffectiveDifficulty] = useState(1)
+  const [smartReview, setSmartReview] = useState<{ due_count: number; skills: Record<string, number>; recommended_game: GameId | null }>({
+    due_count: 0,
+    skills: {},
+    recommended_game: null,
+  })
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
@@ -176,6 +181,30 @@ export default function GamesPage() {
     : 0
 
   const direction = lang === 'ar' ? 'rtl' : 'ltr'
+  const smartReviewTitle = lang === 'ar' ? '🧠 المراجعة الذكية' : lang === 'fr' ? '🧠 Révision intelligente' : '🧠 Smart Review'
+  const smartReviewDesc = lang === 'ar'
+    ? 'راجع الأخطاء المستحقة من المفردات والقواعد والاستماع والكتابة.'
+    : lang === 'fr'
+      ? 'Révise les erreurs dues en vocabulaire, grammaire, écoute et expression écrite.'
+      : 'Review due mistakes across vocabulary, grammar, listening and writing.'
+  const smartReviewStart = lang === 'ar' ? 'ابدأ المراجعة' : lang === 'fr' ? 'Commencer la révision' : 'Start review'
+
+  useEffect(() => {
+    let active = true
+    fetch('/api/progress/smart-review', { credentials: 'include', cache: 'no-store' })
+      .then((response) => response.ok ? response.json() : null)
+      .then((data) => {
+        if (!active || !data || typeof data !== 'object') return
+        const recommended = typeof data.recommended_game === 'string' ? data.recommended_game as GameId : null
+        setSmartReview({
+          due_count: Number(data.due_count) || 0,
+          skills: data.skills && typeof data.skills === 'object' ? data.skills as Record<string, number> : {},
+          recommended_game: recommended,
+        })
+      })
+      .catch(() => {})
+    return () => { active = false }
+  }, [])
 
   function difficultyForGame(id: GameId) {
     const skill = id === 'matching' || id === 'quick_choice' || id === 'word_scramble' || id === 'word_categories' ? 'vocabulary'
@@ -413,6 +442,21 @@ export default function GamesPage() {
             <div className="section-heading">
               <h2>{t.games}</h2>
             </div>
+
+            {smartReview.due_count > 0 && smartReview.recommended_game && (
+              <button
+                type="button"
+                className="daily-challenge"
+                onClick={() => startGame(smartReview.recommended_game as GameId)}
+              >
+                <span className="daily-icon">🧠</span>
+                <span>
+                  <strong>{smartReviewTitle}</strong>
+                  <small>{smartReviewDesc} · {smartReview.due_count} {lang === 'ar' ? 'مراجعات مستحقة' : lang === 'fr' ? 'révisions dues' : 'due reviews'}</small>
+                </span>
+                <span className="start">{smartReviewStart} →</span>
+              </button>
+            )}
 
             <section className="game-grid">
               {gameCards.map((card) => (
