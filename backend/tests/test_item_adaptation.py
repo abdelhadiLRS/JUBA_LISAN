@@ -296,3 +296,20 @@ def test_review_item_strategy_progresses_by_mastery_and_streak():
     assert _review_item_strategy("learning", 1) == "recognition"
     assert _review_item_strategy("reviewing", 2) == "contextual_transfer"
     assert _review_item_strategy("mastered", 3) == "production"
+
+
+def test_game_answer_matches_normalizes_case_whitespace_and_terminal_punctuation():
+    from app.routers.progress import _game_answer_matches
+
+    assert _game_answer_matches("  I   travel by train!  ", "i travel by train")
+    assert _game_answer_matches("BONJOUR.", "bonjour")
+    assert not _game_answer_matches("I travel by bus", "I travel by train")
+
+
+def test_game_answer_matches_accepts_authored_answer_variants():
+    from app.routers.progress import _game_answer_matches
+
+    expected = ["I travel every summer.", "I travel by train."]
+    assert _game_answer_matches("i travel by train", expected)
+    assert _game_answer_matches(" I   TRAVEL EVERY SUMMER! ", expected)
+    assert not _game_answer_matches("I travel tomorrow", expected)
