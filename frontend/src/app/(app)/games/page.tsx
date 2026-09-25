@@ -149,7 +149,13 @@ export default function GamesPage() {
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
   const [inputValue, setInputValue] = useState('')
   const [timeLeft, setTimeLeft] = useState(8)
-  const [roundResult, setRoundResult] = useState<{ score: number; correct: number; questions: number; xp: number } | null>(null)
+  const [roundResult, setRoundResult] = useState<{
+    score: number
+    correct: number
+    questions: number
+    xp: number
+    skillResults: Record<string, { correct: number; questions: number; accuracy: number }>
+  } | null>(null)
   const [finishing, setFinishing] = useState(false)
   const [adaptiveMode, setAdaptiveMode] = useState<'new' | 'review' | 'steady' | 'challenge'>('new')
   const [effectiveDifficulty, setEffectiveDifficulty] = useState(1)
@@ -420,7 +426,13 @@ export default function GamesPage() {
       )
       if (fresh.length) setNewAchievements(fresh)
       setRoundScore(server.round_score)
-      setRoundResult({ score: server.round_score, correct: server.round_correct, questions: server.round_questions, xp: server.xp_earned })
+      setRoundResult({
+        score: server.round_score,
+        correct: server.round_correct,
+        questions: server.round_questions,
+        xp: server.xp_earned,
+        skillResults: server.skill_results ?? {},
+      })
       void refreshSmartReview()
       setProgress({
         streak,
@@ -662,6 +674,15 @@ export default function GamesPage() {
                 <span>
                   {roundResult.correct}/{roundResult.questions} · {roundResult.score} pts · +{roundResult.xp} XP
                 </span>
+                {Object.keys(roundResult.skillResults).length > 0 && (
+                  <div className="smart-review-meta" aria-label={t.skills}>
+                    {Object.entries(roundResult.skillResults).map(([skill, result]) => (
+                      <span key={skill}>
+                        <strong>{skill}</strong>: {result.correct}/{result.questions} ({Math.round(result.accuracy * 100)}%)
+                      </span>
+                    ))}
+                  </div>
+                )}
                 <button
                   type="button"
                   className="next"
