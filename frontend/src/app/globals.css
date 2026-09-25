@@ -6739,3 +6739,58 @@ main [dir="rtl"] h3,
   .juba-dashboard .juba-dashboard-panel,
   .juba-dashboard .juba-dashboard-panels>.juba-card{border-radius:18px!important}
 }
+
+
+
+/* Supplied-reference landing sequence: soft paper, sky, grass and organic cards. */
+.juba-reference-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:72px 24px 78px;background:#eff8dc;text-align:center;border-top:2px solid rgba(24,48,34,.08)}
+.juba-reference-stat strong{display:block;font-size:clamp(2rem,5vw,3.5rem);line-height:1;font-weight:950;color:#39751d;letter-spacing:-.06em}
+.juba-reference-stat span{display:block;margin-top:10px;font-size:11px;font-weight:800;color:#617068}
+.juba-reference-feature{width:min(1080px,calc(100% - 32px));margin:0 auto;padding:100px 0;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:70px}
+.juba-reference-feature-reverse .juba-reference-feature-art{order:2}
+.juba-reference-feature-reverse .juba-reference-feature-copy{order:1}
+.juba-reference-feature-copy{max-width:470px}
+.juba-reference-feature-copy h2{margin:17px 0 14px;font-size:clamp(2.2rem,4vw,4rem);line-height:.94;letter-spacing:-.065em;font-weight:950;color:#183022}
+.juba-reference-feature-copy p{margin-bottom:25px;color:#617068;line-height:1.8;font-size:14px}
+.juba-reference-feature-art{position:relative;min-height:350px;border-radius:48% 52% 43% 57%;background:#eaf5d7;display:grid;place-items:center;border:2px solid rgba(57,117,29,.12)}
+.juba-reference-feature-art span{width:180px;height:250px;display:grid;place-items:center;border:4px solid #39751d;border-radius:24px;background:#fff;font-size:48px;font-weight:950;color:#39751d;box-shadow:10px 12px 0 rgba(57,117,29,.18);transform:rotate(-5deg)}
+.juba-reference-feature-art i{position:absolute;font-style:normal;font-weight:950;color:#ffd45c;font-size:58px;text-shadow:3px 3px #183022;right:19%;top:14%}
+.juba-reference-art-listen{background:#dff3f8}
+.juba-reference-art-listen span{background:#f6fff4;border-color:#2d7f55;border-radius:38px;transform:rotate(4deg);color:#2d7f55}
+.juba-reference-art-listen i{left:17%;top:20%;right:auto}
+.juba-reference-art-practice{background:#fff1cf}
+.juba-reference-art-practice span{border-radius:50%;height:180px;width:180px;color:#39751d;transform:rotate(3deg)}
+.juba-reference-art-practice i{right:15%;bottom:18%;top:auto;font-size:28px;color:#39751d;text-shadow:none}
+.juba-reference-community{padding:110px 24px;background:#eef8dc}
+.juba-reference-section-heading{text-align:center;width:min(700px,100%);margin:0 auto 45px}
+.juba-reference-section-heading h2{margin:16px 0 10px;font-size:clamp(2.3rem,5vw,4rem);line-height:.95;letter-spacing:-.065em;font-weight:950;color:#183022}
+.juba-reference-section-heading p{color:#617068;line-height:1.75;font-size:14px}
+.juba-reference-testimonials{width:min(1060px,100%);margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.juba-reference-testimonial{padding:22px;border:2px solid #d2dfc9;border-radius:18px;background:#fff;box-shadow:4px 5px 0 rgba(24,48,34,.08)}
+.juba-reference-testimonial p{margin:0 0 18px;color:#425149;font-size:12px;line-height:1.7}
+.juba-reference-testimonial strong{font-size:11px;color:#183022}
+.juba-reference-school{width:min(1080px,calc(100% - 32px));margin:0 auto;padding:110px 0;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:50px}
+.juba-reference-school-copy h2{margin:16px 0 12px;font-size:clamp(2.4rem,5vw,4rem);line-height:.94;letter-spacing:-.065em;font-weight:950;color:#183022}
+.juba-reference-school-copy p{max-width:470px;color:#617068;line-height:1.8;font-size:14px;margin-bottom:25px}
+.juba-reference-school-art{min-height:390px;position:relative;border-radius:50%;background:#f5edcf;display:grid;place-items:center}
+.juba-reference-phone{width:205px;height:330px;border:7px solid #183022;border-radius:30px;background:#fff;box-shadow:12px 12px 0 #39751d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transform:rotate(5deg)}
+.juba-reference-phone span{font-size:14px;font-weight:950;color:#39751d}.juba-reference-phone b{font-size:44px;color:#ffd45c}.juba-reference-phone em{font-size:9px;font-style:normal;color:#617068}
+.juba-reference-character{position:absolute;bottom:25px;left:17%;font-size:74px;color:#ffd45c;text-shadow:4px 4px #183022;transform:rotate(-8deg)}
+.juba-reference-download{padding:110px 24px 125px;background:#63c5e5;position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:40px}
+.juba-reference-download>div{width:min(500px,100%);margin:auto}
+.juba-reference-download h2{margin:16px 0 12px;font-size:clamp(2.5rem,5vw,4.5rem);line-height:.9;letter-spacing:-.07em;font-weight:950;color:#183022}
+.juba-reference-download p{color:#28483c;line-height:1.75;font-size:14px;max-width:500px}
+.juba-reference-download-buttons{display:flex!important;gap:10px;margin-top:25px}
+.juba-reference-download-buttons a{padding:12px 18px;border:2px solid #183022;border-radius:10px;background:#fff;color:#183022;font-size:11px;font-weight:900;box-shadow:3px 3px 0 #183022}
+.juba-reference-download-art{min-height:390px;display:grid;place-items:center;background:rgba(255,255,255,.2);border-radius:50%}
+.juba-reference-device{width:230px;height:390px;border:8px solid #183022;border-radius:34px;background:#fff;box-shadow:13px 13px 0 #39751d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transform:rotate(-4deg)}
+.juba-reference-device span{font-size:16px;font-weight:950;color:#39751d}.juba-reference-device b{font-size:13px;color:#183022}.juba-reference-device i{font-style:normal;color:#ffd45c}
+@media(max-width:760px){
+ .juba-reference-stats{padding:54px 12px}.juba-reference-stat strong{font-size:2rem}.juba-reference-stat span{font-size:9px}
+ .juba-reference-feature,.juba-reference-school,.juba-reference-download{grid-template-columns:1fr;gap:38px;padding:76px 0}
+ .juba-reference-feature-reverse .juba-reference-feature-art{order:1}.juba-reference-feature-reverse .juba-reference-feature-copy{order:2}
+ .juba-reference-feature-art{min-height:290px}.juba-reference-feature-art span{width:145px;height:205px;font-size:38px}
+ .juba-reference-testimonials{grid-template-columns:1fr}.juba-reference-community{padding:76px 16px}
+ .juba-reference-school-art,.juba-reference-download-art{min-height:320px}
+ .juba-reference-phone{width:170px;height:275px}.juba-reference-device{width:190px;height:320px}
+}
