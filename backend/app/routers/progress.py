@@ -1214,6 +1214,40 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
 
 @router.post("/game-session", response_model=GameSessionResponse)
 @limiter.limit("30/minute")
+async def _get_adaptive_game_difficulty(
+    db: AsyncSession,
+    user_id: int,
+    plan_id: int,
+    game_id: str,
+    requested_difficulty: int,
+) -> tuple[int, str]:
+    """Adjust game difficulty from recent server-recorded performance."""
+    result = await db.execute(
+        select(GameProgressEvent)
+        .where(
+            GameProgressEvent.user_id == user_id,
+            GameProgressEvent.study_plan_id == plan_id,
+            GameProgressEvent.game_id == game_id,
+        )
+        .order_by(GameProgressEvent.created_at.desc())
+        .limit(5)
+    )
+    recent = result.scalars().all()
+    if not recent:
+        return requested_difficulty, "new"
+
+    scores = [
+        event.correct_answers / max(1, event.questions_answered)
+        for event in recent
+    ]
+    average = sum(scores) / len(scores)
+    if average < 0.5:
+        return max(1, requested_difficulty - 1), "review"
+    if average >= 0.85:
+        return min(3, requested_difficulty + 1), "challenge"
+    return requested_difficulty, "steady"
+
+
 async def start_game_session(
     request: Request,
     data: GameSessionStart,
@@ -1231,9 +1265,12 @@ async def start_game_session(
     effective_game_id = data.game_id
     if data.game_id == "word_match":
         effective_game_id = "matching"
+    effective_difficulty, adaptive_mode = await _get_adaptive_game_difficulty(
+        db, current_user.id, plan.id, effective_game_id, data.difficulty
+    )
     if effective_game_id in {"memory", "matching", "ordering", "sentence_builder"}:
         interaction_public, interaction_solution = _server_interactive_challenge(
-            effective_game_id, data.language, data.difficulty
+            effective_game_id, data.language, effective_difficulty
         )
         questions = [{
             "id": str(uuid4()),
@@ -1242,11 +1279,11 @@ async def start_game_session(
             "answer": "",
             "hint": "",
             "skill": GAME_SKILL_MAP[data.game_id],
-            "difficulty": data.difficulty,
+            "difficulty": effective_difficulty,
             "interaction": {"public": interaction_public, "solution": interaction_solution},
         }]
     else:
-        questions = _server_game_questions(effective_game_id, data.language, data.difficulty, plan.target_language)
+        questions = _server_game_questions(effective_game_id, data.language, effective_difficulty, plan.target_language)
     daily_challenge_date = now.date().isoformat() if effective_game_id == _daily_game_id(now.date()) else ""
     session = GameSession(
         id=session_id,
@@ -1254,7 +1291,7 @@ async def start_game_session(
         study_plan_id=plan.id,
         game_id=effective_game_id,
         language=data.language,
-        difficulty=data.difficulty,
+        difficulty=effective_difficulty,
         questions=questions,
         started_at=now,
         expires_at=expires_at,
@@ -1277,8 +1314,11 @@ async def start_game_session(
         expires_at=expires_at.isoformat(),
         daily_challenge=bool(daily_challenge_date),
         daily_challenge_date=daily_challenge_date,
-        interaction=questions[0].get("interaction", {}).get("public")
-        if effective_game_id in {"memory", "matching", "ordering", "sentence_builder"} else None,
+        interaction={
+            **questions[0].get("interaction", {}).get("public", {}),
+            "adaptive_mode": adaptive_mode,
+            "effective_difficulty": effective_difficulty,
+        } if effective_game_id in {"memory", "matching", "ordering", "sentence_builder"} else None,
     )
 
 
@@ -1748,208 +1788,3 @@ async def get_mastery_center(
     )
     lessons = lesson_result.scalars().all()
     if not lessons:
-        return MasteryCenterResponse(mastery_state="unseen")
-
-    exercise_result = await db.execute(
-        select(Exercise).join(Lesson, Exercise.lesson_id == Lesson.id).where(Lesson.study_plan_id == plan.id).order_by(Exercise.id)
-    )
-    exercises = exercise_result.scalars().all()
-    attempt_result = await db.execute(
-        select(ExerciseAttempt).join(Lesson, ExerciseAttempt.lesson_id == Lesson.id).where(
-            ExerciseAttempt.user_id == current_user.id,
-            Lesson.study_plan_id == plan.id,
-        )
-    )
-    attempts = attempt_result.scalars().all()
-    attempts_by_lesson: dict[int, list[ExerciseAttempt]] = {}
-    for attempt in attempts:
-        attempts_by_lesson.setdefault(attempt.lesson_id, []).append(attempt)
-
-    exercises_by_lesson: dict[int, list[Exercise]] = {}
-    for exercise in exercises:
-        exercises_by_lesson.setdefault(exercise.lesson_id, []).append(exercise)
-
-    def content_map(lesson: Lesson, lesson_exercises: list[Exercise]) -> dict[int, dict]:
-        raw = lesson.content.get("exercises", []) if isinstance(lesson.content, dict) else []
-        mapped: dict[int, dict] = {}
-        for index, exercise in enumerate(lesson_exercises):
-            item = raw[index] if index < len(raw) and isinstance(raw[index], dict) else {}
-            mapped[exercise.id] = item
-        return mapped
-
-    lesson_summaries = []
-    all_skill_aggregates: dict[str, list] = {}
-    for lesson in lessons:
-        lesson_exercises = exercises_by_lesson.get(lesson.id, [])
-        if not lesson_exercises:
-            continue
-        cmap = content_map(lesson, lesson_exercises)
-        lesson_attempts = attempts_by_lesson.get(lesson.id, [])
-        aggregate = summarize_lesson_mastery(
-            lesson_exercises,
-            lesson_attempts,
-            get_content_id=lambda item: cmap.get(item.id, {}).get("content_id"),
-        )
-        lesson_summaries.append(MasteryCenterLessonResponse(
-            lesson_id=lesson.id,
-            title=lesson.title,
-            mastery_state=aggregate.mastery_state,
-            total_exercises=aggregate.total_exercises,
-            attempted_exercises=aggregate.attempted_exercises,
-            mastered_exercises=aggregate.mastered_exercises,
-            struggling_exercises=aggregate.struggling_exercises,
-            unseen_exercises=aggregate.unseen_exercises,
-            average_mastery_score=aggregate.average_mastery_score,
-            mastery_rate=aggregate.mastery_rate,
-            attempt_rate=aggregate.attempt_rate,
-            covered_variants=aggregate.covered_variants,
-        ))
-        skills = summarize_skill_mastery(
-            lesson_exercises,
-            lesson_attempts,
-            get_content_id=lambda item: cmap.get(item.id, {}).get("content_id"),
-            get_skills=lambda item: cmap.get(item.id, {}).get("skills"),
-        )
-        for skill in skills:
-            all_skill_aggregates.setdefault(skill.skill, []).append(skill)
-
-    total = sum(item.total_exercises for item in lesson_summaries)
-    attempted = sum(item.attempted_exercises for item in lesson_summaries)
-    mastered = sum(item.mastered_exercises for item in lesson_summaries)
-    learning = sum(item.total_exercises - item.mastered_exercises - item.struggling_exercises - item.unseen_exercises for item in lesson_summaries)
-    struggling = sum(item.struggling_exercises for item in lesson_summaries)
-    unseen = sum(item.unseen_exercises for item in lesson_summaries)
-    covered = sum(item.covered_variants for item in lesson_summaries)
-    weighted_score = sum(item.average_mastery_score * item.total_exercises for item in lesson_summaries)
-    overall_state = _skill_mastery_state(type("Aggregate", (), {"total_exercises": total, "unseen_exercises": unseen, "mastered_exercises": mastered, "struggling_exercises": struggling})())
-
-    skill_rows = []
-    for skill_name, rows in sorted(all_skill_aggregates.items()):
-        skill_total = sum(row.total_exercises for row in rows)
-        skill_attempted = sum(row.attempted_exercises for row in rows)
-        skill_mastered = sum(row.mastered_exercises for row in rows)
-        skill_unseen = sum(row.unseen_exercises for row in rows)
-        skill_struggling = sum(row.struggling_exercises for row in rows)
-        skill_learning = sum(row.learning_exercises for row in rows)
-        skill_covered = sum(row.covered_variants for row in rows)
-        skill_score = round(sum(row.average_mastery_score * row.total_exercises for row in rows) / skill_total, 3) if skill_total else 0.0
-        skill_state = "unseen" if skill_unseen == skill_total else "mastered" if skill_mastered == skill_total else "struggling" if skill_struggling else "learning"
-        skill_rows.append({
-            "skill": skill_name,
-            "mastery_state": skill_state,
-            "total_exercises": skill_total,
-            "attempted_exercises": skill_attempted,
-            "mastered_exercises": skill_mastered,
-            "learning_exercises": skill_learning,
-            "struggling_exercises": skill_struggling,
-            "unseen_exercises": skill_unseen,
-            "average_mastery_score": skill_score,
-            "attempt_rate": round(skill_attempted / skill_total, 3) if skill_total else 0.0,
-            "mastery_rate": round(skill_mastered / skill_total, 3) if skill_total else 0.0,
-            "covered_variants": skill_covered,
-        })
-
-    lesson_skill_rows = list(skill_rows)
-
-    # Games are first-class mastery evidence. Every completed game session is
-    # already persisted in GameProgressEvent, so the Mastery Center can reflect
-    # game practice without inventing ExerciseAttempt rows for non-lesson content.
-    game_events_result = await db.execute(
-        select(GameProgressEvent)
-        .where(
-            GameProgressEvent.user_id == current_user.id,
-            GameProgressEvent.study_plan_id == plan.id,
-        )
-        .order_by(GameProgressEvent.created_at.asc())
-    )
-    game_events = game_events_result.scalars().all()
-    game_scores: dict[str, list[float]] = {}
-    for event in game_events:
-        skill = GAME_SKILL_MAP.get(event.game_id)
-        if not skill:
-            continue
-        questions = max(1, event.questions_answered)
-        game_scores.setdefault(skill, []).append(event.correct_answers / questions)
-
-    for skill, scores in sorted(game_scores.items()):
-        game_total = len(scores)
-        game_mastered = sum(score >= 0.8 for score in scores)
-        game_score = round(sum(scores) / game_total, 3)
-        existing = next((row for row in skill_rows if row["skill"] == skill), None)
-        if existing is None:
-            skill_rows.append({
-                "skill": skill,
-                "mastery_state": "mastered" if game_mastered == game_total else "learning",
-                "total_exercises": game_total,
-                "attempted_exercises": game_total,
-                "mastered_exercises": game_mastered,
-                "learning_exercises": game_total - game_mastered,
-                "struggling_exercises": sum(score < 0.5 for score in scores),
-                "unseen_exercises": 0,
-                "average_mastery_score": game_score,
-                "attempt_rate": 1.0,
-                "mastery_rate": round(game_mastered / game_total, 3),
-                "covered_variants": game_total,
-            })
-        else:
-            existing["average_mastery_score"] = round(
-                (existing["average_mastery_score"] + game_score) / 2, 3
-            )
-            existing["attempted_exercises"] += game_total
-            existing["total_exercises"] += game_total
-            existing["mastered_exercises"] += game_mastered
-            existing["learning_exercises"] += game_total - game_mastered
-            existing["struggling_exercises"] += sum(score < 0.5 for score in scores)
-            existing["covered_variants"] += game_total
-            existing["attempt_rate"] = round(
-                existing["attempted_exercises"] / existing["total_exercises"], 3
-            )
-            existing["mastery_rate"] = round(
-                existing["mastered_exercises"] / existing["total_exercises"], 3
-            )
-            existing["mastery_state"] = (
-                "mastered"
-                if existing["mastered_exercises"] == existing["total_exercises"]
-                else "struggling"
-                if existing["struggling_exercises"] > 0
-                else "learning"
-            )
-
-    game_total_exercises = sum(len(scores) for scores in game_scores.values())
-    game_mastered_exercises = sum(
-        sum(score >= 0.8 for score in scores) for scores in game_scores.values()
-    )
-    game_struggling_exercises = sum(
-        sum(score < 0.5 for score in scores) for scores in game_scores.values()
-    )
-    total += game_total_exercises
-    attempted += game_total_exercises
-    mastered += game_mastered_exercises
-    learning += game_total_exercises - game_mastered_exercises
-    struggling += game_struggling_exercises
-    covered += game_total_exercises
-    weighted_score += sum(sum(scores) for scores in game_scores.values())
-    overall_state = _skill_mastery_state(type("Aggregate", (), {
-        "total_exercises": total,
-        "unseen_exercises": unseen,
-        "mastered_exercises": mastered,
-        "struggling_exercises": struggling,
-    })())
-
-    next_skill = select_next_skill_mastery([type("Skill", (), row)() for row in lesson_skill_rows])
-    return MasteryCenterResponse(
-        mastery_state=overall_state,
-        total_exercises=total,
-        attempted_exercises=attempted,
-        mastered_exercises=mastered,
-        learning_exercises=learning,
-        struggling_exercises=struggling,
-        unseen_exercises=unseen,
-        average_mastery_score=round(weighted_score / total, 3) if total else 0.0,
-        mastery_rate=round(mastered / total, 3) if total else 0.0,
-        attempt_rate=round(attempted / total, 3) if total else 0.0,
-        covered_variants=covered,
-        skills=skill_rows,
-        lessons=lesson_summaries,
-        next_skill=next_skill.__dict__ if next_skill is not None else None,
-    )
