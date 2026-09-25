@@ -25,7 +25,7 @@ from app.models.learning_goal_milestone import LearningGoalMilestone
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import (GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalMilestoneSummary, LearningGoalResponse, LearningGoalUpdate, MasteryCenterResponse, MasteryCenterLessonResponse, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
+from app.schemas.progress import (GameSessionAnswerResponse, GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalMilestoneSummary, LearningGoalResponse, LearningGoalUpdate, MasteryCenterResponse, MasteryCenterLessonResponse, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
 from app.services.progress_service import get_unit_competencies, update_daily_progress
 from app.services.lesson_mastery import _skill_mastery_state, select_next_skill_mastery, summarize_lesson_mastery, summarize_skill_mastery
 from app.services.user_language_service import get_active_language
@@ -2554,6 +2554,81 @@ async def start_game_session(
     )
 
 
+@router.post("/game-session/answer", response_model=GameSessionAnswerResponse)
+@limiter.limit("120/minute")
+async def answer_game_question(
+    request: Request,
+    data: GameSessionAnswer,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Validate one generic-game answer immediately and keep retry state server-side."""
+    session = await db.get(GameSession, data.session_id)
+    if session is None or session.user_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Game session not found")
+    if session.completed:
+        raise HTTPException(status_code=409, detail="Game session already completed")
+    now = datetime.now(UTC).replace(tzinfo=None)
+    if now > session.expires_at:
+        raise HTTPException(status_code=410, detail="Game session expired")
+    if session.game_id in {"memory", "matching", "ordering", "sentence_builder", "review_mix"}:
+        raise HTTPException(status_code=422, detail="Interactive games use their dedicated interaction flow")
+
+    questions = [dict(item) for item in (session.questions or [])]
+    index = next((i for i, item in enumerate(questions) if str(item.get("id")) == data.question_id), -1)
+    if index < 0:
+        raise HTTPException(status_code=404, detail="Question not found")
+    question = dict(questions[index])
+    if question.get("input_mode", "choice") == "text":
+        if not data.choice.strip():
+            raise HTTPException(status_code=422, detail="Text answer cannot be empty")
+        is_correct = _game_answer_matches(data.choice, question.get("answer", ""))
+    else:
+        if data.choice == "__timeout__":
+            is_correct = False
+        elif data.choice not in question.get("choices", []):
+            raise HTTPException(status_code=422, detail="Invalid choice for game question")
+        else:
+            is_correct = data.choice == question.get("answer")
+
+    attempts = list(question.get("_attempts") or [])
+    attempts.append({"choice": data.choice, "correct": bool(is_correct)})
+    miss_count = sum(1 for attempt in attempts if not bool(attempt.get("correct")))
+    question["_attempts"] = attempts
+
+    if is_correct:
+        question["retry_stage"] = _review_retry_stage(max(0, miss_count))
+        questions[index] = question
+        session.questions = questions
+        await db.commit()
+        return GameSessionAnswerResponse(
+            correct=True,
+            question_id=data.question_id,
+            attempts=len(attempts),
+            retry_stage=str(question["retry_stage"]),
+            question=None,
+        )
+
+    adapted = _adapt_question_after_session_miss(question, miss_count)
+    adapted.pop("_attempts", None)
+    public = {
+        key: adapted.get(key)
+        for key in ("id", "prompt", "choices", "hint", "skill", "difficulty", "input_mode", "audio_text", "audio_language")
+    }
+    question["retry_stage"] = adapted.get("retry_stage", "retry")
+    question["difficulty"] = adapted.get("difficulty", question.get("difficulty", 1))
+    questions[index] = question
+    session.questions = questions
+    await db.commit()
+    return GameSessionAnswerResponse(
+        correct=False,
+        question_id=data.question_id,
+        attempts=len(attempts),
+        retry_stage=str(adapted.get("retry_stage", "retry")),
+        question=public,
+    )
+
+
 @router.post("/game-session/complete", response_model=GameSessionResultResponse)
 @limiter.limit("30/minute")
 async def complete_game_session(
@@ -2782,7 +2857,7 @@ async def complete_game_session(
             question_skill = str(question.get("skill", GAME_SKILL_MAP.get(session.game_id, "vocabulary")))
             skill_results.setdefault(question_skill, [0, 0])
             skill_results[question_skill][1] += 1
-            is_correct = False
+
             if question.get("input_mode", "choice") == "text":
                 if not submitted.choice.strip():
                     raise HTTPException(status_code=422, detail="Text answer cannot be empty")
@@ -2790,69 +2865,69 @@ async def complete_game_session(
             else:
                 if submitted.choice == "__timeout__":
                     is_correct = False
+                elif submitted.choice not in question["choices"]:
+                    raise HTTPException(status_code=422, detail="Invalid choice for game question")
                 else:
-                    if submitted.choice not in question["choices"]:
-                        raise HTTPException(status_code=422, detail="Invalid choice for game question")
                     is_correct = submitted.choice == question["answer"]
+
+            # Immediate answer validation stores every attempt in the opaque
+            # session. Completion scores only the final answer, while the
+            # attempt ledger preserves earlier misses for mastery/review.
+            attempts = list(question.get("_attempts") or [])
+            if not attempts or attempts[-1].get("choice") != submitted.choice:
+                attempts.append({"choice": submitted.choice, "correct": bool(is_correct)})
+            prior_misses = [attempt for attempt in attempts[:-1] if not bool(attempt.get("correct"))]
+
+            snapshot = {
+                key: question.get(key)
+                for key in (
+                    "id", "prompt", "choices", "hint", "answer",
+                    "skill", "difficulty", "input_mode", "audio_text",
+                    "audio_language", "topic",
+                )
+            }
+            snapshot["target_language"] = plan.target_language
+            snapshot["cefr_level"] = plan.cefr_level
+            review_key = str(
+                question.get("review_identity")
+                or question.get("review_key")
+                or _review_key(question)
+            )
+            base_review_count = int(question.get("review_count", 0)) if question.get("review") else 0
+            base_review_streak = int(question.get("review_streak", 0)) if question.get("review") else 0
+
+            for offset, _attempt in enumerate(prior_misses, start=1):
+                mistakes.append({
+                    "review_key": review_key,
+                    "review_count": base_review_count + offset,
+                    "review_streak": 0,
+                    "next_review_at": (now + _review_interval(0)).isoformat(),
+                    "question_id": submitted.question_id,
+                    "submitted": str(_attempt.get("choice", "")),
+                    "question": snapshot,
+                })
+
             if is_correct:
                 correct_answers += 1
                 skill_results[question_skill][0] += 1
                 if question.get("review"):
-                    review_count = int(question.get("review_count", 0))
-                    review_streak = int(question.get("review_streak", 0))
-                    next_streak = min(8, max(0, review_streak) + 1)
+                    next_streak = min(8, max(0, base_review_streak) + 1)
                     mistakes.append({
-                        "review_key": str(
-                            question.get("review_identity")
-                            or question.get("review_key")
-                            or _review_key(question)
-                        ),
+                        "review_key": review_key,
                         "resolved": True,
-                        "review_count": review_count,
+                        "review_count": base_review_count,
                         "review_streak": next_streak,
-                        "next_review_at": (
-                            now + _review_interval(next_streak)
-                        ).isoformat(),
+                        "next_review_at": (now + _review_interval(next_streak)).isoformat(),
                         "question_id": submitted.question_id,
-                        "question": {
-                            key: question.get(key)
-                            for key in (
-                                "id", "prompt", "choices", "hint", "answer",
-                                "skill", "difficulty", "input_mode", "audio_text",
-                                "audio_language", "topic",
-                            )
-                        },
+                        "question": snapshot,
                     })
             else:
-                review_count = int(question.get("review_count", 0)) if question.get("review") else 0
-                review_streak = int(question.get("review_streak", 0)) if question.get("review") else 0
-                snapshot = {
-                    key: question.get(key)
-                    for key in (
-                        "id", "prompt", "choices", "hint", "answer",
-                        "skill", "difficulty", "input_mode", "audio_text",
-                        "audio_language", "topic",
-                    )
-                }
-                # Pin review content to the study plan that produced it so
-                # later retrieval practice cannot cross language/CEFR boundaries.
-                snapshot["target_language"] = plan.target_language
-                snapshot["cefr_level"] = plan.cefr_level
-                review_key = str(
-                    question.get("review_identity")
-                    or question.get("review_key")
-                    or _review_key(question)
-                )
-                # A miss resets the successful review streak. The learner
-                # gets a short retrieval opportunity again instead of progressing
-                # to a longer interval after an unsuccessful attempt.
+                miss_number = len(prior_misses) + 1
                 mistakes.append({
                     "review_key": review_key,
-                    "review_count": review_count + 1,
+                    "review_count": base_review_count + miss_number,
                     "review_streak": 0,
-                    "next_review_at": (
-                        now + _review_interval(0)
-                    ).isoformat(),
+                    "next_review_at": (now + _review_interval(0)).isoformat(),
                     "question_id": submitted.question_id,
                     "submitted": submitted.choice,
                     "question": snapshot,
