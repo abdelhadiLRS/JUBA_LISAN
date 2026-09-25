@@ -105,6 +105,132 @@ async def test_review_mix_balances_weak_skills_before_repeating_due_items(
 
 
 @pytest.mark.asyncio
+async def test_review_mix_skips_fresh_content_that_repeats_a_due_review(
+    db_session, test_user, monkeypatch
+):
+    user, _ = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        target_language="en-US",
+        cefr_level="A1",
+        goals=["vocabulary", "grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    due = [_mistake("vocabulary", "same-key")]
+    monkeypatch.setattr(
+        progress_router,
+        "_get_recent_game_mistakes",
+        lambda *args, **kwargs: due,
+    )
+    monkeypatch.setattr(
+        progress_router,
+        "_get_game_skills",
+        lambda *args, **kwargs: {"vocabulary": 0.2, "grammar": 0.3},
+    )
+
+    def fake_questions(game_id, language, difficulty, target_language, cefr_level):
+        skill = "vocabulary" if game_id == "quick_choice" else "grammar"
+        return [
+            {
+                "id": "duplicate",
+                "prompt": "Review same-key",
+                "choices": ["A", "B"],
+                "hint": "",
+                "answer": "A",
+                "skill": skill,
+                "difficulty": difficulty,
+                "input_mode": "choice",
+                "review_key": "same-key",
+            },
+            {
+                "id": "fresh",
+                "prompt": f"Fresh {skill}",
+                "choices": ["A", "B"],
+                "hint": "",
+                "answer": "A",
+                "skill": skill,
+                "difficulty": difficulty,
+                "input_mode": "choice",
+            },
+        ]
+
+    monkeypatch.setattr(progress_router, "_server_game_questions", fake_questions)
+
+    questions = await progress_router._build_multi_skill_review_questions(
+        db_session, user.id, plan, "en", 1
+    )
+
+    assert questions[0]["review_key"] == "same-key"
+    assert all(
+        question.get("id") != "duplicate"
+        for question in questions[1:]
+    )
+
+
+@pytest.mark.asyncio
+async def test_review_mix_uses_combined_weakness_and_due_pressure_for_skill_order(
+    db_session, test_user, monkeypatch
+):
+    user, _ = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        target_language="en-US",
+        cefr_level="A1",
+        goals=["vocabulary", "grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    due = [
+        _mistake("vocabulary", "v1"),
+        _mistake("vocabulary", "v2"),
+        _mistake("vocabulary", "v3"),
+        _mistake("grammar", "g1"),
+    ]
+    monkeypatch.setattr(
+        progress_router,
+        "_get_recent_game_mistakes",
+        lambda *args, **kwargs: due,
+    )
+    monkeypatch.setattr(
+        progress_router,
+        "_get_game_skills",
+        lambda *args, **kwargs: {"vocabulary": 0.85, "grammar": 0.05},
+    )
+
+    def fake_questions(game_id, language, difficulty, target_language, cefr_level):
+        skill = "vocabulary" if game_id == "quick_choice" else "grammar"
+        return [
+            {
+                "id": f"fresh-{skill}",
+                "prompt": f"Fresh {skill}",
+                "choices": ["A", "B"],
+                "hint": "",
+                "answer": "A",
+                "skill": skill,
+                "difficulty": difficulty,
+                "input_mode": "choice",
+            }
+        ]
+
+    monkeypatch.setattr(progress_router, "_server_game_questions", fake_questions)
+
+    questions = await progress_router._build_multi_skill_review_questions(
+        db_session, user.id, plan, "en", 1
+    )
+
+    assert [q["skill"] for q in questions[:2]] == ["vocabulary", "grammar"]
+
+
+@pytest.mark.asyncio
 async def test_review_mix_fills_short_due_queue_with_weak_skill_content(
     db_session, test_user, monkeypatch
 ):
