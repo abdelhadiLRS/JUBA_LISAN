@@ -1573,7 +1573,10 @@ async def _build_multi_skill_review_questions(
             if skill in due_counts or isinstance(skills.get(skill), (int, float))
         ),
         key=lambda skill: (
-            -due_counts.get(skill, 0),
+            -(
+                due_counts.get(skill, 0) * 0.45
+                + (1.0 - float(skills.get(skill, 0.0))) * 0.55
+            ),
             float(skills.get(skill, 0.0)),
             skill_order[skill],
         ),
@@ -1638,7 +1641,12 @@ async def _build_multi_skill_review_questions(
                     break
                 if str(question.get("skill", "")) != skill:
                     continue
+                question_key = str(question.get("review_key") or _review_key(question))
+                if question_key in selected_keys:
+                    continue
+                question["review_key"] = question_key
                 selected.append(question)
+                selected_keys.add(question_key)
     if len(selected) < 5:
         # Deterministic fallback for a learner with no stored skill history.
         fresh = _server_game_questions(
@@ -1648,7 +1656,15 @@ async def _build_multi_skill_review_questions(
             plan.target_language,
             cast(CEFRLevel, plan.cefr_level),
         )
-        selected.extend(fresh[: 5 - len(selected)])
+        for question in fresh:
+            if len(selected) >= 5:
+                break
+            question_key = str(question.get("review_key") or _review_key(question))
+            if question_key in selected_keys:
+                continue
+            question["review_key"] = question_key
+            selected.append(question)
+            selected_keys.add(question_key)
     return selected[:5]
 
 
