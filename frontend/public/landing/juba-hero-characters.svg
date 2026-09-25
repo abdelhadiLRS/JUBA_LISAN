@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" role="img" aria-labelledby="title desc">
+<title id="title">JUBA LISAN playful language learning characters</title><desc id="desc">Original illustrated characters learning languages with books and speech bubbles.</desc>
+<defs><filter id="s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="0" flood-color="#183022"/></filter></defs>
+<g stroke="#183022" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+<circle cx="720" cy="115" r="54" fill="#FFE27A"/><path d="M720 40v-20M720 210v-20M645 115h-20M815 115h-20" fill="none"/>
+<path d="M90 150c35-32 78-26 100 5 31-12 63 7 63 38H70c0-23 7-35 20-43Z" fill="#fff"/>
+<path d="M615 225c55-24 111 2 116 45 47-5 74 25 65 59H558c-8-48 10-84 57-104Z" fill="#fff"/>
+<ellipse cx="452" cy="515" rx="285" ry="54" fill="#B9D99D" stroke="none"/>
+<!-- main character -->
+<path d="M340 492c-12-91 16-174 111-176 94-2 132 73 118 176Z" fill="#3D7B27" filter="url(#s)"/>
+<circle cx="448" cy="268" r="106" fill="#F7FFF1" filter="url(#s)"/>
+<path d="M355 242c15-87 162-117 193 4-33-26-59-38-92-37-35 1-65 13-101 33Z" fill="#183022"/>
+<circle cx="411" cy="270" r="8" fill="#183022" stroke="none"/><circle cx="486" cy="270" r="8" fill="#183022" stroke="none"/>
+<path d="M430 312q19 17 39 0" fill="none"/>
+<path d="M391 378h113" fill="none"/>
+<path d="M373 440q74 35 149 0" fill="none"/>
+<!-- left mini character -->
+<circle cx="205" cy="420" r="58" fill="#E5F4D8" filter="url(#s)"/>
+<circle cx="190" cy="410" r="5" fill="#183022" stroke="none"/><circle cx="220" cy="410" r="5" fill="#183022" stroke="none"/>
+<path d="M193 432q14 12 28 0" fill="none"/>
+<path d="M151 461q54-27 108 0v38H151Z" fill="#68C7E4"/>
+<!-- right mini character -->
+<circle cx="715" cy="395" r="58" fill="#EEE7FF" filter="url(#s)"/>
+<circle cx="700" cy="386" r="5" fill="#183022" stroke="none"/><circle cx="730" cy="386" r="5" fill="#183022" stroke="none"/>
+<path d="M702 408q13 11 26 0" fill="none"/>
+<path d="M663 440q52-24 104 0v59H663Z" fill="#F6A23A"/>
+<!-- book -->
+<path d="M265 488q76-31 151 0v78q-76-31-151 0Z" fill="#fff" filter="url(#s)"/>
+<path d="M416 488q76-31 151 0v78q-76-31-151 0Z" fill="#fff" filter="url(#s)"/>
+<path d="M416 488v78" fill="none"/><path d="M300 516h72M451 516h72" fill="none"/>
+<!-- speech bubbles -->
+<path d="M90 260h180q24 0 24 24v72q0 24-24 24H168l-35 32 5-32H90q-24 0-24-24v-72q0-24 24-24Z" fill="#fff" filter="url(#s)"/>
+<text x="156" y="309" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" font-weight="800" fill="#183022" stroke="none">HELLO!</text>
+<path d="M675 285h142q20 0 20 20v62q0 20-20 20h-51l-25 28 4-28h-70q-20 0-20-20v-62q0-20 20-20Z" fill="#FFF0B7" filter="url(#s)"/>
+<text x="746" y="325" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" font-weight="800" fill="#183022" stroke="none">مرحبا</text>
+</g></svg>
