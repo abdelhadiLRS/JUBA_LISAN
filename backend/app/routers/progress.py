@@ -86,7 +86,10 @@ def _normalize_game_text(value: str) -> str:
     normalized = unicodedata.normalize("NFC", str(value)).casefold()
     normalized = normalized.replace("’", "'").replace("‘", "'").replace("ʼ", "'")
     normalized = " ".join(normalized.strip().split())
-    return normalized.strip(".,!?;:。！？；：،،'«»“”()[]{}")
+    # Speech recognition can place a space before terminal punctuation.
+    # Strip punctuation and normalize whitespace again so equivalent answers
+    # compare consistently without removing meaningful internal punctuation.
+    return normalized.strip(".,!?;:。！？；：،،'«»“”()[]{}").strip()
 
 
 def _game_answer_matches(submitted: str, expected: object) -> bool:
