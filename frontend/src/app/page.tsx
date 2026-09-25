@@ -87,6 +87,102 @@ export default async function Home() {
       lang={locale}
     >
       <style dangerouslySetInnerHTML={{ __html: `
+
+/* Funfluent-inspired public landing visual pass */
+.juba-reference-page{
+  font-family:Arial Rounded MT Bold, Nunito, Trebuchet MS, var(--font-geist-sans), Arial, sans-serif;
+}
+.juba-reference-page .juba-site-nav{
+  background:transparent!important;
+  border:0!important;
+  backdrop-filter:none!important;
+  padding:12px 14px 0;
+}
+.juba-reference-page .juba-ff-nav-inner{
+  width:min(1180px,100%)!important;
+  height:68px!important;
+  padding:8px 10px 8px 16px!important;
+  border:2px solid #183022;
+  border-radius:999px;
+  background:rgba(255,255,255,.94)!important;
+  box-shadow:5px 5px 0 #183022;
+}
+.juba-reference-page .juba-ff-brand{gap:10px!important}
+.juba-reference-page .juba-ff-brand-mark{
+  width:42px!important;height:42px!important;border-radius:15px!important;
+  box-shadow:3px 3px 0 #183022!important;transform:rotate(-4deg);
+}
+.juba-reference-page .juba-ff-brand-copy small{
+  display:block;margin-top:1px;color:#68766d;font-size:8px;line-height:1;font-weight:800;letter-spacing:.03em;
+}
+.juba-reference-page .juba-ff-nav-link{font-size:11px!important;font-weight:850!important}
+.juba-reference-page .juba-ff-nav-cta{
+  border:2px solid #183022!important;border-radius:999px!important;
+  padding:10px 15px!important;box-shadow:3px 3px 0 #183022!important;
+}
+.juba-reference-page .juba-nav-region{border:2px solid #183022!important;box-shadow:2px 2px 0 rgba(24,48,34,.12)}
+.juba-reference-page .juba-ref-hero{
+  margin-top:-80px;padding-top:78px;
+  background:
+    radial-gradient(circle at 8% 18%,rgba(255,226,122,.68),transparent 210px),
+    radial-gradient(circle at 92% 34%,rgba(223,245,250,.9),transparent 260px),
+    linear-gradient(180deg,#fffdf7 0%,#f6faed 100%);
+}
+.juba-reference-page .juba-ref-hero-copy h1{
+  font-family:Arial Rounded MT Bold,Nunito,Trebuchet MS,var(--font-geist-sans),sans-serif;
+  font-weight:950;letter-spacing:-.09em;
+}
+.juba-reference-page .juba-ref-hero-copy h1::after{
+  content:"";display:block;width:110px;height:10px;margin-top:22px;border-radius:999px;
+  background:#ffe27a;transform:rotate(-3deg);box-shadow:16px 3px 0 #3d7b27;
+}
+.juba-reference-page .juba-ref-hero-art{filter:saturate(1.04)}
+.juba-reference-page .juba-ref-hero-art::before,.juba-reference-page .juba-ref-hero-art::after{
+  content:"";position:absolute;z-index:6;pointer-events:none;
+}
+.juba-reference-page .juba-ref-hero-art::before{
+  width:52px;height:52px;left:1%;top:10%;border:3px solid #183022;border-radius:50%;
+  background:#ffd9d0;transform:rotate(-14deg);
+}
+.juba-reference-page .juba-ref-hero-art::after{
+  width:34px;height:34px;right:1%;bottom:25%;border:3px solid #183022;border-radius:11px;
+  background:#eee7ff;transform:rotate(17deg);
+}
+.juba-reference-page .juba-ref-book{border-radius:22px;transform:rotate(-2deg)}
+.juba-reference-page .juba-ref-speech{border-radius:999px}
+.juba-reference-page .juba-ref-pillar{border-radius:30px}
+.juba-reference-page .juba-ref-pillar:nth-child(1){transform:rotate(-1.1deg)}
+.juba-reference-page .juba-ref-pillar:nth-child(2){transform:translateY(9px) rotate(.7deg)}
+.juba-reference-page .juba-ref-pillar:nth-child(3){transform:rotate(-.7deg)}
+.juba-reference-page .juba-ref-pillar:hover{transform:translateY(-7px) rotate(0deg)}
+.juba-reference-page .juba-ref-language-art{border-radius:34px 55px 42px 58px;transform:rotate(1deg)}
+.juba-reference-page .juba-ref-ai-art{border-radius:36px 58px 45px 55px}
+.juba-reference-page .juba-ref-cta{position:relative}
+.juba-reference-page .juba-ref-cta::before,.juba-reference-page .juba-ref-cta::after{
+  content:"";position:absolute;border:3px solid #183022;pointer-events:none;
+}
+.juba-reference-page .juba-ref-cta::before{
+  width:74px;height:74px;left:5%;top:15%;border-radius:50%;background:rgba(255,255,255,.24);transform:rotate(12deg);
+}
+.juba-reference-page .juba-ref-cta::after{
+  width:42px;height:42px;right:7%;bottom:12%;border-radius:12px;background:#ffe27a;transform:rotate(-15deg);
+}
+@media(max-width:900px){
+  .juba-reference-page .juba-site-nav{padding-top:8px}
+  .juba-reference-page .juba-ff-nav-inner{width:calc(100% - 4px)!important}
+  .juba-reference-page .juba-ref-hero{margin-top:-68px;padding-top:68px}
+}
+@media(max-width:560px){
+  .juba-reference-page .juba-site-nav{padding-inline:7px}
+  .juba-reference-page .juba-ff-nav-inner{height:60px!important;padding:6px 8px 6px 11px!important;border-radius:20px}
+  .juba-reference-page .juba-ff-brand-mark{width:36px!important;height:36px!important}
+  .juba-reference-page .juba-ff-brand-name{font-size:14px!important}
+  .juba-reference-page .juba-ff-brand-copy small{display:none}
+  .juba-reference-page .juba-ref-hero{margin-top:-60px;padding-top:65px}
+  .juba-reference-page .juba-ref-hero-art::before{width:36px;height:36px}
+  .juba-reference-page .juba-ref-hero-art::after{width:26px;height:26px}
+  .juba-reference-page .juba-ref-pillar:nth-child(2){transform:none}
+}
 .juba-reference-page{--ink:#183022;--green:#3d7b27;--green-dark:#275d19;--mint:#e5f4d8;--blue:#dff5fa;--yellow:#ffe27a;--orange:#f6a23a;background:#fffdf7;color:var(--ink);font-family:var(--font-geist-sans),Arial,sans-serif}
 .juba-reference-page .juba-site-nav{background:rgba(255,253,247,.94)!important;border-bottom:1px solid #d9e5d7!important;backdrop-filter:blur(18px)}
 .juba-reference-page .juba-ff-nav-inner{height:76px!important;max-width:1240px!important}
