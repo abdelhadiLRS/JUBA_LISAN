@@ -81,7 +81,8 @@
     "dashboardStreak": "Day Streak",
     "dashboardXp": "Total XP",
     "dashboardMasteredWords": "Mastered Words",
-    "dashboardCurrentUnit": "Current Unit"
+    "dashboardCurrentUnit": "Current Unit",
+    "ar": "Salut!"
   },
   "common": {
     "loading": "Se încarcă...",
@@ -1350,7 +1351,9 @@
     "de-DE-description": "Germana vorbită în Germania.",
     "ja-JP-description": "Japoneza vorbită în Japonia.",
     "ko-KR-description": "Coreeana vorbită în Coreea de Sud.",
-    "zh-CN-description": "Chineză mandarină din China continentală, cu caractere simplificate."
+    "zh-CN-description": "Chineză mandarină din China continentală, cu caractere simplificate.",
+    "ar": "arabă",
+    "ar-description": "Modern Standard Arabic for global communication, study, and travel."
   },
   "onboarding": {
     "title": "Alege-ți limba",
