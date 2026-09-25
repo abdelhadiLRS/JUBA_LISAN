@@ -92,7 +92,7 @@ export default function GamesPage() {
   const t = copy[lang]
   const today = getLocalDateKey()
   const dailyCompletedToday = gameStats.lastDailyChallengeDate === today
-  // Keep the daily rotation aligned with the server: Date#getDay() is
+  // The client mirrors only the deterministic display rotation; it never grants rewards.
   // Sunday=0..Saturday=6, and the server normalizes Python's weekday() to
   // the same numbering before applying the six-game rotation.
   const dayIndex = new Date(`${today}T00:00:00`).getDay()
