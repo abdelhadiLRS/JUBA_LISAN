@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl'
 import { useLanguageStore } from '@/store/language'
 import {
   getLanguageByCode,
+  normalizeLanguageCode,
   TARGET_LANGUAGE_CATALOG,
 } from '@/lib/target-languages'
 import TargetLanguageSelector from '@/components/TargetLanguageSelector'
@@ -92,11 +93,11 @@ export default function MyLanguagesPage() {
   const availableLanguageCodes = useLanguageStore(
     (s) => s.availableLanguageCodes
   )
-  const addedCodes = userLanguages.map((ul) => ul.target_language)
+  const addedCodes = userLanguages.map((ul) => normalizeLanguageCode(ul.target_language))
   // Only show operator-enabled languages that the user hasn't added yet
   const unusedCodes = TARGET_LANGUAGE_CATALOG.filter(
     (l) =>
-      availableLanguageCodes.includes(l.code) && !addedCodes.includes(l.code)
+      availableLanguageCodes.includes(normalizeLanguageCode(l.code)) && !addedCodes.includes(normalizeLanguageCode(l.code))
   ).map((l) => l.code)
   const hasMultiple = userLanguages.length > 1
 
