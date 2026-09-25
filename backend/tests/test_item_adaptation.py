@@ -208,3 +208,39 @@ def test_grammar_gap_fill_uses_typed_input():
     assert replay["input_mode"] == "text"
     assert replay["choices"] == []
     assert "is" not in replay["prompt"].lower()
+
+
+def test_speaking_open_response_hides_answer_and_accepts_authored_variants(monkeypatch):
+    from app.routers import progress
+
+    entry = SimpleNamespace(
+        word="travel",
+        definition="to go from one place to another",
+        example="I travel by train.",
+    )
+    vocab_set = SimpleNamespace(topic="travel", words=[entry])
+    monkeypatch.setattr(progress, "get_vocabulary_by_level", lambda *_args, **_kwargs: [vocab_set])
+
+    question = {
+        "review_key": "speaking:travel",
+        "skill": "speaking",
+        "language": "en",
+        "target_language": "en-GB",
+        "cefr_level": "A1",
+        "word": "travel",
+        "prompt": "Which sentence best uses 'travel'?",
+        "answer": "I travel every summer.",
+        "review_strategy": "production",
+        "retrieval_efficiency": 0.95,
+    }
+
+    replay = progress._apply_skill_review_variant(question, 0)
+
+    assert replay["mechanic_variant"] == "open_response"
+    assert replay["input_mode"] == "text"
+    assert replay["choices"] == []
+    assert "I travel every summer." not in replay["prompt"]
+    assert isinstance(replay["answer"], list)
+    assert "I travel every summer." in replay["answer"]
+    assert "I travel by train." in replay["answer"]
+    assert "travel" in replay["prompt"].lower()
