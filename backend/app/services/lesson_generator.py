@@ -3,7 +3,11 @@ import json
 import re
 from typing import Any
 
+from app.data.assessment_bank import get_assessment_bank
 from app.data.curriculum import get_curriculum
+from app.data.grammar import get_grammar_topics
+from app.data.phrasebook import get_phrasebook_categories
+from app.data.vocabulary import get_vocabulary_sets
 from app.data.ar.lessons import get_arabic_a1_lessons, get_arabic_a1_content_seed
 from app.schemas.lessons import (
     ExerciseContent,
@@ -123,6 +127,58 @@ def _resolve_scheduled_lesson(
     }
 
 
+def _build_curated_source_material(
+    *, target_language: str, cefr_level: str,
+    grammar_points: list[str] | None, vocabulary_set_ids: list[str] | None, topic: str,
+) -> dict[str, Any]:
+    """Return compact authored source material to ground generated lessons."""
+    level = cefr_level.upper()
+    grammar = get_grammar_topics(target_language)
+    by_slug = {item.slug: item for item in grammar}
+    selected_grammar = []
+    for slug in grammar_points or []:
+        item = by_slug.get(slug)
+        if item is not None:
+            selected_grammar.append({"slug": item.slug, "title": item.title, "summary": item.summary,
+                                     "explanation": item.explanation,
+                                     "examples": [e.text for e in item.examples[:4]]})
+    if not selected_grammar:
+        selected_grammar = [{"slug": item.slug, "title": item.title, "summary": item.summary,
+                             "explanation": item.explanation,
+                             "examples": [e.text for e in item.examples[:3]]}
+                            for item in grammar if item.level == level][:4]
+
+    vocab_by_id = {item.id: item for item in get_vocabulary_sets(target_language)}
+    selected_vocab = []
+    for set_id in vocabulary_set_ids or []:
+        item = vocab_by_id.get(set_id)
+        if item is not None:
+            selected_vocab.append({"id": item.id, "topic": item.topic,
+                                   "words": [{"word": w.word, "definition": w.definition, "example": w.example}
+                                              for w in item.words[:8]]})
+    if not selected_vocab:
+        selected_vocab = [{"id": item.id, "topic": item.topic,
+                           "words": [{"word": w.word, "definition": w.definition, "example": w.example}
+                                      for w in item.words[:6]]}
+                          for item in get_vocabulary_sets(target_language) if item.level == level][:3]
+
+    selected_phrases = []
+    for category in get_phrasebook_categories(target_language):
+        if category.level == level:
+            selected_phrases.append({"situation": category.situation,
+                                     "phrases": [{"text": p.text, "context": p.context, "register": p.register}
+                                                  for p in category.phrases[:6]]})
+        if len(selected_phrases) >= 2:
+            break
+
+    assessment_examples = [{"skill": q.skill, "difficulty": q.difficulty, "question": q.question,
+                            "options": list(q.options), "correct": q.correct}
+                           for q in get_assessment_bank(target_language) if q.difficulty == level][:3]
+    return {"target_language": target_language, "cefr_level": level,
+            "topic": topic, "grammar": selected_grammar, "vocabulary": selected_vocab,
+            "phrasebook": selected_phrases, "assessment_examples": assessment_examples}
+
+
 def get_valid_grammar_slugs(target_language: str = "en-GB") -> set[str]:
     """Return the set of valid grammar slugs for a given target language."""
     curriculum = get_curriculum(target_language)
@@ -214,17 +270,22 @@ async def generate_lesson(
     )
     gp_str = ", ".join(grammar_points) if grammar_points else "none specified"
     vs_str = ", ".join(vocabulary_set_ids) if vocabulary_set_ids else "general"
-    seed_str = "none"
+    curated_material = _build_curated_source_material(
+        target_language=target_language, cefr_level=cefr_level,
+        grammar_points=grammar_points, vocabulary_set_ids=vocabulary_set_ids, topic=topic,
+    )
+    seed_payload: dict[str, Any] = {
+        "course_objective": scheduled_objective,
+        "grammar_points": grammar_points or [],
+        "vocabulary_set_ids": vocabulary_set_ids or [],
+        "curated_source_material": curated_material,
+    }
     if seed is not None:
-        seed_str = json.dumps({
-            "target_phrases": seed.target_phrases,
-            "model_sentences": seed.model_sentences,
-            "comprehension_prompt": seed.comprehension_prompt,
-            "production_prompt": seed.production_prompt,
-            "course_objective": scheduled_objective,
-            "grammar_points": grammar_points or [],
-            "vocabulary_set_ids": vocabulary_set_ids or [],
-        }, ensure_ascii=False)
+        seed_payload["lesson_seed"] = {
+            "target_phrases": seed.target_phrases, "model_sentences": seed.model_sentences,
+            "comprehension_prompt": seed.comprehension_prompt, "production_prompt": seed.production_prompt,
+        }
+    seed_str = json.dumps(seed_payload, ensure_ascii=False)
     target_language_name = get_language_name(target_language)
     native_language_name = get_native_language_name(native_language) if native_language else "none"
     language_prompt_overlay = get_language_prompt_overlay(target_language)
@@ -269,6 +330,12 @@ async def generate_lesson(
             lesson = fallback
 
     lesson.grammar_refs = [s for s in lesson.grammar_refs if s in valid_slugs]
+    if not lesson.vocabulary:
+        fallback_vocab = curated_material.get("vocabulary", [])
+        lesson.vocabulary = [
+            {"word": word["word"], "definition": word["definition"], "example": word["example"]}
+            for vocab_set in fallback_vocab for word in vocab_set.get("words", [])[:4]
+        ][:12]
     # Sanitize fill_blank exercises: question MUST contain ___ (the gapped sentence).
     # If the LLM put the instruction in question and the actual sentence in explanation,
     # swap them so the user always sees the gapped sentence in the UI.
