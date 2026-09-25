@@ -94,7 +94,7 @@ export default function GamesPage() {
   const dailyCompletedToday = gameStats.lastDailyChallengeDate === today
   // The client mirrors only the deterministic display rotation; it never grants rewards.
   // Sunday=0..Saturday=6, and the server normalizes Python's weekday() to
-  // the same numbering before applying the six-game rotation.
+  // the same numbering before applying the deterministic game rotation.
   const dayIndex = new Date(`${today}T00:00:00`).getDay()
   const dailyGame = DAILY_GAMES[dayIndex % DAILY_GAMES.length]
   const accuracy = gameStats.questionsAnswered
