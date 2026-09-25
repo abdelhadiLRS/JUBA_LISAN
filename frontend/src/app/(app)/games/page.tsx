@@ -23,7 +23,7 @@ function getLocalDateKey() {
   const day = String(now.getDate()).padStart(2, '0')
   return `${year}-${month}-${day}`
 }
-const DAILY_GAMES: GameId[] = ['matching', 'quick_choice', 'sentence_builder', 'listen_choose', 'spelling', 'word_scramble', 'fill_blank', 'memory', 'context_quest', 'listening_detective']
+const DAILY_GAMES: GameId[] = ['matching', 'quick_choice', 'sentence_builder', 'listen_choose', 'spelling', 'word_scramble', 'fill_blank', 'memory', 'context_quest', 'listening_detective', 'word_categories']
 const ROUND_SIZE = 5
 
 const copy = {
@@ -104,7 +104,7 @@ export default function GamesPage() {
   const direction = lang === 'ar' ? 'rtl' : 'ltr'
 
   function difficultyForGame(id: GameId) {
-    const skill = id === 'matching' || id === 'quick_choice' || id === 'word_scramble' ? 'vocabulary'
+    const skill = id === 'matching' || id === 'quick_choice' || id === 'word_scramble' || id === 'word_categories' ? 'vocabulary'
       : id === 'context_quest' ? 'speaking'
       : id === 'word_categories' ? 'vocabulary'
       : id === 'listen_choose' || id === 'listening_detective' ? 'listening'
@@ -369,7 +369,7 @@ export default function GamesPage() {
               <>
                 <h2 style={{ whiteSpace: 'pre-line' }}>{question.prompt}</h2>
                 {game === 'quick_choice' && !selected && <div className="quick-timer" aria-live="polite">⏱ {timeLeft}s</div>}
-                {game === 'listen_choose' || game === 'listening_detective' && (
+                {(game === 'listen_choose' || game === 'listening_detective') && (
                   <button type="button" className="audio-play" onClick={playAudio}>🎧 {lang === 'ar' ? 'تشغيل الصوت' : lang === 'fr' ? 'Écouter' : 'Play audio'}</button>
                 )}
                 {question.input_mode === 'text' ? (
