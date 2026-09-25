@@ -969,6 +969,31 @@ def _server_game_questions(
             })
             continue
         if game_id == "translation_sprint":
+            # Prefer curriculum-authored bilingual grammar examples at the
+            # active CEFR level. This keeps translation practice aligned with
+            # the same sentences learners encounter in lessons.
+            translation_examples = [
+                example
+                for topic in get_grammar_topics(target_language)
+                if topic.level == cefr_level
+                for example in topic.examples
+                if example.text.strip() and example.translation and example.translation.strip()
+            ]
+            rng.shuffle(translation_examples)
+            if len(translation_examples) >= 5:
+                example = translation_examples[index]
+                questions.append({
+                    "id": question_id,
+                    "prompt": f"Translate into the target language:\n{example.translation.strip()}",
+                    "choices": [],
+                    "answer": example.text.strip(),
+                    "hint": hints.get(language, hints["en"]),
+                    "skill": "writing",
+                    "difficulty": difficulty,
+                    "topic": "cefr-translation",
+                    "input_mode": "text",
+                })
+                continue
             translation_bank = {
                 "en": [
                     ("Translate: Hello, how are you?", "Hello, how are you?"),
