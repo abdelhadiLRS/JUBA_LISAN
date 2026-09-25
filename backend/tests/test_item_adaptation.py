@@ -2,6 +2,7 @@ from types import SimpleNamespace
 
 from app.routers.progress import (
     _adapt_question_after_session_miss,
+    _game_answer_matches,
     _item_mastery_from_events,
     _review_adaptive_difficulty,
     _review_game_for_item,
@@ -9,6 +10,12 @@ from app.routers.progress import (
     _review_retry_stage,
     _apply_skill_review_variant,
 )
+
+
+def test_game_answer_matches_normalizes_text_and_accepts_authored_variants():
+    assert _game_answer_matches("  I travel by train.  ", "i travel by train")
+    assert _game_answer_matches("Réponds naturellement !", ["Réponds naturellement", "Réponds naturellement !"])
+    assert not _game_answer_matches("I travel by car", ["I travel by train", "I travel by bus"])
 
 
 def test_review_difficulty_drops_for_weak_items():
