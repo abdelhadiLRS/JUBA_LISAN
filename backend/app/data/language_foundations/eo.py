@@ -1,15 +1,131 @@
-"""Esperanto foundation data for JUBA LISAN."""
-from app.data._types import CurriculumUnit, GrammarExample, GrammarTopic, VocabularyEntry, VocabularySet, PhrasebookCategory, PhrasebookEntry, AssessmentQuestion
+"""Esperanto foundation data for JUBA LISAN, CEFR A1-C2."""
+from app.data._types import (
+    CurriculumUnit, GrammarExample, GrammarTopic, VocabularyEntry, VocabularySet,
+    PhrasebookCategory, PhrasebookEntry, AssessmentQuestion,
+)
 
 LEVELS=["A1","A2","B1","B2","C1","C2"]
 
-CURRICULUM={
-    "A1":[CurriculumUnit(id="eo-a1-unit-1",level="A1",unit_number=1,title="Esperanto A1 · Introductions",grammar_points=["Identity and pronouns"],vocabulary_set_ids=["eo-a1-1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Understand a short Esperanto exchange","Produce simple A1 sentences"],default_weeks=2),CurriculumUnit(id="eo-a1-unit-2",level="A1",unit_number=2,title="Esperanto A1 · Family and people",grammar_points=["Basic sentence order"],vocabulary_set_ids=["eo-a1-2"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Understand a short Esperanto exchange","Produce simple A1 sentences"],default_weeks=2),CurriculumUnit(id="eo-a1-unit-3",level="A1",unit_number=3,title="Esperanto A1 · Home",grammar_points=["Present tense"],vocabulary_set_ids=["eo-a1-3"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Understand a short Esperanto exchange","Produce simple A1 sentences"],default_weeks=2),CurriculumUnit(id="eo-a1-unit-4",level="A1",unit_number=4,title="Esperanto A1 · Daily routine",grammar_points=["Negation"],vocabulary_set_ids=["eo-a1-4"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Understand a short Esperanto exchange","Produce simple A1 sentences"],default_weeks=2),CurriculumUnit(id="eo-a1-unit-5",level="A1",unit_number=5,title="Esperanto A1 · Time and appointments",grammar_points=["Questions"],vocabulary_set_ids=["eo-a1-5"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Understand a short Esperanto exchange","Produce simple A1 sentences"],default_weeks=2),CurriculumUnit(id="eo-a1-unit-6",level="A1",unit_number=6,title="Esperanto A1 · Food and shopping",grammar_points=["Possession"],vocabulary_set_ids=["eo-a1-6"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Understand a short Esperanto exchange","Produce simple A1 sentences"],default_weeks=2),CurriculumUnit(id="eo-a1-unit-7",level="A1",unit_number=7,title="Esperanto A1 · Places and directions",grammar_points=["Plural nouns"],vocabulary_set_ids=["eo-a1-7"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Understand a short Esperanto exchange","Produce simple A1 sentences"],default_weeks=2),CurriculumUnit(id="eo-a1-unit-8",level="A1",unit_number=8,title="Esperanto A1 · Everyday communication",grammar_points=["Location and direction"],vocabulary_set_ids=["eo-a1-8"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Understand a short Esperanto exchange","Produce simple A1 sentences"],default_weeks=2)],
-    **{level:[CurriculumUnit(id=f"eo-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Esperanto {level} progression",grammar_points=["level-appropriate grammar"],vocabulary_set_ids=["eo-a1-1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Build level-appropriate communication"],default_weeks=2)] for level in ["A2","B1","B2","C1","C2"]}
+_GRAMMAR=[
+("pronouns","Personal pronouns and accusative","A1","Mi vidas ŝin.","Use -n for direct objects."),
+("present","Present tense -as","A1","Mi lernas Esperanton.","Present verbs use -as."),
+("plural","Plural -j and accusative -n","A1","La libroj estas novaj.","Combine plural and object marking."),
+("questions","Ĉu and question words","A1","Ĉu vi komprenas?","Use ĉu for yes/no questions."),
+("negation","Negation with ne","A1","Mi ne scias.","Place ne before the negated predicate."),
+("possessives","Possessive adjectives","A1","Tio estas mia libro.","Possessives agree with number and accusative."),
+("past","Past tense -is","A2","Mi legis hieraŭ.","Use -is for completed past events."),
+("future","Future tense -os","A2","Mi venos morgaŭ.","Use -os for future events."),
+("imperative","Volitive -u","A2","Venu kun mi.","Use -u for commands, wishes and exhortations."),
+("adjectives","Adjective agreement -a","A2","La domoj estas grandaj.","Adjectives agree in plural and accusative."),
+("comparison","Comparatives and superlatives","A2","Ŝi estas pli alta.","Use pli, plej and ol."),
+("correlatives","Correlative table words","A2","Kie vi loĝas?","Use ki-, ti-, i-, ĉi- and neni- forms."),
+("perfect","Participles and compound tenses","B1","Mi jam estas fininta.","Use participles with esti for compound meaning."),
+("conditional","Conditional -us","B1","Mi irus, se mi povus.","Use -us for hypothetical situations."),
+("relative","Relative clauses with kiu/kio","B1","La libro, kiun mi legis...","Mark the role of the relative pronoun."),
+("reported","Reported speech","B1","Li diris, ke li venos.","Use ke and embedded clauses."),
+("passive","Passive voice","B1","La libro estas legata.","Use esti plus passive participle."),
+("word-formation","Affixes and productive derivation","B1","malgranda, samideano","Use Esperanto affixes systematically."),
+("aspect","Participles for ongoing and completed action","B2","Ŝi estis leganta.","Choose participles according to event phase."),
+("subordination","Complex subordinate clauses","B2","Kvankam li venis, ...","Link clauses precisely with conjunctions."),
+("nominalization","Derivation and nominal style","B2","La decido estis grava.","Use -o and derivational morphology accurately."),
+("discourse","Connectors and discourse structure","B2","Tamen, la rezulto...","Organise contrast, cause and consequence."),
+("modality","Modal and evidential nuance","B2","Ŝajne li pravis.","Express certainty, inference and obligation."),
+("formal","Formal and institutional Esperanto","C1","La kunsido estas malfermita.","Adapt syntax and vocabulary to institutions."),
+("academic","Academic hedging","C1","La rezultoj ŝajnas indiki...","Qualify claims and distinguish evidence from inference."),
+("information","Topic, focus and emphasis","C1","Precipe ĉi tiu punkto...","Control information structure."),
+("embedded","Embedded questions and complements","C1","Mi ne scias, ĉu...","Integrate questions into complex sentences."),
+("pragmatics","Politeness and pragmatic meaning","C2","Ĉu vi bonvolus...","Choose forms according to social context."),
+("rhetoric","Rhetorical argumentation","C2","Unuflanke... aliflanke...","Build balanced persuasive discourse."),
+("literary","Literary and idiomatic style","C2","La urbo vekiĝis.","Interpret figurative language."),
+("translation","Translation precision and paraphrase","C2","Alivorte, ...","Choose precise equivalents across registers."),
+]
+GRAMMAR_TOPICS=[GrammarTopic(slug=s,title=t,level=l,category=c,summary=t,explanation=x,examples=[GrammarExample(text=e)]) for s,t,l,c,e,x in _GRAMMAR]
+
+_VOCAB=[
+("A1","Greetings",["saluton","dankon","bonvolu","ĝis"]),
+("A1","Identity",["nomo","studento","amiko","lingvo"]),
+("A1","Family",["patrino","patro","frato","fratino"]),
+("A1","Home",["domo","ĉambro","pordo","tablo"]),
+("A1","Routine",["mateno","labori","manĝi","dormi"]),
+("A1","Food",["pano","lakto","pomo","akvo"]),
+("A1","Places",["butiko","lernejo","stacidomo","strato"]),
+("A1","Communication",["kompreni","demando","helpo","rapide"]),
+("A2","Travel",["vojaĝo","bileto","aŭtobuso","hotelo"]),
+("A2","Health",["sano","kuracisto","doloro","medikamento"]),
+("A2","Plans",["plano","bezono","povi","devi"]),
+("A2","Shopping",["prezo","pagi","mono","ricevo"]),
+("B1","Education",["studado","ekzameno","esploro","scio"]),
+("B1","Work",["kunveno","kolego","projekto","sperto"]),
+("B1","Society",["komunumo","medio","leĝo","rajto"]),
+("B1","Opinions",["opinio","kialo","pruvo","argumento"]),
+("B2","Media",["novaĵo","fonto","datumaro","teknologio"]),
+("B2","Economy",["ekonomio","investo","entrepreno","merkato"]),
+("B2","Culture",["kulturo","heredaĵo","tradicio","literaturo"]),
+("B2","Environment",["poluo","rimedo","energio","daŭripovo"]),
+("C1","Academic",["hipotezo","metodologio","konkludo","interpreto"]),
+("C1","Administration",["politiko","regularo","proceduro","aplikaĵo"]),
+("C1","Professional",["raporto","propono","intertraktado","interkonsento"]),
+("C1","Analysis",["kritiko","antaŭjuĝo","perspektivo","kontrasto"]),
+("C2","Rhetoric",["retoriko","persvado","emfazo","koncedo"]),
+("C2","Nuance",["nuanco","metaforo","ironio","idiomo"]),
+("C2","Literature",["rakonto","simbolo","stilo","tono"]),
+("C2","Translation",["signifo","ekvivalento","parafrazo","precizeco"]),
+]
+VOCABULARY_SETS=[]
+for idx,(level,topic,words) in enumerate(_VOCAB,1):
+    level_idx=["A1","A2","B1","B2","C1","C2"].index(level)
+    unit=(idx-1)%4+1
+    vid=f"eo-{level.lower()}-{unit}"
+    entries=[VocabularyEntry(word=w,pos="noun" if w.endswith(("o","aĵo")) else "verb" if w.endswith("i") else "phrase",definition=w,example=f"Ekzemplo kun {w}.") for w in words]
+    VOCABULARY_SETS.append(VocabularySet(id=vid,level=level,topic=topic,unit_ref=f"eo-{level.lower()}-unit-{unit}",words=entries))
+
+_CURRICULUM_TOPICS={
+"A1":["Salutoj kaj identeco","Familio kaj hejmo","Ĉiutaga vivo","Tempo kaj rendevuoj","Manĝaĵoj kaj aĉetado","Lokoj kaj direktoj"],
+"A2":["Vojaĝado","Sano","Plano kaj devo","Servoj","Pasintaj eventoj","Komparoj"],
+"B1":["Eduko","Laboro","Socio","Opinioj","Informo kaj raportado","Kondiĉoj"],
+"B2":["Amaskomunikiloj","Ekonomio","Kulturo","Medio","Formala klarigo","Argumentado"],
+"C1":["Akademia diskurso","Publika administrado","Profesia komunikado","Kritika analizo","Evidenco","Formala verkado"],
+"C2":["Retoriko","Pragmatiko","Literatura stilo","Tradukado","Diskursa analizo","Altnivela stilo"],
 }
+CURRICULUM={}
+for level,titles in _CURRICULUM_TOPICS.items():
+    CURRICULUM[level]=[
+        CurriculumUnit(id=f"eo-{level.lower()}-unit-{n}",level=level,unit_number=n,title=f"Esperanto {level} · {title}",
+        grammar_points=[x[1] for x in _GRAMMAR if x[2]==level][:2],
+        vocabulary_set_ids=[f"eo-{level.lower()}-{(n-1)%4+1}"],
+        lesson_types=["grammar","vocabulary","reading","writing","listening","review"],
+        competency_checklist=[f"Communicate about {title.lower()} at {level} level","Apply Esperanto morphology and syntax accurately"],default_weeks=2)
+        for n,title in enumerate(titles,1)
+    ]
 
-GRAMMAR_TOPICS=[GrammarTopic(slug="identity-pronouns",title="Identity and pronouns",level="A1",category="syntax",summary="Use identity and pronouns in everyday communication.",explanation="Practice identity and pronouns with short native-language examples.",examples=[GrammarExample(text="Mia nomo estas Anna.")]),GrammarTopic(slug="basic-word-order",title="Basic sentence order",level="A1",category="syntax",summary="Use basic sentence order in everyday communication.",explanation="Practice basic sentence order with short native-language examples.",examples=[GrammarExample(text="Mi estas studento.")]),GrammarTopic(slug="present-tense",title="Present tense",level="A1",category="verbs",summary="Use present tense in everyday communication.",explanation="Practice present tense with short native-language examples.",examples=[GrammarExample(text="Ĉi tio estas mia domo.")]),GrammarTopic(slug="negation",title="Negation",level="A1",category="verbs",summary="Use negation in everyday communication.",explanation="Practice negation with short native-language examples.",examples=[GrammarExample(text="Mi ne komprenas.")]),GrammarTopic(slug="questions",title="Questions",level="A1",category="communication",summary="Use questions in everyday communication.",explanation="Practice questions with short native-language examples.",examples=[GrammarExample(text="Kie estas la stacidomo?")]),GrammarTopic(slug="possession",title="Possession",level="A1",category="grammar",summary="Use possession in everyday communication.",explanation="Practice possession with short native-language examples.",examples=[GrammarExample(text="Mia patrino loĝas ĉi tie.")]),GrammarTopic(slug="plural-nouns",title="Plural nouns",level="A1",category="nouns",summary="Use plural nouns in everyday communication.",explanation="Practice plural nouns with short native-language examples.",examples=[GrammarExample(text="La libroj estas sur la tablo.")]),GrammarTopic(slug="location-direction",title="Location and direction",level="A1",category="communication",summary="Use location and direction in everyday communication.",explanation="Practice location and direction with short native-language examples.",examples=[GrammarExample(text="La banko estas maldekstre.")])]
+_PHRASES=[
+("A1","Greetings",["Saluton!","Kiel vi fartas?","Mia nomo estas Ana."]),
+("A1","Help",["Ĉu vi povas helpi min?","Mi ne komprenas.","Bonvolu paroli pli malrapide."]),
+("A2","Travel",["Kie estas la stacidomo?","Kiom kostas bileto?","Je kioma horo ni foriros?"]),
+("A2","Shopping",["Kiom kostas ĉi tio?","Mi ŝatus aĉeti ĝin.","Ĉu mi povas pagi per karto?"]),
+("B1","Work",["Ĉu ni povas komenci la kunvenon?","Kio estas via opinio?","Mi konsentas kun tiu punkto."]),
+("B1","Clarification",["Ĉu vi povas klarigi?","Kion vi volas diri?","Lasu min precizigi."]),
+("B2","Formal",["Laŭ la disponeblaj fontoj...","Aliflanke...","Tamen, restas problemo."]),
+("B2","Professional",["Mi alkroĉas la dokumenton.","Mi atendas vian respondon.","Ni devas konsideri ĉi tiun faktoron."]),
+("C1","Academic",["La evidenteco sugestas, ke...","Oni povus argumenti, ke...","Tiu konkludo postulas plian esploron."]),
+("C1","Administration",["Laŭ la regularo...","La aplikaĵo estis ricevita.","Bonvolu sekvi la proceduron."]),
+("C2","Debate",["Ĉi-rilate...","Tiu argumento preterlasas la fakton, ke...","Indas rimarki, ke..."]),
+("C2","Nuance",["La signifo dependas de la kunteksto.","Estas subtila diferenco inter tiuj terminoj.","Ĝenerale, sed ne sen esceptoj."]),
+]
+PHRASEBOOK_CATEGORIES=[PhrasebookCategory(id=f"eo-{l.lower()}-phrase-{n}",level=l,situation=s,icon="💬",phrases=[PhrasebookEntry(text=p,context=s.lower(),register="formal" if l in ("C1","C2") else "neutral") for p in ps]) for n,(l,s,ps) in enumerate(_PHRASES,1)]
 
-VOCABULARY_SETS=[VocabularySet(id="eo-a1-1",level="A1",topic="Greetings",unit_ref="eo-a1-unit-1",words=[VocabularyEntry(word="Saluton",pos="interjection",definition="hello",example="Saluton! Kiel vi fartas?"),VocabularyEntry(word="Dankon",pos="interjection",definition="thank you",example="Dankon pro via helpo."),VocabularyEntry(word="Bonvolu",pos="adverb",definition="please",example="Bonvolu eniri."),VocabularyEntry(word="Ĝis revido",pos="phrase",definition="see you again",example="Ĝis revido morgaŭ.")]),VocabularySet(id="eo-a1-2",level="A1",topic="Identity",unit_ref="eo-a1-unit-2",words=[VocabularyEntry(word="nomo",pos="noun",definition="name",example="Kio estas via nomo?"),VocabularyEntry(word="studento",pos="noun",definition="student",example="Mi estas studento."),VocabularyEntry(word="amiko",pos="noun",definition="friend",example="Li estas mia amiko."),VocabularyEntry(word="lingvo",pos="noun",definition="language",example="Esperanto estas lingvo.")]),VocabularySet(id="eo-a1-3",level="A1",topic="Family",unit_ref="eo-a1-unit-3",words=[VocabularyEntry(word="patrino",pos="noun",definition="mother",example="Mia patrino loĝas ĉi tie."),VocabularyEntry(word="patro",pos="noun",definition="father",example="Mia patro laboras."),VocabularyEntry(word="frato",pos="noun",definition="brother",example="Mi havas fraton."),VocabularyEntry(word="fratino",pos="noun",definition="sister",example="Mia fratino estas studentino.")]),VocabularySet(id="eo-a1-4",level="A1",topic="Home",unit_ref="eo-a1-unit-4",words=[VocabularyEntry(word="domo",pos="noun",definition="house",example="Nia domo estas malgranda."),VocabularyEntry(word="ĉambro",pos="noun",definition="room",example="Mia ĉambro estas hela."),VocabularyEntry(word="pordo",pos="noun",definition="door",example="La pordo estas malfermita."),VocabularyEntry(word="tablo",pos="noun",definition="table",example="La libro estas sur la tablo.")]),VocabularySet(id="eo-a1-5",level="A1",topic="Daily routine",unit_ref="eo-a1-unit-5",words=[VocabularyEntry(word="mateno",pos="noun",definition="morning",example="Matene mi laboras."),VocabularyEntry(word="labori",pos="verb",definition="work",example="Mi laboras hodiaŭ."),VocabularyEntry(word="manĝi",pos="verb",definition="eat",example="Ni manĝas kune."),VocabularyEntry(word="dormi",pos="verb",definition="sleep",example="Mi dormas je la deka.")]),VocabularySet(id="eo-a1-6",level="A1",topic="Food",unit_ref="eo-a1-unit-6",words=[VocabularyEntry(word="pano",pos="noun",definition="bread",example="Mi aĉetas panon."),VocabularyEntry(word="lakto",pos="noun",definition="milk",example="Mi volas lakton."),VocabularyEntry(word="pomo",pos="noun",definition="apple",example="La pomo estas ruĝa."),VocabularyEntry(word="prezo",pos="noun",definition="price",example="Kio estas la prezo?")]),VocabularySet(id="eo-a1-7",level="A1",topic="Places",unit_ref="eo-a1-unit-7",words=[VocabularyEntry(word="butiko",pos="noun",definition="shop",example="La butiko estas proksima."),VocabularyEntry(word="stacidomo",pos="noun",definition="station",example="Kie estas la stacidomo?"),VocabularyEntry(word="maldekstre",pos="adverb",definition="left",example="La banko estas maldekstre."),VocabularyEntry(word="dekstre",pos="adverb",definition="right",example="La lernejo estas dekstre.")]),VocabularySet(id="eo-a1-8",level="A1",topic="Communication",unit_ref="eo-a1-unit-8",words=[VocabularyEntry(word="kompreni",pos="verb",definition="understand",example="Mi ne komprenas."),VocabularyEntry(word="demando",pos="noun",definition="question",example="Mi havas demandon."),VocabularyEntry(word="helpo",pos="noun",definition="help",example="Mi bezonas helpon."),VocabularyEntry(word="malrapide",pos="adverb",definition="slowly",example="Bonvolu paroli malrapide.")])]
-PHRASEBOOK_CATEGORIES=[PhrasebookCategory(id="eo-greetings-a1",level="A1",situation="Greetings",icon="👋",phrases=[PhrasebookEntry(text="Bonan matenon!",context="morning greeting",register="neutral"),PhrasebookEntry(text="Kiel vi fartas?",context="asking how someone is",register="neutral"),PhrasebookEntry(text="Mia nomo estas Ana.",context="introducing yourself",register="neutral")]),PhrasebookCategory(id="eo-daily-a1",level="A1",situation="Daily life",icon="☀️",phrases=[PhrasebookEntry(text="Mi estas hejme hodiaŭ.",context="saying where you are",register="neutral"),PhrasebookEntry(text="Mi laboras hodiaŭ.",context="talking about your day",register="neutral"),PhrasebookEntry(text="Mi ne komprenas.",context="asking for clarification",register="neutral")]),PhrasebookCategory(id="eo-shopping-a1",level="A1",situation="Shopping",icon="🛒",phrases=[PhrasebookEntry(text="Kiom kostas ĉi tio?",context="asking the price",register="neutral"),PhrasebookEntry(text="Mi volas ĉi tion.",context="requesting an item",register="neutral"),PhrasebookEntry(text="Ĉu mi povas pagi per karto?",context="asking about payment",register="neutral")]),PhrasebookCategory(id="eo-directions-a1",level="A1",situation="Directions",icon="🧭",phrases=[PhrasebookEntry(text="Kie estas la stacidomo?",context="asking for a location",register="neutral"),PhrasebookEntry(text="Iru rekte.",context="giving directions",register="neutral"),PhrasebookEntry(text="Turnu vin dekstren.",context="giving a direction",register="neutral")]),PhrasebookCategory(id="eo-help-a1",level="A1",situation="Help",icon="🆘",phrases=[PhrasebookEntry(text="Ĉu vi povas helpi min?",context="asking for help",register="neutral"),PhrasebookEntry(text="Ĉu vi povas ripeti tion?",context="asking to repeat",register="neutral"),PhrasebookEntry(text="Bonvolu paroli pli malrapide.",context="asking someone to slow down",register="neutral")])]
-ASSESSMENT_BANK=[AssessmentQuestion(id="eo-a1-001",skill="vocabulary",difficulty="A1",question="What does “Dankon” mean?",options=["hello","thank you","goodbye","please"],correct="thank you"),AssessmentQuestion(id="eo-a1-002",skill="grammar",difficulty="A1",question="Choose the correct sentence for “I am a student.”",options=["Mi estas studento.","Mi estas studentan.","Mi estas studentoj.","Mi studento estas."],correct="Mi estas studento."),AssessmentQuestion(id="eo-a1-003",skill="grammar",difficulty="A1",question="Which sentence is negative?",options=["Mi ne komprenas.","Mi komprenas ne.","Mi ne kompreni.","Ne mi komprenas."],correct="Mi ne komprenas."),AssessmentQuestion(id="eo-a1-004",skill="grammar",difficulty="A1",question="Which question asks where someone lives?",options=["Kie vi loĝas?","Kio estas via nomo?","Kiom kostas ĉi tio?","Kiel vi fartas?"],correct="Kie vi loĝas?"),AssessmentQuestion(id="eo-a1-005",skill="vocabulary",difficulty="A1",question="Which word means “sister”?",options=["frato","patrino","fratino","patro"],correct="fratino"),AssessmentQuestion(id="eo-a1-006",skill="vocabulary",difficulty="A1",question="Which word means “shop”?",options=["stacidomo","butiko","domo","ĉambro"],correct="butiko"),AssessmentQuestion(id="eo-a1-007",skill="grammar",difficulty="A1",question="Complete: Mi ___ hodiaŭ.",options=["laboras","labori","laboris","laboru"],correct="laboras"),AssessmentQuestion(id="eo-a1-008",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["Ĉu vi povas ripeti tion?","Ĝis revido!","Dankon!","Mia nomo estas Ana."],correct="Ĉu vi povas ripeti tion?"),AssessmentQuestion(id="eo-a1-009",skill="communication",difficulty="A1",question="Which phrase asks for the price?",options=["Kiom kostas ĉi tio?","Kie vi loĝas?","Bonan matenon!","Iru rekte."],correct="Kiom kostas ĉi tio?"),AssessmentQuestion(id="eo-a1-010",skill="vocabulary",difficulty="A1",question="Which word means “help”?",options=["helpo","demando","malrapide","nomo"],correct="helpo")]
+_ASSESS=[
+("A1","grammar","Which suffix marks a direct object?","-n","pronouns"),
+("A1","vocabulary","Which word means thank you?","dankon","identity"),
+("A2","grammar","Which ending marks the future?","-os","future"),
+("A2","vocabulary","Which word means ticket?","bileto","travel"),
+("B1","grammar","Which ending marks the conditional?","-us","conditional"),
+("B1","vocabulary","Which word means evidence?","pruvo","reported"),
+("B2","grammar","Which form can express passive voice?","estas legata","passive"),
+("B2","vocabulary","Which word means sustainability?","daŭripovo","discourse"),
+("C1","grammar","Which expression hedges an academic claim?","ŝajnas indiki","academic"),
+("C1","vocabulary","Which word means methodology?","metodologio","formal"),
+("C2","grammar","Which area concerns social-context adaptation?","pragmatiko","pragmatics"),
+("C2","vocabulary","Which word means nuance?","nuanco","literary"),
+]
+ASSESSMENT_BANK=[AssessmentQuestion(id=f"eo-{l.lower()}-{n:03}",skill="grammar" if skill=="grammar" else "vocabulary",difficulty=l,question=q,options=[correct,"A","B","C"],correct=correct,grammar_slug=slug) for n,(l,skill,q,correct,slug) in enumerate(_ASSESS,1)]
