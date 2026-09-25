@@ -171,17 +171,9 @@ export default function GamesPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const autoStartedReview = useRef(false)
-  const [lang, setLang] = useState<Lang>(locale)
-  useEffect(() => setLang(locale), [locale])
-
-  function changeInterfaceLanguage(value: Lang) {
-    setLang(value)
-    // Persist the interface locale so middleware and server-rendered messages
-    // use the same language after navigation or refresh. The study-plan target
-    // language is intentionally untouched.
-    document.cookie = `NEXT_LOCALE=${value}; Path=/; Max-Age=31536000; SameSite=Lax`
-    router.refresh()
-  }
+  // The site-wide locale is controlled by the persistent global switcher.
+  // Games must not create a second, page-local interface-language control.
+  const lang: Lang = locale
   const [game, setGame] = useState<GameId | null>(null)
   const [dailyMode, setDailyMode] = useState(false)
   const [dailyChallengeDate, setDailyChallengeDate] = useState('')
@@ -690,14 +682,6 @@ export default function GamesPage() {
           <div>
             <div className="games-brand">{t.title}</div>
             <h1>{t.subtitle}</h1>
-          </div>
-          <div className="language-control">
-            <span>{t.lang}</span>
-            {(['ar', 'fr', 'en', 'es', 'de', 'it', 'pt', 'pl', 'nl', 'ro', 'ru'] as Lang[]).map((value) => (
-              <button type="button" key={value} className={lang === value ? 'active' : ''} onClick={() => changeInterfaceLanguage(value)}>
-                {value.toUpperCase()}
-              </button>
-            ))}
           </div>
         </header>
 
