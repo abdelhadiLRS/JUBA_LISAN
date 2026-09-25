@@ -743,6 +743,7 @@
     "pendingLessons": "Pending lessons",
     "resume": "Resume",
     "lessonsHeader": "Lessons · {count}",
+    "startLearning": "Start Learning",
     "reviewLesson": "Review",
     "noPlanLabel": "GET STARTED",
     "noPlanTitle": "Create your study plan",
