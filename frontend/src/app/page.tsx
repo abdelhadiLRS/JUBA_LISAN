@@ -327,7 +327,7 @@ export default async function Home() {
       </section>
 
       <section className="juba-reference-download">
-        <div><span className="juba-ff-section-tag">{t('heroBadge')}</span><h2>{t('ctaStart')}</h2><p>{t('heroSub')}</p><div className="juba-reference-download-buttons"><a href="#pricing">App Store</a><a href="#pricing">Google Play</a></div></div>
+        <div><span className="juba-ff-section-tag">{t('heroBadge')}</span><h2>{t('ctaStart')}</h2><p>{t('heroSub')}</p></div>
         <div className="juba-reference-download-art" aria-hidden="true"><div className="juba-reference-device"><span>JUBA LISAN</span><b>Learn languages</b><i>● ● ●</i></div></div>
       </section>
 
