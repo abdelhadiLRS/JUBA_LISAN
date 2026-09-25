@@ -1904,6 +1904,11 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
     replay["variant"] = f"curriculum-{variant + 1}" if (
         skill in {"grammar", "listening", "speaking"} and replay != question
     ) else f"surface-{variant + 1}"
+    replay["mechanic_variant"] = _review_mechanic_variant(
+        skill,
+        strategy,
+        variant,
+    )
     return replay
 
 
