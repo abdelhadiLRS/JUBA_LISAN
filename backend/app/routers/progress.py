@@ -1652,6 +1652,20 @@ def _review_item_strategy(mastery_state: str, review_streak: int) -> str:
     return "production"
 
 
+def _mixed_review_strategy(
+    mastery_state: str,
+    review_streak: int,
+    retrieval_efficiency: float,
+    attempts: int,
+) -> str:
+    """Avoid interpreting a missing retrieval history as evidence of failure."""
+    strategy = _review_item_strategy(mastery_state, review_streak)
+    efficiency = max(0.0, min(1.0, float(retrieval_efficiency)))
+    if max(0, int(attempts)) > 0 and efficiency < 0.35:
+        return "recognition"
+    return strategy
+
+
 def _apply_skill_review_variant(question: dict, seed: int) -> dict:
     """Create a deterministic curriculum-backed variant while preserving the learning target."""
     replay = dict(question)
@@ -2325,23 +2339,18 @@ async def _build_multi_skill_review_questions(
         # callers can reach this builder with only a compact mistake snapshot.
         mastery_state = str(replay.get("mastery_state") or "new")
         review_streak = max(0, int(replay.get("review_streak", 0)))
-        replay["review_strategy"] = _review_item_strategy(
-            mastery_state,
-            review_streak,
-        )
         replay["retrieval_efficiency"] = max(
             0.0,
             min(1.0, float(replay.get("retrieval_efficiency", 0.0))),
         )
         replay["attempts"] = max(0, int(replay.get("attempts", 0)))
         replay["review_streak"] = review_streak
-
-        # Low retrieval efficiency should not jump directly to transfer or
-        # production even when the stored mastery state is optimistic. Only
-        # apply this downgrade when attempts exist; a zero-efficiency default
-        # for an untracked item is not evidence of a failed retrieval.
-        if replay["attempts"] > 0 and replay["retrieval_efficiency"] < 0.35:
-            replay["review_strategy"] = "recognition"
+        replay["review_strategy"] = _mixed_review_strategy(
+            mastery_state,
+            review_streak,
+            replay["retrieval_efficiency"],
+            replay["attempts"],
+        )
 
         return _apply_skill_review_variant(
             replay, int(replay.get("variant_seed", 0))
