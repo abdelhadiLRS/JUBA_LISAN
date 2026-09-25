@@ -267,7 +267,7 @@ export default async function Home() {
           <Link href="/register" className="juba-ref-button">{t('ctaStart')} <ArrowRight className="h-4 w-4" /></Link>
         </div>
         <div className="juba-ref-language-art">
-          <LanguageBubbles />
+          <LanguageBubbles dir={locale === 'ar' ? 'rtl' : 'ltr'} />
         </div>
       </section>
 
