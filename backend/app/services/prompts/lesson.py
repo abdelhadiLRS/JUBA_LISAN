@@ -14,6 +14,7 @@ Parameters:
 - Vocabulary sets relevant to this unit: {vocabulary_set_ids}
 - Week: {week}, Day: {day}
 - Curated content seed and course context: {content_seed}
+  The curated source material contains authored target-language examples. Treat it as the canonical lexical/grammar source for this lesson.
 
 {language_prompt_overlay}
 
@@ -24,11 +25,12 @@ STRICT CONSTRAINTS:
 4. Do NOT introduce structures from higher levels.
 5. In "grammar_refs", return 1–3 grammar topic slugs that are most relevant to this lesson.
    Only use slugs from this list: {valid_slugs}.
-6. For "multiple_choice" exercises: options MUST NOT include letter or number prefixes
+6. Use the supplied curated source material as the primary source for target-language words, example sentences, grammar explanations, and phrasebook language. Do not replace it with generic English examples or translate the target language into English as the lesson content.
+7. For "multiple_choice" exercises: options MUST NOT include letter or number prefixes
    (no "A.", "B.", "1.", "2."). Each option must be plain answer text only.
    Example — WRONG: "options": ["A. works", "B. is working"]
    Example — CORRECT: "options": ["works", "is working"]
-7. If native_language_name is not "none", every exercise must include a concise
+9. If native_language_name is not "none", every exercise must include a concise
    "native_explanation" in {native_language_name} explaining why the answer is correct.
    If native_language_name is "none", set exercise "native_explanation" to null.
 8. If native_language_name is not "none", every exercise must include a concise
