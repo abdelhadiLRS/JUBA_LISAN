@@ -38,7 +38,7 @@ The daily game identifier is deterministic and synchronized between client displ
 
 ## Localization
 
-The Games Hub provides dedicated Arabic, French, and English copy, with RTL layout for Arabic.
+The Games Hub supports the core integrated target languages: Arabic, English, French, Spanish, German, Italian, Portuguese, Japanese, Korean and Chinese. Game content follows the active study-plan target language, while interface locale remains independent. Interactive games also use the target language passed by the study plan, with RTL behavior preserved for Arabic.
 
 ## Non-negotiable rules
 
