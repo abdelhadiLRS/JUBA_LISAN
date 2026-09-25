@@ -50,18 +50,18 @@ export function LandingNav({
   const [regionOpen, setRegionOpen] = useState(false)
   const [visitorCountry, setVisitorCountry] = useState('DZ')
 
-  const languageLabels: Record<Locale, { native: string; flag: string }> = {
-    en: { native: 'English', flag: '🇬🇧' }, ar: { native: 'العربية', flag: '🇩🇿' }, es: { native: 'Español', flag: '🇪🇸' },
-    fr: { native: 'Français', flag: '🇫🇷' }, pt: { native: 'Português', flag: '🇵🇹' }, de: { native: 'Deutsch', flag: '🇩🇪' },
-    it: { native: 'Italiano', flag: '🇮🇹' }, pl: { native: 'Polski', flag: '🇵🇱' }, nl: { native: 'Nederlands', flag: '🇳🇱' },
-    ro: { native: 'Română', flag: '🇷🇴' }, ru: { native: 'Русский', flag: '🇷🇺' },
+  const languageLabels: Record<Locale, { native: string;  }> = {
+    en: { native: 'English' }, ar: { native: 'العربية' }, es: { native: 'Español' },
+    fr: { native: 'Français' }, pt: { native: 'Português' }, de: { native: 'Deutsch' },
+    it: { native: 'Italiano' }, pl: { native: 'Polski' }, nl: { native: 'Nederlands' },
+    ro: { native: 'Română' }, ru: { native: 'Русский' },
   }
 
-  const countryLabels: Record<string, { name: string; flag: string }> = {
-    DZ: { name: 'Algeria', flag: '🇩🇿' }, FR: { name: 'France', flag: '🇫🇷' }, GB: { name: 'United Kingdom', flag: '🇬🇧' },
-    ES: { name: 'Spain', flag: '🇪🇸' }, DE: { name: 'Germany', flag: '🇩🇪' }, IT: { name: 'Italy', flag: '🇮🇹' },
-    PT: { name: 'Portugal', flag: '🇵🇹' }, PL: { name: 'Poland', flag: '🇵🇱' }, NL: { name: 'Netherlands', flag: '🇳🇱' },
-    RO: { name: 'Romania', flag: '🇷🇴' }, RU: { name: 'Russia', flag: '🇷🇺' }, US: { name: 'United States', flag: '🇺🇸' },
+  const countryLabels: Record<string, { name: string;  }> = {
+    DZ: { name: 'Algeria' }, FR: { name: 'France' }, GB: { name: 'United Kingdom' },
+    ES: { name: 'Spain' }, DE: { name: 'Germany' }, IT: { name: 'Italy' },
+    PT: { name: 'Portugal' }, PL: { name: 'Poland' }, NL: { name: 'Netherlands' },
+    RO: { name: 'Romania' }, RU: { name: 'Russia' }, US: { name: 'United States' },
   }
 
   useEffect(() => {
@@ -141,22 +141,8 @@ export function LandingNav({
   }, [])
 
 
-  function CountryFlag({ code, className = 'h-5 w-7' }: { code: string; className?: string }) {
-    return (
-      <span className={`flex shrink-0 items-center justify-center overflow-hidden rounded-[4px] bg-white ring-1 ring-black/10 ${className}`}>
-        <img
-          src={`https://indstatic.io/indstatic-main/flags/${code.toUpperCase()}.svg`}
-          alt={`${code.toUpperCase()} flag`}
-          className="h-full w-full object-cover"
-          loading="eager"
-          referrerPolicy="no-referrer"
-        />
-      </span>
-    )
-  }
-
   const currentCountry = countryLabels[visitorCountry] ?? countryLabels.DZ
-  const localeLinks = (Object.entries(languageLabels) as Array<[Locale, { native: string; flag: string }]>).map(([code, language]) => ({ code, ...language }))
+  const localeLinks = (Object.entries(languageLabels) as Array<[Locale, { native: string;  }]>).map(([code, language]) => ({ code, ...language }))
 
   useEffect(() => {
     let canceled = false
@@ -215,11 +201,11 @@ export function LandingNav({
         <div className="hidden items-center gap-3 md:flex">
           <div className="relative">
             <button type="button" onClick={() => setRegionOpen((value) => !value)} aria-expanded={regionOpen} aria-haspopup="menu" aria-label="Click here to change the region or language" className="juba-nav-region flex items-center gap-2 rounded-full border border-[var(--juba-app-line)] bg-white/80 px-3 py-2 text-xs font-bold text-[var(--juba-app-ink)] backdrop-blur transition hover:-translate-y-0.5 hover:shadow-sm">
-              <CountryFlag code={visitorCountry} className="h-7 w-8" /><span className="text-base font-black capitalize">{locale}</span><ChevronDown className="h-3 w-3" aria-hidden="true" />
+              <span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span><span className="text-base font-black capitalize">{locale}</span><ChevronDown className="h-3 w-3" aria-hidden="true" />
             </button>
             {regionOpen && <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-50 w-72 rounded-2xl border border-[var(--juba-app-line)] bg-white p-3 shadow-xl">
               <div className="mb-2 flex items-center gap-2 px-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><Globe2 className="h-3.5 w-3.5" /> Region & language</div>
-              <div className="rounded-xl bg-[var(--juba-app-green-soft)] px-3 py-2.5"><div className="text-[10px] font-bold text-[var(--juba-app-muted)]">Visitor region</div><div className="mt-0.5 flex items-center gap-2 font-black text-[var(--juba-app-ink)]"><CountryFlag code={visitorCountry} className="h-5 w-7" /><span>{currentCountry.name}</span></div></div>
+              <div className="rounded-xl bg-[var(--juba-app-green-soft)] px-3 py-2.5"><div className="text-[10px] font-bold text-[var(--juba-app-muted)]">Visitor region</div><div className="mt-0.5 flex items-center gap-2 font-black text-[var(--juba-app-ink)]"><span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span><span>{currentCountry.name}</span></div></div>
               <div className="mt-3 border-t border-[var(--juba-app-line)] pt-3">
                 <div className="px-2 text-[10px] font-bold text-[var(--juba-app-muted)]">Interface language</div>
                 <div className="mt-1 grid max-h-56 grid-cols-2 gap-1 overflow-auto">
@@ -230,7 +216,7 @@ export function LandingNav({
                       onClick={() => setRegionOpen(false)}
                       className={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-bold transition ${locale === language.code ? 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'}`}
                     >
-                      <span>{language.flag} {language.native}</span>
+                      <span>{language.native}</span>
                       {locale === language.code && <Check className="h-3.5 w-3.5 text-[var(--juba-app-green)]" />}
                     </Link>
                   ))}
@@ -258,7 +244,7 @@ export function LandingNav({
       {open && (
         <div id="juba-mobile-navigation" className="juba-mobile-menu juba-ff-mobile-menu border-b px-6 pt-4 pb-6 md:hidden animate-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col gap-4">
-            <div className="rounded-2xl border border-[var(--juba-app-line)] bg-white/80 p-3"><div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><CountryFlag code={visitorCountry} className="h-7 w-8" /><span className="text-base font-black capitalize">{locale}</span></div></div>
+            <div className="rounded-2xl border border-[var(--juba-app-line)] bg-white/80 p-3"><div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span><span className="text-base font-black capitalize">{locale}</span></div></div>
             {links}
             <div className="juba-mobile-actions pt-2 flex flex-col gap-3">
               <Link href={hasSession ? '/dashboard' : '/login'} onClick={closeMenu} className="juba-nav-signin juba-ff-nav-signin w-full text-center py-2 text-sm font-semibold">{hasSession ? dashboard : signIn}</Link>
