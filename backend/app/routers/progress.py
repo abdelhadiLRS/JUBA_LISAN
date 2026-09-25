@@ -1483,12 +1483,22 @@ async def start_game_session(
             effective_difficulty,
         )
     elif effective_game_id in {"memory", "matching", "ordering", "sentence_builder"}:
+        cefr_level = cast(CEFRLevel, plan.cefr_level)
+        preferred_topics = await _get_adaptive_review_topics(
+            db,
+            current_user.id,
+            plan.id,
+            GAME_SKILL_MAP.get(effective_game_id),
+            plan.target_language,
+            cefr_level,
+        )
         interaction_public, interaction_solution = _server_interactive_challenge(
             effective_game_id,
             data.language,
             effective_difficulty,
             plan.target_language,
-            cast(CEFRLevel, plan.cefr_level),
+            cefr_level,
+            preferred_topics,
         )
         questions = [{
             "id": str(uuid4()),
