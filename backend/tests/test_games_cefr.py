@@ -202,7 +202,7 @@ def _mastery_event(at, key, *, question=None, resolved=False):
     return SimpleNamespace(created_at=at, mistakes=[item])
 
 
-def test_tracked_mastery_summary_groups_items_by_skill_and_state():
+async def test_tracked_mastery_summary_groups_items_by_skill_and_state():
     from app.routers.progress import _get_tracked_mastery_summary
 
     question_v = {"skill": "vocabulary", "target_language": "fr", "cefr_level": "A1"}
