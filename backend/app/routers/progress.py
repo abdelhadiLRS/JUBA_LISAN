@@ -1444,6 +1444,7 @@ async def complete_game_session(
         if session.daily_challenge_date != today.isoformat():
             raise HTTPException(status_code=422, detail="session is not today's daily challenge")
 
+    mistakes: list[dict] = []
     if session.game_id in {"memory", "matching", "ordering", "sentence_builder"}:
         if data.answers:
             raise HTTPException(
@@ -1516,7 +1517,6 @@ async def complete_game_session(
             raise HTTPException(status_code=422, detail="Exactly one answer is required for every question")
 
         correct_answers = 0
-        mistakes: list[dict] = []
         for submitted in data.answers:
             question = expected[submitted.question_id]
             is_correct = False
