@@ -105,7 +105,8 @@ def _server_interactive_challenge(
     """Build a renderable challenge plus server-only solution state."""
     rng = random.SystemRandom()
     vocab_sets = get_vocabulary_by_level(cefr_level, target_language)
-    cefr_entries = [entry for vocab_set in vocab_sets for entry in vocab_set.words]
+    all_cefr_entries = [entry for vocab_set in vocab_sets for entry in vocab_set.words]
+    cefr_entries = list(all_cefr_entries)
     if preferred_topics:
         preferred = set(preferred_topics)
         weak = [entry for vocab_set in vocab_sets if vocab_set.topic in preferred for entry in vocab_set.words]
@@ -121,7 +122,7 @@ def _server_interactive_challenge(
         rng.shuffle(cefr_entries)
     if preferred_items:
         exact_entries = []
-        by_word = {entry.word.strip().casefold(): entry for entry in cefr_entries}
+        by_word = {entry.word.strip().casefold(): entry for entry in all_cefr_entries}
         for item in preferred_items:
             word = str(item.get("word", "")).strip()
             definition = str(item.get("definition", "")).strip()
@@ -132,11 +133,18 @@ def _server_interactive_challenge(
                 continue
             if sentence:
                 exact_entries.extend(
-                    entry for entry in cefr_entries
+                    entry for entry in all_cefr_entries
                     if entry.example.strip() == sentence
                 )
-        exact_entries = list(dict.fromkeys(exact_entries))
-        cefr_entries = exact_entries + [entry for entry in cefr_entries if entry not in exact_entries]
+        seen_words = set()
+        unique_exact = []
+        for entry in exact_entries:
+            key = entry.word.strip().casefold()
+            if key not in seen_words:
+                seen_words.add(key)
+                unique_exact.append(entry)
+        exact_entries = unique_exact
+        cefr_entries = exact_entries + [entry for entry in cefr_entries if entry.word.strip().casefold() not in seen_words]
 
     if game_id == "memory":
         count = {1: 3, 2: 4, 3: 5}[difficulty]
