@@ -179,6 +179,8 @@ export default function GamesPage() {
       topic: string
       prompt: string
       review_count: number
+      review_streak: number
+      review_stage: string
       due_at: string
       source_game_id: string
       mastery: number
@@ -222,10 +224,20 @@ export default function GamesPage() {
   const direction = lang === 'ar' ? 'rtl' : 'ltr'
   const smartReviewTitle = lang === 'ar' ? '🧠 المراجعة الذكية' : lang === 'fr' ? '🧠 Révision intelligente' : '🧠 Smart Review'
   const smartReviewDesc = lang === 'ar'
-    ? 'راجع الأخطاء المستحقة من المفردات والقواعد والاستماع والكتابة.'
+    ? 'مراجعة متدرجة للمحتوى المستحق، مع فواصل زمنية تتوسع مع نجاحك.'
     : lang === 'fr'
-      ? 'Révise les erreurs dues en vocabulaire, grammaire, écoute et expression écrite.'
-      : 'Review due mistakes across vocabulary, grammar, listening and writing.'
+      ? 'Révision espacée et progressive : l’intervalle s’allonge avec chaque réussite.'
+      : 'Graduated spaced review: intervals expand as you succeed.'
+  const reviewStageLabel = (stage: string) => {
+    const labels: Record<string, string> = {
+      relearning: lang === 'ar' ? 'إعادة تعلّم' : lang === 'fr' ? 'Réapprentissage' : 'Relearning',
+      short: lang === 'ar' ? 'مراجعة قصيرة' : lang === 'fr' ? 'Intervalle court' : 'Short interval',
+      daily: lang === 'ar' ? 'مراجعة يومية' : lang === 'fr' ? 'Intervalle يومي' : 'Daily interval',
+      spaced: lang === 'ar' ? 'مراجعة متباعدة' : lang === 'fr' ? 'Révision espacée' : 'Spaced review',
+      long_term: lang === 'ar' ? 'احتفاظ طويل' : lang === 'fr' ? 'Rétention longue' : 'Long-term retention',
+    }
+    return labels[stage] ?? labels.relearning
+  }
   const smartReviewStart = lang === 'ar' ? 'ابدأ المراجعة' : lang === 'fr' ? 'Commencer la révision' : 'Start review'
   const smartReviewMixed = lang === 'ar'
     ? 'جلسة متعددة المهارات'
@@ -583,9 +595,7 @@ export default function GamesPage() {
                           <span className={'mastery-state mastery-' + (item.mastery_state || 'learning')}>{masteryLabel(item.mastery_state || 'learning').icon} {masteryLabel(item.mastery_state || 'learning').label}</span>
                           <span>{Math.round(item.mastery * 100)}% {lang === 'ar' ? 'إتقان' : lang === 'fr' ? 'maîtrise' : lang === 'es' ? 'dominio' : lang === 'de' ? 'Beherrschung' : lang === 'it' ? 'padronanza' : lang === 'pt' ? 'domínio' : lang === 'pl' ? 'opanowanie' : lang === 'nl' ? 'beheersing' : lang === 'ro' ? 'stăpânire' : lang === 'ru' ? 'освоение' : 'mastery'}</span>
                           <span>
-                            {item.review_count > 0
-                              ? (lang === 'ar' ? `مراجعة رقم ${item.review_count}` : lang === 'fr' ? `Révision n°${item.review_count}` : `Review #${item.review_count}`)
-                              : (lang === 'ar' ? 'أول مراجعة' : lang === 'fr' ? 'Première révision' : 'First review')}
+                            {reviewStageLabel(item.review_stage)} · {lang === 'ar' ? `نجاحات متتالية: ${item.review_streak}` : lang === 'fr' ? `réussites consécutives : ${item.review_streak}` : `success streak: ${item.review_streak}`}
                           </span>
                         </div>
                       </div>                    ))}
