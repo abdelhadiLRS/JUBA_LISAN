@@ -143,3 +143,31 @@ def test_interactive_game_accepts_topic_preferences(game_id):
 
     assert public["type"] == ("ordering" if game_id in {"ordering", "sentence_builder"} else game_id)
     assert solution
+
+
+def test_interactive_review_prefers_exact_previous_item():
+    fresh_public, _ = _server_interactive_challenge(
+        "memory",
+        "en",
+        1,
+        "en-GB",
+        "A1",
+    )
+    cards = fresh_public["cards"]
+    left = next(card["label"] for card in cards if " " not in card["label"] and card["label"])
+    definition = next(
+        card["label"]
+        for card in cards
+        if card["pair_key"] == next(card["pair_key"] for card in cards if card["label"] == left)
+        and card["label"] != left
+    )
+    reviewed_public, _ = _server_interactive_challenge(
+        "memory",
+        "en",
+        1,
+        "en-GB",
+        "A1",
+        None,
+        [{"word": left, "definition": definition}],
+    )
+    assert any(card["label"] == left for card in reviewed_public["cards"])
