@@ -396,21 +396,32 @@ async def complete_assessment(
     current_user_subscription_status = current_user.subscription_status
     current_user_assessment_voice_trial_used = current_user.assessment_voice_trial_used
 
-    # Try to find a Redis session that confirms the language
+    # Redis is only used here to recover the authoritative language from an
+    # in-progress assessment session. Plan creation itself must not depend on
+    # Redis being healthy: the request already carries target_language and the
+    # authenticated user has a safe fallback.
     session_raw: str | bytes | None = None
-    for candidate_key in [
-        f"assessment:{current_user_id}:{target_language}",
-        f"assessment:{current_user_id}:{current_user.target_language}",
-        f"assessment:{current_user_id}",  # legacy key
-    ]:
-        session_raw = await redis.get(candidate_key)
-        if session_raw:
-            break
+    try:
+        for candidate_key in [
+            f"assessment:{current_user_id}:{target_language}",
+            f"assessment:{current_user_id}:{current_user.target_language}",
+            f"assessment:{current_user_id}",  # legacy key
+        ]:
+            session_raw = await redis.get(candidate_key)
+            if session_raw:
+                break
+    except Exception:
+        # A Redis outage must not turn a valid assessment completion into HTTP 500.
+        session_raw = None
 
     if session_raw:
-        session = json.loads(session_raw)
-        # The session's target_language is the most authoritative source when present
-        target_language = session.get("target_language", target_language)
+        try:
+            session = json.loads(session_raw)
+            # The session's target_language is the most authoritative source when present.
+            target_language = session.get("target_language", target_language)
+        except (TypeError, ValueError, AttributeError):
+            # Ignore a malformed/stale Redis session and keep the request language.
+            pass
 
     # Ensure a UserLanguage row exists for this language
     user_lang = await ensure_user_language(db, current_user_id, target_language)
