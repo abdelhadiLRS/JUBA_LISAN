@@ -113,3 +113,19 @@ class TestGetAssessmentBank:
         bank_fr_ca = get_assessment_bank("fr-CA")
         bank_fr = get_assessment_bank("fr")
         assert bank_fr_ca == bank_fr
+
+
+    def test_dutch_assessment_bank_has_balanced_cefr_coverage_and_valid_options(self):
+        from app.data.assessment_bank import get_assessment_bank
+
+        bank = get_assessment_bank("nl-NL")
+        assert bank
+        assert {question.difficulty for question in bank} == {"A1", "A2", "B1", "B2", "C1", "C2"}
+        assert len({question.id for question in bank}) == len(bank)
+        assert all(len(question.options) == 4 for question in bank)
+        assert all(question.correct in question.options for question in bank)
+        counts = {
+            level: sum(question.difficulty == level for question in bank)
+            for level in {question.difficulty for question in bank}
+        }
+        assert all(count >= 4 for count in counts.values())
