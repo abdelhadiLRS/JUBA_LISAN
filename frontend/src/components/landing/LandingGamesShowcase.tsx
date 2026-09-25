@@ -34,12 +34,16 @@ export function LandingGamesShowcase({
   sentenceBuilderLabel,
   openLabel,
 }: LandingGamesShowcaseProps) {
+  const [active, setActive] = useState<(typeof GAMES)[number]['key']>('matching')
+
   const labels = {
     matching: matchingLabel,
     memory: memoryLabel,
     ordering: orderingLabel,
     'sentence-builder': sentenceBuilderLabel,
   }
+
+  const activeGame = GAMES.find((game) => game.key === active) ?? GAMES[0]
 
   return (
     <section dir={dir} id="games" className="juba-games-showcase">
@@ -48,18 +52,32 @@ export function LandingGamesShowcase({
         <h2>{title}</h2>
         <p>{description}</p>
       </div>
-      <div className="juba-games-grid">
+      <div className="juba-games-tabs" role="tablist" aria-label={title}>
         {GAMES.map((game) => (
-          <Link key={game.key} href={game.href} className="juba-game-card">
-            <div className="juba-game-image-wrap">
-              <Image src={game.src} alt={labels[game.key]} width={420} height={260} />
-            </div>
-            <div className="juba-game-card-copy">
-              <strong>{labels[game.key]}</strong>
-              <span>{openLabel}<ArrowUpRight aria-hidden="true" /></span>
-            </div>
-          </Link>
+          <button
+            key={game.key}
+            type="button"
+            role="tab"
+            aria-selected={active === game.key}
+            onClick={() => setActive(game.key)}
+            className={active === game.key ? 'juba-games-tab is-active' : 'juba-games-tab'}
+          >
+            {labels[game.key]}
+          </button>
         ))}
+      </div>
+      <div className="juba-game-stage">
+        <div className="juba-game-stage-image">
+          <Image src={activeGame.src} alt={labels[activeGame.key]} width={420} height={260} priority={active === 'matching'} />
+        </div>
+        <div className="juba-game-stage-copy">
+          <span className="juba-game-stage-index">{GAMES.findIndex((game) => game.key === activeGame.key) + 1} / {GAMES.length}</span>
+          <h3>{labels[activeGame.key]}</h3>
+          <p>{openLabel}</p>
+          <Link href={activeGame.href} className="juba-ref-button">
+            {openLabel} <ArrowUpRight aria-hidden="true" />
+          </Link>
+        </div>
       </div>
     </section>
   )
