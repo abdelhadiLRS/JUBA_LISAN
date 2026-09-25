@@ -1907,6 +1907,20 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
     return replay
 
 
+def _review_mechanic_variant(skill: str, strategy: str, variant: int) -> str:
+    """Return a stable mechanic variant label for analytics and UI telemetry."""
+    variant_names = {
+        "vocabulary": ("definition_recall", "semantic_category", "contextual_production"),
+        "grammar": ("form_selection", "gap_fill", "guided_production"),
+        "listening": ("keyword_detection", "audio_choice", "audio_transfer"),
+        "writing": ("translation_recall", "natural_translation", "free_production"),
+        "speaking": ("guided_response", "context_response", "open_response"),
+    }
+    names = variant_names.get(str(skill), ("recall", "recognition", "transfer"))
+    normalized = max(0, min(2, int(variant)))
+    return names[normalized]
+
+
 def _review_adaptive_difficulty(requested_difficulty: int, review_count: int, mastery_score: float) -> int:
     """Adapt one item immediately after repeated misses in the same review path."""
     base = max(1, min(3, int(requested_difficulty)))
