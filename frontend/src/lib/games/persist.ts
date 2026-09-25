@@ -1,12 +1,12 @@
 import { apiFetch } from '@/lib/api'
 
 export type GameId = 'math' | 'words' | 'quick_choice' | 'context_quest' | 'listen_choose' | 'listening_detective' | 'word_categories' | 'translation_sprint' | 'grammar_duel' | 'spelling' | 'word_scramble' | 'fill_blank' | 'sequence' | 'memory' | 'matching' | 'ordering' | 'sentence_builder' | 'review_mix'
-export type GameLanguage = 'ar' | 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt' | 'ja' | 'ko' | 'zh'
+export type GameLanguage = 'ar' | 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt' | 'ja' | 'ko' | 'zh' | 'tr' | 'ru' | 'nl' | 'pl' | 'el' | 'sv' | 'da' | 'no' | 'fi' | 'cs'
 
 /**
- * The game API currently has native question banks for Arabic, French and English.
- * Keep this mapping separate from the UI locale so the interface language never
- * silently becomes the learner's target language.
+ * Map target languages with dedicated CEFR vocabulary banks to the game API.
+ * Keep this separate from the UI locale so the interface language never silently
+ * becomes the learner's target language.
  */
 export function gameLanguageForTargetLanguage(targetLanguage?: string | null): GameLanguage {
   const code = String(targetLanguage ?? '').trim().toLowerCase().replace('_', '-')
@@ -20,6 +20,16 @@ export function gameLanguageForTargetLanguage(targetLanguage?: string | null): G
   if (code === 'ja' || code.startsWith('ja-')) return 'ja'
   if (code === 'ko' || code.startsWith('ko-')) return 'ko'
   if (code === 'zh' || code.startsWith('zh-')) return 'zh'
+  if (code === 'tr' || code.startsWith('tr-')) return 'tr'
+  if (code === 'ru' || code.startsWith('ru-')) return 'ru'
+  if (code === 'nl' || code.startsWith('nl-')) return 'nl'
+  if (code === 'pl' || code.startsWith('pl-')) return 'pl'
+  if (code === 'el' || code.startsWith('el-')) return 'el'
+  if (code === 'sv' || code.startsWith('sv-')) return 'sv'
+  if (code === 'da' || code.startsWith('da-')) return 'da'
+  if (code === 'no' || code.startsWith('no-')) return 'no'
+  if (code === 'fi' || code.startsWith('fi-')) return 'fi'
+  if (code === 'cs' || code.startsWith('cs-')) return 'cs'
   return 'en'
 }
 
