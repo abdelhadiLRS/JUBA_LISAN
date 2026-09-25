@@ -1748,6 +1748,21 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
             surface = prompt.split("\\n", 1)[1].strip() if "\\n" in prompt else prompt
             replay["prompt"] = templates.get(language, templates["en"])[variant].format(surface=surface)
 
+    # Recognition-stage grammar review is a real gap-fill mechanic, not just a
+    # reworded multiple-choice prompt. Keep the authored correction as the
+    # server-validated answer while switching the learner to typed retrieval.
+    if skill == "grammar" and mechanic == "gap_fill":
+        surface = replay["prompt"].split("\\n", 1)[-1].strip()
+        replay["prompt"] = (
+            f"Fill in the correct form:\\n{surface}"
+            if language == "en"
+            else f"Complète avec la forme correcte :\\n{surface}"
+            if language == "fr"
+            else f"أكمل بالصيغة الصحيحة:\\n{surface}"
+        )
+        replay["input_mode"] = "text"
+        replay["choices"] = []
+
     elif skill == "listening":
         target_word = str(replay.get("answer", "")).strip()
         if target_word:
