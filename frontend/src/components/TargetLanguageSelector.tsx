@@ -16,7 +16,10 @@ export default function TargetLanguageSelector({
   availableCodes,
 }: Props) {
   const t = useTranslations('targetLanguages')
-  const label = (code: string, fallback: string) => (t.has(code) ? t(code) : fallback)
+  const label = (code: string, fallback: string) => {
+    const has = (t as typeof t & { has?: (key: string) => boolean }).has
+    return typeof has === 'function' && has(code) ? t(code) : fallback
+  }
 
   const availableCodeSet = new Set(
     availableCodes
