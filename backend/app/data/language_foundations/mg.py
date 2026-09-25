@@ -1,57 +1,183 @@
 """Malagasy foundation data for JUBA LISAN."""
-from app.data._types import CurriculumUnit, GrammarExample, GrammarTopic, VocabularyEntry, VocabularySet, PhrasebookCategory, PhrasebookEntry, AssessmentQuestion
+from app.data._types import AssessmentQuestion, CurriculumUnit, GrammarExample, GrammarTopic, PhrasebookCategory, PhrasebookEntry, VocabularyEntry, VocabularySet
 
-LEVELS=["A1","A2","B1","B2","C1","C2"]
+LEVELS = ["A1","A2","B1","B2","C1","C2"]
 
-CURRICULUM={
- "A1":[
-CurriculumUnit(id="mg-a1-unit-1",level="A1",unit_number=1,title="Malagasy: greetings",grammar_points=["mg-a1-g1"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use salama in a basic exchange","Understand a short greetings interaction"],default_weeks=1),
-CurriculumUnit(id="mg-a1-unit-2",level="A1",unit_number=2,title="Malagasy: identity",grammar_points=["mg-a1-g2"],vocabulary_set_ids=["identity_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use anarana in a basic exchange","Understand a short identity interaction"],default_weeks=1),
-CurriculumUnit(id="mg-a1-unit-3",level="A1",unit_number=3,title="Malagasy: family",grammar_points=["mg-a1-g3"],vocabulary_set_ids=["family_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use reny in a basic exchange","Understand a short family interaction"],default_weeks=1),
-CurriculumUnit(id="mg-a1-unit-4",level="A1",unit_number=4,title="Malagasy: home",grammar_points=["mg-a1-g4"],vocabulary_set_ids=["home_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use trano in a basic exchange","Understand a short home interaction"],default_weeks=1),
-CurriculumUnit(id="mg-a1-unit-5",level="A1",unit_number=5,title="Malagasy: routine",grammar_points=["mg-a1-g5"],vocabulary_set_ids=["routine_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use mianatra in a basic exchange","Understand a short routine interaction"],default_weeks=1),
-CurriculumUnit(id="mg-a1-unit-6",level="A1",unit_number=6,title="Malagasy: time",grammar_points=["mg-a1-g6"],vocabulary_set_ids=["time_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use fotoana in a basic exchange","Understand a short time interaction"],default_weeks=1),
-CurriculumUnit(id="mg-a1-unit-7",level="A1",unit_number=7,title="Malagasy: food",grammar_points=["mg-a1-g7"],vocabulary_set_ids=["food_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use rano in a basic exchange","Understand a short food interaction"],default_weeks=1),
-CurriculumUnit(id="mg-a1-unit-8",level="A1",unit_number=8,title="Malagasy: places",grammar_points=["mg-a1-g8"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use sekoly in a basic exchange","Understand a short places interaction"],default_weeks=1)
- ]
+def _g(slug,title,level,summary,examples):
+    return GrammarTopic(slug=slug,title=title,level=level,category="grammar",summary=summary,explanation=summary,examples=[GrammarExample(text=e) for e in examples])
+
+GRAMMAR_TOPICS = [
+_g("mg-a1-g1","Personal pronouns and subject reference","A1","Use basic pronouns in simple clauses.",["Izaho dia mpianatra.","Izy dia mpampianatra."]),
+_g("mg-a1-g2","Copular dia","A1","Identify people and things with dia.",["Izy dia mpampianatra.","Ny anarako dia Lova."]),
+_g("mg-a1-g3","Present verb forms","A1","Describe current and habitual actions.",["Mianatra aho.","Miasa izy."]),
+_g("mg-a1-g4","Negation with tsy","A1","Negate simple statements with tsy.",["Tsy mianatra aho.","Tsy eto izy."]),
+_g("mg-a1-g5","Questions","A1","Ask basic information questions.",["Aiza ianao?","Iza ianao?"]),
+_g("mg-a1-g6","Possession and genitive phrases","A1","Express possession with ny and possessive forms.",["Ny bokiko.","Ny tranon'i Lova."]),
+_g("mg-a1-g7","Locative constructions","A1","Express location with ao, any and eto.",["Ao an-trano aho.","Any an-tsekoly izy."]),
+_g("mg-a1-g8","Noun plurality and classifiers","A1","Recognize common plural and quantity patterns.",["olona maro","boky roa"]),
+_g("mg-a2-g1","Determination and noun phrases","A2","Build expanded noun phrases with modifiers.",["trano lehibe","boky vaovao"]),
+_g("mg-a2-g2","Past and completed events","A2","Talk about completed events.",["Nianatra aho omaly.","Nandeha tany an-tsena izy."]),
+_g("mg-a2-g3","Future with h- forms","A2","Express future plans and events.",["Hianatra rahampitso aho.","Handeha izahay."]),
+_g("mg-a2-g4","Object reference","A2","Refer to affected objects in transitive clauses.",["Hitako izy.","Novidiko ilay boky."]),
+_g("mg-a2-g5","Prepositions and relational phrases","A2","Express location, direction and relations.",["Mandeha any an-tsekoly aho.","Mipetraka eo akaikin'ny tsena izy."]),
+_g("mg-a2-g6","Comparatives and degree","A2","Compare people, things and qualities.",["Lehibe kokoa ity.","Tsara noho io izy."]),
+_g("mg-a2-g7","Imperatives and polite requests","A2","Give instructions and make polite requests.",["Avia eto.","Azafady, ampio aho."]),
+_g("mg-a2-g8","Time and frequency","A2","Express schedules and recurring actions.",["Miasa isan'andro aho.","Mianatra amin'ny maraina izy."]),
+_g("mg-b1-g1","Relative clauses","B1","Modify nouns with relative clauses.",["Ilay olona tonga dia namako.","Ny boky novakiako dia mahaliana."]),
+_g("mg-b1-g2","Conditional clauses","B1","Express conditions and consequences.",["Raha mianatra ianao dia hahomby.","Raha avy ny orana dia hijanona eto izahay."]),
+_g("mg-b1-g3","Verbal nouns and nominalization","B1","Discuss activities as nominal concepts.",["Zava-dehibe ny fianarana.","Tiako ny famakiana boky."]),
+_g("mg-b1-g4","Causative and resultative meaning","B1","Express caused events and resulting states.",["Nampianatra azy aho.","Nahatonga olana izany."]),
+_g("mg-b1-g5","Passive and affected participants","B1","Recognize and use passive/resultative formulations.",["Nosoratan'i Lova ilay taratasy.","Vita ny asa."]),
+_g("mg-b1-g6","Aspect and event structure","B1","Distinguish ongoing, habitual and completed events.",["Mianatra izy izao.","Efa nianatra izy."]),
+_g("mg-b1-g7","Cause, purpose and result","B1","Connect clauses by reason, purpose and consequence.",["Nandeha izy mba hianatra.","Tsy tonga izy satria narary."]),
+_g("mg-b1-g8","Reported speech","B1","Report statements and questions.",["Nilaza izy fa ho avy.","Nanontany izy hoe aiza aho."]),
+_g("mg-b2-g1","Complex subordination","B2","Build multi-clause sentences with precise relations.",["Na dia sarotra aza izany, mbola tohizantsika."]),
+_g("mg-b2-g2","Concession and contrast","B2","Express concession and contrast.",["Na dia reraka aza izy dia mbola miasa."]),
+_g("mg-b2-g3","Discourse reference and cohesion","B2","Maintain reference across extended discourse.",["Ilay hevitra noresahintsika dia mbola manan-danja."]),
+_g("mg-b2-g4","Discourse connectors","B2","Organize explanations with logical connectors.",["Noho izany dia mila manova ny drafitra isika."]),
+_g("mg-b2-g5","Focus and information structure","B2","Highlight topic and focus for clarity.",["Ny fianarana no zava-dehibe.","Androany no nanombohantsika."]),
+_g("mg-b2-g6","Advanced nominalization","B2","Package processes as abstract nouns in formal prose.",["Ny fanatsarana ny fanabeazana dia mitaky vola."]),
+_g("mg-b2-g7","Modality and stance","B2","Express obligation, possibility and certainty.",["Azo inoana fa ho avy izy.","Tsy maintsy vita izany."]),
+_g("mg-b2-g8","Register and politeness","B2","Adapt wording to social and professional settings.",["Azafady, afaka manazava bebe kokoa ve ianao?"]),
+_g("mg-c1-g1","Formal institutional Malagasy","C1","Handle administrative and institutional prose.",["Hivory ny komity mba handinika ny drafitra vaovao."]),
+_g("mg-c1-g2","Academic argumentation","C1","Present claims, evidence and conclusions.",["Ny fikarohana dia mampiseho fa manana anjara toerana lehibe ny fanabeazana."]),
+_g("mg-c1-g3","Academic hedging","C1","Qualify claims with appropriate caution.",["Azo inoana fa miankina amin'ny toe-javatra izany."]),
+_g("mg-c1-g4","Embedded questions","C1","Integrate questions into complex sentences.",["Tiako ho fantatra raha vita ny tetikasa."]),
+_g("mg-c1-g5","Information packaging","C1","Control information flow in formal texts.",["Ny olana lehibe dia ny fomba hanatsarana ny kalitaon'ny serivisy."]),
+_g("mg-c1-g6","Media and public discourse","C1","Produce precise public-facing language.",["Navoaka androany ny tatitra vaovao."]),
+_g("mg-c1-g7","Idiomatic and pragmatic meaning","C1","Interpret contextual, figurative and idiomatic meaning.",["Mila mitandrina amin'ny fomba fiteny ny mpanoratra."]),
+_g("mg-c1-g8","Professional correspondence","C1","Write formal requests and responses.",["Mangataka aminareo izahay mba handefa ireo antontan-taratasy ilaina."]),
+_g("mg-c2-g1","Advanced discourse cohesion","C2","Control cohesion and rhetorical progression in long texts.",["Na dia mampiseho fandrosoana aza ny tatitra, dia manasongadina olana mitaky vahaolana maharitra ihany koa izy."]),
+_g("mg-c2-g2","Nuanced modality","C2","Express subtle epistemic and evaluative positions.",["Tsy ho tafahoatra ny filazana fa mety hisy fiantraikany maharitra izany."]),
+_g("mg-c2-g3","Dense nominalization","C2","Use advanced nominal structures in academic and institutional prose.",["Ny fanadihadiana ny vokatra azo tamin'ny fikarohana dia nitarika fanapahan-kevitra vaovao."]),
+_g("mg-c2-g4","Rhetorical organization","C2","Structure concession, counterargument and emphasis.",["Na dia manana tombony aza io hevitra io, ny olana lehibe dia ny fampiharana azy."]),
+_g("mg-c2-g5","Legal and administrative formulation","C2","Interpret precise obligations and procedural wording.",["Ny mpangataka dia tsy maintsy manolotra ireo antontan-taratasy rehetra takiana araka ny lalàna."]),
+_g("mg-c2-g6","Translation precision","C2","Preserve meaning, register and pragmatic force in translation.",["Tokony hotehirizina ny hevitra sy ny fomba fiteny ao amin'ny lahatsoratra niandohana."]),
+_g("mg-c2-g7","Literary and rhetorical style","C2","Interpret figurative language and deliberate stylistic choices.",["Ny fitenin'ny mpanoratra dia mamorona sary momba ny fiainan'ny olona."]),
+_g("mg-c2-g8","Discourse analysis and register shifting","C2","Shift deliberately among conversational, professional and academic styles.",["Tsy mitovy ny fiteny ampiasaina amin'ny resaka andavanandro sy amin'ny lahatsoratra akademika."]),
+]
+
+def _v(id_,level,topic,unit,items):
+    return VocabularySet(id=id_,level=level,topic=topic,unit_ref=unit,words=[VocabularyEntry(word=w,pos=p,definition=d,example=e) for w,p,d,e in items])
+
+VOCABULARY_SETS = [
+_v("greetings_a1","A1","greetings","mg-a1-unit-1",[("salama","interjection","hello / well","Salama!"),("manao ahoana","phrase","how are you","Manao ahoana ianao?"),("veloma","phrase","goodbye","Veloma, namako.")]),
+_v("identity_a1","A1","identity","mg-a1-unit-2",[("anarana","noun","name","Ny anarako dia Lova."),("mpianatra","noun","student","Mpianatra aho."),("izaho","pronoun","I / me","Izaho no Lova.")]),
+_v("family_a1","A1","family","mg-a1-unit-3",[("reny","noun","mother","Ao an-trano ny reniko."),("ray","noun","father","Miasa ny raiko."),("rahalahy","noun","brother","Ao an-trano ny rahalahiko.")]),
+_v("home_a1","A1","home","mg-a1-unit-4",[("trano","noun","house","Lehibe ny trano."),("efitra","noun","room","Madio ny efitra."),("varavarana","noun","door","Misokatra ny varavarana.")]),
+_v("routine_a1","A1","routine","mg-a1-unit-5",[("mianatra","verb","to study","Mianatra aho."),("miasa","verb","to work","Miasa aho anio."),("matory","verb","to sleep","Matory aho amin'ny alina.")]),
+_v("time_a1","A1","time","mg-a1-unit-6",[("fotoana","noun","time","Amin'ny firy izao?"),("androany","adverb","today","Miasa androany aho."),("rahampitso","adverb","tomorrow","Hianatra rahampitso aho.")]),
+_v("food_a1","A1","food","mg-a1-unit-7",[("rano","noun","water","Mila rano aho."),("vary","noun","rice","Mihinana vary aho."),("mofo","noun","bread","Mihinana mofo aho.")]),
+_v("places_a1","A1","places","mg-a1-unit-8",[("sekoly","noun","school","Any an-tsekoly aho."),("tsena","noun","market","Mandeha any an-tsena aho."),("fivarotana","noun","shop","Ao amin'ny fivarotana aho.")]),
+_v("people_a2","A2","people","mg-a2-unit-1",[("olona","noun","person/people","Maro ny olona eto."),("zaza","noun","child","Mikarakara ny zaza izy."),("namana","noun","friend","Namako izy.")]),
+_v("travel_a2","A2","travel","mg-a2-unit-2",[("dia","noun","journey/trip","Lava ny dia."),("mandeha","verb","to go","Mandeha any an-tanàna aho."),("miverina","verb","to return","Hiverina rahampitso izy.")]),
+_v("daily_life_a2","A2","daily life","mg-a2-unit-3",[("maraina","noun","morning","Miasa maraina aho."),("hariva","noun","evening","Mody amin'ny hariva izy."),("isan'andro","phrase","every day","Mianatra isan'andro aho.")]),
+_v("health_a2","A2","health","mg-a2-unit-4",[("fahasalamana","noun","health","Zava-dehibe ny fahasalamana."),("dokotera","noun","doctor","Nankany amin'ny dokotera aho."),("aretina","noun","illness","Mora sitrana ilay aretina.")]),
+_v("education_b1","B1","education","mg-b1-unit-1",[("fanabeazana","noun","education","Manan-danja ny fanabeazana."),("fikarohana","noun","research","Mbola mitohy ny fikarohana."),("fahalalana","noun","knowledge","Mitombo ny fahalalana.")]),
+_v("work_b1","B1","work","mg-b1-unit-2",[("asa","noun","work/job","Manana asa aho."),("tetikasa","noun","project","Vita ny tetikasa."),("fivoriana","noun","meeting","Hanomboka ny fivoriana.")]),
+_v("society_b1","B1","society","mg-b1-unit-3",[("fiaraha-monina","noun","society/community","Zava-dehibe ny fiaraha-monina."),("fampandrosoana","noun","development","Mila fiaraha-miasa ny fampandrosoana."),("fiaraha-miasa","noun","cooperation","Mahasoa ny fiaraha-miasa.")]),
+_v("environment_b1","B1","environment","mg-b1-unit-4",[("tontolo iainana","noun","environment","Tokony harovantsika ny tontolo iainana."),("ala","noun","forest","Arovana ny ala."),("rano","noun","water","Tokony hotehirizina ny rano.")]),
+_v("economy_b2","B2","economy","mg-b2-unit-1",[("toekarena","noun","economy","Miova ny toekarena."),("fampiasam-bola","noun","investment","Mitombo ny fampiasam-bola."),("tsena","noun","market","Miova haingana ny tsena.")]),
+_v("governance_b2","B2","governance","mg-b2-unit-2",[("fitantanana","noun","governance/management","Mila fanatsarana ny fitantanana."),("lalàna","noun","law","Tokony harahina ny lalàna."),("rafitra","noun","system/framework","Miova ny rafitra.")]),
+_v("communication_b2","B2","communication","mg-b2-unit-3",[("vaovao","noun","information/news","Tonga ny vaovao vaovao."),("fifandraisana","noun","communication/relationship","Zava-dehibe ny fifandraisana."),("hafatra","noun","message","Tonga ny hafatra.")]),
+_v("media_b2","B2","media","mg-b2-unit-4",[("fampahalalam-baovao","noun","media/news media","Nitatitra ny vaovao ny fampahalalam-baovao."),("tatitra","noun","report","Navoaka ny tatitra."),("dinika","noun","discussion","Mitohy ny dinika.")]),
+_v("academic_c1","C1","academic language","mg-c1-unit-1",[("hevitra","noun","idea","Tokony hazavaina ny hevitra."),("porofo","noun","evidence","Mila porofo mazava isika."),("fanadihadiana","noun","analysis","Mitohy ny fanadihadiana.")]),
+_v("professional_c1","C1","professional language","mg-c1-unit-2",[("antontan-taratasy","noun","document","Alefaso ny antontan-taratasy."),("toromarika","noun","instructions/guidelines","Araho ny toromarika."),("andraikitra","noun","responsibility","Anjarany ny mitantana izany.")]),
+_v("abstract_c1","C1","abstract concepts","mg-c1-unit-3",[("fiantraikany","noun","impact/effect","Misy fiantraikany lehibe izany."),("tanjona","noun","objective","Ny tanjona dia ny hanatsara ny kalitao."),("vahaolana","noun","solution","Nahita vahaolana isika.")]),
+_v("rhetoric_c2","C2","rhetoric","mg-c2-unit-1",[("adihevitra","noun","debate","Miorina amin'ny porofo ny adihevitra."),("fehin-kevitra","noun","conclusion","Mazava ny fehin-kevitra."),("teboka","noun","point/issue","Zava-dehibe io teboka io.")]),
+_v("discourse_c2","C2","discourse analysis","mg-c2-unit-2",[("fiteny","noun","language/expression","Mifanaraka amin'ny mpihaino ny fiteny."),("heviny","noun","meaning","Tokony hazava ny heviny."),("fomba fiteny","noun","register/style","Miova arakaraka ny toe-javatra ny fomba fiteny.")]),
+]
+
+def _unit(level,n,title,grammar,vocab,checks):
+    return CurriculumUnit(id=f"mg-{level.lower()}-unit-{n}",level=level,unit_number=n,title=title,grammar_points=[grammar],vocabulary_set_ids=[vocab],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=checks,default_weeks=1 if level in ("A1","A2") else 2)
+
+CURRICULUM = {
+"A1":[
+_unit("A1",1,"Greetings and identity","mg-a1-g1","greetings_a1",["Greet someone naturally.","Introduce yourself."]),
+_unit("A1",2,"Names and identity","mg-a1-g2","identity_a1",["Identify people and roles."]),
+_unit("A1",3,"Family","mg-a1-g6","family_a1",["Describe immediate family."]),
+_unit("A1",4,"Home and location","mg-a1-g7","home_a1",["Say where people and things are."]),
+_unit("A1",5,"Daily routine","mg-a1-g3","routine_a1",["Describe a simple routine."]),
+_unit("A1",6,"Time","mg-a1-g5","time_a1",["Ask and answer basic time questions."]),
+_unit("A1",7,"Food and drink","mg-a1-g4","food_a1",["Order simple food and drink."]),
+_unit("A1",8,"Places","mg-a1-g8","places_a1",["Name common places and directions."])],
+"A2":[
+_unit("A2",1,"People and noun phrases","mg-a2-g1","people_a2",["Build simple descriptive noun phrases."]),
+_unit("A2",2,"Past events and travel","mg-a2-g2","travel_a2",["Talk about past and future travel."]),
+_unit("A2",3,"Daily life","mg-a2-g8","daily_life_a2",["Describe routines and schedules."]),
+_unit("A2",4,"Health","mg-a2-g3","health_a2",["Describe basic health needs."]),
+_unit("A2",5,"Objects and reference","mg-a2-g4","identity_a1",["Refer to people and objects clearly."]),
+_unit("A2",6,"Relations and comparison","mg-a2-g5","people_a2",["Express relations and comparisons."]),
+_unit("A2",7,"Requests","mg-a2-g7","places_a1",["Make polite requests and instructions."]),
+_unit("A2",8,"Integrated conversation","mg-a2-g8","daily_life_a2",["Sustain an everyday exchange."])],
+"B1":[
+_unit("B1",1,"Education","mg-b1-g1","education_b1",["Use relative clauses in explanations."]),
+_unit("B1",2,"Work and projects","mg-b1-g3","work_b1",["Discuss work and projects."]),
+_unit("B1",3,"Society","mg-b1-g2","society_b1",["Explain conditions and consequences."]),
+_unit("B1",4,"Environment","mg-b1-g7","environment_b1",["Give reasons and purposes."]),
+_unit("B1",5,"Causative and passive","mg-b1-g4","work_b1",["Describe caused and affected events."]),
+_unit("B1",6,"Aspect and events","mg-b1-g6","daily_life_a2",["Distinguish ongoing and completed events."]),
+_unit("B1",7,"Reported speech","mg-b1-g8","communication_b2",["Report statements and questions."]),
+_unit("B1",8,"Integrated communication","mg-b1-g5","education_b1",["Give a connected explanation."])],
+"B2":[
+_unit("B2",1,"Economy","mg-b2-g1","economy_b2",["Explain economic relationships."]),
+_unit("B2",2,"Governance","mg-b2-g4","governance_b2",["Discuss institutional processes."]),
+_unit("B2",3,"Communication","mg-b2-g5","communication_b2",["Control topic and focus."]),
+_unit("B2",4,"Media","mg-b2-g4","media_b2",["Summarize media information."]),
+_unit("B2",5,"Nominalization","mg-b2-g6","academic_c1",["Use formal nominal structures."]),
+_unit("B2",6,"Modality","mg-b2-g7","governance_b2",["Express certainty and obligation."]),
+_unit("B2",7,"Register","mg-b2-g8","professional_c1",["Adapt language professionally."]),
+_unit("B2",8,"Complex discourse","mg-b2-g2","communication_b2",["Build a coherent multi-paragraph argument."])],
+"C1":[
+_unit("C1",1,"Formal institutions","mg-c1-g1","professional_c1",["Write formal institutional prose."]),
+_unit("C1",2,"Academic argumentation","mg-c1-g2","academic_c1",["Present claims and evidence."]),
+_unit("C1",3,"Academic hedging","mg-c1-g3","abstract_c1",["Qualify claims precisely."]),
+_unit("C1",4,"Embedded questions","mg-c1-g4","communication_b2",["Integrate questions into complex prose."]),
+_unit("C1",5,"Information structure","mg-c1-g5","discourse_c2",["Manage information flow."]),
+_unit("C1",6,"Media discourse","mg-c1-g6","media_b2",["Produce precise public language."]),
+_unit("C1",7,"Pragmatics and idioms","mg-c1-g7","rhetoric_c2",["Interpret contextual and idiomatic meaning."]),
+_unit("C1",8,"Professional correspondence","mg-c1-g8","professional_c1",["Draft formal requests and responses."])],
+"C2":[
+_unit("C2",1,"Advanced cohesion","mg-c2-g1","discourse_c2",["Control long-range discourse cohesion."]),
+_unit("C2",2,"Nuanced modality","mg-c2-g2","abstract_c1",["Express subtle stance."]),
+_unit("C2",3,"Advanced nominalization","mg-c2-g3","academic_c1",["Handle dense formal formulations."]),
+_unit("C2",4,"Rhetorical organization","mg-c2-g4","rhetoric_c2",["Build and rebut complex arguments."]),
+_unit("C2",5,"Legal and administrative language","mg-c2-g5","professional_c1",["Interpret procedural wording."]),
+_unit("C2",6,"Translation precision","mg-c2-g6","discourse_c2",["Preserve register and pragmatic force."]),
+_unit("C2",7,"Literary style","mg-c2-g7","rhetoric_c2",["Interpret figurative language."]),
+_unit("C2",8,"Discourse and register shifting","mg-c2-g8","discourse_c2",["Shift deliberately among registers."])]
 }
-for level in LEVELS[1:]:
- CURRICULUM[level]=[CurriculumUnit(id=f"mg-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Malagasy {level} communication",grammar_points=["intermediate grammar"],vocabulary_set_ids=[],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Handle extended communication"],default_weeks=2)]
 
-GRAMMAR_TOPICS=[
-GrammarTopic(slug="mg-a1-g1",title="Personal pronouns",level="A1",category="grammar",summary="Use common pronouns in simple clauses.",explanation="Use common pronouns in simple clauses.",examples=[GrammarExample(text="Izaho dia mpianatra.")]),
-GrammarTopic(slug="mg-a1-g2",title="Copula",level="A1",category="grammar",summary="Identify people and things with dia.",explanation="Identify people and things with dia.",examples=[GrammarExample(text="Izy dia mpampianatra.")]),
-GrammarTopic(slug="mg-a1-g3",title="Present tense",level="A1",category="grammar",summary="Describe current actions.",explanation="Describe current actions.",examples=[GrammarExample(text="Mianatra aho.")]),
-GrammarTopic(slug="mg-a1-g4",title="Negation",level="A1",category="grammar",summary="Negate simple statements with tsy.",explanation="Negate simple statements with tsy.",examples=[GrammarExample(text="Tsy mianatra aho.")]),
-GrammarTopic(slug="mg-a1-g5",title="Questions",level="A1",category="grammar",summary="Ask basic information questions.",explanation="Ask basic information questions.",examples=[GrammarExample(text="Aiza ianao?")]),
-GrammarTopic(slug="mg-a1-g6",title="Possession",level="A1",category="grammar",summary="Express possession with simple noun phrases.",explanation="Express possession with simple noun phrases.",examples=[GrammarExample(text="Ny bokiko.")]),
-GrammarTopic(slug="mg-a1-g7",title="Locatives",level="A1",category="grammar",summary="Say where someone is.",explanation="Say where someone is.",examples=[GrammarExample(text="Ao an-trano aho.")]),
-GrammarTopic(slug="mg-a1-g8",title="Plural nouns",level="A1",category="grammar",summary="Use common plural markers and forms.",explanation="Use common plural markers and forms.",examples=[GrammarExample(text="olona / olona")])
-]
-VOCABULARY_SETS=[
-VocabularySet(id="greetings_a1",level="A1",topic="greetings",unit_ref="mg-a1-unit-1",words=[VocabularyEntry(word="salama",pos="interjection",definition="hello / well",example="Salama!"),VocabularyEntry(word="manao ahoana",pos="phrase",definition="how are you?",example="Manao ahoana ianao?"),VocabularyEntry(word="veloma",pos="phrase",definition="goodbye",example="Veloma, namako.")]),
-VocabularySet(id="identity_a1",level="A1",topic="identity",unit_ref="mg-a1-unit-2",words=[VocabularyEntry(word="anarana",pos="noun",definition="name",example="Ny anarako dia Lova."),VocabularyEntry(word="mpianatra",pos="noun",definition="student",example="Mpianatra aho."),VocabularyEntry(word="izaho",pos="pronoun",definition="I / me",example="Izaho no Lova.")]),
-VocabularySet(id="family_a1",level="A1",topic="family",unit_ref="mg-a1-unit-3",words=[VocabularyEntry(word="reny",pos="noun",definition="mother",example="Ao an-trano ny reniko."),VocabularyEntry(word="ray",pos="noun",definition="father",example="Miasa ny raiko."),VocabularyEntry(word="rahalahy",pos="noun",definition="brother",example="Ao an-trano ny rahalahiko.")]),
-VocabularySet(id="home_a1",level="A1",topic="home",unit_ref="mg-a1-unit-4",words=[VocabularyEntry(word="trano",pos="noun",definition="house",example="Lehibe ny trano."),VocabularyEntry(word="efitra",pos="noun",definition="room",example="Madio ny efitra."),VocabularyEntry(word="varavarana",pos="noun",definition="door",example="Misokatra ny varavarana.")]),
-VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="mg-a1-unit-5",words=[VocabularyEntry(word="mianatra",pos="verb",definition="to study",example="Mianatra aho."),VocabularyEntry(word="miasa",pos="verb",definition="to work",example="Miasa aho anio."),VocabularyEntry(word="matory",pos="verb",definition="to sleep",example="Matory aho amin'ny alina.")]),
-VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="mg-a1-unit-6",words=[VocabularyEntry(word="fotoana",pos="noun",definition="time",example="Amin'ny firy izao?"),VocabularyEntry(word="androany",pos="adverb",definition="today",example="Miasa androany aho."),VocabularyEntry(word="rahampitso",pos="adverb",definition="tomorrow",example="Hianatra rahampitso aho.")]),
-VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="mg-a1-unit-7",words=[VocabularyEntry(word="rano",pos="noun",definition="water",example="Mila rano aho."),VocabularyEntry(word="vary",pos="noun",definition="rice",example="Mihinana vary aho."),VocabularyEntry(word="mofo",pos="noun",definition="bread",example="Mihinana mofo aho.")]),
-VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="mg-a1-unit-8",words=[VocabularyEntry(word="sekoly",pos="noun",definition="school",example="Any an-tsekoly aho."),VocabularyEntry(word="tsena",pos="noun",definition="market",example="Mandeha any an-tsena aho."),VocabularyEntry(word="fivarotana",pos="noun",definition="shop",example="Ao amin'ny fivarotana aho.")])]
-PHRASEBOOK_CATEGORIES=[
+PHRASEBOOK_CATEGORIES = [
 PhrasebookCategory(id="mg-greetings-a1",level="A1",situation="greetings",icon="👋",phrases=[PhrasebookEntry(text="Salama.",context="Hello.",register="neutral"),PhrasebookEntry(text="Manao ahoana?",context="How are you?",register="neutral"),PhrasebookEntry(text="Ny anarako dia Lova.",context="My name is Lova.",register="neutral")]),
-PhrasebookCategory(id="mg-thanks-a1",level="A1",situation="thanks",icon="🙏",phrases=[PhrasebookEntry(text="Misaotra.",context="Thank you.",register="neutral"),PhrasebookEntry(text="Misaotra betsaka.",context="Thank you very much.",register="neutral"),PhrasebookEntry(text="Tsy misy fisaorana.",context="You are welcome.",register="neutral")]),
+PhrasebookCategory(id="mg-thanks-a1",level="A1",situation="thanks",icon="🙏",phrases=[PhrasebookEntry(text="Misaotra.",context="Thank you.",register="neutral"),PhrasebookEntry(text="Misaotra betsaka.",context="Thank you very much.",register="neutral"),PhrasebookEntry(text="Tsy misy fisaorana.",context="You're welcome.",register="neutral")]),
+PhrasebookCategory(id="mg-introduction-a1",level="A1",situation="introductions",icon="👋",phrases=[PhrasebookEntry(text="Iza ianao?",context="Who are you?",register="neutral"),PhrasebookEntry(text="Izaho dia Lova.",context="I am Lova.",register="neutral")]),
 PhrasebookCategory(id="mg-shopping-a1",level="A1",situation="shopping",icon="🛒",phrases=[PhrasebookEntry(text="Ohatrinona ity?",context="How much is this?",register="neutral"),PhrasebookEntry(text="Tiako ity.",context="I want this.",register="neutral"),PhrasebookEntry(text="Afaka mampihena ny vidiny ve?",context="Can you lower the price?",register="neutral")]),
-PhrasebookCategory(id="mg-help-a1",level="A1",situation="help",icon="🆘",phrases=[PhrasebookEntry(text="Azafady, ampio aho.",context="Please help me.",register="neutral"),PhrasebookEntry(text="Tsy azoko.",context="I do not understand.",register="neutral"),PhrasebookEntry(text="Azafady, avereno.",context="Please repeat.",register="neutral")]),
+PhrasebookCategory(id="mg-help-a1",level="A1",situation="help",icon="🆘",phrases=[PhrasebookEntry(text="Azafady, ampio aho.",context="Please help me.",register="polite"),PhrasebookEntry(text="Tsy azoko.",context="I do not understand.",register="neutral"),PhrasebookEntry(text="Azafady, avereno.",context="Please repeat.",register="polite")]),
+PhrasebookCategory(id="mg-travel-a2",level="A2",situation="travel",icon="🚌",phrases=[PhrasebookEntry(text="Handeha rahampitso aho.",context="I will go tomorrow.",register="neutral"),PhrasebookEntry(text="Aiza ny gara?",context="Where is the station?",register="neutral")]),
+PhrasebookCategory(id="mg-health-a2",level="A2",situation="health",icon="🩺",phrases=[PhrasebookEntry(text="Tsy salama aho.",context="I am not well.",register="neutral"),PhrasebookEntry(text="Mila dokotera aho.",context="I need a doctor.",register="neutral")]),
+PhrasebookCategory(id="mg-study-b1",level="B1",situation="study",icon="📚",phrases=[PhrasebookEntry(text="Mianatra teny Malagasy aho.",context="I am studying Malagasy.",register="neutral"),PhrasebookEntry(text="Inona no dikan'ity?",context="What does this mean?",register="neutral")]),
+PhrasebookCategory(id="mg-work-b1",level="B1",situation="work",icon="💼",phrases=[PhrasebookEntry(text="Rahoviana ny fivoriana?",context="When is the meeting?",register="neutral"),PhrasebookEntry(text="Vita ny tetikasa.",context="The project is finished.",register="neutral")]),
+PhrasebookCategory(id="mg-professional-b2",level="B2",situation="professional",icon="🏢",phrases=[PhrasebookEntry(text="Afaka manazava bebe kokoa ve ianao?",context="Could you explain in more detail?",register="polite"),PhrasebookEntry(text="Noho izany, mangataka fotoana fanampiny izahay.",context="For that reason, we request more time.",register="formal")]),
+PhrasebookCategory(id="mg-academic-c1",level="C1",situation="academic",icon="🎓",phrases=[PhrasebookEntry(text="Ny fikarohana dia mampiseho fa...",context="The research shows that...",register="formal"),PhrasebookEntry(text="Azo inoana fa...",context="It is likely that...",register="formal")]),
+PhrasebookCategory(id="mg-formal-c1",level="C1",situation="formal correspondence",icon="✉️",phrases=[PhrasebookEntry(text="Mangataka aminareo izahay mba handefa...",context="We request that you send...",register="formal"),PhrasebookEntry(text="Misaotra anareo tamin'ny fiaraha-miasa.",context="Thank you for your cooperation.",register="formal")]),
+PhrasebookCategory(id="mg-debate-c2",level="C2",situation="discussion and debate",icon="🗣️",phrases=[PhrasebookEntry(text="Na dia marina aza izany, ny olana lehibe dia...",context="Although that is true, the main issue is...",register="formal"),PhrasebookEntry(text="Etsy ankilany...",context="On the other hand...",register="formal")]),
 ]
-ASSESSMENT_BANK=[
-AssessmentQuestion(id="mg-a1-001",skill="communication",difficulty="A1",question="You meet someone. Which Malagasy phrase means “Hello”?",options=["Salama.","Misaotra.","Tsy azoko.","Ohatrinona ity?"],correct="Salama."),
-AssessmentQuestion(id="mg-a1-002",skill="speaking",difficulty="A1",question="You introduce yourself. Which sentence means “My name is Lova”?",options=["Ny anarako dia Lova.","Mianatra aho.","Mila rano aho.","Ao an-trano aho."],correct="Ny anarako dia Lova."),
-AssessmentQuestion(id="mg-a1-003",skill="communication",difficulty="A1",question="Someone helps you. Which phrase means “Thank you very much”?",options=["Misaotra betsaka.","Manao ahoana?","Azafady, avereno.","Tsy azoko."],correct="Misaotra betsaka."),
-AssessmentQuestion(id="mg-a1-004",skill="shopping",difficulty="A1",question="At a shop, how do you ask “How much is this?”",options=["Ohatrinona ity?","Salama.","Tiako ity.","Azafady, ampio aho."],correct="Ohatrinona ity?"),
-AssessmentQuestion(id="mg-a1-005",skill="shopping",difficulty="A1",question="You want an item. Which phrase means “I want this”?",options=["Tiako ity.","Misaotra.","Manao ahoana?","Tsy misy fisaorana."],correct="Tiako ity."),
-AssessmentQuestion(id="mg-a1-006",skill="help",difficulty="A1",question="You need assistance. Which phrase asks someone to help you?",options=["Azafady, ampio aho.","Ohatrinona ity?","Ny anarako dia Lova.","Misaotra betsaka."],correct="Azafady, ampio aho."),
-AssessmentQuestion(id="mg-a1-007",skill="listening",difficulty="A1",question="You did not understand. Which Malagasy phrase should you say?",options=["Tsy azoko.","Salama.","Tiako ity.","Misaotra."],correct="Tsy azoko."),
-AssessmentQuestion(id="mg-a1-008",skill="help",difficulty="A1",question="You want the speaker to repeat. Which phrase means “Please repeat”?",options=["Azafady, avereno.","Manao ahoana?","Ohatrinona ity?","Misaotra betsaka."],correct="Azafady, avereno."),
-AssessmentQuestion(id="mg-a1-009",skill="shopping",difficulty="A1",question="You want to ask if the seller can lower the price. Which phrase fits?",options=["Afaka mampihena ny vidiny ve?","Salama.","Tsy azoko.","Ny anarako dia Lova."],correct="Afaka mampihena ny vidiny ve?"),
-AssessmentQuestion(id="mg-a1-010",skill="communication",difficulty="A1",question="Someone thanks you. Which Malagasy response means “You are welcome”?",options=["Tsy misy fisaorana.","Ohatrinona ity?","Tiako ity.","Azafady, ampio aho."],correct="Tsy misy fisaorana."),
+
+ASSESSMENT_BANK = [
+AssessmentQuestion(id="mg-a1-001",skill="communication",difficulty="A1",question="Which Malagasy phrase means “Hello”?",options=["Salama.","Misaotra.","Tsy azoko.","Ohatrinona ity?"],correct="Salama."),
+AssessmentQuestion(id="mg-a1-002",skill="speaking",difficulty="A1",question="Which sentence means “My name is Lova”?",options=["Ny anarako dia Lova.","Mianatra aho.","Mila rano aho.","Ao an-trano aho."],correct="Ny anarako dia Lova."),
+AssessmentQuestion(id="mg-a1-003",skill="communication",difficulty="A1",question="Which phrase means “Thank you very much”?",options=["Misaotra betsaka.","Manao ahoana?","Azafady, avereno.","Tsy azoko."],correct="Misaotra betsaka."),
+AssessmentQuestion(id="mg-a1-004",skill="shopping",difficulty="A1",question="How do you ask “How much is this?”",options=["Ohatrinona ity?","Salama.","Tiako ity.","Azafady, ampio aho."],correct="Ohatrinona ity?"),
+AssessmentQuestion(id="mg-a1-005",skill="shopping",difficulty="A1",question="Which phrase means “I want this”?",options=["Tiako ity.","Misaotra.","Manao ahoana?","Tsy misy fisaorana."],correct="Tiako ity."),
+AssessmentQuestion(id="mg-a1-006",skill="help",difficulty="A1",question="Which phrase asks someone to help you?",options=["Azafady, ampio aho.","Ohatrinona ity?","Ny anarako dia Lova.","Misaotra betsaka."],correct="Azafady, ampio aho."),
+AssessmentQuestion(id="mg-a1-007",skill="listening",difficulty="A1",question="Which phrase means “I do not understand”?",options=["Tsy azoko.","Salama.","Tiako ity.","Misaotra."],correct="Tsy azoko."),
+AssessmentQuestion(id="mg-a1-008",skill="help",difficulty="A1",question="Which phrase means “Please repeat”?",options=["Azafady, avereno.","Manao ahoana?","Ohatrinona ity?","Misaotra betsaka."],correct="Azafady, avereno."),
+AssessmentQuestion(id="mg-a2-001",skill="grammar",difficulty="A2",question="Which sentence expresses a future action?",options=["Hianatra rahampitso aho.","Nianatra aho omaly.","Tsy mianatra aho.","Salama."],correct="Hianatra rahampitso aho."),
+AssessmentQuestion(id="mg-a2-002",skill="communication",difficulty="A2",question="Which phrase is a polite request?",options=["Azafady, ampio aho.","Salama.","Handeha aho.","Mianatra aho."],correct="Azafady, ampio aho."),
+AssessmentQuestion(id="mg-b1-001",skill="grammar",difficulty="B1",question="Which sentence introduces a condition?",options=["Raha mianatra ianao dia hahomby.","Salama.","Mila rano aho.","Ao an-trano aho."],correct="Raha mianatra ianao dia hahomby."),
+AssessmentQuestion(id="mg-b1-002",skill="grammar",difficulty="B1",question="Which sentence reports speech?",options=["Nilaza izy fa ho avy.","Mianatra aho.","Handeha aho.","Veloma."],correct="Nilaza izy fa ho avy."),
+AssessmentQuestion(id="mg-b2-001",skill="discourse",difficulty="B2",question="Which phrase marks a consequence?",options=["Noho izany","Salama","Manao ahoana?","Ny anarako dia Lova."],correct="Noho izany"),
+AssessmentQuestion(id="mg-c1-001",skill="academic",difficulty="C1",question="Which phrase appropriately hedges an academic claim?",options=["Azo inoana fa...","Marina tanteraka.","Salama.","Tiako ity."],correct="Azo inoana fa..."),
+AssessmentQuestion(id="mg-c2-001",skill="translation",difficulty="C2",question="What should advanced translation preserve besides literal meaning?",options=["Register and pragmatic force","Only word order","Only punctuation","Only word length"],correct="Register and pragmatic force"),
 ]
