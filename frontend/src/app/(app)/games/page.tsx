@@ -257,20 +257,6 @@ export default function GamesPage() {
     setQuestion(sessionQuestions[nextRound] ?? null)
   }
 
-  function reset() {
-    setGame(null)
-    setDailyMode(false)
-    setDailyChallengeDate('')
-    setQuestion(null)
-    setSessionId(null)
-    setSessionQuestions([])
-    setAnswers([])
-    setRound(0)
-    setRoundScore(0)
-    setSelected(null)
-    setNewAchievements([])
-  }
-
   return (
     <main className="juba-games" dir={direction}>
       <section className="games-shell">
