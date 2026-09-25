@@ -1528,18 +1528,17 @@ def _mastery_review_count(
 
 
 def _apply_skill_review_variant(question: dict, seed: int) -> dict:
-    """Create a deterministic surface variant while preserving the same learning target."""
+    """Create a deterministic curriculum-backed variant while preserving the learning target."""
     replay = dict(question)
     skill = str(replay.get("skill", ""))
-    language = str(replay.get("language", "en"))
+    language = str(replay.get("language", "en")).split("-")[0]
     prompt = str(replay.get("prompt", "")).strip()
     topic = str(replay.get("topic", "")).strip()
     variant = max(0, int(seed)) % 3
 
     if skill == "vocabulary":
-        word = str(replay.get("word", "")).strip()
+        word = str(replay.get("word", "")).strip() or str(replay.get("answer", "")).strip()
         if not word:
-            # Recover the target word from the authored prompt when available.
             word = prompt.replace("Choose the correct word:", "").strip().strip("'\"")
         templates = {
             "en": [
@@ -1549,46 +1548,76 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
             ],
             "fr": [
                 f"Que signifie « {word} » ?",
-                f"Choisis la définition de « {word} »." ,
+                f"Choisis la définition de « {word} ».",
                 f"Quel sens correspond à « {word} » ?",
             ],
             "ar": [
                 f"ماذا تعني كلمة «{word}»؟",
-                f"اختر تعريف كلمة «{word}»." ,
+                f"اختر تعريف كلمة «{word}».",
                 f"أي معنى يطابق كلمة «{word}»؟",
             ],
         }
         replay["prompt"] = templates.get(language, templates["en"])[variant]
+
     elif skill == "grammar":
-        templates = {
-            "en": [
-                "Choose the correct form:\n{surface}",
-                "Which form is grammatically correct?\n{surface}",
-                "Complete the sentence with the correct form:\n{surface}",
-            ],
-            "fr": [
-                "Choisis la forme correcte :\n{surface}",
-                "Quelle forme est grammaticalement correcte ?\n{surface}",
-                "Complète avec la forme correcte :\n{surface}",
-            ],
-            "ar": [
-                "اختر الصيغة الصحيحة:\n{surface}",
-                "أي صيغة صحيحة نحويًا؟\n{surface}",
-                "أكمل الجملة بالصيغة الصحيحة:\n{surface}",
-            ],
-        }
-        surface = prompt.split("\n", 1)[1].strip() if "\n" in prompt else prompt
-        replay["prompt"] = templates.get(language, templates["en"])[variant].format(surface=surface)
+        # Prefer another authored mistake from the same grammar topic that has
+        # the same correction target. This changes the erroneous surface rather
+        # than merely rephrasing the instruction.
+        correct = str(replay.get("answer", "")).strip()
+        alternatives: list[tuple[str, str]] = []
+        try:
+            topics = get_grammar_topics(str(replay.get("target_language", "en-GB")))
+            for grammar_topic in topics:
+                if str(grammar_topic.slug) != topic and topic:
+                    continue
+                for mistake in grammar_topic.common_mistakes:
+                    if (
+                        mistake.wrong.strip()
+                        and mistake.correct.strip() == correct
+                        and mistake.wrong.strip() != prompt.split("\\n", 1)[-1].strip()
+                    ):
+                        alternatives.append((mistake.wrong.strip(), mistake.note.strip()))
+        except (KeyError, TypeError, ValueError):
+            alternatives = []
+
+        if alternatives:
+            surface, note = alternatives[max(0, int(seed)) % len(alternatives)]
+            replay["prompt"] = (
+                f"Choose the correct form:\\n{surface}"
+                if language == "en"
+                else f"{note or 'Choose the correct form.'}\\n{surface}"
+            )
+            if note:
+                replay["hint"] = note
+        else:
+            templates = {
+                "en": [
+                    "Choose the correct form:\\n{surface}",
+                    "Which form is grammatically correct?\\n{surface}",
+                    "Complete the sentence with the correct form:\\n{surface}",
+                ],
+                "fr": [
+                    "Choisis la forme correcte :\\n{surface}",
+                    "Quelle forme est grammaticalement correcte ?\\n{surface}",
+                    "Complète avec la forme correcte :\\n{surface}",
+                ],
+                "ar": [
+                    "اختر الصيغة الصحيحة:\\n{surface}",
+                    "أي صيغة صحيحة نحويًا؟\\n{surface}",
+                    "أكمل الجملة بالصيغة الصحيحة:\\n{surface}",
+                ],
+            }
+            surface = prompt.split("\\n", 1)[1].strip() if "\\n" in prompt else prompt
+            replay["prompt"] = templates.get(language, templates["en"])[variant].format(surface=surface)
+
     elif skill == "listening":
-        # When the curriculum contains another example for the same target word,
-        # replay the same listening objective with a genuinely different audio
-        # surface. The expected answer remains the original target word.
         target_word = str(replay.get("answer", "")).strip()
         if target_word:
             try:
+                curriculum_language = str(replay.get("target_language", "en-GB"))
                 vocabulary_sets = get_vocabulary_by_level(
                     cast(CEFRLevel, replay.get("cefr_level", "A1")),
-                    str(replay.get("target_language", "en-GB")),
+                    curriculum_language,
                 )
                 alternatives = [
                     entry.example.strip()
@@ -1601,7 +1630,6 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
                 if alternatives:
                     replay["audio_text"] = alternatives[max(0, int(seed)) % len(alternatives)]
             except (KeyError, TypeError, ValueError):
-                # The original authored audio remains the safe fallback.
                 pass
         templates = {
             "en": [
@@ -1621,7 +1649,12 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
             ],
         }
         replay["prompt"] = templates.get(language, templates["en"])[variant]
+
     elif skill == "writing":
+        # Translation prompts are kept semantically stable. If the authored
+        # source has a note, surface it as a learner hint; otherwise rotate only
+        # the task framing so the answer remains the same exact curriculum item.
+        authored_note = str(replay.get("hint", "")).strip()
         templates = {
             "en": [
                 "Translate into the target language:\n{surface}",
@@ -1639,13 +1672,41 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
                 "ترجم هذه الجملة ترجمة طبيعية:\n{surface}",
             ],
         }
-        surface = prompt.split("\n", 1)[1].strip() if "\n" in prompt else prompt
+        surface = prompt.split("\\n", 1)[1].strip() if "\\n" in prompt else prompt
         replay["prompt"] = templates.get(language, templates["en"])[variant].format(surface=surface)
+        if authored_note:
+            replay["hint"] = authored_note
+
     elif skill == "speaking":
-        # Keep the same lexical target while rotating the contextual choice set.
+        # Use another authored example for the same lexical item when available.
+        # The prompt and correct contextual sentence then both change together,
+        # preserving the same vocabulary/pragmatics target.
         word = str(replay.get("word", "")).strip()
         if not word:
-            word = prompt.split("\n", 1)[-1].strip() if prompt else topic
+            word = str(replay.get("answer", "")).strip()
+            if word.endswith("."):
+                word = ""
+        alternate_contexts: list[str] = []
+        if word:
+            try:
+                vocabulary_sets = get_vocabulary_by_level(
+                    cast(CEFRLevel, replay.get("cefr_level", "A1")),
+                    str(replay.get("target_language", "en-GB")),
+                )
+                current_answer = str(replay.get("answer", "")).strip()
+                alternate_contexts = [
+                    entry.example.strip()
+                    for vocab_set in vocabulary_sets
+                    for entry in vocab_set.words
+                    if entry.word.strip().casefold() == word.casefold()
+                    and entry.example.strip()
+                    and entry.example.strip() != current_answer
+                ]
+                if alternate_contexts:
+                    replay["answer"] = alternate_contexts[max(0, int(seed)) % len(alternate_contexts)]
+            except (KeyError, TypeError, ValueError):
+                alternate_contexts = []
+
         templates = {
             "en": [
                 f"In this situation, which sentence best uses '{word}'?",
@@ -1654,18 +1715,20 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
             ],
             "fr": [
                 f"Dans cette situation, quelle phrase utilise le mieux « {word} » ?",
-                f"Choisis la phrase naturelle dans le contexte de « {word} »." ,
+                f"Choisis la phrase naturelle dans le contexte de « {word} ».",
                 f"Quelle réponse convient à la situation et utilise « {word} » naturellement ?",
             ],
             "ar": [
                 f"في هذا الموقف، أي جملة تستخدم «{word}» بشكل أفضل؟",
-                f"اختر الجملة الطبيعية في سياق «{word}»." ,
+                f"اختر الجملة الطبيعية في سياق «{word}».",
                 f"أي رد يناسب الموقف ويستخدم «{word}» بشكل طبيعي؟",
             ],
         }
         replay["prompt"] = templates.get(language, templates["en"])[variant]
 
-    replay["variant"] = f"surface-{variant + 1}"
+    replay["variant"] = f"curriculum-{variant + 1}" if (
+        skill in {"grammar", "listening", "speaking"} and replay != question
+    ) else f"surface-{variant + 1}"
     return replay
 
 
