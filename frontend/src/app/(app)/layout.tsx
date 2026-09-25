@@ -363,4 +363,4 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <ConfirmDialog open={logoutConfirm} title={tCommon('logoutConfirmTitle')} message={tCommon('logoutConfirmMessage')} confirmLabel={tCommon('logout')} onConfirm={handleLogout} onCancel={() => setLogoutConfirm(false)} />
     </div>
   )
-}}
+}
