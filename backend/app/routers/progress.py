@@ -887,72 +887,50 @@ def _server_game_questions(\n    game_id: str,\n    language: str,\n    difficul
             })
             continue
         if game_id == "fill_blank":
-            # Build grammar-aware cloze items from the learner's CEFR vocabulary.
-            # Prefer authored examples that contain the target word; this keeps
-            # the sentence and answer tied to the same curriculum entry.
             assert word_entries is not None
+            vocab_sets = get_vocabulary_by_level(cefr_level, target_language)
+            pool = [entry for vocab_set in vocab_sets for entry in vocab_set.words]
+            rng.shuffle(pool)
             cloze_entries = [
                 entry
-                for entry in word_entries
+                for entry in pool
                 if entry.word.strip()
                 and entry.example.strip()
                 and entry.word.strip().casefold() in entry.example.casefold()
-            ]
-            if len(cloze_entries) < 5:
-                vocab_sets = get_vocabulary_by_level(cefr_level, target_language)
-                pool = [entry for vocab_set in vocab_sets for entry in vocab_set.words]
-                rng.shuffle(pool)
-                cloze_entries = [
-                    entry
-                    for entry in pool
-                    if entry.word.strip()
-                    and entry.example.strip()
-                    and entry.word.strip().casefold() in entry.example.casefold()
-                ][:5]
+            ][:5]
             if len(cloze_entries) < 5:
                 raise HTTPException(
                     status_code=503,
                     detail=f"Not enough CEFR cloze content for {target_language} at {cefr_level}",
                 )
-
-            for entry in cloze_entries[:5]:
-                example = entry.example.strip()
-                word = entry.word.strip()
-                marker_index = example.casefold().find(word.casefold())
-                if marker_index < 0:
-                    continue
-                sentence = (
-                    example[:marker_index]
-                    + "___"
-                    + example[marker_index + len(word):]
-                )
-                distractors = [
-                    item.word.strip()
-                    for item in word_entries
-                    if item.word.strip().casefold() != word.casefold()
-                ]
-                rng.shuffle(distractors)
-                choices = [word, *distractors[:3]]
-                choices = list(dict.fromkeys(choices))
-                if len(choices) < 4:
-                    continue
-                rng.shuffle(choices)
-                questions.append({
-                    "id": str(uuid4()),
-                    "prompt": sentence,
-                    "choices": choices,
-                    "answer": word,
-                    "hint": entry.definition.strip() or hints[language],
-                    "skill": "grammar",
-                    "difficulty": difficulty,
-                    "topic": "cefr-cloze",
-                    "input_mode": "choice",
-                })
-            if len(questions) < 5:
-                raise HTTPException(
-                    status_code=503,
-                    detail=f"Not enough CEFR cloze questions for {target_language} at {cefr_level}",
-                )
+            entry = cloze_entries[index]
+            example = entry.example.strip()
+            word = entry.word.strip()
+            marker_index = example.casefold().find(word.casefold())
+            if marker_index < 0:
+                raise HTTPException(status_code=503, detail="CEFR cloze item is malformed")
+            sentence = example[:marker_index] + "___" + example[marker_index + len(word):]
+            distractors = [
+                item.word.strip()
+                for item in word_entries
+                if item.word.strip().casefold() != word.casefold()
+            ]
+            rng.shuffle(distractors)
+            choices = list(dict.fromkeys([word, *distractors]))[:4]
+            if len(choices) < 4:
+                raise HTTPException(status_code=503, detail="Not enough cloze distractors")
+            rng.shuffle(choices)
+            questions.append({
+                "id": question_id,
+                "prompt": sentence,
+                "choices": choices,
+                "answer": word,
+                "hint": entry.definition.strip() or hints[language],
+                "skill": "grammar",
+                "difficulty": difficulty,
+                "topic": "cefr-cloze",
+                "input_mode": "choice",
+            })
             continue
         if game_id == "spelling":
             assert word_entries is not None
@@ -1096,9 +1074,6 @@ def _server_game_questions(\n    game_id: str,\n    language: str,\n    difficul
             })
             continue
         if game_id == "grammar_duel":
-            # Use the target language's authored grammar curriculum at the
-            # learner's CEFR level. Common mistakes become high-signal
-            # correction questions; examples provide a safe fallback.
             topics = [
                 topic
                 for topic in get_grammar_topics(target_language)
@@ -1114,34 +1089,26 @@ def _server_game_questions(\n    game_id: str,\n    language: str,\n    difficul
             selected_mistakes = mistakes[:5]
 
             if len(selected_mistakes) >= 5:
-                for mistake, topic in selected_mistakes:
-                    correct = mistake.correct.strip()
-                    wrong = mistake.wrong.strip()
-                    alternatives = [
-                        item.correct.strip()
-                        for item, other_topic in mistakes
-                        if item.correct.strip() not in {correct, wrong}
-                    ]
-                    rng.shuffle(alternatives)
-                    choices = list(dict.fromkeys([correct, wrong, *alternatives]))[:4]
-                    if len(choices) < 4:
-                        continue
-                    rng.shuffle(choices)
-                    questions.append({
-                        "id": str(uuid4()),
-                        "prompt": (
-                            f"Choose the correct form:\n{wrong}"
-                            if language == "en"
-                            else f"{hints.get(language, hints['en'])}\n{wrong}"
-                        ),
-                        "choices": choices,
-                        "answer": correct,
-                        "hint": mistake.note.strip() or hints.get(language, hints["en"]),
-                        "skill": "grammar",
-                        "difficulty": difficulty,
-                        "topic": topic.slug,
-                        "input_mode": "choice",
-                    })
+                mistake, topic = selected_mistakes[index]
+                correct = mistake.correct.strip()
+                wrong = mistake.wrong.strip()
+                alternatives = [
+                    item.correct.strip()
+                    for item, _ in mistakes
+                    if item.correct.strip() not in {correct, wrong}
+                ]
+                rng.shuffle(alternatives)
+                choices = list(dict.fromkeys([correct, wrong, *alternatives]))[:4]
+                if len(choices) < 4:
+                    raise HTTPException(status_code=503, detail="Not enough grammar distractors")
+                rng.shuffle(choices)
+                prompt = (
+                    f"Choose the correct form:\n{wrong}"
+                    if language == "en"
+                    else f"{hints.get(language, hints['en'])}\n{wrong}"
+                )
+                hint = mistake.note.strip() or hints.get(language, hints["en"])
+                topic_slug = topic.slug
             else:
                 examples = [
                     example
@@ -1150,38 +1117,34 @@ def _server_game_questions(\n    game_id: str,\n    language: str,\n    difficul
                     if example.text.strip()
                 ]
                 rng.shuffle(examples)
-                for example in examples[:5]:
-                    correct = example.text.strip()
-                    alternatives = [
-                        item.text.strip()
-                        for item in examples
-                        if item.text.strip() != correct
-                    ]
-                    rng.shuffle(alternatives)
-                    choices = list(dict.fromkeys([correct, *alternatives]))[:4]
-                    if len(choices) < 4:
-                        continue
-                    rng.shuffle(choices)
-                    questions.append({
-                        "id": str(uuid4()),
-                        "prompt": (
-                            "Which sentence is correct?"
-                            if language == "en"
-                            else f"{hints.get(language, hints['en'])}\n{correct}"
-                        ),
-                        "choices": choices,
-                        "answer": correct,
-                        "hint": example.note.strip() if example.note else hints.get(language, hints["en"]),
-                        "skill": "grammar",
-                        "difficulty": difficulty,
-                        "topic": "grammar-example",
-                        "input_mode": "choice",
-                    })
-            if len(questions) < 5:
-                raise HTTPException(
-                    status_code=503,
-                    detail=f"Not enough CEFR grammar content for {target_language} at {cefr_level}",
-                )
+                if len(examples) < 5:
+                    raise HTTPException(
+                        status_code=503,
+                        detail=f"Not enough CEFR grammar content for {target_language} at {cefr_level}",
+                    )
+                example = examples[index]
+                correct = example.text.strip()
+                alternatives = [item.text.strip() for item in examples if item.text.strip() != correct]
+                rng.shuffle(alternatives)
+                choices = list(dict.fromkeys([correct, *alternatives]))[:4]
+                if len(choices) < 4:
+                    raise HTTPException(status_code=503, detail="Not enough grammar example distractors")
+                rng.shuffle(choices)
+                prompt = "Which sentence is correct?"
+                hint = example.note.strip() if example.note else hints.get(language, hints["en"])
+                topic_slug = "grammar-example"
+
+            questions.append({
+                "id": question_id,
+                "prompt": prompt,
+                "choices": choices,
+                "answer": correct,
+                "hint": hint,
+                "skill": "grammar",
+                "difficulty": difficulty,
+                "topic": topic_slug,
+                "input_mode": "choice",
+            })
             continue
         if game_id == "math":
             maximum = {1: 18, 2: 60, 3: 150}[difficulty]
