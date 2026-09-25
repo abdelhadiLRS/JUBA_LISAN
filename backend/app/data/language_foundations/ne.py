@@ -32,7 +32,8 @@ VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="ne-a1-unit-5"
 VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="ne-a1-unit-6",words=[VocabularyEntry(word="समय",pos="noun",definition="time",example="समय कति भयो?"),VocabularyEntry(word="आज",pos="adverb",definition="today",example="आज म घरमा छु।"),VocabularyEntry(word="भोलि",pos="adverb",definition="tomorrow",example="भोलि म विद्यालय जान्छु।")]),
 VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="ne-a1-unit-7",words=[VocabularyEntry(word="पानी",pos="noun",definition="water",example="मलाई पानी चाहिन्छ।"),VocabularyEntry(word="चिया",pos="noun",definition="tea",example="म बिहान चिया पिउँछु।"),VocabularyEntry(word="खाना",pos="noun",definition="food/meal",example="खाना तयार छ।")]),
 VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="ne-a1-unit-8",words=[VocabularyEntry(word="विद्यालय",pos="noun",definition="school",example="म विद्यालयमा छु।"),VocabularyEntry(word="बजार",pos="noun",definition="market",example="बजार नजिकै छ।"),VocabularyEntry(word="यहाँ",pos="adverb",definition="here",example="म यहाँ छु।")])
-]PHRASEBOOK_CATEGORIES=[
+]
+PHRASEBOOK_CATEGORIES=[
 PhrasebookCategory(id="ne_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="नमस्ते।",context="Hello.",register="neutral")]),
 PhrasebookCategory(id="ne_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="धन्यवाद।",context="Thank you.",register="neutral")]),
 PhrasebookCategory(id="ne_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="कृपया मद्दत गर्नुहोस्।",context="Please help me.",register="neutral")]),
@@ -42,7 +43,7 @@ ASSESSMENT_BANK=[
 AssessmentQuestion(id="ne-a1-001",skill="vocabulary",difficulty="A1",question="Which Nepali word means 'water'?",options=["पानी","घर","आमा","विद्यालय"],correct="पानी"),
 AssessmentQuestion(id="ne-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["म घरमा छु।","म विद्यालय जान्छु।","म पानी पिउँछु।","यो किताब हो।"],correct="म घरमा छु।"),
 AssessmentQuestion(id="ne-a1-003",skill="vocabulary",difficulty="A1",question="What does आमा mean?",options=["mother","father","friend","teacher"],correct="mother"),
-AssessmentQuestion(id="ne-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["तपाईंको नाम के हो?","तपाईं कहाँ हुनुहुन्छ?","यो के हो?","कति बजे हो?"],"correct"="तपाईंको नाम के हो?"),
+AssessmentQuestion(id="ne-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["तपाईंको नाम के हो?","तपाईं कहाँ हुनुहुन्छ?","यो के हो?","कति बजे हो?"],correct="तपाईंको नाम के हो?"),
 AssessmentQuestion(id="ne-a1-005",skill="reading",difficulty="A1",question="विद्यालय नजिकै छ। Where is the school?",options=["Nearby","At home","In the market","Far away"],correct="Nearby"),
 AssessmentQuestion(id="ne-a1-006",skill="vocabulary",difficulty="A1",question="Which word means 'name'?",options=["नाम","समय","पानी","घर"],correct="नाम"),
 AssessmentQuestion(id="ne-a1-007",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["फेरि भन्नुहोस्।","धन्यवाद।","नमस्ते।","बिदा।"],correct="फेरि भन्नुहोस्।"),
