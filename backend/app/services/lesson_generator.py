@@ -255,7 +255,7 @@ async def generate_lesson(
         unit_id=unit_id,
         target_language=target_language,
     )
-    if fallback is not None and settings.LLM_PROVIDER.lower() == "ollama":
+    if fallback is not None:
         lesson = fallback
     else:
         try:
