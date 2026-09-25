@@ -6,6 +6,7 @@ from app.data.vocabulary import get_vocabulary_by_level
 from app.routers.progress import (
     _apply_smart_review,
     _item_mastery_from_events,
+    _mastery_review_count,
     _prioritize_curriculum_entries,
     _server_game_questions,
     _server_interactive_challenge,
@@ -162,6 +163,36 @@ def test_interactive_review_prefers_exact_previous_item():
         [{"word": entry.word, "definition": entry.definition}],
     )
     assert any(card["label"] == entry.word for card in reviewed_public["cards"])
+
+
+
+@pytest.mark.parametrize(
+    ("mastery_items", "total", "difficulty", "expected"),
+    [
+        ([], 5, 1, 0),
+        ([{"mastery_state": "learning"}], 5, 1, 1),
+        ([{"mastery_state": "learning"}, {"mastery_state": "learning"}], 5, 1, 2),
+        ([{"mastery_state": "reviewing"}], 5, 2, 2),
+        ([{"mastery_state": "weak"}], 5, 2, 2),
+        ([{"mastery_state": "weak"}, {"mastery_state": "weak"}], 5, 1, 4),
+        ([{"mastery_state": "weak"}, {"mastery_state": "reviewing"}, {"mastery_state": "mastered"}], 5, 2, 3),
+        ([{"mastery_state": "mastered"}, {"mastery_state": "mastered"}], 5, 1, 0),
+    ],
+)
+def test_mastery_review_count_balances_fresh_and_review_content(
+    mastery_items, total, difficulty, expected
+):
+    assert _mastery_review_count(mastery_items, total, difficulty) == expected
+
+
+def test_mastery_review_count_never_exceeds_available_active_items():
+    items = [{"mastery_state": "weak"}]
+    assert _mastery_review_count(items, 5, 1) == 1
+
+
+def test_mastery_review_count_keeps_more_fresh_content_at_high_difficulty():
+    weak_items = [{"mastery_state": "reviewing"}]
+    assert _mastery_review_count(weak_items, 5, 3) == 2
 
 
 def _mastery_event(at, key, *, question=None, resolved=False):
