@@ -161,16 +161,29 @@ def _server_interactive_challenge(
             pairs[a] = index
             pairs[b] = index
             topic = next((v.topic for v in vocab_sets if any(w.word.strip() == left for w in v.words)), "vocabulary")
+            preferred = next(
+                (
+                    item
+                    for item in (preferred_items or [])
+                    if str(item.get("word", "")).strip().casefold() == left.casefold()
+                ),
+                {},
+            )
             review_items[str(index)] = {
                 "word": left,
                 "definition": right,
                 "topic": topic,
-                "review_key": _review_key({
-                    "skill": "memory",
-                    "topic": topic,
-                    "prompt": left,
-                    "answer": right,
-                }),
+                "review_key": str(
+                    preferred.get("review_key")
+                    or _review_key({
+                        "skill": "memory",
+                        "topic": topic,
+                        "prompt": left,
+                        "answer": right,
+                    })
+                ),
+                "review_count": int(preferred.get("review_count", 0)),
+                "review_streak": int(preferred.get("review_streak", 0)),
             }
         rng.shuffle(cards)
         return {"type": "memory", "cards": cards}, {"pairs": pairs, "pair_count": count, "review_items": review_items}
@@ -194,12 +207,41 @@ def _server_interactive_challenge(
                 "word": left_item,
                 "definition": right_item,
                 "topic": next((v.topic for v in vocab_sets if any(w.word.strip() == left_item for w in v.words)), "vocabulary"),
-                "review_key": _review_key({
-                    "skill": "vocabulary",
-                    "topic": next((v.topic for v in vocab_sets if any(w.word.strip() == left_item for w in v.words)), "vocabulary"),
-                    "prompt": left_item,
-                    "answer": right_item,
-                }),
+                "review_key": str(
+                    next(
+                        (
+                            item.get("review_key")
+                            for item in (preferred_items or [])
+                            if str(item.get("word", "")).strip().casefold() == left_item.casefold()
+                        ),
+                        _review_key({
+                            "skill": "vocabulary",
+                            "topic": next((v.topic for v in vocab_sets if any(w.word.strip() == left_item for w in v.words)), "vocabulary"),
+                            "prompt": left_item,
+                            "answer": right_item,
+                        }),
+                    )
+                ),
+                "review_count": int(
+                    next(
+                        (
+                            item.get("review_count", 0)
+                            for item in (preferred_items or [])
+                            if str(item.get("word", "")).strip().casefold() == left_item.casefold()
+                        ),
+                        0,
+                    )
+                ),
+                "review_streak": int(
+                    next(
+                        (
+                            item.get("review_streak", 0)
+                            for item in (preferred_items or [])
+                            if str(item.get("word", "")).strip().casefold() == left_item.casefold()
+                        ),
+                        0,
+                    )
+                ),
             }
             for index, (left_item, right_item) in enumerate(pairs_source)
         }
@@ -229,12 +271,41 @@ def _server_interactive_challenge(
                 "sentence": {
                     "sentence": sentence,
                     "topic": sentence_topic,
-                    "review_key": _review_key({
-                        "skill": "grammar",
-                        "topic": sentence_topic,
-                        "prompt": sentence,
-                        "answer": sentence,
-                    }),
+                    "review_key": str(
+                        next(
+                            (
+                                item.get("review_key")
+                                for item in (preferred_items or [])
+                                if str(item.get("sentence", "")).strip() == sentence
+                            ),
+                            _review_key({
+                                "skill": "grammar",
+                                "topic": sentence_topic,
+                                "prompt": sentence,
+                                "answer": sentence,
+                            }),
+                        )
+                    ),
+                    "review_count": int(
+                        next(
+                            (
+                                item.get("review_count", 0)
+                                for item in (preferred_items or [])
+                                if str(item.get("sentence", "")).strip() == sentence
+                            ),
+                            0,
+                        )
+                    ),
+                    "review_streak": int(
+                        next(
+                            (
+                                item.get("review_streak", 0)
+                                for item in (preferred_items or [])
+                                if str(item.get("sentence", "")).strip() == sentence
+                            ),
+                            0,
+                        )
+                    ),
                 }
             }
         return {"type": "ordering", "items": shuffled}, solution
@@ -2500,7 +2571,25 @@ async def complete_game_session(
                     mistakes.append({"review_key": str(item.get("review_key") or _review_key(question)), "review_count": 1, "next_review_at": (now + _review_interval(1)).isoformat(), "question": question})
             for item in solution.get("review_items", {}).values():
                 if item.get("review_key"):
-                    mistakes.append({"review_key": str(item["review_key"]), "resolved": True})
+                    question = {
+                        "skill": "memory",
+                        "topic": item.get("topic", "vocabulary"),
+                        "prompt": item.get("word", ""),
+                        "answer": item.get("definition", ""),
+                        "input_mode": "choice",
+                        "target_language": plan.target_language,
+                        "cefr_level": plan.cefr_level,
+                    }
+                    review_streak = int(item.get("review_streak", 0))
+                    next_streak = min(8, max(0, review_streak) + 1)
+                    mistakes.append({
+                        "review_key": str(item["review_key"]),
+                        "resolved": True,
+                        "review_count": int(item.get("review_count", 0)),
+                        "review_streak": next_streak,
+                        "next_review_at": (now + _review_interval(next_streak)).isoformat(),
+                        "question": question,
+                    })
         elif session.game_id == "matching":
             pairs = solution.get("pairs", {})
             matched: set[str] = set()
@@ -2530,7 +2619,25 @@ async def complete_game_session(
                         break
             for item in solution.get("review_items", {}).values():
                 if item.get("review_key"):
-                    mistakes.append({"review_key": str(item["review_key"]), "resolved": True})
+                    question = {
+                        "skill": "vocabulary",
+                        "topic": item.get("topic", "vocabulary"),
+                        "prompt": item.get("word", ""),
+                        "answer": item.get("definition", ""),
+                        "input_mode": "choice",
+                        "target_language": plan.target_language,
+                        "cefr_level": plan.cefr_level,
+                    }
+                    review_streak = int(item.get("review_streak", 0))
+                    next_streak = min(8, max(0, review_streak) + 1)
+                    mistakes.append({
+                        "review_key": str(item["review_key"]),
+                        "resolved": True,
+                        "review_count": int(item.get("review_count", 0)),
+                        "review_streak": next_streak,
+                        "next_review_at": (now + _review_interval(next_streak)).isoformat(),
+                        "question": question,
+                    })
         else:
             items = {item["id"] for item in stored.get("public", {}).get("items", [])}
             target = solution.get("target", [])
@@ -2555,7 +2662,25 @@ async def complete_game_session(
                     question = {"skill": "grammar", "topic": item.get("topic", "grammar"), "prompt": item.get("sentence", ""), "answer": item.get("sentence", ""), "input_mode": "text", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
                     mistakes.append({"review_key": str(item.get("review_key") or _review_key(question)), "review_count": 1, "next_review_at": (now + _review_interval(1)).isoformat(), "question": question})
             if review_item and review_item.get("review_key"):
-                mistakes.append({"review_key": str(review_item["review_key"]), "resolved": True})
+                question = {
+                    "skill": "grammar",
+                    "topic": review_item.get("topic", "grammar"),
+                    "prompt": review_item.get("sentence", ""),
+                    "answer": review_item.get("sentence", ""),
+                    "input_mode": "text",
+                    "target_language": plan.target_language,
+                    "cefr_level": plan.cefr_level,
+                }
+                review_streak = int(review_item.get("review_streak", 0))
+                next_streak = min(8, max(0, review_streak) + 1)
+                mistakes.append({
+                    "review_key": str(review_item["review_key"]),
+                    "resolved": True,
+                    "review_count": int(review_item.get("review_count", 0)),
+                    "review_streak": next_streak,
+                    "next_review_at": (now + _review_interval(next_streak)).isoformat(),
+                    "question": question,
+                })
     else:
         expected = {item["id"]: item for item in session.questions}
         if len(data.answers) != len(expected) or set(item.question_id for item in data.answers) != set(expected):
