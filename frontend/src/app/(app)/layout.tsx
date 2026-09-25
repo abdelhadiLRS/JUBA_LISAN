@@ -32,16 +32,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     { href: '/progress', label: tNav('progress') },
     { href: '/games', label: tNav('games') },
     { href: '/flashcards', label: tNav('flashcards') },
-    { href: '/friends', label: 'Friends' },
+    { href: '/friends', label: tNav('friends') },
     { href: '/chat', label: tNav('tutor') },
     { href: '/listening', label: tNav('listening') },
     { href: '/reading', label: tNav('reading') },
     { href: '/conversation', label: tNav('conversation') },
     { href: '/assessment', label: tNav('assessment') },
-    { href: '/coach', label: 'Coach' },
-    { href: '/courses', label: 'Courses' },
-    { href: '/review', label: 'Review' },
-    { href: '/translator', label: 'Translator' },
+    { href: '/coach', label: tNav('coach') },
+    { href: '/courses', label: tNav('courses') },
+    { href: '/review', label: tNav('review') },
+    { href: '/translator', label: tNav('translator') },
   ]
 
   const resourceNavItems = [
@@ -421,7 +421,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <button
             onClick={() => setMobileMenuOpen((o) => !o)}
             className="text-fl-muted-2 hover:text-fl-fg p-1 font-mono transition-colors"
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={mobileMenuOpen ? tCommon('close') : tCommon('openMenu')}
           >
             <span className="text-base leading-none">
               {mobileMenuOpen ? '✕' : '☰'}
