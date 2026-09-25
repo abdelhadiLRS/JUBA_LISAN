@@ -54,45 +54,7 @@ AssessmentQuestion(id="nl-c1-008",skill="grammar",difficulty="C1",question="Kies
 AssessmentQuestion(id="nl-c2-005",skill="grammar",difficulty="C2",question="Welke formulering drukt epistemische voorzichtigheid uit?",options=["Het kan niet worden uitgesloten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],correct="Het kan niet worden uitgesloten dat andere factoren een rol spelen.",grammar_slug="epistemic-modality"),
 AssessmentQuestion(id="nl-c2-006",skill="vocabulary",difficulty="C2",question="Wat betekent 'dubbelzinnig'?",options=["vatbaar voor meer dan één interpretatie","volkomen duidelijk","zeer kort","gemakkelijk meetbaar"],correct="vatbaar voor meer dan één interpretatie"),
 AssessmentQuestion(id="nl-c2-007",skill="reading",difficulty="C2",question="Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",options=["Of de onderliggende aanname klopt.","Of het argument kort is.","Of de tekst informeel is.","Of de gegevens oud zijn."],correct="Of de onderliggende aanname klopt."),
-AssessmentQuestion(id="nl-c2-008",skill="grammar",difficulty="C2",question="Kies de meest precieze academische formulering.",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd een generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.",grammar_slug="academic-style")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+AssessmentQuestion(id="nl-c2-008",skill="grammar",difficulty="C2",question="Kies de meest precieze academische formulering.",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd een generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.",grammar_slug="academic-style"),
 AssessmentQuestion(id="nl-a2-009",skill="grammar",difficulty="A2",question="Kies de juiste voltooide tijd.",options=["Ik heb gegeten.","Ik heb eten.","Ik heb at.","Ik eten heb."],correct="Ik heb gegeten.",grammar_slug="voltooide-tijd"),
 AssessmentQuestion(id="nl-a2-010",skill="vocabulary",difficulty="A2",question="Wat betekent 'vertraging'?",options=["iets dat later komt dan gepland","een reservering","een adres","een betaling"],correct="iets dat later komt dan gepland"),
 AssessmentQuestion(id="nl-a2-011",skill="reading",difficulty="A2",question="Lees: 'De winkel sluit om zes uur.' Wanneer sluit de winkel?",options=["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],correct="Om zes uur."),
@@ -188,27 +150,7 @@ AssessmentQuestion(id="nl-c1-012",skill="grammar",difficulty="C1",question="Kies
 AssessmentQuestion(id="nl-c2-009",skill="grammar",difficulty="C2",question="Welke formulering drukt epistemische voorzichtigheid uit?",options=["Het kan niet worden uitgesloten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],correct="Het kan niet worden uitgesloten dat andere factoren een rol spelen.",grammar_slug="epistemische-modaliteit"),
 AssessmentQuestion(id="nl-c2-010",skill="vocabulary",difficulty="C2",question="Wat betekent 'dubbelzinnig'?",options=["voor meerdere interpretaties vatbaar","volkomen duidelijk","zeer kort","gemakkelijk meetbaar"],correct="voor meerdere interpretaties vatbaar"),
 AssessmentQuestion(id="nl-c2-011",skill="reading",difficulty="C2",question="Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",options=["Of de onderliggende aanname klopt.","Of het argument kort is.","Of de tekst informeel is.","Of de gegevens oud zijn."],correct="Of de onderliggende aanname klopt."),
-AssessmentQuestion(id="nl-c2-012",skill="grammar",difficulty="C2",question="Kies de meest precieze academische formulering.",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generalisatie zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.",grammar_slug="academische-formulering")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+AssessmentQuestion(id="nl-c2-012",skill="grammar",difficulty="C2",question="Kies de meest precieze academische formulering.",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generalisatie zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.",grammar_slug="academische-formulering"),
     AssessmentQuestion(id="nl-a1-026",skill="vocabulary",difficulty="A1",question="Wat betekent 'appel'?",options=["een fruitsoort","een voertuig","een gebouw","een meubel"],correct="een fruitsoort"),
     AssessmentQuestion(id="nl-a1-027",skill="reading",difficulty="A1",question="Lees: 'Sara woont in Utrecht.' Waar woont Sara?",options=["In Utrecht.","In Rotterdam.","In Groningen.","In Leiden."],correct="In Utrecht."),
     AssessmentQuestion(id="nl-a1-028",skill="grammar",difficulty="A1",question="Welke zin is correct?",options=["Hij heeft een fiets.","Hij heeft een fietsje zijn.","Hij hebben een fiets.","Hij heeft een fietsen."],correct="Hij heeft een fiets."),
@@ -252,7 +194,7 @@ AssessmentQuestion(id="nl-c2-012",skill="grammar",difficulty="C2",question="Kies
     AssessmentQuestion(id="nl-c2-029",skill="grammar",difficulty="C2",question="Welke formulering toont epistemische voorzichtigheid?",options=["Het valt niet uit te sluiten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],correct="Het valt niet uit te sluiten dat andere factoren een rol spelen."),
     AssessmentQuestion(id="nl-c2-030",skill="vocabulary",difficulty="C2",question="Wat betekent 'dubbelzinnig'?",options=["vatbaar voor meer dan één interpretatie","volledig eenduidig","zeer kort","gemakkelijk meetbaar"],correct="vatbaar voor meer dan één interpretatie"),
     AssessmentQuestion(id="nl-c2-031",skill="reading",difficulty="C2",question="Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",options=["Of de onderliggende aanname klopt.","Of het argument kort is.","Of de tekst informeel is.","Of de gegevens oud zijn."],correct="Of de onderliggende aanname klopt."),
-    AssessmentQuestion(id="nl-c2-032",skill="grammar",difficulty="C2",question="Welke academische formulering is het meest precies?",options=["De resultaten laten geen eenduidige generalisatie toe zonder aanvullende gegevens.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren zonder aanvullende toe.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten geen eenduidige generalisatie toe zonder aanvullende gegevens.")
+    AssessmentQuestion(id="nl-c2-032",skill="grammar",difficulty="C2",question="Welke academische formulering is het meest precies?",options=["De resultaten laten geen eenduidige generalisatie toe zonder aanvullende gegevens.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren zonder aanvullende toe.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten geen eenduidige generalisatie toe zonder aanvullende gegevens."),
 AssessmentQuestion("nl-a1-257","grammar","A1","Kies de juiste vraag.",["Waar woon je?","Waar je woont?","Woon waar je?","Waar wonen?"],"Waar woon je?"),
 AssessmentQuestion("nl-a1-258","vocabulary","A1","Wat betekent 'appel'?",["een vrucht","een voertuig","een gebouw","een meubel"],"een vrucht"),
 AssessmentQuestion("nl-a1-259","reading","A1","Lees: 'Sofie woont in Utrecht.' Waar woont Sofie?",["In Utrecht.","In Rotterdam.","In Groningen.","In Eindhoven."],"In Utrecht."),
@@ -276,92 +218,7 @@ AssessmentQuestion("nl-c1-276","grammar","C1","Kies de juiste passieve construct
 AssessmentQuestion("nl-c2-277","grammar","C2","Welke formulering drukt wetenschappelijke voorzichtigheid uit?",["Het kan niet worden uitgesloten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],"Het kan niet worden uitgesloten dat andere factoren een rol spelen."),
 AssessmentQuestion("nl-c2-278","vocabulary","C2","Wat betekent 'dubbelzinnig'?",["op meer dan één manier te interpreteren","volledig eenduidig","zeer kort","gemakkelijk te meten"],"op meer dan één manier te interpreteren"),
 AssessmentQuestion("nl-c2-279","reading","C2","Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",["Van het feit dat de onderliggende aanname klopt.","Van de lengte van de tekst.","Van een informele stijl.","Van de ouderdom van de gegevens."],"Van het feit dat de onderliggende aanname klopt."),
-AssessmentQuestion("nl-c2-280","grammar","C2","Kies de meest precieze academische formulering.",["De resultaten laten geen eenduidige generalisatie toe zonder aanvullende gegevens.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],"De resultaten laten geen eenduidige generalisatie toe zonder aanvullende gegevens.")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+AssessmentQuestion("nl-c2-280","grammar","C2","Kies de meest precieze academische formulering.",["De resultaten laten geen eenduidige generalisatie toe zonder aanvullende gegevens.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],"De resultaten laten geen eenduidige generalisatie toe zonder aanvullende gegevens."),
 AssessmentQuestion(id="nl-a1-013",skill="vocabulary",difficulty="A1",question="Wat betekent 'avond'?",options=["het einde van de dag","het begin van de week","een vervoermiddel","een beroep"],correct="het einde van de dag"),
 
 
@@ -425,15 +282,7 @@ AssessmentQuestion(id="nl-a2-016",skill="grammar",difficulty="A2",question="Kies
     AssessmentQuestion(id="nl-c2-021",skill="grammar",difficulty="C2",question="Welke formulering vermijdt een te sterke causale claim?",options=["De bevindingen wijzen op een verband, maar bewijzen geen causaliteit.","De bevindingen bewijzen altijd causaliteit.","De bevindingen bewijzen dat er geen andere factoren zijn.","De bevindingen maken verder onderzoek overbodig."],correct="De bevindingen wijzen op een verband, maar bewijzen geen causaliteit."),
     AssessmentQuestion(id="nl-c2-022",skill="vocabulary",difficulty="C2",question="Wat betekent 'nuanceren'?",options=["een bewering preciezer en minder absoluut maken","een tekst inkorten","een onderwerp veranderen","een conclusie herhalen"],correct="een bewering preciezer en minder absoluut maken"),
     AssessmentQuestion(id="nl-c2-023",skill="reading",difficulty="C2",question="Lees: 'De hypothese blijft houdbaar zolang de tegenvoorbeelden onvoldoende verklaringskracht hebben.' Wat betekent dit?",options=["De hypothese blijft voorlopig aannemelijk zolang tegenvoorbeelden haar niet overtuigend weerleggen.","De hypothese is definitief bewezen.","Tegenvoorbeelden zijn altijd irrelevant.","De hypothese hoeft niet meer onderzocht te worden."],"correct="De hypothese blijft voorlopig aannemelijk zolang tegenvoorbeelden haar niet overtuigend weerleggen."),
-    AssessmentQuestion(id="nl-c2-024",skill="grammar",difficulty="C2",question="Welke zin is het meest idiomatisch en academisch?",options=["Ondanks de beperkingen kunnen de resultaten niet zonder meer worden verworpen.","Ondanks de beperkingen kunnen de resultaten niet zonder meer verwerpen.","Ondanks de beperkingen de resultaten kunnen niet worden verworpen.","Ondanks van de beperkingen kunnen de resultaten niet worden verworpen."],correct="Ondanks de beperkingen kunnen de resultaten niet zonder meer worden verworpen.")
-
-
-
-
-
-
-
-
+    AssessmentQuestion(id="nl-c2-024",skill="grammar",difficulty="C2",question="Welke zin is het meest idiomatisch en academisch?",options=["Ondanks de beperkingen kunnen de resultaten niet zonder meer worden verworpen.","Ondanks de beperkingen kunnen de resultaten niet zonder meer verwerpen.","Ondanks de beperkingen de resultaten kunnen niet worden verworpen.","Ondanks van de beperkingen kunnen de resultaten niet worden verworpen."],correct="Ondanks de beperkingen kunnen de resultaten niet zonder meer worden verworpen."),
 AssessmentQuestion(id="nl-c1-013",skill="grammar",difficulty="C1",question="Kies de correcte formulering met een voorbehoud.",options=["Voor zover de gegevens reiken, lijkt de conclusie aannemelijk.","Voor zover de gegevens reikt, lijkt de conclusie aannemelijk.","Voor zover de gegevens reiken, de conclusie lijkt aannemelijk.","Voor zover de gegevens reiken, lijkt aannemelijk de conclusie."],correct="Voor zover de gegevens reiken, lijkt de conclusie aannemelijk."),
 AssessmentQuestion(id="nl-c1-014",skill="vocabulary",difficulty="C1",question="Wat betekent 'aanzienlijk'?",options=["in belangrijke mate of vrij groot","zonder enige betekenis","slechts tijdelijk","op een informele manier"],correct="in belangrijke mate of vrij groot"),
 AssessmentQuestion(id="nl-c1-015",skill="reading",difficulty="C1",question="Lees: 'De steekproef was niet representatief; de bevindingen moeten daarom terughoudend worden geïnterpreteerd.' Waarom is terughoudendheid nodig?",options=["Omdat de steekproef niet representatief was.","Omdat er geen bevindingen zijn.","Omdat het onderzoek nog niet begonnen is.","Omdat de resultaten volledig zeker zijn."],correct="Omdat de steekproef niet representatief was."),
@@ -457,9 +306,7 @@ AssessmentQuestion(id="nl-c2-016",skill="vocabulary",difficulty="C2",question="W
 AssessmentQuestion(id="nl-c2-017-r2",skill="reading",difficulty="C2",question="Lees: 'De redenering is geldig indien de premissen waar zijn; de waarheid van die premissen is echter afzonderlijk te beoordelen.' Wat wordt afzonderlijk beoordeeld?",options=["De waarheid van de premissen.","De grammatica van de tekst.","De lengte van de redenering.","De volgorde van de alinea's."],correct="De waarheid van de premissen."),
 AssessmentQuestion(id="nl-c2-018-r2",skill="grammar",difficulty="C2",question="Kies de meest precieze formulering.",options=["De bevindingen rechtvaardigen geen verdergaande conclusie dan de gegevens toelaten.","De bevindingen rechtvaardigt geen verdergaande conclusie dan de gegevens toelaten.","De bevindingen rechtvaardigen een conclusie ongeacht de gegevens.","De bevindingen rechtvaardigen geen conclusie dan de gegevens toelaten."],correct="De bevindingen rechtvaardigen geen verdergaande conclusie dan de gegevens toelaten."),
 AssessmentQuestion(id="nl-c2-019-r2",skill="vocabulary",difficulty="C2",question="Wat betekent 'impliceren'?",options=["indirect inhouden of met zich meebrengen","uitdrukkelijk ontkennen","letterlijk overschrijven","zonder verband herhalen"],correct="indirect inhouden of met zich meebrengen"),
-AssessmentQuestion(id="nl-c2-020-r2",skill="reading",difficulty="C2",question="Lees: 'De bevindingen zijn robuust binnen deze steekproef, maar de externe validiteit is beperkt.' Wat is beperkt?",options=["De mogelijkheid om de bevindingen naar andere situaties te generaliseren.","De interne consistentie binnen de steekproef.","Het aantal waarnemingen in elk geval.","De nauwkeurigheid van de gebruikte termen."],correct="De mogelijkheid om de bevindingen naar andere situaties te generaliseren.")
-
-
+AssessmentQuestion(id="nl-c2-020-r2",skill="reading",difficulty="C2",question="Lees: 'De bevindingen zijn robuust binnen deze steekproef, maar de externe validiteit is beperkt.' Wat is beperkt?",options=["De mogelijkheid om de bevindingen naar andere situaties te generaliseren.","De interne consistentie binnen de steekproef.","Het aantal waarnemingen in elk geval.","De nauwkeurigheid van de gebruikte termen."],correct="De mogelijkheid om de bevindingen naar andere situaties te generaliseren."),
     AssessmentQuestion(id="nl-a2-005-r2",skill="grammar",difficulty="A2",question="Kies de juiste voltooide tijd.",options=["Ik heb gisteren gewerkt.","Ik heb gisteren werken.","Ik gisteren heb gewerkt.","Ik heeft gisteren gewerkt."],correct="Ik heb gisteren gewerkt."),
     AssessmentQuestion(id="nl-a2-006-r2",skill="vocabulary",difficulty="A2",question="Wat betekent 'vertraging'?",options=["later aankomen dan gepland","een reservering","een adres","een betaling"],correct="later aankomen dan gepland"),
     AssessmentQuestion(id="nl-a2-007-r2",skill="reading",difficulty="A2",question="Lees: 'De winkel sluit om zes uur.' Hoe laat sluit de winkel?",options=["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],correct="Om zes uur."),
@@ -479,9 +326,7 @@ AssessmentQuestion(id="nl-c2-020-r2",skill="reading",difficulty="C2",question="L
     AssessmentQuestion(id="nl-c2-005-r2",skill="grammar",difficulty="C2",question="Welke formulering drukt academische voorzichtigheid uit?",options=["De invloed van andere factoren kan niet worden uitgesloten.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],correct="De invloed van andere factoren kan niet worden uitgesloten."),
     AssessmentQuestion(id="nl-c2-006-r2",skill="vocabulary",difficulty="C2",question="Wat betekent 'dubbelzinnig'?",options=["vatbaar voor meer dan één uitleg","volkomen duidelijk","zeer kort","gemakkelijk te meten"],correct="vatbaar voor meer dan één uitleg"),
     AssessmentQuestion(id="nl-c2-007-r2",skill="reading",difficulty="C2",question="Lees: 'De redenering is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",options=["Of de onderliggende aanname klopt.","Of de tekst kort is.","Of de stijl informeel is.","Of de gegevens oud zijn."],correct="Of de onderliggende aanname klopt."),
-    AssessmentQuestion(id="nl-c2-008-r2",skill="grammar",difficulty="C2",question="Kies de meest nauwkeurige academische formulering.",options=["De bevindingen rechtvaardigen geen stellige generalisatie zonder aanvullend bewijs.","De bevindingen rechtvaardigen altijd een generalisatie zonder bewijs.","De bevindingen rechtvaardigen geen generaliseren zonder aanvullend.","De bevindingen rechtvaardigen een stellige generalisatie ondanks ontbrekend bewijs."],correct="De bevindingen rechtvaardigen geen stellige generalisatie zonder aanvullend bewijs.")
-
-
+    AssessmentQuestion(id="nl-c2-008-r2",skill="grammar",difficulty="C2",question="Kies de meest nauwkeurige academische formulering.",options=["De bevindingen rechtvaardigen geen stellige generalisatie zonder aanvullend bewijs.","De bevindingen rechtvaardigen altijd een generalisatie zonder bewijs.","De bevindingen rechtvaardigen geen generaliseren zonder aanvullend.","De bevindingen rechtvaardigen een stellige generalisatie ondanks ontbrekend bewijs."],correct="De bevindingen rechtvaardigen geen stellige generalisatie zonder aanvullend bewijs."),
     AssessmentQuestion(id="nl-a2-009x",skill="grammar",difficulty="A2",question="Kies de juiste voltooid tegenwoordige tijd.",options=["Ik heb gisteren gekookt.","Ik heb gisteren koken.","Ik gisteren heb gekookt.","Ik heb gisteren kook."],correct="Ik heb gisteren gekookt."),
     AssessmentQuestion(id="nl-a2-010x",skill="vocabulary",difficulty="A2",question="Wat betekent 'de afspraak verzetten'?",options=["een afspraak naar een ander moment verplaatsen","een afspraak bevestigen","een rekening betalen","een route beschrijven"],correct="een afspraak naar een ander moment verplaatsen"),
     AssessmentQuestion(id="nl-a2-011x",skill="reading",difficulty="A2",question="Lees: 'De apotheek sluit om zes uur.' Wanneer sluit de apotheek?",options=["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],correct="Om zes uur."),
@@ -520,5 +365,31 @@ AssessmentQuestion(id="nl-c2-020-r2",skill="reading",difficulty="C2",question="L
     AssessmentQuestion(id="nl-b2-019x",skill="grammar",difficulty="B2",question="Kies de correcte formulering met een voorwaardelijke bijzin.",options=["Als de gegevens beschikbaar waren, konden we de hypothese toetsen.","Als de gegevens waren beschikbaar, we konden de hypothese toetsen.","Als de gegevens beschikbaar zijn, konden we gisteren toetsen.","Als de gegevens beschikbaar waren, we de hypothese toetsen konden."],correct="Als de gegevens beschikbaar waren, konden we de hypothese toetsen."),
     AssessmentQuestion(id="nl-b2-020x",skill="reading",difficulty="B2",question="Lees: 'De resultaten zijn veelbelovend, hoewel de steekproef beperkt blijft.' Welke beperking wordt genoemd?",options=["De steekproef is beperkt.","De resultaten zijn negatief.","Er is geen onderzoek uitgevoerd.","De resultaten zijn definitief."],correct="De steekproef is beperkt.")
 
+
+
+    AssessmentQuestion(id="nl-a1-041z",skill="grammar",difficulty="A1",question="Kies de juiste vraag.",options=["Waar woon je?","Waar je woont?","Waar woont?","Waar woon je bent?"],correct="Waar woon je?"),
+    AssessmentQuestion(id="nl-a1-042z",skill="vocabulary",difficulty="A1",question="Wat betekent 'appel'?",options=["een vrucht","een voertuig","een gebouw","een meubel"],correct="een vrucht"),
+    AssessmentQuestion(id="nl-a1-043z",skill="reading",difficulty="A1",question="Lees: 'Mila woont in Utrecht.' Waar woont Mila?",options=["In Utrecht.","In Rotterdam.","In Groningen.","In Leiden."],correct="In Utrecht."),
+    AssessmentQuestion(id="nl-a1-044z",skill="grammar",difficulty="A1",question="Kies het juiste lidwoord: ___ meisje.",options=["het","de","een het","die"],correct="het"),
+    AssessmentQuestion(id="nl-a2-041z",skill="grammar",difficulty="A2",question="Kies de juiste verleden tijd.",options=["Gisteren ging ik naar mijn werk.","Gisteren ga ik naar mijn werk.","Gisteren gaan ik naar mijn werk.","Gisteren gegaan ik naar mijn werk."],correct="Gisteren ging ik naar mijn werk."),
+    AssessmentQuestion(id="nl-a2-042z",skill="vocabulary",difficulty="A2",question="Wat betekent 'vertraging'?",options=["later aankomen dan gepland","een reservering","een adres","een betaling"],correct="later aankomen dan gepland"),
+    AssessmentQuestion(id="nl-a2-043z",skill="reading",difficulty="A2",question="Lees: 'De bibliotheek sluit om vijf uur.' Hoe laat sluit de bibliotheek?",options=["Om vier uur.","Om vijf uur.","Om zes uur.","Om zeven uur."],correct="Om vijf uur."),
+    AssessmentQuestion(id="nl-a2-044z",skill="grammar",difficulty="A2",question="Kies de correcte zin met 'moeten'.",options=["Ik moet vandaag werken.","Ik moet vandaag werkt.","Ik moet vandaag gewerkt.","Ik moet vandaag te werken."],correct="Ik moet vandaag werken."),
+    AssessmentQuestion(id="nl-b1-041z",skill="grammar",difficulty="B1",question="Kies de correcte voorwaardelijke zin.",options=["Als ik tijd had, zou ik vaker lezen.","Als ik had tijd, zou ik vaker lezen.","Als ik tijd heb, zou ik gisteren lezen.","Als ik tijd had, zal ik gisteren lezen."],correct="Als ik tijd had, zou ik vaker lezen."),
+    AssessmentQuestion(id="nl-b1-042z",skill="vocabulary",difficulty="B1",question="Wat betekent 'uitdaging'?",options=["iets waarvoor inspanning nodig is","een beloning","een vakantie","een adres"],correct="iets waarvoor inspanning nodig is"),
+    AssessmentQuestion(id="nl-b1-043z",skill="reading",difficulty="B1",question="Lees: 'De vergadering werd uitgesteld omdat de spreker ziek was.' Waarom werd de vergadering uitgesteld?",options=["Omdat de spreker ziek was.","Omdat de zaal gesloten was.","Omdat de trein op tijd was.","Omdat de agenda kort was."],correct="Omdat de spreker ziek was."),
+    AssessmentQuestion(id="nl-b1-044z",skill="grammar",difficulty="B1",question="Kies de juiste betrekkelijke bijzin.",options=["Dit is de collega die hier werkt.","Dit is de collega die hier werken.","Dit is de collega wie hier werkt.","Dit is de collega hier die werkt."],correct="Dit is de collega die hier werkt."),
+    AssessmentQuestion(id="nl-b2-041z",skill="grammar",difficulty="B2",question="Kies de correcte concessieve zin.",options=["Hoewel de kosten stegen, bleef het plan haalbaar.","Hoewel de kosten stegen, het plan bleef haalbaar.","Hoewel stegen de kosten, het plan bleef haalbaar.","Hoewel de kosten stegen, bleef haalbaar het plan."],correct="Hoewel de kosten stegen, bleef het plan haalbaar."),
+    AssessmentQuestion(id="nl-b2-042z",skill="vocabulary",difficulty="B2",question="Wat betekent 'aannemelijk'?",options=["geloofwaardig op basis van aanwijzingen","volledig onmogelijk","onbelangrijk","onmiddellijk zichtbaar"],correct="geloofwaardig op basis van aanwijzingen"),
+    AssessmentQuestion(id="nl-b2-043z",skill="reading",difficulty="B2",question="Lees: 'De steekproef was beperkt, waardoor de conclusies voorzichtig moeten worden geïnterpreteerd.' Waarom is voorzichtigheid nodig?",options=["Omdat de steekproef beperkt was.","Omdat er geen conclusies zijn.","Omdat de studie openbaar was.","Omdat de gegevens volledig waren."],correct="Omdat de steekproef beperkt was."),
+    AssessmentQuestion(id="nl-b2-044z",skill="grammar",difficulty="B2",question="Kies de juiste indirecte vraag.",options=["Ik weet niet waarom de afspraak is gewijzigd.","Ik weet niet waarom is de afspraak gewijzigd.","Ik weet niet waarom de afspraak gewijzigd is?","Ik weet niet de afspraak waarom is gewijzigd."],correct="Ik weet niet waarom de afspraak is gewijzigd."),
+    AssessmentQuestion(id="nl-c1-041z",skill="grammar",difficulty="C1",question="Kies de meest zorgvuldige academische formulering.",options=["De resultaten wijzen erop dat het effect beperkt is.","De resultaten bewijst dat het effect beperkt is.","De resultaten wijzen erop het effect beperkt is.","De resultaten wijst erop dat effect beperkt is."],correct="De resultaten wijzen erop dat het effect beperkt is."),
+    AssessmentQuestion(id="nl-c1-042z",skill="vocabulary",difficulty="C1",question="Wat betekent 'wezenlijk' in een academische tekst?",options=["fundamenteel of belangrijk","toevallig","tijdelijk","informeel"],correct="fundamenteel of belangrijk"),
+    AssessmentQuestion(id="nl-c1-043z",skill="reading",difficulty="C1",question="Lees: 'Een samenhang tussen twee variabelen bewijst niet dat de ene de andere veroorzaakt.' Wat wordt niet aangetoond?",options=["Een oorzakelijk verband.","Dat er twee variabelen zijn.","Dat er gegevens bestaan.","Dat een analyse is uitgevoerd."],correct="Een oorzakelijk verband."),
+    AssessmentQuestion(id="nl-c1-044z",skill="grammar",difficulty="C1",question="Kies de correcte passieve constructie.",options=["De analyse werd in drie fasen uitgevoerd.","De analyse werden in drie fasen uitgevoerd.","De analyse werd in drie fasen uitvoeren.","De analyse uitgevoerd werd in drie fasen."],correct="De analyse werd in drie fasen uitgevoerd."),
+    AssessmentQuestion(id="nl-c2-041z",skill="grammar",difficulty="C2",question="Welke formulering drukt epistemische voorzichtigheid uit?",options=["De invloed van andere factoren kan niet worden uitgesloten.","Andere factoren spelen zeker geen rol.","Het is absoluut bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],correct="De invloed van andere factoren kan niet worden uitgesloten."),
+    AssessmentQuestion(id="nl-c2-042z",skill="vocabulary",difficulty="C2",question="Wat betekent 'dubbelzinnig'?",options=["vatbaar voor meer dan één interpretatie","volkomen duidelijk","zeer kort","gemakkelijk te meten"],correct="vatbaar voor meer dan één interpretatie"),
+    AssessmentQuestion(id="nl-c2-043z",skill="reading",difficulty="C2",question="Lees: 'De conclusie is overtuigend, mits de uitgangspremisse juist is.' Waarvan hangt de conclusie af?",options=["Of de uitgangspremisse juist is.","Of de tekst kort is.","Of de stijl informeel is.","Of de gegevens oud zijn."],correct="Of de uitgangspremisse juist is."),
+    AssessmentQuestion(id="nl-c2-044z",skill="grammar",difficulty="C2",question="Kies de nauwkeurigste academische formulering.",options=["De gegevens rechtvaardigen geen stellige conclusie zonder aanvullend bewijs.","De gegevens bewijzen altijd de conclusie zonder aanvullend bewijs.","De gegevens rechtvaardigt geen stellige conclusie zonder bewijs.","De gegevens rechtvaardigen een stellige conclusie ondanks ontbrekend bewijs."],correct="De gegevens rechtvaardigen geen stellige conclusie zonder aanvullend bewijs.")
 
 ]
