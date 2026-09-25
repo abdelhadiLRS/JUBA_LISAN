@@ -10,7 +10,7 @@ CurriculumUnit(id="st-a1-unit-5",level="A1",unit_number=5,title="Southern Sotho:
 CurriculumUnit(id="st-a1-unit-6",level="A1",unit_number=6,title="Southern Sotho: time",grammar_points=["st-a1-g6"],vocabulary_set_ids=["time_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use nako in a basic exchange","Understand a short time interaction"],default_weeks=1),
 CurriculumUnit(id="st-a1-unit-7",level="A1",unit_number=7,title="Southern Sotho: food",grammar_points=["st-a1-g7"],vocabulary_set_ids=["food_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use metsi in a basic exchange","Understand a short food interaction"],default_weeks=1),
 CurriculumUnit(id="st-a1-unit-8",level="A1",unit_number=8,title="Southern Sotho: places",grammar_points=["st-a1-g8"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use sekolo in a basic exchange","Understand a short places interaction"],default_weeks=1)
-]}
+]
 for level in LEVELS[1:]:
  CURRICULUM[level]=[CurriculumUnit(id=f"st-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Southern Sotho {level} communication",grammar_points=["intermediate grammar"],vocabulary_set_ids=[],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Handle extended communication"],default_weeks=2)]
 GRAMMAR_TOPICS=[
