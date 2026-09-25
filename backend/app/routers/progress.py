@@ -1304,7 +1304,13 @@ async def start_game_session(
             "interaction": {"public": interaction_public, "solution": interaction_solution},
         }]
     else:
-        questions = _server_game_questions(\n            effective_game_id,\n            data.language,\n            effective_difficulty,\n            plan.target_language,\n            cast(CEFRLevel, plan.cefr_level),\n        )
+        questions = _server_game_questions(
+            effective_game_id,
+            data.language,
+            effective_difficulty,
+            plan.target_language,
+            cast(CEFRLevel, plan.cefr_level),
+        )
     daily_challenge_date = now.date().isoformat() if effective_game_id == _daily_game_id(now.date()) else ""
     session = GameSession(
         id=session_id,
