@@ -10,6 +10,7 @@ type Props = {
   lang: Lang
   challenge?: InteractiveGameChallenge
   onComplete?: (trace: InteractiveGameTrace[]) => Promise<boolean> | boolean | void
+  title?: string
 }
 type MemoryCard = { id: string; label: string; pair_key?: string; flipped: boolean; matched: boolean }
 
@@ -19,7 +20,7 @@ const copy = {
   en: { memory: 'Memory', matching: 'Matching', ordering: 'Ordering', reset: 'Reset', moves: 'Moves', match: 'Match the two items', chooseLeft: 'Choose a word', chooseRight: 'Choose its translation', order: 'Tap the items in the correct order', complete: 'Great job! Challenge complete.', up: 'Up', down: 'Down', undo: 'Undo', clear: 'Clear' },
 } as const
 
-export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Props) {
+export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title }: Props) {
   const t = copy[lang]
   const [memoryCards, setMemoryCards] = useState<MemoryCard[]>([])
   const [first, setFirst] = useState<string | null>(null)
@@ -149,7 +150,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete }: Prop
   return (
     <div className="interactive-game" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       <div className="interactive-toolbar">
-        <strong>{mode === 'memory' ? t.memory : mode === 'matching' ? t.matching : t.ordering}</strong>
+        <strong>{title ?? (mode === 'memory' ? t.memory : mode === 'matching' ? t.matching : t.ordering)}</strong>
         <span>{t.moves}: {moves}</span>
         <button type="button" onClick={reset} disabled={!challenge || completed || locked || saving}>{saving ? '…' : t.reset}</button>
       </div>
