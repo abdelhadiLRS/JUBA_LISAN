@@ -1,4 +1,13 @@
-from app.routers.progress import _adapt_question_after_session_miss, _review_adaptive_difficulty, _review_game_for_item, _review_item_strategy, _review_retry_stage
+from types import SimpleNamespace
+
+from app.routers.progress import (
+    _adapt_question_after_session_miss,
+    _item_mastery_from_events,
+    _review_adaptive_difficulty,
+    _review_game_for_item,
+    _review_item_strategy,
+    _review_retry_stage,
+)
 
 
 def test_review_difficulty_drops_for_weak_items():
@@ -40,3 +49,83 @@ def test_generic_question_adapts_after_repeated_miss():
     assert first["retry_stage"] == "retry"
     assert repeated["difficulty"] == 2
     assert repeated["retry_stage"] == "focused_retrieval"
+
+
+def test_item_mastery_tracks_retry_telemetry():
+    question = {
+        "skill": "vocabulary",
+        "target_language": "en-GB",
+        "cefr_level": "A1",
+    }
+    events = [
+        SimpleNamespace(
+            created_at=__import__("datetime").datetime(2026, 9, 25, 10, 0, 0),
+            mistakes=[{
+                "review_key": "word:hello",
+                "attempt_count": 1,
+                "miss_count": 1,
+                "retry_stage": "retry",
+                "question": question,
+            }],
+        ),
+        SimpleNamespace(
+            created_at=__import__("datetime").datetime(2026, 9, 25, 10, 1, 0),
+            mistakes=[{
+                "review_key": "word:hello",
+                "resolved": True,
+                "attempt_count": 2,
+                "miss_count": 1,
+                "retry_stage": "retry",
+                "first_attempt_correct": False,
+                "question": question,
+            }],
+        ),
+    ]
+
+    mastery = _item_mastery_from_events(
+        events,
+        "word:hello",
+        skill="vocabulary",
+        target_language="en-GB",
+        cefr_level="A1",
+    )
+
+    assert mastery["misses"] == 1
+    assert mastery["resolutions"] == 1
+    assert mastery["attempts"] == 2
+    assert mastery["first_attempt_successes"] == 0
+    assert mastery["retry_resolutions"] == 1
+    assert mastery["retrieval_efficiency"] == 0.0
+
+
+def test_item_mastery_rewards_first_attempt_resolution():
+    question = {
+        "skill": "vocabulary",
+        "target_language": "en-GB",
+        "cefr_level": "A1",
+    }
+    event = SimpleNamespace(
+        created_at=__import__("datetime").datetime(2026, 9, 25, 11, 0, 0),
+        mistakes=[{
+            "review_key": "word:world",
+            "resolved": True,
+            "attempt_count": 1,
+            "miss_count": 0,
+            "retry_stage": "initial",
+            "first_attempt_correct": True,
+            "question": question,
+        }],
+    )
+
+    mastery = _item_mastery_from_events(
+        [event],
+        "word:world",
+        skill="vocabulary",
+        target_language="en-GB",
+        cefr_level="A1",
+    )
+
+    assert mastery["attempts"] == 1
+    assert mastery["first_attempt_successes"] == 1
+    assert mastery["retry_resolutions"] == 0
+    assert mastery["retrieval_efficiency"] == 1.0
