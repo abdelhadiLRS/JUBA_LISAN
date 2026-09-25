@@ -293,7 +293,7 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
           })}
 
           {activeCountry && (
-            <div className={(dir === 'rtl' ? 'absolute left-3 lg:left-6' : 'absolute right-3 lg:right-6') + ' top-20 z-20 max-w-[250px] rounded-2xl border border-[var(--juba-app-line)] bg-white p-4 shadow-sm lg:right-6">
+            <div className={(dir === 'rtl' ? 'absolute left-3 lg:left-6' : 'absolute right-3 lg:right-6') + ' top-20 z-20 max-w-[250px] rounded-2xl border border-[var(--juba-app-line)] bg-white p-4 shadow-sm lg:right-6'>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <span className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">{t('countryLanguages')}</span>
@@ -324,7 +324,7 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
           )}
 
           {selected && selectedRegion && (
-            <div className={(dir === 'rtl' ? 'absolute bottom-20 right-3 sm:right-6' : 'absolute bottom-20 left-3 sm:left-6') + ' z-20 max-w-[calc(100%-1.5rem)] rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[4px_4px_0_var(--juba-app-ink)] sm:bottom-24 sm:left-6 sm:max-w-[280px]">
+            <div className={(dir === 'rtl' ? 'absolute bottom-20 right-3 sm:right-6' : 'absolute bottom-20 left-3 sm:left-6') + ' z-20 max-w-[calc(100%-1.5rem)] rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[4px_4px_0_var(--juba-app-ink)] sm:bottom-24 sm:left-6 sm:max-w-[280px]'>
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <span className="text-[9px] font-black uppercase tracking-[.18em] text-[var(--juba-app-green)]">{t(selectedRegion.key)}</span>
