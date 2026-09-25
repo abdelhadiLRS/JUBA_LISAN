@@ -1260,8 +1260,30 @@ def _server_game_questions(
     return questions
 
 
-@router.post("/game-session", response_model=GameSessionResponse)
-@limiter.limit("30/minute")
+def _review_key(question: dict) -> str:
+    """Build a stable identity for a missed learning item across game sessions."""
+    raw = "|".join(
+        str(question.get(key, "")).strip().casefold()
+        for key in ("skill", "topic", "prompt", "answer")
+    )
+    return raw
+
+
+def _review_interval(review_count: int) -> timedelta:
+    """Return a conservative expanding interval for retrieval practice."""
+    return (
+        timedelta(minutes=10)
+        if review_count <= 0
+        else timedelta(hours=1)
+        if review_count == 1
+        else timedelta(days=1)
+        if review_count == 2
+        else timedelta(days=3)
+        if review_count == 3
+        else timedelta(days=7)
+    )
+
+
 async def _get_recent_game_mistakes(
     db: AsyncSession,
     user_id: int,
@@ -1269,43 +1291,67 @@ async def _get_recent_game_mistakes(
     game_id: str,
     limit: int = 3,
 ) -> list[dict]:
-    """Return recent server-recorded mistakes that can be safely replayed."""
+    """Return due missed items while respecting successful review resolutions."""
     result = await db.execute(
-        select(GameProgressEvent.mistakes)
+        select(GameProgressEvent)
         .where(
             GameProgressEvent.user_id == user_id,
             GameProgressEvent.study_plan_id == plan_id,
             GameProgressEvent.game_id == game_id,
         )
         .order_by(GameProgressEvent.created_at.desc())
-        .limit(10)
+        .limit(30)
     )
-    review: list[dict] = []
+    events = result.scalars().all()
+    resolved: set[str] = set()
+    candidates: list[tuple[datetime, dict]] = []
     seen: set[str] = set()
-    for mistakes in result.scalars().all():
-        if not isinstance(mistakes, list):
-            continue
-        for item in mistakes:
+    now = datetime.now(UTC).replace(tzinfo=None)
+
+    for event in events:
+        for item in event.mistakes or []:
             if not isinstance(item, dict):
                 continue
-            question_id = str(item.get("question_id", ""))
-            question = item.get("question")
-            if not question_id or question_id in seen or not isinstance(question, dict):
+            key = str(item.get("review_key", ""))
+            if not key:
+                question = item.get("question")
+                if isinstance(question, dict):
+                    key = _review_key(question)
+            if not key:
                 continue
-            review.append(question)
-            seen.add(question_id)
-            if len(review) >= limit:
-                return review
-    return review
+            if item.get("resolved"):
+                resolved.add(key)
+                continue
+            question = item.get("question")
+            if not isinstance(question, dict) or key in resolved or key in seen:
+                continue
+            due_value = item.get("next_review_at")
+            try:
+                due_at = datetime.fromisoformat(str(due_value)) if due_value else (
+                    event.created_at + _review_interval(0)
+                )
+            except ValueError:
+                due_at = event.created_at + _review_interval(0)
+            if due_at <= now:
+                replay = dict(question)
+                replay["review_key"] = key
+                replay["review_count"] = int(item.get("review_count", 0))
+                candidates.append((due_at, replay))
+                seen.add(key)
+
+    candidates.sort(key=lambda pair: pair[0])
+    return [question for _, question in candidates[:limit]]
 
 
 def _apply_smart_review(questions: list[dict], mistakes: list[dict]) -> list[dict]:
-    """Replay up to two recent missed questions in a new round."""
+    """Replay up to two due missed questions in a fresh round."""
     if not mistakes or not questions:
         return questions
     skills = {str(question.get("skill", "")) for question in questions}
     result = list(questions)
-    for index, mistake in enumerate([m for m in mistakes if str(m.get("skill", "")) in skills][:2]):
+    for index, mistake in enumerate(
+        [m for m in mistakes if str(m.get("skill", "")) in skills][:2]
+    ):
         replay = dict(mistake)
         replay["id"] = str(uuid4())
         replay["review"] = True
@@ -1347,6 +1393,8 @@ async def _get_adaptive_game_difficulty(
     return requested_difficulty, "steady"
 
 
+@router.post("/game-session", response_model=GameSessionResponse)
+@limiter.limit("30/minute")
 async def start_game_session(
     request: Request,
     data: GameSessionStart,
@@ -1558,18 +1606,32 @@ async def complete_game_session(
                     is_correct = submitted.choice == question["answer"]
             if is_correct:
                 correct_answers += 1
+                if question.get("review"):
+                    mistakes.append({
+                        "review_key": str(question.get("review_key") or _review_key(question)),
+                        "resolved": True,
+                        "question_id": submitted.question_id,
+                    })
             else:
+                review_count = int(question.get("review_count", 0)) if question.get("review") else 0
+                snapshot = {
+                    key: question.get(key)
+                    for key in (
+                        "id", "prompt", "choices", "hint", "answer",
+                        "skill", "difficulty", "input_mode", "audio_text",
+                        "audio_language", "topic",
+                    )
+                }
+                review_key = str(question.get("review_key") or _review_key(question))
                 mistakes.append({
+                    "review_key": review_key,
+                    "review_count": review_count + 1,
+                    "next_review_at": (
+                        now + _review_interval(review_count + 1)
+                    ).isoformat(),
                     "question_id": submitted.question_id,
                     "submitted": submitted.choice,
-                    "question": {
-                        key: question.get(key)
-                        for key in (
-                            "id", "prompt", "choices", "hint", "answer",
-                            "skill", "difficulty", "input_mode", "audio_text",
-                            "audio_language", "topic",
-                        )
-                    },
+                    "question": snapshot,
                 })
         questions_answered = len(expected)
     # Validation above is read-only. Start the write phase with a database lock
