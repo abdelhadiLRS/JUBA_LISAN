@@ -367,3 +367,16 @@ def test_item_mastery_score_prioritizes_weak_over_mastered():
     assert float(weak["score"]) < float(mastered["score"])
     assert weak["state"] == "weak"
     assert mastered["state"] == "mastered"
+
+
+def test_review_game_changes_mechanic_with_mastery_state():
+    from app.routers.progress import _review_game_for_item
+
+    assert _review_game_for_item("vocabulary", "weak") == "quick_choice"
+    assert _review_game_for_item("vocabulary", "learning") == "quick_choice"
+    assert _review_game_for_item("vocabulary", "reviewing") == "word_categories"
+    assert _review_game_for_item("grammar", "weak") == "grammar_duel"
+    assert _review_game_for_item("grammar", "reviewing") == "fill_blank"
+    assert _review_game_for_item("listening", "weak") == "listening_detective"
+    assert _review_game_for_item("speaking", "reviewing") == "context_quest"
+    assert _review_game_for_item("unknown", "weak") is None
