@@ -96,7 +96,7 @@ describe('UnitCard', () => {
     expect(container.querySelector('svg.lucide-lock')).toBeInTheDocument()
     // outer wrapper should be dimmed
     const outer = container.firstChild as HTMLElement
-    expect(outer.className).toContain('opacity-55')
+    expect(outer.className).toContain('juba-ff-unit-locked')
   })
 
   it('renders level-test unit with special icon and badge', () => {
@@ -142,7 +142,7 @@ describe('UnitCard', () => {
   it('renders progress bar for non-locked units', () => {
     const { container } = renderUnitCard({ competency: 0.42 })
     expect(screen.getByText('42%')).toBeInTheDocument()
-    const track = container.querySelector('.h-1\\.5') as HTMLElement
+    const track = container.querySelector('.juba-ff-unit-progress') as HTMLElement
     expect(track).toBeInTheDocument()
     const bar = track.firstElementChild as HTMLElement
     expect(bar.style.width).toBe('42%')
@@ -197,7 +197,7 @@ describe('UnitCard', () => {
   it('shows start button when active and onStartLesson is provided', () => {
     const onStartLesson = vi.fn()
     renderUnitCard({ status: { active: true }, onStartLesson })
-    expect(screen.getByText(/start/)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /start/ })).toBeInTheDocument()
   })
 
   it('calls onStartLesson when start button is clicked', () => {
@@ -209,7 +209,7 @@ describe('UnitCard', () => {
 
   it('does not show start button when active but onStartLesson is not provided', () => {
     renderUnitCard({ status: { active: true } })
-    expect(screen.queryByText(/start/)).toBeNull()
+    expect(screen.queryByRole('button', { name: /start/ })).toBeNull()
   })
 
   it('does not show start button when not active (even with onStartLesson)', () => {
