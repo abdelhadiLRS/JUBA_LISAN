@@ -471,7 +471,11 @@
     "goalCompleted": "🎉 Obiectivul zilnic completat!",
     "keepGoing": "Mai ai doar {remaining} lecție(lecții)!",
     "takeAssessment": "Susține evaluarea de nivel",
-    "planDayGoal": "Obiectivul lecțiilor de astăzi"
+    "planDayGoal": "Obiectivul lecțiilor de astăzi",
+    "levelTestCompleted": "Test de nivel finalizat",
+    "levelTestScoreLine": "Scor: {score} din {total}",
+    "levelTestReady": "Ești pregătit pentru nivelul următor",
+    "levelTestReadyDesc": "Ai finalizat testul de nivel. Continuă planul de învățare."
   },
   "assessment": {
     "title": "Evaluare",
