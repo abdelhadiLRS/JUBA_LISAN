@@ -930,6 +930,8 @@ async def complete_game_session(
                 if submitted.choice.strip().casefold() == str(question["answer"]).strip().casefold():
                     correct_answers += 1
             else:
+                if submitted.choice == "__timeout__":
+                    continue
                 if submitted.choice not in question["choices"]:
                     raise HTTPException(status_code=422, detail="Invalid choice for game question")
                 if submitted.choice == question["answer"]:
