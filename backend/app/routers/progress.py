@@ -2679,15 +2679,15 @@ async def complete_game_session(
                     if item:
                         question = {"skill": "vocabulary", "topic": item.get("topic", "vocabulary"), "prompt": item.get("word", ""), "answer": item.get("definition", ""), "input_mode": "choice", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
                         review_key = str(item.get("review_key") or _review_key(question))
-                        failed_review_keys.add(review_key)
-                        mistakes.append({
-                            "review_key": review_key,
-                            "review_count": int(item.get("review_count", 0)) + 1,
-                            "review_streak": 0,
-                            "next_review_at": (now + _review_interval(0)).isoformat(),
-                            "question": question,
-                        })
-                        break
+                        if review_key not in failed_review_keys:
+                            failed_review_keys.add(review_key)
+                            mistakes.append({
+                                "review_key": review_key,
+                                "review_count": int(item.get("review_count", 0)) + 1,
+                                "review_streak": 0,
+                                "next_review_at": (now + _review_interval(0)).isoformat(),
+                                "question": question,
+                            })
             for item in solution.get("review_items", {}).values():
                 review_key = str(item.get("review_key") or "")
                 if review_key and review_key not in failed_review_keys:
