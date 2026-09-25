@@ -212,7 +212,8 @@
     "menu": "Menu",
     "logoutConfirm": "Are you sure you want to log out?",
     "copy": "Copy",
-    "copyPhrase": "Copy phrase"
+    "copyPhrase": "Copy phrase",
+    "openMenu": "Open menu"
   },
   "nav": {
     "home": "Home",
