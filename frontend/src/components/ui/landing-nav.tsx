@@ -57,11 +57,19 @@ export function LandingNav({
     ro: { native: 'Română' }, ru: { native: 'Русский' },
   }
 
-  const countryLabels: Record<string, { name: string;  }> = {
-    DZ: { name: 'Algeria' }, FR: { name: 'France' }, GB: { name: 'United Kingdom' },
-    ES: { name: 'Spain' }, DE: { name: 'Germany' }, IT: { name: 'Italy' },
-    PT: { name: 'Portugal' }, PL: { name: 'Poland' }, NL: { name: 'Netherlands' },
-    RO: { name: 'Romania' }, RU: { name: 'Russia' }, US: { name: 'United States' },
+  const countryLabels: Record<string, { name: string }> = {
+    DZ: { name: 'Algeria' }, MA: { name: 'Morocco' }, TN: { name: 'Tunisia' }, EG: { name: 'Egypt' },
+    LY: { name: 'Libya' }, NG: { name: 'Nigeria' }, ZA: { name: 'South Africa' }, KE: { name: 'Kenya' },
+    FR: { name: 'France' }, GB: { name: 'United Kingdom' }, IE: { name: 'Ireland' }, ES: { name: 'Spain' },
+    PT: { name: 'Portugal' }, DE: { name: 'Germany' }, IT: { name: 'Italy' }, NL: { name: 'Netherlands' },
+    BE: { name: 'Belgium' }, CH: { name: 'Switzerland' }, PL: { name: 'Poland' }, CZ: { name: 'Czechia' },
+    AT: { name: 'Austria' }, RO: { name: 'Romania' }, BG: { name: 'Bulgaria' }, GR: { name: 'Greece' },
+    RU: { name: 'Russia' }, UA: { name: 'Ukraine' }, AE: { name: 'United Arab Emirates' }, SA: { name: 'Saudi Arabia' },
+    QA: { name: 'Qatar' }, KW: { name: 'Kuwait' }, JO: { name: 'Jordan' }, LB: { name: 'Lebanon' },
+    IL: { name: 'Israel' }, IN: { name: 'India' }, BD: { name: 'Bangladesh' }, TH: { name: 'Thailand' },
+    SG: { name: 'Singapore' }, JP: { name: 'Japan' }, KR: { name: 'South Korea' }, CN: { name: 'China' },
+    TW: { name: 'Taiwan' }, AU: { name: 'Australia' }, NZ: { name: 'New Zealand' }, US: { name: 'United States' },
+    CA: { name: 'Canada' }, MX: { name: 'Mexico' }, BR: { name: 'Brazil' }, AR: { name: 'Argentina' },
   }
 
   useEffect(() => {
