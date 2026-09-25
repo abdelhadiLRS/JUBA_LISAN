@@ -1682,18 +1682,31 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
         # The prompt and correct contextual sentence then both change together,
         # preserving the same vocabulary/pragmatics target.
         word = str(replay.get("word", "")).strip()
-        if not word:
-            word = str(replay.get("answer", "")).strip()
-            if word.endswith("."):
-                word = ""
+        current_answer = str(replay.get("answer", "")).strip()
         alternate_contexts: list[str] = []
+        if not word and current_answer:
+            try:
+                vocabulary_sets = get_vocabulary_by_level(
+                    cast(CEFRLevel, replay.get("cefr_level", "A1")),
+                    str(replay.get("target_language", "en-GB")),
+                )
+                matching_entries = [
+                    entry
+                    for vocab_set in vocabulary_sets
+                    for entry in vocab_set.words
+                    if entry.example.strip() == current_answer
+                    and (not topic or vocab_set.topic == topic)
+                ]
+                if matching_entries:
+                    word = matching_entries[0].word.strip()
+            except (KeyError, TypeError, ValueError):
+                pass
         if word:
             try:
                 vocabulary_sets = get_vocabulary_by_level(
                     cast(CEFRLevel, replay.get("cefr_level", "A1")),
                     str(replay.get("target_language", "en-GB")),
                 )
-                current_answer = str(replay.get("answer", "")).strip()
                 alternate_contexts = [
                     entry.example.strip()
                     for vocab_set in vocabulary_sets
