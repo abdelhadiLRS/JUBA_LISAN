@@ -879,7 +879,12 @@
     "skillMasteryExhausted": "No more exercises for this skill",
     "masteryReviewExhausted": "No more mastery exercises",
     "skillMasteryExhaustedDesc": "We could not find another exercise for {skill}.",
-    "masteryReviewExhaustedDesc": "There are no more mastery exercises available right now."
+    "masteryReviewExhaustedDesc": "There are no more mastery exercises available right now.",
+    "exerciseProgress": "Exercise {current} of {total}",
+    "lessonProgress": "Lesson progress",
+    "lessonLabel": "Lesson",
+    "lessonFlowHint": "Complete the current exercise, then continue to the next one.",
+    "dailyGoalComplete": "Daily goal complete!"
   },
   "flashcards": {
     "title": "Flashcards",
