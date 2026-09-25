@@ -28,7 +28,7 @@ from app.models.study_plan import StudyPlan
 from app.models.user import User
 from app.schemas.progress import (GameSessionComplete, GameSessionNextRequest, GameSessionNextResponse, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalMilestoneSummary, LearningGoalResponse, LearningGoalUpdate, MasteryCenterResponse, MasteryCenterLessonResponse, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
 from app.services.progress_service import get_unit_competencies, update_daily_progress
-from app.services.lesson_mastery import SkillMasteryAggregate, _skill_mastery_state, mastery_reason, select_next_skill_mastery, summarize_lesson_mastery, summarize_skill_mastery
+from app.services.lesson_mastery import SkillMasteryAggregate, _skill_mastery_state, mastery_reason, normalise_skill_labels, select_next_skill_mastery, summarize_lesson_mastery, summarize_skill_mastery
 from app.services.user_language_service import get_active_language
 
 router = APIRouter(prefix="/api/progress", tags=["progress"], dependencies=[Depends(require_learner)])
