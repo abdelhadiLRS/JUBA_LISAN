@@ -644,7 +644,14 @@ export default function GamesPage() {
               {dailyMode ? `📅 ${t.daily} · ` : ''}
               {round + 1} / {ROUND_SIZE} · +XP · D{effectiveDifficulty}
               {(adaptiveMode === 'review' || adaptiveMode === 'skill_review') && (
-                <span> · {lang === 'ar' ? '🧠 مراجعة الأخطاء' : lang === 'fr' ? '🧠 Révision ciblée' : '🧠 Smart review'}</span>
+                <span> · {adaptiveMode === 'skill_review'
+                  ? (lang === 'ar' ? '🎯 مراجعة مهارة ضعيفة' : lang === 'fr' ? '🎯 Révision d’une compétence faible' : '🎯 Weak-skill review')
+                  : (lang === 'ar' ? '🧠 مراجعة الأخطاء' : lang === 'fr' ? '🧠 Révision ciblée' : '🧠 Smart review')}</span>
+              )}
+              {(adaptiveMode === 'challenge' || adaptiveMode === 'skill_challenge') && (
+                <span> · {adaptiveMode === 'skill_challenge'
+                  ? (lang === 'ar' ? '🚀 تحدي مهارة متقنة' : lang === 'fr' ? '🚀 Défi d’une compétence maîtrisée' : '🚀 Mastery challenge')
+                  : (lang === 'ar' ? '⚡ تحدٍ متقدم' : lang === 'fr' ? '⚡ Défi avancé' : '⚡ Advanced challenge')}</span>
               )}
             </div>
             {question && (
