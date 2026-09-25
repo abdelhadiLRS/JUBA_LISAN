@@ -461,4 +461,18 @@ AssessmentQuestion("no-b1-009","reading","B1","Les: «Kurset starter neste uke o
 AssessmentQuestion("no-b2-009","vocabulary","B2","Hva betyr «understreke» i en tekst?",["å gjøre noe ekstra tydelig eller viktig","å glemme noe","å avlyse et møte","å oversette et ord"],"å gjøre noe ekstra tydelig eller viktig"),
 AssessmentQuestion("no-c1-009","reading","C1","Les: «Funnene støtter hypotesen bare delvis.» Hva betyr dette?",["Hypotesen støttes bare delvis.","Hypotesen er fullstendig bevist.","Hypotesen er fullstendig avvist.","Det finnes ingen funn."],"Hypotesen støttes bare delvis."),
 AssessmentQuestion("no-c2-009","grammar","C2","Hvilken formulering uttrykker en forsiktig årsakspåstand?",["Dataene tyder på at tiltaket kan ha bidratt til forskjellen.","Tiltaket forårsaket uten tvil forskjellen.","Forskjellen skyldes fullstendig én faktor.","Dataene beviser at ingen annen forklaring er mulig."],"Dataene tyder på at tiltaket kan ha bidratt til forskjellen.")
+
+AssessmentQuestion("no-a1-010","vocabulary","A1","Hva betyr «eple»?",["en frukt","et kjøretøy","en bygning","et møbel"],"en frukt"),
+AssessmentQuestion("no-a1-011","grammar","A1","Velg riktig spørsmål.",["Hvor bor du?","Hvor du bor?","Bor hvor du?","Hvor bor?"],"Hvor bor du?"),
+AssessmentQuestion("no-a1-012","reading","A1","Les: «Kari bor i Bergen.» Hvor bor Kari?",["Bergen","Oslo","Trondheim","Stavanger"],"Bergen"),
+AssessmentQuestion("no-a2-010","grammar","A2","Velg riktig framtidsform.",["Jeg skal reise i morgen.","Jeg skal reiste i morgen.","Jeg skal reiser i morgen.","Jeg reise skal i morgen."],"Jeg skal reise i morgen."),
+AssessmentQuestion("no-a2-011","vocabulary","A2","Hva betyr «forsinkelse»?",["at noe kommer senere enn planlagt","en reservasjon","en adresse","en betaling"],"at noe kommer senere enn planlagt"),
+AssessmentQuestion("no-a2-012","reading","A2","Les: «Butikken stenger klokken seks.» Når stenger butikken?",["Klokken fem.","Klokken seks.","Klokken sju.","Klokken åtte."],"Klokken seks."),
+AssessmentQuestion("no-b1-010","grammar","B1","Velg riktig relativsetning.",["Dette er boka som jeg kjøpte.","Dette er boka som jeg kjøpt.","Dette er boka som kjøpte jeg.","Dette er boka jeg som kjøpte."],"Dette er boka som jeg kjøpte."),
+AssessmentQuestion("no-b1-011","vocabulary","B1","Hva betyr «utfordring»?",["noe som krever innsats","en belønning","en ferie","en adresse"],"noe som krever innsats"),
+AssessmentQuestion("no-b1-012","reading","B1","Les: «Møtet ble flyttet fordi lederen var syk.» Hvorfor ble møtet flyttet?",["Fordi lederen var syk.","Fordi rommet var stengt.","Fordi toget var forsinket.","Fordi det var ferie."],"Fordi lederen var syk."),
+AssessmentQuestion("no-b2-010","grammar","B2","Velg riktig indirekte spørsmål.",["Jeg vet ikke når møtet begynner.","Jeg vet ikke når begynner møtet.","Jeg vet ikke når møtet begynner?","Jeg vet ikke møtet når begynner."],"Jeg vet ikke når møtet begynner."),
+AssessmentQuestion("no-b2-011","vocabulary","B2","Hva betyr «forutsi»?",["å si hva man forventer vil skje","å forklare fortiden","å endre en regel","å avlyse en avtale"],"å si hva man forventer vil skje"),
+AssessmentQuestion("no-b2-012","reading","B2","Les: «Resultatene viser en tydelig tendens, men bør tolkes med forsiktighet.» Hva anbefales?",["Forsiktig tolkning av resultatene.","Å ignorere resultatene.","Å endre alle resultatene.","Å avslutte undersøkelsen."],"Forsiktig tolkning av resultatene."),
+AssessmentQuestion("no-c1-010","grammar","C1","Velg den mest presise akademiske formuleringen.",["Resultatene tyder på at effekten er begrenset.","Resultatene tyder at effekten er begrenset.","Resultatene tyder på effekten at er begrenset.","Resultatene tyder at effekten på er begrenset."],"Resultatene tyder på at effekten er begrenset.")
 ]
