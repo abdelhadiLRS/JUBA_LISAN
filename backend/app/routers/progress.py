@@ -1,4 +1,5 @@
 import random
+import unicodedata
 from types import SimpleNamespace
 from datetime import UTC, date, datetime, timedelta
 from typing import Literal, cast
@@ -81,8 +82,10 @@ def _daily_game_id(day: date) -> str:
 
 
 def _normalize_game_text(value: str) -> str:
-    """Normalize learner text without changing its linguistic meaning."""
-    normalized = " ".join(value.strip().casefold().split())
+    """Normalize learner text while preserving meaningful letters and accents."""
+    normalized = unicodedata.normalize("NFC", str(value)).casefold()
+    normalized = normalized.replace("’", "'").replace("‘", "'").replace("ʼ", "'")
+    normalized = " ".join(normalized.strip().split())
     return normalized.strip(".,!?;:。！？；：،،'«»“”()[]{}")
 
 
