@@ -1278,30 +1278,55 @@ async def get_smart_review(
     due_items = await _get_recent_game_mistakes(
         db, current_user.id, plan.id, limit=100
     )
+    current_skills = await _get_game_skills(db, current_user.id, plan)
     skill_counts: dict[str, int] = {}
+    skill_details: dict[str, dict[str, object]] = {}
     for item in due_items:
         skill = str(item.get("skill", "vocabulary"))
         skill_counts[skill] = skill_counts.get(skill, 0) + 1
+        mastery = current_skills.get(skill)
+        mastery_score = round(max(0.0, min(1.0, float(mastery))), 3) if isinstance(mastery, (int, float)) and not isinstance(mastery, bool) else 0.0
+        skill_details[skill] = {
+            "mastery": mastery_score,
+            "cefr_level": str(item.get("cefr_level") or plan.cefr_level),
+            "due_count": skill_counts[skill],
+        }
 
     recommended_game, recommended_skill = await _recommended_review_game(
         db, current_user.id, plan
     )
+    # Priority is an explainable review signal: weaker mastery and repeated
+    # misses raise priority, while preserving a bounded 1..100 score.
+    items = []
+    for item in due_items[:20]:
+        skill = str(item.get("skill", "vocabulary"))
+        mastery = skill_details.get(skill, {}).get("mastery", 0.0)
+        review_count = max(0, int(item.get("review_count", 0)))
+        priority_score = min(100, round((1.0 - float(mastery)) * 70 + min(review_count, 5) * 6 + 10))
+        priority = "high" if priority_score >= 70 else "medium" if priority_score >= 45 else "low"
+        items.append({
+            "review_key": str(item.get("review_key", "")),
+            "skill": skill,
+            "topic": str(item.get("topic", "")),
+            "prompt": str(item.get("prompt", "")),
+            "review_count": review_count,
+            "due_at": str(item.get("review_due_at", "")),
+            "source_game_id": str(item.get("source_game_id", "")),
+            "mastery": float(mastery),
+            "mastery_state": "struggling" if float(mastery) < 0.5 else "learning" if float(mastery) < 0.75 else "strong",
+            "cefr_level": str(item.get("cefr_level") or plan.cefr_level),
+            "priority": priority,
+            "priority_score": priority_score,
+        })
+
     return {
         "due_count": len(due_items),
+        "cefr_level": str(plan.cefr_level),
         "skills": skill_counts,
+        "skill_details": skill_details,
         "recommended_game": recommended_game,
-        "items": [
-            {
-                "review_key": str(item.get("review_key", "")),
-                "skill": str(item.get("skill", "")),
-                "topic": str(item.get("topic", "")),
-                "prompt": str(item.get("prompt", "")),
-                "review_count": int(item.get("review_count", 0)),
-                "due_at": str(item.get("review_due_at", "")),
-                "source_game_id": str(item.get("source_game_id", "")),
-            }
-            for item in due_items[:20]
-        ],
+        "recommended_skill": recommended_skill,
+        "items": items,
     }
 
 
