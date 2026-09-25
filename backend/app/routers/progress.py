@@ -1038,9 +1038,10 @@ async def _get_recent_game_mistakes(
     )
     if game_id:
         query = query.where(GameProgressEvent.game_id == game_id)
-    result = await db.execute(query
+    result = await db.execute(
+        query
         .order_by(GameProgressEvent.created_at.desc())
-        .limit(30)
+        .limit(200)
     )
     events = result.scalars().all()
     resolved: set[str] = set()
@@ -1160,11 +1161,11 @@ async def _get_adaptive_game_difficulty(
     if recent_average is not None and recent_average < 0.5:
         return max(1, requested_difficulty - 1), "review"
     if skill_score is not None and skill_score < 0.5:
-        return max(1, requested_difficulty - 1), "skill_review"
+        return max(1, requested_difficulty - 1), "review"
     if recent_average is not None and recent_average >= 0.85:
         return min(3, requested_difficulty + 1), "challenge"
     if skill_score is not None and skill_score >= 0.85:
-        return min(3, requested_difficulty + 1), "skill_challenge"
+        return min(3, requested_difficulty + 1), "challenge"
     if recent_average is None and skill_score is None:
         return requested_difficulty, "new"
     return requested_difficulty, "steady"
@@ -1180,7 +1181,12 @@ async def get_smart_review(
     """Return a safe overview of due cross-game review items."""
     plan = await _get_active_plan_or_none(db, current_user.id)
     if plan is None:
-        return {"due_count": 0, "skills": {}, "recommended_game": None}
+        return {
+            "due_count": 0,
+            "skills": {},
+            "recommended_game": None,
+            "items": [],
+        }
 
     due_items = await _get_recent_game_mistakes(
         db, current_user.id, plan.id, limit=100
