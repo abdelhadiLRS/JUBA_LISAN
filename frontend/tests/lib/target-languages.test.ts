@@ -10,8 +10,8 @@ import {
 } from '@/lib/target-languages'
 
 describe('SUPPORTED_TARGET_LANGUAGES', () => {
-  it('contains exactly 10 languages', () => {
-    expect(SUPPORTED_TARGET_LANGUAGES).toHaveLength(10)
+  it('contains all 20 supported languages', () => {
+    expect(SUPPORTED_TARGET_LANGUAGES).toHaveLength(20)
   })
 
   const expectedCodes = [
@@ -84,19 +84,12 @@ describe('SUPPORTED_TARGET_LANGUAGES', () => {
 })
 
 describe('TARGET_LANGUAGE_CATALOG', () => {
-  it('contains the current supported languages plus CJK catalog entries', () => {
-    expect(TARGET_LANGUAGE_CATALOG).toHaveLength(10)
+  it('contains every supported language in the catalog', () => {
+    expect(TARGET_LANGUAGE_CATALOG).toHaveLength(20)
     expect(TARGET_LANGUAGE_CATALOG.map((l) => l.code)).toEqual([
-      'en-US',
-      'en-GB',
-      'es-ES',
-      'it-IT',
-      'pt-PT',
-      'fr-FR',
-      'de-DE',
-      'ja-JP',
-      'ko-KR',
-      'zh-CN',
+      'en-US', 'en-GB', 'es-ES', 'it-IT', 'pt-PT', 'fr-FR', 'de-DE',
+      'ja-JP', 'ko-KR', 'zh-CN', 'ar', 'ru-RU', 'nl-NL', 'pl-PL',
+      'da-DK', 'el-GR', 'sv-SE', 'no-NO', 'fi-FI', 'cs-CZ',
     ])
   })
 
