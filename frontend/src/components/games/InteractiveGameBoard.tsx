@@ -180,7 +180,8 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
       setRetryStage('initial')
     }
     setMoves(value => value + 1)
-    void finish(trace)
+    if (correct) void finish(trace)
+    else setOrder([])
   }
 
   function reset() {
