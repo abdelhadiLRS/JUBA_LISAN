@@ -54,6 +54,10 @@ function resizeImage(file: File, maxPx: number): Promise<Blob> {
   })
 }
 
+function getLanguageLabel(tLang: ReturnType<typeof useTranslations>, code: string) {
+  return tLang.has(code) ? tLang(code) : code
+}
+
 export function ProfileSection({ title }: { title?: string } = {}) {
   const t = useTranslations('settings')
   const tLang = useTranslations('languages')
@@ -314,10 +318,10 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] focus:border-[var(--juba-app-line)]-2 w-full appearance-none border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
         >
           {[...LANGUAGES]
-            .sort((a, b) => tLang(a).localeCompare(tLang(b)))
+            .sort((a, b) => getLanguageLabel(tLang, a).localeCompare(getLanguageLabel(tLang, b)))
             .map((code) => (
               <option key={code} value={code}>
-                {tLang(code)}
+                {getLanguageLabel(tLang, code)}
               </option>
             ))}
         </select>
