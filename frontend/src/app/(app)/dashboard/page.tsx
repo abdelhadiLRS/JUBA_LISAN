@@ -269,10 +269,7 @@ export default function DashboardPage() {
     <>
       <OnboardingTour />
       <WhatsNew />
-      <main className="min-h-screen bg-[#dfe3ff] px-3 py-3 sm:px-5 sm:py-5 lg:px-7">
-        <div className="mx-auto max-w-[1500px] overflow-hidden rounded-[38px] border border-black/10 bg-[#f6f6f4] shadow-[0_35px_100px_-35px_rgba(24,28,46,.55)]">
-          {/* EduView-style member shell */}
-          <div className="grid gap-5 p-4 sm:p-6 lg:grid-cols-[minmax(260px,1fr)_minmax(430px,1.45fr)_minmax(280px,.85fr)] lg:gap-5 lg:p-6">
+      <div className="grid gap-5 p-4 sm:p-6 lg:grid-cols-[minmax(260px,1fr)_minmax(430px,1.45fr)_minmax(280px,.85fr)] lg:gap-5 lg:p-6">
             {/* LEFT COLUMN */}
             <section className="space-y-5">
               <div className="relative min-h-[245px] overflow-hidden rounded-[34px] bg-[#7978db] p-6 text-white shadow-[inset_0_-20px_50px_rgba(45,46,130,.18)]">
@@ -542,6 +539,7 @@ export default function DashboardPage() {
             <Link href="/assessment" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{tNav('assessment')}</Link>
         </footer>
       </div>
+    </>
   )
 
 }
