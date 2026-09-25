@@ -1239,7 +1239,11 @@ async def _get_recent_game_mistakes(
     now = datetime.now(UTC).replace(tzinfo=None)
 
     for event in events:
-        for item in event.mistakes or []:
+        # Within one event, the last marker for a review key is authoritative.
+        # Completion can record a resolution after an interaction mistake, so
+        # replay markers newest-first prevents an older marker in the same event
+        # from incorrectly reviving or suppressing the current state.
+        for item in reversed(event.mistakes or []):
             if not isinstance(item, dict):
                 continue
             key = str(item.get("review_key", ""))
