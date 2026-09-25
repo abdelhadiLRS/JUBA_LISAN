@@ -56,7 +56,6 @@ AssessmentQuestion(id="nl-c2-006",skill="vocabulary",difficulty="C2",question="W
 AssessmentQuestion(id="nl-c2-007",skill="reading",difficulty="C2",question="Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",options=["Of de onderliggende aanname klopt.","Of het argument kort is.","Of de tekst informeel is.","Of de gegevens oud zijn."],correct="Of de onderliggende aanname klopt."),
 AssessmentQuestion(id="nl-c2-008",skill="grammar",difficulty="C2",question="Kies de meest precieze academische formulering.",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd een generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.",grammar_slug="academic-style")
 
-AssessmentQuestion(id="nl-a1-009",skill="grammar",difficulty="A1",question="Kies de juiste vraag.",options=["Waar woon je?","Waar je woont?","Woon waar je?","Waar wonen?"],correct="Waar woon je?",grammar_slug="questions"),
 
 
 
@@ -191,7 +190,6 @@ AssessmentQuestion(id="nl-c2-010",skill="vocabulary",difficulty="C2",question="W
 AssessmentQuestion(id="nl-c2-011",skill="reading",difficulty="C2",question="Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",options=["Of de onderliggende aanname klopt.","Of het argument kort is.","Of de tekst informeel is.","Of de gegevens oud zijn."],correct="Of de onderliggende aanname klopt."),
 AssessmentQuestion(id="nl-c2-012",skill="grammar",difficulty="C2",question="Kies de meest precieze academische formulering.",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generalisatie zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.",grammar_slug="academische-formulering")
 
-    AssessmentQuestion(id="nl-a2-005",skill="grammar",difficulty="A2",question="Welke zin staat in de verleden tijd?",options=["Gisteren ging ik naar de winkel.","Gisteren ga ik naar de winkel.","Gisteren gaan ik naar de winkel.","Gisteren zal ik naar de winkel gaan."],correct="Gisteren ging ik naar de winkel."),
 
 
 
@@ -280,7 +278,6 @@ AssessmentQuestion("nl-c2-278","vocabulary","C2","Wat betekent 'dubbelzinnig'?",
 AssessmentQuestion("nl-c2-279","reading","C2","Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",["Van het feit dat de onderliggende aanname klopt.","Van de lengte van de tekst.","Van een informele stijl.","Van de ouderdom van de gegevens."],"Van het feit dat de onderliggende aanname klopt."),
 AssessmentQuestion("nl-c2-280","grammar","C2","Kies de meest precieze academische formulering.",["De resultaten laten geen eenduidige generalisatie toe zonder aanvullende gegevens.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],"De resultaten laten geen eenduidige generalisatie toe zonder aanvullende gegevens.")
 
-    AssessmentQuestion(id="nl-a2-005",skill="grammar",difficulty="A2",question="Welke zin is correct?",options=["Ik moet morgen werken.","Ik moet morgen werkt.","Ik moet morgen gewerkt.","Ik moet morgen werk."],correct="Ik moet morgen werken."),
 
 
 
@@ -364,12 +361,6 @@ AssessmentQuestion("nl-c2-280","grammar","C2","Kies de meest precieze academisch
 
 
 
-AssessmentQuestion(id="nl-c2-008",skill="grammar",difficulty="C2",question="Kies de meest precieze academische formulering.",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie zonder gegevens toe.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder gegevens."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.",grammar_slug="academische-stijl")
 
 AssessmentQuestion(id="nl-a1-013",skill="vocabulary",difficulty="A1",question="Wat betekent 'avond'?",options=["het einde van de dag","het begin van de week","een vervoermiddel","een beroep"],correct="het einde van de dag"),
-AssessmentQuestion(id="nl-a2-009",skill="grammar",difficulty="A2",question="Kies de juiste toekomende vorm.",options=["Morgen ga ik naar Amsterdam.","Morgen ging ik naar Amsterdam.","Morgen gaan ik naar Amsterdam.","Morgen gegaan ik naar Amsterdam."],correct="Morgen ga ik naar Amsterdam.",grammar_slug="future"),
-AssessmentQuestion(id="nl-b1-009",skill="reading",difficulty="B1",question="Lees: 'De cursus begint volgende week en duurt drie maanden.' Hoe lang duurt de cursus?",options=["Drie maanden.","Een week.","Een jaar.","Twee dagen."],correct="Drie maanden."),
-AssessmentQuestion(id="nl-b2-009",skill="vocabulary",difficulty="B2",question="Wat betekent 'benadrukken'?",options=["iets extra duidelijk of belangrijk maken","iets vergeten","een afspraak annuleren","een woord vertalen"],correct="iets extra duidelijk of belangrijk maken"),
-AssessmentQuestion(id="nl-c1-009",skill="reading",difficulty="C1",question="Lees: 'De bevindingen ondersteunen de hypothese slechts gedeeltelijk.' Wat betekent dit?",options=["De hypothese wordt maar gedeeltelijk ondersteund.","De hypothese is volledig bewezen.","De hypothese is volledig weerlegd.","Er zijn geen bevindingen."],correct="De hypothese wordt maar gedeeltelijk ondersteund."),
-AssessmentQuestion(id="nl-c2-009",skill="grammar",difficulty="C2",question="Welke formulering maakt een causale claim het meest voorzichtig?",options=["De gegevens lijken erop te wijzen dat de maatregel mogelijk heeft bijgedragen aan het verschil.","De maatregel heeft zonder twijfel het verschil veroorzaakt.","Het verschil is volledig door één factor veroorzaakt.","De gegevens bewijzen dat er geen andere verklaring mogelijk is."],correct="De gegevens lijken erop te wijzen dat de maatregel mogelijk heeft bijgedragen aan het verschil.")
 ]
