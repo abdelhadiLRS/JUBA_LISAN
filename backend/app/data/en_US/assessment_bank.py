@@ -1318,7 +1318,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="r-b2-006",
         skill="reading",
         difficulty="B2",
-        question="Read: "Although the project exceeded its budget, the independent review found that its long-term benefits were likely to outweigh the additional costs." — What does the review suggest?",
+        question='''Read: "Although the project exceeded its budget, the independent review found that its long-term benefits were likely to outweigh the additional costs." — What does the review suggest?''',
         options=[
             "The project should be cancelled immediately.",
             "The extra spending may be justified by future benefits.",
@@ -1388,7 +1388,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="r-c1-007",
         skill="reading",
         difficulty="C1",
-        question="Read: "The author's qualification is significant: she does not reject the proposal outright, but argues that its apparent simplicity conceals several unresolved practical difficulties." — What is the author's position?",
+        question='''Read: "The author's qualification is significant: she does not reject the proposal outright, but argues that its apparent simplicity conceals several unresolved practical difficulties." — What is the author's position?''',
         options=[
             "She fully endorses the proposal.",
             "She rejects the proposal without qualification.",
@@ -1401,7 +1401,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="r-c1-008",
         skill="reading",
         difficulty="C1",
-        question="Read: "The figures appear impressive at first glance; however, once adjusted for inflation and population growth, the increase is considerably less dramatic." — What changes the interpretation of the figures?",
+        question='''Read: "The figures appear impressive at first glance; however, once adjusted for inflation and population growth, the increase is considerably less dramatic." — What changes the interpretation of the figures?''',
         options=[
             "A change in the sample size only.",
             "Adjustments for inflation and population growth.",
