@@ -46,7 +46,7 @@ AssessmentQuestion(id="ar-b2-001",skill="grammar",difficulty="B2",question="اخ
 AssessmentQuestion(id="ar-c1-001",skill="grammar",difficulty="C1",question="أي عبارة أنسب للسجل الأكاديمي؟",options=["تشير النتائج إلى ارتفاع المعدل.","النتائج مرة رهيبة.","النتائج شيء كبير جدًا.","النتائج حلوة."],correct="تشير النتائج إلى ارتفاع المعدل.",grammar_slug="academic-register"),
 AssessmentQuestion(id="ar-c2-001",skill="grammar",difficulty="C2",question="ما الذي يساعد على فهم المعنى الضمني؟",options=["السياق والنبرة","عدد الكلمات فقط","شكل الحروف فقط","علامة الترقيم فقط"],correct="السياق والنبرة",grammar_slug="implicature"),
 
-// Expanded CEFR progression checks
+# Expanded CEFR progression checks
 AssessmentQuestion(id="ar-a2-003",skill="vocabulary",difficulty="A2",question="ما معنى «موعد» في هذا السياق؟",options=["وقت محدد للقاء أو حدث","مكان لشراء الطعام","نوع من وسائل النقل","طريقة للكتابة"],correct="وقت محدد للقاء أو حدث"),
 AssessmentQuestion(id="ar-a2-004",skill="reading",difficulty="A2",question="اقرأ: «اتصلتُ بالمكتبة لأحجز كتابًا، ثم ذهبتُ إليها بعد انتهاء العمل.» لماذا اتصل المتحدث بالمكتبة؟",options=["لحجز كتاب","لدفع فاتورة","لشراء تذكرة","لزيارة الطبيب"],correct="لحجز كتاب"),
 AssessmentQuestion(id="ar-a2-005",skill="grammar",difficulty="A2",question="اختر الجملة الصحيحة للتعبير عن المقارنة.",options=["هذا الطريق أقصر من ذلك الطريق.","هذا الطريق أقصر إلى ذلك الطريق.","هذا الطريق أقصر في ذلك الطريق.","هذا الطريق أقصر على ذلك الطريق."],correct="هذا الطريق أقصر من ذلك الطريق.",grammar_slug="comparatives"),
