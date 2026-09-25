@@ -1719,9 +1719,9 @@ async def _get_adaptive_game_difficulty(
     else:
         skill_score = None
 
-    if recent_average is not None and recent_average < 0.5:
-        return max(1, requested_difficulty - 1), "review"
     if skill_score is not None and skill_score < 0.5:
+        return max(1, requested_difficulty - 1), "skill_review"
+    if recent_average is not None and recent_average < 0.5:
         return max(1, requested_difficulty - 1), "review"
 
     # When recent performance and the persisted competency are both stable,
@@ -1739,9 +1739,9 @@ async def _get_adaptive_game_difficulty(
         if not stable_due:
             return min(3, requested_difficulty + 1), "challenge"
 
-    if recent_average is not None and recent_average >= 0.85:
-        return min(3, requested_difficulty + 1), "challenge"
     if skill_score is not None and skill_score >= 0.85:
+        return min(3, requested_difficulty + 1), "skill_challenge"
+    if recent_average is not None and recent_average >= 0.85:
         return min(3, requested_difficulty + 1), "challenge"
     if recent_average is None and skill_score is None:
         return requested_difficulty, "new"
