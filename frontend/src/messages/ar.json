@@ -735,6 +735,11 @@
     "reviewReminder": "حان وقت تقوية ذاكرتك",
     "goalCompleted": "🎉 اكتمل هدفك اليومي!",
     "keepGoing": "تبقّى {remaining} درسًا فقط!",
-    "takeAssessment": "إجراء تقييم تحديد المستوى"
+    "takeAssessment": "إجراء تقييم تحديد المستوى",
+    "planDayGoal": "هدف دروس اليوم",
+    "levelTestCompleted": "اكتمل اختبار المستوى",
+    "levelTestScoreLine": "النتيجة: {score} من {total}",
+    "levelTestReady": "أنت جاهز للانتقال إلى المستوى التالي",
+    "levelTestReadyDesc": "أكملت اختبار المستوى بنجاح. تابع خطتك التعليمية."
   }
 }
