@@ -292,6 +292,45 @@ export default async function Home() {
         </section>
       )}
 
+      {/* Reference landing sequence: visual structure follows the supplied public-site reference while content stays JUBA LISAN data. */}
+      <section className="juba-reference-stats" aria-label="JUBA LISAN platform statistics">
+        <div className="juba-reference-stat"><strong>25,000+</strong><span>{t('navFeatures')}</span></div>
+        <div className="juba-reference-stat"><strong>250+</strong><span>{t('navLanguages')}</span></div>
+        <div className="juba-reference-stat"><strong>5.0</strong><span>{t('heroBadge')}</span></div>
+      </section>
+
+      <section className="juba-reference-feature">
+        <div className="juba-reference-feature-art juba-reference-art-reading" aria-hidden="true"><span>Aa</span><i>♪</i></div>
+        <div className="juba-reference-feature-copy"><span className="juba-ff-section-tag">{t('languagesEyebrow')}</span><h2>{t('languagesHeadline')}</h2><p>{t('languagesDescription')}</p><Link href="/reading" className="juba-ff-primary">{t('ctaStart')} <ArrowRight className="h-4 w-4" /></Link></div>
+      </section>
+
+      <section className="juba-reference-feature juba-reference-feature-reverse">
+        <div className="juba-reference-feature-art juba-reference-art-listen" aria-hidden="true"><span>▶</span><i>♫</i></div>
+        <div className="juba-reference-feature-copy"><span className="juba-ff-section-tag">{t('flowAiLabel')}</span><h2>{t('flowAiTitle')}</h2><p>{t('flowAiDescription')}</p><Link href="/chat" className="juba-ff-primary">{t('ctaStart')} <ArrowRight className="h-4 w-4" /></Link></div>
+      </section>
+
+      <section className="juba-reference-feature">
+        <div className="juba-reference-feature-art juba-reference-art-practice" aria-hidden="true"><span>✓</span><i>ABC</i></div>
+        <div className="juba-reference-feature-copy"><span className="juba-ff-section-tag">{t('flowVoiceLabel')}</span><h2>{t('flowVoiceTitle')}</h2><p>{t('flowVoiceDescription')}</p><Link href="/conversation" className="juba-ff-primary">{t('ctaStart')} <ArrowRight className="h-4 w-4" /></Link></div>
+      </section>
+
+      {reviews.length > 0 && (
+        <section id="reviews" className="juba-reference-community scroll-mt-20">
+          <div className="juba-reference-section-heading"><span className="juba-ff-section-tag">{t('navReviews')}</span><h2>{t('languagesHeadline')}</h2><p>{t('languagesDescription')}</p></div>
+          <div className="juba-reference-testimonials">{reviews.slice(0, 6).map((review) => <article key={review.id} className="juba-reference-testimonial"><p>“{review.comment}”</p><strong>{review.display_name || 'JUBA LISAN learner'}</strong></article>)}</div>
+        </section>
+      )}
+
+      <section className="juba-reference-school">
+        <div className="juba-reference-school-copy"><span className="juba-ff-section-tag">{t('flowEyebrow')}</span><h2>{t('flowHeadline')}</h2><p>{t('flowDescription')}</p><Link href="/register" className="juba-ff-primary">{t('ctaStart')} <ArrowRight className="h-4 w-4" /></Link></div>
+        <div className="juba-reference-school-art" aria-hidden="true"><div className="juba-reference-phone"><span>JUBA</span><b>●</b><em>Learn · Practice · Progress</em></div><div className="juba-reference-character">★</div></div>
+      </section>
+
+      <section className="juba-reference-download">
+        <div><span className="juba-ff-section-tag">{t('heroBadge')}</span><h2>{t('ctaStart')}</h2><p>{t('heroSub')}</p><div className="juba-reference-download-buttons"><a href="#pricing">App Store</a><a href="#pricing">Google Play</a></div></div>
+        <div className="juba-reference-download-art" aria-hidden="true"><div className="juba-reference-device"><span>JUBA LISAN</span><b>Learn languages</b><i>● ● ●</i></div></div>
+      </section>
+
       {/* Pricing */}
       <section id="pricing" className="juba-ff-story juba-ff-story-pricing scroll-mt-20">
         <ScrollReveal>
