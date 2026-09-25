@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { apiFetch } from '@/lib/api'
@@ -43,10 +43,10 @@ interface TodayPlan {
 }
 
 const scenarios = [
-  { icon: '✈️', title: 'Airport', desc: 'Check in, ask for directions, handle delays.', href: '/conversation' },
-  { icon: '💼', title: 'Job interview', desc: '{t('practice')} answers, confidence and professional vocabulary.', href: '/conversation' },
-  { icon: '🍽️', title: 'Restaurant', desc: 'Order naturally and handle a real conversation.', href: '/conversation' },
-  { icon: '🏨', title: 'Hotel', desc: 'Book a room, solve problems and make requests.', href: '/conversation' },
+  { icon: '✈️', titleKey: 'airport', descKey: 'airportDesc', href: '/conversation' },
+  { icon: '💼', titleKey: 'jobInterview', descKey: 'jobInterviewDesc', href: '/conversation' },
+  { icon: '🍽️', titleKey: 'restaurant', descKey: 'restaurantDesc', href: '/conversation' },
+  { icon: '🏨', titleKey: 'hotel', descKey: 'hotelDesc', href: '/conversation' },
 ]
 
 export default function CoachPage() {
@@ -188,15 +188,15 @@ export default function CoachPage() {
           </div>
 
           <div className="juba-card p-6 sm:p-8">
-            <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{t('contextEyebrow')}</p>
+            <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{t('practice')} in context</p>
             <h2 className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">{t('rooms')}</h2>
-            <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">{t('roomsDescription')}</p>
+            <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">Stop memorizing isolated sentences. {t('practice')} what you actually need to say.</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
-                <Link key={scenario.title} href={scenario.href} className="rounded-[28px] border-2 border-[var(--juba-app-line)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)]">
+                <Link key={t(scenario.titleKey)} href={scenario.href} className="rounded-[28px] border-2 border-[var(--juba-app-line)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)]">
                   <span className="text-2xl">{scenario.icon}</span>
                   <p className="mt-3 text-sm font-black text-[var(--juba-app-ink)]">{scenario.title}</p>
-                  <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">{scenario.desc}</p>
+                  <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">{t(scenario.descKey)}</p>
                 </Link>
               ))}
             </div>
@@ -204,7 +204,7 @@ export default function CoachPage() {
         </section>
 
         <footer className="flex flex-col gap-2 border-t border-[var(--juba-app-line)] pt-6 text-xs text-[var(--juba-app-muted)] sm:flex-row sm:items-center sm:justify-between">
-          <span>{t('learning')} {language?.name ? `· ${language.name}` : '· {t('personalized')}'}</span>
+          <span>Learning {language?.name ? `· ${language.name}` : '· {t('personalized')}'}</span>
           <span>CEFR {plan.cefr_level || '{t('adaptive')}'} · JUBA LISAN Coach</span>
         </footer>
       </div>
@@ -212,7 +212,7 @@ export default function CoachPage() {
   )
 }
 
-function Metric({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
+function Metric({ icon, value, label }: { icon: ReactNode; value: string; label: string }) {
   return (
     <div className="rounded-[28px] bg-[var(--juba-app-green-soft)] p-3">
       <div className="mb-2 h-4 w-4 text-[var(--juba-app-green-dark)]">{icon}</div>
