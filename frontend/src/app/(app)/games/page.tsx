@@ -162,7 +162,7 @@ export default function GamesPage() {
 
   function changeInterfaceLanguage(value: Lang) {
     setLang(value)
-    router.replace(pathname, { locale: value })
+    router.replace(pathname)
   }
   const [game, setGame] = useState<GameId | null>(null)
   const [dailyMode, setDailyMode] = useState(false)
@@ -317,7 +317,7 @@ export default function GamesPage() {
         recommended_game: recommended,
         recommended_skill: typeof data.recommended_skill === 'string' ? data.recommended_skill : null,
         items: Array.isArray(data.items)
-          ? data.items.filter((item): item is Record<string, unknown> => Boolean(item && typeof item === 'object')).map((item) => ({
+          ? data.items.filter((item): item is Record<string, unknown> => Boolean(item && typeof item === 'object')).map((item: Record<string, unknown>) => ({
               review_key: String(item.review_key ?? ''),
               skill: String(item.skill ?? ''),
               topic: String(item.topic ?? ''),
