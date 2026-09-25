@@ -148,6 +148,9 @@ export default function GamesPage() {
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [answers, setAnswers] = useState<Array<{ question_id: string; choice: string }>>([])
   const [selected, setSelected] = useState<string | null>(null)
+  const [answerStatus, setAnswerStatus] = useState<'idle' | 'submitting' | 'correct' | 'wrong'>('idle')
+  const [answerError, setAnswerError] = useState<string | null>(null)
+  const [pendingNextQuestion, setPendingNextQuestion] = useState<GameSessionQuestion | null>(null)
   const [roundScore, setRoundScore] = useState(0)
   const [round, setRound] = useState(0)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
@@ -392,6 +395,9 @@ export default function GamesPage() {
       setRound(0)
       setRoundScore(0)
       setSelected(null)
+      setAnswerStatus('idle')
+      setAnswerError(null)
+      setPendingNextQuestion(null)
       setInputValue('')
       setTimeLeft(id === 'quick_choice' ? 8 : 0)
       setAnswers([])
@@ -413,34 +419,59 @@ export default function GamesPage() {
     }
   }
 
-  function answer(choice: string) {
-    if (!question || selected) return
-    setSelected(choice)
-    setAnswers((current) => [...current, { question_id: question.id, choice }])
+  async function answer(choice: string) {
+    if (!question || selected || !sessionId || finishing || answerStatus === 'submitting') return
+    setAnswerStatus('submitting')
+    setAnswerError(null)
+    try {
+      const server = await answerGameSessionQuestion(sessionId, question.id, choice)
+      setAdaptiveMode(server.adaptive_mode)
+      if (!server.correct) {
+        setSelected(null)
+        setAnswerStatus('wrong')
+        setPendingNextQuestion(null)
+        setInputValue('')
+        if (server.question) setQuestion(server.question)
+        return
+      }
+
+      setSelected(choice)
+      setAnswerStatus('correct')
+      setAnswers((current) => [
+        ...current.filter((item) => item.question_id !== question.id),
+        { question_id: question.id, choice },
+      ])
+      setPendingNextQuestion(server.question ?? null)
+      if (server.finished) {
+        setPendingNextQuestion(null)
+        await finishRound()
+      }
+    } catch (error) {
+      setAnswerStatus('idle')
+      setAnswerError(error instanceof Error ? error.message : 'Unable to validate the answer')
+    }
   }
 
   function submitTextAnswer() {
-    if (!question || selected || !inputValue.trim()) return
-    setSelected(inputValue.trim())
-    setAnswers((current) => [...current, { question_id: question.id, choice: inputValue.trim() }])
+    if (!inputValue.trim()) return
+    void answer(inputValue.trim())
   }
 
   useEffect(() => {
-    if (!game || !question || selected || game !== 'quick_choice') return
+    if (!game || !question || selected || answerStatus !== 'idle' || game !== 'quick_choice') return
     setTimeLeft(8)
     const timer = window.setInterval(() => {
       setTimeLeft((value) => {
         if (value <= 1) {
           window.clearInterval(timer)
-          setSelected('__timeout__')
-          setAnswers((current) => [...current, { question_id: question.id, choice: '__timeout__' }])
+          void answer('__timeout__')
           return 0
         }
         return value - 1
       })
     }, 1000)
     return () => window.clearInterval(timer)
-  }, [game, question, selected])
+  }, [game, question, selected, answerStatus])
 
   function playAudio() {
     if (!question?.audio_text || typeof window === 'undefined' || !('speechSynthesis' in window)) return
@@ -499,26 +530,19 @@ export default function GamesPage() {
     }
   }
 
-  async function next() {
-    if (!game || !question || !sessionId || finishing) return
-    setFinishing(true)
-    try {
-      const server = await answerGameSessionQuestion(sessionId, question.id, selected ?? '')
-      setRoundScore((score) => score + (server.correct ? 1 : 0))
-      setAdaptiveMode(server.adaptive_mode)
-      setSelected(null)
-      setInputValue('')
-      if (server.finished) {
-        await finishRound()
-        return
-      }
-      setRound((current) => current + 1)
-      setQuestion(server.question ?? null)
-    } catch (error) {
-      setGameError(error instanceof Error ? error.message : 'Unable to load the next question')
-    } finally {
-      setFinishing(false)
+  function next() {
+    if (!game || !question || answerStatus !== 'correct' || finishing) return
+    if (!pendingNextQuestion) {
+      void finishRound()
+      return
     }
+    setRound((current) => current + 1)
+    setSelected(null)
+    setAnswerStatus('idle')
+    setAnswerError(null)
+    setInputValue('')
+    setQuestion(pendingNextQuestion)
+    setPendingNextQuestion(null)
   }
 
   return (
@@ -715,13 +739,31 @@ export default function GamesPage() {
                     </div>
                   </>
                 )}
-                {selected && (
-                  <div className="feedback good">
-                    <strong>{selected === '__timeout__' ? '⏱ Time!' : t.answered}</strong>
-                    <span>{question.hint}</span>
+                {answerStatus === 'submitting' && (
+                  <div className="feedback" role="status">
+                    <strong>…</strong>
+                    <span>{lang === 'ar' ? 'جارٍ التحقق من الإجابة…' : lang === 'fr' ? 'Vérification de la réponse…' : 'Checking your answer…'}</span>
                   </div>
                 )}
-                {selected && <button type="button" className="next" onClick={next} disabled={finishing}>{round >= ROUND_SIZE - 1 ? (finishing ? '…' : t.done) : t.next} →</button>}
+                {answerStatus === 'wrong' && (
+                  <div className="feedback" role="alert">
+                    <strong>{t.wrong}</strong>
+                    <span>{lang === 'ar' ? 'حاول مرة أخرى. تم تكييف السؤال مع الخطأ.' : lang === 'fr' ? 'Réessaie. La question a été adaptée à ton erreur.' : 'Try again. The question has been adapted to your mistake.'}</span>
+                    {question.hint && <small>{question.hint}</small>}
+                  </div>
+                )}
+                {answerError && <div className="feedback" role="alert"><span>{answerError}</span></div>}
+                {answerStatus === 'correct' && selected && (
+                  <>
+                    <div className="feedback good">
+                      <strong>{t.correct}</strong>
+                      <span>{question.hint || t.answered}</span>
+                    </div>
+                    <button type="button" className="next" onClick={next} disabled={finishing}>
+                      {round >= ROUND_SIZE - 1 ? (finishing ? '…' : t.done) : t.next} →
+                    </button>
+                  </>
+                )}
               </>
             )}
             <div className="round-score">{t.score}: <strong>{roundScore}</strong></div>
