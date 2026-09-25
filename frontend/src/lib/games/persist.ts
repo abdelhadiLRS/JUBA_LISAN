@@ -184,6 +184,43 @@ export async function answerGameSessionQuestion(
   return response.json()
 }
 
+export type GameSessionNextResponse = {
+  session_id: string
+  correct: boolean
+  question?: GameSessionQuestion | null
+  finished: boolean
+  answered: number
+  total: number
+  adaptive_mode: 'new' | 'review' | 'steady' | 'challenge' | 'skill_review' | 'skill_challenge'
+}
+
+export async function nextGameSessionQuestion(
+  sessionId: string,
+  questionId: string,
+  choice: string,
+): Promise<GameSessionNextResponse> {
+  const response = await apiFetch('/api/progress/game-session/next', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      session_id: sessionId,
+      question_id: questionId,
+      choice,
+    }),
+  })
+  if (!response.ok) {
+    let detail = ''
+    try {
+      const payload = await response.json() as { detail?: string }
+      if (typeof payload.detail === 'string') detail = payload.detail
+    } catch {
+      // Keep the HTTP status when the server did not return JSON.
+    }
+    throw new Error(detail || `Game answer validation failed: ${response.status}`)
+  }
+  return response.json() as Promise<GameSessionNextResponse>
+}
+
 export async function completeGameSession(
   sessionId: string,
   answers: Array<{ question_id: string; choice: string }>,
