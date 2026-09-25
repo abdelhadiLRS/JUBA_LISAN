@@ -81,7 +81,8 @@
     "dashboardStreak": "Day Streak",
     "dashboardXp": "Total XP",
     "dashboardMasteredWords": "Mastered Words",
-    "dashboardCurrentUnit": "Current Unit"
+    "dashboardCurrentUnit": "Current Unit",
+    "ar": "Hallo!"
   },
   "common": {
     "loading": "Laden...",
@@ -1350,7 +1351,9 @@
     "de-DE-description": "Duits zoals gesproken in Duitsland.",
     "ja-JP-description": "Japans zoals gesproken in Japan.",
     "ko-KR-description": "Koreaans zoals gesproken in Zuid-Korea.",
-    "zh-CN-description": "Mandarijn-Chinees van het Chinese vasteland, met vereenvoudigde karakters."
+    "zh-CN-description": "Mandarijn-Chinees van het Chinese vasteland, met vereenvoudigde karakters.",
+    "ar": "Arabisch",
+    "ar-description": "Modern Standard Arabic for global communication, study, and travel."
   },
   "onboarding": {
     "title": "Kies jouw taal",
