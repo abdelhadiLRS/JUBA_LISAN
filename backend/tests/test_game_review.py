@@ -1106,3 +1106,79 @@ def test_listening_review_variant_uses_authored_alternate_audio(monkeypatch):
     assert variant["answer"] == "water"
     assert variant["topic"] == "daily-life"
     assert variant["audio_text"] == "Could I have some water, please?"
+
+
+def test_grammar_review_variant_uses_same_topic_and_authored_correction(monkeypatch):
+    class Mistake:
+        def __init__(self, wrong, correct, note=""):
+            self.wrong = wrong
+            self.correct = correct
+            self.note = note
+
+    class Topic:
+        slug = "past-simple"
+        common_mistakes = [
+            Mistake("She go home.", "went", "Use the past form."),
+            Mistake("They go home.", "went", "The action happened in the past."),
+        ]
+
+    monkeypatch.setattr(
+        progress_router,
+        "get_grammar_topics",
+        lambda language: [Topic()],
+    )
+
+    question = {
+        "skill": "grammar",
+        "language": "en",
+        "target_language": "en-US",
+        "cefr_level": "A1",
+        "topic": "past-simple",
+        "prompt": "Choose the correct form:\nShe go home.",
+        "answer": "went",
+        "input_mode": "choice",
+    }
+
+    variant = progress_router._apply_skill_review_variant(question, 1)
+
+    assert variant["answer"] == "went"
+    assert variant["topic"] == "past-simple"
+    assert variant["prompt"] == "Choose the correct form:\nThey go home."
+    assert variant["variant"] == "curriculum-2"
+
+
+def test_speaking_review_variant_uses_authored_alternate_context(monkeypatch):
+    class Entry:
+        def __init__(self, word, example):
+            self.word = word
+            self.example = example
+
+    class VocabularySet:
+        topic = "daily-life"
+        words = [
+            Entry("water", "I need water."),
+            Entry("water", "Could I have some water, please?"),
+        ]
+
+    monkeypatch.setattr(
+        progress_router,
+        "get_vocabulary_by_level",
+        lambda level, language: [VocabularySet()],
+    )
+
+    question = {
+        "skill": "speaking",
+        "language": "en",
+        "target_language": "en-US",
+        "cefr_level": "A1",
+        "topic": "daily-life",
+        "prompt": "Which sentence best uses 'water'?",
+        "answer": "I need water.",
+        "input_mode": "choice",
+    }
+
+    variant = progress_router._apply_skill_review_variant(question, 1)
+
+    assert variant["answer"] == "Could I have some water, please?"
+    assert variant["topic"] == "daily-life"
+    assert variant["variant"] == "curriculum-2"
