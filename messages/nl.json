@@ -38,7 +38,8 @@
       "pt-PT": "Olá!",
       "ja-JP": "こんにちは！",
       "ko-KR": "안녕하세요!",
-      "zh-CN": "你好！"
+      "zh-CN": "你好！",
+      "ar": "Hallo!"
     },
     "heroBadge": "AI-POWERED LANGUAGE LEARNING",
     "heroTitle": "Learn languages naturally with your personal AI tutor",
@@ -82,7 +83,6 @@
     "dashboardXp": "Total XP",
     "dashboardMasteredWords": "Mastered Words",
     "dashboardCurrentUnit": "Current Unit",
-    "ar": "Hallo!"
   },
   "common": {
     "loading": "Laden...",
