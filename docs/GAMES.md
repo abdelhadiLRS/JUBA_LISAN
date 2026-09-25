@@ -6,6 +6,13 @@ Games are a learning surface, not a visual-only feature. Every supported game pr
 
 ## Game modes
 
+### New learning modes
+
+- **Word Scramble** — reconstruct a vocabulary item from shuffled letters; text answers are validated by the server and mapped to vocabulary mastery.
+- **Fill the Blank** — contextual grammar retrieval using sentence completion; choices are generated and scored server-side.
+
+These modes extend the existing Memory, Matching, Sentence Builder, Quick Choice, Listen & Choose, and Spelling games.
+
 - **Word Match** — vocabulary matching with persisted scoring.
 - **Quick Choice** — timed multiple choice; timeout is persisted as incorrect.
 - **Sentence Builder** — grammar-focused word ordering through the interactive game engine.
