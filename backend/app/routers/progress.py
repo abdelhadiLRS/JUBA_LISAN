@@ -1952,6 +1952,13 @@ async def complete_game_session(
                 "correct": skill_correct,
                 "questions": skill_questions,
                 "accuracy": round(skill_correct / max(1, skill_questions), 3),
+                "mastery_before": round(float(skills.get(skill, 0.0)), 3),
+                "mastery_after": round(float(projected_skills.get(skill, skills.get(skill, 0.0))), 3),
+                "mastery_delta": round(
+                    float(projected_skills.get(skill, skills.get(skill, 0.0)))
+                    - float(skills.get(skill, 0.0)),
+                    3,
+                ),
             }
             for skill, (skill_correct, skill_questions) in skill_results.items()
         },
