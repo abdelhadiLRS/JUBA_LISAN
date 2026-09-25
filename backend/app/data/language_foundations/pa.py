@@ -10,7 +10,7 @@ CurriculumUnit(id="pa-a1-unit-5",level="A1",unit_number=5,title="Punjabi: routin
 CurriculumUnit(id="pa-a1-unit-6",level="A1",unit_number=6,title="Punjabi: time",grammar_points=["pa-a1-g6"],vocabulary_set_ids=["time_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use ਸਮਾਂ in a basic exchange","Understand a short time interaction"],default_weeks=1),
 CurriculumUnit(id="pa-a1-unit-7",level="A1",unit_number=7,title="Punjabi: food",grammar_points=["pa-a1-g7"],vocabulary_set_ids=["food_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use ਪਾਣੀ in a basic exchange","Understand a short food interaction"],default_weeks=1),
 CurriculumUnit(id="pa-a1-unit-8",level="A1",unit_number=8,title="Punjabi: places",grammar_points=["pa-a1-g8"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use ਸਕੂਲ in a basic exchange","Understand a short places interaction"],default_weeks=1)
-]}
+]
 for level in LEVELS[1:]:
  CURRICULUM[level]=[CurriculumUnit(id=f"pa-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Punjabi {level} communication",grammar_points=["intermediate grammar"],vocabulary_set_ids=[],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Handle extended communication"],default_weeks=2)]
 GRAMMAR_TOPICS=[
@@ -60,7 +60,7 @@ ASSESSMENT_BANK=[
 AssessmentQuestion(id="pa-a1-001",skill="vocabulary",difficulty="A1",question="Which Punjabi word means 'water'?",options=["ਪਾਣੀ","ਘਰ","ਮਾਂ","ਸਕੂਲ"],correct="ਪਾਣੀ"),
 AssessmentQuestion(id="pa-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।","ਮੈਂ ਸਕੂਲ ਜਾਂਦਾ ਹਾਂ।","ਮੈਂ ਪਾਣੀ ਪੀਂਦਾ ਹਾਂ।","ਇਹ ਕਿਤਾਬ ਹੈ।"],correct="ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।"),
 AssessmentQuestion(id="pa-a1-003",skill="vocabulary",difficulty="A1",question="What does ਮਾਂ mean?",options=["mother","father","friend","teacher"],correct="mother"),
-AssessmentQuestion(id="pa-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?","ਤੁਸੀਂ ਕਿੱਥੇ ਹੋ?","ਇਹ ਕੀ ਹੈ?","ਕੀਮਤ ਕਿੰਨੀ ਹੈ?"],"correct"="ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?"),
+AssessmentQuestion(id="pa-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?","ਤੁਸੀਂ ਕਿੱਥੇ ਹੋ?","ਇਹ ਕੀ ਹੈ?","ਕੀਮਤ ਕਿੰਨੀ ਹੈ?"],"correct="ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?"),
 AssessmentQuestion(id="pa-a1-005",skill="reading",difficulty="A1",question="ਕਿਤਾਬ ਮੇਜ਼ ਉੱਤੇ ਹੈ। Where is the book?",options=["On the table","At school","At home","In the market"],correct="On the table"),
 AssessmentQuestion(id="pa-a1-006",skill="vocabulary",difficulty="A1",question="Which word means 'name'?",options=["ਨਾਮ","ਸਮਾਂ","ਪਾਣੀ","ਘਰ"],correct="ਨਾਮ"),
 AssessmentQuestion(id="pa-a1-007",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["ਫਿਰ ਦੱਸੋ ਜੀ।","ਧੰਨਵਾਦ।","ਸਤ ਸ੍ਰੀ ਅਕਾਲ।","ਫਿਰ ਮਿਲਾਂਗੇ।"],correct="ਫਿਰ ਦੱਸੋ ਜੀ।"),
