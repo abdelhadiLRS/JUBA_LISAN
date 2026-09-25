@@ -544,99 +544,52 @@ AssessmentQuestion(id="no-c1-020",skill="grammar",difficulty="C1",question="Velg
 
  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-AssessmentQuestion(id="no-c1-013",skill="grammar",difficulty="C1",question="Velg riktig nominalisering.",options=["Evalueringen av resultatene var omfattende.","Evaluere av resultatene var omfattende.","Evalueringen resultatene var omfattende.","Resultatene evaluering var omfattende."],correct="Evalueringen av resultatene var omfattende.",grammar_slug="nominalisering"),
-AssessmentQuestion(id="no-c1-014",skill="vocabulary",difficulty="C1",question="Hva betyr «forutsetning»?",options=["en betingelse som må være oppfylt","en avslutning","en følelse","en nyhet"],correct="en betingelse som må være oppfylt"),
-AssessmentQuestion(id="no-c1-015",skill="reading",difficulty="C1",question="Les: «Selv om dataene peker i samme retning, kan studien ikke fastslå en årsakssammenheng.» Hva kan studien ikke fastslå?",options=["En årsakssammenheng.","At dataene finnes.","At variablene er målt.","At studien er gjennomført."],correct="En årsakssammenheng."),
-AssessmentQuestion(id="no-c1-016",skill="grammar",difficulty="C1",question="Velg den mest nyanserte formuleringen.",options=["Funnene ser ut til å tyde på en begrenset effekt.","Funnene beviser alle mulige årsaker.","Funnene utelukker enhver alternativ forklaring.","Funnene er uten tvil riktige i alle sammenhenger."],correct="Funnene ser ut til å tyde på en begrenset effekt.",grammar_slug="nyansering"),
-AssessmentQuestion(id="no-c1-017",skill="vocabulary",difficulty="C1",question="Hva betyr «pålitelig» i forskning?",options=["som gir stabile og troverdige resultater","som er tilfeldig","som er uformell","som er kort"],correct="som gir stabile og troverdige resultater"),
-AssessmentQuestion(id="no-c1-018",skill="reading",difficulty="C1",question="Les: «Metoden er anvendelig, forutsatt at utvalget er representativt.» Hva er en forutsetning?",options=["At utvalget er representativt.","At rapporten er kort.","At forskerne er enige.","At dataene er gamle."],"At utvalget er representativt."),
-AssessmentQuestion(id="no-c1-019",skill="grammar",difficulty="C1",question="Velg korrekt indirekte formulering.",options=["Forskerne undersøkte hvordan deltakerne oppfattet tiltaket.","Forskerne undersøkte hvordan oppfattet deltakerne tiltaket.","Forskerne undersøkte hvordan deltakerne oppfatte tiltaket.","Forskerne undersøkte hvordan tiltaket deltakerne oppfattet."],correct="Forskerne undersøkte hvordan deltakerne oppfattet tiltaket.",grammar_slug="indirekte-spørsmål"),
-AssessmentQuestion(id="no-c1-020",skill="vocabulary",difficulty="C1",question="Hva betyr «omfattende»?",options=["som dekker mye eller mange deler","som er tilfeldig","som varer svært kort","som er uformell"],correct="som dekker mye eller mange deler"),
-AssessmentQuestion(id="no-c1-021",skill="reading",difficulty="C1",question="Les: «Resultatene er lovende, men datagrunnlaget er begrenset.» Hvilken konklusjon passer best?",options=["Resultatene bør tolkes med en viss forsiktighet.","Resultatene er endelig bevist.","Datagrunnlaget er perfekt.","Videre forskning er unødvendig."],"Resultatene bør tolkes med en viss forsiktighet."),
-AssessmentQuestion(id="no-c2-013",skill="grammar",difficulty="C2",question="Velg formuleringen som tydeligst markerer evidensgrad.",options=["Funnene synes å indikere en sammenheng.","Funnene beviser nødvendigvis alle årsaker.","Funnene utelukker alle andre forklaringer.","Funnene gjør videre analyse unødvendig."],correct="Funnene synes å indikere en sammenheng.",grammar_slug="evidensstyrke"),
-AssessmentQuestion(id="no-c2-014",skill="vocabulary",difficulty="C2",question="Hva betyr «tvetydighet»?",options=["muligheten for flere tolkninger","fullstendig klarhet","en kort formulering","en måleenhet"],correct="muligheten for flere tolkninger"),
-AssessmentQuestion(id="no-c2-015",skill="reading",difficulty="C2",question="Les: «Konklusjonen er holdbar så lenge moteksemplene ikke gir en bedre forklaring.» Hva betyr dette?",options=["Konklusjonen gjelder foreløpig fordi alternative forklaringer ikke er sterkere.","Konklusjonen er endelig bevist.","Moteksempler er alltid irrelevante.","Det trengs ingen videre vurdering."],correct="Konklusjonen gjelder foreløpig fordi alternative forklaringer ikke er sterkere."),
-AssessmentQuestion(id="no-c2-016",skill="grammar",difficulty="C2",question="Velg den mest presise akademiske formuleringen.",options=["På bakgrunn av datagrunnlaget kan man ikke trekke en entydig konklusjon.","På bakgrunn datagrunnlaget kan man trekke konklusjon entydig.","På bakgrunn av datagrunnlaget kan man ikke trekke en konklusjon entydig uten.","På bakgrunn av datagrunnlaget trekke man ikke entydig konklusjon."],correct="På bakgrunn av datagrunnlaget kan man ikke trekke en entydig konklusjon.",grammar_slug="akademisk-formulering"),
-AssessmentQuestion(id="no-c2-017",skill="vocabulary",difficulty="C2",question="Hva betyr «forbehold» i en faglig tekst?",options=["en begrensning eller reservasjon som må tas i betraktning","en bekreftelse uten vilkår","en personlig hilsen","en transportform"],correct="en begrensning eller reservasjon som må tas i betraktning"),
-AssessmentQuestion(id="no-c2-018",skill="reading",difficulty="C2",question="Les: «Sammenhengen er statistisk tydelig, men den praktiske betydningen er mindre klar.» Hva er forskjellen?",options=["Statistisk sammenheng er tydelig, mens praktisk betydning er usikker.","Begge deler er helt sikre.","Det finnes ingen statistisk sammenheng.","Praktisk betydning er alltid større enn statistisk betydning."],"Statistisk sammenheng er tydelig, mens praktisk betydning er usikker."),
-AssessmentQuestion(id="no-c2-019",skill="grammar",difficulty="C2",question="Velg riktig kontrafaktisk formulering.",options=["Hadde vi hatt flere data, kunne vi ha vurdert hypotesen bedre.","Hadde vi ha flere data, kunne vi vurdert hypotesen bedre.","Hvis hadde vi flere data, kunne vi ha vurdert hypotesen bedre.","Hadde vi hatt flere data, kunne vi vurderer hypotesen bedre."],"Hadde vi hatt flere data, kunne vi ha vurdert hypotesen bedre.",grammar_slug="kontrafaktisk"),
-AssessmentQuestion(id="no-c2-020",skill="vocabulary",difficulty="C2",question="Hva betyr «forbeholden»?",options=["forsiktig og ikke helt entusiastisk i vurderingen","helt sikker og kategorisk","uformell og muntlig","uten forbindelse med saken"],correct="forsiktig og ikke helt entusiastisk i vurderingen"),
-AssessmentQuestion(id="no-c2-021",skill="reading",difficulty="C2",question="Les: «Påstanden kan forsvares, men bare dersom den sentrale antakelsen holder.» Hva er betingelsen?",options=["At den sentrale antakelsen holder.","At påstanden er kort.","At teksten er uformell.","At dataene er gamle."],"At den sentrale antakelsen holder."),
-AssessmentQuestion(id="no-c2-022",skill="grammar",difficulty="C2",question="Velg formuleringen som best unngår en kategorisk påstand.",options=["Funnene kan tyde på at effekten varierer mellom gruppene.","Funnene beviser at effekten alltid varierer.","Funnene viser uten unntak samme effekt.","Funnene gjør alternative forklaringer umulige."],"Funnene kan tyde på at effekten varierer mellom gruppene.",grammar_slug="epistemisk-modalisering"),
-AssessmentQuestion(id="no-c2-023",skill="vocabulary",difficulty="C2",question="Hva betyr «årsaksforhold»?",options=["forbindelsen mellom en årsak og en virkning","en tidsplan","en språklig variant","en økonomisk avtale"],correct="forbindelsen mellom en årsak og en virkning"),
-AssessmentQuestion(id="no-c2-024",skill="reading",difficulty="C2",question="Les: «Selv om analysen er grundig, bør resultatene ikke generaliseres til andre grupper uten videre.» Hva er hovedpoenget?",options=["Resultatene bør ikke uten videre overføres til andre grupper.","Analysen er verdiløs.","Andre grupper er identiske.","Generalisering er alltid umulig."],"Resultatene bør ikke uten videre overføres til andre grupper.")
+AssessmentQuestion("no-a1-005","grammar","A1","Velg riktig spørsmål.",["Hvor bor du?","Hvor du bor?","Bor hvor du?","Hvor bo?"],"Hvor bor du?"),
+AssessmentQuestion("no-a1-006","vocabulary","A1","Hva betyr «eple»?",["en frukt","et kjøretøy","en bygning","et møbel"],"en frukt"),
+AssessmentQuestion("no-a1-007","reading","A1","Les: «Per bor i Bergen.» Hvor bor Per?",["I Bergen.","I Oslo.","I Trondheim.","I Tromsø."],"I Bergen."),
+AssessmentQuestion("no-a1-008","grammar","A1","Velg riktig form.",["Hun har en bil.","Hun har et bil.","Hun ha en bil.","Hun har en biler."],"Hun har en bil."),
+AssessmentQuestion("no-a2-005","grammar","A2","Velg riktig preteritum.",["I går jobbet jeg hjemme.","I går jobber jeg hjemme.","I går jobbe jeg hjemme.","I går jobbet hjemme jeg."],"I går jobbet jeg hjemme."),
+AssessmentQuestion("no-a2-006","vocabulary","A2","Hva betyr «forsinkelse»?",["noe som kommer senere enn planlagt","en reservasjon","en adresse","en betaling"],"noe som kommer senere enn planlagt"),
+AssessmentQuestion("no-a2-007","reading","A2","Les: «Butikken stenger klokken seks.» Når stenger butikken?",["Klokken fem.","Klokken seks.","Klokken sju.","Klokken åtte."],"Klokken seks."),
+AssessmentQuestion("no-a2-008","grammar","A2","Velg riktig preposisjon.",["Jeg bor i Norge.","Jeg bor på Norge.","Jeg bor til Norge.","Jeg bor ved Norge."],"Jeg bor i Norge."),
+AssessmentQuestion("no-b1-005","grammar","B1","Velg riktig relativsetning.",["Dette er boken som jeg kjøpte.","Dette er boken som jeg kjøpt.","Dette er boken som kjøpte jeg.","Dette er boken jeg som kjøpte."],"Dette er boken som jeg kjøpte."),
+AssessmentQuestion("no-b1-006","vocabulary","B1","Hva betyr «utfordring»?",["noe som krever innsats","en belønning","en ferie","en adresse"],"noe som krever innsats"),
+AssessmentQuestion("no-b1-007","reading","B1","Les: «Møtet ble flyttet fordi lederen var syk.» Hvorfor ble møtet flyttet?",["Fordi lederen var syk.","Fordi kontoret var stengt.","Fordi toget var forsinket.","Fordi det var ferie."],"Fordi lederen var syk."),
+AssessmentQuestion("no-b1-008","grammar","B1","Velg riktig ordstilling.",["I går kjøpte jeg en ny datamaskin.","I går jeg kjøpte en ny datamaskin.","I går kjøpte en ny datamaskin jeg.","I går en ny datamaskin kjøpte jeg."],"I går kjøpte jeg en ny datamaskin."),
+AssessmentQuestion("no-b2-005","grammar","B2","Velg riktig leddsetning som uttrykker kontrast.",["Selv om det regnet, gikk vi en tur.","Selv om det regnet, vi gikk en tur.","Selv om regnet det, gikk vi en tur.","Selv om det regnet, vi en tur gikk."],"Selv om det regnet, gikk vi en tur."),
+AssessmentQuestion("no-b2-006","vocabulary","B2","Hva betyr «forutsi»?",["å si hva man tror vil skje","å forklare fortiden","å endre en regel","å avlyse en avtale"],"å si hva man tror vil skje"),
+AssessmentQuestion("no-b2-007","reading","B2","Les: «Resultatene viser en tydelig tendens, men bør tolkes med forsiktighet.» Hva anbefales?",["Forsiktig tolkning av resultatene.","Å ignorere resultatene.","Å endre alle resultatene.","Å avslutte undersøkelsen."],"Forsiktig tolkning av resultatene."),
+AssessmentQuestion("no-b2-008","grammar","B2","Velg riktig indirekte spørsmål.",["Jeg vet ikke når møtet begynner.","Jeg vet ikke når begynner møtet.","Jeg vet ikke når møtet begynner?","Jeg vet ikke møtet når begynner."],"Jeg vet ikke når møtet begynner."),
+AssessmentQuestion("no-c1-005","grammar","C1","Velg den mest presise akademiske formuleringen.",["Resultatene tyder på at effekten er begrenset.","Resultatene tyder at effekten er begrenset.","Resultatene tyder på effekten at er begrenset.","Resultatene tyder på at effekten begrenset."],"Resultatene tyder på at effekten er begrenset."),
+AssessmentQuestion("no-c1-006","vocabulary","C1","Hva betyr «vesentlig» i en akademisk tekst?",["betydningsfull eller viktig","tilfeldig","midlertidig","uformell"],"betydningsfull eller viktig"),
+AssessmentQuestion("no-c1-007","reading","C1","Les: «Korrelasjon alene beviser ikke en årsakssammenheng.» Hva beviser korrelasjon ikke?",["At det ene fenomenet forårsaker det andre.","At det finnes data.","At variablene henger sammen.","At en analyse er utført."],"At det ene fenomenet forårsaker det andre."),
+AssessmentQuestion("no-c1-008","grammar","C1","Velg riktig passivkonstruksjon.",["Undersøkelsen ble gjennomført i tre trinn.","Undersøkelsen ble gjennomføre i tre trinn.","Undersøkelsen gjennomført ble i tre trinn.","Undersøkelsen ble gjennomførte i tre trinn."],"Undersøkelsen ble gjennomført i tre trinn."),
+AssessmentQuestion("no-c2-005","grammar","C2","Hvilken formulering uttrykker akademisk forsiktighet?",["Det kan ikke utelukkes at andre faktorer spiller en rolle.","Andre faktorer spiller sikkert ingen rolle.","Det er bevist uten unntak at andre faktorer er irrelevante.","Andre faktorer trenger ikke å undersøkes."],"Det kan ikke utelukkes at andre faktorer spiller en rolle."),
+AssessmentQuestion("no-c2-006","vocabulary","C2","Hva betyr «tvetydig»?",["som kan forstås på mer enn én måte","som er helt entydig","som er svært kort","som er lett å måle"],"som kan forstås på mer enn én måte"),
+AssessmentQuestion("no-c2-007","reading","C2","Les: «Argumentet er overbevisende, forutsatt at den underliggende antakelsen holder.» Hva avhenger vurderingen av?",["At den underliggende antakelsen holder.","At argumentet er kort.","At teksten er uformell.","At dataene er gamle."],"At den underliggende antakelsen holder."),
+AssessmentQuestion("no-c2-008","grammar","C2","Velg den mest presise akademiske formuleringen.",["Resultatene tillater ikke en entydig generalisering uten flere data.","Resultatene tillater alltid generalisering uten data.","Resultatene tillater ikke å generalisere uten flere.","Resultatene tillater en sikker generalisering uten analyse."],"Resultatene tillater ikke en entydig generalisering uten flere data."),
+AssessmentQuestion("no-a1-005","grammar","A1","Velg riktig spørsmål.",["Hvor bor du?","Hvor du bor?","Bor hvor du?","Hvor bor?"],"Hvor bor du?","spørsmål"),
+AssessmentQuestion("no-a1-006","vocabulary","A1","Hva betyr «eple»?",["en frukt","et kjøretøy","en bygning","et møbel"],"en frukt"),
+AssessmentQuestion("no-a1-007","reading","A1","Les: «Erik bor i Bergen.» Hvor bor Erik?",["I Bergen.","I Oslo.","I Trondheim.","I Tromsø."],"I Bergen."),
+AssessmentQuestion("no-a1-008","grammar","A1","Velg riktig form.",["Hun har en bil.","Hun har et bil.","Hun ha en bil.","Hun har en biler."],"Hun har en bil.","en-et"),
+AssessmentQuestion("no-a2-005","grammar","A2","Velg riktig perfektum.",["Jeg har spist.","Jeg har spise.","Jeg har spiste.","Jeg spiser har."],"Jeg har spist.","perfektum"),
+AssessmentQuestion("no-a2-006","vocabulary","A2","Hva betyr «forsinkelse»?",["at noe kommer senere enn planlagt","en reservasjon","en adresse","en betaling"],"at noe kommer senere enn planlagt"),
+AssessmentQuestion("no-a2-007","reading","A2","Les: «Butikken stenger klokken seks.» Når stenger butikken?",["Klokken fem.","Klokken seks.","Klokken sju.","Klokken åtte."],"Klokken seks."),
+AssessmentQuestion("no-a2-008","grammar","A2","Velg riktig modalverb.",["Jeg må jobbe i morgen.","Jeg må jobber i morgen.","Jeg må jobbet i morgen.","Jeg må jobberte i morgen."],"Jeg må jobbe i morgen.","modalverb"),
+AssessmentQuestion("no-b1-005","grammar","B1","Velg riktig relativsetning.",["Dette er boken som jeg kjøpte.","Dette er boken som jeg kjøpt.","Dette er boken som kjøpte jeg.","Dette er boken som jeg kjøpte den."],"Dette er boken som jeg kjøpte.","relativsetning"),
+AssessmentQuestion("no-b1-006","vocabulary","B1","Hva betyr «utfordring»?",["noe som krever innsats","en belønning","en ferie","en adresse"],"noe som krever innsats"),
+AssessmentQuestion("no-b1-007","reading","B1","Les: «Møtet ble utsatt fordi direktøren var syk.» Hvorfor ble møtet utsatt?",["Fordi direktøren var syk.","Fordi kontoret var stengt.","Fordi toget var forsinket.","Fordi det var en helligdag."],"Fordi direktøren var syk."),
+AssessmentQuestion("no-b1-008","grammar","B1","Velg riktig ordstilling.",["I går kjøpte jeg en ny datamaskin.","I går jeg kjøpte en ny datamaskin.","I går kjøpte en ny datamaskin jeg.","I går en ny datamaskin kjøpte jeg."],"I går kjøpte jeg en ny datamaskin.","ordstilling"),
+AssessmentQuestion("no-b2-005","grammar","B2","Velg riktig innrømmende leddsetning.",["Selv om det regnet, gikk vi en tur.","Selv om det regnet, vi gikk en tur.","Selv om regnet det, gikk vi en tur.","Selv om det regnet, vi en tur gikk."],"Selv om det regnet, gikk vi en tur.","innrommende-leddsetning"),
+AssessmentQuestion("no-b2-006","vocabulary","B2","Hva betyr «forutsi»?",["å si hva man tror vil skje","å forklare noe fra fortiden","å endre en regel","å avlyse et møte"],"å si hva man tror vil skje"),
+AssessmentQuestion("no-b2-007","reading","B2","Les: «Resultatene viser en tydelig tendens, men de bør tolkes med forsiktighet.» Hva anbefales?",["Forsiktig tolkning av resultatene.","Å ignorere resultatene.","Å endre alle resultatene.","Å avslutte undersøkelsen."],"Forsiktig tolkning av resultatene."),
+AssessmentQuestion("no-b2-008","grammar","B2","Velg riktig indirekte spørsmål.",["Jeg vet ikke når møtet begynner.","Jeg vet ikke når begynner møtet.","Jeg vet ikke når møtet begynner?","Jeg vet ikke møtet når begynner."],"Jeg vet ikke når møtet begynner.","indirekte-spørsmål"),
+AssessmentQuestion("no-c1-005","grammar","C1","Velg den mest presise akademiske formuleringen.",["Resultatene tyder på at effekten er begrenset.","Resultatene tyder at effekten er begrenset.","Resultatene tyder på effekten at er begrenset.","Resultatene tyder på at effekten begrenset er."],"Resultatene tyder på at effekten er begrenset.","akademisk-språk"),
+AssessmentQuestion("no-c1-006","vocabulary","C1","Hva betyr «vesentlig» i en akademisk tekst?",["betydningsfull eller viktig","tilfeldig","midlertidig","uformell"],"betydningsfull eller viktig"),
+AssessmentQuestion("no-c1-007","reading","C1","Les: «Korrelasjon beviser ikke i seg selv en årsakssammenheng.» Hva beviser korrelasjon ikke?",["At det ene fenomenet forårsaker det andre.","At det finnes data.","At variablene henger sammen.","At en analyse er gjennomført."],"At det ene fenomenet forårsaker det andre."),
+AssessmentQuestion("no-c1-008","grammar","C1","Velg riktig passiv konstruksjon.",["Studien ble gjennomført i tre trinn.","Studien ble gjennomføre i tre trinn.","Studien gjennomført ble i tre trinn.","Studien ble gjennomført tre trinn."],"Studien ble gjennomført i tre trinn.","passiv"),
+AssessmentQuestion("no-c2-005","grammar","C2","Hvilken formulering uttrykker akademisk forsiktighet?",["Det kan ikke utelukkes at andre faktorer spiller en rolle.","Andre faktorer spiller sikkert ingen rolle.","Det er bevist uten unntak at andre faktorer er irrelevante.","Det er ingen grunn til å undersøke andre faktorer."],"Det kan ikke utelukkes at andre faktorer spiller en rolle.","epistemisk-modalisering"),
+AssessmentQuestion("no-c2-006","vocabulary","C2","Hva betyr «tvetydig»?",["som kan forstås på mer enn én måte","som er helt entydig","som er svært kort","som er lett å måle"],"som kan forstås på mer enn én måte"),
+AssessmentQuestion("no-c2-007","reading","C2","Les: «Argumentet er overbevisende, forutsatt at den underliggende antakelsen holder.» Hva avhenger vurderingen av?",["At den underliggende antakelsen holder.","At argumentet er kort.","At teksten er uformell.","At dataene er gamle."],"At den underliggende antakelsen holder."),
+AssessmentQuestion("no-c2-008","grammar","C2","Velg den mest presise akademiske formuleringen.",["Resultatene tillater ikke en entydig generalisering uten flere data.","Resultatene tillater alltid generalisering uten data.","Resultatene tillater ikke å generalisere uten flere.","Resultatene tillater en sikker generalisering uten analyse."],"Resultatene tillater ikke en entydig generalisering uten flere data.","akademisk-formulering")
 ]
