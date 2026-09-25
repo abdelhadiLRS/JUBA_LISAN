@@ -6386,3 +6386,52 @@ main [dir="rtl"] h3,
  .juba-dashboard-actions{display:grid;grid-template-columns:1fr;padding-top:15px}
  .juba-dashboard-actions a{width:100%;justify-content:center}
 }
+
+
+/* JUBA LISAN — dashboard contrast and responsive workspace correction */
+.juba-dashboard-header{
+  color:var(--juba-app-ink)!important;
+  background:linear-gradient(115deg,#fffdf7 0%,#f1f8e9 62%,#e6f2d8 100%)!important;
+  border:1px solid #d8e5cf!important;
+}
+.juba-dashboard-header .juba-dashboard-kicker{color:#53734b!important}
+.juba-dashboard-header h1,
+.juba-dashboard-header h2,
+.juba-dashboard-header p:not(.juba-dashboard-kicker){
+  color:var(--juba-app-ink)!important;
+}
+.juba-dashboard-header .text-white,
+.juba-dashboard-header .text-emerald-100\/80,
+.juba-dashboard-header .text-emerald-50\/80,
+.juba-dashboard-header .text-emerald-50\/75{
+  color:var(--juba-app-ink)!important;
+}
+.juba-dashboard-header::after{
+  background:radial-gradient(circle,rgba(255,212,79,.38) 0%,rgba(255,212,79,.08) 68%,transparent 70%);
+}
+.juba-dashboard .juba-dashboard-next{
+  position:relative;
+  border-radius:26px!important;
+  box-shadow:0 12px 32px rgba(24,37,27,.07)!important;
+}
+.juba-dashboard .juba-dashboard-stat{
+  min-height:160px;
+  border:1px solid #e2e8dc!important;
+  box-shadow:0 8px 24px rgba(31,54,36,.045)!important;
+}
+.juba-dashboard .juba-dashboard-stat-icon{
+  width:42px;height:42px;border-radius:14px;
+}
+.juba-dashboard .juba-dashboard-panel{
+  border:1px solid #e2e8dc!important;
+  background:rgba(255,253,248,.96)!important;
+}
+.juba-dashboard a:focus-visible,
+.juba-dashboard button:focus-visible{
+  outline:3px solid #8ab66e;
+  outline-offset:3px;
+}
+@media(max-width:700px){
+  .juba-dashboard-header{padding:1.25rem!important}
+  .juba-dashboard .juba-dashboard-stat{min-height:132px;padding:1rem!important}
+}
