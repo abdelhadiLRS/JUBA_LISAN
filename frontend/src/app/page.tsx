@@ -168,6 +168,8 @@ export default async function Home() {
 }
 .juba-reference-page .juba-ref-book{border-radius:22px;transform:rotate(-2deg)}
 .juba-reference-page .juba-ref-speech{border-radius:999px}
+.juba-reference-page .juba-pillar-image{display:block;width:min(210px,72%);height:auto;margin:0 auto 10px;transition:transform .22s ease;filter:drop-shadow(0 7px 0 rgba(24,48,34,.08))}
+.juba-reference-page .juba-ref-pillar:hover .juba-pillar-image{transform:translateY(-5px) rotate(-2deg) scale(1.03)}
 .juba-reference-page .juba-ref-pillar{border-radius:30px}
 .juba-reference-page .juba-ref-pillar:nth-child(1){transform:rotate(-1.1deg)}
 .juba-reference-page .juba-ref-pillar:nth-child(2){transform:translateY(9px) rotate(.7deg)}
@@ -333,6 +335,7 @@ export default async function Home() {
         </div>
         <div className="juba-ref-pillar-grid">
           <Link href="/reading" className="juba-ref-pillar pillar-mint">
+            <Image src="/landing/juba-reading.svg" alt="" width={210} height={150} className="juba-pillar-image" />
             <div className="pillar-icon"><BookOpen /></div>
             <span>{t('languagesEyebrow')}</span>
             <h3>{t('languagesHeadline')}</h3>
@@ -340,6 +343,7 @@ export default async function Home() {
             <ArrowRight />
           </Link>
           <Link href="/listening" className="juba-ref-pillar pillar-blue">
+            <Image src="/landing/juba-listening.svg" alt="" width={210} height={150} className="juba-pillar-image" />
             <div className="pillar-icon"><Headphones /></div>
             <span>{t('flowVoiceLabel')}</span>
             <h3>{t('flowVoiceTitle')}</h3>
@@ -347,6 +351,7 @@ export default async function Home() {
             <ArrowRight />
           </Link>
           <Link href="/chat" className="juba-ref-pillar pillar-yellow">
+            <Image src="/landing/juba-chat.svg" alt="" width={210} height={150} className="juba-pillar-image" />
             <div className="pillar-icon"><MessageCircle /></div>
             <span>{t('flowAiLabel')}</span>
             <h3>{t('flowAiTitle')}</h3>
