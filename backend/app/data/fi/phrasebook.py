@@ -1,6 +1,6 @@
 """Finnish phrasebook for practical communication from A1 to C2."""
 from app.data._types import PhrasebookCategory, PhrasebookEntry
-def _c(i,level,situation,phrases):
+def _c(i,situation,level,phrases):
     return PhrasebookCategory(id=i,level=level,situation=situation,icon="•",phrases=[PhrasebookEntry(text=t,context=c,register=r,unit_ref=i) for t,c,r in phrases])
 PHRASEBOOK_CATEGORIES=[
 _c("fi-a1-greetings","Tervehdykset ja esittely","A1",[("Hei!","greeting","neutral"),("Minun nimeni on Anna.","introducing yourself","neutral"),("Hauska tavata.","meeting someone","neutral")]),
