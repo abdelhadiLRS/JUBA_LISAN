@@ -525,7 +525,7 @@ export default function GamesPage() {
     const Constructor = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!Constructor) return
     const recognition = new Constructor()
-    const language = question.audio_language || question.language || 'en-GB'
+    const language = question.audio_language || 'en-GB'
     recognition.lang = language
     recognition.continuous = false
     recognition.interimResults = false
