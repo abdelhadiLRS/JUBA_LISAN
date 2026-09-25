@@ -21,6 +21,20 @@ import './games.css'
 
 type Lang = 'ar' | 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt' | 'pl' | 'nl' | 'ro' | 'ru'
 
+const speechCopy: Record<Lang, { label: string; start: string; stop: string; fallback: string; error: string; type: string }> = {
+  ar: { label: 'إجابة صوتية', start: 'تحدث للإجابة', stop: 'إيقاف التسجيل', fallback: 'الإجابة النصية متاحة لأن التعرف الصوتي غير مدعوم في هذا المتصفح.', error: 'تعذر الوصول إلى الميكروفون أو التعرف على الكلام. يمكنك الكتابة بدلًا من ذلك.', type: 'أو اكتب إجابتك' },
+  fr: { label: 'Réponse vocale', start: 'Répondre à l’oral', stop: 'Arrêter', fallback: 'La saisie texte est disponible car la reconnaissance vocale n’est pas prise en charge par ce navigateur.', error: 'Le microphone ou la reconnaissance vocale a échoué. Vous pouvez écrire votre réponse.', type: 'Ou écris ta réponse' },
+  en: { label: 'Voice response', start: 'Speak your answer', stop: 'Stop recording', fallback: 'Text input is available because speech recognition is not supported by this browser.', error: 'Microphone or speech recognition failed. You can type your answer instead.', type: 'Or type your answer' },
+  es: { label: 'Respuesta por voz', start: 'Responde hablando', stop: 'Detener grabación', fallback: 'Puedes escribir porque este navegador no admite el reconocimiento de voz.', error: 'No se pudo acceder al micrófono o reconocer el habla. Puedes escribir tu respuesta.', type: 'O escribe tu respuesta' },
+  de: { label: 'Sprachantwort', start: 'Antwort sprechen', stop: 'Aufnahme stoppen', fallback: 'Du kannst tippen, da dieser Browser keine Spracherkennung unterstützt.', error: 'Mikrofon oder Spracherkennung fehlgeschlagen. Du kannst stattdessen tippen.', type: 'Oder gib deine Antwort ein' },
+  it: { label: 'Risposta vocale', start: 'Rispondi a voce', stop: 'Interrompi registrazione', fallback: 'Puoi scrivere perché questo browser non supporta il riconoscimento vocale.', error: 'Microfono o riconoscimento vocale non riuscito. Puoi scrivere la risposta.', type: 'Oppure scrivi la risposta' },
+  pt: { label: 'Resposta por voz', start: 'Responda falando', stop: 'Parar gravação', fallback: 'Você pode digitar porque este navegador não oferece reconhecimento de voz.', error: 'Falha no microfone ou no reconhecimento de voz. Você pode digitar a resposta.', type: 'Ou digite sua resposta' },
+  pl: { label: 'Odpowiedź głosowa', start: 'Odpowiedz głosowo', stop: 'Zatrzymaj nagrywanie', fallback: 'Możesz pisać, ponieważ ta przeglądarka nie obsługuje rozpoznawania mowy.', error: 'Nie udało się użyć mikrofonu lub rozpoznać mowy. Możesz wpisać odpowiedź.', type: 'Lub wpisz odpowiedź' },
+  nl: { label: 'Gesproken antwoord', start: 'Spreek je antwoord in', stop: 'Opname stoppen', fallback: 'Je kunt typen omdat deze browser geen spraakherkenning ondersteunt.', error: 'Microfoon of spraakherkenning mislukt. Je kunt je antwoord typen.', type: 'Of typ je antwoord' },
+  ro: { label: 'Răspuns vocal', start: 'Răspunde vocal', stop: 'Oprește înregistrarea', fallback: 'Poți scrie deoarece acest browser nu acceptă recunoașterea vocală.', error: 'Microfonul sau recunoașterea vocală nu a funcționat. Poți scrie răspunsul.', type: 'Sau scrie răspunsul' },
+  ru: { label: 'Голосовой ответ', start: 'Ответить голосом', stop: 'Остановить запись', fallback: 'Можно ввести ответ: этот браузер не поддерживает распознавание речи.', error: 'Не удалось использовать микрофон или распознать речь. Можно написать ответ.', type: 'Или введите ответ' },
+}
+
 type SpeechRecognitionResultEventLike = Event & {
   results: ArrayLike<ArrayLike<{ transcript: string }>>
 }
@@ -842,7 +856,7 @@ export default function GamesPage() {
                 {question.input_mode === 'text' ? (
                   <>
                     {question.skill === 'speaking' && (
-                      <div className="speaking-controls" aria-label={lang === 'ar' ? 'إجابة صوتية' : lang === 'fr' ? 'Réponse vocale' : 'Voice response'}>
+                      <div className="speaking-controls" aria-label={speechCopy[lang].label}>
                         {speechSupported ? (
                           <button
                             type="button"
@@ -856,15 +870,15 @@ export default function GamesPage() {
                               : (lang === 'ar' ? 'تحدث للإجابة' : lang === 'fr' ? 'Répondre à l’oral' : 'Speak your answer')}
                           </button>
                         ) : (
-                          <small>{lang === 'ar' ? 'الإجابة النصية متاحة لأن التعرف الصوتي غير مدعوم في هذا المتصفح.' : lang === 'fr' ? 'La saisie texte est disponible car la reconnaissance vocale n’est pas prise en charge par ce navigateur.' : 'Text input is available because speech recognition is not supported by this browser.'}</small>
+                          <small>{speechCopy[lang].fallback}</small>
                         )}
                         {speechError && (
-                          <small role="alert">{lang === 'ar' ? 'تعذر الوصول إلى الميكروفون أو التعرف على الكلام. يمكنك الكتابة بدلًا من ذلك.' : lang === 'fr' ? 'Le microphone ou la reconnaissance vocale a échoué. Vous pouvez écrire votre réponse.' : 'Microphone or speech recognition failed. You can type your answer instead.'}</small>
+                          <small role="alert">{speechCopy[lang].error}</small>
                         )}
                       </div>
                     )}
                     <form className="spelling-form" onSubmit={(event) => { event.preventDefault(); submitTextAnswer() }}>
-                      <input value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder={question.skill === 'speaking' ? (lang === 'ar' ? 'أو اكتب إجابتك' : lang === 'fr' ? 'Ou écris ta réponse' : 'Or type your answer') : (lang === 'ar' ? 'اكتب الإجابة' : lang === 'fr' ? 'Écris ta réponse' : 'Type your answer')} autoComplete="off" disabled={Boolean(selected) || speechListening} />
+                      <input value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder={question.skill === 'speaking' ? speechCopy[lang].type : (lang === 'ar' ? 'اكتب الإجابة' : lang === 'fr' ? 'Écris ta réponse' : 'Type your answer')} autoComplete="off" disabled={Boolean(selected) || speechListening} />
                       <button type="submit" className="next" disabled={Boolean(selected) || speechListening || !inputValue.trim()}>{gameFeedback.check}</button>
                     </form>
                   </>
