@@ -18,7 +18,7 @@ const FAQ_KEYS = [
   'q_reading',
 ]
 
-export function LandingFAQ() {
+export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   const t = useTranslations('faq')
   const [open, setOpen] = useState<number | null>(null)
 
@@ -71,7 +71,7 @@ export function LandingFAQ() {
   }
 
   return (
-    <div className="juba-ff-faq overflow-hidden p-0">
+    <div dir={dir} className="juba-ff-faq overflow-hidden p-0">
       {FAQ_KEYS.map((key, i) => (
         <div
           key={key}
@@ -81,7 +81,7 @@ export function LandingFAQ() {
             type="button"
             onClick={() => setOpen(open === i ? null : i)}
             aria-expanded={open === i}
-            className="juba-ff-faq-question flex w-full items-center justify-between px-5 py-4 text-left text-sm transition-colors"
+            className="juba-ff-faq-question flex w-full items-center justify-between px-5 py-4 text-start text-sm transition-colors"
           >
             <span className="juba-ff-faq-question-label pr-4 font-medium">{t(key)}</span>
             <span className="juba-ff-faq-toggle flex size-7 shrink-0 items-center justify-center rounded-full text-sm font-medium">
