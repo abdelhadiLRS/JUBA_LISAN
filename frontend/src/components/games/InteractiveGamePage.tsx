@@ -19,6 +19,7 @@ export function InteractiveGamePage({ mode }: { mode: Mode }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [difficulty, setDifficulty] = useState(1)
+  const [review, setReview] = useState(false)
   const setProgress = useProgressStore((state) => state.setProgress)
 
   useEffect(() => {
@@ -26,17 +27,18 @@ export function InteractiveGamePage({ mode }: { mode: Mode }) {
     if (value === 'ar' || value === 'fr' || value === 'en' || value === 'es' || value === 'de' || value === 'it' || value === 'pt' || value === 'ja' || value === 'ko' || value === 'zh') setLang(value)
     const rawDifficulty = Number(searchParams.get('difficulty'))
     if (Number.isInteger(rawDifficulty) && rawDifficulty >= 1 && rawDifficulty <= 3) setDifficulty(rawDifficulty)
+    setReview(searchParams.get('review') === 'true')
   }, [searchParams])
 
   useEffect(() => {
     let cancelled = false
     setLoading(true); setError(false); setSessionId(null); setDailyChallenge(false); setDailyChallengeDate(''); setChallenge(undefined)
-    void startGameSession(mode as GameId, lang, difficulty).then((session) => {
+    void startGameSession(mode as GameId, lang, difficulty, review).then((session) => {
       if (cancelled) return
       setSessionId(session.session_id); setDailyChallenge(session.daily_challenge); setDailyChallengeDate(session.daily_challenge_date); setChallenge(session.interaction); setLoading(false)
     }).catch(() => { if (!cancelled) { setLoading(false); setError(true) } })
     return () => { cancelled = true }
-  }, [mode, lang, difficulty])
+  }, [mode, lang, difficulty, review])
 
   async function complete(trace: InteractiveGameTrace[]) {
     if (!sessionId) return false
