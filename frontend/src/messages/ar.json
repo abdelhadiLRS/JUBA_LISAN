@@ -608,6 +608,18 @@
     "lessonProgress": "تقدم الدرس",
     "lessonLabel": "درس",
     "lessonFlowHint": "أكمل التمرين الحالي ثم تابع إلى التالي.",
-    "dailyGoalComplete": "اكتمل هدف اليوم!"
+    "dailyGoalComplete": "اكتمل هدف اليوم!",
+    "masteryReview": "مراجعة الإتقان",
+    "masteryReviewReady": "أنت جاهز لمراجعة نقاط الإتقان التي تحتاج إلى تعزيز.",
+    "masteryReviewAction": "ابدأ مراجعة الإتقان",
+    "masteryStruggling": "يحتاج إلى دعم",
+    "masteryUnseen": "غير مُراجع بعد",
+    "masteryLearning": "قيد التعلّم",
+    "masteryOverview": "نظرة عامة على الإتقان",
+    "masteryCoverage": "تغطية الإتقان",
+    "masteryAttemptRate": "معدل المحاولات",
+    "masteryRate": "معدل الإتقان",
+    "masteryAttempted": "تمت محاولته",
+    "mastered": "متقن"
   }
 }
