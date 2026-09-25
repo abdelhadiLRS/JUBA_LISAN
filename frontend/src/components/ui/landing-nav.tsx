@@ -132,17 +132,8 @@ export function LandingNav({
         'America/Argentina/Buenos_Aires': 'AR',
       }
 
-      let detected = timezoneCountries[timezone] ?? (browserRegion && countryLabels[browserRegion] ? browserRegion : undefined)
-
-      // Time zone is the primary signal. If it is ambiguous/unknown,
-      // use the browser locale's region as a secondary hint.
-      if (!detected) {
-        const language = navigator.language || ''
-        const region = language.match(/[-_]([A-Za-z]{2}|\d{3})$/)?.[1]?.toUpperCase()
-        if (region && countryLabels[region]) detected = region
-      }
-
-      setVisitorCountry(detected ?? 'DZ')
+      // Do not infer a country from the UI locale (e.g. en-NG).
+      setVisitorCountry(timezoneCountries[timezone] ?? 'DZ')
     } catch {
       setVisitorCountry('DZ')
     }
@@ -150,6 +141,7 @@ export function LandingNav({
 
 
   const currentCountry = countryLabels[visitorCountry] ?? countryLabels.DZ
+  const countryFlag = (code: string) => code.toUpperCase().replace(/[A-Z]/g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
   const localeLinks = (Object.entries(languageLabels) as Array<[Locale, { native: string;  }]>).map(([code, language]) => ({ code, ...language }))
 
   useEffect(() => {
@@ -209,11 +201,11 @@ export function LandingNav({
         <div className="hidden items-center gap-3 md:flex">
           <div className="relative">
             <button type="button" onClick={() => setRegionOpen((value) => !value)} aria-expanded={regionOpen} aria-haspopup="menu" aria-label="Click here to change the region or language" className="juba-nav-region flex items-center gap-2 rounded-full border border-[var(--juba-app-line)] bg-white/80 px-3 py-2 text-xs font-bold text-[var(--juba-app-ink)] backdrop-blur transition hover:-translate-y-0.5 hover:shadow-sm">
-              <span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span><span className="text-base font-black capitalize">{locale}</span><ChevronDown className="h-3 w-3" aria-hidden="true" />
+              <span className="text-base" aria-hidden="true">{countryFlag(visitorCountry)}</span><span className="text-base" aria-hidden="true">{countryFlag(visitorCountry)}</span><span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span><span className="text-base font-black uppercase">{locale}</span><ChevronDown className="h-3 w-3" aria-hidden="true" />
             </button>
             {regionOpen && <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-50 w-72 rounded-2xl border border-[var(--juba-app-line)] bg-white p-3 shadow-xl">
               <div className="mb-2 flex items-center gap-2 px-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><Globe2 className="h-3.5 w-3.5" /> Region & language</div>
-              <div className="rounded-xl bg-[var(--juba-app-green-soft)] px-3 py-2.5"><div className="text-[10px] font-bold text-[var(--juba-app-muted)]">Visitor region</div><div className="mt-0.5 flex items-center gap-2 font-black text-[var(--juba-app-ink)]"><span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span><span>{currentCountry.name}</span></div></div>
+              <div className="rounded-xl bg-[var(--juba-app-green-soft)] px-3 py-2.5"><div className="text-[10px] font-bold text-[var(--juba-app-muted)]">Visitor region</div><div className="mt-0.5 flex items-center gap-2 font-black text-[var(--juba-app-ink)]"><span className="text-lg" aria-hidden="true">{countryFlag(visitorCountry)}</span><span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span><span>{currentCountry.name}</span></div></div>
               <div className="mt-3 border-t border-[var(--juba-app-line)] pt-3">
                 <div className="px-2 text-[10px] font-bold text-[var(--juba-app-muted)]">Interface language</div>
                 <div className="mt-1 grid max-h-56 grid-cols-2 gap-1 overflow-auto">
