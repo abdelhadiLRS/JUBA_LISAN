@@ -12,7 +12,6 @@ import {
   gameLanguageForTargetLanguage,
   type GameSessionQuestion,
   type GameId,
-  type GameLanguage,
 } from '@/lib/games/persist'
 import { useProgressStore } from '@/store/progress'
 import './games.css'
