@@ -1431,12 +1431,6 @@ async def _get_recent_game_mistakes(
                 replay["review_count"] = int(item.get("review_count", 0))
                 replay["review_streak"] = int(item.get("review_streak", 0))
                 replay["review_stage"] = _review_stage(int(item.get("review_streak", 0)))
-                replay["mastery_score"] = float(mastery["score"])
-                replay["review_difficulty"] = _review_adaptive_difficulty(
-                    int(question.get("difficulty", 1)),
-                    int(item.get("review_streak", 0)),
-                    float(mastery["score"]),
-                )
                 replay["variant_seed"] = _review_variant_seed(
                     question, int(item.get("review_streak", 0))
                 )
@@ -1464,6 +1458,14 @@ async def _get_recent_game_mistakes(
         question["mastery_state"] = str(mastery["state"])
         question["mastery_misses"] = int(mastery["misses"])
         question["mastery_resolutions"] = int(mastery["resolutions"])
+        question["review_difficulty"] = _review_adaptive_difficulty(
+            int(question.get("difficulty", 1)),
+            int(question.get("review_streak", 0)),
+            float(mastery["score"]),
+        )
+        question["variant_seed"] = _review_variant_seed(
+            question, int(question.get("review_streak", 0))
+        )
         ranked_candidates.append((float(mastery["score"]), due_at, question))
     ranked_candidates.sort(key=lambda item: (item[0], item[1]))
     # Mastered items are intentionally suppressed from normal review when
