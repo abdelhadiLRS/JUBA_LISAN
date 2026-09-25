@@ -2014,12 +2014,34 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
         replay["choices"] = []
 
     if skill == "speaking" and mechanic == "open_response":
-        # Keep the target authored and verifiable while changing the mechanic
-        # from choice-based recognition to learner production. Never expose the
-        # authoritative answer in the prompt itself.
+        # Turn speaking review into guided production without revealing the
+        # canonical sentence. Accept authored alternatives for the same lexical
+        # target so speech practice is not rejected simply because another
+        # curriculum example is the expected form.
         target = str(replay.get("answer", "")).strip()
         word = str(replay.get("word", "")).strip()
-        if target:
+        authored_examples: list[str] = []
+        definition = ""
+        if word:
+            try:
+                vocabulary_sets = get_vocabulary_by_level(
+                    cast(CEFRLevel, replay.get("cefr_level", "A1")),
+                    str(replay.get("target_language", "en-GB")),
+                )
+                for vocab_set in vocabulary_sets:
+                    for entry in vocab_set.words:
+                        if entry.word.strip().casefold() == word.casefold():
+                            if entry.example.strip() and entry.example.strip() not in authored_examples:
+                                authored_examples.append(entry.example.strip())
+                            if not definition:
+                                definition = entry.definition.strip()
+            except (KeyError, TypeError, ValueError):
+                pass
+
+        accepted = list(dict.fromkeys([target, *authored_examples]))
+        accepted = [value for value in accepted if value]
+        if accepted:
+            replay["answer"] = accepted if len(accepted) > 1 else accepted[0]
             replay["prompt"] = (
                 f"Respond naturally using '{word}'."
                 if language == "en"
@@ -2028,11 +2050,19 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
                 else f"أجب بشكل طبيعي مستخدمًا «{word}»."
             )
             replay["hint"] = (
-                "Use a complete natural sentence."
-                if language == "en"
-                else "Utilise une phrase naturelle et complète."
-                if language == "fr"
-                else "استخدم جملة طبيعية وكاملة."
+                f"Use a complete sentence. Context: {definition}"
+                if language == "en" and definition
+                else f"Utilise une phrase complète. Contexte : {definition}"
+                if language == "fr" and definition
+                else f"استخدم جملة كاملة. السياق: {definition}"
+                if language == "ar" and definition
+                else (
+                    "Use a complete natural sentence."
+                    if language == "en"
+                    else "Utilise une phrase naturelle et complète."
+                    if language == "fr"
+                    else "استخدم جملة طبيعية وكاملة."
+                )
             )
             replay["input_mode"] = "text"
             replay["choices"] = []
