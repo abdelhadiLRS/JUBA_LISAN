@@ -2595,7 +2595,13 @@ async def complete_game_session(
                 pair_attempts = [a for a in data.interaction_trace if str(solution.get("pairs", {}).get(str(a.get("first")), "")) == str(pair_id) or str(solution.get("pairs", {}).get(str(a.get("second")), "")) == str(pair_id)]
                 if any(solution.get("pairs", {}).get(a.get("first")) != solution.get("pairs", {}).get(a.get("second")) for a in pair_attempts):
                     question = {"skill": "memory", "topic": item.get("topic", "vocabulary"), "prompt": item.get("word", ""), "answer": item.get("definition", ""), "input_mode": "choice", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
-                    mistakes.append({"review_key": str(item.get("review_key") or _review_key(question)), "review_count": 1, "next_review_at": (now + _review_interval(1)).isoformat(), "question": question})
+                    mistakes.append({
+                        "review_key": str(item.get("review_key") or _review_key(question)),
+                        "review_count": int(item.get("review_count", 0)) + 1,
+                        "review_streak": 0,
+                        "next_review_at": (now + _review_interval(0)).isoformat(),
+                        "question": question,
+                    })
             for item in solution.get("review_items", {}).values():
                 if item.get("review_key"):
                     question = {
@@ -2642,7 +2648,13 @@ async def complete_game_session(
                     item = solution.get("review_items", {}).get(str(pair_index))
                     if item:
                         question = {"skill": "vocabulary", "topic": item.get("topic", "vocabulary"), "prompt": item.get("word", ""), "answer": item.get("definition", ""), "input_mode": "choice", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
-                        mistakes.append({"review_key": str(item.get("review_key") or _review_key(question)), "review_count": 1, "next_review_at": (now + _review_interval(1)).isoformat(), "question": question})
+                        mistakes.append({
+                            "review_key": str(item.get("review_key") or _review_key(question)),
+                            "review_count": int(item.get("review_count", 0)) + 1,
+                            "review_streak": 0,
+                            "next_review_at": (now + _review_interval(0)).isoformat(),
+                            "question": question,
+                        })
                         break
             for item in solution.get("review_items", {}).values():
                 if item.get("review_key"):
@@ -2687,7 +2699,13 @@ async def complete_game_session(
                 item = solution.get("review_items", {}).get("sentence")
                 if item:
                     question = {"skill": "grammar", "topic": item.get("topic", "grammar"), "prompt": item.get("sentence", ""), "answer": item.get("sentence", ""), "input_mode": "text", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
-                    mistakes.append({"review_key": str(item.get("review_key") or _review_key(question)), "review_count": 1, "next_review_at": (now + _review_interval(1)).isoformat(), "question": question})
+                    mistakes.append({
+                        "review_key": str(item.get("review_key") or _review_key(question)),
+                        "review_count": int(item.get("review_count", 0)) + 1,
+                        "review_streak": 0,
+                        "next_review_at": (now + _review_interval(0)).isoformat(),
+                        "question": question,
+                    })
             if review_item and review_item.get("review_key"):
                 question = {
                     "skill": "grammar",
