@@ -36,6 +36,7 @@ GAME_SKILL_MAP = {
     "math": "math",
     "words": "vocabulary",
     "quick_choice": "vocabulary",
+    "context_quest": "speaking",
     "listen_choose": "listening",
     "spelling": "writing",
     "word_scramble": "vocabulary",
@@ -56,6 +57,7 @@ DAILY_GAME_IDS = (
     "word_scramble",
     "fill_blank",
     "memory",
+    "context_quest",
 )
 
 
@@ -578,6 +580,49 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                 "skill": "vocabulary",
                 "difficulty": difficulty,
                 "topic": "vocabulary",
+                "input_mode": "choice",
+            })
+            continue
+        if game_id == "context_quest":
+            scenarios = {
+                "en": [
+                    ("You are at a café. The waiter asks: 'What would you like?'", "I'd like a coffee, please.", ["I'd like a coffee, please.", "Yesterday was sunny.", "My brother is tall.", "I studied French."]),
+                    ("You meet someone for the first time. What is a natural response to 'Nice to meet you?'", "Nice to meet you too.", ["Nice to meet you too.", "Turn left at the bank.", "I need a ticket.", "It is three o'clock."]),
+                    ("You did not hear someone clearly. What should you say?", "Could you say that again, please?", ["Could you say that again, please?", "I am twenty years old.", "The train is blue.", "I bought two books."]),
+                    ("You want to ask for directions politely. Which sentence fits?", "Could you tell me how to get to the station?", ["Could you tell me how to get to the station?", "I usually wake up at seven.", "This soup is delicious.", "She has two sisters."]),
+                    ("A friend invites you to dinner, but you cannot go. What is a polite reply?", "Thanks for inviting me, but I can't make it.", ["Thanks for inviting me, but I can't make it.", "Where is the nearest pharmacy?", "I am reading a novel.", "The lesson starts tomorrow."]),
+                ],
+                "fr": [
+                    ("Au café, le serveur demande : « Qu'est-ce que vous désirez ? »", "Je voudrais un café, s'il vous plaît.", ["Je voudrais un café, s'il vous plaît.", "Il fait beau hier.", "Mon frère est grand.", "J'étudie demain."]),
+                    ("Vous rencontrez quelqu'un pour la première fois. Que répondez-vous à « Enchanté(e) » ?", "Enchanté(e), moi aussi.", ["Enchanté(e), moi aussi.", "Tournez à gauche.", "Il est trois heures.", "J'ai deux livres."]),
+                    ("Vous n'avez pas bien entendu. Que dites-vous ?", "Pourriez-vous répéter, s'il vous plaît ?", ["Pourriez-vous répéter, s'il vous plaît ?", "Je me lève à sept heures.", "La gare est bleue.", "J'aime ce film."]),
+                    ("Vous cherchez la gare. Quelle demande est polie ?", "Pourriez-vous me dire comment aller à la gare ?", ["Pourriez-vous me dire comment aller à la gare ?", "Je lis un roman.", "Il pleut souvent.", "Elle a deux sœurs."]),
+                    ("Un ami vous invite à dîner, mais vous ne pouvez pas venir. Que dites-vous ?", "Merci pour l'invitation, mais je ne peux pas venir.", ["Merci pour l'invitation, mais je ne peux pas venir.", "Où est la pharmacie ?", "Je prends le bus.", "Le cours commence demain."]),
+                ],
+                "ar": [
+                    ("أنت في مقهى. يسألك النادل: «ماذا تريد؟» ما الرد الطبيعي؟", "أريد قهوة من فضلك.", ["أريد قهوة من فضلك.", "كان الجو مشمسًا أمس.", "أخي طويل.", "درست الفرنسية."]),
+                    ("تلتقي بشخص لأول مرة ويقول: «سعيد بلقائك». ماذا تقول؟", "وأنا سعيد بلقائك أيضًا.", ["وأنا سعيد بلقائك أيضًا.", "انعطف يسارًا.", "الساعة الثالثة.", "لدي كتابان."]),
+                    ("لم تسمع الشخص جيدًا. ماذا تقول بأدب؟", "هل يمكنك أن تعيد ما قلت من فضلك؟", ["هل يمكنك أن تعيد ما قلت من فضلك؟", "أستيقظ في السابعة.", "القطار أزرق.", "اشتريت كتابين."]),
+                    ("تريد السؤال عن الاتجاهات بأدب. ماذا تقول؟", "هل يمكنك أن تخبرني كيف أصل إلى المحطة؟", ["هل يمكنك أن تخبرني كيف أصل إلى المحطة؟", "أقرأ رواية.", "الجو بارد.", "لدي أختان."]),
+                    ("دعاك صديق إلى العشاء ولا تستطيع الذهاب. ما الرد المناسب؟", "شكرًا على الدعوة، لكن لا أستطيع الحضور.", ["شكرًا على الدعوة، لكن لا أستطيع الحضور.", "أين أقرب صيدلية؟", "أركب الحافلة.", "يبدأ الدرس غدًا."]),
+                ],
+            }[language]
+            prompt, answer, choices = scenarios[index]
+            rng.shuffle(choices)
+            questions.append({
+                "id": question_id,
+                "prompt": prompt,
+                "choices": choices,
+                "answer": answer,
+                "hint": (
+                    "Choose the response that fits the situation naturally."
+                    if language == "en"
+                    else ("Choisis la réponse qui convient naturellement à la situation."
+                          if language == "fr" else "اختر الرد الذي يناسب الموقف بشكل طبيعي.")
+                ),
+                "skill": "speaking",
+                "difficulty": difficulty,
+                "topic": "context-and-pragmatics",
                 "input_mode": "choice",
             })
             continue
