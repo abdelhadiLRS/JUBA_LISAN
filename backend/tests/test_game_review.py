@@ -1025,3 +1025,48 @@ async def test_adaptive_game_mode_marks_strong_skill_as_skill_challenge(
 
     assert difficulty == 3
     assert mode == "skill_challenge"
+
+def test_skill_review_variant_preserves_learning_target_across_skills():
+    cases = [
+        ("vocabulary", "en-US", "What does 'water' mean?", "water"),
+        ("grammar", "en-US", "Choose the correct form:\nShe go home.", "went"),
+        ("listening", "en-US", "Listen and choose the word you hear.", "water"),
+        ("writing", "en-US", "Translate into the target language:\nBonjour", "Hello"),
+        ("speaking", "en-US", "Which sentence best uses 'water'?", "I need water."),
+    ]
+
+    for skill, target_language, prompt, answer in cases:
+        question = {
+            "skill": skill,
+            "target_language": target_language,
+            "prompt": prompt,
+            "answer": answer,
+            "input_mode": "choice" if skill not in {"writing"} else "text",
+            "topic": "test-topic",
+        }
+        variant = progress_router._apply_skill_review_variant(question, 7)
+        assert variant["answer"] == answer
+        assert variant["skill"] == skill
+        assert variant["topic"] == "test-topic"
+        assert variant["prompt"] != prompt
+        assert variant["variant"].startswith("surface-")
+
+
+def test_skill_review_variant_is_deterministic_and_cycles_surface_templates():
+    question = {
+        "skill": "writing",
+        "target_language": "fr-FR",
+        "prompt": "Traduis dans la langue cible :\nHello",
+        "answer": "Bonjour",
+        "input_mode": "text",
+        "topic": "greetings",
+    }
+
+    first = progress_router._apply_skill_review_variant(question, 3)
+    same = progress_router._apply_skill_review_variant(question, 3)
+    later = progress_router._apply_skill_review_variant(question, 4)
+
+    assert first == same
+    assert first["answer"] == later["answer"] == "Bonjour"
+    assert first["topic"] == later["topic"] == "greetings"
+    assert first["prompt"] != later["prompt"]
