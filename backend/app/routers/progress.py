@@ -2616,6 +2616,11 @@ async def answer_game_session_question(
     # same server-side identity while adapting the item for the next attempt.
     if not correct:
         miss_count = sum(1 for attempt in attempts if not bool(attempt.get("correct")))
+        stable_review_key = str(
+            current.get("review_identity")
+            or current.get("review_key")
+            or _review_key(current)
+        )
         retry_difficulty = max(
             1,
             int(current.get("difficulty", session.difficulty)) - (1 if miss_count >= 2 else 0),
@@ -2651,6 +2656,7 @@ async def answer_game_session_question(
         current["_attempts"] = attempts
         current["_answered"] = False
         current["_served"] = True
+        current["review_identity"] = stable_review_key
         current["retry_stage"] = _review_retry_stage(miss_count)
         questions[index] = current
         session.questions = questions
