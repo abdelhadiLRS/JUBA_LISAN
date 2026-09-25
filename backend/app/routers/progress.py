@@ -2670,7 +2670,24 @@ async def next_game_session_question(
     next_question = None
     adaptive_mode = "steady"
 
-    if answered < total:
+    if session.game_id == "review_mix":
+        remaining = [
+            item for item in stored_questions
+            if not item.get("_answered") and not item.get("_served")
+        ]
+        if remaining:
+            next_question = dict(remaining[0])
+            next_question["_served"] = True
+            current_skill = str(current.get("skill") or "")
+            adaptive_mode = (
+                "skill_review"
+                if not correct and str(next_question.get("skill")) == current_skill
+                else "challenge"
+                if correct and int(next_question.get("difficulty", session.difficulty)) > int(current.get("difficulty", session.difficulty))
+                else "steady"
+            )
+
+    if answered < total and next_question is None:
         current_skill = str(current.get("skill") or GAME_SKILL_MAP.get(session.game_id) or "")
         current_topic = str(current.get("topic") or "")
         current_difficulty = int(current.get("difficulty", session.difficulty))
