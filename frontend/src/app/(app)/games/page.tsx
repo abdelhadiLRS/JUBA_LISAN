@@ -19,6 +19,29 @@ import { useProgressStore } from '@/store/progress'
 import './games.css'
 
 type Lang = 'ar' | 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt' | 'pl' | 'nl' | 'ro' | 'ru'
+
+type SpeechRecognitionResultEventLike = Event & {
+  results: ArrayLike<ArrayLike<{ transcript: string }>>
+}
+type SpeechRecognitionInstance = {
+  lang: string
+  continuous: boolean
+  interimResults: boolean
+  start: () => void
+  stop: () => void
+  abort: () => void
+  onresult: ((event: SpeechRecognitionResultEventLike) => void) | null
+  onerror: (() => void) | null
+  onend: (() => void) | null
+}
+type SpeechRecognitionConstructor = new () => SpeechRecognitionInstance
+
+declare global {
+  interface Window {
+    SpeechRecognition?: SpeechRecognitionConstructor
+    webkitSpeechRecognition?: SpeechRecognitionConstructor
+  }
+}
 function getLocalDateKey() {
   const now = new Date()
   const year = now.getFullYear()
@@ -302,6 +325,23 @@ export default function GamesPage() {
   }
 
   useEffect(() => {
+    const supported = typeof window !== 'undefined' && Boolean(window.SpeechRecognition || window.webkitSpeechRecognition)
+    setSpeechSupported(supported)
+    return () => {
+      speechRecognitionRef.current?.abort()
+      speechRecognitionRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    if (question?.skill !== 'speaking' || !game) {
+      speechRecognitionRef.current?.abort()
+      speechRecognitionRef.current = null
+      setSpeechListening(false)
+    }
+  }, [question, game])
+
+  useEffect(() => {
     void refreshSmartReview()
   }, [])
 
@@ -345,6 +385,9 @@ export default function GamesPage() {
   )
 
   const [gameError, setGameError] = useState<string | null>(null)
+  const [speechListening, setSpeechListening] = useState(false)
+  const [speechSupported, setSpeechSupported] = useState(false)
+  const speechRecognitionRef = useRef<SpeechRecognitionInstance | null>(null)
 
   async function startGame(id: GameId, daily = false, review = false) {
     if (daily && dailyCompletedToday) return
@@ -475,6 +518,41 @@ export default function GamesPage() {
   function submitTextAnswer() {
     if (!inputValue.trim()) return
     void answer(inputValue.trim())
+  }
+
+  function startSpeechInput() {
+    if (!question || question.skill !== 'speaking' || !speechSupported || speechListening || selected) return
+    const Constructor = window.SpeechRecognition || window.webkitSpeechRecognition
+    if (!Constructor) return
+    const recognition = new Constructor()
+    const language = question.audio_language || question.language || 'en-GB'
+    recognition.lang = language
+    recognition.continuous = false
+    recognition.interimResults = false
+    recognition.onresult = (event) => {
+      const transcript = Array.from(event.results)
+        .map((result) => result[0]?.transcript || '')
+        .join(' ')
+        .trim()
+      if (transcript) setInputValue(transcript)
+    }
+    recognition.onerror = () => setSpeechListening(false)
+    recognition.onend = () => {
+      setSpeechListening(false)
+      speechRecognitionRef.current = null
+    }
+    speechRecognitionRef.current = recognition
+    setSpeechListening(true)
+    try {
+      recognition.start()
+    } catch {
+      setSpeechListening(false)
+      speechRecognitionRef.current = null
+    }
+  }
+
+  function stopSpeechInput() {
+    speechRecognitionRef.current?.stop()
   }
 
   useEffect(() => {
@@ -740,10 +818,31 @@ export default function GamesPage() {
                   <button type="button" className="audio-play" onClick={playAudio}>🎧 {lang === 'ar' ? 'تشغيل الصوت' : lang === 'fr' ? 'Écouter' : 'Play audio'}</button>
                 )}
                 {question.input_mode === 'text' ? (
-                  <form className="spelling-form" onSubmit={(event) => { event.preventDefault(); submitTextAnswer() }}>
-                    <input value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder={lang === 'ar' ? 'اكتب الإجابة' : lang === 'fr' ? 'Écris ta réponse' : 'Type your answer'} autoComplete="off" disabled={Boolean(selected)} />
-                    <button type="submit" className="next" disabled={Boolean(selected) || !inputValue.trim()}>{lang === 'ar' ? 'تحقق' : lang === 'fr' ? 'Vérifier' : 'Check'}</button>
-                  </form>
+                  <>
+                    {question.skill === 'speaking' && (
+                      <div className="speaking-controls" aria-label={lang === 'ar' ? 'إجابة صوتية' : lang === 'fr' ? 'Réponse vocale' : 'Voice response'}>
+                        {speechSupported ? (
+                          <button
+                            type="button"
+                            className={`audio-play speech-button${speechListening ? ' listening' : ''}`}
+                            onClick={speechListening ? stopSpeechInput : startSpeechInput}
+                            disabled={Boolean(selected)}
+                          >
+                            {speechListening ? '⏹️ ' : '🎙️ '}
+                            {speechListening
+                              ? (lang === 'ar' ? 'إيقاف التسجيل' : lang === 'fr' ? 'Arrêter' : 'Stop recording')
+                              : (lang === 'ar' ? 'تحدث للإجابة' : lang === 'fr' ? 'Répondre à l’oral' : 'Speak your answer')}
+                          </button>
+                        ) : (
+                          <small>{lang === 'ar' ? 'الإجابة النصية متاحة لأن التعرف الصوتي غير مدعوم في هذا المتصفح.' : lang === 'fr' ? 'La saisie texte est disponible car la reconnaissance vocale n’est pas prise en charge par ce navigateur.' : 'Text input is available because speech recognition is not supported by this browser.'}</small>
+                        )}
+                      </div>
+                    )}
+                    <form className="spelling-form" onSubmit={(event) => { event.preventDefault(); submitTextAnswer() }}>
+                      <input value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder={question.skill === 'speaking' ? (lang === 'ar' ? 'أو اكتب إجابتك' : lang === 'fr' ? 'Ou écris ta réponse' : 'Or type your answer') : (lang === 'ar' ? 'اكتب الإجابة' : lang === 'fr' ? 'Écris ta réponse' : 'Type your answer')} autoComplete="off" disabled={Boolean(selected) || speechListening} />
+                      <button type="submit" className="next" disabled={Boolean(selected) || speechListening || !inputValue.trim()}>{lang === 'ar' ? 'تحقق' : lang === 'fr' ? 'Vérifier' : 'Check'}</button>
+                    </form>
+                  </>
                 ) : (
                   <>
                     <p className="choose">{t.choose}</p>
