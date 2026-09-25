@@ -172,8 +172,8 @@ class GameSessionStart(BaseModel):
     @classmethod
     def validate_language(cls, value: str) -> str:
         value = value.strip().lower()
-        if value not in {"ar", "fr", "en"}:
-            raise ValueError("language must be ar, fr or en")
+        if value not in {"ar", "fr", "en", "es", "de", "it", "pt", "ja", "ko", "zh"}:
+            raise ValueError("language must be one of ar, fr, en, es, de, it, pt, ja, ko or zh")
         return value
 
     @field_validator("difficulty")
