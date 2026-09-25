@@ -601,7 +601,7 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                 for w, d in fallback
             ]
 
-    if game_id in {"translation_sprint", "grammar_duel"}:\n        # These games use authored CEFR-style prompts rather than random filler.\n        # Difficulty maps to A1/A2/B1 so the game remains meaningful while the\n        # wider content pipeline is expanded toward B2-C2.\n        pass\n\n    if game_id in {"quick_choice", "listen_choose", "listening_detective", "spelling", "word_scramble", "fill_blank"}:
+    if game_id in {"quick_choice", "listen_choose", "listening_detective", "spelling", "word_scramble", "fill_blank"}:
         level = cast(CEFRLevel, {1: "A1", 2: "A2", 3: "B1"}[difficulty])
         vocab_sets = get_vocabulary_by_level(level, target_language)
         entries = [word for vocab_set in vocab_sets for word in vocab_set.words]
