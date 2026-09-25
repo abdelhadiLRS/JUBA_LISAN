@@ -2611,6 +2611,37 @@ async def answer_game_session_question(
     attempts = list(current.get("_attempts") or [])
     attempts.append({"choice": data.choice, "correct": bool(correct)})
     current["_attempts"] = attempts
+
+    # A miss is a retry, not completion of the logical question. Keep the
+    # same server-side identity while adapting the item for the next attempt.
+    if not correct:
+        miss_count = sum(1 for attempt in attempts if not bool(attempt.get("correct")))
+        adapted = _adapt_question_after_session_miss(current, miss_count)
+        current.update({
+            "difficulty": adapted.get("difficulty", current.get("difficulty", session.difficulty)),
+            "retry_stage": adapted.get("retry_stage", "retry"),
+            "hint": adapted.get("hint", current.get("hint", "")),
+        })
+        questions[index] = current
+        session.questions = questions
+        await db.commit()
+        public_retry = {
+            key: current.get(key)
+            for key in (
+                "id", "prompt", "choices", "hint", "skill", "difficulty",
+                "input_mode", "audio_text", "audio_language",
+            )
+        }
+        return GameSessionNextResponse(
+            session_id=session.id,
+            correct=False,
+            question=public_retry,
+            finished=False,
+            answered=sum(1 for item in questions if item.get("_answered")),
+            total=5,
+            adaptive_mode="skill_review" if miss_count >= 2 else "review",
+        )
+
     current["_answered"] = True
     current["_submitted"] = data.choice
     questions[index] = current
