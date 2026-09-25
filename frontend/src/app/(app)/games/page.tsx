@@ -104,9 +104,9 @@ export default function GamesPage() {
   const direction = lang === 'ar' ? 'rtl' : 'ltr'
 
   function difficultyForGame(id: GameId) {
-    const skill = id === 'matching' || id === 'quick_choice' ? 'vocabulary'
+    const skill = id === 'matching' || id === 'quick_choice' || id === 'word_scramble' ? 'vocabulary'
       : id === 'listen_choose' ? 'listening'
-      : id === 'spelling' || id === 'word_scramble' ? 'writing'
+      : id === 'spelling' ? 'writing'
       : id === 'sentence_builder' || id === 'fill_blank' ? 'grammar'
       : 'memory'
     const mastery = skills[skill] ?? 0
