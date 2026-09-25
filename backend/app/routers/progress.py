@@ -25,7 +25,7 @@ from app.models.learning_goal_milestone import LearningGoalMilestone
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import (GameSessionAnswerResponse, GameSessionComplete, GameSessionNextRequest, GameSessionNextResponse, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalMilestoneSummary, LearningGoalResponse, LearningGoalUpdate, MasteryCenterResponse, MasteryCenterLessonResponse, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
+from app.schemas.progress import (GameSessionAnswer, GameSessionAnswerResponse, GameSessionComplete, GameSessionNextRequest, GameSessionNextResponse, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalMilestoneSummary, LearningGoalResponse, LearningGoalUpdate, MasteryCenterResponse, MasteryCenterLessonResponse, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
 from app.services.progress_service import get_unit_competencies, update_daily_progress
 from app.services.lesson_mastery import _skill_mastery_state, select_next_skill_mastery, summarize_lesson_mastery, summarize_skill_mastery
 from app.services.user_language_service import get_active_language
@@ -2662,7 +2662,43 @@ async def next_game_session_question(
     if current.get("_answered"):
         raise HTTPException(status_code=409, detail="Question already answered")
 
-    correct = _game_answer_matches(data.choice, current.get("answer"))
+    if current.get("input_mode", "choice") == "text":
+        if not data.choice.strip():
+            raise HTTPException(status_code=422, detail="Text answer cannot be empty")
+        correct = _game_answer_matches(data.choice, current.get("answer"))
+    else:
+        if data.choice == "__timeout__":
+            correct = False
+        elif data.choice not in current.get("choices", []):
+            raise HTTPException(status_code=422, detail="Invalid choice for game question")
+        else:
+            correct = data.choice == current.get("answer")
+
+    attempts = list(current.get("_attempts") or [])
+    attempts.append({"choice": data.choice, "correct": bool(correct)})
+    current["_attempts"] = attempts
+
+    if not correct:
+        adapted = _adapt_question_after_session_miss(current, sum(1 for item in attempts if not bool(item.get("correct"))))
+        current["difficulty"] = adapted.get("difficulty", current.get("difficulty", session.difficulty))
+        current["retry_stage"] = adapted.get("retry_stage", "retry")
+        stored_questions[current_index] = current
+        session.questions = stored_questions
+        await db.commit()
+        public = {
+            key: adapted.get(key)
+            for key in ("id", "prompt", "choices", "hint", "skill", "difficulty", "input_mode", "audio_text", "audio_language")
+        }
+        return GameSessionNextResponse(
+            session_id=session.id,
+            correct=False,
+            question=public,
+            finished=False,
+            answered=sum(1 for item in stored_questions if item.get("_answered")),
+            total=len(stored_questions),
+            adaptive_mode="skill_review",
+        )
+
     current["_answered"] = True
     current["_submitted"] = data.choice
     remaining = [(index, item) for index, item in enumerate(stored_questions) if not item.get("_answered") and index != current_index]
