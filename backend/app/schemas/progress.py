@@ -164,7 +164,7 @@ class GameSessionStart(BaseModel):
     @classmethod
     def validate_game_id(cls, value: str) -> str:
         value = value.strip()
-        if value not in {"math", "words", "sequence", "memory", "matching", "ordering"}:
+        if value not in {"math", "words", "quick_choice", "listen_choose", "spelling", "sequence", "memory", "matching", "ordering", "sentence_builder"}:
             raise ValueError("game_id must be one of the supported games")
         return value
 
@@ -191,6 +191,9 @@ class GameSessionQuestion(BaseModel):
     hint: str
     skill: str
     difficulty: int
+    input_mode: Literal["choice", "text"] = "choice"
+    audio_text: str | None = None
+    audio_language: str | None = None
 
 
 class GameSessionResponse(BaseModel):
