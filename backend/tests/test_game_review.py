@@ -294,3 +294,64 @@ async def test_review_mix_does_not_reuse_the_same_due_review_key(
     )
     keys = [question.get("review_key") for question in questions if question.get("review")]
     assert len(keys) == len(set(keys))
+
+
+@pytest.mark.asyncio
+async def test_smart_review_uses_latest_marker_within_an_event(
+    db_session, test_user
+):
+    from datetime import UTC, datetime, timedelta
+
+    from app.models.game_progress_event import GameProgressEvent
+
+    user, _ = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        target_language="en-US",
+        cefr_level="A1",
+        goals=["vocabulary"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    question = {
+        "skill": "vocabulary",
+        "topic": "daily-life",
+        "prompt": "Choose the correct word",
+        "answer": "hello",
+        "input_mode": "choice",
+        "target_language": "en-US",
+        "cefr_level": "A1",
+    }
+    key = progress_router._review_key(question)
+    event = GameProgressEvent(
+        event_id="review-marker-order",
+        user_id=user.id,
+        study_plan_id=plan.id,
+        game_id="quick_choice",
+        questions_answered=1,
+        correct_answers=1,
+        round_score=25,
+        created_at=datetime.now(UTC).replace(tzinfo=None) - timedelta(minutes=1),
+        mistakes=[
+            {
+                "review_key": key,
+                "review_count": 1,
+                "next_review_at": (datetime.now(UTC).replace(tzinfo=None) - timedelta(minutes=2)).isoformat(),
+                "question": question,
+            },
+            {"review_key": key, "resolved": True},
+        ],
+    )
+    db_session.add(event)
+    await db_session.commit()
+
+    due = await progress_router._get_recent_game_mistakes(
+        db_session, user.id, plan.id, limit=10
+    )
+
+    assert due == []
