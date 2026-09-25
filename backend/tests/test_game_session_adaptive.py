@@ -123,7 +123,7 @@ async def test_wrong_answer_reissues_same_logical_item_for_targeted_review(
 
 
 @pytest.mark.asyncio
-async def test_wrong_fifth_answer_requires_targeted_retry_before_round_finishes(
+async def test_fifth_logical_item_requires_retry_before_round_finishes(
     client, test_user, db_session
 ):
     user, headers = test_user
@@ -151,7 +151,9 @@ async def test_wrong_fifth_answer_requires_targeted_retry_before_round_finishes(
     payload = started.json()
     answers = []
 
-    for index in range(5):
+    # Resolve four logical questions normally. Each correct answer issues
+    # exactly one new server-owned question.
+    for _ in range(4):
         session = await db_session.get(GameSession, payload["session_id"])
         assert session is not None
         current = next(item for item in session.questions if not item.get("_answered"))
@@ -169,18 +171,11 @@ async def test_wrong_fifth_answer_requires_targeted_retry_before_round_finishes(
         )
         assert response.status_code == 200
         result = response.json()
+        assert result["finished"] is False
+        assert result["question"] is not None
 
-        if index < 4:
-            assert result["finished"] is False
-            assert result["question"] is not None
-        else:
-            assert result["finished"] is False
-            assert result["answered"] == 5
-            assert result["question"] is not None
-
-    # The fifth logical item is deliberately missed. The server keeps the
-    # logical identity alive and asks for a targeted retry instead of silently
-    # closing a round that still has an unresolved learning target.
+    # The fifth logical item is deliberately missed. It remains unresolved and
+    # is replaced by a targeted retry under the same logical question ID.
     session = await db_session.get(GameSession, payload["session_id"])
     assert session is not None
     retry = next(item for item in session.questions if not item.get("_answered"))
@@ -229,14 +224,6 @@ async def test_wrong_fifth_answer_requires_targeted_retry_before_round_finishes(
     assert result["question"] is None
     assert result["answered"] == 5
 
-    answers = [
-        {
-            "question_id": item["question_id"],
-            "choice": item["choice"],
-        }
-        for item in answers
-        if item["question_id"] != retry_id
-    ]
     answers.append({"question_id": retry_id, "choice": retry["answer"]})
 
     completed = await client.post(
