@@ -164,7 +164,7 @@ export default function UnitDrawer({
                         ? t('reviewLesson')
                         : lesson.action === 'continue'
                           ? t('resume')
-                          : `${tCommon('start')} →`}
+                          : `${t('startLearning')} →`}
                     </button>
                   )}
                 </div>
