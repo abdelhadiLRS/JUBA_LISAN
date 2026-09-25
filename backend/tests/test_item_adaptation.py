@@ -27,6 +27,18 @@ def test_review_mechanic_tracks_mastery_state():
     assert _review_game_for_item("grammar", "reviewing") == "fill_blank"
 
 
+def test_review_mechanic_respects_retrieval_efficiency():
+    assert _review_game_for_item("vocabulary", "reviewing", retrieval_efficiency=0.2, review_streak=2) == "word_categories"
+    assert _review_game_for_item("vocabulary", "reviewing", retrieval_efficiency=0.9, review_streak=2) == "word_categories"
+    assert _review_game_for_item("vocabulary", "mastered", retrieval_efficiency=0.95, review_streak=4, attempts=4) == "translation_sprint"
+
+
+def test_review_mechanic_keeps_skill_specific_mechanics():
+    assert _review_game_for_item("grammar", "weak", retrieval_efficiency=0.1) == "grammar_duel"
+    assert _review_game_for_item("grammar", "reviewing", retrieval_efficiency=0.9, review_streak=2) == "fill_blank"
+    assert _review_game_for_item("listening", "learning", retrieval_efficiency=0.8, review_streak=1) == "listen_choose"
+
+
 def test_review_strategy_progresses_from_recall_to_production():
     assert _review_item_strategy("weak", 0) == "direct_recall"
     assert _review_item_strategy("learning", 1) == "recognition"
