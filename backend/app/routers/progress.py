@@ -94,7 +94,13 @@ def _game_answer_matches(submitted: str, expected: object) -> bool:
 
 
 def _server_interactive_challenge(
-    game_id: str, language: str, difficulty: int, target_language: str = "en-GB", cefr_level: CEFRLevel = "A1", preferred_topics: list[str] | None = None
+    game_id: str,
+    language: str,
+    difficulty: int,
+    target_language: str = "en-GB",
+    cefr_level: CEFRLevel = "A1",
+    preferred_topics: list[str] | None = None,
+    preferred_items: list[dict] | None = None,
 ) -> tuple[dict, dict]:
     """Build a renderable challenge plus server-only solution state."""
     rng = random.SystemRandom()
@@ -113,6 +119,18 @@ def _server_interactive_challenge(
             cefr_entries.extend(broad[2:5])
     else:
         rng.shuffle(cefr_entries)
+    if preferred_items:
+        exact_entries = []
+        by_word = {entry.word.strip().casefold(): entry for entry in cefr_entries}
+        for item in preferred_items:
+            word = str(item.get("word", "")).strip()
+            definition = str(item.get("definition", "")).strip()
+            entry = by_word.get(word.casefold())
+            if entry and definition and entry.word.strip().casefold() == word.casefold():
+                exact_entries.append(entry)
+        exact_entries = list(dict.fromkeys(exact_entries))
+        cefr_entries = exact_entries + [entry for entry in cefr_entries if entry not in exact_entries]
+
     if game_id == "memory":
         count = {1: 3, 2: 4, 3: 5}[difficulty]
         selected_entries = cefr_entries[:count]
@@ -121,13 +139,15 @@ def _server_interactive_challenge(
         selected = [(entry.word.strip(), entry.definition.strip()) for entry in selected_entries]
         cards = []
         pairs = {}
+        review_items = {}
         for index, (left, right) in enumerate(selected):
             a, b = str(uuid4()), str(uuid4())
             cards.extend([{"id": a, "label": left, "pair_key": str(index)}, {"id": b, "label": right, "pair_key": str(index)}])
             pairs[a] = index
             pairs[b] = index
+            review_items[str(index)] = {"word": left, "definition": right, "topic": next((v.topic for v in vocab_sets if any(w.word.strip() == left for w in v.words)), "vocabulary")}
         rng.shuffle(cards)
-        return {"type": "memory", "cards": cards}, {"pairs": pairs, "pair_count": count}
+        return {"type": "memory", "cards": cards}, {"pairs": pairs, "pair_count": count, "review_items": review_items}
     if game_id == "matching":
         count = {1: 3, 2: 4, 3: 5}[difficulty]
         pairs_source = [(entry.word.strip(), entry.definition.strip()) for entry in cefr_entries[:count]]
@@ -143,19 +163,27 @@ def _server_interactive_challenge(
             pairs[left_id] = right_id
         rng.shuffle(left)
         rng.shuffle(right)
-        return {"type": "matching", "left": left, "right": right}, {"pairs": pairs, "pair_count": len(left)}
+        review_items = {
+            str(index): {"word": left_item, "definition": right_item, "topic": next((v.topic for v in vocab_sets if any(w.word.strip() == left_item for w in v.words)), "vocabulary")}
+            for index, (left_item, right_item) in enumerate(pairs_source)
+        }
+        return {"type": "matching", "left": left, "right": right}, {"pairs": pairs, "pair_count": len(left), "review_items": review_items}
     if game_id in {"ordering", "sentence_builder"}:
         if game_id == "sentence_builder":
             sentence_entries = [entry for entry in cefr_entries if entry.example.strip()]
             if not sentence_entries:
                 raise ValueError(f"No example sentences for {target_language} at {cefr_level}")
-            source = sentence_entries[0].example.strip().split()
+            source_entry = sentence_entries[0]
+            source = source_entry.example.strip().split()
 
         else:\n            count = {1: 3, 2: 4, 3: 5}[difficulty]\n            ordered_entries = cefr_entries[:count]\n            if len(ordered_entries) < count:\n                raise ValueError(f"No vocabulary content for {target_language} at {cefr_level}")\n            source = [entry.word.strip() for entry in ordered_entries]
         items = [{"id": str(uuid4()), "label": label} for label in source]
         shuffled = list(items)
         rng.shuffle(shuffled)
-        return {"type": "ordering", "items": shuffled}, {"target": [item["id"] for item in items]}
+        solution = {"target": [item["id"] for item in items]}
+        if game_id == "sentence_builder":
+            solution["review_items"] = {"sentence": {"sentence": " ".join(source), "topic": next((v.topic for v in vocab_sets if source_entry.example.strip() in [e.example.strip() for w in v.words for e in [e] if hasattr(e, "example")]), "grammar")}}
+        return {"type": "ordering", "items": shuffled}, solution
     raise ValueError("Unsupported interactive game")
 
 async def _get_game_skills(
@@ -1499,6 +1527,7 @@ async def start_game_session(
             plan.target_language,
             cefr_level,
             preferred_topics,
+            [item for item in await _get_recent_game_mistakes(db, current_user.id, plan.id, skill=GAME_SKILL_MAP.get(effective_game_id), limit=20) if item.get("source_game_id") == effective_game_id],
         )
         questions = [{
             "id": str(uuid4()),
@@ -1636,6 +1665,11 @@ async def complete_game_session(
             questions_answered = solution.get("pair_count", 0)
             if correct_answers != questions_answered or len(seen_pairs) != questions_answered:
                 raise HTTPException(status_code=422, detail="Memory challenge is not complete")
+            for pair_id, item in solution.get("review_items", {}).items():
+                pair_attempts = [a for a in data.interaction_trace if str(solution.get("pairs", {}).get(str(a.get("first")), "")) == str(pair_id) or str(solution.get("pairs", {}).get(str(a.get("second")), "")) == str(pair_id)]
+                if any(solution.get("pairs", {}).get(a.get("first")) != solution.get("pairs", {}).get(a.get("second")) for a in pair_attempts):
+                    question = {"skill": "memory", "topic": item.get("topic", "vocabulary"), "prompt": item.get("word", ""), "answer": item.get("definition", ""), "input_mode": "choice", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
+                    mistakes.append({"review_key": _review_key(question), "review_count": 1, "next_review_at": (now + _review_interval(1)).isoformat(), "question": question})
         elif session.game_id == "matching":
             pairs = solution.get("pairs", {})
             matched: set[str] = set()
@@ -1654,6 +1688,15 @@ async def complete_game_session(
             questions_answered = solution.get("pair_count", 0)
             if correct_answers != questions_answered:
                 raise HTTPException(status_code=422, detail="Matching challenge is not complete")
+            for attempt in data.interaction_trace:
+                left_id, right_id = attempt.get("left"), attempt.get("right")
+                if pairs.get(left_id) != right_id:
+                    pair_index = pairs.get(left_id)
+                    item = solution.get("review_items", {}).get(str(pair_index))
+                    if item:
+                        question = {"skill": "vocabulary", "topic": item.get("topic", "vocabulary"), "prompt": item.get("word", ""), "answer": item.get("definition", ""), "input_mode": "choice", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
+                        mistakes.append({"review_key": _review_key(question), "review_count": 1, "next_review_at": (now + _review_interval(1)).isoformat(), "question": question})
+                        break
         else:
             items = {item["id"] for item in stored.get("public", {}).get("items", [])}
             target = solution.get("target", [])
@@ -1671,6 +1714,11 @@ async def complete_game_session(
             correct_answers = 1 if attempts and attempts[-1] == target else 0
             if correct_answers != 1:
                 raise HTTPException(status_code=422, detail="Ordering challenge is not complete")
+            if len(attempts) > 1 and attempts[-1] != target:
+                item = solution.get("review_items", {}).get("sentence")
+                if item:
+                    question = {"skill": "grammar", "topic": item.get("topic", "grammar"), "prompt": item.get("sentence", ""), "answer": item.get("sentence", ""), "input_mode": "text", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
+                    mistakes.append({"review_key": _review_key(question), "review_count": 1, "next_review_at": (now + _review_interval(1)).isoformat(), "question": question})
     else:
         expected = {item["id"]: item for item in session.questions}
         if len(data.answers) != len(expected) or set(item.question_id for item in data.answers) != set(expected):
