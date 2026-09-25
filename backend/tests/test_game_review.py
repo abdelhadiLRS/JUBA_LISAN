@@ -1299,3 +1299,64 @@ def test_multi_skill_review_variant_keeps_stable_identity_for_changed_answer(mon
     assert replay["review_identity"] == "multi-skill-water-review"
     assert replay["answer"] == "Could I have some water, please?"
     assert progress_router._review_key(replay) != replay["review_identity"]
+
+
+def test_apply_smart_review_keeps_server_review_identity_when_variant_changes_answer(monkeypatch):
+    class Entry:
+        def __init__(self, word, example):
+            self.word = word
+            self.example = example
+
+    class VocabularySet:
+        topic = "daily-life"
+        words = [
+            Entry("water", "I need water."),
+            Entry("water", "Could I have some water, please?"),
+        ]
+
+    monkeypatch.setattr(
+        progress_router,
+        "get_vocabulary_by_level",
+        lambda level, language: [VocabularySet()],
+    )
+    monkeypatch.setattr(
+        progress_router,
+        "_mastery_review_count",
+        lambda items, total, difficulty: 1,
+    )
+
+    mistake = {
+        "review_key": "stable-smart-review",
+        "skill": "speaking",
+        "target_language": "en-US",
+        "cefr_level": "A1",
+        "topic": "daily-life",
+        "prompt": "Which sentence best uses 'water'?",
+        "answer": "I need water.",
+        "input_mode": "choice",
+        "choices": ["I need water.", "Other answer"],
+        "review_count": 1,
+        "review_streak": 1,
+        "variant_seed": 1,
+    }
+    fresh = {
+        "id": "fresh-1",
+        "prompt": "Fresh speaking",
+        "choices": ["A", "B"],
+        "answer": "A",
+        "skill": "speaking",
+        "difficulty": 1,
+        "input_mode": "choice",
+    }
+
+    result = progress_router._apply_smart_review(
+        [fresh],
+        [mistake],
+        "en-US",
+        "A1",
+    )
+
+    assert result[0]["review"] is True
+    assert result[0]["review_identity"] == "stable-smart-review"
+    assert result[0]["answer"] == "Could I have some water, please?"
+    assert "review_key" not in result[0]
