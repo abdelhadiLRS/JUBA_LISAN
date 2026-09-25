@@ -10,7 +10,7 @@ CurriculumUnit(id="ne-a1-unit-5",level="A1",unit_number=5,title="Nepali: routine
 CurriculumUnit(id="ne-a1-unit-6",level="A1",unit_number=6,title="Nepali: time",grammar_points=["ne-a1-g6"],vocabulary_set_ids=["time_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use समय in a basic exchange","Understand a short time interaction"],default_weeks=1),
 CurriculumUnit(id="ne-a1-unit-7",level="A1",unit_number=7,title="Nepali: food",grammar_points=["ne-a1-g7"],vocabulary_set_ids=["food_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use पानी in a basic exchange","Understand a short food interaction"],default_weeks=1),
 CurriculumUnit(id="ne-a1-unit-8",level="A1",unit_number=8,title="Nepali: places",grammar_points=["ne-a1-g8"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use विद्यालय in a basic exchange","Understand a short places interaction"],default_weeks=1)
-]}
+]
 for level in LEVELS[1:]:
  CURRICULUM[level]=[CurriculumUnit(id=f"ne-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Nepali {level} communication",grammar_points=["intermediate grammar"],vocabulary_set_ids=[],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Handle extended communication"],default_weeks=2)]
 GRAMMAR_TOPICS=[
@@ -60,7 +60,7 @@ ASSESSMENT_BANK=[
 AssessmentQuestion(id="ne-a1-001",skill="vocabulary",difficulty="A1",question="Which Nepali word means 'water'?",options=["पानी","घर","आमा","विद्यालय"],correct="पानी"),
 AssessmentQuestion(id="ne-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["म घरमा छु।","म विद्यालय जान्छु।","म पानी पिउँछु।","यो किताब हो।"],correct="म घरमा छु।"),
 AssessmentQuestion(id="ne-a1-003",skill="vocabulary",difficulty="A1",question="What does आमा mean?",options=["mother","father","friend","teacher"],correct="mother"),
-AssessmentQuestion(id="ne-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["तपाईंको नाम के हो?","तपाईं कहाँ हुनुहुन्छ?","यो के हो?","कति बजे हो?"],"correct"="तपाईंको नाम के हो?"),
+AssessmentQuestion(id="ne-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["तपाईंको नाम के हो?","तपाईं कहाँ हुनुहुन्छ?","यो के हो?","कति बजे हो?"],"correct="तपाईंको नाम के हो?"),
 AssessmentQuestion(id="ne-a1-005",skill="reading",difficulty="A1",question="विद्यालय नजिकै छ। Where is the school?",options=["Nearby","At home","In the market","Far away"],correct="Nearby"),
 AssessmentQuestion(id="ne-a1-006",skill="vocabulary",difficulty="A1",question="Which word means 'name'?",options=["नाम","समय","पानी","घर"],correct="नाम"),
 AssessmentQuestion(id="ne-a1-007",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["फेरि भन्नुहोस्।","धन्यवाद।","नमस्ते।","बिदा।"],correct="फेरि भन्नुहोस्।"),
