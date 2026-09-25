@@ -246,22 +246,27 @@ async def generate_lesson(
         language_prompt_overlay=language_prompt_overlay,
     )
 
-    try:
-        lesson = await llm_adapter.structured_output(
-            [{"role": "system", "content": prompt}],
-            LessonContent,
-        )
-    except Exception:
-        fallback = _fallback_lesson(
-            cefr_level=cefr_level,
-            lesson_type=lesson_type,
-            topic=topic,
-            unit_id=unit_id,
-            target_language=target_language,
-        )
-        if fallback is None:
-            raise
+    # Do not block the first authored course on an optional local Ollama service.
+    # The A1 English starter content is deterministic and can launch immediately.
+    fallback = _fallback_lesson(
+        cefr_level=cefr_level,
+        lesson_type=lesson_type,
+        topic=topic,
+        unit_id=unit_id,
+        target_language=target_language,
+    )
+    if fallback is not None and settings.LLM_PROVIDER.lower() == "ollama":
         lesson = fallback
+    else:
+        try:
+            lesson = await llm_adapter.structured_output(
+                [{"role": "system", "content": prompt}],
+                LessonContent,
+            )
+        except Exception:
+            if fallback is None:
+                raise
+            lesson = fallback
 
     lesson.grammar_refs = [s for s in lesson.grammar_refs if s in valid_slugs]
     # Sanitize fill_blank exercises: question MUST contain ___ (the gapped sentence).
