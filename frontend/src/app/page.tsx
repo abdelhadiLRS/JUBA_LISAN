@@ -317,7 +317,7 @@ export default async function Home() {
       {reviews.length > 0 && (
         <section id="reviews" className="juba-reference-community scroll-mt-20">
           <div className="juba-reference-section-heading"><span className="juba-ff-section-tag">{t('navReviews')}</span><h2>{t('languagesHeadline')}</h2><p>{t('languagesDescription')}</p></div>
-          <div className="juba-reference-testimonials">{reviews.slice(0, 6).map((review) => <article key={review.id} className="juba-reference-testimonial"><p>“{review.comment}”</p><strong>{review.display_name || 'JUBA LISAN learner'}</strong></article>)}</div>
+          <div className="juba-reference-testimonials">{reviews.slice(0, 6).map((review) => <article key={review.id} className="juba-reference-testimonial"><p>“{review.comment ?? ''}”</p><strong>{review.user_display_name || 'JUBA LISAN learner'}</strong></article>)}</div>
         </section>
       )}
 
