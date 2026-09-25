@@ -81,7 +81,11 @@ export default async function Home() {
   }
 
   return (
-    <main className="juba-reference-page min-h-screen overflow-x-hidden">
+    <main
+      className="juba-reference-page min-h-screen overflow-x-hidden"
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      lang={locale}
+    >
       <style dangerouslySetInnerHTML={{ __html: `
 .juba-reference-page{--ink:#183022;--green:#3d7b27;--green-dark:#275d19;--mint:#e5f4d8;--blue:#dff5fa;--yellow:#ffe27a;--orange:#f6a23a;background:#fffdf7;color:var(--ink);font-family:var(--font-geist-sans),Arial,sans-serif}
 .juba-reference-page .juba-site-nav{background:rgba(255,253,247,.94)!important;border-bottom:1px solid #d9e5d7!important;backdrop-filter:blur(18px)}
@@ -158,6 +162,7 @@ export default async function Home() {
       <LandingNav
         hasSession={hasSession}
         stripeEnabled={stripeEnabled}
+        dir={locale === 'ar' ? 'rtl' : 'ltr'}
         navFeatures={t('navFeatures')}
         navDemo={t('navDemo')}
         navLanguages={t('navLanguages')}
