@@ -572,6 +572,13 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
         "ar": "فكّر بهدوء قبل اختيار الإجابة.",
         "fr": "Réfléchis avant de choisir.",
         "en": "Think carefully before choosing.",
+        "es": "Piensa con calma antes de elegir.",
+        "de": "Denke in Ruhe nach, bevor du wählst.",
+        "it": "Rifletti con calma prima di scegliere.",
+        "pt": "Pensa com calma antes de escolher.",
+        "ja": "落ち着いて答えを選びましょう。",
+        "ko": "천천히 생각한 후 답을 선택하세요.",
+        "zh": "请仔细思考后再选择答案。",
     }
     questions: list[dict] = []
     word_entries: list[object] | None = None
