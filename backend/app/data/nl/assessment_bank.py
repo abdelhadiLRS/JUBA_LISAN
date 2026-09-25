@@ -57,47 +57,43 @@ AssessmentQuestion(id="nl-c2-007",skill="reading",difficulty="C2",question="Lees
 AssessmentQuestion(id="nl-c2-008",skill="grammar",difficulty="C2",question="Kies de meest precieze academische formulering.",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd een generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.",grammar_slug="academic-style")
 
 AssessmentQuestion(id="nl-a1-009",skill="grammar",difficulty="A1",question="Kies de juiste vraag.",options=["Waar woon je?","Waar je woont?","Woon waar je?","Waar wonen?"],correct="Waar woon je?",grammar_slug="questions"),
-AssessmentQuestion(id="nl-a1-010",skill="vocabulary",difficulty="A1",question="Wat betekent 'appel'?",options=["een fruit","een voertuig","een gebouw","een meubel"],correct="een fruit"),
-AssessmentQuestion(id="nl-a1-011",skill="reading",difficulty="A1",question="Lees: 'Sofie woont in Utrecht.' Waar woont Sofie?",options=["In Utrecht.","In Rotterdam.","In Groningen.","In Maastricht."],correct="In Utrecht."),
-AssessmentQuestion(id="nl-a1-012",skill="grammar",difficulty="A1",question="Kies de juiste zin.",options=["Ik heb een boek.","Ik heb een boeken.","Ik hebben een boek.","Ik heb een boeken."],correct="Ik heb een boek.",grammar_slug="articles"),
-AssessmentQuestion(id="nl-a2-005",skill="grammar",difficulty="A2",question="Kies de juiste verleden tijd.",options=["Gisteren ging ik naar mijn werk.","Gisteren ga ik naar mijn werk.","Gisteren gaan ik naar mijn werk.","Gisteren gegaan ik naar mijn werk."],correct="Gisteren ging ik naar mijn werk.",grammar_slug="past-tense"),
-AssessmentQuestion(id="nl-a2-006",skill="vocabulary",difficulty="A2",question="Wat betekent 'vertraging'?",options=["iets dat later komt dan gepland","een reservering","een adres","een betaling"],correct="iets dat later komt dan gepland"),
-AssessmentQuestion(id="nl-a2-007",skill="reading",difficulty="A2",question="Lees: 'De winkel sluit om zes uur.' Wanneer sluit de winkel?",options=["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],correct="Om zes uur."),
-AssessmentQuestion(id="nl-a2-008",skill="grammar",difficulty="A2",question="Kies de juiste zin met 'moeten'.",options=["Ik moet werken.","Ik moet werkt.","Ik moeten werken.","Ik moet gewerkt."],correct="Ik moet werken.",grammar_slug="modal-verbs"),
-AssessmentQuestion(id="nl-b1-005",skill="grammar",difficulty="B1",question="Kies de juiste betrekkelijke bijzin.",options=["Dit is het boek dat ik gisteren kocht.","Dit is het boek dat ik gisteren kopen.","Dit is het boek die ik gisteren kocht.","Dit is het boek dat ik gisteren gekocht."],correct="Dit is het boek dat ik gisteren kocht.",grammar_slug="relative-clauses"),
-AssessmentQuestion(id="nl-b1-006",skill="vocabulary",difficulty="B1",question="Wat betekent 'uitdaging'?",options=["iets dat inspanning vraagt","een beloning","een vakantie","een adres"],correct="iets dat inspanning vraagt"),
-AssessmentQuestion(id="nl-b1-007",skill="reading",difficulty="B1",question="Lees: 'De vergadering werd verplaatst omdat de directeur ziek was.' Waarom werd de vergadering verplaatst?",options=["Omdat de directeur ziek was.","Omdat het kantoor gesloten was.","Omdat de trein vertraging had.","Omdat het een feestdag was."],correct="Omdat de directeur ziek was."),
-AssessmentQuestion(id="nl-b1-008",skill="grammar",difficulty="B1",question="Kies de juiste woordvolgorde.",options=["Gisteren kocht ik een nieuwe computer.","Gisteren ik kocht een nieuwe computer.","Gisteren kocht een nieuwe computer ik.","Gisteren een nieuwe computer kocht ik."],correct="Gisteren kocht ik een nieuwe computer.",grammar_slug="word-order"),
-AssessmentQuestion(id="nl-b2-005",skill="grammar",difficulty="B2",question="Kies de juiste concessieve zin.",options=["Hoewel het regende, gingen we wandelen.","Hoewel het regende, we gingen wandelen.","Hoewel regende het, gingen we wandelen.","Hoewel het regende, we wandelen gingen."],correct="Hoewel het regende, gingen we wandelen.",grammar_slug="concessive-clauses"),
-AssessmentQuestion(id="nl-b2-006",skill="vocabulary",difficulty="B2",question="Wat betekent 'voorspellen'?",options=["inschatten wat waarschijnlijk zal gebeuren","het verleden uitleggen","een regel veranderen","een afspraak annuleren"],correct="inschatten wat waarschijnlijk zal gebeuren"),
-AssessmentQuestion(id="nl-b2-007",skill="reading",difficulty="B2",question="Lees: 'De resultaten tonen een duidelijke tendens, maar moeten voorzichtig worden geïnterpreteerd.' Wat wordt aanbevolen?",options=["De resultaten voorzichtig interpreteren.","De resultaten negeren.","Alle resultaten veranderen.","Het onderzoek onmiddellijk beëindigen."],correct="De resultaten voorzichtig interpreteren."),
-AssessmentQuestion(id="nl-b2-008",skill="grammar",difficulty="B2",question="Kies de juiste indirecte vraag.",options=["Ik weet niet wanneer de vergadering begint.","Ik weet niet wanneer begint de vergadering.","Ik weet niet wanneer de vergadering begint?","Ik weet niet de vergadering wanneer begint."],correct="Ik weet niet wanneer de vergadering begint.",grammar_slug="indirect-questions"),
-AssessmentQuestion(id="nl-c1-005",skill="grammar",difficulty="C1",question="Kies de meest precieze academische formulering.",options=["De resultaten wijzen erop dat het effect beperkt is.","De resultaten wijzen dat het effect beperkt is.","De resultaten wijst erop dat het effect beperkt is.","De resultaten wijzen erop het effect beperkt is."],correct="De resultaten wijzen erop dat het effect beperkt is.",grammar_slug="academic-language"),
-AssessmentQuestion(id="nl-c1-006",skill="vocabulary",difficulty="C1",question="Wat betekent 'wezenlijk' in een academische tekst?",options=["belangrijk of significant","toevallig","tijdelijk","informeel"],correct="belangrijk of significant"),
-AssessmentQuestion(id="nl-c1-007",skill="reading",difficulty="C1",question="Lees: 'Correlatie bewijst op zichzelf geen causaal verband.' Wat wordt niet bewezen?",options=["Dat het ene verschijnsel het andere veroorzaakt.","Dat er gegevens zijn.","Dat variabelen samenhangen.","Dat er een analyse is uitgevoerd."],correct="Dat het ene verschijnsel het andere veroorzaakt."),
-AssessmentQuestion(id="nl-c1-008",skill="grammar",difficulty="C1",question="Kies de juiste passieve constructie.",options=["Het onderzoek werd in drie fasen uitgevoerd.","Het onderzoek werd in drie fasen uitvoeren.","Het onderzoek uitgevoerd werd in drie fasen.","Het onderzoek werd uitgevoerd drie fasen."],correct="Het onderzoek werd in drie fasen uitgevoerd.",grammar_slug="passive"),
-AssessmentQuestion(id="nl-c2-005",skill="grammar",difficulty="C2",question="Welke formulering drukt epistemische voorzichtigheid uit?",options=["Het kan niet worden uitgesloten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],correct="Het kan niet worden uitgesloten dat andere factoren een rol spelen.",grammar_slug="epistemic-modality"),
-AssessmentQuestion(id="nl-c2-006",skill="vocabulary",difficulty="C2",question="Wat betekent 'dubbelzinnig'?",options=["voor meerdere interpretaties vatbaar","volledig eenduidig","zeer kort","gemakkelijk meetbaar"],correct="voor meerdere interpretaties vatbaar"),
-AssessmentQuestion(id="nl-c2-007",skill="reading",difficulty="C2",question="Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",options=["Van de juistheid van de onderliggende aanname.","Van de lengte van de tekst.","Van een informele stijl.","Van de ouderdom van de gegevens."],correct="Van de juistheid van de onderliggende aanname."),
-AssessmentQuestion(id="nl-c2-008",skill="grammar",difficulty="C2",question="Kies de meest precieze academische formulering.",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten zonder aanvullende geen generalisatie toe.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.",grammar_slug="academic-style")
 
-AssessmentQuestion(id="nl-a2-005",skill="grammar",difficulty="A2",question="Kies de juiste verleden tijd.",options=["Gisteren ging ik naar de markt.","Gisteren ga ik naar de markt.","Gisteren gaan ik naar de markt.","Gisteren ben ik ga naar de markt."],correct="Gisteren ging ik naar de markt.",grammar_slug="past-tense"),
-AssessmentQuestion(id="nl-a2-006",skill="vocabulary",difficulty="A2",question="Wat betekent 'vertraging'?",options=["iets dat later komt dan gepland","een afspraak","een adres","een betaling"],correct="iets dat later komt dan gepland"),
-AssessmentQuestion(id="nl-a2-007",skill="reading",difficulty="A2",question="Lees: 'De winkel sluit om zes uur.' Wanneer sluit de winkel?",options=["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],correct="Om zes uur."),
-AssessmentQuestion(id="nl-a2-008",skill="grammar",difficulty="A2",question="Welke zin is correct met 'moeten'?",options=["Ik moet vandaag werken.","Ik moet vandaag werkt.","Ik moeten vandaag werken.","Ik moet vandaag gewerkt."],correct="Ik moet vandaag werken.",grammar_slug="modal-verbs"),
-AssessmentQuestion(id="nl-b1-005",skill="grammar",difficulty="B1",question="Kies de juiste betrekkelijke bijzin.",options=["Dit is het boek dat ik gisteren kocht.","Dit is het boek dat ik gisteren gekocht.","Dit is het boek die ik gisteren kocht.","Dit is het boek ik dat gisteren kocht."],correct="Dit is het boek dat ik gisteren kocht.",grammar_slug="relative-clause"),
-AssessmentQuestion(id="nl-b1-006",skill="vocabulary",difficulty="B1",question="Wat betekent 'uitdaging'?",options=["iets waarvoor inspanning nodig is","een beloning","een vakantie","een adres"],correct="iets waarvoor inspanning nodig is"),
-AssessmentQuestion(id="nl-b1-007",skill="reading",difficulty="B1",question="Lees: 'De vergadering werd verplaatst omdat de directeur ziek was.' Waarom werd de vergadering verplaatst?",options=["Omdat de directeur ziek was.","Omdat het kantoor gesloten was.","Omdat de trein vertraging had.","Omdat het een feestdag was."],correct="Omdat de directeur ziek was."),
-AssessmentQuestion(id="nl-b1-008",skill="grammar",difficulty="B1",question="Welke woordvolgorde is correct?",options=["Gisteren kocht ik een nieuwe computer.","Gisteren ik kocht een nieuwe computer.","Gisteren kocht een nieuwe computer ik.","Gisteren een nieuwe computer kocht ik."],correct="Gisteren kocht ik een nieuwe computer.",grammar_slug="word-order"),
-AssessmentQuestion(id="nl-b2-005",skill="grammar",difficulty="B2",question="Welke zin drukt een tegenstelling uit?",options=["Hoewel het regende, gingen we wandelen.","Omdat het regende, gingen we wandelen.","Als het regent, gaan we niet wandelen.","Toen het regende, bleven we thuis."],correct="Hoewel het regende, gingen we wandelen.",grammar_slug="concessive"),
-AssessmentQuestion(id="nl-b2-006",skill="vocabulary",difficulty="B2",question="Wat betekent 'voorspellen'?",options=["zeggen wat waarschijnlijk zal gebeuren","iets uit het verleden verklaren","een regel veranderen","een afspraak annuleren"],correct="zeggen wat waarschijnlijk zal gebeuren"),
-AssessmentQuestion(id="nl-b2-007",skill="reading",difficulty="B2",question="Lees: 'De resultaten tonen een duidelijke trend, maar moeten voorzichtig worden geïnterpreteerd.' Wat wordt aanbevolen?",options=["De resultaten voorzichtig interpreteren.","De resultaten negeren.","Alle resultaten veranderen.","Het onderzoek onmiddellijk stoppen."],correct="De resultaten voorzichtig interpreteren."),
-AssessmentQuestion(id="nl-b2-008",skill="grammar",difficulty="B2",question="Kies de correcte indirecte vraag.",options=["Ik weet niet wanneer de vergadering begint.","Ik weet niet wanneer begint de vergadering.","Ik weet niet wanneer de vergadering begint?","Ik weet niet de vergadering wanneer begint."],correct="Ik weet niet wanneer de vergadering begint.",grammar_slug="indirect-question")
 
-AssessmentQuestion(id="nl-a1-009",skill="grammar",difficulty="A1",question="Kies de juiste vraag.",options=["Waar woon je?","Waar je woont?","Woon waar je?","Waar wonen?"],correct="Waar woon je?",grammar_slug="vragen"),
-AssessmentQuestion(id="nl-a1-010",skill="vocabulary",difficulty="A1",question="Wat betekent 'appel'?",options=["een vrucht","een voertuig","een gebouw","een meubel"],correct="een vrucht"),
-AssessmentQuestion(id="nl-a1-011",skill="reading",difficulty="A1",question="Lees: 'Sofie woont in Utrecht.' Waar woont Sofie?",options=["In Utrecht.","In Rotterdam.","In Amsterdam.","In Groningen."],correct="In Utrecht."),
-AssessmentQuestion(id="nl-a1-012",skill="grammar",difficulty="A1",question="Kies het juiste lidwoord: '___ boek ligt op tafel.'",options=["Het","De","Een","Die"],correct="Het",grammar_slug="lidwoorden"),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 AssessmentQuestion(id="nl-a2-009",skill="grammar",difficulty="A2",question="Kies de juiste voltooide tijd.",options=["Ik heb gegeten.","Ik heb eten.","Ik heb at.","Ik eten heb."],correct="Ik heb gegeten.",grammar_slug="voltooide-tijd"),
 AssessmentQuestion(id="nl-a2-010",skill="vocabulary",difficulty="A2",question="Wat betekent 'vertraging'?",options=["iets dat later komt dan gepland","een reservering","een adres","een betaling"],correct="iets dat later komt dan gepland"),
 AssessmentQuestion(id="nl-a2-011",skill="reading",difficulty="A2",question="Lees: 'De winkel sluit om zes uur.' Wanneer sluit de winkel?",options=["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],correct="Om zes uur."),
@@ -110,90 +106,82 @@ AssessmentQuestion(id="nl-b2-009",skill="grammar",difficulty="B2",question="Kies
 AssessmentQuestion(id="nl-b2-010",skill="vocabulary",difficulty="B2",question="Wat betekent 'voorspellen'?",options=["inschatten wat er zal gebeuren","iets uit het verleden uitleggen","een regel veranderen","een afspraak annuleren"],correct="inschatten wat er zal gebeuren"),
 AssessmentQuestion(id="nl-b2-011",skill="reading",difficulty="B2",question="Lees: 'De resultaten tonen een duidelijke tendens, maar moeten voorzichtig worden geïnterpreteerd.' Wat wordt aanbevolen?",options=["Een voorzichtige interpretatie.","De resultaten negeren.","Alle resultaten veranderen.","Het onderzoek onmiddellijk stoppen."],correct="Een voorzichtige interpretatie."),
 AssessmentQuestion(id="nl-b2-012",skill="grammar",difficulty="B2",question="Kies de juiste indirecte vraag.",options=["Ik weet niet wanneer de vergadering begint.","Ik weet niet wanneer begint de vergadering.","Ik weet niet wanneer de vergadering begint?","Ik weet niet de vergadering wanneer begint."],correct="Ik weet niet wanneer de vergadering begint.",grammar_slug="indirecte-vraag"),
-AssessmentQuestion(id="nl-c1-005",skill="grammar",difficulty="C1",question="Kies de meest precieze academische formulering.",options=["De resultaten wijzen erop dat het effect beperkt is.","De resultaten wijzen dat het effect beperkt is.","De resultaten wijst erop dat het effect beperkt is.","De resultaten wijzen erop het effect dat beperkt is."],correct="De resultaten wijzen erop dat het effect beperkt is.",grammar_slug="academische-taal"),
-AssessmentQuestion(id="nl-c1-006",skill="vocabulary",difficulty="C1",question="Wat betekent 'wezenlijk' in een academische context?",options=["belangrijk of fundamenteel","toevallig","tijdelijk","informeel"],correct="belangrijk of fundamenteel"),
-AssessmentQuestion(id="nl-c1-007",skill="reading",difficulty="C1",question="Lees: 'Correlatie bewijst op zichzelf geen causaal verband.' Wat bewijst correlatie niet?",options=["Dat het ene verschijnsel het andere veroorzaakt.","Dat er gegevens zijn.","Dat variabelen samenhangen.","Dat er een analyse is uitgevoerd."],correct="Dat het ene verschijnsel het andere veroorzaakt."),
-AssessmentQuestion(id="nl-c1-008",skill="grammar",difficulty="C1",question="Kies de juiste passieve constructie.",options=["Het onderzoek werd in drie fasen uitgevoerd.","Het onderzoek werd in drie fasen uitvoeren.","Het onderzoek uitgevoerd werd in drie fasen.","Het onderzoek werden in drie fasen uitgevoerd."],correct="Het onderzoek werd in drie fasen uitgevoerd.",grammar_slug="passief"),
-AssessmentQuestion(id="nl-c2-005",skill="grammar",difficulty="C2",question="Welke formulering drukt wetenschappelijke voorzichtigheid uit?",options=["Het kan niet worden uitgesloten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Er is geen reden om andere factoren te onderzoeken."],correct="Het kan niet worden uitgesloten dat andere factoren een rol spelen.",grammar_slug="epistemische-modaliteit"),
-AssessmentQuestion(id="nl-c2-006",skill="vocabulary",difficulty="C2",question="Wat betekent 'dubbelzinnig'?",options=["vatbaar voor meer dan één interpretatie","volledig eenduidig","zeer kort","gemakkelijk meetbaar"],correct="vatbaar voor meer dan één interpretatie"),
-AssessmentQuestion(id="nl-c2-007",skill="reading",difficulty="C2",question="Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",options=["Of de onderliggende aanname klopt.","Of de tekst kort is.","Of de stijl informeel is.","Of de gegevens oud zijn."],correct="Of de onderliggende aanname klopt."),
-AssessmentQuestion(id="nl-c2-008",skill="grammar",difficulty="C2",question="Kies de meest precieze academische formulering.",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie zonder gegevens toe.","De resultaten laten geen generaliseren zonder aanvullende toe.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.",grammar_slug="academische-stijl")
 
-AssessmentQuestion("nl-a1-009","grammar","A1","Kies de juiste vraag.",["Waar woon je?","Waar je woont?","Woon waar je?","Waar wonen?"],"Waar woon je?"),
-AssessmentQuestion("nl-a1-010","vocabulary","A1","Wat betekent 'appel'?",["een vrucht","een voertuig","een gebouw","een meubel"],"een vrucht"),
-AssessmentQuestion("nl-a1-011","reading","A1","Lees: 'Sofie woont in Utrecht.' Waar woont Sofie?",["In Utrecht.","In Amsterdam.","In Rotterdam.","In Groningen."],"In Utrecht."),
-AssessmentQuestion("nl-a1-012","grammar","A1","Kies de juiste vorm.",["Hij heeft een auto.","Hij heeft een auto’s.","Hij hebben een auto.","Hij heeft een auto's."],"Hij heeft een auto."),
-AssessmentQuestion("nl-a2-005","grammar","A2","Kies de juiste verleden tijd.",["Gisteren werkte ik thuis.","Gisteren werk ik thuis.","Gisteren werken ik thuis.","Gisteren gewerkt ik thuis."],"Gisteren werkte ik thuis."),
-AssessmentQuestion("nl-a2-006","vocabulary","A2","Wat betekent 'vertraging'?",["iets dat later komt dan gepland","een reservering","een adres","een betaling"],"iets dat later komt dan gepland"),
-AssessmentQuestion("nl-a2-007","reading","A2","Lees: 'De winkel sluit om zes uur.' Wanneer sluit de winkel?",["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],"Om zes uur."),
-AssessmentQuestion("nl-a2-008","grammar","A2","Kies de juiste zin.",["Ik moet morgen werken.","Ik moet morgen werkt.","Ik moeten morgen werken.","Ik moet morgen gewerkt."],"Ik moet morgen werken."),
-AssessmentQuestion("nl-b1-005","grammar","B1","Kies de juiste bijzin.",["Ik weet dat hij morgen komt.","Ik weet dat komt hij morgen.","Ik weet hij dat morgen komt.","Ik weet dat hij morgen komen."],"Ik weet dat hij morgen komt."),
-AssessmentQuestion("nl-b1-006","vocabulary","B1","Wat betekent 'uitdaging'?",["iets waarvoor inspanning nodig is","een beloning","een vakantie","een adres"],"iets waarvoor inspanning nodig is"),
-AssessmentQuestion("nl-b1-007","reading","B1","Lees: 'De vergadering werd verplaatst omdat de directeur ziek was.' Waarom werd de vergadering verplaatst?",["Omdat de directeur ziek was.","Omdat het kantoor gesloten was.","Omdat de trein vertraging had.","Omdat het een feestdag was."],"Omdat de directeur ziek was."),
-AssessmentQuestion("nl-b1-008","grammar","B1","Kies de juiste woordvolgorde.",["Gisteren kocht ik een nieuwe computer.","Gisteren ik kocht een nieuwe computer.","Gisteren kocht een nieuwe computer ik.","Gisteren een nieuwe computer kocht ik."],"Gisteren kocht ik een nieuwe computer."),
-AssessmentQuestion("nl-b2-005","grammar","B2","Kies de juiste concessieve zin.",["Hoewel het regende, gingen we wandelen.","Hoewel het regende, we gingen wandelen.","Hoewel regende het, gingen we wandelen.","Hoewel het regende, we wandelen gingen."],"Hoewel het regende, gingen we wandelen."),
-AssessmentQuestion("nl-b2-006","vocabulary","B2","Wat betekent 'voorspellen'?",["inschatten wat er waarschijnlijk zal gebeuren","het verleden uitleggen","een regel veranderen","een afspraak annuleren"],"inschatten wat er waarschijnlijk zal gebeuren"),
-AssessmentQuestion("nl-b2-007","reading","B2","Lees: 'De resultaten tonen een duidelijke trend, maar moeten voorzichtig worden geïnterpreteerd.' Wat wordt aanbevolen?",["De resultaten voorzichtig interpreteren.","De resultaten negeren.","Alle resultaten veranderen.","Het onderzoek meteen stoppen."],"De resultaten voorzichtig interpreteren."),
-AssessmentQuestion("nl-b2-008","grammar","B2","Kies de juiste indirecte vraag.",["Ik weet niet wanneer de vergadering begint.","Ik weet niet wanneer begint de vergadering.","Ik weet niet wanneer de vergadering begint?","Ik weet niet de vergadering wanneer begint."],"Ik weet niet wanneer de vergadering begint."),
-AssessmentQuestion("nl-c1-005","grammar","C1","Kies de meest precieze academische formulering.",["De resultaten wijzen erop dat het effect beperkt is.","De resultaten wijzen dat het effect beperkt is.","De resultaten wijst erop dat het effect beperkt is.","De resultaten wijzen erop het effect beperkt is."],"De resultaten wijzen erop dat het effect beperkt is."),
-AssessmentQuestion("nl-c1-006","vocabulary","C1","Wat betekent 'wezenlijk' in een academische tekst?",["belangrijk of significant","toevallig","tijdelijk","informeel"],"belangrijk of significant"),
-AssessmentQuestion("nl-c1-007","reading","C1","Lees: 'Correlatie bewijst op zichzelf geen causaal verband.' Wat bewijst correlatie niet?",["Dat het ene verschijnsel het andere veroorzaakt.","Dat er gegevens zijn.","Dat variabelen samenhangen.","Dat er een analyse is uitgevoerd."],"Dat het ene verschijnsel het andere veroorzaakt."),
-AssessmentQuestion("nl-c1-008","grammar","C1","Kies de correcte passieve constructie.",["Het onderzoek werd in drie fasen uitgevoerd.","Het onderzoek werd in drie fasen uitvoeren.","Het onderzoek uitgevoerd werd in drie fasen.","Het onderzoek werd uitvoeren in drie fasen."],"Het onderzoek werd in drie fasen uitgevoerd."),
-AssessmentQuestion("nl-c2-005","grammar","C2","Welke formulering drukt epistemische voorzichtigheid uit?",["Het valt niet uit te sluiten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],"Het valt niet uit te sluiten dat andere factoren een rol spelen."),
-AssessmentQuestion("nl-c2-006","vocabulary","C2","Wat betekent 'dubbelzinnig'?",["vatbaar voor meer dan één interpretatie","volkomen duidelijk","zeer kort","gemakkelijk meetbaar"],"vatbaar voor meer dan één interpretatie"),
-AssessmentQuestion("nl-c2-007","reading","C2","Lees: 'Het argument is overtuigend, mits de onderliggende aanname standhoudt.' Waarvan hangt de beoordeling af?",["Of de onderliggende aanname standhoudt.","Of het argument kort is.","Of de tekst informeel is.","Of de gegevens oud zijn."],"Of de onderliggende aanname standhoudt."),
-AssessmentQuestion("nl-c2-008","grammar","C2","Kies de meest precieze academische formulering.",["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],"De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.")
 
-AssessmentQuestion("nl-a1-009","grammar","A1","Kies de juiste vraag.",["Waar woon je?","Waar je woont?","Woon waar je?","Waar wonen?"],"Waar woon je?","questions"),
-AssessmentQuestion("nl-a1-010","vocabulary","A1","Wat betekent 'appel'?",["een vrucht","een voertuig","een gebouw","een meubel"],"een vrucht"),
-AssessmentQuestion("nl-a1-011","reading","A1","Lees: 'Sofie woont in Utrecht.' Waar woont Sofie?",["In Utrecht.","In Amsterdam.","In Rotterdam.","In Groningen."],"In Utrecht."),
-AssessmentQuestion("nl-a1-012","grammar","A1","Kies de juiste vorm.",["Hij heeft een auto.","Hij heeft een auto?","Hij hebben een auto.","Hij heeft een auto's."],"Hij heeft een auto.","hebben"),
-AssessmentQuestion("nl-a2-005","grammar","A2","Kies de juiste verleden tijd.",["Gisteren werkte ik thuis.","Gisteren werk ik thuis.","Gisteren werken ik thuis.","Gisteren gewerkt ik thuis."],"Gisteren werkte ik thuis.","past-tense"),
-AssessmentQuestion("nl-a2-006","vocabulary","A2","Wat betekent 'vertraging'?",["iets dat later komt dan gepland","een reservering","een adres","een betaling"],"iets dat later komt dan gepland"),
-AssessmentQuestion("nl-a2-007","reading","A2","Lees: 'De winkel sluit om zes uur.' Wanneer sluit de winkel?",["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],"Om zes uur."),
-AssessmentQuestion("nl-a2-008","grammar","A2","Kies de juiste voorzetselcombinatie.",["Ik woon in Nederland.","Ik woon op Nederland.","Ik woon naar Nederland.","Ik woon bij Nederland."],"Ik woon in Nederland.","prepositions"),
-AssessmentQuestion("nl-b1-005","grammar","B1","Kies de juiste betrekkelijke bijzin.",["Dit is het boek dat ik gisteren kocht.","Dit is het boek dat ik gisteren kopen.","Dit is het boek die ik gisteren kocht.","Dit is het boek dat ik kocht het."],"Dit is het boek dat ik gisteren kocht.","relative-clause"),
-AssessmentQuestion("nl-b1-006","vocabulary","B1","Wat betekent 'uitdaging'?",["iets waarvoor inspanning nodig is","een beloning","een vakantie","een adres"],"iets waarvoor inspanning nodig is"),
-AssessmentQuestion("nl-b1-007","reading","B1","Lees: 'De vergadering werd verplaatst omdat de directeur ziek was.' Waarom werd de vergadering verplaatst?",["Omdat de directeur ziek was.","Omdat het kantoor gesloten was.","Omdat de trein vertraging had.","Omdat het een feestdag was."],"Omdat de directeur ziek was."),
-AssessmentQuestion("nl-b1-008","grammar","B1","Kies de juiste woordvolgorde.",["Gisteren kocht ik een nieuwe computer.","Gisteren ik kocht een nieuwe computer.","Gisteren kocht een nieuwe computer ik.","Gisteren een nieuwe computer kocht ik."],"Gisteren kocht ik een nieuwe computer.","word-order"),
-AssessmentQuestion("nl-b2-005","grammar","B2","Kies de juiste concessieve zin.",["Hoewel het regende, gingen we wandelen.","Hoewel het regende, we gingen wandelen.","Hoewel regende het, gingen we wandelen.","Hoewel het regende, we wandelen gingen."],"Hoewel het regende, gingen we wandelen.","concessive"),
-AssessmentQuestion("nl-b2-006","vocabulary","B2","Wat betekent 'voorspellen'?",["zeggen wat er waarschijnlijk zal gebeuren","iets uit het verleden uitleggen","een regel veranderen","een afspraak annuleren"],"zeggen wat er waarschijnlijk zal gebeuren"),
-AssessmentQuestion("nl-b2-007","reading","B2","Lees: 'De resultaten tonen een duidelijke trend, maar moeten voorzichtig worden geïnterpreteerd.' Wat wordt aanbevolen?",["De resultaten voorzichtig interpreteren.","De resultaten negeren.","Alle resultaten veranderen.","Het onderzoek meteen beëindigen."],"De resultaten voorzichtig interpreteren."),
-AssessmentQuestion("nl-b2-008","grammar","B2","Kies de juiste indirecte vraag.",["Ik weet niet wanneer de vergadering begint.","Ik weet niet wanneer begint de vergadering.","Ik weet niet wanneer de vergadering begint?","Ik weet niet de vergadering wanneer begint."],"Ik weet niet wanneer de vergadering begint.","indirect-question"),
-AssessmentQuestion("nl-c1-005","grammar","C1","Kies de meest precieze academische formulering.",["De resultaten wijzen erop dat het effect beperkt is.","De resultaten wijzen dat het effect beperkt is.","De resultaten wijst erop dat het effect beperkt is.","De resultaten wijzen erop het effect beperkt is."],"De resultaten wijzen erop dat het effect beperkt is.","academic-language"),
-AssessmentQuestion("nl-c1-006","vocabulary","C1","Wat betekent 'wezenlijk' in een academische context?",["belangrijk of significant","toevallig","tijdelijk","informeel"],"belangrijk of significant"),
-AssessmentQuestion("nl-c1-007","reading","C1","Lees: 'Correlatie bewijst op zichzelf geen causaal verband.' Wat bewijst correlatie niet?",["Dat het ene verschijnsel het andere veroorzaakt.","Dat er gegevens zijn.","Dat variabelen samenhangen.","Dat er een analyse is uitgevoerd."],"Dat het ene verschijnsel het andere veroorzaakt."),
-AssessmentQuestion("nl-c1-008","grammar","C1","Kies de juiste passieve constructie.",["Het onderzoek werd in drie fasen uitgevoerd.","Het onderzoek werd in drie fasen uitvoeren.","Het onderzoek uitgevoerd werd in drie fasen.","Het onderzoek werden in drie fasen uitgevoerd."],"Het onderzoek werd in drie fasen uitgevoerd.","passive"),
-AssessmentQuestion("nl-c2-005","grammar","C2","Welke formulering drukt wetenschappelijke voorzichtigheid uit?",["Het kan niet worden uitgesloten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],"Het kan niet worden uitgesloten dat andere factoren een rol spelen.","epistemic-modality"),
-AssessmentQuestion("nl-c2-006","vocabulary","C2","Wat betekent 'dubbelzinnig'?",["dat iets meer dan één interpretatie toelaat","dat iets volledig duidelijk is","dat iets zeer kort is","dat iets gemakkelijk meetbaar is"],"dat iets meer dan één interpretatie toelaat"),
-AssessmentQuestion("nl-c2-007","reading","C2","Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",["Of de onderliggende aanname klopt.","Of het argument kort is.","Of de tekst informeel is.","Of de gegevens oud zijn."],"Of de onderliggende aanname klopt."),
-AssessmentQuestion("nl-c2-008","grammar","C2","Kies de meest precieze academische formulering.",["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],"De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","academic-style")
 
-AssessmentQuestion(id="nl-a2-005",skill="grammar",difficulty="A2",question="Kies de juiste voltooide tijd.",options=["Ik heb gegeten.","Ik heb eten.","Ik heb at.","Ik eet heb."],correct="Ik heb gegeten.",grammar_slug="perfectum"),
-AssessmentQuestion(id="nl-a2-006",skill="vocabulary",difficulty="A2",question="Wat betekent 'vertraging'?",options=["iets dat later komt dan gepland","een reservering","een adres","een betaling"],correct="iets dat later komt dan gepland"),
-AssessmentQuestion(id="nl-a2-007",skill="reading",difficulty="A2",question="Lees: 'De winkel sluit om zes uur.' Wanneer sluit de winkel?",options=["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],correct="Om zes uur."),
-AssessmentQuestion(id="nl-a2-008",skill="grammar",difficulty="A2",question="Kies de juiste voorzetselcombinatie.",options=["Ik woon in Nederland.","Ik woon op Nederland.","Ik woon naar Nederland.","Ik woon bij Nederland."],correct="Ik woon in Nederland.",grammar_slug="voorzetsels"),
-AssessmentQuestion(id="nl-b1-005",skill="grammar",difficulty="B1",question="Kies de juiste betrekkelijke bijzin.",options=["Dit is het boek dat ik heb gekocht.","Dit is het boek die ik heb gekocht.","Dit is het boek dat ik gekocht.","Dit is het boek dat heb ik gekocht."],correct="Dit is het boek dat ik heb gekocht.",grammar_slug="betrekkelijke-bijzinnen"),
-AssessmentQuestion(id="nl-b1-006",skill="vocabulary",difficulty="B1",question="Wat betekent 'uitdaging'?",options=["iets waarvoor inspanning nodig is","een beloning","een vakantie","een adres"],correct="iets waarvoor inspanning nodig is"),
-AssessmentQuestion(id="nl-b1-007",skill="reading",difficulty="B1",question="Lees: 'De vergadering werd uitgesteld omdat de directeur ziek was.' Waarom werd de vergadering uitgesteld?",options=["Omdat de directeur ziek was.","Omdat het kantoor gesloten was.","Omdat de trein vertraging had.","Omdat het een feestdag was."],correct="Omdat de directeur ziek was."),
-AssessmentQuestion(id="nl-b1-008",skill="grammar",difficulty="B1",question="Kies de juiste woordvolgorde.",options=["Gisteren kocht ik een nieuwe computer.","Gisteren ik kocht een nieuwe computer.","Gisteren kocht een nieuwe computer ik.","Gisteren een nieuwe computer kocht ik."],correct="Gisteren kocht ik een nieuwe computer.",grammar_slug="woordvolgorde"),
-AssessmentQuestion(id="nl-b2-005",skill="grammar",difficulty="B2",question="Kies de juiste toegevende bijzin.",options=["Hoewel het regende, gingen we wandelen.","Hoewel het regende, we gingen wandelen.","Hoewel regende het, gingen we wandelen.","Hoewel het regende, we wandelen gingen."],correct="Hoewel het regende, gingen we wandelen.",grammar_slug="toegevende-bijzinnen"),
-AssessmentQuestion(id="nl-b2-006",skill="vocabulary",difficulty="B2",question="Wat betekent 'voorspellen'?",options=["zeggen wat waarschijnlijk zal gebeuren","iets uit het verleden uitleggen","een regel veranderen","een afspraak annuleren"],correct="zeggen wat waarschijnlijk zal gebeuren"),
-AssessmentQuestion(id="nl-b2-007",skill="reading",difficulty="B2",question="Lees: 'De resultaten tonen een duidelijke trend, maar moeten voorzichtig worden geïnterpreteerd.' Wat wordt aanbevolen?",options=["De resultaten voorzichtig interpreteren.","De resultaten negeren.","Alle resultaten veranderen.","Het onderzoek onmiddellijk beëindigen."],correct="De resultaten voorzichtig interpreteren."),
-AssessmentQuestion(id="nl-b2-008",skill="grammar",difficulty="B2",question="Kies de juiste indirecte vraag.",options=["Ik weet niet wanneer de vergadering begint.","Ik weet niet wanneer begint de vergadering.","Ik weet niet wanneer de vergadering begint?","Ik weet niet de vergadering wanneer begint."],correct="Ik weet niet wanneer de vergadering begint.",grammar_slug="indirecte-vragen"),
-AssessmentQuestion(id="nl-c1-005",skill="grammar",difficulty="C1",question="Kies de meest precieze academische formulering.",options=["De resultaten wijzen erop dat het effect beperkt is.","De resultaten wijzen dat het effect beperkt is.","De resultaten wijst erop dat het effect beperkt is.","De resultaten wijzen erop het effect beperkt is."],correct="De resultaten wijzen erop dat het effect beperkt is.",grammar_slug="academische-taal"),
-AssessmentQuestion(id="nl-c1-006",skill="vocabulary",difficulty="C1",question="Wat betekent 'wezenlijk' in een academische context?",options=["belangrijk of fundamenteel","toevallig","tijdelijk","informeel"],correct="belangrijk of fundamenteel"),
-AssessmentQuestion(id="nl-c1-007",skill="reading",difficulty="C1",question="Lees: 'Correlatie bewijst op zichzelf geen causaal verband.' Wat wordt niet bewezen?",options=["Dat het ene verschijnsel het andere veroorzaakt.","Dat er gegevens zijn.","Dat variabelen samenhangen.","Dat er een analyse is uitgevoerd."],correct="Dat het ene verschijnsel het andere veroorzaakt."),
-AssessmentQuestion(id="nl-c1-008",skill="grammar",difficulty="C1",question="Kies de juiste passieve constructie.",options=["Het onderzoek werd in drie fasen uitgevoerd.","Het onderzoek werd in drie fasen uitvoeren.","Het onderzoek uitgevoerd werd in drie fasen.","Het onderzoek werden in drie fasen uitgevoerd."],correct="Het onderzoek werd in drie fasen uitgevoerd.",grammar_slug="passieve-constructie"),
-AssessmentQuestion(id="nl-c2-005",skill="grammar",difficulty="C2",question="Welke formulering drukt epistemische voorzichtigheid uit?",options=["Het kan niet worden uitgesloten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],correct="Het kan niet worden uitgesloten dat andere factoren een rol spelen.",grammar_slug="epistemische-modaliteit"),
-AssessmentQuestion(id="nl-c2-006",skill="vocabulary",difficulty="C2",question="Wat betekent 'dubbelzinnig'?",options=["voor meerdere interpretaties vatbaar","volkomen duidelijk","zeer kort","gemakkelijk meetbaar"],correct="voor meerdere interpretaties vatbaar"),
-AssessmentQuestion(id="nl-c2-007",skill="reading",difficulty="C2",question="Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",options=["Of de onderliggende aanname klopt.","Of het argument kort is.","Of de tekst informeel is.","Of de gegevens oud zijn."],correct="Of de onderliggende aanname klopt."),
-AssessmentQuestion(id="nl-c2-008",skill="grammar",difficulty="C2",question="Kies de meest precieze academische formulering.",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generalisatie zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.",grammar_slug="academische-formulering")
 
-AssessmentQuestion(id="nl-a1-009",skill="grammar",difficulty="A1",question="Kies de juiste vraag.",options=["Waar woon je?","Waar je woont?","Woon waar je?","Waar wonen?"],correct="Waar woon je?",grammar_slug="vragen"),
-AssessmentQuestion(id="nl-a1-010",skill="vocabulary",difficulty="A1",question="Wat betekent 'appel'?",options=["een vrucht","een voertuig","een gebouw","een meubel"],correct="een vrucht"),
-AssessmentQuestion(id="nl-a1-011",skill="reading",difficulty="A1",question="Lees: 'Sara woont in Utrecht.' Waar woont Sara?",options=["In Utrecht.","In Rotterdam.","In Groningen.","In Leiden."],correct="In Utrecht."),
-AssessmentQuestion(id="nl-a1-012",skill="grammar",difficulty="A1",question="Kies de juiste vorm.",options=["Zij heeft een auto.","Zij heeft een auto?","Zij hebben een auto.","Zij heeft een auto's."],correct="Zij heeft een auto.",grammar_slug="hebben"),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 AssessmentQuestion(id="nl-c1-009",skill="grammar",difficulty="C1",question="Kies de meest precieze academische formulering.",options=["De resultaten wijzen erop dat het effect beperkt is.","De resultaten wijzen dat het effect beperkt is.","De resultaten wijzen erop het effect dat beperkt is.","De resultaten wijst erop dat het effect beperkt is."],correct="De resultaten wijzen erop dat het effect beperkt is.",grammar_slug="academische-taal"),
 AssessmentQuestion(id="nl-c1-010",skill="vocabulary",difficulty="C1",question="Wat betekent 'wezenlijk' in een academische tekst?",options=["belangrijk of fundamenteel","toevallig","tijdelijk","informeel"],correct="belangrijk of fundamenteel"),
 AssessmentQuestion(id="nl-c1-011",skill="reading",difficulty="C1",question="Lees: 'Correlatie bewijst op zichzelf geen oorzakelijk verband.' Wat bewijst correlatie niet?",options=["Dat het ene verschijnsel het andere veroorzaakt.","Dat er gegevens bestaan.","Dat variabelen samenhangen.","Dat er een analyse is uitgevoerd."],correct="Dat het ene verschijnsel het andere veroorzaakt."),
@@ -204,27 +192,25 @@ AssessmentQuestion(id="nl-c2-011",skill="reading",difficulty="C2",question="Lees
 AssessmentQuestion(id="nl-c2-012",skill="grammar",difficulty="C2",question="Kies de meest precieze academische formulering.",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generalisatie zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.",grammar_slug="academische-formulering")
 
     AssessmentQuestion(id="nl-a2-005",skill="grammar",difficulty="A2",question="Welke zin staat in de verleden tijd?",options=["Gisteren ging ik naar de winkel.","Gisteren ga ik naar de winkel.","Gisteren gaan ik naar de winkel.","Gisteren zal ik naar de winkel gaan."],correct="Gisteren ging ik naar de winkel."),
-    AssessmentQuestion(id="nl-a2-006",skill="vocabulary",difficulty="A2",question="Wat betekent 'vertraging'?",options=["iets komt later dan gepland","een reservering","een adres","een betaling"],correct="iets komt later dan gepland"),
-    AssessmentQuestion(id="nl-a2-007",skill="reading",difficulty="A2",question="Lees: 'De winkel sluit om zes uur.' Wanneer sluit de winkel?",options=["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],correct="Om zes uur."),
-    AssessmentQuestion(id="nl-a2-008",skill="grammar",difficulty="A2",question="Welke zin is correct?",options=["Ik wil Nederlands leren.","Ik wil Nederlands leert.","Ik wil Nederlands geleerd.","Ik wil Nederlands leren gisteren."],correct="Ik wil Nederlands leren."),
-    AssessmentQuestion(id="nl-b1-005",skill="grammar",difficulty="B1",question="Welke voorwaardelijke zin is correct?",options=["Als ik tijd had, zou ik reizen.","Als ik tijd had, zal ik gisteren reizen.","Als ik heb tijd, zou ik reis.","Als ik tijd had, reisde ik morgen."],correct="Als ik tijd had, zou ik reizen."),
-    AssessmentQuestion(id="nl-b1-006",skill="vocabulary",difficulty="B1",question="Wat betekent 'uitdaging'?",options=["iets dat inspanning vraagt","een beloning","een vakantie","een adres"],correct="iets dat inspanning vraagt"),
-    AssessmentQuestion(id="nl-b1-007",skill="reading",difficulty="B1",question="Lees: 'De vergadering werd verplaatst omdat de directeur ziek was.' Waarom werd de vergadering verplaatst?",options=["Omdat de directeur ziek was.","Omdat het kantoor gesloten was.","Omdat de trein vertraging had.","Omdat het een feestdag was."],correct="Omdat de directeur ziek was."),
-    AssessmentQuestion(id="nl-b1-008",skill="grammar",difficulty="B1",question="Welke woordvolgorde is correct?",options=["Gisteren kocht ik een nieuwe computer.","Gisteren ik kocht een nieuwe computer.","Gisteren kocht een nieuwe computer ik.","Gisteren een nieuwe computer kocht ik."],correct="Gisteren kocht ik een nieuwe computer."),
-    AssessmentQuestion(id="nl-b2-005",skill="grammar",difficulty="B2",question="Welke zin drukt een tegenstelling uit?",options=["Hoewel het regende, gingen we wandelen.","Omdat het regende, gingen we wandelen.","Zodra het regende, gingen we wandelen.","Als het regent, gaan we wandelen."],correct="Hoewel het regende, gingen we wandelen."),
-    AssessmentQuestion(id="nl-b2-006",skill="vocabulary",difficulty="B2",question="Wat betekent 'voorspellen'?",options=["zeggen wat waarschijnlijk zal gebeuren","iets uit het verleden uitleggen","een regel veranderen","een afspraak annuleren"],correct="zeggen wat waarschijnlijk zal gebeuren"),
-    AssessmentQuestion(id="nl-b2-007",skill="reading",difficulty="B2",question="Lees: 'De resultaten wijzen op verbetering, maar moeten voorzichtig worden geïnterpreteerd.' Wat wordt aanbevolen?",options=["De resultaten voorzichtig interpreteren.","De resultaten negeren.","Alle resultaten aanpassen.","Het onderzoek onmiddellijk stoppen."],correct="De resultaten voorzichtig interpreteren."),
-    AssessmentQuestion(id="nl-b2-008",skill="grammar",difficulty="B2",question="Welke indirecte vraag is correct?",options=["Ik weet niet wanneer de vergadering begint.","Ik weet niet wanneer begint de vergadering.","Ik weet niet wanneer de vergadering begint?","Ik weet niet de vergadering wanneer begint."],correct="Ik weet niet wanneer de vergadering begint."),
-    AssessmentQuestion(id="nl-c1-005",skill="grammar",difficulty="C1",question="Welke formulering past het best in een academische tekst?",options=["De resultaten suggereren dat het effect beperkt is.","De resultaten suggereren dat het effect beperkt zijn.","De resultaten suggereert het effect beperkt is.","De resultaten suggereren het effect dat beperkt."],correct="De resultaten suggereren dat het effect beperkt is."),
-    AssessmentQuestion(id="nl-c1-006",skill="vocabulary",difficulty="C1",question="Wat betekent 'wezenlijk' in een academische context?",options=["belangrijk of fundamenteel","toevallig","tijdelijk","informeel"],correct="belangrijk of fundamenteel"),
-    AssessmentQuestion(id="nl-c1-007",skill="reading",difficulty="C1",question="Lees: 'Correlatie bewijst op zichzelf geen causaal verband.' Wat wordt niet bewezen?",options=["Dat het ene verschijnsel het andere veroorzaakt.","Dat er gegevens zijn.","Dat variabelen samenhangen.","Dat er een analyse is uitgevoerd."],correct="Dat het ene verschijnsel het andere veroorzaakt."),
-    AssessmentQuestion(id="nl-c1-008",skill="grammar",difficulty="C1",question="Welke passieve constructie is correct?",options=["Het onderzoek werd in drie fasen uitgevoerd.","Het onderzoek werd in drie fasen uitvoeren.","Het onderzoek uitgevoerd werd in drie fasen.","Het onderzoek werd uitgevoerd drie fasen."],correct="Het onderzoek werd in drie fasen uitgevoerd."),
-    AssessmentQuestion(id="nl-c2-005",skill="grammar",difficulty="C2",question="Welke formulering toont epistemische voorzichtigheid?",options=["Het kan niet worden uitgesloten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],correct="Het kan niet worden uitgesloten dat andere factoren een rol spelen."),
-    AssessmentQuestion(id="nl-c2-006",skill="vocabulary",difficulty="C2",question="Wat betekent 'dubbelzinnig'?",options=["op meer dan één manier te interpreteren","volledig eenduidig","zeer kort","gemakkelijk te meten"],correct="op meer dan één manier te interpreteren"),
-    AssessmentQuestion(id="nl-c2-007",skill="reading",difficulty="C2",question="Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",options=["Van de juistheid van de onderliggende aanname.","Van de lengte van de tekst.","Van een informele stijl.","Van de ouderdom van de gegevens."],correct="Van de juistheid van de onderliggende aanname."),
-    AssessmentQuestion(id="nl-c2-008",skill="grammar",difficulty="C2",question="Welke formulering is het meest precies?",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.")
 
-    AssessmentQuestion(id="nl-a1-025",skill="grammar",difficulty="A1",question="Welke vraag is correct?",options=["Waar woon je?","Waar je woont?","Woon waar je?","Waar wonen?"],correct="Waar woon je?"),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     AssessmentQuestion(id="nl-a1-026",skill="vocabulary",difficulty="A1",question="Wat betekent 'appel'?",options=["een fruitsoort","een voertuig","een gebouw","een meubel"],correct="een fruitsoort"),
     AssessmentQuestion(id="nl-a1-027",skill="reading",difficulty="A1",question="Lees: 'Sara woont in Utrecht.' Waar woont Sara?",options=["In Utrecht.","In Rotterdam.","In Groningen.","In Leiden."],correct="In Utrecht."),
     AssessmentQuestion(id="nl-a1-028",skill="grammar",difficulty="A1",question="Welke zin is correct?",options=["Hij heeft een fiets.","Hij heeft een fietsje zijn.","Hij hebben een fiets.","Hij heeft een fietsen."],correct="Hij heeft een fiets."),
@@ -295,95 +281,95 @@ AssessmentQuestion("nl-c2-279","reading","C2","Lees: 'Het argument is overtuigen
 AssessmentQuestion("nl-c2-280","grammar","C2","Kies de meest precieze academische formulering.",["De resultaten laten geen eenduidige generalisatie toe zonder aanvullende gegevens.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],"De resultaten laten geen eenduidige generalisatie toe zonder aanvullende gegevens.")
 
     AssessmentQuestion(id="nl-a2-005",skill="grammar",difficulty="A2",question="Welke zin is correct?",options=["Ik moet morgen werken.","Ik moet morgen werkt.","Ik moet morgen gewerkt.","Ik moet morgen werk."],correct="Ik moet morgen werken."),
-    AssessmentQuestion(id="nl-a2-006",skill="vocabulary",difficulty="A2",question="Wat betekent 'vertraging'?",options=["iets dat later komt dan gepland","een reservering","een adres","een betaling"],correct="iets dat later komt dan gepland"),
-    AssessmentQuestion(id="nl-a2-007",skill="reading",difficulty="A2",question="Lees: 'De winkel sluit om zes uur.' Wanneer sluit de winkel?",options=["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],correct="Om zes uur."),
-    AssessmentQuestion(id="nl-a2-008",skill="grammar",difficulty="A2",question="Welke zin gebruikt de verleden tijd correct?",options=["Gisteren bezocht ik mijn vriend.","Gisteren bezoek ik mijn vriend.","Gisteren bezoeken ik mijn vriend.","Gisteren bezocht mijn vriend ik."],correct="Gisteren bezocht ik mijn vriend."),
-    AssessmentQuestion(id="nl-b1-005",skill="grammar",difficulty="B1",question="Welke zin gebruikt een voorwaardelijke constructie correct?",options=["Als ik tijd had, zou ik reizen.","Als ik tijd heb, zou ik gisteren reizen.","Als ik tijd had, reisde ik morgen.","Als ik tijd zou hebben, had ik gisteren gereisd."],correct="Als ik tijd had, zou ik reizen."),
-    AssessmentQuestion(id="nl-b1-006",skill="vocabulary",difficulty="B1",question="Wat betekent 'uitdaging'?",options=["iets waarvoor inspanning nodig is","een beloning","een vakantie","een adres"],correct="iets waarvoor inspanning nodig is"),
-    AssessmentQuestion(id="nl-b1-007",skill="reading",difficulty="B1",question="Lees: 'De vergadering werd uitgesteld omdat de directeur ziek was.' Waarom werd de vergadering uitgesteld?",options=["Omdat de directeur ziek was.","Omdat het kantoor gesloten was.","Omdat de trein vertraging had.","Omdat het een feestdag was."],correct="Omdat de directeur ziek was."),
-    AssessmentQuestion(id="nl-b1-008",skill="grammar",difficulty="B1",question="Welke woordvolgorde is correct?",options=["Gisteren kocht ik een nieuwe computer.","Gisteren ik kocht een nieuwe computer.","Gisteren kocht een nieuwe computer ik.","Gisteren een nieuwe computer ik kocht."],correct="Gisteren kocht ik een nieuwe computer."),
-    AssessmentQuestion(id="nl-b2-005",skill="grammar",difficulty="B2",question="Welke zin drukt een tegenstelling uit?",options=["Hoewel het regende, gingen we wandelen.","Omdat het regende, gingen we wandelen.","Zodra het regende, gingen we wandelen.","Als het regende, gingen we niet wandelen."],correct="Hoewel het regende, gingen we wandelen."),
-    AssessmentQuestion(id="nl-b2-006",skill="vocabulary",difficulty="B2",question="Wat betekent 'voorspellen'?",options=["zeggen wat waarschijnlijk zal gebeuren","iets uit het verleden uitleggen","een regel veranderen","een afspraak annuleren"],correct="zeggen wat waarschijnlijk zal gebeuren"),
-    AssessmentQuestion(id="nl-b2-007",skill="reading",difficulty="B2",question="Lees: 'De resultaten tonen een duidelijke trend, maar moeten voorzichtig worden geïnterpreteerd.' Wat wordt aanbevolen?",options=["De resultaten voorzichtig interpreteren.","De resultaten negeren.","Alle resultaten veranderen.","Het onderzoek onmiddellijk stoppen."],correct="De resultaten voorzichtig interpreteren."),
-    AssessmentQuestion(id="nl-b2-008",skill="grammar",difficulty="B2",question="Welke indirecte vraag is correct?",options=["Ik weet niet wanneer de vergadering begint.","Ik weet niet wanneer begint de vergadering.","Ik weet niet wanneer de vergadering begint?","Ik weet niet de vergadering wanneer begint."],correct="Ik weet niet wanneer de vergadering begint."),
-    AssessmentQuestion(id="nl-c1-005",skill="grammar",difficulty="C1",question="Welke formulering past het best bij academisch Nederlands?",options=["De resultaten wijzen erop dat het effect beperkt is.","De resultaten wijzen dat het effect beperkt is.","De resultaten wijst erop dat het effect beperkt is.","De resultaten wijzen erop het effect beperkt."],correct="De resultaten wijzen erop dat het effect beperkt is."),
-    AssessmentQuestion(id="nl-c1-006",skill="vocabulary",difficulty="C1",question="Wat betekent 'wezenlijk' in een academische tekst?",options=["belangrijk of fundamenteel","toevallig","tijdelijk","informeel"],correct="belangrijk of fundamenteel"),
-    AssessmentQuestion(id="nl-c1-007",skill="reading",difficulty="C1",question="Lees: 'Correlatie bewijst op zichzelf geen causaal verband.' Wat wordt niet bewezen?",options=["Dat het ene verschijnsel het andere veroorzaakt.","Dat er gegevens zijn.","Dat variabelen samenhangen.","Dat er een analyse is uitgevoerd."],correct="Dat het ene verschijnsel het andere veroorzaakt."),
-    AssessmentQuestion(id="nl-c1-008",skill="grammar",difficulty="C1",question="Welke passieve constructie is correct?",options=["Het onderzoek werd in drie fasen uitgevoerd.","Het onderzoek werd in drie fasen uitvoeren.","Het onderzoek uitgevoerd werd in drie fasen.","Het onderzoek werd uitgevoerd drie fasen."],correct="Het onderzoek werd in drie fasen uitgevoerd."),
-    AssessmentQuestion(id="nl-c2-005",skill="grammar",difficulty="C2",question="Welke formulering drukt epistemische voorzichtigheid uit?",options=["Het kan niet worden uitgesloten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],correct="Het kan niet worden uitgesloten dat andere factoren een rol spelen."),
-    AssessmentQuestion(id="nl-c2-006",skill="vocabulary",difficulty="C2",question="Wat betekent 'dubbelzinnig'?",options=["voor meer dan één interpretatie vatbaar","volledig eenduidig","zeer kort","gemakkelijk meetbaar"],correct="voor meer dan één interpretatie vatbaar"),
-    AssessmentQuestion(id="nl-c2-007",skill="reading",difficulty="C2",question="Lees: 'Het argument is overtuigend, mits de onderliggende aanname standhoudt.' Waarvan hangt de beoordeling af?",options=["Van het feit dat de onderliggende aanname standhoudt.","Van de lengte van de tekst.","Van een informele stijl.","Van de ouderdom van de gegevens."],correct="Van het feit dat de onderliggende aanname standhoudt."),
-    AssessmentQuestion(id="nl-c2-008",skill="grammar",difficulty="C2",question="Welke formulering is het meest precies?",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie toe zonder gegevens.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.")
-
-AssessmentQuestion("nl-a1-009","grammar","A1","Kies de juiste zin.",["Ik woon in Amsterdam.","Ik woont in Amsterdam.","Ik wonen in Amsterdam.","Ik woon Amsterdam."],"Ik woon in Amsterdam.","present-tense"),
-AssessmentQuestion("nl-a1-010","vocabulary","A1","Wat betekent 'appel'?",["een vrucht","een voertuig","een gebouw","een meubel"],"een vrucht"),
-AssessmentQuestion("nl-a1-011","reading","A1","Lees: 'Sophie woont in Utrecht.' Waar woont Sophie?",["In Utrecht.","In Rotterdam.","In Groningen.","In Leiden."],"In Utrecht."),
-AssessmentQuestion("nl-a1-012","grammar","A1","Kies het juiste lidwoord: '___ boek ligt op tafel.'",["Het","De","Een","Die"],"Het","articles"),
-AssessmentQuestion("nl-a2-005","grammar","A2","Kies de juiste verleden tijd.",["Gisteren werkte ik thuis.","Gisteren werk ik thuis.","Gisteren werken ik thuis.","Gisteren gewerkt ik thuis."],"Gisteren werkte ik thuis.","past-tense"),
-AssessmentQuestion("nl-a2-006","vocabulary","A2","Wat betekent 'vertraging'?",["iets dat later komt dan gepland","een reservering","een adres","een betaling"],"iets dat later komt dan gepland"),
-AssessmentQuestion("nl-a2-007","reading","A2","Lees: 'De winkel sluit om zes uur.' Wanneer sluit de winkel?",["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],"Om zes uur."),
-AssessmentQuestion("nl-a2-008","grammar","A2","Kies de juiste zin met een modaal werkwoord.",["Ik moet morgen werken.","Ik moet morgen werkt.","Ik moet morgen gewerkt.","Ik moet morgen werk."],"Ik moet morgen werken.","modal-verbs"),
-AssessmentQuestion("nl-b1-005","grammar","B1","Kies de juiste bijzin.",["Ik weet dat hij morgen komt.","Ik weet dat hij morgen komen.","Ik weet dat komt hij morgen.","Ik weet hij dat morgen komt."],"Ik weet dat hij morgen komt.","subordinate-clauses"),
-AssessmentQuestion("nl-b1-006","vocabulary","B1","Wat betekent 'uitdaging'?",["iets dat inspanning vereist","een beloning","een vakantie","een adres"],"iets dat inspanning vereist"),
-AssessmentQuestion("nl-b1-007","reading","B1","Lees: 'De vergadering werd verplaatst omdat de directeur ziek was.' Waarom werd de vergadering verplaatst?",["Omdat de directeur ziek was.","Omdat het kantoor gesloten was.","Omdat de trein vertraagd was.","Omdat het een feestdag was."],"Omdat de directeur ziek was."),
-AssessmentQuestion("nl-b1-008","grammar","B1","Kies de juiste woordvolgorde.",["Gisteren kocht ik een nieuwe computer.","Gisteren ik kocht een nieuwe computer.","Gisteren kocht een nieuwe computer ik.","Gisteren een nieuwe computer kocht ik."],"Gisteren kocht ik een nieuwe computer.","word-order"),
-AssessmentQuestion("nl-b2-005","grammar","B2","Kies de juiste concessieve zin.",["Hoewel het regende, gingen we wandelen.","Hoewel het regende, we gingen wandelen.","Hoewel regende het, gingen we wandelen.","Hoewel het regende, we wandelen gingen."],"Hoewel het regende, gingen we wandelen.","concessive"),
-AssessmentQuestion("nl-b2-006","vocabulary","B2","Wat betekent 'voorspellen'?",["inschatten wat er waarschijnlijk zal gebeuren","iets uit het verleden uitleggen","een regel veranderen","een afspraak annuleren"],"inschatten wat er waarschijnlijk zal gebeuren"),
-AssessmentQuestion("nl-b2-007","reading","B2","Lees: 'De resultaten tonen een duidelijke trend, maar moeten voorzichtig worden geïnterpreteerd.' Wat wordt aanbevolen?",["De resultaten voorzichtig interpreteren.","De resultaten negeren.","Alle resultaten veranderen.","Het onderzoek meteen stoppen."],"De resultaten voorzichtig interpreteren."),
-AssessmentQuestion("nl-b2-008","grammar","B2","Kies de juiste indirecte vraag.",["Ik weet niet wanneer de vergadering begint.","Ik weet niet wanneer begint de vergadering.","Ik weet niet wanneer de vergadering begint?","Ik weet niet de vergadering wanneer begint."],"Ik weet niet wanneer de vergadering begint.","indirect-question"),
-AssessmentQuestion("nl-c1-005","grammar","C1","Kies de meest precieze academische formulering.",["De resultaten wijzen erop dat het effect beperkt is.","De resultaten wijzen dat het effect beperkt is.","De resultaten wijst erop dat het effect beperkt is.","De resultaten wijzen erop het effect beperkt is."],"De resultaten wijzen erop dat het effect beperkt is.","academic-language"),
-AssessmentQuestion("nl-c1-006","vocabulary","C1","Wat betekent 'wezenlijk' in een academische tekst?",["belangrijk of fundamenteel","toevallig","tijdelijk","informeel"],"belangrijk of fundamenteel"),
-AssessmentQuestion("nl-c1-007","reading","C1","Lees: 'Correlatie bewijst op zichzelf geen causaal verband.' Wat bewijst correlatie niet?",["Dat het ene verschijnsel het andere veroorzaakt.","Dat er gegevens zijn.","Dat variabelen samenhangen.","Dat er een analyse is uitgevoerd."],"Dat het ene verschijnsel het andere veroorzaakt."),
-AssessmentQuestion("nl-c1-008","grammar","C1","Kies de correcte passieve constructie.",["Het onderzoek werd in drie fasen uitgevoerd.","Het onderzoek werd in drie fasen uitvoeren.","Het onderzoek uitgevoerd werd in drie fasen.","Het onderzoek werd uitvoeren in drie fasen."],"Het onderzoek werd in drie fasen uitgevoerd.","passive"),
-AssessmentQuestion("nl-c2-005","grammar","C2","Welke formulering drukt wetenschappelijke voorzichtigheid uit?",["Het kan niet worden uitgesloten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],"Het kan niet worden uitgesloten dat andere factoren een rol spelen.","epistemic-modality"),
-AssessmentQuestion("nl-c2-006","vocabulary","C2","Wat betekent 'dubbelzinnig'?",["op meer dan één manier te interpreteren","volkomen duidelijk","zeer kort","gemakkelijk te meten"],"op meer dan één manier te interpreteren"),
-AssessmentQuestion("nl-c2-007","reading","C2","Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",["Of de onderliggende aanname klopt.","Of de tekst kort is.","Of de stijl informeel is.","Of de gegevens oud zijn."],"Of de onderliggende aanname klopt."),
-AssessmentQuestion("nl-c2-008","grammar","C2","Kies de meest precieze academische formulering.",["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie zonder gegevens toe.","De resultaten laten geen generaliseren zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder analyse."],"De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","academic-style")
 
 
-    AssessmentQuestion(id="nl-a2-005",skill="grammar",difficulty="A2",question="Welke zin staat in de juiste verleden tijd?",options=["Gisteren ging ik naar de winkel.","Gisteren ga ik naar de winkel.","Gisteren gaan ik naar de winkel.","Gisteren gegaan ik naar de winkel."],correct="Gisteren ging ik naar de winkel."),
-    AssessmentQuestion(id="nl-a2-006",skill="vocabulary",difficulty="A2",question="Wat betekent 'vertraging'?",options=["iets dat later komt dan gepland","een reservering","een adres","een betaling"],correct="iets dat later komt dan gepland"),
-    AssessmentQuestion(id="nl-a2-007",skill="reading",difficulty="A2",question="Lees: 'De winkel sluit om zes uur.' Wanneer sluit de winkel?",options=["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],correct="Om zes uur."),
-    AssessmentQuestion(id="nl-a2-008",skill="grammar",difficulty="A2",question="Kies de juiste voorzetselcombinatie.",options=["Ik woon in Nederland.","Ik woon op Nederland.","Ik woon naar Nederland.","Ik woon aan Nederland."],correct="Ik woon in Nederland."),
-    AssessmentQuestion(id="nl-b1-005",skill="grammar",difficulty="B1",question="Welke betrekkelijke bijzin is correct?",options=["Dit is het boek dat ik heb gekocht.","Dit is het boek dat ik gekocht.","Dit is het boek die ik heb gekocht.","Dit is het boek ik dat heb gekocht."],correct="Dit is het boek dat ik heb gekocht."),
-    AssessmentQuestion(id="nl-b1-006",skill="vocabulary",difficulty="B1",question="Wat betekent 'uitdaging'?",options=["iets dat inspanning vereist","een beloning","een vakantie","een adres"],correct="iets dat inspanning vereist"),
-    AssessmentQuestion(id="nl-b1-007",skill="reading",difficulty="B1",question="Lees: 'De vergadering werd uitgesteld omdat de directeur ziek was.' Waarom werd de vergadering uitgesteld?",options=["Omdat de directeur ziek was.","Omdat het kantoor gesloten was.","Omdat de trein vertraging had.","Omdat het een feestdag was."],correct="Omdat de directeur ziek was."),
-    AssessmentQuestion(id="nl-b1-008",skill="grammar",difficulty="B1",question="Welke woordvolgorde is correct?",options=["Gisteren kocht ik een nieuwe computer.","Gisteren ik kocht een nieuwe computer.","Gisteren kocht een nieuwe computer ik.","Gisteren een nieuwe computer kocht ik."],correct="Gisteren kocht ik een nieuwe computer."),
-    AssessmentQuestion(id="nl-b2-005",skill="grammar",difficulty="B2",question="Welke concessieve zin is correct?",options=["Hoewel het regende, gingen we wandelen.","Hoewel het regende, we gingen wandelen.","Hoewel regende het, gingen we wandelen.","Hoewel het regende, we wandelen gingen."],correct="Hoewel het regende, gingen we wandelen."),
-    AssessmentQuestion(id="nl-b2-006",skill="vocabulary",difficulty="B2",question="Wat betekent 'voorspellen'?",options=["zeggen wat waarschijnlijk zal gebeuren","het verleden uitleggen","een regel veranderen","een afspraak annuleren"],correct="zeggen wat waarschijnlijk zal gebeuren"),
-    AssessmentQuestion(id="nl-b2-007",skill="reading",difficulty="B2",question="Lees: 'De resultaten tonen een duidelijke tendens, maar moeten voorzichtig worden geïnterpreteerd.' Wat wordt aanbevolen?",options=["Een voorzichtige interpretatie van de resultaten.","De resultaten negeren.","Alle resultaten veranderen.","Het onderzoek onmiddellijk stoppen."],correct="Een voorzichtige interpretatie van de resultaten."),
-    AssessmentQuestion(id="nl-b2-008",skill="grammar",difficulty="B2",question="Welke indirecte vraag is correct?",options=["Ik weet niet wanneer de vergadering begint.","Ik weet niet wanneer begint de vergadering.","Ik weet niet wanneer de vergadering begint?","Ik weet niet de vergadering wanneer begint."],correct="Ik weet niet wanneer de vergadering begint."),
-    AssessmentQuestion(id="nl-c1-005",skill="grammar",difficulty="C1",question="Welke formulering past het best in een academische tekst?",options=["De resultaten suggereren dat het effect beperkt is.","De resultaten suggereren dat het effect is beperkt.","De resultaten suggereert dat het effect beperkt is.","De resultaten suggereren het effect dat beperkt is."],correct="De resultaten suggereren dat het effect beperkt is."),
-    AssessmentQuestion(id="nl-c1-006",skill="vocabulary",difficulty="C1",question="Wat betekent 'wezenlijk' in een academische context?",options=["belangrijk of fundamenteel","toevallig","tijdelijk","informeel"],correct="belangrijk of fundamenteel"),
-    AssessmentQuestion(id="nl-c1-007",skill="reading",difficulty="C1",question="Lees: 'Correlatie bewijst op zichzelf geen causaal verband.' Wat bewijst correlatie niet?",options=["Dat het ene verschijnsel het andere veroorzaakt.","Dat er gegevens zijn.","Dat variabelen samenhangen.","Dat er een analyse is uitgevoerd."],correct="Dat het ene verschijnsel het andere veroorzaakt."),
-    AssessmentQuestion(id="nl-c1-008",skill="grammar",difficulty="C1",question="Welke passieve constructie is correct?",options=["Het onderzoek werd in drie fasen uitgevoerd.","Het onderzoek werd in drie fasen uitvoeren.","Het onderzoek uitgevoerd werd in drie fasen.","Het onderzoek werd uitgevoerd drie fasen."],correct="Het onderzoek werd in drie fasen uitgevoerd."),
-    AssessmentQuestion(id="nl-c2-005",skill="grammar",difficulty="C2",question="Welke formulering drukt epistemische voorzichtigheid uit?",options=["Het kan niet worden uitgesloten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Er is geen reden om andere factoren te onderzoeken."],correct="Het kan niet worden uitgesloten dat andere factoren een rol spelen."),
-    AssessmentQuestion(id="nl-c2-006",skill="vocabulary",difficulty="C2",question="Wat betekent 'dubbelzinnig'?",options=["op meer dan één manier interpreteerbaar","volkomen eenduidig","zeer kort","gemakkelijk meetbaar"],correct="op meer dan één manier interpreteerbaar"),
-    AssessmentQuestion(id="nl-c2-007",skill="reading",difficulty="C2",question="Lees: 'Het argument is overtuigend, mits de onderliggende aanname standhoudt.' Waarvan hangt de beoordeling af?",options=["Of de onderliggende aanname standhoudt.","Of het argument kort is.","Of de tekst informeel is.","Of de gegevens oud zijn."],correct="Of de onderliggende aanname standhoudt."),
-    AssessmentQuestion(id="nl-c2-008",skill="grammar",difficulty="C2",question="Welke formulering is het meest precies?",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd een generalisatie zonder gegevens toe.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder gegevens."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.")
 
-AssessmentQuestion(id="nl-a1-009",skill="grammar",difficulty="A1",question="Kies de juiste vraag.",options=["Waar woon je?","Waar je woont?","Woon waar je?","Waar wonen?"],correct="Waar woon je?",grammar_slug="vragen"),
-AssessmentQuestion(id="nl-a1-010",skill="vocabulary",difficulty="A1",question="Wat betekent 'appel'?",options=["een vrucht","een voertuig","een gebouw","een meubel"],correct="een vrucht"),
-AssessmentQuestion(id="nl-a1-011",skill="reading",difficulty="A1",question="Lees: 'Sofie woont in Utrecht.' Waar woont Sofie?",options=["In Utrecht.","In Rotterdam.","In Groningen.","In Leiden."],correct="In Utrecht."),
-AssessmentQuestion(id="nl-a1-012",skill="grammar",difficulty="A1",question="Kies de juiste vorm.",options=["Hij heeft een fiets.","Hij hebben een fiets.","Hij heeft een fietsen.","Hij hebben een fietsen."],correct="Hij heeft een fiets.",grammar_slug="hebben"),
-AssessmentQuestion(id="nl-a2-005",skill="grammar",difficulty="A2",question="Kies de juiste voltooide tijd.",options=["Ik heb gegeten.","Ik heb eten.","Ik heb at.","Ik eet heb."],correct="Ik heb gegeten.",grammar_slug="voltooide-tijd"),
-AssessmentQuestion(id="nl-a2-006",skill="vocabulary",difficulty="A2",question="Wat betekent 'vertraging'?",options=["iets dat later komt dan gepland","een reservering","een adres","een betaling"],correct="iets dat later komt dan gepland"),
-AssessmentQuestion(id="nl-a2-007",skill="reading",difficulty="A2",question="Lees: 'De winkel sluit om zes uur.' Wanneer sluit de winkel?",options=["Om vijf uur.","Om zes uur.","Om zeven uur.","Om acht uur."],correct="Om zes uur."),
-AssessmentQuestion(id="nl-a2-008",skill="grammar",difficulty="A2",question="Kies het juiste voorzetsel.",options=["Ik woon in Nederland.","Ik woon op Nederland.","Ik woon naar Nederland.","Ik woon bij Nederland."],correct="Ik woon in Nederland.",grammar_slug="voorzetsels"),
-AssessmentQuestion(id="nl-b1-005",skill="grammar",difficulty="B1",question="Kies de juiste betrekkelijke bijzin.",options=["Dit is het boek dat ik gisteren kocht.","Dit is het boek dat ik gisteren kopen.","Dit is het boek die ik gisteren kocht.","Dit is het boek dat ik gisteren gekocht."],correct="Dit is het boek dat ik gisteren kocht.",grammar_slug="betrekkelijke-bijzin"),
-AssessmentQuestion(id="nl-b1-006",skill="vocabulary",difficulty="B1",question="Wat betekent 'uitdaging'?",options=["iets waarvoor inspanning nodig is","een beloning","een vakantie","een adres"],correct="iets waarvoor inspanning nodig is"),
-AssessmentQuestion(id="nl-b1-007",skill="reading",difficulty="B1",question="Lees: 'De vergadering werd verplaatst omdat de directeur ziek was.' Waarom werd de vergadering verplaatst?",options=["Omdat de directeur ziek was.","Omdat het kantoor gesloten was.","Omdat de trein vertraging had.","Omdat het een feestdag was."],correct="Omdat de directeur ziek was."),
-AssessmentQuestion(id="nl-b1-008",skill="grammar",difficulty="B1",question="Kies de juiste woordvolgorde.",options=["Gisteren kocht ik een nieuwe computer.","Gisteren ik kocht een nieuwe computer.","Gisteren kocht een nieuwe computer ik.","Gisteren een nieuwe computer kocht ik."],correct="Gisteren kocht ik een nieuwe computer.",grammar_slug="woordvolgorde"),
-AssessmentQuestion(id="nl-b2-005",skill="grammar",difficulty="B2",question="Kies de juiste concessieve bijzin.",options=["Hoewel het regende, gingen we wandelen.","Hoewel het regende, we gingen wandelen.","Hoewel regende het, gingen we wandelen.","Hoewel het regende, we wandelen gingen."],correct="Hoewel het regende, gingen we wandelen.",grammar_slug="concessieve-bijzin"),
-AssessmentQuestion(id="nl-b2-006",skill="vocabulary",difficulty="B2",question="Wat betekent 'voorspellen'?",options=["zeggen wat waarschijnlijk zal gebeuren","iets uit het verleden uitleggen","een regel veranderen","een afspraak annuleren"],correct="zeggen wat waarschijnlijk zal gebeuren"),
-AssessmentQuestion(id="nl-b2-007",skill="reading",difficulty="B2",question="Lees: 'De resultaten tonen een duidelijke trend, maar moeten voorzichtig worden geïnterpreteerd.' Wat wordt aanbevolen?",options=["De resultaten voorzichtig interpreteren.","De resultaten negeren.","Alle resultaten veranderen.","Het onderzoek onmiddellijk stoppen."],correct="De resultaten voorzichtig interpreteren."),
-AssessmentQuestion(id="nl-b2-008",skill="grammar",difficulty="B2",question="Kies de juiste indirecte vraag.",options=["Ik weet niet wanneer de vergadering begint.","Ik weet niet wanneer begint de vergadering.","Ik weet niet wanneer de vergadering begint?","Ik weet niet de vergadering wanneer begint."],correct="Ik weet niet wanneer de vergadering begint.",grammar_slug="indirecte-vraag"),
-AssessmentQuestion(id="nl-c1-005",skill="grammar",difficulty="C1",question="Kies de meest precieze academische formulering.",options=["De resultaten wijzen erop dat het effect beperkt is.","De resultaten wijzen dat het effect beperkt is.","De resultaten wijzen erop het effect dat beperkt is.","De resultaten wijst erop dat het effect beperkt is."],correct="De resultaten wijzen erop dat het effect beperkt is.",grammar_slug="academische-taal"),
-AssessmentQuestion(id="nl-c1-006",skill="vocabulary",difficulty="C1",question="Wat betekent 'wezenlijk' in een academische tekst?",options=["belangrijk of fundamenteel","toevallig","tijdelijk","informeel"],correct="belangrijk of fundamenteel"),
-AssessmentQuestion(id="nl-c1-007",skill="reading",difficulty="C1",question="Lees: 'Correlatie bewijst op zichzelf geen causaal verband.' Wat wordt niet bewezen?",options=["Dat het ene verschijnsel het andere veroorzaakt.","Dat er gegevens zijn.","Dat de variabelen samenhangen.","Dat er een analyse is uitgevoerd."],correct="Dat het ene verschijnsel het andere veroorzaakt."),
-AssessmentQuestion(id="nl-c1-008",skill="grammar",difficulty="C1",question="Kies de juiste passieve constructie.",options=["Het onderzoek werd in drie fasen uitgevoerd.","Het onderzoek werd in drie fasen uitvoeren.","Het onderzoek uitgevoerd werd in drie fasen.","Het onderzoek werd in drie fasen uitgevoerd worden."],correct="Het onderzoek werd in drie fasen uitgevoerd.",grammar_slug="passief"),
-AssessmentQuestion(id="nl-c2-005",skill="grammar",difficulty="C2",question="Welke formulering drukt wetenschappelijke voorzichtigheid uit?",options=["Het kan niet worden uitgesloten dat andere factoren een rol spelen.","Andere factoren spelen zeker geen rol.","Het is zonder uitzondering bewezen dat andere factoren irrelevant zijn.","Andere factoren hoeven niet te worden onderzocht."],correct="Het kan niet worden uitgesloten dat andere factoren een rol spelen.",grammar_slug="epistemische-modaliteit"),
-AssessmentQuestion(id="nl-c2-006",skill="vocabulary",difficulty="C2",question="Wat betekent 'dubbelzinnig'?",options=["vatbaar voor meer dan één interpretatie","volledig eenduidig","zeer kort","gemakkelijk te meten"],correct="vatbaar voor meer dan één interpretatie"),
-AssessmentQuestion(id="nl-c2-007",skill="reading",difficulty="C2",question="Lees: 'Het argument is overtuigend, mits de onderliggende aanname klopt.' Waarvan hangt de beoordeling af?",options=["Of de onderliggende aanname klopt.","Of het argument kort is.","Of de tekst informeel is.","Of de gegevens oud zijn."],correct="Of de onderliggende aanname klopt."),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 AssessmentQuestion(id="nl-c2-008",skill="grammar",difficulty="C2",question="Kies de meest precieze academische formulering.",options=["De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.","De resultaten laten altijd generalisatie zonder gegevens toe.","De resultaten laten geen generaliseren toe zonder aanvullende.","De resultaten laten een zekere generalisatie toe zonder gegevens."],correct="De resultaten laten zonder aanvullende gegevens geen eenduidige generalisatie toe.",grammar_slug="academische-stijl")
+
+AssessmentQuestion(id="nl-a1-013",skill="vocabulary",difficulty="A1",question="Wat betekent 'avond'?",options=["het einde van de dag","het begin van de week","een vervoermiddel","een beroep"],correct="het einde van de dag"),
+AssessmentQuestion(id="nl-a2-009",skill="grammar",difficulty="A2",question="Kies de juiste toekomende vorm.",options=["Morgen ga ik naar Amsterdam.","Morgen ging ik naar Amsterdam.","Morgen gaan ik naar Amsterdam.","Morgen gegaan ik naar Amsterdam."],correct="Morgen ga ik naar Amsterdam.",grammar_slug="future"),
+AssessmentQuestion(id="nl-b1-009",skill="reading",difficulty="B1",question="Lees: 'De cursus begint volgende week en duurt drie maanden.' Hoe lang duurt de cursus?",options=["Drie maanden.","Een week.","Een jaar.","Twee dagen."],correct="Drie maanden."),
+AssessmentQuestion(id="nl-b2-009",skill="vocabulary",difficulty="B2",question="Wat betekent 'benadrukken'?",options=["iets extra duidelijk of belangrijk maken","iets vergeten","een afspraak annuleren","een woord vertalen"],correct="iets extra duidelijk of belangrijk maken"),
+AssessmentQuestion(id="nl-c1-009",skill="reading",difficulty="C1",question="Lees: 'De bevindingen ondersteunen de hypothese slechts gedeeltelijk.' Wat betekent dit?",options=["De hypothese wordt maar gedeeltelijk ondersteund.","De hypothese is volledig bewezen.","De hypothese is volledig weerlegd.","Er zijn geen bevindingen."],correct="De hypothese wordt maar gedeeltelijk ondersteund."),
+AssessmentQuestion(id="nl-c2-009",skill="grammar",difficulty="C2",question="Welke formulering maakt een causale claim het meest voorzichtig?",options=["De gegevens lijken erop te wijzen dat de maatregel mogelijk heeft bijgedragen aan het verschil.","De maatregel heeft zonder twijfel het verschil veroorzaakt.","Het verschil is volledig door één factor veroorzaakt.","De gegevens bewijzen dat er geen andere verklaring mogelijk is."],correct="De gegevens lijken erop te wijzen dat de maatregel mogelijk heeft bijgedragen aan het verschil.")
 ]
