@@ -6435,3 +6435,90 @@ main [dir="rtl"] h3,
   .juba-dashboard-header{padding:1.25rem!important}
   .juba-dashboard .juba-dashboard-stat{min-height:132px;padding:1rem!important}
 }
+
+
+/* JUBA LISAN — EdTech workspace redesign aligned with the reference concept */
+.juba-dashboard{
+  --dash-ink:#20251f;
+  --dash-muted:#7d837a;
+  --dash-line:#e9e9e2;
+  --dash-paper:#fff;
+  --dash-lime:#d9f36a;
+  --dash-blue:#dceeff;
+  --dash-lilac:#e9e1ff;
+  --dash-yellow:#ffedb2;
+  max-width:1500px!important;
+  padding-top:30px!important;
+  color:var(--dash-ink)!important;
+  background:#f7f7f3!important;
+}
+.juba-dashboard-header{
+  min-height:155px;
+  margin-bottom:22px!important;
+  padding:28px 32px!important;
+  border:1px solid var(--dash-line)!important;
+  border-radius:22px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+.juba-dashboard-header::after{display:none!important}
+.juba-dashboard-header .juba-dashboard-kicker{color:#777e70!important;font-size:10px!important;letter-spacing:.13em!important}
+.juba-dashboard-header .juba-dashboard-kicker::before{background:var(--dash-lime);border:0;box-shadow:none}
+.juba-dashboard-header h1{font-size:clamp(27px,3vw,38px)!important;letter-spacing:-.055em!important;font-weight:750!important}
+.juba-dashboard-header p{color:var(--dash-muted)!important}
+.juba-dashboard .juba-dashboard-next{
+  display:flex;flex-direction:column;justify-content:center;
+  min-height:190px;margin-bottom:22px!important;padding:25px 30px!important;
+  border:1px solid #e7e8df!important;border-radius:22px!important;
+  background:linear-gradient(105deg,#e8f4d8 0%,#eff7e7 58%,#f5f8ee 100%)!important;
+  box-shadow:none!important;
+}
+.juba-dashboard .juba-dashboard-next h2{font-size:clamp(20px,2vw,27px)!important;font-weight:750!important;letter-spacing:-.045em!important}
+.juba-dashboard .juba-dashboard-next .juba-primary-button{
+  border:0!important;border-radius:13px!important;background:#20251f!important;color:#fff!important;
+  box-shadow:none!important;padding:13px 20px!important;font-size:13px!important;
+}
+.juba-dashboard .juba-dashboard-stats{gap:14px!important;margin-bottom:22px!important}
+.juba-dashboard .juba-dashboard-stat{
+  min-height:136px!important;padding:19px 21px!important;
+  border:1px solid var(--dash-line)!important;border-radius:18px!important;
+  background:var(--dash-paper)!important;box-shadow:none!important;
+}
+.juba-dashboard .juba-dashboard-stat:nth-child(1) .juba-dashboard-stat-icon{background:var(--dash-yellow);color:#5d4c13;border:0;box-shadow:none}
+.juba-dashboard .juba-dashboard-stat:nth-child(2) .juba-dashboard-stat-icon{background:var(--dash-lilac);color:#66539a;border:0;box-shadow:none}
+.juba-dashboard .juba-dashboard-stat:nth-child(3) .juba-dashboard-stat-icon{background:var(--dash-blue);color:#3c6993;border:0;box-shadow:none}
+.juba-dashboard .juba-dashboard-stat:nth-child(4) .juba-dashboard-stat-icon{background:var(--dash-lime);color:#3f5120;border:0;box-shadow:none}
+.juba-dashboard .juba-dashboard-stat p:first-child{font-size:10px!important;letter-spacing:.06em!important;color:#777e70!important}
+.juba-dashboard .juba-dashboard-stat p.text-3xl{font-size:32px!important;font-weight:750!important;color:#20251f!important}
+.juba-dashboard .juba-dashboard-panels{gap:16px!important}
+.juba-dashboard .juba-dashboard-panel,
+.juba-dashboard .juba-dashboard-panels>.juba-card{
+  border:1px solid var(--dash-line)!important;border-radius:20px!important;
+  background:#fff!important;box-shadow:none!important;padding:23px!important;
+}
+.juba-dashboard .juba-dashboard-panel>div:first-child span:last-child,
+.juba-dashboard .juba-dashboard-panels>.juba-card>div:first-child span:last-child{
+  color:#4c5547!important;letter-spacing:.045em!important;font-size:11px!important;
+}
+.juba-dashboard .juba-dashboard-panel [class*="rounded-2xl"]{
+  border-color:#eceee6!important;border-radius:14px!important;background:#fafbf7!important;
+}
+.juba-dashboard .juba-dashboard-panel [class*="rounded-2xl"]:has(a[href^="/lesson/"]){
+  background:#f5f8ed!important;
+}
+.juba-dashboard .juba-dashboard-actions{
+  margin-top:18px;border:1px solid var(--dash-line)!important;border-radius:18px!important;
+  background:#fff!important;padding:17px!important;
+}
+.juba-dashboard .juba-dashboard-actions .juba-primary-button,
+.juba-dashboard .juba-dashboard-actions .juba-secondary-button{
+  min-height:43px;border-radius:12px!important;box-shadow:none!important;
+}
+@media(max-width:700px){
+  .juba-dashboard{padding:14px 12px 24px!important}
+  .juba-dashboard-header{min-height:0;padding:20px!important;border-radius:18px!important}
+  .juba-dashboard .juba-dashboard-next{min-height:0;padding:20px!important;border-radius:18px!important}
+  .juba-dashboard .juba-dashboard-stat{min-height:118px!important;padding:15px!important}
+  .juba-dashboard .juba-dashboard-panels>.juba-card,
+  .juba-dashboard .juba-dashboard-panel{padding:17px!important;border-radius:17px!important}
+}
