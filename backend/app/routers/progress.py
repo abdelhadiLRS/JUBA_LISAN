@@ -1682,7 +1682,7 @@ def _mixed_review_strategy(
     strategy = _review_item_strategy(mastery_state, review_streak)
     efficiency = max(0.0, min(1.0, float(retrieval_efficiency)))
     attempt_count = max(0, int(attempts))
-    if efficiency < 0.35 or (attempt_count >= 2 and efficiency < 0.5):
+    if (attempt_count > 0 and efficiency < 0.35) or (attempt_count >= 2 and efficiency < 0.5):
         return "recognition"
     return strategy
 
