@@ -174,7 +174,8 @@ export default function GamesPage() {
       setSessionQuestions(session.questions)
       setNewAchievements([])
       setQuestion(session.questions[0] ?? null)
-    } catch {
+    } catch (error) {
+      console.error('[JUBA LISAN] Game session start failed:', error)
       setGame(null)
       setQuestion(null)
       setSessionId(null)
