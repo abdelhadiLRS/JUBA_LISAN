@@ -319,3 +319,107 @@ def test_speaking_open_response_hides_authoritative_answer():
     assert question["answer"] not in replay["prompt"]
     assert replay["hint"] == "Use a complete natural sentence."
 
+
+
+@pytest.mark.asyncio
+async def test_review_mix_uses_due_pool_and_retries_same_review_identity(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    from datetime import UTC, datetime, timedelta
+
+    from app.models.game_progress_event import GameProgressEvent
+    from app.models.game_session import GameSession
+    from tests.conftest import make_study_plan
+
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["vocabulary", "grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    source = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "quick_choice", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert source.status_code == 200
+    source_session = await db_session.get(GameSession, source.json()["session_id"])
+    assert source_session is not None
+    source_question = dict(source_session.questions[0])
+    review_key = "|".join(
+        str(source_question.get(key, "")).strip().casefold()
+        for key in ("skill", "topic", "prompt", "answer")
+    )
+
+    now = datetime.now(UTC).replace(tzinfo=None)
+    db_session.add(
+        GameProgressEvent(
+            event_id="review-mix-test-event",
+            user_id=user.id,
+            study_plan_id=plan.id,
+            game_id="quick_choice",
+            questions_answered=1,
+            correct_answers=0,
+            round_score=0,
+            mistakes=[
+                {
+                    "review_key": review_key,
+                    "question": source_question,
+                    "resolved": False,
+                    "review_count": 0,
+                    "review_streak": 0,
+                    "next_review_at": (now - timedelta(minutes=1)).isoformat(),
+                }
+            ],
+            xp_earned=0,
+        )
+    )
+    await db_session.commit()
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "review_mix", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+    assert len(payload["questions"]) == 1
+    public_question = payload["questions"][0]
+
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    first = next(item for item in session.questions if item["id"] == public_question["id"])
+    assert first["review_identity"] == review_key
+    assert first["review"] is True
+    assert first["source_game_id"] == "quick_choice"
+
+    wrong = next(option for option in first["choices"] if option != first["answer"])
+    response = await client.post(
+        "/api/progress/game-session/next",
+        json={
+            "session_id": payload["session_id"],
+            "question_id": public_question["id"],
+            "choice": wrong,
+        },
+        headers=headers,
+    )
+    assert response.status_code == 200
+    result = response.json()
+    assert result["correct"] is False
+    assert result["finished"] is False
+    assert result["question"]["id"] == public_question["id"]
+    assert result["adaptive_mode"] == "review"
+
+    await db_session.refresh(session)
+    retry = next(item for item in session.questions if item["id"] == public_question["id"])
+    assert retry["review_identity"] == review_key
+    assert retry["_answered"] is False
+    assert retry["_attempts"][-1]["correct"] is False
+    assert len(session.questions) == 5
