@@ -202,6 +202,83 @@ def _mastery_event(at, key, *, question=None, resolved=False):
     return SimpleNamespace(created_at=at, mistakes=[item])
 
 
+def test_tracked_mastery_summary_groups_items_by_skill_and_state():
+    from app.routers.progress import _get_tracked_mastery_summary
+
+    question_v = {"skill": "vocabulary", "target_language": "fr", "cefr_level": "A1"}
+    question_g = {"skill": "grammar", "target_language": "fr", "cefr_level": "A1"}
+    base = datetime(2026, 1, 1)
+    events = [
+        SimpleNamespace(
+            created_at=base,
+            mistakes=[
+                {"review_key": "v:hello", "question": question_v},
+                {"review_key": "g:past", "question": question_g},
+            ],
+        ),
+        SimpleNamespace(
+            created_at=base + timedelta(days=1),
+            mistakes=[
+                {"review_key": "v:hello", "resolved": True},
+                {"review_key": "g:past", "question": question_g},
+            ],
+        ),
+        SimpleNamespace(
+            created_at=base + timedelta(days=2),
+            mistakes=[
+                {"review_key": "v:hello", "resolved": True},
+                {"review_key": "v:hello", "resolved": True},
+            ],
+        ),
+    ]
+
+    class FakeResult:
+        def scalars(self):
+            return self
+
+        def all(self):
+            return events
+
+    class FakeDB:
+        async def execute(self, _query):
+            return FakeResult()
+
+    summary = await _get_tracked_mastery_summary(FakeDB(), 1, 1)
+
+    assert summary["tracked_items"] == 2
+    assert summary["counts"]["mastered"] == 1
+    assert summary["counts"]["weak"] == 1
+    assert summary["skills"]["vocabulary"]["items"] == 1
+    assert summary["skills"]["grammar"]["items"] == 1
+
+
+def test_tracked_mastery_summary_uses_study_plan_scope():
+    from app.routers.progress import _get_tracked_mastery_summary
+
+    class FakeResult:
+        def scalars(self):
+            return self
+
+        def all(self):
+            return []
+
+    class FakeDB:
+        def __init__(self):
+            self.query = None
+
+        async def execute(self, query):
+            self.query = query
+            return FakeResult()
+
+    db = FakeDB()
+    import asyncio
+    summary = asyncio.run(_get_tracked_mastery_summary(db, 7, 42))
+
+    assert summary["tracked_items"] == 0
+    assert "game_progress_events.study_plan_id" in str(db.query)
+    assert "game_progress_events.user_id" in str(db.query)
+
+
 def test_item_mastery_repeated_misses_becomes_weak():
     key = "vocabulary:travel:hello:bonjour"
     base = datetime(2026, 1, 1)
