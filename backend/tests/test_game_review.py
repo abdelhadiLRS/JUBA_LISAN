@@ -796,3 +796,81 @@ async def test_game_session_completion_claim_prevents_duplicate_aggregate_mutati
     assert second_claim.rowcount == 0
 
     await db_session.rollback()
+
+
+@pytest.mark.asyncio
+async def test_adaptive_game_mode_marks_weak_skill_as_skill_review(
+    monkeypatch,
+):
+    class Result:
+        def scalar_one_or_none(self):
+            return {"vocabulary": 0.25}
+
+    class DB:
+        async def execute(self, _statement):
+            return Result()
+
+    monkeypatch.setattr(
+        progress_router,
+        "_get_recent_game_mistakes",
+        lambda *args, **kwargs: [],
+    )
+
+    class EmptyRecent:
+        def scalars(self):
+            class ScalarRows:
+                def all(self):
+                    return []
+            return ScalarRows()
+
+    class CombinedDB:
+        calls = 0
+
+        async def execute(self, _statement):
+            self.calls += 1
+            if self.calls == 1:
+                return EmptyRecent()
+            return Result()
+
+    difficulty, mode = await progress_router._get_adaptive_game_difficulty(
+        CombinedDB(), 1, 1, "quick_choice", 2
+    )
+
+    assert difficulty == 1
+    assert mode == "skill_review"
+
+
+@pytest.mark.asyncio
+async def test_adaptive_game_mode_marks_strong_skill_as_skill_challenge(
+    monkeypatch,
+):
+    class Result:
+        def scalar_one_or_none(self):
+            return {"vocabulary": 0.95}
+
+    class EmptyRecent:
+        def scalars(self):
+            class ScalarRows:
+                def all(self):
+                    return []
+            return ScalarRows()
+
+    class DB:
+        async def execute(self, _statement):
+            if not hasattr(self, "calls"):
+                self.calls = 0
+            self.calls += 1
+            return EmptyRecent() if self.calls == 1 else Result()
+
+    monkeypatch.setattr(
+        progress_router,
+        "_get_recent_game_mistakes",
+        lambda *args, **kwargs: [],
+    )
+
+    difficulty, mode = await progress_router._get_adaptive_game_difficulty(
+        DB(), 1, 1, "quick_choice", 2
+    )
+
+    assert difficulty == 3
+    assert mode == "skill_challenge"
