@@ -1801,6 +1801,11 @@ def _apply_smart_review(
         replay = dict(mistake)
         replay["id"] = str(uuid4())
         replay["review"] = True
+        # Preserve the original ledger identity even when a curriculum-backed
+        # variant changes the authoritative answer.
+        replay["review_identity"] = str(
+            mistake.get("review_key") or _review_key(mistake)
+        )
         replay["target_language"] = target_language
         replay["cefr_level"] = cefr_level
         replay["language"] = str(mistake.get("language") or str(target_language).split("-")[0] or "en")
@@ -1909,9 +1914,18 @@ async def _build_multi_skill_review_questions(
         replay = dict(candidates[0])
         replay["id"] = str(uuid4())
         replay["review"] = True
+                replay["review_identity"] = str(
+                    replay.get("review_key") or _review_key(replay)
+                )
         replay["target_language"] = plan.target_language
         replay["cefr_level"] = plan.cefr_level
         replay["difficulty"] = int(replay.get("review_difficulty", replay.get("difficulty", difficulty)))
+                replay["language"] = str(
+                    replay.get("language") or str(plan.target_language).split("-")[0] or "en"
+                )
+                replay = _apply_skill_review_variant(
+                    replay, int(replay.get("variant_seed", 0))
+                )
         selected.append(replay)
         selected_keys.add(str(replay.get("review_key") or _review_key(replay)))
 
@@ -1932,9 +1946,18 @@ async def _build_multi_skill_review_questions(
                 replay = dict(item)
                 replay["id"] = str(uuid4())
                 replay["review"] = True
+                replay["review_identity"] = str(
+                    replay.get("review_key") or _review_key(replay)
+                )
                 replay["target_language"] = plan.target_language
                 replay["cefr_level"] = plan.cefr_level
                 replay["difficulty"] = int(replay.get("review_difficulty", replay.get("difficulty", difficulty)))
+                replay["language"] = str(
+                    replay.get("language") or str(plan.target_language).split("-")[0] or "en"
+                )
+                replay = _apply_skill_review_variant(
+                    replay, int(replay.get("variant_seed", 0))
+                )
                 selected.append(replay)
                 selected_keys.add(str(replay.get("review_key") or _review_key(replay)))
 
@@ -2506,7 +2529,11 @@ async def complete_game_session(
                     review_streak = int(question.get("review_streak", 0))
                     next_streak = min(8, max(0, review_streak) + 1)
                     mistakes.append({
-                        "review_key": str(question.get("review_key") or _review_key(question)),
+                        "review_key": str(
+                            question.get("review_identity")
+                            or question.get("review_key")
+                            or _review_key(question)
+                        ),
                         "resolved": True,
                         "review_count": review_count,
                         "review_streak": next_streak,
@@ -2538,7 +2565,11 @@ async def complete_game_session(
                 # later retrieval practice cannot cross language/CEFR boundaries.
                 snapshot["target_language"] = plan.target_language
                 snapshot["cefr_level"] = plan.cefr_level
-                review_key = str(question.get("review_key") or _review_key(question))
+                review_key = str(
+                    question.get("review_identity")
+                    or question.get("review_key")
+                    or _review_key(question)
+                )
                 # A miss resets the successful review streak. The learner
                 # gets a short retrieval opportunity again instead of progressing
                 # to a longer interval after an unsuccessful attempt.
