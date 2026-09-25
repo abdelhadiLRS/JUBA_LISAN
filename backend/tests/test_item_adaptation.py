@@ -177,9 +177,27 @@ def test_review_variant_drops_transfer_when_retrieval_efficiency_is_low():
         "prompt": "What does 'test' mean?",
         "review_strategy": "contextual_transfer",
         "retrieval_efficiency": 0.2,
+        "attempts": 1,
     }
     replay = _apply_skill_review_variant(question, 0)
     assert replay["retrieval_stage"] == "recognition"
+
+
+def test_review_variant_preserves_production_when_attempt_history_is_missing():
+    from app.routers.progress import _apply_skill_review_variant
+
+    question = {
+        "review_key": "word:test",
+        "skill": "vocabulary",
+        "word": "test",
+        "prompt": "What does 'test' mean?",
+        "review_strategy": "production",
+        "retrieval_efficiency": 0.0,
+        "attempts": 0,
+    }
+    replay = _apply_skill_review_variant(question, 0)
+    assert replay["retrieval_stage"] == "production"
+    assert replay["mechanic_variant"] == "contextual_production"
 
 
 def test_review_variant_keeps_transfer_for_strong_retrieval():
