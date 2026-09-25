@@ -422,31 +422,49 @@ export default function GamesPage() {
     setAnswerStatus('submitting')
     setAnswerError(null)
     try {
-      const server = await answerGameSessionQuestion(sessionId, question.id, choice)
+      const answeredQuestionId = question.id
+      const server = await answerGameSessionQuestion(sessionId, answeredQuestionId, choice)
       setAdaptiveMode(server.adaptive_mode)
       const completedAnswers = [
-        ...answers.filter((item) => item.question_id !== question.id),
-        { question_id: question.id, choice },
+        ...answers.filter((item) => item.question_id !== answeredQuestionId),
+        { question_id: answeredQuestionId, choice },
       ]
       setAnswers(completedAnswers)
 
+      if (server.correct) {
+        setRoundScore((score) => score + 1)
+      }
+
+      // The server owns the round lifecycle. A wrong fifth answer must still
+      // finalize the round, so completion is handled before the normal
+      // correct/incorrect presentation branches.
+      if (server.finished) {
+        setSelected(choice)
+        setAnswerStatus(server.correct ? 'correct' : 'wrong')
+        setPendingNextQuestion(null)
+        await finishRound(completedAnswers)
+        return
+      }
+
+      if (!server.question) {
+        throw new Error('Server did not issue the next game question')
+      }
+
       if (!server.correct) {
+        // Misses consume the current question and immediately receive a new
+        // server-generated question adapted to the miss.
         setSelected(null)
         setAnswerStatus('wrong')
         setPendingNextQuestion(null)
         setInputValue('')
-        if (server.question) setQuestion(server.question)
+        setRound((current) => current + 1)
+        setQuestion(server.question)
         return
       }
 
       setSelected(choice)
       setAnswerStatus('correct')
-      setRoundScore((score) => score + 1)
-      setPendingNextQuestion(server.question ?? null)
-      if (server.finished) {
-        setPendingNextQuestion(null)
-        await finishRound(completedAnswers)
-      }
+      setPendingNextQuestion(server.question)
     } catch (error) {
       setAnswerStatus('idle')
       setAnswerError(error instanceof Error ? error.message : 'Unable to validate the answer')
