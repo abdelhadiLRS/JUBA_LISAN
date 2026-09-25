@@ -423,3 +423,59 @@ async def test_review_mix_uses_due_pool_and_retries_same_review_identity(
     assert retry["_answered"] is False
     assert retry["_attempts"][-1]["correct"] is False
     assert len(session.questions) == 5
+
+    # Resolve the retry, then walk the remaining prebuilt pool to completion.
+    # This proves mixed review advances through its own five logical items and
+    # that completion records one answer per item, not one per attempt.
+    retry_answer = retry["answer"]
+    answers = [{"question_id": retry["id"], "choice": retry_answer}]
+    response = await client.post(
+        "/api/progress/game-session/next",
+        json={
+            "session_id": payload["session_id"],
+            "question_id": retry["id"],
+            "choice": retry_answer,
+        },
+        headers=headers,
+    )
+    assert response.status_code == 200
+    result = response.json()
+    assert result["correct"] is True
+
+    while not result["finished"]:
+        next_public = result["question"]
+        assert next_public is not None
+        await db_session.refresh(session)
+        next_item = next(
+            item for item in session.questions
+            if item["id"] == next_public["id"]
+        )
+        next_answer = next_item["answer"]
+        answers.append({
+            "question_id": next_item["id"],
+            "choice": next_answer,
+        })
+        response = await client.post(
+            "/api/progress/game-session/next",
+            json={
+                "session_id": payload["session_id"],
+                "question_id": next_item["id"],
+                "choice": next_answer,
+            },
+            headers=headers,
+        )
+        assert response.status_code == 200
+        result = response.json()
+        assert result["correct"] is True
+
+    assert result["finished"] is True
+    assert result["answered"] == 5
+    assert len(answers) == 5
+
+    completed = await client.post(
+        "/api/progress/game-session/complete",
+        json={"session_id": payload["session_id"], "answers": answers},
+        headers=headers,
+    )
+    assert completed.status_code == 200
+    assert completed.json()["round_questions"] == 5
