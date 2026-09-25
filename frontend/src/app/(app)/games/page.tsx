@@ -107,8 +107,8 @@ export default function GamesPage() {
     const skill = id === 'matching' || id === 'quick_choice' ? 'vocabulary'
       : id === 'listen_choose' ? 'listening'
       : id === 'spelling' || id === 'word_scramble' ? 'writing'
-      : id === 'sentence_builder' ? 'grammar'
-       : id === 'fill_blank' ? 'grammar' : 'memory'
+      : id === 'sentence_builder' || id === 'fill_blank' ? 'grammar'
+      : 'memory'
     const mastery = skills[skill] ?? 0
     if (mastery < 0.4) return 1
     if (mastery < 0.75) return 2
@@ -120,7 +120,8 @@ export default function GamesPage() {
       { id: 'quick_choice' as const, title: t.quickChoice, desc: t.quickChoiceDesc, icon: '⚡' },
       { id: 'sentence_builder' as const, title: t.sentenceBuilder, desc: t.sentenceBuilderDesc, icon: '🧩' },
       { id: 'listen_choose' as const, title: t.listenChoose, desc: t.listenChooseDesc, icon: '🎧' },
-      { id: 'spelling' as const, title: t.spelling, desc: t.spellingDesc, icon: '✍️' },\n      { id: 'word_scramble' as const, title: t.wordScramble, desc: t.wordScrambleDesc, icon: '🔤' },\n      { id: 'fill_blank' as const, title: t.fillBlank, desc: t.fillBlankDesc, icon: '📝' },
+      { id: 'spelling' as const, title: t.spelling, desc: t.spellingDesc, icon: '✍️' },
+      { id: 'word_scramble' as const, title: t.wordScramble, desc: t.wordScrambleDesc, icon: '🔤' },\n      { id: 'fill_blank' as const, title: t.fillBlank, desc: t.fillBlankDesc, icon: '📝' },
       { id: 'memory' as const, title: t.memory, desc: t.memoryDesc, icon: '🧠' },
     ],
     [t]
