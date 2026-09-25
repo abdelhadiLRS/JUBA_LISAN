@@ -5,7 +5,7 @@ import { Check, ChevronDown, ChevronUp, Languages, Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useLanguageStore } from '@/store/language'
-import { getLanguageByCode } from '@/lib/target-languages'
+import { getLanguageByCode, normalizeLanguageCode } from '@/lib/target-languages'
 
 export default function LanguageSwitcher() {
   const tLang = useTranslations('languages')
