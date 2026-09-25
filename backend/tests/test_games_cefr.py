@@ -1,8 +1,11 @@
 import pytest
+from datetime import datetime, timedelta
+from types import SimpleNamespace
 
 from app.data.vocabulary import get_vocabulary_by_level
 from app.routers.progress import (
     _apply_smart_review,
+    _item_mastery_from_events,
     _prioritize_curriculum_entries,
     _server_game_questions,
     _server_interactive_challenge,
@@ -159,3 +162,75 @@ def test_interactive_review_prefers_exact_previous_item():
         [{"word": entry.word, "definition": entry.definition}],
     )
     assert any(card["label"] == entry.word for card in reviewed_public["cards"])
+
+
+def _mastery_event(at, key, *, question=None, resolved=False):
+    item = {"review_key": key, "resolved": resolved}
+    if question is not None:
+        item["question"] = question
+    return SimpleNamespace(created_at=at, mistakes=[item])
+
+
+def test_item_mastery_repeated_misses_becomes_weak():
+    key = "vocabulary:travel:hello:bonjour"
+    base = datetime(2026, 1, 1)
+    events = [
+        _mastery_event(base + timedelta(days=index), key, question={"skill": "vocabulary", "target_language": "fr", "cefr_level": "A1"})
+        for index in range(3)
+    ]
+
+    mastery = _item_mastery_from_events(events, key, "vocabulary", "fr", "A1")
+
+    assert mastery["state"] == "weak"
+    assert mastery["misses"] == 3
+    assert float(mastery["score"]) < 0.5
+
+
+def test_item_mastery_successful_retrieval_moves_to_reviewing():
+    key = "vocabulary:travel:hello:bonjour"
+    base = datetime(2026, 1, 1)
+    question = {"skill": "vocabulary", "target_language": "fr", "cefr_level": "A1"}
+    events = [
+        _mastery_event(base, key, question=question),
+        _mastery_event(base + timedelta(days=1), key, resolved=True),
+    ]
+
+    mastery = _item_mastery_from_events(events, key, "vocabulary", "fr", "A1")
+
+    assert mastery["state"] == "reviewing"
+    assert mastery["misses"] == 1
+    assert mastery["resolutions"] == 1
+
+
+def test_item_mastery_repeated_successes_becomes_mastered():
+    key = "vocabulary:travel:hello:bonjour"
+    base = datetime(2026, 1, 1)
+    question = {"skill": "vocabulary", "target_language": "fr", "cefr_level": "A1"}
+    events = [
+        _mastery_event(base, key, question=question),
+        _mastery_event(base + timedelta(days=1), key, resolved=True),
+        _mastery_event(base + timedelta(days=2), key, resolved=True),
+        _mastery_event(base + timedelta(days=3), key, resolved=True),
+    ]
+
+    mastery = _item_mastery_from_events(events, key, "vocabulary", "fr", "A1")
+
+    assert mastery["state"] == "mastered"
+    assert float(mastery["score"]) > 0.7
+
+
+def test_item_mastery_filters_language_and_cefr():
+    key = "vocabulary:travel:hello:bonjour"
+    base = datetime(2026, 1, 1)
+    events = [
+        _mastery_event(
+            base,
+            key,
+            question={"skill": "vocabulary", "target_language": "de", "cefr_level": "B1"},
+        ),
+    ]
+
+    mastery = _item_mastery_from_events(events, key, "vocabulary", "fr", "A1")
+
+    assert mastery["state"] == "new"
+    assert mastery["misses"] == 0
