@@ -290,9 +290,8 @@ export default function GamesPage() {
               priority_score: Number(item.priority_score) || 0,
             }))
           : [],
-      }))
-          : [],
       })
+      return Boolean(recommended && Number(data.due_count) > 0)
     } catch {
       // The games page remains usable when the review summary is temporarily unavailable.
       return false
