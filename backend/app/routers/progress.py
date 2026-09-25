@@ -2090,6 +2090,21 @@ async def _get_adaptive_game_difficulty(
     return requested_difficulty, "steady"
 
 
+def _review_game_for_item(skill: str, mastery_state: str) -> str | None:
+    """Select a review mechanic appropriate to the item's current mastery."""
+    game_for_skill = {
+        "vocabulary": ("quick_choice", "word_categories"),
+        "grammar": ("grammar_duel", "fill_blank"),
+        "listening": ("listening_detective", "listening_detective"),
+        "writing": ("translation_sprint", "translation_sprint"),
+        "speaking": ("context_quest", "context_quest"),
+    }
+    games = game_for_skill.get(skill)
+    if not games:
+        return None
+    return games[0 if mastery_state in {"weak", "learning", "new"} else 1]
+
+
 async def _recommended_review_game(
     db: AsyncSession,
     user_id: int,
@@ -2125,7 +2140,9 @@ async def _recommended_review_game(
         state = str(item.get("mastery_state", "learning"))
         # Direct retrieval is preferred while an item is weak/learning.
         # Once it is recovering, vary the mechanic to test transfer.
-        game = game_for_skill[skill][0 if state in {"weak", "learning", "new"} else 1]
+        game = _review_game_for_item(skill, state)
+        if game is None:
+            continue
         candidates.append(
             (
                 skill,
