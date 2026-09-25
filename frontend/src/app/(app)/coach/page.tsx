@@ -28,6 +28,12 @@ interface ProgressSummary {
   vocabulary_total?: number
   vocabulary_progress?: number
   skills?: Record<string, number>
+  mastery?: {
+    tracked_items: number
+    average_score: number
+    counts: Record<string, number>
+    skills: Record<string, { items: number; average_score: number; counts: Record<string, number> }>
+  }
 }
 
 interface TodayPlan {
@@ -85,6 +91,14 @@ export default function CoachPage() {
   const completed = (plan.lessons ?? []).filter((l) => l.is_completed).length
   const total = plan.lessons?.length ?? 0
   const vocabProgress = Math.round((progress.vocabulary_progress ?? 0) * 100)
+  const masterySkills = Object.entries(progress.mastery?.skills ?? {})
+  const weakestMastery = masterySkills.length
+    ? [...masterySkills].sort((a, b) => a[1].average_score - b[1].average_score)[0]
+    : null
+  const masteryCounts = progress.mastery?.counts ?? {}
+  const masteryFocusLabel = weakestMastery
+    ? weakestMastery[0].replaceAll('_', ' ')
+    : weakestSkill.replaceAll('_', ' ')
 
   return (
     <main className="juba-coach-shell min-h-screen px-4 py-8 sm:px-6 lg:px-10">
@@ -153,6 +167,32 @@ export default function CoachPage() {
             </div>
           </div>
         </section>
+
+        {progress.mastery && progress.mastery.tracked_items > 0 && (
+          <section className="juba-card p-6 sm:p-8">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{t('review')}</p>
+                <h2 className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">
+                  {t('focusOn')} {masteryFocusLabel} {t('today')}
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">
+                  {Math.round((progress.mastery.average_score ?? 0) * 100)}% {t('accuracy')} · {progress.mastery.tracked_items} {t('wordsMastered')}
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+                {(['new', 'learning', 'reviewing', 'weak', 'mastered'] as const).map((state) => (
+                  <div key={state} className="min-w-[68px] rounded-[20px] border border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-3 py-2 text-center">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--juba-app-muted)]">
+                      {state === 'mastered' ? t('mastered') : state === 'new' ? t('notStarted') : t('inProgress')}
+                    </p>
+                    <p className="mt-1 text-sm font-black text-[var(--juba-app-ink)]">{masteryCounts[state] ?? 0}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           <CoachCard icon={<Mic />} title={t('speak')} value={t('conversation')} detail={t('speakDetail')} href="/conversation" />
