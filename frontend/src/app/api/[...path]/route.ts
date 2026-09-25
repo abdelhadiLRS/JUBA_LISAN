@@ -4,7 +4,8 @@ const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:8000'
 
 async function proxy(request: NextRequest, context: { params: Promise<{ path: string[] }> }) {
   const { path } = await context.params
-  const backendUrl = `${BACKEND_URL.replace(/\/$/, '')}/api/${path.join('/')}`
+  const baseUrl = BACKEND_URL.endsWith('/') ? BACKEND_URL.slice(0, -1) : BACKEND_URL
+  const backendUrl = `${baseUrl}/api/${path.join('/')}`
   const headers = new Headers(request.headers)
 
   // The browser talks to Next.js; forward the request context the FastAPI
