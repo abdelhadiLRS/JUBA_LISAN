@@ -156,7 +156,23 @@ export function middleware(req: NextRequest) {
     target.pathname = normalizedPath
     const requestHeaders = new Headers(req.headers)
     requestHeaders.set('x-next-locale', locale)
-    return NextResponse.rewrite(target, { request: { headers: requestHeaders } })
+
+    const response = NextResponse.rewrite(target, {
+      request: { headers: requestHeaders },
+    })
+
+    // An explicit /:locale URL is an explicit user choice. Persist it so
+    // the selection survives navigation to unprefixed application routes.
+    response.cookies.set('NEXT_LOCALE', locale, {
+      path: '/',
+      sameSite: 'lax',
+      secure:
+        process.env.NODE_ENV === 'production' &&
+        process.env.BUILD_TARGET !== 'desktop',
+      maxAge: 60 * 60 * 24 * 365,
+    })
+
+    return response
   }
 
   // Inject locale as a request header so request.ts picks it up immediately
