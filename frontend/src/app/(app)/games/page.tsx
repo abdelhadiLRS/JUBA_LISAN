@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useLocale, usePathname, useRouter, useSearchParams } from 'next-intl'
+import { useLocale, usePathname, useRouter } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
 import {
   ACHIEVEMENTS,
   type AchievementId,
