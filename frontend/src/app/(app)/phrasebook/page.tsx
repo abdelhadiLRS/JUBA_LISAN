@@ -280,6 +280,7 @@ function CategoryCard({
 }
 
 function CopyButton({ text }: { text: string }) {
+  const tCommon = useTranslations('common')
   const [copied, setCopied] = useState(false)
 
   async function handleCopy() {
