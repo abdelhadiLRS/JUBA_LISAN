@@ -359,6 +359,15 @@ def test_mixed_review_strategy_preserves_recall_without_attempt_history():
     assert _mixed_review_strategy("weak", 0, 0.0, 0) == "direct_recall"
 
 
+def test_mixed_review_strategy_downgrades_repeated_low_efficiency_attempts():
+    from app.routers.progress import _mixed_review_strategy
+
+    assert _mixed_review_strategy("reviewing", 2, 0.49, 2) == "recognition"
+    assert _mixed_review_strategy("mastered", 3, 0.4, 5) == "recognition"
+    assert _mixed_review_strategy("reviewing", 2, 0.5, 2) == "contextual_transfer"
+    assert _mixed_review_strategy("reviewing", 2, 0.49, 1) == "contextual_transfer"
+
+
 def test_mixed_review_strategy_downgrades_low_retrieval_efficiency():
     from app.routers.progress import _mixed_review_strategy
 
