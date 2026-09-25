@@ -24,6 +24,7 @@ _v("food_a1","Pagkain at pamimili",[["tubig","noun","water","Umiinom ako ng tubi
 _v("places_a1","Mga lugar at direksyon",[["tindahan","noun","shop","Malapit ang tindahan."],["istasyon","noun","station","Nasaan ang istasyon?"],["kanan","noun","right","Kumanan ka."],["kaliwa","noun","left","Kumaliwa ka."]]),
 _v("communication_a1","Komunikasyon",[["tulong","noun","help","Kailangan ko ng tulong."],["tumulong","verb","help","Maaari mo ba akong tulungan?"],["maintindihan","verb","understand","Hindi ko maintindihan."],["dahan-dahan","adverb","slowly","Magsalita ka nang dahan-dahan."]]),
 _v("review_a1","Pagbabalik-aral",[["kaibigan","noun","friend","Kaibigan ko siya."],["ngayon","adverb","today","Ngayon ako nagtatrabaho."],["bukas","adverb","tomorrow","Bukas ako mag-aaral."],["oras","noun","time","Anong oras na?"])]
+]
 
 def _p(i,s,items):
     return PhrasebookCategory(id=i,level="A1",situation=s,icon="💬",phrases=[PhrasebookEntry(text=t,context=c,register=r) for t,c,r in items])
