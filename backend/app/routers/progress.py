@@ -1659,6 +1659,11 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
     prompt = str(replay.get("prompt", "")).strip()
     topic = str(replay.get("topic", "")).strip()
     strategy = str(replay.get("review_strategy", "direct_recall"))
+    # Retry burden can push a nominally reviewing item back toward recognition.
+    # This keeps the cognitive demand aligned with actual retrieval performance.
+    retrieval_efficiency = max(0.0, min(1.0, float(replay.get("retrieval_efficiency", 0.0))))
+    if retrieval_efficiency < 0.35 and strategy in {"contextual_transfer", "production"}:
+        strategy = "recognition"
     strategy_offset = {
         "direct_recall": 0,
         "recognition": 1,
@@ -1971,6 +1976,7 @@ def _apply_smart_review(
         replay = dict(mistake)
         replay["id"] = str(uuid4())
         replay["review"] = True
+        replay["retrieval_efficiency"] = float(mistake.get("retrieval_efficiency", 0.0))
         replay["review_strategy"] = _review_item_strategy(
             str(mistake.get("mastery_state", "new")),
             int(mistake.get("review_streak", 0)),
@@ -2003,6 +2009,7 @@ def _apply_smart_review(
         replay.pop("source_game_id", None)
         replay.pop("variant", None)
         replay.pop("review_strategy", None)
+        replay.pop("retrieval_efficiency", None)
         replay.pop("retrieval_stage", None)
         replay.pop("language", None)
         if replay.get("input_mode", "choice") == "choice":
@@ -2302,7 +2309,10 @@ def _review_game_for_item(skill: str, mastery_state: str) -> str | None:
     games = game_for_skill.get(skill)
     if not games:
         return None
-    return games[0 if mastery_state in {"weak", "learning", "new"} else 1]
+    state = str(mastery_state or "new")
+    if state in {"weak", "learning", "new"}:
+        return games[0]
+    return games[1]
 
 
 async def _recommended_review_game(
