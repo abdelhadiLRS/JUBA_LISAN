@@ -24,6 +24,7 @@ interface LandingNavProps {
   openMenuLabel: string
   closeMenuLabel: string
   locale: Locale
+  dir?: 'ltr' | 'rtl'
 }
 
 export function LandingNav({
@@ -44,13 +45,14 @@ export function LandingNav({
   openMenuLabel,
   closeMenuLabel,
   locale,
+  dir = 'ltr',
 }: LandingNavProps) {
   const [open, setOpen] = useState(false)
   const [showPricing, setShowPricing] = useState(stripeEnabled && !hasSession)
   const [regionOpen, setRegionOpen] = useState(false)
   const [visitorCountry, setVisitorCountry] = useState('DZ')
 
-  const languageLabels: Record<Locale, { native: string;  }> = {
+  const languageLabels: Record<Locale, { native: string }> = {
     en: { native: 'English' }, ar: { native: 'العربية' }, es: { native: 'Español' },
     fr: { native: 'Français' }, pt: { native: 'Português' }, de: { native: 'Deutsch' },
     it: { native: 'Italiano' }, pl: { native: 'Polski' }, nl: { native: 'Nederlands' },
@@ -76,92 +78,47 @@ export function LandingNav({
     try {
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
       const timezoneCountries: Record<string, string> = {
-        'Africa/Algiers': 'DZ',
-        'Africa/Casablanca': 'MA',
-        'Africa/Cairo': 'EG',
-        'Africa/Tunis': 'TN',
-        'Africa/Tripoli': 'LY',
-        'Africa/Lagos': 'NG',
-        'Africa/Johannesburg': 'ZA',
-        'Africa/Nairobi': 'KE',
-        'Europe/Paris': 'FR',
-        'Europe/London': 'GB',
-        'Europe/Dublin': 'IE',
-        'Europe/Madrid': 'ES',
-        'Europe/Lisbon': 'PT',
-        'Europe/Berlin': 'DE',
-        'Europe/Rome': 'IT',
-        'Europe/Amsterdam': 'NL',
-        'Europe/Brussels': 'BE',
-        'Europe/Zurich': 'CH',
-        'Europe/Warsaw': 'PL',
-        'Europe/Prague': 'CZ',
-        'Europe/Vienna': 'AT',
-        'Europe/Bucharest': 'RO',
-        'Europe/Sofia': 'BG',
-        'Europe/Athens': 'GR',
-        'Europe/Moscow': 'RU',
-        'Europe/Kyiv': 'UA',
-        'Asia/Dubai': 'AE',
-        'Asia/Riyadh': 'SA',
-        'Asia/Qatar': 'QA',
-        'Asia/Kuwait': 'KW',
-        'Asia/Amman': 'JO',
-        'Asia/Beirut': 'LB',
-        'Asia/Jerusalem': 'IL',
-        'Asia/Kolkata': 'IN',
-        'Asia/Dhaka': 'BD',
-        'Asia/Bangkok': 'TH',
-        'Asia/Singapore': 'SG',
-        'Asia/Tokyo': 'JP',
-        'Asia/Seoul': 'KR',
-        'Asia/Shanghai': 'CN',
-        'Asia/Taipei': 'TW',
-        'Australia/Sydney': 'AU',
-        'Pacific/Auckland': 'NZ',
-        'America/New_York': 'US',
-        'America/Chicago': 'US',
-        'America/Denver': 'US',
-        'America/Los_Angeles': 'US',
-        'America/Toronto': 'CA',
-        'America/Vancouver': 'CA',
-        'America/Mexico_City': 'MX',
-        'America/Sao_Paulo': 'BR',
+        'Africa/Algiers': 'DZ', 'Africa/Casablanca': 'MA', 'Africa/Cairo': 'EG', 'Africa/Tunis': 'TN',
+        'Africa/Tripoli': 'LY', 'Africa/Lagos': 'NG', 'Africa/Johannesburg': 'ZA', 'Africa/Nairobi': 'KE',
+        'Europe/Paris': 'FR', 'Europe/London': 'GB', 'Europe/Dublin': 'IE', 'Europe/Madrid': 'ES',
+        'Europe/Lisbon': 'PT', 'Europe/Berlin': 'DE', 'Europe/Rome': 'IT', 'Europe/Amsterdam': 'NL',
+        'Europe/Brussels': 'BE', 'Europe/Zurich': 'CH', 'Europe/Warsaw': 'PL', 'Europe/Prague': 'CZ',
+        'Europe/Vienna': 'AT', 'Europe/Bucharest': 'RO', 'Europe/Sofia': 'BG', 'Europe/Athens': 'GR',
+        'Europe/Moscow': 'RU', 'Europe/Kyiv': 'UA', 'Asia/Dubai': 'AE', 'Asia/Riyadh': 'SA',
+        'Asia/Qatar': 'QA', 'Asia/Kuwait': 'KW', 'Asia/Amman': 'JO', 'Asia/Beirut': 'LB',
+        'Asia/Jerusalem': 'IL', 'Asia/Kolkata': 'IN', 'Asia/Dhaka': 'BD', 'Asia/Bangkok': 'TH',
+        'Asia/Singapore': 'SG', 'Asia/Tokyo': 'JP', 'Asia/Seoul': 'KR', 'Asia/Shanghai': 'CN',
+        'Asia/Taipei': 'TW', 'Australia/Sydney': 'AU', 'Pacific/Auckland': 'NZ', 'America/New_York': 'US',
+        'America/Chicago': 'US', 'America/Denver': 'US', 'America/Los_Angeles': 'US', 'America/Toronto': 'CA',
+        'America/Vancouver': 'CA', 'America/Mexico_City': 'MX', 'America/Sao_Paulo': 'BR',
         'America/Argentina/Buenos_Aires': 'AR',
       }
-
-      // Do not infer a country from the UI locale (e.g. en-NG).
       setVisitorCountry(timezoneCountries[timezone] ?? 'DZ')
     } catch {
       setVisitorCountry('DZ')
     }
   }, [])
 
-
   const currentCountry = countryLabels[visitorCountry] ?? countryLabels.DZ
   const countryFlag = (code: string) => code.toUpperCase().replace(/[A-Z]/g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
-  const localeLinks = (Object.entries(languageLabels) as Array<[Locale, { native: string;  }]>).map(([code, language]) => ({ code, ...language }))
+  const localeLinks = (Object.entries(languageLabels) as Array<[Locale, { native: string }]>).map(([code, language]) => ({ code, ...language }))
 
   useEffect(() => {
     let canceled = false
-
     if (!stripeEnabled) {
       setShowPricing(false)
       return
     }
-
     if (!hasSession) {
       setShowPricing(true)
       return
     }
-
     setShowPricing(false)
     async function checkSubscription() {
       const subscribed = await hasActiveLandingSubscription()
       if (!canceled) setShowPricing(!subscribed)
     }
     checkSubscription()
-
     return () => {
       canceled = true
     }
@@ -181,7 +138,7 @@ export function LandingNav({
   )
 
   return (
-    <nav className="juba-site-nav juba-ff-site-nav sticky top-0 z-50 w-full transition-all">
+    <nav dir={dir} className="juba-site-nav juba-ff-site-nav sticky top-0 z-50 w-full transition-all">
       <div className="juba-ff-nav-inner mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="juba-brand juba-ff-brand flex items-center gap-3 group" aria-label={homeLabel}>
           <span className="juba-brand-mark juba-ff-brand-mark relative flex h-10 w-10 items-center justify-center rounded-xl font-black text-lg transition-transform">
@@ -208,12 +165,7 @@ export function LandingNav({
                 <div className="px-2 text-[10px] font-bold text-[var(--juba-app-muted)]">Interface language</div>
                 <div className="mt-1 grid max-h-56 grid-cols-2 gap-1 overflow-auto">
                   {localeLinks.map((language) => (
-                    <Link
-                      key={language.code}
-                      href={`/${language.code}`}
-                      onClick={() => setRegionOpen(false)}
-                      className={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-bold transition ${locale === language.code ? 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'}`}
-                    >
+                    <Link key={language.code} href={`/${language.code}`} onClick={() => setRegionOpen(false)} className={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-bold transition ${locale === language.code ? 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'}`}>
                       <span>{language.native}</span>
                       {locale === language.code && <Check className="h-3.5 w-3.5 text-[var(--juba-app-green)]" />}
                     </Link>
@@ -227,14 +179,7 @@ export function LandingNav({
           <Link href={hasSession ? '/dashboard' : '/register'} className="juba-nav-cta juba-ff-nav-cta rounded-xl px-5 py-2.5 text-sm font-black transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--landing-green)] focus-visible:ring-offset-2"><span>{hasSession ? dashboard : getStarted}</span><span aria-hidden="true">✦</span></Link>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen((value) => !value)}
-          className="juba-menu juba-ff-menu rounded-xl p-2 md:hidden"
-          aria-label={open ? closeMenuLabel : openMenuLabel}
-          aria-expanded={open}
-          aria-controls="juba-mobile-navigation"
-        >
+        <button type="button" onClick={() => setOpen((value) => !value)} className="juba-menu juba-ff-menu rounded-xl p-2 md:hidden" aria-label={open ? closeMenuLabel : openMenuLabel} aria-expanded={open} aria-controls="juba-mobile-navigation">
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
@@ -243,19 +188,11 @@ export function LandingNav({
         <div id="juba-mobile-navigation" className="juba-mobile-menu juba-ff-mobile-menu border-b px-6 pt-4 pb-6 md:hidden animate-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col gap-4">
             <div className="rounded-2xl border border-[var(--juba-app-line)] bg-white/80 p-3">
-              <div className="flex items-center justify-between gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]">
-                <span>Visitor region</span>
-                <span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span>
-              </div>
+              <div className="flex items-center justify-between gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><span>Visitor region</span><span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span></div>
               <div className="mt-2 text-[10px] font-bold text-[var(--juba-app-muted)]">Interface language</div>
               <div className="mt-1 grid grid-cols-2 gap-1">
                 {localeLinks.map((language) => (
-                  <Link
-                    key={language.code}
-                    href={`/${language.code}`}
-                    onClick={closeMenu}
-                    className={`rounded-xl px-3 py-2 text-xs font-bold transition ${locale === language.code ? 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'}`}
-                  >
+                  <Link key={language.code} href={`/${language.code}`} onClick={closeMenu} className={`rounded-xl px-3 py-2 text-xs font-bold transition ${locale === language.code ? 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'}`}>
                     {language.native}
                   </Link>
                 ))}
