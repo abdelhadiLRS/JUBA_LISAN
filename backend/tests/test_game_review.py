@@ -1360,3 +1360,10 @@ def test_apply_smart_review_keeps_server_review_identity_when_variant_changes_an
     assert result[0]["review_identity"] == "stable-smart-review"
     assert result[0]["answer"] == "Could I have some water, please?"
     assert "review_key" not in result[0]
+
+
+def test_skill_review_difficulty_respects_mastery_and_due_pressure():
+    assert progress_router._skill_review_difficulty(3, 0.2, 5) == 1
+    assert progress_router._skill_review_difficulty(3, 0.55, 2) == 2
+    assert progress_router._skill_review_difficulty(2, 0.9, 0) == 3
+    assert progress_router._skill_review_difficulty(3, 0.9, 3) == 3
