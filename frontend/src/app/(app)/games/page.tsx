@@ -153,10 +153,34 @@ export default function GamesPage() {
   const [finishing, setFinishing] = useState(false)
   const [adaptiveMode, setAdaptiveMode] = useState<'new' | 'review' | 'steady' | 'challenge'>('new')
   const [effectiveDifficulty, setEffectiveDifficulty] = useState(1)
-  const [smartReview, setSmartReview] = useState<{ due_count: number; skills: Record<string, number>; recommended_game: GameId | null; items: Array<{ review_key: string; skill: string; topic: string; prompt: string; review_count: number; due_at: string; source_game_id: string }> }>({
+  const [smartReview, setSmartReview] = useState<{
+    due_count: number
+    cefr_level: string
+    skills: Record<string, number>
+    skill_details: Record<string, { mastery: number; cefr_level: string; due_count: number }>
+    recommended_game: GameId | null
+    recommended_skill: string | null
+    items: Array<{
+      review_key: string
+      skill: string
+      topic: string
+      prompt: string
+      review_count: number
+      due_at: string
+      source_game_id: string
+      mastery: number
+      mastery_state: string
+      cefr_level: string
+      priority: string
+      priority_score: number
+    }>
+  }>({
     due_count: 0,
+    cefr_level: '',
     skills: {},
+    skill_details: {},
     recommended_game: null,
+    recommended_skill: null,
     items: [],
   })
   const [reviewSkillFilter, setReviewSkillFilter] = useState<string>('all')
@@ -203,8 +227,11 @@ export default function GamesPage() {
       const recommended = typeof data.recommended_game === 'string' ? data.recommended_game as GameId : null
       setSmartReview({
         due_count: Number(data.due_count) || 0,
+        cefr_level: String(data.cefr_level ?? ''),
         skills: data.skills && typeof data.skills === 'object' ? data.skills as Record<string, number> : {},
+        skill_details: data.skill_details && typeof data.skill_details === 'object' ? data.skill_details as Record<string, { mastery: number; cefr_level: string; due_count: number }> : {},
         recommended_game: recommended,
+        recommended_skill: typeof data.recommended_skill === 'string' ? data.recommended_skill : null,
         items: Array.isArray(data.items)
           ? data.items.filter((item) => item && typeof item === 'object').map((item) => ({
               review_key: String(item.review_key ?? ''),
@@ -214,7 +241,14 @@ export default function GamesPage() {
               review_count: Number(item.review_count) || 0,
               due_at: String(item.due_at ?? ''),
               source_game_id: String(item.source_game_id ?? ''),
+              mastery: Number(item.mastery) || 0,
+              mastery_state: String(item.mastery_state ?? ''),
+              cefr_level: String(item.cefr_level ?? data.cefr_level ?? ''),
+              priority: String(item.priority ?? 'medium'),
+              priority_score: Number(item.priority_score) || 0,
             }))
+          : [],
+      }))
           : [],
       })
     } catch {
@@ -484,7 +518,10 @@ export default function GamesPage() {
                 <div className="section-heading">
                   <div>
                     <h3>{smartReviewTitle}</h3>
-                    <small>{smartReview.due_count} {lang === 'ar' ? 'عنصرًا مستحقًا الآن' : lang === 'fr' ? 'éléments dus maintenant' : 'items due now'}</small>
+                    <small>
+                      {smartReview.due_count} {lang === 'ar' ? 'عنصرًا مستحقًا الآن' : lang === 'fr' ? 'éléments dus maintenant' : 'items due now'}
+                      {smartReview.cefr_level ? ' · CEFR ' + smartReview.cefr_level : ''}
+                    </small>
                   </div>
                 </div>
                 <div className="mini-stats">
@@ -503,15 +540,22 @@ export default function GamesPage() {
                     .slice(0, 8)
                     .map((item) => (
                       <div key={item.review_key} className="smart-review-item">
-                        <span className="smart-review-skill">{item.skill}{item.topic ? ' · ' + item.topic : ''}</span>
+                        <span className="smart-review-skill">
+                          {item.skill}{item.topic ? ' · ' + item.topic : ''} · CEFR {item.cefr_level || smartReview.cefr_level || '—'}
+                        </span>
                         <strong>{item.prompt}</strong>
-                        <small>
-                          {item.review_count > 0
-                            ? (lang === 'ar' ? `مراجعة رقم ${item.review_count}` : lang === 'fr' ? `Révision n°${item.review_count}` : `Review #${item.review_count}`)
-                            : (lang === 'ar' ? 'أول مراجعة' : lang === 'fr' ? 'Première révision' : 'First review')}
-                        </small>
-                      </div>
-                    ))}
+                        <div className="smart-review-meta">
+                          <span className={`smart-review-priority priority-${item.priority}`}>
+                            {item.priority === 'high' ? '🔥' : item.priority === 'medium' ? '⚡' : '✓'} {item.priority}
+                          </span>
+                          <span>{Math.round(item.mastery * 100)}% mastery</span>
+                          <span>
+                            {item.review_count > 0
+                              ? (lang === 'ar' ? `مراجعة رقم ${item.review_count}` : lang === 'fr' ? `Révision n°${item.review_count}` : `Review #${item.review_count}`)
+                              : (lang === 'ar' ? 'أول مراجعة' : lang === 'fr' ? 'Première révision' : 'First review')}
+                          </span>
+                        </div>
+                      </div>                    ))}
                 </div>
               </section>
             )}
