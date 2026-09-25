@@ -81,7 +81,8 @@
     "dashboardStreak": "Day Streak",
     "dashboardXp": "Total XP",
     "dashboardMasteredWords": "Mastered Words",
-    "dashboardCurrentUnit": "Current Unit"
+    "dashboardCurrentUnit": "Current Unit",
+    "ar": "Привет!"
   },
   "common": {
     "loading": "Загрузка...",
@@ -1350,7 +1351,9 @@
     "de-DE-description": "Немецкий язык, используемый в Германии.",
     "ja-JP-description": "Японский язык, используемый в Японии.",
     "ko-KR-description": "Корейский язык, используемый в Южной Корее.",
-    "zh-CN-description": "Мандаринский китайский материкового Китая с упрощёнными иероглифами."
+    "zh-CN-description": "Мандаринский китайский материкового Китая с упрощёнными иероглифами.",
+    "ar": "арабский",
+    "ar-description": "Modern Standard Arabic for global communication, study, and travel."
   },
   "onboarding": {
     "title": "Выберите свой язык",
