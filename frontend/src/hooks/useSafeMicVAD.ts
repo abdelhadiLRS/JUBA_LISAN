@@ -34,7 +34,9 @@ export function useSafeMicVAD(
   const optionsRef = useRef(options)
   const userSpeakingThreshold = options.userSpeakingThreshold ?? 0.6
 
-  optionsRef.current = options
+  useEffect(() => {
+    optionsRef.current = options
+  }, [options])
 
   const start = useCallback(async (audioContext?: AudioContext) => {
     if (loading || listening) return
