@@ -347,7 +347,7 @@ export default async function Home() {
           <span className="juba-ref-kicker">{t('navFAQ')}</span>
           <h2>{t('faqTitle')}</h2>
         </div>
-        <LandingFAQ />
+        <LandingFAQ dir={locale === 'ar' ? 'rtl' : 'ltr'} />
       </section>
 
       <LandingFooter t={t} />
