@@ -28,7 +28,7 @@ from app.models.study_plan import StudyPlan
 from app.models.user import User
 from app.schemas.progress import (GameSessionComplete, GameSessionNextRequest, GameSessionNextResponse, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalMilestoneSummary, LearningGoalResponse, LearningGoalUpdate, MasteryCenterResponse, MasteryCenterLessonResponse, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
 from app.services.progress_service import get_unit_competencies, update_daily_progress
-from app.services.lesson_mastery import _skill_mastery_state, select_next_skill_mastery, summarize_lesson_mastery, summarize_skill_mastery
+from app.services.lesson_mastery import SkillMasteryAggregate, _skill_mastery_state, mastery_reason, select_next_skill_mastery, summarize_lesson_mastery, summarize_skill_mastery
 from app.services.user_language_service import get_active_language
 
 router = APIRouter(prefix="/api/progress", tags=["progress"], dependencies=[Depends(require_learner)])
@@ -1660,6 +1660,7 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
     prompt = str(replay.get("prompt", "")).strip()
     topic = str(replay.get("topic", "")).strip()
     strategy = str(replay.get("review_strategy", "direct_recall"))
+    mechanic = str(replay.get("mechanic", ""))
     # Retry burden can push a nominally reviewing item back toward recognition.
     # This keeps the cognitive demand aligned with actual retrieval performance.
     retrieval_efficiency = max(0.0, min(1.0, float(replay.get("retrieval_efficiency", 0.0))))
@@ -3949,20 +3950,20 @@ async def get_mastery_center(
             get_content_id=lambda exercise: content_id(exercise),
         )
         skill_aggregates.append(
-            type("SkillAggregate", (), {
-                "skill": skill,
-                "mastery_state": aggregate.mastery_state,
-                "total_exercises": aggregate.total_exercises,
-                "attempted_exercises": aggregate.attempted_exercises,
-                "mastered_exercises": aggregate.mastered_exercises,
-                "learning_exercises": aggregate.learning_exercises,
-                "struggling_exercises": aggregate.struggling_exercises,
-                "unseen_exercises": aggregate.unseen_exercises,
-                "average_mastery_score": aggregate.average_mastery_score,
-                "mastery_rate": aggregate.mastery_rate,
-                "attempt_rate": aggregate.attempt_rate,
-                "covered_variants": aggregate.covered_variants,
-            })()
+            SkillMasteryAggregate(
+                skill=skill,
+                mastery_state=aggregate.mastery_state,
+                total_exercises=aggregate.total_exercises,
+                attempted_exercises=aggregate.attempted_exercises,
+                mastered_exercises=aggregate.mastered_exercises,
+                learning_exercises=aggregate.learning_exercises,
+                struggling_exercises=aggregate.struggling_exercises,
+                unseen_exercises=aggregate.unseen_exercises,
+                average_mastery_score=aggregate.average_mastery_score,
+                mastery_rate=aggregate.mastery_rate,
+                attempt_rate=aggregate.attempt_rate,
+                covered_variants=aggregate.covered_variants,
+            )
         )
         skills.append({
             "skill": skill,
