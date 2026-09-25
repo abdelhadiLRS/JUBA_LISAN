@@ -10,7 +10,7 @@ CurriculumUnit(id="sn-a1-unit-5",level="A1",unit_number=5,title="Shona: routine"
 CurriculumUnit(id="sn-a1-unit-6",level="A1",unit_number=6,title="Shona: time",grammar_points=["sn-a1-g6"],vocabulary_set_ids=["time_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use nguva in a basic exchange","Understand a short time interaction"],default_weeks=1),
 CurriculumUnit(id="sn-a1-unit-7",level="A1",unit_number=7,title="Shona: food",grammar_points=["sn-a1-g7"],vocabulary_set_ids=["food_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use mvura in a basic exchange","Understand a short food interaction"],default_weeks=1),
 CurriculumUnit(id="sn-a1-unit-8",level="A1",unit_number=8,title="Shona: places",grammar_points=["sn-a1-g8"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use chikoro in a basic exchange","Understand a short places interaction"],default_weeks=1)
-]}
+]
 for level in LEVELS[1:]:
  CURRICULUM[level]=[CurriculumUnit(id=f"sn-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Shona {level} communication",grammar_points=["intermediate grammar"],vocabulary_set_ids=[],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Handle extended communication"],default_weeks=2)]
 GRAMMAR_TOPICS=[
@@ -60,7 +60,7 @@ ASSESSMENT_BANK=[
 AssessmentQuestion(id="sn-a1-001",skill="vocabulary",difficulty="A1",question="Which Shona word means 'water'?",options=["mvura","imba","amai","chikoro"],correct="mvura"),
 AssessmentQuestion(id="sn-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["Ndiri kumba.","Ndinoenda kuchikoro.","Ndinonwa mvura.","Iri ibhuku."],correct="Ndiri kumba."),
 AssessmentQuestion(id="sn-a1-003",skill="vocabulary",difficulty="A1",question="What does amai mean?",options=["mother","father","friend","teacher"],correct="mother"),
-AssessmentQuestion(id="sn-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["Unonzi ani?","Uri kupi?","Ichi chii?","Inguvai?"],"correct"="Unonzi ani?"),
+AssessmentQuestion(id="sn-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["Unonzi ani?","Uri kupi?","Ichi chii?","Inguvai?"],"correct="Unonzi ani?"),
 AssessmentQuestion(id="sn-a1-005",skill="reading",difficulty="A1",question="Bhuku riri patafura. Where is the book?",options=["On the table","At school","At home","In the shop"],correct="On the table"),
 AssessmentQuestion(id="sn-a1-006",skill="vocabulary",difficulty="A1",question="Which word means 'name'?",options=["zita","nguva","mvura","imba"],correct="zita"),
 AssessmentQuestion(id="sn-a1-007",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["Dzokorora, ndapota.","Ndatenda.","Mhoro.","Sara zvakanaka."],correct="Dzokorora, ndapota."),
