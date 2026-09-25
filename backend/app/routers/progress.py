@@ -1685,7 +1685,7 @@ async def complete_game_session(
                     "submitted": submitted.choice,
                     "question": snapshot,
                 })
-            questions_answered = len(expected)
+        questions_answered = len(expected)
 
     # Interactive rounds are scored as one skill; regular and mixed rounds
     # already populated the map question-by-question.
