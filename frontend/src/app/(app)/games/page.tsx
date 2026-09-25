@@ -151,6 +151,8 @@ export default function GamesPage() {
   const [timeLeft, setTimeLeft] = useState(8)
   const [roundResult, setRoundResult] = useState<{ score: number; correct: number; questions: number; xp: number } | null>(null)
   const [finishing, setFinishing] = useState(false)
+  const [adaptiveMode, setAdaptiveMode] = useState<'new' | 'review' | 'steady' | 'challenge'>('new')
+  const [effectiveDifficulty, setEffectiveDifficulty] = useState(1)
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
@@ -264,6 +266,8 @@ export default function GamesPage() {
       setNewAchievements([])
       setRoundResult(null)
       setFinishing(false)
+      setAdaptiveMode(session.adaptive_mode ?? 'new')
+      setEffectiveDifficulty(session.effective_difficulty ?? difficultyForGame(id))
       setQuestion(session.questions[0] ?? null)
     } catch (error) {
       console.error('[JUBA LISAN] Game session start failed:', error)
@@ -457,7 +461,13 @@ export default function GamesPage() {
         ) : (
           <section className="play-card">
             <button type="button" className="back" onClick={() => { setGame(null); setDailyMode(false); setQuestion(null); setSessionId(null); setInputValue(''); setRoundResult(null) }}>← {t.back}</button>
-            <div className="round-meta">{dailyMode ? `📅 ${t.daily} · ` : ''}{round + 1} / {ROUND_SIZE} · +XP</div>
+            <div className="round-meta">
+              {dailyMode ? `📅 ${t.daily} · ` : ''}
+              {round + 1} / {ROUND_SIZE} · +XP · D{effectiveDifficulty}
+              {adaptiveMode === 'review' && (
+                <span> · {lang === 'ar' ? '🧠 مراجعة الأخطاء' : lang === 'fr' ? '🧠 Révision ciblée' : '🧠 Smart review'}</span>
+              )}
+            </div>
             {question && (
               <>
                 <h2 style={{ whiteSpace: 'pre-line' }}>{question.prompt}</h2>
