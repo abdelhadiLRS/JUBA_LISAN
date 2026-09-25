@@ -146,3 +146,14 @@ class TestGetAssessmentBank:
         }
         assert counts == {level: 12 for level in levels}
 
+    def test_all_registered_assessment_banks_have_unique_nonempty_question_ids():
+        from app.data.assessment_bank import _LANG_MODULES, get_assessment_bank
+
+        for language in _LANG_MODULES:
+            bank = get_assessment_bank(language)
+            ids = [question.id for question in bank]
+            assert bank, f"Assessment bank is empty for {language}"
+            assert all(isinstance(question_id, str) and question_id.strip() for question_id in ids), (
+                f"Assessment bank contains an empty question ID for {language}"
+            )
+            assert len(ids) == len(set(ids)), f"Duplicate assessment question IDs for {language}"
