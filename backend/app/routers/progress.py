@@ -760,6 +760,55 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                     ("تريد السؤال عن الاتجاهات بأدب. ماذا تقول؟", "هل يمكنك أن تخبرني كيف أصل إلى المحطة؟", ["هل يمكنك أن تخبرني كيف أصل إلى المحطة؟", "أقرأ رواية.", "الجو بارد.", "لدي أختان."]),
                     ("دعاك صديق إلى العشاء ولا تستطيع الذهاب. ما الرد المناسب؟", "شكرًا على الدعوة، لكن لا أستطيع الحضور.", ["شكرًا على الدعوة، لكن لا أستطيع الحضور.", "أين أقرب صيدلية؟", "أركب الحافلة.", "يبدأ الدرس غدًا."]),
                 ],
+                "es": [
+                    ("Estás en un café. El camarero pregunta: «¿Qué quieres?».", "Quisiera un café, por favor.", ["Quisiera un café, por favor.", "Ayer hizo sol.", "Mi hermano es alto.", "Estudié francés."]),
+                    ("Conoces a alguien por primera vez. ¿Qué respondes a «Mucho gusto»?", "Mucho gusto también.", ["Mucho gusto también.", "Gira a la izquierda.", "Son las tres.", "Tengo dos libros."]),
+                    ("No has oído bien. ¿Qué dices educadamente?", "¿Podrías repetirlo, por favor?", ["¿Podrías repetirlo, por favor?", "Me levanto a las siete.", "El tren es azul.", "Compré dos libros."]),
+                    ("Quieres pedir indicaciones con educación. ¿Qué dices?", "¿Podrías decirme cómo llegar a la estación?", ["¿Podrías decirme cómo llegar a la estación?", "Leo una novela.", "Llueve a menudo.", "Tengo dos hermanas."]),
+                    ("Un amigo te invita a cenar, pero no puedes ir. ¿Qué respondes?", "Gracias por la invitación, pero no puedo ir.", ["Gracias por la invitación, pero no puedo ir.", "¿Dónde está la farmacia?", "Tomo el autobús.", "La clase empieza mañana."]),
+                ],
+                "de": [
+                    ("Du bist in einem Café. Der Kellner fragt: „Was möchten Sie?“", "Ich möchte bitte einen Kaffee.", ["Ich möchte bitte einen Kaffee.", "Gestern war es sonnig.", "Mein Bruder ist groß.", "Ich habe Französisch gelernt."]),
+                    ("Du triffst jemanden zum ersten Mal. Was antwortest du auf „Freut mich“?", "Mich freut es auch.", ["Mich freut es auch.", "Biegen Sie links ab.", "Es ist drei Uhr.", "Ich habe zwei Bücher."]),
+                    ("Du hast jemanden nicht gut verstanden. Was sagst du höflich?", "Könnten Sie das bitte wiederholen?", ["Könnten Sie das bitte wiederholen?", "Ich stehe um sieben auf.", "Der Zug ist blau.", "Ich habe zwei Bücher gekauft."]),
+                    ("Du möchtest höflich nach dem Weg fragen. Was sagst du?", "Könnten Sie mir sagen, wie ich zum Bahnhof komme?", ["Könnten Sie mir sagen, wie ich zum Bahnhof komme?", "Ich lese einen Roman.", "Es regnet oft.", "Sie hat zwei Schwestern."]),
+                    ("Ein Freund lädt dich zum Essen ein, aber du kannst nicht. Was sagst du?", "Danke für die Einladung, aber ich kann nicht kommen.", ["Danke für die Einladung, aber ich kann nicht kommen.", "Wo ist die nächste Apotheke?", "Ich nehme den Bus.", "Der Kurs beginnt morgen."]),
+                ],
+                "it": [
+                    ("Sei al bar. Il cameriere chiede: «Cosa desidera?»", "Vorrei un caffè, per favore.", ["Vorrei un caffè, per favore.", "Ieri c'era il sole.", "Mio fratello è alto.", "Ho studiato francese."]),
+                    ("Incontri qualcuno per la prima volta. Cosa rispondi a «Piacere»?", "Piacere anche a te.", ["Piacere anche a te.", "Gira a sinistra.", "Sono le tre.", "Ho due libri."]),
+                    ("Non hai sentito bene. Cosa dici educatamente?", "Potresti ripetere, per favore?", ["Potresti ripetere, per favore?", "Mi alzo alle sette.", "Il treno è blu.", "Ho comprato due libri."]),
+                    ("Vuoi chiedere indicazioni con educazione. Cosa dici?", "Potresti dirmi come arrivare alla stazione?", ["Potresti dirmi come arrivare alla stazione?", "Leggo un romanzo.", "Piove spesso.", "Ha due sorelle."]),
+                    ("Un amico ti invita a cena, ma non puoi andare. Cosa rispondi?", "Grazie per l'invito, ma non posso venire.", ["Grazie per l'invito, ma non posso venire.", "Dov'è la farmacia più vicina?", "Prendo l'autobus.", "La lezione inizia domani."]),
+                ],
+                "pt": [
+                    ("Estás num café. O empregado pergunta: «O que deseja?»", "Queria um café, por favor.", ["Queria um café, por favor.", "Ontem esteve sol.", "O meu irmão é alto.", "Estudei francês."]),
+                    ("Conheces alguém pela primeira vez. O que respondes a «Muito prazer»?", "Muito prazer também.", ["Muito prazer também.", "Vire à esquerda.", "São três horas.", "Tenho dois livros."]),
+                    ("Não ouviste bem. O que dizes educadamente?", "Pode repetir, por favor?", ["Pode repetir, por favor?", "Levanto-me às sete.", "O comboio é azul.", "Comprei dois livros."]),
+                    ("Queres pedir indicações educadamente. O que dizes?", "Pode dizer-me como chegar à estação?", ["Pode dizer-me como chegar à estação?", "Leio um romance.", "Chove muitas vezes.", "Ela tem duas irmãs."]),
+                    ("Um amigo convida-te para jantar, mas não podes ir. O que respondes?", "Obrigado pelo convite, mas não posso ir.", ["Obrigado pelo convite, mas não posso ir.", "Onde fica a farmácia?", "Apanho o autocarro.", "A aula começa amanhã."]),
+                ],
+                "ja": [
+                    ("カフェで店員に「何になさいますか」と聞かれました。", "コーヒーをお願いします。", ["コーヒーをお願いします。", "昨日は晴れていました。", "兄は背が高いです。", "フランス語を勉強しました。"]),
+                    ("初対面の人に「はじめまして」と言われました。", "こちらこそ、はじめまして。", ["こちらこそ、はじめまして。", "左に曲がってください。", "3時です。", "本が2冊あります。"]),
+                    ("よく聞こえませんでした。丁寧に何と言いますか。", "もう一度言っていただけますか。", ["もう一度言っていただけますか。", "7時に起きます。", "電車は青いです。", "本を2冊買いました。"]),
+                    ("駅への行き方を丁寧に尋ねたいです。", "駅へはどう行けばいいですか。", ["駅へはどう行けばいいですか。", "小説を読みます。", "よく雨が降ります。", "姉妹が2人います。"]),
+                    ("友達に夕食に誘われましたが行けません。", "誘ってくれてありがとう。でも行けません。", ["誘ってくれてありがとう。でも行けません。", "一番近い薬局はどこですか。", "バスに乗ります。", "授業は明日始まります。"]),
+                ],
+                "ko": [
+                    ("카페에서 직원이 “무엇을 드릴까요?”라고 물었습니다.", "커피 한 잔 주세요.", ["커피 한 잔 주세요.", "어제는 맑았습니다.", "제 형은 키가 큽니다.", "프랑스어를 공부했습니다."]),
+                    ("처음 만난 사람이 “반갑습니다”라고 말했습니다. 어떻게 답할까요?", "저도 반갑습니다.", ["저도 반갑습니다.", "왼쪽으로 가세요.", "세 시입니다.", "책이 두 권 있습니다."]),
+                    ("잘 듣지 못했습니다. 정중하게 무엇이라고 말할까요?", "다시 말씀해 주시겠어요?", ["다시 말씀해 주시겠어요?", "일곱 시에 일어납니다.", "기차는 파란색입니다.", "책 두 권을 샀습니다."]),
+                    ("정중하게 길을 묻고 싶습니다. 무엇이라고 말할까요?", "역에 어떻게 가는지 알려 주시겠어요?", ["역에 어떻게 가는지 알려 주시겠어요?", "소설을 읽습니다.", "비가 자주 옵니다.", "자매가 두 명 있습니다."]),
+                    ("친구가 저녁 식사에 초대했지만 갈 수 없습니다. 어떻게 답할까요?", "초대해 줘서 고마워. 하지만 갈 수 없어.", ["초대해 줘서 고마워. 하지만 갈 수 없어.", "가장 가까운 약국이 어디예요?", "버스를 탑니다.", "수업은 내일 시작합니다."]),
+                ],
+                "zh": [
+                    ("你在咖啡馆，服务员问：“您想要什么？”", "请给我一杯咖啡。", ["请给我一杯咖啡。", "昨天天气晴朗。", "我哥哥很高。", "我学过法语。"]),
+                    ("你第一次见到一个人，对方说“很高兴认识你”。你怎么回答？", "我也很高兴认识你。", ["我也很高兴认识你。", "向左转。", "现在三点。", "我有两本书。"]),
+                    ("你没有听清楚。礼貌地怎么说？", "请您再说一遍，好吗？", ["请您再说一遍，好吗？", "我七点起床。", "火车是蓝色的。", "我买了两本书。"]),
+                    ("你想礼貌地问路。你怎么说？", "请问怎么去车站？", ["请问怎么去车站？", "我正在读小说。", "这里经常下雨。", "她有两个姐妹。"]),
+                    ("朋友邀请你吃晚饭，但你不能去。你怎么回答？", "谢谢你的邀请，但是我不能去。", ["谢谢你的邀请，但是我不能去。", "最近的药店在哪里？", "我坐公交车。", "课程明天开始。"]),
+                ],
             }[language]
             prompt, answer, choices = scenarios[index]
             rng.shuffle(choices)
