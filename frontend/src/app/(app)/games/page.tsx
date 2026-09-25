@@ -18,10 +18,6 @@ import { useProgressStore } from '@/store/progress'
 import './games.css'
 
 type Lang = 'ar' | 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt' | 'pl' | 'nl' | 'ro' | 'ru'
-const GAME_LANGUAGES: GameLanguage[] = ['ar', 'fr', 'en']
-function gameLanguageFor(locale: Lang): GameLanguage {
-  return GAME_LANGUAGES.includes(locale as GameLanguage) ? locale as GameLanguage : 'en'
-}
 function getLocalDateKey() {
   const now = new Date()
   const year = now.getFullYear()
@@ -216,18 +212,10 @@ export default function GamesPage() {
     if (daily && dailyCompletedToday) return
     setGameError(null)
 
-    // Interactive games have their own board and completion flow. The generic
-    // question renderer expects a non-interactive question payload, so route
-    // these game types to their dedicated pages instead of opening an empty
-    // round shell.
-    if (id === 'memory' || id === 'matching' || id === 'sentence_builder') {
-      const route = id === 'sentence_builder' ? 'sentence-builder' : id
-      const difficulty = difficultyForGame(id)
-      window.location.assign(`/games/${route}?lang=${gameLanguageFor(lang)}&difficulty=${difficulty}`)
-      return
-    }
-
     try {
+      // Resolve the active target language before routing any game. The UI
+      // locale is presentation-only and must never silently change the
+      // language being learned.
       // A game session is persisted against the active study plan. Avoid
       // sending a request that can only return 404 when a learner has not
       // created a plan yet; send them to plan setup instead.
@@ -251,6 +239,15 @@ export default function GamesPage() {
       const planRecord = plan as { target_language?: string; language?: string }
       const targetLanguage = planRecord.target_language ?? planRecord.language
       const contentLanguage = gameLanguageForTargetLanguage(targetLanguage)
+
+      // Interactive games have their own board and completion flow. Pass the
+      // study-plan language into those routes rather than the interface locale.
+      if (id === 'memory' || id === 'matching' || id === 'sentence_builder') {
+        const route = id === 'sentence_builder' ? 'sentence-builder' : id
+        const difficulty = difficultyForGame(id)
+        window.location.assign(`/games/${route}?lang=${contentLanguage}&difficulty=${difficulty}`)
+        return
+      }
 
       const session = await startGameSession(id, contentLanguage, difficultyForGame(id))
       setGame(id)
