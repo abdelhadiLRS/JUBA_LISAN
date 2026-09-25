@@ -303,7 +303,7 @@ export default function ProgressPage() {
             </span>
             <div className="bg-[var(--juba-app-line)] h-px flex-1" />
             <span className="text-[var(--juba-app-muted)] font-mono text-xs">
-              {summary.mastery.tracked_items} {t('lessons')}
+              {summary.mastery.tracked_items} {tVocab('words')}
             </span>
           </div>
           <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border p-5">
