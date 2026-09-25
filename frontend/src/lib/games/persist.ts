@@ -57,6 +57,8 @@ export type GameSessionStartResponse = {
   daily_challenge: boolean
   daily_challenge_date: string
   interaction?: InteractiveGameChallenge
+  adaptive_mode?: 'new' | 'review' | 'steady' | 'challenge'
+  effective_difficulty?: number
 }
 
 export type InteractiveGameChallenge =
