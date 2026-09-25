@@ -2663,6 +2663,9 @@ async def next_game_session_question(
         raise HTTPException(status_code=409, detail="Question already answered")
 
     correct = _game_answer_matches(data.choice, current.get("answer"))
+    attempts = list(current.get("_attempts") or [])
+    attempts.append({"choice": data.choice, "correct": bool(correct)})
+    current["_attempts"] = attempts
     current["_answered"] = True
     current["_submitted"] = data.choice
     answered = sum(1 for item in stored_questions if item.get("_answered"))
