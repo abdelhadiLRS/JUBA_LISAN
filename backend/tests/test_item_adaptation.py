@@ -251,7 +251,7 @@ def test_speaking_open_response_hides_answer_and_accepts_authored_variants(monke
     assert "I travel every summer." in replay["answer"]
     assert "I travel by train." in replay["answer"]
     assert "travel" in replay["prompt"].lower()
-
+\n\ndef test_speaking_review_sets_target_language_for_voice_input(monkeypatch):\n    from app.routers import progress\n\n    entry = SimpleNamespace(\n        word="voyager",\n        definition="to travel",\n        example="Je veux voyager demain.",\n    )\n    vocab_set = SimpleNamespace(topic="travel", words=[entry])\n    monkeypatch.setattr(progress, "get_vocabulary_by_level", lambda *_args, **_kwargs: [vocab_set])\n\n    question = {\n        "review_key": "speaking:voyager",\n        "skill": "speaking",\n        "language": "fr",\n        "target_language": "fr",\n        "cefr_level": "A1",\n        "word": "voyager",\n        "prompt": "Réponds naturellement avec « voyager ».",\n        "answer": "Je veux voyager demain.",\n        "review_strategy": "production",\n        "retrieval_efficiency": 0.95,\n    }\n\n    replay = progress._apply_skill_review_variant(question, 0)\n\n    assert replay["target_language"] == "fr"\n    assert replay["audio_language"] == "fr"\n
 
 def test_vocabulary_contextual_production_hides_target_word(monkeypatch):
     from app.routers import progress
