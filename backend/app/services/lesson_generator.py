@@ -129,6 +129,57 @@ def get_valid_grammar_slugs(target_language: str = "en-GB") -> set[str]:
     return {slug for units in curriculum.values() for unit in units for slug in unit.grammar_points}
 
 
+def _fallback_lesson(*, cefr_level: str, lesson_type: str, topic: str, unit_id: str, target_language: str) -> LessonContent | None:
+    """Keep the authored A1 English starter course launchable without an LLM."""
+    if target_language not in {"en", "en-GB", "en_US"} or cefr_level.upper() != "A1":
+        return None
+    title = topic.strip() or "Identity & Greetings"
+    base = {
+        "lesson_type": lesson_type, "title": title, "cefr_level": cefr_level,
+        "unit_id": unit_id, "grammar_refs": ["to-be", "subject-pronouns", "questions", "yes-no"],
+    }
+    if lesson_type == "grammar":
+        base["explanation"] = {"title": "Introducing yourself", "body": "Use am, is and are with subject pronouns.", "examples": ["I am Sara.", "You are from Algeria.", "Is he a student?"]}
+        base["exercises"] = [
+            ExerciseContent(type="multiple_choice", question="___ am Alex.", options=["I", "He", "They"], correct="I", explanation="Use I with am."),
+            ExerciseContent(type="multiple_choice", question="She ___ from London.", options=["am", "is", "are"], correct="is", explanation="Use is with she."),
+            ExerciseContent(type="fill_blank", question="You ___ a student.", correct="are", accepted_answers=["are"], explanation="Use are with you."),
+            ExerciseContent(type="multiple_choice", question="___ you from Algeria?", options=["Am", "Is", "Are"], correct="Are", explanation="Questions with you use are."),
+        ]
+    elif lesson_type == "vocabulary":
+        base["explanation"] = {"title": "Greetings and introductions", "body": "Learn simple phrases for meeting someone.", "examples": ["Hello!", "Nice to meet you.", "My name is Adam."]}
+        base["exercises"] = [
+            ExerciseContent(type="multiple_choice", question="What do you say when you meet someone?", options=["Hello!", "Goodbye!", "Thanks!"], correct="Hello!"),
+            ExerciseContent(type="multiple_choice", question="Complete: My ___ is Adam.", options=["name", "hello", "student"], correct="name"),
+            ExerciseContent(type="fill_blank", question="Nice to ___ you.", correct="meet", accepted_answers=["meet"]),
+        ]
+    elif lesson_type == "listening":
+        base["explanation"] = {"title": "Listen for names and introductions", "body": "Listen for the speaker's name and where they are from.", "examples": ["Hello, I'm Adam. I'm from London."]}
+        base["exercises"] = [
+            ExerciseContent(type="multiple_choice", question="Listen: 'Hello, I'm Adam.' What is his name?", options=["Adam", "Alex", "Sam"], correct="Adam"),
+            ExerciseContent(type="multiple_choice", question="'I'm from London.' Where is he from?", options=["London", "Paris", "Rome"], correct="London"),
+        ]
+    elif lesson_type == "reading":
+        base["explanation"] = {"title": "A short introduction", "body": "Read for key personal information.", "examples": ["Hello. My name is Emma. I am a student."]}
+        base["exercises"] = [
+            ExerciseContent(type="multiple_choice", question="Read: 'My name is Emma.' What is her name?", options=["Emma", "Anna", "Emily"], correct="Emma"),
+            ExerciseContent(type="multiple_choice", question="Read: 'I am a student.' What is Emma?", options=["A student", "A teacher", "A doctor"], correct="A student"),
+        ]
+    elif lesson_type == "writing":
+        base["explanation"] = {"title": "Write a simple introduction", "body": "Write your name, where you are from and one fact about yourself.", "examples": ["My name is Adam. I am from Algeria."]}
+        base["exercises"] = [ExerciseContent(type="free_write", question="Write three short sentences to introduce yourself.", correct="My name is Adam. I am from Algeria. I am a student.", explanation="Include your name, where you are from and one fact about yourself.")]
+    else:
+        base["explanation"] = {"title": "Review: Identity & Greetings", "body": "Review greetings, subject pronouns and the verb to be.", "examples": ["I am", "You are", "She is"]}
+        base["exercises"] = [
+            ExerciseContent(type="multiple_choice", question="I ___ from Algeria.", options=["am", "is", "are"], correct="am"),
+            ExerciseContent(type="multiple_choice", question="They ___ students.", options=["am", "is", "are"], correct="are"),
+            ExerciseContent(type="multiple_choice", question="___ she from London?", options=["Am", "Is", "Are"], correct="Is"),
+        ]
+    lesson = LessonContent(**base)
+    _attach_stable_exercise_metadata(lesson, target_language=target_language, topic=title, unit_id=unit_id)
+    return lesson
+
+
 async def generate_lesson(
     cefr_level: str,
     lesson_type: str,
@@ -195,10 +246,23 @@ async def generate_lesson(
         language_prompt_overlay=language_prompt_overlay,
     )
 
-    lesson = await llm_adapter.structured_output(
-        [{"role": "system", "content": prompt}],
-        LessonContent,
-    )
+    try:
+        lesson = await llm_adapter.structured_output(
+            [{"role": "system", "content": prompt}],
+            LessonContent,
+        )
+    except Exception:
+        fallback = _fallback_lesson(
+            cefr_level=cefr_level,
+            lesson_type=lesson_type,
+            topic=topic,
+            unit_id=unit_id,
+            target_language=target_language,
+        )
+        if fallback is None:
+            raise
+        lesson = fallback
+
     lesson.grammar_refs = [s for s in lesson.grammar_refs if s in valid_slugs]
     # Sanitize fill_blank exercises: question MUST contain ___ (the gapped sentence).
     # If the LLM put the instruction in question and the actual sentence in explanation,
