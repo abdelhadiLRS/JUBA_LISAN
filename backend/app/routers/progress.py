@@ -1678,7 +1678,7 @@ def _apply_smart_review(
         replay["review"] = True
         replay["target_language"] = target_language
         replay["cefr_level"] = cefr_level
-        replay["language"] = str(mistake.get("language", "en"))
+        replay["language"] = str(mistake.get("language") or str(target_language).split("-")[0] or "en")
         replay = _apply_skill_review_variant(replay, int(mistake.get("variant_seed", 0)))
         # Review metadata is server-only; the public projection below omits
         # the authoritative answer and review bookkeeping.
