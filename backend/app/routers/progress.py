@@ -2707,6 +2707,33 @@ async def complete_game_session(
         if session.daily_challenge_date != today.isoformat():
             raise HTTPException(status_code=422, detail="session is not today's daily challenge")
 
+    if session.game_id not in {"memory", "matching", "ordering", "sentence_builder"}:
+        stored_questions = list(session.questions or [])
+        if not stored_questions or not all(bool(item.get("_answered")) for item in stored_questions):
+            raise HTTPException(
+                status_code=422,
+                detail="Complete all server-validated questions before finishing the game",
+            )
+        validated_answers = {
+            str(item.get("id")): str(item.get("_submitted", ""))
+            for item in stored_questions
+        }
+        submitted_ids = {str(answer.question_id) for answer in data.answers}
+        expected_ids = set(validated_answers)
+        if submitted_ids != expected_ids:
+            raise HTTPException(
+                status_code=422,
+                detail="Completion answers do not match the validated session",
+            )
+        if any(
+            str(answer.choice) != validated_answers[str(answer.question_id)]
+            for answer in data.answers
+        ):
+            raise HTTPException(
+                status_code=422,
+                detail="Completion answers do not match server-validated answers",
+            )
+
     mistakes: list[dict] = []
     # Track per-skill results for every server-issued game, including
     # interactive games. Mixed review rounds use this map to update each
