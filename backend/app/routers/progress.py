@@ -1674,7 +1674,7 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
     }.get(strategy, 0)
     variant = (max(0, int(seed)) + strategy_offset) % 3
     replay["retrieval_stage"] = strategy
-
+    # Speaking practice uses the target language for browser speech recognition.\n    # Keep this metadata on server-generated review variants so voice input does\n    # not silently fall back to English for French, Arabic, Japanese, etc.\n    if skill == "speaking":\n        replay["target_language"] = str(replay.get("target_language") or "en-GB")\n        replay["audio_language"] = replay["target_language"]\n
     if skill == "vocabulary":
         word = str(replay.get("word", "")).strip() or str(replay.get("answer", "")).strip()
         if not word:
