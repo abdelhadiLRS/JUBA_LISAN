@@ -4,6 +4,7 @@ import Script from 'next/script'
 import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
+import type { Locale } from '@/lib/locales'
 import {
   Sparkles,
   ArrowRight,
