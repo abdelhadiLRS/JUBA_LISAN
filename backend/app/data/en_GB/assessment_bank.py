@@ -1225,7 +1225,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="r-b2-006",
         skill="reading",
         difficulty="B2",
-        question="Read: "Although the project exceeded its budget, the independent review found that its long-term benefits were likely to outweigh the additional costs." — What does the review suggest?",
+        question='''Read: "Although the project exceeded its budget, the independent review found that its long-term benefits were likely to outweigh the additional costs." — What does the review suggest?"''',
         options=[
             "The project should be cancelled immediately.",
             "The extra spending may be justified by future benefits.",
@@ -1295,7 +1295,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="r-c1-007",
         skill="reading",
         difficulty="C1",
-        question="Read: "The author's qualification is significant: she does not reject the proposal outright, but argues that its apparent simplicity conceals several unresolved practical difficulties." — What is the author's position?",
+        question='''Read: "The author's qualification is significant: she does not reject the proposal outright, but argues that its apparent simplicity conceals several unresolved practical difficulties." — What is the author's position?"''',
         options=[
             "She fully endorses the proposal.",
             "She rejects the proposal without qualification.",
@@ -1308,7 +1308,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="r-c1-008",
         skill="reading",
         difficulty="C1",
-        question="Read: "The figures appear impressive at first glance; however, once adjusted for inflation and population growth, the increase is considerably less dramatic." — What changes the interpretation of the figures?",
+        question='''Read: "The figures appear impressive at first glance; however, once adjusted for inflation and population growth, the increase is considerably less dramatic." — What changes the interpretation of the figures?"''',
         options=[
             "A change in the sample size only.",
             "Adjustments for inflation and population growth.",
@@ -1381,7 +1381,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="r-c2-007",
         skill="reading",
         difficulty="C2",
-        question="Read: "The author's concession is strategic rather than substantive: by acknowledging a minor weakness, she strengthens the credibility of the broader argument." — Why does the author acknowledge the weakness?",
+        question='''Read: "The author's concession is strategic rather than substantive: by acknowledging a minor weakness, she strengthens the credibility of the broader argument." — Why does the author acknowledge the weakness?"''',
         options=[
             "To abandon the central argument.",
             "To make the argument appear more credible.",
@@ -1394,7 +1394,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="r-c2-008",
         skill="reading",
         difficulty="C2",
-        question="Read: "What appears to be a contradiction is, on closer examination, a distinction between short-term effects and long-term outcomes." — How does the passage resolve the apparent contradiction?",
+        question='''Read: "What appears to be a contradiction is, on closer examination, a distinction between short-term effects and long-term outcomes." — How does the passage resolve the apparent contradiction?"''',
         options=[
             "It proves both claims are false.",
             "It distinguishes between different time horizons.",
@@ -1407,7 +1407,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="r-c2-009",
         skill="reading",
         difficulty="C2",
-        question="Read: "The policy's defenders emphasize its stated objectives, whereas its critics focus on the incentives it creates in practice." — What is the main contrast?",
+        question='''Read: "The policy's defenders emphasize its stated objectives, whereas its critics focus on the incentives it creates in practice." — What is the main contrast?"''',
         options=[
             "Objectives versus practical consequences.",
             "Past policy versus future policy.",
