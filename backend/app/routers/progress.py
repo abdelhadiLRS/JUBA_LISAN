@@ -2297,22 +2297,69 @@ async def _get_adaptive_game_difficulty(
     return requested_difficulty, "steady"
 
 
-def _review_game_for_item(skill: str, mastery_state: str) -> str | None:
-    """Select a review mechanic appropriate to the item's current mastery."""
-    game_for_skill = {
-        "vocabulary": ("quick_choice", "word_categories"),
-        "grammar": ("grammar_duel", "fill_blank"),
-        "listening": ("listening_detective", "listening_detective"),
-        "writing": ("translation_sprint", "translation_sprint"),
-        "speaking": ("context_quest", "context_quest"),
+def _review_game_for_item(
+    skill: str,
+    mastery_state: str,
+    retrieval_efficiency: float = 0.0,
+    review_streak: int = 0,
+    attempts: int = 0,
+) -> str | None:
+    """Select a skill-safe review mechanic from mastery and retrieval telemetry."""
+    mechanics = {
+        "vocabulary": {
+            "recall": "quick_choice",
+            "recognition": "word_categories",
+            "transfer": "word_categories",
+            "production": "translation_sprint",
+        },
+        "grammar": {
+            "recall": "grammar_duel",
+            "recognition": "grammar_duel",
+            "transfer": "fill_blank",
+            "production": "translation_sprint",
+        },
+        "listening": {
+            "recall": "listening_detective",
+            "recognition": "listen_choose",
+            "transfer": "listening_detective",
+            "production": "listening_detective",
+        },
+        "writing": {
+            "recall": "translation_sprint",
+            "recognition": "translation_sprint",
+            "transfer": "translation_sprint",
+            "production": "context_quest",
+        },
+        "speaking": {
+            "recall": "context_quest",
+            "recognition": "context_quest",
+            "transfer": "context_quest",
+            "production": "context_quest",
+        },
     }
-    games = game_for_skill.get(skill)
-    if not games:
+    skill_mechanics = mechanics.get(str(skill))
+    if not skill_mechanics:
         return None
+
     state = str(mastery_state or "new")
-    if state in {"weak", "learning", "new"}:
-        return games[0]
-    return games[1]
+    efficiency = max(0.0, min(1.0, float(retrieval_efficiency)))
+    streak = max(0, int(review_streak))
+    attempt_count = max(0, int(attempts))
+
+    # Poor retrieval keeps the learner in recognition/direct recall, even when
+    # the state label has not caught up with the underlying telemetry.
+    if efficiency < 0.35 or (attempt_count >= 2 and efficiency < 0.5):
+        stage = "recognition"
+    elif state in {"weak", "new"} or streak == 0:
+        stage = "recall"
+    elif state == "learning" or streak == 1:
+        stage = "recognition"
+    elif state == "reviewing" or streak == 2:
+        stage = "transfer"
+    else:
+        stage = "production"
+
+    return skill_mechanics[stage]
 
 
 async def _recommended_review_game(
@@ -2320,26 +2367,21 @@ async def _recommended_review_game(
     user_id: int,
     plan: StudyPlan,
 ) -> tuple[str | None, str | None]:
-    """Choose the next review game from due items and their current mastery.
-
-    The review engine deliberately varies the exercise mechanic as mastery
-    changes: weaker items get direct retrieval practice, while items that are
-    recovering move into a more applied categorisation/grammar mechanic.
-    """
-    game_for_skill = {
-        "vocabulary": ("quick_choice", "word_categories"),
-        "grammar": ("grammar_duel", "fill_blank"),
-        "listening": ("listening_detective", "listening_detective"),
-        "writing": ("translation_sprint", "translation_sprint"),
-        "speaking": ("context_quest", "context_quest"),
+    """Choose the next review mechanic from mastery, retrieval and streak."""
+    mechanics = {
+        "vocabulary": ("quick_choice", "word_categories", "translation_sprint"),
+        "grammar": ("grammar_duel", "fill_blank", "translation_sprint"),
+        "listening": ("listening_detective", "listen_choose", "listening_detective"),
+        "writing": ("translation_sprint", "translation_sprint", "context_quest"),
+        "speaking": ("context_quest", "context_quest", "context_quest"),
     }
-    priority = tuple(game_for_skill)
+    priority = tuple(mechanics)
     due_items = await _get_recent_game_mistakes(db, user_id, plan.id, limit=100)
     candidates: list[tuple[str, str, float, float, int, int, int]] = []
 
     for position, item in enumerate(due_items):
         skill = str(item.get("skill", ""))
-        if skill not in game_for_skill:
+        if skill not in mechanics:
             continue
         raw_mastery = item.get("mastery_score")
         mastery = (
@@ -2348,10 +2390,16 @@ async def _recommended_review_game(
             else 0.0
         )
         state = str(item.get("mastery_state", "learning"))
-        retrieval_efficiency = float(item.get("retrieval_efficiency", 0.0))
-        # Direct retrieval is preferred while an item is weak/learning.
-        # Once it is recovering, vary the mechanic to test transfer.
-        game = _review_game_for_item(skill, state)
+        retrieval_efficiency = max(0.0, min(1.0, float(item.get("retrieval_efficiency", 0.0))))
+        review_streak = max(0, int(item.get("review_streak", 0)))
+        attempts = max(0, int(item.get("attempts", 0)))
+        game = _review_game_for_item(
+            skill,
+            state,
+            retrieval_efficiency=retrieval_efficiency,
+            review_streak=review_streak,
+            attempts=attempts,
+        )
         if game is None:
             continue
         candidates.append(
@@ -2367,6 +2415,8 @@ async def _recommended_review_game(
         )
 
     if candidates:
+        # Mastery remains the primary priority; retrieval efficiency breaks ties
+        # so items requiring repeated attempts surface before equally weak items.
         candidates.sort(key=lambda item: (item[2], item[3], item[4], item[5]))
         skill, game, *_ = candidates[0]
         return game, skill
@@ -2375,13 +2425,13 @@ async def _recommended_review_game(
     ranked = [
         (name, float(score))
         for name, score in skills.items()
-        if name in game_for_skill and isinstance(score, (int, float))
+        if name in mechanics and isinstance(score, (int, float))
     ]
     ranked.sort(key=lambda item: (item[1], priority.index(item[0])))
     if not ranked:
         return None, None
     skill, _ = ranked[0]
-    return game_for_skill[skill][0], skill
+    return mechanics[skill][0], skill
 
 @router.get("/smart-review", response_model=dict)
 @limiter.limit("60/minute")
