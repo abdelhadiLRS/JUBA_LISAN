@@ -1598,6 +1598,19 @@ def _mastery_review_count(
     return min(total, len(active), max(1, round(total * ratio)))
 
 
+def _review_item_strategy(mastery_state: str, review_streak: int) -> str:
+    """Select the cognitive retrieval stage for one review item."""
+    state = str(mastery_state or "new")
+    streak = max(0, int(review_streak))
+    if state in {"weak", "new"} or streak == 0:
+        return "direct_recall"
+    if state == "learning" or streak == 1:
+        return "recognition"
+    if state == "reviewing" or streak == 2:
+        return "contextual_transfer"
+    return "production"
+
+
 def _apply_skill_review_variant(question: dict, seed: int) -> dict:
     """Create a deterministic curriculum-backed variant while preserving the learning target."""
     replay = dict(question)
@@ -1872,6 +1885,10 @@ def _apply_smart_review(
         replay = dict(mistake)
         replay["id"] = str(uuid4())
         replay["review"] = True
+        replay["review_strategy"] = _review_item_strategy(
+            str(mistake.get("mastery_state", "new")),
+            int(mistake.get("review_streak", 0)),
+        )
         # Apply the item's own mastery-derived difficulty. Review rounds may
         # contain several items at different mastery levels, so one global
         # difficulty would flatten the adaptation signal.
@@ -1898,6 +1915,8 @@ def _apply_smart_review(
         replay.pop("review_due_at", None)
         replay.pop("source_game_id", None)
         replay.pop("variant", None)
+        replay.pop("review_strategy", None)
+        replay.pop("retrieval_stage", None)
         replay.pop("language", None)
         if replay.get("input_mode", "choice") == "choice":
             # Rebuild distractors from fresh questions while preserving the
