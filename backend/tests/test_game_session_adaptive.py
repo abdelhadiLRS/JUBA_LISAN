@@ -239,3 +239,60 @@ async def test_fifth_logical_item_requires_retry_before_round_finishes(
     session = await db_session.get(GameSession, payload["session_id"])
     assert session is not None
     assert session.completed is True
+
+@pytest.mark.asyncio
+async def test_answering_an_already_resolved_question_is_idempotency_safe(
+    client, test_user, db_session
+):
+    user, headers = test_user
+    from app.models.game_session import GameSession
+    from tests.conftest import make_study_plan
+
+    await make_study_plan(
+        db_session,
+        user_id=user.id,
+        cefr_level="A1",
+        goals=["vocabulary"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "quick_choice", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200
+    payload = started.json()
+    question = payload["questions"][0]
+
+    session = await db_session.get(GameSession, payload["session_id"])
+    assert session is not None
+    answer = session.questions[0]["answer"]
+    request_body = {
+        "session_id": payload["session_id"],
+        "question_id": question["id"],
+        "choice": answer,
+    }
+
+    first = await client.post(
+        "/api/progress/game-session/next",
+        json=request_body,
+        headers=headers,
+    )
+    assert first.status_code == 200
+    assert first.json()["correct"] is True
+
+    duplicate = await client.post(
+        "/api/progress/game-session/next",
+        json=request_body,
+        headers=headers,
+    )
+    assert duplicate.status_code == 409
+    assert duplicate.json()["detail"] == "Question already answered"
+
+    await db_session.refresh(session)
+    assert len(session.questions[0]["_attempts"]) == 1
