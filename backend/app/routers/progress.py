@@ -85,6 +85,20 @@ def _normalize_game_text(value: str) -> str:
     """Normalize learner text while preserving meaningful letters and accents."""
     normalized = unicodedata.normalize("NFKC", str(value)).casefold()
     normalized = normalized.replace("’", "'").replace("‘", "'").replace("ʼ", "'")
+    # Arabic diacritics and elongation are often inconsistently emitted by
+    # keyboards and speech recognition. Ignore those marks, but preserve
+    # letters and hamza distinctions so normalization does not become fuzzy.
+    normalized = normalized.replace("\u0640", "")
+    normalized = "".join(
+        character
+        for character in normalized
+        if not (
+            "\u0610" <= character <= "\u061a"
+            or "\u064b" <= character <= "\u065f"
+            or character == "\u0670"
+            or "\u06d6" <= character <= "\u06ed"
+        )
+    )
     normalized = " ".join(normalized.strip().split())
     # Speech recognition can place a space before terminal punctuation.
     # Strip punctuation and normalize whitespace again so equivalent answers
