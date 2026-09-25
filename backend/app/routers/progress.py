@@ -94,13 +94,25 @@ def _game_answer_matches(submitted: str, expected: object) -> bool:
 
 
 def _server_interactive_challenge(
-    game_id: str, language: str, difficulty: int, target_language: str = "en-GB", cefr_level: CEFRLevel = "A1"
+    game_id: str, language: str, difficulty: int, target_language: str = "en-GB", cefr_level: CEFRLevel = "A1", preferred_topics: list[str] | None = None
 ) -> tuple[dict, dict]:
     """Build a renderable challenge plus server-only solution state."""
     rng = random.SystemRandom()
     vocab_sets = get_vocabulary_by_level(cefr_level, target_language)
     cefr_entries = [entry for vocab_set in vocab_sets for entry in vocab_set.words]
-    rng.shuffle(cefr_entries)
+    if preferred_topics:
+        preferred = set(preferred_topics)
+        weak = [entry for vocab_set in vocab_sets if vocab_set.topic in preferred for entry in vocab_set.words]
+        broad = [entry for vocab_set in vocab_sets if vocab_set.topic not in preferred for entry in vocab_set.words]
+        rng.shuffle(weak)
+        rng.shuffle(broad)
+        cefr_entries = weak[:3] + broad[:2]
+        if len(cefr_entries) < 5:
+            cefr_entries.extend(weak[3:5])
+        if len(cefr_entries) < 5:
+            cefr_entries.extend(broad[2:5])
+    else:
+        rng.shuffle(cefr_entries)
     if game_id == "memory":
         count = {1: 3, 2: 4, 3: 5}[difficulty]
         selected_entries = cefr_entries[:count]
