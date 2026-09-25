@@ -1580,6 +1580,29 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
         surface = prompt.split("\n", 1)[1].strip() if "\n" in prompt else prompt
         replay["prompt"] = templates.get(language, templates["en"])[variant].format(surface=surface)
     elif skill == "listening":
+        # When the curriculum contains another example for the same target word,
+        # replay the same listening objective with a genuinely different audio
+        # surface. The expected answer remains the original target word.
+        target_word = str(replay.get("answer", "")).strip()
+        if target_word:
+            try:
+                vocabulary_sets = get_vocabulary_by_level(
+                    cast(CEFRLevel, replay.get("cefr_level", "A1")),
+                    str(replay.get("target_language", "en-GB")),
+                )
+                alternatives = [
+                    entry.example.strip()
+                    for vocab_set in vocabulary_sets
+                    for entry in vocab_set.words
+                    if entry.word.strip().casefold() == target_word.casefold()
+                    and entry.example.strip()
+                    and entry.example.strip() != str(replay.get("audio_text", "")).strip()
+                ]
+                if alternatives:
+                    replay["audio_text"] = alternatives[max(0, int(seed)) % len(alternatives)]
+            except (KeyError, TypeError, ValueError):
+                # The original authored audio remains the safe fallback.
+                pass
         templates = {
             "en": [
                 "Listen carefully. Which word did you hear?",
@@ -1619,6 +1642,7 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
         surface = prompt.split("\n", 1)[1].strip() if "\n" in prompt else prompt
         replay["prompt"] = templates.get(language, templates["en"])[variant].format(surface=surface)
     elif skill == "speaking":
+        # Keep the same lexical target while rotating the contextual choice set.
         word = str(replay.get("word", "")).strip()
         if not word:
             word = prompt.split("\n", 1)[-1].strip() if prompt else topic
