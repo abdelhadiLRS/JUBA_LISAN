@@ -1070,3 +1070,39 @@ def test_skill_review_variant_is_deterministic_and_cycles_surface_templates():
     assert first["answer"] == later["answer"] == "Bonjour"
     assert first["topic"] == later["topic"] == "greetings"
     assert first["prompt"] != later["prompt"]
+
+def test_listening_review_variant_uses_authored_alternate_audio(monkeypatch):
+    class Entry:
+        def __init__(self, word, example):
+            self.word = word
+            self.example = example
+
+    class VocabularySet:
+        topic = "daily-life"
+        words = [
+            Entry("water", "I drink water every morning."),
+            Entry("water", "Could I have some water, please?"),
+        ]
+
+    monkeypatch.setattr(
+        progress_router,
+        "get_vocabulary_by_level",
+        lambda level, language: [VocabularySet()],
+    )
+
+    question = {
+        "skill": "listening",
+        "target_language": "en-US",
+        "cefr_level": "A1",
+        "prompt": "Listen and choose the word you hear.",
+        "answer": "water",
+        "audio_text": "I drink water every morning.",
+        "input_mode": "choice",
+        "topic": "daily-life",
+    }
+
+    variant = progress_router._apply_skill_review_variant(question, 1)
+
+    assert variant["answer"] == "water"
+    assert variant["topic"] == "daily-life"
+    assert variant["audio_text"] == "Could I have some water, please?"
