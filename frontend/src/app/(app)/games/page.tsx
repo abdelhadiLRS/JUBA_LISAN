@@ -451,21 +451,14 @@ export default function GamesPage() {
       }
 
       if (!server.correct) {
-        // Misses consume the current question and immediately receive a new
-        // server-generated question adapted to the miss. Keep the normal
-        // idle state so timers and answer controls restart for the new item.
+        // A miss stays on the same logical question. The server keeps the
+        // attempt count and returns an adapted retry without advancing the
+        // five-question round counter.
         setSelected(null)
-        setAnswerStatus('idle')
-        setAnswerError(
-          lang === 'ar'
-            ? 'إجابة غير صحيحة — تم تكييف السؤال التالي مع المهارة التي تحتاج إلى مراجعة.'
-            : lang === 'fr'
-              ? 'Réponse incorrecte — la question suivante est adaptée à la compétence à revoir.'
-              : 'Incorrect — the next question is adapted to the skill that needs review.'
-        )
+        setAnswerStatus('wrong')
+        setAnswerError(null)
         setPendingNextQuestion(null)
         setInputValue('')
-        setRound((current) => current + 1)
         setQuestion(server.question)
         return
       }
