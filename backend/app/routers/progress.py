@@ -2616,19 +2616,23 @@ async def complete_game_session(
             questions_answered = solution.get("pair_count", 0)
             if correct_answers != questions_answered or len(seen_pairs) != questions_answered:
                 raise HTTPException(status_code=422, detail="Memory challenge is not complete")
+            failed_review_keys: set[str] = set()
             for pair_id, item in solution.get("review_items", {}).items():
                 pair_attempts = [a for a in data.interaction_trace if str(solution.get("pairs", {}).get(str(a.get("first")), "")) == str(pair_id) or str(solution.get("pairs", {}).get(str(a.get("second")), "")) == str(pair_id)]
                 if any(solution.get("pairs", {}).get(a.get("first")) != solution.get("pairs", {}).get(a.get("second")) for a in pair_attempts):
                     question = {"skill": "memory", "topic": item.get("topic", "vocabulary"), "prompt": item.get("word", ""), "answer": item.get("definition", ""), "input_mode": "choice", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
+                    review_key = str(item.get("review_key") or _review_key(question))
+                    failed_review_keys.add(review_key)
                     mistakes.append({
-                        "review_key": str(item.get("review_key") or _review_key(question)),
+                        "review_key": review_key,
                         "review_count": int(item.get("review_count", 0)) + 1,
                         "review_streak": 0,
                         "next_review_at": (now + _review_interval(0)).isoformat(),
                         "question": question,
                     })
             for item in solution.get("review_items", {}).values():
-                if item.get("review_key"):
+                review_key = str(item.get("review_key") or "")
+                if review_key and review_key not in failed_review_keys:
                     question = {
                         "skill": "memory",
                         "topic": item.get("topic", "vocabulary"),
@@ -2641,7 +2645,7 @@ async def complete_game_session(
                     review_streak = int(item.get("review_streak", 0))
                     next_streak = min(8, max(0, review_streak) + 1)
                     mistakes.append({
-                        "review_key": str(item["review_key"]),
+                        "review_key": review_key,
                         "resolved": True,
                         "review_count": int(item.get("review_count", 0)),
                         "review_streak": next_streak,
@@ -2666,6 +2670,7 @@ async def complete_game_session(
             questions_answered = solution.get("pair_count", 0)
             if correct_answers != questions_answered:
                 raise HTTPException(status_code=422, detail="Matching challenge is not complete")
+            failed_review_keys: set[str] = set()
             for attempt in data.interaction_trace:
                 left_id, right_id = attempt.get("left"), attempt.get("right")
                 if pairs.get(left_id) != right_id:
@@ -2673,8 +2678,10 @@ async def complete_game_session(
                     item = solution.get("review_items", {}).get(str(pair_index))
                     if item:
                         question = {"skill": "vocabulary", "topic": item.get("topic", "vocabulary"), "prompt": item.get("word", ""), "answer": item.get("definition", ""), "input_mode": "choice", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
+                        review_key = str(item.get("review_key") or _review_key(question))
+                        failed_review_keys.add(review_key)
                         mistakes.append({
-                            "review_key": str(item.get("review_key") or _review_key(question)),
+                            "review_key": review_key,
                             "review_count": int(item.get("review_count", 0)) + 1,
                             "review_streak": 0,
                             "next_review_at": (now + _review_interval(0)).isoformat(),
@@ -2682,7 +2689,8 @@ async def complete_game_session(
                         })
                         break
             for item in solution.get("review_items", {}).values():
-                if item.get("review_key"):
+                review_key = str(item.get("review_key") or "")
+                if review_key and review_key not in failed_review_keys:
                     question = {
                         "skill": "vocabulary",
                         "topic": item.get("topic", "vocabulary"),
@@ -2695,7 +2703,7 @@ async def complete_game_session(
                     review_streak = int(item.get("review_streak", 0))
                     next_streak = min(8, max(0, review_streak) + 1)
                     mistakes.append({
-                        "review_key": str(item["review_key"]),
+                        "review_key": review_key,
                         "resolved": True,
                         "review_count": int(item.get("review_count", 0)),
                         "review_streak": next_streak,
@@ -2720,18 +2728,20 @@ async def complete_game_session(
             if correct_answers != 1:
                 raise HTTPException(status_code=422, detail="Ordering challenge is not complete")
             review_item = solution.get("review_items", {}).get("sentence")
+            failed_review_key = None
             if any(attempt != target for attempt in attempts[:-1]):
                 item = solution.get("review_items", {}).get("sentence")
                 if item:
                     question = {"skill": "grammar", "topic": item.get("topic", "grammar"), "prompt": item.get("sentence", ""), "answer": item.get("sentence", ""), "input_mode": "text", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
+                    failed_review_key = str(item.get("review_key") or _review_key(question))
                     mistakes.append({
-                        "review_key": str(item.get("review_key") or _review_key(question)),
+                        "review_key": failed_review_key,
                         "review_count": int(item.get("review_count", 0)) + 1,
                         "review_streak": 0,
                         "next_review_at": (now + _review_interval(0)).isoformat(),
                         "question": question,
                     })
-            if review_item and review_item.get("review_key"):
+            if review_item and review_item.get("review_key") and str(review_item["review_key"]) != failed_review_key:
                 question = {
                     "skill": "grammar",
                     "topic": review_item.get("topic", "grammar"),
