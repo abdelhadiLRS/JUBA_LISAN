@@ -244,3 +244,38 @@ def test_speaking_open_response_hides_answer_and_accepts_authored_variants(monke
     assert "I travel every summer." in replay["answer"]
     assert "I travel by train." in replay["answer"]
     assert "travel" in replay["prompt"].lower()
+
+
+def test_vocabulary_contextual_production_hides_target_word(monkeypatch):
+    from app.routers import progress
+
+    entry = SimpleNamespace(
+        word="travel",
+        definition="to go from one place to another",
+        example="I travel by train.",
+    )
+    vocab_set = SimpleNamespace(topic="travel", words=[entry])
+    monkeypatch.setattr(progress, "get_vocabulary_by_level", lambda *_args, **_kwargs: [vocab_set])
+
+    question = {
+        "review_key": "word:travel",
+        "skill": "vocabulary",
+        "language": "en",
+        "target_language": "en-GB",
+        "cefr_level": "A1",
+        "topic": "travel",
+        "word": "travel",
+        "prompt": "Which meaning matches 'travel'?",
+        "answer": "to go from one place to another",
+        "review_strategy": "production",
+        "retrieval_efficiency": 0.95,
+    }
+
+    replay = progress._apply_skill_review_variant(question, 0)
+
+    assert replay["mechanic_variant"] == "contextual_production"
+    assert replay["input_mode"] == "text"
+    assert replay["choices"] == []
+    assert replay["answer"] == "travel"
+    assert "____" in replay["prompt"]
+    assert "travel" not in replay["prompt"].split(":", 1)[-1].lower()
