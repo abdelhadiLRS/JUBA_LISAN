@@ -2662,34 +2662,59 @@ async def next_game_session_question(
     if current.get("_answered"):
         raise HTTPException(status_code=409, detail="Question already answered")
 
-    if current.get("input_mode", "choice") == "text":
-        if not data.choice.strip():
-            raise HTTPException(status_code=422, detail="Text answer cannot be empty")
-        correct = _game_answer_matches(data.choice, current.get("answer"))
-    else:
-        if data.choice == "__timeout__":
-            correct = False
-        elif data.choice not in current.get("choices", []):
-            raise HTTPException(status_code=422, detail="Invalid choice for game question")
-        else:
-            correct = data.choice == current.get("answer")
+    correct = _game_answer_matches(data.choice, current.get("answer"))
+    current["_answered"] = True
+    current["_submitted"] = data.choice
+    answered = sum(1 for item in stored_questions if item.get("_answered"))
+    total = 5
+    next_question = None
+    adaptive_mode = "steady"
 
-    attempts = list(current.get("_attempts") or [])
-    attempts.append({"choice": data.choice, "correct": bool(correct)})
-    current["_attempts"] = attempts
+    if answered < total:
+        current_skill = str(current.get("skill") or GAME_SKILL_MAP.get(session.game_id) or "")
+        current_topic = str(current.get("topic") or "")
+        current_difficulty = int(current.get("difficulty", session.difficulty))
+        next_difficulty = min(3, current_difficulty + 1) if correct else max(1, current_difficulty - 1)
+        preferred_topics = [current_topic] if not correct and current_topic else None
+        plan = await db.get(StudyPlan, session.study_plan_id)
+        if plan is None:
+            raise HTTPException(status_code=404, detail="Study plan not found")
 
-    if not correct:
-        adapted = _adapt_question_after_session_miss(current, sum(1 for item in attempts if not bool(item.get("correct"))))
-        current["difficulty"] = adapted.get("difficulty", current.get("difficulty", session.difficulty))
-        current["retry_stage"] = adapted.get("retry_stage", "retry")
-        stored_questions[current_index] = current
-        session.questions = stored_questions
-        await db.commit()
-        public = {
-            key: adapted.get(key)
-            for key in ("id", "prompt", "choices", "hint", "skill", "difficulty", "input_mode", "audio_text", "audio_language")
+        generated = _server_game_questions(
+            session.game_id,
+            session.language,
+            next_difficulty,
+            plan.target_language,
+            cast(CEFRLevel, plan.cefr_level),
+            preferred_topics,
+        )
+        used_prompts = {
+            str(item.get("prompt", "")).strip().casefold()
+            for item in stored_questions
         }
-        return GameSessionNextResponse(
+        candidates = [
+            item for item in generated
+            if str(item.get("prompt", "")).strip().casefold() not in used_prompts
+        ] or generated
+        next_question = dict(candidates[0])
+        next_question["_answered"] = False
+        next_question["_served"] = True
+        next_question["_adaptive_parent_skill"] = current_skill
+        stored_questions.append(next_question)
+        adaptive_mode = (
+            "challenge" if correct and next_difficulty > current_difficulty
+            else "skill_review" if not correct and str(next_question.get("skill")) == current_skill
+            else "steady"
+        )
+
+    session.questions = stored_questions
+    await db.commit()
+
+    public = None if next_question is None else {
+        key: next_question.get(key)
+        for key in ("id", "prompt", "choices", "hint", "skill", "difficulty", "input_mode", "audio_text", "audio_language")
+    }
+    return GameSessionNextResponse(
             session_id=session.id,
             correct=False,
             question=public,
