@@ -224,6 +224,14 @@ class GameSessionAnswer(BaseModel):
     choice: str = Field(min_length=1, max_length=500)
 
 
+class GameSessionAnswerResponse(BaseModel):
+    correct: bool
+    question_id: str
+    attempts: int = 0
+    retry_stage: Literal["initial", "retry", "focused_retrieval", "guided_retrieval"] = "initial"
+    question: GameSessionQuestion | None = None
+
+
 class GameSessionComplete(BaseModel):
     session_id: str = Field(min_length=1, max_length=64)
     answers: list[GameSessionAnswer] = Field(default_factory=list, max_length=5)
