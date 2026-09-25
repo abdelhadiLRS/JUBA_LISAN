@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
-import { useLocale, usePathname, useRouter } from 'next-intl'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { useLocale, usePathname, useRouter, useSearchParams } from 'next-intl'
 import {
   ACHIEVEMENTS,
   type AchievementId,
@@ -129,6 +129,8 @@ export default function GamesPage() {
   const locale = useLocale() as Lang
   const pathname = usePathname()
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const autoStartedReview = useRef(false)
   const [lang, setLang] = useState<Lang>(locale)
   useEffect(() => setLang(locale), [locale])
 
@@ -297,6 +299,14 @@ export default function GamesPage() {
   useEffect(() => {
     void refreshSmartReview()
   }, [])
+
+  useEffect(() => {
+    if (autoStartedReview.current) return
+    if (searchParams.get('review') !== '1') return
+    if (!smartReview.recommended_game || smartReview.due_count <= 0) return
+    autoStartedReview.current = true
+    void startGame(smartReview.recommended_game, false, true)
+  }, [searchParams, smartReview.due_count, smartReview.recommended_game])
 
   function difficultyForGame(id: GameId) {
     const skill = id === 'matching' || id === 'quick_choice' || id === 'word_scramble' || id === 'word_categories' ? 'vocabulary'
