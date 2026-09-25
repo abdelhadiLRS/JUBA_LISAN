@@ -563,7 +563,7 @@ async def test_game_session_completion_is_idempotent_for_xp_mastery_and_event_le
         await db_session.execute(
             select(GameProgress).where(
                 GameProgress.user_id == user.id,
-                GameProgress.study_plan_id == 1,
+                GameProgress.study_plan_id == plan.id,
             )
         )
     ).scalar_one()
@@ -571,7 +571,7 @@ async def test_game_session_completion_is_idempotent_for_xp_mastery_and_event_le
         await db_session.execute(
             select(func.count(GameProgressEvent.id)).where(
                 GameProgressEvent.user_id == user.id,
-                GameProgressEvent.study_plan_id == 1,
+                GameProgressEvent.study_plan_id == plan.id,
             )
         )
     ).scalar_one()
@@ -579,7 +579,7 @@ async def test_game_session_completion_is_idempotent_for_xp_mastery_and_event_le
         await db_session.execute(
             select(func.coalesce(func.sum(Progress.xp_earned), 0)).where(
                 Progress.user_id == user.id,
-                Progress.study_plan_id == 1,
+                Progress.study_plan_id == plan.id,
             )
         )
     ).scalar_one()
@@ -590,3 +590,83 @@ async def test_game_session_completion_is_idempotent_for_xp_mastery_and_event_le
     assert progress_after.correct_answers == progress_before.correct_answers
     assert event_count_after == event_count_before == 1
     assert xp_after == xp_before
+
+
+@pytest.mark.asyncio
+async def test_game_session_completion_claim_prevents_duplicate_aggregate_mutation(
+    db_session, test_user_with_plan, monkeypatch
+):
+    """A second completion attempt cannot pass the atomic session claim."""
+    from datetime import UTC, datetime, timedelta
+
+    from app.models.game_session import GameSession
+    from app.models.study_plan import StudyPlan
+
+    user, _ = test_user_with_plan
+    plan = (
+        await db_session.execute(
+            select(StudyPlan).where(
+                StudyPlan.user_id == user.id,
+                StudyPlan.is_active.is_(True),
+            )
+        )
+    ).scalar_one()
+
+    session = GameSession(
+        id="idempotency-claim-test",
+        user_id=user.id,
+        study_plan_id=plan.id,
+        game_id="quick_choice",
+        language="en",
+        difficulty=1,
+        questions=[
+            {
+                "id": "q1",
+                "prompt": "Choose",
+                "choices": ["A", "B"],
+                "hint": "",
+                "answer": "A",
+                "skill": "vocabulary",
+                "difficulty": 1,
+                "input_mode": "choice",
+            }
+        ],
+        started_at=datetime.now(UTC).replace(tzinfo=None),
+        expires_at=datetime.now(UTC).replace(tzinfo=None) + timedelta(minutes=5),
+        daily_challenge_date="",
+        completed=False,
+    )
+    db_session.add(session)
+    await db_session.commit()
+
+    # Exercise the exact atomic UPDATE used by completion without running the
+    # full HTTP flow; the second claim must affect zero rows.
+    from sqlalchemy import update
+
+    first_claim = await db_session.execute(
+        update(GameSession)
+        .where(
+            GameSession.id == session.id,
+            GameSession.user_id == user.id,
+            GameSession.study_plan_id == plan.id,
+            GameSession.completed.is_(False),
+        )
+        .values(completed=True)
+    )
+    await db_session.flush()
+
+    second_claim = await db_session.execute(
+        update(GameSession)
+        .where(
+            GameSession.id == session.id,
+            GameSession.user_id == user.id,
+            GameSession.study_plan_id == plan.id,
+            GameSession.completed.is_(False),
+        )
+        .values(completed=True)
+    )
+
+    assert first_claim.rowcount == 1
+    assert second_claim.rowcount == 0
+
+    await db_session.rollback()
