@@ -507,3 +507,52 @@ def test_mixed_review_item_carries_mastery_telemetry_into_variant(monkeypatch):
     assert replay["attempts"] == 4
     assert replay["retrieval_efficiency"] == 0.9
     assert replay["review_streak"] == 2
+
+def test_mixed_review_builder_maps_mastery_stages_to_retrieval_strategy(monkeypatch):
+    import asyncio
+    from app.routers import progress
+
+    plan = SimpleNamespace(id=11, target_language="en-GB", cefr_level="A1")
+    cases = [
+        ("new", 0, "direct_recall"),
+        ("learning", 1, "recognition"),
+        ("reviewing", 2, "contextual_transfer"),
+        ("mastered", 3, "production"),
+    ]
+
+    for state, streak, expected_strategy in cases:
+        item = {
+            "review_key": f"word:travel:{state}",
+            "skill": "vocabulary",
+            "word": "travel",
+            "topic": "travel",
+            "prompt": "What does 'travel' mean?",
+            "answer": "to go from one place to another",
+            "mastery_state": state,
+            "review_streak": streak,
+            "retrieval_efficiency": 0.0,
+            "attempts": 0,
+            "target_language": "en-GB",
+            "cefr_level": "A1",
+        }
+
+        async def fake_due(*_args, **_kwargs):
+            return [dict(item)]
+
+        async def fake_skills(*_args, **_kwargs):
+            return {"vocabulary": 0.2}
+
+        monkeypatch.setattr(progress, "_get_recent_game_mistakes", fake_due)
+        monkeypatch.setattr(progress, "_get_game_skills", fake_skills)
+        result = asyncio.run(
+            progress._build_multi_skill_review_questions(
+                db=object(), user_id=1, plan=plan, language="en", difficulty=2
+            )
+        )
+        replay = next(
+            question for question in result
+            if question.get("review_identity") == item["review_key"]
+        )
+        assert replay["review_strategy"] == expected_strategy
+        assert replay["retrieval_stage"] == expected_strategy
+
