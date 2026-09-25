@@ -435,6 +435,7 @@ export default function GamesPage() {
 
       setSelected(choice)
       setAnswerStatus('correct')
+      setRoundScore((score) => score + 1)
       const completedAnswers = [
         ...answers.filter((item) => item.question_id !== question.id),
         { question_id: question.id, choice },
