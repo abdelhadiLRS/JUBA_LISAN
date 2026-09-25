@@ -478,7 +478,7 @@ export default function GamesPage() {
   }
 
   useEffect(() => {
-    if (!game || !question || selected || answerStatus !== 'idle' || game !== 'quick_choice') return
+    if (!game || !question || selected || !['idle', 'wrong'].includes(answerStatus) || game !== 'quick_choice') return
     setTimeLeft(8)
     const timer = window.setInterval(() => {
       setTimeLeft((value) => {
