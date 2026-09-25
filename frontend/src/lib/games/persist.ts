@@ -83,6 +83,7 @@ export async function startGameSession(
   gameId: string,
   language: GameLanguage,
   difficulty: number,
+  review = false,
 ): Promise<GameSessionStartResponse> {
   const response = await apiFetch('/api/progress/game-session', {
     method: 'POST',
@@ -91,6 +92,7 @@ export async function startGameSession(
       game_id: gameId,
       language,
       difficulty: Math.min(3, Math.max(1, Math.floor(difficulty))),
+      review,
     }),
   })
   if (!response.ok) {
