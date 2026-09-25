@@ -214,6 +214,11 @@ export default function GamesPage() {
       ? 'Révise les erreurs dues en vocabulaire, grammaire, écoute et expression écrite.'
       : 'Review due mistakes across vocabulary, grammar, listening and writing.'
   const smartReviewStart = lang === 'ar' ? 'ابدأ المراجعة' : lang === 'fr' ? 'Commencer la révision' : 'Start review'
+  const smartReviewMixed = lang === 'ar'
+    ? 'جلسة متعددة المهارات'
+    : lang === 'fr'
+      ? 'Session multi-compétences'
+      : 'Multi-skill session'
 
   async function refreshSmartReview() {
     try {
@@ -502,12 +507,12 @@ export default function GamesPage() {
               <button
                 type="button"
                 className="daily-challenge"
-                onClick={() => startGame(smartReview.recommended_game as GameId, false, true)}
+                onClick={() => startGame('review_mix', false, true)}
               >
                 <span className="daily-icon">🧠</span>
                 <span>
                   <strong>{smartReviewTitle}</strong>
-                  <small>{smartReviewDesc} · {smartReview.due_count} {lang === 'ar' ? 'مراجعات مستحقة' : lang === 'fr' ? 'révisions dues' : 'due reviews'}</small>
+                  <small>{smartReviewDesc} · {smartReviewMixed} · {smartReview.due_count} {lang === 'ar' ? 'مراجعات مستحقة' : lang === 'fr' ? 'révisions dues' : 'due reviews'}</small>
                 </span>
                 <span className="start">{smartReviewStart} →</span>
               </button>
