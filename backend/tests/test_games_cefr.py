@@ -10,7 +10,6 @@ from app.routers.progress import (
     _prioritize_curriculum_entries,
     _server_game_questions,
     _server_interactive_challenge,
-    _server_interactive_challenge,
 )
 
 
@@ -202,7 +201,7 @@ def _mastery_event(at, key, *, question=None, resolved=False):
     return SimpleNamespace(created_at=at, mistakes=[item])
 
 
-async def test_tracked_mastery_summary_groups_items_by_skill_and_state():
+def test_tracked_mastery_summary_groups_items_by_skill_and_state():
     from app.routers.progress import _get_tracked_mastery_summary
 
     question_v = {"skill": "vocabulary", "target_language": "fr", "cefr_level": "A1"}
@@ -243,7 +242,8 @@ async def test_tracked_mastery_summary_groups_items_by_skill_and_state():
         async def execute(self, _query):
             return FakeResult()
 
-    summary = await _get_tracked_mastery_summary(FakeDB(), 1, 1)
+    import asyncio
+    summary = asyncio.run(_get_tracked_mastery_summary(FakeDB(), 1, 1))
 
     assert summary["tracked_items"] == 2
     assert summary["counts"]["mastered"] == 1
