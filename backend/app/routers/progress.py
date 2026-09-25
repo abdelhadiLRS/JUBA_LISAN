@@ -1314,11 +1314,10 @@ async def start_game_session(
         expires_at=expires_at.isoformat(),
         daily_challenge=bool(daily_challenge_date),
         daily_challenge_date=daily_challenge_date,
-        interaction={
-            **questions[0].get("interaction", {}).get("public", {}),
-            "adaptive_mode": adaptive_mode,
-            "effective_difficulty": effective_difficulty,
-        } if effective_game_id in {"memory", "matching", "ordering", "sentence_builder"} else None,
+        interaction=questions[0].get("interaction", {}).get("public")
+        if effective_game_id in {"memory", "matching", "ordering", "sentence_builder"} else None,
+        adaptive_mode=adaptive_mode,
+        effective_difficulty=effective_difficulty,
     )
 
 
