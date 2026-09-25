@@ -36,6 +36,7 @@ class GameProgressEvent(Base):
     daily_challenge_date: Mapped[str] = mapped_column(String(10), nullable=False, default="")
     achievements: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
     xp_earned: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    mistakes: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
     created_at: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, default=lambda: datetime.now(UTC).replace(tzinfo=None)
     )
