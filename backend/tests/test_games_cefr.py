@@ -1,6 +1,10 @@
 import pytest
 
-from app.routers.progress import _server_game_questions, _server_interactive_challenge
+from app.routers.progress import (
+    _apply_smart_review,
+    _server_game_questions,
+    _server_interactive_challenge,
+)
 
 
 CORE_GAME_LANGUAGES = ("ar", "en-GB", "fr", "es", "de", "it", "pt", "ja", "ko", "zh")
@@ -35,3 +39,68 @@ def test_interactive_game_round_uses_cefr_content(target_language, game_id):
 
     assert public["type"] == ("ordering" if game_id in {"ordering", "sentence_builder"} else game_id)
     assert solution
+
+
+
+def test_smart_review_prefers_due_mistake_for_matching_skill():
+    fresh = [
+        {"id": "fresh-1", "prompt": "new", "choices": ["new", "alt"], "answer": "new", "skill": "vocabulary", "input_mode": "choice"},
+        {"id": "fresh-2", "prompt": "new 2", "choices": ["two", "alt"], "answer": "two", "skill": "vocabulary", "input_mode": "choice"},
+        {"id": "fresh-3", "prompt": "new 3", "choices": ["three", "alt"], "answer": "three", "skill": "vocabulary", "input_mode": "choice"},
+        {"id": "fresh-4", "prompt": "new 4", "choices": ["four", "alt"], "answer": "four", "skill": "vocabulary", "input_mode": "choice"},
+        {"id": "fresh-5", "prompt": "new 5", "choices": ["five", "alt"], "answer": "five", "skill": "vocabulary", "input_mode": "choice"},
+    ]
+    mistake = {
+        "id": "old",
+        "prompt": "old prompt",
+        "choices": ["old answer", "wrong"],
+        "answer": "old answer",
+        "skill": "vocabulary",
+        "input_mode": "choice",
+        "target_language": "fr",
+        "cefr_level": "A1",
+    }
+
+    reviewed = _apply_smart_review(fresh, [mistake], "fr", "A1")
+
+    assert reviewed[0]["review"] is True
+    assert reviewed[0]["answer"] == "old answer"
+    assert reviewed[0]["id"] != "old"
+
+
+def test_smart_review_rejects_cross_language_or_cefr_mistakes():
+    fresh = [{"id": "fresh", "prompt": "new", "choices": ["new", "alt"], "answer": "new", "skill": "vocabulary", "input_mode": "choice"}]
+    wrong_language = {"prompt": "old", "answer": "ancien", "choices": ["ancien", "other"], "skill": "vocabulary", "input_mode": "choice", "target_language": "fr", "cefr_level": "A1"}
+
+    reviewed = _apply_smart_review(fresh, [wrong_language], "de", "A1")
+
+    assert reviewed == fresh
+
+
+def test_smart_review_backfills_with_fresh_questions():
+    fresh = [
+        {"id": "q1", "prompt": "one", "choices": ["one", "alt"], "answer": "one", "skill": "grammar", "input_mode": "choice"},
+        {"id": "q2", "prompt": "two", "choices": ["two", "alt"], "answer": "two", "skill": "grammar", "input_mode": "choice"},
+        {"id": "q3", "prompt": "three", "choices": ["three", "alt"], "answer": "three", "skill": "grammar", "input_mode": "choice"},
+        {"id": "q4", "prompt": "four", "choices": ["four", "alt"], "answer": "four", "skill": "grammar", "input_mode": "choice"},
+        {"id": "q5", "prompt": "five", "choices": ["five", "alt"], "answer": "five", "skill": "grammar", "input_mode": "choice"},
+    ]
+    mistakes = [
+        {"prompt": "old", "answer": "old", "choices": ["old", "q"], "skill": "grammar", "input_mode": "choice", "target_language": "en-GB", "cefr_level": "A1"},
+    ]
+
+    reviewed = _apply_smart_review(fresh, mistakes, "en-GB", "A1")
+
+    assert len(reviewed) == 5
+    assert reviewed[0]["review"] is True
+    assert all(item.get("review") is not True for item in reviewed[1:])
+
+
+def test_smart_review_keeps_server_answer_private_from_public_projection():
+    fresh = [{"id": "q1", "prompt": "one", "choices": ["one", "alt"], "answer": "one", "skill": "vocabulary", "input_mode": "choice"}]
+    mistake = {"prompt": "old", "answer": "secret-answer", "choices": ["secret-answer", "wrong"], "skill": "vocabulary", "input_mode": "choice", "target_language": "fr", "cefr_level": "A1"}
+    reviewed = _apply_smart_review(fresh, [mistake], "fr", "A1")
+    public = {key: reviewed[0].get(key) for key in ("id", "prompt", "choices", "hint", "skill", "difficulty", "input_mode")}
+
+    assert "answer" not in public
+    assert reviewed[0]["answer"] == "secret-answer"
