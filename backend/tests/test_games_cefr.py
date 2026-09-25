@@ -5,6 +5,7 @@ from app.routers.progress import (
     _prioritize_curriculum_entries,
     _server_game_questions,
     _server_interactive_challenge,
+    _server_interactive_challenge,
 )
 
 
@@ -127,3 +128,18 @@ def test_curriculum_topic_priority_without_history_remains_broad():
     selected = _prioritize_curriculum_entries(entries, None, count=5)
 
     assert set(selected) == {entry for entry, _topic in entries}
+
+
+@pytest.mark.parametrize("game_id", ("memory", "matching", "ordering", "sentence_builder"))
+def test_interactive_game_accepts_topic_preferences(game_id):
+    public, solution = _server_interactive_challenge(
+        game_id,
+        "en",
+        1,
+        "en-GB",
+        "A1",
+        ["travel"],
+    )
+
+    assert public["type"] == ("ordering" if game_id in {"ordering", "sentence_builder"} else game_id)
+    assert solution
