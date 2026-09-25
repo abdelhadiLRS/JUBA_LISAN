@@ -233,7 +233,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         {/* Language switcher */}
         <div className="border-fl-border border-b">
-          <LanguageSwitcher />
+          {!isAdmin && <LanguageSwitcher />}
         </div>
 
         {/* Nav */}
