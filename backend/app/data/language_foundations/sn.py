@@ -32,7 +32,8 @@ VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="sn-a1-unit-5"
 VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="sn-a1-unit-6",words=[VocabularyEntry(word="nguva",pos="noun",definition="time",example="Inguvai?"),VocabularyEntry(word="nhasi",pos="adverb",definition="today",example="Nhasi ndiri kumba."),VocabularyEntry(word="mangwana",pos="adverb",definition="tomorrow",example="Mangwana ndinoenda kuchikoro.")]),
 VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="sn-a1-unit-7",words=[VocabularyEntry(word="mvura",pos="noun",definition="water",example="Ndinoda mvura."),VocabularyEntry(word="sadza",pos="noun",definition="sadza, maize meal",example="Ndinodya sadza."),VocabularyEntry(word="tii",pos="noun",definition="tea",example="Ndinonwa tii.")]),
 VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="sn-a1-unit-8",words=[VocabularyEntry(word="chikoro",pos="noun",definition="school",example="Ndiri kuchikoro."),VocabularyEntry(word="musika",pos="noun",definition="market",example="Musika uri pedyo."),VocabularyEntry(word="pano",pos="adverb",definition="here",example="Ndiri pano.")])
-]PHRASEBOOK_CATEGORIES=[
+]
+PHRASEBOOK_CATEGORIES=[
 PhrasebookCategory(id="sn_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Mhoro.",context="Hello.",register="neutral")]),
 PhrasebookCategory(id="sn_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="Ndatenda.",context="Thank you.",register="neutral")]),
 PhrasebookCategory(id="sn_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="Ndibatsirei.",context="Please help me.",register="neutral")]),
@@ -42,7 +43,7 @@ ASSESSMENT_BANK=[
 AssessmentQuestion(id="sn-a1-001",skill="vocabulary",difficulty="A1",question="Which Shona word means 'water'?",options=["mvura","imba","amai","chikoro"],correct="mvura"),
 AssessmentQuestion(id="sn-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["Ndiri kumba.","Ndinoenda kuchikoro.","Ndinonwa mvura.","Iri ibhuku."],correct="Ndiri kumba."),
 AssessmentQuestion(id="sn-a1-003",skill="vocabulary",difficulty="A1",question="What does amai mean?",options=["mother","father","friend","teacher"],correct="mother"),
-AssessmentQuestion(id="sn-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["Unonzi ani?","Uri kupi?","Ichi chii?","Inguvai?"],"correct"="Unonzi ani?"),
+AssessmentQuestion(id="sn-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["Unonzi ani?","Uri kupi?","Ichi chii?","Inguvai?"],correct="Unonzi ani?"),
 AssessmentQuestion(id="sn-a1-005",skill="reading",difficulty="A1",question="Bhuku riri patafura. Where is the book?",options=["On the table","At school","At home","In the shop"],correct="On the table"),
 AssessmentQuestion(id="sn-a1-006",skill="vocabulary",difficulty="A1",question="Which word means 'name'?",options=["zita","nguva","mvura","imba"],correct="zita"),
 AssessmentQuestion(id="sn-a1-007",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["Dzokorora, ndapota.","Ndatenda.","Mhoro.","Sara zvakanaka."],correct="Dzokorora, ndapota."),
