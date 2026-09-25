@@ -43,11 +43,12 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
   const [completed, setCompleted] = useState(false)
   const [completionError, setCompletionError] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [retryStage, setRetryStage] = useState<'initial' | 'retry' | 'focused_retrieval' | 'guided_retrieval'>('initial')
   const memoryTimer = useRef<number | null>(null)
 
   useEffect(() => {
     if (!challenge || challenge.type !== mode) return
-    setFirst(null); setLocked(false); setMoves(0); setCompleted(false)
+    setFirst(null); setLocked(false); setMoves(0); setCompleted(false); setRetryStage('initial')
     setMemoryTrace([]); setLeft(null); setRight(null); setMatched([]); setMatchingTrace([])
     setOrder([]); setOrderingTrace([])
     if (challenge.type === 'memory') {
@@ -71,6 +72,28 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
       setSaving(false)
     }
   }, [completed, onComplete, saving])
+
+  const memoryRetryCount = (id: string) => memoryTrace.filter(attempt => {
+    if (attempt.first !== id && attempt.second !== id) return false
+    const firstCard = challenge?.type === 'memory' ? challenge.cards.find(card => card.id === attempt.first) : undefined
+    const secondCard = challenge?.type === 'memory' ? challenge.cards.find(card => card.id === attempt.second) : undefined
+    return Boolean(firstCard && secondCard && firstCard.pair_key !== secondCard.pair_key)
+  }).length
+
+  const matchingRetryCount = (id: string) => matchingTrace.filter(attempt => {
+    if (attempt.left !== id) return false
+    const leftItem = challenge?.type === 'matching' ? challenge.left.find(item => item.id === attempt.left) : undefined
+    const rightItem = challenge?.type === 'matching' ? challenge.right.find(item => item.id === attempt.right) : undefined
+    return Boolean(leftItem && rightItem && leftItem.pair_key !== rightItem.pair_key)
+  }).length
+
+  const retryInstruction = retryStage === 'focused_retrieval'
+    ? (lang === 'ar' ? 'ركّز على هذا العنصر وحاول الاسترجاع مرة أخرى.' : lang === 'fr' ? 'Concentre-toi sur cet élément et récupère-le à nouveau.' : 'Focus on this item and retrieve it again.')
+    : retryStage === 'guided_retrieval'
+      ? (lang === 'ar' ? 'خذ وقتك. أعد المحاولة بأسلوب أبطأ وأكثر تركيزًا.' : lang === 'fr' ? 'Prends ton temps. Réessaie plus lentement et avec plus de concentration.' : 'Take your time. Retry more slowly and deliberately.')
+      : retryStage === 'retry'
+        ? (lang === 'ar' ? 'محاولة ثانية: استرجع الإجابة بدل التخمين.' : lang === 'fr' ? 'Deuxième essai : retrouve la réponse plutôt que de deviner.' : 'Second attempt: retrieve the answer instead of guessing.')
+        : ''
 
   function flipCard(index: number) {
     if (locked || completed || !memoryCards[index] || memoryCards[index].flipped || memoryCards[index].matched) return
@@ -128,6 +151,12 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
     const leftItem = challenge.left.find(item => item.id === left)
     const rightItem = challenge.right.find(item => item.id === right)
     const correct = Boolean(leftItem && rightItem && leftItem.pair_key === rightItem.pair_key)
+    if (!correct) {
+      const misses = matchingRetryCount(left) + 1
+      setRetryStage(misses >= 3 ? 'guided_retrieval' : misses >= 2 ? 'focused_retrieval' : 'retry')
+    } else {
+      setRetryStage('initial')
+    }
     if (correct) setMatched(current => [...current, left, right])
     setLeft(null); setRight(null)
     if (matched.length + (correct ? 2 : 0) >= challenge.left.length * 2) void finish(trace)
@@ -137,6 +166,14 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
     if (completed || !challenge || challenge.type !== 'ordering' || order.length !== challenge.items.length) return
     const trace = [...orderingTrace, { order: [...order] } as InteractiveGameTrace]
     setOrderingTrace(trace)
+    const target = challenge.items.map(item => item.id)
+    const correct = order.every((id, index) => id === target[index])
+    if (!correct) {
+      const misses = orderingTrace.length + 1
+      setRetryStage(misses >= 3 ? 'guided_retrieval' : misses >= 2 ? 'focused_retrieval' : 'retry')
+    } else {
+      setRetryStage('initial')
+    }
     setMoves(value => value + 1)
     void finish(trace)
   }
@@ -147,7 +184,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
       window.clearTimeout(memoryTimer.current)
       memoryTimer.current = null
     }
-    setCompleted(false); setCompletionError(false); setSaving(false); setFirst(null); setLocked(false); setMoves(0)
+    setCompleted(false); setCompletionError(false); setSaving(false); setFirst(null); setLocked(false); setMoves(0); setRetryStage('initial')
     setMemoryTrace([]); setLeft(null); setRight(null); setMatched([]); setMatchingTrace([])
     setOrder([]); setOrderingTrace([])
     if (challenge.type === 'memory') setMemoryCards(challenge.cards.map(card => ({ ...card, flipped: false, matched: false })))
@@ -167,21 +204,21 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
       {challenge?.type === 'memory' && <>
         <p className="interactive-instruction">{t.match}</p>
         <div className="memory-board">{memoryCards.map((card, index) =>
-          <button key={card.id} type="button" className={`memory-card ${card.flipped || card.matched ? 'revealed' : ''} ${card.matched ? 'matched' : ''}`} onClick={() => flipCard(index)} aria-label={card.flipped || card.matched ? card.label : 'Hidden card'}>
+          <button key={card.id} type="button" className={`memory-card ${card.flipped || card.matched ? 'revealed' : ''} ${card.matched ? 'matched' : ''} ${memoryRetryCount(card.id) >= 2 ? 'retry-focus' : ''}`} onClick={() => flipCard(index)} aria-label={card.flipped || card.matched ? card.label : 'Hidden card'}>
             <span>{card.flipped || card.matched ? card.label : '✦'}</span>
           </button>)}</div>
       </>}
 
       {challenge?.type === 'matching' && <>
         <p className="interactive-instruction">{t.chooseLeft} → {t.chooseRight}</p>
-        <div className="matching-board">
-          <div>{challenge.left.map(item => <button key={item.id} type="button" disabled={matched.includes(item.id)} className={`match-option ${left === item.id ? 'selected' : ''}`} onClick={() => chooseMatching('left', item.id)}>{item.label}</button>)}</div>
+        <div className="matching-board">{retryInstruction && <p className="interactive-retry" role="status">{retryInstruction}</p>}
+          <div>{challenge.left.map(item => <button key={item.id} type="button" disabled={matched.includes(item.id)} className={`match-option ${left === item.id ? 'selected' : ''} ${matchingRetryCount(item.id) >= 2 ? 'retry-focus' : ''}`} onClick={() => chooseMatching('left', item.id)}>{item.label}</button>)}</div>
           <div>{challenge.right.map(item => <button key={item.id} type="button" disabled={matched.includes(item.id)} className={`match-option ${right === item.id ? 'selected' : ''}`} onClick={() => chooseMatching('right', item.id)}>{item.label}</button>)}</div>
         </div>
       </>}
 
       {challenge?.type === 'ordering' && <>
-        <p className="interactive-instruction">{t.order}</p>
+        <p className="interactive-instruction">{t.order}</p>{retryInstruction && <p className="interactive-retry" role="status">{retryInstruction}</p>}
         <div className="ordering-pool">{items.map(item => <button key={item.id} type="button" disabled={order.includes(item.id)} onClick={() => setOrder(current => [...current, item.id])}>{item.label}</button>)}</div>
         <div className="ordering-result">{order.map((id, index) => {
           const item = items.find(entry => entry.id === id)
