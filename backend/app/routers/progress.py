@@ -2095,54 +2095,64 @@ async def _recommended_review_game(
     user_id: int,
     plan: StudyPlan,
 ) -> tuple[str | None, str | None]:
-    """Choose the next review game from due mistakes, then weakest skill."""
+    """Choose the next review game from due items and their current mastery.
+
+    The review engine deliberately varies the exercise mechanic as mastery
+    changes: weaker items get direct retrieval practice, while items that are
+    recovering move into a more applied categorisation/grammar mechanic.
+    """
     game_for_skill = {
-        "vocabulary": "quick_choice",
-        "grammar": "grammar_duel",
-        "listening": "listening_detective",
-        "writing": "translation_sprint",
-        "speaking": "context_quest",
+        "vocabulary": ("quick_choice", "word_categories"),
+        "grammar": ("grammar_duel", "fill_blank"),
+        "listening": ("listening_detective", "listening_detective"),
+        "writing": ("translation_sprint", "translation_sprint"),
+        "speaking": ("context_quest", "context_quest"),
     }
     priority = tuple(game_for_skill)
     due_items = await _get_recent_game_mistakes(db, user_id, plan.id, limit=100)
-    due_counts: dict[str, int] = {}
-    due_scores: dict[str, list[float]] = {}
-    for item in due_items:
+    candidates: list[tuple[str, str, float, int, int, int]] = []
+
+    for position, item in enumerate(due_items):
         skill = str(item.get("skill", ""))
         if skill not in game_for_skill:
             continue
-        due_counts[skill] = due_counts.get(skill, 0) + 1
         raw_mastery = item.get("mastery_score")
-        if isinstance(raw_mastery, (int, float)) and not isinstance(raw_mastery, bool):
-            due_scores.setdefault(skill, []).append(float(raw_mastery))
-
-    # When several skills have due items, prioritize the weakest tracked
-    # mastery rather than the first skill in a fixed ordering. The fixed
-    # priority remains only as a deterministic tie-breaker.
-    due_ranked = [
-        (
-            name,
-            sum(due_scores.get(name, [])) / len(due_scores[name])
-            if due_scores.get(name)
-            else 0.0,
-            -due_counts.get(name, 0),
-            priority.index(name),
+        mastery = (
+            float(raw_mastery)
+            if isinstance(raw_mastery, (int, float)) and not isinstance(raw_mastery, bool)
+            else 0.0
         )
-        for name in due_counts
-    ]
-    due_ranked.sort(key=lambda item: (item[1], item[2], item[3]))
-    skill = due_ranked[0][0] if due_ranked else None
-    if skill is None:
-        skills = await _get_game_skills(db, user_id, plan)
-        ranked = [
-            (name, float(score))
-            for name, score in skills.items()
-            if name in game_for_skill and isinstance(score, (int, float))
-        ]
-        ranked.sort(key=lambda item: (item[1], priority.index(item[0])))
-        skill = ranked[0][0] if ranked else None
-    return (game_for_skill[skill], skill) if skill else (None, None)
+        state = str(item.get("mastery_state", "learning"))
+        # Direct retrieval is preferred while an item is weak/learning.
+        # Once it is recovering, vary the mechanic to test transfer.
+        game = game_for_skill[skill][0 if state in {"weak", "learning", "new"} else 1]
+        candidates.append(
+            (
+                skill,
+                game,
+                mastery,
+                -int(item.get("review_count", 0)),
+                priority.index(skill),
+                position,
+            )
+        )
 
+    if candidates:
+        candidates.sort(key=lambda item: (item[2], item[3], item[4], item[5]))
+        skill, game, *_ = candidates[0]
+        return game, skill
+
+    skills = await _get_game_skills(db, user_id, plan)
+    ranked = [
+        (name, float(score))
+        for name, score in skills.items()
+        if name in game_for_skill and isinstance(score, (int, float))
+    ]
+    ranked.sort(key=lambda item: (item[1], priority.index(item[0])))
+    if not ranked:
+        return None, None
+    skill, _ = ranked[0]
+    return game_for_skill[skill][0], skill
 
 @router.get("/smart-review", response_model=dict)
 @limiter.limit("60/minute")
