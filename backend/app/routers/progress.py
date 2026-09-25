@@ -1532,9 +1532,13 @@ async def complete_game_session(
                     for key in (
                         "id", "prompt", "choices", "hint", "answer",
                         "skill", "difficulty", "input_mode", "audio_text",
-                        "audio_language", "topic", "target_language", "cefr_level",
+                        "audio_language", "topic",
                     )
                 }
+                # Pin review content to the study plan that produced it so
+                # later retrieval practice cannot cross language/CEFR boundaries.
+                snapshot["target_language"] = plan.target_language
+                snapshot["cefr_level"] = plan.cefr_level
                 review_key = str(question.get("review_key") or _review_key(question))
                 mistakes.append({
                     "review_key": review_key,
