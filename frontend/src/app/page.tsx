@@ -177,6 +177,8 @@ export default async function Home() {
 .juba-reference-page .juba-ref-pillar:hover{transform:translateY(-7px) rotate(0deg)}
 .juba-reference-page .juba-ref-language-art{border-radius:34px 55px 42px 58px;transform:rotate(1deg)}
 .juba-reference-page .juba-ref-ai-art{border-radius:36px 58px 45px 55px}
+.juba-reference-page .juba-cta-real-image{max-width:520px;filter:drop-shadow(0 14px 0 rgba(24,48,34,.09))}
+@media(max-width:560px){.juba-reference-page .juba-cta-real-image{max-width:100%;height:auto}}
 .juba-reference-page .juba-ref-cta{position:relative}
 .juba-reference-page .juba-ref-cta::before,.juba-reference-page .juba-ref-cta::after{
   content:"";position:absolute;border:3px solid #183022;pointer-events:none;
@@ -447,10 +449,14 @@ export default async function Home() {
               {hasSession ? t('dashboard') : t('ctaStart')} <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <div className="juba-ref-cta-device" aria-hidden="true">
-            <div className="device-top">JUBA LISAN</div>
-            <div className="device-star">✦</div>
-            <div className="device-lines"><i /><i /><i /></div>
+          <div className="juba-ref-cta-device">
+            <Image
+              src="/landing/juba-learning-journey.svg"
+              alt={t('ctaStart')}
+              width={520}
+              height={520}
+              className="juba-landing-real-image juba-cta-real-image"
+            />
           </div>
         </div>
       </section>
