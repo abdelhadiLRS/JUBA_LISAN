@@ -33,6 +33,7 @@ class ProgressSummary(BaseModel):
     exercises_correct: int
     accuracy: float
     skills: dict
+    mastery: dict = Field(default_factory=dict)
     vocabulary_level: str | None = None
     vocabulary_mastered: int = 0
     vocabulary_total: int = 0
