@@ -1091,18 +1091,57 @@ async def _get_recent_game_mistakes(
     return [question for _, question in candidates[:limit]]
 
 
-def _apply_smart_review(questions: list[dict], mistakes: list[dict]) -> list[dict]:
-    """Replay up to two due missed questions in a fresh round."""
+def _apply_smart_review(
+    questions: list[dict],
+    mistakes: list[dict],
+    target_language: str,
+    cefr_level: CEFRLevel,
+) -> list[dict]:
+    """Blend due retrieval items with fresh CEFR questions without exposing answers."""
     if not mistakes or not questions:
         return questions
-    skills = {str(question.get("skill", "")) for question in questions}
+
+    eligible: list[dict] = []
+    for mistake in mistakes:
+        if str(mistake.get("skill", "")) != str(questions[0].get("skill", "")):
+            continue
+        if str(mistake.get("target_language", target_language)) != target_language:
+            continue
+        if str(mistake.get("cefr_level", cefr_level)) != cefr_level:
+            continue
+        eligible.append(mistake)
+
+    if not eligible:
+        return questions
+
     result = list(questions)
-    for index, mistake in enumerate(
-        [m for m in mistakes if str(m.get("skill", "")) in skills][:2]
-    ):
+    # Keep most of the round fresh while giving retrieval practice a meaningful
+    # presence. The stored answer remains server-side in GameSession.questions.
+    review_count = min(3, len(eligible), len(result))
+    for index, mistake in enumerate(eligible[:review_count]):
         replay = dict(mistake)
         replay["id"] = str(uuid4())
         replay["review"] = True
+        replay["target_language"] = target_language
+        replay["cefr_level"] = cefr_level
+        if replay.get("input_mode", "choice") == "choice":
+            # Rebuild distractors from fresh questions while preserving the
+            # authoritative answer from the prior mistake.
+            answer = str(replay.get("answer", ""))
+            distractors = [
+                str(question.get("answer", "")).strip()
+                for question in result
+                if str(question.get("answer", "")).strip()
+                and str(question.get("answer", "")).strip() != answer
+                and question.get("input_mode", "choice") == "choice"
+            ]
+            distractors = list(dict.fromkeys(distractors))
+            rng = random.SystemRandom()
+            rng.shuffle(distractors)
+            choices = [answer, *distractors[:3]]
+            if len(choices) >= 2:
+                rng.shuffle(choices)
+                replay["choices"] = choices
         result[index] = replay
     return result
 
@@ -1235,7 +1274,7 @@ async def get_smart_review(
     return {
         "due_count": len(due_items),
         "skills": skill_counts,
-        "recommended_game": game_for_skill.get(recommended_skill) if recommended_skill else None,
+        "recommended_game": recommended_game,
         "items": [
             {
                 "review_key": str(item.get("review_key", "")),
@@ -1312,7 +1351,12 @@ async def start_game_session(
             plan.id,
             skill=GAME_SKILL_MAP.get(effective_game_id),
         )
-        questions = _apply_smart_review(questions, mistakes)
+        questions = _apply_smart_review(
+            questions,
+            mistakes,
+            plan.target_language,
+            cast(CEFRLevel, plan.cefr_level),
+        )
     daily_challenge_date = now.date().isoformat() if effective_game_id == _daily_game_id(now.date()) else ""
     session = GameSession(
         id=session_id,
@@ -1488,7 +1532,7 @@ async def complete_game_session(
                     for key in (
                         "id", "prompt", "choices", "hint", "answer",
                         "skill", "difficulty", "input_mode", "audio_text",
-                        "audio_language", "topic",
+                        "audio_language", "topic", "target_language", "cefr_level",
                     )
                 }
                 review_key = str(question.get("review_key") or _review_key(question))
