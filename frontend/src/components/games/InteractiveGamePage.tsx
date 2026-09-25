@@ -7,11 +7,11 @@ import { completeGameSession, startGameSession, type InteractiveGameChallenge, t
 import { useProgressStore } from '@/store/progress'
 
 type Mode = 'memory' | 'matching' | 'ordering' | 'sentence_builder'
-type Lang = 'ar' | 'fr' | 'en'
+type Lang = 'ar' | 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt' | 'ja' | 'ko' | 'zh'
 
 export function InteractiveGamePage({ mode }: { mode: Mode }) {
   const searchParams = useSearchParams()
-  const [lang, setLang] = useState<Lang>('ar')
+  const [lang, setLang] = useState<Lang>(() => { const value = searchParams.get('lang'); return value === 'ar' || value === 'fr' || value === 'en' || value === 'es' || value === 'de' || value === 'it' || value === 'pt' || value === 'ja' || value === 'ko' || value === 'zh' ? value : 'en' })
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [dailyChallenge, setDailyChallenge] = useState(false)
   const [dailyChallengeDate, setDailyChallengeDate] = useState('')
@@ -23,7 +23,7 @@ export function InteractiveGamePage({ mode }: { mode: Mode }) {
 
   useEffect(() => {
     const value = searchParams.get('lang')
-    if (value === 'ar' || value === 'fr' || value === 'en') setLang(value)
+    if (value === 'ar' || value === 'fr' || value === 'en' || value === 'es' || value === 'de' || value === 'it' || value === 'pt' || value === 'ja' || value === 'ko' || value === 'zh') setLang(value)
     const rawDifficulty = Number(searchParams.get('difficulty'))
     if (Number.isInteger(rawDifficulty) && rawDifficulty >= 1 && rawDifficulty <= 3) setDifficulty(rawDifficulty)
   }, [searchParams])
@@ -48,9 +48,6 @@ export function InteractiveGamePage({ mode }: { mode: Mode }) {
   }
 
   return <main className="juba-games" dir={lang === 'ar' ? 'rtl' : 'ltr'}><div className="games-shell">
-    <div className="interactive-language-bar" role="group" aria-label="Language">
-      {(['ar', 'fr', 'en'] as const).map((value) => <button key={value} type="button" onClick={() => setLang(value)} className={lang === value ? 'active' : ''}>{value.toUpperCase()}</button>)}
-    </div>
     {loading ? <p className="interactive-instruction">Loading challenge…</p> : error ? <div className="interactive-instruction interactive-error"><p>Unable to load the challenge.</p><button type="button" onClick={() => window.location.reload()}>Retry</button></div> : !challenge ? <p className="interactive-instruction">No challenge available.</p> : <InteractiveGameBoard mode={mode === 'sentence_builder' ? 'ordering' : mode} lang={lang} challenge={challenge} onComplete={complete} title={mode === 'sentence_builder' ? (lang === 'ar' ? 'بناء الجملة' : lang === 'fr' ? 'Constructeur de phrases' : 'Sentence Builder') : undefined} />}
   </div></main>
 }
