@@ -1,6 +1,6 @@
 import { apiFetch } from '@/lib/api'
 
-export type GameId = 'math' | 'words' | 'quick_choice' | 'listen_choose' | 'spelling' | 'sequence' | 'memory' | 'matching' | 'ordering' | 'sentence_builder'
+export type GameId = 'math' | 'words' | 'quick_choice' | 'listen_choose' | 'spelling' | 'word_scramble' | 'fill_blank' | 'sequence' | 'memory' | 'matching' | 'ordering' | 'sentence_builder'
 export type GameLanguage = 'ar' | 'fr' | 'en'
 
 export type ServerGameStats = {
