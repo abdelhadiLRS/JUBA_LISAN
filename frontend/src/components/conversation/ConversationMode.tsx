@@ -262,6 +262,16 @@ const convLogger = ENABLE_CONVERSATION_AUDIO_DEBUG_LOGS
   ? getLogger('conversation-audio')
   : silentLogger
 
+function closeAudioContextSafely(ctx: AudioContext | null): void {
+  if (!ctx || ctx.state === 'closed') return
+  try {
+    void ctx.close().catch(() => {})
+  } catch {
+    // Browsers may throw InvalidStateError synchronously if another cleanup
+    // path closed the context between the state check and close().
+  }
+}
+
 export default function ConversationMode({
   initialContext,
   autoStart,
@@ -577,10 +587,9 @@ export default function ConversationMode({
       setStreamingText(null)
       audioQueueRef.current?.cancel()
       audioQueueRef.current = null
-      if (audioCtxRef.current) {
-        void audioCtxRef.current.close().catch(() => {})
-        audioCtxRef.current = null
-      }
+      const ctx = audioCtxRef.current
+      audioCtxRef.current = null
+      closeAudioContextSafely(ctx)
       setSessionActive(false)
     },
     [vad]
@@ -893,8 +902,9 @@ export default function ConversationMode({
       setErrorMsg(e instanceof Error ? e.message : t('errorMic'))
       setStatus('error')
       setSessionActive(false)
-      audioCtxRef.current?.close()
+      const failedCtx = audioCtxRef.current
       audioCtxRef.current = null
+      closeAudioContextSafely(failedCtx)
       audioQueueRef.current = null
     })
 
@@ -918,7 +928,7 @@ export default function ConversationMode({
       ])) as Response
     } catch {
       if (!mountedRef.current || startAttemptRef.current !== startAttempt) {
-        ctx.close()
+        closeAudioContextSafely(ctx)
         return
       }
       setErrorMsg(`${t('errorConnection')} [warmup request failed]`)
@@ -926,7 +936,7 @@ export default function ConversationMode({
       setStatus('error')
       setSessionActive(false)
       vad.pause()
-      ctx.close()
+      closeAudioContextSafely(ctx)
       audioCtxRef.current = null
       audioQueueRef.current = null
       return
@@ -942,7 +952,7 @@ export default function ConversationMode({
       setStatus('error')
       setSessionActive(false)
       vad.pause()
-      ctx.close()
+      closeAudioContextSafely(ctx)
       audioCtxRef.current = null
       audioQueueRef.current = null
       return
@@ -1006,7 +1016,9 @@ export default function ConversationMode({
       wsRef.current?.close()
       vad.pause()
       audioQueueRef.current?.cancel()
-      audioCtxRef.current?.close()
+      const ctx = audioCtxRef.current
+      audioCtxRef.current = null
+      closeAudioContextSafely(ctx)
       sessionStartedAtRef.current = null
     }
   }, [])
