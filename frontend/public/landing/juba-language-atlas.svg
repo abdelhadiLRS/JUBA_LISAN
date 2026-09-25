@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" role="img" aria-labelledby="title desc">
+<title id="title">JUBA LISAN language atlas illustration</title><desc id="desc">Original illustrated globe, language cards and speech bubbles.</desc>
+<g stroke="#183022" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+<circle cx="380" cy="290" r="185" fill="#DFF5FA"/>
+<path d="M240 240c55-74 107-102 174-98 71 4 132 48 159 112-44-20-91-25-139-9-56 19-115 19-194-5Z" fill="#B9D99D"/>
+<path d="M255 352c67 20 117 29 176 10 62-20 112-11 157 13-37 59-101 100-181 100-68 0-128-29-168-77Z" fill="#E5F4D8"/>
+<ellipse cx="380" cy="290" rx="185" ry="185" fill="none"/>
+<path d="M195 290h370M380 105c-70 66-70 304 0 370M380 105c70 66 70 304 0 370" fill="none" opacity=".5"/>
+<g fill="#fff">
+<rect x="54" y="92" width="160" height="94" rx="24" transform="rotate(-8 54 92)"/>
+<rect x="540" y="82" width="166" height="94" rx="24" transform="rotate(8 540 82)"/>
+<rect x="36" y="390" width="176" height="94" rx="24" transform="rotate(7 36 390)"/>
+<rect x="552" y="384" width="168" height="94" rx="24" transform="rotate(-7 552 384)"/>
+</g>
+<g font-family="Arial,sans-serif" font-weight="900" fill="#183022" stroke="none" text-anchor="middle">
+<text x="134" y="148" font-size="38">EN</text><text x="623" y="142" font-size="38">AR</text><text x="124" y="446" font-size="38">FR</text><text x="635" y="440" font-size="38">ES</text>
+</g>
+<path d="M315 72q65-55 130 0" fill="none"/><circle cx="380" cy="48" r="17" fill="#FFE27A"/>
+<path d="M292 493q88 42 176 0" fill="none"/>
+</g></svg>
