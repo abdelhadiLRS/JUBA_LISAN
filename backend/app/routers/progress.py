@@ -1801,6 +1801,12 @@ def _apply_smart_review(
         replay = dict(mistake)
         replay["id"] = str(uuid4())
         replay["review"] = True
+        # Apply the item's own mastery-derived difficulty. Review rounds may
+        # contain several items at different mastery levels, so one global
+        # difficulty would flatten the adaptation signal.
+        replay["difficulty"] = int(
+            mistake.get("review_difficulty", replay.get("difficulty", result[0].get("difficulty", 1)))
+        )
         # Preserve the original ledger identity even when a curriculum-backed
         # variant changes the authoritative answer.
         replay["review_identity"] = str(
@@ -1833,7 +1839,6 @@ def _apply_smart_review(
                 and str(question.get("answer", "")).strip() != answer
                 and question.get("input_mode", "choice") == "choice"
             ]
-            distractors = list(dict.fromkeys(distractors))
             distractors = list(dict.fromkeys(distractors))
             seed = int(mistake.get("variant_seed", 0))
             # Deterministic rotation gives the learner a different option order
