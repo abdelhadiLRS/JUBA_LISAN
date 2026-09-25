@@ -1231,6 +1231,57 @@ def _server_game_questions(\n    game_id: str,\n    language: str,\n    difficul
 
 @router.post("/game-session", response_model=GameSessionResponse)
 @limiter.limit("30/minute")
+async def _get_recent_game_mistakes(
+    db: AsyncSession,
+    user_id: int,
+    plan_id: int,
+    game_id: str,
+    limit: int = 3,
+) -> list[dict]:
+    """Return recent server-recorded mistakes that can be safely replayed."""
+    result = await db.execute(
+        select(GameProgressEvent.mistakes)
+        .where(
+            GameProgressEvent.user_id == user_id,
+            GameProgressEvent.study_plan_id == plan_id,
+            GameProgressEvent.game_id == game_id,
+        )
+        .order_by(GameProgressEvent.created_at.desc())
+        .limit(10)
+    )
+    review: list[dict] = []
+    seen: set[str] = set()
+    for mistakes in result.scalars().all():
+        if not isinstance(mistakes, list):
+            continue
+        for item in mistakes:
+            if not isinstance(item, dict):
+                continue
+            question_id = str(item.get("question_id", ""))
+            question = item.get("question")
+            if not question_id or question_id in seen or not isinstance(question, dict):
+                continue
+            review.append(question)
+            seen.add(question_id)
+            if len(review) >= limit:
+                return review
+    return review
+
+
+def _apply_smart_review(questions: list[dict], mistakes: list[dict]) -> list[dict]:
+    """Replay up to two recent missed questions in a new round."""
+    if not mistakes or not questions:
+        return questions
+    skills = {str(question.get("skill", "")) for question in questions}
+    result = list(questions)
+    for index, mistake in enumerate([m for m in mistakes if str(m.get("skill", "")) in skills][:2]):
+        replay = dict(mistake)
+        replay["id"] = str(uuid4())
+        replay["review"] = True
+        result[index] = replay
+    return result
+
+
 async def _get_adaptive_game_difficulty(
     db: AsyncSession,
     user_id: int,
@@ -1311,6 +1362,9 @@ async def start_game_session(
             plan.target_language,
             cast(CEFRLevel, plan.cefr_level),
         )
+    if adaptive_mode == "review" and effective_game_id not in {"memory", "matching", "ordering", "sentence_builder"}:
+        mistakes = await _get_recent_game_mistakes(db, current_user.id, plan.id, effective_game_id)
+        questions = _apply_smart_review(questions, mistakes)
     daily_challenge_date = now.date().isoformat() if effective_game_id == _daily_game_id(now.date()) else ""
     session = GameSession(
         id=session_id,
@@ -1456,20 +1510,36 @@ async def complete_game_session(
             raise HTTPException(status_code=422, detail="Exactly one answer is required for every question")
 
         correct_answers = 0
+        mistakes: list[dict] = []
         for submitted in data.answers:
             question = expected[submitted.question_id]
+            is_correct = False
             if question.get("input_mode", "choice") == "text":
                 if not submitted.choice.strip():
                     raise HTTPException(status_code=422, detail="Text answer cannot be empty")
-                if _game_answer_matches(submitted.choice, question["answer"]):
-                    correct_answers += 1
+                is_correct = _game_answer_matches(submitted.choice, question["answer"])
             else:
                 if submitted.choice == "__timeout__":
-                    continue
-                if submitted.choice not in question["choices"]:
-                    raise HTTPException(status_code=422, detail="Invalid choice for game question")
-                if submitted.choice == question["answer"]:
-                    correct_answers += 1
+                    is_correct = False
+                else:
+                    if submitted.choice not in question["choices"]:
+                        raise HTTPException(status_code=422, detail="Invalid choice for game question")
+                    is_correct = submitted.choice == question["answer"]
+            if is_correct:
+                correct_answers += 1
+            else:
+                mistakes.append({
+                    "question_id": submitted.question_id,
+                    "submitted": submitted.choice,
+                    "question": {
+                        key: question.get(key)
+                        for key in (
+                            "id", "prompt", "choices", "hint", "answer",
+                            "skill", "difficulty", "input_mode", "audio_text",
+                            "audio_language", "topic",
+                        )
+                    },
+                })
         questions_answered = len(expected)
     # Validation above is read-only. Start the write phase with a database lock
     # so the GameProgress counters, achievements, and XP thresholds are calculated
@@ -1633,6 +1703,7 @@ async def complete_game_session(
         correct_answers=correct_answers, round_score=round_score,
         daily_challenge=data.daily_challenge, daily_challenge_date=data.daily_challenge_date,
         achievements=fresh, xp_earned=base_xp + achievement_xp,
+        mistakes=mistakes,
     ))
     try:
         await db.commit()
