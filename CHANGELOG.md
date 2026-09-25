@@ -1,6 +1,23 @@
 # Changelog
 
 ## [Unreleased]
+### Games
+
+- Real playable Games Hub with Word Match, Quick Choice, Sentence Builder, Listen & Choose, Spelling Challenge, and Memory Cards.
+- Server-authoritative game sessions with persisted answers, scores, accuracy, streaks, XP, and achievements.
+- Adaptive game difficulty driven by current skill mastery.
+- Completed game sessions now contribute evidence to the Mastery Center by mapped skill.
+- Daily Challenge eligibility and reward validation remain server-authoritative.
+- RTL-aware game controls for Arabic, including timed choice, audio playback, and text-answer spelling interactions.
+
+### Fixed
+
+- Spelling answers are validated server-side as text instead of being treated as choice-only answers.
+- Quick Choice timeouts are persisted as incorrect answers.
+- Optional game question metadata no longer causes server serialization failures.
+- Removed the misleading local-only progress reset control from the Games Hub.
+
+
 
 ### Added
 
