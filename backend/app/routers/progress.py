@@ -134,13 +134,7 @@ def _server_interactive_challenge(
                 raise ValueError(f"No example sentences for {target_language} at {cefr_level}")
             source = sentence_entries[0].example.strip().split()
 
-        else:
-            source = {
-                "ar": ["الأول", "الثاني", "الثالث", "الرابع", "الخامس"],
-                "fr": ["un", "deux", "trois", "quatre", "cinq"],
-                "en": ["one", "two", "three", "four", "five"],
-            }[language]
-            source = source[: {1: 3, 2: 4, 3: 5}[difficulty]]
+        else:\n            count = {1: 3, 2: 4, 3: 5}[difficulty]\n            ordered_entries = cefr_entries[:count]\n            if len(ordered_entries) < count:\n                raise ValueError(f"No vocabulary content for {target_language} at {cefr_level}")\n            source = [entry.word.strip() for entry in ordered_entries]
         items = [{"id": str(uuid4()), "label": label} for label in source]
         shuffled = list(items)
         rng.shuffle(shuffled)
