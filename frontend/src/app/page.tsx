@@ -262,6 +262,19 @@ export default async function Home() {
 .juba-reference-page .juba-games-heading h2{margin:17px 0 13px;font-size:clamp(2.4rem,5vw,4.8rem);line-height:.9;letter-spacing:-.075em;font-weight:950;color:#183022}
 .juba-reference-page .juba-games-heading p{margin:0;color:#68766d;font-size:14px;line-height:1.8}
 .juba-reference-page .juba-games-grid{width:min(1120px,100%);margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.juba-reference-page .juba-games-tabs{width:min(1120px,100%);margin:0 auto 18px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.juba-reference-page .juba-games-tab{border:2px solid #183022;border-radius:999px;background:#fff;padding:9px 14px;color:#68766d;font-size:10px;font-weight:900;transition:transform .16s,background .16s,color .16s,box-shadow .16s}
+.juba-reference-page .juba-games-tab:hover{transform:translateY(-2px);color:#183022}
+.juba-reference-page .juba-games-tab.is-active{background:#3d7b27;color:#fff;box-shadow:3px 3px 0 #183022}
+.juba-reference-page .juba-game-stage{width:min(1120px,100%);margin:0 auto;display:grid;grid-template-columns:1.25fr .75fr;align-items:center;gap:28px;padding:18px;border:2px solid #183022;border-radius:30px;background:#eef7e4;box-shadow:6px 7px 0 #183022}
+.juba-reference-page .juba-game-stage-image{padding:10px;border:2px solid #183022;border-radius:24px;background:#fff;overflow:hidden}
+.juba-reference-page .juba-game-stage-image img{display:block;width:100%;height:auto;border-radius:16px}
+.juba-reference-page .juba-game-stage-copy{padding:24px}
+.juba-reference-page .juba-game-stage-index{display:inline-flex;border:1px solid #d9e5d7;border-radius:999px;background:#fff;padding:7px 10px;color:#39751d;font-size:9px;font-weight:900}
+.juba-reference-page .juba-game-stage-copy h3{margin:18px 0 8px;color:#183022;font-size:clamp(1.8rem,3vw,3rem);font-weight:950;letter-spacing:-.06em}
+.juba-reference-page .juba-game-stage-copy p{margin:0 0 22px;color:#68766d;font-size:13px;line-height:1.7}
+.juba-reference-page .juba-game-stage-copy .juba-ref-button{display:inline-flex}
+@media(max-width:900px){.juba-reference-page .juba-game-stage{grid-template-columns:1fr}.juba-reference-page .juba-game-stage-copy{padding:14px 8px 8px}}
 .juba-reference-page .juba-game-card{min-width:0;border:2px solid #183022;border-radius:26px;background:#fff;overflow:hidden;box-shadow:5px 6px 0 #183022;transition:transform .18s ease,box-shadow .18s ease}
 .juba-reference-page .juba-game-card:hover{transform:translateY(-5px) rotate(-.4deg);box-shadow:8px 9px 0 #183022}
 .juba-reference-page .juba-game-image-wrap{padding:10px;background:#f3f7ee}
