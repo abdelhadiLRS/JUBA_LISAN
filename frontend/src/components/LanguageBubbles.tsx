@@ -151,7 +151,10 @@ export function LanguageBubbles() {
   const regionCountries = useMemo(() => {
     const map = new Map<RegionId, Set<string>>()
     for (const region of REGIONS) map.set(region.id, new Set())
-    for (const language of DISPLAY_LANGUAGES) for (const region of language.regions) map.get(region)?.add(...language.countries)
+    for (const language of DISPLAY_LANGUAGES) for (const region of language.regions) {
+      const countries = map.get(region)
+      if (countries) for (const country of language.countries) countries.add(country)
+    }
     return map
   }, [])
 
