@@ -269,13 +269,10 @@ export default function AssessmentPage() {
       }
       const data = (await res.json()) as AssessmentCompleteResponse
       setCreatedPlanId(data.plan_id)
-      if (data.voice_trial?.available && data.voice_trial.token) {
-        setVoiceTrial(data.voice_trial)
-        setStep('voice-trial-offer')
-        setSubmitting(false)
-        return
-      }
-      router.push('/plan')
+      // Plan creation is the end of the assessment wizard. Navigate directly
+      // to the generated roadmap so the selected duration/goals are reflected
+      // immediately instead of leaving the user on the Step 3 screen.
+      router.replace('/plan')
     } catch (err) {
       const msg = err instanceof Error ? err.message : ''
       setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || t('planCreationFailed'))
