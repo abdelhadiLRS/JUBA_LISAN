@@ -470,7 +470,11 @@
     "goalCompleted": "🎉 Дневная цель достигнута!",
     "keepGoing": "Осталось всего {remaining} урок(а)!",
     "takeAssessment": "Пройти оценку уровня",
-    "planDayGoal": "Цель уроков на сегодня"
+    "planDayGoal": "Цель уроков на сегодня",
+    "levelTestCompleted": "Тест уровня завершён",
+    "levelTestScoreLine": "Результат: {score} из {total}",
+    "levelTestReady": "Вы готовы перейти на следующий уровень",
+    "levelTestReadyDesc": "Вы успешно завершили тест уровня. Продолжайте учебный план."
   },
   "assessment": {
     "title": "Оценка",
