@@ -526,7 +526,7 @@ def _server_game_questions(
     questions: list[dict] = []
     word_entries: list[object] | None = None
     if game_id == "words":
-        level = cast(CEFRLevel, {1: "A1", 2: "A2", 3: "B1"}[difficulty])
+        level = cefr_level
         vocab_sets = get_vocabulary_by_level(level, target_language)
         entries = [word for vocab_set in vocab_sets for word in vocab_set.words]
         rng.shuffle(entries)
@@ -545,7 +545,7 @@ def _server_game_questions(
             ]
 
     if game_id in {"quick_choice", "listen_choose", "listening_detective", "spelling", "word_scramble", "fill_blank"}:
-        level = cast(CEFRLevel, {1: "A1", 2: "A2", 3: "B1"}[difficulty])
+        level = cefr_level
         vocab_sets = get_vocabulary_by_level(level, target_language)
         entries = [word for vocab_set in vocab_sets for word in vocab_set.words]
         rng.shuffle(entries)
