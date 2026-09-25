@@ -1317,6 +1317,49 @@ async def _get_recent_game_mistakes(
     return [question for _, _, question in selected[:limit]]
 
 
+
+def _mastery_review_count(
+    mastery_items: list[dict],
+    total: int,
+    difficulty: int,
+) -> int:
+    """Choose a mastery-aware review/fresh ratio for the next round."""
+    total = max(0, int(total))
+    if total == 0 or not mastery_items:
+        return 0
+
+    active = [
+        item for item in mastery_items
+        if str(item.get("mastery_state", "")) != "mastered"
+    ]
+    if not active:
+        return 0
+
+    states = [str(item.get("mastery_state", "")) for item in active]
+    weak = states.count("weak")
+    reviewing = states.count("reviewing")
+    learning = states.count("learning")
+
+    # Stable learners get mostly fresh curriculum. Repeated misses shift the
+    # round toward retrieval practice, while mastered items never consume a
+    # review slot.
+    if weak >= 2:
+        ratio = 0.75
+    elif weak == 1 or reviewing >= 2:
+        ratio = 0.5
+    elif reviewing == 1 or learning >= 2:
+        ratio = 0.35
+    else:
+        ratio = 0.2
+
+    # At higher difficulty, preserve room for new material while still
+    # increasing review pressure when mastery is unstable.
+    if int(difficulty) >= 3 and weak == 0:
+        ratio = min(ratio, 0.4)
+
+    return min(total, len(active), max(1, round(total * ratio)))
+
+
 def _apply_smart_review(
     questions: list[dict],
     mistakes: list[dict],
