@@ -1,7 +1,7 @@
 import { apiFetch } from '@/lib/api'
 
 export type GameId = 'math' | 'words' | 'quick_choice' | 'context_quest' | 'listen_choose' | 'listening_detective' | 'word_categories' | 'translation_sprint' | 'grammar_duel' | 'spelling' | 'word_scramble' | 'fill_blank' | 'sequence' | 'memory' | 'matching' | 'ordering' | 'sentence_builder'
-export type GameLanguage = 'ar' | 'fr' | 'en'
+export type GameLanguage = 'ar' | 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt' | 'ja' | 'ko' | 'zh'
 
 /**
  * The game API currently has native question banks for Arabic, French and English.
@@ -13,6 +13,13 @@ export function gameLanguageForTargetLanguage(targetLanguage?: string | null): G
   if (code === 'ar' || code.startsWith('ar-')) return 'ar'
   if (code === 'fr' || code.startsWith('fr-')) return 'fr'
   if (code === 'en' || code === 'en-gb' || code === 'en-us' || code.startsWith('en-')) return 'en'
+  if (code === 'es' || code.startsWith('es-')) return 'es'
+  if (code === 'de' || code.startsWith('de-')) return 'de'
+  if (code === 'it' || code.startsWith('it-')) return 'it'
+  if (code === 'pt' || code.startsWith('pt-')) return 'pt'
+  if (code === 'ja' || code.startsWith('ja-')) return 'ja'
+  if (code === 'ko' || code.startsWith('ko-')) return 'ko'
+  if (code === 'zh' || code.startsWith('zh-')) return 'zh'
   return 'en'
 }
 
