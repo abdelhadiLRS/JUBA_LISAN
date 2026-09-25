@@ -470,7 +470,8 @@
     "reviewReminder": "Tijd om je geheugen te versterken",
     "goalCompleted": "🎉 Dagelijks doel voltooid!",
     "keepGoing": "Nog slechts {remaining} les(sen) te gaan!",
-    "takeAssessment": "Niveauplaatsing maken"
+    "takeAssessment": "Niveauplaatsing maken",
+    "planDayGoal": "Lesdoel voor vandaag"
   },
   "assessment": {
     "title": "Beoordeling",
