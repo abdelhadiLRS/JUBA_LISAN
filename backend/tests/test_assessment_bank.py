@@ -129,3 +129,20 @@ class TestGetAssessmentBank:
             for level in {question.difficulty for question in bank}
         }
         assert all(count >= 4 for count in counts.values())
+
+    def test_finnish_assessment_bank_has_balanced_cefr_coverage_and_valid_options(self):
+        from app.data.assessment_bank import get_assessment_bank
+
+        bank = get_assessment_bank("fi-FI")
+        levels = {"A1", "A2", "B1", "B2", "C1", "C2"}
+        assert bank
+        assert {question.difficulty for question in bank} == levels
+        assert len({question.id for question in bank}) == len(bank)
+        assert all(len(question.options) == 4 for question in bank)
+        assert all(question.correct in question.options for question in bank)
+        counts = {
+            level: sum(question.difficulty == level for question in bank)
+            for level in levels
+        }
+        assert counts == {level: 12 for level in levels}
+
