@@ -1618,7 +1618,15 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
     language = str(replay.get("language", "en")).split("-")[0]
     prompt = str(replay.get("prompt", "")).strip()
     topic = str(replay.get("topic", "")).strip()
-    variant = max(0, int(seed)) % 3
+    strategy = str(replay.get("review_strategy", "direct_recall"))
+    strategy_offset = {
+        "direct_recall": 0,
+        "recognition": 1,
+        "contextual_transfer": 2,
+        "production": 2,
+    }.get(strategy, 0)
+    variant = (max(0, int(seed)) + strategy_offset) % 3
+    replay["retrieval_stage"] = strategy
 
     if skill == "vocabulary":
         word = str(replay.get("word", "")).strip() or str(replay.get("answer", "")).strip()
