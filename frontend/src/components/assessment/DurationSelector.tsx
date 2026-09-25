@@ -33,6 +33,7 @@ interface Props {
   onBack: () => void
   cefr_level: string
   loading: boolean
+  error?: string
 }
 
 export default function DurationSelector({
@@ -44,6 +45,7 @@ export default function DurationSelector({
   onBack,
   cefr_level,
   loading,
+  error = '',
 }: Props) {
   const t = useTranslations('assessment')
   const tCommon = useTranslations('common')
@@ -77,6 +79,7 @@ export default function DurationSelector({
             <div className="grid grid-cols-2 gap-3">
               {DURATION_OPTIONS.map((opt) => (
                 <button
+                  type="button"
                   key={opt.weeks}
                   onClick={() => onSelectDuration(opt)}
                   className={`rounded-[20px] border-2 px-4 py-4 text-left transition-all ${
@@ -120,6 +123,7 @@ export default function DurationSelector({
             <div className="flex flex-wrap gap-2">
               {GOAL_OPTIONS.map((g) => (
                 <button
+                  type="button"
                   key={g.id}
                   onClick={() => onToggleGoal(g.id)}
                   className={`rounded-full border-2 px-3 py-2 text-xs font-semibold tracking-[0.08em] uppercase transition-all ${
@@ -168,6 +172,16 @@ export default function DurationSelector({
               </span>
             </p>
           </div>
+
+          {error && (
+            <div
+              role="alert"
+              aria-live="polite"
+              className="rounded-[18px] border-2 border-[var(--juba-app-error)]/30 bg-[var(--juba-app-error)]/10 px-4 py-3 text-left text-xs leading-relaxed text-[var(--juba-app-error)]"
+            >
+              ✕ {error}
+            </div>
+          )}
 
           <div className="flex gap-2">
             <button
