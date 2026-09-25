@@ -1338,7 +1338,7 @@ async def start_game_session(
     ]
     return GameSessionResponse(
         session_id=session_id,
-        game_id=data.game_id,
+        game_id=effective_game_id,
         questions=public_questions,
         expires_at=expires_at.isoformat(),
         daily_challenge=bool(daily_challenge_date),
