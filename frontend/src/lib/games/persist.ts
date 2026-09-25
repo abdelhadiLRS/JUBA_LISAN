@@ -3,6 +3,19 @@ import { apiFetch } from '@/lib/api'
 export type GameId = 'math' | 'words' | 'quick_choice' | 'context_quest' | 'listen_choose' | 'listening_detective' | 'word_categories' | 'translation_sprint' | 'grammar_duel' | 'spelling' | 'word_scramble' | 'fill_blank' | 'sequence' | 'memory' | 'matching' | 'ordering' | 'sentence_builder'
 export type GameLanguage = 'ar' | 'fr' | 'en'
 
+/**
+ * The game API currently has native question banks for Arabic, French and English.
+ * Keep this mapping separate from the UI locale so the interface language never
+ * silently becomes the learner's target language.
+ */
+export function gameLanguageForTargetLanguage(targetLanguage?: string | null): GameLanguage {
+  const code = String(targetLanguage ?? '').trim().toLowerCase().replace('_', '-')
+  if (code === 'ar' || code.startsWith('ar-')) return 'ar'
+  if (code === 'fr' || code.startsWith('fr-')) return 'fr'
+  if (code === 'en' || code === 'en-gb' || code === 'en-us' || code.startsWith('en-')) return 'en'
+  return 'en'
+}
+
 export type ServerGameStats = {
   total_xp: number
   games_played: number
@@ -59,7 +72,7 @@ export type GameSessionResult = ServerGameStats & {
 
 export async function startGameSession(
   gameId: string,
-  language: 'ar' | 'fr' | 'en',
+  language: GameLanguage,
   difficulty: number,
 ): Promise<GameSessionStartResponse> {
   const response = await apiFetch('/api/progress/game-session', {
