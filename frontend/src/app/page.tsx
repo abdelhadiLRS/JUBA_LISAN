@@ -1,54 +1,34 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import Script from 'next/script'
 import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import type { Locale } from '@/lib/locales'
-import {
-  Sparkles,
-  ArrowRight,
-  CheckCircle2,
-} from 'lucide-react'
+import { ArrowRight, BookOpen, Headphones, MessageCircle, Sparkles, Volume2 } from 'lucide-react'
 import PricingSection from '@/components/billing/PricingSection'
 import { LandingFAQ } from '@/components/ui/landing-faq'
 import { LandingNav } from '@/components/ui/landing-nav'
-import { ScrollReveal } from '@/components/ui/scroll-reveal'
 import { LanguageBubbles } from '@/components/LanguageBubbles'
-import { LandingReviewsCarousel } from '@/components/reviews/LandingReviewsCarousel'
-import { BentoFeatures } from '@/components/landing/BentoFeatures'
-import { AiConversationShowcase } from '@/components/landing/AiConversationShowcase'
-import { DashboardPreview } from '@/components/landing/DashboardPreview'
-import { LanguageShowcase } from '@/components/landing/LanguageShowcase'
-import { LearningExperience } from '@/components/landing/LearningExperience'
 import { LandingFooter } from '@/components/landing/LandingFooter'
 import type { ReviewPublic } from '@/types/api'
 
 export const metadata: Metadata = {
   title: 'JUBA LISAN: AI-Powered Language Learning Platform',
   description:
-    'Learn languages naturally with your personal AI tutor. Master real-time voice conversations, structured CEFR lessons, interactive reading & listening, and smart flashcards.',
+    'Learn languages naturally with your personal AI tutor. Master real-time voice conversations, structured CEFR lessons, interactive reading and listening, and smart flashcards.',
   robots: { index: true, follow: true },
   openGraph: {
     title: 'JUBA LISAN: AI-Powered Language Learning Platform',
     description:
-      'Learn languages naturally with your personal AI tutor. Master real-time voice conversations, structured CEFR lessons, interactive reading & listening, and smart flashcards.',
+      'Learn languages naturally with your personal AI tutor.',
     url: 'https://jubalisan.com',
     type: 'website',
-    images: [
-      {
-        url: '/og-image-v2.png',
-        width: 1200,
-        height: 630,
-        alt: 'JUBA LISAN: AI-Powered Language Learning Platform',
-      },
-    ],
+    images: [{ url: '/og-image-v2.png', width: 1200, height: 630, alt: 'JUBA LISAN' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'JUBA LISAN: AI-Powered Language Learning Platform',
-    description:
-      'Learn languages naturally with your personal AI tutor. Master real-time voice conversations, structured CEFR lessons, interactive reading & listening, and smart flashcards.',
+    description: 'Learn languages naturally with your personal AI tutor.',
     images: ['/og-image-v2.png'],
   },
 }
@@ -61,12 +41,7 @@ const jsonLd = {
   operatingSystem: 'Web',
   url: 'https://jubalisan.com',
   description:
-    'AI-powered language learning platform with real-time voice conversation, spaced-repetition flashcards, structured CEFR lessons, and interactive AI tutor.',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'USD',
-  },
+    'AI-powered language learning platform with CEFR lessons, AI tutoring, voice conversation, reading, listening and flashcards.',
 }
 
 export default async function Home() {
@@ -78,44 +53,41 @@ export default async function Home() {
 
   let stripeEnabled = false
   let trialDays = 7
-  let priceMonthly = 0.0
-  let priceYearly = 0.0
-  let totalPriceMonthly = 0.0
-  let totalPriceYearly = 0.0
+  let priceMonthly = 0
+  let priceYearly = 0
+  let totalPriceMonthly = 0
+  let totalPriceYearly = 0
   let reviews: ReviewPublic[] = []
+
   try {
     const backendUrl = process.env.BACKEND_URL || 'http://backend:8000'
     const [configRes, reviewsRes] = await Promise.all([
       fetch(`${backendUrl}/api/config`, { next: { revalidate: 3600 } }),
-      fetch(`${backendUrl}/api/reviews/public?limit=100`, {
-        next: { revalidate: 300 },
-      }),
+      fetch(`${backendUrl}/api/reviews/public?limit=100`, { next: { revalidate: 300 } }),
     ])
+
     if (configRes.ok) {
       const cfg = await configRes.json()
       stripeEnabled = cfg.stripe_enabled ?? false
       trialDays = cfg.stripe_trial_days ?? 7
-      priceMonthly = cfg.price_monthly ?? 0.0
-      priceYearly = cfg.price_yearly ?? 0.0
-      totalPriceMonthly = cfg.total_price_monthly ?? 0.0
-      totalPriceYearly = cfg.total_price_yearly ?? 0.0
+      priceMonthly = cfg.price_monthly ?? 0
+      priceYearly = cfg.price_yearly ?? 0
+      totalPriceMonthly = cfg.total_price_monthly ?? 0
+      totalPriceYearly = cfg.total_price_yearly ?? 0
     }
-    if (reviewsRes.ok) {
-      reviews = await reviewsRes.json()
-    }
+    if (reviewsRes.ok) reviews = await reviewsRes.json()
   } catch {
-    /* non-fatal */
+    // Public landing data is non-fatal.
   }
 
   return (
-    <div className="juba-funfluent-page juba-ff-reference min-h-screen flex flex-col font-sans selection:bg-[#ffd45c]/30 overflow-x-hidden">
+    <main className="juba-reference-page min-h-screen overflow-x-hidden">
       <Script
         id="juba-lisan-structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Nav */}
       <LandingNav
         hasSession={hasSession}
         stripeEnabled={stripeEnabled}
@@ -136,230 +108,169 @@ export default async function Home() {
         locale={locale as Locale}
       />
 
-      {/* Funfluent reference hero */}
-      <section className="juba-ff-hero">
-        <div className="juba-ff-hero-cloud cloud-one" aria-hidden="true" />
-        <div className="juba-ff-hero-cloud cloud-two" aria-hidden="true" />
-        <div className="juba-ff-hero-inner">
-          <div className="juba-ff-hero-copy">
-            <div className="juba-ff-pill"><Sparkles className="h-4 w-4" /> {t('heroBadge')}</div>
+      {/* HERO — the visitor-facing composition is deliberately rebuilt around the supplied reference:
+          oversized playful type, pale paper background, organic illustration, floating cards and a single CTA. */}
+      <section className="juba-ref-hero">
+        <div className="juba-ref-hero-shape shape-yellow" aria-hidden="true" />
+        <div className="juba-ref-hero-shape shape-green" aria-hidden="true" />
+        <div className="juba-ref-hero-inner">
+          <div className="juba-ref-hero-copy">
+            <span className="juba-ref-kicker"><Sparkles className="h-4 w-4" /> {t('heroBadge')}</span>
             <h1>{t('heroTitle')}</h1>
             <p>{t('heroSub')}</p>
-            <div className="juba-ff-hero-actions">
-              <Link href={hasSession ? '/dashboard' : '/register'} className="juba-ff-primary">
-                {hasSession ? t('dashboard') : t('ctaStart')} <ArrowRight className="w-5 h-5" />
+            <div className="juba-ref-hero-actions">
+              <Link href={hasSession ? '/dashboard' : '/register'} className="juba-ref-button">
+                {hasSession ? t('dashboard') : t('ctaStart')} <ArrowRight className="h-5 w-5" />
               </Link>
-              <a href="#features" className="juba-ff-hero-link">{t('ctaExplore')}</a>
-            </div>
-            <div className="juba-ff-mini-proof">
-              <span><CheckCircle2 className="h-4 w-4" /> {t('proofCefr')}</span>
-              <span><CheckCircle2 className="h-4 w-4" /> {t('proofVoice')}</span>
-              <span><CheckCircle2 className="h-4 w-4" /> {t('proofTutor')}</span>
+              <a href="#features" className="juba-ref-text-link">{t('ctaExplore')}</a>
             </div>
           </div>
 
-          <div className="juba-ff-hero-art" aria-label="Language learning illustration">
-            <div className="juba-ff-sun" aria-hidden="true" />
-            <div className="juba-ff-mountain mountain-back" aria-hidden="true" />
-            <div className="juba-ff-mountain mountain-front" aria-hidden="true" />
-            <div className="juba-ff-island island-one" aria-hidden="true" />
-            <div className="juba-ff-island island-two" aria-hidden="true" />
-
-            <div className="juba-mascot mascot-main" aria-hidden="true">
-              <div className="juba-mascot-shadow" />
-              <div className="juba-mascot-body">
-                <span className="juba-mascot-eye eye-left" />
-                <span className="juba-mascot-eye eye-right" />
-                <span className="juba-mascot-mouth" />
-                <span className="juba-mascot-badge">AI</span>
-              </div>
-              <span className="juba-mascot-orbit orbit-a" />
-              <span className="juba-mascot-orbit orbit-b" />
+          <div className="juba-ref-hero-art" aria-hidden="true">
+            <div className="juba-ref-cloud cloud-a" />
+            <div className="juba-ref-cloud cloud-b" />
+            <div className="juba-ref-sun" />
+            <div className="juba-ref-ground" />
+            <div className="juba-ref-character character-main">
+              <div className="character-face"><i /><i /><b /></div>
+              <span>J</span>
             </div>
-
-            <div className="juba-ff-character char-one" aria-hidden="true"><span>EN</span></div>
-            <div className="juba-ff-character char-two" aria-hidden="true"><span>FR</span></div>
-            <div className="juba-ff-character char-three" aria-hidden="true"><span>ES</span></div>
-            <div className="juba-ff-character char-four" aria-hidden="true"><span>{t('flowAiLabel')}</span></div>
-
-            <div className="juba-ff-float-label label-one" aria-hidden="true">Hello!</div>
-            <div className="juba-ff-float-label label-two" aria-hidden="true">Bonjour</div>
-            <div className="juba-ff-float-label label-three" aria-hidden="true">Hola</div>
-            <div className="juba-ff-book-float">
-              <div className="book-cover" aria-hidden="true">J</div>
-              <div><strong>Your language companion</strong><span>Assess · Learn · Practice</span></div>
-            </div>
+            <div className="juba-ref-character character-small character-one"><span>EN</span></div>
+            <div className="juba-ref-character character-small character-two"><span>FR</span></div>
+            <div className="juba-ref-character character-small character-three"><span>ES</span></div>
+            <div className="juba-ref-speech speech-one">Hello!</div>
+            <div className="juba-ref-speech speech-two">Bonjour!</div>
+            <div className="juba-ref-book"><BookOpen className="h-7 w-7" /><strong>JUBA LISAN</strong><small>Learn · Practice · Progress</small></div>
           </div>
         </div>
-        <div className="juba-ff-wave" aria-hidden="true" />
+        <div className="juba-ref-hero-bottom" aria-hidden="true" />
       </section>
 
-      {/* Language constellation — all supported learning languages are visible on the public page. */}
-      <section id="languages" className="juba-ff-story juba-ff-story-languages scroll-mt-20">
-        <ScrollReveal>
-          <div className="juba-ff-story-inner">
-            <div className="mb-8 text-center">
-              <span className="juba-ff-section-tag">{t('languagesEyebrow')}</span>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-[#183022] sm:text-4xl">{t('languagesHeadline')}</h2>
-              <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-[#617068]">
-                {t('languagesDescription')}
-              </p>
-            </div>
-            <div className="mx-auto max-w-4xl">
-              <LanguageBubbles />
-            </div>
-          </div>
-        </ScrollReveal>
-      </section>
-
-      {/* Real product entry points — visual treatment only follows the reference */}
-      <section id="features" className="juba-ff-books">
-        <div className="juba-ff-section-head">
-          <span className="juba-ff-section-tag">{t('flowEyebrow')}</span>
+      {/* PRODUCT PILLARS — real JUBA LISAN routes, presented as the reference's playful feature blocks. */}
+      <section id="features" className="juba-ref-section juba-ref-pillars">
+        <div className="juba-ref-section-heading">
+          <span className="juba-ref-kicker">{t('flowEyebrow')}</span>
           <h2>{t('flowHeadline')}</h2>
           <p>{t('flowDescription')}</p>
         </div>
-        <div className="juba-ff-book-shelf">
-          <Link href="/assessment" className="juba-ff-book book-green">
-            <div className="book-art" aria-hidden="true"><span className="book-art-mark">01</span><span>{t('flowAssessLabel')}</span></div>
-            <strong>{t('flowAssessTitle')}</strong><span>{t('flowAssessDescription')}</span>
+        <div className="juba-ref-pillar-grid">
+          <Link href="/reading" className="juba-ref-pillar pillar-mint">
+            <div className="pillar-icon"><BookOpen /></div>
+            <span>{t('languagesEyebrow')}</span>
+            <h3>{t('languagesHeadline')}</h3>
+            <p>{t('languagesDescription')}</p>
+            <ArrowRight />
           </Link>
-          <Link href="/dashboard" className="juba-ff-book book-yellow">
-            <div className="book-art" aria-hidden="true"><span className="book-art-mark">02</span><span>{t('flowPlanLabel')}</span></div>
-            <strong>{t('flowPlanTitle')}</strong><span>{t('flowPlanDescription')}</span>
+          <Link href="/listening" className="juba-ref-pillar pillar-blue">
+            <div className="pillar-icon"><Headphones /></div>
+            <span>{t('flowVoiceLabel')}</span>
+            <h3>{t('flowVoiceTitle')}</h3>
+            <p>{t('flowVoiceDescription')}</p>
+            <ArrowRight />
           </Link>
-          <Link href="/chat" className="juba-ff-book book-purple">
-            <div className="book-art" aria-hidden="true"><span className="book-art-mark">03</span><span>{t('flowAiLabel')}</span></div>
-            <strong>{t('flowAiTitle')}</strong><span>{t('flowAiDescription')}</span>
-          </Link>
-          <Link href="/conversation" className="juba-ff-book book-coral">
-            <div className="book-art" aria-hidden="true"><span className="book-art-mark">04</span><span>{t('flowVoiceLabel')}</span></div>
-            <strong>{t('flowVoiceTitle')}</strong><span>{t('flowVoiceDescription')}</span>
+          <Link href="/chat" className="juba-ref-pillar pillar-yellow">
+            <div className="pillar-icon"><MessageCircle /></div>
+            <span>{t('flowAiLabel')}</span>
+            <h3>{t('flowAiTitle')}</h3>
+            <p>{t('flowAiDescription')}</p>
+            <ArrowRight />
           </Link>
         </div>
       </section>
 
-      {/* Funfluent-style product story: every JUBA LISAN capability stays real,
-          but the presentation follows the reference from top to bottom. */}
-      <section className="juba-ff-story juba-ff-story-features">
-        <ScrollReveal>
-          <div className="juba-ff-story-inner">
-            <BentoFeatures t={t} />
-          </div>
-        </ScrollReveal>
+      {/* LANGUAGE SECTION — uses the real supported-language component. */}
+      <section id="languages" className="juba-ref-language-section">
+        <div className="juba-ref-language-copy">
+          <span className="juba-ref-kicker">{t('languagesEyebrow')}</span>
+          <h2>{t('languagesHeadline')}</h2>
+          <p>{t('languagesDescription')}</p>
+          <Link href="/register" className="juba-ref-button">{t('ctaStart')} <ArrowRight className="h-4 w-4" /></Link>
+        </div>
+        <div className="juba-ref-language-art">
+          <LanguageBubbles />
+        </div>
       </section>
 
-      <section id="demo" className="juba-ff-story juba-ff-story-ai scroll-mt-20">
-        <ScrollReveal>
-          <div className="juba-ff-story-inner">
-            <AiConversationShowcase t={t} />
+      {/* AI / VOICE STORY — one visual block instead of the old dashboard-heavy landing. */}
+      <section id="demo" className="juba-ref-ai-section">
+        <div className="juba-ref-ai-art" aria-hidden="true">
+          <div className="ai-orbit orbit-one" />
+          <div className="ai-orbit orbit-two" />
+          <div className="ai-avatar"><Sparkles /></div>
+          <div className="ai-bubble bubble-user">Can we practice today?</div>
+          <div className="ai-bubble bubble-ai">Of course — let's speak naturally.</div>
+          <div className="ai-wave"><i /><i /><i /><i /><i /><i /><i /></div>
+        </div>
+        <div className="juba-ref-ai-copy">
+          <span className="juba-ref-kicker">{t('flowAiLabel')}</span>
+          <h2>{t('flowAiTitle')}</h2>
+          <p>{t('flowAiDescription')}</p>
+          <div className="juba-ref-ai-points">
+            <span><Volume2 /> {t('proofVoice')}</span>
+            <span><Sparkles /> {t('proofTutor')}</span>
           </div>
-        </ScrollReveal>
+          <Link href="/conversation" className="juba-ref-button">{t('ctaStart')} <ArrowRight className="h-4 w-4" /></Link>
+        </div>
       </section>
 
-      <section className="juba-ff-story juba-ff-story-dashboard">
-        <ScrollReveal>
-          <div className="juba-ff-story-inner">
-            <DashboardPreview t={t} />
-          </div>
-        </ScrollReveal>
-      </section>
-
-      <section className="juba-ff-story juba-ff-story-languages">
-        <ScrollReveal>
-          <div className="juba-ff-story-inner">
-            <LanguageShowcase t={t} />
-          </div>
-        </ScrollReveal>
-      </section>
-
-      <section className="juba-ff-story juba-ff-story-learning">
-        <ScrollReveal>
-          <div className="juba-ff-story-inner">
-            <LearningExperience t={t} />
-          </div>
-        </ScrollReveal>
-      </section>
-
-      {/* Social proof — render only when real public reviews are available. */}
+      {/* REAL PUBLIC REVIEWS ONLY. */}
       {reviews.length > 0 && (
-        <section id="reviews" className="juba-ff-story juba-ff-story-reviews scroll-mt-20">
-          <ScrollReveal>
-            <div className="juba-ff-story-inner juba-ff-contained-card">
-              <LandingReviewsCarousel reviews={reviews} />
-            </div>
-          </ScrollReveal>
+        <section id="reviews" className="juba-ref-reviews">
+          <div className="juba-ref-section-heading">
+            <span className="juba-ref-kicker">{t('navReviews')}</span>
+            <h2>{t('flowHeadline')}</h2>
+          </div>
+          <div className="juba-ref-review-grid">
+            {reviews.slice(0, 6).map((review) => (
+              <article key={review.id} className="juba-ref-review-card">
+                <p>“{review.comment ?? ''}”</p>
+                <strong>{review.user_display_name || 'JUBA LISAN learner'}</strong>
+              </article>
+            ))}
+          </div>
         </section>
       )}
 
-      {/* Pricing */}
-      <section id="pricing" className="juba-ff-story juba-ff-story-pricing scroll-mt-20">
-        <ScrollReveal>
-          <div className="juba-ff-story-inner">
-            <PricingSection
-              stripeEnabled={stripeEnabled}
-              trialDays={trialDays}
-              hasSession={hasSession}
-              priceMonthly={priceMonthly}
-              priceYearly={priceYearly}
-              totalPriceMonthly={totalPriceMonthly}
-              totalPriceYearly={totalPriceYearly}
-            />
-          </div>
-        </ScrollReveal>
+      {/* REAL PRICING — existing billing/API data is untouched. */}
+      <section id="pricing" className="juba-ref-pricing">
+        <PricingSection
+          stripeEnabled={stripeEnabled}
+          trialDays={trialDays}
+          hasSession={hasSession}
+          priceMonthly={priceMonthly}
+          priceYearly={priceYearly}
+          totalPriceMonthly={totalPriceMonthly}
+          totalPriceYearly={totalPriceYearly}
+        />
       </section>
 
-      {/* Open Source Banner */}
-      <ScrollReveal>
-        <section className="juba-ff-open-source mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 pt-8">
-          <div className="juba-ff-open-source-card flex flex-col items-center justify-between gap-6 sm:flex-row">
-            <div className="flex items-center gap-4">
-              <Image
-                src="/github_white.svg"
-                alt="GitHub"
-                width={28}
-                height={28}
-                style={{ width: '28px', height: 'auto' }}
-                className="juba-ff-open-source-icon opacity-90"
-              />
-              <div className="text-left">
-                <p className="juba-ff-open-source-title font-bold text-base tracking-tight">
-                  {tBilling('openSourceTitle')}
-                </p>
-                <p className="juba-ff-open-source-desc text-xs mt-1">
-                  {tBilling('openSourceDesc')}
-                </p>
-              </div>
-            </div>
-            <a
-              href="https://github.com/abdelhadiLRS/JUBA_LISAN"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="juba-ff-open-source-cta rounded-[18px] px-6 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors whitespace-nowrap"
-            >
-              {tBilling('openSourceCta')}
-            </a>
+      <section className="juba-ref-cta">
+        <div className="juba-ref-cta-inner">
+          <div>
+            <span className="juba-ref-kicker">{t('heroBadge')}</span>
+            <h2>{t('ctaStart')}</h2>
+            <p>{t('heroSub')}</p>
+            <Link href={hasSession ? '/dashboard' : '/register'} className="juba-ref-button">
+              {hasSession ? t('dashboard') : t('ctaStart')} <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
-        </section>
-      </ScrollReveal>
-
-      {/* FAQ Section */}
-      <ScrollReveal>
-        <section
-          id="faq"
-          className="mx-auto w-full max-w-5xl scroll-mt-20 px-4 sm:px-6 pb-20"
-        >
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold tracking-tight text-[#183022]">
-              {t('faqTitle')}
-            </h2>
+          <div className="juba-ref-cta-device" aria-hidden="true">
+            <div className="device-top">JUBA LISAN</div>
+            <div className="device-star">✦</div>
+            <div className="device-lines"><i /><i /><i /></div>
           </div>
-          <LandingFAQ />
-        </section>
-      </ScrollReveal>
+        </div>
+      </section>
 
-      {/* Redesigned Footer */}
+      <section id="faq" className="juba-ref-faq">
+        <div className="juba-ref-section-heading">
+          <span className="juba-ref-kicker">{t('navFAQ')}</span>
+          <h2>{t('faqTitle')}</h2>
+        </div>
+        <LandingFAQ />
+      </section>
+
       <LandingFooter t={t} />
-    </div>
+    </main>
   )
 }
