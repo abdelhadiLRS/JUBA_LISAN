@@ -152,6 +152,38 @@ export async function submitGameAnswer(
   return response.json() as Promise<GameSessionAnswerResponse>
 }
 
+export async function answerGameSessionQuestion(
+  sessionId: string,
+  questionId: string,
+  choice: string,
+): Promise<{
+  session_id: string
+  correct: boolean
+  question?: GameSessionQuestion | null
+  finished: boolean
+  answered: number
+  total: number
+  adaptive_mode: 'new' | 'review' | 'steady' | 'challenge' | 'skill_review' | 'skill_challenge'
+}> {
+  const response = await apiFetch('/api/progress/game-session/next', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ session_id: sessionId, question_id: questionId, choice }),
+  })
+  if (!response.ok) {
+    let message = `Game answer failed (${response.status})`
+    try {
+      const payload = await response.json()
+      if (typeof payload?.detail === 'string') message = payload.detail
+      else if (Array.isArray(payload?.detail)) {
+        message = payload.detail.map((item: { msg?: string }) => item?.msg).filter(Boolean).join('; ') || message
+      }
+    } catch {}
+    throw new Error(message)
+  }
+  return response.json()
+}
+
 export async function completeGameSession(
   sessionId: string,
   answers: Array<{ question_id: string; choice: string }>,
