@@ -336,6 +336,14 @@ def test_game_answer_matches_normalizes_case_whitespace_and_terminal_punctuation
     assert not _game_answer_matches("I travel by bus", "I travel by train")
 
 
+def test_game_answer_matches_handles_space_before_terminal_punctuation():
+    from app.routers.progress import _game_answer_matches
+
+    assert _game_answer_matches("bonjour . ", "bonjour")
+    assert _game_answer_matches("Je suis prêt !", "je suis prêt")
+    assert not _game_answer_matches("Je suis prêt aujourd'hui", "je suis prêt")
+
+
 def test_game_answer_matches_accepts_authored_answer_variants():
     from app.routers.progress import _game_answer_matches
 
