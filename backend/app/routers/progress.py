@@ -1297,7 +1297,20 @@ async def _get_recent_game_mistakes(
         question["mastery_resolutions"] = int(mastery["resolutions"])
         ranked_candidates.append((float(mastery["score"]), due_at, question))
     ranked_candidates.sort(key=lambda item: (item[0], item[1]))
-    return [question for _, _, question in ranked_candidates[:limit]]
+    # Mastered items are intentionally suppressed from normal review when
+    # weaker material exists. They can still return when the learner has no
+    # other due items, preserving coverage without creating repetitive rounds.
+    active = [
+        item for item in ranked_candidates
+        if str(item[2].get("mastery_state", "")) != "mastered"
+    ]
+    selected = active[:limit]
+    if len(selected) < limit:
+        selected.extend(
+            item for item in ranked_candidates
+            if item not in selected
+        )
+    return [question for _, _, question in selected[:limit]]
 
 
 def _apply_smart_review(
@@ -1695,6 +1708,24 @@ async def start_game_session(
             plan.target_language,
             cefr_level,
         )
+        interactive_review_items = [
+            item
+            for item in await _get_recent_game_mistakes(
+                db,
+                current_user.id,
+                plan.id,
+                skill=GAME_SKILL_MAP.get(effective_game_id),
+                limit=20,
+            )
+            if item.get("source_game_id") == effective_game_id
+        ]
+        # Weak/reviewing items are exact retrieval targets. Mastered items are
+        # omitted from the preferred queue so the round can introduce fresh
+        # curriculum content instead of repeatedly drilling already-stable items.
+        interactive_review_items = [
+            item for item in interactive_review_items
+            if str(item.get("mastery_state", "")) != "mastered"
+        ]
         interaction_public, interaction_solution = _server_interactive_challenge(
             effective_game_id,
             data.language,
@@ -1702,7 +1733,7 @@ async def start_game_session(
             plan.target_language,
             cefr_level,
             preferred_topics,
-            [item for item in await _get_recent_game_mistakes(db, current_user.id, plan.id, skill=GAME_SKILL_MAP.get(effective_game_id), limit=20) if item.get("source_game_id") == effective_game_id],
+            interactive_review_items,
         )
         questions = [{
             "id": str(uuid4()),
