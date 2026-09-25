@@ -1914,20 +1914,24 @@ async def _build_multi_skill_review_questions(
         replay = dict(candidates[0])
         replay["id"] = str(uuid4())
         replay["review"] = True
-                replay["review_identity"] = str(
-                    replay.get("review_key") or _review_key(replay)
-                )
+        replay["review_identity"] = str(
+            replay.get("review_key") or _review_key(replay)
+        )
         replay["target_language"] = plan.target_language
         replay["cefr_level"] = plan.cefr_level
-        replay["difficulty"] = int(replay.get("review_difficulty", replay.get("difficulty", difficulty)))
-                replay["language"] = str(
-                    replay.get("language") or str(plan.target_language).split("-")[0] or "en"
-                )
-                replay = _apply_skill_review_variant(
-                    replay, int(replay.get("variant_seed", 0))
-                )
+        replay["difficulty"] = int(
+            replay.get("review_difficulty", replay.get("difficulty", difficulty))
+        )
+        replay["language"] = str(
+            replay.get("language")
+            or str(plan.target_language).split("-")[0]
+            or "en"
+        )
+        replay = _apply_skill_review_variant(
+            replay, int(replay.get("variant_seed", 0))
+        )
         selected.append(replay)
-        selected_keys.add(str(replay.get("review_key") or _review_key(replay)))
+        selected_keys.add(str(replay["review_identity"]))
 
     # Second pass: use additional due mistakes to fill the remaining slots,
     # still weighted toward skills with the most outstanding review pressure.
@@ -1959,7 +1963,7 @@ async def _build_multi_skill_review_questions(
                     replay, int(replay.get("variant_seed", 0))
                 )
                 selected.append(replay)
-                selected_keys.add(str(replay.get("review_key") or _review_key(replay)))
+                selected_keys.add(str(replay["review_identity"]))
 
     # Third pass: fill from the weakest skill records when the due queue is short.
     if len(selected) < 5:
