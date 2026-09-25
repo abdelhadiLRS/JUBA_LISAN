@@ -1761,19 +1761,17 @@ async def complete_game_session(
             if correct_answers != questions_answered or len(seen_pairs) != questions_answered:
                 raise HTTPException(status_code=422, detail="Memory challenge is not complete")
             for pair_id, item in solution.get("review_items", {}).items():
-                if item.get("review_key"):
-                    mistakes.append({"review_key": str(item["review_key"]), "resolved": True})
                 pair_attempts = [a for a in data.interaction_trace if str(solution.get("pairs", {}).get(str(a.get("first")), "")) == str(pair_id) or str(solution.get("pairs", {}).get(str(a.get("second")), "")) == str(pair_id)]
                 if any(solution.get("pairs", {}).get(a.get("first")) != solution.get("pairs", {}).get(a.get("second")) for a in pair_attempts):
                     question = {"skill": "memory", "topic": item.get("topic", "vocabulary"), "prompt": item.get("word", ""), "answer": item.get("definition", ""), "input_mode": "choice", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
                     mistakes.append({"review_key": str(item.get("review_key") or _review_key(question)), "review_count": 1, "next_review_at": (now + _review_interval(1)).isoformat(), "question": question})
+            for item in solution.get("review_items", {}).values():
+                if item.get("review_key"):
+                    mistakes.append({"review_key": str(item["review_key"]), "resolved": True})
         elif session.game_id == "matching":
             pairs = solution.get("pairs", {})
             matched: set[str] = set()
             correct_answers = 0
-            for item in solution.get("review_items", {}).values():
-                if item.get("review_key"):
-                    mistakes.append({"review_key": str(item["review_key"]), "resolved": True})
             for attempt in data.interaction_trace:
                 left_id, right_id = attempt.get("left"), attempt.get("right")
                 if not isinstance(left_id, str) or not isinstance(right_id, str):
@@ -1797,6 +1795,9 @@ async def complete_game_session(
                         question = {"skill": "vocabulary", "topic": item.get("topic", "vocabulary"), "prompt": item.get("word", ""), "answer": item.get("definition", ""), "input_mode": "choice", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
                         mistakes.append({"review_key": str(item.get("review_key") or _review_key(question)), "review_count": 1, "next_review_at": (now + _review_interval(1)).isoformat(), "question": question})
                         break
+            for item in solution.get("review_items", {}).values():
+                if item.get("review_key"):
+                    mistakes.append({"review_key": str(item["review_key"]), "resolved": True})
         else:
             items = {item["id"] for item in stored.get("public", {}).get("items", [])}
             target = solution.get("target", [])
@@ -1815,13 +1816,13 @@ async def complete_game_session(
             if correct_answers != 1:
                 raise HTTPException(status_code=422, detail="Ordering challenge is not complete")
             review_item = solution.get("review_items", {}).get("sentence")
-            if review_item and review_item.get("review_key"):
-                mistakes.append({"review_key": str(review_item["review_key"]), "resolved": True})
             if any(attempt != target for attempt in attempts[:-1]):
                 item = solution.get("review_items", {}).get("sentence")
                 if item:
                     question = {"skill": "grammar", "topic": item.get("topic", "grammar"), "prompt": item.get("sentence", ""), "answer": item.get("sentence", ""), "input_mode": "text", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
                     mistakes.append({"review_key": str(item.get("review_key") or _review_key(question)), "review_count": 1, "next_review_at": (now + _review_interval(1)).isoformat(), "question": question})
+            if review_item and review_item.get("review_key"):
+                mistakes.append({"review_key": str(review_item["review_key"]), "resolved": True})
     else:
         expected = {item["id"]: item for item in session.questions}
         if len(data.answers) != len(expected) or set(item.question_id for item in data.answers) != set(expected):
