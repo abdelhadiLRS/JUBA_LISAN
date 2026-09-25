@@ -353,6 +353,26 @@ def test_review_interval_progresses_with_review_count():
     assert progress_router._review_interval(99).total_seconds() == 7 * 24 * 60 * 60
 
 
+def test_review_adaptive_difficulty_tracks_mastery_and_streak():
+    assert progress_router._review_adaptive_difficulty(2, 0, 0.2) == 1
+    assert progress_router._review_adaptive_difficulty(2, 0, 0.5) == 2
+    assert progress_router._review_adaptive_difficulty(2, 1, 0.7) == 3
+    assert progress_router._review_adaptive_difficulty(2, 2, 0.9) == 3
+    assert progress_router._review_adaptive_difficulty(3, 2, 0.9) == 3
+
+
+def test_review_variant_seed_is_stable_but_changes_with_streak():
+    question = {
+        "skill": "vocabulary",
+        "topic": "daily-life",
+        "prompt": "Choose the correct word",
+        "answer": "hello",
+    }
+    first = progress_router._review_variant_seed(question, 1)
+    assert first == progress_router._review_variant_seed(question, 1)
+    assert first != progress_router._review_variant_seed(question, 2)
+
+
 def test_review_stage_progresses_with_success_streak():
     assert progress_router._review_stage(0) == "relearning"
     assert progress_router._review_stage(1) == "short"
