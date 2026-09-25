@@ -412,3 +412,10 @@ def test_game_answer_matches_normalizes_unicode_composition_and_apostrophes():
     assert _game_answer_matches("J\u2019aime apprendre.", "j'aime apprendre")
     assert not _game_answer_matches("cafe", "caf\u00e9")
 
+def test_game_answer_matches_normalizes_compatibility_unicode_and_fullwidth_punctuation():
+    from app.routers.progress import _game_answer_matches
+
+    assert _game_answer_matches("ＨＥＬＬＯ！", "hello")
+    assert _game_answer_matches("ﬁrst", "first")
+    assert not _game_answer_matches("resume", "résumé")
+
