@@ -214,6 +214,7 @@ class GameSessionResultResponse(GameStatsResponse):
     round_correct: int
     round_questions: int
     xp_earned: int
+    skill_results: dict[str, dict[str, float | int]] = Field(default_factory=dict)
     new_achievements: list[str] = Field(default_factory=list)
 
 
