@@ -2,6 +2,7 @@ import pytest
 
 from app.routers.progress import (
     _apply_smart_review,
+    _prioritize_curriculum_entries,
     _server_game_questions,
     _server_interactive_challenge,
 )
@@ -104,3 +105,25 @@ def test_smart_review_keeps_server_answer_private_from_public_projection():
 
     assert "answer" not in public
     assert reviewed[0]["answer"] == "secret-answer"
+
+
+
+def test_curriculum_topic_priority_keeps_weak_topic_majority_and_diversity():
+    entries = [
+        (f"travel-{index}", "travel") for index in range(6)
+    ] + [
+        (f"food-{index}", "food") for index in range(6)
+    ]
+    selected = _prioritize_curriculum_entries(entries, ["travel"], count=5)
+    selected_topics = [topic for entry in selected for candidate, topic in entries if candidate == entry]
+
+    assert len(selected) == 5
+    assert selected_topics.count("travel") >= 3
+    assert selected_topics.count("food") >= 1
+
+
+def test_curriculum_topic_priority_without_history_remains_broad():
+    entries = [("one", "travel"), ("two", "food"), ("three", "school"), ("four", "home"), ("five", "work")]
+    selected = _prioritize_curriculum_entries(entries, None, count=5)
+
+    assert set(selected) == {entry for entry, _topic in entries}
