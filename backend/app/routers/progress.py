@@ -1905,16 +1905,104 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
     replay["variant"] = f"curriculum-{variant + 1}" if (
         skill in {"grammar", "listening", "speaking"} and replay != question
     ) else f"surface-{variant + 1}"
-    replay["mechanic_variant"] = _review_mechanic_variant(
-        skill,
-        strategy,
-        variant,
-    )
+
+    # The variant is now an instructional mechanic, not only a telemetry label.
+    # Reuse authored CEFR content so the answer remains verifiable server-side.
+    mechanic = _review_mechanic_variant(skill, strategy, variant)
+    replay["mechanic_variant"] = mechanic
+    target_language = str(replay.get("target_language", "en-GB"))
+    cefr = cast(CEFRLevel, replay.get("cefr_level", "A1"))
+
+    if skill == "vocabulary" and mechanic == "semantic_category":
+        word = str(replay.get("word", "")).strip()
+        answer = str(replay.get("answer", "")).strip()
+        try:
+            sets = get_vocabulary_by_level(cefr, target_language)
+            topic_entries = [
+                entry for vocab_set in sets if (not topic or vocab_set.topic == topic)
+                for entry in vocab_set.words
+                if entry.definition.strip() and entry.definition.strip() != answer
+            ]
+            # Same-topic distractors make the semantic-category mechanic
+            # meaningfully harder than generic definition recall.
+            distractors = [entry.definition.strip() for entry in topic_entries[:8]]
+            distractors = list(dict.fromkeys(distractors))[:3]
+            if word and answer and len(distractors) >= 2:
+                choices = [answer, *distractors]
+                random.Random(max(0, int(seed))).shuffle(choices)
+                replay["choices"] = choices
+        except (KeyError, TypeError, ValueError):
+            pass
+
+    if skill == "vocabulary" and mechanic == "contextual_production":
+        word = str(replay.get("word", "")).strip()
+        if word:
+            examples: list[str] = []
+            try:
+                sets = get_vocabulary_by_level(cefr, target_language)
+                examples = [
+                    entry.example.strip()
+                    for vocab_set in sets
+                    for entry in vocab_set.words
+                    if entry.word.strip().casefold() == word.casefold() and entry.example.strip()
+                ]
+            except (KeyError, TypeError, ValueError):
+                examples = []
+            if examples:
+                replay["prompt"] = (
+                    f"Complete the context with the target word:\n{examples[max(0, int(seed)) % len(examples)]}"
+                    if language == "en"
+                    else f"Complète le contexte avec le mot cible :\n{examples[max(0, int(seed)) % len(examples)]}"
+                    if language == "fr"
+                    else f"أكمل السياق بالكلمة المستهدفة:\n{examples[max(0, int(seed)) % len(examples)]}"
+                )
+                replay["answer"] = word
+                replay["input_mode"] = "text"
+                replay["choices"] = []
+
+    if skill == "grammar" and mechanic == "guided_production":
+        surface = prompt.split("\n", 1)[-1].strip()
+        correct = str(replay.get("answer", "")).strip()
+        replay["prompt"] = (
+            f"Complete with the correct form:\n{surface}"
+            if language == "en"
+            else f"Complète avec la forme correcte :\n{surface}"
+            if language == "fr"
+            else f"أكمل بالصيغة الصحيحة:\n{surface}"
+        )
+        replay["answer"] = correct
+        replay["input_mode"] = "text"
+        replay["choices"] = []
+
+    if skill == "listening" and mechanic == "audio_transfer":
+        target_word = str(replay.get("answer", "")).strip()
+        if target_word:
+            replay["prompt"] = (
+                "Listen and type the target word."
+                if language == "en"
+                else "Écoute et écris le mot cible."
+                if language == "fr"
+                else "استمع واكتب الكلمة المستهدفة."
+            )
+            replay["input_mode"] = "text"
+            replay["choices"] = []
+
+    if skill == "writing" and mechanic == "free_production":
+        replay["prompt"] = (
+            f"Write the target-language sentence:\n{replay.get('prompt', '').split(chr(92) + 'n', 1)[-1].strip()}"
+            if language == "en"
+            else f"Écris la phrase dans la langue cible :\n{replay.get('prompt', '').split(chr(92) + 'n', 1)[-1].strip()}"
+            if language == "fr"
+            else f"اكتب الجملة باللغة المستهدفة:\n{replay.get('prompt', '').split(chr(92) + 'n', 1)[-1].strip()}"
+        )
+        replay["input_mode"] = "text"
+        replay["choices"] = []
+
     return replay
 
 
 def _review_mechanic_variant(skill: str, strategy: str, variant: int) -> str:
-    """Return a stable mechanic variant label for analytics and UI telemetry."""
+    """Return the mechanic variant that is actually being applied."""
     variant_names = {
         "vocabulary": ("definition_recall", "semantic_category", "contextual_production"),
         "grammar": ("form_selection", "gap_fill", "guided_production"),
@@ -1923,8 +2011,13 @@ def _review_mechanic_variant(skill: str, strategy: str, variant: int) -> str:
         "speaking": ("guided_response", "context_response", "open_response"),
     }
     names = variant_names.get(str(skill), ("recall", "recognition", "transfer"))
-    normalized = max(0, min(2, int(variant)))
-    return names[normalized]
+    strategy_index = {
+        "direct_recall": 0,
+        "recognition": 1,
+        "contextual_transfer": 2,
+        "production": 2,
+    }.get(str(strategy), max(0, min(2, int(variant))))
+    return names[strategy_index]
 
 
 def _review_adaptive_difficulty(requested_difficulty: int, review_count: int, mastery_score: float) -> int:
