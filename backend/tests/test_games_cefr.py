@@ -234,3 +234,28 @@ def test_item_mastery_filters_language_and_cefr():
 
     assert mastery["state"] == "new"
     assert mastery["misses"] == 0
+
+
+def test_item_mastery_score_prioritizes_weak_over_mastered():
+    key_weak = "vocabulary:travel:weak:bonjour"
+    key_mastered = "vocabulary:travel:mastered:salut"
+    base = datetime(2026, 1, 1)
+    question = {"skill": "vocabulary", "target_language": "fr", "cefr_level": "A1"}
+    weak_events = [
+        _mastery_event(base, key_weak, question=question),
+        _mastery_event(base + timedelta(days=1), key_weak, question=question),
+        _mastery_event(base + timedelta(days=2), key_weak, question=question),
+    ]
+    mastered_events = [
+        _mastery_event(base, key_mastered, question=question),
+        _mastery_event(base + timedelta(days=1), key_mastered, resolved=True),
+        _mastery_event(base + timedelta(days=2), key_mastered, resolved=True),
+        _mastery_event(base + timedelta(days=3), key_mastered, resolved=True),
+    ]
+
+    weak = _item_mastery_from_events(weak_events, key_weak, "vocabulary", "fr", "A1")
+    mastered = _item_mastery_from_events(mastered_events, key_mastered, "vocabulary", "fr", "A1")
+
+    assert float(weak["score"]) < float(mastered["score"])
+    assert weak["state"] == "weak"
+    assert mastered["state"] == "mastered"
