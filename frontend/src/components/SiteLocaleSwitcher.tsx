@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Check, ChevronDown, Languages } from 'lucide-react'
 import type { Locale } from '@/lib/locales'
 
@@ -20,15 +21,37 @@ const LOCALES: Array<{ code: Locale; label: string; native: string }> = [
 
 export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
+
+  // Landing has its own full region/language control in the header.
+  // This global control covers auth, legal, onboarding and the app shell.
+  const isLandingRoute = useMemo(() => {
+    const segments = pathname.split('/').filter(Boolean)
+    return (
+      segments.length === 0 ||
+      (segments.length === 1 && LOCALES.some((item) => item.code === segments[0]))
+    )
+  }, [pathname])
 
   function selectLocale(next: Locale) {
     if (next === locale) {
       setOpen(false)
       return
     }
+
     document.cookie = `NEXT_LOCALE=${next}; Path=/; Max-Age=31536000; SameSite=Lax`
-    window.location.reload()
+
+    const segments = pathname.split('/').filter(Boolean)
+    const hasLocalePrefix =
+      segments.length > 0 && LOCALES.some((item) => item.code === segments[0])
+    const cleanPath = hasLocalePrefix
+      ? `/${segments.slice(1).join('/')}`
+      : pathname
+
+    window.location.assign(`/${next}${cleanPath === '/' ? '' : cleanPath}`)
   }
+
+  if (isLandingRoute) return null
 
   const current = LOCALES.find((item) => item.code === locale) ?? LOCALES[0]
 
