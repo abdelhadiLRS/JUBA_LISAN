@@ -590,6 +590,37 @@ def _server_game_questions(
                 "input_mode": "choice",
             })
             continue
+        if game_id == "listening_detective":
+            assert word_entries is not None
+            entry = word_entries[index]
+            alternatives = [
+                item.word.strip()
+                for item in word_entries
+                if item.word.strip().casefold() != entry.word.strip().casefold()
+            ]
+            rng.shuffle(alternatives)
+            choices = list(dict.fromkeys([entry.word.strip(), *alternatives]))[:4]
+            if len(choices) < 4:
+                raise HTTPException(status_code=503, detail="Not enough listening distractors")
+            rng.shuffle(choices)
+            questions.append({
+                "id": question_id,
+                "prompt": (
+                    "Listen and choose the word you hear."
+                    if language == "en"
+                    else hints.get(language, hints["en"])
+                ),
+                "choices": choices,
+                "answer": entry.word.strip(),
+                "hint": entry.definition.strip() or hints.get(language, hints["en"]),
+                "skill": "listening",
+                "difficulty": difficulty,
+                "topic": "cefr-listening",
+                "input_mode": "choice",
+                "audio_text": entry.example.strip(),
+                "audio_language": target_language,
+            })
+            continue
         if game_id == "word_categories":
             # Derive categories from the active CEFR vocabulary curriculum.
             vocab_sets = get_vocabulary_by_level(cefr_level, target_language)
