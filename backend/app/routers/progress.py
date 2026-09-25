@@ -1204,10 +1204,24 @@ async def get_smart_review(
         "writing": "translation_sprint",
         "speaking": "context_quest",
     }
+
+    # Due mistakes take precedence because they are explicit retrieval targets.
+    # If there are no due mistakes, fall back to the weakest persisted skill so
+    # the review center still gives the learner a concrete next activity.
     recommended_skill = next(
         (skill for skill in priority if skill_counts.get(skill, 0)),
         None,
     )
+    if recommended_skill is None:
+        skills = await _get_game_skills(db, current_user.id, plan)
+        ranked = [
+            (skill, float(score))
+            for skill, score in skills.items()
+            if skill in game_for_skill and isinstance(score, (int, float))
+        ]
+        ranked.sort(key=lambda item: (item[1], priority.index(item[0])))
+        recommended_skill = ranked[0][0] if ranked else None
+
     return {
         "due_count": len(due_items),
         "skills": skill_counts,
