@@ -2518,8 +2518,16 @@ async def start_game_session(
             cast(CEFRLevel, plan.cefr_level),
         )
     daily_challenge_date = now.date().isoformat() if effective_game_id == _daily_game_id(now.date()) else ""
-    if effective_game_id not in {"memory", "matching", "ordering", "sentence_builder"}:
-        questions = [dict(item, _answered=False, _served=(index == 0)) for index, item in enumerate(questions)]
+    if effective_game_id not in {"memory", "matching", "ordering", "sentence_builder", "review_mix"}:
+        # Only the first generic question is issued at session start. Subsequent
+        # questions are generated after each validated answer so the client
+        # cannot inspect the future pool and difficulty can adapt per answer.
+        questions = [dict(questions[0], _answered=False, _served=True)] if questions else []
+    elif effective_game_id == "review_mix":
+        questions = [
+            dict(item, _answered=False, _served=(index == 0))
+            for index, item in enumerate(questions)
+        ]
 
     session = GameSession(
         id=session_id,
@@ -2566,7 +2574,7 @@ async def answer_game_session_question(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Validate one generic answer and return the next server-owned question."""
+    """Validate one generic answer and issue the next server-owned question."""
     session = await db.get(GameSession, data.session_id)
     if session is None or session.user_id != current_user.id:
         raise HTTPException(status_code=404, detail="Game session not found")
@@ -2603,58 +2611,87 @@ async def answer_game_session_question(
     attempts = list(current.get("_attempts") or [])
     attempts.append({"choice": data.choice, "correct": bool(correct)})
     current["_attempts"] = attempts
-
-    if not correct:
-        miss_count = sum(1 for attempt in attempts if not bool(attempt.get("correct")))
-        adapted = _adapt_question_after_session_miss(current, miss_count)
-        current["difficulty"] = adapted.get("difficulty", current.get("difficulty", session.difficulty))
-        current["retry_stage"] = adapted.get("retry_stage", "retry")
-        questions[index] = current
-        session.questions = questions
-        await db.commit()
-
-        public = {
-            key: adapted.get(key)
-            for key in (
-                "id", "prompt", "choices", "hint", "skill", "difficulty",
-                "input_mode", "audio_text", "audio_language",
-            )
-        }
-        return GameSessionNextResponse(
-            session_id=session.id,
-            correct=False,
-            question=public,
-            finished=False,
-            answered=sum(1 for item in questions if item.get("_answered")),
-            total=len(questions),
-            adaptive_mode="skill_review" if miss_count >= 2 else "review",
-        )
-
     current["_answered"] = True
     current["_submitted"] = data.choice
     questions[index] = current
 
     answered = sum(1 for item in questions if item.get("_answered"))
-    total = len(questions)
-    remaining = next((item for item in questions if not item.get("_answered")), None)
+    total = 5
 
-    if remaining is None:
+    if answered >= total:
         session.questions = questions
         await db.commit()
         return GameSessionNextResponse(
             session_id=session.id,
-            correct=True,
+            correct=bool(correct),
             question=None,
             finished=True,
             answered=answered,
             total=total,
-            adaptive_mode="steady",
+            adaptive_mode="skill_review" if not correct else "challenge" if int(current.get("difficulty", session.difficulty)) < 3 else "steady",
         )
 
+    # Mixed review already has a server-owned five-item pool. Never regenerate
+    # it here, because its identities and review ledger metadata must remain
+    # stable across the round.
+    if session.game_id == "review_mix":
+        remaining = next(
+            (item for item in questions if not item.get("_served")),
+            None,
+        )
+        if remaining is None:
+            raise HTTPException(status_code=409, detail="Review session has no remaining question")
+        remaining["_served"] = True
+        next_question = remaining
+        next_mode = "review"
+    else:
+        # Adapt the next question from the answer just submitted. Correct
+        # answers step up one difficulty; misses step down and keep the same
+        # learning skill/topic so the learner gets targeted practice.
+        current_skill = str(current.get("skill") or GAME_SKILL_MAP.get(session.game_id, "vocabulary"))
+        current_topic = str(current.get("topic") or "").strip()
+        next_difficulty = (
+            min(3, int(current.get("difficulty", session.difficulty)) + 1)
+            if correct
+            else max(1, int(current.get("difficulty", session.difficulty)) - 1)
+        )
+        preferred_topics = [current_topic] if current_topic and not correct else None
+        plan = await db.get(StudyPlan, session.study_plan_id)
+        if plan is None:
+            raise HTTPException(status_code=409, detail="Study plan no longer exists")
+        cefr_level = cast(CEFRLevel, plan.cefr_level)
+        generated = _server_game_questions(
+            session.game_id,
+            session.language,
+            next_difficulty,
+            plan.target_language,
+            cefr_level,
+            preferred_topics,
+        )
+        if not generated:
+            raise HTTPException(status_code=503, detail="Unable to generate the next game question")
+
+        # Prefer a question with the same skill after a miss. For generated
+        # single-skill games this is normally guaranteed by the game map, but
+        # keeping the selection explicit protects mixed/future game banks.
+        next_question = next(
+            (item for item in generated if str(item.get("skill") or "") == current_skill),
+            generated[0],
+        )
+        next_question = dict(next_question, _answered=False, _served=True)
+        next_mode = (
+            "skill_review" if not correct and str(next_question.get("skill") or "") == current_skill
+            else "review" if not correct
+            else "challenge" if next_difficulty > int(current.get("difficulty", session.difficulty))
+            else "steady"
+        )
+
+    questions.append(next_question)
     session.questions = questions
     await db.commit()
+
     public_next = {
-        key: remaining.get(key)
+        key: next_question.get(key)
         for key in (
             "id", "prompt", "choices", "hint", "skill", "difficulty",
             "input_mode", "audio_text", "audio_language",
@@ -2662,12 +2699,12 @@ async def answer_game_session_question(
     }
     return GameSessionNextResponse(
         session_id=session.id,
-        correct=True,
+        correct=bool(correct),
         question=public_next,
         finished=False,
         answered=answered,
         total=total,
-        adaptive_mode="challenge" if int(remaining.get("difficulty", 1)) >= int(session.difficulty) + 1 else "steady",
+        adaptive_mode=next_mode,
     )
 
 
