@@ -8,6 +8,7 @@ import {
   type AchievementId,
 } from '@/lib/games/achievements'
 import {
+  answerGameSessionQuestion,
   completeGameSession,
   startGameSession,
   gameLanguageForTargetLanguage,
@@ -498,17 +499,26 @@ export default function GamesPage() {
     }
   }
 
-  function next() {
-    if (!game || !question) return
-    if (round >= ROUND_SIZE - 1) {
-      void finishRound()
-      return
+  async function next() {
+    if (!game || !question || !sessionId || finishing) return
+    setFinishing(true)
+    try {
+      const server = await answerGameSessionQuestion(sessionId, question.id, selected ?? '')
+      setRoundScore((score) => score + (server.correct ? 1 : 0))
+      setAdaptiveMode(server.adaptive_mode)
+      setSelected(null)
+      setInputValue('')
+      if (server.finished) {
+        await finishRound()
+        return
+      }
+      setRound((current) => current + 1)
+      setQuestion(server.question ?? null)
+    } catch (error) {
+      setGameError(error instanceof Error ? error.message : 'Unable to load the next question')
+    } finally {
+      setFinishing(false)
     }
-    const nextRound = round + 1
-    setRound(nextRound)
-    setSelected(null)
-    setInputValue('')
-    setQuestion(sessionQuestions[nextRound] ?? null)
   }
 
   return (
