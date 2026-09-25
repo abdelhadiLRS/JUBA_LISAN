@@ -839,7 +839,7 @@ describe('createAudioQueue', () => {
       throw new Error('decode failed')
     }) as typeof ctx.decodeAudioData
 
-    let revokeObjectURL!: ReturnType<typeof vi.fn>
+    const revokeObjectURL = vi.fn()
     const queueRef: { cancel?: () => void } = {}
     const audio = {
       src: 'blob:racing-fallback',
@@ -853,7 +853,6 @@ describe('createAudioQueue', () => {
       queueRef.cancel?.()
       return audio
     }))
-    revokeObjectURL = vi.fn()
     vi.stubGlobal('URL', {
       createObjectURL: vi.fn(() => 'blob:racing-fallback'),
       revokeObjectURL,
