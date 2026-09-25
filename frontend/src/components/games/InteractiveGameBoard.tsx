@@ -116,7 +116,12 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
         const a = current.find(item => item.id === firstId)
         const b = current.find(item => item.id === card.id)
         const samePair = Boolean(a && b && a.pair_key === b.pair_key)
-        if (!samePair) return current.map(item => item.id === firstId || item.id === card.id ? { ...item, flipped: false } : item)
+        if (!samePair) {
+          const misses = memoryRetryCount(firstId) + 1
+          setRetryStage(misses >= 3 ? 'guided_retrieval' : misses >= 2 ? 'focused_retrieval' : 'retry')
+          return current.map(item => item.id === firstId || item.id === card.id ? { ...item, flipped: false } : item)
+        }
+        setRetryStage('initial')
         return current.map(item => item.id === firstId || item.id === card.id ? { ...item, matched: true } : item)
       })
     }, 350)
