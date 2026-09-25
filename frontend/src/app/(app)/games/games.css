@@ -366,3 +366,23 @@
 .smart-review-priority.priority-low {
   opacity: 0.7;
 }
+
+
+/* In-session retrieval guidance: the board changes presentation after repeated misses without revealing the answer. */
+.interactive-retry {
+  margin: 0.5rem 0;
+  padding: 0.65rem 0.8rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.retry-focus {
+  animation: retry-focus-pulse 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes retry-focus-pulse {
+  from { transform: translateY(0); }
+  to { transform: translateY(-2px); }
+}
