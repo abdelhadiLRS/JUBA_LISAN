@@ -90,7 +90,7 @@ const FLAG_PATHS: Record<string, string> = {
 }
 
 function withCapabilities(
-  language: Omit<TargetLanguage, keyof TargetLanguageCapability>
+  language: Omit<TargetLanguage, keyof TargetLanguageCapability | 'flagPath'>
 ): TargetLanguage {
   return {
     ...language,
