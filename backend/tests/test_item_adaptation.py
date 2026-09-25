@@ -419,3 +419,12 @@ def test_game_answer_matches_normalizes_compatibility_unicode_and_fullwidth_punc
     assert _game_answer_matches("ﬁrst", "first")
     assert not _game_answer_matches("resume", "résumé")
 
+
+def test_game_answer_matches_ignores_arabic_diacritics_and_tatweel():
+    from app.routers.progress import _game_answer_matches
+
+    assert _game_answer_matches("مُدَرِّس", "مدرس")
+    assert _game_answer_matches("السَّلام", "السلام")
+    assert _game_answer_matches("مـدرسة", "مدرسة")
+    # Hamza is lexical, not a diacritic to discard.
+    assert not _game_answer_matches("سأل", "سال")
