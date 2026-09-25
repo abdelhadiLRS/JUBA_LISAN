@@ -474,13 +474,17 @@ export default function AssessmentPage() {
         selectedGoals={selectedGoals}
         onSelectDuration={setDurationOption}
         onToggleGoal={(goal) => setSelectedGoals((prev) => prev.includes(goal) ? prev.filter((g) => g !== goal) : [...prev, goal])}
-        onConfirm={handleComplete}
+        onConfirm={() => {
+          setError('')
+          void handleComplete()
+        }}
         onBack={() => {
           const isBeginner = result?.score === 0 && result?.cefr_level === 'A1' && answers.length === 0
           setStep(isBeginner ? 'beginner-gate' : 'result')
         }}
         cefr_level={selectedLevel}
         loading={submitting}
+        error={error}
       />
     )
   }
