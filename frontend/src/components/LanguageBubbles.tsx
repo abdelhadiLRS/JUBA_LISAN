@@ -132,7 +132,7 @@ function WorldMap({
   )
 }
 
-export function LanguageBubbles() {
+export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   const t = useTranslations('landing')
   const locale = useLocale() === 'ar' ? 'ar' : 'en'
   const countryName = (code: string) => COUNTRY_NAMES[code]?.[locale] ?? code
@@ -200,7 +200,7 @@ export function LanguageBubbles() {
   }, [])
 
   return (
-    <div className="relative overflow-hidden rounded-[36px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] p-3 shadow-[6px_6px_0_var(--juba-app-ink)] sm:p-5">
+    <div dir={dir} className="relative overflow-hidden rounded-[36px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] p-3 shadow-[6px_6px_0_var(--juba-app-ink)] sm:p-5">
       <div className="relative min-h-[430px] overflow-hidden rounded-[28px] border border-[var(--juba-app-line)] bg-[#f5f8f1] sm:min-h-[560px]">
         <WorldMap
           highlightedCountries={activeRegion ? (regionCountries.get(activeRegion) ?? new Set<string>()) : selectedCountries}
@@ -237,7 +237,7 @@ export function LanguageBubbles() {
         </div>
 
         <div className="absolute inset-0 z-10">
-          <div className="absolute right-3 top-20 z-20 hidden max-w-[230px] rounded-2xl border border-[var(--juba-app-line)] bg-white/95 p-3 shadow-sm lg:block">
+          <div className={(dir === 'rtl' ? 'absolute left-3' : 'absolute right-3') + ' top-20 z-20 hidden max-w-[230px] rounded-2xl border border-[var(--juba-app-line)] bg-white/95 p-3 shadow-sm lg:block">
             <p className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">{t('mapCoverage')}</p>
             <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">
               {t('mapCoverageDescription')}
@@ -293,7 +293,7 @@ export function LanguageBubbles() {
           })}
 
           {activeCountry && (
-            <div className="absolute right-3 top-20 z-20 max-w-[250px] rounded-2xl border border-[var(--juba-app-line)] bg-white p-4 shadow-sm lg:right-6">
+            <div className={(dir === 'rtl' ? 'absolute left-3 lg:left-6' : 'absolute right-3 lg:right-6') + ' top-20 z-20 max-w-[250px] rounded-2xl border border-[var(--juba-app-line)] bg-white p-4 shadow-sm lg:right-6">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <span className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">{t('countryLanguages')}</span>
@@ -324,7 +324,7 @@ export function LanguageBubbles() {
           )}
 
           {selected && selectedRegion && (
-            <div className="absolute bottom-20 left-3 z-20 max-w-[calc(100%-1.5rem)] rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[4px_4px_0_var(--juba-app-ink)] sm:bottom-24 sm:left-6 sm:max-w-[280px]">
+            <div className={(dir === 'rtl' ? 'absolute bottom-20 right-3 sm:right-6' : 'absolute bottom-20 left-3 sm:left-6') + ' z-20 max-w-[calc(100%-1.5rem)] rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[4px_4px_0_var(--juba-app-ink)] sm:bottom-24 sm:left-6 sm:max-w-[280px]">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <span className="text-[9px] font-black uppercase tracking-[.18em] text-[var(--juba-app-green)]">{t(selectedRegion.key)}</span>
