@@ -176,7 +176,12 @@ def _server_interactive_challenge(
             source_entry = sentence_entries[0]
             source = source_entry.example.strip().split()
 
-        else:\n            count = {1: 3, 2: 4, 3: 5}[difficulty]\n            ordered_entries = cefr_entries[:count]\n            if len(ordered_entries) < count:\n                raise ValueError(f"No vocabulary content for {target_language} at {cefr_level}")\n            source = [entry.word.strip() for entry in ordered_entries]
+        else:
+            count = {1: 3, 2: 4, 3: 5}[difficulty]
+            ordered_entries = cefr_entries[:count]
+            if len(ordered_entries) < count:
+                raise ValueError(f"No vocabulary content for {target_language} at {cefr_level}")
+            source = [entry.word.strip() for entry in ordered_entries]
         items = [{"id": str(uuid4()), "label": label} for label in source]
         shuffled = list(items)
         rng.shuffle(shuffled)
@@ -1714,7 +1719,7 @@ async def complete_game_session(
             correct_answers = 1 if attempts and attempts[-1] == target else 0
             if correct_answers != 1:
                 raise HTTPException(status_code=422, detail="Ordering challenge is not complete")
-            if len(attempts) > 1 and attempts[-1] != target:
+            if any(attempt != target for attempt in attempts[:-1]):
                 item = solution.get("review_items", {}).get("sentence")
                 if item:
                     question = {"skill": "grammar", "topic": item.get("topic", "grammar"), "prompt": item.get("sentence", ""), "answer": item.get("sentence", ""), "input_mode": "text", "target_language": plan.target_language, "cefr_level": plan.cefr_level}
