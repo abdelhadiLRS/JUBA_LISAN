@@ -74,6 +74,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
   }, [completed, onComplete, saving])
 
   const memoryRetryCount = (id: string) => memoryTrace.filter(attempt => {
+    if (!('first' in attempt) || !('second' in attempt)) return false
     if (attempt.first !== id && attempt.second !== id) return false
     const firstCard = challenge?.type === 'memory' ? challenge.cards.find(card => card.id === attempt.first) : undefined
     const secondCard = challenge?.type === 'memory' ? challenge.cards.find(card => card.id === attempt.second) : undefined
@@ -81,6 +82,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
   }).length
 
   const matchingRetryCount = (id: string) => matchingTrace.filter(attempt => {
+    if (!('left' in attempt) || !('right' in attempt)) return false
     if (attempt.left !== id) return false
     const leftItem = challenge?.type === 'matching' ? challenge.left.find(item => item.id === attempt.left) : undefined
     const rightItem = challenge?.type === 'matching' ? challenge.right.find(item => item.id === attempt.right) : undefined
