@@ -2114,9 +2114,13 @@ async def _build_multi_skill_review_questions(
                 selected_keys.add(str(replay["review_identity"]))
                 selected_skills.add(str(replay.get("skill", skill)))
 
-    # Third pass: fill from the weakest skill records when the due queue is short.
+    # Third pass: fill missing skill coverage before repeating a skill.
+    # This keeps a mixed round genuinely multi-skill when several competencies
+    # have no due mistakes but are weak enough to warrant fresh retrieval.
     if len(selected) < 5:
         for skill in ranked_skills:
+            if skill in selected_skills:
+                continue
             if len(selected) >= 5:
                 break
             game_id = game_for_skill[skill]
