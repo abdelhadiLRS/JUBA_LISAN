@@ -200,6 +200,17 @@ export default function GamesPage() {
           due_count: Number(data.due_count) || 0,
           skills: data.skills && typeof data.skills === 'object' ? data.skills as Record<string, number> : {},
           recommended_game: recommended,
+          items: Array.isArray(data.items)
+            ? data.items.filter((item) => item && typeof item === 'object').map((item) => ({
+                review_key: String(item.review_key ?? ''),
+                skill: String(item.skill ?? ''),
+                topic: String(item.topic ?? ''),
+                prompt: String(item.prompt ?? ''),
+                review_count: Number(item.review_count) || 0,
+                due_at: String(item.due_at ?? ''),
+                source_game_id: String(item.source_game_id ?? ''),
+              }))
+            : [],
         })
       })
       .catch(() => {})
@@ -239,7 +250,7 @@ export default function GamesPage() {
 
   const [gameError, setGameError] = useState<string | null>(null)
 
-  async function startGame(id: GameId, daily = false) {
+  async function startGame(id: GameId, daily = false, review = false) {
     if (daily && dailyCompletedToday) return
     setGameError(null)
 
@@ -280,7 +291,7 @@ export default function GamesPage() {
         return
       }
 
-      const session = await startGameSession(id, contentLanguage, difficultyForGame(id))
+      const session = await startGameSession(id, contentLanguage, difficultyForGame(id), review)
       setGame(id)
       setDailyMode(session.daily_challenge)
       setDailyChallengeDate(session.daily_challenge_date)
@@ -447,7 +458,7 @@ export default function GamesPage() {
               <button
                 type="button"
                 className="daily-challenge"
-                onClick={() => startGame(smartReview.recommended_game as GameId)}
+                onClick={() => startGame(smartReview.recommended_game as GameId, false, true)}
               >
                 <span className="daily-icon">🧠</span>
                 <span>
@@ -456,6 +467,26 @@ export default function GamesPage() {
                 </span>
                 <span className="start">{smartReviewStart} →</span>
               </button>
+            )}
+
+            {smartReview.due_count > 0 && smartReview.items.length > 0 && (
+              <section className="games-panel smart-review-queue" aria-label={smartReviewTitle}>
+                <h3>{smartReviewTitle}</h3>
+                <div className="mini-stats">
+                  {Object.entries(smartReview.skills).map(([skill, count]) => (
+                    <span key={skill}><b>{count}</b>{skill}</span>
+                  ))}
+                </div>
+                <div className="smart-review-list">
+                  {smartReview.items.slice(0, 5).map((item) => (
+                    <div key={item.review_key} className="smart-review-item">
+                      <span className="smart-review-skill">{item.skill}</span>
+                      <strong>{item.prompt}</strong>
+                      <small>{item.review_count > 0 ? 'Reviews: ' + item.review_count : 'First review'}</small>
+                    </div>
+                  ))}
+                </div>
+              </section>
             )}
 
             <section className="game-grid">
