@@ -1288,17 +1288,18 @@ async def _get_recent_game_mistakes(
     db: AsyncSession,
     user_id: int,
     plan_id: int,
-    game_id: str,
+    game_id: str | None = None,
     limit: int = 3,
+    skill: str | None = None,
 ) -> list[dict]:
-    """Return due missed items while respecting successful review resolutions."""
-    result = await db.execute(
-        select(GameProgressEvent)
-        .where(
-            GameProgressEvent.user_id == user_id,
-            GameProgressEvent.study_plan_id == plan_id,
-            GameProgressEvent.game_id == game_id,
-        )
+    """Return due missed items, optionally scoped by game or learning skill."""
+    query = select(GameProgressEvent).where(
+        GameProgressEvent.user_id == user_id,
+        GameProgressEvent.study_plan_id == plan_id,
+    )
+    if game_id:
+        query = query.where(GameProgressEvent.game_id == game_id)
+    result = await db.execute(query
         .order_by(GameProgressEvent.created_at.desc())
         .limit(30)
     )
@@ -1323,7 +1324,12 @@ async def _get_recent_game_mistakes(
                 resolved.add(key)
                 continue
             question = item.get("question")
-            if not isinstance(question, dict) or key in resolved or key in seen:
+            if (
+                not isinstance(question, dict)
+                or key in resolved
+                or key in seen
+                or (skill and str(question.get("skill", "")) != skill)
+            ):
                 continue
             due_value = item.get("next_review_at")
             try:
@@ -1393,6 +1399,45 @@ async def _get_adaptive_game_difficulty(
     return requested_difficulty, "steady"
 
 
+@router.get("/smart-review", response_model=dict)
+@limiter.limit("60/minute")
+async def get_smart_review(
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return a safe overview of due cross-game review items."""
+    plan = await _get_active_plan_or_none(db, current_user.id)
+    if plan is None:
+        return {"due_count": 0, "skills": {}, "recommended_game": None}
+
+    due_items = await _get_recent_game_mistakes(
+        db, current_user.id, plan.id, limit=100
+    )
+    skill_counts: dict[str, int] = {}
+    for item in due_items:
+        skill = str(item.get("skill", "vocabulary"))
+        skill_counts[skill] = skill_counts.get(skill, 0) + 1
+
+    priority = ("vocabulary", "grammar", "listening", "writing", "speaking")
+    game_for_skill = {
+        "vocabulary": "quick_choice",
+        "grammar": "grammar_duel",
+        "listening": "listening_detective",
+        "writing": "translation_sprint",
+        "speaking": "context_quest",
+    }
+    recommended_skill = next(
+        (skill for skill in priority if skill_counts.get(skill, 0)),
+        None,
+    )
+    return {
+        "due_count": len(due_items),
+        "skills": skill_counts,
+        "recommended_game": game_for_skill.get(recommended_skill) if recommended_skill else None,
+    }
+
+
 @router.post("/game-session", response_model=GameSessionResponse)
 @limiter.limit("30/minute")
 async def start_game_session(
@@ -1442,7 +1487,12 @@ async def start_game_session(
             cast(CEFRLevel, plan.cefr_level),
         )
     if adaptive_mode == "review" and effective_game_id not in {"memory", "matching", "ordering", "sentence_builder"}:
-        mistakes = await _get_recent_game_mistakes(db, current_user.id, plan.id, effective_game_id)
+        mistakes = await _get_recent_game_mistakes(
+            db,
+            current_user.id,
+            plan.id,
+            skill=GAME_SKILL_MAP.get(effective_game_id),
+        )
         questions = _apply_smart_review(questions, mistakes)
     daily_challenge_date = now.date().isoformat() if effective_game_id == _daily_game_id(now.date()) else ""
     session = GameSession(
