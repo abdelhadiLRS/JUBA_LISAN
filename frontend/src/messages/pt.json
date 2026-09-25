@@ -93,7 +93,8 @@
     "nativeHelpPhraseNotes": "Notas de frases",
     "nativeHelpStudyTips": "Dicas de estudo",
     "nativeHelpWordNotes": "Notas de palavras",
-    "nativeHelpPractice": "Prática"
+    "nativeHelpPractice": "Prática",
+    "openMenu": "Abrir menu"
   },
   "nav": {
     "home": "Início",
@@ -105,18 +106,23 @@
     "resources": "Recursos",
     "grammar": "Gramática",
     "vocabulary": "Vocabulário",
-    "phrasebook": "Frases",
+    "phrasebook": "Guia de frases",
     "settings": "Configurações",
-    "faq": "FAQ",
-    "admin": "Admin",
-    "conversation": "Conversa",
-    "listening": "Listening",
-    "reading": "Reading",
+    "faq": "Perguntas frequentes",
+    "admin": "Administração",
+    "conversation": "Conversação",
+    "listening": "Compreensão oral",
+    "reading": "Leitura",
     "contact": "Contato",
     "feedback": "Feedback",
     "reviews": "Avaliações",
     "switchLanguage": "Mudar idioma",
-    "games": "Jogos"
+    "games": "Jogos",
+    "friends": "Amigos",
+    "coach": "Treinador",
+    "courses": "Cursos",
+    "review": "Revisão",
+    "translator": "Tradutor"
   },
   "auth": {
     "login": {
