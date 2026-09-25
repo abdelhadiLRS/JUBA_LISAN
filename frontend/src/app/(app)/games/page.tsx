@@ -153,7 +153,7 @@ export default function GamesPage() {
   const [finishing, setFinishing] = useState(false)
   const [adaptiveMode, setAdaptiveMode] = useState<'new' | 'review' | 'steady' | 'challenge'>('new')
   const [effectiveDifficulty, setEffectiveDifficulty] = useState(1)
-  const [smartReview, setSmartReview] = useState<{ due_count: number; skills: Record<string, number>; recommended_game: GameId | null }>({
+  const [smartReview, setSmartReview] = useState<{ due_count: number; skills: Record<string, number>; recommended_game: GameId | null; items: Array<{ review_key: string; skill: string; topic: string; prompt: string; review_count: number; due_at: string; source_game_id: string }> }>({
     due_count: 0,
     skills: {},
     recommended_game: null,
