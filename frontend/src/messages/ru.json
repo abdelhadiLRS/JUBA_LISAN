@@ -469,7 +469,8 @@
     "reviewReminder": "Время укрепить свою память",
     "goalCompleted": "🎉 Дневная цель достигнута!",
     "keepGoing": "Осталось всего {remaining} урок(а)!",
-    "takeAssessment": "Пройти оценку уровня"
+    "takeAssessment": "Пройти оценку уровня",
+    "planDayGoal": "Цель уроков на сегодня"
   },
   "assessment": {
     "title": "Оценка",
