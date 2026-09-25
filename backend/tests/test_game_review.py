@@ -216,3 +216,81 @@ async def test_review_mix_filters_mistakes_to_current_language_and_cefr(
         and question.get("cefr_level") == "A1"
         for question in questions[:1]
     )
+
+
+def test_review_interval_progresses_with_review_count():
+    assert progress_router._review_interval(0).total_seconds() == 10 * 60
+    assert progress_router._review_interval(1).total_seconds() == 60 * 60
+    assert progress_router._review_interval(2).total_seconds() == 24 * 60 * 60
+    assert progress_router._review_interval(3).total_seconds() == 3 * 24 * 60 * 60
+    assert progress_router._review_interval(4).total_seconds() == 7 * 24 * 60 * 60
+    assert progress_router._review_interval(99).total_seconds() == 7 * 24 * 60 * 60
+
+
+def test_review_key_is_stable_and_normalized():
+    first = {
+        "skill": " Grammar ",
+        "topic": "Past Tense",
+        "prompt": "Choose the correct form",
+        "answer": " Went ",
+    }
+    second = {
+        "skill": "grammar",
+        "topic": "past tense",
+        "prompt": "choose the correct form",
+        "answer": "went",
+    }
+    assert progress_router._review_key(first) == progress_router._review_key(second)
+
+
+@pytest.mark.asyncio
+async def test_review_mix_does_not_reuse_the_same_due_review_key(
+    db_session, test_user, monkeypatch
+):
+    user, _ = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        target_language="en-US",
+        cefr_level="A1",
+        goals=["vocabulary", "grammar"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    duplicate = _mistake("vocabulary", "same-key")
+    due = [duplicate, {**duplicate, "prompt": "Same content again"}]
+    monkeypatch.setattr(
+        progress_router,
+        "_get_recent_game_mistakes",
+        lambda *args, **kwargs: due,
+    )
+    monkeypatch.setattr(
+        progress_router,
+        "_get_game_skills",
+        lambda *args, **kwargs: {"vocabulary": 0.2, "grammar": 0.3},
+    )
+    monkeypatch.setattr(
+        progress_router,
+        "_server_game_questions",
+        lambda *args, **kwargs: [
+            {
+                "id": "fresh-grammar",
+                "prompt": "Fresh grammar",
+                "choices": ["A", "B"],
+                "hint": "",
+                "answer": "A",
+                "skill": "grammar",
+                "difficulty": 1,
+                "input_mode": "choice",
+            }
+        ],
+    )
+
+    questions = await progress_router._build_multi_skill_review_questions(
+        db_session, user.id, plan, "en", 1
+    )
+    keys = [question.get("review_key") for question in questions if question.get("review")]
+    assert len(keys) == len(set(keys))
