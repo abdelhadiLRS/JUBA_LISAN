@@ -39,6 +39,14 @@ def test_review_mechanic_keeps_skill_specific_mechanics():
     assert _review_game_for_item("listening", "learning", retrieval_efficiency=0.8, review_streak=1) == "listen_choose"
 
 
+def test_review_mechanic_variant_is_skill_specific():
+    from app.routers.progress import _review_mechanic_variant
+
+    assert _review_mechanic_variant("vocabulary", "direct_recall", 0) == "definition_recall"
+    assert _review_mechanic_variant("grammar", "contextual_transfer", 1) == "gap_fill"
+    assert _review_mechanic_variant("writing", "production", 2) == "free_production"
+
+
 def test_review_strategy_progresses_from_recall_to_production():
     assert _review_item_strategy("weak", 0) == "direct_recall"
     assert _review_item_strategy("learning", 1) == "recognition"
