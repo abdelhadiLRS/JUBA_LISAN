@@ -279,3 +279,13 @@ def test_vocabulary_contextual_production_hides_target_word(monkeypatch):
     assert replay["answer"] == "travel"
     assert "____" in replay["prompt"]
     assert "travel" not in replay["prompt"].split(":", 1)[-1].lower()
+
+
+
+def test_review_item_strategy_progresses_by_mastery_and_streak():
+    from app.routers.progress import _review_item_strategy
+
+    assert _review_item_strategy("new", 0) == "direct_recall"
+    assert _review_item_strategy("learning", 1) == "recognition"
+    assert _review_item_strategy("reviewing", 2) == "contextual_transfer"
+    assert _review_item_strategy("mastered", 3) == "production"
