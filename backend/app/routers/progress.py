@@ -38,6 +38,8 @@ GAME_SKILL_MAP = {
     "quick_choice": "vocabulary",
     "listen_choose": "listening",
     "spelling": "writing",
+    "word_scramble": "vocabulary",
+    "fill_blank": "grammar",
     "sequence": "logic",
     "memory": "memory",
     "matching": "vocabulary",
@@ -51,6 +53,8 @@ DAILY_GAME_IDS = (
     "sentence_builder",
     "listen_choose",
     "spelling",
+    "word_scramble",
+    "fill_blank",
     "memory",
 )
 
@@ -531,7 +535,7 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                 for w, d in fallback
             ]
 
-    if game_id in {"quick_choice", "listen_choose", "spelling"}:
+    if game_id in {"quick_choice", "listen_choose", "spelling", "word_scramble", "fill_blank"}:
         level = cast(CEFRLevel, {1: "A1", 2: "A2", 3: "B1"}[difficulty])
         vocab_sets = get_vocabulary_by_level(level, target_language)
         entries = [word for vocab_set in vocab_sets for word in vocab_set.words]
@@ -635,6 +639,50 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                 "input_mode": "choice",
                 "audio_text": correct,
                 "audio_language": target_language,
+            })
+            continue
+        if game_id == "word_scramble":
+            assert word_entries is not None
+            entry = word_entries[index]
+            word = entry.word.strip()
+            letters = list(word)
+            rng.shuffle(letters)
+            scrambled = "".join(letters)
+            prompt = (
+                f"Unscramble the word:\\n{scrambled}"
+                if language == "en" else (f"Remets les lettres dans le bon ordre :\\n{scrambled}"
+                if language == "fr" else f"رتّب الحروف لتكوين الكلمة:\\n{scrambled}")
+            )
+            questions.append({
+                "id": question_id, "prompt": prompt, "choices": [], "answer": word,
+                "hint": entry.definition.strip(), "skill": "vocabulary",
+                "difficulty": difficulty, "topic": "word-scramble", "input_mode": "text",
+            })
+            continue
+        if game_id == "fill_blank":
+            sentences = {
+                "en": [("I ___ coffee every morning.", "drink", ["drink", "drinks", "drank", "drinking"]),
+                       ("She ___ to school by bus.", "goes", ["go", "goes", "went", "going"]),
+                       ("They ___ learning languages.", "enjoy", ["enjoy", "enjoys", "enjoyed", "enjoying"]),
+                       ("We ___ a new lesson yesterday.", "studied", ["study", "studies", "studied", "studying"]),
+                       ("He ___ English very well.", "speaks", ["speak", "speaks", "spoke", "speaking"])],
+                "fr": [("Je ___ du café chaque matin.", "bois", ["bois", "boit", "bu", "boire"]),
+                       ("Elle ___ à l'école en bus.", "va", ["vais", "va", "allait", "aller"]),
+                       ("Nous ___ le français.", "apprenons", ["apprends", "apprend", "apprenons", "apprendre"]),
+                       ("Ils ___ hier.", "ont étudié", ["étudient", "étudient", "ont étudié", "étudier"]),
+                       ("Tu ___ très vite.", "parles", ["parle", "parles", "parlé", "parler"])],
+                "ar": [("أنا ___ القهوة كل صباح.", "أشرب", ["أشرب", "يشرب", "شربت", "اشرب"]),
+                       ("هي ___ إلى المدرسة.", "تذهب", ["أذهب", "تذهب", "ذهب", "ذهاب"]),
+                       ("نحن ___ اللغات.", "نتعلم", ["أتعلم", "تتعلم", "نتعلم", "تعلم"]),
+                       ("هم ___ الدرس أمس.", "درسوا", ["يدرسون", "درست", "درسوا", "دراسة"]),
+                       ("هو ___ الإنجليزية جيدًا.", "يتحدث", ["أتحدث", "تتحدث", "يتحدث", "تحدث"])],
+            }[language]
+            sentence, answer, choices = sentences[index]
+            rng.shuffle(choices)
+            questions.append({
+                "id": question_id, "prompt": sentence, "choices": choices, "answer": answer,
+                "hint": hints[language], "skill": "grammar", "difficulty": difficulty,
+                "topic": "fill-blank", "input_mode": "choice",
             })
             continue
         if game_id == "spelling":
