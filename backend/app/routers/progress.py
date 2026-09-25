@@ -1851,6 +1851,23 @@ def _apply_smart_review(
     return result
 
 
+def _skill_review_difficulty(
+    requested_difficulty: int,
+    mastery_score: float,
+    due_count: int,
+) -> int:
+    """Choose per-skill review difficulty from mastery and retrieval pressure."""
+    base = max(1, min(3, int(requested_difficulty)))
+    score = max(0.0, min(1.0, float(mastery_score)))
+    if score < 0.4:
+        return 1
+    if score < 0.65:
+        return min(base, 2)
+    if score >= 0.85 and due_count <= 1:
+        return 3
+    return base
+
+
 async def _build_multi_skill_review_questions(
     db: AsyncSession,
     user_id: int,
@@ -1971,10 +1988,15 @@ async def _build_multi_skill_review_questions(
             if len(selected) >= 5:
                 break
             game_id = game_for_skill[skill]
+            skill_difficulty = _skill_review_difficulty(
+                difficulty,
+                float(skills.get(skill, 0.0)),
+                due_counts.get(skill, 0),
+            )
             fresh = _server_game_questions(
                 game_id,
                 language,
-                difficulty,
+                skill_difficulty,
                 plan.target_language,
                 cast(CEFRLevel, plan.cefr_level),
             )
