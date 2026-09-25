@@ -38,6 +38,7 @@ GAME_SKILL_MAP = {
     "quick_choice": "vocabulary",
     "context_quest": "speaking",
     "listen_choose": "listening",
+    "listening_detective": "listening",
     "spelling": "writing",
     "word_scramble": "vocabulary",
     "fill_blank": "grammar",
@@ -58,6 +59,7 @@ DAILY_GAME_IDS = (
     "fill_blank",
     "memory",
     "context_quest",
+    "listening_detective",
 )
 
 
@@ -537,7 +539,7 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                 for w, d in fallback
             ]
 
-    if game_id in {"quick_choice", "listen_choose", "spelling", "word_scramble", "fill_blank"}:
+    if game_id in {"quick_choice", "listen_choose", "listening_detective", "spelling", "word_scramble", "fill_blank"}:
         level = cast(CEFRLevel, {1: "A1", 2: "A2", 3: "B1"}[difficulty])
         vocab_sets = get_vocabulary_by_level(level, target_language)
         entries = [word for vocab_set in vocab_sets for word in vocab_set.words]
@@ -651,6 +653,44 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                 "difficulty": difficulty,
                 "topic": "quick-choice",
                 "input_mode": "choice",
+            })
+            continue
+        if game_id == "listening_detective":
+            assert word_entries is not None
+            entry = word_entries[index]
+            correct = entry.word.strip()
+            distractors = [item.word.strip() for item in word_entries if item.word.strip() != correct]
+            rng.shuffle(distractors)
+            choices = [correct, *distractors[:3]]
+            rng.shuffle(choices)
+            audio_text = (
+                f"I need to buy {correct} today."
+                if language == "en"
+                else (f"Je dois acheter {correct} aujourd'hui."
+                      if language == "fr" else f"أحتاج إلى شراء {correct} اليوم.")
+            )
+            questions.append({
+                "id": question_id,
+                "prompt": (
+                    "Listen carefully. Which word is the key detail you heard?"
+                    if language == "en"
+                    else ("Écoute attentivement. Quel mot est le détail clé que tu as entendu ?"
+                          if language == "fr" else "استمع جيدًا. ما الكلمة التي تمثل المعلومة الأساسية التي سمعتها؟")
+                ),
+                "choices": choices,
+                "answer": correct,
+                "hint": (
+                    "Focus on the key noun in the sentence."
+                    if language == "en"
+                    else ("Concentre-toi sur le nom important de la phrase."
+                          if language == "fr" else "ركّز على الاسم الأساسي في الجملة.")
+                ),
+                "skill": "listening",
+                "difficulty": difficulty,
+                "topic": "listening-detail",
+                "input_mode": "choice",
+                "audio_text": audio_text,
+                "audio_language": target_language,
             })
             continue
         if game_id == "listen_choose":
