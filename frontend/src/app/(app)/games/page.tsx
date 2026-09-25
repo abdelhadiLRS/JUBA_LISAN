@@ -237,6 +237,21 @@ export default function GamesPage() {
 
   const level = Math.floor(xp / 100) + 1
   const t = copy[lang as keyof typeof copy] ?? copy.en
+  const gameFeedback = {
+    en: { check: 'Check', checking: 'Checking your answer…', retry: 'Try again. The question has been adapted to your mistake.', roundResult: '🎉 Round result' },
+    ar: { check: 'تحقق', checking: 'جارٍ التحقق من الإجابة…', retry: 'حاول مرة أخرى. تم تكييف السؤال مع الخطأ.', roundResult: '🎉 نتيجة الجولة' },
+    es: { check: 'Comprobar', checking: 'Comprobando tu respuesta…', retry: 'Inténtalo de nuevo. La pregunta se ha adaptado a tu error.', roundResult: '🎉 Resultado de la ronda' },
+    fr: { check: 'Vérifier', checking: 'Vérification de la réponse…', retry: 'Réessaie. La question a été adaptée à ton erreur.', roundResult: '🎉 Résultat de la partie' },
+    pt: { check: 'Verificar', checking: 'A verificar a resposta…', retry: 'Tente novamente. A pergunta foi adaptada ao seu erro.', roundResult: '🎉 Resultado da rodada' },
+    de: { check: 'Prüfen', checking: 'Antwort wird überprüft…', retry: 'Versuche es erneut. Die Frage wurde an deinen Fehler angepasst.', roundResult: '🎉 Rundenergebnis' },
+    it: { check: 'Verifica', checking: 'Verifica della risposta…', retry: 'Riprova. La domanda è stata adattata al tuo errore.', roundResult: '🎉 Risultato del round' },
+    pl: { check: 'Sprawdź', checking: 'Sprawdzanie odpowiedzi…', retry: 'Spróbuj ponownie. Pytanie zostało dostosowane do błędu.', roundResult: '🎉 Wynik rundy' },
+    nl: { check: 'Controleren', checking: 'Je antwoord wordt gecontroleerd…', retry: 'Probeer opnieuw. De vraag is aangepast aan je fout.', roundResult: '🎉 Ronderesultaat' },
+    ro: { check: 'Verifică', checking: 'Se verifică răspunsul…', retry: 'Încearcă din nou. Întrebarea a fost adaptată greșelii tale.', roundResult: '🎉 Rezultatul rundei' },
+    ru: { check: 'Проверить', checking: 'Проверяем ваш ответ…', retry: 'Попробуйте ещё раз. Вопрос адаптирован к вашей ошибке.', roundResult: '🎉 Результат раунда' },
+  }[lang as keyof typeof copy] ?? {
+    check: 'Check', checking: 'Checking your answer…', retry: 'Try again. The question has been adapted to your mistake.', roundResult: '🎉 Round result',
+  }
   const translationSprint = 'translationSprint' in t ? t.translationSprint : copy.en.translationSprint
   const translationSprintDesc = 'translationSprintDesc' in t ? t.translationSprintDesc : copy.en.translationSprintDesc
   const grammarDuel = 'grammarDuel' in t ? t.grammarDuel : copy.en.grammarDuel
@@ -850,7 +865,7 @@ export default function GamesPage() {
                     )}
                     <form className="spelling-form" onSubmit={(event) => { event.preventDefault(); submitTextAnswer() }}>
                       <input value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder={question.skill === 'speaking' ? (lang === 'ar' ? 'أو اكتب إجابتك' : lang === 'fr' ? 'Ou écris ta réponse' : 'Or type your answer') : (lang === 'ar' ? 'اكتب الإجابة' : lang === 'fr' ? 'Écris ta réponse' : 'Type your answer')} autoComplete="off" disabled={Boolean(selected) || speechListening} />
-                      <button type="submit" className="next" disabled={Boolean(selected) || speechListening || !inputValue.trim()}>{lang === 'ar' ? 'تحقق' : lang === 'fr' ? 'Vérifier' : 'Check'}</button>
+                      <button type="submit" className="next" disabled={Boolean(selected) || speechListening || !inputValue.trim()}>{gameFeedback.check}</button>
                     </form>
                   </>
                 ) : (
@@ -871,13 +886,13 @@ export default function GamesPage() {
                 {answerStatus === 'submitting' && (
                   <div className="feedback" role="status">
                     <strong>…</strong>
-                    <span>{lang === 'ar' ? 'جارٍ التحقق من الإجابة…' : lang === 'fr' ? 'Vérification de la réponse…' : 'Checking your answer…'}</span>
+                    <span>{gameFeedback.checking}</span>
                   </div>
                 )}
                 {answerStatus === 'wrong' && (
                   <div className="feedback" role="alert">
                     <strong>{t.wrong}</strong>
-                    <span>{lang === 'ar' ? 'حاول مرة أخرى. تم تكييف السؤال مع الخطأ.' : lang === 'fr' ? 'Réessaie. La question a été adaptée à ton erreur.' : 'Try again. The question has been adapted to your mistake.'}</span>
+                    <span>{gameFeedback.retry}</span>
                     {question.hint && <small>{question.hint}</small>}
                   </div>
                 )}
@@ -898,7 +913,7 @@ export default function GamesPage() {
             <div className="round-score">{t.score}: <strong>{roundScore}</strong></div>
             {roundResult && (
               <div className="feedback good" role="status">
-                <strong>{lang === 'ar' ? '🎉 نتيجة الجولة' : lang === 'fr' ? '🎉 Résultat de la partie' : '🎉 Round result'}</strong>
+                <strong>{gameFeedback.roundResult}</strong>
                 <span>
                   {roundResult.correct}/{roundResult.questions} · {roundResult.score} pts · +{roundResult.xp} XP
                 </span>
