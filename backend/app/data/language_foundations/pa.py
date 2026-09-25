@@ -32,7 +32,8 @@ VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="pa-a1-unit-5"
 VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="pa-a1-unit-6",words=[VocabularyEntry(word="ਸਮਾਂ",pos="noun",definition="time",example="ਸਮਾਂ ਕੀ ਹੋਇਆ ਹੈ?"),VocabularyEntry(word="ਅੱਜ",pos="adverb",definition="today",example="ਅੱਜ ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।"),VocabularyEntry(word="ਕੱਲ੍ਹ",pos="adverb",definition="tomorrow",example="ਕੱਲ੍ਹ ਮੈਂ ਸਕੂਲ ਜਾਵਾਂਗਾ।")]),
 VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="pa-a1-unit-7",words=[VocabularyEntry(word="ਪਾਣੀ",pos="noun",definition="water",example="ਮੈਨੂੰ ਪਾਣੀ ਚਾਹੀਦਾ ਹੈ।"),VocabularyEntry(word="ਚਾਹ",pos="noun",definition="tea",example="ਮੈਂ ਚਾਹ ਪੀਂਦਾ ਹਾਂ।"),VocabularyEntry(word="ਰੋਟੀ",pos="noun",definition="bread/flatbread",example="ਮੈਂ ਰੋਟੀ ਖਾਂਦਾ ਹਾਂ।")]),
 VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="pa-a1-unit-8",words=[VocabularyEntry(word="ਸਕੂਲ",pos="noun",definition="school",example="ਮੈਂ ਸਕੂਲ ਵਿੱਚ ਹਾਂ।"),VocabularyEntry(word="ਬਾਜ਼ਾਰ",pos="noun",definition="market",example="ਬਾਜ਼ਾਰ ਨੇੜੇ ਹੈ।"),VocabularyEntry(word="ਇੱਥੇ",pos="adverb",definition="here",example="ਮੈਂ ਇੱਥੇ ਹਾਂ।")])
-]PHRASEBOOK_CATEGORIES=[
+]
+PHRASEBOOK_CATEGORIES=[
 PhrasebookCategory(id="pa_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="ਸਤ ਸ੍ਰੀ ਅਕਾਲ।",context="Hello.",register="neutral")]),
 PhrasebookCategory(id="pa_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="ਧੰਨਵਾਦ।",context="Thank you.",register="neutral")]),
 PhrasebookCategory(id="pa_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="ਕਿਰਪਾ ਕਰਕੇ ਮਦਦ ਕਰੋ।",context="Please help me.",register="neutral")]),
@@ -42,7 +43,7 @@ ASSESSMENT_BANK=[
 AssessmentQuestion(id="pa-a1-001",skill="vocabulary",difficulty="A1",question="Which Punjabi word means 'water'?",options=["ਪਾਣੀ","ਘਰ","ਮਾਂ","ਸਕੂਲ"],correct="ਪਾਣੀ"),
 AssessmentQuestion(id="pa-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।","ਮੈਂ ਸਕੂਲ ਜਾਂਦਾ ਹਾਂ।","ਮੈਂ ਪਾਣੀ ਪੀਂਦਾ ਹਾਂ।","ਇਹ ਕਿਤਾਬ ਹੈ।"],correct="ਮੈਂ ਘਰ ਵਿੱਚ ਹਾਂ।"),
 AssessmentQuestion(id="pa-a1-003",skill="vocabulary",difficulty="A1",question="What does ਮਾਂ mean?",options=["mother","father","friend","teacher"],correct="mother"),
-AssessmentQuestion(id="pa-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?","ਤੁਸੀਂ ਕਿੱਥੇ ਹੋ?","ਇਹ ਕੀ ਹੈ?","ਕੀਮਤ ਕਿੰਨੀ ਹੈ?"],"correct"="ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?"),
+AssessmentQuestion(id="pa-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'What is your name?'",options=["ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?","ਤੁਸੀਂ ਕਿੱਥੇ ਹੋ?","ਇਹ ਕੀ ਹੈ?","ਕੀਮਤ ਕਿੰਨੀ ਹੈ?"],correct="ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?"),
 AssessmentQuestion(id="pa-a1-005",skill="reading",difficulty="A1",question="ਕਿਤਾਬ ਮੇਜ਼ ਉੱਤੇ ਹੈ। Where is the book?",options=["On the table","At school","At home","In the market"],correct="On the table"),
 AssessmentQuestion(id="pa-a1-006",skill="vocabulary",difficulty="A1",question="Which word means 'name'?",options=["ਨਾਮ","ਸਮਾਂ","ਪਾਣੀ","ਘਰ"],correct="ਨਾਮ"),
 AssessmentQuestion(id="pa-a1-007",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["ਫਿਰ ਦੱਸੋ ਜੀ।","ਧੰਨਵਾਦ।","ਸਤ ਸ੍ਰੀ ਅਕਾਲ।","ਫਿਰ ਮਿਲਾਂਗੇ।"],correct="ਫਿਰ ਦੱਸੋ ਜੀ।"),
