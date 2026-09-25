@@ -172,3 +172,24 @@ class TestGetAssessmentBank:
                 f"Assessment bank contains an empty question ID for {language}"
             )
             assert len(ids) == len(set(ids)), f"Duplicate assessment question IDs for {language}"
+
+    def test_all_registered_banks_have_complete_answerable_questions():
+        from app.data.assessment_bank import _LANG_MODULES, get_assessment_bank
+
+        valid_levels = {"A1", "A2", "B1", "B2", "C1", "C2"}
+        valid_skills = {"grammar", "vocabulary", "reading"}
+        for language in _LANG_MODULES:
+            for question in get_assessment_bank(language):
+                prefix = f"{language}:{question.id}"
+                assert question.question.strip(), f"Empty prompt: {prefix}"
+                assert question.skill in valid_skills, f"Invalid skill: {prefix}"
+                assert question.difficulty in valid_levels, f"Invalid CEFR level: {prefix}"
+                assert len(question.options) == 4, f"Expected four options: {prefix}"
+                assert all(isinstance(option, str) and option.strip() for option in question.options), (
+                    f"Empty answer option: {prefix}"
+                )
+                assert len({option.strip().casefold() for option in question.options}) == 4, (
+                    f"Duplicate answer options: {prefix}"
+                )
+                assert question.correct in question.options, f"Correct answer missing from options: {prefix}"
+
