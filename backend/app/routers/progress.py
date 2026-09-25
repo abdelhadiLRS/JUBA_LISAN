@@ -83,7 +83,7 @@ def _daily_game_id(day: date) -> str:
 
 def _normalize_game_text(value: str) -> str:
     """Normalize learner text while preserving meaningful letters and accents."""
-    normalized = unicodedata.normalize("NFC", str(value)).casefold()
+    normalized = unicodedata.normalize("NFKC", str(value)).casefold()
     normalized = normalized.replace("’", "'").replace("‘", "'").replace("ʼ", "'")
     normalized = " ".join(normalized.strip().split())
     # Speech recognition can place a space before terminal punctuation.
