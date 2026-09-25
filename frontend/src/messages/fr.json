@@ -587,7 +587,11 @@
     "goalCompleted": "🎉 Objectif quotidien atteint !",
     "keepGoing": "Plus que {remaining} leçon(s) !",
     "takeAssessment": "Passer l'évaluation de niveau",
-    "planDayGoal": "Objectif des leçons du jour"
+    "planDayGoal": "Objectif des leçons du jour",
+    "levelTestCompleted": "Test de niveau terminé",
+    "levelTestScoreLine": "Score : {score} sur {total}",
+    "levelTestReady": "Vous êtes prêt pour le niveau suivant",
+    "levelTestReadyDesc": "Vous avez réussi le test de niveau. Continuez votre plan d’apprentissage."
   },
   "assessment": {
     "title": "Évaluation",
