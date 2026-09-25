@@ -280,6 +280,29 @@
   margin-top: 0.8rem;
 }
 
+.smart-review-queue .mini-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.smart-review-queue .mini-stats button {
+  border: 1px solid var(--border, rgba(127, 127, 127, 0.2));
+  background: transparent;
+  color: inherit;
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.smart-review-queue .mini-stats button.active {
+  background: var(--card-muted, rgba(127, 127, 127, 0.12));
+  border-color: currentColor;
+}
+
 .smart-review-item {
   display: grid;
   gap: 0.2rem;
