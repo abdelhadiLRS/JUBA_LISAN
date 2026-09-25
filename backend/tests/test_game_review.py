@@ -498,8 +498,10 @@ async def test_game_session_completion_is_idempotent_for_xp_mastery_and_event_le
     from app.models.game_progress import GameProgress
     from app.models.game_progress_event import GameProgressEvent
     from app.models.progress import Progress
+    from app.models.study_plan import StudyPlan
 
     user, headers = test_user_with_plan
+    plan = (await db_session.execute(select(StudyPlan).where(StudyPlan.user_id == user.id, StudyPlan.is_active.is_(True)))).scalar_one()
 
     started = await client.post(
         "/api/progress/game-session",
@@ -529,7 +531,7 @@ async def test_game_session_completion_is_idempotent_for_xp_mastery_and_event_le
         await db_session.execute(
             select(GameProgress).where(
                 GameProgress.user_id == user.id,
-                GameProgress.study_plan_id == 1,
+                GameProgress.study_plan_id == plan.id,
             )
         )
     ).scalar_one()
@@ -537,7 +539,7 @@ async def test_game_session_completion_is_idempotent_for_xp_mastery_and_event_le
         await db_session.execute(
             select(func.count(GameProgressEvent.id)).where(
                 GameProgressEvent.user_id == user.id,
-                GameProgressEvent.study_plan_id == 1,
+                GameProgressEvent.study_plan_id == plan.id,
             )
         )
     ).scalar_one()
@@ -545,7 +547,7 @@ async def test_game_session_completion_is_idempotent_for_xp_mastery_and_event_le
         await db_session.execute(
             select(func.coalesce(func.sum(Progress.xp_earned), 0)).where(
                 Progress.user_id == user.id,
-                Progress.study_plan_id == 1,
+                Progress.study_plan_id == plan.id,
             )
         )
     ).scalar_one()
