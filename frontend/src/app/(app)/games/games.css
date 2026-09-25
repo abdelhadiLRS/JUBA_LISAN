@@ -328,6 +328,13 @@
 }
 
 
+.mastery-state {
+  font-weight: 800;
+  text-transform: none;
+}
+.mastery-state.mastery-weak { font-weight: 900; }
+.mastery-state.mastery-mastered { font-weight: 900; }
+
 .smart-review-meta {
   display: flex;
   flex-wrap: wrap;
