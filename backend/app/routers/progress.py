@@ -1595,6 +1595,22 @@ async def _get_adaptive_game_difficulty(
         return max(1, requested_difficulty - 1), "review"
     if skill_score is not None and skill_score < 0.5:
         return max(1, requested_difficulty - 1), "review"
+
+    # When recent performance and the persisted competency are both stable,
+    # absence of due weak items is evidence that the learner has consolidated
+    # the current material. Raise difficulty one step at a time rather than
+    # jumping levels.
+    if recent_average is not None and skill_score is not None and recent_average >= 0.75 and skill_score >= 0.75:
+        stable_due = await _get_recent_game_mistakes(
+            db,
+            user_id,
+            plan_id,
+            game_id=game_id,
+            limit=1,
+        )
+        if not stable_due:
+            return min(3, requested_difficulty + 1), "challenge"
+
     if recent_average is not None and recent_average >= 0.85:
         return min(3, requested_difficulty + 1), "challenge"
     if skill_score is not None and skill_score >= 0.85:
