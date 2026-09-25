@@ -1264,9 +1264,13 @@ def _item_mastery_from_events(
     target_language: str | None = None,
     cefr_level: str | None = None,
 ) -> dict[str, object]:
-    """Derive per-item mastery from the append-only game event ledger."""
+    """Derive mastery plus retrieval efficiency from the append-only event ledger."""
     misses = 0
     resolutions = 0
+    attempts = 0
+    first_attempt_successes = 0
+    retry_resolutions = 0
+    retry_misses = 0
     last_miss_at: datetime | None = None
     last_resolution_at: datetime | None = None
 
@@ -1282,11 +1286,20 @@ def _item_mastery_from_events(
                     continue
                 if cefr_level and str(question.get("cefr_level", "")) != cefr_level:
                     continue
+
+            attempt_count = max(1, int(item.get("attempt_count", 1)))
+            miss_count = max(0, int(item.get("miss_count", 0)))
+            attempts = max(attempts, attempt_count)
             if item.get("resolved"):
                 resolutions += 1
+                if attempt_count == 1:
+                    first_attempt_successes += 1
+                else:
+                    retry_resolutions += 1
                 last_resolution_at = event.created_at
             elif isinstance(question, dict):
                 misses += 1
+                retry_misses += max(0, miss_count - 1)
                 last_miss_at = event.created_at
 
     if misses == 0 and resolutions == 0:
@@ -1295,7 +1308,22 @@ def _item_mastery_from_events(
             "state": "new",
             "misses": 0,
             "resolutions": 0,
+            "attempts": 0,
+            "first_attempt_successes": 0,
+            "retry_resolutions": 0,
+            "retry_misses": 0,
+            "retrieval_efficiency": 0.0,
         }
+
+    # Retrieval efficiency measures how often the learner resolves an item
+    # without needing retries, while preserving the existing mastery state model.
+    total_resolutions = max(1, resolutions)
+    first_attempt_rate = first_attempt_successes / total_resolutions
+    retry_burden = min(1.0, retry_misses / max(1.0, attempts))
+    retrieval_efficiency = max(
+        0.0,
+        min(1.0, first_attempt_rate * (1.0 - 0.5 * retry_burden)),
+    )
 
     # Resolutions raise mastery while repeated misses keep the item weak.
     score = max(
@@ -1318,6 +1346,11 @@ def _item_mastery_from_events(
         "state": state,
         "misses": misses,
         "resolutions": resolutions,
+        "attempts": attempts,
+        "first_attempt_successes": first_attempt_successes,
+        "retry_resolutions": retry_resolutions,
+        "retry_misses": retry_misses,
+        "retrieval_efficiency": round(retrieval_efficiency, 3),
         "last_miss_at": last_miss_at.isoformat() if last_miss_at else None,
         "last_resolution_at": last_resolution_at.isoformat() if last_resolution_at else None,
     }
@@ -1376,6 +1409,9 @@ async def _get_tracked_mastery_summary(
                 "skill": str(question.get("skill") or "general"),
                 "mastery_state": state,
                 "mastery_score": score,
+                "attempts": int(mastery.get("attempts", 0)),
+                "retry_resolutions": int(mastery.get("retry_resolutions", 0)),
+                "retrieval_efficiency": float(mastery.get("retrieval_efficiency", 0.0)),
             }
         )
 
@@ -3077,6 +3113,9 @@ async def complete_game_session(
                     "next_review_at": (now + _review_interval(0)).isoformat(),
                     "question_id": submitted.question_id,
                     "submitted": str(_attempt.get("choice", "")),
+                    "attempt_count": offset,
+                    "miss_count": offset,
+                    "retry_stage": _review_retry_stage(offset),
                     "question": snapshot,
                 })
 
@@ -3092,6 +3131,10 @@ async def complete_game_session(
                         "review_streak": next_streak,
                         "next_review_at": (now + _review_interval(next_streak)).isoformat(),
                         "question_id": submitted.question_id,
+                        "attempt_count": len(attempts),
+                        "miss_count": len(prior_misses),
+                        "retry_stage": _review_retry_stage(len(prior_misses)),
+                        "first_attempt_correct": not prior_misses,
                         "question": snapshot,
                     })
             else:
@@ -3103,6 +3146,10 @@ async def complete_game_session(
                     "next_review_at": (now + _review_interval(0)).isoformat(),
                     "question_id": submitted.question_id,
                     "submitted": submitted.choice,
+                    "attempt_count": len(attempts),
+                    "miss_count": miss_number,
+                    "retry_stage": _review_retry_stage(miss_number),
+                    "first_attempt_correct": False,
                     "question": snapshot,
                 })
         questions_answered = len(expected)
