@@ -1,6 +1,6 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 interface Props {
   onBeginner: () => void
@@ -14,7 +14,17 @@ export default function BeginnerGate({
   languageCode,
 }: Props) {
   const t = useTranslations('assessment')
-  const tLang = useTranslations('languages')
+  const locale = useLocale()
+
+  // Resolve the language name through the browser's CLDR data instead of
+  // relying on a message namespace that may be absent in an older dev build.
+  const language = (() => {
+    try {
+      return new Intl.DisplayNames([locale], { type: 'language' }).of(languageCode) ?? languageCode
+    } catch {
+      return languageCode
+    }
+  })()
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
@@ -28,7 +38,7 @@ export default function BeginnerGate({
         <div className="space-y-7 p-6 sm:p-8">
           <div className="space-y-3 text-center">
             <p className="text-2xl font-extrabold tracking-tight text-[var(--juba-app-ink)]">
-              {t('studiedBefore', { language: tLang(languageCode) })}
+              {t('studiedBefore', { language })}
             </p>
             <p className="text-xs text-[var(--juba-app-muted)] font-sans">
               {t('studiedBeforeHint')}
