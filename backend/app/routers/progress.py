@@ -12,6 +12,7 @@ from app.core.database import get_db
 from app.core.deps import get_current_user, require_learner
 from app.core.limiter import limiter
 from app.data._types import CEFRLevel
+from app.data.grammar import get_grammar_topics
 from app.data.vocabulary import get_vocabulary_by_level
 from app.models.flashcard import Flashcard
 from app.models.lesson import Exercise, Lesson
@@ -499,7 +500,7 @@ async def get_learning_goal_history(
     return result.scalars().all()
 
 
-def _server_game_questions(game_id: str, language: str, difficulty: int, target_language: str = "en-GB") -> list[dict]:
+def _server_game_questions(\n    game_id: str,\n    language: str,\n    difficulty: int,\n    target_language: str = "en-GB",\n    cefr_level: CEFRLevel = "A1",\n) -> list[dict]:
     rng = random.SystemRandom()
     hints = {
         "ar": "فكّر بهدوء قبل اختيار الإجابة.",
@@ -886,65 +887,72 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
             })
             continue
         if game_id == "fill_blank":
-            sentences = {
-                "en": [("I ___ coffee every morning.", "drink", ["drink", "drinks", "drank", "drinking"]),
-                       ("She ___ to school by bus.", "goes", ["go", "goes", "went", "going"]),
-                       ("They ___ learning languages.", "enjoy", ["enjoy", "enjoys", "enjoyed", "enjoying"]),
-                       ("We ___ a new lesson yesterday.", "studied", ["study", "studies", "studied", "studying"]),
-                       ("He ___ English very well.", "speaks", ["speak", "speaks", "spoke", "speaking"])],
-                "fr": [("Je ___ du café chaque matin.", "bois", ["bois", "boit", "bu", "boire"]),
-                       ("Elle ___ à l'école en bus.", "va", ["vais", "va", "allait", "aller"]),
-                       ("Nous ___ le français.", "apprenons", ["apprends", "apprend", "apprenons", "apprendre"]),
-                       ("Ils ___ hier.", "ont étudié", ["étudient", "étudient", "ont étudié", "étudier"]),
-                       ("Tu ___ très vite.", "parles", ["parle", "parles", "parlé", "parler"])],
-                "ar": [("أنا ___ القهوة كل صباح.", "أشرب", ["أشرب", "يشرب", "شربت", "اشرب"]),
-                       ("هي ___ إلى المدرسة.", "تذهب", ["أذهب", "تذهب", "ذهب", "ذهاب"]),
-                       ("نحن ___ اللغات.", "نتعلم", ["أتعلم", "تتعلم", "نتعلم", "تعلم"]),
-                       ("هم ___ الدرس أمس.", "درسوا", ["يدرسون", "درست", "درسوا", "دراسة"]),
-                       ("هو ___ الإنجليزية جيدًا.", "يتحدث", ["أتحدث", "تتحدث", "يتحدث", "تحدث"])],
-                "es": [("Yo ___ café cada mañana.", "bebo", ["bebo", "bebe", "bebí", "beber"]),
-                       ("Ella ___ a la escuela en autobús.", "va", ["voy", "va", "fue", "ir"]),
-                       ("Nosotros ___ idiomas.", "aprendemos", ["aprendo", "aprende", "aprendemos", "aprender"]),
-                       ("Ellos ___ ayer.", "estudiaron", ["estudian", "estudié", "estudiaron", "estudiar"]),
-                       ("Él ___ inglés muy bien.", "habla", ["hablo", "hablas", "habla", "hablar"])],
-                "de": [("Ich ___ jeden Morgen Kaffee.", "trinke", ["trinke", "trinkt", "trank", "trinken"]),
-                       ("Sie ___ mit dem Bus zur Schule.", "fährt", ["fahre", "fährt", "fuhr", "fahren"]),
-                       ("Wir ___ Sprachen.", "lernen", ["lerne", "lernt", "lernen", "lernen"]),
-                       ("Sie ___ gestern.", "lernten", ["lernen", "lernte", "lernten", "lernen"]),
-                       ("Er ___ sehr gut Englisch.", "spricht", ["spreche", "sprichst", "spricht", "sprechen"])],
-                "it": [("Io ___ il caffè ogni mattina.", "bevo", ["bevo", "beve", "bevuto", "bere"]),
-                       ("Lei ___ a scuola in autobus.", "va", ["vado", "va", "andò", "andare"]),
-                       ("Noi ___ le lingue.", "impariamo", ["imparo", "impara", "impariamo", "imparare"]),
-                       ("Loro ___ ieri.", "hanno studiato", ["studiano", "studiavo", "hanno studiato", "studiare"]),
-                       ("Lui ___ molto bene l'inglese.", "parla", ["parlo", "parli", "parla", "parlare"])],
-                "pt": [("Eu ___ café todas as manhãs.", "bebo", ["bebo", "bebe", "bebi", "beber"]),
-                       ("Ela ___ para a escola de autocarro.", "vai", ["vou", "vai", "foi", "ir"]),
-                       ("Nós ___ línguas.", "aprendemos", ["aprendo", "aprende", "aprendemos", "aprender"]),
-                       ("Eles ___ ontem.", "estudaram", ["estudam", "estudei", "estudaram", "estudar"]),
-                       ("Ele ___ inglês muito bem.", "fala", ["falo", "falas", "fala", "falar"])],
-                "ja": [("私は毎朝コーヒーを___。", "飲みます", ["飲みます", "飲みました", "飲む", "飲んで"]),
-                       ("彼女はバスで学校へ___。", "行きます", ["行きます", "行きました", "行く", "行って"]),
-                       ("私たちは言語を___。", "学びます", ["学びます", "学びました", "学ぶ", "学んで"]),
-                       ("彼らは昨日___。", "勉強しました", ["勉強します", "勉強しました", "勉強する", "勉強して"]),
-                       ("彼は英語をとても上手に___。", "話します", ["話します", "話しました", "話す", "話して"])],
-                "ko": [("저는 매일 아침 커피를 ___。", "마십니다", ["마십니다", "마셨습니다", "마시다", "마시고"]),
-                       ("그녀는 버스로 학교에 ___。", "갑니다", ["갑니다", "갔습니다", "가다", "가고"]),
-                       ("우리는 언어를 ___。", "배웁니다", ["배웁니다", "배웠습니다", "배우다", "배우고"]),
-                       ("그들은 어제 ___。", "공부했습니다", ["공부합니다", "공부했습니다", "공부하다", "공부하고"]),
-                       ("그는 영어를 아주 잘 ___。", "말합니다", ["말합니다", "말했습니다", "말하다", "말하고"])],
-                "zh": [("我每天早上___咖啡。", "喝", ["喝", "喝了", "喝过", "喝着"]),
-                       ("她坐公交车去学校___。", "上学", ["上学", "上过学", "学习", "学校"]),
-                       ("我们___语言。", "学习", ["学习", "学了", "学过", "学生"]),
-                       ("他们昨天___了。", "学习", ["学习", "学", "学习了", "学生"]),
-                       ("他___英语很好。", "说", ["说", "说了", "说过", "话"])],
-            }[language]
-            sentence, answer, choices = sentences[index]
-            rng.shuffle(choices)
-            questions.append({
-                "id": question_id, "prompt": sentence, "choices": choices, "answer": answer,
-                "hint": hints[language], "skill": "grammar", "difficulty": difficulty,
-                "topic": "fill-blank", "input_mode": "choice",
-            })
+            # Build grammar-aware cloze items from the learner's CEFR vocabulary.
+            # Prefer authored examples that contain the target word; this keeps
+            # the sentence and answer tied to the same curriculum entry.
+            assert word_entries is not None
+            cloze_entries = [
+                entry
+                for entry in word_entries
+                if entry.word.strip()
+                and entry.example.strip()
+                and entry.word.strip().casefold() in entry.example.casefold()
+            ]
+            if len(cloze_entries) < 5:
+                vocab_sets = get_vocabulary_by_level(cefr_level, target_language)
+                pool = [entry for vocab_set in vocab_sets for entry in vocab_set.words]
+                rng.shuffle(pool)
+                cloze_entries = [
+                    entry
+                    for entry in pool
+                    if entry.word.strip()
+                    and entry.example.strip()
+                    and entry.word.strip().casefold() in entry.example.casefold()
+                ][:5]
+            if len(cloze_entries) < 5:
+                raise HTTPException(
+                    status_code=503,
+                    detail=f"Not enough CEFR cloze content for {target_language} at {cefr_level}",
+                )
+
+            for entry in cloze_entries[:5]:
+                example = entry.example.strip()
+                word = entry.word.strip()
+                marker_index = example.casefold().find(word.casefold())
+                if marker_index < 0:
+                    continue
+                sentence = (
+                    example[:marker_index]
+                    + "___"
+                    + example[marker_index + len(word):]
+                )
+                distractors = [
+                    item.word.strip()
+                    for item in word_entries
+                    if item.word.strip().casefold() != word.casefold()
+                ]
+                rng.shuffle(distractors)
+                choices = [word, *distractors[:3]]
+                choices = list(dict.fromkeys(choices))
+                if len(choices) < 4:
+                    continue
+                rng.shuffle(choices)
+                questions.append({
+                    "id": str(uuid4()),
+                    "prompt": sentence,
+                    "choices": choices,
+                    "answer": word,
+                    "hint": entry.definition.strip() or hints[language],
+                    "skill": "grammar",
+                    "difficulty": difficulty,
+                    "topic": "cefr-cloze",
+                    "input_mode": "choice",
+                })
+            if len(questions) < 5:
+                raise HTTPException(
+                    status_code=503,
+                    detail=f"Not enough CEFR cloze questions for {target_language} at {cefr_level}",
+                )
             continue
         if game_id == "spelling":
             assert word_entries is not None
@@ -1088,43 +1096,92 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
             })
             continue
         if game_id == "grammar_duel":
-            grammar_bank = {
-                "en": [
-                    ("She ___ to school every day.", "goes", ["go", "goes", "went", "going"]),
-                    ("I ___ this book yesterday.", "read", ["read", "reads", "reading", "will read"]),
-                    ("They ___ dinner when I arrived.", "were eating", ["eat", "ate", "were eating", "eating"]),
-                    ("If I have time, I ___ you.", "will call", ["called", "will call", "calling", "call yesterday"]),
-                    ("He has ___ his homework.", "finished", ["finish", "finishes", "finished", "finishing"]),
-                ],
-                "fr": [
-                    ("Elle ___ à l'école tous les jours.", "va", ["va", "vont", "allait", "aller"]),
-                    ("J'___ ce livre hier.", "ai lu", ["lis", "ai lu", "lire", "lirai"]),
-                    ("Ils ___ quand je suis arrivé.", "mangeaient", ["mangent", "mangeaient", "mangé", "manger"]),
-                    ("Si j'ai le temps, je ___.", "t'appellerai", ["t'appelais", "t'appellerai", "t'appelle", "appeler"]),
-                    ("Il a ___ ses devoirs.", "fini", ["finir", "finit", "fini", "finissant"]),
-                ],
-                "ar": [
-                    ("هي ___ إلى المدرسة كل يوم.", "تذهب", ["تذهب", "يذهب", "ذهبت", "ذهاب"]),
-                    ("أنا ___ هذا الكتاب أمس.", "قرأت", ["أقرأ", "قرأت", "قراءة", "سأقرأ"]),
-                    ("هم ___ العشاء عندما وصلت.", "كانوا يتناولون", ["يتناولون", "تناولوا", "كانوا يتناولون", "تناول"]),
-                    ("إذا كان لدي وقت، ___ بك.", "سأتصل", ["اتصلت", "سأتصل", "أتصل أمس", "اتصال"]),
-                    ("لقد ___ واجبه.", "أنهى", ["ينهي", "أنهى", "إنهاء", "ينهيه"]),
-                ],
-            }
-            bank = grammar_bank.get(language, grammar_bank["en"])
-            prompt, answer, choices = bank[index]
-            rng.shuffle(choices)
-            questions.append({
-                "id": question_id,
-                "prompt": prompt,
-                "choices": choices,
-                "answer": answer,
-                "hint": hints.get(language, hints["en"]),
-                "skill": "grammar",
-                "difficulty": difficulty,
-                "topic": "grammar-accuracy",
-                "input_mode": "choice",
-            })
+            # Use the target language's authored grammar curriculum at the
+            # learner's CEFR level. Common mistakes become high-signal
+            # correction questions; examples provide a safe fallback.
+            topics = [
+                topic
+                for topic in get_grammar_topics(target_language)
+                if topic.level == cefr_level
+            ]
+            mistakes = [
+                (mistake, topic)
+                for topic in topics
+                for mistake in topic.common_mistakes
+                if mistake.correct.strip() and mistake.wrong.strip()
+            ]
+            rng.shuffle(mistakes)
+            selected_mistakes = mistakes[:5]
+
+            if len(selected_mistakes) >= 5:
+                for mistake, topic in selected_mistakes:
+                    correct = mistake.correct.strip()
+                    wrong = mistake.wrong.strip()
+                    alternatives = [
+                        item.correct.strip()
+                        for item, other_topic in mistakes
+                        if item.correct.strip() not in {correct, wrong}
+                    ]
+                    rng.shuffle(alternatives)
+                    choices = list(dict.fromkeys([correct, wrong, *alternatives]))[:4]
+                    if len(choices) < 4:
+                        continue
+                    rng.shuffle(choices)
+                    questions.append({
+                        "id": str(uuid4()),
+                        "prompt": (
+                            f"Choose the correct form:\n{wrong}"
+                            if language == "en"
+                            else f"{hints.get(language, hints['en'])}\n{wrong}"
+                        ),
+                        "choices": choices,
+                        "answer": correct,
+                        "hint": mistake.note.strip() or hints.get(language, hints["en"]),
+                        "skill": "grammar",
+                        "difficulty": difficulty,
+                        "topic": topic.slug,
+                        "input_mode": "choice",
+                    })
+            else:
+                examples = [
+                    example
+                    for topic in topics
+                    for example in topic.examples
+                    if example.text.strip()
+                ]
+                rng.shuffle(examples)
+                for example in examples[:5]:
+                    correct = example.text.strip()
+                    alternatives = [
+                        item.text.strip()
+                        for item in examples
+                        if item.text.strip() != correct
+                    ]
+                    rng.shuffle(alternatives)
+                    choices = list(dict.fromkeys([correct, *alternatives]))[:4]
+                    if len(choices) < 4:
+                        continue
+                    rng.shuffle(choices)
+                    questions.append({
+                        "id": str(uuid4()),
+                        "prompt": (
+                            "Which sentence is correct?"
+                            if language == "en"
+                            else f"{hints.get(language, hints['en'])}\n{correct}"
+                        ),
+                        "choices": choices,
+                        "answer": correct,
+                        "hint": example.note.strip() if example.note else hints.get(language, hints["en"]),
+                        "skill": "grammar",
+                        "difficulty": difficulty,
+                        "topic": "grammar-example",
+                        "input_mode": "choice",
+                    })
+            if len(questions) < 5:
+                raise HTTPException(
+                    status_code=503,
+                    detail=f"Not enough CEFR grammar content for {target_language} at {cefr_level}",
+                )
             continue
         if game_id == "math":
             maximum = {1: 18, 2: 60, 3: 150}[difficulty]
@@ -1277,7 +1334,7 @@ async def start_game_session(
             "interaction": {"public": interaction_public, "solution": interaction_solution},
         }]
     else:
-        questions = _server_game_questions(effective_game_id, data.language, effective_difficulty, plan.target_language)
+        questions = _server_game_questions(\n            effective_game_id,\n            data.language,\n            effective_difficulty,\n            plan.target_language,\n            cast(CEFRLevel, plan.cefr_level),\n        )
     daily_challenge_date = now.date().isoformat() if effective_game_id == _daily_game_id(now.date()) else ""
     session = GameSession(
         id=session_id,
