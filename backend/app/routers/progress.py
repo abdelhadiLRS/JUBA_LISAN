@@ -1428,7 +1428,7 @@ async def start_game_session(
     effective_game_id = data.game_id
     if data.game_id == "word_match":
         effective_game_id = "matching"
-    if data.review:
+    if data.review and effective_game_id != "review_mix":
         recommended_game, _ = await _recommended_review_game(db, current_user.id, plan)
         if recommended_game:
             effective_game_id = recommended_game
@@ -1630,8 +1630,12 @@ async def complete_game_session(
             raise HTTPException(status_code=422, detail="Exactly one answer is required for every question")
 
         correct_answers = 0
+        skill_results: dict[str, list[int]] = {}
         for submitted in data.answers:
             question = expected[submitted.question_id]
+            question_skill = str(question.get("skill", GAME_SKILL_MAP.get(session.game_id, "vocabulary")))
+            skill_results.setdefault(question_skill, [0, 0])
+            skill_results[question_skill][1] += 1
             is_correct = False
             if question.get("input_mode", "choice") == "text":
                 if not submitted.choice.strip():
@@ -1646,6 +1650,7 @@ async def complete_game_session(
                     is_correct = submitted.choice == question["answer"]
             if is_correct:
                 correct_answers += 1
+                skill_results[question_skill][0] += 1
                 if question.get("review"):
                     mistakes.append({
                         "review_key": str(question.get("review_key") or _review_key(question)),
@@ -1806,11 +1811,17 @@ async def complete_game_session(
     if plan is None:
         raise HTTPException(status_code=409, detail="Study plan no longer exists")
     skills = await _get_game_skills(db, user_id, plan)
+    if session.game_id == "review_mix" and skill_results:
+        current_skill = max(
+            skill_results,
+            key=lambda skill: (skill_results[skill][1], skill),
+        )
+        current_skill_score = skill_results[current_skill][0] / max(1, skill_results[current_skill][1])
     projected_skills = dict(skills)
-    current_skill_before = float(projected_skills.get(current_skill, current_skill_score))
-    projected_skills[current_skill] = round(
-        current_skill_before * 0.7 + current_skill_score * 0.3, 3
-    )
+    for skill, (skill_correct, skill_questions) in skill_results.items():
+        skill_score = skill_correct / max(1, skill_questions)
+        before = float(projected_skills.get(skill, skill_score))
+        projected_skills[skill] = round(before * 0.7 + skill_score * 0.3, 3)
     if sum(1 for score in projected_skills.values() if float(score) > 0) >= 3:
         candidates.append("multi_skill")
 
@@ -1831,11 +1842,29 @@ async def complete_game_session(
         achievement_xp += rewards["xp_500"]
 
     entry.achievements = list(dict.fromkeys([*(entry.achievements or []), *fresh]))
-    progress_entry = await update_daily_progress(
-        db, user_id, study_plan_id=plan_id,
-        xp=base_xp + achievement_xp, skill=current_skill,
-        skill_score=current_skill_score, commit=False,
-    )
+    if session.game_id == "review_mix" and skill_results:
+        progress_entry = None
+        for skill, (skill_correct, skill_questions) in skill_results.items():
+            progress_entry = await update_daily_progress(
+                db, user_id, study_plan_id=plan_id,
+                xp=0,
+                skill=skill,
+                skill_score=skill_correct / max(1, skill_questions),
+                commit=False,
+            )
+        progress_entry = await update_daily_progress(
+            db, user_id, study_plan_id=plan_id,
+            xp=base_xp + achievement_xp,
+            skill=current_skill,
+            skill_score=current_skill_score,
+            commit=False,
+        )
+    else:
+        progress_entry = await update_daily_progress(
+            db, user_id, study_plan_id=plan_id,
+            xp=base_xp + achievement_xp, skill=current_skill,
+            skill_score=current_skill_score, commit=False,
+        )
     if progress_entry is None:
         raise HTTPException(status_code=500, detail="Unable to persist game XP")
 
