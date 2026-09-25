@@ -30,14 +30,14 @@ STRICT CONSTRAINTS:
    (no "A.", "B.", "1.", "2."). Each option must be plain answer text only.
    Example — WRONG: "options": ["A. works", "B. is working"]
    Example — CORRECT: "options": ["works", "is working"]
-9. If native_language_name is not "none", every exercise must include a concise
+8. If native_language_name is not "none", every exercise must include a concise
    "native_explanation" in {native_language_name} explaining why the answer is correct.
    If native_language_name is "none", set exercise "native_explanation" to null.
-8. If native_language_name is not "none", every exercise must include a concise
+9. If native_language_name is not "none", every exercise must include a concise
    "native_hint" in {native_language_name} that helps the student before answering
    without revealing the correct answer. If native_language_name is "none", set
    exercise "native_hint" to null.
-9. Native-language fields are for the student's language, not the target language.
+10. Native-language fields are for the student's language, not the target language.
    Never write "native_explanation", "native_hint", vocabulary "translation",
    "example_translation", or "note" in {target_language_name} unless
    {native_language_name} is also {target_language_name}.
