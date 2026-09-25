@@ -102,6 +102,18 @@ export default function GamesPage() {
     : 0
 
   const direction = lang === 'ar' ? 'rtl' : 'ltr'
+
+  function difficultyForGame(id: GameId) {
+    const skill = id === 'matching' || id === 'quick_choice' ? 'vocabulary'
+      : id === 'listen_choose' ? 'listening'
+      : id === 'spelling' ? 'writing'
+      : id === 'sentence_builder' ? 'grammar'
+      : 'memory'
+    const mastery = skills[skill] ?? 0
+    if (mastery < 0.4) return 1
+    if (mastery < 0.75) return 2
+    return 3
+  }
   const gameCards = useMemo(
     () => [
       { id: 'matching' as const, title: t.wordMatch, desc: t.wordMatchDesc, icon: '🔗' },
@@ -123,7 +135,8 @@ export default function GamesPage() {
     // round shell.
     if (id === 'memory' || id === 'matching' || id === 'sentence_builder') {
       const route = id === 'sentence_builder' ? 'sentence-builder' : id
-      window.location.assign(`/games/${route}?lang=${lang}`)
+      const difficulty = difficultyForGame(id)
+      window.location.assign(`/games/${route}?lang=${lang}&difficulty=${difficulty}`)
       return
     }
 
@@ -145,7 +158,7 @@ export default function GamesPage() {
         return
       }
 
-      const session = await startGameSession(id, lang, level)
+      const session = await startGameSession(id, lang, difficultyForGame(id))
       setGame(id)
       setDailyMode(session.daily_challenge)
       setDailyChallengeDate(session.daily_challenge_date)
