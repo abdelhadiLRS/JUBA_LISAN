@@ -204,6 +204,8 @@ class GameSessionResponse(BaseModel):
     daily_challenge: bool = False
     daily_challenge_date: str = ""
     interaction: dict | None = None
+    adaptive_mode: Literal["new", "review", "steady", "challenge"] = "new"
+    effective_difficulty: int = 1
 
 
 class GameSessionResultResponse(GameStatsResponse):
