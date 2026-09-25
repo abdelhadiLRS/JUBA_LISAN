@@ -262,11 +262,30 @@ async def get_freemium_status(
 ) -> FreemiumStatus:
     trial_active = is_freemium_trial_active(freemium_trial_ends_at)
 
-    chat = await check_chat_quota(redis, user_id)
-    lessons = await check_lesson_quota(redis, user_id)
-    listening = await check_listening_quota(redis, user_id)
-    reading = await check_reading_quota(redis, user_id)
-    voice = await check_voice_quota(redis, user_id)
+    # Redis is optional in local/Desktop mode. A temporary Redis outage must
+    # never turn a lesson page into a 500 response.
+    if redis is None:
+        chat = QuotaResult(True, settings.FREEMIUM_CHAT_DAILY_MESSAGES, settings.FREEMIUM_CHAT_DAILY_MESSAGES)
+        lessons = QuotaResult(True, settings.FREEMIUM_LESSONS_DAILY, settings.FREEMIUM_LESSONS_DAILY)
+        listening = QuotaResult(True, settings.FREEMIUM_LISTENING_WEEKLY, settings.FREEMIUM_LISTENING_WEEKLY)
+        reading = QuotaResult(True, settings.FREEMIUM_READING_WEEKLY, settings.FREEMIUM_READING_WEEKLY)
+        voice_limit = settings.FREEMIUM_VOICE_WEEKLY_MINUTES * 60
+        voice = QuotaResult(True, voice_limit, voice_limit)
+    else:
+        try:
+            chat = await check_chat_quota(redis, user_id)
+            lessons = await check_lesson_quota(redis, user_id)
+            listening = await check_listening_quota(redis, user_id)
+            reading = await check_reading_quota(redis, user_id)
+            voice = await check_voice_quota(redis, user_id)
+        except Exception:
+            # Treat Redis as an optional quota store when it is unavailable.
+            chat = QuotaResult(True, settings.FREEMIUM_CHAT_DAILY_MESSAGES, settings.FREEMIUM_CHAT_DAILY_MESSAGES)
+            lessons = QuotaResult(True, settings.FREEMIUM_LESSONS_DAILY, settings.FREEMIUM_LESSONS_DAILY)
+            listening = QuotaResult(True, settings.FREEMIUM_LISTENING_WEEKLY, settings.FREEMIUM_LISTENING_WEEKLY)
+            reading = QuotaResult(True, settings.FREEMIUM_READING_WEEKLY, settings.FREEMIUM_READING_WEEKLY)
+            voice_limit = settings.FREEMIUM_VOICE_WEEKLY_MINUTES * 60
+            voice = QuotaResult(True, voice_limit, voice_limit)
 
     trial_ends_str = None
     if freemium_trial_ends_at:
