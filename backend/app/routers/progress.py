@@ -663,6 +663,55 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                     ("مطر", "طقس", ["طعام", "مواصلات", "ملابس", "طقس"]),
                     ("معلّم", "أشخاص", ["أشخاص", "أماكن", "أشياء", "حيوانات"]),
                 ],
+                "es": [
+                    ("manzana", "Comida", ["Comida", "Transporte", "Ropa", "Clima"]),
+                    ("autobús", "Transporte", ["Comida", "Transporte", "Ropa", "Clima"]),
+                    ("chaqueta", "Ropa", ["Comida", "Transporte", "Ropa", "Clima"]),
+                    ("lluvia", "Clima", ["Comida", "Transporte", "Ropa", "Clima"]),
+                    ("profesor", "Personas", ["Personas", "Lugares", "Objetos", "Animales"]),
+                ],
+                "de": [
+                    ("Apfel", "Essen", ["Essen", "Transport", "Kleidung", "Wetter"]),
+                    ("Bus", "Transport", ["Essen", "Transport", "Kleidung", "Wetter"]),
+                    ("Jacke", "Kleidung", ["Essen", "Transport", "Kleidung", "Wetter"]),
+                    ("Regen", "Wetter", ["Essen", "Transport", "Kleidung", "Wetter"]),
+                    ("Lehrer", "Personen", ["Personen", "Orte", "Gegenstände", "Tiere"]),
+                ],
+                "it": [
+                    ("mela", "Cibo", ["Cibo", "Trasporti", "Abbigliamento", "Meteo"]),
+                    ("autobus", "Trasporti", ["Cibo", "Trasporti", "Abbigliamento", "Meteo"]),
+                    ("giacca", "Abbigliamento", ["Cibo", "Trasporti", "Abbigliamento", "Meteo"]),
+                    ("pioggia", "Meteo", ["Cibo", "Trasporti", "Abbigliamento", "Meteo"]),
+                    ("insegnante", "Persone", ["Persone", "Luoghi", "Oggetti", "Animali"]),
+                ],
+                "pt": [
+                    ("maçã", "Comida", ["Comida", "Transporte", "Roupa", "Clima"]),
+                    ("autocarro", "Transporte", ["Comida", "Transporte", "Roupa", "Clima"]),
+                    ("casaco", "Roupa", ["Comida", "Transporte", "Roupa", "Clima"]),
+                    ("chuva", "Clima", ["Comida", "Transporte", "Roupa", "Clima"]),
+                    ("professor", "Pessoas", ["Pessoas", "Lugares", "Objetos", "Animais"]),
+                ],
+                "ja": [
+                    ("りんご", "食べ物", ["食べ物", "乗り物", "服", "天気"]),
+                    ("バス", "乗り物", ["食べ物", "乗り物", "服", "天気"]),
+                    ("ジャケット", "服", ["食べ物", "乗り物", "服", "天気"]),
+                    ("雨", "天気", ["食べ物", "乗り物", "服", "天気"]),
+                    ("先生", "人", ["人", "場所", "物", "動物"]),
+                ],
+                "ko": [
+                    ("사과", "음식", ["음식", "교통", "옷", "날씨"]),
+                    ("버스", "교통", ["음식", "교통", "옷", "날씨"]),
+                    ("재킷", "옷", ["음식", "교통", "옷", "날씨"]),
+                    ("비", "날씨", ["음식", "교통", "옷", "날씨"]),
+                    ("선생님", "사람", ["사람", "장소", "물건", "동물"]),
+                ],
+                "zh": [
+                    ("苹果", "食物", ["食物", "交通", "衣服", "天气"]),
+                    ("公交车", "交通", ["食物", "交通", "衣服", "天气"]),
+                    ("夹克", "衣服", ["食物", "交通", "衣服", "天气"]),
+                    ("雨", "天气", ["食物", "交通", "衣服", "天气"]),
+                    ("老师", "人物", ["人物", "地点", "物品", "动物"]),
+                ],
             }[language]
             word, answer, choices = category_bank[index]
             rng.shuffle(choices)
