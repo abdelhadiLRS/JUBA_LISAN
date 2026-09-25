@@ -424,6 +424,12 @@ export default function GamesPage() {
     try {
       const server = await answerGameSessionQuestion(sessionId, question.id, choice)
       setAdaptiveMode(server.adaptive_mode)
+      const completedAnswers = [
+        ...answers.filter((item) => item.question_id !== question.id),
+        { question_id: question.id, choice },
+      ]
+      setAnswers(completedAnswers)
+
       if (!server.correct) {
         setSelected(null)
         setAnswerStatus('wrong')
@@ -436,11 +442,6 @@ export default function GamesPage() {
       setSelected(choice)
       setAnswerStatus('correct')
       setRoundScore((score) => score + 1)
-      const completedAnswers = [
-        ...answers.filter((item) => item.question_id !== question.id),
-        { question_id: question.id, choice },
-      ]
-      setAnswers(completedAnswers)
       setPendingNextQuestion(server.question ?? null)
       if (server.finished) {
         setPendingNextQuestion(null)
