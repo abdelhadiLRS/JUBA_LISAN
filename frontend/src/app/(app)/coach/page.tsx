@@ -36,6 +36,14 @@ interface ProgressSummary {
   }
 }
 
+interface SmartReview {
+  due_count?: number
+  recommended_game?: string | null
+  recommended_skill?: string | null
+  cefr_level?: string | null
+  average_mastery?: number
+}
+
 interface TodayPlan {
   cefr_level?: string | null
   lessons?: Array<{
@@ -61,17 +69,20 @@ export default function CoachPage() {
   const language = useLanguageStore((s) => s.activeLanguage)
   const [progress, setProgress] = useState<ProgressSummary>({})
   const [plan, setPlan] = useState<TodayPlan>({})
+  const [smartReview, setSmartReview] = useState<SmartReview>({})
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
 
   async function load() {
     try {
-      const [progressRes, planRes] = await Promise.all([
+      const [progressRes, planRes, reviewRes] = await Promise.all([
         apiFetch('/api/progress/summary'),
         apiFetch('/api/study-plan/today'),
+        apiFetch('/api/progress/smart-review'),
       ])
       if (progressRes.ok) setProgress(await progressRes.json())
       if (planRes.ok) setPlan(await planRes.json())
+      if (reviewRes.ok) setSmartReview(await reviewRes.json())
     } finally {
       setLoading(false)
       setRefreshing(false)
@@ -99,6 +110,28 @@ export default function CoachPage() {
   const masteryFocusLabel = weakestMastery
     ? weakestMastery[0].replaceAll('_', ' ')
     : weakestSkill.replaceAll('_', ' ')
+
+  const reviewCopy = language?.code === 'ar'
+    ? { eyebrow: 'مراجعة ذكية', title: 'لديك مراجعة مستحقة الآن', action: 'ابدأ المراجعة', skill: 'المهارة المقترحة' }
+    : language?.code === 'fr'
+      ? { eyebrow: 'Révision intelligente', title: 'Vous avez des révisions dues', action: 'Commencer la révision', skill: 'Compétence proposée' }
+      : language?.code === 'es'
+        ? { eyebrow: 'Repaso inteligente', title: 'Tienes repasos pendientes', action: 'Iniciar repaso', skill: 'Habilidad propuesta' }
+        : language?.code === 'de'
+          ? { eyebrow: 'Intelligente Wiederholung', title: 'Wiederholungen sind fällig', action: 'Wiederholung starten', skill: 'Empfohlene Fähigkeit' }
+          : language?.code === 'it'
+            ? { eyebrow: 'Ripasso intelligente', title: 'Hai ripassi da fare', action: 'Inizia il ripasso', skill: 'Abilità consigliata' }
+            : language?.code === 'pt'
+              ? { eyebrow: 'Revisão inteligente', title: 'Há revisões pendentes', action: 'Iniciar revisão', skill: 'Competência sugerida' }
+              : language?.code === 'pl'
+                ? { eyebrow: 'Inteligentna powtórka', title: 'Masz oczekujące powtórki', action: 'Rozpocznij powtórkę', skill: 'Sugerowana umiejętność' }
+                : language?.code === 'nl'
+                  ? { eyebrow: 'Slim herhalen', title: 'Je hebt herhalingen klaarstaan', action: 'Start herhaling', skill: 'Aanbevolen vaardigheid' }
+                  : language?.code === 'ro'
+                    ? { eyebrow: 'Recapitulare inteligentă', title: 'Ai elemente de revizuit', action: 'Începe revizuirea', skill: 'Competență recomandată' }
+                    : language?.code === 'ru'
+                      ? { eyebrow: 'Умное повторение', title: 'Есть задания для повторения', action: 'Начать повторение', skill: 'Рекомендуемый навык' }
+                      : { eyebrow: 'Smart review', title: 'You have due reviews', action: 'Start review', skill: 'Recommended skill' }
 
   return (
     <main className="juba-coach-shell min-h-screen px-4 py-8 sm:px-6 lg:px-10">
@@ -167,6 +200,24 @@ export default function CoachPage() {
             </div>
           </div>
         </section>
+
+        {Number(smartReview.due_count ?? 0) > 0 && (
+          <section className="juba-card overflow-hidden border-2 border-[var(--juba-app-green)] p-6 sm:p-8">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{reviewCopy.eyebrow}</p>
+                <h2 className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">{reviewCopy.title}</h2>
+                <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">
+                  {smartReview.due_count} · {reviewCopy.skill}: {(smartReview.recommended_skill ?? weakestSkill).replaceAll('_', ' ')}
+                  {smartReview.cefr_level ? ' · CEFR ' + smartReview.cefr_level : ''}
+                </p>
+              </div>
+              <Link href="/games" className="inline-flex items-center justify-center gap-2 rounded-[20px] bg-[var(--juba-app-green)] px-5 py-3 text-sm font-bold text-white shadow-[3px_3px_0_var(--juba-app-ink)] transition hover:opacity-90">
+                {reviewCopy.action} <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </section>
+        )}
 
         {progress.mastery && progress.mastery.tracked_items > 0 && (
           <section className="juba-card p-6 sm:p-8">
