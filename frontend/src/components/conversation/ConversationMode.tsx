@@ -944,7 +944,7 @@ export default function ConversationMode({
 
     if (!warmupResponse.ok) {
       if (!mountedRef.current || startAttemptRef.current !== startAttempt) {
-        ctx.close()
+        closeAudioContextSafely(ctx)
         return
       }
       setErrorMsg(`${t('errorConnection')} [warmup ${warmupResponse.status}]`)
@@ -967,7 +967,7 @@ export default function ConversationMode({
       setErrorMsg(t('errorUnauthorized'))
       setStatus('error')
       setSessionActive(false)
-      ctx.close()
+      closeAudioContextSafely(ctx)
       audioCtxRef.current = null
       audioQueueRef.current = null
       convLogger.error('no access token for websocket connect')
