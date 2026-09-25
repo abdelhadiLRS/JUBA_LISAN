@@ -76,6 +76,21 @@ Track skills, XP, streaks and competencies
 Move to the next level
 ~~~
 
+### 🎮 Games are part of the learning engine
+
+The Games Hub is not a decorative collection of mini-games. Each playable session is generated and validated by the backend, persisted to the learner's progress history, and mapped to a learning skill.
+
+| Game | Learning focus | Interaction |
+|---|---|---|
+| 🔗 Word Match | Vocabulary | Match a word with its translation |
+| ⚡ Quick Choice | Vocabulary / speed | Timed answer selection |
+| 🧩 Sentence Builder | Grammar | Build the correct sentence order |
+| 🎧 Listen & Choose | Listening | Hear the target word and choose it |
+| ✍️ Spelling Challenge | Writing / vocabulary | Type the requested word |
+| 🧠 Memory Cards | Memory / vocabulary | Match real card pairs |
+
+Game performance contributes to **XP, score, accuracy, streaks, achievements, and skill mastery**. Difficulty is adapted from current mastery, while daily-game eligibility and reward validation remain server-authoritative.
+
 ### 🚀 What has already been built
 
 JUBA LISAN already brings together:
