@@ -425,7 +425,6 @@ export default function FlashcardsPage() {
                   </p>
                 )}
                 <VoiceRecorder
-                  studyPlanId={cards[current].study_plan_id}
                   onTranscription={handleSpeakingTranscription}
                   maxSeconds={5}
                   disabled={reviewing}
