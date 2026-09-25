@@ -1699,7 +1699,11 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
     # Retry burden can push a nominally reviewing item back toward recognition.
     # This keeps the cognitive demand aligned with actual retrieval performance.
     retrieval_efficiency = max(0.0, min(1.0, float(replay.get("retrieval_efficiency", 0.0))))
-    if retrieval_efficiency < 0.35 and strategy in {"contextual_transfer", "production"}:
+    # A zero efficiency value is also the default for items with no attempt
+    # history. Only downgrade a demanding retrieval stage when we have actual
+    # evidence that the learner struggled, not when telemetry is absent.
+    attempt_count = max(0, int(replay.get("attempts", 0)))
+    if attempt_count > 0 and retrieval_efficiency < 0.35 and strategy in {"contextual_transfer", "production"}:
         strategy = "recognition"
     strategy_offset = {
         "direct_recall": 0,
