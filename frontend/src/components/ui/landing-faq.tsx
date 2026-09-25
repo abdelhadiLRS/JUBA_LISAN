@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { ChevronDown } from 'lucide-react'
 
 const FAQ_KEYS = [
   'q_start',
@@ -20,10 +21,10 @@ const FAQ_KEYS = [
 
 export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   const t = useTranslations('faq')
-  const [open, setOpen] = useState<number | null>(null)
+  const [open, setOpen] = useState<number | null>(0)
 
   const strong = (chunks: React.ReactNode) => (
-    <strong className="font-semibold text-[var(--juba-app-ink)]">{chunks}</strong>
+    <strong className="font-bold text-[var(--juba-app-ink)]">{chunks}</strong>
   )
 
   const renderAnswer = (key: string) => {
@@ -39,13 +40,13 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
         t('workflowStep6'),
       ]
       return (
-        <ol className="list-none space-y-2">
+        <ol className="list-none space-y-2.5">
           {steps.map((step, i) => (
             <li key={i} className="flex items-start gap-3">
-              <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[var(--juba-app-green-soft)] text-xs font-semibold text-[var(--juba-app-green-dark)]">
+              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[var(--juba-app-ink)] bg-[var(--juba-app-green-soft)] text-xs font-black text-[var(--juba-app-ink)]">
                 {i + 1}
               </span>
-              <span>{step}</span>
+              <span className="text-sm font-semibold leading-6 text-[var(--juba-app-ink)]">{step}</span>
             </li>
           ))}
         </ol>
@@ -71,30 +72,41 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   }
 
   return (
-    <div dir={dir} className="juba-ff-faq overflow-hidden p-0">
-      {FAQ_KEYS.map((key, i) => (
-        <div
-          key={key}
-          className={i < FAQ_KEYS.length - 1 ? 'juba-ff-faq-row border-b' : 'juba-ff-faq-row'}
-        >
-          <button
-            type="button"
-            onClick={() => setOpen(open === i ? null : i)}
-            aria-expanded={open === i}
-            className="juba-ff-faq-question flex w-full items-center justify-between px-5 py-4 text-start text-sm transition-colors"
+    <div dir={dir} className="mx-auto max-w-4xl space-y-3 px-4">
+      {FAQ_KEYS.map((key, i) => {
+        const isOpen = open === i
+        return (
+          <div
+            key={key}
+            className={`rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white transition-all duration-200 ${
+              isOpen
+                ? 'shadow-[5px_5px_0_var(--juba-app-ink)] bg-[#fcfbf7]'
+                : 'shadow-[3px_3px_0_var(--juba-app-ink)] hover:translate-x-0.5 hover:translate-y-0.5'
+            }`}
           >
-            <span className="juba-ff-faq-question-label pr-4 font-medium">{t(key)}</span>
-            <span className="juba-ff-faq-toggle flex size-7 shrink-0 items-center justify-center rounded-full text-sm font-medium">
-              {open === i ? '−' : '+'}
-            </span>
-          </button>
-          {open === i && (
-            <div className="juba-ff-faq-answer border-t px-5 pt-4 pb-5 text-sm leading-6">
-              {renderAnswer(key)}
-            </div>
-          )}
-        </div>
-      ))}
+            <button
+              type="button"
+              onClick={() => setOpen(isOpen ? null : i)}
+              aria-expanded={isOpen}
+              className="flex w-full items-center justify-between p-5 text-start font-black text-base text-[var(--juba-app-ink)]"
+            >
+              <span className="pr-4">{t(key)}</span>
+              <span
+                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-green-soft)] transition-transform duration-200 ${
+                  isOpen ? 'rotate-180 bg-[var(--juba-app-yellow)]' : ''
+                }`}
+              >
+                <ChevronDown className="h-4 w-4 text-[var(--juba-app-ink)]" />
+              </span>
+            </button>
+            {isOpen && (
+              <div className="border-t-2 border-[var(--juba-app-line)] px-5 pt-4 pb-6 text-sm font-medium leading-7 text-[var(--juba-app-muted)] animate-in fade-in duration-150">
+                {renderAnswer(key)}
+              </div>
+            )}
+          </div>
+        )
+      })}
     </div>
   )
 }
