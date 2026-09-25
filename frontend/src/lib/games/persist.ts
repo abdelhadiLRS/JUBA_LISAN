@@ -76,7 +76,14 @@ export type GameSessionResult = ServerGameStats & {
   round_correct: number
   round_questions: number
   xp_earned: number
-  skill_results: Record<string, { correct: number; questions: number; accuracy: number }>
+  skill_results: Record<string, {
+    correct: number
+    questions: number
+    accuracy: number
+    mastery_before?: number
+    mastery_after?: number
+    mastery_delta?: number
+  }>
   new_achievements: string[]
 }
 
