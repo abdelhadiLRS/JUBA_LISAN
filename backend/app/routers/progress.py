@@ -921,10 +921,16 @@ async def complete_game_session(
         correct_answers = 0
         for submitted in data.answers:
             question = expected[submitted.question_id]
-            if submitted.choice not in question["choices"]:
-                raise HTTPException(status_code=422, detail="Invalid choice for game question")
-            if submitted.choice == question["answer"]:
-                correct_answers += 1
+            if question.get("input_mode", "choice") == "text":
+                if not submitted.choice.strip():
+                    raise HTTPException(status_code=422, detail="Text answer cannot be empty")
+                if submitted.choice.strip().casefold() == str(question["answer"]).strip().casefold():
+                    correct_answers += 1
+            else:
+                if submitted.choice not in question["choices"]:
+                    raise HTTPException(status_code=422, detail="Invalid choice for game question")
+                if submitted.choice == question["answer"]:
+                    correct_answers += 1
         questions_answered = len(expected)
     # Validation above is read-only. Start the write phase with a database lock
     # so the GameProgress counters, achievements, and XP thresholds are calculated
