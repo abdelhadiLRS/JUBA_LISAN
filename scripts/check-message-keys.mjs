@@ -23,9 +23,31 @@ function load(file) {
 }
 
 function placeholders(value) {
-  return [...String(value).matchAll(/\{([a-zA-Z0-9_]+)(?:\s*,[^}]*)?\}/g)]
-    .map((match) => match[1])
-    .sort();
+  const text = String(value);
+  const found = [];
+  for (let index = 0; index < text.length; index += 1) {
+    if (text[index] !== '{') continue;
+    const match = text.slice(index + 1).match(/^([a-zA-Z0-9_]+)/);
+    if (!match) continue;
+    const name = match[1];
+    const afterName = index + 1 + name.length;
+    const rest = text.slice(afterName);
+    const format = rest.match(/^\s*,\s*(plural|select|selectordinal)\b/);
+    if (format) {
+      found.push(name);
+      let depth = 1;
+      let cursor = index + 1;
+      while (cursor < text.length && depth > 0) {
+        if (text[cursor] === '{') depth += 1;
+        else if (text[cursor] === '}') depth -= 1;
+        cursor += 1;
+      }
+      index = cursor - 1;
+      continue;
+    }
+    if (/^\s*\}/.test(rest)) found.push(name);
+  }
+  return found.sort();
 }
 
 const reference = flatten(load(referenceFile));
