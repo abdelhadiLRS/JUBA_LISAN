@@ -212,7 +212,7 @@ export default function CoachPage() {
                   {smartReview.cefr_level ? ' · CEFR ' + smartReview.cefr_level : ''}
                 </p>
               </div>
-              <Link href="/games" className="inline-flex items-center justify-center gap-2 rounded-[20px] bg-[var(--juba-app-green)] px-5 py-3 text-sm font-bold text-white shadow-[3px_3px_0_var(--juba-app-ink)] transition hover:opacity-90">
+              <Link href="/games?review=1" className="inline-flex items-center justify-center gap-2 rounded-[20px] bg-[var(--juba-app-green)] px-5 py-3 text-sm font-bold text-white shadow-[3px_3px_0_var(--juba-app-ink)] transition hover:opacity-90">
                 {reviewCopy.action} <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
