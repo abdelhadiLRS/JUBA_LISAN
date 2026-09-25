@@ -47,6 +47,7 @@ export default function DashboardPage() {
   const tTarget = useTranslations('targetLanguages')
   const tError = useTranslations('error')
   const user = useAuthStore((s) => s.user)
+  const accessToken = useAuthStore((s) => s.accessToken)
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const trialEligible = !user?.trial_used
   const freemiumTrialActive = isFreemiumTrialActive(user, stripeEnabled)
@@ -169,8 +170,11 @@ export default function DashboardPage() {
   }, [setProgress, setTodayLessons, activeLanguage?.code])
 
   useEffect(() => {
+    // AppLayout establishes the authenticated session before the dashboard
+    // starts protected API requests. Avoid transient 401s while auth boots.
+    if (!user || !accessToken) return
     loadData()
-  }, [loadData])
+  }, [loadData, user, accessToken])
 
   async function skipDay() {
     if (skipping) return
