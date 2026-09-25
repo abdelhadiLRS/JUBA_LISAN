@@ -176,7 +176,11 @@ export default function GamesPage() {
 
   function changeInterfaceLanguage(value: Lang) {
     setLang(value)
-    router.replace(pathname)
+    // Persist the interface locale so middleware and server-rendered messages
+    // use the same language after navigation or refresh. The study-plan target
+    // language is intentionally untouched.
+    document.cookie = `NEXT_LOCALE=${value}; Path=/; Max-Age=31536000; SameSite=Lax`
+    router.refresh()
   }
   const [game, setGame] = useState<GameId | null>(null)
   const [dailyMode, setDailyMode] = useState(false)
