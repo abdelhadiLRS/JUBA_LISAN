@@ -1113,7 +1113,11 @@ async def _get_adaptive_game_difficulty(
     game_id: str,
     requested_difficulty: int,
 ) -> tuple[int, str]:
-    """Adjust game difficulty from recent server-recorded performance."""
+    """Adapt difficulty from both game history and the learner's weak skill."""
+    requested_difficulty = max(1, min(3, int(requested_difficulty)))
+    current_skill = GAME_SKILL_MAP.get(game_id, "vocabulary")
+
+    # Game-specific evidence keeps the adaptation responsive to the exact activity.
     result = await db.execute(
         select(GameProgressEvent)
         .where(
@@ -1125,18 +1129,44 @@ async def _get_adaptive_game_difficulty(
         .limit(5)
     )
     recent = result.scalars().all()
-    if not recent:
-        return requested_difficulty, "new"
 
-    scores = [
-        event.correct_answers / max(1, event.questions_answered)
-        for event in recent
-    ]
-    average = sum(scores) / len(scores)
-    if average < 0.5:
+    recent_average = None
+    if recent:
+        scores = [
+            event.correct_answers / max(1, event.questions_answered)
+            for event in recent
+        ]
+        recent_average = sum(scores) / len(scores)
+
+    # The latest persisted skill score captures cross-game performance for the
+    # same competency. A weak skill should bias the next round toward review even
+    # when this particular game has not been played recently.
+    skill_result = await db.execute(
+        select(Progress.skills)
+        .where(
+            Progress.user_id == user_id,
+            Progress.study_plan_id == plan_id,
+        )
+        .order_by(Progress.date.desc())
+        .limit(1)
+    )
+    skills = skill_result.scalar_one_or_none() or {}
+    skill_score = skills.get(current_skill)
+    if isinstance(skill_score, (int, float)) and not isinstance(skill_score, bool):
+        skill_score = max(0.0, min(1.0, float(skill_score)))
+    else:
+        skill_score = None
+
+    if recent_average is not None and recent_average < 0.5:
         return max(1, requested_difficulty - 1), "review"
-    if average >= 0.85:
+    if skill_score is not None and skill_score < 0.5:
+        return max(1, requested_difficulty - 1), "skill_review"
+    if recent_average is not None and recent_average >= 0.85:
         return min(3, requested_difficulty + 1), "challenge"
+    if skill_score is not None and skill_score >= 0.85:
+        return min(3, requested_difficulty + 1), "skill_challenge"
+    if recent_average is None and skill_score is None:
+        return requested_difficulty, "new"
     return requested_difficulty, "steady"
 
 
