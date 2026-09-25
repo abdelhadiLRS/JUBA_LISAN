@@ -1565,6 +1565,10 @@ async def _get_recent_game_mistakes(
         question["mastery_state"] = str(mastery["state"])
         question["mastery_misses"] = int(mastery["misses"])
         question["mastery_resolutions"] = int(mastery["resolutions"])
+        question["attempts"] = int(mastery.get("attempts", 0))
+        question["retry_resolutions"] = int(mastery.get("retry_resolutions", 0))
+        question["retry_misses"] = int(mastery.get("retry_misses", 0))
+        question["retrieval_efficiency"] = float(mastery.get("retrieval_efficiency", 0.0))
         question["review_difficulty"] = _review_adaptive_difficulty(
             int(question.get("difficulty", 1)),
             int(question.get("review_streak", 0)),
@@ -2321,7 +2325,7 @@ async def _recommended_review_game(
     }
     priority = tuple(game_for_skill)
     due_items = await _get_recent_game_mistakes(db, user_id, plan.id, limit=100)
-    candidates: list[tuple[str, str, float, int, int, int]] = []
+    candidates: list[tuple[str, str, float, float, int, int, int]] = []
 
     for position, item in enumerate(due_items):
         skill = str(item.get("skill", ""))
@@ -2334,6 +2338,7 @@ async def _recommended_review_game(
             else 0.0
         )
         state = str(item.get("mastery_state", "learning"))
+        retrieval_efficiency = float(item.get("retrieval_efficiency", 0.0))
         # Direct retrieval is preferred while an item is weak/learning.
         # Once it is recovering, vary the mechanic to test transfer.
         game = _review_game_for_item(skill, state)
@@ -2344,6 +2349,7 @@ async def _recommended_review_game(
                 skill,
                 game,
                 mastery,
+                retrieval_efficiency,
                 -int(item.get("review_count", 0)),
                 priority.index(skill),
                 position,
@@ -2416,7 +2422,9 @@ async def get_smart_review(
         skill = str(item.get("skill", "vocabulary"))
         mastery = skill_details.get(skill, {}).get("mastery", 0.0)
         review_count = max(0, int(item.get("review_count", 0)))
-        priority_score = min(100, round((1.0 - float(mastery)) * 70 + min(review_count, 5) * 6 + 10))
+        retrieval_efficiency = max(0.0, min(1.0, float(item.get("retrieval_efficiency", 0.0))))
+        retry_burden = 1.0 - retrieval_efficiency
+        priority_score = min(100, round((1.0 - float(mastery)) * 65 + retry_burden * 15 + min(review_count, 5) * 4 + 10))
         priority = "high" if priority_score >= 70 else "medium" if priority_score >= 45 else "low"
         items.append({
             "review_key": str(item.get("review_key", "")),
@@ -2424,6 +2432,10 @@ async def get_smart_review(
             "topic": str(item.get("topic", "")),
             "prompt": str(item.get("prompt", "")),
             "review_count": review_count,
+            "attempts": int(item.get("attempts", 0)),
+            "retry_resolutions": int(item.get("retry_resolutions", 0)),
+            "retry_misses": int(item.get("retry_misses", 0)),
+            "retrieval_efficiency": round(retrieval_efficiency, 3),
             "review_streak": int(item.get("review_streak", 0)),
             "review_stage": str(item.get("review_stage") or _review_stage(int(item.get("review_streak", 0)))),
             "due_at": str(item.get("review_due_at", "")),
