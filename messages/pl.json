@@ -81,7 +81,8 @@
     "dashboardStreak": "Day Streak",
     "dashboardXp": "Total XP",
     "dashboardMasteredWords": "Mastered Words",
-    "dashboardCurrentUnit": "Current Unit"
+    "dashboardCurrentUnit": "Current Unit",
+    "ar": "Cześć!"
   },
   "common": {
     "loading": "Ładowanie...",
@@ -1350,7 +1351,9 @@
     "de-DE-description": "Niemiecki używany w Niemczech.",
     "ja-JP-description": "Japoński używany w Japonii.",
     "ko-KR-description": "Koreański używany w Korei Południowej.",
-    "zh-CN-description": "Mandaryński chiński z Chin kontynentalnych, z uproszczonymi znakami."
+    "zh-CN-description": "Mandaryński chiński z Chin kontynentalnych, z uproszczonymi znakami.",
+    "ar": "arabski",
+    "ar-description": "Modern Standard Arabic for global communication, study, and travel."
   },
   "onboarding": {
     "title": "Wybierz swój język",
