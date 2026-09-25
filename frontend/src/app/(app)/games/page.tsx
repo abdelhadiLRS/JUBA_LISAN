@@ -154,7 +154,14 @@ export default function GamesPage() {
     correct: number
     questions: number
     xp: number
-    skillResults: Record<string, { correct: number; questions: number; accuracy: number }>
+    skillResults: Record<string, {
+      correct: number
+      questions: number
+      accuracy: number
+      mastery_before?: number
+      mastery_after?: number
+      mastery_delta?: number
+    }>
   } | null>(null)
   const [finishing, setFinishing] = useState(false)
   const [adaptiveMode, setAdaptiveMode] = useState<'new' | 'review' | 'steady' | 'challenge' | 'skill_review' | 'skill_challenge'>('new')
@@ -679,6 +686,13 @@ export default function GamesPage() {
                     {Object.entries(roundResult.skillResults).map(([skill, result]) => (
                       <span key={skill}>
                         <strong>{skill}</strong>: {result.correct}/{result.questions} ({Math.round(result.accuracy * 100)}%)
+                        {typeof result.mastery_before === 'number' && typeof result.mastery_after === 'number' && (
+                          <> · {Math.round(result.mastery_before * 100)}% → {Math.round(result.mastery_after * 100)}%
+                            {typeof result.mastery_delta === 'number' && (
+                              <> ({result.mastery_delta >= 0 ? '+' : ''}{Math.round(result.mastery_delta * 100)}%)</>
+                            )}
+                          </>
+                        )}
                       </span>
                     ))}
                   </div>
