@@ -56,7 +56,6 @@ AssessmentQuestion(id="no-c2-006",skill="vocabulary",difficulty="C2",question="H
 AssessmentQuestion(id="no-c2-007",skill="reading",difficulty="C2",question="Les: «Argumentet er overbevisende, forutsatt at den underliggende antakelsen holder.» Hva avhenger vurderingen av?",options=["At den underliggende antakelsen holder.","At argumentet er kort.","At teksten er uformell.","At dataene er gamle."],"At den underliggende antakelsen holder."),
 AssessmentQuestion(id="no-c2-008",skill="grammar",difficulty="C2",question="Velg den mest presise akademiske formuleringen.",options=["Resultatene gir ikke grunnlag for en entydig generalisering uten flere data.","Resultatene gir alltid grunnlag for generalisering uten data.","Resultatene gir ikke grunnlag generalisere uten flere.","Resultatene gir sikkert grunnlag for generalisering uten analyse."],"Resultatene gir ikke grunnlag for en entydig generalisering uten flere data.",grammar_slug="akademisk-formulering")
 
-AssessmentQuestion(id="no-a1-005",skill="grammar",difficulty="A1",question="Velg riktig spørsmål.",options=["Hvor bor du?","Hvor du bor?","Bor hvor du?","Hvor bo?"],correct="Hvor bor du?",grammar_slug="questions"),
 
 
 
@@ -195,7 +194,6 @@ AssessmentQuestion(id="no-c2-010",skill="vocabulary",difficulty="C2",question="H
 AssessmentQuestion(id="no-c2-011",skill="reading",difficulty="C2",question="Les: «Argumentet er overbevisende, forutsatt at den underliggende antakelsen holder.» Hva avhenger vurderingen av?",options=["At den underliggende antakelsen holder.","At argumentet er kort.","At teksten er uformell.","At dataene er gamle."],correct="At den underliggende antakelsen holder."),
 AssessmentQuestion(id="no-c2-012",skill="grammar",difficulty="C2",question="Velg den mest presise akademiske formuleringen.",options=["Resultatene tillater ikke en sikker generalisering uten ytterligere data.","Resultatene tillater alltid generalisering uten data.","Resultatene tillater ikke å generalisere uten ytterligere.","Resultatene tillater en sikker generalisering uten analyse."],correct="Resultatene tillater ikke en sikker generalisering uten ytterligere data.",grammar_slug="akademisk-formulering")
 
-AssessmentQuestion(id="no-a1-005",skill="grammar",difficulty="A1",question="Velg riktig spørsmål.",options=["Hvor bor du?","Hvor du bor?","Bor hvor du?","Hvor bor?"],correct="Hvor bor du?"),
 
 
 
@@ -365,7 +363,6 @@ AssessmentQuestion("no-c2-358","vocabulary","C2","Hva betyr «tvetydig»?",["som
 AssessmentQuestion("no-c2-359","reading","C2","Les: «Argumentet er overbevisende, forutsatt at den underliggende antakelsen holder.» Hva avhenger vurderingen av?",["At den underliggende antakelsen holder.","At argumentet er kort.","At teksten er uformell.","At dataene er gamle."],"At den underliggende antakelsen holder."),
 AssessmentQuestion("no-c2-360","grammar","C2","Velg den mest presise akademiske formuleringen.",["Resultatene gir ikke grunnlag for en entydig generalisering uten flere data.","Resultatene gir alltid grunnlag for generalisering uten data.","Resultatene gir ikke grunnlag for å generalisere uten flere.","Resultatene gir grunnlag for sikker generalisering uten analyse."],"Resultatene gir ikke grunnlag for en entydig generalisering uten flere data.")
 
-AssessmentQuestion(id="no-a1-005",skill="grammar",difficulty="A1",question="Velg riktig spørsmål.",options=["Hvor bor du?","Hvor du bor?","Hvor bor?","Hvor bor du er?"],correct="Hvor bor du?",grammar_slug="questions"),
 
 
 
@@ -457,7 +454,6 @@ AssessmentQuestion(id="no-a1-005",skill="grammar",difficulty="A1",question="Velg
 
 
 
-AssessmentQuestion(id="no-c2-008",skill="grammar",difficulty="C2",question="Velg den mest presise akademiske formuleringen.",options=["Resultatene tillater ingen entydig generalisering uten ytterligere data.","Resultatene tillater alltid generalisering uten data.","Resultatene tillater ikke å generalisere uten ytterligere.","Resultatene tillater sikker generalisering uten analyse."],"Resultatene tillater ingen entydig generalisering uten ytterligere data.",grammar_slug="akademisk-formulering")
 
 AssessmentQuestion("no-a1-009","vocabulary","A1","Hva betyr «morgen»?",["begynnelsen av dagen","slutten av uken","et kjøretøy","et yrke"],"begynnelsen av dagen"),
 AssessmentQuestion("no-a2-009","grammar","A2","Velg riktig framtidsuttrykk.",["I morgen skal jeg reise.","I morgen reiste jeg.","I morgen reiser jeg i går.","I morgen skal jeg reiste."],"I morgen skal jeg reise.","framtid"),
