@@ -167,6 +167,7 @@ export default function GamesPage() {
     }>
   } | null>(null)
   const [finishing, setFinishing] = useState(false)
+  const [reviewContinueAvailable, setReviewContinueAvailable] = useState(false)
   const [adaptiveMode, setAdaptiveMode] = useState<'new' | 'review' | 'steady' | 'challenge' | 'skill_review' | 'skill_challenge'>('new')
   const [effectiveDifficulty, setEffectiveDifficulty] = useState(1)
   const [smartReview, setSmartReview] = useState<{
@@ -256,15 +257,15 @@ export default function GamesPage() {
   }
   const masteryLabel = (state: string) => masteryLabels[state] ?? masteryLabels.learning
 
-  async function refreshSmartReview() {
+  async function refreshSmartReview(): Promise<boolean> {
     try {
       const response = await fetch('/api/progress/smart-review', {
         credentials: 'include',
         cache: 'no-store',
       })
-      if (!response.ok) return
+      if (!response.ok) return false
       const data = await response.json()
-      if (!data || typeof data !== 'object') return
+      if (!data || typeof data !== 'object') return false
       const recommended = typeof data.recommended_game === 'string' ? data.recommended_game as GameId : null
       setSmartReview({
         due_count: Number(data.due_count) || 0,
@@ -294,6 +295,7 @@ export default function GamesPage() {
       })
     } catch {
       // The games page remains usable when the review summary is temporarily unavailable.
+      return false
     }
   }
 
@@ -396,6 +398,7 @@ export default function GamesPage() {
       setSessionId(session.session_id)
       setSessionQuestions(session.questions)
       setNewAchievements([])
+      setReviewContinueAvailable(false)
       setRoundResult(null)
       setFinishing(false)
       setAdaptiveMode(session.adaptive_mode ?? 'new')
@@ -471,7 +474,8 @@ export default function GamesPage() {
         xp: server.xp_earned,
         skillResults: server.skill_results ?? {},
       })
-      void refreshSmartReview()
+      const hasNextReview = await refreshSmartReview()
+      setReviewContinueAvailable(hasNextReview)
       setProgress({
         streak,
         xp: server.total_xp,
@@ -733,6 +737,19 @@ export default function GamesPage() {
                       </span>
                     ))}
                   </div>
+                )}
+                {reviewContinueAvailable && smartReview.recommended_game && (
+                  <button
+                    type="button"
+                    className="next"
+                    onClick={() => {
+                      setRoundResult(null)
+                      setReviewContinueAvailable(false)
+                      void startGame(smartReview.recommended_game as GameId, false, true)
+                    }}
+                  >
+                    🧠 {lang === 'ar' ? 'المراجعة التالية' : lang === 'fr' ? 'Révision suivante' : lang === 'es' ? 'Siguiente repaso' : lang === 'de' ? 'Nächste Wiederholung' : lang === 'it' ? 'Ripasso successivo' : lang === 'pt' ? 'Próxima revisão' : lang === 'pl' ? 'Następna powtórka' : lang === 'nl' ? 'Volgende herhaling' : lang === 'ro' ? 'Următoarea revizuire' : lang === 'ru' ? 'Следующее повторение' : 'Continue smart review'} →
+                  </button>
                 )}
                 <button
                   type="button"
