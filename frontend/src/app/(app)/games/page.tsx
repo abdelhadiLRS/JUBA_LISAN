@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { useLocale } from 'next-intl'
 import {
   ACHIEVEMENTS,
   type AchievementId,
@@ -15,7 +16,11 @@ import {
 import { useProgressStore } from '@/store/progress'
 import './games.css'
 
-type Lang = GameLanguage
+type Lang = 'ar' | 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt' | 'pl' | 'nl' | 'ro' | 'ru'
+const GAME_LANGUAGES: GameLanguage[] = ['ar', 'fr', 'en']
+function gameLanguageFor(locale: Lang): GameLanguage {
+  return GAME_LANGUAGES.includes(locale as GameLanguage) ? locale as GameLanguage : 'en'
+}
 function getLocalDateKey() {
   const now = new Date()
   const year = now.getFullYear()
@@ -69,7 +74,9 @@ lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائيا
 } as const
 
 export default function GamesPage() {
-  const [lang, setLang] = useState<Lang>('ar')
+  const locale = useLocale() as Lang
+  const [lang, setLang] = useState<Lang>(locale)
+  useEffect(() => setLang(locale), [locale])
   const [game, setGame] = useState<GameId | null>(null)
   const [dailyMode, setDailyMode] = useState(false)
   const [dailyChallengeDate, setDailyChallengeDate] = useState('')
@@ -89,7 +96,7 @@ export default function GamesPage() {
   } = useProgressStore()
 
   const level = Math.floor(xp / 100) + 1
-  const t = copy[lang]
+  const t = copy[lang as keyof typeof copy] ?? copy.en
   const today = getLocalDateKey()
   const dailyCompletedToday = gameStats.lastDailyChallengeDate === today
   // The client mirrors only the deterministic display rotation; it never grants rewards.
@@ -143,7 +150,7 @@ export default function GamesPage() {
     if (id === 'memory' || id === 'matching' || id === 'sentence_builder') {
       const route = id === 'sentence_builder' ? 'sentence-builder' : id
       const difficulty = difficultyForGame(id)
-      window.location.assign(`/games/${route}?lang=${lang}&difficulty=${difficulty}`)
+      window.location.assign(`/games/${route}?lang=${gameLanguageFor(lang)}&difficulty=${difficulty}`)
       return
     }
 
@@ -165,7 +172,7 @@ export default function GamesPage() {
         return
       }
 
-      const session = await startGameSession(id, lang, difficultyForGame(id))
+      const session = await startGameSession(id, gameLanguageFor(lang), difficultyForGame(id))
       setGame(id)
       setDailyMode(session.daily_challenge)
       setDailyChallengeDate(session.daily_challenge_date)
@@ -288,7 +295,7 @@ export default function GamesPage() {
           </div>
           <div className="language-control">
             <span>{t.lang}</span>
-            {(['ar', 'fr', 'en'] as Lang[]).map((value) => (
+            {(['ar', 'fr', 'en', 'es', 'de', 'it', 'pt', 'pl', 'nl', 'ro', 'ru'] as Lang[]).map((value) => (
               <button type="button" key={value} className={lang === value ? 'active' : ''} onClick={() => setLang(value)}>
                 {value.toUpperCase()}
               </button>
