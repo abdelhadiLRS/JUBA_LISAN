@@ -299,7 +299,7 @@ export default function DashboardPage() {
         {/* Next step */}
         <div className="juba-dashboard-next juba-card mb-7 overflow-hidden rounded-[28px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-6 shadow-[0_18px_55px_-38px_rgba(15,23,42,.35)] sm:p-8">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-            <p className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
+            <p className="font-sans text-xs font-semibold tracking-[.12em] text-[var(--juba-app-muted)] uppercase">
               {t('nextStep')}
             </p>
             {hasPlan && todayLessons.length > 0 && (
@@ -334,7 +334,7 @@ export default function DashboardPage() {
                 <h2 className="text-[var(--juba-app-ink)] font-sans text-xl font-black tracking-tight">
                   {t('levelTestCompleted')}
                 </h2>
-                <p className="mt-2 font-sans text-sm text-emerald-50/80">
+                <p className="mt-2 font-sans text-sm text-[var(--juba-app-muted)]">
                   {t('levelTestScoreLine', {
                     score:
                       completion.score != null
@@ -381,7 +381,7 @@ export default function DashboardPage() {
                 <h2 className="text-[var(--juba-app-ink)] font-sans text-xl font-black tracking-tight">
                   {nextLesson.title}
                 </h2>
-                <p className="mt-2 font-sans text-sm text-emerald-50/80">
+                <p className="mt-2 font-sans text-sm text-[var(--juba-app-muted)]">
                   {tPlan(`lessonTypes.${nextLesson.lessonType}`)} ·{' '}
                   {nextLesson.estimatedMinutes}min
                 </p>
@@ -399,7 +399,7 @@ export default function DashboardPage() {
                 <h2 className="text-[var(--juba-app-ink)] font-sans text-xl font-black tracking-tight">
                   {t('allCaughtUp')}
                 </h2>
-                <p className="mt-2 font-sans text-sm text-emerald-50/80">
+                <p className="mt-2 font-sans text-sm text-[var(--juba-app-muted)]">
                   {pendingCount > 0
                     ? t('pendingStillAvailable', { count: pendingCount })
                     : t('noPendingToday')}
@@ -458,7 +458,7 @@ export default function DashboardPage() {
             <div className="mb-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
-                <span className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
+                <span className="font-sans text-xs font-semibold tracking-[.12em] text-[var(--juba-app-muted)] uppercase">
                   {t('planProgress')}
                 </span>
               </div>
@@ -497,7 +497,7 @@ export default function DashboardPage() {
                 {vocabularyTotal > 0 && (
                   <div className="mt-4">
                     <div className="flex items-center justify-between gap-3">
-                      <p className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
+                      <p className="font-sans text-xs font-semibold tracking-[.12em] text-[var(--juba-app-muted)] uppercase">
                         {t('vocabularyProgress', {
                           level: vocabularyLevel ?? cefrLevel ?? '',
                         })}
@@ -506,7 +506,7 @@ export default function DashboardPage() {
                         {vocabularyProgressPct}%
                       </p>
                     </div>
-                    <p className="mt-2 font-sans text-sm text-emerald-50/80">
+                    <p className="mt-2 font-sans text-sm text-[var(--juba-app-muted)]">
                       {t('vocabularyWords', {
                         mastered: vocabularyMastered,
                         total: vocabularyTotal,
@@ -533,7 +533,7 @@ export default function DashboardPage() {
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
-                <span className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
+                <span className="font-sans text-xs font-semibold tracking-[.12em] text-[var(--juba-app-muted)] uppercase">
                   {t('today')}
                 </span>
               </div>
@@ -630,7 +630,7 @@ export default function DashboardPage() {
             <div className="mb-4">
               <div className="mb-2 flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
-                <span className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
+                <span className="font-sans text-xs font-semibold tracking-[.12em] text-[var(--juba-app-muted)] uppercase">
                   {t('recentPerformance')}
                 </span>
               </div>
@@ -643,11 +643,11 @@ export default function DashboardPage() {
                 {skillEntries.map(({ skill, value }) => (
                   <div key={skill}>
                     <div className="mb-1 flex justify-between">
-                      <span className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
+                      <span className="font-sans text-xs font-semibold tracking-[.12em] text-[var(--juba-app-muted)] uppercase">
                         {tPlan(`lessonTypes.${skill}`)}
                       </span>
                       <div className="flex items-center gap-2">
-                        <span className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
+                        <span className="font-sans text-xs font-semibold tracking-[.12em] text-[var(--juba-app-muted)] uppercase">
                           {getPerformanceLabel(value)}
                         </span>
                         <span className="text-[var(--juba-app-muted)] font-sans text-sm">
