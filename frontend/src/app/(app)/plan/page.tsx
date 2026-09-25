@@ -267,6 +267,43 @@ export default function PlanPage() {
   const byUnit = lessonsByUnit(allLessons)
   const currentUnitId = plan.current_unit
 
+  const startUnit = async (unitId: string) => {
+    const directLesson = (byUnit[unitId] ?? []).find((lesson) => lesson.id != null && !lesson.completed)
+    if (directLesson?.id != null) {
+      router.push(`/lesson/${directLesson.id}`)
+      return
+    }
+
+    // The lesson drawer can be opened before a lesson has been materialized.
+    // Ask the backend for the current learning entry so the primary action
+    // still takes the learner into a real lesson instead of only closing the drawer.
+    try {
+      const todayRes = await apiFetch('/api/study-plan/today')
+      if (todayRes.ok) {
+        const today = (await todayRes.json()) as { lessons?: Array<{ id: number | null; unit_id?: string; is_completed?: boolean }> }
+        const lesson = today.lessons?.find((item) => item.id != null && item.unit_id === unitId && !item.is_completed)
+          ?? today.lessons?.find((item) => item.id != null && !item.is_completed)
+        if (lesson?.id != null) {
+          router.push(`/lesson/${lesson.id}`)
+          return
+        }
+      }
+
+      const journeyRes = await apiFetch('/api/study-plan/learning-path')
+      if (journeyRes.ok) {
+        const journey = (await journeyRes.json()) as { next_lesson_id?: number | null; next_unit_id?: string | null }
+        if (journey.next_lesson_id != null && (!journey.next_unit_id || journey.next_unit_id === unitId)) {
+          router.push(`/lesson/${journey.next_lesson_id}`)
+          return
+        }
+      }
+    } catch {
+      // Keep the fallback navigation below available even if the API is temporarily unavailable.
+    }
+
+    router.push('/plan')
+  }
+
   // The real level test unlocks when the learner reaches the plan's final
   // position, as reported by the backend completion contract.
   const levelTestReady = completion?.state === 'ready'
@@ -472,6 +509,10 @@ export default function PlanPage() {
           onStartLesson={(lessonId) => {
             setActiveDrawer(null)
             router.push(`/lesson/${lessonId}`)
+          }}
+          onStartUnit={() => {
+            setActiveDrawer(null)
+            void startUnit(activeDrawer.id)
           }}
         />
       )}
