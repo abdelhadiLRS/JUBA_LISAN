@@ -114,6 +114,21 @@ class TestGetAssessmentBank:
         bank_fr = get_assessment_bank("fr")
         assert bank_fr_ca == bank_fr
 
+    def test_region_variant_accepts_underscore_and_mixed_case(self):
+        from app.data.assessment_bank import get_assessment_bank
+
+        canonical = get_assessment_bank("en-US")
+        assert get_assessment_bank("en_US") == canonical
+        assert get_assessment_bank(" EN-us ") == canonical
+
+    def test_language_tag_normalizer_handles_empty_and_region_tags(self):
+        from app.data.assessment_bank import _normalise_language_tag
+
+        assert _normalise_language_tag(None) == "en-GB"
+        assert _normalise_language_tag("  ") == "en-GB"
+        assert _normalise_language_tag("PT_br") == "pt-BR"
+        assert _normalise_language_tag("ZH-hant") == "zh-Hant"
+
 
     def test_dutch_assessment_bank_has_balanced_cefr_coverage_and_valid_options(self):
         from app.data.assessment_bank import get_assessment_bank
