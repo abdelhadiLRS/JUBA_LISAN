@@ -603,7 +603,7 @@ def _server_game_questions(
             if len(choices) < 4:
                 raise HTTPException(status_code=503, detail="Not enough listening distractors")
             rng.shuffle(choices)
-            questions.append({
+            question = {
                 "id": question_id,
                 "prompt": (
                     "Listen and choose the word you hear."
@@ -619,7 +619,10 @@ def _server_game_questions(
                 "input_mode": "choice",
                 "audio_text": entry.example.strip(),
                 "audio_language": target_language,
-            })
+                "target_language": target_language,
+                "cefr_level": cefr_level,
+            }
+            questions.append(question)
             continue
         if game_id == "word_categories":
             # Derive categories from the active CEFR vocabulary curriculum.
