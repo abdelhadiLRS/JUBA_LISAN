@@ -1564,6 +1564,8 @@ def _apply_smart_review(
         replay.pop("review_count", None)
         replay.pop("review_streak", None)
         replay.pop("review_stage", None)
+        replay.pop("review_difficulty", None)
+        replay.pop("variant_seed", None)
         replay.pop("review_due_at", None)
         replay.pop("source_game_id", None)
         if replay.get("input_mode", "choice") == "choice":
@@ -1578,11 +1580,18 @@ def _apply_smart_review(
                 and question.get("input_mode", "choice") == "choice"
             ]
             distractors = list(dict.fromkeys(distractors))
-            rng = random.SystemRandom()
-            rng.shuffle(distractors)
+            distractors = list(dict.fromkeys(distractors))
+            seed = int(mistake.get("variant_seed", 0))
+            # Deterministic rotation gives the learner a different option order
+            # on each successful review streak without making the replay random
+            # across retries.
+            if distractors:
+                offset = seed % len(distractors)
+                distractors = distractors[offset:] + distractors[:offset]
             choices = [answer, *distractors[:3]]
             if len(choices) >= 2:
-                rng.shuffle(choices)
+                rotation = seed % len(choices)
+                choices = choices[rotation:] + choices[:rotation]
                 replay["choices"] = choices
         result[index] = replay
     return result
