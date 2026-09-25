@@ -343,3 +343,25 @@ def test_game_answer_matches_accepts_authored_answer_variants():
     assert _game_answer_matches("i travel by train", expected)
     assert _game_answer_matches(" I   TRAVEL EVERY SUMMER! ", expected)
     assert not _game_answer_matches("I travel tomorrow", expected)
+
+def test_mixed_review_strategy_preserves_recall_without_attempt_history():
+    from app.routers.progress import _mixed_review_strategy
+
+    assert _mixed_review_strategy("new", 0, 0.0, 0) == "direct_recall"
+    assert _mixed_review_strategy("weak", 0, 0.0, 0) == "direct_recall"
+
+
+def test_mixed_review_strategy_downgrades_low_retrieval_efficiency():
+    from app.routers.progress import _mixed_review_strategy
+
+    assert _mixed_review_strategy("reviewing", 2, 0.2, 3) == "recognition"
+    assert _mixed_review_strategy("mastered", 3, 0.3, 4) == "recognition"
+
+
+def test_mixed_review_strategy_keeps_stage_when_retrieval_is_strong():
+    from app.routers.progress import _mixed_review_strategy
+
+    assert _mixed_review_strategy("learning", 1, 0.8, 2) == "recognition"
+    assert _mixed_review_strategy("reviewing", 2, 0.9, 3) == "contextual_transfer"
+    assert _mixed_review_strategy("mastered", 3, 0.9, 4) == "production"
+
