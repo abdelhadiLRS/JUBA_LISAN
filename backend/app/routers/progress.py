@@ -1685,7 +1685,14 @@ async def complete_game_session(
                     "submitted": submitted.choice,
                     "question": snapshot,
                 })
-        questions_answered = len(expected)
+            questions_answered = len(expected)
+
+    # Interactive rounds are scored as one skill; regular and mixed rounds
+    # already populated the map question-by-question.
+    if not skill_results:
+        skill = GAME_SKILL_MAP.get(session.game_id, "vocabulary")
+        skill_results[skill] = [correct_answers, questions_answered]
+
     # Validation above is read-only. Start the write phase with a database lock
     # so the GameProgress counters, achievements, and XP thresholds are calculated
     # from one serialized state.
@@ -1897,6 +1904,14 @@ async def complete_game_session(
         round_correct=correct_answers,
         round_questions=questions_answered,
         xp_earned=base_xp + achievement_xp,
+        skill_results={
+            skill: {
+                "correct": skill_correct,
+                "questions": skill_questions,
+                "accuracy": round(skill_correct / max(1, skill_questions), 3),
+            }
+            for skill, (skill_correct, skill_questions) in skill_results.items()
+        },
         new_achievements=fresh,
     )
 
