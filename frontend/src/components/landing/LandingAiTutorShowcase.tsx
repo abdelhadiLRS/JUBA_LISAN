@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
+import type { CSSProperties } from 'react'
 import { Mic, Pause, Play, Sparkles, Volume2 } from 'lucide-react'
 
 interface LandingAiTutorShowcaseProps {
@@ -41,7 +42,7 @@ export function LandingAiTutorShowcase({
         <div className="juba-ai-chat-bubble juba-ai-chat-tutor">{aiMessage}</div>
         <div className="juba-ai-wave" aria-label={playing ? speakingLabel : activeLabel}>
           {Array.from({ length: 11 }).map((_, index) => (
-            <i key={index} className={playing ? 'is-playing' : ''} style={{ '--wave-delay': `${index * 70}ms` } as React.CSSProperties} />
+            <i key={index} className={playing ? 'is-playing' : ''} style={{ '--wave-delay': `${index * 70}ms` } as CSSProperties} />
           ))}
         </div>
         <button
