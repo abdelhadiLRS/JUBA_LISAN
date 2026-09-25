@@ -380,7 +380,7 @@ export default function GamesPage() {
       if (id === 'memory' || id === 'matching' || id === 'sentence_builder') {
         const route = id === 'sentence_builder' ? 'sentence-builder' : id
         const difficulty = difficultyForGame(id)
-        window.location.assign(`/games/${route}?lang=${contentLanguage}&difficulty=${difficulty}`)
+        window.location.assign(`/games/${route}?lang=${contentLanguage}&difficulty=${difficulty}${review ? '&review=true' : ''}`)
         return
       }
 
