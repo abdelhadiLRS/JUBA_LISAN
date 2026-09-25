@@ -24,6 +24,19 @@ interface CompetencyRecord {
   total_count: number
 }
 
+interface MasterySkillSummary {
+  items: number
+  average_score: number
+  counts: Record<string, number>
+}
+
+interface MasterySummary {
+  tracked_items: number
+  average_score: number
+  counts: Record<string, number>
+  skills: Record<string, MasterySkillSummary>
+}
+
 interface ProgressSummary {
   total_xp: number
   current_streak: number
@@ -32,6 +45,7 @@ interface ProgressSummary {
   exercises_correct: number
   accuracy: number
   skills: Record<string, number>
+  mastery: MasterySummary
 }
 
 interface FlashcardProgress {
@@ -280,6 +294,56 @@ export default function ProgressPage() {
         )}
       </div>
 
+      {/* Tracked item mastery */}
+      {summary && summary.mastery && summary.mastery.tracked_items > 0 && (
+        <section className="space-y-4">
+          <div className="flex items-center gap-3">
+            <span className="text-[var(--juba-app-ink)] font-mono text-base font-bold tracking-widest">
+              {t('skills')} · {t('mastered')}
+            </span>
+            <div className="bg-[var(--juba-app-line)] h-px flex-1" />
+            <span className="text-[var(--juba-app-muted)] font-mono text-xs">
+              {summary.mastery.tracked_items} {t('lessons')}
+            </span>
+          </div>
+          <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border p-5">
+            <div className="mb-4 flex items-center justify-between">
+              <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">{t('accuracy')}</span>
+              <span className="text-[var(--juba-app-ink)] font-mono text-lg font-bold">{Math.round(summary.mastery.average_score * 100)}%</span>
+            </div>
+            <div className="bg-[var(--juba-app-line)] mb-5 h-1.5">
+              <div className="bg-[var(--juba-app-green)] h-full transition-all" style={{ width: (Math.round(summary.mastery.average_score * 100) + '%') }} />
+            </div>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+              {(['new', 'learning', 'reviewing', 'weak', 'mastered'] as const).map((state) => {
+                const count = summary.mastery.counts?.[state] ?? 0
+                const label = state === 'mastered' ? t('mastered') : state === 'new' ? t('notStarted') : t('inProgress')
+                return (
+                  <div key={state} className="border-[var(--juba-app-line)] border px-3 py-3 text-center">
+                    <p className="text-[var(--juba-app-muted)] mb-1 font-sans text-[10px] tracking-[.12em] uppercase">{label}</p>
+                    <p className="text-[var(--juba-app-ink)] font-mono text-sm font-bold">{count}</p>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+          {Object.keys(summary.mastery.skills).length > 0 && (
+            <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] divide-fl-border divide-y border">
+              {Object.entries(summary.mastery.skills).map(([skill, data]) => (
+                <div key={skill} className="px-5 py-4">
+                  <div className="mb-2 flex items-center justify-between gap-4">
+                    <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">{skill}</span>
+                    <span className="text-[var(--juba-app-muted)] font-mono text-xs">{Math.round(data.average_score * 100)}% · {data.items}</span>
+                  </div>
+                  <div className="bg-[var(--juba-app-line)] h-1.5">
+                    <div className="bg-[var(--juba-app-green)] h-full transition-all" style={{ width: (Math.round(data.average_score * 100) + '%') }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
       {/* Grammar Competencies */}
       {levelUnits.length > 0 && (
         <section className="space-y-4">
