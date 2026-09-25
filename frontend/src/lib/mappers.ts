@@ -1,5 +1,6 @@
 import type { User } from '@/store/auth'
 import type { UserLanguageInfo } from '@/store/language'
+import { getCanonicalLanguageCode } from '@/lib/target-languages'
 
 function stringOrFallback(value: unknown, fallback = ''): string {
   return typeof value === 'string' ? value : fallback
@@ -61,7 +62,10 @@ export function mapUser(
     displayName: stringOrFallback(data.display_name, currentUser?.displayName ?? ''),
     email: nullableString(data.email, currentUser?.email) ?? undefined,
     native_language: nullableString(data.native_language, currentUser?.native_language) ?? undefined,
-    target_language: nullableString(data.target_language, currentUser?.target_language) ?? undefined,
+    target_language:
+      getCanonicalLanguageCode(
+        nullableString(data.target_language, currentUser?.target_language) ?? ''
+      ) ?? nullableString(data.target_language, currentUser?.target_language) ?? undefined,
     ui_locale: nullableString(data.ui_locale, currentUser?.ui_locale ?? null) ?? null,
     role,
     conversation_max_duration: finiteNumber(
@@ -124,8 +128,11 @@ export function mapUserLanguageInfo(
       ? data.progress
       : null
 
+  const rawTargetLanguage = stringOrFallback(data.target_language)
+  const targetLanguage = getCanonicalLanguageCode(rawTargetLanguage) ?? rawTargetLanguage
+
   return {
-    target_language: stringOrFallback(data.target_language),
+    target_language: targetLanguage,
     is_active: booleanOrFallback(data.is_active),
     plan: plan
       ? {
