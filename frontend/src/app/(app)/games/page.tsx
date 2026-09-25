@@ -178,10 +178,9 @@ export default function GamesPage() {
   function difficultyForGame(id: GameId) {
     const skill = id === 'matching' || id === 'quick_choice' || id === 'word_scramble' || id === 'word_categories' ? 'vocabulary'
       : id === 'context_quest' ? 'speaking'
-      : id === 'word_categories' ? 'vocabulary'
       : id === 'listen_choose' || id === 'listening_detective' ? 'listening'
       : id === 'spelling' || id === 'translation_sprint' ? 'writing'
-      : id === 'sentence_builder' || id === 'fill_blank' ? 'grammar'
+      : id === 'sentence_builder' || id === 'fill_blank' || id === 'grammar_duel' ? 'grammar'
       : 'memory'
     const mastery = skills[skill] ?? 0
     if (mastery < 0.4) return 1
