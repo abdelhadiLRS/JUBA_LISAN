@@ -232,6 +232,22 @@ class GameSessionAnswerResponse(BaseModel):
     question: GameSessionQuestion | None = None
 
 
+class GameSessionNextRequest(BaseModel):
+    session_id: str = Field(min_length=1, max_length=64)
+    question_id: str = Field(min_length=1, max_length=64)
+    choice: str = Field(min_length=1, max_length=500)
+
+
+class GameSessionNextResponse(BaseModel):
+    session_id: str
+    correct: bool
+    question: GameSessionQuestion | None = None
+    finished: bool = False
+    answered: int = 0
+    total: int = 0
+    adaptive_mode: Literal["new", "review", "steady", "challenge", "skill_review", "skill_challenge"] = "steady"
+
+
 class GameSessionComplete(BaseModel):
     session_id: str = Field(min_length=1, max_length=64)
     answers: list[GameSessionAnswer] = Field(default_factory=list, max_length=5)
