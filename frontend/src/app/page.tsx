@@ -214,24 +214,6 @@ export default async function Home() {
 .juba-reference-page .juba-ff-nav-link:hover{color:var(--green)!important}
 .juba-reference-page .juba-nav-region{border-color:#d9e5d7!important;background:#fff!important}
 .juba-reference-page .juba-ff-nav-cta{background:var(--green)!important;color:#fff!important;border-radius:14px!important;box-shadow:4px 4px 0 var(--ink)!important}
-.juba-reference-page .juba-landing-illustration{background:linear-gradient(180deg,#dff5fa 0%,#f8fbe9 100%)!important}
-.juba-reference-page .juba-landing-illustration .landing-sun{background:var(--yellow);box-shadow:none}
-.juba-reference-page .juba-landing-illustration .landing-cloud{box-shadow:0 8px 30px rgba(24,48,34,.07)}
-.juba-reference-page .juba-landing-illustration .landing-ground{background:#b9d99d;border-top:4px solid var(--ink)}
-.juba-reference-page .juba-landing-illustration .landing-book{background:#fff;color:var(--ink);border-color:var(--ink);box-shadow:6px 6px 0 var(--ink)}
-.juba-reference-page .juba-landing-illustration .landing-book svg{color:var(--green)}
-.juba-reference-page .juba-landing-illustration .landing-bubble{border-color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
-.juba-reference-page .juba-landing-illustration .landing-bubble-two{background:#fff0b7}
-.juba-reference-page .juba-landing-illustration .landing-character-main{filter:none}
-.juba-reference-page .juba-landing-illustration .character-body{background:var(--green);border-color:var(--ink);box-shadow:9px 10px 0 var(--ink)}
-.juba-reference-page .juba-landing-illustration .character-face{background:#f7fff1;border-color:var(--ink);box-shadow:6px 7px 0 var(--ink)}
-.juba-reference-page .juba-landing-illustration .eye{background:var(--ink)}
-.juba-reference-page .juba-landing-illustration .mouth{border-color:var(--ink)}
-.juba-reference-page .juba-landing-illustration .landing-character-small{border-color:var(--ink);box-shadow:5px 6px 0 var(--ink)}
-.juba-reference-page .juba-landing-illustration .character-small-one{background:#e7f4dc}
-.juba-reference-page .juba-landing-illustration .character-small-two{background:#e5f5fa}
-.juba-reference-page .juba-landing-illustration .character-small-three{background:#eee7ff}
-.juba-reference-page .juba-landing-illustration .landing-language-cluster span{border-color:var(--ink);box-shadow:4px 5px 0 var(--ink)}
 .juba-reference-page .juba-ref-section-heading h2,.juba-reference-page .juba-ref-language-copy h2,.juba-reference-page .juba-ref-ai-copy h2,.juba-reference-page .juba-ref-cta h2{font-family:var(--font-geist-sans),Arial,sans-serif;text-wrap:balance}
 .juba-reference-page .juba-ref-pillar{overflow:hidden;isolation:isolate}
 .juba-reference-page .juba-ref-pillar:before{content:"";position:absolute;right:-34px;top:-34px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.38);z-index:-1}
