@@ -819,7 +819,7 @@ export default function DashboardPage() {
 
               <div className="rounded-[32px] bg-white p-5 shadow-sm ring-1 ring-black/5">
                 <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-lg font-black tracking-[-.03em]">{t('recommendedForYou')}</h3>
+                  <h3 className="text-lg font-black tracking-[-.03em]">{tNav('resources')}</h3>
                   <span className="text-lg">•••</span>
                 </div>
                 <div className="grid grid-cols-2 gap-2.5">
