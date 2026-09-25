@@ -470,7 +470,8 @@
     "reviewReminder": "Este timpul să-ți întărești memoria",
     "goalCompleted": "🎉 Obiectivul zilnic completat!",
     "keepGoing": "Mai ai doar {remaining} lecție(lecții)!",
-    "takeAssessment": "Susține evaluarea de nivel"
+    "takeAssessment": "Susține evaluarea de nivel",
+    "planDayGoal": "Obiectivul lecțiilor de astăzi"
   },
   "assessment": {
     "title": "Evaluare",
