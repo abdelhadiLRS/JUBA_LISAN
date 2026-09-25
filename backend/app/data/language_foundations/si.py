@@ -32,7 +32,8 @@ VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="si-a1-unit-5"
 VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="si-a1-unit-6",words=[VocabularyEntry(word="වේලාව",pos="noun",definition="time",example="වේලාව කීයද?"),VocabularyEntry(word="අද",pos="adverb",definition="today",example="අද මම ගෙදර ඉන්නවා."),VocabularyEntry(word="හෙට",pos="adverb",definition="tomorrow",example="හෙට මම පාසලට යනවා.")]),
 VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="si-a1-unit-7",words=[VocabularyEntry(word="වතුර",pos="noun",definition="water",example="මට වතුර ඕනේ."),VocabularyEntry(word="බත්",pos="noun",definition="rice",example="මම බත් කනවා."),VocabularyEntry(word="තේ",pos="noun",definition="tea",example="මම තේ බොනවා.")]),
 VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="si-a1-unit-8",words=[VocabularyEntry(word="පාසල",pos="noun",definition="school",example="මම පාසලේ ඉන්නවා."),VocabularyEntry(word="වෙළඳසැල",pos="noun",definition="shop",example="වෙළඳසැල මෙතැන ළඟයි."),VocabularyEntry(word="මෙතැන",pos="adverb",definition="here",example="මම මෙතැන ඉන්නවා.")])
-]PHRASEBOOK_CATEGORIES=[
+]
+PHRASEBOOK_CATEGORIES=[
 PhrasebookCategory(id="si_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="ආයුබෝවන්.",context="Hello.",register="neutral")]),
 PhrasebookCategory(id="si_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="ස්තුතියි.",context="Thank you.",register="neutral")]),
 PhrasebookCategory(id="si_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="කරුණාකර උදව් කරන්න.",context="Please help me.",register="neutral")]),
@@ -42,7 +43,7 @@ ASSESSMENT_BANK=[
 AssessmentQuestion(id="si-a1-001",skill="vocabulary",difficulty="A1",question="Which Sinhala word means 'water'?",options=["වතුර","ගෙදර","අම්මා","පාසල"],correct="වතුර"),
 AssessmentQuestion(id="si-a1-002",skill="grammar",difficulty="A1",question="Which sentence says 'I am at home'?",options=["මම ගෙදර ඉන්නවා.","මම පාසලට යනවා.","මම වතුර බොනවා.","මේ පොතක්."],correct="මම ගෙදර ඉන්නවා."),
 AssessmentQuestion(id="si-a1-003",skill="vocabulary",difficulty="A1",question="What does අම්මා mean?",options=["mother","father","friend","teacher"],correct="mother"),
-AssessmentQuestion(id="si-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'Where are you?'",options=["ඔයා කොහෙද ඉන්නේ?","ඔයාගේ නම මොකක්ද?","මේ මොකක්ද?","මිල කීයද?"],"correct"="ඔයා කොහෙද ඉන්නේ?"),
+AssessmentQuestion(id="si-a1-004",skill="grammar",difficulty="A1",question="Which question asks 'Where are you?'",options=["ඔයා කොහෙද ඉන්නේ?","ඔයාගේ නම මොකක්ද?","මේ මොකක්ද?","මිල කීයද?"],correct="ඔයා කොහෙද ඉන්නේ?"),
 AssessmentQuestion(id="si-a1-005",skill="reading",difficulty="A1",question="පොත මේසය උඩ තියෙනවා. Where is the book?",options=["On the table","At school","At home","In the shop"],correct="On the table"),
 AssessmentQuestion(id="si-a1-006",skill="vocabulary",difficulty="A1",question="Which word means 'name'?",options=["නම","වේලාව","වතුර","ගෙදර"],correct="නම"),
 AssessmentQuestion(id="si-a1-007",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat?",options=["ආයෙත් කියන්න.","ස්තුතියි.","ආයුබෝවන්.","ගිහින් එන්නම්."],correct="ආයෙත් කියන්න."),
