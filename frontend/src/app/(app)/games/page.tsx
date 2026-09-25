@@ -190,32 +190,39 @@ export default function GamesPage() {
       : 'Review due mistakes across vocabulary, grammar, listening and writing.'
   const smartReviewStart = lang === 'ar' ? 'ابدأ المراجعة' : lang === 'fr' ? 'Commencer la révision' : 'Start review'
 
-  useEffect(() => {
-    let active = true
-    fetch('/api/progress/smart-review', { credentials: 'include', cache: 'no-store' })
-      .then((response) => response.ok ? response.json() : null)
-      .then((data) => {
-        if (!active || !data || typeof data !== 'object') return
-        const recommended = typeof data.recommended_game === 'string' ? data.recommended_game as GameId : null
-        setSmartReview({
-          due_count: Number(data.due_count) || 0,
-          skills: data.skills && typeof data.skills === 'object' ? data.skills as Record<string, number> : {},
-          recommended_game: recommended,
-          items: Array.isArray(data.items)
-            ? data.items.filter((item) => item && typeof item === 'object').map((item) => ({
-                review_key: String(item.review_key ?? ''),
-                skill: String(item.skill ?? ''),
-                topic: String(item.topic ?? ''),
-                prompt: String(item.prompt ?? ''),
-                review_count: Number(item.review_count) || 0,
-                due_at: String(item.due_at ?? ''),
-                source_game_id: String(item.source_game_id ?? ''),
-              }))
-            : [],
-        })
+  async function refreshSmartReview() {
+    try {
+      const response = await fetch('/api/progress/smart-review', {
+        credentials: 'include',
+        cache: 'no-store',
       })
-      .catch(() => {})
-    return () => { active = false }
+      if (!response.ok) return
+      const data = await response.json()
+      if (!data || typeof data !== 'object') return
+      const recommended = typeof data.recommended_game === 'string' ? data.recommended_game as GameId : null
+      setSmartReview({
+        due_count: Number(data.due_count) || 0,
+        skills: data.skills && typeof data.skills === 'object' ? data.skills as Record<string, number> : {},
+        recommended_game: recommended,
+        items: Array.isArray(data.items)
+          ? data.items.filter((item) => item && typeof item === 'object').map((item) => ({
+              review_key: String(item.review_key ?? ''),
+              skill: String(item.skill ?? ''),
+              topic: String(item.topic ?? ''),
+              prompt: String(item.prompt ?? ''),
+              review_count: Number(item.review_count) || 0,
+              due_at: String(item.due_at ?? ''),
+              source_game_id: String(item.source_game_id ?? ''),
+            }))
+          : [],
+      })
+    } catch {
+      // The games page remains usable when the review summary is temporarily unavailable.
+    }
+  }
+
+  useEffect(() => {
+    void refreshSmartReview()
   }, [])
 
   function difficultyForGame(id: GameId) {
@@ -374,6 +381,7 @@ export default function GamesPage() {
       if (fresh.length) setNewAchievements(fresh)
       setRoundScore(server.round_score)
       setRoundResult({ score: server.round_score, correct: server.round_correct, questions: server.round_questions, xp: server.xp_earned })
+      void refreshSmartReview()
       setProgress({
         streak,
         xp: server.total_xp,
