@@ -1886,6 +1886,20 @@ def _review_retry_stage(miss_count: int) -> str:
     return "initial"
 
 
+def _adapt_question_after_session_miss(question: dict, miss_count: int) -> dict:
+    """Make a repeated same-session miss easier without exposing the answer."""
+    adapted = dict(question)
+    misses = max(0, int(miss_count))
+    if misses <= 0:
+        return adapted
+    difficulty = max(1, int(adapted.get("difficulty", 1)) - (1 if misses >= 2 else 0))
+    adapted["difficulty"] = difficulty
+    adapted["retry_stage"] = _review_retry_stage(misses)
+    if misses >= 2:
+        adapted["hint"] = str(adapted.get("hint") or "").strip()
+    return adapted
+
+
 def _apply_smart_review(
     questions: list[dict],
     mistakes: list[dict],
