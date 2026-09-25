@@ -139,6 +139,7 @@ async def test_review_mix_fills_short_due_queue_with_weak_skill_content(
             "grammar_duel": "grammar",
             "context_quest": "speaking",
         }[game_id]
+        count = 1 if skill == "grammar" else 5
         return [
             {
                 "id": f"fresh-{skill}-{index}",
@@ -150,7 +151,7 @@ async def test_review_mix_fills_short_due_queue_with_weak_skill_content(
                 "difficulty": difficulty,
                 "input_mode": "choice",
             }
-            for index in range(5)
+            for index in range(count)
         ]
 
     monkeypatch.setattr(progress_router, "_server_game_questions", fake_questions)
