@@ -2889,40 +2889,50 @@ async def answer_game_session_question(
             1,
             int(current.get("difficulty", session.difficulty)) - (1 if miss_count >= 2 else 0),
         )
-        plan = await db.get(StudyPlan, session.study_plan_id)
-        if plan is None:
-            raise HTTPException(status_code=409, detail="Study plan no longer exists")
-        cefr_level = cast(CEFRLevel, plan.cefr_level)
-        current_skill = str(current.get("skill") or GAME_SKILL_MAP.get(session.game_id, "vocabulary"))
-        current_topic = str(current.get("topic") or "").strip()
-        generated = _server_game_questions(
-            session.game_id,
-            session.language,
-            retry_difficulty,
-            plan.target_language,
-            cefr_level,
-            [current_topic] if current_topic else None,
-        )
-        adapted = next(
-            (
-                item for item in generated
-                if str(item.get("skill") or "") == current_skill
-            ),
-            generated[0] if generated else None,
-        )
-        if adapted is None:
-            raise HTTPException(status_code=503, detail="Unable to generate a retry question")
-        # Preserve the logical item identity and attempt ledger while replacing
-        # the learner-facing variant with fresh curriculum content.
-        retry_id = str(current.get("id"))
-        current = dict(adapted)
-        current["id"] = retry_id
-        current["_attempts"] = attempts
-        current["_answered"] = False
-        current["_served"] = True
-        current["review_identity"] = stable_review_key
-        current["retry_stage"] = _review_retry_stage(miss_count)
-        questions[index] = current
+        # Mixed review is a prebuilt, server-owned pool. A miss must retry the
+        # same logical review item rather than asking the normal game generator
+        # to create a new item for the synthetic "review_mix" game id.
+        if session.game_id == "review_mix":
+            current["_answered"] = False
+            current["_served"] = True
+            current["review_identity"] = stable_review_key
+            current["retry_stage"] = _review_retry_stage(miss_count)
+            questions[index] = current
+        else:
+            plan = await db.get(StudyPlan, session.study_plan_id)
+            if plan is None:
+                raise HTTPException(status_code=409, detail="Study plan no longer exists")
+            cefr_level = cast(CEFRLevel, plan.cefr_level)
+            current_skill = str(current.get("skill") or GAME_SKILL_MAP.get(session.game_id, "vocabulary"))
+            current_topic = str(current.get("topic") or "").strip()
+            generated = _server_game_questions(
+                session.game_id,
+                session.language,
+                retry_difficulty,
+                plan.target_language,
+                cefr_level,
+                [current_topic] if current_topic else None,
+            )
+            adapted = next(
+                (
+                    item for item in generated
+                    if str(item.get("skill") or "") == current_skill
+                ),
+                generated[0] if generated else None,
+            )
+            if adapted is None:
+                raise HTTPException(status_code=503, detail="Unable to generate a retry question")
+            # Preserve the logical item identity and attempt ledger while replacing
+            # the learner-facing variant with fresh curriculum content.
+            retry_id = str(current.get("id"))
+            current = dict(adapted)
+            current["id"] = retry_id
+            current["_attempts"] = attempts
+            current["_answered"] = False
+            current["_served"] = True
+            current["review_identity"] = stable_review_key
+            current["retry_stage"] = _review_retry_stage(miss_count)
+            questions[index] = current
         session.questions = questions
         await db.commit()
         public_retry = {
