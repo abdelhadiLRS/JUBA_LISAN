@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { Check } from 'lucide-react'
-import { TARGET_LANGUAGE_CATALOG } from '@/lib/target-languages'
+import { TARGET_LANGUAGE_CATALOG, normalizeLanguageCode } from '@/lib/target-languages'
 
 interface Props {
   value: string
@@ -35,7 +35,7 @@ export default function TargetLanguageSelector({
   return (
     <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
       {filtered.map((lang) => {
-        const selected = value === lang.code
+        const selected = normalizeLanguageCode(value) === lang.code
         return (
           <button
             key={lang.code}
