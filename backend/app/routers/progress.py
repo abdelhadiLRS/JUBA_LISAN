@@ -504,7 +504,12 @@ async def get_learning_goal_history(
 
 
 def _server_game_questions(
-    game_id: str,\n    language: str,\n    difficulty: int,\n    target_language: str = "en-GB",\n    cefr_level: CEFRLevel = "A1",\n) -> list[dict]:
+    game_id: str,
+    language: str,
+    difficulty: int,
+    target_language: str = "en-GB",
+    cefr_level: CEFRLevel = "A1",
+) -> list[dict]:
     rng = random.SystemRandom()
     hints = {
         "ar": "فكّر بهدوء قبل اختيار الإجابة.",
