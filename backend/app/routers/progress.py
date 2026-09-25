@@ -2558,6 +2558,119 @@ async def start_game_session(
     )
 
 
+@router.post("/game-session/next", response_model=GameSessionNextResponse)
+@limiter.limit("120/minute")
+async def answer_game_session_question(
+    request: Request,
+    data: GameSessionNextRequest,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Validate one generic answer and return the next server-owned question."""
+    session = await db.get(GameSession, data.session_id)
+    if session is None or session.user_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Game session not found")
+    if session.completed:
+        raise HTTPException(status_code=409, detail="Game session already completed")
+    if session.game_id in {"memory", "matching", "ordering", "sentence_builder"}:
+        raise HTTPException(status_code=422, detail="Interactive games use their dedicated interaction flow")
+
+    now = datetime.now(UTC).replace(tzinfo=None)
+    if now > session.expires_at:
+        raise HTTPException(status_code=410, detail="Game session expired")
+
+    questions = [dict(item) for item in (session.questions or [])]
+    index = next((i for i, item in enumerate(questions) if str(item.get("id")) == data.question_id), -1)
+    if index < 0:
+        raise HTTPException(status_code=404, detail="Question not found")
+
+    current = questions[index]
+    if current.get("_answered"):
+        raise HTTPException(status_code=409, detail="Question already answered")
+
+    if current.get("input_mode", "choice") == "text":
+        if not data.choice.strip():
+            raise HTTPException(status_code=422, detail="Text answer cannot be empty")
+        correct = _game_answer_matches(data.choice, current.get("answer", ""))
+    else:
+        if data.choice == "__timeout__":
+            correct = False
+        elif data.choice not in current.get("choices", []):
+            raise HTTPException(status_code=422, detail="Invalid choice for game question")
+        else:
+            correct = data.choice == current.get("answer")
+
+    attempts = list(current.get("_attempts") or [])
+    attempts.append({"choice": data.choice, "correct": bool(correct)})
+    current["_attempts"] = attempts
+
+    if not correct:
+        miss_count = sum(1 for attempt in attempts if not bool(attempt.get("correct")))
+        adapted = _adapt_question_after_session_miss(current, miss_count)
+        current["difficulty"] = adapted.get("difficulty", current.get("difficulty", session.difficulty))
+        current["retry_stage"] = adapted.get("retry_stage", "retry")
+        questions[index] = current
+        session.questions = questions
+        await db.commit()
+
+        public = {
+            key: adapted.get(key)
+            for key in (
+                "id", "prompt", "choices", "hint", "skill", "difficulty",
+                "input_mode", "audio_text", "audio_language",
+            )
+        }
+        return GameSessionNextResponse(
+            session_id=session.id,
+            correct=False,
+            question=public,
+            finished=False,
+            answered=sum(1 for item in questions if item.get("_answered")),
+            total=len(questions),
+            adaptive_mode="skill_review" if miss_count >= 2 else "review",
+        )
+
+    current["_answered"] = True
+    current["_submitted"] = data.choice
+    questions[index] = current
+
+    answered = sum(1 for item in questions if item.get("_answered"))
+    total = len(questions)
+    remaining = next((item for item in questions if not item.get("_answered")), None)
+
+    if remaining is None:
+        session.questions = questions
+        await db.commit()
+        return GameSessionNextResponse(
+            session_id=session.id,
+            correct=True,
+            question=None,
+            finished=True,
+            answered=answered,
+            total=total,
+            adaptive_mode="steady",
+        )
+
+    session.questions = questions
+    await db.commit()
+    public_next = {
+        key: remaining.get(key)
+        for key in (
+            "id", "prompt", "choices", "hint", "skill", "difficulty",
+            "input_mode", "audio_text", "audio_language",
+        )
+    }
+    return GameSessionNextResponse(
+        session_id=session.id,
+        correct=True,
+        question=public_next,
+        finished=False,
+        answered=answered,
+        total=total,
+        adaptive_mode="challenge" if int(remaining.get("difficulty", 1)) >= int(session.difficulty) + 1 else "steady",
+    )
+
+
 @router.post("/game-session/complete", response_model=GameSessionResultResponse)
 @limiter.limit("30/minute")
 async def complete_game_session(
