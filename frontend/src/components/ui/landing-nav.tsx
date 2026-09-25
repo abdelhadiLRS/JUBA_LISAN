@@ -155,10 +155,10 @@ export function LandingNav({
 
         <div className="hidden items-center gap-3 md:flex">
           <div className="relative">
-            <button type="button" onClick={() => setRegionOpen((value) => !value)} aria-expanded={regionOpen} aria-haspopup="menu" aria-label="Click here to change the region or language" className="juba-nav-region flex items-center gap-2 rounded-full border border-[var(--juba-app-line)] bg-white/80 px-3 py-2 text-xs font-bold text-[var(--juba-app-ink)] backdrop-blur transition hover:-translate-y-0.5 hover:shadow-sm">
+            <button type="button" onClick={() => setRegionOpen((value) => !value)} aria-expanded={regionOpen} aria-haspopup="menu" aria-label={dir === 'rtl' ? 'تغيير المنطقة أو اللغة' : 'Change region or language'} className="juba-nav-region flex items-center gap-2 rounded-full border border-[var(--juba-app-line)] bg-white/80 px-3 py-2 text-xs font-bold text-[var(--juba-app-ink)] backdrop-blur transition hover:-translate-y-0.5 hover:shadow-sm">
               <span className="text-base" aria-hidden="true">{countryFlag(visitorCountry)}</span><span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span><span className="text-base font-black uppercase">{locale}</span><ChevronDown className="h-3 w-3" aria-hidden="true" />
             </button>
-            {regionOpen && <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-50 w-72 rounded-2xl border border-[var(--juba-app-line)] bg-white p-3 shadow-xl">
+            {regionOpen && <div role="menu" className="absolute end-0 top-[calc(100%+8px)] z-50 w-72 rounded-2xl border border-[var(--juba-app-line)] bg-white p-3 shadow-xl">
               <div className="mb-2 flex items-center gap-2 px-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]"><Globe2 className="h-3.5 w-3.5" /> Region & language</div>
               <div className="rounded-xl bg-[var(--juba-app-green-soft)] px-3 py-2.5"><div className="text-[10px] font-bold text-[var(--juba-app-muted)]">Visitor region</div><div className="mt-0.5 flex items-center gap-2 font-black text-[var(--juba-app-ink)]"><span className="text-lg" aria-hidden="true">{countryFlag(visitorCountry)}</span><span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{visitorCountry}</span><span>{currentCountry.name}</span></div></div>
               <div className="mt-3 border-t border-[var(--juba-app-line)] pt-3">
