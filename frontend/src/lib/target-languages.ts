@@ -83,7 +83,7 @@ export const TARGET_LANGUAGE_CAPABILITIES: Record<
 }
 
 const FLAG_PATHS: Record<string, string> = {
-  'en-US': '/flags/usa.jpg', 'en-GB': '/flags/uk.svg', 'es-ES': '/flags/spain.jpg',
+  'en-US': '/flags/usa.jpg', 'en-GB': '/flags/uk.jpg', 'es-ES': '/flags/spain.jpg',
   'it-IT': '/flags/italy.jpg', 'pt-PT': '/flags/portugal.jpg', 'fr-FR': '/flags/france.jpg',
   'de-DE': '/flags/germany.jpg', 'ja-JP': '/flags/japan.jpg', 'ko-KR': '/flags/south_korea.jpg',
   'zh-CN': '/flags/china.jpg', ar: '/flags/ar.svg',
