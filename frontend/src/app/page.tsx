@@ -350,7 +350,7 @@ export default async function Home() {
         <LandingFAQ dir={locale === 'ar' ? 'rtl' : 'ltr'} />
       </section>
 
-      <LandingFooter t={t} />
+      <LandingFooter t={t} dir={locale === 'ar' ? 'rtl' : 'ltr'} />
     </main>
   )
 }
