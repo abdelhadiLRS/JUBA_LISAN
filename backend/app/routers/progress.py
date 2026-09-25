@@ -2633,7 +2633,11 @@ async def answer_game_session_question(
     db: AsyncSession = Depends(get_db),
 ):
     """Validate one generic answer and issue the next server-owned question."""
-    session = await db.get(GameSession, data.session_id)
+    session = await db.scalar(
+        select(GameSession)
+        .where(GameSession.id == data.session_id)
+        .with_for_update()
+    )
     if session is None or session.user_id != current_user.id:
         raise HTTPException(status_code=404, detail="Game session not found")
     if session.completed:
