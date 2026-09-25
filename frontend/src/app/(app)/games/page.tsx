@@ -437,14 +437,15 @@ export default function GamesPage() {
 
       setSelected(choice)
       setAnswerStatus('correct')
-      setAnswers((current) => [
-        ...current.filter((item) => item.question_id !== question.id),
+      const completedAnswers = [
+        ...answers.filter((item) => item.question_id !== question.id),
         { question_id: question.id, choice },
-      ])
+      ]
+      setAnswers(completedAnswers)
       setPendingNextQuestion(server.question ?? null)
       if (server.finished) {
         setPendingNextQuestion(null)
-        await finishRound()
+        await finishRound(completedAnswers)
       }
     } catch (error) {
       setAnswerStatus('idle')
@@ -482,14 +483,14 @@ export default function GamesPage() {
     window.speechSynthesis.speak(utterance)
   }
 
-  async function finishRound() {
+  async function finishRound(finalAnswers?: Array<{ question_id: string; choice: string }>) {
     if (!sessionId || finishing) return
     setFinishing(true)
     const previousAchievements = new Set(achievements)
     try {
       const server = await completeGameSession(
         sessionId,
-        answers,
+        finalAnswers ?? answers,
         dailyMode,
         dailyMode ? dailyChallengeDate : '',
       )
