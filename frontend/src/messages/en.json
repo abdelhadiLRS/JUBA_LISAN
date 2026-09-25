@@ -235,7 +235,12 @@
     "feedback": "Feedback",
     "reviews": "Reviews",
     "switchLanguage": "Switch language",
-    "games": "Games"
+    "games": "Games",
+    "friends": "Friends",
+    "coach": "Coach",
+    "courses": "Courses",
+    "review": "Review",
+    "translator": "Translator"
   },
   "auth": {
     "login": {
