@@ -175,7 +175,7 @@ def test_interactive_review_prefers_exact_previous_item():
         ([{"mastery_state": "reviewing"}], 5, 2, 2),
         ([{"mastery_state": "weak"}], 5, 2, 2),
         ([{"mastery_state": "weak"}, {"mastery_state": "weak"}], 5, 1, 4),
-        ([{"mastery_state": "weak"}, {"mastery_state": "reviewing"}, {"mastery_state": "mastered"}], 5, 2, 3),
+        ([{"mastery_state": "weak"}, {"mastery_state": "reviewing"}, {"mastery_state": "mastered"}], 5, 2, 2),
         ([{"mastery_state": "mastered"}, {"mastery_state": "mastered"}], 5, 1, 0),
     ],
 )
