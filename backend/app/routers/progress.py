@@ -2337,8 +2337,10 @@ async def _build_multi_skill_review_questions(
         replay["review_streak"] = review_streak
 
         # Low retrieval efficiency should not jump directly to transfer or
-        # production even when the stored mastery state is optimistic.
-        if replay["retrieval_efficiency"] < 0.35:
+        # production even when the stored mastery state is optimistic. Only
+        # apply this downgrade when attempts exist; a zero-efficiency default
+        # for an untracked item is not evidence of a failed retrieval.
+        if replay["attempts"] > 0 and replay["retrieval_efficiency"] < 0.35:
             replay["review_strategy"] = "recognition"
 
         return _apply_skill_review_variant(
