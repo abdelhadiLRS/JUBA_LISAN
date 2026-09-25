@@ -23,7 +23,7 @@ function getLocalDateKey() {
   const day = String(now.getDate()).padStart(2, '0')
   return `${year}-${month}-${day}`
 }
-const DAILY_GAMES: GameId[] = ['matching', 'quick_choice', 'sentence_builder', 'listen_choose', 'spelling', 'memory']
+const DAILY_GAMES: GameId[] = ['matching', 'quick_choice', 'sentence_builder', 'listen_choose', 'spelling', 'word_scramble', 'fill_blank', 'memory']
 const ROUND_SIZE = 5
 
 const copy = {
@@ -36,7 +36,7 @@ const copy = {
     listenChoose: 'استمع واختر', spelling: 'تحدي الإملاء', memory: 'بطاقات الذاكرة',
     wordMatchDesc: 'طابق الكلمة مع ترجمتها الصحيحة.', quickChoiceDesc: 'اختر الإجابة قبل انتهاء الوقت.',
     sentenceBuilderDesc: 'رتّب الكلمات لبناء جملة صحيحة.', listenChooseDesc: 'استمع إلى الكلمة ثم اخترها.',
-    spellingDesc: 'اكتب الكلمة المطلوبة من التلميح.', memoryDesc: 'اكشف البطاقات وطابق الأزواج الحقيقية.',
+    spellingDesc: 'اكتب الكلمة المطلوبة من التلميح.', wordScramble: 'ترتيب الحروف', fillBlank: 'أكمل الفراغ', wordScrambleDesc: 'رتّب الحروف لاستعادة الكلمة.', fillBlankDesc: 'اختر الكلمة الصحيحة لإكمال الجملة.', memoryDesc: 'اكشف البطاقات وطابق الأزواج الحقيقية.',
     start: 'ابدأ اللعبة', next: 'السؤال التالي', correct: 'إجابة صحيحة!', wrong: 'ليست صحيحة',
     hint: 'تلميح', back: 'الألعاب', score: 'نتيجة الجولة', done: 'أحسنت! أكملت الجولة.', choose: 'اختر الإجابة الصحيحة',
 lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائياتك', gamesPlayed: 'الألعاب',
@@ -49,7 +49,7 @@ lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائيا
     listenChoose: 'Écoute et choisis', spelling: 'Défi d’orthographe', memory: 'Cartes mémoire',
     wordMatchDesc: 'Associe chaque mot à sa bonne traduction.', quickChoiceDesc: 'Choisis avant la fin du temps.',
     sentenceBuilderDesc: 'Remets les mots dans le bon ordre.', listenChooseDesc: 'Écoute le mot puis choisis-le.',
-    spellingDesc: 'Écris le mot demandé à partir de l’indice.', memoryDesc: 'Retourne les cartes et forme les vraies paires.', start: 'Commencer', next: 'Question suivante',
+    spellingDesc: 'Écris le mot demandé à partir de l’indice.', wordScramble: 'Mots mélangés', fillBlank: 'Texte à trous', wordScrambleDesc: 'Remets les lettres dans le bon ordre.', fillBlankDesc: 'Choisis le mot qui complète la phrase.', memoryDesc: 'Retourne les cartes et forme les vraies paires.', start: 'Commencer', next: 'Question suivante',
     correct: 'Bonne réponse !', wrong: 'Pas encore', hint: 'Indice', back: 'Jeux', score: 'Score de la partie', done: 'Bravo ! Partie terminée.',
     choose: 'Choisis la bonne réponse', lang: 'Langue', xp: 'XP', skills: 'Compétences', stats: 'Tes statistiques',
     gamesPlayed: 'Parties', questions: 'Questions', accuracy: 'Précision', best: 'Meilleur score', badges: 'Succès', unlocked: 'débloqué', newBadge: 'Nouveau succès !', answered: 'Réponse enregistrée.',
@@ -61,7 +61,7 @@ lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائيا
     listenChoose: 'Listen & Choose', spelling: 'Spelling Challenge', memory: 'Memory Cards',
     wordMatchDesc: 'Match each word with its correct translation.', quickChoiceDesc: 'Choose before the timer runs out.',
     sentenceBuilderDesc: 'Arrange the words to build a correct sentence.', listenChooseDesc: 'Listen to the word and choose it.',
-    spellingDesc: 'Type the word requested by the clue.', memoryDesc: 'Reveal cards and match the real pairs.', start: 'Start game', next: 'Next question',
+    spellingDesc: 'Type the word requested by the clue.', wordScramble: 'Word Scramble', fillBlank: 'Fill the Blank', wordScrambleDesc: 'Unscramble the letters to recover the word.', fillBlankDesc: 'Choose the word that completes the sentence.', memoryDesc: 'Reveal cards and match the real pairs.', start: 'Start game', next: 'Next question',
     correct: 'Correct!', wrong: 'Not quite', hint: 'Hint', back: 'Games', score: 'Round score', done: 'Great job! Round complete.',
     choose: 'Choose the correct answer', lang: 'Language', xp: 'XP', skills: 'Skills', stats: 'Your stats',
     gamesPlayed: 'Games', questions: 'Questions', accuracy: 'Accuracy', best: 'Best score', badges: 'Achievements', unlocked: 'unlocked', newBadge: 'New achievement!', answered: 'Answer recorded.',
@@ -106,9 +106,9 @@ export default function GamesPage() {
   function difficultyForGame(id: GameId) {
     const skill = id === 'matching' || id === 'quick_choice' ? 'vocabulary'
       : id === 'listen_choose' ? 'listening'
-      : id === 'spelling' ? 'writing'
+      : id === 'spelling' || id === 'word_scramble' ? 'writing'
       : id === 'sentence_builder' ? 'grammar'
-      : 'memory'
+       : id === 'fill_blank' ? 'grammar' : 'memory'
     const mastery = skills[skill] ?? 0
     if (mastery < 0.4) return 1
     if (mastery < 0.75) return 2
@@ -120,7 +120,7 @@ export default function GamesPage() {
       { id: 'quick_choice' as const, title: t.quickChoice, desc: t.quickChoiceDesc, icon: '⚡' },
       { id: 'sentence_builder' as const, title: t.sentenceBuilder, desc: t.sentenceBuilderDesc, icon: '🧩' },
       { id: 'listen_choose' as const, title: t.listenChoose, desc: t.listenChooseDesc, icon: '🎧' },
-      { id: 'spelling' as const, title: t.spelling, desc: t.spellingDesc, icon: '✍️' },
+      { id: 'spelling' as const, title: t.spelling, desc: t.spellingDesc, icon: '✍️' },\n      { id: 'word_scramble' as const, title: t.wordScramble, desc: t.wordScrambleDesc, icon: '🔤' },\n      { id: 'fill_blank' as const, title: t.fillBlank, desc: t.fillBlankDesc, icon: '📝' },
       { id: 'memory' as const, title: t.memory, desc: t.memoryDesc, icon: '🧠' },
     ],
     [t]
