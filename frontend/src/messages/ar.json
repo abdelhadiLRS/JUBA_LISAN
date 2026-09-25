@@ -470,7 +470,30 @@
     "assessmentVoiceContext": "لقد أكملت اختبار تحديد المستوى للتو. ابدأ محادثة صوتية قصيرة وودية ومناسبة لمستواي."
   },
   "nav": {
-    "games": "الألعاب"
+    "games": "الألعاب",
+    "home": "الرئيسية",
+    "myPlan": "خطتي",
+    "progress": "التقدم",
+    "flashcards": "البطاقات",
+    "tutor": "المحادثة مع المدرّس",
+    "listening": "الاستماع",
+    "reading": "القراءة",
+    "conversation": "المحادثة",
+    "assessment": "التقييم",
+    "friends": "الأصدقاء",
+    "coach": "المدرّب",
+    "courses": "الدورات",
+    "review": "المراجعة",
+    "translator": "المترجم",
+    "resources": "المصادر",
+    "grammar": "القواعد",
+    "vocabulary": "المفردات",
+    "phrasebook": "كتاب العبارات",
+    "settings": "الإعدادات",
+    "faq": "الأسئلة الشائعة",
+    "feedback": "الملاحظات",
+    "contact": "تواصل معنا",
+    "admin": "الإدارة"
   },
   "languages": {
     "en": "الإنجليزية",
