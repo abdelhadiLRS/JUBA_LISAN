@@ -796,7 +796,10 @@ async def start_game_session(
     db.add(session)
     await db.commit()
     public_questions = [
-        {key: item[key] for key in ("id", "prompt", "choices", "hint", "skill", "difficulty", "input_mode", "audio_text", "audio_language")}
+        {
+            key: item.get(key)
+            for key in ("id", "prompt", "choices", "hint", "skill", "difficulty", "input_mode", "audio_text", "audio_language")
+        }
         for item in questions
     ]
     return GameSessionResponse(
