@@ -2000,16 +2000,24 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
 
     if skill == "speaking" and mechanic == "open_response":
         # Keep the target authored and verifiable while changing the mechanic
-        # from choice-based recognition to learner production.
+        # from choice-based recognition to learner production. Never expose the
+        # authoritative answer in the prompt itself.
         target = str(replay.get("answer", "")).strip()
         word = str(replay.get("word", "")).strip()
         if target:
             replay["prompt"] = (
-                f"Respond naturally using '{word}':\n{target}"
+                f"Respond naturally using '{word}'."
                 if language == "en"
-                else f"Réponds naturellement avec « {word} » :\n{target}"
+                else f"Réponds naturellement avec « {word} »."
                 if language == "fr"
-                else f"أجب بشكل طبيعي مستخدمًا «{word}»:\n{target}"
+                else f"أجب بشكل طبيعي مستخدمًا «{word}»."
+            )
+            replay["hint"] = (
+                "Use a complete natural sentence."
+                if language == "en"
+                else "Utilise une phrase naturelle et complète."
+                if language == "fr"
+                else "استخدم جملة طبيعية وكاملة."
             )
             replay["input_mode"] = "text"
             replay["choices"] = []
