@@ -32,7 +32,8 @@ VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="st-a1-unit-5"
 VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="st-a1-unit-6",words=[VocabularyEntry(word="nako",pos="noun",definition="time",example="Ke nako mang?"),VocabularyEntry(word="kajeno",pos="adverb",definition="today",example="Kajeno ke lapeng."),VocabularyEntry(word="hosane",pos="adverb",definition="tomorrow",example="Hosane ke ea sekolong.")]),
 VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="st-a1-unit-7",words=[VocabularyEntry(word="metsi",pos="noun",definition="water",example="Ke batla metsi."),VocabularyEntry(word="bohobe",pos="noun",definition="bread",example="Ke ja bohobe."),VocabularyEntry(word="tee",pos="noun",definition="tea",example="Ke noa tee.")]),
 VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="st-a1-unit-8",words=[VocabularyEntry(word="sekolo",pos="noun",definition="school",example="Ke sekolong."),VocabularyEntry(word="mmaraka",pos="noun",definition="market",example="Mmaraka o haufi."),VocabularyEntry(word="mona",pos="adverb",definition="here",example="Ke mona.")])
-]PHRASEBOOK_CATEGORIES=[
+]
+PHRASEBOOK_CATEGORIES=[
 PhrasebookCategory(id="st_a1_phrase_1",level="A1",situation="greetings",icon="💬",phrases=[PhrasebookEntry(text="Lumela.",context="Hello.",register="neutral")]),
 PhrasebookCategory(id="st_a1_phrase_2",level="A1",situation="thanks",icon="💬",phrases=[PhrasebookEntry(text="Kea leboha.",context="Thank you.",register="neutral")]),
 PhrasebookCategory(id="st_a1_phrase_3",level="A1",situation="help",icon="💬",phrases=[PhrasebookEntry(text="Nthuse ka kopo.",context="Please help me.",register="neutral")]),
