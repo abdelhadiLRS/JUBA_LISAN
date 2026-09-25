@@ -259,3 +259,12 @@
 .interactive-error{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border:2px solid var(--juba-coral);border-radius:18px;background:var(--juba-surface)}
 .interactive-error button{border:2px solid var(--juba-ink);border-radius:12px;padding:.55rem .8rem;background:var(--juba-yellow);color:var(--juba-ink);font-weight:900;cursor:pointer}
 @media(max-width:640px){.interactive-language-bar{margin-bottom:8px;border:0;border-radius:16px;padding:5px;box-shadow:var(--j-shell-shadow)}.interactive-language-bar button{min-height:42px;flex:1}.interactive-error{align-items:stretch;flex-direction:column}.interactive-error button{min-height:44px}}
+
+
+/* Real-time game controls */
+.quick-timer{width:max-content;margin:0 auto 1rem;padding:.55rem 1rem;border:2px solid var(--juba-app-yellow);border-radius:999px;background:#fff8df;font-weight:900}
+.audio-play{display:block;margin:0 auto 1rem;border:2px solid var(--juba-app-green);border-radius:18px;padding:.8rem 1.2rem;background:var(--juba-app-green-soft);color:var(--juba-app-ink);font-weight:900;cursor:pointer}
+.spelling-form{display:grid;grid-template-columns:1fr;gap:12px;margin:20px 0}
+.spelling-form input{width:100%;box-sizing:border-box;border:2px solid var(--juba-app-line);border-radius:20px;padding:17px 18px;background:var(--juba-app-surface);color:var(--juba-app-ink);font-size:18px;font-weight:800;text-align:inherit}
+.spelling-form input:focus{outline:3px solid var(--juba-app-yellow);outline-offset:2px}
+.spelling-form .next:disabled{opacity:.45;cursor:not-allowed}
