@@ -2061,6 +2061,26 @@ async def _build_multi_skill_review_questions(
 
     selected: list[dict] = []
     selected_keys: set[str] = set()
+    selected_skills: set[str] = set()
+
+    def prepare_review_item(item: dict, fallback_difficulty: int) -> dict:
+        replay = dict(item)
+        replay["id"] = str(uuid4())
+        replay["review"] = True
+        replay["review_identity"] = str(
+            replay.get("review_key") or _review_key(replay)
+        )
+        replay["target_language"] = plan.target_language
+        replay["cefr_level"] = plan.cefr_level
+        replay["difficulty"] = int(
+            replay.get("review_difficulty", replay.get("difficulty", fallback_difficulty))
+        )
+        replay["language"] = str(
+            replay.get("language") or str(plan.target_language).split("-")[0] or "en"
+        )
+        return _apply_skill_review_variant(
+            replay, int(replay.get("variant_seed", 0))
+        )
 
     # First pass: guarantee broad coverage of eligible weak skills, preferring
     # due mistakes over fresh questions.
@@ -2070,27 +2090,10 @@ async def _build_multi_skill_review_questions(
         candidates = [item for item in eligible_due if str(item.get("skill", "")) == skill]
         if not candidates:
             continue
-        replay = dict(candidates[0])
-        replay["id"] = str(uuid4())
-        replay["review"] = True
-        replay["review_identity"] = str(
-            replay.get("review_key") or _review_key(replay)
-        )
-        replay["target_language"] = plan.target_language
-        replay["cefr_level"] = plan.cefr_level
-        replay["difficulty"] = int(
-            replay.get("review_difficulty", replay.get("difficulty", difficulty))
-        )
-        replay["language"] = str(
-            replay.get("language")
-            or str(plan.target_language).split("-")[0]
-            or "en"
-        )
-        replay = _apply_skill_review_variant(
-            replay, int(replay.get("variant_seed", 0))
-        )
+        replay = prepare_review_item(candidates[0], difficulty)
         selected.append(replay)
         selected_keys.add(str(replay["review_identity"]))
+        selected_skills.add(str(replay.get("skill", skill)))
 
     # Second pass: use additional due mistakes to fill the remaining slots,
     # still weighted toward skills with the most outstanding review pressure.
@@ -2106,23 +2109,10 @@ async def _build_multi_skill_review_questions(
             for item in candidates:
                 if len(selected) >= 5:
                     break
-                replay = dict(item)
-                replay["id"] = str(uuid4())
-                replay["review"] = True
-                replay["review_identity"] = str(
-                    replay.get("review_key") or _review_key(replay)
-                )
-                replay["target_language"] = plan.target_language
-                replay["cefr_level"] = plan.cefr_level
-                replay["difficulty"] = int(replay.get("review_difficulty", replay.get("difficulty", difficulty)))
-                replay["language"] = str(
-                    replay.get("language") or str(plan.target_language).split("-")[0] or "en"
-                )
-                replay = _apply_skill_review_variant(
-                    replay, int(replay.get("variant_seed", 0))
-                )
+                replay = prepare_review_item(item, difficulty)
                 selected.append(replay)
                 selected_keys.add(str(replay["review_identity"]))
+                selected_skills.add(str(replay.get("skill", skill)))
 
     # Third pass: fill from the weakest skill records when the due queue is short.
     if len(selected) < 5:
@@ -2153,6 +2143,7 @@ async def _build_multi_skill_review_questions(
                 question["review_key"] = question_key
                 selected.append(question)
                 selected_keys.add(question_key)
+                selected_skills.add(skill)
     if len(selected) < 5:
         # Deterministic fallback for a learner with no stored skill history.
         fresh = _server_game_questions(
@@ -2171,6 +2162,7 @@ async def _build_multi_skill_review_questions(
             question["review_key"] = question_key
             selected.append(question)
             selected_keys.add(question_key)
+            selected_skills.add(str(question.get("skill", "vocabulary")))
     return selected[:5]
 
 
