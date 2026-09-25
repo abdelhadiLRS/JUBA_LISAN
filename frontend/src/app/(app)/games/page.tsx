@@ -140,8 +140,11 @@ export default function GamesPage() {
     [t]
   )
 
+  const [gameError, setGameError] = useState<string | null>(null)
+
   async function startGame(id: GameId, daily = false) {
     if (daily && dailyCompletedToday) return
+    setGameError(null)
 
     // Interactive games have their own board and completion flow. The generic
     // question renderer expects a non-interactive question payload, so route
@@ -191,6 +194,7 @@ export default function GamesPage() {
       setGame(null)
       setQuestion(null)
       setSessionId(null)
+      setGameError(error instanceof Error ? error.message : 'Unable to load the challenge')
     }
   }
 
@@ -282,6 +286,7 @@ export default function GamesPage() {
     const nextRound = round + 1
     setRound(nextRound)
     setSelected(null)
+    setInputValue('')
     setQuestion(sessionQuestions[nextRound] ?? null)
   }
 
@@ -311,10 +316,16 @@ export default function GamesPage() {
 
         {!game ? (
           <>
+            {gameError && (
+              <div className="feedback" role="alert">
+                <strong>{lang === 'ar' ? 'تعذر تحميل اللعبة' : lang === 'fr' ? 'Impossible de charger le jeu' : 'Unable to load the game'}</strong>
+                <span>{gameError}</span>
+              </div>
+            )}
             <div className="achievement-toast" style={{ display: newAchievements.length ? 'block' : 'none' }}>
               🏅 <strong>{t.newBadge}</strong> {newAchievements.map((id) => ACHIEVEMENTS[id].title).join(' · ')}
             </div>
-            <button type="button" className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} onClick={() => startGame(dailyGame, true)} disabled={dailyCompletedToday} aria-disabled={dailyCompletedToday}>
+            <button type="button" className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`}>
               <span className="daily-icon">📅</span>
               <span><strong>{t.daily}</strong><small>{t.dailyDesc}</small></span>
               <span className="start">{dailyCompletedToday ? '✓' : t.start} {dailyCompletedToday ? '' : '→'}</span>
@@ -370,7 +381,7 @@ export default function GamesPage() {
           </>
         ) : (
           <section className="play-card">
-            <button type="button" className="back" onClick={() => { setGame(null); setDailyMode(false) }}>← {t.back}</button>
+            <button type="button" className="back" onClick={() => { setGame(null); setDailyMode(false); setQuestion(null); setSessionId(null); setInputValue('') }}>← {t.back}</button>
             <div className="round-meta">{dailyMode ? `📅 ${t.daily} · ` : ''}{round + 1} / {ROUND_SIZE} · +XP</div>
             {question && (
               <>
