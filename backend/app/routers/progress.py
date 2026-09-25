@@ -51,6 +51,7 @@ GAME_SKILL_MAP = {
     "matching": "vocabulary",
     "ordering": "ordering",
     "sentence_builder": "grammar",
+    "review_mix": "vocabulary",
 }
 
 DAILY_GAME_IDS = (
@@ -1161,6 +1162,84 @@ def _apply_smart_review(
     return result
 
 
+async def _build_multi_skill_review_questions(
+    db: AsyncSession,
+    user_id: int,
+    plan: StudyPlan,
+    language: str,
+    difficulty: int,
+) -> list[dict]:
+    """Build one server-owned review round spanning several weak skills."""
+    game_for_skill = {
+        "vocabulary": "quick_choice",
+        "grammar": "grammar_duel",
+        "listening": "listening_detective",
+        "writing": "translation_sprint",
+        "speaking": "context_quest",
+    }
+    due = await _get_recent_game_mistakes(db, user_id, plan.id, limit=100)
+    selected: list[dict] = []
+    seen_skills: set[str] = set()
+    for item in due:
+        skill = str(item.get("skill", ""))
+        if skill not in game_for_skill or skill in seen_skills:
+            continue
+        if str(item.get("target_language", plan.target_language)) != plan.target_language:
+            continue
+        if str(item.get("cefr_level", plan.cefr_level)) != plan.cefr_level:
+            continue
+        replay = dict(item)
+        replay["id"] = str(uuid4())
+        replay["review"] = True
+        replay["target_language"] = plan.target_language
+        replay["cefr_level"] = plan.cefr_level
+        selected.append(replay)
+        seen_skills.add(skill)
+        if len(selected) >= 5:
+            break
+
+    # Fill remaining slots with fresh questions from the learner's weakest
+    # available skills, keeping the session useful even with a short queue.
+    if len(selected) < 5:
+        skills = await _get_game_skills(db, user_id, plan)
+        ranked = sorted(
+            (
+                (skill, float(score))
+                for skill, score in skills.items()
+                if skill in game_for_skill and isinstance(score, (int, float))
+            ),
+            key=lambda item: item[1],
+        )
+        for skill, _score in ranked:
+            if len(selected) >= 5:
+                break
+            game_id = game_for_skill[skill]
+            fresh = _server_game_questions(
+                game_id,
+                language,
+                difficulty,
+                plan.target_language,
+                cast(CEFRLevel, plan.cefr_level),
+            )
+            for question in fresh:
+                if len(selected) >= 5:
+                    break
+                if str(question.get("skill", "")) != skill:
+                    continue
+                selected.append(question)
+    if len(selected) < 5:
+        # Deterministic fallback for a learner with no stored skill history.
+        fresh = _server_game_questions(
+            "quick_choice",
+            language,
+            difficulty,
+            plan.target_language,
+            cast(CEFRLevel, plan.cefr_level),
+        )
+        selected.extend(fresh[: 5 - len(selected)])
+    return selected[:5]
+
+
 async def _get_adaptive_game_difficulty(
     db: AsyncSession,
     user_id: int,
@@ -1358,7 +1437,15 @@ async def start_game_session(
     )
     if data.review:
         adaptive_mode = "review"
-    if effective_game_id in {"memory", "matching", "ordering", "sentence_builder"}:
+    if effective_game_id == "review_mix":
+        questions = await _build_multi_skill_review_questions(
+            db,
+            current_user.id,
+            plan,
+            data.language,
+            effective_difficulty,
+        )
+    elif effective_game_id in {"memory", "matching", "ordering", "sentence_builder"}:
         interaction_public, interaction_solution = _server_interactive_challenge(
             effective_game_id,
             data.language,
@@ -1372,7 +1459,7 @@ async def start_game_session(
             "choices": [],
             "answer": "",
             "hint": "",
-            "skill": GAME_SKILL_MAP[data.game_id],
+            "skill": GAME_SKILL_MAP[effective_game_id],
             "difficulty": effective_difficulty,
             "interaction": {"public": interaction_public, "solution": interaction_solution},
         }]
@@ -1384,7 +1471,7 @@ async def start_game_session(
             plan.target_language,
             cast(CEFRLevel, plan.cefr_level),
         )
-    if (adaptive_mode == "review" or data.review) and effective_game_id not in {"memory", "matching", "ordering", "sentence_builder"}:
+    if (adaptive_mode == "review" or data.review) and effective_game_id not in {"memory", "matching", "ordering", "sentence_builder", "review_mix"}:
         mistakes = await _get_recent_game_mistakes(
             db,
             current_user.id,
