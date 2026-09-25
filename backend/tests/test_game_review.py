@@ -1182,3 +1182,40 @@ def test_speaking_review_variant_uses_authored_alternate_context(monkeypatch):
     assert variant["answer"] == "Could I have some water, please?"
     assert variant["topic"] == "daily-life"
     assert variant["variant"] == "curriculum-2"
+
+
+def test_translation_review_variant_uses_authored_alternate_source(monkeypatch):
+    class Example:
+        def __init__(self, text, translation):
+            self.text = text
+            self.translation = translation
+
+    class Topic:
+        slug = "present-simple"
+        examples = [
+            Example("I drink water every morning.", "Je bois de l'eau chaque matin."),
+            Example("I drink water every morning.", "Je prends de l'eau chaque matin."),
+        ]
+
+    monkeypatch.setattr(
+        progress_router,
+        "get_grammar_topics",
+        lambda language: [Topic()],
+    )
+
+    question = {
+        "skill": "writing",
+        "language": "fr",
+        "target_language": "fr-FR",
+        "cefr_level": "A1",
+        "topic": "present-simple",
+        "prompt": "Translate into the target language:\nJe bois de l'eau chaque matin.",
+        "answer": "I drink water every morning.",
+        "input_mode": "text",
+    }
+
+    variant = progress_router._apply_skill_review_variant(question, 1)
+
+    assert variant["answer"] == "I drink water every morning."
+    assert "Je prends de l'eau chaque matin." in variant["prompt"]
+    assert variant["variant"] == "surface-2"
