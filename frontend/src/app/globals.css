@@ -6605,3 +6605,137 @@ main [dir="rtl"] h3,
   .juba-dashboard .juba-dashboard-panel,
   .juba-dashboard .juba-dashboard-panels>.juba-card{padding:17px!important;border-radius:18px!important}
 }
+
+
+/* JUBA LISAN — dashboard visual pass 3
+   Purple/lilac education workspace inspired by the selected EdTech reference.
+   Existing data, routes, and dashboard interactions remain unchanged. */
+.juba-dashboard{
+  --dash-ink:#171522;
+  --dash-muted:#777483;
+  --dash-line:#e8e5ed;
+  --dash-paper:#ffffff;
+  --dash-purple:#373fb8;
+  --dash-blue:#5862e2;
+  --dash-lavender:#9a9ff3;
+  --dash-orange:#f95d22;
+  --dash-soft:#f3f2f3;
+  background:
+    radial-gradient(circle at 94% 0%,rgba(154,159,243,.14),transparent 300px),
+    #f3f2f3!important;
+  color:var(--dash-ink)!important;
+  border-radius:0!important;
+}
+.juba-dashboard-header{
+  position:relative;overflow:hidden;
+  min-height:148px!important;
+  border:1px solid #e7e4ef!important;
+  border-radius:24px!important;
+  background:linear-gradient(115deg,#fff 0%,#fff 65%,#f0efff 100%)!important;
+  box-shadow:0 8px 28px rgba(45,38,105,.045)!important;
+}
+.juba-dashboard-header::after{
+  content:"";position:absolute;right:-40px;top:-110px;
+  width:260px;height:260px;border:38px solid rgba(154,159,243,.12);
+  border-radius:50%;pointer-events:none;
+}
+.juba-dashboard-header .juba-dashboard-kicker{color:var(--dash-purple)!important}
+.juba-dashboard-header h1{color:var(--dash-ink)!important}
+.juba-dashboard-header p{color:var(--dash-muted)!important}
+.juba-dashboard .juba-dashboard-next{
+  position:relative;overflow:hidden;
+  border:1px solid #deddfb!important;
+  border-radius:25px!important;
+  background:linear-gradient(115deg,#e8e8ff 0%,#f0efff 58%,#fff0e9 100%)!important;
+  box-shadow:0 10px 30px rgba(55,63,184,.055)!important;
+}
+.juba-dashboard .juba-dashboard-next::after{
+  content:"";position:absolute;right:-65px;bottom:-155px;
+  width:310px;height:310px;border-radius:50%;
+  background:rgba(154,159,243,.16);pointer-events:none;
+}
+.juba-dashboard .juba-dashboard-next>*{position:relative;z-index:1}
+.juba-dashboard .juba-dashboard-next h2{color:#201d39!important}
+.juba-dashboard .juba-dashboard-next p{color:#77718f!important}
+.juba-dashboard .juba-dashboard-next .juba-primary-button{
+  background:var(--dash-orange)!important;color:#fff!important;
+  border:1px solid var(--dash-orange)!important;
+  box-shadow:0 7px 16px rgba(249,93,34,.18)!important;
+}
+.juba-dashboard .juba-dashboard-stats{gap:16px!important}
+.juba-dashboard .juba-dashboard-stat{
+  min-height:145px!important;
+  border:1px solid var(--dash-line)!important;
+  border-radius:22px!important;
+  background:#fff!important;
+  box-shadow:0 5px 18px rgba(40,32,72,.035)!important;
+}
+.juba-dashboard .juba-dashboard-stat:hover{
+  border-color:#c9c9f6!important;
+  box-shadow:0 13px 28px rgba(55,63,184,.09)!important;
+}
+.juba-dashboard .juba-dashboard-stat-icon{
+  width:42px;height:42px;display:grid;place-items:center;
+  border-radius:14px!important;
+}
+.juba-dashboard .juba-dashboard-stat:nth-child(1) .juba-dashboard-stat-icon{background:#fff0e9!important;color:#e65a25!important}
+.juba-dashboard .juba-dashboard-stat:nth-child(2) .juba-dashboard-stat-icon{background:#ecebff!important;color:#373fb8!important}
+.juba-dashboard .juba-dashboard-stat:nth-child(3) .juba-dashboard-stat-icon{background:#e6f4ff!important;color:#3d77b4!important}
+.juba-dashboard .juba-dashboard-stat:nth-child(4) .juba-dashboard-stat-icon{background:#e7f7f0!important;color:#278568!important}
+.juba-dashboard .juba-dashboard-stat p.text-3xl{color:var(--dash-ink)!important}
+.juba-dashboard .juba-dashboard-panels{gap:18px!important}
+.juba-dashboard .juba-dashboard-panel,
+.juba-dashboard .juba-dashboard-panels>.juba-card{
+  border:1px solid var(--dash-line)!important;
+  border-radius:23px!important;
+  background:#fff!important;
+  box-shadow:0 5px 22px rgba(40,32,72,.035)!important;
+}
+.juba-dashboard .juba-dashboard-panel [class*="rounded-2xl"]{
+  border-radius:15px!important;
+  border-color:#e9e7f0!important;
+}
+.juba-dashboard .juba-dashboard-panel [class*="h-2"][class*="w-full"]{
+  height:9px!important;background:#eeedf5!important;border-radius:999px!important;
+}
+.juba-dashboard .juba-dashboard-panel [class*="h-2"][class*="w-full"]>div{
+  background:linear-gradient(90deg,var(--dash-purple),var(--dash-blue))!important;
+  border-radius:999px!important;
+}
+.juba-dashboard .juba-dashboard-panel .bg-\[var\(--juba-app-green-soft\)\]{
+  background:#f0efff!important;
+}
+.juba-dashboard .juba-dashboard-panel .bg-\[var\(--juba-app-green\)\]{
+  background:var(--dash-purple)!important;
+}
+.juba-dashboard .juba-dashboard-panel .text-\[var\(--juba-app-green-dark\)\]{
+  color:var(--dash-purple)!important;
+}
+.juba-dashboard .juba-dashboard-panel [class*="border-\[var\(--juba-app-green\)\]"]{
+  border-color:#a7a9ef!important;
+}
+.juba-dashboard .juba-dashboard-actions{
+  border:1px solid var(--dash-line)!important;
+  border-radius:22px!important;background:#fff!important;
+  box-shadow:0 5px 20px rgba(40,32,72,.03)!important;
+}
+.juba-dashboard .juba-primary-button{
+  border-radius:13px!important;background:var(--dash-purple)!important;
+  border-color:var(--dash-purple)!important;color:#fff!important;
+  box-shadow:0 5px 13px rgba(55,63,184,.14)!important;
+}
+.juba-dashboard .juba-primary-button:hover{background:#2e35a5!important}
+.juba-dashboard .juba-secondary-button{
+  border:1px solid #dedcf3!important;border-radius:13px!important;
+  background:#f8f7ff!important;color:#373fb8!important;
+}
+.juba-dashboard .juba-secondary-button:hover{background:#ecebff!important}
+.juba-dashboard .text-\[var\(--juba-app-muted\)\]{color:var(--dash-muted)!important}
+.juba-dashboard .text-\[var\(--juba-app-ink\)\]{color:var(--dash-ink)!important}
+@media(max-width:700px){
+  .juba-dashboard-header{border-radius:19px!important}
+  .juba-dashboard .juba-dashboard-next{border-radius:20px!important}
+  .juba-dashboard .juba-dashboard-stat{min-height:116px!important}
+  .juba-dashboard .juba-dashboard-panel,
+  .juba-dashboard .juba-dashboard-panels>.juba-card{border-radius:18px!important}
+}
