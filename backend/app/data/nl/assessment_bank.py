@@ -4,7 +4,7 @@ from app.data._types import AssessmentQuestion
 ASSESSMENT_BANK = [
     AssessmentQuestion(id="nl-a1-001",skill="grammar",difficulty="A1",question="Welke zin is correct?",options=["Ik ben student.","Ik is student.","Ik bent student.","Ik zijn student."],correct="Ik ben student."),
     AssessmentQuestion(id="nl-a1-002",skill="grammar",difficulty="A1",question="Welke zin heeft de juiste woordvolgorde?",options=["Vandaag werk ik thuis.","Vandaag ik werk thuis.","Vandaag thuis werk ik.","Werk vandaag ik thuis."],correct="Vandaag werk ik thuis."),
-    AssessmentQuestion(id="nl-a1-003",skill="vocabulary",difficulty="A1",question="Welk woord betekent 'mother'?",options=["moeder","vader","broer","zus"],correct="moeder"),
+    AssessmentQuestion(id="nl-a1-003",skill="vocabulary",difficulty="A1",question="Welk woord betekent 'moeder'?",options=["moeder","vader","broer","zus"],correct="moeder"),
     AssessmentQuestion(id="nl-a1-004",skill="reading",difficulty="A1",question="Je wilt naar de prijs vragen. Wat zeg je?",options=["Hoeveel kost dit?","Hoe heet je?","Waar woon je?","Tot ziens."],correct="Hoeveel kost dit?"),
     AssessmentQuestion(id="nl-a1-005",skill="grammar",difficulty="A1",question="Welke zin gebruikt 'geen' correct?",options=["Ik heb geen auto.","Ik geen heb auto.","Ik heb niet auto.","Ik heb auto geen."],correct="Ik heb geen auto."),
     AssessmentQuestion(id="nl-a1-006",skill="vocabulary",difficulty="A1",question="Wat betekent 'afspraak'?",options=["afgesproken moment","maaltijd","familielid","vervoer"],correct="afgesproken moment"),
