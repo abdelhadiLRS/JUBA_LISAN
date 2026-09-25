@@ -387,3 +387,11 @@ def test_mixed_review_strategy_clamps_efficiency_and_attempt_count():
     assert _mixed_review_strategy("learning", 1, -0.5, 4) == "recognition"
     assert _mixed_review_strategy("reviewing", 2, 1.5, 4) == "contextual_transfer"
     assert _mixed_review_strategy("reviewing", 2, 0.0, -1) == "contextual_transfer"
+
+def test_game_answer_matches_normalizes_unicode_composition_and_apostrophes():
+    from app.routers.progress import _game_answer_matches
+
+    assert _game_answer_matches("cafe\u0301", "caf\u00e9")
+    assert _game_answer_matches("J\u2019aime apprendre.", "j'aime apprendre")
+    assert not _game_answer_matches("cafe", "caf\u00e9")
+
