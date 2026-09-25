@@ -43,10 +43,10 @@ interface TodayPlan {
 }
 
 const scenarios = [
-  { icon: '✈️', titleKey: 'airport', descKey: 'airportDesc', href: '/conversation' },
-  { icon: '💼', titleKey: 'jobInterview', descKey: 'jobInterviewDesc', href: '/conversation' },
-  { icon: '🍽️', titleKey: 'restaurant', descKey: 'restaurantDesc', href: '/conversation' },
-  { icon: '🏨', titleKey: 'hotel', descKey: 'hotelDesc', href: '/conversation' },
+  { icon: '✈️', title: 'Airport', desc: 'Check in, ask for directions, handle delays.', href: '/conversation' },
+  { icon: '💼', title: 'Job interview', desc: 'Practice answers, confidence and professional vocabulary.', href: '/conversation' },
+  { icon: '🍽️', title: 'Restaurant', desc: 'Order naturally and handle a real conversation.', href: '/conversation' },
+  { icon: '🏨', title: 'Hotel', desc: 'Book a room, solve problems and make requests.', href: '/conversation' },
 ]
 
 export default function CoachPage() {
@@ -193,10 +193,10 @@ export default function CoachPage() {
             <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">{t('roomsDescription')}</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
-                <Link key={scenario.titleKey} href={scenario.href} className="rounded-[28px] border-2 border-[var(--juba-app-line)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)]">
+                <Link key={scenario.title} href={scenario.href} className="rounded-[28px] border-2 border-[var(--juba-app-line)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)]">
                   <span className="text-2xl">{scenario.icon}</span>
-                  <p className="mt-3 text-sm font-black text-[var(--juba-app-ink)]">{t(scenario.titleKey)}</p>
-                  <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">{t(scenario.descKey)}</p>
+                  <p className="mt-3 text-sm font-black text-[var(--juba-app-ink)]">{scenario.title}</p>
+                  <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">{scenario.desc}</p>
                 </Link>
               ))}
             </div>
