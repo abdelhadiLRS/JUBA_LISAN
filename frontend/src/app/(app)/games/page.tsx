@@ -149,6 +149,8 @@ export default function GamesPage() {
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
   const [inputValue, setInputValue] = useState('')
   const [timeLeft, setTimeLeft] = useState(8)
+  const [roundResult, setRoundResult] = useState<{ score: number; correct: number; questions: number; xp: number } | null>(null)
+  const [finishing, setFinishing] = useState(false)
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
@@ -261,6 +263,8 @@ export default function GamesPage() {
       setSessionId(session.session_id)
       setSessionQuestions(session.questions)
       setNewAchievements([])
+      setRoundResult(null)
+      setFinishing(false)
       setQuestion(session.questions[0] ?? null)
     } catch (error) {
       console.error('[JUBA LISAN] Game session start failed:', error)
@@ -310,7 +314,8 @@ export default function GamesPage() {
   }
 
   async function finishRound() {
-    if (!sessionId) return
+    if (!sessionId || finishing) return
+    setFinishing(true)
     const previousAchievements = new Set(achievements)
     try {
       const server = await completeGameSession(
@@ -324,6 +329,7 @@ export default function GamesPage() {
       )
       if (fresh.length) setNewAchievements(fresh)
       setRoundScore(server.round_score)
+      setRoundResult({ score: server.round_score, correct: server.round_correct, questions: server.round_questions, xp: server.xp_earned })
       setProgress({
         streak,
         xp: server.total_xp,
@@ -340,8 +346,10 @@ export default function GamesPage() {
         },
         achievements: server.achievements as AchievementId[],
       })
-    } catch {
-      return
+    } catch (error) {
+      setGameError(error instanceof Error ? error.message : 'Unable to save the round')
+    } finally {
+      setFinishing(false)
     }
   }
 
@@ -349,11 +357,6 @@ export default function GamesPage() {
     if (!game || !question) return
     if (round >= ROUND_SIZE - 1) {
       void finishRound()
-      setGame(null)
-      setDailyMode(false)
-      setDailyChallengeDate('')
-      setQuestion(null)
-      setSessionId(null)
       return
     }
     const nextRound = round + 1
@@ -454,7 +457,7 @@ export default function GamesPage() {
           </>
         ) : (
           <section className="play-card">
-            <button type="button" className="back" onClick={() => { setGame(null); setDailyMode(false); setQuestion(null); setSessionId(null); setInputValue('') }}>← {t.back}</button>
+            <button type="button" className="back" onClick={() => { setGame(null); setDailyMode(false); setQuestion(null); setSessionId(null); setInputValue(''); setRoundResult(null) }}>← {t.back}</button>
             <div className="round-meta">{dailyMode ? `📅 ${t.daily} · ` : ''}{round + 1} / {ROUND_SIZE} · +XP</div>
             {question && (
               <>
@@ -489,10 +492,33 @@ export default function GamesPage() {
                     <span>{question.hint}</span>
                   </div>
                 )}
-                {selected && <button type="button" className="next" onClick={next}>{round >= ROUND_SIZE - 1 ? t.done : t.next} →</button>}
+                {selected && <button type="button" className="next" onClick={next} disabled={finishing}>{round >= ROUND_SIZE - 1 ? (finishing ? '…' : t.done) : t.next} →</button>}
               </>
             )}
             <div className="round-score">{t.score}: <strong>{roundScore}</strong></div>
+            {roundResult && (
+              <div className="feedback good" role="status">
+                <strong>{lang === 'ar' ? '🎉 نتيجة الجولة' : lang === 'fr' ? '🎉 Résultat de la partie' : '🎉 Round result'}</strong>
+                <span>
+                  {roundResult.correct}/{roundResult.questions} · {roundResult.score} pts · +{roundResult.xp} XP
+                </span>
+                <button
+                  type="button"
+                  className="next"
+                  onClick={() => {
+                    setGame(null)
+                    setDailyMode(false)
+                    setDailyChallengeDate('')
+                    setQuestion(null)
+                    setSessionId(null)
+                    setRoundResult(null)
+                    setAnswers([])
+                  }}
+                >
+                  {t.back} →
+                </button>
+              </div>
+            )}
           </section>
         )}
       </section>
