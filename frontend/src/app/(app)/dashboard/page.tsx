@@ -19,7 +19,6 @@ import WhatsNew from '@/components/whats-new/WhatsNew'
 import { PageLoading } from '@/components/ui/page-loading'
 import { SubscriptionPlanButtons } from '@/components/billing/SubscriptionPlanButtons'
 import { DashboardAnnouncement } from '@/components/dashboard/DashboardAnnouncement'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 interface TodayLessonItem {
   id: number | null
@@ -273,57 +272,6 @@ export default function DashboardPage() {
       <main className="min-h-screen bg-[#dfe3ff] px-3 py-3 sm:px-5 sm:py-5 lg:px-7">
         <div className="mx-auto max-w-[1500px] overflow-hidden rounded-[38px] border border-black/10 bg-[#f6f6f4] shadow-[0_35px_100px_-35px_rgba(24,28,46,.55)]">
           {/* EduView-style member shell */}
-          <header className="flex min-h-[92px] items-center gap-4 bg-[#24272b] px-5 py-4 text-white sm:px-7 lg:px-9">
-            <Link href="/dashboard" className="flex shrink-0 items-center gap-3">
-              <span className="grid size-12 place-items-center rounded-full bg-[#7776df] shadow-inner shadow-white/20">
-                <BookOpenCheck className="size-6" />
-              </span>
-              <span className="hidden text-xl font-black tracking-[-.04em] sm:inline">JUBA LISAN</span>
-            </Link>
-
-            <nav className="mx-auto flex items-center gap-1 rounded-full bg-[#17191c] p-1.5 shadow-inner shadow-black/30">
-              {[
-                { href: "/dashboard", icon: LayoutDashboard, label: t('today') },
-                { href: "/plan", icon: ListChecks, label: t('planProgress') },
-                { href: "/progress", icon: Trophy, label: t('recentPerformance') },
-                { href: "/courses", icon: Library, label: tNav('courses') },
-                { href: "/settings", icon: Settings, label: tNav('settings') },
-              ].map((item, index) => {
-                const Icon = item.icon
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    title={item.label}
-                    className={`grid size-11 place-items-center rounded-full transition ${index === 0 ? "bg-black text-white shadow-lg" : "text-white/55 hover:bg-white/10 hover:text-white"}`}
-                  >
-                    <Icon className="size-[18px]" />
-                  </Link>
-                )
-              })}
-            </nav>
-
-            <div className="hidden items-center gap-2 sm:flex">
-              <LanguageSwitcher />
-            </div>
-
-            <div className="hidden items-center gap-3 sm:flex">
-              <div className="text-right">
-                <p className="text-sm font-black">{user?.displayName || user?.username}</p>
-                <p className="mt-0.5 text-xs text-white/65">
-                  {t('planProgress')}: {planCompletion}%
-                </p>
-              </div>
-              <div className="grid size-12 place-items-center overflow-hidden rounded-full bg-[#d8c9a9] text-[#25272b]">
-                <UserRound className="size-7" />
-              </div>
-              <button type="button" className="relative grid size-11 place-items-center rounded-full border border-white/10 text-white/75 hover:bg-white/10" aria-label="Notifications">
-                <Bell className="size-5" />
-                <span className="absolute right-2 top-2 size-2 rounded-full bg-[#f26b69]" />
-              </button>
-            </div>
-          </header>
-
           <div className="grid gap-5 p-4 sm:p-6 lg:grid-cols-[minmax(260px,1fr)_minmax(430px,1.45fr)_minmax(280px,.85fr)] lg:gap-5 lg:p-6">
             {/* LEFT COLUMN */}
             <section className="space-y-5">
