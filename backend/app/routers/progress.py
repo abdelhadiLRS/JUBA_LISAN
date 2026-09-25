@@ -1964,12 +1964,23 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
             except (KeyError, TypeError, ValueError):
                 examples = []
             if examples:
+                example = examples[max(0, int(seed)) % len(examples)]
+                # Hide the target lexical item so contextual production tests
+                # retrieval instead of recognition-by-copying.
+                lower_example = example.casefold()
+                lower_word = word.casefold()
+                match_index = lower_example.find(lower_word)
+                surface = (
+                    f"{example[:match_index]}____{example[match_index + len(word):]}"
+                    if match_index >= 0
+                    else example
+                )
                 replay["prompt"] = (
-                    f"Complete the context with the target word:\n{examples[max(0, int(seed)) % len(examples)]}"
+                    f"Complete the context with the target word:\n{surface}"
                     if language == "en"
-                    else f"Complète le contexte avec le mot cible :\n{examples[max(0, int(seed)) % len(examples)]}"
+                    else f"Complète le contexte avec le mot cible :\n{surface}"
                     if language == "fr"
-                    else f"أكمل السياق بالكلمة المستهدفة:\n{examples[max(0, int(seed)) % len(examples)]}"
+                    else f"أكمل السياق بالكلمة المستهدفة:\n{surface}"
                 )
                 replay["answer"] = word
                 replay["input_mode"] = "text"
