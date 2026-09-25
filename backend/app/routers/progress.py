@@ -125,9 +125,16 @@ def _server_interactive_challenge(
         for item in preferred_items:
             word = str(item.get("word", "")).strip()
             definition = str(item.get("definition", "")).strip()
-            entry = by_word.get(word.casefold())
+            sentence = str(item.get("sentence", "")).strip()
+            entry = by_word.get(word.casefold()) if word else None
             if entry and definition and entry.word.strip().casefold() == word.casefold():
                 exact_entries.append(entry)
+                continue
+            if sentence:
+                exact_entries.extend(
+                    entry for entry in cefr_entries
+                    if entry.example.strip() == sentence
+                )
         exact_entries = list(dict.fromkeys(exact_entries))
         cefr_entries = exact_entries + [entry for entry in cefr_entries if entry not in exact_entries]
 
@@ -187,7 +194,7 @@ def _server_interactive_challenge(
         rng.shuffle(shuffled)
         solution = {"target": [item["id"] for item in items]}
         if game_id == "sentence_builder":
-            solution["review_items"] = {"sentence": {"sentence": " ".join(source), "topic": next((v.topic for v in vocab_sets if source_entry.example.strip() in [e.example.strip() for w in v.words for e in [e] if hasattr(e, "example")]), "grammar")}}
+            solution["review_items"] = {"sentence": {"sentence": " ".join(source), "topic": next((v.topic for v in vocab_sets if source_entry in v.words), "grammar")}}
         return {"type": "ordering", "items": shuffled}, solution
     raise ValueError("Unsupported interactive game")
 
