@@ -97,6 +97,9 @@ def _server_interactive_challenge(
 ) -> tuple[dict, dict]:
     """Build a renderable challenge plus server-only solution state."""
     rng = random.SystemRandom()
+    vocab_sets = get_vocabulary_by_level(cefr_level, target_language)
+    cefr_entries = [entry for vocab_set in vocab_sets for entry in vocab_set.words]
+    rng.shuffle(cefr_entries)
     if game_id == "memory":
         count = {1: 3, 2: 4, 3: 5}[difficulty]
         selected_entries = cefr_entries[:count]
@@ -1284,7 +1287,11 @@ async def start_game_session(
     )
     if effective_game_id in {"memory", "matching", "ordering", "sentence_builder"}:
         interaction_public, interaction_solution = _server_interactive_challenge(
-            effective_game_id, data.language, effective_difficulty
+            effective_game_id,
+            data.language,
+            effective_difficulty,
+            plan.target_language,
+            cast(CEFRLevel, plan.cefr_level),
         )
         questions = [{
             "id": str(uuid4()),
