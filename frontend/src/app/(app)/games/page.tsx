@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { useLocale } from 'next-intl'
+import { useLocale, usePathname, useRouter } from 'next-intl'
 import {
   ACHIEVEMENTS,
   type AchievementId,
@@ -131,8 +131,15 @@ lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائيا
 
 export default function GamesPage() {
   const locale = useLocale() as Lang
+  const pathname = usePathname()
+  const router = useRouter()
   const [lang, setLang] = useState<Lang>(locale)
   useEffect(() => setLang(locale), [locale])
+
+  function changeInterfaceLanguage(value: Lang) {
+    setLang(value)
+    router.replace(pathname, { locale: value })
+  }
   const [game, setGame] = useState<GameId | null>(null)
   const [dailyMode, setDailyMode] = useState(false)
   const [dailyChallengeDate, setDailyChallengeDate] = useState('')
@@ -357,7 +364,7 @@ export default function GamesPage() {
           <div className="language-control">
             <span>{t.lang}</span>
             {(['ar', 'fr', 'en', 'es', 'de', 'it', 'pt', 'pl', 'nl', 'ro', 'ru'] as Lang[]).map((value) => (
-              <button type="button" key={value} className={lang === value ? 'active' : ''} onClick={() => setLang(value)}>
+              <button type="button" key={value} className={lang === value ? 'active' : ''} onClick={() => changeInterfaceLanguage(value)}>
                 {value.toUpperCase()}
               </button>
             ))}
