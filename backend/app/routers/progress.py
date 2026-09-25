@@ -82,7 +82,7 @@ def _daily_game_id(day: date) -> str:
 def _normalize_game_text(value: str) -> str:
     """Normalize learner text without changing its linguistic meaning."""
     normalized = " ".join(value.strip().casefold().split())
-    return normalized.strip(".,!?;:。！？；：،،"'«»“”()[]{}")
+    return normalized.strip(".,!?;:。！？；：،،'«»“”()[]{}")
 
 
 def _game_answer_matches(submitted: str, expected: object) -> bool:
