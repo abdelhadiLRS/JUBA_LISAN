@@ -388,6 +388,7 @@ export default function GamesPage() {
   const [gameError, setGameError] = useState<string | null>(null)
   const [speechListening, setSpeechListening] = useState(false)
   const [speechSupported, setSpeechSupported] = useState(false)
+  const [speechError, setSpeechError] = useState(false)
   const speechRecognitionRef = useRef<SpeechRecognitionInstance | null>(null)
 
   async function startGame(id: GameId, daily = false, review = false) {
@@ -523,6 +524,7 @@ export default function GamesPage() {
 
   function startSpeechInput() {
     if (!question || question.skill !== 'speaking' || !speechSupported || speechListening || selected) return
+    setSpeechError(false)
     const Constructor = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!Constructor) return
     const recognition = new Constructor()
@@ -537,7 +539,10 @@ export default function GamesPage() {
         .trim()
       if (transcript) setInputValue(transcript)
     }
-    recognition.onerror = () => setSpeechListening(false)
+    recognition.onerror = () => {
+      setSpeechListening(false)
+      setSpeechError(true)
+    }
     recognition.onend = () => {
       setSpeechListening(false)
       speechRecognitionRef.current = null
@@ -549,6 +554,7 @@ export default function GamesPage() {
     } catch {
       setSpeechListening(false)
       speechRecognitionRef.current = null
+      setSpeechError(true)
     }
   }
 
@@ -836,6 +842,9 @@ export default function GamesPage() {
                           </button>
                         ) : (
                           <small>{lang === 'ar' ? 'الإجابة النصية متاحة لأن التعرف الصوتي غير مدعوم في هذا المتصفح.' : lang === 'fr' ? 'La saisie texte est disponible car la reconnaissance vocale n’est pas prise en charge par ce navigateur.' : 'Text input is available because speech recognition is not supported by this browser.'}</small>
+                        )}
+                        {speechError && (
+                          <small role="alert">{lang === 'ar' ? 'تعذر الوصول إلى الميكروفون أو التعرف على الكلام. يمكنك الكتابة بدلًا من ذلك.' : lang === 'fr' ? 'Le microphone ou la reconnaissance vocale a échoué. Vous pouvez écrire votre réponse.' : 'Microphone or speech recognition failed. You can type your answer instead.'}</small>
                         )}
                       </div>
                     )}
