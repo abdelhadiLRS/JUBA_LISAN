@@ -586,7 +586,8 @@
     "reviewReminder": "Il est temps de renforcer votre mémoire",
     "goalCompleted": "🎉 Objectif quotidien atteint !",
     "keepGoing": "Plus que {remaining} leçon(s) !",
-    "takeAssessment": "Passer l'évaluation de niveau"
+    "takeAssessment": "Passer l'évaluation de niveau",
+    "planDayGoal": "Objectif des leçons du jour"
   },
   "assessment": {
     "title": "Évaluation",
