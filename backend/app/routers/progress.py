@@ -3887,16 +3887,18 @@ async def get_mastery_center(
     def content_id(exercise: Exercise) -> str:
         return str(exercise.id)
 
-    def attempt_view(exercise: Exercise) -> list[dict]:
-        return [
+    attempts_by_exercise: dict[int, list[SimpleNamespace]] = {}
+    for attempt in attempts:
+        attempts_by_exercise.setdefault(attempt.exercise_id, []).append(
             SimpleNamespace(
-                content_id=content_id(exercise),
+                content_id=str(attempt.exercise_id),
                 variant=attempt.variant,
                 score=attempt.score,
             )
-            for attempt in attempts
-            if attempt.exercise_id == exercise.id
-        ]
+        )
+
+    def attempt_view(exercise: Exercise) -> list[SimpleNamespace]:
+        return attempts_by_exercise.get(exercise.id, [])
 
     def fallback_skill_for(exercise: Exercise) -> str:
         exercise_type = (exercise.exercise_type or "").strip().casefold()
