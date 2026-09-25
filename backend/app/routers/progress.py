@@ -1134,7 +1134,7 @@ def _review_key(question: dict) -> str:
 
 
 def _review_interval(review_count: int) -> timedelta:
-    """Return a conservative expanding interval for retrieval practice."""
+    """Return the expanding interval for the learner's successful review streak."""
     return (
         timedelta(minutes=10)
         if review_count <= 0
@@ -1145,6 +1145,21 @@ def _review_interval(review_count: int) -> timedelta:
         else timedelta(days=3)
         if review_count == 3
         else timedelta(days=7)
+    )
+
+
+def _review_stage(review_streak: int) -> str:
+    """Expose a stable human-readable stage for the current review streak."""
+    return (
+        "relearning"
+        if review_streak <= 0
+        else "short"
+        if review_streak == 1
+        else "daily"
+        if review_streak == 2
+        else "spaced"
+        if review_streak == 3
+        else "long_term"
     )
 
 
@@ -1361,13 +1376,6 @@ async def _get_recent_game_mistakes(
                     key = _review_key(question)
             if not key:
                 continue
-            if item.get("resolved"):
-                # The marker is authoritative for this key at this point in
-                # newest-first traversal. Mark it seen so older markers in the
-                # same event cannot resurrect a resolved review item.
-                resolved.add(key)
-                seen.add(key)
-                continue
             question = item.get("question")
             if (
                 not isinstance(question, dict)
@@ -1376,6 +1384,11 @@ async def _get_recent_game_mistakes(
                 or (skill and str(question.get("skill", "")) != skill)
             ):
                 continue
+
+            # A resolved marker is not necessarily terminal. Successful review
+            # now schedules the next retrieval using the learner's review streak.
+            # This turns the ledger into a true graduated queue instead of a
+            # one-shot error list.
             due_value = item.get("next_review_at")
             try:
                 due_at = datetime.fromisoformat(str(due_value)) if due_value else (
@@ -1383,10 +1396,18 @@ async def _get_recent_game_mistakes(
                 )
             except ValueError:
                 due_at = event.created_at + _review_interval(0)
+
+            if item.get("resolved") and due_at > now:
+                resolved.add(key)
+                seen.add(key)
+                continue
+
             if due_at <= now:
                 replay = dict(question)
                 replay["review_key"] = key
                 replay["review_count"] = int(item.get("review_count", 0))
+                replay["review_streak"] = int(item.get("review_streak", 0))
+                replay["review_stage"] = _review_stage(int(item.get("review_streak", 0)))
                 replay["review_due_at"] = due_at.isoformat()
                 replay["source_game_id"] = event.game_id
                 replay["target_language"] = str(
@@ -1509,6 +1530,8 @@ def _apply_smart_review(
         # the authoritative answer and review bookkeeping.
         replay.pop("review_key", None)
         replay.pop("review_count", None)
+        replay.pop("review_streak", None)
+        replay.pop("review_stage", None)
         replay.pop("review_due_at", None)
         replay.pop("source_game_id", None)
         if replay.get("input_mode", "choice") == "choice":
@@ -1788,7 +1811,12 @@ async def get_smart_review(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Return a safe overview of due cross-game review items."""
+    """Return a safe overview of due cross-game review items.
+
+    Each due item carries a review streak/stage so the UI can explain whether
+    the learner is relearning, on short spacing, or moving into longer-term
+    retention practice.
+    """
     plan = await _get_active_plan_or_none(db, current_user.id)
     if plan is None:
         return {
@@ -1833,6 +1861,8 @@ async def get_smart_review(
             "topic": str(item.get("topic", "")),
             "prompt": str(item.get("prompt", "")),
             "review_count": review_count,
+            "review_streak": int(item.get("review_streak", 0)),
+            "review_stage": str(item.get("review_stage") or _review_stage(int(item.get("review_streak", 0)))),
             "due_at": str(item.get("review_due_at", "")),
             "source_game_id": str(item.get("source_game_id", "")),
             "mastery": float(mastery),
@@ -2159,13 +2189,30 @@ async def complete_game_session(
                 correct_answers += 1
                 skill_results[question_skill][0] += 1
                 if question.get("review"):
+                    review_count = int(question.get("review_count", 0))
+                    review_streak = int(question.get("review_streak", 0))
+                    next_streak = min(8, max(0, review_streak) + 1)
                     mistakes.append({
                         "review_key": str(question.get("review_key") or _review_key(question)),
                         "resolved": True,
+                        "review_count": review_count,
+                        "review_streak": next_streak,
+                        "next_review_at": (
+                            now + _review_interval(next_streak)
+                        ).isoformat(),
                         "question_id": submitted.question_id,
+                        "question": {
+                            key: question.get(key)
+                            for key in (
+                                "id", "prompt", "choices", "hint", "answer",
+                                "skill", "difficulty", "input_mode", "audio_text",
+                                "audio_language", "topic",
+                            )
+                        },
                     })
             else:
                 review_count = int(question.get("review_count", 0)) if question.get("review") else 0
+                review_streak = int(question.get("review_streak", 0)) if question.get("review") else 0
                 snapshot = {
                     key: question.get(key)
                     for key in (
@@ -2179,11 +2226,15 @@ async def complete_game_session(
                 snapshot["target_language"] = plan.target_language
                 snapshot["cefr_level"] = plan.cefr_level
                 review_key = str(question.get("review_key") or _review_key(question))
+                # A miss resets the successful review streak. The learner
+                # gets a short retrieval opportunity again instead of progressing
+                # to a longer interval after an unsuccessful attempt.
                 mistakes.append({
                     "review_key": review_key,
                     "review_count": review_count + 1,
+                    "review_streak": 0,
                     "next_review_at": (
-                        now + _review_interval(review_count + 1)
+                        now + _review_interval(0)
                     ).isoformat(),
                     "question_id": submitted.question_id,
                     "submitted": submitted.choice,
