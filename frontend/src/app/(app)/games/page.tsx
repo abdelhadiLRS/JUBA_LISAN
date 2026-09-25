@@ -9,6 +9,7 @@ import {
 import {
   completeGameSession,
   startGameSession,
+  gameLanguageForTargetLanguage,
   type GameSessionQuestion,
   type GameId,
   type GameLanguage,
@@ -244,7 +245,14 @@ export default function GamesPage() {
         return
       }
 
-      const session = await startGameSession(id, gameLanguageFor(lang), difficultyForGame(id))
+      // Game content follows the active study plan's target language.
+      // The interface locale remains independent, so changing UI language
+      // does not unexpectedly switch what the learner is studying.
+      const planRecord = plan as { target_language?: string; language?: string }
+      const targetLanguage = planRecord.target_language ?? planRecord.language
+      const contentLanguage = gameLanguageForTargetLanguage(targetLanguage)
+
+      const session = await startGameSession(id, contentLanguage, difficultyForGame(id))
       setGame(id)
       setDailyMode(session.daily_challenge)
       setDailyChallengeDate(session.daily_challenge_date)
