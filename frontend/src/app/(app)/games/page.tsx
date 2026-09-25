@@ -159,6 +159,7 @@ export default function GamesPage() {
     recommended_game: null,
     items: [],
   })
+  const [reviewSkillFilter, setReviewSkillFilter] = useState<string>('all')
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
@@ -480,20 +481,37 @@ export default function GamesPage() {
 
             {smartReview.due_count > 0 && smartReview.items.length > 0 && (
               <section className="games-panel smart-review-queue" aria-label={smartReviewTitle}>
-                <h3>{smartReviewTitle}</h3>
+                <div className="section-heading">
+                  <div>
+                    <h3>{smartReviewTitle}</h3>
+                    <small>{smartReview.due_count} {lang === 'ar' ? 'عنصرًا مستحقًا الآن' : lang === 'fr' ? 'éléments dus maintenant' : 'items due now'}</small>
+                  </div>
+                </div>
                 <div className="mini-stats">
+                  <button type="button" className={reviewSkillFilter === 'all' ? 'active' : ''} onClick={() => setReviewSkillFilter('all')}>
+                    <b>{smartReview.due_count}</b>{lang === 'ar' ? 'الكل' : lang === 'fr' ? 'Tout' : 'All'}
+                  </button>
                   {Object.entries(smartReview.skills).map(([skill, count]) => (
-                    <span key={skill}><b>{count}</b>{skill}</span>
+                    <button type="button" key={skill} className={reviewSkillFilter === skill ? 'active' : ''} onClick={() => setReviewSkillFilter(skill)}>
+                      <b>{count}</b>{skill}
+                    </button>
                   ))}
                 </div>
                 <div className="smart-review-list">
-                  {smartReview.items.slice(0, 5).map((item) => (
-                    <div key={item.review_key} className="smart-review-item">
-                      <span className="smart-review-skill">{item.skill}</span>
-                      <strong>{item.prompt}</strong>
-                      <small>{item.review_count > 0 ? 'Reviews: ' + item.review_count : 'First review'}</small>
-                    </div>
-                  ))}
+                  {smartReview.items
+                    .filter((item) => reviewSkillFilter === 'all' || item.skill === reviewSkillFilter)
+                    .slice(0, 8)
+                    .map((item) => (
+                      <div key={item.review_key} className="smart-review-item">
+                        <span className="smart-review-skill">{item.skill}{item.topic ? ' · ' + item.topic : ''}</span>
+                        <strong>{item.prompt}</strong>
+                        <small>
+                          {item.review_count > 0
+                            ? (lang === 'ar' ? `مراجعة رقم ${item.review_count}` : lang === 'fr' ? `Révision n°${item.review_count}` : `Review #${item.review_count}`)
+                            : (lang === 'ar' ? 'أول مراجعة' : lang === 'fr' ? 'Première révision' : 'First review')}
+                        </small>
+                      </div>
+                    ))}
                 </div>
               </section>
             )}
