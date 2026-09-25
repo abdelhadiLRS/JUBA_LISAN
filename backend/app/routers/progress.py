@@ -1171,6 +1171,39 @@ async def _get_adaptive_game_difficulty(
     return requested_difficulty, "steady"
 
 
+async def _recommended_review_game(
+    db: AsyncSession,
+    user_id: int,
+    plan: StudyPlan,
+) -> tuple[str | None, str | None]:
+    """Choose the next review game from due mistakes, then weakest skill."""
+    game_for_skill = {
+        "vocabulary": "quick_choice",
+        "grammar": "grammar_duel",
+        "listening": "listening_detective",
+        "writing": "translation_sprint",
+        "speaking": "context_quest",
+    }
+    priority = tuple(game_for_skill)
+    due_items = await _get_recent_game_mistakes(db, user_id, plan.id, limit=100)
+    due_counts: dict[str, int] = {}
+    for item in due_items:
+        skill = str(item.get("skill", ""))
+        if skill in game_for_skill:
+            due_counts[skill] = due_counts.get(skill, 0) + 1
+    skill = next((name for name in priority if due_counts.get(name, 0)), None)
+    if skill is None:
+        skills = await _get_game_skills(db, user_id, plan)
+        ranked = [
+            (name, float(score))
+            for name, score in skills.items()
+            if name in game_for_skill and isinstance(score, (int, float))
+        ]
+        ranked.sort(key=lambda item: (item[1], priority.index(item[0])))
+        skill = ranked[0][0] if ranked else None
+    return (game_for_skill[skill], skill) if skill else (None, None)
+
+
 @router.get("/smart-review", response_model=dict)
 @limiter.limit("60/minute")
 async def get_smart_review(
@@ -1196,32 +1229,9 @@ async def get_smart_review(
         skill = str(item.get("skill", "vocabulary"))
         skill_counts[skill] = skill_counts.get(skill, 0) + 1
 
-    priority = ("vocabulary", "grammar", "listening", "writing", "speaking")
-    game_for_skill = {
-        "vocabulary": "quick_choice",
-        "grammar": "grammar_duel",
-        "listening": "listening_detective",
-        "writing": "translation_sprint",
-        "speaking": "context_quest",
-    }
-
-    # Due mistakes take precedence because they are explicit retrieval targets.
-    # If there are no due mistakes, fall back to the weakest persisted skill so
-    # the review center still gives the learner a concrete next activity.
-    recommended_skill = next(
-        (skill for skill in priority if skill_counts.get(skill, 0)),
-        None,
+    recommended_game, recommended_skill = await _recommended_review_game(
+        db, current_user.id, plan
     )
-    if recommended_skill is None:
-        skills = await _get_game_skills(db, current_user.id, plan)
-        ranked = [
-            (skill, float(score))
-            for skill, score in skills.items()
-            if skill in game_for_skill and isinstance(score, (int, float))
-        ]
-        ranked.sort(key=lambda item: (item[1], priority.index(item[0])))
-        recommended_skill = ranked[0][0] if ranked else None
-
     return {
         "due_count": len(due_items),
         "skills": skill_counts,
@@ -1260,6 +1270,10 @@ async def start_game_session(
     effective_game_id = data.game_id
     if data.game_id == "word_match":
         effective_game_id = "matching"
+    if data.review:
+        recommended_game, _ = await _recommended_review_game(db, current_user.id, plan)
+        if recommended_game:
+            effective_game_id = recommended_game
     effective_difficulty, adaptive_mode = await _get_adaptive_game_difficulty(
         db, current_user.id, plan.id, effective_game_id, data.difficulty
     )
