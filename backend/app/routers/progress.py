@@ -1832,11 +1832,32 @@ async def _recommended_review_game(
     priority = tuple(game_for_skill)
     due_items = await _get_recent_game_mistakes(db, user_id, plan.id, limit=100)
     due_counts: dict[str, int] = {}
+    due_scores: dict[str, list[float]] = {}
     for item in due_items:
         skill = str(item.get("skill", ""))
-        if skill in game_for_skill:
-            due_counts[skill] = due_counts.get(skill, 0) + 1
-    skill = next((name for name in priority if due_counts.get(name, 0)), None)
+        if skill not in game_for_skill:
+            continue
+        due_counts[skill] = due_counts.get(skill, 0) + 1
+        raw_mastery = item.get("mastery_score")
+        if isinstance(raw_mastery, (int, float)) and not isinstance(raw_mastery, bool):
+            due_scores.setdefault(skill, []).append(float(raw_mastery))
+
+    # When several skills have due items, prioritize the weakest tracked
+    # mastery rather than the first skill in a fixed ordering. The fixed
+    # priority remains only as a deterministic tie-breaker.
+    due_ranked = [
+        (
+            name,
+            sum(due_scores.get(name, [])) / len(due_scores[name])
+            if due_scores.get(name)
+            else 0.0,
+            -due_counts.get(name, 0),
+            priority.index(name),
+        )
+        for name in due_counts
+    ]
+    due_ranked.sort(key=lambda item: (item[1], item[2], item[3]))
+    skill = due_ranked[0][0] if due_ranked else None
     if skill is None:
         skills = await _get_game_skills(db, user_id, plan)
         ranked = [
