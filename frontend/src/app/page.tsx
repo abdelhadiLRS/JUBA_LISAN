@@ -169,6 +169,10 @@ export default async function Home() {
 .juba-reference-page .juba-ref-book{border-radius:22px;transform:rotate(-2deg)}
 .juba-reference-page .juba-ref-speech{border-radius:999px}
 .juba-reference-page .juba-pillar-image{display:block;width:min(210px,72%);height:auto;margin:0 auto 10px;transition:transform .22s ease;filter:drop-shadow(0 7px 0 rgba(24,48,34,.08))}
+.juba-reference-page .juba-pillar-image{will-change:transform}
+.juba-reference-page .juba-ref-pillar:nth-child(2) .juba-pillar-image{animation:juba-landing-float 6.5s ease-in-out -1.5s infinite}
+.juba-reference-page .juba-ref-pillar:nth-child(3) .juba-pillar-image{animation:juba-landing-float 7s ease-in-out -3s infinite}
+.juba-reference-page .juba-cta-real-image{will-change:transform}
 .juba-reference-page .juba-ref-pillar:hover .juba-pillar-image{transform:translateY(-5px) rotate(-2deg) scale(1.03)}
 .juba-reference-page .juba-ref-pillar{border-radius:30px}
 .juba-reference-page .juba-ref-pillar:nth-child(1){transform:rotate(-1.1deg)}
