@@ -471,7 +471,11 @@
     "goalCompleted": "🎉 Tagesziel erreicht!",
     "keepGoing": "Nur noch {remaining} Lektion(en)!",
     "takeAssessment": "Einstufungstest machen",
-    "planDayGoal": "Tagesziel für Lektionen"
+    "planDayGoal": "Tagesziel für Lektionen",
+    "levelTestCompleted": "Einstufungstest abgeschlossen",
+    "levelTestScoreLine": "Ergebnis: {score} von {total}",
+    "levelTestReady": "Du bist bereit für die nächste Stufe",
+    "levelTestReadyDesc": "Du hast den Einstufungstest erfolgreich abgeschlossen. Setze deinen Lernplan fort."
   },
   "assessment": {
     "title": "Einstufungstest",
