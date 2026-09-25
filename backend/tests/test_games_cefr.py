@@ -7,7 +7,7 @@ CORE_GAME_LANGUAGES = ("ar", "en-GB", "fr", "es", "de", "it", "pt", "ja", "ko", 
 
 
 @pytest.mark.parametrize("target_language", CORE_GAME_LANGUAGES)
-@pytest.mark.parametrize("game_id", ("quick_choice", "fill_blank", "grammar_duel", "spelling", "word_scramble"))
+@pytest.mark.parametrize("game_id", ("quick_choice", "fill_blank", "grammar_duel", "spelling", "word_scramble", "translation_sprint"))
 def test_cefr_game_round_uses_target_language_content(target_language, game_id):
     questions = _server_game_questions(
         game_id,
