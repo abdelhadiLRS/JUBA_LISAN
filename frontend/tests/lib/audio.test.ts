@@ -122,6 +122,7 @@ describe('createAudioQueue', () => {
       start: ReturnType<typeof vi.fn>
       stop: ReturnType<typeof vi.fn>
       connect: ReturnType<typeof vi.fn>
+      disconnect: ReturnType<typeof vi.fn>
       onended?: () => void
       buffer?: AudioBuffer
     }> = []
@@ -141,6 +142,7 @@ describe('createAudioQueue', () => {
           start: vi.fn(),
           stop: vi.fn(),
           connect: vi.fn(),
+          disconnect: vi.fn(),
           onended: undefined as (() => void) | undefined,
           buffer: undefined as AudioBuffer | undefined,
         }
@@ -197,7 +199,7 @@ describe('createAudioQueue', () => {
       }
       originalStart.push(source)
       return source
-    }) as typeof ctx.createBufferSource
+    }) as unknown as typeof ctx.createBufferSource
 
     await queue.enqueue(new ArrayBuffer(4))
 
@@ -247,7 +249,7 @@ describe('createAudioQueue', () => {
     expect(play).toHaveBeenCalledTimes(1)
 
     queue.cancel()
-    ctx.currentTime = 42
+    Object.defineProperty(ctx, 'currentTime', { value: 42, configurable: true })
     resolvePlay?.()
     await expect(fallback).resolves.toBeUndefined()
 
@@ -441,7 +443,7 @@ describe('createAudioQueue', () => {
       duration: 0.5,
       sampleRate: 16000,
       numberOfChannels: 1,
-    })) as typeof ctx.decodeAudioData
+    })) as unknown as typeof ctx.decodeAudioData
 
     const listeners = new Map<string, () => void>()
     const audio = {
