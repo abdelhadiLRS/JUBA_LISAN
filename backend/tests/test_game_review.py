@@ -1219,3 +1219,83 @@ def test_translation_review_variant_uses_authored_alternate_source(monkeypatch):
     assert variant["answer"] == "I drink water every morning."
     assert "Je prends de l'eau chaque matin." in variant["prompt"]
     assert variant["variant"] == "surface-2"
+
+
+def test_smart_review_variant_preserves_original_review_identity(monkeypatch):
+    class Entry:
+        def __init__(self, word, example):
+            self.word = word
+            self.example = example
+
+    class VocabularySet:
+        topic = "daily-life"
+        words = [
+            Entry("water", "I need water."),
+            Entry("water", "Could I have some water, please?"),
+        ]
+
+    monkeypatch.setattr(
+        progress_router,
+        "get_vocabulary_by_level",
+        lambda level, language: [VocabularySet()],
+    )
+
+    mistake = {
+        "review_key": "stable-water-review",
+        "skill": "speaking",
+        "target_language": "en-US",
+        "cefr_level": "A1",
+        "topic": "daily-life",
+        "prompt": "Which sentence best uses 'water'?",
+        "answer": "I need water.",
+        "input_mode": "choice",
+        "variant_seed": 1,
+    }
+
+    replay = dict(mistake)
+    replay["review_identity"] = mistake["review_key"]
+    replay = progress_router._apply_skill_review_variant(replay, mistake["variant_seed"])
+
+    assert replay["review_identity"] == "stable-water-review"
+    assert replay["answer"] == "Could I have some water, please?"
+    assert replay["review_key"] == "stable-water-review"
+
+
+def test_multi_skill_review_variant_keeps_stable_identity_for_changed_answer(monkeypatch):
+    class Entry:
+        def __init__(self, word, example):
+            self.word = word
+            self.example = example
+
+    class VocabularySet:
+        topic = "daily-life"
+        words = [
+            Entry("water", "I need water."),
+            Entry("water", "Could I have some water, please?"),
+        ]
+
+    monkeypatch.setattr(
+        progress_router,
+        "get_vocabulary_by_level",
+        lambda level, language: [VocabularySet()],
+    )
+
+    mistake = {
+        "review_key": "multi-skill-water-review",
+        "skill": "speaking",
+        "target_language": "en-US",
+        "cefr_level": "A1",
+        "topic": "daily-life",
+        "prompt": "Which sentence best uses 'water'?",
+        "answer": "I need water.",
+        "input_mode": "choice",
+        "variant_seed": 1,
+    }
+    replay = dict(mistake)
+    replay["review_identity"] = str(replay["review_key"])
+    replay["language"] = "en"
+    replay = progress_router._apply_skill_review_variant(replay, 1)
+
+    assert replay["review_identity"] == "multi-skill-water-review"
+    assert replay["answer"] == "Could I have some water, please?"
+    assert progress_router._review_key(replay) != replay["review_identity"]
