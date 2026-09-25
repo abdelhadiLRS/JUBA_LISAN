@@ -3643,3 +3643,156 @@ async def get_mastery_center(
     )
     lessons = lesson_result.scalars().all()
     if not lessons:
+        return MasteryCenterResponse(mastery_state="unseen")
+
+    exercise_result = await db.execute(
+        select(Exercise, Lesson)
+        .join(Lesson, Exercise.lesson_id == Lesson.id)
+        .where(Lesson.study_plan_id == plan.id)
+        .order_by(Lesson.week_number, Lesson.day_number, Exercise.id)
+    )
+    exercise_rows = exercise_result.all()
+    attempt_result = await db.execute(
+        select(ExerciseAttempt).where(
+            ExerciseAttempt.user_id == current_user.id,
+            ExerciseAttempt.study_plan_id == plan.id,
+        )
+    )
+    attempts = attempt_result.scalars().all()
+
+    def content_id(exercise: Exercise) -> str:
+        return str(exercise.id)
+
+    def attempt_view(exercise: Exercise) -> list[dict]:
+        return [
+            {
+                "content_id": content_id(exercise),
+                "variant": attempt.variant,
+                "score": attempt.score,
+            }
+            for attempt in attempts
+            if attempt.exercise_id == exercise.id
+        ]
+
+    def skill_for(exercise: Exercise) -> str:
+        exercise_type = (exercise.exercise_type or "").strip().casefold()
+        return {
+            "vocabulary": "vocabulary",
+            "vocab": "vocabulary",
+            "reading": "reading",
+            "listening": "listening",
+            "speaking": "speaking",
+            "writing": "writing",
+            "grammar": "grammar",
+            "translation": "writing",
+            "fill_blank": "grammar",
+            "word": "vocabulary",
+        }.get(exercise_type, exercise_type or "general")
+
+    lesson_payload = []
+    skill_exercises: dict[str, list[Exercise]] = {}
+    for lesson in lessons:
+        lesson_exercises = [exercise for exercise, row_lesson in exercise_rows if row_lesson.id == lesson.id]
+        lesson_attempts = []
+        for exercise in lesson_exercises:
+            lesson_attempts.extend(attempt_view(exercise))
+            skill_exercises.setdefault(skill_for(exercise), []).append(exercise)
+        aggregate = summarize_lesson_mastery(
+            lesson_exercises,
+            lesson_attempts,
+            get_content_id=lambda exercise: content_id(exercise),
+        )
+        lesson_payload.append(
+            MasteryCenterLessonResponse(
+                lesson_id=lesson.id,
+                title=lesson.title,
+                mastery_state=cast(Literal["unseen", "struggling", "learning", "mastered"], aggregate.mastery_state),
+                total_exercises=aggregate.total_exercises,
+                attempted_exercises=aggregate.attempted_exercises,
+                mastered_exercises=aggregate.mastered_exercises,
+                struggling_exercises=aggregate.struggling_exercises,
+                unseen_exercises=aggregate.unseen_exercises,
+                average_mastery_score=aggregate.average_mastery_score,
+                mastery_rate=aggregate.mastery_rate,
+                attempt_rate=aggregate.attempt_rate,
+                covered_variants=aggregate.covered_variants,
+            )
+        )
+
+    lesson_attempts = [
+        attempt
+        for exercise, _lesson in exercise_rows
+        for attempt in attempt_view(exercise)
+    ]
+    overall = summarize_lesson_mastery(
+        [exercise for exercise, _lesson in exercise_rows],
+        lesson_attempts,
+        get_content_id=lambda exercise: content_id(exercise),
+    )
+    skills = []
+    skill_aggregates = []
+    for skill, exercises in sorted(skill_exercises.items()):
+        skill_attempts = [
+            attempt
+            for exercise in exercises
+            for attempt in attempt_view(exercise)
+        ]
+        aggregate = summarize_lesson_mastery(
+            exercises,
+            skill_attempts,
+            get_content_id=lambda exercise: content_id(exercise),
+        )
+        skill_aggregates.append(
+            type("SkillAggregate", (), {
+                "skill": skill,
+                "mastery_state": aggregate.mastery_state,
+                "total_exercises": aggregate.total_exercises,
+                "attempted_exercises": aggregate.attempted_exercises,
+                "mastered_exercises": aggregate.mastered_exercises,
+                "learning_exercises": aggregate.learning_exercises,
+                "struggling_exercises": aggregate.struggling_exercises,
+                "unseen_exercises": aggregate.unseen_exercises,
+                "average_mastery_score": aggregate.average_mastery_score,
+                "mastery_rate": aggregate.mastery_rate,
+                "attempt_rate": aggregate.attempt_rate,
+                "covered_variants": aggregate.covered_variants,
+            })()
+        )
+        skills.append({
+            "skill": skill,
+            "mastery_state": aggregate.mastery_state,
+            "total_exercises": aggregate.total_exercises,
+            "attempted_exercises": aggregate.attempted_exercises,
+            "mastered_exercises": aggregate.mastered_exercises,
+            "learning_exercises": aggregate.learning_exercises,
+            "struggling_exercises": aggregate.struggling_exercises,
+            "unseen_exercises": aggregate.unseen_exercises,
+            "average_mastery_score": aggregate.average_mastery_score,
+            "mastery_rate": aggregate.mastery_rate,
+            "attempt_rate": aggregate.attempt_rate,
+            "covered_variants": aggregate.covered_variants,
+        })
+
+    next_skill = select_next_skill_mastery(skill_aggregates)
+    return MasteryCenterResponse(
+        mastery_state=cast(Literal["unseen", "struggling", "learning", "mastered"], overall.mastery_state),
+        total_exercises=overall.total_exercises,
+        attempted_exercises=overall.attempted_exercises,
+        mastered_exercises=overall.mastered_exercises,
+        learning_exercises=overall.learning_exercises,
+        struggling_exercises=overall.struggling_exercises,
+        unseen_exercises=overall.unseen_exercises,
+        average_mastery_score=overall.average_mastery_score,
+        mastery_rate=overall.mastery_rate,
+        attempt_rate=overall.attempt_rate,
+        covered_variants=overall.covered_variants,
+        skills=skills,
+        lessons=lesson_payload,
+        next_skill={
+            "skill": next_skill.skill,
+            "mastery_state": next_skill.mastery_state,
+            "mastery_rate": next_skill.mastery_rate,
+            "average_mastery_score": next_skill.average_mastery_score,
+            "reason": mastery_reason(next_skill.mastery_state),
+        } if next_skill else None,
+    )
