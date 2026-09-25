@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { float32ToWav } from '@/lib/audio'
+import { createAudioQueue, float32ToWav } from '@/lib/audio'
 
 describe('float32ToWav', () => {
   it('produces a valid WAV header', () => {
@@ -155,7 +155,6 @@ describe('createAudioQueue', () => {
   it('decodes and schedules queued chunks in enqueue order', async () => {
     const { ctx, sources } = createContext()
     const idle = vi.fn()
-    const { createAudioQueue } = await import('@/lib/audio')
     const queue = createAudioQueue(ctx, idle)
 
     const first = queue.enqueue(new ArrayBuffer(4))
