@@ -1254,7 +1254,11 @@ async def _get_recent_game_mistakes(
             if not key:
                 continue
             if item.get("resolved"):
+                # The marker is authoritative for this key at this point in
+                # newest-first traversal. Mark it seen so older markers in the
+                # same event cannot resurrect a resolved review item.
                 resolved.add(key)
+                seen.add(key)
                 continue
             question = item.get("question")
             if (
