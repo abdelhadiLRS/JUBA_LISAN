@@ -265,9 +265,9 @@ export default function DashboardPage() {
     <>
       <OnboardingTour />
       <WhatsNew />
-      <main className="juba-dashboard mx-auto max-w-6xl px-4 py-5 sm:px-6 sm:py-7 lg:px-8">
+      <main className="juba-dashboard mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-8 lg:px-10">
         {/* Header */}
-        <div className="juba-dashboard-header mb-6 overflow-hidden rounded-[28px] border border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] p-5 shadow-[6px_6px_0_var(--juba-app-ink)] sm:p-7">
+        <div className="juba-dashboard-header mb-6 overflow-hidden rounded-[30px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-6 shadow-sm sm:p-8">
           <p className="juba-dashboard-kicker text-[var(--juba-app-green-dark)] mb-2 font-sans text-xs font-black tracking-[.14em] uppercase">
             {t('welcomeBack')}
           </p>
@@ -297,7 +297,7 @@ export default function DashboardPage() {
         <DashboardAnnouncement />
 
         {/* Next step */}
-        <div className="juba-dashboard-next juba-card mb-7 p-5 sm:p-7">
+        <div className="juba-dashboard-next juba-card mb-7 overflow-hidden rounded-[28px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-6 shadow-sm sm:p-8">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
             <p className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
               {t('nextStep')}
@@ -413,7 +413,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Stats row */}
-        <div className="juba-dashboard-stats mb-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="juba-dashboard-stats mb-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {[
             { label: t('streak'), value: `${streak}d`, accent: streak > 0, icon: Flame },
             { label: t('xp'), value: xp, accent: false, icon: Zap },
@@ -430,7 +430,7 @@ export default function DashboardPage() {
           ].map((stat) => {
             const StatIcon = stat.icon
             return (
-              <div key={stat.label} className="juba-dashboard-stat juba-card p-5">
+              <div key={stat.label} className="juba-dashboard-stat juba-card rounded-[24px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-5 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 sm:p-6">
                 <div className="mb-6 flex items-start justify-between gap-3">
                   <p className="text-[var(--juba-app-muted)] font-sans text-xs font-black tracking-[.12em] uppercase">
                     {stat.label}
@@ -452,9 +452,9 @@ export default function DashboardPage() {
           })}
         </div>
 
-        <div className="juba-dashboard-panels mb-7 grid gap-4 sm:grid-cols-2">
+        <div className="juba-dashboard-panels mb-7 grid gap-5 lg:grid-cols-2">
           {/* Plan progress */}
-          <div className="juba-dashboard-panel juba-card p-5 sm:p-6">
+          <div className="juba-dashboard-panel juba-card rounded-[26px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-6 shadow-sm sm:p-7">
             <div className="mb-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
@@ -529,7 +529,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Today's lessons */}
-          <div className="juba-card p-5 sm:p-6">
+          <div className="juba-card rounded-[26px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-6 shadow-sm sm:p-7">
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
@@ -626,7 +626,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Recent performance */}
-          <div className="juba-dashboard-panel juba-card p-5 sm:col-span-2 sm:p-6">
+          <div className="juba-dashboard-panel juba-card rounded-[26px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-6 shadow-sm sm:col-span-2 sm:p-7">
             <div className="mb-4">
               <div className="mb-2 flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
@@ -737,7 +737,7 @@ export default function DashboardPage() {
         )}
 
         {/* Quick actions */}
-        <div className="juba-dashboard-actions flex flex-wrap gap-3">
+        <div className="juba-dashboard-actions flex flex-wrap gap-3 rounded-[26px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-5">
           {hasPlan && (
             <Link href="/plan" className="juba-primary-button">
                 {t('goToMyPlan')}
