@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useLocale, usePathname, useRouter } from 'next-intl'
+import { useLocale } from 'next-intl'
+import { usePathname, useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 import {
   ACHIEVEMENTS,
@@ -301,7 +302,7 @@ export default function GamesPage() {
         recommended_game: recommended,
         recommended_skill: typeof data.recommended_skill === 'string' ? data.recommended_skill : null,
         items: Array.isArray(data.items)
-          ? data.items.filter((item) => item && typeof item === 'object').map((item) => ({
+          ? data.items.filter((item): item is Record<string, unknown> => Boolean(item && typeof item === 'object')).map((item) => ({
               review_key: String(item.review_key ?? ''),
               skill: String(item.skill ?? ''),
               topic: String(item.topic ?? ''),
