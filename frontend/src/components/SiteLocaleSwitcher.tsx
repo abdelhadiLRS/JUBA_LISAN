@@ -47,7 +47,6 @@ export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
       : pathname
 
     const nextPath = `/${next}${cleanPath === '/' ? '' : cleanPath}`
-    document.cookie = `NEXT_LOCALE=${next}; Path=/; Max-Age=31536000; SameSite=Lax`
     window.location.assign(nextPath)
   }
 
