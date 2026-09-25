@@ -25,7 +25,7 @@ from app.models.learning_goal_milestone import LearningGoalMilestone
 from app.models.progress import Progress
 from app.models.study_plan import StudyPlan
 from app.models.user import User
-from app.schemas.progress import (GameSessionAnswerResponse, GameSessionComplete, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalMilestoneSummary, LearningGoalResponse, LearningGoalUpdate, MasteryCenterResponse, MasteryCenterLessonResponse, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
+from app.schemas.progress import (GameSessionAnswerResponse, GameSessionComplete, GameSessionNextRequest, GameSessionNextResponse, GameSessionResponse, GameSessionResultResponse, GameSessionStart, GameStatsResponse, LearningGoalMilestoneResponse, LearningGoalMilestoneSummary, LearningGoalResponse, LearningGoalUpdate, MasteryCenterResponse, MasteryCenterLessonResponse, ProgressHistoryResponse, ProgressRangeSummary, ProgressResponse, ProgressSummary)
 from app.services.progress_service import get_unit_competencies, update_daily_progress
 from app.services.lesson_mastery import _skill_mastery_state, select_next_skill_mastery, summarize_lesson_mastery, summarize_skill_mastery
 from app.services.user_language_service import get_active_language
@@ -2518,6 +2518,9 @@ async def start_game_session(
             cast(CEFRLevel, plan.cefr_level),
         )
     daily_challenge_date = now.date().isoformat() if effective_game_id == _daily_game_id(now.date()) else ""
+    if effective_game_id not in {"memory", "matching", "ordering", "sentence_builder"}:
+        questions = [dict(item, _answered=False, _served=(index == 0)) for index, item in enumerate(questions)]
+
     session = GameSession(
         id=session_id,
         user_id=current_user.id,
@@ -2533,12 +2536,13 @@ async def start_game_session(
     )
     db.add(session)
     await db.commit()
+    public_source = questions if effective_game_id in {"memory", "matching", "ordering", "sentence_builder"} else questions[:1]
     public_questions = [
         {
             key: item.get(key)
             for key in ("id", "prompt", "choices", "hint", "skill", "difficulty", "input_mode", "audio_text", "audio_language")
         }
-        for item in questions
+        for item in public_source
     ]
     return GameSessionResponse(
         session_id=session_id,
@@ -2626,6 +2630,83 @@ async def answer_game_question(
         attempts=len(attempts),
         retry_stage=str(adapted.get("retry_stage", "retry")),
         question=public,
+    )
+
+
+@router.post("/game-session/next", response_model=GameSessionNextResponse)
+@limiter.limit("120/minute")
+async def next_game_session_question(
+    request: Request,
+    data: GameSessionNextRequest,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Score one answer and choose the next question server-side."""
+    user_id = current_user.id
+    session = await db.get(GameSession, data.session_id)
+    if session is None or session.user_id != user_id:
+        raise HTTPException(status_code=404, detail="Game session not found")
+    if session.game_id in {"memory", "matching", "ordering", "sentence_builder"}:
+        raise HTTPException(status_code=409, detail="Interactive games use their own interaction flow")
+    if session.completed:
+        raise HTTPException(status_code=409, detail="Game session already completed")
+    now = datetime.now(UTC).replace(tzinfo=None)
+    if now > session.expires_at:
+        raise HTTPException(status_code=410, detail="Game session expired")
+
+    stored_questions = [dict(item) for item in (session.questions or [])]
+    current_index = next((index for index, item in enumerate(stored_questions) if str(item.get("id")) == data.question_id), -1)
+    if current_index < 0:
+        raise HTTPException(status_code=404, detail="Question not found")
+    current = stored_questions[current_index]
+    if current.get("_answered"):
+        raise HTTPException(status_code=409, detail="Question already answered")
+
+    correct = _game_answer_matches(data.choice, current.get("answer"))
+    current["_answered"] = True
+    current["_submitted"] = data.choice
+    remaining = [(index, item) for index, item in enumerate(stored_questions) if not item.get("_answered") and index != current_index]
+    answered = sum(1 for item in stored_questions if item.get("_answered"))
+    total = len(stored_questions)
+    next_question = None
+
+    if remaining:
+        current_skill = str(current.get("skill") or "")
+        current_difficulty = int(current.get("difficulty", session.difficulty))
+        if correct:
+            def rank(pair):
+                index, item = pair
+                different_skill = 0 if str(item.get("skill") or "") == current_skill else 1
+                return (-int(item.get("difficulty", session.difficulty)), -different_skill, index)
+        else:
+            def rank(pair):
+                index, item = pair
+                same_skill = 0 if str(item.get("skill") or "") == current_skill else 1
+                distance = abs(int(item.get("difficulty", session.difficulty)) - current_difficulty)
+                return (same_skill, distance, index)
+        _, next_question = sorted(remaining, key=rank)[0]
+        next_question["_served"] = True
+
+    session.questions = stored_questions
+    await db.commit()
+
+    public = None if next_question is None else {
+        key: next_question.get(key)
+        for key in ("id", "prompt", "choices", "hint", "skill", "difficulty", "input_mode", "audio_text", "audio_language")
+    }
+    adaptive_mode = (
+        "challenge" if correct and next_question and int(next_question.get("difficulty", session.difficulty)) > int(current.get("difficulty", session.difficulty))
+        else "skill_review" if not correct and next_question and str(next_question.get("skill")) == str(current.get("skill"))
+        else "steady"
+    )
+    return GameSessionNextResponse(
+        session_id=session.id,
+        correct=correct,
+        question=public,
+        finished=next_question is None,
+        answered=answered,
+        total=total,
+        adaptive_mode=adaptive_mode,
     )
 
 
