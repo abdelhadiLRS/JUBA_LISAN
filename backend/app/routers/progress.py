@@ -591,381 +591,89 @@ def _server_game_questions(
             })
             continue
         if game_id == "word_categories":
-            category_bank = {
-                "en": [
-                    ("apple", "Food", ["Food", "Transport", "Clothing", "Weather"]),
-                    ("bus", "Transport", ["Food", "Transport", "Clothing", "Weather"]),
-                    ("jacket", "Clothing", ["Food", "Transport", "Clothing", "Weather"]),
-                    ("rain", "Weather", ["Food", "Transport", "Clothing", "Weather"]),
-                    ("teacher", "People", ["People", "Places", "Objects", "Animals"]),
-                ],
-                "fr": [
-                    ("pomme", "Nourriture", ["Nourriture", "Transport", "Vêtements", "Météo"]),
-                    ("bus", "Transport", ["Nourriture", "Transport", "Vêtements", "Météo"]),
-                    ("veste", "Vêtements", ["Nourriture", "Transport", "Vêtements", "Météo"]),
-                    ("pluie", "Météo", ["Nourriture", "Transport", "Vêtements", "Météo"]),
-                    ("professeur", "Personnes", ["Personnes", "Lieux", "Objets", "Animaux"]),
-                ],
-                "ar": [
-                    ("تفاحة", "طعام", ["طعام", "مواصلات", "ملابس", "طقس"]),
-                    ("حافلة", "مواصلات", ["طعام", "مواصلات", "ملابس", "طقس"]),
-                    ("سترة", "ملابس", ["طعام", "مواصلات", "ملابس", "طقس"]),
-                    ("مطر", "طقس", ["طعام", "مواصلات", "ملابس", "طقس"]),
-                    ("معلّم", "أشخاص", ["أشخاص", "أماكن", "أشياء", "حيوانات"]),
-                ],
-                "es": [
-                    ("manzana", "Comida", ["Comida", "Transporte", "Ropa", "Clima"]),
-                    ("autobús", "Transporte", ["Comida", "Transporte", "Ropa", "Clima"]),
-                    ("chaqueta", "Ropa", ["Comida", "Transporte", "Ropa", "Clima"]),
-                    ("lluvia", "Clima", ["Comida", "Transporte", "Ropa", "Clima"]),
-                    ("profesor", "Personas", ["Personas", "Lugares", "Objetos", "Animales"]),
-                ],
-                "de": [
-                    ("Apfel", "Essen", ["Essen", "Transport", "Kleidung", "Wetter"]),
-                    ("Bus", "Transport", ["Essen", "Transport", "Kleidung", "Wetter"]),
-                    ("Jacke", "Kleidung", ["Essen", "Transport", "Kleidung", "Wetter"]),
-                    ("Regen", "Wetter", ["Essen", "Transport", "Kleidung", "Wetter"]),
-                    ("Lehrer", "Personen", ["Personen", "Orte", "Gegenstände", "Tiere"]),
-                ],
-                "it": [
-                    ("mela", "Cibo", ["Cibo", "Trasporti", "Abbigliamento", "Meteo"]),
-                    ("autobus", "Trasporti", ["Cibo", "Trasporti", "Abbigliamento", "Meteo"]),
-                    ("giacca", "Abbigliamento", ["Cibo", "Trasporti", "Abbigliamento", "Meteo"]),
-                    ("pioggia", "Meteo", ["Cibo", "Trasporti", "Abbigliamento", "Meteo"]),
-                    ("insegnante", "Persone", ["Persone", "Luoghi", "Oggetti", "Animali"]),
-                ],
-                "pt": [
-                    ("maçã", "Comida", ["Comida", "Transporte", "Roupa", "Clima"]),
-                    ("autocarro", "Transporte", ["Comida", "Transporte", "Roupa", "Clima"]),
-                    ("casaco", "Roupa", ["Comida", "Transporte", "Roupa", "Clima"]),
-                    ("chuva", "Clima", ["Comida", "Transporte", "Roupa", "Clima"]),
-                    ("professor", "Pessoas", ["Pessoas", "Lugares", "Objetos", "Animais"]),
-                ],
-                "ja": [
-                    ("りんご", "食べ物", ["食べ物", "乗り物", "服", "天気"]),
-                    ("バス", "乗り物", ["食べ物", "乗り物", "服", "天気"]),
-                    ("ジャケット", "服", ["食べ物", "乗り物", "服", "天気"]),
-                    ("雨", "天気", ["食べ物", "乗り物", "服", "天気"]),
-                    ("先生", "人", ["人", "場所", "物", "動物"]),
-                ],
-                "ko": [
-                    ("사과", "음식", ["음식", "교통", "옷", "날씨"]),
-                    ("버스", "교통", ["음식", "교통", "옷", "날씨"]),
-                    ("재킷", "옷", ["음식", "교통", "옷", "날씨"]),
-                    ("비", "날씨", ["음식", "교통", "옷", "날씨"]),
-                    ("선생님", "사람", ["사람", "장소", "물건", "동물"]),
-                ],
-                "zh": [
-                    ("苹果", "食物", ["食物", "交通", "衣服", "天气"]),
-                    ("公交车", "交通", ["食物", "交通", "衣服", "天气"]),
-                    ("夹克", "衣服", ["食物", "交通", "衣服", "天气"]),
-                    ("雨", "天气", ["食物", "交通", "衣服", "天气"]),
-                    ("老师", "人物", ["人物", "地点", "物品", "动物"]),
-                ],
-            }[language]
-            word, answer, choices = category_bank[index]
+            # Derive categories from the active CEFR vocabulary curriculum.
+            vocab_sets = get_vocabulary_by_level(cefr_level, target_language)
+            category_entries = [
+                (entry, vocab_set.topic)
+                for vocab_set in vocab_sets
+                for entry in vocab_set.words
+                if entry.word.strip()
+            ]
+            rng.shuffle(category_entries)
+            selected = category_entries[:5]
+            if len(selected) < 5:
+                raise HTTPException(
+                    status_code=503,
+                    detail=f"Not enough CEFR category content for {target_language} at {cefr_level}",
+                )
+
+            topics = list(dict.fromkeys(topic for _, topic in category_entries))
+            if len(topics) < 4:
+                raise HTTPException(status_code=503, detail="Not enough vocabulary topics for categories")
+
+            entry, answer = selected[index]
+            distractors = [topic for topic in topics if topic != answer]
+            rng.shuffle(distractors)
+            choices = [answer, *distractors[:3]]
             rng.shuffle(choices)
             questions.append({
                 "id": question_id,
                 "prompt": (
-                    f"Which category does '{word}' belong to?"
+                    f"Which topic does '{entry.word}' belong to?"
                     if language == "en"
-                    else (f"À quelle catégorie appartient « {word} » ?"
-                          if language == "fr" else f"إلى أي فئة تنتمي كلمة «{word}»؟")
+                    else f"{hints.get(language, hints['en'])}\n{entry.word}"
                 ),
                 "choices": choices,
                 "answer": answer,
-                "hint": (
-                    "Think about what the word represents."
-                    if language == "en"
-                    else ("Pense à ce que le mot représente."
-                          if language == "fr" else "فكّر في الشيء الذي تعبّر عنه الكلمة.")
-                ),
+                "hint": entry.definition.strip() or hints.get(language, hints["en"]),
                 "skill": "vocabulary",
                 "difficulty": difficulty,
-                "topic": "semantic-categories",
+                "topic": "cefr-semantic-categories",
                 "input_mode": "choice",
             })
             continue
         if game_id == "context_quest":
-            scenarios = {
-                "en": [
-                    ("You are at a café. The waiter asks: 'What would you like?'", "I'd like a coffee, please.", ["I'd like a coffee, please.", "Yesterday was sunny.", "My brother is tall.", "I studied French."]),
-                    ("You meet someone for the first time. What is a natural response to 'Nice to meet you?'", "Nice to meet you too.", ["Nice to meet you too.", "Turn left at the bank.", "I need a ticket.", "It is three o'clock."]),
-                    ("You did not hear someone clearly. What should you say?", "Could you say that again, please?", ["Could you say that again, please?", "I am twenty years old.", "The train is blue.", "I bought two books."]),
-                    ("You want to ask for directions politely. Which sentence fits?", "Could you tell me how to get to the station?", ["Could you tell me how to get to the station?", "I usually wake up at seven.", "This soup is delicious.", "She has two sisters."]),
-                    ("A friend invites you to dinner, but you cannot go. What is a polite reply?", "Thanks for inviting me, but I can't make it.", ["Thanks for inviting me, but I can't make it.", "Where is the nearest pharmacy?", "I am reading a novel.", "The lesson starts tomorrow."]),
-                ],
-                "fr": [
-                    ("Au café, le serveur demande : « Qu'est-ce que vous désirez ? »", "Je voudrais un café, s'il vous plaît.", ["Je voudrais un café, s'il vous plaît.", "Il fait beau hier.", "Mon frère est grand.", "J'étudie demain."]),
-                    ("Vous rencontrez quelqu'un pour la première fois. Que répondez-vous à « Enchanté(e) » ?", "Enchanté(e), moi aussi.", ["Enchanté(e), moi aussi.", "Tournez à gauche.", "Il est trois heures.", "J'ai deux livres."]),
-                    ("Vous n'avez pas bien entendu. Que dites-vous ?", "Pourriez-vous répéter, s'il vous plaît ?", ["Pourriez-vous répéter, s'il vous plaît ?", "Je me lève à sept heures.", "La gare est bleue.", "J'aime ce film."]),
-                    ("Vous cherchez la gare. Quelle demande est polie ?", "Pourriez-vous me dire comment aller à la gare ?", ["Pourriez-vous me dire comment aller à la gare ?", "Je lis un roman.", "Il pleut souvent.", "Elle a deux sœurs."]),
-                    ("Un ami vous invite à dîner, mais vous ne pouvez pas venir. Que dites-vous ?", "Merci pour l'invitation, mais je ne peux pas venir.", ["Merci pour l'invitation, mais je ne peux pas venir.", "Où est la pharmacie ?", "Je prends le bus.", "Le cours commence demain."]),
-                ],
-                "ar": [
-                    ("أنت في مقهى. يسألك النادل: «ماذا تريد؟» ما الرد الطبيعي؟", "أريد قهوة من فضلك.", ["أريد قهوة من فضلك.", "كان الجو مشمسًا أمس.", "أخي طويل.", "درست الفرنسية."]),
-                    ("تلتقي بشخص لأول مرة ويقول: «سعيد بلقائك». ماذا تقول؟", "وأنا سعيد بلقائك أيضًا.", ["وأنا سعيد بلقائك أيضًا.", "انعطف يسارًا.", "الساعة الثالثة.", "لدي كتابان."]),
-                    ("لم تسمع الشخص جيدًا. ماذا تقول بأدب؟", "هل يمكنك أن تعيد ما قلت من فضلك؟", ["هل يمكنك أن تعيد ما قلت من فضلك؟", "أستيقظ في السابعة.", "القطار أزرق.", "اشتريت كتابين."]),
-                    ("تريد السؤال عن الاتجاهات بأدب. ماذا تقول؟", "هل يمكنك أن تخبرني كيف أصل إلى المحطة؟", ["هل يمكنك أن تخبرني كيف أصل إلى المحطة؟", "أقرأ رواية.", "الجو بارد.", "لدي أختان."]),
-                    ("دعاك صديق إلى العشاء ولا تستطيع الذهاب. ما الرد المناسب؟", "شكرًا على الدعوة، لكن لا أستطيع الحضور.", ["شكرًا على الدعوة، لكن لا أستطيع الحضور.", "أين أقرب صيدلية؟", "أركب الحافلة.", "يبدأ الدرس غدًا."]),
-                ],
-                "es": [
-                    ("Estás en un café. El camarero pregunta: «¿Qué quieres?».", "Quisiera un café, por favor.", ["Quisiera un café, por favor.", "Ayer hizo sol.", "Mi hermano es alto.", "Estudié francés."]),
-                    ("Conoces a alguien por primera vez. ¿Qué respondes a «Mucho gusto»?", "Mucho gusto también.", ["Mucho gusto también.", "Gira a la izquierda.", "Son las tres.", "Tengo dos libros."]),
-                    ("No has oído bien. ¿Qué dices educadamente?", "¿Podrías repetirlo, por favor?", ["¿Podrías repetirlo, por favor?", "Me levanto a las siete.", "El tren es azul.", "Compré dos libros."]),
-                    ("Quieres pedir indicaciones con educación. ¿Qué dices?", "¿Podrías decirme cómo llegar a la estación?", ["¿Podrías decirme cómo llegar a la estación?", "Leo una novela.", "Llueve a menudo.", "Tengo dos hermanas."]),
-                    ("Un amigo te invita a cenar, pero no puedes ir. ¿Qué respondes?", "Gracias por la invitación, pero no puedo ir.", ["Gracias por la invitación, pero no puedo ir.", "¿Dónde está la farmacia?", "Tomo el autobús.", "La clase empieza mañana."]),
-                ],
-                "de": [
-                    ("Du bist in einem Café. Der Kellner fragt: „Was möchten Sie?“", "Ich möchte bitte einen Kaffee.", ["Ich möchte bitte einen Kaffee.", "Gestern war es sonnig.", "Mein Bruder ist groß.", "Ich habe Französisch gelernt."]),
-                    ("Du triffst jemanden zum ersten Mal. Was antwortest du auf „Freut mich“?", "Mich freut es auch.", ["Mich freut es auch.", "Biegen Sie links ab.", "Es ist drei Uhr.", "Ich habe zwei Bücher."]),
-                    ("Du hast jemanden nicht gut verstanden. Was sagst du höflich?", "Könnten Sie das bitte wiederholen?", ["Könnten Sie das bitte wiederholen?", "Ich stehe um sieben auf.", "Der Zug ist blau.", "Ich habe zwei Bücher gekauft."]),
-                    ("Du möchtest höflich nach dem Weg fragen. Was sagst du?", "Könnten Sie mir sagen, wie ich zum Bahnhof komme?", ["Könnten Sie mir sagen, wie ich zum Bahnhof komme?", "Ich lese einen Roman.", "Es regnet oft.", "Sie hat zwei Schwestern."]),
-                    ("Ein Freund lädt dich zum Essen ein, aber du kannst nicht. Was sagst du?", "Danke für die Einladung, aber ich kann nicht kommen.", ["Danke für die Einladung, aber ich kann nicht kommen.", "Wo ist die nächste Apotheke?", "Ich nehme den Bus.", "Der Kurs beginnt morgen."]),
-                ],
-                "it": [
-                    ("Sei al bar. Il cameriere chiede: «Cosa desidera?»", "Vorrei un caffè, per favore.", ["Vorrei un caffè, per favore.", "Ieri c'era il sole.", "Mio fratello è alto.", "Ho studiato francese."]),
-                    ("Incontri qualcuno per la prima volta. Cosa rispondi a «Piacere»?", "Piacere anche a te.", ["Piacere anche a te.", "Gira a sinistra.", "Sono le tre.", "Ho due libri."]),
-                    ("Non hai sentito bene. Cosa dici educatamente?", "Potresti ripetere, per favore?", ["Potresti ripetere, per favore?", "Mi alzo alle sette.", "Il treno è blu.", "Ho comprato due libri."]),
-                    ("Vuoi chiedere indicazioni con educazione. Cosa dici?", "Potresti dirmi come arrivare alla stazione?", ["Potresti dirmi come arrivare alla stazione?", "Leggo un romanzo.", "Piove spesso.", "Ha due sorelle."]),
-                    ("Un amico ti invita a cena, ma non puoi andare. Cosa rispondi?", "Grazie per l'invito, ma non posso venire.", ["Grazie per l'invito, ma non posso venire.", "Dov'è la farmacia più vicina?", "Prendo l'autobus.", "La lezione inizia domani."]),
-                ],
-                "pt": [
-                    ("Estás num café. O empregado pergunta: «O que deseja?»", "Queria um café, por favor.", ["Queria um café, por favor.", "Ontem esteve sol.", "O meu irmão é alto.", "Estudei francês."]),
-                    ("Conheces alguém pela primeira vez. O que respondes a «Muito prazer»?", "Muito prazer também.", ["Muito prazer também.", "Vire à esquerda.", "São três horas.", "Tenho dois livros."]),
-                    ("Não ouviste bem. O que dizes educadamente?", "Pode repetir, por favor?", ["Pode repetir, por favor?", "Levanto-me às sete.", "O comboio é azul.", "Comprei dois livros."]),
-                    ("Queres pedir indicações educadamente. O que dizes?", "Pode dizer-me como chegar à estação?", ["Pode dizer-me como chegar à estação?", "Leio um romance.", "Chove muitas vezes.", "Ela tem duas irmãs."]),
-                    ("Um amigo convida-te para jantar, mas não podes ir. O que respondes?", "Obrigado pelo convite, mas não posso ir.", ["Obrigado pelo convite, mas não posso ir.", "Onde fica a farmácia?", "Apanho o autocarro.", "A aula começa amanhã."]),
-                ],
-                "ja": [
-                    ("カフェで店員に「何になさいますか」と聞かれました。", "コーヒーをお願いします。", ["コーヒーをお願いします。", "昨日は晴れていました。", "兄は背が高いです。", "フランス語を勉強しました。"]),
-                    ("初対面の人に「はじめまして」と言われました。", "こちらこそ、はじめまして。", ["こちらこそ、はじめまして。", "左に曲がってください。", "3時です。", "本が2冊あります。"]),
-                    ("よく聞こえませんでした。丁寧に何と言いますか。", "もう一度言っていただけますか。", ["もう一度言っていただけますか。", "7時に起きます。", "電車は青いです。", "本を2冊買いました。"]),
-                    ("駅への行き方を丁寧に尋ねたいです。", "駅へはどう行けばいいですか。", ["駅へはどう行けばいいですか。", "小説を読みます。", "よく雨が降ります。", "姉妹が2人います。"]),
-                    ("友達に夕食に誘われましたが行けません。", "誘ってくれてありがとう。でも行けません。", ["誘ってくれてありがとう。でも行けません。", "一番近い薬局はどこですか。", "バスに乗ります。", "授業は明日始まります。"]),
-                ],
-                "ko": [
-                    ("카페에서 직원이 “무엇을 드릴까요?”라고 물었습니다.", "커피 한 잔 주세요.", ["커피 한 잔 주세요.", "어제는 맑았습니다.", "제 형은 키가 큽니다.", "프랑스어를 공부했습니다."]),
-                    ("처음 만난 사람이 “반갑습니다”라고 말했습니다. 어떻게 답할까요?", "저도 반갑습니다.", ["저도 반갑습니다.", "왼쪽으로 가세요.", "세 시입니다.", "책이 두 권 있습니다."]),
-                    ("잘 듣지 못했습니다. 정중하게 무엇이라고 말할까요?", "다시 말씀해 주시겠어요?", ["다시 말씀해 주시겠어요?", "일곱 시에 일어납니다.", "기차는 파란색입니다.", "책 두 권을 샀습니다."]),
-                    ("정중하게 길을 묻고 싶습니다. 무엇이라고 말할까요?", "역에 어떻게 가는지 알려 주시겠어요?", ["역에 어떻게 가는지 알려 주시겠어요?", "소설을 읽습니다.", "비가 자주 옵니다.", "자매가 두 명 있습니다."]),
-                    ("친구가 저녁 식사에 초대했지만 갈 수 없습니다. 어떻게 답할까요?", "초대해 줘서 고마워. 하지만 갈 수 없어.", ["초대해 줘서 고마워. 하지만 갈 수 없어.", "가장 가까운 약국이 어디예요?", "버스를 탑니다.", "수업은 내일 시작합니다."]),
-                ],
-                "zh": [
-                    ("你在咖啡馆，服务员问：“您想要什么？”", "请给我一杯咖啡。", ["请给我一杯咖啡。", "昨天天气晴朗。", "我哥哥很高。", "我学过法语。"]),
-                    ("你第一次见到一个人，对方说“很高兴认识你”。你怎么回答？", "我也很高兴认识你。", ["我也很高兴认识你。", "向左转。", "现在三点。", "我有两本书。"]),
-                    ("你没有听清楚。礼貌地怎么说？", "请您再说一遍，好吗？", ["请您再说一遍，好吗？", "我七点起床。", "火车是蓝色的。", "我买了两本书。"]),
-                    ("你想礼貌地问路。你怎么说？", "请问怎么去车站？", ["请问怎么去车站？", "我正在读小说。", "这里经常下雨。", "她有两个姐妹。"]),
-                    ("朋友邀请你吃晚饭，但你不能去。你怎么回答？", "谢谢你的邀请，但是我不能去。", ["谢谢你的邀请，但是我不能去。", "最近的药店在哪里？", "我坐公交车。", "课程明天开始。"]),
-                ],
-            }[language]
-            prompt, answer, choices = scenarios[index]
+            # Turn authored CEFR example sentences into situational choices.
+            vocab_sets = get_vocabulary_by_level(cefr_level, target_language)
+            context_entries = [
+                entry
+                for vocab_set in vocab_sets
+                for entry in vocab_set.words
+                if entry.example.strip()
+            ]
+            rng.shuffle(context_entries)
+            if len(context_entries) < 5:
+                raise HTTPException(
+                    status_code=503,
+                    detail=f"Not enough CEFR context content for {target_language} at {cefr_level}",
+                )
+
+            entry = context_entries[index]
+            answer = entry.example.strip()
+            alternatives = [
+                item.example.strip()
+                for item in context_entries
+                if item.example.strip() != answer
+            ]
+            rng.shuffle(alternatives)
+            choices = list(dict.fromkeys([answer, *alternatives]))[:4]
+            if len(choices) < 4:
+                raise HTTPException(status_code=503, detail="Not enough context distractors")
             rng.shuffle(choices)
-            questions.append({
-                "id": question_id,
-                "prompt": prompt,
-                "choices": choices,
-                "answer": answer,
-                "hint": (
-                    "Choose the response that fits the situation naturally."
-                    if language == "en"
-                    else ("Choisis la réponse qui convient naturellement à la situation."
-                          if language == "fr" else "اختر الرد الذي يناسب الموقف بشكل طبيعي.")
-                ),
-                "skill": "speaking",
-                "difficulty": difficulty,
-                "topic": "context-and-pragmatics",
-                "input_mode": "choice",
-            })
-            continue
-        if game_id == "quick_choice":
-            assert word_entries is not None
-            entry = word_entries[index]
-            correct = entry.word.strip()
-            distractors = [item.word.strip() for item in word_entries if item.word.strip() != correct]
-            rng.shuffle(distractors)
-            choices = [correct, *distractors[:3]]
-            rng.shuffle(choices)
-            prompt = (
-                f"Quick! Which word matches this definition?\n{entry.definition.strip()}"
-                if language == "en"
-                else (f"Vite ! Quel mot correspond à cette définition ?\n{entry.definition.strip()}"
-                      if language == "fr"
-                      else f"بسرعة! ما الكلمة التي تطابق هذا التعريف؟\n{entry.definition.strip()}")
-            )
-            questions.append({
-                "id": question_id,
-                "prompt": prompt,
-                "choices": choices,
-                "answer": correct,
-                "hint": hints[language],
-                "skill": "vocabulary",
-                "difficulty": difficulty,
-                "topic": "quick-choice",
-                "input_mode": "choice",
-            })
-            continue
-        if game_id == "listening_detective":
-            assert word_entries is not None
-            entry = word_entries[index]
-            correct = entry.word.strip()
-            distractors = [item.word.strip() for item in word_entries if item.word.strip() != correct]
-            rng.shuffle(distractors)
-            choices = [correct, *distractors[:3]]
-            rng.shuffle(choices)
-            audio_text = (
-                f"I need to buy {correct} today."
-                if language == "en"
-                else (f"Je dois acheter {correct} aujourd'hui."
-                      if language == "fr" else f"أحتاج إلى شراء {correct} اليوم.")
-            )
             questions.append({
                 "id": question_id,
                 "prompt": (
-                    "Listen carefully. Which word is the key detail you heard?"
+                    f"Which sentence best uses '{entry.word}'?"
                     if language == "en"
-                    else ("Écoute attentivement. Quel mot est le détail clé que tu as entendu ?"
-                          if language == "fr" else "استمع جيدًا. ما الكلمة التي تمثل المعلومة الأساسية التي سمعتها؟")
+                    else f"{hints.get(language, hints['en'])}\n{entry.word}"
                 ),
                 "choices": choices,
-                "answer": correct,
-                "hint": (
-                    "Focus on the key noun in the sentence."
-                    if language == "en"
-                    else ("Concentre-toi sur le nom important de la phrase."
-                          if language == "fr" else "ركّز على الاسم الأساسي في الجملة.")
-                ),
-                "skill": "listening",
+                "answer": answer,
+                "hint": entry.definition.strip() or hints.get(language, hints["en"]),
+                "skill": "speaking",
                 "difficulty": difficulty,
-                "topic": "listening-detail",
+                "topic": "cefr-context",
                 "input_mode": "choice",
-                "audio_text": audio_text,
-                "audio_language": target_language,
-            })
-            continue
-        if game_id == "listen_choose":
-            assert word_entries is not None
-            entry = word_entries[index]
-            correct = entry.word.strip()
-            distractors = [item.word.strip() for item in word_entries if item.word.strip() != correct]
-            rng.shuffle(distractors)
-            choices = [correct, *distractors[:3]]
-            rng.shuffle(choices)
-            prompt = (
-                "Listen, then choose the word you heard."
-                if language == "en"
-                else ("Écoute, puis choisis le mot entendu."
-                      if language == "fr" else "استمع ثم اختر الكلمة التي سمعتها.")
-            )
-            questions.append({
-                "id": question_id,
-                "prompt": prompt,
-                "choices": choices,
-                "answer": correct,
-                "hint": (
-                    "Play the audio again if needed."
-                    if language == "en"
-                    else ("Relance l'audio si nécessaire."
-                          if language == "fr" else "أعد تشغيل الصوت إذا احتجت.")
-                ),
-                "skill": "listening",
-                "difficulty": difficulty,
-                "topic": "listen-choose",
-                "input_mode": "choice",
-                "audio_text": correct,
-                "audio_language": target_language,
-            })
-            continue
-        if game_id == "word_scramble":
-            assert word_entries is not None
-            entry = word_entries[index]
-            word = entry.word.strip()
-            letters = list(word)
-            rng.shuffle(letters)
-            scrambled = "".join(letters)
-            prompt = (
-                f"Unscramble the word:\\n{scrambled}"
-                if language == "en" else (f"Remets les lettres dans le bon ordre :\\n{scrambled}"
-                if language == "fr" else f"رتّب الحروف لتكوين الكلمة:\\n{scrambled}")
-            )
-            questions.append({
-                "id": question_id, "prompt": prompt, "choices": [], "answer": word,
-                "hint": entry.definition.strip(), "skill": "vocabulary",
-                "difficulty": difficulty, "topic": "word-scramble", "input_mode": "text",
-            })
-            continue
-        if game_id == "fill_blank":
-            assert word_entries is not None
-            vocab_sets = get_vocabulary_by_level(cefr_level, target_language)
-            pool = [entry for vocab_set in vocab_sets for entry in vocab_set.words]
-            rng.shuffle(pool)
-            cloze_entries = [
-                entry
-                for entry in pool
-                if entry.word.strip()
-                and entry.example.strip()
-                and entry.word.strip().casefold() in entry.example.casefold()
-            ][:5]
-            if len(cloze_entries) < 5:
-                raise HTTPException(
-                    status_code=503,
-                    detail=f"Not enough CEFR cloze content for {target_language} at {cefr_level}",
-                )
-            entry = cloze_entries[index]
-            example = entry.example.strip()
-            word = entry.word.strip()
-            marker_index = example.casefold().find(word.casefold())
-            if marker_index < 0:
-                raise HTTPException(status_code=503, detail="CEFR cloze item is malformed")
-            sentence = example[:marker_index] + "___" + example[marker_index + len(word):]
-            distractors = [
-                item.word.strip()
-                for item in word_entries
-                if item.word.strip().casefold() != word.casefold()
-            ]
-            rng.shuffle(distractors)
-            choices = list(dict.fromkeys([word, *distractors]))[:4]
-            if len(choices) < 4:
-                raise HTTPException(status_code=503, detail="Not enough cloze distractors")
-            rng.shuffle(choices)
-            questions.append({
-                "id": question_id,
-                "prompt": sentence,
-                "choices": choices,
-                "answer": word,
-                "hint": entry.definition.strip() or hints[language],
-                "skill": "grammar",
-                "difficulty": difficulty,
-                "topic": "cefr-cloze",
-                "input_mode": "choice",
-            })
-            continue
-        if game_id == "spelling":
-            assert word_entries is not None
-            entry = word_entries[index]
-            prompt = (
-                f"Type the word that means:\n{entry.definition.strip()}"
-                if language == "en"
-                else (f"Écris le mot qui signifie :\n{entry.definition.strip()}"
-                      if language == "fr"
-                      else f"اكتب الكلمة التي تعني:\n{entry.definition.strip()}")
-            )
-            questions.append({
-                "id": question_id,
-                "prompt": prompt,
-                "choices": [],
-                "answer": entry.word.strip(),
-                "hint": (
-                    f"Target word: {entry.word.strip()}"
-                    if language == "en"
-                    else (f"Mot cible : {entry.word.strip()}"
-                          if language == "fr" else f"الكلمة المستهدفة: {entry.word.strip()}")
-                ),
-                "skill": "writing",
-                "difficulty": difficulty,
-                "topic": "spelling",
-                "input_mode": "text",
             })
             continue
         if game_id == "translation_sprint":
