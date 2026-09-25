@@ -1,43 +1,142 @@
-"""Aymara A1 foundation data for JUBA LISAN."""
+"""Aymara A1-C2 curriculum data for JUBA LISAN."""
 from app.data._types import CurriculumUnit, GrammarExample, GrammarTopic, VocabularyEntry, VocabularySet, PhrasebookCategory, PhrasebookEntry, AssessmentQuestion
-LEVELS=["A1","A2","B1","B2","C1","C2"]
-GRAMMAR_TOPICS=[GrammarTopic(slug="a1-1",title="Personal pronouns",level="A1",category="grammar",summary="Use personal pronouns in everyday communication.",explanation="Practice personal pronouns through short A1 exchanges.",examples=[GrammarExample(text="Kamisaraki!")]),
-GrammarTopic(slug="a1-2",title="Identification",level="A1",category="grammar",summary="Use identification in everyday communication.",explanation="Practice identification through short A1 exchanges.",examples=[GrammarExample(text="Nayan sutijaxa Ana satawa.")]),
-GrammarTopic(slug="a1-3",title="Present actions",level="A1",category="grammar",summary="Use present actions in everyday communication.",explanation="Practice present actions through short A1 exchanges.",examples=[GrammarExample(text="La Pazan jakasta.")]),
-GrammarTopic(slug="a1-4",title="Questions",level="A1",category="grammar",summary="Use questions in everyday communication.",explanation="Practice questions through short A1 exchanges.",examples=[GrammarExample(text="Akax utajaxa.")]),
-GrammarTopic(slug="a1-5",title="Negation",level="A1",category="grammar",summary="Use negation in everyday communication.",explanation="Practice negation through short A1 exchanges.",examples=[GrammarExample(text="Jichhürux irnaqta.")]),
-GrammarTopic(slug="a1-6",title="Possession",level="A1",category="grammar",summary="Use possession in everyday communication.",explanation="Practice possession through short A1 exchanges.",examples=[GrammarExample(text="Yatiqaskta.")]),
-GrammarTopic(slug="a1-7",title="Location",level="A1",category="grammar",summary="Use location in everyday communication.",explanation="Practice location through short A1 exchanges.",examples=[GrammarExample(text="Qhawqhasa akaxa?")]),
-GrammarTopic(slug="a1-8",title="Requests",level="A1",category="grammar",summary="Use requests in everyday communication.",explanation="Practice requests through short A1 exchanges.",examples=[GrammarExample(text="Yanapt'ita, mirä.")])]
-VOCABULARY_SETS=[VocabularySet(id="unit_1_a1",level="A1",topic="hello",unit_ref="ay-a1-unit-1",words=[VocabularyEntry(word="kamisaraki",pos="word",definition="hello",example="Kamisaraki!"),VocabularyEntry(word="yuspajara",pos="word",definition="thank you",example="Yuspajara yanapt'awitata.")]),
-VocabularySet(id="unit_2_a1",level="A1",topic="name",unit_ref="ay-a1-unit-2",words=[VocabularyEntry(word="naya",pos="word",definition="I",example="Nayax Ana satawa."),VocabularyEntry(word="suti",pos="word",definition="name",example="Akax utajaxa.")]),
-VocabularySet(id="unit_3_a1",level="A1",topic="mother",unit_ref="ay-a1-unit-3",words=[VocabularyEntry(word="tayka",pos="word",definition="mother",example="Jichhürux irnaqta."),VocabularyEntry(word="awki",pos="word",definition="father",example="Awkijax irnaqaski.")]),
-VocabularySet(id="unit_4_a1",level="A1",topic="house",unit_ref="ay-a1-unit-4",words=[VocabularyEntry(word="uta",pos="word",definition="house",example="Qhawqhasa akaxa?"),VocabularyEntry(word="manqha",pos="word",definition="inside",example="Uta manqhanwa jikxatasta.")]),
-VocabularySet(id="unit_5_a1",level="A1",topic="work",unit_ref="ay-a1-unit-5",words=[VocabularyEntry(word="irnaqaña",pos="word",definition="work",example="Kamisaraki!"),VocabularyEntry(word="yatiqaña",pos="word",definition="learn / study",example="Aymar aru yatiqaskta.")]),
-VocabularySet(id="unit_6_a1",level="A1",topic="water",unit_ref="ay-a1-unit-6",words=[VocabularyEntry(word="uma",pos="word",definition="water",example="La Pazan jakasta."),VocabularyEntry(word="umaña",pos="word",definition="drink",example="Umaña munta.")]),
-VocabularySet(id="unit_7_a1",level="A1",topic="market",unit_ref="ay-a1-unit-7",words=[VocabularyEntry(word="qhathu",pos="word",definition="market",example="Jichhürux irnaqta."),VocabularyEntry(word="qullqi",pos="word",definition="money",example="Qullqix utjitu.")]),
-VocabularySet(id="unit_8_a1",level="A1",topic="help",unit_ref="ay-a1-unit-8",words=[VocabularyEntry(word="yanapaña",pos="word",definition="help",example="Qhawqhasa akaxa?"),VocabularyEntry(word="janiw",pos="word",definition="not",example="Janiw yatkti."])])
-PHRASEBOOK_CATEGORIES=[PhrasebookCategory(id="phrase_1_a1",level="A1",situation="Greetings",icon="👋",phrases=[PhrasebookEntry(text="Kamisaraki!",context="everyday conversation",register="neutral"),PhrasebookEntry(text="Nayax yatichirïtwa.",context="everyday use",register="neutral")]),
-PhrasebookCategory(id="phrase_2_a1",level="A1",situation="Daily life",icon="☀️",phrases=[PhrasebookEntry(text="Kunjamasktsa?",context="everyday conversation",register="neutral"),PhrasebookEntry(text="Kunas sutimaxa?",context="everyday use",register="neutral")]),
-PhrasebookCategory(id="phrase_3_a1",level="A1",situation="Shopping",icon="🛒",phrases=[PhrasebookEntry(text="Qhawqhas chanipaxa?",context="everyday conversation",register="neutral"),PhrasebookEntry(text="Nayax Aymar aru yatiqaskta.",context="everyday use",register="neutral")]),
-PhrasebookCategory(id="phrase_4_a1",level="A1",situation="Help and directions",icon="🧭",phrases=[PhrasebookEntry(text="Yanaptʼapxita, mirä.",context="everyday conversation",register="neutral"),PhrasebookEntry(text="Kawkhansa utaxa?",context="everyday use",register="neutral")])]
-CURRICULUM={"A1":[CurriculumUnit(id="ay-a1-unit-1",level="A1",unit_number=1,title="Greetings and identity",grammar_points=["Personal pronouns"],vocabulary_set_ids=["unit_1_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Handle greetings and identity in simple conversations"],default_weeks=1),
-CurriculumUnit(id="ay-a1-unit-2",level="A1",unit_number=2,title="Personal information",grammar_points=["Identification"],vocabulary_set_ids=["unit_2_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Handle personal information in simple conversations"],default_weeks=1),
-CurriculumUnit(id="ay-a1-unit-3",level="A1",unit_number=3,title="Family",grammar_points=["Present actions"],vocabulary_set_ids=["unit_3_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Handle family in simple conversations"],default_weeks=1),
-CurriculumUnit(id="ay-a1-unit-4",level="A1",unit_number=4,title="Home",grammar_points=["Questions"],vocabulary_set_ids=["unit_4_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Handle home in simple conversations"],default_weeks=1),
-CurriculumUnit(id="ay-a1-unit-5",level="A1",unit_number=5,title="Daily routine",grammar_points=["Negation"],vocabulary_set_ids=["unit_5_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Handle daily routine in simple conversations"],default_weeks=1),
-CurriculumUnit(id="ay-a1-unit-6",level="A1",unit_number=6,title="Food and shopping",grammar_points=["Possession"],vocabulary_set_ids=["unit_6_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Handle food and shopping in simple conversations"],default_weeks=1),
-CurriculumUnit(id="ay-a1-unit-7",level="A1",unit_number=7,title="Places and directions",grammar_points=["Location"],vocabulary_set_ids=["unit_7_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Handle places and directions in simple conversations"],default_weeks=1),
-CurriculumUnit(id="ay-a1-unit-8",level="A1",unit_number=8,title="Communication",grammar_points=["Requests"],vocabulary_set_ids=["unit_8_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Handle communication in simple conversations"],default_weeks=1)]
-for level in LEVELS[1:]:
-    CURRICULUM[level]=[CurriculumUnit(id=f"ay-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Aymara {level} progression",grammar_points=["level grammar"],vocabulary_set_ids=["unit_1_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=[f"Build {level} communication"],default_weeks=2)]
-ASSESSMENT_BANK=[AssessmentQuestion(id="ay-a1-001",skill="vocabulary",difficulty="A1",question="Which expression introduces the speaker's name?",options=["kamisaraki","suti","tayka","uta"],correct="kamisaraki"),
-AssessmentQuestion(id="ay-a1-002",skill="vocabulary",difficulty="A1",question="Which phrase asks where someone lives?",options=["suti","tayka","uta","irnaqaña"],correct="suti"),
-AssessmentQuestion(id="ay-a1-003",skill="vocabulary",difficulty="A1",question="Which sentence gives a place of residence?",options=["tayka","uta","irnaqaña","uma"],correct="tayka"),
-AssessmentQuestion(id="ay-a1-004",skill="vocabulary",difficulty="A1",question="Which phrase can introduce a home or family topic?",options=["uta","irnaqaña","uma","qhathu"],correct="uta"),
-AssessmentQuestion(id="ay-a1-005",skill="vocabulary",difficulty="A1",question="Which sentence describes working today?",options=["irnaqaña","uma","qhathu","yanapaña"],correct="irnaqaña"),
-AssessmentQuestion(id="ay-a1-006",skill="vocabulary",difficulty="A1",question="Which phrase refers to the speaker's learning or study?",options=["uma","qhathu","yanapaña","kamisaraki"],correct="uma"),
-AssessmentQuestion(id="ay-a1-007",skill="vocabulary",difficulty="A1",question="Which phrase is used when asking a price?",options=["qhathu","yanapaña","kamisaraki","suti"],correct="qhathu"),
-AssessmentQuestion(id="ay-a1-008",skill="vocabulary",difficulty="A1",question="Which phrase requests help politely?",options=["yanapaña","kamisaraki","suti","tayka"],correct="yanapaña"),
-AssessmentQuestion(id="ay-a1-009",skill="grammar",difficulty="A1",question="Which sentence is a simple A1 identity statement?",options=["Nayax yatichirïtwa.","Kunas sutimaxa?","Nayax Aymar aru yatiqaskta.","Kawkhansa utaxa?"],correct="Nayax yatichirïtwa."),
-AssessmentQuestion(id="ay-a1-010",skill="communication",difficulty="A1",question="Which phrase is appropriate for a first meeting?",options=["Kamisaraki!","Kunjamasktsa?","Qhawqhas chanipaxa?","Yanaptʼapxita, mirä."],correct="Kamisaraki!")]
+
+LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"]
+
+def _g(slug, title, level, summary, example):
+    return GrammarTopic(slug=slug, title=title, level=level, category="grammar",
+        summary=summary, explanation=f"Practice {title.lower()} in authentic Aymara contexts.",
+        examples=[GrammarExample(text=example)])
+
+GRAMMAR_TOPICS = [
+    _g("a1-pronouns","Personal pronouns","A1","Use personal pronouns and basic reference.","Nayax Ana satawa."),
+    _g("a1-copula","Identity and nominal predicates","A1","Introduce people and identify things.","Akax utaawa."),
+    _g("a1-present","Present and habitual actions","A1","Talk about current and usual actions.","Aymar aru yatiqaskta."),
+    _g("a1-questions","Question words and yes-no questions","A1","Ask who, what, where and how.","Kunas sutimaxa?"),
+    _g("a1-negation","Negation with jani","A1","Make simple negative statements.","Janiw yatkti."),
+    _g("a1-possessive","Possessive suffixes","A1","Express basic possession.","Utajaxa."),
+    _g("a1-location","Location and basic case marking","A1","Say where people and objects are.","Uta manqhanwa jikxatasta."),
+    _g("a1-requests","Requests and polite expressions","A1","Make simple requests politely.","Yanapt'ita, mirä."),
+    _g("a2-past","Past events","A2","Describe completed and recent events.","Qharüru La Pazaru sarayäta."),
+    _g("a2-future","Future and intention","A2","Talk about plans and intentions.","Qharüru yatiqañaru sarä."),
+    _g("a2-cases","Core case suffixes","A2","Use case suffixes for relations and movement.","Utaru sarä."),
+    _g("a2-comparison","Comparison and degree","A2","Compare people, objects and situations.","Jilax jisk'a."),
+    _g("a2-imperative","Commands and polite instructions","A2","Give instructions and requests.","Qillqam."),
+    _g("a2-ability","Ability, necessity and desire","A2","Express ability, need and desire.","Yatiqañ munta."),
+    _g("b1-aspect","Aspect and event structure","B1","Distinguish ongoing, habitual and completed events.","Yatiqaskta."),
+    _g("b1-subordination","Subordinate clauses","B1","Connect clauses to explain events and reasons.","Kunatix jutkta uk yatiyta."),
+    _g("b1-conditionals","Conditional clauses","B1","Talk about conditions and consequences.","Jutäta ukhaxa, sarä."),
+    _g("b1-relative","Relative clauses","B1","Identify people and things with relative clauses.","Nayax uñjkta uka jaqi."),
+    _g("b1-causality","Cause, purpose and result","B1","Explain causes, purposes and results.","Yatiqañatakiw jutäta."),
+    _g("b1-converbs","Converb and clause chaining","B1","Link sequential actions naturally.","Manq'asaw sarä."),
+    _g("b1-reported","Reported speech","B1","Report what another person said.","Jupax jutaniwa sasaw säna."),
+    _g("b1-commands","Indirect requests and advice","B1","Give advice and indirect instructions.","Uñjañamawa."),
+    _g("b2-evidentiality","Evidentiality and information source","B2","Mark information source and speaker stance.","Ukax yatitäwa."),
+    _g("b2-focus","Topic and focus","B2","Highlight important information in discourse.","Nayax uk yatiyta."),
+    _g("b2-passive","Passive and affected constructions","B2","Describe events without foregrounding the agent.","Utax luratawa."),
+    _g("b2-concession","Concession and contrast","B2","Express contrast and concession.","Ukhamäkchisa, sarä."),
+    _g("b2-discourse","Discourse connectors","B2","Build coherent spoken and written discourse.","Ukampis nayax sarä."),
+    _g("b2-nominalization","Nominalization","B2","Turn actions and qualities into discourse nouns.","Yatiqañax wakiskiriwa."),
+    _g("b2-complex","Complex clause combinations","B2","Combine several subordinate relationships.","Kunapachatix jutki ukhaxa, aruskipä."),
+    _g("c1-formal","Formal and institutional Aymara","C1","Use appropriate formal and administrative language.","Markan kamachinakapa yäqañawa."),
+    _g("c1-academic","Academic register and hedging","C1","Present claims carefully in academic contexts.","Aka yatxatawix mä amuyuwa."),
+    _g("c1-argumentation","Argumentation and evidence","C1","Develop claims, reasons and evidence.","Aka amuyux pä tuqitwa ch'amanchasi."),
+    _g("c1-embedded","Embedded questions and propositions","C1","Embed questions and propositions in complex sentences.","Kunjamatsa lurasi uk yatitawa."),
+    _g("c1-media","Media and public language","C1","Understand formal public and media discourse.","Yatiyawinakax markaru puriwayi."),
+    _g("c1-pragmatics","Pragmatics and politeness","C1","Adjust meaning to relationship and context.","Mirä, yanapt'apxita."),
+    _g("c1-rhetoric","Rhetorical structure","C1","Use emphasis, contrast and persuasive structure.","Ukhamarakiw amuyt'asiñasa."),
+    _g("c2-literary","Literary and idiomatic Aymara","C2","Interpret figurative and idiomatic language.","Jach'a chuymaw markapar uñji."),
+    _g("c2-translation","Translation and lexical precision","C2","Choose precise equivalents across contexts.","Arunakan amuyupa mayjt'ayaspawa."),
+    _g("c2-discourse-analysis","Discourse analysis and register shifting","C2","Analyse register, stance and discourse structure.","Arunakax pachaparjamaw mayjt'ayi."),
+    _g("c2-rhetorical-nuance","Advanced rhetorical nuance","C2","Handle subtle stance, implication and literary effect.","Amuyt'awix jach'a qhananchäwiwa."),
+]
+
+_vocab_data = [
+("greetings","A1",[("kamisaraki","hello","Kamisaraki!"),("yuspajara","thank you","Yuspajara yanapt'awitata.")]),
+("identity","A1",[("suti","name","Kunas sutimaxa?"),("naya","I","Nayax Ana satawa.")]),
+("family","A1",[("tayka","mother","Taykajax utankiwa."),("awki","father","Awkijax irnaqaski.")]),
+("home","A1",[("uta","house","Akax utaawa."),("manqha","inside","Uta manqhanwa jikxatasta.")]),
+("study","A1",[("yatiqaña","to learn","Aymar aru yatiqaskta."),("yatichiri","teacher","Yatichirix yatichaski.")]),
+("food","A1",[("manq'a","food","Manq'a munta."),("uma","water","Umaña munta.")]),
+("market","A1",[("qhathu","market","Qhatun alasta."),("qullqi","money","Qullqix utjitu.")]),
+("places","A1",[("marka","town","Markan jakasta."),("uta","home","Utaru sarä.")]),
+("daily-routine","A2",[("irnaqaña","to work","Jichhürux irnaqta."),("saraña","to go","Markaru sarä.")]),
+("travel","A2",[("thakhi","road","Thakhin sarä."),("qala","stone","Thakhin qala utji.")]),
+("time","A2",[("jichha","now","Jichhax yatiqaskta."),("qharüru","tomorrow","Qharüru sarä.")]),
+("health","A2",[("usuta","ill","Usutawa."),("qullaña","to heal/treat","Qullañ munta.")]),
+("community","B1",[("ayllu","community","Ayllun irnaqapxta."),("marka","community/town","Markax jilaski.")]),
+("nature","B1",[("uma","water","Umax wali wakiskiriwa."),("uraqi","land","Uraqix jiwasankiwa.")]),
+("work","B1",[("irnaqawi","work","Irnaqawix wakiskiriwa."),("kamachi","rule","Kamachinak yäqañawa.")]),
+("communication","B2",[("aruskipaña","to converse","Jichhax aruskipt'añani."),("yatiyawi","information","Yatiyawinakax puriwayi.")]),
+("education","C1",[("yatxatawi","research","Aka yatxatawix ch'amanchatawa."),("amuyt'aña","to reflect","Amuyt'añax wakiskiriwa.")]),
+("culture","C2",[("sarnaqawi","culture/custom","Sarnaqawix wali ch'amawa."),("aru","language","Arux markan jakañapawa.")]),
+]
+
+VOCABULARY_SETS = [
+    VocabularySet(id=f"ay-{i+1}-{level.lower()}",level=level,topic=topic,unit_ref=f"ay-{level.lower()}-unit-{(i%8)+1}",
+        words=[VocabularyEntry(word=w,pos="word",definition=d,example=e) for w,d,e in words])
+    for i,(topic,level,words) in enumerate(_vocab_data)
+]
+
+_phrase_data = [
+("Greetings","👋",[("Kamisaraki!","greeting"),("Kunjamasktsa?","asking how someone is")]),
+("Introductions","👤",[("Nayax Ana satawa.","introducing yourself"),("Kunas sutimaxa?","asking a name")]),
+("Courtesy","🙏",[("Yuspajara.","thanks"),("Mirä.","polite request marker")]),
+("Home","🏠",[("Kawkhansa utaxa?","asking location"),("Uta manqhanwa jikxatasta.","describing location")]),
+("Study","📚",[("Aymar aru yatiqaskta.","talking about learning"),("Yanapt'ita, mirä.","asking for help")]),
+("Shopping","🛒",[("Qhawqhas chanipaxa?","asking price"),("Qhatun alasta.","shopping at a market")]),
+("Directions","🧭",[("Kawkirus sarä?","asking where to go"),("Utaru sarä.","saying destination")]),
+("Daily life","☀️",[("Jichhax irnaqaskta.","talking about today"),("Qharüru sarä.","talking about tomorrow")]),
+("Formal public","🏛️",[("Kamachinak yäqañawa.","formal obligation"),("Yatiyawinakax puriwayi.","public information")]),
+("Discussion","💬",[("Nayax uk yatiyta.","stating a position"),("Ukampis nayax sarä.","contrasting a point")]),
+]
+PHRASEBOOK_CATEGORIES = [
+    PhrasebookCategory(id=f"ay-phrase-{i+1}",level=("A1" if i<5 else "A2" if i<8 else "B2" if i==9 else "C1"),
+        situation=situation,icon=icon,
+        phrases=[PhrasebookEntry(text=text,context=context,register="neutral" if i<8 else "formal") for text,context in phrases])
+    for i,(situation,icon,phrases) in enumerate(_phrase_data)
+]
+
+CURRICULUM = {}
+_titles = {
+    "A1":["Greetings and identity","Personal information","Family and home","Study and learning","Food and shopping","Places and directions","Daily routine","Communication"],
+    "A2":["Past experiences","Future plans","Movement and places","Descriptions and comparison","Requests and instructions","Ability and necessity","Review and conversation","A2 consolidation"],
+    "B1":["Aspect and events","Complex sentences","Conditions","Descriptions with relatives","Cause and purpose","Connected actions","Reported speech","Advice and indirect requests"],
+    "B2":["Information source","Focus and emphasis","Affected and passive events","Contrast and concession","Coherent discourse","Nominalized language","Complex subordination","B2 consolidation"],
+    "C1":["Formal institutions","Academic language","Argumentation","Embedded propositions","Media and public language","Pragmatics and politeness","Rhetorical structure","C1 consolidation"],
+    "C2":["Literary language","Translation precision","Discourse analysis","Advanced rhetoric","Register shifting","Idiomatic nuance","Critical interpretation","C2 synthesis"],
+}
+_topic_by_level = {level:[g.title for g in GRAMMAR_TOPICS if g.level==level] for level in LEVELS}
+for level in LEVELS:
+    CURRICULUM[level] = []
+    for n,title in enumerate(_titles[level],1):
+        topic = _topic_by_level[level][n-1]
+        vocab_id = f"ay-{n if level=='A1' else (9 if level=='A2' else 1)}-{level.lower()}"
+        matching = [v.id for v in VOCABULARY_SETS if v.level==level]
+        if not matching:
+            matching = [VOCABULARY_SETS[(n-1)%len(VOCABULARY_SETS)].id]
+        else:
+            vocab_id = matching[(n-1)%len(matching)]
+        CURRICULUM[level].append(CurriculumUnit(
+            id=f"ay-{level.lower()}-unit-{n}",level=level,unit_number=n,title=title,
+            grammar_points=[topic],vocabulary_set_ids=[vocab_id],
+            lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],
+            competency_checklist=[f"Use Aymara for {title.lower()} at {level} level."],default_weeks=2 if level in ("A1","A2") else 3))
+
+ASSESSMENT_BANK = [
+    AssessmentQuestion(id=f"ay-{i+1:03d}",skill=skill,difficulty=level,question=q,options=options,correct=correct)
+    for i,(skill,level,q,options,correct) in enumerate([
+        ("vocabulary","A1","Which phrase is a greeting?",["Kamisaraki!","Qharüru sarä.","Uta manqhanwa.","Kamachinak yäqañawa."],"Kamisaraki!"),
+        ("grammar","A1","Which phrase asks for a name?",["Kunas sutimaxa?","Yuspajara.","Janiw yatkti.","Utaru sarä."],"Kunas sutimaxa?"),
+        ("communication","A1","Which phrase politely asks for help?",["Yanapt'ita, mirä.","Jichhax irnaqta.","Qhatun alasta.","Nayax Ana satawa."],"Yanapt'ita, mirä."),
+        ("vocabulary","A2","Which word means tomorrow?",["qharüru","jichha","uma","marka"],"qharüru"),
+        ("grammar","A2","Which sentence expresses a destination?",["Utaru sarä.","Janiw yatkti.","Kamisaraki!","Nayax Ana satawa."],"Utaru sarä."),
+        ("grammar","B1","Which sentence reports another person's statement?",["Jupax jutaniwa sasaw säna.","Kamisaraki!","Umaña munta.","Qhatun alasta."],"Jupax jutaniwa sasaw säna."),
+        ("grammar","B1","Which construction introduces a condition?",["Jutäta ukhaxa, sarä.","Yuspajara.","Nayax Ana satawa.","Akax utaawa."],"Jutäta ukhaxa, sarä."),
+        ("grammar","B2","Which phrase marks contrast?",["Ukampis nayax sarä.","Kamisaraki!","Umaña munta.","Kawkhansa utaxa?"],"Ukampis nayax sarä."),
+        ("communication","B2","Which phrase presents a position?",["Nayax uk yatiyta.","Yuspajara.","Utaru sarä.","Qhatun alasta."],"Nayax uk yatiyta."),
+        ("register","C1","Which phrase is appropriate for formal obligation?",["Kamachinak yäqañawa.","Kamisaraki!","Umaña munta.","Taykajax utankiwa."],"Kamachinak yäqañawa."),
+        ("academic","C1","Which phrase introduces a research claim?",["Aka yatxatawix mä amuyuwa.","Kunjamasktsa?","Qhatun alasta.","Yuspajara."],"Aka yatxatawix mä amuyuwa."),
+        ("translation","C2","Which statement emphasizes contextual lexical precision?",["Arunakan amuyupa mayjt'ayaspawa.","Kamisaraki!","Qharüru sarä.","Umaña munta."],"Arunakan amuyupa mayjt'ayaspawa."),
+    ])
+]
