@@ -536,3 +536,23 @@ async def test_progress_history_summary_rejects_invalid_range(client, test_user)
         headers=headers,
     )
     assert response.status_code == 422
+
+
+@pytest.mark.parametrize(
+    "language",
+    ["tr", "ru", "nl", "pl", "el", "sv", "da", "no", "fi", "cs"],
+)
+def test_game_session_accepts_expanded_cefr_vocabulary_languages(language):
+    from app.schemas.progress import GameSessionStart
+
+    payload = GameSessionStart(game_id="quick_choice", language=language, difficulty=1)
+    assert payload.language == language
+
+
+def test_game_session_rejects_language_without_game_bank():
+    from pydantic import ValidationError
+
+    from app.schemas.progress import GameSessionStart
+
+    with pytest.raises(ValidationError):
+        GameSessionStart(game_id="quick_choice", language="xx", difficulty=1)
