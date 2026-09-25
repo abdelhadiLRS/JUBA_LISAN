@@ -326,3 +326,36 @@
   letter-spacing: 0.04em;
   opacity: 0.75;
 }
+
+
+.smart-review-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  font-size: 0.72rem;
+  opacity: 0.78;
+}
+
+.smart-review-meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.smart-review-priority {
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.smart-review-priority.priority-high {
+  font-weight: 800;
+}
+
+.smart-review-priority.priority-medium {
+  font-weight: 700;
+}
+
+.smart-review-priority.priority-low {
+  opacity: 0.7;
+}
