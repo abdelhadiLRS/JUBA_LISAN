@@ -208,6 +208,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     )
   }
 
+  const isDashboardRoute = pathname === '/dashboard'
+
   const visibleMainNavItems = isAdmin ? [] : mainNavItems
   const visibleResourceNavItems = isAdmin ? [] : resourceNavItems
   const visibleBottomNavItems = isAdmin ? [] : bottomNavItems
@@ -218,6 +220,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       : feedbackUnreadCount > 0
         ? String(feedbackUnreadCount)
         : ''
+
+  if (isDashboardRoute) {
+    return <>{children}</>
+  }
 
   return (
     <div className="juba-app-shell bg-fl-bg flex min-h-screen md:h-screen md:overflow-hidden">
