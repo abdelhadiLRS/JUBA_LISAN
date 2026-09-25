@@ -428,3 +428,11 @@ def test_game_answer_matches_ignores_arabic_diacritics_and_tatweel():
     assert _game_answer_matches("مـدرسة", "مدرسة")
     # Hamza is lexical, not a diacritic to discard.
     assert not _game_answer_matches("سأل", "سال")
+
+
+def test_game_answer_matches_normalizes_cjk_terminal_punctuation():
+    from app.routers.progress import _game_answer_matches
+
+    assert _game_answer_matches("你好，", "你好")
+    assert _game_answer_matches("ありがとう、", "ありがとう")
+    assert not _game_answer_matches("你好世界", "你好")
