@@ -590,7 +590,11 @@
     "goalCompleted": "🎉 Daily goal completed!",
     "keepGoing": "Only {remaining} more lesson(s) to go!",
     "takeAssessment": "Take placement assessment",
-    "planDayGoal": "Today's lesson goal"
+    "planDayGoal": "Today's lesson goal",
+    "levelTestCompleted": "Level test completed",
+    "levelTestScoreLine": "Score: {score} out of {total}",
+    "levelTestReady": "You are ready for the next level",
+    "levelTestReadyDesc": "You completed the level test successfully. Continue your learning plan."
   },
   "assessment": {
     "title": "Assessment",
