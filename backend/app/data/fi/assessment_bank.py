@@ -59,4 +59,35 @@ _q(5,"C2","grammar","Mikä ilmaus osoittaa akateemista varovaisuutta?",["Ei void
 _q(6,"C2","vocabulary","Mitä «monitulkintainen» tarkoittaa?",["asia, joka voidaan ymmärtää useammalla tavalla","asia, joka on täysin yksiselitteinen","asia, joka on hyvin lyhyt","asia, joka on helppo mitata"],"asia, joka voidaan ymmärtää useammalla tavalla"),
 _q(7,"C2","reading","Lue: «Johtopäätös on vakuuttava, mikäli taustalla oleva oletus pitää paikkansa.» Mistä arvio riippuu?",["Siitä, pitääkö taustalla oleva oletus paikkansa.","Siitä, onko teksti lyhyt.","Siitä, onko tyyli epävirallinen.","Siitä, ovatko tiedot vanhoja."],"Siitä, pitääkö taustalla oleva oletus paikkansa."),
 _q(8,"C2","grammar","Valitse täsmällisin akateeminen muoto.",["Tulokset eivät mahdollista varmaa yleistystä ilman lisäaineistoa.","Tulokset mahdollistavat aina varman yleistyksen.","Tulokset eivät mahdollista yleistää ilman lisäaineistoa.","Tulokset mahdollistavat varman yleistyksen ilman aineistoa."],"Tulokset eivät mahdollista varmaa yleistystä ilman lisäaineistoa.","academic-style")
+
+_q(9,"A1","vocabulary","Mitä sana «kiitos» ilmaisee?",["kiitollisuutta","kysymystä","paikkaa","aikaa"],"kiitollisuutta"),
+_q(10,"A1","grammar","Täydennä: «Juon ___.»",["vettä","vesi","vedessä","vedestä"],"vettä","partitive"),
+_q(11,"A1","reading","Lue: «Liisa työskentelee sairaalassa.» Missä Liisa työskentelee?",["Sairaalassa.","Koulussa.","Kaupassa.","Kirjastossa."],"Sairaalassa."),
+_q(12,"A1","vocabulary","Mikä on «juna»?",["kulkuneuvo, joka kulkee raiteilla","ruokailuväline","rakennus","vaatekappale"],"kulkuneuvo, joka kulkee raiteilla"),
+
+_q(9,"A2","grammar","Valitse oikea paikallissija: «Menen ___.»",["kouluun","koulussa","koulusta","koululla"],"kouluun","local-cases"),
+_q(10,"A2","vocabulary","Mitä «lähin» tarkoittaa?",["etäisyydeltään pienin","kaikkein kallein","viimeiseksi tullut","kauimpana oleva"],"etäisyydeltään pienin"),
+_q(11,"A2","reading","Lue: «Bussi lähtee kello 14.30. Matka kestää 20 minuuttia.» Milloin bussi saapuu?",["Kello 14.40.","Kello 14.50.","Kello 15.00.","Kello 15.20."],"Kello 14.50."),
+_q(12,"A2","grammar","Täydennä: «Minun täytyy ___ aikaisin.»",["lähteä","lähden","lähtee","lähtenyt"],"lähteä","necessity"),
+
+_q(9,"B1","grammar","Täydennä: «En ollut koskaan ___ Lapissa ennen sitä matkaa.»",["käynyt","käyn","käydä","käynytkö"],"käynyt","perfect"),
+_q(10,"B1","vocabulary","Mitä verbi «soveltaa» tarkoittaa?",["käyttää tietoa tai menetelmää käytännössä","unohtaa kokonaan","siirtää myöhemmäksi","kieltäytyä keskustelusta"],"käyttää tietoa tai menetelmää käytännössä"),
+_q(11,"B1","reading","Lue: «Kaupunki lisäsi bussivuoroja, koska matkustajamäärät kasvoivat.» Miksi vuoroja lisättiin?",["Matkustajia oli enemmän.","Lippujen hinnat laskivat.","Tie suljettiin.","Kuljettajia oli liian paljon."],"Matkustajia oli enemmän."),
+_q(12,"B1","grammar","Valitse oikea epäsuora kysymys.",["Hän kysyi, missä asema sijaitsee.","Hän kysyi, missä sijaitsee asema?","Hän kysyi, missä asema sijaitsemaan.","Hän kysyi, missä sijaitsi asema on."],"Hän kysyi, missä asema sijaitsee.","indirect-questions"),
+
+_q(9,"B2","grammar","Valitse oikea ehtolauseen menneen ajan muoto.",["Jos olisin tiennyt asiasta, olisin tullut aikaisemmin.","Jos tiedän asiasta, olisin tullut aikaisemmin.","Jos olisin tietänyt asiasta, tulen aikaisemmin.","Jos tiesin asiasta, olisin tulemaan aikaisemmin."],"Jos olisin tiennyt asiasta, olisin tullut aikaisemmin.","conditionals"),
+_q(10,"B2","vocabulary","Mitä «olennainen» tarkoittaa tässä yhteydessä?",["asian kannalta tärkeä","täysin satunnainen","vain väliaikainen","vaikeasti havaittava"],"asian kannalta tärkeä"),
+_q(11,"B2","reading","Lue: «Uudistus nopeutti käsittelyä, mutta lisäsi henkilöstön koulutustarvetta.» Mikä oli uudistuksen seuraus?",["Käsittely nopeutui ja koulutustarve kasvoi.","Käsittely hidastui ja koulutustarve väheni.","Koulutusta ei enää tarvittu.","Henkilöstömäärä puolittui."],"Käsittely nopeutui ja koulutustarve kasvoi."),
+_q(12,"B2","grammar","Valitse kieliopillisesti oikea lause.",["Siitä huolimatta, että satoi, jatkoimme matkaa.","Siitä huolimatta että satoi, me jatkaa matkaa.","Siitä huolimatta satoi, jatkoimme matkaa että.","Siitä huolimatta, että satoi, jatkamme matkaa eilen."],"Siitä huolimatta, että satoi, jatkoimme matkaa.","concessive-clauses"),
+
+_q(9,"C1","grammar","Valitse akateemiseen tekstiin sopiva jatko: «Vaikka aineisto on laaja, ...»",["tuloksia on tulkittava varoen.","tulokset todistaa kaiken.","aineisto eivät ole hyödyllisiä.","tuloksia tulkita varovainen."],"tuloksia on tulkittava varoen.","academic-register"),
+_q(10,"C1","vocabulary","Mitä «ristiriitainen» tarkoittaa?",["sisäisesti keskenään yhteensopimaton","täysin yksiselitteinen","helposti mitattava","aina myönteinen"],"sisäisesti keskenään yhteensopimaton"),
+_q(11,"C1","reading","Lue: «Tutkimus tukee hypoteesia, mutta pieni otos rajoittaa tulosten yleistettävyyttä.» Mikä rajoittaa yleistettävyyttä?",["Pieni otos.","Hypoteesin nimi.","Tutkimuksen otsikko.","Tulosten esitystapa."],"Pieni otos."),
+_q(12,"C1","grammar","Valitse oikein muodostettu rakenne.",["Tutkimus ei ainoastaan kuvaa ilmiötä vaan myös selittää sitä.","Tutkimus ei ainoastaan kuvaa ilmiötä vaan myös selittävät sitä.","Tutkimus ei ainoastaan kuvaa ilmiötä mutta myös selittää sitäkö.","Tutkimus ei ainoastaan kuvaa ilmiö vaan myös selittää."],"Tutkimus ei ainoastaan kuvaa ilmiötä vaan myös selittää sitä.","correlative-constructions"),
+
+_q(9,"C2","vocabulary","Mitä «implisiittinen» tarkoittaa?",["epäsuorasti ilmaistu tai oletettu","täysin näkyvä ja suora","tilastollisesti mitattu","kielellisesti virheellinen"],"epäsuorasti ilmaistu tai oletettu"),
+_q(10,"C2","grammar","Valitse täsmällinen rajaus.",["Sikäli kuin aineisto sallii, tuloksia voidaan yleistää.","Aineisto sallii, tuloksia yleistää aina.","Sikäli aineisto kuin sallii tulokset voidaan yleistää.","Tuloksia voidaan yleistää, koska aineisto ei ole."],"Sikäli kuin aineisto sallii, tuloksia voidaan yleistää.","semantic-precision"),
+_q(11,"C2","reading","Lue: «Vaikka malli selittää havaitun vaihtelun, se ei sulje pois vaihtoehtoisia mekanismeja.» Mitä väitettä teksti rajaa?",["Malli ei sulje pois muita selityksiä.","Malli ei selitä havaittua vaihtelua.","Vaihtoehtoisia mekanismeja ei ole.","Havaintoja ei ole tehty."],"Malli ei sulje pois muita selityksiä."),
+_q(12,"C2","grammar","Valitse akateemisesti täsmällisin muotoilu.",["Johtopäätös on perusteltu vain siinä määrin kuin käytettävissä oleva näyttö sen sallii.","Johtopäätös on aina perusteltu näytöstä riippumatta.","Näyttö sallii johtopäätöksen ilman rajoituksia.","Johtopäätös perustelee näyttöä kaikissa tapauksissa."],"Johtopäätös on perusteltu vain siinä määrin kuin käytettävissä oleva näyttö sen sallii.","academic-precision"),
+
 ]
