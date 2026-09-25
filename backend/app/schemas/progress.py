@@ -165,7 +165,7 @@ class GameSessionStart(BaseModel):
     @classmethod
     def validate_game_id(cls, value: str) -> str:
         value = value.strip()
-        if value not in {"math", "words", "quick_choice", "context_quest", "listen_choose", "listening_detective", "word_categories", "translation_sprint", "grammar_duel", "spelling", "word_scramble", "fill_blank", "sequence", "memory", "matching", "ordering", "sentence_builder"}:
+        if value not in {"math", "words", "quick_choice", "context_quest", "listen_choose", "listening_detective", "word_categories", "translation_sprint", "grammar_duel", "spelling", "word_scramble", "fill_blank", "sequence", "memory", "matching", "ordering", "sentence_builder", "review_mix"}:
             raise ValueError("game_id must be one of the supported games")
         return value
 
