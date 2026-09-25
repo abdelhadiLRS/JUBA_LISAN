@@ -365,3 +365,25 @@ def test_mixed_review_strategy_keeps_stage_when_retrieval_is_strong():
     assert _mixed_review_strategy("reviewing", 2, 0.9, 3) == "contextual_transfer"
     assert _mixed_review_strategy("mastered", 3, 0.9, 4) == "production"
 
+
+
+def test_mixed_review_strategy_uses_recognition_at_low_efficiency_boundary():
+    from app.routers.progress import _mixed_review_strategy
+
+    assert _mixed_review_strategy("reviewing", 2, 0.349, 1) == "recognition"
+    assert _mixed_review_strategy("reviewing", 2, 0.35, 1) == "contextual_transfer"
+
+
+def test_mixed_review_strategy_ignores_efficiency_without_attempts():
+    from app.routers.progress import _mixed_review_strategy
+
+    assert _mixed_review_strategy("mastered", 3, 0.0, 0) == "production"
+    assert _mixed_review_strategy("mastered", 3, 1.0, 0) == "production"
+
+
+def test_mixed_review_strategy_clamps_efficiency_and_attempt_count():
+    from app.routers.progress import _mixed_review_strategy
+
+    assert _mixed_review_strategy("learning", 1, -0.5, 4) == "recognition"
+    assert _mixed_review_strategy("reviewing", 2, 1.5, 4) == "contextual_transfer"
+    assert _mixed_review_strategy("reviewing", 2, 0.0, -1) == "contextual_transfer"
