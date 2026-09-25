@@ -86,6 +86,13 @@ def _server_interactive_challenge(game_id: str, language: str, difficulty: int) 
             "ar": [("قمر", "moon"), ("كتاب", "book"), ("شمس", "sun"), ("بحر", "sea"), ("قلم", "pen"), ("باب", "door")],
             "fr": [("lune", "moon"), ("livre", "book"), ("soleil", "sun"), ("mer", "sea"), ("stylo", "pen"), ("porte", "door")],
             "en": [("moon", "lune"), ("book", "livre"), ("sun", "soleil"), ("sea", "mer"), ("pen", "stylo"), ("door", "porte")],
+            "es": [("luna", "moon"), ("libro", "book"), ("sol", "sun"), ("mar", "sea"), ("bolígrafo", "pen"), ("puerta", "door")],
+            "de": [("Mond", "moon"), ("Buch", "book"), ("Sonne", "sun"), ("Meer", "sea"), ("Stift", "pen"), ("Tür", "door")],
+            "it": [("luna", "moon"), ("libro", "book"), ("sole", "sun"), ("mare", "sea"), ("penna", "pen"), ("porta", "door")],
+            "pt": [("lua", "moon"), ("livro", "book"), ("sol", "sun"), ("mar", "sea"), ("caneta", "pen"), ("porta", "door")],
+            "ja": [("月", "moon"), ("本", "book"), ("太陽", "sun"), ("海", "sea"), ("ペン", "pen"), ("ドア", "door")],
+            "ko": [("달", "moon"), ("책", "book"), ("태양", "sun"), ("바다", "sea"), ("펜", "pen"), ("문", "door")],
+            "zh": [("月亮", "moon"), ("书", "book"), ("太阳", "sun"), ("海", "sea"), ("笔", "pen"), ("门", "door")],
         }[language]
         count = {1: 3, 2: 4, 3: 5}[difficulty]
         selected = rng.sample(symbols, count)
@@ -112,6 +119,13 @@ def _server_interactive_challenge(game_id: str, language: str, difficulty: int) 
                 ("book", "livre"), ("water", "eau"), ("school", "école"),
                 ("pen", "stylo"), ("car", "voiture"),
             ],
+            "es": [("libro", "book"), ("agua", "water"), ("escuela", "school"), ("bolígrafo", "pen"), ("coche", "car")],
+            "de": [("Buch", "book"), ("Wasser", "water"), ("Schule", "school"), ("Stift", "pen"), ("Auto", "car")],
+            "it": [("libro", "book"), ("acqua", "water"), ("scuola", "school"), ("penna", "pen"), ("auto", "car")],
+            "pt": [("livro", "book"), ("água", "water"), ("escola", "school"), ("caneta", "pen"), ("carro", "car")],
+            "ja": [("本", "book"), ("水", "water"), ("学校", "school"), ("ペン", "pen"), ("車", "car")],
+            "ko": [("책", "book"), ("물", "water"), ("학교", "school"), ("펜", "pen"), ("자동차", "car")],
+            "zh": [("书", "book"), ("水", "water"), ("学校", "school"), ("笔", "pen"), ("汽车", "car")],
         }[language]
         count = {1: 3, 2: 4, 3: 5}[difficulty]
         rng.shuffle(pairs_source)
@@ -143,6 +157,41 @@ def _server_interactive_challenge(game_id: str, language: str, difficulty: int) 
                     1: "I love learning languages",
                     2: "She reads a new book every day",
                     3: "We practice the language to speak fluently",
+                },
+                "es": {
+                    1: "Me encanta aprender idiomas",
+                    2: "Ella lee un libro nuevo cada día",
+                    3: "Practicamos el idioma para hablar con fluidez",
+                },
+                "de": {
+                    1: "Ich lerne gern Sprachen",
+                    2: "Sie liest jeden Tag ein neues Buch",
+                    3: "Wir üben die Sprache, um fließend zu sprechen",
+                },
+                "it": {
+                    1: "Mi piace imparare le lingue",
+                    2: "Lei legge un libro nuovo ogni giorno",
+                    3: "Pratichiamo la lingua per parlare fluentemente",
+                },
+                "pt": {
+                    1: "Adoro aprender línguas",
+                    2: "Ela lê um livro novo todos os dias",
+                    3: "Praticamos a língua para falar fluentemente",
+                },
+                "ja": {
+                    1: "私は言語を学ぶのが好きです",
+                    2: "彼女は毎日新しい本を読みます",
+                    3: "流暢に話すためにその言語を練習します",
+                },
+                "ko": {
+                    1: "저는 언어를 배우는 것을 좋아합니다",
+                    2: "그녀는 매일 새 책을 읽습니다",
+                    3: "유창하게 말하기 위해 그 언어를 연습합니다",
+                },
+                "zh": {
+                    1: "我喜欢学习语言",
+                    2: "她每天读一本新书",
+                    3: "我们练习这门语言以便流利地说话",
                 },
             }[language][difficulty]
             source = sentences.split()
