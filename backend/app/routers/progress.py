@@ -3881,7 +3881,7 @@ async def get_mastery_center(
             if attempt.exercise_id == exercise.id
         ]
 
-    def skill_for(exercise: Exercise) -> str:
+    def fallback_skill_for(exercise: Exercise) -> str:
         exercise_type = (exercise.exercise_type or "").strip().casefold()
         return {
             "vocabulary": "vocabulary",
@@ -3896,14 +3896,33 @@ async def get_mastery_center(
             "word": "vocabulary",
         }.get(exercise_type, exercise_type or "general")
 
+    def skills_for(lesson: Lesson, exercise: Exercise, index: int) -> tuple[str, ...]:
+        raw_exercises = (lesson.content or {}).get("exercises", [])
+        if not isinstance(raw_exercises, list):
+            return (fallback_skill_for(exercise),)
+        metadata = next(
+            (
+                item for item in raw_exercises
+                if isinstance(item, dict) and item.get("question") == exercise.question
+            ),
+            None,
+        )
+        if metadata is None and index < len(raw_exercises):
+            candidate = raw_exercises[index]
+            metadata = candidate if isinstance(candidate, dict) else None
+        raw_skills = metadata.get("skills") if metadata else None
+        from_metadata = normalise_skill_labels(raw_skills)
+        return from_metadata or (fallback_skill_for(exercise),)
+
     lesson_payload = []
     skill_exercises: dict[str, list[Exercise]] = {}
     for lesson in lessons:
         lesson_exercises = [exercise for exercise, row_lesson in exercise_rows if row_lesson.id == lesson.id]
         lesson_attempts = []
-        for exercise in lesson_exercises:
+        for index, exercise in enumerate(lesson_exercises):
             lesson_attempts.extend(attempt_view(exercise))
-            skill_exercises.setdefault(skill_for(exercise), []).append(exercise)
+            for skill in skills_for(lesson, exercise, index):
+                skill_exercises.setdefault(skill, []).append(exercise)
         aggregate = summarize_lesson_mastery(
             lesson_exercises,
             lesson_attempts,
