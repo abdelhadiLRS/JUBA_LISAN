@@ -96,7 +96,7 @@ export default function GamesPage() {
   } = useProgressStore()
 
   const level = Math.floor(xp / 100) + 1
-  const t = copy[lang]
+  const t = copy[lang as keyof typeof copy] ?? copy.en
   const today = getLocalDateKey()
   const dailyCompletedToday = gameStats.lastDailyChallengeDate === today
   // The client mirrors only the deterministic display rotation; it never grants rewards.
