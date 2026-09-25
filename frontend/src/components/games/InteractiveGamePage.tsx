@@ -6,7 +6,7 @@ import { InteractiveGameBoard } from './InteractiveGameBoard'
 import { completeGameSession, startGameSession, type InteractiveGameChallenge, type InteractiveGameTrace, type GameId } from '@/lib/games/persist'
 import { useProgressStore } from '@/store/progress'
 
-type Mode = 'memory' | 'matching' | 'ordering'
+type Mode = 'memory' | 'matching' | 'ordering' | 'sentence_builder'
 type Lang = 'ar' | 'fr' | 'en'
 
 export function InteractiveGamePage({ mode }: { mode: Mode }) {
@@ -51,6 +51,6 @@ export function InteractiveGamePage({ mode }: { mode: Mode }) {
     <div className="interactive-language-bar" role="group" aria-label="Language">
       {(['ar', 'fr', 'en'] as const).map((value) => <button key={value} type="button" onClick={() => setLang(value)} className={lang === value ? 'active' : ''}>{value.toUpperCase()}</button>)}
     </div>
-    {loading ? <p className="interactive-instruction">Loading challenge…</p> : error ? <div className="interactive-instruction interactive-error"><p>Unable to load the challenge.</p><button type="button" onClick={() => window.location.reload()}>Retry</button></div> : !challenge ? <p className="interactive-instruction">No challenge available.</p> : <InteractiveGameBoard mode={mode} lang={lang} challenge={challenge} onComplete={complete} />}
+    {loading ? <p className="interactive-instruction">Loading challenge…</p> : error ? <div className="interactive-instruction interactive-error"><p>Unable to load the challenge.</p><button type="button" onClick={() => window.location.reload()}>Retry</button></div> : !challenge ? <p className="interactive-instruction">No challenge available.</p> : <InteractiveGameBoard mode={mode === 'sentence_builder' ? 'ordering' : mode} lang={lang} challenge={challenge} onComplete={complete} />}
   </div></main>
 }
