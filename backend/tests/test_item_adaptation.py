@@ -7,6 +7,7 @@ from app.routers.progress import (
     _review_game_for_item,
     _review_item_strategy,
     _review_retry_stage,
+    _apply_skill_review_variant,
 )
 
 
@@ -187,3 +188,23 @@ def test_review_variant_keeps_transfer_for_strong_retrieval():
     }
     replay = _apply_skill_review_variant(question, 0)
     assert replay["retrieval_stage"] == "contextual_transfer"
+
+
+def test_grammar_gap_fill_uses_typed_input():
+    question = {
+        "review_key": "grammar:test",
+        "skill": "grammar",
+        "language": "en",
+        "target_language": "en-GB",
+        "cefr_level": "A1",
+        "topic": "",
+        "prompt": "Choose the correct form:\\nShe ___ happy.",
+        "answer": "is",
+        "review_strategy": "recognition",
+        "retrieval_efficiency": 0.8,
+    }
+    replay = _apply_skill_review_variant(question, 0)
+    assert replay["mechanic_variant"] == "gap_fill"
+    assert replay["input_mode"] == "text"
+    assert replay["choices"] == []
+    assert "is" not in replay["prompt"].lower()
