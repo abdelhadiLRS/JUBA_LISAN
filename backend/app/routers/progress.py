@@ -1527,6 +1527,124 @@ def _mastery_review_count(
     return min(total, len(active), max(1, round(total * ratio)))
 
 
+def _apply_skill_review_variant(question: dict, seed: int) -> dict:
+    """Create a deterministic surface variant while preserving the same learning target."""
+    replay = dict(question)
+    skill = str(replay.get("skill", ""))
+    language = str(replay.get("language", "en"))
+    prompt = str(replay.get("prompt", "")).strip()
+    topic = str(replay.get("topic", "")).strip()
+    variant = max(0, int(seed)) % 3
+
+    if skill == "vocabulary":
+        word = str(replay.get("word", "")).strip()
+        if not word:
+            # Recover the target word from the authored prompt when available.
+            word = prompt.replace("Choose the correct word:", "").strip().strip("'\"")
+        templates = {
+            "en": [
+                f"What does '{word}' mean?",
+                f"Choose the definition of '{word}'.",
+                f"Which meaning matches '{word}'?",
+            ],
+            "fr": [
+                f"Que signifie « {word} » ?",
+                f"Choisis la définition de « {word} »." ,
+                f"Quel sens correspond à « {word} » ?",
+            ],
+            "ar": [
+                f"ماذا تعني كلمة «{word}»؟",
+                f"اختر تعريف كلمة «{word}»." ,
+                f"أي معنى يطابق كلمة «{word}»؟",
+            ],
+        }
+        replay["prompt"] = templates.get(language, templates["en"])[variant]
+    elif skill == "grammar":
+        templates = {
+            "en": [
+                "Choose the correct form:\n{surface}",
+                "Which form is grammatically correct?\n{surface}",
+                "Complete the sentence with the correct form:\n{surface}",
+            ],
+            "fr": [
+                "Choisis la forme correcte :\n{surface}",
+                "Quelle forme est grammaticalement correcte ?\n{surface}",
+                "Complète avec la forme correcte :\n{surface}",
+            ],
+            "ar": [
+                "اختر الصيغة الصحيحة:\n{surface}",
+                "أي صيغة صحيحة نحويًا؟\n{surface}",
+                "أكمل الجملة بالصيغة الصحيحة:\n{surface}",
+            ],
+        }
+        surface = prompt.split("\n", 1)[1].strip() if "\n" in prompt else prompt
+        replay["prompt"] = templates.get(language, templates["en"])[variant].format(surface=surface)
+    elif skill == "listening":
+        templates = {
+            "en": [
+                "Listen carefully. Which word did you hear?",
+                "Listen again and identify the key word.",
+                "What target word appears in the audio?",
+            ],
+            "fr": [
+                "Écoute attentivement. Quel mot as-tu entendu ?",
+                "Écoute encore et identifie le mot clé.",
+                "Quel mot cible apparaît dans l’audio ?",
+            ],
+            "ar": [
+                "استمع جيدًا. ما الكلمة التي سمعتها؟",
+                "استمع مرة أخرى وحدد الكلمة المفتاحية.",
+                "ما الكلمة المستهدفة في المقطع الصوتي؟",
+            ],
+        }
+        replay["prompt"] = templates.get(language, templates["en"])[variant]
+    elif skill == "writing":
+        templates = {
+            "en": [
+                "Translate into the target language:\n{surface}",
+                "Write the target-language translation of:\n{surface}",
+                "Translate this sentence naturally:\n{surface}",
+            ],
+            "fr": [
+                "Traduis dans la langue cible :\n{surface}",
+                "Écris la traduction dans la langue cible de :\n{surface}",
+                "Traduis naturellement cette phrase :\n{surface}",
+            ],
+            "ar": [
+                "ترجم إلى اللغة المستهدفة:\n{surface}",
+                "اكتب ترجمة الجملة باللغة المستهدفة:\n{surface}",
+                "ترجم هذه الجملة ترجمة طبيعية:\n{surface}",
+            ],
+        }
+        surface = prompt.split("\n", 1)[1].strip() if "\n" in prompt else prompt
+        replay["prompt"] = templates.get(language, templates["en"])[variant].format(surface=surface)
+    elif skill == "speaking":
+        word = str(replay.get("word", "")).strip()
+        if not word:
+            word = prompt.split("\n", 1)[-1].strip() if prompt else topic
+        templates = {
+            "en": [
+                f"In this situation, which sentence best uses '{word}'?",
+                f"Choose the natural sentence for the context of '{word}'.",
+                f"Which response fits the situation and uses '{word}' naturally?",
+            ],
+            "fr": [
+                f"Dans cette situation, quelle phrase utilise le mieux « {word} » ?",
+                f"Choisis la phrase naturelle dans le contexte de « {word} »." ,
+                f"Quelle réponse convient à la situation et utilise « {word} » naturellement ?",
+            ],
+            "ar": [
+                f"في هذا الموقف، أي جملة تستخدم «{word}» بشكل أفضل؟",
+                f"اختر الجملة الطبيعية في سياق «{word}»." ,
+                f"أي رد يناسب الموقف ويستخدم «{word}» بشكل طبيعي؟",
+            ],
+        }
+        replay["prompt"] = templates.get(language, templates["en"])[variant]
+
+    replay["variant"] = f"surface-{variant + 1}"
+    return replay
+
+
 def _apply_smart_review(
     questions: list[dict],
     mistakes: list[dict],
@@ -1560,6 +1678,8 @@ def _apply_smart_review(
         replay["review"] = True
         replay["target_language"] = target_language
         replay["cefr_level"] = cefr_level
+        replay["language"] = str(mistake.get("language", "en"))
+        replay = _apply_skill_review_variant(replay, int(mistake.get("variant_seed", 0)))
         # Review metadata is server-only; the public projection below omits
         # the authoritative answer and review bookkeeping.
         replay.pop("review_key", None)
@@ -1570,6 +1690,8 @@ def _apply_smart_review(
         replay.pop("variant_seed", None)
         replay.pop("review_due_at", None)
         replay.pop("source_game_id", None)
+        replay.pop("variant", None)
+        replay.pop("language", None)
         if replay.get("input_mode", "choice") == "choice":
             # Rebuild distractors from fresh questions while preserving the
             # authoritative answer from the prior mistake.
