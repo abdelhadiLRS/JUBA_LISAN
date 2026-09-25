@@ -19,6 +19,7 @@ import WhatsNew from '@/components/whats-new/WhatsNew'
 import { PageLoading } from '@/components/ui/page-loading'
 import { SubscriptionPlanButtons } from '@/components/billing/SubscriptionPlanButtons'
 import { DashboardAnnouncement } from '@/components/dashboard/DashboardAnnouncement'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 interface TodayLessonItem {
   id: number | null
@@ -301,6 +302,10 @@ export default function DashboardPage() {
                 )
               })}
             </nav>
+
+            <div className="hidden items-center gap-2 sm:flex">
+              <LanguageSwitcher />
+            </div>
 
             <div className="hidden items-center gap-3 sm:flex">
               <div className="text-right">
