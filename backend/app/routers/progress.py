@@ -35,13 +35,24 @@ router = APIRouter(prefix="/api/progress", tags=["progress"], dependencies=[Depe
 GAME_SKILL_MAP = {
     "math": "math",
     "words": "vocabulary",
+    "quick_choice": "vocabulary",
+    "listen_choose": "listening",
+    "spelling": "writing",
     "sequence": "logic",
     "memory": "memory",
     "matching": "vocabulary",
     "ordering": "ordering",
+    "sentence_builder": "grammar",
 }
 
-DAILY_GAME_IDS = ("math", "words", "sequence", "memory", "matching", "ordering")
+DAILY_GAME_IDS = (
+    "matching",
+    "quick_choice",
+    "sentence_builder",
+    "listen_choose",
+    "spelling",
+    "memory",
+)
 
 
 def _daily_game_id(day: date) -> str:
@@ -101,14 +112,34 @@ def _server_interactive_challenge(game_id: str, language: str, difficulty: int) 
         rng.shuffle(left)
         rng.shuffle(right)
         return {"type": "matching", "left": left, "right": right}, {"pairs": pairs, "pair_count": len(left)}
-    if game_id == "ordering":
-        source = {
-            "ar": ["الأول", "الثاني", "الثالث", "الرابع", "الخامس"],
-            "fr": ["un", "deux", "trois", "quatre", "cinq"],
-            "en": ["one", "two", "three", "four", "five"],
-        }[language]
-        count = {1: 3, 2: 4, 3: 5}[difficulty]
-        items = [{"id": str(uuid4()), "label": label} for label in source[:count]]
+    if game_id in {"ordering", "sentence_builder"}:
+        if game_id == "sentence_builder":
+            sentences = {
+                "ar": {
+                    1: "أنا أحب تعلم اللغات",
+                    2: "هي تقرأ كتابا جديدا كل يوم",
+                    3: "نحن نمارس اللغة لأننا نريد التحدث بطلاقة",
+                },
+                "fr": {
+                    1: "J'aime apprendre les langues",
+                    2: "Elle lit un nouveau livre chaque jour",
+                    3: "Nous pratiquons la langue pour parler couramment",
+                },
+                "en": {
+                    1: "I love learning languages",
+                    2: "She reads a new book every day",
+                    3: "We practice the language to speak fluently",
+                },
+            }[language][difficulty]
+            source = sentences.split()
+        else:
+            source = {
+                "ar": ["الأول", "الثاني", "الثالث", "الرابع", "الخامس"],
+                "fr": ["un", "deux", "trois", "quatre", "cinq"],
+                "en": ["one", "two", "three", "four", "five"],
+            }[language]
+            source = source[: {1: 3, 2: 4, 3: 5}[difficulty]]
+        items = [{"id": str(uuid4()), "label": label} for label in source]
         shuffled = list(items)
         rng.shuffle(shuffled)
         return {"type": "ordering", "items": shuffled}, {"target": [item["id"] for item in items]}
@@ -500,6 +531,15 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                 for w, d in fallback
             ]
 
+    if game_id in {"quick_choice", "listen_choose", "spelling"}:
+        level = cast(CEFRLevel, {1: "A1", 2: "A2", 3: "B1"}[difficulty])
+        vocab_sets = get_vocabulary_by_level(level, target_language)
+        entries = [word for vocab_set in vocab_sets for word in vocab_set.words]
+        rng.shuffle(entries)
+        word_entries = entries[:5]
+        if len(word_entries) < 5:
+            raise HTTPException(status_code=503, detail="Not enough vocabulary content for this game")
+
     for index in range(5):
         question_id = str(uuid4())
         if game_id == "words":
@@ -534,6 +574,94 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                 "skill": "vocabulary",
                 "difficulty": difficulty,
                 "topic": "vocabulary",
+                "input_mode": "choice",
+            })
+            continue
+        if game_id == "quick_choice":
+            assert word_entries is not None
+            entry = word_entries[index]
+            correct = entry.word.strip()
+            distractors = [item.word.strip() for item in word_entries if item.word.strip() != correct]
+            rng.shuffle(distractors)
+            choices = [correct, *distractors[:3]]
+            rng.shuffle(choices)
+            prompt = (
+                f"Quick! Which word matches this definition?\n{entry.definition.strip()}"
+                if language == "en"
+                else (f"Vite ! Quel mot correspond à cette définition ?\n{entry.definition.strip()}"
+                      if language == "fr"
+                      else f"بسرعة! ما الكلمة التي تطابق هذا التعريف؟\n{entry.definition.strip()}")
+            )
+            questions.append({
+                "id": question_id,
+                "prompt": prompt,
+                "choices": choices,
+                "answer": correct,
+                "hint": hints[language],
+                "skill": "vocabulary",
+                "difficulty": difficulty,
+                "topic": "quick-choice",
+                "input_mode": "choice",
+            })
+            continue
+        if game_id == "listen_choose":
+            assert word_entries is not None
+            entry = word_entries[index]
+            correct = entry.word.strip()
+            distractors = [item.word.strip() for item in word_entries if item.word.strip() != correct]
+            rng.shuffle(distractors)
+            choices = [correct, *distractors[:3]]
+            rng.shuffle(choices)
+            prompt = (
+                "Listen, then choose the word you heard."
+                if language == "en"
+                else ("Écoute, puis choisis le mot entendu."
+                      if language == "fr" else "استمع ثم اختر الكلمة التي سمعتها.")
+            )
+            questions.append({
+                "id": question_id,
+                "prompt": prompt,
+                "choices": choices,
+                "answer": correct,
+                "hint": (
+                    "Play the audio again if needed."
+                    if language == "en"
+                    else ("Relance l'audio si nécessaire."
+                          if language == "fr" else "أعد تشغيل الصوت إذا احتجت.")
+                ),
+                "skill": "listening",
+                "difficulty": difficulty,
+                "topic": "listen-choose",
+                "input_mode": "choice",
+                "audio_text": correct,
+                "audio_language": target_language,
+            })
+            continue
+        if game_id == "spelling":
+            assert word_entries is not None
+            entry = word_entries[index]
+            prompt = (
+                f"Type the word that means:\n{entry.definition.strip()}"
+                if language == "en"
+                else (f"Écris le mot qui signifie :\n{entry.definition.strip()}"
+                      if language == "fr"
+                      else f"اكتب الكلمة التي تعني:\n{entry.definition.strip()}")
+            )
+            questions.append({
+                "id": question_id,
+                "prompt": prompt,
+                "choices": [],
+                "answer": entry.word.strip(),
+                "hint": (
+                    f"Target word: {entry.word.strip()}"
+                    if language == "en"
+                    else (f"Mot cible : {entry.word.strip()}"
+                          if language == "fr" else f"الكلمة المستهدفة: {entry.word.strip()}")
+                ),
+                "skill": "writing",
+                "difficulty": difficulty,
+                "topic": "spelling",
+                "input_mode": "text",
             })
             continue
         if game_id == "math":
@@ -632,9 +760,12 @@ async def start_game_session(
     session_id = str(uuid4())
     now = datetime.now(UTC).replace(tzinfo=None)
     expires_at = now + timedelta(minutes=15)
-    if data.game_id in {"memory", "matching", "ordering"}:
+    effective_game_id = data.game_id
+    if data.game_id == "word_match":
+        effective_game_id = "matching"
+    if effective_game_id in {"memory", "matching", "ordering", "sentence_builder"}:
         interaction_public, interaction_solution = _server_interactive_challenge(
-            data.game_id, data.language, data.difficulty
+            effective_game_id, data.language, data.difficulty
         )
         questions = [{
             "id": str(uuid4()),
@@ -647,13 +778,13 @@ async def start_game_session(
             "interaction": {"public": interaction_public, "solution": interaction_solution},
         }]
     else:
-        questions = _server_game_questions(data.game_id, data.language, data.difficulty, plan.target_language)
-    daily_challenge_date = now.date().isoformat() if data.game_id == _daily_game_id(now.date()) else ""
+        questions = _server_game_questions(effective_game_id, data.language, data.difficulty, plan.target_language)
+    daily_challenge_date = now.date().isoformat() if effective_game_id == _daily_game_id(now.date()) else ""
     session = GameSession(
         id=session_id,
         user_id=current_user.id,
         study_plan_id=plan.id,
-        game_id=data.game_id,
+        game_id=effective_game_id,
         language=data.language,
         difficulty=data.difficulty,
         questions=questions,
@@ -665,7 +796,7 @@ async def start_game_session(
     db.add(session)
     await db.commit()
     public_questions = [
-        {key: item[key] for key in ("id", "prompt", "choices", "hint", "skill", "difficulty")}
+        {key: item[key] for key in ("id", "prompt", "choices", "hint", "skill", "difficulty", "input_mode", "audio_text", "audio_language")}
         for item in questions
     ]
     return GameSessionResponse(
@@ -676,7 +807,7 @@ async def start_game_session(
         daily_challenge=bool(daily_challenge_date),
         daily_challenge_date=daily_challenge_date,
         interaction=questions[0].get("interaction", {}).get("public")
-        if data.game_id in {"memory", "matching", "ordering"} else None,
+        if effective_game_id in {"memory", "matching", "ordering", "sentence_builder"} else None,
     )
 
 
@@ -716,7 +847,7 @@ async def complete_game_session(
         if session.daily_challenge_date != today.isoformat():
             raise HTTPException(status_code=422, detail="session is not today's daily challenge")
 
-    if session.game_id in {"memory", "matching", "ordering"}:
+    if session.game_id in {"memory", "matching", "ordering", "sentence_builder"}:
         if data.answers:
             raise HTTPException(
                 status_code=422,
