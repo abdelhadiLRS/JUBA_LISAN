@@ -1081,6 +1081,8 @@ async def _get_recent_game_mistakes(
                 replay = dict(question)
                 replay["review_key"] = key
                 replay["review_count"] = int(item.get("review_count", 0))
+                replay["review_due_at"] = due_at.isoformat()
+                replay["source_game_id"] = event.game_id
                 candidates.append((due_at, replay))
                 seen.add(key)
 
@@ -1174,6 +1176,18 @@ async def get_smart_review(
         "due_count": len(due_items),
         "skills": skill_counts,
         "recommended_game": game_for_skill.get(recommended_skill) if recommended_skill else None,
+        "items": [
+            {
+                "review_key": str(item.get("review_key", "")),
+                "skill": str(item.get("skill", "")),
+                "topic": str(item.get("topic", "")),
+                "prompt": str(item.get("prompt", "")),
+                "review_count": int(item.get("review_count", 0)),
+                "due_at": str(item.get("review_due_at", "")),
+                "source_game_id": str(item.get("source_game_id", "")),
+            }
+            for item in due_items[:20]
+        ],
     }
 
 
@@ -1199,6 +1213,8 @@ async def start_game_session(
     effective_difficulty, adaptive_mode = await _get_adaptive_game_difficulty(
         db, current_user.id, plan.id, effective_game_id, data.difficulty
     )
+    if data.review:
+        adaptive_mode = "review"
     if effective_game_id in {"memory", "matching", "ordering", "sentence_builder"}:
         interaction_public, interaction_solution = _server_interactive_challenge(
             effective_game_id,
@@ -1225,7 +1241,7 @@ async def start_game_session(
             plan.target_language,
             cast(CEFRLevel, plan.cefr_level),
         )
-    if adaptive_mode == "review" and effective_game_id not in {"memory", "matching", "ordering", "sentence_builder"}:
+    if (adaptive_mode == "review" or data.review) and effective_game_id not in {"memory", "matching", "ordering", "sentence_builder"}:
         mistakes = await _get_recent_game_mistakes(
             db,
             current_user.id,
