@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Check, ChevronDown, Languages } from 'lucide-react'
 import type { Locale } from '@/lib/locales'
@@ -21,6 +21,7 @@ const LOCALES: Array<{ code: Locale; label: string; native: string }> = [
 
 export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false)
+  const [pendingLocale, setPendingLocale] = useState<{ locale: Locale; path: string } | null>(null)
   const pathname = usePathname()
 
   // Landing has its own full region/language control in the header.
@@ -33,13 +34,17 @@ export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
     )
   }, [pathname])
 
+  useEffect(() => {
+    if (!pendingLocale) return
+    document.cookie = `NEXT_LOCALE=${pendingLocale.locale}; Path=/; Max-Age=31536000; SameSite=Lax`
+    window.location.assign(pendingLocale.path)
+  }, [pendingLocale])
+
   function selectLocale(next: Locale) {
     if (next === locale) {
       setOpen(false)
       return
     }
-
-    document.cookie = `NEXT_LOCALE=${next}; Path=/; Max-Age=31536000; SameSite=Lax`
 
     const segments = pathname.split('/').filter(Boolean)
     const hasLocalePrefix =
@@ -48,7 +53,10 @@ export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
       ? `/${segments.slice(1).join('/')}`
       : pathname
 
-    window.location.assign(`/${next}${cleanPath === '/' ? '' : cleanPath}`)
+    setPendingLocale({
+      locale: next,
+      path: `/${next}${cleanPath === '/' ? '' : cleanPath}`,
+    })
   }
 
   if (isLandingRoute) return null
