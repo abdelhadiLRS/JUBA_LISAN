@@ -5,12 +5,14 @@ import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import type { Locale } from '@/lib/locales'
-import { ArrowRight, BookOpen, Headphones, MessageCircle, Sparkles, Volume2 } from 'lucide-react'
+import { ArrowRight, BookOpen, Headphones, MessageCircle, Sparkles } from 'lucide-react'
 import PricingSection from '@/components/billing/PricingSection'
 import { LandingFAQ } from '@/components/ui/landing-faq'
 import { LandingNav } from '@/components/ui/landing-nav'
 import { LanguageBubbles } from '@/components/LanguageBubbles'
 import { LandingFooter } from '@/components/landing/LandingFooter'
+import { LandingAiTutorShowcase } from '@/components/landing/LandingAiTutorShowcase'
+import { LandingGamesShowcase } from '@/components/landing/LandingGamesShowcase'
 import type { ReviewPublic } from '@/types/api'
 
 export const metadata: Metadata = {
@@ -255,6 +257,51 @@ export default async function Home() {
 @media(max-width:900px){.juba-reference-page .juba-ref-section{padding:78px 18px}.juba-reference-page .juba-ref-review-grid{gap:18px}.juba-reference-page .juba-ref-ai-section{padding-top:85px;padding-bottom:85px}}
 @media(max-width:560px){.juba-reference-page .juba-ref-section{padding:64px 14px}.juba-reference-page .juba-ref-section-heading{margin-bottom:30px}.juba-reference-page .juba-ref-pillar{padding:21px;min-height:260px}.juba-reference-page .juba-ref-review-card{padding:19px}.juba-reference-page .juba-ref-cta-device{max-width:78%;height:310px}.juba-reference-page .juba-ref-hero-actions{gap:14px}.juba-reference-page .juba-ref-button{max-width:100%;white-space:normal}}
 @media(prefers-reduced-motion:reduce){.juba-reference-page *, .juba-reference-page *:before,.juba-reference-page *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+.juba-reference-page .juba-games-showcase{padding:110px 22px;background:#fffdf7}
+.juba-reference-page .juba-games-heading{width:min(760px,100%);margin:0 auto 44px;text-align:center}
+.juba-reference-page .juba-games-heading h2{margin:17px 0 13px;font-size:clamp(2.4rem,5vw,4.8rem);line-height:.9;letter-spacing:-.075em;font-weight:950;color:#183022}
+.juba-reference-page .juba-games-heading p{margin:0;color:#68766d;font-size:14px;line-height:1.8}
+.juba-reference-page .juba-games-grid{width:min(1120px,100%);margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.juba-reference-page .juba-games-tabs{width:min(1120px,100%);margin:0 auto 18px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.juba-reference-page .juba-games-tab{border:2px solid #183022;border-radius:999px;background:#fff;padding:9px 14px;color:#68766d;font-size:10px;font-weight:900;transition:transform .16s,background .16s,color .16s,box-shadow .16s}
+.juba-reference-page .juba-games-tab:hover{transform:translateY(-2px);color:#183022}
+.juba-reference-page .juba-games-tab.is-active{background:#3d7b27;color:#fff;box-shadow:3px 3px 0 #183022}
+.juba-reference-page .juba-game-stage{width:min(1120px,100%);margin:0 auto;display:grid;grid-template-columns:1.25fr .75fr;align-items:center;gap:28px;padding:18px;border:2px solid #183022;border-radius:30px;background:#eef7e4;box-shadow:6px 7px 0 #183022}
+.juba-reference-page .juba-game-stage-image{padding:10px;border:2px solid #183022;border-radius:24px;background:#fff;overflow:hidden}
+.juba-reference-page .juba-game-stage-image img{display:block;width:100%;height:auto;border-radius:16px}
+.juba-reference-page .juba-game-stage-copy{padding:24px}
+.juba-reference-page .juba-game-stage-index{display:inline-flex;border:1px solid #d9e5d7;border-radius:999px;background:#fff;padding:7px 10px;color:#39751d;font-size:9px;font-weight:900}
+.juba-reference-page .juba-game-stage-copy h3{margin:18px 0 8px;color:#183022;font-size:clamp(1.8rem,3vw,3rem);font-weight:950;letter-spacing:-.06em}
+.juba-reference-page .juba-game-stage-copy p{margin:0 0 22px;color:#68766d;font-size:13px;line-height:1.7}
+.juba-reference-page .juba-game-stage-copy .juba-ref-button{display:inline-flex}
+@media(max-width:900px){.juba-reference-page .juba-game-stage{grid-template-columns:1fr}.juba-reference-page .juba-game-stage-copy{padding:14px 8px 8px}}
+.juba-reference-page .juba-game-card{min-width:0;border:2px solid #183022;border-radius:26px;background:#fff;overflow:hidden;box-shadow:5px 6px 0 #183022;transition:transform .18s ease,box-shadow .18s ease}
+.juba-reference-page .juba-game-card:hover{transform:translateY(-5px) rotate(-.4deg);box-shadow:8px 9px 0 #183022}
+.juba-reference-page .juba-game-image-wrap{padding:10px;background:#f3f7ee}
+.juba-reference-page .juba-game-image-wrap img{display:block;width:100%;height:auto;border-radius:18px}
+.juba-reference-page .juba-game-card-copy{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 16px}
+.juba-reference-page .juba-game-card-copy strong{font-size:12px;color:#183022}
+.juba-reference-page .juba-game-card-copy span{display:inline-flex;align-items:center;gap:4px;color:#39751d;font-size:10px;font-weight:900}
+.juba-reference-page .juba-game-card-copy svg{width:13px;height:13px}
+.juba-reference-page .juba-ai-showcase{padding:120px max(22px,calc((100% - 1160px)/2));display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:75px;background:#f2edff}
+.juba-reference-page .juba-ai-showcase-art{position:relative;min-height:470px;border:2px solid #183022;border-radius:36px 58px 45px 55px;background:#fff;box-shadow:12px 13px 0 #183022;overflow:hidden}
+.juba-reference-page .juba-ai-showcase-image{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:36px;filter:drop-shadow(0 14px 0 rgba(24,48,34,.09));animation:juba-landing-float 7s ease-in-out infinite}
+.juba-reference-page .juba-ai-chat-bubble{position:absolute;z-index:4;max-width:42%;padding:11px 14px;border:2px solid #183022;border-radius:16px;background:#fff;font-size:11px;line-height:1.45;font-weight:800;box-shadow:4px 4px 0 #183022}
+.juba-reference-page .juba-ai-chat-user{left:6%;top:14%;background:#fff0b7}
+.juba-reference-page .juba-ai-chat-tutor{right:6%;bottom:18%;background:#dff5fa}
+.juba-reference-page .juba-ai-wave{position:absolute;left:50%;bottom:28px;z-index:5;display:flex;align-items:center;gap:5px;transform:translateX(-50%)}
+.juba-reference-page .juba-ai-wave i{display:block;width:5px;height:15px;border-radius:999px;background:#3d7b27;transform-origin:center;animation:none}
+.juba-reference-page .juba-ai-wave i.is-playing{animation:juba-ai-wave 720ms ease-in-out infinite alternate;animation-delay:var(--wave-delay)}
+@keyframes juba-ai-wave{from{transform:scaleY(.45)}to{transform:scaleY(1.6)}}
+.juba-reference-page .juba-ai-play{position:absolute;right:22px;bottom:20px;z-index:6;width:42px;height:42px;display:grid;place-items:center;border:2px solid #183022;border-radius:50%;background:#3d7b27;color:#fff;box-shadow:3px 3px 0 #183022}
+.juba-reference-page .juba-ai-play svg{width:16px;height:16px}
+.juba-reference-page .juba-ai-live-pill{position:absolute;left:22px;bottom:20px;z-index:6;display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border:1px solid #d9e5d7;border-radius:999px;background:rgba(255,255,255,.94);font-size:9px;font-weight:900;color:#275d19}
+.juba-reference-page .juba-ai-live-pill svg{width:13px;height:13px}
+.juba-reference-page .juba-ai-showcase-copy h2{margin:17px 0 14px;font-size:clamp(2.7rem,5.5vw,5.2rem);line-height:.9;letter-spacing:-.08em;font-weight:950;color:#183022}
+.juba-reference-page .juba-ai-showcase-copy p{max-width:510px;margin-bottom:26px;color:#68766d;font-size:14px;line-height:1.8}
+.juba-reference-page .juba-ai-showcase-copy .juba-ref-button{display:inline-flex}
+@media(max-width:900px){.juba-reference-page .juba-games-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.juba-reference-page .juba-ai-showcase{grid-template-columns:1fr;gap:40px;padding-top:85px;padding-bottom:85px}}
+@media(max-width:560px){.juba-reference-page .juba-games-showcase{padding:76px 14px}.juba-reference-page .juba-games-grid{grid-template-columns:1fr}.juba-reference-page .juba-ai-showcase{padding:75px 16px}.juba-reference-page .juba-ai-showcase-art{min-height:350px}.juba-reference-page .juba-ai-showcase-image{padding:24px}.juba-reference-page .juba-ai-chat-bubble{max-width:48%;font-size:9px}.juba-reference-page .juba-ai-showcase-copy h2{font-size:clamp(2rem,9vw,3rem);line-height:1.05}}
 ` }} />
 
       <Script
@@ -349,6 +396,18 @@ export default async function Home() {
         </div>
       </section>
 
+      <LandingGamesShowcase
+        dir={locale === 'ar' ? 'rtl' : 'ltr'}
+        eyebrow={t('featureSectionLabel')}
+        title={t('bentoTitle')}
+        description={t('bentoSubtitle')}
+        matchingLabel={t('feature6Title')}
+        memoryLabel={t('feature8Title')}
+        orderingLabel={t('feature5Title')}
+        sentenceBuilderLabel={t('feature2Title')}
+        openLabel={t('openInJuba')}
+      />
+
       {/* LANGUAGE SECTION — uses the real supported-language component. */}
       <section id="languages" className="juba-ref-language-section">
         <div className="juba-ref-language-copy">
@@ -372,27 +431,15 @@ export default async function Home() {
       </section>
 
       {/* AI / VOICE STORY — one visual block instead of the old dashboard-heavy landing. */}
-      <section id="demo" className="juba-ref-ai-section">
-        <div className="juba-ref-ai-art">
-          <Image
-            src="/landing/juba-ai-tutor.svg"
-            alt={t('flowAiTitle')}
-            width={760}
-            height={560}
-            className="juba-landing-real-image"
-          />
-        </div>
-        <div className="juba-ref-ai-copy">
-          <span className="juba-ref-kicker">{t('flowAiLabel')}</span>
-          <h2>{t('flowAiTitle')}</h2>
-          <p>{t('flowAiDescription')}</p>
-          <div className="juba-ref-ai-points">
-            <span><Volume2 /> {t('proofVoice')}</span>
-            <span><Sparkles /> {t('proofTutor')}</span>
-          </div>
-          <Link href="/conversation" className="juba-ref-button">{t('ctaStart')} <ArrowRight className="h-4 w-4" /></Link>
-        </div>
-      </section>
+      <LandingAiTutorShowcase
+        dir={locale === 'ar' ? 'rtl' : 'ltr'}
+        imageAlt={t('flowAiTitle')}
+        userMessage={t('showcaseUserMsg')}
+        aiMessage={t('showcaseAiMsg')}
+        activeLabel={t('showcaseMicActive')}
+        speakingLabel={t('showcaseSpeaking')}
+        openLabel={t('openAiTutor')}
+      />
 
       {/* REAL PUBLIC REVIEWS ONLY. */}
       {reviews.length > 0 && (
