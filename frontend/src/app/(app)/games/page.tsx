@@ -39,7 +39,7 @@ const copy = {
     spellingDesc: 'اكتب الكلمة المطلوبة من التلميح.', memoryDesc: 'اكشف البطاقات وطابق الأزواج الحقيقية.',
     start: 'ابدأ اللعبة', next: 'السؤال التالي', correct: 'إجابة صحيحة!', wrong: 'ليست صحيحة',
     hint: 'تلميح', back: 'الألعاب', score: 'نتيجة الجولة', done: 'أحسنت! أكملت الجولة.', choose: 'اختر الإجابة الصحيحة',
-    reset: 'إعادة التقدم', lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائياتك', gamesPlayed: 'الألعاب',
+lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائياتك', gamesPlayed: 'الألعاب',
     questions: 'الأسئلة', accuracy: 'الدقة', best: 'أفضل نتيجة', badges: 'الإنجازات', unlocked: 'مفتوح', newBadge: 'إنجاز جديد!', answered: 'تم تسجيل إجابتك.',
   },
   fr: {
@@ -51,7 +51,7 @@ const copy = {
     sentenceBuilderDesc: 'Remets les mots dans le bon ordre.', listenChooseDesc: 'Écoute le mot puis choisis-le.',
     spellingDesc: 'Écris le mot demandé à partir de l’indice.', memoryDesc: 'Retourne les cartes et forme les vraies paires.', start: 'Commencer', next: 'Question suivante',
     correct: 'Bonne réponse !', wrong: 'Pas encore', hint: 'Indice', back: 'Jeux', score: 'Score de la partie', done: 'Bravo ! Partie terminée.',
-    choose: 'Choisis la bonne réponse', reset: 'Réinitialiser', lang: 'Langue', xp: 'XP', skills: 'Compétences', stats: 'Tes statistiques',
+    choose: 'Choisis la bonne réponse', lang: 'Langue', xp: 'XP', skills: 'Compétences', stats: 'Tes statistiques',
     gamesPlayed: 'Parties', questions: 'Questions', accuracy: 'Précision', best: 'Meilleur score', badges: 'Succès', unlocked: 'débloqué', newBadge: 'Nouveau succès !', answered: 'Réponse enregistrée.',
   },
   en: {
@@ -63,7 +63,7 @@ const copy = {
     sentenceBuilderDesc: 'Arrange the words to build a correct sentence.', listenChooseDesc: 'Listen to the word and choose it.',
     spellingDesc: 'Type the word requested by the clue.', memoryDesc: 'Reveal cards and match the real pairs.', start: 'Start game', next: 'Next question',
     correct: 'Correct!', wrong: 'Not quite', hint: 'Hint', back: 'Games', score: 'Round score', done: 'Great job! Round complete.',
-    choose: 'Choose the correct answer', reset: 'Reset progress', lang: 'Language', xp: 'XP', skills: 'Skills', stats: 'Your stats',
+    choose: 'Choose the correct answer', lang: 'Language', xp: 'XP', skills: 'Skills', stats: 'Your stats',
     gamesPlayed: 'Games', questions: 'Questions', accuracy: 'Accuracy', best: 'Best score', badges: 'Achievements', unlocked: 'unlocked', newBadge: 'New achievement!', answered: 'Answer recorded.',
   },
 } as const
@@ -86,7 +86,6 @@ export default function GamesPage() {
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
-    resetGameProgress,
   } = useProgressStore()
 
   const level = Math.floor(xp / 100) + 1
@@ -259,7 +258,6 @@ export default function GamesPage() {
   }
 
   function reset() {
-    resetGameProgress()
     setGame(null)
     setDailyMode(false)
     setDailyChallengeDate('')
@@ -310,7 +308,6 @@ export default function GamesPage() {
 
             <div className="section-heading">
               <h2>{t.games}</h2>
-              <button type="button" className="reset" onClick={reset}>{t.reset}</button>
             </div>
 
             <section className="game-grid">
