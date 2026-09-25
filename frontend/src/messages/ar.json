@@ -128,7 +128,9 @@
     "retry": "إعادة المحاولة",
     "or": "أو",
     "copy": "نسخ",
-    "copyPhrase": "نسخ العبارة"
+    "copyPhrase": "نسخ العبارة",
+    "close": "إغلاق",
+    "openMenu": "فتح القائمة"
   },
   "courses": {
     "heroEyebrow": "عالم تعلّمك",
