@@ -1,4 +1,5 @@
 import random
+from types import SimpleNamespace
 from datetime import UTC, date, datetime, timedelta
 from typing import Literal, cast
 from uuid import uuid4
@@ -3665,11 +3666,11 @@ async def get_mastery_center(
 
     def attempt_view(exercise: Exercise) -> list[dict]:
         return [
-            {
-                "content_id": content_id(exercise),
-                "variant": attempt.variant,
-                "score": attempt.score,
-            }
+            SimpleNamespace(
+                content_id=content_id(exercise),
+                variant=attempt.variant,
+                score=attempt.score,
+            )
             for attempt in attempts
             if attempt.exercise_id == exercise.id
         ]
