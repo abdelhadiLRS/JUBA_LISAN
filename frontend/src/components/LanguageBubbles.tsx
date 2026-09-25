@@ -237,7 +237,7 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
         </div>
 
         <div className="absolute inset-0 z-10">
-          <div className={(dir === 'rtl' ? 'absolute left-3' : 'absolute right-3') + ' top-20 z-20 hidden max-w-[230px] rounded-2xl border border-[var(--juba-app-line)] bg-white/95 p-3 shadow-sm lg:block">
+          <div className={(dir === 'rtl' ? 'absolute left-3' : 'absolute right-3') + ' top-20 z-20 hidden max-w-[230px] rounded-2xl border border-[var(--juba-app-line)] bg-white/95 p-3 shadow-sm lg:block'}>
             <p className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">{t('mapCoverage')}</p>
             <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">
               {t('mapCoverageDescription')}
