@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import type { ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
 
 const FAQ_KEYS = [
@@ -22,7 +23,7 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   const t = useTranslations('faq')
   const [open, setOpen] = useState<number | null>(null)
 
-  const strong = (chunks: React.ReactNode) => (
+  const strong = (chunks: ReactNode) => (
     <strong className="font-semibold text-[var(--juba-app-ink)]">{chunks}</strong>
   )
 
