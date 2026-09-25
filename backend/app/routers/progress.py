@@ -1651,31 +1651,56 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
         replay["prompt"] = templates.get(language, templates["en"])[variant]
 
     elif skill == "writing":
-        # Translation prompts are kept semantically stable. If the authored
-        # source has a note, surface it as a learner hint; otherwise rotate only
-        # the task framing so the answer remains the same exact curriculum item.
-        authored_note = str(replay.get("hint", "")).strip()
+        # Translation review should change the source sentence only when the
+        # curriculum contains another authored translation for the exact same
+        # target-language sentence. This avoids introducing unverified
+        # paraphrases while still giving the learner a genuinely new retrieval
+        # cue.
+        source_variants: list[str] = []
+        answer = str(replay.get("answer", "")).strip()
+        target_language = str(replay.get("target_language", "en-GB"))
+        if answer:
+            try:
+                topics = get_grammar_topics(target_language)
+                for grammar_topic in topics:
+                    if topic and str(grammar_topic.slug) != topic:
+                        continue
+                    for example in grammar_topic.examples:
+                        if (
+                            example.text.strip() == answer
+                            and example.translation
+                            and example.translation.strip()
+                        ):
+                            candidate = example.translation.strip()
+                            current_source = prompt.split("\\n", 1)[1].strip() if "\\n" in prompt else prompt
+                            if candidate != current_source and candidate not in source_variants:
+                                source_variants.append(candidate)
+            except (KeyError, TypeError, ValueError):
+                source_variants = []
+
+        if source_variants:
+            source = source_variants[max(0, int(seed)) % len(source_variants)]
+        else:
+            source = prompt.split("\\n", 1)[1].strip() if "\\n" in prompt else prompt
+
         templates = {
             "en": [
-                "Translate into the target language:\n{surface}",
-                "Write the target-language translation of:\n{surface}",
-                "Translate this sentence naturally:\n{surface}",
+                "Translate into the target language:\\n{surface}",
+                "Write the target-language translation of:\\n{surface}",
+                "Translate this sentence naturally:\\n{surface}",
             ],
             "fr": [
-                "Traduis dans la langue cible :\n{surface}",
-                "Écris la traduction dans la langue cible de :\n{surface}",
-                "Traduis naturellement cette phrase :\n{surface}",
+                "Traduis dans la langue cible :\\n{surface}",
+                "Écris la traduction dans la langue cible de :\\n{surface}",
+                "Traduis naturellement cette phrase :\\n{surface}",
             ],
             "ar": [
-                "ترجم إلى اللغة المستهدفة:\n{surface}",
-                "اكتب ترجمة الجملة باللغة المستهدفة:\n{surface}",
-                "ترجم هذه الجملة ترجمة طبيعية:\n{surface}",
+                "ترجم إلى اللغة المستهدفة:\\n{surface}",
+                "اكتب ترجمة الجملة باللغة المستهدفة:\\n{surface}",
+                "ترجم هذه الجملة ترجمة طبيعية:\\n{surface}",
             ],
         }
-        surface = prompt.split("\\n", 1)[1].strip() if "\\n" in prompt else prompt
-        replay["prompt"] = templates.get(language, templates["en"])[variant].format(surface=surface)
-        if authored_note:
-            replay["hint"] = authored_note
+        replay["prompt"] = templates.get(language, templates["en"])[variant].format(surface=source)
 
     elif skill == "speaking":
         # Use another authored example for the same lexical item when available.
