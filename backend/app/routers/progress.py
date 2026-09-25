@@ -1773,6 +1773,13 @@ async def start_game_session(
             item for item in interactive_review_items
             if str(item.get("mastery_state", "")) != "mastered"
         ]
+        round_slots = 1 if effective_game_id == "sentence_builder" else {1: 3, 2: 4, 3: 5}[effective_difficulty]
+        review_slots = _mastery_review_count(
+            interactive_review_items,
+            round_slots,
+            effective_difficulty,
+        )
+        interactive_review_items = interactive_review_items[:review_slots]
         interaction_public, interaction_solution = _server_interactive_challenge(
             effective_game_id,
             data.language,
@@ -1796,7 +1803,7 @@ async def start_game_session(
         cefr_level = cast(CEFRLevel, plan.cefr_level)
         preferred_topics = await _get_adaptive_review_topics(db, current_user.id, plan.id, GAME_SKILL_MAP.get(effective_game_id), plan.target_language, cefr_level)
         questions = _server_game_questions(effective_game_id, data.language, effective_difficulty, plan.target_language, cefr_level, preferred_topics)
-    if (adaptive_mode == "review" or data.review) and effective_game_id not in {"memory", "matching", "ordering", "sentence_builder", "review_mix"}:
+    if effective_game_id not in {"memory", "matching", "ordering", "sentence_builder", "review_mix"}:
         mistakes = await _get_recent_game_mistakes(
             db,
             current_user.id,
