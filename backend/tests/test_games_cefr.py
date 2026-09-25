@@ -1,5 +1,6 @@
 import pytest
 
+from app.data.vocabulary import get_vocabulary_by_level
 from app.routers.progress import (
     _apply_smart_review,
     _prioritize_curriculum_entries,
@@ -146,21 +147,8 @@ def test_interactive_game_accepts_topic_preferences(game_id):
 
 
 def test_interactive_review_prefers_exact_previous_item():
-    fresh_public, _ = _server_interactive_challenge(
-        "memory",
-        "en",
-        1,
-        "en-GB",
-        "A1",
-    )
-    cards = fresh_public["cards"]
-    left = next(card["label"] for card in cards if " " not in card["label"] and card["label"])
-    definition = next(
-        card["label"]
-        for card in cards
-        if card["pair_key"] == next(card["pair_key"] for card in cards if card["label"] == left)
-        and card["label"] != left
-    )
+    vocabulary = get_vocabulary_by_level("A1", "en-GB")
+    entry = vocabulary[0].words[0]
     reviewed_public, _ = _server_interactive_challenge(
         "memory",
         "en",
@@ -168,6 +156,6 @@ def test_interactive_review_prefers_exact_previous_item():
         "en-GB",
         "A1",
         None,
-        [{"word": left, "definition": definition}],
+        [{"word": entry.word, "definition": entry.definition}],
     )
-    assert any(card["label"] == left for card in reviewed_public["cards"])
+    assert any(card["label"] == entry.word for card in reviewed_public["cards"])
