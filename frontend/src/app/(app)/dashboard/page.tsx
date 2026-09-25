@@ -505,9 +505,9 @@ export default function DashboardPage() {
                 </div>
               </div>
             </aside>
-          </div>
+        </div>
 
-          {showPremiumBanner && (
+        {showPremiumBanner && (
             <div className="mx-4 mb-4 rounded-[28px] border border-[#ece8f8] bg-white p-5 shadow-sm sm:mx-6">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex gap-3">
@@ -534,15 +534,14 @@ export default function DashboardPage() {
             </div>
           )}
 
-          <footer className="flex flex-wrap items-center gap-2 border-t border-black/5 bg-[#f6f6f4] px-5 py-5 sm:px-7">
+        <footer className="flex flex-wrap items-center gap-2 border-t border-black/5 bg-[#f6f6f4] px-5 py-5 sm:px-7">
             <Link href="/plan" className="rounded-full bg-[#292c30] px-5 py-3 text-xs font-black text-white">{t('goToMyPlan')}</Link>
             {pendingCount > 0 && <Link href="/plan" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{pendingCount} {t('pendingLessons')} →</Link>}
             <Link href="/flashcards" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{tNav('flashcards')}</Link>
             <Link href="/chat" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{tNav('tutor')}</Link>
             <Link href="/assessment" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{tNav('assessment')}</Link>
-          </footer>
-        </div>
-      </main>
+        </footer>
+      </div>
     </>
   )
 
