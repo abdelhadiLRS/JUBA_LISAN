@@ -7,6 +7,7 @@ export interface TargetLanguage {
   fontClass: string
   usesWordSpacing: boolean
   romanization?: TargetLanguageRomanization
+  flagPath: string
 }
 
 export type TargetLanguageScript =
@@ -81,13 +82,20 @@ export const TARGET_LANGUAGE_CAPABILITIES: Record<
   'cs-CZ': LATIN_LANGUAGE_CAPABILITY,
 }
 
+const FLAG_PATHS: Record<string, string> = {
+  'en-US': '/flags/usa.jpg', 'en-GB': '/flags/uk.svg', 'es-ES': '/flags/spain.jpg',
+  'it-IT': '/flags/italy.jpg', 'pt-PT': '/flags/portugal.jpg', 'fr-FR': '/flags/france.jpg',
+  'de-DE': '/flags/germany.jpg', 'ja-JP': '/flags/japan.jpg', 'ko-KR': '/flags/south_korea.jpg',
+  'zh-CN': '/flags/china.jpg', ar: '/flags/ar.svg',
+}
+
 function withCapabilities(
   language: Omit<TargetLanguage, keyof TargetLanguageCapability>
 ): TargetLanguage {
   return {
     ...language,
-    ...(TARGET_LANGUAGE_CAPABILITIES[language.code] ??
-      LATIN_LANGUAGE_CAPABILITY),
+    ...(TARGET_LANGUAGE_CAPABILITIES[language.code] ?? LATIN_LANGUAGE_CAPABILITY),
+    flagPath: FLAG_PATHS[language.code] ?? '/flags/arab-league.svg',
   }
 }
 
