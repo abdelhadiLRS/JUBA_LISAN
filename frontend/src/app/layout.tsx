@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import { CookieBanner } from '@/components/CookieBanner'
 import { VisitorTranslator } from '@/components/VisitorTranslator'
+import { SiteLocaleSwitcher } from '@/components/SiteLocaleSwitcher'
 import Script from 'next/script'
 
 const themeScript = `(function(){try{var t='system';var s=localStorage.getItem('fl-theme');if(s){var p=JSON.parse(s);t=p&&p.state&&p.state.theme?p.state.theme:t}var l=t==='light'||(t==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);if(l){document.documentElement.setAttribute('data-theme','light')}else{document.documentElement.removeAttribute('data-theme')}}catch(e){}})();`
@@ -48,6 +49,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           <ThemeProvider>{children}</ThemeProvider>
           <CookieBanner />
           <VisitorTranslator />
+          <SiteLocaleSwitcher locale={locale as import('@/lib/locales').Locale} />
         </NextIntlClientProvider>
       </body>
     </html>
