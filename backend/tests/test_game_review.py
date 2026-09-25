@@ -353,6 +353,137 @@ def test_review_interval_progresses_with_review_count():
     assert progress_router._review_interval(99).total_seconds() == 7 * 24 * 60 * 60
 
 
+def test_review_stage_progresses_with_success_streak():
+    assert progress_router._review_stage(0) == "relearning"
+    assert progress_router._review_stage(1) == "short"
+    assert progress_router._review_stage(2) == "daily"
+    assert progress_router._review_stage(3) == "spaced"
+    assert progress_router._review_stage(4) == "long_term"
+
+
+@pytest.mark.asyncio
+async def test_smart_review_reappears_after_successful_spacing_interval(
+    db_session, test_user
+):
+    from datetime import UTC, datetime, timedelta
+
+    from app.models.game_progress_event import GameProgressEvent
+
+    user, _ = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        target_language="en-US",
+        cefr_level="A1",
+        goals=["vocabulary"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    question = {
+        "skill": "vocabulary",
+        "topic": "daily-life",
+        "prompt": "Choose the correct word",
+        "answer": "hello",
+        "input_mode": "choice",
+        "target_language": "en-US",
+        "cefr_level": "A1",
+    }
+    key = progress_router._review_key(question)
+    now = datetime.now(UTC).replace(tzinfo=None)
+    event = GameProgressEvent(
+        event_id="graduated-review-stage",
+        user_id=user.id,
+        study_plan_id=plan.id,
+        game_id="quick_choice",
+        questions_answered=1,
+        correct_answers=1,
+        round_score=25,
+        created_at=now - timedelta(hours=2),
+        mistakes=[{
+            "review_key": key,
+            "resolved": True,
+            "review_count": 1,
+            "review_streak": 1,
+            "next_review_at": (now - timedelta(minutes=1)).isoformat(),
+            "question": question,
+        }],
+    )
+    db_session.add(event)
+    await db_session.commit()
+
+    due = await progress_router._get_recent_game_mistakes(
+        db_session, user.id, plan.id, limit=10
+    )
+
+    assert len(due) == 1
+    assert due[0]["review_key"] == key
+    assert due[0]["review_streak"] == 1
+    assert due[0]["review_stage"] == "short"
+
+
+@pytest.mark.asyncio
+async def test_smart_review_keeps_future_successful_stage_out_of_due_queue(
+    db_session, test_user
+):
+    from datetime import UTC, datetime, timedelta
+
+    from app.models.game_progress_event import GameProgressEvent
+
+    user, _ = test_user
+    plan = await make_study_plan(
+        db_session,
+        user_id=user.id,
+        target_language="en-US",
+        cefr_level="A1",
+        goals=["vocabulary"],
+        duration_weeks=4,
+        days_per_week=4,
+        current_unit="A1-u1",
+        generated_plan={},
+        is_active=True,
+    )
+    question = {
+        "skill": "vocabulary",
+        "topic": "daily-life",
+        "prompt": "Choose the correct word",
+        "answer": "hello",
+        "input_mode": "choice",
+        "target_language": "en-US",
+        "cefr_level": "A1",
+    }
+    key = progress_router._review_key(question)
+    now = datetime.now(UTC).replace(tzinfo=None)
+    event = GameProgressEvent(
+        event_id="graduated-review-future",
+        user_id=user.id,
+        study_plan_id=plan.id,
+        game_id="quick_choice",
+        questions_answered=1,
+        correct_answers=1,
+        round_score=25,
+        created_at=now,
+        mistakes=[{
+            "review_key": key,
+            "resolved": True,
+            "review_count": 2,
+            "review_streak": 2,
+            "next_review_at": (now + timedelta(hours=1)).isoformat(),
+            "question": question,
+        }],
+    )
+    db_session.add(event)
+    await db_session.commit()
+
+    due = await progress_router._get_recent_game_mistakes(
+        db_session, user.id, plan.id, limit=10
+    )
+
+    assert due == []
+
+
 def test_review_key_is_stable_and_normalized():
     first = {
         "skill": " Grammar ",
