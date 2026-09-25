@@ -232,7 +232,7 @@ export default function GamesPage() {
     const labels: Record<string, string> = {
       relearning: lang === 'ar' ? 'إعادة تعلّم' : lang === 'fr' ? 'Réapprentissage' : 'Relearning',
       short: lang === 'ar' ? 'مراجعة قصيرة' : lang === 'fr' ? 'Intervalle court' : 'Short interval',
-      daily: lang === 'ar' ? 'مراجعة يومية' : lang === 'fr' ? 'Intervalle يومي' : 'Daily interval',
+      daily: lang === 'ar' ? 'مراجعة يومية' : lang === 'fr' ? 'Intervalle quotidien' : 'Daily interval',
       spaced: lang === 'ar' ? 'مراجعة متباعدة' : lang === 'fr' ? 'Révision espacée' : 'Spaced review',
       long_term: lang === 'ar' ? 'احتفاظ طويل' : lang === 'fr' ? 'Rétention longue' : 'Long-term retention',
     }
