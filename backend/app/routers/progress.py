@@ -39,6 +39,7 @@ GAME_SKILL_MAP = {
     "context_quest": "speaking",
     "listen_choose": "listening",
     "listening_detective": "listening",
+    "word_categories": "vocabulary",
     "spelling": "writing",
     "word_scramble": "vocabulary",
     "fill_blank": "grammar",
@@ -60,6 +61,7 @@ DAILY_GAME_IDS = (
     "memory",
     "context_quest",
     "listening_detective",
+    "word_categories",
 )
 
 
@@ -582,6 +584,54 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                 "skill": "vocabulary",
                 "difficulty": difficulty,
                 "topic": "vocabulary",
+                "input_mode": "choice",
+            })
+            continue
+        if game_id == "word_categories":
+            category_bank = {
+                "en": [
+                    ("apple", "Food", ["Food", "Transport", "Clothing", "Weather"]),
+                    ("bus", "Transport", ["Food", "Transport", "Clothing", "Weather"]),
+                    ("jacket", "Clothing", ["Food", "Transport", "Clothing", "Weather"]),
+                    ("rain", "Weather", ["Food", "Transport", "Clothing", "Weather"]),
+                    ("teacher", "People", ["People", "Places", "Objects", "Animals"]),
+                ],
+                "fr": [
+                    ("pomme", "Nourriture", ["Nourriture", "Transport", "Vêtements", "Météo"]),
+                    ("bus", "Transport", ["Nourriture", "Transport", "Vêtements", "Météo"]),
+                    ("veste", "Vêtements", ["Nourriture", "Transport", "Vêtements", "Météo"]),
+                    ("pluie", "Météo", ["Nourriture", "Transport", "Vêtements", "Météo"]),
+                    ("professeur", "Personnes", ["Personnes", "Lieux", "Objets", "Animaux"]),
+                ],
+                "ar": [
+                    ("تفاحة", "طعام", ["طعام", "مواصلات", "ملابس", "طقس"]),
+                    ("حافلة", "مواصلات", ["طعام", "مواصلات", "ملابس", "طقس"]),
+                    ("سترة", "ملابس", ["طعام", "مواصلات", "ملابس", "طقس"]),
+                    ("مطر", "طقس", ["طعام", "مواصلات", "ملابس", "طقس"]),
+                    ("معلّم", "أشخاص", ["أشخاص", "أماكن", "أشياء", "حيوانات"]),
+                ],
+            }[language]
+            word, answer, choices = category_bank[index]
+            rng.shuffle(choices)
+            questions.append({
+                "id": question_id,
+                "prompt": (
+                    f"Which category does '{word}' belong to?"
+                    if language == "en"
+                    else (f"À quelle catégorie appartient « {word} » ?"
+                          if language == "fr" else f"إلى أي فئة تنتمي كلمة «{word}»؟")
+                ),
+                "choices": choices,
+                "answer": answer,
+                "hint": (
+                    "Think about what the word represents."
+                    if language == "en"
+                    else ("Pense à ce que le mot représente."
+                          if language == "fr" else "فكّر في الشيء الذي تعبّر عنه الكلمة.")
+                ),
+                "skill": "vocabulary",
+                "difficulty": difficulty,
+                "topic": "semantic-categories",
                 "input_mode": "choice",
             })
             continue
