@@ -232,6 +232,14 @@ export default function GamesPage() {
     : lang === 'fr'
       ? 'Session multi-compétences'
       : 'Multi-skill session'
+  const masteryLabels: Record<string, { label: string; icon: string }> = {
+    new: { label: lang === 'ar' ? 'جديد' : lang === 'fr' ? 'Nouveau' : lang === 'es' ? 'Nuevo' : lang === 'de' ? 'Neu' : lang === 'it' ? 'Nuovo' : lang === 'pt' ? 'Novo' : lang === 'pl' ? 'Nowy' : lang === 'nl' ? 'Nieuw' : lang === 'ro' ? 'Nou' : lang === 'ru' ? 'Новое' : 'New', icon: '✨' },
+    learning: { label: lang === 'ar' ? 'قيد التعلّم' : lang === 'fr' ? 'En apprentissage' : lang === 'es' ? 'Aprendiendo' : lang === 'de' ? 'Lernt' : lang === 'it' ? 'In apprendimento' : lang === 'pt' ? 'A aprender' : lang === 'pl' ? 'W nauce' : lang === 'nl' ? 'In leren' : lang === 'ro' ? 'În învățare' : lang === 'ru' ? 'Изучается' : 'Learning', icon: '🌱' },
+    reviewing: { label: lang === 'ar' ? 'يحتاج مراجعة' : lang === 'fr' ? 'À réviser' : lang === 'es' ? 'Para repasar' : lang === 'de' ? 'Zu wiederholen' : lang === 'it' ? 'Da ripassare' : lang === 'pt' ? 'A rever' : lang === 'pl' ? 'Do powtórki' : lang === 'nl' ? 'Herhalen' : lang === 'ro' ? 'De revizuit' : lang === 'ru' ? 'На повторение' : 'Needs review', icon: '🔄' },
+    weak: { label: lang === 'ar' ? 'ضعيف' : lang === 'fr' ? 'À renforcer' : lang === 'es' ? 'Por reforzar' : lang === 'de' ? 'Zu stärken' : lang === 'it' ? 'Da rafforzare' : lang === 'pt' ? 'A reforçar' : lang === 'pl' ? 'Do wzmocnienia' : lang === 'nl' ? 'Versterken' : lang === 'ro' ? 'De consolidat' : lang === 'ru' ? 'Нужно укрепить' : 'Needs practice', icon: '🔥' },
+    mastered: { label: lang === 'ar' ? 'متقن' : lang === 'fr' ? 'Maîtrisé' : lang === 'es' ? 'Dominado' : lang === 'de' ? 'Gemeistert' : lang === 'it' ? 'Padroneggiato' : lang === 'pt' ? 'Dominado' : lang === 'pl' ? 'Opanowane' : lang === 'nl' ? 'Beheerst' : lang === 'ro' ? 'Stăpânit' : lang === 'ru' ? 'Освоено' : 'Mastered', icon: '🏆' },
+  }
+  const masteryLabel = (state: string) => masteryLabels[state] ?? masteryLabels.learning
 
   async function refreshSmartReview() {
     try {
@@ -572,7 +580,8 @@ export default function GamesPage() {
                           <span className={`smart-review-priority priority-${item.priority}`}>
                             {item.priority === 'high' ? '🔥' : item.priority === 'medium' ? '⚡' : '✓'} {item.priority}
                           </span>
-                          <span>{Math.round(item.mastery * 100)}% mastery</span>
+                          <span className={'mastery-state mastery-' + (item.mastery_state || 'learning')}>{masteryLabel(item.mastery_state || 'learning').icon} {masteryLabel(item.mastery_state || 'learning').label}</span>
+                          <span>{Math.round(item.mastery * 100)}% {lang === 'ar' ? 'إتقان' : lang === 'fr' ? 'maîtrise' : lang === 'es' ? 'dominio' : lang === 'de' ? 'Beherrschung' : lang === 'it' ? 'padronanza' : lang === 'pt' ? 'domínio' : lang === 'pl' ? 'opanowanie' : lang === 'nl' ? 'beheersing' : lang === 'ro' ? 'stăpânire' : lang === 'ru' ? 'освоение' : 'mastery'}</span>
                           <span>
                             {item.review_count > 0
                               ? (lang === 'ar' ? `مراجعة رقم ${item.review_count}` : lang === 'fr' ? `Révision n°${item.review_count}` : `Review #${item.review_count}`)
