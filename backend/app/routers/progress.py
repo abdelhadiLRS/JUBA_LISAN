@@ -77,6 +77,19 @@ def _daily_game_id(day: date) -> str:
     return DAILY_GAME_IDS[((day.weekday() + 1) % 7) % len(DAILY_GAME_IDS)]
 
 
+def _normalize_game_text(value: str) -> str:
+    """Normalize learner text without changing its linguistic meaning."""
+    normalized = " ".join(value.strip().casefold().split())
+    return normalized.strip(".,!?;:。！？；：،،"'«»“”()[]{}")
+
+
+def _game_answer_matches(submitted: str, expected: object) -> bool:
+    candidate = _normalize_game_text(submitted)
+    if isinstance(expected, (list, tuple, set)):
+        return any(candidate == _normalize_game_text(str(item)) for item in expected)
+    return candidate == _normalize_game_text(str(expected))
+
+
 
 def _server_interactive_challenge(
     game_id: str, language: str, difficulty: int, target_language: str = "en-GB", cefr_level: CEFRLevel = "A1"
@@ -1229,7 +1242,7 @@ async def complete_game_session(
             if question.get("input_mode", "choice") == "text":
                 if not submitted.choice.strip():
                     raise HTTPException(status_code=422, detail="Text answer cannot be empty")
-                if submitted.choice.strip().casefold() == str(question["answer"]).strip().casefold():
+                if _game_answer_matches(submitted.choice, question["answer"]):
                     correct_answers += 1
             else:
                 if submitted.choice == "__timeout__":
