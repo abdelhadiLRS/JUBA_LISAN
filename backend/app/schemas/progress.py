@@ -159,6 +159,7 @@ class GameSessionStart(BaseModel):
     game_id: str
     language: str = "en"
     difficulty: int = 1
+    review: bool = False
 
     @field_validator("game_id")
     @classmethod
