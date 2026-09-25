@@ -1862,6 +1862,30 @@ def _apply_skill_review_variant(question: dict, seed: int) -> dict:
     return replay
 
 
+def _review_adaptive_difficulty(requested_difficulty: int, review_count: int, mastery_score: float) -> int:
+    """Adapt one item immediately after repeated misses in the same review path."""
+    base = max(1, min(3, int(requested_difficulty)))
+    misses = max(0, int(review_count))
+    score = max(0.0, min(1.0, float(mastery_score)))
+    if misses >= 2 or score < 0.4:
+        return max(1, base - 1)
+    if misses == 0 and score >= 0.85:
+        return min(3, base + 1)
+    return base
+
+
+def _review_retry_stage(miss_count: int) -> str:
+    """Return the in-session retrieval stage after consecutive misses."""
+    misses = max(0, int(miss_count))
+    if misses >= 3:
+        return "guided_retrieval"
+    if misses == 2:
+        return "focused_retrieval"
+    if misses == 1:
+        return "retry"
+    return "initial"
+
+
 def _apply_smart_review(
     questions: list[dict],
     mistakes: list[dict],
@@ -1897,6 +1921,7 @@ def _apply_smart_review(
             str(mistake.get("mastery_state", "new")),
             int(mistake.get("review_streak", 0)),
         )
+        replay["retry_stage"] = _review_retry_stage(int(mistake.get("session_miss_count", 0)))
         # Apply the item's own mastery-derived difficulty. Review rounds may
         # contain several items at different mastery levels, so one global
         # difficulty would flatten the adaptation signal.
