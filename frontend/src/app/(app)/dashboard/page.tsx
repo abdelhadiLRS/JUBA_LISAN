@@ -265,26 +265,26 @@ export default function DashboardPage() {
     <>
       <OnboardingTour />
       <WhatsNew />
-      <main className="juba-dashboard mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-8 lg:px-10">
+      <main className="juba-dashboard mx-auto max-w-[1480px] px-4 py-5 sm:px-6 sm:py-8 lg:px-10">
         {/* Header */}
-        <div className="juba-dashboard-header mb-6 overflow-hidden rounded-[30px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-6 shadow-sm sm:p-8">
-          <p className="juba-dashboard-kicker text-[var(--juba-app-green-dark)] mb-2 font-sans text-xs font-black tracking-[.14em] uppercase">
+        <div className="juba-dashboard-header relative mb-6 overflow-hidden rounded-[30px] border border-emerald-900/10 bg-gradient-to-br from-[#123c32] via-[#1b5a47] to-[#28765b] p-6 text-white shadow-[0_24px_70px_-35px_rgba(18,60,50,.65)] sm:p-9">
+          <p className="juba-dashboard-kicker mb-3 font-sans text-xs font-black tracking-[.16em] text-emerald-100/80 uppercase">
             {t('welcomeBack')}
           </p>
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
-              <h1 className="text-[var(--juba-app-ink)] font-sans text-3xl font-black tracking-[-.045em] sm:text-4xl">
+              <h1 className="font-sans text-3xl font-black tracking-[-.045em] text-white sm:text-4xl">
                 {user?.displayName || user?.username}
               </h1>
               {activeLanguage && (
-                <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-sm">
+                <p className="mt-2 font-sans text-sm text-emerald-50/80">
                   {tTarget(activeLanguage.code)}
                   {cefrLevel ? ` (${cefrLevel})` : ''}
                 </p>
               )}
             </div>
             {hasPlan && totalDays > 0 && (
-              <p className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
+              <p className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
                 {t('dayProgress', {
                   current: currentDayDisplay,
                   total: totalDays,
@@ -297,9 +297,9 @@ export default function DashboardPage() {
         <DashboardAnnouncement />
 
         {/* Next step */}
-        <div className="juba-dashboard-next juba-card mb-7 overflow-hidden rounded-[28px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-6 shadow-sm sm:p-8">
+        <div className="juba-dashboard-next juba-card mb-7 overflow-hidden rounded-[28px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-6 shadow-[0_18px_55px_-38px_rgba(15,23,42,.35)] sm:p-8">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-            <p className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
+            <p className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
               {t('nextStep')}
             </p>
             {hasPlan && todayLessons.length > 0 && (
@@ -334,7 +334,7 @@ export default function DashboardPage() {
                 <h2 className="text-[var(--juba-app-ink)] font-sans text-xl font-black tracking-tight">
                   {t('levelTestCompleted')}
                 </h2>
-                <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-sm">
+                <p className="mt-2 font-sans text-sm text-emerald-50/80">
                   {t('levelTestScoreLine', {
                     score:
                       completion.score != null
@@ -381,7 +381,7 @@ export default function DashboardPage() {
                 <h2 className="text-[var(--juba-app-ink)] font-sans text-xl font-black tracking-tight">
                   {nextLesson.title}
                 </h2>
-                <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-sm">
+                <p className="mt-2 font-sans text-sm text-emerald-50/80">
                   {tPlan(`lessonTypes.${nextLesson.lessonType}`)} ·{' '}
                   {nextLesson.estimatedMinutes}min
                 </p>
@@ -399,7 +399,7 @@ export default function DashboardPage() {
                 <h2 className="text-[var(--juba-app-ink)] font-sans text-xl font-black tracking-tight">
                   {t('allCaughtUp')}
                 </h2>
-                <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-sm">
+                <p className="mt-2 font-sans text-sm text-emerald-50/80">
                   {pendingCount > 0
                     ? t('pendingStillAvailable', { count: pendingCount })
                     : t('noPendingToday')}
@@ -430,7 +430,7 @@ export default function DashboardPage() {
           ].map((stat) => {
             const StatIcon = stat.icon
             return (
-              <div key={stat.label} className="juba-dashboard-stat juba-card rounded-[24px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-5 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 sm:p-6">
+              <div key={stat.label} className="juba-dashboard-stat juba-card rounded-[24px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-5 shadow-[0_14px_40px_-30px_rgba(15,23,42,.4)] transition-all duration-200 hover:-translate-y-1 hover:shadow-lg sm:p-6">
                 <div className="mb-6 flex items-start justify-between gap-3">
                   <p className="text-[var(--juba-app-muted)] font-sans text-xs font-black tracking-[.12em] uppercase">
                     {stat.label}
@@ -454,11 +454,11 @@ export default function DashboardPage() {
 
         <div className="juba-dashboard-panels mb-7 grid gap-5 lg:grid-cols-2">
           {/* Plan progress */}
-          <div className="juba-dashboard-panel juba-card rounded-[26px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-6 shadow-sm sm:p-7">
+          <div className="juba-dashboard-panel juba-card rounded-[26px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] p-6 shadow-[0_14px_45px_-32px_rgba(15,23,42,.35)] sm:p-7">
             <div className="mb-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
-                <span className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
+                <span className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
                   {t('planProgress')}
                 </span>
               </div>
@@ -497,7 +497,7 @@ export default function DashboardPage() {
                 {vocabularyTotal > 0 && (
                   <div className="mt-4">
                     <div className="flex items-center justify-between gap-3">
-                      <p className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
+                      <p className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
                         {t('vocabularyProgress', {
                           level: vocabularyLevel ?? cefrLevel ?? '',
                         })}
@@ -506,7 +506,7 @@ export default function DashboardPage() {
                         {vocabularyProgressPct}%
                       </p>
                     </div>
-                    <p className="text-[var(--juba-app-muted)] mt-2 font-sans text-sm">
+                    <p className="mt-2 font-sans text-sm text-emerald-50/80">
                       {t('vocabularyWords', {
                         mastered: vocabularyMastered,
                         total: vocabularyTotal,
@@ -533,7 +533,7 @@ export default function DashboardPage() {
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
-                <span className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
+                <span className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
                   {t('today')}
                 </span>
               </div>
@@ -630,7 +630,7 @@ export default function DashboardPage() {
             <div className="mb-4">
               <div className="mb-2 flex items-center gap-2">
                 <span className="text-[var(--juba-app-muted)]">●</span>
-                <span className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
+                <span className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
                   {t('recentPerformance')}
                 </span>
               </div>
@@ -643,11 +643,11 @@ export default function DashboardPage() {
                 {skillEntries.map(({ skill, value }) => (
                   <div key={skill}>
                     <div className="mb-1 flex justify-between">
-                      <span className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
+                      <span className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
                         {tPlan(`lessonTypes.${skill}`)}
                       </span>
                       <div className="flex items-center gap-2">
-                        <span className="text-[var(--juba-app-muted)] font-sans text-xs font-semibold tracking-[.12em] uppercase">
+                        <span className="font-sans text-xs font-semibold tracking-[.12em] text-emerald-50/75 uppercase">
                           {getPerformanceLabel(value)}
                         </span>
                         <span className="text-[var(--juba-app-muted)] font-sans text-sm">
