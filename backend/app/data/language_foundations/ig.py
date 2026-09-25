@@ -1,58 +1,182 @@
 """Igbo foundation data for JUBA LISAN."""
-from app.data._types import CurriculumUnit, GrammarExample, GrammarTopic, VocabularyEntry, VocabularySet, PhrasebookCategory, PhrasebookEntry, AssessmentQuestion
+from app.data._types import AssessmentQuestion, CurriculumUnit, GrammarExample, GrammarTopic, PhrasebookCategory, PhrasebookEntry, VocabularyEntry, VocabularySet
 
-LEVELS=["A1","A2","B1","B2","C1","C2"]
+LEVELS = ["A1","A2","B1","B2","C1","C2"]
 
-CURRICULUM={
- "A1":[
-CurriculumUnit(id="ig-a1-unit-1",level="A1",unit_number=1,title="Igbo: greetings",grammar_points=["ig-a1-g1"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use ndewo in a basic exchange","Understand a short greetings interaction"],default_weeks=1),
-CurriculumUnit(id="ig-a1-unit-2",level="A1",unit_number=2,title="Igbo: identity",grammar_points=["ig-a1-g2"],vocabulary_set_ids=["identity_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use aha in a basic exchange","Understand a short identity interaction"],default_weeks=1),
-CurriculumUnit(id="ig-a1-unit-3",level="A1",unit_number=3,title="Igbo: family",grammar_points=["ig-a1-g3"],vocabulary_set_ids=["family_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use nne in a basic exchange","Understand a short family interaction"],default_weeks=1),
-CurriculumUnit(id="ig-a1-unit-4",level="A1",unit_number=4,title="Igbo: home",grammar_points=["ig-a1-g4"],vocabulary_set_ids=["home_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use ụlọ in a basic exchange","Understand a short home interaction"],default_weeks=1),
-CurriculumUnit(id="ig-a1-unit-5",level="A1",unit_number=5,title="Igbo: routine",grammar_points=["ig-a1-g5"],vocabulary_set_ids=["routine_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use ịmụ ihe in a basic exchange","Understand a short routine interaction"],default_weeks=1),
-CurriculumUnit(id="ig-a1-unit-6",level="A1",unit_number=6,title="Igbo: time",grammar_points=["ig-a1-g6"],vocabulary_set_ids=["time_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use oge in a basic exchange","Understand a short time interaction"],default_weeks=1),
-CurriculumUnit(id="ig-a1-unit-7",level="A1",unit_number=7,title="Igbo: food",grammar_points=["ig-a1-g7"],vocabulary_set_ids=["food_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use mmiri in a basic exchange","Understand a short food interaction"],default_weeks=1),
-CurriculumUnit(id="ig-a1-unit-8",level="A1",unit_number=8,title="Igbo: places",grammar_points=["ig-a1-g8"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=["Use ụlọ akwụkwọ in a basic exchange","Understand a short places interaction"],default_weeks=1)
- ]
+def _g(slug,title,level,summary,examples):
+    return GrammarTopic(slug=slug,title=title,level=level,category="grammar",summary=summary,explanation=summary,examples=[GrammarExample(text=e) for e in examples])
+
+GRAMMAR_TOPICS = [
+_g("ig-a1-g1","Personal pronouns and subject marking","A1","Use basic personal pronouns and subject constructions.",["A bụ nwa akwụkwọ.","Ị bụ onye nkuzi."]),
+_g("ig-a1-g2","Copula bụ","A1","Identify people and things with bụ.",["Ọ bụ onye nkuzi.","Aha m bụ Chika."]),
+_g("ig-a1-g3","Present and progressive constructions","A1","Describe current and ongoing actions.",["Ana m amụ ihe.","Ọ na-arụ ọrụ."]),
+_g("ig-a1-g4","Negation","A1","Make basic negative statements.",["Adịghị m ebe a.","Achọghị m nke ahụ."]),
+_g("ig-a1-g5","Questions","A1","Ask basic information questions.",["Ebee ka ị nọ?","Kedu aha gị?"]),
+_g("ig-a1-g6","Possessive constructions","A1","Express possession with possessive pronouns.",["Akwụkwọ m.","Ụlọ anyị."]),
+_g("ig-a1-g7","Locatives","A1","Say where people and things are.",["Anọ m n'ụlọ.","Ọ nọ n'ụlọ akwụkwọ."]),
+_g("ig-a1-g8","Plural and human noun marking","A1","Recognize common plural and human-reference patterns.",["onye / ndị mmadụ","ụmụaka / nwa"]),
+_g("ig-a2-g1","Noun phrase structure","A2","Build noun phrases with modifiers and agreement.",["onye ọma","ụlọ ukwu"]),
+_g("ig-a2-g2","Past constructions","A2","Talk about completed and earlier events.",["Agara m ahịa ụnyaahụ.","Ọ bịara n'ụtụtụ."]),
+_g("ig-a2-g3","Future and intention","A2","Express future plans and intentions.",["Aga m aga echi.","Anyị ga-amụ ihe."]),
+_g("ig-a2-g4","Object pronouns","A2","Mark and refer to objects in common clauses.",["Achọrọ m ya.","Hụrụ m ha."]),
+_g("ig-a2-g5","Serial verb constructions","A2","Connect actions in natural Igbo verb sequences.",["Ọ bịara rie nri.","Gaa zụta mmiri."]),
+_g("ig-a2-g6","Comparatives and degree","A2","Compare people, objects and qualities.",["Ọ ka mma karịa nke a.","Ụlọ a buru ibu."]),
+_g("ig-a2-g7","Imperatives and polite requests","A2","Give instructions and make polite requests.",["Bịa ebe a.","Biko nọdụ ala."]),
+_g("ig-a2-g8","Time, frequency and habitual na","A2","Describe routines and recurring events.",["Ọ na-abịa kwa ụbọchị.","Ana m amụ ihe n'abalị."]),
+_g("ig-b1-g1","Relative clauses","B1","Modify nouns with relative clauses.",["Onye bịara bụ nna m.","Akwụkwọ m gụrụ dị mma."]),
+_g("ig-b1-g2","Conditional constructions","B1","Express conditions and consequences.",["Ọ bụrụ na ị mụọ ihe, ị ga-agafe.","Ọ bụrụ na mmiri zoo, anyị ga-anọ n'ụlọ."]),
+_g("ig-b1-g3","Verbal nouns and nominalization","B1","Use infinitive and verbal-noun forms for activities.",["Ịmụ ihe dị mkpa.","Ọ masịrị m ịgụ akwụkwọ."]),
+_g("ig-b1-g4","Causative meaning","B1","Express causing or arranging an action.",["O mere ka ha bịa.","Ọ kụziiri ụmụ akwụkwọ."]),
+_g("ig-b1-g5","Passive and affected participants","B1","Use passive-like formulations where natural and identify affected participants.",["A rụrụ ụlọ ahụ n'afọ gara aga."]),
+_g("ig-b1-g6","Aspect and event structure","B1","Distinguish habitual, ongoing and completed events.",["Ọ na-agụ akwụkwọ.","Ọ gụchara akwụkwọ ahụ."]),
+_g("ig-b1-g7","Purpose, cause and result","B1","Connect clauses by purpose, reason and consequence.",["Ọ bịara ka ọ mụọ ihe.","Ọ nọghị ebe ahụ n'ihi na ọ na-arịa ọrịa."]),
+_g("ig-b1-g8","Reported speech","B1","Report statements and questions.",["O kwuru na ọ ga-abịa.","Ọ jụrụ ma m ga-aga."]),
+_g("ig-b2-g1","Complex subordination","B2","Build multi-clause sentences with precise relationships.",["Ọ bụ ezie na ọ siri ike, anyị ga-aga n'ihu."]),
+_g("ig-b2-g2","Concession and contrast","B2","Express concession and contrast.",["Ọ bụ ezie na mmiri na-ezo, ọ gara ọrụ."]),
+_g("ig-b2-g3","Discourse reference and cohesion","B2","Maintain reference across extended speech and writing.",["Ihe anyị kwuru banyere ya ka dị mkpa."]),
+_g("ig-b2-g4","Discourse connectors","B2","Organize explanations and arguments with connectors.",["N'ihi nke ahụ, anyị kwesịrị ịgbanwe atụmatụ ahụ."]),
+_g("ig-b2-g5","Focus and information structure","B2","Highlight information and contrast naturally.",["Ihe m chọrọ bụ udo.","Ọ bụ taa ka anyị malitere."]),
+_g("ig-b2-g6","Nominalization in formal prose","B2","Package events as abstract concepts.",["Ịkwalite agụmakwụkwọ chọrọ ego."]),
+_g("ig-b2-g7","Modality and stance","B2","Express obligation, possibility and certainty.",["Ọ ga-ekwe omume na ọ ga-abịa.","Ọ ghaghị ịrụ ọrụ ahụ."]),
+_g("ig-b2-g8","Register and politeness","B2","Adjust language for social and professional contexts.",["Biko, ị ga-agwa m ebe ụlọ ọrụ ahụ dị?"]),
+_g("ig-c1-g1","Formal institutional Igbo","C1","Handle administrative and institutional language.",["A ga-enwe nzukọ iji nyochaa atụmatụ ọhụrụ ahụ."]),
+_g("ig-c1-g2","Academic argumentation","C1","Present claims, evidence and conclusions coherently.",["Nchọpụta ahụ na-egosi na agụmakwụkwọ nwere nnukwu uru."]),
+_g("ig-c1-g3","Academic hedging","C1","Qualify claims with appropriate academic caution.",["Ọ ga-ekwe omume na nsonaazụ ahụ metụtara ọnọdụ ndị sonyere."]),
+_g("ig-c1-g4","Embedded questions","C1","Integrate questions into complex sentences.",["Achọrọ m ịmata ma ọrụ ahụ agwụla."]),
+_g("ig-c1-g5","Information packaging","C1","Control topic, focus and information flow.",["Isi ihe bụ otu anyị ga-esi meziwanye ọrụ ahụ."]),
+_g("ig-c1-g6","Media and public discourse","C1","Produce precise language for public information.",["Akụkọ ọhụrụ ahụ pụtara taa."]),
+_g("ig-c1-g7","Idioms and pragmatic meaning","C1","Interpret implication, idiom and context-sensitive meaning.",["Iji ọnụ eme ihe anaghị apụta ime ihe n'ezie."]),
+_g("ig-c1-g8","Professional correspondence","C1","Write formal requests and responses.",["Biko, zipụla anyị akwụkwọ ndị achọrọ tupu ụbọchị ngwụcha."]),
+_g("ig-c2-g1","Advanced discourse cohesion","C2","Control cohesion and rhetorical progression across long texts.",["Ọ bụ ezie na akụkọ ahụ gosipụtara ọganihu, o gosikwara nsogbu ndị chọrọ azịza na-adịgide adịgide."]),
+_g("ig-c2-g2","Nuanced modality","C2","Express subtle epistemic and evaluative positions.",["Ọ gaghị abụ ikwubiga okwu ókè ịsị na atụmatụ a nwere ike ịgbanwe ọnọdụ ahụ."]),
+_g("ig-c2-g3","Dense nominalization","C2","Use advanced nominal structures in academic and institutional prose.",["Nyocha nke nsonaazụ nyocha ahụ mere ka e mee mkpebi ọhụrụ."]),
+_g("ig-c2-g4","Rhetorical organization","C2","Structure concession, counterargument and emphasis.",["Ọ bụ ezie na echiche a nwere uru, isi nsogbu ka bụ mmejuputa ya."]),
+_g("ig-c2-g5","Legal and administrative formulation","C2","Interpret precise obligations and procedural wording.",["Onye na-arịọ ọrụ ga-enye akwụkwọ niile achọrọ dịka iwu siri dị."]),
+_g("ig-c2-g6","Translation precision","C2","Preserve meaning, register and pragmatic force in translation.",["Nsụgharị kwesịrị idobe ihe okwu ahụ pụtara na ụdị asụsụ ya."]),
+_g("ig-c2-g7","Literary and rhetorical style","C2","Interpret figurative and deliberate stylistic choices.",["Asụsụ onye ode akwụkwọ na-emepụta ihe oyiyi nke ndụ obodo."]),
+_g("ig-c2-g8","Discourse analysis and register shifting","C2","Shift deliberately among conversational, professional and academic styles.",["Ụdị asụsụ a na-eji kwa ụbọchị dị iche na nke akwụkwọ nyocha."]),
+]
+
+def _v(id_,level,topic,unit,items):
+    return VocabularySet(id=id_,level=level,topic=topic,unit_ref=unit,words=[VocabularyEntry(word=w,pos=p,definition=d,example=e) for w,p,d,e in items])
+
+VOCABULARY_SETS = [
+_v("greetings_a1","A1","greetings","ig-a1-unit-1",[("ndewo","phrase","hello","Ndewo, kedu?"),("daalụ","phrase","thank you","Daalụ nke ukwuu."),("kedu","phrase","how are you / how","Kedu ka ị mere?")]),
+_v("identity_a1","A1","identity","ig-a1-unit-2",[("aha","noun","name","Aha m bụ Chika."),("onye","noun","person","Ọ bụ ezigbo onye."),("nwa akwụkwọ","noun","student","A bụ nwa akwụkwọ.")]),
+_v("family_a1","A1","family","ig-a1-unit-3",[("nne","noun","mother","Nne m nọ n'ụlọ."),("nna","noun","father","Nna m na-arụ ọrụ."),("ezinụlọ","noun","family","Ezinụlọ m buru ibu.")]),
+_v("home_a1","A1","home","ig-a1-unit-4",[("ụlọ","noun","house","Ụlọ anyị dị mma."),("ọnụ ụzọ","noun","door","Mechie ọnụ ụzọ."),("oche","noun","chair","Nọdụ n'oche.")]),
+_v("routine_a1","A1","routine","ig-a1-unit-5",[("ịmụ ihe","verb","to study","Ana m amụ ihe."),("ịrụ ọrụ","verb","to work","Ana m arụ ọrụ."),("ịrahụ ụra","verb","to sleep","Ana m arahụ ụra n'abalị.")]),
+_v("time_a1","A1","time","ig-a1-unit-6",[("oge","noun","time","Olee oge?"),("taa","noun","today","Taa ka anyị na-amụ ihe."),("echi","noun","tomorrow","Aga m abịa echi.")]),
+_v("food_a1","A1","food","ig-a1-unit-7",[("mmiri","noun","water","Achọrọ m mmiri."),("nri","noun","food","Nri dị njikere."),("ji","noun","yam","Anyị na-eri ji.")]),
+_v("places_a1","A1","places","ig-a1-unit-8",[("ụlọ akwụkwọ","noun","school","Aga m ụlọ akwụkwọ."),("ahịa","noun","market","Ọ gara ahịa."),("ụlọ ọrụ","noun","office/workplace","Ọ nọ n'ụlọ ọrụ.")]),
+_v("people_a2","A2","people","ig-a2-unit-1",[("nwoke","noun","man","Nwoke ahụ bụ onye ọrụ."),("nwanyị","noun","woman","Nwanyị ahụ bụ dọkịta."),("ụmụaka","noun","children","Ụmụaka na-egwu egwu.")]),
+_v("travel_a2","A2","travel","ig-a2-unit-2",[("njem","noun","journey","Njem ahụ dị ogologo."),("ịga","verb","to go","Aga m Lagos."),("ịlọghachi","verb","to return","Ọ ga-alọghachi echi.")]),
+_v("daily_life_a2","A2","daily life","ig-a2-unit-3",[("ụtụtụ","noun","morning","N'ụtụtụ ana m arụ ọrụ."),("abalị","noun","night","N'abalị ana m agụ akwụkwọ."),("kwa ụbọchị","phrase","every day","Ana m amụ ihe kwa ụbọchị.")]),
+_v("health_a2","A2","health","ig-a2-unit-4",[("ahụ ike","noun","health","Ahụ ike dị mkpa."),("dọkịta","noun","doctor","Dọkịta bịara."),("ọrịa","noun","illness","Ọrịa ahụ adịghị mfe.")]),
+_v("education_b1","B1","education","ig-b1-unit-1",[("agụmakwụkwọ","noun","education","Agụmakwụkwọ dị mkpa."),("nchọpụta","noun","research/finding","Nchọpụta ahụ dị mkpa."),("ihe ọmụma","noun","knowledge","Ihe ọmụma na-abawanye.")]),
+_v("work_b1","B1","work","ig-b1-unit-2",[("ọrụ","noun","work/job","Ọrụ ya dị mkpa."),("atụmatụ","noun","plan","Atụmatụ ọhụrụ dị mma."),("nzukọ","noun","meeting","Nzukọ ga-amalite n'elekere iri.")]),
+_v("society_b1","B1","society","ig-b1-unit-3",[("obodo","noun","community/town","Obodo anyị na-eto eto."),("mmepe","noun","development","Mmepe obodo chọrọ nkwado."),("imekọ ihe ọnụ","phrase","cooperation","Imekọ ihe ọnụ dị mkpa.")]),
+_v("environment_b1","B1","environment","ig-b1-unit-4",[("gburugburugwu","noun","environment/surroundings","Anyị kwesịrị ichekwa gburugburu anyị."),("osimiri","noun","river","Osimiri ahụ dị ọcha."),("ọhịa","noun","forest","A na-echekwa ọhịa.")]),
+_v("economy_b2","B2","economy","ig-b2-unit-1",[("akụ na ụba","noun","economy","Akụ na ụba na-agbanwe."),("itinye ego","phrase","investment","Itinye ego na-abawanye."),("ahịa","noun","market","Ahịa na-agbanwe kwa ụbọchị.")]),
+_v("governance_b2","B2","governance","ig-b2-unit-2",[("ọchịchị","noun","government/governance","Ọchịchị kwesịrị ịrụ ọrụ nke ọma."),("iwu","noun","law","A ga-agbaso iwu."),("usoro","noun","system/process","Usoro ọhụrụ amalitela.")]),
+_v("communication_b2","B2","communication","ig-b2-unit-3",[("ozi","noun","information/news/message","Ozi ọhụrụ bịara."),("nkwukọrịta","noun","communication","Nkwukọrịta dị mkpa."),("ozi ederede","noun","written message","Ozi ederede rutere.")]),
+_v("media_b2","B2","media","ig-b2-unit-4",[("mgbasa ozi","noun","media/broadcasting","Mgbasa ozi kọrọ akụkọ ahụ."),("akụkọ","noun","news/story","Akụkọ ọhụrụ pụtara."),("mkparịta ụka","noun","discussion","Mkparịta ụka ahụ gara nke ọma.")]),
+_v("academic_c1","C1","academic language","ig-c1-unit-1",[("echiche","noun","idea","Echiche ahụ kwesịrị nkọwa."),("ihe akaebe","noun","evidence","Anyị chọrọ ihe akaebe."),("nyocha","noun","analysis/research","Nyocha ahụ ka na-aga n'ihu.")]),
+_v("professional_c1","C1","professional language","ig-c1-unit-2",[("akwụkwọ","noun","document","Zipụ akwụkwọ ahụ."),("ntuziaka","noun","guidelines/instructions","A ga-agbaso ntuziaka."),("ọrụ dịịrị","noun","responsibility","Ọrụ dịịrị ya bụ ilekọta ọrụ ahụ.")]),
+_v("abstract_c1","C1","abstract concepts","ig-c1-unit-3",[("mmetụta","noun","effect","Mkpebi nwere mmetụta."),("ebumnuche","noun","objective","Ebumnuche bụ ịkwalite ọrụ."),("ngwọta","noun","solution","Anyị chọtara ngwọta.")]),
+_v("rhetoric_c2","C2","rhetoric","ig-c2-unit-1",[("arụmụka","noun","argument/debate","Arụmụka ahụ dabeere n'ihe akaebe."),("mkpebi","noun","decision/conclusion","E mere mkpebi ọhụrụ."),("isi okwu","noun","main point/issue","Isi okwu ahụ doro anya.")]),
+_v("discourse_c2","C2","discourse analysis","ig-c2-unit-2",[("okwu","noun","speech/expression","Okwu kwesịrị ịdị mfe nghọta."),("nkọwa","noun","meaning/explanation","Nkọwa ahụ zuru ezu."),("ụdị asụsụ","noun","language/register/style","Ụdị asụsụ dabere n'ọnọdụ.")]),
+]
+
+def _unit(level,n,title,grammar,vocab,checks):
+    return CurriculumUnit(id=f"ig-{level.lower()}-unit-{n}",level=level,unit_number=n,title=title,grammar_points=[grammar],vocabulary_set_ids=[vocab],lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=checks,default_weeks=1 if level in ("A1","A2") else 2)
+
+CURRICULUM = {
+"A1":[
+_unit("A1",1,"Greetings and identity","ig-a1-g1","greetings_a1",["Greet someone naturally.","Introduce yourself."]),
+_unit("A1",2,"Names and the copula","ig-a1-g2","identity_a1",["Identify people and roles."]),
+_unit("A1",3,"Family","ig-a1-g6","family_a1",["Describe immediate family."]),
+_unit("A1",4,"Home and location","ig-a1-g7","home_a1",["Say where people and things are."]),
+_unit("A1",5,"Daily routine","ig-a1-g3","routine_a1",["Describe a simple routine."]),
+_unit("A1",6,"Time","ig-a1-g5","time_a1",["Ask and answer basic time questions."]),
+_unit("A1",7,"Food and drink","ig-a1-g4","food_a1",["Order simple food and drink."]),
+_unit("A1",8,"Places","ig-a1-g8","places_a1",["Name common places and say where you go."])],
+"A2":[
+_unit("A2",1,"People and noun phrases","ig-a2-g1","people_a2",["Build simple descriptive noun phrases."]),
+_unit("A2",2,"Past events and travel","ig-a2-g2","travel_a2",["Talk about past and future travel."]),
+_unit("A2",3,"Daily life","ig-a2-g8","daily_life_a2",["Describe recurring routines."]),
+_unit("A2",4,"Health","ig-a2-g3","health_a2",["Describe basic health needs."]),
+_unit("A2",5,"Objects and possession","ig-a2-g4","identity_a1",["Refer to objects and owners."]),
+_unit("A2",6,"Serial actions and comparison","ig-a2-g5","people_a2",["Link actions and make comparisons."]),
+_unit("A2",7,"Requests","ig-a2-g7","places_a1",["Make polite requests and instructions."]),
+_unit("A2",8,"Integrated conversation","ig-a2-g8","daily_life_a2",["Sustain an everyday exchange."])],
+"B1":[
+_unit("B1",1,"Education","ig-b1-g1","education_b1",["Use relative clauses in explanations."]),
+_unit("B1",2,"Work","ig-b1-g3","work_b1",["Discuss work and plans."]),
+_unit("B1",3,"Society","ig-b1-g2","society_b1",["Explain conditions and consequences."]),
+_unit("B1",4,"Environment","ig-b1-g7","environment_b1",["Give reasons and purposes."]),
+_unit("B1",5,"Causative and affected participants","ig-b1-g4","work_b1",["Describe caused events precisely."]),
+_unit("B1",6,"Aspect","ig-b1-g6","daily_life_a2",["Distinguish habitual, ongoing and completed events."]),
+_unit("B1",7,"Reported speech","ig-b1-g8","communication_b2",["Report statements and questions."]),
+_unit("B1",8,"Integrated communication","ig-b1-g5","education_b1",["Give a connected explanation."])],
+"B2":[
+_unit("B2",1,"Economy","ig-b2-g1","economy_b2",["Explain economic relationships."]),
+_unit("B2",2,"Governance","ig-b2-g4","governance_b2",["Discuss institutional processes."]),
+_unit("B2",3,"Communication","ig-b2-g5","communication_b2",["Control information structure."]),
+_unit("B2",4,"Media","ig-b2-g4","media_b2",["Summarize and connect media information."]),
+_unit("B2",5,"Nominalization","ig-b2-g6","academic_c1",["Use formal nominal structures."]),
+_unit("B2",6,"Modality","ig-b2-g7","governance_b2",["Express certainty and obligation."]),
+_unit("B2",7,"Register","ig-b2-g8","professional_c1",["Adapt language professionally."]),
+_unit("B2",8,"Complex discourse","ig-b2-g2","communication_b2",["Build a coherent multi-paragraph argument."])],
+"C1":[
+_unit("C1",1,"Formal institutions","ig-c1-g1","professional_c1",["Write formal institutional prose."]),
+_unit("C1",2,"Academic argumentation","ig-c1-g2","academic_c1",["Present claims and evidence."]),
+_unit("C1",3,"Academic hedging","ig-c1-g3","abstract_c1",["Qualify claims precisely."]),
+_unit("C1",4,"Embedded questions","ig-c1-g4","communication_b2",["Integrate questions into complex prose."]),
+_unit("C1",5,"Information structure","ig-c1-g5","discourse_c2",["Manage information flow."]),
+_unit("C1",6,"Media discourse","ig-c1-g6","media_b2",["Produce precise public language."]),
+_unit("C1",7,"Pragmatics and idioms","ig-c1-g7","rhetoric_c2",["Interpret contextual and idiomatic meaning."]),
+_unit("C1",8,"Professional correspondence","ig-c1-g8","professional_c1",["Draft formal requests and responses."])],
+"C2":[
+_unit("C2",1,"Cohesion","ig-c2-g1","discourse_c2",["Control long-range discourse cohesion."]),
+_unit("C2",2,"Nuanced modality","ig-c2-g2","abstract_c1",["Express subtle stance."]),
+_unit("C2",3,"Advanced nominalization","ig-c2-g3","academic_c1",["Handle dense formal formulations."]),
+_unit("C2",4,"Rhetorical organization","ig-c2-g4","rhetoric_c2",["Build and rebut complex arguments."]),
+_unit("C2",5,"Legal and administrative language","ig-c2-g5","professional_c1",["Interpret procedural wording."]),
+_unit("C2",6,"Translation precision","ig-c2-g6","discourse_c2",["Preserve register and pragmatic force."]),
+_unit("C2",7,"Literary style","ig-c2-g7","rhetoric_c2",["Interpret figurative language."]),
+_unit("C2",8,"Discourse and register shifting","ig-c2-g8","discourse_c2",["Shift deliberately among registers."])]
 }
-for level in LEVELS[1:]:
- CURRICULUM[level]=[CurriculumUnit(id=f"ig-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Igbo {level} communication",grammar_points=["intermediate grammar"],vocabulary_set_ids=[],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Handle extended communication"],default_weeks=2)]
 
-GRAMMAR_TOPICS=[
-GrammarTopic(slug="ig-a1-g1",title="Personal pronouns",level="A1",category="grammar",summary="Use common subject pronouns.",explanation="Use common subject pronouns.",examples=[GrammarExample(text="A bụ nwa akwụkwọ.")]),
-GrammarTopic(slug="ig-a1-g2",title="Copula",level="A1",category="grammar",summary="Identify people and things.",explanation="Identify people and things.",examples=[GrammarExample(text="Ọ bụ onye nkuzi.")]),
-GrammarTopic(slug="ig-a1-g3",title="Present tense",level="A1",category="grammar",summary="Describe current actions.",explanation="Describe current actions.",examples=[GrammarExample(text="Ana m amụ ihe.")]),
-GrammarTopic(slug="ig-a1-g4",title="Negation",level="A1",category="grammar",summary="Make simple negative statements.",explanation="Make simple negative statements.",examples=[GrammarExample(text="Adịghị m ebe a.")]),
-GrammarTopic(slug="ig-a1-g5",title="Questions",level="A1",category="grammar",summary="Ask basic information questions.",explanation="Ask basic information questions.",examples=[GrammarExample(text="Ebee ka ị nọ?")]),
-GrammarTopic(slug="ig-a1-g6",title="Possession",level="A1",category="grammar",summary="Express ownership.",explanation="Express ownership.",examples=[GrammarExample(text="Akwụkwọ m.")]),
-GrammarTopic(slug="ig-a1-g7",title="Locatives",level="A1",category="grammar",summary="Say where someone is.",explanation="Say where someone is.",examples=[GrammarExample(text="Anọ m n'ụlọ.")]),
-GrammarTopic(slug="ig-a1-g8",title="Plural nouns",level="A1",category="grammar",summary="Recognize common plural patterns.",explanation="Recognize common plural patterns.",examples=[GrammarExample(text="onye / ndị mmadụ")])
-]
-VOCABULARY_SETS=[
-VocabularySet(id="greetings_a1",level="A1",topic="greetings",unit_ref="ig-a1-unit-1",words=[VocabularyEntry(word="ndewo",pos="noun",definition="hello",example="Ndewo, kedu?")]),
-VocabularySet(id="identity_a1",level="A1",topic="identity",unit_ref="ig-a1-unit-2",words=[VocabularyEntry(word="aha",pos="noun",definition="name",example="Aha m bụ Chika.")]),
-VocabularySet(id="family_a1",level="A1",topic="family",unit_ref="ig-a1-unit-3",words=[VocabularyEntry(word="nne",pos="noun",definition="mother",example="Nne m nọ n'ụlọ.")]),
-VocabularySet(id="home_a1",level="A1",topic="home",unit_ref="ig-a1-unit-4",words=[VocabularyEntry(word="ụlọ",pos="noun",definition="house",example="Ụlọ anyị dị mma.")]),
-VocabularySet(id="routine_a1",level="A1",topic="routine",unit_ref="ig-a1-unit-5",words=[VocabularyEntry(word="ịmụ ihe",pos="noun",definition="to study",example="Ana m amụ ihe.")]),
-VocabularySet(id="time_a1",level="A1",topic="time",unit_ref="ig-a1-unit-6",words=[VocabularyEntry(word="oge",pos="noun",definition="time",example="Olee oge?")]),
-VocabularySet(id="food_a1",level="A1",topic="food",unit_ref="ig-a1-unit-7",words=[VocabularyEntry(word="mmiri",pos="noun",definition="water",example="Achọrọ m mmiri.")]),
-VocabularySet(id="places_a1",level="A1",topic="places",unit_ref="ig-a1-unit-8",words=[VocabularyEntry(word="ụlọ akwụkwọ",pos="noun",definition="school",example="Aga m ụlọ akwụkwọ.")])
-]
-PHRASEBOOK_CATEGORIES=[
+PHRASEBOOK_CATEGORIES = [
 PhrasebookCategory(id="ig-greetings-a1",level="A1",situation="greetings",icon="👋",phrases=[PhrasebookEntry(text="Ndewo.",context="Hello.",register="neutral"),PhrasebookEntry(text="Kedu?",context="How are you?",register="neutral"),PhrasebookEntry(text="Ọ dị mma.",context="I am fine / It is good.",register="neutral")]),
 PhrasebookCategory(id="ig-thanks-a1",level="A1",situation="thanks",icon="🙏",phrases=[PhrasebookEntry(text="Daalụ.",context="Thank you.",register="neutral"),PhrasebookEntry(text="Daalụ nke ukwuu.",context="Thank you very much.",register="neutral"),PhrasebookEntry(text="Ọ dịghị ihe.",context="You're welcome / It's nothing.",register="neutral")]),
+PhrasebookCategory(id="ig-introduction-a1",level="A1",situation="introductions",icon="👋",phrases=[PhrasebookEntry(text="Kedu aha gị?",context="What is your name?",register="neutral"),PhrasebookEntry(text="Aha m bụ Chika.",context="My name is Chika.",register="neutral")]),
 PhrasebookCategory(id="ig-shopping-a1",level="A1",situation="shopping",icon="🛒",phrases=[PhrasebookEntry(text="Ego ole ka nke a bụ?",context="How much is this?",register="neutral"),PhrasebookEntry(text="Achọrọ m nke a.",context="I want this.",register="neutral"),PhrasebookEntry(text="Biko, belata ọnụ ahịa ya.",context="Please reduce the price.",register="polite")]),
-PhrasebookCategory(id="ig-help-a1",level="A1",situation="help",icon="🆘",phrases=[PhrasebookEntry(text="Biko nyere m aka.",context="Please help me.",register="polite"),PhrasebookEntry(text="Aghọtaghị m.",context="I don't understand.",register="neutral"),PhrasebookEntry(text="Biko kwuo ya ọzọ.",context="Please say it again.",register="polite")])
+PhrasebookCategory(id="ig-help-a1",level="A1",situation="help",icon="🆘",phrases=[PhrasebookEntry(text="Biko nyere m aka.",context="Please help me.",register="polite"),PhrasebookEntry(text="Aghọtaghị m.",context="I don't understand.",register="neutral"),PhrasebookEntry(text="Biko kwuo ya ọzọ.",context="Please say it again.",register="polite")]),
+PhrasebookCategory(id="ig-travel-a2",level="A2",situation="travel",icon="🚌",phrases=[PhrasebookEntry(text="Aga m aga echi.",context="I will go tomorrow.",register="neutral"),PhrasebookEntry(text="Ebee ka ụgbọ ala na-aga?",context="Where is the bus going?",register="neutral")]),
+PhrasebookCategory(id="ig-health-a2",level="A2",situation="health",icon="🩺",phrases=[PhrasebookEntry(text="Ahụ adịghị m mma.",context="I do not feel well.",register="neutral"),PhrasebookEntry(text="Achọrọ m dọkịta.",context="I need a doctor.",register="neutral")]),
+PhrasebookCategory(id="ig-study-b1",level="B1",situation="study",icon="📚",phrases=[PhrasebookEntry(text="Ana m amụ Igbo.",context="I am studying Igbo.",register="neutral"),PhrasebookEntry(text="Gịnị ka nke a pụtara?",context="What does this mean?",register="neutral")]),
+PhrasebookCategory(id="ig-work-b1",level="B1",situation="work",icon="💼",phrases=[PhrasebookEntry(text="Nzukọ ga-amalite mgbe ole?",context="When will the meeting start?",register="neutral"),PhrasebookEntry(text="Atụmatụ ahụ agwụla.",context="The plan is finished.",register="neutral")]),
+PhrasebookCategory(id="ig-professional-b2",level="B2",situation="professional",icon="🏢",phrases=[PhrasebookEntry(text="Biko, ị nwere ike ịkọwa nke ọma?",context="Could you explain in more detail?",register="polite"),PhrasebookEntry(text="N'ihi nke ahụ, anyị na-arịọ oge ọzọ.",context="For that reason, we request more time.",register="formal")]),
+PhrasebookCategory(id="ig-academic-c1",level="C1",situation="academic",icon="🎓",phrases=[PhrasebookEntry(text="Nchọpụta ahụ na-egosi na...",context="The research shows that...",register="formal"),PhrasebookEntry(text="Ọ ga-ekwe omume na...",context="It is possible that...",register="formal")]),
+PhrasebookCategory(id="ig-formal-c1",level="C1",situation="formal correspondence",icon="✉️",phrases=[PhrasebookEntry(text="Biko, zipụla anyị akwụkwọ ndị achọrọ...",context="Please send us the required documents...",register="formal"),PhrasebookEntry(text="Anyị na-ekele unu maka imekọ ihe ọnụ.",context="We thank you for your cooperation.",register="formal")]),
+PhrasebookCategory(id="ig-debate-c2",level="C2",situation="discussion and debate",icon="🗣️",phrases=[PhrasebookEntry(text="Ọ bụ ezie na nke ahụ bụ eziokwu, isi nsogbu bụ...",context="Although that is true, the main issue is...",register="formal"),PhrasebookEntry(text="N'aka nke ọzọ...",context="On the other hand...",register="formal")]),
 ]
-ASSESSMENT_BANK=[
-AssessmentQuestion(id="ig-a1-001",skill="communication",difficulty="A1",question="You meet someone. Which Igbo phrase means “Hello”?",options=["Ndewo.","Daalụ.","Ego ole ka nke a bụ?","Aghọtaghị m."],correct="Ndewo."),
-AssessmentQuestion(id="ig-a1-002",skill="communication",difficulty="A1",question="Which phrase asks “How are you?”",options=["Kedu?","Ọ dị mma.","Achọrọ m nke a.","Daalụ."],correct="Kedu?"),
-AssessmentQuestion(id="ig-a1-003",skill="vocabulary",difficulty="A1",question="Which phrase means “Thank you”?",options=["Daalụ.","Ndewo.","Ọ dịghị ihe.","Biko nyere m aka."],correct="Daalụ."),
-AssessmentQuestion(id="ig-a1-004",skill="shopping",difficulty="A1",question="At a shop, how do you ask “How much is this?”",options=["Ego ole ka nke a bụ?","Aghọtaghị m.","Ọ dị mma.","Daalụ."],correct="Ego ole ka nke a bụ?"),
-AssessmentQuestion(id="ig-a1-005",skill="shopping",difficulty="A1",question="Which phrase means “I want this”?",options=["Achọrọ m nke a.","Ndewo.","Ọ dịghị ihe.","Kedu?"],correct="Achọrọ m nke a."),
-AssessmentQuestion(id="ig-a1-006",skill="help",difficulty="A1",question="Which phrase means “Please help me”?",options=["Biko nyere m aka.","Daalụ.","Ego ole ka nke a bụ?","Ọ dị mma."],correct="Biko nyere m aka."),
-AssessmentQuestion(id="ig-a1-007",skill="communication",difficulty="A1",question="You do not understand. Which phrase should you use?",options=["Aghọtaghị m.","Ndewo.","Achọrọ m nke a.","Daalụ nke ukwuu."],correct="Aghọtaghị m."),
-AssessmentQuestion(id="ig-a1-008",skill="communication",difficulty="A1",question="Which phrase asks someone to repeat what they said?",options=["Biko kwuo ya ọzọ.","Ọ dịghị ihe.","Ego ole ka nke a bụ?","Ọ dị mma."],correct="Biko kwuo ya ọzọ."),
-AssessmentQuestion(id="ig-a1-009",skill="politeness",difficulty="A1",question="Someone thanks you. Which phrase can mean “You're welcome / It's nothing”?",options=["Ọ dịghị ihe.","Ndewo.","Kedu?","Achọrọ m nke a."],correct="Ọ dịghị ihe."),
-AssessmentQuestion(id="ig-a1-010",skill="communication",difficulty="A1",question="Which phrase means “I am fine / It is good”?",options=["Ọ dị mma.","Daalụ nke ukwuu.","Aghọtaghị m.","Ego ole ka nke a bụ?"],correct="Ọ dị mma.")
+
+ASSESSMENT_BANK = [
+AssessmentQuestion(id="ig-a1-001",skill="communication",difficulty="A1",question="Which Igbo phrase means “Hello”?",options=["Ndewo.","Daalụ.","Aghọtaghị m.","Ọ dịghị ihe."],correct="Ndewo."),
+AssessmentQuestion(id="ig-a1-002",skill="communication",difficulty="A1",question="Which phrase asks “How are you?”",options=["Kedu?","Daalụ.","Achọrọ m nke a.","Biko nyere m aka."],correct="Kedu?"),
+AssessmentQuestion(id="ig-a1-003",skill="vocabulary",difficulty="A1",question="Which word means “name”?",options=["aha","ụlọ","mmiri","oge"],correct="aha"),
+AssessmentQuestion(id="ig-a1-004",skill="grammar",difficulty="A1",question="Complete: “I am at home” — “Anọ m ___.”",options=["n'ụlọ","ahịa","echi","nne"],correct="n'ụlọ"),
+AssessmentQuestion(id="ig-a2-001",skill="grammar",difficulty="A2",question="Which sentence describes a habitual action?",options=["Ọ na-abịa kwa ụbọchị.","Agara m ụnyaahụ.","Aga m echi.","Ndewo."],correct="Ọ na-abịa kwa ụbọchị."),
+AssessmentQuestion(id="ig-a2-002",skill="communication",difficulty="A2",question="Which phrase is a polite request?",options=["Biko nọdụ ala.","Ndewo.","Aga m aga echi.","Kedu?"],correct="Biko nọdụ ala."),
+AssessmentQuestion(id="ig-b1-001",skill="grammar",difficulty="B1",question="Which sentence introduces a condition?",options=["Ọ bụrụ na ị mụọ ihe, ị ga-agafe.","Ndewo.","Achọrọ m mmiri.","Anọ m n'ụlọ."],correct="Ọ bụrụ na ị mụọ ihe, ị ga-agafe."),
+AssessmentQuestion(id="ig-b1-002",skill="grammar",difficulty="B1",question="Which sentence reports speech?",options=["O kwuru na ọ ga-abịa.","Ana m arụ ọrụ.","Aga m echi.","Ọ dị mma."],correct="O kwuru na ọ ga-abịa."),
+AssessmentQuestion(id="ig-b2-001",skill="discourse",difficulty="B2",question="Which phrase marks a consequence?",options=["N'ihi nke ahụ","Ndewo","Kedu?","Aha m bụ Chika."],correct="N'ihi nke ahụ"),
+AssessmentQuestion(id="ig-b2-002",skill="register",difficulty="B2",question="Which is a formal request?",options=["Biko, zipụla anyị akwụkwọ ndị achọrọ...","Mpa nke a.","Ndewo.","Kedu?"],"correct":"Biko, zipụla anyị akwụkwọ ndị achọrọ..."),
+AssessmentQuestion(id="ig-c1-001",skill="academic",difficulty="C1",question="Which phrase appropriately hedges an academic claim?",options=["Ọ ga-ekwe omume na...","N'ezie naanị.","Ndewo.","Mpa nke a."],"correct":"Ọ ga-ekwe omume na..."),
+AssessmentQuestion(id="ig-c1-002",skill="professional",difficulty="C1",question="Which sentence is a formal institutional request?",options=["Biko, zipụla anyị akwụkwọ ndị achọrọ tupu ụbọchị ngwụcha.","Anọ m n'ụlọ.","Achọrọ m mmiri.","Kedu?"],"correct":"Biko, zipụla anyị akwụkwọ ndị achọrọ tupu ụbọchị ngwụcha."),
+AssessmentQuestion(id="ig-c2-001",skill="discourse",difficulty="C2",question="Which phrase introduces a counterargument?",options=["Ọ bụ ezie na nke ahụ bụ eziokwu, isi nsogbu bụ...","Ndewo.","Ọ dị mma.","Aha m bụ Chika."],"correct":"Ọ bụ ezie na nke ahụ bụ eziokwu, isi nsogbu bụ..."),
+AssessmentQuestion(id="ig-c2-002",skill="translation",difficulty="C2",question="In advanced translation, what should be preserved besides literal meaning?",options=["Register and pragmatic force","Only word order","Only punctuation","Only word length"],correct="Register and pragmatic force"),
 ]
