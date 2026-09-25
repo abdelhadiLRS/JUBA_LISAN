@@ -51,6 +51,6 @@ export function InteractiveGamePage({ mode }: { mode: Mode }) {
     <div className="interactive-language-bar" role="group" aria-label="Language">
       {(['ar', 'fr', 'en'] as const).map((value) => <button key={value} type="button" onClick={() => setLang(value)} className={lang === value ? 'active' : ''}>{value.toUpperCase()}</button>)}
     </div>
-    {loading ? <p className="interactive-instruction">Loading challenge…</p> : error ? <div className="interactive-instruction interactive-error"><p>Unable to load the challenge.</p><button type="button" onClick={() => window.location.reload()}>Retry</button></div> : !challenge ? <p className="interactive-instruction">No challenge available.</p> : <InteractiveGameBoard mode={mode === 'sentence_builder' ? 'ordering' : mode} lang={lang} challenge={challenge} onComplete={complete} />}
+    {loading ? <p className="interactive-instruction">Loading challenge…</p> : error ? <div className="interactive-instruction interactive-error"><p>Unable to load the challenge.</p><button type="button" onClick={() => window.location.reload()}>Retry</button></div> : !challenge ? <p className="interactive-instruction">No challenge available.</p> : <InteractiveGameBoard mode={mode === 'sentence_builder' ? 'ordering' : mode} lang={lang} challenge={challenge} onComplete={complete} title={mode === 'sentence_builder' ? (lang === 'ar' ? 'بناء الجملة' : lang === 'fr' ? 'Constructeur de phrases' : 'Sentence Builder') : undefined} />}
   </div></main>
 }
