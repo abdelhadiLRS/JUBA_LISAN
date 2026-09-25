@@ -339,6 +339,7 @@ async def get_summary(
             accuracy=0.0,
             skills={},
             vocabulary_level=plan.cefr_level,
+            mastery=mastery,
             vocabulary_mastered=vocabulary_mastered,
             vocabulary_total=vocabulary_total,
             vocabulary_progress=round(vocabulary_progress, 2),
