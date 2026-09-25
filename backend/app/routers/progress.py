@@ -1547,6 +1547,11 @@ async def _get_recent_game_mistakes(
                 )
             except ValueError:
                 due_at = event.created_at + _review_interval(0)
+            # Older review markers may contain timezone-aware ISO timestamps,
+            # while SQLAlchemy's SQLite datetimes and this queue's clock are
+            # naive UTC. Normalize both forms before comparing due dates.
+            if due_at.tzinfo is not None:
+                due_at = due_at.astimezone(UTC).replace(tzinfo=None)
 
             if item.get("resolved") and due_at > now:
                 resolved.add(key)
