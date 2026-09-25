@@ -157,6 +157,7 @@ export default function GamesPage() {
     due_count: 0,
     skills: {},
     recommended_game: null,
+    items: [],
   })
 
   const {
