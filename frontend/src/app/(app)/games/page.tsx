@@ -23,7 +23,7 @@ function getLocalDateKey() {
   const day = String(now.getDate()).padStart(2, '0')
   return `${year}-${month}-${day}`
 }
-const DAILY_GAMES: GameId[] = ['matching', 'quick_choice', 'sentence_builder', 'listen_choose', 'spelling', 'word_scramble', 'fill_blank', 'memory']
+const DAILY_GAMES: GameId[] = ['matching', 'quick_choice', 'sentence_builder', 'listen_choose', 'spelling', 'word_scramble', 'fill_blank', 'memory', 'context_quest']
 const ROUND_SIZE = 5
 
 const copy = {
@@ -32,9 +32,9 @@ const copy = {
     subtitle: 'تعلّم باللعب، وتقدّم كل يوم',
     points: 'النقاط', streak: 'سلسلة', level: 'المستوى', games: 'الألعاب التعليمية',
     daily: 'تحدي اليوم', dailyDesc: 'تحدٍ واحد ثابت يوميًا. أكمله لتحصل على XP وتبني عادتك التعليمية.',
-    wordMatch: 'مطابقة الكلمات', quickChoice: 'اختيار سريع', sentenceBuilder: 'بناء الجملة',
+    wordMatch: 'مطابقة الكلمات', quickChoice: 'اختيار سريع', contextQuest: 'مهمة المواقف', sentenceBuilder: 'بناء الجملة',
     listenChoose: 'استمع واختر', spelling: 'تحدي الإملاء', memory: 'بطاقات الذاكرة',
-    wordMatchDesc: 'طابق الكلمة مع ترجمتها الصحيحة.', quickChoiceDesc: 'اختر الإجابة قبل انتهاء الوقت.',
+    wordMatchDesc: 'طابق الكلمة مع ترجمتها الصحيحة.', quickChoiceDesc: 'اختر الإجابة قبل انتهاء الوقت.', contextQuestDesc: 'اختر الرد الطبيعي المناسب للموقف.',
     sentenceBuilderDesc: 'رتّب الكلمات لبناء جملة صحيحة.', listenChooseDesc: 'استمع إلى الكلمة ثم اخترها.',
     spellingDesc: 'اكتب الكلمة المطلوبة من التلميح.', wordScramble: 'ترتيب الحروف', fillBlank: 'أكمل الفراغ', wordScrambleDesc: 'رتّب الحروف لاستعادة الكلمة.', fillBlankDesc: 'اختر الكلمة الصحيحة لإكمال الجملة.', memoryDesc: 'اكشف البطاقات وطابق الأزواج الحقيقية.',
     start: 'ابدأ اللعبة', next: 'السؤال التالي', correct: 'إجابة صحيحة!', wrong: 'ليست صحيحة',
@@ -45,9 +45,9 @@ lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائيا
   fr: {
     title: 'JUBA LISAN', subtitle: 'Apprendre en jouant, progresser chaque jour', points: 'Points', streak: 'Série', level: 'Niveau',
     games: 'Jeux éducatifs', daily: 'Défi du jour', dailyDesc: 'Un défi fixe chaque jour pour gagner de l’XP et construire une habitude.',
-    wordMatch: 'Association de mots', quickChoice: 'Choix rapide', sentenceBuilder: 'Constructeur de phrases',
+    wordMatch: 'Association de mots', quickChoice: 'Choix rapide', contextQuest: 'Mission situations', sentenceBuilder: 'Constructeur de phrases',
     listenChoose: 'Écoute et choisis', spelling: 'Défi d’orthographe', memory: 'Cartes mémoire',
-    wordMatchDesc: 'Associe chaque mot à sa bonne traduction.', quickChoiceDesc: 'Choisis avant la fin du temps.',
+    wordMatchDesc: 'Associe chaque mot à sa bonne traduction.', quickChoiceDesc: 'Choisis avant la fin du temps.', contextQuestDesc: 'Choisis la réponse naturelle adaptée à la situation.',
     sentenceBuilderDesc: 'Remets les mots dans le bon ordre.', listenChooseDesc: 'Écoute le mot puis choisis-le.',
     spellingDesc: 'Écris le mot demandé à partir de l’indice.', wordScramble: 'Mots mélangés', fillBlank: 'Texte à trous', wordScrambleDesc: 'Remets les lettres dans le bon ordre.', fillBlankDesc: 'Choisis le mot qui complète la phrase.', memoryDesc: 'Retourne les cartes et forme les vraies paires.', start: 'Commencer', next: 'Question suivante',
     correct: 'Bonne réponse !', wrong: 'Pas encore', hint: 'Indice', back: 'Jeux', score: 'Score de la partie', done: 'Bravo ! Partie terminée.',
@@ -57,9 +57,9 @@ lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائيا
   en: {
     title: 'JUBA LISAN', subtitle: 'Learn through play. Improve every day.', points: 'Points', streak: 'Streak', level: 'Level',
     games: 'Educational games', daily: 'Daily Challenge', dailyDesc: 'One consistent challenge each day. Complete it to earn XP and build your habit.',
-    wordMatch: 'Word Match', quickChoice: 'Quick Choice', sentenceBuilder: 'Sentence Builder',
+    wordMatch: 'Word Match', quickChoice: 'Quick Choice', contextQuest: 'Context Quest', sentenceBuilder: 'Sentence Builder',
     listenChoose: 'Listen & Choose', spelling: 'Spelling Challenge', memory: 'Memory Cards',
-    wordMatchDesc: 'Match each word with its correct translation.', quickChoiceDesc: 'Choose before the timer runs out.',
+    wordMatchDesc: 'Match each word with its correct translation.', quickChoiceDesc: 'Choose before the timer runs out.', contextQuestDesc: 'Choose the natural response for the situation.',
     sentenceBuilderDesc: 'Arrange the words to build a correct sentence.', listenChooseDesc: 'Listen to the word and choose it.',
     spellingDesc: 'Type the word requested by the clue.', wordScramble: 'Word Scramble', fillBlank: 'Fill the Blank', wordScrambleDesc: 'Unscramble the letters to recover the word.', fillBlankDesc: 'Choose the word that completes the sentence.', memoryDesc: 'Reveal cards and match the real pairs.', start: 'Start game', next: 'Next question',
     correct: 'Correct!', wrong: 'Not quite', hint: 'Hint', back: 'Games', score: 'Round score', done: 'Great job! Round complete.',
@@ -105,6 +105,7 @@ export default function GamesPage() {
 
   function difficultyForGame(id: GameId) {
     const skill = id === 'matching' || id === 'quick_choice' || id === 'word_scramble' ? 'vocabulary'
+      : id === 'context_quest' ? 'speaking'
       : id === 'listen_choose' ? 'listening'
       : id === 'spelling' ? 'writing'
       : id === 'sentence_builder' || id === 'fill_blank' ? 'grammar'
@@ -118,6 +119,7 @@ export default function GamesPage() {
     () => [
       { id: 'matching' as const, title: t.wordMatch, desc: t.wordMatchDesc, icon: '🔗' },
       { id: 'quick_choice' as const, title: t.quickChoice, desc: t.quickChoiceDesc, icon: '⚡' },
+      { id: 'context_quest' as const, title: t.contextQuest, desc: t.contextQuestDesc, icon: '🗣️' },
       { id: 'sentence_builder' as const, title: t.sentenceBuilder, desc: t.sentenceBuilderDesc, icon: '🧩' },
       { id: 'listen_choose' as const, title: t.listenChoose, desc: t.listenChooseDesc, icon: '🎧' },
       { id: 'spelling' as const, title: t.spelling, desc: t.spellingDesc, icon: '✍️' },
