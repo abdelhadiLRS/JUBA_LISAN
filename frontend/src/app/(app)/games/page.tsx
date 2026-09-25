@@ -157,7 +157,7 @@ export default function GamesPage() {
     skillResults: Record<string, { correct: number; questions: number; accuracy: number }>
   } | null>(null)
   const [finishing, setFinishing] = useState(false)
-  const [adaptiveMode, setAdaptiveMode] = useState<'new' | 'review' | 'steady' | 'challenge'>('new')
+  const [adaptiveMode, setAdaptiveMode] = useState<'new' | 'review' | 'steady' | 'challenge' | 'skill_review' | 'skill_challenge'>('new')
   const [effectiveDifficulty, setEffectiveDifficulty] = useState(1)
   const [smartReview, setSmartReview] = useState<{
     due_count: number
@@ -627,7 +627,7 @@ export default function GamesPage() {
             <div className="round-meta">
               {dailyMode ? `📅 ${t.daily} · ` : ''}
               {round + 1} / {ROUND_SIZE} · +XP · D{effectiveDifficulty}
-              {adaptiveMode === 'review' && (
+              {(adaptiveMode === 'review' || adaptiveMode === 'skill_review') && (
                 <span> · {lang === 'ar' ? '🧠 مراجعة الأخطاء' : lang === 'fr' ? '🧠 Révision ciblée' : '🧠 Smart review'}</span>
               )}
             </div>
