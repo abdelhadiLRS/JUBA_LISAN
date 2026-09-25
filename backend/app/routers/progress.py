@@ -3933,10 +3933,14 @@ async def get_mastery_center(
         from_metadata = normalise_skill_labels(raw_skills)
         return from_metadata or (fallback_skill_for(exercise),)
 
+    exercises_by_lesson: dict[int, list[Exercise]] = {}
+    for exercise, row_lesson in exercise_rows:
+        exercises_by_lesson.setdefault(row_lesson.id, []).append(exercise)
+
     lesson_payload = []
     skill_exercises: dict[str, list[Exercise]] = {}
     for lesson in lessons:
-        lesson_exercises = [exercise for exercise, row_lesson in exercise_rows if row_lesson.id == lesson.id]
+        lesson_exercises = exercises_by_lesson.get(lesson.id, [])
         lesson_attempts = []
         for index, exercise in enumerate(lesson_exercises):
             lesson_attempts.extend(attempt_view(exercise))
