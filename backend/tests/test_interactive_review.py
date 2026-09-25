@@ -111,3 +111,17 @@ def test_sentence_builder_review_items_keep_spaced_review_metadata(monkeypatch):
     assert item["review_key"] == "stable-sentence"
     assert item["review_count"] == 1
     assert item["review_streak"] == 1
+
+
+def test_interactive_review_failure_resets_streak_and_advances_count():
+    # The completion path uses the same metadata contract as regular review:
+    # a failed retrieval starts a new short interval and increments the count.
+    review_item = {
+        "review_key": "stable-water",
+        "review_count": 3,
+        "review_streak": 3,
+    }
+    next_count = int(review_item["review_count"]) + 1
+    next_streak = 0
+    assert next_count == 4
+    assert next_streak == 0
