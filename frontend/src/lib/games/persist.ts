@@ -71,7 +71,17 @@ export async function startGameSession(
       difficulty: Math.min(3, Math.max(1, Math.floor(difficulty))),
     }),
   })
-  if (!response.ok) throw new Error(`Game session start failed: ${response.status}`)
+  if (!response.ok) {
+    let detail = ''
+    try {
+      const payload = await response.json() as { detail?: string | { msg?: string }[] }
+      if (typeof payload.detail === 'string') detail = payload.detail
+      else if (Array.isArray(payload.detail)) detail = payload.detail.map((item) => item?.msg).filter(Boolean).join('; ')
+    } catch {
+      // Keep the HTTP status when the server did not return JSON.
+    }
+    throw new Error(detail || `Game session start failed: ${response.status}`)
+  }
   return response.json() as Promise<GameSessionStartResponse>
 }
 
