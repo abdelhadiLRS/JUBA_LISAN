@@ -19,7 +19,7 @@ _q("pl-b1-v-001","vocabulary","B1","Co znaczy „doświadczenie”?",["doświadc
 _q("pl-b1-v-002","vocabulary","B1","Wybierz słowo związane z mediami.",["nagłówek","przyjaźń","stypendium","ryzyko"],"nagłówek"),
 _q("pl-b2-g-001","grammar","B2","Wybierz poprawne zdanie w stronie biernej.",["Raport został opublikowany.","Raport został publikować.","Raport był opublikować.","Raport został opublikować."],"Raport został opublikowany.","passive"),
 _q("pl-b2-g-002","grammar","B2","Który spójnik wprowadza ustępstwo?",["chociaż","ponieważ","dlatego","więc"],"chociaż","concessive-clauses"),
-_q("pl-b2-v-001","vocabulary","B2","Co znaczy „przesłanka”?",["przesłanka","wynagrodzenie","dziedzictwo","opóźnienie"],"premise"),
+_q("pl-b2-v-001","vocabulary","B2","Co znaczy „przesłanka”?",["przesłanka","wynagrodzenie","dziedzictwo","opóźnienie"],"przesłanka"),
 _q("pl-b2-v-002","vocabulary","B2","Wybierz termin związany z polityką publiczną.",["regulacja","walizka","kawa","rodzina"],"regulacja"),
 _q("pl-c1-g-001","grammar","C1","Która forma łagodzi twierdzenie?",["Wydaje się, że...","Na pewno jest tak...","Bez wątpienia...","To oczywiste..."],"Wydaje się, że...","hedging"),
 _q("pl-c1-g-002","grammar","C1","Co najlepiej opisuje styl akademicki?",["jawne relacje logiczne","wyłącznie slang","brak struktury","same krótkie zdania"],"jawne relacje logiczne","academic-syntax"),
