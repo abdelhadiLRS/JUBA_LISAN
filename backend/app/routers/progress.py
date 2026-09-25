@@ -78,11 +78,18 @@ def _daily_game_id(day: date) -> str:
 
 
 
-def _server_interactive_challenge(\n    game_id: str, language: str, difficulty: int, target_language: str = "en-GB", cefr_level: CEFRLevel = "A1"\n) -> tuple[dict, dict]:
+def _server_interactive_challenge(
+    game_id: str, language: str, difficulty: int, target_language: str = "en-GB", cefr_level: CEFRLevel = "A1"
+) -> tuple[dict, dict]:
     """Build a renderable challenge plus server-only solution state."""
     rng = random.SystemRandom()
     if game_id == "memory":
-        count = {1: 3, 2: 4, 3: 5}[difficulty]\n        selected_entries = cefr_entries[:count]\n        if len(selected_entries) < count:\n            raise ValueError(f"No vocabulary content for {target_language} at {cefr_level}")\n        selected = [(entry.word.strip(), entry.definition.strip()) for entry in selected_entries]\n        cards = []
+        count = {1: 3, 2: 4, 3: 5}[difficulty]
+        selected_entries = cefr_entries[:count]
+        if len(selected_entries) < count:
+            raise ValueError(f"No vocabulary content for {target_language} at {cefr_level}")
+        selected = [(entry.word.strip(), entry.definition.strip()) for entry in selected_entries]
+        cards = []
         pairs = {}
         for index, (left, right) in enumerate(selected):
             a, b = str(uuid4()), str(uuid4())
@@ -92,7 +99,12 @@ def _server_interactive_challenge(\n    game_id: str, language: str, difficulty:
         rng.shuffle(cards)
         return {"type": "memory", "cards": cards}, {"pairs": pairs, "pair_count": count}
     if game_id == "matching":
-        count = {1: 3, 2: 4, 3: 5}[difficulty]\n        pairs_source = [(entry.word.strip(), entry.definition.strip()) for entry in cefr_entries[:count]]\n        if len(pairs_source) < count:\n            raise ValueError(f"No vocabulary content for {target_language} at {cefr_level}")\n        rng.shuffle(pairs_source)\n        left, right = [], []
+        count = {1: 3, 2: 4, 3: 5}[difficulty]
+        pairs_source = [(entry.word.strip(), entry.definition.strip()) for entry in cefr_entries[:count]]
+        if len(pairs_source) < count:
+            raise ValueError(f"No vocabulary content for {target_language} at {cefr_level}")
+        rng.shuffle(pairs_source)
+        left, right = [], []
         pairs = {}
         for left_label, right_label in pairs_source:
             left_id, right_id = str(uuid4()), str(uuid4())
@@ -104,7 +116,11 @@ def _server_interactive_challenge(\n    game_id: str, language: str, difficulty:
         return {"type": "matching", "left": left, "right": right}, {"pairs": pairs, "pair_count": len(left)}
     if game_id in {"ordering", "sentence_builder"}:
         if game_id == "sentence_builder":
-            sentence_entries = [entry for entry in cefr_entries if entry.example.strip()]\n            if not sentence_entries:\n                raise ValueError(f"No example sentences for {target_language} at {cefr_level}")\n            source = sentence_entries[0].example.strip().split()\n
+            sentence_entries = [entry for entry in cefr_entries if entry.example.strip()]
+            if not sentence_entries:
+                raise ValueError(f"No example sentences for {target_language} at {cefr_level}")
+            source = sentence_entries[0].example.strip().split()
+
         else:
             source = {
                 "ar": ["الأول", "الثاني", "الثالث", "الرابع", "الخامس"],
