@@ -2318,6 +2318,28 @@ async def _build_multi_skill_review_questions(
         replay["language"] = str(
             replay.get("language") or str(plan.target_language).split("-")[0] or "en"
         )
+
+        # Carry mastery telemetry explicitly into the mixed-skill replay. The
+        # single-skill review queue already derives these fields, but fresh
+        # callers can reach this builder with only a compact mistake snapshot.
+        mastery_state = str(replay.get("mastery_state") or "new")
+        review_streak = max(0, int(replay.get("review_streak", 0)))
+        replay["review_strategy"] = _review_item_strategy(
+            mastery_state,
+            review_streak,
+        )
+        replay["retrieval_efficiency"] = max(
+            0.0,
+            min(1.0, float(replay.get("retrieval_efficiency", 0.0))),
+        )
+        replay["attempts"] = max(0, int(replay.get("attempts", 0)))
+        replay["review_streak"] = review_streak
+
+        # Low retrieval efficiency should not jump directly to transfer or
+        # production even when the stored mastery state is optimistic.
+        if replay["retrieval_efficiency"] < 0.35:
+            replay["review_strategy"] = "recognition"
+
         return _apply_skill_review_variant(
             replay, int(replay.get("variant_seed", 0))
         )
