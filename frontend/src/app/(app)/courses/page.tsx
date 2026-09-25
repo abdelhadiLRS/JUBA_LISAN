@@ -108,8 +108,8 @@ export default function CoursesPage() {
             return (
               <div key={key} className="juba-card rounded-[27px] border-2 border-[var(--juba-app-line)] bg-white p-5 shadow-[0_12px_28px_rgba(52,37,90,.07)]">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)]"><Icon className="h-5 w-5" /></div>
-                <h2 className="mt-4 text-xl font-black text-[var(--juba-app-ink)]">{t(\`skills.\${key}.title\`)}</h2>
-                <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">{t(\`skills.\${key}.text\`)}</p>
+                <h2 className="mt-4 text-xl font-black text-[var(--juba-app-ink)]">{t(`skills.${key}.title`)}</h2>
+                <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">{t(`skills.${key}.text`)}</p>
               </div>
             )
           })}
@@ -133,17 +133,17 @@ export default function CoursesPage() {
                 const progress = current ? currentProgress : journeyLevelUnits.length ? Math.round((journeyLevelUnits.reduce((sum, unit) => sum + (unit?.progress ?? 0), 0) / journeyLevelUnits.length) * 100) : 0
                 const lessonCount = current ? Math.max(currentLessonCount, totalLessons) : totalLessons || units.reduce((sum, unit) => sum + unit.lesson_types.length, 0)
                 return (
-                  <article key={level} className={\`juba-card relative rounded-[30px] border-2 border-[var(--juba-app-line)] bg-white p-6 shadow-[0_12px_28px_rgba(52,37,90,.07)] transition hover:-translate-y-1 \${current ? 'ring-2 ring-[var(--juba-app-green)]' : ''}\`}>
+                  <article key={level} className={`juba-card relative rounded-[30px] border-2 border-[var(--juba-app-line)] bg-white p-6 shadow-[0_12px_28px_rgba(52,37,90,.07)] transition hover:-translate-y-1 ${current ? 'ring-2 ring-[var(--juba-app-green)]' : ''}`}>
                     {current && <span className="absolute -top-3 right-5 rounded-full bg-[var(--juba-app-yellow)] px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-[var(--juba-app-ink)]">{t('currentLevel')}</span>}
                     <div className="flex items-start justify-between gap-4">
-                      <div><span className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-muted)]">{t('levelLabel', { number: index + 1 })}</span><h3 className="mt-2 text-2xl font-black text-[var(--juba-app-ink)]">{t(\`levels.\${level}.title\`)}</h3></div>
-                      <div className={\`flex h-10 w-10 items-center justify-center rounded-full \${unlocked ? 'bg-[var(--juba-app-yellow)] text-[var(--juba-app-green-dark)]' : 'bg-[#f3f7ef] text-[var(--juba-app-muted)]'}\`}>{unlocked ? <CheckCircle2 className="h-5 w-5" /> : <LockKeyhole className="h-5 w-5" />}</div>
+                      <div><span className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-muted)]">{t('levelLabel', { number: index + 1 })}</span><h3 className="mt-2 text-2xl font-black text-[var(--juba-app-ink)]">{t(`levels.${level}.title`)}</h3></div>
+                      <div className={`flex h-10 w-10 items-center justify-center rounded-full ${unlocked ? 'bg-[var(--juba-app-yellow)] text-[var(--juba-app-green-dark)]' : 'bg-[#f3f7ef] text-[var(--juba-app-muted)]'}`}>{unlocked ? <CheckCircle2 className="h-5 w-5" /> : <LockKeyhole className="h-5 w-5" />}</div>
                     </div>
-                    <p className="mt-3 max-w-xl text-sm leading-6 text-[var(--juba-app-muted)]">{t(\`levels.\${level}.desc\`)}</p>
+                    <p className="mt-3 max-w-xl text-sm leading-6 text-[var(--juba-app-muted)]">{t(`levels.${level}.desc`)}</p>
                     <div className="mt-6 flex items-center justify-between text-sm font-bold text-[var(--juba-app-ink)]"><span>{t('lessons', { count: lessonCount })}</span><span>{progress}%</span></div>
-                    <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-[#f3f7ef]"><div className="h-full rounded-full bg-[var(--juba-app-yellow)] transition-all" style={{ width: \`\${progress}%\` }} /></div>
+                    <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-[#f3f7ef]"><div className="h-full rounded-full bg-[var(--juba-app-yellow)] transition-all" style={{ width: `${progress}%` }} /></div>
                     {unlocked ? (
-                      <Link href={current ? '/plan' : \`/courses/\${level}\`} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[var(--juba-app-green-soft)] px-5 py-3 font-black text-[var(--juba-app-green-dark)] transition hover:bg-[var(--juba-app-green)]">{current ? t('openLearningPlan') : t('exploreLevel')} <ArrowRight className="h-4 w-4" /></Link>
+                      <Link href={current ? '/plan' : `/courses/${level}`} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[var(--juba-app-green-soft)] px-5 py-3 font-black text-[var(--juba-app-green-dark)] transition hover:bg-[var(--juba-app-green)]">{current ? t('openLearningPlan') : t('exploreLevel')} <ArrowRight className="h-4 w-4" /></Link>
                     ) : (
                       <span className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#f3f7ef] px-5 py-3 font-bold text-[var(--juba-app-muted)]"><LockKeyhole className="h-4 w-4" /> {t('unlockLater')}</span>
                     )}
@@ -189,12 +189,12 @@ export default function CoursesPage() {
 
         <section className="juba-card rounded-[30px] border-2 border-[var(--juba-app-line)] bg-white p-6 shadow-[0_12px_28px_rgba(52,37,90,.07)] sm:p-7">
           <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="juba-eyebrow">{t('missionsEyebrow')}</p><h2 className="mt-2 text-2xl font-black text-[var(--juba-app-ink)]">{t('missionsTitle')}</h2></div><Link href="/learning-journey" className="font-bold text-[var(--juba-app-green-dark)] underline underline-offset-4">{t('openRoadmap')}</Link></div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{places.map((place) => <div key={place.key} className="rounded-2xl border border-[var(--juba-app-line)] bg-[#f3f7ef] p-4"><span className="text-2xl" aria-hidden="true">{place.icon}</span><p className="mt-3 font-black text-[var(--juba-app-ink)]">{t(\`places.\${place.key}.title\`)}</p><p className="mt-1 text-sm text-[var(--juba-app-muted)]">{t(\`places.\${place.key}.text\`)}</p></div>)}</div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{places.map((place) => <div key={place.key} className="rounded-2xl border border-[var(--juba-app-line)] bg-[#f3f7ef] p-4"><span className="text-2xl" aria-hidden="true">{place.icon}</span><p className="mt-3 font-black text-[var(--juba-app-ink)]">{t(`places.${place.key}.title`)}</p><p className="mt-1 text-sm text-[var(--juba-app-muted)]">{t(`places.${place.key}.text`)}</p></div>)}</div>
         </section>
 
         <section className="juba-card rounded-[30px] border-2 border-[var(--juba-app-line)] bg-white p-6 shadow-[0_12px_28px_rgba(52,37,90,.07)] sm:p-7">
           <div className="flex items-center gap-3"><Sparkles className="h-6 w-6 text-[var(--juba-app-green-dark)]" /><h2 className="text-2xl font-black text-[var(--juba-app-ink)]">{t('rhythmTitle')}</h2></div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-4">{(['learn', 'practice', 'recall', 'review'] as const).map((step, i) => <div key={step} className="rounded-2xl border border-[var(--juba-app-line)] bg-[#f3f7ef] p-4"><span className="text-xs font-bold text-[var(--juba-app-muted)]">0{i + 1}</span><p className="mt-2 font-black text-[var(--juba-app-ink)]">{t(\`rhythm.\${step}\`)}</p></div>)}</div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-4">{(['learn', 'practice', 'recall', 'review'] as const).map((step, i) => <div key={step} className="rounded-2xl border border-[var(--juba-app-line)] bg-[#f3f7ef] p-4"><span className="text-xs font-bold text-[var(--juba-app-muted)]">0{i + 1}</span><p className="mt-2 font-black text-[var(--juba-app-ink)]">{t(`rhythm.${step}`)}</p></div>)}</div>
         </section>
       </div>
     </main>
