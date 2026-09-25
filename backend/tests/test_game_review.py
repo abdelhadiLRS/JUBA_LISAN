@@ -487,3 +487,104 @@ async def test_smart_review_prefers_latest_marker_across_events(
     )
 
     assert due == []
+
+
+@pytest.mark.asyncio
+async def test_game_session_completion_is_idempotent_for_xp_mastery_and_event_ledger(
+    client, db_session, test_user_with_plan
+):
+    from sqlalchemy import func, select
+
+    from app.models.game_progress import GameProgress
+    from app.models.game_progress_event import GameProgressEvent
+    from app.models.progress import Progress
+
+    user, headers = test_user_with_plan
+
+    started = await client.post(
+        "/api/progress/game-session",
+        json={"game_id": "quick_choice", "language": "en", "difficulty": 1},
+        headers=headers,
+    )
+    assert started.status_code == 200, started.text
+    session = started.json()
+
+    payload = {
+        "session_id": session["session_id"],
+        "answers": [
+            {"question_id": question["id"], "choice": question["choices"][0]}
+            for question in session["questions"]
+        ],
+    }
+
+    first = await client.post(
+        "/api/progress/game-session/complete",
+        json=payload,
+        headers=headers,
+    )
+    assert first.status_code == 200, first.text
+    first_result = first.json()
+
+    progress_before = (
+        await db_session.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == user.id,
+                GameProgress.study_plan_id == 1,
+            )
+        )
+    ).scalar_one()
+    event_count_before = (
+        await db_session.execute(
+            select(func.count(GameProgressEvent.id)).where(
+                GameProgressEvent.user_id == user.id,
+                GameProgressEvent.study_plan_id == 1,
+            )
+        )
+    ).scalar_one()
+    xp_before = (
+        await db_session.execute(
+            select(func.coalesce(func.sum(Progress.xp_earned), 0)).where(
+                Progress.user_id == user.id,
+                Progress.study_plan_id == 1,
+            )
+        )
+    ).scalar_one()
+
+    second = await client.post(
+        "/api/progress/game-session/complete",
+        json=payload,
+        headers=headers,
+    )
+    assert second.status_code == 409, second.text
+
+    progress_after = (
+        await db_session.execute(
+            select(GameProgress).where(
+                GameProgress.user_id == user.id,
+                GameProgress.study_plan_id == 1,
+            )
+        )
+    ).scalar_one()
+    event_count_after = (
+        await db_session.execute(
+            select(func.count(GameProgressEvent.id)).where(
+                GameProgressEvent.user_id == user.id,
+                GameProgressEvent.study_plan_id == 1,
+            )
+        )
+    ).scalar_one()
+    xp_after = (
+        await db_session.execute(
+            select(func.coalesce(func.sum(Progress.xp_earned), 0)).where(
+                Progress.user_id == user.id,
+                Progress.study_plan_id == 1,
+            )
+        )
+    ).scalar_one()
+
+    assert first_result["xp_earned"] >= 0
+    assert progress_after.games_played == progress_before.games_played == 1
+    assert progress_after.questions_answered == progress_before.questions_answered
+    assert progress_after.correct_answers == progress_before.correct_answers
+    assert event_count_after == event_count_before == 1
+    assert xp_after == xp_before
