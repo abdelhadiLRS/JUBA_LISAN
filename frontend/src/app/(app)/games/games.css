@@ -268,3 +268,38 @@
 .spelling-form input{width:100%;box-sizing:border-box;border:2px solid var(--juba-app-line);border-radius:20px;padding:17px 18px;background:var(--juba-app-surface);color:var(--juba-app-ink);font-size:18px;font-weight:800;text-align:inherit}
 .spelling-form input:focus{outline:3px solid var(--juba-app-yellow);outline-offset:2px}
 .spelling-form .next:disabled{opacity:.45;cursor:not-allowed}
+
+
+.smart-review-queue {
+  margin-top: 1rem;
+}
+
+.smart-review-list {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.8rem;
+}
+
+.smart-review-item {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+  background: var(--card-muted, rgba(127, 127, 127, 0.08));
+}
+
+.smart-review-item strong {
+  line-height: 1.4;
+}
+
+.smart-review-item small {
+  opacity: 0.7;
+}
+
+.smart-review-skill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
+}
