@@ -1149,6 +1149,28 @@ def _review_interval(review_count: int) -> timedelta:
     )
 
 
+def _review_adaptive_difficulty(
+    base_difficulty: int,
+    review_streak: int,
+    mastery_score: float,
+) -> int:
+    """Adjust review difficulty without changing the learner's CEFR band."""
+    difficulty = max(1, min(3, int(base_difficulty)))
+    if mastery_score < 0.4:
+        return max(1, difficulty - 1)
+    if review_streak >= 2 and mastery_score >= 0.8:
+        return min(3, difficulty + 1)
+    if review_streak >= 1 and mastery_score >= 0.65:
+        return min(3, difficulty + 1)
+    return difficulty
+
+
+def _review_variant_seed(question: dict, review_streak: int) -> int:
+    """Create a deterministic variant seed for stable server-side replay."""
+    raw = f"{_review_key(question)}|{max(0, review_streak)}"
+    return sum((index + 1) * ord(char) for index, char in enumerate(raw)) % 100000
+
+
 def _review_stage(review_streak: int) -> str:
     """Expose a stable human-readable stage for the current review streak."""
     return (
@@ -1409,6 +1431,15 @@ async def _get_recent_game_mistakes(
                 replay["review_count"] = int(item.get("review_count", 0))
                 replay["review_streak"] = int(item.get("review_streak", 0))
                 replay["review_stage"] = _review_stage(int(item.get("review_streak", 0)))
+                replay["mastery_score"] = float(mastery["score"])
+                replay["review_difficulty"] = _review_adaptive_difficulty(
+                    int(question.get("difficulty", 1)),
+                    int(item.get("review_streak", 0)),
+                    float(mastery["score"]),
+                )
+                replay["variant_seed"] = _review_variant_seed(
+                    question, int(item.get("review_streak", 0))
+                )
                 replay["review_due_at"] = due_at.isoformat()
                 replay["source_game_id"] = event.game_id
                 replay["target_language"] = str(
@@ -1622,6 +1653,7 @@ async def _build_multi_skill_review_questions(
         replay["review"] = True
         replay["target_language"] = plan.target_language
         replay["cefr_level"] = plan.cefr_level
+        replay["difficulty"] = int(replay.get("review_difficulty", replay.get("difficulty", difficulty)))
         selected.append(replay)
         selected_keys.add(str(replay.get("review_key") or _review_key(replay)))
 
@@ -1644,6 +1676,7 @@ async def _build_multi_skill_review_questions(
                 replay["review"] = True
                 replay["target_language"] = plan.target_language
                 replay["cefr_level"] = plan.cefr_level
+                replay["difficulty"] = int(replay.get("review_difficulty", replay.get("difficulty", difficulty)))
                 selected.append(replay)
                 selected_keys.add(str(replay.get("review_key") or _review_key(replay)))
 
