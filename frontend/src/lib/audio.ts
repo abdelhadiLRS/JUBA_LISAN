@@ -152,7 +152,7 @@ export function createAudioQueue(
       }
 
       if (generationToken !== generation) return
-      if (ctx.state === 'closed' || ctx.state === 'suspended') {
+      if (ctx.state !== 'running') {
         audioQueueLogger.warn('audio context remains unavailable after resume', {
           chunkId,
           state: ctx.state,
