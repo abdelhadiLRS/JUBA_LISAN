@@ -20,10 +20,10 @@ import {
   Zap,
 } from 'lucide-react'
 
-interface {t('progress')}Summary {
+interface ProgressSummary {
   current_streak?: number
   total_xp?: number
-  {t('accuracy')}?: number
+  accuracy?: number
   vocabulary_mastered?: number
   vocabulary_total?: number
   vocabulary_progress?: number
@@ -53,7 +53,7 @@ export default function CoachPage() {
   const t = useTranslations('coach')
   const user = useAuthStore((s) => s.user)
   const language = useLanguageStore((s) => s.activeLanguage)
-  const [progress, set{t('progress')}] = useState<{t('progress')}Summary>({})
+  const [progress, setProgress] = useState<ProgressSummary>({})
   const [plan, setPlan] = useState<TodayPlan>({})
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
@@ -64,7 +64,7 @@ export default function CoachPage() {
         apiFetch('/api/progress/summary'),
         apiFetch('/api/study-plan/today'),
       ])
-      if (progressRes.ok) set{t('progress')}(await progressRes.json())
+      if (progressRes.ok) setProgress(await progressRes.json())
       if (planRes.ok) setPlan(await planRes.json())
     } finally {
       setLoading(false)
@@ -84,7 +84,7 @@ export default function CoachPage() {
 
   const completed = (plan.lessons ?? []).filter((l) => l.is_completed).length
   const total = plan.lessons?.length ?? 0
-  const vocab{t('progress')} = Math.round((progress.vocabulary_progress ?? 0) * 100)
+  const vocabProgress = Math.round((progress.vocabulary_progress ?? 0) * 100)
 
   return (
     <main className="juba-coach-shell min-h-screen px-4 py-8 sm:px-6 lg:px-10">
@@ -128,7 +128,7 @@ export default function CoachPage() {
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-[var(--juba-app-green)] px-5 py-3 text-sm font-bold text-white shadow-[3px_3px_0_var(--juba-app-ink)] transition hover:opacity-90">
-                    {t('start{t('practice')}')} <ArrowRight className="h-4 w-4" />
+                    {t('startPractice')} <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[var(--juba-app-line)] px-5 py-3 text-sm font-bold text-[var(--juba-app-ink)] transition hover:bg-[var(--juba-app-green-soft)]">
                     {t('viewPlan')}
@@ -147,25 +147,25 @@ export default function CoachPage() {
               <Flame className="h-6 w-6 text-[var(--juba-app-green-dark)]" />
             </div>
             <div className="grid grid-cols-3 gap-3">
-              <Metric icon={<Flame />} value={`${progress.current_streak ?? 0}`} label="{t('dayStreak')}" />
-              <Metric icon={<Zap />} value={`${progress.total_xp ?? 0}`} label="{t('totalXp')}" />
-              <Metric icon={<Target />} value={`${progress.{t('accuracy')} ? Math.round(progress.{t('accuracy')} * 100) : 0}%`} label="{t('accuracy')}" />
+              <Metric icon={<Flame />} value={`${progress.current_streak ?? 0}`} label={t('dayStreak')} />
+              <Metric icon={<Zap />} value={`${progress.total_xp ?? 0}`} label={t('totalXp')} />
+              <Metric icon={<Target />} value={`${progress.accuracy ? Math.round(progress.accuracy * 100) : 0}%`} label={t('accuracy')} />
             </div>
           </div>
         </section>
 
         <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          <CoachCard icon={<Mic />} title="{t('speak')}" value="{t('conversation')}" detail="{t('speakDetail')}" href="/conversation" />
-          <CoachCard icon={<Volume2 />} title="{t('listen')}" value="{t('practice')}" detail="{t('listenDetail')}" href="/listening" />
-          <CoachCard icon={<RefreshCw />} title="{t('review')}" value="{t('flashcards')}" detail="{t('reviewDetail')}" href="/flashcards" />
-          <CoachCard icon={<TrendingUp />} title="{t('progress')}" value={`${vocab{t('progress')}}%`} detail={`${progress.vocabulary_mastered ?? 0} {t('wordsMastered')}`} href="/progress" />
+          <CoachCard icon={<Mic />} title={t('speak')} value={t('conversation')} detail={t('speakDetail')} href="/conversation" />
+          <CoachCard icon={<Volume2 />} title={t('listen')} value={t('practice')} detail={t('listenDetail')} href="/listening" />
+          <CoachCard icon={<RefreshCw />} title={t('review')} value={t('flashcards')} detail={t('reviewDetail')} href="/flashcards" />
+          <CoachCard icon={<TrendingUp />} title={t('progress')} value={`${vocabProgress}%`} detail={`${progress.vocabulary_mastered ?? 0} {t('wordsMastered')}`} href="/progress" />
         </section>
 
         <section className="grid gap-5 lg:grid-cols-[1.35fr_1fr]">
           <div className="juba-card p-6 sm:p-8">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{t('{t('adaptive')}Queue')}</p>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{t('adaptiveQueue')}</p>
                 <h2 className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">{t('bestWork')}</h2>
               </div>
               <span className="rounded-full bg-[var(--juba-app-green-soft)] px-3 py-1 text-xs font-bold text-[var(--juba-app-muted)]">{completed}/{total} {t('complete')}</span>
@@ -188,9 +188,9 @@ export default function CoachPage() {
           </div>
 
           <div className="juba-card p-6 sm:p-8">
-            <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{t('practice')} in context</p>
+            <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{t('contextEyebrow')}</p>
             <h2 className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">{t('rooms')}</h2>
-            <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">Stop memorizing isolated sentences. {t('practice')} what you actually need to say.</p>
+            <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">{t('roomsDescription')}</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
                 <Link key={scenario.titleKey} href={scenario.href} className="rounded-[28px] border-2 border-[var(--juba-app-line)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)]">
@@ -204,8 +204,8 @@ export default function CoachPage() {
         </section>
 
         <footer className="flex flex-col gap-2 border-t border-[var(--juba-app-line)] pt-6 text-xs text-[var(--juba-app-muted)] sm:flex-row sm:items-center sm:justify-between">
-          <span>Learning {language?.name ? `· ${language.name}` : '· {t('personalized')}'}</span>
-          <span>CEFR {plan.cefr_level || '{t('adaptive')}'} · JUBA LISAN Coach</span>
+          <span>Learning {language?.name ? `· ${language.name}` : `· ${t('personalized')}`}</span>
+          <span>CEFR {plan.cefr_level || t('adaptive')} · JUBA LISAN Coach</span>
         </footer>
       </div>
     </main>
