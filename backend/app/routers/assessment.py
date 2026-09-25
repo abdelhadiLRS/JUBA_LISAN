@@ -457,16 +457,21 @@ async def complete_assessment(
     db.add(plan)
     await db.commit()
     await db.refresh(plan)
-    voice_trial = await create_assessment_voice_trial_token(
-        redis,
-        user_id=current_user_id,
-        subscription_status=current_user_subscription_status,
-        assessment_voice_trial_used=current_user_assessment_voice_trial_used,
-        stripe_enabled=settings.STRIPE_ENABLED,
-        plan_id=plan.id,
-        target_language=target_language,
-        cefr_level=plan.cefr_level,
-    )
+    # Voice trial is an optional post-assessment enhancement. A Redis failure
+    # must never turn a successfully-created study plan into an HTTP 500.
+    try:
+        voice_trial = await create_assessment_voice_trial_token(
+            redis,
+            user_id=current_user_id,
+            subscription_status=current_user_subscription_status,
+            assessment_voice_trial_used=current_user_assessment_voice_trial_used,
+            stripe_enabled=settings.STRIPE_ENABLED,
+            plan_id=plan.id,
+            target_language=target_language,
+            cefr_level=plan.cefr_level,
+        )
+    except Exception:
+        voice_trial = {"available": False}
     return {
         "plan_id": plan.id,
         "cefr_level": plan.cefr_level,
