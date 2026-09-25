@@ -1146,6 +1146,72 @@ def _review_interval(review_count: int) -> timedelta:
     )
 
 
+def _item_mastery_from_events(
+    events: list[GameProgressEvent],
+    review_key: str,
+    skill: str | None = None,
+    target_language: str | None = None,
+    cefr_level: str | None = None,
+) -> dict[str, object]:
+    """Derive per-item mastery from the append-only game event ledger."""
+    misses = 0
+    resolutions = 0
+    last_miss_at: datetime | None = None
+    last_resolution_at: datetime | None = None
+
+    for event in sorted(events, key=lambda event: event.created_at):
+        for item in event.mistakes or []:
+            if not isinstance(item, dict) or str(item.get("review_key", "")) != review_key:
+                continue
+            question = item.get("question")
+            if isinstance(question, dict):
+                if skill and str(question.get("skill", "")) != skill:
+                    continue
+                if target_language and str(question.get("target_language", "")) != target_language:
+                    continue
+                if cefr_level and str(question.get("cefr_level", "")) != cefr_level:
+                    continue
+            if item.get("resolved"):
+                resolutions += 1
+                last_resolution_at = event.created_at
+            elif isinstance(question, dict):
+                misses += 1
+                last_miss_at = event.created_at
+
+    if misses == 0 and resolutions == 0:
+        return {
+            "score": 0.0,
+            "state": "new",
+            "misses": 0,
+            "resolutions": 0,
+        }
+
+    # Resolutions raise mastery while repeated misses keep the item weak.
+    score = max(
+        0.0,
+        min(1.0, 0.5 + (resolutions * 0.65 - misses * 0.35) / max(1.0, misses + resolutions)),
+    )
+    if misses >= 3 and misses > resolutions:
+        state = "weak"
+    elif resolutions >= 3 and resolutions >= misses:
+        state = "mastered"
+    elif resolutions > 0 and last_resolution_at and last_miss_at and last_resolution_at >= last_miss_at:
+        state = "reviewing"
+    elif misses <= 1:
+        state = "learning"
+    else:
+        state = "weak"
+
+    return {
+        "score": round(score, 3),
+        "state": state,
+        "misses": misses,
+        "resolutions": resolutions,
+        "last_miss_at": last_miss_at.isoformat() if last_miss_at else None,
+        "last_resolution_at": last_resolution_at.isoformat() if last_resolution_at else None,
+    }
+
+
 async def _get_recent_game_mistakes(
     db: AsyncSession,
     user_id: int,
@@ -1216,8 +1282,22 @@ async def _get_recent_game_mistakes(
                 candidates.append((due_at, replay))
                 seen.add(key)
 
-    candidates.sort(key=lambda pair: pair[0])
-    return [question for _, question in candidates[:limit]]
+    ranked_candidates: list[tuple[float, datetime, dict]] = []
+    for due_at, question in candidates:
+        mastery = _item_mastery_from_events(
+            events,
+            str(question.get("review_key", "")),
+            skill=skill,
+            target_language=str(question.get("target_language") or "") or None,
+            cefr_level=str(question.get("cefr_level") or "") or None,
+        )
+        question["mastery_score"] = float(mastery["score"])
+        question["mastery_state"] = str(mastery["state"])
+        question["mastery_misses"] = int(mastery["misses"])
+        question["mastery_resolutions"] = int(mastery["resolutions"])
+        ranked_candidates.append((float(mastery["score"]), due_at, question))
+    ranked_candidates.sort(key=lambda item: (item[0], item[1]))
+    return [question for _, _, question in ranked_candidates[:limit]]
 
 
 def _apply_smart_review(
