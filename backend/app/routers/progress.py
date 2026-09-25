@@ -1084,6 +1084,12 @@ async def _get_recent_game_mistakes(
                 replay["review_count"] = int(item.get("review_count", 0))
                 replay["review_due_at"] = due_at.isoformat()
                 replay["source_game_id"] = event.game_id
+                replay["target_language"] = str(
+                    question.get("target_language") or item.get("target_language") or ""
+                )
+                replay["cefr_level"] = str(
+                    question.get("cefr_level") or item.get("cefr_level") or ""
+                )
                 candidates.append((due_at, replay))
                 seen.add(key)
 
@@ -1124,6 +1130,12 @@ def _apply_smart_review(
         replay["review"] = True
         replay["target_language"] = target_language
         replay["cefr_level"] = cefr_level
+        # Review metadata is server-only; the public projection below omits
+        # the authoritative answer and review bookkeeping.
+        replay.pop("review_key", None)
+        replay.pop("review_count", None)
+        replay.pop("review_due_at", None)
+        replay.pop("source_game_id", None)
         if replay.get("input_mode", "choice") == "choice":
             # Rebuild distractors from fresh questions while preserving the
             # authoritative answer from the prior mistake.
