@@ -1,4 +1,4 @@
-from app.routers.progress import _review_adaptive_difficulty, _review_game_for_item
+from app.routers.progress import _review_adaptive_difficulty, _review_game_for_item, _review_item_strategy
 
 
 def test_review_difficulty_drops_for_weak_items():
@@ -16,3 +16,10 @@ def test_review_mechanic_tracks_mastery_state():
     assert _review_game_for_item("vocabulary", "reviewing") == "word_categories"
     assert _review_game_for_item("grammar", "weak") == "grammar_duel"
     assert _review_game_for_item("grammar", "reviewing") == "fill_blank"
+
+
+def test_review_strategy_progresses_from_recall_to_production():
+    assert _review_item_strategy("weak", 0) == "direct_recall"
+    assert _review_item_strategy("learning", 1) == "recognition"
+    assert _review_item_strategy("reviewing", 2) == "contextual_transfer"
+    assert _review_item_strategy("mastered", 3) == "production"
