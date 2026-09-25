@@ -594,7 +594,7 @@ async def test_game_session_completion_is_idempotent_for_xp_mastery_and_event_le
 
 @pytest.mark.asyncio
 async def test_game_session_completion_claim_prevents_duplicate_aggregate_mutation(
-    db_session, test_user_with_plan, monkeypatch
+    db_session, test_user_with_plan
 ):
     """A second completion attempt cannot pass the atomic session claim."""
     from datetime import UTC, datetime, timedelta
@@ -641,7 +641,7 @@ async def test_game_session_completion_claim_prevents_duplicate_aggregate_mutati
 
     # Exercise the exact atomic UPDATE used by completion without running the
     # full HTTP flow; the second claim must affect zero rows.
-    from sqlalchemy import update
+    from sqlalchemy import select, update
 
     first_claim = await db_session.execute(
         update(GameSession)
