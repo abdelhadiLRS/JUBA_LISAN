@@ -2616,12 +2616,42 @@ async def answer_game_session_question(
     # same server-side identity while adapting the item for the next attempt.
     if not correct:
         miss_count = sum(1 for attempt in attempts if not bool(attempt.get("correct")))
-        adapted = _adapt_question_after_session_miss(current, miss_count)
-        current.update({
-            "difficulty": adapted.get("difficulty", current.get("difficulty", session.difficulty)),
-            "retry_stage": adapted.get("retry_stage", "retry"),
-            "hint": adapted.get("hint", current.get("hint", "")),
-        })
+        retry_difficulty = max(
+            1,
+            int(current.get("difficulty", session.difficulty)) - (1 if miss_count >= 2 else 0),
+        )
+        plan = await db.get(StudyPlan, session.study_plan_id)
+        if plan is None:
+            raise HTTPException(status_code=409, detail="Study plan no longer exists")
+        cefr_level = cast(CEFRLevel, plan.cefr_level)
+        current_skill = str(current.get("skill") or GAME_SKILL_MAP.get(session.game_id, "vocabulary"))
+        current_topic = str(current.get("topic") or "").strip()
+        generated = _server_game_questions(
+            session.game_id,
+            session.language,
+            retry_difficulty,
+            plan.target_language,
+            cefr_level,
+            [current_topic] if current_topic else None,
+        )
+        adapted = next(
+            (
+                item for item in generated
+                if str(item.get("skill") or "") == current_skill
+            ),
+            generated[0] if generated else None,
+        )
+        if adapted is None:
+            raise HTTPException(status_code=503, detail="Unable to generate a retry question")
+        # Preserve the logical item identity and attempt ledger while replacing
+        # the learner-facing variant with fresh curriculum content.
+        retry_id = str(current.get("id"))
+        current = dict(adapted)
+        current["id"] = retry_id
+        current["_attempts"] = attempts
+        current["_answered"] = False
+        current["_served"] = True
+        current["retry_stage"] = _review_retry_stage(miss_count)
         questions[index] = current
         session.questions = questions
         await db.commit()
