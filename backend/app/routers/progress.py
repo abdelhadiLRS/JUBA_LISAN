@@ -317,6 +317,7 @@ async def get_summary(
     vocabulary_mastered, vocabulary_total, vocabulary_progress = (
         await _get_vocabulary_level_progress(db, current_user.id, plan)
     )
+    mastery = await _get_tracked_mastery_summary(db, current_user.id, plan.id)
 
     result = await db.execute(
         select(Progress)
@@ -365,6 +366,7 @@ async def get_summary(
         exercises_correct=exercises_correct,
         accuracy=round(accuracy, 2),
         skills=latest_skills,
+        mastery=mastery,
         vocabulary_level=plan.cefr_level,
         vocabulary_mastered=vocabulary_mastered,
         vocabulary_total=vocabulary_total,
@@ -1209,6 +1211,112 @@ def _item_mastery_from_events(
         "resolutions": resolutions,
         "last_miss_at": last_miss_at.isoformat() if last_miss_at else None,
         "last_resolution_at": last_resolution_at.isoformat() if last_resolution_at else None,
+    }
+
+
+async def _get_tracked_mastery_summary(
+    db: AsyncSession,
+    user_id: int,
+    plan_id: int,
+) -> dict:
+    """Aggregate item mastery for the active language/CEFR study plan.
+
+    This is intentionally a *tracked* mastery view: only items that have
+    appeared in the append-only game event ledger are counted. Curriculum
+    items that have never been attempted are not treated as mastered or weak.
+    """
+    result = await db.execute(
+        select(GameProgressEvent)
+        .where(
+            GameProgressEvent.user_id == user_id,
+            GameProgressEvent.study_plan_id == plan_id,
+        )
+        .order_by(GameProgressEvent.created_at.asc())
+        .limit(500),
+    )
+    events = result.scalars().all()
+
+    questions_by_key: dict[str, dict] = {}
+    for event in events:
+        for item in event.mistakes or []:
+            if not isinstance(item, dict):
+                continue
+            key = str(item.get("review_key", ""))
+            question = item.get("question")
+            if not key and isinstance(question, dict):
+                key = _review_key(question)
+            if not key or not isinstance(question, dict):
+                continue
+            normalized = dict(question)
+            normalized["review_key"] = key
+            questions_by_key[key] = normalized
+
+    items: list[dict] = []
+    for key, question in questions_by_key.items():
+        mastery = _item_mastery_from_events(
+            events,
+            key,
+            target_language=str(question.get("target_language") or "") or None,
+            cefr_level=str(question.get("cefr_level") or "") or None,
+        )
+        state = str(mastery["state"])
+        score = float(mastery["score"])
+        items.append(
+            {
+                "review_key": key,
+                "skill": str(question.get("skill") or "general"),
+                "mastery_state": state,
+                "mastery_score": score,
+            }
+        )
+
+    counts = {
+        "new": 0,
+        "learning": 0,
+        "reviewing": 0,
+        "weak": 0,
+        "mastered": 0,
+    }
+    for item in items:
+        state = item["mastery_state"]
+        if state in counts:
+            counts[state] += 1
+
+    def skill_summary(skill_items: list[dict]) -> dict:
+        skill_counts = {state: 0 for state in counts}
+        for item in skill_items:
+            state = item["mastery_state"]
+            if state in skill_counts:
+                skill_counts[state] += 1
+        return {
+            "items": len(skill_items),
+            "average_score": round(
+                sum(float(item["mastery_score"]) for item in skill_items)
+                / len(skill_items),
+                3,
+            )
+            if skill_items
+            else 0.0,
+            "counts": skill_counts,
+        }
+
+    by_skill: dict[str, list[dict]] = {}
+    for item in items:
+        by_skill.setdefault(item["skill"], []).append(item)
+
+    return {
+        "tracked_items": len(items),
+        "average_score": round(
+            sum(float(item["mastery_score"]) for item in items) / len(items),
+            3,
+        )
+        if items
+        else 0.0,
+        "counts": counts,
+        "skills": {
+            skill: skill_summary(skill_items)
+            for skill, skill_items in sorted(by_skill.items())
+        },
     }
 
 
