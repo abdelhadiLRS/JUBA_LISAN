@@ -284,7 +284,7 @@ export default function DashboardPage() {
               )}
             </div>
             {hasPlan && totalDays > 0 && (
-              <p className="font-sans text-xs font-semibold tracking-[.12em] text-[#655b7c] uppercase">
+              <p className="font-sans text-xs font-semibold tracking-[.12em] text-white/70 uppercase">
                 {t('dayProgress', {
                   current: currentDayDisplay,
                   total: totalDays,
