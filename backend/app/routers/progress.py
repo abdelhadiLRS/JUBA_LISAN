@@ -1521,7 +1521,12 @@ async def complete_game_session(
     # Reusing it prevents the aggregate and event ledger from ever representing
     # the same server-issued session as two different progress events.
     event_id = session.id
-    base_xp = correct_answers * 5 + (questions_answered - correct_answers)
+    raw_xp = correct_answers * 5 + (questions_answered - correct_answers)
+    difficulty_multiplier = {1: 1.0, 2: 1.15, 3: 1.3}.get(int(session.difficulty), 1.0)
+    base_xp = max(
+        0,
+        round(raw_xp * difficulty_multiplier),
+    )
     total_before_result = await db.execute(
         select(Progress.xp_earned).where(
             Progress.user_id == user_id,
