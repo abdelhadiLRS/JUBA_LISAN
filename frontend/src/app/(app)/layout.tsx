@@ -16,6 +16,7 @@ import { LoadingBar } from '@/components/ui/loading-bar'
 import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
+import { Bell, ChevronDown, Menu, X } from 'lucide-react'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const tNav = useTranslations('nav')
@@ -208,8 +209,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     )
   }
 
-  const isDashboardRoute = pathname === '/dashboard'
-
   const visibleMainNavItems = isAdmin ? [] : mainNavItems
   const visibleResourceNavItems = isAdmin ? [] : resourceNavItems
   const visibleBottomNavItems = isAdmin ? [] : bottomNavItems
@@ -221,449 +220,147 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         ? String(feedbackUnreadCount)
         : ''
 
-  if (isDashboardRoute) {
-    return <>{children}</>
-  }
-
   return (
-    <div className="juba-app-shell bg-fl-bg flex min-h-screen md:h-screen md:overflow-hidden">
-      {/* Sidebar */}
-      <aside className="border-fl-border bg-fl-bg hidden w-52 shrink-0 flex-col border-r px-0 py-0 md:flex">
-        {/* Logo area */}
-        <div className="border-fl-border flex items-center gap-2 border-b px-5 py-5">
-          <span className="text-fl-label text-fl-muted-2">●</span>
-          <span className="text-fl-fg font-code text-sm font-bold tracking-widest uppercase">
-            JUBA LISAN
-          </span>
-        </div>
+    <div className="min-h-screen bg-[#dfe3ff] p-0 md:p-3 lg:p-4">
+      <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col overflow-hidden bg-[#f6f6f4] shadow-[0_35px_100px_-35px_rgba(24,28,46,.55)] md:min-h-[calc(100vh-24px)] md:rounded-[34px]">
+        <header className="relative z-50 flex min-h-[76px] items-center gap-3 bg-[#24272b] px-4 text-white sm:px-6 lg:px-8">
+          <Link href="/dashboard" className="flex shrink-0 items-center gap-3">
+            <span className="grid size-11 place-items-center rounded-full bg-[#7776df] shadow-inner shadow-white/20">
+              <span className="text-lg font-black">JL</span>
+            </span>
+            <span className="hidden text-lg font-black tracking-[-.04em] sm:inline">JUBA LISAN</span>
+          </Link>
 
-        {/* Language switcher */}
-        <div className="border-fl-border border-b">
-          {!isAdmin && <LanguageSwitcher />}
-        </div>
-
-        {/* Nav */}
-        <nav className="flex-1 overflow-y-auto py-4">
-          {/* Main items */}
-          {visibleMainNavItems.map((item) => {
-            const active =
-              pathname === item.href || pathname.startsWith(item.href + '/')
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
-                  active
-                    ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                }`}
-              >
-                <span
-                  className={`text-fl-label ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`}
+          <nav className="mx-auto hidden items-center gap-1 rounded-full bg-[#17191c] p-1 sm:flex">
+            {[
+              { href: '/dashboard', label: tNav('home') },
+              { href: '/plan', label: tNav('myPlan') },
+              { href: '/progress', label: tNav('progress') },
+              { href: '/games', label: tNav('games') },
+              { href: '/courses', label: tNav('courses') },
+            ].map((item) => {
+              const active = pathname === item.href || pathname.startsWith(item.href + '/')
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`rounded-full px-4 py-2 text-xs font-bold transition ${
+                    active ? 'bg-white text-[#24272b]' : 'text-white/60 hover:bg-white/10 hover:text-white'
+                  }`}
                 >
-                  ●
-                </span>
-                {item.label}
-                {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
-                  <span className="text-fl-accent ml-auto text-xs">★</span>
-                )}
-              </Link>
-            )
-          })}
+                  {item.label}
+                </Link>
+              )
+            })}
+          </nav>
 
-          {!isAdmin && <>
-          {/* Resources group */}
-          <div className="mt-2">
-            <button
-              onClick={() => setResourcesOpen((o) => !o)}
-              className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors"
-            >
-              <span>{tNav('resources')}</span>
-              <span className="text-fl-label">{resourcesOpen ? '▴' : '▾'}</span>
+          <div className="ml-auto flex items-center gap-2">
+            <LanguageSwitcher />
+            <button type="button" className="relative hidden size-10 place-items-center rounded-full border border-white/10 text-white/75 hover:bg-white/10 sm:grid" aria-label="Notifications">
+              <Bell className="size-4" />
+              <span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#f26b69]" />
             </button>
-            {resourcesOpen &&
-              visibleResourceNavItems.map((item) => {
-                const active =
-                  pathname === item.href || pathname.startsWith(item.href + '/')
+            <Link href="/settings" className="hidden items-center gap-2 rounded-full bg-white/10 px-3 py-2 sm:flex">
+              <div className="grid size-8 place-items-center overflow-hidden rounded-full bg-[#d8c9a9] text-[#25272b]">
+                {user?.avatar ? (
+                  <AuthAvatarImage avatar={user.avatar} alt="" width={32} height={32} className="h-full w-full object-cover" fallback={<span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} />
+                ) : (
+                  <span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>
+                )}
+              </div>
+              <span className="max-w-28 truncate text-xs font-black">{user?.displayName || user?.username}</span>
+              <ChevronDown className="size-3 text-white/50" />
+            </Link>
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((o) => !o)}
+              className="grid size-10 place-items-center rounded-full bg-white/10 sm:hidden"
+              aria-label={mobileMenuOpen ? tCommon('close') : tCommon('openMenu')}
+            >
+              {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+            </button>
+          </div>
+        </header>
+
+        {mobileMenuOpen && (
+          <nav className="border-b border-black/10 bg-[#24272b] px-4 py-3 text-white sm:hidden">
+            <div className="grid grid-cols-2 gap-2">
+              {[...visibleMainNavItems, ...visibleResourceNavItems, ...visibleBottomNavItems].map((item) => {
+                const active = pathname === item.href || pathname.startsWith(item.href + '/')
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
-                      active
-                        ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                        : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`rounded-2xl px-3 py-3 text-xs font-bold ${
+                      active ? 'bg-white text-[#24272b]' : 'bg-white/5 text-white/70'
                     }`}
                   >
-                    <span
-                      className={`text-fl-label ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`}
-                    >
-                      ·
-                    </span>
                     {item.label}
                   </Link>
                 )
               })}
-          </div>
-
-          </>
-          }
-
-          {/* Bottom items */}
-          <div className="border-fl-border mt-2 border-t pt-2">
-            {visibleBottomNavItems.map((item) => {
-              const active =
-                pathname === item.href || pathname.startsWith(item.href + '/')
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
-                    active
-                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                  }`}
-                >
-                  <span
-                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
-                  >
-                    ●
-                  </span>
-                  {item.label}
-                  {item.href === '/feedback' && feedbackBadgeText && (
-                    <span className="text-fl-label ml-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-red-600 leading-none font-bold tracking-normal text-white">
-                      {feedbackBadgeText}
-                    </span>
-                  )}
-                </Link>
-              )
-            })}
-          </div>
-
-          {user?.role === 'admin' && (
-            <Link
-              href="/admin"
-              className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
-                pathname.startsWith('/admin')
-                  ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                  : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-              }`}
-            >
-              <span className="text-fl-label text-fl-muted-4">●</span>
-              {tNav('admin')}
-            </Link>
-          )}
-        </nav>
-
-        {/* User + logout */}
-        <div className="border-fl-border border-t px-5 py-4">
-          <div className="mb-3 flex items-center gap-3">
-            <div className="border-fl-border h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border">
-              {user?.avatar ? (
-                <AuthAvatarImage
-                  avatar={user.avatar}
-                  alt=""
-                  width={32}
-                  height={32}
-                  className="h-full w-full object-cover"
-                  fallback={
-                    <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                      <span className="text-fl-muted-1 font-mono text-xs select-none">
-                        {(user?.displayName ||
-                          user?.username ||
-                          '?')[0].toUpperCase()}
-                      </span>
-                    </div>
-                  }
-                />
-              ) : (
-                <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                  <span className="text-fl-muted-1 font-mono text-xs select-none">
-                    {(user?.displayName ||
-                      user?.username ||
-                      '?')[0].toUpperCase()}
-                  </span>
-                </div>
-              )}
-            </div>
-            <div className="min-w-0">
-              <p className="text-fl-caption text-fl-muted-2 truncate font-mono tracking-widest uppercase">
-                {user?.displayName || user?.username}
-              </p>
-              <p className="text-fl-label text-fl-muted-4 truncate font-mono">
-                @{user?.username?.toLowerCase()}
-              </p>
-              {trialDaysLeft > 0 && (
-                <p className="text-fl-label text-fl-accent truncate font-mono text-xs">
-                  ★ {tBilling('trialDays', { days: trialDaysLeft })}
-                </p>
-              )}
-            </div>
-          </div>
-          <p className="text-fl-label text-fl-muted-4 font-code mb-2 tracking-wider">
-            v1.9.15
-          </p>
-          <button
-            onClick={() => setContactOpen(true)}
-            className="text-fl-muted-2 hover:text-fl-fg mb-1 w-full text-left font-mono text-xs tracking-widest uppercase transition-colors"
-          >
-            {tNav('contact')}
-          </button>
-          <button
-            onClick={() => setLogoutConfirm(true)}
-            className="text-fl-muted-2 hover:text-fl-fg w-full text-left font-mono text-xs tracking-widest uppercase transition-colors"
-          >
-            {tCommon('logout')}
-          </button>
-        </div>
-      </aside>
-
-      {/* Mobile top bar */}
-      <div className="border-fl-border bg-fl-bg fixed top-0 right-0 left-0 z-50 border-b md:hidden">
-        <div className="flex items-center justify-between px-4 py-3">
-          <span className="text-fl-fg font-code text-xs font-bold tracking-widest uppercase">
-            JUBA LISAN
-          </span>
-          <button
-            onClick={() => setMobileMenuOpen((o) => !o)}
-            className="text-fl-muted-2 hover:text-fl-fg p-1 font-mono transition-colors"
-            aria-label={mobileMenuOpen ? tCommon('close') : tCommon('openMenu')}
-          >
-            <span className="text-base leading-none">
-              {mobileMenuOpen ? '✕' : '☰'}
-            </span>
-          </button>
-        </div>
-
-        {/* Dropdown */}
-        {mobileMenuOpen && (
-          <nav className="border-fl-border bg-fl-bg max-h-[calc(100svh-3.5rem)] overflow-y-auto overscroll-contain border-t pb-2">
-            <div className="border-fl-border border-b">
-              <LanguageSwitcher />
-            </div>
-            {visibleMainNavItems.map((item) => {
-              const active =
-                pathname === item.href || pathname.startsWith(item.href + '/')
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
-                    active
-                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                  }`}
-                >
-                  <span
-                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
-                  >
-                    ●
-                  </span>
-                  {item.label}
-                  {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
-                    <span className="text-fl-accent ml-auto text-xs">★</span>
-                  )}
-                </Link>
-              )
-            })}
-
-            {!isAdmin && <>
-            {/* Resources group (mobile) */}
-            <div>
-              <button
-                onClick={() => setResourcesOpen((o) => !o)}
-                className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors"
-              >
-                <span>{tNav('resources')}</span>
-                <span className="text-fl-label">
-                  {resourcesOpen ? '▴' : '▾'}
-                </span>
-              </button>
-              {resourcesOpen &&
-                visibleResourceNavItems.map((item) => {
-                  const active =
-                    pathname === item.href ||
-                    pathname.startsWith(item.href + '/')
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
-                        active
-                          ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                          : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                      }`}
-                    >
-                      <span
-                        className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
-                      >
-                        ·
-                      </span>
-                      {item.label}
-                    </Link>
-                  )
-                })}
-            </div>
-
-            </>
-            }
-
-            {/* Bottom items (mobile) */}
-            {visibleBottomNavItems.map((item) => {
-              const active =
-                pathname === item.href || pathname.startsWith(item.href + '/')
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
-                    active
-                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                  }`}
-                >
-                  <span
-                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
-                  >
-                    ●
-                  </span>
-                  {item.label}
-                  {item.href === '/feedback' && feedbackBadgeText && (
-                    <span className="text-fl-label ml-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-red-600 leading-none font-bold tracking-normal text-white">
-                      {feedbackBadgeText}
-                    </span>
-                  )}
-                </Link>
-              )
-            })}
-
-            {user?.role === 'admin' && (
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
-                  pathname.startsWith('/admin')
-                    ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                }`}
-              >
-                <span className="text-fl-label text-fl-muted-4">●</span>
-                {tNav('admin')}
-              </Link>
-            )}
-            <div className="border-fl-border mx-5 mt-2 border-t pt-3">
-              <div className="mb-2 flex items-center gap-3">
-                <div className="border-fl-border h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
-                  {user?.avatar ? (
-                    <AuthAvatarImage
-                      avatar={user.avatar}
-                      alt=""
-                      width={28}
-                      height={28}
-                      className="h-full w-full object-cover"
-                      fallback={
-                        <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                          <span className="text-fl-hint text-fl-muted-1 font-mono select-none">
-                            {(user?.displayName ||
-                              user?.username ||
-                              '?')[0].toUpperCase()}
-                          </span>
-                        </div>
-                      }
-                    />
-                  ) : (
-                    <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                      <span className="text-fl-hint text-fl-muted-1 font-mono select-none">
-                        {(user?.displayName ||
-                          user?.username ||
-                          '?')[0].toUpperCase()}
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <div className="min-w-0">
-                  <p className="text-fl-caption text-fl-muted-2 truncate font-mono tracking-widest uppercase">
-                    {user?.displayName || user?.username}
-                  </p>
-                  <p className="text-fl-label text-fl-muted-4 truncate font-mono">
-                    @{user?.username?.toLowerCase()}
-                  </p>
-                </div>
-              </div>
-              {trialDaysLeft > 0 && (
-                <p className="text-fl-label text-fl-accent mb-2 font-mono text-xs">
-                  ★ {tBilling('trialDays', { days: trialDaysLeft })}
-                </p>
-              )}
-              <p className="text-fl-label text-fl-muted-4 font-code mb-2 tracking-wider">
-                v1.9.15
-              </p>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false)
-                  setContactOpen(true)
-                }}
-                className="text-fl-muted-2 hover:text-fl-fg mb-1 block font-mono text-xs tracking-widest uppercase transition-colors"
-              >
-                {tNav('contact')}
-              </button>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false)
-                  setLogoutConfirm(true)
-                }}
-                className="text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
-              >
-                {tCommon('logout')}
-              </button>
             </div>
           </nav>
         )}
+
+        <div className="flex min-h-0 flex-1">
+          <aside className="hidden w-60 shrink-0 flex-col bg-[#292c30] text-white lg:flex">
+            <div className="border-b border-white/10 px-5 py-5">
+              <p className="text-[10px] font-bold uppercase tracking-[.18em] text-white/40">{tNav('home')}</p>
+              <p className="mt-1 truncate text-sm font-black">{user?.displayName || user?.username}</p>
+            </div>
+            <nav className="flex-1 overflow-y-auto px-3 py-4">
+              {visibleMainNavItems.map((item) => {
+                const active = pathname === item.href || pathname.startsWith(item.href + '/')
+                return (
+                  <Link key={item.href} href={item.href} className={`mb-1 flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-bold transition ${
+                    active ? 'bg-[#7776df] text-white shadow-lg' : 'text-white/55 hover:bg-white/10 hover:text-white'
+                  }`}>
+                    <span className="truncate">{item.label}</span>
+                    {showPremiumBadge && PREMIUM_HREFS.has(item.href) && <span className="text-[#ffcf67]">★</span>}
+                  </Link>
+                )
+              })}
+              <div className="my-4 border-t border-white/10" />
+              <p className="px-4 pb-2 text-[9px] font-bold uppercase tracking-[.16em] text-white/30">{tNav('resources')}</p>
+              {visibleResourceNavItems.map((item) => {
+                const active = pathname === item.href || pathname.startsWith(item.href + '/')
+                return <Link key={item.href} href={item.href} className={`mb-1 block rounded-2xl px-4 py-2.5 text-xs font-bold transition ${active ? 'bg-white/10 text-white' : 'text-white/50 hover:text-white'}`}>{item.label}</Link>
+              })}
+            </nav>
+            <div className="border-t border-white/10 p-4">
+              <div className="mb-3 flex items-center gap-3">
+                <div className="grid size-10 shrink-0 place-items-center overflow-hidden rounded-full bg-[#d8c9a9] text-[#25272b]">
+                  {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={40} height={40} className="h-full w-full object-cover" fallback={<span className="font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span className="font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
+                </div>
+                <div className="min-w-0">
+                  <p className="truncate text-xs font-black">{user?.displayName || user?.username}</p>
+                  <p className="truncate text-[10px] text-white/40">@{user?.username?.toLowerCase()}</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <Link href="/settings" className="rounded-xl bg-white/10 px-3 py-2 text-center text-[10px] font-bold">{tNav('settings')}</Link>
+                <button onClick={() => setLogoutConfirm(true)} className="rounded-xl bg-white/10 px-3 py-2 text-[10px] font-bold">{tCommon('logout')}</button>
+              </div>
+            </div>
+          </aside>
+
+          <main className="min-h-0 flex-1 overflow-y-auto bg-[#f6f6f4]">
+            {user && user.is_verified === false && (
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-black/5 bg-[#fff8e8] px-4 py-2">
+                <span className="text-xs font-bold text-black/55">● {tCommon('verifyEmailBanner')}</span>
+                {resendSent ? <span className="text-xs text-black/45">{tCommon('verifyEmailSent')}</span> : <button onClick={handleResendVerification} className="text-xs font-bold text-[#5f5ec5] underline">{tCommon('resendVerification')}</button>}
+              </div>
+            )}
+            <div className="min-h-full">{children}</div>
+          </main>
+        </div>
       </div>
 
-      {/* Main */}
-      <main className="flex min-h-[100dvh] flex-1 flex-col overflow-hidden pt-14 md:min-h-screen md:pt-0">
-        {/* Email verification banner */}
-        {user && user.is_verified === false && (
-          <div className="border-fl-border bg-fl-surface flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
-            <span className="text-fl-muted-1 font-mono text-xs tracking-wide">
-              ● {tCommon('verifyEmailBanner')}
-            </span>
-            {resendSent ? (
-              <span className="text-fl-muted-2 font-mono text-xs">
-                {tCommon('verifyEmailSent')}
-              </span>
-            ) : (
-              <button
-                onClick={handleResendVerification}
-                className="text-fl-accent font-mono text-xs underline transition-all hover:no-underline"
-              >
-                {tCommon('resendVerification')}
-              </button>
-            )}
-          </div>
-        )}
-        <div className="min-h-0 flex-1 overflow-y-auto">{children}</div>
-      </main>
-
       <LoadingBar />
-
-      <ContactFormModal
-        open={contactOpen}
-        onClose={() => setContactOpen(false)}
-      />
-
-      <ConfirmDialog
-        open={logoutConfirm}
-        title={tCommon('logoutConfirmTitle')}
-        message={tCommon('logoutConfirmMessage')}
-        confirmLabel={tCommon('logout')}
-        onConfirm={handleLogout}
-        onCancel={() => setLogoutConfirm(false)}
-      />
+      <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
+      <ConfirmDialog open={logoutConfirm} title={tCommon('logoutConfirmTitle')} message={tCommon('logoutConfirmMessage')} confirmLabel={tCommon('logout')} onConfirm={handleLogout} onCancel={() => setLogoutConfirm(false)} />
     </div>
   )
-}
+}}
