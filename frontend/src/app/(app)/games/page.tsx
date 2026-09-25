@@ -160,6 +160,10 @@ export default function GamesPage() {
 
   const level = Math.floor(xp / 100) + 1
   const t = copy[lang as keyof typeof copy] ?? copy.en
+  const translationSprint = 'translationSprint' in t ? t.translationSprint : copy.en.translationSprint
+  const translationSprintDesc = 'translationSprintDesc' in t ? t.translationSprintDesc : copy.en.translationSprintDesc
+  const grammarDuel = 'grammarDuel' in t ? t.grammarDuel : copy.en.grammarDuel
+  const grammarDuelDesc = 'grammarDuelDesc' in t ? t.grammarDuelDesc : copy.en.grammarDuelDesc
   const today = getLocalDateKey()
   const dailyCompletedToday = gameStats.lastDailyChallengeDate === today
   // The client mirrors only the deterministic display rotation; it never grants rewards.
@@ -191,8 +195,8 @@ export default function GamesPage() {
       { id: 'matching' as const, title: t.wordMatch, desc: t.wordMatchDesc, icon: '🔗' },
       { id: 'quick_choice' as const, title: t.quickChoice, desc: t.quickChoiceDesc, icon: '⚡' },
       { id: 'context_quest' as const, title: t.contextQuest, desc: t.contextQuestDesc, icon: '🗣️' },
-      { id: 'translation_sprint' as const, title: t.translationSprint, desc: t.translationSprintDesc, icon: '🌍' },
-      { id: 'grammar_duel' as const, title: t.grammarDuel, desc: t.grammarDuelDesc, icon: '⚔️' },
+      { id: 'translation_sprint' as const, title: translationSprint, desc: translationSprintDesc, icon: '🌍' },
+      { id: 'grammar_duel' as const, title: grammarDuel, desc: grammarDuelDesc, icon: '⚔️' },
       { id: 'sentence_builder' as const, title: t.sentenceBuilder, desc: t.sentenceBuilderDesc, icon: '🧩' },
       { id: 'listen_choose' as const, title: t.listenChoose, desc: t.listenChooseDesc, icon: '🎧' },
       { id: 'listening_detective' as const, title: t.listeningDetective, desc: t.listeningDetectiveDesc, icon: '🔎' },
