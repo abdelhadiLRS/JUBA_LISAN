@@ -979,6 +979,159 @@ def _server_game_questions(game_id: str, language: str, difficulty: int, target_
                 "input_mode": "text",
             })
             continue
+        if game_id == "translation_sprint":
+            translation_bank = {
+                "en": [
+                    ("Translate: Hello, how are you?", "Hello, how are you?"),
+                    ("Translate: I need some water.", "I need some water."),
+                    ("Translate: Where is the train station?", "Where is the train station?"),
+                    ("Translate: I studied yesterday.", "I studied yesterday."),
+                    ("Translate: Could you help me, please?", "Could you help me, please?"),
+                ],
+                "ar": [
+                    ("ترجم إلى العربية: Hello, how are you?", "مرحبًا، كيف حالك؟"),
+                    ("ترجم إلى العربية: I need some water.", "أحتاج إلى بعض الماء."),
+                    ("ترجم إلى العربية: Where is the train station?", "أين محطة القطار؟"),
+                    ("ترجم إلى العربية: I studied yesterday.", "درست أمس."),
+                    ("ترجم إلى العربية: Could you help me, please?", "هل يمكنك مساعدتي من فضلك؟"),
+                ],
+                "fr": [
+                    ("Traduis en français : Hello, how are you?", "Bonjour, comment allez-vous ?"),
+                    ("Traduis en français : I need some water.", "J'ai besoin d'eau."),
+                    ("Traduis en français : Where is the train station?", "Où est la gare ?"),
+                    ("Traduis en français : I studied yesterday.", "J'ai étudié hier."),
+                    ("Traduis en français : Could you help me, please?", "Pourriez-vous m'aider, s'il vous plaît ?"),
+                ],
+                "es": [
+                    ("Traduce al español: Hello, how are you?", "Hola, ¿cómo estás?"),
+                    ("Traduce al español: I need some water.", "Necesito agua."),
+                    ("Traduce al español: Where is the train station?", "¿Dónde está la estación de tren?"),
+                    ("Traduce al español: I studied yesterday.", "Estudié ayer."),
+                    ("Traduce al español: Could you help me, please?", "¿Podrías ayudarme, por favor?"),
+                ],
+                "de": [
+                    ("Übersetze ins Deutsche: Hello, how are you?", "Hallo, wie geht es dir?"),
+                    ("Übersetze ins Deutsche: I need some water.", "Ich brauche etwas Wasser."),
+                    ("Übersetze ins Deutsche: Where is the train station?", "Wo ist der Bahnhof?"),
+                    ("Übersetze ins Deutsche: I studied yesterday.", "Ich habe gestern gelernt."),
+                    ("Übersetze ins Deutsche: Could you help me, please?", "Könnten Sie mir bitte helfen?"),
+                ],
+                "it": [
+                    ("Traduci in italiano: Hello, how are you?", "Ciao, come stai?"),
+                    ("Traduci in italiano: I need some water.", "Ho bisogno di acqua."),
+                    ("Traduci in italiano: Where is the train station?", "Dov'è la stazione ferroviaria?"),
+                    ("Traduci in italiano: I studied yesterday.", "Ho studiato ieri."),
+                    ("Traduci in italiano: Could you help me, please?", "Potresti aiutarmi, per favore?"),
+                ],
+                "pt": [
+                    ("Traduz para português: Hello, how are you?", "Olá, como estás?"),
+                    ("Traduz para português: I need some water.", "Preciso de água."),
+                    ("Traduz para português: Where is the train station?", "Onde fica a estação de comboios?"),
+                    ("Traduz para português: I studied yesterday.", "Estudei ontem."),
+                    ("Traduz para português: Could you help-me, please?", "Podes ajudar-me, por favor?"),
+                ],
+                "ja": [
+                    ("日本語に訳してください: Hello, how are you?", "こんにちは、お元気ですか？"),
+                    ("日本語に訳してください: I need some water.", "水が必要です。"),
+                    ("日本語に訳してください: Where is the train station?", "駅はどこですか？"),
+                    ("日本語に訳してください: I studied yesterday.", "昨日勉強しました。"),
+                    ("日本語に訳してください: Could you help me, please?", "手伝っていただけますか？"),
+                ],
+                "ko": [
+                    ("한국어로 번역하세요: Hello, how are you?", "안녕하세요, 어떻게 지내세요?"),
+                    ("한국어로 번역하세요: I need some water.", "물이 좀 필요해요."),
+                    ("한국어로 번역하세요: Where is the train station?", "기차역이 어디예요?"),
+                    ("한국어로 번역하세요: I studied yesterday.", "어제 공부했어요."),
+                    ("한국어로 번역하세요: Could you help me, please?", "도와주시겠어요?"),
+                ],
+                "zh": [
+                    ("翻译成中文：Hello, how are you?", "你好，你怎么样？"),
+                    ("翻译成中文：I need some water.", "我需要一些水。"),
+                    ("翻译成中文：Where is the train station?", "火车站在哪里？"),
+                    ("翻译成中文：I studied yesterday.", "我昨天学习了。"),
+                    ("翻译成中文：Could you help me, please?", "你能帮我吗？"),
+                ],
+                "pl": [
+                    ("Przetłumacz na polski: Hello, how are you?", "Cześć, jak się masz?"),
+                    ("Przetłumacz na polski: I need some water.", "Potrzebuję trochę wody."),
+                    ("Przetłumacz na polski: Where is the train station?", "Gdzie jest dworzec kolejowy?"),
+                    ("Przetłumacz na polski: I studied yesterday.", "Uczyłem się wczoraj."),
+                    ("Przetłumacz na polski: Could you help me, please?", "Czy możesz mi pomóc?"),
+                ],
+                "nl": [
+                    ("Vertaal naar het Nederlands: Hello, how are you?", "Hallo, hoe gaat het met je?"),
+                    ("Vertaal naar het Nederlands: I need some water.", "Ik heb wat water nodig."),
+                    ("Vertaal naar het Nederlands: Where is the train station?", "Waar is het treinstation?"),
+                    ("Vertaal naar het Nederlands: I studied yesterday.", "Ik heb gisteren gestudeerd."),
+                    ("Vertaal naar het Nederlands: Could you help me, please?", "Kun je me alsjeblieft helpen?"),
+                ],
+                "ro": [
+                    ("Tradu în română: Hello, how are you?", "Bună, ce mai faci?"),
+                    ("Tradu în română: I need some water.", "Am nevoie de apă."),
+                    ("Tradu în română: Where is the train station?", "Unde este gara?"),
+                    ("Tradu în română: I studied yesterday.", "Am studiat ieri."),
+                    ("Tradu în română: Could you help me, please?", "Mă poți ajuta, te rog?"),
+                ],
+                "ru": [
+                    ("Переведи на русский: Hello, how are you?", "Привет, как ты?"),
+                    ("Переведи на русский: I need some water.", "Мне нужна вода."),
+                    ("Переведи на русский: Where is the train station?", "Где находится железнодорожный вокзал?"),
+                    ("Переведи на русский: I studied yesterday.", "Я учился вчера."),
+                    ("Переведи на русский: Could you help me, please?", "Не могли бы вы мне помочь?"),
+                ],
+            }
+            prompt, answer = translation_bank.get(language, translation_bank["en"])[index]
+            questions.append({
+                "id": question_id,
+                "prompt": prompt,
+                "choices": [],
+                "answer": answer,
+                "hint": hints.get(language, hints["en"]),
+                "skill": "writing",
+                "difficulty": difficulty,
+                "topic": "translation",
+                "input_mode": "text",
+            })
+            continue
+        if game_id == "grammar_duel":
+            grammar_bank = {
+                "en": [
+                    ("She ___ to school every day.", "goes", ["go", "goes", "went", "going"]),
+                    ("I ___ this book yesterday.", "read", ["read", "reads", "reading", "will read"]),
+                    ("They ___ dinner when I arrived.", "were eating", ["eat", "ate", "were eating", "eating"]),
+                    ("If I have time, I ___ you.", "will call", ["called", "will call", "calling", "call yesterday"]),
+                    ("He has ___ his homework.", "finished", ["finish", "finishes", "finished", "finishing"]),
+                ],
+                "fr": [
+                    ("Elle ___ à l'école tous les jours.", "va", ["va", "vont", "allait", "aller"]),
+                    ("J'___ ce livre hier.", "ai lu", ["lis", "ai lu", "lire", "lirai"]),
+                    ("Ils ___ quand je suis arrivé.", "mangeaient", ["mangent", "mangeaient", "mangé", "manger"]),
+                    ("Si j'ai le temps, je ___.", "t'appellerai", ["t'appelais", "t'appellerai", "t'appelle", "appeler"]),
+                    ("Il a ___ ses devoirs.", "fini", ["finir", "finit", "fini", "finissant"]),
+                ],
+                "ar": [
+                    ("هي ___ إلى المدرسة كل يوم.", "تذهب", ["تذهب", "يذهب", "ذهبت", "ذهاب"]),
+                    ("أنا ___ هذا الكتاب أمس.", "قرأت", ["أقرأ", "قرأت", "قراءة", "سأقرأ"]),
+                    ("هم ___ العشاء عندما وصلت.", "كانوا يتناولون", ["يتناولون", "تناولوا", "كانوا يتناولون", "تناول"]),
+                    ("إذا كان لدي وقت، ___ بك.", "سأتصل", ["اتصلت", "سأتصل", "أتصل أمس", "اتصال"]),
+                    ("لقد ___ واجبه.", "أنهى", ["ينهي", "أنهى", "إنهاء", "ينهيه"]),
+                ],
+            }
+            bank = grammar_bank.get(language, grammar_bank["en"])
+            prompt, answer, choices = bank[index]
+            rng.shuffle(choices)
+            questions.append({
+                "id": question_id,
+                "prompt": prompt,
+                "choices": choices,
+                "answer": answer,
+                "hint": hints.get(language, hints["en"]),
+                "skill": "grammar",
+                "difficulty": difficulty,
+                "topic": "grammar-accuracy",
+                "input_mode": "choice",
+            })
+            continue
         if game_id == "math":
             maximum = {1: 18, 2: 60, 3: 150}[difficulty]
             a, b = 2 + rng.randrange(maximum), 2 + rng.randrange(maximum)
