@@ -470,7 +470,8 @@
     "reviewReminder": "Zeit, Ihr Gedächtnis zu stärken",
     "goalCompleted": "🎉 Tagesziel erreicht!",
     "keepGoing": "Nur noch {remaining} Lektion(en)!",
-    "takeAssessment": "Einstufungstest machen"
+    "takeAssessment": "Einstufungstest machen",
+    "planDayGoal": "Tagesziel für Lektionen"
   },
   "assessment": {
     "title": "Einstufungstest",
