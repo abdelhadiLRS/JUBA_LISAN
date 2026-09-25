@@ -129,3 +129,33 @@ def test_item_mastery_rewards_first_attempt_resolution():
     assert mastery["first_attempt_successes"] == 1
     assert mastery["retry_resolutions"] == 0
     assert mastery["retrieval_efficiency"] == 1.0
+
+
+def test_review_variant_drops_transfer_when_retrieval_efficiency_is_low():
+    from app.routers.progress import _apply_skill_review_variant
+
+    question = {
+        "review_key": "word:test",
+        "skill": "vocabulary",
+        "word": "test",
+        "prompt": "What does 'test' mean?",
+        "review_strategy": "contextual_transfer",
+        "retrieval_efficiency": 0.2,
+    }
+    replay = _apply_skill_review_variant(question, 0)
+    assert replay["retrieval_stage"] == "recognition"
+
+
+def test_review_variant_keeps_transfer_for_strong_retrieval():
+    from app.routers.progress import _apply_skill_review_variant
+
+    question = {
+        "review_key": "word:test",
+        "skill": "vocabulary",
+        "word": "test",
+        "prompt": "What does 'test' mean?",
+        "review_strategy": "contextual_transfer",
+        "retrieval_efficiency": 0.9,
+    }
+    replay = _apply_skill_review_variant(question, 0)
+    assert replay["retrieval_stage"] == "contextual_transfer"
