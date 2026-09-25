@@ -67,9 +67,31 @@ _LANG_MODULES: dict[str, str] = {
 _CACHE: dict[str, list[AssessmentQuestion]] = {}
 
 
+def _normalise_language_tag(target_language: str | None) -> str:
+    """Canonicalise BCP-47-like tags while preserving supported region variants."""
+    raw = str(target_language or "").strip().replace("_", "-")
+    if not raw:
+        return "en-GB"
+
+    parts = [part for part in raw.split("-") if part]
+    if not parts:
+        return "en-GB"
+
+    language = parts[0].lower()
+    if len(parts) == 1:
+        return language
+
+    # Keep region variants such as en-US/en-GB distinct; normalise casing for
+    # inputs coming from browsers, imports, and persisted study plans.
+    region = parts[1].upper() if len(parts[1]) == 2 or parts[1].isdigit() else parts[1].title()
+    return f"{language}-{region}"
+
+
 def _resolve_bank(target_language: str) -> list[AssessmentQuestion]:
-    module_name = _LANG_MODULES.get(target_language) or _LANG_MODULES.get(
-        target_language.split("-")[0], "app.data.en_GB.assessment_bank"
+    canonical = _normalise_language_tag(target_language)
+    language = canonical.split("-", 1)[0]
+    module_name = _LANG_MODULES.get(canonical) or _LANG_MODULES.get(
+        language, "app.data.en_GB.assessment_bank"
     )
 
     if module_name not in _CACHE:
