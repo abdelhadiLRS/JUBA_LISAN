@@ -471,7 +471,11 @@
     "goalCompleted": "🎉 Dagelijks doel voltooid!",
     "keepGoing": "Nog slechts {remaining} les(sen) te gaan!",
     "takeAssessment": "Niveauplaatsing maken",
-    "planDayGoal": "Lesdoel voor vandaag"
+    "planDayGoal": "Lesdoel voor vandaag",
+    "levelTestCompleted": "Niveautest voltooid",
+    "levelTestScoreLine": "Score: {score} van {total}",
+    "levelTestReady": "Je bent klaar voor het volgende niveau",
+    "levelTestReadyDesc": "Je hebt de niveautest succesvol afgerond. Ga verder met je leerplan."
   },
   "assessment": {
     "title": "Beoordeling",
