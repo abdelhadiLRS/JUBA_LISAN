@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   ACHIEVEMENTS,
   type AchievementId,
@@ -23,7 +23,7 @@ function getLocalDateKey() {
   const day = String(now.getDate()).padStart(2, '0')
   return `${year}-${month}-${day}`
 }
-const DAILY_GAMES: GameId[] = ['math', 'words', 'sequence', 'memory', 'matching', 'ordering']
+const DAILY_GAMES: GameId[] = ['matching', 'quick_choice', 'sentence_builder', 'listen_choose', 'spelling', 'memory']
 const ROUND_SIZE = 5
 
 const copy = {
@@ -32,11 +32,11 @@ const copy = {
     subtitle: 'تعلّم باللعب، وتقدّم كل يوم',
     points: 'النقاط', streak: 'سلسلة', level: 'المستوى', games: 'الألعاب التعليمية',
     daily: 'تحدي اليوم', dailyDesc: 'تحدٍ واحد ثابت يوميًا. أكمله لتحصل على XP وتبني عادتك التعليمية.',
-    math: 'تحدي الحساب', words: 'صيد الكلمات', sequence: 'أكمل النمط', memory: 'اختبار الذاكرة',
-    matching: 'لعبة المطابقة', ordering: 'لعبة الترتيب',
-    mathDesc: 'عمليات حسابية قصيرة مع مكافآت فورية.', wordsDesc: 'طابق الكلمة مع معناها.',
-    sequenceDesc: 'اكتشف الرقم التالي في السلسلة.', memoryDesc: 'تذكّر ترتيب العناصر واختره من البدائل.',
-    matchingDesc: 'طابق الكلمة مع ترجمتها الصحيحة.', orderingDesc: 'رتّب العناصر بالترتيب الصحيح.',
+    wordMatch: 'مطابقة الكلمات', quickChoice: 'اختيار سريع', sentenceBuilder: 'بناء الجملة',
+    listenChoose: 'استمع واختر', spelling: 'تحدي الإملاء', memory: 'بطاقات الذاكرة',
+    wordMatchDesc: 'طابق الكلمة مع ترجمتها الصحيحة.', quickChoiceDesc: 'اختر الإجابة قبل انتهاء الوقت.',
+    sentenceBuilderDesc: 'رتّب الكلمات لبناء جملة صحيحة.', listenChooseDesc: 'استمع إلى الكلمة ثم اخترها.',
+    spellingDesc: 'اكتب الكلمة المطلوبة من التلميح.', memoryDesc: 'اكشف البطاقات وطابق الأزواج الحقيقية.',
     start: 'ابدأ اللعبة', next: 'السؤال التالي', correct: 'إجابة صحيحة!', wrong: 'ليست صحيحة',
     hint: 'تلميح', back: 'الألعاب', score: 'نتيجة الجولة', done: 'أحسنت! أكملت الجولة.', choose: 'اختر الإجابة الصحيحة',
     reset: 'إعادة التقدم', lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائياتك', gamesPlayed: 'الألعاب',
@@ -45,10 +45,11 @@ const copy = {
   fr: {
     title: 'JUBA LISAN', subtitle: 'Apprendre en jouant, progresser chaque jour', points: 'Points', streak: 'Série', level: 'Niveau',
     games: 'Jeux éducatifs', daily: 'Défi du jour', dailyDesc: 'Un défi fixe chaque jour pour gagner de l’XP et construire une habitude.',
-    math: 'Défi de calcul', words: 'Chasse aux mots', sequence: 'Complète la suite', memory: 'Défi mémoire',
-    matching: 'Jeu d’association', ordering: 'Jeu de classement', mathDesc: 'De courts calculs avec récompenses immédiates.',
-    wordsDesc: 'Associe le mot à sa signification.', sequenceDesc: 'Trouve le prochain nombre.', memoryDesc: 'Mémorise l’ordre et retrouve la bonne séquence.',
-    matchingDesc: 'Associe le mot à sa bonne traduction.', orderingDesc: 'Classe les éléments dans le bon ordre.', start: 'Commencer', next: 'Question suivante',
+    wordMatch: 'Association de mots', quickChoice: 'Choix rapide', sentenceBuilder: 'Constructeur de phrases',
+    listenChoose: 'Écoute et choisis', spelling: 'Défi d’orthographe', memory: 'Cartes mémoire',
+    wordMatchDesc: 'Associe chaque mot à sa bonne traduction.', quickChoiceDesc: 'Choisis avant la fin du temps.',
+    sentenceBuilderDesc: 'Remets les mots dans le bon ordre.', listenChooseDesc: 'Écoute le mot puis choisis-le.',
+    spellingDesc: 'Écris le mot demandé à partir de l’indice.', memoryDesc: 'Retourne les cartes et forme les vraies paires.', start: 'Commencer', next: 'Question suivante',
     correct: 'Bonne réponse !', wrong: 'Pas encore', hint: 'Indice', back: 'Jeux', score: 'Score de la partie', done: 'Bravo ! Partie terminée.',
     choose: 'Choisis la bonne réponse', reset: 'Réinitialiser', lang: 'Langue', xp: 'XP', skills: 'Compétences', stats: 'Tes statistiques',
     gamesPlayed: 'Parties', questions: 'Questions', accuracy: 'Précision', best: 'Meilleur score', badges: 'Succès', unlocked: 'débloqué', newBadge: 'Nouveau succès !', answered: 'Réponse enregistrée.',
@@ -56,10 +57,11 @@ const copy = {
   en: {
     title: 'JUBA LISAN', subtitle: 'Learn through play. Improve every day.', points: 'Points', streak: 'Streak', level: 'Level',
     games: 'Educational games', daily: 'Daily Challenge', dailyDesc: 'One consistent challenge each day. Complete it to earn XP and build your habit.',
-    math: 'Math challenge', words: 'Word hunt', sequence: 'Complete the pattern', memory: 'Memory challenge',
-    matching: 'Matching game', ordering: 'Ordering game', mathDesc: 'Short calculations with instant rewards.', wordsDesc: 'Match each word with its meaning.',
-    sequenceDesc: 'Find the next number in the sequence.', memoryDesc: 'Remember the order and choose the matching sequence.',
-    matchingDesc: 'Match each word with the correct translation.', orderingDesc: 'Put the items in the correct order.', start: 'Start game', next: 'Next question',
+    wordMatch: 'Word Match', quickChoice: 'Quick Choice', sentenceBuilder: 'Sentence Builder',
+    listenChoose: 'Listen & Choose', spelling: 'Spelling Challenge', memory: 'Memory Cards',
+    wordMatchDesc: 'Match each word with its correct translation.', quickChoiceDesc: 'Choose before the timer runs out.',
+    sentenceBuilderDesc: 'Arrange the words to build a correct sentence.', listenChooseDesc: 'Listen to the word and choose it.',
+    spellingDesc: 'Type the word requested by the clue.', memoryDesc: 'Reveal cards and match the real pairs.', start: 'Start game', next: 'Next question',
     correct: 'Correct!', wrong: 'Not quite', hint: 'Hint', back: 'Games', score: 'Round score', done: 'Great job! Round complete.',
     choose: 'Choose the correct answer', reset: 'Reset progress', lang: 'Language', xp: 'XP', skills: 'Skills', stats: 'Your stats',
     gamesPlayed: 'Games', questions: 'Questions', accuracy: 'Accuracy', best: 'Best score', badges: 'Achievements', unlocked: 'unlocked', newBadge: 'New achievement!', answered: 'Answer recorded.',
@@ -79,6 +81,8 @@ export default function GamesPage() {
   const [roundScore, setRoundScore] = useState(0)
   const [round, setRound] = useState(0)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
+  const [inputValue, setInputValue] = useState('')
+  const [timeLeft, setTimeLeft] = useState(8)
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
@@ -101,12 +105,12 @@ export default function GamesPage() {
   const direction = lang === 'ar' ? 'rtl' : 'ltr'
   const gameCards = useMemo(
     () => [
-      { id: 'math' as const, title: t.math, desc: t.mathDesc, icon: '➗' },
-      { id: 'words' as const, title: t.words, desc: t.wordsDesc, icon: '🔤' },
-      { id: 'sequence' as const, title: t.sequence, desc: t.sequenceDesc, icon: '🧩' },
+      { id: 'matching' as const, title: t.wordMatch, desc: t.wordMatchDesc, icon: '🔗' },
+      { id: 'quick_choice' as const, title: t.quickChoice, desc: t.quickChoiceDesc, icon: '⚡' },
+      { id: 'sentence_builder' as const, title: t.sentenceBuilder, desc: t.sentenceBuilderDesc, icon: '🧩' },
+      { id: 'listen_choose' as const, title: t.listenChoose, desc: t.listenChooseDesc, icon: '🎧' },
+      { id: 'spelling' as const, title: t.spelling, desc: t.spellingDesc, icon: '✍️' },
       { id: 'memory' as const, title: t.memory, desc: t.memoryDesc, icon: '🧠' },
-      { id: 'matching' as const, title: t.matching, desc: t.matchingDesc, icon: '🔗' },
-      { id: 'ordering' as const, title: t.ordering, desc: t.orderingDesc, icon: '🔢' },
     ],
     [t]
   )
@@ -118,8 +122,9 @@ export default function GamesPage() {
     // question renderer expects a non-interactive question payload, so route
     // these game types to their dedicated pages instead of opening an empty
     // round shell.
-    if (id === 'memory' || id === 'matching' || id === 'ordering') {
-      window.location.assign(`/games/${id}?lang=${lang}`)
+    if (id === 'memory' || id === 'matching' || id === 'sentence_builder') {
+      const route = id === 'sentence_builder' ? 'sentence-builder' : id
+      window.location.assign(`/games/${route}?lang=${lang}`)
       return
     }
 
@@ -148,6 +153,8 @@ export default function GamesPage() {
       setRound(0)
       setRoundScore(0)
       setSelected(null)
+      setInputValue('')
+      setTimeLeft(id === 'quick_choice' ? 8 : 0)
       setAnswers([])
       setSessionId(session.session_id)
       setSessionQuestions(session.questions)
@@ -164,6 +171,38 @@ export default function GamesPage() {
     if (!question || selected) return
     setSelected(choice)
     setAnswers((current) => [...current, { question_id: question.id, choice }])
+  }
+
+  function submitTextAnswer() {
+    if (!question || selected || !inputValue.trim()) return
+    setSelected(inputValue.trim())
+    setAnswers((current) => [...current, { question_id: question.id, choice: inputValue.trim() }])
+  }
+
+  useEffect(() => {
+    if (!game || !question || selected || game !== 'quick_choice') return
+    setTimeLeft(8)
+    const timer = window.setInterval(() => {
+      setTimeLeft((value) => {
+        if (value <= 1) {
+          window.clearInterval(timer)
+          setSelected('__timeout__')
+          setAnswers((current) => [...current, { question_id: question.id, choice: '__timeout__' }])
+          return 0
+        }
+        return value - 1
+      })
+    }, 1000)
+    return () => window.clearInterval(timer)
+  }, [game, question, selected])
+
+  function playAudio() {
+    if (!question?.audio_text || typeof window === 'undefined' || !('speechSynthesis' in window)) return
+    window.speechSynthesis.cancel()
+    const utterance = new SpeechSynthesisUtterance(question.audio_text)
+    utterance.lang = question.audio_language || 'en-GB'
+    utterance.rate = 0.9
+    window.speechSynthesis.speak(utterance)
   }
 
   async function finishRound() {
@@ -325,20 +364,33 @@ export default function GamesPage() {
             {question && (
               <>
                 <h2 style={{ whiteSpace: 'pre-line' }}>{question.prompt}</h2>
-                <p className="choose">{t.choose}</p>
-                <div className="choices">
-                  {question.choices.map((choice) => {
-                    const state = selected === choice ? 'selected' : ''
-                    return (
-                      <button type="button" key={choice} className={`choice ${state}`} onClick={() => answer(choice)}>
-                        {choice}
-                      </button>
-                    )
-                  })}
-                </div>
+                {game === 'quick_choice' && !selected && <div className="quick-timer" aria-live="polite">⏱ {timeLeft}s</div>}
+                {game === 'listen_choose' && (
+                  <button type="button" className="audio-play" onClick={playAudio}>🎧 {lang === 'ar' ? 'تشغيل الصوت' : lang === 'fr' ? 'Écouter' : 'Play audio'}</button>
+                )}
+                {question.input_mode === 'text' ? (
+                  <form className="spelling-form" onSubmit={(event) => { event.preventDefault(); submitTextAnswer() }}>
+                    <input value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder={lang === 'ar' ? 'اكتب الإجابة' : lang === 'fr' ? 'Écris ta réponse' : 'Type your answer'} autoComplete="off" disabled={Boolean(selected)} />
+                    <button type="submit" className="next" disabled={Boolean(selected) || !inputValue.trim()}>{lang === 'ar' ? 'تحقق' : lang === 'fr' ? 'Vérifier' : 'Check'}</button>
+                  </form>
+                ) : (
+                  <>
+                    <p className="choose">{t.choose}</p>
+                    <div className="choices">
+                      {question.choices.map((choice) => {
+                        const state = selected === choice ? 'selected' : ''
+                        return (
+                          <button type="button" key={choice} className={`choice ${state}`} onClick={() => answer(choice)} disabled={Boolean(selected)}>
+                            {choice}
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </>
+                )}
                 {selected && (
                   <div className="feedback good">
-                    <strong>{t.answered}</strong>
+                    <strong>{selected === '__timeout__' ? '⏱ Time!' : t.answered}</strong>
                     <span>{question.hint}</span>
                   </div>
                 )}
