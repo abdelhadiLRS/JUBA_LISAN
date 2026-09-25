@@ -6830,3 +6830,49 @@ main [dir="rtl"] h3,
 .juba-ref-faq{padding:105px 22px 120px;background:#f4f7ef}.juba-ref-faq .juba-ref-section-heading{margin-bottom:42px}
 @media(max-width:900px){.juba-ref-hero{min-height:0}.juba-ref-hero-inner{grid-template-columns:1fr;min-height:0;padding-top:45px}.juba-ref-hero-copy{padding:25px 0 0}.juba-ref-hero-copy h1{font-size:clamp(3.1rem,12vw,5.5rem)}.juba-ref-hero-art{min-height:540px}.juba-ref-language-section,.juba-ref-ai-section{grid-template-columns:1fr;gap:40px}.juba-ref-pillar-grid,.juba-ref-review-grid{grid-template-columns:1fr}.juba-ref-pillar{min-height:290px}.juba-ref-cta-inner{grid-template-columns:1fr}}
 @media(max-width:560px){.juba-ref-hero-inner{width:min(100% - 28px,1240px)}.juba-ref-hero-art{min-height:420px;transform:scale(.92);transform-origin:center top;margin-bottom:-55px}.character-main{width:160px;height:195px;right:27%;bottom:75px}.character-small{width:62px;height:68px;font-size:10px}.character-one{left:5%;bottom:83px}.character-two{left:28%;bottom:175px}.character-three{right:0;bottom:92px}.juba-ref-book{left:17%;bottom:5px;min-width:220px}.juba-ref-language-section{width:min(100% - 28px,1160px);padding:80px 0}.juba-ref-language-art{min-height:300px;padding:20px}.juba-ref-ai-section{padding:80px 16px}.juba-ref-ai-art{min-height:330px}.juba-ref-cta{padding:80px 16px}.juba-ref-cta-device{width:210px;height:350px}}
+
+
+/* Public landing: Arabic RTL polish, scoped to the landing page only. */
+.juba-reference-page[dir="rtl"] {
+  text-align: right;
+}
+.juba-reference-page[dir="rtl"] .juba-ref-hero-inner,
+.juba-reference-page[dir="rtl"] .juba-ref-language-section,
+.juba-reference-page[dir="rtl"] .juba-ref-ai-section,
+.juba-reference-page[dir="rtl"] .juba-ref-cta-inner {
+  direction: rtl;
+}
+.juba-reference-page[dir="rtl"] .juba-ref-hero-copy h1,
+.juba-reference-page[dir="rtl"] .juba-ref-hero-copy p,
+.juba-reference-page[dir="rtl"] .juba-ref-language-copy,
+.juba-reference-page[dir="rtl"] .juba-ref-ai-copy,
+.juba-reference-page[dir="rtl"] .juba-ref-cta-inner > div:first-child {
+  text-align: right;
+}
+.juba-reference-page[dir="rtl"] .juba-ref-hero-actions,
+.juba-reference-page[dir="rtl"] .juba-ref-ai-points {
+  justify-content: flex-start;
+}
+.juba-reference-page[dir="rtl"] .juba-ref-section-heading,
+.juba-reference-page[dir="rtl"] .juba-ref-review-card,
+.juba-reference-page[dir="rtl"] .juba-ref-pillar {
+  text-align: right;
+}
+.juba-reference-page[dir="rtl"] .juba-ref-pillar {
+  align-items: flex-start;
+}
+.juba-reference-page[dir="rtl"] .juba-ref-book {
+  direction: rtl;
+}
+.juba-reference-page :where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid #39751d;
+  outline-offset: 4px;
+}
+@media (max-width: 760px) {
+  .juba-reference-page[dir="rtl"] .juba-ref-hero-actions {
+    align-items: stretch;
+  }
+  .juba-reference-page[dir="rtl"] .juba-ref-hero-actions > a {
+    max-width: 100%;
+  }
+}
