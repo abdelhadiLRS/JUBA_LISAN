@@ -1,4 +1,4 @@
-from app.routers.progress import _review_adaptive_difficulty, _review_game_for_item, _review_item_strategy, _review_retry_stage
+from app.routers.progress import _adapt_question_after_session_miss, _review_adaptive_difficulty, _review_game_for_item, _review_item_strategy, _review_retry_stage
 
 
 def test_review_difficulty_drops_for_weak_items():
@@ -30,3 +30,13 @@ def test_retry_stage_escalates_within_session():
     assert _review_retry_stage(1) == "retry"
     assert _review_retry_stage(2) == "focused_retrieval"
     assert _review_retry_stage(3) == "guided_retrieval"
+
+
+def test_generic_question_adapts_after_repeated_miss():
+    question = {"difficulty": 3, "hint": "Use the context.", "prompt": "Choose.", "choices": ["a", "b"]}
+    first = _adapt_question_after_session_miss(question, 1)
+    repeated = _adapt_question_after_session_miss(question, 2)
+    assert first["difficulty"] == 3
+    assert first["retry_stage"] == "retry"
+    assert repeated["difficulty"] == 2
+    assert repeated["retry_stage"] == "focused_retrieval"
