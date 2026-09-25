@@ -589,7 +589,8 @@
     "reviewReminder": "Time to strengthen your memory",
     "goalCompleted": "🎉 Daily goal completed!",
     "keepGoing": "Only {remaining} more lesson(s) to go!",
-    "takeAssessment": "Take placement assessment"
+    "takeAssessment": "Take placement assessment",
+    "planDayGoal": "Today's lesson goal"
   },
   "assessment": {
     "title": "Assessment",
