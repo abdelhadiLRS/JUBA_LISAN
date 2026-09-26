@@ -7471,3 +7471,64 @@ main [dir="rtl"] h3,
     overflow-x:auto;
   }
 }
+
+
+/* Dashboard fidelity — Courses, Flashcards and Games. */
+.juba-mobile-courses{background:transparent!important;padding:0!important;width:min(100%,1240px)!important;}
+.juba-mobile-courses>.mx-auto{max-width:none!important;}
+.juba-mobile-courses .juba-card{border:1px solid rgba(7,7,9,.07)!important;border-radius:26px!important;box-shadow:0 12px 30px rgba(43,45,90,.07)!important;}
+.juba-mobile-courses section:first-of-type .juba-card{background:#9a9ff3!important;}
+.juba-mobile-courses .juba-card:first-child .juba-eyebrow{color:#070709!important;background:rgba(255,255,255,.48);border-radius:999px;padding:.35rem .65rem;width:max-content;}
+.juba-mobile-courses .juba-card:first-child .juba-eyebrow svg{color:#070709!important;}
+.juba-mobile-courses section:nth-of-type(2) .juba-card{min-height:180px;}
+.juba-mobile-courses section:nth-of-type(2) .juba-card>div:first-child{background:#ededff!important;color:#5862e2!important;}
+.juba-mobile-courses section:nth-of-type(2) .juba-card:nth-child(2)>div:first-child{background:#fff3d1!important;color:#9a6500!important;}
+.juba-mobile-courses section:nth-of-type(2) .juba-card:nth-child(3)>div:first-child{background:#f1eaff!important;color:#5862e2!important;}
+.juba-mobile-courses section:nth-of-type(3) article{border-color:rgba(7,7,9,.07)!important;border-width:1px!important;border-radius:26px!important;box-shadow:0 12px 30px rgba(43,45,90,.06)!important;}
+.juba-mobile-courses section:nth-of-type(3) article:hover{transform:translateY(-3px);}
+.juba-mobile-courses section:nth-of-type(3) article.current,.juba-mobile-courses section:nth-of-type(3) article[class*="ring-"]{box-shadow:0 0 0 2px #5862e2,0 14px 34px rgba(43,45,90,.08)!important;}
+.juba-mobile-courses section:nth-of-type(3) article [class*="bg-[var(--juba-app-yellow)]"]{background:#5862e2!important;color:#fff!important;}
+.juba-mobile-courses section:nth-of-type(3) article [class*="bg-[var(--juba-app-green-soft)]"]{background:#ededff!important;color:#373fb8!important;}
+.juba-mobile-courses section:nth-of-type(3) article a{border-radius:14px!important;}
+.juba-mobile-courses section:nth-of-type(4) .juba-card{background:#fff!important;}
+.juba-mobile-courses section:nth-of-type(4) article{border-color:rgba(7,7,9,.07)!important;background:#fafaff!important;border-radius:22px!important;}
+.juba-flashcards-shell{width:min(100%,1240px)!important;max-width:1240px!important;background:transparent!important;}
+.juba-flashcards-shell .juba-card{border-radius:28px!important;box-shadow:0 14px 34px rgba(43,45,90,.07)!important;}
+.juba-flashcards-shell>div:first-child{padding:14px 4px 4px;}
+.juba-flashcards-shell>div:first-child>div:first-child>span:first-child{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border-radius:14px;background:#ededff;color:#5862e2;font-size:0;}
+.juba-flashcards-shell>div:first-child>div:first-child>span:first-child::after{content:"✦";font-size:16px;}
+.juba-flashcards-shell button,.juba-flashcards-shell a{border-radius:14px!important;}
+.juba-flashcards-shell input,.juba-flashcards-shell select{border-color:rgba(7,7,9,.1)!important;background:#fafaff!important;}
+.juba-flashcards-shell .juba-primary-button{background:#5862e2!important;color:#fff!important;border-radius:14px!important;}
+.juba-flashcards-shell .juba-secondary-button{border-radius:14px!important;}
+.juba-games{background:#f4f4f2!important;padding:18px 0 56px!important;}
+.juba-games .games-shell{max-width:1240px;}
+.juba-games .games-header{border-radius:30px;background:#070709!important;box-shadow:0 14px 34px rgba(43,45,90,.12)!important;}
+.juba-games .games-brand{background:#ededff;color:#373fb8;}
+.juba-games .stats-grid>div,.juba-games .games-panel,.juba-games .game-card,.juba-games .play-card{border:1px solid rgba(7,7,9,.07)!important;border-radius:26px!important;box-shadow:0 12px 30px rgba(43,45,90,.07)!important;}
+.juba-games .stats-grid>div:nth-child(2),.juba-games .stats-grid>div:nth-child(3){border-color:rgba(7,7,9,.07)!important;}
+.juba-games .daily-challenge{border:1px solid rgba(7,7,9,.07);background:#fff3d1;box-shadow:0 10px 24px rgba(43,45,90,.06);}
+.juba-games .game-card{background:#fff!important;}
+.juba-games .game-card::before{background:#ededff!important;}
+.juba-games .game-icon{background:#ededff!important;color:#5862e2;}
+.juba-games .game-card:nth-child(2) .game-icon{background:#fff3d1!important;}
+.juba-games .game-card:nth-child(3) .game-icon{background:#f1eaff!important;}
+.juba-games .game-card:nth-child(5) .game-icon{background:#ffe8e2!important;}
+.juba-games .start{color:#5862e2;}
+.juba-games .next{background:#5862e2!important;box-shadow:0 5px 0 #373fb8!important;}
+.juba-games .choice:hover,.juba-games .choice.selected{border-color:#5862e2;background:#ededff;}
+.juba-games .games-panel{background:#fff!important;}
+.interactive-game{border-color:rgba(7,7,9,.07)!important;border-radius:28px!important;box-shadow:0 14px 34px rgba(43,45,90,.07)!important;}
+@media(max-width:760px){
+ .juba-games{padding:10px 10px 56px!important;}
+ .juba-games .games-header{border-radius:22px!important;}
+}
+@media(max-width:640px){
+ .juba-mobile-courses,.juba-flashcards-shell{width:calc(100% - 20px)!important;}
+ .juba-games{padding:8px 10px 104px!important;}
+ .juba-games .games-header{background:#070709!important;color:#fff!important;min-height:210px;}
+ .juba-games .games-brand{background:#ededff;color:#373fb8;}
+ .juba-games .stats-grid>div,.juba-games .game-card,.juba-games .games-panel,.juba-games .play-card{border:1px solid rgba(7,7,9,.07)!important;box-shadow:0 10px 24px rgba(43,45,90,.06)!important;}
+ .juba-games .game-card{border-radius:22px!important;}
+ .juba-flashcards-shell .juba-card{border-radius:22px!important;}
+}
