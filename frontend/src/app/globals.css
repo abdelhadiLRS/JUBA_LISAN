@@ -7640,3 +7640,12 @@ main [dir="rtl"] h3,
 .juba-app-page .juba-grammar-shell a,.juba-app-page .juba-vocabulary-shell a,.juba-app-page .juba-phrasebook-shell a{transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease,border-color .18s ease;}
 .juba-app-page .juba-grammar-shell a:hover,.juba-app-page .juba-vocabulary-shell a:hover,.juba-app-page .juba-phrasebook-shell a:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(43,45,90,.08);}
 @media(max-width:640px){.juba-app-page .juba-settings-shell,.juba-app-page .juba-faq-shell,.juba-app-page .juba-grammar-shell,.juba-app-page .juba-vocabulary-shell,.juba-app-page .juba-phrasebook-shell,.juba-app-page .juba-translator-shell{padding-inline:14px;}.juba-app-page .juba-grammar-shell .juba-card,.juba-app-page .juba-vocabulary-shell .juba-card,.juba-app-page .juba-phrasebook-category,.juba-app-page .juba-translator-shell .juba-card{border-radius:22px!important;}}
+
+
+/* Vocabulary set detail — member dashboard visual language */
+.juba-vocabulary-set-shell{color:#202127;}
+.juba-vocabulary-set-shell .juba-card{background:#fff;border:1px solid rgba(7,7,9,.07);border-radius:26px;box-shadow:0 12px 30px rgba(43,45,90,.055);}
+.juba-vocabulary-set-shell a[class*="rounded"],.juba-vocabulary-set-shell button{transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease,border-color .18s ease;}
+.juba-vocabulary-set-shell button:not([aria-label="Close"]):hover,.juba-vocabulary-set-shell a[class*="rounded"]:hover{transform:translateY(-1px);}
+.juba-vocabulary-set-shell input,.juba-vocabulary-set-shell textarea,.juba-vocabulary-set-shell select{border-radius:14px;}
+@media(max-width:640px){.juba-vocabulary-set-shell{padding:1rem!important;}.juba-vocabulary-set-shell .juba-card{border-radius:22px;}}
