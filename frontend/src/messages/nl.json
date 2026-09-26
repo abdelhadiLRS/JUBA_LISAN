@@ -140,6 +140,8 @@
     "openMenu": "Menu openen"
   },
   "nav": {
+    "primaryNavigation": "Hoofdnavigatie",
+    "notifications": "Meldingen",
     "learning": "Leren",
     "practice": "Oefenen",
     "studyTools": "Studietools",
