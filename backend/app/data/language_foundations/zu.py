@@ -71,7 +71,7 @@ _VOCAB = [
 ("zu-c2-2","Context","umongo","context","Incazelo incike kumongo."),
 ("zu-c2-3","Translation","inguqulo","translation/version","Le nguqulo inembile."),
 ]
-VOCABULARY_SETS = [VocabularySet(id=i, level=i.split("-")[1].upper(), topic=topic, unit_ref=f"{i}-unit-1", words=[VocabularyEntry(word=w,pos="noun",definition=d,example=e)]) for i,topic,w,d,e in _VOCAB]
+VOCABULARY_SETS = [VocabularySet(id=i, level=i.split("-")[1].upper(), topic=topic, unit_ref=f"zu-{i.split("-")[1]}-unit-{int(i.split("-")[2])}", words=[VocabularyEntry(word=w,pos="noun",definition=d,example=e)]) for i,topic,w,d,e in _VOCAB]
 
 _UNIT_TOPICS = {
 "A1":["Greetings and identity","Family and people","Home and location","Daily routine","Time and appointments","Food and shopping","Places and directions","Everyday communication"],
@@ -86,9 +86,11 @@ for level in LEVELS:
     CURRICULUM[level] = []
     for n,title in enumerate(_UNIT_TOPICS[level],1):
         candidates=[v[0] for v in _VOCAB if v[0].split("-")[1].upper()==level]
-        vocab_ids=candidates[:1] or ["zu-a1-1"]
-        idx=min(LEVELS.index(level)*6+n-1,len(GRAMMAR_TOPICS)-1)
-        CURRICULUM[level].append(CurriculumUnit(id=f"zu-{level.lower()}-unit-{n}",level=level,unit_number=n,title=f"Zulu {level} · {title}",grammar_points=[GRAMMAR_TOPICS[idx].title],vocabulary_set_ids=vocab_ids,lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=[f"Use {level} isiZulu in {title.lower()}","Understand learner-level authentic isiZulu","Produce accurate spoken and written responses"],default_weeks=2))
+        vocab_ids=candidates[n-1:n]
+        level_topics=[topic for topic in GRAMMAR_TOPICS if topic.level == level]
+        idx=min(n-1, len(level_topics)-1)
+        grammar_ids=[level_topics[idx].slug] if level_topics else []
+        CURRICULUM[level].append(CurriculumUnit(id=f"zu-{level.lower()}-unit-{n}",level=level,unit_number=n,title=f"Zulu {level} · {title}",grammar_points=grammar_ids,vocabulary_set_ids=vocab_ids,lesson_types=["grammar","vocabulary","listening","speaking","reading","writing","review"],competency_checklist=[f"Use {level} isiZulu in {title.lower()}","Understand learner-level authentic isiZulu","Produce accurate spoken and written responses"],default_weeks=2))
 
 PHRASEBOOK_CATEGORIES = [
 PhrasebookCategory(id="zu-greetings",level="A1",situation="Greetings",icon="👋",phrases=[PhrasebookEntry(text="Sawubona.",context="Hello.",register="neutral"),PhrasebookEntry(text="Unjani?",context="How are you?",register="neutral"),PhrasebookEntry(text="Ngiyaphila.",context="I am well.",register="neutral")]),
@@ -99,18 +101,18 @@ PhrasebookCategory(id="zu-directions",level="A1",situation="Directions",icon="�
 PhrasebookCategory(id="zu-restaurant",level="A2",situation="Restaurant",icon="🍽️",phrases=[PhrasebookEntry(text="Ngicela imenyu.",context="Please give me the menu.",register="polite"),PhrasebookEntry(text="Ngifuna amanzi.",context="I want water.",register="neutral"),PhrasebookEntry(text="Ngicela isikweletu.",context="Please bring the bill.",register="polite")]),
 PhrasebookCategory(id="zu-travel",level="A2",situation="Travel",icon="✈️",phrases=[PhrasebookEntry(text="Iphi ithikithi lami?",context="Where is my ticket?",register="neutral"),PhrasebookEntry(text="Ngifuna indawo yokulala.",context="I need a place to stay.",register="neutral"),PhrasebookEntry(text="Isikhathi sokuhamba singakanani?",context="How long is the journey?",register="neutral")]),
 PhrasebookCategory(id="zu-health",level="A2",situation="Health",icon="🩺",phrases=[PhrasebookEntry(text="Ngifuna ukubona udokotela.",context="I need to see a doctor.",register="neutral"),PhrasebookEntry(text="Ngizwa ubuhlungu.",context="I am in pain.",register="neutral"),PhrasebookEntry(text="Isibhedlela sikuphi?",context="Where is the hospital?",register="neutral")]),
-PhrasebookCategory(id="zu-work",level="B1",situation="Work",icon="💼",phrases=[PhrasebookEntry(text="Ake siqale umhlangano.",context="Let's start the meeting.",register="professional"),PhrasebookEntry(text="Ngicela unikeze ubufakazi.",context="Please provide the evidence.",register="professional"),PhrasebookEntry(text="Siyavumelana ngalolu daba.",context="We agree on this matter.",register="professional")]),
+PhrasebookCategory(id="zu-work",level="B1",situation="Work",icon="💼",phrases=[PhrasebookEntry(text="Ake siqale umhlangano.",context="Let's start the meeting.",register="formal"),PhrasebookEntry(text="Ngicela unikeze ubufakazi.",context="Please provide the evidence.",register="professional"),PhrasebookEntry(text="Siyavumelana ngalolu daba.",context="We agree on this matter.",register="professional")]),
 PhrasebookCategory(id="zu-debate",level="B2",situation="Debate and opinion",icon="💬",phrases=[PhrasebookEntry(text="Ngokombono wami...",context="In my opinion...",register="neutral"),PhrasebookEntry(text="Ubufakazi bubonisa ukuthi...",context="The evidence shows that...",register="formal"),PhrasebookEntry(text="Ngakolunye uhlangothi...",context="On the other hand...",register="formal")]),
-PhrasebookCategory(id="zu-academic",level="C1",situation="Academic writing",icon="📚",phrases=[PhrasebookEntry(text="Lolu cwaningo lubonisa ukuthi...",context="This study shows that...",register="academic"),PhrasebookEntry(text="Lokhu kungase kubonise...",context="This may indicate...",register="academic"),PhrasebookEntry(text="Kudingeka olunye ucwaningo.",context="Further research is needed.",register="academic")]),
+PhrasebookCategory(id="zu-academic",level="C1",situation="Academic writing",icon="📚",phrases=[PhrasebookEntry(text="Lolu cwaningo lubonisa ukuthi...",context="This study shows that...",register="formal"),PhrasebookEntry(text="Lokhu kungase kubonise...",context="This may indicate...",register="academic"),PhrasebookEntry(text="Kudingeka olunye ucwaningo.",context="Further research is needed.",register="academic")]),
 PhrasebookCategory(id="zu-formal",level="C1",situation="Formal correspondence",icon="📝",phrases=[PhrasebookEntry(text="Mayelana nesicelo sakho...",context="Regarding your application...",register="formal"),PhrasebookEntry(text="Sicela uthumele isicelo sakho.",context="Please submit your application.",register="formal"),PhrasebookEntry(text="Sizokuphendula maduze.",context="We will respond shortly.",register="formal")]),
-PhrasebookCategory(id="zu-pragmatics",level="C2",situation="Nuance and pragmatics",icon="🎯",phrases=[PhrasebookEntry(text="Mhlawumbe singabheka lolu daba futhi.",context="Perhaps we can reconsider this matter.",register="nuanced"),PhrasebookEntry(text="Lokhu kuncike kumongo.",context="This depends on the context.",register="formal"),PhrasebookEntry(text="Ake sikubeke ngenye indlela.",context="Let's put it another way.",register="nuanced")]),
+PhrasebookCategory(id="zu-pragmatics",level="C2",situation="Nuance and pragmatics",icon="🎯",phrases=[PhrasebookEntry(text="Mhlawumbe singabheka lolu daba futhi.",context="Perhaps we can reconsider this matter.",register="neutral"),PhrasebookEntry(text="Lokhu kuncike kumongo.",context="This depends on the context.",register="formal"),PhrasebookEntry(text="Ake sikubeke ngenye indlela.",context="Let's put it another way.",register="nuanced")]),
 ]
 
 ASSESSMENT_BANK = [
 AssessmentQuestion(id="zu-a1-001",skill="communication",difficulty="A1",question="Which isiZulu expression means ‘Hello’?",options=["Sawubona.","Ngiyabonga.","Angiqondi.","Unjani?"],correct="Sawubona."),
 AssessmentQuestion(id="zu-a1-002",skill="communication",difficulty="A1",question="Which phrase asks ‘How are you?’",options=["Unjani?","Ngiyaphila.","Ngifuna lokhu.","Kulungile."],correct="Unjani?"),
 AssessmentQuestion(id="zu-a1-003",skill="vocabulary",difficulty="A1",question="Which word means ‘family’?",options=["umndeni","indlela","isikhathi","imakethe"],correct="umndeni"),
-AssessmentQuestion(id="zu-a1-004",skill="shopping",difficulty="A1",question="How do you ask the price of an item?",options=["Kubiza malini lokhu?","Uhlala kuphi?","Ngiyaphila.","Ngicela ungisize."],correct="Kubiza malini lokhu?"),
+AssessmentQuestion(id="zu-a1-004",skill="communication",difficulty="A1",question="How do you ask the price of an item?",options=["Kubiza malini lokhu?","Uhlala kuphi?","Ngiyaphila.","Ngicela ungisize."],correct="Kubiza malini lokhu?"),
 AssessmentQuestion(id="zu-a2-005",skill="grammar",difficulty="A2",question="Which sentence refers to yesterday?",options=["Izolo ngaya emakethe.","Kusasa ngizoya emsebenzini.","Ngifunda nsuku zonke.","Ngifuna ukufunda isiZulu."],correct="Izolo ngaya emakethe."),
 AssessmentQuestion(id="zu-a2-006",skill="communication",difficulty="A2",question="Which is a polite request?",options=["Ngicela uhlale lapha.","Angiqondi.","Ngisekhaya.","Ngaya emakethe."],correct="Ngicela uhlale lapha."),
 AssessmentQuestion(id="zu-b1-007",skill="grammar",difficulty="B1",question="Which sentence expresses a condition?",options=["Uma isikhathi sikhona, sizohamba.","Izolo ngaya emakethe.","Ngingumfundi.","Ngiyabonga."],correct="Uma isikhathi sikhona, sizohamba."),
