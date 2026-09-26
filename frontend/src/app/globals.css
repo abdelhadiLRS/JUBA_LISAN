@@ -8183,7 +8183,8 @@ main [dir="rtl"] h3,
     height: 2rem;
     min-width: 2rem;
   }
-  .juba-tabler-app .juba-page-context .d-flex.align-items-center.gap-2.text-uppercase > span:nth-child(2) {
+  .juba-tabler-app .juba-page-context .d-flex.align-items-center.gap-2.text-uppercase > span:nth-child(2),
+  .juba-tabler-app .juba-page-context .d-flex.align-items-center.gap-2.text-uppercase > span:nth-child(3) {
     display: none;
   }
   .juba-tabler-app .juba-page-context .fs-3 {
