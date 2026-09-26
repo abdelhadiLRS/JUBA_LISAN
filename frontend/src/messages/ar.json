@@ -536,7 +536,8 @@
     "savedWords": "كلماتك المحفوظة",
     "savedWordsCount": "كلمات محفوظة من المترجم الفوري",
     "translateMore": "ترجمة المزيد",
-    "topicCount": "{count} موضوع"
+    "topicCount": "{count} موضوع",
+    "setCount": "{count, plural, =0 {لا مجموعات} =1 {مجموعة واحدة} =2 {مجموعتان} few {# مجموعات} other {# مجموعة}}"
   },
   "grammar": {
     "title": "مرجع القواعد",
@@ -607,17 +608,29 @@
     "wordsMastered": "كلمة متقنة حتى الآن.",
     "learning": "التعلّم",
     "personalized": "مخصص لك",
-    "adaptive": "متكيف"
-  ,
+    "adaptive": "متكيف",
     "scenarios": {
-      "airport": {"title": "المطار", "description": "تسجيل الوصول وطلب الاتجاهات والتعامل مع التأخيرات."},
-      "jobInterview": {"title": "مقابلة عمل", "description": "تدرّب على الإجابات والثقة والمفردات المهنية."},
-      "restaurant": {"title": "مطعم", "description": "اطلب بشكل طبيعي وتعامل مع محادثة حقيقية."},
-      "hotel": {"title": "فندق", "description": "احجز غرفة وحل المشكلات واطلب ما تحتاجه."}
+      "airport": {
+        "title": "المطار",
+        "description": "تسجيل الوصول وطلب الاتجاهات والتعامل مع التأخيرات."
+      },
+      "jobInterview": {
+        "title": "مقابلة عمل",
+        "description": "تدرّب على الإجابات والثقة والمفردات المهنية."
+      },
+      "restaurant": {
+        "title": "مطعم",
+        "description": "اطلب بشكل طبيعي وتعامل مع محادثة حقيقية."
+      },
+      "hotel": {
+        "title": "فندق",
+        "description": "احجز غرفة وحل المشكلات واطلب ما تحتاجه."
+      }
     },
     "learningLabel": "التعلّم",
     "cefrLabel": "مستوى CEFR",
-    "coachLabel": "المدرّب"},
+    "coachLabel": "المدرّب"
+  },
   "plan": {
     "title": "خطتي",
     "subtitle": "خطة الدراسة",
