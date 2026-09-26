@@ -87,11 +87,11 @@ const tabs: {
 
 function StatRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="border-[var(--juba-border)] flex items-center justify-between gap-4 border-b py-3 last:border-0">
-      <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+    <div className="border-[rgba(7,7,9,.08)] flex items-center justify-between gap-4 border-b py-3 last:border-0">
+      <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
         {label}
       </span>
-      <span className="text-[var(--juba-text)] min-w-0 text-right font-sans text-sm break-words">
+      <span className="text-[#202127] min-w-0 text-right font-sans text-sm break-words">
         {value}
       </span>
     </div>
@@ -106,10 +106,10 @@ function Section({
   children: React.ReactNode
 }) {
   return (
-    <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] border">
-      <div className="border-[var(--juba-border)] flex items-center gap-2 border-b px-5 py-4">
-        <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-        <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+    <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border">
+      <div className="border-[rgba(7,7,9,.08)] flex items-center gap-2 border-b px-5 py-4">
+        <span className="text-[#202127] text-[rgba(32,33,39,.52)]">●</span>
+        <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
           {title}
         </span>
       </div>
@@ -126,11 +126,11 @@ function SummaryCard({
   value: React.ReactNode
 }) {
   return (
-    <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] border px-4 py-3">
-      <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-1 font-semibold tracking-wide">
+    <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border px-4 py-3">
+      <p className="text-[#202127] text-[rgba(32,33,39,.52)] mb-1 font-semibold tracking-wide">
         {label}
       </p>
-      <p className="text-[var(--juba-text)] font-sans text-lg">{value}</p>
+      <p className="text-[#202127] font-sans text-lg">{value}</p>
     </div>
   )
 }
@@ -149,9 +149,9 @@ function subscriptionStatusClass(status: string) {
     case 'incomplete_expired':
       return 'border-orange-500/40 text-orange-400'
     case 'canceled':
-      return 'border-[var(--juba-border)] text-[var(--juba-muted)]'
+      return 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)]'
     default:
-      return 'border-[var(--juba-border)] text-[var(--juba-muted)]'
+      return 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)]'
   }
 }
 
@@ -356,7 +356,7 @@ export default function AdminUserStatsPage() {
   if (error === 'loadError' || !user || !stats) {
     return (
       <div className="mx-auto max-w-2xl p-6">
-        <div className="border-red-200/40 text-red-600 border px-4 py-3 font-sans text-xs border-[var(--juba-border)]">
+        <div className="border-red-200/40 text-red-600 border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
           {t('loadError')}
         </div>
       </div>
@@ -377,18 +377,18 @@ export default function AdminUserStatsPage() {
         <div className="flex min-w-0 items-center gap-2">
           <Link
             href="/admin/users"
-            className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-semibold tracking-wide transition-colors"
+            className="text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] font-semibold tracking-wide transition-colors"
           >
             {t('users')}
           </Link>
-          <span className="text-[var(--juba-muted)] text-[var(--juba-text)] font-sans">/</span>
-          <span className="text-[var(--juba-text)] text-[var(--juba-text)] truncate font-semibold tracking-wide">
+          <span className="text-[rgba(32,33,39,.52)] text-[#202127] font-sans">/</span>
+          <span className="text-[#202127] text-[#202127] truncate font-semibold tracking-wide">
             {user.display_name}
           </span>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <span
-            className={`text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
+            className={`text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide ${
               user.is_active
                 ? 'border-green-500/40 text-green-400'
                 : 'border-red-200/30 text-red-600-fg'
@@ -397,16 +397,16 @@ export default function AdminUserStatsPage() {
             {user.is_active ? t('active') : t('inactive')}
           </span>
           <span
-            className={`text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
+            className={`text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide ${
               user.role === 'admin'
-                ? 'border-fl-fg/40 text-[var(--juba-text)]'
-                : 'border-[var(--juba-border)] text-[var(--juba-muted)]'
+                ? 'border-fl-fg/40 text-[#202127]'
+                : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)]'
             }`}
           >
             {user.role === 'admin' ? t('roleAdmin') : t('roleUser')}
           </span>
           <span
-            className={`text-[var(--juba-muted)] border px-2 py-0.5 font-semibold tracking-wide ${subscriptionStatusClass(user.subscription_status)}`}
+            className={`text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide ${subscriptionStatusClass(user.subscription_status)}`}
           >
             {subscriptionLabel}
           </span>
@@ -415,13 +415,13 @@ export default function AdminUserStatsPage() {
 
       <AdminNav />
 
-      <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] border p-5">
+      <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border p-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="min-w-0">
-            <p className="text-[var(--juba-text)] truncate font-sans text-xl">
+            <p className="text-[#202127] truncate font-sans text-xl">
               {user.display_name}
             </p>
-            <p className="text-[var(--juba-muted)] mt-1 font-sans text-xs break-all">
+            <p className="text-[rgba(32,33,39,.52)] mt-1 font-sans text-xs break-all">
               #{user.id} / @{user.username.toLowerCase()}
               {user.email ? ` / ${user.email}` : ''}
             </p>
@@ -448,12 +448,12 @@ export default function AdminUserStatsPage() {
       </div>
 
       {error && error !== 'loadError' && (
-        <div className="border-red-200/40 text-red-600 border px-4 py-3 font-sans text-xs border-[var(--juba-border)]">
+        <div className="border-red-200/40 text-red-600 border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
           {error}
         </div>
       )}
 
-      <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] flex gap-1 overflow-x-auto border p-1">
+      <div className="border-[rgba(7,7,9,.08)] bg-[#fff] flex gap-1 overflow-x-auto border p-1">
         {tabs.map((tab) => {
           const Icon = tab.icon
           const active = activeTab === tab.key
@@ -462,10 +462,10 @@ export default function AdminUserStatsPage() {
               key={tab.key}
               type="button"
               onClick={() => setActiveTab(tab.key)}
-              className={`text-[var(--juba-text)] flex min-h-9 shrink-0 items-center gap-2 px-3 py-2 font-semibold tracking-wide transition-colors ${
+              className={`text-[#202127] flex min-h-9 shrink-0 items-center gap-2 px-3 py-2 font-semibold tracking-wide transition-colors ${
                 active
-                  ? 'bg-[var(--juba-bg)] text-[var(--juba-text)] border-fl-accent border-l-2'
-                  : 'text-[var(--juba-muted)] hover:bg-[var(--juba-bg)] hover:text-[var(--juba-text)] border-l-2 border-transparent'
+                  ? 'bg-[var(--juba-bg)] text-[#202127] border-fl-accent border-l-2'
+                  : 'text-[rgba(32,33,39,.52)] hover:bg-[var(--juba-bg)] hover:text-[#202127] border-l-2 border-transparent'
               }`}
             >
               <Icon className="size-3.5" aria-hidden="true" />
@@ -484,7 +484,7 @@ export default function AdminUserStatsPage() {
           />
           {user.email && <StatRow label={t('fieldEmail')} value={user.email} />}
           {user.email && (
-            <div className="border-[var(--juba-border)] flex flex-wrap items-center justify-between gap-3 border-b py-3">
+            <div className="border-[rgba(7,7,9,.08)] flex flex-wrap items-center justify-between gap-3 border-b py-3">
               <div className="flex items-center gap-2">
                 {user.is_verified ? (
                   <BadgeCheck
@@ -493,11 +493,11 @@ export default function AdminUserStatsPage() {
                   />
                 ) : (
                   <MailCheck
-                    className="text-[var(--juba-muted)] size-4"
+                    className="text-[rgba(32,33,39,.52)] size-4"
                     aria-hidden="true"
                   />
                 )}
-                <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+                <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
                   {user.is_verified
                     ? t('emailVerified')
                     : t('emailNotVerified')}
@@ -506,7 +506,7 @@ export default function AdminUserStatsPage() {
               <button
                 onClick={() => setVerifyPending(true)}
                 disabled={verifySaving}
-                className="text-[var(--juba-muted)] hover:border-fl-fg hover:text-[var(--juba-text)] border-[var(--juba-border)] text-[var(--juba-muted)] inline-flex items-center gap-2 border px-2 py-1 font-semibold tracking-wide transition-colors disabled:opacity-40"
+                className="text-[rgba(32,33,39,.52)] hover:border-fl-fg hover:text-[#202127] border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] inline-flex items-center gap-2 border px-2 py-1 font-semibold tracking-wide transition-colors disabled:opacity-40"
               >
                 {verifySaving && (
                   <Loader2
@@ -536,7 +536,7 @@ export default function AdminUserStatsPage() {
       {activeTab === 'languages' && (
         <Section title={t('sectionLanguages')}>
           {stats.per_language.length === 0 ? (
-            <p className="text-[var(--juba-muted)] py-6 text-center font-sans text-xs">
+            <p className="text-[rgba(32,33,39,.52)] py-6 text-center font-sans text-xs">
               {t('statsNoData')}
             </p>
           ) : (
@@ -554,7 +554,7 @@ export default function AdminUserStatsPage() {
                   <div
                     key={pl.target_language}
                     className={`bg-[var(--juba-bg)] border px-4 py-3 ${
-                      isActive ? 'border-fl-accent/50' : 'border-[var(--juba-border)]'
+                      isActive ? 'border-fl-accent/50' : 'border-[rgba(7,7,9,.08)]'
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -567,20 +567,20 @@ export default function AdminUserStatsPage() {
                           className="shrink-0 object-cover"
                         />
                       )}
-                      <span className="text-[var(--juba-text)] min-w-0 flex-1 truncate font-sans text-sm font-bold">
+                      <span className="text-[#202127] min-w-0 flex-1 truncate font-sans text-sm font-bold">
                         {lang?.name ?? pl.target_language}
                       </span>
                       {isActive ? (
-                        <span className="text-[var(--juba-text)] bg-[var(--juba-violet)]/20 text-[var(--juba-violet)] shrink-0 px-2 py-0.5 font-sans text-xs tracking-wide">
+                        <span className="text-[#202127] bg-[#5862e2]/20 text-[#5862e2] shrink-0 px-2 py-0.5 font-sans text-xs tracking-wide">
                           {pl.cefr_level} / {t('statsActive')}
                         </span>
                       ) : (
-                        <span className="text-[var(--juba-text)] text-[var(--juba-muted)] shrink-0 font-sans text-xs tracking-wide">
+                        <span className="text-[#202127] text-[rgba(32,33,39,.52)] shrink-0 font-sans text-xs tracking-wide">
                           -
                         </span>
                       )}
                     </div>
-                    <div className="text-[var(--juba-muted)] mt-3 grid grid-cols-2 gap-2 font-sans text-xs">
+                    <div className="text-[rgba(32,33,39,.52)] mt-3 grid grid-cols-2 gap-2 font-sans text-xs">
                       <span>
                         {t('statsXp')}: {pl.xp_total.toLocaleString()}
                       </span>
@@ -632,7 +632,7 @@ export default function AdminUserStatsPage() {
               value={stats.chat_messages_sent}
             />
             {stats.tokens_total === 0 ? (
-              <p className="text-[var(--juba-muted)] py-4 font-sans text-xs">
+              <p className="text-[rgba(32,33,39,.52)] py-4 font-sans text-xs">
                 {t('statsTokensNote')}
               </p>
             ) : (
@@ -686,7 +686,7 @@ export default function AdminUserStatsPage() {
                 />
               </>
             ) : (
-              <p className="text-[var(--juba-muted)] py-4 font-sans text-xs">
+              <p className="text-[rgba(32,33,39,.52)] py-4 font-sans text-xs">
                 {t('statsNoData')}
               </p>
             )}
@@ -718,18 +718,18 @@ export default function AdminUserStatsPage() {
                 value={quotaMonthlyTokens}
                 onChange={setQuotaMonthlyTokens}
               />
-              <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-sans">
+              <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] font-sans">
                 {t('quotaZeroMeansUnlimited')}
               </p>
               {quotaError && (
-                <p className="border-red-200/40 text-red-600 border px-3 py-2 font-sans text-xs border-[var(--juba-border)]">
+                <p className="border-red-200/40 text-red-600 border px-3 py-2 font-sans text-xs border-[rgba(7,7,9,.08)]">
                   {quotaError}
                 </p>
               )}
               <button
                 onClick={saveQuota}
                 disabled={quotaSaving || !quotaValuesValid}
-                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 inline-flex w-full items-center justify-center gap-2 px-4 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-40"
+                className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 inline-flex w-full items-center justify-center gap-2 px-4 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-40"
               >
                 {quotaSaving && (
                   <Loader2
@@ -761,25 +761,25 @@ export default function AdminUserStatsPage() {
           )}
           <div className="space-y-2 py-4">
             <label className="block">
-              <span className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-1 block font-sans text-xs tracking-wide">
+              <span className="text-[#202127] text-[rgba(32,33,39,.52)] mb-1 block font-sans text-xs tracking-wide">
                 {t('subscriptionOverride')}
               </span>
               <select
                 value={currentPlan}
                 onChange={(e) => setPendingPlan(e.target.value as PlanKey)}
                 disabled={subscriptionSaving}
-                className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] focus:border-fl-accent w-full border px-3 py-2 font-sans text-xs tracking-wide focus:outline-none disabled:opacity-40"
+                className="bg-[var(--juba-bg)] border-[rgba(7,7,9,.08)] text-[#202127] focus:border-fl-accent w-full border px-3 py-2 font-sans text-xs tracking-wide focus:outline-none disabled:opacity-40"
               >
                 <option value="none">{tBilling('statusNone')}</option>
                 <option value="monthly">{tBilling('planMonthlyName')}</option>
                 <option value="yearly">{tBilling('planYearlyName')}</option>
               </select>
             </label>
-            <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-sans">
+            <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] font-sans">
               {t('subscriptionOverrideDesc')}
             </p>
             {subscriptionSaving && (
-              <p className="text-[var(--juba-muted)] inline-flex items-center gap-2 font-sans text-xs">
+              <p className="text-[rgba(32,33,39,.52)] inline-flex items-center gap-2 font-sans text-xs">
                 <Loader2 className="size-3.5 animate-spin" aria-hidden="true" />
                 {t('saving')}
               </p>
@@ -837,7 +837,7 @@ function QuotaInput({
 
   return (
     <label className="grid gap-2 sm:grid-cols-[1fr_9rem] sm:items-center">
-      <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+      <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
         {label}
       </span>
       <span className="flex">
@@ -847,11 +847,11 @@ function QuotaInput({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           aria-invalid={invalid}
-          className={`bg-[var(--juba-bg)] text-[var(--juba-text)] focus:border-fl-accent min-w-0 flex-1 border px-3 py-2 text-right font-sans text-sm focus:outline-none ${
-            invalid ? 'border-red-200/50' : 'border-[var(--juba-border)]'
+          className={`bg-[var(--juba-bg)] text-[#202127] focus:border-fl-accent min-w-0 flex-1 border px-3 py-2 text-right font-sans text-sm focus:outline-none ${
+            invalid ? 'border-red-200/50' : 'border-[rgba(7,7,9,.08)]'
           }`}
         />
-        <span className="border-[var(--juba-border)] bg-[var(--juba-surface-2)] text-[var(--juba-muted)] border border-l-0 px-3 py-2 font-sans text-xs">
+        <span className="border-[rgba(7,7,9,.08)] bg-[var(--juba-surface-2)] text-[rgba(32,33,39,.52)] border border-l-0 px-3 py-2 font-sans text-xs">
           {unit}
         </span>
       </span>
