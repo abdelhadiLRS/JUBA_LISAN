@@ -18,6 +18,7 @@ export type TargetLanguageScript =
   | 'hangul'
   | 'simplified-hanzi'
   | 'arabic'
+  | 'devanagari'
 
 export type TargetLanguageRomanization =
   | 'romaji'
@@ -80,6 +81,19 @@ export const TARGET_LANGUAGE_CAPABILITIES: Record<
   'no-NO': LATIN_LANGUAGE_CAPABILITY,
   'fi-FI': LATIN_LANGUAGE_CAPABILITY,
   'cs-CZ': LATIN_LANGUAGE_CAPABILITY,
+  'fa-IR': {
+    script: 'arabic',
+    fontClass: 'font-sans',
+    usesWordSpacing: true,
+  },
+  'hi-IN': {
+    script: 'devanagari',
+    fontClass: 'font-sans',
+    usesWordSpacing: true,
+  },
+  'id-ID': LATIN_LANGUAGE_CAPABILITY,
+  'ms-MY': LATIN_LANGUAGE_CAPABILITY,
+  'tr-TR': LATIN_LANGUAGE_CAPABILITY,
 }
 
 const FLAG_PATHS: Record<string, string> = {
@@ -87,6 +101,56 @@ const FLAG_PATHS: Record<string, string> = {
   'it-IT': '/flags/italy.jpg', 'pt-PT': '/flags/portugal.jpg', 'fr-FR': '/flags/france.jpg',
   'de-DE': '/flags/germany.jpg', 'ja-JP': '/flags/japan.jpg', 'ko-KR': '/flags/south_korea.jpg',
   'zh-CN': '/flags/china.jpg', ar: '/flags/ar.svg',
+}
+
+const TARGET_LANGUAGE_ALIASES: Record<string, string> = {
+  en: 'en-GB',
+  'en-us': 'en-US',
+  'en-gb': 'en-GB',
+  es: 'es-ES',
+  'es-es': 'es-ES',
+  it: 'it-IT',
+  'it-it': 'it-IT',
+  pt: 'pt-PT',
+  'pt-pt': 'pt-PT',
+  fr: 'fr-FR',
+  'fr-fr': 'fr-FR',
+  de: 'de-DE',
+  'de-de': 'de-DE',
+  ja: 'ja-JP',
+  'ja-jp': 'ja-JP',
+  ko: 'ko-KR',
+  'ko-kr': 'ko-KR',
+  zh: 'zh-CN',
+  'zh-cn': 'zh-CN',
+  ru: 'ru-RU',
+  'ru-ru': 'ru-RU',
+  nl: 'nl-NL',
+  'nl-nl': 'nl-NL',
+  pl: 'pl-PL',
+  'pl-pl': 'pl-PL',
+  da: 'da-DK',
+  'da-dk': 'da-DK',
+  el: 'el-GR',
+  'el-gr': 'el-GR',
+  sv: 'sv-SE',
+  'sv-se': 'sv-SE',
+  no: 'no-NO',
+  'no-no': 'no-NO',
+  fi: 'fi-FI',
+  'fi-fi': 'fi-FI',
+  cs: 'cs-CZ',
+  'cs-cz': 'cs-CZ',
+  fa: 'fa-IR',
+  'fa-ir': 'fa-IR',
+  hi: 'hi-IN',
+  'hi-in': 'hi-IN',
+  id: 'id-ID',
+  'id-id': 'id-ID',
+  ms: 'ms-MY',
+  'ms-my': 'ms-MY',
+  tr: 'tr-TR',
+  'tr-tr': 'tr-TR',
 }
 
 function withCapabilities(
@@ -175,6 +239,11 @@ export const TARGET_LANGUAGE_CATALOG: TargetLanguage[] = [
   withCapabilities({ code: 'no-NO', name: 'Norsk', nameEn: 'Norwegian', iso639: 'no' }),
   withCapabilities({ code: 'fi-FI', name: 'Suomi', nameEn: 'Finnish', iso639: 'fi' }),
   withCapabilities({ code: 'cs-CZ', name: 'Čeština', nameEn: 'Czech', iso639: 'cs' }),
+  withCapabilities({ code: 'fa-IR', name: 'فارسی', nameEn: 'Persian', iso639: 'fa' }),
+  withCapabilities({ code: 'hi-IN', name: 'हिन्दी', nameEn: 'Hindi', iso639: 'hi' }),
+  withCapabilities({ code: 'id-ID', name: 'Bahasa Indonesia', nameEn: 'Indonesian', iso639: 'id' }),
+  withCapabilities({ code: 'ms-MY', name: 'Bahasa Melayu', nameEn: 'Malay', iso639: 'ms' }),
+  withCapabilities({ code: 'tr-TR', name: 'Türkçe', nameEn: 'Turkish', iso639: 'tr' }),
 ]
 
 export const SUPPORTED_TARGET_LANGUAGES: TargetLanguage[] =
@@ -183,11 +252,15 @@ export const SUPPORTED_TARGET_LANGUAGES: TargetLanguage[] =
 export function getLanguageByCode(code: string): TargetLanguage | undefined {
   if (typeof code !== 'string') return undefined
 
-  const normalized = code.trim().toUpperCase()
-  if (!normalized) return undefined
+  const raw = code.trim()
+  if (!raw) return undefined
+
+  const normalized = raw.replace(/_/g, '-').toLowerCase()
+  const canonical = TARGET_LANGUAGE_ALIASES[normalized] ?? raw
+  const lookup = canonical.toUpperCase()
 
   return TARGET_LANGUAGE_CATALOG.find(
-    (language) => language.code.toUpperCase() === normalized
+    (language) => language.code.toUpperCase() === lookup
   )
 }
 
