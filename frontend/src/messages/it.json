@@ -97,6 +97,9 @@
     "openMenu": "Apri menu"
   },
   "nav": {
+    "learning": "Apprendimento",
+    "practice": "Pratica",
+    "studyTools": "Strumenti di studio",
     "home": "Home",
     "myPlan": "Il mio piano",
     "progress": "Progresso",
