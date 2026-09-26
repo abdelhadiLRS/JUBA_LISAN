@@ -29,6 +29,46 @@ def _public_ids(items: object, attribute: str = "id") -> set[str]:
     }
 
 
+def test_registered_language_metadata_resolves_core_and_foundation_locales():
+    cases = {
+        "en-US": ("English (US)", "en"),
+        "en_US": ("English (US)", "en"),
+        "de-DE": ("German", "de"),
+        "hr-HR": ("Croatian", "hr"),
+        "bn-BD": ("Bengali", "bn"),
+        "suq-ET": ("Suri", "suq"),
+    }
+    failures: list[str] = []
+    for locale, (expected_name, expected_iso) in cases.items():
+        if get_language_name(locale) != expected_name:
+            failures.append(f"{locale}: unexpected language name")
+        if get_iso639(locale) != expected_iso:
+            failures.append(f"{locale}: unexpected ISO 639 code")
+    assert not failures, "\\n".join(failures)
+
+
+def test_curriculum_dispatcher_resolves_regional_locales():
+    cases = {
+        "en-US": "app.data.en_US.curriculum",
+        "en_US": "app.data.en_US.curriculum",
+        "de-DE": "app.data.de.curriculum",
+        "hr-HR": "app.data.language_foundations.hr",
+        "bn-BD": "app.data.language_foundations.bn",
+        "suq-ET": "app.data.language_foundations.suq",
+    }
+    failures: list[str] = []
+    for locale, expected_module in cases.items():
+        try:
+            module = curriculum_dispatcher._resolve_module(locale)
+        except Exception as exc:
+            failures.append(f"{locale}: resolve failed: {exc}")
+            continue
+        actual = getattr(module, "__name__", "")
+        if actual != expected_module:
+            failures.append(f"{locale}: expected {expected_module}, got {actual}")
+    assert not failures, "\\n".join(failures)
+
+
 def test_registered_foundations_import_and_expose_curriculum():
     failures: list[str] = []
 
