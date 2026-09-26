@@ -1053,7 +1053,13 @@
     "levelTestScoreLine": "النتيجة: {score} من {total}",
     "levelTestReady": "أنت جاهز للانتقال إلى المستوى التالي",
     "levelTestReadyDesc": "أكملت اختبار المستوى بنجاح. تابع خطتك التعليمية.",
-    "refresh": "تحديث لوحة التحكم"
+    "refresh": "تحديث لوحة التحكم",
+    "historyRanges": {
+      "week": "أسبوع",
+      "month": "شهر",
+      "all": "الكل"
+    },
+    "minutes": "د"
   },
   "auth": {
     "login": {
