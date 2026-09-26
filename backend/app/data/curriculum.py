@@ -211,6 +211,24 @@ _I18N = {
         "test_title": "اختبار إتمام المستوى {level}",
         "test_objectives": ["مراجعة موضوعات هذا المستوى", "إتمام التقييم للانتقال إلى المستوى التالي"],
     },
+    "pt-BR": {
+        "lesson_title": "{title} - Aula {n}",
+        "test_unit_title": "Teste de conclusão do nível {level}",
+        "test_title": "Teste de conclusão do nível {level}",
+        "test_objectives": [
+            "Revisar todos os tópicos de gramática deste nível",
+            "Concluir a avaliação para desbloquear o próximo nível",
+        ],
+    },
+    "zh-TW": {
+        "lesson_title": "{title} - 第 {n} 課",
+        "test_unit_title": "{level} 級結業測驗",
+        "test_title": "{level} 級結業測驗",
+        "test_objectives": [
+            "複習本級別的所有文法項目",
+            "完成評量以解鎖下一個級別",
+        ],
+    },
     "nl": {
         "lesson_title": "{title} - Les {n}",
         "test_unit_title": "Eindtoets niveau {level}",
