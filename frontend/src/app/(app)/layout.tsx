@@ -107,6 +107,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({ learning: true, practice: true, 'study-tools': true })
 
   const PREMIUM_HREFS = new Set([
     '/chat',
@@ -259,13 +260,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   const renderNavGroup = (group: NavGroup) => {
     const active = group.items.some((item) => isItemActive(item.href))
-    const open = active
+    const open = openGroups[group.key] ?? active
     if (sidebarCollapsed) {
       return (
         <div key={group.key} className="mb-1">
-          <div className={'nav-link d-flex align-items-center justify-content-center ' + (active ? 'text-primary bg-primary-lt' : 'text-secondary')} title={group.label}>
+          <button type="button" onClick={() => { setSidebarCollapsed(false); setOpenGroups((current) => ({ ...current, [group.key]: true })) }} className={'nav-link w-100 border-0 d-flex align-items-center justify-content-center ' + (active ? 'text-primary bg-primary-lt' : 'text-secondary')} title={group.label} aria-label={group.label}>
             <i className={'ti ' + group.icon + ' icon'} aria-hidden="true" />
-          </div>
+          </button>
           <div className="visually-hidden">{group.items.map((item) => item.label).join(', ')}</div>
         </div>
       )
@@ -276,18 +277,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           type="button"
           className={'nav-link w-100 border-0 d-flex align-items-center ' + (active ? 'text-primary fw-semibold' : 'text-secondary')}
           aria-expanded={open}
-          onClick={() => {
-            const first = group.items[0]
-            if (first) router.push(first.href)
-          }}
+          onClick={() => setOpenGroups((current) => ({ ...current, [group.key]: !open }))}
         >
           <i className={'ti ' + group.icon + ' icon'} aria-hidden="true" />
           <span className="ms-2 flex-grow-1 text-start">{group.label}</span>
           <i className={'ti ' + (open ? 'ti-chevron-up' : 'ti-chevron-down') + ' icon icon-sm'} aria-hidden="true" />
         </button>
-        <div className="nav nav-pills flex-column border-start ms-3 ps-2 mt-1">
-          {group.items.map((item) => renderNavItem(item, true))}
-        </div>
+        {open && (
+          <div className="nav nav-pills flex-column border-start ms-3 ps-2 mt-1">
+            {group.items.map((item) => renderNavItem(item, true))}
+          </div>
+        )}
       </div>
     )
   }
