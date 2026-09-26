@@ -256,7 +256,16 @@
       "error": "Link non valido o scaduto",
       "backToLogin": "Torna al login"
     }
-  },
+  ,
+    "scenarios": {
+      "airport": {"title": "Aeroporto", "description": "Fai il check-in, chiedi indicazioni e gestisci i ritardi."},
+      "jobInterview": {"title": "Colloquio di lavoro", "description": "Esercitati con risposte, sicurezza e vocabolario professionale."},
+      "restaurant": {"title": "Ristorante", "description": "Ordina con naturalezza e gestisci una conversazione reale."},
+      "hotel": {"title": "Hotel", "description": "Prenota una camera, risolvi problemi e fai richieste."}
+    },
+    "learningLabel": "Apprendimento",
+    "cefrLabel": "QCER",
+    "coachLabel": "Coach"},
   "settings": {
     "title": "Impostazioni",
     "sectionAccount": "Account",
