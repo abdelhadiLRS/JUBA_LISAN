@@ -114,7 +114,7 @@ export default function GrammarIndexPage() {
     <div className="card">
       <div className="border bg-[#fff] border">
         <div className="border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-[#202127] text-[rgba(32,33,39,.52)]">{'\u25cf'}</span>
+          <span className="text-[#202127] text-[rgba(32,33,39,.52)]"><i className="ti ti-book-2 text-[#5862e2] text-base" aria-hidden="true" /></span>
           <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
             {t('title')}
           </span>
@@ -149,7 +149,7 @@ export default function GrammarIndexPage() {
                 }
                 className={`text-[#202127] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                   activeCategory === cat
-                    ? 'border-[#202127] text-[#202127] bg-[#fff]-2'
+                    ? 'border-[#202127] text-[#202127] bg-[#f4f4f2]'
                     : 'border text-[rgba(32,33,39,.52)] hover:border-2 hover:text-[#202127]'
                 }`}
               >
