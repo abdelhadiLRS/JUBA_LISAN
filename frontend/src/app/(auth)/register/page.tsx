@@ -92,59 +92,59 @@ function RegisterForm() {
   }, [username, displayName, email, password, confirmPassword, nativeLanguage, targetLanguage, termsAccepted, invite, selectedPlan, router, setTokens, t])
 
   return (
-    <main className="juba-auth-mobile min-h-screen bg-[var(--juba-bg)] text-[var(--juba-text)]">
+    <main className="juba-auth-mobile min-h-screen bg-[#f4f4f2] text-[#202127]">
       <div className="mx-auto grid min-h-screen max-w-7xl lg:grid-cols-[.9fr_1.1fr]">
-        <section className="relative hidden overflow-hidden px-10 py-10 lg:flex lg:flex-col lg:justify-between xl:px-16">
+        <section className="relative hidden overflow-hidden border-r border-black/[0.06] bg-white px-10 py-10 lg:flex lg:flex-col lg:justify-between xl:px-16">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,color-mix(in_srgb,var(--juba-primary)_26%,transparent),transparent_34%),radial-gradient(circle_at_80%_80%,color-mix(in_srgb,var(--juba-warm)_18%,transparent),transparent_38%)]" />
           <div className="relative flex items-center gap-3">
-            <div className="grid h-11 w-11 place-items-center rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)] shadow-[var(--juba-shadow)]">
+            <div className="grid h-11 w-11 place-items-center rounded-2xl border border-black/[0.08] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
               <Image src="/logo.png" alt="JUBA LISAN" width={30} height={30} priority />
             </div>
             <span className="text-lg font-semibold tracking-tight">JUBA LISAN</span>
           </div>
           <div className="relative max-w-xl">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--juba-border)] bg-[var(--juba-primary-soft)] px-3 py-1.5 text-xs font-medium text-[var(--juba-primary-dark)]">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-[#ededff] px-3 py-1.5 text-xs font-medium text-[#373fb8]">
               <Globe2 className="h-3.5 w-3.5" />
               {tCommon('tagline')}
             </div>
             <h2 className="text-5xl font-semibold leading-[1.05] tracking-tight xl:text-6xl">Your language journey starts with one account.</h2>
-            <p className="mt-6 max-w-lg text-base leading-7 text-[var(--juba-muted)]">Choose your languages, set your goals and let the platform adapt your practice over time.</p>
+            <p className="mt-6 max-w-lg text-base leading-7 text-black/50">Choose your languages, set your goals and let the platform adapt your practice over time.</p>
           </div>
-          <div className="relative flex items-center gap-3 text-xs text-[var(--juba-muted)]"><span className="h-2 w-2 rounded-full bg-[var(--juba-warm)]" />One account · Multiple languages · Personal progress</div>
+          <div className="relative flex items-center gap-3 text-xs text-black/50"><span className="h-2 w-2 rounded-full bg-[var(--juba-warm)]" />One account · Multiple languages · Personal progress</div>
         </section>
 
         <section className="flex items-center justify-center px-5 py-8 sm:px-8">
           <div className="w-full max-w-xl">
             <div className="mb-6 flex items-center gap-3 lg:hidden">
-              <div className="grid h-11 w-11 place-items-center rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface)]"><Image src="/logo.png" alt="JUBA LISAN" width={30} height={30} priority /></div>
+              <div className="grid h-11 w-11 place-items-center rounded-2xl border border-black/[0.08] bg-white"><Image src="/logo.png" alt="JUBA LISAN" width={30} height={30} priority /></div>
               <span className="text-lg font-semibold">JUBA LISAN</span>
             </div>
 
-            <div className="juba-card p-6 sm:p-8">
+            <div className="rounded-[26px] border border-black/[0.08] bg-white p-6 shadow-[0_12px_30px_rgba(43,45,90,.055)] sm:p-8">
               <div className="mb-7">
-                <p className="text-sm font-medium text-[var(--juba-primary-dark)]">Create your profile</p>
+                <p className="text-sm font-medium text-[#373fb8]">Create your profile</p>
                 <h1 className="mt-1 text-3xl font-semibold tracking-tight">{t('title')}</h1>
-                <p className="mt-2 text-sm leading-6 text-[var(--juba-muted)]">A few details are enough to build your first learning plan.</p>
+                <p className="mt-2 text-sm leading-6 text-black/50">A few details are enough to build your first learning plan.</p>
               </div>
 
-              {invite && <div className="mb-5 rounded-2xl border border-[var(--juba-warm)] bg-[var(--juba-warm-soft)] px-4 py-3 text-sm text-[var(--juba-primary-dark)]">{t('inviteActive')}</div>}
+              {invite && <div className="mb-5 rounded-2xl border border-[var(--juba-warm)] bg-[#fff3d1] px-4 py-3 text-sm text-[#373fb8]">{t('inviteActive')}</div>}
               {error && <div className="mb-5 rounded-2xl border border-[var(--juba-danger)] bg-[color-mix(in_srgb,var(--juba-danger)_10%,var(--juba-surface))] px-4 py-3 text-sm leading-5 text-[var(--juba-danger)]">{error}</div>}
 
               <form onSubmit={handleSubmit} noValidate className="space-y-5">
                 <div className="grid gap-5 sm:grid-cols-2">
                   <label className="block">
                     <span className="mb-2 block text-sm font-medium">{t('username')}</span>
-                    <div className="relative"><UserRound className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--juba-muted)]" /><input value={username} onChange={(e) => setUsername(e.target.value)} required autoComplete="username" className="w-full rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-11 py-3.5 text-sm outline-none transition placeholder:text-[var(--juba-muted)] focus:border-[var(--juba-primary)] focus:ring-4 focus:ring-[color-mix(in_srgb,var(--juba-primary)_18%,transparent)]" /></div>
+                    <div className="relative"><UserRound className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-black/50" /><input value={username} onChange={(e) => setUsername(e.target.value)} required autoComplete="username" className="w-full rounded-2xl border border-black/[0.08] bg-[#fafafa] px-11 py-3.5 text-sm outline-none transition placeholder:text-black/50 focus:border-[var(--juba-primary)] focus:ring-4 focus:ring-[color-mix(in_srgb,var(--juba-primary)_18%,transparent)]" /></div>
                   </label>
                   <label className="block">
                     <span className="mb-2 block text-sm font-medium">{t('displayName')}</span>
-                    <input value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder={t('displayNamePlaceholder')} className="w-full rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-4 py-3.5 text-sm outline-none transition placeholder:text-[var(--juba-muted)] focus:border-[var(--juba-primary)] focus:ring-4 focus:ring-[color-mix(in_srgb,var(--juba-primary)_18%,transparent)]" />
+                    <input value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder={t('displayNamePlaceholder')} className="w-full rounded-2xl border border-black/[0.08] bg-[#fafafa] px-4 py-3.5 text-sm outline-none transition placeholder:text-black/50 focus:border-[var(--juba-primary)] focus:ring-4 focus:ring-[color-mix(in_srgb,var(--juba-primary)_18%,transparent)]" />
                   </label>
                 </div>
 
                 <label className="block">
                   <span className="mb-2 block text-sm font-medium">{t('email')}</span>
-                  <div className="relative"><Mail className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--juba-muted)]" /><input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} className="w-full rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-11 py-3.5 text-sm outline-none transition focus:border-[var(--juba-primary)] focus:ring-4 focus:ring-[color-mix(in_srgb,var(--juba-primary)_18%,transparent)]" /></div>
+                  <div className="relative"><Mail className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-black/50" /><input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} className="w-full rounded-2xl border border-black/[0.08] bg-[#fafafa] px-11 py-3.5 text-sm outline-none transition focus:border-[var(--juba-primary)] focus:ring-4 focus:ring-[color-mix(in_srgb,var(--juba-primary)_18%,transparent)]" /></div>
                 </label>
 
                 <div className="grid gap-5 sm:grid-cols-2">
@@ -154,28 +154,28 @@ function RegisterForm() {
                   ].map((field) => (
                     <label key={field.label} className="block">
                       <span className="mb-2 block text-sm font-medium">{field.label}</span>
-                      <div className="relative"><LockKeyhole className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--juba-muted)]" /><input type={field.show ? 'text' : 'password'} value={field.value} onChange={(e) => field.set(e.target.value)} required autoComplete={field.auto} className="w-full rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-11 py-3.5 pr-12 text-sm outline-none transition focus:border-[var(--juba-primary)] focus:ring-4 focus:ring-[color-mix(in_srgb,var(--juba-primary)_18%,transparent)]" /><button type="button" onClick={field.toggle} className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl p-2 text-[var(--juba-muted)] hover:bg-[var(--juba-primary-soft)] hover:text-[var(--juba-text)]" aria-label={field.show ? t('hidePassword') : t('showPassword')}>{field.show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</button></div>
+                      <div className="relative"><LockKeyhole className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-black/50" /><input type={field.show ? 'text' : 'password'} value={field.value} onChange={(e) => field.set(e.target.value)} required autoComplete={field.auto} className="w-full rounded-2xl border border-black/[0.08] bg-[#fafafa] px-11 py-3.5 pr-12 text-sm outline-none transition focus:border-[var(--juba-primary)] focus:ring-4 focus:ring-[color-mix(in_srgb,var(--juba-primary)_18%,transparent)]" /><button type="button" onClick={field.toggle} className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl p-2 text-black/50 hover:bg-[#ededff] hover:text-[#202127]" aria-label={field.show ? t('hidePassword') : t('showPassword')}>{field.show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</button></div>
                     </label>
                   ))}
                 </div>
 
                 <div className="grid gap-5 sm:grid-cols-2">
-                  <label className="block"><span className="mb-2 block text-sm font-medium">{t('nativeLanguage')}</span><select value={nativeLanguage} onChange={(e) => setNativeLanguage(e.target.value)} className="w-full rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-4 py-3.5 text-sm outline-none focus:border-[var(--juba-primary)]">{LANGUAGES.map((code) => <option key={code} value={code}>{tLang(code)}</option>)}</select></label>
-                  <label className="block"><span className="mb-2 block text-sm font-medium">Learning language</span><select value={targetLanguage} onChange={(e) => setTargetLanguage(e.target.value)} className="w-full rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] px-4 py-3.5 text-sm outline-none focus:border-[var(--juba-primary)]">{TARGET_LANGUAGES.map((code) => <option key={code} value={code}>{code}</option>)}</select></label>
+                  <label className="block"><span className="mb-2 block text-sm font-medium">{t('nativeLanguage')}</span><select value={nativeLanguage} onChange={(e) => setNativeLanguage(e.target.value)} className="w-full rounded-2xl border border-black/[0.08] bg-[#fafafa] px-4 py-3.5 text-sm outline-none focus:border-[var(--juba-primary)]">{LANGUAGES.map((code) => <option key={code} value={code}>{tLang(code)}</option>)}</select></label>
+                  <label className="block"><span className="mb-2 block text-sm font-medium">Learning language</span><select value={targetLanguage} onChange={(e) => setTargetLanguage(e.target.value)} className="w-full rounded-2xl border border-black/[0.08] bg-[#fafafa] px-4 py-3.5 text-sm outline-none focus:border-[var(--juba-primary)]">{TARGET_LANGUAGES.map((code) => <option key={code} value={code}>{code}</option>)}</select></label>
                 </div>
 
-                <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-[var(--juba-border)] bg-[var(--juba-surface-soft)] p-3.5">
+                <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-black/[0.08] bg-[#fafafa] p-3.5">
                   <input id="terms-accept" type="checkbox" checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} className="mt-1 h-4 w-4 accent-[var(--juba-primary-dark)]" />
-                  <span className="text-xs leading-5 text-[var(--juba-muted)]">{t('termsAccept')} <Link href="/terms?from=register" className="text-[var(--juba-text)] underline underline-offset-2">{t('termsLink')}</Link> {t('andWord')} <Link href="/privacy?from=register" className="text-[var(--juba-text)] underline underline-offset-2">{t('privacyLink')}</Link></span>
+                  <span className="text-xs leading-5 text-black/50">{t('termsAccept')} <Link href="/terms?from=register" className="text-[#202127] underline underline-offset-2">{t('termsLink')}</Link> {t('andWord')} <Link href="/privacy?from=register" className="text-[#202127] underline underline-offset-2">{t('privacyLink')}</Link></span>
                 </label>
 
-                <button disabled={loading} type="submit" className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--juba-primary-dark)] px-4 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60">
+                <button disabled={loading} type="submit" className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-[#373fb8] px-4 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60">
                   {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />}
                   {loading ? t('creatingAccount') : t('submit')}
                 </button>
               </form>
 
-              <p className="mt-7 text-center text-sm text-[var(--juba-muted)]">{t('hasAccount')} <Link href="/login" className="font-medium text-[var(--juba-primary-dark)] hover:underline">{t('login')}</Link></p>
+              <p className="mt-7 text-center text-sm text-black/50">{t('hasAccount')} <Link href="/login" className="font-medium text-[#373fb8] hover:underline">{t('login')}</Link></p>
             </div>
           </div>
         </section>
