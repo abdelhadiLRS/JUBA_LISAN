@@ -44,10 +44,10 @@ interface TodayPlan {
 }
 
 const scenarios = [
-  { icon: '✈️', title: 'Airport', desc: 'Check in, ask for directions, handle delays.', href: '/conversation' },
-  { icon: '💼', title: 'Job interview', desc: 'Practice answers, confidence and professional vocabulary.', href: '/conversation' },
-  { icon: '🍽️', title: 'Restaurant', desc: 'Order naturally and handle a real conversation.', href: '/conversation' },
-  { icon: '🏨', title: 'Hotel', desc: 'Book a room, solve problems and make requests.', href: '/conversation' },
+  { icon: '✈️', key: 'airport', href: '/conversation' },
+  { icon: '💼', key: 'jobInterview', href: '/conversation' },
+  { icon: '🍽️', key: 'restaurant', href: '/conversation' },
+  { icon: '🏨', key: 'hotel', href: '/conversation' },
 ]
 
 export default function CoachPage() {
@@ -277,10 +277,10 @@ export default function CoachPage() {
             <p className="mt-2 text-sm leading-6 text-[rgba(32,33,39,.52)]">{t('roomsDescription')}</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
-                <Link key={scenario.title} href={scenario.href} className="rounded-[28px] border border p-4 transition hover:-translate-y-0.5 hover:border-[#5862e2] hover:bg-[#ededff]">
+                <Link key={scenario.key} href={scenario.href} className="rounded-[28px] border border p-4 transition hover:-translate-y-0.5 hover:border-[#5862e2] hover:bg-[#ededff]">
                   <span className="text-2xl">{scenario.icon}</span>
-                  <p className="mt-3 text-sm font-black text-[#202127]">{scenario.title}</p>
-                  <p className="mt-1 text-xs leading-5 text-[rgba(32,33,39,.52)]">{scenario.desc}</p>
+                  <p className="mt-3 text-sm font-black text-[#202127]">{t(\`scenarios.\${scenario.key}.title\`)}</p>
+                  <p className="mt-1 text-xs leading-5 text-[rgba(32,33,39,.52)]">{t(\`scenarios.\${scenario.key}.description\`)}</p>
                 </Link>
               ))}
             </div>
@@ -288,8 +288,8 @@ export default function CoachPage() {
         </section>
 
         <footer className="flex flex-col gap-2 border-t border pt-6 text-xs text-[rgba(32,33,39,.52)] sm:flex-row sm:items-center sm:justify-between">
-          <span>Learning {language?.name ? `· ${language.name}` : `· ${t('personalized')}`}</span>
-          <span>CEFR {plan.cefr_level || t('adaptive')} · JUBA LISAN Coach</span>
+          <span>{t('learningLabel')} {language?.name ? `· ${language.name}` : `· ${t('personalized')}`}</span>
+          <span>{t('cefrLabel')} {plan.cefr_level || t('adaptive')} · JUBA LISAN {t('coachLabel')}</span>
         </footer>
       </div>
     </main>
