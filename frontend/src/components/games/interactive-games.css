@@ -1,25 +1,4 @@
-/* Styles for the interactive-games landing page. */
-.interactive-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
-  padding: 0.75rem 1rem;
-  border: 1px solid rgba(7,7,9,.09);
-  border-radius: 0.875rem;
-  color: #202127;
-  background: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
-}
-.interactive-secondary:hover {
-  background: #ededff;
-  border-color: #5862e2;
-  transform: translateY(-1px);
-}
-.interactive-secondary:focus-visible {
-  outline: 3px solid #5862e2;
-  outline-offset: 3px;
-}
+/* Secondary actions for interactive games. */
+.interactive-secondary { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; margin-top:1.5rem; padding:.75rem 1rem; border:1px solid rgba(7,7,9,.09); border-radius:.875rem; color:#202127; background:#fff; text-decoration:none; font-weight:600; transition:background-color 160ms ease,border-color 160ms ease,transform 160ms ease; }
+.interactive-secondary:hover { background:#ededff; border-color:#5862e2; transform:translateY(-1px); }
+.interactive-secondary:focus-visible { outline:3px solid #5862e2; outline-offset:3px; }
