@@ -2,7 +2,6 @@
 
 import { type CSSProperties, type ReactNode } from 'react'
 import Link from 'next/link'
-import { ChevronRight, type LucideIcon } from 'lucide-react'
 
 interface SettingsPageHeaderProps {
   title: string
@@ -37,12 +36,11 @@ export function SettingsPageHeader({
 export function SettingsNav({
   items,
 }: {
-  items: { href: string; label: string; icon: LucideIcon }[]
+  items: { href: string; label: string; icon: string }[]
 }) {
   return (
     <nav className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] flex flex-wrap items-center gap-1 rounded-2xl border p-1.5">
       {items.map((item) => {
-        const Icon = item.icon
         return (
           <a
             key={item.href}
@@ -54,7 +52,7 @@ export function SettingsNav({
               } as CSSProperties
             }
           >
-            <Icon className="size-3.5" aria-hidden="true" />
+            <i className={`ti ti-${item.icon} text-[1rem]`} aria-hidden="true" />
             {item.label}
           </a>
         )
@@ -95,7 +93,7 @@ export function SettingsActionCard({
   href: string
   label: string
   description: string
-  icon: LucideIcon
+  icon: string
 }) {
   return (
     <Link
@@ -110,12 +108,9 @@ export function SettingsActionCard({
             background: 'var(--juba-app-green-soft)',
           }}
         >
-          <Icon className="size-4.5" aria-hidden="true" />
+          <i className={`ti ti-${Icon} text-[1.125rem]`} aria-hidden="true" />
         </span>
-        <ChevronRight
-          className="text-[var(--juba-app-muted)] group-hover:text-[var(--juba-app-muted)] size-5 transition-all group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
-          aria-hidden="true"
-        />
+        <i className="ti ti-chevron-right text-[var(--juba-app-muted)] text-[1.125rem] transition-all group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" aria-hidden="true" />
       </div>
       <p className="text-[var(--juba-app-ink)] text-sm font-semibold">{label}</p>
       <p className="text-[var(--juba-app-muted)] mt-1.5 text-xs leading-relaxed">
