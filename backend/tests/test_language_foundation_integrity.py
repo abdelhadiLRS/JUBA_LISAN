@@ -319,3 +319,19 @@ def test_prompt_overlay_normalizes_locale_aliases(locale: str, expected_fragment
     from app.services.prompts.common import get_language_prompt_overlay
 
     assert expected_fragment in get_language_prompt_overlay(locale)
+
+
+@pytest.mark.parametrize(
+    ("units", "total_weeks", "days_per_week"),
+    [([], 1, 5), ([], 0, 5), ([], 1, 0)],
+)
+def test_distribute_units_handles_empty_or_invalid_schedule_inputs(units, total_weeks, days_per_week):
+    assert curriculum_dispatcher.distribute_units(
+        units, total_weeks, days_per_week, "en-GB"
+    ) == []
+
+
+def test_distribute_units_never_emits_invalid_schedule_dimensions():
+    units = curriculum_dispatcher.get_curriculum_units("A1", "en-GB")[:1]
+    assert curriculum_dispatcher.distribute_units(units, 0, 5, "en-GB") == []
+    assert curriculum_dispatcher.distribute_units(units, 2, 0, "en-GB") == []
