@@ -678,7 +678,7 @@ export default function GamesPage() {
   }
 
   return (
-    <main className="container-xl page-body py-4" dir={direction}>
+    <main className="space-y-5" dir={direction}>
       <section className="games-shell">
         <header className="games-header">
           <div>
