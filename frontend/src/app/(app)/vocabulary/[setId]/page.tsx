@@ -133,7 +133,7 @@ export default function VocabularySetPage({
   }
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 p-5 sm:p-8">
+    <div className="juba-vocabulary-set-shell mx-auto max-w-5xl space-y-6 p-5 sm:p-8">
       {/* Breadcrumb */}
       <nav className="text-[var(--juba-text)] text-[var(--juba-muted)] flex items-center gap-2 font-mono">
         <Link
@@ -151,8 +151,8 @@ export default function VocabularySetPage({
       </nav>
 
       {/* Header */}
-      <div className="rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[var(--juba-shadow-sm)]">
-        <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
+      <div className="juba-card rounded-[26px] border border-black/[0.07] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
+        <div className="flex items-center gap-2 border-b border-black/[0.07] px-6 py-4">
           <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
           <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
             {t('vocabularySet')}
@@ -160,7 +160,7 @@ export default function VocabularySetPage({
         </div>
         <div className="space-y-3 px-6 py-5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] border-2 px-2 py-0.5 font-semibold tracking-wide">
+            <span className="rounded-full border border-black/[0.08] bg-[#ededff] px-3 py-1 text-xs font-bold tracking-wide text-[#373fb8]">
               {vocabSet.level}
             </span>
             <span className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] border-2 px-2 py-0.5 font-semibold tracking-wide">
@@ -176,8 +176,8 @@ export default function VocabularySetPage({
 
           {/* Add to flashcards */}
           {addedCount !== null ? (
-            <div className="border-2 border-green-500 px-4 py-2">
-              <p className="text-sm text-green-600 dark:text-green-400">
+            <div className="rounded-[14px] border border-[#c9caff] bg-[#ededff] px-4 py-3">
+              <p className="text-sm font-semibold text-[#373fb8]">
                 ✓ {t('cardsAdded', { count: addedCount })}{' '}
                 <button
                   onClick={() => router.push('/flashcards')}
@@ -192,7 +192,7 @@ export default function VocabularySetPage({
               <button
                 onClick={handleAddAll}
                 disabled={adding}
-                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 px-5 py-2.5 text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+                className="juba-primary-button px-5 py-2.5 text-sm font-bold tracking-wide disabled:opacity-40"
               >
                 {adding ? '...' : t('addAll', { count: vocabSet.words.length })}
               </button>
@@ -203,11 +203,11 @@ export default function VocabularySetPage({
       </div>
 
       {nativeLanguageName && (
-        <div className="rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[var(--juba-shadow-sm)]">
+        <div className="juba-card rounded-[26px] border border-black/[0.07] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
-            className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] flex w-full items-center justify-between border-b px-6 py-4 font-semibold tracking-wide transition-colors"
+            className="flex w-full items-center justify-between border-b border-black/[0.07] px-6 py-4 font-semibold tracking-wide text-[#202127] transition-colors hover:text-[#373fb8]"
             aria-expanded={nativeHelpOpen}
           >
             <span>
@@ -246,7 +246,7 @@ export default function VocabularySetPage({
                   )}
 
                   {nativeHelp.word_notes.length > 0 && (
-                    <div className="border-[var(--juba-lilac)] space-y-2 border-t pt-3">
+                    <div className="space-y-2 border-t border-black/[0.07] pt-3">
                       <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
                         {tCommon('nativeHelpWordNotes')}
                       </p>
@@ -268,7 +268,7 @@ export default function VocabularySetPage({
                   )}
 
                   {nativeHelp.common_traps.length > 0 && (
-                    <div className="border-[var(--juba-lilac)] space-y-2 border-t pt-3">
+                    <div className="space-y-2 border-t border-black/[0.07] pt-3">
                       <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
                         {tCommon('nativeHelpCommonTraps')}
                       </p>
