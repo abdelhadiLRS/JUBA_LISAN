@@ -402,7 +402,7 @@ export default function AssessmentPage() {
 
   if (step === 'quiz' && currentQuestion) {
     return (
-      <div className="container-xl page-body py-4">
+      <div className="space-y-4">
         <div className="mb-5 flex items-center justify-between rounded border border-[#ededff] bg-white px-5 py-4 shadow-sm">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('title')}</p>
