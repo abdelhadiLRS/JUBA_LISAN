@@ -449,6 +449,9 @@ def test_curriculum_dispatcher_normalizes_locale_aliases(requested_locale: str, 
         ("fr", "Leçon"),
         ("pt-BR", "Lição"),
         ("de", "Lektion"),
+        ("nl-NL", "Les"),
+        ("ru-RU", "Урок"),
+        ("tr-TR", "Ders"),
     ],
 )
 def test_curriculum_distribution_uses_locale_aware_labels(requested_locale: str, expected_title: str):
