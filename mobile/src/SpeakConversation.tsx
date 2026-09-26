@@ -79,7 +79,12 @@ export default function SpeakConversation(){
     }finally{setBusy(false)}
   }
 
-  useEffect(()=>{\n    const timer=setTimeout(()=>scrollRef.current?.scrollToEnd({animated:true}),80)\n    return()=>clearTimeout(timer)\n  },[messages.length,loading])\n\n  const send=async()=>{
+  useEffect(()=>{
+    const timer=setTimeout(()=>scrollRef.current?.scrollToEnd({animated:true}),80)
+    return()=>clearTimeout(timer)
+  },[messages.length,loading])
+
+  const send=async()=>{
     const text=input.trim()
     if(!text||busy||!authenticated)return
     setInput('')
