@@ -325,9 +325,9 @@ export default function AssessmentPage() {
     }
   }
 
-  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[26px] border border-[rgba(7,7,9,.08)] bg-white shadow-[8px_8px_0_#202127]'
-  const panelClass = 'rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#ededff] p-4'
-  const actionClass = 'w-full rounded-[14px] border border-[#202127] bg-[#fff3d1] px-4 py-3 font-bold text-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)] transition hover:-translate-y-0.5'
+  const cardClass = 'w-full max-w-2xl overflow-hidden rounded border border bg-white shadow-[8px_8px_0_#202127]'
+  const panelClass = 'rounded-[14px] border border bg-[#ededff] p-4'
+  const actionClass = 'w-full rounded-[14px] border border-[#202127] bg-[#fff3d1] px-4 py-3 font-bold text-[#202127]  transition hover:-translate-y-0.5'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
     return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
@@ -338,7 +338,7 @@ export default function AssessmentPage() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center bg-gradient-to-br from-[#ededff]/30 via-white to-[#ededff]/20 p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border-[rgba(7,7,9,.08)] px-5 py-4">
+          <div className="flex items-center gap-3 border-b border px-5 py-4">
             <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#ededff] text-sm font-bold text-[#373fb8]">A</span>
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('title')}</p>
@@ -366,7 +366,7 @@ export default function AssessmentPage() {
             )}
             {error && <div className="rounded-[14px] border border-[#b33a32]/30 bg-[#b33a32]/10 px-4 py-3 text-xs text-[#b33a32]">✕ {error}</div>}
             <div className="flex gap-2">
-              <button type="button" onClick={() => router.push('/dashboard')} className="flex-1 rounded-[14px] border border-[rgba(7,7,9,.08)] px-3 py-3 text-xs font-semibold text-[rgba(32,33,39,.52)] transition hover:bg-[#f3f7ef]">← {tCommon('backToDashboard')}</button>
+              <button type="button" onClick={() => router.push('/dashboard')} className="flex-1 rounded-[14px] border border px-3 py-3 text-xs font-semibold text-[rgba(32,33,39,.52)] transition hover:bg-[#f3f7ef]">← {tCommon('backToDashboard')}</button>
               <button type="button" onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
             </div>
           </div>
@@ -403,7 +403,7 @@ export default function AssessmentPage() {
   if (step === 'quiz' && currentQuestion) {
     return (
       <div className="container-xl page-body py-4">
-        <div className="mb-5 flex items-center justify-between rounded-[22px] border border-[#ededff] bg-white px-5 py-4 shadow-sm">
+        <div className="mb-5 flex items-center justify-between rounded border border-[#ededff] bg-white px-5 py-4 shadow-sm">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('title')}</p>
             <p className="mt-1 text-sm font-semibold text-[#202127]">{currentLevel}</p>
@@ -422,7 +422,7 @@ export default function AssessmentPage() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border-[rgba(7,7,9,.08)] px-5 py-4">
+          <div className="flex items-center gap-3 border-b border px-5 py-4">
             <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#fff3d1] text-sm font-bold text-[#373fb8]">✓</span>
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('resultStep')}</p>
@@ -442,7 +442,7 @@ export default function AssessmentPage() {
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('overrideLevel')}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {CEFR_LEVELS.map((lvl) => (
-                  <button key={lvl} type="button" onClick={() => setSelectedLevel(lvl)} className={`rounded-[14px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[#373fb8] bg-[#ededff] text-[#373fb8]' : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:bg-[#f3f7ef]'}`}>
+                  <button key={lvl} type="button" onClick={() => setSelectedLevel(lvl)} className={`rounded-[14px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[#373fb8] bg-[#ededff] text-[#373fb8]' : 'border text-[rgba(32,33,39,.52)] hover:bg-[#f3f7ef]'}`}>
                     {lvl}
                   </button>
                 ))}
@@ -452,7 +452,7 @@ export default function AssessmentPage() {
             {result.strengths.length > 0 && (
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('strengths')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff3d1] px-3 py-1.5 text-xs font-medium text-[#373fb8]">{s}</span>)}</div>
+                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[14px] border border bg-[#fff3d1] px-3 py-1.5 text-xs font-medium text-[#373fb8]">{s}</span>)}</div>
               </div>
             )}
             {result.weaknesses.length > 0 && (
@@ -496,7 +496,7 @@ export default function AssessmentPage() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border-[rgba(7,7,9,.08)] px-5 py-4">
+          <div className="flex items-center gap-3 border-b border px-5 py-4">
             <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#ededff] text-sm font-bold text-[#373fb8]">◉</span>
             <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('voiceTrialLabel')}</p>
           </div>
