@@ -93,11 +93,11 @@ _THEMES={
 "C2":["ምስላ","ኣውድ","ስነ-ክርክር","ስነ-ጽሑፍ","ትርጉም","ቅዲ","ሓሳብ ብዙሕ ደረጃ","ድግግሞሽ"]}
 _GMAP={
 "A1":["pronouns","identity","family","present","questions","negation","location","time"],
-"A2":["past","future","possessives","adjectives","comparatives","imperatives","conjunctions","time"],
+"A2":["past","future","possessives","adjectives","comparatives","imperatives","conjunctions","past"],
 "B1":["relative","subordination","conditional","perfect","habitual","passive","reported-speech","connectors"],
-"B2":["causative","reciprocal","complex-relative","indirect-question","discourse-markers","conditional","passive","relative"],
-"C1":["subjunctive","nominalization","information-structure","formal-register","reported-speech","connectors","subordination","relative"],
-"C2":["idioms","rhetoric","information-structure","formal-register","nominalization","discourse-markers","complex-relative","subordination"]}
+"B2":["causative","reciprocal","complex-relative","indirect-question","discourse-markers","causative","reciprocal","complex-relative"],
+"C1":["subjunctive","nominalization","information-structure","formal-register","subjunctive","nominalization","information-structure","formal-register"],
+"C2":["idioms","rhetoric","idioms","rhetoric","idioms","rhetoric","idioms","rhetoric"]}
 CURRICULUM={}
 for level in LEVELS:
     CURRICULUM[level]=[]
@@ -119,6 +119,6 @@ AssessmentQuestion(id="ti-b1-009",skill="grammar",difficulty="B1",question="Whic
 AssessmentQuestion(id="ti-b1-010",skill="grammar",difficulty="B1",question="Which sentence reports another person's speech?",options=["ንሱ ክመጽእ እዩ ኢሉ።","ኣነ ክመጽእ እየ።","ኣብ ገዛ ኣለኹ።","ማይ እደሊ።"],correct="ንሱ ክመጽእ እዩ ኢሉ።"),
 AssessmentQuestion(id="ti-b2-011",skill="grammar",difficulty="B2",question="Which sentence is an indirect question?",options=["ኣበይ ከም ዝነብር ኣይፈልጥን።","ኣበይ ትነብር?","ኣብ ገዛ ኣለኹ።","ናብ ገዛ እኸይድ።"],correct="ኣበይ ከም ዝነብር ኣይፈልጥን።"),
 AssessmentQuestion(id="ti-b2-012",skill="grammar",difficulty="B2",question="Which phrase structures discourse?",options=["መጀመርታ ጉዳዩ ንመርምሮ።","ማይ እደሊ።","ሰላም።","ኣብ ገዛ ኣለኹ።"],correct="መጀመርታ ጉዳዩ ንመርምሮ።"),
-AssessmentQuestion(id="ti-c1-013",skill="register",difficulty="C1",question="Which phrase suits a formal request?",options=["በጃኻ ሰነድካ ቅድሚ ዕለቱ ኣቕርብ።","ሰላም!","ማይ እደሊ።","ኣበይ ኢኻ?"],correct="በጃኻ ሰነድካ ቅድሚ ዕለቱ ኣቕርብ።"),
+AssessmentQuestion(id="ti-c1-013",skill="formal",difficulty="C1",question="Which phrase suits a formal request?",options=["በጃኻ ሰነድካ ቅድሚ ዕለቱ ኣቕርብ።","ሰላም!","ማይ እደሊ።","ኣበይ ኢኻ?"],correct="በጃኻ ሰነድካ ቅድሚ ዕለቱ ኣቕርብ።"),
 AssessmentQuestion(id="ti-c2-014",skill="rhetoric",difficulty="C2",question="Which statement introduces a qualified argument?",options=["እዚ ክርክር ሓያል እዩ፣ ግን ምስክሩ ውሱን እዩ።","እዚ ሓደ ቃል እዩ።","ማይ እደሊ።","ሰላም።"],correct="እዚ ክርክር ሓያል እዩ፣ ግን ምስክሩ ውሱን እዩ።"),
 ]
