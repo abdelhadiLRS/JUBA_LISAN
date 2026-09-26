@@ -168,9 +168,6 @@ Language-specific guidance:
 - Pay close attention to tones, measure words, aspect particles, word order, and natural Mainland usage.
 - Avoid Traditional Chinese, Cantonese, Taiwan, Hong Kong, or Macau variants unless explicitly comparing them.
 """.strip(),
-}
-
-
     "ro": "Language-specific guidance:\n- Use standard Romanian consistently and preserve Romanian diacritics (ă, â, î, ș, ț).\n- Pay close attention to gender, articles, case remnants, verb conjugation, and natural Romanian word order.",
     "hu": "Language-specific guidance:\n- Use standard Hungarian consistently and preserve Hungarian diacritics.\n- Pay close attention to vowel harmony, case suffixes, definite/indefinite conjugation, and natural word order.",
     "uk": "Language-specific guidance:\n- Use standard Ukrainian consistently and use Cyrillic as the primary script.\n- Preserve Ukrainian spelling and diacritics; pay close attention to case, gender, aspect, and natural word order.",
@@ -196,7 +193,8 @@ Language-specific guidance:
     "dz": "Language-specific guidance:\n- Use standard Dzongkha consistently and use Tibetan-derived script as the primary writing system.\n- Use romanization only as learner support when explicitly requested.",
     "bo": "Language-specific guidance:\n- Use standard Tibetan consistently and use Tibetan script as the primary writing system.\n- Use Wylie or another romanization only as learner support when explicitly requested.",
     "mn": "Language-specific guidance:\n- Use standard Mongolian consistently and use Mongolian Cyrillic as the primary script.\n- Pay close attention to vowel harmony, case suffixes, and natural word order.",
-\n_LANGUAGE_PROMPT_OVERLAY_ALIASES: dict[str, str] = {
+}
+_LANGUAGE_PROMPT_OVERLAY_ALIASES: dict[str, str] = {
     "de": "de-DE",
     "fr": "fr-FR",
     "es": "es-ES",
@@ -245,6 +243,50 @@ Language-specific guidance:
     "dz": "dz",
     "bo": "bo",
     "mn": "mn",
+    "is": "is",
+    "ga": "ga",
+    "cy": "cy",
+    "az": "az",
+    "kk": "kk",
+    "uz": "uz",
+    "sq": "sq",
+    "eu": "eu",
+    "gl": "gl",
+    "mt": "mt",
+    "af": "af",
+    "eo": "eo",
+    "lb": "lb",
+    "gd": "gd",
+    "yo": "yo",
+    "ha": "ha",
+    "so": "so",
+    "zu": "zu",
+    "xh": "xh",
+    "rw": "rw",
+    "ig": "ig",
+    "mg": "mg",
+    "ny": "ny",
+    "sn": "sn",
+    "st": "st",
+    "fy": "fy",
+    "co": "co",
+    "fil": "fil",
+    "bs": "bs",
+    "tk": "tk",
+    "jv": "jv",
+    "as": "as",
+    "ay": "ay",
+    "be": "be",
+    "ca": "ca",
+    "ee": "ee",
+    "et": "et",
+    "fj": "fj",
+    "gn": "gn",
+    "or": "or",
+    "tg": "tg",
+    "su": "su",
+    "suq": "suq",
+    "to": "to",
 }
 
 
