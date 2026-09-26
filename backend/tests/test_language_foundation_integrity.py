@@ -456,7 +456,7 @@ def test_language_helpers_normalize_common_locale_aliases(locale: str, expected_
         ("fr-FR", "standard French"),
         ("fr", "standard French"),
         ("pt-BR", "European Portuguese"),
-        ("zh-TW", "simplified Chinese"),
+        ("zh-TW", "traditional Chinese"),
         ("ar", "Modern Standard Arabic"),
         ("tr-TR", "standard Turkish"),
         ("ru-RU", "standard Russian"),
@@ -478,6 +478,40 @@ def test_prompt_overlay_covers_additional_foundation_locales(locale, expected_fr
     from app.services.prompts.common import get_language_prompt_overlay
 
     assert expected_fragment in get_language_prompt_overlay(locale)
+
+
+def test_registered_languages_have_nonempty_prompt_overlays():
+    from app.services.prompts.common import get_language_prompt_overlay
+
+    failures: list[str] = []
+    for language in curriculum_dispatcher._LANG_MODULES:
+        overlay = get_language_prompt_overlay(language)
+        if not overlay.strip():
+            failures.append(f"{language}: missing prompt overlay")
+
+    assert not failures, "\n".join(failures)
+
+
+@pytest.mark.parametrize(
+    ("locale", "expected_overlay_fragment"),
+    [
+        ("hr-HR", "standard Croatian"),
+        ("sk-SK", "standard Slovak"),
+        ("is-IS", "standard Icelandic"),
+        ("ga-IE", "standard Irish"),
+        ("az-AZ", "standard Azerbaijani"),
+        ("kk-KZ", "standard Kazakh"),
+        ("uz-UZ", "standard Uzbek"),
+        ("ca-ES", "standard Catalan"),
+        ("or-IN", "standard Odia"),
+        ("suq", "standard Suri"),
+        ("to-TO", "standard Tongan"),
+    ],
+)
+def test_prompt_overlay_locale_aliases_resolve_to_foundation_guidance(locale, expected_overlay_fragment):
+    from app.services.prompts.common import get_language_prompt_overlay
+
+    assert expected_overlay_fragment in get_language_prompt_overlay(locale)
 
 
 @pytest.mark.parametrize(
