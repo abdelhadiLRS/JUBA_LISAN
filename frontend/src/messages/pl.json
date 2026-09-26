@@ -255,17 +255,29 @@
       "missingToken": "Nieprawidłowy link. Poproś o nowe resetowanie.",
       "error": "Nieprawidłowy lub wygasły link",
       "backToLogin": "Powrót do logowania"
-    }
-  ,
+    },
     "scenarios": {
-      "airport": {"title": "Lotnisko", "description": "Odpraw się, pytaj o drogę i radź sobie z opóźnieniami."},
-      "jobInterview": {"title": "Rozmowa kwalifikacyjna", "description": "Ćwicz odpowiedzi, pewność siebie i słownictwo zawodowe."},
-      "restaurant": {"title": "Restauracja", "description": "Zamawiaj naturalnie i prowadź prawdziwą rozmowę."},
-      "hotel": {"title": "Hotel", "description": "Zarezerwuj pokój, rozwiązuj problemy i zgłaszaj prośby."}
+      "airport": {
+        "title": "Lotnisko",
+        "description": "Odpraw się, pytaj o drogę i radź sobie z opóźnieniami."
+      },
+      "jobInterview": {
+        "title": "Rozmowa kwalifikacyjna",
+        "description": "Ćwicz odpowiedzi, pewność siebie i słownictwo zawodowe."
+      },
+      "restaurant": {
+        "title": "Restauracja",
+        "description": "Zamawiaj naturalnie i prowadź prawdziwą rozmowę."
+      },
+      "hotel": {
+        "title": "Hotel",
+        "description": "Zarezerwuj pokój, rozwiązuj problemy i zgłaszaj prośby."
+      }
     },
     "learningLabel": "Nauka",
     "cefrLabel": "CEFR",
-    "coachLabel": "Trener"},
+    "coachLabel": "Trener"
+  },
   "settings": {
     "title": "Ustawienia",
     "sectionAccount": "Konto",
@@ -994,7 +1006,8 @@
     "cardsAdded": "{count} kart dodanych do talii fiszek.",
     "goToFlashcards": "Przejdź do fiszek →",
     "addFailed": "Nie udało się dodać fiszek.",
-    "noResults": "Żadne zestawy słownictwa nie pasują do wyszukiwania"
+    "noResults": "Żadne zestawy słownictwa nie pasują do wyszukiwania",
+    "setCount": "{count, plural, one {# zestaw} few {# zestawy} many {# zestawów} other {# zestawu}}"
   },
   "phrasebook": {
     "title": "Rozmówki",
