@@ -88,6 +88,7 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
         "self_name": "Ελληνικά",
         "iso639": "el",
     },
+    "tr": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "ar": {"name": "Arabic", "self_name": "العربية", "iso639": "ar"},
     "tr": {"name": "Turkish", "self_name": "Türkçe", "iso639": "tr"},
     "ro": {"name": "Romanian", "self_name": "Română", "iso639": "ro"},
