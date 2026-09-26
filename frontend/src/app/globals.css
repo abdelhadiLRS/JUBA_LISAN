@@ -8225,3 +8225,52 @@ main [dir="rtl"] h3,
     display: none;
   }
 }
+
+/* Final page-specific alignment for lesson and vocabulary detail surfaces. */
+.juba-tabler-app .juba-lesson-shell,
+.juba-tabler-app .juba-vocabulary-set-shell {
+  color: var(--tblr-body-color) !important;
+  font-family: var(--juba-app-font) !important;
+}
+.juba-tabler-app .juba-lesson-shell [class*="text-[#"],
+.juba-tabler-app .juba-lesson-shell [class*="text-[rgba"],
+.juba-tabler-app .juba-vocabulary-set-shell [class*="text-[#"],
+.juba-tabler-app .juba-vocabulary-set-shell [class*="text-[rgba"] {
+  color: var(--tblr-body-color) !important;
+}
+.juba-tabler-app .juba-lesson-shell [class*="border-"],
+.juba-tabler-app .juba-vocabulary-set-shell [class*="border-"] {
+  border-color: var(--tblr-card-border-color) !important;
+}
+.juba-tabler-app .juba-lesson-shell [class*="bg-[#"],
+.juba-tabler-app .juba-lesson-shell [class*="bg-[rgba"],
+.juba-tabler-app .juba-vocabulary-set-shell [class*="bg-[#"],
+.juba-tabler-app .juba-vocabulary-set-shell [class*="bg-[rgba"] {
+  background-color: var(--tblr-card-bg) !important;
+  background-image: none !important;
+}
+.juba-tabler-app .juba-lesson-shell .juba-page-hero,
+.juba-tabler-app .juba-lesson-shell .card,
+.juba-tabler-app .juba-vocabulary-set-shell .juba-card {
+  border: 1px solid var(--tblr-card-border-color) !important;
+  border-radius: .625rem !important;
+  background: var(--tblr-card-bg) !important;
+  box-shadow: var(--tblr-box-shadow-card) !important;
+}
+.juba-tabler-app .juba-lesson-shell .juba-primary-button,
+.juba-tabler-app .juba-vocabulary-set-shell .juba-primary-button {
+  background: var(--tblr-primary) !important;
+  border-color: var(--tblr-primary) !important;
+  color: #fff !important;
+  border-radius: .375rem !important;
+}
+.juba-tabler-app .juba-lesson-shell .juba-secondary-button,
+.juba-tabler-app .juba-vocabulary-set-shell .juba-secondary-button {
+  border-radius: .375rem !important;
+}
+.juba-tabler-app .juba-lesson-shell [class*="bg-[#373fb8]"],
+.juba-tabler-app .juba-lesson-shell [class*="bg-[#5862e2]"],
+.juba-tabler-app .juba-vocabulary-set-shell [class*="bg-[#373fb8]"],
+.juba-tabler-app .juba-vocabulary-set-shell [class*="bg-[#5862e2]"] {
+  background-color: var(--tblr-primary) !important;
+}
