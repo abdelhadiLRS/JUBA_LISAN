@@ -221,13 +221,13 @@ export default function PricingSection({
                 {plan.price !== null ? (
                   <>
                     <p className="juba-ff-plan-old font-sans text-sm line-through">
-                      {tBilling('priceOriginal', {
+                      {plan.originalPrice > 0 ? tBilling('priceOriginal', {
                         price: plan.originalPrice,
                         period: plan.priceLabel,
-                      })}
+                      }) : '—'}
                     </p>
                     <p className="juba-ff-plan-price flex items-baseline gap-2 font-sans text-2xl font-black">
-                      {tBilling('priceAmount', { amount: plan.price })}
+                      {plan.price > 0 ? tBilling('priceAmount', { amount: plan.price }) : '—'}
                       <span className="text-[var(--landing-muted)] text-sm">
                         {tBilling('pricePerPeriod', {
                           period: plan.priceLabel,
