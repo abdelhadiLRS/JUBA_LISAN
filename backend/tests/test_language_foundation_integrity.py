@@ -662,6 +662,23 @@ def test_bare_language_codes_use_explicit_capability_aliases():
         assert get_reading_length_unit(locale) == unit
 
 
+@pytest.mark.parametrize(
+    ("locale", "expected_script", "expected_unit"),
+    [
+        ("ro-RO", "latin", "words"), ("hr-HR", "latin", "words"), ("sk-SK", "latin", "words"),
+        ("sl-SI", "latin", "words"), ("lt-LT", "latin", "words"), ("lv-LV", "latin", "words"),
+        ("ga-IE", "latin", "words"), ("cy-GB", "latin", "words"), ("az-AZ", "latin", "words"),
+        ("kk-KZ", "cyrillic", "words"), ("uz-UZ", "latin", "words"), ("bn-BD", "bengali", "words"),
+        ("lo-LA", "lao", "characters"), ("bo-CN", "tibetan", "characters"), ("dz-BT", "tibetan", "characters"),
+        ("or-IN", "odia", "words"), ("to-TO", "latin", "words"),
+    ],
+)
+def test_explicit_foundation_locale_capability_aliases(locale, expected_script, expected_unit):
+    from app.services.language_helpers import get_language_script, get_reading_length_unit
+    assert get_language_script(locale) == expected_script
+    assert get_reading_length_unit(locale) == expected_unit
+
+
 def test_registered_core_languages_have_explicit_capabilities():
     from app.services.language_helpers import get_language_script, get_reading_length_unit
 
