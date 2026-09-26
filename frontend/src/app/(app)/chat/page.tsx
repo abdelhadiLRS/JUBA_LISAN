@@ -313,7 +313,7 @@ export default function ChatPage() {
         {/* Sidebar backdrop — mobile only */}
         {sidebarOpen && (
           <div
-            className="fixed inset-x-0 top-14 bottom-0 z-10 bg-[#202127]/35 md:hidden"
+            className="fixed inset-x-0 top-14 bottom-0 z-10 bg-dark/35 md:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}
@@ -321,14 +321,14 @@ export default function ChatPage() {
         {/* Sidebar */}
         {sidebarOpen && (
           <aside className="card">
-            <div className="border-[rgba(7,7,9,.08)] flex items-center justify-between border-b-2 px-4 py-3">
-              <span className="text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
+            <div className="border-secondary-subtle flex items-center justify-between border-b-2 px-4 py-3">
+              <span className="text-secondary font-semibold tracking-wide">
                 {t('conversations')}
               </span>
               <button
                 type="button"
                 onClick={newChat}
-                className="text-[rgba(32,33,39,.52)] hover:text-[#202127] font-semibold tracking-wide transition-colors"
+                className="text-secondary hover:text-body font-semibold tracking-wide transition-colors"
                 title={t('newConversation')}
               >
                 + {t('newConversation')}
@@ -357,13 +357,13 @@ export default function ChatPage() {
                         })
                         .finally(() => setLoadingConvs(false))
                     }}
-                    className=" border border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-2 font-semibold tracking-wide text-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)] transition-all hover:-translate-y-0.5 hover:border-[#5862e2]"
+                    className=" border border-secondary-subtle bg-white px-4 py-2 font-semibold tracking-wide text-body shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary"
                   >
                     {tCommon('retry')}
                   </button>
                 </div>
               ) : conversations.length === 0 ? (
-                <p className="text-[rgba(32,33,39,.52)] px-4 py-4 font-sans">
+                <p className="text-secondary px-4 py-4 font-sans">
                   {t('noConversation')}
                 </p>
               ) : (
@@ -371,18 +371,18 @@ export default function ChatPage() {
                   <div
                     key={c.id}
                     onClick={() => selectConversation(c.id)}
-                    className={`group border-[rgba(7,7,9,.08)] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
+                    className={`group border-secondary-subtle flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
                       activeId === c.id
-                        ? 'bg-[#ededff] border-l-[#39751d] border-l-2'
-                        : 'hover:bg-[#fff] border-l-2 border-l-transparent'
+                        ? 'bg-primary-lt border-l-[#39751d] border-l-2'
+                        : 'hover:bg-white border-l-2 border-l-transparent'
                     }`}
                   >
                     <span
-                      className={`text-[#202127] truncate pr-1 font-sans leading-tight ${activeId === c.id ? 'text-[#202127]' : 'text-[rgba(32,33,39,.52)]'}`}
+                      className={`text-body truncate pr-1 font-sans leading-tight ${activeId === c.id ? 'text-body' : 'text-secondary'}`}
                     >
                       {c.source === 'voice' && (
                         <span
-                          className="text-[rgba(32,33,39,.52)] mr-1.5"
+                          className="text-secondary mr-1.5"
                           title={t('voiceSession')}
                         >
                           🎤
@@ -414,15 +414,15 @@ export default function ChatPage() {
             <button
               type="button"
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-[rgba(32,33,39,.52)] hover:text-[#202127] mr-1 text-lg transition-colors"
+              className="text-secondary hover:text-body mr-1 text-lg transition-colors"
               title={
                 sidebarOpen ? t('toggleSidebarHide') : t('toggleSidebarShow')
               }
             >
               {sidebarOpen ? '◀' : '☰'}
             </button>
-            <span className="text-[rgba(32,33,39,.52)]">●</span>
-            <span className="text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
+            <span className="text-secondary">●</span>
+            <span className="text-secondary font-semibold tracking-wide">
               {activeId
                 ? (conversations.find((c) => c.id === activeId)?.title ??
                   t('title'))
@@ -430,11 +430,11 @@ export default function ChatPage() {
             </span>
             {sending ? (
               <div className="ml-auto flex flex-col items-end gap-0.5">
-                <span className="text-[rgba(32,33,39,.52)] animate-pulse font-semibold tracking-wide">
+                <span className="text-secondary animate-pulse font-semibold tracking-wide">
                   {t('thinking')}
                 </span>
                 {sendingWarn && (
-                  <span className="text-[rgba(32,33,39,.52)] font-sans text-xs tracking-[.12em] text-[#9a6500] uppercase">
+                  <span className="text-secondary font-sans text-xs tracking-[.12em] text-[#9a6500] uppercase">
                     {t('takingLonger')}
                   </span>
                 )}
@@ -443,7 +443,7 @@ export default function ChatPage() {
               <button
                 type="button"
                 onClick={continueInVoice}
-                className="text-[rgba(32,33,39,.52)] hover:text-[#202127] ml-auto font-semibold tracking-wide transition-colors"
+                className="text-secondary hover:text-body ml-auto font-semibold tracking-wide transition-colors"
               >
                 {t('continueInVoice')}
               </button>
@@ -460,10 +460,10 @@ export default function ChatPage() {
               </div>
             ) : messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
-                <p className="text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
+                <p className="text-secondary font-semibold tracking-wide">
                   {t('title')}
                 </p>
-                <p className="text-[rgba(32,33,39,.52)] max-w-xs font-sans text-xs leading-relaxed">
+                <p className="text-secondary max-w-xs font-sans text-xs leading-relaxed">
                   {t('subtitle', {
                     language: activeLanguage
                       ? tLang(activeLanguage.code)
@@ -495,8 +495,8 @@ export default function ChatPage() {
                         height={28}
                         className="h-full w-full object-cover"
                         fallback={
-                          <div className="bg-[#ededff] flex h-full w-full items-center justify-center">
-                            <span className="text-[rgba(32,33,39,.52)] font-sans select-none">
+                          <div className="bg-primary-lt flex h-full w-full items-center justify-center">
+                            <span className="text-secondary font-sans select-none">
                               {(user?.displayName ||
                                 user?.username ||
                                 '?')[0].toUpperCase()}
@@ -505,8 +505,8 @@ export default function ChatPage() {
                         }
                       />
                     ) : (
-                      <div className="bg-[#ededff] flex h-full w-full items-center justify-center">
-                        <span className="text-[rgba(32,33,39,.52)] font-sans select-none">
+                      <div className="bg-primary-lt flex h-full w-full items-center justify-center">
+                        <span className="text-secondary font-sans select-none">
                           {(user?.displayName ||
                             user?.username ||
                             '?')[0].toUpperCase()}
@@ -518,10 +518,10 @@ export default function ChatPage() {
                     <TargetLanguageText
                       as="div"
                       languageCode={targetLanguageCode}
-                      className={`juba-chat-message word-selectable border border-[rgba(7,7,9,.08)] px-4 py-3 text-left ${
+                      className={`juba-chat-message word-selectable border border-secondary-subtle px-4 py-3 text-left ${
                         msg.role === 'user'
-                          ? 'bg-[#5862e2] text-white border-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)]'
-                          : 'bg-[#fff] text-[#202127] border border-[rgba(7,7,9,.08)] shadow-[0_12px_30px_rgba(43,45,90,.055)]'
+                          ? 'bg-primary text-white border-[#202127] shadow-sm'
+                          : 'bg-white text-body border border-secondary-subtle shadow-sm'
                       }`}
                       onPointerUp={
                         msg.role === 'assistant' &&
@@ -532,7 +532,7 @@ export default function ChatPage() {
                     >
                       {msg.content ||
                         (sending && i === messages.length - 1 ? (
-                          <span className="text-[rgba(32,33,39,.52)] animate-pulse">
+                          <span className="text-secondary animate-pulse">
                             ▌
                           </span>
                         ) : null)}
@@ -549,7 +549,7 @@ export default function ChatPage() {
               ))
             )}
             {error && (
-              <div className="text-[#202127] text-[#b33a32]  border border-[#d7b2ad] bg-[#fff7f5] px-4 py-2 font-sans">
+              <div className="text-body text-[#b33a32]  border border-[#d7b2ad] bg-[#fff7f5] px-4 py-2 font-sans">
                 ✕{' '}
                 {error === 'No active study plan found'
                   ? tCommon('noActivePlan')
@@ -560,7 +560,7 @@ export default function ChatPage() {
           </div>
 
           {/* Input */}
-          <div className="border-t-2 border-[rgba(7,7,9,.08)] bg-[#ededff]/60 shrink-0 px-4 py-4">
+          <div className="border-t-2 border-secondary-subtle bg-primary-lt/60 shrink-0 px-4 py-4">
             {freemiumExhausted ? (
               <PaywallBanner feature="chat" compact />
             ) : (
@@ -576,18 +576,18 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1  border border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-3 font-sans text-base text-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)] transition-all placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] focus:outline-none focus:ring-2 focus:ring-[#5862e2]/15 disabled:opacity-40"
+                    className="flex-1  border border-secondary-subtle bg-white px-4 py-3 font-sans text-base text-body shadow-sm transition-all placeholder:text-secondary focus:border-primary focus:outline-none focus:ring-2 focus:ring-[#5862e2]/15 disabled:opacity-40"
                   />
                   <button
                     type="button"
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || loadingMsgs}
-                    className=" border border-[#202127] bg-[#5862e2] px-5 font-sans font-bold uppercase tracking-widest text-white shadow-[0_12px_30px_rgba(43,45,90,.055)] transition-all hover:-translate-y-0.5 hover:bg-[#5862e2] hover:shadow-[0_12px_30px_rgba(43,45,90,.055)] active:translate-y-0.5 active:shadow-[1px_1px_0_#202127] disabled:opacity-30"
+                    className=" border border-[#202127] bg-primary px-5 font-sans font-bold uppercase tracking-widest text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary hover:shadow-sm active:translate-y-0.5 active:shadow-[1px_1px_0_#202127] disabled:opacity-30"
                   >
                     {sending ? '…' : t('send')}
                   </button>
                 </div>
-                <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] mt-2 font-sans tracking-wide">
+                <p className="text-secondary text-secondary mt-2 font-sans tracking-wide">
                   {t('enterToSend')}
                 </p>
               </>
