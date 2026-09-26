@@ -73,6 +73,16 @@ def test_registered_foundations_have_no_dangling_unit_references():
             for units in getattr(module, "CURRICULUM", {}).values()
             for unit in units
         }
+        global_unit_levels: dict[str, str] = {}
+        for declared_level, declared_units in getattr(module, "CURRICULUM", {}).items():
+            for declared_unit in declared_units:
+                previous_level = global_unit_levels.get(declared_unit.id)
+                if previous_level and previous_level != declared_level:
+                    failures.append(
+                        f"{language}: unit id {declared_unit.id} is declared at both "
+                        f"{previous_level} and {declared_level}"
+                    )
+                global_unit_levels[declared_unit.id] = declared_level
 
         for level, units in getattr(module, "CURRICULUM", {}).items():
             unit_ids: set[str] = set()
@@ -235,6 +245,21 @@ def test_registered_foundations_have_valid_phrasebook_references():
                     failures.append(
                         f"{language}/{category.id}: missing phrase unit {phrase.unit_ref}"
                     )
+                if phrase.unit_ref:
+                    phrase_unit = next(
+                        (
+                            unit
+                            for units in getattr(module, "CURRICULUM", {}).values()
+                            for unit in units
+                            if unit.id == phrase.unit_ref
+                        ),
+                        None,
+                    )
+                    if phrase_unit and phrase_unit.level != category.level:
+                        failures.append(
+                            f"{language}/{category.id}: phrase unit {phrase.unit_ref} is "
+                            f"level {phrase_unit.level}, but category is {category.level}"
+                        )
 
     assert not failures, "\n".join(failures)
 
@@ -250,6 +275,20 @@ def test_registered_foundations_have_valid_assessment_grammar_links():
                 failures.append(
                     f"{language}/{question.id}: missing grammar {question.grammar_slug}"
                 )
+            if question.grammar_slug:
+                grammar = next(
+                    (
+                        topic
+                        for topic in getattr(module, "GRAMMAR_TOPICS", [])
+                        if topic.slug == question.grammar_slug
+                    ),
+                    None,
+                )
+                if grammar and grammar.level != question.difficulty:
+                    failures.append(
+                        f"{language}/{question.id}: grammar {question.grammar_slug} is "
+                        f"level {grammar.level}, but assessment is {question.difficulty}"
+                    )
 
     assert not failures, "\n".join(failures)
 
