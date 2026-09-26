@@ -548,6 +548,15 @@ def test_distribute_units_never_emits_invalid_schedule_dimensions():
         ("th-TH", "thai", "characters"),
         ("zh-TW", "traditional-hanzi", "characters"),
         ("ro-RO", "latin", "words"),
+        ("hr-HR", "latin", "words"),
+        ("sk-SK", "latin", "words"),
+        ("sl-SI", "latin", "words"),
+        ("lt-LT", "latin", "words"),
+        ("lv-LV", "latin", "words"),
+        ("az-AZ", "latin", "words"),
+        ("kk-KZ", "cyrillic", "words"),
+        ("uz-UZ", "latin", "words"),
+        ("tr-TR", "latin", "words"),
         ("lo-LA", "lao", "characters"),
         ("bo-CN", "tibetan", "characters"),
         ("dz-BT", "tibetan", "characters"),
@@ -555,6 +564,15 @@ def test_distribute_units_never_emits_invalid_schedule_dimensions():
         ("suq", "latin", "words"),
     ],
 )
+def test_language_capability_aliases_cover_foundation_locales(locale, expected_script, expected_unit):
+    from app.services.language_helpers import (
+        get_language_script,
+        get_reading_length_unit,
+    )
+
+    assert get_language_script(locale) == expected_script
+    assert get_reading_length_unit(locale) == expected_unit
+
 
 def test_registered_languages_have_language_capabilities():
     from app.services.language_helpers import (
@@ -586,24 +604,6 @@ def test_registered_core_languages_have_explicit_capabilities():
         assert get_language_script(locale) == script
         assert get_reading_length_unit(locale) == unit
 
-def test_language_capability_aliases_cover_foundation_locales(locale, expected_script, expected_unit):
-    from app.services.language_helpers import (
-        get_language_script,
-        get_reading_length_unit,
-    )
-
-    assert get_language_script(locale) == expected_script
-    assert get_reading_length_unit(locale) == expected_unit
-
-
-@pytest.mark.parametrize(
-    ("locale", "expected_fragments"),
-    [
-        ("ar", ["arabic", '"uses_word_spacing": true', '"reading_length_unit": "words"']),
-        ("zh-TW", ["traditional-hanzi", "pinyin", '"uses_word_spacing": false', '"reading_length_unit": "characters"']),
-        ("th-TH", ["thai", '"uses_word_spacing": false', '"reading_length_unit": "characters"']),
-    ],
-)
 def test_lesson_generation_exposes_language_capabilities_to_prompt_layer(locale, expected_fragments):
     from app.services.lesson_generator import _language_capability_metadata
 
