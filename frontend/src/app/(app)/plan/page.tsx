@@ -319,39 +319,39 @@ export default function PlanPage() {
     <div className="juba-plan-shell mx-auto max-w-5xl space-y-6 px-4 py-7 sm:px-6 sm:py-9">
       {/* ── Header ── */}
       <div className="juba-card overflow-hidden">
-        <div className="flex items-center gap-2 border-b border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-6 py-4">
-          <span className="text-[var(--juba-app-muted)]">●</span>
-          <span className="text-[var(--juba-app-muted)] text-xs font-black tracking-[.12em] uppercase">
+        <div className="flex items-center gap-2 border-b border-[rgba(7,7,9,.08)] bg-[#ededff] px-6 py-4">
+          <span className="text-[rgba(32,33,39,.52)]">●</span>
+          <span className="text-[rgba(32,33,39,.52)] text-xs font-black tracking-[.12em] uppercase">
             {t('learningRoadmap')}
           </span>
         </div>
-        <div className="flex flex-wrap items-center gap-4 bg-[var(--juba-app-bg)] px-6 py-5 sm:px-7">
+        <div className="flex flex-wrap items-center gap-4 bg-[#f4f4f2] px-6 py-5 sm:px-7">
           <div>
-            <p className="text-[var(--juba-app-muted)] text-xs font-black tracking-[.12em] uppercase">
+            <p className="text-[rgba(32,33,39,.52)] text-xs font-black tracking-[.12em] uppercase">
               {langName ? `${langName} — ${t('level')}` : t('level')}
             </p>
-            <p className="text-[var(--juba-app-ink)] font-sans text-3xl font-black tracking-tight">
+            <p className="text-[#202127] font-sans text-3xl font-black tracking-tight">
               {level}
             </p>
           </div>
-          <div className="bg-[var(--juba-app-line)] h-8 w-px" />
+          <div className="bg-[rgba(7,7,9,.08)] h-8 w-px" />
           <div>
-            <p className="text-[var(--juba-app-muted)] text-xs font-black tracking-[.12em] uppercase">
+            <p className="text-[rgba(32,33,39,.52)] text-xs font-black tracking-[.12em] uppercase">
               {t('duration')}
             </p>
-            <p className="text-[var(--juba-app-ink)] font-sans">
+            <p className="text-[#202127] font-sans">
               {t('durationDetail', {
                 weeks: plan.duration_weeks,
                 days: plan.days_per_week,
               })}
             </p>
           </div>
-          <div className="bg-[var(--juba-app-line)] h-8 w-px" />
+          <div className="bg-[rgba(7,7,9,.08)] h-8 w-px" />
           <div>
-            <p className="text-[var(--juba-app-muted)] text-xs font-black tracking-[.12em] uppercase">
+            <p className="text-[rgba(32,33,39,.52)] text-xs font-black tracking-[.12em] uppercase">
               {t('unitsLabel')}
             </p>
-            <p className="text-[var(--juba-app-ink)] font-sans">
+            <p className="text-[#202127] font-sans">
               {units.length}
             </p>
           </div>
@@ -361,11 +361,11 @@ export default function PlanPage() {
       {/* ── Unit list ── */}
       <div className="space-y-2">
         {units.length === 0 && (
-          <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] space-y-3 border px-6 py-10 text-center">
-            <p className="text-[var(--juba-app-muted)] font-sans text-xs tracking-[.12em] uppercase">
+          <div className="border-[rgba(7,7,9,.08)] bg-[#fff] space-y-3 border px-6 py-10 text-center">
+            <p className="text-[rgba(32,33,39,.52)] font-sans text-xs tracking-[.12em] uppercase">
               {t('noUnitsForLevel', { level })}
             </p>
-            <p className="text-[var(--juba-app-muted)] font-sans">
+            <p className="text-[rgba(32,33,39,.52)] font-sans">
               {t('noUnitsDesc')}
             </p>
           </div>
@@ -441,26 +441,26 @@ export default function PlanPage() {
       {/* ── Pending lessons ── */}
       {pendingLessons.length > 0 && (
         <div className="juba-card overflow-hidden">
-          <div className="border-b border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-6 py-4">
+          <div className="border-b border-[rgba(7,7,9,.08)] bg-[#ededff] px-6 py-4">
             <div className="flex items-center gap-2">
-              <span className="text-[var(--juba-app-muted)]">●</span>
-              <span className="text-[var(--juba-app-muted)] text-xs font-black tracking-[.12em] uppercase">
+              <span className="text-[rgba(32,33,39,.52)]">●</span>
+              <span className="text-[rgba(32,33,39,.52)] text-xs font-black tracking-[.12em] uppercase">
                 {pendingLessons.length} {t('pendingLessons')}
               </span>
             </div>
-            <p className="text-[var(--juba-app-muted)] font-sans">
+            <p className="text-[rgba(32,33,39,.52)] font-sans">
               {t('pendingReassurance')}
             </p>
           </div>
-          <div className="divide-y divide-[var(--juba-app-line)]">
+          <div className="divide-y divide-[rgba(7,7,9,.08)]">
             {pendingLessons.map((lesson) => (
               <div
                 key={lesson.id}
                 className="flex flex-wrap items-center justify-between gap-3 px-6 py-3"
               >
                 <div>
-                  <p className="text-[var(--juba-app-ink)] font-sans text-xs">{lesson.title}</p>
-                  <p className="text-[var(--juba-app-muted)] mt-0.5 font-sans tracking-[.12em] uppercase">
+                  <p className="text-[#202127] font-sans text-xs">{lesson.title}</p>
+                  <p className="text-[rgba(32,33,39,.52)] mt-0.5 font-sans tracking-[.12em] uppercase">
                     W{lesson.week_number} D{lesson.day_number} ·{' '}
                     {lesson.lesson_type}
                   </p>
@@ -485,10 +485,10 @@ export default function PlanPage() {
       {/* ── Completion test result ── */}
       {plan.completion_test_taken && (
         <div className="juba-card space-y-2 px-6 py-4">
-          <p className="text-[var(--juba-app-muted)] text-xs font-black tracking-[.12em] uppercase">
+          <p className="text-[rgba(32,33,39,.52)] text-xs font-black tracking-[.12em] uppercase">
             {t('levelTestResult')}
           </p>
-          <p className="text-[var(--juba-app-ink)] font-sans">
+          <p className="text-[#202127] font-sans">
             {t('testScore')}{' '}
             <span className="font-bold">
               {plan.completion_test_score != null
@@ -497,7 +497,7 @@ export default function PlanPage() {
             </span>
           </p>
           {plan.completion_test_recommendation && (
-            <p className="text-[var(--juba-app-muted)] font-sans">
+            <p className="text-[rgba(32,33,39,.52)] font-sans">
               {plan.completion_test_recommendation}
             </p>
           )}
