@@ -347,19 +347,15 @@ export default function DashboardPage() {
       <WhatsNew />
 
       <div className="container-xl">
-        <div className="page-header d-print-none">
-          <div className="row align-items-center">
-            <div className="col">
-              <div className="page-pretitle">{activeLanguage ? tTarget(activeLanguage.code) : 'JUBA LISAN'}</div>
-              <h2 className="page-title">{t('welcomeBack')}, {user?.displayName || user?.username}</h2>
-            </div>
-            <div className="col-auto ms-auto d-print-none">
-              <button type="button" className="btn btn-outline-secondary" onClick={refreshDashboardData} disabled={refreshing}>
-                <i className={`ti ti-refresh me-2 ${refreshing ? 'ti-spin' : ''}`} aria-hidden="true" />
-                {t('refresh')}
-              </button>
-            </div>
+        <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+          <div>
+            <div className="text-secondary small">{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</div>
+            <div className="h3 mb-0">{t('welcomeBack')}, {user?.displayName || user?.username}</div>
           </div>
+          <button type="button" className="btn btn-outline-secondary" onClick={refreshDashboardData} disabled={refreshing}>
+            <i className={`ti ti-refresh me-2 ${refreshing ? 'ti-spin' : ''}`} aria-hidden="true" />
+            {t('refresh')}
+          </button>
         </div>
 
         {loadError && (
@@ -398,7 +394,7 @@ export default function DashboardPage() {
                   </div>
                   <div className="col-auto d-none d-md-block">
                     <span className="badge bg-primary-lt text-primary">{streak} {t('streak')}</span>
-                    <div className="text-secondary text-end mt-2">{xp} XP</div>
+                    <div className="text-secondary text-end mt-2">{xp} {t('xp')}</div>
                   </div>
                 </div>
               </div>
@@ -420,7 +416,7 @@ export default function DashboardPage() {
                 <div className="card-actions">
                   {(['week', 'month', 'all'] as const).map((range) => (
                     <button key={range} type="button" onClick={() => changeHistoryRange(range)} className={`btn btn-sm ${historyRange === range ? 'btn-primary' : 'btn-ghost-secondary'}`}>
-                      {range}
+                      {t('historyRanges.' + range)}
                     </button>
                   ))}
                 </div>
@@ -465,7 +461,7 @@ export default function DashboardPage() {
                         <div className="col-auto"><span className={`avatar avatar-sm ${done ? 'bg-success-lt text-success' : 'bg-primary-lt text-primary'}`}><i className={`ti ${done ? 'ti-check' : 'ti-book'}`} aria-hidden="true" /></span></div>
                         <div className="col text-truncate">
                           <div className="text-reset">{lesson.title}</div>
-                          <div className="text-secondary text-truncate">{tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} min</div>
+                          <div className="text-secondary text-truncate">{tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} {t('minutes')}</div>
                         </div>
                         <div className="col-auto">
                           {lesson.id && !done ? <Link href={'/lesson/' + lesson.id} className="btn btn-sm btn-primary">{t('startLesson')}</Link> : <span className="badge bg-success-lt text-success"><i className="ti ti-check me-1" />{t('completedToday', { completed: 1, total: 1 })}</span>}
@@ -498,7 +494,7 @@ export default function DashboardPage() {
               <div className="card-body">
                 <div className="datagrid">
                   {progressBars.length ? progressBars.map(({ day, value, active }) => (
-                    <div className="datagrid-item" key={day}><div className="datagrid-title">{day}</div><div className="datagrid-content"><span className={`badge ${active ? 'bg-success-lt text-success' : 'bg-primary-lt text-primary'}`}>{value} XP</span></div></div>
+                    <div className="datagrid-item" key={day}><div className="datagrid-title">{day}</div><div className="datagrid-content"><span className={`badge ${active ? 'bg-success-lt text-success' : 'bg-primary-lt text-primary'}`}>{value} {t('xp')}</span></div></div>
                   )) : <div className="text-secondary">{t('noSkills')}</div>}
                 </div>
               </div>
