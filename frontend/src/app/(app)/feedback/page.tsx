@@ -145,7 +145,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
       onClick={onClose}
     >
       <div
-        className="juba-card w-full max-w-md border-2 bg-[#fff] shadow-2xl"
+        className="card w-full max-w-md border-2 bg-[#fff] shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -358,7 +358,7 @@ function DetailView({
       </button>
 
       {/* Entry card */}
-      <div className="rounded-[28px] border-2 border-[rgba(7,7,9,.08)] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
+      <div className="card">
         <div className="border-[rgba(7,7,9,.08)] space-y-3 border-b px-6 py-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <h2 className="text-[#202127] min-w-0 flex-1 font-sans text-base leading-snug font-bold">
@@ -451,7 +451,7 @@ function DetailView({
             onChange={(e) => setCommentBody(e.target.value)}
             placeholder={t('commentPlaceholder')}
             maxLength={2000}
-            className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] min-h-[50px] w-full resize-y border-2 px-4 py-2 text-sm transition-colors focus:outline-none"
+            className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] form-control"
           />
           <button
             type="submit"
@@ -624,7 +624,7 @@ export default function FeedbackPage() {
   // If a detail view is open, render it instead
   if (selectedEntry) {
     return (
-      <div className="juba-feedback-shell mx-auto max-w-5xl space-y-6 p-5 sm:p-8">
+      <div className="container-xl page-body py-4">
         <DetailView
           entry={selectedEntry}
           currentUserId={currentUserId}
@@ -700,7 +700,7 @@ export default function FeedbackPage() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] focus:border-[#5862e2] appearance-none border-2 px-3 py-1 font-sans transition-colors focus:outline-none"
+          className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] focus:border-[#5862e2] form-select"
         >
           {statusOptions.map((o) => (
             <option key={o.value} value={o.value}>
@@ -718,7 +718,7 @@ export default function FeedbackPage() {
       )}
 
       {/* List */}
-      <div className="rounded-[28px] border-2 border-[rgba(7,7,9,.08)] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
+      <div className="card">
         {loading ? (
           <PageLoading
             fullScreen={false}
