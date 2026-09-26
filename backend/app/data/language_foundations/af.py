@@ -82,7 +82,7 @@ for level,titles in _UNIT_TITLES.items():
     start={"A1":0,"A2":8,"B1":14,"B2":20,"C1":26,"C2":32}[level]
     CURRICULUM[level]=[]
     for i,title in enumerate(titles,1):
-        gslug=_GRAMMAR[start+i-1][0]
+        gslug=level_grammar[(i-1)%len(level_grammar)]
         CURRICULUM[level].append(CurriculumUnit(
             id=f"af-{level.lower()}-unit-{i}",level=level,unit_number=i,
             title=f"Afrikaans {level} · {title}",grammar_points=[gslug],
