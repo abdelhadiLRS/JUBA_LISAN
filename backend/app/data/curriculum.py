@@ -266,9 +266,30 @@ def _normalize_locale(target_language: str) -> str:
 
 def _resolve_module(target_language: str) -> object:
     locale = _normalize_locale(target_language)
-    module_name = _LANG_MODULES.get(locale) or _LANG_MODULES.get(
-        locale.split("-")[0], "app.data.en_GB.curriculum"
-    )
+    module_name = _LANG_MODULES.get(locale)
+    if module_name is None:
+        default_locales = {
+            "en": "en-GB",
+            "de": "de",
+            "es": "es",
+            "fr": "fr",
+            "it": "it",
+            "pt": "pt",
+            "ja": "ja",
+            "ko": "ko",
+            "zh": "zh",
+            "ru": "ru",
+            "nl": "nl",
+            "pl": "pl",
+            "el": "el",
+            "sv": "sv",
+            "da": "da",
+            "no": "no",
+            "fi": "fi",
+            "cs": "cs",
+        }
+        canonical = default_locales.get(locale.split("-")[0].lower())
+        module_name = _LANG_MODULES.get(canonical or locale.split("-")[0], "app.data.en_GB.curriculum")
 
     if module_name not in _CACHE:
         __import__(module_name)
