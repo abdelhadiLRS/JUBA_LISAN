@@ -212,6 +212,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     )
   }
 
+  const isDashboard = pathname === '/dashboard'
   const visibleMainNavItems = isAdmin ? [] : mainNavItems
   const visibleResourceNavItems = isAdmin ? [] : resourceNavItems
   const visibleBottomNavItems = isAdmin ? [] : bottomNavItems
@@ -223,8 +224,19 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         ? String(feedbackUnreadCount)
         : ''
 
+  if (isDashboard) {
+    return (
+      <>
+        <div className="juba-dashboard-route">{children}</div>
+        <LoadingBar />
+        <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
+        <ConfirmDialog open={logoutConfirm} title={tCommon('logoutConfirmTitle')} message={tCommon('logoutConfirmMessage')} confirmLabel={tCommon('logout')} onConfirm={handleLogout} onCancel={() => setLogoutConfirm(false)} />
+      </>
+    )
+  }
+
   return (
-    <div className="min-h-screen bg-[#dfe3ff] p-0 md:p-3 lg:p-4">
+    <div className="juba-member-shell min-h-screen bg-[#dfe0f7] p-0 md:p-3 lg:p-4">
       <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col overflow-hidden bg-[#f6f6f4] shadow-[0_35px_100px_-35px_rgba(24,28,46,.55)] md:min-h-[calc(100vh-24px)] md:rounded-[34px]">
         <header className="relative z-50 flex min-h-[76px] items-center gap-3 bg-[#24272b] px-4 text-white sm:px-6 lg:px-8">
           <Link href="/dashboard" className="flex shrink-0 items-center gap-3">
@@ -356,14 +368,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
           </aside>
 
-          <main className="min-h-0 flex-1 overflow-y-auto bg-[#f6f6f4]">
+          <main className="juba-app-content min-h-0 flex-1 overflow-y-auto bg-[#f6f6f4]">
             {user && user.is_verified === false && (
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-black/5 bg-[#fff8e8] px-4 py-2">
                 <span className="text-xs font-bold text-black/55">● {tCommon('verifyEmailBanner')}</span>
                 {resendSent ? <span className="text-xs text-black/45">{tCommon('verifyEmailSent')}</span> : <button onClick={handleResendVerification} className="text-xs font-bold text-[#5f5ec5] underline">{tCommon('resendVerification')}</button>}
               </div>
             )}
-            <div className="min-h-full">{children}</div>
+            <div className="juba-app-page">{children}</div>
           </main>
         </div>
       </div>
