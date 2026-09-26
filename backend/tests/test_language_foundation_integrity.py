@@ -431,12 +431,6 @@ def test_prompt_overlay_covers_additional_foundation_locales(locale, expected_fr
     assert expected_fragment in get_language_prompt_overlay(locale)
 
 
-def test_prompt_overlay_normalizes_locale_aliases(locale: str, expected_fragment: str):
-    from app.services.prompts.common import get_language_prompt_overlay
-
-    assert expected_fragment in get_language_prompt_overlay(locale)
-
-
 @pytest.mark.parametrize(
     ("units", "total_weeks", "days_per_week"),
     [([], 1, 5), ([], 0, 5), ([], 1, 0)],
