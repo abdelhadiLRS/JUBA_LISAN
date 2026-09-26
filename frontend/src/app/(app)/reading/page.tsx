@@ -308,12 +308,12 @@ function ReadingPage() {
     return (
       <div className="mx-auto max-w-4xl space-y-5">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-[#202127] font-sans text-sm font-bold tracking-widest uppercase">
+          <h1 className="text-body font-sans text-sm font-bold tracking-widest uppercase">
             {t('historyTitle')}
           </h1>
           <button type="button"
             onClick={loadNext}
-            className="text-[rgba(32,33,39,.52)] hover:text-[#202127] font-sans text-xs tracking-widest uppercase transition-colors"
+            className="text-secondary hover:text-body font-sans text-xs tracking-widest uppercase transition-colors"
           >
             {t('practiceMore')}
           </button>
@@ -322,8 +322,8 @@ function ReadingPage() {
         {historyLoading && history.length === 0 ? (
           <PageLoading fullScreen={false} className="block p-5" />
         ) : history.length === 0 ? (
-          <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border p-6 text-center">
-            <p className="text-[rgba(32,33,39,.52)] font-sans text-xs tracking-wide">
+          <div className="border-secondary-subtle bg-white border p-6 text-center">
+            <p className="text-secondary font-sans text-xs tracking-wide">
               {t('historyEmpty')}
             </p>
           </div>
@@ -332,22 +332,22 @@ function ReadingPage() {
             {history.map((item) => (
               <div
                 key={item.id}
-                className="border-[rgba(7,7,9,.08)] bg-[#fff] border p-4"
+                className="border-secondary-subtle bg-white border p-4"
               >
                 <div className="mb-3 flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="text-[#202127] truncate font-sans text-xs font-bold tracking-wide">
+                    <p className="text-body truncate font-sans text-xs font-bold tracking-wide">
                       {item.exercise.topic}
                     </p>
-                    <p className="text-[rgba(32,33,39,.52)] mt-0.5 font-sans tracking-widest uppercase">
+                    <p className="text-secondary mt-0.5 font-sans tracking-widest uppercase">
                       {item.exercise.level} · {item.exercise.exercise_type}
                     </p>
                   </div>
                   <div className="shrink-0 text-right">
-                    <p className="text-[#202127] font-sans text-xs font-bold">
+                    <p className="text-body font-sans text-xs font-bold">
                       {item.score}/{item.exercise.questions.length}
                     </p>
-                    <p className="text-[#202127] text-[#5862e2] font-sans">
+                    <p className="text-body text-primary font-sans">
                       +{item.xp_earned} {tCommon('xp')}
                     </p>
                   </div>
@@ -355,7 +355,7 @@ function ReadingPage() {
                 <TargetLanguageText
                   as="p"
                   languageCode={item.exercise.target_language}
-                  className="text-[rgba(32,33,39,.52)] border-[rgba(7,7,9,.08)] mb-3 line-clamp-3 border-t pt-3"
+                  className="text-secondary border-secondary-subtle mb-3 line-clamp-3 border-t pt-3"
                 >
                   {item.exercise.text}
                 </TargetLanguageText>
@@ -367,7 +367,7 @@ function ReadingPage() {
                     setIsReplay(true)
                     setPageState('exercise')
                   }}
-                  className="text-[rgba(32,33,39,.52)] hover:text-[#202127] font-sans text-xs tracking-widest uppercase transition-colors"
+                  className="text-secondary hover:text-body font-sans text-xs tracking-widest uppercase transition-colors"
                 >
                   {t('practiceAgain')}
                 </button>
@@ -394,24 +394,24 @@ function ReadingPage() {
     return (
       <div className="mx-auto max-w-4xl space-y-5">
         {/* Score card */}
-        <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border p-5">
+        <div className="border-secondary-subtle bg-white border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+              <p className="text-secondary font-sans tracking-widest uppercase">
                 {t('resultsLabel')}
               </p>
-              <p className="text-[#202127] mt-1 font-sans text-2xl font-bold">
+              <p className="text-body mt-1 font-sans text-2xl font-bold">
                 {result.score}/{exercise.questions.length}
               </p>
             </div>
             <div className="text-right">
-              <p className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">{tCommon('xp')}</p>
+              <p className="text-secondary font-sans tracking-widest uppercase">{tCommon('xp')}</p>
               {isReplay ? (
-                <p className="text-[rgba(32,33,39,.52)] mt-1 font-sans">
+                <p className="text-secondary mt-1 font-sans">
                   {t('replayNoXp')}
                 </p>
               ) : (
-                <p className="text-[#5862e2] mt-1 font-sans text-xl font-bold">
+                <p className="text-primary mt-1 font-sans text-xl font-bold">
                   +{result.xp_earned}
                 </p>
               )}
@@ -421,7 +421,7 @@ function ReadingPage() {
 
         {/* Question review */}
         <div className="space-y-3">
-          <p className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+          <p className="text-secondary font-sans tracking-widest uppercase">
             {t('review')}
           </p>
           {exercise.questions.map((q) => {
@@ -435,14 +435,14 @@ function ReadingPage() {
                 key={q.index}
                 className={`border p-4 ${
                   isCorrect
-                    ? 'border-[#5862e2]/50 bg-[#ededff]/5'
+                    ? 'border-primary/50 bg-primary-lt/5'
                     : 'border-[#b33a32]/50 bg-[#b33a32]/5'
                 }`}
               >
                 <TargetLanguageText
                   as="p"
                   languageCode={targetLanguageCode}
-                  className="text-[#202127] mb-3"
+                  className="text-body mb-3"
                 >
                   {q.index + 1}. {q.question}
                 </TargetLanguageText>
@@ -452,13 +452,13 @@ function ReadingPage() {
                       key={k}
                       className={`px-3 py-1.5 ${
                         k === correctKey
-                          ? 'text-[#5862e2] font-bold'
+                          ? 'text-primary font-bold'
                           : k === userAnswer && !isCorrect
                             ? 'text-[#b33a32] line-through'
-                            : 'text-[rgba(32,33,39,.52)]'
+                            : 'text-secondary'
                       }`}
                     >
-                      <span className="text-[#202127] font-sans font-bold">
+                      <span className="text-body font-sans font-bold">
                         {k}.
                       </span>{' '}
                       <TargetLanguageText languageCode={targetLanguageCode}>
@@ -476,13 +476,13 @@ function ReadingPage() {
         <div className="flex gap-3 pt-1">
           <button type="button"
             onClick={loadNext}
-            className="border-[rgba(7,7,9,.08)] bg-[#fff] text-[#202127] hover:bg-[#fff] flex-1 border py-3 font-sans text-sm tracking-widest uppercase transition-colors"
+            className="border-secondary-subtle bg-white text-body hover:bg-white flex-1 border py-3 font-sans text-sm tracking-widest uppercase transition-colors"
           >
             {t('nextExercise')}
           </button>
           <button type="button"
             onClick={() => loadHistory(0)}
-            className="border-[rgba(7,7,9,.08)] bg-[#fff] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:bg-[#fff] border px-4 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+            className="border-secondary-subtle bg-white text-secondary hover:text-body hover:bg-white border px-4 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
           >
             {t('viewHistory')}
           </button>
@@ -501,19 +501,19 @@ function ReadingPage() {
     return (
       <div className="mx-auto max-w-4xl space-y-5">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-[#202127] font-sans text-sm font-bold tracking-widest uppercase">
+          <h1 className="text-body font-sans text-sm font-bold tracking-widest uppercase">
             {t('title')}
           </h1>
           <button type="button"
             onClick={() => loadHistory(0)}
-            className="text-[rgba(32,33,39,.52)] hover:text-[#202127] font-sans text-xs tracking-widest uppercase transition-colors"
+            className="text-secondary hover:text-body font-sans text-xs tracking-widest uppercase transition-colors"
           >
             {t('history')}
           </button>
         </div>
 
         {error && (
-          <p className="text-[rgba(32,33,39,.52)] text-[#b33a32] mb-4 font-sans">
+          <p className="text-secondary text-[#b33a32] mb-4 font-sans">
             {error}
           </p>
         )}
@@ -523,13 +523,13 @@ function ReadingPage() {
         {freemiumExhausted ? (
           <PaywallBanner feature="reading" compact />
         ) : (
-          <div className="border-[rgba(7,7,9,.08)] bg-[#fff] flex flex-col items-center gap-5 border p-8 text-center">
-            <p className="text-[rgba(32,33,39,.52)] font-sans text-xs tracking-wide">
+          <div className="border-secondary-subtle bg-white flex flex-col items-center gap-5 border p-8 text-center">
+            <p className="text-secondary font-sans text-xs tracking-wide">
               {t('noExercises')}
             </p>
             <button type="button"
               onClick={handleGenerate}
-              className="border-[rgba(7,7,9,.08)] bg-[#fff] text-[#202127] hover:bg-[#fff] border px-8 py-3 font-sans text-sm tracking-widest uppercase transition-colors"
+              className="border-secondary-subtle bg-white text-body hover:bg-white border px-8 py-3 font-sans text-sm tracking-widest uppercase transition-colors"
             >
               {t('generate')}
             </button>
@@ -547,16 +547,16 @@ function ReadingPage() {
       {/* Header */}
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="text-[#202127] font-sans text-sm font-bold tracking-widest uppercase">
+          <h1 className="text-body font-sans text-sm font-bold tracking-widest uppercase">
             {t('title')}
           </h1>
-          <p className="text-[rgba(32,33,39,.52)] mt-0.5 font-sans tracking-widest uppercase">
+          <p className="text-secondary mt-0.5 font-sans tracking-widest uppercase">
             {exercise.level} · {exercise.exercise_type} · {exercise.topic}
           </p>
         </div>
         <button type="button"
           onClick={() => loadHistory(0)}
-          className="text-[rgba(32,33,39,.52)] hover:text-[#202127] shrink-0 font-sans text-xs tracking-widest uppercase transition-colors"
+          className="text-secondary hover:text-body shrink-0 font-sans text-xs tracking-widest uppercase transition-colors"
         >
           {t('history')}
         </button>
@@ -572,10 +572,10 @@ function ReadingPage() {
           <div className="flex flex-col gap-5 md:grid md:grid-cols-[55fr_45fr] md:gap-6">
             {/* Left: reading text */}
             <div>
-              <p className="text-[rgba(32,33,39,.52)] mb-2 font-sans tracking-widest uppercase">
+              <p className="text-secondary mb-2 font-sans tracking-widest uppercase">
                 {t('textLabel')}
               </p>
-              <div className="border-[rgba(7,7,9,.08)] bg-[#fff] relative border p-5">
+              <div className="border-secondary-subtle bg-white relative border p-5">
                 <div
                   ref={textRef}
                   onPointerUp={() =>
@@ -588,27 +588,27 @@ function ReadingPage() {
                   <TargetLanguageText
                     as="p"
                     languageCode={exercise.target_language}
-                    className="reading-text text-[#202127] word-selectable max-w-[70ch] cursor-text whitespace-pre-wrap select-text"
+                    className="reading-text text-body word-selectable max-w-[70ch] cursor-text whitespace-pre-wrap select-text"
                   >
                     {exercise.text}
                   </TargetLanguageText>
                 </div>
               </div>
-              <p className="text-[rgba(32,33,39,.52)] mt-2 text-center font-sans leading-relaxed">
+              <p className="text-secondary mt-2 text-center font-sans leading-relaxed">
                 {t('selectWordHint')}
               </p>
             </div>
 
             {/* Right: questions */}
             <div>
-              <p className="text-[rgba(32,33,39,.52)] mb-2 font-sans tracking-widest uppercase">
+              <p className="text-secondary mb-2 font-sans tracking-widest uppercase">
                 {t('questionsLabel')}
               </p>
               <div className="space-y-4">
                 {exercise.questions.map((q) => (
                   <div
                     key={q.index}
-                    className="border-[rgba(7,7,9,.08)] bg-[#fff] border p-4"
+                    className="border-secondary-subtle bg-white border p-4"
                   >
                     <TargetLanguageText
                       as="p"
@@ -616,7 +616,7 @@ function ReadingPage() {
                       onPointerUp={() =>
                         handleTextSelection(q.question, exercise.level)
                       }
-                      className="text-[#202127] word-selectable mb-3 cursor-text select-text"
+                      className="text-body word-selectable mb-3 cursor-text select-text"
                     >
                       {q.index + 1}. {q.question}
                     </TargetLanguageText>
@@ -634,11 +634,11 @@ function ReadingPage() {
                             }
                             className={`w-full border px-3 py-2 text-left transition-colors ${
                               selected
-                                ? 'border-[#5862e2] text-[#202127] bg-[#fff]'
-                                : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.08)] hover:text-[#202127]'
+                                ? 'border-primary text-body bg-white'
+                                : 'border-secondary-subtle text-secondary hover:border-secondary-subtle hover:text-body'
                             }`}
                           >
-                            <span className="text-[#202127] font-sans font-bold">
+                            <span className="text-body font-sans font-bold">
                               {k}.
                             </span>{' '}
                             <TargetLanguageText
@@ -655,7 +655,7 @@ function ReadingPage() {
               </div>
 
               {error && (
-                <p className="text-[rgba(32,33,39,.52)] text-[#b33a32] mt-3 font-sans">
+                <p className="text-secondary text-[#b33a32] mt-3 font-sans">
                   {error}
                 </p>
               )}
@@ -663,7 +663,7 @@ function ReadingPage() {
               <button type="button"
                 onClick={handleSubmit}
                 disabled={!allAnswered || submitting}
-                className="border-[rgba(7,7,9,.08)] bg-[#202127] text-[#f4f4f2] hover:bg-[#202127]/90 focus-visible:outline-fl-fg mt-4 w-full border py-3 font-sans text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+                className="border-secondary-subtle bg-dark text-light hover:bg-dark/90 focus-visible:outline-fl-fg mt-4 w-full border py-3 font-sans text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {submitting ? tCommon('checking') : t('submit')}
               </button>
