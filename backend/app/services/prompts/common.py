@@ -241,10 +241,44 @@ Language-specific guidance:
     "tg": "Language-specific guidance:\n- Use standard Tajik consistently.\n- Use Cyrillic as the primary writing system and preserve its standard orthography.\n- Preserve Tajik vocabulary and Cyrillic orthography.\n- Pay close attention to grammatical agreement, inflection, natural word order, and learner-appropriate register.",
     "su": "Language-specific guidance:\n- Use standard Sundanese consistently.\n- Use Latin as the primary writing system and preserve its standard orthography.\n- Use standard Sundanese vocabulary and register.\n- Pay close attention to grammatical agreement, inflection, natural word order, and learner-appropriate register.",
     "suq": "Language-specific guidance:\n- Use standard Suri consistently.\n- Use Latin as the primary writing system and preserve its standard orthography.\n- Use the project's Suri curriculum conventions; do not infer regional variants without explicit source content.\n- Pay close attention to grammatical agreement, inflection, natural word order, and learner-appropriate register.",
-    "to": "Language-specific guidance:\n- Use standard Tongan consistently.\n- Use Latin as the primary writing system and preserve its standard orthography.\n- Use standard Tongan vocabulary and natural word order.\n- Pay close attention to grammatical agreement, inflection, natural word order, and learner-appropriate register."
-_LANGUAGE_PROMPT_OVERLAY_ALIASES.get(locale, locale)
+    "to": "Language-specific guidance:\n- Use standard Tongan consistently.\n- Use Latin as the primary writing system and preserve its standard orthography.\n- Use standard Tongan vocabulary and natural word order.\n- Pay close attention to grammatical agreement, inflection, natural word order, and learner-appropriate register.",
+}
+
+
+# Locale aliases for prompt overlays. Foundation languages use their ISO base
+# code directly, while locale-specific core languages resolve to their
+# canonical regional variant.
+_LANGUAGE_PROMPT_OVERLAY_ALIASES: dict[str, str] = {
+    "en": "en-GB",
+    "de": "de-DE",
+    "es": "es-ES",
+    "fr": "fr-FR",
+    "it": "it-IT",
+    "pt": "pt-PT",
+    "ja": "ja-JP",
+    "ko": "ko-KR",
+    "zh": "zh-CN",
+    "tr": "tr-TR",
+    "ru": "ru-RU",
+    "nl": "nl-NL",
+    "pl": "pl-PL",
+    "sv": "sv-SE",
+    "da": "da-DK",
+    "no": "no-NO",
+    "fi": "fi-FI",
+    "cs": "cs-CZ",
+    "el": "el",
+}
+
+
+def get_language_prompt_overlay(target_language: str) -> str:
+    """Return language-specific prompt guidance for a BCP-47-ish locale."""
+    locale = (target_language or "").strip().replace("_", "-") or "en-GB"
+    canonical_language = _LANGUAGE_PROMPT_OVERLAY_ALIASES.get(locale, locale)
     if canonical_language not in _LANGUAGE_PROMPT_OVERLAYS:
-        canonical_language = _LANGUAGE_PROMPT_OVERLAY_ALIASES.get(locale.split("-")[0], locale)
+        canonical_language = _LANGUAGE_PROMPT_OVERLAY_ALIASES.get(
+            locale.split("-")[0], locale
+        )
     return _LANGUAGE_PROMPT_OVERLAYS.get(canonical_language, "")
 
 
