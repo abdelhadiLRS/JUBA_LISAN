@@ -17,6 +17,7 @@ import {
   type GameId,
 } from '@/lib/games/persist'
 import { useProgressStore } from '@/store/progress'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
 import './games.css'
 
 type Lang = 'ar' | 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt' | 'pl' | 'nl' | 'ro' | 'ru'
@@ -637,6 +638,7 @@ export default function GamesPage() {
       })
       const hasNextReview = await refreshSmartReview()
       setReviewContinueAvailable(hasNextReview)
+      markLearningProgressUpdated()
       setProgress({
         streak,
         xp: server.total_xp,
