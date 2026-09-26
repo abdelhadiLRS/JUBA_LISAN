@@ -238,7 +238,110 @@ export default function DashboardPage() {
 
     window.addEventListener('focus', handleFocus)
     document.addEventListener('visibilitychange', handleVisibility)
-    return (
+    return () => {
+      window.removeEventListener('focus', handleFocus)
+      document.removeEventListener('visibilitychange', handleVisibility)
+    }
+  }, [user, accessToken, refreshDashboardData])
+
+  useEffect(() => {
+    if (!user || !accessToken) return
+    return subscribeToLearningProgressUpdated(() => {
+      void refreshDashboardData()
+    })
+  }, [user, accessToken, refreshDashboardData])
+
+  async function changeHistoryRange(range: 'week' | 'month' | 'all') {
+    if (range === historyRange) return
+    setHistoryLoading(true)
+    setHistoryRange(range)
+    try {
+      const res = await apiFetch('/api/progress/history?range=' + range)
+      if (!res.ok) throw new Error('history')
+      const history = await res.json()
+      setHistoryEntries(Array.isArray(history.entries) ? history.entries : [])
+    } catch {
+      setHistoryEntries([])
+    } finally {
+      setHistoryLoading(false)
+    }
+  }
+
+  async function skipDay() {
+    if (skipping) return
+    setSkipping(true)
+    setSkipError(false)
+    try {
+      const res = await apiFetch('/api/study-plan/skip-day', { method: 'POST' })
+      if (!res.ok) throw new Error('skip-day')
+      await loadData()
+    } catch {
+      setSkipError(true)
+    } finally {
+      setSkipping(false)
+    }
+  }
+
+  async function handleManageSubscription() {
+    setPortalLoading(true)
+    setPortalError(null)
+    try {
+      const res = await apiFetch('/api/billing/portal', { method: 'POST' })
+      if (!res.ok) throw new Error(tBilling('portalError'))
+      const { url } = await res.json()
+      window.location.assign(url)
+    } catch (err) {
+      setPortalError(err instanceof Error ? err.message : tBilling('portalError'))
+      setPortalLoading(false)
+    }
+  }
+
+  if (loading) {
+    return <PageLoading label={t('loadingProgress')} minHeight="min-h-screen" />
+  }
+
+  const skillEntries = Object.entries(skills)
+    .map(([skill, value]) => ({ skill, value: value as number }))
+    .sort((a, b) => a.value - b.value)
+
+  const completedLessonCount = todayLessons.filter(
+    (lesson) => (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
+  ).length
+
+  const nextLesson = todayLessons.find(
+    (lesson) => lesson.id && !completedToday.includes(lesson.id) && !lesson.isCompleted
+  )
+
+  const planPositionComplete = completion?.state === 'ready' || completion?.state === 'taken'
+  const planCompletion = hasPlan && totalDays > 0
+    ? planPositionComplete ? 100 : Math.min(100, Math.round((progressDay / totalDays) * 100))
+    : 0
+  const currentDayDisplay = planPositionComplete ? totalDays : Math.min(progressDay + 1, totalDays)
+  const vocabularyProgressPct = Math.round(vocabularyProgress * 100)
+  const paymentRecovery = needsPaymentRecovery(user)
+  const showPremiumBanner = stripeEnabled && !isSubscribed(user, stripeEnabled)
+
+  const chartEntries = historyEntries.slice(-7)
+  const performanceValues = chartEntries.map((entry) =>
+    entry.exercises_total > 0 ? Math.round((entry.exercises_correct / entry.exercises_total) * 100) : 0
+  )
+  const chartMax = Math.max(100, ...performanceValues)
+  const chartAverage = chartEntries.length
+    ? Math.round(chartEntries.reduce((sum, entry) => sum + (entry.exercises_total > 0 ? (entry.exercises_correct / entry.exercises_total) * 100 : 0), 0) / chartEntries.length)
+    : 0
+  const progressBars = chartEntries.map((entry) => ({
+    day: new Date(entry.date + 'T00:00:00').toLocaleDateString(undefined, { weekday: 'short' }),
+    value: entry.xp_earned,
+    active: entry.date === new Date().toISOString().slice(0, 10),
+  }))
+
+  function getPerformanceLabel(value: number) {
+    if (value < 0.5) return t('performanceNeedsPractice')
+    if (value < 0.8) return t('performanceInProgress')
+    return t('performanceStrong')
+  }
+
+  return (
     <>
       <OnboardingTour />
       <WhatsNew />
