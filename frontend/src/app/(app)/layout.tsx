@@ -91,7 +91,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   ]
 
   const router = useRouter()
-  const accessToken = useAuthStore((s) => s.accessToken)
   const setUser = useAuthStore((s) => s.setUser)
   const logout = useAuthStore((s) => s.logout)
   const handleLogout = useLogout()
