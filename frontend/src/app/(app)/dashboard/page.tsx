@@ -269,43 +269,50 @@ export default function DashboardPage() {
     <>
       <OnboardingTour />
       <WhatsNew />
-      <div className="grid gap-5 p-4 sm:p-6 lg:grid-cols-[minmax(260px,1fr)_minmax(430px,1.45fr)_minmax(280px,.85fr)] lg:gap-5 lg:p-6">
-            {/* LEFT COLUMN */}
-            <section className="space-y-5">
-              <div className="relative min-h-[245px] overflow-hidden rounded-[34px] bg-[#7978db] p-6 text-white shadow-[inset_0_-20px_50px_rgba(45,46,130,.18)]">
-                <div className="absolute -right-8 -top-10 size-40 rounded-full border-[18px] border-white/10" />
-                <div className="absolute bottom-[-55px] left-[-30px] size-44 rounded-full bg-[#6a69c9]" />
+      <main className="min-h-screen bg-[#e9eaf8] px-3 py-4 text-[#20232a] sm:px-5 sm:py-6 lg:px-8">
+        <div className="mx-auto max-w-[1600px] overflow-hidden rounded-[34px] border border-black/10 bg-[#f8f8f7] shadow-[0_24px_80px_rgba(31,35,55,.12)]">
+          <header className="flex flex-wrap items-center justify-between gap-4 bg-[#25282e] px-5 py-4 text-white sm:px-7">
+            <Link href="/dashboard" className="flex items-center gap-3 font-bold tracking-tight">
+              <span className="grid size-11 place-items-center rounded-full bg-[#8584e6] text-white"><LayoutDashboard className="size-5" /></span>
+              <span className="text-lg">JUBA LISAN</span>
+            </Link>
+            <nav aria-label="Dashboard navigation" className="flex flex-wrap items-center justify-center gap-1 rounded-full bg-black/25 p-1">
+              <Link href="/dashboard" aria-current="page" className="inline-flex items-center gap-2 rounded-full bg-black px-4 py-2.5 text-xs font-bold text-white"><LayoutDashboard className="size-4 text-[#aaa9ff]" />{t('today')}</Link>
+              <Link href="/plan" className="inline-flex items-center gap-2 rounded-full px-3 py-2.5 text-xs font-semibold text-white/70 transition hover:bg-white/10 hover:text-white"><ListChecks className="size-4" />{t('goToMyPlan')}</Link>
+              <Link href="/progress" className="inline-flex items-center gap-2 rounded-full px-3 py-2.5 text-xs font-semibold text-white/70 transition hover:bg-white/10 hover:text-white"><Trophy className="size-4" />{t('recentPerformance')}</Link>
+              <Link href="/reading" className="inline-flex items-center gap-2 rounded-full px-3 py-2.5 text-xs font-semibold text-white/70 transition hover:bg-white/10 hover:text-white"><BookOpen className="size-4" />{tNav('reading')}</Link>
+            </nav>
+            <div className="flex items-center gap-3">
+              <div className="hidden text-right sm:block">
+                <p className="text-sm font-bold">{t('welcomeBack')}, {user?.displayName || user?.username}</p>
+                <p className="mt-1 text-[11px] text-white/60">{t('streak')}: {streak} · {xp} XP</p>
+              </div>
+              <span className="grid size-11 place-items-center rounded-full border border-white/20 bg-[#aaa9ef] text-lg font-bold text-[#25282e]"><UserRound className="size-5" /></span>
+            </div>
+          </header>
+
+          <div className="grid gap-5 p-4 sm:p-6 lg:grid-cols-[minmax(260px,.95fr)_minmax(420px,1.4fr)_minmax(270px,.85fr)] lg:gap-6 lg:p-7">
+            <section className="min-w-0 space-y-5">
+              <div className="relative min-h-[245px] overflow-hidden rounded-[30px] bg-[#8584e6] p-6 text-white">
+                <div className="absolute -right-8 -top-10 size-44 rounded-full border-[20px] border-white/10" />
+                <div className="absolute -bottom-14 -left-8 size-44 rounded-full bg-[#7372d1]" />
                 <div className="relative z-10">
-                  <span className="inline-flex rounded-full bg-white/15 px-3 py-1 text-[10px] font-bold uppercase tracking-[.16em]">
-                    {activeLanguage ? tTarget(activeLanguage.code) : "JUBA LISAN"}
-                  </span>
-                  <h1 className="mt-5 max-w-[230px] text-3xl font-black leading-[.98] tracking-[-.055em]">
-                    {t('welcomeBack')}, {user?.displayName || user?.username}
-                  </h1>
-                  <p className="mt-3 max-w-[235px] text-sm leading-relaxed text-white/75">
-                    {cefrLevel ? `${cefrLevel} · ` : ""}{t('nextStep')}
-                  </p>
-                  <Link href={nextLesson?.id ? `/lesson/${nextLesson.id}` : "/assessment"} className="mt-7 inline-flex size-12 items-center justify-center rounded-full border-2 border-white/70 bg-[#26282c] transition hover:scale-105">
-                    <Play className="ml-0.5 size-4 fill-white" />
-                  </Link>
+                  <span className="inline-flex rounded-full bg-white/15 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.14em]">{activeLanguage ? tTarget(activeLanguage.code) : "JUBA LISAN"}</span>
+                  <h1 className="mt-5 max-w-[260px] text-3xl font-black leading-[1.04] tracking-tight">{t('welcomeBack')}, {user?.displayName || user?.username}</h1>
+                  <p className="mt-3 max-w-[245px] text-sm leading-relaxed text-white/80">{cefrLevel ? `${cefrLevel} · ` : ""}{t('nextStep')}</p>
+                  <Link href={nextLesson?.id ? `/lesson/${nextLesson.id}` : "/assessment"} aria-label={t('startLesson')} className="mt-6 inline-flex size-12 items-center justify-center rounded-full border-2 border-white/70 bg-[#25282e] transition hover:scale-105"><Play className="ml-0.5 size-4 fill-white" /></Link>
                 </div>
-                <div className="absolute bottom-5 right-5 text-7xl opacity-20">✦</div>
+                <span className="absolute bottom-5 right-6 text-6xl font-black text-white/20">✦</span>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-[28px] border-2 border-[#ffad63] bg-white p-5">
-                  <div className="flex items-center gap-2 text-xs font-bold text-[#4b4b4b]">
-                    <span className="grid size-7 place-items-center rounded-full bg-[#ffad63]/25"><ListChecks className="size-3.5" /></span>
-                    {t('lessonsCompleted')}
-                  </div>
-                  <p className="mt-5 text-4xl font-black tracking-[-.06em]">{totalLessons}</p>
+                <div className="rounded-[24px] border-2 border-[#ffad68] bg-white p-5">
+                  <div className="flex items-center gap-2 text-xs font-bold text-[#50515a]"><span className="grid size-8 place-items-center rounded-full bg-[#ffad68]/25"><ListChecks className="size-4" /></span>{t('lessonsCompleted')}</div>
+                  <p className="mt-4 text-4xl font-black tracking-tight">{totalLessons}</p>
                 </div>
-                <div className="rounded-[28px] border-2 border-[#8d8be7] bg-white p-5">
-                  <div className="flex items-center gap-2 text-xs font-bold text-[#4b4b4b]">
-                    <span className="grid size-7 place-items-center rounded-full bg-[#8d8be7]/20"><Flame className="size-3.5" /></span>
-                    {t('streak')}
-                  </div>
-                  <p className="mt-5 text-4xl font-black tracking-[-.06em]">{streak}</p>
+                <div className="rounded-[24px] border-2 border-[#9291eb] bg-[#eeedff] p-5">
+                  <div className="flex items-center gap-2 text-xs font-bold text-[#50515a]"><span className="grid size-8 place-items-center rounded-full bg-[#9291eb]/20"><Flame className="size-4" /></span>{t('streak')}</div>
+                  <p className="mt-4 text-4xl font-black tracking-tight">{streak}</p>
                 </div>
               </div>
 
@@ -314,230 +321,100 @@ export default function DashboardPage() {
                   { icon: BookOpen, label: tNav('flashcards'), href: "/flashcards" },
                   { icon: Mic2, label: tNav('tutor'), href: "/chat" },
                   { icon: Headphones, label: tNav('listening'), href: "/listening" },
-                ].map(({ icon: Icon, label, href }) => (
-                  <Link key={href} href={href} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-xs font-bold text-[#292b2f] shadow-sm ring-1 ring-black/5 transition hover:-translate-y-0.5">
-                    <Icon className="size-4 text-[#6f70d8]" />
-                    {label}
-                  </Link>
-                ))}
+                ].map(({ icon: Icon, label, href }) => <Link key={href} href={href} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-3 text-xs font-bold shadow-sm ring-1 ring-black/5 transition hover:-translate-y-0.5"><Icon className="size-4 text-[#7776d8]" />{label}</Link>)}
               </div>
 
-              <div className="rounded-[32px] bg-[#292c30] p-6 text-white shadow-lg">
+              <div className="rounded-[28px] bg-[#25282e] p-5 text-white">
                 <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[.16em] text-[#ffb06b]">{t('recentPerformance')}</p>
-                    <h2 className="mt-3 text-xl font-black leading-tight">
-                      {skillEntries.length > 0 ? getPerformanceLabel(skillEntries[skillEntries.length - 1].value) : t('noSkills')}
-                    </h2>
-                  </div>
-                  <Link href="/progress" className="grid size-10 place-items-center rounded-full bg-white/10 hover:bg-white/15"><ChevronDown className="size-4 -rotate-90" /></Link>
+                  <div><p className="text-[10px] font-bold uppercase tracking-[.15em] text-[#ffb16c]">{t('recentPerformance')}</p><h2 className="mt-3 text-xl font-black leading-tight">{skillEntries.length ? getPerformanceLabel(skillEntries[skillEntries.length - 1].value) : t('noSkills')}</h2></div>
+                  <Link href="/progress" aria-label={t('recentPerformance')} className="grid size-10 place-items-center rounded-full bg-white/10 hover:bg-white/20"><ChevronDown className="size-4 -rotate-90" /></Link>
                 </div>
-                <div className="mt-6 flex items-end gap-1">
-                  {skillEntries.slice(-6).map(({ skill, value }, i) => (
-                    <div key={skill || i} className="flex flex-1 flex-col items-center gap-2">
-                      <div className="flex h-28 w-full items-end justify-center rounded-2xl bg-white/5 p-2">
-                        <div className="w-full rounded-xl bg-[#8c8be5]" style={{ height: `${Math.max(16, value * 100)}%` }} />
-                      </div>
-                      <span className="text-[9px] text-white/45">{Math.round(value * 100)}%</span>
-                    </div>
-                  ))}
-                  {skillEntries.length === 0 && <div className="h-28 w-full rounded-2xl bg-white/5" />}
+                <div className="mt-5 flex items-end gap-2">
+                  {skillEntries.slice(-6).map(({ skill, value }, i) => <div key={skill || i} className="flex flex-1 flex-col items-center gap-2"><div className="flex h-24 w-full items-end rounded-xl bg-white/5 p-1.5"><div className="w-full rounded-lg bg-[#9291eb]" style={{ height: `${Math.max(12, value * 100)}%` }} /></div><span className="text-[9px] text-white/55">{Math.round(value * 100)}%</span></div>)}
+                  {skillEntries.length === 0 && <div className="h-24 w-full rounded-xl bg-white/5" />}
                 </div>
               </div>
             </section>
 
-            {/* CENTER COLUMN */}
-            <section className="space-y-5">
-              <div className="rounded-[34px] bg-white p-5 shadow-sm ring-1 ring-black/5 sm:p-6">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[.15em] text-black/45">{t('planProgress')}</p>
-                    <h2 className="mt-1 text-3xl font-black tracking-[-.06em]">{planCompletion}%</h2>
-                  </div>
-                  <button type="button" className="flex items-center gap-2 rounded-full bg-[#f5f5f5] px-4 py-2.5 text-xs font-bold">
-                    {activeLanguage ? tTarget(activeLanguage.code) : t('today')}
-                    <ChevronDown className="size-3.5" />
-                  </button>
+            <section className="min-w-0 space-y-5">
+              <div className="rounded-[30px] bg-white p-5 shadow-sm ring-1 ring-black/5 sm:p-6">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div><p className="text-xs font-bold uppercase tracking-[.14em] text-black/45">{t('planProgress')}</p><h2 className="mt-1 text-3xl font-black tracking-tight">{planCompletion}%</h2></div>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-[#f3f3f7] px-4 py-2.5 text-xs font-bold"><BookOpen className="size-4 text-[#7776d8]" />{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</span>
                 </div>
-
-                <div className="mt-5 overflow-hidden rounded-[30px] bg-[#ffab63] p-6">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-4xl font-black tracking-[-.06em]">{totalLessons}</p>
-                      <p className="mt-1 text-sm font-bold">{t('lessonsCompleted')}</p>
-                    </div>
-                    <div className="rounded-full bg-[#1e2024] p-1">
-                      <span className="inline-flex rounded-full bg-[#ffab63] px-3 py-1.5 text-xs font-black">{totalDays > 0 ? t('planProgress') : t('today')}</span>
-                    </div>
+                <div className="mt-5 rounded-[28px] bg-[#ffad68] p-5 sm:p-6">
+                  <div className="flex items-start justify-between gap-3">
+                    <div><p className="text-4xl font-black tracking-tight">{completedLessonCount}<span className="ml-2 text-base font-semibold">{t('lessonsCompleted')}</span></p><p className="mt-2 text-xs font-semibold text-[#754d2c]">{t('completedToday', { completed: completedLessonCount, total: todayLessons.length || 0 })}</p></div>
+                    <span className="rounded-full bg-[#25282e] px-3 py-2 text-[10px] font-bold text-white">{totalDays > 0 ? `${currentDayDisplay}/${totalDays}` : t('today')}</span>
                   </div>
-                  <div className="mt-8 grid grid-cols-5 items-end gap-3">
+                  <div className="mt-7 grid grid-cols-5 items-end gap-2 sm:gap-3">
                     {[0,1,2,3,4].map((_, i) => {
-                      const dayValue = Math.max(10, Math.min(100, [39, 14, 48, 24, 32][i] + Math.round(planCompletion / 10)))
-                      return (
-                        <div key={i} className="text-center">
-                          <div className="flex h-32 items-end justify-center rounded-2xl border border-dashed border-black/10">
-                            <div className="relative w-11 rounded-t-full bg-[#7a4929]/65" style={{ height: `${dayValue}%` }}>
-                              <span className="absolute -top-7 left-1/2 -translate-x-1/2 text-[11px] font-black">{dayValue}</span>
-                            </div>
-                          </div>
-                          <span className="mt-2 block text-[10px] font-bold text-black/55">{i === 0 ? "Mon" : i === 1 ? "Tue" : i === 2 ? "Wed" : i === 3 ? "Thu" : "Fri"}</span>
-                        </div>
-                      )
+                      const vals = [39,14,48,24,32]
+                      const value = Math.max(10, Math.min(100, vals[i] + Math.round(planCompletion / 10)))
+                      const label = ["Mon","Tue","Wed","Thu","Fri"][i]
+                      return <div key={label} className="text-center"><div className="flex h-32 items-end justify-center rounded-2xl border border-dashed border-black/15"><div className="relative w-9 rounded-t-full bg-[#8b542e]/70 sm:w-11" style={{height:`${value}%`}}><span className="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-black">{value}</span></div></div><span className="mt-2 block text-[10px] font-bold text-black/60">{label}</span></div>
                     })}
                   </div>
                 </div>
-
-                <div className="mt-4 flex items-center justify-between rounded-full bg-[#ececed] px-4 py-3">
-                  <div className="flex items-center gap-3">
-                    <span className="grid size-9 place-items-center rounded-full bg-[#ffcd58]"><Trophy className="size-4" /></span>
-                    <div>
-                      <p className="text-xs font-black">{t('recentPerformance')}</p>
-                      <p className="text-[10px] text-black/45">{t('accuracy')}</p>
-                    </div>
-                  </div>
-                  <div className="flex -space-x-2">
-                    {[0,1,2].map((i) => <span key={i} className="grid size-8 place-items-center rounded-full border-2 border-white bg-[#b8b7ee] text-xs font-bold">{i + 1}</span>)}
-                  </div>
+                <div className="mt-4 flex items-center justify-between gap-3 rounded-full bg-[#f0f0f2] px-4 py-3">
+                  <div className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-full bg-[#ffcf58]"><Trophy className="size-4" /></span><div><p className="text-xs font-black">{t('recentPerformance')}</p><p className="text-[10px] text-black/50">{t('accuracy')}: {accuracy}%</p></div></div>
+                  <span className="rounded-full bg-white px-3 py-1.5 text-xs font-black">{xp} XP</span>
                 </div>
               </div>
 
-              <div className="rounded-[34px] bg-white p-5 shadow-sm ring-1 ring-black/5 sm:p-6">
-                <div className="mb-4 flex items-center justify-between">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[.15em] text-black/40">{t('today')}</p>
-                    <h2 className="mt-1 text-2xl font-black tracking-[-.05em]">{t('nextStep')}</h2>
-                  </div>
-                  {hasPlan && totalDays > 0 && <span className="rounded-full bg-[#ececff] px-3 py-1 text-xs font-black text-[#6565c9]">{currentDayDisplay}/{totalDays}</span>}
-                </div>
-
+              <div className="rounded-[30px] bg-white p-5 shadow-sm ring-1 ring-black/5 sm:p-6">
+                <div className="mb-4 flex items-center justify-between gap-3"><div><p className="text-xs font-bold uppercase tracking-[.14em] text-black/40">{t('today')}</p><h2 className="mt-1 text-2xl font-black tracking-tight">{t('nextStep')}</h2></div>{hasPlan && totalDays > 0 && <span className="rounded-full bg-[#ecebff] px-3 py-1.5 text-xs font-black text-[#6665c8]">{currentDayDisplay}/{totalDays}</span>}</div>
                 <div className="space-y-2.5">
-                  {todayLessons.slice(0, 5).map((lesson, i) => {
-                    const isDone = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
+                  {todayLessons.slice(0,5).map((lesson,i) => {
+                    const done = (Boolean(lesson.id) && completedToday.includes(lesson.id as number)) || lesson.isCompleted
                     const isNext = nextLesson?.id === lesson.id
-                    return (
-                      <div key={i} className={`flex items-center gap-3 rounded-[22px] border p-3.5 transition ${isNext ? "border-[#8b8ae5] bg-[#f1f0ff]" : "border-black/5 bg-[#fafafa]"}`}>
-                        <span className={`grid size-11 shrink-0 place-items-center rounded-full ${isDone ? "bg-[#dcefd0] text-[#4e8a3f]" : isNext ? "bg-[#8d8ce5] text-white" : "bg-[#e9e9ea] text-black/40"}`}>
-                          {isDone ? <Check className="size-4" /> : <BookOpen className="size-4" />}
-                        </span>
-                        <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-black">{lesson.title}</p>
-                          <p className="mt-0.5 text-[10px] text-black/45">{tPlan(`lessonTypes.${lesson.lessonType}`)} · {lesson.estimatedMinutes}min</p>
-                        </div>
-                        {lesson.id && !isDone && <Link href={`/lesson/${lesson.id}`} className="rounded-full bg-[#27292d] px-3 py-2 text-[10px] font-black text-white">{t('startLesson')}</Link>}
-                        {isDone && <span className="text-[10px] font-black text-black/40">✓</span>}
-                      </div>
-                    )
+                    return <div key={lesson.id ?? i} className={`flex items-center gap-3 rounded-[20px] border p-3 transition ${isNext ? "border-[#8988e6] bg-[#f0efff]" : "border-black/5 bg-[#fafafa]"}`}><span className={`grid size-10 shrink-0 place-items-center rounded-full ${done ? "bg-[#dcefd0] text-[#4e8a3f]" : isNext ? "bg-[#8584e6] text-white" : "bg-[#ececef] text-black/45"}`}>{done ? <Check className="size-4" /> : <BookOpen className="size-4" />}</span><div className="min-w-0 flex-1"><p className="truncate text-sm font-black">{lesson.title}</p><p className="mt-1 text-[10px] text-black/45">{tPlan(`lessonTypes.${lesson.lessonType}`)} · {lesson.estimatedMinutes} min</p></div>{lesson.id && !done && <Link href={`/lesson/${lesson.id}`} className="rounded-full bg-[#25282e] px-3 py-2 text-[10px] font-bold text-white">{t('startLesson')}</Link>}{done && <Check className="size-4 text-[#5c9b4c]" />}</div>
                   })}
-                  {todayLessons.length === 0 && (
-                    <div className="rounded-[22px] bg-[#f5f5f5] p-5 text-sm text-black/50">{t('startWithAssessment')}</div>
-                  )}
+                  {todayLessons.length === 0 && <div className="rounded-[20px] bg-[#f4f4f5] p-5 text-sm text-black/55">{t('startWithAssessment')}<div className="mt-4"><Link href="/assessment" className="inline-flex rounded-full bg-[#25282e] px-4 py-2.5 text-xs font-bold text-white">{tNav('assessment')}</Link></div></div>}
                 </div>
+                {hasPlan && <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-black/5 pt-4"><span className="text-xs text-black/50">{pendingCount} {t('pendingLessons')}</span><button type="button" onClick={skipDay} disabled={skipping} className="rounded-full border border-black/10 px-4 py-2.5 text-xs font-bold transition hover:bg-black/5 disabled:opacity-50">{skipping ? "…" : t('skipDay')}</button></div>}
+                {skipError && <p className="mt-3 text-xs text-red-600">{tError('body')}</p>}
               </div>
             </section>
 
-            {/* RIGHT COLUMN */}
-            <aside className="space-y-5">
-              <div className="rounded-[32px] bg-white p-5 shadow-sm ring-1 ring-black/5">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h2 className="text-2xl font-black leading-none tracking-[-.055em]">{t('lessonReady')} 📚</h2>
-                    <p className="mt-2 text-xs text-black/45">{t('completedToday', { completed: completedLessonCount, total: todayLessons.length || 0 })}</p>
-                  </div>
-                  <BookOpen className="size-6 text-[#d87822]" />
-                </div>
-
-                <div className="mt-5 grid grid-cols-5 gap-1.5">
-                  {["Mon","Tue","Wed","Thu","Fri"].map((day, i) => (
-                    <div key={day} className="rounded-[18px] bg-[#f5f5f5] p-2 text-center">
-                      <span className="text-[9px] font-bold text-black/40">{day}</span>
-                      <span className="mt-1 block text-sm font-black">{20 + i}</span>
-                      <span className={`mx-auto mt-2 block size-3 rounded-full ${i < 2 ? "bg-[#ef6c6c]" : "bg-[#78bb65]"}`} />
-                    </div>
-                  ))}
-                </div>
+            <aside className="min-w-0 space-y-5">
+              <div className="rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-black/5">
+                <div className="flex items-start justify-between gap-3"><div><h2 className="text-xl font-black leading-tight">{t('lessonReady')} 📚</h2><p className="mt-2 text-xs text-black/45">{t('completedToday', { completed: completedLessonCount, total: todayLessons.length || 0 })}</p></div><BookOpen className="size-6 text-[#d87822]" /></div>
+                <div className="mt-5 grid grid-cols-5 gap-1.5">{["Mon","Tue","Wed","Thu","Fri"].map((day,i)=><div key={day} className="rounded-[16px] bg-[#f4f4f6] p-2 text-center"><span className="text-[9px] font-bold text-black/45">{day}</span><span className="mt-1 block text-sm font-black">{20+i}</span><span className={`mx-auto mt-2 block size-3 rounded-full ${i < completedLessonCount ? "bg-[#78bb65]" : "bg-[#efad68]"}`} /></div>)}</div>
               </div>
 
-              <div className="rounded-[32px] bg-white p-5 shadow-sm ring-1 ring-black/5">
-                <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-lg font-black tracking-[-.03em]">{t('recentPerformance')}</h3>
-                  <span className="text-lg">•••</span>
-                </div>
-                <div className="h-28 overflow-hidden rounded-[22px] bg-[#efefef] p-4">
-                  <div className="flex h-full items-end gap-2">
-                    {[.45,.62,.78,.58,.9,.72,.84].map((v,i) => (
-                      <div key={i} className="flex-1 rounded-t-lg bg-[#9a99e8]" style={{height:`${v*100}%`}} />
-                    ))}
-                  </div>
-                </div>
-                <div className="mt-3 flex items-center justify-between text-[10px] text-black/45">
-                  <span>June</span><span>July</span><span>August</span>
-                </div>
+              <div className="rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-black/5">
+                <div className="mb-4 flex items-center justify-between"><h3 className="text-lg font-black tracking-tight">{t('recentPerformance')}</h3><Link href="/progress" aria-label={t('recentPerformance')} className="rounded-full px-2 py-1 text-lg leading-none text-black/45 hover:bg-black/5">•••</Link></div>
+                <div className="h-28 overflow-hidden rounded-[20px] bg-[#f0f0f3] p-4"><div className="flex h-full items-end gap-2">{[.45,.62,.78,.58,.9,.72,.84].map((v,i)=><div key={i} className="flex-1 rounded-t-lg bg-[#9695e9]" style={{height:`${v*100}%`}} />)}</div></div>
+                <div className="mt-3 flex items-center justify-between text-[10px] text-black/45"><span>{t('accuracy')}</span><span>{accuracy}%</span></div>
               </div>
 
-              <div className="rounded-[30px] bg-[#8180df] p-5 text-white shadow-sm">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[.15em] text-white/70">{t('streak')}</p>
-                    <p className="mt-1 text-lg font-black">{streak} days</p>
-                  </div>
-                  <span className="grid size-11 place-items-center rounded-full bg-white/15"><Flame className="size-5" /></span>
-                </div>
-                <p className="mt-4 text-xs leading-relaxed text-white/75">{t('recentPerformanceDescription')}</p>
+              <div className="rounded-[26px] bg-[#8584e6] p-5 text-white">
+                <div className="flex items-center justify-between gap-3"><div><p className="text-[10px] font-bold uppercase tracking-[.14em] text-white/70">{t('streak')}</p><p className="mt-1 text-xl font-black">{streak}</p></div><span className="grid size-11 place-items-center rounded-full bg-white/15"><Flame className="size-5" /></span></div>
+                <p className="mt-3 text-xs leading-relaxed text-white/80">{t('recentPerformanceDescription')}</p>
               </div>
 
-              <div className="rounded-[32px] bg-white p-5 shadow-sm ring-1 ring-black/5">
-                <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-lg font-black tracking-[-.03em]">{tNav('resources')}</h3>
-                  <span className="text-lg">•••</span>
-                </div>
-                <div className="grid grid-cols-2 gap-2.5">
-                  <Link href="/reading" className="group relative min-h-[150px] overflow-hidden rounded-[22px] bg-[#ffcf67] p-4">
-                    <BookOpen className="size-7 text-[#9a5b16]" />
-                    <p className="absolute bottom-3 left-3 right-3 text-xs font-black leading-tight">{tNav('reading')}</p>
-                  </Link>
-                  <Link href="/courses" className="group relative min-h-[150px] overflow-hidden rounded-[22px] bg-[#8d8ce5] p-4 text-white">
-                    <Library className="size-7" />
-                    <p className="absolute bottom-3 left-3 right-3 text-xs font-black leading-tight">{tNav('courses')}</p>
-                  </Link>
+              <div className="rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-black/5">
+                <div className="mb-4 flex items-center justify-between"><h3 className="text-lg font-black tracking-tight">{tNav('resources')}</h3><span className="text-lg text-black/40">•••</span></div>
+                <div className="grid grid-cols-2 gap-3">
+                  <Link href="/reading" className="relative min-h-[142px] overflow-hidden rounded-[20px] bg-[#ffcf67] p-4 transition hover:-translate-y-0.5"><BookOpen className="size-7 text-[#9a5b16]" /><p className="absolute bottom-3 left-3 right-3 text-xs font-black leading-tight">{tNav('reading')}</p></Link>
+                  <Link href="/courses" className="relative min-h-[142px] overflow-hidden rounded-[20px] bg-[#8584e6] p-4 text-white transition hover:-translate-y-0.5"><Library className="size-7" /><p className="absolute bottom-3 left-3 right-3 text-xs font-black leading-tight">{tNav('courses')}</p></Link>
                 </div>
               </div>
             </aside>
-        </div>
+          </div>
 
-        {showPremiumBanner && (
-            <div className="mx-4 mb-4 rounded-[28px] border border-[#ece8f8] bg-white p-5 shadow-sm sm:mx-6">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                <div className="flex gap-3">
-                  <span className="grid size-10 place-items-center rounded-full bg-[#ffcf67] text-sm">★</span>
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-[.12em] text-black/45">
-                      {freemiumTrialActive ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft }) : t(paymentRecovery ? 'premiumBannerPastDueTitle' : 'premiumBannerTitle')}
-                    </p>
-                    <p className="mt-2 max-w-2xl text-xs leading-relaxed text-black/50">
-                      {freemiumTrialActive ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft }) : paymentRecovery ? t('premiumBannerPastDueDesc') : t(trialEligible ? 'premiumBannerDesc' : 'premiumBannerDescTrialUsed')}
-                    </p>
-                  </div>
-                </div>
-                {!freemiumTrialActive && <span className="self-start rounded-full border border-[#7776df]/30 px-4 py-2 text-xs font-black text-[#5f5ec5]">{paymentRecovery ? t('premiumBannerPastDueCta') : t(trialEligible ? 'premiumBannerCta' : 'premiumBannerCtaTrialUsed')}</span>}
-              </div>
-              {!freemiumTrialActive && (paymentRecovery ? (
-                <div className="mt-4 border-t border-black/5 pt-4">
-                  <button onClick={handleManageSubscription} disabled={portalLoading} className="rounded-full bg-[#292c30] px-5 py-3 text-xs font-black text-white disabled:opacity-50">{portalLoading ? '...' : tBilling('updatePayment')}</button>
-                  {portalError && <p className="mt-3 text-xs text-red-500">{portalError}</p>}
-                </div>
-              ) : (
-                <SubscriptionPlanButtons className="mt-4 border-t border-black/5 pt-4" />
-              ))}
-            </div>
-          )}
+          {showPremiumBanner && <section className="mx-4 mb-5 rounded-[26px] border border-[#e7e5f4] bg-white p-5 sm:mx-7 sm:p-6"><div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"><div className="flex gap-3"><span className="grid size-10 shrink-0 place-items-center rounded-full bg-[#ffcf67] text-sm">★</span><div><p className="text-xs font-black uppercase tracking-[.12em] text-black/45">{freemiumTrialActive ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft }) : t(paymentRecovery ? 'premiumBannerPastDueTitle' : 'premiumBannerTitle')}</p><p className="mt-2 max-w-2xl text-xs leading-relaxed text-black/50">{freemiumTrialActive ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft }) : paymentRecovery ? t('premiumBannerPastDueDesc') : t(trialEligible ? 'premiumBannerDesc' : 'premiumBannerDescTrialUsed')}</p></div></div>{!freemiumTrialActive && <span className="self-start rounded-full border border-[#7776df]/30 px-4 py-2 text-xs font-black text-[#5f5ec5]">{paymentRecovery ? t('premiumBannerPastDueCta') : t(trialEligible ? 'premiumBannerCta' : 'premiumBannerCtaTrialUsed')}</span>}</div>{!freemiumTrialActive && (paymentRecovery ? <div className="mt-4 border-t border-black/5 pt-4"><button onClick={handleManageSubscription} disabled={portalLoading} className="rounded-full bg-[#25282e] px-5 py-3 text-xs font-black text-white disabled:opacity-50">{portalLoading ? "…" : tBilling('updatePayment')}</button>{portalError && <p className="mt-3 text-xs text-red-500">{portalError}</p>}</div> : <SubscriptionPlanButtons className="mt-4 border-t border-black/5 pt-4" />)}</section>}
 
-        <footer className="flex flex-wrap items-center gap-2 border-t border-black/5 bg-[#f6f6f4] px-5 py-5 sm:px-7">
-            <Link href="/plan" className="rounded-full bg-[#292c30] px-5 py-3 text-xs font-black text-white">{t('goToMyPlan')}</Link>
+          <footer className="flex flex-wrap items-center gap-2 border-t border-black/5 bg-[#f3f3f2] px-5 py-5 sm:px-7">
+            <Link href="/plan" className="rounded-full bg-[#25282e] px-5 py-3 text-xs font-bold text-white">{t('goToMyPlan')}</Link>
             {pendingCount > 0 && <Link href="/plan" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{pendingCount} {t('pendingLessons')} →</Link>}
             <Link href="/flashcards" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{tNav('flashcards')}</Link>
             <Link href="/chat" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{tNav('tutor')}</Link>
             <Link href="/assessment" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{tNav('assessment')}</Link>
-        </footer>
+          </footer>
+        </div>
+      </main>
     </>
   )
 
