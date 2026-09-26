@@ -255,17 +255,29 @@
       "missingToken": "Ongeldige link. Vraag een nieuwe reset aan.",
       "error": "Ongeldige of verlopen link",
       "backToLogin": "Terug naar inloggen"
-    }
-  ,
+    },
     "scenarios": {
-      "airport": {"title": "Luchthaven", "description": "Check in, vraag de weg en ga om met vertragingen."},
-      "jobInterview": {"title": "Sollicitatiegesprek", "description": "Oefen antwoorden, zelfvertrouwen en professionele woordenschat."},
-      "restaurant": {"title": "Restaurant", "description": "Bestel natuurlijk en voer een echt gesprek."},
-      "hotel": {"title": "Hotel", "description": "Boek een kamer, los problemen op en doe verzoeken."}
+      "airport": {
+        "title": "Luchthaven",
+        "description": "Check in, vraag de weg en ga om met vertragingen."
+      },
+      "jobInterview": {
+        "title": "Sollicitatiegesprek",
+        "description": "Oefen antwoorden, zelfvertrouwen en professionele woordenschat."
+      },
+      "restaurant": {
+        "title": "Restaurant",
+        "description": "Bestel natuurlijk en voer een echt gesprek."
+      },
+      "hotel": {
+        "title": "Hotel",
+        "description": "Boek een kamer, los problemen op en doe verzoeken."
+      }
     },
     "learningLabel": "Leren",
     "cefrLabel": "CEFR",
-    "coachLabel": "Coach"},
+    "coachLabel": "Coach"
+  },
   "settings": {
     "title": "Instellingen",
     "sectionAccount": "Account",
@@ -994,7 +1006,8 @@
     "cardsAdded": "{count} kaarten toegevoegd aan je flashcard-deck.",
     "goToFlashcards": "Naar flashcards →",
     "addFailed": "Toevoegen van flashcards mislukt.",
-    "noResults": "Geen woordenschatsets komen overeen met je zoekopdracht"
+    "noResults": "Geen woordenschatsets komen overeen met je zoekopdracht",
+    "setCount": "{count, plural, =1 {# set} other {# sets}}"
   },
   "phrasebook": {
     "title": "Woordenboek",
