@@ -7532,3 +7532,95 @@ main [dir="rtl"] h3,
  .juba-games .game-card{border-radius:22px!important;}
  .juba-flashcards-shell .juba-card{border-radius:22px!important;}
 }
+
+
+/* ─────────────────────────────────────────────────────────────────────────
+   JUBA LISAN member-page visual language
+   Keeps every authenticated page inside the same dashboard design system.
+   ───────────────────────────────────────────────────────────────────────── */
+.juba-app-page{
+  min-height:100%;
+  background:#f4f4f2;
+  color:#202127;
+}
+.juba-app-page>div:not(.juba-dashboard-route){
+  color:#202127;
+}
+.juba-app-page .juba-card,
+.juba-app-page [class*="rounded-3xl"],
+.juba-app-page [class*="rounded-[26px]"],
+.juba-app-page [class*="rounded-[28px]"],
+.juba-app-page [class*="rounded-[30px]"]{
+  border-color:rgba(7,7,9,.07);
+  box-shadow:0 12px 30px rgba(43,45,90,.055);
+}
+.juba-app-page .juba-card{
+  background:#fff;
+  border:1px solid rgba(7,7,9,.07);
+  border-radius:26px;
+}
+.juba-app-page button:not([aria-label="Close"]),
+.juba-app-page a[class*="rounded"]{
+  transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease,border-color .18s ease;
+}
+.juba-app-page button:not([aria-label="Close"]):hover,
+.juba-app-page a[class*="rounded"]:hover{
+  transform:translateY(-1px);
+}
+.juba-app-page input,
+.juba-app-page textarea,
+.juba-app-page select{
+  border-radius:14px;
+  border-color:rgba(7,7,9,.10);
+  background:#fff;
+}
+.juba-app-page [class*="bg-[var(--juba-app-bg)]"],
+.juba-app-page [class*="bg-[var(--juba-app-surface)]"]{
+  background:#fff;
+}
+.juba-app-page [class*="border-[var(--juba-app-line)]"]{
+  border-color:rgba(7,7,9,.08);
+}
+.juba-app-page [class*="bg-[var(--juba-app-green-soft)]"]{
+  background:#ededff;
+}
+.juba-app-page [class*="text-[var(--juba-app-green)]"]{
+  color:#373fb8;
+}
+.juba-app-page [class*="bg-[var(--juba-app-yellow)]"]{
+  background:#fff3d1;
+}
+.juba-app-page [class*="text-[var(--juba-app-ink)]"]{
+  color:#202127;
+}
+.juba-app-page [class*="text-[var(--juba-app-muted)]"]{
+  color:rgba(32,33,39,.52);
+}
+.juba-app-page h1{
+  letter-spacing:-.035em;
+}
+.juba-app-page h2{
+  letter-spacing:-.025em;
+}
+.juba-app-page .juba-primary-button{
+  background:#5862e2!important;
+  color:#fff!important;
+  border-radius:14px!important;
+  box-shadow:0 7px 0 #373fb8;
+}
+.juba-app-page .juba-secondary-button{
+  border-radius:14px!important;
+  background:#fff!important;
+  border:1px solid rgba(7,7,9,.09)!important;
+}
+.juba-app-page .juba-card:hover{
+  box-shadow:0 16px 36px rgba(43,45,90,.09);
+}
+@media(max-width:640px){
+  .juba-app-page>div:not(.juba-dashboard-route){
+    width:100%;
+  }
+  .juba-app-page .juba-card{
+    border-radius:22px;
+  }
+}
