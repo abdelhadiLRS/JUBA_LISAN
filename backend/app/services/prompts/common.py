@@ -274,14 +274,46 @@ _LANGUAGE_PROMPT_OVERLAY_ALIASES: dict[str, str] = {
 
 
 def get_language_prompt_overlay(target_language: str) -> str:
-    """Return language-specific prompt guidance for a BCP-47-ish locale."""
+    """Return language-specific prompt guidance for a BCP-47-ish locale.
+
+    Core locales use curated overlays above. Foundation languages receive a
+    deterministic metadata-aware overlay so they never silently lose
+    language-specific generation constraints.
+    """
     locale = (target_language or "").strip().replace("_", "-") or "en-GB"
+    base_language = locale.split("-")[0].lower()
     canonical_language = _LANGUAGE_PROMPT_OVERLAY_ALIASES.get(locale, locale)
     if canonical_language not in _LANGUAGE_PROMPT_OVERLAYS:
         canonical_language = _LANGUAGE_PROMPT_OVERLAY_ALIASES.get(
-            locale.split("-")[0], locale
+            base_language, base_language
         )
-    return _LANGUAGE_PROMPT_OVERLAYS.get(canonical_language, "")
+    curated = _LANGUAGE_PROMPT_OVERLAYS.get(canonical_language)
+    if curated:
+        return curated
+
+    from app.services.language_helpers import (
+        get_comprehension_length_guidance,
+        get_language_name,
+        get_language_script,
+        get_reading_length_unit,
+        uses_word_spacing,
+    )
+
+    language_name = get_language_name(locale)
+    script = get_language_script(locale)
+    spacing = "word spacing is expected" if uses_word_spacing(locale) else "word boundaries may not be represented by spaces"
+    length_unit = get_reading_length_unit(locale)
+    length_guidance = get_comprehension_length_guidance(locale)
+
+    return (
+        "Language-specific guidance:\n"
+        f"- Generate the target language as {language_name}; do not substitute English or another language.\n"
+        f"- Preserve the target writing system ({script}) and its native orthography; do not transliterate unless explicitly requested.\n"
+        f"- Treat {spacing}; use native tokenisation and punctuation conventions.\n"
+        f"- For reading-length decisions, measure in {length_unit}; {length_guidance}.\n"
+        "- Keep grammar, vocabulary, register, and examples natural for the target language and CEFR level.\n"
+        "- Do not invent language-specific rules when the supplied curriculum or exercise context does not establish them."
+    )
 
 
 MEMORY_SYSTEM_INSTRUCTION_BASE = """
