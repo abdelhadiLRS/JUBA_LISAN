@@ -26,7 +26,7 @@ class CurriculumUnit:
     prerequisite_unit: str | None = None
 
 
-Skill = Literal["grammar", "vocabulary", "reading"]
+Skill = Literal[\n    "grammar",\n    "vocabulary",\n    "reading",\n    "communication",\n    "discourse",\n    "pragmatics",\n    "academic",\n    "formal",\n]
 
 
 @dataclass
