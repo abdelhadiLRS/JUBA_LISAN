@@ -13,7 +13,7 @@ function TopicCard({ topic }: { topic: GrammarTopic }) {
   return (
     <Link
       href={`/grammar/${topic.slug}`}
-      className="border bg-[#fff] hover:border-2 hover:bg-[#f4f4f2] group block border transition-colors"
+      className="card group block overflow-hidden transition-colors hover:bg-[#f4f4f2]"
     >
       <div className="space-y-2 px-4 py-4">
         <div className="flex items-start justify-between gap-2">
@@ -191,7 +191,7 @@ export default function GrammarIndexPage() {
       })}
 
       {filtered.length === 0 && (
-        <div className="border bg-[#fff] space-y-4 border px-6 py-10 text-center">
+        <div className="card space-y-4 px-6 py-10 text-center">
           <p className="text-[rgba(32,33,39,.52)] font-sans text-xs tracking-widest uppercase">
             {t('noResults')}
           </p>
@@ -201,7 +201,7 @@ export default function GrammarIndexPage() {
                 setSearch('')
                 setActiveCategory('All')
               }}
-              className="text-[#202127] border text-[rgba(32,33,39,.52)] hover:border-2 hover:text-[#202127] border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
+              className="btn btn-outline-secondary font-sans tracking-widest uppercase transition-colors"
             >
               {tCommon('clearFilters')}
             </button>
