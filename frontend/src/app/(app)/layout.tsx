@@ -237,6 +237,57 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     const active = isItemActive(item.href)
     const premium = item.premium && showPremiumBadge
     return (
+      <Link
+        key={item.href}
+        href={item.href}
+        onClick={() => setOpenTopMenu(null)}
+        className={'nav-link d-flex align-items-center gap-2 px-3 py-2 ' + (active ? 'active bg-primary-lt text-primary fw-semibold' : 'text-secondary')}
+      >
+        <i className={'ti ' + (NAV_ICONS[item.href] ?? 'ti-circle') + ' icon icon-sm'} aria-hidden="true" />
+        <span>{item.label}</span>
+        {premium && <span className="badge bg-yellow-lt text-yellow ms-1">PRO</span>}
+      </Link>
+    )
+  }
+
+  const renderTopGroup = (group: NavGroup) => {
+    const active = group.items.some((item) => isItemActive(item.href))
+    const open = openTopMenu === group.key
+    return (
+      <div key={group.key} className="nav-item dropdown position-relative">
+        <button
+          type="button"
+          className={'nav-link dropdown-toggle d-flex align-items-center gap-2 border-0 bg-transparent px-3 py-2 ' + (active ? 'text-primary fw-semibold' : 'text-secondary')}
+          aria-expanded={open}
+          onClick={() => setOpenTopMenu(open ? null : group.key)}
+        >
+          <i className={'ti ' + group.icon + ' icon icon-sm'} aria-hidden="true" />
+          <span>{group.label}</span>
+        </button>
+        {open && (
+          <div className="dropdown-menu show position-absolute start-0 mt-1 p-2" style={{ minWidth: 230 }}>
+            {group.items.map(renderTopItem)}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  const renderTopNavigation = () => (
+    <nav aria-label="Primary navigation" className="navbar-nav flex-row flex-wrap align-items-center gap-1">
+      {mainNavItems.map(renderTopItem)}
+      {navGroups.map(renderTopGroup)}
+      <div className="vr mx-1 d-none d-xl-block" />
+      {bottomNavItems.map(renderTopItem)}
+    </nav>
+  )
+
+  const activePageLabel = (() => {
+    const allItems = [...mainNavItems, ...navGroups.flatMap((group) => group.items), ...bottomNavItems]
+    return allItems.find((item) => isItemActive(item.href))?.label ?? 'JUBA LISAN'
+  })()
+
+  return (
     <div className="page juba-tabler-app min-h-screen bg-[#f5f7fb]">
       <div className="page-wrapper min-w-0 w-100">
         <header className="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top z-50">
@@ -266,7 +317,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <div className="container-fluid py-2 d-flex align-items-center justify-content-between">
             <div>
               <div className="text-uppercase text-secondary small fw-bold">JUBA LISAN</div>
-              <div className="fs-3 fw-bold text-dark">{pageLabel}</div>
+              <div className="fs-3 fw-bold text-dark">{activePageLabel}</div>
             </div>
           </div>
         </div>
@@ -284,4 +335,5 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
       <ConfirmDialog open={logoutConfirm} title={tCommon('logoutConfirmTitle')} message={tCommon('logoutConfirmMessage')} confirmLabel={tCommon('logout')} onConfirm={handleLogout} onCancel={() => setLogoutConfirm(false)} />
     </div>
-  )}
+  )
+}
