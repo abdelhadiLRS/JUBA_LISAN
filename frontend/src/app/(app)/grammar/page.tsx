@@ -13,21 +13,21 @@ function TopicCard({ topic }: { topic: GrammarTopic }) {
   return (
     <Link
       href={`/grammar/${topic.slug}`}
-      className="border-[rgba(7,7,9,.08)] bg-[#fff] hover:border-[rgba(7,7,9,.08)]-2 hover:bg-[#fff]-2 group block border transition-colors"
+      className="border bg-[#fff] hover:border-2 hover:bg-[#fff]-2 group block border transition-colors"
     >
       <div className="space-y-2 px-4 py-4">
         <div className="flex items-start justify-between gap-2">
           <p className="text-[#202127] group-hover:text-[#202127]-bright font-sans text-xs leading-snug font-bold tracking-wide transition-colors">
             {topic.title}
           </p>
-          <span className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] shrink-0 border px-1.5 py-0.5 font-sans tracking-widest uppercase">
+          <span className="border text-[#202127] text-[rgba(32,33,39,.52)] shrink-0 border px-1.5 py-0.5 font-sans tracking-widest uppercase">
             {topic.level}
           </span>
         </div>
         <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans leading-relaxed">
           {topic.summary}
         </p>
-        <span className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] inline-block border px-2 py-0.5 font-sans tracking-widest uppercase">
+        <span className="border text-[#202127] text-[rgba(32,33,39,.52)] inline-block border px-2 py-0.5 font-sans tracking-widest uppercase">
           {topic.category}
         </span>
       </div>
@@ -112,8 +112,8 @@ export default function GrammarIndexPage() {
 
   return (
     <div className="card">
-      <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border">
-        <div className="border-[rgba(7,7,9,.08)] flex items-center gap-2 border-b px-6 py-4">
+      <div className="border bg-[#fff] border">
+        <div className="border flex items-center gap-2 border-b px-6 py-4">
           <span className="text-[#202127] text-[rgba(32,33,39,.52)]">{'\u25cf'}</span>
           <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
             {t('title')}
@@ -128,7 +128,7 @@ export default function GrammarIndexPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t('searchPlaceholder')}
-            className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[rgba(7,7,9,.08)]-2 w-full max-w-sm border px-4 py-2.5 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[#f4f4f2] border text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-2 w-full max-w-sm border px-4 py-2.5 font-sans text-xs transition-colors focus:outline-none"
           />
           <div className="flex flex-wrap gap-2">
             <button
@@ -136,7 +136,7 @@ export default function GrammarIndexPage() {
               className={`text-[#202127] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                 activeCategory === 'All'
                   ? 'border-[#202127] text-[#202127] bg-[#fff]-2'
-                  : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.08)]-2 hover:text-[#202127]'
+                  : 'border text-[rgba(32,33,39,.52)] hover:border-2 hover:text-[#202127]'
               }`}
             >
               {t('allCategories')}
@@ -150,7 +150,7 @@ export default function GrammarIndexPage() {
                 className={`text-[#202127] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                   activeCategory === cat
                     ? 'border-[#202127] text-[#202127] bg-[#fff]-2'
-                    : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.08)]-2 hover:text-[#202127]'
+                    : 'border text-[rgba(32,33,39,.52)] hover:border-2 hover:text-[#202127]'
                 }`}
               >
                 {cat}
@@ -190,7 +190,7 @@ export default function GrammarIndexPage() {
       })}
 
       {filtered.length === 0 && (
-        <div className="border-[rgba(7,7,9,.08)] bg-[#fff] space-y-4 border px-6 py-10 text-center">
+        <div className="border bg-[#fff] space-y-4 border px-6 py-10 text-center">
           <p className="text-[rgba(32,33,39,.52)] font-sans text-xs tracking-widest uppercase">
             {t('noResults')}
           </p>
@@ -200,7 +200,7 @@ export default function GrammarIndexPage() {
                 setSearch('')
                 setActiveCategory('All')
               }}
-              className="text-[#202127] border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.08)]-2 hover:text-[#202127] border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
+              className="text-[#202127] border text-[rgba(32,33,39,.52)] hover:border-2 hover:text-[#202127] border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
             >
               {tCommon('clearFilters')}
             </button>
