@@ -846,7 +846,10 @@
     "skillMasteryMastered": "opanowane",
     "skillMasteryAttempted": "wykonane",
     "skillMasteryAttemptRate": "Wskaźnik prób: {rate}%",
-    "skillMasteryVariants": "warianty"
+    "skillMasteryVariants": "warianty",
+    "mastered": "Opanowane",
+    "listen": "Odtwórz",
+    "advance": "Kontynuuj"
   },
   "flashcards": {
     "title": "Fiszki",
@@ -910,7 +913,9 @@
     "deleteConfirm": "Usuń",
     "enterToSend": "Enter aby wysłać",
     "continueInVoice": "Kontynuuj głosowo",
-    "memoryUpdated": "Pamięć zaktualizowana"
+    "memoryUpdated": "Pamięć zaktualizowana",
+    "voiceSession": "Sesja głosowa",
+    "delete": "Usuń"
   },
   "progress": {
     "title": "Postępy",
