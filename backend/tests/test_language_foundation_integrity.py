@@ -173,7 +173,7 @@ def test_registered_foundations_keep_vocabulary_attached_to_declared_units():
                     f"{language}/{vocab.id}: vocabulary level {vocab.level} does not match unit {unit.id} level {unit.level}"
                 )
 
-    assert not failures, "\\n".join(failures)
+    assert not failures, "\n".join(failures)
 
 
 def test_registered_foundations_have_nonempty_core_content():
