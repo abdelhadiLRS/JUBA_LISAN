@@ -928,3 +928,25 @@ def test_registered_foundation_languages_have_prompt_guidance():
         if not get_language_prompt_overlay(language).strip():
             failures.append(f"{language}: missing language-specific prompt overlay")
     assert not failures, "\n".join(failures)
+
+
+
+@pytest.mark.parametrize(
+    ("locale", "expected_iso", "expected_module"),
+    [
+        ("HR-hr", "hr", "app.data.language_foundations.hr"),
+        ("SK-sk", "sk", "app.data.language_foundations.sk"),
+        ("ZH-tw", "zh", "app.data.zh.curriculum"),
+        ("PT-br", "pt", "app.data.pt.curriculum"),
+        ("EN-us", "en", "app.data.en_US.curriculum"),
+        ("GA-ie", "ga", "app.data.language_foundations.ga"),
+    ],
+)
+def test_locale_lookup_is_case_insensitive(locale: str, expected_iso: str, expected_module: str):
+    from app.services.prompts.common import get_language_prompt_overlay
+
+    assert get_iso639(locale) == expected_iso
+    assert get_language_name(locale).strip()
+    assert get_language_self_name(locale).strip()
+    assert curriculum_dispatcher._resolve_module(locale).__name__ == expected_module
+    assert get_language_prompt_overlay(locale).strip()
