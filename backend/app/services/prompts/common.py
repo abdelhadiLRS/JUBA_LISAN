@@ -269,7 +269,7 @@ _LANGUAGE_PROMPT_OVERLAY_ALIASES: dict[str, str] = {
     "no": "no-NO",
     "fi": "fi-FI",
     "cs": "cs-CZ",
-    "el": "el",
+    "el": "el-GR",
 }
 
 
