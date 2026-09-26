@@ -38,6 +38,10 @@ _GRAMMAR=[
 ("rhetoric","Rhetorical argumentation","C2","Unuflanke... aliflanke...","Build balanced persuasive discourse."),
 ("literary","Literary and idiomatic style","C2","La urbo vekiĝis.","Interpret figurative language."),
 ("translation","Translation precision and paraphrase","C2","Alivorte, ...","Choose precise equivalents across registers."),
+("subjunctive-style","Volaj kaj deziraj nuancoj","C1","Mi volus, ke la plano sukcesu.","Express wishes, preferences and hypothetical attitudes precisely."),
+("register-shift","Registro kaj ĝenro","C1","La tono dependas de la publiko.","Adapt vocabulary and syntax to genre and audience."),
+("cohesion","Kohero kaj referenco","C2","Tio ĉi rilatas al la antaŭa argumento.","Maintain cohesion and explicit reference across long texts."),
+("discourse-analysis","Diskursa analizo","C2","La elekto de vortoj montras la pozicion de la aŭtoro.","Analyse stance, cohesion, rhetoric and discourse structure.")
 ]
 GRAMMAR_TOPICS=[GrammarTopic(slug=s,title=t,level=l,category=c,summary=t,explanation=x,examples=[GrammarExample(text=e)]) for s,t,l,c,e,x in _GRAMMAR]
 
@@ -80,12 +84,12 @@ for idx,(level,topic,words) in enumerate(_VOCAB,1):
     VOCABULARY_SETS.append(VocabularySet(id=vid,level=level,topic=topic,unit_ref=f"eo-{level.lower()}-unit-{unit}",words=entries))
 
 _CURRICULUM_TOPICS={
-"A1":["Salutoj kaj identeco","Familio kaj hejmo","Ĉiutaga vivo","Tempo kaj rendevuoj","Manĝaĵoj kaj aĉetado","Lokoj kaj direktoj"],
-"A2":["Vojaĝado","Sano","Plano kaj devo","Servoj","Pasintaj eventoj","Komparoj"],
-"B1":["Eduko","Laboro","Socio","Opinioj","Informo kaj raportado","Kondiĉoj"],
-"B2":["Amaskomunikiloj","Ekonomio","Kulturo","Medio","Formala klarigo","Argumentado"],
-"C1":["Akademia diskurso","Publika administrado","Profesia komunikado","Kritika analizo","Evidenco","Formala verkado"],
-"C2":["Retoriko","Pragmatiko","Literatura stilo","Tradukado","Diskursa analizo","Altnivela stilo"],
+"A1":["Salutoj kaj identeco","Familio kaj hejmo","Ĉiutaga vivo","Tempo kaj rendevuoj","Manĝaĵoj kaj aĉetado","Lokoj kaj direktoj","Distro kaj ŝatokupoj","Ĉiutaga komunikado"],
+"A2":["Vojaĝado","Sano","Plano kaj devo","Servoj","Pasintaj eventoj","Komparoj","Laboro kaj studado","Problemoj kaj solvoj"],
+"B1":["Eduko","Laboro","Socio","Opinioj","Informo kaj raportado","Kondiĉoj","Rilatoj kaj kunlaboro","Medio kaj komunumo"],
+"B2":["Amaskomunikiloj","Ekonomio","Kulturo","Medio","Formala klarigo","Argumentado","Teknologio","Publika diskuto"],
+"C1":["Akademia diskurso","Publika administrado","Profesia komunikado","Kritika analizo","Evidenco","Formala verkado","Deziroj kaj nuancoj","Registro kaj ĝenro"],
+"C2":["Retoriko","Pragmatiko","Literatura stilo","Tradukado","Diskursa analizo","Altnivela stilo","Kohero kaj referenco","Altnivela diskursa analizo"],
 }
 CURRICULUM={}
 for level,titles in _CURRICULUM_TOPICS.items():
@@ -94,7 +98,7 @@ for level,titles in _CURRICULUM_TOPICS.items():
         grammar_points=[x[1] for x in _GRAMMAR if x[2]==level][:2],
         vocabulary_set_ids=[f"eo-{level.lower()}-{(n-1)%4+1}"],
         lesson_types=["grammar","vocabulary","reading","writing","listening","review"],
-        competency_checklist=[f"Communicate about {title.lower()} at {level} level","Apply Esperanto morphology and syntax accurately"],default_weeks=2)
+        competency_checklist=[f"Communicate in Esperanto about {title.lower()} at {level} level","Apply Esperanto morphology and syntax accurately"],default_weeks=2)
         for n,title in enumerate(titles,1)
     ]
 
