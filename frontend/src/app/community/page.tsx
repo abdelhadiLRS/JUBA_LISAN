@@ -37,9 +37,9 @@ const culturalData = [
 
 export default function CommunityPage() {
   return (
-    <div className="min-h-screen overflow-hidden bg-[var(--juba-bg)] text-[var(--juba-text)]">
+    <div className="min-h-screen overflow-hidden bg-[#f4f4f2] text-[#202127]">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-[var(--juba-violet)] py-20 text-white">
+      <section className="relative overflow-hidden bg-[#373fb8] py-20 text-white">
         <div className="absolute inset-0 juba-hero-glow opacity-30" />
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -60,7 +60,7 @@ export default function CommunityPage() {
       </section>
 
       {/* Weekly Challenge */}
-      <section className="border-y-2 border-[var(--juba-lilac)] bg-white py-16">
+      <section className="border-y border-black/[0.08] bg-white py-16">
         <div className="container mx-auto px-4">
           <WeeklyChallenge />
         </div>
@@ -102,7 +102,7 @@ export default function CommunityPage() {
       </section>
 
       {/* Social Learning Features */}
-      <section className="py-16 bg-white dark:bg-slate-900">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -110,7 +110,7 @@ export default function CommunityPage() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+            <h2 className="text-4xl font-bold mb-4 text-[#202127]">
               Connect & Learn
             </h2>
             <p className="text-lg text-white\/80 max-w-2xl mx-auto">
@@ -142,7 +142,7 @@ export default function CommunityPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="rounded-[28px] border-2 border-[var(--juba-lilac)] bg-white p-8 text-center shadow-[var(--juba-shadow-sm)] transition-transform hover:-translate-y-1"
+                className="rounded-[28px] border border-black/[0.08] bg-white p-8 text-center shadow-[0_12px_30px_rgba(43,45,90,.055)] transition-transform hover:-translate-y-1"
               >
                 <div className="text-5xl mb-4">{feature.icon}</div>
                 <h3 className="text-2xl font-bold mb-3 text-slate-900 dark:text-white">
