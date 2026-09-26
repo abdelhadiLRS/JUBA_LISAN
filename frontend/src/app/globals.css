@@ -7147,3 +7147,159 @@ main [dir="rtl"] h3,
   .juba-app-page .juba-friends-shell,
   .juba-app-page .juba-mobile-assessment { border-radius: 22px; }
 }
+
+
+/* Dashboard fidelity pass — member pages inherit the dashboard's composition.
+   This layer intentionally normalises legacy page surfaces without changing
+   route-specific business logic, forms, data fetching or interactions. */
+.juba-app-page {
+  background:#f4f4f2;
+  padding:clamp(12px,2vw,24px);
+}
+.juba-app-page > main {
+  width:min(100%,1240px);
+  margin-inline:auto;
+  color:#202127;
+}
+.juba-app-page > main:not(.juba-chat-shell):not(.juba-mobile-assessment) {
+  min-height:calc(100vh - 130px) !important;
+}
+.juba-app-page .juba-card {
+  border:1px solid rgba(7,7,9,.07) !important;
+  border-radius:26px !important;
+  background:#fff !important;
+  box-shadow:0 12px 30px rgba(43,45,90,.07) !important;
+}
+.juba-app-page [class*="bg-[var(--juba-app-green)]"] {
+  background:#9a9ff3 !important;
+}
+.juba-app-page [class*="bg-[var(--juba-app-green-dark)]"] {
+  background:#373fb8 !important;
+}
+.juba-app-page [class*="bg-[var(--juba-app-green-soft)]"] {
+  background:#ededff !important;
+}
+.juba-app-page [class*="text-[var(--juba-app-green-dark)]"] {
+  color:#373fb8 !important;
+}
+.juba-app-page [class*="text-[var(--juba-app-green)]"] {
+  color:#5862e2 !important;
+}
+.juba-app-page [class*="border-[var(--juba-app-green)]"] {
+  border-color:#9a9ff3 !important;
+}
+.juba-app-page input,
+.juba-app-page select,
+.juba-app-page textarea {
+  border-radius:14px;
+}
+.juba-app-page h1 {
+  letter-spacing:-.04em;
+}
+.juba-app-page .juba-eyebrow {
+  color:#5862e2 !important;
+}
+.juba-app-page section {
+  border-radius:24px;
+}
+.juba-app-page section > :where(.border, [class*="border-[var(--juba-app-line)]"]) {
+  border-radius:20px;
+}
+.juba-app-page a[class*="rounded-"],
+.juba-app-page button[class*="rounded-"] {
+  transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease;
+}
+.juba-app-page a[class*="rounded-"]:hover,
+.juba-app-page button[class*="rounded-"]:hover:not(:disabled) {
+  transform:translateY(-1px);
+}
+
+/* Courses: remove the previous green hero identity and use the dashboard's
+   lilac/black/purple visual language. */
+.juba-mobile-courses .juba-card:first-child {
+  background:#9a9ff3 !important;
+}
+.juba-mobile-courses .juba-card:first-child h1,
+.juba-mobile-courses .juba-card:first-child p {
+  color:#fff !important;
+}
+.juba-mobile-courses .juba-card:first-child a:first-of-type {
+  color:#070709 !important;
+}
+.juba-mobile-courses .juba-card:first-child a:nth-of-type(2) {
+  border-color:rgba(7,7,9,.18) !important;
+  background:rgba(7,7,9,.08) !important;
+}
+.juba-mobile-courses .juba-card:not(:first-child) {
+  background:#fff !important;
+}
+
+/* Progress/plan/flashcards/resource pages use the same dashboard card rhythm. */
+.juba-progress-shell,
+.juba-plan-shell,
+.juba-flashcards-shell,
+.juba-vocabulary-shell,
+.juba-translator-shell,
+.juba-settings-shell,
+.juba-faq-shell {
+  width:min(100%,1240px) !important;
+  max-width:1240px !important;
+  margin-inline:auto;
+}
+.juba-progress-shell > .border,
+.juba-progress-shell > section > .border,
+.juba-plan-shell > .border,
+.juba-flashcards-shell > .border,
+.juba-vocabulary-shell > .border {
+  border-color:rgba(7,7,9,.07) !important;
+  border-radius:24px !important;
+  background:#fff !important;
+  box-shadow:0 10px 26px rgba(43,45,90,.06);
+}
+.juba-progress-shell .bg-[var(--juba-app-green)],
+.juba-plan-shell .bg-[var(--juba-app-green)],
+.juba-flashcards-shell .bg-[var(--juba-app-green)],
+.juba-vocabulary-shell .bg-[var(--juba-app-green)] {
+  background:#5862e2 !important;
+}
+
+/* Full-height interactive areas keep their functional geometry while
+   receiving the same dark/lilac dashboard chrome. */
+.juba-chat-shell,
+.juba-listening-shell,
+.juba-reading-shell,
+.juba-conversation-shell,
+.juba-coach-shell,
+.juba-friends-shell {
+  border-radius:26px;
+  overflow:hidden;
+}
+.juba-chat-shell {
+  background:#f4f4f2;
+  box-shadow:0 14px 34px rgba(43,45,90,.08);
+}
+.juba-chat-sidebar {
+  background:#ededff !important;
+}
+.juba-chat-shell :where(header, .juba-chat-header) {
+  background:#070709;
+  color:#fff;
+}
+@media (max-width:760px) {
+  .juba-app-page {
+    padding:10px;
+  }
+  .juba-app-page > main:not(.juba-chat-shell):not(.juba-mobile-assessment) {
+    min-height:calc(100vh - 96px) !important;
+  }
+  .juba-app-page .juba-card,
+  .juba-app-page section,
+  .juba-chat-shell,
+  .juba-listening-shell,
+  .juba-reading-shell,
+  .juba-conversation-shell,
+  .juba-coach-shell,
+  .juba-friends-shell {
+    border-radius:20px !important;
+  }
+}
