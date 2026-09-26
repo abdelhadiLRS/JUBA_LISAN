@@ -114,8 +114,8 @@ export default function VocabularyPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
-      <div className="flex items-center justify-between gap-4">
+    <div className="juba-flashcards-vocabulary-shell mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
+      <div className="flex items-center justify-between gap-4 rounded-[26px] border border-black/[0.07] bg-white p-4 shadow-[0_12px_30px_rgba(43,45,90,.055)]">
         <div className="flex items-center gap-2">
           <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
           <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
@@ -129,14 +129,14 @@ export default function VocabularyPage() {
         </div>
         <Link
           href="/flashcards"
-          className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] border-[var(--juba-lilac)] hover:border-[var(--juba-violet)] border px-4 py-2 font-mono tracking-widest uppercase transition-colors"
+          className="juba-secondary-button inline-flex items-center border border-black/[0.09] bg-white px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase"
         >
           ← {t('backToFlashcards')}
         </Link>
       </div>
 
       {guestItems.length > 0 && (
-        <section className="juba-card rounded-[30px] border-2 border-[var(--juba-violet)] bg-[var(--juba-yellow)] p-5 dark:border-white dark:bg-lime-300">
+        <section className="juba-card bg-[#fff3d1] p-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.16em] text-neutral-950/60">
@@ -151,7 +151,7 @@ export default function VocabularyPage() {
             </div>
             <Link
               href="/register"
-              className="inline-flex shrink-0 items-center justify-center rounded-full border-2 border-neutral-950 bg-white px-4 py-2 text-xs font-black text-neutral-950 shadow-[3px_3px_0_rgba(17,17,17,.85)] transition hover:-translate-y-0.5"
+              className="juba-primary-button inline-flex shrink-0 items-center justify-center px-4 py-2 text-xs font-black"
             >
               Create account to sync
             </Link>
@@ -194,10 +194,10 @@ export default function VocabularyPage() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder={t('vocabularySearch')}
-        className="bg-[var(--juba-lilac)]/40 border-[var(--juba-lilac)] text-[var(--juba-text)] placeholder:text-fl-border-2 focus:border-[var(--juba-violet)] w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+        className="w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
       />
 
-      <div className="border-[var(--juba-lilac)] bg-white border">
+      <div className="juba-card overflow-hidden bg-white">
         {loading ? (
           <PageLoading fullScreen={false} className="block p-5" />
         ) : items.length === 0 ? (
@@ -205,9 +205,9 @@ export default function VocabularyPage() {
             {debouncedSearch ? t('myVocabularyNoResults') : t('myVocabularyEmpty')}
           </p>
         ) : (
-          <div className="divide-fl-border divide-y">
+          <div className="divide-y divide-black/[0.07]">
             {items.map((item) => (
-              <div key={item.id} className="flex items-start justify-between gap-4 px-5 py-3">
+              <div key={item.id} className="flex items-start justify-between gap-4 px-5 py-4 transition hover:bg-[#fafaff]">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <p className="text-[var(--juba-text)] font-mono text-xs font-bold">{item.word}</p>
