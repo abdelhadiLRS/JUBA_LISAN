@@ -316,7 +316,7 @@ export default function PlanPage() {
   const levelTestReady = completion?.state === 'ready'
 
   return (
-    <div className="container-xl page-body py-4">
+    <div className="space-y-4">
       {/* ── Header ── */}
       <div className="card overflow-hidden">
         <div className="flex items-center gap-2 border-b border bg-[#ededff] px-6 py-4">
