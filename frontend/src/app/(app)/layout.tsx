@@ -216,7 +216,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   const renderTopNavigation = () => (
-    <nav ref={topMenuRef} aria-label="Primary navigation" className="navbar-nav flex-row flex-nowrap align-items-center gap-1 overflow-visible">
+    <nav ref={topMenuRef} aria-label={tNav('primaryNavigation')} className="navbar-nav flex-row flex-nowrap align-items-center gap-1 overflow-visible juba-top-nav">
       {mainNavItems.map(renderTopItem)}
       {navGroups.map(renderTopGroup)}
       <div className="vr mx-1 d-none d-xl-block" />
@@ -238,11 +238,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <span className="avatar avatar-sm rounded-2 bg-primary text-white fw-bold">JL</span>
               <span className="fw-bold text-dark">JUBA LISAN</span>
             </Link>
-            <div className="flex-fill overflow-visible min-w-0">
+            <div className="flex-fill overflow-visible min-w-0 juba-top-nav-shell">
               {renderTopNavigation()}
             </div>
             <div className="navbar-nav flex-row align-items-center gap-2 ms-auto">
-              <button type="button" className="btn btn-ghost-secondary position-relative" aria-label="Notifications" title="Notifications"><i className="ti ti-bell icon" aria-hidden="true" /></button>
+              <button type="button" className="btn btn-ghost-secondary position-relative" aria-label={tNav('notifications')} title={tNav('notifications')}><i className="ti ti-bell icon" aria-hidden="true" /></button>
               <LanguageSwitcher />
               <Link href="/settings" title={tNav('settings')} aria-label={tNav('settings')} className="nav-link p-0">
                 <span className="avatar avatar-sm rounded-circle bg-azure-lt text-azure fw-bold">
