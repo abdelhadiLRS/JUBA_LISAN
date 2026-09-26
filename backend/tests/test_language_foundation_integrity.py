@@ -1016,3 +1016,10 @@ def test_explicit_locale_aliases_point_to_registered_curricula():
     }
     assert not invalid, f"Locale aliases target unregistered curricula: {invalid}"
 
+def test_registered_languages_use_two_or_three_letter_iso_codes():
+    failures: list[str] = []
+    for language in curriculum_dispatcher._LANG_MODULES:
+        code = get_iso639(language)
+        if len(code) not in {2, 3} or not code.isalpha() or code != code.lower():
+            failures.append(f"{language}: invalid ISO 639 language identifier {code!r}")
+    assert not failures, "\\n".join(failures)
