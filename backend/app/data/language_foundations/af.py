@@ -71,11 +71,11 @@ for level,rows in _VOCAB.items():
 
 _UNIT_TITLES={
 "A1":["Bekendstelling","Familie en mense","Huis en roetine","Tyd en afsprake","Kos en inkopies","Plekke en rigtings","Vervoer en dienste","Alledaagse kommunikasie"],
-"A2":["Verlede ervarings","Toekomsplanne","Vermoë en verpligting","Reis en beweging","Keuses vergelyk","Gesondheid en roetines"],
-"B1":["Redes en verduidelikings","Mense en dinge beskryf","Hipotetiese situasies","Inligting rapporteer","Gebeurtenisse vertel","Menings verbind"],
-"B2":["Prosesse en passief","Kontras en toegewing","Komplekse beskrywings","Formele prosesse","Professionele kommunikasie","Geïntegreerde taalgebruik"],
-"C1":["Bewyse en aansprake","Ingebedde kommunikasie","Fokus en aanbieding","Komplekse argumente","Openbare administrasie","Gevorderde professionele skryfwerk"],
-"C2":["Idiome en nuanse","Registerbeheer","Retoriese argumentasie","Literêre interpretasie","Vertaalkeuses","Meesterschap en sintese"],
+"A2":["Verlede ervarings","Toekomsplanne","Vermoë en verpligting","Reis en beweging","Keuses vergelyk","Gesondheid en roetines","Weer en planne","Dienste en versoeke"],
+"B1":["Redes en verduidelikings","Mense en dinge beskryf","Hipotetiese situasies","Inligting rapporteer","Gebeurtenisse vertel","Menings verbind","Werk en onderhandeling","Samelewing en debat"],
+"B2":["Prosesse en passief","Kontras en toegewing","Komplekse beskrywings","Formele prosesse","Professionele kommunikasie","Geïntegreerde taalgebruik","Media en analise","Beleid en prosedures"],
+"C1":["Bewyse en aansprake","Ingebedde kommunikasie","Fokus en aanbieding","Komplekse argumente","Openbare administrasie","Gevorderde professionele skryfwerk","Navorsing en metodologie","Kritiese leeswerk"],
+"C2":["Idiome en nuanse","Registerbeheer","Retoriese argumentasie","Literêre interpretasie","Vertaalkeuses","Meesterschap en sintese","Gevorderde stilistiek","Intertekstuele interpretasie"],
 }
 CURRICULUM={}
 for level,titles in _UNIT_TITLES.items():
