@@ -38,31 +38,55 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const isAdmin = user?.role === 'admin'
   const isAdminRoute = pathname === '/admin' || pathname.startsWith('/admin/')
 
-  const mainNavItems = [
+  type NavItem = { href: string; label: string; icon?: string; premium?: boolean }
+  type NavGroup = { key: string; label: string; icon: string; items: NavItem[] }
+
+  const mainNavItems: NavItem[] = [
     { href: '/dashboard', label: tNav('home') },
-    { href: '/plan', label: tNav('myPlan') },
-    { href: '/progress', label: tNav('progress') },
     { href: '/games', label: tNav('games') },
-    { href: '/flashcards', label: tNav('flashcards') },
     { href: '/friends', label: tNav('friends') },
-    { href: '/chat', label: tNav('tutor') },
-    { href: '/listening', label: tNav('listening') },
-    { href: '/reading', label: tNav('reading') },
-    { href: '/conversation', label: tNav('conversation') },
-    { href: '/assessment', label: tNav('assessment') },
-    { href: '/coach', label: tNav('coach') },
-    { href: '/courses', label: tNav('courses') },
-    { href: '/review', label: tNav('review') },
-    { href: '/translator', label: tNav('translator') },
   ]
 
-  const resourceNavItems = [
-    { href: '/grammar', label: tNav('grammar') },
-    { href: '/vocabulary', label: tNav('vocabulary') },
-    { href: '/phrasebook', label: tNav('phrasebook') },
+  const navGroups: NavGroup[] = [
+    {
+      key: 'learning',
+      label: 'Learning',
+      icon: 'ti-school',
+      items: [
+        { href: '/plan', label: tNav('myPlan') },
+        { href: '/progress', label: tNav('progress') },
+        { href: '/courses', label: tNav('courses') },
+        { href: '/review', label: tNav('review') },
+      ],
+    },
+    {
+      key: 'practice',
+      label: 'Practice',
+      icon: 'ti-microphone-2',
+      items: [
+        { href: '/listening', label: tNav('listening'), premium: true },
+        { href: '/reading', label: tNav('reading'), premium: true },
+        { href: '/conversation', label: tNav('conversation'), premium: true },
+        { href: '/assessment', label: tNav('assessment') },
+        { href: '/coach', label: tNav('coach') },
+        { href: '/chat', label: tNav('tutor'), premium: true },
+      ],
+    },
+    {
+      key: 'study-tools',
+      label: 'Study tools',
+      icon: 'ti-tool',
+      items: [
+        { href: '/flashcards', label: tNav('flashcards') },
+        { href: '/grammar', label: tNav('grammar') },
+        { href: '/vocabulary', label: tNav('vocabulary') },
+        { href: '/phrasebook', label: tNav('phrasebook') },
+        { href: '/translator', label: tNav('translator') },
+      ],
+    },
   ]
 
-  const bottomNavItems = [
+  const bottomNavItems: NavItem[] = [
     { href: '/settings', label: tNav('settings') },
     { href: '/faq', label: tNav('faq') },
     { href: '/feedback', label: tNav('feedback') },
@@ -208,24 +232,78 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     return labels[pathname] ?? 'JUBA LISAN'
   })()
 
-  const renderNavItems = (items: Array<{ href: string; label: string }>) =>
-    items.map((item) => {
-      const active = pathname === item.href || pathname.startsWith(item.href + '/')
-      const premium = PREMIUM_HREFS.has(item.href) && showPremiumBadge
+  const isItemActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
+
+  const renderNavItem = (item: NavItem, nested = false) => {
+    const active = isItemActive(item.href)
+    const premium = item.premium && showPremiumBadge
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        onClick={() => setSidebarOpen(false)}
+        title={sidebarCollapsed ? item.label : undefined}
+        className={
+          'nav-link d-flex align-items-center mb-1 ' +
+          (nested ? 'ps-5 ' : '') +
+          (sidebarCollapsed ? 'justify-content-center ' : '') +
+          (active ? 'active bg-primary-lt text-primary fw-semibold' : 'text-secondary')
+        }
+      >
+        <i className={'ti ' + (NAV_ICONS[item.href] ?? 'ti-circle') + ' icon'} aria-hidden="true" />
+        {!sidebarCollapsed && <span className="ms-2 flex-grow-1 text-truncate">{item.label}</span>}
+        {!sidebarCollapsed && premium && <span className="badge bg-yellow-lt text-yellow ms-auto">PRO</span>}
+      </Link>
+    )
+  }
+
+  const renderNavGroup = (group: NavGroup) => {
+    const active = group.items.some((item) => isItemActive(item.href))
+    const open = active
+    if (sidebarCollapsed) {
       return (
-        <Link
-          key={item.href}
-          href={item.href}
-          onClick={() => setSidebarOpen(false)}
-          title={sidebarCollapsed ? item.label : undefined}
-          className={'nav-link mb-1 d-flex align-items-center ' + (sidebarCollapsed ? 'justify-content-center ' : '') + (active ? 'active bg-primary-lt text-primary fw-semibold' : 'text-secondary')}
-        >
-          <NavIcon href={item.href} />
-          {!sidebarCollapsed && <span className="ms-2 flex-grow-1">{item.label}</span>}
-          {!sidebarCollapsed && premium && <span className="badge bg-yellow-lt text-yellow ms-auto">PRO</span>}
-        </Link>
+        <div key={group.key} className="mb-1">
+          <div className={'nav-link d-flex align-items-center justify-content-center ' + (active ? 'text-primary bg-primary-lt' : 'text-secondary')} title={group.label}>
+            <i className={'ti ' + group.icon + ' icon'} aria-hidden="true" />
+          </div>
+          <div className="visually-hidden">{group.items.map((item) => item.label).join(', ')}</div>
+        </div>
       )
-    })
+    }
+    return (
+      <div key={group.key} className="nav-item mb-1">
+        <button
+          type="button"
+          className={'nav-link w-100 border-0 d-flex align-items-center ' + (active ? 'text-primary fw-semibold' : 'text-secondary')}
+          aria-expanded={open}
+          onClick={() => {
+            const first = group.items[0]
+            if (first) router.push(first.href)
+          }}
+        >
+          <i className={'ti ' + group.icon + ' icon'} aria-hidden="true" />
+          <span className="ms-2 flex-grow-1 text-start">{group.label}</span>
+          <i className={'ti ' + (open ? 'ti-chevron-up' : 'ti-chevron-down') + ' icon icon-sm'} aria-hidden="true" />
+        </button>
+        <div className="nav nav-pills flex-column border-start ms-3 ps-2 mt-1">
+          {group.items.map((item) => renderNavItem(item, true))}
+        </div>
+      </div>
+    )
+  }
+
+  const renderMainNav = () => (
+    <>
+      {mainNavItems.map((item) => renderNavItem(item))}
+      {navGroups.map(renderNavGroup)}
+    </>
+  )
+
+  const pageLabel = (() => {
+    const allItems = [...mainNavItems, ...navGroups.flatMap((group) => group.items), ...bottomNavItems]
+    return allItems.find((item) => isItemActive(item.href))?.label ?? 'JUBA LISAN'
+  })()
+
 
   return (
     <div className="page juba-tabler-app min-h-screen bg-[#f5f7fb]">
@@ -239,13 +317,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
         <div className="navbar-collapse w-100 overflow-hidden">
           <nav aria-label="Primary navigation" className={`navbar-nav pt-3 w-100 ${sidebarCollapsed ? 'px-2' : 'px-3'}`}>
-            {!sidebarCollapsed && <div className="mb-2 px-2 text-uppercase text-secondary small fw-bold">Main</div>}
-            {renderNavItems(mainNavItems)}
+            {!sidebarCollapsed && <div className="mb-2 px-2 text-uppercase text-secondary small fw-bold">Menu</div>}
+            {renderMainNav()}
             <div className="my-3 border-top" />
-            {!sidebarCollapsed && <div className="mb-2 px-2 text-uppercase text-secondary small fw-bold">{tNav('resources')}</div>}
-            {renderNavItems(resourceNavItems)}
-            <div className="my-3 border-top" />
-            {renderNavItems(bottomNavItems)}
+            {!sidebarCollapsed && <div className="mb-2 px-2 text-uppercase text-secondary small fw-bold">Support</div>}
+            {bottomNavItems.map((item) => renderNavItem(item))}
           </nav>
         </div>
         <div className={`mt-auto w-100 border-top p-3 ${sidebarCollapsed ? 'px-2' : ''}`}>
