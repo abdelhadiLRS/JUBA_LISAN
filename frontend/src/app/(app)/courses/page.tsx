@@ -138,7 +138,7 @@ export default function CoursesPage() {
                 const progress = current ? currentProgress : journeyLevelUnits.length ? Math.round((journeyLevelUnits.reduce((sum, unit) => sum + (unit?.progress ?? 0), 0) / journeyLevelUnits.length) * 100) : 0
                 const lessonCount = current ? Math.max(currentLessonCount, totalLessons) : totalLessons || units.reduce((sum, unit) => sum + unit.lesson_types.length, 0)
                 return (
-                  <article key={level} className={`card relative rounded border border-secondary-subtle bg-white p-6 shadow-sm transition hover:-translate-y-1 ${current ? 'ring-2 ring-[#5862e2]' : ''}`}>
+                  <article key={level} className={`card relative rounded border border-secondary-subtle bg-white p-6 shadow-sm transition hover:-translate-y-1 ${current ? 'ring-2 ring-primary' : ''}`}>
                     {current && <span className="absolute -top-3 right-5 rounded-full bg-warning-lt px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-body">{t('currentLevel')}</span>}
                     <div className="flex items-start justify-between gap-4">
                       <div><span className="text-xs font-bold uppercase tracking-[.16em] text-secondary">{t('levelLabel', { number: index + 1 })}</span><h3 className="mt-2 text-2xl font-black text-body">{t(`levels.${level}.title`)}</h3></div>
@@ -176,7 +176,7 @@ export default function CoursesPage() {
                     <span className="text-xs font-black uppercase tracking-[.16em] text-secondary">{t('cefrLevelLabel')}</span>
                     <h3 className="mt-1 text-xl font-black text-body">{level} · {t(`levels.${level}.title`).replace(`${level} · `, '')}</h3>
                   </div>
-                  <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-[var(--tblr-primary, #206bc4)] ring-1 ring-[rgba(7,7,9,.08)]">{level}</span>
+                  <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-[var(--tblr-primary, #206bc4)] ring-1 ring-secondary-subtle">{level}</span>
                 </div>
                 <p className="mt-3 text-sm leading-6 text-secondary">{t(`levels.${level}.desc`)}</p>
                 <div className="mt-5 space-y-3">
