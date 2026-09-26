@@ -846,7 +846,10 @@
     "skillMasteryMastered": "dominadas",
     "skillMasteryAttempted": "tentadas",
     "skillMasteryAttemptRate": "Taxa de tentativas: {rate}%",
-    "skillMasteryVariants": "variantes"
+    "skillMasteryVariants": "variantes",
+    "mastered": "Dominado",
+    "listen": "Ouvir",
+    "advance": "Continuar"
   },
   "flashcards": {
     "title": "Cartões",
@@ -910,7 +913,9 @@
     "deleteConfirm": "Eliminar",
     "enterToSend": "Enter para enviar",
     "continueInVoice": "Continuar por voz",
-    "memoryUpdated": "Memória atualizada"
+    "memoryUpdated": "Memória atualizada",
+    "voiceSession": "Sessão de voz",
+    "delete": "Excluir"
   },
   "progress": {
     "title": "Progresso",
