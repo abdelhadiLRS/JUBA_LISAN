@@ -253,6 +253,7 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
     "hr": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "mr": {"script": "devanagari", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "ku": {"script": "latin-arabic", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "jv": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "to": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "sk": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "sl": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
