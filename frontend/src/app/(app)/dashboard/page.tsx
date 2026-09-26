@@ -397,28 +397,6 @@ export default function DashboardPage() {
               <span className="text-sm font-black tracking-tight sm:text-base">JUBA LISAN</span>
             </Link>
 
-            <nav className="hidden items-center gap-1 rounded-full bg-white/[0.06] p-1 lg:flex">
-              {[
-                { href: '/dashboard', label: t('today'), icon: LayoutDashboard, active: true },
-                { href: '/courses', label: tNav('courses'), icon: BookOpen },
-                { href: '/plan', label: t('goToMyPlan'), icon: ListChecks },
-                { href: '/progress', label: t('recentPerformance'), icon: Trophy },
-                { href: '/reading', label: tNav('reading'), icon: Library },
-              ].map(({ href, label, icon: Icon, active }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={
-                    active
-                      ? 'inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[11px] font-black text-[#070709]'
-                      : 'inline-flex items-center gap-2 rounded-full px-3 py-2 text-[11px] font-bold text-white/55 transition hover:bg-white/10 hover:text-white'
-                  }
-                >
-                  <Icon className="size-3.5" />
-                  {label}
-                </Link>
-              ))}
-            </nav>
 
             <div className="flex items-center gap-2">
               <button
