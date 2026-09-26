@@ -282,6 +282,34 @@
     "learningLabel": "Aprendizagem",
     "cefrLabel": "CEFR",
     "coachLabel": "Coach"
+  ,
+      "learner": "Aprendiz",
+      "minutes": "min",
+      "reviewEyebrow": "Revisão inteligente",
+      "reviewTitle": "Você tem revisões pendentes",
+      "reviewAction": "Iniciar revisão",
+      "reviewSkill": "Competência recomendada",
+      "learningLabel": "Aprendizagem",
+      "cefrLabel": "QECR",
+      "coachLabel": "Coach",
+      "scenarios": {
+        "airport": {
+          "title": "Aeroporto",
+          "description": "Fazer o check-in, pedir direções e lidar com atrasos."
+        },
+        "jobInterview": {
+          "title": "Entrevista de emprego",
+          "description": "Pratique respostas, confiança e vocabulário profissional."
+        },
+        "restaurant": {
+          "title": "Restaurante",
+          "description": "Peça naturalmente e lide com uma conversa real."
+        },
+        "hotel": {
+          "title": "Hotel",
+          "description": "Reserve um quarto, resolva problemas e faça pedidos."
+        }
+      }
   },
   "settings": {
     "title": "Configurações",
