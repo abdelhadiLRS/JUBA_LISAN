@@ -1023,3 +1023,47 @@ def test_registered_languages_use_two_or_three_letter_iso_codes():
         if len(code) not in {2, 3} or not code.isalpha() or code != code.lower():
             failures.append(f"{language}: invalid ISO 639 language identifier {code!r}")
     assert not failures, "\\n".join(failures)
+
+def test_registered_base_locales_keep_metadata_and_prompt_guidance_for_region_variants():
+    from app.services.language_helpers import (
+        get_iso639,
+        get_language_name,
+        get_language_script,
+        get_language_self_name,
+    )
+    from app.services.prompts.common import get_language_prompt_overlay
+
+    failures: list[str] = []
+    for language, expected_module in curriculum_dispatcher._LANG_MODULES.items():
+        if "-" in language:
+            continue
+
+        locale = f"{language}-ZZ"
+        try:
+            module = curriculum_dispatcher._resolve_module(locale)
+            name = get_language_name(locale)
+            self_name = get_language_self_name(locale)
+            iso = get_iso639(locale)
+            script = get_language_script(locale)
+            overlay = get_language_prompt_overlay(locale)
+        except Exception as exc:
+            failures.append(f"{language}: region variant {locale} failed: {exc}")
+            continue
+
+        if module.__name__ != expected_module:
+            failures.append(
+                f"{language}: {locale} resolved to {module.__name__!r}, expected {expected_module!r}"
+            )
+        if name != get_language_name(language):
+            failures.append(f"{language}: display name changed for {locale}: {name!r}")
+        if self_name != get_language_self_name(language):
+            failures.append(f"{language}: self-name changed for {locale}: {self_name!r}")
+        if iso != get_iso639(language):
+            failures.append(f"{language}: ISO code changed for {locale}: {iso!r}")
+        if not script.strip():
+            failures.append(f"{language}: missing script for {locale}")
+        if not overlay.strip() or name not in overlay:
+            failures.append(f"{language}: prompt overlay for {locale} lacks language name {name!r}")
+
+    assert not failures, "\\n".join(failures)
+
