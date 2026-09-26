@@ -287,8 +287,18 @@ def get_language_prompt_overlay(target_language: str) -> str:
     deterministic metadata-aware overlay so they never silently lose
     language-specific generation constraints.
     """
-    locale = (target_language or "").strip().replace("_", "-") or "en-GB"
-    base_language = locale.split("-")[0].lower()
+    raw_locale = (target_language or "").strip().replace("_", "-") or "en-GB"
+    locale_parts = raw_locale.split("-")
+    normalized_parts = [locale_parts[0].lower()]
+    for part in locale_parts[1:]:
+        if len(part) == 4 and part.isalpha():
+            normalized_parts.append(part.title())
+        elif (len(part) == 2 and part.isalpha()) or (len(part) == 3 and part.isdigit()):
+            normalized_parts.append(part.upper())
+        else:
+            normalized_parts.append(part.lower())
+    locale = "-".join(normalized_parts)
+    base_language = locale.split("-")[0]
     canonical_language = _LANGUAGE_PROMPT_OVERLAY_ALIASES.get(locale, locale)
     if canonical_language not in _LANGUAGE_PROMPT_OVERLAYS:
         canonical_language = _LANGUAGE_PROMPT_OVERLAY_ALIASES.get(
