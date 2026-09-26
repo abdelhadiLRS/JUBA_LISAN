@@ -678,7 +678,7 @@ export default function GamesPage() {
   }
 
   return (
-    <main className="juba-games" dir={direction}>
+    <main className="container-xl page-body py-4" dir={direction}>
       <section className="games-shell">
         <header className="games-header">
           <div>
