@@ -83,11 +83,11 @@ _THEMES={
 "C2":["Rétorika","Linguistik","Sastra","Tarjamahan","Kontéks","Gaya basa","Arguméntasi kompléks","Ulangan"]}
 _GRAM={
 "A1":["pronouns","nominal","present","questions","negation","demonstratives","possessive","location"],
-"A2":["past","future","aspect","politeness","comparatives","imperatives","conjunctions","comparatives"],
+"A2":["past","future","aspect","politeness","comparatives","imperatives","conjunctions","politeness"],
 "B1":["relative","subordination","conditional","reported-speech","habitual","passive","connectors","subordination"],
-"B2":["causative","applicative","reciprocal","complex-relative","indirect-question","discourse","conditional","passive"],
-"C1":["subjunctive","nominalization","information-structure","formal-register","reported-speech","connectors","subordination","relative"],
-"C2":["idioms","rhetoric","information-structure","formal-register","nominalization","discourse","complex-relative","subordination"]}
+"B2":["causative","applicative","reciprocal","complex-relative","indirect-question","discourse","causative","reciprocal"],
+"C1":["subjunctive","nominalization","information-structure","formal-register","subjunctive","nominalization","information-structure","formal-register"],
+"C2":["idioms","rhetoric","idioms","rhetoric","idioms","rhetoric","idioms","rhetoric"]}
 CURRICULUM={}
 for level in LEVELS:
     CURRICULUM[level]=[]
