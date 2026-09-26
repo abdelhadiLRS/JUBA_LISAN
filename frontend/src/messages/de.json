@@ -1471,7 +1471,12 @@
     "ko-KR-description": "Koreanisch, wie es in Südkorea gesprochen wird.",
     "zh-CN-description": "Mandarin-Chinesisch aus Festlandchina mit vereinfachten Schriftzeichen.",
     "ar": "Arabisch",
-    "ar-description": "Modernes Hocharabisch für Kommunikation, Studium und Reisen."
+    "ar-description": "Modernes Hocharabisch für Kommunikation, Studium und Reisen.",
+    "fa-IR": "Persisch",
+    "hi-IN": "Hindi",
+    "id-ID": "Indonesisch",
+    "ms-MY": "Malaiisch",
+    "tr-TR": "Türkisch"
   },
   "onboarding": {
     "title": "Wähle deine Sprache",
