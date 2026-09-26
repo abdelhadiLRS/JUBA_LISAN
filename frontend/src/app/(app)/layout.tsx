@@ -211,25 +211,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     )
   }
 
-  const isDashboard = pathname === '/dashboard'
-  const feedbackBadgeText =
-    feedbackUnreadCount > 99
-      ? '99+'
-      : feedbackUnreadCount > 0
-        ? String(feedbackUnreadCount)
-        : ''
-
-  if (isDashboard) {
-    return (
-      <>
-        <div className="juba-dashboard-route">{children}</div>
-        <LoadingBar />
-        <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
-        <ConfirmDialog open={logoutConfirm} title={tCommon('logoutConfirmTitle')} message={tCommon('logoutConfirmMessage')} confirmLabel={tCommon('logout')} onConfirm={handleLogout} onCancel={() => setLogoutConfirm(false)} />
-      </>
-    )
-  }
-
   const pageLabel = [...mainNavItems, ...resourceNavItems, ...bottomNavItems].find((item) => pathname === item.href || pathname.startsWith(item.href + '/'))?.label ?? tNav('home')
   const renderNavItems = (items: typeof mainNavItems) => items.map((item) => {
     const active = pathname === item.href || pathname.startsWith(item.href + '/')
