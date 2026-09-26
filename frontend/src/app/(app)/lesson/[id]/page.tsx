@@ -489,7 +489,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
                       onClick={() => reachable && setCurrentExercise(index)}
                       disabled={!reachable || evaluating}
                       aria-current={active ? 'step' : undefined}
-                      aria-label={'Exercise ' + (index + 1) + (answered ? ' completed' : '')}
+                      aria-label={t('exerciseProgress', { current: index + 1, total: exercises.length })}
                       className={cn(
                         'flex h-9 min-w-9 items-center justify-center rounded-xl border px-3 text-xs font-black transition-colors disabled:cursor-not-allowed disabled:opacity-45',
                         active
