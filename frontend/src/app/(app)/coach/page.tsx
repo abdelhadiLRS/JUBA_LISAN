@@ -145,14 +145,14 @@ export default function CoachPage() {
       <div className="mx-auto max-w-7xl space-y-8">
         <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="juba-eyebrow mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-3 py-1.5 text-[var(--juba-app-green-dark)]">
+            <div className="juba-eyebrow mb-3 inline-flex items-center gap-2 rounded-full border border-[rgba(7,7,9,.08)] bg-[#ededff] px-3 py-1.5 text-[#373fb8]">
               <BrainCircuit className="h-4 w-4" />
               {t('eyebrow')}
             </div>
-            <h1 className="text-3xl font-black tracking-tight text-[var(--juba-app-ink)] sm:text-4xl">
+            <h1 className="text-3xl font-black tracking-tight text-[#202127] sm:text-4xl">
               {user?.displayName || user?.username || 'Learner'}, {t('headlineSuffix')}
             </h1>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--juba-app-muted)] sm:text-base">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[rgba(32,33,39,.52)] sm:text-base">
               {t('description')}
             </p>
           </div>
@@ -160,7 +160,7 @@ export default function CoachPage() {
             type="button"
             onClick={() => { setRefreshing(true); load() }}
             disabled={refreshing}
-            className="inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-[var(--juba-app-line)] bg-white px-4 py-2.5 text-sm font-bold text-[var(--juba-app-ink)] transition hover:border-[var(--juba-app-green)] disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-[20px] border border-[rgba(7,7,9,.08)] bg-white px-4 py-2.5 text-sm font-bold text-[#202127] transition hover:border-[#5862e2] disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             {t('refresh')}
@@ -170,21 +170,21 @@ export default function CoachPage() {
         <section className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
           <div className="juba-card overflow-hidden p-6 sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-[var(--juba-app-green)] text-[var(--juba-app-ink)] shadow-[3px 3px 0 var(--juba-app-ink)]">
+              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-[#5862e2] text-[#202127] shadow-[3px 3px 0 #202127]">
                 <Sparkles className="h-10 w-10" />
-                <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full border-2 border-[var(--juba-app-surface)] bg-[var(--juba-app-yellow)]" />
+                <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full border border-[#fff] bg-[#fff3d1]" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[var(--juba-app-green-dark)]">{t('insight')}</p>
-                <h2 className="mt-2 text-2xl font-black text-[var(--juba-app-ink)]">{t('focusOn')} {weakestSkill.replaceAll('_', ' ')} {t('today')}</h2>
-                <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--juba-app-muted)]">
+                <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[#373fb8]">{t('insight')}</p>
+                <h2 className="mt-2 text-2xl font-black text-[#202127]">{t('focusOn')} {weakestSkill.replaceAll('_', ' ')} {t('today')}</h2>
+                <p className="mt-2 max-w-xl text-sm leading-6 text-[rgba(32,33,39,.52)]">
                   {t('insightDescription')}
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
-                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-[var(--juba-app-green)] px-5 py-3 text-sm font-bold text-white shadow-[3px_3px_0_var(--juba-app-ink)] transition hover:opacity-90">
+                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-[#5862e2] px-5 py-3 text-sm font-bold text-white shadow-[0_12px_30px_rgba(43,45,90,.055)] transition hover:opacity-90">
                     {t('startPractice')} <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[var(--juba-app-line)] px-5 py-3 text-sm font-bold text-[var(--juba-app-ink)] transition hover:bg-[var(--juba-app-green-soft)]">
+                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border border-[rgba(7,7,9,.08)] px-5 py-3 text-sm font-bold text-[#202127] transition hover:bg-[#ededff]">
                     {t('viewPlan')}
                   </Link>
                 </div>
@@ -195,10 +195,10 @@ export default function CoachPage() {
           <div className="juba-card p-6">
             <div className="mb-5 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-muted)]">{t('momentum')}</p>
-                <p className="mt-1 text-xl font-black text-[var(--juba-app-ink)]">{t('keepStreak')}</p>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[rgba(32,33,39,.52)]">{t('momentum')}</p>
+                <p className="mt-1 text-xl font-black text-[#202127]">{t('keepStreak')}</p>
               </div>
-              <Flame className="h-6 w-6 text-[var(--juba-app-green-dark)]" />
+              <Flame className="h-6 w-6 text-[#373fb8]" />
             </div>
             <div className="grid grid-cols-3 gap-3">
               <Metric icon={<Flame />} value={`${progress.current_streak ?? 0}`} label={t('dayStreak')} />
@@ -209,17 +209,17 @@ export default function CoachPage() {
         </section>
 
         {Number(smartReview.due_count ?? 0) > 0 && (
-          <section className="juba-card overflow-hidden border-2 border-[var(--juba-app-green)] p-6 sm:p-8">
+          <section className="juba-card overflow-hidden border border-[#5862e2] p-6 sm:p-8">
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{reviewCopy.eyebrow}</p>
-                <h2 className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">{reviewCopy.title}</h2>
-                <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[#373fb8]">{reviewCopy.eyebrow}</p>
+                <h2 className="mt-1 text-2xl font-black text-[#202127]">{reviewCopy.title}</h2>
+                <p className="mt-2 text-sm leading-6 text-[rgba(32,33,39,.52)]">
                   {smartReview.due_count} · {reviewCopy.skill}: {(smartReview.recommended_skill ?? weakestSkill).replaceAll('_', ' ')}
                   {smartReview.cefr_level ? ' · CEFR ' + smartReview.cefr_level : ''}
                 </p>
               </div>
-              <Link href="/games?review=1" className="inline-flex items-center justify-center gap-2 rounded-[20px] bg-[var(--juba-app-green)] px-5 py-3 text-sm font-bold text-white shadow-[3px_3px_0_var(--juba-app-ink)] transition hover:opacity-90">
+              <Link href="/games?review=1" className="inline-flex items-center justify-center gap-2 rounded-[20px] bg-[#5862e2] px-5 py-3 text-sm font-bold text-white shadow-[0_12px_30px_rgba(43,45,90,.055)] transition hover:opacity-90">
                 {reviewCopy.action} <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -230,21 +230,21 @@ export default function CoachPage() {
           <section className="juba-card p-6 sm:p-8">
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{t('review')}</p>
-                <h2 className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[#373fb8]">{t('review')}</p>
+                <h2 className="mt-1 text-2xl font-black text-[#202127]">
                   {t('focusOn')} {masteryFocusLabel} {t('today')}
                 </h2>
-                <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">
+                <p className="mt-2 text-sm leading-6 text-[rgba(32,33,39,.52)]">
                   {Math.round((progress.mastery.average_score ?? 0) * 100)}% {t('accuracy')} · {progress.mastery.tracked_items} {t('wordsMastered')}
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
                 {(['new', 'learning', 'reviewing', 'weak', 'mastered'] as const).map((state) => (
-                  <div key={state} className="min-w-[68px] rounded-[20px] border border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-3 py-2 text-center">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--juba-app-muted)]">
+                  <div key={state} className="min-w-[68px] rounded-[20px] border border-[rgba(7,7,9,.08)] bg-[#ededff] px-3 py-2 text-center">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-[rgba(32,33,39,.52)]">
                       {state === 'mastered' ? t('mastered') : state === 'new' ? t('notStarted') : t('inProgress')}
                     </p>
-                    <p className="mt-1 text-sm font-black text-[var(--juba-app-ink)]">{masteryCounts[state] ?? 0}</p>
+                    <p className="mt-1 text-sm font-black text-[#202127]">{masteryCounts[state] ?? 0}</p>
                   </div>
                 ))}
               </div>
@@ -263,45 +263,45 @@ export default function CoachPage() {
           <div className="juba-card p-6 sm:p-8">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{t('adaptiveQueue')}</p>
-                <h2 className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">{t('bestWork')}</h2>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[#373fb8]">{t('adaptiveQueue')}</p>
+                <h2 className="mt-1 text-2xl font-black text-[#202127]">{t('bestWork')}</h2>
               </div>
-              <span className="rounded-full bg-[var(--juba-app-green-soft)] px-3 py-1 text-xs font-bold text-[var(--juba-app-muted)]">{completed}/{total} {t('complete')}</span>
+              <span className="rounded-full bg-[#ededff] px-3 py-1 text-xs font-bold text-[rgba(32,33,39,.52)]">{completed}/{total} {t('complete')}</span>
             </div>
             <div className="space-y-3">
               {(plan.lessons ?? []).slice(0, 4).map((lesson, index) => (
-                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[28px] border-2 border-[var(--juba-app-line)] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-app-green)]">
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[20px] ${lesson.is_completed ? 'bg-[var(--juba-app-yellow)] text-[var(--juba-app-green-dark)]' : 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)]'}`}>
+                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[28px] border border-[rgba(7,7,9,.08)] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[#5862e2]">
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[20px] ${lesson.is_completed ? 'bg-[#fff3d1] text-[#373fb8]' : 'bg-[#ededff] text-[#373fb8]'}`}>
                     {lesson.is_completed ? <CheckCircle2 className="h-5 w-5" /> : <span className="text-sm font-black">{index + 1}</span>}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-bold text-[var(--juba-app-ink)]">{lesson.title}</p>
-                    <p className="mt-1 text-xs text-[var(--juba-app-muted)]">{lesson.lesson_type.replaceAll('_', ' ')} · {lesson.estimated_minutes || 25} min</p>
+                    <p className="truncate text-sm font-bold text-[#202127]">{lesson.title}</p>
+                    <p className="mt-1 text-xs text-[rgba(32,33,39,.52)]">{lesson.lesson_type.replaceAll('_', ' ')} · {lesson.estimated_minutes || 25} min</p>
                   </div>
-                  <ArrowRight className="h-4 w-4 text-[var(--juba-app-muted)] transition group-hover:translate-x-1" />
+                  <ArrowRight className="h-4 w-4 text-[rgba(32,33,39,.52)] transition group-hover:translate-x-1" />
                 </Link>
               ))}
-              {!plan.lessons?.length && !loading && <p className="rounded-[28px] border border-dashed border-[var(--juba-app-line)] p-6 text-center text-sm text-[var(--juba-app-muted)]">{t('assessmentPrompt')}</p>}
+              {!plan.lessons?.length && !loading && <p className="rounded-[28px] border border-dashed border-[rgba(7,7,9,.08)] p-6 text-center text-sm text-[rgba(32,33,39,.52)]">{t('assessmentPrompt')}</p>}
             </div>
           </div>
 
           <div className="juba-card p-6 sm:p-8">
-            <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-app-green-dark)]">{t('contextEyebrow')}</p>
-            <h2 className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">{t('rooms')}</h2>
-            <p className="mt-2 text-sm leading-6 text-[var(--juba-app-muted)]">{t('roomsDescription')}</p>
+            <p className="text-xs font-bold uppercase tracking-[.16em] text-[#373fb8]">{t('contextEyebrow')}</p>
+            <h2 className="mt-1 text-2xl font-black text-[#202127]">{t('rooms')}</h2>
+            <p className="mt-2 text-sm leading-6 text-[rgba(32,33,39,.52)]">{t('roomsDescription')}</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
-                <Link key={scenario.title} href={scenario.href} className="rounded-[28px] border-2 border-[var(--juba-app-line)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)]">
+                <Link key={scenario.title} href={scenario.href} className="rounded-[28px] border border-[rgba(7,7,9,.08)] p-4 transition hover:-translate-y-0.5 hover:border-[#5862e2] hover:bg-[#ededff]">
                   <span className="text-2xl">{scenario.icon}</span>
-                  <p className="mt-3 text-sm font-black text-[var(--juba-app-ink)]">{scenario.title}</p>
-                  <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">{scenario.desc}</p>
+                  <p className="mt-3 text-sm font-black text-[#202127]">{scenario.title}</p>
+                  <p className="mt-1 text-xs leading-5 text-[rgba(32,33,39,.52)]">{scenario.desc}</p>
                 </Link>
               ))}
             </div>
           </div>
         </section>
 
-        <footer className="flex flex-col gap-2 border-t border-[var(--juba-app-line)] pt-6 text-xs text-[var(--juba-app-muted)] sm:flex-row sm:items-center sm:justify-between">
+        <footer className="flex flex-col gap-2 border-t border-[rgba(7,7,9,.08)] pt-6 text-xs text-[rgba(32,33,39,.52)] sm:flex-row sm:items-center sm:justify-between">
           <span>Learning {language?.name ? `· ${language.name}` : `· ${t('personalized')}`}</span>
           <span>CEFR {plan.cefr_level || t('adaptive')} · JUBA LISAN Coach</span>
         </footer>
@@ -312,10 +312,10 @@ export default function CoachPage() {
 
 function Metric({ icon, value, label }: { icon: ReactNode; value: string; label: string }) {
   return (
-    <div className="rounded-[28px] bg-[var(--juba-app-green-soft)] p-3">
-      <div className="mb-2 h-4 w-4 text-[var(--juba-app-green-dark)]">{icon}</div>
-      <p className="text-lg font-black text-[var(--juba-app-ink)]">{value}</p>
-      <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--juba-app-muted)]">{label}</p>
+    <div className="rounded-[28px] bg-[#ededff] p-3">
+      <div className="mb-2 h-4 w-4 text-[#373fb8]">{icon}</div>
+      <p className="text-lg font-black text-[#202127]">{value}</p>
+      <p className="text-[10px] font-bold uppercase tracking-wider text-[rgba(32,33,39,.52)]">{label}</p>
     </div>
   )
 }
@@ -324,12 +324,12 @@ function CoachCard({ icon, title, value, detail, href }: { icon: React.ReactNode
   return (
     <Link href={href} className="juba-card group p-5">
       <div className="flex items-center justify-between">
-        <span className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)]">{icon}</span>
-        <ArrowRight className="h-4 w-4 text-[var(--juba-app-muted)] transition group-hover:translate-x-1" />
+        <span className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-[#ededff] text-[#373fb8]">{icon}</span>
+        <ArrowRight className="h-4 w-4 text-[rgba(32,33,39,.52)] transition group-hover:translate-x-1" />
       </div>
-      <p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-[var(--juba-app-muted)]">{title}</p>
-      <p className="mt-1 text-2xl font-black text-[var(--juba-app-ink)]">{value}</p>
-      <p className="mt-2 text-xs leading-5 text-[var(--juba-app-muted)]">{detail}</p>
+      <p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-[rgba(32,33,39,.52)]">{title}</p>
+      <p className="mt-1 text-2xl font-black text-[#202127]">{value}</p>
+      <p className="mt-2 text-xs leading-5 text-[rgba(32,33,39,.52)]">{detail}</p>
     </Link>
   )
 }
