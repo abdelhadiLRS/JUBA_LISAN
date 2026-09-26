@@ -596,11 +596,21 @@ def get_language_flag(target_language: str) -> str:
 def _get_language_capability(target_language: str) -> dict[str, str | bool]:
     locale = _normalize_locale(target_language)
     canonical_language = _LANGUAGE_CAPABILITY_ALIASES.get(locale, locale)
-    if canonical_language not in _LANGUAGE_CAPABILITIES:
-        iso_language = locale.split("-")[0].lower()
-        canonical_language = _LANGUAGE_CAPABILITY_ALIASES.get(iso_language, canonical_language)
-    return _LANGUAGE_CAPABILITIES.get(canonical_language, _LANGUAGE_CAPABILITIES["en-GB"])
 
+    # Prefer an explicit locale entry, then the language-base entry, before
+    # falling back to an alias or English. This keeps foundation locale
+    # variants such as ``hr-HR`` and ``tr-TR`` on their own capabilities.
+    if canonical_language not in _LANGUAGE_CAPABILITIES:
+        base_language = locale.split("-")[0].lower()
+        canonical_language = _LANGUAGE_CAPABILITY_ALIASES.get(
+            base_language,
+            base_language,
+        )
+
+    return _LANGUAGE_CAPABILITIES.get(
+        canonical_language,
+        _LANGUAGE_CAPABILITIES["en-GB"],
+    )
 
 def get_language_script(target_language: str) -> str:
     """Return the primary writing-system metadata for a target language."""
