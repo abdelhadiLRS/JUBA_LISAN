@@ -173,15 +173,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     return (
     <div className="page juba-tabler-app min-h-screen bg-[#f5f7fb]">
       {sidebarOpen && <button type="button" aria-label="Close menu" onClick={() => setSidebarOpen(false)} className="fixed inset-0 z-[60] bg-black/40 lg:hidden" />}
-
       <aside className={`navbar navbar-vertical navbar-expand-lg fixed inset-y-0 start-0 z-[70] flex-col border-end bg-white transition-[width,transform] duration-200 lg:sticky lg:top-0 lg:h-screen ${sidebarCollapsed ? 'w-[76px]' : 'w-[260px]'} ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
         <div className={`navbar-brand min-h-[64px] border-bottom px-3 ${sidebarCollapsed ? 'justify-center' : ''}`}>
           <Link href="/dashboard" onClick={() => setSidebarOpen(false)} className="d-flex align-items-center gap-2 text-decoration-none text-dark">
             <span className="avatar avatar-sm rounded-2 bg-primary text-white fw-bold">JL</span>
-            {!sidebarCollapsed && <span className="fw-bold text-dark tracking-tight">JUBA LISAN</span>}
+            {!sidebarCollapsed && <span className="fw-bold text-dark">JUBA LISAN</span>}
           </Link>
         </div>
-
         <div className="navbar-collapse w-100 overflow-hidden">
           <nav aria-label="Primary navigation" className={`navbar-nav pt-3 w-100 ${sidebarCollapsed ? 'px-2' : 'px-3'}`}>
             {!sidebarCollapsed && <div className="mb-2 px-2 text-uppercase text-secondary small fw-bold">Main</div>}
@@ -193,40 +191,28 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             {renderNavItems(bottomNavItems)}
           </nav>
         </div>
-
         <div className={`mt-auto w-100 border-top p-3 ${sidebarCollapsed ? 'px-2' : ''}`}>
           <div className={`d-flex align-items-center ${sidebarCollapsed ? 'justify-content-center' : 'gap-2'} mb-3`}>
             <span className="avatar avatar-sm rounded-circle bg-azure-lt text-azure fw-bold">
-              {user?.avatar
-                ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover rounded-circle" fallback={<span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} />
-                : <span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
+              {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover rounded-circle" fallback={<span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
             </span>
             {!sidebarCollapsed && <div className="min-w-0"><div className="text-dark small fw-semibold text-truncate">{user?.displayName || user?.username || 'Learner'}</div><div className="text-secondary small text-truncate">{user?.email || ''}</div></div>}
           </div>
           <div className={`d-flex align-items-center ${sidebarCollapsed ? 'flex-column gap-2' : 'justify-content-between gap-2'}`}>
             {!sidebarCollapsed && <LanguageSwitcher />}
-            <button type="button" onClick={() => setLogoutConfirm(true)} title={tCommon('logout')} aria-label={tCommon('logout')} className="btn btn-ghost-secondary btn-sm">
-              <LogOut className="icon" />{!sidebarCollapsed && <span className="ms-2">{tCommon('logout')}</span>}
-            </button>
+            <button type="button" onClick={() => setLogoutConfirm(true)} title={tCommon('logout')} aria-label={tCommon('logout')} className="btn btn-ghost-secondary btn-sm"><LogOut className="icon" />{!sidebarCollapsed && <span className="ms-2">{tCommon('logout')}</span>}</button>
           </div>
         </div>
       </aside>
-
       <div className="page-wrapper min-w-0">
         <header className="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top z-50">
           <div className="container-fluid">
-            <button type="button" onClick={() => setSidebarOpen(true)} aria-label="MENU" className="btn btn-ghost-secondary d-lg-none me-2">
-              <Menu className="icon" />
-            </button>
+            <button type="button" onClick={() => setSidebarOpen(true)} aria-label="MENU" className="btn btn-ghost-secondary d-lg-none me-2"><Menu className="icon" /></button>
             <div className="navbar-nav flex-row order-md-last align-items-center gap-2">
-              <button type="button" className="btn btn-ghost-secondary position-relative" aria-label="Notifications" title="Notifications">
-                <Bell className="icon" /><span className="badge bg-red badge-notification badge-pill position-absolute top-0 end-0"> </span>
-              </button>
+              <button type="button" className="btn btn-ghost-secondary position-relative" aria-label="Notifications" title="Notifications"><Bell className="icon" /></button>
               <Link href="/settings" title={tNav('settings')} aria-label={tNav('settings')} className="nav-link p-0">
                 <span className="avatar avatar-sm rounded-circle bg-azure-lt text-azure fw-bold">
-                  {user?.avatar
-                    ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover rounded-circle" fallback={<span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} />
-                    : <span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
+                  {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover rounded-circle" fallback={<span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
                 </span>
               </Link>
             </div>
@@ -236,12 +222,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <span className="navbar-brand p-0 m-0 fs-3 fw-bold text-dark">{pageLabel}</span>
               </div>
             </div>
-            <button type="button" onClick={() => setSidebarCollapsed((value) => !value)} className="btn btn-ghost-secondary d-none d-lg-inline-flex me-2" aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}>
-              {sidebarCollapsed ? <PanelLeft className="icon" /> : <PanelLeftClose className="icon" />}
-            </button>
+            <button type="button" onClick={() => setSidebarCollapsed((value) => !value)} className="btn btn-ghost-secondary d-none d-lg-inline-flex me-2" aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}>{sidebarCollapsed ? <PanelLeft className="icon" /> : <PanelLeftClose className="icon" />}</button>
           </div>
         </header>
-
         <main className="page-body bg-[#f5f7fb]">
           {user && user.is_verified === false && (
             <div className="alert alert-warning rounded-0 border-0 border-bottom mb-0 d-flex flex-wrap align-items-center gap-3">
@@ -249,12 +232,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               {resendSent ? <span>{tCommon('verifyEmailSent')}</span> : <button onClick={handleResendVerification} className="btn btn-link p-0">{tCommon('resendVerification')}</button>}
             </div>
           )}
-          <div className="container-fluid py-4">
-            <div className="juba-app-page">{children}</div>
-          </div>
+          <div className="container-fluid py-4"><div className="juba-app-page">{children}</div></div>
         </main>
       </div>
-
       <LoadingBar />
       <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
       <ConfirmDialog open={logoutConfirm} title={tCommon('logoutConfirmTitle')} message={tCommon('logoutConfirmMessage')} confirmLabel={tCommon('logout')} onConfirm={handleLogout} onCancel={() => setLogoutConfirm(false)} />
