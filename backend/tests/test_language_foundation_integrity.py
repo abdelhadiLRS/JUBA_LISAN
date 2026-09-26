@@ -302,3 +302,20 @@ def test_language_helpers_normalize_common_locale_aliases(locale: str, expected_
 
     assert get_language_name(locale) == expected_name
     assert get_iso639(locale) == expected_iso
+
+
+@pytest.mark.parametrize(
+    ("locale", "expected_fragment"),
+    [
+        ("en_US", "American English"),
+        ("en-US", "American English"),
+        ("fr-FR", "standard French"),
+        ("fr", "standard French"),
+        ("pt-BR", "European Portuguese"),
+        ("zh-TW", "simplified Chinese"),
+    ],
+)
+def test_prompt_overlay_normalizes_locale_aliases(locale: str, expected_fragment: str):
+    from app.services.prompts.common import get_language_prompt_overlay
+
+    assert expected_fragment in get_language_prompt_overlay(locale)
