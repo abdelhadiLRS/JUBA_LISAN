@@ -330,7 +330,16 @@
       "error": "Lien invalide ou expiré",
       "backToLogin": "Retour à la connexion"
     }
-  },
+  ,
+    "scenarios": {
+      "airport": {"title": "Aéroport", "description": "Enregistre-toi, demande ton chemin et gère les retards."},
+      "jobInterview": {"title": "Entretien d'embauche", "description": "Travaille tes réponses, ta confiance et le vocabulaire professionnel."},
+      "restaurant": {"title": "Restaurant", "description": "Commande naturellement et gère une vraie conversation."},
+      "hotel": {"title": "Hôtel", "description": "Réserve une chambre, résous les problèmes et fais des demandes."}
+    },
+    "learningLabel": "Apprentissage",
+    "cefrLabel": "CECR",
+    "coachLabel": "Coach"},
   "settings": {
     "title": "Paramètres",
     "sectionAccount": "Compte",
