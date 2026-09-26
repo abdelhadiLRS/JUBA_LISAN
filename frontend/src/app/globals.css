@@ -7763,7 +7763,11 @@ main [dir="rtl"] h3,
 /* Top-only authenticated navigation. Sidebar navigation is intentionally disabled. */
 .juba-tabler-app .navbar-vertical,
 .juba-tabler-app .navbar-vertical + .page-wrapper { display: none !important; }
-.juba-tabler-app .navbar.navbar-expand-md { min-height: 4rem; }
+.juba-tabler-app .navbar.navbar-expand-md {
+  min-height: 4rem;
+  position: relative;
+  z-index: 1100;
+}
 .juba-tabler-app .navbar-nav > .nav-item > .nav-link { min-height: 2.5rem; }
 .juba-tabler-app .navbar-nav > .nav-item > .nav-link:hover,
 .juba-tabler-app .navbar-nav > .nav-link:hover { background: rgba(var(--tblr-primary-rgb), .06) !important; }
