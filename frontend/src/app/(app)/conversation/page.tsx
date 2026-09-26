@@ -154,7 +154,7 @@ export default function ConversationPage() {
       .finally(() => setPlanReady(true))
   }, [activeLanguage?.code, t])
 
-  if (!planReady) return null
+  if (!planReady) return <PageLoading minHeight="min-h-[calc(100vh-56px)] md:min-h-[60vh]" />
 
   return (
     <MaintenanceGate>
