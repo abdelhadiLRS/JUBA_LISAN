@@ -74,7 +74,7 @@ _vocab_data = [
 
 VOCABULARY_SETS = [
     VocabularySet(id=f"ay-{i+1}-{level.lower()}",level=level,topic=topic,unit_ref=f"ay-{level.lower()}-unit-{(i%8)+1}",
-        words=[VocabularyEntry(word=w,pos="word",definition=d,example=e) for w,d,e in words])
+        words=[VocabularyEntry(word=w,pos="verb" if d.startswith("to ") else "noun",definition=d,example=e) for w,d,e in words])
     for i,(topic,level,words) in enumerate(_vocab_data)
 ]
 
