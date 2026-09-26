@@ -985,10 +985,11 @@
     "backToGrammar": "Podręcznik gramatyki",
     "explanation": "Wyjaśnienie",
     "backLink": "Wróć do gramatyki",
-    "notFound": "Nie znaleziono tematu.",,
+    "notFound": "Nie znaleziono tematu.",
+    "topicsFound": "{count, plural, one {# temat znaleziony} few {# tematy znalezione} other {# tematów znalezionych}}",
     "topicCount": "{count, plural, =1 {# temat} few {# tematy} many {# tematów} other {# tematów}}",
     "levelRange": "A1 – C2"
-    "topicsFound": "{count, plural, one {# temat znaleziony} few {# tematy znalezione} other {# tematów znalezionych}}"
+  
   },
   "vocabulary": {
     "title": "Centrum słownictwa",
