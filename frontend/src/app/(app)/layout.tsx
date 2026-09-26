@@ -340,7 +340,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       }
     }
     return {
-      label: 'JUBA LISAN',
+      label: tCommon('appName'),
       groupLabel: undefined,
       icon: 'ti-home',
     }
@@ -381,7 +381,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </div>
                 <div className="min-w-0">
                   <div className="d-flex align-items-center gap-2 text-uppercase text-secondary small fw-bold">
-                    <span>JUBA LISAN</span>
+                    <span>{tCommon('appName')}</span>
                     {activeNavigation.groupLabel && (
                       <>
                         <span aria-hidden="true">/</span>
