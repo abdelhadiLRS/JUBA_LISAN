@@ -555,6 +555,19 @@ def test_distribute_units_never_emits_invalid_schedule_dimensions():
         ("suq", "latin", "words"),
     ],
 )
+
+def test_registered_core_languages_have_explicit_capabilities():
+    from app.services.language_helpers import get_language_script, get_reading_length_unit
+
+    expected = {
+        "tr": ("latin", "words"),
+        "ru": ("cyrillic", "words"),
+        "sv": ("latin", "words"),
+    }
+    for locale, (script, unit) in expected.items():
+        assert get_language_script(locale) == script
+        assert get_reading_length_unit(locale) == unit
+
 def test_language_capability_aliases_cover_foundation_locales(locale, expected_script, expected_unit):
     from app.services.language_helpers import (
         get_language_script,
