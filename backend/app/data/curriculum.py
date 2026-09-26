@@ -211,6 +211,33 @@ _I18N = {
         "test_title": "اختبار إتمام المستوى {level}",
         "test_objectives": ["مراجعة موضوعات هذا المستوى", "إتمام التقييم للانتقال إلى المستوى التالي"],
     },
+    "nl": {
+        "lesson_title": "{title} - Les {n}",
+        "test_unit_title": "Eindtoets niveau {level}",
+        "test_title": "Eindtoets niveau {level}",
+        "test_objectives": [
+            "Alle grammaticaonderwerpen van dit niveau herhalen",
+            "De toets afronden om het volgende niveau te ontgrendelen",
+        ],
+    },
+    "ru": {
+        "lesson_title": "{title} — Урок {n}",
+        "test_unit_title": "Итоговый тест уровня {level}",
+        "test_title": "Итоговый тест уровня {level}",
+        "test_objectives": [
+            "Повторить все грамматические темы этого уровня",
+            "Завершить оценивание, чтобы открыть следующий уровень",
+        ],
+    },
+    "tr": {
+        "lesson_title": "{title} - Ders {n}",
+        "test_unit_title": "{level}. Seviye Bitirme Sınavı",
+        "test_title": "{level}. Seviye Bitirme Sınavı",
+        "test_objectives": [
+            "Bu seviyedeki tüm dil bilgisi konularını gözden geçirmek",
+            "Bir sonraki seviyenin kilidini açmak için değerlendirmeyi tamamlamak",
+        ],
+    },
     "sv-SE": {
         "lesson_title": "{title} - Lektion {n}",
         "test_unit_title": "Sluttest för nivå {level}",
@@ -352,6 +379,7 @@ def distribute_units(
             "ar": "ar", "sv": "sv-SE", "el": "el-GR", "da": "da-DK",
             "pl": "pl-PL", "no": "no-NO", "fi": "fi-FI", "cs": "cs-CZ",
             "zh": "zh-CN",
+            "nl": "nl", "ru": "ru", "tr": "tr",
         }
         i18n = _I18N.get(default_locales.get(base_language, "en-GB"), _I18N["en-GB"])
 
