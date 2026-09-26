@@ -475,7 +475,8 @@
     "levelTestCompleted": "Test di livello completato",
     "levelTestScoreLine": "Punteggio: {score} su {total}",
     "levelTestReady": "Sei pronto per il livello successivo",
-    "levelTestReadyDesc": "Hai completato il test di livello. Continua il tuo piano di apprendimento."
+    "levelTestReadyDesc": "Hai completato il test di livello. Continua il tuo piano di apprendimento.",
+    "refresh": "Aggiorna dashboard"
   },
   "assessment": {
     "title": "Valutazione",
