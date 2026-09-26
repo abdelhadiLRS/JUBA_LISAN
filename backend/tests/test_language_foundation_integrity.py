@@ -7,7 +7,12 @@ import importlib
 import pytest
 
 from app.data import curriculum as curriculum_dispatcher
+from app.data._types import Register, Skill
+from typing import get_args
 
+
+ALLOWED_SKILLS = set(get_args(Skill))
+ALLOWED_REGISTERS = set(get_args(Register))
 
 ALLOWED_LESSON_TYPES = {
     "grammar",
@@ -147,7 +152,11 @@ def test_registered_foundations_have_valid_phrasebook_references():
         for category in getattr(module, "PHRASEBOOK_CATEGORIES", []):
             if category.level not in curriculum_dispatcher.CEFR_LEVELS:
                 failures.append(f"{language}: invalid phrasebook level {category.level}")
+            if category.register not in ALLOWED_REGISTERS:
+                failures.append(f"{language}/{category.id}: invalid category register {category.register}")
             for phrase in category.phrases:
+                if phrase.register not in ALLOWED_REGISTERS:
+                    failures.append(f"{language}/{category.id}: invalid phrase register {phrase.register}")
                 if phrase.unit_ref and phrase.unit_ref not in unit_ids:
                     failures.append(
                         f"{language}/{category.id}: missing phrase unit {phrase.unit_ref}"
@@ -177,6 +186,8 @@ def test_registered_foundations_have_valid_assessments():
     for language, module_name in curriculum_dispatcher._LANG_MODULES.items():
         module = importlib.import_module(module_name)
         for question in getattr(module, "ASSESSMENT_BANK", []):
+            if question.skill not in ALLOWED_SKILLS:
+                failures.append(f"{language}/{question.id}: invalid skill {question.skill}")
             if len(question.options) != 4:
                 failures.append(f"{language}/{question.id}: expected exactly 4 options")
             if question.correct not in question.options:
