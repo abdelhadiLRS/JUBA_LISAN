@@ -451,7 +451,7 @@ def test_foundation_locale_variants_resolve_to_registered_modules(locale: str, e
 @pytest.mark.parametrize(
     ("locale", "expected_name", "expected_iso"),
     [
-        ("en_US", "English (UK)", "en"),
+        ("en_US", "English (US)", "en"),
         ("de-DE", "German", "de"),
         ("fr-FR", "French", "fr"),
         ("pt-BR", "European Portuguese", "pt"),
