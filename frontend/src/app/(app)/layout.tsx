@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
@@ -106,6 +106,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [resendSent, setResendSent] = useState(false)
   const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
   const [openTopMenu, setOpenTopMenu] = useState<string | null>(null)
+  const topMenuRef = useRef<HTMLElement | null>(null)
 
   const PREMIUM_HREFS = new Set([
     '/chat',
@@ -250,6 +251,21 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     )
   }
 
+  useEffect(() => {
+    const handlePointerDown = (event: PointerEvent) => {
+      if (topMenuRef.current && !topMenuRef.current.contains(event.target as Node)) setOpenTopMenu(null)
+    }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpenTopMenu(null)
+    }
+    document.addEventListener('pointerdown', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+
   const renderTopGroup = (group: NavGroup) => {
     const active = group.items.some((item) => isItemActive(item.href))
     const open = openTopMenu === group.key
@@ -257,7 +273,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <div key={group.key} className="nav-item dropdown position-relative">
         <button
           type="button"
-          className={'nav-link dropdown-toggle d-flex align-items-center gap-2 border-0 bg-transparent px-3 py-2 ' + (active ? 'text-primary fw-semibold' : 'text-secondary')}
+          className={'nav-link dropdown-toggle d-flex align-items-center gap-2 border-0 px-3 py-2 ' + (active ? 'text-primary fw-semibold' : 'text-secondary')}
           aria-expanded={open}
           onClick={() => setOpenTopMenu(open ? null : group.key)}
         >
@@ -265,7 +281,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <span>{group.label}</span>
         </button>
         {open && (
-          <div className="dropdown-menu show position-absolute start-0 mt-1 p-2" style={{ minWidth: 230 }}>
+          <div className="dropdown-menu show position-absolute start-0 mt-1 p-2" style={{ minWidth: 240 }}>
             {group.items.map(renderTopItem)}
           </div>
         )}
@@ -274,7 +290,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   const renderTopNavigation = () => (
-    <nav aria-label="Primary navigation" className="navbar-nav flex-row flex-wrap align-items-center gap-1">
+    <nav ref={topMenuRef} aria-label="Primary navigation" className="navbar-nav flex-row flex-wrap align-items-center gap-1">
       {mainNavItems.map(renderTopItem)}
       {navGroups.map(renderTopGroup)}
       <div className="vr mx-1 d-none d-xl-block" />
@@ -290,13 +306,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="page juba-tabler-app min-h-screen bg-[#f5f7fb]">
       <div className="page-wrapper min-w-0 w-100">
-        <header className="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top z-50">
-          <div className="container-fluid gap-3">
+        <header className="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
+          <div className="container-fluid flex-nowrap gap-3">
             <Link href="/dashboard" className="navbar-brand d-flex align-items-center gap-2 me-2" onClick={() => setOpenTopMenu(null)}>
               <span className="avatar avatar-sm rounded-2 bg-primary text-white fw-bold">JL</span>
               <span className="fw-bold text-dark">JUBA LISAN</span>
             </Link>
-            <div className="flex-fill overflow-visible">
+            <div className="flex-fill overflow-visible min-w-0">
               {renderTopNavigation()}
             </div>
             <div className="navbar-nav flex-row align-items-center gap-2 ms-auto">
