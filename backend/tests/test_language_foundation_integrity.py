@@ -210,6 +210,29 @@ def test_registered_foundations_have_valid_assessments():
     assert not failures, "\n".join(failures)
 
 
+def test_registered_foundations_have_unique_content_ids():
+    failures: list[str] = []
+
+    for language, module_name in curriculum_dispatcher._LANG_MODULES.items():
+        module = importlib.import_module(module_name)
+        collections = (
+            ("grammar", getattr(module, "GRAMMAR_TOPICS", []), "slug"),
+            ("assessment", getattr(module, "ASSESSMENT_BANK", []), "id"),
+            ("phrasebook", getattr(module, "PHRASEBOOK_CATEGORIES", []), "id"),
+        )
+        for label, items, attribute in collections:
+            ids = [
+                getattr(item, attribute)
+                for item in items
+                if getattr(item, attribute, None)
+            ]
+            duplicates = sorted({item_id for item_id in ids if ids.count(item_id) > 1})
+            if duplicates:
+                failures.append(f"{language}: duplicate {label} ids {duplicates}")
+
+    assert not failures, "\\n".join(failures)
+
+
 def test_registered_foundations_have_unique_vocabulary_ids():
     failures: list[str] = []
 
