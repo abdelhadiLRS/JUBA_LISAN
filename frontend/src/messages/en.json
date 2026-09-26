@@ -2124,7 +2124,18 @@
     "translationFailed": "Translation failed.",
     "translationUnavailable": "Unable to translate right now.",
     "saveFailed": "Could not save this word to your learning deck.",
-    "saveUnavailable": "Unable to save this word right now."
+    "saveUnavailable": "Unable to save this word right now.",
+    "detected": "Detected: {language}",
+    "listen": "Listen",
+    "swap": "Swap languages",
+    "translating": "Translating…",
+    "translationPlaceholder": "Your translation will appear here.",
+    "save": "Learn this",
+    "translateNow": "Translate now →",
+    "visitorNote": "No account required · Translation stays open to everyone.",
+    "savedCloud": "Added to your JUBA learning deck.",
+    "savedLocal": "Added to JUBA Memory — saved locally on this device.",
+    "saving": "Saving…"
   },
   "coach": {
     "eyebrow": "Your AI Learning Coach",
