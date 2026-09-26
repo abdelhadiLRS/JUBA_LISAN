@@ -96,9 +96,9 @@ export default function CoursesPage() {
   return (
     <main className="juba-mobile-courses min-h-screen px-4 py-8 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-6xl space-y-8">
-        <section className="card relative overflow-hidden rounded-[32px] border border-[rgba(7,7,9,.08)] bg-[#5862e2] p-7 text-white shadow-[0_12px_30px_rgba(43,45,90,.055)] sm:p-10">
+        <section className="card relative overflow-hidden border-0 bg-primary text-white p-4 p-md-5">
           <div className="relative z-10 max-w-3xl">
-            <div className="page-pretitle"><Sparkles className="h-4 w-4" /> {t('heroEyebrow')}</div>
+            <div className="page-pretitle d-flex align-items-center gap-2"><i className="ti ti-sparkles icon icon-sm" aria-hidden="true" /> {t('heroEyebrow')}</div>
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-6xl">{t('heroTitle')}</h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">{t('heroDescription')}</p>
             <div className="mt-7 flex flex-wrap gap-3">
@@ -111,10 +111,9 @@ export default function CoursesPage() {
 
         <section className="grid gap-4 md:grid-cols-3">
           {skills.map((key, index) => {
-            const Icon = [BookOpen, Headphones, Mic2][index]
             return (
-              <div key={key} className="card rounded-[27px] border border-[rgba(7,7,9,.08)] bg-white p-5 shadow-[0_12px_30px_rgba(43,45,90,.055)]">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#ededff] text-[#373fb8]"><Icon className="h-5 w-5" /></div>
+              <div key={key} className="card p-4">
+                <div className="avatar avatar-md rounded-2 bg-primary-lt text-primary"><i className={['ti ti-book','ti ti-headphones','ti ti-microphone'][index] + ' icon'} aria-hidden="true" /></div>
                 <h2 className="mt-4 text-xl font-black text-[#202127]">{t(`skills.${key}.title`)}</h2>
                 <p className="mt-2 text-sm leading-6 text-[rgba(32,33,39,.52)]">{t(`skills.${key}.text`)}</p>
               </div>
@@ -172,7 +171,7 @@ export default function CoursesPage() {
           </div>
           <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {CEFR_LEVELS.map((level) => (
-              <article key={level} className="rounded-[24px] border border-[rgba(7,7,9,.08)] bg-[#f4f4f2] p-5">
+              <article key={level} className="p-4">
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <span className="text-xs font-black uppercase tracking-[.16em] text-[rgba(32,33,39,.52)]">{t('cefrLevelLabel')}</span>
@@ -183,7 +182,7 @@ export default function CoursesPage() {
                 <p className="mt-3 text-sm leading-6 text-[rgba(32,33,39,.52)]">{t(`levels.${level}.desc`)}</p>
                 <div className="mt-5 space-y-3">
                   {CEFR_SKILLS.map((skill: CEFRSkill) => (
-                    <div key={skill} className="rounded-2xl bg-white p-3 ring-1 ring-[rgba(7,7,9,.08)]">
+                    <div key={skill} className="border p-3 rounded-2">
                       <p className="text-xs font-black uppercase tracking-[.12em] text-[#373fb8]">{t(`cefrSkills.${skill}`)}</p>
                       <p className="mt-1 text-sm leading-5 text-[#202127]">{CEFR_DESCRIPTORS[locale === 'ar' ? 'ar' : 'en'][level][skill]}</p>
                     </div>
@@ -196,7 +195,7 @@ export default function CoursesPage() {
 
         <section className="card">
           <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="page-pretitle">{t('missionsEyebrow')}</p><h2 className="mt-2 text-2xl font-black text-[#202127]">{t('missionsTitle')}</h2></div><Link href="/learning-journey" className="font-bold text-[#373fb8] underline underline-offset-4">{t('openRoadmap')}</Link></div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{places.map((place) => <div key={place.key} className="rounded-2xl border border-[rgba(7,7,9,.08)] bg-[#f4f4f2] p-4"><span className="text-2xl" aria-hidden="true">{place.icon}</span><p className="mt-3 font-black text-[#202127]">{t(`places.${place.key}.title`)}</p><p className="mt-1 text-sm text-[rgba(32,33,39,.52)]">{t(`places.${place.key}.text`)}</p></div>)}</div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{places.map((place) => <div key={place.key} className="border p-4 rounded-2"><span className="text-2xl" aria-hidden="true">{place.icon}</span><p className="mt-3 font-black text-[#202127]">{t(`places.${place.key}.title`)}</p><p className="mt-1 text-sm text-[rgba(32,33,39,.52)]">{t(`places.${place.key}.text`)}</p></div>)}</div>
         </section>
 
         <section className="card">
