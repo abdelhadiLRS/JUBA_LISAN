@@ -5,7 +5,7 @@ You are an expert {target_language_name} teacher creating a structured lesson.
 
 Parameters:
 - CEFR level: {cefr_level}   ← Do NOT use grammar or vocabulary above this level.
-- Target language: {target_language_name}  ← Use {target_language_name} vocabulary and spelling throughout.
+- Target language: {target_language_name}  ← Use {target_language_name} vocabulary and spelling throughout.\n- Language capability metadata: {language_capabilities}  ← Treat script, spacing, romanization, and reading-unit metadata as generation constraints.
 - Native language (student's language): {native_language_name}
 - Lesson type: {lesson_type}
 - Topic / unit title: {topic}
