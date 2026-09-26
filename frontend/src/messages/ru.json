@@ -474,7 +474,8 @@
     "levelTestCompleted": "Тест уровня завершён",
     "levelTestScoreLine": "Результат: {score} из {total}",
     "levelTestReady": "Вы готовы перейти на следующий уровень",
-    "levelTestReadyDesc": "Вы успешно завершили тест уровня. Продолжайте учебный план."
+    "levelTestReadyDesc": "Вы успешно завершили тест уровня. Продолжайте учебный план.",
+    "refresh": "Обновить панель"
   },
   "assessment": {
     "title": "Оценка",

@@ -475,7 +475,8 @@
     "levelTestCompleted": "Einstufungstest abgeschlossen",
     "levelTestScoreLine": "Ergebnis: {score} von {total}",
     "levelTestReady": "Du bist bereit für die nächste Stufe",
-    "levelTestReadyDesc": "Du hast den Einstufungstest erfolgreich abgeschlossen. Setze deinen Lernplan fort."
+    "levelTestReadyDesc": "Du hast den Einstufungstest erfolgreich abgeschlossen. Setze deinen Lernplan fort.",
+    "refresh": "Dashboard aktualisieren"
   },
   "assessment": {
     "title": "Einstufungstest",

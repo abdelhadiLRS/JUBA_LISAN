@@ -475,7 +475,8 @@
     "levelTestCompleted": "Test poziomujący ukończony",
     "levelTestScoreLine": "Wynik: {score} z {total}",
     "levelTestReady": "Jesteś gotowy na następny poziom",
-    "levelTestReadyDesc": "Ukończono test poziomujący. Kontynuuj swój plan nauki."
+    "levelTestReadyDesc": "Ukończono test poziomujący. Kontynuuj swój plan nauki.",
+    "refresh": "Odśwież pulpit"
   },
   "assessment": {
     "title": "Ocena poziomu",

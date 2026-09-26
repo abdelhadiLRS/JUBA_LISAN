@@ -595,7 +595,8 @@
     "levelTestCompleted": "Level test completed",
     "levelTestScoreLine": "Score: {score} out of {total}",
     "levelTestReady": "You are ready for the next level",
-    "levelTestReadyDesc": "You completed the level test successfully. Continue your learning plan."
+    "levelTestReadyDesc": "You completed the level test successfully. Continue your learning plan.",
+    "refresh": "Refresh dashboard"
   },
   "assessment": {
     "title": "Assessment",

@@ -475,7 +475,8 @@
     "levelTestCompleted": "Niveautest voltooid",
     "levelTestScoreLine": "Score: {score} van {total}",
     "levelTestReady": "Je bent klaar voor het volgende niveau",
-    "levelTestReadyDesc": "Je hebt de niveautest succesvol afgerond. Ga verder met je leerplan."
+    "levelTestReadyDesc": "Je hebt de niveautest succesvol afgerond. Ga verder met je leerplan.",
+    "refresh": "Dashboard vernieuwen"
   },
   "assessment": {
     "title": "Beoordeling",
