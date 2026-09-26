@@ -357,7 +357,7 @@ export default function ChatPage() {
                         })
                         .finally(() => setLoadingConvs(false))
                     }}
-                    className="rounded-xl border-2 border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-2 font-semibold tracking-wide text-[#202127] shadow-[2px_2px_0_#202127] transition-all hover:-translate-y-0.5 hover:border-[#5862e2]"
+                    className="rounded-xl border border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-2 font-semibold tracking-wide text-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)] transition-all hover:-translate-y-0.5 hover:border-[#5862e2]"
                   >
                     {tCommon('retry')}
                   </button>
@@ -395,7 +395,7 @@ export default function ChatPage() {
                         e.stopPropagation()
                         setDeletePending(c.id)
                       }}
-                      className="text-[#b33a32] shrink-0 font-mono opacity-0 transition-all group-hover:opacity-100"
+                      className="text-[#b33a32] shrink-0 font-sans opacity-0 transition-all group-hover:opacity-100"
                       title={t('delete')}
                     >
                       ✕
@@ -463,7 +463,7 @@ export default function ChatPage() {
                 <p className="text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
                   {t('title')}
                 </p>
-                <p className="text-[rgba(32,33,39,.52)] max-w-xs font-mono text-xs leading-relaxed">
+                <p className="text-[rgba(32,33,39,.52)] max-w-xs font-sans text-xs leading-relaxed">
                   {t('subtitle', {
                     language: activeLanguage
                       ? tLang(activeLanguage.code)
@@ -478,7 +478,7 @@ export default function ChatPage() {
                   className={`juba-chat-message-row flex items-end gap-2 ${msg.role === 'user' ? 'ml-auto max-w-[75%] flex-row-reverse' : 'flex-row'}`}
                 >
                   {/* Avatar */}
-                  <div className="juba-chat-avatar mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[rgba(7,7,9,.08)]">
+                  <div className="juba-chat-avatar mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border border-[rgba(7,7,9,.08)]">
                     {msg.role === 'assistant' ? (
                       <Image
                         src="/logo_head.png"
@@ -506,7 +506,7 @@ export default function ChatPage() {
                       />
                     ) : (
                       <div className="bg-[#ededff] flex h-full w-full items-center justify-center">
-                        <span className="text-[rgba(32,33,39,.52)] font-mono select-none">
+                        <span className="text-[rgba(32,33,39,.52)] font-sans select-none">
                           {(user?.displayName ||
                             user?.username ||
                             '?')[0].toUpperCase()}
@@ -518,10 +518,10 @@ export default function ChatPage() {
                     <TargetLanguageText
                       as="div"
                       languageCode={targetLanguageCode}
-                      className={`juba-chat-message word-selectable border-2 border-[rgba(7,7,9,.08)] px-4 py-3 text-left ${
+                      className={`juba-chat-message word-selectable border border-[rgba(7,7,9,.08)] px-4 py-3 text-left ${
                         msg.role === 'user'
-                          ? 'bg-[#5862e2] text-white border-[#202127] shadow-[3px_3px_0_#202127]'
-                          : 'bg-[#fff] text-[#202127] border-2 border-[rgba(7,7,9,.08)] shadow-[2px_2px_0_#202127]'
+                          ? 'bg-[#5862e2] text-white border-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)]'
+                          : 'bg-[#fff] text-[#202127] border border-[rgba(7,7,9,.08)] shadow-[0_12px_30px_rgba(43,45,90,.055)]'
                       }`}
                       onPointerUp={
                         msg.role === 'assistant' &&
@@ -549,7 +549,7 @@ export default function ChatPage() {
               ))
             )}
             {error && (
-              <div className="text-[#202127] text-[#b33a32] rounded-xl border-2 border-[#d7b2ad] bg-[#fff7f5] px-4 py-2 font-mono">
+              <div className="text-[#202127] text-[#b33a32] rounded-xl border border-[#d7b2ad] bg-[#fff7f5] px-4 py-2 font-sans">
                 ✕{' '}
                 {error === 'No active study plan found'
                   ? tCommon('noActivePlan')
@@ -576,18 +576,18 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1 rounded-xl border-2 border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-3 font-mono text-base text-[#202127] shadow-[2px_2px_0_#202127] transition-all placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] focus:outline-none focus:ring-2 focus:ring-[#5862e2]/15 disabled:opacity-40"
+                    className="flex-1 rounded-xl border border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-3 font-sans text-base text-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)] transition-all placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] focus:outline-none focus:ring-2 focus:ring-[#5862e2]/15 disabled:opacity-40"
                   />
                   <button
                     type="button"
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || loadingMsgs}
-                    className="rounded-xl border-2 border-[#202127] bg-[#5862e2] px-5 font-mono font-bold uppercase tracking-widest text-white shadow-[3px_3px_0_#202127] transition-all hover:-translate-y-0.5 hover:bg-[#5862e2] hover:shadow-[4px_4px_0_#202127] active:translate-y-0.5 active:shadow-[1px_1px_0_#202127] disabled:opacity-30"
+                    className="rounded-xl border border-[#202127] bg-[#5862e2] px-5 font-sans font-bold uppercase tracking-widest text-white shadow-[0_12px_30px_rgba(43,45,90,.055)] transition-all hover:-translate-y-0.5 hover:bg-[#5862e2] hover:shadow-[0_12px_30px_rgba(43,45,90,.055)] active:translate-y-0.5 active:shadow-[1px_1px_0_#202127] disabled:opacity-30"
                   >
                     {sending ? '…' : t('send')}
                   </button>
                 </div>
-                <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] mt-2 font-mono tracking-wide">
+                <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] mt-2 font-sans tracking-wide">
                   {t('enterToSend')}
                 </p>
               </>

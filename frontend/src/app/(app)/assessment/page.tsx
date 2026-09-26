@@ -327,7 +327,7 @@ export default function AssessmentPage() {
 
   const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[26px] border border-[rgba(7,7,9,.08)] bg-white shadow-[8px_8px_0_#202127]'
   const panelClass = 'rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#ededff] p-4'
-  const actionClass = 'w-full rounded-[14px] border-2 border-[#202127] bg-[#fff3d1] px-4 py-3 font-bold text-[#202127] shadow-[4px_4px_0_#202127] transition hover:-translate-y-0.5'
+  const actionClass = 'w-full rounded-[14px] border border-[#202127] bg-[#fff3d1] px-4 py-3 font-bold text-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)] transition hover:-translate-y-0.5'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
     return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
@@ -403,7 +403,7 @@ export default function AssessmentPage() {
   if (step === 'quiz' && currentQuestion) {
     return (
       <div className="juba-mobile-assessment mx-auto w-full max-w-4xl px-4 py-6 sm:py-10">
-        <div className="mb-5 flex items-center justify-between rounded-[22px] border-2 border-[#ededff] bg-white px-5 py-4 shadow-sm">
+        <div className="mb-5 flex items-center justify-between rounded-[22px] border border-[#ededff] bg-white px-5 py-4 shadow-sm">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('title')}</p>
             <p className="mt-1 text-sm font-semibold text-[#202127]">{currentLevel}</p>

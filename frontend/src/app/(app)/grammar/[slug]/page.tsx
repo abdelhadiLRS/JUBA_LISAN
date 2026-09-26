@@ -23,7 +23,7 @@ function renderExplanation(text: string) {
       return (
         <li
           key={i}
-          className="text-[rgba(32,33,39,.52)] font-mono text-xs leading-relaxed"
+          className="text-[rgba(32,33,39,.52)] font-sans text-xs leading-relaxed"
         >
           <span className="text-[rgba(32,33,39,.52)] mr-2">{'\u00b7'}</span>
           <RichText text={line.slice(2)} />
@@ -40,7 +40,7 @@ function renderExplanation(text: string) {
             .map((cell, ci) => (
               <td
                 key={ci}
-                className="text-[#202127] text-[rgba(32,33,39,.52)] border-[#ededff] border px-3 py-1.5 font-mono"
+                className="text-[#202127] text-[rgba(32,33,39,.52)] border-[#ededff] border px-3 py-1.5 font-sans"
               >
                 <RichText text={cell.trim()} />
               </td>
@@ -49,7 +49,7 @@ function renderExplanation(text: string) {
       )
     }
     return (
-      <p key={i} className="text-[rgba(32,33,39,.52)] font-mono text-xs leading-relaxed">
+      <p key={i} className="text-[rgba(32,33,39,.52)] font-sans text-xs leading-relaxed">
         <RichText text={line} />
       </p>
     )
@@ -70,7 +70,7 @@ function RichText({ text }: { text: string }) {
         }
         if (part.startsWith('`') && part.endsWith('`')) {
           return (
-            <code key={i} className="bg-[#ededff] text-[#202127] px-1 font-mono">
+            <code key={i} className="bg-[#ededff] text-[#202127] px-1 font-sans">
               {part.slice(1, -1)}
             </code>
           )
@@ -165,10 +165,10 @@ export default function GrammarDetailPage({
   if (loadError) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <p className="text-[rgba(32,33,39,.52)] font-mono text-sm">{tCommon('error')}</p>
+        <p className="text-[rgba(32,33,39,.52)] font-sans text-sm">{tCommon('error')}</p>
         <button
           onClick={() => fetchTopics(targetLanguageCode)}
-          className="text-[#373fb8] font-mono text-xs tracking-widest uppercase underline"
+          className="text-[#373fb8] font-sans text-xs tracking-widest uppercase underline"
         >
           {tCommon('retry')}
         </button>
@@ -188,7 +188,7 @@ export default function GrammarDetailPage({
 
   return (
     <div className="mx-auto max-w-5xl space-y-4 p-6">
-      <nav className="text-[#202127] text-[rgba(32,33,39,.52)] flex items-center gap-2 font-mono">
+      <nav className="text-[#202127] text-[rgba(32,33,39,.52)] flex items-center gap-2 font-sans">
         <Link
           href="/grammar"
           className="hover:text-[#202127] tracking-widest uppercase transition-colors"
@@ -206,31 +206,31 @@ export default function GrammarDetailPage({
       <div className="border-[#ededff] bg-white border">
         <div className="border-[#ededff] flex items-center gap-2 border-b px-6 py-4">
           <span className="text-[#202127] text-[rgba(32,33,39,.52)]">{'\u25cf'}</span>
-          <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-mono tracking-widest uppercase">
+          <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
             {t('backToGrammar')}
           </span>
         </div>
         <div className="space-y-3 px-6 py-5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="border-[#ededff] text-[#202127] text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-mono tracking-widest uppercase">
+            <span className="border-[#ededff] text-[#202127] text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-sans tracking-widest uppercase">
               {topic.level}
             </span>
-            <span className="border-[#ededff] text-[#202127] text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-mono tracking-widest uppercase">
+            <span className="border-[#ededff] text-[#202127] text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-sans tracking-widest uppercase">
               {topic.category}
             </span>
           </div>
-          <h1 className="text-[#202127] font-mono text-xl font-bold tracking-wide">
+          <h1 className="text-[#202127] font-sans text-xl font-bold tracking-wide">
             {topic.title}
           </h1>
-          <p className="text-[rgba(32,33,39,.52)] font-mono text-xs leading-relaxed">
+          <p className="text-[rgba(32,33,39,.52)] font-sans text-xs leading-relaxed">
             {topic.summary}
           </p>
           {topic.structure && (
             <div className="border-[#ededff] bg-[#ededff]/40 border px-4 py-3">
-              <p className="text-[#202127] text-[rgba(32,33,39,.52)] mb-1 font-mono tracking-widest uppercase">
+              <p className="text-[#202127] text-[rgba(32,33,39,.52)] mb-1 font-sans tracking-widest uppercase">
                 {t('structure')}
               </p>
-              <p className="text-[#202127] font-mono text-xs">{topic.structure}</p>
+              <p className="text-[#202127] font-sans text-xs">{topic.structure}</p>
             </div>
           )}
         </div>
@@ -238,7 +238,7 @@ export default function GrammarDetailPage({
 
       <div className="border-[#ededff] bg-white border">
         <div className="border-[#ededff] flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-mono tracking-widest uppercase">
+          <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
             {t('explanation')}
           </span>
         </div>
@@ -266,7 +266,7 @@ export default function GrammarDetailPage({
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
-            className="border-[#ededff] text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] flex w-full items-center justify-between border-b px-6 py-4 font-mono tracking-widest uppercase transition-colors"
+            className="border-[#ededff] text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] flex w-full items-center justify-between border-b px-6 py-4 font-sans tracking-widest uppercase transition-colors"
             aria-expanded={nativeHelpOpen}
           >
             <span>
@@ -277,7 +277,7 @@ export default function GrammarDetailPage({
           {nativeHelpOpen && (
             <div className="space-y-4 px-6 py-5">
               {loadingNativeHelp ? (
-                <p className="text-[rgba(32,33,39,.52)] font-mono text-xs">
+                <p className="text-[rgba(32,33,39,.52)] font-sans text-xs">
                   {tCommon('nativeHelpLoading', {
                     language: nativeLanguageName,
                   })}
@@ -295,7 +295,7 @@ export default function GrammarDetailPage({
 
                   {nativeHelp.key_points.length > 0 && (
                     <div className="space-y-2">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-mono tracking-widest uppercase">
+                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpKeyPoints')}
                       </p>
                       <ul className="space-y-1">
@@ -311,7 +311,7 @@ export default function GrammarDetailPage({
 
                   {nativeHelp.examples.length > 0 && (
                     <div className="border-[#ededff] space-y-2 border-t pt-3">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-mono tracking-widest uppercase">
+                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
                         {t('examples')}
                       </p>
                       {nativeHelp.examples.map((ex, i) => (
@@ -330,7 +330,7 @@ export default function GrammarDetailPage({
 
                   {nativeHelp.common_traps.length > 0 && (
                     <div className="border-[#ededff] space-y-2 border-t pt-3">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-mono tracking-widest uppercase">
+                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpCommonTraps')}
                       </p>
                       {nativeHelp.common_traps.map((trap, i) => (
@@ -346,7 +346,7 @@ export default function GrammarDetailPage({
 
                   {nativeHelp.mini_glossary.length > 0 && (
                     <div className="border-[#ededff] space-y-2 border-t pt-3">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-mono tracking-widest uppercase">
+                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpMiniGlossary')}
                       </p>
                       {nativeHelp.mini_glossary.map((item, i) => (
@@ -375,7 +375,7 @@ export default function GrammarDetailPage({
                   <button
                     type="button"
                     onClick={generateNativeHelp}
-                    className="text-[rgba(32,33,39,.52)] hover:text-[#202127] font-mono text-sm transition-colors"
+                    className="text-[rgba(32,33,39,.52)] hover:text-[#202127] font-sans text-sm transition-colors"
                   >
                     {nativeHelpError
                       ? tCommon('retry')
@@ -393,17 +393,17 @@ export default function GrammarDetailPage({
       {topic.rules.length > 0 && (
         <div className="border-[#ededff] bg-white border">
           <div className="border-[#ededff] flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-mono tracking-widest uppercase">
+            <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
               {t('keyRules')}
             </span>
           </div>
           <ul className="space-y-2 px-6 py-5">
             {topic.rules.map((rule, i) => (
               <li key={i} className="flex items-start gap-2">
-                <span className="text-[#202127] text-[rgba(32,33,39,.52)] mt-0.5 shrink-0 font-mono">
+                <span className="text-[#202127] text-[rgba(32,33,39,.52)] mt-0.5 shrink-0 font-sans">
                   {i + 1}.
                 </span>
-                <p className="text-[rgba(32,33,39,.52)] font-mono text-xs leading-relaxed">
+                <p className="text-[rgba(32,33,39,.52)] font-sans text-xs leading-relaxed">
                   {rule}
                 </p>
               </li>
@@ -415,7 +415,7 @@ export default function GrammarDetailPage({
       {topic.examples.length > 0 && (
         <div className="border-[#ededff] bg-white border">
           <div className="border-[#ededff] flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-mono tracking-widest uppercase">
+            <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
               {t('examples')}
             </span>
           </div>
@@ -425,9 +425,9 @@ export default function GrammarDetailPage({
                 key={i}
                 className="border-[#ededff] space-y-0.5 border-l-2 pl-4"
               >
-                <p className="text-[#202127] font-mono text-xs">{ex.text}</p>
+                <p className="text-[#202127] font-sans text-xs">{ex.text}</p>
                 {ex.note && (
-                  <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-mono italic">
+                  <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans italic">
                     {ex.note}
                   </p>
                 )}
@@ -440,7 +440,7 @@ export default function GrammarDetailPage({
       {topic.common_mistakes.length > 0 && (
         <div className="border-[#ededff] bg-white border">
           <div className="border-[#ededff] flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-mono tracking-widest uppercase">
+            <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
               {t('commonMistakes')}
             </span>
           </div>
@@ -449,24 +449,24 @@ export default function GrammarDetailPage({
               <div key={i} className="space-y-1.5">
                 {m.wrong && (
                   <div className="flex items-start gap-2">
-                    <span className="text-[#202127] shrink-0 font-mono text-red-500">
+                    <span className="text-[#202127] shrink-0 font-sans text-red-500">
                       {'\u2717'}
                     </span>
-                    <p className="text-[rgba(32,33,39,.52)] font-mono text-xs line-through">
+                    <p className="text-[rgba(32,33,39,.52)] font-sans text-xs line-through">
                       {m.wrong}
                     </p>
                   </div>
                 )}
                 {m.correct && (
                   <div className="flex items-start gap-2">
-                    <span className="text-[#202127] shrink-0 font-mono text-green-500">
+                    <span className="text-[#202127] shrink-0 font-sans text-green-500">
                       {'\u2713'}
                     </span>
-                    <p className="text-[#202127] font-mono text-xs">{m.correct}</p>
+                    <p className="text-[#202127] font-sans text-xs">{m.correct}</p>
                   </div>
                 )}
                 {m.note && (
-                  <p className="text-[#202127] text-[rgba(32,33,39,.52)] pl-5 font-mono">
+                  <p className="text-[#202127] text-[rgba(32,33,39,.52)] pl-5 font-sans">
                     {m.note}
                   </p>
                 )}
@@ -479,7 +479,7 @@ export default function GrammarDetailPage({
       {relatedTopics.length > 0 && (
         <div className="border-[#ededff] bg-white border">
           <div className="border-[#ededff] flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-mono tracking-widest uppercase">
+            <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
               {t('relatedTopics')}
             </span>
           </div>
@@ -490,7 +490,7 @@ export default function GrammarDetailPage({
                   <Link
                     key={rt.slug}
                     href={`/grammar/${rt.slug}`}
-                    className="border-[#ededff] text-[#202127] text-[rgba(32,33,39,.52)] hover:border-[#373fb8] hover:text-[#202127] border px-3 py-2 font-mono tracking-widest uppercase transition-colors"
+                    className="border-[#ededff] text-[#202127] text-[rgba(32,33,39,.52)] hover:border-[#373fb8] hover:text-[#202127] border px-3 py-2 font-sans tracking-widest uppercase transition-colors"
                   >
                     {'\u25cf'} {rt.title}
                     <span className="text-[rgba(32,33,39,.52)] ml-2">{rt.level}</span>
@@ -503,7 +503,7 @@ export default function GrammarDetailPage({
 
       <Link
         href="/grammar"
-        className="text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] inline-block font-mono tracking-widest uppercase transition-colors"
+        className="text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] inline-block font-sans tracking-widest uppercase transition-colors"
       >
         {'\u2190'} {t('backLink')}
       </Link>
