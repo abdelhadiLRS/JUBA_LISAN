@@ -295,7 +295,14 @@ def distribute_units(
     days_per_week: int,
     target_language: str = "en-GB",
 ) -> list[dict]:
-    """Distribute curriculum units across lesson slots."""
+    """Distribute curriculum units across lesson slots.
+
+    Empty curricula or non-positive scheduling dimensions produce no slots
+    instead of raising from ``units[-1]`` or creating invalid week/day values.
+    """
+    if not units or total_weeks <= 0 or days_per_week <= 0:
+        return []
+
     locale = _normalize_locale(target_language)
     i18n = _I18N.get(locale)
     if i18n is None:
