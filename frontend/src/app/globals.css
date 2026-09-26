@@ -8071,11 +8071,17 @@ main [dir="rtl"] h3,
   }
 }
 @media (max-width: 991.98px) {
-  .juba-top-nav > .nav-link > span,
-  .juba-top-nav > .nav-item > .nav-link > span {
+  .juba-top-nav-shell {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .juba-top-nav-shell::-webkit-scrollbar {
     display: none;
   }
-  .juba-top-nav > .nav-link:nth-last-child(-n + 3) {
+  .juba-top-nav > .nav-link > span,
+  .juba-top-nav > .nav-item > .nav-link > span {
     display: none;
   }
   .juba-top-nav > .vr {
