@@ -139,6 +139,8 @@
     "nativeHelpPractice": "Практика"
   },
   "nav": {
+    "primaryNavigation": "Основная навигация",
+    "notifications": "Уведомления",
     "learning": "Обучение",
     "practice": "Практика",
     "studyTools": "Инструменты для учёбы",
