@@ -115,7 +115,7 @@ export default function FriendsPage() {
           <UserPlus className="h-4 w-4" /> {inviteLoading ? 'Creating…' : 'Create invite'}
         </button>
         {inviteUrl && (
-          <div className="w-full rounded-2xl border border-[rgba(7,7,9,.08)] bg-[#f4f4f2] p-3">
+          <div className="w-full rounded-2xl border border bg-[#f4f4f2] p-3">
             <div className="flex flex-wrap items-center gap-2">
               <p className="min-w-0 flex-1 break-all text-xs text-[rgba(32,33,39,.52)]">{inviteUrl}</p>
               <button onClick={copyInvite} className="btn btn-outline-secondary shrink-0">
@@ -157,12 +157,12 @@ export default function FriendsPage() {
 }
 
 function PersonCard({person,children}:{person:Person;children:React.ReactNode}) {
-  return <div className="flex items-center gap-3 rounded-2xl border border-[rgba(7,7,9,.08)] bg-[#fff] p-3 shadow-sm">
-    <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-[rgba(7,7,9,.08)] bg-[#f4f4f2]">
+  return <div className="flex items-center gap-3 rounded-2xl border border bg-[#fff] p-3 shadow-sm">
+    <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border bg-[#f4f4f2]">
       {person.avatar ? <AuthAvatarImage avatar={person.avatar} alt="" width={44} height={44} className="h-full w-full object-cover"/> : <div className="flex h-full w-full items-center justify-center font-bold text-[rgba(32,33,39,.52)]">{(person.display_name||person.username||'?')[0].toUpperCase()}</div>}
     </div>
     <div className="min-w-0 flex-1"><p className="truncate font-semibold">{person.display_name||person.username}</p><p className="truncate text-xs text-[rgba(32,33,39,.52)]">@{person.username}{person.target_language?' · '+person.target_language:''}</p></div>
     {children}
   </div>
 }
-function Empty({text}:{text:string}) { return <div className="rounded-2xl border border-dashed border-[rgba(7,7,9,.08)] bg-[#f4f4f2] p-6 text-center text-sm text-[rgba(32,33,39,.52)]">{text}</div> }
+function Empty({text}:{text:string}) { return <div className="rounded-2xl border border-dashed border bg-[#f4f4f2] p-6 text-center text-sm text-[rgba(32,33,39,.52)]">{text}</div> }
