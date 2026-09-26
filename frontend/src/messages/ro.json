@@ -282,6 +282,34 @@
     "learningLabel": "Învățare",
     "cefrLabel": "CEFR",
     "coachLabel": "Antrenor"
+  ,
+      "learner": "Cursant",
+      "minutes": "min",
+      "reviewEyebrow": "Recapitulare inteligentă",
+      "reviewTitle": "Ai elemente de revizuit",
+      "reviewAction": "Începe revizuirea",
+      "reviewSkill": "Competență recomandată",
+      "learningLabel": "Învățare",
+      "cefrLabel": "CEFR",
+      "coachLabel": "Coach",
+      "scenarios": {
+        "airport": {
+          "title": "Aeroport",
+          "description": "Fă check-in, cere indicații și gestionează întârzierile."
+        },
+        "jobInterview": {
+          "title": "Interviu de angajare",
+          "description": "Exersează răspunsuri, încredere și vocabular profesional."
+        },
+        "restaurant": {
+          "title": "Restaurant",
+          "description": "Comandă natural și gestionează o conversație reală."
+        },
+        "hotel": {
+          "title": "Hotel",
+          "description": "Rezervă o cameră, rezolvă probleme și fă solicitări."
+        }
+      }
   },
   "settings": {
     "title": "Setări",
