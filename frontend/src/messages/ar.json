@@ -777,6 +777,8 @@
     "assessmentVoiceContext": "لقد أكملت اختبار تحديد المستوى للتو. ابدأ محادثة صوتية قصيرة وودية ومناسبة لمستواي."
   },
   "nav": {
+    "primaryNavigation": "التنقل الرئيسي",
+    "notifications": "الإشعارات",
     "learning": "التعلّم",
     "practice": "التدريب",
     "studyTools": "أدوات الدراسة",
