@@ -3,7 +3,23 @@
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { BookOpen, Check, ChevronDown, Flame, Headphones, LayoutDashboard, Library, ListChecks, Mic2, Play, Trophy, UserRound } from 'lucide-react'
+import {
+  ArrowUpRight,
+  BookOpen,
+  CalendarDays,
+  Check,
+  ChevronDown,
+  Flame,
+  Headphones,
+  LayoutDashboard,
+  Library,
+  ListChecks,
+  Mic2,
+  MoreHorizontal,
+  Play,
+  Trophy,
+  UserRound,
+} from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import {
   isSubscribed,
@@ -18,7 +34,6 @@ import OnboardingTour from '@/components/tour/OnboardingTour'
 import WhatsNew from '@/components/whats-new/WhatsNew'
 import { PageLoading } from '@/components/ui/page-loading'
 import { SubscriptionPlanButtons } from '@/components/billing/SubscriptionPlanButtons'
-import { DashboardAnnouncement } from '@/components/dashboard/DashboardAnnouncement'
 
 interface TodayLessonItem {
   id: number | null
@@ -38,6 +53,8 @@ interface CompletionState {
   next_level: string | null
 }
 
+const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
+
 export default function DashboardPage() {
   const t = useTranslations('dashboard')
   const tAssessment = useTranslations('assessment')
@@ -46,25 +63,13 @@ export default function DashboardPage() {
   const tPlan = useTranslations('plan')
   const tTarget = useTranslations('targetLanguages')
   const tError = useTranslations('error')
+
   const user = useAuthStore((s) => s.user)
   const accessToken = useAuthStore((s) => s.accessToken)
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const trialEligible = !user?.trial_used
   const freemiumTrialActive = isFreemiumTrialActive(user, stripeEnabled)
   const [freemiumTrialDaysLeft, setFreemiumTrialDaysLeft] = useState(0)
-
-  useEffect(() => {
-    if (freemiumTrialActive && user?.freemium_trial_ends_at) {
-      const days = Math.max(
-        1,
-        Math.ceil(
-          (new Date(user.freemium_trial_ends_at).getTime() - Date.now()) /
-            86400000
-        )
-      )
-      setFreemiumTrialDaysLeft(days)
-    }
-  }, [freemiumTrialActive, user?.freemium_trial_ends_at])
 
   const {
     streak,
@@ -75,11 +80,11 @@ export default function DashboardPage() {
     setProgress,
     setTodayLessons,
   } = useProgressStore()
+
   const activeLanguage = useLanguageStore((s) => s.activeLanguage)
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState(false)
   const [hasPlan, setHasPlan] = useState(false)
-  const [planId, setPlanId] = useState<number | null>(null)
   const [completion, setCompletion] = useState<CompletionState | null>(null)
   const [cefrLevel, setCefrLevel] = useState<string | null>(null)
   const [progressDay, setProgressDay] = useState(0)
@@ -98,12 +103,26 @@ export default function DashboardPage() {
   const [portalLoading, setPortalLoading] = useState(false)
   const [portalError, setPortalError] = useState<string | null>(null)
 
+  useEffect(() => {
+    if (freemiumTrialActive && user?.freemium_trial_ends_at) {
+      const days = Math.max(
+        1,
+        Math.ceil(
+          (new Date(user.freemium_trial_ends_at).getTime() - Date.now()) /
+            86400000
+        )
+      )
+      setFreemiumTrialDaysLeft(days)
+    }
+  }, [freemiumTrialActive, user?.freemium_trial_ends_at])
+
   const loadData = useCallback(async () => {
     try {
       const [progRes, planRes] = await Promise.all([
         apiFetch('/api/progress/summary'),
         apiFetch('/api/study-plan/today'),
       ])
+
       if (progRes.ok) {
         const prog = await progRes.json()
         setProgress({
@@ -130,10 +149,10 @@ export default function DashboardPage() {
         setVocabularyTotal(0)
         setVocabularyProgress(0)
       }
+
       if (planRes.ok) {
         const plan = await planRes.json()
         setCefrLevel(plan.cefr_level ?? null)
-        setPlanId(plan.plan_id ?? null)
         setCompletion(plan.completion ?? null)
         setProgressDay(plan.progress_day ?? 0)
         setTotalDays(plan.total_days ?? 0)
@@ -153,7 +172,6 @@ export default function DashboardPage() {
         setHasPlan(true)
       } else {
         setCefrLevel(null)
-        setPlanId(null)
         setCompletion(null)
         setProgressDay(0)
         setTotalDays(0)
@@ -166,12 +184,9 @@ export default function DashboardPage() {
     } finally {
       setLoading(false)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- re-fetch when active language changes
   }, [setProgress, setTodayLessons, activeLanguage?.code])
 
   useEffect(() => {
-    // AppLayout establishes the authenticated session before the dashboard
-    // starts protected API requests. Avoid transient 401s while auth boots.
     if (!user || !accessToken) return
     loadData()
   }, [loadData, user, accessToken])
@@ -211,8 +226,8 @@ export default function DashboardPage() {
 
   if (loadError) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4">
-        <p className="text-[var(--juba-app-muted)] font-sans text-sm">{tError('body')}</p>
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-[#e9e8fa]">
+        <p className="font-sans text-sm text-[#55566a]">{tError('body')}</p>
         <button
           type="button"
           onClick={() => {
@@ -220,7 +235,7 @@ export default function DashboardPage() {
             setLoading(true)
             loadData()
           }}
-          className="text-[var(--juba-app-green-dark)] font-sans text-xs tracking-widest uppercase underline"
+          className="font-sans text-xs font-bold uppercase tracking-widest text-[#373fb8] underline"
         >
           {tError('retry')}
         </button>
@@ -231,33 +246,47 @@ export default function DashboardPage() {
   const skillEntries = Object.entries(skills)
     .map(([skill, value]) => ({ skill, value: value as number }))
     .sort((a, b) => a.value - b.value)
+
   const completedLessonCount = todayLessons.filter(
     (lesson) =>
       (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
   ).length
+
   const nextLesson = todayLessons.find(
     (lesson) =>
       lesson.id && !completedToday.includes(lesson.id) && !lesson.isCompleted
   )
+
   const planPositionComplete =
     completion?.state === 'ready' || completion?.state === 'taken'
+
   const planCompletion =
     hasPlan && totalDays > 0
       ? planPositionComplete
         ? 100
         : Math.min(100, Math.round((progressDay / totalDays) * 100))
       : 0
-  const daysRemaining = hasPlan
-    ? planPositionComplete
-      ? 0
-      : Math.max(totalDays - progressDay, 0)
-    : 0
+
   const currentDayDisplay = planPositionComplete
     ? totalDays
     : Math.min(progressDay + 1, totalDays)
+
   const vocabularyProgressPct = Math.round(vocabularyProgress * 100)
   const paymentRecovery = needsPaymentRecovery(user)
   const showPremiumBanner = stripeEnabled && !isSubscribed(user, stripeEnabled)
+
+  const performanceValues = skillEntries.length
+    ? skillEntries.slice(-7).map(({ value }) => Math.max(8, Math.round(value * 100)))
+    : [24, 36, 44, 52, 48, 65, Math.max(70, accuracy)]
+
+  const progressBars = weekDays.map((day, index) => {
+    const base = [38, 56, 46, 78, 64][index]
+    return {
+      day,
+      value: Math.min(96, base + Math.round(planCompletion / 7)),
+      active: index === Math.min(4, completedLessonCount),
+    }
+  })
 
   function getPerformanceLabel(value: number) {
     if (value < 0.5) return t('performanceNeedsPractice')
@@ -265,157 +294,492 @@ export default function DashboardPage() {
     return t('performanceStrong')
   }
 
-                  return (
+  return (
     <>
       <OnboardingTour />
       <WhatsNew />
-      <main className="min-h-screen bg-[#e9eaf8] px-3 py-4 text-[#20232a] sm:px-5 sm:py-6 lg:px-8">
-        <div className="mx-auto max-w-[1600px] overflow-hidden rounded-[34px] border border-black/10 bg-[#f8f8f7] shadow-[0_24px_80px_rgba(31,35,55,.12)]">
-          <header className="flex flex-wrap items-center justify-between gap-4 bg-[#25282e] px-5 py-4 text-white sm:px-7">
-            <Link href="/dashboard" className="flex items-center gap-3 font-bold tracking-tight">
-              <span className="grid size-11 place-items-center rounded-full bg-[#8584e6] text-white"><LayoutDashboard className="size-5" /></span>
-              <span className="text-lg">JUBA LISAN</span>
+
+      <main className="min-h-screen bg-[#dfe0f7] p-2 text-[#202127] sm:p-4 lg:p-6">
+        <div className="mx-auto max-w-[1640px] overflow-hidden rounded-[30px] bg-[#f4f4f2] shadow-[0_30px_90px_rgba(43,45,90,.18)]">
+          <header className="flex min-h-[72px] items-center justify-between gap-4 bg-[#070709] px-4 py-3 text-white sm:px-7">
+            <Link href="/dashboard" className="flex shrink-0 items-center gap-3">
+              <span className="grid size-10 place-items-center rounded-[12px] bg-[#373fb8] text-white shadow-[0_8px_25px_rgba(55,63,184,.35)]">
+                <LayoutDashboard className="size-5" />
+              </span>
+              <span className="text-sm font-black tracking-tight sm:text-base">JUBA LISAN</span>
             </Link>
-            <nav aria-label="Dashboard navigation" className="flex flex-wrap items-center justify-center gap-1 rounded-full bg-black/25 p-1">
-              <Link href="/dashboard" aria-current="page" className="inline-flex items-center gap-2 rounded-full bg-black px-4 py-2.5 text-xs font-bold text-white"><LayoutDashboard className="size-4 text-[#aaa9ff]" />{t('today')}</Link>
-              <Link href="/plan" className="inline-flex items-center gap-2 rounded-full px-3 py-2.5 text-xs font-semibold text-white/70 transition hover:bg-white/10 hover:text-white"><ListChecks className="size-4" />{t('goToMyPlan')}</Link>
-              <Link href="/progress" className="inline-flex items-center gap-2 rounded-full px-3 py-2.5 text-xs font-semibold text-white/70 transition hover:bg-white/10 hover:text-white"><Trophy className="size-4" />{t('recentPerformance')}</Link>
-              <Link href="/reading" className="inline-flex items-center gap-2 rounded-full px-3 py-2.5 text-xs font-semibold text-white/70 transition hover:bg-white/10 hover:text-white"><BookOpen className="size-4" />{tNav('reading')}</Link>
+
+            <nav className="hidden items-center gap-1 rounded-full bg-white/[0.06] p-1 lg:flex">
+              {[
+                { href: '/dashboard', label: t('today'), icon: LayoutDashboard, active: true },
+                { href: '/courses', label: tNav('courses'), icon: BookOpen },
+                { href: '/plan', label: t('goToMyPlan'), icon: ListChecks },
+                { href: '/progress', label: t('recentPerformance'), icon: Trophy },
+                { href: '/reading', label: tNav('reading'), icon: Library },
+              ].map(({ href, label, icon: Icon, active }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className={
+                    active
+                      ? 'inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[11px] font-black text-[#070709]'
+                      : 'inline-flex items-center gap-2 rounded-full px-3 py-2 text-[11px] font-bold text-white/55 transition hover:bg-white/10 hover:text-white'
+                  }
+                >
+                  <Icon className="size-3.5" />
+                  {label}
+                </Link>
+              ))}
             </nav>
+
             <div className="flex items-center gap-3">
               <div className="hidden text-right sm:block">
-                <p className="text-sm font-bold">{t('welcomeBack')}, {user?.displayName || user?.username}</p>
-                <p className="mt-1 text-[11px] text-white/60">{t('streak')}: {streak} · {xp} XP</p>
+                <p className="text-xs font-black">
+                  {t('welcomeBack')}, {user?.displayName || user?.username}
+                </p>
+                <p className="mt-0.5 text-[10px] text-white/45">
+                  {streak} {t('streak')} · {xp} XP
+                </p>
               </div>
-              <span className="grid size-11 place-items-center rounded-full border border-white/20 bg-[#aaa9ef] text-lg font-bold text-[#25282e]"><UserRound className="size-5" /></span>
+              <span className="grid size-10 place-items-center rounded-full bg-[#9a9ff3] text-[#070709] ring-2 ring-white/10">
+                <UserRound className="size-5" />
+              </span>
             </div>
           </header>
 
-          <div className="grid gap-5 p-4 sm:p-6 lg:grid-cols-[minmax(260px,.95fr)_minmax(420px,1.4fr)_minmax(270px,.85fr)] lg:gap-6 lg:p-7">
-            <section className="min-w-0 space-y-5">
-              <div className="relative min-h-[245px] overflow-hidden rounded-[30px] bg-[#8584e6] p-6 text-white">
-                <div className="absolute -right-8 -top-10 size-44 rounded-full border-[20px] border-white/10" />
-                <div className="absolute -bottom-14 -left-8 size-44 rounded-full bg-[#7372d1]" />
-                <div className="relative z-10">
-                  <span className="inline-flex rounded-full bg-white/15 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.14em]">{activeLanguage ? tTarget(activeLanguage.code) : "JUBA LISAN"}</span>
-                  <h1 className="mt-5 max-w-[260px] text-3xl font-black leading-[1.04] tracking-tight">{t('welcomeBack')}, {user?.displayName || user?.username}</h1>
-                  <p className="mt-3 max-w-[245px] text-sm leading-relaxed text-white/80">{cefrLevel ? `${cefrLevel} · ` : ""}{t('nextStep')}</p>
-                  <Link href={nextLesson?.id ? `/lesson/${nextLesson.id}` : "/assessment"} aria-label={t('startLesson')} className="mt-6 inline-flex size-12 items-center justify-center rounded-full border-2 border-white/70 bg-[#25282e] transition hover:scale-105"><Play className="ml-0.5 size-4 fill-white" /></Link>
+          <div className="grid gap-4 p-3 sm:p-5 lg:grid-cols-[1.05fr_1.42fr_1fr] lg:gap-5 lg:p-6">
+            <section className="space-y-4">
+              <div className="relative min-h-[255px] overflow-hidden rounded-[26px] bg-[#9a9ff3] p-5 text-white">
+                <div className="absolute -right-12 -top-16 size-44 rounded-full border-[26px] border-white/10" />
+                <div className="absolute -bottom-24 -left-16 size-56 rounded-full bg-[#858be9]" />
+                <div className="absolute right-8 top-12 grid size-16 rotate-12 place-items-center rounded-[18px] bg-[#373fb8]/30">
+                  <Trophy className="size-8 text-white/85" />
                 </div>
-                <span className="absolute bottom-5 right-6 text-6xl font-black text-white/20">✦</span>
+                <div className="relative z-10">
+                  <span className="inline-flex rounded-full bg-[#070709]/85 px-3 py-1.5 text-[9px] font-black uppercase tracking-[.14em]">
+                    {activeLanguage ? tTarget(activeLanguage.code) : 'JUBA LISAN'}
+                  </span>
+                  <h1 className="mt-6 max-w-[290px] text-[32px] font-black leading-[.98] tracking-[-.04em]">
+                    {t('welcomeBack')}, {user?.displayName || user?.username}
+                  </h1>
+                  <p className="mt-4 max-w-[265px] text-xs font-medium leading-relaxed text-white/75">
+                    {cefrLevel ? cefrLevel + ' · ' : ''}
+                    {t('nextStep')}
+                  </p>
+                  <Link
+                    href={nextLesson?.id ? '/lesson/' + nextLesson.id : '/assessment'}
+                    aria-label={t('startLesson')}
+                    className="mt-6 inline-flex size-11 items-center justify-center rounded-full bg-[#070709] shadow-lg transition hover:scale-105"
+                  >
+                    <Play className="ml-0.5 size-4 fill-white" />
+                  </Link>
+                </div>
+                <div className="absolute bottom-4 right-6 text-5xl font-black text-white/15">✦</div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-[24px] border-2 border-[#ffad68] bg-white p-5">
-                  <div className="flex items-center gap-2 text-xs font-bold text-[#50515a]"><span className="grid size-8 place-items-center rounded-full bg-[#ffad68]/25"><ListChecks className="size-4" /></span>{t('lessonsCompleted')}</div>
-                  <p className="mt-4 text-4xl font-black tracking-tight">{totalLessons}</p>
+                <div className="rounded-[21px] border border-[#ffad68]/70 bg-white p-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="grid size-8 place-items-center rounded-full bg-[#ffad68]/20">
+                      <ListChecks className="size-4 text-[#f07b28]" />
+                    </span>
+                    <span className="text-[9px] font-bold uppercase tracking-widest text-black/35">
+                      {t('lessonsCompleted')}
+                    </span>
+                  </div>
+                  <p className="mt-5 text-[32px] font-black tracking-tight">{totalLessons}</p>
                 </div>
-                <div className="rounded-[24px] border-2 border-[#9291eb] bg-[#eeedff] p-5">
-                  <div className="flex items-center gap-2 text-xs font-bold text-[#50515a]"><span className="grid size-8 place-items-center rounded-full bg-[#9291eb]/20"><Flame className="size-4" /></span>{t('streak')}</div>
-                  <p className="mt-4 text-4xl font-black tracking-tight">{streak}</p>
+                <div className="rounded-[21px] border border-[#9a9ff3] bg-[#e9e9ff] p-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="grid size-8 place-items-center rounded-full bg-white/70">
+                      <Flame className="size-4 text-[#373fb8]" />
+                    </span>
+                    <span className="text-[9px] font-bold uppercase tracking-widest text-black/35">
+                      {t('streak')}
+                    </span>
+                  </div>
+                  <p className="mt-5 text-[32px] font-black tracking-tight">{streak}</p>
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-2">
-                {[
-                  { icon: BookOpen, label: tNav('flashcards'), href: "/flashcards" },
-                  { icon: Mic2, label: tNav('tutor'), href: "/chat" },
-                  { icon: Headphones, label: tNav('listening'), href: "/listening" },
-                ].map(({ icon: Icon, label, href }) => <Link key={href} href={href} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-3 text-xs font-bold shadow-sm ring-1 ring-black/5 transition hover:-translate-y-0.5"><Icon className="size-4 text-[#7776d8]" />{label}</Link>)}
-              </div>
-
-              <div className="rounded-[28px] bg-[#25282e] p-5 text-white">
+              <div className="rounded-[25px] bg-[#070709] p-5 text-white">
                 <div className="flex items-start justify-between gap-3">
-                  <div><p className="text-[10px] font-bold uppercase tracking-[.15em] text-[#ffb16c]">{t('recentPerformance')}</p><h2 className="mt-3 text-xl font-black leading-tight">{skillEntries.length ? getPerformanceLabel(skillEntries[skillEntries.length - 1].value) : t('noSkills')}</h2></div>
-                  <Link href="/progress" aria-label={t('recentPerformance')} className="grid size-10 place-items-center rounded-full bg-white/10 hover:bg-white/20"><ChevronDown className="size-4 -rotate-90" /></Link>
+                  <div>
+                    <span className="text-[9px] font-black uppercase tracking-[.16em] text-[#ff9a5d]">
+                      {t('recentPerformance')}
+                    </span>
+                    <h2 className="mt-2 text-xl font-black tracking-tight">
+                      {skillEntries.length
+                        ? getPerformanceLabel(skillEntries[skillEntries.length - 1].value)
+                        : t('noSkills')}
+                    </h2>
+                  </div>
+                  <Link
+                    href="/progress"
+                    className="grid size-9 place-items-center rounded-full bg-white/10 transition hover:bg-white/15"
+                    aria-label={t('recentPerformance')}
+                  >
+                    <ArrowUpRight className="size-4" />
+                  </Link>
                 </div>
-                <div className="mt-5 flex items-end gap-2">
-                  {skillEntries.slice(-6).map(({ skill, value }, i) => <div key={skill || i} className="flex flex-1 flex-col items-center gap-2"><div className="flex h-24 w-full items-end rounded-xl bg-white/5 p-1.5"><div className="w-full rounded-lg bg-[#9291eb]" style={{ height: `${Math.max(12, value * 100)}%` }} /></div><span className="text-[9px] text-white/55">{Math.round(value * 100)}%</span></div>)}
-                  {skillEntries.length === 0 && <div className="h-24 w-full rounded-xl bg-white/5" />}
+                <div className="mt-5 grid grid-cols-7 items-end gap-2">
+                  {performanceValues.map((value, index) => (
+                    <div key={index} className="flex flex-col items-center gap-1.5">
+                      <div className="flex h-20 w-full items-end rounded-[10px] bg-white/[0.05] p-1">
+                        <div
+                          className="w-full rounded-[7px] bg-[#5862e2]"
+                          style={{ height: Math.max(10, value) + '%' }}
+                        />
+                      </div>
+                      <span className="text-[8px] font-bold text-white/35">{value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative overflow-hidden rounded-[25px] bg-[#373fb8] p-5 text-white">
+                <div className="absolute -right-8 -top-10 size-32 rounded-full border-[18px] border-white/10" />
+                <div className="relative z-10 flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-[9px] font-black uppercase tracking-[.16em] text-white/55">
+                      {tNav('resources')}
+                    </p>
+                    <p className="mt-2 max-w-[180px] text-sm font-black leading-tight">
+                      {t('recentPerformanceDescription')}
+                    </p>
+                  </div>
+                  <Link href="/flashcards" className="grid size-10 shrink-0 place-items-center rounded-full bg-white text-[#373fb8]">
+                    <ArrowUpRight className="size-4" />
+                  </Link>
                 </div>
               </div>
             </section>
 
-            <section className="min-w-0 space-y-5">
-              <div className="rounded-[30px] bg-white p-5 shadow-sm ring-1 ring-black/5 sm:p-6">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div><p className="text-xs font-bold uppercase tracking-[.14em] text-black/45">{t('planProgress')}</p><h2 className="mt-1 text-3xl font-black tracking-tight">{planCompletion}%</h2></div>
-                  <span className="inline-flex items-center gap-2 rounded-full bg-[#f3f3f7] px-4 py-2.5 text-xs font-bold"><BookOpen className="size-4 text-[#7776d8]" />{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</span>
-                </div>
-                <div className="mt-5 rounded-[28px] bg-[#ffad68] p-5 sm:p-6">
-                  <div className="flex items-start justify-between gap-3">
-                    <div><p className="text-4xl font-black tracking-tight">{completedLessonCount}<span className="ml-2 text-base font-semibold">{t('lessonsCompleted')}</span></p><p className="mt-2 text-xs font-semibold text-[#754d2c]">{t('completedToday', { completed: completedLessonCount, total: todayLessons.length || 0 })}</p></div>
-                    <span className="rounded-full bg-[#25282e] px-3 py-2 text-[10px] font-bold text-white">{totalDays > 0 ? `${currentDayDisplay}/${totalDays}` : t('today')}</span>
+            <section className="space-y-4">
+              <div className="rounded-[27px] bg-white p-5 shadow-sm ring-1 ring-black/[0.04] sm:p-6">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-[.15em] text-black/35">{t('planProgress')}</p>
+                    <h2 className="mt-1 text-[34px] font-black tracking-[-.04em]">{planCompletion}%</h2>
                   </div>
-                  <div className="mt-7 grid grid-cols-5 items-end gap-2 sm:gap-3">
-                    {[0,1,2,3,4].map((_, i) => {
-                      const vals = [39,14,48,24,32]
-                      const value = Math.max(10, Math.min(100, vals[i] + Math.round(planCompletion / 10)))
-                      const label = ["Mon","Tue","Wed","Thu","Fri"][i]
-                      return <div key={label} className="text-center"><div className="flex h-32 items-end justify-center rounded-2xl border border-dashed border-black/15"><div className="relative w-9 rounded-t-full bg-[#8b542e]/70 sm:w-11" style={{height:`${value}%`}}><span className="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-black">{value}</span></div></div><span className="mt-2 block text-[10px] font-bold text-black/60">{label}</span></div>
-                    })}
+                  <button type="button" className="inline-flex items-center gap-2 rounded-full bg-[#f3f2f3] px-3 py-2 text-[10px] font-black">
+                    {activeLanguage ? tTarget(activeLanguage.code) : t('today')}
+                    <ChevronDown className="size-3" />
+                  </button>
+                </div>
+
+                <div className="mt-4 overflow-hidden rounded-[25px] bg-[#f95d22] p-5">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-[38px] font-black leading-none tracking-[-.05em]">{completedLessonCount}</p>
+                      <p className="mt-2 text-[10px] font-black text-[#713619]">
+                        {t('completedToday', { completed: completedLessonCount, total: todayLessons.length || 0 })}
+                      </p>
+                    </div>
+                    <div className="rounded-full bg-[#070709] px-3 py-1.5 text-[9px] font-black text-white">
+                      {totalDays > 0 ? currentDayDisplay + '/' + totalDays : t('today')}
+                    </div>
+                  </div>
+
+                  <div className="mt-6 grid grid-cols-5 gap-2">
+                    {progressBars.map(({ day, value, active }) => (
+                      <div key={day} className="text-center">
+                        <div className="relative flex h-[138px] items-end justify-center overflow-hidden rounded-[17px] bg-white/20 p-2">
+                          <div
+                            className="relative w-full max-w-[48px] rounded-t-[18px] bg-[#442e3b]/70"
+                            style={{ height: value + '%' }}
+                          >
+                            <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-[9px] font-black text-[#442e3b]">{value}</span>
+                            {active && (
+                              <span className="absolute left-1/2 top-2 grid size-5 -translate-x-1/2 place-items-center rounded-full bg-white/90">
+                                <Check className="size-3 text-[#f95d22]" />
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <span className="mt-2 block text-[9px] font-black text-[#713619]">{day}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <div className="mt-4 flex items-center justify-between gap-3 rounded-full bg-[#f0f0f2] px-4 py-3">
-                  <div className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-full bg-[#ffcf58]"><Trophy className="size-4" /></span><div><p className="text-xs font-black">{t('recentPerformance')}</p><p className="text-[10px] text-black/50">{t('accuracy')}: {accuracy}%</p></div></div>
-                  <span className="rounded-full bg-white px-3 py-1.5 text-xs font-black">{xp} XP</span>
+
+                <div className="mt-4 flex items-center justify-between rounded-[17px] bg-[#f3f2f3] px-4 py-3">
+                  <div className="flex items-center gap-3">
+                    <span className="grid size-9 place-items-center rounded-full bg-[#ffcf58]">
+                      <Trophy className="size-4" />
+                    </span>
+                    <div>
+                      <p className="text-[10px] font-black">{t('recentPerformance')}</p>
+                      <p className="mt-0.5 text-[9px] text-black/40">{t('accuracy')}: {accuracy}%</p>
+                    </div>
+                  </div>
+                  <span className="rounded-full bg-white px-3 py-1.5 text-[10px] font-black">{xp} XP</span>
                 </div>
               </div>
 
-              <div className="rounded-[30px] bg-white p-5 shadow-sm ring-1 ring-black/5 sm:p-6">
-                <div className="mb-4 flex items-center justify-between gap-3"><div><p className="text-xs font-bold uppercase tracking-[.14em] text-black/40">{t('today')}</p><h2 className="mt-1 text-2xl font-black tracking-tight">{t('nextStep')}</h2></div>{hasPlan && totalDays > 0 && <span className="rounded-full bg-[#ecebff] px-3 py-1.5 text-xs font-black text-[#6665c8]">{currentDayDisplay}/{totalDays}</span>}</div>
-                <div className="space-y-2.5">
-                  {todayLessons.slice(0,5).map((lesson,i) => {
-                    const done = (Boolean(lesson.id) && completedToday.includes(lesson.id as number)) || lesson.isCompleted
+              <div className="rounded-[27px] bg-white p-5 shadow-sm ring-1 ring-black/[0.04] sm:p-6">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-[.15em] text-black/35">{t('today')}</p>
+                    <h2 className="mt-1 text-[24px] font-black tracking-tight">{t('lessonReady')}</h2>
+                  </div>
+                  <Link href="/plan" className="grid size-9 place-items-center rounded-full bg-[#f3f2f3]" aria-label={t('goToMyPlan')}>
+                    <ArrowUpRight className="size-4" />
+                  </Link>
+                </div>
+
+                <div className="mt-4 space-y-2">
+                  {todayLessons.slice(0, 5).map((lesson, index) => {
+                    const done =
+                      (Boolean(lesson.id) && completedToday.includes(lesson.id as number)) ||
+                      lesson.isCompleted
                     const isNext = nextLesson?.id === lesson.id
-                    return <div key={lesson.id ?? i} className={`flex items-center gap-3 rounded-[20px] border p-3 transition ${isNext ? "border-[#8988e6] bg-[#f0efff]" : "border-black/5 bg-[#fafafa]"}`}><span className={`grid size-10 shrink-0 place-items-center rounded-full ${done ? "bg-[#dcefd0] text-[#4e8a3f]" : isNext ? "bg-[#8584e6] text-white" : "bg-[#ececef] text-black/45"}`}>{done ? <Check className="size-4" /> : <BookOpen className="size-4" />}</span><div className="min-w-0 flex-1"><p className="truncate text-sm font-black">{lesson.title}</p><p className="mt-1 text-[10px] text-black/45">{tPlan(`lessonTypes.${lesson.lessonType}`)} · {lesson.estimatedMinutes} min</p></div>{lesson.id && !done && <Link href={`/lesson/${lesson.id}`} className="rounded-full bg-[#25282e] px-3 py-2 text-[10px] font-bold text-white">{t('startLesson')}</Link>}{done && <Check className="size-4 text-[#5c9b4c]" />}</div>
+
+                    return (
+                      <div
+                        key={lesson.id ?? index}
+                        className={
+                          isNext
+                            ? 'flex items-center gap-3 rounded-[17px] bg-[#f3f2f3] p-3'
+                            : 'flex items-center gap-3 rounded-[17px] border border-black/[0.05] bg-white p-3'
+                        }
+                      >
+                        <span
+                          className={
+                            done
+                              ? 'grid size-9 shrink-0 place-items-center rounded-full bg-[#dfeecf] text-[#4f8b42]'
+                              : isNext
+                                ? 'grid size-9 shrink-0 place-items-center rounded-full bg-[#5862e2] text-white'
+                                : 'grid size-9 shrink-0 place-items-center rounded-full bg-[#efeff2] text-black/35'
+                          }
+                        >
+                          {done ? <Check className="size-4" /> : <BookOpen className="size-4" />}
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-[11px] font-black">{lesson.title}</p>
+                          <p className="mt-1 truncate text-[9px] text-black/40">
+                            {tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} min
+                          </p>
+                        </div>
+                        {lesson.id && !done && (
+                          <Link href={'/lesson/' + lesson.id} className="rounded-full bg-[#070709] px-3 py-2 text-[9px] font-black text-white">
+                            {t('startLesson')}
+                          </Link>
+                        )}
+                        {done && <Check className="size-4 text-[#5c9b4c]" />}
+                      </div>
+                    )
                   })}
-                  {todayLessons.length === 0 && <div className="rounded-[20px] bg-[#f4f4f5] p-5 text-sm text-black/55">{t('startWithAssessment')}<div className="mt-4"><Link href="/assessment" className="inline-flex rounded-full bg-[#25282e] px-4 py-2.5 text-xs font-bold text-white">{tNav('assessment')}</Link></div></div>}
+
+                  {todayLessons.length === 0 && (
+                    <div className="rounded-[18px] bg-[#f3f2f3] p-5 text-xs text-black/50">
+                      {t('startWithAssessment')}
+                      <div className="mt-4">
+                        <Link href="/assessment" className="inline-flex rounded-full bg-[#070709] px-4 py-2.5 text-[10px] font-black text-white">
+                          {tAssessment('start')}
+                        </Link>
+                      </div>
+                    </div>
+                  )}
                 </div>
-                {hasPlan && <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-black/5 pt-4"><span className="text-xs text-black/50">{pendingCount} {t('pendingLessons')}</span><button type="button" onClick={skipDay} disabled={skipping} className="rounded-full border border-black/10 px-4 py-2.5 text-xs font-bold transition hover:bg-black/5 disabled:opacity-50">{skipping ? "…" : t('skipDay')}</button></div>}
-                {skipError && <p className="mt-3 text-xs text-red-600">{tError('body')}</p>}
+
+                {hasPlan && (
+                  <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-black/[0.06] pt-4">
+                    <span className="text-[9px] font-bold text-black/40">{pendingCount} {t('pendingLessons')}</span>
+                    <button
+                      type="button"
+                      onClick={skipDay}
+                      disabled={skipping}
+                      className="rounded-full border border-black/10 px-4 py-2 text-[9px] font-black transition hover:bg-black/[0.04] disabled:opacity-50"
+                    >
+                      {skipping ? '…' : t('skipDay')}
+                    </button>
+                  </div>
+                )}
+                {skipError && <p className="mt-3 text-[9px] text-red-600">{tError('body')}</p>}
               </div>
             </section>
 
-            <aside className="min-w-0 space-y-5">
-              <div className="rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-black/5">
-                <div className="flex items-start justify-between gap-3"><div><h2 className="text-xl font-black leading-tight">{t('lessonReady')} 📚</h2><p className="mt-2 text-xs text-black/45">{t('completedToday', { completed: completedLessonCount, total: todayLessons.length || 0 })}</p></div><BookOpen className="size-6 text-[#d87822]" /></div>
-                <div className="mt-5 grid grid-cols-5 gap-1.5">{["Mon","Tue","Wed","Thu","Fri"].map((day,i)=><div key={day} className="rounded-[16px] bg-[#f4f4f6] p-2 text-center"><span className="text-[9px] font-bold text-black/45">{day}</span><span className="mt-1 block text-sm font-black">{20+i}</span><span className={`mx-auto mt-2 block size-3 rounded-full ${i < completedLessonCount ? "bg-[#78bb65]" : "bg-[#efad68]"}`} /></div>)}</div>
-              </div>
-
-              <div className="rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-black/5">
-                <div className="mb-4 flex items-center justify-between"><h3 className="text-lg font-black tracking-tight">{t('recentPerformance')}</h3><Link href="/progress" aria-label={t('recentPerformance')} className="rounded-full px-2 py-1 text-lg leading-none text-black/45 hover:bg-black/5">•••</Link></div>
-                <div className="h-28 overflow-hidden rounded-[20px] bg-[#f0f0f3] p-4"><div className="flex h-full items-end gap-2">{[.45,.62,.78,.58,.9,.72,.84].map((v,i)=><div key={i} className="flex-1 rounded-t-lg bg-[#9695e9]" style={{height:`${v*100}%`}} />)}</div></div>
-                <div className="mt-3 flex items-center justify-between text-[10px] text-black/45"><span>{t('accuracy')}</span><span>{accuracy}%</span></div>
-              </div>
-
-              <div className="rounded-[26px] bg-[#8584e6] p-5 text-white">
-                <div className="flex items-center justify-between gap-3"><div><p className="text-[10px] font-bold uppercase tracking-[.14em] text-white/70">{t('streak')}</p><p className="mt-1 text-xl font-black">{streak}</p></div><span className="grid size-11 place-items-center rounded-full bg-white/15"><Flame className="size-5" /></span></div>
-                <p className="mt-3 text-xs leading-relaxed text-white/80">{t('recentPerformanceDescription')}</p>
-              </div>
-
-              <div className="rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-black/5">
-                <div className="mb-4 flex items-center justify-between"><h3 className="text-lg font-black tracking-tight">{tNav('resources')}</h3><span className="text-lg text-black/40">•••</span></div>
-                <div className="grid grid-cols-2 gap-3">
-                  <Link href="/reading" className="relative min-h-[142px] overflow-hidden rounded-[20px] bg-[#ffcf67] p-4 transition hover:-translate-y-0.5"><BookOpen className="size-7 text-[#9a5b16]" /><p className="absolute bottom-3 left-3 right-3 text-xs font-black leading-tight">{tNav('reading')}</p></Link>
-                  <Link href="/courses" className="relative min-h-[142px] overflow-hidden rounded-[20px] bg-[#8584e6] p-4 text-white transition hover:-translate-y-0.5"><Library className="size-7" /><p className="absolute bottom-3 left-3 right-3 text-xs font-black leading-tight">{tNav('courses')}</p></Link>
+            <aside className="space-y-4">
+              <div className="rounded-[26px] bg-white p-5 shadow-sm ring-1 ring-black/[0.04]">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h2 className="text-[20px] font-black tracking-tight">{t('lessonReady')} 📚</h2>
+                    <p className="mt-1.5 text-[9px] text-black/40">
+                      {t('completedToday', { completed: completedLessonCount, total: todayLessons.length || 0 })}
+                    </p>
+                  </div>
+                  <CalendarDays className="size-5 text-[#373fb8]" />
                 </div>
+                <div className="mt-5 grid grid-cols-5 gap-1.5">
+                  {weekDays.map((day, index) => (
+                    <div key={day} className="rounded-[14px] bg-[#f3f2f3] px-1.5 py-2 text-center">
+                      <span className="text-[8px] font-black text-black/35">{day}</span>
+                      <span className="mt-1 block text-[13px] font-black">{20 + index}</span>
+                      <span className={index < completedLessonCount ? 'mx-auto mt-2 block size-3 rounded-full bg-[#78bb65]' : 'mx-auto mt-2 block size-3 rounded-full bg-[#9a9ff3]'} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-[26px] bg-white p-5 shadow-sm ring-1 ring-black/[0.04]">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-[18px] font-black tracking-tight">{t('recentPerformance')}</h3>
+                    <p className="mt-1 text-[9px] text-black/35">{t('accuracy')}: {accuracy}%</p>
+                  </div>
+                  <Link href="/progress" className="grid size-8 place-items-center rounded-full bg-[#f3f2f3]" aria-label={t('recentPerformance')}>
+                    <MoreHorizontal className="size-4" />
+                  </Link>
+                </div>
+                <div className="mt-4 h-[118px] rounded-[20px] bg-[#eeedff] p-3">
+                  <div className="flex h-full items-end gap-2">
+                    {performanceValues.map((value, index) => (
+                      <div key={index} className="flex h-full flex-1 items-end">
+                        <div className="w-full rounded-t-[9px] bg-[#5862e2]" style={{ height: Math.max(12, value) + '%' }} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-[25px] bg-[#f95d22] p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-[9px] font-black uppercase tracking-[.15em] text-[#713619]">{t('streak')}</p>
+                    <p className="mt-1 text-[29px] font-black tracking-tight text-[#070709]">{streak}</p>
+                  </div>
+                  <span className="grid size-11 place-items-center rounded-full bg-white/25">
+                    <Flame className="size-5 text-[#070709]" />
+                  </span>
+                </div>
+                <p className="mt-3 text-[10px] font-semibold leading-relaxed text-[#713619]">
+                  {t('recentPerformanceDescription')}
+                </p>
+              </div>
+
+              <div className="rounded-[26px] bg-white p-5 shadow-sm ring-1 ring-black/[0.04]">
+                <div className="mb-4 flex items-center justify-between">
+                  <h3 className="text-[18px] font-black tracking-tight">{tNav('resources')}</h3>
+                  <MoreHorizontal className="size-4 text-black/30" />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <Link href="/reading" className="group relative min-h-[145px] overflow-hidden rounded-[20px] bg-[#9a9ff3] p-4 text-white transition hover:-translate-y-0.5">
+                    <BookOpen className="size-6" />
+                    <div className="absolute -right-8 -top-7 size-24 rounded-full border-[13px] border-white/10" />
+                    <p className="absolute bottom-4 left-4 right-3 text-[11px] font-black leading-tight">{tNav('reading')}</p>
+                    <ArrowUpRight className="absolute bottom-3 right-3 size-4 opacity-0 transition group-hover:opacity-100" />
+                  </Link>
+                  <Link href="/courses" className="group relative min-h-[145px] overflow-hidden rounded-[20px] bg-[#373fb8] p-4 text-white transition hover:-translate-y-0.5">
+                    <Library className="size-6" />
+                    <div className="absolute -bottom-10 -right-8 size-28 rounded-full bg-white/10" />
+                    <p className="absolute bottom-4 left-4 right-3 text-[11px] font-black leading-tight">{tNav('courses')}</p>
+                    <ArrowUpRight className="absolute bottom-3 right-3 size-4 opacity-0 transition group-hover:opacity-100" />
+                  </Link>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  { href: '/flashcards', icon: BookOpen, label: tNav('flashcards') },
+                  { href: '/chat', icon: Mic2, label: tNav('tutor') },
+                  { href: '/listening', icon: Headphones, label: tNav('listening') },
+                ].map(({ href, icon: Icon, label }) => (
+                  <Link key={href} href={href} className="flex min-h-[72px] flex-col items-center justify-center gap-2 rounded-[18px] bg-white text-center text-[9px] font-black shadow-sm ring-1 ring-black/[0.04] transition hover:-translate-y-0.5">
+                    <Icon className="size-4 text-[#5862e2]" />
+                    {label}
+                  </Link>
+                ))}
               </div>
             </aside>
           </div>
 
-          {showPremiumBanner && <section className="mx-4 mb-5 rounded-[26px] border border-[#e7e5f4] bg-white p-5 sm:mx-7 sm:p-6"><div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"><div className="flex gap-3"><span className="grid size-10 shrink-0 place-items-center rounded-full bg-[#ffcf67] text-sm">★</span><div><p className="text-xs font-black uppercase tracking-[.12em] text-black/45">{freemiumTrialActive ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft }) : t(paymentRecovery ? 'premiumBannerPastDueTitle' : 'premiumBannerTitle')}</p><p className="mt-2 max-w-2xl text-xs leading-relaxed text-black/50">{freemiumTrialActive ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft }) : paymentRecovery ? t('premiumBannerPastDueDesc') : t(trialEligible ? 'premiumBannerDesc' : 'premiumBannerDescTrialUsed')}</p></div></div>{!freemiumTrialActive && <span className="self-start rounded-full border border-[#7776df]/30 px-4 py-2 text-xs font-black text-[#5f5ec5]">{paymentRecovery ? t('premiumBannerPastDueCta') : t(trialEligible ? 'premiumBannerCta' : 'premiumBannerCtaTrialUsed')}</span>}</div>{!freemiumTrialActive && (paymentRecovery ? <div className="mt-4 border-t border-black/5 pt-4"><button onClick={handleManageSubscription} disabled={portalLoading} className="rounded-full bg-[#25282e] px-5 py-3 text-xs font-black text-white disabled:opacity-50">{portalLoading ? "…" : tBilling('updatePayment')}</button>{portalError && <p className="mt-3 text-xs text-red-500">{portalError}</p>}</div> : <SubscriptionPlanButtons className="mt-4 border-t border-black/5 pt-4" />)}</section>}
+          {(vocabularyTotal > 0 || totalExercises > 0) && (
+            <div className="grid gap-3 border-t border-black/[0.06] bg-[#f0f0ee] px-4 py-4 sm:grid-cols-3 sm:px-6">
+              <div className="rounded-[19px] bg-white p-4">
+                <p className="text-[9px] font-black uppercase tracking-widest text-black/35">
+                  {t('vocabularyProgress', { level: vocabularyLevel || '—' })}
+                </p>
+                <div className="mt-3 h-2 rounded-full bg-[#eeedff]">
+                  <div className="h-full rounded-full bg-[#5862e2]" style={{ width: vocabularyProgressPct + '%' }} />
+                </div>
+                <p className="mt-2 text-[9px] font-bold text-black/40">
+                  {t('vocabularyWords', { mastered: vocabularyMastered, total: vocabularyTotal })}
+                </p>
+              </div>
+              <div className="rounded-[19px] bg-white p-4">
+                <p className="text-[9px] font-black uppercase tracking-widest text-black/35">
+                  {t('exerciseStats', { correct: exercisesCorrect, total: totalExercises })}
+                </p>
+                <p className="mt-2 text-[26px] font-black">{accuracy}%</p>
+              </div>
+              <div className="rounded-[19px] bg-[#070709] p-4 text-white">
+                <p className="text-[9px] font-black uppercase tracking-widest text-white/35">{t('daysRemaining')}</p>
+                <p className="mt-2 text-[26px] font-black">{Math.max(totalDays - progressDay, 0)}</p>
+              </div>
+            </div>
+          )}
 
-          <footer className="flex flex-wrap items-center gap-2 border-t border-black/5 bg-[#f3f3f2] px-5 py-5 sm:px-7">
-            <Link href="/plan" className="rounded-full bg-[#25282e] px-5 py-3 text-xs font-bold text-white">{t('goToMyPlan')}</Link>
-            {pendingCount > 0 && <Link href="/plan" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{pendingCount} {t('pendingLessons')} →</Link>}
-            <Link href="/flashcards" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{tNav('flashcards')}</Link>
-            <Link href="/chat" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{tNav('tutor')}</Link>
-            <Link href="/assessment" className="rounded-full bg-white px-5 py-3 text-xs font-bold ring-1 ring-black/10">{tNav('assessment')}</Link>
+          {showPremiumBanner && (
+            <section className="mx-3 mb-4 rounded-[24px] border border-[#e4e2f0] bg-white p-5 sm:mx-6">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex gap-3">
+                  <span className="grid size-10 shrink-0 place-items-center rounded-full bg-[#ffcf67] text-sm">★</span>
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-[.12em] text-black/45">
+                      {freemiumTrialActive
+                        ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft })
+                        : t(paymentRecovery ? 'premiumBannerPastDueTitle' : 'premiumBannerTitle')}
+                    </p>
+                    <p className="mt-2 max-w-2xl text-xs leading-relaxed text-black/50">
+                      {freemiumTrialActive
+                        ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft })
+                        : paymentRecovery
+                          ? t('premiumBannerPastDueDesc')
+                          : t(trialEligible ? 'premiumBannerDesc' : 'premiumBannerDescTrialUsed')}
+                    </p>
+                  </div>
+                </div>
+                {!freemiumTrialActive && (
+                  <span className="self-start rounded-full border border-[#7776df]/30 px-4 py-2 text-[10px] font-black text-[#5f5ec5]">
+                    {paymentRecovery
+                      ? t('premiumBannerPastDueCta')
+                      : t(trialEligible ? 'premiumBannerCta' : 'premiumBannerCtaTrialUsed')}
+                  </span>
+                )}
+              </div>
+
+              {!freemiumTrialActive &&
+                (paymentRecovery ? (
+                  <div className="mt-4 border-t border-black/5 pt-4">
+                    <button
+                      onClick={handleManageSubscription}
+                      disabled={portalLoading}
+                      className="rounded-full bg-[#070709] px-5 py-3 text-xs font-black text-white disabled:opacity-50"
+                    >
+                      {portalLoading ? '…' : tBilling('updatePayment')}
+                    </button>
+                    {portalError && <p className="mt-3 text-xs text-red-500">{portalError}</p>}
+                  </div>
+                ) : (
+                  <SubscriptionPlanButtons className="mt-4 border-t border-black/5 pt-4" />
+                ))}
+            </section>
+          )}
+
+          <footer className="flex flex-wrap items-center gap-2 border-t border-black/[0.06] bg-[#f0f0ee] px-4 py-4 sm:px-6">
+            <Link href="/plan" className="rounded-full bg-[#070709] px-5 py-3 text-[10px] font-black text-white">{t('goToMyPlan')}</Link>
+            {pendingCount > 0 && (
+              <Link href="/plan" className="rounded-full bg-white px-5 py-3 text-[10px] font-black ring-1 ring-black/10">
+                {pendingCount} {t('pendingLessons')} →
+              </Link>
+            )}
+            <Link href="/flashcards" className="rounded-full bg-white px-5 py-3 text-[10px] font-black ring-1 ring-black/10">{tNav('flashcards')}</Link>
+            <Link href="/chat" className="rounded-full bg-white px-5 py-3 text-[10px] font-black ring-1 ring-black/10">{tNav('tutor')}</Link>
+            <Link href="/assessment" className="rounded-full bg-white px-5 py-3 text-[10px] font-black ring-1 ring-black/10">{tNav('assessment')}</Link>
           </footer>
         </div>
       </main>
     </>
   )
-
 }
