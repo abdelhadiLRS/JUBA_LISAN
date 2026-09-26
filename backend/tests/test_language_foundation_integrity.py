@@ -836,6 +836,14 @@ def test_prompt_overlay_resolves_locale_aliases(locale: str):
     assert overlay.strip(), f"{locale}: prompt overlay resolved to empty text"
 
 
+
+def test_generic_prompt_overlay_handles_uncurated_locale_without_runtime_error():
+    from app.services.prompts.common import get_language_prompt_overlay
+
+    overlay = get_language_prompt_overlay("zz-ZZ")
+    assert "reading-length decisions" in overlay
+    assert "100 words" in overlay
+
 def test_registered_foundation_languages_have_prompt_guidance():
     failures: list[str] = []
     for language in curriculum_dispatcher._LANG_MODULES:
