@@ -211,7 +211,12 @@
     "nativeHelpStudyTips": "Conseils d'étude",
     "nativeHelpWordNotes": "Notes sur les mots",
     "nativeHelpPractice": "Pratique",
-    "openMenu": "Ouvrir le menu"
+    "openMenu": "Ouvrir le menu",
+    "contact": "Contact",
+    "menu": "Menu",
+    "logoutConfirm": "Voulez-vous vraiment vous déconnecter ?",
+    "copy": "Copier",
+    "copyPhrase": "Copier la phrase"
   },
   "nav": {
     "primaryNavigation": "Navigation principale",
@@ -1011,7 +1016,6 @@
     "topicsFound": "{count, plural, one {# thème trouvé} other {# thèmes trouvés}}",
     "topicCount": "{count, plural, =1 {# sujet} other {# sujets}}",
     "levelRange": "A1 – C2"
-  
   },
   "vocabulary": {
     "title": "Vocabulaire",
@@ -1936,5 +1940,18 @@
       }
     },
     "cefrLevel": "Niveau CECRL"
+  },
+  "translator": {
+    "detected": "Détecté",
+    "listen": "Écouter",
+    "swap": "Inverser",
+    "translating": "Traduction…",
+    "translationPlaceholder": "La traduction apparaîtra ici",
+    "save": "Enregistrer",
+    "translateNow": "Traduire maintenant",
+    "visitorNote": "Les visiteurs peuvent utiliser le traducteur sans se connecter.",
+    "savedCloud": "Enregistré dans votre compte",
+    "savedLocal": "Enregistré sur cet appareil",
+    "saving": "Enregistrement…"
   }
 }
