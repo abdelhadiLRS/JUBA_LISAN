@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: 'http', hostname: 'localhost' },
       { protocol: 'http', hostname: 'backend' },
+      { protocol: 'https', hostname: 'raw.githubusercontent.com' },
     ],
   },
   typescript: {
@@ -66,7 +67,7 @@ const nextConfig: NextConfig = {
             : "connect-src 'self' ws: wss:",
           isDesktopBuild
             ? "img-src 'self' http://127.0.0.1:* http://localhost:* data: blob:"
-            : "img-src 'self' data: blob:",
+            : "img-src 'self' https://raw.githubusercontent.com data: blob:",
           isDesktopBuild
             ? "media-src 'self' http://127.0.0.1:* http://localhost:* blob:"
             : "media-src 'self' blob:",
