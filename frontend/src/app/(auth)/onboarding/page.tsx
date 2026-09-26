@@ -33,7 +33,7 @@ function getSelectedPlan(plan: string | null): BillingInterval | null {
 const btnPrimary =
   'inline-flex w-full items-center justify-center gap-2 rounded-[20px] py-3 text-sm font-semibold text-white transition-colors disabled:opacity-50'
 const btnGhost =
-  'inline-flex w-full items-center justify-center py-1 text-xs font-medium text-[var(--juba-muted)] transition-colors hover:text-[var(--juba-text)] disabled:opacity-40'
+  'inline-flex w-full items-center justify-center py-1 text-xs font-medium text-[rgba(32,33,39,.52)] transition-colors hover:text-[#202127] disabled:opacity-40'
 
 export default function OnboardingPage() {
   const t = useTranslations('onboarding')
@@ -179,21 +179,21 @@ export default function OnboardingPage() {
         : t(trialEligible ? 'trialHeadline' : 'trialHeadlineTrialUsed')
 
   return (
-    <div className="juba-auth-mobile juba-onboarding-mobile bg-[var(--juba-bg)] bg-[radial-gradient(circle_at_top_right,var(--juba-lilac)_0,transparent_32%),radial-gradient(circle_at_bottom_left,var(--juba-sky)_0,transparent_28%)] flex min-h-screen items-center justify-center px-4 py-10">
+    <div className="juba-auth-mobile juba-onboarding-mobile bg-[#f4f4f2] bg-[radial-gradient(circle_at_top_right,#ededff_0,transparent_32%),radial-gradient(circle_at_bottom_left,#eef0ff_0,transparent_28%)] flex min-h-screen items-center justify-center px-4 py-10">
       <div className="w-full max-w-md">
         {/* Brand header */}
         <div className="mb-8 flex flex-col items-center">
           <span
             className="mb-3 flex h-11 w-11 items-center justify-center rounded-[28px] text-base font-black text-white"
-            style={{ background: 'var(--juba-violet)' }}
+            style={{ background: '#5862e2' }}
             aria-hidden="true"
           >
             JL
           </span>
-          <h1 className="text-[var(--juba-text)] text-lg font-bold tracking-wide">
+          <h1 className="text-[#202127] text-lg font-bold tracking-wide">
             JUBA LISAN
           </h1>
-          <p className="text-[var(--juba-muted)] mt-1 text-sm">{tCommon('tagline')}</p>
+          <p className="text-[rgba(32,33,39,.52)] mt-1 text-sm">{tCommon('tagline')}</p>
         </div>
 
         {/* Progress dots */}
@@ -208,17 +208,17 @@ export default function OnboardingPage() {
               style={{
                 width: i + 1 === step ? '1.75rem' : '0.375rem',
                 background:
-                  i + 1 <= step ? 'var(--juba-violet)' : 'var(--juba-border)',
+                  i + 1 <= step ? '#5862e2' : 'rgba(7,7,9,.08)',
               }}
             />
           ))}
         </div>
 
-        <div className="rounded-[32px] border-2 border-[var(--juba-lilac)] bg-white p-6 shadow-[var(--juba-shadow-md)] sm:p-8">
+        <div className="rounded-[32px] border-2 border-[#ededff] bg-white p-6 shadow-[0 12px 30px rgba(43,45,90,.055)] sm:p-8">
           {/* Step indicator */}
           <div className="mb-6 flex items-center justify-between gap-2">
-            <h2 className="text-[var(--juba-text)] text-base font-semibold">{stepTitle}</h2>
-            <span className="text-[var(--juba-muted)] text-xs font-medium tabular-nums">
+            <h2 className="text-[#202127] text-base font-semibold">{stepTitle}</h2>
+            <span className="text-[rgba(32,33,39,.52)] text-xs font-medium tabular-nums">
               {step}/{totalSteps}
             </span>
           </div>
@@ -242,15 +242,15 @@ export default function OnboardingPage() {
           {/* Step 1: Language */}
           {step === 1 && (
             <form onSubmit={handleStep1} className="space-y-6">
-              <p className="text-[var(--juba-muted)] text-sm">
+              <p className="text-[rgba(32,33,39,.52)] text-sm">
                 {isNewLanguage ? t('newLanguageSubtitle') : t('subtitle')}
               </p>
               <div>
-                <label className="text-[var(--juba-muted)] mb-3 block text-xs font-semibold tracking-wide uppercase">
+                <label className="text-[rgba(32,33,39,.52)] mb-3 block text-xs font-semibold tracking-wide uppercase">
                   {t('chooseVariant')}
                 </label>
                 {!languagesLoaded ? (
-                  <div className="border-[var(--juba-border)] text-[var(--juba-muted)] animate-pulse rounded-[20px] border px-4 py-3 text-sm">
+                  <div className="border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] animate-pulse rounded-[20px] border px-4 py-3 text-sm">
                     …
                   </div>
                 ) : availableLanguageCodes.length > 0 ? (
@@ -261,14 +261,14 @@ export default function OnboardingPage() {
                   />
                 ) : (
                   <div className="space-y-3 text-center">
-                    <p className="text-[var(--juba-muted)] text-sm">{t('saveFailed')}</p>
+                    <p className="text-[rgba(32,33,39,.52)] text-sm">{t('saveFailed')}</p>
                     <button
                       type="button"
                       onClick={() => {
                         setLanguagesLoaded(false)
                         fetchLanguages()
                       }}
-                      className="text-[var(--juba-violet)] text-sm font-medium underline transition-all hover:no-underline"
+                      className="text-[#5862e2] text-sm font-medium underline transition-all hover:no-underline"
                     >
                       {tCommon('retry')}
                     </button>
@@ -277,7 +277,7 @@ export default function OnboardingPage() {
               </div>
               <button
                 type="submit"
-                className={`${btnPrimary} bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)]`}
+                className={`${btnPrimary} bg-[#5862e2] hover:bg-[#373fb8]`}
               >
                 {tCommon('next')}
               </button>
@@ -287,7 +287,7 @@ export default function OnboardingPage() {
           {/* Step 2: Learning goals */}
           {step === 2 && (
             <div className="space-y-5">
-              <p className="text-[var(--juba-muted)] text-sm">{t('goals.subtitle')}</p>
+              <p className="text-[rgba(32,33,39,.52)] text-sm">{t('goals.subtitle')}</p>
               <div className="grid grid-cols-2 gap-2">
                 {LEARNING_GOALS.map((goal) => {
                   const active = selectedGoals.includes(goal)
@@ -300,12 +300,12 @@ export default function OnboardingPage() {
                       className={`rounded-[20px] border px-3 py-3 text-sm font-medium transition-colors ${
                         active
                           ? 'border-transparent text-white'
-                          : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:bg-[var(--juba-surface-soft)]'
+                          : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:bg-[#fafafa]'
                       }`}
                       style={
                         active
                           ? {
-                              background: 'var(--juba-violet)',
+                              background: '#5862e2',
                             }
                           : undefined
                       }
@@ -319,7 +319,7 @@ export default function OnboardingPage() {
                 type="button"
                 disabled={loading}
                 onClick={() => handleStep2()}
-                className={`${btnPrimary} bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)]`}
+                className={`${btnPrimary} bg-[#5862e2] hover:bg-[#373fb8]`}
               >
                 {loading ? (
                   <>
@@ -347,13 +347,13 @@ export default function OnboardingPage() {
           {/* Step 3: Trial confirmation */}
           {step === 3 && freemiumTrialActive && (
             <div className="space-y-5">
-              <h2 className="text-[var(--juba-text)] text-center text-base font-bold">
+              <h2 className="text-[#202127] text-center text-base font-bold">
                 {t('freemiumTrialTitle')}
               </h2>
-              <p className="text-[var(--juba-muted)] text-center text-sm leading-relaxed">
+              <p className="text-[rgba(32,33,39,.52)] text-center text-sm leading-relaxed">
                 {t('freemiumTrialDesc')}
               </p>
-              <ul className="text-[var(--juba-muted)] space-y-2 text-sm">
+              <ul className="text-[rgba(32,33,39,.52)] space-y-2 text-sm">
                 {[
                   'freemiumChatLabel',
                   'freemiumVoiceLabel',
@@ -364,8 +364,8 @@ export default function OnboardingPage() {
                     <span
                       className="mt-0.5 flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full"
                       style={{
-                        color: 'var(--juba-violet)',
-                        background: 'var(--juba-lilac)',
+                        color: '#5862e2',
+                        background: '#ededff',
                       }}
                     >
                       <Check className="h-3 w-3" aria-hidden="true" />
@@ -377,7 +377,7 @@ export default function OnboardingPage() {
               <button
                 type="button"
                 onClick={() => router.push('/dashboard')}
-                className={`${btnPrimary} bg-[var(--juba-violet)] hover:bg-[var(--juba-violet-dark)]`}
+                className={`${btnPrimary} bg-[#5862e2] hover:bg-[#373fb8]`}
               >
                 {t('goToDashboard')}
               </button>
@@ -387,12 +387,12 @@ export default function OnboardingPage() {
           {/* Step 3: Stripe subscription */}
           {step === 3 && !freemiumTrialActive && (
             <div className="space-y-5 text-center">
-              <h2 className="text-[var(--juba-text)] text-base font-bold">
+              <h2 className="text-[#202127] text-base font-bold">
                 {t(trialEligible ? 'trialTitle' : 'trialTitleTrialUsed', {
                   days: stripeTrialDays,
                 })}
               </h2>
-              <p className="text-[var(--juba-muted)] text-sm leading-relaxed">
+              <p className="text-[rgba(32,33,39,.52)] text-sm leading-relaxed">
                 {t(trialEligible ? 'trialDesc' : 'trialDescTrialUsed', {
                   days: stripeTrialDays,
                 })}
@@ -408,8 +408,8 @@ export default function OnboardingPage() {
                       onClick={() => handleCheckout(plan)}
                       className={`w-full rounded-[20px] py-3 text-sm font-semibold transition-colors disabled:opacity-50 ${
                         isPrimary
-                          ? 'bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet-dark)]'
-                          : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] border hover:bg-[var(--juba-surface-soft)]'
+                          ? 'bg-[#5862e2] text-white hover:bg-[#373fb8]'
+                          : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:text-[#202127] border hover:bg-[#fafafa]'
                       }`}
                     >
                       {checkoutLoading === plan ? (
@@ -431,7 +431,7 @@ export default function OnboardingPage() {
                           <span>{yearlyCta.main}</span>
                           {yearlyCta.savings && (
                             <span
-                              className={`text-xs ${isPrimary ? 'text-white/80' : 'text-[var(--juba-muted)]'}`}
+                              className={`text-xs ${isPrimary ? 'text-white/80' : 'text-[rgba(32,33,39,.52)]'}`}
                             >
                               {yearlyCta.savings}
                             </span>
@@ -447,7 +447,7 @@ export default function OnboardingPage() {
                   {checkoutError}
                 </p>
               )}
-              <p className="text-[var(--juba-muted)] text-xs">
+              <p className="text-[rgba(32,33,39,.52)] text-xs">
                 {t(trialEligible ? 'trialNoCharge' : 'trialNoChargeTrialUsed')}
               </p>
               <button

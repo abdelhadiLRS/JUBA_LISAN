@@ -57,17 +57,17 @@ function VerifyEmailContent() {
   }, [verify])
 
   return (
-    <div className="bg-[var(--juba-bg)] bg-dot-grid flex min-h-screen items-center justify-center px-4">
+    <div className="bg-[#f4f4f2] flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="mb-10 flex flex-col items-center">
-          <h1 className="text-[var(--juba-text)] font-sans text-xl font-bold tracking-wide">
-            FreeLingo
+          <h1 className="text-[#202127] font-sans text-xl font-bold tracking-wide">
+            JUBA LISAN
           </h1>
         </div>
-        <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] space-y-6 border-2 border-[var(--juba-border)] p-8 text-center">
+        <div className="border-[rgba(7,7,9,.08)] bg-[#fff] space-y-6 border border-[rgba(7,7,9,.08)] p-8 text-center">
           <div className="flex items-center justify-center gap-2">
-            <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-            <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-semibold tracking-wide">
+            <span className="text-[#202127] text-[rgba(32,33,39,.52)]">●</span>
+            <span className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
               {t('title')}
             </span>
           </div>
@@ -76,10 +76,10 @@ function VerifyEmailContent() {
 
           {status === 'success' && (
             <>
-              <p className="text-[var(--juba-text)] font-sans text-sm">{t('success')}</p>
+              <p className="text-[#202127] font-sans text-sm">{t('success')}</p>
               <Link
                 href="/login"
-                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 block w-full py-3 text-center font-sans text-xs font-bold tracking-wide transition-colors"
+                className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 block w-full py-3 text-center font-sans text-xs font-bold tracking-wide transition-colors"
               >
                 {t('goToLogin')}
               </Link>
@@ -91,13 +91,13 @@ function VerifyEmailContent() {
               <p className="text-red-600 font-sans text-xs">{t('error')}</p>
               <button
                 onClick={verify}
-                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 block w-full py-3 text-center font-sans text-xs font-bold tracking-wide transition-colors"
+                className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 block w-full py-3 text-center font-sans text-xs font-bold tracking-wide transition-colors"
               >
                 {tCommon('retry')}
               </button>
               <Link
                 href="/login"
-                className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] block font-sans text-xs underline transition-colors"
+                className="text-[rgba(32,33,39,.52)] hover:text-[#202127] block font-sans text-xs underline transition-colors"
               >
                 {t('goToLogin')}
               </Link>

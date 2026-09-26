@@ -116,26 +116,26 @@ export default function BillingSuccessPage() {
   }[status]
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--juba-bg)] px-4">
-      <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] w-full max-w-sm space-y-5 border-2 border-[var(--juba-border)] p-8 text-center">
-        <div className="text-[var(--juba-violet)] text-2xl">{content.icon}</div>
-        <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+    <div className="flex min-h-screen items-center justify-center bg-[#f4f4f2] px-4">
+      <div className="border-[rgba(7,7,9,.08)] bg-[#fff] w-full max-w-sm space-y-5 border border-[rgba(7,7,9,.08)] p-8 text-center">
+        <div className="text-[#5862e2] text-2xl">{content.icon}</div>
+        <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
           {content.label}
         </p>
-        <h1 className="text-[var(--juba-text)] font-sans text-base font-bold">
+        <h1 className="text-[#202127] font-sans text-base font-bold">
           {content.title}
         </h1>
-        <p className="text-[var(--juba-muted)] font-sans text-xs leading-relaxed">
+        <p className="text-[rgba(32,33,39,.52)] font-sans text-xs leading-relaxed">
           {content.desc}
         </p>
         {status === 'confirmed' && (
-          <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-semibold tracking-wide">
+          <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
             {t('successRedirect', { seconds: countdown })}
           </p>
         )}
         <Link
           href="/dashboard"
-          className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 block py-3 font-sans text-xs font-bold tracking-wide transition-colors"
+          className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 block py-3 font-sans text-xs font-bold tracking-wide transition-colors"
         >
           {t('successCta')}
         </Link>

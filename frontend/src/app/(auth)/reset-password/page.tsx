@@ -50,24 +50,24 @@ function ResetPasswordContent() {
   }
 
   return (
-    <div className="bg-[var(--juba-bg)] bg-dot-grid flex min-h-screen items-center justify-center px-4">
+    <div className="bg-[#f4f4f2] flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="mb-10 flex flex-col items-center">
-          <h1 className="text-[var(--juba-text)] font-sans text-xl font-bold tracking-wide">
-            FreeLingo
+          <h1 className="text-[#202127] font-sans text-xl font-bold tracking-wide">
+            JUBA LISAN
           </h1>
         </div>
 
-        <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] space-y-6 border-2 border-[var(--juba-border)] p-8">
+        <div className="border-[rgba(7,7,9,.08)] bg-[#fff] space-y-6 border border-[rgba(7,7,9,.08)] p-8">
           <div className="flex items-center gap-2">
-            <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-            <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-semibold tracking-wide">
+            <span className="text-[#202127] text-[rgba(32,33,39,.52)]">●</span>
+            <span className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
               {t('title')}
             </span>
           </div>
 
           {done ? (
-            <p className="text-[var(--juba-muted)] font-sans text-xs leading-relaxed">
+            <p className="text-[rgba(32,33,39,.52)] font-sans text-xs leading-relaxed">
               {t('success')}
             </p>
           ) : (
@@ -89,7 +89,7 @@ function ResetPasswordContent() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete="new-password"
-                className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] focus:border-[var(--juba-violet)] w-full border px-4 py-3 font-sans text-xs transition-colors focus:outline-none"
+                className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] w-full border px-4 py-3 font-sans text-xs transition-colors focus:outline-none"
               />
               <input
                 type="password"
@@ -98,12 +98,12 @@ function ResetPasswordContent() {
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
                 autoComplete="new-password"
-                className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] focus:border-[var(--juba-violet)] w-full border px-4 py-3 font-sans text-xs transition-colors focus:outline-none"
+                className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] w-full border px-4 py-3 font-sans text-xs transition-colors focus:outline-none"
               />
               <button
                 type="submit"
                 disabled={loading || !token}
-                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 w-full py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-50"
+                className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 w-full py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-50"
               >
                 {loading ? (
                   <>
@@ -116,7 +116,7 @@ function ResetPasswordContent() {
               </button>
               <Link
                 href="/login"
-                className="text-[var(--juba-muted)] hover:text-[var(--juba-muted)] block text-center font-sans text-xs transition-colors"
+                className="text-[rgba(32,33,39,.52)] hover:text-[rgba(32,33,39,.52)] block text-center font-sans text-xs transition-colors"
               >
                 {t('backToLogin')}
               </Link>
