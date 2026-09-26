@@ -16,8 +16,6 @@ import { LoadingBar } from '@/components/ui/loading-bar'
 import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
-import { Bell, LogOut, Menu, PanelLeftClose, PanelLeft } from 'lucide-react'
-
 const NAV_ICONS: Record<string, string> = {
   '/dashboard': 'ti-home', '/plan': 'ti-clipboard-check', '/progress': 'ti-chart-bar',
   '/games': 'ti-device-gamepad-2', '/flashcards': 'ti-cards', '/friends': 'ti-users',
@@ -259,16 +257,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
           <div className={`d-flex align-items-center ${sidebarCollapsed ? 'flex-column gap-2' : 'justify-content-between gap-2'}`}>
             {!sidebarCollapsed && <LanguageSwitcher />}
-            <button type="button" onClick={() => setLogoutConfirm(true)} title={tCommon('logout')} aria-label={tCommon('logout')} className="btn btn-ghost-secondary btn-sm"><LogOut className="icon" />{!sidebarCollapsed && <span className="ms-2">{tCommon('logout')}</span>}</button>
+            <button type="button" onClick={() => setLogoutConfirm(true)} title={tCommon('logout')} aria-label={tCommon('logout')} className="btn btn-ghost-secondary btn-sm"><i className="ti ti-logout icon" aria-hidden="true" />{!sidebarCollapsed && <span className="ms-2">{tCommon('logout')}</span>}</button>
           </div>
         </div>
       </aside>
       <div className="page-wrapper min-w-0">
         <header className="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top z-50">
           <div className="container-fluid">
-            <button type="button" onClick={() => setSidebarOpen(true)} aria-label="MENU" className="btn btn-ghost-secondary d-lg-none me-2"><Menu className="icon" /></button>
+            <button type="button" onClick={() => setSidebarOpen(true)} aria-label="MENU" className="btn btn-ghost-secondary d-lg-none me-2"><i className="ti ti-menu-2 icon" aria-hidden="true" /></button>
             <div className="navbar-nav flex-row order-md-last align-items-center gap-2">
-              <button type="button" className="btn btn-ghost-secondary position-relative" aria-label="Notifications" title="Notifications"><Bell className="icon" /></button>
+              <button type="button" className="btn btn-ghost-secondary position-relative" aria-label="Notifications" title="Notifications"><i className="ti ti-bell icon" aria-hidden="true" /></button>
               <Link href="/settings" title={tNav('settings')} aria-label={tNav('settings')} className="nav-link p-0">
                 <span className="avatar avatar-sm rounded-circle bg-azure-lt text-azure fw-bold">
                   {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover rounded-circle" fallback={<span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
@@ -281,7 +279,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <span className="navbar-brand p-0 m-0 fs-3 fw-bold text-dark">{pageLabel}</span>
               </div>
             </div>
-            <button type="button" onClick={() => setSidebarCollapsed((value) => !value)} className="btn btn-ghost-secondary d-none d-lg-inline-flex me-2" aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}>{sidebarCollapsed ? <PanelLeft className="icon" /> : <PanelLeftClose className="icon" />}</button>
+            <button type="button" onClick={() => setSidebarCollapsed((value) => !value)} className="btn btn-ghost-secondary d-none d-lg-inline-flex me-2" aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}>{sidebarCollapsed ? <i className="ti ti-layout-sidebar-right-expand icon" aria-hidden="true" /> : <i className="ti ti-layout-sidebar-right-collapse icon" aria-hidden="true" />}</button>
           </div>
         </header>
         <main className="page-body bg-[#f5f7fb]">
