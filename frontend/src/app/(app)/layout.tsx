@@ -212,6 +212,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   const pageLabel = [...mainNavItems, ...resourceNavItems, ...bottomNavItems].find((item) => pathname === item.href || pathname.startsWith(item.href + '/'))?.label ?? tNav('home')
+  const feedbackBadgeText = feedbackUnreadCount > 0
+    ? feedbackUnreadCount > 99 ? '99+' : String(feedbackUnreadCount)
+    : ''
   const renderNavItems = (items: typeof mainNavItems) => items.map((item) => {
     const active = pathname === item.href || pathname.startsWith(item.href + '/')
     const premium = showPremiumBadge && PREMIUM_HREFS.has(item.href)
