@@ -30,13 +30,21 @@ function parseEventLine(line: string): Record<string, unknown> | null {
   }
 }
 
-export async function getLatestChatConversation(): Promise<{ id: number; title: string } | null> {
+export async function getChatConversations(): Promise<Array<{ id: number; title: string }>> {
   const response = await apiFetch('/api/chat/conversations')
-  if (!response.ok) return null
-  const data = (await response.json()) as Array<{ id?: unknown; title?: unknown }>
-  const first = data[0]
-  if (!first || typeof first.id !== 'number') return null
-  return { id: first.id, title: typeof first.title === 'string' ? first.title : 'Conversation' }
+  if (!response.ok) return []
+  const data = (await response.json()) as unknown
+  if (!Array.isArray(data)) return []
+  return data.flatMap((item) => {
+    if (!item || typeof item !== 'object') return []
+    const value=item as { id?: unknown; title?: unknown }
+    return typeof value.id === 'number' ? [{ id:value.id, title:typeof value.title==='string' ? value.title : 'Conversation' }] : []
+  })
+}
+
+export async function getLatestChatConversation(): Promise<{ id: number; title: string } | null> {
+  const conversations=await getChatConversations()
+  return conversations[0]??null
 }
 
 export async function createChatConversation(title = 'New conversation'): Promise<{ id: number; title: string }> {
