@@ -263,14 +263,14 @@ export default function ProgressPage() {
   return (
     <div className="container-xl page-body py-4">
       {/* Header */}
-      <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border">
+      <div className="border bg-[#fff] border">
         <div className="card-header d-flex align-items-center gap-2">
           <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[#ededff] text-[#5862e2]"><i className="ti ti-target icon" aria-hidden="true" /></span>
           <span className="text-[rgba(32,33,39,.52)] font-sans tracking-[.12em] uppercase">
             {t('subtitle')}
           </span>
           {activeLanguage && cefrLevel && (
-            <span className="border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] ml-auto border px-2 py-0.5 font-sans tracking-[.12em] uppercase">
+            <span className="border text-[rgba(32,33,39,.52)] ml-auto border px-2 py-0.5 font-sans tracking-[.12em] uppercase">
               {activeLanguage.name} · {cefrLevel}
             </span>
           )}
@@ -278,7 +278,7 @@ export default function ProgressPage() {
 
         {/* XP + streak */}
         {summary && (
-          <div className="juba-progress-metrics divide-fl-border border-[rgba(7,7,9,.08)] grid grid-cols-2 divide-x border-b sm:grid-cols-4">
+          <div className="juba-progress-metrics divide-fl-border border grid grid-cols-2 divide-x border-b sm:grid-cols-4">
             {[
               { label: t('xp'), value: summary.total_xp.toLocaleString() },
               { label: t('streak'), value: `${summary.current_streak}d 🔥` },
@@ -327,7 +327,7 @@ export default function ProgressPage() {
                 const count = summary.mastery.counts?.[state] ?? 0
                 const label = state === 'mastered' ? t('mastered') : state === 'new' ? t('notStarted') : t('inProgress')
                 return (
-                  <div key={state} className="border-[rgba(7,7,9,.08)] border px-3 py-3 text-center">
+                  <div key={state} className="border border px-3 py-3 text-center">
                     <p className="text-[rgba(32,33,39,.52)] mb-1 font-sans text-[10px] tracking-[.12em] uppercase">{label}</p>
                     <p className="text-[#202127] font-mono text-sm font-bold">{count}</p>
                   </div>
@@ -374,7 +374,7 @@ export default function ProgressPage() {
           ))}
 
           {competencies.length === 0 && (
-            <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border px-6 py-8 text-center">
+            <div className="border bg-[#fff] border px-6 py-8 text-center">
               <p className="text-[rgba(32,33,39,.52)] font-mono text-xs leading-relaxed">
                 {t('noCompetencies')}
               </p>
@@ -412,7 +412,7 @@ export default function ProgressPage() {
               className={`text-[rgba(32,33,39,.52)] border px-3 py-1.5 font-sans tracking-[.12em] uppercase transition-colors ${
                 !showAllLevels
                   ? 'border-[#202127] text-[#202127] bg-[#ededff]'
-                  : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[#202127] hover:text-[#202127]'
+                  : 'border text-[rgba(32,33,39,.52)] hover:border-[#202127] hover:text-[#202127]'
               }`}
             >
               {t('currentLevelOnly')}
@@ -422,14 +422,14 @@ export default function ProgressPage() {
               className={`text-[rgba(32,33,39,.52)] border px-3 py-1.5 font-sans tracking-[.12em] uppercase transition-colors ${
                 showAllLevels
                   ? 'border-[#202127] text-[#202127] bg-[#ededff]'
-                  : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[#202127] hover:text-[#202127]'
+                  : 'border text-[rgba(32,33,39,.52)] hover:border-[#202127] hover:text-[#202127]'
               }`}
             >
               {t('allLevels')}
             </button>
           </div>
 
-          <div className="border-[rgba(7,7,9,.08)] bg-[#fff] divide-fl-border divide-y border">
+          <div className="border bg-[#fff] divide-fl-border divide-y border">
             {displayVocabSets.map((s) => {
               const mastered = s.words.filter((w) =>
                 masteredWordSet.has(w.word.toLowerCase())
@@ -473,7 +473,7 @@ export default function ProgressPage() {
             </span>
             <div className="bg-[rgba(7,7,9,.08)] h-px flex-1" />
           </div>
-          <div className="border-[rgba(7,7,9,.08)] bg-[#fff] divide-fl-border divide-y border">
+          <div className="border bg-[#fff] divide-fl-border divide-y border">
             {Object.entries(summary.skills).map(([skill, value]) => (
               <div key={skill} className="flex items-center gap-4 px-5 py-3">
                 <span className="text-[rgba(32,33,39,.52)] w-24 font-sans tracking-[.12em] uppercase">
