@@ -354,7 +354,7 @@ function ListeningPage() {
                       {item.score}/{item.exercise.questions.length}
                     </p>
                     <p className="text-[#202127] text-[#5862e2] font-sans">
-                      +{item.xp_earned} XP
+                      +{item.xp_earned} {tCommon('xp')}
                     </p>
                   </div>
                 </div>
@@ -430,9 +430,7 @@ function ListeningPage() {
               </p>
             </div>
             <div className="text-right">
-              <p className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
-                XP
-              </p>
+              <p className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">{tCommon('xp')}</p>
               {isReplay ? (
                 <p className="text-[rgba(32,33,39,.52)] mt-1 font-sans">
                   {t('replayNoXp')}
