@@ -161,6 +161,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         onClick={() => setOpenTopMenu(null)}
         title={item.label}
         aria-label={item.label}
+        aria-current={active ? 'page' : undefined}
         className={'nav-link d-flex align-items-center gap-2 px-3 py-2 ' + (active ? 'active bg-primary-lt text-primary fw-semibold' : 'text-secondary')}
       >
         <i className={'ti ' + (NAV_ICONS[item.href] ?? 'ti-circle') + ' icon icon-sm'} aria-hidden="true" />
@@ -228,6 +229,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           aria-controls={menuId}
           title={group.label}
           aria-label={group.label}
+          aria-current={active ? 'page' : undefined}
           aria-expanded={open}
           onClick={() => {
             setOpenTopMenu(open ? null : group.key)
