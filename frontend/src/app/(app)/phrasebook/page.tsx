@@ -21,7 +21,7 @@ const REGISTERS: Register[] = ['formal', 'neutral', 'informal']
 
 const REGISTER_COLORS: Record<string, string> = {
   formal: 'text-blue-600 dark:text-blue-400',
-  neutral: 'text-[rgba(32,33,39,.52)]',
+  neutral: 'text-secondary',
   informal: 'text-amber-600 dark:text-amber-400',
 }
 
@@ -81,24 +81,24 @@ function CategoryCard({
 
   return (
     <div className="juba-phrasebook-category card overflow-hidden">
-      <div className="border-[rgba(7,7,9,.08)] flex items-center gap-3 border-b px-5 py-4">
+      <div className="border-secondary-subtle flex items-center gap-3 border-b px-5 py-4">
         <span className="text-xl">{cat.icon}</span>
         <div className="min-w-0 flex-1">
-          <p className="text-[#202127] truncate font-sans text-xs font-bold tracking-wide">
+          <p className="text-body truncate font-sans text-xs font-bold tracking-wide">
             {cat.situation}
           </p>
         </div>
-        <span className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] shrink-0 border px-2 py-0.5 font-sans tracking-widest uppercase">
+        <span className="border-secondary-subtle text-body text-secondary shrink-0 border px-2 py-0.5 font-sans tracking-widest uppercase">
           {cat.level}
         </span>
       </div>
 
       {nativeLanguageName && (
-        <div className="border-[rgba(7,7,9,.08)] border-b px-5 py-3">
+        <div className="border-secondary-subtle border-b px-5 py-3">
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
-            className="text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] flex w-full items-center justify-between font-sans tracking-widest uppercase transition-colors"
+            className="text-body text-secondary hover:text-body flex w-full items-center justify-between font-sans tracking-widest uppercase transition-colors"
             aria-expanded={nativeHelpOpen}
           >
             <span>
@@ -109,29 +109,29 @@ function CategoryCard({
           {nativeHelpOpen && (
             <div className="mt-3 space-y-3">
               {loadingNativeHelp ? (
-                <p className="text-[rgba(32,33,39,.52)] font-sans text-xs">
+                <p className="text-secondary font-sans text-xs">
                   {tCommon('nativeHelpLoading', {
                     language: nativeLanguageName,
                   })}
                 </p>
               ) : nativeHelp ? (
                 <>
-                  <p className="text-[rgba(32,33,39,.52)] max-w-[70ch] text-base leading-relaxed">
+                  <p className="text-secondary max-w-[70ch] text-base leading-relaxed">
                     {nativeHelp.summary}
                   </p>
 
                   {nativeHelp.usage_tips.length > 0 && (
                     <div className="space-y-1">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+                      <p className="text-body text-secondary font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpUsageTips')}
                       </p>
                       <ul className="space-y-1">
                         {nativeHelp.usage_tips.map((tip, i) => (
                           <li
                             key={i}
-                            className="text-[rgba(32,33,39,.52)] max-w-[70ch] text-sm leading-relaxed"
+                            className="text-secondary max-w-[70ch] text-sm leading-relaxed"
                           >
-                            <span className="text-[rgba(32,33,39,.52)] mr-2">·</span>
+                            <span className="text-secondary mr-2">·</span>
                             {tip}
                           </li>
                         ))}
@@ -140,14 +140,14 @@ function CategoryCard({
                   )}
 
                   {nativeHelp.register_notes.length > 0 && (
-                    <div className="border-[rgba(7,7,9,.08)] space-y-1 border-t pt-3">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+                    <div className="border-secondary-subtle space-y-1 border-t pt-3">
+                      <p className="text-body text-secondary font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpRegisterNotes')}
                       </p>
                       {nativeHelp.register_notes.map((note, i) => (
                         <p
                           key={i}
-                          className="text-[rgba(32,33,39,.52)] max-w-[70ch] text-sm leading-relaxed"
+                          className="text-secondary max-w-[70ch] text-sm leading-relaxed"
                         >
                           {note}
                         </p>
@@ -156,19 +156,19 @@ function CategoryCard({
                   )}
 
                   {nativeHelp.phrase_notes.length > 0 && (
-                    <div className="border-[rgba(7,7,9,.08)] space-y-2 border-t pt-3">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+                    <div className="border-secondary-subtle space-y-2 border-t pt-3">
+                      <p className="text-body text-secondary font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpPhraseNotes')}
                       </p>
                       {nativeHelp.phrase_notes.map((item, i) => (
                         <div key={i} className="space-y-0.5">
                           <TargetLanguageText
                             languageCode={language}
-                            className="text-[rgba(32,33,39,.52)] text-sm italic"
+                            className="text-secondary text-sm italic"
                           >
                             {item.phrase}
                           </TargetLanguageText>
-                          <p className="text-[rgba(32,33,39,.52)] text-sm leading-relaxed">
+                          <p className="text-secondary text-sm leading-relaxed">
                             {item.note}
                           </p>
                         </div>
@@ -177,16 +177,16 @@ function CategoryCard({
                   )}
 
                   {nativeHelp.common_traps.length > 0 && (
-                    <div className="border-[rgba(7,7,9,.08)] space-y-2 border-t pt-3">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+                    <div className="border-secondary-subtle space-y-2 border-t pt-3">
+                      <p className="text-body text-secondary font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpCommonTraps')}
                       </p>
                       {nativeHelp.common_traps.map((trap, i) => (
                         <div key={i} className="space-y-0.5">
-                          <p className="text-[rgba(32,33,39,.52)] text-sm">
+                          <p className="text-secondary text-sm">
                             {trap.mistake}
                           </p>
-                          <p className="text-[rgba(32,33,39,.52)] text-sm leading-relaxed">
+                          <p className="text-secondary text-sm leading-relaxed">
                             {trap.fix}
                           </p>
                         </div>
@@ -195,23 +195,23 @@ function CategoryCard({
                   )}
 
                   {nativeHelp.mini_glossary.length > 0 && (
-                    <div className="border-[rgba(7,7,9,.08)] space-y-2 border-t pt-3">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+                    <div className="border-secondary-subtle space-y-2 border-t pt-3">
+                      <p className="text-body text-secondary font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpMiniGlossary')}
                       </p>
                       {nativeHelp.mini_glossary.map((item, i) => (
                         <div key={i}>
                           <TargetLanguageText
                             languageCode={language}
-                            className="text-[rgba(32,33,39,.52)] text-sm font-bold"
+                            className="text-secondary text-sm font-bold"
                           >
                             {item.term}
                           </TargetLanguageText>
-                          <p className="text-[rgba(32,33,39,.52)] text-sm">
+                          <p className="text-secondary text-sm">
                             {item.meaning}
                           </p>
                           {item.note && (
-                            <p className="text-[rgba(32,33,39,.52)] text-sm leading-relaxed">
+                            <p className="text-secondary text-sm leading-relaxed">
                               {item.note}
                             </p>
                           )}
@@ -224,7 +224,7 @@ function CategoryCard({
                 <button
                   type="button"
                   onClick={generateNativeHelp}
-                  className="text-[rgba(32,33,39,.52)] hover:text-[#202127] font-sans text-sm transition-colors"
+                  className="text-secondary hover:text-body font-sans text-sm transition-colors"
                 >
                   {nativeHelpError
                     ? tCommon('retry')
@@ -245,13 +245,13 @@ function CategoryCard({
               <TargetLanguageText
                 as="p"
                 languageCode={language}
-                className="text-[#202127] flex-1"
+                className="text-body flex-1"
               >
                 {phrase.text}
               </TargetLanguageText>
               <div className="flex shrink-0 items-center gap-1">
                 <span
-                  className={`text-[#202127] font-sans tracking-widest uppercase ${REGISTER_COLORS[phrase.register]}`}
+                  className={`text-body font-sans tracking-widest uppercase ${REGISTER_COLORS[phrase.register]}`}
                 >
                   {t(phrase.register)}
                 </span>
@@ -267,7 +267,7 @@ function CategoryCard({
               <TargetLanguageText
                 as="p"
                 languageCode={language}
-                className="text-[rgba(32,33,39,.52)] italic"
+                className="text-secondary italic"
               >
                 {phrase.context}
               </TargetLanguageText>
@@ -296,7 +296,7 @@ function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] px-1 font-sans transition-colors"
+      className="text-body text-secondary hover:text-body px-1 font-sans transition-colors"
       title={tCommon('copy')}
       aria-label={tCommon('copyPhrase')}
     >
@@ -358,10 +358,10 @@ export default function PhrasebookPage() {
   if (loadError) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <p className="text-[rgba(32,33,39,.52)] font-sans text-sm">{tCommon('error')}</p>
+        <p className="text-secondary font-sans text-sm">{tCommon('error')}</p>
         <button
           onClick={() => fetchCategories(activeLanguage?.code ?? 'en-GB')}
-          className="text-[var(--juba-app-green)] font-sans text-xs tracking-widest uppercase underline"
+          className="text-success font-sans text-xs tracking-widest uppercase underline"
         >
           {tCommon('retry')}
         </button>
@@ -374,15 +374,15 @@ export default function PhrasebookPage() {
 
   return (
     <div className="space-y-5">
-      <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border">
-        <div className="border-[rgba(7,7,9,.08)] flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-[#202127] text-[rgba(32,33,39,.52)]">{'\u25cf'}</span>
-          <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+      <div className="border-secondary-subtle bg-white border">
+        <div className="border-secondary-subtle flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-body text-secondary">{'\u25cf'}</span>
+          <span className="text-body text-secondary font-sans tracking-widest uppercase">
             {t('title')}
           </span>
         </div>
         <div className="space-y-4 px-6 py-5">
-          <p className="text-[rgba(32,33,39,.52)] font-sans text-xs leading-relaxed">
+          <p className="text-secondary font-sans text-xs leading-relaxed">
             {t('statsLine', {
               situationCount: categories.length,
               phraseCount: totalPhrases,
@@ -396,12 +396,12 @@ export default function PhrasebookPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t('searchPlaceholder')}
-              className="border-[rgba(7,7,9,.08)] bg-[#f8f9fb] text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#202127] w-full border px-3 py-2 font-sans text-xs focus:outline-none"
+              className="border-secondary-subtle bg-light text-body placeholder:text-secondary focus:border-secondary-subtle w-full border px-3 py-2 font-sans text-xs focus:outline-none"
             />
           </div>
 
           <div className="space-y-2">
-            <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+            <p className="text-body text-secondary font-sans tracking-widest uppercase">
               {t('level')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -409,10 +409,10 @@ export default function PhrasebookPage() {
                 <button
                   key={lvl}
                   onClick={() => setActiveLevel(lvl)}
-                  className={`text-[#202127] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
+                  className={`text-body border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                     activeLevel === lvl
-                      ? 'border-[#202127] text-[#202127] bg-[#f8f9fb]'
-                      : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[#202127] hover:text-[#202127]'
+                      ? 'border-secondary-subtle text-body bg-light'
+                      : 'border-secondary-subtle text-secondary hover:border-secondary-subtle hover:text-body'
                   }`}
                 >
                   {lvl === 'All' ? tCommon('all') : lvl}
@@ -422,7 +422,7 @@ export default function PhrasebookPage() {
           </div>
 
           <div className="space-y-2">
-            <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+            <p className="text-body text-secondary font-sans tracking-widest uppercase">
               {t('register')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -430,10 +430,10 @@ export default function PhrasebookPage() {
                 <button
                   key={reg}
                   onClick={() => setActiveRegister(reg)}
-                  className={`text-[#202127] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
+                  className={`text-body border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                     activeRegister === reg
-                      ? 'border-[#202127] text-[#202127] bg-[#f8f9fb]'
-                      : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[#202127] hover:text-[#202127]'
+                      ? 'border-secondary-subtle text-body bg-light'
+                      : 'border-secondary-subtle text-secondary hover:border-secondary-subtle hover:text-body'
                   }`}
                 >
                   {reg === 'All' ? tCommon('all') : t(reg)}
@@ -445,7 +445,7 @@ export default function PhrasebookPage() {
       </div>
 
       {hasActiveFilters && (
-        <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans">
+        <p className="text-body text-secondary font-sans">
           {t('situationsShown', { count: filteredCategories.length })}
         </p>
       )}
@@ -456,10 +456,10 @@ export default function PhrasebookPage() {
         return (
           <section key={level} className="space-y-3">
             <div className="flex items-center gap-3">
-              <span className="text-[#202127] font-sans text-base font-bold tracking-widest">
+              <span className="text-body font-sans text-base font-bold tracking-widest">
                 {level}
               </span>
-              <div className="bg-[rgba(7,7,9,.08)] h-px flex-1" />
+              <div className="bg-light h-px flex-1" />
             </div>
             <div className="grid gap-4 md:grid-cols-2">
               {cats.map((cat) => (
@@ -478,7 +478,7 @@ export default function PhrasebookPage() {
 
       {filteredCategories.length === 0 && (
         <div className="card space-y-4 px-6 py-10 text-center">
-          <p className="text-[rgba(32,33,39,.52)] font-sans text-xs tracking-widest uppercase">
+          <p className="text-secondary font-sans text-xs tracking-widest uppercase">
             {t('noResults')}
           </p>
           {hasActiveFilters && (
