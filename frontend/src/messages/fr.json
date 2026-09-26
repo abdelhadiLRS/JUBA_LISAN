@@ -1007,10 +1007,11 @@
     "backToGrammar": "Grammaire",
     "explanation": "Explication",
     "backLink": "Retour à la grammaire",
-    "notFound": "Thème introuvable.",,
+    "notFound": "Thème introuvable.",
+    "topicsFound": "{count, plural, one {# thème trouvé} other {# thèmes trouvés}}",
     "topicCount": "{count, plural, =1 {# sujet} other {# sujets}}",
     "levelRange": "A1 – C2"
-    "topicsFound": "{count, plural, one {# thème trouvé} other {# thèmes trouvés}}"
+  
   },
   "vocabulary": {
     "title": "Vocabulaire",
