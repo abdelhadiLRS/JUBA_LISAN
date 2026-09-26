@@ -815,9 +815,9 @@
     "tapToHear": "Toca la palabra para escucharla",
     "lessonProgress": "Progreso de la lección",
     "masteryOverview": "Dominio de la lección",
-    "masteryCoverage": "{{covered}} variantes cubiertas",
-    "masteryAttemptRate": "Tasa de intento: {{rate}}%",
-    "masteryRate": "Tasa de dominio: {{rate}}%",
+    "masteryCoverage": "{covered} variantes cubiertas",
+    "masteryAttemptRate": "Tasa de intento: {rate}%",
+    "masteryRate": "Tasa de dominio: {rate}%",
     "masteryAttempted": "Intentadas",
     "masteryLearning": "En aprendizaje",
     "masteryStruggling": "Con dificultad",
@@ -1979,7 +1979,7 @@
     "rateKeys": "1 Otra vez · 2 Difícil · 3 Bien · 4 Fácil"
   },
   "translator": {
-    "detected": "Detectado",
+    "detected": "Detectado {language}",
     "listen": "Escuchar",
     "swap": "Intercambiar",
     "translating": "Traduciendo…",
