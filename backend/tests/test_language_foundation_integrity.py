@@ -651,7 +651,18 @@ def test_registered_core_languages_have_explicit_capabilities():
         assert get_language_script(locale) == script
         assert get_reading_length_unit(locale) == unit
 
-def test_lesson_generation_exposes_language_capabilities_to_prompt_layer(locale, expected_fragments):
+@pytest.mark.parametrize(
+    ("locale", "expected_fragments"),
+    [
+        ("ar", ['"script": "arabic"', '"reading_length_unit": "words"']),
+        ("zh-TW", ['"script": "traditional-hanzi"', '"reading_length_unit": "characters"']),
+        ("th-TH", ['"script": "thai"', '"reading_length_unit": "characters"']),
+        ("ro-RO", ['"script": "latin"', '"reading_length_unit": "words"']),
+    ],
+)
+def test_lesson_generation_exposes_language_capabilities_to_prompt_layer(
+    locale: str, expected_fragments: list[str]
+):
     from app.services.lesson_generator import _language_capability_metadata
 
     metadata = _language_capability_metadata(locale, "A1")
