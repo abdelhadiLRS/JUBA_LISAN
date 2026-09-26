@@ -16,7 +16,15 @@ from app.schemas.lessons import (
     LessonContent,
     PronunciationEvaluation,
 )
-from app.services.language_helpers import get_language_name, get_native_language_name
+from app.services.language_helpers import (
+    get_comprehension_length_guidance,
+    get_language_name,
+    get_language_romanization,
+    get_language_script,
+    get_native_language_name,
+    get_reading_length_unit,
+    uses_word_spacing,
+)
 from app.services.llm_adapter import llm_adapter
 from app.services.prompts import lesson as lesson_prompts
 from app.services.prompts.common import get_language_prompt_overlay
@@ -32,6 +40,22 @@ LESSON_GENERATION_PROMPT = lesson_prompts.LESSON_GENERATION_PROMPT
 FILL_BLANK_EVAL_PROMPT = lesson_prompts.FILL_BLANK_EVAL_PROMPT
 FREE_WRITE_EVAL_PROMPT = lesson_prompts.FREE_WRITE_EVAL_PROMPT
 PRONUNCIATION_EVAL_PROMPT = lesson_prompts.PRONUNCIATION_EVAL_PROMPT
+
+def _language_capability_metadata(target_language: str, cefr_level: str) -> str:
+    """Serialize language-specific writing/reading constraints for prompt consumers."""
+    base_length = 120 if cefr_level.upper() in {"A1", "A2"} else 180
+    return json.dumps(
+        {
+            "script": get_language_script(target_language),
+            "romanization": get_language_romanization(target_language) or None,
+            "uses_word_spacing": uses_word_spacing(target_language),
+            "reading_length_unit": get_reading_length_unit(target_language),
+            "comprehension_length_guidance": get_comprehension_length_guidance(
+                target_language, base_length
+            ),
+        },
+        ensure_ascii=False,
+    )
 
 
 def hint_reveals_answer(native_hint: str | None, correct_answer: str | None) -> bool:
@@ -289,6 +313,7 @@ async def generate_lesson(
     target_language_name = get_language_name(target_language)
     native_language_name = get_native_language_name(native_language) if native_language else "none"
     language_prompt_overlay = get_language_prompt_overlay(target_language)
+    language_capabilities = _language_capability_metadata(target_language, cefr_level)
     valid_slugs = get_valid_grammar_slugs(target_language)
     valid_slugs_str = ", ".join(sorted(valid_slugs))
     prompt = build_lesson_generation_prompt(
@@ -305,6 +330,7 @@ async def generate_lesson(
         day=day,
         valid_slugs=valid_slugs_str,
         language_prompt_overlay=language_prompt_overlay,
+        language_capabilities=language_capabilities,
     )
 
     # Do not block the first authored course on an optional local Ollama service.
@@ -369,6 +395,7 @@ async def regenerate_exercise(
     target_language_name = get_language_name(target_language)
     native_language_name = get_native_language_name(native_language) if native_language else "none"
     language_prompt_overlay = get_language_prompt_overlay(target_language)
+    language_capabilities = _language_capability_metadata(target_language, cefr_level)
     options_schema = {
         "multiple_choice": '["option 1", "option 2", "option 3", "option 4"]',
         "fill_blank": "null",
@@ -387,6 +414,7 @@ async def regenerate_exercise(
         invalid_exercise=json.dumps(invalid_exercise, ensure_ascii=False),
         options_schema=options_schema,
         language_prompt_overlay=language_prompt_overlay,
+        language_capabilities=language_capabilities,
     )
 
     exercise = await llm_adapter.structured_output(
@@ -431,6 +459,7 @@ async def evaluate_free_write(
         get_native_language_name(native_language) if native_language else "English"
     )
     language_prompt_overlay = get_language_prompt_overlay(target_language)
+    language_capabilities = _language_capability_metadata(target_language, cefr_level)
     eval_prompt = build_free_write_eval_prompt(
         cefr_level=cefr_level,
         target_language_name=target_language_name,
@@ -460,6 +489,7 @@ async def evaluate_pronunciation(
         get_native_language_name(native_language) if native_language else "English"
     )
     language_prompt_overlay = get_language_prompt_overlay(target_language)
+    language_capabilities = _language_capability_metadata(target_language, cefr_level)
     eval_prompt = build_pronunciation_eval_prompt(
         cefr_level=cefr_level,
         target_language_name=target_language_name,
@@ -467,6 +497,7 @@ async def evaluate_pronunciation(
         target=target,
         transcription=transcription,
         language_prompt_overlay=language_prompt_overlay,
+        language_capabilities=language_capabilities,
     )
     result = await llm_adapter.structured_output(
         [{"role": "system", "content": eval_prompt}],
@@ -488,6 +519,7 @@ async def evaluate_fill_blank(
         get_native_language_name(native_language) if native_language else "English"
     )
     language_prompt_overlay = get_language_prompt_overlay(target_language)
+    language_capabilities = _language_capability_metadata(target_language, cefr_level)
     eval_prompt = build_fill_blank_eval_prompt(
         cefr_level=cefr_level,
         target_language_name=target_language_name,
@@ -496,6 +528,7 @@ async def evaluate_fill_blank(
         correct_answer=correct_answer,
         student_answer=student_answer,
         language_prompt_overlay=language_prompt_overlay,
+        language_capabilities=language_capabilities,
     )
     result = await llm_adapter.structured_output(
         [{"role": "system", "content": eval_prompt}],
