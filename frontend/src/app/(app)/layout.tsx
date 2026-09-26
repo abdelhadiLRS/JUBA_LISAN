@@ -266,7 +266,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </aside>
         <div className="min-w-0 flex-1">
           <header className="sticky top-0 z-50 border-b border-black/[0.07] bg-[#f6f6f4]/95 shadow-[0_4px_18px_rgba(36,39,43,0.06)] backdrop-blur-xl">
-            <div className="flex h-[68px] items-center justify-between gap-3 px-4 sm:px-7">
+            <div className="flex h-[68px] items-center justify-between gap-3 bg-[#f6f6f4] px-4 sm:px-7">
               <div className="flex min-w-0 items-center gap-3">
                 <button type="button" onClick={() => setSidebarOpen(true)} aria-label={'MENU'} className="grid size-10 shrink-0 place-items-center rounded-xl border border-black/[0.08] bg-white text-[#24272b] shadow-sm transition hover:bg-[#f0efff] lg:hidden"><Menu className="size-5" /></button>
                 <div className="min-w-0"><p className="text-[9px] font-black uppercase tracking-[.16em] text-[#7776df]">JUBA LISAN</p><h1 className="truncate text-base font-extrabold text-[#24272b] sm:text-lg">{pageLabel}</h1></div>
@@ -280,14 +280,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </Link>
               </div>
             </div>
-            <nav aria-label="Primary navigation" className="border-t border-black/[0.05] bg-white/80 px-3 sm:px-6">
+            <nav aria-label="Primary navigation" className="border-t border-[#e7e6f5] bg-[#efeff8] px-3 sm:px-6">
               <div className="flex h-[54px] items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {[...mainNavItems, ...resourceNavItems].map((item) => {
                   const active = pathname === item.href || pathname.startsWith(item.href + '/')
                   const premium = showPremiumBadge && PREMIUM_HREFS.has(item.href)
                   return (
                     <Link key={item.href} href={item.href} aria-current={active ? 'page' : undefined}
-                      className={`group relative flex h-10 shrink-0 items-center gap-2 rounded-xl px-3 text-[12px] font-bold transition ${active ? 'bg-[#7776df] text-white shadow-sm' : 'text-[#555866] hover:bg-[#f0efff] hover:text-[#5f5ec5]'}`}>
+                      className={`group relative flex h-10 shrink-0 items-center gap-2 rounded-xl px-3 text-[12px] font-bold transition ${active ? 'bg-[#6f6bd8] text-white shadow-md shadow-[#6f6bd8]/20' : 'text-[#4f5263] hover:bg-white hover:text-[#5f5ac7]'}`}>
                       <span className="relative grid size-4 place-items-center"><NavIcon href={item.href} className="size-[16px]" />{premium && <Sparkles className="absolute -right-1.5 -top-1 size-2.5 text-[#f2b84b]" />}</span>
                       <span>{item.label}</span>
                     </Link>
