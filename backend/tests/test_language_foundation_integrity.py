@@ -513,7 +513,7 @@ def test_foundation_locale_variants_resolve_to_registered_modules(locale: str, e
         ("en_US", "English (US)", "en"),
         ("de-DE", "German", "de"),
         ("fr-FR", "French", "fr"),
-        ("pt-BR", "European Portuguese", "pt"),
+        ("pt-BR", "Brazilian Portuguese", "pt"),
         ("zh-TW", "Chinese (Traditional)", "zh"),
         ("ar-DZ", "Arabic", "ar"),
         ("hr-HR", "Croatian", "hr"),
@@ -535,6 +535,20 @@ def test_language_helpers_normalize_common_locale_aliases(
 
     assert get_language_name(locale) == expected_name
     assert get_iso639(locale) == expected_iso
+
+
+@pytest.mark.parametrize(
+    ("locale", "expected_self_name"),
+    [
+        ("pt-PT", "Português (Portugal)"),
+        ("pt-BR", "Português (Brasil)"),
+        ("pt_BR", "Português (Brasil)"),
+    ],
+)
+def test_portuguese_locale_metadata_preserves_regional_variant(locale, expected_self_name):
+    from app.services.language_helpers import get_language_self_name
+
+    assert get_language_self_name(locale) == expected_self_name
 
 
 @pytest.mark.parametrize(
