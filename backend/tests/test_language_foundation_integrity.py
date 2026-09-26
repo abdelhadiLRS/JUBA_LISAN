@@ -1075,3 +1075,54 @@ def test_registered_base_locales_keep_metadata_and_prompt_guidance_for_region_va
 
     assert not failures, "\\n".join(failures)
 
+
+def test_every_registered_language_has_complete_name_metadata_and_prompt_guidance():
+    failures: list[str] = []
+
+    for language in curriculum_dispatcher._LANG_MODULES:
+        name = get_language_name(language)
+        self_name = get_language_self_name(language)
+        iso_code = get_iso639(language)
+        overlay = get_language_prompt_overlay(language)
+
+        if not name.strip() or name == language:
+            failures.append(f"{language}: missing human-readable language name")
+        if not self_name.strip() or self_name == language:
+            failures.append(f"{language}: missing native language name")
+        if not iso_code.strip() or iso_code == language:
+            failures.append(f"{language}: missing ISO 639 code")
+        if not overlay.strip() or "Language-specific guidance:" not in overlay:
+            failures.append(f"{language}: missing language prompt guidance")
+
+    assert not failures, "\\n".join(failures)
+
+
+def test_registered_language_region_variants_keep_their_metadata_and_curriculum():
+    failures: list[str] = []
+
+    for language, module_name in curriculum_dispatcher._LANG_MODULES.items():
+        if "-" in language:
+            continue
+        # A generic region suffix should preserve the language's base metadata
+        # and dispatch to the same curriculum module.
+        locale = f"{language}-ZZ"
+        try:
+            resolved = curriculum_dispatcher._resolve_module(locale)
+        except Exception as exc:
+            failures.append(f"{locale}: curriculum resolution failed: {exc}")
+            continue
+        if getattr(resolved, "__name__", "") != module_name:
+            failures.append(
+                f"{locale}: expected {module_name}, got {getattr(resolved, '__name__', '')}"
+            )
+        if get_language_name(locale) != get_language_name(language):
+            failures.append(f"{locale}: language name differs from base {language}")
+        if get_language_self_name(locale) != get_language_self_name(language):
+            failures.append(f"{locale}: native name differs from base {language}")
+        if get_iso639(locale) != get_iso639(language):
+            failures.append(f"{locale}: ISO code differs from base {language}")
+        if not get_language_prompt_overlay(locale).strip():
+            failures.append(f"{locale}: empty prompt overlay")
+
+    assert not failures, "\\n".join(failures)
+
