@@ -889,6 +889,38 @@ def test_language_metadata_resolves_locale_variants(locale: str, expected_iso: s
     assert get_language_name(locale).strip()
     assert get_language_self_name(locale).strip()
 
+@pytest.mark.parametrize(
+    ("locale", "expected_name", "expected_self_name", "expected_script"),
+    [
+        ("pt-BR", "Brazilian Portuguese", "Português (Brasil)", "latin"),
+        ("PT_br", "Brazilian Portuguese", "Português (Brasil)", "latin"),
+        ("zh-Hant", "Traditional Chinese", "繁體中文", "traditional-hanzi"),
+        ("zh-Hant-TW", "Chinese (Traditional, Taiwan)", "臺灣繁體中文", "traditional-hanzi"),
+        ("zh-Hant-HK", "Traditional Chinese", "繁體中文", "traditional-hanzi"),
+    ],
+)
+def test_script_and_region_sensitive_language_metadata(
+    locale: str, expected_name: str, expected_self_name: str, expected_script: str
+):
+    from app.services.language_helpers import get_language_script
+
+    assert get_language_name(locale) == expected_name
+    assert get_language_self_name(locale) == expected_self_name
+    assert get_language_script(locale) == expected_script
+
+
+@pytest.mark.parametrize(
+    ("locale", "expected_fragment"),
+    [
+        ("pt-BR", "standard Brazilian Portuguese"),
+        ("PT_br", "standard Brazilian Portuguese"),
+        ("zh-Hant", "Traditional Chinese"),
+        ("zh-Hant-TW", "traditional Chinese characters"),
+    ],
+)
+def test_prompt_overlay_preserves_script_and_regional_variant(locale: str, expected_fragment: str):
+    assert expected_fragment.lower() in get_language_prompt_overlay(locale).lower()
+
 
 @pytest.mark.parametrize(
     "locale",
