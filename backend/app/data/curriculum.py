@@ -18,7 +18,7 @@ CEFR_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"]
 # BCP-47/locale aliases used by browsers, profiles, and mobile clients.  Keep
 # this table explicit so regional variants never depend on an accidental
 # English fallback when resolving curriculum data.
-from app.services.locale import normalize_locale, resolve_locale
+from app.services.locale import resolve_locale
 
 _LANG_MODULES: dict[str, str] = {
     "en-GB": "app.data.en_GB.curriculum",
