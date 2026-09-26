@@ -985,7 +985,9 @@
     "backToGrammar": "Grammaticareferentie",
     "explanation": "Uitleg",
     "backLink": "Terug naar grammatica",
-    "notFound": "Onderwerp niet gevonden.",
+    "notFound": "Onderwerp niet gevonden.",,
+    "topicCount": "{count, plural, =1 {# onderwerp} other {# onderwerpen}}",
+    "levelRange": "A1 – C2"
     "topicsFound": "{count, plural, one {# onderwerp gevonden} other {# onderwerpen gevonden}}"
   },
   "vocabulary": {
