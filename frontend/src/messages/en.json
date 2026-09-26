@@ -1062,7 +1062,9 @@
     "all": "All",
     "clearFilters": "Clear filters",
     "error": "Unable to load grammar topics.",
-    "retry": "Retry"
+    "retry": "Retry",
+    "topicCount": "{count, plural, =1 {# topic} other {# topics}}",
+    "levelRange": "A1 – C2"
   },
   "vocabulary": {
     "title": "Vocabulary Hub",
