@@ -239,6 +239,30 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   tabIndex={0}
                   aria-current={activeItem ? 'page' : undefined}
                   onClick={() => setOpenTopMenu(null)}
+                  onKeyDown={(event) => {
+                    const menu = document.getElementById(menuId)
+                    const items = menu ? Array.from(menu.querySelectorAll<HTMLElement>('[role="menuitem"]')) : []
+                    const index = items.indexOf(event.currentTarget)
+                    if (!items.length || index < 0) return
+                    if (event.key === 'ArrowDown') {
+                      event.preventDefault()
+                      items[(index + 1) % items.length]?.focus()
+                    } else if (event.key === 'ArrowUp') {
+                      event.preventDefault()
+                      items[(index - 1 + items.length) % items.length]?.focus()
+                    } else if (event.key === 'Home') {
+                      event.preventDefault()
+                      items[0]?.focus()
+                    } else if (event.key === 'End') {
+                      event.preventDefault()
+                      items[items.length - 1]?.focus()
+                    } else if (event.key === 'Escape') {
+                      event.preventDefault()
+                      const trigger = document.getElementById(`top-menu-trigger-${group.key}`)
+                      setOpenTopMenu(null)
+                      requestAnimationFrame(() => trigger?.focus())
+                    }
+                  }}
                   className={'nav-link d-flex align-items-center gap-2 px-3 py-2 ' + (activeItem ? 'active bg-primary-lt text-primary fw-semibold' : 'text-secondary')}
                 >
                   <i className={'ti ' + (NAV_ICONS[item.href] ?? 'ti-circle') + ' icon icon-sm'} aria-hidden="true" />
