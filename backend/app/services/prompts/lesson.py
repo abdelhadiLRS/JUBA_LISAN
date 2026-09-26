@@ -405,6 +405,7 @@ def build_lesson_generation_prompt(
     day: int,
     valid_slugs: str,
     language_prompt_overlay: str = "",
+    language_capabilities: str = "",
     native_language_name: str = "none",
 ) -> str:
     return LESSON_GENERATION_PROMPT.format(
@@ -421,6 +422,7 @@ def build_lesson_generation_prompt(
         day=day,
         valid_slugs=valid_slugs,
         language_prompt_overlay=language_prompt_overlay,
+        language_capabilities=language_capabilities,
     )
 
 
@@ -433,6 +435,7 @@ def build_fill_blank_eval_prompt(
     correct_answer: str,
     student_answer: str,
     language_prompt_overlay: str = "",
+    language_capabilities: str = "",
 ) -> str:
     return FILL_BLANK_EVAL_PROMPT.format(
         cefr_level=cefr_level,
@@ -442,6 +445,7 @@ def build_fill_blank_eval_prompt(
         correct_answer=correct_answer,
         student_answer=student_answer,
         language_prompt_overlay=language_prompt_overlay,
+        language_capabilities=language_capabilities,
     )
 
 
@@ -454,6 +458,7 @@ def build_free_write_eval_prompt(
     criteria: str,
     answer: str,
     language_prompt_overlay: str = "",
+    language_capabilities: str = "",
 ) -> str:
     return FREE_WRITE_EVAL_PROMPT.format(
         cefr_level=cefr_level,
@@ -463,6 +468,7 @@ def build_free_write_eval_prompt(
         criteria=criteria,
         answer=answer,
         language_prompt_overlay=language_prompt_overlay,
+        language_capabilities=language_capabilities,
     )
 
 
@@ -474,6 +480,7 @@ def build_pronunciation_eval_prompt(
     target: str,
     transcription: str,
     language_prompt_overlay: str = "",
+    language_capabilities: str = "",
 ) -> str:
     return PRONUNCIATION_EVAL_PROMPT.format(
         cefr_level=cefr_level,
@@ -482,6 +489,7 @@ def build_pronunciation_eval_prompt(
         target=target,
         transcription=transcription,
         language_prompt_overlay=language_prompt_overlay,
+        language_capabilities=language_capabilities,
     )
 
 
@@ -660,6 +668,7 @@ def build_regenerate_exercise_prompt(
     invalid_exercise: str,
     options_schema: str,
     language_prompt_overlay: str,
+    language_capabilities: str = "",
 ) -> str:
     return REGENERATE_EXERCISE_PROMPT.format(
         cefr_level=cefr_level,
@@ -673,4 +682,5 @@ def build_regenerate_exercise_prompt(
         invalid_exercise=invalid_exercise,
         options_schema=options_schema,
         language_prompt_overlay=language_prompt_overlay,
+        language_capabilities=language_capabilities,
     )
