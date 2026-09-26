@@ -141,11 +141,15 @@ PHRASE_DATA = [
     ("Work", "💼", ["aisho.", "aitidua.", "ashe."]),
     ("Opinions", "💬", ["nabo.", "Meyia.", "ashe."]),
     ("Formal interaction", "🤝", ["ashe.", "Supa.", "nabo."]),
+    ("Academic discussion", "🎓", ["nabo.", "Meyia.", "ashe."]),
+    ("Media and sources", "📰", ["Meyia.", "nabo.", "Supa."]),
+    ("Policy and institutions", "🏛️", ["nabo.", "ashe.", "Supa."]),
+    ("Nuanced debate", "🗣️", ["Meyia.", "nabo.", "ashe."]),
 ]
 PHRASEBOOK_CATEGORIES = [
     PhrasebookCategory(
         id=f"suq_phrase_{idx}",
-        level="A1" if idx <= 8 else "A2" if idx <= 10 else "B1",
+        level="A1" if idx <= 8 else "A2" if idx <= 10 else "B1" if idx <= 13 else "C1" if idx <= 15 else "C2",
         situation=situation,
         icon=icon,
         phrases=[PhrasebookEntry(text=p, context=situation.lower(), register="neutral") for p in phrases],
