@@ -13,21 +13,21 @@ function TopicCard({ topic }: { topic: GrammarTopic }) {
   return (
     <Link
       href={`/grammar/${topic.slug}`}
-      className="card group block overflow-hidden transition-colors hover:bg-[#f4f4f2]"
+      className="card group block overflow-hidden transition-colors hover:bg-light"
     >
       <div className="space-y-2 px-4 py-4">
         <div className="flex items-start justify-between gap-2">
-          <p className="text-[#202127] group-hover:text-[#5862e2] font-sans text-xs leading-snug font-bold tracking-wide transition-colors">
+          <p className="text-body group-hover:text-primary font-sans text-xs leading-snug font-bold tracking-wide transition-colors">
             {topic.title}
           </p>
-          <span className="border text-[#202127] text-[rgba(32,33,39,.52)] shrink-0 border px-1.5 py-0.5 font-sans tracking-widest uppercase">
+          <span className="border text-body text-secondary shrink-0 border px-1.5 py-0.5 font-sans tracking-widest uppercase">
             {topic.level}
           </span>
         </div>
-        <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans leading-relaxed">
+        <p className="text-body text-secondary font-sans leading-relaxed">
           {topic.summary}
         </p>
-        <span className="border text-[#202127] text-[rgba(32,33,39,.52)] inline-block border px-2 py-0.5 font-sans tracking-widest uppercase">
+        <span className="border text-body text-secondary inline-block border px-2 py-0.5 font-sans tracking-widest uppercase">
           {topic.category}
         </span>
       </div>
@@ -99,10 +99,10 @@ export default function GrammarIndexPage() {
   if (loadError) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <p className="text-[rgba(32,33,39,.52)] font-sans text-sm">{tCommon('error')}</p>
+        <p className="text-secondary font-sans text-sm">{tCommon('error')}</p>
         <button
           onClick={() => fetchTopics(activeLanguage?.code ?? 'en-GB')}
-          className="text-[#5862e2] font-sans text-xs tracking-widest uppercase underline"
+          className="text-primary font-sans text-xs tracking-widest uppercase underline"
         >
           {tCommon('retry')}
         </button>
@@ -112,15 +112,15 @@ export default function GrammarIndexPage() {
 
   return (
     <div className="space-y-5">
-      <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border">
-        <div className="border-[rgba(7,7,9,.08)] flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-[#202127] text-[rgba(32,33,39,.52)]"><i className="ti ti-book-2 text-[#5862e2] text-base" aria-hidden="true" /></span>
-          <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+      <div className="border-secondary-subtle bg-white border">
+        <div className="border-secondary-subtle flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-body text-secondary"><i className="ti ti-book-2 text-primary text-base" aria-hidden="true" /></span>
+          <span className="text-body text-secondary font-sans tracking-widest uppercase">
             {t('title')}
           </span>
         </div>
         <div className="space-y-4 px-6 py-5">
-          <p className="text-[rgba(32,33,39,.52)] font-sans text-xs leading-relaxed">
+          <p className="text-secondary font-sans text-xs leading-relaxed">
             {t('topicCount', { count: topics.length })} · {t('levelRange')}
           </p>
           <input
@@ -129,15 +129,15 @@ export default function GrammarIndexPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t('searchPlaceholder')}
-            className="bg-[#f4f4f2] border text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-2 w-full max-w-sm border px-4 py-2.5 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-light border text-body placeholder:text-secondary focus:border-2 w-full max-w-sm border px-4 py-2.5 font-sans text-xs transition-colors focus:outline-none"
           />
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setActiveCategory('All')}
-              className={`text-[#202127] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
+              className={`text-body border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                 activeCategory === 'All'
-                  ? 'border-[#202127] text-[#202127] bg-[#f4f4f2]'
-                  : 'border text-[rgba(32,33,39,.52)] hover:border-2 hover:text-[#202127]'
+                  ? 'border-[#202127] text-body bg-light'
+                  : 'border text-secondary hover:border-2 hover:text-body'
               }`}
             >
               {t('allCategories')}
@@ -148,10 +148,10 @@ export default function GrammarIndexPage() {
                 onClick={() =>
                   setActiveCategory(activeCategory === cat ? 'All' : cat)
                 }
-                className={`text-[#202127] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
+                className={`text-body border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                   activeCategory === cat
-                    ? 'border-[#202127] text-[#202127] bg-[#f4f4f2]'
-                    : 'border text-[rgba(32,33,39,.52)] hover:border-2 hover:text-[#202127]'
+                    ? 'border-[#202127] text-body bg-light'
+                    : 'border text-secondary hover:border-2 hover:text-body'
                 }`}
               >
                 {cat}
@@ -162,7 +162,7 @@ export default function GrammarIndexPage() {
       </div>
 
       {(search || activeCategory !== 'All') && (
-        <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans">
+        <p className="text-body text-secondary font-sans">
           {t('topicsFound', { count: filtered.length })}
         </p>
       )}
@@ -173,11 +173,11 @@ export default function GrammarIndexPage() {
         return (
           <section key={level} className="space-y-3">
             <div className="flex items-center gap-3">
-              <span className="text-[#202127] font-sans text-base font-bold tracking-widest">
+              <span className="text-body font-sans text-base font-bold tracking-widest">
                 {level}
               </span>
               <div className="bg-[rgba(7,7,9,.08)] h-px flex-1" />
-              <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans">
+              <span className="text-body text-secondary font-sans">
                 {t('topicCount', { count: levelTopics.length })}
               </span>
             </div>
@@ -192,7 +192,7 @@ export default function GrammarIndexPage() {
 
       {filtered.length === 0 && (
         <div className="card space-y-4 px-6 py-10 text-center">
-          <p className="text-[rgba(32,33,39,.52)] font-sans text-xs tracking-widest uppercase">
+          <p className="text-secondary font-sans text-xs tracking-widest uppercase">
             {t('noResults')}
           </p>
           {(search || activeCategory !== 'All') && (
