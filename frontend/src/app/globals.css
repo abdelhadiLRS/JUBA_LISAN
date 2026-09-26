@@ -6876,3 +6876,95 @@ main [dir="rtl"] h3,
     max-width: 100%;
   }
 }
+
+
+/* JUBA LISAN member-area — unified Education Dashboard surfaces.
+   Shared across every learner route so secondary pages use the same
+   rounded cards, editorial spacing, accents and responsive behavior
+   as the redesigned dashboard instead of introducing a second UI. */
+.juba-plan-shell,
+.juba-progress-shell,
+.juba-flashcards-shell,
+.juba-vocabulary-shell,
+.juba-translator-shell{
+  width:min(1180px,calc(100% - 32px));
+  margin-inline:auto;
+  color:var(--juba-app-ink);
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,212,79,.12),transparent 300px),
+    transparent;
+}
+.juba-plan-shell > .juba-card,
+.juba-progress-shell > .juba-card,
+.juba-flashcards-shell > .juba-card,
+.juba-vocabulary-shell > .juba-card,
+.juba-translator-shell > .juba-card{
+  border:2px solid var(--juba-app-line);
+  border-radius:28px;
+  background:var(--juba-app-surface);
+  box-shadow:0 12px 30px rgba(24,37,27,.07);
+}
+.juba-plan-shell > div,
+.juba-progress-shell > div,
+.juba-flashcards-shell > div,
+.juba-vocabulary-shell > div,
+.juba-translator-shell > section,
+.juba-translator-shell > div{
+  border-radius:24px;
+}
+.juba-plan-shell button,
+.juba-progress-shell button,
+.juba-flashcards-shell button,
+.juba-vocabulary-shell button,
+.juba-translator-shell button{
+  border-radius:12px;
+}
+.juba-plan-shell a[class*="bg-"],
+.juba-progress-shell a[class*="bg-"],
+.juba-flashcards-shell a[class*="bg-"],
+.juba-vocabulary-shell a[class*="bg-"],
+.juba-translator-shell a[class*="bg-"]{
+  border-radius:14px;
+  transition:transform .16s ease,box-shadow .16s ease;
+}
+.juba-plan-shell a[class*="bg-"]:hover,
+.juba-progress-shell a[class*="bg-"]:hover,
+.juba-flashcards-shell a[class*="bg-"]:hover,
+.juba-vocabulary-shell a[class*="bg-"]:hover,
+.juba-translator-shell a[class*="bg-"]:hover{
+  transform:translateY(-2px);
+}
+.juba-plan-shell input,
+.juba-plan-shell select,
+.juba-progress-shell input,
+.juba-progress-shell select,
+.juba-flashcards-shell input,
+.juba-flashcards-shell select,
+.juba-vocabulary-shell input,
+.juba-vocabulary-shell select,
+.juba-translator-shell input,
+.juba-translator-shell select,
+.juba-translator-shell textarea{
+  border-radius:12px;
+}
+.juba-vocabulary-shell > section,
+.juba-progress-shell > section{
+  border-radius:24px;
+  box-shadow:0 8px 24px rgba(24,37,27,.05);
+}
+.juba-mobile-courses{
+  width:min(1180px,calc(100% - 32px));
+  min-height:0;
+  margin-inline:auto;
+}
+@media(max-width:640px){
+  .juba-plan-shell,
+  .juba-progress-shell,
+  .juba-flashcards-shell,
+  .juba-vocabulary-shell,
+  .juba-translator-shell,
+  .juba-mobile-courses{
+    width:min(100% - 20px,1180px);
+    padding-inline:0;
+  }
+}
