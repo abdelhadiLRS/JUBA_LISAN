@@ -261,7 +261,7 @@ export default function ProgressPage() {
   )
 
   return (
-    <div className="container-xl page-body py-4">
+    <div className="space-y-5">
       {/* Header */}
       <div className="border bg-[#fff] border">
         <div className="card-header d-flex align-items-center gap-2">
