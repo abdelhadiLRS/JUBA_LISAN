@@ -846,7 +846,10 @@
     "skillMasteryMastered": "gemeistert",
     "skillMasteryAttempted": "bearbeitet",
     "skillMasteryAttemptRate": "Versuchsquote: {rate}%",
-    "skillMasteryVariants": "Varianten"
+    "skillMasteryVariants": "Varianten",
+    "mastered": "Gemeistert",
+    "listen": "Anhören",
+    "advance": "Weiter"
   },
   "flashcards": {
     "title": "Karteikarten",
@@ -910,7 +913,9 @@
     "deleteConfirm": "Löschen",
     "enterToSend": "Enter zum Senden",
     "continueInVoice": "Mit Sprache fortfahren",
-    "memoryUpdated": "Erinnerung gespeichert"
+    "memoryUpdated": "Erinnerung gespeichert",
+    "voiceSession": "Sprachsitzung",
+    "delete": "Löschen"
   },
   "progress": {
     "title": "Fortschritt",
