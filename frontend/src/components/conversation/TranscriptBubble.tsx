@@ -34,11 +34,11 @@ export default function TranscriptBubble({
         <span
           className={`pointer-events-none absolute inset-[-5px] rounded-full border-2 transition-[border-color,opacity] duration-700 ${
             speaking
-              ? 'border-[color-mix(in_srgb,var(--juba-app-green)_65%,transparent)] animate-halo-speaking'
-              : 'border-[color-mix(in_srgb,var(--juba-app-green)_15%,transparent)] animate-halo-idle'
+              ? 'border-[color-mix(in_srgb,#5862e2_65%,transparent)] animate-halo-speaking'
+              : 'border-[color-mix(in_srgb,#5862e2_15%,transparent)] animate-halo-idle'
           }`}
         />
-        <div className="border-[var(--juba-app-line)] h-7 w-7 overflow-hidden rounded-full border">
+        <div className="border-[rgba(7,7,9,.08)] h-7 w-7 overflow-hidden rounded-full border">
           {!isUser ? (
             <Image
               src="/logo_head.png"
@@ -56,7 +56,7 @@ export default function TranscriptBubble({
               className="h-full w-full object-cover"
               fallback={
                 <div className="bg-[#f3f7ef] flex h-full w-full items-center justify-center">
-                  <span className="text-[var(--juba-app-muted)] font-mono select-none">
+                  <span className="text-[rgba(32,33,39,.52)] font-mono select-none">
                     {(userInitial ?? '?').toUpperCase()}
                   </span>
                 </div>
@@ -64,7 +64,7 @@ export default function TranscriptBubble({
             />
           ) : (
             <div className="bg-[#f3f7ef] flex h-full w-full items-center justify-center">
-              <span className="text-[var(--juba-app-muted)] font-mono select-none">
+              <span className="text-[rgba(32,33,39,.52)] font-mono select-none">
                 {(userInitial ?? '?').toUpperCase()}
               </span>
             </div>
@@ -75,7 +75,7 @@ export default function TranscriptBubble({
       <div
         className={`flex max-w-[75%] flex-col gap-1 ${isUser ? 'items-end' : 'items-start'}`}
       >
-        <span className="text-[var(--juba-app-muted)] font-mono tracking-widest uppercase">
+        <span className="text-[rgba(32,33,39,.52)] font-mono tracking-widest uppercase">
           {isUser ? t('you') : t('assistant')}
         </span>
         <TargetLanguageText
@@ -83,8 +83,8 @@ export default function TranscriptBubble({
           languageCode={languageCode}
           className={`border px-4 py-3 ${
             isUser
-              ? 'bg-[var(--juba-app-green)] text-white border-[var(--juba-app-green-dark)]'
-              : 'bg-[var(--juba-app-surface)] text-[var(--juba-app-ink)] border-[var(--juba-app-line)]'
+              ? 'bg-[#5862e2] text-white border-[#373fb8]'
+              : 'bg-[#fff] text-[#202127] border-[rgba(7,7,9,.08)]'
           }`}
         >
           {text}
