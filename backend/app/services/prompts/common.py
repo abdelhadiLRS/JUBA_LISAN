@@ -97,7 +97,10 @@ _LANGUAGE_PROMPT_OVERLAY_ALIASES: dict[str, str] = {
 
 def get_language_prompt_overlay(target_language: str) -> str:
     """Return concise language/variant guidance for prompt composition."""
-    canonical_language = _LANGUAGE_PROMPT_OVERLAY_ALIASES.get(target_language, target_language)
+    locale = (target_language or "").strip().replace("_", "-")
+    canonical_language = _LANGUAGE_PROMPT_OVERLAY_ALIASES.get(locale, locale)
+    if canonical_language not in _LANGUAGE_PROMPT_OVERLAYS:
+        canonical_language = _LANGUAGE_PROMPT_OVERLAY_ALIASES.get(locale.split("-")[0], locale)
     return _LANGUAGE_PROMPT_OVERLAYS.get(canonical_language, "")
 
 
