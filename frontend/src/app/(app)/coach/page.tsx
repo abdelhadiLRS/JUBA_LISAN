@@ -127,7 +127,7 @@ export default function CoachPage() {
                       : { eyebrow: 'Smart review', title: 'You have due reviews', action: 'Start review', skill: 'Recommended skill' }
 
   return (
-    <main className="container-xl page-body py-4">
+    <main className="space-y-5">
       <div className="mx-auto max-w-7xl space-y-8">
         <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
