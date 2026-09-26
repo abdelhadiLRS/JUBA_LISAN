@@ -438,7 +438,7 @@ function ReadingPage() {
                 className={`border p-4 ${
                   isCorrect
                     ? 'border-[#5862e2]/50 bg-[#ededff]/5'
-                    : 'border-[var(--juba-app-error)]/50 bg-[var(--juba-app-error)]/5'
+                    : 'border-[#b33a32]/50 bg-[#b33a32]/5'
                 }`}
               >
                 <TargetLanguageText
@@ -456,7 +456,7 @@ function ReadingPage() {
                         k === correctKey
                           ? 'text-[#5862e2] font-bold'
                           : k === userAnswer && !isCorrect
-                            ? 'text-[var(--juba-app-error)] line-through'
+                            ? 'text-[#b33a32] line-through'
                             : 'text-[rgba(32,33,39,.52)]'
                       }`}
                     >
@@ -515,7 +515,7 @@ function ReadingPage() {
         </div>
 
         {error && (
-          <p className="text-[rgba(32,33,39,.52)] text-[var(--juba-app-error)] mb-4 font-sans">
+          <p className="text-[rgba(32,33,39,.52)] text-[#b33a32] mb-4 font-sans">
             {error}
           </p>
         )}
@@ -657,7 +657,7 @@ function ReadingPage() {
               </div>
 
               {error && (
-                <p className="text-[rgba(32,33,39,.52)] text-[var(--juba-app-error)] mt-3 font-sans">
+                <p className="text-[rgba(32,33,39,.52)] text-[#b33a32] mt-3 font-sans">
                   {error}
                 </p>
               )}
@@ -665,7 +665,7 @@ function ReadingPage() {
               <button
                 onClick={handleSubmit}
                 disabled={!allAnswered || submitting}
-                className="border-[rgba(7,7,9,.08)] bg-[#202127] text-[var(--juba-app-bg)] hover:bg-[#202127]/90 focus-visible:outline-fl-fg mt-4 w-full border py-3 font-sans text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+                className="border-[rgba(7,7,9,.08)] bg-[#202127] text-[#f4f4f2] hover:bg-[#202127]/90 focus-visible:outline-fl-fg mt-4 w-full border py-3 font-sans text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {submitting ? '...' : t('submit')}
               </button>
