@@ -16,7 +16,7 @@ import { LoadingBar } from '@/components/ui/loading-bar'
 import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
-import { Bell, BookOpen, BrainCircuit, ChevronDown, ClipboardCheck, Gamepad2, GraduationCap, Headphones, Languages, MessageCircle, MessagesSquare, Settings2, Sparkles, Trophy, UserRound, Users, Volume2, X } from 'lucide-react'
+import { Bell, BookOpen, BrainCircuit, ChevronDown, ClipboardCheck, Gamepad2, GraduationCap, Headphones, Languages, MessageCircle, MessagesSquare, Settings2, Sparkles, Trophy, UserRound, Users, Volume2, X, Menu } from 'lucide-react'
 
 const NAV_ICONS: Record<string, React.ComponentType<{ className?: string }>> = { '/dashboard': GraduationCap, '/plan': ClipboardCheck, '/progress': Trophy, '/games': Gamepad2, '/flashcards': BookOpen, '/friends': Users, '/chat': MessageCircle, '/listening': Headphones, '/reading': BookOpen, '/conversation': MessagesSquare, '/assessment': BrainCircuit, '/coach': Sparkles, '/courses': GraduationCap, '/review': Volume2, '/translator': Languages, '/grammar': BrainCircuit, '/vocabulary': BookOpen, '/phrasebook': MessagesSquare, '/settings': Settings2, '/faq': UserRound, '/feedback': MessageCircle }
 function NavIcon({ href, className = 'size-4' }: { href: string; className?: string }) { const Icon = NAV_ICONS[href] ?? Sparkles; return <Icon className={className} aria-hidden="true" /> }
@@ -247,10 +247,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`rounded-full px-4 py-2 text-xs font-bold transition ${
+                  className={`flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold transition ${
                     active ? 'bg-white text-[#24272b]' : 'text-white/60 hover:bg-white/10 hover:text-white'
                   }`}
                 >
+                  <NavIcon href={item.href} className="size-3.5" />
                   {item.label}
                 </Link>
               )
@@ -295,11 +296,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     key={item.href}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`rounded-2xl px-3 py-3 text-xs font-bold ${
+                    className={`flex items-center gap-2 rounded-2xl px-3 py-3 text-xs font-bold ${
                       active ? 'bg-white text-[#24272b]' : 'bg-white/5 text-white/70'
                     }`}
                   >
-                    {item.label}
+                    <NavIcon href={item.href} className="size-4 shrink-0 opacity-80" />
+                    <span className="truncate">{item.label}</span>
                   </Link>
                 )
               })}
@@ -308,12 +310,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         )}
 
         <div className="flex min-h-0 flex-1">
-          <aside className="hidden w-60 shrink-0 flex-col bg-[#292c30] text-white lg:flex">
-            <div className="border-b border-white/10 px-5 py-5">
+          <aside className="hidden w-[248px] shrink-0 flex-col bg-[#292c30] p-3 text-white lg:flex">
+            <div className="rounded-[22px] bg-white/[0.06] px-4 py-4">
               <p className="text-[10px] font-bold uppercase tracking-[.18em] text-white/40">{tNav('home')}</p>
               <p className="mt-1 truncate text-sm font-black">{user?.displayName || user?.username}</p>
             </div>
-            <nav className="flex-1 overflow-y-auto px-3 py-4">
+            <nav className="mt-3 flex-1 overflow-y-auto px-1 py-2">
               {visibleMainNavItems.map((item) => {
                 const active = pathname === item.href || pathname.startsWith(item.href + '/')
                 return (
@@ -329,10 +331,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <p className="px-4 pb-2 text-[9px] font-bold uppercase tracking-[.16em] text-white/30">{tNav('resources')}</p>
               {visibleResourceNavItems.map((item) => {
                 const active = pathname === item.href || pathname.startsWith(item.href + '/')
-                return <Link key={item.href} href={item.href} className={`mb-1 block rounded-2xl px-4 py-2.5 text-xs font-bold transition ${active ? 'bg-white/10 text-white' : 'text-white/50 hover:text-white'}`}>{item.label}</Link>
+                return (
+                  <Link key={item.href} href={item.href} className={`mb-1 flex items-center gap-3 rounded-2xl px-4 py-2.5 text-xs font-bold transition ${active ? 'bg-white/10 text-white' : 'text-white/50 hover:bg-white/5 hover:text-white'}`}>
+                    <NavIcon href={item.href} className="size-3.5 shrink-0 opacity-70" />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                )
               })}
             </nav>
-            <div className="border-t border-white/10 p-4">
+            <div className="mt-3 rounded-[22px] border border-white/10 bg-[#202226] p-4">
               <div className="mb-3 flex items-center gap-3">
                 <div className="grid size-10 shrink-0 place-items-center overflow-hidden rounded-full bg-[#d8c9a9] text-[#25272b]">
                   {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={40} height={40} className="h-full w-full object-cover" fallback={<span className="font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span className="font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
@@ -343,7 +350,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <Link href="/settings" className="rounded-xl bg-white/10 px-3 py-2 text-center text-[10px] font-bold">{tNav('settings')}</Link>
+                <Link href="/settings" className="flex items-center justify-center gap-1.5 rounded-xl bg-white/10 px-3 py-2 text-center text-[10px] font-bold transition hover:bg-white/15"><Settings2 className="size-3" />{tNav('settings')}</Link>
                 <button onClick={() => setLogoutConfirm(true)} className="rounded-xl bg-white/10 px-3 py-2 text-[10px] font-bold">{tCommon('logout')}</button>
               </div>
             </div>
