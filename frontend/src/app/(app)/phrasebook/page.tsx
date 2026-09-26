@@ -373,7 +373,7 @@ export default function PhrasebookPage() {
     activeLevel !== 'All' || activeRegister !== 'All' || !!search
 
   return (
-    <div className="juba-phrasebook-shell mx-auto max-w-4xl space-y-8 p-6">
+    <div className="container-xl page-body py-4">
       <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border">
         <div className="border-[rgba(7,7,9,.08)] flex items-center gap-2 border-b px-6 py-4">
           <span className="text-[#202127] text-[rgba(32,33,39,.52)]">{'\u25cf'}</span>
