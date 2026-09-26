@@ -148,7 +148,7 @@ export default function FlashcardsPage() {
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
 
   return (
-    <div className="juba-flashcards-shell mx-auto max-w-4xl space-y-5 p-4 sm:p-6">
+    <div className="container-xl page-body py-4">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
@@ -184,7 +184,7 @@ export default function FlashcardsPage() {
 
       {/* Generate panel */}
       {showGenerate && (
-        <div className="juba-card overflow-hidden">
+        <div className="card overflow-hidden">
           <div className="border-[rgba(7,7,9,.08)] flex items-center gap-2 border-b px-5 py-4">
             <span className="text-[rgba(32,33,39,.52)]">●</span>
             <span className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
@@ -207,7 +207,7 @@ export default function FlashcardsPage() {
                 onChange={(e) => setGenTopic(e.target.value)}
                 required
                 placeholder={t('topicPlaceholder')}
-                className="juba-input px-4 py-3 font-sans text-sm"
+                className="form-control"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -234,7 +234,7 @@ export default function FlashcardsPage() {
                 <select
                   value={genCefr}
                   onChange={(e) => setGenCefr(e.target.value)}
-                  className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[#202127] focus:border-[#202127] w-full appearance-none border px-4 py-3 font-sans text-sm focus:outline-none"
+                  className="form-select"
                 >
                   {CEFR_LEVELS.map((l) => (
                     <option key={l} value={l}>
@@ -247,7 +247,7 @@ export default function FlashcardsPage() {
             <button
               type="submit"
               disabled={generating || !genTopic.trim()}
-              className="juba-primary-button w-full disabled:opacity-40"
+              className="btn btn-primary w-100 disabled:opacity-40"
             >
               {generating ? t('generating') : t('submit')}
             </button>
@@ -266,7 +266,7 @@ export default function FlashcardsPage() {
           )}
           <button
             onClick={loadDue}
-            className="juba-secondary-button mt-6 text-xs tracking-widest uppercase"
+            className="btn btn-outline-secondary mt-4"
           >
             {t('refresh')}
           </button>
@@ -309,7 +309,7 @@ export default function FlashcardsPage() {
           {!speakingMode && (
             <>
               <div
-                className="juba-card min-h-[220px] cursor-pointer transition-colors select-none hover:-translate-y-0.5"
+                className="card min-h-[220px] cursor-pointer transition-colors select-none"
                 onClick={() => setFlipped(!flipped)}
               >
                 <div className="border-[rgba(7,7,9,.08)] flex items-center justify-between border-b px-6 py-4">
@@ -378,7 +378,7 @@ export default function FlashcardsPage() {
                       key={q}
                       disabled={reviewing}
                       onClick={() => reviewCard(q)}
-                      className="juba-secondary-button min-w-[80px] flex-1 text-xs tracking-widest uppercase disabled:cursor-not-allowed disabled:opacity-50"
+                      className="btn btn-outline-secondary flex-fill"
                       style={{ color }}
                     >
                       {t(key)}
@@ -391,7 +391,7 @@ export default function FlashcardsPage() {
 
           {/* ── Speaking mode ── */}
           {speakingMode && (
-            <div className="juba-card overflow-hidden">
+            <div className="card overflow-hidden">
               <div className="border-[rgba(7,7,9,.08)] flex items-center justify-between border-b px-6 py-4">
                 <div className="flex items-center gap-2">
                   <span className="text-[rgba(32,33,39,.52)]">●</span>
