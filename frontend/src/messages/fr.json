@@ -921,7 +921,10 @@
     "skillMasteryMastered": "maîtrisées",
     "skillMasteryAttempted": "tentées",
     "skillMasteryAttemptRate": "Taux de tentative : {rate} %",
-    "skillMasteryVariants": "variantes"
+    "skillMasteryVariants": "variantes",
+    "mastered": "Maîtrisé",
+    "listen": "Écouter",
+    "advance": "Continuer"
   },
   "flashcards": {
     "title": "Fiches",
@@ -985,7 +988,10 @@
     "deleteConfirm": "Supprimer",
     "enterToSend": "Entrée pour envoyer",
     "continueInVoice": "Continuer en vocal",
-    "memoryUpdated": "Mémoire mise à jour"
+    "memoryUpdated": "Mémoire mise à jour",
+    "voiceSession": "Session vocale",
+    "delete": "Supprimer",
+    "tutor": "Tuteur"
   },
   "progress": {
     "title": "Progrès",
@@ -1073,7 +1079,11 @@
     "notFound": "Thème introuvable.",
     "topicsFound": "{count, plural, one {# thème trouvé} other {# thèmes trouvés}}",
     "topicCount": "{count, plural, =1 {# sujet} other {# sujets}}",
-    "levelRange": "A1 – C2"
+    "levelRange": "A1 – C2",
+    "all": "Tous",
+    "clearFilters": "Effacer les filtres",
+    "error": "Impossible de charger les thèmes de grammaire.",
+    "retry": "Réessayer"
   },
   "vocabulary": {
     "title": "Vocabulaire",
@@ -1094,7 +1104,18 @@
     "goToFlashcards": "Aller aux fiches →",
     "addFailed": "Échec de l'ajout des fiches.",
     "noResults": "Aucun ensemble de vocabulaire ne correspond à votre recherche",
-    "setCount": "{count, plural, =1 {# ensemble} other {# ensembles}}"
+    "setCount": "{count, plural, =1 {# ensemble} other {# ensembles}}",
+    "streak": "Série",
+    "days": "jours",
+    "accuracy": "Précision",
+    "mastered": "Maîtrisés",
+    "progress": "Progression du vocabulaire",
+    "startReview": "Commencer la révision",
+    "deviceMemory": "JUBA MEMORY · APPAREIL",
+    "savedWords": "Vos mots enregistrés",
+    "savedWordsCount": "mots enregistrés depuis le traducteur instantané",
+    "translateMore": "Traduire davantage",
+    "topicCount": "{count} thèmes"
   },
   "phrasebook": {
     "title": "Phrases",
@@ -1465,7 +1486,8 @@
       "Plans du week-end",
       "Travail et objectifs de carrière",
       "Travail à domicile"
-    ]
+    ],
+    "assessmentVoiceContext": "Je viens de terminer l’évaluation de niveau. Commence une courte conversation vocale conviviale adaptée à mon niveau."
   },
   "voiceRecorder": {
     "record": "Enregistrer",
@@ -1512,7 +1534,8 @@
     "lessonsLabel": "Leçons",
     "flashcardsLabel": "Flashcards",
     "viewDetails": "Voir les détails",
-    "supportedLanguages": "Langues disponibles"
+    "supportedLanguages": "Langues disponibles",
+    "ar": "Arabe"
   },
   "targetLanguages": {
     "en-US": "Anglais américain",
@@ -1790,7 +1813,16 @@
     "send": "Envoyer",
     "sending": "Envoi en cours...",
     "sent": "Message envoyé",
-    "errorGeneric": "Échec de l'envoi. Veuillez réessayer."
+    "errorGeneric": "Échec de l'envoi. Veuillez réessayer.",
+    "description": "Une question, besoin d’aide ou envie de partager un commentaire ? Envoyez-nous un message et l’équipe JUBA LISAN vous répondra.",
+    "name": "Nom",
+    "email": "E-mail",
+    "message": "Message",
+    "success": "Votre message a été envoyé avec succès.",
+    "error": "Nous ne pouvons pas envoyer votre message pour le moment. Veuillez réessayer.",
+    "namePlaceholder": "Votre nom",
+    "emailPlaceholder": "vous@exemple.com",
+    "messagePlaceholder": "Comment pouvons-nous vous aider ?"
   },
   "listening": {
     "title": "Compréhension orale",
@@ -2017,7 +2049,17 @@
         "description": "Affinez la précision, la souplesse et l’expression naturelle."
       }
     },
-    "cefrLevel": "Niveau CECRL"
+    "cefrLevel": "Niveau CECRL",
+    "lessonTypes": {
+      "listening": "Écoute",
+      "reading": "Lecture",
+      "writing": "Écriture",
+      "grammar": "Grammaire",
+      "vocabulary": "Vocabulaire",
+      "review": "Révision"
+    },
+    "listening": "Écoute",
+    "reading": "Lecture"
   },
   "translator": {
     "detected": "Détecté {language}",
@@ -2030,7 +2072,16 @@
     "visitorNote": "Les visiteurs peuvent utiliser le traducteur sans se connecter.",
     "savedCloud": "Enregistré dans votre compte",
     "savedLocal": "Enregistré sur cet appareil",
-    "saving": "Enregistrement…"
+    "saving": "Enregistrement…",
+    "eyebrow": "JUBA LISAN · Traducteur instantané",
+    "title": "Traduire. Comprendre. Apprendre.",
+    "description": "Traduction instantanée pour les visiteurs sans inscription. Enregistrez vos mots si vous le souhaitez pour développer votre mémoire linguistique.",
+    "inputPlaceholder": "Saisissez ou collez du texte…",
+    "ariaLabel": "Traducteur instantané",
+    "translationFailed": "Échec de la traduction.",
+    "translationUnavailable": "Traduction indisponible pour le moment.",
+    "saveFailed": "Impossible d’enregistrer ce mot dans votre liste d’apprentissage.",
+    "saveUnavailable": "Impossible d’enregistrer ce mot pour le moment."
   },
   "vocabularyReview": {
     "loading": "Chargement de votre session de révision…",
@@ -2064,5 +2115,163 @@
     "shortcutHint": "Espace pour révéler · 1–4 pour évaluer",
     "spaceShortcut": "Espace pour révéler",
     "rateKeys": "1 Encore · 2 Difficile · 3 Bien · 4 Facile"
+  },
+  "courses": {
+    "heroEyebrow": "Votre univers d’apprentissage",
+    "heroTitle": "Apprenez une langue que vous pouvez vraiment utiliser.",
+    "heroDescription": "Progressez à travers des situations concrètes, renforcez votre mémoire et débloquez la suite de votre parcours, une mission à la fois.",
+    "openRoadmap": "Ouvrir la feuille de route",
+    "findLevel": "Trouver mon niveau",
+    "roadmapEyebrow": "Votre feuille de route",
+    "roadmapTitle": "Un parcours. Six niveaux.",
+    "levelCount": "{count} niveaux",
+    "loading": "Chargement des cours",
+    "currentLevel": "Niveau actuel",
+    "levelLabel": "Niveau {number}",
+    "lessons": "{count} leçons",
+    "openLearningPlan": "Ouvrir le plan d’apprentissage",
+    "exploreLevel": "Explorer le niveau",
+    "unlockLater": "Débloquer plus tard",
+    "missionsEyebrow": "Missions du quotidien",
+    "missionsTitle": "Pratiquez la langue là où elle compte.",
+    "rhythmTitle": "Le rythme JUBA",
+    "skills": {
+      "learn": {
+        "title": "Apprendre",
+        "text": "Construisez un langage utile par petites étapes ciblées."
+      },
+      "listen": {
+        "title": "Écouter",
+        "text": "Entraînez votre oreille avec de courtes situations réelles."
+      },
+      "speak": {
+        "title": "Parler",
+        "text": "Transformez la reconnaissance en rappel actif et assuré."
+      }
+    },
+    "places": {
+      "cafe": {
+        "title": "Café",
+        "text": "Commander, demander et répondre."
+      },
+      "restaurant": {
+        "title": "Restaurant",
+        "text": "Nourriture, demandes et paiement."
+      },
+      "travel": {
+        "title": "Voyage",
+        "text": "Billets, directions et arrivée."
+      },
+      "work": {
+        "title": "Travail",
+        "text": "Réunions et tâches quotidiennes."
+      }
+    },
+    "levels": {
+      "A1": {
+        "title": "A1 · Débutant",
+        "desc": "Construisez votre premier vocabulaire pratique et vos premières expressions du quotidien."
+      },
+      "A2": {
+        "title": "A2 · Élémentaire",
+        "desc": "Comprenez les situations courantes et parlez avec plus d’assurance."
+      },
+      "B1": {
+        "title": "B1 · Intermédiaire",
+        "desc": "Exprimez vos idées, suivez les conversations et lisez de manière autonome."
+      },
+      "B2": {
+        "title": "B2 · Intermédiaire avancé",
+        "desc": "Gérez des conversations plus riches avec un langage plus précis."
+      },
+      "C1": {
+        "title": "C1 · Avancé",
+        "desc": "Développez une communication fluide et nuancée dans des contextes exigeants."
+      },
+      "C2": {
+        "title": "C2 · Maîtrise",
+        "desc": "Affinez une communication précise et naturelle dans des contextes exigeants."
+      }
+    },
+    "rhythm": {
+      "learn": "Apprendre",
+      "practice": "Pratiquer",
+      "recall": "Mémoriser",
+      "review": "Réviser"
+    },
+    "cefrEyebrow": "Carte de compétence CECRL",
+    "cefrTitle": "Ce que vous pouvez faire à chaque niveau",
+    "cefrDescription": "JUBA LISAN organise votre progression autour de résultats pratiques alignés sur le CECRL en compréhension orale, lecture, interaction, expression orale et écrite.",
+    "cefrLevelLabel": "Niveau",
+    "cefrSkills": {
+      "listening": "Écoute",
+      "reading": "Lecture",
+      "interaction": "Interaction",
+      "speaking": "Expression orale",
+      "writing": "Écriture"
+    }
+  },
+  "coach": {
+    "eyebrow": "Votre coach d’apprentissage IA",
+    "headlineSuffix": "voici votre prochaine étape.",
+    "description": "JUBA LISAN transforme votre activité en plan quotidien ciblé au lieu de vous demander quoi étudier ensuite.",
+    "refresh": "Actualiser le coaching",
+    "insight": "Conseil du coach",
+    "focusOn": "À travailler",
+    "today": "aujourd’hui.",
+    "insightDescription": "Votre activité récente indique que c’est la compétence la plus utile à pratiquer ensuite. Une courte session vaut mieux que sauter la journée.",
+    "startPractice": "Commencer une pratique ciblée",
+    "viewPlan": "Voir mon plan",
+    "momentum": "Élan du jour",
+    "keepStreak": "Maintenir la série",
+    "dayStreak": "jours de série",
+    "totalXp": "XP totaux",
+    "accuracy": "précision",
+    "adaptiveQueue": "File adaptative",
+    "bestWork": "Votre meilleur travail pour aujourd’hui",
+    "complete": "terminé",
+    "contextEyebrow": "Pratiquer en contexte",
+    "rooms": "Situations du quotidien",
+    "roomsDescription": "Arrêtez de mémoriser des phrases isolées. Pratiquez ce que vous avez réellement besoin de dire.",
+    "assessmentPrompt": "Terminez votre évaluation pour débloquer un plan d’apprentissage adaptatif.",
+    "speak": "Parler",
+    "conversation": "Conversation",
+    "speakDetail": "Développez votre aisance avec des corrections en direct.",
+    "listen": "Écouter",
+    "practice": "Pratique",
+    "listenDetail": "Entraînez votre compréhension avec des contenus audio ciblés.",
+    "review": "Réviser",
+    "flashcards": "Cartes mémoire",
+    "reviewDetail": "Révisez les mots les plus susceptibles de s’oublier.",
+    "progress": "Progression",
+    "wordsMastered": "mots maîtrisés jusqu’à présent.",
+    "learning": "Apprentissage",
+    "personalized": "personnalisé pour vous",
+    "adaptive": "adaptatif"
+  },
+  "visitorTranslator": {
+    "open": "Ouvrir le traducteur instantané",
+    "translate": "Traduire",
+    "title": "Traducteur instantané",
+    "description": "Traduisez librement. Enregistrez localement les mots utiles. Connectez-vous uniquement lorsque vous souhaitez la synchronisation cloud.",
+    "close": "Fermer le traducteur",
+    "from": "De",
+    "sourceLanguage": "Langue source",
+    "autoDetect": "Détection automatique",
+    "inputPlaceholder": "Saisissez ou collez votre texte ici…",
+    "textToTranslate": "Texte à traduire",
+    "detected": "Détecté",
+    "automaticDetection": "Détection automatique",
+    "swap": "Inverser les langues source et cible",
+    "to": "Vers",
+    "targetLanguage": "Langue cible",
+    "savedLocally": "Enregistré localement ✓",
+    "learnThis": "Apprendre ceci",
+    "savedWords": "Mes mots enregistrés",
+    "savedNote": "Enregistré sur ce navigateur. Connectez-vous plus tard pour le synchroniser avec votre liste d’apprentissage.",
+    "translationPlaceholder": "Votre traduction apparaîtra ici.",
+    "workflow": "Traduire → enregistrer → apprendre → réviser.",
+    "translating": "Traduction…",
+    "translationFailed": "Échec de la traduction."
   }
 }
