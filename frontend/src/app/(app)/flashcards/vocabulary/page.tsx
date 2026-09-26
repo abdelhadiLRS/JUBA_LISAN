@@ -114,8 +114,8 @@ export default function VocabularyPage() {
   }
 
   return (
-    <div className="juba-flashcards-vocabulary-shell mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
-      <div className="flex items-center justify-between gap-4 rounded-[26px] border border-black/[0.07] bg-white p-4 shadow-[0_12px_30px_rgba(43,45,90,.055)]">
+    <div className="container-xl page-body py-4">
+      <div className="card-header d-flex align-items-center justify-content-between gap-3">
         <div className="flex items-center gap-2">
           <span className="text-[#202127] text-[rgba(32,33,39,.52)]">●</span>
           <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
@@ -129,14 +129,14 @@ export default function VocabularyPage() {
         </div>
         <Link
           href="/flashcards"
-          className="juba-secondary-button inline-flex items-center border border-black/[0.09] bg-white px-4 py-2 font-sans text-xs font-bold tracking-widest uppercase"
+          className="btn btn-outline-secondary inline-flex items-center border border-black/[0.09] bg-white px-4 py-2 font-sans text-xs font-bold tracking-widest uppercase"
         >
           ← {t('backToFlashcards')}
         </Link>
       </div>
 
       {guestItems.length > 0 && (
-        <section className="juba-card bg-[#fff3d1] p-5">
+        <section className="card bg-[#fff3d1] p-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#202127]/60">
@@ -151,7 +151,7 @@ export default function VocabularyPage() {
             </div>
             <Link
               href="/register"
-              className="juba-primary-button inline-flex shrink-0 items-center justify-center px-4 py-2 text-xs font-black"
+              className="btn btn-primary inline-flex shrink-0 items-center justify-center px-4 py-2 text-xs font-black"
             >
               Create account to sync
             </Link>
@@ -160,12 +160,12 @@ export default function VocabularyPage() {
             {guestItems.map((item) => (
               <div
                 key={item.id}
-                className="flex items-start justify-between gap-3 rounded-[20px] border border-black/[0.08] bg-white/80 px-4 py-3"
+                className="list-group-item d-flex align-items-start justify-content-between gap-3"
               >
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="text-sm font-black text-[#202127]">{item.sourceText}</p>
-                    <span className="rounded-full bg-[#202127] px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">
+                    <span className="badge bg-dark text-white">
                       {item.sourceLanguage === 'auto' ? 'auto' : item.sourceLanguage}
                     </span>
                   </div>
@@ -178,7 +178,7 @@ export default function VocabularyPage() {
                 <button
                   type="button"
                   onClick={() => deleteGuestItem(item.id)}
-                  className="shrink-0 rounded-full border border-black/[0.12] px-2.5 py-1 text-[10px] font-black text-[#202127]/70 transition hover:bg-[#202127] hover:text-white"
+                  className="badge bg-light text-secondary"
                   aria-label="Remove saved item"
                 >
                   Remove
@@ -197,7 +197,7 @@ export default function VocabularyPage() {
         className="w-full border px-4 py-3 font-sans text-sm transition-colors focus:outline-none"
       />
 
-      <div className="juba-card overflow-hidden bg-white">
+      <div className="card overflow-hidden bg-white">
         {loading ? (
           <PageLoading fullScreen={false} className="block p-5" />
         ) : items.length === 0 ? (
