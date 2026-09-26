@@ -239,7 +239,7 @@ export default async function Home() {
 .juba-reference-page .juba-ref-ai-art:after{content:"";position:absolute;inset:14px;border:1px dashed #d8e4d3;border-radius:inherit;pointer-events:none}
 .juba-reference-page .juba-ref-review-card{transition:transform .18s,box-shadow .18s}
 .juba-reference-page .juba-ref-review-card:hover{transform:translateY(-4px) rotate(-.5deg);box-shadow:7px 8px 0 var(--ink)}
-.juba-reference-page .juba-ref-pricing>div{max-width:1160px;margin:0 auto}
+.juba-reference-page .juba-ref-pricing{display:block!important;visibility:visible!important;min-height:620px;padding:110px 22px;background:#fffdf7;scroll-margin-top:90px}.juba-reference-page .juba-ref-pricing>div{max-width:1160px;margin:0 auto}
 .juba-reference-page .juba-ref-cta-inner{position:relative}
 .juba-reference-page .juba-ref-cta-inner:before{content:"✦";position:absolute;left:45%;top:-45px;font-size:70px;color:#ffe27a;text-shadow:3px 3px 0 var(--ink);transform:rotate(12deg);opacity:.95}
 .juba-reference-page .juba-ref-cta-device{position:relative;transform:rotate(4deg)}
@@ -351,7 +351,7 @@ export default async function Home() {
 
           <div className="juba-ref-hero-art juba-landing-image-art">
             <img
-              src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/assets/Gemini_Generated_Image_u2l5zju2l5zju2l5.jfif"
+              src="/landing/juba-new-hero.jfif"
               alt={t('heroTitle')}
               className="juba-landing-real-image juba-new-hero-photo"
               loading="eager"
@@ -491,7 +491,7 @@ export default async function Home() {
           </div>
           <div className="juba-ref-cta-device">
             <img
-              src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/assets/d5f40c2b-9c40-4dbc-8eb8-b3756fe60a4f.jfif"
+              src="/landing/juba-new-cta.jfif"
               alt={t('ctaStart')}
               className="juba-landing-real-image juba-cta-real-image juba-new-cta-photo"
               loading="lazy"
