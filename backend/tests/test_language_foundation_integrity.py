@@ -390,6 +390,25 @@ def test_registered_foundations_have_unique_vocabulary_ids():
     assert not failures, "\n".join(failures)
 
 
+def test_curriculum_dispatcher_resolves_explicit_locale_alias_table():
+    failures: list[str] = []
+    for locale, canonical in curriculum_dispatcher._LOCALE_ALIASES.items():
+        expected = curriculum_dispatcher._LANG_MODULES.get(canonical)
+        if expected is None:
+            failures.append(f"{locale}: alias target {canonical!r} is not registered")
+            continue
+        try:
+            resolved = curriculum_dispatcher._resolve_module(locale)
+        except Exception as exc:
+            failures.append(f"{locale}: resolve failed: {exc}")
+            continue
+        if resolved.__name__ != expected:
+            failures.append(
+                f"{locale}: resolved {resolved.__name__!r}, expected {expected!r}"
+            )
+    assert not failures, "\\n".join(failures)
+
+
 def test_curriculum_dispatcher_resolves_every_registered_language():
     failures: list[str] = []
 
