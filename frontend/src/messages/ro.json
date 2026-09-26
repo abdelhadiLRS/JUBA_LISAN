@@ -255,17 +255,29 @@
       "missingToken": "Link invalid. Solicitați o nouă resetare.",
       "error": "Link invalid sau expirat",
       "backToLogin": "Înapoi la autentificare"
-    }
-  ,
+    },
     "scenarios": {
-      "airport": {"title": "Aeroport", "description": "Fă check-in-ul, cere indicații și gestionează întârzierile."},
-      "jobInterview": {"title": "Interviu de angajare", "description": "Exersează răspunsuri, încrederea și vocabularul profesional."},
-      "restaurant": {"title": "Restaurant", "description": "Comandă natural și gestionează o conversație reală."},
-      "hotel": {"title": "Hotel", "description": "Rezervă o cameră, rezolvă probleme și formulează cereri."}
+      "airport": {
+        "title": "Aeroport",
+        "description": "Fă check-in-ul, cere indicații și gestionează întârzierile."
+      },
+      "jobInterview": {
+        "title": "Interviu de angajare",
+        "description": "Exersează răspunsuri, încrederea și vocabularul profesional."
+      },
+      "restaurant": {
+        "title": "Restaurant",
+        "description": "Comandă natural și gestionează o conversație reală."
+      },
+      "hotel": {
+        "title": "Hotel",
+        "description": "Rezervă o cameră, rezolvă probleme și formulează cereri."
+      }
     },
     "learningLabel": "Învățare",
     "cefrLabel": "CEFR",
-    "coachLabel": "Antrenor"},
+    "coachLabel": "Antrenor"
+  },
   "settings": {
     "title": "Setări",
     "sectionAccount": "Cont",
@@ -994,7 +1006,8 @@
     "cardsAdded": "{count} carduri adăugate în pachetul tău de carduri flash.",
     "goToFlashcards": "La cardurile flash →",
     "addFailed": "Adăugarea cardurilor flash a eșuat.",
-    "noResults": "Niciun set de vocabular nu corespunde căutării tale"
+    "noResults": "Niciun set de vocabular nu corespunde căutării tale",
+    "setCount": "{count, plural, =1 {# set} other {# seturi}}"
   },
   "phrasebook": {
     "title": "Ghid de fraze",
