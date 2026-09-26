@@ -985,10 +985,11 @@
     "backToGrammar": "Grammatica",
     "explanation": "Spiegazione",
     "backLink": "Torna alla grammatica",
-    "notFound": "Argomento non trovato.",,
+    "notFound": "Argomento non trovato.",
+    "topicsFound": "{count, plural, one {# argomento trovato} other {# argomenti trovati}}",
     "topicCount": "{count, plural, =1 {# argomento} other {# argomenti}}",
     "levelRange": "A1 – C2"
-    "topicsFound": "{count, plural, one {# argomento trovato} other {# argomenti trovati}}"
+  
   },
   "vocabulary": {
     "title": "Vocabolario",
