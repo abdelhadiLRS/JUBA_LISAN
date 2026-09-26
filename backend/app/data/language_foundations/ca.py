@@ -63,7 +63,7 @@ _vocab=[
 ("culture","C2",[("patrimoni","heritage","El patrimoni cultural és valuós."),("tradició","tradition","La tradició es transmet.")]),
 ("discourse","C2",[("context","context","El significat depèn del context."),("matis","nuance","Aquest matís és important.")])
 ]
-VOCABULARY_SETS=[VocabularySet(id=f"ca-vocab-{i+1}",level=l,topic=t,unit_ref=f"ca-{l.lower()}-unit-{(i%8)+1}",words=[VocabularyEntry(word=w,pos="word",definition=d,example=e) for w,d,e in ws]) for i,(t,l,ws) in enumerate(_vocab)]
+VOCABULARY_SETS=[VocabularySet(id=f"ca-vocab-{i+1}",level=l,topic=t,unit_ref=f"ca-{l.lower()}-unit-{(i%8)+1}",words=[VocabularyEntry(word=w,pos="noun",definition=d,example=e) for w,d,e in ws]) for i,(t,l,ws) in enumerate(_vocab)]
 _phr=[
 ("Greetings","A1","👋",[("Hola!","greeting"),("Bon dia!","morning greeting")]),
 ("Introductions","A1","👤",[("Em dic Anna.","introducing yourself"),("Com et dius?","asking a name")]),
