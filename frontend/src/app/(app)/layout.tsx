@@ -235,151 +235,69 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     )
   }
 
+  const allTopNavItems = isAdmin ? [] : [...mainNavItems, ...resourceNavItems, ...bottomNavItems]
+
   return (
     <div className="juba-member-shell min-h-screen bg-[#dfe0f7] p-0 md:p-3 lg:p-4">
       <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col overflow-hidden bg-[#f6f6f4] shadow-[0_35px_100px_-35px_rgba(24,28,46,.55)] md:min-h-[calc(100vh-24px)] md:rounded-[34px]">
-        <header className="relative z-50 flex min-h-[76px] items-center gap-3 bg-[#24272b] px-4 text-white sm:px-6 lg:px-8">
-          <Link href="/dashboard" className="flex shrink-0 items-center gap-3">
-            <span className="grid size-11 place-items-center rounded-full bg-[#7776df] shadow-inner shadow-white/20">
-              <span className="text-lg font-black">JL</span>
-            </span>
-            <span className="hidden text-lg font-black tracking-[-.04em] sm:inline">JUBA LISAN</span>
-          </Link>
-
-          <nav className="mx-auto hidden items-center gap-1 rounded-full bg-[#17191c] p-1 sm:flex">
-            {[
-              { href: '/dashboard', label: tNav('home') },
-              { href: '/plan', label: tNav('myPlan') },
-              { href: '/progress', label: tNav('progress') },
-              { href: '/games', label: tNav('games') },
-              { href: '/courses', label: tNav('courses') },
-            ].map((item) => {
-              const active = pathname === item.href || pathname.startsWith(item.href + '/')
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold transition ${
-                    active ? 'bg-white text-[#24272b]' : 'text-white/60 hover:bg-white/10 hover:text-white'
-                  }`}
-                >
-                  <NavIcon href={item.href} className="size-3.5" />
-                  {item.label}
-                </Link>
-              )
-            })}
-          </nav>
-
-          <div className="ml-auto flex items-center gap-2">
-            <LanguageSwitcher />
-            <button type="button" className="relative hidden size-10 place-items-center rounded-full border border-white/10 text-white/75 hover:bg-white/10 sm:grid" aria-label="Notifications">
-              <Bell className="size-4" />
-              <span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#f26b69]" />
-            </button>
-            <Link href="/settings" className="hidden items-center gap-2 rounded-full bg-white/10 px-3 py-2 sm:flex">
-              <div className="grid size-8 place-items-center overflow-hidden rounded-full bg-[#d8c9a9] text-[#25272b]">
-                {user?.avatar ? (
-                  <AuthAvatarImage avatar={user.avatar} alt="" width={32} height={32} className="h-full w-full object-cover" fallback={<span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} />
-                ) : (
-                  <span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>
-                )}
-              </div>
-              <span className="max-w-28 truncate text-xs font-black">{user?.displayName || user?.username}</span>
-              <ChevronDown className="size-3 text-white/50" />
+        <header className="relative z-50 bg-[#24272b] text-white">
+          <div className="flex min-h-[76px] items-center gap-3 px-4 sm:px-6 lg:px-8">
+            <Link href="/dashboard" className="flex shrink-0 items-center gap-3">
+              <span className="grid size-11 place-items-center rounded-full bg-[#7776df] shadow-inner shadow-white/20"><span className="text-lg font-black">JL</span></span>
+              <span className="hidden text-lg font-black tracking-[-.04em] sm:inline">JUBA LISAN</span>
             </Link>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen((o) => !o)}
-              className="grid size-10 place-items-center rounded-full bg-white/10 sm:hidden"
-              aria-label={mobileMenuOpen ? tCommon('close') : tCommon('openMenu')}
-            >
-              {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-            </button>
+            <nav aria-label="Main navigation" className="min-w-0 flex-1 overflow-x-auto scrollbar-none">
+              <div className="mx-auto flex w-max min-w-max items-center gap-1 rounded-full bg-[#17191c] p-1">
+                {allTopNavItems.map((item) => {
+                  const active = pathname === item.href || pathname.startsWith(item.href + '/')
+                  const premium = showPremiumBadge && PREMIUM_HREFS.has(item.href)
+                  const isFeedback = item.href === '/feedback'
+                  return (
+                    <Link key={item.href} href={item.href} title={item.label} aria-label={item.label} className={`relative grid size-11 shrink-0 place-items-center rounded-full transition ${active ? 'bg-white text-[#24272b] shadow-sm' : 'text-white/55 hover:bg-white/10 hover:text-white'}`}>
+                      <NavIcon href={item.href} className="size-[18px]" />
+                      {premium && <Sparkles className="absolute right-1 top-1 size-2.5 text-[#ffcf67]" />}
+                      {isFeedback && feedbackBadgeText && <span className="absolute -right-0.5 -top-0.5 min-w-4 rounded-full bg-[#f26b69] px-1 text-center text-[8px] font-black leading-4 text-white">{feedbackBadgeText}</span>}
+                    </Link>
+                  )
+                })}
+              </div>
+            </nav>
+            <div className="ml-auto flex shrink-0 items-center gap-2">
+              <LanguageSwitcher />
+              <button type="button" className="relative grid size-10 place-items-center rounded-full border border-white/10 text-white/75 hover:bg-white/10" aria-label="Notifications" title="Notifications"><Bell className="size-4" /><span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#f26b69]" /></button>
+              <Link href="/settings" title={tNav('settings')} aria-label={tNav('settings')} className="hidden size-10 place-items-center rounded-full bg-white/10 sm:grid">
+                <div className="grid size-8 place-items-center overflow-hidden rounded-full bg-[#d8c9a9] text-[#25272b]">
+                  {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={32} height={32} className="h-full w-full object-cover" fallback={<span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div className="border-t border-white/[0.06] bg-[#1d1f22] px-4 py-2 sm:px-6 lg:px-8">
+            <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
+              <span className="shrink-0 text-[8px] font-black uppercase tracking-[.18em] text-white/25">{tNav('resources')}</span>
+              <div className="flex min-w-max items-center gap-1">
+                {resourceNavItems.map((item) => {
+                  const active = pathname === item.href || pathname.startsWith(item.href + '/')
+                  return <Link key={item.href} href={item.href} title={item.label} aria-label={item.label} className={`grid size-8 shrink-0 place-items-center rounded-full transition ${active ? 'bg-white/15 text-white' : 'text-white/35 hover:bg-white/10 hover:text-white'}`}><NavIcon href={item.href} className="size-3.5" /></Link>
+                })}
+              </div>
+              <div className="ml-auto hidden items-center gap-1 sm:flex">
+                <Link href="/settings" title={tNav('settings')} aria-label={tNav('settings')} className={`grid size-8 place-items-center rounded-full transition ${pathname.startsWith('/settings') ? 'bg-white/15 text-white' : 'text-white/35 hover:bg-white/10 hover:text-white'}`}><Settings2 className="size-3.5" /></Link>
+                <button type="button" onClick={() => setLogoutConfirm(true)} title={tCommon('logout')} aria-label={tCommon('logout')} className="grid size-8 place-items-center rounded-full text-white/35 transition hover:bg-white/10 hover:text-white"><X className="size-3.5" /></button>
+              </div>
+            </div>
           </div>
         </header>
-
-        {mobileMenuOpen && (
-          <nav className="border-b border-black/10 bg-[#24272b] px-4 py-3 text-white sm:hidden">
-            <div className="grid grid-cols-2 gap-2">
-              {[...visibleMainNavItems, ...visibleResourceNavItems, ...visibleBottomNavItems].map((item) => {
-                const active = pathname === item.href || pathname.startsWith(item.href + '/')
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-2 rounded-2xl px-3 py-3 text-xs font-bold ${
-                      active ? 'bg-white text-[#24272b]' : 'bg-white/5 text-white/70'
-                    }`}
-                  >
-                    <NavIcon href={item.href} className="size-4 shrink-0 opacity-80" />
-                    <span className="truncate">{item.label}</span>
-                  </Link>
-                )
-              })}
+        <main className="juba-app-content min-h-0 flex-1 overflow-y-auto bg-[#f6f6f4]">
+          {user && user.is_verified === false && (
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-black/5 bg-[#fff8e8] px-4 py-2">
+              <span className="text-xs font-bold text-black/55">● {tCommon('verifyEmailBanner')}</span>
+              {resendSent ? <span className="text-xs text-black/45">{tCommon('verifyEmailSent')}</span> : <button onClick={handleResendVerification} className="text-xs font-bold text-[#5f5ec5] underline">{tCommon('resendVerification')}</button>}
             </div>
-          </nav>
-        )}
-
-        <div className="flex min-h-0 flex-1">
-          <aside className="hidden w-[248px] shrink-0 flex-col bg-[#292c30] p-3 text-white lg:flex">
-            <div className="rounded-[22px] bg-white/[0.06] px-4 py-4">
-              <p className="text-[10px] font-bold uppercase tracking-[.18em] text-white/40">{tNav('home')}</p>
-              <p className="mt-1 truncate text-sm font-black">{user?.displayName || user?.username}</p>
-            </div>
-            <nav className="mt-3 flex-1 overflow-y-auto px-1 py-2">
-              {visibleMainNavItems.map((item) => {
-                const active = pathname === item.href || pathname.startsWith(item.href + '/')
-                return (
-                  <Link key={item.href} href={item.href} className={`mb-1 flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-bold transition ${
-                    active ? 'bg-[#7776df] text-white shadow-lg' : 'text-white/55 hover:bg-white/10 hover:text-white'
-                  }`}>
-                    <span className="flex min-w-0 items-center gap-3"><NavIcon href={item.href} className="size-4 shrink-0 opacity-80" /><span className="truncate">{item.label}</span></span>
-                    {showPremiumBadge && PREMIUM_HREFS.has(item.href) && <Sparkles className="size-3.5 shrink-0 text-[#ffcf67]" />}
-                  </Link>
-                )
-              })}
-              <div className="my-4 border-t border-white/10" />
-              <p className="px-4 pb-2 text-[9px] font-bold uppercase tracking-[.16em] text-white/30">{tNav('resources')}</p>
-              {visibleResourceNavItems.map((item) => {
-                const active = pathname === item.href || pathname.startsWith(item.href + '/')
-                return (
-                  <Link key={item.href} href={item.href} className={`mb-1 flex items-center gap-3 rounded-2xl px-4 py-2.5 text-xs font-bold transition ${active ? 'bg-white/10 text-white' : 'text-white/50 hover:bg-white/5 hover:text-white'}`}>
-                    <NavIcon href={item.href} className="size-3.5 shrink-0 opacity-70" />
-                    <span className="truncate">{item.label}</span>
-                  </Link>
-                )
-              })}
-            </nav>
-            <div className="mt-3 rounded-[22px] border border-white/10 bg-[#202226] p-4">
-              <div className="mb-3 flex items-center gap-3">
-                <div className="grid size-10 shrink-0 place-items-center overflow-hidden rounded-full bg-[#d8c9a9] text-[#25272b]">
-                  {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={40} height={40} className="h-full w-full object-cover" fallback={<span className="font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span className="font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
-                </div>
-                <div className="min-w-0">
-                  <p className="truncate text-xs font-black">{user?.displayName || user?.username}</p>
-                  <p className="truncate text-[10px] text-white/40">@{user?.username?.toLowerCase()}</p>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <Link href="/settings" className="flex items-center justify-center gap-1.5 rounded-xl bg-white/10 px-3 py-2 text-center text-[10px] font-bold transition hover:bg-white/15"><Settings2 className="size-3" />{tNav('settings')}</Link>
-                <button onClick={() => setLogoutConfirm(true)} className="rounded-xl bg-white/10 px-3 py-2 text-[10px] font-bold">{tCommon('logout')}</button>
-              </div>
-            </div>
-          </aside>
-
-          <main className="juba-app-content min-h-0 flex-1 overflow-y-auto bg-[#f6f6f4]">
-            {user && user.is_verified === false && (
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-black/5 bg-[#fff8e8] px-4 py-2">
-                <span className="text-xs font-bold text-black/55">● {tCommon('verifyEmailBanner')}</span>
-                {resendSent ? <span className="text-xs text-black/45">{tCommon('verifyEmailSent')}</span> : <button onClick={handleResendVerification} className="text-xs font-bold text-[#5f5ec5] underline">{tCommon('resendVerification')}</button>}
-              </div>
-            )}
-            <div className="juba-app-page">{children}</div>
-          </main>
-        </div>
+          )}
+          <div className="juba-app-page">{children}</div>
+        </main>
       </div>
-
       <LoadingBar />
       <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
       <ConfirmDialog open={logoutConfirm} title={tCommon('logoutConfirmTitle')} message={tCommon('logoutConfirmMessage')} confirmLabel={tCommon('logout')} onConfirm={handleLogout} onCancel={() => setLogoutConfirm(false)} />
