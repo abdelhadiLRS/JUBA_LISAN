@@ -7319,3 +7319,155 @@ main [dir="rtl"] h3,
 .juba-progress-section .bg-\\[var\\(--juba-app-green-soft\\)\\]{background:#ededff!important;}
 .juba-progress-section button{border-radius:999px!important;}
 @media(max-width:640px){.juba-progress-metrics>div{min-height:82px;}.juba-progress-panel{border-radius:22px!important;}}
+
+/* Public pricing visibility fix — the current landing page uses .juba-reference-page,
+   while legacy pricing selectors were scoped to .juba-ff-reference. Keep the pricing
+   surface explicit and visually complete for guests and signed-in users. */
+.juba-reference-page .juba-ref-pricing{
+  display:block !important;
+  visibility:visible !important;
+  min-height:620px;
+  padding:110px 22px;
+  background:
+    radial-gradient(circle at 84% 12%,rgba(255,216,94,.22),transparent 240px),
+    #fffdf4 !important;
+}
+.juba-reference-page .juba-ff-pricing{
+  display:block !important;
+  visibility:visible !important;
+  width:min(1120px,100%);
+  max-width:1120px;
+  margin-inline:auto;
+}
+.juba-reference-page .juba-ff-pricing-title{
+  display:block;
+  margin:0 auto 14px;
+  color:#183022;
+  font-size:clamp(2.45rem,5vw,4.4rem);
+  line-height:.95;
+  font-weight:950;
+  letter-spacing:-.065em;
+  text-align:center;
+}
+.juba-reference-page .juba-ff-pricing-subtitle{
+  display:block;
+  max-width:620px;
+  margin:0 auto 38px;
+  color:#617068;
+  line-height:1.75;
+  text-align:center;
+}
+.juba-reference-page .juba-ff-pricing > :where(.grid,[class*="grid"]){
+  width:100%;
+}
+.juba-reference-page .juba-ff-plan-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  min-height:100%;
+  border:2px solid #183022 !important;
+  border-radius:28px 18px 28px 18px !important;
+  background:#fffdf8 !important;
+  box-shadow:7px 7px 0 #183022 !important;
+  overflow:hidden;
+}
+.juba-reference-page .juba-ff-plan-card:nth-child(2){
+  background:#fff5c9 !important;
+  transform:translateY(-8px);
+}
+.juba-reference-page .juba-ff-plan-card:nth-child(3){
+  background:#e8f5df !important;
+}
+.juba-reference-page .juba-ff-plan-card:hover{
+  transform:translateY(-5px);
+  box-shadow:9px 9px 0 #183022 !important;
+}
+.juba-reference-page .juba-ff-plan-card:nth-child(2):hover{
+  transform:translateY(-12px);
+}
+.juba-reference-page .juba-ff-plan-head{
+  border-color:rgba(23,35,26,.18) !important;
+}
+.juba-reference-page .juba-ff-plan-icon{
+  color:#39751d !important;
+}
+.juba-reference-page .juba-ff-plan-price{
+  color:#183022 !important;
+}
+.juba-reference-page .juba-ff-plan-desc{
+  color:#617068 !important;
+}
+.juba-reference-page .juba-ff-plan-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  border:2px solid #183022 !important;
+  border-radius:14px !important;
+  background:#ffd85e !important;
+  color:#183022 !important;
+  box-shadow:4px 4px 0 #183022 !important;
+  font-weight:900;
+}
+.juba-reference-page .juba-ff-plan-cta:hover{
+  background:#ffe47e !important;
+}
+.juba-reference-page .juba-ff-plan-error{
+  color:#8a3d28 !important;
+}
+.juba-reference-page .juba-ff-comparison{
+  width:100%;
+  overflow:hidden;
+  border:2px solid #183022 !important;
+  border-radius:24px !important;
+  background:#fffdf8 !important;
+  box-shadow:6px 6px 0 rgba(23,35,26,.2) !important;
+}
+.juba-reference-page .juba-ff-comparison-head{
+  background:#eef7e4 !important;
+}
+.juba-reference-page .juba-ff-table-cell{
+  border-color:rgba(23,35,26,.13) !important;
+}
+.juba-reference-page .juba-ff-check{
+  color:#39751d !important;
+}
+.juba-reference-page .juba-ff-limited{
+  color:#8a6a00 !important;
+  font-weight:900;
+}
+.juba-reference-page .juba-ff-minus{
+  color:#7a827c !important;
+}
+.juba-reference-page .juba-ff-plan-old{
+  color:#8a948d !important;
+}
+@media(max-width:900px){
+  .juba-reference-page .juba-ff-plan-card:nth-child(2){
+    transform:none;
+  }
+  .juba-reference-page .juba-ff-plan-card:nth-child(n):hover{
+    transform:translateY(-4px);
+  }
+}
+@media(max-width:640px){
+  .juba-reference-page .juba-ref-pricing{
+    min-height:0;
+    padding:78px 14px;
+  }
+  .juba-reference-page .juba-ff-pricing-title{
+    font-size:clamp(2.15rem,11vw,3.1rem);
+  }
+  .juba-reference-page .juba-ff-pricing-subtitle{
+    margin-bottom:28px;
+  }
+  .juba-reference-page .juba-ff-plan-card{
+    border-radius:22px !important;
+    box-shadow:5px 5px 0 #183022 !important;
+  }
+  .juba-reference-page .juba-ff-comparison{
+    border-radius:18px !important;
+    box-shadow:4px 4px 0 rgba(23,35,26,.18) !important;
+    overflow-x:auto;
+  }
+}
