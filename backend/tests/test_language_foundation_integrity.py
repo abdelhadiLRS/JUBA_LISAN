@@ -200,7 +200,7 @@ def test_registered_foundations_have_nonempty_core_content():
                 if not str(phrase.text).strip() or not str(phrase.context).strip():
                     failures.append(f"{language}/{category.id}: incomplete phrasebook entry")
 
-    assert not failures, "\\n".join(failures)
+    assert not failures, "\n".join(failures)
 
 
 def test_registered_foundations_have_valid_phrasebook_references():
@@ -376,11 +376,6 @@ def test_language_helpers_normalize_common_locale_aliases(locale: str, expected_
         ("fa", "standard Persian"),
         ("he", "Modern Hebrew"),
         ("th-TH", "standard Thai"),
-    ],
-)
-@pytest.mark.parametrize(
-    ("locale", "expected_fragment"),
-    [
         ("ro-RO", "standard Romanian"),
         ("uk-UA", "standard Ukrainian"),
         ("bn-BD", "standard Bengali"),
