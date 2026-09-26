@@ -376,6 +376,7 @@ _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "ja": "ja-JP",
     "ko": "ko-KR",
     "zh": "zh-CN",
+    "ru": "ru-RU",
     "nl": "nl-NL",
     "pl": "pl-PL",
     "da": "da-DK",
