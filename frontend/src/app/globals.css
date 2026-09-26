@@ -7077,3 +7077,73 @@ main [dir="rtl"] h3,
     border-radius:20px;
   }
 }
+
+
+/* ── JUBA LISAN member-area visual system ─────────────────────────────── */
+.juba-member-shell {
+  --juba-page-bg: #f4f4f2;
+  --juba-page-surface: #ffffff;
+  --juba-page-ink: #202127;
+  --juba-page-muted: #6f7079;
+  --juba-page-purple: #5862e2;
+  --juba-page-lilac: #9a9ff3;
+  --juba-page-dark: #070709;
+  --juba-page-line: rgba(7, 7, 9, .08);
+}
+.juba-app-content { background: #f4f4f2 !important; }
+.juba-app-page > main { min-height: auto !important; background: transparent !important; color: var(--juba-page-ink); }
+.juba-app-page .juba-card,
+.juba-app-page .border-fl-border.bg-fl-surface {
+  border-color: var(--juba-page-line) !important;
+  box-shadow: 0 14px 34px rgba(43,45,90,.07);
+}
+.juba-app-page .juba-card,
+.juba-app-page .juba-settings-shell,
+.juba-app-page .juba-faq-shell,
+.juba-app-page .juba-grammar-shell,
+.juba-app-page .juba-phrasebook-shell,
+.juba-app-page .juba-listening-shell,
+.juba-app-page .juba-reading-shell,
+.juba-app-page .juba-coach-shell,
+.juba-app-page .juba-friends-shell,
+.juba-app-page .juba-mobile-assessment {
+  border-radius: 26px;
+}
+.juba-app-page button,
+.juba-app-page a[class*="rounded-"] {
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease;
+}
+.juba-app-page button:hover:not(:disabled),
+.juba-app-page a[class*="rounded-"]:hover { transform: translateY(-1px); }
+.juba-app-page .juba-settings-shell,
+.juba-app-page .juba-faq-shell,
+.juba-app-page .juba-grammar-shell,
+.juba-app-page .juba-phrasebook-shell,
+.juba-app-page .juba-listening-shell,
+.juba-app-page .juba-reading-shell,
+.juba-app-page .juba-coach-shell,
+.juba-app-page .juba-friends-shell,
+.juba-app-page .juba-mobile-assessment {
+  max-width: 1240px;
+  margin-inline: auto;
+  background: transparent;
+}
+.juba-app-page .juba-eyebrow { color: var(--juba-page-purple) !important; }
+.juba-app-page .bg-\\[var\\(--juba-app-green\\)\\] { background: var(--juba-page-purple) !important; }
+.juba-app-page .bg-\\[var\\(--juba-app-green-dark\\)\\] { background: var(--juba-page-purple) !important; }
+@media (max-width: 1023px) {
+  .juba-member-shell { padding: 0 !important; }
+  .juba-member-shell > .mx-auto { border-radius: 0 !important; }
+}
+@media (max-width: 640px) {
+  .juba-app-page .juba-card,
+  .juba-app-page .juba-settings-shell,
+  .juba-app-page .juba-faq-shell,
+  .juba-app-page .juba-grammar-shell,
+  .juba-app-page .juba-phrasebook-shell,
+  .juba-app-page .juba-listening-shell,
+  .juba-app-page .juba-reading-shell,
+  .juba-app-page .juba-coach-shell,
+  .juba-app-page .juba-friends-shell,
+  .juba-app-page .juba-mobile-assessment { border-radius: 22px; }
+}
