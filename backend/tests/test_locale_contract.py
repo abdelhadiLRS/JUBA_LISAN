@@ -22,6 +22,10 @@ from app.services.prompts.common import get_language_prompt_overlay
         ("zh-TW", "zh", "zh"),
         ("pt-BR", "pt-BR", "pt"),
         ("suq-ET", "suq", "suq"),
+        ("fr-CA", "fr", "fr"),
+        ("de-AT", "de", "de"),
+        ("en-AU", "en-AU", "en"),
+        ("zh-Hant-HK", "zh", "zh"),
     ],
 )
 def test_locale_contract_resolves_registered_regional_variants(locale, canonical, base):
@@ -46,6 +50,36 @@ def test_locale_contract_drives_curriculum_and_prompt_layers(locale):
     assert "A1" in curriculum
     assert overlay.startswith("Language-specific guidance:")
     assert resolution.base not in {"en", "en-GB"} or locale.startswith("en-")
+
+
+@pytest.mark.parametrize(
+    ("locale", "expected_script", "expected_unit"),
+    [
+        ("fr-CA", "latin", "words"),
+        ("de-AT", "latin", "words"),
+        ("en-AU", "latin", "words"),
+        ("zh-Hant-HK", "traditional-hanzi", "characters"),
+    ],
+)
+def test_unregistered_regional_variants_inherit_foundation_capabilities(locale, expected_script, expected_unit):
+    resolution = resolve_locale(locale)
+
+    assert resolution.base in {"fr", "de", "en", "zh"}
+    assert resolution.capability["script"] == expected_script
+    assert resolution.capability["reading_length_unit"] == expected_unit
+    assert get_language_script(locale) == expected_script
+    assert get_reading_length_unit(locale) == expected_unit
+
+
+def test_unknown_locale_keeps_a_safe_generation_capability():
+    resolution = resolve_locale("xx-ZZ")
+
+    assert resolution.normalized == "xx-ZZ"
+    assert resolution.base == "xx"
+    assert resolution.canonical == "xx"
+    assert resolution.capability["script"] == "latin"
+    assert resolution.capability["uses_word_spacing"] is True
+    assert resolution.capability["reading_length_unit"] == "words"
 
 
 def test_locale_normalization_is_shared_for_underscored_and_cased_input():
