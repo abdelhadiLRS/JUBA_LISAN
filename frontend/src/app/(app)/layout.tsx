@@ -247,7 +247,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <button type="button" onClick={() => setSidebarOpen(false)} className="grid size-9 place-items-center rounded-xl text-white/55 hover:bg-white/10 hover:text-white lg:hidden" aria-label={'Close menu'}><X className="size-4" /></button>
             <button type="button" onClick={() => setSidebarCollapsed((value) => !value)} className="hidden size-9 shrink-0 place-items-center rounded-xl text-white/55 transition hover:bg-white/10 hover:text-white lg:grid" aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}>{sidebarCollapsed ? <PanelLeft className="size-4" /> : <PanelLeftClose className="size-4" />}</button>
           </div>
-          <div className="flex-1" aria-hidden="true" />
+          <nav aria-label="Secondary navigation" className={`min-h-0 flex-1 overflow-y-auto ${sidebarCollapsed ? 'px-2' : 'px-3'} py-5`}>
+            {!sidebarCollapsed && <p className="mb-3 px-3 text-[9px] font-black uppercase tracking-[.2em] text-white/30">{'EXPLORE'}</p>}
+            <div className="space-y-1">{renderNavItems(mainNavItems.slice(5))}</div>
+            <div className="my-5 border-t border-white/[0.09]" />
+            {!sidebarCollapsed && <p className="mb-3 px-3 text-[9px] font-black uppercase tracking-[.2em] text-white/30">{tNav('resources')}</p>}
+            <div className="space-y-1">{renderNavItems(resourceNavItems)}</div>
+            <div className="my-5 border-t border-white/[0.09]" />
+            <div className="space-y-1">{renderNavItems(bottomNavItems)}</div>
+          </nav>
           <div className={`shrink-0 border-t border-white/[0.09] ${sidebarCollapsed ? 'p-2' : 'p-4'}`}>
             <div className={`mb-3 flex items-center ${sidebarCollapsed ? 'justify-center' : 'justify-between gap-2'} rounded-xl bg-white/[0.06] p-2`}>
               <div className="flex min-w-0 items-center gap-2">
@@ -282,13 +290,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
             <nav aria-label="Primary navigation" className="border-t border-[#e7e6f5] bg-[#efeff8] px-3 sm:px-6">
               <div className="flex h-[54px] items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                {[...mainNavItems, ...resourceNavItems].map((item) => {
+                {mainNavItems.slice(0, 5).map((item) => {
                   const active = pathname === item.href || pathname.startsWith(item.href + '/')
-                  const premium = showPremiumBadge && PREMIUM_HREFS.has(item.href)
                   return (
                     <Link key={item.href} href={item.href} aria-current={active ? 'page' : undefined}
                       className={`group relative flex h-10 shrink-0 items-center gap-2 rounded-xl px-3 text-[12px] font-bold transition ${active ? 'bg-[#6f6bd8] text-white shadow-md shadow-[#6f6bd8]/20' : 'text-[#4f5263] hover:bg-white hover:text-[#5f5ac7]'}`}>
-                      <span className="relative grid size-4 place-items-center"><NavIcon href={item.href} className="size-[16px]" />{premium && <Sparkles className="absolute -right-1.5 -top-1 size-2.5 text-[#f2b84b]" />}</span>
+                      <span className="grid size-4 place-items-center"><NavIcon href={item.href} className="size-[16px]" /></span>
                       <span>{item.label}</span>
                     </Link>
                   )
