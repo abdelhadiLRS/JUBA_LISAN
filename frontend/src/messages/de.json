@@ -137,7 +137,12 @@
     "nativeHelpStudyTips": "Lerntipps",
     "nativeHelpWordNotes": "Worthinweise",
     "nativeHelpPractice": "Übung",
-    "openMenu": "Menü öffnen"
+    "openMenu": "Menü öffnen",
+    "contact": "Kontakt",
+    "menu": "Menü",
+    "logoutConfirm": "Möchtest du dich wirklich abmelden?",
+    "copy": "Kopieren",
+    "copyPhrase": "Phrase kopieren"
   },
   "nav": {
     "primaryNavigation": "Hauptnavigation",
@@ -989,7 +994,6 @@
     "topicsFound": "{count, plural, one {# Thema gefunden} other {# Themen gefunden}}",
     "topicCount": "{count, plural, =1 {# Thema} other {# Themen}}",
     "levelRange": "A1 – C2"
-  
   },
   "vocabulary": {
     "title": "Vokabular",
@@ -1954,5 +1958,18 @@
     "shortcutHint": "Leertaste zum Aufdecken · 1–4 zum Bewerten",
     "spaceShortcut": "Leertaste zum Aufdecken",
     "rateKeys": "1 Nochmal · 2 Schwer · 3 Gut · 4 Leicht"
+  },
+  "translator": {
+    "detected": "Erkannt",
+    "listen": "Anhören",
+    "swap": "Tauschen",
+    "translating": "Übersetzung…",
+    "translationPlaceholder": "Die Übersetzung erscheint hier",
+    "save": "Speichern",
+    "translateNow": "Jetzt übersetzen",
+    "visitorNote": "Besucher können den Übersetzer ohne Anmeldung verwenden.",
+    "savedCloud": "Im Konto gespeichert",
+    "savedLocal": "Auf diesem Gerät gespeichert",
+    "saving": "Speichern…"
   }
 }
