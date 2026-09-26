@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { getToken } from './api'
@@ -19,6 +19,7 @@ export default function SpeakConversation(){
   const [error,setError]=useState('')
   const [memoryNotice,setMemoryNotice]=useState(false)
   const [authenticated,setAuthenticated]=useState(false)
+  const scrollRef=useRef<ScrollView>(null)
 
   useEffect(()=>{
     let active=true
@@ -78,7 +79,7 @@ export default function SpeakConversation(){
     }finally{setBusy(false)}
   }
 
-  const send=async()=>{
+  useEffect(()=>{\n    const timer=setTimeout(()=>scrollRef.current?.scrollToEnd({animated:true}),80)\n    return()=>clearTimeout(timer)\n  },[messages.length,loading])\n\n  const send=async()=>{
     const text=input.trim()
     if(!text||busy||!authenticated)return
     setInput('')
@@ -102,21 +103,21 @@ export default function SpeakConversation(){
     }finally{setBusy(false)}
   }
 
-  return <ScrollView contentContainerStyle={s.content} keyboardShouldPersistTaps="handled">
+  return <ScrollView ref={scrollRef} contentContainerStyle={s.content} keyboardShouldPersistTaps="handled" keyboardDismissMode="on-drag">
     <View style={s.header}><View style={s.logo}><Image source={require("../../assets/logo.png")} resizeMode="contain" style={s.logoImage}/></View><View><Text style={s.eyebrow}>AI CONVERSATION</Text><Text style={s.title}>Speak with your tutor</Text></View></View>
     <View style={s.hero}><View style={s.pill}><Ionicons name="sparkles" size={11} color="#C2BEFF"/><Text style={s.pillText}>YOUR LANGUAGE TUTOR</Text></View><Text style={s.heroTitle}>Practice naturally.</Text><Text style={s.heroBody}>Continue with your JUBA LISAN tutor using the authenticated JUBA LISAN tutor service. Your latest conversation is restored automatically when you return.</Text></View>
     {!authenticated?<View style={s.card}><View style={s.empty}><View style={s.tutor}><Ionicons name="person-circle-outline" size={30} color="#fff"/></View><Text style={s.cardTitle}>Sign in to practice with your tutor</Text><Text style={s.body}>AI conversation requires an authenticated JUBA LISAN account. Sign in from the app to unlock the tutor.</Text></View></View>:loading?<View style={s.card}><View style={s.empty}><ActivityIndicator color={C.primary}/><Text style={s.body}>Loading your conversation…</Text></View></View>:<>
       <View style={s.toolbar}>
-        <View style={s.toolbarLeft}><Text style={s.toolbarText}>{conversationId?`Conversation #${conversationId}`:'New conversation'}</Text><Pressable disabled={busy} onPress={()=>setShowHistory(v=>!v)} style={({pressed})=>[s.historyButton,pressed&&s.pressed]}><Ionicons name="time-outline" size={15} color={C.primary}/><Text style={s.newButtonText}>History</Text></Pressable></View>
-        <Pressable disabled={busy} onPress={()=>void startNewConversation()} style={({pressed})=>[s.newButton,pressed&&s.pressed]}><Ionicons name="add" size={16} color={C.primary}/><Text style={s.newButtonText}>New chat</Text></Pressable>
+        <View style={s.toolbarLeft}><Text style={s.toolbarText}>{conversationId?`Conversation #${conversationId}`:'New conversation'}</Text><Pressable disabled={busy} onPress={()=>setShowHistory(v=>!v)} accessibilityRole="button" accessibilityLabel="Conversation history" style={({pressed})=>[s.historyButton,pressed&&s.pressed]}><Ionicons name="time-outline" size={15} color={C.primary}/><Text style={s.newButtonText}>History</Text></Pressable></View>
+        <Pressable disabled={busy} onPress={()=>void startNewConversation()} accessibilityRole="button" accessibilityLabel="Start a new conversation" style={({pressed})=>[s.newButton,pressed&&s.pressed]}><Ionicons name="add" size={16} color={C.primary}/><Text style={s.newButtonText}>New chat</Text></Pressable>
       </View>
-      {showHistory&&<View style={s.historyCard}>{conversations.length===0?<Text style={s.historyEmpty}>No previous conversations yet.</Text>:conversations.map(item=><Pressable key={item.id} disabled={busy} onPress={()=>void openConversation(item.id)} style={({pressed})=>[s.historyRow,item.id===conversationId&&s.historyRowActive,pressed&&s.pressed]}><View style={s.historyIcon}><Ionicons name="chatbubble-ellipses-outline" size={15} color={C.primary}/></View><View style={s.historyBody}><Text numberOfLines={1} style={s.historyTitle}>{item.title}</Text><Text style={s.historyMeta}>{item.id===conversationId?'Current conversation':'Open conversation'}</Text></View><Ionicons name="chevron-forward" size={16} color={C.muted}/></Pressable>)}</View>}
+      {showHistory&&<View style={s.historyCard}>{conversations.length===0?<Text style={s.historyEmpty}>No previous conversations yet.</Text>:conversations.map(item=><Pressable key={item.id} disabled={busy} onPress={()=>void openConversation(item.id)} accessibilityRole="button" accessibilityLabel={`Open ${item.title}`} style={({pressed})=>[s.historyRow,item.id===conversationId&&s.historyRowActive,pressed&&s.pressed]}><View style={s.historyIcon}><Ionicons name="chatbubble-ellipses-outline" size={15} color={C.primary}/></View><View style={s.historyBody}><Text numberOfLines={1} style={s.historyTitle}>{item.title}</Text><Text style={s.historyMeta}>{item.id===conversationId?'Current conversation':'Open conversation'}</Text></View><Ionicons name="chevron-forward" size={16} color={C.muted}/></Pressable>)}</View>}
       <View style={s.card}>
         {messages.length===0?<View style={s.empty}><View style={s.tutor}><Ionicons name="sparkles" size={28} color="#fff"/></View><Text style={s.cardTitle}>Tell me about your day</Text><Text style={s.body}>Write a short message and your tutor will answer. Start a new conversation anytime without losing your previous threads.</Text></View>:messages.map((m,i)=><View key={`${i}-${m.role}`} style={[s.message,m.role==='user'?s.userMessage:s.assistantMessage]}><Text style={[s.messageRole,m.role==='user'&&s.userRole]}>{m.role==='user'?'YOU':'TUTOR'}</Text><Text style={s.messageText}>{m.content||'…'}</Text></View>)}
       </View>
       {!!memoryNotice&&<View style={s.memory}><Ionicons name="checkmark-circle-outline" size={16} color={C.success}/><Text style={s.memoryText}>Your tutor updated your learning memory from this conversation.</Text></View>}
       {!!error&&<Text style={s.error}>{error}</Text>}
-      <View style={s.composer}><TextInput value={input} onChangeText={setInput} placeholder="Write your message…" placeholderTextColor={C.muted} multiline maxLength={5000} style={s.input}/><Pressable disabled={busy||!input.trim()} onPress={()=>void send()} style={({pressed})=>[s.send,busy&&s.sendBusy,pressed&&s.pressed]}>{busy?<ActivityIndicator color="#fff"/>:<><Ionicons name="send" size={16} color="#fff"/><Text style={s.sendText}>Send</Text></>}</Pressable></View>
+      <View style={s.composer}><TextInput value={input} onChangeText={setInput} placeholder="Write your message…" placeholderTextColor={C.muted} multiline maxLength={5000} style={s.input}/><Pressable disabled={busy||!input.trim()} onPress={()=>void send()} accessibilityRole="button" accessibilityLabel="Send message" style={({pressed})=>[s.send,busy&&s.sendBusy,pressed&&s.pressed]}>{busy?<ActivityIndicator color="#fff"/>:<><Ionicons name="send" size={16} color="#fff"/><Text style={s.sendText}>Send</Text></>}</Pressable></View>
     </>}
   </ScrollView>
 }
