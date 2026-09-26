@@ -29,6 +29,27 @@ PHRASEBOOK_CATEGORIES=[p(*x) for x in [
 ("directions_a1","Directions",[("ផ្សារនៅឯណា?","asking location"),("ទៅខាងស្តាំ។","giving directions"),("សាលានៅជិតទេ?","checking whether the school is nearby"),("ទៅខាងឆ្វេង ហើយទៅត្រង់។","giving a simple route")]),
 ("help_a1","Help",[("សូមជួយខ្ញុំ។","asking for help"),("ខ្ញុំមិនយល់ទេ។","asking for clarification"),("សូមនិយាយយឺតៗ។","asking someone to speak slowly"),("សូមនិយាយម្តងទៀត។","asking for repetition")])]]
 def unit(i,title,g,v,c1,c2): return CurriculumUnit(id=f"km-a1-unit-{i}",level="A1",unit_number=i,title=title,grammar_points=g,vocabulary_set_ids=[v],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=[c1,c2],default_weeks=2)
+
+_ADVANCED = [
+("past","ព្រឹត្តិការណ៍កន្លងមក","A2","Talk about completed events.","ម្សិលមិញ ខ្ញុំទៅផ្សារ។"),
+("future","ផែនការអនាគត","A2","Talk about plans and upcoming events.","ស្អែក ខ្ញុំនឹងទៅសាលា។"),
+("comparison","ការប្រៀបធៀប","A2","Compare familiar people and things.","ផ្ទះនេះធំជាងផ្ទះនោះ។"),
+("requests","សំណើដោយសុភាព","A2","Make polite requests and instructions.","សូមរង់ចាំបន្តិច។"),
+("relative","ការពិពណ៌នាដោយប្រយោគ","B1","Combine clauses to describe people and things.","សៀវភៅដែលខ្ញុំអានគួរឱ្យចាប់អារម្មណ៍។"),
+("conditions","លក្ខខណ្ឌ","B1","Express conditions and consequences.","បើភ្លៀង ខ្ញុំនឹងនៅផ្ទះ។"),
+("reported","សម្តីរាយការណ៍","B1","Report information from another speaker.","គាត់និយាយថា គាត់នឹងមក។"),
+("cause","មូលហេតុ និងគោលបំណង","B2","Connect causes, purposes, and results.","ខ្ញុំរៀនដើម្បីធ្វើការល្អ។"),
+("passive","រចនាសម្ព័ន្ធអកម្ម","B2","Focus on an action and its result.","ឯកសារត្រូវបានផ្ញើរួចហើយ។"),
+("connectors","ពាក្យភ្ជាប់អាគុយម៉ង់","B2","Connect contrast, cause, and consequence.","ទោះជាយ៉ាងណា លទ្ធផលមិនទាន់ច្បាស់ទេ។"),
+("formal","ភាសាផ្លូវការ","C1","Use appropriate institutional language.","សូមដាក់ស្នើឯកសារមុនថ្ងៃកំណត់។"),
+("evidence","ភស្តុតាង និងការបញ្ជាក់","C1","State evidence and cautious conclusions.","តាមទិន្នន័យ លទ្ធផលនេះអាចមានសារៈសំខាន់។"),
+("nominalization","រចនាសម្ព័ន្ធនាមបែបវិជ្ជាជីវៈ","C1","Handle formal noun phrases and explanations.","ការកែលម្អគុណភាពត្រូវការការវាយតម្លៃ។"),
+("pragmatics","អត្ថន័យតាមបរិបទ","C2","Interpret politeness and implied meaning.","តើអាចរង់ចាំបន្តិចបានទេ?"),
+("idioms","សំនួនពាក្យ និងអត្ថន័យប្រៀបធៀប","C2","Understand figurative expressions in context.","ពាក្យនេះមានន័យផ្សេងតាមបរិបទ។"),
+("rhetoric","វោហារសាស្ត្រ និងអាគុយម៉ង់","C2","Build nuanced arguments with evidence.","ទោះមានភស្តុតាងខ្លះ ក៏ត្រូវពិនិត្យបន្ថែម។"),
+]
+GRAMMAR_TOPICS.extend([GrammarTopic(slug=s,title=t,level=l,category="grammar",summary=d,explanation=d,examples=[GrammarExample(text=e)]) for s,t,l,d,e in _ADVANCED])
+
 CURRICULUM={"A1":[unit(1,"ការស្វាគមន៍",["pronouns","copula"],"greetings_a1","Introduce yourself","Exchange greetings"),unit(2,"គ្រួសារ",["pronouns","demonstratives"],"family_a1","Describe family","Ask about relatives"),unit(3,"ផ្ទះ",["demonstratives","location"],"home_a1","Describe your home","Locate objects"),unit(4,"ជីវិតប្រចាំថ្ងៃ",["questions","negation"],"daily_a1","Talk about routines","State simple negatives"),unit(5,"អាហារ និងការទិញ",["questions","numbers"],"food_a1","Buy basic food","Ask prices"),unit(6,"ទីកន្លែង",["location","questions"],"places_a1","Ask directions","Give directions"),unit(7,"ការទំនាក់ទំនង",["negation","questions"],"communication_a1","Ask for help","Clarify meaning"),unit(8,"ពិនិត្យ A1",["time","numbers"],"review_a1","Review familiar topics","Handle basic exchanges")]}
 for level in LEVELS[1:]: CURRICULUM[level]=[CurriculumUnit(id=f"km-{level.lower()}-foundation",level=level,unit_number=1,title=f"Khmer {level}",grammar_points=["A1 review"],vocabulary_set_ids=["review_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=[f"Build {level} communication"],default_weeks=2)]
 ASSESSMENT_BANK=[AssessmentQuestion(id=f"km-a1-{i:03}",skill=s,difficulty="A1",question=q,options=o,correct=c) for i,(s,q,o,c) in enumerate([
