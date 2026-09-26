@@ -105,9 +105,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [contactOpen, setContactOpen] = useState(false)
   const [resendSent, setResendSent] = useState(false)
   const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
-  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({ learning: true, practice: true, 'study-tools': true })
+  const [openTopMenu, setOpenTopMenu] = useState<string | null>(null)
 
   const PREMIUM_HREFS = new Set([
     '/chat',
@@ -235,129 +233,43 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   const isItemActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
 
-  const renderNavItem = (item: NavItem, nested = false) => {
+  const renderTopItem = (item: NavItem) => {
     const active = isItemActive(item.href)
     const premium = item.premium && showPremiumBadge
     return (
-      <Link
-        key={item.href}
-        href={item.href}
-        onClick={() => setSidebarOpen(false)}
-        title={sidebarCollapsed ? item.label : undefined}
-        className={
-          'nav-link d-flex align-items-center mb-1 ' +
-          (nested ? 'ps-5 ' : '') +
-          (sidebarCollapsed ? 'justify-content-center ' : '') +
-          (active ? 'active bg-primary-lt text-primary fw-semibold' : 'text-secondary')
-        }
-      >
-        <i className={'ti ' + (NAV_ICONS[item.href] ?? 'ti-circle') + ' icon'} aria-hidden="true" />
-        {!sidebarCollapsed && <span className="ms-2 flex-grow-1 text-truncate">{item.label}</span>}
-        {!sidebarCollapsed && premium && <span className="badge bg-yellow-lt text-yellow ms-auto">PRO</span>}
-      </Link>
-    )
-  }
-
-  const renderNavGroup = (group: NavGroup) => {
-    const active = group.items.some((item) => isItemActive(item.href))
-    const open = openGroups[group.key] ?? active
-    if (sidebarCollapsed) {
-      return (
-        <div key={group.key} className="mb-1">
-          <button type="button" onClick={() => { setSidebarCollapsed(false); setOpenGroups((current) => ({ ...current, [group.key]: true })) }} className={'nav-link w-100 border-0 d-flex align-items-center justify-content-center ' + (active ? 'text-primary bg-primary-lt' : 'text-secondary')} title={group.label} aria-label={group.label}>
-            <i className={'ti ' + group.icon + ' icon'} aria-hidden="true" />
-          </button>
-          <div className="visually-hidden">{group.items.map((item) => item.label).join(', ')}</div>
-        </div>
-      )
-    }
-    return (
-      <div key={group.key} className="nav-item mb-1">
-        <button
-          type="button"
-          className={'nav-link w-100 border-0 d-flex align-items-center ' + (active ? 'text-primary fw-semibold' : 'text-secondary')}
-          aria-expanded={open}
-          onClick={() => setOpenGroups((current) => ({ ...current, [group.key]: !open }))}
-        >
-          <i className={'ti ' + group.icon + ' icon'} aria-hidden="true" />
-          <span className="ms-2 flex-grow-1 text-start">{group.label}</span>
-          <i className={'ti ' + (open ? 'ti-chevron-up' : 'ti-chevron-down') + ' icon icon-sm'} aria-hidden="true" />
-        </button>
-        {open && (
-          <div className="nav nav-pills flex-column border-start ms-3 ps-2 mt-1">
-            {group.items.map((item) => renderNavItem(item, true))}
-          </div>
-        )}
-      </div>
-    )
-  }
-
-  const renderMainNav = () => (
-    <>
-      {mainNavItems.map((item) => renderNavItem(item))}
-      {navGroups.map(renderNavGroup)}
-    </>
-  )
-
-  const pageLabel = (() => {
-    const allItems = [...mainNavItems, ...navGroups.flatMap((group) => group.items), ...bottomNavItems]
-    return allItems.find((item) => isItemActive(item.href))?.label ?? 'JUBA LISAN'
-  })()
-
-
-  return (
     <div className="page juba-tabler-app min-h-screen bg-[#f5f7fb]">
-      {sidebarOpen && <button type="button" aria-label="Close menu" onClick={() => setSidebarOpen(false)} className="fixed inset-0 z-[60] bg-black/40 lg:hidden" />}
-      <aside className={`navbar navbar-vertical navbar-expand-lg fixed inset-y-0 start-0 z-[70] flex-col border-end bg-white transition-[width,transform] duration-200 lg:sticky lg:top-0 lg:h-screen ${sidebarCollapsed ? 'w-[76px]' : 'w-[260px]'} ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
-        <div className={`navbar-brand min-h-[64px] border-bottom px-3 ${sidebarCollapsed ? 'justify-center' : ''}`}>
-          <Link href="/dashboard" onClick={() => setSidebarOpen(false)} className="d-flex align-items-center gap-2 text-decoration-none text-dark">
-            <span className="avatar avatar-sm rounded-2 bg-primary text-white fw-bold">JL</span>
-            {!sidebarCollapsed && <span className="fw-bold text-dark">JUBA LISAN</span>}
-          </Link>
-        </div>
-        <div className="navbar-collapse w-100 overflow-hidden">
-          <nav aria-label="Primary navigation" className={`navbar-nav pt-3 w-100 ${sidebarCollapsed ? 'px-2' : 'px-3'}`}>
-            {!sidebarCollapsed && <div className="mb-2 px-2 text-uppercase text-secondary small fw-bold">Menu</div>}
-            {renderMainNav()}
-            <div className="my-3 border-top" />
-            {!sidebarCollapsed && <div className="mb-2 px-2 text-uppercase text-secondary small fw-bold">Support</div>}
-            {bottomNavItems.map((item) => renderNavItem(item))}
-          </nav>
-        </div>
-        <div className={`mt-auto w-100 border-top p-3 ${sidebarCollapsed ? 'px-2' : ''}`}>
-          <div className={`d-flex align-items-center ${sidebarCollapsed ? 'justify-content-center' : 'gap-2'} mb-3`}>
-            <span className="avatar avatar-sm rounded-circle bg-azure-lt text-azure fw-bold">
-              {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover rounded-circle" fallback={<span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
-            </span>
-            {!sidebarCollapsed && <div className="min-w-0"><div className="text-dark small fw-semibold text-truncate">{user?.displayName || user?.username || 'Learner'}</div><div className="text-secondary small text-truncate">{user?.email || ''}</div></div>}
-          </div>
-          <div className={`d-flex align-items-center ${sidebarCollapsed ? 'flex-column gap-2' : 'justify-content-between gap-2'}`}>
-            {!sidebarCollapsed && <LanguageSwitcher />}
-            <button type="button" onClick={() => setLogoutConfirm(true)} title={tCommon('logout')} aria-label={tCommon('logout')} className="btn btn-ghost-secondary btn-sm"><i className="ti ti-logout icon" aria-hidden="true" />{!sidebarCollapsed && <span className="ms-2">{tCommon('logout')}</span>}</button>
-          </div>
-        </div>
-      </aside>
-      <div className="page-wrapper min-w-0">
+      <div className="page-wrapper min-w-0 w-100">
         <header className="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top z-50">
-          <div className="container-fluid">
-            <button type="button" onClick={() => setSidebarOpen(true)} aria-label="MENU" className="btn btn-ghost-secondary d-lg-none me-2"><i className="ti ti-menu-2 icon" aria-hidden="true" /></button>
-            <div className="navbar-nav flex-row order-md-last align-items-center gap-2">
+          <div className="container-fluid gap-3">
+            <Link href="/dashboard" className="navbar-brand d-flex align-items-center gap-2 me-2" onClick={() => setOpenTopMenu(null)}>
+              <span className="avatar avatar-sm rounded-2 bg-primary text-white fw-bold">JL</span>
+              <span className="fw-bold text-dark">JUBA LISAN</span>
+            </Link>
+            <div className="flex-fill overflow-visible">
+              {renderTopNavigation()}
+            </div>
+            <div className="navbar-nav flex-row align-items-center gap-2 ms-auto">
               <button type="button" className="btn btn-ghost-secondary position-relative" aria-label="Notifications" title="Notifications"><i className="ti ti-bell icon" aria-hidden="true" /></button>
+              <LanguageSwitcher />
               <Link href="/settings" title={tNav('settings')} aria-label={tNav('settings')} className="nav-link p-0">
                 <span className="avatar avatar-sm rounded-circle bg-azure-lt text-azure fw-bold">
                   {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover rounded-circle" fallback={<span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
                 </span>
               </Link>
+              <button type="button" onClick={() => setLogoutConfirm(true)} title={tCommon('logout')} aria-label={tCommon('logout')} className="btn btn-ghost-secondary btn-sm">
+                <i className="ti ti-logout icon" aria-hidden="true" />
+              </button>
             </div>
-            <div className="navbar-nav me-auto">
-              <div className="d-flex flex-column">
-                <span className="text-uppercase text-secondary small fw-bold">JUBA LISAN</span>
-                <span className="navbar-brand p-0 m-0 fs-3 fw-bold text-dark">{pageLabel}</span>
-              </div>
-            </div>
-            <button type="button" onClick={() => setSidebarCollapsed((value) => !value)} className="btn btn-ghost-secondary d-none d-lg-inline-flex me-2" aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}>{sidebarCollapsed ? <i className="ti ti-layout-sidebar-right-expand icon" aria-hidden="true" /> : <i className="ti ti-layout-sidebar-right-collapse icon" aria-hidden="true" />}</button>
           </div>
         </header>
+        <div className="bg-white border-bottom">
+          <div className="container-fluid py-2 d-flex align-items-center justify-content-between">
+            <div>
+              <div className="text-uppercase text-secondary small fw-bold">JUBA LISAN</div>
+              <div className="fs-3 fw-bold text-dark">{pageLabel}</div>
+            </div>
+          </div>
+        </div>
         <main className="page-body bg-[#f5f7fb]">
           {user && user.is_verified === false && (
             <div className="alert alert-warning rounded-0 border-0 border-bottom mb-0 d-flex flex-wrap align-items-center gap-3">
@@ -372,5 +284,4 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
       <ConfirmDialog open={logoutConfirm} title={tCommon('logoutConfirmTitle')} message={tCommon('logoutConfirmMessage')} confirmLabel={tCommon('logout')} onConfirm={handleLogout} onCancel={() => setLogoutConfirm(false)} />
     </div>
-  )
-}
+  )}
