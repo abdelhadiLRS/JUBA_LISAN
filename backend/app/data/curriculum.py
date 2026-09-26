@@ -18,26 +18,7 @@ CEFR_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"]
 # BCP-47/locale aliases used by browsers, profiles, and mobile clients.  Keep
 # this table explicit so regional variants never depend on an accidental
 # English fallback when resolving curriculum data.
-_LOCALE_ALIASES: dict[str, str] = {
-    "en": "en-GB", "en-GB": "en-GB", "en-US": "en-US",
-    "de-DE": "de", "es-ES": "es", "fr-FR": "fr", "it-IT": "it",
-    "pt-PT": "pt", "ja-JP": "ja", "ko-KR": "ko", "zh-CN": "zh",
-    "zh-TW": "zh", "ar-DZ": "ar", "tr-TR": "tr", "ru-RU": "ru",
-    "nl-NL": "nl", "pl-PL": "pl", "el-GR": "el", "sv-SE": "sv",
-    "da-DK": "da", "no-NO": "no", "fi-FI": "fi", "cs-CZ": "cs",
-}
-
-# Foundation locales are resolved by their ISO base code. This is deliberately
-# data-driven rather than a long chain of special cases in _resolve_module().
-_FOUNDATION_LOCALE_REGIONS = {
-    "ro", "hu", "uk", "he", "vi", "bg", "sr", "hr", "sk", "sl", "lt", "lv",
-    "is", "ga", "cy", "ka", "hy", "az", "kk", "uz", "ur", "ta", "te", "mr",
-    "gu", "sq", "eu", "gl", "mt", "af", "eo", "lb", "gd", "yo", "ha", "am",
-    "so", "zu", "xh", "rw", "ig", "mg", "ny", "sn", "st", "fy", "co", "fa",
-    "fil", "hi", "th", "bs", "tk", "bn", "mn", "ku", "lo", "jv", "as", "ay",
-    "be", "bo", "ca", "ee", "dz", "et", "fj", "gn", "or", "tg", "su", "ti",
-    "suq", "to",
-}
+from app.services.locale import normalize_locale, resolve_locale
 
 _LANG_MODULES: dict[str, str] = {
     "en-GB": "app.data.en_GB.curriculum",
@@ -329,37 +310,20 @@ _I18N = {
 }
 
 
-def _normalize_locale(target_language: str) -> str:
-    """Normalize locale separators and casing before resolving language data."""
-    raw = (target_language or "en-GB").strip().replace("_", "-") or "en-GB"
-    parts = raw.split("-")
-    normalized = [parts[0].lower()]
-    for part in parts[1:]:
-        if len(part) == 4 and part.isalpha():
-            normalized.append(part.title())
-        elif (len(part) == 2 and part.isalpha()) or (len(part) == 3 and part.isdigit()):
-            normalized.append(part.upper())
-        else:
-            normalized.append(part.lower())
-    return "-".join(normalized)
-
-
 def _resolve_module(target_language: str) -> object:
-    locale = _normalize_locale(target_language)
-    base_language = locale.split("-")[0].lower()
-    canonical = _LOCALE_ALIASES.get(locale)
-    if canonical is None and base_language in _FOUNDATION_LOCALE_REGIONS:
-        canonical = base_language
-    if canonical is None:
-        canonical = base_language
-    module_name = _LANG_MODULES.get(canonical, "app.data.en_GB.curriculum")
+    resolution = resolve_locale(target_language)
+    canonical = resolution.canonical
+    module_name = _LANG_MODULES.get(canonical)
+    if module_name is None:
+        # Regional variants share foundation/core curriculum data unless a
+        # dedicated module is registered explicitly.
+        module_name = _LANG_MODULES.get(resolution.base, "app.data.en_GB.curriculum")
 
     if module_name not in _CACHE:
         __import__(module_name)
         _CACHE[module_name] = sys.modules[module_name]
 
     return _CACHE[module_name]
-
 
 def get_curriculum(target_language: str) -> dict:
     """Return the full CURRICULUM dict for the given target language."""
