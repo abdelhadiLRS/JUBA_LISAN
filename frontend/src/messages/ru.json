@@ -96,7 +96,10 @@
     "nativeHelpPractice": "Практика"
   },
   "nav": {
-    "home": "Главная",
+    "learning": "Обучение",
+    "practice": "Практика",
+    "studyTools": "Инструменты для учёбы",
+"home": "Главная",
     "myPlan": "Мой план",
     "progress": "Прогресс",
     "flashcards": "Карточки",
