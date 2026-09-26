@@ -1,4 +1,4 @@
-@import '@tabler/core/dist/css/tabler.min.css';
+@import url('https://cdn.jsdelivr.net/npm/@tabler/core@1.6.0/dist/css/tabler.min.css');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
