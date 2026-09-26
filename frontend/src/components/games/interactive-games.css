@@ -2,3 +2,130 @@
 .interactive-secondary { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; margin-top:1.5rem; padding:.75rem 1rem; border:1px solid rgba(7,7,9,.09); border-radius:.875rem; color:#202127; background:#fff; text-decoration:none; font-weight:600; transition:background-color 160ms ease,border-color 160ms ease,transform 160ms ease; }
 .interactive-secondary:hover { background:#ededff; border-color:#5862e2; transform:translateY(-1px); }
 .interactive-secondary:focus-visible { outline:3px solid #5862e2; outline-offset:3px; }
+
+
+/* Interactive game surface — dashboard design system. */
+.interactive-game{
+  width:min(100%,1100px);
+  margin:0 auto;
+  padding:20px;
+  background:#fff;
+  border:1px solid rgba(7,7,9,.07);
+  border-radius:28px;
+  color:#202127;
+  box-shadow:0 14px 34px rgba(43,45,90,.07);
+}
+.interactive-toolbar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-height:54px;
+  padding:10px 12px;
+  margin-bottom:18px;
+  border:1px solid rgba(7,7,9,.07);
+  border-radius:18px;
+  background:#f4f4f2;
+}
+.interactive-toolbar strong{flex:1;font-size:15px;letter-spacing:-.02em}
+.interactive-toolbar span{font-size:11px;font-weight:700;color:rgba(32,33,39,.52)}
+.interactive-toolbar button,
+.interactive-secondary{
+  border:1px solid rgba(7,7,9,.09);
+  border-radius:14px;
+  background:#fff;
+  color:#202127;
+  font-weight:700;
+}
+.interactive-toolbar button{padding:.65rem .85rem}
+.interactive-toolbar button:hover,
+.interactive-secondary:hover{background:#ededff;border-color:#5862e2;color:#373fb8}
+.interactive-instruction{
+  margin:0 0 16px;
+  padding:12px 14px;
+  border-radius:16px;
+  background:#ededff;
+  color:#373fb8;
+  font-size:13px;
+  line-height:1.6;
+}
+.memory-board{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+  gap:12px;
+}
+.memory-card{
+  min-height:112px;
+  padding:14px;
+  border:1px solid rgba(7,7,9,.08);
+  border-radius:20px;
+  background:#f4f4f2;
+  color:#202127;
+  font-weight:800;
+  box-shadow:0 8px 20px rgba(43,45,90,.045);
+  transition:transform .16s ease,background-color .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+.memory-card:hover:not(:disabled){transform:translateY(-2px);border-color:#5862e2}
+.memory-card.revealed{background:#ededff;border-color:#5862e2;color:#373fb8}
+.memory-card.matched{background:#fff3d1;border-color:#e0b94f}
+.memory-card.retry-focus{box-shadow:0 0 0 2px rgba(88,98,226,.18),0 10px 24px rgba(43,45,90,.06)}
+.matching-board{display:grid;gap:12px}
+.matching-board>div{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.match-option,
+.ordering-pool button,
+.order-row{
+  min-height:48px;
+  padding:11px 14px;
+  border:1px solid rgba(7,7,9,.08);
+  border-radius:14px;
+  background:#fff;
+  color:#202127;
+  font-weight:650;
+  transition:transform .16s ease,background-color .16s ease,border-color .16s ease;
+}
+.match-option:hover:not(:disabled),
+.match-option.selected,
+.ordering-pool button:hover:not(:disabled){
+  background:#ededff;
+  border-color:#5862e2;
+  color:#373fb8;
+}
+.match-option:disabled{opacity:.48}
+.interactive-retry{
+  margin:0 0 10px;
+  padding:10px 12px;
+  border-radius:14px;
+  background:#fff3d1;
+  color:#6f5500;
+  font-size:12px;
+  font-weight:700;
+}
+.ordering-pool{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.ordering-result{display:grid;gap:8px;margin-top:14px}
+.order-row{display:flex;align-items:center;gap:8px;background:#f4f4f2}
+.order-row span{flex:1}
+.order-row button{padding:7px 9px;border:1px solid rgba(7,7,9,.08);border-radius:10px;background:#fff;color:#373fb8}
+.interactive-secondary{margin-top:12px;padding:.7rem .9rem}
+.interactive-error{
+  margin-top:16px;
+  padding:14px;
+  border:1px solid rgba(179,58,50,.22);
+  border-radius:16px;
+  background:rgba(179,58,50,.07);
+  color:#9a342d;
+}
+.interactive-error button{margin-top:10px;border:1px solid rgba(179,58,50,.25);border-radius:12px;padding:.6rem .8rem;background:#fff;color:#9a342d}
+.interactive-complete{
+  margin-top:18px;
+  padding:14px 16px;
+  border:1px solid rgba(224,185,79,.35);
+  border-radius:16px;
+  background:#fff3d1;
+  color:#5f4a00;
+  font-weight:800;
+}
+@media(max-width:640px){
+  .interactive-game{padding:14px;border-radius:22px}
+  .interactive-toolbar{flex-wrap:wrap}
+  .interactive-toolbar strong{flex-basis:100%}
+  .memory-board{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
