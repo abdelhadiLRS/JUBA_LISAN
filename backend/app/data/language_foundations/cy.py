@@ -276,7 +276,7 @@ ASSESSMENT_BANK = [
     AssessmentQuestion(id="cy-c1-001",skill="writing",difficulty="C1",question="Which phrase appropriately qualifies a claim?",options=["Mae'n ymddangos bod...","Mae hyn bob amser yn wir.","Helo!","Hwyl!"],correct="Mae'n ymddangos bod..."),
     AssessmentQuestion(id="cy-c1-002",skill="analysis",difficulty="C1",question="Which term means “implication”?",options=["goblygiad","treftadaeth","gorsaf","bwrdd"],correct="goblygiad"),
     AssessmentQuestion(id="cy-c1-003",skill="analysis",difficulty="C1",question="What is the function of hedging?",options=["To calibrate the strength of a claim","To greet someone","To form a plural","To ask a price"],correct="To calibrate the strength of a claim"),
-    AssessmentQuestion(id="cy-c2-001",skill="style",difficulty="C2",question="Which connector means “on the other hand”?",options=["ar y llaw arall","yn y lle cyntaf","diolch","yfory"],correct="ar y llaw arall"),
+    AssessmentQuestion(id="cy-c2-001",skill="discourse",difficulty="C2",question="Which connector means “on the other hand”?",options=["ar y llaw arall","yn y lle cyntaf","diolch","yfory"],correct="ar y llaw arall"),
     AssessmentQuestion(id="cy-c2-002",skill="analysis",difficulty="C2",question="Which term means “counterargument”?",options=["gwrthddadl","rhagdybiaeth","pwyslais","ffurfioldeb"],correct="gwrthddadl"),
-    AssessmentQuestion(id="cy-c2-003",skill="style",difficulty="C2",question="Which phrase works as a formal conclusion?",options=["Yn y pen draw...","Helo!","Ble mae'r toiled?","Dw i eisiau dŵr."],correct="Yn y pen draw..."),
+    AssessmentQuestion(id="cy-c2-003",skill="formal",difficulty="C2",question="Which phrase works as a formal conclusion?",options=["Yn y pen draw...","Helo!","Ble mae'r toiled?","Dw i eisiau dŵr."],correct="Yn y pen draw..."),
 ]
