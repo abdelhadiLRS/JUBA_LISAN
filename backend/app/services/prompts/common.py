@@ -74,6 +74,93 @@ Language-specific guidance:
 - Pay close attention to particles, speech level, honorifics, verb endings, batchim, and natural Korean phrasing.
 - Avoid North Korean vocabulary, spelling, or usage unless explicitly comparing variants.
 """.strip(),
+    "ar": """
+Language-specific guidance:
+- Use Modern Standard Arabic consistently unless a regional variety is explicitly requested.
+- Use Arabic script as the primary writing system and preserve correct right-to-left text.
+- Pay close attention to gender, number, case endings when taught, verb patterns, agreement, and natural word order.
+- Do not mix dialect vocabulary into standard Arabic lessons unless explicitly teaching a dialect.
+""".strip(),
+    "tr-TR": """
+Language-specific guidance:
+- Use standard Turkish from Türkiye consistently.
+- Use Turkish Latin orthography and preserve diacritics such as ç, ğ, ı, İ, ö, ş, and ü.
+- Pay close attention to vowel harmony, agglutination, case suffixes, evidentiality, and natural word order.
+""".strip(),
+    "ru-RU": """
+Language-specific guidance:
+- Use standard Russian consistently.
+- Use Cyrillic as the primary script.
+- Pay close attention to case, gender, aspect, verb conjugation, stress where relevant, and natural word order.
+""".strip(),
+    "nl-NL": """
+Language-specific guidance:
+- Use standard Dutch from the Netherlands consistently.
+- Pay close attention to word order, separable verbs, articles, diminutives, and de/het distinctions.
+- Avoid Belgian Dutch variants unless explicitly comparing them.
+""".strip(),
+    "pl-PL": """
+Language-specific guidance:
+- Use standard Polish consistently.
+- Use Polish Latin orthography and preserve diacritics.
+- Pay close attention to grammatical case, gender, aspect, consonant alternations, and natural word order.
+""".strip(),
+    "sv-SE": """
+Language-specific guidance:
+- Use standard Swedish from Sweden consistently.
+- Pay close attention to definite forms, word order, noun gender, verb forms, and natural Swedish phrasing.
+""".strip(),
+    "da-DK": """
+Language-specific guidance:
+- Use standard Danish from Denmark consistently.
+- Pay close attention to word order, definite forms, noun gender, verb placement, and natural Danish phrasing.
+""".strip(),
+    "no-NO": """
+Language-specific guidance:
+- Use standard Norwegian Bokmål for generated learner content.
+- Keep spelling and grammar consistent with Bokmål rather than switching to Nynorsk.
+""".strip(),
+    "fi-FI": """
+Language-specific guidance:
+- Use standard Finnish consistently.
+- Pay close attention to case endings, consonant gradation, vowel harmony, possessive structures, and natural word order.
+""".strip(),
+    "cs-CZ": """
+Language-specific guidance:
+- Use standard Czech consistently.
+- Use Czech Latin orthography and preserve diacritics.
+- Pay close attention to grammatical case, gender, aspect, declension, and natural word order.
+""".strip(),
+    "zh-TW": """
+Language-specific guidance:
+- Use Taiwan Standard Mandarin consistently.
+- Use traditional Chinese characters as the primary writing system. Use pinyin only as pronunciation support when appropriate.
+- Avoid simplified-character forms and Mainland-specific vocabulary unless explicitly comparing variants.
+""".strip(),
+    "hi": """
+Language-specific guidance:
+- Use standard Hindi consistently.
+- Use Devanagari as the primary script.
+- Pay close attention to postpositions, gender agreement, verb aspect, honorifics, and natural Hindi word order.
+""".strip(),
+    "fa": """
+Language-specific guidance:
+- Use standard Persian consistently.
+- Use Persian-Arabic script as the primary writing system and preserve correct right-to-left text.
+- Pay close attention to ezafe, verb constructions, pronouns, colloquial versus formal register, and natural word order.
+""".strip(),
+    "he": """
+Language-specific guidance:
+- Use Modern Hebrew consistently.
+- Use Hebrew script as the primary writing system.
+- Pay close attention to gender agreement, construct state, verb patterns, definiteness, and natural modern usage.
+""".strip(),
+    "th": """
+Language-specific guidance:
+- Use standard Thai consistently.
+- Use Thai script as the primary writing system.
+- Pay close attention to tones, classifiers, particles, politeness, and natural Thai word order.
+""".strip(),
     "zh-CN": """
 Language-specific guidance:
 - Use Mainland China Standard Mandarin (Putonghua) consistently.
@@ -92,6 +179,20 @@ _LANGUAGE_PROMPT_OVERLAY_ALIASES: dict[str, str] = {
     "ja": "ja-JP",
     "ko": "ko-KR",
     "zh": "zh-CN",
+    "tr": "tr-TR",
+    "ar": "ar",
+    "ru": "ru-RU",
+    "nl": "nl-NL",
+    "pl": "pl-PL",
+    "sv": "sv-SE",
+    "da": "da-DK",
+    "no": "no-NO",
+    "fi": "fi-FI",
+    "cs": "cs-CZ",
+    "hi": "hi",
+    "fa": "fa",
+    "he": "he",
+    "th": "th",
 }
 
 
