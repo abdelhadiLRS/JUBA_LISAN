@@ -82,7 +82,7 @@ class VocabularySet:
     words: list[VocabularyEntry]
 
 
-Register = Literal["formal", "neutral", "informal"]
+Register = Literal["formal", "neutral", "informal", "polite"]
 
 
 @dataclass
