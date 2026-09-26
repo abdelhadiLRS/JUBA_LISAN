@@ -814,9 +814,9 @@
     "tapToHear": "Нажмите на слово, чтобы услышать его",
     "lessonProgress": "Прогресс урока",
     "masteryOverview": "Освоение урока",
-    "masteryCoverage": "Охвачено вариантов: {{covered}}",
-    "masteryAttemptRate": "Процент попыток: {{rate}}%",
-    "masteryRate": "Процент освоения: {{rate}}%",
+    "masteryCoverage": "Охвачено вариантов: {covered}",
+    "masteryAttemptRate": "Процент попыток: {rate}%",
+    "masteryRate": "Процент освоения: {rate}%",
     "masteryAttempted": "Пройдено",
     "masteryLearning": "В изучении",
     "masteryStruggling": "Сложно",
@@ -1978,7 +1978,7 @@
     "rateKeys": "1 Снова · 2 Сложно · 3 Хорошо · 4 Легко"
   },
   "translator": {
-    "detected": "Определено",
+    "detected": "Определено {language}",
     "listen": "Слушать",
     "swap": "Поменять местами",
     "translating": "Перевод…",
