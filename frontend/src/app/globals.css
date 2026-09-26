@@ -8030,7 +8030,8 @@ main [dir="rtl"] h3,
 
   .juba-tabler-app .juba-top-dropdown {
     position: fixed !important;
-    top: 4rem;
+    /* The compact top nav occupies two rows on phones; keep the menu below it. */
+    top: 6.5rem;
     inset-inline: 10px;
     width: auto;
     min-width: 0;
