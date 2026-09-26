@@ -17,6 +17,7 @@ import { type AssessmentQuestion, type CEFRLevel } from '@/data/types'
 import { CEFR_LEVELS } from '@/data/curriculum'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { PageLoading } from '@/components/ui/page-loading'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
 
 interface AnswerRecord {
   question_id: string
@@ -269,6 +270,7 @@ export default function AssessmentPage() {
       }
       const data = (await res.json()) as AssessmentCompleteResponse
       setCreatedPlanId(data.plan_id)
+      markLearningProgressUpdated()
       // Plan creation is the end of the assessment wizard. Navigate directly
       // to the generated roadmap so the selected duration/goals are reflected
       // immediately instead of leaving the user on the Step 3 screen.

@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import { apiFetch } from '@/lib/api'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { PageLoading } from '@/components/ui/page-loading'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -198,6 +199,7 @@ export default function LevelTestPage() {
       }
       const data = (await res.json()) as LevelTestResult
       setResult(data)
+      markLearningProgressUpdated()
       setStep('result')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Submission failed.')
