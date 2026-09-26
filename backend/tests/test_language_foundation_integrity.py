@@ -230,7 +230,7 @@ def test_registered_foundations_have_unique_content_ids():
             if duplicates:
                 failures.append(f"{language}: duplicate {label} ids {duplicates}")
 
-    assert not failures, "\\n".join(failures)
+    assert not failures, "\n".join(failures)
 
 
 def test_registered_foundations_have_unique_vocabulary_ids():
