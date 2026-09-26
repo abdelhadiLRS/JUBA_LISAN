@@ -103,7 +103,10 @@ export default function SpeakConversation(){
         return next
       })
     }catch(e){
-      setMessages(v=>v.slice(0,-1))
+      // Roll back the optimistic user/assistant pair and restore the draft so retrying
+      // cannot accidentally send a duplicate message or lose what the learner wrote.
+      setMessages(v=>v.slice(0,-2))
+      setInput(text)
       setError(e instanceof Error?e.message:'Unable to reach the conversation service.')
     }finally{setBusy(false)}
   }
