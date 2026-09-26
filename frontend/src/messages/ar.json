@@ -559,7 +559,9 @@
     "all": "الكل",
     "clearFilters": "مسح عوامل التصفية",
     "error": "تعذر تحميل موضوعات القواعد.",
-    "retry": "إعادة المحاولة"
+    "retry": "إعادة المحاولة",
+    "topicCount": "{count, plural, =1 {موضوع واحد} =2 {موضوعان} few {# موضوعات} other {# موضوع}}",
+    "levelRange": "A1 – C2"
   },
   "translator": {
     "eyebrow": "JUBA LISAN · المترجم الفوري",
