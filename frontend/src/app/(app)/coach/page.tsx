@@ -7,20 +7,6 @@ import { apiFetch } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
 import { useLanguageStore } from '@/store/language'
 import { subscribeToLearningProgressUpdated } from '@/lib/learning-progress'
-import {
-  ArrowRight,
-  BrainCircuit,
-  CheckCircle2,
-  Flame,
-  Mic,
-  RefreshCw,
-  Sparkles,
-  Target,
-  TrendingUp,
-  Volume2,
-  Zap,
-} from 'lucide-react'
-
 interface ProgressSummary {
   current_streak?: number
   total_xp?: number
@@ -141,11 +127,11 @@ export default function CoachPage() {
                       : { eyebrow: 'Smart review', title: 'You have due reviews', action: 'Start review', skill: 'Recommended skill' }
 
   return (
-    <main className="juba-coach-shell min-h-screen px-4 py-8 sm:px-6 lg:px-10">
+    <main className="container-xl page-body py-4">
       <div className="mx-auto max-w-7xl space-y-8">
         <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="juba-eyebrow mb-3 inline-flex items-center gap-2 rounded-full border border-[rgba(7,7,9,.08)] bg-[#ededff] px-3 py-1.5 text-[#373fb8]">
+            <div className="page-pretitle mb-3 inline-flex items-center gap-2 rounded-full border border-[rgba(7,7,9,.08)] bg-[#ededff] px-3 py-1.5 text-[#373fb8]">
               <BrainCircuit className="h-4 w-4" />
               {t('eyebrow')}
             </div>
@@ -168,10 +154,10 @@ export default function CoachPage() {
         </header>
 
         <section className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
-          <div className="juba-card overflow-hidden p-6 sm:p-8">
+          <div className="card overflow-hidden p-6 sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
               <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-[#5862e2] text-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)]">
-                <Sparkles className="h-10 w-10" />
+                <i className="ti ti-sparkles icon" aria-hidden="true" />
                 <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full border border-[#fff] bg-[#fff3d1]" />
               </div>
               <div className="min-w-0 flex-1">
@@ -192,7 +178,7 @@ export default function CoachPage() {
             </div>
           </div>
 
-          <div className="juba-card p-6">
+          <div className="card p-6">
             <div className="mb-5 flex items-center justify-between">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[.16em] text-[rgba(32,33,39,.52)]">{t('momentum')}</p>
@@ -209,7 +195,7 @@ export default function CoachPage() {
         </section>
 
         {Number(smartReview.due_count ?? 0) > 0 && (
-          <section className="juba-card overflow-hidden border border-[#5862e2] p-6 sm:p-8">
+          <section className="card overflow-hidden border border-[#5862e2] p-6 sm:p-8">
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[.16em] text-[#373fb8]">{reviewCopy.eyebrow}</p>
@@ -227,7 +213,7 @@ export default function CoachPage() {
         )}
 
         {progress.mastery && progress.mastery.tracked_items > 0 && (
-          <section className="juba-card p-6 sm:p-8">
+          <section className="card p-6 sm:p-8">
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[.16em] text-[#373fb8]">{t('review')}</p>
@@ -260,7 +246,7 @@ export default function CoachPage() {
         </section>
 
         <section className="grid gap-5 lg:grid-cols-[1.35fr_1fr]">
-          <div className="juba-card p-6 sm:p-8">
+          <div className="card p-6 sm:p-8">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[.16em] text-[#373fb8]">{t('adaptiveQueue')}</p>
@@ -285,7 +271,7 @@ export default function CoachPage() {
             </div>
           </div>
 
-          <div className="juba-card p-6 sm:p-8">
+          <div className="card p-6 sm:p-8">
             <p className="text-xs font-bold uppercase tracking-[.16em] text-[#373fb8]">{t('contextEyebrow')}</p>
             <h2 className="mt-1 text-2xl font-black text-[#202127]">{t('rooms')}</h2>
             <p className="mt-2 text-sm leading-6 text-[rgba(32,33,39,.52)]">{t('roomsDescription')}</p>
@@ -322,7 +308,7 @@ function Metric({ icon, value, label }: { icon: ReactNode; value: string; label:
 
 function CoachCard({ icon, title, value, detail, href }: { icon: React.ReactNode; title: string; value: string; detail: string; href: string }) {
   return (
-    <Link href={href} className="juba-card group p-5">
+    <Link href={href} className="card group p-5">
       <div className="flex items-center justify-between">
         <span className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-[#ededff] text-[#373fb8]">{icon}</span>
         <ArrowRight className="h-4 w-4 text-[rgba(32,33,39,.52)] transition group-hover:translate-x-1" />
