@@ -392,6 +392,55 @@ def test_curriculum_distribution_uses_locale_aware_labels(requested_locale: str,
         ("zh-TW", "zh-TW", "zh"),
     ],
 )
+def test_all_registered_languages_have_resolvable_metadata():
+    from app.services.language_helpers import (
+        get_iso639,
+        get_language_name,
+        get_language_self_name,
+    )
+
+    failures: list[str] = []
+    for language in curriculum_dispatcher._LANG_MODULES:
+        name = get_language_name(language)
+        self_name = get_language_self_name(language)
+        iso = get_iso639(language)
+        if not name.strip() or name == language:
+            failures.append(f"{language}: unresolved display name {name!r}")
+        if not self_name.strip() or self_name == language:
+            failures.append(f"{language}: unresolved self-name {self_name!r}")
+        if not iso.strip() or iso == language:
+            failures.append(f"{language}: unresolved ISO code {iso!r}")
+
+    assert not failures, "\\n".join(failures)
+
+
+@pytest.mark.parametrize(
+    ("locale", "expected_module"),
+    [
+        ("hr-HR", "app.data.language_foundations.hr"),
+        ("sk-SK", "app.data.language_foundations.sk"),
+        ("sl-SI", "app.data.language_foundations.sl"),
+        ("lt-LT", "app.data.language_foundations.lt"),
+        ("lv-LV", "app.data.language_foundations.lv"),
+        ("is-IS", "app.data.language_foundations.is"),
+        ("ga-IE", "app.data.language_foundations.ga"),
+        ("cy-GB", "app.data.language_foundations.cy"),
+        ("az-AZ", "app.data.language_foundations.az"),
+        ("kk-KZ", "app.data.language_foundations.kk"),
+        ("uz-UZ", "app.data.language_foundations.uz"),
+        ("mr-IN", "app.data.language_foundations.mr"),
+        ("sq-AL", "app.data.language_foundations.sq"),
+        ("eu-ES", "app.data.language_foundations.eu"),
+        ("gl-ES", "app.data.language_foundations.gl"),
+        ("bs-BA", "app.data.language_foundations.bs"),
+        ("ca-ES", "app.data.language_foundations.ca"),
+        ("to-TO", "app.data.language_foundations.to"),
+    ],
+)
+def test_foundation_locale_variants_resolve_to_registered_modules(locale: str, expected_module: str):
+    assert curriculum_dispatcher._resolve_module(locale).__name__ == expected_module
+
+
 def test_language_helpers_normalize_common_locale_aliases(locale: str, expected_name: str, expected_iso: str):
     from app.services.language_helpers import get_iso639, get_language_name
 
