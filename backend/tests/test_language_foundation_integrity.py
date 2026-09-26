@@ -359,6 +359,34 @@ def test_registered_foundations_have_unique_vocabulary_ids():
         ("zh-TW", "app.data.zh.curriculum"),
     ],
 )
+def test_curriculum_dispatcher_resolves_every_registered_language():
+    failures: list[str] = []
+
+    for language, expected_module in curriculum_dispatcher._LANG_MODULES.items():
+        try:
+            resolved = curriculum_dispatcher._resolve_module(language)
+        except Exception as exc:
+            failures.append(f"{language}: dispatcher import failed: {exc}")
+            continue
+        if resolved.__name__ != expected_module:
+            failures.append(
+                f"{language}: resolved {resolved.__name__!r}, expected {expected_module!r}"
+            )
+
+    assert not failures, "\n".join(failures)
+
+
+@pytest.mark.parametrize(
+    ("requested_locale", "expected_module"),
+    [
+        ("en_US", "app.data.en_US.curriculum"),
+        ("en-US", "app.data.en_US.curriculum"),
+        ("fr-FR", "app.data.fr.curriculum"),
+        ("fr", "app.data.fr.curriculum"),
+        ("pt-BR", "app.data.pt.curriculum"),
+        ("zh-TW", "app.data.zh.curriculum"),
+    ],
+)
 def test_curriculum_dispatcher_normalizes_locale_aliases(requested_locale: str, expected_module: str):
     module = curriculum_dispatcher._resolve_module(requested_locale)
     assert module.__name__ == expected_module
