@@ -282,6 +282,34 @@
     "learningLabel": "Lernen",
     "cefrLabel": "GER",
     "coachLabel": "Coach"
+  ,
+      "learner": "Lernende",
+      "minutes": "Min.",
+      "reviewEyebrow": "Intelligente Wiederholung",
+      "reviewTitle": "Du hast fällige Wiederholungen",
+      "reviewAction": "Wiederholung starten",
+      "reviewSkill": "Empfohlene Fähigkeit",
+      "learningLabel": "Lernen",
+      "cefrLabel": "GER",
+      "coachLabel": "Coach",
+      "scenarios": {
+        "airport": {
+          "title": "Flughafen",
+          "description": "Einchecken, nach dem Weg fragen und mit Verspätungen umgehen."
+        },
+        "jobInterview": {
+          "title": "Vorstellungsgespräch",
+          "description": "Antworten, Selbstvertrauen und beruflichen Wortschatz üben."
+        },
+        "restaurant": {
+          "title": "Restaurant",
+          "description": "Natürlich bestellen und ein echtes Gespräch führen."
+        },
+        "hotel": {
+          "title": "Hotel",
+          "description": "Ein Zimmer buchen, Probleme lösen und Wünsche äußern."
+        }
+      }
   },
   "settings": {
     "title": "Einstellungen",
