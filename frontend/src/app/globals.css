@@ -7315,8 +7315,8 @@ main [dir="rtl"] h3,
 .juba-progress-metrics>div:nth-child(4){background:#ededff;}
 .juba-progress-section>div:first-child{min-height:44px;}
 .juba-progress-section .border{border-color:rgba(7,7,9,.07)!important;}
-.juba-progress-section .bg-\\[var\\(--juba-app-green\\)\\]{background:#5862e2!important;}
-.juba-progress-section .bg-\\[var\\(--juba-app-green-soft\\)\\]{background:#ededff!important;}
+.juba-progress-section [class*="bg-[var(--juba-app-green)]"]{background:#5862e2!important;}
+.juba-progress-section [class*="bg-[var(--juba-app-green-soft)]"]{background:#ededff!important;}
 .juba-progress-section button{border-radius:999px!important;}
 @media(max-width:640px){.juba-progress-metrics>div{min-height:82px;}.juba-progress-panel{border-radius:22px!important;}}
 
