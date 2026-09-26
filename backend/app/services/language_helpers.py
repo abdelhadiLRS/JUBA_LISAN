@@ -260,7 +260,7 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
     "ga": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "cy": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "az": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
-    "kk": {"script": "cyrillic", "romanization": "kazakh-latin", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "kk": {"script": "cyrillic", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "uz": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "sq": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "eu": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
