@@ -88,6 +88,30 @@ def test_locale_normalization_is_shared_for_underscored_and_cased_input():
     assert resolve_locale("SUQ_et").canonical == "suq"
 
 
+
+@pytest.mark.parametrize(
+    ("locale", "expected_canonical", "expected_script", "expected_unit", "spacing"),
+    [
+        ("ceb-PH", "ceb", "latin", "words", True),
+        ("haw-US", "haw", "latin", "words", True),
+        ("id-ID", "id", "latin", "words", True),
+        ("sw-KE", "sw", "latin", "words", True),
+        ("km-KH", "km", "khmer", "characters", False),
+        ("kn-IN", "kn", "kannada", "words", True),
+    ],
+)
+def test_additional_curriculum_locales_have_explicit_language_capabilities(
+    locale, expected_canonical, expected_script, expected_unit, spacing
+):
+    resolution = resolve_locale(locale)
+
+    assert resolution.canonical == expected_canonical
+    assert resolution.base == expected_canonical
+    assert resolution.capability["script"] == expected_script
+    assert resolution.capability["reading_length_unit"] == expected_unit
+    assert resolution.capability["uses_word_spacing"] is spacing
+    assert resolution.metadata["iso639"] == expected_canonical
+
 def test_additional_foundation_languages_have_cefr_curricula():
     """New foundation languages must resolve to real multi-level lesson sequences."""
     from app.data.curriculum import get_curriculum_units
