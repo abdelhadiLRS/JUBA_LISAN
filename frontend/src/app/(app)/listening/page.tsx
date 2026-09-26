@@ -310,7 +310,7 @@ function ListeningPage() {
   // ── History ───────────────────────────────────────────────────────────────
   if (pageState === 'history') {
     return (
-      <div className="juba-listening-shell mx-auto max-w-4xl px-4 py-6 md:px-8">
+      <div className="container-xl page-body py-4">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-[#202127] font-sans text-sm font-bold tracking-widest uppercase">
             {t('historyTitle')}
@@ -415,7 +415,7 @@ function ListeningPage() {
   // ── Results ───────────────────────────────────────────────────────────────
   if (pageState === 'results' && result && exercise) {
     return (
-      <div className="juba-listening-shell mx-auto max-w-4xl space-y-5 px-4 py-6 md:px-8">
+      <div className="container-xl page-body py-4">
         {/* Score card */}
         <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border p-5">
           <div className="flex items-center justify-between">
