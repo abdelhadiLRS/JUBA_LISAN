@@ -61,9 +61,9 @@ export default function DurationSelector({
   }
 
   return (
-    <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
+    <div className="flex min-h-[60vh] items-center justify-center bg-[#f4f4f2] p-4 sm:p-6">
       <div className="w-full max-w-2xl overflow-hidden rounded-[26px] border border-[rgba(7,7,9,.08)] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
-        <div className="flex items-center gap-3 border-b border-[#ededff] bg-[#ededff]/40 px-6 py-4">
+        <div className="flex items-center gap-3 border-b border-[rgba(7,7,9,.07)] bg-[#f4f4f2] px-6 py-4">
           <span className="text-xs text-[rgba(32,33,39,.52)]">●</span>
           <span className="text-xs text-[rgba(32,33,39,.52)] font-semibold tracking-[0.12em] uppercase">
             {t('step3')}
@@ -84,8 +84,8 @@ export default function DurationSelector({
                   onClick={() => onSelectDuration(opt)}
                   className={`rounded-[20px] border-2 px-4 py-4 text-left transition-all ${
                     selectedWeeks === opt.weeks
-                      ? 'bg-[#5862e2] text-white border-[#202127]'
-                      : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.14)] hover:bg-[#ededff] hover:text-[#373fb8]'
+                      ? 'bg-[#5862e2] text-white border-[#5862e2] shadow-[0_8px_20px_rgba(88,98,226,.16)]'
+                      : 'border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] hover:border-[#5862e2] hover:bg-[#ededff] hover:text-[#373fb8]'
                   }`}
                 >
                   <p className="font-sans text-xs font-bold tracking-widest uppercase">
@@ -128,8 +128,8 @@ export default function DurationSelector({
                   onClick={() => onToggleGoal(g.id)}
                   className={`rounded-full border-2 px-3 py-2 text-xs font-semibold tracking-[0.08em] uppercase transition-all ${
                     selectedGoals.includes(g.id)
-                      ? 'bg-[#5862e2] text-white border-[#202127]'
-                      : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.14)] hover:bg-[#ededff] hover:text-[#373fb8]'
+                      ? 'bg-[#5862e2] text-white border-[#5862e2] shadow-[0_6px_14px_rgba(88,98,226,.14)]'
+                      : 'border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] hover:border-[#5862e2] hover:bg-[#ededff] hover:text-[#373fb8]'
                   }`}
                 >
                   {selectedGoals.includes(g.id) ? '✓ ' : ''}
@@ -142,7 +142,7 @@ export default function DurationSelector({
           </div>
 
           {/* Summary */}
-          <div className="border-[rgba(7,7,9,.08)] text-xs text-[#202127] space-y-1 border px-4 py-3 font-sans tracking-wide">
+          <div className="space-y-1 rounded-[18px] border border-[rgba(7,7,9,.08)] bg-[#f4f4f2] px-4 py-3 text-xs tracking-wide text-[#202127]">
             <p>
               {t('summaryLevel')}:{' '}
               <span className="text-[#202127] font-bold">{cefr_level}</span>
