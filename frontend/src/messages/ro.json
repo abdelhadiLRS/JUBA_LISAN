@@ -846,7 +846,10 @@
     "skillMasteryMastered": "stăpânite",
     "skillMasteryAttempted": "încercate",
     "skillMasteryAttemptRate": "Rata încercărilor: {rate}%",
-    "skillMasteryVariants": "variante"
+    "skillMasteryVariants": "variante",
+    "mastered": "Stăpânit",
+    "listen": "Ascultă",
+    "advance": "Continuă"
   },
   "flashcards": {
     "title": "Carduri flash",
@@ -910,7 +913,9 @@
     "deleteConfirm": "Șterge",
     "enterToSend": "Enter pentru a trimite",
     "continueInVoice": "Continuă cu voce",
-    "memoryUpdated": "Memorie actualizată"
+    "memoryUpdated": "Memorie actualizată",
+    "voiceSession": "Sesiune vocală",
+    "delete": "Șterge"
   },
   "progress": {
     "title": "Progres",
