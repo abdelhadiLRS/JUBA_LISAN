@@ -480,7 +480,7 @@ function ListeningPage() {
                 className={`border p-4 ${
                   isCorrect
                     ? 'border-primary/50 bg-primary-lt/5'
-                    : 'border-[#b33a32]/50 bg-[#b33a32]/5'
+                    : 'border-danger/50 bg-danger/5'
                 }`}
               >
                 <TargetLanguageText
@@ -498,7 +498,7 @@ function ListeningPage() {
                         k === correctKey
                           ? 'text-primary font-bold'
                           : k === userAnswer && !isCorrect
-                            ? 'text-[#b33a32] line-through'
+                            ? 'text-danger line-through'
                             : 'text-secondary'
                       }`}
                     >
@@ -573,7 +573,7 @@ function ListeningPage() {
         </div>
 
         {error && (
-          <p className="text-secondary text-[#b33a32] mb-4 font-sans">
+          <p className="text-secondary text-danger mb-4 font-sans">
             {error}
           </p>
         )}
@@ -704,7 +704,7 @@ function ListeningPage() {
 
           {/* Error */}
           {error && (
-            <p className="text-secondary text-[#b33a32] font-sans">
+            <p className="text-secondary text-danger font-sans">
               {error}
             </p>
           )}
