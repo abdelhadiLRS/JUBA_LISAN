@@ -441,18 +441,13 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
   return (
     <main className="juba-lesson-shell space-y-5 text-[#202127]">
       <div className="juba-page-hero rounded border border-[rgba(7,7,9,.08)] bg-white px-5 py-5 sm:px-7 sm:py-6">
-  <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-    <div className="min-w-0 max-w-3xl">
-      <p className="text-[rgba(32,33,39,.52)] font-sans text-xs font-bold uppercase tracking-widest">{lesson?.lesson_type ?? t('exercise')}</p>
-      <h1 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">{lesson?.title ?? t('lesson')}</h1>
-      <p className="mt-1 text-sm font-medium text-[rgba(32,33,39,.52)]">{lesson?.cefr_level ?? ''}</p>
-    </div>
-    {!completed && exercises.length > 0 && <div className="min-w-[180px]">
-      <div className="flex items-center justify-between text-xs font-bold text-[rgba(32,33,39,.52)]"><span>{t('exerciseProgress', { current: currentExercise + 1, total: exercises.length })}</span><span>{progress}%</span></div>
-      <div className="mt-2 h-2 overflow-hidden rounded-full bg-[#f4f4f2]"><div className="h-full rounded-full bg-[#5862e2] transition-all" style={{ width: `${progress}%` }}/></div>
-    </div>}
-  </div>
-</div><div className="mx-auto w-full max-w-5xl">
+        <div className="min-w-0 max-w-3xl">
+          <p className="text-[rgba(32,33,39,.52)] font-sans text-xs font-bold uppercase tracking-widest">{lesson.lesson_type || t('exercise')}</p>
+          <h1 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">{lesson.title || t('lesson')}</h1>
+          <p className="mt-1 text-sm font-medium text-[rgba(32,33,39,.52)]">{lesson.cefr_level}</p>
+        </div>
+      </div>
+      <div className="mx-auto w-full max-w-5xl">
         <header className="sticky top-0 z-20 mb-5 rounded border border-[rgba(7,7,9,.08)] bg-white/95 p-4 shadow-sm backdrop-blur"><div className="flex items-center gap-4"><Link href="/plan" className="rounded-xl border border-[rgba(7,7,9,.08)] bg-[#ffffff] px-3 py-2 text-sm font-bold text-[#202127] transition-colors hover:bg-[#ededff]">←</Link><div className="min-w-0 flex-1"><div className="flex items-center justify-between gap-3"><p className="truncate text-xs font-bold uppercase tracking-[.16em] text-[rgba(32,33,39,.52)]">{lesson.cefr_level} · {lesson.lesson_type}</p><span className="text-sm font-bold text-[#202127]">{progress}%</span></div><div className="mt-2 h-2 overflow-hidden rounded-xl bg-[#ffffff]"><div role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label={t('lessonProgress')} className="h-full rounded-xl bg-[#373fb8] transition-all" style={{ width: `${progress}%` }} /></div></div></div></header>
         {freemiumExhausted && <div className="mb-5"><FreemiumQuotaBanner feature="lessons" /></div>}
         {dayComplete && <div className="card mb-5 border-[rgba(7,7,9,.08)] bg-[rgba(255,212,79,.30)] p-4 font-bold text-[#202127]">{t('dailyGoalComplete')}</div>}
