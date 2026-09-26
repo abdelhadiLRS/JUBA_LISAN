@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Check, ChevronDown, Globe2, Menu, X, Sparkles } from 'lucide-react'
 import { hasActiveLandingSubscription } from '@/lib/landing-subscription'
 import type { Locale } from '@/lib/locales'
@@ -155,9 +156,15 @@ export function LandingNav({
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-3 group" aria-label={homeLabel}>
-          <span className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--juba-app-green)] text-white font-black text-xl shadow-[3px_3px_0_var(--juba-app-ink)] group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform">
-            J
-            <span className="absolute -top-1 -right-1 text-xs text-[var(--juba-app-yellow)]">✦</span>
+          <span className="relative flex h-12 w-[150px] items-center justify-start overflow-hidden">
+            <Image
+              src="/logo.png"
+              alt="JUBA LISAN"
+              width={150}
+              height={52}
+              priority
+              className="h-12 w-auto max-w-[150px] object-contain object-left"
+            />
           </span>
           <span className="flex flex-col">
             <span className="font-sans text-xl font-black tracking-tight text-[var(--juba-app-ink)]">
