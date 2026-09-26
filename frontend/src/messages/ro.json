@@ -97,6 +97,9 @@
     "openMenu": "Deschide meniul"
   },
   "nav": {
+    "learning": "Învățare",
+    "practice": "Practică",
+    "studyTools": "Instrumente de studiu",
     "home": "Acasă",
     "myPlan": "Planul meu",
     "progress": "Progres",
