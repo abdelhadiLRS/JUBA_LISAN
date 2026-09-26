@@ -229,7 +229,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           aria-controls={menuId}
           title={group.label}
           aria-label={group.label}
-          aria-current={active ? 'page' : undefined}
+          data-active={active ? 'true' : undefined}
           aria-expanded={open}
           onClick={() => {
             setOpenTopMenu(open ? null : group.key)
