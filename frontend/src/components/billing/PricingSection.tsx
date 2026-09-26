@@ -181,7 +181,7 @@ export default function PricingSection({
           return (
             <div
               key={plan.name}
-              className={`juba-ff-plan-card flex flex-col gap-4 p-6 ${
+              className={`juba-ff-plan-card flex flex-col gap-4 rounded-[26px] border border-[#d9e5d7] bg-white p-6 shadow-[0_12px_30px_rgba(24,48,34,.07)] ${
                 plan.isFree
                   ? 'juba-ff-plan-free'
                   : plan.name === tBilling('planYearlyName')
@@ -307,14 +307,14 @@ export default function PricingSection({
                 </td>
                 <td className="px-1 py-3 text-center sm:px-4">
                   {row.monthly ? (
-                    <Check className="text-[var(--landing-green-dark)] mx-auto h-3.5 w-3.5" />
+                    <Check className="text-[#275d19] mx-auto h-3.5 w-3.5" />
                   ) : (
                     <Minus className="text-[#68766d] mx-auto h-3.5 w-3.5" />
                   )}
                 </td>
                 <td className="px-1 py-3 text-center sm:px-4">
                   {row.yearly ? (
-                    <Check className="text-[var(--landing-green-dark)] mx-auto h-3.5 w-3.5" />
+                    <Check className="text-[#275d19] mx-auto h-3.5 w-3.5" />
                   ) : (
                     <Minus className="text-[#68766d] mx-auto h-3.5 w-3.5" />
                   )}
