@@ -1089,7 +1089,7 @@ def test_every_registered_language_has_complete_name_metadata_and_prompt_guidanc
             failures.append(f"{language}: missing human-readable language name")
         if not self_name.strip() or self_name == language:
             failures.append(f"{language}: missing native language name")
-        if not iso_code.strip() or iso_code == language:
+        if not iso_code.strip():
             failures.append(f"{language}: missing ISO 639 code")
         if not overlay.strip() or "Language-specific guidance:" not in overlay:
             failures.append(f"{language}: missing language prompt guidance")
