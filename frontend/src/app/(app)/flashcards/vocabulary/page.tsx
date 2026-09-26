@@ -117,35 +117,35 @@ export default function VocabularyPage() {
     <div className="container-xl page-body py-4">
       <div className="card-header d-flex align-items-center justify-content-between gap-3">
         <div className="flex items-center gap-2">
-          <span className="text-[#202127] text-[rgba(32,33,39,.52)]">●</span>
-          <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+          <span className="text-secondary">●</span>
+          <span className="text-secondary font-sans tracking-widest uppercase">
             {t('myVocabulary')}
           </span>
           {!loading && (
-            <span className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] font-sans tracking-widest">
+            <span className="text-secondary font-sans tracking-widest">
               {total}
             </span>
           )}
         </div>
         <Link
           href="/flashcards"
-          className="btn btn-outline-secondary inline-flex items-center border border-black/[0.09] bg-white px-4 py-2 font-sans text-xs font-bold tracking-widest uppercase"
+          className="btn btn-outline-secondary inline-flex items-center border border-secondary-subtle bg-white px-4 py-2 font-sans text-xs font-bold tracking-widest uppercase"
         >
           ← {t('backToFlashcards')}
         </Link>
       </div>
 
       {guestItems.length > 0 && (
-        <section className="card bg-[#fff3d1] p-5">
+        <section className="card bg-yellow-lt p-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#202127]/60">
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-secondary">
                 JUBA LISAN · Visitor learning
               </p>
-              <h2 className="mt-1 text-xl font-black tracking-tight text-[#202127]">
+              <h2 className="mt-1 text-xl fw-bold tracking-tight">
                 Saved from Instant Translator
               </h2>
-              <p className="mt-1 text-xs font-semibold text-[#202127]/80/75">
+              <p className="mt-1 text-secondary">
                 These items are saved in this browser. Sign in later to sync them with your account.
               </p>
             </div>
@@ -164,12 +164,12 @@ export default function VocabularyPage() {
               >
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="text-sm font-black text-[#202127]">{item.sourceText}</p>
+                    <p className="text-body fw-bold">{item.sourceText}</p>
                     <span className="badge bg-dark text-white">
                       {item.sourceLanguage === 'auto' ? 'auto' : item.sourceLanguage}
                     </span>
                   </div>
-                  <p className="mt-1 text-sm font-semibold text-[#202127]/80">{item.translation}</p>
+                  <p className="mt-1 text-secondary">{item.translation}</p>
                   <div className="mt-2 flex items-center gap-3 text-[10px] font-bold uppercase tracking-wider text-neutral-500">
                     <span>Mastery {item.mastery}%</span>
                     <span>Review ready</span>
@@ -207,14 +207,14 @@ export default function VocabularyPage() {
         ) : (
           <div className="divide-y divide-black/[0.07]">
             {items.map((item) => (
-              <div key={item.id} className="flex items-start justify-between gap-4 px-5 py-4 transition hover:bg-[#fafaff]">
+              <div key={item.id} className="flex items-start justify-between gap-4 px-5 py-4 transition hover-bg-light">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <p className="text-[#202127] font-sans text-xs font-bold">{item.word}</p>
                     <AudioPlayer text={item.word} size="sm" />
                   </div>
-                  <p className="text-[rgba(32,33,39,.52)] mt-0.5 font-sans text-xs leading-relaxed">{item.definition}</p>
-                  <p className="text-[rgba(32,33,39,.52)] text-[#202127] mt-1 font-sans tracking-widest uppercase">{item.translation}</p>
+                  <p className="text-secondary mt-0.5 font-sans text-xs leading-relaxed">{item.definition}</p>
+                  <p className="text-secondary mt-1 font-sans tracking-widest uppercase">{item.translation}</p>
                 </div>
                 <button
                   onClick={() => deleteItem(item.id)}
