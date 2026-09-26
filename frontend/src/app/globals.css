@@ -7659,5 +7659,5 @@ main [dir="rtl"] h3,
 .juba-flashcards-vocabulary-shell input{border-radius:14px!important;border-color:rgba(7,7,9,.10)!important;background:#fff!important;}
 .juba-flashcards-vocabulary-shell .juba-secondary-button{border-radius:14px!important;color:#202127!important;}
 .juba-flashcards-vocabulary-shell .juba-primary-button{border-radius:14px!important;background:#5862e2!important;color:#fff!important;box-shadow:0 7px 0 #373fb8!important;}
-.juba-flashcards-vocabulary-shell .juba-card.bg-\\[\\#fff3d1\\]{background:#fff3d1!important;}
+.juba-flashcards-vocabulary-shell .juba-card[class~="bg-[#fff3d1]"]{background:#fff3d1!important;}
 @media(max-width:640px){.juba-flashcards-vocabulary-shell{padding-inline:14px;}.juba-flashcards-vocabulary-shell .juba-card{border-radius:22px;}}
