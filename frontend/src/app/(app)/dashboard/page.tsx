@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { BookOpen, BookOpenCheck, Check, ChevronDown, Flame, Headphones, LayoutDashboard, Library, ListChecks, MessageCircle, Mic2, Play, Settings, Target, Trophy, UserRound, Zap, Bell } from 'lucide-react'
+import { BookOpen, Check, ChevronDown, Flame, Headphones, LayoutDashboard, Library, ListChecks, Mic2, Play, Trophy, UserRound } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import {
   isSubscribed,
