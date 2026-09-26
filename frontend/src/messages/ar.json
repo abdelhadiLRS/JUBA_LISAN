@@ -572,7 +572,18 @@
     "translationFailed": "فشلت الترجمة.",
     "translationUnavailable": "تعذرت الترجمة حاليًا.",
     "saveFailed": "تعذر حفظ هذه الكلمة في بطاقات التعلّم.",
-    "saveUnavailable": "تعذر حفظ الكلمة حاليًا."
+    "saveUnavailable": "تعذر حفظ الكلمة حاليًا.",
+    "detected": "مكتشف",
+    "listen": "استماع",
+    "swap": "تبديل اللغتين",
+    "translating": "جارٍ الترجمة…",
+    "translationPlaceholder": "ستظهر الترجمة هنا",
+    "save": "حفظ",
+    "translateNow": "ترجم الآن",
+    "visitorNote": "يمكن للزوار استخدام المترجم دون تسجيل الدخول.",
+    "savedCloud": "تم الحفظ في الحساب",
+    "savedLocal": "تم الحفظ على هذا الجهاز",
+    "saving": "جارٍ الحفظ…"
   },
   "coach": {
     "eyebrow": "مدرّب JUBA LISAN الذكي",
@@ -1168,7 +1179,28 @@
       "missingToken": "رابط إعادة التعيين غير صالح. يرجى طلب إعادة تعيين كلمة مرور جديدة.",
       "error": "رابط إعادة التعيين غير صالح أو منتهي الصلاحية",
       "backToLogin": "العودة إلى تسجيل الدخول"
-    }
+    },
+    "scenarios": {
+      "airport": {
+        "title": "في المطار",
+        "description": "تدرّب على مواقف السفر والتواصل في المطار."
+      },
+      "jobInterview": {
+        "title": "مقابلة عمل",
+        "description": "تدرّب على الإجابة والتواصل بثقة في مقابلات العمل."
+      },
+      "restaurant": {
+        "title": "في المطعم",
+        "description": "تدرّب على الطلب والتواصل في المطاعم."
+      },
+      "hotel": {
+        "title": "في الفندق",
+        "description": "تدرّب على تسجيل الوصول وطلب المساعدة في الفندق."
+      }
+    },
+    "learningLabel": "التعلّم",
+    "cefrLabel": "مستوى CEFR",
+    "coachLabel": "المدرّب"
   },
   "error": {
     "label": "خطأ غير متوقع",
