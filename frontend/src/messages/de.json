@@ -524,7 +524,13 @@
     "levelTestScoreLine": "Ergebnis: {score} von {total}",
     "levelTestReady": "Du bist bereit für die nächste Stufe",
     "levelTestReadyDesc": "Du hast den Einstufungstest erfolgreich abgeschlossen. Setze deinen Lernplan fort.",
-    "refresh": "Dashboard aktualisieren"
+    "refresh": "Dashboard aktualisieren",
+    "historyRanges": {
+      "week": "Woche",
+      "month": "Monat",
+      "all": "Alle"
+    },
+    "minutes": "Min."
   },
   "assessment": {
     "title": "Einstufungstest",
