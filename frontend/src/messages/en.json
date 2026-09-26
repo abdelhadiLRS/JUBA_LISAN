@@ -217,6 +217,9 @@
     "openMenu": "Open menu"
   },
   "nav": {
+    "learning": "Learning",
+    "practice": "Practice",
+    "studyTools": "Study tools",
     "home": "Home",
     "myPlan": "My Plan",
     "progress": "Progress",
