@@ -8103,6 +8103,23 @@ main [dir="rtl"] h3,
   }
 }
 @media (max-width: 767.98px) {
+  .juba-tabler-app .juba-page-context .avatar {
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+  }
+  .juba-tabler-app .juba-page-context .d-flex.align-items-center.gap-2.text-uppercase > span:nth-child(2) {
+    display: none;
+  }
+  .juba-tabler-app .juba-page-context .fs-3 {
+    font-size: 1.15rem !important;
+  }
+  .juba-tabler-app .juba-page-context .container-xl {
+    padding-block: .7rem !important;
+  }
+}
+
+@media (max-width: 767.98px) {
   .juba-tabler-app .navbar-brand > span:last-child {
     display: none;
   }
