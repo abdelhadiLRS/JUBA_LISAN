@@ -95,7 +95,7 @@ function WorldMap({
       >
         <defs>
           <pattern id="atlas-graticule" width="100" height="84" patternUnits="userSpaceOnUse">
-            <path d="M 100 0 L 0 0 0 84" fill="none" stroke="var(--juba-app-line)" strokeWidth="0.7" opacity="0.32" />
+            <path d="M 100 0 L 0 0 0 84" fill="none" stroke="rgba(7,7,9,.08)" strokeWidth="0.7" opacity="0.32" />
           </pattern>
         </defs>
         <rect width="1000" height="507" fill="url(#atlas-graticule)" />
@@ -107,9 +107,9 @@ function WorldMap({
               <path
                 key={code}
                 d={path}
-                fill={selected ? 'var(--juba-app-yellow)' : highlighted ? 'var(--juba-app-green)' : 'var(--juba-app-green-soft)'}
+                fill={selected ? '#fff3d1' : highlighted ? '#5862e2' : '#ededff'}
                 fillOpacity={selected || highlighted ? 0.92 : 0.72}
-                stroke={selected ? 'var(--juba-app-ink)' : 'var(--juba-app-line)'}
+                stroke={selected ? '#202127' : 'rgba(7,7,9,.08)'}
                 strokeWidth={selected ? 1.8 : highlighted ? 1.25 : 1.05}
                 vectorEffect="non-scaling-stroke"
                 className="cursor-pointer transition-[fill,fill-opacity,stroke-width] duration-200"
@@ -200,8 +200,8 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   }, [])
 
   return (
-    <div dir={dir} className="relative overflow-hidden rounded-[36px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] p-3 shadow-[6px_6px_0_var(--juba-app-ink)] sm:p-5">
-      <div className="relative min-h-[430px] overflow-hidden rounded-[28px] border border-[var(--juba-app-line)] bg-[#f5f8f1] sm:min-h-[560px]">
+    <div dir={dir} className="relative overflow-hidden rounded-[36px] border-2 border-[#202127] bg-[#fff] p-3 shadow-[0_14px_34px_rgba(43,45,90,.07)] sm:p-5">
+      <div className="relative min-h-[430px] overflow-hidden rounded-[28px] border border-[rgba(7,7,9,.08)] bg-[#f5f8f1] sm:min-h-[560px]">
         <WorldMap
           highlightedCountries={activeRegion ? (regionCountries.get(activeRegion) ?? new Set<string>()) : selectedCountries}
           selectedCountry={activeCountry}
@@ -214,12 +214,12 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
         />
 
         <div className="absolute inset-x-4 top-4 z-20 flex flex-wrap items-center justify-between gap-3 sm:inset-x-6 sm:top-6">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--juba-app-ink)] bg-white/95 px-3 py-2 text-[10px] font-black uppercase tracking-[.16em] text-[var(--juba-app-ink)] shadow-sm">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#202127] bg-white/95 px-3 py-2 text-[10px] font-black uppercase tracking-[.16em] text-[#202127] shadow-sm">
             <MapPinned className="h-3.5 w-3.5" aria-hidden="true" />
             {t('languageAtlasLabel')}
           </div>
 
-          <span className="hidden rounded-full border border-[var(--juba-app-line)] bg-white/95 px-3 py-2 text-[10px] font-bold text-[var(--juba-app-muted)] shadow-sm sm:inline">
+          <span className="hidden rounded-full border border-[rgba(7,7,9,.08)] bg-white/95 px-3 py-2 text-[10px] font-bold text-[rgba(32,33,39,.52)] shadow-sm sm:inline">
             {t('atlasCoverage', { count: DISPLAY_LANGUAGES.length })}
           </span>
 
@@ -230,16 +230,16 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
               setActiveLanguage(null)
               setActiveCountry(null)
             }}
-            className="rounded-full border border-[var(--juba-app-line)] bg-white/95 px-3 py-2 text-[10px] font-black uppercase tracking-[.12em] text-[var(--juba-app-muted)] transition hover:border-[var(--juba-app-ink)] hover:text-[var(--juba-app-ink)]"
+            className="rounded-full border border-[rgba(7,7,9,.08)] bg-white/95 px-3 py-2 text-[10px] font-black uppercase tracking-[.12em] text-[rgba(32,33,39,.52)] transition hover:border-[#202127] hover:text-[#202127]"
           >
             {t('allRegions')}
           </button>
         </div>
 
         <div className="absolute inset-0 z-10">
-          <div className={(dir === 'rtl' ? 'absolute left-3' : 'absolute right-3') + ' top-20 z-20 hidden max-w-[230px] rounded-2xl border border-[var(--juba-app-line)] bg-white/95 p-3 shadow-sm lg:block'}>
-            <p className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">{t('mapCoverage')}</p>
-            <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">
+          <div className={(dir === 'rtl' ? 'absolute left-3' : 'absolute right-3') + ' top-20 z-20 hidden max-w-[230px] rounded-2xl border border-[rgba(7,7,9,.08)] bg-white/95 p-3 shadow-sm lg:block'}>
+            <p className="text-[9px] font-black uppercase tracking-[.16em] text-[#5862e2]">{t('mapCoverage')}</p>
+            <p className="mt-1 text-xs leading-5 text-[rgba(32,33,39,.52)]">
               {t('mapCoverageDescription')}
             </p>
           </div>
@@ -272,8 +272,8 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
               >
                 <span
                   className={[
-                    'relative flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-[var(--juba-app-green)] shadow-[0_2px_7px_rgba(24,37,27,.24)] transition-all duration-200',
-                    isActive ? 'scale-125 bg-[var(--juba-app-yellow)] ring-2 ring-[var(--juba-app-ink)]' : 'group-hover:scale-125',
+                    'relative flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-[#5862e2] shadow-[0_2px_7px_rgba(24,37,27,.24)] transition-all duration-200',
+                    isActive ? 'scale-125 bg-[#fff3d1] ring-2 ring-[#202127]' : 'group-hover:scale-125',
                   ].join(' ')}
                 >
                   <span className="h-1.5 w-1.5 rounded-full bg-white" aria-hidden="true" />
@@ -282,8 +282,8 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
                   className={[
                     'pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-md border px-2 py-1 text-[9px] font-black shadow-sm transition-opacity',
                     isActive
-                      ? 'border-[var(--juba-app-ink)] bg-white text-[var(--juba-app-ink)] opacity-100'
-                      : 'border-[var(--juba-app-line)] bg-white/95 text-[var(--juba-app-muted)] opacity-0 group-hover:opacity-100',
+                      ? 'border-[#202127] bg-white text-[#202127] opacity-100'
+                      : 'border-[rgba(7,7,9,.08)] bg-white/95 text-[rgba(32,33,39,.52)] opacity-0 group-hover:opacity-100',
                   ].join(' ')}
                 >
                   {language.name}
@@ -293,13 +293,13 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
           })}
 
           {activeCountry && (
-            <div className={(dir === 'rtl' ? 'absolute left-3 lg:left-6' : 'absolute right-3 lg:right-6') + ' top-20 z-20 max-w-[250px] rounded-2xl border border-[var(--juba-app-line)] bg-white p-4 shadow-sm'}>
+            <div className={(dir === 'rtl' ? 'absolute left-3 lg:left-6' : 'absolute right-3 lg:right-6') + ' top-20 z-20 max-w-[250px] rounded-2xl border border-[rgba(7,7,9,.08)] bg-white p-4 shadow-sm'}>
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <span className="text-[9px] font-black uppercase tracking-[.16em] text-[var(--juba-app-green)]">{t('countryLanguages')}</span>
-                  <h3 className="mt-1 text-lg font-black text-[var(--juba-app-ink)]">{countryName(activeCountry)}</h3>
+                  <span className="text-[9px] font-black uppercase tracking-[.16em] text-[#5862e2]">{t('countryLanguages')}</span>
+                  <h3 className="mt-1 text-lg font-black text-[#202127]">{countryName(activeCountry)}</h3>
                 </div>
-                <button type="button" onClick={() => setActiveCountry(null)} className="text-xs font-black text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)]" aria-label={t('closeCountryDetails')}>×</button>
+                <button type="button" onClick={() => setActiveCountry(null)} className="text-xs font-black text-[rgba(32,33,39,.52)] hover:text-[#202127]" aria-label={t('closeCountryDetails')}>×</button>
               </div>
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {(countryLanguages.get(activeCountry) ?? []).map((language) => {
@@ -313,7 +313,7 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
                         setActiveRegion(language.regions[0] ?? null)
                         setActiveCountry(null)
                       }}
-                      className={`rounded-full border px-2 py-1 text-[10px] font-bold transition-colors ${active ? 'border-[var(--juba-app-green)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:text-[var(--juba-app-ink)]'}`}
+                      className={`rounded-full border px-2 py-1 text-[10px] font-bold transition-colors ${active ? 'border-[#5862e2] bg-[#ededff] text-[#202127]' : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[#5862e2] hover:text-[#202127]'}`}
                     >
                       {language.name}
                     </button>
@@ -324,27 +324,27 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
           )}
 
           {selected && selectedRegion && (
-            <div className={(dir === 'rtl' ? 'absolute bottom-20 right-3 sm:right-6' : 'absolute bottom-20 left-3 sm:left-6') + ' z-20 max-w-[calc(100%-1.5rem)] rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white p-4 shadow-[4px_4px_0_var(--juba-app-ink)] sm:bottom-24 sm:max-w-[280px]'}>
+            <div className={(dir === 'rtl' ? 'absolute bottom-20 right-3 sm:right-6' : 'absolute bottom-20 left-3 sm:left-6') + ' z-20 max-w-[calc(100%-1.5rem)] rounded-2xl border-2 border-[#202127] bg-white p-4 shadow-[0_10px_24px_rgba(43,45,90,.07)] sm:bottom-24 sm:max-w-[280px]'}>
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <span className="text-[9px] font-black uppercase tracking-[.18em] text-[var(--juba-app-green)]">{t(selectedRegion.key)}</span>
-                  <h3 className="mt-1 text-lg font-black text-[var(--juba-app-ink)]">{selected.name}</h3>
+                  <span className="text-[9px] font-black uppercase tracking-[.18em] text-[#5862e2]">{t(selectedRegion.key)}</span>
+                  <h3 className="mt-1 text-lg font-black text-[#202127]">{selected.name}</h3>
                 </div>
                 <button
                   type="button"
                   onClick={() => setActiveLanguage(null)}
-                  className="text-xs font-black text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)]"
+                  className="text-xs font-black text-[rgba(32,33,39,.52)] hover:text-[#202127]"
                   aria-label={t('closeLanguageDetails')}
                 >
                   ×
                 </button>
               </div>
-              <p className="mt-2 text-xs leading-5 text-[var(--juba-app-muted)]">{t('exploreLanguage')}</p>
+              <p className="mt-2 text-xs leading-5 text-[rgba(32,33,39,.52)]">{t('exploreLanguage')}</p>
             </div>
           )}
 
           <div className="absolute bottom-3 left-1/2 z-20 w-[calc(100%-1.25rem)] -translate-x-1/2 sm:bottom-6 sm:w-auto">
-            <div className="flex flex-wrap justify-center gap-1.5 rounded-2xl border border-[var(--juba-app-line)] bg-white/95 p-2 shadow-sm">
+            <div className="flex flex-wrap justify-center gap-1.5 rounded-2xl border border-[rgba(7,7,9,.08)] bg-white/95 p-2 shadow-sm">
               {REGIONS.map((region) => (
                 <button
                   type="button"
@@ -357,8 +357,8 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
                   className={[
                     'rounded-xl px-3 py-2 text-[10px] font-black uppercase tracking-[.1em] transition',
                     activeRegion === region.id
-                      ? 'bg-[var(--juba-app-ink)] text-white'
-                      : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]',
+                      ? 'bg-[#202127] text-white'
+                      : 'text-[rgba(32,33,39,.52)] hover:bg-[#ededff] hover:text-[#202127]',
                   ].join(' ')}
                 >
                   {t(region.key)}
@@ -369,15 +369,15 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
         </div>
       </div>
 
-      <div className="mt-4 flex flex-col gap-3 rounded-2xl border border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-4 flex flex-col gap-3 rounded-2xl border border-[rgba(7,7,9,.08)] bg-[#ededff] p-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-start gap-3">
-          <Globe2 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--juba-app-green)]" aria-hidden="true" />
+          <Globe2 className="mt-0.5 h-5 w-5 shrink-0 text-[#5862e2]" aria-hidden="true" />
           <div>
-            <p className="text-sm font-black text-[var(--juba-app-ink)]">{t('languagesByRegion')}</p>
-            <p className="mt-1 text-xs leading-5 text-[var(--juba-app-muted)]">{t('atlasDescription')}</p>
+            <p className="text-sm font-black text-[#202127]">{t('languagesByRegion')}</p>
+            <p className="mt-1 text-xs leading-5 text-[rgba(32,33,39,.52)]">{t('atlasDescription')}</p>
           </div>
         </div>
-        <span className="text-xs font-black text-[var(--juba-app-green)]">{t('languagesCount', { count: DISPLAY_LANGUAGES.length })}</span>
+        <span className="text-xs font-black text-[#5862e2]">{t('languagesCount', { count: DISPLAY_LANGUAGES.length })}</span>
       </div>
     </div>
   )
