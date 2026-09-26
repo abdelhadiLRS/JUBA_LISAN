@@ -135,49 +135,49 @@ export default function VocabularySetPage({
   return (
     <div className="juba-vocabulary-set-shell mx-auto max-w-5xl space-y-6 p-5 sm:p-8">
       {/* Breadcrumb */}
-      <nav className="text-[#202127] text-[rgba(32,33,39,.52)] flex items-center gap-2 font-sans">
+      <nav className="text-body text-secondary flex items-center gap-2 font-sans">
         <Link
           href="/vocabulary"
-          className="hover:text-[#202127] tracking-widest uppercase transition-colors"
+          className="hover:text-body tracking-widest uppercase transition-colors"
         >
           {t('title')}
         </Link>
         <span>›</span>
-        <span className="text-[rgba(32,33,39,.52)] tracking-widest uppercase">
+        <span className="text-secondary tracking-widest uppercase">
           {vocabSet.level}
         </span>
         <span>›</span>
-        <span className="text-[#202127] tracking-wide">{vocabSet.topic}</span>
+        <span className="text-body tracking-wide">{vocabSet.topic}</span>
       </nav>
 
       {/* Header */}
-      <div className="juba-card rounded-[26px] border border-black/[0.07] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
-        <div className="flex items-center gap-2 border-b border-black/[0.07] px-6 py-4">
-          <span className="text-[#202127] text-[rgba(32,33,39,.52)]">●</span>
-          <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
+      <div className="juba-card rounded border border-secondary-subtle bg-white shadow-sm">
+        <div className="flex items-center gap-2 border-b border-secondary-subtle px-6 py-4">
+          <span className="text-body text-secondary">●</span>
+          <span className="text-body text-secondary font-semibold tracking-wide">
             {t('vocabularySet')}
           </span>
         </div>
         <div className="space-y-3 px-6 py-5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-full border border-black/[0.08] bg-[#ededff] px-3 py-1 text-xs font-bold tracking-wide text-[#373fb8]">
+            <span className="rounded-full border border-secondary-subtle bg-primary-lt px-3 py-1 text-xs font-bold tracking-wide text-primary">
               {vocabSet.level}
             </span>
-            <span className="border-[#ededff] text-[#202127] text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide">
+            <span className="border-[#ededff] text-body text-secondary border px-2 py-0.5 font-semibold tracking-wide">
               {vocabSet.unit_ref}
             </span>
           </div>
-          <h1 className="text-[#202127] font-sans text-xl font-bold tracking-wide">
+          <h1 className="text-body font-sans text-xl font-bold tracking-wide">
             {vocabSet.topic}
           </h1>
-          <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans">
+          <p className="text-body text-secondary font-sans">
             {vocabSet.words.length} {t('words')}
           </p>
 
           {/* Add to flashcards */}
           {addedCount !== null ? (
-            <div className="rounded-[14px] border border-[#c9caff] bg-[#ededff] px-4 py-3">
-              <p className="text-sm font-semibold text-[#373fb8]">
+            <div className="rounded border border-[#c9caff] bg-primary-lt px-4 py-3">
+              <p className="text-sm font-semibold text-primary">
                 ✓ {t('cardsAdded', { count: addedCount })}{' '}
                 <button
                   onClick={() => router.push('/flashcards')}
@@ -192,7 +192,7 @@ export default function VocabularySetPage({
               <button
                 onClick={handleAddAll}
                 disabled={adding}
-                className="juba-primary-button px-5 py-2.5 text-sm font-bold tracking-wide disabled:opacity-40"
+                className="btn btn-primary px-5 py-2.5 text-sm font-bold tracking-wide disabled:opacity-40"
               >
                 {adding ? '...' : t('addAll', { count: vocabSet.words.length })}
               </button>
@@ -203,11 +203,11 @@ export default function VocabularySetPage({
       </div>
 
       {nativeLanguageName && (
-        <div className="juba-card rounded-[26px] border border-black/[0.07] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
+        <div className="juba-card rounded border border-secondary-subtle bg-white shadow-sm">
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
-            className="flex w-full items-center justify-between border-b border-black/[0.07] px-6 py-4 font-semibold tracking-wide text-[#202127] transition-colors hover:text-[#373fb8]"
+            className="flex w-full items-center justify-between border-b border-secondary-subtle px-6 py-4 font-semibold tracking-wide text-body transition-colors hover:text-primary"
             aria-expanded={nativeHelpOpen}
           >
             <span>
@@ -218,26 +218,26 @@ export default function VocabularySetPage({
           {nativeHelpOpen && (
             <div className="space-y-4 px-6 py-5">
               {loadingNativeHelp ? (
-                <p className="text-[rgba(32,33,39,.52)] text-sm">
+                <p className="text-secondary text-sm">
                   {tCommon('nativeHelpLoading', {
                     language: nativeLanguageName,
                   })}
                 </p>
               ) : nativeHelp ? (
                 <>
-                  <p className="text-[rgba(32,33,39,.52)] text-sm leading-relaxed">
+                  <p className="text-secondary text-sm leading-relaxed">
                     {nativeHelp.summary}
                   </p>
 
                   {nativeHelp.study_tips.length > 0 && (
                     <div className="space-y-2">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
+                      <p className="text-body text-secondary font-semibold tracking-wide">
                         {tCommon('nativeHelpStudyTips')}
                       </p>
                       <ul className="space-y-1">
                         {nativeHelp.study_tips.map((tip, i) => (
-                          <li key={i} className="text-[rgba(32,33,39,.52)] text-sm">
-                            <span className="text-[rgba(32,33,39,.52)] mr-2">·</span>
+                          <li key={i} className="text-secondary text-sm">
+                            <span className="text-secondary mr-2">·</span>
                             {tip}
                           </li>
                         ))}
@@ -246,38 +246,38 @@ export default function VocabularySetPage({
                   )}
 
                   {nativeHelp.word_notes.length > 0 && (
-                    <div className="space-y-2 border-t border-black/[0.07] pt-3">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
+                    <div className="space-y-2 border-t border-secondary-subtle pt-3">
+                      <p className="text-body text-secondary font-semibold tracking-wide">
                         {tCommon('nativeHelpWordNotes')}
                       </p>
                       {nativeHelp.word_notes.map((item, i) => (
                         <div key={i} className="space-y-0.5">
                           <TargetLanguageText
                             languageCode={targetLanguageCode}
-                            className="text-[rgba(32,33,39,.52)] text-sm font-bold"
+                            className="text-secondary text-sm font-bold"
                           >
                             {item.word}
                           </TargetLanguageText>
-                          <p className="text-[rgba(32,33,39,.52)] text-sm">
+                          <p className="text-secondary text-sm">
                             {item.meaning}
                           </p>
-                          <p className="text-[rgba(32,33,39,.52)] text-sm">{item.note}</p>
+                          <p className="text-secondary text-sm">{item.note}</p>
                         </div>
                       ))}
                     </div>
                   )}
 
                   {nativeHelp.common_traps.length > 0 && (
-                    <div className="space-y-2 border-t border-black/[0.07] pt-3">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
+                    <div className="space-y-2 border-t border-secondary-subtle pt-3">
+                      <p className="text-body text-secondary font-semibold tracking-wide">
                         {tCommon('nativeHelpCommonTraps')}
                       </p>
                       {nativeHelp.common_traps.map((trap, i) => (
                         <div key={i} className="space-y-0.5">
-                          <p className="text-[rgba(32,33,39,.52)] text-sm">
+                          <p className="text-secondary text-sm">
                             {trap.mistake}
                           </p>
-                          <p className="text-[rgba(32,33,39,.52)] text-sm">{trap.fix}</p>
+                          <p className="text-secondary text-sm">{trap.fix}</p>
                         </div>
                       ))}
                     </div>
@@ -285,22 +285,22 @@ export default function VocabularySetPage({
 
                   {nativeHelp.mini_glossary.length > 0 && (
                     <div className="border-[#ededff] space-y-2 border-t pt-3">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
+                      <p className="text-body text-secondary font-semibold tracking-wide">
                         {tCommon('nativeHelpMiniGlossary')}
                       </p>
                       {nativeHelp.mini_glossary.map((item, i) => (
                         <div key={i}>
                           <TargetLanguageText
                             languageCode={targetLanguageCode}
-                            className="text-[rgba(32,33,39,.52)] text-sm font-bold"
+                            className="text-secondary text-sm font-bold"
                           >
                             {item.term}
                           </TargetLanguageText>
-                          <p className="text-[rgba(32,33,39,.52)] text-sm">
+                          <p className="text-secondary text-sm">
                             {item.meaning}
                           </p>
                           {item.note && (
-                            <p className="text-[rgba(32,33,39,.52)] text-sm">
+                            <p className="text-secondary text-sm">
                               {item.note}
                             </p>
                           )}
@@ -311,13 +311,13 @@ export default function VocabularySetPage({
 
                   {nativeHelp.practice_prompts.length > 0 && (
                     <div className="border-[#ededff] space-y-2 border-t pt-3">
-                      <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
+                      <p className="text-body text-secondary font-semibold tracking-wide">
                         {tCommon('nativeHelpPractice')}
                       </p>
                       <ul className="space-y-1">
                         {nativeHelp.practice_prompts.map((prompt, i) => (
-                          <li key={i} className="text-[rgba(32,33,39,.52)] text-sm">
-                            <span className="text-[rgba(32,33,39,.52)] mr-2">·</span>
+                          <li key={i} className="text-secondary text-sm">
+                            <span className="text-secondary mr-2">·</span>
                             {prompt}
                           </li>
                         ))}
@@ -330,7 +330,7 @@ export default function VocabularySetPage({
                   <button
                     type="button"
                     onClick={generateNativeHelp}
-                    className="text-[rgba(32,33,39,.52)] hover:text-[#202127] text-sm transition-colors"
+                    className="text-secondary hover:text-body text-sm transition-colors"
                   >
                     {nativeHelpError
                       ? tCommon('retry')
@@ -352,20 +352,20 @@ export default function VocabularySetPage({
             <div className="flex items-baseline gap-3">
               <TargetLanguageText
                 languageCode={targetLanguageCode}
-                className="text-[#202127] font-bold"
+                className="text-body font-bold"
               >
                 {word.word}
               </TargetLanguageText>
-              <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans italic">
+              <span className="text-body text-secondary font-sans italic">
                 {POS_LABELS[word.pos] ?? word.pos}
               </span>
               {word.ipa && (
-                <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans">
+                <span className="text-body text-secondary font-sans">
                   {word.ipa}
                 </span>
               )}
               {word.frequency_rank && (
-                <span className="text-[#202127] text-[rgba(32,33,39,.52)] ml-auto font-sans">
+                <span className="text-body text-secondary ml-auto font-sans">
                   #{word.frequency_rank}
                 </span>
               )}
@@ -373,14 +373,14 @@ export default function VocabularySetPage({
             <TargetLanguageText
               as="p"
               languageCode={targetLanguageCode}
-              className="text-[rgba(32,33,39,.52)]"
+              className="text-secondary"
             >
               {word.definition}
             </TargetLanguageText>
             <TargetLanguageText
               as="p"
               languageCode={targetLanguageCode}
-              className="text-[rgba(32,33,39,.52)] italic"
+              className="text-secondary italic"
             >
               &ldquo;{word.example}&rdquo;
             </TargetLanguageText>
@@ -390,7 +390,7 @@ export default function VocabularySetPage({
 
       <Link
         href="/vocabulary"
-        className="text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] inline-block font-semibold tracking-wide transition-colors"
+        className="text-body text-secondary hover:text-body inline-block font-semibold tracking-wide transition-colors"
       >
         ← {t('backToVocabulary')}
       </Link>
