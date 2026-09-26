@@ -686,8 +686,20 @@ def get_comprehension_length_guidance(target_language: str, base_word_count: int
 
 
 def get_native_language_name(native_language: str) -> str:
-    """Return a human-readable name for native language codes used by user profiles."""
-    return _NATIVE_LANGUAGE_NAMES.get(native_language, native_language)
+    """Return a human-readable name for native language codes used by user profiles.
+
+    Keep the established profile labels, then resolve any other supported
+    language through the shared language metadata. This prevents valid
+    foundation-language codes from leaking into the UI as raw ISO identifiers.
+    """
+    normalized = _normalize_locale(native_language)
+    base_language = normalized.split("-")[0]
+    explicit_name = _NATIVE_LANGUAGE_NAMES.get(normalized) or _NATIVE_LANGUAGE_NAMES.get(base_language)
+    if explicit_name:
+        return explicit_name
+
+    info = _resolve_language_info(normalized)
+    return info["name"] if info else native_language
 
 
 def voice_session_title(native_language: str) -> str:
