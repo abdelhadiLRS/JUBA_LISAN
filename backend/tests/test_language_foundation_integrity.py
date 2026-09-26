@@ -77,6 +77,22 @@ def test_registered_foundations_have_no_dangling_unit_references():
     assert not failures, "\n".join(failures)
 
 
+def test_registered_foundations_have_valid_assessments():
+    failures: list[str] = []
+
+    for language, module_name in curriculum_dispatcher._LANG_MODULES.items():
+        module = importlib.import_module(module_name)
+        for question in getattr(module, "ASSESSMENT_BANK", []):
+            if len(question.options) != 4:
+                failures.append(f"{language}/{question.id}: expected exactly 4 options")
+            if question.correct not in question.options:
+                failures.append(f"{language}/{question.id}: correct answer is not an option")
+            if question.difficulty not in curriculum_dispatcher.CEFR_LEVELS:
+                failures.append(f"{language}/{question.id}: invalid difficulty {question.difficulty}")
+
+    assert not failures, "\n".join(failures)
+
+
 def test_registered_foundations_have_unique_vocabulary_ids():
     failures: list[str] = []
 
