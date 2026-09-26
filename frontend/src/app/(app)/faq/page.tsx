@@ -118,7 +118,7 @@ export default function FAQPage() {
   })()
 
   return (
-    <div className="juba-faq-shell mx-auto max-w-4xl space-y-6 p-4 sm:p-6">
+    <div className="card">
       {/* Header */}
       <div className="border-[rgba(7,7,9,.08)] mb-8 border-b pb-4">
         <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] mb-1 font-sans tracking-widest uppercase">
@@ -130,7 +130,7 @@ export default function FAQPage() {
       </div>
 
       {/* Accordion */}
-      <div className="juba-card border-[rgba(7,7,9,.08)] border">
+      <div className="card">
         {faqs.map((item, i) => (
           <div
             key={i}
