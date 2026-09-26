@@ -332,17 +332,29 @@
       "missingToken": "Invalid reset link. Please request a new password reset.",
       "error": "Invalid or expired reset link",
       "backToLogin": "Back to login"
-    }
-  ,
+    },
     "scenarios": {
-      "airport": {"title": "Airport", "description": "Check in, ask for directions, handle delays."},
-      "jobInterview": {"title": "Job interview", "description": "Practice answers, confidence and professional vocabulary."},
-      "restaurant": {"title": "Restaurant", "description": "Order naturally and handle a real conversation."},
-      "hotel": {"title": "Hotel", "description": "Book a room, solve problems and make requests."}
+      "airport": {
+        "title": "Airport",
+        "description": "Check in, ask for directions, handle delays."
+      },
+      "jobInterview": {
+        "title": "Job interview",
+        "description": "Practice answers, confidence and professional vocabulary."
+      },
+      "restaurant": {
+        "title": "Restaurant",
+        "description": "Order naturally and handle a real conversation."
+      },
+      "hotel": {
+        "title": "Hotel",
+        "description": "Book a room, solve problems and make requests."
+      }
     },
     "learningLabel": "Learning",
     "cefrLabel": "CEFR",
-    "coachLabel": "Coach"},
+    "coachLabel": "Coach"
+  },
   "settings": {
     "title": "Settings",
     "sectionAccount": "Account",
@@ -1081,7 +1093,8 @@
     "savedWords": "Your saved words",
     "savedWordsCount": "saved words from Instant Translator",
     "translateMore": "Translate more",
-    "topicCount": "{count} topics"
+    "topicCount": "{count} topics",
+    "setCount": "{count, plural, =1 {# set} other {# sets}}"
   },
   "phrasebook": {
     "title": "Phrasebook",
