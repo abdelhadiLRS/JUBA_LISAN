@@ -170,6 +170,8 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
 }
 
 _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
+    "sv-SE": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "tr": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "en-US": {
         "script": "latin",
         "romanization": "",
