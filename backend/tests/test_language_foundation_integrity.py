@@ -335,3 +335,19 @@ def test_distribute_units_never_emits_invalid_schedule_dimensions():
     units = curriculum_dispatcher.get_curriculum_units("A1", "en-GB")[:1]
     assert curriculum_dispatcher.distribute_units(units, 0, 5, "en-GB") == []
     assert curriculum_dispatcher.distribute_units(units, 2, 0, "en-GB") == []
+
+
+@pytest.mark.parametrize(
+    ("locale", "expected_script", "expected_unit"),
+    [
+        ("ar", "latin", "words"),
+        ("fa", "latin", "words"),
+        ("uk-UA", "cyrillic", "words"),
+        ("bn-BD", "latin", "words"),
+    ],
+)
+def test_language_capability_aliases_cover_foundation_locales(locale, expected_script, expected_unit):
+    from app.services.language_helpers import get_language_script, get_reading_length_unit
+
+    assert get_language_script(locale) == expected_script
+    assert get_reading_length_unit(locale) == expected_unit
