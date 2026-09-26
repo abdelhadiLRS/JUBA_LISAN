@@ -92,7 +92,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   const router = useRouter()
   const accessToken = useAuthStore((s) => s.accessToken)
-  const setTokens = useAuthStore((s) => s.setTokens)
   const setUser = useAuthStore((s) => s.setUser)
   const logout = useAuthStore((s) => s.logout)
   const handleLogout = useLogout()
@@ -134,20 +133,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       // Load Stripe config once (non-blocking)
       loadConfig()
       try {
-        if (!accessToken) {
-          const res = await fetch('/api/auth/refresh', {
-            method: 'POST',
-            credentials: 'include',
-          })
-          if (!res.ok) {
-            logout()
-            router.push('/login')
-            return
-          }
-          const { access_token } = await res.json()
-          setTokens(access_token)
-        }
-        // Fetch user info if not already loaded
+        // Let apiFetch perform a single refresh attempt when the access token is absent/expired.
+        // This avoids issuing a duplicate /api/auth/refresh request during app bootstrap.
         const meRes = await apiFetch('/api/auth/me')
         if (!meRes.ok) {
           logout()
