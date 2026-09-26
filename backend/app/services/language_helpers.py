@@ -109,6 +109,7 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
     "hy": {"name": "Armenian", "self_name": "Հայերեն", "iso639": "hy"},
     "am": {"name": "Amharic", "self_name": "አማርኛ", "iso639": "am"},
     "ti": {"name": "Tigrinya", "self_name": "ትግርኛ", "iso639": "ti"},
+    "zh-TW": {"name": "Chinese (Traditional)", "self_name": "中文（繁體）", "iso639": "zh"},
 }
 
 _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
@@ -307,6 +308,9 @@ def _resolve_language_info(target_language: str) -> dict[str, str] | None:
     if info:
         return info
     base = locale.split("-")[0]
+    direct = _LANGUAGE_INFO.get(base)
+    if direct:
+        return direct
     aliases = {
         "en": "en-GB", "de": "de-DE", "es": "es-ES", "fr": "fr-FR",
         "it": "it-IT", "pt": "pt-PT", "ja": "ja-JP", "ko": "ko-KR",
