@@ -7881,6 +7881,11 @@ main [dir="rtl"] h3,
   color: #206bc4 !important;
 }
 
+.juba-tabler-app .navbar .nav-link:focus-visible {
+  outline: 2px solid rgba(32,107,196,.55);
+  outline-offset: 2px;
+}
+
 .juba-tabler-app .navbar .nav-link.active {
   box-shadow: inset 0 -2px 0 #206bc4;
 }
@@ -7954,6 +7959,14 @@ main [dir="rtl"] h3,
   line-height: 1.25;
 }
 
+.juba-tabler-app .juba-page-context .container-xl {
+  max-width: 1680px;
+}
+
+.juba-tabler-app .juba-page-context .text-dark {
+  overflow-wrap: anywhere;
+}
+
 .juba-tabler-app .juba-app-page {
   width: 100%;
   min-width: 0;
@@ -8020,6 +8033,15 @@ main [dir="rtl"] h3,
 }
 
 @media (max-width: 640px) {
+  .juba-tabler-app .juba-page-context .container-xl {
+    padding-top: .7rem !important;
+    padding-bottom: .7rem !important;
+  }
+
+  .juba-tabler-app .juba-page-context .fs-3 {
+    font-size: 1.1rem !important;
+  }
+
   .juba-tabler-app .navbar > .container-fluid {
     gap: .4rem !important;
   }
