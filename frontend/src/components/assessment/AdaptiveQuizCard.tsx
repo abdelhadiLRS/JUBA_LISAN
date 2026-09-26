@@ -29,10 +29,10 @@ export default function AdaptiveQuizCard({
   }
 
   return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center p-4 sm:p-6">
+    <div className="flex min-h-[60vh] flex-col items-center justify-center bg-[#f4f4f2] p-4 sm:p-6">
       <div className="w-full max-w-2xl overflow-hidden rounded-[26px] border border-[rgba(7,7,9,.08)] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#ededff] bg-[#ededff]/40 px-5 py-4 sm:px-6">
+        <div className="flex items-center justify-between border-b border-[rgba(7,7,9,.07)] bg-[#f4f4f2] px-5 py-4 sm:px-6">
           <div className="flex items-center gap-2">
             <span className="text-xs text-[rgba(32,33,39,.52)]">●</span>
             <span className="text-xs text-[rgba(32,33,39,.52)] font-semibold tracking-[0.12em] uppercase">
@@ -50,9 +50,9 @@ export default function AdaptiveQuizCard({
         </div>
 
         {/* Progress bar */}
-        <div className="bg-[#ededff] h-1">
+        <div className="h-1 bg-[#ededff]">
           <div
-            className="bg-[#5862e2] h-1 transition-all duration-300"
+            className="h-1 bg-[#5862e2] transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -75,7 +75,7 @@ export default function AdaptiveQuizCard({
                 <button
                   key={option}
                   onClick={() => onAnswer(option)}
-                  className="border-[rgba(7,7,9,.08)] text-[#202127] hover:border hover:text-[#373fb8] hover:bg-[#ededff] flex w-full items-start gap-3 rounded-[14px] border px-4 py-3 text-left transition-colors"
+                  className="flex w-full items-start gap-3 rounded-[16px] border border-[rgba(7,7,9,.08)] bg-[#f4f4f2] px-4 py-3 text-left text-[#202127] transition-all hover:border-[#5862e2] hover:bg-[#ededff] hover:text-[#373fb8] hover:shadow-[0_8px_18px_rgba(43,45,90,.05)]"
                 >
                   <span className="text-xs text-[rgba(32,33,39,.52)] shrink-0 font-sans">
                     {labels[i]}.
