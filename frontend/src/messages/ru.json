@@ -984,7 +984,9 @@
     "backToGrammar": "Справочник по грамматике",
     "explanation": "Объяснение",
     "backLink": "Назад к грамматике",
-    "notFound": "Тема не найдена.",
+    "notFound": "Тема не найдена.",,
+    "topicCount": "{count, plural, =1 {# тема} few {# темы} many {# тем} other {# тем}}",
+    "levelRange": "A1 – C2"
     "topicsFound": "{count, plural, one {# тема найдена} few {# темы найдено} other {# тем найдено}}"
   },
   "vocabulary": {
