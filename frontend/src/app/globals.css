@@ -7685,3 +7685,135 @@ main [dir="rtl"] h3,
 @media (max-width: 991.98px) {
   .juba-tabler-app .navbar-vertical { width: 260px !important; }
 }
+
+
+/* --------------------------------------------------------------------------
+ * JUBA LISAN APP — TABLER ONLY
+ * The authenticated application uses one visual language: Tabler Core.
+ * Legacy dashboard/Dribbble styling is intentionally neutralised here so
+ * individual pages cannot introduce a second dashboard design.
+ * -------------------------------------------------------------------------- */
+.juba-tabler-app {
+  --tblr-primary: #206bc4;
+  --tblr-primary-rgb: 32,107,196;
+  --tblr-body-bg: #f5f7fb;
+  --tblr-card-border-color: #e6e7e9;
+  background: var(--tblr-body-bg) !important;
+  color: #182433 !important;
+}
+
+.juba-tabler-app .page-body,
+.juba-tabler-app .juba-app-page,
+.juba-tabler-app .juba-dashboard {
+  background: var(--tblr-body-bg) !important;
+  color: #182433 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* One card treatment across every authenticated page. */
+.juba-tabler-app .juba-app-page [class*="rounded-"],
+.juba-tabler-app .juba-app-page [class*="shadow-"],
+.juba-tabler-app .juba-app-page .juba-card {
+  border-radius: .25rem !important;
+}
+.juba-tabler-app .juba-app-page [class*="shadow-"] {
+  box-shadow: var(--tblr-box-shadow-card) !important;
+}
+
+/* Remove the former custom dashboard palette from authenticated pages. */
+.juba-tabler-app .juba-app-page [class*="bg-[#"],
+.juba-tabler-app .juba-app-page [class*="bg-[rgb"],
+.juba-tabler-app .juba-app-page [class*="bg-[rgba"] {
+  background-image: none !important;
+}
+.juba-tabler-app .juba-app-page [class*="ring-black"],
+.juba-tabler-app .juba-app-page [class*="ring-white"],
+.juba-tabler-app .juba-app-page [class*="border-black"],
+.juba-tabler-app .juba-app-page [class*="border-white"] {
+  --tw-ring-color: var(--tblr-border-color) !important;
+  border-color: var(--tblr-border-color) !important;
+}
+
+/* Tabler buttons, badges, form controls and tables are the only visual
+   primitives exposed by the application shell. */
+.juba-tabler-app .juba-app-page button,
+.juba-tabler-app .juba-app-page a[class*="bg-"],
+.juba-tabler-app .juba-app-page [role="button"] {
+  border-radius: .25rem !important;
+}
+.juba-tabler-app .juba-app-page input,
+.juba-tabler-app .juba-app-page select,
+.juba-tabler-app .juba-app-page textarea {
+  border-radius: .25rem !important;
+  border-color: var(--tblr-border-color) !important;
+  background: var(--tblr-bg-surface) !important;
+  color: var(--tblr-body-color) !important;
+}
+.juba-tabler-app .juba-app-page table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--tblr-bg-surface);
+  border: 1px solid var(--tblr-border-color);
+}
+.juba-tabler-app .juba-app-page th {
+  background: var(--tblr-bg-surface-secondary);
+  color: var(--tblr-secondary);
+  font-size: .75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.juba-tabler-app .juba-app-page th,
+.juba-tabler-app .juba-app-page td {
+  padding: .75rem 1rem;
+  border-bottom: 1px solid var(--tblr-border-color);
+}
+.juba-tabler-app .juba-app-page tr:last-child td { border-bottom: 0; }
+
+/* Legacy gradient/illustrative surfaces become standard Tabler cards. */
+.juba-tabler-app .juba-app-page [class*="bg-gradient"],
+.juba-tabler-app .juba-app-page [class*="from-"],
+.juba-tabler-app .juba-app-page [class*="to-"] {
+  background-image: none !important;
+}
+.juba-tabler-app .juba-app-page .juba-dashboard > div,
+.juba-tabler-app .juba-app-page .juba-dashboard section,
+.juba-tabler-app .juba-app-page .juba-dashboard aside {
+  border-radius: .25rem !important;
+}
+
+/* The navigation is a single Tabler vertical navbar; no legacy top-nav or
+   pill-navigation treatment is allowed inside the authenticated shell. */
+.juba-tabler-app .navbar-vertical .nav-link {
+  border-radius: .25rem !important;
+  margin-bottom: .125rem !important;
+  min-height: 2.25rem;
+}
+.juba-tabler-app .navbar-vertical .nav-link.active {
+  background: rgba(var(--tblr-primary-rgb), .1) !important;
+  color: var(--tblr-primary) !important;
+}
+.juba-tabler-app .navbar-vertical .nav-link:hover {
+  background: rgba(var(--tblr-primary-rgb), .06) !important;
+}
+.juba-tabler-app .navbar-brand { min-height: 4rem; }
+.juba-tabler-app .page-wrapper { background: var(--tblr-body-bg) !important; }
+
+/* Do not allow the former dashboard-specific visual system to leak into
+   nested cards/components. */
+.juba-tabler-app .juba-app-page .juba-ff-feature-card,
+.juba-tabler-app .juba-app-page .juba-ff-dashboard-card,
+.juba-tabler-app .juba-app-page .juba-ff-chat-card,
+.juba-tabler-app .juba-app-page .juba-ff-step,
+.juba-tabler-app .juba-app-page .juba-ff-practice,
+.juba-tabler-app .juba-app-page .juba-card {
+  border: 1px solid var(--tblr-card-border-color) !important;
+  border-radius: .25rem !important;
+  box-shadow: var(--tblr-box-shadow-card) !important;
+  background: var(--tblr-bg-surface) !important;
+}
+
+@media (max-width: 991.98px) {
+  .juba-tabler-app .navbar-vertical { width: 260px !important; }
+}
