@@ -81,9 +81,9 @@ const STATUS_ICON: Record<CompetencyStatus, string> = {
 }
 
 const STATUS_COLOR: Record<CompetencyStatus, string> = {
-  mastered: 'text-[#202127]',
+  mastered: 'text-body',
   'in-progress': 'text-amber-600 dark:text-amber-400',
-  'not-started': 'text-[rgba(32,33,39,.52)]',
+  'not-started': 'text-secondary',
 }
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -108,19 +108,19 @@ function UnitCompetencyBlock({
       {/* Unit header */}
       <div className="card-header d-flex align-items-center justify-content-between">
         <div className="flex items-center gap-2">
-          <span className="text-[rgba(32,33,39,.52)] font-sans tracking-[.12em] uppercase">
+          <span className="text-secondary font-sans tracking-[.12em] uppercase">
             {tPlan('unitLabel')} {unit.unit_number}
           </span>
-          <span className="text-[#202127] font-mono text-xs font-bold">
+          <span className="text-body font-mono text-xs font-bold">
             {unit.title}
           </span>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-[rgba(32,33,39,.52)] font-mono">
+          <span className="text-secondary font-mono">
             {masteredCount}/{totalCount} {t('mastered')}
           </span>
           {record && (
-            <span className="text-[rgba(32,33,39,.52)] font-mono">
+            <span className="text-secondary font-mono">
               {Math.round(score * 100)}%
             </span>
           )}
@@ -130,7 +130,7 @@ function UnitCompetencyBlock({
       {/* Progress bar */}
       <div className="bg-[rgba(7,7,9,.08)] h-0.5">
         <div
-          className="bg-[#5862e2] h-full transition-all"
+          className="bg-primary h-full transition-all"
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -155,7 +155,7 @@ function UnitCompetencyBlock({
                 {text}
               </span>
               {status === 'in-progress' && record && (
-                <span className="text-[rgba(32,33,39,.52)] ml-auto shrink-0 font-mono">
+                <span className="text-secondary ml-auto shrink-0 font-mono">
                   {Math.round(score * 100)}%
                 </span>
               )}
@@ -263,14 +263,14 @@ export default function ProgressPage() {
   return (
     <div className="space-y-5">
       {/* Header */}
-      <div className="border bg-[#fff] border">
+      <div className="border bg-white border">
         <div className="card-header d-flex align-items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[#ededff] text-[#5862e2]"><i className="ti ti-target icon" aria-hidden="true" /></span>
-          <span className="text-[rgba(32,33,39,.52)] font-sans tracking-[.12em] uppercase">
+          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-primary-lt text-primary"><i className="ti ti-target icon" aria-hidden="true" /></span>
+          <span className="text-secondary font-sans tracking-[.12em] uppercase">
             {t('subtitle')}
           </span>
           {activeLanguage && cefrLevel && (
-            <span className="border text-[rgba(32,33,39,.52)] ml-auto border px-2 py-0.5 font-sans tracking-[.12em] uppercase">
+            <span className="border text-secondary ml-auto border px-2 py-0.5 font-sans tracking-[.12em] uppercase">
               {activeLanguage.name} · {cefrLevel}
             </span>
           )}
@@ -289,10 +289,10 @@ export default function ProgressPage() {
               },
             ].map(({ label, value }) => (
               <div key={label} className="px-5 py-4 text-center">
-                <p className="text-[rgba(32,33,39,.52)] mb-1 font-sans tracking-[.12em] uppercase">
+                <p className="text-secondary mb-1 font-sans tracking-[.12em] uppercase">
                   {label}
                 </p>
-                <p className="text-[#202127] font-mono text-sm font-bold">
+                <p className="text-body font-mono text-sm font-bold">
                   {value}
                 </p>
               </div>
@@ -305,22 +305,22 @@ export default function ProgressPage() {
       {summary && summary.mastery && summary.mastery.tracked_items > 0 && (
         <section className="juba-progress-section space-y-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#ededff] text-[#5862e2]"><i className="ti ti-trophy icon" aria-hidden="true" /></span>
-            <span className="text-[#202127] font-mono text-base font-bold tracking-widest">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-lt text-primary"><i className="ti ti-trophy icon" aria-hidden="true" /></span>
+            <span className="text-body font-mono text-base font-bold tracking-widest">
               {t('skills')} · {t('mastered')}
             </span>
             <div className="bg-[rgba(7,7,9,.08)] h-px flex-1" />
-            <span className="text-[rgba(32,33,39,.52)] font-mono text-xs">
+            <span className="text-secondary font-mono text-xs">
               {summary.mastery.tracked_items} {tVocab('words')}
             </span>
           </div>
           <div className="card">
             <div className="mb-4 flex items-center justify-between">
-              <span className="text-[rgba(32,33,39,.52)] font-sans tracking-[.12em] uppercase">{t('accuracy')}</span>
-              <span className="text-[#202127] font-mono text-lg font-bold">{Math.round(summary.mastery.average_score * 100)}%</span>
+              <span className="text-secondary font-sans tracking-[.12em] uppercase">{t('accuracy')}</span>
+              <span className="text-body font-mono text-lg font-bold">{Math.round(summary.mastery.average_score * 100)}%</span>
             </div>
             <div className="bg-[rgba(7,7,9,.08)] mb-5 h-1.5">
-              <div className="bg-[#5862e2] h-full transition-all" style={{ width: (Math.round(summary.mastery.average_score * 100) + '%') }} />
+              <div className="bg-primary h-full transition-all" style={{ width: (Math.round(summary.mastery.average_score * 100) + '%') }} />
             </div>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
               {(['new', 'learning', 'reviewing', 'weak', 'mastered'] as const).map((state) => {
@@ -328,8 +328,8 @@ export default function ProgressPage() {
                 const label = state === 'mastered' ? t('mastered') : state === 'new' ? t('notStarted') : t('inProgress')
                 return (
                   <div key={state} className="border border px-3 py-3 text-center">
-                    <p className="text-[rgba(32,33,39,.52)] mb-1 font-sans text-[10px] tracking-[.12em] uppercase">{label}</p>
-                    <p className="text-[#202127] font-mono text-sm font-bold">{count}</p>
+                    <p className="text-secondary mb-1 font-sans text-[10px] tracking-[.12em] uppercase">{label}</p>
+                    <p className="text-body font-mono text-sm font-bold">{count}</p>
                   </div>
                 )
               })}
@@ -340,11 +340,11 @@ export default function ProgressPage() {
               {Object.entries(summary.mastery.skills).map(([skill, data]) => (
                 <div key={skill} className="px-5 py-4">
                   <div className="mb-2 flex items-center justify-between gap-4">
-                    <span className="text-[rgba(32,33,39,.52)] font-sans tracking-[.12em] uppercase">{skill}</span>
-                    <span className="text-[rgba(32,33,39,.52)] font-mono text-xs">{Math.round(data.average_score * 100)}% · {data.items}</span>
+                    <span className="text-secondary font-sans tracking-[.12em] uppercase">{skill}</span>
+                    <span className="text-secondary font-mono text-xs">{Math.round(data.average_score * 100)}% · {data.items}</span>
                   </div>
                   <div className="bg-[rgba(7,7,9,.08)] h-1.5">
-                    <div className="bg-[#5862e2] h-full transition-all" style={{ width: (Math.round(data.average_score * 100) + '%') }} />
+                    <div className="bg-primary h-full transition-all" style={{ width: (Math.round(data.average_score * 100) + '%') }} />
                   </div>
                 </div>
               ))}
@@ -356,8 +356,8 @@ export default function ProgressPage() {
       {levelUnits.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#fff3d1] text-[#9a6500]"><i className="ti ti-book-2 icon" aria-hidden="true" /></span>
-            <span className="text-[#202127] font-mono text-base font-bold tracking-widest">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-warning-lt text-[#9a6500]"><i className="ti ti-book-2 icon" aria-hidden="true" /></span>
+            <span className="text-body font-mono text-base font-bold tracking-widest">
               {cefrLevel
                 ? t('competenciesSection', { level: cefrLevel })
                 : t('competencies')}
@@ -374,13 +374,13 @@ export default function ProgressPage() {
           ))}
 
           {competencies.length === 0 && (
-            <div className="border bg-[#fff] border px-6 py-8 text-center">
-              <p className="text-[rgba(32,33,39,.52)] font-mono text-xs leading-relaxed">
+            <div className="border bg-white border px-6 py-8 text-center">
+              <p className="text-secondary font-mono text-xs leading-relaxed">
                 {t('noCompetencies')}
               </p>
               <Link
                 href="/plan"
-                className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] hover:text-[#202127] mt-4 inline-block font-sans tracking-[.12em] uppercase transition-colors"
+                className="text-secondary text-secondary hover:text-body mt-4 inline-block font-sans tracking-[.12em] uppercase transition-colors"
               >
                 {t('goToMyPlan')}
               </Link>
@@ -393,7 +393,7 @@ export default function ProgressPage() {
       {displayVocabSets.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
-            <span className="text-[#202127] font-mono text-base font-bold tracking-widest">
+            <span className="text-body font-mono text-base font-bold tracking-widest">
               {showAllLevels
                 ? t('vocabularySection')
                 : cefrLevel
@@ -401,7 +401,7 @@ export default function ProgressPage() {
                   : t('vocabularySection')}
             </span>
             <div className="bg-[rgba(7,7,9,.08)] h-px flex-1" />
-            <span className="text-[rgba(32,33,39,.52)] font-mono">
+            <span className="text-secondary font-mono">
               {totalMastered}/{totalDisplayWords} {tVocab('words')}
             </span>
           </div>
@@ -409,27 +409,27 @@ export default function ProgressPage() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowAllLevels(false)}
-              className={`text-[rgba(32,33,39,.52)] border px-3 py-1.5 font-sans tracking-[.12em] uppercase transition-colors ${
+              className={`text-secondary border px-3 py-1.5 font-sans tracking-[.12em] uppercase transition-colors ${
                 !showAllLevels
-                  ? 'border-[#202127] text-[#202127] bg-[#ededff]'
-                  : 'border text-[rgba(32,33,39,.52)] hover:border-[#202127] hover:text-[#202127]'
+                  ? 'border-[#202127] text-body bg-primary-lt'
+                  : 'border text-secondary hover:border-[#202127] hover:text-body'
               }`}
             >
               {t('currentLevelOnly')}
             </button>
             <button
               onClick={() => setShowAllLevels(true)}
-              className={`text-[rgba(32,33,39,.52)] border px-3 py-1.5 font-sans tracking-[.12em] uppercase transition-colors ${
+              className={`text-secondary border px-3 py-1.5 font-sans tracking-[.12em] uppercase transition-colors ${
                 showAllLevels
-                  ? 'border-[#202127] text-[#202127] bg-[#ededff]'
-                  : 'border text-[rgba(32,33,39,.52)] hover:border-[#202127] hover:text-[#202127]'
+                  ? 'border-[#202127] text-body bg-primary-lt'
+                  : 'border text-secondary hover:border-[#202127] hover:text-body'
               }`}
             >
               {t('allLevels')}
             </button>
           </div>
 
-          <div className="border bg-[#fff] divide-fl-border divide-y border">
+          <div className="border bg-white divide-fl-border divide-y border">
             {displayVocabSets.map((s) => {
               const mastered = s.words.filter((w) =>
                 masteredWordSet.has(w.word.toLowerCase())
@@ -442,18 +442,18 @@ export default function ProgressPage() {
                 <div key={s.id} className="flex items-center gap-4 px-5 py-3">
                   <Link
                     href={`/vocabulary/${s.id}`}
-                    className="text-[rgba(32,33,39,.52)] hover:text-[#202127] min-w-0 flex-1 truncate font-mono text-xs transition-colors"
+                    className="text-secondary hover:text-body min-w-0 flex-1 truncate font-mono text-xs transition-colors"
                   >
                     {s.topic}
                   </Link>
                   <div className="flex items-center gap-3">
                     <div className="bg-[rgba(7,7,9,.08)] h-1.5 w-24">
                       <div
-                        className="bg-[#5862e2] h-full transition-all"
+                        className="bg-primary h-full transition-all"
                         style={{ width: `${pct}%` }}
                       />
                     </div>
-                    <span className="text-[rgba(32,33,39,.52)] w-12 text-right font-mono">
+                    <span className="text-secondary w-12 text-right font-mono">
                       {mastered}/{s.words.length}
                     </span>
                   </div>
@@ -468,24 +468,24 @@ export default function ProgressPage() {
       {summary && Object.keys(summary.skills).length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
-            <span className="text-[#202127] font-mono text-base font-bold tracking-widest">
+            <span className="text-body font-mono text-base font-bold tracking-widest">
               {t('skills')}
             </span>
             <div className="bg-[rgba(7,7,9,.08)] h-px flex-1" />
           </div>
-          <div className="border bg-[#fff] divide-fl-border divide-y border">
+          <div className="border bg-white divide-fl-border divide-y border">
             {Object.entries(summary.skills).map(([skill, value]) => (
               <div key={skill} className="flex items-center gap-4 px-5 py-3">
-                <span className="text-[rgba(32,33,39,.52)] w-24 font-sans tracking-[.12em] uppercase">
+                <span className="text-secondary w-24 font-sans tracking-[.12em] uppercase">
                   {skill}
                 </span>
                 <div className="bg-[rgba(7,7,9,.08)] h-1.5 flex-1">
                   <div
-                    className="bg-[#5862e2] h-full"
+                    className="bg-primary h-full"
                     style={{ width: `${Math.round(value * 100)}%` }}
                   />
                 </div>
-                <span className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] w-10 text-right font-mono">
+                <span className="text-secondary text-secondary w-10 text-right font-mono">
                   {Math.round(value * 100)}%
                 </span>
               </div>
