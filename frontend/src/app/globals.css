@@ -7664,30 +7664,6 @@ main [dir="rtl"] h3,
 .juba-flashcards-vocabulary-shell .juba-card[class~="bg-[#fff3d1]"]{background:#fff3d1!important;}
 @media(max-width:640px){.juba-flashcards-vocabulary-shell{padding-inline:14px;}.juba-flashcards-vocabulary-shell .juba-card{border-radius:22px;}}
 
-/* Tabler member application skin */
-.juba-tabler-app {
-  --tblr-primary: #206bc4;
-  --tblr-body-bg: #f5f7fb;
-}
-.juba-tabler-app .page-wrapper { background: var(--tblr-body-bg); }
-.juba-tabler-app .navbar-vertical .nav-link { min-height: 2.5rem; border-radius: .375rem; }
-.juba-tabler-app .navbar-vertical .nav-link.active { color: var(--tblr-primary); }
-.juba-tabler-app .navbar-vertical .nav-link:hover { background: rgba(32,107,196,.06); }
-.juba-tabler-app .navbar-brand { min-height: 4rem; }
-.juba-tabler-app .page-body { min-height: calc(100vh - 4rem); }
-.juba-tabler-app .juba-app-page { width: 100%; color: #182433; }
-.juba-tabler-app .juba-app-page .juba-card,
-.juba-tabler-app .juba-app-page [class*="rounded-3xl"],
-.juba-tabler-app .juba-app-page [class*="rounded-[26px]"],
-.juba-tabler-app .juba-app-page [class*="rounded-[28px]"],
-.juba-tabler-app .juba-app-page [class*="rounded-[30px"] {
-  box-shadow: 0 1px 3px rgba(24,36,51,.08), 0 8px 24px rgba(24,36,51,.04);
-}
-@media (max-width: 991.98px) {
-  .juba-tabler-app .navbar-vertical { width: 260px !important; }
-}
-
-
 /* --------------------------------------------------------------------------
  * JUBA LISAN APP — TABLER ONLY
  * The authenticated application uses one visual language: Tabler Core.
@@ -7820,6 +7796,27 @@ main [dir="rtl"] h3,
   background: var(--tblr-bg-surface) !important;
 }
 
+
+
+/* Responsive top-only navigation: mobile stays horizontal and never opens a sidebar. */
+.juba-tabler-app .navbar > .container-fluid { min-width: 0; }
+.juba-tabler-app .navbar .navbar-brand { flex: 0 0 auto; }
+.juba-tabler-app .navbar .navbar-nav { min-width: 0; }
+.juba-tabler-app .navbar .flex-fill.overflow-visible { overflow-x: auto !important; overflow-y: visible !important; scrollbar-width: thin; }
+.juba-tabler-app .navbar .flex-fill.overflow-visible > .navbar-nav { width: max-content; min-width: 100%; }
+.juba-tabler-app .navbar .navbar-nav .nav-link { white-space: nowrap; }
+.juba-tabler-app .navbar .navbar-nav .dropdown-menu { z-index: 1050; }
 @media (max-width: 991.98px) {
-  .juba-tabler-app .navbar-vertical { width: 260px !important; }
+  .juba-tabler-app .navbar > .container-fluid { gap: .5rem !important; }
+  .juba-tabler-app .navbar .navbar-brand .fw-bold { display: none; }
+  .juba-tabler-app .navbar .flex-fill.overflow-visible { order: 3; flex-basis: 100%; }
+  .juba-tabler-app .navbar .navbar-nav.ms-auto { margin-left: 0 !important; }
+}
+@media (max-width: 640px) {
+  .juba-tabler-app .navbar { padding-top: .35rem; padding-bottom: .35rem; }
+  .juba-tabler-app .navbar .navbar-brand { min-height: 2.75rem; }
+  .juba-tabler-app .navbar .navbar-nav .nav-link { padding-left: .7rem !important; padding-right: .7rem !important; }
+  .juba-tabler-app .navbar .navbar-nav.ms-auto .btn { padding-left: .4rem; padding-right: .4rem; }
+  .juba-tabler-app .navbar .flex-fill.overflow-visible { max-width: 100%; }
+  .juba-tabler-app .navbar .flex-fill.overflow-visible > .navbar-nav { min-width: max-content; }
 }
