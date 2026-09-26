@@ -1476,7 +1476,16 @@
     "hi-IN": "Hindi",
     "id-ID": "Indonezyjski",
     "ms-MY": "Malajski",
-    "tr-TR": "Turecki"
+    "tr-TR": "Turecki",
+    "cs-CZ": "Czeski",
+    "fi-FI": "Fiński",
+    "no-NO": "Norweski",
+    "sv-SE": "Szwedzki",
+    "el-GR": "Grecki",
+    "da-DK": "Duński",
+    "pl-PL": "Polski",
+    "nl-NL": "Niderlandzki",
+    "ru-RU": "Rosyjski"
   },
   "onboarding": {
     "title": "Wybierz swój język",
