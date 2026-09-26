@@ -556,6 +556,24 @@ def test_distribute_units_never_emits_invalid_schedule_dimensions():
     ],
 )
 
+def test_registered_languages_have_language_capabilities():
+    from app.services.language_helpers import (
+        get_language_script,
+        get_reading_length_unit,
+    )
+
+    failures: list[str] = []
+    for language in curriculum_dispatcher._LANG_MODULES:
+        script = get_language_script(language)
+        unit = get_reading_length_unit(language)
+        if not script.strip():
+            failures.append(f"{language}: missing writing-system capability")
+        if unit not in {"words", "characters"}:
+            failures.append(f"{language}: invalid reading-length unit {unit!r}")
+
+    assert not failures, "\\n".join(failures)
+
+
 def test_registered_core_languages_have_explicit_capabilities():
     from app.services.language_helpers import get_language_script, get_reading_length_unit
 
