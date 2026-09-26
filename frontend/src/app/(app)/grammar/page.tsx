@@ -124,7 +124,8 @@ export default function GrammarIndexPage() {
             {t('topicCount', { count: topics.length })} · {t('levelRange')}
           </p>
           <input
-            type="text"
+            type="search"
+            aria-label={t('searchPlaceholder')}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t('searchPlaceholder')}
