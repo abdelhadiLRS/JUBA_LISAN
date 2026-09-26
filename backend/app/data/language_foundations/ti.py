@@ -120,5 +120,5 @@ AssessmentQuestion(id="ti-b1-010",skill="grammar",difficulty="B1",question="Whic
 AssessmentQuestion(id="ti-b2-011",skill="grammar",difficulty="B2",question="Which sentence is an indirect question?",options=["ኣበይ ከም ዝነብር ኣይፈልጥን።","ኣበይ ትነብር?","ኣብ ገዛ ኣለኹ።","ናብ ገዛ እኸይድ።"],correct="ኣበይ ከም ዝነብር ኣይፈልጥን።"),
 AssessmentQuestion(id="ti-b2-012",skill="grammar",difficulty="B2",question="Which phrase structures discourse?",options=["መጀመርታ ጉዳዩ ንመርምሮ።","ማይ እደሊ።","ሰላም።","ኣብ ገዛ ኣለኹ።"],correct="መጀመርታ ጉዳዩ ንመርምሮ።"),
 AssessmentQuestion(id="ti-c1-013",skill="formal",difficulty="C1",question="Which phrase suits a formal request?",options=["በጃኻ ሰነድካ ቅድሚ ዕለቱ ኣቕርብ።","ሰላም!","ማይ እደሊ።","ኣበይ ኢኻ?"],correct="በጃኻ ሰነድካ ቅድሚ ዕለቱ ኣቕርብ።"),
-AssessmentQuestion(id="ti-c2-014",skill="rhetoric",difficulty="C2",question="Which statement introduces a qualified argument?",options=["እዚ ክርክር ሓያል እዩ፣ ግን ምስክሩ ውሱን እዩ።","እዚ ሓደ ቃል እዩ።","ማይ እደሊ።","ሰላም።"],correct="እዚ ክርክር ሓያል እዩ፣ ግን ምስክሩ ውሱን እዩ።"),
+AssessmentQuestion(id="ti-c2-014",skill="discourse",difficulty="C2",question="Which statement introduces a qualified argument?",options=["እዚ ክርክር ሓያል እዩ፣ ግን ምስክሩ ውሱን እዩ።","እዚ ሓደ ቃል እዩ።","ማይ እደሊ።","ሰላም።"],correct="እዚ ክርክር ሓያል እዩ፣ ግን ምስክሩ ውሱን እዩ።"),
 ]
