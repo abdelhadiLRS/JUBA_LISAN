@@ -620,6 +620,25 @@ def test_registered_base_languages_resolve_region_variants_consistently():
     assert not failures, "\\n".join(failures)
 
 
+def test_bare_language_codes_use_explicit_capability_aliases():
+    from app.services.language_helpers import get_language_script, get_reading_length_unit
+
+    # Profile records often store ISO 639-1 codes without a region. Those
+    # values must follow the same explicit capability path as their canonical
+    # regional locale rather than falling back to English defaults.
+    expected = {
+        "en": ("latin", "words"),
+        "de": ("latin", "words"),
+        "es": ("latin", "words"),
+        "zh": ("simplified-hanzi", "characters"),
+        "ja": ("hiragana-katakana-kanji", "characters"),
+        "ko": ("hangul", "words"),
+    }
+    for locale, (script, unit) in expected.items():
+        assert get_language_script(locale) == script
+        assert get_reading_length_unit(locale) == unit
+
+
 def test_registered_core_languages_have_explicit_capabilities():
     from app.services.language_helpers import get_language_script, get_reading_length_unit
 
