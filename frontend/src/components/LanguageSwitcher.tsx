@@ -53,8 +53,8 @@ export default function LanguageSwitcher() {
   }
 
   const skeleton = useMemo(() => (
-    <div className="flex items-center gap-2 rounded-[14px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-3 py-2.5 shadow-[2px_2px_0_var(--juba-app-ink)] animate-pulse" aria-label="Loading languages">
-      <div className="h-3 w-20 rounded bg-[var(--juba-app-line)]" />
+    <div className="flex items-center gap-2 rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff] px-3 py-2.5 shadow-[0_4px_14px_rgba(43,45,90,.06)] animate-pulse" aria-label="Loading languages">
+      <div className="h-3 w-20 rounded bg-[rgba(7,7,9,.08)]" />
     </div>
   ), [])
 
@@ -66,8 +66,8 @@ export default function LanguageSwitcher() {
     <div ref={ref} className="relative w-full">
       {toast && (
         <div className="pointer-events-none fixed inset-x-0 top-20 z-[100] flex justify-center px-4" role="status" aria-live="polite">
-          <div className="pointer-events-auto flex items-center gap-2 rounded-[14px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] px-4 py-3 text-xs font-bold text-[var(--juba-app-ink)] shadow-[4px_4px_0_var(--juba-app-ink)]">
-            <Check className="h-4 w-4 text-[var(--juba-app-green)]" aria-hidden="true" />
+          <div className="pointer-events-auto flex items-center gap-2 rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-3 text-xs font-bold text-[#202127] shadow-[0_8px_22px_rgba(43,45,90,.10)]">
+            <Check className="h-4 w-4 text-[#5862e2]" aria-hidden="true" />
             {toastMsg}
           </div>
         </div>
@@ -80,22 +80,22 @@ export default function LanguageSwitcher() {
         aria-expanded={multiple ? open : undefined}
         aria-haspopup={multiple ? 'listbox' : undefined}
         aria-label={multiple ? 'Switch target language' : `Current target language: ${targetLabel(activeLanguage.code, getLanguageByCode(activeLanguage.code)?.name ?? activeLanguage.code)}`}
-        className="group flex w-full items-center gap-3 rounded-[14px] border border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-3.5 py-2.5 text-left text-sm font-bold text-[var(--juba-app-ink)] shadow-[2px_2px_0_var(--juba-app-ink)] transition-all hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-[2px_2px_0_var(--juba-app-ink)]"
+        className="group flex w-full items-center gap-3 rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff] px-3.5 py-2.5 text-left text-sm font-bold text-[#202127] shadow-[0_4px_14px_rgba(43,45,90,.06)] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_18px_rgba(43,45,90,.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5862e2] focus-visible:ring-offset-2 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-[0_4px_14px_rgba(43,45,90,.06)]"
       >
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-[var(--juba-app-green-soft)]">
-          <Languages className="h-4 w-4 text-[var(--juba-app-green)]" aria-hidden="true" />
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-[#ededff]">
+          <Languages className="h-4 w-4 text-[#5862e2]" aria-hidden="true" />
         </span>
         <span className="min-w-0 flex-1 truncate">{isSwitching ? 'Switching…' : targetLabel(activeLanguage.code, getLanguageByCode(activeLanguage.code)?.name)}</span>
         {isSwitching ? (
-          <Loader2 className="h-4 w-4 shrink-0 animate-spin text-[var(--juba-app-green)]" aria-hidden="true" />
+          <Loader2 className="h-4 w-4 shrink-0 animate-spin text-[#5862e2]" aria-hidden="true" />
         ) : multiple && (open
           ? <ChevronUp className="h-4 w-4 shrink-0" aria-hidden="true" />
           : <ChevronDown className="h-4 w-4 shrink-0" aria-hidden="true" />)}
       </button>
 
       {open && multiple && (
-        <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-[18px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-surface)] p-1.5 shadow-[5px_5px_0_var(--juba-app-ink)]" role="listbox" aria-label="Available target languages">
-          <div className="flex items-center gap-2 px-2.5 py-2 text-[10px] font-black uppercase tracking-[.12em] text-[var(--juba-app-muted)]">
+        <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-[18px] border border-[rgba(7,7,9,.08)] bg-[#fff] p-1.5 shadow-[0_12px_30px_rgba(43,45,90,.10)]" role="listbox" aria-label="Available target languages">
+          <div className="flex items-center gap-2 px-2.5 py-2 text-[10px] font-black uppercase tracking-[.12em] text-[rgba(32,33,39,.52)]">
             <Languages className="h-3.5 w-3.5" aria-hidden="true" />
             Your languages
           </div>
@@ -114,20 +114,20 @@ export default function LanguageSwitcher() {
                 aria-selected={ulang.is_active}
                 disabled={isSwitching}
                 onClick={() => handleSwitch(ulang.target_language)}
-                className={`flex w-full items-center gap-3 rounded-[12px] px-3 py-2.5 text-left text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-inset disabled:cursor-wait disabled:opacity-60 ${
+                className={`flex w-full items-center gap-3 rounded-[12px] px-3 py-2.5 text-left text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5862e2] focus-visible:ring-inset disabled:cursor-wait disabled:opacity-60 ${
                   ulang.is_active
-                    ? 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]'
-                    : 'text-[var(--juba-app-ink)] hover:bg-[var(--juba-app-green-soft)]'
+                    ? 'bg-[#ededff] text-[#202127]'
+                    : 'text-[#202127] hover:bg-[#ededff]'
                 }`}
               >
-                <Languages className="h-4 w-4 shrink-0 text-[var(--juba-app-green)]" aria-hidden="true" />
+                <Languages className="h-4 w-4 shrink-0 text-[#5862e2]" aria-hidden="true" />
                 <span className="min-w-0 flex-1 truncate">{targetLabel(lang.code, lang.name)}</span>
                 {ulang.plan?.cefr_level && (
-                  <span className="rounded-full bg-[var(--juba-app-yellow)] px-2 py-0.5 text-[10px] font-black text-[var(--juba-app-ink)]">
+                  <span className="rounded-full bg-[#fff3d1] px-2 py-0.5 text-[10px] font-black text-[#202127]">
                     {ulang.plan.cefr_level}
                   </span>
                 )}
-                {ulang.is_active && <Check className="h-4 w-4 text-[var(--juba-app-green)]" aria-hidden="true" />}
+                {ulang.is_active && <Check className="h-4 w-4 text-[#5862e2]" aria-hidden="true" />}
               </button>
             )
           })}
