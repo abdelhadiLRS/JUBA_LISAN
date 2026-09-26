@@ -106,8 +106,8 @@ for level,titles in _TOPICS:
         units.append(CurriculumUnit(
             id=f"mt-{level.lower()}-unit-{n}",level=level,unit_number=n,
             title=f"Maltese {level} · {title}",
-            grammar_points=[g[1] for g in _GRAMMAR if g[2]==level][:2] or ["Maltese language consolidation"],
-            vocabulary_set_ids=[vid] if any(v[1]==vid for v in _VOCAB) else ["mt-a1-1"],
+            grammar_points=[g[0] for g in _GRAMMAR if g[2]==level][:2] or ["identity-pronouns"],
+            vocabulary_set_ids=[vid] if any(v[1]==vid for v in _VOCAB) else [],
             lesson_types=["grammar","vocabulary","reading","writing","listening","review"],
             competency_checklist=[f"Handle {level} communication on {title.lower()}","Use Maltese forms accurately in context"],
             default_weeks=2))
@@ -137,16 +137,16 @@ ASSESSMENT_BANK = [
     AssessmentQuestion(id=f"mt-{l.lower()}-{n:03}",skill=skill,difficulty=l,question=q,options=[correct,"Għażla A","Għażla B","Għażla C"],correct=correct,grammar_slug=slug)
     for n,(l,skill,q,correct,slug) in enumerate([
         ("A1","grammar","Choose the correct negative form: ___ nafx.","Ma nafx.","negation"),
-        ("A1","vocabulary","Which word means family?","familja","identity-pronouns"),
+        ("A1","vocabulary","Which word means family?","familja",None),
         ("A2","grammar","Choose the future marker: ___ mmur għada.","Se","future"),
-        ("A2","vocabulary","Which word means ticket?","biljett","travel"),
+        ("A2","vocabulary","Which word means ticket?","biljett",None),
         ("B1","grammar","Which connector introduces a reason?","għax","connectors"),
-        ("B1","vocabulary","Which word means evidence?","evidenza","reported-speech"),
+        ("B1","vocabulary","Which word means evidence?","evidenza",None),
         ("B2","grammar","Which form introduces a concessive clause?","Għalkemm","subordination"),
-        ("B2","vocabulary","Which word means sustainability?","sostenibbiltà","discourse-markers"),
+        ("B2","vocabulary","Which word means sustainability?","sostenibbiltà",None),
         ("C1","grammar","Which expression appropriately hedges an academic claim?","jidher li","academic-hedging"),
-        ("C1","vocabulary","Which word means methodology?","metodoloġija","formal-register"),
+        ("C1","vocabulary","Which word means methodology?","metodoloġija",None),
         ("C2","grammar","Which concept concerns adaptation to social context?","register-shifting","register-shifting"),
-        ("C2","vocabulary","Which word means nuance?","sfumatura","idiomatic-language"),
+        ("C2","vocabulary","Which word means nuance?","sfumatura",None),
     ],1)
 ]
