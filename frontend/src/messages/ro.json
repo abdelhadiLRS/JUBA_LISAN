@@ -524,7 +524,13 @@
     "levelTestScoreLine": "Scor: {score} din {total}",
     "levelTestReady": "Ești pregătit pentru nivelul următor",
     "levelTestReadyDesc": "Ai finalizat testul de nivel. Continuă planul de învățare.",
-    "refresh": "Reîmprospătează tabloul de bord"
+    "refresh": "Reîmprospătează tabloul de bord",
+    "historyRanges": {
+      "week": "Săptămână",
+      "month": "Lună",
+      "all": "Tot"
+    },
+    "minutes": "min"
   },
   "assessment": {
     "title": "Evaluare",
