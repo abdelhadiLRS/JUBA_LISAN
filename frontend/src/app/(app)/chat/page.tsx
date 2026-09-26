@@ -305,7 +305,7 @@ export default function ChatPage() {
 
   return (
     <MaintenanceGate>
-      <div className="juba-chat-shell flex h-[calc(100dvh-56px)] w-full overflow-hidden md:h-screen">
+      <div className="container-xl page-body py-4">
         <MemorySavedToast
           visible={memoryToast}
           announcementId={memoryToastId}
@@ -320,7 +320,7 @@ export default function ChatPage() {
 
         {/* Sidebar */}
         {sidebarOpen && (
-          <aside className="juba-chat-sidebar border-[rgba(7,7,9,.08)] bg-[#ededff]/60 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
+          <aside className="card">
             <div className="border-[rgba(7,7,9,.08)] flex items-center justify-between border-b-2 px-4 py-3">
               <span className="text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
                 {t('conversations')}
@@ -357,7 +357,7 @@ export default function ChatPage() {
                         })
                         .finally(() => setLoadingConvs(false))
                     }}
-                    className="rounded-xl border border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-2 font-semibold tracking-wide text-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)] transition-all hover:-translate-y-0.5 hover:border-[#5862e2]"
+                    className=" border border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-2 font-semibold tracking-wide text-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)] transition-all hover:-translate-y-0.5 hover:border-[#5862e2]"
                   >
                     {tCommon('retry')}
                   </button>
@@ -410,7 +410,7 @@ export default function ChatPage() {
         {/* Main chat area */}
         <div className="flex flex-1 flex-col overflow-hidden">
           {/* Header */}
-          <div className="juba-chat-header border-[rgba(7,7,9,.08)] bg-[#ededff]/60 flex shrink-0 items-center gap-2 border-b px-5 py-4">
+          <div className="card">
             <button
               type="button"
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -478,7 +478,7 @@ export default function ChatPage() {
                   className={`juba-chat-message-row flex items-end gap-2 ${msg.role === 'user' ? 'ml-auto max-w-[75%] flex-row-reverse' : 'flex-row'}`}
                 >
                   {/* Avatar */}
-                  <div className="juba-chat-avatar mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border border-[rgba(7,7,9,.08)]">
+                  <div className="card">
                     {msg.role === 'assistant' ? (
                       <Image
                         src="/logo_head.png"
@@ -549,7 +549,7 @@ export default function ChatPage() {
               ))
             )}
             {error && (
-              <div className="text-[#202127] text-[#b33a32] rounded-xl border border-[#d7b2ad] bg-[#fff7f5] px-4 py-2 font-sans">
+              <div className="text-[#202127] text-[#b33a32]  border border-[#d7b2ad] bg-[#fff7f5] px-4 py-2 font-sans">
                 ✕{' '}
                 {error === 'No active study plan found'
                   ? tCommon('noActivePlan')
@@ -576,13 +576,13 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1 rounded-xl border border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-3 font-sans text-base text-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)] transition-all placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] focus:outline-none focus:ring-2 focus:ring-[#5862e2]/15 disabled:opacity-40"
+                    className="flex-1  border border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-3 font-sans text-base text-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)] transition-all placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] focus:outline-none focus:ring-2 focus:ring-[#5862e2]/15 disabled:opacity-40"
                   />
                   <button
                     type="button"
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || loadingMsgs}
-                    className="rounded-xl border border-[#202127] bg-[#5862e2] px-5 font-sans font-bold uppercase tracking-widest text-white shadow-[0_12px_30px_rgba(43,45,90,.055)] transition-all hover:-translate-y-0.5 hover:bg-[#5862e2] hover:shadow-[0_12px_30px_rgba(43,45,90,.055)] active:translate-y-0.5 active:shadow-[1px_1px_0_#202127] disabled:opacity-30"
+                    className=" border border-[#202127] bg-[#5862e2] px-5 font-sans font-bold uppercase tracking-widest text-white shadow-[0_12px_30px_rgba(43,45,90,.055)] transition-all hover:-translate-y-0.5 hover:bg-[#5862e2] hover:shadow-[0_12px_30px_rgba(43,45,90,.055)] active:translate-y-0.5 active:shadow-[1px_1px_0_#202127] disabled:opacity-30"
                   >
                     {sending ? '…' : t('send')}
                   </button>
