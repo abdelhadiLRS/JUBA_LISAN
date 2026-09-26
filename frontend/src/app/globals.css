@@ -7888,7 +7888,7 @@ main [dir="rtl"] h3,
 
 .juba-tabler-app .juba-top-dropdown {
   top: 100%;
-  left: 0;
+  inset-inline-start: 0;
   min-width: 250px;
   margin-top: .35rem !important;
   padding: .45rem !important;
