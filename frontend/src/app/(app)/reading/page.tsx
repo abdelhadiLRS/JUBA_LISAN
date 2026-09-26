@@ -520,7 +520,7 @@ function ReadingPage() {
           </p>
         )}
 
-        <FreemiumQuotaBanner feature="reading" className="mb-4" />
+        <FreemiumQuotaBanner feature="reading" />
 
         {freemiumExhausted ? (
           <PaywallBanner feature="reading" compact />
@@ -547,7 +547,7 @@ function ReadingPage() {
   return (
     <div className="space-y-5">
       {/* Header */}
-      <div className="mb-6 flex flex-wrap items-start justify-between gap-3">
+      <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-[#202127] font-sans text-sm font-bold tracking-widest uppercase">
             {t('title')}
