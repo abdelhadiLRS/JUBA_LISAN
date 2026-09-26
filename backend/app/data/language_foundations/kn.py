@@ -9,6 +9,41 @@ PhrasebookCategory(id="kn-thanks-a1",level="A1",situation="Thanks",icon="🙏",p
 PhrasebookCategory(id="kn-shopping-a1",level="A1",situation="Shopping",icon="🛒",phrases=[PhrasebookEntry(text="ಇದು ಎಷ್ಟು?",context="How much is this?",register="neutral"),PhrasebookEntry(text="ನನಗೆ ಇದು ಬೇಕು.",context="I want this.",register="neutral"),PhrasebookEntry(text="ಬೆಲೆ ಕಡಿಮೆ ಮಾಡುತ್ತೀರಾ?",context="Can you lower the price?",register="neutral")]),
 PhrasebookCategory(id="kn-help-a1",level="A1",situation="Help",icon="🆘",phrases=[PhrasebookEntry(text="ದಯವಿಟ್ಟು ನನಗೆ ಸಹಾಯ ಮಾಡಿ.",context="Please help me.",register="neutral"),PhrasebookEntry(text="ನನಗೆ ಅರ್ಥವಾಗಲಿಲ್ಲ.",context="I do not understand.",register="neutral"),PhrasebookEntry(text="ದಯವಿಟ್ಟು ಮತ್ತೆ ಹೇಳಿ.",context="Please say it again.",register="neutral")]),
 ]
+
+_ADVANCED = [
+("past","ಭೂತಕಾಲ","A2","Describe completed actions and past experiences.","ನಾನು ನಿನ್ನೆ ಶಾಲೆಗೆ ಹೋದೆ."),
+("future","ಭವಿಷ್ಯ ಮತ್ತು ಯೋಜನೆಗಳು","A2","Talk about plans and future events.","ನಾನು ನಾಳೆ ಕೆಲಸಕ್ಕೆ ಹೋಗುತ್ತೇನೆ."),
+("comparison","ಹೋಲಿಕೆ ಮತ್ತು ಆಯ್ಕೆ","A2","Compare familiar people and things.","ಈ ಪುಸ್ತಕ ಅದುಕ್ಕಿಂತ ದೊಡ್ಡದು."),
+("requests","ವಿನಯಪೂರ್ವಕ ವಿನಂತಿಗಳು","A2","Make polite requests in everyday situations.","ದಯವಿಟ್ಟು ಮತ್ತೆ ಹೇಳಿ."),
+("relative","ಸಂಬಂಧವಾಚಕ ವಾಕ್ಯಗಳು","B1","Combine clauses to describe people and things.","ನಾನು ಓದಿದ ಪುಸ್ತಕ ತುಂಬಾ ಚೆನ್ನಾಗಿದೆ."),
+("conditionals","ಷರತ್ತು ಮತ್ತು ಪರಿಣಾಮ","B1","Express conditions and consequences.","ಮಳೆ ಬಂದರೆ ನಾನು ಮನೆಯಲ್ಲಿ ಇರುತ್ತೇನೆ."),
+("reported","ಪರೋಕ್ಷ ಮಾತು","B1","Report what another person said.","ಅವನು ನಾಳೆ ಬರುತ್ತೇನೆ ಎಂದು ಹೇಳಿದನು."),
+("cause","ಕಾರಣ ಮತ್ತು ಉದ್ದೇಶ","B2","Connect causes, purposes, and results.","ಉತ್ತಮವಾಗಿ ಕೆಲಸ ಮಾಡಲು ನಾವು ಕಲಿಯುತ್ತೇವೆ."),
+("passive","ಕರ್ಮಣಿ ಪ್ರಯೋಗ","B2","Focus on the action or its result.","ಪತ್ರವನ್ನು ಕಳುಹಿಸಲಾಗಿದೆ."),
+("connectors","ವಾದದ ಸಂಪರ್ಕ ಪದಗಳು","B2","Organize contrast, cause, and conclusion.","ಆದರೆ ಫಲಿತಾಂಶ ಇನ್ನೂ ಸ್ಪಷ್ಟವಾಗಿಲ್ಲ."),
+("formal","ಔಪಚಾರಿಕ ಭಾಷಾಶೈಲಿ","C1","Adapt language to institutional and professional contexts.","ದಯವಿಟ್ಟು ದಾಖಲೆಗಳನ್ನು ಸಮಯಕ್ಕೆ ಸಲ್ಲಿಸಿ."),
+("evidence","ಸಾಕ್ಷ್ಯ ಮತ್ತು ಎಚ್ಚರಿಕೆಯ ಹೇಳಿಕೆ","C1","Qualify claims and refer to evidence.","ಮಾಹಿತಿಯ ಆಧಾರದ ಮೇಲೆ ಈ ಫಲಿತಾಂಶ ಸಾಧ್ಯವಾಗಿದೆ."),
+("nominalization","ಶೈಕ್ಷಣಿಕ ನಾಮಪದ ರಚನೆ","C1","Handle dense formal noun phrases.","ಗುಣಮಟ್ಟದ ಸುಧಾರಣೆಗೆ ಮೌಲ್ಯಮಾಪನ ಅಗತ್ಯವಿದೆ."),
+("pragmatics","ಪ್ರಯೋಗಶಾಸ್ತ್ರ ಮತ್ತು ಅಂತರ್ನಿಹಿತ ಅರ್ಥ","C2","Interpret politeness and implied meaning.","ನೀವು ಸ್ವಲ್ಪ ಕಾಯಬಹುದೇ?"),
+("idioms","ನುಡಿಗಟ್ಟುಗಳು ಮತ್ತು ರೂಪಕ ಭಾಷೆ","C2","Interpret figurative expressions in context.","ಅವನ ಮಾತಿಗೆ ಬೇರೆ ಅರ್ಥವೂ ಇದೆ."),
+("rhetoric","ಉನ್ನತ ವಾದ ಮತ್ತು ವಾಕ್ಚಾತುರ್ಯ","C2","Build nuanced arguments with evidence and counterpoints.","ವಾದವು ಬಲವಾದರೂ ಇನ್ನಷ್ಟು ಸಾಕ್ಷ್ಯ ಅಗತ್ಯವಿದೆ."),
+]
+GRAMMAR_TOPICS.extend([GrammarTopic(slug=s,title=t,level=l,category="grammar",summary=d,explanation=d,examples=[GrammarExample(text=e)]) for s,t,l,d,e in _ADVANCED])
+
+CURRICULUM={"A1":[
+CurriculumUnit(id="kn-a1-unit-1",level="A1",unit_number=1,title="ಪರಿಚಯ ಮತ್ತು ಶುಭಾಶಯಗಳು",grammar_points=["topic-1","topic-2"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Introduce yourself","Handle a greeting"],default_weeks=2),
+CurriculumUnit(id="kn-a1-unit-2",level="A1",unit_number=2,title="ಕುಟುಂಬ",grammar_points=["topic-1","topic-6"],vocabulary_set_ids=["family_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Describe family"],default_weeks=2),
+CurriculumUnit(id="kn-a1-unit-3",level="A1",unit_number=3,title="ಮನೆ ಮತ್ತು ಸ್ಥಳ",grammar_points=["topic-2","topic-7"],vocabulary_set_ids=["home_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Describe home","State location"],default_weeks=2),
+CurriculumUnit(id="kn-a1-unit-4",level="A1",unit_number=4,title="ದೈನಂದಿನ ಜೀವನ",grammar_points=["topic-4","topic-5"],vocabulary_set_ids=["daily_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Talk about routines"],default_weeks=2),
+CurriculumUnit(id="kn-a1-unit-5",level="A1",unit_number=5,title="ಆಹಾರ ಮತ್ತು ಖರೀದಿ",grammar_points=["topic-3","topic-5"],vocabulary_set_ids=["food_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Buy simple items","Ask a price"],default_weeks=2),
+CurriculumUnit(id="kn-a1-unit-6",level="A1",unit_number=6,title="ಸ್ಥಳಗಳು ಮತ್ತು ದಿಕ್ಕುಗಳು",grammar_points=["topic-3","topic-7"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Ask for directions"],default_weeks=2),
+CurriculumUnit(id="kn-a1-unit-7",level="A1",unit_number=7,title="ಸಹಾಯ ಮತ್ತು ಸಂವಹನ",grammar_points=["topic-5","topic-8"],vocabulary_set_ids=["communication_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Ask for help","Clarify meaning"],default_weeks=2),
+CurriculumUnit(id="kn-a1-unit-8",level="A1",unit_number=8,title="A1 ಪುನರಾವರ್ತನೆ",grammar_points=["topic-1","topic-3","topic-8"],vocabulary_set_ids=["review_a1"],lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=["Handle basic exchanges"],default_weeks=2),
+]}
+for level in LEVELS[1:]:
+    groups={"A2":["past","future","comparison","requests"],"B1":["relative","conditionals","reported","cause"],"B2":["passive","connectors","cause","relative"],"C1":["formal","evidence","nominalization","connectors"],"C2":["pragmatics","idioms","rhetoric","formal"]}[level]
+    CURRICULUM[level]=[CurriculumUnit(id=f"kn-{level.lower()}-unit-{i+1}",level=level,unit_number=i+1,title=f"ಕನ್ನಡ {level} · {next(t for s,t,*_ in _ADVANCED if s==slug)}",grammar_points=[slug],vocabulary_set_ids=["review_a1"],lesson_types=["grammar","vocabulary","reading","writing","speaking","listening","review"],competency_checklist=[f"Build {level} communication",f"Apply Kannada grammar in context"],default_weeks=2) for i,slug in enumerate(groups)]
+
 ASSESSMENT_BANK=[
 AssessmentQuestion(id="kn-a1-001",skill="communication",difficulty="A1",question="Which Kannada phrase means “Hello”?",options=["ನಮಸ್ಕಾರ.","ಧನ್ಯವಾದಗಳು.","ನನಗೆ ಅರ್ಥವಾಗಲಿಲ್ಲ.","ಇದು ಎಷ್ಟು?"],correct="ನಮಸ್ಕಾರ."),
 AssessmentQuestion(id="kn-a1-002",skill="speaking",difficulty="A1",question="Which Kannada sentence means “My name is Ravi”?",options=["ನನ್ನ ಹೆಸರು ರವಿ.","ನಾನು ಮನೆಯಲ್ಲಿದ್ದೇನೆ.","ನನಗೆ ನೀರು ಬೇಕು.","ದಯವಿಟ್ಟು ಮತ್ತೆ ಹೇಳಿ."],correct="ನನ್ನ ಹೆಸರು ರವಿ."),
