@@ -102,6 +102,21 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [resendSent, setResendSent] = useState(false)
   const [openTopMenu, setOpenTopMenu] = useState<string | null>(null)
   const topMenuRef = useRef<HTMLElement | null>(null)
+  const menuCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const openMenu = (key: string) => {
+    if (menuCloseTimer.current) clearTimeout(menuCloseTimer.current)
+    setOpenTopMenu(key)
+  }
+
+  const scheduleMenuClose = () => {
+    if (menuCloseTimer.current) clearTimeout(menuCloseTimer.current)
+    menuCloseTimer.current = setTimeout(() => setOpenTopMenu(null), 140)
+  }
+
+  const cancelMenuClose = () => {
+    if (menuCloseTimer.current) clearTimeout(menuCloseTimer.current)
+  }
 
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled)
@@ -200,19 +215,32 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     const active = group.items.some((item) => isItemActive(item.href))
     const open = openTopMenu === group.key
     return (
-      <div key={group.key} className="nav-item dropdown position-relative">
+      <div
+        key={group.key}
+        className="nav-item dropdown position-relative"
+        onMouseEnter={() => openMenu(group.key)}
+        onMouseLeave={scheduleMenuClose}
+      >
         <button
           type="button"
           className={'nav-link dropdown-toggle d-flex align-items-center gap-2 border-0 px-3 py-2 ' + (active ? 'text-primary fw-semibold' : 'text-secondary')}
           aria-haspopup="menu"
           aria-expanded={open}
-          onClick={() => setOpenTopMenu(open ? null : group.key)}
+          onClick={() => {
+            cancelMenuClose()
+            setOpenTopMenu(open ? null : group.key)
+          }}
         >
           <i className={'ti ' + group.icon + ' icon icon-sm'} aria-hidden="true" />
           <span>{group.label}</span>
         </button>
         {open && (
-          <div className="dropdown-menu show position-absolute start-0 mt-1 p-2" role="menu" style={{ minWidth: 240 }}>
+          <div
+            className="dropdown-menu show position-absolute start-0 mt-1 p-2 juba-top-dropdown"
+            role="menu"
+            onMouseEnter={cancelMenuClose}
+            onMouseLeave={scheduleMenuClose}
+          >
             {group.items.map(renderTopItem)}
           </div>
         )}
@@ -260,8 +288,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </header>
-        <div className="bg-white border-bottom">
-          <div className="container-fluid py-2 d-flex align-items-center justify-content-between">
+        <div className="juba-page-context bg-white border-bottom">
+          <div className="container-xl py-3 d-flex align-items-center justify-content-between gap-3">
             <div>
               <div className="text-uppercase text-secondary small fw-bold">JUBA LISAN</div>
               <div className="fs-3 fw-bold text-dark">{activePageLabel}</div>
@@ -275,7 +303,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               {resendSent ? <span>{tCommon('verifyEmailSent')}</span> : <button onClick={handleResendVerification} className="btn btn-link p-0">{tCommon('resendVerification')}</button>}
             </div>
           )}
-          <div className="container-fluid py-4"><div className="juba-app-page">{children}</div></div>
+          <div className="container-xl py-4"><div className="juba-app-page">{children}</div></div>
         </main>
       </div>
       <LoadingBar />
