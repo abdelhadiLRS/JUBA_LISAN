@@ -664,7 +664,9 @@
     "voiceTrialTitle": "Try a real conversation now",
     "voiceTrialDesc": "Talk with Lingu for {minutes} minutes, free. Your tutor will adapt to the level you just unlocked.",
     "voiceTrialStart": "Start free conversation",
-    "voiceTrialSkip": "Skip for now"
+    "voiceTrialSkip": "Skip for now",
+    "evaluationFailed": "Evaluatie mislukt",
+    "planCreationFailed": "Het studieplan kon niet worden aangemaakt"
   },
   "plan": {
     "title": "Mijn plan",
@@ -718,7 +720,10 @@
     "noPlanLabel": "BEGINNEN",
     "noPlanTitle": "Maak je studieplan",
     "noPlanDesc": "Doe een snelle evaluatie om je niveau te ontdekken en een persoonlijk leertraject te krijgen.",
-    "noPlanHint": "Duurt ongeveer 10 minuten"
+    "noPlanHint": "Duurt ongeveer 10 minuten",
+    "startLearning": "Begin met leren",
+    "planLoadFailed": "Het studieplan kon niet worden geladen ({status})",
+    "loadFailed": "Laden mislukt"
   },
   "lesson": {
     "loading": "Les laden...",
