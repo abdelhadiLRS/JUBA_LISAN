@@ -70,7 +70,7 @@ _vocab=[
 ("discourse","C2",[("кантэкст","context","Сэнс залежыць ад кантэксту."),("адценне","nuance","Гэта адценне значэння.")
 ])]
 
-VOCABULARY_SETS=[VocabularySet(id=f"be-vocab-{i+1}",level=level,topic=topic,unit_ref=f"be-{level.lower()}-unit-{(i%8)+1}",words=[VocabularyEntry(word=w,pos="word",definition=d,example=e) for w,d,e in words]) for i,(topic,level,words) in enumerate(_vocab)]
+VOCABULARY_SETS=[VocabularySet(id=f"be-vocab-{i+1}",level=level,topic=topic,unit_ref=f"be-{level.lower()}-unit-{(i%8)+1}",words=[VocabularyEntry(word=w,pos="noun",definition=d,example=e) for w,d,e in words]) for i,(topic,level,words) in enumerate(_vocab)]
 
 _phr=[
 ("Greetings","👋","A1",[("Добрай раніцы!","morning greeting"),("Як ты?","asking how someone is")]),
