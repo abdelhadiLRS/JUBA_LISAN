@@ -1,4 +1,4 @@
-"""Samburu (suq) A1-C2 foundation data for JUBA LISAN.
+"""Suri (suq) A1-C2 foundation data for JUBA LISAN.
 
 The authored examples intentionally keep the target-language material short and
 reusable by the lesson generator.  English definitions are metadata only.
