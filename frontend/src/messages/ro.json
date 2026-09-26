@@ -137,7 +137,12 @@
     "nativeHelpStudyTips": "Sfaturi de studiu",
     "nativeHelpWordNotes": "Note despre cuvinte",
     "nativeHelpPractice": "Practică",
-    "openMenu": "Deschide meniul"
+    "openMenu": "Deschide meniul",
+    "contact": "Contact",
+    "menu": "Meniu",
+    "logoutConfirm": "Sigur vrei să te deconectezi?",
+    "copy": "Copiază",
+    "copyPhrase": "Copiază expresia"
   },
   "nav": {
     "primaryNavigation": "Navigare principală",
@@ -989,7 +994,6 @@
     "topicsFound": "{count, plural, one {# subiect găsit} other {# subiecte găsite}}",
     "topicCount": "{count, plural, one {# subiect} other {# subiecte}}",
     "levelRange": "A1 – C2"
-  
   },
   "vocabulary": {
     "title": "Centrul de vocabular",
@@ -1954,5 +1958,18 @@
     "shortcutHint": "Spațiu pentru dezvăluire · 1–4 pentru evaluare",
     "spaceShortcut": "Spațiu pentru dezvăluire",
     "rateKeys": "1 Din nou · 2 Greu · 3 Bine · 4 Ușor"
+  },
+  "translator": {
+    "detected": "Detectat",
+    "listen": "Ascultă",
+    "swap": "Inversează",
+    "translating": "Se traduce…",
+    "translationPlaceholder": "Traducerea va apărea aici",
+    "save": "Salvează",
+    "translateNow": "Tradu acum",
+    "visitorNote": "Vizitatorii pot folosi traducătorul fără autentificare.",
+    "savedCloud": "Salvat în cont",
+    "savedLocal": "Salvat pe acest dispozitiv",
+    "saving": "Se salvează…"
   }
 }
