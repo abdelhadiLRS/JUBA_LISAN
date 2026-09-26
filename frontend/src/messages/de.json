@@ -256,7 +256,16 @@
       "error": "Ungültiger oder abgelaufener Link",
       "backToLogin": "Zurück zum Login"
     }
-  },
+  ,
+    "scenarios": {
+      "airport": {"title": "Flughafen", "description": "Checke ein, frage nach dem Weg und gehe mit Verspätungen um."},
+      "jobInterview": {"title": "Vorstellungsgespräch", "description": "Übe Antworten, Selbstvertrauen und beruflichen Wortschatz."},
+      "restaurant": {"title": "Restaurant", "description": "Bestelle natürlich und führe ein echtes Gespräch."},
+      "hotel": {"title": "Hotel", "description": "Buche ein Zimmer, löse Probleme und stelle Wünsche."}
+    },
+    "learningLabel": "Lernen",
+    "cefrLabel": "GER",
+    "coachLabel": "Coach"},
   "settings": {
     "title": "Einstellungen",
     "sectionAccount": "Konto",
