@@ -16,10 +16,20 @@ import { LoadingBar } from '@/components/ui/loading-bar'
 import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
-import { Bell, BookOpen, BrainCircuit, ClipboardCheck, Gamepad2, GraduationCap, Headphones, Languages, LogOut, Menu, MessageCircle, MessagesSquare, Settings2, Sparkles, Trophy, UserRound, Users, Volume2, X, PanelLeftClose, PanelLeft } from 'lucide-react'
+import { Bell, LogOut, Menu, PanelLeftClose, PanelLeft } from 'lucide-react'
 
-const NAV_ICONS: Record<string, React.ComponentType<{ className?: string }>> = { '/dashboard': GraduationCap, '/plan': ClipboardCheck, '/progress': Trophy, '/games': Gamepad2, '/flashcards': BookOpen, '/friends': Users, '/chat': MessageCircle, '/listening': Headphones, '/reading': BookOpen, '/conversation': MessagesSquare, '/assessment': BrainCircuit, '/coach': Sparkles, '/courses': GraduationCap, '/review': Volume2, '/translator': Languages, '/grammar': BrainCircuit, '/vocabulary': BookOpen, '/phrasebook': MessagesSquare, '/settings': Settings2, '/faq': UserRound, '/feedback': MessageCircle }
-function NavIcon({ href, className = 'size-4' }: { href: string; className?: string }) { const Icon = NAV_ICONS[href] ?? Sparkles; return <Icon className={className} aria-hidden="true" /> }
+const NAV_ICONS: Record<string, string> = {
+  '/dashboard': 'ti-home', '/plan': 'ti-clipboard-check', '/progress': 'ti-chart-bar',
+  '/games': 'ti-device-gamepad-2', '/flashcards': 'ti-cards', '/friends': 'ti-users',
+  '/chat': 'ti-message', '/listening': 'ti-headphones', '/reading': 'ti-book',
+  '/conversation': 'ti-messages', '/assessment': 'ti-brain', '/coach': 'ti-sparkles',
+  '/courses': 'ti-school', '/review': 'ti-refresh', '/translator': 'ti-language',
+  '/grammar': 'ti-book-2', '/vocabulary': 'ti-books', '/phrasebook': 'ti-notes',
+  '/settings': 'ti-settings', '/faq': 'ti-help', '/feedback': 'ti-message-report',
+}
+function NavIcon({ href, className = 'icon' }: { href: string; className?: string }) {
+  return <i className={'ti ' + (NAV_ICONS[href] ?? 'ti-circle') + ' ' + className} aria-hidden="true" />
+}
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const tNav = useTranslations('nav')
