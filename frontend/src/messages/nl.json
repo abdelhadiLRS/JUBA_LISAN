@@ -815,9 +815,9 @@
     "tapToHear": "Tik op het woord om het te horen",
     "lessonProgress": "Lesvoortgang",
     "masteryOverview": "Beheersing van de les",
-    "masteryCoverage": "{{covered}} varianten behandeld",
-    "masteryAttemptRate": "Pogingspercentage: {{rate}}%",
-    "masteryRate": "Beheersingspercentage: {{rate}}%",
+    "masteryCoverage": "{covered} varianten behandeld",
+    "masteryAttemptRate": "Pogingspercentage: {rate}%",
+    "masteryRate": "Beheersingspercentage: {rate}%",
     "masteryAttempted": "Geprobeerd",
     "masteryLearning": "In ontwikkeling",
     "masteryStruggling": "Moeilijk",
@@ -1979,7 +1979,7 @@
     "rateKeys": "1 Opnieuw · 2 Moeilijk · 3 Goed · 4 Makkelijk"
   },
   "translator": {
-    "detected": "Gedetecteerd",
+    "detected": "Gedetecteerd {language}",
     "listen": "Luisteren",
     "swap": "Wisselen",
     "translating": "Vertalen…",
