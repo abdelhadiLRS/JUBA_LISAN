@@ -740,6 +740,7 @@
     "levelTestCompleted": "اكتمل اختبار المستوى",
     "levelTestScoreLine": "النتيجة: {score} من {total}",
     "levelTestReady": "أنت جاهز للانتقال إلى المستوى التالي",
-    "levelTestReadyDesc": "أكملت اختبار المستوى بنجاح. تابع خطتك التعليمية."
+    "levelTestReadyDesc": "أكملت اختبار المستوى بنجاح. تابع خطتك التعليمية.",
+    "refresh": "تحديث لوحة التحكم"
   }
 }
