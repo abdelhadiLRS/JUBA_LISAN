@@ -468,6 +468,7 @@ async def evaluate_free_write(
         criteria=", ".join(criteria),
         answer=answer,
         language_prompt_overlay=language_prompt_overlay,
+        language_capabilities=language_capabilities,
     )
 
     result = await llm_adapter.structured_output(
