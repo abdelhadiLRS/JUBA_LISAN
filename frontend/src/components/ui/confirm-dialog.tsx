@@ -2,7 +2,7 @@
 
 import { useEffect, useEffectEvent, useId, useRef } from 'react'
 import { useTranslations } from 'next-intl'
-import { AlertTriangle, CheckCircle2, Loader2, X } from 'lucide-react'
+
 
 interface ConfirmDialogProps {
   open: boolean
@@ -81,7 +81,7 @@ export function ConfirmDialog({
     >
       <div
         ref={dialogRef}
-        className="juba-card w-full max-w-sm overflow-hidden border-2 border-[var(--juba-app-line)] shadow-[5px_5px_0_var(--juba-app-line)]"
+        className="card w-full max-w-sm overflow-hidden border-2 border-[var(--juba-app-line)] shadow-[5px_5px_0_var(--juba-app-line)]"
         onClick={(e) => e.stopPropagation()}
         role="alertdialog"
         aria-modal="true"
@@ -93,7 +93,7 @@ export function ConfirmDialog({
             className={`flex h-8 w-8 items-center justify-center rounded-full text-sm ${danger ? 'bg-[color-mix(in_srgb,#b33a32_12%,var(--juba-app-surface))] text-[#b33a32]' : 'bg-[var(--juba-app-yellow)] text-[var(--juba-app-green-dark)]'}`}
             aria-hidden="true"
           >
-            {danger ? <AlertTriangle className="size-4" /> : <CheckCircle2 className="size-4" />}
+            {danger ? <i className="ti ti-alert-triangle icon" aria-hidden="true" /> : <i className="ti ti-circle-check icon" aria-hidden="true" />}
           </span>
           <span id={titleId} className="text-sm font-semibold tracking-tight text-[var(--juba-app-ink)]">
             {title}
@@ -117,7 +117,7 @@ export function ConfirmDialog({
             ref={cancelRef}
             onClick={onCancel}
             disabled={confirming}
-            className="flex-1 rounded-xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] shadow-[2px_2px_0_var(--juba-app-line)] px-4 py-2.5 text-sm font-semibold text-[var(--juba-app-muted)] transition hover:border-[var(--juba-app-green)] hover:text-[var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="btn btn-outline-secondary flex-1"
           >
             {cancelLabel ?? tCommon('cancel')}
           </button>
