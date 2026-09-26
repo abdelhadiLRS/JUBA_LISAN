@@ -256,7 +256,16 @@
       "error": "Enlace inválido o caducado",
       "backToLogin": "Volver al inicio de sesión"
     }
-  },
+  ,
+    "scenarios": {
+      "airport": {"title": "Aeropuerto", "description": "Haz el check-in, pide indicaciones y gestiona retrasos."},
+      "jobInterview": {"title": "Entrevista de trabajo", "description": "Practica respuestas, confianza y vocabulario profesional."},
+      "restaurant": {"title": "Restaurante", "description": "Pide con naturalidad y mantén una conversación real."},
+      "hotel": {"title": "Hotel", "description": "Reserva una habitación, resuelve problemas y haz peticiones."}
+    },
+    "learningLabel": "Aprendizaje",
+    "cefrLabel": "CEFR",
+    "coachLabel": "Coach"},
   "settings": {
     "title": "Ajustes",
     "sectionAccount": "Cuenta",
