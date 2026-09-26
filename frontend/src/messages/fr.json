@@ -329,17 +329,29 @@
       "missingToken": "Lien invalide. Veuillez demander une nouvelle réinitialisation.",
       "error": "Lien invalide ou expiré",
       "backToLogin": "Retour à la connexion"
-    }
-  ,
+    },
     "scenarios": {
-      "airport": {"title": "Aéroport", "description": "Enregistre-toi, demande ton chemin et gère les retards."},
-      "jobInterview": {"title": "Entretien d'embauche", "description": "Travaille tes réponses, ta confiance et le vocabulaire professionnel."},
-      "restaurant": {"title": "Restaurant", "description": "Commande naturellement et gère une vraie conversation."},
-      "hotel": {"title": "Hôtel", "description": "Réserve une chambre, résous les problèmes et fais des demandes."}
+      "airport": {
+        "title": "Aéroport",
+        "description": "Enregistre-toi, demande ton chemin et gère les retards."
+      },
+      "jobInterview": {
+        "title": "Entretien d'embauche",
+        "description": "Travaille tes réponses, ta confiance et le vocabulaire professionnel."
+      },
+      "restaurant": {
+        "title": "Restaurant",
+        "description": "Commande naturellement et gère une vraie conversation."
+      },
+      "hotel": {
+        "title": "Hôtel",
+        "description": "Réserve une chambre, résous les problèmes et fais des demandes."
+      }
     },
     "learningLabel": "Apprentissage",
     "cefrLabel": "CECR",
-    "coachLabel": "Coach"},
+    "coachLabel": "Coach"
+  },
   "settings": {
     "title": "Paramètres",
     "sectionAccount": "Compte",
@@ -1016,7 +1028,8 @@
     "cardsAdded": "{count} fiches ajoutées à votre deck.",
     "goToFlashcards": "Aller aux fiches →",
     "addFailed": "Échec de l'ajout des fiches.",
-    "noResults": "Aucun ensemble de vocabulaire ne correspond à votre recherche"
+    "noResults": "Aucun ensemble de vocabulaire ne correspond à votre recherche",
+    "setCount": "{count, plural, =1 {# ensemble} other {# ensembles}}"
   },
   "phrasebook": {
     "title": "Phrases",
