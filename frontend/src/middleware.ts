@@ -33,7 +33,7 @@ function detectLocale(req: NextRequest): Locale {
     const normalized = normalizeLocale(firstSegment)
     const raw = firstSegment.trim().replace(/_/g, '-').toLowerCase()
     const knownLocale = (SUPPORTED_LOCALES as readonly string[]).includes(raw)
-    const regionalAlias = raw.includes('-') && normalized !== 'en' || raw === 'en-gb' || raw === 'en-us'
+    const regionalAlias = raw.includes('-') && (normalized !== 'en' || raw.startsWith('en-'))
     if (knownLocale || regionalAlias) return normalized
   }
 
