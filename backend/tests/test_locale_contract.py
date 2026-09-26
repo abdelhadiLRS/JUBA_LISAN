@@ -90,7 +90,7 @@ def test_locale_normalization_is_shared_for_underscored_and_cased_input():
 
 def test_additional_foundation_languages_have_cefr_curricula():
     """New foundation languages must resolve to real multi-level lesson sequences."""
-    from app.data.curriculum import get_units
+    from app.data.curriculum import get_curriculum_units
 
     expected = {
         "ceb": 8,
@@ -103,6 +103,6 @@ def test_additional_foundation_languages_have_cefr_curricula():
 
     for locale, minimum_units in expected.items():
         for level in ("A2", "B1", "B2", "C1", "C2"):
-            units = get_units(level, locale)
+            units = get_curriculum_units(level, locale)
             assert len(units) >= minimum_units, (locale, level, len(units))
             assert all(unit.id.startswith(f"{locale}-{level.lower()}-") for unit in units)
