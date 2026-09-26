@@ -47,8 +47,12 @@ def test_registered_foundations_have_no_dangling_unit_references():
 
     for language, module_name in curriculum_dispatcher._LANG_MODULES.items():
         module = importlib.import_module(module_name)
-        grammar_ids = _public_ids(getattr(module, "GRAMMAR_TOPICS", []))
-        vocabulary_ids = _public_ids(getattr(module, "VOCABULARY_SETS", []))
+        grammar_topics = getattr(module, "GRAMMAR_TOPICS", [])
+        vocabulary_sets = getattr(module, "VOCABULARY_SETS", [])
+        grammar_ids = _public_ids(grammar_topics)
+        vocabulary_ids = _public_ids(vocabulary_sets)
+        grammar_by_id = {item.slug: item for item in grammar_topics if getattr(item, "slug", None)}
+        vocabulary_by_id = {item.id: item for item in vocabulary_sets if getattr(item, "id", None)}
 
         for level, units in getattr(module, "CURRICULUM", {}).items():
             unit_ids: set[str] = set()
@@ -62,17 +66,70 @@ def test_registered_foundations_have_no_dangling_unit_references():
                     failures.append(
                         f"{language}/{level}/{unit.id}: missing grammar {sorted(missing_grammar)}"
                     )
+                for grammar_slug in unit.grammar_points:
+                    topic = grammar_by_id.get(grammar_slug)
+                    if topic and topic.level != level:
+                        failures.append(
+                            f"{language}/{level}/{unit.id}: grammar {grammar_slug} is level {topic.level}"
+                        )
 
                 missing_vocab = set(unit.vocabulary_set_ids) - vocabulary_ids
                 if missing_vocab:
                     failures.append(
                         f"{language}/{level}/{unit.id}: missing vocabulary {sorted(missing_vocab)}"
                     )
+                for vocab_id in unit.vocabulary_set_ids:
+                    vocab = vocabulary_by_id.get(vocab_id)
+                    if vocab and vocab.level != level:
+                        failures.append(
+                            f"{language}/{level}/{unit.id}: vocabulary {vocab_id} is level {vocab.level}"
+                        )
+                    if vocab and vocab.unit_ref != unit.id:
+                        failures.append(
+                            f"{language}/{level}/{unit.id}: vocabulary {vocab_id} points to {vocab.unit_ref}"
+                        )
 
                 if not unit.lesson_types:
                     failures.append(f"{language}/{level}/{unit.id}: no lesson types")
                 if not unit.competency_checklist:
                     failures.append(f"{language}/{level}/{unit.id}: no competency checklist")
+
+    assert not failures, "\n".join(failures)
+
+
+def test_registered_foundations_have_valid_phrasebook_references():
+    failures: list[str] = []
+
+    for language, module_name in curriculum_dispatcher._LANG_MODULES.items():
+        module = importlib.import_module(module_name)
+        unit_ids = {
+            unit.id
+            for units in getattr(module, "CURRICULUM", {}).values()
+            for unit in units
+        }
+        for category in getattr(module, "PHRASEBOOK_CATEGORIES", []):
+            if category.level not in curriculum_dispatcher.CEFR_LEVELS:
+                failures.append(f"{language}: invalid phrasebook level {category.level}")
+            for phrase in category.phrases:
+                if phrase.unit_ref and phrase.unit_ref not in unit_ids:
+                    failures.append(
+                        f"{language}/{category.id}: missing phrase unit {phrase.unit_ref}"
+                    )
+
+    assert not failures, "\n".join(failures)
+
+
+def test_registered_foundations_have_valid_assessment_grammar_links():
+    failures: list[str] = []
+
+    for language, module_name in curriculum_dispatcher._LANG_MODULES.items():
+        module = importlib.import_module(module_name)
+        grammar_ids = _public_ids(getattr(module, "GRAMMAR_TOPICS", []), "slug")
+        for question in getattr(module, "ASSESSMENT_BANK", []):
+            if question.grammar_slug and question.grammar_slug not in grammar_ids:
+                failures.append(
+                    f"{language}/{question.id}: missing grammar {question.grammar_slug}"
+                )
 
     assert not failures, "\n".join(failures)
 
