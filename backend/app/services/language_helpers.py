@@ -95,6 +95,7 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
     "uk": {"name": "Ukrainian", "self_name": "Українська", "iso639": "uk"},
     "he": {"name": "Hebrew", "self_name": "עברית", "iso639": "he"},
     "vi": {"name": "Vietnamese", "self_name": "Tiếng Việt", "iso639": "vi"},
+    "mr": {"name": "Marathi", "self_name": "मराठी", "iso639": "mr"},
     "bg": {"name": "Bulgarian", "self_name": "Български", "iso639": "bg"},
     "sr": {"name": "Serbian", "self_name": "Српски", "iso639": "sr"},
     "fa": {"name": "Persian", "self_name": "فارسی", "iso639": "fa"},
@@ -163,7 +164,7 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
     "tg": {"name": "Tajik", "self_name": "Тоҷикӣ", "iso639": "tg"},
     "su": {"name": "Sundanese", "self_name": "Basa Sunda", "iso639": "su"},
     "ti": {"name": "Tigrinya", "self_name": "ትግርኛ", "iso639": "ti"},
-    "suq": {"name": "Suryin", "self_name": "Suryin", "iso639": "suq"},
+    "suq": {"name": "Suri", "self_name": "Suri", "iso639": "suq"},
     "to": {"name": "Tongan", "self_name": "Lea fakatonga", "iso639": "to"},
 }
 
