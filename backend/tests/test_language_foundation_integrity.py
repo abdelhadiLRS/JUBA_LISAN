@@ -150,6 +150,59 @@ def test_registered_foundations_have_no_dangling_unit_references():
     assert not failures, "\n".join(failures)
 
 
+def test_registered_foundations_keep_vocabulary_attached_to_declared_units():
+    failures: list[str] = []
+
+    for language, module_name in curriculum_dispatcher._LANG_MODULES.items():
+        module = importlib.import_module(module_name)
+        units = {
+            unit.id: unit
+            for level_units in getattr(module, "CURRICULUM", {}).values()
+            for unit in level_units
+        }
+        for vocab in getattr(module, "VOCABULARY_SETS", []):
+            unit = units.get(vocab.unit_ref)
+            if unit is None:
+                continue
+            if vocab.id not in unit.vocabulary_set_ids:
+                failures.append(
+                    f"{language}/{vocab.id}: unit_ref {vocab.unit_ref} does not declare this vocabulary set"
+                )
+            if vocab.level != unit.level:
+                failures.append(
+                    f"{language}/{vocab.id}: vocabulary level {vocab.level} does not match unit {unit.id} level {unit.level}"
+                )
+
+    assert not failures, "\\n".join(failures)
+
+
+def test_registered_foundations_have_nonempty_core_content():
+    failures: list[str] = []
+
+    for language, module_name in curriculum_dispatcher._LANG_MODULES.items():
+        module = importlib.import_module(module_name)
+        for topic in getattr(module, "GRAMMAR_TOPICS", []):
+            for field in ("title", "summary", "explanation"):
+                if not str(getattr(topic, field, "")).strip():
+                    failures.append(f"{language}/{topic.slug}: empty grammar {field}")
+            if not getattr(topic, "examples", []):
+                failures.append(f"{language}/{topic.slug}: no grammar examples")
+        for vocab in getattr(module, "VOCABULARY_SETS", []):
+            if not str(vocab.topic).strip() or not vocab.words:
+                failures.append(f"{language}/{vocab.id}: empty vocabulary set")
+            for entry in vocab.words:
+                if not str(entry.word).strip() or not str(entry.definition).strip() or not str(entry.example).strip():
+                    failures.append(f"{language}/{vocab.id}: incomplete vocabulary entry {entry.word!r}")
+        for category in getattr(module, "PHRASEBOOK_CATEGORIES", []):
+            if not str(category.situation).strip() or not category.phrases:
+                failures.append(f"{language}/{category.id}: empty phrasebook category")
+            for phrase in category.phrases:
+                if not str(phrase.text).strip() or not str(phrase.context).strip():
+                    failures.append(f"{language}/{category.id}: incomplete phrasebook entry")
+
+    assert not failures, "\\n".join(failures)
+
+
 def test_registered_foundations_have_valid_phrasebook_references():
     failures: list[str] = []
 
