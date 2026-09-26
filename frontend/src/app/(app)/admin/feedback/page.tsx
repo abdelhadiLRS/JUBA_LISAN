@@ -330,7 +330,7 @@ export default function AdminFeedbackPage() {
         eyebrow={`${tAdmin('title')} / ${tAdmin('feedback')}`}
         title={tAdmin('reviewFeedback')}
         actions={
-          <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] self-center font-semibold tracking-wide">
+          <span className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] self-center font-semibold tracking-wide">
             {total} {tAdmin('total')}
           </span>
         }
@@ -353,7 +353,7 @@ export default function AdminFeedbackPage() {
       </div>
 
       {error && (
-        <div className="border-red-200/40 text-red-600 border px-4 py-3 font-sans text-xs border-[var(--juba-border)]">
+        <div className="border-red-200/40 text-red-600 border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
           {error}
         </div>
       )}
@@ -364,17 +364,17 @@ export default function AdminFeedbackPage() {
           <div className="flex items-center gap-2">
             {loading && (
               <Loader2
-                className="text-[var(--juba-muted)] size-3.5 animate-spin"
+                className="text-[rgba(32,33,39,.52)] size-3.5 animate-spin"
                 aria-hidden="true"
               />
             )}
-            <span className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-semibold tracking-wide">
+            <span className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
               {entries.length} / {total}
             </span>
           </div>
         }
       >
-        <div className="border-[var(--juba-border)] grid gap-2 border-b px-5 py-3 lg:grid-cols-[minmax(14rem,1fr)_auto_auto_auto_auto]">
+        <div className="border-[rgba(7,7,9,.08)] grid gap-2 border-b px-5 py-3 lg:grid-cols-[minmax(14rem,1fr)_auto_auto_auto_auto]">
           <div className="flex min-w-0">
             <input
               type="search"
@@ -387,12 +387,12 @@ export default function AdminFeedbackPage() {
               autoCorrect="off"
               autoCapitalize="none"
               spellCheck={false}
-              className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] focus:border-[var(--juba-violet)] min-w-0 flex-1 border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+              className="bg-[var(--juba-bg)] border-[rgba(7,7,9,.08)] text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] min-w-0 flex-1 border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             />
             <button
               type="button"
               onClick={handleSearch}
-              className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)] -ml-px inline-flex w-10 shrink-0 items-center justify-center border transition-colors"
+              className="bg-[var(--juba-bg)] border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:border-[#5862e2] -ml-px inline-flex w-10 shrink-0 items-center justify-center border transition-colors"
               aria-label={tAdmin('feedbackSearchAction')}
             >
               <Search className="size-3.5" aria-hidden="true" />
@@ -402,7 +402,7 @@ export default function AdminFeedbackPage() {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value as TypeFilter)}
-            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] focus:border-[var(--juba-violet)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[var(--juba-bg)] border-[rgba(7,7,9,.08)] text-[#202127] focus:border-[#5862e2] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={tAdmin('feedbackTypeFilter')}
           >
             {typeFilterOptions.map((o) => (
@@ -415,7 +415,7 @@ export default function AdminFeedbackPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] focus:border-[var(--juba-violet)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[var(--juba-bg)] border-[rgba(7,7,9,.08)] text-[#202127] focus:border-[#5862e2] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={t('filterStatus')}
           >
             {statusFilterOptions.map((o) => (
@@ -428,7 +428,7 @@ export default function AdminFeedbackPage() {
           <select
             value={sortFilter}
             onChange={(e) => setSortFilter(e.target.value as SortFilter)}
-            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] focus:border-[var(--juba-violet)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[var(--juba-bg)] border-[rgba(7,7,9,.08)] text-[#202127] focus:border-[#5862e2] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={t('sortBy')}
           >
             {sortFilterOptions.map((o) => (
@@ -442,7 +442,7 @@ export default function AdminFeedbackPage() {
             type="button"
             onClick={clearFilters}
             disabled={!hasFilters}
-            className="border-[var(--juba-border)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] hover:border-[var(--juba-violet)] inline-flex items-center justify-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
+            className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:border-[#5862e2] inline-flex items-center justify-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
           >
             <FilterX className="size-3.5" aria-hidden="true" />
             {tAdmin('clearFilters')}
@@ -450,28 +450,28 @@ export default function AdminFeedbackPage() {
         </div>
 
         {entries.length === 0 && !loading ? (
-          <p className="text-[var(--juba-muted)] px-6 py-10 text-center font-sans text-xs">
+          <p className="text-[rgba(32,33,39,.52)] px-6 py-10 text-center font-sans text-xs">
             {hasFilters ? tAdmin('noFilteredFeedback') : t('noEntries')}
           </p>
         ) : (
           <>
             <div className="hidden lg:block">
-              <table className="w-full table-fixed border-collapse border-[var(--juba-border)]">
+              <table className="w-full table-fixed border-collapse border-[rgba(7,7,9,.08)]">
                 <thead>
-                  <tr className="border-[var(--juba-border)] border-b">
-                    <th className="text-[var(--juba-text)] text-[var(--juba-muted)] w-[42%] px-5 py-3 text-left font-semibold tracking-wide">
+                  <tr className="border-[rgba(7,7,9,.08)] border-b">
+                    <th className="text-[#202127] text-[rgba(32,33,39,.52)] w-[42%] px-5 py-3 text-left font-semibold tracking-wide">
                       {tAdmin('feedbackItem')}
                     </th>
-                    <th className="text-[var(--juba-text)] text-[var(--juba-muted)] w-[13%] px-5 py-3 text-left font-semibold tracking-wide">
+                    <th className="text-[#202127] text-[rgba(32,33,39,.52)] w-[13%] px-5 py-3 text-left font-semibold tracking-wide">
                       {tAdmin('type')}
                     </th>
-                    <th className="text-[var(--juba-text)] text-[var(--juba-muted)] w-[18%] px-5 py-3 text-left font-semibold tracking-wide">
+                    <th className="text-[#202127] text-[rgba(32,33,39,.52)] w-[18%] px-5 py-3 text-left font-semibold tracking-wide">
                       {tAdmin('status')}
                     </th>
-                    <th className="text-[var(--juba-text)] text-[var(--juba-muted)] w-[13%] px-5 py-3 text-left font-semibold tracking-wide">
+                    <th className="text-[#202127] text-[rgba(32,33,39,.52)] w-[13%] px-5 py-3 text-left font-semibold tracking-wide">
                       {tAdmin('signals')}
                     </th>
-                    <th className="text-[var(--juba-text)] text-[var(--juba-muted)] w-[14%] px-5 py-3 text-right font-semibold tracking-wide">
+                    <th className="text-[#202127] text-[rgba(32,33,39,.52)] w-[14%] px-5 py-3 text-right font-semibold tracking-wide">
                       {tAdmin('actions')}
                     </th>
                   </tr>
@@ -480,16 +480,16 @@ export default function AdminFeedbackPage() {
                   {entries.map((entry) => (
                     <tr
                       key={entry.id}
-                      className="border-[var(--juba-border)] hover:bg-[var(--juba-bg)]/60 border-b last:border-0"
+                      className="border-[rgba(7,7,9,.08)] hover:bg-[var(--juba-bg)]/60 border-b last:border-0"
                     >
                       <td className="px-5 py-4 align-top">
-                        <p className="text-[var(--juba-text)] line-clamp-1 font-sans text-sm">
+                        <p className="text-[#202127] line-clamp-1 font-sans text-sm">
                           {entry.title}
                         </p>
-                        <p className="text-[var(--juba-muted)] mt-1 line-clamp-2 font-sans text-xs leading-relaxed">
+                        <p className="text-[rgba(32,33,39,.52)] mt-1 line-clamp-2 font-sans text-xs leading-relaxed">
                           {entry.description}
                         </p>
-                        <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mt-2 flex flex-wrap items-center gap-x-1 font-sans">
+                        <p className="text-[#202127] text-[rgba(32,33,39,.52)] mt-2 flex flex-wrap items-center gap-x-1 font-sans">
                           <span>
                             {t('by')} {entry.author.display_name}
                           </span>
@@ -521,7 +521,7 @@ export default function AdminFeedbackPage() {
                               handleStatusChange(entry, e.target.value)
                             }
                             disabled={savingStatus === entry.id}
-                            className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] focus:border-[var(--juba-violet)] appearance-none border px-3 py-2 font-sans text-xs transition-colors focus:outline-none disabled:opacity-50"
+                            className="bg-[var(--juba-bg)] border-[rgba(7,7,9,.08)] text-[#202127] focus:border-[#5862e2] appearance-none border px-3 py-2 font-sans text-xs transition-colors focus:outline-none disabled:opacity-50"
                             aria-label={tAdmin('feedbackStatusAction')}
                           >
                             {feedbackStatusOptions.map((option) => (
@@ -533,7 +533,7 @@ export default function AdminFeedbackPage() {
                         </div>
                       </td>
                       <td className="px-5 py-4 align-top">
-                        <div className="text-[var(--juba-muted)] space-y-2 font-sans text-xs">
+                        <div className="text-[rgba(32,33,39,.52)] space-y-2 font-sans text-xs">
                           <p>▲ {entry.vote_count}</p>
                           <p>◌ {entry.comment_count}</p>
                         </div>
@@ -542,7 +542,7 @@ export default function AdminFeedbackPage() {
                         <button
                           onClick={() => setDeletePending(entry)}
                           disabled={deletingId === entry.id}
-                          className="border-red-200/30 text-red-600-fg hover:border-red-200 hover:text-red-600 inline-flex size-8 items-center justify-center border transition-colors disabled:opacity-40 border-[var(--juba-border)]"
+                          className="border-red-200/30 text-red-600-fg hover:border-red-200 hover:text-red-600 inline-flex size-8 items-center justify-center border transition-colors disabled:opacity-40 border-[rgba(7,7,9,.08)]"
                           aria-label={tAdmin('delete')}
                           title={tAdmin('delete')}
                         >
@@ -566,7 +566,7 @@ export default function AdminFeedbackPage() {
               {entries.map((entry, i) => (
                 <div
                   key={entry.id}
-                  className={`space-y-3 px-4 py-4 ${i < entries.length - 1 ? 'border-[var(--juba-border)] border-b' : ''}`}
+                  className={`space-y-3 px-4 py-4 ${i < entries.length - 1 ? 'border-[rgba(7,7,9,.08)] border-b' : ''}`}
                 >
                   <div className="flex flex-wrap items-center gap-2">
                     <AdminBadge
@@ -584,13 +584,13 @@ export default function AdminFeedbackPage() {
                   </div>
 
                   <div className="min-w-0">
-                    <p className="text-[var(--juba-text)] font-sans text-sm">
+                    <p className="text-[#202127] font-sans text-sm">
                       {entry.title}
                     </p>
-                    <p className="text-[var(--juba-muted)] mt-1 line-clamp-3 font-sans text-xs leading-relaxed">
+                    <p className="text-[rgba(32,33,39,.52)] mt-1 line-clamp-3 font-sans text-xs leading-relaxed">
                       {entry.description}
                     </p>
-                    <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mt-2 flex flex-wrap items-center gap-x-1 font-sans">
+                    <p className="text-[#202127] text-[rgba(32,33,39,.52)] mt-2 flex flex-wrap items-center gap-x-1 font-sans">
                       <span>
                         {t('by')} {entry.author.display_name}
                       </span>
@@ -599,7 +599,7 @@ export default function AdminFeedbackPage() {
                     </p>
                   </div>
 
-                  <div className="text-[var(--juba-muted)] flex flex-wrap items-center gap-3 font-sans text-xs">
+                  <div className="text-[rgba(32,33,39,.52)] flex flex-wrap items-center gap-3 font-sans text-xs">
                     <span>▲ {entry.vote_count}</span>
                     <span>◌ {entry.comment_count}</span>
                   </div>
@@ -611,7 +611,7 @@ export default function AdminFeedbackPage() {
                         handleStatusChange(entry, e.target.value)
                       }
                       disabled={savingStatus === entry.id}
-                      className="bg-[var(--juba-bg)] border-[var(--juba-border)] text-[var(--juba-text)] focus:border-[var(--juba-violet)] appearance-none border px-3 py-2 font-sans text-xs transition-colors focus:outline-none disabled:opacity-50"
+                      className="bg-[var(--juba-bg)] border-[rgba(7,7,9,.08)] text-[#202127] focus:border-[#5862e2] appearance-none border px-3 py-2 font-sans text-xs transition-colors focus:outline-none disabled:opacity-50"
                       aria-label={tAdmin('feedbackStatusAction')}
                     >
                       {feedbackStatusOptions.map((option) => (
@@ -623,7 +623,7 @@ export default function AdminFeedbackPage() {
                     <button
                       onClick={() => setDeletePending(entry)}
                       disabled={deletingId === entry.id}
-                      className="border-red-200/30 text-[var(--juba-text)] text-red-600-fg hover:border-red-200 hover:text-red-600 inline-flex items-center justify-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:opacity-40 border-[var(--juba-border)]"
+                      className="border-red-200/30 text-[#202127] text-red-600-fg hover:border-red-200 hover:text-red-600 inline-flex items-center justify-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:opacity-40 border-[rgba(7,7,9,.08)]"
                     >
                       {deletingId === entry.id ? (
                         <Loader2

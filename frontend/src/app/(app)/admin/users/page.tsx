@@ -71,9 +71,9 @@ function statusBadgeClass(status: string) {
     case 'incomplete_expired':
       return 'border-orange-500/40 text-orange-400'
     case 'canceled':
-      return 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)]'
+      return 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)]'
     default:
-      return 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)]'
+      return 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)]'
   }
 }
 
@@ -418,7 +418,7 @@ export default function AdminUsersPage() {
   }
 
   const inputCls =
-    'w-full bg-[var(--juba-app-bg)] border border-[var(--juba-app-line)] px-4 py-3 font-sans text-xs text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] focus:outline-none focus:border-[var(--juba-app-green)] transition-colors'
+    'w-full bg-[#f4f4f2] border border-[rgba(7,7,9,.08)] px-4 py-3 font-sans text-xs text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:outline-none focus:border-[#5862e2] transition-colors'
 
   const hasFilters =
     searchTerm ||
@@ -440,7 +440,7 @@ export default function AdminUsersPage() {
           <>
             <button
               onClick={openCreateUser}
-              className="bg-[var(--juba-app-green)] text-white hover:bg-[var(--juba-app-green)]/90 inline-flex items-center gap-2 px-3 py-2 font-sans text-xs font-bold tracking-wide transition-colors"
+              className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 inline-flex items-center gap-2 px-3 py-2 font-sans text-xs font-bold tracking-wide transition-colors"
             >
               <Plus className="size-3.5" aria-hidden="true" />
               {t('createUserBtn')}
@@ -452,14 +452,14 @@ export default function AdminUsersPage() {
       <AdminNav />
 
       {inviteUrl && (
-        <div className="juba-card border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border px-5 py-4">
+        <div className="juba-card border-[rgba(7,7,9,.08)] bg-[#fff] border px-5 py-4">
           <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-            <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-semibold tracking-wide">
+            <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
               {t('inviteLink')}
             </p>
             <button
               onClick={copyInvite}
-              className="border-[var(--juba-app-line)] text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-green)] inline-flex items-center gap-2 border px-3 py-1.5 font-semibold tracking-wide transition-colors"
+              className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:border-[#5862e2] inline-flex items-center gap-2 border px-3 py-1.5 font-semibold tracking-wide transition-colors"
             >
               {inviteCopied ? (
                 <Check className="size-3.5" aria-hidden="true" />
@@ -469,39 +469,39 @@ export default function AdminUsersPage() {
               {inviteCopied ? t('inviteCopied') : t('copyLink')}
             </button>
           </div>
-          <p className="text-[var(--juba-app-muted)] font-sans text-xs break-all">
+          <p className="text-[rgba(32,33,39,.52)] font-sans text-xs break-all">
             {inviteUrl}
           </p>
-          <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mt-2 font-sans">
+          <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] mt-2 font-sans">
             {t('inviteExpiry')}
           </p>
         </div>
       )}
 
       {error && (
-        <div className="border-red-200/50/40 text-[var(--juba-app-error)] border px-4 py-3 font-sans text-xs border-[var(--juba-app-line)]">
+        <div className="rounded-2xl border border-red-200/50/40 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
           {error}
         </div>
       )}
 
-      <div className="juba-card border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border">
-        <div className="border-[var(--juba-app-line)] flex flex-wrap items-center gap-2 border-b px-5 py-4">
-          <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)]">●</span>
-          <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-semibold tracking-wide">
+      <div className="juba-card border-[rgba(7,7,9,.08)] bg-[#fff] border">
+        <div className="border-[rgba(7,7,9,.08)] flex flex-wrap items-center gap-2 border-b px-5 py-4">
+          <span className="text-[#202127] text-[rgba(32,33,39,.52)]">●</span>
+          <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
             {t('users')}
           </span>
           {loading && (
             <Loader2
-              className="text-[var(--juba-app-muted)] size-3.5 animate-spin"
+              className="text-[rgba(32,33,39,.52)] size-3.5 animate-spin"
               aria-hidden="true"
             />
           )}
-          <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] ml-auto font-semibold tracking-wide">
+          <span className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] ml-auto font-semibold tracking-wide">
             {total} {t('total')}
           </span>
         </div>
 
-        <div className="border-[var(--juba-app-line)] grid gap-2 border-b px-5 py-3 lg:grid-cols-[minmax(14rem,1fr)_auto_auto_auto_auto]">
+        <div className="border-[rgba(7,7,9,.08)] grid gap-2 border-b px-5 py-3 lg:grid-cols-[minmax(14rem,1fr)_auto_auto_auto_auto]">
           <div className="flex min-w-0">
             <input
               type="search"
@@ -514,12 +514,12 @@ export default function AdminUsersPage() {
               autoCorrect="off"
               autoCapitalize="none"
               spellCheck={false}
-              className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] focus:border-[var(--juba-app-green)] min-w-0 flex-1 border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+              className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] min-w-0 flex-1 border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             />
             <button
               type="button"
               onClick={handleSearch}
-              className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-green)] -ml-px inline-flex w-10 shrink-0 items-center justify-center border transition-colors"
+              className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:border-[#5862e2] -ml-px inline-flex w-10 shrink-0 items-center justify-center border transition-colors"
               aria-label={t('searchAction')}
             >
               <Search className="size-3.5" aria-hidden="true" />
@@ -528,7 +528,7 @@ export default function AdminUsersPage() {
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] focus:border-[var(--juba-app-green)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[#202127] focus:border-[#5862e2] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={t('roleFilter')}
           >
             <option value="">{t('allRoles')}</option>
@@ -541,7 +541,7 @@ export default function AdminUsersPage() {
           <select
             value={activeFilter}
             onChange={(e) => setActiveFilter(e.target.value)}
-            className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] focus:border-[var(--juba-app-green)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[#202127] focus:border-[#5862e2] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={t('statusFilter')}
           >
             <option value="">{t('allStatuses')}</option>
@@ -554,7 +554,7 @@ export default function AdminUsersPage() {
           <select
             value={subscriptionFilter}
             onChange={(e) => setSubscriptionFilter(e.target.value)}
-            className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] focus:border-[var(--juba-app-green)] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[#202127] focus:border-[#5862e2] appearance-none border px-4 py-2 font-sans text-xs transition-colors focus:outline-none"
             aria-label={t('subscriptionFilter')}
           >
             <option value="">{t('allSubscriptions')}</option>
@@ -568,7 +568,7 @@ export default function AdminUsersPage() {
             type="button"
             onClick={clearFilters}
             disabled={!hasFilters}
-            className="border-[var(--juba-app-line)] text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-green)] inline-flex items-center justify-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
+            className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:border-[#5862e2] inline-flex items-center justify-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
           >
             <FilterX className="size-3.5" aria-hidden="true" />
             {t('clearFilters')}
@@ -576,31 +576,31 @@ export default function AdminUsersPage() {
         </div>
 
         {users.length === 0 ? (
-          <p className="text-[var(--juba-app-muted)] px-6 py-10 text-center font-sans text-xs">
+          <p className="text-[rgba(32,33,39,.52)] px-6 py-10 text-center font-sans text-xs">
             {t('noUsers')}
           </p>
         ) : (
           <>
             <div className="hidden lg:block">
-              <table className="w-full table-fixed border-collapse border-[var(--juba-app-line)]">
+              <table className="w-full table-fixed border-collapse border-[rgba(7,7,9,.08)]">
                 <thead>
-                  <tr className="border-[var(--juba-app-line)] border-b">
-                    <th className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] w-[25%] px-5 py-3 text-left font-semibold tracking-wide">
+                  <tr className="border-[rgba(7,7,9,.08)] border-b">
+                    <th className="text-[#202127] text-[rgba(32,33,39,.52)] w-[25%] px-5 py-3 text-left font-semibold tracking-wide">
                       {t('userColumn')}
                     </th>
-                    <th className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] w-[25%] px-5 py-3 text-left font-semibold tracking-wide">
+                    <th className="text-[#202127] text-[rgba(32,33,39,.52)] w-[25%] px-5 py-3 text-left font-semibold tracking-wide">
                       {t('fieldEmail')}
                     </th>
-                    <th className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] w-[12.5%] px-5 py-3 text-left font-semibold tracking-wide">
+                    <th className="text-[#202127] text-[rgba(32,33,39,.52)] w-[12.5%] px-5 py-3 text-left font-semibold tracking-wide">
                       {t('role')}
                     </th>
-                    <th className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] w-[12.5%] px-5 py-3 text-left font-semibold tracking-wide">
+                    <th className="text-[#202127] text-[rgba(32,33,39,.52)] w-[12.5%] px-5 py-3 text-left font-semibold tracking-wide">
                       {t('status')}
                     </th>
-                    <th className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] w-[15%] px-5 py-3 text-left font-semibold tracking-wide">
+                    <th className="text-[#202127] text-[rgba(32,33,39,.52)] w-[15%] px-5 py-3 text-left font-semibold tracking-wide">
                       {t('fieldSubscription')}
                     </th>
-                    <th className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] w-[10%] px-5 py-3 text-right font-semibold tracking-wide">
+                    <th className="text-[#202127] text-[rgba(32,33,39,.52)] w-[10%] px-5 py-3 text-right font-semibold tracking-wide">
                       {t('actions')}
                     </th>
                   </tr>
@@ -609,26 +609,26 @@ export default function AdminUsersPage() {
                   {users.map((u) => (
                     <tr
                       key={u.id}
-                      className="border-[var(--juba-app-line)] hover:bg-[var(--juba-app-bg)]/60 border-b last:border-0"
+                      className="border-[rgba(7,7,9,.08)] hover:bg-[#f4f4f2]/60 border-b last:border-0"
                     >
                       <td className="px-5 py-4 align-middle">
-                        <p className="text-[var(--juba-app-ink)] truncate font-sans text-sm">
+                        <p className="text-[#202127] truncate font-sans text-sm">
                           {u.display_name}
                         </p>
-                        <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] truncate font-sans">
+                        <p className="text-[#202127] text-[rgba(32,33,39,.52)] truncate font-sans">
                           #{u.id} / @{u.username.toLowerCase()} /{' '}
                           {u.native_language}
                         </p>
                       </td>
-                      <td className="text-[var(--juba-app-muted)] truncate px-5 py-4 align-middle font-sans text-xs">
+                      <td className="text-[rgba(32,33,39,.52)] truncate px-5 py-4 align-middle font-sans text-xs">
                         {u.email || '—'}
                       </td>
                       <td className="px-5 py-4 align-middle">
                         <span
-                          className={`text-[var(--juba-app-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
+                          className={`text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide ${
                             u.role === 'admin'
-                              ? 'border-fl-fg/40 text-[var(--juba-app-ink)]'
-                              : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)]'
+                              ? 'border-fl-fg/40 text-[#202127]'
+                              : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)]'
                           }`}
                         >
                           {u.role === 'admin' ? t('roleAdmin') : t('roleUser')}
@@ -636,10 +636,10 @@ export default function AdminUsersPage() {
                       </td>
                       <td className="px-5 py-4 align-middle">
                         <span
-                          className={`text-[var(--juba-app-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
+                          className={`text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide ${
                             u.is_active
                               ? 'border-green-500/40 text-green-400'
-                              : 'border-red-200/50/30 text-[var(--juba-app-error)]'
+                              : 'border-red-200/50/30 text-[#dc2626]'
                           }`}
                         >
                           {u.is_active ? t('active') : t('inactive')}
@@ -647,7 +647,7 @@ export default function AdminUsersPage() {
                       </td>
                       <td className="px-5 py-4 align-middle">
                         <span
-                          className={`text-[var(--juba-app-muted)] border px-2 py-0.5 font-semibold tracking-wide ${statusBadgeClass(u.subscription_status)}`}
+                          className={`text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide ${statusBadgeClass(u.subscription_status)}`}
                         >
                           {subscriptionLabel(u.subscription_status, tBilling)}
                         </span>
@@ -656,7 +656,7 @@ export default function AdminUsersPage() {
                         <div className="flex justify-end gap-1">
                           <Link
                             href={`/admin/users/${u.id}`}
-                            className="border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-green)] inline-flex size-8 items-center justify-center border transition-colors"
+                            className="border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:border-[#5862e2] inline-flex size-8 items-center justify-center border transition-colors"
                             aria-label={t('viewStats')}
                           >
                             <ExternalLink
@@ -671,8 +671,8 @@ export default function AdminUsersPage() {
                               u.id === currentUserId
                                 ? 'cursor-not-allowed opacity-20'
                                 : u.is_active
-                                  ? 'border-red-200/50/30 text-[var(--juba-app-error)] hover:border-red-200/50'
-                                  : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-green)]'
+                                  ? 'border-red-200/50/30 text-[#dc2626] hover:border-red-200/50'
+                                  : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:border-[#5862e2]'
                             }`}
                             aria-label={
                               u.is_active ? t('deactivate') : t('activate')
@@ -700,7 +700,7 @@ export default function AdminUsersPage() {
                           <button
                             onClick={() => setDeletePending(u)}
                             disabled={u.id === currentUserId}
-                            className="border-red-200/50/30 text-[var(--juba-app-error)] hover:border-red-200/50 hover:text-[var(--juba-app-error)] inline-flex size-8 items-center justify-center border transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[var(--juba-app-line)]"
+                            className="rounded-2xl border border-red-200/50/30 text-[#dc2626] hover:border-red-200/50 hover:text-[#dc2626] inline-flex size-8 items-center justify-center border transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[rgba(7,7,9,.08)]"
                             aria-label={t('delete')}
                             title={
                               u.id === currentUserId
@@ -729,39 +729,39 @@ export default function AdminUsersPage() {
               {users.map((u, i) => (
                 <div
                   key={u.id}
-                  className={`space-y-3 px-4 py-4 ${i < users.length - 1 ? 'border-[var(--juba-app-line)] border-b' : ''}`}
+                  className={`space-y-3 px-4 py-4 ${i < users.length - 1 ? 'border-[rgba(7,7,9,.08)] border-b' : ''}`}
                 >
                   <div className="min-w-0 space-y-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-[var(--juba-app-ink)] font-sans text-sm">
+                      <span className="text-[#202127] font-sans text-sm">
                         {u.display_name}
                       </span>
                       <span
-                        className={`text-[var(--juba-app-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
+                        className={`text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide ${
                           u.role === 'admin'
-                            ? 'border-fl-fg/40 text-[var(--juba-app-ink)]'
-                            : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)]'
+                            ? 'border-fl-fg/40 text-[#202127]'
+                            : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)]'
                         }`}
                       >
                         {u.role === 'admin' ? t('roleAdmin') : t('roleUser')}
                       </span>
                       <span
-                        className={`text-[var(--juba-app-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
+                        className={`text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide ${
                           u.is_active
                             ? 'border-green-500/40 text-green-400'
-                            : 'border-red-200/50/30 text-[var(--juba-app-error)]'
+                            : 'border-red-200/50/30 text-[#dc2626]'
                         }`}
                       >
                         {u.is_active ? t('active') : t('inactive')}
                       </span>
                     </div>
-                    <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans break-all">
-                      <span className="text-[var(--juba-app-muted)]">#{u.id}</span> /{' '}
+                    <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans break-all">
+                      <span className="text-[rgba(32,33,39,.52)]">#{u.id}</span> /{' '}
                       {u.username.toLowerCase()} {u.email ? `/ ${u.email}` : ''}{' '}
                       / {u.native_language}
                     </p>
                     <span
-                      className={`text-[var(--juba-app-muted)] inline-flex border px-2 py-0.5 font-semibold tracking-wide ${statusBadgeClass(u.subscription_status)}`}
+                      className={`text-[rgba(32,33,39,.52)] inline-flex border px-2 py-0.5 font-semibold tracking-wide ${statusBadgeClass(u.subscription_status)}`}
                     >
                       {subscriptionLabel(u.subscription_status, tBilling)}
                     </span>
@@ -769,7 +769,7 @@ export default function AdminUsersPage() {
                   <div className="flex flex-wrap gap-2">
                     <Link
                       href={`/admin/users/${u.id}`}
-                      className="border-[var(--juba-app-line)] text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-green)] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors"
+                      className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:border-[#5862e2] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors"
                     >
                       <ExternalLink className="size-3.5" aria-hidden="true" />
                       {t('viewStats')}
@@ -777,12 +777,12 @@ export default function AdminUsersPage() {
                     <button
                       onClick={() => setActivePending(u)}
                       disabled={u.id === currentUserId}
-                      className={`text-[var(--juba-app-ink)] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors ${
+                      className={`text-[#202127] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors ${
                         u.id === currentUserId
                           ? 'cursor-not-allowed opacity-20'
                           : u.is_active
-                            ? 'border-red-200/50/30 text-[var(--juba-app-error)] hover:border-red-200/50'
-                            : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] hover:border-[var(--juba-app-green)]'
+                            ? 'border-red-200/50/30 text-[#dc2626] hover:border-red-200/50'
+                            : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:border-[#5862e2]'
                       }`}
                     >
                       {actionBusy === `active-${u.id}` && (
@@ -796,7 +796,7 @@ export default function AdminUsersPage() {
                     <button
                       onClick={() => setDeletePending(u)}
                       disabled={u.id === currentUserId}
-                      className="border-red-200/50/30 text-[var(--juba-app-ink)] text-[var(--juba-app-error)] hover:border-red-200/50 hover:text-[var(--juba-app-error)] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[var(--juba-app-line)]"
+                      className="rounded-2xl border border-red-200/50/30 text-[#202127] text-[#dc2626] hover:border-red-200/50 hover:text-[#dc2626] inline-flex items-center gap-2 border px-3 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-20 border-[rgba(7,7,9,.08)]"
                     >
                       {actionBusy === `delete-${u.id}` && (
                         <Loader2
@@ -829,30 +829,30 @@ export default function AdminUsersPage() {
           onClick={() => setShowCreate(false)}
         >
           <div
-            className="juba-card border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] max-h-[calc(100vh-2rem)] w-full max-w-md overflow-y-auto border shadow-2xl"
+            className="juba-card border-[rgba(7,7,9,.08)] bg-[#fff] max-h-[calc(100vh-2rem)] w-full max-w-md overflow-y-auto border shadow-2xl"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
             aria-labelledby="admin-create-user-title"
             aria-describedby="admin-create-user-description"
           >
-            <div className="border-[var(--juba-app-line)] flex items-start justify-between gap-4 border-b px-6 py-5">
+            <div className="border-[rgba(7,7,9,.08)] flex items-start justify-between gap-4 border-b px-6 py-5">
               <div>
                 <div className="flex items-center gap-2">
                   <UserPlus
-                    className="text-[var(--juba-app-muted)] size-4"
+                    className="text-[rgba(32,33,39,.52)] size-4"
                     aria-hidden="true"
                   />
                   <h2
                     id="admin-create-user-title"
-                    className="text-[var(--juba-app-ink)] font-sans text-sm tracking-wide"
+                    className="text-[#202127] font-sans text-sm tracking-wide"
                   >
                     {t('createUser')}
                   </h2>
                 </div>
                 <p
                   id="admin-create-user-description"
-                  className="text-[var(--juba-app-muted)] mt-2 font-sans text-xs"
+                  className="text-[rgba(32,33,39,.52)] mt-2 font-sans text-xs"
                 >
                   {t('createUserSheetDesc')}
                 </p>
@@ -860,7 +860,7 @@ export default function AdminUsersPage() {
               <button
                 type="button"
                 onClick={() => setShowCreate(false)}
-                className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] p-1 transition-colors"
+                className="text-[rgba(32,33,39,.52)] hover:text-[#202127] p-1 transition-colors"
                 aria-label={tCommon('cancel')}
               >
                 <X className="size-4" aria-hidden="true" />
@@ -873,7 +873,7 @@ export default function AdminUsersPage() {
               className="space-y-4 px-6 py-5"
             >
               {error && (
-                <div className="border-red-200/50/40 text-[var(--juba-app-error)] border px-4 py-3 font-sans text-xs border-[var(--juba-app-line)]">
+                <div className="rounded-2xl border border-red-200/50/40 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
                   {error}
                 </div>
               )}
@@ -904,7 +904,7 @@ export default function AdminUsersPage() {
                 },
               ].map(({ key, label, required, type }) => (
                 <label key={key} className="block">
-                  <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] mb-1 block font-sans text-xs tracking-wide">
+                  <span className="text-[#202127] text-[rgba(32,33,39,.52)] mb-1 block font-sans text-xs tracking-wide">
                     {label}
                   </span>
                   <input
@@ -934,7 +934,7 @@ export default function AdminUsersPage() {
                 </label>
               ))}
               <label className="block">
-                <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] mb-1 block font-sans text-xs tracking-wide">
+                <span className="text-[#202127] text-[rgba(32,33,39,.52)] mb-1 block font-sans text-xs tracking-wide">
                   {t('fieldNativeLanguage')}
                 </span>
                 <select
@@ -954,7 +954,7 @@ export default function AdminUsersPage() {
                 </select>
               </label>
               <label className="block">
-                <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] mb-1 block font-sans text-xs tracking-wide">
+                <span className="text-[#202127] text-[rgba(32,33,39,.52)] mb-1 block font-sans text-xs tracking-wide">
                   {t('fieldTargetLanguage')}
                 </span>
                 <select
@@ -972,7 +972,7 @@ export default function AdminUsersPage() {
                 </select>
               </label>
               <label className="block">
-                <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] mb-1 block font-sans text-xs tracking-wide">
+                <span className="text-[#202127] text-[rgba(32,33,39,.52)] mb-1 block font-sans text-xs tracking-wide">
                   {t('fieldRole')}
                 </span>
                 <select
@@ -989,11 +989,11 @@ export default function AdminUsersPage() {
               </label>
             </form>
 
-            <div className="border-[var(--juba-app-line)] grid grid-cols-2 gap-2 border-t px-6 py-5">
+            <div className="border-[rgba(7,7,9,.08)] grid grid-cols-2 gap-2 border-t px-6 py-5">
               <button
                 type="button"
                 onClick={() => setShowCreate(false)}
-                className="border-[var(--juba-app-line)] text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:text-[var(--juba-app-ink)] border py-3 font-sans font-bold tracking-wide transition-colors"
+                className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] hover:border-[#5862e2] hover:text-[#202127] border py-3 font-sans font-bold tracking-wide transition-colors"
               >
                 {tCommon('cancel')}
               </button>
@@ -1001,7 +1001,7 @@ export default function AdminUsersPage() {
                 type="submit"
                 form="admin-create-user-form"
                 disabled={createSaving}
-                className="bg-[var(--juba-app-green)] text-white hover:bg-[var(--juba-app-green)]/90 inline-flex items-center justify-center gap-2 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-50"
+                className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 inline-flex items-center justify-center gap-2 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-50"
               >
                 {createSaving && (
                   <Loader2
