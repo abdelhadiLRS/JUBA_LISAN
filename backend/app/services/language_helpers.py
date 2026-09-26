@@ -88,6 +88,27 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
         "self_name": "Ελληνικά",
         "iso639": "el",
     },
+    "ar": {"name": "Arabic", "self_name": "العربية", "iso639": "ar"},
+    "tr": {"name": "Turkish", "self_name": "Türkçe", "iso639": "tr"},
+    "ro": {"name": "Romanian", "self_name": "Română", "iso639": "ro"},
+    "hu": {"name": "Hungarian", "self_name": "Magyar", "iso639": "hu"},
+    "uk": {"name": "Ukrainian", "self_name": "Українська", "iso639": "uk"},
+    "he": {"name": "Hebrew", "self_name": "עברית", "iso639": "he"},
+    "vi": {"name": "Vietnamese", "self_name": "Tiếng Việt", "iso639": "vi"},
+    "bg": {"name": "Bulgarian", "self_name": "Български", "iso639": "bg"},
+    "sr": {"name": "Serbian", "self_name": "Српски", "iso639": "sr"},
+    "fa": {"name": "Persian", "self_name": "فارسی", "iso639": "fa"},
+    "ur": {"name": "Urdu", "self_name": "اردو", "iso639": "ur"},
+    "hi": {"name": "Hindi", "self_name": "हिन्दी", "iso639": "hi"},
+    "bn": {"name": "Bengali", "self_name": "বাংলা", "iso639": "bn"},
+    "ta": {"name": "Tamil", "self_name": "தமிழ்", "iso639": "ta"},
+    "te": {"name": "Telugu", "self_name": "తెలుగు", "iso639": "te"},
+    "gu": {"name": "Gujarati", "self_name": "ગુજરાતી", "iso639": "gu"},
+    "th": {"name": "Thai", "self_name": "ไทย", "iso639": "th"},
+    "ka": {"name": "Georgian", "self_name": "ქართული", "iso639": "ka"},
+    "hy": {"name": "Armenian", "self_name": "Հայերեն", "iso639": "hy"},
+    "am": {"name": "Amharic", "self_name": "አማርኛ", "iso639": "am"},
+    "ti": {"name": "Tigrinya", "self_name": "ትግርኛ", "iso639": "ti"},
 }
 
 _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
@@ -151,6 +172,12 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
         "uses_word_spacing": False,
         "reading_length_unit": "characters",
     },
+    "zh-TW": {
+        "script": "traditional-hanzi",
+        "romanization": "pinyin",
+        "uses_word_spacing": False,
+        "reading_length_unit": "characters",
+    },
     "ru-RU": {
         "script": "cyrillic",
         "romanization": "",
@@ -199,6 +226,24 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
         "uses_word_spacing": True,
         "reading_length_unit": "words",
     },
+    "ar": {"script": "arabic", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "fa": {"script": "arabic-persian", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "ur": {"script": "arabic", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "he": {"script": "hebrew", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "hi": {"script": "devanagari", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "bn": {"script": "bengali", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "ta": {"script": "tamil", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "te": {"script": "telugu", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "gu": {"script": "gujarati", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "th": {"script": "thai", "romanization": "", "uses_word_spacing": False, "reading_length_unit": "characters"},
+    "uk": {"script": "cyrillic", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "bg": {"script": "cyrillic", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "sr": {"script": "cyrillic", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "ka": {"script": "georgian", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "hy": {"script": "armenian", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "am": {"script": "geez", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "ti": {"script": "geez", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "vi": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
 }
 
 _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
@@ -218,12 +263,10 @@ _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "no": "no-NO",
     "fi": "fi-FI",
     "cs": "cs-CZ",
-    # Foundation-language capability fallbacks.
-    "ar": "en-GB", "he": "en-GB", "fa": "en-GB", "ur": "en-GB",
-    "hi": "en-GB", "bn": "en-GB", "ta": "en-GB", "te": "en-GB",
-    "mr": "en-GB", "gu": "en-GB", "th": "en-GB", "ka": "en-GB",
-    "hy": "en-GB", "am": "en-GB", "ti": "en-GB",
-    "uk": "ru-RU", "bg": "ru-RU", "sr": "ru-RU", "be": "ru-RU",
+    "uk-UA": "uk",
+    "bg-BG": "bg",
+    "sr-RS": "sr",
+    "zh-TW": "zh-TW",
 }
 
 _VOICE_SESSION_TITLES: dict[str, str] = {
