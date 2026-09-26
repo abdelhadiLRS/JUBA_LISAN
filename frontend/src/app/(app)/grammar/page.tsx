@@ -111,7 +111,7 @@ export default function GrammarIndexPage() {
   }
 
   return (
-    <div className="juba-grammar-shell mx-auto max-w-4xl space-y-8 p-6">
+    <div className="card">
       <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border">
         <div className="border-[rgba(7,7,9,.08)] flex items-center gap-2 border-b px-6 py-4">
           <span className="text-[#202127] text-[rgba(32,33,39,.52)]">{'\u25cf'}</span>
