@@ -256,7 +256,16 @@
       "error": "Link invalid sau expirat",
       "backToLogin": "Înapoi la autentificare"
     }
-  },
+  ,
+    "scenarios": {
+      "airport": {"title": "Aeroport", "description": "Fă check-in-ul, cere indicații și gestionează întârzierile."},
+      "jobInterview": {"title": "Interviu de angajare", "description": "Exersează răspunsuri, încrederea și vocabularul profesional."},
+      "restaurant": {"title": "Restaurant", "description": "Comandă natural și gestionează o conversație reală."},
+      "hotel": {"title": "Hotel", "description": "Rezervă o cameră, rezolvă probleme și formulează cereri."}
+    },
+    "learningLabel": "Învățare",
+    "cefrLabel": "CEFR",
+    "coachLabel": "Antrenor"},
   "settings": {
     "title": "Setări",
     "sectionAccount": "Cont",
