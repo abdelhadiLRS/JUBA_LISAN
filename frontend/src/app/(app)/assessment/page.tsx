@@ -325,9 +325,9 @@ export default function AssessmentPage() {
     }
   }
 
-  const cardClass = 'w-full max-w-2xl overflow-hidden rounded border border bg-white shadow-[8px_8px_0_#202127]'
-  const panelClass = 'rounded-[14px] border border bg-primary-lt p-4'
-  const actionClass = 'w-full rounded-[14px] border border-[#202127] bg-warning-lt px-4 py-3 font-bold text-body  transition hover:-translate-y-0.5'
+  const cardClass = 'w-full max-w-2xl overflow-hidden rounded border border bg-white shadow-sm'
+  const panelClass = 'rounded border border bg-primary-lt p-4'
+  const actionClass = 'w-full rounded border border-secondary-subtle bg-warning-lt px-4 py-3 font-bold text-body  transition hover:-translate-y-0.5'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
     return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
@@ -336,10 +336,10 @@ export default function AssessmentPage() {
   if (step === 'existing' && existingPlan) {
     const assessedDate = new Date(existingPlan.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
     return (
-      <div className="flex min-h-[60vh] items-center justify-center bg-gradient-to-br from-[#ededff]/30 via-white to-[#ededff]/20 p-4 sm:p-6">
+      <div className="flex min-h-[60vh] items-center justify-center bg-gradient-to-br from-[var(--tblr-primary-lt, #e9f2ff)]/30 via-white to-[var(--tblr-primary-lt, #e9f2ff)]/20 p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-primary-lt text-sm font-bold text-[var(--tblr-primary, #206bc4)]">A</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded bg-primary-lt text-sm font-bold text-[var(--tblr-primary, #206bc4)]">A</span>
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.12em] text-secondary">{t('title')}</p>
               <p className="text-xs text-secondary">{t('currentLevel')}</p>
@@ -364,9 +364,9 @@ export default function AssessmentPage() {
                 </button>
               </div>
             )}
-            {error && <div className="rounded-[14px] border border-[#b33a32]/30 bg-[#b33a32]/10 px-4 py-3 text-xs text-[#b33a32]">✕ {error}</div>}
+            {error && <div className="rounded border border-danger/30 bg-danger/10 px-4 py-3 text-xs text-danger">✕ {error}</div>}
             <div className="flex gap-2">
-              <button type="button" onClick={() => router.push('/dashboard')} className="flex-1 rounded-[14px] border border px-3 py-3 text-xs font-semibold text-secondary transition hover:bg-[#f3f7ef]">← {tCommon('backToDashboard')}</button>
+              <button type="button" onClick={() => router.push('/dashboard')} className="flex-1 rounded border border px-3 py-3 text-xs font-semibold text-secondary transition hover:bg-success-lt">← {tCommon('backToDashboard')}</button>
               <button type="button" onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
             </div>
           </div>
@@ -408,7 +408,7 @@ export default function AssessmentPage() {
             <p className="text-xs font-bold uppercase tracking-[0.12em] text-secondary">{t('title')}</p>
             <p className="mt-1 text-sm font-semibold text-body">{currentLevel}</p>
           </div>
-          <div className="rounded-[14px] bg-primary-lt px-3 py-1.5 text-xs font-bold text-[var(--tblr-primary, #206bc4)]">{questionNumber}/{MAX_QUESTIONS}</div>
+          <div className="rounded bg-primary-lt px-3 py-1.5 text-xs font-bold text-[var(--tblr-primary, #206bc4)]">{questionNumber}/{MAX_QUESTIONS}</div>
         </div>
         <AdaptiveQuizCard question={currentQuestion} questionNumber={questionNumber} totalQuestions={MAX_QUESTIONS} onAnswer={handleAnswer} languageCode={activeLanguage?.code} />
       </div>
@@ -423,7 +423,7 @@ export default function AssessmentPage() {
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-warning-lt text-sm font-bold text-[var(--tblr-primary, #206bc4)]">✓</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded bg-warning-lt text-sm font-bold text-[var(--tblr-primary, #206bc4)]">✓</span>
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.12em] text-secondary">{t('resultStep')}</p>
               <p className="text-xs text-secondary">{t('cefrLevel')}</p>
@@ -442,7 +442,7 @@ export default function AssessmentPage() {
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('overrideLevel')}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {CEFR_LEVELS.map((lvl) => (
-                  <button key={lvl} type="button" onClick={() => setSelectedLevel(lvl)} className={`rounded-[14px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--tblr-primary, #206bc4)] bg-primary-lt text-[var(--tblr-primary, #206bc4)]' : 'border text-secondary hover:bg-[#f3f7ef]'}`}>
+                  <button key={lvl} type="button" onClick={() => setSelectedLevel(lvl)} className={`rounded border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--tblr-primary, #206bc4)] bg-primary-lt text-[var(--tblr-primary, #206bc4)]' : 'border text-secondary hover:bg-success-lt'}`}>
                     {lvl}
                   </button>
                 ))}
@@ -452,16 +452,16 @@ export default function AssessmentPage() {
             {result.strengths.length > 0 && (
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('strengths')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[14px] border border bg-warning-lt px-3 py-1.5 text-xs font-medium text-[var(--tblr-primary, #206bc4)]">{s}</span>)}</div>
+                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded border border bg-warning-lt px-3 py-1.5 text-xs font-medium text-[var(--tblr-primary, #206bc4)]">{s}</span>)}</div>
               </div>
             )}
             {result.weaknesses.length > 0 && (
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('needsWork')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded-[14px] border border-[#b33a32]/25 bg-[#b33a32]/10 px-3 py-1.5 text-xs font-medium text-[#b33a32]">{w}</span>)}</div>
+                <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded border border-danger/25 bg-danger/10 px-3 py-1.5 text-xs font-medium text-danger">{w}</span>)}</div>
               </div>
             )}
-            {error && <div className="rounded-[14px] border border-[#b33a32]/30 bg-[#b33a32]/10 px-4 py-3 text-xs text-[#b33a32]">✕ {error}</div>}
+            {error && <div className="rounded border border-danger/30 bg-danger/10 px-4 py-3 text-xs text-danger">✕ {error}</div>}
             <button type="button" onClick={() => setStep('duration')} className={actionClass}>{t('createPlan')} →</button>
           </div>
         </div>
@@ -497,7 +497,7 @@ export default function AssessmentPage() {
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-primary-lt text-sm font-bold text-[var(--tblr-primary, #206bc4)]">◉</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded bg-primary-lt text-sm font-bold text-[var(--tblr-primary, #206bc4)]">◉</span>
             <p className="text-xs font-bold uppercase tracking-[0.12em] text-secondary">{t('voiceTrialLabel')}</p>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
