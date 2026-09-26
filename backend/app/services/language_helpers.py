@@ -1,7 +1,7 @@
 """Helpers for BCP-47 target_language codes.
 
 Used by service layer to translate the generic target_language field into
-human-readable names, self-names, and ISO 639-1 codes.
+human-readable names, self-names, and ISO 639 language identifiers (two- or three-letter codes).
 """
 
 from __future__ import annotations
@@ -375,7 +375,7 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
 _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     # Keep the bare English code on the same explicit capability path as the
     # regional variants; this avoids an unnecessary fallback for profile data
-    # that stores only ISO 639-1 language codes.
+    # that stores only a base ISO 639 language code.
     "en": "en-GB",
     "de": "de-DE",
     "es": "es-ES",
