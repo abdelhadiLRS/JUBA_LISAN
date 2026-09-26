@@ -249,7 +249,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="juba-member-shell min-h-screen bg-[#f1f1f5] p-0">
-      {sidebarOpen && <button type="button" aria-label={tCommon('close')} onClick={() => setSidebarOpen(false)} className="fixed inset-0 z-[60] bg-black/45 backdrop-blur-[2px] lg:hidden" />}
+      {sidebarOpen && <button type="button" aria-label={'Close menu'} onClick={() => setSidebarOpen(false)} className="fixed inset-0 z-[60] bg-black/45 backdrop-blur-[2px] lg:hidden" />}
       <div className="flex min-h-screen">
         <aside className={`fixed inset-y-0 left-0 z-[70] flex w-[276px] shrink-0 flex-col bg-[#24272b] text-white shadow-2xl transition-transform duration-300 ease-out lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:shadow-none ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className="flex h-[82px] shrink-0 items-center justify-between border-b border-white/[0.08] px-5">
@@ -257,10 +257,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <span className="grid size-11 place-items-center rounded-2xl bg-[#7776df] shadow-inner shadow-white/20"><span className="text-lg font-black">JL</span></span>
               <span className="text-[17px] font-black tracking-[-.04em]">JUBA LISAN</span>
             </Link>
-            <button type="button" onClick={() => setSidebarOpen(false)} className="grid size-9 place-items-center rounded-xl text-white/55 hover:bg-white/10 hover:text-white lg:hidden" aria-label={tCommon('close')}><X className="size-4" /></button>
+            <button type="button" onClick={() => setSidebarOpen(false)} className="grid size-9 place-items-center rounded-xl text-white/55 hover:bg-white/10 hover:text-white lg:hidden" aria-label={'Close menu'}><X className="size-4" /></button>
           </div>
           <nav aria-label="Main navigation" className="min-h-0 flex-1 overflow-y-auto px-3 py-5">
-            <p className="mb-3 px-3 text-[9px] font-black uppercase tracking-[.2em] text-white/30">{tNav('menu')}</p>
+            <p className="mb-3 px-3 text-[9px] font-black uppercase tracking-[.2em] text-white/30">{'MENU'}</p>
             <div className="space-y-1">{renderNavItems(mainNavItems)}</div>
             <div className="my-5 border-t border-white/[0.09]" />
             <p className="mb-3 px-3 text-[9px] font-black uppercase tracking-[.2em] text-white/30">{tNav('resources')}</p>
@@ -287,7 +287,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <div className="min-w-0 flex-1">
           <header className="flex h-[70px] items-center justify-between gap-3 border-b border-black/[0.06] bg-[#f6f6f4] px-4 sm:px-7">
             <div className="flex min-w-0 items-center gap-3">
-              <button type="button" onClick={() => setSidebarOpen(true)} aria-label={tNav('menu')} className="grid size-10 shrink-0 place-items-center rounded-xl border border-black/[0.08] bg-white text-[#24272b] shadow-sm transition hover:bg-[#f0efff] lg:hidden"><Menu className="size-5" /></button>
+              <button type="button" onClick={() => setSidebarOpen(true)} aria-label={'MENU'} className="grid size-10 shrink-0 place-items-center rounded-xl border border-black/[0.08] bg-white text-[#24272b] shadow-sm transition hover:bg-[#f0efff] lg:hidden"><Menu className="size-5" /></button>
               <div className="min-w-0"><p className="text-[9px] font-black uppercase tracking-[.16em] text-[#7776df]">JUBA LISAN</p><h1 className="truncate text-base font-extrabold text-[#24272b] sm:text-lg">{pageLabel}</h1></div>
             </div>
             <div className="flex shrink-0 items-center gap-2">
