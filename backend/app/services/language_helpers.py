@@ -247,6 +247,27 @@ _NATIVE_LANGUAGE_NAMES: dict[str, str] = {
     "no": "Norwegian",
 }
 
+def _normalize_locale(target_language: str) -> str:
+    """Normalize BCP-47-ish locale spellings used by clients and profiles."""
+    return (target_language or "").strip().replace("_", "-") or "en-GB"
+
+
+def _resolve_language_info(target_language: str) -> dict[str, str] | None:
+    locale = _normalize_locale(target_language)
+    info = _LANGUAGE_INFO.get(locale)
+    if info:
+        return info
+    base = locale.split("-")[0]
+    aliases = {
+        "en": "en-GB", "de": "de-DE", "es": "es-ES", "fr": "fr-FR",
+        "it": "it-IT", "pt": "pt-PT", "ja": "ja-JP", "ko": "ko-KR",
+        "zh": "zh-CN", "ru": "ru-RU", "nl": "nl-NL", "pl": "pl-PL",
+        "da": "da-DK", "sv": "sv-SE", "no": "no-NO", "fi": "fi-FI",
+        "cs": "cs-CZ", "el": "el-GR",
+    }
+    return _LANGUAGE_INFO.get(aliases.get(base, ""))
+
+
 _MONTH_NAMES: dict[str, list[str]] = {
     "es": [
         "enero",
@@ -379,20 +400,20 @@ _MONTH_NAMES: dict[str, list[str]] = {
 
 def get_language_name(target_language: str) -> str:
     """'it-IT' → 'Italian', 'en-US' → 'English (US)'"""
-    info = _LANGUAGE_INFO.get(target_language)
+    info = _resolve_language_info(target_language)
     return info["name"] if info else target_language
 
 
 def get_language_self_name(target_language: str) -> str:
     """'it-IT' → 'Italiano', 'es-ES' → 'Español'"""
-    info = _LANGUAGE_INFO.get(target_language)
+    info = _resolve_language_info(target_language)
     return info["self_name"] if info else target_language
 
 
 def get_iso639(target_language: str) -> str:
     """'en-US' → 'en', 'it-IT' → 'it'"""
-    info = _LANGUAGE_INFO.get(target_language)
-    return info["iso639"] if info else target_language.split("-")[0].lower()
+    info = _resolve_language_info(target_language)
+    return info["iso639"] if info else _normalize_locale(target_language).split("-")[0].lower()
 
 
 def get_language_flag(target_language: str) -> str:
@@ -401,9 +422,10 @@ def get_language_flag(target_language: str) -> str:
 
 
 def _get_language_capability(target_language: str) -> dict[str, str | bool]:
-    canonical_language = _LANGUAGE_CAPABILITY_ALIASES.get(target_language, target_language)
+    locale = _normalize_locale(target_language)
+    canonical_language = _LANGUAGE_CAPABILITY_ALIASES.get(locale, locale)
     if canonical_language not in _LANGUAGE_CAPABILITIES:
-        iso_language = target_language.split("-")[0].lower()
+        iso_language = locale.split("-")[0].lower()
         canonical_language = _LANGUAGE_CAPABILITY_ALIASES.get(iso_language, canonical_language)
     return _LANGUAGE_CAPABILITIES.get(canonical_language, _LANGUAGE_CAPABILITIES["en-GB"])
 
