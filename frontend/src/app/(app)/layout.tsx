@@ -16,7 +16,7 @@ import { LoadingBar } from '@/components/ui/loading-bar'
 import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
-import { Bell, BookOpen, BrainCircuit, ChevronDown, ClipboardCheck, Gamepad2, GraduationCap, Headphones, Languages, MessageCircle, MessagesSquare, Settings2, Sparkles, Trophy, UserRound, Users, Volume2, X, Menu } from 'lucide-react'
+import { Bell, BookOpen, BrainCircuit, ClipboardCheck, Gamepad2, GraduationCap, Headphones, Languages, MessageCircle, MessagesSquare, Settings2, Sparkles, Trophy, UserRound, Users, Volume2, X } from 'lucide-react'
 
 const NAV_ICONS: Record<string, React.ComponentType<{ className?: string }>> = { '/dashboard': GraduationCap, '/plan': ClipboardCheck, '/progress': Trophy, '/games': Gamepad2, '/flashcards': BookOpen, '/friends': Users, '/chat': MessageCircle, '/listening': Headphones, '/reading': BookOpen, '/conversation': MessagesSquare, '/assessment': BrainCircuit, '/coach': Sparkles, '/courses': GraduationCap, '/review': Volume2, '/translator': Languages, '/grammar': BrainCircuit, '/vocabulary': BookOpen, '/phrasebook': MessagesSquare, '/settings': Settings2, '/faq': UserRound, '/feedback': MessageCircle }
 function NavIcon({ href, className = 'size-4' }: { href: string; className?: string }) { const Icon = NAV_ICONS[href] ?? Sparkles; return <Icon className={className} aria-hidden="true" /> }
@@ -70,8 +70,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [initializing, setInitializing] = useState(true)
   const loadConfig = useConfigStore((s) => s.load)
   const [logoutConfirm, setLogoutConfirm] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [resourcesOpen, setResourcesOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
   const [resendSent, setResendSent] = useState(false)
   const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
@@ -213,10 +211,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   const isDashboard = pathname === '/dashboard'
-  const visibleMainNavItems = isAdmin ? [] : mainNavItems
-  const visibleResourceNavItems = isAdmin ? [] : resourceNavItems
-  const visibleBottomNavItems = isAdmin ? [] : bottomNavItems
-
   const feedbackBadgeText =
     feedbackUnreadCount > 99
       ? '99+'
