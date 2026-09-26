@@ -32,7 +32,6 @@ function NavIcon({ href, className = 'icon' }: { href: string; className?: strin
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const tNav = useTranslations('nav')
   const tCommon = useTranslations('common')
-  const tBilling = useTranslations('billing')
   const pathname = usePathname()
   const user = useAuthStore((s) => s.user)
   const isAdmin = user?.role === 'admin'
@@ -93,7 +92,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   ]
 
   const router = useRouter()
-  const xp = useProgressStore((s) => s.xp)
   const accessToken = useAuthStore((s) => s.accessToken)
   const setTokens = useAuthStore((s) => s.setTokens)
   const setUser = useAuthStore((s) => s.setUser)
@@ -102,9 +100,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [initializing, setInitializing] = useState(true)
   const loadConfig = useConfigStore((s) => s.load)
   const [logoutConfirm, setLogoutConfirm] = useState(false)
-  const [contactOpen, setContactOpen] = useState(false)
   const [resendSent, setResendSent] = useState(false)
-  const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
   const [openTopMenu, setOpenTopMenu] = useState<string | null>(null)
   const topMenuRef = useRef<HTMLElement | null>(null)
 
@@ -204,33 +200,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     const interval = window.setInterval(update, 60 * 1000)
     return () => window.clearInterval(interval)
   }, [stripeEnabled, user?.subscription_status, user?.subscription_ends_at, user?.freemium_trial_ends_at])
-
-  const pageLabel = (() => {
-    const labels: Record<string, string> = {
-      '/dashboard': tNav('home'),
-      '/plan': tNav('myPlan'),
-      '/progress': tNav('progress'),
-      '/games': tNav('games'),
-      '/flashcards': tNav('flashcards'),
-      '/friends': tNav('friends'),
-      '/chat': tNav('tutor'),
-      '/listening': tNav('listening'),
-      '/reading': tNav('reading'),
-      '/conversation': tNav('conversation'),
-      '/assessment': tNav('assessment'),
-      '/coach': tNav('coach'),
-      '/courses': tNav('courses'),
-      '/review': tNav('review'),
-      '/translator': tNav('translator'),
-      '/grammar': tNav('grammar'),
-      '/vocabulary': tNav('vocabulary'),
-      '/phrasebook': tNav('phrasebook'),
-      '/settings': tNav('settings'),
-      '/faq': tNav('faq'),
-      '/feedback': tNav('feedback'),
-    }
-    return labels[pathname] ?? 'JUBA LISAN'
-  })()
 
   const isItemActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
 
