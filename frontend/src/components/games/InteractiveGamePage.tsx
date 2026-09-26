@@ -51,7 +51,7 @@ export function InteractiveGamePage({ mode }: { mode: Mode }) {
     } catch { return false }
   }
 
-  return <main className="juba-games" dir={lang === 'ar' ? 'rtl' : 'ltr'}><div className="games-shell">
+  return <main className="juba-games min-h-[calc(100vh-80px)] bg-[#f4f4f2] px-4 py-8 sm:px-6" dir={lang === 'ar' ? 'rtl' : 'ltr'}><div className="games-shell mx-auto w-full max-w-6xl">
     {loading ? <p className="interactive-instruction">Loading challenge…</p> : error ? <div className="interactive-instruction interactive-error"><p>Unable to load the challenge.</p><button type="button" onClick={() => window.location.reload()}>Retry</button></div> : !challenge ? <p className="interactive-instruction">No challenge available.</p> : <InteractiveGameBoard mode={mode === 'sentence_builder' ? 'ordering' : mode} lang={lang} challenge={challenge} onComplete={complete} title={mode === 'sentence_builder' ? (lang === 'ar' ? 'بناء الجملة' : lang === 'fr' ? 'Constructeur de phrases' : 'Sentence Builder') : undefined} />}
   </div></main>
 }
