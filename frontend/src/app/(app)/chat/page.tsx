@@ -339,7 +339,7 @@ export default function ChatPage() {
                 <PageLoading fullScreen={false} className="block px-4 py-4" />
               ) : convLoadError ? (
                 <div className="flex flex-col items-center gap-3 px-4 py-6">
-                  <p className="text-[#b33a32] font-sans text-xs">
+                  <p className="text-danger font-sans text-xs">
                     {tCommon('error')}
                   </p>
                   <button
@@ -373,7 +373,7 @@ export default function ChatPage() {
                     onClick={() => selectConversation(c.id)}
                     className={`group border-secondary-subtle flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
                       activeId === c.id
-                        ? 'bg-primary-lt border-l-[#39751d] border-l-2'
+                        ? 'bg-primary-lt border-l-[var(--tblr-success, #2fb344)] border-l-2'
                         : 'hover:bg-white border-l-2 border-l-transparent'
                     }`}
                   >
@@ -395,7 +395,7 @@ export default function ChatPage() {
                         e.stopPropagation()
                         setDeletePending(c.id)
                       }}
-                      className="text-[#b33a32] shrink-0 font-sans opacity-0 transition-all group-hover:opacity-100"
+                      className="text-danger shrink-0 font-sans opacity-0 transition-all group-hover:opacity-100"
                       title={t('delete')}
                     >
                       ✕
@@ -434,7 +434,7 @@ export default function ChatPage() {
                   {t('thinking')}
                 </span>
                 {sendingWarn && (
-                  <span className="text-secondary font-sans text-xs tracking-[.12em] text-[#9a6500] uppercase">
+                  <span className="text-secondary font-sans text-xs tracking-[.12em] text-warning uppercase">
                     {t('takingLonger')}
                   </span>
                 )}
@@ -520,7 +520,7 @@ export default function ChatPage() {
                       languageCode={targetLanguageCode}
                       className={`juba-chat-message word-selectable border border-secondary-subtle px-4 py-3 text-left ${
                         msg.role === 'user'
-                          ? 'bg-primary text-white border-[#202127] shadow-sm'
+                          ? 'bg-primary text-white border-secondary-subtle shadow-sm'
                           : 'bg-white text-body border border-secondary-subtle shadow-sm'
                       }`}
                       onPointerUp={
@@ -549,7 +549,7 @@ export default function ChatPage() {
               ))
             )}
             {error && (
-              <div className="text-body text-[#b33a32]  border border-[#d7b2ad] bg-[#fff7f5] px-4 py-2 font-sans">
+              <div className="text-body text-danger  border border-danger-subtle bg-danger-lt px-4 py-2 font-sans">
                 ✕{' '}
                 {error === 'No active study plan found'
                   ? tCommon('noActivePlan')
@@ -576,13 +576,13 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1  border border-secondary-subtle bg-white px-4 py-3 font-sans text-base text-body shadow-sm transition-all placeholder:text-secondary focus:border-primary focus:outline-none focus:ring-2 focus:ring-[#5862e2]/15 disabled:opacity-40"
+                    className="flex-1  border border-secondary-subtle bg-white px-4 py-3 font-sans text-base text-body shadow-sm transition-all placeholder:text-secondary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15 disabled:opacity-40"
                   />
                   <button
                     type="button"
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || loadingMsgs}
-                    className=" border border-[#202127] bg-primary px-5 font-sans font-bold uppercase tracking-widest text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary hover:shadow-sm active:translate-y-0.5 active:shadow-[1px_1px_0_#202127] disabled:opacity-30"
+                    className=" border border-secondary-subtle bg-primary px-5 font-sans font-bold uppercase tracking-widest text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary hover:shadow-sm active:translate-y-0.5 active:shadow-sm disabled:opacity-30"
                   >
                     {sending ? '…' : t('send')}
                   </button>
