@@ -311,7 +311,7 @@ function ReadingPage() {
           <h1 className="text-[#202127] font-sans text-sm font-bold tracking-widest uppercase">
             {t('historyTitle')}
           </h1>
-          <button
+          <button type="button"
             onClick={loadNext}
             className="text-[rgba(32,33,39,.52)] hover:text-[#202127] font-sans text-xs tracking-widest uppercase transition-colors"
           >
@@ -359,7 +359,7 @@ function ReadingPage() {
                 >
                   {item.exercise.text}
                 </TargetLanguageText>
-                <button
+                <button type="button"
                   onClick={() => {
                     setExercise(item.exercise)
                     setAnswers({})
@@ -476,13 +476,13 @@ function ReadingPage() {
 
         {/* Actions */}
         <div className="flex gap-3 pt-1">
-          <button
+          <button type="button"
             onClick={loadNext}
             className="border-[rgba(7,7,9,.08)] bg-[#fff] text-[#202127] hover:bg-[#fff] flex-1 border py-3 font-sans text-sm tracking-widest uppercase transition-colors"
           >
             {t('nextExercise')}
           </button>
-          <button
+          <button type="button"
             onClick={() => loadHistory(0)}
             className="border-[rgba(7,7,9,.08)] bg-[#fff] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:bg-[#fff] border px-4 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
           >
@@ -506,7 +506,7 @@ function ReadingPage() {
           <h1 className="text-[#202127] font-sans text-sm font-bold tracking-widest uppercase">
             {t('title')}
           </h1>
-          <button
+          <button type="button"
             onClick={() => loadHistory(0)}
             className="text-[rgba(32,33,39,.52)] hover:text-[#202127] font-sans text-xs tracking-widest uppercase transition-colors"
           >
@@ -529,7 +529,7 @@ function ReadingPage() {
             <p className="text-[rgba(32,33,39,.52)] font-sans text-xs tracking-wide">
               {t('noExercises')}
             </p>
-            <button
+            <button type="button"
               onClick={handleGenerate}
               className="border-[rgba(7,7,9,.08)] bg-[#fff] text-[#202127] hover:bg-[#fff] border px-8 py-3 font-sans text-sm tracking-widest uppercase transition-colors"
             >
@@ -556,7 +556,7 @@ function ReadingPage() {
             {exercise.level} · {exercise.exercise_type} · {exercise.topic}
           </p>
         </div>
-        <button
+        <button type="button"
           onClick={() => loadHistory(0)}
           className="text-[rgba(32,33,39,.52)] hover:text-[#202127] shrink-0 font-sans text-xs tracking-widest uppercase transition-colors"
         >
@@ -626,7 +626,7 @@ function ReadingPage() {
                       {Object.entries(q.options).map(([k, v]) => {
                         const selected = answers[String(q.index)] === k
                         return (
-                          <button
+                          <button type="button"
                             key={k}
                             onClick={() =>
                               setAnswers((prev) => ({
@@ -662,7 +662,7 @@ function ReadingPage() {
                 </p>
               )}
 
-              <button
+              <button type="button"
                 onClick={handleSubmit}
                 disabled={!allAnswered || submitting}
                 className="border-[rgba(7,7,9,.08)] bg-[#202127] text-[#f4f4f2] hover:bg-[#202127]/90 focus-visible:outline-fl-fg mt-4 w-full border py-3 font-sans text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
