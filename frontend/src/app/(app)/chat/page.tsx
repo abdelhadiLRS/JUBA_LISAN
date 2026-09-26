@@ -305,7 +305,7 @@ export default function ChatPage() {
 
   return (
     <MaintenanceGate>
-      <div className="container-xl page-body py-4">
+      <div className="space-y-5">
         <MemorySavedToast
           visible={memoryToast}
           announcementId={memoryToastId}
