@@ -1545,7 +1545,12 @@
     "ko-KR-description": "Coréen parlé en Corée du Sud.",
     "zh-CN-description": "Chinois mandarin de Chine continentale, avec caractères simplifiés.",
     "ar": "Arabe",
-    "ar-description": "Arabe standard moderne pour la communication, les études et les voyages."
+    "ar-description": "Arabe standard moderne pour la communication, les études et les voyages.",
+    "fa-IR": "Persan",
+    "hi-IN": "Hindi",
+    "id-ID": "Indonésien",
+    "ms-MY": "Malais",
+    "tr-TR": "Turc"
   },
   "onboarding": {
     "title": "Choisissez votre langue",
