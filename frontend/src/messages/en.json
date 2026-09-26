@@ -1556,7 +1556,12 @@
     "de-DE-description": "German as spoken in Germany.",
     "ja-JP-description": "Japanese as spoken in Japan.",
     "ko-KR-description": "Korean as spoken in South Korea.",
-    "zh-CN-description": "Mandarin Chinese as spoken in Mainland China, using simplified characters."
+    "zh-CN-description": "Mandarin Chinese as spoken in Mainland China, using simplified characters.",
+    "fa-IR": "Persian",
+    "hi-IN": "Hindi",
+    "id-ID": "Indonesian",
+    "ms-MY": "Malay",
+    "tr-TR": "Turkish"
   },
   "onboarding": {
     "title": "Choose your language",
