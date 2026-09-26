@@ -448,7 +448,30 @@ def test_foundation_locale_variants_resolve_to_registered_modules(locale: str, e
     assert curriculum_dispatcher._resolve_module(locale).__name__ == expected_module
 
 
-def test_language_helpers_normalize_common_locale_aliases(locale: str, expected_name: str, expected_iso: str):
+@pytest.mark.parametrize(
+    ("locale", "expected_name", "expected_iso"),
+    [
+        ("en_US", "English (UK)", "en"),
+        ("de-DE", "German", "de"),
+        ("fr-FR", "French", "fr"),
+        ("pt-BR", "European Portuguese", "pt"),
+        ("zh-TW", "Chinese (Traditional)", "zh"),
+        ("ar-DZ", "Arabic", "ar"),
+        ("hr-HR", "Croatian", "hr"),
+        ("sk-SK", "Slovak", "sk"),
+        ("sl-SI", "Slovenian", "sl"),
+        ("lt-LT", "Lithuanian", "lt"),
+        ("lv-LV", "Latvian", "lv"),
+        ("az-AZ", "Azerbaijani", "az"),
+        ("kk-KZ", "Kazakh", "kk"),
+        ("uz-UZ", "Uzbek", "uz"),
+        ("suq", "Suri", "suq"),
+        ("to-TO", "Tongan", "to"),
+    ],
+)
+def test_language_helpers_normalize_common_locale_aliases(
+    locale: str, expected_name: str, expected_iso: str
+):
     from app.services.language_helpers import get_iso639, get_language_name
 
     assert get_language_name(locale) == expected_name
