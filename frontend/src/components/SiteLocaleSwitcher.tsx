@@ -5,18 +5,18 @@ import { usePathname } from 'next/navigation'
 import { Check, ChevronDown, Globe2 } from 'lucide-react'
 import type { Locale } from '@/lib/locales'
 
-const LOCALES: Array<{ code: Locale; label: string; native: string }> = [
-  { code: 'en', label: 'English', native: 'English' },
-  { code: 'ar', label: 'Arabic', native: 'العربية' },
-  { code: 'es', label: 'Spanish', native: 'Español' },
-  { code: 'fr', label: 'French', native: 'Français' },
-  { code: 'pt', label: 'Portuguese', native: 'Português' },
-  { code: 'de', label: 'German', native: 'Deutsch' },
-  { code: 'it', label: 'Italian', native: 'Italiano' },
-  { code: 'pl', label: 'Polish', native: 'Polski' },
-  { code: 'nl', label: 'Dutch', native: 'Nederlands' },
-  { code: 'ro', label: 'Romanian', native: 'Română' },
-  { code: 'ru', label: 'Russian', native: 'Русский' },
+const LOCALES: Array<{ code: Locale; label: string; native: string; country: string }> = [
+  { code: 'en', label: 'English', native: 'English', country: 'gb' },
+  { code: 'ar', label: 'Arabic', native: 'العربية', country: 'dz' },
+  { code: 'es', label: 'Spanish', native: 'Español', country: 'es' },
+  { code: 'fr', label: 'French', native: 'Français', country: 'fr' },
+  { code: 'pt', label: 'Portuguese', native: 'Português', country: 'pt' },
+  { code: 'de', label: 'German', native: 'Deutsch', country: 'de' },
+  { code: 'it', label: 'Italian', native: 'Italiano', country: 'it' },
+  { code: 'pl', label: 'Polish', native: 'Polski', country: 'pl' },
+  { code: 'nl', label: 'Dutch', native: 'Nederlands', country: 'nl' },
+  { code: 'ro', label: 'Romanian', native: 'Română', country: 'ro' },
+  { code: 'ru', label: 'Russian', native: 'Русский', country: 'ru' },
 ]
 
 function getVisitorCountry(): string {
@@ -111,7 +111,7 @@ export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
                 {LOCALES.map((item) => (
                   <button key={item.code} type="button" role="option" aria-selected={item.code === locale} onClick={() => selectLocale(item.code)}
                     className={`flex items-center justify-between gap-2 rounded-xl px-3 py-2 text-xs font-bold transition ${locale === item.code ? 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'}`}>
-                    <span>{item.native}</span>
+                    <span className="flex min-w-0 items-center gap-2"><span className="text-base leading-none" aria-hidden="true">{countryFlag(item.country.toUpperCase())}</span><span className="truncate">{item.native}</span></span>
                     {item.code === locale && <Check className="h-3.5 w-3.5 text-[var(--juba-app-green)]" aria-hidden="true" />}
                   </button>
                 ))}
