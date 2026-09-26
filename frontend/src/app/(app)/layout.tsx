@@ -172,7 +172,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       if (topMenuRef.current && !topMenuRef.current.contains(event.target as Node)) setOpenTopMenu(null)
     }
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpenTopMenu(null)
+      if (event.key === 'Escape' && openTopMenu) {
+        event.preventDefault()
+        const trigger = document.getElementById(`top-menu-trigger-${openTopMenu}`)
+        setOpenTopMenu(null)
+        requestAnimationFrame(() => trigger?.focus())
+      }
     }
     document.addEventListener('pointerdown', handlePointerDown)
     document.addEventListener('keydown', handleKeyDown)
@@ -185,18 +190,31 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const renderTopGroup = (group: NavGroup) => {
     const active = group.items.some((item) => isItemActive(item.href))
     const open = openTopMenu === group.key
+    const menuId = `top-menu-${group.key}`
+
     return (
       <div
         key={group.key}
         className="nav-item dropdown position-relative"
       >
         <button
+          id={`top-menu-trigger-${group.key}`}
           type="button"
           className={'nav-link dropdown-toggle d-flex align-items-center gap-2 border-0 px-3 py-2 ' + (active ? 'text-primary fw-semibold' : 'text-secondary')}
           aria-haspopup="menu"
+          aria-controls={menuId}
           aria-expanded={open}
           onClick={() => {
             setOpenTopMenu(open ? null : group.key)
+          }}
+          onKeyDown={(event) => {
+            if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault()
+              setOpenTopMenu(group.key)
+              requestAnimationFrame(() => {
+                document.querySelector<HTMLElement>(`#${menuId} [role="menuitem"]`)?.focus()
+              })
+            }
           }}
         >
           <i className={'ti ' + group.icon + ' icon icon-sm'} aria-hidden="true" />
@@ -204,11 +222,31 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </button>
         {open && (
           <div
+            id={menuId}
             className="dropdown-menu show position-absolute mt-1 p-2 juba-top-dropdown shadow"
             style={{ insetInlineStart: 0, minWidth: 220, maxHeight: "min(70vh, 520px)", overflowY: "auto", zIndex: 1055 }}
             role="menu"
+            aria-labelledby={`top-menu-trigger-${group.key}`}
           >
-            {group.items.map(renderTopItem)}
+            {group.items.map((item) => {
+              const activeItem = isItemActive(item.href)
+              const premium = item.premium && showPremiumBadge
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  role="menuitem"
+                  tabIndex={0}
+                  aria-current={activeItem ? 'page' : undefined}
+                  onClick={() => setOpenTopMenu(null)}
+                  className={'nav-link d-flex align-items-center gap-2 px-3 py-2 ' + (activeItem ? 'active bg-primary-lt text-primary fw-semibold' : 'text-secondary')}
+                >
+                  <i className={'ti ' + (NAV_ICONS[item.href] ?? 'ti-circle') + ' icon icon-sm'} aria-hidden="true" />
+                  <span>{item.label}</span>
+                  {premium && <span className="badge bg-yellow-lt text-yellow ms-1">PRO</span>}
+                </Link>
+              )
+            })}
           </div>
         )}
       </div>
