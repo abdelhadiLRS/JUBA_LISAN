@@ -131,6 +131,12 @@ Language-specific guidance:
 - Use Czech Latin orthography and preserve diacritics.
 - Pay close attention to grammatical case, gender, aspect, declension, and natural word order.
 """.strip(),
+    "vi": """
+Language-specific guidance:
+- Use standard Vietnamese consistently.
+- Use Vietnamese Latin orthography and preserve tone marks and diacritics.
+- Pay close attention to classifiers, pronouns, word order, and register.
+""".strip(),
     "zh-TW": """
 Language-specific guidance:
 - Use Taiwan Standard Mandarin consistently.
