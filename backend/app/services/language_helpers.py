@@ -32,6 +32,11 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
         "self_name": "Português (Portugal)",
         "iso639": "pt",
     },
+    "pt-BR": {
+        "name": "Brazilian Portuguese",
+        "self_name": "Português (Brasil)",
+        "iso639": "pt",
+    },
     "ja-JP": {"name": "Japanese", "self_name": "日本語", "iso639": "ja"},
     "ko-KR": {
         "name": "Korean (South Korea)",
@@ -111,6 +116,8 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
     "am": {"name": "Amharic", "self_name": "አማርኛ", "iso639": "am"},
     "ti": {"name": "Tigrinya", "self_name": "ትግርኛ", "iso639": "ti"},
     "zh-TW": {"name": "Chinese (Traditional)", "self_name": "中文（繁體）", "iso639": "zh"},
+    "zh-Hant": {"name": "Traditional Chinese", "self_name": "繁體中文", "iso639": "zh"},
+    "zh-Hant-TW": {"name": "Chinese (Traditional, Taiwan)", "self_name": "臺灣繁體中文", "iso639": "zh"},
     "hr": {"name": "Croatian", "self_name": "Hrvatski", "iso639": "hr"},
     "sk": {"name": "Slovak", "self_name": "Slovenčina", "iso639": "sk"},
     "sl": {"name": "Slovenian", "self_name": "Slovenščina", "iso639": "sl"},
@@ -391,6 +398,11 @@ _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "bg-BG": "bg",
     "sr-RS": "sr",
     "zh-TW": "zh-TW",
+    "zh-Hant": "zh-TW",
+    "zh-Hant-TW": "zh-TW",
+    "zh-Hant-HK": "zh-TW",
+    "zh-Hans": "zh-CN",
+    "pt-BR": "pt-BR",
     # Explicit foundation locale aliases keep profile/browser locales stable.
     "ro-RO": "ro", "hu-HU": "hu", "he-IL": "he", "vi-VN": "vi",
     "hr-HR": "hr", "sk-SK": "sk", "sl-SI": "sl", "lt-LT": "lt", "lv-LV": "lv",
