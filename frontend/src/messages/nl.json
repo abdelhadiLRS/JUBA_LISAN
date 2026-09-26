@@ -846,7 +846,10 @@
     "skillMasteryMastered": "beheerst",
     "skillMasteryAttempted": "pogingen",
     "skillMasteryAttemptRate": "Pogingpercentage: {rate}%",
-    "skillMasteryVariants": "varianten"
+    "skillMasteryVariants": "varianten",
+    "mastered": "Beheerst",
+    "listen": "Luisteren",
+    "advance": "Doorgaan"
   },
   "flashcards": {
     "title": "Flashcards",
@@ -910,7 +913,9 @@
     "deleteConfirm": "Verwijderen",
     "enterToSend": "Enter om te versturen",
     "continueInVoice": "Verdergaan met spraak",
-    "memoryUpdated": "Geheugen bijgewerkt"
+    "memoryUpdated": "Geheugen bijgewerkt",
+    "voiceSession": "Spraaksessie",
+    "delete": "Verwijderen"
   },
   "progress": {
     "title": "Voortgang",
