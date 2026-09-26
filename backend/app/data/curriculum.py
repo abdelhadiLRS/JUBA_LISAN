@@ -259,9 +259,15 @@ _I18N = {
 }
 
 
+def _normalize_locale(target_language: str) -> str:
+    """Normalize common locale spellings before resolving language data."""
+    return (target_language or "en-GB").strip().replace("_", "-") or "en-GB"
+
+
 def _resolve_module(target_language: str) -> object:
-    module_name = _LANG_MODULES.get(target_language) or _LANG_MODULES.get(
-        target_language.split("-")[0], "app.data.en_GB.curriculum"
+    locale = _normalize_locale(target_language)
+    module_name = _LANG_MODULES.get(locale) or _LANG_MODULES.get(
+        locale.split("-")[0], "app.data.en_GB.curriculum"
     )
 
     if module_name not in _CACHE:
@@ -290,7 +296,18 @@ def distribute_units(
     target_language: str = "en-GB",
 ) -> list[dict]:
     """Distribute curriculum units across lesson slots."""
-    i18n = _I18N.get(target_language) or _I18N.get(target_language.split("-")[0], _I18N["en-GB"])
+    locale = _normalize_locale(target_language)
+    i18n = _I18N.get(locale)
+    if i18n is None:
+        base_language = locale.split("-")[0]
+        default_locales = {
+            "en": "en-GB", "es": "es-ES", "it": "it-IT", "pt": "pt-PT",
+            "fr": "fr-FR", "de": "de-DE", "ja": "ja-JP", "ko": "ko-KR",
+            "ar": "ar", "sv": "sv-SE", "el": "el-GR", "da": "da-DK",
+            "pl": "pl-PL", "no": "no-NO", "fi": "fi-FI", "cs": "cs-CZ",
+            "zh": "zh-CN",
+        }
+        i18n = _I18N.get(default_locales.get(base_language, "en-GB"), _I18N["en-GB"])
 
     total_slots = total_weeks * days_per_week
     lesson_slots = max(1, total_slots - 1)
