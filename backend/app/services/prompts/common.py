@@ -294,6 +294,8 @@ _LANGUAGE_PROMPT_OVERLAY_ALIASES: dict[str, str] = {
     "zh-Hant": "zh-Hant",
     "zh-Hant-TW": "zh-TW",
     "zh-Hant-HK": "zh-Hant",
+    "zh-HK": "zh-TW",
+    "zh-MO": "zh-TW",
     "zh-Hans": "zh-CN",
 }
 
