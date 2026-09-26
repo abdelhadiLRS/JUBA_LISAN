@@ -815,9 +815,9 @@
     "tapToHear": "Atinge cuvântul pentru a-l auzi",
     "lessonProgress": "Progresul lecției",
     "masteryOverview": "Stăpânirea lecției",
-    "masteryCoverage": "{{covered}} variante acoperite",
-    "masteryAttemptRate": "Rată de încercare: {{rate}}%",
-    "masteryRate": "Rată de stăpânire: {{rate}}%",
+    "masteryCoverage": "{covered} variante acoperite",
+    "masteryAttemptRate": "Rată de încercare: {rate}%",
+    "masteryRate": "Rată de stăpânire: {rate}%",
     "masteryAttempted": "Încercate",
     "masteryLearning": "În învățare",
     "masteryStruggling": "Dificile",
@@ -1979,7 +1979,7 @@
     "rateKeys": "1 Din nou · 2 Greu · 3 Bine · 4 Ușor"
   },
   "translator": {
-    "detected": "Detectat",
+    "detected": "Detectat {language}",
     "listen": "Ascultă",
     "swap": "Inversează",
     "translating": "Se traduce…",
