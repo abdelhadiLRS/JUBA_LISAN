@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { PageLoading } from '@/components/ui/page-loading'
 import { apiFetch } from '@/lib/api'
+import { subscribeToLearningProgressUpdated } from '@/lib/learning-progress'
 import { getCurriculumUnits, type CurriculumUnit } from '@/data/curriculum'
 import { useLanguageStore } from '@/store/language'
 import UnitCard from '@/components/plan/UnitCard'
@@ -241,6 +242,12 @@ export default function PlanPage() {
 
   useEffect(() => {
     void loadPlan()
+  }, [loadPlan])
+
+  useEffect(() => {
+    return subscribeToLearningProgressUpdated(() => {
+      void loadPlan()
+    })
   }, [loadPlan])
 
   useEffect(() => {
