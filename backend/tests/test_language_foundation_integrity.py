@@ -592,6 +592,34 @@ def test_registered_languages_have_language_capabilities():
     assert not failures, "\\n".join(failures)
 
 
+def test_registered_base_languages_resolve_region_variants_consistently():
+    from app.services.language_helpers import get_iso639, get_language_script
+
+    failures: list[str] = []
+    for language, expected_module in curriculum_dispatcher._LANG_MODULES.items():
+        if "-" in language:
+            continue
+        locale = f"{language}-ZZ"
+        try:
+            resolved = curriculum_dispatcher._resolve_module(locale)
+        except Exception as exc:
+            failures.append(f"{language}: region variant import failed: {exc}")
+            continue
+        if resolved.__name__ != expected_module:
+            failures.append(
+                f"{language}: {locale} resolved to {resolved.__name__!r}, expected {expected_module!r}"
+            )
+        if get_iso639(locale) != get_iso639(language):
+            failures.append(
+                f"{language}: ISO mismatch for {locale}: "
+                f"{get_iso639(locale)!r} != {get_iso639(language)!r}"
+            )
+        if not get_language_script(locale).strip():
+            failures.append(f"{language}: missing capability for {locale}")
+
+    assert not failures, "\\n".join(failures)
+
+
 def test_registered_core_languages_have_explicit_capabilities():
     from app.services.language_helpers import get_language_script, get_reading_length_unit
 
