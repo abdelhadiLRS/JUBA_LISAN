@@ -1476,7 +1476,16 @@
     "hi-IN": "Hindi",
     "id-ID": "Indonesisch",
     "ms-MY": "Maleis",
-    "tr-TR": "Turks"
+    "tr-TR": "Turks",
+    "cs-CZ": "Tsjechisch",
+    "fi-FI": "Fins",
+    "no-NO": "Noors",
+    "sv-SE": "Zweeds",
+    "el-GR": "Grieks",
+    "da-DK": "Deens",
+    "pl-PL": "Pools",
+    "nl-NL": "Nederlands",
+    "ru-RU": "Russisch"
   },
   "onboarding": {
     "title": "Kies jouw taal",
