@@ -187,7 +187,7 @@ def get_valid_grammar_slugs(target_language: str = "en-GB") -> set[str]:
 
 def _fallback_lesson(*, cefr_level: str, lesson_type: str, topic: str, unit_id: str, target_language: str) -> LessonContent | None:
     """Keep the authored A1 English starter course launchable without an LLM."""
-    if target_language not in {"en", "en-GB", "en_US"} or cefr_level.upper() != "A1":
+    if target_language not in {"en", "en-GB", "en-US", "en_US"} or cefr_level.upper() != "A1":
         return None
     title = topic.strip() or "Identity & Greetings"
     base = {
