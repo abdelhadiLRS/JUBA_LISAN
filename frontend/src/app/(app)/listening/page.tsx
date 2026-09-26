@@ -713,7 +713,7 @@ function ListeningPage() {
           <button
             onClick={handleSubmit}
             disabled={!allAnswered || submitting}
-            className="border-[rgba(7,7,9,.08)] bg-[#202127] text-[var(--juba-app-bg)] hover:bg-[#202127]/90 focus-visible:outline-fl-fg w-full border py-3 font-sans text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+            className="border-[rgba(7,7,9,.08)] bg-[#202127] text-[#f4f4f2] hover:bg-[#202127]/90 focus-visible:outline-fl-fg w-full border py-3 font-sans text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {submitting ? tCommon('checking') : t('submit')}
           </button>
