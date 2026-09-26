@@ -307,7 +307,7 @@ def get_language_prompt_overlay(target_language: str) -> str:
 
     return (
         "Language-specific guidance:\n"
-        f"- Generate the target language as {language_name}; do not substitute English or another language.\n"
+        f"- Generate standard {language_name}; do not substitute English or another language.\n"
         f"- Preserve the target writing system ({script}) and its native orthography; do not transliterate unless explicitly requested.\n"
         f"- Treat {spacing}; use native tokenisation and punctuation conventions.\n"
         f"- For reading-length decisions, measure in {length_unit}; {length_guidance}.\n"
