@@ -170,7 +170,7 @@ export default function CoachPage() {
         <section className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
           <div className="juba-card overflow-hidden p-6 sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-[#5862e2] text-[#202127] shadow-[3px 3px 0 #202127]">
+              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-[#5862e2] text-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)]">
                 <Sparkles className="h-10 w-10" />
                 <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full border border-[#fff] bg-[#fff3d1]" />
               </div>
