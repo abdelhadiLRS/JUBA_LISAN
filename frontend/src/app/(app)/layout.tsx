@@ -247,15 +247,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <button type="button" onClick={() => setSidebarOpen(false)} className="grid size-9 place-items-center rounded-xl text-white/55 hover:bg-white/10 hover:text-white lg:hidden" aria-label={'Close menu'}><X className="size-4" /></button>
             <button type="button" onClick={() => setSidebarCollapsed((value) => !value)} className="hidden size-9 shrink-0 place-items-center rounded-xl text-white/55 transition hover:bg-white/10 hover:text-white lg:grid" aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}>{sidebarCollapsed ? <PanelLeft className="size-4" /> : <PanelLeftClose className="size-4" />}</button>
           </div>
-          <nav aria-label="Main navigation" className={`min-h-0 flex-1 overflow-y-auto ${sidebarCollapsed ? 'px-2' : 'px-3'} py-5`}>
-            {!sidebarCollapsed && <p className="mb-3 px-3 text-[9px] font-black uppercase tracking-[.2em] text-white/30">{'MENU'}</p>}
-            <div className="space-y-1">{renderNavItems(mainNavItems)}</div>
-            <div className="my-5 border-t border-white/[0.09]" />
-            {!sidebarCollapsed && <p className="mb-3 px-3 text-[9px] font-black uppercase tracking-[.2em] text-white/30">{tNav('resources')}</p>}
-            <div className="space-y-1">{renderNavItems(resourceNavItems)}</div>
-            <div className="my-5 border-t border-white/[0.09]" />
-            <div className="space-y-1">{renderNavItems(bottomNavItems)}</div>
-          </nav>
+          <div className="flex-1" aria-hidden="true" />
           <div className={`shrink-0 border-t border-white/[0.09] ${sidebarCollapsed ? 'p-2' : 'p-4'}`}>
             <div className={`mb-3 flex items-center ${sidebarCollapsed ? 'justify-center' : 'justify-between gap-2'} rounded-xl bg-white/[0.06] p-2`}>
               <div className="flex min-w-0 items-center gap-2">
@@ -273,19 +265,36 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
         </aside>
         <div className="min-w-0 flex-1">
-          <header className="flex h-[70px] items-center justify-between gap-3 border-b border-black/[0.06] bg-[#f6f6f4] px-4 sm:px-7">
-            <div className="flex min-w-0 items-center gap-3">
-              <button type="button" onClick={() => setSidebarOpen(true)} aria-label={'MENU'} className="grid size-10 shrink-0 place-items-center rounded-xl border border-black/[0.08] bg-white text-[#24272b] shadow-sm transition hover:bg-[#f0efff] lg:hidden"><Menu className="size-5" /></button>
-              <div className="min-w-0"><p className="text-[9px] font-black uppercase tracking-[.16em] text-[#7776df]">JUBA LISAN</p><h1 className="truncate text-base font-extrabold text-[#24272b] sm:text-lg">{pageLabel}</h1></div>
+          <header className="sticky top-0 z-50 border-b border-black/[0.07] bg-[#f6f6f4]/95 shadow-[0_4px_18px_rgba(36,39,43,0.06)] backdrop-blur-xl">
+            <div className="flex h-[68px] items-center justify-between gap-3 px-4 sm:px-7">
+              <div className="flex min-w-0 items-center gap-3">
+                <button type="button" onClick={() => setSidebarOpen(true)} aria-label={'MENU'} className="grid size-10 shrink-0 place-items-center rounded-xl border border-black/[0.08] bg-white text-[#24272b] shadow-sm transition hover:bg-[#f0efff] lg:hidden"><Menu className="size-5" /></button>
+                <div className="min-w-0"><p className="text-[9px] font-black uppercase tracking-[.16em] text-[#7776df]">JUBA LISAN</p><h1 className="truncate text-base font-extrabold text-[#24272b] sm:text-lg">{pageLabel}</h1></div>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <button type="button" className="relative grid size-10 place-items-center rounded-full border border-black/[0.07] bg-white text-[#777986] transition hover:bg-[#f0efff]" aria-label="Notifications" title="Notifications"><Bell className="size-4" /><span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#f26b69]" /></button>
+                <Link href="/settings" title={tNav('settings')} aria-label={tNav('settings')} className="grid size-10 place-items-center overflow-hidden rounded-full border border-black/[0.08] bg-white">
+                  <div className="grid size-9 place-items-center overflow-hidden rounded-full bg-[#d8c9a9] text-[#25272b]">
+                    {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover" fallback={<span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
+                  </div>
+                </Link>
+              </div>
             </div>
-            <div className="flex shrink-0 items-center gap-2">
-              <button type="button" className="relative grid size-10 place-items-center rounded-full border border-black/[0.07] bg-white text-[#777986] transition hover:bg-[#f0efff]" aria-label="Notifications" title="Notifications"><Bell className="size-4" /><span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#f26b69]" /></button>
-              <Link href="/settings" title={tNav('settings')} aria-label={tNav('settings')} className="grid size-10 place-items-center overflow-hidden rounded-full border border-black/[0.08] bg-white">
-                <div className="grid size-9 place-items-center overflow-hidden rounded-full bg-[#d8c9a9] text-[#25272b]">
-                  {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover" fallback={<span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
-                </div>
-              </Link>
-            </div>
+            <nav aria-label="Primary navigation" className="border-t border-black/[0.05] bg-white/80 px-3 sm:px-6">
+              <div className="flex h-[54px] items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {[...mainNavItems, ...resourceNavItems].map((item) => {
+                  const active = pathname === item.href || pathname.startsWith(item.href + '/')
+                  const premium = showPremiumBadge && PREMIUM_HREFS.has(item.href)
+                  return (
+                    <Link key={item.href} href={item.href} aria-current={active ? 'page' : undefined}
+                      className={`group relative flex h-10 shrink-0 items-center gap-2 rounded-xl px-3 text-[12px] font-bold transition ${active ? 'bg-[#7776df] text-white shadow-sm' : 'text-[#555866] hover:bg-[#f0efff] hover:text-[#5f5ec5]'}`}>
+                      <span className="relative grid size-4 place-items-center"><NavIcon href={item.href} className="size-[16px]" />{premium && <Sparkles className="absolute -right-1.5 -top-1 size-2.5 text-[#f2b84b]" />}</span>
+                      <span>{item.label}</span>
+                    </Link>
+                  )
+                })}
+              </div>
+            </nav>
           </header>
           <main className="juba-app-content min-h-0 bg-[#f6f6f4]">
             {user && user.is_verified === false && (
