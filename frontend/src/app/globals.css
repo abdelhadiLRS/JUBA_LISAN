@@ -7256,10 +7256,10 @@ main [dir="rtl"] h3,
   background:#fff !important;
   box-shadow:0 10px 26px rgba(43,45,90,.06);
 }
-.juba-progress-shell .bg-[var(--juba-app-green)],
-.juba-plan-shell .bg-[var(--juba-app-green)],
-.juba-flashcards-shell .bg-[var(--juba-app-green)],
-.juba-vocabulary-shell .bg-[var(--juba-app-green)] {
+.juba-progress-shell [class*="bg-[var(--juba-app-green)]"],
+.juba-plan-shell [class*="bg-[var(--juba-app-green)]"],
+.juba-flashcards-shell [class*="bg-[var(--juba-app-green)]"],
+.juba-vocabulary-shell [class*="bg-[var(--juba-app-green)]"] {
   background:#5862e2 !important;
 }
 
