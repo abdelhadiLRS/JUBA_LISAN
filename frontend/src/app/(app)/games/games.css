@@ -365,3 +365,21 @@
   from { transform: translateY(0); }
   to { transform: translateY(-2px); }
 }
+
+
+/* Dashboard fidelity override — Games keeps its game-specific layout and interactions. */
+.juba-games{background:#f4f4f2!important;color:#202127;}
+.games-header{background:#070709!important;box-shadow:0 14px 34px rgba(43,45,90,.12)!important;}
+.games-brand{background:#ededff;color:#373fb8;}
+.stats-grid>div,.games-panel,.game-card,.play-card{border:1px solid rgba(7,7,9,.07)!important;border-radius:26px!important;box-shadow:0 12px 30px rgba(43,45,90,.07)!important;}
+.daily-challenge{border:1px solid rgba(7,7,9,.07)!important;background:#fff3d1;box-shadow:0 10px 24px rgba(43,45,90,.06)!important;}
+.game-card{background:#fff!important;}
+.game-card::before{background:#ededff!important;}
+.game-icon{background:#ededff!important;}
+.game-card:nth-child(2) .game-icon{background:#fff3d1!important;}
+.game-card:nth-child(3) .game-icon{background:#f1eaff!important;}
+.start{color:#5862e2;}
+.choice:hover,.choice.selected{border-color:#5862e2;background:#ededff;}
+.next{background:#5862e2;box-shadow:0 5px 0 #373fb8;}
+.interactive-game{border-color:rgba(7,7,9,.07);box-shadow:0 14px 34px rgba(43,45,90,.07);}
+@media(max-width:640px){.games-header{background:#070709!important;color:#fff!important;box-shadow:0 10px 24px rgba(43,45,90,.1)!important;}.stats-grid>div,.games-panel,.game-card,.play-card{border:1px solid rgba(7,7,9,.07)!important;box-shadow:0 10px 24px rgba(43,45,90,.06)!important;}}
