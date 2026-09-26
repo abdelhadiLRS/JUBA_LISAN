@@ -288,7 +288,7 @@ ASSESSMENT_BANK = [
     AssessmentQuestion(id="ga-c1-001", skill="writing", difficulty="C1", question="Which phrase appropriately qualifies a claim?", options=["Is cosúil go...","Tá sé cinnte i gcónaí...","Dia duit...","Slán..."], correct="Is cosúil go..."),
     AssessmentQuestion(id="ga-c1-002", skill="writing", difficulty="C1", question="Which term means “implication”?", options=["impleacht","oidhreacht","stáisiún","mála"], correct="impleacht"),
     AssessmentQuestion(id="ga-c1-003", skill="analysis", difficulty="C1", question="What is the purpose of discourse hedging?", options=["To qualify the strength of a claim","To greet someone","To form a plural","To give a phone number"], correct="To qualify the strength of a claim"),
-    AssessmentQuestion(id="ga-c2-001", skill="style", difficulty="C2", question="Which connector means “on the other hand”?", options=["os a choinne sin","ar an gcéad dul síos","go raibh maith agat","amárach"], correct="os a choinne sin"),
+    AssessmentQuestion(id="ga-c2-001", skill="discourse", difficulty="C2", question="Which connector means “on the other hand”?", options=["os a choinne sin","ar an gcéad dul síos","go raibh maith agat","amárach"], correct="os a choinne sin"),
     AssessmentQuestion(id="ga-c2-002", skill="analysis", difficulty="C2", question="Which concept refers to a counterargument?", options=["frithargóint","toimhde","béim","foirmiúlacht"], correct="frithargóint"),
-    AssessmentQuestion(id="ga-c2-003", skill="style", difficulty="C2", question="Which phrase is suited to a formal conclusion?", options=["Ar deireadh thiar...","Dia duit!","Cá bhfuil an leithreas?","Ba mhaith liom uisce."], correct="Ar deireadh thiar..."),
+    AssessmentQuestion(id="ga-c2-003", skill="formal", difficulty="C2", question="Which phrase is suited to a formal conclusion?", options=["Ar deireadh thiar...","Dia duit!","Cá bhfuil an leithreas?","Ba mhaith liom uisce."], correct="Ar deireadh thiar..."),
 ]
