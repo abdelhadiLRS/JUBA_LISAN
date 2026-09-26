@@ -204,36 +204,36 @@ export default function AdminSystemPage() {
       <AdminNav />
 
       {maintenanceError && (
-        <div className="border-red-200/60 text-[var(--juba-app-error)] border px-4 py-3 font-sans text-xs border-[var(--juba-app-line)]">
+        <div className="border-red-200/60 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
           {maintenanceError}
         </div>
       )}
 
       <div
-        className={`juba-card border px-5 py-4 ${maintenanceMode ? 'border-yellow-500/40 bg-yellow-500/5' : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)]'}`}
+        className={`juba-card border px-5 py-4 ${maintenanceMode ? 'border-yellow-500/40 bg-yellow-500/5' : 'border-[rgba(7,7,9,.08)] bg-[#fff]'}`}
       >
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex gap-3">
             <ShieldAlert
-              className={`mt-0.5 size-5 shrink-0 ${maintenanceMode ? 'text-yellow-500' : 'text-[var(--juba-app-muted)]'}`}
+              className={`mt-0.5 size-5 shrink-0 ${maintenanceMode ? 'text-yellow-500' : 'text-[rgba(32,33,39,.52)]'}`}
               aria-hidden="true"
             />
             <div>
               <div className="mb-1 flex flex-wrap items-center gap-2">
-                <span className="text-[var(--juba-app-muted)] font-sans text-xs tracking-wide">
+                <span className="text-[rgba(32,33,39,.52)] font-sans text-xs tracking-wide">
                   {t('maintenanceTitle')}
                 </span>
                 <span
-                  className={`text-[var(--juba-app-muted)] border px-2 py-0.5 font-semibold tracking-wide ${
+                  className={`text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide ${
                     maintenanceMode
                       ? 'border-yellow-500/40 text-yellow-500'
-                      : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)]'
+                      : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)]'
                   }`}
                 >
                   {maintenanceMode ? t('maintenanceOn') : t('maintenanceOff')}
                 </span>
               </div>
-              <p className="text-[var(--juba-app-muted)] font-sans">
+              <p className="text-[rgba(32,33,39,.52)] font-sans">
                 {t('maintenanceDesc')}
               </p>
             </div>
@@ -243,8 +243,8 @@ export default function AdminSystemPage() {
             disabled={maintenanceLoading}
             className={`inline-flex shrink-0 items-center justify-center gap-2 px-4 py-3 font-sans text-xs font-bold tracking-wide transition-colors ${
               maintenanceMode
-                ? 'bg-[var(--juba-app-ink)] text-white hover:opacity-90'
-                : 'bg-[var(--juba-app-green)] text-white hover:bg-[var(--juba-app-green)]/90'
+                ? 'bg-[#202127] text-white hover:opacity-90'
+                : 'bg-[#5862e2] text-white hover:bg-[#5862e2]/90'
             } disabled:opacity-50`}
           >
             {maintenanceLoading && (
@@ -255,24 +255,24 @@ export default function AdminSystemPage() {
         </div>
       </div>
 
-      <section className="juba-card border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border p-5">
-        <div className="border-[var(--juba-app-line)] mb-5 flex gap-3 border-b pb-4">
+      <section className="juba-card border-[rgba(7,7,9,.08)] bg-[#fff] border p-5">
+        <div className="border-[rgba(7,7,9,.08)] mb-5 flex gap-3 border-b pb-4">
           <Megaphone
-            className="text-[var(--juba-app-green)] mt-0.5 size-5 shrink-0"
+            className="text-[#5862e2] mt-0.5 size-5 shrink-0"
             aria-hidden="true"
           />
           <div>
-            <h2 className="text-[var(--juba-app-ink)] font-sans text-sm font-bold tracking-wide">
+            <h2 className="text-[#202127] font-sans text-sm font-bold tracking-wide">
               {t('dashboardBanner.title')}
             </h2>
-            <p className="text-[var(--juba-app-muted)] mt-1 font-sans text-xs">
+            <p className="text-[rgba(32,33,39,.52)] mt-1 font-sans text-xs">
               {t('dashboardBanner.description')}
             </p>
           </div>
         </div>
 
         {bannerLoading ? (
-          <div className="text-[var(--juba-app-muted)] flex items-center gap-2 font-sans text-xs">
+          <div className="text-[rgba(32,33,39,.52)] flex items-center gap-2 font-sans text-xs">
             <Loader2 className="size-4 animate-spin" aria-hidden="true" />
             {t('dashboardBanner.loading')}
           </div>
@@ -281,20 +281,20 @@ export default function AdminSystemPage() {
             {bannerError && (
               <p
                 role="alert"
-                className="border-red-200/60 text-[var(--juba-app-error)] border px-4 py-3 font-sans text-xs border-[var(--juba-app-line)]"
+                className="border-red-200/60 text-[#dc2626] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]"
               >
                 {bannerError}
               </p>
             )}
             {bannerSuccess && (
-              <p className="border-[var(--juba-app-green)]/30 text-[var(--juba-app-green)] border px-4 py-3 font-sans text-xs border-[var(--juba-app-line)]">
+              <p className="border-[#5862e2]/30 text-[#5862e2] border px-4 py-3 font-sans text-xs border-[rgba(7,7,9,.08)]">
                 {bannerSuccess}
               </p>
             )}
 
             <div className="grid gap-4 md:grid-cols-[12rem_1fr]">
               <label className="space-y-2 font-sans text-xs">
-                <span className="text-[var(--juba-app-muted)] block tracking-wide">
+                <span className="text-[rgba(32,33,39,.52)] block tracking-wide">
                   {t('dashboardBanner.sourceLocale')}
                 </span>
                 <select
@@ -302,7 +302,7 @@ export default function AdminSystemPage() {
                   onChange={(event) =>
                     setSourceLocale(event.target.value as BannerLocale)
                   }
-                  className="border-[var(--juba-app-line)] bg-[var(--juba-app-bg)] text-[var(--juba-app-ink)] w-full border px-3 py-2"
+                  className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] w-full border px-3 py-2"
                 >
                   {BANNER_LOCALES.map((locale) => (
                     <option key={locale} value={locale}>
@@ -316,13 +316,13 @@ export default function AdminSystemPage() {
                   type="checkbox"
                   checked={isActive}
                   onChange={(event) => setIsActive(event.target.checked)}
-                  className="accent-[var(--juba-app-green)] size-4"
+                  className="accent-[#5862e2] size-4"
                 />
                 <span>
-                  <span className="text-[var(--juba-app-ink)] block font-bold">
+                  <span className="text-[#202127] block font-bold">
                     {t('dashboardBanner.activeLabel')}
                   </span>
-                  <span className="text-[var(--juba-app-muted)] mt-1 block">
+                  <span className="text-[rgba(32,33,39,.52)] mt-1 block">
                     {t('dashboardBanner.activeHint')}
                   </span>
                 </span>
@@ -331,7 +331,7 @@ export default function AdminSystemPage() {
 
             <div className="grid gap-4">
               <label className="space-y-2 font-sans text-xs">
-                <span className="text-[var(--juba-app-muted)] block tracking-wide">
+                <span className="text-[rgba(32,33,39,.52)] block tracking-wide">
                   {t('dashboardBanner.fieldTitle')}
                 </span>
                 <input
@@ -343,11 +343,11 @@ export default function AdminSystemPage() {
                     }))
                   }
                   maxLength={160}
-                  className="border-[var(--juba-app-line)] bg-[var(--juba-app-bg)] text-[var(--juba-app-ink)] w-full border px-3 py-2 font-sans text-sm"
+                  className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] w-full border px-3 py-2 font-sans text-sm"
                 />
               </label>
               <label className="space-y-2 font-sans text-xs">
-                <span className="text-[var(--juba-app-muted)] block tracking-wide">
+                <span className="text-[rgba(32,33,39,.52)] block tracking-wide">
                   {t('dashboardBanner.fieldSubtitle')}
                 </span>
                 <input
@@ -359,11 +359,11 @@ export default function AdminSystemPage() {
                     }))
                   }
                   maxLength={240}
-                  className="border-[var(--juba-app-line)] bg-[var(--juba-app-bg)] text-[var(--juba-app-ink)] w-full border px-3 py-2 font-sans text-sm"
+                  className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] w-full border px-3 py-2 font-sans text-sm"
                 />
               </label>
               <label className="space-y-2 font-sans text-xs">
-                <span className="text-[var(--juba-app-muted)] block tracking-wide">
+                <span className="text-[rgba(32,33,39,.52)] block tracking-wide">
                   {t('dashboardBanner.fieldDescription')}
                 </span>
                 <textarea
@@ -376,7 +376,7 @@ export default function AdminSystemPage() {
                   }
                   maxLength={2000}
                   rows={5}
-                  className="border-[var(--juba-app-line)] bg-[var(--juba-app-bg)] text-[var(--juba-app-ink)] w-full resize-y border px-3 py-2 font-sans text-sm"
+                  className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] w-full resize-y border px-3 py-2 font-sans text-sm"
                 />
               </label>
               <div>
@@ -384,7 +384,7 @@ export default function AdminSystemPage() {
                   type="button"
                   onClick={translateBanner}
                   disabled={translating || !sourceComplete}
-                  className="bg-fl-fg text-fl-bg hover:bg-[var(--juba-app-green)] inline-flex items-center gap-2 px-4 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-40"
+                  className="bg-[#5862e2] text-fl-bg hover:bg-[#5862e2] inline-flex items-center gap-2 px-4 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-40"
                 >
                   {translating && (
                     <Loader2
@@ -398,10 +398,10 @@ export default function AdminSystemPage() {
             </div>
 
             {hasTranslations && (
-              <div className="border-[var(--juba-app-line)] space-y-4 border-t pt-5">
+              <div className="border-[rgba(7,7,9,.08)] space-y-4 border-t pt-5">
                 <div className="flex flex-wrap items-end justify-between gap-3">
                   <label className="space-y-2 font-sans text-xs">
-                    <span className="text-[var(--juba-app-muted)] block tracking-wide">
+                    <span className="text-[rgba(32,33,39,.52)] block tracking-wide">
                       {t('dashboardBanner.editTranslation')}
                     </span>
                     <select
@@ -409,7 +409,7 @@ export default function AdminSystemPage() {
                       onChange={(event) =>
                         setEditorLocale(event.target.value as BannerLocale)
                       }
-                      className="border-[var(--juba-app-line)] bg-[var(--juba-app-bg)] text-[var(--juba-app-ink)] min-w-52 border px-3 py-2"
+                      className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] min-w-52 border px-3 py-2"
                     >
                       {BANNER_LOCALES.map((locale) => {
                         const complete = Object.values(
@@ -424,7 +424,7 @@ export default function AdminSystemPage() {
                       })}
                     </select>
                   </label>
-                  <p className="text-[var(--juba-app-muted)] font-sans text-xs">
+                  <p className="text-[rgba(32,33,39,.52)] font-sans text-xs">
                     {t('dashboardBanner.completion', {
                       complete: completedLocales,
                       total: BANNER_LOCALES.length,
@@ -434,7 +434,7 @@ export default function AdminSystemPage() {
 
                 <div className="grid gap-4">
                   <label className="space-y-2 font-sans text-xs">
-                    <span className="text-[var(--juba-app-muted)] block tracking-wide">
+                    <span className="text-[rgba(32,33,39,.52)] block tracking-wide">
                       {t('dashboardBanner.fieldTitle')}
                     </span>
                     <input
@@ -443,11 +443,11 @@ export default function AdminSystemPage() {
                         updateTranslation('title', event.target.value)
                       }
                       maxLength={160}
-                      className="border-[var(--juba-app-line)] bg-[var(--juba-app-bg)] text-[var(--juba-app-ink)] w-full border px-3 py-2 font-sans text-sm"
+                      className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] w-full border px-3 py-2 font-sans text-sm"
                     />
                   </label>
                   <label className="space-y-2 font-sans text-xs">
-                    <span className="text-[var(--juba-app-muted)] block tracking-wide">
+                    <span className="text-[rgba(32,33,39,.52)] block tracking-wide">
                       {t('dashboardBanner.fieldSubtitle')}
                     </span>
                     <input
@@ -456,11 +456,11 @@ export default function AdminSystemPage() {
                         updateTranslation('subtitle', event.target.value)
                       }
                       maxLength={240}
-                      className="border-[var(--juba-app-line)] bg-[var(--juba-app-bg)] text-[var(--juba-app-ink)] w-full border px-3 py-2 font-sans text-sm"
+                      className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] w-full border px-3 py-2 font-sans text-sm"
                     />
                   </label>
                   <label className="space-y-2 font-sans text-xs">
-                    <span className="text-[var(--juba-app-muted)] block tracking-wide">
+                    <span className="text-[rgba(32,33,39,.52)] block tracking-wide">
                       {t('dashboardBanner.fieldDescription')}
                     </span>
                     <textarea
@@ -470,13 +470,13 @@ export default function AdminSystemPage() {
                       }
                       maxLength={2000}
                       rows={5}
-                      className="border-[var(--juba-app-line)] bg-[var(--juba-app-bg)] text-[var(--juba-app-ink)] w-full resize-y border px-3 py-2 font-sans text-sm"
+                      className="border-[rgba(7,7,9,.08)] bg-[#f4f4f2] text-[#202127] w-full resize-y border px-3 py-2 font-sans text-sm"
                     />
                   </label>
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="text-[var(--juba-app-muted)] font-sans text-xs">
+                  <div className="text-[rgba(32,33,39,.52)] font-sans text-xs">
                     {revision !== null && (
                       <span className="mr-4">
                         {t('dashboardBanner.revision', { revision })}
@@ -499,7 +499,7 @@ export default function AdminSystemPage() {
                     disabled={
                       saving || completedLocales !== BANNER_LOCALES.length
                     }
-                    className="bg-[var(--juba-app-green)] text-white hover:bg-[var(--juba-app-green)]/90 inline-flex items-center justify-center gap-2 px-5 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-40"
+                    className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 inline-flex items-center justify-center gap-2 px-5 py-3 font-sans text-xs font-bold tracking-wide transition-colors disabled:opacity-40"
                   >
                     {saving && (
                       <Loader2
