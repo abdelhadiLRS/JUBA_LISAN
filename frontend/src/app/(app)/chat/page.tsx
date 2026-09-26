@@ -313,22 +313,22 @@ export default function ChatPage() {
         {/* Sidebar backdrop — mobile only */}
         {sidebarOpen && (
           <div
-            className="fixed inset-x-0 top-14 bottom-0 z-10 bg-[var(--juba-app-ink)]/35 md:hidden"
+            className="fixed inset-x-0 top-14 bottom-0 z-10 bg-[#202127]/35 md:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}
 
         {/* Sidebar */}
         {sidebarOpen && (
-          <aside className="juba-chat-sidebar border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)]/60 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
-            <div className="border-[var(--juba-app-line)] flex items-center justify-between border-b-2 px-4 py-3">
-              <span className="text-[var(--juba-app-muted)] font-semibold tracking-wide">
+          <aside className="juba-chat-sidebar border-[rgba(7,7,9,.08)] bg-[#ededff]/60 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
+            <div className="border-[rgba(7,7,9,.08)] flex items-center justify-between border-b-2 px-4 py-3">
+              <span className="text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
                 {t('conversations')}
               </span>
               <button
                 type="button"
                 onClick={newChat}
-                className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] font-semibold tracking-wide transition-colors"
+                className="text-[rgba(32,33,39,.52)] hover:text-[#202127] font-semibold tracking-wide transition-colors"
                 title={t('newConversation')}
               >
                 + {t('newConversation')}
@@ -357,13 +357,13 @@ export default function ChatPage() {
                         })
                         .finally(() => setLoadingConvs(false))
                     }}
-                    className="rounded-xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-4 py-2 font-semibold tracking-wide text-[var(--juba-app-ink)] shadow-[2px_2px_0_var(--juba-app-ink)] transition-all hover:-translate-y-0.5 hover:border-[var(--juba-app-green)]"
+                    className="rounded-xl border-2 border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-2 font-semibold tracking-wide text-[#202127] shadow-[2px_2px_0_#202127] transition-all hover:-translate-y-0.5 hover:border-[#5862e2]"
                   >
                     {tCommon('retry')}
                   </button>
                 </div>
               ) : conversations.length === 0 ? (
-                <p className="text-[var(--juba-app-muted)] px-4 py-4 font-sans">
+                <p className="text-[rgba(32,33,39,.52)] px-4 py-4 font-sans">
                   {t('noConversation')}
                 </p>
               ) : (
@@ -371,18 +371,18 @@ export default function ChatPage() {
                   <div
                     key={c.id}
                     onClick={() => selectConversation(c.id)}
-                    className={`group border-[var(--juba-app-line)] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
+                    className={`group border-[rgba(7,7,9,.08)] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
                       activeId === c.id
-                        ? 'bg-[var(--juba-app-green-soft)] border-l-[#39751d] border-l-2'
-                        : 'hover:bg-[var(--juba-app-surface)] border-l-2 border-l-transparent'
+                        ? 'bg-[#ededff] border-l-[#39751d] border-l-2'
+                        : 'hover:bg-[#fff] border-l-2 border-l-transparent'
                     }`}
                   >
                     <span
-                      className={`text-[var(--juba-app-ink)] truncate pr-1 font-sans leading-tight ${activeId === c.id ? 'text-[var(--juba-app-ink)]' : 'text-[var(--juba-app-muted)]'}`}
+                      className={`text-[#202127] truncate pr-1 font-sans leading-tight ${activeId === c.id ? 'text-[#202127]' : 'text-[rgba(32,33,39,.52)]'}`}
                     >
                       {c.source === 'voice' && (
                         <span
-                          className="text-[var(--juba-app-muted)] mr-1.5"
+                          className="text-[rgba(32,33,39,.52)] mr-1.5"
                           title={t('voiceSession')}
                         >
                           🎤
@@ -410,19 +410,19 @@ export default function ChatPage() {
         {/* Main chat area */}
         <div className="flex flex-1 flex-col overflow-hidden">
           {/* Header */}
-          <div className="juba-chat-header border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)]/60 flex shrink-0 items-center gap-2 border-b px-5 py-4">
+          <div className="juba-chat-header border-[rgba(7,7,9,.08)] bg-[#ededff]/60 flex shrink-0 items-center gap-2 border-b px-5 py-4">
             <button
               type="button"
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] mr-1 text-lg transition-colors"
+              className="text-[rgba(32,33,39,.52)] hover:text-[#202127] mr-1 text-lg transition-colors"
               title={
                 sidebarOpen ? t('toggleSidebarHide') : t('toggleSidebarShow')
               }
             >
               {sidebarOpen ? '◀' : '☰'}
             </button>
-            <span className="text-[var(--juba-app-muted)]">●</span>
-            <span className="text-[var(--juba-app-muted)] font-semibold tracking-wide">
+            <span className="text-[rgba(32,33,39,.52)]">●</span>
+            <span className="text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
               {activeId
                 ? (conversations.find((c) => c.id === activeId)?.title ??
                   t('title'))
@@ -430,11 +430,11 @@ export default function ChatPage() {
             </span>
             {sending ? (
               <div className="ml-auto flex flex-col items-end gap-0.5">
-                <span className="text-[var(--juba-app-muted)] animate-pulse font-semibold tracking-wide">
+                <span className="text-[rgba(32,33,39,.52)] animate-pulse font-semibold tracking-wide">
                   {t('thinking')}
                 </span>
                 {sendingWarn && (
-                  <span className="text-[var(--juba-app-muted)] font-sans text-xs tracking-[.12em] text-[#9a6500] uppercase">
+                  <span className="text-[rgba(32,33,39,.52)] font-sans text-xs tracking-[.12em] text-[#9a6500] uppercase">
                     {t('takingLonger')}
                   </span>
                 )}
@@ -443,7 +443,7 @@ export default function ChatPage() {
               <button
                 type="button"
                 onClick={continueInVoice}
-                className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] ml-auto font-semibold tracking-wide transition-colors"
+                className="text-[rgba(32,33,39,.52)] hover:text-[#202127] ml-auto font-semibold tracking-wide transition-colors"
               >
                 {t('continueInVoice')}
               </button>
@@ -460,10 +460,10 @@ export default function ChatPage() {
               </div>
             ) : messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
-                <p className="text-[var(--juba-app-muted)] font-semibold tracking-wide">
+                <p className="text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
                   {t('title')}
                 </p>
-                <p className="text-[var(--juba-app-muted)] max-w-xs font-mono text-xs leading-relaxed">
+                <p className="text-[rgba(32,33,39,.52)] max-w-xs font-mono text-xs leading-relaxed">
                   {t('subtitle', {
                     language: activeLanguage
                       ? tLang(activeLanguage.code)
@@ -478,7 +478,7 @@ export default function ChatPage() {
                   className={`juba-chat-message-row flex items-end gap-2 ${msg.role === 'user' ? 'ml-auto max-w-[75%] flex-row-reverse' : 'flex-row'}`}
                 >
                   {/* Avatar */}
-                  <div className="juba-chat-avatar mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[var(--juba-app-line)]">
+                  <div className="juba-chat-avatar mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[rgba(7,7,9,.08)]">
                     {msg.role === 'assistant' ? (
                       <Image
                         src="/logo_head.png"
@@ -495,8 +495,8 @@ export default function ChatPage() {
                         height={28}
                         className="h-full w-full object-cover"
                         fallback={
-                          <div className="bg-[var(--juba-app-green-soft)] flex h-full w-full items-center justify-center">
-                            <span className="text-[var(--juba-app-muted)] font-sans select-none">
+                          <div className="bg-[#ededff] flex h-full w-full items-center justify-center">
+                            <span className="text-[rgba(32,33,39,.52)] font-sans select-none">
                               {(user?.displayName ||
                                 user?.username ||
                                 '?')[0].toUpperCase()}
@@ -505,8 +505,8 @@ export default function ChatPage() {
                         }
                       />
                     ) : (
-                      <div className="bg-[var(--juba-app-green-soft)] flex h-full w-full items-center justify-center">
-                        <span className="text-[var(--juba-app-muted)] font-mono select-none">
+                      <div className="bg-[#ededff] flex h-full w-full items-center justify-center">
+                        <span className="text-[rgba(32,33,39,.52)] font-mono select-none">
                           {(user?.displayName ||
                             user?.username ||
                             '?')[0].toUpperCase()}
@@ -518,10 +518,10 @@ export default function ChatPage() {
                     <TargetLanguageText
                       as="div"
                       languageCode={targetLanguageCode}
-                      className={`juba-chat-message word-selectable border-2 border-[var(--juba-app-line)] px-4 py-3 text-left ${
+                      className={`juba-chat-message word-selectable border-2 border-[rgba(7,7,9,.08)] px-4 py-3 text-left ${
                         msg.role === 'user'
-                          ? 'bg-[var(--juba-app-green)] text-white border-[var(--juba-app-ink)] shadow-[3px_3px_0_var(--juba-app-ink)]'
-                          : 'bg-[var(--juba-app-surface)] text-[var(--juba-app-ink)] border-2 border-[var(--juba-app-line)] shadow-[2px_2px_0_var(--juba-app-ink)]'
+                          ? 'bg-[#5862e2] text-white border-[#202127] shadow-[3px_3px_0_#202127]'
+                          : 'bg-[#fff] text-[#202127] border-2 border-[rgba(7,7,9,.08)] shadow-[2px_2px_0_#202127]'
                       }`}
                       onPointerUp={
                         msg.role === 'assistant' &&
@@ -532,7 +532,7 @@ export default function ChatPage() {
                     >
                       {msg.content ||
                         (sending && i === messages.length - 1 ? (
-                          <span className="text-[var(--juba-app-muted)] animate-pulse">
+                          <span className="text-[rgba(32,33,39,.52)] animate-pulse">
                             ▌
                           </span>
                         ) : null)}
@@ -549,7 +549,7 @@ export default function ChatPage() {
               ))
             )}
             {error && (
-              <div className="text-[var(--juba-app-ink)] text-[#b33a32] rounded-xl border-2 border-[#d7b2ad] bg-[#fff7f5] px-4 py-2 font-mono">
+              <div className="text-[#202127] text-[#b33a32] rounded-xl border-2 border-[#d7b2ad] bg-[#fff7f5] px-4 py-2 font-mono">
                 ✕{' '}
                 {error === 'No active study plan found'
                   ? tCommon('noActivePlan')
@@ -560,7 +560,7 @@ export default function ChatPage() {
           </div>
 
           {/* Input */}
-          <div className="border-t-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)]/60 shrink-0 px-4 py-4">
+          <div className="border-t-2 border-[rgba(7,7,9,.08)] bg-[#ededff]/60 shrink-0 px-4 py-4">
             {freemiumExhausted ? (
               <PaywallBanner feature="chat" compact />
             ) : (
@@ -576,18 +576,18 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1 rounded-xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-4 py-3 font-mono text-base text-[var(--juba-app-ink)] shadow-[2px_2px_0_var(--juba-app-ink)] transition-all placeholder:text-[var(--juba-app-muted)] focus:border-[var(--juba-app-green)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-app-green)]/15 disabled:opacity-40"
+                    className="flex-1 rounded-xl border-2 border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-3 font-mono text-base text-[#202127] shadow-[2px_2px_0_#202127] transition-all placeholder:text-[rgba(32,33,39,.52)] focus:border-[#5862e2] focus:outline-none focus:ring-2 focus:ring-[#5862e2]/15 disabled:opacity-40"
                   />
                   <button
                     type="button"
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || loadingMsgs}
-                    className="rounded-xl border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-green)] px-5 font-mono font-bold uppercase tracking-widest text-white shadow-[3px_3px_0_var(--juba-app-ink)] transition-all hover:-translate-y-0.5 hover:bg-[var(--juba-app-green)] hover:shadow-[4px_4px_0_var(--juba-app-ink)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--juba-app-ink)] disabled:opacity-30"
+                    className="rounded-xl border-2 border-[#202127] bg-[#5862e2] px-5 font-mono font-bold uppercase tracking-widest text-white shadow-[3px_3px_0_#202127] transition-all hover:-translate-y-0.5 hover:bg-[#5862e2] hover:shadow-[4px_4px_0_#202127] active:translate-y-0.5 active:shadow-[1px_1px_0_#202127] disabled:opacity-30"
                   >
                     {sending ? '…' : t('send')}
                   </button>
                 </div>
-                <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mt-2 font-mono tracking-wide">
+                <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] mt-2 font-mono tracking-wide">
                   {t('enterToSend')}
                 </p>
               </>
