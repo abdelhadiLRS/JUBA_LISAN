@@ -173,8 +173,8 @@ export default function FlashcardsPage() {
             }}
             className={`text-body border px-4 py-2 font-sans tracking-widest uppercase transition-colors ${
               showGenerate
-                ? 'border-[#202127] text-body'
-                : 'border-secondary-subtle text-secondary hover:text-body hover:border-[#202127]'
+                ? 'border-secondary-subtle text-body'
+                : 'border-secondary-subtle text-secondary hover:text-body hover:border-secondary-subtle'
             }`}
           >
             + {t('generateBtn')}
@@ -192,7 +192,7 @@ export default function FlashcardsPage() {
             </span>
           </div>
           {genError && (
-            <div className="border-[#dc2626]/40 text-[#dc2626] mx-5 mt-4 border px-4 py-3 font-sans text-xs">
+            <div className="border-danger/40 text-danger mx-5 mt-4 border px-4 py-3 font-sans text-xs">
               ✕ {genError}
             </div>
           )}
@@ -288,7 +288,7 @@ export default function FlashcardsPage() {
                   setSpeakingMode(false)
                   setFlipped(false)
                 }}
-                className={`text-secondary border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${!speakingMode ? 'border-[#202127] text-body' : 'border-secondary-subtle text-secondary hover:text-secondary'}`}
+                className={`text-secondary border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${!speakingMode ? 'border-secondary-subtle text-body' : 'border-secondary-subtle text-secondary hover:text-secondary'}`}
               >
                 {t('standardMode')}
               </button>
@@ -298,7 +298,7 @@ export default function FlashcardsPage() {
                   setSpeakingMode(true)
                   setFlipped(false)
                 }}
-                className={`text-secondary border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${speakingMode ? 'border-[#202127] text-body' : 'border-secondary-subtle text-secondary hover:text-secondary'}`}
+                className={`text-secondary border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${speakingMode ? 'border-secondary-subtle text-body' : 'border-secondary-subtle text-secondary hover:text-secondary'}`}
               >
                 {t('speakingMode')}
               </button>
@@ -369,10 +369,10 @@ export default function FlashcardsPage() {
               {flipped && (
                 <div className="flex flex-wrap gap-2">
                   {[
-                    { key: 'again', q: 0, color: '#ff5555' },
-                    { key: 'hard', q: 3, color: 'rgba(32,33,39,.52)' },
-                    { key: 'good', q: 4, color: 'rgba(32,33,39,.52)' },
-                    { key: 'easy', q: 5, color: '#202127' },
+                    { key: 'again', q: 0, color: 'var(--tblr-danger, #d63939)' },
+                    { key: 'hard', q: 3, color: 'var(--tblr-secondary, #626976)' },
+                    { key: 'good', q: 4, color: 'var(--tblr-secondary, #626976)' },
+                    { key: 'easy', q: 5, color: 'var(--tblr-body-color, #182433)' },
                   ].map(({ key, q, color }) => (
                     <button
                       key={q}
@@ -436,7 +436,7 @@ export default function FlashcardsPage() {
             </div>
           )}
 
-          <p className="text-secondary text-[rgba(7,7,9,.08)] text-center font-sans tracking-widest uppercase">
+          <p className="text-secondary text-secondary text-center font-sans tracking-widest uppercase">
             EF {cards[current].ease_factor.toFixed(2)} · {t('interval')}{' '}
             {cards[current].interval}d · {t('repetitions')}{' '}
             {cards[current].repetitions}
