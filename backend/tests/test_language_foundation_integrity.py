@@ -350,17 +350,6 @@ def test_registered_foundations_have_unique_vocabulary_ids():
     assert not failures, "\n".join(failures)
 
 
-@pytest.mark.parametrize(
-    ("requested_locale", "expected_module"),
-    [
-        ("en_US", "app.data.en_US.curriculum"),
-        ("en-US", "app.data.en_US.curriculum"),
-        ("fr-FR", "app.data.fr.curriculum"),
-        ("fr", "app.data.fr.curriculum"),
-        ("pt-BR", "app.data.pt.curriculum"),
-        ("zh-TW", "app.data.zh.curriculum"),
-    ],
-)
 def test_curriculum_dispatcher_resolves_every_registered_language():
     failures: list[str] = []
 
@@ -410,18 +399,6 @@ def test_curriculum_distribution_uses_locale_aware_labels(requested_locale: str,
     assert expected_title in slots[0]["title"]
 
 
-@pytest.mark.parametrize(
-    ("locale", "expected_name", "expected_iso"),
-    [
-        ("en_US", "English (US)", "en"),
-        ("fr", "French", "fr"),
-        ("pt-BR", "European Portuguese", "pt"),
-        ("de-DE", "German", "de"),
-        ("ar", "Arabic", "ar"),
-        ("hi-IN", "Hindi", "hi"),
-        ("zh-TW", "zh-TW", "zh"),
-    ],
-)
 def test_all_registered_languages_have_resolvable_metadata():
     from app.services.language_helpers import (
         get_iso639,
