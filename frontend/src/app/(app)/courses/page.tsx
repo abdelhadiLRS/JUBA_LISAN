@@ -94,8 +94,7 @@ export default function CoursesPage() {
   const currentLessonCount = getPlanLessonCount(plan)
 
   return (
-    <main className="juba-mobile-courses min-h-screen px-4 py-8 sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-6xl space-y-8">
+    <div className="juba-mobile-courses space-y-8">
         <section className="card relative overflow-hidden border-0 bg-primary text-white p-4 p-md-5">
           <div className="relative z-10 max-w-3xl">
             <div className="page-pretitle d-flex align-items-center gap-2"><i className="ti ti-sparkles icon icon-sm" aria-hidden="true" /> {t('heroEyebrow')}</div>
@@ -202,7 +201,6 @@ export default function CoursesPage() {
           <div className="flex items-center gap-3"><i className="ti ti-sparkles icon text-primary" aria-hidden="true" /><h2 className="text-2xl font-black text-[#202127]">{t('rhythmTitle')}</h2></div>
           <div className="mt-6 grid gap-3 sm:grid-cols-4">{(['learn', 'practice', 'recall', 'review'] as const).map((step, i) => <div key={step} className="rounded-2xl border border-[rgba(7,7,9,.08)] bg-[#f4f4f2] p-4"><span className="text-xs font-bold text-[rgba(32,33,39,.52)]">0{i + 1}</span><p className="mt-2 font-black text-[#202127]">{t(`rhythm.${step}`)}</p></div>)}</div>
         </section>
-      </div>
-    </main>
+    </div>
   )
 }
