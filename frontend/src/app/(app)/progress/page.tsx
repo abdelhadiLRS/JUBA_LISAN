@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { BookOpenCheck, Target, Trophy } from 'lucide-react'
-
 import { useTranslations } from 'next-intl'
 import { PageLoading } from '@/components/ui/page-loading'
 import { apiFetch } from '@/lib/api'
@@ -106,9 +104,9 @@ function UnitCompetencyBlock({
     totalCount > 0 ? Math.round((masteredCount / totalCount) * 100) : 0
 
   return (
-    <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border">
+    <div className="card">
       {/* Unit header */}
-      <div className="border-[rgba(7,7,9,.08)] flex items-center justify-between border-b px-5 py-4">
+      <div className="card-header d-flex align-items-center justify-content-between">
         <div className="flex items-center gap-2">
           <span className="text-[rgba(32,33,39,.52)] font-sans tracking-[.12em] uppercase">
             {tPlan('unitLabel')} {unit.unit_number}
@@ -263,11 +261,11 @@ export default function ProgressPage() {
   )
 
   return (
-    <div className="juba-progress-shell mx-auto space-y-7 p-4 sm:p-6">
+    <div className="container-xl page-body py-4">
       {/* Header */}
       <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border">
-        <div className="border-[rgba(7,7,9,.08)] flex items-center gap-2 border-b px-6 py-4">
-          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[#ededff] text-[#5862e2]"><Target className="h-4 w-4" /></span>
+        <div className="card-header d-flex align-items-center gap-2">
+          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[#ededff] text-[#5862e2]"><i className="ti ti-target icon" aria-hidden="true" /></span>
           <span className="text-[rgba(32,33,39,.52)] font-sans tracking-[.12em] uppercase">
             {t('subtitle')}
           </span>
@@ -307,7 +305,7 @@ export default function ProgressPage() {
       {summary && summary.mastery && summary.mastery.tracked_items > 0 && (
         <section className="juba-progress-section space-y-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#ededff] text-[#5862e2]"><Trophy className="h-5 w-5" /></span>
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#ededff] text-[#5862e2]"><i className="ti ti-trophy icon" aria-hidden="true" /></span>
             <span className="text-[#202127] font-mono text-base font-bold tracking-widest">
               {t('skills')} · {t('mastered')}
             </span>
@@ -316,7 +314,7 @@ export default function ProgressPage() {
               {summary.mastery.tracked_items} {tVocab('words')}
             </span>
           </div>
-          <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border p-5">
+          <div className="card">
             <div className="mb-4 flex items-center justify-between">
               <span className="text-[rgba(32,33,39,.52)] font-sans tracking-[.12em] uppercase">{t('accuracy')}</span>
               <span className="text-[#202127] font-mono text-lg font-bold">{Math.round(summary.mastery.average_score * 100)}%</span>
@@ -338,7 +336,7 @@ export default function ProgressPage() {
             </div>
           </div>
           {Object.keys(summary.mastery.skills).length > 0 && (
-            <div className="border-[rgba(7,7,9,.08)] bg-[#fff] divide-fl-border divide-y border">
+            <div className="card">
               {Object.entries(summary.mastery.skills).map(([skill, data]) => (
                 <div key={skill} className="px-5 py-4">
                   <div className="mb-2 flex items-center justify-between gap-4">
@@ -358,7 +356,7 @@ export default function ProgressPage() {
       {levelUnits.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#fff3d1] text-[#9a6500]"><BookOpenCheck className="h-5 w-5" /></span>
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#fff3d1] text-[#9a6500]"><i className="ti ti-book-2 icon" aria-hidden="true" /></span>
             <span className="text-[#202127] font-mono text-base font-bold tracking-widest">
               {cefrLevel
                 ? t('competenciesSection', { level: cefrLevel })
