@@ -140,6 +140,8 @@
     "openMenu": "Deschide meniul"
   },
   "nav": {
+    "primaryNavigation": "Navigare principală",
+    "notifications": "Notificări",
     "learning": "Învățare",
     "practice": "Practică",
     "studyTools": "Instrumente de studiu",
