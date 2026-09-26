@@ -986,7 +986,9 @@
     "explanation": "Explicație",
     "backLink": "Înapoi la gramatică",
     "notFound": "Subiect negăsit.",
-    "topicsFound": "{count, plural, one {# subiect găsit} other {# subiecte găsite}}"
+    "topicsFound": "{count, plural, one {# subiect găsit} other {# subiecte găsite}},
+    "topicCount": "{count, plural, one {# subiect} other {# subiecte}}",
+    "levelRange": "A1 – C2""
   },
   "vocabulary": {
     "title": "Centrul de vocabular",
