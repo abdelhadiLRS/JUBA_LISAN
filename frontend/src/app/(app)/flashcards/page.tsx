@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { apiFetch } from '@/lib/api'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
 import { useLanguageStore } from '@/store/language'
 import { AudioPlayer } from '@/components/ui/AudioPlayer'
 import { VoiceRecorder } from '@/components/ui/VoiceRecorder'
@@ -79,6 +80,7 @@ export default function FlashcardsPage() {
         body: JSON.stringify({ quality }),
       })
       if (!response.ok) return
+      markLearningProgressUpdated()
       if (current < cards.length - 1) {
         setCurrent(current + 1)
         setFlipped(false)
