@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { SUPPORTED_LOCALES, type Locale } from '@/lib/locales'
+import { normalizeLocale, SUPPORTED_LOCALES, type Locale } from '@/lib/locales'
 
 // Routes that require authentication — anything else passes through so unknown
 // URLs reach Next.js's 404 handler instead of being redirected to /login.
@@ -26,21 +26,26 @@ const PROTECTED_ROUTES = [
 ]
 
 function detectLocale(req: NextRequest): Locale {
-  // 1. An explicit /:locale URL prefix always wins. This keeps old/shared
-  // locale-prefixed links such as /ar working with cookie/header-based i18n.
-  const firstSegment = req.nextUrl.pathname.split('/').filter(Boolean)[0]?.toLowerCase()
-  if (firstSegment && (SUPPORTED_LOCALES as readonly string[]).includes(firstSegment)) {
-    return firstSegment as Locale
+  // 1. An explicit /:locale URL prefix always wins, including regional aliases
+  // such as /en-GB or /ar-DZ.
+  const firstSegment = req.nextUrl.pathname.split('/').filter(Boolean)[0]
+  if (firstSegment) {
+    const normalized = normalizeLocale(firstSegment)
+    const raw = firstSegment.trim().replace(/_/g, '-').toLowerCase()
+    const knownLocale = (SUPPORTED_LOCALES as readonly string[]).includes(raw)
+    const regionalAlias = raw.includes('-') && normalized !== 'en' || raw === 'en-gb' || raw === 'en-us'
+    if (knownLocale || regionalAlias) return normalized
   }
 
-  // 2. Cookie already set — always respect an explicit user choice.
+  // 2. Cookie already set — respect the user's explicit choice, including
+  // older regional cookie values.
   const cookie = req.cookies.get('NEXT_LOCALE')?.value
-  if (cookie && (SUPPORTED_LOCALES as readonly string[]).includes(cookie)) {
-    return cookie as Locale
+  if (cookie) {
+    const normalized = normalizeLocale(cookie)
+    if ((SUPPORTED_LOCALES as readonly string[]).includes(normalized)) return normalized
   }
 
-  // 2. Use the visitor's country when the hosting/CDN exposes it.
-  // This avoids browser geolocation permission prompts and works before hydration.
+  // 3. Use the visitor's country when the hosting/CDN exposes it.
   const country = (
     req.headers.get('x-vercel-ip-country') ??
     req.headers.get('cf-ipcountry') ??
@@ -49,52 +54,18 @@ function detectLocale(req: NextRequest): Locale {
   ).trim().toUpperCase()
 
   const countryLocale: Record<string, Locale> = {
-    DZ: 'ar',
-    MA: 'fr',
-    TN: 'fr',
-    EG: 'ar',
-    SA: 'ar',
-    AE: 'ar',
-    QA: 'ar',
-    KW: 'ar',
-    BH: 'ar',
-    OM: 'ar',
-    JO: 'ar',
-    LB: 'ar',
-    IQ: 'ar',
-    SY: 'ar',
-    YE: 'ar',
-    FR: 'fr',
-    BE: 'fr',
-    LU: 'fr',
-    CH: 'fr',
-    ES: 'es',
-    MX: 'es',
-    AR: 'es',
-    CL: 'es',
-    CO: 'es',
-    PE: 'es',
-    DE: 'de',
-    AT: 'de',
-    IT: 'it',
-    PT: 'pt',
-    BR: 'pt',
-    PL: 'pl',
-    NL: 'nl',
-    RO: 'ro',
-    RU: 'ru',
-    UA: 'ru',
-    GB: 'en',
-    US: 'en',
-    CA: 'en',
-    AU: 'en',
-    NZ: 'en',
+    DZ: 'ar', MA: 'fr', TN: 'fr', EG: 'ar', SA: 'ar', AE: 'ar', QA: 'ar',
+    KW: 'ar', BH: 'ar', OM: 'ar', JO: 'ar', LB: 'ar', IQ: 'ar', SY: 'ar', YE: 'ar',
+    FR: 'fr', BE: 'fr', LU: 'fr', CH: 'fr', ES: 'es', MX: 'es', AR: 'es', CL: 'es',
+    CO: 'es', PE: 'es', DE: 'de', AT: 'de', IT: 'it', PT: 'pt', BR: 'pt',
+    PL: 'pl', NL: 'nl', RO: 'ro', RU: 'ru', UA: 'ru', GB: 'en', US: 'en',
+    CA: 'en', AU: 'en', NZ: 'en',
   }
 
   const locationLocale = countryLocale[country]
   if (locationLocale) return locationLocale
 
-  // 3. Parse Accept-Language header with q-weight sorting
+  // 4. Parse Accept-Language header with q-weight sorting.
   const accept = req.headers.get('accept-language') ?? ''
   const parsed = accept
     .split(',')
@@ -102,18 +73,16 @@ function detectLocale(req: NextRequest): Locale {
       const [langTag, ...params] = part.trim().split(';')
       const qParam = params.find((p) => p.trim().startsWith('q='))
       const q = qParam ? parseFloat(qParam.split('=')[1]) : 1.0
-      const lang = langTag.trim().split(/[-_]/)[0].toLowerCase()
-      return { lang, q: isNaN(q) ? 0 : q }
+      return { langTag: langTag.trim(), q: Number.isNaN(q) ? 0 : q }
     })
     .sort((a, b) => b.q - a.q)
 
-  for (const { lang } of parsed) {
-    if ((SUPPORTED_LOCALES as readonly string[]).includes(lang)) {
-      return lang as Locale
-    }
+  for (const { langTag } of parsed) {
+    const normalized = normalizeLocale(langTag)
+    if ((SUPPORTED_LOCALES as readonly string[]).includes(normalized)) return normalized
   }
 
-  // 4. Default to English
+  // 5. Default to English.
   return 'en'
 }
 
