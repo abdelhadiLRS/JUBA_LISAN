@@ -523,7 +523,13 @@
     "levelTestScoreLine": "Результат: {score} из {total}",
     "levelTestReady": "Вы готовы перейти на следующий уровень",
     "levelTestReadyDesc": "Вы успешно завершили тест уровня. Продолжайте учебный план.",
-    "refresh": "Обновить панель"
+    "refresh": "Обновить панель",
+    "historyRanges": {
+      "week": "Неделя",
+      "month": "Месяц",
+      "all": "Все"
+    },
+    "minutes": "мин"
   },
   "assessment": {
     "title": "Оценка",
