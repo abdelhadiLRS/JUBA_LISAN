@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useMemo } from 'react'
 import { Check, ChevronDown, ChevronUp, Languages, Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import { useLanguageStore } from '@/store/language'
 import { getLanguageByCode, normalizeLanguageCode } from '@/lib/target-languages'
 
@@ -82,8 +83,8 @@ export default function LanguageSwitcher() {
         aria-label={multiple ? 'Switch target language' : `Current target language: ${targetLabel(activeLanguage.code, getLanguageByCode(activeLanguage.code)?.name ?? activeLanguage.code)}`}
         className="group flex w-full items-center gap-3 rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff] px-3.5 py-2.5 text-left text-sm font-bold text-[#202127] shadow-[0_4px_14px_rgba(43,45,90,.06)] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_18px_rgba(43,45,90,.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5862e2] focus-visible:ring-offset-2 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-[0_4px_14px_rgba(43,45,90,.06)]"
       >
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-[#ededff]">
-          <Languages className="h-4 w-4 text-[#5862e2]" aria-hidden="true" />
+        <span className="flex h-9 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-black/10 bg-[#f3f4f8]">
+          <Image src={getLanguageByCode(activeLanguage.code)?.flagPath ?? '/flags/arab-league.svg'} alt="" aria-hidden="true" width={44} height={32} unoptimized className="h-full w-full object-cover" />
         </span>
         <span className="min-w-0 flex-1 truncate">{isSwitching ? 'Switching…' : targetLabel(activeLanguage.code, getLanguageByCode(activeLanguage.code)?.name)}</span>
         {isSwitching ? (
@@ -120,8 +121,8 @@ export default function LanguageSwitcher() {
                     : 'text-[#202127] hover:bg-[#ededff]'
                 }`}
               >
-                <Languages className="h-4 w-4 shrink-0 text-[#5862e2]" aria-hidden="true" />
-                <span className="min-w-0 flex-1 truncate">{targetLabel(lang.code, lang.name)}</span>
+                <Image src={lang.flagPath} alt="" aria-hidden="true" width={36} height={26} unoptimized className="h-[26px] w-9 shrink-0 rounded-md border border-black/10 object-cover" />
+                <span lang={lang.iso639} dir="auto" className="min-w-0 flex-1 truncate">{targetLabel(lang.code, lang.name)}</span>
                 {ulang.plan?.cefr_level && (
                   <span className="rounded-full bg-[#fff3d1] px-2 py-0.5 text-[10px] font-black text-[#202127]">
                     {ulang.plan.cefr_level}
