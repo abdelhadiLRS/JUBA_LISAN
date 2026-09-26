@@ -1,3 +1,4 @@
+@import '@tabler/core/dist/css/tabler.min.css';
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
@@ -7661,3 +7662,26 @@ main [dir="rtl"] h3,
 .juba-flashcards-vocabulary-shell .juba-primary-button{border-radius:14px!important;background:#5862e2!important;color:#fff!important;box-shadow:0 7px 0 #373fb8!important;}
 .juba-flashcards-vocabulary-shell .juba-card[class~="bg-[#fff3d1]"]{background:#fff3d1!important;}
 @media(max-width:640px){.juba-flashcards-vocabulary-shell{padding-inline:14px;}.juba-flashcards-vocabulary-shell .juba-card{border-radius:22px;}}
+
+/* Tabler member application skin */
+.juba-tabler-app {
+  --tblr-primary: #206bc4;
+  --tblr-body-bg: #f5f7fb;
+}
+.juba-tabler-app .page-wrapper { background: var(--tblr-body-bg); }
+.juba-tabler-app .navbar-vertical .nav-link { min-height: 2.5rem; border-radius: .375rem; }
+.juba-tabler-app .navbar-vertical .nav-link.active { color: var(--tblr-primary); }
+.juba-tabler-app .navbar-vertical .nav-link:hover { background: rgba(32,107,196,.06); }
+.juba-tabler-app .navbar-brand { min-height: 4rem; }
+.juba-tabler-app .page-body { min-height: calc(100vh - 4rem); }
+.juba-tabler-app .juba-app-page { width: 100%; color: #182433; }
+.juba-tabler-app .juba-app-page .juba-card,
+.juba-tabler-app .juba-app-page [class*="rounded-3xl"],
+.juba-tabler-app .juba-app-page [class*="rounded-[26px]"],
+.juba-tabler-app .juba-app-page [class*="rounded-[28px]"],
+.juba-tabler-app .juba-app-page [class*="rounded-[30px"] {
+  box-shadow: 0 1px 3px rgba(24,36,51,.08), 0 8px 24px rgba(24,36,51,.04);
+}
+@media (max-width: 991.98px) {
+  .juba-tabler-app .navbar-vertical { width: 260px !important; }
+}
