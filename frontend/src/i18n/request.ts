@@ -2,14 +2,7 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { getRequestConfig } from 'next-intl/server'
 import { cookies, headers } from 'next/headers'
-import { SUPPORTED_LOCALES, type Locale } from '@/lib/locales'
-
-function resolveLocale(raw: string | undefined): Locale {
-  if (raw && (SUPPORTED_LOCALES as readonly string[]).includes(raw)) {
-    return raw as Locale
-  }
-  return 'en'
-}
+import { normalizeLocale } from '@/lib/locales'
 
 export default getRequestConfig(async () => {
   const headerStore = await headers()
@@ -17,7 +10,7 @@ export default getRequestConfig(async () => {
 
   // x-next-locale is injected by the middleware on every request (including the
   // very first one, before the NEXT_LOCALE cookie has been written to the client)
-  const locale = resolveLocale(
+  const locale = normalizeLocale(
     headerStore.get('x-next-locale') ?? cookieStore.get('NEXT_LOCALE')?.value
   )
 
