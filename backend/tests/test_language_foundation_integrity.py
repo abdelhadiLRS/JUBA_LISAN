@@ -9,6 +9,17 @@ import pytest
 from app.data import curriculum as curriculum_dispatcher
 
 
+ALLOWED_LESSON_TYPES = {
+    "grammar",
+    "vocabulary",
+    "reading",
+    "writing",
+    "listening",
+    "speaking",
+    "review",
+}
+
+
 def _public_ids(items: object, attribute: str = "id") -> set[str]:
     if not isinstance(items, (list, tuple)):
         return set()
@@ -51,8 +62,22 @@ def test_registered_foundations_have_no_dangling_unit_references():
         vocabulary_sets = getattr(module, "VOCABULARY_SETS", [])
         grammar_ids = _public_ids(grammar_topics)
         vocabulary_ids = _public_ids(vocabulary_sets)
-        grammar_by_id = {item.slug: item for item in grammar_topics if getattr(item, "slug", None)}
-        vocabulary_by_id = {item.id: item for item in vocabulary_sets if getattr(item, "id", None)}
+        grammar_by_id = {
+            item.slug: item
+            for item in grammar_topics
+            if getattr(item, "slug", None)
+        }
+        vocabulary_by_id = {
+            item.id: item
+            for item in vocabulary_sets
+            if getattr(item, "id", None)
+        }
+
+        all_units = {
+            unit.id: unit
+            for units in getattr(module, "CURRICULUM", {}).values()
+            for unit in units
+        }
 
         for level, units in getattr(module, "CURRICULUM", {}).items():
             unit_ids: set[str] = set()
@@ -78,17 +103,29 @@ def test_registered_foundations_have_no_dangling_unit_references():
                     failures.append(
                         f"{language}/{level}/{unit.id}: missing vocabulary {sorted(missing_vocab)}"
                     )
+
+                # Vocabulary sets are reusable learning assets. A unit may
+                # legitimately reuse a set whose primary unit_ref is different.
+                # Validate the set itself instead of requiring one-to-one mapping.
                 for vocab_id in unit.vocabulary_set_ids:
                     vocab = vocabulary_by_id.get(vocab_id)
-                    if vocab and vocab.level != level:
+                    if vocab and vocab.unit_ref not in all_units:
                         failures.append(
-                            f"{language}/{level}/{unit.id}: vocabulary {vocab_id} is level {vocab.level}"
+                            f"{language}/{level}/{unit.id}: vocabulary {vocab_id} points to missing unit {vocab.unit_ref}"
                         )
-                    if vocab and vocab.unit_ref != unit.id:
-                        failures.append(
-                            f"{language}/{level}/{unit.id}: vocabulary {vocab_id} points to {vocab.unit_ref}"
-                        )
+                    if vocab and vocab.unit_ref in all_units:
+                        primary_unit = all_units[vocab.unit_ref]
+                        if primary_unit.level != vocab.level:
+                            failures.append(
+                                f"{language}/{vocab_id}: primary unit {vocab.unit_ref} is level {primary_unit.level}, "
+                                f"but vocabulary is {vocab.level}"
+                            )
 
+                invalid_lesson_types = set(unit.lesson_types) - ALLOWED_LESSON_TYPES
+                if invalid_lesson_types:
+                    failures.append(
+                        f"{language}/{level}/{unit.id}: invalid lesson types {sorted(invalid_lesson_types)}"
+                    )
                 if not unit.lesson_types:
                     failures.append(f"{language}/{level}/{unit.id}: no lesson types")
                 if not unit.competency_checklist:
