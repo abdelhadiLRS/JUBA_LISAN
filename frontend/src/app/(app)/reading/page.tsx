@@ -285,7 +285,7 @@ function ReadingPage() {
 
   // ── Loading ──────────────────────────────────────────────────────────────
   if (pageState === 'loading') {
-    return <PageLoading minHeight="min-h-[calc(100vh-56px)] md:min-h-screen" />
+    return <PageLoading />
   }
 
   // ── Generating (long-poll) ────────────────────────────────────────────────
@@ -298,7 +298,7 @@ function ReadingPage() {
             ? `${t('generatingDesc')} ${t('generatingLong')}`
             : t('generatingDesc')
         }
-        minHeight="min-h-[calc(100vh-56px)] md:min-h-screen"
+       
       />
     )
   }
