@@ -214,6 +214,8 @@
     "openMenu": "Ouvrir le menu"
   },
   "nav": {
+    "primaryNavigation": "Navigation principale",
+    "notifications": "Notifications",
     "learning": "Apprentissage",
     "practice": "Pratique",
     "studyTools": "Outils d’étude",
