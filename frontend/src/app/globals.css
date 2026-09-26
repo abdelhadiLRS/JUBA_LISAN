@@ -8036,6 +8036,7 @@ main [dir="rtl"] h3,
   .juba-tabler-app .juba-page-context .container-xl {
     padding-top: .7rem !important;
     padding-bottom: .7rem !important;
+    padding-inline: 1rem;
   }
 
   .juba-tabler-app .juba-page-context .fs-3 {
@@ -8052,28 +8053,6 @@ main [dir="rtl"] h3,
 
   .juba-tabler-app .navbar .nav-link {
     padding-inline: .65rem !important;
-  }
-
-  .juba-tabler-app .juba-top-dropdown {
-    position: fixed !important;
-    /* The compact top nav occupies two rows on phones; keep the menu below it. */
-    top: 6.5rem;
-    inset-inline: 10px;
-    width: auto;
-    min-width: 0;
-    max-height: min(70vh, 480px);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
-    z-index: 1060 !important;
-  }
-
-  .juba-tabler-app .juba-top-dropdown::before {
-    display: none;
-  }
-
-  .juba-tabler-app .juba-page-context .container-xl {
-    padding-inline: 1rem;
   }
 }
 
@@ -8132,7 +8111,7 @@ main [dir="rtl"] h3,
 @media (max-width: 991.98px) {
   .juba-tabler-app .juba-top-dropdown {
     position: fixed !important;
-    top: 6.5rem;
+    top: var(--juba-mobile-dropdown-top, 6.5rem);
     inset-inline: 10px;
     width: auto;
     min-width: 0;
