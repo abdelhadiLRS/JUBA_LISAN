@@ -1476,7 +1476,16 @@
     "hi-IN": "Hindi",
     "id-ID": "Indoneziană",
     "ms-MY": "Malaeză",
-    "tr-TR": "Turcă"
+    "tr-TR": "Turcă",
+    "cs-CZ": "Cehă",
+    "fi-FI": "Finlandeză",
+    "no-NO": "Norvegiană",
+    "sv-SE": "Suedeză",
+    "el-GR": "Greacă",
+    "da-DK": "Daneză",
+    "pl-PL": "Poloneză",
+    "nl-NL": "Neerlandeză",
+    "ru-RU": "Rusă"
   },
   "onboarding": {
     "title": "Alege-ți limba",
