@@ -65,47 +65,47 @@ export default function PrivacyPage() {
             className="mb-3"
           />
         </Link>
-        <h1 className="text-[var(--juba-text)] font-sans text-xl font-bold tracking-wide">JUBA LISAN</h1>
-        <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] mt-1 font-semibold tracking-wide">
+        <h1 className="text-[#202127] font-sans text-xl font-bold tracking-wide">JUBA LISAN</h1>
+        <p className="text-black/50 text-black/50 mt-1 font-semibold tracking-wide">
           {tCommon('tagline')}
         </p>
       </div>
 
-      <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] space-y-8 border-2 border-[var(--juba-border)] p-8">
-        <div className="border-[var(--juba-border)] flex items-center gap-2 border-b pb-4">
-          <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-          <span className="text-[var(--juba-muted)] font-sans text-xs tracking-wide">
+      <div className="space-y-8 rounded-[26px] border border-black/[0.08] bg-white p-6 shadow-[0_12px_30px_rgba(43,45,90,.055)] sm:p-8">
+        <div className="border-black/[0.08] flex items-center gap-2 border-b border-black/[0.08] pb-4">
+          <span className="text-[#202127] text-black/50"><span className="h-2 w-2 rounded-full bg-[#5862e2]" /></span>/span>
+          <span className="text-black/50 font-sans text-xs tracking-wide">
             {t('pageTitle')}
           </span>
         </div>
 
-        <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] font-sans tracking-wide">
+        <p className="text-black/50 text-black/50 font-sans tracking-wide">
           {t('updated')}
         </p>
 
         <section className="space-y-3">
-          <h2 className="text-[var(--juba-text)] font-sans text-sm font-bold tracking-wide">
+          <h2 className="text-[#202127] font-sans text-sm font-bold tracking-wide">
             {t('s1Title')}
           </h2>
-          <p className="text-[var(--juba-text)] font-sans text-sm leading-relaxed">
+          <p className="text-[#202127] font-sans text-sm leading-relaxed">
             {t('s1Body')}
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-[var(--juba-text)] font-sans text-sm font-bold tracking-wide">
+          <h2 className="text-[#202127] font-sans text-sm font-bold tracking-wide">
             {t('s2Title')}
           </h2>
-          <p className="text-[var(--juba-text)] font-sans text-sm leading-relaxed">
+          <p className="text-[#202127] font-sans text-sm leading-relaxed">
             {t('s2Intro')}
           </p>
           <ul className="space-y-1 pl-4">
             {s2Items.map((item) => (
               <li
                 key={item}
-                className="text-[var(--juba-text)] flex gap-2 font-sans text-sm leading-relaxed"
+                className="text-[#202127] flex gap-2 font-sans text-sm leading-relaxed"
               >
-                <span className="text-[var(--juba-muted)] flex-shrink-0">—</span>
+                <span className="text-black/50 flex-shrink-0">—</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -113,24 +113,24 @@ export default function PrivacyPage() {
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-[var(--juba-text)] font-sans text-sm font-bold tracking-wide">
+          <h2 className="text-[#202127] font-sans text-sm font-bold tracking-wide">
             {t('s3Title')}
           </h2>
-          <p className="text-[var(--juba-text)] font-sans text-sm leading-relaxed">
+          <p className="text-[#202127] font-sans text-sm leading-relaxed">
             {t('s3Intro')}
           </p>
           <ul className="space-y-1 pl-4">
             {s3Items.map((item) => (
               <li
                 key={item}
-                className="text-[var(--juba-text)] flex gap-2 font-sans text-sm leading-relaxed"
+                className="text-[#202127] flex gap-2 font-sans text-sm leading-relaxed"
               >
-                <span className="text-[var(--juba-muted)] flex-shrink-0">—</span>
+                <span className="text-black/50 flex-shrink-0">—</span>
                 <span>{item}</span>
               </li>
             ))}
           </ul>
-          <p className="text-[var(--juba-text)] font-sans text-sm leading-relaxed">
+          <p className="text-[#202127] font-sans text-sm leading-relaxed">
             {t('s3Footer')}
           </p>
         </section>
@@ -144,25 +144,25 @@ export default function PrivacyPage() {
           { title: t('s9Title'), body: t('s9Body') },
         ].map((section) => (
           <section key={section.title} className="space-y-3">
-            <h2 className="text-[var(--juba-text)] font-sans text-sm font-bold tracking-wide">
+            <h2 className="text-[#202127] font-sans text-sm font-bold tracking-wide">
               {section.title}
             </h2>
-            <p className="text-[var(--juba-text)] font-sans text-sm leading-relaxed">
+            <p className="text-[#202127] font-sans text-sm leading-relaxed">
               {section.body}
             </p>
           </section>
         ))}
 
-        <div className="border-[var(--juba-border)] flex gap-6 border-t pt-4">
+        <div className="border-black/[0.08] flex gap-6 border-t border-black/[0.08] pt-4">
           <Link
             href={termsHref}
-            className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-sans text-xs tracking-wide transition-colors"
+            className="text-black/50 hover:text-[#202127] font-sans text-xs tracking-wide transition-colors"
           >
             {t('linkTerms')}
           </Link>
           <Link
             href={backHref}
-            className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-sans text-xs tracking-wide transition-colors"
+            className="text-black/50 hover:text-[#202127] font-sans text-xs tracking-wide transition-colors"
           >
             {backLabel}
           </Link>
