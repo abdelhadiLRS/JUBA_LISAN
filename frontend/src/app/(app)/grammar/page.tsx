@@ -13,11 +13,11 @@ function TopicCard({ topic }: { topic: GrammarTopic }) {
   return (
     <Link
       href={`/grammar/${topic.slug}`}
-      className="border bg-[#fff] hover:border-2 hover:bg-[#fff]-2 group block border transition-colors"
+      className="border bg-[#fff] hover:border-2 hover:bg-[#f4f4f2] group block border transition-colors"
     >
       <div className="space-y-2 px-4 py-4">
         <div className="flex items-start justify-between gap-2">
-          <p className="text-[#202127] group-hover:text-[#202127]-bright font-sans text-xs leading-snug font-bold tracking-wide transition-colors">
+          <p className="text-[#202127] group-hover:text-[#5862e2] font-sans text-xs leading-snug font-bold tracking-wide transition-colors">
             {topic.title}
           </p>
           <span className="border text-[#202127] text-[rgba(32,33,39,.52)] shrink-0 border px-1.5 py-0.5 font-sans tracking-widest uppercase">
@@ -121,7 +121,7 @@ export default function GrammarIndexPage() {
         </div>
         <div className="space-y-4 px-6 py-5">
           <p className="text-[rgba(32,33,39,.52)] font-sans text-xs leading-relaxed">
-            {topics.length} topics · A1 – C2
+            {t('topicCount', { count: topics.length })} · {t('levelRange')}
           </p>
           <input
             type="text"
@@ -135,7 +135,7 @@ export default function GrammarIndexPage() {
               onClick={() => setActiveCategory('All')}
               className={`text-[#202127] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                 activeCategory === 'All'
-                  ? 'border-[#202127] text-[#202127] bg-[#fff]-2'
+                  ? 'border-[#202127] text-[#202127] bg-[#f4f4f2]'
                   : 'border text-[rgba(32,33,39,.52)] hover:border-2 hover:text-[#202127]'
               }`}
             >
@@ -177,7 +177,7 @@ export default function GrammarIndexPage() {
               </span>
               <div className="bg-[rgba(7,7,9,.08)] h-px flex-1" />
               <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans">
-                {levelTopics.length} topic{levelTopics.length !== 1 ? 's' : ''}
+                {t('topicCount', { count: levelTopics.length })}
               </span>
             </div>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
