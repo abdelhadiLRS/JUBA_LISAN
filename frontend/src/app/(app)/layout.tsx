@@ -317,10 +317,31 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     const allItems = [...mainNavItems, ...navGroups.flatMap((group) => group.items), ...bottomNavItems]
     const activeItem = allItems.find((item) => isItemActive(item.href))
     const activeGroup = navGroups.find((group) => group.items.some((item) => isItemActive(item.href)))
+    if (activeItem) {
+      return {
+        label: activeItem.label,
+        groupLabel: activeGroup?.label,
+        icon: NAV_ICONS[activeItem.href] ?? 'ti-circle',
+      }
+    }
+    if (pathname.startsWith('/lesson/')) {
+      return {
+        label: tNav('myPlan'),
+        groupLabel: tNav('learning'),
+        icon: NAV_ICONS['/plan'] ?? 'ti-clipboard-check',
+      }
+    }
+    if (pathname === '/admin' || pathname.startsWith('/admin/')) {
+      return {
+        label: tNav('admin'),
+        groupLabel: undefined,
+        icon: 'ti-shield-check',
+      }
+    }
     return {
-      label: activeItem?.label ?? 'JUBA LISAN',
-      groupLabel: activeGroup?.label,
-      icon: activeItem ? (NAV_ICONS[activeItem.href] ?? 'ti-circle') : 'ti-home',
+      label: 'JUBA LISAN',
+      groupLabel: undefined,
+      icon: 'ti-home',
     }
   })()
 
