@@ -13,21 +13,21 @@ function TopicCard({ topic }: { topic: GrammarTopic }) {
   return (
     <Link
       href={`/grammar/${topic.slug}`}
-      className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] hover:border-[var(--juba-app-line)]-2 hover:bg-[var(--juba-app-surface)]-2 group block border transition-colors"
+      className="border-[rgba(7,7,9,.08)] bg-[#fff] hover:border-[rgba(7,7,9,.08)]-2 hover:bg-[#fff]-2 group block border transition-colors"
     >
       <div className="space-y-2 px-4 py-4">
         <div className="flex items-start justify-between gap-2">
-          <p className="text-[var(--juba-app-ink)] group-hover:text-[var(--juba-app-ink)]-bright font-sans text-xs leading-snug font-bold tracking-wide transition-colors">
+          <p className="text-[#202127] group-hover:text-[#202127]-bright font-sans text-xs leading-snug font-bold tracking-wide transition-colors">
             {topic.title}
           </p>
-          <span className="border-[var(--juba-app-line)] text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] shrink-0 border px-1.5 py-0.5 font-sans tracking-widest uppercase">
+          <span className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] shrink-0 border px-1.5 py-0.5 font-sans tracking-widest uppercase">
             {topic.level}
           </span>
         </div>
-        <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans leading-relaxed">
+        <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans leading-relaxed">
           {topic.summary}
         </p>
-        <span className="border-[var(--juba-app-line)] text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] inline-block border px-2 py-0.5 font-sans tracking-widest uppercase">
+        <span className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] inline-block border px-2 py-0.5 font-sans tracking-widest uppercase">
           {topic.category}
         </span>
       </div>
@@ -99,10 +99,10 @@ export default function GrammarIndexPage() {
   if (loadError) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <p className="text-[var(--juba-app-muted)] font-sans text-sm">{tCommon('error')}</p>
+        <p className="text-[rgba(32,33,39,.52)] font-sans text-sm">{tCommon('error')}</p>
         <button
           onClick={() => fetchTopics(activeLanguage?.code ?? 'en-GB')}
-          className="text-[var(--juba-app-green)] font-sans text-xs tracking-widest uppercase underline"
+          className="text-[#5862e2] font-sans text-xs tracking-widest uppercase underline"
         >
           {tCommon('retry')}
         </button>
@@ -112,15 +112,15 @@ export default function GrammarIndexPage() {
 
   return (
     <div className="juba-grammar-shell mx-auto max-w-4xl space-y-8 p-6">
-      <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border">
-        <div className="border-[var(--juba-app-line)] flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)]">{'\u25cf'}</span>
-          <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans tracking-widest uppercase">
+      <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border">
+        <div className="border-[rgba(7,7,9,.08)] flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-[#202127] text-[rgba(32,33,39,.52)]">{'\u25cf'}</span>
+          <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
             {t('title')}
           </span>
         </div>
         <div className="space-y-4 px-6 py-5">
-          <p className="text-[var(--juba-app-muted)] font-sans text-xs leading-relaxed">
+          <p className="text-[rgba(32,33,39,.52)] font-sans text-xs leading-relaxed">
             {topics.length} topics · A1 – C2
           </p>
           <input
@@ -128,15 +128,15 @@ export default function GrammarIndexPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t('searchPlaceholder')}
-            className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] focus:border-[var(--juba-app-line)]-2 w-full max-w-sm border px-4 py-2.5 font-sans text-xs transition-colors focus:outline-none"
+            className="bg-[#f4f4f2] border-[rgba(7,7,9,.08)] text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[rgba(7,7,9,.08)]-2 w-full max-w-sm border px-4 py-2.5 font-sans text-xs transition-colors focus:outline-none"
           />
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setActiveCategory('All')}
-              className={`text-[var(--juba-app-ink)] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
+              className={`text-[#202127] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                 activeCategory === 'All'
-                  ? 'border-[var(--juba-app-ink)] text-[var(--juba-app-ink)] bg-[var(--juba-app-surface)]-2'
-                  : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-line)]-2 hover:text-[var(--juba-app-ink)]'
+                  ? 'border-[#202127] text-[#202127] bg-[#fff]-2'
+                  : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.08)]-2 hover:text-[#202127]'
               }`}
             >
               {t('allCategories')}
@@ -147,10 +147,10 @@ export default function GrammarIndexPage() {
                 onClick={() =>
                   setActiveCategory(activeCategory === cat ? 'All' : cat)
                 }
-                className={`text-[var(--juba-app-ink)] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
+                className={`text-[#202127] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                   activeCategory === cat
-                    ? 'border-[var(--juba-app-ink)] text-[var(--juba-app-ink)] bg-[var(--juba-app-surface)]-2'
-                    : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-line)]-2 hover:text-[var(--juba-app-ink)]'
+                    ? 'border-[#202127] text-[#202127] bg-[#fff]-2'
+                    : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.08)]-2 hover:text-[#202127]'
                 }`}
               >
                 {cat}
@@ -161,7 +161,7 @@ export default function GrammarIndexPage() {
       </div>
 
       {(search || activeCategory !== 'All') && (
-        <p className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans">
+        <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans">
           {t('topicsFound', { count: filtered.length })}
         </p>
       )}
@@ -172,11 +172,11 @@ export default function GrammarIndexPage() {
         return (
           <section key={level} className="space-y-3">
             <div className="flex items-center gap-3">
-              <span className="text-[var(--juba-app-ink)] font-sans text-base font-bold tracking-widest">
+              <span className="text-[#202127] font-sans text-base font-bold tracking-widest">
                 {level}
               </span>
-              <div className="bg-[var(--juba-app-line)] h-px flex-1" />
-              <span className="text-[var(--juba-app-ink)] text-[var(--juba-app-muted)] font-sans">
+              <div className="bg-[rgba(7,7,9,.08)] h-px flex-1" />
+              <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans">
                 {levelTopics.length} topic{levelTopics.length !== 1 ? 's' : ''}
               </span>
             </div>
@@ -190,8 +190,8 @@ export default function GrammarIndexPage() {
       })}
 
       {filtered.length === 0 && (
-        <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] space-y-4 border px-6 py-10 text-center">
-          <p className="text-[var(--juba-app-muted)] font-sans text-xs tracking-widest uppercase">
+        <div className="border-[rgba(7,7,9,.08)] bg-[#fff] space-y-4 border px-6 py-10 text-center">
+          <p className="text-[rgba(32,33,39,.52)] font-sans text-xs tracking-widest uppercase">
             {t('noResults')}
           </p>
           {(search || activeCategory !== 'All') && (
@@ -200,7 +200,7 @@ export default function GrammarIndexPage() {
                 setSearch('')
                 setActiveCategory('All')
               }}
-              className="text-[var(--juba-app-ink)] border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-line)]-2 hover:text-[var(--juba-app-ink)] border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
+              className="text-[#202127] border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.08)]-2 hover:text-[#202127] border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
             >
               {tCommon('clearFilters')}
             </button>
