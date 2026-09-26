@@ -1471,7 +1471,12 @@
     "ko-KR-description": "Coreano parlato in Corea del Sud.",
     "zh-CN-description": "Cinese mandarino della Cina continentale, con caratteri semplificati.",
     "ar": "Arabo",
-    "ar-description": "Arabo standard moderno per comunicazione, studio e viaggi."
+    "ar-description": "Arabo standard moderno per comunicazione, studio e viaggi.",
+    "fa-IR": "Persiano",
+    "hi-IN": "Hindi",
+    "id-ID": "Indonesiano",
+    "ms-MY": "Malese",
+    "tr-TR": "Turco"
   },
   "onboarding": {
     "title": "Scegli la tua lingua",
