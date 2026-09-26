@@ -1029,7 +1029,7 @@
     "premiumBannerPastDueTitle": "الدفع معلّق",
     "premiumBannerPastDueDesc": "حدّث وسيلة الدفع لاستعادة Premium والوصول إلى الدردشة والمحادثة الصوتية والقراءة والاستماع.",
     "premiumBannerPastDueCta": "استعادة Premium",
-    "freemiumTrialTitle": "{days, plural, one {يوم واحد من التجربة المجانية} other {# أيام من التجربة المجانية}}",
+    "freemiumTrialTitle": "{days, plural, one {# يوم من التجربة المجانية} other {# أيام من التجربة المجانية}}",
     "freemiumTrialDesc": "استمتع بوصول غير محدود إلى الدردشة والصوت والاستماع والقراءة. جرّب جميع ميزات Premium مجانًا.",
     "announcementDismiss": "إخفاء الإعلان",
     "announcementDismissError": "تعذّر إخفاء الإعلان. حاول مرة أخرى.",
@@ -1321,7 +1321,7 @@
     "paywallNoCharge": "لا رسوم اليوم · البطاقة مطلوبة · يمكنك الإلغاء في أي وقت",
     "paywallNoChargeTrialUsed": "دفع آمن · يمكنك الإلغاء في أي وقت",
     "paywallSkip": "ليس الآن",
-    "trialDays": "{days, plural, one {يوم واحد من التجربة} other {# أيام من التجربة}}",
+    "trialDays": "{days, plural, one {# يوم من التجربة} other {# أيام من التجربة}}",
     "planMonthly": "شهري مرن · €{price}/شهر →",
     "planYearly": "أفضل قيمة · €{price}/سنة · شهران مجانًا →",
     "checkoutError": "تعذر بدء عملية الدفع. يرجى المحاولة مرة أخرى.",
@@ -1718,7 +1718,7 @@
     "level": "المستوى",
     "register": "الأسلوب اللغوي",
     "statsLine": "{situationCount} مواقف · {phraseCount} عبارات · {range}",
-    "situationsShown": "{count, plural, one {موقف واحد معروض} other {# مواقف معروضة}}",
+    "situationsShown": "{count, plural, one {# موقف معروض} other {# مواقف معروضة}}",
     "searchPlaceholder": "ابحث عن العبارات..."
   },
   "legal": {
@@ -1920,7 +1920,7 @@
     "eyebrow": "قصص المتعلمين",
     "title": "يصبح التعلّم أكثر واقعية عندما تحكي تجربتك بنفسك",
     "subtitle": "مراجعات عامة شاركها متعلمون تدربوا باستخدام JUBA LISAN.",
-    "averageLabel": "{average}/5 · {count, plural, one {مراجعة واحدة إجمالًا} other {# مراجعات إجمالًا}}",
+    "averageLabel": "{average}/5 · {count, plural, one {# مراجعة إجمالًا} other {# مراجعات إجمالًا}}",
     "learningLanguage": "تعلّم {language}",
     "starsLabel": "{rating} من 5 نجوم",
     "ratingOnly": "تقييم JUBA LISAN موثّق."
