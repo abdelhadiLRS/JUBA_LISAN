@@ -114,6 +114,7 @@ export default function DashboardPage() {
   }>>([])
   const [historyLoading, setHistoryLoading] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
+  const [activeInsight, setActiveInsight] = useState<'next' | 'performance' | 'vocabulary' | null>(null)
 
   useEffect(() => {
     if (freemiumTrialActive && user?.freemium_trial_ends_at) {
@@ -802,21 +803,47 @@ export default function DashboardPage() {
           </div>
 
           <section className="grid gap-3 border-t border-black/[0.06] bg-[#f0f0ee] px-4 py-4 sm:grid-cols-3 sm:px-6">
-            <Link href={nextLesson?.id ? '/lesson/' + nextLesson.id : '/assessment'} className="group rounded-[21px] bg-[#070709] p-4 text-white transition hover:-translate-y-0.5">
+            <button type="button" onClick={() => setActiveInsight('next')} className="group w-full rounded-[21px] bg-[#070709] p-4 text-left text-white transition hover:-translate-y-0.5">
               <div className="flex items-center justify-between gap-3"><span className="text-[9px] font-black uppercase tracking-[.15em] text-white/40">{t('nextStep')}</span><span className="grid size-8 place-items-center rounded-full bg-white/10 transition group-hover:bg-[#5862e2]"><Play className="size-3.5 fill-white" /></span></div>
               <p className="mt-3 truncate text-sm font-black">{nextLesson?.title || t('startWithAssessment')}</p>
               <p className="mt-1 text-[9px] text-white/40">{nextLesson ? nextLesson.estimatedMinutes + ' min' : tNav('assessment')}</p>
-            </Link>
-            <Link href="/progress" className="group rounded-[21px] bg-[#9a9ff3] p-4 text-white transition hover:-translate-y-0.5">
+            </button>
+            <button type="button" onClick={() => setActiveInsight('performance')} className="group w-full rounded-[21px] bg-[#9a9ff3] p-4 text-left text-white transition hover:-translate-y-0.5">
               <div className="flex items-center justify-between gap-3"><span className="text-[9px] font-black uppercase tracking-[.15em] text-white/55">{t('recentPerformance')}</span><span className="grid size-8 place-items-center rounded-full bg-white/15 transition group-hover:bg-white/25"><ArrowUpRight className="size-3.5" /></span></div>
               <div className="mt-3 flex items-end justify-between gap-4"><p className="text-[30px] font-black leading-none">{accuracy}%</p><p className="text-right text-[9px] font-bold text-white/60">{totalExercises} · {t('accuracy')}</p></div>
-            </Link>
-            <Link href="/flashcards" className="group rounded-[21px] bg-[#ffcf58] p-4 text-[#070709] transition hover:-translate-y-0.5">
+            </button>
+            <button type="button" onClick={() => setActiveInsight('vocabulary')} className="group w-full rounded-[21px] bg-[#ffcf58] p-4 text-left text-[#070709] transition hover:-translate-y-0.5">
               <div className="flex items-center justify-between gap-3"><span className="text-[9px] font-black uppercase tracking-[.15em] text-black/40">{t('vocabularyProgress', { level: vocabularyLevel || '—' })}</span><span className="grid size-8 place-items-center rounded-full bg-white/40 transition group-hover:bg-white/60"><BookOpen className="size-3.5" /></span></div>
               <div className="mt-3 flex items-end justify-between gap-4"><p className="text-[24px] font-black leading-none">{vocabularyMastered}</p><p className="text-right text-[9px] font-bold text-black/45">{t('vocabularyWords', { mastered: vocabularyMastered, total: vocabularyTotal })}</p></div>
               <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-black/10"><div className="h-full rounded-full bg-[#070709]" style={{ width: vocabularyProgressPct + '%' }} /></div>
-            </Link>
+            </button>
           </section>
+
+          {activeInsight && (
+            <div className="border-t border-black/[0.06] bg-[#070709] px-4 py-5 text-white sm:px-6">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-[9px] font-black uppercase tracking-[.16em] text-white/40">
+                    {activeInsight === 'next' ? t('nextStep') : activeInsight === 'performance' ? t('recentPerformance') : t('vocabularyProgress', { level: vocabularyLevel || '—' })}
+                  </p>
+                  <h3 className="mt-1 text-lg font-black">
+                    {activeInsight === 'next' ? (nextLesson?.title || t('startWithAssessment')) : activeInsight === 'performance' ? accuracy + '% ' + t('accuracy') : vocabularyMastered + ' / ' + vocabularyTotal}
+                  </h3>
+                  <p className="mt-1 text-[10px] text-white/50">
+                    {activeInsight === 'next' ? (nextLesson ? nextLesson.estimatedMinutes + ' min' : tNav('assessment')) : activeInsight === 'performance' ? totalExercises + ' ' + t('exerciseStats', { correct: exercisesCorrect, total: totalExercises }).split(' ').slice(-1).join(' ') : t('vocabularyWords', { mastered: vocabularyMastered, total: vocabularyTotal })}
+                  </p>
+                </div>
+                <button type="button" onClick={() => setActiveInsight(null)} className="rounded-full bg-white/10 px-3 py-1.5 text-[9px] font-black" aria-label="Close">×</button>
+              </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {activeInsight === 'next' && (
+                  <Link href={nextLesson?.id ? '/lesson/' + nextLesson.id : '/assessment'} className="rounded-full bg-[#5862e2] px-4 py-2.5 text-[10px] font-black">{nextLesson ? t('nextStep') : tNav('assessment')} <ArrowUpRight className="ml-1 inline size-3" /></Link>
+                )}
+                {activeInsight === 'performance' && <Link href="/progress" className="rounded-full bg-[#5862e2] px-4 py-2.5 text-[10px] font-black">{tNav('progress')} <ArrowUpRight className="ml-1 inline size-3" /></Link>}
+                {activeInsight === 'vocabulary' && <Link href="/flashcards" className="rounded-full bg-[#5862e2] px-4 py-2.5 text-[10px] font-black">{tNav('flashcards')} <ArrowUpRight className="ml-1 inline size-3" /></Link>}
+              </div>
+            </div>
+          )}
 
           {(vocabularyTotal > 0 || totalExercises > 0) && (
             <div className="grid gap-3 border-t border-black/[0.06] bg-[#f0f0ee] px-4 py-4 sm:grid-cols-3 sm:px-6">
