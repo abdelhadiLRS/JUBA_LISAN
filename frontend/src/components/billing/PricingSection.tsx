@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Circle, CircleDot, Diamond, Check, Minus, ArrowRight, Loader2 } from 'lucide-react'
-import { PageLoading } from '@/components/ui/page-loading'
 import { getLandingSubscriptionState } from '@/lib/landing-subscription'
 import { apiFetch } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
@@ -52,17 +51,6 @@ export default function PricingSection({
   // Pricing is a public landing-page section. Keep it visible to visitors even
   // when Stripe is temporarily disabled; authenticated checkout still follows
   // the backend billing configuration.
-
-  if (subscribed === null) {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center">
-        <div className="bg-[var(--landing-bg)]/80 absolute inset-0 backdrop-blur-sm" />
-        <PageLoading fullScreen={false} showDot={false} className="relative" />
-      </div>
-    )
-  }
-
-  if (subscribed) return null
 
   async function startCheckout(plan: BillingInterval) {
     if (checkoutLoading) return
@@ -174,7 +162,7 @@ export default function PricingSection({
   ]
 
   return (
-    <section className="juba-ff-pricing mx-auto w-full max-w-6xl px-4 pb-24 sm:px-6">
+    <section id="public-pricing" aria-label={tBilling('pricingTitle')} className="juba-ff-pricing mx-auto block w-full max-w-6xl px-4 pb-24 sm:px-6">
       <div className="mb-10 text-center">
         <h2 className="juba-ff-pricing-title mb-2 font-sans text-3xl font-black tracking-tight">
           {tBilling('pricingTitle')}
