@@ -643,6 +643,34 @@
     "learningLabel": "التعلّم",
     "cefrLabel": "مستوى CEFR",
     "coachLabel": "المدرّب"
+  ,
+      "learner": "متعلم",
+      "minutes": "د",
+      "reviewEyebrow": "مراجعة ذكية",
+      "reviewTitle": "لديك مراجعات مستحقة",
+      "reviewAction": "ابدأ المراجعة",
+      "reviewSkill": "المهارة المقترحة",
+      "learningLabel": "التعلّم",
+      "cefrLabel": "مستوى CEFR",
+      "coachLabel": "المدرّب",
+      "scenarios": {
+        "airport": {
+          "title": "المطار",
+          "description": "تسجيل الوصول وطلب الاتجاهات والتعامل مع التأخيرات."
+        },
+        "jobInterview": {
+          "title": "مقابلة عمل",
+          "description": "تدرّب على الإجابات والثقة والمفردات المهنية."
+        },
+        "restaurant": {
+          "title": "مطعم",
+          "description": "اطلب بشكل طبيعي وتعامل مع محادثة حقيقية."
+        },
+        "hotel": {
+          "title": "فندق",
+          "description": "احجز غرفة وحل المشكلات واطلب ما تحتاجه."
+        }
+      }
   },
   "plan": {
     "title": "خطتي",
