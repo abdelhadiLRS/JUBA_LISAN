@@ -573,7 +573,7 @@
     "translationUnavailable": "تعذرت الترجمة حاليًا.",
     "saveFailed": "تعذر حفظ هذه الكلمة في بطاقات التعلّم.",
     "saveUnavailable": "تعذر حفظ الكلمة حاليًا.",
-    "detected": "مكتشف",
+    "detected": "مكتشف {language}",
     "listen": "استماع",
     "swap": "تبديل اللغتين",
     "translating": "جارٍ الترجمة…",
