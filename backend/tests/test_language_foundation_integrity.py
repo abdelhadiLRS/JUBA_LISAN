@@ -81,6 +81,15 @@ def test_registered_foundations_have_no_dangling_unit_references():
                     failures.append(f"{language}: duplicate unit id {unit.id}")
                 unit_ids.add(unit.id)
 
+                if unit.level != level:
+                    failures.append(
+                        f"{language}/{unit.id}: stored level {unit.level} does not match curriculum key {level}"
+                    )
+                if unit.unit_number < 1:
+                    failures.append(
+                        f"{language}/{unit.id}: unit_number must be positive, got {unit.unit_number}"
+                    )
+
                 missing_grammar = set(unit.grammar_points) - grammar_ids
                 if missing_grammar:
                     failures.append(
