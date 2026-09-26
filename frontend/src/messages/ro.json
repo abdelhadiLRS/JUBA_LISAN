@@ -664,7 +664,9 @@
     "voiceTrialTitle": "Try a real conversation now",
     "voiceTrialDesc": "Talk with Lingu for {minutes} minutes, free. Your tutor will adapt to the level you just unlocked.",
     "voiceTrialStart": "Start free conversation",
-    "voiceTrialSkip": "Skip for now"
+    "voiceTrialSkip": "Skip for now",
+    "evaluationFailed": "Evaluarea a eșuat",
+    "planCreationFailed": "Planul nu a putut fi creat"
   },
   "plan": {
     "title": "Planul meu",
@@ -718,7 +720,10 @@
     "noPlanLabel": "ÎNCEPE",
     "noPlanTitle": "Creează-ți planul de studiu",
     "noPlanDesc": "Fă o evaluare rapidă pentru a-ți descoperi nivelul și a obține un plan de învățare personalizat.",
-    "noPlanHint": "Durează aproximativ 10 minute"
+    "noPlanHint": "Durează aproximativ 10 minute",
+    "startLearning": "Începe să înveți",
+    "planLoadFailed": "Planul nu a putut fi încărcat ({status})",
+    "loadFailed": "Încărcarea a eșuat"
   },
   "lesson": {
     "loading": "Se încarcă lecția...",
