@@ -49,7 +49,9 @@ export default function PricingSection({
     checkSubscription()
   }, [hasSession])
 
-  if (!stripeEnabled) return null
+  // Pricing is a public landing-page section. Keep it visible to visitors even
+  // when Stripe is temporarily disabled; authenticated checkout still follows
+  // the backend billing configuration.
 
   if (subscribed === null) {
     return (
