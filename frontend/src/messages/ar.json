@@ -992,7 +992,7 @@
     "masteryAttemptRate": "معدل المحاولات {rate}%",
     "masteryRate": "معدل الإتقان {rate}%",
     "masteryAttempted": "تمت محاولته",
-    "mastered": "متقن",
+    "mastered": "تم الإتقان",
     "masteryReviewSession": "مراجعة الإتقان",
     "masteryReviewProgress": "تم إكمال {count} تمارين مراجعة",
     "skillMastery": "إتقان المهارات",
