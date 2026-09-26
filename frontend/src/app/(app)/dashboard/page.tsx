@@ -693,6 +693,23 @@ export default function DashboardPage() {
             </aside>
           </div>
 
+          <section className="grid gap-3 border-t border-black/[0.06] bg-[#f0f0ee] px-4 py-4 sm:grid-cols-3 sm:px-6">
+            <Link href={nextLesson?.id ? '/lesson/' + nextLesson.id : '/assessment'} className="group rounded-[21px] bg-[#070709] p-4 text-white transition hover:-translate-y-0.5">
+              <div className="flex items-center justify-between gap-3"><span className="text-[9px] font-black uppercase tracking-[.15em] text-white/40">{t('nextStep')}</span><span className="grid size-8 place-items-center rounded-full bg-white/10 transition group-hover:bg-[#5862e2]"><Play className="size-3.5 fill-white" /></span></div>
+              <p className="mt-3 truncate text-sm font-black">{nextLesson?.title || t('startWithAssessment')}</p>
+              <p className="mt-1 text-[9px] text-white/40">{nextLesson ? nextLesson.estimatedMinutes + ' min' : tNav('assessment')}</p>
+            </Link>
+            <Link href="/progress" className="group rounded-[21px] bg-[#9a9ff3] p-4 text-white transition hover:-translate-y-0.5">
+              <div className="flex items-center justify-between gap-3"><span className="text-[9px] font-black uppercase tracking-[.15em] text-white/55">{t('recentPerformance')}</span><span className="grid size-8 place-items-center rounded-full bg-white/15 transition group-hover:bg-white/25"><ArrowUpRight className="size-3.5" /></span></div>
+              <div className="mt-3 flex items-end justify-between gap-4"><p className="text-[30px] font-black leading-none">{accuracy}%</p><p className="text-right text-[9px] font-bold text-white/60">{totalExercises} · {t('accuracy')}</p></div>
+            </Link>
+            <Link href="/flashcards" className="group rounded-[21px] bg-[#ffcf58] p-4 text-[#070709] transition hover:-translate-y-0.5">
+              <div className="flex items-center justify-between gap-3"><span className="text-[9px] font-black uppercase tracking-[.15em] text-black/40">{t('vocabularyProgress', { level: vocabularyLevel || '—' })}</span><span className="grid size-8 place-items-center rounded-full bg-white/40 transition group-hover:bg-white/60"><BookOpen className="size-3.5" /></span></div>
+              <div className="mt-3 flex items-end justify-between gap-4"><p className="text-[24px] font-black leading-none">{vocabularyMastered}</p><p className="text-right text-[9px] font-bold text-black/45">{t('vocabularyWords', { mastered: vocabularyMastered, total: vocabularyTotal })}</p></div>
+              <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-black/10"><div className="h-full rounded-full bg-[#070709]" style={{ width: vocabularyProgressPct + '%' }} /></div>
+            </Link>
+          </section>
+
           {(vocabularyTotal > 0 || totalExercises > 0) && (
             <div className="grid gap-3 border-t border-black/[0.06] bg-[#f0f0ee] px-4 py-4 sm:grid-cols-3 sm:px-6">
               <div className="rounded-[19px] bg-white p-4">
