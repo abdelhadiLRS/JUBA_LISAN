@@ -170,7 +170,56 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
     update()
     const interval = window.setInterval(update, 60 * 1000)
-    return (
+    return () => window.clearInterval(interval)
+  }, [stripeEnabled, user?.subscription_status, user?.subscription_ends_at, user?.freemium_trial_ends_at])
+
+  const pageLabel = (() => {
+    const labels: Record<string, string> = {
+      '/dashboard': tNav('home'),
+      '/plan': tNav('myPlan'),
+      '/progress': tNav('progress'),
+      '/games': tNav('games'),
+      '/flashcards': tNav('flashcards'),
+      '/friends': tNav('friends'),
+      '/chat': tNav('tutor'),
+      '/listening': tNav('listening'),
+      '/reading': tNav('reading'),
+      '/conversation': tNav('conversation'),
+      '/assessment': tNav('assessment'),
+      '/coach': tNav('coach'),
+      '/courses': tNav('courses'),
+      '/review': tNav('review'),
+      '/translator': tNav('translator'),
+      '/grammar': tNav('grammar'),
+      '/vocabulary': tNav('vocabulary'),
+      '/phrasebook': tNav('phrasebook'),
+      '/settings': tNav('settings'),
+      '/faq': tNav('faq'),
+      '/feedback': tNav('feedback'),
+    }
+    return labels[pathname] ?? 'JUBA LISAN'
+  })()
+
+  const renderNavItems = (items: Array<{ href: string; label: string }>) =>
+    items.map((item) => {
+      const active = pathname === item.href || pathname.startsWith(item.href + '/')
+      const premium = PREMIUM_HREFS.has(item.href) && showPremiumBadge
+      return (
+        <Link
+          key={item.href}
+          href={item.href}
+          onClick={() => setSidebarOpen(false)}
+          title={sidebarCollapsed ? item.label : undefined}
+          className={'nav-link mb-1 d-flex align-items-center ' + (sidebarCollapsed ? 'justify-content-center ' : '') + (active ? 'active bg-primary-lt text-primary fw-semibold' : 'text-secondary')}
+        >
+          <NavIcon href={item.href} />
+          {!sidebarCollapsed && <span className="ms-2 flex-grow-1">{item.label}</span>}
+          {!sidebarCollapsed && premium && <span className="badge bg-yellow-lt text-yellow ms-auto">PRO</span>}
+        </Link>
+      )
+    })
+
+  return (
     <div className="page juba-tabler-app min-h-screen bg-[#f5f7fb]">
       {sidebarOpen && <button type="button" aria-label="Close menu" onClick={() => setSidebarOpen(false)} className="fixed inset-0 z-[60] bg-black/40 lg:hidden" />}
       <aside className={`navbar navbar-vertical navbar-expand-lg fixed inset-y-0 start-0 z-[70] flex-col border-end bg-white transition-[width,transform] duration-200 lg:sticky lg:top-0 lg:h-screen ${sidebarCollapsed ? 'w-[76px]' : 'w-[260px]'} ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
