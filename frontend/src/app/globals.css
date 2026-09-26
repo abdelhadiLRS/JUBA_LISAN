@@ -7784,22 +7784,27 @@ main [dir="rtl"] h3,
   border-radius: .25rem !important;
 }
 
-/* The navigation is a single Tabler vertical navbar; no legacy top-nav or
-   pill-navigation treatment is allowed inside the authenticated shell. */
-.juba-tabler-app .navbar-vertical .nav-link {
+/* Top-only authenticated navigation. Sidebar navigation is intentionally disabled. */
+.juba-tabler-app .navbar-vertical,
+.juba-tabler-app .navbar-vertical + .page-wrapper { display: none !important; }
+.juba-tabler-app .navbar.navbar-expand-md { min-height: 4rem; }
+.juba-tabler-app .navbar-nav > .nav-item > .nav-link { min-height: 2.5rem; }
+.juba-tabler-app .navbar-nav > .nav-item > .nav-link:hover,
+.juba-tabler-app .navbar-nav > .nav-link:hover { background: rgba(var(--tblr-primary-rgb), .06) !important; }
+.juba-tabler-app .navbar .dropdown-menu {
+  margin-top: .25rem !important;
+  border: 1px solid var(--tblr-border-color) !important;
   border-radius: .25rem !important;
-  margin-bottom: .125rem !important;
+  box-shadow: var(--tblr-box-shadow-dropdown) !important;
+  background: var(--tblr-bg-surface) !important;
+}
+.juba-tabler-app .navbar .dropdown-menu .nav-link {
   min-height: 2.25rem;
+  width: 100%;
+  border-radius: .25rem !important;
 }
-.juba-tabler-app .navbar-vertical .nav-link.active {
-  background: rgba(var(--tblr-primary-rgb), .1) !important;
-  color: var(--tblr-primary) !important;
-}
-.juba-tabler-app .navbar-vertical .nav-link:hover {
-  background: rgba(var(--tblr-primary-rgb), .06) !important;
-}
-.juba-tabler-app .navbar-brand { min-height: 4rem; }
-.juba-tabler-app .page-wrapper { background: var(--tblr-body-bg) !important; }
+.juba-tabler-app .navbar .dropdown-menu .nav-link:hover { background: var(--tblr-bg-surface-secondary) !important; }
+.juba-tabler-app .navbar .dropdown-menu .nav-link.active { background: rgba(var(--tblr-primary-rgb), .1) !important; }
 
 /* Do not allow the former dashboard-specific visual system to leak into
    nested cards/components. */
