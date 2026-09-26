@@ -100,6 +100,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [resendSent, setResendSent] = useState(false)
   const [openTopMenu, setOpenTopMenu] = useState<string | null>(null)
   const topMenuRef = useRef<HTMLElement | null>(null)
+  const appHeaderRef = useRef<HTMLElement | null>(null)
 
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled)
@@ -166,6 +167,26 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </Link>
     )
   }
+
+  useEffect(() => {
+    const header = appHeaderRef.current
+    if (!header) return
+
+    const updateDropdownOffset = () => {
+      const bottom = Math.ceil(header.getBoundingClientRect().bottom)
+      document.documentElement.style.setProperty('--juba-mobile-dropdown-top', bottom + 'px')
+    }
+
+    updateDropdownOffset()
+    const observer = new ResizeObserver(updateDropdownOffset)
+    observer.observe(header)
+    window.addEventListener('resize', updateDropdownOffset)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', updateDropdownOffset)
+      document.documentElement.style.removeProperty('--juba-mobile-dropdown-top')
+    }
+  }, [])
 
   useEffect(() => {
     const handlePointerDown = (event: PointerEvent) => {
@@ -300,7 +321,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="page juba-tabler-app min-h-screen bg-[#f5f7fb]">
       <div className="page-wrapper min-w-0 w-100">
-        <header className="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
+        <header ref={appHeaderRef} className="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
           <div className="container-fluid flex-nowrap gap-3">
             <Link href="/dashboard" className="navbar-brand d-flex align-items-center gap-2 me-2" onClick={() => setOpenTopMenu(null)}>
               <span className="avatar avatar-sm rounded-2 bg-primary text-white fw-bold">JL</span>
