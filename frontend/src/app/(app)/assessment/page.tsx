@@ -326,8 +326,8 @@ export default function AssessmentPage() {
   }
 
   const cardClass = 'w-full max-w-2xl overflow-hidden rounded border border bg-white shadow-[8px_8px_0_#202127]'
-  const panelClass = 'rounded-[14px] border border bg-[#ededff] p-4'
-  const actionClass = 'w-full rounded-[14px] border border-[#202127] bg-[#fff3d1] px-4 py-3 font-bold text-[#202127]  transition hover:-translate-y-0.5'
+  const panelClass = 'rounded-[14px] border border bg-primary-lt p-4'
+  const actionClass = 'w-full rounded-[14px] border border-[#202127] bg-warning-lt px-4 py-3 font-bold text-body  transition hover:-translate-y-0.5'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
     return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
@@ -339,26 +339,26 @@ export default function AssessmentPage() {
       <div className="flex min-h-[60vh] items-center justify-center bg-gradient-to-br from-[#ededff]/30 via-white to-[#ededff]/20 p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#ededff] text-sm font-bold text-[#373fb8]">A</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-primary-lt text-sm font-bold text-[var(--tblr-primary, #206bc4)]">A</span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('title')}</p>
-              <p className="text-xs text-[rgba(32,33,39,.52)]">{t('currentLevel')}</p>
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-secondary">{t('title')}</p>
+              <p className="text-xs text-secondary">{t('currentLevel')}</p>
             </div>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('currentLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-[#202127]">{existingPlan.cefr_level}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('currentLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-body">{existingPlan.cefr_level}</p>
             </div>
             <div className={panelClass}>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('assessedOn')}</p>
-              <p className="mt-1 text-sm text-[#202127]">{assessedDate}</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('assessedOn')}</p>
+              <p className="mt-1 text-sm text-body">{assessedDate}</p>
             </div>
-            <p className="text-sm leading-relaxed text-[rgba(32,33,39,.52)]">{t('alreadyHasPlan')}</p>
+            <p className="text-sm leading-relaxed text-secondary">{t('alreadyHasPlan')}</p>
             {canOfferVoiceTrial && (
               <div className={panelClass + ' space-y-3'}>
-                <p className="font-semibold text-[#202127]">{t('voiceTrialTitle')}</p>
-                <p className="text-xs leading-relaxed text-[rgba(32,33,39,.52)]">{t('voiceTrialDesc', { minutes: 5 })}</p>
+                <p className="font-semibold text-body">{t('voiceTrialTitle')}</p>
+                <p className="text-xs leading-relaxed text-secondary">{t('voiceTrialDesc', { minutes: 5 })}</p>
                 <button type="button" onClick={requestVoiceTrial} disabled={trialLoading} className={actionClass + ' disabled:opacity-50'}>
                   {trialLoading ? '...' : `${t('voiceTrialStart')} →`}
                 </button>
@@ -366,7 +366,7 @@ export default function AssessmentPage() {
             )}
             {error && <div className="rounded-[14px] border border-[#b33a32]/30 bg-[#b33a32]/10 px-4 py-3 text-xs text-[#b33a32]">✕ {error}</div>}
             <div className="flex gap-2">
-              <button type="button" onClick={() => router.push('/dashboard')} className="flex-1 rounded-[14px] border border px-3 py-3 text-xs font-semibold text-[rgba(32,33,39,.52)] transition hover:bg-[#f3f7ef]">← {tCommon('backToDashboard')}</button>
+              <button type="button" onClick={() => router.push('/dashboard')} className="flex-1 rounded-[14px] border border px-3 py-3 text-xs font-semibold text-secondary transition hover:bg-[#f3f7ef]">← {tCommon('backToDashboard')}</button>
               <button type="button" onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
             </div>
           </div>
@@ -403,12 +403,12 @@ export default function AssessmentPage() {
   if (step === 'quiz' && currentQuestion) {
     return (
       <div className="space-y-4">
-        <div className="mb-5 flex items-center justify-between rounded border border-[#ededff] bg-white px-5 py-4 shadow-sm">
+        <div className="mb-5 flex items-center justify-between rounded border border-secondary-subtle bg-white px-5 py-4 shadow-sm">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('title')}</p>
-            <p className="mt-1 text-sm font-semibold text-[#202127]">{currentLevel}</p>
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-secondary">{t('title')}</p>
+            <p className="mt-1 text-sm font-semibold text-body">{currentLevel}</p>
           </div>
-          <div className="rounded-[14px] bg-[#ededff] px-3 py-1.5 text-xs font-bold text-[#373fb8]">{questionNumber}/{MAX_QUESTIONS}</div>
+          <div className="rounded-[14px] bg-primary-lt px-3 py-1.5 text-xs font-bold text-[var(--tblr-primary, #206bc4)]">{questionNumber}/{MAX_QUESTIONS}</div>
         </div>
         <AdaptiveQuizCard question={currentQuestion} questionNumber={questionNumber} totalQuestions={MAX_QUESTIONS} onAnswer={handleAnswer} languageCode={activeLanguage?.code} />
       </div>
@@ -423,41 +423,41 @@ export default function AssessmentPage() {
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#fff3d1] text-sm font-bold text-[#373fb8]">✓</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-warning-lt text-sm font-bold text-[var(--tblr-primary, #206bc4)]">✓</span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('resultStep')}</p>
-              <p className="text-xs text-[rgba(32,33,39,.52)]">{t('cefrLevel')}</p>
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-secondary">{t('resultStep')}</p>
+              <p className="text-xs text-secondary">{t('cefrLevel')}</p>
             </div>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('cefrLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-[#202127]">{aiLevel}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('cefrLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-body">{aiLevel}</p>
             </div>
             <div className={panelClass}>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{tCommon('score')}</p>
-              <p className="mt-1 text-3xl font-extrabold text-[#202127]">{score}%</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{tCommon('score')}</p>
+              <p className="mt-1 text-3xl font-extrabold text-body">{score}%</p>
             </div>
             <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('overrideLevel')}</p>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('overrideLevel')}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {CEFR_LEVELS.map((lvl) => (
-                  <button key={lvl} type="button" onClick={() => setSelectedLevel(lvl)} className={`rounded-[14px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[#373fb8] bg-[#ededff] text-[#373fb8]' : 'border text-[rgba(32,33,39,.52)] hover:bg-[#f3f7ef]'}`}>
+                  <button key={lvl} type="button" onClick={() => setSelectedLevel(lvl)} className={`rounded-[14px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--tblr-primary, #206bc4)] bg-primary-lt text-[var(--tblr-primary, #206bc4)]' : 'border text-secondary hover:bg-[#f3f7ef]'}`}>
                     {lvl}
                   </button>
                 ))}
               </div>
-              {levelChanged && <p className="mt-2 text-xs text-[rgba(32,33,39,.52)]">{t('suggestedLevel', { aiLevel, selectedLevel })}</p>}
+              {levelChanged && <p className="mt-2 text-xs text-secondary">{t('suggestedLevel', { aiLevel, selectedLevel })}</p>}
             </div>
             {result.strengths.length > 0 && (
               <div>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('strengths')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[14px] border border bg-[#fff3d1] px-3 py-1.5 text-xs font-medium text-[#373fb8]">{s}</span>)}</div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('strengths')}</p>
+                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[14px] border border bg-warning-lt px-3 py-1.5 text-xs font-medium text-[var(--tblr-primary, #206bc4)]">{s}</span>)}</div>
               </div>
             )}
             {result.weaknesses.length > 0 && (
               <div>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('needsWork')}</p>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('needsWork')}</p>
                 <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded-[14px] border border-[#b33a32]/25 bg-[#b33a32]/10 px-3 py-1.5 text-xs font-medium text-[#b33a32]">{w}</span>)}</div>
               </div>
             )}
@@ -497,20 +497,20 @@ export default function AssessmentPage() {
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#ededff] text-sm font-bold text-[#373fb8]">◉</span>
-            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('voiceTrialLabel')}</p>
+            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-primary-lt text-sm font-bold text-[var(--tblr-primary, #206bc4)]">◉</span>
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-secondary">{t('voiceTrialLabel')}</p>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('cefrLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-[#202127]">{selectedLevel}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('cefrLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-body">{selectedLevel}</p>
             </div>
             <div className={panelClass}>
-              <p className="mb-2 font-semibold text-[#202127]">{t('voiceTrialTitle')}</p>
-              <p className="text-xs leading-relaxed text-[rgba(32,33,39,.52)]">{t('voiceTrialDesc', { minutes })}</p>
+              <p className="mb-2 font-semibold text-body">{t('voiceTrialTitle')}</p>
+              <p className="text-xs leading-relaxed text-secondary">{t('voiceTrialDesc', { minutes })}</p>
             </div>
             <button type="button" onClick={startVoiceTrial} className={actionClass}>{t('voiceTrialStart')} →</button>
-            <button type="button" onClick={() => router.push('/plan')} className="w-full py-2 text-xs font-semibold uppercase tracking-[0.1em] text-[rgba(32,33,39,.52)] transition hover:text-[#202127]">{t('voiceTrialSkip')}</button>
+            <button type="button" onClick={() => router.push('/plan')} className="w-full py-2 text-xs font-semibold uppercase tracking-[0.1em] text-secondary transition hover:text-body">{t('voiceTrialSkip')}</button>
           </div>
         </div>
       </div>
