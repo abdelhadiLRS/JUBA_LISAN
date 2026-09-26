@@ -21,6 +21,7 @@ import {
   getReviewPromptDismissal,
 } from '@/components/reviews/ReviewPrompt'
 import { shouldShowExerciseReviewPrompt } from '@/lib/review-prompt-triggers'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
 
 // ---------------------------------------------------------------------------
 // Main page logic
@@ -235,6 +236,7 @@ function ListeningPage() {
         return
       }
       const data = (await res.json()) as SubmitResult
+      markLearningProgressUpdated()
       setResult(data)
       setPageState('results')
       if (
