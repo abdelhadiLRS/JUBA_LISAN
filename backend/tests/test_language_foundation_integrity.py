@@ -911,6 +911,8 @@ def test_language_metadata_resolves_locale_variants(locale: str, expected_iso: s
         ("zh-Hant", "Traditional Chinese", "繁體中文", "traditional-hanzi"),
         ("zh-Hant-TW", "Chinese (Traditional, Taiwan)", "臺灣繁體中文", "traditional-hanzi"),
         ("zh-Hant-HK", "Traditional Chinese", "繁體中文", "traditional-hanzi"),
+        ("zh-HK", "Traditional Chinese (Hong Kong)", "繁體中文（香港）", "traditional-hanzi"),
+        ("zh-MO", "Traditional Chinese (Macau)", "繁體中文（澳門）", "traditional-hanzi"),
     ],
 )
 def test_script_and_region_sensitive_language_metadata(
@@ -930,6 +932,8 @@ def test_script_and_region_sensitive_language_metadata(
         ("PT_br", "standard Brazilian Portuguese"),
         ("zh-Hant", "Traditional Chinese"),
         ("zh-Hant-TW", "traditional Chinese characters"),
+        ("zh-HK", "traditional Chinese characters"),
+        ("zh-MO", "traditional Chinese characters"),
     ],
 )
 def test_prompt_overlay_preserves_script_and_regional_variant(locale: str, expected_fragment: str):
