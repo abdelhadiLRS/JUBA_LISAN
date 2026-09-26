@@ -119,6 +119,8 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
     "zh-Hant": {"name": "Traditional Chinese", "self_name": "繁體中文", "iso639": "zh"},
     "zh-Hant-TW": {"name": "Chinese (Traditional, Taiwan)", "self_name": "臺灣繁體中文", "iso639": "zh"},
     "zh-Hant-HK": {"name": "Traditional Chinese", "self_name": "繁體中文", "iso639": "zh"},
+    "zh-HK": {"name": "Traditional Chinese (Hong Kong)", "self_name": "繁體中文（香港）", "iso639": "zh"},
+    "zh-MO": {"name": "Traditional Chinese (Macau)", "self_name": "繁體中文（澳門）", "iso639": "zh"},
     "hr": {"name": "Croatian", "self_name": "Hrvatski", "iso639": "hr"},
     "sk": {"name": "Slovak", "self_name": "Slovenčina", "iso639": "sk"},
     "sl": {"name": "Slovenian", "self_name": "Slovenščina", "iso639": "sl"},
@@ -402,6 +404,8 @@ _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "zh-Hant": "zh-TW",
     "zh-Hant-TW": "zh-TW",
     "zh-Hant-HK": "zh-TW",
+    "zh-HK": "zh-TW",
+    "zh-MO": "zh-TW",
     "zh-Hans": "zh-CN",
     "pt-BR": "pt-BR",
     # Explicit foundation locale aliases keep profile/browser locales stable.
