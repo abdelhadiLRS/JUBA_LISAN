@@ -7904,7 +7904,7 @@ main [dir="rtl"] h3,
   content: "";
   position: absolute;
   top: -7px;
-  left: 18px;
+  inset-inline-start: 18px;
   width: 12px;
   height: 12px;
   background: #fff;
