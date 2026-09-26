@@ -86,3 +86,23 @@ def test_locale_normalization_is_shared_for_underscored_and_cased_input():
     assert normalize_locale("pt_br") == "pt-BR"
     assert normalize_locale("AR_dz") == "ar-DZ"
     assert resolve_locale("SUQ_et").canonical == "suq"
+
+
+def test_additional_foundation_languages_have_cefr_curricula():
+    """New foundation languages must resolve to real multi-level lesson sequences."""
+    from app.data.curriculum import get_units
+
+    expected = {
+        "ceb": 8,
+        "haw": 4,
+        "id": 4,
+        "sw": 4,
+        "km": 4,
+        "kn": 4,
+    }
+
+    for locale, minimum_units in expected.items():
+        for level in ("A2", "B1", "B2", "C1", "C2"):
+            units = get_units(level, locale)
+            assert len(units) >= minimum_units, (locale, level, len(units))
+            assert all(unit.id.startswith(f"{locale}-{level.lower()}-") for unit in units)
