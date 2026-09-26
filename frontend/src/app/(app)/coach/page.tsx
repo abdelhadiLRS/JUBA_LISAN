@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { apiFetch } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
 import { useLanguageStore } from '@/store/language'
+import { subscribeToLearningProgressUpdated } from '@/lib/learning-progress'
 import {
   ArrowRight,
   BrainCircuit,
@@ -92,6 +93,12 @@ export default function CoachPage() {
   useEffect(() => {
     load()
   }, [language?.code])
+
+  useEffect(() => {
+    return subscribeToLearningProgressUpdated(() => {
+      void load()
+    })
+  }, [])
 
   const weakestSkill = useMemo(() => {
     const entries = Object.entries(progress.skills ?? {})
