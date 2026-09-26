@@ -396,7 +396,7 @@ export default function PhrasebookPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t('searchPlaceholder')}
-              className="border-[rgba(7,7,9,.08)] bg-[#fff]-2 text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#202127] w-full border px-3 py-2 font-sans text-xs focus:outline-none"
+              className="border-[rgba(7,7,9,.08)] bg-[#f8f9fb] text-[#202127] placeholder:text-[rgba(32,33,39,.52)] focus:border-[#202127] w-full border px-3 py-2 font-sans text-xs focus:outline-none"
             />
           </div>
 
@@ -411,8 +411,8 @@ export default function PhrasebookPage() {
                   onClick={() => setActiveLevel(lvl)}
                   className={`text-[#202127] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                     activeLevel === lvl
-                      ? 'border-[#202127] text-[#202127] bg-[#fff]-2'
-                      : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.08)]-2 hover:text-[#202127]'
+                      ? 'border-[#202127] text-[#202127] bg-[#f8f9fb]'
+                      : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[#202127] hover:text-[#202127]'
                   }`}
                 >
                   {lvl === 'All' ? tCommon('all') : lvl}
@@ -432,8 +432,8 @@ export default function PhrasebookPage() {
                   onClick={() => setActiveRegister(reg)}
                   className={`text-[#202127] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                     activeRegister === reg
-                      ? 'border-[#202127] text-[#202127] bg-[#fff]-2'
-                      : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.08)]-2 hover:text-[#202127]'
+                      ? 'border-[#202127] text-[#202127] bg-[#f8f9fb]'
+                      : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[#202127] hover:text-[#202127]'
                   }`}
                 >
                   {reg === 'All' ? tCommon('all') : t(reg)}
@@ -488,7 +488,7 @@ export default function PhrasebookPage() {
                 setActiveRegister('All')
                 setSearch('')
               }}
-              className="text-[#202127] border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.08)]-2 hover:text-[#202127] border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
+              className="text-[#202127] border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[#202127] hover:text-[#202127] border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
             >
               {tCommon('clearFilters')}
             </button>
