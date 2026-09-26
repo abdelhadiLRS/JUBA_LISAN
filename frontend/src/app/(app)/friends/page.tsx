@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { MessageCircle, Search, UserPlus, Users, Check, UserMinus, Link as LinkIcon, Clipboard, CheckCheck } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
 
@@ -97,29 +96,29 @@ export default function FriendsPage() {
   }
 
   return (
-    <div className="juba-friends-shell juba-page-shell space-y-6 px-4 py-6 sm:px-6">
-      <section className="juba-page-hero">
+    <div className="card">
+      <section className="card">
         <div>
-          <p className="juba-eyebrow"><Users className="inline h-4 w-4" /> LEARN TOGETHER</p>
+          <p className="page-pretitle"><Users className="inline h-4 w-4" /> LEARN TOGETHER</p>
           <h1 className="juba-page-title">Friends</h1>
           <p className="juba-page-subtitle">Find learners, practise together, and keep your language journey social.</p>
         </div>
       </section>
 
-      <section className="juba-panel flex flex-wrap items-center justify-between gap-4">
+      <section className="card">
         <div className="min-w-0">
-          <p className="juba-eyebrow"><LinkIcon className="inline h-4 w-4" /> INVITE MEMBERS</p>
+          <p className="page-pretitle"><LinkIcon className="inline h-4 w-4" /> INVITE MEMBERS</p>
           <h2 className="juba-section-title mt-1">Invite a learner to JUBA LISAN</h2>
           <p className="juba-muted mt-1">Create a registration link and share it with someone you want to learn with.</p>
         </div>
-        <button onClick={createInvite} disabled={inviteLoading} className="juba-primary-button shrink-0">
+        <button onClick={createInvite} disabled={inviteLoading} className="btn btn-primary shrink-0">
           <UserPlus className="h-4 w-4" /> {inviteLoading ? 'Creating…' : 'Create invite'}
         </button>
         {inviteUrl && (
           <div className="w-full rounded-2xl border border-[rgba(7,7,9,.08)] bg-[#f4f4f2] p-3">
             <div className="flex flex-wrap items-center gap-2">
               <p className="min-w-0 flex-1 break-all text-xs text-[rgba(32,33,39,.52)]">{inviteUrl}</p>
-              <button onClick={copyInvite} className="juba-secondary-button shrink-0">
+              <button onClick={copyInvite} className="btn btn-outline-secondary shrink-0">
                 {inviteCopied ? <CheckCheck className="h-4 w-4"/> : <Clipboard className="h-4 w-4"/>}
                 {inviteCopied ? 'Copied' : 'Copy link'}
               </button>
@@ -129,25 +128,25 @@ export default function FriendsPage() {
       </section>
 
       <section className="grid gap-4 lg:grid-cols-[1.35fr_.65fr]">
-        <div className="juba-panel space-y-4">
+        <div className="card">
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[rgba(32,33,39,.52)]" />
-              <input value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>e.key==='Enter'&&search()} placeholder="Search learners by name or username" className="juba-input pl-10" />
+              <input value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>e.key==='Enter'&&search()} placeholder="Search learners by name or username" className="form-control pl-10" />
             </div>
-            <button onClick={search} disabled={searching} className="juba-primary-button"><Search className="h-4 w-4" /> {searching?'Searching…':'Search'}</button>
+            <button onClick={search} disabled={searching} className="btn btn-primary"><Search className="h-4 w-4" /> {searching?'Searching…':'Search'}</button>
           </div>
-          {results.length>0 && <div className="grid gap-3 md:grid-cols-2">{results.map(person=><PersonCard key={person.id} person={person}><button onClick={()=>addFriend(person.id)} disabled={actionId===person.id} className="juba-secondary-button"><UserPlus className="h-4 w-4"/> {actionId===person.id?'Adding…':'Add'}</button></PersonCard>)}</div>}
+          {results.length>0 && <div className="grid gap-3 md:grid-cols-2">{results.map(person=><PersonCard key={person.id} person={person}><button onClick={()=>addFriend(person.id)} disabled={actionId===person.id} className="btn btn-outline-secondary"><UserPlus className="h-4 w-4"/> {actionId===person.id?'Adding…':'Add'}</button></PersonCard>)}</div>}
           <div className="flex items-center justify-between pt-2"><h2 className="juba-section-title">Your learning friends</h2><span className="juba-badge">{friends.length}</span></div>
           {loading ? <p className="juba-muted">Loading…</p> : friends.length===0 ? <Empty text="No friends yet. Search for another learner to start practising together."/> :
-            <div className="grid gap-3 md:grid-cols-2">{friends.map(person=><PersonCard key={person.id} person={person}><div className="flex gap-2"><Link href={'/friends/chat/'+person.id} className="juba-primary-button"><MessageCircle className="h-4 w-4"/> Chat</Link><button onClick={()=>remove(person.id)} disabled={actionId===person.id} className="juba-secondary-button" title="Remove friend"><UserMinus className="h-4 w-4"/></button></div></PersonCard>)}</div>}
+            <div className="grid gap-3 md:grid-cols-2">{friends.map(person=><PersonCard key={person.id} person={person}><div className="flex gap-2"><Link href={'/friends/chat/'+person.id} className="btn btn-primary"><MessageCircle className="h-4 w-4"/> Chat</Link><button onClick={()=>remove(person.id)} disabled={actionId===person.id} className="btn btn-outline-secondary" title="Remove friend"><UserMinus className="h-4 w-4"/></button></div></PersonCard>)}</div>}
           {error && <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</p>}
         </div>
 
-        <div className="juba-panel">
+        <div className="card">
           <h2 className="juba-section-title">Friend requests</h2>
           <div className="mt-4 space-y-3">
-            {incoming.map(item=><PersonCard key={item.id} person={item.user}><button onClick={()=>accept(item.id)} disabled={actionId===item.id} className="juba-primary-button"><Check className="h-4 w-4"/> {actionId===item.id?'Accepting…':'Accept'}</button></PersonCard>)}
+            {incoming.map(item=><PersonCard key={item.id} person={item.user}><button onClick={()=>accept(item.id)} disabled={actionId===item.id} className="btn btn-primary"><Check className="h-4 w-4"/> {actionId===item.id?'Accepting…':'Accept'}</button></PersonCard>)}
             {outgoing.map(item=><PersonCard key={'o'+item.id} person={item.user}><span className="juba-badge">Pending</span></PersonCard>)}
             {!incoming.length&&!outgoing.length&&<Empty text="No pending requests."/>}
           </div>
