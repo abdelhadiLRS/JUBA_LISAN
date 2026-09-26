@@ -7649,3 +7649,15 @@ main [dir="rtl"] h3,
 .juba-vocabulary-set-shell button:not([aria-label="Close"]):hover,.juba-vocabulary-set-shell a[class*="rounded"]:hover{transform:translateY(-1px);}
 .juba-vocabulary-set-shell input,.juba-vocabulary-set-shell textarea,.juba-vocabulary-set-shell select{border-radius:14px;}
 @media(max-width:640px){.juba-vocabulary-set-shell{padding:1rem!important;}.juba-vocabulary-set-shell .juba-card{border-radius:22px;}}
+
+
+/* Saved vocabulary — dashboard visual language */
+.juba-flashcards-vocabulary-shell{width:min(100%,1240px);color:#202127;}
+.juba-flashcards-vocabulary-shell .juba-card{border:1px solid rgba(7,7,9,.07);border-radius:26px;box-shadow:0 12px 30px rgba(43,45,90,.055);}
+.juba-flashcards-vocabulary-shell button,.juba-flashcards-vocabulary-shell a{transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease,border-color .18s ease;}
+.juba-flashcards-vocabulary-shell button:not([aria-label="Close"]):hover,.juba-flashcards-vocabulary-shell a:hover{transform:translateY(-1px);}
+.juba-flashcards-vocabulary-shell input{border-radius:14px!important;border-color:rgba(7,7,9,.10)!important;background:#fff!important;}
+.juba-flashcards-vocabulary-shell .juba-secondary-button{border-radius:14px!important;color:#202127!important;}
+.juba-flashcards-vocabulary-shell .juba-primary-button{border-radius:14px!important;background:#5862e2!important;color:#fff!important;box-shadow:0 7px 0 #373fb8!important;}
+.juba-flashcards-vocabulary-shell .juba-card.bg-\\[\\#fff3d1\\]{background:#fff3d1!important;}
+@media(max-width:640px){.juba-flashcards-vocabulary-shell{padding-inline:14px;}.juba-flashcards-vocabulary-shell .juba-card{border-radius:22px;}}
