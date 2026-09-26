@@ -113,7 +113,7 @@ VOCABULARY_SETS = [
         words=[
             VocabularyEntry(
                 word=word,
-                pos="word" if not word.endswith("...") else "phrase",
+                pos="noun" if not word.endswith("...") else "phrase",
                 definition=_VOCAB_DEFS.get(word, "target-language vocabulary"),
                 example=f"{word}.",
             )
