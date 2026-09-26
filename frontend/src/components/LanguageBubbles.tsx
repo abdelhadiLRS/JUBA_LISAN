@@ -1,384 +1,104 @@
 'use client'
 
-import { useMemo, useState } from 'react'
-import { useLocale, useTranslations } from 'next-intl'
-import { Globe2, MapPinned } from 'lucide-react'
-import { WORLD_MAP_CENTROIDS, WORLD_MAP_PATHS } from './world-map-data'
-import { COUNTRY_NAMES } from './country-names'
+import Image from 'next/image'
 
-type RegionId = 'americas' | 'europe' | 'africa-middle-east' | 'asia' | 'pacific'
+type Language = { code: string; name: string; country: string; alt: string }
 
-type DisplayLanguage = {
-  code: string
-  name: string
-  regions: RegionId[]
-  countries: string[]
-  markerCountry: string
-}
-
-const REGIONS: Array<{ id: RegionId; key: string }> = [
-  { id: 'americas', key: 'regionAmericas' },
-  { id: 'europe', key: 'regionEurope' },
-  { id: 'africa-middle-east', key: 'regionAfricaMiddleEast' },
-  { id: 'asia', key: 'regionAsia' },
-  { id: 'pacific', key: 'regionPacific' },
+const LANGUAGES: Language[] = [
+  { code: 'en', name: 'English', country: 'gb', alt: 'United Kingdom' },
+  { code: 'fr', name: 'Français', country: 'fr', alt: 'France' },
+  { code: 'es', name: 'Español', country: 'es', alt: 'Spain' },
+  { code: 'de', name: 'Deutsch', country: 'de', alt: 'Germany' },
+  { code: 'it', name: 'Italiano', country: 'it', alt: 'Italy' },
+  { code: 'pt', name: 'Português', country: 'pt', alt: 'Portugal' },
+  { code: 'nl', name: 'Nederlands', country: 'nl', alt: 'Netherlands' },
+  { code: 'ru', name: 'Русский', country: 'ru', alt: 'Russia' },
+  { code: 'tr', name: 'Türkçe', country: 'tr', alt: 'Türkiye' },
+  { code: 'el', name: 'Ελληνικά', country: 'gr', alt: 'Greece' },
+  { code: 'ro', name: 'Română', country: 'ro', alt: 'Romania' },
+  { code: 'hu', name: 'Magyar', country: 'hu', alt: 'Hungary' },
+  { code: 'uk', name: 'Українська', country: 'ua', alt: 'Ukraine' },
+  { code: 'fi', name: 'Suomi', country: 'fi', alt: 'Finland' },
+  { code: 'sv', name: 'Svenska', country: 'se', alt: 'Sweden' },
+  { code: 'ar', name: 'العربية', country: 'dz', alt: 'Algeria' },
+  { code: 'he', name: 'עברית', country: 'il', alt: 'Israel' },
+  { code: 'yo', name: 'Yorùbá', country: 'ng', alt: 'Nigeria' },
+  { code: 'xh', name: 'isiXhosa', country: 'za', alt: 'South Africa' },
+  { code: 'mg', name: 'Malagasy', country: 'mg', alt: 'Madagascar' },
+  { code: 'ny', name: 'Chichewa', country: 'mw', alt: 'Malawi' },
+  { code: 'vi', name: 'Tiếng Việt', country: 'vn', alt: 'Vietnam' },
+  { code: 'ja', name: '日本語', country: 'jp', alt: 'Japan' },
+  { code: 'ko', name: '한국어', country: 'kr', alt: 'South Korea' },
+  { code: 'zh', name: '中文', country: 'cn', alt: 'China' },
+  { code: 'mi', name: 'Māori', country: 'nz', alt: 'New Zealand' },
+  { code: 'sm', name: 'Gagana Sāmoa', country: 'ws', alt: 'Samoa' },
+  { code: 'to', name: 'Lea faka-Tonga', country: 'to', alt: 'Tonga' },
+  { code: 'sq', name: 'Shqip', country: 'al', alt: 'Albania' },
+  { code: 'eu', name: 'Euskara', country: 'es', alt: 'Basque Country · Spain' },
+  { code: 'gl', name: 'Galego', country: 'es', alt: 'Galicia · Spain' },
+  { code: 'no', name: 'Norsk', country: 'no', alt: 'Norway' },
+  { code: 'da', name: 'Dansk', country: 'dk', alt: 'Denmark' },
+  { code: 'pl', name: 'Polski', country: 'pl', alt: 'Poland' },
+  { code: 'cs', name: 'Čeština', country: 'cz', alt: 'Czechia' },
+  { code: 'sk', name: 'Slovenčina', country: 'sk', alt: 'Slovakia' },
+  { code: 'fa', name: 'فارسی', country: 'ir', alt: 'Iran' },
+  { code: 'hi', name: 'हिन्दी', country: 'in', alt: 'India' },
+  { code: 'bn', name: 'বাংলা', country: 'bd', alt: 'Bangladesh' },
+  { code: 'id', name: 'Bahasa Indonesia', country: 'id', alt: 'Indonesia' },
+  { code: 'ms', name: 'Bahasa Melayu', country: 'my', alt: 'Malaysia' },
+  { code: 'th', name: 'ไทย', country: 'th', alt: 'Thailand' },
 ]
-
-// Coverage uses established native, official, or major regional use.
-// Diaspora communities are not plotted as separate territories.
-const DISPLAY_LANGUAGES: DisplayLanguage[] = [
-  { code: 'en', name: 'English', regions: ['americas','europe','africa-middle-east','asia','pacific'], markerCountry: 'USA', countries: ['USA','CAN','GBR','IRL','AUS','NZL','ZAF','NAM','BWA','ZMB','ZWE','UGA','KEN','TZA','NGA','GHA','SLE','LBR','GMB','GUY','JAM','TTO','BHS','BRB','BLZ','GRD','DMA','ATG','KNA','LCA','VCT','SGP','IND','PHL','PAK','FJI','WSM','TON','PNG','SLB','VUT','MLT','CYP'] },
-  { code: 'fr', name: 'Français', regions: ['americas','europe','africa-middle-east','pacific'], markerCountry: 'FRA', countries: ['FRA','BEL','CHE','LUX','MCO','CAN','HTI','USA','MAR','DZA','TUN','MRT','SEN','MLI','NER','BFA','CIV','GHA','TGO','BEN','GIN','GNB','SLE','LBR','CMR','CAF','TCD','GAB','COG','COD','RWA','BDI','DJI','COM','MDG','MUS','SYC','VUT','NCL','PYF'] },
-  { code: 'es', name: 'Español', regions: ['americas','europe','africa-middle-east'], markerCountry: 'ESP', countries: ['ESP','MEX','GTM','BLZ','HND','SLV','NIC','CRI','PAN','CUB','DOM','PRI','COL','VEN','ECU','PER','BOL','PRY','CHL','ARG','URY','GNQ','USA'] },
-  { code: 'de', name: 'Deutsch', regions: ['europe'], markerCountry: 'DEU', countries: ['DEU','AUT','CHE','LIE','LUX','BEL','ITA','POL','CZE','HUN','ROU','NAM'] },
-  { code: 'it', name: 'Italiano', regions: ['europe','africa-middle-east'], markerCountry: 'ITA', countries: ['ITA','SMR','CHE','VAT','SLO','HRV','LUX','MCO','ALB','MDA','MNE','ERI','SOM','LBY'] },
-  { code: 'pt', name: 'Português', regions: ['americas','europe','africa-middle-east','asia'], markerCountry: 'PRT', countries: ['PRT','BRA','AGO','MOZ','GNB','CPV','STP','TLS','GNQ','MAC','LUX'] },
-  { code: 'nl', name: 'Nederlands', regions: ['europe','americas','africa-middle-east','asia'], markerCountry: 'NLD', countries: ['NLD','BEL','SUR','ABW','CUW','SXM','BES','IDN','ZAF'] },
-  { code: 'ru', name: 'Русский', regions: ['europe','asia'], markerCountry: 'RUS', countries: ['RUS','BLR','KAZ','KGZ','TJK','TKM','UZB','UKR','MDA','LVA','EST','LTU','GEO','ARM','AZE','MNG','ISR'] },
-  { code: 'tr', name: 'Türkçe', regions: ['europe','asia'], markerCountry: 'TUR', countries: ['TUR','CYP'] },
-  { code: 'el', name: 'Ελληνικά', regions: ['europe'], markerCountry: 'GRC', countries: ['GRC','CYP'] },
-  { code: 'ro', name: 'Română', regions: ['europe'], markerCountry: 'ROU', countries: ['ROU','MDA','UKR','HUN','SRB'] },
-  { code: 'hu', name: 'Magyar', regions: ['europe'], markerCountry: 'HUN', countries: ['HUN','ROU','SVK','SRB','UKR','HRV','AUT','SLO'] },
-  { code: 'uk', name: 'Українська', regions: ['europe'], markerCountry: 'UKR', countries: ['UKR','POL','SVK','HUN','ROU','MDA'] },
-  { code: 'fi', name: 'Suomi', regions: ['europe'], markerCountry: 'FIN', countries: ['FIN','SWE','EST'] },
-  { code: 'sv', name: 'Svenska', regions: ['europe'], markerCountry: 'SWE', countries: ['SWE','FIN'] },
-  { code: 'ar', name: 'العربية', regions: ['africa-middle-east','asia'], markerCountry: 'SAU', countries: ['SAU','ARE','QAT','KWT','BHR','OMN','YEM','IRQ','JOR','SYR','LBN','PSE','EGY','LBY','TUN','DZA','MAR','MRT','SDN','SOM','DJI','COM','TCD'] },
-  { code: 'he', name: 'עברית', regions: ['africa-middle-east','asia'], markerCountry: 'ISR', countries: ['ISR'] },
-  { code: 'yo', name: 'Yorùbá', regions: ['africa-middle-east'], markerCountry: 'NGA', countries: ['NGA','BEN','TGO'] },
-  { code: 'xh', name: 'isiXhosa', regions: ['africa-middle-east'], markerCountry: 'ZAF', countries: ['ZAF','LSO'] },
-  { code: 'mg', name: 'Malagasy', regions: ['africa-middle-east'], markerCountry: 'MDG', countries: ['MDG','COM','REU'] },
-  { code: 'ny', name: 'Chichewa', regions: ['africa-middle-east'], markerCountry: 'MWI', countries: ['MWI','ZMB','MOZ','ZWE'] },
-  { code: 'vi', name: 'Tiếng Việt', regions: ['asia'], markerCountry: 'VNM', countries: ['VNM'] },
-  { code: 'ja', name: '日本語', regions: ['asia'], markerCountry: 'JPN', countries: ['JPN'] },
-  { code: 'ko', name: '한국어', regions: ['asia'], markerCountry: 'KOR', countries: ['KOR','PRK'] },
-  { code: 'zh', name: '中文', regions: ['asia'], markerCountry: 'CHN', countries: ['CHN','TWN','SGP'] },
-  { code: 'mi', name: 'Māori', regions: ['pacific'], markerCountry: 'NZL', countries: ['NZL'] },
-  { code: 'sm', name: 'Gagana Sāmoa', regions: ['pacific'], markerCountry: 'WSM', countries: ['WSM','ASM'] },
-  { code: 'to', name: 'Lea faka-Tonga', regions: ['pacific'], markerCountry: 'TON', countries: ['TON'] },
-  { code: 'sq', name: 'Shqip', regions: ['europe'], markerCountry: 'ALB', countries: ['ALB','XKX','MKD','MNE','SRB'] },
-  { code: 'eu', name: 'Euskara', regions: ['europe'], markerCountry: 'ESP', countries: ['ESP','FRA'] },
-  { code: 'gl', name: 'Galego', regions: ['europe'], markerCountry: 'ESP', countries: ['ESP'] },
-  { code: 'no', name: 'Norsk', regions: ['europe'], markerCountry: 'NOR', countries: ['NOR'] },
-  { code: 'da', name: 'Dansk', regions: ['europe'], markerCountry: 'DNK', countries: ['DNK'] },
-  { code: 'pl', name: 'Polski', regions: ['europe'], markerCountry: 'POL', countries: ['POL','LTU','BLR','UKR','CZE','SVK'] },
-  { code: 'cs', name: 'Čeština', regions: ['europe'], markerCountry: 'CZE', countries: ['CZE','SVK'] },
-  { code: 'sk', name: 'Slovenčina', regions: ['europe'], markerCountry: 'SVK', countries: ['SVK','CZE'] },
-  { code: 'fa', name: 'فارسی', regions: ['asia','africa-middle-east'], markerCountry: 'IRN', countries: ['IRN','AFG','TJK'] },
-  { code: 'hi', name: 'हिन्दी', regions: ['asia'], markerCountry: 'IND', countries: ['IND','FJI'] },
-  { code: 'bn', name: 'বাংলা', regions: ['asia'], markerCountry: 'BGD', countries: ['BGD','IND'] },
-  { code: 'id', name: 'Bahasa Indonesia', regions: ['asia'], markerCountry: 'IDN', countries: ['IDN'] },
-  { code: 'ms', name: 'Bahasa Melayu', regions: ['asia'], markerCountry: 'MYS', countries: ['MYS','BRN','SGP','IDN'] },
-  { code: 'th', name: 'ไทย', regions: ['asia'], markerCountry: 'THA', countries: ['THA'] },
-]
-
-function WorldMap({
-  highlightedCountries,
-  selectedCountry,
-  onCountrySelect,
-  ariaLabel,
-  countryName,
-}: {
-  highlightedCountries: Set<string>
-  selectedCountry: string | null
-  onCountrySelect: (country: string) => void
-  ariaLabel: string
-  countryName: (code: string) => string
-}) {
-  return (
-    <div className="absolute inset-0">
-      <svg
-        viewBox="0 0 1000 507"
-        className="absolute inset-0 h-full w-full"
-        preserveAspectRatio="xMidYMid meet"
-        aria-label={ariaLabel}
-        role="img"
-      >
-        <defs>
-          <pattern id="atlas-graticule" width="100" height="84" patternUnits="userSpaceOnUse">
-            <path d="M 100 0 L 0 0 0 84" fill="none" stroke="rgba(7,7,9,.08)" strokeWidth="0.7" opacity="0.32" />
-          </pattern>
-        </defs>
-        <rect width="1000" height="507" fill="url(#atlas-graticule)" />
-        <g>
-          {Object.entries(WORLD_MAP_PATHS).map(([code, path]) => {
-            const highlighted = highlightedCountries.has(code)
-            const selected = selectedCountry === code
-            return (
-              <path
-                key={code}
-                d={path}
-                fill={selected ? '#fff3d1' : highlighted ? '#5862e2' : '#ededff'}
-                fillOpacity={selected || highlighted ? 0.92 : 0.72}
-                stroke={selected ? '#202127' : 'rgba(7,7,9,.08)'}
-                strokeWidth={selected ? 1.8 : highlighted ? 1.25 : 1.05}
-                vectorEffect="non-scaling-stroke"
-                className="cursor-pointer transition-[fill,fill-opacity,stroke-width] duration-200"
-                tabIndex={0}
-                onClick={() => onCountrySelect(code)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault()
-                    onCountrySelect(code)
-                  }
-                }}
-                aria-label={countryName(code)}
-                role="button"
-              />
-            )
-          })}
-        </g>
-      </svg>
-    </div>
-  )
-}
 
 export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
-  const t = useTranslations('landing')
-  const locale = useLocale() === 'ar' ? 'ar' : 'en'
-  const countryName = (code: string) => COUNTRY_NAMES[code]?.[locale] ?? code
-  const [activeRegion, setActiveRegion] = useState<RegionId | null>(null)
-  const [activeLanguage, setActiveLanguage] = useState<string | null>(null)
-  const [activeCountry, setActiveCountry] = useState<string | null>(null)
-
-  const visibleLanguages = useMemo(
-    () => DISPLAY_LANGUAGES.filter((language) => !activeRegion || language.regions.includes(activeRegion)),
-    [activeRegion],
-  )
-
-  const selected = DISPLAY_LANGUAGES.find((language) => language.code === activeLanguage)
-  const selectedRegion = selected ? REGIONS.find((region) => selected.regions.includes(region.id)) : null
-
-  const regionCountries = useMemo(() => {
-    const map = new Map<RegionId, Set<string>>()
-    for (const region of REGIONS) map.set(region.id, new Set())
-    for (const language of DISPLAY_LANGUAGES) for (const region of language.regions) {
-      const countries = map.get(region)
-      if (countries) for (const country of language.countries) countries.add(country)
-    }
-    return map
-  }, [])
-
-  const selectedCountries = selected ? new Set(selected.countries) : new Set<string>()
-
-  const markerOffsets = useMemo(() => {
-    const groups = new Map<string, DisplayLanguage[]>()
-    for (const language of visibleLanguages) {
-      const group = groups.get(language.markerCountry) ?? []
-      group.push(language)
-      groups.set(language.markerCountry, group)
-    }
-
-    const offsets = new Map<string, { x: number; y: number }>()
-    for (const languages of groups.values()) {
-      if (languages.length === 1) {
-        offsets.set(languages[0].code, { x: 0, y: 0 })
-        continue
-      }
-
-      const radius = languages.length <= 3 ? 14 : 18
-      languages.forEach((language, index) => {
-        const angle = (index / languages.length) * 2 * Math.PI - Math.PI / 2
-        offsets.set(language.code, {
-          x: Math.round(Math.cos(angle) * radius * 100) / 100,
-          y: Math.round(Math.sin(angle) * radius * 100) / 100,
-        })
-      })
-    }
-
-    return offsets
-  }, [visibleLanguages])
-  const countryLanguages = useMemo(() => {
-    const map = new Map<string, DisplayLanguage[]>()
-    for (const language of DISPLAY_LANGUAGES) {
-      for (const country of language.countries) {
-        const list = map.get(country) ?? []
-        list.push(language)
-        map.set(country, list)
-      }
-    }
-    return map
-  }, [])
-
   return (
-    <div dir={dir} className="relative overflow-hidden rounded-[36px] border-2 border-[#202127] bg-[#fff] p-3 shadow-[0_14px_34px_rgba(43,45,90,.07)] sm:p-5">
-      <div className="relative min-h-[430px] overflow-hidden rounded-[28px] border border-[rgba(7,7,9,.08)] bg-[#f5f8f1] sm:min-h-[560px]">
-        <WorldMap
-          highlightedCountries={activeRegion ? (regionCountries.get(activeRegion) ?? new Set<string>()) : selectedCountries}
-          selectedCountry={activeCountry}
-          onCountrySelect={(country) => {
-            setActiveCountry((current) => (current === country ? null : country))
-            setActiveLanguage(null)
-          }}
-          ariaLabel={t('worldMapLabel')}
-          countryName={countryName}
-        />
-
-        <div className="absolute inset-x-4 top-4 z-20 flex flex-wrap items-center justify-between gap-3 sm:inset-x-6 sm:top-6">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#202127] bg-white/95 px-3 py-2 text-[10px] font-black uppercase tracking-[.16em] text-[#202127] shadow-sm">
-            <MapPinned className="h-3.5 w-3.5" aria-hidden="true" />
-            {t('languageAtlasLabel')}
-          </div>
-
-          <span className="hidden rounded-full border border-[rgba(7,7,9,.08)] bg-white/95 px-3 py-2 text-[10px] font-bold text-[rgba(32,33,39,.52)] shadow-sm sm:inline">
-            {t('atlasCoverage', { count: DISPLAY_LANGUAGES.length })}
-          </span>
-
-          <button
-            type="button"
-            onClick={() => {
-              setActiveRegion(null)
-              setActiveLanguage(null)
-              setActiveCountry(null)
-            }}
-            className="rounded-full border border-[rgba(7,7,9,.08)] bg-white/95 px-3 py-2 text-[10px] font-black uppercase tracking-[.12em] text-[rgba(32,33,39,.52)] transition hover:border-[#202127] hover:text-[#202127]"
-          >
-            {t('allRegions')}
-          </button>
+    <section dir={dir} aria-label="Languages available in JUBA LISAN" className="w-full rounded-[28px] border border-[#e7e8ef] bg-white/95 p-4 shadow-[0_16px_38px_rgba(32,33,58,.09)] sm:p-6">
+      <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p className="text-[10px] font-black uppercase tracking-[.18em] text-[#635bff]">Explore languages</p>
+          <h3 className="mt-1 text-xl font-black tracking-tight text-[#202127] sm:text-2xl">One world. {LANGUAGES.length} languages.</h3>
         </div>
-
-        <div className="absolute inset-0 z-10">
-          <div className={(dir === 'rtl' ? 'absolute left-3' : 'absolute right-3') + ' top-20 z-20 hidden max-w-[230px] rounded-2xl border border-[rgba(7,7,9,.08)] bg-white/95 p-3 shadow-sm lg:block'}>
-            <p className="text-[9px] font-black uppercase tracking-[.16em] text-[#5862e2]">{t('mapCoverage')}</p>
-            <p className="mt-1 text-xs leading-5 text-[rgba(32,33,39,.52)]">
-              {t('mapCoverageDescription')}
-            </p>
-          </div>
-
-          {visibleLanguages.map((language) => {
-            const point = WORLD_MAP_CENTROIDS[language.markerCountry]
-            if (!point) return null
-
-            const isActive = activeLanguage === language.code
-            const left = (point.x / 1000) * 100
-            const top = (point.y / 507) * 100
-
-            return (
-              <button
-                key={language.code}
-                type="button"
-                onClick={() => {
-                  setActiveLanguage(isActive ? null : language.code)
-                  setActiveCountry(null)
-                }}
-                className="group absolute"
-                style={{
-                  left: `${left}%`,
-                  top: `${top}%`,
-                  transform: `translate(calc(-50% + ${markerOffsets.get(language.code)?.x ?? 0}px), calc(-50% + ${markerOffsets.get(language.code)?.y ?? 0}px))`,
-                }}
-                aria-label={language.name}
-                aria-pressed={isActive}
-                title={(countryLanguages.get(language.markerCountry) ?? []).map((item) => item.name).join(' · ')}
-              >
-                <span
-                  className={[
-                    'relative flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-[#5862e2] shadow-[0_2px_7px_rgba(24,37,27,.24)] transition-all duration-200',
-                    isActive ? 'scale-125 bg-[#fff3d1] ring-2 ring-[#202127]' : 'group-hover:scale-125',
-                  ].join(' ')}
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-white" aria-hidden="true" />
-                </span>
-                <span
-                  className={[
-                    'pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-md border px-2 py-1 text-[9px] font-black shadow-sm transition-opacity',
-                    isActive
-                      ? 'border-[#202127] bg-white text-[#202127] opacity-100'
-                      : 'border-[rgba(7,7,9,.08)] bg-white/95 text-[rgba(32,33,39,.52)] opacity-0 group-hover:opacity-100',
-                  ].join(' ')}
-                >
-                  {language.name}
-                </span>
-              </button>
-            )
-          })}
-
-          {activeCountry && (
-            <div className={(dir === 'rtl' ? 'absolute left-3 lg:left-6' : 'absolute right-3 lg:right-6') + ' top-20 z-20 max-w-[250px] rounded-2xl border border-[rgba(7,7,9,.08)] bg-white p-4 shadow-sm'}>
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <span className="text-[9px] font-black uppercase tracking-[.16em] text-[#5862e2]">{t('countryLanguages')}</span>
-                  <h3 className="mt-1 text-lg font-black text-[#202127]">{countryName(activeCountry)}</h3>
-                </div>
-                <button type="button" onClick={() => setActiveCountry(null)} className="text-xs font-black text-[rgba(32,33,39,.52)] hover:text-[#202127]" aria-label={t('closeCountryDetails')}>×</button>
-              </div>
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {(countryLanguages.get(activeCountry) ?? []).map((language) => {
-                  const active = activeLanguage === language.code
-                  return (
-                    <button
-                      key={language.code}
-                      type="button"
-                      onClick={() => {
-                        setActiveLanguage(language.code)
-                        setActiveRegion(language.regions[0] ?? null)
-                        setActiveCountry(null)
-                      }}
-                      className={`rounded-full border px-2 py-1 text-[10px] font-bold transition-colors ${active ? 'border-[#5862e2] bg-[#ededff] text-[#202127]' : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[#5862e2] hover:text-[#202127]'}`}
-                    >
-                      {language.name}
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-          )}
-
-          {selected && selectedRegion && (
-            <div className={(dir === 'rtl' ? 'absolute bottom-20 right-3 sm:right-6' : 'absolute bottom-20 left-3 sm:left-6') + ' z-20 max-w-[calc(100%-1.5rem)] rounded-2xl border-2 border-[#202127] bg-white p-4 shadow-[0_10px_24px_rgba(43,45,90,.07)] sm:bottom-24 sm:max-w-[280px]'}>
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <span className="text-[9px] font-black uppercase tracking-[.18em] text-[#5862e2]">{t(selectedRegion.key)}</span>
-                  <h3 className="mt-1 text-lg font-black text-[#202127]">{selected.name}</h3>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setActiveLanguage(null)}
-                  className="text-xs font-black text-[rgba(32,33,39,.52)] hover:text-[#202127]"
-                  aria-label={t('closeLanguageDetails')}
-                >
-                  ×
-                </button>
-              </div>
-              <p className="mt-2 text-xs leading-5 text-[rgba(32,33,39,.52)]">{t('exploreLanguage')}</p>
-            </div>
-          )}
-
-          <div className="absolute bottom-3 left-1/2 z-20 w-[calc(100%-1.25rem)] -translate-x-1/2 sm:bottom-6 sm:w-auto">
-            <div className="flex flex-wrap justify-center gap-1.5 rounded-2xl border border-[rgba(7,7,9,.08)] bg-white/95 p-2 shadow-sm">
-              {REGIONS.map((region) => (
-                <button
-                  type="button"
-                  key={region.id}
-                  onClick={() => {
-                    setActiveRegion(region.id)
-                    setActiveLanguage(null)
-                    setActiveCountry(null)
-                  }}
-                  className={[
-                    'rounded-xl px-3 py-2 text-[10px] font-black uppercase tracking-[.1em] transition',
-                    activeRegion === region.id
-                      ? 'bg-[#202127] text-white'
-                      : 'text-[rgba(32,33,39,.52)] hover:bg-[#ededff] hover:text-[#202127]',
-                  ].join(' ')}
-                >
-                  {t(region.key)}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
+        <span className="rounded-full bg-[#eeedff] px-3 py-1.5 text-[10px] font-extrabold text-[#635bff]">{LANGUAGES.length} languages</span>
       </div>
-
-      <div className="mt-4 flex flex-col gap-3 rounded-2xl border border-[rgba(7,7,9,.08)] bg-[#ededff] p-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-start gap-3">
-          <Globe2 className="mt-0.5 h-5 w-5 shrink-0 text-[#5862e2]" aria-hidden="true" />
-          <div>
-            <p className="text-sm font-black text-[#202127]">{t('languagesByRegion')}</p>
-            <p className="mt-1 text-xs leading-5 text-[rgba(32,33,39,.52)]">{t('atlasDescription')}</p>
+      <div className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-6 lg:grid-cols-4">
+        {LANGUAGES.map((language, index) => (
+          <div key={language.code} className="group flex min-w-0 flex-col items-center gap-2 text-center">
+            <div className="juba-waving-flag relative flex h-[66px] w-[92px] items-center justify-center sm:h-[76px] sm:w-[108px]" style={{ animationDelay: `${(index % 7) * -0.22}s` }}>
+              <Image
+                src={`https://flagcdn.com/w160/${language.country}.png`}
+                alt={`${language.alt} flag`}
+                width={160}
+                height={120}
+                unoptimized
+                className="h-[54px] w-[82px] rounded-[5px] object-cover shadow-[0_8px_16px_rgba(25,35,65,.18)] transition-transform duration-300 group-hover:scale-110 sm:h-[62px] sm:w-[96px]"
+              />
+            </div>
+            <span className="max-w-full break-words text-xs font-extrabold text-[#202127] sm:text-sm">{language.name}</span>
           </div>
-        </div>
-        <span className="text-xs font-black text-[#5862e2]">{t('languagesCount', { count: DISPLAY_LANGUAGES.length })}</span>
+        ))}
       </div>
-    </div>
+      <style jsx>{`
+        .juba-waving-flag {
+          transform-origin: 50% 45%;
+          animation: juba-flag-wave 4.2s ease-in-out infinite;
+        }
+        .juba-waving-flag::after {
+          content: "";
+          position: absolute;
+          inset: 7px 2px 1px;
+          z-index: -1;
+          border-radius: 8px;
+          background: rgba(32, 33, 58, .12);
+          filter: blur(9px);
+          transform: translateY(7px) scaleX(.88);
+        }
+        @keyframes juba-flag-wave {
+          0%, 100% { transform: perspective(500px) rotate(-2deg) skewY(-1deg); }
+          50% { transform: perspective(500px) rotate(2deg) skewY(1.5deg) translateY(-3px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .juba-waving-flag { animation: none; }
+        }
+      `}</style>
+    </section>
   )
 }
