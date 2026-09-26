@@ -355,6 +355,13 @@ export default async function Home() {
               alt={t('heroTitle')}
               className="juba-landing-real-image juba-new-hero-photo"
               loading="eager"
+              onError={(event) => {
+                const image = event.currentTarget
+                if (!image.dataset.fallback) {
+                  image.dataset.fallback = "1"
+                  image.src = "https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/assets/Gemini_Generated_Image_u2l5zju2l5zju2l5.jfif"
+                }
+              }}
             />
           </div>
         </div>
@@ -488,6 +495,13 @@ export default async function Home() {
               alt={t('ctaStart')}
               className="juba-landing-real-image juba-cta-real-image juba-new-cta-photo"
               loading="lazy"
+              onError={(event) => {
+                const image = event.currentTarget
+                if (!image.dataset.fallback) {
+                  image.dataset.fallback = "1"
+                  image.src = "https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/assets/d5f40c2b-9c40-4dbc-8eb8-b3756fe60a4f.jfif"
+                }
+              }}
             />
           </div>
         </div>
