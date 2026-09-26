@@ -13,13 +13,14 @@ export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-12">
           {/* Brand Info */}
           <div className="md:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-4 group">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--juba-app-yellow)] text-[var(--juba-app-ink)] font-black text-xl shadow-[3px_3px_0_#000] border-2 border-black">
-                J
-              </div>
-              <span className="font-sans text-2xl font-black tracking-tight text-white">
-                JUBA <span className="text-[var(--juba-app-yellow)]">LISAN</span>
-              </span>
+            <Link href="/" className="mb-4 inline-flex items-center gap-3 group" aria-label="JUBA LISAN">
+              <Image
+                src="/logo.png"
+                alt="JUBA LISAN"
+                width={180}
+                height={62}
+                className="h-14 w-auto max-w-[180px] object-contain"
+              />
             </Link>
             <p className="text-gray-300 text-sm max-w-sm leading-relaxed mb-6 font-medium">
               {t('footerTagline')}
