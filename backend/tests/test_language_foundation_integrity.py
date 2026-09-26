@@ -254,3 +254,35 @@ def test_registered_foundations_have_unique_vocabulary_ids():
             failures.append(f"{language}: duplicate vocabulary ids {duplicates}")
 
     assert not failures, "\n".join(failures)
+
+
+@pytest.mark.parametrize(
+    ("requested_locale", "expected_module"),
+    [
+        ("en_US", "app.data.en_US.curriculum"),
+        ("en-US", "app.data.en_US.curriculum"),
+        ("fr-FR", "app.data.fr.curriculum"),
+        ("fr", "app.data.fr.curriculum"),
+        ("pt-BR", "app.data.pt.curriculum"),
+        ("zh-TW", "app.data.zh.curriculum"),
+    ],
+)
+def test_curriculum_dispatcher_normalizes_locale_aliases(requested_locale: str, expected_module: str):
+    module = curriculum_dispatcher._resolve_module(requested_locale)
+    assert module.__name__ == expected_module
+
+
+@pytest.mark.parametrize(
+    ("requested_locale", "expected_title"),
+    [
+        ("en_US", "Lesson"),
+        ("fr", "Leçon"),
+        ("pt-BR", "Lição"),
+        ("de", "Lektion"),
+    ],
+)
+def test_curriculum_distribution_uses_locale_aware_labels(requested_locale: str, expected_title: str):
+    units = curriculum_dispatcher.get_curriculum_units("A1", requested_locale)
+    slots = curriculum_dispatcher.distribute_units(units[:1], 1, 2, requested_locale)
+    assert slots
+    assert expected_title in slots[0]["title"]
