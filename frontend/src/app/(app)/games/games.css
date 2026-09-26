@@ -383,3 +383,112 @@
 .next{background:#5862e2;box-shadow:0 5px 0 #373fb8;}
 .interactive-game{border-color:rgba(7,7,9,.07);box-shadow:0 14px 34px rgba(43,45,90,.07);}
 @media(max-width:640px){.games-header{background:#070709!important;color:#fff!important;box-shadow:0 10px 24px rgba(43,45,90,.1)!important;}.stats-grid>div,.games-panel,.game-card,.play-card{border:1px solid rgba(7,7,9,.07)!important;box-shadow:0 10px 24px rgba(43,45,90,.06)!important;}}
+
+/* Authenticated Tabler skin: games uses the same surface, typography and color tokens as the rest of the app. */
+.juba-tabler-app .juba-games {
+  background: var(--tblr-body-bg) !important;
+  color: var(--tblr-body-color) !important;
+  font-family: var(--juba-app-font) !important;
+}
+.juba-tabler-app .juba-games .games-header {
+  background: var(--tblr-card-bg) !important;
+  color: var(--tblr-body-color) !important;
+  border: 1px solid var(--tblr-card-border-color) !important;
+  border-radius: .625rem !important;
+  box-shadow: var(--tblr-box-shadow-card) !important;
+}
+.juba-tabler-app .juba-games .games-brand {
+  background: rgba(var(--tblr-primary-rgb), .1) !important;
+  color: var(--tblr-primary) !important;
+  border-radius: .25rem !important;
+}
+.juba-tabler-app .juba-games .stats-grid > div,
+.juba-tabler-app .juba-games .games-panel,
+.juba-tabler-app .juba-games .game-card,
+.juba-tabler-app .juba-games .play-card,
+.juba-tabler-app .juba-games .interactive-game {
+  border: 1px solid var(--tblr-card-border-color) !important;
+  border-radius: .625rem !important;
+  background: var(--tblr-card-bg) !important;
+  color: var(--tblr-body-color) !important;
+  box-shadow: var(--tblr-box-shadow-card) !important;
+}
+.juba-tabler-app .juba-games .daily-challenge,
+.juba-tabler-app .juba-games .achievement-toast,
+.juba-tabler-app .juba-games .feedback {
+  border: 1px solid var(--tblr-card-border-color) !important;
+  border-radius: .625rem !important;
+  background: rgba(var(--tblr-primary-rgb), .05) !important;
+  color: var(--tblr-body-color) !important;
+  box-shadow: none !important;
+}
+.juba-tabler-app .juba-games .game-card::before,
+.juba-tabler-app .juba-games .games-header::before,
+.juba-tabler-app .juba-games .games-header::after,
+.juba-tabler-app .juba-games .daily-challenge::after,
+.juba-tabler-app .juba-games .play-card::before {
+  display: none !important;
+}
+.juba-tabler-app .juba-games .game-icon {
+  border-radius: .5rem !important;
+  background: rgba(var(--tblr-primary-rgb), .1) !important;
+}
+.juba-tabler-app .juba-games .game-card:nth-child(n) .game-icon {
+  background: rgba(var(--tblr-primary-rgb), .1) !important;
+}
+.juba-tabler-app .juba-games .game-title,
+.juba-tabler-app .juba-games .games-header h1,
+.juba-tabler-app .juba-games .section-heading h2,
+.juba-tabler-app .juba-games .games-panel h3,
+.juba-tabler-app .juba-games .play-card h2,
+.juba-tabler-app .juba-games .mini-stats b,
+.juba-tabler-app .juba-games .stats-grid strong,
+.juba-tabler-app .juba-games .interactive-toolbar strong {
+  color: var(--tblr-body-color) !important;
+  font-weight: 600 !important;
+}
+.juba-tabler-app .juba-games .start,
+.juba-tabler-app .juba-games .reset,
+.juba-tabler-app .juba-games .back {
+  color: var(--tblr-primary) !important;
+}
+.juba-tabler-app .juba-games .choice,
+.juba-tabler-app .juba-games .interactive-secondary,
+.juba-tabler-app .juba-games .match-option,
+.juba-tabler-app .juba-games .ordering-pool button {
+  border: 1px solid var(--tblr-card-border-color) !important;
+  border-radius: .375rem !important;
+  background: var(--tblr-bg-surface-secondary) !important;
+  color: var(--tblr-body-color) !important;
+  box-shadow: none !important;
+}
+.juba-tabler-app .juba-games .choice:hover,
+.juba-tabler-app .juba-games .choice.selected,
+.juba-tabler-app .juba-games .match-option:hover,
+.juba-tabler-app .juba-games .match-option.selected {
+  border-color: var(--tblr-primary) !important;
+  background: rgba(var(--tblr-primary-rgb), .08) !important;
+  transform: none !important;
+}
+.juba-tabler-app .juba-games .next {
+  border: 1px solid var(--tblr-primary) !important;
+  border-radius: .375rem !important;
+  background: var(--tblr-primary) !important;
+  box-shadow: none !important;
+}
+.juba-tabler-app .juba-games .badge {
+  border-radius: .25rem !important;
+  background: rgba(var(--tblr-primary-rgb), .1) !important;
+  color: var(--tblr-primary) !important;
+}
+.juba-tabler-app .juba-games .memory-card {
+  border-radius: .5rem !important;
+  border-color: var(--tblr-primary) !important;
+  background: var(--tblr-primary) !important;
+  box-shadow: none !important;
+}
+.juba-tabler-app .juba-games .memory-card.revealed,
+.juba-tabler-app .juba-games .memory-card.matched {
+  background: rgba(var(--tblr-primary-rgb), .08) !important;
+  color: var(--tblr-body-color) !important;
+}
