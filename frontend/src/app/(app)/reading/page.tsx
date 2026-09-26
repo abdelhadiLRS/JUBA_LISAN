@@ -17,6 +17,7 @@ import {
   getReviewPromptDismissal,
 } from '@/components/reviews/ReviewPrompt'
 import { shouldShowExerciseReviewPrompt } from '@/lib/review-prompt-triggers'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
 import { useFreemiumStore } from '@/store/freemium'
 import { useConfigStore } from '@/store/config'
 import { useAuthStore, isSubscribed, isFreemiumTrialActive } from '@/store/auth'
@@ -230,6 +231,7 @@ function ReadingPage() {
         return
       }
       const data = (await res.json()) as SubmitResult
+      markLearningProgressUpdated()
       setResult(data)
       dismissTooltip()
       if (
