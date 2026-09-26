@@ -8030,13 +8030,15 @@ main [dir="rtl"] h3,
 
   .juba-tabler-app .juba-top-dropdown {
     position: fixed !important;
-    top: 108px;
-    left: 10px;
-    right: 10px;
+    top: 4rem;
+    inset-inline: 10px;
     width: auto;
     min-width: 0;
     max-height: min(70vh, 480px);
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    z-index: 1060 !important;
   }
 
   .juba-tabler-app .juba-top-dropdown::before {
