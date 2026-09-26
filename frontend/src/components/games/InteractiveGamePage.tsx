@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { InteractiveGameBoard } from './InteractiveGameBoard'
 import { completeGameSession, startGameSession, type InteractiveGameChallenge, type InteractiveGameTrace, type GameId } from '@/lib/games/persist'
 import { useProgressStore } from '@/store/progress'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
 
 type Mode = 'memory' | 'matching' | 'ordering' | 'sentence_builder'
 type Lang = 'ar' | 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt' | 'ja' | 'ko' | 'zh'
@@ -45,6 +46,7 @@ export function InteractiveGamePage({ mode }: { mode: Mode }) {
     try {
       const server = await completeGameSession(sessionId, [], dailyChallenge, dailyChallengeDate, trace)
       setProgress({ streak: useProgressStore.getState().streak, xp: server.total_xp, skills: server.skills, gameStats: { gamesPlayed: server.games_played, questionsAnswered: server.questions_answered, correctAnswers: server.correct_answers, bestRoundScore: server.best_round_score, dailyChallengesCompleted: server.daily_challenges_completed, lastDailyChallengeDate: server.last_daily_challenge_date, currentCorrectStreak: server.current_correct_streak, bestCorrectStreak: server.best_correct_streak }, achievements: server.achievements as import('@/lib/games/achievements').AchievementId[] })
+      markLearningProgressUpdated()
       return true
     } catch { return false }
   }
