@@ -316,9 +316,9 @@ export default function PlanPage() {
   const levelTestReady = completion?.state === 'ready'
 
   return (
-    <div className="juba-plan-shell mx-auto max-w-5xl space-y-6 px-4 py-7 sm:px-6 sm:py-9">
+    <div className="container-xl page-body py-4">
       {/* ── Header ── */}
-      <div className="juba-card overflow-hidden">
+      <div className="card overflow-hidden">
         <div className="flex items-center gap-2 border-b border-[rgba(7,7,9,.08)] bg-[#ededff] px-6 py-4">
           <span className="text-[rgba(32,33,39,.52)]">●</span>
           <span className="text-[rgba(32,33,39,.52)] text-xs font-black tracking-[.12em] uppercase">
@@ -440,7 +440,7 @@ export default function PlanPage() {
 
       {/* ── Pending lessons ── */}
       {pendingLessons.length > 0 && (
-        <div className="juba-card overflow-hidden">
+        <div className="card overflow-hidden">
           <div className="border-b border-[rgba(7,7,9,.08)] bg-[#ededff] px-6 py-4">
             <div className="flex items-center gap-2">
               <span className="text-[rgba(32,33,39,.52)]">●</span>
@@ -467,7 +467,7 @@ export default function PlanPage() {
                 </div>
                 <button
                   onClick={() => router.push(`/lesson/${lesson.id}`)}
-                  className="juba-primary-button px-3 py-1 text-xs tracking-[.12em] uppercase"
+                  className="btn btn-primary px-3 py-1 text-xs tracking-[.12em] uppercase"
                 >
                   {t('resume')}
                 </button>
@@ -484,7 +484,7 @@ export default function PlanPage() {
 
       {/* ── Completion test result ── */}
       {plan.completion_test_taken && (
-        <div className="juba-card space-y-2 px-6 py-4">
+        <div className="card space-y-2 px-6 py-4">
           <p className="text-[rgba(32,33,39,.52)] text-xs font-black tracking-[.12em] uppercase">
             {t('levelTestResult')}
           </p>
