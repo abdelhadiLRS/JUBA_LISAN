@@ -285,8 +285,18 @@ _I18N = {
 
 
 def _normalize_locale(target_language: str) -> str:
-    """Normalize common locale spellings before resolving language data."""
-    return (target_language or "en-GB").strip().replace("_", "-") or "en-GB"
+    """Normalize locale separators and casing before resolving language data."""
+    raw = (target_language or "en-GB").strip().replace("_", "-") or "en-GB"
+    parts = raw.split("-")
+    normalized = [parts[0].lower()]
+    for part in parts[1:]:
+        if len(part) == 4 and part.isalpha():
+            normalized.append(part.title())
+        elif (len(part) == 2 and part.isalpha()) or (len(part) == 3 and part.isdigit()):
+            normalized.append(part.upper())
+        else:
+            normalized.append(part.lower())
+    return "-".join(normalized)
 
 
 def _resolve_module(target_language: str) -> object:
