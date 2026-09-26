@@ -164,6 +164,7 @@ function ListeningPage() {
   }, [loadNext, activeLanguage?.code])
 
   async function handleGenerate() {
+    setError('')
     const voice =
       typeof window !== 'undefined'
         ? (localStorage.getItem('tts_voice') ?? '')
@@ -205,6 +206,7 @@ function ListeningPage() {
             ? tCommon('noActivePlan')
             : t('errorLoading')
         )
+        setPageState('idle')
       }
     } catch (err) {
       if (err instanceof Error && err.name === 'AbortError') return
