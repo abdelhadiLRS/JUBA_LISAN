@@ -7,6 +7,7 @@ import { BookOpenCheck, Target, Trophy } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { PageLoading } from '@/components/ui/page-loading'
 import { apiFetch } from '@/lib/api'
+import { subscribeToLearningProgressUpdated } from '@/lib/learning-progress'
 import { useLanguageStore } from '@/store/language'
 import NoPlanBanner from '@/components/plan/NoPlanBanner'
 import {
@@ -181,6 +182,7 @@ export default function ProgressPage() {
   const [levelUnits, setLevelUnits] = useState<CurriculumUnit[]>([])
   const [flashcards, setFlashcards] = useState<FlashcardProgress[]>([])
   const [showAllLevels, setShowAllLevels] = useState(false)
+  const [refreshToken, setRefreshToken] = useState(0)
 
   useEffect(() => {
     async function load() {
@@ -204,7 +206,13 @@ export default function ProgressPage() {
       }
     }
     void load()
-  }, [activeLanguage?.code])
+  }, [activeLanguage?.code, refreshToken])
+
+  useEffect(() => {
+    return subscribeToLearningProgressUpdated(() => {
+      setRefreshToken((value) => value + 1)
+    })
+  }, [])
 
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
 
