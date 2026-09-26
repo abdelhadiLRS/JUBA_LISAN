@@ -185,7 +185,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       document.removeEventListener('pointerdown', handlePointerDown)
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [])
+  }, [openTopMenu])
 
   const renderTopGroup = (group: NavGroup) => {
     const active = group.items.some((item) => isItemActive(item.href))
