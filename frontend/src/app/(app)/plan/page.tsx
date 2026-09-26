@@ -319,7 +319,7 @@ export default function PlanPage() {
     <div className="container-xl page-body py-4">
       {/* ── Header ── */}
       <div className="card overflow-hidden">
-        <div className="flex items-center gap-2 border-b border-[rgba(7,7,9,.08)] bg-[#ededff] px-6 py-4">
+        <div className="flex items-center gap-2 border-b border bg-[#ededff] px-6 py-4">
           <span className="text-[rgba(32,33,39,.52)]">●</span>
           <span className="text-[rgba(32,33,39,.52)] text-xs font-black tracking-[.12em] uppercase">
             {t('learningRoadmap')}
@@ -361,7 +361,7 @@ export default function PlanPage() {
       {/* ── Unit list ── */}
       <div className="space-y-2">
         {units.length === 0 && (
-          <div className="border-[rgba(7,7,9,.08)] bg-[#fff] space-y-3 border px-6 py-10 text-center">
+          <div className="border bg-[#fff] space-y-3 border px-6 py-10 text-center">
             <p className="text-[rgba(32,33,39,.52)] font-sans text-xs tracking-[.12em] uppercase">
               {t('noUnitsForLevel', { level })}
             </p>
@@ -441,7 +441,7 @@ export default function PlanPage() {
       {/* ── Pending lessons ── */}
       {pendingLessons.length > 0 && (
         <div className="card overflow-hidden">
-          <div className="border-b border-[rgba(7,7,9,.08)] bg-[#ededff] px-6 py-4">
+          <div className="border-b border bg-[#ededff] px-6 py-4">
             <div className="flex items-center gap-2">
               <span className="text-[rgba(32,33,39,.52)]">●</span>
               <span className="text-[rgba(32,33,39,.52)] text-xs font-black tracking-[.12em] uppercase">
