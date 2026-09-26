@@ -137,7 +137,12 @@
     "nativeHelpStudyTips": "Dicas de estudo",
     "nativeHelpWordNotes": "Notas de palavras",
     "nativeHelpPractice": "Prática",
-    "openMenu": "Abrir menu"
+    "openMenu": "Abrir menu",
+    "contact": "Contacto",
+    "menu": "Menu",
+    "logoutConfirm": "Tem a certeza de que pretende terminar sessão?",
+    "copy": "Copiar",
+    "copyPhrase": "Copiar frase"
   },
   "nav": {
     "primaryNavigation": "Navegação principal",
@@ -989,7 +994,6 @@
     "topicsFound": "{count, plural, one {# tópico encontrado} other {# tópicos encontrados}}",
     "topicCount": "{count, plural, =1 {# tópico} other {# tópicos}}",
     "levelRange": "A1 – C2"
-  
   },
   "vocabulary": {
     "title": "Vocabulário",
@@ -1954,5 +1958,18 @@
     "shortcutHint": "Espaço para revelar · 1–4 para avaliar",
     "spaceShortcut": "Espaço para revelar",
     "rateKeys": "1 Novamente · 2 Difícil · 3 Bom · 4 Fácil"
+  },
+  "translator": {
+    "detected": "Detetado",
+    "listen": "Ouvir",
+    "swap": "Trocar",
+    "translating": "A traduzir…",
+    "translationPlaceholder": "A tradução aparecerá aqui",
+    "save": "Guardar",
+    "translateNow": "Traduzir agora",
+    "visitorNote": "Os visitantes podem usar o tradutor sem iniciar sessão.",
+    "savedCloud": "Guardado na sua conta",
+    "savedLocal": "Guardado neste dispositivo",
+    "saving": "A guardar…"
   }
 }
