@@ -137,7 +137,12 @@
     "nativeHelpStudyTips": "Wskazówki do nauki",
     "nativeHelpWordNotes": "Notatki do słów",
     "nativeHelpPractice": "Ćwiczenie",
-    "openMenu": "Otwórz menu"
+    "openMenu": "Otwórz menu",
+    "contact": "Kontakt",
+    "menu": "Menu",
+    "logoutConfirm": "Czy na pewno chcesz się wylogować?",
+    "copy": "Kopiuj",
+    "copyPhrase": "Kopiuj frazę"
   },
   "nav": {
     "primaryNavigation": "Główna nawigacja",
@@ -989,7 +994,6 @@
     "topicsFound": "{count, plural, one {# temat znaleziony} few {# tematy znalezione} other {# tematów znalezionych}}",
     "topicCount": "{count, plural, =1 {# temat} few {# tematy} many {# tematów} other {# tematów}}",
     "levelRange": "A1 – C2"
-  
   },
   "vocabulary": {
     "title": "Centrum słownictwa",
@@ -1954,5 +1958,18 @@
     "shortcutHint": "Spacja, aby odkryć · 1–4, aby ocenić",
     "spaceShortcut": "Spacja, aby odkryć",
     "rateKeys": "1 Ponownie · 2 Trudne · 3 Dobrze · 4 Łatwe"
+  },
+  "translator": {
+    "detected": "Wykryto",
+    "listen": "Odtwórz",
+    "swap": "Zamień",
+    "translating": "Tłumaczenie…",
+    "translationPlaceholder": "Tłumaczenie pojawi się tutaj",
+    "save": "Zapisz",
+    "translateNow": "Tłumacz teraz",
+    "visitorNote": "Odwiedzający mogą korzystać z tłumacza bez logowania.",
+    "savedCloud": "Zapisano na koncie",
+    "savedLocal": "Zapisano na tym urządzeniu",
+    "saving": "Zapisywanie…"
   }
 }
