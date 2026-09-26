@@ -53,52 +53,34 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   return (
     <section dir={dir} aria-label="Languages available in JUBA LISAN" className="w-full rounded-[28px] border border-[#e7e8ef] bg-white/95 p-4 shadow-[0_16px_38px_rgba(32,33,58,.09)] sm:p-6">
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
-        <div>
+        <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
           <p className="text-[10px] font-black uppercase tracking-[.18em] text-[#635bff]">Explore languages</p>
-          <h3 className="mt-1 text-xl font-black tracking-tight text-[#202127] sm:text-2xl">One world. {LANGUAGES.length} languages.</h3>
+          <h3 className="mt-1 text-xl font-black tracking-tight text-[#202127] sm:text-2xl">Search the world. {LANGUAGES.length} languages.</h3>
         </div>
         <span className="rounded-full bg-[#eeedff] px-3 py-1.5 text-[10px] font-extrabold text-[#635bff]">{LANGUAGES.length} languages</span>
       </div>
-      <div className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-6 lg:grid-cols-4">
-        {LANGUAGES.map((language, index) => (
-          <div key={language.code} className="group flex min-w-0 flex-col items-center gap-2 text-center">
-            <div className="juba-waving-flag relative flex h-[66px] w-[92px] items-center justify-center sm:h-[76px] sm:w-[108px]" style={{ animationDelay: `${(index % 7) * -0.22}s` }}>
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
+        {LANGUAGES.map((language) => (
+          <div
+            key={language.code}
+            className={`group flex min-w-0 items-center gap-3 rounded-2xl border border-[#e9eaf2] bg-white px-3 py-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#c9c7ff] hover:bg-[#f8f7ff] hover:shadow-[0_8px_20px_rgba(32,33,58,.07)] ${dir === 'rtl' ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}
+          >
+            <div className="relative h-11 w-[62px] shrink-0 overflow-hidden rounded-lg border border-black/5 bg-[#f3f4f8] shadow-sm">
               <Image
                 src={`https://flagcdn.com/w160/${language.country}.png`}
                 alt={`${language.alt} flag`}
                 width={160}
                 height={120}
                 unoptimized
-                className="h-[54px] w-[82px] rounded-[5px] object-cover shadow-[0_8px_16px_rgba(25,35,65,.18)] transition-transform duration-300 group-hover:scale-110 sm:h-[62px] sm:w-[96px]"
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </div>
-            <span className="max-w-full break-words text-xs font-extrabold text-[#202127] sm:text-sm">{language.name}</span>
+            <span lang={language.code} dir="auto" className="min-w-0 flex-1 break-words text-sm font-extrabold text-[#202127]">
+              {language.name}
+            </span>
           </div>
         ))}
       </div>
-      <style jsx>{`
-        .juba-waving-flag {
-          transform-origin: 50% 45%;
-          animation: juba-flag-wave 4.2s ease-in-out infinite;
-        }
-        .juba-waving-flag::after {
-          content: "";
-          position: absolute;
-          inset: 7px 2px 1px;
-          z-index: -1;
-          border-radius: 8px;
-          background: rgba(32, 33, 58, .12);
-          filter: blur(9px);
-          transform: translateY(7px) scaleX(.88);
-        }
-        @keyframes juba-flag-wave {
-          0%, 100% { transform: perspective(500px) rotate(-2deg) skewY(-1deg); }
-          50% { transform: perspective(500px) rotate(2deg) skewY(1.5deg) translateY(-3px); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .juba-waving-flag { animation: none; }
-        }
-      `}</style>
     </section>
   )
 }
