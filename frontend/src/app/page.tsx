@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import Script from 'next/script'
 import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
@@ -306,11 +305,6 @@ export default async function Home() {
 @media(max-width:560px){.juba-reference-page .juba-games-showcase{padding:76px 14px}.juba-reference-page .juba-games-grid{grid-template-columns:1fr}.juba-reference-page .juba-ai-showcase{padding:75px 16px}.juba-reference-page .juba-ai-showcase-art{min-height:350px}.juba-reference-page .juba-ai-showcase-image{padding:24px}.juba-reference-page .juba-ai-chat-bubble{max-width:48%;font-size:9px}.juba-reference-page .juba-ai-showcase-copy h2{font-size:clamp(2rem,9vw,3rem);line-height:1.05}}
 ` }} />
 
-      <Script
-        id="juba-lisan-structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
 
       <LandingNav
         hasSession={hasSession}
@@ -350,18 +344,13 @@ export default async function Home() {
           </div>
 
           <div className="juba-ref-hero-art juba-landing-image-art">
-            <img
-              src="/landing/juba-new-hero.jfif"
+            <Image
+              src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/assets/Gemini_Generated_Image_u2l5zju2l5zju2l5.jfif"
               alt={t('heroTitle')}
+              width={900}
+              height={700}
               className="juba-landing-real-image juba-new-hero-photo"
-              loading="eager"
-              onError={(event) => {
-                const image = event.currentTarget
-                if (!image.dataset.fallback) {
-                  image.dataset.fallback = "1"
-                  image.src = "https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/assets/Gemini_Generated_Image_u2l5zju2l5zju2l5.jfif"
-                }
-              }}
+              priority
             />
           </div>
         </div>
@@ -490,18 +479,12 @@ export default async function Home() {
             </Link>
           </div>
           <div className="juba-ref-cta-device">
-            <img
-              src="/landing/juba-new-cta.jfif"
+            <Image
+              src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/assets/d5f40c2b-9c40-4dbc-8eb8-b3756fe60a4f.jfif"
               alt={t('ctaStart')}
+              width={760}
+              height={620}
               className="juba-landing-real-image juba-cta-real-image juba-new-cta-photo"
-              loading="lazy"
-              onError={(event) => {
-                const image = event.currentTarget
-                if (!image.dataset.fallback) {
-                  image.dataset.fallback = "1"
-                  image.src = "https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/assets/d5f40c2b-9c40-4dbc-8eb8-b3756fe60a4f.jfif"
-                }
-              }}
             />
           </div>
         </div>
