@@ -267,9 +267,10 @@ Language-specific guidance:
 }
 
 
-# Locale aliases for prompt overlays. Foundation languages use their ISO base
-# code directly, while locale-specific core languages resolve to their
-# canonical regional variant.
+# Locale aliases are resolved by the shared locale contract. Curated prompt
+# overlays remain local because their wording is deliberately prompt-specific.
+from app.services.locale import resolve_locale
+
 _LANGUAGE_PROMPT_OVERLAY_ALIASES: dict[str, str] = {
     "en": "en-GB",
     "de": "de-DE",
@@ -301,29 +302,13 @@ _LANGUAGE_PROMPT_OVERLAY_ALIASES: dict[str, str] = {
 
 
 def get_language_prompt_overlay(target_language: str) -> str:
-    """Return language-specific prompt guidance for a BCP-47-ish locale.
-
-    Core locales use curated overlays above. Foundation languages receive a
-    deterministic metadata-aware overlay so they never silently lose
-    language-specific generation constraints.
-    """
-    raw_locale = (target_language or "").strip().replace("_", "-") or "en-GB"
-    locale_parts = raw_locale.split("-")
-    normalized_parts = [locale_parts[0].lower()]
-    for part in locale_parts[1:]:
-        if len(part) == 4 and part.isalpha():
-            normalized_parts.append(part.title())
-        elif (len(part) == 2 and part.isalpha()) or (len(part) == 3 and part.isdigit()):
-            normalized_parts.append(part.upper())
-        else:
-            normalized_parts.append(part.lower())
-    locale = "-".join(normalized_parts)
-    base_language = locale.split("-")[0]
+    """Return language-specific prompt guidance using the shared locale resolver."""
+    resolution = resolve_locale(target_language)
+    locale = resolution.normalized
+    base_language = resolution.base
     canonical_language = _LANGUAGE_PROMPT_OVERLAY_ALIASES.get(locale, locale)
     if canonical_language not in _LANGUAGE_PROMPT_OVERLAYS:
-        canonical_language = _LANGUAGE_PROMPT_OVERLAY_ALIASES.get(
-            base_language, base_language
-        )
+        canonical_language = _LANGUAGE_PROMPT_OVERLAY_ALIASES.get(base_language, base_language)
     curated = _LANGUAGE_PROMPT_OVERLAYS.get(canonical_language)
     if curated:
         return curated
@@ -343,12 +328,12 @@ def get_language_prompt_overlay(target_language: str) -> str:
     length_guidance = get_comprehension_length_guidance(locale, 100)
 
     return (
-        "Language-specific guidance:\n"
-        f"- Generate standard {language_name}; do not substitute English or another language.\n"
-        f"- Preserve the target writing system ({script}) and its native orthography; do not transliterate unless explicitly requested.\n"
-        f"- Treat {spacing}; use native tokenisation and punctuation conventions.\n"
-        f"- For reading-length decisions, measure in {length_unit}; {length_guidance}.\n"
-        "- Keep grammar, vocabulary, register, and examples natural for the target language and CEFR level.\n"
+        "Language-specific guidance:\\n"
+        f"- Generate standard {language_name}; do not substitute English or another language.\\n"
+        f"- Preserve the target writing system ({script}) and its native orthography; do not transliterate unless explicitly requested.\\n"
+        f"- Treat {spacing}; use native tokenisation and punctuation conventions.\\n"
+        f"- For reading-length decisions, measure in {length_unit}; {length_guidance}.\\n"
+        "- Keep grammar, vocabulary, register, and examples natural for the target language and CEFR level.\\n"
         "- Do not invent language-specific rules when the supplied curriculum or exercise context does not establish them."
     )
 
