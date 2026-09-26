@@ -7671,12 +7671,54 @@ main [dir="rtl"] h3,
  * individual pages cannot introduce a second dashboard design.
  * -------------------------------------------------------------------------- */
 .juba-tabler-app {
+  /* Single authenticated design token set: Tabler color + typography. */
   --tblr-primary: #206bc4;
   --tblr-primary-rgb: 32,107,196;
+  --juba-app-font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --tblr-body-bg: #f5f7fb;
   --tblr-card-border-color: #e6e7e9;
   background: var(--tblr-body-bg) !important;
   color: #182433 !important;
+}
+
+.juba-tabler-app,
+.juba-tabler-app * {
+  font-family: var(--juba-app-font) !important;
+}
+.juba-tabler-app .ti {
+  font-family: "tabler-icons" !important;
+}
+.juba-tabler-app .text-dark,
+.juba-tabler-app .text-body,
+.juba-tabler-app .text-secondary,
+.juba-tabler-app .text-muted {
+  color: var(--tblr-body-color) !important;
+}
+.juba-tabler-app .text-primary {
+  color: var(--tblr-primary) !important;
+}
+.juba-tabler-app .page-title,
+.juba-tabler-app h1,
+.juba-tabler-app h2,
+.juba-tabler-app h3,
+.juba-tabler-app h4,
+.juba-tabler-app h5,
+.juba-tabler-app h6 {
+  color: var(--tblr-body-color) !important;
+  font-weight: 600;
+}
+.juba-tabler-app .card-title {
+  color: var(--tblr-body-color) !important;
+  font-weight: 600;
+}
+.juba-tabler-app .btn-primary {
+  background: var(--tblr-primary) !important;
+  border-color: var(--tblr-primary) !important;
+}
+.juba-tabler-app .form-control:focus,
+.juba-tabler-app .form-select:focus {
+  border-color: rgba(var(--tblr-primary-rgb), .55) !important;
+  box-shadow: 0 0 0 .2rem rgba(var(--tblr-primary-rgb), .12) !important;
 }
 
 .juba-tabler-app .page-body,
