@@ -27,6 +27,27 @@ PhrasebookCategory(id="identity_a1",level="A1",situation="Personal identity",ico
 PhrasebookCategory(id="family_a1",level="A1",situation="Family and possession",icon="👨‍👩‍👧",phrases=[PhrasebookEntry(text="Ini keluarga saya",context="this is my family",register="neutral"),PhrasebookEntry(text="Ini keluarga saya",context="this is my family",register="polite")]),
 PhrasebookCategory(id="routine_a1",level="A1",situation="Daily routine",icon="⏰",phrases=[PhrasebookEntry(text="Saya bekerja",context="I work",register="neutral"),PhrasebookEntry(text="Saya bekerja",context="I work",register="polite")]),
 ]
+
+_ADVANCED = [
+("past","Past events","A2","Talk about completed actions.","Kemarin saya pergi ke Bandung."),
+("future","Plans and intentions","A2","Express plans and intentions.","Besok saya akan belajar."),
+("comparatives","Comparisons and preferences","A2","Compare people, objects, and choices.","Kereta ini lebih cepat."),
+("requests","Polite requests","A2","Make polite requests and instructions.","Tolong ulangi sekali lagi."),
+("relative","Relative clauses with yang","B1","Combine information with yang.","Buku yang saya baca menarik."),
+("conditions","Conditions and consequences","B1","Express conditions and results.","Jika hujan, kami tinggal di rumah."),
+("reported","Reported information","B1","Report what another person said.","Dia mengatakan bahwa rapat dimulai pukul sembilan."),
+("causation","Cause and purpose","B2","Explain causes, purposes, and results.","Kami belajar agar dapat bekerja lebih baik."),
+("passive","Passive voice","B2","Focus on the object or result with passive forms.","Dokumen itu sudah dikirim."),
+("discourse","Discourse connectors","B2","Organize contrast, cause, and conclusion.","Namun, hasilnya belum final."),
+("formal","Formal register","C1","Adapt language to professional settings.","Mohon menyampaikan dokumen sebelum tanggal tersebut."),
+("evidence","Evidence and hedging","C1","State evidence and cautious claims.","Berdasarkan data, perubahan ini mungkin signifikan."),
+("nominalization","Academic nominalization","C1","Use dense noun phrases in formal prose.","Peningkatan kualitas memerlukan evaluasi."),
+("pragmatics","Pragmatic meaning","C2","Interpret implication and politeness.","Apakah Anda berkenan menunggu sebentar?"),
+("idioms","Idioms and figurative language","C2","Interpret figurative meaning in context.","Ia menjadi kambing hitam dalam masalah itu."),
+("argumentation","Advanced argumentation","C2","Build arguments with evidence and counterpoints.","Argumen tersebut kuat, meskipun datanya terbatas."),
+]
+GRAMMAR_TOPICS.extend([GrammarTopic(slug=s,title=t,level=l,category="grammar",summary=d,explanation=d,examples=[GrammarExample(text=e)]) for s,t,l,d,e in _ADVANCED])
+
 CURRICULUM={}
 for level in LEVELS:
  if level=="A1":
@@ -40,7 +61,7 @@ CurriculumUnit(id="id-a1-unit-6",level="A1",unit_number=6,title="Food and drink"
 CurriculumUnit(id="id-a1-unit-7",level="A1",unit_number=7,title="Places and location",grammar_points=["places-a1"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","speaking","listening","reading","writing","review"],competency_checklist=["Recognize the target pattern","Use it in a short exchange","Complete a controlled production task"],default_weeks=1),
 CurriculumUnit(id="id-a1-unit-8",level="A1",unit_number=8,title="A1 review and interaction",grammar_points=["review-a1"],vocabulary_set_ids=["review_a1"],lesson_types=["grammar","vocabulary","speaking","listening","reading","writing","review"],competency_checklist=["Recognize the target pattern","Use it in a short exchange","Complete a controlled production task"],default_weeks=1),
 ]
- else: CURRICULUM[level]=[CurriculumUnit(id=f"id-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Indonesian {level} communication",grammar_points=["progressive grammar and communication"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Build level-appropriate communication"],default_weeks=2)]
+ else:\n  base = ["past","future","comparatives","requests"] if level=="A2" else (["relative","conditions","reported","causation"] if level=="B1" else (["passive","discourse","causation","relative"] if level=="B2" else (["formal","evidence","nominalization","discourse"] if level=="C1" else ["pragmatics","idioms","argumentation","formal"])))\n  CURRICULUM[level]=[CurriculumUnit(id=f"id-{level.lower()}-unit-{i+1}",level=level,unit_number=i+1,title=f"Indonesian {level} · {topic}",grammar_points=[slug],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","reading","writing","speaking","listening","review"],competency_checklist=[f"Communicate at {level} level",f"Apply Indonesian grammar in context"],default_weeks=2) for i,(slug,topic) in enumerate([(x,next(t for s,t,*_ in _ADVANCED if s==x)) for x in base])]
 ASSESSMENT_BANK=[
 AssessmentQuestion(id="id-a1-001",skill="speaking",difficulty="A1",question="Which expression matches 'hello'?",options=["Halo","advanced academic phrase","unrelated expression","technical term"],correct="Halo"),
 AssessmentQuestion(id="id-a1-002",skill="vocabulary",difficulty="A1",question="Which expression matches 'my name is...'?",options=["Nama saya...","advanced academic phrase","unrelated expression","technical term"],correct="Nama saya..."),
