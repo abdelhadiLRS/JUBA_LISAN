@@ -449,7 +449,7 @@ const skillMasteryPriority: Record<SkillMastery['mastery_state'], number> = { st
     </div>
     {!completed && exercises.length > 0 && <div className="min-w-[180px]">
       <div className="flex items-center justify-between text-xs font-bold text-[rgba(32,33,39,.52)]"><span>{t('exerciseProgress', { current: currentExercise + 1, total: exercises.length })}</span><span>{progress}%</span></div>
-      <div className="mt-2 h-2 overflow-hidden rounded-full bg-[#f4f4f2]"><div className="h-full rounded-full bg-[#5862e2] transition-all" style={{width:`\${progress}%`}}/></div>
+      <div className="mt-2 h-2 overflow-hidden rounded-full bg-[#f4f4f2]"><div className="h-full rounded-full bg-[#5862e2] transition-all" style={{ width: `${progress}%` }}/></div>
     </div>}
   </div>
 </div><div className="mx-auto w-full max-w-5xl">
