@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { getToken } from './api'
-import { createChatConversation, getChatMessages, getLatestChatConversation, sendChatMessage, type ChatMessage } from './chat'
+import { createChatConversation, getChatConversations, getChatMessages, sendChatMessage, type ChatMessage } from './chat'
 
 const C={bg:'#F7F8FC',card:'#FFF',ink:'#171820',muted:'#777986',line:'#E6E7EF',primary:'#635BFF',soft:'#EEEDFF',navy:'#20213A',danger:'#B42318',success:'#067647'}
 
@@ -46,11 +46,7 @@ export default function SpeakConversation(){
     return()=>{active=false}
   },[])
 
-  const fetchConversations=async():Promise<Array<{id:number;title:string}>>=>{
-    const response=await getLatestChatConversation()
-    if(!response)return []
-    return [response]
-  }
+  const fetchConversations=async():Promise<Array<{id:number;title:string}>>=>getChatConversations()
 
   const openConversation=async(id:number)=>{
     if(busy||loading||id===conversationId)return
