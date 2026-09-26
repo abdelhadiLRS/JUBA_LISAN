@@ -295,6 +295,9 @@ def test_curriculum_distribution_uses_locale_aware_labels(requested_locale: str,
         ("fr", "French", "fr"),
         ("pt-BR", "European Portuguese", "pt"),
         ("de-DE", "German", "de"),
+        ("ar", "Arabic", "ar"),
+        ("hi-IN", "Hindi", "hi"),
+        ("zh-TW", "zh-TW", "zh"),
     ],
 )
 def test_language_helpers_normalize_common_locale_aliases(locale: str, expected_name: str, expected_iso: str):
@@ -340,14 +343,20 @@ def test_distribute_units_never_emits_invalid_schedule_dimensions():
 @pytest.mark.parametrize(
     ("locale", "expected_script", "expected_unit"),
     [
-        ("ar", "latin", "words"),
-        ("fa", "latin", "words"),
+        ("ar", "arabic", "words"),
+        ("fa", "arabic-persian", "words"),
         ("uk-UA", "cyrillic", "words"),
-        ("bn-BD", "latin", "words"),
+        ("bn-BD", "bengali", "words"),
+        ("hi-IN", "devanagari", "words"),
+        ("th-TH", "thai", "characters"),
+        ("zh-TW", "traditional-hanzi", "characters"),
     ],
 )
 def test_language_capability_aliases_cover_foundation_locales(locale, expected_script, expected_unit):
-    from app.services.language_helpers import get_language_script, get_reading_length_unit
+    from app.services.language_helpers import (
+        get_language_script,
+        get_reading_length_unit,
+    )
 
     assert get_language_script(locale) == expected_script
     assert get_reading_length_unit(locale) == expected_unit
