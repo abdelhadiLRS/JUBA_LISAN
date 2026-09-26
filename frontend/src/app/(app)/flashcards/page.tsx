@@ -148,9 +148,9 @@ export default function FlashcardsPage() {
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
 
   return (
-    <div className="page-body">
+    <div className="d-flex flex-column gap-4">
       {/* Header */}
-      <div className="page-header d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+      <div className="page-header d-flex flex-wrap align-items-center justify-content-between gap-3">
         <div className="d-flex align-items-center gap-2">
           <span className="text-[rgba(32,33,39,.52)]">●</span>
           <span className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
@@ -184,7 +184,7 @@ export default function FlashcardsPage() {
 
       {/* Generate panel */}
       {showGenerate && (
-        <div className="card overflow-hidden mb-4">
+        <div className="card overflow-hidden">
           <div className="card-header d-flex align-items-center gap-2">
             <span className="text-[rgba(32,33,39,.52)]">●</span>
             <span className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
