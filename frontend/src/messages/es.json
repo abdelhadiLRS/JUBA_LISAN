@@ -664,7 +664,9 @@
     "voiceTrialTitle": "Prueba una conversación real ahora",
     "voiceTrialDesc": "Habla con Lingu durante {minutes} minutos gratis. Tu tutor se adaptará al nivel que acabas de desbloquear.",
     "voiceTrialStart": "Empezar conversación gratis",
-    "voiceTrialSkip": "Saltar por ahora"
+    "voiceTrialSkip": "Saltar por ahora",
+    "evaluationFailed": "La evaluación ha fallado",
+    "planCreationFailed": "No se pudo crear el plan"
   },
   "plan": {
     "title": "Mi plan",
@@ -718,7 +720,10 @@
     "noPlanLabel": "EMPEZAR",
     "noPlanTitle": "Crea tu plan de estudio",
     "noPlanDesc": "Haz una evaluación rápida para descubrir tu nivel y obtener un plan de estudio personalizado.",
-    "noPlanHint": "Solo te llevará 10 minutos"
+    "noPlanHint": "Solo te llevará 10 minutos",
+    "startLearning": "Empezar a aprender",
+    "planLoadFailed": "No se pudo cargar el plan ({status})",
+    "loadFailed": "No se pudo cargar"
   },
   "lesson": {
     "loading": "Cargando lección...",
