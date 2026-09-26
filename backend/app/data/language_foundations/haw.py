@@ -21,6 +21,27 @@ PHRASEBOOK_CATEGORIES=[PhrasebookCategory(id="phrase_1_a1",level="A1",situation=
 PhrasebookCategory(id="phrase_2_a1",level="A1",situation="Daily life",icon="☀️",phrases=[PhrasebookEntry(text="Pehea ʻoe?",context="greetings",register="neutral"),PhrasebookEntry(text="Noho au ma Honolulu.",context="personal information",register="neutral"),PhrasebookEntry(text="Ke hana nei au i kēia lā.",context="daily routine",register="neutral")]),
 PhrasebookCategory(id="phrase_3_a1",level="A1",situation="Shopping",icon="🛒",phrases=[PhrasebookEntry(text="ʻEhia ke kumukūʻai?",context="asking price",register="neutral"),PhrasebookEntry(text="Makemake au i kēia.",context="requesting an item",register="neutral"),PhrasebookEntry(text="Makemake au i ka wai.",context="buying a drink",register="neutral")]),
 PhrasebookCategory(id="phrase_4_a1",level="A1",situation="Help and directions",icon="🧭",phrases=[PhrasebookEntry(text="E kōkua mai, e ʻoluʻolu.",context="asking for help",register="neutral"),PhrasebookEntry(text="Aia ka hale kūʻai ma hea?",context="asking a location",register="neutral"),PhrasebookEntry(text="ʻAʻole maopopo iaʻu.",context="clarification",register="neutral")])]
+
+_ADVANCED = [
+("past","Past and completed events","A2","Describe completed actions.","Ua hele au i ke kula i nehinei."),
+("future","Plans and intentions","A2","Express future events and intentions.","E hele ana au i ka hale kūʻai."),
+("comparison","Comparison and preference","A2","Compare people, places, and choices.","ʻOi aku ka nui o kēia hale."),
+("requests","Polite requests","A2","Make requests in everyday situations.","E ʻoluʻolu, e kali iki."),
+("relative","Relative descriptions","B1","Connect descriptions to nouns in longer sentences.","ʻO ka puke aʻu e heluhelu nei, he mea hoihoi ia."),
+("conditions","Conditions and consequences","B1","Express conditions and possibilities.","Inā ua ua, e noho kākou ma ka hale."),
+("reported","Reported information","B1","Report what another person said.","Ua ʻōlelo ʻo ia e hoʻi mai ana."),
+("cause","Cause and purpose","B2","Link causes, purposes, and results.","Ua aʻo ʻo ia i mea e kōkua ai i kona ʻohana."),
+("passive","Passive and focus","B2","Shift focus toward an action or result.","Ua kākau ʻia ka leka."),
+("discourse","Discourse connectors","B2","Organize connected explanations.","Eia naʻe, pono mākou e hoʻomau."),
+("formal","Formal register","C1","Adapt language to formal settings.","E ʻoluʻolu e hoʻouna mai i ka palapala."),
+("evidence","Evidence and cautious claims","C1","Qualify claims using evidence.","Ma muli o ka ʻikepili, he mea hiki paha kēia."),
+("nominal","Academic nominal style","C1","Handle dense formal noun phrases.","ʻO ka hoʻonui ʻana i ka ʻike he pahuhopu nui."),
+("pragmatics","Pragmatics and implied meaning","C2","Interpret politeness and implication.","Hiki paha iā ʻoe ke kali iki?"),
+("idioms","Idioms and figurative language","C2","Interpret culturally grounded expressions.","He mea ʻono ka ʻōlelo i kekahi manawa."),
+("rhetoric","Advanced rhetoric","C2","Build nuanced arguments across genres.","ʻOiai he ikaika ka manaʻo, pono nō ka hōʻike."),
+]
+GRAMMAR_TOPICS.extend([GrammarTopic(slug=s,title=t,level=l,category="grammar",summary=d,explanation=d,examples=[GrammarExample(text=e)]) for s,t,l,d,e in _ADVANCED])
+
 CURRICULUM={"A1":[CurriculumUnit(id="haw-a1-unit-1",level="A1",unit_number=1,title="Greetings and identity",grammar_points=["Personal pronouns"],vocabulary_set_ids=["unit_1_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Handle greetings and identity in simple conversations"],default_weeks=1),
 CurriculumUnit(id="haw-a1-unit-2",level="A1",unit_number=2,title="Personal information",grammar_points=["He/ʻo identification"],vocabulary_set_ids=["unit_2_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Handle personal information in simple conversations"],default_weeks=1),
 CurriculumUnit(id="haw-a1-unit-3",level="A1",unit_number=3,title="Family",grammar_points=["Present actions"],vocabulary_set_ids=["unit_3_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Handle family in simple conversations"],default_weeks=1),
@@ -30,7 +51,8 @@ CurriculumUnit(id="haw-a1-unit-6",level="A1",unit_number=6,title="Food and shopp
 CurriculumUnit(id="haw-a1-unit-7",level="A1",unit_number=7,title="Places and directions",grammar_points=["Location"],vocabulary_set_ids=["unit_7_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Handle places and directions in simple conversations"],default_weeks=1),
 CurriculumUnit(id="haw-a1-unit-8",level="A1",unit_number=8,title="Communication",grammar_points=["Requests"],vocabulary_set_ids=["unit_8_a1"],lesson_types=["grammar","vocabulary","listening","speaking","review"],competency_checklist=["Handle communication in simple conversations"],default_weeks=1)]}
 for level in LEVELS[1:]:
-    CURRICULUM[level]=[CurriculumUnit(id=f"haw-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Hawaiian {level} progression",grammar_points=["level grammar"],vocabulary_set_ids=["unit_1_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=[f"Build {level} communication"],default_weeks=2)]
+    groups = {"A2":["past","future","comparison","requests"],"B1":["relative","conditions","reported","cause"],"B2":["passive","discourse","cause","relative"],"C1":["formal","evidence","nominal","discourse"],"C2":["pragmatics","idioms","rhetoric","formal"]}[level]
+    CURRICULUM[level]=[CurriculumUnit(id=f"haw-{level.lower()}-unit-{i+1}",level=level,unit_number=i+1,title=f"Hawaiian {level} · {next(t for s,t,*_ in _ADVANCED if s==slug)}",grammar_points=[slug],vocabulary_set_ids=["unit_1_a1"],lesson_types=["grammar","vocabulary","reading","writing","speaking","listening","review"],competency_checklist=[f"Communicate at {level} level",f"Apply Hawaiian grammar in context"],default_weeks=2) for i,slug in enumerate(groups)]
 ASSESSMENT_BANK=[AssessmentQuestion(id="haw-a1-001",skill="vocabulary",difficulty="A1",question="You meet someone and want to greet them. Which Hawaiian expression should you use?",options=["aloha","inoa","makuahine","hale"],correct="aloha"),
 AssessmentQuestion(id="haw-a1-002",skill="communication",difficulty="A1",question="Someone asks for your name. Which Hawaiian word means “name”?",options=["inoa","noho","hana","wai"],correct="inoa"),
 AssessmentQuestion(id="haw-a1-003",skill="vocabulary",difficulty="A1",question="You are talking about your mother. Which Hawaiian word means “mother”?",options=["makuahine","hale","hana","kōkua"],correct="makuahine"),
