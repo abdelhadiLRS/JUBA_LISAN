@@ -69,7 +69,7 @@ _VOCAB=[
 ("society_b1","Society","B1",[("ҷомеа","noun","society","Ҷомеа тағйир меёбад."),("шаҳрванд","noun","citizen","Ҳар шаҳрванд ҳуқуқ дорад."),("ҳуқуқ","noun","right","Ҳуқуқи инсон бояд ҳифз шавад."),("масъулият","noun","responsibility","Ин вазифа масъулияти калон дорад.")]),
 ]
 VOCABULARY_SETS=[
-VocabularySet(id=i,level=l,topic=t,unit_ref=f"tg-{l.lower()}-unit-{n}",words=[VocabularyEntry(word=w,pos=p,definition=d,example=e) for w,p,d,e in words])
+VocabularySet(id=i,level=l,topic=t,unit_ref=f"tg-{l.lower()}-unit-{((n-1)%8)+1}",words=[VocabularyEntry(word=w,pos=p,definition=d,example=e) for w,p,d,e in words])
 for n,(i,t,l,words) in enumerate(_VOCAB,1)
 ]
 PHRASEBOOK_CATEGORIES=[
