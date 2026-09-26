@@ -989,7 +989,6 @@
     "topicsFound": "{count, plural, one {# tema encontrado} other {# temas encontrados}}",
     "topicCount": "{count, plural, =1 {# tema} other {# temas}}",
     "levelRange": "A1 – C2"
-  
   },
   "vocabulary": {
     "title": "Vocabulario",
