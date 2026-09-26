@@ -97,6 +97,9 @@
     "openMenu": "Menu openen"
   },
   "nav": {
+    "learning": "Leren",
+    "practice": "Oefenen",
+    "studyTools": "Studietools",
     "home": "Home",
     "myPlan": "Mijn plan",
     "progress": "Voortgang",
