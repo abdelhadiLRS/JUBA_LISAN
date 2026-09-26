@@ -598,7 +598,13 @@
     "levelTestScoreLine": "Score : {score} sur {total}",
     "levelTestReady": "Vous êtes prêt pour le niveau suivant",
     "levelTestReadyDesc": "Vous avez réussi le test de niveau. Continuez votre plan d’apprentissage.",
-    "refresh": "Actualiser le tableau de bord"
+    "refresh": "Actualiser le tableau de bord",
+    "historyRanges": {
+      "week": "Semaine",
+      "month": "Mois",
+      "all": "Tout"
+    },
+    "minutes": "min"
   },
   "assessment": {
     "title": "Évaluation",
