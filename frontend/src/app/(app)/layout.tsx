@@ -286,9 +286,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     </nav>
   )
 
-  const activePageLabel = (() => {
+  const activeNavigation = (() => {
     const allItems = [...mainNavItems, ...navGroups.flatMap((group) => group.items), ...bottomNavItems]
-    return allItems.find((item) => isItemActive(item.href))?.label ?? 'JUBA LISAN'
+    const activeItem = allItems.find((item) => isItemActive(item.href))
+    const activeGroup = navGroups.find((group) => group.items.some((item) => isItemActive(item.href)))
+    return {
+      label: activeItem?.label ?? 'JUBA LISAN',
+      groupLabel: activeGroup?.label,
+      icon: activeItem ? (NAV_ICONS[activeItem.href] ?? 'ti-circle') : 'ti-home',
+    }
   })()
 
   return (
@@ -318,10 +324,25 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
         </header>
         <div className="juba-page-context bg-white border-bottom">
-          <div className="container-xl py-3 d-flex align-items-center justify-content-between gap-3">
-            <div>
-              <div className="text-uppercase text-secondary small fw-bold">JUBA LISAN</div>
-              <div className="fs-3 fw-bold text-dark">{activePageLabel}</div>
+          <div className="container-xl py-3">
+            <div className="d-flex align-items-center justify-content-between gap-3">
+              <div className="d-flex align-items-center gap-3 min-w-0">
+                <div className="avatar avatar-md rounded-2 bg-primary-lt text-primary flex-shrink-0" aria-hidden="true">
+                  <i className={'ti ' + activeNavigation.icon + ' icon'} />
+                </div>
+                <div className="min-w-0">
+                  <div className="d-flex align-items-center gap-2 text-uppercase text-secondary small fw-bold">
+                    <span>JUBA LISAN</span>
+                    {activeNavigation.groupLabel && (
+                      <>
+                        <span aria-hidden="true">/</span>
+                        <span className="text-truncate">{activeNavigation.groupLabel}</span>
+                      </>
+                    )}
+                  </div>
+                  <h1 className="fs-3 fw-bold text-dark mb-0 text-truncate">{activeNavigation.label}</h1>
+                </div>
+              </div>
             </div>
           </div>
         </div>
