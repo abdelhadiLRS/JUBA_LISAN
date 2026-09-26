@@ -534,6 +534,8 @@ def test_language_helpers_normalize_common_locale_aliases(
         ("fa", "standard Persian"),
         ("he", "Modern Hebrew"),
         ("th-TH", "standard Thai"),
+        ("el-GR", "Modern Greek"),
+        ("el", "Modern Greek"),
         ("ro-RO", "standard Romanian"),
         ("uk-UA", "standard Ukrainian"),
         ("bn-BD", "standard Bengali"),
