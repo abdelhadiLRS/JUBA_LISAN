@@ -286,3 +286,19 @@ def test_curriculum_distribution_uses_locale_aware_labels(requested_locale: str,
     slots = curriculum_dispatcher.distribute_units(units[:1], 1, 2, requested_locale)
     assert slots
     assert expected_title in slots[0]["title"]
+
+
+@pytest.mark.parametrize(
+    ("locale", "expected_name", "expected_iso"),
+    [
+        ("en_US", "English (US)", "en"),
+        ("fr", "French", "fr"),
+        ("pt-BR", "European Portuguese", "pt"),
+        ("de-DE", "German", "de"),
+    ],
+)
+def test_language_helpers_normalize_common_locale_aliases(locale: str, expected_name: str, expected_iso: str):
+    from app.services.language_helpers import get_iso639, get_language_name
+
+    assert get_language_name(locale) == expected_name
+    assert get_iso639(locale) == expected_iso
