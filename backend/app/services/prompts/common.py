@@ -46,6 +46,13 @@ Language-specific guidance:
 - Prefer Portugal usage such as telemóvel, autocarro, pequeno-almoço, and comboio.
 - Pay close attention to European Portuguese clitic placement, contractions, accents, and register.
 """.strip(),
+    "pt-BR": """
+Language-specific guidance:
+- Use standard Brazilian Portuguese consistently.
+- Prefer Brazilian spelling, vocabulary, and grammar; do not mix European Portuguese forms unless explicitly comparing variants.
+- Prefer common Brazilian usage such as celular, ônibus, café da manhã, and trem where contextually appropriate.
+- Pay close attention to Brazilian pronoun usage, contractions, accents, and register.
+""".strip(),
     "fr-FR": """
 Language-specific guidance:
 - Use standard French from France consistently.
@@ -149,6 +156,12 @@ Language-specific guidance:
 - Use Taiwan Standard Mandarin consistently.
 - Use traditional Chinese characters as the primary writing system. Use pinyin only as pronunciation support when appropriate.
 - Avoid simplified-character forms and Mainland-specific vocabulary unless explicitly comparing variants.
+""".strip(),
+    "zh-Hant": """
+Language-specific guidance:
+- Use standard Traditional Chinese and preserve traditional characters.
+- Do not silently convert to simplified characters; use region-specific vocabulary only when the locale makes it clear.
+- Use pinyin only as pronunciation support when appropriate.
 """.strip(),
     "hi": """
 Language-specific guidance:
@@ -277,6 +290,11 @@ _LANGUAGE_PROMPT_OVERLAY_ALIASES: dict[str, str] = {
     "fi": "fi-FI",
     "cs": "cs-CZ",
     "el": "el-GR",
+    "pt-BR": "pt-BR",
+    "zh-Hant": "zh-Hant",
+    "zh-Hant-TW": "zh-TW",
+    "zh-Hant-HK": "zh-Hant",
+    "zh-Hans": "zh-CN",
 }
 
 
