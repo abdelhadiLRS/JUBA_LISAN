@@ -88,7 +88,6 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
         "self_name": "Ελληνικά",
         "iso639": "el",
     },
-    "tr": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "ar": {"name": "Arabic", "self_name": "العربية", "iso639": "ar"},
     "tr": {"name": "Turkish", "self_name": "Türkçe", "iso639": "tr"},
     "ro": {"name": "Romanian", "self_name": "Română", "iso639": "ro"},
@@ -164,7 +163,6 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
     "or": {"name": "Odia", "self_name": "ଓଡ଼ିଆ", "iso639": "or"},
     "tg": {"name": "Tajik", "self_name": "Тоҷикӣ", "iso639": "tg"},
     "su": {"name": "Sundanese", "self_name": "Basa Sunda", "iso639": "su"},
-    "ti": {"name": "Tigrinya", "self_name": "ትግርኛ", "iso639": "ti"},
     "suq": {"name": "Suri", "self_name": "Suri", "iso639": "suq"},
     "to": {"name": "Tongan", "self_name": "Lea fakatonga", "iso639": "to"},
 }
