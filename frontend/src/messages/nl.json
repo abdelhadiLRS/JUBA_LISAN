@@ -137,7 +137,12 @@
     "nativeHelpStudyTips": "Studietips",
     "nativeHelpWordNotes": "Woordnotities",
     "nativeHelpPractice": "Oefening",
-    "openMenu": "Menu openen"
+    "openMenu": "Menu openen",
+    "contact": "Contact",
+    "menu": "Menu",
+    "logoutConfirm": "Weet je zeker dat je wilt uitloggen?",
+    "copy": "Kopiëren",
+    "copyPhrase": "Zin kopiëren"
   },
   "nav": {
     "primaryNavigation": "Hoofdnavigatie",
@@ -989,7 +994,6 @@
     "topicsFound": "{count, plural, one {# onderwerp gevonden} other {# onderwerpen gevonden}}",
     "topicCount": "{count, plural, =1 {# onderwerp} other {# onderwerpen}}",
     "levelRange": "A1 – C2"
-  
   },
   "vocabulary": {
     "title": "Woordenschatcentrum",
@@ -1954,5 +1958,18 @@
     "shortcutHint": "Spatie om te onthullen · 1–4 om te beoordelen",
     "spaceShortcut": "Spatie om te onthullen",
     "rateKeys": "1 Opnieuw · 2 Moeilijk · 3 Goed · 4 Makkelijk"
+  },
+  "translator": {
+    "detected": "Gedetecteerd",
+    "listen": "Luisteren",
+    "swap": "Wisselen",
+    "translating": "Vertalen…",
+    "translationPlaceholder": "De vertaling verschijnt hier",
+    "save": "Opslaan",
+    "translateNow": "Nu vertalen",
+    "visitorNote": "Bezoekers kunnen de vertaler gebruiken zonder in te loggen.",
+    "savedCloud": "Opgeslagen in je account",
+    "savedLocal": "Op dit apparaat opgeslagen",
+    "saving": "Opslaan…"
   }
 }
