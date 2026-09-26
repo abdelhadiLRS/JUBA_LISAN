@@ -279,8 +279,8 @@ export default function CoachPage() {
               {scenarios.map((scenario) => (
                 <Link key={scenario.key} href={scenario.href} className="rounded-[28px] border border p-4 transition hover:-translate-y-0.5 hover:border-[#5862e2] hover:bg-[#ededff]">
                   <span className="text-2xl">{scenario.icon}</span>
-                  <p className="mt-3 text-sm font-black text-[#202127]">{t(`scenarios.\${scenario.key}.title`)}</p>
-                  <p className="mt-1 text-xs leading-5 text-[rgba(32,33,39,.52)]">{t(`scenarios.\${scenario.key}.description`)}</p>
+                  <p className="mt-3 text-sm font-black text-[#202127]">{t(`scenarios.${scenario.key}.title`)}</p>
+                  <p className="mt-1 text-xs leading-5 text-[rgba(32,33,39,.52)]">{t(`scenarios.${scenario.key}.description`)}</p>
                 </Link>
               ))}
             </div>
