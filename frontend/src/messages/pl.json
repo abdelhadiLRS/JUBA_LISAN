@@ -282,6 +282,34 @@
     "learningLabel": "Nauka",
     "cefrLabel": "CEFR",
     "coachLabel": "Trener"
+  ,
+      "learner": "Osoba ucząca się",
+      "minutes": "min",
+      "reviewEyebrow": "Inteligentna powtórka",
+      "reviewTitle": "Masz powtórki do wykonania",
+      "reviewAction": "Rozpocznij powtórkę",
+      "reviewSkill": "Sugerowana umiejętność",
+      "learningLabel": "Nauka",
+      "cefrLabel": "CEFR",
+      "coachLabel": "Trener",
+      "scenarios": {
+        "airport": {
+          "title": "Lotnisko",
+          "description": "Odprawa, pytanie o drogę i radzenie sobie z opóźnieniami."
+        },
+        "jobInterview": {
+          "title": "Rozmowa kwalifikacyjna",
+          "description": "Ćwicz odpowiedzi, pewność siebie i słownictwo zawodowe."
+        },
+        "restaurant": {
+          "title": "Restauracja",
+          "description": "Zamawiaj naturalnie i prowadź prawdziwą rozmowę."
+        },
+        "hotel": {
+          "title": "Hotel",
+          "description": "Zarezerwuj pokój, rozwiązuj problemy i składaj prośby."
+        }
+      }
   },
   "settings": {
     "title": "Ustawienia",
