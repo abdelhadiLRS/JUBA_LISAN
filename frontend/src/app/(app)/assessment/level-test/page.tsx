@@ -243,7 +243,7 @@ export default function LevelTestPage() {
   if (step === 'error') {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-[rgba(7,7,9,.08)] bg-white w-full max-w-md border">
+        <div className="w-full max-w-md rounded-[26px] border border-[rgba(7,7,9,.08)] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
           <div className="border-[rgba(7,7,9,.08)] flex items-center gap-2 border-b px-6 py-4">
             <span className="text-[#202127] text-[rgba(32,33,39,.52)]">●</span>
             <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
@@ -312,7 +312,7 @@ export default function LevelTestPage() {
 
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-[rgba(7,7,9,.08)] bg-white w-full max-w-lg border">
+        <div className="w-full max-w-lg rounded-[26px] border border-[rgba(7,7,9,.08)] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
           {/* Header */}
           <div className="border-[rgba(7,7,9,.08)] flex items-center justify-between border-b px-6 py-4">
             <div className="flex items-center gap-2">
@@ -329,7 +329,7 @@ export default function LevelTestPage() {
               <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
                 Final Score
               </p>
-              <p className="text-[#202127] font-mono text-7xl font-bold tracking-widest">
+              <p className="text-[#202127] font-sans text-7xl font-bold tracking-widest">
                 {pct}%
               </p>
               <p className="text-[rgba(32,33,39,.52)] text-sm">
@@ -346,7 +346,7 @@ export default function LevelTestPage() {
                 const isWeak = skillPct < 60
                 return (
                   <div key={skill} className="flex items-center gap-3">
-                    <span className="text-[#202127] text-[rgba(32,33,39,.52)] w-6 text-center font-mono uppercase">
+                    <span className="text-[#202127] text-[rgba(32,33,39,.52)] w-6 text-center font-sans uppercase">
                       {SKILL_ICONS[skill] ?? skill[0].toUpperCase()}
                     </span>
                     <span className="text-[#202127] text-[rgba(32,33,39,.52)] w-24 font-semibold tracking-wide">
@@ -359,7 +359,7 @@ export default function LevelTestPage() {
                       />
                     </div>
                     <span
-                      className={`text-[#202127] w-16 text-right font-mono ${isWeak ? 'text-amber-500' : 'text-[#202127]'}`}
+                      className={`text-[#202127] w-16 text-right font-sans ${isWeak ? 'text-amber-500' : 'text-[#202127]'}`}
                     >
                       {v.correct}/{v.total} ({skillPct}%)
                       {isWeak && ' ◂'}
@@ -373,7 +373,7 @@ export default function LevelTestPage() {
             <div className="border-[rgba(7,7,9,.08)] space-y-3 rounded-[18px] border p-6">
               <div className="flex items-center gap-2">
                 <span className="text-xl">{rec.icon}</span>
-                <span className="text-[#202127] text-[#202127] font-mono font-bold tracking-widest uppercase">
+                <span className="text-[#202127] text-[#202127] font-sans font-bold tracking-widest uppercase">
                   Recommendation: {rec.label}
                 </span>
               </div>
@@ -413,9 +413,9 @@ export default function LevelTestPage() {
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center p-6">
-      <div className="border-[rgba(7,7,9,.08)] bg-white w-full max-w-lg border">
+      <div className="w-full max-w-lg rounded-[26px] border border-[rgba(7,7,9,.08)] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
         {/* Header */}
-        <div className="border-[rgba(7,7,9,.08)] space-y-3 border-b px-6 py-4">
+        <div className="border-[rgba(7,7,9,.08)] space-y-3 border-b" px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-[#202127] text-[rgba(32,33,39,.52)]">●</span>
@@ -436,10 +436,10 @@ export default function LevelTestPage() {
           </div>
           {/* Skill badge */}
           <div className="flex items-center gap-2">
-            <span className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] border-2 px-2 py-0.5 font-semibold tracking-wide">
+            <span className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide">
               {skillLabel}
             </span>
-            <span className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] border-2 px-2 py-0.5 font-semibold tracking-wide">
+            <span className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] border px-2 py-0.5 font-semibold tracking-wide">
               {q.difficulty}
             </span>
           </div>
@@ -501,7 +501,7 @@ export default function LevelTestPage() {
           ) : (
             <div className="space-y-3">
               <div
-                className={`border-2 p-3 text-sm leading-relaxed ${
+                className={`border p-3 text-sm leading-relaxed ${
                   answers.at(-1)?.correct
                     ? 'border-green-500 text-green-600 dark:text-green-400'
                     : 'border-red-500 text-red-500'
