@@ -128,7 +128,7 @@ function UnitCompetencyBlock({
       </div>
 
       {/* Progress bar */}
-      <div className="bg-[rgba(7,7,9,.08)] h-0.5">
+      <div className="bg-light h-0.5">
         <div
           className="bg-primary h-full transition-all"
           style={{ width: `${pct}%` }}
@@ -309,7 +309,7 @@ export default function ProgressPage() {
             <span className="text-body font-mono text-base font-bold tracking-widest">
               {t('skills')} · {t('mastered')}
             </span>
-            <div className="bg-[rgba(7,7,9,.08)] h-px flex-1" />
+            <div className="bg-light h-px flex-1" />
             <span className="text-secondary font-mono text-xs">
               {summary.mastery.tracked_items} {tVocab('words')}
             </span>
@@ -319,7 +319,7 @@ export default function ProgressPage() {
               <span className="text-secondary font-sans tracking-[.12em] uppercase">{t('accuracy')}</span>
               <span className="text-body font-mono text-lg font-bold">{Math.round(summary.mastery.average_score * 100)}%</span>
             </div>
-            <div className="bg-[rgba(7,7,9,.08)] mb-5 h-1.5">
+            <div className="bg-light mb-5 h-1.5">
               <div className="bg-primary h-full transition-all" style={{ width: (Math.round(summary.mastery.average_score * 100) + '%') }} />
             </div>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
@@ -343,7 +343,7 @@ export default function ProgressPage() {
                     <span className="text-secondary font-sans tracking-[.12em] uppercase">{skill}</span>
                     <span className="text-secondary font-mono text-xs">{Math.round(data.average_score * 100)}% · {data.items}</span>
                   </div>
-                  <div className="bg-[rgba(7,7,9,.08)] h-1.5">
+                  <div className="bg-light h-1.5">
                     <div className="bg-primary h-full transition-all" style={{ width: (Math.round(data.average_score * 100) + '%') }} />
                   </div>
                 </div>
@@ -356,13 +356,13 @@ export default function ProgressPage() {
       {levelUnits.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-warning-lt text-[#9a6500]"><i className="ti ti-book-2 icon" aria-hidden="true" /></span>
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-warning-lt text-warning"><i className="ti ti-book-2 icon" aria-hidden="true" /></span>
             <span className="text-body font-mono text-base font-bold tracking-widest">
               {cefrLevel
                 ? t('competenciesSection', { level: cefrLevel })
                 : t('competencies')}
             </span>
-            <div className="bg-[rgba(7,7,9,.08)] h-px flex-1" />
+            <div className="bg-light h-px flex-1" />
           </div>
 
           {levelUnits.map((unit) => (
@@ -400,7 +400,7 @@ export default function ProgressPage() {
                   ? t('vocabularyHeader', { level: cefrLevel })
                   : t('vocabularySection')}
             </span>
-            <div className="bg-[rgba(7,7,9,.08)] h-px flex-1" />
+            <div className="bg-light h-px flex-1" />
             <span className="text-secondary font-mono">
               {totalMastered}/{totalDisplayWords} {tVocab('words')}
             </span>
@@ -411,8 +411,8 @@ export default function ProgressPage() {
               onClick={() => setShowAllLevels(false)}
               className={`text-secondary border px-3 py-1.5 font-sans tracking-[.12em] uppercase transition-colors ${
                 !showAllLevels
-                  ? 'border-[#202127] text-body bg-primary-lt'
-                  : 'border text-secondary hover:border-[#202127] hover:text-body'
+                  ? 'border-secondary-subtle text-body bg-primary-lt'
+                  : 'border text-secondary hover:border-secondary-subtle hover:text-body'
               }`}
             >
               {t('currentLevelOnly')}
@@ -421,8 +421,8 @@ export default function ProgressPage() {
               onClick={() => setShowAllLevels(true)}
               className={`text-secondary border px-3 py-1.5 font-sans tracking-[.12em] uppercase transition-colors ${
                 showAllLevels
-                  ? 'border-[#202127] text-body bg-primary-lt'
-                  : 'border text-secondary hover:border-[#202127] hover:text-body'
+                  ? 'border-secondary-subtle text-body bg-primary-lt'
+                  : 'border text-secondary hover:border-secondary-subtle hover:text-body'
               }`}
             >
               {t('allLevels')}
@@ -447,7 +447,7 @@ export default function ProgressPage() {
                     {s.topic}
                   </Link>
                   <div className="flex items-center gap-3">
-                    <div className="bg-[rgba(7,7,9,.08)] h-1.5 w-24">
+                    <div className="bg-light h-1.5 w-24">
                       <div
                         className="bg-primary h-full transition-all"
                         style={{ width: `${pct}%` }}
@@ -471,7 +471,7 @@ export default function ProgressPage() {
             <span className="text-body font-mono text-base font-bold tracking-widest">
               {t('skills')}
             </span>
-            <div className="bg-[rgba(7,7,9,.08)] h-px flex-1" />
+            <div className="bg-light h-px flex-1" />
           </div>
           <div className="border bg-white divide-fl-border divide-y border">
             {Object.entries(summary.skills).map(([skill, value]) => (
@@ -479,7 +479,7 @@ export default function ProgressPage() {
                 <span className="text-secondary w-24 font-sans tracking-[.12em] uppercase">
                   {skill}
                 </span>
-                <div className="bg-[rgba(7,7,9,.08)] h-1.5 flex-1">
+                <div className="bg-light h-1.5 flex-1">
                   <div
                     className="bg-primary h-full"
                     style={{ width: `${Math.round(value * 100)}%` }}
