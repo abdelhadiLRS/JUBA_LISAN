@@ -475,7 +475,8 @@
     "levelTestCompleted": "Test de nivel finalizat",
     "levelTestScoreLine": "Scor: {score} din {total}",
     "levelTestReady": "Ești pregătit pentru nivelul următor",
-    "levelTestReadyDesc": "Ai finalizat testul de nivel. Continuă planul de învățare."
+    "levelTestReadyDesc": "Ai finalizat testul de nivel. Continuă planul de învățare.",
+    "refresh": "Reîmprospătează tabloul de bord"
   },
   "assessment": {
     "title": "Evaluare",
