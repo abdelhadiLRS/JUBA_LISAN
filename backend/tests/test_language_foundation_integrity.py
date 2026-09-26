@@ -325,6 +325,25 @@ def test_language_helpers_normalize_common_locale_aliases(locale: str, expected_
         ("th-TH", "standard Thai"),
     ],
 )
+@pytest.mark.parametrize(
+    ("locale", "expected_fragment"),
+    [
+        ("ro-RO", "standard Romanian"),
+        ("uk-UA", "standard Ukrainian"),
+        ("bn-BD", "standard Bengali"),
+        ("ur-PK", "standard Urdu"),
+        ("lo-LA", "standard Lao"),
+        ("bo-CN", "standard Tibetan"),
+        ("dz-BT", "standard Dzongkha"),
+        ("ka-GE", "standard Georgian"),
+    ],
+)
+def test_prompt_overlay_covers_additional_foundation_locales(locale, expected_fragment):
+    from app.services.prompts.common import get_language_prompt_overlay
+
+    assert expected_fragment in get_language_prompt_overlay(locale)
+
+
 def test_prompt_overlay_normalizes_locale_aliases(locale: str, expected_fragment: str):
     from app.services.prompts.common import get_language_prompt_overlay
 
