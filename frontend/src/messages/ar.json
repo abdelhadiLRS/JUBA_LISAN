@@ -398,8 +398,8 @@
     "tutor": "المدرّس"
   },
   "assessment": {
-    "evaluationFailed": "تعذّر تقييم الاختبار.",
-    "planCreationFailed": "تعذّر إنشاء خطة التعلّم.",
+    "evaluationFailed": "فشل التقييم",
+    "planCreationFailed": "تعذر إنشاء الخطة",
     "title": "التقييم",
     "subtitle": "تحديد مستوى CEFR",
     "intro": "سنطرح عليك بعض الأسئلة لتحديد مستواك في اللغة.",
@@ -692,14 +692,14 @@
     "pendingLessons": "الدروس المعلقة",
     "resume": "متابعة",
     "lessonsHeader": "الدروس · {count}",
-    "startLearning": "بدء التعلم",
+    "startLearning": "ابدأ التعلم",
     "reviewLesson": "مراجعة",
     "noPlanLabel": "ابدأ الآن",
     "noPlanTitle": "أنشئ خطة دراستك",
     "noPlanDesc": "أجرِ تقييمًا سريعًا لاكتشاف مستواك والحصول على مسار تعلم مخصص.",
     "noPlanHint": "يستغرق نحو 10 دقائق",
-    "planLoadFailed": "فشل تحميل الخطة: {status}",
-    "loadFailed": "فشل تحميل الخطة"
+    "planLoadFailed": "تعذر تحميل الخطة ({status})",
+    "loadFailed": "تعذر التحميل"
   },
   "contact": {
     "description": "هل لديك سؤال أو تحتاج إلى مساعدة أو ترغب في مشاركة ملاحظاتك؟ أرسل لنا رسالتك وسيرد عليك فريق JUBA LISAN.",
