@@ -357,6 +357,12 @@ def test_distribute_units_never_emits_invalid_schedule_dimensions():
         ("hi-IN", "devanagari", "words"),
         ("th-TH", "thai", "characters"),
         ("zh-TW", "traditional-hanzi", "characters"),
+        ("ro-RO", "latin", "words"),
+        ("lo-LA", "lao", "characters"),
+        ("bo-CN", "tibetan", "characters"),
+        ("dz-BT", "tibetan", "characters"),
+        ("or-IN", "odia", "words"),
+        ("suq", "latin", "words"),
     ],
 )
 def test_language_capability_aliases_cover_foundation_locales(locale, expected_script, expected_unit):
