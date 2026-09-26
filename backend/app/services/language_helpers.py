@@ -245,7 +245,6 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
     "am": {"script": "geez", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "ti": {"script": "geez", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "vi": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
-}
 
     # Foundation-language defaults. These entries keep generation from silently
     # falling back to English-script assumptions when a foundation is selected.
@@ -303,6 +302,7 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
     "su": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "ti": {"script": "geez", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "suq": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+}
 
 _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "de": "de-DE",
