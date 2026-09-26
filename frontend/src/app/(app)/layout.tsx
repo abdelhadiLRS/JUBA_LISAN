@@ -100,21 +100,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [resendSent, setResendSent] = useState(false)
   const [openTopMenu, setOpenTopMenu] = useState<string | null>(null)
   const topMenuRef = useRef<HTMLElement | null>(null)
-  const menuCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  const openMenu = (key: string) => {
-    if (menuCloseTimer.current) clearTimeout(menuCloseTimer.current)
-    setOpenTopMenu(key)
-  }
-
-  const scheduleMenuClose = () => {
-    if (menuCloseTimer.current) clearTimeout(menuCloseTimer.current)
-    menuCloseTimer.current = setTimeout(() => setOpenTopMenu(null), 140)
-  }
-
-  const cancelMenuClose = () => {
-    if (menuCloseTimer.current) clearTimeout(menuCloseTimer.current)
-  }
 
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled)
@@ -204,8 +189,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <div
         key={group.key}
         className="nav-item dropdown position-relative"
-        onMouseEnter={() => openMenu(group.key)}
-        onMouseLeave={scheduleMenuClose}
       >
         <button
           type="button"
@@ -213,7 +196,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           aria-haspopup="menu"
           aria-expanded={open}
           onClick={() => {
-            cancelMenuClose()
             setOpenTopMenu(open ? null : group.key)
           }}
         >
@@ -222,10 +204,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </button>
         {open && (
           <div
-            className="dropdown-menu show position-absolute start-0 mt-1 p-2 juba-top-dropdown"
+            className="dropdown-menu show position-absolute mt-1 p-2 juba-top-dropdown shadow"
+            style={{ insetInlineStart: 0, minWidth: 220, maxHeight: "min(70vh, 520px)", overflowY: "auto", zIndex: 1055 }}
             role="menu"
-            onMouseEnter={cancelMenuClose}
-            onMouseLeave={scheduleMenuClose}
           >
             {group.items.map(renderTopItem)}
           </div>
@@ -235,7 +216,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   const renderTopNavigation = () => (
-    <nav ref={topMenuRef} aria-label="Primary navigation" className="navbar-nav flex-row flex-wrap align-items-center gap-1">
+    <nav ref={topMenuRef} aria-label="Primary navigation" className="navbar-nav flex-row flex-nowrap align-items-center gap-1 overflow-visible">
       {mainNavItems.map(renderTopItem)}
       {navGroups.map(renderTopGroup)}
       <div className="vr mx-1 d-none d-xl-block" />
