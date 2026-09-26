@@ -345,11 +345,11 @@ export default async function Home() {
 
           <div className="juba-ref-hero-art juba-landing-image-art">
             <Image
-              src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/assets/Gemini_Generated_Image_u2l5zju2l5zju2l5.jfif"
+              src="/landing/juba-hero-characters.svg"
               alt={t('heroTitle')}
               width={900}
               height={700}
-              className="juba-landing-real-image juba-new-hero-photo"
+              className="juba-landing-real-image"
               priority
             />
           </div>
@@ -480,11 +480,11 @@ export default async function Home() {
           </div>
           <div className="juba-ref-cta-device">
             <Image
-              src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/assets/d5f40c2b-9c40-4dbc-8eb8-b3756fe60a4f.jfif"
+              src="/landing/juba-learning-journey.svg"
               alt={t('ctaStart')}
               width={760}
               height={620}
-              className="juba-landing-real-image juba-cta-real-image juba-new-cta-photo"
+              className="juba-landing-real-image juba-cta-real-image"
             />
           </div>
         </div>
