@@ -11,7 +11,6 @@ import { apiFetch } from '@/lib/api'
 import { mapUser } from '@/lib/mappers'
 import { useLogout } from '@/hooks/useLogout'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
-import { ContactFormModal } from '@/components/ui/contact-form-modal'
 import { LoadingBar } from '@/components/ui/loading-bar'
 import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
@@ -104,16 +103,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [openTopMenu, setOpenTopMenu] = useState<string | null>(null)
   const topMenuRef = useRef<HTMLElement | null>(null)
 
-  const PREMIUM_HREFS = new Set([
-    '/chat',
-    '/listening',
-    '/reading',
-    '/conversation',
-  ])
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled)
-  const [trialDaysLeft, setTrialDaysLeft] = useState(0)
-
   async function handleResendVerification() {
     const res = await apiFetch('/api/auth/resend-verification', {
       method: 'POST',
@@ -171,36 +162,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     router.replace('/admin')
   }, [initializing, isAdmin, isAdminRoute, router])
 
-  useEffect(() => {
-    const endsAt =
-      user?.subscription_status === 'trialing'
-        ? user.subscription_ends_at
-        : user?.freemium_trial_ends_at
-
-    const shouldCountDown =
-      stripeEnabled &&
-      Boolean(endsAt) &&
-      user?.subscription_status !== 'active'
-
-    if (!shouldCountDown || !endsAt) {
-      setTrialDaysLeft(0)
-      return
-    }
-
-    const update = () => {
-      const remainingMs = new Date(endsAt).getTime() - Date.now()
-      setTrialDaysLeft(
-        remainingMs > 0
-          ? Math.max(1, Math.ceil(remainingMs / (1000 * 60 * 60 * 24)))
-          : 0
-      )
-    }
-
-    update()
-    const interval = window.setInterval(update, 60 * 1000)
-    return () => window.clearInterval(interval)
-  }, [stripeEnabled, user?.subscription_status, user?.subscription_ends_at, user?.freemium_trial_ends_at])
-
   const isItemActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
 
   const renderTopItem = (item: NavItem) => {
@@ -243,6 +204,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <button
           type="button"
           className={'nav-link dropdown-toggle d-flex align-items-center gap-2 border-0 px-3 py-2 ' + (active ? 'text-primary fw-semibold' : 'text-secondary')}
+          aria-haspopup="menu"
           aria-expanded={open}
           onClick={() => setOpenTopMenu(open ? null : group.key)}
         >
@@ -317,7 +279,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </main>
       </div>
       <LoadingBar />
-      <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
       <ConfirmDialog open={logoutConfirm} title={tCommon('logoutConfirmTitle')} message={tCommon('logoutConfirmMessage')} confirmLabel={tCommon('logout')} onConfirm={handleLogout} onCancel={() => setLogoutConfirm(false)} />
     </div>
   )
