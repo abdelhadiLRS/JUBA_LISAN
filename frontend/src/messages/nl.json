@@ -256,7 +256,16 @@
       "error": "Ongeldige of verlopen link",
       "backToLogin": "Terug naar inloggen"
     }
-  },
+  ,
+    "scenarios": {
+      "airport": {"title": "Luchthaven", "description": "Check in, vraag de weg en ga om met vertragingen."},
+      "jobInterview": {"title": "Sollicitatiegesprek", "description": "Oefen antwoorden, zelfvertrouwen en professionele woordenschat."},
+      "restaurant": {"title": "Restaurant", "description": "Bestel natuurlijk en voer een echt gesprek."},
+      "hotel": {"title": "Hotel", "description": "Boek een kamer, los problemen op en doe verzoeken."}
+    },
+    "learningLabel": "Leren",
+    "cefrLabel": "CEFR",
+    "coachLabel": "Coach"},
   "settings": {
     "title": "Instellingen",
     "sectionAccount": "Account",
