@@ -176,6 +176,12 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
     "su": {"name": "Sundanese", "self_name": "Basa Sunda", "iso639": "su"},
     "suq": {"name": "Suri", "self_name": "Suri", "iso639": "suq"},
     "to": {"name": "Tongan", "self_name": "Lea fakatonga", "iso639": "to"},
+    "ceb": {"name": "Cebuano", "self_name": "Bisaya", "iso639": "ceb"},
+    "haw": {"name": "Hawaiian", "self_name": "ʻŌlelo Hawaiʻi", "iso639": "haw"},
+    "id": {"name": "Indonesian", "self_name": "Bahasa Indonesia", "iso639": "id"},
+    "sw": {"name": "Swahili", "self_name": "Kiswahili", "iso639": "sw"},
+    "km": {"name": "Khmer", "self_name": "ភាសាខ្មែរ", "iso639": "km"},
+    "kn": {"name": "Kannada", "self_name": "ಕನ್ನಡ", "iso639": "kn"},
 }
 
 _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
@@ -374,6 +380,12 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
     "su": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "ti": {"script": "geez", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
     "suq": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "ceb": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "haw": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "id": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "sw": {"script": "latin", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
+    "km": {"script": "khmer", "romanization": "", "uses_word_spacing": False, "reading_length_unit": "characters"},
+    "kn": {"script": "kannada", "romanization": "", "uses_word_spacing": True, "reading_length_unit": "words"},
 }
 
 _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
@@ -459,7 +471,7 @@ _FOUNDATION_CODES = frozenset({
     "so", "zu", "xh", "rw", "ig", "mg", "ny", "sn", "st", "fy", "co", "fa",
     "fil", "hi", "th", "bs", "tk", "bn", "mn", "ku", "lo", "jv", "as", "ay",
     "be", "bo", "ca", "ee", "dz", "et", "fj", "gn", "or", "tg", "su", "ti",
-    "suq", "to",
+    "suq", "to", "ceb", "haw", "id", "sw", "km", "kn",
 })
 
 
