@@ -34,12 +34,12 @@ export default function SettingsPage() {
   const [deleting, setDeleting] = useState(false)
 
   const navItems = [
-    { href: '#account', label: t('sectionAccount'), icon: User },
-    { href: '#preferences', label: t('sectionAppearance'), icon: Palette },
-    { href: '#voice', label: t('sectionConversation'), icon: Volume2 },
-    { href: '#plan', label: t('sectionUsageLimits'), icon: CreditCard },
-    { href: '#community', label: t('sectionReview'), icon: MessageSquareText },
-    { href: '#legal', label: t('sectionLegal'), icon: Globe2 },
+    { href: '#account', label: t('sectionAccount'), icon: 'user' },
+    { href: '#preferences', label: t('sectionAppearance'), icon: 'palette' },
+    { href: '#voice', label: t('sectionConversation'), icon: 'volume' },
+    { href: '#plan', label: t('sectionUsageLimits'), icon: 'credit-card' },
+    { href: '#community', label: t('sectionReview'), icon: 'message-circle-2' },
+    { href: '#legal', label: t('sectionLegal'), icon: 'world' },
   ]
 
   async function handleDeleteAccount() {
@@ -67,13 +67,13 @@ export default function SettingsPage() {
           href="/settings/languages"
           label={t('languagesManage')}
           description={t('sectionLanguages')}
-          icon={Globe2}
+          icon="world"
         />
         <SettingsActionCard
           href="/settings/memories"
           label={t('memoryManage')}
           description={t('sectionMemory')}
-          icon={Bot}
+          icon="robot"
         />
       </div>
 
