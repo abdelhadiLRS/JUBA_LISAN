@@ -35,6 +35,7 @@ import OnboardingTour from '@/components/tour/OnboardingTour'
 import WhatsNew from '@/components/whats-new/WhatsNew'
 import { PageLoading } from '@/components/ui/page-loading'
 import { SubscriptionPlanButtons } from '@/components/billing/SubscriptionPlanButtons'
+import { subscribeToLearningProgressUpdated } from '@/lib/learning-progress'
 
 interface TodayLessonItem {
   id: number | null
@@ -241,6 +242,16 @@ export default function DashboardPage() {
       window.removeEventListener('focus', handleFocus)
       document.removeEventListener('visibilitychange', handleVisibility)
     }
+  }, [user, accessToken, refreshDashboardData])
+
+  // Lesson and assessment routes publish a progress event after a successful
+  // completion. Revalidate immediately so XP, streak, accuracy, plan state,
+  // vocabulary and the activity chart stay in sync without navigation/reload.
+  useEffect(() => {
+    if (!user || !accessToken) return
+    return subscribeToLearningProgressUpdated(() => {
+      void refreshDashboardData()
+    })
   }, [user, accessToken, refreshDashboardData])
 
   async function changeHistoryRange(range: 'week' | 'month' | 'all') {
