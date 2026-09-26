@@ -33,7 +33,7 @@ def test_registered_foundations_import_and_expose_curriculum():
     for language, module_name in curriculum_dispatcher._LANG_MODULES.items():
         try:
             module = importlib.import_module(module_name)
-        except Exception as exc:  # pragma: no cover - failure detail is asserted below
+        except Exception as exc:  # pragma: no cover
             failures.append(f"{language}: import failed: {exc}")
             continue
 
@@ -43,8 +43,7 @@ def test_registered_foundations_import_and_expose_curriculum():
             continue
 
         for level in curriculum_dispatcher.CEFR_LEVELS:
-            units = curriculum.get(level, [])
-            if not units:
+            if not curriculum.get(level, []):
                 failures.append(f"{language}: {level} has no curriculum units")
 
     assert not failures, "\n".join(failures)
@@ -69,7 +68,6 @@ def test_registered_foundations_have_no_dangling_unit_references():
             for item in vocabulary_sets
             if getattr(item, "id", None)
         }
-
         all_units = {
             unit.id: unit
             for units in getattr(module, "CURRICULUM", {}).values()
@@ -101,9 +99,6 @@ def test_registered_foundations_have_no_dangling_unit_references():
                         f"{language}/{level}/{unit.id}: missing vocabulary {sorted(missing_vocab)}"
                     )
 
-                # Vocabulary sets are reusable learning assets. A unit may
-                # legitimately reuse a set whose primary unit_ref is different.
-                # Validate the set itself instead of requiring one-to-one mapping.
                 for vocab_id in unit.vocabulary_set_ids:
                     vocab = vocabulary_by_id.get(vocab_id)
                     if vocab and vocab.unit_ref not in all_units:
@@ -133,6 +128,12 @@ def test_registered_foundations_have_no_dangling_unit_references():
                 failures.append(f"{language}/{vocab.id}: invalid vocabulary level {vocab.level}")
             if vocab.unit_ref not in all_units:
                 failures.append(f"{language}/{vocab.id}: missing primary unit {vocab.unit_ref}")
+            words = [entry.word for entry in vocab.words]
+            duplicates = sorted({word for word in words if words.count(word) > 1})
+            if duplicates:
+                failures.append(
+                    f"{language}/{vocab.id}: duplicate words in vocabulary set {duplicates}"
+                )
             for entry in vocab.words:
                 if entry.pos not in ALLOWED_POS:
                     failures.append(f"{language}/{vocab.id}: invalid part of speech {entry.pos!r}")
@@ -153,9 +154,21 @@ def test_registered_foundations_have_valid_phrasebook_references():
         for category in getattr(module, "PHRASEBOOK_CATEGORIES", []):
             if category.level not in curriculum_dispatcher.CEFR_LEVELS:
                 failures.append(f"{language}: invalid phrasebook level {category.level}")
+
+            phrase_texts = [phrase.text for phrase in category.phrases]
+            duplicate_phrases = sorted(
+                {phrase for phrase in phrase_texts if phrase_texts.count(phrase) > 1}
+            )
+            if duplicate_phrases:
+                failures.append(
+                    f"{language}/{category.id}: duplicate phrases {duplicate_phrases}"
+                )
+
             for phrase in category.phrases:
                 if phrase.register not in ALLOWED_REGISTERS:
-                    failures.append(f"{language}/{category.id}: invalid phrase register {phrase.register}")
+                    failures.append(
+                        f"{language}/{category.id}: invalid phrase register {phrase.register}"
+                    )
                 if phrase.unit_ref and phrase.unit_ref not in unit_ids:
                     failures.append(
                         f"{language}/{category.id}: missing phrase unit {phrase.unit_ref}"
