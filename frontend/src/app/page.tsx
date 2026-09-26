@@ -128,7 +128,7 @@ export default async function Home() {
   position:relative;display:flex;align-items:center;justify-content:center;
   min-height:520px;background:transparent!important;overflow:visible;
 }
-.juba-reference-page .juba-landing-real-image{
+.juba-reference-page .juba-new-hero-photo{max-width:760px;border-radius:34px;border:2px solid #183022;box-shadow:10px 11px 0 #183022;object-fit:cover}\n.juba-reference-page .juba-new-cta-photo{border-radius:30px;border:2px solid #183022;object-fit:cover}\n.juba-reference-page .juba-landing-real-image{
   display:block;width:100%;height:auto;max-width:900px;
   filter:drop-shadow(0 18px 0 rgba(24,48,34,.08));
   animation:juba-landing-float 6s ease-in-out infinite;
@@ -348,13 +348,11 @@ export default async function Home() {
           </div>
 
           <div className="juba-ref-hero-art juba-landing-image-art">
-            <Image
-              src="/landing/juba-hero-characters.svg"
+            <img
+              src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/assets/Gemini_Generated_Image_u2l5zju2l5zju2l5.jfif"
               alt={t('heroTitle')}
-              width={900}
-              height={620}
-              priority
-              className="juba-landing-real-image"
+              className="juba-landing-real-image juba-new-hero-photo"
+              loading="eager"
             />
           </div>
         </div>
@@ -483,12 +481,11 @@ export default async function Home() {
             </Link>
           </div>
           <div className="juba-ref-cta-device">
-            <Image
-              src="/landing/juba-learning-journey.svg"
+            <img
+              src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/assets/d5f40c2b-9c40-4dbc-8eb8-b3756fe60a4f.jfif"
               alt={t('ctaStart')}
-              width={520}
-              height={520}
-              className="juba-landing-real-image juba-cta-real-image"
+              className="juba-landing-real-image juba-cta-real-image juba-new-cta-photo"
+              loading="lazy"
             />
           </div>
         </div>
