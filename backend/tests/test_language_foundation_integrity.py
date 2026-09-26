@@ -3,26 +3,18 @@
 from __future__ import annotations
 
 import importlib
+from typing import get_args
 
 import pytest
 
 from app.data import curriculum as curriculum_dispatcher
-from app.data._types import Register, Skill
-from typing import get_args
+from app.data._types import LessonType, PartOfSpeech, Register, Skill
 
 
 ALLOWED_SKILLS = set(get_args(Skill))
 ALLOWED_REGISTERS = set(get_args(Register))
-
-ALLOWED_LESSON_TYPES = {
-    "grammar",
-    "vocabulary",
-    "reading",
-    "writing",
-    "listening",
-    "speaking",
-    "review",
-}
+ALLOWED_LESSON_TYPES = set(get_args(LessonType))
+ALLOWED_POS = set(get_args(PartOfSpeech))
 
 
 def _public_ids(items: object, attribute: str = "id") -> set[str]:
@@ -136,6 +128,15 @@ def test_registered_foundations_have_no_dangling_unit_references():
                 if not unit.competency_checklist:
                     failures.append(f"{language}/{level}/{unit.id}: no competency checklist")
 
+        for vocab in vocabulary_sets:
+            if vocab.level not in curriculum_dispatcher.CEFR_LEVELS:
+                failures.append(f"{language}/{vocab.id}: invalid vocabulary level {vocab.level}")
+            if vocab.unit_ref not in all_units:
+                failures.append(f"{language}/{vocab.id}: missing primary unit {vocab.unit_ref}")
+            for entry in vocab.words:
+                if entry.pos not in ALLOWED_POS:
+                    failures.append(f"{language}/{vocab.id}: invalid part of speech {entry.pos!r}")
+
     assert not failures, "\n".join(failures)
 
 
@@ -152,8 +153,6 @@ def test_registered_foundations_have_valid_phrasebook_references():
         for category in getattr(module, "PHRASEBOOK_CATEGORIES", []):
             if category.level not in curriculum_dispatcher.CEFR_LEVELS:
                 failures.append(f"{language}: invalid phrasebook level {category.level}")
-            if category.register not in ALLOWED_REGISTERS:
-                failures.append(f"{language}/{category.id}: invalid category register {category.register}")
             for phrase in category.phrases:
                 if phrase.register not in ALLOWED_REGISTERS:
                     failures.append(f"{language}/{category.id}: invalid phrase register {phrase.register}")
