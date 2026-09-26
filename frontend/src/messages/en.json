@@ -354,6 +354,34 @@
     "learningLabel": "Learning",
     "cefrLabel": "CEFR",
     "coachLabel": "Coach"
+  ,
+      "learner": "Learner",
+      "minutes": "min",
+      "reviewEyebrow": "Smart review",
+      "reviewTitle": "You have due reviews",
+      "reviewAction": "Start review",
+      "reviewSkill": "Recommended skill",
+      "learningLabel": "Learning",
+      "cefrLabel": "CEFR",
+      "coachLabel": "Coach",
+      "scenarios": {
+        "airport": {
+          "title": "Airport",
+          "description": "Check in, ask for directions, handle delays."
+        },
+        "jobInterview": {
+          "title": "Job interview",
+          "description": "Practice answers, confidence and professional vocabulary."
+        },
+        "restaurant": {
+          "title": "Restaurant",
+          "description": "Order naturally and handle a real conversation."
+        },
+        "hotel": {
+          "title": "Hotel",
+          "description": "Book a room, solve problems and make requests."
+        }
+      }
   },
   "settings": {
     "title": "Settings",
