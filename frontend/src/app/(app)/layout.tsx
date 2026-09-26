@@ -49,7 +49,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const navGroups: NavGroup[] = [
     {
       key: 'learning',
-      label: 'Learning',
+      label: tNav('learning'),
       icon: 'ti-school',
       items: [
         { href: '/plan', label: tNav('myPlan') },
@@ -60,7 +60,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     },
     {
       key: 'practice',
-      label: 'Practice',
+      label: tNav('practice'),
       icon: 'ti-microphone-2',
       items: [
         { href: '/listening', label: tNav('listening'), premium: true },
@@ -73,7 +73,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     },
     {
       key: 'study-tools',
-      label: 'Study tools',
+      label: tNav('studyTools'),
       icon: 'ti-tool',
       items: [
         { href: '/flashcards', label: tNav('flashcards') },
@@ -250,7 +250,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <span>{group.label}</span>
         </button>
         {open && (
-          <div className="dropdown-menu show position-absolute start-0 mt-1 p-2" style={{ minWidth: 240 }}>
+          <div className="dropdown-menu show position-absolute start-0 mt-1 p-2" role="menu" style={{ minWidth: 240 }}>
             {group.items.map(renderTopItem)}
           </div>
         )}
