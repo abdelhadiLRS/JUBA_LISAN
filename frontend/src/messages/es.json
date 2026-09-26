@@ -137,7 +137,12 @@
     "nativeHelpStudyTips": "Consejos de estudio",
     "nativeHelpWordNotes": "Notas de palabras",
     "nativeHelpPractice": "Práctica",
-    "openMenu": "Abrir menú"
+    "openMenu": "Abrir menú",
+    "contact": "Contacto",
+    "menu": "Menú",
+    "logoutConfirm": "¿Seguro que quieres cerrar sesión?",
+    "copy": "Copiar",
+    "copyPhrase": "Copiar frase"
   },
   "nav": {
     "primaryNavigation": "Navegación principal",
@@ -1953,5 +1958,18 @@
     "shortcutHint": "Espacio para revelar · 1–4 para valorar",
     "spaceShortcut": "Espacio para revelar",
     "rateKeys": "1 Otra vez · 2 Difícil · 3 Bien · 4 Fácil"
+  },
+  "translator": {
+    "detected": "Detectado",
+    "listen": "Escuchar",
+    "swap": "Intercambiar",
+    "translating": "Traduciendo…",
+    "translationPlaceholder": "La traducción aparecerá aquí",
+    "save": "Guardar",
+    "translateNow": "Traducir ahora",
+    "visitorNote": "Los visitantes pueden usar el traductor sin iniciar sesión.",
+    "savedCloud": "Guardado en tu cuenta",
+    "savedLocal": "Guardado en este dispositivo",
+    "saving": "Guardando…"
   }
 }
