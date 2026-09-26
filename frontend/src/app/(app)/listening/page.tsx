@@ -559,7 +559,7 @@ function ListeningPage() {
   // ── Idle (no exercises available) ─────────────────────────────────────────
   if (pageState === 'idle') {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-6 md:px-8">
+      <div className="mx-auto max-w-4xl space-y-5">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-[#202127] font-sans text-sm font-bold tracking-widest uppercase">
             {t('title')}
