@@ -367,3 +367,97 @@ def test_language_capability_aliases_cover_foundation_locales(locale, expected_s
 
     assert get_language_script(locale) == expected_script
     assert get_reading_length_unit(locale) == expected_unit
+
+
+@pytest.mark.parametrize(
+    ("locale", "expected_fragments"),
+    [
+        ("ar", ["arabic", '"uses_word_spacing": true', '"reading_length_unit": "words"']),
+        ("zh-TW", ["traditional-hanzi", "pinyin", '"uses_word_spacing": false', '"reading_length_unit": "characters"']),
+        ("th-TH", ["thai", '"uses_word_spacing": false', '"reading_length_unit": "characters"']),
+    ],
+)
+def test_lesson_generation_exposes_language_capabilities_to_prompt_layer(locale, expected_fragments):
+    from app.services.lesson_generator import _language_capability_metadata
+
+    metadata = _language_capability_metadata(locale, "A1")
+    for fragment in expected_fragments:
+        assert fragment in metadata
+
+
+def test_lesson_prompt_builders_accept_language_capabilities():
+    from app.services.prompts.lesson import (
+        build_fill_blank_eval_prompt,
+        build_free_write_eval_prompt,
+        build_lesson_generation_prompt,
+        build_pronunciation_eval_prompt,
+        build_regenerate_exercise_prompt,
+    )
+
+    capability = '{"script":"arabic","uses_word_spacing":true,"reading_length_unit":"words"}'
+    generation = build_lesson_generation_prompt(
+        cefr_level="A1",
+        target_language_name="Arabic",
+        native_language_name="English",
+        lesson_type="reading",
+        topic="Greetings",
+        unit_id="a1-unit-1",
+        grammar_points="none",
+        vocabulary_set_ids="general",
+        day=1,
+        valid_slugs="",
+        language_prompt_overlay="Arabic overlay",
+        language_capabilities=capability,
+    )
+    assert capability in generation
+
+    fill = build_fill_blank_eval_prompt(
+        cefr_level="A1",
+        target_language_name="Arabic",
+        native_language_name="English",
+        question="___ أنا",
+        correct_answer="أنا",
+        student_answer="أنا",
+        language_prompt_overlay="Arabic overlay",
+        language_capabilities=capability,
+    )
+    assert capability in fill
+
+    writing = build_free_write_eval_prompt(
+        cefr_level="A1",
+        target_language_name="Arabic",
+        native_language_name="English",
+        prompt="اكتب جملة.",
+        criteria="grammar",
+        answer="أنا طالب.",
+        language_prompt_overlay="Arabic overlay",
+        language_capabilities=capability,
+    )
+    assert capability in writing
+
+    pronunciation = build_pronunciation_eval_prompt(
+        cefr_level="A1",
+        target_language_name="Arabic",
+        native_language_name="English",
+        target="مرحبا",
+        transcription="مرحبا",
+        language_prompt_overlay="Arabic overlay",
+        language_capabilities=capability,
+    )
+    assert capability in pronunciation
+
+    regenerate = build_regenerate_exercise_prompt(
+        cefr_level="A1",
+        target_language_name="Arabic",
+        native_language_name="English",
+        lesson_type="reading",
+        topic="Greetings",
+        exercise_type="multiple_choice",
+        lesson_explanation="{}",
+        lesson_vocabulary="[]",
+        invalid_exercise="{}",
+        options_schema='["a","b","c","d"]',
+        language_prompt_overlay="Arabic overlay",
+        language_capabilities=capability,
+    )
+    assert capability in regenerate
