@@ -1471,7 +1471,12 @@
     "ko-KR-description": "Coreeana vorbită în Coreea de Sud.",
     "zh-CN-description": "Chineză mandarină din China continentală, cu caractere simplificate.",
     "ar": "arabă",
-    "ar-description": "Modern Standard Arabic for global communication, study, and travel."
+    "ar-description": "Modern Standard Arabic for global communication, study, and travel.",
+    "fa-IR": "Persană",
+    "hi-IN": "Hindi",
+    "id-ID": "Indoneziană",
+    "ms-MY": "Malaeză",
+    "tr-TR": "Turcă"
   },
   "onboarding": {
     "title": "Alege-ți limba",
