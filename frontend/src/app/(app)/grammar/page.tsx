@@ -136,7 +136,7 @@ export default function GrammarIndexPage() {
               onClick={() => setActiveCategory('All')}
               className={`text-body border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                 activeCategory === 'All'
-                  ? 'border-[#202127] text-body bg-light'
+                  ? 'border-secondary-subtle text-body bg-light'
                   : 'border text-secondary hover:border-2 hover:text-body'
               }`}
             >
@@ -150,7 +150,7 @@ export default function GrammarIndexPage() {
                 }
                 className={`text-body border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                   activeCategory === cat
-                    ? 'border-[#202127] text-body bg-light'
+                    ? 'border-secondary-subtle text-body bg-light'
                     : 'border text-secondary hover:border-2 hover:text-body'
                 }`}
               >
@@ -176,7 +176,7 @@ export default function GrammarIndexPage() {
               <span className="text-body font-sans text-base font-bold tracking-widest">
                 {level}
               </span>
-              <div className="bg-[rgba(7,7,9,.08)] h-px flex-1" />
+              <div className="bg-light h-px flex-1" />
               <span className="text-body text-secondary font-sans">
                 {t('topicCount', { count: levelTopics.length })}
               </span>
