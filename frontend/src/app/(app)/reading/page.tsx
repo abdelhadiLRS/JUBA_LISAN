@@ -564,7 +564,7 @@ function ReadingPage() {
         </button>
       </div>
 
-      <FreemiumQuotaBanner feature="reading" className="mb-4" />
+      <FreemiumQuotaBanner feature="reading" />
 
       {freemiumExhausted ? (
         <PaywallBanner feature="reading" compact />
