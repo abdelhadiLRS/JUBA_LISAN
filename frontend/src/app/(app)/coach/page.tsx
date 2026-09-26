@@ -131,7 +131,7 @@ export default function CoachPage() {
       <div className="mx-auto max-w-7xl space-y-8">
         <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="page-pretitle mb-3 inline-flex items-center gap-2 rounded-full border border-[rgba(7,7,9,.08)] bg-[#ededff] px-3 py-1.5 text-[#373fb8]">
+            <div className="page-pretitle mb-3 inline-flex items-center gap-2 rounded-full border border bg-[#ededff] px-3 py-1.5 text-[#373fb8]">
               <BrainCircuit className="h-4 w-4" />
               {t('eyebrow')}
             </div>
@@ -146,7 +146,7 @@ export default function CoachPage() {
             type="button"
             onClick={() => { setRefreshing(true); load() }}
             disabled={refreshing}
-            className="inline-flex items-center justify-center gap-2 rounded-[20px] border border-[rgba(7,7,9,.08)] bg-white px-4 py-2.5 text-sm font-bold text-[#202127] transition hover:border-[#5862e2] disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded border border bg-white px-4 py-2.5 text-sm font-bold text-[#202127] transition hover:border-[#5862e2] disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             {t('refresh')}
@@ -156,7 +156,7 @@ export default function CoachPage() {
         <section className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
           <div className="card overflow-hidden p-6 sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-[#5862e2] text-[#202127] shadow-[0_12px_30px_rgba(43,45,90,.055)]">
+              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-[#5862e2] text-[#202127] ">
                 <i className="ti ti-sparkles icon" aria-hidden="true" />
                 <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full border border-[#fff] bg-[#fff3d1]" />
               </div>
@@ -167,10 +167,10 @@ export default function CoachPage() {
                   {t('insightDescription')}
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
-                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-[#5862e2] px-5 py-3 text-sm font-bold text-white shadow-[0_12px_30px_rgba(43,45,90,.055)] transition hover:opacity-90">
+                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded bg-[#5862e2] px-5 py-3 text-sm font-bold text-white  transition hover:opacity-90">
                     {t('startPractice')} <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border border-[rgba(7,7,9,.08)] px-5 py-3 text-sm font-bold text-[#202127] transition hover:bg-[#ededff]">
+                  <Link href="/plan" className="inline-flex items-center gap-2 rounded border border px-5 py-3 text-sm font-bold text-[#202127] transition hover:bg-[#ededff]">
                     {t('viewPlan')}
                   </Link>
                 </div>
@@ -205,7 +205,7 @@ export default function CoachPage() {
                   {smartReview.cefr_level ? ' · CEFR ' + smartReview.cefr_level : ''}
                 </p>
               </div>
-              <Link href="/games?review=1" className="inline-flex items-center justify-center gap-2 rounded-[20px] bg-[#5862e2] px-5 py-3 text-sm font-bold text-white shadow-[0_12px_30px_rgba(43,45,90,.055)] transition hover:opacity-90">
+              <Link href="/games?review=1" className="inline-flex items-center justify-center gap-2 rounded bg-[#5862e2] px-5 py-3 text-sm font-bold text-white  transition hover:opacity-90">
                 {reviewCopy.action} <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -226,7 +226,7 @@ export default function CoachPage() {
               </div>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
                 {(['new', 'learning', 'reviewing', 'weak', 'mastered'] as const).map((state) => (
-                  <div key={state} className="min-w-[68px] rounded-[20px] border border-[rgba(7,7,9,.08)] bg-[#ededff] px-3 py-2 text-center">
+                  <div key={state} className="min-w-[68px] rounded border border bg-[#ededff] px-3 py-2 text-center">
                     <p className="text-[10px] font-bold uppercase tracking-wider text-[rgba(32,33,39,.52)]">
                       {state === 'mastered' ? t('mastered') : state === 'new' ? t('notStarted') : t('inProgress')}
                     </p>
@@ -256,8 +256,8 @@ export default function CoachPage() {
             </div>
             <div className="space-y-3">
               {(plan.lessons ?? []).slice(0, 4).map((lesson, index) => (
-                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[28px] border border-[rgba(7,7,9,.08)] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[#5862e2]">
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[20px] ${lesson.is_completed ? 'bg-[#fff3d1] text-[#373fb8]' : 'bg-[#ededff] text-[#373fb8]'}`}>
+                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[28px] border border bg-white p-4 transition hover:-translate-y-0.5 hover:border-[#5862e2]">
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded ${lesson.is_completed ? 'bg-[#fff3d1] text-[#373fb8]' : 'bg-[#ededff] text-[#373fb8]'}`}>
                     {lesson.is_completed ? <CheckCircle2 className="h-5 w-5" /> : <span className="text-sm font-black">{index + 1}</span>}
                   </div>
                   <div className="min-w-0 flex-1">
@@ -267,7 +267,7 @@ export default function CoachPage() {
                   <ArrowRight className="h-4 w-4 text-[rgba(32,33,39,.52)] transition group-hover:translate-x-1" />
                 </Link>
               ))}
-              {!plan.lessons?.length && !loading && <p className="rounded-[28px] border border-dashed border-[rgba(7,7,9,.08)] p-6 text-center text-sm text-[rgba(32,33,39,.52)]">{t('assessmentPrompt')}</p>}
+              {!plan.lessons?.length && !loading && <p className="rounded-[28px] border border-dashed border p-6 text-center text-sm text-[rgba(32,33,39,.52)]">{t('assessmentPrompt')}</p>}
             </div>
           </div>
 
@@ -277,7 +277,7 @@ export default function CoachPage() {
             <p className="mt-2 text-sm leading-6 text-[rgba(32,33,39,.52)]">{t('roomsDescription')}</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
-                <Link key={scenario.title} href={scenario.href} className="rounded-[28px] border border-[rgba(7,7,9,.08)] p-4 transition hover:-translate-y-0.5 hover:border-[#5862e2] hover:bg-[#ededff]">
+                <Link key={scenario.title} href={scenario.href} className="rounded-[28px] border border p-4 transition hover:-translate-y-0.5 hover:border-[#5862e2] hover:bg-[#ededff]">
                   <span className="text-2xl">{scenario.icon}</span>
                   <p className="mt-3 text-sm font-black text-[#202127]">{scenario.title}</p>
                   <p className="mt-1 text-xs leading-5 text-[rgba(32,33,39,.52)]">{scenario.desc}</p>
@@ -287,7 +287,7 @@ export default function CoachPage() {
           </div>
         </section>
 
-        <footer className="flex flex-col gap-2 border-t border-[rgba(7,7,9,.08)] pt-6 text-xs text-[rgba(32,33,39,.52)] sm:flex-row sm:items-center sm:justify-between">
+        <footer className="flex flex-col gap-2 border-t border pt-6 text-xs text-[rgba(32,33,39,.52)] sm:flex-row sm:items-center sm:justify-between">
           <span>Learning {language?.name ? `· ${language.name}` : `· ${t('personalized')}`}</span>
           <span>CEFR {plan.cefr_level || t('adaptive')} · JUBA LISAN Coach</span>
         </footer>
@@ -310,7 +310,7 @@ function CoachCard({ icon, title, value, detail, href }: { icon: React.ReactNode
   return (
     <Link href={href} className="card group p-5">
       <div className="flex items-center justify-between">
-        <span className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-[#ededff] text-[#373fb8]">{icon}</span>
+        <span className="flex h-10 w-10 items-center justify-center rounded bg-[#ededff] text-[#373fb8]">{icon}</span>
         <ArrowRight className="h-4 w-4 text-[rgba(32,33,39,.52)] transition group-hover:translate-x-1" />
       </div>
       <p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-[rgba(32,33,39,.52)]">{title}</p>
