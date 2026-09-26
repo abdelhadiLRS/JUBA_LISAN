@@ -9,6 +9,8 @@ import pytest
 
 from app.data import curriculum as curriculum_dispatcher
 from app.data._types import LessonType, PartOfSpeech, Register, Skill
+from app.services.language_helpers import get_iso639, get_language_name, get_language_self_name
+from app.services.prompts.common import get_language_prompt_overlay
 
 
 ALLOWED_SKILLS = set(get_args(Skill))
@@ -678,3 +680,76 @@ def test_lesson_prompt_builders_accept_language_capabilities():
         language_capabilities=capability,
     )
     assert capability in regenerate
+
+
+def test_registered_languages_have_complete_display_metadata():
+    failures: list[str] = []
+    for language in curriculum_dispatcher._LANG_MODULES:
+        name = get_language_name(language)
+        self_name = get_language_self_name(language)
+        iso639 = get_iso639(language)
+        if not name.strip() or name == language:
+            failures.append(f"{language}: missing display name")
+        if not self_name.strip() or self_name == language:
+            failures.append(f"{language}: missing self name")
+        if not iso639.strip():
+            failures.append(f"{language}: missing ISO 639 code")
+    assert not failures, "\n".join(failures)
+
+
+@pytest.mark.parametrize(
+    ("locale", "expected_iso"),
+    [
+        ("hr-HR", "hr"),
+        ("sk-SK", "sk"),
+        ("sl-SI", "sl"),
+        ("lt-LT", "lt"),
+        ("lv-LV", "lv"),
+        ("is-IS", "is"),
+        ("ga-IE", "ga"),
+        ("cy-GB", "cy"),
+        ("az-AZ", "az"),
+        ("kk-KZ", "kk"),
+        ("uz-UZ", "uz"),
+        ("ar-DZ", "ar"),
+        ("zh-TW", "zh"),
+        ("pt-BR", "pt"),
+        ("en_US", "en"),
+    ],
+)
+def test_language_metadata_resolves_locale_variants(locale: str, expected_iso: str):
+    assert get_iso639(locale) == expected_iso
+    assert get_language_name(locale).strip()
+    assert get_language_self_name(locale).strip()
+
+
+@pytest.mark.parametrize(
+    "locale",
+    [
+        "en_US",
+        "de-DE",
+        "es-ES",
+        "pt-BR",
+        "zh-TW",
+        "ar-DZ",
+        "hr-HR",
+        "sk-SK",
+        "sl-SI",
+        "lt-LT",
+        "lv-LV",
+        "az-AZ",
+        "kk-KZ",
+        "uz-UZ",
+    ],
+)
+def test_prompt_overlay_resolves_locale_aliases(locale: str):
+    overlay = get_language_prompt_overlay(locale)
+    assert overlay.strip(), f"{locale}: prompt overlay resolved to empty text"
+
+
+def test_registered_foundation_languages_have_prompt_guidance():
+    failures: list[str] = []
+    for language in curriculum_dispatcher._LANG_MODULES:
+        if not get_language_prompt_overlay(language).strip():
+            failures.append(f"{language}: missing language-specific prompt overlay")
+    assert not failures, "\n".join(failures)
