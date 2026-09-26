@@ -23,7 +23,7 @@ export function AdminPageHeader({
             {eyebrow}
           </span>
         </div>
-        <h1 className="juba-admin-title text-[var(--juba-app-ink)] text-xl font-black tracking-tight">
+        <h1 className="juba-admin-title text-[#202127] text-xl font-black tracking-tight">
           {title}
         </h1>
       </div>
@@ -42,9 +42,9 @@ export function AdminPanel({
   children: ReactNode
 }) {
   return (
-    <div className="juba-admin-panel juba-card border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border">
+    <div className="juba-admin-panel juba-card rounded-[26px] border border-[rgba(7,7,9,.08)] bg-[#fff] shadow-[0_12px_30px_rgba(43,45,90,.055)]">
       {(title || meta) && (
-        <div className="juba-admin-panel-head border-[var(--juba-app-line)] flex flex-wrap items-center gap-2 border-b px-5 py-4">
+        <div className="juba-admin-panel-head border-[rgba(7,7,9,.08)] flex flex-wrap items-center gap-2 border-b px-5 py-4">
           {title && (
             <>
               <span className="juba-admin-kicker-dot" aria-hidden="true">✦</span>
@@ -71,12 +71,12 @@ export function AdminMetric({
   icon: LucideIcon
 }) {
   return (
-    <div className="juba-admin-metric juba-card border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] flex items-center justify-between gap-3 border px-4 py-3">
+    <div className="juba-admin-metric juba-card rounded-[20px] border border-[rgba(7,7,9,.08)] bg-[#fff] shadow-[0_12px_30px_rgba(43,45,90,.055)] flex items-center justify-between gap-3 border px-4 py-3">
       <div className="min-w-0">
-        <p className="juba-admin-metric-label text-[10px] text-[var(--juba-app-muted)] mb-1 font-sans tracking-widest uppercase">
+        <p className="juba-admin-metric-label text-[10px] text-[rgba(32,33,39,.52)] mb-1 font-sans tracking-widest uppercase">
           {label}
         </p>
-        <p className="juba-admin-metric-value text-[var(--juba-app-ink)] truncate text-lg font-black">{value}</p>
+        <p className="juba-admin-metric-value text-[#202127] truncate text-lg font-black">{value}</p>
       </div>
       <span className="juba-admin-metric-icon"><Icon className="size-5 shrink-0" aria-hidden="true" /></span>
     </div>
@@ -91,11 +91,11 @@ export function AdminBadge({
   tone?: 'neutral' | 'info' | 'success' | 'warning' | 'danger'
 }) {
   const toneClass = {
-    neutral: 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)]',
+    neutral: 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)]',
     info: 'border-blue-500/40 text-blue-400',
     success: 'border-green-500/40 text-green-400',
     warning: 'border-yellow-500/40 text-yellow-400',
-    danger: 'border-red-500/30 text-[var(--juba-app-error)]',
+    danger: 'border-red-500/30 text-[#dc2626]',
   }[tone]
 
   return (
