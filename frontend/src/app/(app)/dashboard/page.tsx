@@ -57,7 +57,6 @@ const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
 
 export default function DashboardPage() {
   const t = useTranslations('dashboard')
-  const tAssessment = useTranslations('assessment')
   const tBilling = useTranslations('billing')
   const tNav = useTranslations('nav')
   const tPlan = useTranslations('plan')
@@ -576,7 +575,7 @@ export default function DashboardPage() {
                       {t('startWithAssessment')}
                       <div className="mt-4">
                         <Link href="/assessment" className="inline-flex rounded-full bg-[#070709] px-4 py-2.5 text-[10px] font-black text-white">
-                          {tAssessment('start')}
+                          {tNav('assessment')}
                         </Link>
                       </div>
                     </div>
