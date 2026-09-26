@@ -115,9 +115,9 @@ export default function FriendsPage() {
           <UserPlus className="h-4 w-4" /> {inviteLoading ? 'Creating…' : 'Create invite'}
         </button>
         {inviteUrl && (
-          <div className="w-full rounded-2xl border border bg-[#f4f4f2] p-3">
+          <div className="w-full rounded-2xl border border bg-light p-3">
             <div className="flex flex-wrap items-center gap-2">
-              <p className="min-w-0 flex-1 break-all text-xs text-[rgba(32,33,39,.52)]">{inviteUrl}</p>
+              <p className="min-w-0 flex-1 break-all text-xs text-secondary">{inviteUrl}</p>
               <button onClick={copyInvite} className="btn btn-outline-secondary shrink-0">
                 {inviteCopied ? <CheckCheck className="h-4 w-4"/> : <Clipboard className="h-4 w-4"/>}
                 {inviteCopied ? 'Copied' : 'Copy link'}
@@ -131,7 +131,7 @@ export default function FriendsPage() {
         <div className="card">
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[rgba(32,33,39,.52)]" />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-secondary" />
               <input value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>e.key==='Enter'&&search()} placeholder="Search learners by name or username" className="form-control pl-10" />
             </div>
             <button onClick={search} disabled={searching} className="btn btn-primary"><Search className="h-4 w-4" /> {searching?'Searching…':'Search'}</button>
@@ -157,12 +157,12 @@ export default function FriendsPage() {
 }
 
 function PersonCard({person,children}:{person:Person;children:React.ReactNode}) {
-  return <div className="flex items-center gap-3 rounded-2xl border border bg-[#fff] p-3 shadow-sm">
-    <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border bg-[#f4f4f2]">
-      {person.avatar ? <AuthAvatarImage avatar={person.avatar} alt="" width={44} height={44} className="h-full w-full object-cover"/> : <div className="flex h-full w-full items-center justify-center font-bold text-[rgba(32,33,39,.52)]">{(person.display_name||person.username||'?')[0].toUpperCase()}</div>}
+  return <div className="flex items-center gap-3 rounded-2xl border border bg-white p-3 shadow-sm">
+    <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border bg-light">
+      {person.avatar ? <AuthAvatarImage avatar={person.avatar} alt="" width={44} height={44} className="h-full w-full object-cover"/> : <div className="flex h-full w-full items-center justify-center font-bold text-secondary">{(person.display_name||person.username||'?')[0].toUpperCase()}</div>}
     </div>
-    <div className="min-w-0 flex-1"><p className="truncate font-semibold">{person.display_name||person.username}</p><p className="truncate text-xs text-[rgba(32,33,39,.52)]">@{person.username}{person.target_language?' · '+person.target_language:''}</p></div>
+    <div className="min-w-0 flex-1"><p className="truncate font-semibold">{person.display_name||person.username}</p><p className="truncate text-xs text-secondary">@{person.username}{person.target_language?' · '+person.target_language:''}</p></div>
     {children}
   </div>
 }
-function Empty({text}:{text:string}) { return <div className="rounded-2xl border border-dashed border bg-[#f4f4f2] p-6 text-center text-sm text-[rgba(32,33,39,.52)]">{text}</div> }
+function Empty({text}:{text:string}) { return <div className="rounded-2xl border border-dashed border bg-light p-6 text-center text-sm text-secondary">{text}</div> }
