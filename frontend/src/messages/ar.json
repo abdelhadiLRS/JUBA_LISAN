@@ -608,7 +608,16 @@
     "learning": "التعلّم",
     "personalized": "مخصص لك",
     "adaptive": "متكيف"
-  },
+  ,
+    "scenarios": {
+      "airport": {"title": "المطار", "description": "تسجيل الوصول وطلب الاتجاهات والتعامل مع التأخيرات."},
+      "jobInterview": {"title": "مقابلة عمل", "description": "تدرّب على الإجابات والثقة والمفردات المهنية."},
+      "restaurant": {"title": "مطعم", "description": "اطلب بشكل طبيعي وتعامل مع محادثة حقيقية."},
+      "hotel": {"title": "فندق", "description": "احجز غرفة وحل المشكلات واطلب ما تحتاجه."}
+    },
+    "learningLabel": "التعلّم",
+    "cefrLabel": "مستوى CEFR",
+    "coachLabel": "المدرّب"},
   "plan": {
     "title": "خطتي",
     "subtitle": "خطة الدراسة",
