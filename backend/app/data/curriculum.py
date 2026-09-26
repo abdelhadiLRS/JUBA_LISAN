@@ -100,6 +100,12 @@ _LANG_MODULES: dict[str, str] = {
     "ti": "app.data.language_foundations.ti",
     "suq": "app.data.language_foundations.suq",
     "to": "app.data.language_foundations.to",
+    "ceb": "app.data.language_foundations.ceb",
+    "haw": "app.data.language_foundations.haw",
+    "id": "app.data.language_foundations.id",
+    "sw": "app.data.language_foundations.sw",
+    "km": "app.data.language_foundations.km",
+    "kn": "app.data.language_foundations.kn",
 }
 
 _CACHE: dict[str, object] = {}
