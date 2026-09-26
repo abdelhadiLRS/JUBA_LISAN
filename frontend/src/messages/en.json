@@ -601,7 +601,13 @@
     "levelTestScoreLine": "Score: {score} out of {total}",
     "levelTestReady": "You are ready for the next level",
     "levelTestReadyDesc": "You completed the level test successfully. Continue your learning plan.",
-    "refresh": "Refresh dashboard"
+    "refresh": "Refresh dashboard",
+    "historyRanges": {
+      "week": "Week",
+      "month": "Month",
+      "all": "All"
+    },
+    "minutes": "min"
   },
   "assessment": {
     "title": "Assessment",
