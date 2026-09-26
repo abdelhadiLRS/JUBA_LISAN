@@ -316,6 +316,13 @@ def test_language_helpers_normalize_common_locale_aliases(locale: str, expected_
         ("fr", "standard French"),
         ("pt-BR", "European Portuguese"),
         ("zh-TW", "simplified Chinese"),
+        ("ar", "Modern Standard Arabic"),
+        ("tr-TR", "standard Turkish"),
+        ("ru-RU", "standard Russian"),
+        ("hi-IN", "standard Hindi"),
+        ("fa", "standard Persian"),
+        ("he", "Modern Hebrew"),
+        ("th-TH", "standard Thai"),
     ],
 )
 def test_prompt_overlay_normalizes_locale_aliases(locale: str, expected_fragment: str):
