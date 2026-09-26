@@ -2,7 +2,6 @@
 
 import { FormEvent, useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Loader2, Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { PageLoading } from '@/components/ui/page-loading'
@@ -134,7 +133,7 @@ export default function SettingsMemoriesPage() {
         </h1>
       </nav>
 
-      <div className="rounded-[30px] border border-[#ededff] bg-white p-6 shadow-[0_12px_30px_rgba(43,45,90,.055)]">
+      <div className="card p-6">
         <div className="border-[#ededff] mb-4 flex items-center gap-2 border-b pb-4">
           <span aria-hidden="true" className="text-[#202127] text-[rgba(32,33,39,.52)]">
             ●
@@ -183,10 +182,7 @@ export default function SettingsMemoriesPage() {
               className="bg-[#5862e2] text-[#202127] text-[#202127] hover:bg-[#5862e2]-bright flex min-w-28 items-center justify-center gap-2 px-4 py-2 font-sans font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-50"
             >
               {adding && (
-                <Loader2
-                  aria-hidden="true"
-                  className="h-3.5 w-3.5 animate-spin"
-                />
+                <span className="spinner-border spinner-border-sm" aria-hidden="true" />
               )}
               {adding ? t('memoryAdding') : t('memoryAdd')}
             </button>
@@ -248,12 +244,9 @@ export default function SettingsMemoriesPage() {
                     className="text-[rgba(32,33,39,.52)] hover:text-rose-600 shrink-0 p-2 transition-colors disabled:opacity-50"
                   >
                     {deletingId === memory.id ? (
-                      <Loader2
-                        aria-hidden="true"
-                        className="h-4 w-4 animate-spin"
-                      />
+                      <span className="spinner-border spinner-border-sm" aria-hidden="true" />
                     ) : (
-                      <Trash2 aria-hidden="true" className="h-4 w-4" />
+                      <i className="ti ti-trash icon icon-sm" aria-hidden="true" />
                     )}
                   </button>
                 </li>
