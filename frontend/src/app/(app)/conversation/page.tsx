@@ -152,7 +152,7 @@ export default function ConversationPage() {
         /* sin plan — usa default 1500ms */
       })
       .finally(() => setPlanReady(true))
-  }, [activeLanguage?.code])
+  }, [activeLanguage?.code, t])
 
   if (!planReady) return null
 
