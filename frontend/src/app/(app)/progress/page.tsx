@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { BookOpenCheck, Target, Trophy } from 'lucide-react'
 
 import { useTranslations } from 'next-intl'
 import { PageLoading } from '@/components/ui/page-loading'
@@ -254,11 +255,11 @@ export default function ProgressPage() {
   )
 
   return (
-    <div className="juba-progress-shell mx-auto max-w-4xl space-y-8 p-6">
+    <div className="juba-progress-shell mx-auto space-y-7 p-4 sm:p-6">
       {/* Header */}
       <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border">
         <div className="border-[var(--juba-app-line)] flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-[var(--juba-app-muted)]">●</span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[#ededff] text-[#5862e2]"><Target className="h-4 w-4" /></span>
           <span className="text-[var(--juba-app-muted)] font-sans tracking-[.12em] uppercase">
             {t('subtitle')}
           </span>
@@ -271,7 +272,7 @@ export default function ProgressPage() {
 
         {/* XP + streak */}
         {summary && (
-          <div className="divide-fl-border border-[var(--juba-app-line)] grid grid-cols-2 divide-x border-b sm:grid-cols-4">
+          <div className="juba-progress-metrics divide-fl-border border-[var(--juba-app-line)] grid grid-cols-2 divide-x border-b sm:grid-cols-4">
             {[
               { label: t('xp'), value: summary.total_xp.toLocaleString() },
               { label: t('streak'), value: `${summary.current_streak}d 🔥` },
@@ -296,8 +297,9 @@ export default function ProgressPage() {
 
       {/* Tracked item mastery */}
       {summary && summary.mastery && summary.mastery.tracked_items > 0 && (
-        <section className="space-y-4">
+        <section className="juba-progress-section space-y-4">
           <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#ededff] text-[#5862e2]"><Trophy className="h-5 w-5" /></span>
             <span className="text-[var(--juba-app-ink)] font-mono text-base font-bold tracking-widest">
               {t('skills')} · {t('mastered')}
             </span>
@@ -348,6 +350,7 @@ export default function ProgressPage() {
       {levelUnits.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#fff3d1] text-[#9a6500]"><BookOpenCheck className="h-5 w-5" /></span>
             <span className="text-[var(--juba-app-ink)] font-mono text-base font-bold tracking-widest">
               {cefrLevel
                 ? t('competenciesSection', { level: cefrLevel })
