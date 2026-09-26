@@ -17,6 +17,7 @@ import {
   Mic2,
   MoreHorizontal,
   Play,
+  RefreshCw,
   Trophy,
   UserRound,
 } from 'lucide-react'
@@ -112,6 +113,7 @@ export default function DashboardPage() {
     skills: Record<string, number>
   }>>([])
   const [historyLoading, setHistoryLoading] = useState(false)
+  const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
     if (freemiumTrialActive && user?.freemium_trial_ends_at) {
@@ -208,6 +210,37 @@ export default function DashboardPage() {
     if (!user || !accessToken) return
     loadData()
   }, [loadData, user, accessToken])
+
+  const refreshDashboardData = useCallback(async () => {
+    if (refreshing) return
+    setRefreshing(true)
+    setLoadError(false)
+    try {
+      await loadData()
+    } finally {
+      setRefreshing(false)
+    }
+  }, [loadData, refreshing])
+
+  // Keep the dashboard synchronized after a lesson/assessment is completed
+  // in another route, without requiring a full browser reload.
+  useEffect(() => {
+    if (!user || !accessToken) return
+
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        refreshDashboardData()
+      }
+    }
+    const handleFocus = () => refreshDashboardData()
+
+    window.addEventListener('focus', handleFocus)
+    document.addEventListener('visibilitychange', handleVisibility)
+    return () => {
+      window.removeEventListener('focus', handleFocus)
+      document.removeEventListener('visibilitychange', handleVisibility)
+    }
+  }, [user, accessToken, refreshDashboardData])
 
   async function changeHistoryRange(range: 'week' | 'month' | 'all') {
     if (range === historyRange) return
@@ -375,7 +408,17 @@ export default function DashboardPage() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={refreshDashboardData}
+                disabled={refreshing}
+                title={t('refresh')}
+                aria-label={t('refresh')}
+                className="grid size-9 place-items-center rounded-full bg-white/[0.06] text-white/65 transition hover:bg-white/10 hover:text-white disabled:opacity-50"
+              >
+                <RefreshCw className={`size-4 ${refreshing ? 'animate-spin' : ''}`} />
+              </button>
               <div className="hidden text-right sm:block">
                 <p className="text-xs font-black">
                   {t('welcomeBack')}, {user?.displayName || user?.username}
