@@ -148,10 +148,10 @@ export default function FlashcardsPage() {
   const targetLanguageCode = activeLanguage?.code ?? 'en-GB'
 
   return (
-    <div className="container-xl page-body py-4">
+    <div className="page-body">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
+      <div className="page-header d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+        <div className="d-flex align-items-center gap-2">
           <span className="text-[rgba(32,33,39,.52)]">●</span>
           <span className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
             {t('title')}
@@ -160,10 +160,10 @@ export default function FlashcardsPage() {
             {total} {t('total')} · {cards.length} {t('due')}
           </span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="d-flex align-items-center gap-2">
           <Link
             href="/flashcards/vocabulary"
-            className="text-[#202127] border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:border-[#202127] border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
+            className="btn btn-outline-secondary"
           >
             {t('myVocabularyBtn')}
           </Link>
@@ -184,8 +184,8 @@ export default function FlashcardsPage() {
 
       {/* Generate panel */}
       {showGenerate && (
-        <div className="card overflow-hidden">
-          <div className="border-[rgba(7,7,9,.08)] flex items-center gap-2 border-b px-5 py-4">
+        <div className="card overflow-hidden mb-4">
+          <div className="card-header d-flex align-items-center gap-2">
             <span className="text-[rgba(32,33,39,.52)]">●</span>
             <span className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
               {t('generate')}
@@ -196,7 +196,7 @@ export default function FlashcardsPage() {
               ✕ {genError}
             </div>
           )}
-          <form onSubmit={generateCards} className="space-y-3 p-5">
+          <form onSubmit={generateCards} className="card-body d-grid gap-3">
             <div>
               <label className="text-[rgba(32,33,39,.52)] mb-2 block font-sans text-xs tracking-widest uppercase">
                 {t('topic')}
