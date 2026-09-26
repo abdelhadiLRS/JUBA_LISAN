@@ -985,7 +985,9 @@
     "backToGrammar": "Grammatik",
     "explanation": "Erklärung",
     "backLink": "Zurück zur Grammatik",
-    "notFound": "Thema nicht gefunden.",
+    "notFound": "Thema nicht gefunden.",,
+    "topicCount": "{count, plural, =1 {# Thema} other {# Themen}}",
+    "levelRange": "A1 – C2"
     "topicsFound": "{count, plural, one {# Thema gefunden} other {# Themen gefunden}}"
   },
   "vocabulary": {
