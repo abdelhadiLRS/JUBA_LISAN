@@ -845,7 +845,10 @@
     "skillMasteryMastered": "освоено",
     "skillMasteryAttempted": "попыток",
     "skillMasteryAttemptRate": "Доля попыток: {rate}%",
-    "skillMasteryVariants": "варианта"
+    "skillMasteryVariants": "варианта",
+    "mastered": "Освоено",
+    "listen": "Слушать",
+    "advance": "Продолжить"
   },
   "flashcards": {
     "title": "Карточки",
@@ -909,7 +912,9 @@
     "deleteConfirm": "Удалить",
     "enterToSend": "Enter для отправки",
     "continueInVoice": "Продолжить голосом",
-    "memoryUpdated": "Память обновлена"
+    "memoryUpdated": "Память обновлена",
+    "voiceSession": "Голосовой сеанс",
+    "delete": "Удалить"
   },
   "progress": {
     "title": "Прогресс",
