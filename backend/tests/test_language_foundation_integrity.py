@@ -1126,3 +1126,19 @@ def test_registered_language_region_variants_keep_their_metadata_and_curriculum(
 
     assert not failures, "\\n".join(failures)
 
+@pytest.mark.parametrize(
+    ("locale", "expected_name"),
+    [
+        ("ar", "Arabic"),
+        ("hr-HR", "Croatian"),
+        ("suq-ET", "Suri"),
+        ("en_US", "English"),
+        ("pt-BR", "Brazilian Portuguese"),
+        ("zz-ZZ", "zz-ZZ"),
+    ],
+)
+def test_native_language_name_resolves_supported_locales(locale: str, expected_name: str):
+    from app.services.language_helpers import get_native_language_name
+
+    assert get_native_language_name(locale) == expected_name
+
