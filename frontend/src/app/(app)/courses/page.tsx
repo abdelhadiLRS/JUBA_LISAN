@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { ArrowRight, BookOpen, CheckCircle2, Headphones, LockKeyhole, Mic2, Sparkles } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
+import { subscribeToLearningProgressUpdated } from '@/lib/learning-progress'
 import { CEFR_LEVELS, getCurriculumUnits, type CEFRLevel, type CurriculumUnit } from '@/data/curriculum'
 import { useLanguageStore } from '@/store/language'
 import { CEFR_DESCRIPTORS, CEFR_SKILLS, type CEFRSkill } from '@/data/cefr-descriptors'
@@ -36,6 +37,7 @@ export default function CoursesPage() {
   const [levelUnits, setLevelUnits] = useState<Record<CEFRLevel, CurriculumUnit[]>>({} as Record<CEFRLevel, CurriculumUnit[]>)
   const [journeyUnits, setJourneyUnits] = useState<Record<string, { id: string; progress: number; state: string; lessons?: Array<{ id: number; is_completed: boolean; state: string }> }>>({})
   const [loading, setLoading] = useState(true)
+  const [refreshToken, setRefreshToken] = useState(0)
 
   useEffect(() => {
     let cancelled = false
@@ -73,7 +75,13 @@ export default function CoursesPage() {
     }
     void load()
     return () => { cancelled = true }
-  }, [activeLanguage?.code])
+  }, [activeLanguage?.code, refreshToken])
+
+  useEffect(() => {
+    return subscribeToLearningProgressUpdated(() => {
+      setRefreshToken((value) => value + 1)
+    })
+  }, [])
 
   const currentLevel = plan?.cefr_level ?? null
   const currentIndex = currentLevel ? CEFR_LEVELS.indexOf(currentLevel) : 0
