@@ -255,17 +255,29 @@
       "missingToken": "Enlace inválido. Por favor, solicita un nuevo restablecimiento.",
       "error": "Enlace inválido o caducado",
       "backToLogin": "Volver al inicio de sesión"
-    }
-  ,
+    },
     "scenarios": {
-      "airport": {"title": "Aeropuerto", "description": "Haz el check-in, pide indicaciones y gestiona retrasos."},
-      "jobInterview": {"title": "Entrevista de trabajo", "description": "Practica respuestas, confianza y vocabulario profesional."},
-      "restaurant": {"title": "Restaurante", "description": "Pide con naturalidad y mantén una conversación real."},
-      "hotel": {"title": "Hotel", "description": "Reserva una habitación, resuelve problemas y haz peticiones."}
+      "airport": {
+        "title": "Aeropuerto",
+        "description": "Haz el check-in, pide indicaciones y gestiona retrasos."
+      },
+      "jobInterview": {
+        "title": "Entrevista de trabajo",
+        "description": "Practica respuestas, confianza y vocabulario profesional."
+      },
+      "restaurant": {
+        "title": "Restaurante",
+        "description": "Pide con naturalidad y mantén una conversación real."
+      },
+      "hotel": {
+        "title": "Hotel",
+        "description": "Reserva una habitación, resuelve problemas y haz peticiones."
+      }
     },
     "learningLabel": "Aprendizaje",
     "cefrLabel": "CEFR",
-    "coachLabel": "Coach"},
+    "coachLabel": "Coach"
+  },
   "settings": {
     "title": "Ajustes",
     "sectionAccount": "Cuenta",
@@ -994,7 +1006,8 @@
     "cardsAdded": "{count} tarjetas añadidas a tu mazo.",
     "goToFlashcards": "Ir a tarjetas →",
     "addFailed": "Error al añadir tarjetas.",
-    "noResults": "No hay conjuntos de vocabulario que coincidan con tu búsqueda"
+    "noResults": "No hay conjuntos de vocabulario que coincidan con tu búsqueda",
+    "setCount": "{count, plural, =1 {# conjunto} other {# conjuntos}}"
   },
   "phrasebook": {
     "title": "Frases",
