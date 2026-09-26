@@ -524,7 +524,13 @@
     "levelTestScoreLine": "Wynik: {score} z {total}",
     "levelTestReady": "Jesteś gotowy na następny poziom",
     "levelTestReadyDesc": "Ukończono test poziomujący. Kontynuuj swój plan nauki.",
-    "refresh": "Odśwież pulpit"
+    "refresh": "Odśwież pulpit",
+    "historyRanges": {
+      "week": "Tydzień",
+      "month": "Miesiąc",
+      "all": "Wszystko"
+    },
+    "minutes": "min"
   },
   "assessment": {
     "title": "Ocena poziomu",
