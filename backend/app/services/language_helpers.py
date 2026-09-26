@@ -366,6 +366,10 @@ _LANGUAGE_CAPABILITIES: dict[str, dict[str, str | bool]] = {
 }
 
 _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
+    # Keep the bare English code on the same explicit capability path as the
+    # regional variants; this avoids an unnecessary fallback for profile data
+    # that stores only ISO 639-1 language codes.
+    "en": "en-GB",
     "de": "de-DE",
     "es": "es-ES",
     "fr": "fr-FR",
