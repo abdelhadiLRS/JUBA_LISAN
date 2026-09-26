@@ -344,40 +344,90 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               {visibleResourceNavItems.map((item) => {
                 const active = pathname === item.href || pathname.startsWith(item.href + '/')
                 return (
-                  <Link key={item.href} href={item.href} className={`mb-1 flex items-center gap-3 rounded-2xl px-4 py-2.5 text-xs font-bold transition ${active ? 'bg-white/10 text-white' : 'text-white/50 hover:bg-white/5 hover:text-white'}`}>
-                    <NavIcon href={item.href} className="size-3.5 shrink-0 opacity-70" />
+    <div className="juba-dashboard-route min-h-screen bg-[#dfe0f7] p-2 text-[#202127] sm:p-4 lg:p-6">
+      <div className="mx-auto flex min-h-screen max-w-[1640px] flex-col overflow-hidden rounded-[30px] bg-[#f4f4f2] shadow-[0_30px_90px_rgba(43,45,90,.18)]">
+        <header className="flex min-h-[72px] items-center justify-between gap-4 bg-[#070709] px-4 py-3 text-white sm:px-7">
+          <Link href="/dashboard" className="flex shrink-0 items-center gap-3">
+            <span className="grid size-10 place-items-center rounded-[12px] bg-[#373fb8] text-white shadow-[0_8px_25px_rgba(55,63,184,.35)]">
+              <GraduationCap className="size-5" />
+            </span>
+            <span className="text-sm font-black tracking-tight sm:text-base">JUBA LISAN</span>
+          </Link>
+
+          <nav className="hidden items-center gap-1 rounded-full bg-white/[0.06] p-1 lg:flex">
+            {[
+              { href: '/dashboard', label: tNav('home') },
+              { href: '/courses', label: tNav('courses') },
+              { href: '/plan', label: tNav('myPlan') },
+              { href: '/progress', label: tNav('progress') },
+              { href: '/reading', label: tNav('reading') },
+            ].map((item) => {
+              const active = pathname === item.href || pathname.startsWith(item.href + '/')
+              return (
+                <Link key={item.href} href={item.href}
+                  className={active
+                    ? 'inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[11px] font-black text-[#070709]'
+                    : 'inline-flex items-center gap-2 rounded-full px-3 py-2 text-[11px] font-bold text-white/55 transition hover:bg-white/10 hover:text-white'}>
+                  <NavIcon href={item.href} className="size-3.5" />
+                  {item.label}
+                </Link>
+              )
+            })}
+          </nav>
+
+          <div className="flex items-center gap-2 sm:gap-3">
+            <LanguageSwitcher />
+            <button type="button" className="hidden size-10 place-items-center rounded-full bg-white/[0.06] text-white/75 transition hover:bg-white/10 sm:grid" aria-label="Notifications">
+              <Bell className="size-4" />
+              <span className="absolute" />
+            </button>
+            <Link href="/settings" className="hidden items-center gap-2 rounded-full bg-white/[0.06] px-3 py-1.5 sm:flex">
+              <div className="grid size-8 place-items-center overflow-hidden rounded-full bg-[#9a9ff3] text-[#070709]">
+                {user?.avatar ? (
+                  <AuthAvatarImage avatar={user.avatar} alt="" width={32} height={32} className="h-full w-full object-cover" fallback={<span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} />
+                ) : (
+                  <span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>
+                )}
+              </div>
+              <span className="max-w-28 truncate text-xs font-black">{user?.displayName || user?.username}</span>
+              <ChevronDown className="size-3 text-white/50" />
+            </Link>
+            <button type="button" onClick={() => setMobileMenuOpen((o) => !o)}
+              className="grid size-10 place-items-center rounded-full bg-white/[0.06] sm:hidden"
+              aria-label={mobileMenuOpen ? tCommon('close') : tCommon('openMenu')}>
+              {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+            </button>
+          </div>
+        </header>
+
+        {mobileMenuOpen && (
+          <nav className="border-b border-white/10 bg-[#070709] px-4 py-3 text-white lg:hidden">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {[...visibleMainNavItems, ...visibleResourceNavItems, ...visibleBottomNavItems].map((item) => {
+                const active = pathname === item.href || pathname.startsWith(item.href + '/')
+                return (
+                  <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}
+                    className={active ? 'flex items-center gap-2 rounded-2xl bg-white px-3 py-3 text-xs font-bold text-[#070709]' : 'flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-3 text-xs font-bold text-white/70'}>
+                    <NavIcon href={item.href} className="size-4 shrink-0" />
                     <span className="truncate">{item.label}</span>
                   </Link>
                 )
               })}
-            </nav>
-            <div className="mt-3 rounded-[22px] border border-white/10 bg-[#202226] p-4">
-              <div className="mb-3 flex items-center gap-3">
-                <div className="grid size-10 shrink-0 place-items-center overflow-hidden rounded-full bg-[#d8c9a9] text-[#25272b]">
-                  {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={40} height={40} className="h-full w-full object-cover" fallback={<span className="font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span className="font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
-                </div>
-                <div className="min-w-0">
-                  <p className="truncate text-xs font-black">{user?.displayName || user?.username}</p>
-                  <p className="truncate text-[10px] text-white/40">@{user?.username?.toLowerCase()}</p>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <Link href="/settings" className="flex items-center justify-center gap-1.5 rounded-xl bg-white/10 px-3 py-2 text-center text-[10px] font-bold transition hover:bg-white/15"><Settings2 className="size-3" />{tNav('settings')}</Link>
-                <button onClick={() => setLogoutConfirm(true)} className="rounded-xl bg-white/10 px-3 py-2 text-[10px] font-bold">{tCommon('logout')}</button>
-              </div>
             </div>
-          </aside>
+          </nav>
+        )}
 
-          <main className="juba-app-content min-h-0 flex-1 overflow-y-auto bg-[#f6f6f4]">
-            {user && user.is_verified === false && (
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-black/5 bg-[#fff8e8] px-4 py-2">
-                <span className="text-xs font-bold text-black/55">● {tCommon('verifyEmailBanner')}</span>
-                {resendSent ? <span className="text-xs text-black/45">{tCommon('verifyEmailSent')}</span> : <button onClick={handleResendVerification} className="text-xs font-bold text-[#5f5ec5] underline">{tCommon('resendVerification')}</button>}
-              </div>
-            )}
-            <div className="juba-app-page">{children}</div>
-          </main>
-        </div>
+        <main className="juba-app-content min-h-0 flex-1 overflow-y-auto bg-[#f4f4f2]">
+          {user && user.is_verified === false && (
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-black/5 bg-[#fff8e8] px-4 py-2">
+              <span className="text-xs font-bold text-black/55">● {tCommon('verifyEmailBanner')}</span>
+              {resendSent
+                ? <span className="text-xs text-black/45">{tCommon('verifyEmailSent')}</span>
+                : <button onClick={handleResendVerification} className="text-xs font-bold text-[#5f5ec5] underline">{tCommon('resendVerification')}</button>}
+            </div>
+          )}
+          <div className="juba-app-page">{children}</div>
+        </main>
       </div>
 
       <LoadingBar />
