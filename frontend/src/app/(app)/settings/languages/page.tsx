@@ -106,35 +106,35 @@ export default function MyLanguagesPage() {
       {/* Toast */}
       {toast && (
         <div className="pointer-events-none fixed inset-x-0 top-16 z-50 flex justify-center">
-          <div className="animate-in fade-in slide-in-from-top-2 border-[var(--juba-lilac)] bg-white text-[var(--juba-muted)] pointer-events-auto border px-4 py-2 font-mono text-xs tracking-widest uppercase shadow-lg">
+          <div className="animate-in fade-in slide-in-from-top-2 border-[#ededff] bg-white text-[rgba(32,33,39,.52)] pointer-events-auto border px-4 py-2 font-sans text-xs tracking-widest uppercase shadow-lg">
             {toast}
           </div>
         </div>
       )}
 
       {/* Breadcrumb */}
-      <nav className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-8 flex items-center gap-2 font-mono">
+      <nav className="text-[#202127] text-[rgba(32,33,39,.52)] mb-8 flex items-center gap-2 font-sans">
         <Link
           href="/settings"
-          className="hover:text-[var(--juba-text)] tracking-widest uppercase transition-colors"
+          className="hover:text-[#202127] tracking-widest uppercase transition-colors"
         >
           {tSettings('title')}
         </Link>
         <span>›</span>
-        <span className="text-[var(--juba-text)] tracking-widest uppercase">
+        <span className="text-[#202127] tracking-widest uppercase">
           {t('myLanguages')}
         </span>
       </nav>
 
       {/* Header + Add button */}
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-[var(--juba-text)] font-mono text-xl font-bold tracking-widest uppercase">
+        <h1 className="text-[#202127] font-sans text-xl font-bold tracking-widest uppercase">
           {t('myLanguages')}
         </h1>
         {unusedCodes.length > 0 && (
           <button
             onClick={() => setAddModalOpen(true)}
-            className="bg-[var(--juba-violet)] text-[var(--juba-violet)]-fg hover:bg-[var(--juba-violet)]/90 px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+            className="bg-[#5862e2] text-[#5862e2]-fg hover:bg-[#5862e2]/90 px-4 py-2 font-sans text-xs font-bold tracking-widest uppercase transition-colors"
           >
             + {t('addLanguage')}
           </button>
@@ -145,8 +145,8 @@ export default function MyLanguagesPage() {
       {loading ? (
         <PageLoading />
       ) : userLanguages.length === 0 ? (
-        <div className="border-[var(--juba-lilac)] bg-white border px-6 py-10 text-center">
-          <p className="text-[var(--juba-muted)] font-mono text-sm">
+        <div className="border-[#ededff] bg-white border px-6 py-10 text-center">
+          <p className="text-[rgba(32,33,39,.52)] font-sans text-sm">
             {t('noLanguages')}
           </p>
         </div>
@@ -170,20 +170,20 @@ export default function MyLanguagesPage() {
                 <div
                   key={ulang.target_language}
                   className={`bg-white border p-5 ${
-                    isActive ? 'border-[var(--juba-violet)]/50' : 'border-[var(--juba-lilac)]'
+                    isActive ? 'border-[#5862e2]/50' : 'border-[#ededff]'
                   }`}
                 >
                   {/* Top row: language + status */}
                   <div className="mb-3 flex items-center gap-3">
-                    <span className="text-[var(--juba-text)] flex-1 font-mono text-sm font-bold">
+                    <span className="text-[#202127] flex-1 font-sans text-sm font-bold">
                       {targetLabel(ulang.target_language)}
                     </span>
                     {isActive ? (
-                      <span className="text-[var(--juba-text)] bg-[var(--juba-violet)]/20 text-[var(--juba-violet)] px-2 py-0.5 font-mono text-xs tracking-widest uppercase">
+                      <span className="text-[#202127] bg-[#5862e2]/20 text-[#5862e2] px-2 py-0.5 font-sans text-xs tracking-widest uppercase">
                         {t('activeLanguage')}
                       </span>
                     ) : plan?.cefr_level ? (
-                      <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
+                      <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-wide">
                         {plan.cefr_level}
                       </span>
                     ) : null}
@@ -191,7 +191,7 @@ export default function MyLanguagesPage() {
 
                   {/* Stats */}
                   {plan && (
-                    <div className="text-[var(--juba-muted)] mb-3 flex flex-wrap gap-x-6 gap-y-1 font-mono text-xs">
+                    <div className="text-[rgba(32,33,39,.52)] mb-3 flex flex-wrap gap-x-6 gap-y-1 font-sans text-xs">
                       <span>
                         {t('levelLabel')}: {plan.cefr_level ?? '—'}
                       </span>
@@ -219,7 +219,7 @@ export default function MyLanguagesPage() {
                     {isActive ? (
                       <button
                         onClick={() => router.push(`/plan`)}
-                        className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-mono text-xs tracking-widest uppercase transition-colors"
+                        className="text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] font-sans text-xs tracking-widest uppercase transition-colors"
                       >
                         {t('viewDetails')} →
                       </button>
@@ -228,7 +228,7 @@ export default function MyLanguagesPage() {
                         <button
                           onClick={() => handleSwitch(ulang)}
                           disabled={switchingCode === ulang.target_language}
-                          className="text-[var(--juba-text)] text-[var(--juba-text)] bg-fl-fg hover:bg-[var(--juba-violet)]/90 px-3 py-1 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-40"
+                          className="text-[#202127] text-[#202127] bg-[#5862e2] hover:bg-[#5862e2]/90 px-3 py-1 font-sans text-xs tracking-widest uppercase transition-colors disabled:opacity-40"
                         >
                           {switchingCode === ulang.target_language
                             ? '...'
@@ -237,7 +237,7 @@ export default function MyLanguagesPage() {
                         {hasMultiple && (
                           <button
                             onClick={() => setDeleteTarget(ulang)}
-                            className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-rose-600 font-mono text-xs tracking-widest uppercase transition-colors"
+                            className="text-[#202127] text-[rgba(32,33,39,.52)] hover:text-rose-600 font-sans text-xs tracking-widest uppercase transition-colors"
                           >
                             {t('removeLanguage')}
                           </button>
@@ -254,8 +254,8 @@ export default function MyLanguagesPage() {
       {/* Add language modal */}
       {addModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-[var(--juba-lilac)]/40 border-[var(--juba-lilac)] w-full max-w-lg border p-6 shadow-xl">
-            <h2 className="text-[var(--juba-text)] mb-4 font-mono text-sm font-bold tracking-widest uppercase">
+          <div className="bg-[#ededff]/40 border-[#ededff] w-full max-w-lg border p-6 shadow-xl">
+            <h2 className="text-[#202127] mb-4 font-sans text-sm font-bold tracking-widest uppercase">
               {t('selectLanguage')}
             </h2>
             <TargetLanguageSelector
@@ -266,14 +266,14 @@ export default function MyLanguagesPage() {
             <div className="mt-5 flex justify-end gap-2">
               <button
                 onClick={() => setAddModalOpen(false)}
-                className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors"
+                className="text-[#202127] text-[rgba(32,33,39,.52)] hover:text-[#202127] px-4 py-2 font-sans text-xs tracking-widest uppercase transition-colors"
               >
                 {tCommon('cancel')}
               </button>
               <button
                 onClick={handleAdd}
                 disabled={!addingCode}
-                className="bg-[var(--juba-violet)] text-[var(--juba-violet)]-fg hover:bg-[var(--juba-violet)]/90 px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+                className="bg-[#5862e2] text-[#5862e2]-fg hover:bg-[#5862e2]/90 px-4 py-2 font-sans text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
               >
                 {t('addLanguage')}
               </button>
