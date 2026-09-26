@@ -256,7 +256,16 @@
       "error": "Link inválido ou expirado",
       "backToLogin": "Voltar ao login"
     }
-  },
+  ,
+    "scenarios": {
+      "airport": {"title": "Aeroporto", "description": "Faça o check-in, peça direções e lide com atrasos."},
+      "jobInterview": {"title": "Entrevista de emprego", "description": "Pratique respostas, confiança e vocabulário profissional."},
+      "restaurant": {"title": "Restaurante", "description": "Peça naturalmente e conduza uma conversa real."},
+      "hotel": {"title": "Hotel", "description": "Reserve um quarto, resolva problemas e faça pedidos."}
+    },
+    "learningLabel": "Aprendizagem",
+    "cefrLabel": "CEFR",
+    "coachLabel": "Coach"},
   "settings": {
     "title": "Configurações",
     "sectionAccount": "Conta",
