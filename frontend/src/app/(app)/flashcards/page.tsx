@@ -152,11 +152,11 @@ export default function FlashcardsPage() {
       {/* Header */}
       <div className="page-header d-flex flex-wrap align-items-center justify-content-between gap-3">
         <div className="d-flex align-items-center gap-2">
-          <span className="text-[rgba(32,33,39,.52)]">●</span>
-          <span className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+          <span className="text-secondary">●</span>
+          <span className="text-secondary font-sans tracking-widest uppercase">
             {t('title')}
           </span>
-          <span className="text-[rgba(32,33,39,.52)] font-sans tracking-widest">
+          <span className="text-secondary font-sans tracking-widest">
             {total} {t('total')} · {cards.length} {t('due')}
           </span>
         </div>
@@ -171,10 +171,10 @@ export default function FlashcardsPage() {
             onClick={() => {
               setShowGenerate(!showGenerate)
             }}
-            className={`text-[#202127] border px-4 py-2 font-sans tracking-widest uppercase transition-colors ${
+            className={`text-body border px-4 py-2 font-sans tracking-widest uppercase transition-colors ${
               showGenerate
-                ? 'border-[#202127] text-[#202127]'
-                : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:border-[#202127]'
+                ? 'border-[#202127] text-body'
+                : 'border-secondary-subtle text-secondary hover:text-body hover:border-[#202127]'
             }`}
           >
             + {t('generateBtn')}
@@ -186,8 +186,8 @@ export default function FlashcardsPage() {
       {showGenerate && (
         <div className="card overflow-hidden">
           <div className="card-header d-flex align-items-center gap-2">
-            <span className="text-[rgba(32,33,39,.52)]">●</span>
-            <span className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+            <span className="text-secondary">●</span>
+            <span className="text-secondary font-sans tracking-widest uppercase">
               {t('generate')}
             </span>
           </div>
@@ -198,7 +198,7 @@ export default function FlashcardsPage() {
           )}
           <form onSubmit={generateCards} className="card-body d-grid gap-3">
             <div>
-              <label className="text-[rgba(32,33,39,.52)] mb-2 block font-sans text-xs tracking-widest uppercase">
+              <label className="text-secondary mb-2 block font-sans text-xs tracking-widest uppercase">
                 {t('topic')}
               </label>
               <input
@@ -212,7 +212,7 @@ export default function FlashcardsPage() {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-[rgba(32,33,39,.52)] mb-2 block font-sans text-xs tracking-widest uppercase">
+                <label className="text-secondary mb-2 block font-sans text-xs tracking-widest uppercase">
                   {t('count')}
                 </label>
                 <select
@@ -228,7 +228,7 @@ export default function FlashcardsPage() {
                 </select>
               </div>
               <div>
-                <label className="text-[rgba(32,33,39,.52)] mb-2 block font-sans text-xs tracking-widest uppercase">
+                <label className="text-secondary mb-2 block font-sans text-xs tracking-widest uppercase">
                   {t('level')}
                 </label>
                 <select
@@ -257,10 +257,10 @@ export default function FlashcardsPage() {
 
       {/* No cards */}
       {cards.length === 0 && (
-        <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border px-6 py-10 text-center">
-          <p className="text-[rgba(32,33,39,.52)] font-sans text-sm">{t('noDue')}</p>
+        <div className="border-secondary-subtle bg-white border px-6 py-10 text-center">
+          <p className="text-secondary font-sans text-sm">{t('noDue')}</p>
           {total === 0 && (
-            <p className="text-[rgba(32,33,39,.52)] mt-2 font-sans text-xs">
+            <p className="text-secondary mt-2 font-sans text-xs">
               {t('noCardsHint')}
             </p>
           )}
@@ -276,7 +276,7 @@ export default function FlashcardsPage() {
       {/* Card review */}
       {cards.length > 0 && (
         <>
-          <div className="text-[rgba(32,33,39,.52)] flex items-center justify-between font-sans tracking-widest uppercase">
+          <div className="text-secondary flex items-center justify-between font-sans tracking-widest uppercase">
             <span>
               {current + 1} / {cards.length} {t('due')}
             </span>
@@ -288,7 +288,7 @@ export default function FlashcardsPage() {
                   setSpeakingMode(false)
                   setFlipped(false)
                 }}
-                className={`text-[rgba(32,33,39,.52)] border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${!speakingMode ? 'border-[#202127] text-[#202127]' : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:text-[rgba(32,33,39,.52)]'}`}
+                className={`text-secondary border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${!speakingMode ? 'border-[#202127] text-body' : 'border-secondary-subtle text-secondary hover:text-secondary'}`}
               >
                 {t('standardMode')}
               </button>
@@ -298,7 +298,7 @@ export default function FlashcardsPage() {
                   setSpeakingMode(true)
                   setFlipped(false)
                 }}
-                className={`text-[rgba(32,33,39,.52)] border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${speakingMode ? 'border-[#202127] text-[#202127]' : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:text-[rgba(32,33,39,.52)]'}`}
+                className={`text-secondary border px-3 py-1 tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${speakingMode ? 'border-[#202127] text-body' : 'border-secondary-subtle text-secondary hover:text-secondary'}`}
               >
                 {t('speakingMode')}
               </button>
@@ -312,14 +312,14 @@ export default function FlashcardsPage() {
                 className="card min-h-[220px] cursor-pointer transition-colors select-none"
                 onClick={() => setFlipped(!flipped)}
               >
-                <div className="border-[rgba(7,7,9,.08)] flex items-center justify-between border-b px-6 py-4">
+                <div className="border-secondary-subtle flex items-center justify-between border-b px-6 py-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-[rgba(32,33,39,.52)]">●</span>
-                    <span className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+                    <span className="text-secondary">●</span>
+                    <span className="text-secondary font-sans tracking-widest uppercase">
                       {flipped ? t('back') : t('front')}
                     </span>
                   </div>
-                  <span className="text-[rgba(32,33,39,.52)] font-sans leading-relaxed">
+                  <span className="text-secondary font-sans leading-relaxed">
                     {flipped ? t('tapToHide') : t('tapToReveal')}
                   </span>
                 </div>
@@ -330,7 +330,7 @@ export default function FlashcardsPage() {
                       <TargetLanguageText
                         as="p"
                         languageCode={targetLanguageCode}
-                        className="text-[#202127] text-3xl font-bold"
+                        className="text-body text-3xl font-bold"
                       >
                         {cards[current].word}
                       </TargetLanguageText>
@@ -343,7 +343,7 @@ export default function FlashcardsPage() {
                       <TargetLanguageText
                         as="p"
                         languageCode={targetLanguageCode}
-                        className="text-[#202127]"
+                        className="text-body"
                       >
                         {cards[current].definition}
                       </TargetLanguageText>
@@ -351,13 +351,13 @@ export default function FlashcardsPage() {
                         <TargetLanguageText
                           as="p"
                           languageCode={targetLanguageCode}
-                          className="text-[rgba(32,33,39,.52)] italic"
+                          className="text-secondary italic"
                         >
                           {cards[current].example_sentence}
                         </TargetLanguageText>
                       )}
                       {cards[current].translation && (
-                        <p className="text-[rgba(32,33,39,.52)] border-[rgba(7,7,9,.08)] mt-1 border-t pt-3 font-sans text-sm leading-relaxed">
+                        <p className="text-secondary border-secondary-subtle mt-1 border-t pt-3 font-sans text-sm leading-relaxed">
                           {cards[current].translation}
                         </p>
                       )}
@@ -392,14 +392,14 @@ export default function FlashcardsPage() {
           {/* ── Speaking mode ── */}
           {speakingMode && (
             <div className="card overflow-hidden">
-              <div className="border-[rgba(7,7,9,.08)] flex items-center justify-between border-b px-6 py-4">
+              <div className="border-secondary-subtle flex items-center justify-between border-b px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-[rgba(32,33,39,.52)]">●</span>
-                  <span className="text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
+                  <span className="text-secondary">●</span>
+                  <span className="text-secondary font-sans tracking-widest uppercase">
                     {t('speakingMode')}
                   </span>
                 </div>
-                <span className="text-[rgba(32,33,39,.52)] font-sans leading-relaxed">
+                <span className="text-secondary font-sans leading-relaxed">
                   {t('sayWord')}
                 </span>
               </div>
@@ -408,7 +408,7 @@ export default function FlashcardsPage() {
                 <TargetLanguageText
                   as="p"
                   languageCode={targetLanguageCode}
-                  className="text-[#202127]"
+                  className="text-body"
                 >
                   {cards[current].definition}
                 </TargetLanguageText>
@@ -416,13 +416,13 @@ export default function FlashcardsPage() {
                   <TargetLanguageText
                     as="p"
                     languageCode={targetLanguageCode}
-                    className="text-[rgba(32,33,39,.52)] italic"
+                    className="text-secondary italic"
                   >
                     {cards[current].example_sentence}
                   </TargetLanguageText>
                 )}
                 {cards[current].translation && (
-                  <p className="text-[rgba(32,33,39,.52)] border-[rgba(7,7,9,.08)] mt-1 border-t pt-3 font-sans text-sm leading-relaxed">
+                  <p className="text-secondary border-secondary-subtle mt-1 border-t pt-3 font-sans text-sm leading-relaxed">
                     {cards[current].translation}
                   </p>
                 )}
@@ -436,7 +436,7 @@ export default function FlashcardsPage() {
             </div>
           )}
 
-          <p className="text-[rgba(32,33,39,.52)] text-[rgba(7,7,9,.08)] text-center font-sans tracking-widest uppercase">
+          <p className="text-secondary text-[rgba(7,7,9,.08)] text-center font-sans tracking-widest uppercase">
             EF {cards[current].ease_factor.toFixed(2)} · {t('interval')}{' '}
             {cards[current].interval}d · {t('repetitions')}{' '}
             {cards[current].repetitions}
