@@ -16,7 +16,7 @@ import { LoadingBar } from '@/components/ui/loading-bar'
 import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
-import { Bell, BookOpen, BrainCircuit, ClipboardCheck, Gamepad2, GraduationCap, Headphones, Languages, MessageCircle, MessagesSquare, Settings2, Sparkles, Trophy, UserRound, Users, Volume2, X } from 'lucide-react'
+import { Bell, BookOpen, BrainCircuit, ClipboardCheck, Gamepad2, GraduationCap, Headphones, Languages, LogOut, Menu, MessageCircle, MessagesSquare, Settings2, Sparkles, Trophy, UserRound, Users, Volume2, X } from 'lucide-react'
 
 const NAV_ICONS: Record<string, React.ComponentType<{ className?: string }>> = { '/dashboard': GraduationCap, '/plan': ClipboardCheck, '/progress': Trophy, '/games': Gamepad2, '/flashcards': BookOpen, '/friends': Users, '/chat': MessageCircle, '/listening': Headphones, '/reading': BookOpen, '/conversation': MessagesSquare, '/assessment': BrainCircuit, '/coach': Sparkles, '/courses': GraduationCap, '/review': Volume2, '/translator': Languages, '/grammar': BrainCircuit, '/vocabulary': BookOpen, '/phrasebook': MessagesSquare, '/settings': Settings2, '/faq': UserRound, '/feedback': MessageCircle }
 function NavIcon({ href, className = 'size-4' }: { href: string; className?: string }) { const Icon = NAV_ICONS[href] ?? Sparkles; return <Icon className={className} aria-hidden="true" /> }
@@ -73,6 +73,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [contactOpen, setContactOpen] = useState(false)
   const [resendSent, setResendSent] = useState(false)
   const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const PREMIUM_HREFS = new Set([
     '/chat',
@@ -229,68 +230,85 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     )
   }
 
-  const allTopNavItems = isAdmin ? [] : [...mainNavItems, ...resourceNavItems, ...bottomNavItems]
+  const pageLabel = [...mainNavItems, ...resourceNavItems, ...bottomNavItems].find((item) => pathname === item.href || pathname.startsWith(item.href + '/'))?.label ?? tNav('home')
+  const renderNavItems = (items: typeof mainNavItems) => items.map((item) => {
+    const active = pathname === item.href || pathname.startsWith(item.href + '/')
+    const premium = showPremiumBadge && PREMIUM_HREFS.has(item.href)
+    const isFeedback = item.href === '/feedback'
+    return (
+      <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)} aria-current={active ? 'page' : undefined}
+        className={`group flex min-h-11 items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-semibold transition ${active ? 'bg-[#7776df] text-white shadow-sm' : 'text-white/65 hover:bg-white/[0.07] hover:text-white'}`}>
+        <span className="relative grid size-5 shrink-0 place-items-center"><NavIcon href={item.href} className="size-[18px]" />
+          {premium && <Sparkles className="absolute -right-1 -top-1 size-2.5 text-[#ffcf67]" />}
+        </span>
+        <span className="min-w-0 flex-1 truncate">{item.label}</span>
+        {isFeedback && feedbackBadgeText && <span className="rounded-full bg-[#f26b69] px-2 py-0.5 text-[9px] font-black text-white">{feedbackBadgeText}</span>}
+      </Link>
+    )
+  })
 
   return (
-    <div className="juba-member-shell min-h-screen bg-[#dfe0f7] p-0 md:p-3 lg:p-4">
-      <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col overflow-hidden bg-[#f6f6f4] shadow-[0_35px_100px_-35px_rgba(24,28,46,.55)] md:min-h-[calc(100vh-24px)] md:rounded-[34px]">
-        <header className="relative z-50 bg-[#24272b] text-white">
-          <div className="flex min-h-[76px] items-center gap-3 px-4 sm:px-6 lg:px-8">
-            <Link href="/dashboard" className="flex shrink-0 items-center gap-3">
-              <span className="grid size-11 place-items-center rounded-full bg-[#7776df] shadow-inner shadow-white/20"><span className="text-lg font-black">JL</span></span>
-              <span className="hidden text-lg font-black tracking-[-.04em] sm:inline">JUBA LISAN</span>
+    <div className="juba-member-shell min-h-screen bg-[#f1f1f5] p-0">
+      {sidebarOpen && <button type="button" aria-label={tCommon('close')} onClick={() => setSidebarOpen(false)} className="fixed inset-0 z-[60] bg-black/45 backdrop-blur-[2px] lg:hidden" />}
+      <div className="flex min-h-screen">
+        <aside className={`fixed inset-y-0 left-0 z-[70] flex w-[276px] shrink-0 flex-col bg-[#24272b] text-white shadow-2xl transition-transform duration-300 ease-out lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:shadow-none ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className="flex h-[82px] shrink-0 items-center justify-between border-b border-white/[0.08] px-5">
+            <Link href="/dashboard" onClick={() => setSidebarOpen(false)} className="flex items-center gap-3">
+              <span className="grid size-11 place-items-center rounded-2xl bg-[#7776df] shadow-inner shadow-white/20"><span className="text-lg font-black">JL</span></span>
+              <span className="text-[17px] font-black tracking-[-.04em]">JUBA LISAN</span>
             </Link>
-            <nav aria-label="Main navigation" className="min-w-0 flex-1 overflow-x-auto scrollbar-none">
-              <div className="mx-auto flex w-max min-w-max items-center gap-1 rounded-full bg-[#17191c] p-1">
-                {allTopNavItems.map((item) => {
-                  const active = pathname === item.href || pathname.startsWith(item.href + '/')
-                  const premium = showPremiumBadge && PREMIUM_HREFS.has(item.href)
-                  const isFeedback = item.href === '/feedback'
-                  return (
-                    <Link key={item.href} href={item.href} title={item.label} aria-label={item.label} className={`relative grid size-11 shrink-0 place-items-center rounded-full transition ${active ? 'bg-white text-[#24272b] shadow-sm' : 'text-white/55 hover:bg-white/10 hover:text-white'}`}>
-                      <NavIcon href={item.href} className="size-[18px]" />
-                      {premium && <Sparkles className="absolute right-1 top-1 size-2.5 text-[#ffcf67]" />}
-                      {isFeedback && feedbackBadgeText && <span className="absolute -right-0.5 -top-0.5 min-w-4 rounded-full bg-[#f26b69] px-1 text-center text-[8px] font-black leading-4 text-white">{feedbackBadgeText}</span>}
-                    </Link>
-                  )
-                })}
+            <button type="button" onClick={() => setSidebarOpen(false)} className="grid size-9 place-items-center rounded-xl text-white/55 hover:bg-white/10 hover:text-white lg:hidden" aria-label={tCommon('close')}><X className="size-4" /></button>
+          </div>
+          <nav aria-label="Main navigation" className="min-h-0 flex-1 overflow-y-auto px-3 py-5">
+            <p className="mb-3 px-3 text-[9px] font-black uppercase tracking-[.2em] text-white/30">{tNav('menu')}</p>
+            <div className="space-y-1">{renderNavItems(mainNavItems)}</div>
+            <div className="my-5 border-t border-white/[0.09]" />
+            <p className="mb-3 px-3 text-[9px] font-black uppercase tracking-[.2em] text-white/30">{tNav('resources')}</p>
+            <div className="space-y-1">{renderNavItems(resourceNavItems)}</div>
+            <div className="my-5 border-t border-white/[0.09]" />
+            <div className="space-y-1">{renderNavItems(bottomNavItems)}</div>
+          </nav>
+          <div className="shrink-0 border-t border-white/[0.09] p-4">
+            <div className="mb-3 flex items-center justify-between gap-2 rounded-xl bg-white/[0.06] p-2">
+              <div className="flex min-w-0 items-center gap-2">
+                <div className="grid size-9 shrink-0 place-items-center overflow-hidden rounded-full bg-[#d8c9a9] text-[#25272b]">
+                  {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover" fallback={<span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
+                </div>
+                <div className="min-w-0"><p className="truncate text-xs font-bold text-white">{user?.displayName || user?.username || 'Learner'}</p><p className="truncate text-[10px] text-white/40">{user?.email || ''}</p></div>
               </div>
-            </nav>
-            <div className="ml-auto flex shrink-0 items-center gap-2">
+              <Link href="/settings" onClick={() => setSidebarOpen(false)} aria-label={tNav('settings')} className="grid size-8 shrink-0 place-items-center rounded-lg text-white/55 hover:bg-white/10 hover:text-white"><Settings2 className="size-4" /></Link>
+            </div>
+            <div className="flex items-center justify-between gap-2">
               <LanguageSwitcher />
-              <button type="button" className="relative grid size-10 place-items-center rounded-full border border-white/10 text-white/75 hover:bg-white/10" aria-label="Notifications" title="Notifications"><Bell className="size-4" /><span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#f26b69]" /></button>
-              <Link href="/settings" title={tNav('settings')} aria-label={tNav('settings')} className="hidden size-10 place-items-center rounded-full bg-white/10 sm:grid">
-                <div className="grid size-8 place-items-center overflow-hidden rounded-full bg-[#d8c9a9] text-[#25272b]">
-                  {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={32} height={32} className="h-full w-full object-cover" fallback={<span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
+              <button type="button" onClick={() => setLogoutConfirm(true)} title={tCommon('logout')} aria-label={tCommon('logout')} className="flex h-9 items-center gap-2 rounded-xl px-3 text-[11px] font-bold text-white/55 transition hover:bg-white/10 hover:text-white"><LogOut className="size-4" /><span>{tCommon('logout')}</span></button>
+            </div>
+          </div>
+        </aside>
+        <div className="min-w-0 flex-1">
+          <header className="flex h-[70px] items-center justify-between gap-3 border-b border-black/[0.06] bg-[#f6f6f4] px-4 sm:px-7">
+            <div className="flex min-w-0 items-center gap-3">
+              <button type="button" onClick={() => setSidebarOpen(true)} aria-label={tNav('menu')} className="grid size-10 shrink-0 place-items-center rounded-xl border border-black/[0.08] bg-white text-[#24272b] shadow-sm transition hover:bg-[#f0efff] lg:hidden"><Menu className="size-5" /></button>
+              <div className="min-w-0"><p className="text-[9px] font-black uppercase tracking-[.16em] text-[#7776df]">JUBA LISAN</p><h1 className="truncate text-base font-extrabold text-[#24272b] sm:text-lg">{pageLabel}</h1></div>
+            </div>
+            <div className="flex shrink-0 items-center gap-2">
+              <button type="button" className="relative grid size-10 place-items-center rounded-full border border-black/[0.07] bg-white text-[#777986] transition hover:bg-[#f0efff]" aria-label="Notifications" title="Notifications"><Bell className="size-4" /><span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#f26b69]" /></button>
+              <Link href="/settings" title={tNav('settings')} aria-label={tNav('settings')} className="grid size-10 place-items-center overflow-hidden rounded-full border border-black/[0.08] bg-white">
+                <div className="grid size-9 place-items-center overflow-hidden rounded-full bg-[#d8c9a9] text-[#25272b]">
+                  {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover" fallback={<span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span className="text-xs font-black">{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
                 </div>
               </Link>
             </div>
-          </div>
-          <div className="border-t border-white/[0.06] bg-[#1d1f22] px-4 py-2 sm:px-6 lg:px-8">
-            <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
-              <span className="shrink-0 text-[8px] font-black uppercase tracking-[.18em] text-white/25">{tNav('resources')}</span>
-              <div className="flex min-w-max items-center gap-1">
-                {resourceNavItems.map((item) => {
-                  const active = pathname === item.href || pathname.startsWith(item.href + '/')
-                  return <Link key={item.href} href={item.href} title={item.label} aria-label={item.label} className={`grid size-8 shrink-0 place-items-center rounded-full transition ${active ? 'bg-white/15 text-white' : 'text-white/35 hover:bg-white/10 hover:text-white'}`}><NavIcon href={item.href} className="size-3.5" /></Link>
-                })}
+          </header>
+          <main className="juba-app-content min-h-0 bg-[#f6f6f4]">
+            {user && user.is_verified === false && (
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-black/5 bg-[#fff8e8] px-4 py-2">
+                <span className="text-xs font-bold text-black/55">● {tCommon('verifyEmailBanner')}</span>
+                {resendSent ? <span className="text-xs text-black/45">{tCommon('verifyEmailSent')}</span> : <button onClick={handleResendVerification} className="text-xs font-bold text-[#5f5ec5] underline">{tCommon('resendVerification')}</button>}
               </div>
-              <div className="ml-auto hidden items-center gap-1 sm:flex">
-                <Link href="/settings" title={tNav('settings')} aria-label={tNav('settings')} className={`grid size-8 place-items-center rounded-full transition ${pathname.startsWith('/settings') ? 'bg-white/15 text-white' : 'text-white/35 hover:bg-white/10 hover:text-white'}`}><Settings2 className="size-3.5" /></Link>
-                <button type="button" onClick={() => setLogoutConfirm(true)} title={tCommon('logout')} aria-label={tCommon('logout')} className="grid size-8 place-items-center rounded-full text-white/35 transition hover:bg-white/10 hover:text-white"><X className="size-3.5" /></button>
-              </div>
-            </div>
-          </div>
-        </header>
-        <main className="juba-app-content min-h-0 flex-1 overflow-y-auto bg-[#f6f6f4]">
-          {user && user.is_verified === false && (
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-black/5 bg-[#fff8e8] px-4 py-2">
-              <span className="text-xs font-bold text-black/55">● {tCommon('verifyEmailBanner')}</span>
-              {resendSent ? <span className="text-xs text-black/45">{tCommon('verifyEmailSent')}</span> : <button onClick={handleResendVerification} className="text-xs font-bold text-[#5f5ec5] underline">{tCommon('resendVerification')}</button>}
-            </div>
-          )}
-          <div className="juba-app-page">{children}</div>
-        </main>
+            )}
+            <div className="juba-app-page">{children}</div>
+          </main>
+        </div>
       </div>
       <LoadingBar />
       <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
