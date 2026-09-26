@@ -62,10 +62,10 @@ export default function DurationSelector({
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
-      <div className="w-full max-w-2xl overflow-hidden rounded-[26px] border-2 border-[var(--juba-app-green-soft)] bg-white shadow-[8px_8px_0_var(--juba-app-ink)]">
-        <div className="flex items-center gap-3 border-b-2 border-[var(--juba-app-green-soft)] bg-[var(--juba-app-green-soft)]/40 px-6 py-4">
-          <span className="text-xs text-[var(--juba-app-muted)]">●</span>
-          <span className="text-xs text-[var(--juba-app-muted)] font-semibold tracking-[0.12em] uppercase">
+      <div className="w-full max-w-2xl overflow-hidden rounded-[26px] border border-[rgba(7,7,9,.08)] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
+        <div className="flex items-center gap-3 border-b border-[#ededff] bg-[#ededff]/40 px-6 py-4">
+          <span className="text-xs text-[rgba(32,33,39,.52)]">●</span>
+          <span className="text-xs text-[rgba(32,33,39,.52)] font-semibold tracking-[0.12em] uppercase">
             {t('step3')}
           </span>
         </div>
@@ -73,7 +73,7 @@ export default function DurationSelector({
         <div className="space-y-8 p-6 sm:p-8">
           {/* Duration */}
           <div>
-            <p className="text-xs text-[var(--juba-app-muted)] mb-3 font-semibold tracking-[0.12em] uppercase">
+            <p className="text-xs text-[rgba(32,33,39,.52)] mb-3 font-semibold tracking-[0.12em] uppercase">
               {t('howManyWeeks', { cefr_level })}
             </p>
             <div className="grid grid-cols-2 gap-3">
@@ -84,28 +84,28 @@ export default function DurationSelector({
                   onClick={() => onSelectDuration(opt)}
                   className={`rounded-[20px] border-2 px-4 py-4 text-left transition-all ${
                     selectedWeeks === opt.weeks
-                      ? 'bg-[var(--juba-app-green)] text-white border-[var(--juba-app-ink)]'
-                      : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-2 hover:text-[var(--juba-app-green-dark)]'
+                      ? 'bg-[#5862e2] text-white border-[#202127]'
+                      : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.14)] hover:bg-[#ededff] hover:text-[#373fb8]'
                   }`}
                 >
                   <p className="font-sans text-xs font-bold tracking-widest uppercase">
                     {t('nWeeks', { count: opt.weeks })}
                   </p>
                   <p
-                    className={`text-[var(--juba-app-muted)] mt-0.5 font-sans ${
+                    className={`text-[rgba(32,33,39,.52)] mt-0.5 font-sans ${
                       selectedWeeks === opt.weeks
                         ? 'opacity-70'
-                        : 'text-[var(--juba-app-muted)]'
+                        : 'text-[rgba(32,33,39,.52)]'
                     }`}
                   >
                     {intensityMap[opt.intensity]} ·{' '}
                     {t('approxLessons', { count: opt.weeks * opt.daysPerWeek })}
                   </p>
                   <p
-                    className={`text-[var(--juba-app-muted)] mt-0.5 font-sans ${
+                    className={`text-[rgba(32,33,39,.52)] mt-0.5 font-sans ${
                       selectedWeeks === opt.weeks
                         ? 'opacity-60'
-                        : 'text-[var(--juba-app-muted)]'
+                        : 'text-[rgba(32,33,39,.52)]'
                     }`}
                   >
                     {t('daysPerWeek', { count: opt.daysPerWeek })}
@@ -117,7 +117,7 @@ export default function DurationSelector({
 
           {/* Goals */}
           <div>
-            <p className="text-xs text-[var(--juba-app-muted)] mb-3 font-semibold tracking-[0.12em] uppercase">
+            <p className="text-xs text-[rgba(32,33,39,.52)] mb-3 font-semibold tracking-[0.12em] uppercase">
               {t('mainGoals')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -128,8 +128,8 @@ export default function DurationSelector({
                   onClick={() => onToggleGoal(g.id)}
                   className={`rounded-full border-2 px-3 py-2 text-xs font-semibold tracking-[0.08em] uppercase transition-all ${
                     selectedGoals.includes(g.id)
-                      ? 'bg-[var(--juba-app-green)] text-white border-[var(--juba-app-ink)]'
-                      : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-2 hover:text-[var(--juba-app-green-dark)]'
+                      ? 'bg-[#5862e2] text-white border-[#202127]'
+                      : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.14)] hover:bg-[#ededff] hover:text-[#373fb8]'
                   }`}
                 >
                   {selectedGoals.includes(g.id) ? '✓ ' : ''}
@@ -142,24 +142,24 @@ export default function DurationSelector({
           </div>
 
           {/* Summary */}
-          <div className="border-[var(--juba-app-line)] text-xs text-[var(--juba-app-ink)] space-y-1 border px-4 py-3 font-sans tracking-wide">
+          <div className="border-[rgba(7,7,9,.08)] text-xs text-[#202127] space-y-1 border px-4 py-3 font-sans tracking-wide">
             <p>
               {t('summaryLevel')}:{' '}
-              <span className="text-[var(--juba-app-ink)] font-bold">{cefr_level}</span>
+              <span className="text-[#202127] font-bold">{cefr_level}</span>
             </p>
             <p>
               {t('summaryDuration')}:{' '}
-              <span className="text-[var(--juba-app-ink)]">
+              <span className="text-[#202127]">
                 {t('nWeeks', { count: selected.weeks })}
               </span>
               {' · '}
-              <span className="text-[var(--juba-app-ink)]">
+              <span className="text-[#202127]">
                 {t('daysPerWeek', { count: selected.daysPerWeek })}
               </span>
             </p>
             <p>
               {t('summaryGoals')}:{' '}
-              <span className="text-[var(--juba-app-ink)]">
+              <span className="text-[#202127]">
                 {selectedGoals.length > 0
                   ? selectedGoals
                       .map((g) =>
@@ -177,7 +177,7 @@ export default function DurationSelector({
             <div
               role="alert"
               aria-live="polite"
-              className="rounded-[18px] border-2 border-[var(--juba-app-error)]/30 bg-[var(--juba-app-error)]/10 px-4 py-3 text-left text-xs leading-relaxed text-[var(--juba-app-error)]"
+              className="rounded-[18px] border-2 border-[#b33a32]/30 bg-[#b33a32]/10 px-4 py-3 text-left text-xs leading-relaxed text-[#b33a32]"
             >
               ✕ {error}
             </div>
@@ -187,7 +187,7 @@ export default function DurationSelector({
             <button
               type="button"
               onClick={onBack}
-              className="border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:border-2 hover:text-[var(--juba-app-green-dark)] flex-1 border py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+              className="border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.14)] hover:bg-[#ededff] hover:text-[#373fb8] flex-1 rounded-[14px] border py-3 font-sans text-xs tracking-widest uppercase transition-colors"
             >
               ← {tCommon('back')}
             </button>
@@ -195,7 +195,7 @@ export default function DurationSelector({
               type="button"
               onClick={onConfirm}
               disabled={loading || selectedGoals.length === 0}
-              className="bg-[var(--juba-app-green)] text-white hover:bg-[var(--juba-app-green-dark)] flex-[2] py-3 font-sans text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+              className="bg-[#5862e2] text-white hover:bg-[#373fb8] flex-[2] rounded-[14px] py-3 font-sans text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
             >
               {loading ? t('buildingPlan') : `${t('startMyPlan')} →`}
             </button>
