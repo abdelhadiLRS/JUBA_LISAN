@@ -56,7 +56,7 @@ const certifications = [
 
 export default function ProfessionalPage() {
   return (
-    <div className="min-h-screen bg-[var(--juba-bg)]">
+    <div className="min-h-screen bg-[#f4f4f2]">
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20">
         <div className="absolute inset-0 juba-hero-glow opacity-30" />
@@ -90,7 +90,7 @@ export default function ProfessionalPage() {
             <h2 className="text-4xl font-bold mb-4 text-[var(--juba-text)]">
               Specialized Learning Paths
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+            <p className="text-lg text-black/50 max-w-2xl mx-auto">
               Choose your career focus and master the language of your profession
             </p>
           </motion.div>
@@ -103,15 +103,15 @@ export default function ProfessionalPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="juba-card border-2 border-[var(--juba-border)] p-8 hover:-translate-y-1"
+                className="juba-card border border-black/[0.08] p-8 hover:-translate-y-1"
               >
                 <div className="flex items-start gap-4 mb-4">
                   <span className="text-5xl">{path.icon}</span>
                   <div>
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                    <h3 className="text-2xl font-bold text-[#202127] mb-2">
                       {path.title}
                     </h3>
-                    <span className="inline-block px-3 py-1 bg-[var(--juba-yellow)] text-[var(--juba-text)] rounded-[18px] text-sm font-medium">
+                    <span className="inline-block px-3 py-1 bg-[#fff3d1] text-[var(--juba-text)] rounded-[18px] text-sm font-medium">
                       {path.level}
                     </span>
                   </div>
@@ -123,7 +123,7 @@ export default function ProfessionalPage() {
                   {path.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="px-3 py-1 bg-[var(--juba-lilac)] text-[var(--juba-text)] rounded-lg text-sm"
+                      className="px-3 py-1 bg-[#ededff] text-[var(--juba-text)] rounded-lg text-sm"
                     >
                       {skill}
                     </span>
@@ -160,9 +160,9 @@ export default function ProfessionalPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="juba-card p-8 text-center border-2 border-[var(--juba-border)] hover:border-[var(--juba-violet)]"
+                className="juba-card p-8 text-center border-2 border-[var(--juba-border)] hover:border-[#5862e2]"
               >
-                <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-[var(--juba-violet)] to-[var(--juba-coral)] rounded-[18px] flex items-center justify-center">
+                <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-[#5862e2] to-[#373fb8] rounded-[18px] flex items-center justify-center">
                   <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                   </svg>
@@ -173,7 +173,7 @@ export default function ProfessionalPage() {
                 <p className="text-slate-600 dark:text-slate-300 mb-4">
                   {cert.duration} • {cert.level}
                 </p>
-                <p className="text-sm text-[var(--juba-violet)] dark:text-amber-400 font-medium">
+                <p className="text-sm text-[#373fb8] dark:text-amber-400 font-medium">
                   ✓ {cert.recognition}
                 </p>
               </motion.div>
@@ -183,7 +183,7 @@ export default function ProfessionalPage() {
       </section>
 
       {/* Mock Tests */}
-      <section className="py-16 bg-white dark:bg-slate-900">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -234,13 +234,13 @@ export default function ProfessionalPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="juba-card p-12 text-center bg-[var(--juba-violet)] text-white"
+            className="juba-card p-12 text-center bg-[#373fb8] text-white"
           >
             <h2 className="text-4xl font-bold mb-4">Start Your Professional Journey</h2>
             <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
               Join thousands of professionals who have advanced their careers with JUBA LISAN
             </p>
-            <button className="px-8 py-4 bg-white text-amber-600 rounded-[18px] font-bold text-lg hover:shadow-lg transition-shadow">
+            <button className="px-8 py-4 bg-white text-[#373fb8] rounded-[18px] font-bold text-lg hover:shadow-lg transition-shadow">
               Begin Free Trial →
             </button>
           </motion.div>
