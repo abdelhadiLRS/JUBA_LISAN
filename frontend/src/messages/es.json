@@ -524,7 +524,13 @@
     "levelTestScoreLine": "Puntuación: {score} de {total}",
     "levelTestReady": "Estás listo para el siguiente nivel",
     "levelTestReadyDesc": "Has completado la prueba de nivel. Continúa con tu plan de aprendizaje.",
-    "refresh": "Actualizar panel"
+    "refresh": "Actualizar panel",
+    "historyRanges": {
+      "week": "Semana",
+      "month": "Mes",
+      "all": "Todo"
+    },
+    "minutes": "min"
   },
   "assessment": {
     "title": "Evaluación",
