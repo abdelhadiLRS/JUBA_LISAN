@@ -218,6 +218,12 @@ _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "no": "no-NO",
     "fi": "fi-FI",
     "cs": "cs-CZ",
+    # Foundation-language capability fallbacks.
+    "ar": "en-GB", "he": "en-GB", "fa": "en-GB", "ur": "en-GB",
+    "hi": "en-GB", "bn": "en-GB", "ta": "en-GB", "te": "en-GB",
+    "mr": "en-GB", "gu": "en-GB", "th": "en-GB", "ka": "en-GB",
+    "hy": "en-GB", "am": "en-GB", "ti": "en-GB",
+    "uk": "ru-RU", "bg": "ru-RU", "sr": "ru-RU", "be": "ru-RU",
 }
 
 _VOICE_SESSION_TITLES: dict[str, str] = {
