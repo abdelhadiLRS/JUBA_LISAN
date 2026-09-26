@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { apiFetch, getGuestMemory, getGuestReviewState } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
 import { useTranslations } from 'next-intl'
+import { markLearningProgressUpdated } from '@/lib/learning-progress'
 
 const REVIEW_KEY = 'juba_lisan_review_state'
 type Word = { word: string; translation: string; source?: string; target?: string; id?: number; definition?: string; example_sentence?: string }
@@ -92,6 +93,7 @@ export default function VocabularyReviewPage() {
       try {
         const res = await apiFetch(`/api/flashcards/${current.id}/review`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quality: quality(rating) }) })
         if (!res.ok) throw new Error(t('saveError'))
+        markLearningProgressUpdated()
       } catch (e) {
         setError(e instanceof Error ? e.message : t('saveError'))
         setReviewing(false)
