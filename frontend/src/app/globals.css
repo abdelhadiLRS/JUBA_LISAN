@@ -7129,8 +7129,8 @@ main [dir="rtl"] h3,
   background: transparent;
 }
 .juba-app-page .juba-eyebrow { color: var(--juba-page-purple) !important; }
-.juba-app-page .bg-\\[var\\(--juba-app-green\\)\\] { background: var(--juba-page-purple) !important; }
-.juba-app-page .bg-\\[var\\(--juba-app-green-dark\\)\\] { background: var(--juba-page-purple) !important; }
+.juba-app-page [class*="bg-[var(--juba-app-green)]"] { background: var(--juba-page-purple) !important; }
+.juba-app-page [class*="bg-[var(--juba-app-green-dark)]"] { background: var(--juba-page-purple) !important; }
 @media (max-width: 1023px) {
   .juba-member-shell { padding: 0 !important; }
   .juba-member-shell > .mx-auto { border-radius: 0 !important; }
