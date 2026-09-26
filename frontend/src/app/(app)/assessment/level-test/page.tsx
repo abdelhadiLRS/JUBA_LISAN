@@ -243,10 +243,10 @@ export default function LevelTestPage() {
   if (step === 'error') {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-[var(--juba-lilac)] bg-white w-full max-w-md border">
-          <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-            <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+        <div className="border-[rgba(7,7,9,.08)] bg-white w-full max-w-md border">
+          <div className="border-[rgba(7,7,9,.08)] flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-[#202127] text-[rgba(32,33,39,.52)]">●</span>
+            <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
               Level Test
             </span>
           </div>
@@ -256,7 +256,7 @@ export default function LevelTestPage() {
             </p>
             <button
               onClick={() => router.push('/plan')}
-              className="border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)] w-full border-2 py-3 text-sm tracking-widest uppercase transition-colors"
+              className="border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[#5862e2] hover:text-[#202127] w-full rounded-[14px] border py-3 text-sm tracking-widest uppercase transition-colors"
             >
               ← Back to Plan
             </button>
@@ -312,12 +312,12 @@ export default function LevelTestPage() {
 
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-[var(--juba-lilac)] bg-white w-full max-w-lg border">
+        <div className="border-[rgba(7,7,9,.08)] bg-white w-full max-w-lg border">
           {/* Header */}
-          <div className="border-[var(--juba-lilac)] flex items-center justify-between border-b px-6 py-4">
+          <div className="border-[rgba(7,7,9,.08)] flex items-center justify-between border-b px-6 py-4">
             <div className="flex items-center gap-2">
-              <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-              <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+              <span className="text-[#202127] text-[rgba(32,33,39,.52)]">●</span>
+              <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
                 {cefrLevel} Level Test — Results
               </span>
             </div>
@@ -326,13 +326,13 @@ export default function LevelTestPage() {
           <div className="space-y-6 p-8">
             {/* Score */}
             <div className="space-y-2 text-center">
-              <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+              <p className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
                 Final Score
               </p>
-              <p className="text-[var(--juba-text)] font-mono text-7xl font-bold tracking-widest">
+              <p className="text-[#202127] font-mono text-7xl font-bold tracking-widest">
                 {pct}%
               </p>
-              <p className="text-[var(--juba-muted)] text-sm">
+              <p className="text-[rgba(32,33,39,.52)] text-sm">
                 {answers.filter((a) => a.correct).length} / {questions.length}{' '}
                 correct
               </p>
@@ -346,20 +346,20 @@ export default function LevelTestPage() {
                 const isWeak = skillPct < 60
                 return (
                   <div key={skill} className="flex items-center gap-3">
-                    <span className="text-[var(--juba-text)] text-[var(--juba-muted)] w-6 text-center font-mono uppercase">
+                    <span className="text-[#202127] text-[rgba(32,33,39,.52)] w-6 text-center font-mono uppercase">
                       {SKILL_ICONS[skill] ?? skill[0].toUpperCase()}
                     </span>
-                    <span className="text-[var(--juba-text)] text-[var(--juba-muted)] w-24 font-semibold tracking-wide">
+                    <span className="text-[#202127] text-[rgba(32,33,39,.52)] w-24 font-semibold tracking-wide">
                       {SKILL_LABELS[skill] ?? skill}
                     </span>
-                    <div className="bg-fl-border-2 h-1.5 flex-1">
+                    <div className="bg-[#e1e1df] h-1.5 flex-1">
                       <div
-                        className={`h-full transition-all ${isWeak ? 'bg-amber-500' : 'bg-fl-fg'}`}
+                        className={`h-full transition-all ${isWeak ? 'bg-amber-500' : 'bg-[#5862e2]'}`}
                         style={{ width: `${skillPct}%` }}
                       />
                     </div>
                     <span
-                      className={`text-[var(--juba-text)] w-16 text-right font-mono ${isWeak ? 'text-amber-500' : 'text-[var(--juba-text)]'}`}
+                      className={`text-[#202127] w-16 text-right font-mono ${isWeak ? 'text-amber-500' : 'text-[#202127]'}`}
                     >
                       {v.correct}/{v.total} ({skillPct}%)
                       {isWeak && ' ◂'}
@@ -370,14 +370,14 @@ export default function LevelTestPage() {
             </div>
 
             {/* Recommendation */}
-            <div className="border-[var(--juba-lilac)] space-y-3 border-2 p-6">
+            <div className="border-[rgba(7,7,9,.08)] space-y-3 rounded-[18px] border p-6">
               <div className="flex items-center gap-2">
                 <span className="text-xl">{rec.icon}</span>
-                <span className="text-[var(--juba-text)] text-[var(--juba-text)] font-mono font-bold tracking-widest uppercase">
+                <span className="text-[#202127] text-[#202127] font-mono font-bold tracking-widest uppercase">
                   Recommendation: {rec.label}
                 </span>
               </div>
-              <p className="text-[var(--juba-muted)] text-sm leading-relaxed">
+              <p className="text-[rgba(32,33,39,.52)] text-sm leading-relaxed">
                 {rec.message}
               </p>
             </div>
@@ -386,13 +386,13 @@ export default function LevelTestPage() {
             <div className="flex flex-col gap-2">
               <button
                 onClick={() => router.push(rec.nextAction)}
-                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 w-full py-3.5 text-sm font-bold tracking-widest uppercase transition-colors"
+                className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 w-full rounded-[14px] py-3.5 text-sm font-bold tracking-widest uppercase transition-colors"
               >
                 {rec.nextLabel}
               </button>
               <button
                 onClick={() => router.push('/plan')}
-                className="border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)] w-full border-2 py-3 text-sm tracking-widest uppercase transition-colors"
+                className="border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[#5862e2] hover:text-[#202127] w-full rounded-[14px] border py-3 text-sm tracking-widest uppercase transition-colors"
               >
                 ← Back to Plan
               </button>
@@ -413,33 +413,33 @@ export default function LevelTestPage() {
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center p-6">
-      <div className="border-[var(--juba-lilac)] bg-white w-full max-w-lg border">
+      <div className="border-[rgba(7,7,9,.08)] bg-white w-full max-w-lg border">
         {/* Header */}
-        <div className="border-[var(--juba-lilac)] space-y-3 border-b px-6 py-4">
+        <div className="border-[rgba(7,7,9,.08)] space-y-3 border-b px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-              <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+              <span className="text-[#202127] text-[rgba(32,33,39,.52)]">●</span>
+              <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
                 {cefrLevel} Level Test
               </span>
             </div>
-            <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-semibold tracking-wide">
+            <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-semibold tracking-wide">
               {currentIndex + 1} / {questions.length}
             </span>
           </div>
           {/* Progress bar */}
-          <div className="bg-fl-border-2 h-0.5">
+          <div className="bg-[#e1e1df] h-0.5">
             <div
-              className="bg-fl-fg h-full transition-all duration-300"
+              className="bg-[#5862e2] h-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
           {/* Skill badge */}
           <div className="flex items-center gap-2">
-            <span className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] border-2 px-2 py-0.5 font-semibold tracking-wide">
+            <span className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] border-2 px-2 py-0.5 font-semibold tracking-wide">
               {skillLabel}
             </span>
-            <span className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] border-2 px-2 py-0.5 font-semibold tracking-wide">
+            <span className="border-[rgba(7,7,9,.08)] text-[#202127] text-[rgba(32,33,39,.52)] border-2 px-2 py-0.5 font-semibold tracking-wide">
               {q.difficulty}
             </span>
           </div>
@@ -447,7 +447,7 @@ export default function LevelTestPage() {
 
         {/* Question */}
         <div className="space-y-6 p-8">
-          <p className="text-[var(--juba-text)] text-sm leading-relaxed">
+          <p className="text-[#202127] text-sm leading-relaxed">
             {q.question}
           </p>
 
@@ -455,13 +455,13 @@ export default function LevelTestPage() {
           <div className="space-y-2">
             {q.options.map((option, i) => {
               let style =
-                'w-full text-left border-2 text-sm tracking-wide py-3.5 px-4 transition-colors cursor-pointer'
+                'w-full text-left rounded-[14px] border text-sm tracking-wide py-3.5 px-4 transition-colors cursor-pointer'
 
               if (!answerConfirmed) {
                 style +=
                   selectedOption === option
-                    ? ' border-fl-fg text-[var(--juba-text)] bg-white'
-                    : ' border-[var(--juba-lilac)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)]'
+                    ? ' border-[#5862e2] text-[#202127] bg-white'
+                    : ' border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[#5862e2] hover:text-[#202127]'
               } else {
                 if (option === q.correct) {
                   style +=
@@ -469,7 +469,7 @@ export default function LevelTestPage() {
                 } else if (option === selectedOption && option !== q.correct) {
                   style += ' border-red-500 text-red-500'
                 } else {
-                  style += ' border-[var(--juba-lilac)] text-[var(--juba-muted)] opacity-50'
+                  style += ' border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] opacity-50'
                 }
               }
 
@@ -482,7 +482,7 @@ export default function LevelTestPage() {
                   disabled={answerConfirmed}
                   className={style}
                 >
-                  <span className="text-[var(--juba-muted)] mr-3">{prefix}.</span>
+                  <span className="text-[rgba(32,33,39,.52)] mr-3">{prefix}.</span>
                   {option}
                 </button>
               )
@@ -494,7 +494,7 @@ export default function LevelTestPage() {
             <button
               onClick={handleConfirmAnswer}
               disabled={!selectedOption}
-              className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 w-full py-3.5 text-sm font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+              className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 w-full rounded-[14px] py-3.5 text-sm font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
             >
               Confirm Answer
             </button>
@@ -513,7 +513,7 @@ export default function LevelTestPage() {
               </div>
               <button
                 onClick={handleNext}
-                className="bg-[var(--juba-violet)] text-white hover:bg-[var(--juba-violet)]/90 w-full py-3.5 text-sm font-bold tracking-widest uppercase transition-colors"
+                className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 w-full rounded-[14px] py-3.5 text-sm font-bold tracking-widest uppercase transition-colors"
               >
                 {currentIndex + 1 >= questions.length
                   ? 'Submit Test →'

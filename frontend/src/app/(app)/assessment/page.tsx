@@ -325,9 +325,9 @@ export default function AssessmentPage() {
     }
   }
 
-  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[26px] border-2 border-[var(--juba-app-line)] bg-white shadow-[8px_8px_0_var(--juba-app-ink)]'
-  const panelClass = 'rounded-[18px] border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] p-4'
-  const actionClass = 'w-full rounded-[14px] border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-yellow)] px-4 py-3 font-bold text-[var(--juba-app-ink)] shadow-[4px_4px_0_var(--juba-app-ink)] transition hover:-translate-y-0.5'
+  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[26px] border border-[rgba(7,7,9,.08)] bg-white shadow-[8px_8px_0_#202127]'
+  const panelClass = 'rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#ededff] p-4'
+  const actionClass = 'w-full rounded-[14px] border-2 border-[#202127] bg-[#fff3d1] px-4 py-3 font-bold text-[#202127] shadow-[4px_4px_0_#202127] transition hover:-translate-y-0.5'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
     return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
@@ -336,37 +336,37 @@ export default function AssessmentPage() {
   if (step === 'existing' && existingPlan) {
     const assessedDate = new Date(existingPlan.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
     return (
-      <div className="flex min-h-[60vh] items-center justify-center bg-gradient-to-br from-[var(--juba-app-green-soft)]/30 via-white to-[var(--juba-app-green-soft)]/20 p-4 sm:p-6">
+      <div className="flex min-h-[60vh] items-center justify-center bg-gradient-to-br from-[#ededff]/30 via-white to-[#ededff]/20 p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border-[var(--juba-app-line)] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[var(--juba-app-green-soft)] text-sm font-bold text-[var(--juba-app-green-dark)]">A</span>
+          <div className="flex items-center gap-3 border-b border-[rgba(7,7,9,.08)] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#ededff] text-sm font-bold text-[#373fb8]">A</span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-app-muted)]">{t('title')}</p>
-              <p className="text-xs text-[var(--juba-app-muted)]">{t('currentLevel')}</p>
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('title')}</p>
+              <p className="text-xs text-[rgba(32,33,39,.52)]">{t('currentLevel')}</p>
             </div>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-app-muted)]">{t('currentLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-[var(--juba-app-ink)]">{existingPlan.cefr_level}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('currentLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-[#202127]">{existingPlan.cefr_level}</p>
             </div>
             <div className={panelClass}>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-app-muted)]">{t('assessedOn')}</p>
-              <p className="mt-1 text-sm text-[var(--juba-app-ink)]">{assessedDate}</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('assessedOn')}</p>
+              <p className="mt-1 text-sm text-[#202127]">{assessedDate}</p>
             </div>
-            <p className="text-sm leading-relaxed text-[var(--juba-app-muted)]">{t('alreadyHasPlan')}</p>
+            <p className="text-sm leading-relaxed text-[rgba(32,33,39,.52)]">{t('alreadyHasPlan')}</p>
             {canOfferVoiceTrial && (
               <div className={panelClass + ' space-y-3'}>
-                <p className="font-semibold text-[var(--juba-app-ink)]">{t('voiceTrialTitle')}</p>
-                <p className="text-xs leading-relaxed text-[var(--juba-app-muted)]">{t('voiceTrialDesc', { minutes: 5 })}</p>
+                <p className="font-semibold text-[#202127]">{t('voiceTrialTitle')}</p>
+                <p className="text-xs leading-relaxed text-[rgba(32,33,39,.52)]">{t('voiceTrialDesc', { minutes: 5 })}</p>
                 <button type="button" onClick={requestVoiceTrial} disabled={trialLoading} className={actionClass + ' disabled:opacity-50'}>
                   {trialLoading ? '...' : `${t('voiceTrialStart')} →`}
                 </button>
               </div>
             )}
-            {error && <div className="rounded-[18px] border border-[var(--juba-app-error)]/30 bg-[var(--juba-app-error)]/10 px-4 py-3 text-xs text-[var(--juba-app-error)]">✕ {error}</div>}
+            {error && <div className="rounded-[14px] border border-[#b33a32]/30 bg-[#b33a32]/10 px-4 py-3 text-xs text-[#b33a32]">✕ {error}</div>}
             <div className="flex gap-2">
-              <button type="button" onClick={() => router.push('/dashboard')} className="flex-1 rounded-[18px] border border-[var(--juba-app-line)] px-3 py-3 text-xs font-semibold text-[var(--juba-app-muted)] transition hover:bg-[#f3f7ef]">← {tCommon('backToDashboard')}</button>
+              <button type="button" onClick={() => router.push('/dashboard')} className="flex-1 rounded-[14px] border border-[rgba(7,7,9,.08)] px-3 py-3 text-xs font-semibold text-[rgba(32,33,39,.52)] transition hover:bg-[#f3f7ef]">← {tCommon('backToDashboard')}</button>
               <button type="button" onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
             </div>
           </div>
@@ -403,12 +403,12 @@ export default function AssessmentPage() {
   if (step === 'quiz' && currentQuestion) {
     return (
       <div className="juba-mobile-assessment mx-auto w-full max-w-4xl px-4 py-6 sm:py-10">
-        <div className="mb-5 flex items-center justify-between rounded-[22px] border-2 border-[var(--juba-app-green-soft)] bg-white px-5 py-4 shadow-sm">
+        <div className="mb-5 flex items-center justify-between rounded-[22px] border-2 border-[#ededff] bg-white px-5 py-4 shadow-sm">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-app-muted)]">{t('title')}</p>
-            <p className="mt-1 text-sm font-semibold text-[var(--juba-app-ink)]">{currentLevel}</p>
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('title')}</p>
+            <p className="mt-1 text-sm font-semibold text-[#202127]">{currentLevel}</p>
           </div>
-          <div className="rounded-[18px] bg-[var(--juba-app-green-soft)] px-3 py-1.5 text-xs font-bold text-[var(--juba-app-green-dark)]">{questionNumber}/{MAX_QUESTIONS}</div>
+          <div className="rounded-[14px] bg-[#ededff] px-3 py-1.5 text-xs font-bold text-[#373fb8]">{questionNumber}/{MAX_QUESTIONS}</div>
         </div>
         <AdaptiveQuizCard question={currentQuestion} questionNumber={questionNumber} totalQuestions={MAX_QUESTIONS} onAnswer={handleAnswer} languageCode={activeLanguage?.code} />
       </div>
@@ -422,46 +422,46 @@ export default function AssessmentPage() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border-[var(--juba-app-line)] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[var(--juba-app-yellow)] text-sm font-bold text-[var(--juba-app-green-dark)]">✓</span>
+          <div className="flex items-center gap-3 border-b border-[rgba(7,7,9,.08)] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#fff3d1] text-sm font-bold text-[#373fb8]">✓</span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-app-muted)]">{t('resultStep')}</p>
-              <p className="text-xs text-[var(--juba-app-muted)]">{t('cefrLevel')}</p>
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('resultStep')}</p>
+              <p className="text-xs text-[rgba(32,33,39,.52)]">{t('cefrLevel')}</p>
             </div>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-app-muted)]">{t('cefrLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-[var(--juba-app-ink)]">{aiLevel}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('cefrLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-[#202127]">{aiLevel}</p>
             </div>
             <div className={panelClass}>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-app-muted)]">{tCommon('score')}</p>
-              <p className="mt-1 text-3xl font-extrabold text-[var(--juba-app-ink)]">{score}%</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{tCommon('score')}</p>
+              <p className="mt-1 text-3xl font-extrabold text-[#202127]">{score}%</p>
             </div>
             <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-app-muted)]">{t('overrideLevel')}</p>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('overrideLevel')}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {CEFR_LEVELS.map((lvl) => (
-                  <button key={lvl} type="button" onClick={() => setSelectedLevel(lvl)} className={`rounded-[18px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--juba-app-green-dark)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)]' : 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)] hover:bg-[#f3f7ef]'}`}>
+                  <button key={lvl} type="button" onClick={() => setSelectedLevel(lvl)} className={`rounded-[14px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[#373fb8] bg-[#ededff] text-[#373fb8]' : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:bg-[#f3f7ef]'}`}>
                     {lvl}
                   </button>
                 ))}
               </div>
-              {levelChanged && <p className="mt-2 text-xs text-[var(--juba-app-muted)]">{t('suggestedLevel', { aiLevel, selectedLevel })}</p>}
+              {levelChanged && <p className="mt-2 text-xs text-[rgba(32,33,39,.52)]">{t('suggestedLevel', { aiLevel, selectedLevel })}</p>}
             </div>
             {result.strengths.length > 0 && (
               <div>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-app-muted)]">{t('strengths')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[18px] border border-[var(--juba-app-line)] bg-[var(--juba-app-yellow)] px-3 py-1.5 text-xs font-medium text-[var(--juba-app-green-dark)]">{s}</span>)}</div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('strengths')}</p>
+                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff3d1] px-3 py-1.5 text-xs font-medium text-[#373fb8]">{s}</span>)}</div>
               </div>
             )}
             {result.weaknesses.length > 0 && (
               <div>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-app-muted)]">{t('needsWork')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded-[18px] border border-[var(--juba-app-error)]/25 bg-[var(--juba-app-error)]/10 px-3 py-1.5 text-xs font-medium text-[var(--juba-app-error)]">{w}</span>)}</div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('needsWork')}</p>
+                <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded-[14px] border border-[#b33a32]/25 bg-[#b33a32]/10 px-3 py-1.5 text-xs font-medium text-[#b33a32]">{w}</span>)}</div>
               </div>
             )}
-            {error && <div className="rounded-[18px] border border-[var(--juba-app-error)]/30 bg-[var(--juba-app-error)]/10 px-4 py-3 text-xs text-[var(--juba-app-error)]">✕ {error}</div>}
+            {error && <div className="rounded-[14px] border border-[#b33a32]/30 bg-[#b33a32]/10 px-4 py-3 text-xs text-[#b33a32]">✕ {error}</div>}
             <button type="button" onClick={() => setStep('duration')} className={actionClass}>{t('createPlan')} →</button>
           </div>
         </div>
@@ -496,21 +496,21 @@ export default function AssessmentPage() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border-[var(--juba-app-line)] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[var(--juba-app-green-soft)] text-sm font-bold text-[var(--juba-app-green-dark)]">◉</span>
-            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-app-muted)]">{t('voiceTrialLabel')}</p>
+          <div className="flex items-center gap-3 border-b border-[rgba(7,7,9,.08)] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#ededff] text-sm font-bold text-[#373fb8]">◉</span>
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('voiceTrialLabel')}</p>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-app-muted)]">{t('cefrLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-[var(--juba-app-ink)]">{selectedLevel}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[rgba(32,33,39,.52)]">{t('cefrLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-[#202127]">{selectedLevel}</p>
             </div>
             <div className={panelClass}>
-              <p className="mb-2 font-semibold text-[var(--juba-app-ink)]">{t('voiceTrialTitle')}</p>
-              <p className="text-xs leading-relaxed text-[var(--juba-app-muted)]">{t('voiceTrialDesc', { minutes })}</p>
+              <p className="mb-2 font-semibold text-[#202127]">{t('voiceTrialTitle')}</p>
+              <p className="text-xs leading-relaxed text-[rgba(32,33,39,.52)]">{t('voiceTrialDesc', { minutes })}</p>
             </div>
             <button type="button" onClick={startVoiceTrial} className={actionClass}>{t('voiceTrialStart')} →</button>
-            <button type="button" onClick={() => router.push('/plan')} className="w-full py-2 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--juba-app-muted)] transition hover:text-[var(--juba-app-ink)]">{t('voiceTrialSkip')}</button>
+            <button type="button" onClick={() => router.push('/plan')} className="w-full py-2 text-xs font-semibold uppercase tracking-[0.1em] text-[rgba(32,33,39,.52)] transition hover:text-[#202127]">{t('voiceTrialSkip')}</button>
           </div>
         </div>
       </div>
