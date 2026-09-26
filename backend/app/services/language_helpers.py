@@ -118,6 +118,7 @@ _LANGUAGE_INFO: dict[str, dict[str, str]] = {
     "zh-TW": {"name": "Chinese (Traditional)", "self_name": "中文（繁體）", "iso639": "zh"},
     "zh-Hant": {"name": "Traditional Chinese", "self_name": "繁體中文", "iso639": "zh"},
     "zh-Hant-TW": {"name": "Chinese (Traditional, Taiwan)", "self_name": "臺灣繁體中文", "iso639": "zh"},
+    "zh-Hant-HK": {"name": "Traditional Chinese", "self_name": "繁體中文", "iso639": "zh"},
     "hr": {"name": "Croatian", "self_name": "Hrvatski", "iso639": "hr"},
     "sk": {"name": "Slovak", "self_name": "Slovenčina", "iso639": "sk"},
     "sl": {"name": "Slovenian", "self_name": "Slovenščina", "iso639": "sl"},
