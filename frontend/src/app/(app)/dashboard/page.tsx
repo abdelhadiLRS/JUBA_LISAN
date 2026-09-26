@@ -101,6 +101,17 @@ export default function DashboardPage() {
   const [skipError, setSkipError] = useState(false)
   const [portalLoading, setPortalLoading] = useState(false)
   const [portalError, setPortalError] = useState<string | null>(null)
+  const [historyRange, setHistoryRange] = useState<'week' | 'month' | 'all'>('week')
+  const [historyEntries, setHistoryEntries] = useState<Array<{
+    date: string
+    xp_earned: number
+    lessons_completed: number
+    exercises_correct: number
+    exercises_total: number
+    streak_day: number
+    skills: Record<string, number>
+  }>>([])
+  const [historyLoading, setHistoryLoading] = useState(false)
 
   useEffect(() => {
     if (freemiumTrialActive && user?.freemium_trial_ends_at) {
@@ -117,9 +128,10 @@ export default function DashboardPage() {
 
   const loadData = useCallback(async () => {
     try {
-      const [progRes, planRes] = await Promise.all([
+      const [progRes, planRes, historyRes] = await Promise.all([
         apiFetch('/api/progress/summary'),
         apiFetch('/api/study-plan/today'),
+        apiFetch('/api/progress/history?range=' + historyRange),
       ])
 
       if (progRes.ok) {
@@ -147,6 +159,13 @@ export default function DashboardPage() {
         setVocabularyMastered(0)
         setVocabularyTotal(0)
         setVocabularyProgress(0)
+      }
+
+      if (historyRes.ok) {
+        const history = await historyRes.json()
+        setHistoryEntries(Array.isArray(history.entries) ? history.entries : [])
+      } else {
+        setHistoryEntries([])
       }
 
       if (planRes.ok) {
@@ -183,12 +202,28 @@ export default function DashboardPage() {
     } finally {
       setLoading(false)
     }
-  }, [setProgress, setTodayLessons, activeLanguage?.code])
+  }, [setProgress, setTodayLessons, activeLanguage?.code, historyRange])
 
   useEffect(() => {
     if (!user || !accessToken) return
     loadData()
   }, [loadData, user, accessToken])
+
+  async function changeHistoryRange(range: 'week' | 'month' | 'all') {
+    if (range === historyRange) return
+    setHistoryLoading(true)
+    setHistoryRange(range)
+    try {
+      const res = await apiFetch('/api/progress/history?range=' + range)
+      if (!res.ok) throw new Error('history')
+      const history = await res.json()
+      setHistoryEntries(Array.isArray(history.entries) ? history.entries : [])
+    } catch {
+      setHistoryEntries([])
+    } finally {
+      setHistoryLoading(false)
+    }
+  }
 
   async function skipDay() {
     if (skipping) return
@@ -274,18 +309,27 @@ export default function DashboardPage() {
   const paymentRecovery = needsPaymentRecovery(user)
   const showPremiumBanner = stripeEnabled && !isSubscribed(user, stripeEnabled)
 
-  const performanceValues = skillEntries.length
-    ? skillEntries.slice(-7).map(({ value }) => Math.max(8, Math.round(value * 100)))
-    : [24, 36, 44, 52, 48, 65, Math.max(70, accuracy)]
-
-  const progressBars = weekDays.map((day, index) => {
-    const base = [38, 56, 46, 78, 64][index]
-    return {
-      day,
-      value: Math.min(96, base + Math.round(planCompletion / 7)),
-      active: index === Math.min(4, completedLessonCount),
-    }
-  })
+  const chartEntries = historyEntries.slice(-7)
+  const performanceValues = chartEntries.map((entry) =>
+    entry.exercises_total > 0
+      ? Math.round((entry.exercises_correct / entry.exercises_total) * 100)
+      : 0
+  )
+  const chartMax = Math.max(100, ...performanceValues)
+  const chartAverage = chartEntries.length
+    ? Math.round(
+        chartEntries.reduce((sum, entry) => sum + (
+          entry.exercises_total > 0
+            ? (entry.exercises_correct / entry.exercises_total) * 100
+            : 0
+        ), 0) / chartEntries.length
+      )
+    : 0
+  const progressBars = chartEntries.map((entry) => ({
+    day: new Date(entry.date + 'T00:00:00').toLocaleDateString(undefined, { weekday: 'short' }),
+    value: entry.xp_earned,
+    active: entry.date === new Date().toISOString().slice(0, 10),
+  }))
 
   function getPerformanceLabel(value: number) {
     if (value < 0.5) return t('performanceNeedsPractice')
@@ -421,16 +465,31 @@ export default function DashboardPage() {
                     <ArrowUpRight className="size-4" />
                   </Link>
                 </div>
-                <div className="mt-5 grid grid-cols-7 items-end gap-2">
-                  {performanceValues.map((value, index) => (
+                <div className="mt-4 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1 rounded-full bg-white/[0.06] p-1">
+                    {(['week', 'month', 'all'] as const).map((range) => (
+                      <button key={range} type="button" onClick={() => changeHistoryRange(range)} className={historyRange === range ? 'rounded-full bg-white px-2.5 py-1.5 text-[8px] font-black text-[#070709]' : 'rounded-full px-2.5 py-1.5 text-[8px] font-black text-white/45 hover:text-white'}>
+                        {range === 'week' ? '7D' : range === 'month' ? '30D' : 'ALL'}
+                      </button>
+                    ))}
+                  </div>
+                  <span className="text-[9px] font-bold text-white/40">{historyLoading ? '…' : chartEntries.length + ' days'} · {chartAverage}%</span>
+                </div>
+                <div className="mt-3 grid grid-cols-7 items-end gap-2">
+                  {performanceValues.length ? performanceValues.map((value, index) => (
                     <div key={index} className="flex flex-col items-center gap-1.5">
                       <div className="flex h-20 w-full items-end rounded-[10px] bg-white/[0.05] p-1">
                         <div
                           className="w-full rounded-[7px] bg-[#5862e2]"
-                          style={{ height: Math.max(10, value) + '%' }}
+                          style={{ height: Math.max(4, Math.round((value / chartMax) * 100)) + '%' }}
                         />
                       </div>
-                      <span className="text-[8px] font-bold text-white/35">{value}</span>
+                      <span className="text-[8px] font-bold text-white/35">{value}%</span>
+                    </div>
+                  )) : Array.from({ length: 7 }).map((_, index) => (
+                    <div key={index} className="flex flex-col items-center gap-1.5">
+                      <div className="flex h-20 w-full items-end rounded-[10px] bg-white/[0.05] p-1" />
+                      <span className="text-[8px] font-bold text-white/20">—</span>
                     </div>
                   ))}
                 </div>
@@ -611,11 +670,17 @@ export default function DashboardPage() {
                   <CalendarDays className="size-5 text-[#373fb8]" />
                 </div>
                 <div className="mt-5 grid grid-cols-5 gap-1.5">
-                  {weekDays.map((day, index) => (
+                  {progressBars.length ? progressBars.map(({ day, value, active }) => (
                     <div key={day} className="rounded-[14px] bg-[#f3f2f3] px-1.5 py-2 text-center">
                       <span className="text-[8px] font-black text-black/35">{day}</span>
                       <span className="mt-1 block text-[13px] font-black">{20 + index}</span>
-                      <span className={index < completedLessonCount ? 'mx-auto mt-2 block size-3 rounded-full bg-[#78bb65]' : 'mx-auto mt-2 block size-3 rounded-full bg-[#9a9ff3]'} />
+                      <span className={active ? 'mx-auto mt-2 block size-3 rounded-full bg-[#78bb65]' : 'mx-auto mt-2 block size-3 rounded-full bg-[#9a9ff3]'} />
+                    </div>
+                  )) : Array.from({ length: 5 }).map((_, index) => (
+                    <div key={index} className="rounded-[14px] bg-[#f3f2f3] px-1.5 py-2 text-center">
+                      <span className="text-[8px] font-black text-black/20">—</span>
+                      <span className="mt-1 block text-[13px] font-black text-black/20">—</span>
+                      <span className="mx-auto mt-2 block size-3 rounded-full bg-[#e2e2e6]" />
                     </div>
                   ))}
                 </div>
