@@ -996,3 +996,23 @@ def test_locale_lookup_is_case_insensitive(locale: str, expected_iso: str, expec
     assert get_language_self_name(locale).strip()
     assert curriculum_dispatcher._resolve_module(locale).__name__ == expected_module
     assert get_language_prompt_overlay(locale).strip()
+
+def test_foundation_locale_registry_matches_registered_foundation_modules():
+    """Keep region fallback codes and foundation module registrations in sync."""
+    registered_foundations = {
+        language
+        for language, module_path in curriculum_dispatcher._LANG_MODULES.items()
+        if module_path.startswith("app.data.language_foundations.")
+    }
+    assert registered_foundations == curriculum_dispatcher._FOUNDATION_LOCALE_REGIONS
+
+
+def test_explicit_locale_aliases_point_to_registered_curricula():
+    """A locale alias must never route to a missing curriculum module key."""
+    invalid = {
+        locale: canonical
+        for locale, canonical in curriculum_dispatcher._LOCALE_ALIASES.items()
+        if canonical not in curriculum_dispatcher._LANG_MODULES
+    }
+    assert not invalid, f"Locale aliases target unregistered curricula: {invalid}"
+
