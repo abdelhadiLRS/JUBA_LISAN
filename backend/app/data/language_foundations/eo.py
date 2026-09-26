@@ -95,7 +95,7 @@ CURRICULUM={}
 for level,titles in _CURRICULUM_TOPICS.items():
     CURRICULUM[level]=[
         CurriculumUnit(id=f"eo-{level.lower()}-unit-{n}",level=level,unit_number=n,title=f"Esperanto {level} · {title}",
-        grammar_points=[x[1] for x in _GRAMMAR if x[2]==level][:2],
+        grammar_points=[x[0] for x in _GRAMMAR if x[2]==level][:2],
         vocabulary_set_ids=[f"eo-{level.lower()}-{(n-1)%4+1}"],
         lesson_types=["grammar","vocabulary","reading","writing","listening","review"],
         competency_checklist=[f"Communicate in Esperanto about {title.lower()} at {level} level","Apply Esperanto morphology and syntax accurately"],default_weeks=2)
