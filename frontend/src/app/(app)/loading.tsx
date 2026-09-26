@@ -12,21 +12,32 @@ export default function AppLoading() {
               <span className="avatar avatar-sm rounded-2 bg-primary text-white fw-bold">JL</span>
               <span className="fw-bold text-dark">JUBA LISAN</span>
             </div>
-            <div className="flex-fill min-w-0">
-              <div className="d-flex align-items-center gap-2">
-                <span className="placeholder col-1" style={{ minWidth: 72, height: 28 }} />
-                <span className="placeholder col-1" style={{ minWidth: 84, height: 28 }} />
-                <span className="placeholder col-1" style={{ minWidth: 96, height: 28 }} />
+            <div className="flex-fill overflow-visible min-w-0 juba-top-nav-shell">
+              <div className="navbar-nav flex-row flex-nowrap align-items-center gap-1 juba-top-nav">
+                <span className="placeholder rounded-2" style={{ width: 72, height: 28 }} />
+                <span className="placeholder rounded-2" style={{ width: 84, height: 28 }} />
+                <span className="placeholder rounded-2" style={{ width: 96, height: 28 }} />
+                <span className="placeholder rounded-2" style={{ width: 88, height: 28 }} />
               </div>
             </div>
-            <span className="placeholder rounded-circle" style={{ width: 36, height: 36 }} />
+            <div className="navbar-nav flex-row align-items-center gap-2 ms-auto">
+              <span className="placeholder rounded-circle" style={{ width: 36, height: 36 }} />
+              <span className="placeholder rounded-2" style={{ width: 76, height: 28 }} />
+              <span className="placeholder rounded-circle" style={{ width: 36, height: 36 }} />
+              <span className="placeholder rounded-2" style={{ width: 36, height: 28 }} />
+            </div>
           </div>
         </header>
 
         <div className="juba-page-context bg-white border-bottom">
           <div className="container-xl py-3">
-            <span className="placeholder col-2 mb-2" style={{ minWidth: 110, height: 12 }} />
-            <div className="placeholder col-3" style={{ minWidth: 150, height: 28 }} />
+            <div className="d-flex align-items-center gap-3">
+              <span className="placeholder rounded-2 flex-shrink-0" style={{ width: 40, height: 40 }} />
+              <div className="min-w-0">
+                <span className="placeholder d-block mb-2" style={{ width: 110, height: 10 }} />
+                <span className="placeholder d-block" style={{ width: 150, height: 24 }} />
+              </div>
+            </div>
           </div>
         </div>
 
