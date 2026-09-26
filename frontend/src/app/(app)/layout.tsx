@@ -16,7 +16,10 @@ import { LoadingBar } from '@/components/ui/loading-bar'
 import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
-import { Bell, ChevronDown, Menu, X } from 'lucide-react'
+import { Bell, BookOpen, BrainCircuit, ChevronDown, ClipboardCheck, Gamepad2, GraduationCap, Headphones, Languages, MessageCircle, MessagesSquare, Settings2, Sparkles, Trophy, UserRound, Users, Volume2, X } from 'lucide-react'
+
+const NAV_ICONS: Record<string, React.ComponentType<{ className?: string }>> = { '/dashboard': GraduationCap, '/plan': ClipboardCheck, '/progress': Trophy, '/games': Gamepad2, '/flashcards': BookOpen, '/friends': Users, '/chat': MessageCircle, '/listening': Headphones, '/reading': BookOpen, '/conversation': MessagesSquare, '/assessment': BrainCircuit, '/coach': Sparkles, '/courses': GraduationCap, '/review': Volume2, '/translator': Languages, '/grammar': BrainCircuit, '/vocabulary': BookOpen, '/phrasebook': MessagesSquare, '/settings': Settings2, '/faq': UserRound, '/feedback': MessageCircle }
+function NavIcon({ href, className = 'size-4' }: { href: string; className?: string }) { const Icon = NAV_ICONS[href] ?? Sparkles; return <Icon className={className} aria-hidden="true" /> }
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const tNav = useTranslations('nav')
@@ -317,8 +320,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <Link key={item.href} href={item.href} className={`mb-1 flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-bold transition ${
                     active ? 'bg-[#7776df] text-white shadow-lg' : 'text-white/55 hover:bg-white/10 hover:text-white'
                   }`}>
-                    <span className="truncate">{item.label}</span>
-                    {showPremiumBadge && PREMIUM_HREFS.has(item.href) && <span className="text-[#ffcf67]">★</span>}
+                    <span className="flex min-w-0 items-center gap-3"><NavIcon href={item.href} className="size-4 shrink-0 opacity-80" /><span className="truncate">{item.label}</span></span>
+                    {showPremiumBadge && PREMIUM_HREFS.has(item.href) && <Sparkles className="size-3.5 shrink-0 text-[#ffcf67]" />}
                   </Link>
                 )
               })}
