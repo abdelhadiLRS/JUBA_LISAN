@@ -303,7 +303,7 @@ def get_language_prompt_overlay(target_language: str) -> str:
     script = get_language_script(locale)
     spacing = "word spacing is expected" if uses_word_spacing(locale) else "word boundaries may not be represented by spaces"
     length_unit = get_reading_length_unit(locale)
-    length_guidance = get_comprehension_length_guidance(locale)
+    length_guidance = get_comprehension_length_guidance(locale, 100)
 
     return (
         "Language-specific guidance:\n"
