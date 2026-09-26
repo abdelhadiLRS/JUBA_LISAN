@@ -334,7 +334,7 @@ export default function PlanPage() {
               {level}
             </p>
           </div>
-          <div className="bg-[rgba(7,7,9,.08)] h-8 w-px" />
+          <div className="bg-light h-8 w-px" />
           <div>
             <p className="text-secondary text-xs font-black tracking-[.12em] uppercase">
               {t('duration')}
@@ -346,7 +346,7 @@ export default function PlanPage() {
               })}
             </p>
           </div>
-          <div className="bg-[rgba(7,7,9,.08)] h-8 w-px" />
+          <div className="bg-light h-8 w-px" />
           <div>
             <p className="text-secondary text-xs font-black tracking-[.12em] uppercase">
               {t('unitsLabel')}
@@ -452,7 +452,7 @@ export default function PlanPage() {
               {t('pendingReassurance')}
             </p>
           </div>
-          <div className="divide-y divide-[rgba(7,7,9,.08)]">
+          <div className="divide-y divide-[var(--tblr-border-color)]">
             {pendingLessons.map((lesson) => (
               <div
                 key={lesson.id}
