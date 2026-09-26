@@ -435,8 +435,18 @@ _NATIVE_LANGUAGE_NAMES: dict[str, str] = {
 }
 
 def _normalize_locale(target_language: str) -> str:
-    """Normalize BCP-47-ish locale spellings used by clients and profiles."""
-    return (target_language or "").strip().replace("_", "-") or "en-GB"
+    """Normalize locale separators and casing for consistent BCP-47 lookup."""
+    raw = (target_language or "").strip().replace("_", "-") or "en-GB"
+    parts = raw.split("-")
+    normalized = [parts[0].lower()]
+    for part in parts[1:]:
+        if len(part) == 4 and part.isalpha():
+            normalized.append(part.title())
+        elif (len(part) == 2 and part.isalpha()) or (len(part) == 3 and part.isdigit()):
+            normalized.append(part.upper())
+        else:
+            normalized.append(part.lower())
+    return "-".join(normalized)
 
 
 def _resolve_language_info(target_language: str) -> dict[str, str] | None:
