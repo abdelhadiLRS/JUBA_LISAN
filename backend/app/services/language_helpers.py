@@ -391,6 +391,20 @@ _LANGUAGE_CAPABILITY_ALIASES: dict[str, str] = {
     "bg-BG": "bg",
     "sr-RS": "sr",
     "zh-TW": "zh-TW",
+    # Explicit foundation locale aliases keep profile/browser locales stable.
+    "ro-RO": "ro", "hu-HU": "hu", "he-IL": "he", "vi-VN": "vi",
+    "hr-HR": "hr", "sk-SK": "sk", "sl-SI": "sl", "lt-LT": "lt", "lv-LV": "lv",
+    "is-IS": "is", "ga-IE": "ga", "cy-GB": "cy", "ka-GE": "ka", "hy-AM": "hy",
+    "az-AZ": "az", "kk-KZ": "kk", "uz-UZ": "uz", "mr-IN": "mr", "gu-IN": "gu",
+    "sq-AL": "sq", "eu-ES": "eu", "gl-ES": "gl", "mt-MT": "mt", "af-ZA": "af",
+    "lb-LU": "lb", "gd-GB": "gd", "yo-NG": "yo", "ha-NG": "ha", "so-SO": "so",
+    "zu-ZA": "zu", "xh-ZA": "xh", "rw-RW": "rw", "ig-NG": "ig", "mg-MG": "mg",
+    "ny-MW": "ny", "sn-ZW": "sn", "st-LS": "st", "fy-NL": "fy", "co-FR": "co",
+    "fil-PH": "fil", "bs-BA": "bs", "tk-TM": "tk", "bn-BD": "bn", "mn-MN": "mn",
+    "ku-TR": "ku", "lo-LA": "lo", "jv-ID": "jv", "as-IN": "as", "ay-BO": "ay",
+    "be-BY": "be", "bo-CN": "bo", "ca-ES": "ca", "ee-GH": "ee", "dz-BT": "dz",
+    "et-EE": "et", "fj-FJ": "fj", "gn-PY": "gn", "or-IN": "or", "tg-TJ": "tg",
+    "su-ID": "su", "ti-ER": "ti", "suq-ET": "suq", "to-TO": "to",
 }
 
 _VOICE_SESSION_TITLES: dict[str, str] = {
