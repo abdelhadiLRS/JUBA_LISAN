@@ -5,15 +5,6 @@ import { useTranslations } from 'next-intl'
 import { apiFetch } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
 import { useRouter } from 'next/navigation'
-import {
-  Bot,
-  CreditCard,
-  Globe2,
-  MessageSquareText,
-  Palette,
-  User,
-  Volume2,
-} from 'lucide-react'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { useLogout } from '@/hooks/useLogout'
 import { ProfileSection } from '@/components/settings/ProfileSection'
@@ -63,7 +54,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="juba-settings-shell mx-auto max-w-6xl space-y-4 p-6">
+    <div className="card">
       <SettingsPageHeader
         eyebrow={`${t('sectionAccount')} / ${t('title')}`}
         title={t('title')}
