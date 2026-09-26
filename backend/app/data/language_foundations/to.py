@@ -49,7 +49,7 @@ def _v(id_,level,topic,ref,items):
     return VocabularySet(id=id_,level=level,topic=topic,unit_ref=ref,words=[VocabularyEntry(word=w,pos=p,definition=d,example=e) for w,p,d,e in items])
 
 VOCABULARY_SETS=[
-_v("greetings_a1","A1","greetings","to-a1-unit-1",[("mālō e lelei","phrase","hello","Mālō e lelei!"),("mālō","phrase","thanks / well done","Mālō, kātaki."),("kātaki","phrase","please / excuse me","Kātaki, tokoni mai."),("moʻui","word","life / health","Moʻui lelei!")]),
+_v("greetings_a1","A1","greetings","to-a1-unit-1",[("mālō e lelei","phrase","hello","Mālō e lelei!"),("mālō","phrase","thanks / well done","Mālō, kātaki."),("kātaki","phrase","please / excuse me","Kātaki, tokoni mai."),("moʻui","noun","life / health","Moʻui lelei!")]),
 _v("identity_a1","A1","identity","to-a1-unit-2",[("hingoa","noun","name","Ko e hā ho hingoa?"),("tangata","noun","person","Ko e tangata lelei ia."),("fefine","noun","woman","Ko e fefine ia."),("kaungāmeʻa","noun","friend","Ko hoku kaungāmeʻa ia.")]),
 _v("family_a1","A1","family","to-a1-unit-3",[("faʻē","noun","mother","ʻOku nofo hoku faʻē ʻi Nukuʻalofa."),("tamai","noun","father","ʻOku ngāue hoku tamai."),("fānau","noun","children","ʻOku ʻi ʻapi ʻa e fānau."),("tuofefine","noun","sister","Ko hoku tuofefine ia.")]),
 _v("home_a1","A1","home","to-a1-unit-4",[("ʻapi","noun","home","Ko hoku ʻapi ʻeni."),("fale","noun","house","Ko hoku fale ʻeni."),("lokí","noun","room","ʻOku ʻi he lokí ʻa Sione."),("matapā","noun","door","ʻOku ava ʻa e matapā.")]),
