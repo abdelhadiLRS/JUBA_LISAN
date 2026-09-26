@@ -21,7 +21,8 @@
     "postinstall": "node scripts/copy-vad-models.js",
     "desktop:build": "powershell -ExecutionPolicy Bypass -File ../scripts/build-desktop.ps1",
     "desktop:dev": "npm run dev:electron",
-    "check:i18n": "node ../scripts/check-message-keys.mjs"
+    "check:i18n": "node ../scripts/check-message-keys.mjs",
+    "check:i18n:strict": "node ../scripts/check-message-keys.mjs --strict"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.3",
