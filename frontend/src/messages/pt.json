@@ -255,17 +255,29 @@
       "missingToken": "Link inválido. Solicite uma nova redefinição.",
       "error": "Link inválido ou expirado",
       "backToLogin": "Voltar ao login"
-    }
-  ,
+    },
     "scenarios": {
-      "airport": {"title": "Aeroporto", "description": "Faça o check-in, peça direções e lide com atrasos."},
-      "jobInterview": {"title": "Entrevista de emprego", "description": "Pratique respostas, confiança e vocabulário profissional."},
-      "restaurant": {"title": "Restaurante", "description": "Peça naturalmente e conduza uma conversa real."},
-      "hotel": {"title": "Hotel", "description": "Reserve um quarto, resolva problemas e faça pedidos."}
+      "airport": {
+        "title": "Aeroporto",
+        "description": "Faça o check-in, peça direções e lide com atrasos."
+      },
+      "jobInterview": {
+        "title": "Entrevista de emprego",
+        "description": "Pratique respostas, confiança e vocabulário profissional."
+      },
+      "restaurant": {
+        "title": "Restaurante",
+        "description": "Peça naturalmente e conduza uma conversa real."
+      },
+      "hotel": {
+        "title": "Hotel",
+        "description": "Reserve um quarto, resolva problemas e faça pedidos."
+      }
     },
     "learningLabel": "Aprendizagem",
     "cefrLabel": "CEFR",
-    "coachLabel": "Coach"},
+    "coachLabel": "Coach"
+  },
   "settings": {
     "title": "Configurações",
     "sectionAccount": "Conta",
@@ -994,7 +1006,8 @@
     "cardsAdded": "{count} cartões adicionados ao seu deck.",
     "goToFlashcards": "Ir para cartões →",
     "addFailed": "Falha ao adicionar cartões.",
-    "noResults": "Nenhum conjunto de vocabulário corresponde à sua pesquisa"
+    "noResults": "Nenhum conjunto de vocabulário corresponde à sua pesquisa",
+    "setCount": "{count, plural, =1 {# conjunto} other {# conjuntos}}"
   },
   "phrasebook": {
     "title": "Frases",
