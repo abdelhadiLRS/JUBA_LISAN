@@ -111,9 +111,9 @@ export default function GrammarIndexPage() {
   }
 
   return (
-    <div className="card">
-      <div className="border bg-[#fff] border">
-        <div className="border flex items-center gap-2 border-b px-6 py-4">
+    <div className="space-y-5">
+      <div className="border-[rgba(7,7,9,.08)] bg-[#fff] border">
+        <div className="border-[rgba(7,7,9,.08)] flex items-center gap-2 border-b px-6 py-4">
           <span className="text-[#202127] text-[rgba(32,33,39,.52)]"><i className="ti ti-book-2 text-[#5862e2] text-base" aria-hidden="true" /></span>
           <span className="text-[#202127] text-[rgba(32,33,39,.52)] font-sans tracking-widest uppercase">
             {t('title')}
