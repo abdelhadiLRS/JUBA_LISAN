@@ -81,6 +81,13 @@ Language-specific guidance:
 - Pay close attention to gender, number, case endings when taught, verb patterns, agreement, and natural word order.
 - Do not mix dialect vocabulary into standard Arabic lessons unless explicitly teaching a dialect.
 """.strip(),
+    "el-GR": """
+Language-specific guidance:
+- Use standard Modern Greek as used in Greece consistently.
+- Use the Greek alphabet as the primary writing system and preserve Greek orthography and accent marks.
+- Pay close attention to gender, number, case, article agreement, verb conjugation, and natural word order.
+- Use appropriate formal or informal address for the context and learner level; avoid dialectal forms unless explicitly teaching them.
+""".strip(),
     "tr-TR": """
 Language-specific guidance:
 - Use standard Turkish from Türkiye consistently.
@@ -269,7 +276,7 @@ _LANGUAGE_PROMPT_OVERLAY_ALIASES: dict[str, str] = {
     "no": "no-NO",
     "fi": "fi-FI",
     "cs": "cs-CZ",
-    "el": "el",
+    "el": "el-GR",
 }
 
 
