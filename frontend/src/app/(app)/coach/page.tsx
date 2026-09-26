@@ -104,27 +104,12 @@ export default function CoachPage() {
     ? weakestMastery[0].replaceAll('_', ' ')
     : weakestSkill.replaceAll('_', ' ')
 
-  const reviewCopy = language?.code === 'ar'
-    ? { eyebrow: 'مراجعة ذكية', title: 'لديك مراجعة مستحقة الآن', action: 'ابدأ المراجعة', skill: 'المهارة المقترحة' }
-    : language?.code === 'fr'
-      ? { eyebrow: 'Révision intelligente', title: 'Vous avez des révisions dues', action: 'Commencer la révision', skill: 'Compétence proposée' }
-      : language?.code === 'es'
-        ? { eyebrow: 'Repaso inteligente', title: 'Tienes repasos pendientes', action: 'Iniciar repaso', skill: 'Habilidad propuesta' }
-        : language?.code === 'de'
-          ? { eyebrow: 'Intelligente Wiederholung', title: 'Wiederholungen sind fällig', action: 'Wiederholung starten', skill: 'Empfohlene Fähigkeit' }
-          : language?.code === 'it'
-            ? { eyebrow: 'Ripasso intelligente', title: 'Hai ripassi da fare', action: 'Inizia il ripasso', skill: 'Abilità consigliata' }
-            : language?.code === 'pt'
-              ? { eyebrow: 'Revisão inteligente', title: 'Há revisões pendentes', action: 'Iniciar revisão', skill: 'Competência sugerida' }
-              : language?.code === 'pl'
-                ? { eyebrow: 'Inteligentna powtórka', title: 'Masz oczekujące powtórki', action: 'Rozpocznij powtórkę', skill: 'Sugerowana umiejętność' }
-                : language?.code === 'nl'
-                  ? { eyebrow: 'Slim herhalen', title: 'Je hebt herhalingen klaarstaan', action: 'Start herhaling', skill: 'Aanbevolen vaardigheid' }
-                  : language?.code === 'ro'
-                    ? { eyebrow: 'Recapitulare inteligentă', title: 'Ai elemente de revizuit', action: 'Începe revizuirea', skill: 'Competență recomandată' }
-                    : language?.code === 'ru'
-                      ? { eyebrow: 'Умное повторение', title: 'Есть задания для повторения', action: 'Начать повторение', skill: 'Рекомендуемый навык' }
-                      : { eyebrow: 'Smart review', title: 'You have due reviews', action: 'Start review', skill: 'Recommended skill' }
+  const reviewCopy = {
+    eyebrow: t('reviewEyebrow'),
+    title: t('reviewTitle'),
+    action: t('reviewAction'),
+    skill: t('reviewSkill'),
+  }
 
   return (
     <main className="space-y-5">
@@ -136,7 +121,7 @@ export default function CoachPage() {
               {t('eyebrow')}
             </div>
             <h1 className="text-3xl font-black tracking-tight text-body sm:text-4xl">
-              {user?.displayName || user?.username || 'Learner'}, {t('headlineSuffix')}
+              {user?.displayName || user?.username || t('learner')}, {t('headlineSuffix')}
             </h1>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-secondary sm:text-base">
               {t('description')}
