@@ -136,7 +136,12 @@
     "nativeHelpPhraseNotes": "Заметки о фразах",
     "nativeHelpStudyTips": "Советы по обучению",
     "nativeHelpWordNotes": "Заметки о словах",
-    "nativeHelpPractice": "Практика"
+    "nativeHelpPractice": "Практика",
+    "contact": "Контакты",
+    "menu": "Меню",
+    "logoutConfirm": "Вы уверены, что хотите выйти?",
+    "copy": "Копировать",
+    "copyPhrase": "Копировать фразу"
   },
   "nav": {
     "primaryNavigation": "Основная навигация",
@@ -988,7 +993,6 @@
     "topicsFound": "{count, plural, one {# тема найдена} few {# темы найдено} other {# тем найдено}}",
     "topicCount": "{count, plural, =1 {# тема} few {# темы} many {# тем} other {# тем}}",
     "levelRange": "A1 – C2"
-  
   },
   "vocabulary": {
     "title": "Центр словарного запаса",
@@ -1953,5 +1957,18 @@
     "shortcutHint": "Пробел — показать · 1–4 — оценить",
     "spaceShortcut": "Пробел — показать",
     "rateKeys": "1 Снова · 2 Сложно · 3 Хорошо · 4 Легко"
+  },
+  "translator": {
+    "detected": "Определено",
+    "listen": "Слушать",
+    "swap": "Поменять местами",
+    "translating": "Перевод…",
+    "translationPlaceholder": "Перевод появится здесь",
+    "save": "Сохранить",
+    "translateNow": "Перевести сейчас",
+    "visitorNote": "Посетители могут пользоваться переводчиком без входа.",
+    "savedCloud": "Сохранено в аккаунте",
+    "savedLocal": "Сохранено на этом устройстве",
+    "saving": "Сохранение…"
   }
 }
