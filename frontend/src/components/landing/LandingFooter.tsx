@@ -54,7 +54,6 @@ export function LandingFooter({ t, dir = 'ltr', showReviews = false }: LandingFo
             <h3>{t('aboutMe')}</h3>
             {showReviews && <Link href="#reviews">{t('navReviews')}</Link>}
             <Link href="#faq">{t('navFAQ')}</Link>
-            <Link href="/">{t('homeLabel')}</Link>
             <Link href="/register">{t('ctaStart')}</Link>
           </div>
 
@@ -84,7 +83,7 @@ export function LandingFooter({ t, dir = 'ltr', showReviews = false }: LandingFo
           <span>{dir === 'rtl' ? 'لغة الواجهة' : 'Interface language'}</span>
           <div className="juba-busuu-footer-language-list">
             {footerLanguages.map(([label, code]) => (
-              <Link key={code} href={code === 'en' ? '/' : `/?locale=${code}`}>
+              <Link key={code} href={code === 'en' ? '/' : `/${code}`}>
                 {label}
               </Link>
             ))}
