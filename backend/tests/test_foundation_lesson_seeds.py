@@ -1979,3 +1979,17 @@ def test_en_gb_b1_opinion_and_environment_examples_are_contextual():
         for fragment in fragments:
             assert fragment.lower() in example, word
 
+\n
+def test_en_gb_a2_weather_definitions_distinguish_conditions():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {
+        word.word: word
+        for vocab_set in A2_SETS
+        for word in vocab_set.words
+    }
+    assert "little or no cloud" in entries["sunny"].definition
+    assert "do not necessarily bring rain" in entries["cloudy"].definition
+    assert "frequent or heavy rain" in entries["rainy"].definition
+    assert "moving air" in entries["windy"].definition
+
