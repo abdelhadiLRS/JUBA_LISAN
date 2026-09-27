@@ -317,5 +317,23 @@ A1_CATEGORIES: list[PhrasebookCategory] = [
                 register="neutral",
             ),
         ],
-    ),
+    ),,
+    PhrasebookCategory(
+        id="public_transport_a1",
+        level="A1",
+        situation="Public Transport & Tickets",
+        icon="🚌",
+        phrases=[
+            PhrasebookEntry(text="Where can I buy a ticket?", context="Asking at a station or ticket office", register="neutral"),
+            PhrasebookEntry(text="A single to [place], please.", context="Buying a one-way ticket", register="neutral"),
+            PhrasebookEntry(text="A return to [place], please.", context="Buying a ticket for a journey there and back", register="neutral"),
+            PhrasebookEntry(text="Which platform does it leave from?", context="Checking the departure platform for a train", register="neutral"),
+            PhrasebookEntry(text="Does this bus go to [place]?", context="Checking a bus route before boarding", register="neutral"),
+            PhrasebookEntry(text="Where do I get off?", context="Asking where to leave a bus or train", register="neutral"),
+            PhrasebookEntry(text="Is this seat free?", context="Checking whether a seat is available", register="neutral"),
+            PhrasebookEntry(text="What time is the next bus?", context="Asking about the next scheduled bus", register="neutral"),
+            PhrasebookEntry(text="I've missed my stop.", context="Explaining that you travelled past your stop", register="neutral"),
+            PhrasebookEntry(text="Is there a delay?", context="Checking whether a service is running late", register="neutral"),
+        ],
+    )
 ]
