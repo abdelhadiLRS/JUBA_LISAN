@@ -1949,3 +1949,33 @@ def test_en_gb_a2_future_plans_examples_are_actionable():
         for fragment in fragments:
             assert fragment.lower() in example, word
 
+
+
+def test_en_gb_b1_opinion_and_environment_examples_are_contextual():
+    from app.data.en_GB.vocabulary_b1 import B1_SETS
+
+    entries = {
+        entry.word: entry
+        for vocab_set in B1_SETS
+        for entry in vocab_set.words
+    }
+    expected = {
+        "in my opinion": ["library opening hours", "work during the day"],
+        "I believe": ["bus services", "public transport"],
+        "as far as I know": ["evening course", "latest timetable"],
+        "personally": ["original proposal", "maintain"],
+        "tend to": ["residents", "traffic flow"],
+        "point out": ["last year’s figures", "current situation"],
+        "argue": ["one supplier", "backup schedule"],
+        "renewable": ["solar panels", "replenished naturally"],
+        "pollution": ["morning rush hour", "walking routes"],
+        "climate change": ["rainfall patterns", "extreme weather"],
+        "carbon footprint": ["train to work", "driving alone"],
+        "deforestation": ["nesting sites", "food sources"],
+        "species": ["migratory birds", "feed and rest"],
+    }
+    for word, fragments in expected.items():
+        example = entries[word].example.lower()
+        for fragment in fragments:
+            assert fragment.lower() in example, word
+
