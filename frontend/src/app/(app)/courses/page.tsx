@@ -129,7 +129,7 @@ export default function CoursesPage() {
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-6xl">Learn language you can actually use.</h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[18px] bg-white px-5 py-3 font-black text-[#438600] shadow-[0_5px_0_#d7ceff] transition hover:-translate-y-0.5">Continue journey <ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[18px] bg-white px-5 py-3 font-black text-[#438600] shadow-[0_5px_0_#d7efc7] transition hover:-translate-y-0.5">Continue journey <ArrowRight className="h-4 w-4" /></Link>
               <Link href="/assessment" className="inline-flex items-center gap-2 rounded-[18px] border-2 border-white/25 bg-white/10 px-5 py-3 font-black text-white transition hover:bg-white/20">Find my level</Link>
             </div>
           </div>
