@@ -335,7 +335,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="juba-busuu-online-languages" aria-labelledby="online-languages-title">
+      <section id="online-languages" className="juba-busuu-online-languages" aria-labelledby="online-languages-title">
         <div className="juba-busuu-container">
           <div className="juba-busuu-heading juba-busuu-heading-split">
             <div>
