@@ -366,6 +366,7 @@ export default function PlanPage() {
               <p className="mt-1 text-sm font-medium text-[var(--juba-learning-ink)]">{t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}</p>
             </div>
             <button
+              type="button"
               onClick={() => void launchLesson(activeLessonId)}
               className="rounded-2xl border-[3px] border-[var(--juba-learning-ink)] bg-[var(--juba-learning-yellow)] px-6 py-3 text-sm font-black text-[var(--juba-learning-ink)] shadow-[4px_4px_0_var(--juba-learning-ink)] transition-transform hover:-translate-y-0.5 active:translate-y-1"
             >
@@ -388,6 +389,7 @@ export default function PlanPage() {
           <div className="grid gap-3 md:grid-cols-2">
             {pendingLessons.map((lesson, i) => (
               <button
+                type="button"
                 key={lesson.id}
                 onClick={() => void launchLesson(lesson.id)}
                 className="group flex items-center gap-4 rounded-[24px] border-2 border-[var(--juba-learning-border)] bg-[var(--juba-learning-surface)] p-4 text-start shadow-[var(--juba-learning-shadow)] transition-all hover:-translate-y-1 hover:border-[var(--juba-learning-green)]"
