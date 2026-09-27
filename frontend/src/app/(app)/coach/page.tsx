@@ -1,12 +1,24 @@
 'use client'
 
-import { useEffect, useMemo, useState, type ReactNode } from 'react'
-import { useTranslations } from 'next-intl'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { apiFetch } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
 import { useLanguageStore } from '@/store/language'
-import { subscribeToLearningProgressUpdated } from '@/lib/learning-progress'
+import {
+  ArrowRight,
+  BrainCircuit,
+  CheckCircle2,
+  Flame,
+  Mic,
+  RefreshCw,
+  Sparkles,
+  Target,
+  TrendingUp,
+  Volume2,
+  Zap,
+} from 'lucide-react'
+
 interface ProgressSummary {
   current_streak?: number
   total_xp?: number
@@ -15,20 +27,6 @@ interface ProgressSummary {
   vocabulary_total?: number
   vocabulary_progress?: number
   skills?: Record<string, number>
-  mastery?: {
-    tracked_items: number
-    average_score: number
-    counts: Record<string, number>
-    skills: Record<string, { items: number; average_score: number; counts: Record<string, number> }>
-  }
-}
-
-interface SmartReview {
-  due_count?: number
-  recommended_game?: string | null
-  recommended_skill?: string | null
-  cefr_level?: string | null
-  average_mastery?: number
 }
 
 interface TodayPlan {
@@ -44,32 +42,28 @@ interface TodayPlan {
 }
 
 const scenarios = [
-  { icon: '✈️', key: 'airport', href: '/conversation' },
-  { icon: '💼', key: 'jobInterview', href: '/conversation' },
-  { icon: '🍽️', key: 'restaurant', href: '/conversation' },
-  { icon: '🏨', key: 'hotel', href: '/conversation' },
+  { icon: '✈️', title: 'Airport', desc: 'Check in, ask for directions, handle delays.', href: '/conversation' },
+  { icon: '💼', title: 'Job interview', desc: 'Practice answers, confidence and professional vocabulary.', href: '/conversation' },
+  { icon: '🍽️', title: 'Restaurant', desc: 'Order naturally and handle a real conversation.', href: '/conversation' },
+  { icon: '🏨', title: 'Hotel', desc: 'Book a room, solve problems and make requests.', href: '/conversation' },
 ]
 
 export default function CoachPage() {
-  const t = useTranslations('coach')
   const user = useAuthStore((s) => s.user)
   const language = useLanguageStore((s) => s.activeLanguage)
   const [progress, setProgress] = useState<ProgressSummary>({})
   const [plan, setPlan] = useState<TodayPlan>({})
-  const [smartReview, setSmartReview] = useState<SmartReview>({})
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
 
   async function load() {
     try {
-      const [progressRes, planRes, reviewRes] = await Promise.all([
+      const [progressRes, planRes] = await Promise.all([
         apiFetch('/api/progress/summary'),
         apiFetch('/api/study-plan/today'),
-        apiFetch('/api/progress/smart-review'),
       ])
       if (progressRes.ok) setProgress(await progressRes.json())
       if (planRes.ok) setPlan(await planRes.json())
-      if (reviewRes.ok) setSmartReview(await reviewRes.json())
     } finally {
       setLoading(false)
       setRefreshing(false)
@@ -80,12 +74,6 @@ export default function CoachPage() {
     load()
   }, [language?.code])
 
-  useEffect(() => {
-    return subscribeToLearningProgressUpdated(() => {
-      void load()
-    })
-  }, [])
-
   const weakestSkill = useMemo(() => {
     const entries = Object.entries(progress.skills ?? {})
     if (!entries.length) return 'speaking'
@@ -95,212 +83,152 @@ export default function CoachPage() {
   const completed = (plan.lessons ?? []).filter((l) => l.is_completed).length
   const total = plan.lessons?.length ?? 0
   const vocabProgress = Math.round((progress.vocabulary_progress ?? 0) * 100)
-  const masterySkills = Object.entries(progress.mastery?.skills ?? {})
-  const weakestMastery = masterySkills.length
-    ? [...masterySkills].sort((a, b) => a[1].average_score - b[1].average_score)[0]
-    : null
-  const masteryCounts = progress.mastery?.counts ?? {}
-  const masteryFocusLabel = weakestMastery
-    ? weakestMastery[0].replaceAll('_', ' ')
-    : weakestSkill.replaceAll('_', ' ')
-
-  const reviewCopy = {
-    eyebrow: t('reviewEyebrow'),
-    title: t('reviewTitle'),
-    action: t('reviewAction'),
-    skill: t('reviewSkill'),
-  }
 
   return (
-    <main className="space-y-5">
+    <main className="min-h-screen bg-[var(--juba-bg)] px-4 py-8 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-7xl space-y-8">
         <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="page-pretitle mb-3 inline-flex items-center gap-2 rounded-full border border bg-primary-lt px-3 py-1.5 text-primary">
+            <div className="juba-eyebrow mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--juba-border)] bg-[var(--juba-primary-soft)] px-3 py-1.5 text-[var(--juba-primary-dark)]">
               <BrainCircuit className="h-4 w-4" />
-              {t('eyebrow')}
+              Your AI Learning Coach
             </div>
-            <h1 className="text-3xl font-black tracking-tight text-body sm:text-4xl">
-              {user?.displayName || user?.username || t('learner')}, {t('headlineSuffix')}
+            <h1 className="text-3xl font-black tracking-tight text-[var(--juba-text)] sm:text-4xl">
+              {user?.displayName || user?.username || 'Learner'}, here is your next best move.
             </h1>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-secondary sm:text-base">
-              {t('description')}
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--juba-muted)] sm:text-base">
+              JUBA LISAN turns your activity into a focused daily plan instead of asking you to decide what to study next.
             </p>
           </div>
           <button
-            type="button"
             onClick={() => { setRefreshing(true); load() }}
             disabled={refreshing}
-            className="inline-flex items-center justify-center gap-2 rounded border border bg-white px-4 py-2.5 text-sm font-bold text-body transition hover:border-primary disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-2 border-[#e2f2d3] bg-white px-4 py-2.5 text-sm font-bold text-[var(--juba-text)] transition hover:border-[var(--juba-primary)] disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
-            {t('refresh')}
+            Refresh coaching
           </button>
         </header>
 
         <section className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
-          <div className="card overflow-hidden p-6 sm:p-8">
+          <div className="juba-card overflow-hidden p-6 sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded bg-primary text-body ">
-                <i className="ti ti-sparkles icon" aria-hidden="true" />
-                <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full border border-white bg-warning-lt" />
+              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-[var(--juba-primary)] text-[var(--juba-text)] shadow-[var(--juba-shadow)]">
+                <Sparkles className="h-10 w-10" />
+                <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full border-2 border-[var(--juba-surface)] bg-[var(--juba-warm)]" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-extrabold uppercase tracking-[.18em] text-primary">{t('insight')}</p>
-                <h2 className="mt-2 text-2xl font-black text-body">{t('focusOn')} {weakestSkill.replaceAll('_', ' ')} {t('today')}</h2>
-                <p className="mt-2 max-w-xl text-sm leading-6 text-secondary">
-                  {t('insightDescription')}
+                <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[var(--juba-primary-dark)]">Coach insight</p>
+                <h2 className="mt-2 text-2xl font-black text-[var(--juba-text)]">Focus on {weakestSkill.replaceAll('_', ' ')} today.</h2>
+                <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--juba-muted)]">
+                  Your recent activity suggests this is the highest-impact skill to practice next. A short session is better than skipping the day.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
-                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded bg-primary px-5 py-3 text-sm font-bold text-white  transition hover:opacity-90">
-                    {t('startPractice')} <ArrowRight className="h-4 w-4" />
+                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-fl-fg px-5 py-3 text-sm font-bold text-[var(--juba-text)] transition hover:opacity-90">
+                    Start focused practice <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link href="/plan" className="inline-flex items-center gap-2 rounded border border px-5 py-3 text-sm font-bold text-body transition hover:bg-primary-lt">
-                    {t('viewPlan')}
+                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[#e2f2d3] px-5 py-3 text-sm font-bold text-[var(--juba-text)] transition hover:bg-[#e2f2d3]">
+                    View my plan
                   </Link>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="card p-6">
+          <div className="juba-card p-6">
             <div className="mb-5 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-secondary">{t('momentum')}</p>
-                <p className="mt-1 text-xl font-black text-body">{t('keepStreak')}</p>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-muted)]">Today's momentum</p>
+                <p className="mt-1 text-xl font-black text-[var(--juba-text)]">Keep the streak alive</p>
               </div>
-              <Flame className="h-6 w-6 text-primary" />
+              <Flame className="h-6 w-6 text-[var(--juba-primary-dark)]" />
             </div>
             <div className="grid grid-cols-3 gap-3">
-              <Metric icon={<Flame />} value={`${progress.current_streak ?? 0}`} label={t('dayStreak')} />
-              <Metric icon={<Zap />} value={`${progress.total_xp ?? 0}`} label={t('totalXp')} />
-              <Metric icon={<Target />} value={`${progress.accuracy ? Math.round(progress.accuracy * 100) : 0}%`} label={t('accuracy')} />
+              <Metric icon={<Flame />} value={`${progress.current_streak ?? 0}`} label="day streak" />
+              <Metric icon={<Zap />} value={`${progress.total_xp ?? 0}`} label="total XP" />
+              <Metric icon={<Target />} value={`${progress.accuracy ? Math.round(progress.accuracy * 100) : 0}%`} label="accuracy" />
             </div>
           </div>
         </section>
 
-        {Number(smartReview.due_count ?? 0) > 0 && (
-          <section className="card overflow-hidden border border-primary p-6 sm:p-8">
-            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-primary">{reviewCopy.eyebrow}</p>
-                <h2 className="mt-1 text-2xl font-black text-body">{reviewCopy.title}</h2>
-                <p className="mt-2 text-sm leading-6 text-secondary">
-                  {smartReview.due_count} · {reviewCopy.skill}: {(smartReview.recommended_skill ?? weakestSkill).replaceAll('_', ' ')}
-                  {smartReview.cefr_level ? ' · CEFR ' + smartReview.cefr_level : ''}
-                </p>
-              </div>
-              <Link href="/games?review=1" className="inline-flex items-center justify-center gap-2 rounded bg-primary px-5 py-3 text-sm font-bold text-white  transition hover:opacity-90">
-                {reviewCopy.action} <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </section>
-        )}
-
-        {progress.mastery && progress.mastery.tracked_items > 0 && (
-          <section className="card p-6 sm:p-8">
-            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-primary">{t('review')}</p>
-                <h2 className="mt-1 text-2xl font-black text-body">
-                  {t('focusOn')} {masteryFocusLabel} {t('today')}
-                </h2>
-                <p className="mt-2 text-sm leading-6 text-secondary">
-                  {Math.round((progress.mastery.average_score ?? 0) * 100)}% {t('accuracy')} · {progress.mastery.tracked_items} {t('wordsMastered')}
-                </p>
-              </div>
-              <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
-                {(['new', 'learning', 'reviewing', 'weak', 'mastered'] as const).map((state) => (
-                  <div key={state} className="min-w-[68px] rounded border border bg-primary-lt px-3 py-2 text-center">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-secondary">
-                      {state === 'mastered' ? t('mastered') : state === 'new' ? t('notStarted') : t('inProgress')}
-                    </p>
-                    <p className="mt-1 text-sm font-black text-body">{masteryCounts[state] ?? 0}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
         <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          <CoachCard icon={<Mic />} title={t('speak')} value={t('conversation')} detail={t('speakDetail')} href="/conversation" />
-          <CoachCard icon={<Volume2 />} title={t('listen')} value={t('practice')} detail={t('listenDetail')} href="/listening" />
-          <CoachCard icon={<RefreshCw />} title={t('review')} value={t('flashcards')} detail={t('reviewDetail')} href="/flashcards" />
-          <CoachCard icon={<TrendingUp />} title={t('progress')} value={`${vocabProgress}%`} detail={`${progress.vocabulary_mastered ?? 0} {t('wordsMastered')}`} href="/progress" />
+          <CoachCard icon={<Mic />} title="Speak" value="10 min" detail="Build fluency with live correction." href="/conversation" />
+          <CoachCard icon={<Volume2 />} title="Listen" value="8 min" detail="Train comprehension with targeted audio." href="/listening" />
+          <CoachCard icon={<RefreshCw />} title="Review" value={`${Math.max(0, 15 - (plan.pending_count ?? 0))} cards`} detail="Refresh the words most likely to fade." href="/flashcards" />
+          <CoachCard icon={<TrendingUp />} title="Progress" value={`${vocabProgress}%`} detail={`${progress.vocabulary_mastered ?? 0} words mastered so far.`} href="/progress" />
         </section>
 
         <section className="grid gap-5 lg:grid-cols-[1.35fr_1fr]">
-          <div className="card p-6 sm:p-8">
+          <div className="juba-card p-6 sm:p-8">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-primary">{t('adaptiveQueue')}</p>
-                <h2 className="mt-1 text-2xl font-black text-body">{t('bestWork')}</h2>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-primary-dark)]">Adaptive queue</p>
+                <h2 className="mt-1 text-2xl font-black text-[var(--juba-text)]">Your best work for today</h2>
               </div>
-              <span className="rounded-full bg-primary-lt px-3 py-1 text-xs font-bold text-secondary">{completed}/{total} {t('complete')}</span>
+              <span className="rounded-full bg-[#e2f2d3] px-3 py-1 text-xs font-bold text-[var(--juba-muted)]">{completed}/{total} complete</span>
             </div>
             <div className="space-y-3">
               {(plan.lessons ?? []).slice(0, 4).map((lesson, index) => (
-                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded border border bg-white p-4 transition hover:-translate-y-0.5 hover:border-primary">
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded ${lesson.is_completed ? 'bg-warning-lt text-primary' : 'bg-primary-lt text-primary'}`}>
+                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[28px] border-2 border-2 border-[#e2f2d3] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-primary)]">
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[20px] ${lesson.is_completed ? 'bg-[var(--juba-warm-soft)] text-[var(--juba-primary-dark)]' : 'bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)]'}`}>
                     {lesson.is_completed ? <CheckCircle2 className="h-5 w-5" /> : <span className="text-sm font-black">{index + 1}</span>}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-bold text-body">{lesson.title}</p>
-                    <p className="mt-1 text-xs text-secondary">{lesson.lesson_type.replaceAll('_', ' ')} · {lesson.estimated_minutes || 25} {t('minutes')}</p>
+                    <p className="truncate text-sm font-bold text-[var(--juba-text)]">{lesson.title}</p>
+                    <p className="mt-1 text-xs text-[var(--juba-muted)]">{lesson.lesson_type.replaceAll('_', ' ')} · {lesson.estimated_minutes || 25} min</p>
                   </div>
-                  <ArrowRight className="h-4 w-4 text-secondary transition group-hover:translate-x-1" />
+                  <ArrowRight className="h-4 w-4 text-[var(--juba-muted)] transition group-hover:translate-x-1" />
                 </Link>
               ))}
-              {!plan.lessons?.length && !loading && <p className="rounded border border-dashed border p-6 text-center text-sm text-secondary">{t('assessmentPrompt')}</p>}
+              {!plan.lessons?.length && !loading && <p className="rounded-[28px] border border-dashed border-[#e2f2d3] p-6 text-center text-sm text-[var(--juba-muted)]">Complete your assessment to unlock an adaptive learning plan.</p>}
             </div>
           </div>
 
-          <div className="card p-6 sm:p-8">
-            <p className="text-xs font-bold uppercase tracking-[.16em] text-primary">{t('contextEyebrow')}</p>
-            <h2 className="mt-1 text-2xl font-black text-body">{t('rooms')}</h2>
-            <p className="mt-2 text-sm leading-6 text-secondary">{t('roomsDescription')}</p>
+          <div className="juba-card p-6 sm:p-8">
+            <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-primary-dark)]">Practice in context</p>
+            <h2 className="mt-1 text-2xl font-black text-[var(--juba-text)]">Real-world rooms</h2>
+            <p className="mt-2 text-sm leading-6 text-[var(--juba-muted)]">Stop memorizing isolated sentences. Practice what you actually need to say.</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
-                <Link key={scenario.key} href={scenario.href} className="rounded border border p-4 transition hover:-translate-y-0.5 hover:border-primary hover:bg-primary-lt">
+                <Link key={scenario.title} href={scenario.href} className="rounded-[28px] border-2 border-[#e2f2d3] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)]">
                   <span className="text-2xl">{scenario.icon}</span>
-                  <p className="mt-3 text-sm font-black text-body">{t(`scenarios.${scenario.key}.title`)}</p>
-                  <p className="mt-1 text-xs leading-5 text-secondary">{t(`scenarios.${scenario.key}.description`)}</p>
+                  <p className="mt-3 text-sm font-black text-[var(--juba-text)]">{scenario.title}</p>
+                  <p className="mt-1 text-xs leading-5 text-[var(--juba-muted)]">{scenario.desc}</p>
                 </Link>
               ))}
             </div>
           </div>
         </section>
 
-        <footer className="flex flex-col gap-2 border-t border pt-6 text-xs text-secondary sm:flex-row sm:items-center sm:justify-between">
-          <span>{t('learningLabel')} {language?.name ? `· ${language.name}` : `· ${t('personalized')}`}</span>
-          <span>{t('cefrLabel')} {plan.cefr_level || t('adaptive')} · JUBA LISAN {t('coachLabel')}</span>
+        <footer className="flex flex-col gap-2 border-t border-[#e2f2d3] pt-6 text-xs text-[var(--juba-muted)] sm:flex-row sm:items-center sm:justify-between">
+          <span>Learning {language?.name ? `· ${language.name}` : '· personalized for you'}</span>
+          <span>CEFR {plan.cefr_level || 'adaptive'} · JUBA LISAN Coach</span>
         </footer>
       </div>
     </main>
   )
 }
 
-function Metric({ icon, value, label }: { icon: ReactNode; value: string; label: string }) {
+function Metric({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
   return (
-    <div className="rounded bg-primary-lt p-3">
-      <div className="mb-2 h-4 w-4 text-primary">{icon}</div>
-      <p className="text-lg font-black text-body">{value}</p>
-      <p className="text-[10px] font-bold uppercase tracking-wider text-secondary">{label}</p>
+    <div className="rounded-[28px] bg-[#e2f2d3] p-3">
+      <div className="mb-2 h-4 w-4 text-[var(--juba-primary-dark)]">{icon}</div>
+      <p className="text-lg font-black text-[var(--juba-text)]">{value}</p>
+      <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--juba-muted)]">{label}</p>
     </div>
   )
 }
 
 function CoachCard({ icon, title, value, detail, href }: { icon: React.ReactNode; title: string; value: string; detail: string; href: string }) {
   return (
-    <Link href={href} className="card group p-5">
+    <Link href={href} className="juba-card group p-5">
       <div className="flex items-center justify-between">
-        <span className="flex h-10 w-10 items-center justify-center rounded bg-primary-lt text-primary">{icon}</span>
-        <ArrowRight className="h-4 w-4 text-secondary transition group-hover:translate-x-1" />
+        <span className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)]">{icon}</span>
+        <ArrowRight className="h-4 w-4 text-[var(--juba-muted)] transition group-hover:translate-x-1" />
       </div>
-      <p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-secondary">{title}</p>
-      <p className="mt-1 text-2xl font-black text-body">{value}</p>
-      <p className="mt-2 text-xs leading-5 text-secondary">{detail}</p>
+      <p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-[var(--juba-muted)]">{title}</p>
+      <p className="mt-1 text-2xl font-black text-[var(--juba-text)]">{value}</p>
+      <p className="mt-2 text-xs leading-5 text-[var(--juba-muted)]">{detail}</p>
     </Link>
   )
 }
