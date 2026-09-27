@@ -1266,3 +1266,25 @@ def test_en_gb_a2_irregular_verbs_use_transferable_contexts():
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 10
+
+
+def test_en_gb_a2_future_and_weather_examples_use_practical_contexts():
+    """A2 planning and weather vocabulary should model situations learners can reuse in daily communication."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in A2_SETS for entry in vocabulary_set.words}
+    expected = {
+        "plan": "visit my cousin and help her paint",
+        "expect": "evening class finishes at half past six",
+        "rainy": "football practice into the sports hall",
+        "windy": "ferry service was delayed",
+        "snowy": "school bus arrived later",
+        "temperature": "opened the windows at home",
+        "forecast": "taking an umbrella to work",
+        "degrees": "warm coat on the way to work",
+        "storm": "moved the outdoor event indoors",
+        "fog": "drivers reduced their speed",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 12
