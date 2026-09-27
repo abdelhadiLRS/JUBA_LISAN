@@ -642,7 +642,15 @@
     },
     "learningLabel": "التعلّم",
     "cefrLabel": "مستوى CEFR",
-    "coachLabel": "المدرّب",
+    "coachLabel": "المدرّب"
+  ,
+    "learner": "متعلم",
+      "minutes": "د",
+      "reviewEyebrow": "مراجعة ذكية",
+      "reviewTitle": "لديك مراجعات مستحقة",
+      "reviewAction": "ابدأ المراجعة",
+      "reviewSkill": "المهارة المقترحة"
+  },
   "plan": {
     "title": "خطتي",
     "subtitle": "خطة الدراسة",
@@ -712,7 +720,6 @@
     "namePlaceholder": "اسمك",
     "emailPlaceholder": "you@example.com",
     "messagePlaceholder": "كيف يمكننا مساعدتك؟"
-  },
   },
   "visitorTranslator": {
     "open": "فتح المترجم الفوري",
@@ -891,34 +898,8 @@
     "bg": "البلغارية",
     "hu": "المجرية",
     "id": "الإندونيسية",
-    "vi": "الفيتنامية",
-    "learner": "متعلم",
-      "minutes": "د",
-      "reviewEyebrow": "مراجعة ذكية",
-      "reviewTitle": "لديك مراجعات مستحقة",
-      "reviewAction": "ابدأ المراجعة",
-      "reviewSkill": "المهارة المقترحة",
-      "learningLabel": "التعلّم",
-      "cefrLabel": "مستوى CEFR",
-      "coachLabel": "المدرّب",
-      "scenarios": {
-        "airport": {
-          "title": "المطار",
-          "description": "تسجيل الوصول وطلب الاتجاهات والتعامل مع التأخيرات."
-        },
-        "jobInterview": {
-          "title": "مقابلة عمل",
-          "description": "تدرّب على الإجابات والثقة والمفردات المهنية."
-        },
-        "restaurant": {
-          "title": "مطعم",
-          "description": "اطلب بشكل طبيعي وتعامل مع محادثة حقيقية."
-        },
-        "hotel": {
-          "title": "فندق",
-          "description": "احجز غرفة وحل المشكلات واطلب ما تحتاجه."
-        }
-      }},
+    "vi": "الفيتنامية"
+  },
   "lesson": {
     "loading": "جارٍ تحميل الدرس...",
     "notFound": "لم يتم العثور على الدرس",
@@ -2269,5 +2250,4 @@
     "deleteTitle": "حذف التقييم",
     "deleteMessage": "هل تريد حذف هذا التقييم؟ لا يمكن التراجع عن هذا الإجراء."
   }
-}
 }
