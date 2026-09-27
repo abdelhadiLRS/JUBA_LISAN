@@ -1888,3 +1888,16 @@ def test_en_gb_a2_travel_vocabulary_examples_are_actionable():
         for fragment in fragments:
             assert fragment.lower() in example, word
 
+
+
+def test_en_gb_a1_alphabet_examples_support_spelling_and_sound_awareness():
+    from app.data.en_GB.vocabulary_a1 import A1_SETS
+
+    alphabet = next(item for item in A1_SETS if item.id == "alphabet_a1")
+    examples = {entry.word: entry.example for entry in alphabet.words}
+    assert "spell" in examples["A"].lower()
+    assert "spell" in examples["B"].lower()
+    assert "/s/" in examples["C"]
+    assert "spelling" in examples["D"].lower()
+    assert "spelling" in examples["E"].lower()
+
