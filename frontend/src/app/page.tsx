@@ -227,19 +227,33 @@ export default async function Home() {
               <p>{reviewT('subtitle')}</p>
             </div>
             <div className="juba-busuu-testimonial-grid">
-              {reviews.slice(0, 6).map((review) => (
-                <article key={review.id} className="juba-busuu-testimonial">
-                  <div className="juba-busuu-testimonial-meta">
-                    <span aria-hidden="true">
-                      {'★'.repeat(Math.max(0, Math.min(5, review.rating)))}
-                    </span>
-                    <span className="sr-only">{reviewT('starsLabel', { rating: review.rating })}</span>
-                    <span>{reviewT('learningLanguage', { language: review.target_language })}</span>
-                  </div>
-                  <p>“{review.comment ?? ''}”</p>
-                  <strong>{review.user_display_name || 'JUBA LISAN learner'}</strong>
-                </article>
-              ))}
+              {reviews.slice(0, 6).map((review) => {
+                const displayName = review.user_display_name?.trim() || 'JUBA LISAN learner'
+                const initials = displayName
+                  .split(/\\s+/)
+                  .filter(Boolean)
+                  .slice(0, 2)
+                  .map((part) => part[0])
+                  .join('')
+                  .toUpperCase()
+
+                return (
+                  <article key={review.id} className="juba-busuu-testimonial">
+                    <div className="juba-busuu-testimonial-meta">
+                      <span aria-hidden="true">
+                        {'★'.repeat(Math.max(0, Math.min(5, review.rating)))}
+                      </span>
+                      <span className="sr-only">{reviewT('starsLabel', { rating: review.rating })}</span>
+                      <span>{reviewT('learningLanguage', { language: review.target_language })}</span>
+                    </div>
+                    <p>“{review.comment ?? ''}”</p>
+                    <div className="juba-busuu-testimonial-person">
+                      <span className="juba-busuu-testimonial-avatar" aria-hidden="true">{initials}</span>
+                      <strong>{displayName}</strong>
+                    </div>
+                  </article>
+                )
+              })}
             </div>
           </div>
         </section>
