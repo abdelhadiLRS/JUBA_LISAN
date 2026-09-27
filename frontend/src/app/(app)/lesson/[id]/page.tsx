@@ -13,7 +13,7 @@
     <main className="juba-lesson-shell space-y-5 text-[#30343b]">
       <div className="juba-page-hero rounded-2xl border border-[#e1e5e2] bg-white px-5 py-5 shadow-[0_3px_0_rgba(31,41,51,.045)] sm:px-7 sm:py-6">
         <div className="min-w-0 max-w-3xl">
-          <p className="text-[#68736d] font-sans text-xs font-bold uppercase tracking-widest">{lesson.lesson_type || t('exercise')}</p>
+          <p className="text-[#68736d] font-sans text-xs font-bold uppercase tracking-wide">{lesson.lesson_type || t('exercise')}</p>
           <h1 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">{lesson.title || t('lesson')}</h1>
           <p className="mt-1 text-sm font-medium text-[#68736d]">{lesson.cefr_level}</p>
         </div>
