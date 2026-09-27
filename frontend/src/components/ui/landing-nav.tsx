@@ -10,7 +10,7 @@ interface LandingNavProps {
   hasSession: boolean
   dir: 'ltr' | 'rtl'
   navFeatures: string
-    navLanguages: string
+  navLanguages: string
   navReviews: string
   navPricing: string
   navFAQ: string
