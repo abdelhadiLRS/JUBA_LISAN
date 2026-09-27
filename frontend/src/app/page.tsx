@@ -293,6 +293,59 @@ export default async function Home() {
         </div>
       </section>
 
+      <section className="juba-busuu-app-cta" aria-labelledby="app-cta-title">
+        <div className="juba-busuu-container juba-busuu-app-cta-inner">
+          <div className="juba-busuu-app-cta-copy">
+            <span className="juba-busuu-eyebrow">{t('availableInApp')}</span>
+            <h2 id="app-cta-title">{t('appCtaTitle')}</h2>
+            <p>{t('appCtaDescription')}</p>
+            <div className="juba-busuu-app-actions">
+              <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">
+                {hasSession ? t('dashboard') : t('ctaStart')}
+                <ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" />
+              </Link>
+              <span>{t('appCtaNote')}</span>
+            </div>
+          </div>
+          <div className="juba-busuu-app-cta-art" aria-hidden="true">
+            <div className="juba-busuu-app-device">
+              <div className="juba-busuu-app-device-top" />
+              <div className="juba-busuu-app-device-screen">
+                <strong>JUBA LISAN</strong>
+                <span>{t('flowAiTitle')}</span>
+                <span>{t('flowVoiceTitle')}</span>
+                <span>{t('feature8Title')}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="juba-busuu-online-languages" aria-labelledby="online-languages-title">
+        <div className="juba-busuu-container">
+          <div className="juba-busuu-heading juba-busuu-heading-split">
+            <div>
+              <span className="juba-busuu-eyebrow">{t('navLanguages')}</span>
+              <h2 id="online-languages-title">{t('onlineLanguagesTitle')}</h2>
+            </div>
+            <p>{t('onlineLanguagesDescription')}</p>
+          </div>
+          <div className="juba-busuu-online-language-grid">
+            {[
+              ['English', 'en'], ['Spanish', 'es'], ['French', 'fr'], ['German', 'de'],
+              ['Italian', 'it'], ['Portuguese', 'pt'], ['Japanese', 'ja'], ['Korean', 'ko'],
+              ['Arabic', 'ar'], ['Chinese', 'zh'], ['Russian', 'ru'], ['Turkish', 'tr'],
+              ['Dutch', 'nl'], ['Polish', 'pl'],
+            ].map(([label, code]) => (
+              <Link key={code} href={`#languages`} lang={code} dir="auto">
+                <span>{label}</span>
+                <ArrowUpRight aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="faq" className="juba-busuu-faq" aria-labelledby="faq-section-title">
         <div className="juba-busuu-container">
           <div className="juba-busuu-heading">
