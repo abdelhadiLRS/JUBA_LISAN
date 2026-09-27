@@ -319,6 +319,33 @@ def test_en_gb_b2_has_no_duplicate_headword_and_part_of_speech():
             seen.add(key)
 
 
+def test_en_gb_c1_overlaps_with_b2_add_semantic_or_register_value():
+    """Intentional B2/C1 overlaps should teach a materially more specific C1 use."""
+    from app.data.en_GB.vocabulary_b2 import B2_SETS
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+
+    b2 = {entry.word: entry for vocab_set in B2_SETS for entry in vocab_set.words}
+    c1 = {entry.word: entry for vocab_set in C1_SETS for entry in vocab_set.words}
+
+    assert "confirmation bias" not in b2["bias"].example.casefold()
+    assert "selection bias" in c1["bias"].example.casefold()
+    assert "directly comparable" not in b2["implication"].example.casefold()
+    assert "directly comparable" in c1["implication"].example.casefold()
+
+
+def test_en_gb_c2_empirical_example_adds_methodological_nuance():
+    """C2 empirical usage should move beyond the general B2 meaning into research methodology."""
+    from app.data.en_GB.vocabulary_b2 import B2_SETS
+    from app.data.en_GB.vocabulary_c2 import C2_SETS
+
+    b2 = {entry.word: entry for vocab_set in B2_SETS for entry in vocab_set.words}
+    c2 = {entry.word: entry for vocab_set in C2_SETS for entry in vocab_set.words}
+
+    assert "empirical evidence" in b2["empirical"].example.casefold()
+    assert "controlled studies" in c2["empirical"].example.casefold()
+    assert "theoretical claim" in c2["empirical"].definition.casefold()
+
+
 def test_en_gb_c2_core_examples_teach_advanced_collocations():
     """Selected C2 examples should teach domain-specific collocations and nuanced usage."""
     from app.data.en_GB.vocabulary_c2 import C2_SETS
@@ -374,7 +401,7 @@ def test_c1_formal_writing_prioritises_high_utility_language():
 
     for word in {"hitherto", "inasmuch as", "thereof", "aforesaid", "pursuant to", "hereby", "thereafter"}:
         assert word not in words
-    for word in {"subsequently", "subject to", "consequently", "prior to", "in response to", "with effect from", "in line with"}:
+    for word in {"accordingly", "subject to", "thereby", "in response to", "with effect from", "in line with", "insofar as"}:
         assert word in words
 
 
