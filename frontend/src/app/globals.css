@@ -1287,3 +1287,16 @@ html[data-theme='light'] {
     transition-duration:.01ms!important;
   }
 }
+
+
+/* JUBA LISAN — voice conversation readability and tactile controls. */
+.juba-duo-conversation-shell{font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif!important;color:#30343b}
+.juba-duo-conversation-shell [class*="overflow-y-auto"]{overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#cbd5c9 transparent}
+.juba-duo-conversation-shell [class*="overflow-y-auto"]::-webkit-scrollbar{width:6px}
+.juba-duo-conversation-shell [class*="overflow-y-auto"]::-webkit-scrollbar-thumb{background:#cbd5c9;border-radius:999px}
+.juba-duo-conversation-shell button:not(:disabled){-webkit-tap-highlight-color:transparent;transition:background-color .14s ease,border-color .14s ease,color .14s ease,transform .12s ease}
+.juba-duo-conversation-shell button:not(:disabled):active{transform:translateY(1px)}
+.juba-duo-conversation-shell button:disabled{cursor:not-allowed}
+.juba-duo-conversation-shell :is(p,span,div){overflow-wrap:anywhere}
+@media(max-width:767px){.juba-duo-conversation-shell{padding:12px!important}.juba-duo-conversation-shell [class*="overflow-y-auto"]{padding-inline:2px}}
+@media(prefers-reduced-motion:reduce){.juba-duo-conversation-shell *{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
