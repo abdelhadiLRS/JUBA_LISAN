@@ -308,7 +308,6 @@ export default async function Home() {
 
       <LandingNav
         hasSession={hasSession}
-        stripeEnabled={stripeEnabled}
         dir={locale === 'ar' ? 'rtl' : 'ltr'}
         navFeatures={t('navFeatures')}
         navDemo={t('navDemo')}
