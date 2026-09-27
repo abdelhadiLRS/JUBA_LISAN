@@ -114,6 +114,23 @@ def get_foundation_lesson_seed(
     vocabulary_words = [item[0] for item in words][:8]
     source_text = " ".join((grammar_examples[:3] + vocabulary_examples[:3])).strip() or title
     grammar_names = [topic.title for topic in grammar]
+    competencies = list(getattr(unit, "competency_checklist", []) or [])[:4]
+
+    phrases: list[str] = []
+    try:
+        from app.data.phrasebook import get_phrasebook_categories
+        for category in get_phrasebook_categories(target_language):
+            if str(category.level).upper() != level:
+                continue
+            for phrase in category.phrases:
+                if phrase.text not in phrases:
+                    phrases.append(phrase.text)
+                if len(phrases) >= 6:
+                    break
+            if len(phrases) >= 6:
+                break
+    except (ImportError, AttributeError):
+        phrases = []
 
     base: dict[str, Any] = {
         "title": title,
@@ -123,12 +140,22 @@ def get_foundation_lesson_seed(
         "vocabulary_words": vocabulary_words,
         "examples": grammar_examples,
         "source": "language_foundation",
+        "can_do": competencies,
+        "success_criteria": [
+            "Use the target language naturally in the unit context.",
+            f"Reuse at least three target words from {title}.",
+            "Show accurate use of the lesson's target structure or skill.",
+        ],
+        "recycle": vocabulary_words[:4] + phrases[:2],
+        "phrases": phrases,
     }
 
     if skill == "grammar":
         base["objective"] = f"Use the target grammar for {title} at {level} level."
+        base["scenario"] = f"Complete a short real-life interaction related to {title} using the target structure."
     elif skill == "vocabulary":
         base["objective"] = f"Use topic vocabulary for {title} at {level} level."
+        base["scenario"] = f"Use the new vocabulary to solve a practical task about {title}."
     elif skill == "reading":
         base["objective"] = f"Read and understand a short text about {title}."
         base["text"] = source_text
@@ -137,6 +164,8 @@ def get_foundation_lesson_seed(
             "Find two useful expressions in the text.",
             "Explain one detail using your own words.",
         ]
+        base["scenario"] = f"Read the text and then use its information to complete a short task about {title}."
+        base["retrieval_prompts"] = ["What is the main idea?", "Which two words or phrases do you remember?", "What can you say about the topic without looking?"]
     elif skill == "listening":
         base["objective"] = f"Understand key information about {title} in connected speech."
         base["transcript"] = source_text
@@ -145,11 +174,15 @@ def get_foundation_lesson_seed(
             "Note two useful expressions from the recording.",
             "Give one detail that supports the main idea.",
         ]
+        base["scenario"] = f"Listen for information you would need in a real interaction about {title}."
+        base["retrieval_prompts"] = ["What was the main idea?", "Which detail did you hear?", "Which phrase could you reuse?"]
     elif skill == "speaking":
         base["objective"] = f"Speak about {title} using the target grammar and vocabulary."
         base["prompt"] = f"Speak about {title}. Use the target grammar and at least three topic words."
         base["phrases"] = (grammar_examples + vocabulary_examples)[:6]
         base["examples"] = grammar_examples[:2]
+        base["scenario"] = f"Role-play a short conversation about {title} and respond without reading a model."
+        base["retrieval_prompts"] = ["Say one target sentence from memory.", "Use two topic words in a new sentence.", "Respond to a realistic follow-up question."]
     elif skill == "writing":
         base["objective"] = f"Write a connected text about {title} with accurate grammar and vocabulary."
         base["prompt"] = f"Write a short text about {title} using the target grammar and vocabulary."
@@ -159,6 +192,8 @@ def get_foundation_lesson_seed(
             "Connect your ideas with complete sentences.",
         ]
         base["examples"] = grammar_examples[:2]
+        base["scenario"] = f"Write a useful message or short response connected to {title}."
+        base["retrieval_prompts"] = ["Recall one target structure.", "Recall three topic words.", "Rewrite one example in a new context."]
     elif skill == "review":
         base["objective"] = f"Review the grammar and vocabulary for {title}."
         base["questions"] = [
@@ -166,6 +201,8 @@ def get_foundation_lesson_seed(
             f"Write two sentences about {title} using topic vocabulary.",
             "Explain one difference between two expressions from the lesson.",
         ]
+        base["scenario"] = f"Complete a mixed retrieval task that combines earlier language from {title}; do not introduce a new grammar point."
+        base["retrieval_prompts"] = ["Recall the core structure.", "Use three target words without looking.", "Explain one common mistake and how to avoid it."]
     else:
         return None
 
