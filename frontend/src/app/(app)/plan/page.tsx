@@ -496,6 +496,15 @@ export default function PlanPage() {
             setActiveDrawer(null)
             void launchLesson(lessonId)
           }}
+          onStartUnit={() => {
+            const firstActionableLesson = (byUnit[activeDrawer.id] ?? []).find(
+              (lesson) => lesson.id != null && lesson.action,
+            )
+            if (firstActionableLesson?.id != null) {
+              setActiveDrawer(null)
+              void launchLesson(firstActionableLesson.id)
+            }
+          }}
         />
       )}
     </div>
