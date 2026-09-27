@@ -2138,3 +2138,20 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
 @media(prefers-reduced-motion:reduce){
   .juba-reference-page .juba-ai-wave i.is-playing{animation:none!important}
 }
+
+/* Landing — final RTL polish for games + AI controls */
+.juba-reference-page[dir="rtl"] .juba-game-stage-copy{align-items:flex-start!important;text-align:right!important}
+.juba-reference-page[dir="rtl"] .juba-game-stage-copy .juba-ref-button{flex-direction:row-reverse!important}
+.juba-reference-page[dir="rtl"] .juba-games-tab{text-align:center!important}
+.juba-reference-page[dir="rtl"] .juba-practical-language-card{text-align:right!important;flex-direction:row-reverse!important;justify-content:flex-end!important}
+.juba-reference-page[dir="rtl"] .juba-practical-language-card > span:last-child{display:flex!important;flex-direction:column!important;align-items:flex-end!important}
+.juba-reference-page[dir="rtl"] .juba-ai-showcase-copy{text-align:right!important}
+.juba-reference-page[dir="rtl"] .juba-ai-showcase-copy .juba-ref-button{flex-direction:row-reverse!important}
+.juba-reference-page[dir="rtl"] .juba-ai-chat-user{left:auto!important;right:6%!important}
+.juba-reference-page[dir="rtl"] .juba-ai-chat-tutor{right:auto!important;left:6%!important}
+.juba-reference-page[dir="rtl"] .juba-ai-live-pill{left:auto!important;right:18px!important}
+.juba-reference-page[dir="rtl"] .juba-ai-play{right:auto!important;left:18px!important}
+@media(max-width:600px){
+  .juba-reference-page[dir="rtl"] .juba-ai-live-pill{right:10px!important;left:auto!important}
+  .juba-reference-page[dir="rtl"] .juba-ai-play{left:10px!important;right:auto!important}
+}
