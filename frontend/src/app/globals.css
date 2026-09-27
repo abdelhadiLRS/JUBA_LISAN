@@ -3530,3 +3530,199 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
     transition-duration: .01ms !important;
   }
 }
+
+
+/* Dashboard — one unified JUBA LISAN learning surface. */
+.juba-dashboard {
+  max-width: 1180px !important;
+  padding-top: 22px !important;
+  padding-bottom: 42px !important;
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+
+.juba-dashboard .juba-dashboard-header {
+  min-height: 54px;
+}
+
+.juba-dashboard .juba-dashboard-title {
+  color: var(--juba-learning-ink) !important;
+  font-weight: 900 !important;
+  letter-spacing: -.035em !important;
+}
+
+.juba-dashboard .text-secondary,
+.juba-dashboard .subheader,
+.juba-dashboard .datagrid-title {
+  color: var(--juba-learning-muted) !important;
+}
+
+.juba-dashboard .juba-learning-card {
+  overflow: hidden !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 20px !important;
+  background: var(--juba-learning-surface) !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+
+.juba-dashboard .juba-learning-card .card-header,
+.juba-dashboard .juba-learning-card .card-footer {
+  border-color: var(--juba-learning-border) !important;
+  background: #fff !important;
+}
+
+.juba-dashboard .juba-learning-card .card-title,
+.juba-dashboard .juba-learning-card .h1,
+.juba-dashboard .juba-learning-card .h2,
+.juba-dashboard .juba-learning-card .h3 {
+  color: var(--juba-learning-ink) !important;
+  font-weight: 900 !important;
+}
+
+.juba-dashboard .juba-btn-primary,
+.juba-dashboard .btn-primary {
+  min-height: 44px !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  border-radius: 13px !important;
+  background: var(--juba-learning-green) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 0 var(--juba-learning-green-dark) !important;
+  font-weight: 900 !important;
+}
+
+.juba-dashboard .juba-btn-primary:hover:not(:disabled),
+.juba-dashboard .btn-primary:hover:not(:disabled) {
+  background: var(--juba-learning-green) !important;
+  transform: translateY(1px) !important;
+  box-shadow: 0 3px 0 var(--juba-learning-green-dark) !important;
+}
+
+.juba-dashboard .juba-btn-secondary,
+.juba-dashboard .btn-outline-secondary,
+.juba-dashboard .btn-ghost-secondary {
+  min-height: 44px !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 13px !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+  box-shadow: 0 3px 0 rgba(0,0,0,.06) !important;
+  font-weight: 900 !important;
+}
+
+.juba-dashboard .juba-btn-secondary:hover:not(:disabled),
+.juba-dashboard .btn-outline-secondary:hover:not(:disabled),
+.juba-dashboard .btn-ghost-secondary:hover:not(:disabled) {
+  border-color: var(--juba-learning-green) !important;
+  background: var(--juba-learning-green-soft) !important;
+  color: var(--juba-learning-green-dark) !important;
+}
+
+.juba-dashboard .badge {
+  border-radius: 999px !important;
+  font-weight: 900 !important;
+}
+
+.juba-dashboard .bg-primary-lt,
+.juba-dashboard .bg-blue-lt,
+.juba-dashboard .bg-success-lt,
+.juba-dashboard .bg-warning-lt {
+  border: 2px solid var(--juba-learning-border) !important;
+}
+
+.juba-dashboard .bg-primary-lt {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-dashboard .text-primary {
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-dashboard .bg-blue-lt {
+  background: #eef9ff !important;
+}
+.juba-dashboard .text-blue {
+  color: #168dcc !important;
+}
+.juba-dashboard .bg-success-lt {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-dashboard .text-success {
+  color: var(--juba-learning-green-dark) !important;
+}
+
+.juba-dashboard .progress {
+  height: 12px !important;
+  overflow: hidden !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 999px !important;
+  background: #f1f1f1 !important;
+}
+.juba-dashboard .progress .progress-bar {
+  background: var(--juba-learning-green) !important;
+}
+
+.juba-dashboard .juba-performance-chart {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 16px !important;
+  background: #fafafa !important;
+}
+.juba-dashboard .juba-chart-bar {
+  min-width: 12px;
+  background: var(--juba-learning-green) !important;
+  border: 1px solid var(--juba-learning-green-dark) !important;
+}
+
+.juba-dashboard .list-group-item {
+  border-color: var(--juba-learning-border) !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+}
+.juba-dashboard .list-group-item:hover {
+  background: var(--juba-learning-green-soft) !important;
+}
+
+.juba-dashboard .datagrid-item {
+  border-color: var(--juba-learning-border) !important;
+  background: #fff !important;
+}
+
+.juba-dashboard .alert-danger {
+  border: 2px solid #ffc6c6 !important;
+  border-radius: 16px !important;
+  background: #fff5f5 !important;
+  color: #b42318 !important;
+}
+
+.juba-dashboard .card-status-start {
+  height: 4px !important;
+}
+.juba-dashboard .card-status-start.bg-warning {
+  background: var(--juba-learning-yellow) !important;
+}
+
+@media (max-width: 767px) {
+  .juba-dashboard {
+    padding: 14px 12px 88px !important;
+  }
+  .juba-dashboard .juba-dashboard-header {
+    align-items: stretch !important;
+  }
+  .juba-dashboard .juba-dashboard-header > * {
+    width: 100%;
+  }
+  .juba-dashboard .juba-dashboard-header button {
+    width: 100% !important;
+  }
+  .juba-dashboard .juba-learning-card {
+    border-radius: 18px !important;
+  }
+  .juba-dashboard .card-body,
+  .juba-dashboard .card-header,
+  .juba-dashboard .card-footer {
+    padding: 16px !important;
+  }
+  .juba-dashboard .list-group-item {
+    padding: 14px 16px !important;
+  }
+  .juba-dashboard .juba-performance-chart {
+    margin-top: 10px;
+  }
+}
