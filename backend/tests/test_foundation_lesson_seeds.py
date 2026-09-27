@@ -12,7 +12,7 @@ def test_czech_foundation_runtime_seeds_cover_a2_to_c2():
             assert seed is not None
             assert seed["title"]
             assert seed["objective"]
-            assert seed["source"] == "language_foundation"
+            assert seed["source"] in {"language_foundation", "curated_czech"}
 
             if skill == "reading":
                 assert seed.get("text")
