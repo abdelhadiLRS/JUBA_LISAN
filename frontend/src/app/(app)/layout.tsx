@@ -1,109 +1,86 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useAuthStore, isSubscribed } from '@/store/auth'
 import { useProgressStore } from '@/store/progress'
+import { LearningProgressBridge } from '@/components/LearningProgressBridge'
 import { useConfigStore } from '@/store/config'
 import { apiFetch } from '@/lib/api'
 import { mapUser } from '@/lib/mappers'
 import { useLogout } from '@/hooks/useLogout'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
+import { ContactFormModal } from '@/components/ui/contact-form-modal'
 import { LoadingBar } from '@/components/ui/loading-bar'
 import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
-const NAV_ICONS: Record<string, string> = {
-  '/dashboard': 'ti-home', '/plan': 'ti-clipboard-check', '/progress': 'ti-chart-bar',
-  '/games': 'ti-device-gamepad-2', '/flashcards': 'ti-cards', '/friends': 'ti-users',
-  '/chat': 'ti-message', '/listening': 'ti-headphones', '/reading': 'ti-book',
-  '/conversation': 'ti-messages', '/assessment': 'ti-brain', '/coach': 'ti-sparkles',
-  '/courses': 'ti-school', '/review': 'ti-refresh', '/translator': 'ti-language',
-  '/grammar': 'ti-book-2', '/vocabulary': 'ti-books', '/phrasebook': 'ti-notes',
-  '/settings': 'ti-settings', '/faq': 'ti-help', '/feedback': 'ti-message-report',
-}
-function NavIcon({ href, className = 'icon' }: { href: string; className?: string }) {
-  return <i className={'ti ' + (NAV_ICONS[href] ?? 'ti-circle') + ' ' + className} aria-hidden="true" />
-}
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const tNav = useTranslations('nav')
   const tCommon = useTranslations('common')
+  const tBilling = useTranslations('billing')
   const pathname = usePathname()
-  const user = useAuthStore((s) => s.user)
-  const isAdmin = user?.role === 'admin'
-  const isAdminRoute = pathname === '/admin' || pathname.startsWith('/admin/')
 
-  type NavItem = { href: string; label: string; icon?: string; premium?: boolean }
-  type NavGroup = { key: string; label: string; icon: string; items: NavItem[] }
-
-  const mainNavItems: NavItem[] = [
+  const mainNavItems = [
     { href: '/dashboard', label: tNav('home') },
+    { href: '/plan', label: tNav('myPlan') },
+    { href: '/progress', label: tNav('progress') },
     { href: '/games', label: tNav('games') },
-    { href: '/friends', label: tNav('friends') },
+    { href: '/flashcards', label: tNav('flashcards') },
+    { href: '/friends', label: 'Friends' },
+    { href: '/chat', label: tNav('tutor') },
+    { href: '/listening', label: tNav('listening') },
+    { href: '/reading', label: tNav('reading') },
+    { href: '/conversation', label: tNav('conversation') },
+    { href: '/assessment', label: tNav('assessment') },
+    { href: '/coach', label: 'Coach' },
+    { href: '/courses', label: 'Courses' },
+    { href: '/review', label: 'Review' },
+    { href: '/translator', label: 'Translator' },
   ]
 
-  const navGroups: NavGroup[] = [
-    {
-      key: 'learning',
-      label: tNav('learning'),
-      icon: 'ti-school',
-      items: [
-        { href: '/plan', label: tNav('myPlan') },
-        { href: '/progress', label: tNav('progress') },
-        { href: '/courses', label: tNav('courses') },
-        { href: '/review', label: tNav('review') },
-      ],
-    },
-    {
-      key: 'practice',
-      label: tNav('practice'),
-      icon: 'ti-microphone-2',
-      items: [
-        { href: '/listening', label: tNav('listening'), premium: true },
-        { href: '/reading', label: tNav('reading'), premium: true },
-        { href: '/conversation', label: tNav('conversation'), premium: true },
-        { href: '/assessment', label: tNav('assessment') },
-        { href: '/coach', label: tNav('coach') },
-        { href: '/chat', label: tNav('tutor'), premium: true },
-      ],
-    },
-    {
-      key: 'study-tools',
-      label: tNav('studyTools'),
-      icon: 'ti-tool',
-      items: [
-        { href: '/flashcards', label: tNav('flashcards') },
-        { href: '/grammar', label: tNav('grammar') },
-        { href: '/vocabulary', label: tNav('vocabulary') },
-        { href: '/phrasebook', label: tNav('phrasebook') },
-        { href: '/translator', label: tNav('translator') },
-      ],
-    },
+  const resourceNavItems = [
+    { href: '/grammar', label: tNav('grammar') },
+    { href: '/vocabulary', label: tNav('vocabulary') },
+    { href: '/phrasebook', label: tNav('phrasebook') },
   ]
 
-  const bottomNavItems: NavItem[] = [
+  const bottomNavItems = [
     { href: '/settings', label: tNav('settings') },
     { href: '/faq', label: tNav('faq') },
     { href: '/feedback', label: tNav('feedback') },
   ]
 
   const router = useRouter()
+  const user = useAuthStore((s) => s.user)
+  const xp = useProgressStore((s) => s.xp)
+  const accessToken = useAuthStore((s) => s.accessToken)
+  const setTokens = useAuthStore((s) => s.setTokens)
   const setUser = useAuthStore((s) => s.setUser)
   const logout = useAuthStore((s) => s.logout)
   const handleLogout = useLogout()
   const [initializing, setInitializing] = useState(true)
   const loadConfig = useConfigStore((s) => s.load)
   const [logoutConfirm, setLogoutConfirm] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [resourcesOpen, setResourcesOpen] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
   const [resendSent, setResendSent] = useState(false)
-  const [openTopMenu, setOpenTopMenu] = useState<string | null>(null)
-  const topMenuRef = useRef<HTMLElement | null>(null)
-  const appHeaderRef = useRef<HTMLElement | null>(null)
+  const [feedbackUnreadCount, setFeedbackUnreadCount] = useState(0)
 
+  const PREMIUM_HREFS = new Set([
+    '/chat',
+    '/listening',
+    '/reading',
+    '/conversation',
+  ])
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled)
+  const [trialDaysLeft, setTrialDaysLeft] = useState(0)
+
   async function handleResendVerification() {
     const res = await apiFetch('/api/auth/resend-verification', {
       method: 'POST',
@@ -118,8 +95,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       // Load Stripe config once (non-blocking)
       loadConfig()
       try {
-        // Let apiFetch perform a single refresh attempt when the access token is absent/expired.
-        // This avoids issuing a duplicate /api/auth/refresh request during app bootstrap.
+        if (!accessToken) {
+          const res = await fetch('/api/auth/refresh', {
+            method: 'POST',
+            credentials: 'include',
+          })
+          if (!res.ok) {
+            logout()
+            router.push('/login')
+            return
+          }
+          const { access_token } = await res.json()
+          setTokens(access_token)
+        }
+        // Fetch user info if not already loaded
         const meRes = await apiFetch('/api/auth/me')
         if (!meRes.ok) {
           logout()
@@ -129,7 +118,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         const me = await meRes.json()
         setUser(mapUser(me))
 
-        if (me.learning_goals === null && me.role !== 'admin') {
+        if (me.learning_goals === null) {
           router.replace('/onboarding')
           return
         }
@@ -145,268 +134,519 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }, [])
 
   useEffect(() => {
-    if (initializing || !isAdmin || isAdminRoute) return
-    router.replace('/admin')
-  }, [initializing, isAdmin, isAdminRoute, router])
+    // Stripe trial countdown
+    if (
+      user?.subscription_status === 'trialing' &&
+      user?.subscription_ends_at &&
+      stripeEnabled
+    ) {
+      const days = Math.max(
+        1,
+        Math.ceil(
+          (new Date(user.subscription_ends_at).getTime() - Date.now()) /
+            (1000 * 60 * 60 * 24)
+        )
+      )
+      setTrialDaysLeft(days)
+      return
+    }
+    // Freemium trial countdown
+    if (
+      user?.freemium_trial_ends_at &&
+      stripeEnabled &&
+      user?.subscription_status !== 'active' &&
+      user?.subscription_status !== 'trialing'
+    ) {
+      const end = new Date(user.freemium_trial_ends_at)
+      if (end > new Date()) {
+        const days = Math.max(
+          1,
+          Math.ceil((end.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
+        )
+        setTrialDaysLeft(days)
+        return
+      }
+    }
+    setTrialDaysLeft(0)
+  }, [
+    user?.subscription_status,
+    user?.subscription_ends_at,
+    user?.freemium_trial_ends_at,
+    stripeEnabled,
+  ])
 
-  const isItemActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
+  useEffect(() => {
+    if (initializing) return
 
-  const renderTopItem = (item: NavItem) => {
-    const active = isItemActive(item.href)
-    const premium = item.premium && showPremiumBadge
+    async function loadFeedbackUnreadCount() {
+      try {
+        const res = await apiFetch('/api/feedback/unread-summary')
+        if (!res.ok) return
+        const data = await res.json()
+        setFeedbackUnreadCount(data.unread_count ?? 0)
+      } catch {
+        setFeedbackUnreadCount(0)
+      }
+    }
+
+    loadFeedbackUnreadCount()
+    window.addEventListener('juba:feedback-read', loadFeedbackUnreadCount)
+    return () => {
+      window.removeEventListener(
+        'juba:feedback-read',
+        loadFeedbackUnreadCount
+      )
+    }
+  }, [initializing])
+
+  if (initializing) {
     return (
-      <Link
-        key={item.href}
-        href={item.href}
-        onClick={() => setOpenTopMenu(null)}
-        title={item.label}
-        aria-label={item.label}
-        aria-current={active ? 'page' : undefined}
-        className={'nav-link d-flex align-items-center gap-2 px-3 py-2 ' + (active ? 'active bg-primary-lt text-primary fw-semibold' : 'text-secondary')}
-      >
-        <i className={'ti ' + (NAV_ICONS[item.href] ?? 'ti-circle') + ' icon icon-sm'} aria-hidden="true" />
-        <span>{item.label}</span>
-        {premium && <span className="badge bg-yellow-lt text-yellow ms-1">PRO</span>}
-      </Link>
+      <PageLoading
+        label={tCommon('initializing')}
+        minHeight="min-h-screen"
+        className="bg-fl-bg"
+      />
     )
   }
 
-  useEffect(() => {
-    const header = appHeaderRef.current
-    if (!header) return
+  const feedbackBadgeText =
+    feedbackUnreadCount > 99
+      ? '99+'
+      : feedbackUnreadCount > 0
+        ? String(feedbackUnreadCount)
+        : ''
 
-    const updateDropdownOffset = () => {
-      const bottom = Math.ceil(header.getBoundingClientRect().bottom)
-      document.documentElement.style.setProperty('--juba-mobile-dropdown-top', bottom + 'px')
-    }
+  return (
+    <div className="bg-fl-bg flex min-h-screen md:h-screen md:overflow-hidden">
+      {/* Sidebar */}
+      <aside className="border-fl-border bg-fl-bg hidden w-52 shrink-0 flex-col border-r px-0 py-0 md:flex">
+        {/* Logo area */}
+        <div className="border-fl-border flex items-center gap-2 border-b px-5 py-5">
+          <span className="text-fl-label text-fl-muted-2">●</span>
+          <span className="text-fl-fg font-code text-sm font-bold tracking-widest uppercase">
+            JUBA LISAN
+          </span>
+        </div>
 
-    updateDropdownOffset()
-    const observer = new ResizeObserver(updateDropdownOffset)
-    observer.observe(header)
-    window.addEventListener('resize', updateDropdownOffset)
-    return () => {
-      observer.disconnect()
-      window.removeEventListener('resize', updateDropdownOffset)
-      document.documentElement.style.removeProperty('--juba-mobile-dropdown-top')
-    }
-  }, [])
+        {/* Language switcher */}
+        <div className="border-fl-border border-b">
+          <LanguageSwitcher />
+        </div>
 
-  useEffect(() => {
-    const handlePointerDown = (event: PointerEvent) => {
-      if (topMenuRef.current && !topMenuRef.current.contains(event.target as Node)) setOpenTopMenu(null)
-    }
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && openTopMenu) {
-        event.preventDefault()
-        const trigger = document.getElementById(`top-menu-trigger-${openTopMenu}`)
-        setOpenTopMenu(null)
-        requestAnimationFrame(() => trigger?.focus())
-      }
-    }
-    document.addEventListener('pointerdown', handlePointerDown)
-    document.addEventListener('keydown', handleKeyDown)
-    return () => {
-      document.removeEventListener('pointerdown', handlePointerDown)
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [openTopMenu])
+        {/* Nav */}
+        <nav className="flex-1 overflow-y-auto py-4">
+          {/* Main items */}
+          {mainNavItems.map((item) => {
+            const active =
+              pathname === item.href || pathname.startsWith(item.href + '/')
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
+                  active
+                    ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
+                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                }`}
+              >
+                <span
+                  className={`text-fl-label ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`}
+                >
+                  ●
+                </span>
+                {item.label}
+                {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
+                  <span className="text-fl-accent ml-auto text-xs">★</span>
+                )}
+              </Link>
+            )
+          })}
 
-  const renderTopGroup = (group: NavGroup) => {
-    const active = group.items.some((item) => isItemActive(item.href))
-    const open = openTopMenu === group.key
-    const menuId = `top-menu-${group.key}`
+          {/* Resources group */}
+          <div className="mt-2">
+            <button
+              onClick={() => setResourcesOpen((o) => !o)}
+              className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors"
+            >
+              <span>{tNav('resources')}</span>
+              <span className="text-fl-label">{resourcesOpen ? '▴' : '▾'}</span>
+            </button>
+            {resourcesOpen &&
+              resourceNavItems.map((item) => {
+                const active =
+                  pathname === item.href || pathname.startsWith(item.href + '/')
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
+                      active
+                        ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
+                        : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                    }`}
+                  >
+                    <span
+                      className={`text-fl-label ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`}
+                    >
+                      ·
+                    </span>
+                    {item.label}
+                  </Link>
+                )
+              })}
+          </div>
 
-    return (
-      <div
-        key={group.key}
-        className="nav-item dropdown position-relative"
-      >
-        <button
-          id={`top-menu-trigger-${group.key}`}
-          type="button"
-          className={'nav-link dropdown-toggle d-flex align-items-center gap-2 border-0 px-3 py-2 ' + (active ? 'text-primary fw-semibold' : 'text-secondary')}
-          aria-haspopup="menu"
-          aria-controls={menuId}
-          title={group.label}
-          aria-label={group.label}
-          aria-current={active ? 'page' : undefined}
-          data-active={active ? 'true' : undefined}
-          aria-expanded={open}
-          onClick={() => {
-            setOpenTopMenu(open ? null : group.key)
-          }}
-          onKeyDown={(event) => {
-            if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
-              event.preventDefault()
-              setOpenTopMenu(group.key)
-              requestAnimationFrame(() => {
-                document.querySelector<HTMLElement>(`#${menuId} [role="menuitem"]`)?.focus()
-              })
-            }
-          }}
-        >
-          <i className={'ti ' + group.icon + ' icon icon-sm'} aria-hidden="true" />
-          <span>{group.label}</span>
-        </button>
-        {open && (
-          <div
-            id={menuId}
-            className="dropdown-menu show position-absolute mt-1 p-2 juba-top-dropdown shadow"
-            style={{ insetInlineStart: 0, minWidth: 220, maxHeight: "min(70vh, 520px)", overflowY: "auto", zIndex: 1055 }}
-            role="menu"
-            aria-labelledby={`top-menu-trigger-${group.key}`}
-          >
-            {group.items.map((item) => {
-              const activeItem = isItemActive(item.href)
-              const premium = item.premium && showPremiumBadge
+          {/* Bottom items */}
+          <div className="border-fl-border mt-2 border-t pt-2">
+            {bottomNavItems.map((item) => {
+              const active =
+                pathname === item.href || pathname.startsWith(item.href + '/')
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  role="menuitem"
-                  tabIndex={0}
-                  aria-current={activeItem ? 'page' : undefined}
-                  onClick={() => setOpenTopMenu(null)}
-                  onKeyDown={(event) => {
-                    const menu = document.getElementById(menuId)
-                    const items = menu ? Array.from(menu.querySelectorAll<HTMLElement>('[role="menuitem"]')) : []
-                    const index = items.indexOf(event.currentTarget)
-                    if (!items.length || index < 0) return
-                    if (event.key === 'ArrowDown') {
-                      event.preventDefault()
-                      items[(index + 1) % items.length]?.focus()
-                    } else if (event.key === 'ArrowUp') {
-                      event.preventDefault()
-                      items[(index - 1 + items.length) % items.length]?.focus()
-                    } else if (event.key === 'Home') {
-                      event.preventDefault()
-                      items[0]?.focus()
-                    } else if (event.key === 'End') {
-                      event.preventDefault()
-                      items[items.length - 1]?.focus()
-                    } else if (event.key === 'Escape') {
-                      event.preventDefault()
-                      const trigger = document.getElementById(`top-menu-trigger-${group.key}`)
-                      setOpenTopMenu(null)
-                      requestAnimationFrame(() => trigger?.focus())
-                    }
-                  }}
-                  className={'nav-link d-flex align-items-center gap-2 px-3 py-2 ' + (activeItem ? 'active bg-primary-lt text-primary fw-semibold' : 'text-secondary')}
+                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
+                    active
+                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
+                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                  }`}
                 >
-                  <i className={'ti ' + (NAV_ICONS[item.href] ?? 'ti-circle') + ' icon icon-sm'} aria-hidden="true" />
-                  <span>{item.label}</span>
-                  {premium && <span className="badge bg-yellow-lt text-yellow ms-1">PRO</span>}
+                  <span
+                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
+                  >
+                    ●
+                  </span>
+                  {item.label}
+                  {item.href === '/feedback' && feedbackBadgeText && (
+                    <span className="text-fl-label ml-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-red-600 leading-none font-bold tracking-normal text-white">
+                      {feedbackBadgeText}
+                    </span>
+                  )}
                 </Link>
               )
             })}
           </div>
-        )}
-      </div>
-    )
-  }
 
-  const renderTopNavigation = () => (
-    <nav ref={topMenuRef} aria-label={tNav('primaryNavigation')} className="navbar-nav flex-row flex-nowrap align-items-center gap-1 overflow-visible juba-top-nav">
-      {mainNavItems.map(renderTopItem)}
-      {navGroups.map(renderTopGroup)}
-      <div className="vr mx-1 d-none d-xl-block" />
-      {bottomNavItems.map(renderTopItem)}
-    </nav>
-  )
-
-  const activeNavigation = (() => {
-    const allItems = [...mainNavItems, ...navGroups.flatMap((group) => group.items), ...bottomNavItems]
-    const activeItem = allItems.find((item) => isItemActive(item.href))
-    const activeGroup = navGroups.find((group) => group.items.some((item) => isItemActive(item.href)))
-    if (activeItem) {
-      return {
-        label: activeItem.label,
-        groupLabel: activeGroup?.label,
-        icon: NAV_ICONS[activeItem.href] ?? 'ti-circle',
-      }
-    }
-    if (pathname.startsWith('/lesson/')) {
-      return {
-        label: tNav('myPlan'),
-        groupLabel: tNav('learning'),
-        icon: NAV_ICONS['/plan'] ?? 'ti-clipboard-check',
-      }
-    }
-    if (pathname === '/admin' || pathname.startsWith('/admin/')) {
-      return {
-        label: tNav('admin'),
-        groupLabel: undefined,
-        icon: 'ti-shield-check',
-      }
-    }
-    return {
-      label: tCommon('appName'),
-      groupLabel: undefined,
-      icon: 'ti-home',
-    }
-  })()
-
-  return (
-    <div className="page juba-tabler-app min-h-screen bg-[#f5f7fb]">
-      <div className="page-wrapper min-w-0 w-100">
-        <header ref={appHeaderRef} className="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
-          <div className="container-fluid flex-nowrap gap-3">
-            <Link href="/dashboard" className="navbar-brand d-flex align-items-center gap-2 me-2" onClick={() => setOpenTopMenu(null)}>
-              <span className="avatar avatar-sm rounded-2 bg-primary text-white fw-bold">JL</span>
-              <span className="fw-bold text-dark">JUBA LISAN</span>
+          {user?.role === 'admin' && (
+            <Link
+              href="/admin"
+              className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
+                pathname.startsWith('/admin')
+                  ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
+                  : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+              }`}
+            >
+              <span className="text-fl-label text-fl-muted-4">●</span>
+              {tNav('admin')}
             </Link>
-            <div className="flex-fill overflow-visible min-w-0 juba-top-nav-shell">
-              {renderTopNavigation()}
+          )}
+        </nav>
+
+        {/* User + logout */}
+        <div className="border-fl-border border-t px-5 py-4">
+          <div className="mb-3 flex items-center gap-3">
+            <div className="border-fl-border h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border">
+              {user?.avatar ? (
+                <AuthAvatarImage
+                  avatar={user.avatar}
+                  alt=""
+                  width={32}
+                  height={32}
+                  className="h-full w-full object-cover"
+                  fallback={
+                    <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
+                      <span className="text-fl-muted-1 font-mono text-xs select-none">
+                        {(user?.displayName ||
+                          user?.username ||
+                          '?')[0].toUpperCase()}
+                      </span>
+                    </div>
+                  }
+                />
+              ) : (
+                <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
+                  <span className="text-fl-muted-1 font-mono text-xs select-none">
+                    {(user?.displayName ||
+                      user?.username ||
+                      '?')[0].toUpperCase()}
+                  </span>
+                </div>
+              )}
             </div>
-            <div className="navbar-nav flex-row align-items-center gap-2 ms-auto">
-              <button type="button" className="btn btn-ghost-secondary position-relative" aria-label={tNav('notifications')} title={tNav('notifications')}><i className="ti ti-bell icon" aria-hidden="true" /></button>
-              <LanguageSwitcher />
-              <Link href="/settings" title={tNav('settings')} aria-label={tNav('settings')} className="nav-link p-0">
-                <span className="avatar avatar-sm rounded-circle bg-azure-lt text-azure fw-bold">
-                  {user?.avatar ? <AuthAvatarImage avatar={user.avatar} alt="" width={36} height={36} className="h-full w-full object-cover rounded-circle" fallback={<span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>} /> : <span>{(user?.displayName || user?.username || '?')[0].toUpperCase()}</span>}
-                </span>
-              </Link>
-              <button type="button" onClick={() => setLogoutConfirm(true)} title={tCommon('logout')} aria-label={tCommon('logout')} className="btn btn-ghost-secondary btn-sm">
-                <i className="ti ti-logout icon" aria-hidden="true" />
-              </button>
+            <div className="min-w-0">
+              <p className="text-fl-caption text-fl-muted-2 truncate font-mono tracking-widest uppercase">
+                {user?.displayName || user?.username}
+              </p>
+              <p className="text-fl-label text-fl-muted-4 truncate font-mono">
+                @{user?.username?.toLowerCase()}
+              </p>
+              {trialDaysLeft > 0 && (
+                <p className="text-fl-label text-fl-accent truncate font-mono text-xs">
+                  ★ {tBilling('trialDays', { days: trialDaysLeft })}
+                </p>
+              )}
             </div>
           </div>
-        </header>
-        <div className="juba-page-context bg-white border-bottom">
-          <div className="container-xl py-3">
-            <div className="d-flex align-items-center justify-content-between gap-3">
-              <div className="d-flex align-items-center gap-3 min-w-0">
-                <div className="avatar avatar-md rounded-2 bg-primary-lt text-primary flex-shrink-0" aria-hidden="true">
-                  <i className={'ti ' + activeNavigation.icon + ' icon'} />
+          <p className="text-fl-label text-fl-muted-4 font-code mb-2 tracking-wider">
+            v1.9.15
+          </p>
+          <button
+            onClick={() => setContactOpen(true)}
+            className="text-fl-muted-2 hover:text-fl-fg mb-1 w-full text-left font-mono text-xs tracking-widest uppercase transition-colors"
+          >
+            {tNav('contact')}
+          </button>
+          <button
+            onClick={() => setLogoutConfirm(true)}
+            className="text-fl-muted-2 hover:text-fl-fg w-full text-left font-mono text-xs tracking-widest uppercase transition-colors"
+          >
+            {tCommon('logout')}
+          </button>
+        </div>
+      </aside>
+
+      {/* Mobile top bar */}
+      <div className="border-fl-border bg-fl-bg fixed top-0 right-0 left-0 z-50 border-b md:hidden">
+        <div className="flex items-center justify-between px-4 py-3">
+          <span className="text-fl-fg font-code text-xs font-bold tracking-widest uppercase">
+            JUBA LISAN
+          </span>
+          <button
+            onClick={() => setMobileMenuOpen((o) => !o)}
+            className="text-fl-muted-2 hover:text-fl-fg p-1 font-mono transition-colors"
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          >
+            <span className="text-base leading-none">
+              {mobileMenuOpen ? '✕' : '☰'}
+            </span>
+          </button>
+        </div>
+
+        {/* Dropdown */}
+        {mobileMenuOpen && (
+          <nav className="border-fl-border bg-fl-bg max-h-[calc(100svh-3.5rem)] overflow-y-auto overscroll-contain border-t pb-2">
+            <div className="border-fl-border border-b">
+              <LanguageSwitcher />
+            </div>
+            {mainNavItems.map((item) => {
+              const active =
+                pathname === item.href || pathname.startsWith(item.href + '/')
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
+                    active
+                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
+                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                  }`}
+                >
+                  <span
+                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
+                  >
+                    ●
+                  </span>
+                  {item.label}
+                  {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
+                    <span className="text-fl-accent ml-auto text-xs">★</span>
+                  )}
+                </Link>
+              )
+            })}
+
+            {/* Resources group (mobile) */}
+            <div>
+              <button
+                onClick={() => setResourcesOpen((o) => !o)}
+                className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors"
+              >
+                <span>{tNav('resources')}</span>
+                <span className="text-fl-label">
+                  {resourcesOpen ? '▴' : '▾'}
+                </span>
+              </button>
+              {resourcesOpen &&
+                resourceNavItems.map((item) => {
+                  const active =
+                    pathname === item.href ||
+                    pathname.startsWith(item.href + '/')
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
+                        active
+                          ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
+                          : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                      }`}
+                    >
+                      <span
+                        className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
+                      >
+                        ·
+                      </span>
+                      {item.label}
+                    </Link>
+                  )
+                })}
+            </div>
+
+            {/* Bottom items (mobile) */}
+            {bottomNavItems.map((item) => {
+              const active =
+                pathname === item.href || pathname.startsWith(item.href + '/')
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
+                    active
+                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
+                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                  }`}
+                >
+                  <span
+                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
+                  >
+                    ●
+                  </span>
+                  {item.label}
+                  {item.href === '/feedback' && feedbackBadgeText && (
+                    <span className="text-fl-label ml-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-red-600 leading-none font-bold tracking-normal text-white">
+                      {feedbackBadgeText}
+                    </span>
+                  )}
+                </Link>
+              )
+            })}
+
+            {user?.role === 'admin' && (
+              <Link
+                href="/admin"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
+                  pathname.startsWith('/admin')
+                    ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
+                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                }`}
+              >
+                <span className="text-fl-label text-fl-muted-4">●</span>
+                {tNav('admin')}
+              </Link>
+            )}
+            <div className="border-fl-border mx-5 mt-2 border-t pt-3">
+              <div className="mb-2 flex items-center gap-3">
+                <div className="border-fl-border h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
+                  {user?.avatar ? (
+                    <AuthAvatarImage
+                      avatar={user.avatar}
+                      alt=""
+                      width={28}
+                      height={28}
+                      className="h-full w-full object-cover"
+                      fallback={
+                        <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
+                          <span className="text-fl-hint text-fl-muted-1 font-mono select-none">
+                            {(user?.displayName ||
+                              user?.username ||
+                              '?')[0].toUpperCase()}
+                          </span>
+                        </div>
+                      }
+                    />
+                  ) : (
+                    <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
+                      <span className="text-fl-hint text-fl-muted-1 font-mono select-none">
+                        {(user?.displayName ||
+                          user?.username ||
+                          '?')[0].toUpperCase()}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="min-w-0">
-                  <div className="d-flex align-items-center gap-2 text-uppercase text-secondary small fw-bold">
-                    <span>{tCommon('appName')}</span>
-                    {activeNavigation.groupLabel && (
-                      <>
-                        <span aria-hidden="true">/</span>
-                        <span className="text-truncate">{activeNavigation.groupLabel}</span>
-                      </>
-                    )}
-                  </div>
-                  <h1 className="fs-3 fw-bold text-dark mb-0 text-truncate">{activeNavigation.label}</h1>
+                  <p className="text-fl-caption text-fl-muted-2 truncate font-mono tracking-widest uppercase">
+                    {user?.displayName || user?.username}
+                  </p>
+                  <p className="text-fl-label text-fl-muted-4 truncate font-mono">
+                    @{user?.username?.toLowerCase()}
+                  </p>
                 </div>
               </div>
+              {trialDaysLeft > 0 && (
+                <p className="text-fl-label text-fl-accent mb-2 font-mono text-xs">
+                  ★ {tBilling('trialDays', { days: trialDaysLeft })}
+                </p>
+              )}
+              <p className="text-fl-label text-fl-muted-4 font-code mb-2 tracking-wider">
+                v1.9.15
+              </p>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false)
+                  setContactOpen(true)
+                }}
+                className="text-fl-muted-2 hover:text-fl-fg mb-1 block font-mono text-xs tracking-widest uppercase transition-colors"
+              >
+                {tNav('contact')}
+              </button>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false)
+                  setLogoutConfirm(true)
+                }}
+                className="text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
+              >
+                {tCommon('logout')}
+              </button>
             </div>
-          </div>
-        </div>
-        <main className="page-body bg-[#f5f7fb]">
-          {user && user.is_verified === false && (
-            <div className="alert alert-warning rounded-0 border-0 border-bottom mb-0 d-flex flex-wrap align-items-center gap-3">
-              <span className="fw-semibold">{tCommon('verifyEmailBanner')}</span>
-              {resendSent ? <span>{tCommon('verifyEmailSent')}</span> : <button onClick={handleResendVerification} className="btn btn-link p-0">{tCommon('resendVerification')}</button>}
-            </div>
-          )}
-          <div className="container-xl py-4"><div className="juba-app-page">{children}</div></div>
-        </main>
+          </nav>
+        )}
       </div>
+
+      {/* Main */}
+      <main className="flex min-h-[100dvh] flex-1 flex-col overflow-hidden pt-14 md:min-h-screen md:pt-0">
+        {/* Email verification banner */}
+        {user && user.is_verified === false && (
+          <div className="border-fl-border bg-fl-surface flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
+            <span className="text-fl-muted-1 font-mono text-xs tracking-wide">
+              ● {tCommon('verifyEmailBanner')}
+            </span>
+            {resendSent ? (
+              <span className="text-fl-muted-2 font-mono text-xs">
+                {tCommon('verifyEmailSent')}
+              </span>
+            ) : (
+              <button
+                onClick={handleResendVerification}
+                className="text-fl-accent font-mono text-xs underline transition-all hover:no-underline"
+              >
+                {tCommon('resendVerification')}
+              </button>
+            )}
+          </div>
+        )}
+        <div className="min-h-0 flex-1 overflow-y-auto">{children}</div>
+      </main>
+
       <LoadingBar />
-      <ConfirmDialog open={logoutConfirm} title={tCommon('logoutConfirmTitle')} message={tCommon('logoutConfirmMessage')} confirmLabel={tCommon('logout')} onConfirm={handleLogout} onCancel={() => setLogoutConfirm(false)} />
+
+      <ContactFormModal
+        open={contactOpen}
+        onClose={() => setContactOpen(false)}
+      />
+
+      <ConfirmDialog
+        open={logoutConfirm}
+        title={tCommon('logoutConfirmTitle')}
+        message={tCommon('logoutConfirmMessage')}
+        confirmLabel={tCommon('logout')}
+        onConfirm={handleLogout}
+        onCancel={() => setLogoutConfirm(false)}
+      />
     </div>
   )
 }
