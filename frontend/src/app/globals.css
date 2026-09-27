@@ -1416,3 +1416,53 @@ html[data-theme='light'] {
     overflow-wrap:anywhere;
   }
 }
+
+
+/* Landing hero proof cards — visual reinforcement without competing with the headline */
+.juba-busuu-hero-card{
+  position:absolute;
+  z-index:3;
+  min-width:154px;
+  padding:14px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  background:rgba(255,255,255,.96);
+  border:1px solid var(--busuu-line);
+  border-radius:14px;
+  box-shadow:0 16px 38px rgba(23,26,25,.13);
+  backdrop-filter:blur(8px);
+  pointer-events:none;
+}
+.juba-busuu-hero-card strong{
+  color:var(--busuu-ink);
+  font-size:24px;
+  line-height:1;
+  letter-spacing:-.04em;
+  font-weight:950;
+}
+.juba-busuu-hero-card span{
+  color:var(--busuu-muted);
+  font-size:11px;
+  line-height:1.35;
+  font-weight:800;
+}
+.juba-busuu-hero-card-top{top:13%;inset-inline-end:4%}
+.juba-busuu-hero-card-bottom{bottom:12%;inset-inline-start:3%}
+.juba-busuu-hero-card-bottom strong{color:var(--busuu-green-dark)}
+
+@media(max-width:1000px){
+  .juba-busuu-hero-card-top{top:8%;inset-inline-end:1%}
+  .juba-busuu-hero-card-bottom{bottom:7%;inset-inline-start:1%}
+}
+@media(max-width:600px){
+  .juba-busuu-hero-card{
+    min-width:122px;
+    padding:10px 12px;
+    border-radius:12px;
+  }
+  .juba-busuu-hero-card strong{font-size:19px}
+  .juba-busuu-hero-card span{font-size:9px}
+  .juba-busuu-hero-card-top{top:4%;inset-inline-end:0}
+  .juba-busuu-hero-card-bottom{bottom:3%;inset-inline-start:0}
+}
