@@ -763,14 +763,6 @@ C2_SETS: list[VocabularySet] = [
         unit_ref="c2-unit-6",
         words=[
             VocabularyEntry(
-                word="elucidate",
-                pos="verb",
-                definition="To make something clear; to explain in detail.",
-                example="The professor elucidated the theorem with several examples.",
-                ipa="/ɪˈluːsɪdeɪt/",
-                frequency_rank=460,
-            ),
-            VocabularyEntry(
                 word="extrapolate",
                 pos="verb",
                 definition="To estimate or infer beyond the available data by extending a pattern or relationship.",
