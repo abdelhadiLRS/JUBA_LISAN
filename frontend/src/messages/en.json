@@ -2143,7 +2143,6 @@
     "savedLocal": "Added to JUBA Memory — saved locally on this device.",
     "saving": "Saving…"
   },
-  },
   "coach": {
     "eyebrow": "Your AI Learning Coach",
     "headlineSuffix": "here is your next best move.",
@@ -2208,6 +2207,7 @@
           "description": "Book a room, solve problems and make requests."
         }
       }
+  },
   },
   "visitorTranslator": {
     "open": "Open instant translator",
