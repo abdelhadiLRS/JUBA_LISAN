@@ -835,3 +835,22 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
 .juba-reference-page .juba-landing-header .juba-landing-actions .relative>button{border:1px solid #dfe9da!important;border-radius:999px!important;box-shadow:none!important;background:#fff!important;padding:9px 12px!important}
 .juba-reference-page .juba-landing-header .juba-landing-actions>a:not(:last-child){font-size:13px!important;font-weight:800!important}
 @media(max-width:767px){.juba-reference-page .juba-landing-header .juba-landing-header-inner{height:68px!important}.juba-reference-page .juba-landing-header .juba-landing-mobile-sheet{top:68px!important}.juba-reference-page .juba-landing-header .juba-landing-brand>span:first-child{width:126px!important}.juba-reference-page .juba-landing-header .juba-landing-mobile-trigger{border:1px solid #dfe9da!important;border-radius:999px!important;background:#fff!important;box-shadow:0 3px 10px rgba(37,37,37,.08)!important}}
+
+
+/* Landing hero final alignment — public page only */
+.juba-reference-page .juba-ref-hero{background:#fff!important;position:relative;overflow:hidden!important}
+.juba-reference-page .juba-ref-hero-inner{max-width:1240px!important;min-height:560px!important;margin:0 auto!important;padding:72px 32px 76px!important;display:grid!important;grid-template-columns:minmax(0,.92fr) minmax(420px,1.08fr)!important;align-items:center!important;gap:36px!important}
+.juba-reference-page .juba-ref-hero-copy{position:relative!important;z-index:2!important;max-width:650px!important}
+.juba-reference-page .juba-ref-hero-copy h1{color:#252525!important;font-size:clamp(3.2rem,6.3vw,6.2rem)!important;line-height:.94!important;letter-spacing:-.065em!important;font-weight:950!important;max-width:760px!important;margin:18px 0 22px!important}
+.juba-reference-page .juba-ref-hero-copy p{color:#68766d!important;font-size:clamp(1rem,1.45vw,1.2rem)!important;line-height:1.7!important;max-width:590px!important}
+.juba-reference-page .juba-ref-kicker{display:inline-flex!important;align-items:center!important;gap:8px!important;border-radius:999px!important;background:#f3fbe9!important;color:#46a900!important;border:1px solid #dfe9da!important;padding:8px 13px!important;font-size:12px!important;font-weight:900!important}
+.juba-reference-page .juba-ref-hero-actions{display:flex!important;align-items:center!important;gap:18px!important;margin-top:28px!important}
+.juba-reference-page .juba-ref-hero .juba-ref-button{border:0!important;border-radius:999px!important;background:#58cc02!important;color:#fff!important;box-shadow:inset 0 -4px 0 #46a900!important;padding:14px 24px!important;font-weight:900!important}
+.juba-reference-page .juba-ref-hero .juba-ref-button:hover{background:#61d609!important;transform:translateY(-1px)!important}
+.juba-reference-page .juba-ref-text-link{color:#252525!important;font-weight:850!important}
+.juba-reference-page .juba-ref-text-link:hover{color:#46a900!important}
+.juba-reference-page .juba-ref-hero-art{display:flex!important;align-items:center!important;justify-content:center!important;min-height:430px!important}
+.juba-reference-page .juba-ref-hero-art .juba-landing-real-image{width:min(100%,650px)!important;height:auto!important;max-height:500px!important;object-fit:contain!important}
+.juba-reference-page .juba-ref-hero-bottom{height:76px!important;background:#58cc02!important;clip-path:ellipse(72% 100% at 50% 100%)!important;margin-top:-34px!important}
+@media(max-width:900px){.juba-reference-page .juba-ref-hero-inner{grid-template-columns:1fr!important;text-align:center!important;padding:52px 22px 58px!important;gap:20px!important}.juba-reference-page .juba-ref-hero-copy{margin:0 auto!important}.juba-reference-page .juba-ref-hero-copy p{margin-inline:auto!important}.juba-reference-page .juba-ref-hero-actions{justify-content:center!important}.juba-reference-page .juba-ref-hero-art{min-height:320px!important;order:2!important}.juba-reference-page .juba-ref-hero-art .juba-landing-real-image{max-height:360px!important}}
+@media(max-width:520px){.juba-reference-page .juba-ref-hero-inner{padding:40px 18px 48px!important}.juba-reference-page .juba-ref-hero-copy h1{font-size:clamp(2.7rem,13vw,4.1rem)!important}.juba-reference-page .juba-ref-hero-actions{flex-direction:column!important;gap:13px!important}.juba-reference-page .juba-ref-hero-art{min-height:250px!important}.juba-reference-page .juba-ref-hero-bottom{height:56px!important;margin-top:-22px!important}}
