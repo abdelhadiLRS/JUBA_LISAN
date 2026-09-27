@@ -149,9 +149,9 @@ export default async function Home() {
             <p>{t('bentoSubtitle')}</p>
           </div>
           <div className="juba-busuu-feature-grid">
-            <Link href="/reading" className="juba-busuu-feature"><Image src="/landing/juba-reading.svg" alt="" width={360} height={250} /><span>{t('languagesEyebrow')}</span><h3>{t('feature2Title')}</h3><p>{t('feature2Description')}</p></Link>
-            <Link href="/chat" className="juba-busuu-feature"><Image src="/landing/juba-chat.svg" alt="" width={360} height={250} /><span>{t('flowAiLabel')}</span><h3>{t('feature7Title')}</h3><p>{t('feature7Description')}</p></Link>
-            <Link href="/listening" className="juba-busuu-feature"><Image src="/landing/juba-listening.svg" alt="" width={360} height={250} /><span>{t('flowVoiceLabel')}</span><h3>{t('feature3Title')}</h3><p>{t('feature3Description')}</p></Link>
+            <Link href="/reading" className="juba-busuu-feature"><Image src="/landing/juba-reading.svg" alt="" width={360} height={250} /><span>{t('feature5Title')}</span><h3>{t('feature5Title')}</h3><p>{t('feature5Desc')}</p></Link>
+            <Link href="/chat" className="juba-busuu-feature"><Image src="/landing/juba-chat.svg" alt="" width={360} height={250} /><span>{t('flowAiLabel')}</span><h3>{t('feature2Title')}</h3><p>{t('feature2Desc')}</p></Link>
+            <Link href="/listening" className="juba-busuu-feature"><Image src="/landing/juba-listening.svg" alt="" width={360} height={250} /><span>{t('flowVoiceLabel')}</span><h3>{t('feature3Title')}</h3><p>{t('feature3Desc')}</p></Link>
           </div>
         </div>
       </section>
@@ -190,9 +190,9 @@ export default async function Home() {
         <div className="juba-busuu-container">
           <div className="juba-busuu-heading"><span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span><h2 id="benefits-title">{t('bentoTitle')}</h2></div>
           <div className="juba-busuu-benefit-list">
-            <article><BookOpen aria-hidden="true" /><div><h3>{t('languagesHeadline')}</h3><p>{t('languagesDescription')}</p></div></article>
-            <article><MessageCircle aria-hidden="true" /><div><h3>{t('flowAiTitle')}</h3><p>{t('flowAiDescription')}</p></div></article>
-            <article><Headphones aria-hidden="true" /><div><h3>{t('flowVoiceTitle')}</h3><p>{t('flowVoiceDescription')}</p></div></article>
+            <article><BookOpen aria-hidden="true" /><div><h3>{t('feature1Title')}</h3><p>{t('feature1Desc')}</p></div></article>
+            <article><MessageCircle aria-hidden="true" /><div><h3>{t('feature6Title')}</h3><p>{t('feature6Desc')}</p></div></article>
+            <article><Headphones aria-hidden="true" /><div><h3>{t('feature8Title')}</h3><p>{t('feature8Desc')}</p></div></article>
           </div>
         </div>
       </section>
