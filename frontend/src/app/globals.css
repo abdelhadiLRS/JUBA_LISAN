@@ -357,6 +357,18 @@ html[data-theme='light'] {
 .juba-busuu-landing *{box-sizing:border-box}
 .juba-busuu-container{width:min(1200px,calc(100% - 48px));margin-inline:auto}
 
+.juba-busuu-skip-link{
+  position:fixed;inset-inline-start:16px;top:12px;z-index:200;
+  transform:translateY(-160%);padding:11px 16px;border-radius:999px;
+  background:var(--busuu-ink);color:#fff!important;text-decoration:none;
+  font-size:13px;font-weight:850;box-shadow:0 8px 24px rgba(23,26,25,.18);
+  transition:transform .16s ease;
+}
+.juba-busuu-skip-link:focus-visible{
+  transform:translateY(0);outline:3px solid var(--busuu-blue);outline-offset:3px;
+}
+
+
 /* Header */
 .juba-busuu-nav{
   position:sticky;top:0;z-index:100;
