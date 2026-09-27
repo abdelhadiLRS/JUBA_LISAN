@@ -82,9 +82,23 @@ export function LandingNav({
     ...(showReviews ? [{ href: '#reviews', label: navReviews }] : []),
   ]
 
-  const close = () => {
+  const close = (href?: string) => {
     setOpen(false)
-    requestAnimationFrame(() => menuButtonRef.current?.focus())
+    requestAnimationFrame(() => {
+      if (href?.startsWith('#')) {
+        const target = document.querySelector<HTMLElement>(href)
+        if (target) {
+          const hadTabIndex = target.hasAttribute('tabindex')
+          if (!hadTabIndex) target.setAttribute('tabindex', '-1')
+          target.focus({ preventScroll: true })
+          if (!hadTabIndex) {
+            target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true })
+          }
+          return
+        }
+      }
+      menuButtonRef.current?.focus()
+    })
   }
 
   return (
@@ -147,7 +161,7 @@ export function LandingNav({
         <div id="juba-busuu-mobile-menu" className="juba-busuu-mobile-menu">
           <nav aria-label={primaryNavigation}>
             {links.map((link) => (
-              <a key={link.href + link.label} href={link.href} onClick={close}>
+              <a key={link.href + link.label} href={link.href} onClick={() => close(link.href)}>
                 {link.label}
               </a>
             ))}
