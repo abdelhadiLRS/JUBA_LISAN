@@ -1641,14 +1641,6 @@ A2_SETS: list[VocabularySet] = [
         unit_ref="a2-unit-3",
         words=[
             VocabularyEntry(
-                word="city",
-                pos="noun",
-                definition="A large town where many people live and work.",
-                example="London is bigger than Oxford.",
-                ipa="/ˈsɪti/",
-                frequency_rank=165,
-            ),
-            VocabularyEntry(
                 word="village",
                 pos="noun",
                 definition="A small group of houses in a rural area.",
