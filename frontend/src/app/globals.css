@@ -2853,8 +2853,7 @@ body .juba-reference-page .juba-ref-hero-inner::after{
 body .juba-reference-page .juba-ref-hero{
   --hero-line:rgba(88,204,2,.28)!important;
 }
-body .juba-reference-page .juba-ref-hero::before,
-body .juba-reference-page .juba-ref-hero::after{
+body .juba-reference-page .juba-ref-hero::before{
   border-width:4px!important;
   border-color:var(--hero-line)!important;
   background:transparent!important;
@@ -2870,15 +2869,19 @@ body .juba-reference-page .juba-ref-hero::before{
   border-radius:52% 48% 45% 55%!important;
   transform:rotate(-18deg)!important;
 }
-body .juba-reference-page .juba-ref-hero::after{
+body .juba-reference-page .juba-ref-hero-inner > .juba-ref-hero-bottom::before{
+  content:""!important;
+  position:absolute!important;
   width:390px!important;
   height:195px!important;
   right:-190px!important;
   top:155px!important;
+  border:4px solid var(--hero-line)!important;
   border-left-color:transparent!important;
   border-bottom-color:transparent!important;
   border-radius:48% 52% 55% 45%!important;
   transform:rotate(20deg)!important;
+  pointer-events:none!important;
 }
 body .juba-reference-page .juba-ref-hero-inner::before{
   width:155px!important;
@@ -2902,13 +2905,13 @@ body .juba-reference-page .juba-ref-hero-inner::after{
 }
 @media(max-width:900px){
   body .juba-reference-page .juba-ref-hero::before{left:-245px!important;top:75px!important}
-  body .juba-reference-page .juba-ref-hero::after{right:-225px!important;top:150px!important}
+  body .juba-reference-page .juba-ref-hero-inner > .juba-ref-hero-bottom::before{right:-225px!important;top:150px!important}
 }
 @media(max-width:560px){
   body .juba-reference-page .juba-ref-hero::before{
     width:270px!important;height:135px!important;left:-185px!important;top:80px!important;border-width:3px!important;
   }
-  body .juba-reference-page .juba-ref-hero::after{
+  body .juba-reference-page .juba-ref-hero-inner > .juba-ref-hero-bottom::before{
     width:240px!important;height:120px!important;right:-185px!important;top:145px!important;border-width:3px!important;
   }
 }
