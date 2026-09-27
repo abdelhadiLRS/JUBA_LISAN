@@ -1,63 +1,21 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { useLocale } from 'next-intl'
-import { usePathname, useRouter } from 'next/navigation'
-import { useSearchParams } from 'next/navigation'
+import { useMemo, useState } from 'react'
 import {
   ACHIEVEMENTS,
   type AchievementId,
 } from '@/lib/games/achievements'
 import {
-  answerGameSessionQuestion,
   completeGameSession,
   startGameSession,
-  gameLanguageForTargetLanguage,
   type GameSessionQuestion,
   type GameId,
+  type GameLanguage,
 } from '@/lib/games/persist'
 import { useProgressStore } from '@/store/progress'
-import { markLearningProgressUpdated } from '@/lib/learning-progress'
 import './games.css'
 
-type Lang = 'ar' | 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt' | 'pl' | 'nl' | 'ro' | 'ru'
-
-const speechCopy: Record<Lang, { label: string; start: string; stop: string; fallback: string; error: string; type: string }> = {
-  ar: { label: 'إجابة صوتية', start: 'تحدث للإجابة', stop: 'إيقاف التسجيل', fallback: 'الإجابة النصية متاحة لأن التعرف الصوتي غير مدعوم في هذا المتصفح.', error: 'تعذر الوصول إلى الميكروفون أو التعرف على الكلام. يمكنك الكتابة بدلًا من ذلك.', type: 'أو اكتب إجابتك' },
-  fr: { label: 'Réponse vocale', start: 'Répondre à l’oral', stop: 'Arrêter', fallback: 'La saisie texte est disponible car la reconnaissance vocale n’est pas prise en charge par ce navigateur.', error: 'Le microphone ou la reconnaissance vocale a échoué. Vous pouvez écrire votre réponse.', type: 'Ou écris ta réponse' },
-  en: { label: 'Voice response', start: 'Speak your answer', stop: 'Stop recording', fallback: 'Text input is available because speech recognition is not supported by this browser.', error: 'Microphone or speech recognition failed. You can type your answer instead.', type: 'Or type your answer' },
-  es: { label: 'Respuesta por voz', start: 'Responde hablando', stop: 'Detener grabación', fallback: 'Puedes escribir porque este navegador no admite el reconocimiento de voz.', error: 'No se pudo acceder al micrófono o reconocer el habla. Puedes escribir tu respuesta.', type: 'O escribe tu respuesta' },
-  de: { label: 'Sprachantwort', start: 'Antwort sprechen', stop: 'Aufnahme stoppen', fallback: 'Du kannst tippen, da dieser Browser keine Spracherkennung unterstützt.', error: 'Mikrofon oder Spracherkennung fehlgeschlagen. Du kannst stattdessen tippen.', type: 'Oder gib deine Antwort ein' },
-  it: { label: 'Risposta vocale', start: 'Rispondi a voce', stop: 'Interrompi registrazione', fallback: 'Puoi scrivere perché questo browser non supporta il riconoscimento vocale.', error: 'Microfono o riconoscimento vocale non riuscito. Puoi scrivere la risposta.', type: 'Oppure scrivi la risposta' },
-  pt: { label: 'Resposta por voz', start: 'Responda falando', stop: 'Parar gravação', fallback: 'Você pode digitar porque este navegador não oferece reconhecimento de voz.', error: 'Falha no microfone ou no reconhecimento de voz. Você pode digitar a resposta.', type: 'Ou digite sua resposta' },
-  pl: { label: 'Odpowiedź głosowa', start: 'Odpowiedz głosowo', stop: 'Zatrzymaj nagrywanie', fallback: 'Możesz pisać, ponieważ ta przeglądarka nie obsługuje rozpoznawania mowy.', error: 'Nie udało się użyć mikrofonu lub rozpoznać mowy. Możesz wpisać odpowiedź.', type: 'Lub wpisz odpowiedź' },
-  nl: { label: 'Gesproken antwoord', start: 'Spreek je antwoord in', stop: 'Opname stoppen', fallback: 'Je kunt typen omdat deze browser geen spraakherkenning ondersteunt.', error: 'Microfoon of spraakherkenning mislukt. Je kunt je antwoord typen.', type: 'Of typ je antwoord' },
-  ro: { label: 'Răspuns vocal', start: 'Răspunde vocal', stop: 'Oprește înregistrarea', fallback: 'Poți scrie deoarece acest browser nu acceptă recunoașterea vocală.', error: 'Microfonul sau recunoașterea vocală nu a funcționat. Poți scrie răspunsul.', type: 'Sau scrie răspunsul' },
-  ru: { label: 'Голосовой ответ', start: 'Ответить голосом', stop: 'Остановить запись', fallback: 'Можно ввести ответ: этот браузер не поддерживает распознавание речи.', error: 'Не удалось использовать микрофон или распознать речь. Можно написать ответ.', type: 'Или введите ответ' },
-}
-
-type SpeechRecognitionResultEventLike = Event & {
-  results: ArrayLike<ArrayLike<{ transcript: string }>>
-}
-type SpeechRecognitionInstance = {
-  lang: string
-  continuous: boolean
-  interimResults: boolean
-  start: () => void
-  stop: () => void
-  abort: () => void
-  onresult: ((event: SpeechRecognitionResultEventLike) => void) | null
-  onerror: (() => void) | null
-  onend: (() => void) | null
-}
-type SpeechRecognitionConstructor = new () => SpeechRecognitionInstance
-
-declare global {
-  interface Window {
-    SpeechRecognition?: SpeechRecognitionConstructor
-    webkitSpeechRecognition?: SpeechRecognitionConstructor
-  }
-}
+type Lang = GameLanguage
 function getLocalDateKey() {
   const now = new Date()
   const year = now.getFullYear()
@@ -65,213 +23,75 @@ function getLocalDateKey() {
   const day = String(now.getDate()).padStart(2, '0')
   return `${year}-${month}-${day}`
 }
-const DAILY_GAMES: GameId[] = ['matching', 'quick_choice', 'sentence_builder', 'listen_choose', 'spelling', 'word_scramble', 'fill_blank', 'memory', 'context_quest', 'listening_detective', 'word_categories', 'translation_sprint', 'grammar_duel']
+const DAILY_GAMES: GameId[] = ['math', 'words', 'sequence', 'memory', 'matching', 'ordering']
 const ROUND_SIZE = 5
 
 const copy = {
   ar: {
-    title: 'JUBA LISAN',
+    title: 'JUBA EDU',
     subtitle: 'تعلّم باللعب، وتقدّم كل يوم',
     points: 'النقاط', streak: 'سلسلة', level: 'المستوى', games: 'الألعاب التعليمية',
     daily: 'تحدي اليوم', dailyDesc: 'تحدٍ واحد ثابت يوميًا. أكمله لتحصل على XP وتبني عادتك التعليمية.',
-    wordMatch: 'مطابقة الكلمات', quickChoice: 'اختيار سريع', translationSprint: 'سباق الترجمة', grammarDuel: 'مبارزة القواعد', contextQuest: 'مهمة المواقف', sentenceBuilder: 'بناء الجملة',
-    listenChoose: 'استمع واختر', listeningDetective: 'محقق الاستماع', wordCategories: 'تصنيف الكلمات', spelling: 'تحدي الإملاء', memory: 'بطاقات الذاكرة',
-    wordMatchDesc: 'طابق الكلمة مع ترجمتها الصحيحة.', translationSprintDesc: 'ترجم بسرعة ودقة مع الحفاظ على المعنى والزمن.', grammarDuelDesc: 'اختبر دقة القواعد تحت ضغط الاختيار السريع.', quickChoiceDesc: 'اختر الإجابة قبل انتهاء الوقت.', contextQuestDesc: 'اختر الرد الطبيعي المناسب للموقف.',
-    sentenceBuilderDesc: 'رتّب الكلمات لبناء جملة صحيحة.', listenChooseDesc: 'استمع إلى الكلمة ثم اخترها.', listeningDetectiveDesc: 'استمع إلى جملة والتقط المعلومة الأساسية.', wordCategoriesDesc: 'صنّف الكلمة ضمن الفئة الدلالية الصحيحة.',
-    spellingDesc: 'اكتب الكلمة المطلوبة من التلميح.', wordScramble: 'ترتيب الحروف', fillBlank: 'أكمل الفراغ', wordScrambleDesc: 'رتّب الحروف لاستعادة الكلمة.', fillBlankDesc: 'اختر الكلمة الصحيحة لإكمال الجملة.', memoryDesc: 'اكشف البطاقات وطابق الأزواج الحقيقية.',
+    math: 'تحدي الحساب', words: 'صيد الكلمات', sequence: 'أكمل النمط', memory: 'اختبار الذاكرة',
+    matching: 'لعبة المطابقة', ordering: 'لعبة الترتيب',
+    mathDesc: 'عمليات حسابية قصيرة مع مكافآت فورية.', wordsDesc: 'طابق الكلمة مع معناها.',
+    sequenceDesc: 'اكتشف الرقم التالي في السلسلة.', memoryDesc: 'تذكّر ترتيب العناصر واختره من البدائل.',
+    matchingDesc: 'طابق الكلمة مع ترجمتها الصحيحة.', orderingDesc: 'رتّب العناصر بالترتيب الصحيح.',
     start: 'ابدأ اللعبة', next: 'السؤال التالي', correct: 'إجابة صحيحة!', wrong: 'ليست صحيحة',
     hint: 'تلميح', back: 'الألعاب', score: 'نتيجة الجولة', done: 'أحسنت! أكملت الجولة.', choose: 'اختر الإجابة الصحيحة',
-lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائياتك', gamesPlayed: 'الألعاب',
+    reset: 'إعادة التقدم', lang: 'اللغة', xp: 'XP', skills: 'المهارات', stats: 'إحصائياتك', gamesPlayed: 'الألعاب',
     questions: 'الأسئلة', accuracy: 'الدقة', best: 'أفضل نتيجة', badges: 'الإنجازات', unlocked: 'مفتوح', newBadge: 'إنجاز جديد!', answered: 'تم تسجيل إجابتك.',
   },
   fr: {
-    title: 'JUBA LISAN', subtitle: 'Apprendre en jouant, progresser chaque jour', points: 'Points', streak: 'Série', level: 'Niveau',
+    title: 'JUBA EDU', subtitle: 'Apprendre en jouant, progresser chaque jour', points: 'Points', streak: 'Série', level: 'Niveau',
     games: 'Jeux éducatifs', daily: 'Défi du jour', dailyDesc: 'Un défi fixe chaque jour pour gagner de l’XP et construire une habitude.',
-    wordMatch: 'Association de mots', translationSprint: 'Sprint de traduction', grammarDuel: 'Duel de grammaire', quickChoice: 'Choix rapide', contextQuest: 'Mission situations', sentenceBuilder: 'Constructeur de phrases',
-    listenChoose: 'Écoute et choisis', listeningDetective: 'Détective de l’écoute', wordCategories: 'Catégories de mots', spelling: 'Défi d’orthographe', memory: 'Cartes mémoire',
-    wordMatchDesc: 'Associe chaque mot à sa bonne traduction.', translationSprintDesc: 'Traduis rapidement en gardant le sens et le temps.', grammarDuelDesc: 'Teste ta précision grammaticale avec des choix rapides.', quickChoiceDesc: 'Choisis avant la fin du temps.', contextQuestDesc: 'Choisis la réponse naturelle adaptée à la situation.',
-    sentenceBuilderDesc: 'Remets les mots dans le bon ordre.', listenChooseDesc: 'Écoute le mot puis choisis-le.', listeningDetectiveDesc: 'Écoute une phrase et repère le détail clé.', wordCategoriesDesc: 'Classe le mot dans la bonne catégorie sémantique.',
-    spellingDesc: 'Écris le mot demandé à partir de l’indice.', wordScramble: 'Mots mélangés', fillBlank: 'Texte à trous', wordScrambleDesc: 'Remets les lettres dans le bon ordre.', fillBlankDesc: 'Choisis le mot qui complète la phrase.', memoryDesc: 'Retourne les cartes et forme les vraies paires.', start: 'Commencer', next: 'Question suivante',
+    math: 'Défi de calcul', words: 'Chasse aux mots', sequence: 'Complète la suite', memory: 'Défi mémoire',
+    matching: 'Jeu d’association', ordering: 'Jeu de classement', mathDesc: 'De courts calculs avec récompenses immédiates.',
+    wordsDesc: 'Associe le mot à sa signification.', sequenceDesc: 'Trouve le prochain nombre.', memoryDesc: 'Mémorise l’ordre et retrouve la bonne séquence.',
+    matchingDesc: 'Associe le mot à sa bonne traduction.', orderingDesc: 'Classe les éléments dans le bon ordre.', start: 'Commencer', next: 'Question suivante',
     correct: 'Bonne réponse !', wrong: 'Pas encore', hint: 'Indice', back: 'Jeux', score: 'Score de la partie', done: 'Bravo ! Partie terminée.',
-    choose: 'Choisis la bonne réponse', lang: 'Langue', xp: 'XP', skills: 'Compétences', stats: 'Tes statistiques',
+    choose: 'Choisis la bonne réponse', reset: 'Réinitialiser', lang: 'Langue', xp: 'XP', skills: 'Compétences', stats: 'Tes statistiques',
     gamesPlayed: 'Parties', questions: 'Questions', accuracy: 'Précision', best: 'Meilleur score', badges: 'Succès', unlocked: 'débloqué', newBadge: 'Nouveau succès !', answered: 'Réponse enregistrée.',
   },
   en: {
-    title: 'JUBA LISAN', subtitle: 'Learn through play. Improve every day.', points: 'Points', streak: 'Streak', level: 'Level',
+    title: 'JUBA EDU', subtitle: 'Learn through play. Improve every day.', points: 'Points', streak: 'Streak', level: 'Level',
     games: 'Educational games', daily: 'Daily Challenge', dailyDesc: 'One consistent challenge each day. Complete it to earn XP and build your habit.',
-    wordMatch: 'Word Match', translationSprint: 'Translation Sprint', grammarDuel: 'Grammar Duel', quickChoice: 'Quick Choice', contextQuest: 'Context Quest', sentenceBuilder: 'Sentence Builder',
-    listenChoose: 'Listen & Choose', listeningDetective: 'Listening Detective', wordCategories: 'Word Categories', spelling: 'Spelling Challenge', memory: 'Memory Cards',
-    wordMatchDesc: 'Match each word with its correct translation.', translationSprintDesc: 'Translate quickly while preserving meaning and tense.', grammarDuelDesc: 'Test grammar accuracy with fast choices.', quickChoiceDesc: 'Choose before the timer runs out.', contextQuestDesc: 'Choose the natural response for the situation.',
-    sentenceBuilderDesc: 'Arrange the words to build a correct sentence.', listenChooseDesc: 'Listen to the word and choose it.', listeningDetectiveDesc: 'Listen to a sentence and identify the key detail.', wordCategoriesDesc: 'Place the word in the correct semantic category.',
-    spellingDesc: 'Type the word requested by the clue.', wordScramble: 'Word Scramble', fillBlank: 'Fill the Blank', wordScrambleDesc: 'Unscramble the letters to recover the word.', fillBlankDesc: 'Choose the word that completes the sentence.', memoryDesc: 'Reveal cards and match the real pairs.', start: 'Start game', next: 'Next question',
+    math: 'Math challenge', words: 'Word hunt', sequence: 'Complete the pattern', memory: 'Memory challenge',
+    matching: 'Matching game', ordering: 'Ordering game', mathDesc: 'Short calculations with instant rewards.', wordsDesc: 'Match each word with its meaning.',
+    sequenceDesc: 'Find the next number in the sequence.', memoryDesc: 'Remember the order and choose the matching sequence.',
+    matchingDesc: 'Match each word with the correct translation.', orderingDesc: 'Put the items in the correct order.', start: 'Start game', next: 'Next question',
     correct: 'Correct!', wrong: 'Not quite', hint: 'Hint', back: 'Games', score: 'Round score', done: 'Great job! Round complete.',
-    choose: 'Choose the correct answer', lang: 'Language', xp: 'XP', skills: 'Skills', stats: 'Your stats',
+    choose: 'Choose the correct answer', reset: 'Reset progress', lang: 'Language', xp: 'XP', skills: 'Skills', stats: 'Your stats',
     gamesPlayed: 'Games', questions: 'Questions', accuracy: 'Accuracy', best: 'Best score', badges: 'Achievements', unlocked: 'unlocked', newBadge: 'New achievement!', answered: 'Answer recorded.',
-  },  es: {
-    title: 'JUBA LISAN', subtitle: 'Aprende jugando. Mejora cada día.', points: 'Puntos', streak: 'Racha', level: 'Nivel', games: 'Juegos educativos',
-    daily: 'Desafío diario', dailyDesc: 'Un desafío cada día para ganar XP y crear tu hábito.', wordMatch: 'Parejas de palabras', quickChoice: 'Elección rápida', contextQuest: 'Misión de contexto', sentenceBuilder: 'Constructor de frases',
-    listenChoose: 'Escucha y elige', listeningDetective: 'Detective de escucha', wordCategories: 'Categorías de palabras', spelling: 'Desafío de ortografía', memory: 'Cartas de memoria',
-    wordMatchDesc: 'Relaciona cada palabra con su traducción correcta.', quickChoiceDesc: 'Elige antes de que termine el tiempo.', contextQuestDesc: 'Elige la respuesta natural para la situación.', sentenceBuilderDesc: 'Ordena las palabras para formar una frase correcta.', listenChooseDesc: 'Escucha la palabra y elígela.', listeningDetectiveDesc: 'Escucha una frase e identifica el detalle clave.', wordCategoriesDesc: 'Coloca la palabra en la categoría semántica correcta.', spellingDesc: 'Escribe la palabra indicada por la pista.', wordScramble: 'Letras mezcladas', fillBlank: 'Completa el espacio', wordScrambleDesc: 'Ordena las letras para recuperar la palabra.', fillBlankDesc: 'Elige la palabra que completa la frase.', memoryDesc: 'Descubre las cartas y forma parejas.',
-    start: 'Empezar', next: 'Siguiente pregunta', correct: '¡Correcto!', wrong: 'No exactamente', hint: 'Pista', back: 'Juegos', score: 'Puntuación de la ronda', done: '¡Muy bien! Ronda completada.', choose: 'Elige la respuesta correcta', lang: 'Idioma', xp: 'XP', skills: 'Habilidades', stats: 'Tus estadísticas', gamesPlayed: 'Partidas', questions: 'Preguntas', accuracy: 'Precisión', best: 'Mejor puntuación', badges: 'Logros', unlocked: 'desbloqueado', newBadge: '¡Nuevo logro!', answered: 'Respuesta registrada.',
   },
-  de: {
-    title: 'JUBA LISAN', subtitle: 'Lerne spielerisch. Werde jeden Tag besser.', points: 'Punkte', streak: 'Serie', level: 'Level', games: 'Lernspiele',
-    daily: 'Tageschallenge', dailyDesc: 'Eine Challenge pro Tag, um XP zu verdienen und deine Lernroutine aufzubauen.', wordMatch: 'Wortpaare', quickChoice: 'Schnellauswahl', contextQuest: 'Kontext-Mission', sentenceBuilder: 'Satzbau',
-    listenChoose: 'Hören & Wählen', listeningDetective: 'Hördetektiv', wordCategories: 'Wortkategorien', spelling: 'Rechtschreib-Challenge', memory: 'Memory-Karten',
-    wordMatchDesc: 'Ordne jedes Wort seiner richtigen Übersetzung zu.', quickChoiceDesc: 'Wähle, bevor die Zeit abläuft.', contextQuestDesc: 'Wähle die natürliche Antwort für die Situation.', sentenceBuilderDesc: 'Ordne die Wörter zu einem korrekten Satz.', listenChooseDesc: 'Höre das Wort und wähle es aus.', listeningDetectiveDesc: 'Höre einen Satz und finde das wichtige Detail.', wordCategoriesDesc: 'Ordne das Wort der richtigen Bedeutungskategorie zu.', spellingDesc: 'Schreibe das gesuchte Wort anhand des Hinweises.', wordScramble: 'Buchstabensalat', fillBlank: 'Lückentext', wordScrambleDesc: 'Ordne die Buchstaben zum richtigen Wort.', fillBlankDesc: 'Wähle das Wort, das den Satz ergänzt.', memoryDesc: 'Decke Karten auf und finde die Paare.',
-    start: 'Spiel starten', next: 'Nächste Frage', correct: 'Richtig!', wrong: 'Noch nicht', hint: 'Hinweis', back: 'Spiele', score: 'Rundenpunktzahl', done: 'Gut gemacht! Runde beendet.', choose: 'Wähle die richtige Antwort', lang: 'Sprache', xp: 'XP', skills: 'Fähigkeiten', stats: 'Deine Statistik', gamesPlayed: 'Spiele', questions: 'Fragen', accuracy: 'Genauigkeit', best: 'Beste Punktzahl', badges: 'Erfolge', unlocked: 'freigeschaltet', newBadge: 'Neuer Erfolg!', answered: 'Antwort gespeichert.',
-  },
-  it: {
-    title: 'JUBA LISAN', subtitle: 'Impara giocando. Migliora ogni giorno.', points: 'Punti', streak: 'Serie', level: 'Livello', games: 'Giochi educativi',
-    daily: 'Sfida del giorno', dailyDesc: 'Una sfida ogni giorno per guadagnare XP e creare una buona abitudine.', wordMatch: 'Abbinamento parole', quickChoice: 'Scelta rapida', contextQuest: 'Missione di contesto', sentenceBuilder: 'Costruttore di frasi',
-    listenChoose: 'Ascolta e scegli', listeningDetective: 'Detective dell’ascolto', wordCategories: 'Categorie di parole', spelling: 'Sfida di ortografia', memory: 'Carte memoria',
-    wordMatchDesc: 'Abbina ogni parola alla traduzione corretta.', quickChoiceDesc: 'Scegli prima che finisca il tempo.', contextQuestDesc: 'Scegli la risposta naturale per la situazione.', sentenceBuilderDesc: 'Metti le parole nell’ordine corretto.', listenChooseDesc: 'Ascolta la parola e sceglila.', listeningDetectiveDesc: 'Ascolta una frase e individua il dettaglio chiave.', wordCategoriesDesc: 'Inserisci la parola nella categoria semantica corretta.', spellingDesc: 'Scrivi la parola richiesta dall’indizio.', wordScramble: 'Lettere mescolate', fillBlank: 'Completa lo spazio', wordScrambleDesc: 'Riordina le lettere per trovare la parola.', fillBlankDesc: 'Scegli la parola che completa la frase.', memoryDesc: 'Scopri le carte e abbina le coppie.',
-    start: 'Inizia', next: 'Domanda successiva', correct: 'Corretto!', wrong: 'Non proprio', hint: 'Suggerimento', back: 'Giochi', score: 'Punteggio del round', done: 'Ottimo! Round completato.', choose: 'Scegli la risposta corretta', lang: 'Lingua', xp: 'XP', skills: 'Abilità', stats: 'Le tue statistiche', gamesPlayed: 'Partite', questions: 'Domande', accuracy: 'Precisione', best: 'Miglior punteggio', badges: 'Obiettivi', unlocked: 'sbloccato', newBadge: 'Nuovo obiettivo!', answered: 'Risposta registrata.',
-  },
-  pt: {
-    title: 'JUBA LISAN', subtitle: 'Aprenda jogando. Melhore todos os dias.', points: 'Pontos', streak: 'Sequência', level: 'Nível', games: 'Jogos educativos',
-    daily: 'Desafio diário', dailyDesc: 'Um desafio por dia para ganhar XP e criar o seu hábito.', wordMatch: 'Combinação de palavras', quickChoice: 'Escolha rápida', contextQuest: 'Missão de contexto', sentenceBuilder: 'Construtor de frases',
-    listenChoose: 'Ouça e escolha', listeningDetective: 'Detetive de escuta', wordCategories: 'Categorias de palavras', spelling: 'Desafio de ortografia', memory: 'Cartas de memória',
-    wordMatchDesc: 'Associe cada palavra à tradução correta.', quickChoiceDesc: 'Escolha antes de o tempo acabar.', contextQuestDesc: 'Escolha a resposta natural para a situação.', sentenceBuilderDesc: 'Organize as palavras para formar uma frase correta.', listenChooseDesc: 'Ouça a palavra e escolha-a.', listeningDetectiveDesc: 'Ouça uma frase e identifique o detalhe principal.', wordCategoriesDesc: 'Coloque a palavra na categoria semântica correta.', spellingDesc: 'Escreva a palavra indicada pela pista.', wordScramble: 'Letras embaralhadas', fillBlank: 'Complete o espaço', wordScrambleDesc: 'Organize as letras para recuperar a palavra.', fillBlankDesc: 'Escolha a palavra que completa a frase.', memoryDesc: 'Revele as cartas e encontre os pares.',
-    start: 'Começar', next: 'Próxima pergunta', correct: 'Correto!', wrong: 'Ainda não', hint: 'Dica', back: 'Jogos', score: 'Pontuação da rodada', done: 'Muito bem! Rodada concluída.', choose: 'Escolha a resposta correta', lang: 'Idioma', xp: 'XP', skills: 'Competências', stats: 'As suas estatísticas', gamesPlayed: 'Jogos', questions: 'Perguntas', accuracy: 'Precisão', best: 'Melhor pontuação', badges: 'Conquistas', unlocked: 'desbloqueado', newBadge: 'Nova conquista!', answered: 'Resposta registada.',
-  },
-  pl: {
-    title: 'JUBA LISAN', subtitle: 'Ucz się przez zabawę. Rób postępy każdego dnia.', points: 'Punkty', streak: 'Seria', level: 'Poziom', games: 'Gry edukacyjne',
-    daily: 'Wyzwanie dnia', dailyDesc: 'Jedno wyzwanie dziennie, aby zdobywać XP i budować nawyk.', wordMatch: 'Dopasowanie słów', quickChoice: 'Szybki wybór', contextQuest: 'Misja kontekstowa', sentenceBuilder: 'Budowanie zdań',
-    listenChoose: 'Słuchaj i wybierz', listeningDetective: 'Detektyw słuchania', wordCategories: 'Kategorie słów', spelling: 'Wyzwanie ortograficzne', memory: 'Karty pamięci',
-    wordMatchDesc: 'Dopasuj każde słowo do właściwego tłumaczenia.', quickChoiceDesc: 'Wybierz, zanim skończy się czas.', contextQuestDesc: 'Wybierz naturalną odpowiedź do sytuacji.', sentenceBuilderDesc: 'Ułóż słowa w poprawne zdanie.', listenChooseDesc: 'Posłuchaj słowa i wybierz je.', listeningDetectiveDesc: 'Posłuchaj zdania i znajdź kluczową informację.', wordCategoriesDesc: 'Umieść słowo w odpowiedniej kategorii znaczeniowej.', spellingDesc: 'Wpisz słowo na podstawie wskazówki.', wordScramble: 'Pomieszane litery', fillBlank: 'Uzupełnij lukę', wordScrambleDesc: 'Ułóż litery, aby odtworzyć słowo.', fillBlankDesc: 'Wybierz słowo uzupełniające zdanie.', memoryDesc: 'Odkrywaj karty i łącz pary.',
-    start: 'Rozpocznij', next: 'Następne pytanie', correct: 'Dobrze!', wrong: 'Jeszcze nie', hint: 'Wskazówka', back: 'Gry', score: 'Wynik rundy', done: 'Świetnie! Runda ukończona.', choose: 'Wybierz poprawną odpowiedź', lang: 'Język', xp: 'XP', skills: 'Umiejętności', stats: 'Twoje statystyki', gamesPlayed: 'Gry', questions: 'Pytania', accuracy: 'Dokładność', best: 'Najlepszy wynik', badges: 'Osiągnięcia', unlocked: 'odblokowane', newBadge: 'Nowe osiągnięcie!', answered: 'Odpowiedź zapisana.',
-  },
-  nl: {
-    title: 'JUBA LISAN', subtitle: 'Leer door te spelen. Word elke dag beter.', points: 'Punten', streak: 'Reeks', level: 'Niveau', games: 'Educatieve spellen',
-    daily: 'Dagelijkse uitdaging', dailyDesc: 'Elke dag één uitdaging om XP te verdienen en een leergewoonte op te bouwen.', wordMatch: 'Woordkoppeling', quickChoice: 'Snelle keuze', contextQuest: 'Contextmissie', sentenceBuilder: 'Zinnen bouwen',
-    listenChoose: 'Luister & kies', listeningDetective: 'Luisterdetective', wordCategories: 'Woordcategorieën', spelling: 'Spellinguitdaging', memory: 'Geheugenkaarten',
-    wordMatchDesc: 'Koppel elk woord aan de juiste vertaling.', quickChoiceDesc: 'Kies voordat de tijd om is.', contextQuestDesc: 'Kies de natuurlijke reactie voor de situatie.', sentenceBuilderDesc: 'Zet de woorden in de juiste volgorde.', listenChooseDesc: 'Luister naar het woord en kies het.', listeningDetectiveDesc: 'Luister naar een zin en vind het belangrijkste detail.', wordCategoriesDesc: 'Plaats het woord in de juiste betekenisvolle categorie.', spellingDesc: 'Typ het gevraagde woord op basis van de hint.', wordScramble: 'Woordpuzzel', fillBlank: 'Vul de lege plek', wordScrambleDesc: 'Zet de letters in de juiste volgorde.', fillBlankDesc: 'Kies het woord dat de zin aanvult.', memoryDesc: 'Draai kaarten om en vind de paren.',
-    start: 'Start spel', next: 'Volgende vraag', correct: 'Goed!', wrong: 'Nog niet', hint: 'Hint', back: 'Spellen', score: 'Rondescore', done: 'Goed gedaan! Ronde voltooid.', choose: 'Kies het juiste antwoord', lang: 'Taal', xp: 'XP', skills: 'Vaardigheden', stats: 'Jouw statistieken', gamesPlayed: 'Spellen', questions: 'Vragen', accuracy: 'Nauwkeurigheid', best: 'Beste score', badges: 'Prestaties', unlocked: 'vrijgespeeld', newBadge: 'Nieuwe prestatie!', answered: 'Antwoord opgeslagen.',
-  },
-  ro: {
-    title: 'JUBA LISAN', subtitle: 'Învață prin joc. Progresează în fiecare zi.', points: 'Puncte', streak: 'Serie', level: 'Nivel', games: 'Jocuri educative',
-    daily: 'Provocarea zilei', dailyDesc: 'O provocare zilnică pentru XP și pentru a-ți construi rutina.', wordMatch: 'Potrivește cuvintele', quickChoice: 'Alegere rapidă', contextQuest: 'Misiune de context', sentenceBuilder: 'Construiește propoziția',
-    listenChoose: 'Ascultă și alege', listeningDetective: 'Detectiv de ascultare', wordCategories: 'Categorii de cuvinte', spelling: 'Provocare de ortografie', memory: 'Cărți de memorie',
-    wordMatchDesc: 'Potrivește fiecare cuvânt cu traducerea corectă.', quickChoiceDesc: 'Alege înainte să expire timpul.', contextQuestDesc: 'Alege răspunsul natural pentru situație.', sentenceBuilderDesc: 'Aranjează cuvintele într-o propoziție corectă.', listenChooseDesc: 'Ascultă cuvântul și alege-l.', listeningDetectiveDesc: 'Ascultă o propoziție și identifică detaliul esențial.', wordCategoriesDesc: 'Pune cuvântul în categoria semantică potrivită.', spellingDesc: 'Scrie cuvântul cerut pe baza indiciului.', wordScramble: 'Litere amestecate', fillBlank: 'Completează spațiul', wordScrambleDesc: 'Rearanjează literele pentru a găsi cuvântul.', fillBlankDesc: 'Alege cuvântul care completează propoziția.', memoryDesc: 'Descoperă cărțile și potrivește perechile.',
-    start: 'Începe jocul', next: 'Următoarea întrebare', correct: 'Corect!', wrong: 'Nu încă', hint: 'Indiciu', back: 'Jocuri', score: 'Scorul rundei', done: 'Bravo! Runda s-a încheiat.', choose: 'Alege răspunsul corect', lang: 'Limbă', xp: 'XP', skills: 'Abilități', stats: 'Statisticile tale', gamesPlayed: 'Jocuri', questions: 'Întrebări', accuracy: 'Precizie', best: 'Cel mai bun scor', badges: 'Realizări', unlocked: 'deblocat', newBadge: 'Realizare nouă!', answered: 'Răspuns înregistrat.',
-  },
-  ru: {
-    title: 'JUBA LISAN', subtitle: 'Учись играя. Становись лучше каждый день.', points: 'Очки', streak: 'Серия', level: 'Уровень', games: 'Обучающие игры',
-    daily: 'Задание дня', dailyDesc: 'Одно задание каждый день, чтобы получать XP и формировать привычку.', wordMatch: 'Сопоставление слов', quickChoice: 'Быстрый выбор', contextQuest: 'Контекстная миссия', sentenceBuilder: 'Составление предложений',
-    listenChoose: 'Слушай и выбирай', listeningDetective: 'Детектив на слух', wordCategories: 'Категории слов', spelling: 'Орфографический вызов', memory: 'Карточки памяти',
-    wordMatchDesc: 'Сопоставь слово с правильным переводом.', quickChoiceDesc: 'Выбери ответ до окончания времени.', contextQuestDesc: 'Выбери естественный ответ для ситуации.', sentenceBuilderDesc: 'Расставь слова в правильном порядке.', listenChooseDesc: 'Послушай слово и выбери его.', listeningDetectiveDesc: 'Послушай предложение и найди ключевую деталь.', wordCategoriesDesc: 'Помести слово в правильную смысловую категорию.', spellingDesc: 'Введи слово по подсказке.', wordScramble: 'Перемешанные буквы', fillBlank: 'Заполни пропуск', wordScrambleDesc: 'Расставь буквы, чтобы восстановить слово.', fillBlankDesc: 'Выбери слово, которое завершает предложение.', memoryDesc: 'Открывай карточки и находи пары.',
-    start: 'Начать игру', next: 'Следующий вопрос', correct: 'Правильно!', wrong: 'Почти', hint: 'Подсказка', back: 'Игры', score: 'Счёт раунда', done: 'Отлично! Раунд завершён.', choose: 'Выбери правильный ответ', lang: 'Язык', xp: 'XP', skills: 'Навыки', stats: 'Твоя статистика', gamesPlayed: 'Игры', questions: 'Вопросы', accuracy: 'Точность', best: 'Лучший результат', badges: 'Достижения', unlocked: 'открыто', newBadge: 'Новое достижение!', answered: 'Ответ сохранён.',
-  },
-
 } as const
 
 export default function GamesPage() {
-  const locale = useLocale() as Lang
-  const pathname = usePathname()
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const autoStartedReview = useRef(false)
-  // The site-wide locale is controlled by the persistent global switcher.
-  // Games must not create a second, page-local interface-language control.
-  const lang: Lang = locale
+  const [lang, setLang] = useState<Lang>('ar')
   const [game, setGame] = useState<GameId | null>(null)
   const [dailyMode, setDailyMode] = useState(false)
   const [dailyChallengeDate, setDailyChallengeDate] = useState('')
   const [question, setQuestion] = useState<GameSessionQuestion | null>(null)
+  const [sessionQuestions, setSessionQuestions] = useState<GameSessionQuestion[]>([])
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [answers, setAnswers] = useState<Array<{ question_id: string; choice: string }>>([])
   const [selected, setSelected] = useState<string | null>(null)
-  const [answerStatus, setAnswerStatus] = useState<'idle' | 'submitting' | 'correct' | 'wrong'>('idle')
-  const [answerError, setAnswerError] = useState<string | null>(null)
-  const [pendingNextQuestion, setPendingNextQuestion] = useState<GameSessionQuestion | null>(null)
   const [roundScore, setRoundScore] = useState(0)
   const [round, setRound] = useState(0)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
-  const [inputValue, setInputValue] = useState('')
-  const [timeLeft, setTimeLeft] = useState(8)
-  const [roundResult, setRoundResult] = useState<{
-    score: number
-    correct: number
-    questions: number
-    xp: number
-    skillResults: Record<string, {
-      correct: number
-      questions: number
-      accuracy: number
-      mastery_before?: number
-      mastery_after?: number
-      mastery_delta?: number
-    }>
-  } | null>(null)
-  const [finishing, setFinishing] = useState(false)
-  const [reviewContinueAvailable, setReviewContinueAvailable] = useState(false)
-  const [adaptiveMode, setAdaptiveMode] = useState<'new' | 'review' | 'steady' | 'challenge' | 'skill_review' | 'skill_challenge'>('new')
-  const [effectiveDifficulty, setEffectiveDifficulty] = useState(1)
-  const [smartReview, setSmartReview] = useState<{
-    due_count: number
-    cefr_level: string
-    skills: Record<string, number>
-    skill_details: Record<string, { mastery: number; cefr_level: string; due_count: number }>
-    recommended_game: GameId | null
-    recommended_skill: string | null
-    items: Array<{
-      review_key: string
-      skill: string
-      topic: string
-      prompt: string
-      review_count: number
-      review_streak: number
-      review_stage: string
-      due_at: string
-      source_game_id: string
-      mastery: number
-      mastery_state: string
-      cefr_level: string
-      priority: string
-      priority_score: number
-    }>
-  }>({
-    due_count: 0,
-    cefr_level: '',
-    skills: {},
-    skill_details: {},
-    recommended_game: null,
-    recommended_skill: null,
-    items: [],
-  })
-  const [reviewSkillFilter, setReviewSkillFilter] = useState<string>('all')
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
+    resetGameProgress,
   } = useProgressStore()
 
   const level = Math.floor(xp / 100) + 1
-  const t = copy[lang as keyof typeof copy] ?? copy.en
-  const gameFeedback = {
-    en: { check: 'Check', checking: 'Checking your answer…', retry: 'Try again. The question has been adapted to your mistake.', roundResult: '🎉 Round result' },
-    ar: { check: 'تحقق', checking: 'جارٍ التحقق من الإجابة…', retry: 'حاول مرة أخرى. تم تكييف السؤال مع الخطأ.', roundResult: '🎉 نتيجة الجولة' },
-    es: { check: 'Comprobar', checking: 'Comprobando tu respuesta…', retry: 'Inténtalo de nuevo. La pregunta se ha adaptado a tu error.', roundResult: '🎉 Resultado de la ronda' },
-    fr: { check: 'Vérifier', checking: 'Vérification de la réponse…', retry: 'Réessaie. La question a été adaptée à ton erreur.', roundResult: '🎉 Résultat de la partie' },
-    pt: { check: 'Verificar', checking: 'A verificar a resposta…', retry: 'Tente novamente. A pergunta foi adaptada ao seu erro.', roundResult: '🎉 Resultado da rodada' },
-    de: { check: 'Prüfen', checking: 'Antwort wird überprüft…', retry: 'Versuche es erneut. Die Frage wurde an deinen Fehler angepasst.', roundResult: '🎉 Rundenergebnis' },
-    it: { check: 'Verifica', checking: 'Verifica della risposta…', retry: 'Riprova. La domanda è stata adattata al tuo errore.', roundResult: '🎉 Risultato del round' },
-    pl: { check: 'Sprawdź', checking: 'Sprawdzanie odpowiedzi…', retry: 'Spróbuj ponownie. Pytanie zostało dostosowane do błędu.', roundResult: '🎉 Wynik rundy' },
-    nl: { check: 'Controleren', checking: 'Je antwoord wordt gecontroleerd…', retry: 'Probeer opnieuw. De vraag is aangepast aan je fout.', roundResult: '🎉 Ronderesultaat' },
-    ro: { check: 'Verifică', checking: 'Se verifică răspunsul…', retry: 'Încearcă din nou. Întrebarea a fost adaptată greșelii tale.', roundResult: '🎉 Rezultatul rundei' },
-    ru: { check: 'Проверить', checking: 'Проверяем ваш ответ…', retry: 'Попробуйте ещё раз. Вопрос адаптирован к вашей ошибке.', roundResult: '🎉 Результат раунда' },
-  }[lang as keyof typeof copy] ?? {
-    check: 'Check', checking: 'Checking your answer…', retry: 'Try again. The question has been adapted to your mistake.', roundResult: '🎉 Round result',
-  }
-  const translationSprint = 'translationSprint' in t ? t.translationSprint : copy.en.translationSprint
-  const translationSprintDesc = 'translationSprintDesc' in t ? t.translationSprintDesc : copy.en.translationSprintDesc
-  const grammarDuel = 'grammarDuel' in t ? t.grammarDuel : copy.en.grammarDuel
-  const grammarDuelDesc = 'grammarDuelDesc' in t ? t.grammarDuelDesc : copy.en.grammarDuelDesc
+  const t = copy[lang]
   const today = getLocalDateKey()
   const dailyCompletedToday = gameStats.lastDailyChallengeDate === today
-  // The client mirrors only the deterministic display rotation; it never grants rewards.
+  // Keep the daily rotation aligned with the server: Date#getDay() is
   // Sunday=0..Saturday=6, and the server normalizes Python's weekday() to
-  // the same numbering before applying the deterministic game rotation.
+  // the same numbering before applying the six-game rotation.
   const dayIndex = new Date(`${today}T00:00:00`).getDay()
   const dailyGame = DAILY_GAMES[dayIndex % DAILY_GAMES.length]
   const accuracy = gameStats.questionsAnswered
@@ -279,348 +99,63 @@ export default function GamesPage() {
     : 0
 
   const direction = lang === 'ar' ? 'rtl' : 'ltr'
-  const smartReviewTitle = lang === 'ar' ? '🧠 المراجعة الذكية' : lang === 'fr' ? '🧠 Révision intelligente' : '🧠 Smart Review'
-  const smartReviewDesc = lang === 'ar'
-    ? 'مراجعة متدرجة للمحتوى المستحق، مع فواصل زمنية تتوسع مع نجاحك.'
-    : lang === 'fr'
-      ? 'Révision espacée et progressive : l’intervalle s’allonge avec chaque réussite.'
-      : 'Graduated spaced review: intervals expand as you succeed.'
-  const reviewStageLabel = (stage: string) => {
-    const labels: Record<string, string> = {
-      relearning: lang === 'ar' ? 'إعادة تعلّم' : lang === 'fr' ? 'Réapprentissage' : 'Relearning',
-      short: lang === 'ar' ? 'مراجعة قصيرة' : lang === 'fr' ? 'Intervalle court' : 'Short interval',
-      daily: lang === 'ar' ? 'مراجعة يومية' : lang === 'fr' ? 'Intervalle quotidien' : 'Daily interval',
-      spaced: lang === 'ar' ? 'مراجعة متباعدة' : lang === 'fr' ? 'Révision espacée' : 'Spaced review',
-      long_term: lang === 'ar' ? 'احتفاظ طويل' : lang === 'fr' ? 'Rétention longue' : 'Long-term retention',
-    }
-    return labels[stage] ?? labels.relearning
-  }
-  const smartReviewStart = lang === 'ar' ? 'ابدأ المراجعة' : lang === 'fr' ? 'Commencer la révision' : 'Start review'
-  const smartReviewMixed = lang === 'ar'
-    ? 'جلسة متعددة المهارات'
-    : lang === 'fr'
-      ? 'Session multi-compétences'
-      : 'Multi-skill session'
-  const masteryLabels: Record<string, { label: string; icon: string }> = {
-    new: { label: lang === 'ar' ? 'جديد' : lang === 'fr' ? 'Nouveau' : lang === 'es' ? 'Nuevo' : lang === 'de' ? 'Neu' : lang === 'it' ? 'Nuovo' : lang === 'pt' ? 'Novo' : lang === 'pl' ? 'Nowy' : lang === 'nl' ? 'Nieuw' : lang === 'ro' ? 'Nou' : lang === 'ru' ? 'Новое' : 'New', icon: '✨' },
-    learning: { label: lang === 'ar' ? 'قيد التعلّم' : lang === 'fr' ? 'En apprentissage' : lang === 'es' ? 'Aprendiendo' : lang === 'de' ? 'Lernt' : lang === 'it' ? 'In apprendimento' : lang === 'pt' ? 'A aprender' : lang === 'pl' ? 'W nauce' : lang === 'nl' ? 'In leren' : lang === 'ro' ? 'În învățare' : lang === 'ru' ? 'Изучается' : 'Learning', icon: '🌱' },
-    reviewing: { label: lang === 'ar' ? 'يحتاج مراجعة' : lang === 'fr' ? 'À réviser' : lang === 'es' ? 'Para repasar' : lang === 'de' ? 'Zu wiederholen' : lang === 'it' ? 'Da ripassare' : lang === 'pt' ? 'A rever' : lang === 'pl' ? 'Do powtórki' : lang === 'nl' ? 'Herhalen' : lang === 'ro' ? 'De revizuit' : lang === 'ru' ? 'На повторение' : 'Needs review', icon: '🔄' },
-    weak: { label: lang === 'ar' ? 'ضعيف' : lang === 'fr' ? 'À renforcer' : lang === 'es' ? 'Por reforzar' : lang === 'de' ? 'Zu stärken' : lang === 'it' ? 'Da rafforzare' : lang === 'pt' ? 'A reforçar' : lang === 'pl' ? 'Do wzmocnienia' : lang === 'nl' ? 'Versterken' : lang === 'ro' ? 'De consolidat' : lang === 'ru' ? 'Нужно укрепить' : 'Needs practice', icon: '🔥' },
-    mastered: { label: lang === 'ar' ? 'متقن' : lang === 'fr' ? 'Maîtrisé' : lang === 'es' ? 'Dominado' : lang === 'de' ? 'Gemeistert' : lang === 'it' ? 'Padroneggiato' : lang === 'pt' ? 'Dominado' : lang === 'pl' ? 'Opanowane' : lang === 'nl' ? 'Beheerst' : lang === 'ro' ? 'Stăpânit' : lang === 'ru' ? 'Освоено' : 'Mastered', icon: '🏆' },
-  }
-  const masteryLabel = (state: string) => masteryLabels[state] ?? masteryLabels.learning
-
-  async function refreshSmartReview(): Promise<boolean> {
-    try {
-      const response = await fetch('/api/progress/smart-review', {
-        credentials: 'include',
-        cache: 'no-store',
-      })
-      if (!response.ok) return false
-      const data = await response.json()
-      if (!data || typeof data !== 'object') return false
-      const recommended = typeof data.recommended_game === 'string' ? data.recommended_game as GameId : null
-      setSmartReview({
-        due_count: Number(data.due_count) || 0,
-        cefr_level: String(data.cefr_level ?? ''),
-        skills: data.skills && typeof data.skills === 'object' ? data.skills as Record<string, number> : {},
-        skill_details: data.skill_details && typeof data.skill_details === 'object' ? data.skill_details as Record<string, { mastery: number; cefr_level: string; due_count: number }> : {},
-        recommended_game: recommended,
-        recommended_skill: typeof data.recommended_skill === 'string' ? data.recommended_skill : null,
-        items: Array.isArray(data.items)
-          ? data.items.filter((item: unknown): item is Record<string, unknown> => Boolean(item && typeof item === 'object')).map((item: Record<string, unknown>) => ({
-              review_key: String(item.review_key ?? ''),
-              skill: String(item.skill ?? ''),
-              topic: String(item.topic ?? ''),
-              prompt: String(item.prompt ?? ''),
-              review_count: Number(item.review_count) || 0,
-              due_at: String(item.due_at ?? ''),
-              source_game_id: String(item.source_game_id ?? ''),
-              mastery: Number(item.mastery) || 0,
-              mastery_state: String(item.mastery_state ?? ''),
-              cefr_level: String(item.cefr_level ?? data.cefr_level ?? ''),
-              priority: String(item.priority ?? 'medium'),
-              priority_score: Number(item.priority_score) || 0,
-            }))
-          : [],
-      })
-      return Boolean(recommended && Number(data.due_count) > 0)
-    } catch {
-      // The games page remains usable when the review summary is temporarily unavailable.
-      return false
-    }
-  }
-
-  useEffect(() => {
-    const supported = typeof window !== 'undefined' && Boolean(window.SpeechRecognition || window.webkitSpeechRecognition)
-    setSpeechSupported(supported)
-    return () => {
-      speechRecognitionRef.current?.abort()
-      speechRecognitionRef.current = null
-    }
-  }, [])
-
-  useEffect(() => {
-    if (question?.skill !== 'speaking' || !game) {
-      speechRecognitionRef.current?.abort()
-      speechRecognitionRef.current = null
-      setSpeechListening(false)
-    }
-  }, [question, game])
-
-  useEffect(() => {
-    void refreshSmartReview()
-  }, [])
-
-  useEffect(() => {
-    if (autoStartedReview.current) return
-    if (searchParams.get('review') !== '1') return
-    if (!smartReview.recommended_game || smartReview.due_count <= 0) return
-    autoStartedReview.current = true
-    void startGame(smartReview.recommended_game, false, true)
-  }, [searchParams, smartReview.due_count, smartReview.recommended_game])
-
-  function difficultyForGame(id: GameId) {
-    const skill = id === 'matching' || id === 'quick_choice' || id === 'word_scramble' || id === 'word_categories' ? 'vocabulary'
-      : id === 'context_quest' ? 'speaking'
-      : id === 'listen_choose' || id === 'listening_detective' ? 'listening'
-      : id === 'spelling' || id === 'translation_sprint' ? 'writing'
-      : id === 'sentence_builder' || id === 'fill_blank' || id === 'grammar_duel' ? 'grammar'
-      : 'memory'
-    const mastery = skills[skill] ?? 0
-    if (mastery < 0.4) return 1
-    if (mastery < 0.75) return 2
-    return 3
-  }
   const gameCards = useMemo(
     () => [
-      { id: 'matching' as const, title: t.wordMatch, desc: t.wordMatchDesc, icon: '🔗' },
-      { id: 'quick_choice' as const, title: t.quickChoice, desc: t.quickChoiceDesc, icon: '⚡' },
-      { id: 'context_quest' as const, title: t.contextQuest, desc: t.contextQuestDesc, icon: '🗣️' },
-      { id: 'translation_sprint' as const, title: translationSprint, desc: translationSprintDesc, icon: '🌍' },
-      { id: 'grammar_duel' as const, title: grammarDuel, desc: grammarDuelDesc, icon: '⚔️' },
-      { id: 'sentence_builder' as const, title: t.sentenceBuilder, desc: t.sentenceBuilderDesc, icon: '🧩' },
-      { id: 'listen_choose' as const, title: t.listenChoose, desc: t.listenChooseDesc, icon: '🎧' },
-      { id: 'listening_detective' as const, title: t.listeningDetective, desc: t.listeningDetectiveDesc, icon: '🔎' },
-      { id: 'word_categories' as const, title: t.wordCategories, desc: t.wordCategoriesDesc, icon: '🗂️' },
-      { id: 'spelling' as const, title: t.spelling, desc: t.spellingDesc, icon: '✍️' },
-      { id: 'word_scramble' as const, title: t.wordScramble, desc: t.wordScrambleDesc, icon: '🔤' },
-      { id: 'fill_blank' as const, title: t.fillBlank, desc: t.fillBlankDesc, icon: '📝' },
+      { id: 'math' as const, title: t.math, desc: t.mathDesc, icon: '➗' },
+      { id: 'words' as const, title: t.words, desc: t.wordsDesc, icon: '🔤' },
+      { id: 'sequence' as const, title: t.sequence, desc: t.sequenceDesc, icon: '🧩' },
       { id: 'memory' as const, title: t.memory, desc: t.memoryDesc, icon: '🧠' },
+      { id: 'matching' as const, title: t.matching, desc: t.matchingDesc, icon: '🔗' },
+      { id: 'ordering' as const, title: t.ordering, desc: t.orderingDesc, icon: '🔢' },
     ],
     [t]
   )
 
-  const [gameError, setGameError] = useState<string | null>(null)
-  const [speechListening, setSpeechListening] = useState(false)
-  const [speechSupported, setSpeechSupported] = useState(false)
-  const [speechError, setSpeechError] = useState(false)
-  const speechRecognitionRef = useRef<SpeechRecognitionInstance | null>(null)
-
-  async function startGame(id: GameId, daily = false, review = false) {
+  async function startGame(id: GameId, daily = false) {
     if (daily && dailyCompletedToday) return
-    setGameError(null)
+
+    // Interactive games have their own board and completion flow. The generic
+    // question renderer expects a non-interactive question payload, so route
+    // these game types to their dedicated pages instead of opening an empty
+    // round shell.
+    if (id === 'memory' || id === 'matching' || id === 'ordering') {
+      window.location.assign(`/games/${id}?lang=${lang}`)
+      return
+    }
 
     try {
-      // Resolve the active target language before routing any game. The UI
-      // locale is presentation-only and must never silently change the
-      // language being learned.
-      // A game session is persisted against the active study plan. Avoid
-      // sending a request that can only return 404 when a learner has not
-      // created a plan yet; send them to plan setup instead.
-      const planResponse = await fetch('/api/study-plan/current', {
-        credentials: 'include',
-        cache: 'no-store',
-      })
-      if (!planResponse.ok) {
-        window.location.assign('/plan')
-        return
-      }
-      const plan = await planResponse.json().catch(() => null)
-      if (!plan || typeof plan !== 'object' || !('id' in plan)) {
-        window.location.assign('/plan')
-        return
-      }
-
-      // Game content follows the active study plan's target language.
-      // The interface locale remains independent, so changing UI language
-      // does not unexpectedly switch what the learner is studying.
-      const planRecord = plan as { target_language?: string; language?: string }
-      const targetLanguage = planRecord.target_language ?? planRecord.language
-      const contentLanguage = gameLanguageForTargetLanguage(targetLanguage)
-
-      // Interactive games have their own board and completion flow. Pass the
-      // study-plan language into those routes rather than the interface locale.
-      if (id === 'memory' || id === 'matching' || id === 'sentence_builder') {
-        const route = id === 'sentence_builder' ? 'sentence-builder' : id
-        const difficulty = difficultyForGame(id)
-        window.location.assign(`/games/${route}?lang=${contentLanguage}&difficulty=${difficulty}${review ? '&review=true' : ''}`)
-        return
-      }
-
-      const session = await startGameSession(id, contentLanguage, difficultyForGame(id), review)
+      const session = await startGameSession(id, lang, level)
       setGame(id)
       setDailyMode(session.daily_challenge)
       setDailyChallengeDate(session.daily_challenge_date)
       setRound(0)
       setRoundScore(0)
       setSelected(null)
-      setAnswerStatus('idle')
-      setAnswerError(null)
-      setPendingNextQuestion(null)
-      setInputValue('')
-      setTimeLeft(id === 'quick_choice' ? 8 : 0)
       setAnswers([])
       setSessionId(session.session_id)
+      setSessionQuestions(session.questions)
       setNewAchievements([])
-      setReviewContinueAvailable(false)
-      setRoundResult(null)
-      setFinishing(false)
-      setAdaptiveMode(session.adaptive_mode ?? 'new')
-      setEffectiveDifficulty(session.effective_difficulty ?? difficultyForGame(id))
       setQuestion(session.questions[0] ?? null)
-    } catch (error) {
-      console.error('[JUBA LISAN] Game session start failed:', error)
+    } catch {
       setGame(null)
       setQuestion(null)
       setSessionId(null)
-      setGameError(error instanceof Error ? error.message : 'Unable to load the challenge')
     }
   }
 
-  async function answer(choice: string) {
-    if (!question || selected || !sessionId || finishing || answerStatus === 'submitting') return
-    setAnswerStatus('submitting')
-    setAnswerError(null)
-    try {
-      const answeredQuestionId = question.id
-      const server = await answerGameSessionQuestion(sessionId, answeredQuestionId, choice)
-      setAdaptiveMode(server.adaptive_mode)
-      const completedAnswers = [
-        ...answers.filter((item) => item.question_id !== answeredQuestionId),
-        { question_id: answeredQuestionId, choice },
-      ]
-      setAnswers(completedAnswers)
-
-      if (server.correct) {
-        setRoundScore((score) => score + 1)
-      }
-
-      // The server owns the round lifecycle. A wrong fifth answer must still
-      // finalize the round, so completion is handled before the normal
-      // correct/incorrect presentation branches.
-      if (server.finished) {
-        setSelected(choice)
-        setAnswerStatus(server.correct ? 'correct' : 'wrong')
-        setPendingNextQuestion(null)
-        await finishRound(completedAnswers)
-        return
-      }
-
-      if (!server.question) {
-        throw new Error('Server did not issue the next game question')
-      }
-
-      if (!server.correct) {
-        // A miss stays on the same logical question. The server keeps the
-        // attempt count and returns an adapted retry without advancing the
-        // five-question round counter.
-        setSelected(null)
-        setAnswerStatus('wrong')
-        setAnswerError(null)
-        setPendingNextQuestion(null)
-        setInputValue('')
-        setQuestion(server.question)
-        return
-      }
-
-      setSelected(choice)
-      setAnswerStatus('correct')
-      setPendingNextQuestion(server.question)
-    } catch (error) {
-      setAnswerStatus('idle')
-      setAnswerError(error instanceof Error ? error.message : 'Unable to validate the answer')
-    }
+  function answer(choice: string) {
+    if (!question || selected) return
+    setSelected(choice)
+    setAnswers((current) => [...current, { question_id: question.id, choice }])
   }
 
-  function submitTextAnswer() {
-    if (!inputValue.trim()) return
-    void answer(inputValue.trim())
-  }
-
-  function startSpeechInput() {
-    if (!question || question.skill !== 'speaking' || !speechSupported || speechListening || selected) return
-    setSpeechError(false)
-    const Constructor = window.SpeechRecognition || window.webkitSpeechRecognition
-    if (!Constructor) return
-    const recognition = new Constructor()
-    const language = question.audio_language || 'en-GB'
-    recognition.lang = language
-    recognition.continuous = false
-    recognition.interimResults = false
-    recognition.onresult = (event) => {
-      const transcript = Array.from(event.results)
-        .map((result) => result[0]?.transcript || '')
-        .join(' ')
-        .trim()
-      if (transcript) setInputValue(transcript)
-    }
-    recognition.onerror = () => {
-      setSpeechListening(false)
-      setSpeechError(true)
-    }
-    recognition.onend = () => {
-      setSpeechListening(false)
-      speechRecognitionRef.current = null
-    }
-    speechRecognitionRef.current = recognition
-    setSpeechListening(true)
-    try {
-      recognition.start()
-    } catch {
-      setSpeechListening(false)
-      speechRecognitionRef.current = null
-      setSpeechError(true)
-    }
-  }
-
-  function stopSpeechInput() {
-    speechRecognitionRef.current?.stop()
-  }
-
-  useEffect(() => {
-    if (!game || !question || selected || !['idle', 'wrong'].includes(answerStatus) || game !== 'quick_choice') return
-    setTimeLeft(8)
-    const timer = window.setInterval(() => {
-      setTimeLeft((value) => {
-        if (value <= 1) {
-          window.clearInterval(timer)
-          void answer('__timeout__')
-          return 0
-        }
-        return value - 1
-      })
-    }, 1000)
-    return () => window.clearInterval(timer)
-  }, [game, question, selected, answerStatus])
-
-  function playAudio() {
-    if (!question?.audio_text || typeof window === 'undefined' || !('speechSynthesis' in window)) return
-    window.speechSynthesis.cancel()
-    const utterance = new SpeechSynthesisUtterance(question.audio_text)
-    utterance.lang = question.audio_language || 'en-GB'
-    utterance.rate = 0.9
-    window.speechSynthesis.speak(utterance)
-  }
-
-  async function finishRound(finalAnswers?: Array<{ question_id: string; choice: string }>) {
-    if (!sessionId || finishing) return
-    setFinishing(true)
+  async function finishRound() {
+    if (!sessionId) return
     const previousAchievements = new Set(achievements)
     try {
       const server = await completeGameSession(
         sessionId,
-        finalAnswers ?? answers,
+        answers,
         dailyMode,
         dailyMode ? dailyChallengeDate : '',
       )
@@ -629,16 +164,6 @@ export default function GamesPage() {
       )
       if (fresh.length) setNewAchievements(fresh)
       setRoundScore(server.round_score)
-      setRoundResult({
-        score: server.round_score,
-        correct: server.round_correct,
-        questions: server.round_questions,
-        xp: server.xp_earned,
-        skillResults: server.skill_results ?? {},
-      })
-      const hasNextReview = await refreshSmartReview()
-      setReviewContinueAvailable(hasNextReview)
-      markLearningProgressUpdated()
       setProgress({
         streak,
         xp: server.total_xp,
@@ -655,39 +180,62 @@ export default function GamesPage() {
         },
         achievements: server.achievements as AchievementId[],
       })
-    } catch (error) {
-      setGameError(error instanceof Error ? error.message : 'Unable to save the round')
-    } finally {
-      setFinishing(false)
+    } catch {
+      return
     }
   }
 
   function next() {
-    if (!game || !question || answerStatus !== 'correct' || finishing) return
-    if (!pendingNextQuestion) {
+    if (!game || !question) return
+    if (round >= ROUND_SIZE - 1) {
       void finishRound()
+      setGame(null)
+      setDailyMode(false)
+      setDailyChallengeDate('')
+      setQuestion(null)
+      setSessionId(null)
       return
     }
-    setRound((current) => current + 1)
+    const nextRound = round + 1
+    setRound(nextRound)
     setSelected(null)
-    setAnswerStatus('idle')
-    setAnswerError(null)
-    setInputValue('')
-    setQuestion(pendingNextQuestion)
-    setPendingNextQuestion(null)
+    setQuestion(sessionQuestions[nextRound] ?? null)
+  }
+
+  function reset() {
+    resetGameProgress()
+    setGame(null)
+    setDailyMode(false)
+    setDailyChallengeDate('')
+    setQuestion(null)
+    setSessionId(null)
+    setSessionQuestions([])
+    setAnswers([])
+    setRound(0)
+    setRoundScore(0)
+    setSelected(null)
+    setNewAchievements([])
   }
 
   return (
-    <main className="juba-games space-y-5" dir={direction}>
+    <main className="juba-games" dir={direction}>
       <section className="games-shell">
         <header className="games-header">
           <div>
             <div className="games-brand">{t.title}</div>
             <h1>{t.subtitle}</h1>
           </div>
+          <div className="language-control">
+            <span>{t.lang}</span>
+            {(['ar', 'fr', 'en'] as Lang[]).map((value) => (
+              <button key={value} className={lang === value ? 'active' : ''} onClick={() => setLang(value)}>
+                {value.toUpperCase()}
+              </button>
+            ))}
+          </div>
         </header>
 
-        <section className="stats-grid" aria-label={t.stats}>
+        <section className="stats-grid" aria-label="progress">
           <div><span>⭐</span><strong>{xp}</strong><small>{t.points}</small></div>
           <div><span>🔥</span><strong>{streak}</strong><small>{t.streak}</small></div>
           <div><span>🏆</span><strong>{level}</strong><small>{t.level}</small></div>
@@ -695,16 +243,10 @@ export default function GamesPage() {
 
         {!game ? (
           <>
-            {gameError && (
-              <div className="feedback" role="alert">
-                <strong>{lang === 'ar' ? 'تعذر تحميل اللعبة' : lang === 'fr' ? 'Impossible de charger le jeu' : 'Unable to load the game'}</strong>
-                <span>{gameError}</span>
-              </div>
-            )}
             <div className="achievement-toast" style={{ display: newAchievements.length ? 'block' : 'none' }}>
               🏅 <strong>{t.newBadge}</strong> {newAchievements.map((id) => ACHIEVEMENTS[id].title).join(' · ')}
             </div>
-            <button type="button" className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} onClick={() => startGame(dailyGame, true)} disabled={dailyCompletedToday} aria-disabled={dailyCompletedToday}>
+            <button className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} onClick={() => startGame(dailyGame, true)} disabled={dailyCompletedToday} aria-disabled={dailyCompletedToday}>
               <span className="daily-icon">📅</span>
               <span><strong>{t.daily}</strong><small>{t.dailyDesc}</small></span>
               <span className="start">{dailyCompletedToday ? '✓' : t.start} {dailyCompletedToday ? '' : '→'}</span>
@@ -712,72 +254,12 @@ export default function GamesPage() {
 
             <div className="section-heading">
               <h2>{t.games}</h2>
+              <button className="reset" onClick={reset}>{t.reset}</button>
             </div>
-
-            {smartReview.due_count > 0 && smartReview.recommended_game && (
-              <button
-                type="button"
-                className="daily-challenge"
-                onClick={() => startGame('review_mix', false, true)}
-              >
-                <span className="daily-icon">🧠</span>
-                <span>
-                  <strong>{smartReviewTitle}</strong>
-                  <small>{smartReviewDesc} · {smartReviewMixed} · {smartReview.due_count} {lang === 'ar' ? 'مراجعات مستحقة' : lang === 'fr' ? 'révisions dues' : 'due reviews'}</small>
-                </span>
-                <span className="start">{smartReviewStart} →</span>
-              </button>
-            )}
-
-            {smartReview.due_count > 0 && smartReview.items.length > 0 && (
-              <section className="games-panel smart-review-queue" aria-label={smartReviewTitle}>
-                <div className="section-heading">
-                  <div>
-                    <h3>{smartReviewTitle}</h3>
-                    <small>
-                      {smartReview.due_count} {lang === 'ar' ? 'عنصرًا مستحقًا الآن' : lang === 'fr' ? 'éléments dus maintenant' : 'items due now'}
-                      {smartReview.cefr_level ? ' · CEFR ' + smartReview.cefr_level : ''}
-                    </small>
-                  </div>
-                </div>
-                <div className="mini-stats">
-                  <button type="button" className={reviewSkillFilter === 'all' ? 'active' : ''} onClick={() => setReviewSkillFilter('all')}>
-                    <b>{smartReview.due_count}</b>{lang === 'ar' ? 'الكل' : lang === 'fr' ? 'Tout' : 'All'}
-                  </button>
-                  {Object.entries(smartReview.skills).map(([skill, count]) => (
-                    <button type="button" key={skill} className={reviewSkillFilter === skill ? 'active' : ''} onClick={() => setReviewSkillFilter(skill)}>
-                      <b>{count}</b>{skill}
-                    </button>
-                  ))}
-                </div>
-                <div className="smart-review-list">
-                  {smartReview.items
-                    .filter((item) => reviewSkillFilter === 'all' || item.skill === reviewSkillFilter)
-                    .slice(0, 8)
-                    .map((item) => (
-                      <div key={item.review_key} className="smart-review-item">
-                        <span className="smart-review-skill">
-                          {item.skill}{item.topic ? ' · ' + item.topic : ''} · CEFR {item.cefr_level || smartReview.cefr_level || '—'}
-                        </span>
-                        <strong>{item.prompt}</strong>
-                        <div className="smart-review-meta">
-                          <span className={`smart-review-priority priority-${item.priority}`}>
-                            {item.priority === 'high' ? '🔥' : item.priority === 'medium' ? '⚡' : '✓'} {item.priority}
-                          </span>
-                          <span className={'mastery-state mastery-' + (item.mastery_state || 'learning')}>{masteryLabel(item.mastery_state || 'learning').icon} {masteryLabel(item.mastery_state || 'learning').label}</span>
-                          <span>{Math.round(item.mastery * 100)}% {lang === 'ar' ? 'إتقان' : lang === 'fr' ? 'maîtrise' : lang === 'es' ? 'dominio' : lang === 'de' ? 'Beherrschung' : lang === 'it' ? 'padronanza' : lang === 'pt' ? 'domínio' : lang === 'pl' ? 'opanowanie' : lang === 'nl' ? 'beheersing' : lang === 'ro' ? 'stăpânire' : lang === 'ru' ? 'освоение' : 'mastery'}</span>
-                          <span>
-                            {reviewStageLabel(item.review_stage)} · {lang === 'ar' ? `نجاحات متتالية: ${item.review_streak}` : lang === 'fr' ? `réussites consécutives : ${item.review_streak}` : `success streak: ${item.review_streak}`}
-                          </span>
-                        </div>
-                      </div>                    ))}
-                </div>
-              </section>
-            )}
 
             <section className="game-grid">
               {gameCards.map((card) => (
-                <button type="button" key={card.id} className="game-card" onClick={() => startGame(card.id)}>
+                <button key={card.id} className="game-card" onClick={() => startGame(card.id)}>
                   <span className="game-icon">{card.icon}</span>
                   <span className="game-title">{card.title}</span>
                   <span className="game-desc">{card.desc}</span>
@@ -821,150 +303,32 @@ export default function GamesPage() {
           </>
         ) : (
           <section className="play-card">
-            <button type="button" className="back" onClick={() => { setGame(null); setDailyMode(false); setQuestion(null); setSessionId(null); setInputValue(''); setRoundResult(null) }}>← {t.back}</button>
-            <div className="round-meta">
-              {dailyMode ? `📅 ${t.daily} · ` : ''}
-              {round + 1} / {ROUND_SIZE} · +XP · D{effectiveDifficulty}
-              {(adaptiveMode === 'review' || adaptiveMode === 'skill_review') && (
-                <span> · {adaptiveMode === 'skill_review'
-                  ? (lang === 'ar' ? '🎯 مراجعة مهارة ضعيفة' : lang === 'fr' ? '🎯 Révision d’une compétence faible' : '🎯 Weak-skill review')
-                  : (lang === 'ar' ? '🧠 مراجعة الأخطاء' : lang === 'fr' ? '🧠 Révision ciblée' : '🧠 Smart review')}</span>
-              )}
-              {(adaptiveMode === 'challenge' || adaptiveMode === 'skill_challenge') && (
-                <span> · {adaptiveMode === 'skill_challenge'
-                  ? (lang === 'ar' ? '🚀 تحدي مهارة متقنة' : lang === 'fr' ? '🚀 Défi d’une compétence maîtrisée' : '🚀 Mastery challenge')
-                  : (lang === 'ar' ? '⚡ تحدٍ متقدم' : lang === 'fr' ? '⚡ Défi avancé' : '⚡ Advanced challenge')}</span>
-              )}
-            </div>
+            <button className="back" onClick={() => { setGame(null); setDailyMode(false) }}>← {t.back}</button>
+            <div className="round-meta">{dailyMode ? `📅 ${t.daily} · ` : ''}{round + 1} / {ROUND_SIZE} · +XP</div>
             {question && (
               <>
                 <h2 style={{ whiteSpace: 'pre-line' }}>{question.prompt}</h2>
-                {game === 'quick_choice' && !selected && <div className="quick-timer" aria-live="polite">⏱ {timeLeft}s</div>}
-                {(game === 'listen_choose' || game === 'listening_detective') && (
-                  <button type="button" className="audio-play" onClick={playAudio}>🎧 {lang === 'ar' ? 'تشغيل الصوت' : lang === 'fr' ? 'Écouter' : 'Play audio'}</button>
-                )}
-                {question.input_mode === 'text' ? (
-                  <>
-                    {question.skill === 'speaking' && (
-                      <div className="speaking-controls" aria-label={speechCopy[lang].label}>
-                        {speechSupported ? (
-                          <button
-                            type="button"
-                            className={`audio-play speech-button${speechListening ? ' listening' : ''}`}
-                            onClick={speechListening ? stopSpeechInput : startSpeechInput}
-                            disabled={Boolean(selected)}
-                          >
-                            {speechListening ? '⏹️ ' : '🎙️ '}
-                            {speechListening ? speechCopy[lang].stop : speechCopy[lang].start}
-                          </button>
-                        ) : (
-                          <small>{speechCopy[lang].fallback}</small>
-                        )}
-                        {speechError && (
-                          <small role="alert">{speechCopy[lang].error}</small>
-                        )}
-                      </div>
-                    )}
-                    <form className="spelling-form" onSubmit={(event) => { event.preventDefault(); submitTextAnswer() }}>
-                      <input value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder={question.skill === 'speaking' ? speechCopy[lang].type : (lang === 'ar' ? 'اكتب الإجابة' : lang === 'fr' ? 'Écris ta réponse' : 'Type your answer')} autoComplete="off" disabled={Boolean(selected) || speechListening} />
-                      <button type="submit" className="next" disabled={Boolean(selected) || speechListening || !inputValue.trim()}>{gameFeedback.check}</button>
-                    </form>
-                  </>
-                ) : (
-                  <>
-                    <p className="choose">{t.choose}</p>
-                    <div className="choices">
-                      {question.choices.map((choice) => {
-                        const state = selected === choice ? 'selected' : ''
-                        return (
-                          <button type="button" key={choice} className={`choice ${state}`} onClick={() => answer(choice)} disabled={Boolean(selected)}>
-                            {choice}
-                          </button>
-                        )
-                      })}
-                    </div>
-                  </>
-                )}
-                {answerStatus === 'submitting' && (
-                  <div className="feedback" role="status">
-                    <strong>…</strong>
-                    <span>{gameFeedback.checking}</span>
+                <p className="choose">{t.choose}</p>
+                <div className="choices">
+                  {question.choices.map((choice) => {
+                    const state = selected === choice ? 'selected' : ''
+                    return (
+                      <button key={choice} className={`choice ${state}`} onClick={() => answer(choice)}>
+                        {choice}
+                      </button>
+                    )
+                  })}
+                </div>
+                {selected && (
+                  <div className="feedback good">
+                    <strong>{t.answered}</strong>
+                    <span>{question.hint}</span>
                   </div>
                 )}
-                {answerStatus === 'wrong' && (
-                  <div className="feedback" role="alert">
-                    <strong>{t.wrong}</strong>
-                    <span>{gameFeedback.retry}</span>
-                    {question.hint && <small>{question.hint}</small>}
-                  </div>
-                )}
-                {answerError && <div className="feedback" role="alert"><span>{answerError}</span></div>}
-                {answerStatus === 'correct' && selected && (
-                  <>
-                    <div className="feedback good">
-                      <strong>{t.correct}</strong>
-                      <span>{question.hint || t.answered}</span>
-                    </div>
-                    <button type="button" className="next" onClick={next} disabled={finishing}>
-                      {round >= ROUND_SIZE - 1 ? (finishing ? '…' : t.done) : t.next} →
-                    </button>
-                  </>
-                )}
+                {selected && <button className="next" onClick={next}>{round >= ROUND_SIZE - 1 ? t.done : t.next} →</button>}
               </>
             )}
             <div className="round-score">{t.score}: <strong>{roundScore}</strong></div>
-            {roundResult && (
-              <div className="feedback good" role="status">
-                <strong>{gameFeedback.roundResult}</strong>
-                <span>
-                  {roundResult.correct}/{roundResult.questions} · {roundResult.score} pts · +{roundResult.xp} XP
-                </span>
-                {Object.keys(roundResult.skillResults).length > 0 && (
-                  <div className="smart-review-meta" aria-label={t.skills}>
-                    {Object.entries(roundResult.skillResults).map(([skill, result]) => (
-                      <span key={skill}>
-                        <strong>{skill}</strong>: {result.correct}/{result.questions} ({Math.round(result.accuracy * 100)}%)
-                        {typeof result.mastery_before === 'number' && typeof result.mastery_after === 'number' && (
-                          <> · {Math.round(result.mastery_before * 100)}% → {Math.round(result.mastery_after * 100)}%
-                            {typeof result.mastery_delta === 'number' && (
-                              <> ({result.mastery_delta >= 0 ? '+' : ''}{Math.round(result.mastery_delta * 100)}%)</>
-                            )}
-                          </>
-                        )}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                {reviewContinueAvailable && smartReview.recommended_game && (
-                  <button
-                    type="button"
-                    className="next"
-                    onClick={() => {
-                      setRoundResult(null)
-                      setReviewContinueAvailable(false)
-                      void startGame(smartReview.recommended_game as GameId, false, true)
-                    }}
-                  >
-                    🧠 {lang === 'ar' ? 'المراجعة التالية' : lang === 'fr' ? 'Révision suivante' : lang === 'es' ? 'Siguiente repaso' : lang === 'de' ? 'Nächste Wiederholung' : lang === 'it' ? 'Ripasso successivo' : lang === 'pt' ? 'Próxima revisão' : lang === 'pl' ? 'Następna powtórka' : lang === 'nl' ? 'Volgende herhaling' : lang === 'ro' ? 'Următoarea revizuire' : lang === 'ru' ? 'Следующее повторение' : 'Continue smart review'} →
-                  </button>
-                )}
-                <button
-                  type="button"
-                  className="next"
-                  onClick={() => {
-                    setGame(null)
-                    setDailyMode(false)
-                    setDailyChallengeDate('')
-                    setQuestion(null)
-                    setSessionId(null)
-                    setRoundResult(null)
-                    setAnswers([])
-                  }}
-                >
-                  {t.back} →
-                </button>
-              </div>
-            )}
           </section>
         )}
       </section>
