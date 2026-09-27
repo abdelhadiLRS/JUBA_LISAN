@@ -1331,3 +1331,181 @@ html[dir='rtl'] body {
     padding: 18px !important;
   }
 }
+
+
+/* Flashcards — exact JUBA LISAN learning language applied to the existing
+   spaced-repetition surface. Data, review actions and generation logic stay intact. */
+.juba-mobile-flashcards {
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+  max-width: 980px !important;
+}
+
+.juba-mobile-flashcards > div {
+  border-color: var(--juba-learning-border) !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+  border-radius: 20px !important;
+  background: #fff !important;
+}
+
+.juba-mobile-flashcards h1,
+.juba-mobile-flashcards p,
+.juba-mobile-flashcards label {
+  color: var(--juba-learning-ink);
+}
+
+.juba-mobile-flashcards h1 {
+  font-weight: 900 !important;
+  letter-spacing: -.02em !important;
+}
+
+.juba-mobile-flashcards [class*='text-\[var\(--juba-muted\)\]'] {
+  color: var(--juba-learning-muted) !important;
+}
+
+.juba-mobile-flashcards [class*='text-\[var\(--juba-text\)\]'] {
+  color: var(--juba-learning-ink) !important;
+}
+
+/* Primary actions: same dimensional green control used throughout the app. */
+.juba-mobile-flashcards button.bg-\[var\(--juba-violet-dark\)\],
+.juba-mobile-flashcards button[class*='bg-\[var\(--juba-violet-dark\)\]'] {
+  background: var(--juba-learning-green) !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 0 var(--juba-learning-green-dark) !important;
+  color: #fff !important;
+  font-weight: 900 !important;
+}
+.juba-mobile-flashcards button.bg-\[var\(--juba-violet-dark\)\]:hover,
+.juba-mobile-flashcards button[class*='bg-\[var\(--juba-violet-dark\)\]']:hover {
+  transform: translateY(1px);
+  box-shadow: 0 3px 0 var(--juba-learning-green-dark) !important;
+}
+
+/* Secondary controls. */
+.juba-mobile-flashcards a,
+.juba-mobile-flashcards button {
+  font-family: inherit !important;
+}
+.juba-mobile-flashcards a[class*='border-[var(--juba-lilac)]'],
+.juba-mobile-flashcards button[class*='border-[var(--juba-lilac)]'] {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 14px !important;
+}
+.juba-mobile-flashcards a[class*='border-[var(--juba-lilac)]']:hover,
+.juba-mobile-flashcards button[class*='border-[var(--juba-lilac)]']:hover {
+  background: var(--juba-learning-green-soft) !important;
+  border-color: var(--juba-learning-green) !important;
+}
+
+/* Generate panel and fields. */
+.juba-mobile-flashcards input,
+.juba-mobile-flashcards select {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+  font-weight: 700 !important;
+}
+.juba-mobile-flashcards input:focus,
+.juba-mobile-flashcards select:focus {
+  border-color: var(--juba-learning-blue) !important;
+  box-shadow: 0 0 0 3px rgba(28,176,246,.15) !important;
+  outline: none !important;
+}
+
+/* Session progress. */
+.juba-mobile-flashcards .h-1\.5 {
+  background: #e9e9e9 !important;
+}
+.juba-mobile-flashcards .h-full.rounded-full {
+  background: var(--juba-learning-green) !important;
+}
+
+/* Review card: make the learning object the visual focus. */
+.juba-mobile-flashcards .juba-card {
+  min-height: 330px !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 22px !important;
+  background: #fff !important;
+  box-shadow: 0 4px 0 rgba(0,0,0,.07) !important;
+  transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease !important;
+}
+.juba-mobile-flashcards .juba-card:hover {
+  border-color: var(--juba-learning-green) !important;
+  transform: translateY(-1px) !important;
+}
+.juba-mobile-flashcards .juba-card > div:first-child {
+  border-color: var(--juba-learning-border) !important;
+  background: #fff !important;
+}
+.juba-mobile-flashcards .juba-card [class*='text-3xl'] {
+  font-size: clamp(2.2rem, 6vw, 3.5rem) !important;
+  line-height: 1.15 !important;
+  font-weight: 900 !important;
+  color: var(--juba-learning-ink) !important;
+}
+
+/* Four review outcomes: tactile, explicit states. */
+.juba-mobile-flashcards .grid.grid-cols-2 button {
+  min-height: 54px !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-bottom-width: 4px !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  font-weight: 900 !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,.02) !important;
+}
+.juba-mobile-flashcards .grid.grid-cols-2 button:hover {
+  background: var(--juba-learning-green-soft) !important;
+  border-color: var(--juba-learning-green) !important;
+  transform: translateY(-1px);
+}
+
+/* Mode switch. */
+.juba-mobile-flashcards .inline-flex.rounded-\[20px\] {
+  border: 2px solid var(--juba-learning-border) !important;
+  background: #f7f7f7 !important;
+}
+.juba-mobile-flashcards .inline-flex.rounded-\[20px\] button.bg-\[white\] {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 0 rgba(0,0,0,.06) !important;
+}
+
+/* Speaking mode. */
+.juba-mobile-flashcards .border-2.border-\[var\(--juba-lilac\)\].bg-white {
+  border-color: var(--juba-learning-border) !important;
+  border-radius: 22px !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+.juba-mobile-flashcards .border-\[var\(--juba-lilac\)\] {
+  border-color: var(--juba-learning-border) !important;
+}
+
+/* Empty state. */
+.juba-mobile-flashcards button {
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease !important;
+}
+.juba-mobile-flashcards button:focus-visible,
+.juba-mobile-flashcards a:focus-visible {
+  outline: 3px solid var(--juba-learning-blue) !important;
+  outline-offset: 3px !important;
+}
+
+@media (max-width: 767px) {
+  .juba-mobile-flashcards {
+    padding: 14px 12px 90px !important;
+  }
+  .juba-mobile-flashcards > div {
+    border-radius: 18px !important;
+  }
+  .juba-mobile-flashcards .juba-card {
+    min-height: 290px !important;
+    border-radius: 18px !important;
+  }
+  .juba-mobile-flashcards .juba-card [class*='text-3xl'] {
+    font-size: 2.35rem !important;
+  }
+}
