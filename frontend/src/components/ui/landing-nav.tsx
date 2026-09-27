@@ -191,6 +191,7 @@ export function LandingNav({
                   href={code === 'en' ? '/' : `/${code}`}
                   aria-current={code === locale ? 'page' : undefined}
                   lang={code}
+                  dir="auto"
                   hrefLang={code}
                 >
                   {label}
