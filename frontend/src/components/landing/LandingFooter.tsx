@@ -1,14 +1,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ContactButton } from '@/components/ui/contact-button'
+import type { Locale } from '@/lib/locales'
 
 interface LandingFooterProps {
   t: (key: string) => string
   dir?: 'ltr' | 'rtl'
+  locale?: Locale
   showReviews?: boolean
 }
 
-export function LandingFooter({ t, dir = 'ltr', showReviews = false }: LandingFooterProps) {
+export function LandingFooter({ t, dir = 'ltr', locale = 'en', showReviews = false }: LandingFooterProps) {
   const footerLanguages = [
     ['English', 'en'], ['Français', 'fr'], ['Español', 'es'], ['Deutsch', 'de'],
     ['Italiano', 'it'], ['Português', 'pt'], ['العربية', 'ar'], ['Русский', 'ru'],
@@ -68,7 +70,13 @@ export function LandingFooter({ t, dir = 'ltr', showReviews = false }: LandingFo
           </div>
           <nav className="juba-busuu-footer-language-list" aria-labelledby="juba-busuu-footer-language-heading">
             {footerLanguages.map(([label, code]) => (
-              <Link key={code} href={code === 'en' ? '/' : `/${code}`} lang={code} dir="auto">
+              <Link
+                key={code}
+                href={code === 'en' ? '/' : `/${code}`}
+                lang={code}
+                dir="auto"
+                aria-current={code === locale ? 'page' : undefined}
+              >
                 {label}
               </Link>
             ))}
