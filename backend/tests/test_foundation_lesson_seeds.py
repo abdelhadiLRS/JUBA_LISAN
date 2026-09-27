@@ -901,6 +901,19 @@ def test_en_gb_c1_analytical_examples_are_contextual_and_reusable():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 18
 
+def test_foundation_fallback_seed_has_a_complete_practice_to_transfer_sequence():
+    """Fallback lessons should progress from meaning to controlled practice, retrieval, transfer, and reflection."""
+    seed = get_foundation_lesson_seed("en_GB", "A1", "unit-1", "speaking")
+    assert seed is not None
+    quality = seed["content_quality"]
+    assert len(quality["meaning_check"]) >= 2
+    assert len(quality["controlled_practice"]) >= 2
+    assert quality["retrieval_sequence"]
+    assert quality["transfer_task"]
+    assert "without copying the model" in quality["transfer_task"]
+    assert quality["reflection_prompt"]
+
+
 def test_foundation_fallback_seed_has_a_complete_learning_sequence():
     """Fallback lessons should connect input, retrieval, and production."""
     from app.services.foundation_lesson_seeds import get_foundation_lesson_seed
