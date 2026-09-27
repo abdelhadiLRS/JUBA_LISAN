@@ -51,21 +51,21 @@ const LANGUAGES: Language[] = [
 
 export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   return (
-    <section dir={dir} aria-label="Languages available in JUBA LISAN" className="w-full rounded-[28px] border border-[#e7e8ef] bg-white/95 p-4 shadow-[0_16px_38px_rgba(32,33,58,.09)] sm:p-6">
+    <section dir={dir} aria-label="Languages available in JUBA LISAN" className="juba-landing-language-bubbles w-full rounded-[28px] border border-[#dfe9da] bg-white p-4 shadow-[0_8px_0_rgba(70,169,0,.08)] sm:p-6">
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
-          <p className="text-[10px] font-black uppercase tracking-[.18em] text-[#635bff]">Explore languages</p>
-          <h3 className="mt-1 text-xl font-black tracking-tight text-[#202127] sm:text-2xl">Search the world. {LANGUAGES.length} languages.</h3>
+          <p className="text-[10px] font-black uppercase tracking-[.18em] text-[#46a900]">Explore languages</p>
+          <h3 className="mt-1 text-xl font-black tracking-tight text-[#252525] sm:text-2xl">Search the world. {LANGUAGES.length} languages.</h3>
         </div>
-        <span className="rounded-full bg-[#eeedff] px-3 py-1.5 text-[10px] font-extrabold text-[#635bff]">{LANGUAGES.length} languages</span>
+        <span className="rounded-full bg-[#f3fbe9] px-3 py-1.5 text-[10px] font-extrabold text-[#46a900]">{LANGUAGES.length} languages</span>
       </div>
       <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
         {LANGUAGES.map((language) => (
           <div
             key={language.code}
-            className={`group flex min-w-0 items-center gap-3 rounded-2xl border border-[#e9eaf2] bg-white px-3 py-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#c9c7ff] hover:bg-[#f8f7ff] hover:shadow-[0_8px_20px_rgba(32,33,58,.07)] ${dir === 'rtl' ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}
+            className={`group flex min-w-0 items-center gap-3 rounded-2xl border border-[#dfe9da] bg-white px-3 py-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#58cc02] hover:bg-[#f3fbe9] hover:shadow-[0_5px_0_rgba(70,169,0,.12)] ${dir === 'rtl' ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}
           >
-            <div className="relative h-11 w-[62px] shrink-0 overflow-hidden rounded-lg border border-black/5 bg-[#f3f4f8] shadow-sm">
+            <div className="relative h-11 w-[62px] shrink-0 overflow-hidden rounded-lg border border-black/5 bg-[#f3fbe9] shadow-sm">
               <Image
                 src={`https://flagcdn.com/w160/${language.country}.png`}
                 alt={`${language.alt} flag`}
@@ -75,7 +75,7 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
                 className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </div>
-            <span lang={language.code} dir="auto" className="min-w-0 flex-1 break-words text-sm font-extrabold text-[#202127]">
+            <span lang={language.code} dir="auto" className="min-w-0 flex-1 break-words text-sm font-extrabold text-[#252525]">
               {language.name}
             </span>
           </div>
