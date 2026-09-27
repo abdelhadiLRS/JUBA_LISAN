@@ -144,7 +144,7 @@ export default async function Home() {
 
       <section className="juba-busuu-stats" aria-label={t('featureSectionLabel')}>
         <div className="juba-busuu-container juba-busuu-stats-grid">
-          <article><strong>11</strong><span>{t('supportedLanguages')}</span></article>
+          <article><strong>42</strong><span>{t('supportedLanguages')}</span></article>
           <article><strong>A1–C2</strong><span>{t('proofCefr')}</span></article>
           <article><strong>AI</strong><span>{t('proofTutor')}</span></article>
           <article><strong>VOICE</strong><span>{t('proofVoice')}</span></article>
