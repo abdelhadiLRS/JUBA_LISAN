@@ -1648,3 +1648,70 @@ html[dir='rtl'] body {
   .juba-page-shell .juba-primary-button,
   .juba-page-shell .juba-secondary-button { min-height: 46px !important; }
 }
+
+
+/* Friends chat — keep the conversation inside the same JUBA LISAN learning language. */
+.juba-chat {
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-chat .juba-icon-button {
+  display: inline-flex !important;
+  width: 42px !important;
+  height: 42px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 13px !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+  box-shadow: 0 3px 0 rgba(0,0,0,.06) !important;
+}
+.juba-chat .juba-icon-button:hover {
+  border-color: var(--juba-learning-green) !important;
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-chat-header > div:nth-child(2) {
+  border: 2px solid var(--juba-learning-border) !important;
+  box-shadow: 0 2px 0 rgba(0,0,0,.05) !important;
+}
+.juba-chat-header h1 { font-weight: 900 !important; letter-spacing: -.02em !important; }
+.juba-chat-header p { font-weight: 700 !important; }
+.juba-chat-panel {
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 22px !important;
+}
+.juba-chat-messages {
+  background: #f7f7f7 !important;
+  scrollbar-width: thin;
+}
+.juba-chat-messages > div:not(:first-child) { scroll-margin-bottom: 16px; }
+.juba-chat-messages .bg-\[\#39751d\] {
+  background: var(--juba-learning-green) !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  box-shadow: 0 3px 0 var(--juba-learning-green-dark) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+.juba-chat-messages .border-\[var\(--juba-border\)\] {
+  border: 2px solid var(--juba-learning-border) !important;
+  box-shadow: 0 2px 0 rgba(0,0,0,.04) !important;
+}
+.juba-chat-messages .rounded-2xl { border-radius: 17px !important; }
+.juba-chat-composer {
+  background: #fff !important;
+  border-top: 2px solid var(--juba-learning-border) !important;
+}
+.juba-chat-composer .juba-input {
+  min-height: 50px !important;
+  padding-inline: 15px !important;
+}
+@media (max-width: 767px) {
+  .juba-chat { height: calc(100dvh - 82px) !important; padding: 12px 10px 78px !important; }
+  .juba-chat-panel { border-radius: 19px !important; }
+  .juba-chat-messages { padding: 14px !important; }
+  .juba-chat-messages .max-w-\[78\%\] { max-width: 88% !important; }
+  .juba-chat-composer { padding: 10px !important; }
+  .juba-chat-composer .juba-primary-button { min-width: 48px !important; padding-inline: 12px !important; }
+}
