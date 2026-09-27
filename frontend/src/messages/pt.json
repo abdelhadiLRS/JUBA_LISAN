@@ -89,8 +89,7 @@
     "dashboardXp": "Total XP",
     "dashboardMasteredWords": "Mastered Words",
     "dashboardCurrentUnit": "Current Unit",
-    "skipToContent": "Ir para o conteúdo"
-  ,
+    "skipToContent": "Ir para o conteúdo",
     "homeLabel": "JUBA LISAN home",
     "brandTagline": "Learn · Speak · Grow",
     "proofCefr": "CEFR-aligned learning",
@@ -163,8 +162,13 @@
     "regionEurope": "Europe",
     "regionAfricaMiddleEast": "Africa & Middle East",
     "regionAsia": "Asia",
-    "regionPacific": "Pacific"
-},
+    "regionPacific": "Pacific",
+    "appCtaTitle": "Aprenda em qualquer lugar com o JUBA LISAN",
+    "appCtaDescription": "Mantenha a sua prática de idiomas sempre por perto. Continue as lições, conversas com IA, exercícios de compreensão oral e acompanhe o seu progresso onde quer que esteja.",
+    "appCtaNote": "Experiência web · Pensada para ecrãs móveis",
+    "onlineLanguagesTitle": "Aprenda idiomas online",
+    "onlineLanguagesDescription": "Escolha um idioma e explore a experiência de aprendizagem disponível no JUBA LISAN."
+  },
   "common": {
     "loading": "Carregando...",
     "error": "Erro",
