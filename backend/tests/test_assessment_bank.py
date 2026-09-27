@@ -238,3 +238,17 @@ class TestGetAssessmentBank:
             question = questions[question_id]
             assert question.correct in question.options
             assert len(set(question.options)) == 4
+
+
+    def test_en_gb_advanced_vocabulary_prompts_use_realistic_context(self):
+        from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+        questions = {question.id: question.question for question in ASSESSMENT_BANK}
+        expected = {
+            "v-b2-007": "company made substantial progress after six months of testing",
+            "v-c1-006": "strict procurement rule",
+            "v-c2-008": "contract clause can be read in two different ways",
+        }
+        for question_id, context in expected.items():
+            assert context in questions[question_id]
+            assert questions[question_id].strip()
