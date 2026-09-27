@@ -220,6 +220,40 @@ def get_foundation_lesson_seed(
 
     # Keep each skill aligned to the same learning cycle while making the
     # learner action specific to the skill rather than relying on raw data.
+    base["evidence_requirements"] = {
+        "grammar": [
+            "Accurately produce the target form in a new sentence.",
+            "Explain the key form-meaning relationship briefly.",
+        ],
+        "vocabulary": [
+            "Recall target meaning without the original example.",
+            "Use a target word with a natural collocation in a changed context.",
+        ],
+        "reading": [
+            "Identify the main idea and support one answer with text evidence.",
+            "Infer one meaning or relationship from context rather than copying a sentence.",
+        ],
+        "listening": [
+            "Identify the gist before answering detail questions.",
+            "Report one heard detail accurately without relying on the transcript.",
+        ],
+        "speaking": [
+            "Produce the target language without reading the model.",
+            "Handle one follow-up, repair, or clarification move.",
+        ],
+        "writing": [
+            "Draft a connected response using target language.",
+            "Revise at least one sentence for meaning, grammar, or register.",
+        ],
+        "review": [
+            "Retrieve earlier target language without the original model.",
+            "Distinguish between two related forms or meanings before applying them.",
+        ],
+    }.get(skill, [
+        "Use target language accurately in a changed context.",
+        "Show evidence that the target language can be retrieved independently.",
+    ])
+
     base["skill_quality"] = {
         "grammar": {
             "focus": "notice -> controlled use -> contrast -> independent production",
