@@ -1076,7 +1076,7 @@ html[data-theme='light'] {
 .juba-mobile-feedback [class*="hover:border-[#5862e2]"]:hover{border-color:#58a700!important}
 .juba-mobile-feedback input,.juba-mobile-feedback textarea,.juba-mobile-feedback select{border-color:#e1e5e2!important;border-radius:12px!important;background:#fff!important;font-family:inherit!important}
 .juba-mobile-feedback input:focus,.juba-mobile-feedback textarea:focus,.juba-mobile-feedback select:focus{border-color:#58a700!important;box-shadow:0 0 0 4px rgba(88,167,0,.12)!important;outline:0!important}
-.juba-mobile-feedback .text-[#5862e2]{color:#438600!important}
+.juba-mobile-feedback [class~="text-[#5862e2]"]{color:#438600!important}
 .juba-mobile-conversation{background:#f8faf7!important;min-height:100%!important}
 .juba-mobile-conversation .card{background:#fff!important;border-color:#e5e7eb!important;border-radius:20px!important;box-shadow:0 3px 0 rgba(31,41,51,.045)!important}
 @media(max-width:767px){.juba-mobile-faq{padding:18px 10px 72px!important}.juba-mobile-feedback .container-xl{padding-left:10px!important;padding-right:10px!important}.juba-mobile-conversation{padding-bottom:72px!important}}
