@@ -19,8 +19,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   openGraph: {
     title: 'JUBA LISAN: AI-Powered Language Learning Platform',
-    description:
-      'Learn languages naturally with your personal AI tutor.',
+    description: 'Learn languages naturally with your personal AI tutor.',
     url: 'https://jubalisan.com',
     type: 'website',
     images: [{ url: '/og-image-v2.png', width: 1200, height: 630, alt: 'JUBA LISAN' }],
@@ -133,16 +132,13 @@ export default async function Home() {
             <h2 id="language-title">{t('languagesHeadline')}</h2>
             <p>{t('languagesDescription')}</p>
           </div>
-          <div className="juba-busuu-language-panel"><div className="juba-busuu-language-prompt"><span>{t('languagesEyebrow')}</span><strong>{t('languagesHeadline')}</strong></div><LanguageBubbles dir={rtl ? 'rtl' : 'ltr'} /></div>
-        </div>
-      </section>
-
-      <section className="juba-busuu-proof" aria-labelledby="capabilities-title">
-          <h2 id="capabilities-title" className="sr-only">{t('featureSectionLabel')}</h2>
-        <div className="juba-busuu-container juba-busuu-proof-grid">
-          <div><strong>CEFR</strong><span>{t('proofCefr')}</span></div>
-          <div><strong>AI</strong><span>{t('proofTutor')}</span></div>
-          <div><strong>VOICE</strong><span>{t('proofVoice')}</span></div>
+          <div className="juba-busuu-language-panel">
+            <div className="juba-busuu-language-prompt">
+              <span>{t('languagesEyebrow')}</span>
+              <strong>{t('languagesHeadline')}</strong>
+            </div>
+            <LanguageBubbles dir={rtl ? 'rtl' : 'ltr'} />
+          </div>
         </div>
       </section>
 
@@ -154,9 +150,24 @@ export default async function Home() {
             <p>{t('bentoSubtitle')}</p>
           </div>
           <div className="juba-busuu-feature-grid">
-            <Link href="/reading" className="juba-busuu-feature"><Image src="/landing/juba-reading.svg" alt="" width={360} height={250} /><span>{t('featureSectionLabel')}</span><h3>{t('feature5Title')}</h3><p>{t('feature5Desc')}</p></Link>
-            <Link href="/chat" className="juba-busuu-feature"><Image src="/landing/juba-chat.svg" alt="" width={360} height={250} /><span>{t('flowAiLabel')}</span><h3>{t('feature2Title')}</h3><p>{t('feature2Desc')}</p></Link>
-            <Link href="/listening" className="juba-busuu-feature"><Image src="/landing/juba-listening.svg" alt="" width={360} height={250} /><span>{t('flowVoiceLabel')}</span><h3>{t('feature3Title')}</h3><p>{t('feature3Desc')}</p></Link>
+            <Link href="/reading" className="juba-busuu-feature">
+              <Image src="/landing/juba-reading.svg" alt="" width={360} height={250} />
+              <span>{t('featureSectionLabel')}</span>
+              <h3>{t('feature5Title')}</h3>
+              <p>{t('feature5Desc')}</p>
+            </Link>
+            <Link href="/chat" className="juba-busuu-feature">
+              <Image src="/landing/juba-chat.svg" alt="" width={360} height={250} />
+              <span>{t('flowAiLabel')}</span>
+              <h3>{t('feature2Title')}</h3>
+              <p>{t('feature2Desc')}</p>
+            </Link>
+            <Link href="/listening" className="juba-busuu-feature">
+              <Image src="/landing/juba-listening.svg" alt="" width={360} height={250} />
+              <span>{t('flowVoiceLabel')}</span>
+              <h3>{t('feature3Title')}</h3>
+              <p>{t('feature3Desc')}</p>
+            </Link>
           </div>
         </div>
       </section>
@@ -164,9 +175,17 @@ export default async function Home() {
       {reviews.length > 0 && (
         <section id="reviews" className="juba-busuu-testimonials" aria-labelledby="reviews-title">
           <div className="juba-busuu-container">
-            <div className="juba-busuu-heading"><span className="juba-busuu-eyebrow">{t('navReviews')}</span><h2 id="reviews-title">{t('navReviews')}</h2></div>
+            <div className="juba-busuu-heading">
+              <span className="juba-busuu-eyebrow">{t('navReviews')}</span>
+              <h2 id="reviews-title">{t('navReviews')}</h2>
+            </div>
             <div className="juba-busuu-testimonial-grid">
-              {reviews.slice(0, 6).map((review) => <article key={review.id} className="juba-busuu-testimonial"><p>“{review.comment ?? ''}”</p><strong>{review.user_display_name || 'JUBA LISAN learner'}</strong></article>)}
+              {reviews.slice(0, 6).map((review) => (
+                <article key={review.id} className="juba-busuu-testimonial">
+                  <p>“{review.comment ?? ''}”</p>
+                  <strong>{review.user_display_name || 'JUBA LISAN learner'}</strong>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -185,15 +204,23 @@ export default async function Home() {
             <span className="juba-busuu-eyebrow">{t('flowEyebrow')}</span>
             <h2 id="practical-title">{t('flowHeadline')}</h2>
             <p>{t('flowDescription')}</p>
-            <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">{hasSession ? t('dashboard') : t('ctaStart')}<ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" /></Link>
+            <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">
+              {hasSession ? t('dashboard') : t('ctaStart')}
+              <ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" />
+            </Link>
           </div>
-          <div className="juba-busuu-practical-media"><Image src="/landing/juba-learning-journey.svg" alt="" width={760} height={620} /></div>
+          <div className="juba-busuu-practical-media">
+            <Image src="/landing/juba-learning-journey.svg" alt="" width={760} height={620} />
+          </div>
         </div>
       </section>
 
       <section className="juba-busuu-benefits" aria-labelledby="benefits-title">
         <div className="juba-busuu-container">
-          <div className="juba-busuu-heading"><span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span><h2 id="benefits-title">{t('builtForLearners')}</h2></div>
+          <div className="juba-busuu-heading">
+            <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
+            <h2 id="benefits-title">{t('builtForLearners')}</h2>
+          </div>
           <div className="juba-busuu-benefit-list">
             <article><BookOpen aria-hidden="true" /><div><h3>{t('feature1Title')}</h3><p>{t('feature1Desc')}</p></div></article>
             <article><MessageCircle aria-hidden="true" /><div><h3>{t('feature6Title')}</h3><p>{t('feature6Desc')}</p></div></article>
@@ -204,26 +231,49 @@ export default async function Home() {
 
       <section id="pricing" className="juba-busuu-pricing">
         <div className="juba-busuu-container">
-          <div className="juba-busuu-heading"><span className="juba-busuu-eyebrow">{t('navPricing')}</span><h2>{t('navPricing')}</h2></div>
-          <PricingSection stripeEnabled={stripeEnabled} trialDays={trialDays} hasSession={hasSession} priceMonthly={priceMonthly} priceYearly={priceYearly} totalPriceMonthly={totalPriceMonthly} totalPriceYearly={totalPriceYearly} />
+          <div className="juba-busuu-heading">
+            <span className="juba-busuu-eyebrow">{t('navPricing')}</span>
+            <h2>{t('navPricing')}</h2>
+          </div>
+          <PricingSection
+            stripeEnabled={stripeEnabled}
+            trialDays={trialDays}
+            hasSession={hasSession}
+            priceMonthly={priceMonthly}
+            priceYearly={priceYearly}
+            totalPriceMonthly={totalPriceMonthly}
+            totalPriceYearly={totalPriceYearly}
+          />
         </div>
       </section>
 
       <section id="faq" className="juba-busuu-faq">
         <div className="juba-busuu-container">
-          <div className="juba-busuu-heading"><span className="juba-busuu-eyebrow">{t('navFAQ')}</span><h2>{t('faqTitle')}</h2></div>
+          <div className="juba-busuu-heading">
+            <span className="juba-busuu-eyebrow">{t('navFAQ')}</span>
+            <h2>{t('faqTitle')}</h2>
+          </div>
           <LandingFAQ dir={rtl ? 'rtl' : 'ltr'} />
         </div>
       </section>
 
       <section className="juba-busuu-final-cta">
         <div className="juba-busuu-container juba-busuu-final-cta-inner">
-          <div><span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span><h2>{t('builtForLearners')}</h2><p>{t('flowDescription')}</p><Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">{hasSession ? t('dashboard') : t('ctaStart')}<ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" /></Link></div>
+          <div>
+            <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
+            <h2>{t('builtForLearners')}</h2>
+            <p>{t('flowDescription')}</p>
+            <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">
+              {hasSession ? t('dashboard') : t('ctaStart')}
+              <ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" />
+            </Link>
+          </div>
           <Image src="/landing/juba-hero-characters.svg" alt="" width={700} height={520} />
         </div>
       </section>
 
       <LandingFooter t={t} dir={rtl ? 'rtl' : 'ltr'} showReviews={reviews.length > 0} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </main>
   )
 }
