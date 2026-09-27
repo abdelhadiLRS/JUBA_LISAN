@@ -48,7 +48,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
 
   useEffect(() => {
     if (!challenge || challenge.type !== mode) return
-    setFirst(null); setLocked(false); setMoves(0); setCompleted(false); setRetryStage('initial')
+    setFirst(null); setLocked(false); setMoves(0); setCompleted(false); setCompletionError(false); setSaving(false); setRetryStage('initial')
     setMemoryTrace([]); setLeft(null); setRight(null); setMatched([]); setMatchingTrace([])
     setOrder([]); setOrderingTrace([])
     if (challenge.type === 'memory') {
@@ -98,7 +98,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
         : ''
 
   function flipCard(index: number) {
-    if (locked || completed || !memoryCards[index] || memoryCards[index].flipped || memoryCards[index].matched) return
+    if (locked || completed || saving || !memoryCards[index] || memoryCards[index].flipped || memoryCards[index].matched) return
     const card = memoryCards[index]
     const next = memoryCards.map((item, i) => i === index ? { ...item, flipped: true } : item)
     setMemoryCards(next)
@@ -145,7 +145,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
   }, [completed, mode, memoryCards, memoryTrace, finish])
 
   function chooseMatching(side: 'left' | 'right', id: string) {
-    if (completed || matched.includes(id)) return
+    if (completed || saving || matched.includes(id)) return
     if (side === 'left') setLeft(id); else setRight(id)
   }
 
@@ -220,7 +220,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
       {challenge?.type === 'matching' && <>
         <p className="interactive-instruction">{t.chooseLeft} → {t.chooseRight}</p>
         <div className="matching-board">{retryInstruction && <p className="interactive-retry" role="status">{retryInstruction}</p>}
-          <div>{challenge.left.map(item => <button key={item.id} type="button" disabled={matched.includes(item.id)} className={`match-option ${left === item.id ? 'selected' : ''} ${matchingRetryCount(item.id) >= 2 ? 'retry-focus' : ''}`} onClick={() => chooseMatching('left', item.id)}>{item.label}</button>)}</div>
+          <div>{challenge.left.map(item => <button key={item.id} type="button" disabled={saving || matched.includes(item.id)} className={`match-option ${left === item.id ? 'selected' : ''} ${matchingRetryCount(item.id) >= 2 ? 'retry-focus' : ''}`} onClick={() => chooseMatching('left', item.id)}>{item.label}</button>)}</div>
           <div>{challenge.right.map(item => <button key={item.id} type="button" disabled={matched.includes(item.id)} className={`match-option ${right === item.id ? 'selected' : ''}`} onClick={() => chooseMatching('right', item.id)}>{item.label}</button>)}</div>
         </div>
       </>}
@@ -240,6 +240,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
         <button type="button" className="interactive-secondary" onClick={submitOrder} disabled={order.length !== items.length || saving}>{saving ? '…' : '✓'}</button>
       </>}
 
+      {saving && <p className="interactive-instruction" role="status" aria-live="polite">Saving…</p>}
       {completionError && !completed && <div className="interactive-error" role="alert"><p>Unable to save the result. Reset and try again.</p><button type="button" onClick={reset}>{t.reset}</button></div>}
       {completed && <div className="interactive-complete" role="status">🏆 {t.complete}</div>}
     </div>
