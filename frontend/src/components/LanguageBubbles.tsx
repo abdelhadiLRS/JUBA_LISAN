@@ -58,7 +58,8 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
         <li key={language.code} className="juba-busuu-language-item">
           <Image
             src={`https://flagcdn.com/w80/${language.country}.png`}
-            alt={`${language.alt} flag`}
+            alt=""
+            aria-hidden="true"
             width={80}
             height={60}
             unoptimized
