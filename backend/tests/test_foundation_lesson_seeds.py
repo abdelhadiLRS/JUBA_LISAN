@@ -33,3 +33,31 @@ def test_curated_language_is_auto_discovered():
     assert seed is not None
     assert seed["source"] == "curated_norwegian"
     assert seed["prompt"]
+
+
+CURATED_LANGUAGES = [
+    "tr", "nl", "ru", "pl", "de", "fr", "es", "it", "pt",
+    "ja", "ko", "zh", "ro", "cs", "el", "hu", "uk", "fi",
+    "sv", "da", "no", "is",
+]
+
+
+def test_curated_languages_auto_discover_all_core_skills():
+    for language in CURATED_LANGUAGES:
+        for level in ["A2", "B1", "B2", "C1", "C2"]:
+            unit = f"{language}-{level.lower()}-unit-1"
+            for skill in SKILLS:
+                seed = get_foundation_lesson_seed(language, level, unit, skill)
+                assert seed is not None, (language, level, skill)
+                assert seed["title"], (language, level, skill)
+                assert seed["objective"], (language, level, skill)
+                assert seed["source"].startswith("curated_"), (language, level, skill)
+                if skill == "reading":
+                    assert seed.get("text"), (language, level, skill)
+                    assert len(seed.get("questions", [])) >= 3, (language, level, skill)
+                elif skill == "listening":
+                    assert seed.get("transcript"), (language, level, skill)
+                elif skill in {"speaking", "writing"}:
+                    assert seed.get("prompt"), (language, level, skill)
+                elif skill == "vocabulary":
+                    assert seed.get("words"), (language, level, skill)
