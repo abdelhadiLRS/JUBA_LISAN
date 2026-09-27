@@ -301,7 +301,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="sunny",
                 pos="adjective",
-                definition="Bright with sunshine.",
+                definition="Having a lot of sunshine, with little or no cloud blocking the sun.",
                 example="It is sunny and warm today, so we can eat lunch outside after the morning class.",
                 ipa="/ˈsʌni/",
                 frequency_rank=490,
@@ -309,7 +309,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="cloudy",
                 pos="adjective",
-                definition="Covered with clouds.",
+                definition="Having a sky with many clouds, which may block the sun but do not necessarily bring rain.",
                 example="It was cloudy all day, but the rain stayed away, so we still went for a walk.",
                 ipa="/ˈklaʊdi/",
                 frequency_rank=530,
@@ -317,7 +317,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="rainy",
                 pos="adjective",
-                definition="Having a lot of rain.",
+                definition="Characterised by frequent or heavy rain; used for weather or a period when rain is common.",
                 example="It was a rainy afternoon, so we moved the football practice into the sports hall.",
                 ipa="/ˈreɪni/",
                 frequency_rank=540,
@@ -325,7 +325,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="windy",
                 pos="adjective",
-                definition="With strong winds.",
+                definition="Having noticeable or strong moving air, which can make outdoor activities or travel difficult.",
                 example="It was very windy at the coast, so the ferry service was delayed.",
                 ipa="/ˈwɪndi/",
                 frequency_rank=560,
