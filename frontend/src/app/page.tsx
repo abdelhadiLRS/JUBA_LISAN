@@ -108,8 +108,7 @@ export default async function Home() {
         locale={locale as Locale}
       />
 
-      {/* HERO — the visitor-facing composition is deliberately rebuilt around the supplied reference:
-          oversized playful type, pale paper background, organic illustration, floating cards and a single CTA. */}
+      {/* HERO — public Landing composition: bold typography, JUBA LISAN artwork, clear primary CTA. */}
       <section className="juba-ref-hero">
         <div className="juba-ref-hero-inner">
           <div className="juba-ref-hero-copy">
@@ -138,7 +137,7 @@ export default async function Home() {
         <div className="juba-ref-hero-bottom" aria-hidden="true" />
       </section>
 
-      {/* PRODUCT PILLARS — real JUBA LISAN routes, presented as the reference's playful feature blocks. */}
+      {/* PRODUCT PILLARS — core learning paths presented in the Landing visual system. */}
       <section id="features" className="juba-ref-section juba-ref-pillars">
         <div className="juba-ref-section-heading">
           <span className="juba-ref-kicker">{t('flowEyebrow')}</span>
@@ -185,7 +184,7 @@ export default async function Home() {
         openLabel={t('openInJuba')}
       />
 
-      {/* LANGUAGE SECTION — uses the real supported-language component. */}
+      {/* LANGUAGE DIRECTORY — public discovery of supported learning languages. */}
       <section id="languages" className="juba-ref-language-section">
         <div className="juba-ref-language-copy">
           <span className="juba-ref-kicker">{t('languagesEyebrow')}</span>
@@ -200,7 +199,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* AI / VOICE STORY — one visual block instead of the old dashboard-heavy landing. */}
+      {/* AI / VOICE — public conversation-learning showcase. */}
       <LandingAiTutorShowcase
         dir={locale === 'ar' ? 'rtl' : 'ltr'}
         imageAlt={t('flowAiTitle')}
@@ -216,7 +215,7 @@ export default async function Home() {
         <section id="reviews" className="juba-ref-reviews">
           <div className="juba-ref-section-heading">
             <span className="juba-ref-kicker">{t('navReviews')}</span>
-            <h2>{t('flowHeadline')}</h2>
+            <h2>{t('navReviews')}</h2>
           </div>
           <div className="juba-ref-review-grid">
             {reviews.slice(0, 6).map((review) => (
@@ -229,8 +228,8 @@ export default async function Home() {
         </section>
       )}
 
-      {/* REAL PRICING — existing billing/API data is untouched. */}
-      <div id="pricing" className="juba-ref-pricing">
+      {/* PUBLIC PRICING — visitor-visible plans using the existing billing data. */}
+      <section id="pricing" className="juba-ref-pricing">
         <PricingSection
           stripeEnabled={stripeEnabled}
           trialDays={trialDays}
@@ -240,7 +239,7 @@ export default async function Home() {
           totalPriceMonthly={totalPriceMonthly}
           totalPriceYearly={totalPriceYearly}
         />
-      </div>
+      </section>
 
       <section className="juba-ref-cta">
         <div className="juba-ref-cta-inner">
