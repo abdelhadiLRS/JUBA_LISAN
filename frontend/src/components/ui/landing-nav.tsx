@@ -190,9 +190,11 @@ export function LandingNav({
         </nav>
 
         <div className="juba-busuu-nav-actions">
-          <Link href={hasSession ? '/dashboard' : '/login'} className="juba-busuu-login">
-            {hasSession ? dashboard : signIn}
-          </Link>
+          {!hasSession && (
+            <Link href="/login" className="juba-busuu-login">
+              {signIn}
+            </Link>
+          )}
           <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-nav-cta">
             {hasSession ? dashboard : getStarted}
           </Link>
@@ -249,9 +251,11 @@ export function LandingNav({
             ))}
           </nav>
           <div className="juba-busuu-mobile-actions">
-            <Link href={hasSession ? '/dashboard' : '/login'} onClick={() => close()}>
-              {hasSession ? dashboard : signIn}
-            </Link>
+            {!hasSession && (
+              <Link href="/login" onClick={() => close()}>
+                {signIn}
+              </Link>
+            )}
             <Link
               className="juba-busuu-mobile-cta"
               href={hasSession ? '/dashboard' : '/register'}
