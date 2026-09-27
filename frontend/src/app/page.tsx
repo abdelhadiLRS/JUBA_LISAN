@@ -92,8 +92,8 @@ export default async function Home() {
         hasSession={hasSession}
         dir={locale === 'ar' ? 'rtl' : 'ltr'}
         navFeatures={t('navFeatures')}
-        navDemo={t('aiVoiceDemo')}
-        navLanguages={t('supportedLanguages')}
+        navDemo={t('navDemo')}
+        navLanguages={t('navLanguages')}
         navReviews={t('navReviews')}
         navPricing={t('navPricing')}
         navFAQ={t('navFAQ')}
