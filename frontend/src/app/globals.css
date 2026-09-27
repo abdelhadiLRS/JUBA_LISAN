@@ -1958,3 +1958,112 @@ html[dir='rtl'] body {
     padding: 8px 0 24px !important;
   }
 }
+
+
+/* Coach — same JUBA LISAN learning language, with coaching as a focused learning surface. */
+.juba-mobile-coach {
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-mobile-coach .juba-card {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 22px !important;
+  background: #fff !important;
+  box-shadow: 0 4px 0 rgba(0,0,0,.07) !important;
+}
+.juba-mobile-coach .juba-eyebrow {
+  background: var(--juba-learning-green-soft) !important;
+  border-color: #cceeb9 !important;
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-coach h1,
+.juba-mobile-coach h2,
+.juba-mobile-coach h3 {
+  color: var(--juba-learning-ink) !important;
+  font-weight: 900 !important;
+}
+.juba-mobile-coach p,
+.juba-mobile-coach span {
+  font-family: inherit !important;
+}
+.juba-mobile-coach .bg-\[var\(--juba-primary\)\] {
+  background: var(--juba-learning-green) !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  box-shadow: 0 4px 0 var(--juba-learning-green-dark) !important;
+  color: #fff !important;
+}
+.juba-mobile-coach .bg-\[var\(--juba-primary-soft\)\],
+.juba-mobile-coach .bg-\[\#e2f2d3\] {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-coach .text-\[var\(--juba-primary-dark\)\] {
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-coach .border-\[\#e2f2d3\] {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-mobile-coach a.rounded-\[28px\] {
+  border-width: 2px !important;
+  border-color: var(--juba-learning-border) !important;
+  background: #fff !important;
+  box-shadow: 0 2px 0 rgba(0,0,0,.04) !important;
+}
+.juba-mobile-coach a.rounded-\[28px\]:hover {
+  border-color: var(--juba-learning-green) !important;
+  background: var(--juba-learning-green-soft) !important;
+  box-shadow: 0 4px 0 rgba(0,0,0,.05) !important;
+}
+.juba-mobile-coach a.rounded-\[20px\].bg-fl-fg {
+  background: var(--juba-learning-green) !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  box-shadow: 0 4px 0 var(--juba-learning-green-dark) !important;
+  color: #fff !important;
+  font-weight: 900 !important;
+}
+.juba-mobile-coach a.rounded-\[20px\].bg-fl-fg:hover {
+  opacity: 1 !important;
+  transform: translateY(1px) !important;
+  box-shadow: 0 3px 0 var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-coach button {
+  font-family: inherit !important;
+}
+.juba-mobile-coach button.rounded-\[20px\] {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  box-shadow: 0 3px 0 rgba(0,0,0,.06) !important;
+  color: var(--juba-learning-ink) !important;
+  font-weight: 900 !important;
+}
+.juba-mobile-coach button.rounded-\[20px\]:hover:not(:disabled) {
+  border-color: var(--juba-learning-green) !important;
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-coach button:focus-visible,
+.juba-mobile-coach a:focus-visible {
+  outline: 3px solid var(--juba-learning-blue) !important;
+  outline-offset: 3px !important;
+}
+.juba-mobile-coach .border-t {
+  border-color: var(--juba-learning-border) !important;
+}
+@media (max-width: 767px) {
+  .juba-mobile-coach {
+    padding: 14px 12px 88px !important;
+  }
+  .juba-mobile-coach > div {
+    gap: 18px !important;
+  }
+  .juba-mobile-coach .juba-card {
+    border-radius: 18px !important;
+    padding: 18px !important;
+  }
+  .juba-mobile-coach h1 {
+    font-size: 1.8rem !important;
+    line-height: 1.12 !important;
+  }
+  .juba-mobile-coach h2 {
+    font-size: 1.35rem !important;
+  }
+}
