@@ -4,7 +4,7 @@ import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import type { Locale } from '@/lib/locales'
-import { ArrowRight, ArrowUpRight, BookOpen, Headphones, MessageCircle } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, BookOpen, Headphones, Languages, MessageCircle } from 'lucide-react'
 import PricingSection from '@/components/billing/PricingSection'
 import { LandingFAQ } from '@/components/ui/landing-faq'
 import { LandingNav } from '@/components/ui/landing-nav'
@@ -243,7 +243,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="juba-busuu-benefits" aria-labelledby="benefits-title">
+      <section id="benefits" className="juba-busuu-benefits" aria-labelledby="benefits-title">
         <div className="juba-busuu-container">
           <div className="juba-busuu-heading">
             <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
@@ -253,7 +253,7 @@ export default async function Home() {
             <article><BookOpen aria-hidden="true" /><div><h3>{t('feature1Title')}</h3><p>{t('feature1Desc')}</p></div></article>
             <article><MessageCircle aria-hidden="true" /><div><h3>{t('feature6Title')}</h3><p>{t('feature6Desc')}</p></div></article>
             <article><Headphones aria-hidden="true" /><div><h3>{t('feature8Title')}</h3><p>{t('feature8Desc')}</p></div></article>
-            <article><BookOpen aria-hidden="true" /><div><h3>{t('feature7Title')}</h3><p>{t('feature7Desc')}</p></div></article>
+            <article><Languages aria-hidden="true" /><div><h3>{t('feature7Title')}</h3><p>{t('feature7Desc')}</p></div></article>
           </div>
         </div>
       </section>
