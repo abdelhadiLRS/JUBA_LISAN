@@ -134,7 +134,7 @@ export default async function Home() {
 
       <section className="juba-busuu-proof" aria-label="JUBA LISAN capabilities">
         <div className="juba-busuu-container juba-busuu-proof-grid">
-          <div><strong>CEFR</strong><span>{t('languagesDescription')}</span></div>
+          <div><strong>CEFR</strong><span>{t('languagesHeadline')}</span></div>
           <div><strong>AI</strong><span>{t('flowAiDescription')}</span></div>
           <div><strong>VOICE</strong><span>{t('flowVoiceDescription')}</span></div>
         </div>
@@ -189,9 +189,9 @@ export default async function Home() {
         <div className="juba-busuu-container">
           <div className="juba-busuu-heading"><span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span><h2 id="benefits-title">{t('bentoTitle')}</h2></div>
           <div className="juba-busuu-benefit-list">
-            <article><BookOpen aria-hidden="true" /><div><h3>{t('feature2Title')}</h3><p>{t('feature2Description')}</p></div></article>
-            <article><MessageCircle aria-hidden="true" /><div><h3>{t('feature7Title')}</h3><p>{t('feature7Description')}</p></div></article>
-            <article><Headphones aria-hidden="true" /><div><h3>{t('feature3Title')}</h3><p>{t('feature3Description')}</p></div></article>
+            <article><BookOpen aria-hidden="true" /><div><h3>{t('languagesHeadline')}</h3><p>{t('languagesDescription')}</p></div></article>
+            <article><MessageCircle aria-hidden="true" /><div><h3>{t('flowAiTitle')}</h3><p>{t('flowAiDescription')}</p></div></article>
+            <article><Headphones aria-hidden="true" /><div><h3>{t('flowVoiceTitle')}</h3><p>{t('flowVoiceDescription')}</p></div></article>
           </div>
         </div>
       </section>
