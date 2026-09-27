@@ -245,54 +245,6 @@ export default async function Home() {
         </section>
       )}
 
-      <section className="juba-busuu-slogan" aria-hidden="true">
-        <div className="juba-busuu-slogan-track">
-          <span>{t('languagesHeadline')}</span><b>•</b><span>{t('flowVoiceTitle')}</span><b>•</b><span>{t('flowAiTitle')}</span><b>•</b>
-          <span>{t('languagesHeadline')}</span><b>•</b><span>{t('flowVoiceTitle')}</span><b>•</b><span>{t('flowAiTitle')}</span>
-        </div>
-      </section>
-
-      <section className="juba-busuu-difference juba-busuu-real-life" aria-labelledby="real-life-title">
-        <div className="juba-busuu-container">
-          <div className="juba-busuu-heading juba-busuu-heading-split">
-            <div>
-              <span className="juba-busuu-eyebrow">{t('flowEyebrow')}</span>
-              <h2 id="real-life-title">{t('flowHeadline')}</h2>
-            </div>
-            <p>{t('flowDescription')}</p>
-          </div>
-          <div className="juba-busuu-feature-grid">
-            <Link href="/chat" className="juba-busuu-feature">
-              <Image src="/landing/juba-chat.svg" alt="" width={360} height={250} />
-              <div className="juba-busuu-feature-body">
-                <span>{t('flowAiLabel')}</span>
-                <h3>{t('flowAiTitle')}</h3>
-                <p>{t('flowAiDescription')}</p>
-                <ArrowUpRight className="juba-busuu-feature-arrow" aria-hidden="true" />
-              </div>
-            </Link>
-            <Link href="/listening" className="juba-busuu-feature">
-              <Image src="/landing/juba-listening.svg" alt="" width={360} height={250} />
-              <div className="juba-busuu-feature-body">
-                <span>{t('flowVoiceLabel')}</span>
-                <h3>{t('flowVoiceTitle')}</h3>
-                <p>{t('flowVoiceDescription')}</p>
-                <ArrowUpRight className="juba-busuu-feature-arrow" aria-hidden="true" />
-              </div>
-            </Link>
-            <Link href="/reading" className="juba-busuu-feature">
-              <Image src="/landing/juba-reading.svg" alt="" width={360} height={250} />
-              <div className="juba-busuu-feature-body">
-                <span>{t('flowPlanLabel')}</span>
-                <h3>{t('flowPlanTitle')}</h3>
-                <p>{t('flowPlanDescription')}</p>
-                <ArrowUpRight className="juba-busuu-feature-arrow" aria-hidden="true" />
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
       <section id="benefits" className="juba-busuu-benefits" aria-labelledby="benefits-title">
         <div className="juba-busuu-container">
           <div className="juba-busuu-heading juba-busuu-heading-split">
