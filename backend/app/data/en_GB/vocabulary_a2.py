@@ -747,7 +747,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="capital",
                 pos="noun",
-                definition="The city that is the seat of government.",
+                definition="The city where a country's national government is based.",
                 example="London is the capital of England, so many national government departments have offices there.",
                 ipa="/ˈkæpɪtəl/",
                 frequency_rank=220,
@@ -763,7 +763,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="continent",
                 pos="noun",
-                definition="One of the seven large land masses of the earth.",
+                definition="One of the world's major continuous land areas, such as Africa, Asia, or Europe.",
                 example="Europe is a continent made up of many countries with different languages and cultures.",
                 ipa="/ˈkɒntɪnənt/",
                 frequency_rank=380,
@@ -771,7 +771,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="border",
                 pos="noun",
-                definition="The line between two countries.",
+                definition="The boundary separating two countries or other areas.",
                 example="We crossed the border into France after showing our passports at the checkpoint.",
                 ipa="/ˈbɔːdə/",
                 frequency_rank=295,
@@ -779,7 +779,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="north",
                 pos="noun",
-                definition="The direction opposite to south.",
+                definition="The direction on a compass that is opposite to south.",
                 example="Edinburgh is in the north of Scotland, and the city is known for its historic centre and castle.",
                 ipa="/nɔːθ/",
                 frequency_rank=185,
@@ -787,7 +787,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="south",
                 pos="noun",
-                definition="The direction opposite to north.",
+                definition="The direction on a compass that is opposite to north.",
                 example="Spain is in the south of Europe, where many coastal areas have warm summers.",
                 ipa="/saʊθ/",
                 frequency_rank=190,
@@ -795,7 +795,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="east",
                 pos="noun",
-                definition="The direction where the sun rises.",
+                definition="The compass direction in which the sun appears to rise.",
                 example="Japan is in East Asia, and visitors can travel between many cities by high-speed train.",
                 ipa="/iːst/",
                 frequency_rank=185,
@@ -803,7 +803,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="west",
                 pos="noun",
-                definition="The direction where the sun sets.",
+                definition="The compass direction in which the sun appears to set.",
                 example="California is on the west coast of the USA, with large cities along the Pacific coast.",
                 ipa="/west/",
                 frequency_rank=180,
@@ -811,7 +811,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="tourist",
                 pos="noun",
-                definition="A person who visits a place for pleasure.",
+                definition="A person who travels to another place for pleasure, usually for a limited time.",
                 example="Many tourists visit Paris every year to see its museums, historic buildings, and famous streets.",
                 ipa="/ˈtʊərɪst/",
                 frequency_rank=410,
@@ -819,7 +819,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="attraction",
                 pos="noun",
-                definition="A place or thing that people want to visit.",
+                definition="A place, building, or activity that attracts visitors because it is interesting or enjoyable.",
                 example="The Eiffel Tower is a famous attraction, so visitors often book tickets before arriving in Paris.",
                 ipa="/əˈtrækʃən/",
                 frequency_rank=350,
@@ -827,7 +827,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="culture",
                 pos="noun",
-                definition="The customs, beliefs, and arts of a society.",
+                definition="The customs, beliefs, arts, and everyday ways of life shared by a particular society or group.",
                 example="I enjoy learning about different cultures because it helps me understand how people live, work, and celebrate.",
                 ipa="/ˈkʌltʃə/",
                 frequency_rank=195,
@@ -835,7 +835,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="climate",
                 pos="noun",
-                definition="The typical weather conditions in a region.",
+                definition="The usual pattern of weather in a place over a long period, including temperature and rainfall.",
                 example="The climate in the UK is generally mild, but the weather can change several times in one day.",
                 ipa="/ˈklaɪmɪt/",
                 frequency_rank=290,
@@ -867,7 +867,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="compete",
                 pos="verb",
-                definition="To try to be more successful than others.",
+                definition="To take part in a contest or activity in which you try to do better than other people or teams.",
                 example="She competed in the national championships after training every morning for several months.",
                 ipa="/kəmˈpiːt/",
                 frequency_rank=310,
@@ -883,7 +883,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="championship",
                 pos="noun",
-                definition="A competition to decide who is best.",
+                definition="A series or final competition used to decide the winner of a particular sport or title.",
                 example="Our team won the national championship after a close final that was decided in the last minute.",
                 ipa="/ˈtʃæmpiənʃɪp/",
                 frequency_rank=390,
@@ -891,7 +891,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="score",
                 pos="verb",
-                definition="To get points in a game.",
+                definition="To get points or goals for yourself or your team in a game or competition.",
                 example="She scored three goals in the final, helping her team win the match for the first time in five years.",
                 ipa="/skɔː/",
                 frequency_rank=265,
@@ -915,7 +915,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="result",
                 pos="noun",
-                definition="The final score or outcome.",
+                definition="The final score or outcome of a game, competition, test, or other event.",
                 example="What was the result of the match? I left before the final whistle and have not heard the score.",
                 ipa="/rɪˈzʌlt/",
                 frequency_rank=110,
