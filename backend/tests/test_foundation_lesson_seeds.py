@@ -1767,3 +1767,36 @@ def test_foundation_fallback_seed_has_skill_specific_feedback_cycles():
         for fragment in fragments:
             assert fragment.lower() in feedback.lower()
 
+
+
+def test_en_gb_a2_irregular_verb_definitions_explain_meaning():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for group in A2_SETS for entry in group.words}
+    expected = {
+        "began": "Started",
+        "broke": "Damaged or separated",
+        "brought": "Carried or took",
+        "caught": "Captured, stopped",
+        "chose": "Selected one person or thing",
+        "fell": "Moved down",
+        "felt": "Experienced a physical sensation",
+        "flew": "Travelled through the air",
+        "forgot": "Failed to remember",
+        "grew": "Became bigger",
+        "heard": "Became aware of a sound",
+        "kept": "Continued to have",
+        "ran": "Moved quickly on foot",
+        "slept": "Rested with your eyes closed",
+        "spent": "Used time or money",
+        "stood": "Was upright on your feet",
+        "told": "Gave information",
+        "wore": "Had clothes or an item on your body",
+        "won": "Was successful in a competition",
+        "wrote": "Produced words or text",
+    }
+    for word, phrase in expected.items():
+        definition = entries[word].definition
+        assert phrase.casefold() in definition.casefold(), word
+        assert "past tense of" in definition.casefold(), word
+
