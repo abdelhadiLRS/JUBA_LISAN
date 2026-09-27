@@ -2654,3 +2654,59 @@ body .juba-reference-page[dir="rtl"] .juba-ai-showcase-copy .juba-ref-button{ali
 @media(prefers-reduced-motion:reduce){
   .juba-reference-page .juba-busuu-footer-social a{transition:none!important}
 }
+
+
+/* Landing footer — final responsive, RTL and keyboard-accessibility polish. */
+.juba-reference-page .juba-busuu-footer a:focus-visible,
+.juba-reference-page .juba-busuu-footer button:focus-visible{
+  outline:3px solid #b7f36b!important;
+  outline-offset:3px!important;
+  border-radius:6px!important;
+}
+.juba-reference-page .juba-busuu-footer-language-list a{
+  min-height:28px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+}
+.juba-reference-page[dir="rtl"] .juba-busuu-footer-top,
+.juba-reference-page[dir="rtl"] .juba-busuu-footer-grid,
+.juba-reference-page[dir="rtl"] .juba-busuu-footer-language,
+.juba-reference-page[dir="rtl"] .juba-busuu-footer-bottom{
+  text-align:right!important;
+}
+.juba-reference-page[dir="rtl"] .juba-busuu-footer-column{
+  align-items:flex-start!important;
+}
+.juba-reference-page[dir="rtl"] .juba-busuu-footer-bottom>div{
+  flex-direction:row-reverse!important;
+}
+.juba-reference-page[dir="rtl"] .juba-busuu-footer-language-list{
+  direction:rtl!important;
+}
+.juba-reference-page .juba-busuu-footer-contact{
+  display:inline-flex!important;
+  align-items:center!important;
+  min-height:28px!important;
+}
+@media(max-width:900px){
+  .juba-reference-page .juba-busuu-footer-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+  .juba-reference-page .juba-busuu-footer-column:first-child{
+    grid-column:auto!important;
+  }
+}
+@media(max-width:600px){
+  .juba-reference-page .juba-busuu-footer-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .juba-reference-page .juba-busuu-footer-column:first-child{
+    grid-column:1/-1!important;
+  }
+  .juba-reference-page .juba-busuu-footer-social{
+    width:100%!important;
+  }
+  .juba-reference-page .juba-busuu-footer-social a{
+    min-height:40px!important;
+  }
+}
