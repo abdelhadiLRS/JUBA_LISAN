@@ -181,7 +181,7 @@ export default function PricingSection({
           return (
             <div
               key={plan.name}
-              className={`juba-ff-plan-card flex flex-col gap-4 rounded-[26px] border border-[#dfe9da] bg-white p-6 shadow-[0_8px_24px_rgba(37,37,37,.055)] ${
+              className={`juba-ff-plan-card flex flex-col gap-4 border border-[var(--busuu-line)] bg-white p-6 ${
                 plan.isFree
                   ? 'juba-ff-plan-free'
                   : plan.name === tBilling('planYearlyName')
@@ -198,7 +198,7 @@ export default function PricingSection({
                 </div>
                 {plan.badge && (
                   <span
-                    className={`text-[#68766d] border px-2 py-0.5 font-sans text-[0.65rem] font-extrabold tracking-wide uppercase ${plan.badgeStyle}`}
+                    className={`juba-ff-plan-badge border px-2 py-0.5 font-sans text-[0.65rem] font-extrabold tracking-wide uppercase ${plan.badgeStyle}`}
                   >
                     {plan.badge}
                   </span>
@@ -216,7 +216,7 @@ export default function PricingSection({
                     </p>
                     <p className="juba-ff-plan-price flex items-baseline gap-2 font-sans text-2xl font-black">
                       {plan.price > 0 ? tBilling('priceAmount', { amount: plan.price }) : '—'}
-                      <span className="text-[#68766d] text-sm">
+                      <span className="juba-ff-period text-sm">
                         {tBilling('pricePerPeriod', {
                           period: plan.priceLabel,
                         })}
@@ -226,7 +226,7 @@ export default function PricingSection({
                 ) : (
                   <>
                     <p
-                      className="text-[#68766d] invisible font-sans text-sm"
+                      className="juba-ff-plan-placeholder invisible font-sans text-sm"
                       aria-hidden
                     >
                       &nbsp;
@@ -265,20 +265,20 @@ export default function PricingSection({
       </div>
 
       {/* Comparison table */}
-      <div className="juba-ff-comparison overflow-hidden rounded-[22px] border border-[#dfe9da] bg-white shadow-[0_8px_24px_rgba(37,37,37,.045)]">
+      <div className="juba-ff-comparison overflow-hidden border border-[var(--busuu-line)] bg-white">
         <table className="w-full table-fixed">
           <thead>
             <tr className="juba-ff-comparison-head border-b">
               <th className="text-[#68766d] w-[42%] px-3 py-3 text-left font-sans tracking-widest uppercase sm:w-auto sm:px-5">
                 &nbsp;
               </th>
-              <th className="text-[#68766d] sm:text-[#183022] w-[19.333%] px-1 py-3 text-center font-sans tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
+              <th className="juba-ff-comparison-plan-head w-[19.333%] px-1 py-3 text-center font-sans tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
                 {tBilling('planFreeName')}
               </th>
-              <th className="text-[#68766d] sm:text-[#183022] w-[19.333%] px-1 py-3 text-center font-sans tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
+              <th className="juba-ff-comparison-plan-head w-[19.333%] px-1 py-3 text-center font-sans tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
                 {tBilling('planMonthlyName')}
               </th>
-              <th className="text-[#68766d] text-[#68766d] sm:text-[#183022] w-[19.333%] px-1 py-3 text-center font-sans tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
+              <th className="juba-ff-comparison-plan-head w-[19.333%] px-1 py-3 text-center font-sans tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
                 {tBilling('planYearlyName')}
               </th>
             </tr>
@@ -307,9 +307,9 @@ export default function PricingSection({
                 </td>
                 <td className="px-1 py-3 text-center sm:px-4">
                   {row.monthly ? (
-                    <Check className="text-[#46a900] mx-auto h-3.5 w-3.5" />
+                    <Check className="juba-ff-check mx-auto h-3.5 w-3.5" />
                   ) : (
-                    <Minus className="text-[#68766d] mx-auto h-3.5 w-3.5" />
+                    <Minus className="juba-ff-minus mx-auto h-3.5 w-3.5" />
                   )}
                 </td>
                 <td className="px-1 py-3 text-center sm:px-4">
@@ -344,7 +344,7 @@ export default function PricingSection({
           </Link>
         )}
         {checkoutError && (
-          <p className="juba-ff-plan-error mx-auto mt-3 max-w-xl rounded-xl border border-[var(--landing-green-dark)]/20 bg-white px-3 py-2 font-sans text-xs leading-5">
+          <p className="juba-ff-plan-error mx-auto mt-3 max-w-xl border border-[var(--busuu-line)] bg-white px-3 py-2 font-sans text-xs leading-5">
             {checkoutError}
           </p>
         )}
