@@ -16,7 +16,7 @@ B2_UNITS: list[CurriculumUnit] = [
             "concordanza-congiuntivo",
         ],
         vocabulary_set_ids=["sentimenti_b2", "ipotesi_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forma il congiuntivo imperfetto dei verbi regolari: parlassi/parlasse/parlassimo e le principali forme irregolari: fossi (essere), avessi (avere), facessi, andassi, venissi, dicessi, potessi, volessi",
             "Usa il congiuntivo imperfetto quando la principale e al passato o al condizionale: Speravo che venisse, Vorrei che studiasse di piu, applicando il principio della concordanza dei tempi",
@@ -39,7 +39,7 @@ B2_UNITS: list[CurriculumUnit] = [
             "forma-passiva",
         ],
         vocabulary_set_ids=["abitudini_b2", "cambiamenti_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Usa stare + gerundio per un'azione in corso in un momento preciso: Sto leggendo, Stava dormendo quando ho chiamato, distinguendolo dall'indicativo presente per azioni abituali o generali",
             "Usa andare + gerundio per esprimere un processo graduale o progressivo, spesso con sfumatura valutativa: La situazione va migliorando, Il progetto andava complicandosi",
@@ -57,7 +57,7 @@ B2_UNITS: list[CurriculumUnit] = [
         title="Connettivi e coerenza testuale",
         grammar_points=["connettivi-avanzati", "coesione-testuale", "registro-formale"],
         vocabulary_set_ids=["saggi_b2", "accademico_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Usa correttamente i connettivi concessivi: sebbene/benche/nonostante/malgrado + congiuntivo: Sebbene faccia freddo, esco",
             "Usa i connettivi causali con registro appropriato: perche (neutro), poiche/siccome (formale, spesso in posizione iniziale), dato che, visto che, evitando costruzioni improprie",
@@ -75,7 +75,7 @@ B2_UNITS: list[CurriculumUnit] = [
         title="Espressioni idiomatiche italiane",
         grammar_points=["modi-di-dire", "espressioni-colloquiali", "proverbi-italiani"],
         vocabulary_set_ids=["idiomi_b2", "cultura_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Comprende e usa oltre 20 modi di dire italiani ad alta frequenza: non vedere l'ora di, avere le mani in pasta, fare il ponte, prendere due piccioni con una fava, costare un occhio della testa",
             "Interpreta espressioni idiomatiche italiane dal contesto senza traduzione letterale: essere al verde, andare a rotoli, avere la coda di paglia",
@@ -93,7 +93,7 @@ B2_UNITS: list[CurriculumUnit] = [
         title="Argomentazione e dibattito",
         grammar_points=["struttura-argomentativa", "controargomentazione", "sfumature"],
         vocabulary_set_ids=["dibattiti_b2", "temi-sociali_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Presenta una tesi chiara e la sviluppa con argomenti di supporto usando: in primo luogo, in secondo luogo, inoltre, a tal proposito, a questo riguardo, vale la pena notare che",
             "Introduce e confuta una controargomentazione: e vero che..., tuttavia; pur riconoscendo che..., bisogna comunque; si potrebbe obiettare che..., ma in realta",
@@ -111,7 +111,7 @@ B2_UNITS: list[CurriculumUnit] = [
         title="Letteratura italiana e testi narrativi",
         grammar_points=["tempi-narrativi", "descrizione-letteraria", "passato-remoto"],
         vocabulary_set_ids=["letteratura_b2", "lettura_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forma il passato remoto dei verbi regolari e degli irregolari essenziali: fui, ebbi, feci, dissi, vidi, venni, conobbi, nacqui, mori; e comprende che il passato remoto e il tempo narrativo standard nell'italiano letterario e in buona parte dell'Italia meridionale, mentre al nord in contesti analoghi si usa spesso il passato prossimo",
             "Distingue la variazione regionale passato remoto/passato prossimo: nella lingua letteraria e nello scritto standard, il passato remoto indica azioni concluse senza legame col presente; nel parlato quotidiano di molte aree settentrionali questa funzione e spesso svolta dal passato prossimo",
@@ -129,7 +129,7 @@ B2_UNITS: list[CurriculumUnit] = [
         title="Media e attualità",
         grammar_points=["linguaggio-giornalistico", "titoli", "discorso-riportato"],
         vocabulary_set_ids=["notizie_b2", "attualità_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Individua i tratti dello stile giornalistico italiano: costruzioni nominalizzate, forma passiva, si impersonale, connettivi formali e sintassi piu complessa rispetto al parlato quotidiano",
             "Interpreta la grammatica dei titoli nei quotidiani italiani: forme verbali ellittiche, presente per passato recente, infinito per eventi futuri, sintagmi nominali senza articolo: 'Governo approva nuova legge, scontri in piazza'",
@@ -158,7 +158,7 @@ B2_UNITS: list[CurriculumUnit] = [
             "discorso-riportato",
         ],
         vocabulary_set_ids=["ripasso_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Scrive un saggio formale di circa 200 parole integrando congiuntivo imperfetto, connettivi avanzati (inclusi quelli che richiedono il congiuntivo, come sebbene e nonostante) e una struttura argomentativa chiara",
             "Produce un brano narrativo letterario usando passato remoto e imperfetto con almeno una figura retorica",
