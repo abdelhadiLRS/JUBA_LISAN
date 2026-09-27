@@ -36,9 +36,8 @@ export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
             <p>{t('footerTagline')}</p>
           </div>
 
-          <div className="juba-busuu-footer-social" aria-label="JUBA LISAN social links">
+          <div className="juba-busuu-footer-social" aria-label={t('socialLinks')}>
             <a href="https://github.com/abdelhadiLRS/JUBA_LISAN" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
-            <a href="#contact" aria-label={t('contact')}>{t('contact')}</a>
           </div>
         </div>
 
@@ -46,7 +45,7 @@ export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
           <div className="juba-busuu-footer-column">
             <h3>{t('footerProduct')}</h3>
             <Link href="#features">{t('navFeatures')}</Link>
-            <Link href="#games">{t('navDemo')}</Link>
+            <Link href="#features">{t('navDemo')}</Link>
             <Link href="#languages">{t('navLanguages')}</Link>
             <Link href="#pricing">{t('navPricing')}</Link>
           </div>
@@ -62,7 +61,7 @@ export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
           <div className="juba-busuu-footer-column">
             <h3>{t('footerLearning')}</h3>
             <Link href="#languages">{t('supportedLanguages')}</Link>
-            <Link href="#games">{t('navDemo')}</Link>
+            <Link href="#features">{t('navDemo')}</Link>
             <Link href="#features">{t('howItWorks')}</Link>
             <Link href="/register">{t('ctaExplore')}</Link>
           </div>
