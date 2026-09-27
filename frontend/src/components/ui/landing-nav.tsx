@@ -44,9 +44,17 @@ export function LandingNav({
   const [open, setOpen] = useState(false)
 
   const localeOptions: Array<[Locale, string]> = [
-    ['en', 'English'], ['ar', 'العربية'], ['es', 'Español'], ['fr', 'Français'],
-    ['pt', 'Português'], ['de', 'Deutsch'], ['it', 'Italiano'], ['pl', 'Polski'],
-    ['nl', 'Nederlands'], ['ro', 'Română'], ['ru', 'Русский'],
+    ['en', 'English'],
+    ['ar', 'العربية'],
+    ['es', 'Español'],
+    ['fr', 'Français'],
+    ['pt', 'Português'],
+    ['de', 'Deutsch'],
+    ['it', 'Italiano'],
+    ['pl', 'Polski'],
+    ['nl', 'Nederlands'],
+    ['ro', 'Română'],
+    ['ru', 'Русский'],
   ]
 
   const links = [
@@ -68,7 +76,9 @@ export function LandingNav({
 
         <nav className="juba-busuu-nav-links" aria-label={navFeatures}>
           {links.map((link) => (
-            <a key={link.href + link.label} href={link.href}>{link.label}</a>
+            <a key={link.href} href={link.href}>
+              {link.label}
+            </a>
           ))}
         </nav>
 
@@ -81,11 +91,18 @@ export function LandingNav({
           </Link>
           <details className="juba-busuu-locale-menu">
             <summary className="juba-busuu-locale" aria-label={navLanguages}>
-              <span>{locale.toUpperCase()}</span><ChevronDown aria-hidden="true" />
+              <span>{locale.toUpperCase()}</span>
+              <ChevronDown aria-hidden="true" />
             </summary>
-            <div className="juba-busuu-locale-options">
+            <div className="juba-busuu-locale-options" role="list">
               {localeOptions.map(([code, label]) => (
-                <Link key={code} href={code === 'en' ? '/' : `/${code}`} aria-current={code === locale ? 'page' : undefined}>
+                <Link
+                  key={code}
+                  href={code === 'en' ? '/' : `/${code}`}
+                  aria-current={code === locale ? 'page' : undefined}
+                  lang={code}
+                  hrefLang={code}
+                >
                   {label}
                 </Link>
               ))}
@@ -93,28 +110,48 @@ export function LandingNav({
           </details>
         </div>
 
-        <button type="button" className="juba-busuu-menu" onClick={() => setOpen((v) => !v)}
-          aria-expanded={open} aria-label={open ? closeMenuLabel : openMenuLabel}>
+        <button
+          type="button"
+          className="juba-busuu-menu"
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+          aria-controls="juba-busuu-mobile-menu"
+          aria-label={open ? closeMenuLabel : openMenuLabel}
+        >
           {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
         </button>
       </div>
 
       {open && (
-        <div className="juba-busuu-mobile-menu">
+        <div id="juba-busuu-mobile-menu" className="juba-busuu-mobile-menu">
           <nav aria-label={navFeatures}>
             {links.map((link) => (
-              <a key={link.href + link.label} href={link.href} onClick={close}>{link.label}</a>
+              <a key={link.href + link.label} href={link.href} onClick={close}>
+                {link.label}
+              </a>
             ))}
           </nav>
           <div className="juba-busuu-mobile-actions">
-            <Link href={hasSession ? '/dashboard' : '/login'} onClick={close}>{hasSession ? dashboard : signIn}</Link>
-            <Link className="juba-busuu-mobile-cta" href={hasSession ? '/dashboard' : '/register'} onClick={close}>
+            <Link href={hasSession ? '/dashboard' : '/login'} onClick={close}>
+              {hasSession ? dashboard : signIn}
+            </Link>
+            <Link
+              className="juba-busuu-mobile-cta"
+              href={hasSession ? '/dashboard' : '/register'}
+              onClick={close}
+            >
               {hasSession ? dashboard : getStarted}
             </Link>
             <div className="juba-busuu-mobile-locales">
               {localeOptions.map(([code, label]) => (
-                <Link key={code} href={code === 'en' ? '/' : `/${code}`} onClick={close}
-                  aria-current={code === locale ? 'page' : undefined}>
+                <Link
+                  key={code}
+                  href={code === 'en' ? '/' : `/${code}`}
+                  onClick={close}
+                  aria-current={code === locale ? 'page' : undefined}
+                  lang={code}
+                  hrefLang={code}
+                >
                   {label}
                 </Link>
               ))}
