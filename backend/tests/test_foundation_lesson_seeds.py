@@ -617,3 +617,25 @@ def test_en_gb_b2_core_examples_are_contextual_and_reusable():
     for word, phrase in expected_contexts.items():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 10
+
+
+def test_en_gb_b2_c1_overlaps_add_semantic_or_domain_value():
+    """Intentional B2/C1 overlaps should become more precise or more specialised at C1."""
+    from app.data.en_GB.vocabulary_b2 import B2_SETS
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+
+    b2 = {entry.word: entry for vocab_set in B2_SETS for entry in vocab_set.words}
+    c1 = {entry.word: entry for vocab_set in C1_SETS for entry in vocab_set.words}
+
+    expected = {
+        "implication": "revised sampling method",
+        "bias": "selection bias",
+    }
+    for word, phrase in expected.items():
+        assert word in b2 and word in c1
+        assert phrase.casefold() in c1[word].example.casefold()
+        assert c1[word].example.casefold() != b2[word].example.casefold()
+        assert len(c1[word].example.split()) >= 12
+
+    assert "inference" in c1["implication"].definition.casefold()
+    assert "systematic tendency" in c1["bias"].definition.casefold()
