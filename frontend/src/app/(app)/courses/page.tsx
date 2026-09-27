@@ -182,7 +182,7 @@ export default function CoursesPage() {
                     </div>
                     <p className="mt-3 max-w-xl text-sm leading-6 text-[#68736d]">{LEVEL_META[level].desc}</p>
                     <div className="mt-6 flex items-center justify-between text-sm font-bold text-[#30343b]"><span>{lessonCount} lessons</span><span>{progress}%</span></div>
-                    <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-[#f8faf7]"><div className="h-full rounded-full bg-[#58a700] transition-all" style={{ width: `${progress}%` }} /></div>
+                    <div role="progressbar" aria-label={`${level} course progress`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.min(100, Math.max(0, progress))} className="mt-2 h-2.5 overflow-hidden rounded-full bg-[#f8faf7]"><div className="h-full rounded-full bg-[#58a700] transition-all" style={{ width: `${Math.min(100, Math.max(0, progress))}%` }} /></div>
                     {unlocked ? (
                       <Link href={current ? '/plan' : `/courses/${level}`} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#eaf5df] px-5 py-3 font-black text-[#438600] transition hover:bg-[#58a700] hover:text-white">
                         {current ? 'Open learning plan' : 'Explore level'} <ArrowRight className="h-4 w-4" />
