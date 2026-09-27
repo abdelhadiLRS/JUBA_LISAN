@@ -1220,3 +1220,46 @@ html[data-theme='light'] {
     min-height:42px;
   }
 }
+
+
+/* JUBA LISAN — lesson interaction states */
+.juba-lesson-shell .juba-page-hero{
+  background:#58a700!important;
+  border-color:#438600!important;
+  box-shadow:0 4px 0 #438600!important;
+}
+.juba-lesson-shell .juba-page-hero *{color:#fff!important}
+.juba-lesson-shell section.card{
+  background:#fff!important;
+  border:2px solid #e1e5e2!important;
+  border-radius:20px!important;
+  box-shadow:0 3px 0 rgba(31,41,51,.045)!important;
+}
+.juba-lesson-shell section.card button:not(:disabled){
+  transition:transform .12s ease,background-color .12s ease,border-color .12s ease,box-shadow .12s ease!important;
+}
+.juba-lesson-shell section.card button:not(:disabled):active{
+  transform:translateY(2px)!important;
+}
+.juba-lesson-shell section.card button[class*="bg-[#58a700]"],
+.juba-lesson-shell section.card button[class*="bg-[var(--juba-primary)]"]{
+  background:#58a700!important;
+  border-color:#438600!important;
+  color:#fff!important;
+  box-shadow:0 3px 0 #438600!important;
+}
+.juba-lesson-shell section.card button[class*="bg-[#58a700]"]:hover,
+.juba-lesson-shell section.card button[class*="bg-[var(--juba-primary)]"]:hover{
+  background:#438600!important;
+}
+.juba-lesson-shell .juba-lesson-success{
+  color:#30343b!important;
+}
+.juba-lesson-shell .juba-lesson-success strong{
+  color:#438600!important;
+}
+@media(max-width:767px){
+  .juba-lesson-shell section.card{
+    box-shadow:0 2px 0 rgba(31,41,51,.045)!important;
+  }
+}
