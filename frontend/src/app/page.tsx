@@ -81,7 +81,7 @@ export default async function Home() {
   const rtl = locale === 'ar'
 
   return (
-    <main className="juba-busuu-landing min-h-screen overflow-x-hidden" dir={rtl ? 'rtl' : 'ltr'} lang={locale}>
+    <main className="juba-busuu-landing min-h-screen overflow-x-hidden" dir={rtl ? 'rtl' : 'ltr'} lang={locale}>\n      <a className="juba-busuu-skip-link" href="#landing-content">{t('skipToContent')}</a>
       <LandingNav
         hasSession={hasSession}
         dir={rtl ? 'rtl' : 'ltr'}
@@ -101,7 +101,7 @@ export default async function Home() {
         locale={locale as Locale}
       />
 
-      <section className="juba-busuu-hero" aria-labelledby="landing-hero-title">
+      <section id="landing-content" tabIndex={-1} className="juba-busuu-hero" aria-labelledby="landing-hero-title">
         <div className="juba-busuu-container juba-busuu-hero-grid">
           <div className="juba-busuu-hero-copy">
             <span className="juba-busuu-eyebrow">{t('heroBadge')}</span>
