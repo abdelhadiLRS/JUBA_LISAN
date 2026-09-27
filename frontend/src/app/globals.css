@@ -1657,3 +1657,55 @@ html[data-theme='light'] {
     padding-inline:15px;
   }
 }
+
+
+/* Landing navigation fidelity pass — compact pill controls and calmer mobile menu rhythm. */
+.juba-busuu-landing .juba-busuu-nav-actions{
+  gap:10px;
+}
+.juba-busuu-landing .juba-busuu-login{
+  min-height:44px;
+  padding:10px 13px;
+  border-radius:999px;
+  color:var(--busuu-ink)!important;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:800;
+}
+.juba-busuu-landing .juba-busuu-login:hover{
+  background:var(--busuu-soft);
+}
+.juba-busuu-landing .juba-busuu-locale{
+  min-width:62px;
+  justify-content:center;
+  border-radius:999px;
+  background:#fff;
+}
+.juba-busuu-landing .juba-busuu-locale-options{
+  border-radius:14px;
+  padding:8px;
+}
+.juba-busuu-landing .juba-busuu-locale-options a{
+  border-radius:9px;
+}
+@media (max-width:1000px){
+  .juba-busuu-landing .juba-busuu-nav-inner{
+    min-height:68px;
+    width:min(1240px,calc(100% - 32px));
+  }
+  .juba-busuu-landing .juba-busuu-brand img{
+    width:132px;
+  }
+  .juba-busuu-landing .juba-busuu-mobile-menu{
+    top:68px;
+    padding:18px 20px 26px;
+  }
+}
+@media (max-width:420px){
+  .juba-busuu-landing .juba-busuu-nav-inner{
+    width:calc(100% - 24px);
+  }
+  .juba-busuu-landing .juba-busuu-brand img{
+    width:122px;
+  }
+}
