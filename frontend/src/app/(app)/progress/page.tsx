@@ -265,7 +265,7 @@ export default function ProgressPage() {
       {/* Header */}
       <div className="border bg-white border">
         <div className="card-header d-flex align-items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-primary-lt text-primary"><i className="ti ti-target icon" aria-hidden="true" /></span>
+          <span className="flex h-9 w-9 items-center justify-center rounded bg-primary-lt text-primary"><i className="ti ti-target icon" aria-hidden="true" /></span>
           <span className="text-secondary font-sans tracking-[.12em] uppercase">
             {t('subtitle')}
           </span>
@@ -305,7 +305,7 @@ export default function ProgressPage() {
       {summary && summary.mastery && summary.mastery.tracked_items > 0 && (
         <section className="juba-progress-section space-y-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-lt text-primary"><i className="ti ti-trophy icon" aria-hidden="true" /></span>
+            <span className="flex h-10 w-10 items-center justify-center rounded bg-primary-lt text-primary"><i className="ti ti-trophy icon" aria-hidden="true" /></span>
             <span className="text-body font-mono text-base font-bold tracking-widest">
               {t('skills')} · {t('mastered')}
             </span>
@@ -356,7 +356,7 @@ export default function ProgressPage() {
       {levelUnits.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-warning-lt text-warning"><i className="ti ti-book-2 icon" aria-hidden="true" /></span>
+            <span className="flex h-10 w-10 items-center justify-center rounded bg-warning-lt text-warning"><i className="ti ti-book-2 icon" aria-hidden="true" /></span>
             <span className="text-body font-mono text-base font-bold tracking-widest">
               {cefrLevel
                 ? t('competenciesSection', { level: cefrLevel })
