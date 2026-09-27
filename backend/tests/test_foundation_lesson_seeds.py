@@ -2073,3 +2073,22 @@ def test_en_gb_a1_daily_routine_examples_are_contextual_and_reusable():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 9
 
+\n
+def test_en_gb_a2_narrative_and_everyday_examples_add_context():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for group in A2_SETS for entry in group.words}
+    expected = {
+        "eventually": "two trains were cancelled",
+        "meanwhile": "backed up the files",
+        "hope": "checking when my passport expires",
+        "intend": "booked time to proofread",
+        "traditional": "passed down for generations",
+        "exciting": "score changed twice",
+        "popular": "weekend activities",
+        "difficult": "combined two grammar rules",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 12
+
