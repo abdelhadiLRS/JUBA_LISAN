@@ -1642,3 +1642,24 @@ def test_en_gb_c1_c2_grammar_contexts_are_situational():
     for question_id, phrase in expected.items():
         assert phrase.casefold() in entries[question_id].question.casefold(), question_id
         assert len(entries[question_id].question.split()) >= 15, question_id
+
+
+
+def test_foundation_fallback_seed_calibrates_quality_to_cefr_level():
+    """Fallback lessons should expose an explicit CEFR-appropriate difficulty target."""
+    from app.services.foundation_lesson_seeds import get_foundation_lesson_seed
+
+    expected = {
+        "A1": "short, highly familiar language",
+        "A2": "practical situations",
+        "B1": "Connect ideas independently",
+        "B2": "precise relationships between ideas",
+        "C1": "Adapt register and structure",
+        "C2": "nuanced meaning",
+    }
+    for level, phrase in expected.items():
+        seed = get_foundation_lesson_seed("en_GB", level, "unknown", "grammar")
+        if seed is None:
+            continue
+        assert phrase.casefold() in seed["content_quality"]["level_calibration"].casefold()
+        assert len(seed["content_quality"]["error_check"]) == 2
