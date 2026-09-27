@@ -1444,3 +1444,39 @@ def test_en_gb_a2_cities_money_and_symptoms_examples_are_contextual():
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 10
+
+
+def test_en_gb_a2_travel_and_directions_examples_are_actionable():
+    """A2 travel and directions vocabulary should model complete practical tasks."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in A2_SETS for entry in vocabulary_set.words}
+    expected = {
+        "passport": "board the international flight",
+        "luggage": "removed some books",
+        "check in": "leave our luggage",
+        "reservation": "comparing the location, price",
+        "destination": "where you want to get off",
+        "sightseeing": "historic buildings",
+        "souvenir": "bring something from the trip",
+        "currency": "change some money",
+        "customs": "checked our passports and luggage",
+        "accommodation": "quiet room, a good breakfast",
+        "itinerary": "two nights in each place",
+        "tour": "history from a local guide",
+        "turn left": "walk past the pharmacy",
+        "turn right": "reach the post office",
+        "straight on": "pedestrian crossing",
+        "crossroads": "large supermarket",
+        "roundabout": "road becomes narrower",
+        "traffic lights": "green signal",
+        "corner": "opposite the bank",
+        "block": "small park",
+        "opposite": "across the road",
+        "far": "I have a suitcase",
+        "distance": "an hour to walk",
+        "map": "streets in that part of town",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 10
