@@ -4408,3 +4408,206 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
     padding-top: 60px !important;
   }
 }
+
+
+/* Remaining member routes — final learning-surface alignment. */
+.juba-mobile-translator,
+.juba-conversation-page,
+.juba-mobile-chat,
+.juba-mobile-faq {
+  color:var(--juba-learning-ink) !important;
+  font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif !important;
+}
+.juba-mobile-translator,
+.juba-conversation-page,
+.juba-mobile-faq {
+  background:var(--juba-learning-bg) !important;
+}
+.juba-mobile-translator .juba-page-hero {
+  max-width:980px !important;
+  margin:0 auto 22px !important;
+  padding:24px 6px 8px !important;
+}
+.juba-mobile-translator .juba-page-title {
+  color:var(--juba-learning-ink) !important;
+  font-weight:900 !important;
+  letter-spacing:-.045em !important;
+}
+.juba-mobile-translator .juba-page-subtitle,
+.juba-mobile-translator .juba-muted {
+  color:var(--juba-learning-muted) !important;
+}
+.juba-mobile-translator .juba-panel {
+  border:2px solid var(--juba-learning-border) !important;
+  border-radius:22px !important;
+  background:#fff !important;
+  box-shadow:0 4px 0 rgba(0,0,0,.045),0 12px 28px rgba(0,0,0,.035) !important;
+}
+.juba-mobile-translator .juba-input,
+.juba-mobile-translator .juba-translator-textarea {
+  border:2px solid var(--juba-learning-border) !important;
+  border-radius:14px !important;
+  background:#fff !important;
+  color:var(--juba-learning-ink) !important;
+  font-family:inherit !important;
+}
+.juba-mobile-translator .juba-input:focus,
+.juba-mobile-translator .juba-translator-textarea:focus {
+  border-color:var(--juba-learning-green) !important;
+  box-shadow:0 0 0 4px rgba(88,204,2,.13) !important;
+  outline:none !important;
+}
+.juba-mobile-translator .juba-primary-button {
+  background:var(--juba-learning-green) !important;
+  border:2px solid var(--juba-learning-green-dark) !important;
+  color:#fff !important;
+  border-radius:14px !important;
+  box-shadow:0 4px 0 var(--juba-learning-green-dark) !important;
+  font-family:inherit !important;
+  font-weight:900 !important;
+}
+.juba-mobile-translator .juba-secondary-button {
+  background:#fff !important;
+  border:2px solid var(--juba-learning-border) !important;
+  color:var(--juba-learning-ink) !important;
+  border-radius:14px !important;
+  font-family:inherit !important;
+  font-weight:800 !important;
+}
+.juba-mobile-translator .juba-section-title,
+.juba-mobile-translator .juba-eyebrow {
+  color:var(--juba-learning-green-dark) !important;
+  font-weight:900 !important;
+}
+.juba-mobile-translator .juba-translator-result {
+  color:var(--juba-learning-ink) !important;
+  font-family:inherit !important;
+}
+.juba-mobile-translator .juba-translator-status {
+  border-color:#cceeb9 !important;
+  background:var(--juba-learning-green-soft) !important;
+  color:var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-translator .juba-translator-error {
+  border-color:#ffcaca !important;
+  background:#fff5f5 !important;
+  color:#b33a32 !important;
+}
+
+.juba-conversation-page {
+  border-radius:0 !important;
+}
+.juba-conversation-page .juba-conversation-shell,
+.juba-conversation-page .juba-conversation-gated {
+  border:2px solid var(--juba-learning-border) !important;
+  border-radius:22px !important;
+  background:#fff !important;
+  box-shadow:0 4px 0 rgba(0,0,0,.045),0 12px 28px rgba(0,0,0,.035) !important;
+}
+.juba-conversation-page button {
+  font-family:inherit !important;
+  border-radius:14px !important;
+}
+.juba-conversation-page input,
+.juba-conversation-page textarea,
+.juba-conversation-page select {
+  border-color:var(--juba-learning-border) !important;
+  border-radius:14px !important;
+  background:#fff !important;
+  color:var(--juba-learning-ink) !important;
+  font-family:inherit !important;
+}
+.juba-conversation-page input:focus,
+.juba-conversation-page textarea:focus,
+.juba-conversation-page select:focus {
+  border-color:var(--juba-learning-green) !important;
+  box-shadow:0 0 0 4px rgba(88,204,2,.13) !important;
+}
+
+.juba-mobile-chat {
+  min-height:calc(100vh - 56px) !important;
+  background:var(--juba-learning-bg) !important;
+}
+.juba-mobile-chat > * {
+  border-color:var(--juba-learning-border) !important;
+}
+.juba-mobile-chat button {
+  border-radius:14px !important;
+  font-family:inherit !important;
+  font-weight:800 !important;
+}
+.juba-mobile-chat input,
+.juba-mobile-chat textarea {
+  border:2px solid var(--juba-learning-border) !important;
+  border-radius:14px !important;
+  background:#fff !important;
+  color:var(--juba-learning-ink) !important;
+  font-family:inherit !important;
+}
+.juba-mobile-chat input:focus,
+.juba-mobile-chat textarea:focus {
+  border-color:var(--juba-learning-green) !important;
+  box-shadow:0 0 0 4px rgba(88,204,2,.13) !important;
+}
+.juba-mobile-chat [class*="bg-[var(--juba-learning-green)]"],
+.juba-mobile-chat [class*="bg-\[var\(--juba-primary\)\]"] {
+  background:var(--juba-learning-green) !important;
+  border-color:var(--juba-learning-green-dark) !important;
+  color:#fff !important;
+}
+
+.juba-mobile-faq {
+  width:min(100% - 32px,980px) !important;
+  margin:24px auto 90px !important;
+  padding:24px !important;
+  border:2px solid var(--juba-learning-border) !important;
+  border-radius:22px !important;
+  background:#fff !important;
+  box-shadow:0 4px 0 rgba(0,0,0,.045),0 12px 28px rgba(0,0,0,.035) !important;
+}
+.juba-mobile-faq .card {
+  border:2px solid var(--juba-learning-border) !important;
+  border-radius:18px !important;
+  background:#fff !important;
+  overflow:hidden !important;
+}
+.juba-mobile-faq h1,
+.juba-mobile-faq h2 {
+  color:var(--juba-learning-ink) !important;
+  font-family:inherit !important;
+  font-weight:900 !important;
+}
+.juba-mobile-faq p,
+.juba-mobile-faq span,
+.juba-mobile-faq div {
+  font-family:inherit !important;
+}
+.juba-mobile-faq .juba-faq-question {
+  color:var(--juba-learning-ink) !important;
+  background:#fff !important;
+  min-height:56px !important;
+}
+.juba-mobile-faq .juba-faq-question:hover {
+  background:var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-faq .juba-faq-answer {
+  background:#fbfff8 !important;
+  border-color:var(--juba-learning-border) !important;
+  color:var(--juba-learning-muted) !important;
+}
+.juba-mobile-faq code {
+  color:var(--juba-learning-green-dark) !important;
+  background:var(--juba-learning-green-soft) !important;
+  border-radius:6px !important;
+}
+@media(max-width:767px){
+  .juba-mobile-translator,
+  .juba-conversation-page,
+  .juba-mobile-chat,
+  .juba-mobile-faq { padding-bottom:88px !important; }
+  .juba-mobile-translator .juba-page-hero { padding-inline:10px !important; }
+  .juba-mobile-translator .juba-panel,
+  .juba-conversation-page .juba-conversation-shell,
+  .juba-mobile-faq { border-radius:18px !important; }
+  .juba-mobile-faq { width:calc(100% - 20px) !important; margin:12px auto 60px !important; padding:14px !important; }
+}
