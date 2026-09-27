@@ -1792,3 +1792,221 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
     margin-top:4px!important;
   }
 }
+
+
+/* Landing — games + AI final visual lock */
+.juba-reference-page .juba-games-showcase{
+  width:min(1120px,calc(100% - 40px))!important;
+  margin:0 auto!important;
+  padding:104px 0 96px!important;
+  background:#fff!important;
+}
+.juba-reference-page .juba-games-heading{
+  max-width:820px!important;
+  margin:0 auto 34px!important;
+  text-align:center!important;
+}
+.juba-reference-page .juba-games-heading .juba-ref-kicker{
+  color:#46a900!important;
+}
+.juba-reference-page .juba-games-heading h2{
+  margin:14px 0 12px!important;
+  color:#252525!important;
+  font-size:clamp(2.25rem,5vw,3.5rem)!important;
+  line-height:1.02!important;
+  letter-spacing:-.045em!important;
+  font-weight:950!important;
+}
+.juba-reference-page .juba-games-heading p{
+  max-width:700px!important;
+  margin:0 auto!important;
+  color:#68766d!important;
+  line-height:1.7!important;
+}
+.juba-reference-page .juba-games-tabs{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:10px!important;
+  max-width:900px!important;
+  margin:0 auto 18px!important;
+}
+.juba-reference-page .juba-games-tab{
+  min-height:54px!important;
+  border:1px solid #dfe9da!important;
+  border-radius:16px!important;
+  background:#fff!important;
+  color:#252525!important;
+  box-shadow:0 3px 10px rgba(37,37,37,.04)!important;
+  font-weight:850!important;
+  transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease!important;
+}
+.juba-reference-page .juba-games-tab:hover{
+  transform:translateY(-1px)!important;
+  border-color:#9bdd68!important;
+  background:#f3fbe9!important;
+}
+.juba-reference-page .juba-games-tab.is-active{
+  border-color:#58cc02!important;
+  background:#58cc02!important;
+  color:#fff!important;
+  box-shadow:inset 0 -3px 0 #46a900,0 8px 18px rgba(88,204,2,.16)!important;
+}
+.juba-reference-page .juba-games-tab.is-active::after{
+  background:#b7f36b!important;
+}
+.juba-reference-page .juba-game-stage{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.12fr) minmax(300px,.88fr)!important;
+  overflow:hidden!important;
+  border:1px solid #dfe9da!important;
+  border-radius:28px!important;
+  background:#fff!important;
+  box-shadow:0 14px 34px rgba(37,37,37,.07)!important;
+}
+.juba-reference-page .juba-game-stage-image{
+  min-height:420px!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:34px!important;
+  background:#f3fbe9!important;
+  border-inline-end:1px solid #dfe9da!important;
+}
+.juba-reference-page .juba-game-stage-image img{
+  width:min(100%,520px)!important;
+  height:auto!important;
+  object-fit:contain!important;
+}
+.juba-reference-page .juba-game-stage-copy{
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  align-items:flex-start!important;
+  gap:12px!important;
+  padding:46px!important;
+}
+.juba-reference-page .juba-game-stage-index{
+  color:#46a900!important;
+  font-size:12px!important;
+  font-weight:950!important;
+  letter-spacing:.08em!important;
+}
+.juba-reference-page .juba-game-stage-copy h3{
+  margin:0!important;
+  color:#252525!important;
+  font-size:clamp(1.7rem,3vw,2.5rem)!important;
+  line-height:1.05!important;
+  font-weight:950!important;
+}
+.juba-reference-page .juba-game-stage-copy p{
+  margin:0 0 8px!important;
+  color:#68766d!important;
+  line-height:1.65!important;
+}
+.juba-reference-page .juba-practical-language-section{
+  display:grid!important;
+  grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr)!important;
+  gap:42px!important;
+  margin-top:88px!important;
+  padding-top:88px!important;
+  border-top:1px solid #dfe9da!important;
+}
+.juba-reference-page .juba-practical-language-copy h2{
+  margin:14px 0 12px!important;
+  color:#252525!important;
+  font-size:clamp(2rem,4vw,3rem)!important;
+  line-height:1.05!important;
+  letter-spacing:-.04em!important;
+  font-weight:950!important;
+}
+.juba-reference-page .juba-practical-language-copy p{
+  margin:0 0 22px!important;
+  color:#68766d!important;
+  line-height:1.75!important;
+}
+.juba-reference-page .juba-practical-language-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+.juba-reference-page .juba-practical-language-card{
+  min-height:72px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:11px!important;
+  padding:13px 14px!important;
+  border:1px solid #dfe9da!important;
+  border-radius:16px!important;
+  background:#fff!important;
+  color:#252525!important;
+  box-shadow:0 3px 10px rgba(37,37,37,.035)!important;
+  text-decoration:none!important;
+  transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease!important;
+}
+.juba-reference-page .juba-practical-language-card:hover{
+  transform:translateY(-2px)!important;
+  border-color:#58cc02!important;
+  background:#f3fbe9!important;
+  box-shadow:0 8px 18px rgba(88,204,2,.10)!important;
+}
+.juba-reference-page .juba-ai-showcase{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.08fr) minmax(300px,.92fr)!important;
+  align-items:center!important;
+  gap:38px!important;
+  width:min(1120px,calc(100% - 40px))!important;
+  margin:0 auto 104px!important;
+  padding:24px!important;
+  border:1px solid #dfe9da!important;
+  border-radius:30px!important;
+  background:#f3fbe9!important;
+  box-shadow:0 14px 34px rgba(37,37,37,.07)!important;
+}
+.juba-reference-page .juba-ai-showcase-art{
+  min-height:460px!important;
+  position:relative!important;
+  overflow:hidden!important;
+  display:grid!important;
+  place-items:center!important;
+  border:1px solid #dfe9da!important;
+  border-radius:24px!important;
+  background:#fff!important;
+  box-shadow:0 5px 18px rgba(37,37,37,.05)!important;
+}
+.juba-reference-page .juba-ai-showcase-image{
+  width:min(100%,620px)!important;
+  height:auto!important;
+  object-fit:contain!important;
+}
+.juba-reference-page .juba-ai-showcase-copy{
+  padding:18px 12px!important;
+}
+.juba-reference-page .juba-ai-showcase-copy .juba-ref-button{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:8px!important;
+  min-height:50px!important;
+  padding:13px 20px!important;
+}
+@media(max-width:900px){
+  .juba-reference-page .juba-games-showcase{padding:76px 0 72px!important}
+  .juba-reference-page .juba-games-tabs{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .juba-reference-page .juba-game-stage{grid-template-columns:1fr!important}
+  .juba-reference-page .juba-game-stage-image{min-height:340px!important;border-inline-end:0!important;border-bottom:1px solid #dfe9da!important}
+  .juba-reference-page .juba-game-stage-copy{padding:34px!important}
+  .juba-reference-page .juba-practical-language-section{grid-template-columns:1fr!important;gap:28px!important}
+  .juba-reference-page .juba-ai-showcase{grid-template-columns:1fr!important;margin-bottom:76px!important}
+  .juba-reference-page .juba-ai-showcase-copy{padding:8px 12px 18px!important}
+}
+@media(max-width:600px){
+  .juba-reference-page .juba-games-showcase{width:calc(100% - 28px)!important}
+  .juba-reference-page .juba-games-heading{margin-bottom:24px!important}
+  .juba-reference-page .juba-games-tabs{gap:8px!important}
+  .juba-reference-page .juba-games-tab{min-height:48px!important;padding:9px 10px!important;font-size:12px!important}
+  .juba-reference-page .juba-game-stage-image{min-height:260px!important;padding:18px!important}
+  .juba-reference-page .juba-game-stage-copy{padding:24px!important}
+  .juba-reference-page .juba-practical-language-section{margin-top:60px!important;padding-top:60px!important}
+  .juba-reference-page .juba-practical-language-grid{grid-template-columns:1fr!important}
+  .juba-reference-page .juba-ai-showcase{width:calc(100% - 28px)!important;padding:14px!important;border-radius:24px!important}
+  .juba-reference-page .juba-ai-showcase-art{min-height:330px!important;border-radius:18px!important}
+}
