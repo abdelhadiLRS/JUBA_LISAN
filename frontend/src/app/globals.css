@@ -406,6 +406,9 @@ html[data-theme='light'] {
 .juba-busuu-menu{display:none}
 
 /* Hero: clean white Busuu-like editorial composition */
+.juba-busuu-landing #languages,.juba-busuu-landing #features,.juba-busuu-landing #reviews,.juba-busuu-landing #benefits,.juba-busuu-landing #pricing,.juba-busuu-landing #faq{scroll-margin-top:92px}
+.juba-busuu-language-list{scroll-snap-type:x proximity}
+.juba-busuu-language-item{scroll-snap-align:start}
 .juba-busuu-hero{background:#fff;overflow:hidden}
 .juba-busuu-hero-grid{
   min-height:620px;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
@@ -628,6 +631,9 @@ html[data-theme='light'] {
 .juba-busuu-landing .juba-busuu-footer-bottom a{color:#9da9a3!important;text-decoration:none}
 
 /* Responsive */
+@media(max-width:1000px){
+.juba-busuu-landing #languages,.juba-busuu-landing #features,.juba-busuu-landing #reviews,.juba-busuu-landing #benefits,.juba-busuu-landing #pricing,.juba-busuu-landing #faq{scroll-margin-top:80px}
+}
 @media(max-width:1000px){
   .juba-busuu-nav-links{display:none}.juba-busuu-nav-actions{display:none}
   .juba-busuu-menu{
