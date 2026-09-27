@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Menu, X } from 'lucide-react'
+import { ChevronDown, Menu, X } from 'lucide-react'
 import type { Locale } from '@/lib/locales'
 
 interface LandingNavProps {
@@ -44,17 +44,9 @@ export function LandingNav({
   const [open, setOpen] = useState(false)
 
   const localeOptions: Array<[Locale, string]> = [
-    ['en', 'English'],
-    ['ar', 'العربية'],
-    ['es', 'Español'],
-    ['fr', 'Français'],
-    ['pt', 'Português'],
-    ['de', 'Deutsch'],
-    ['it', 'Italiano'],
-    ['pl', 'Polski'],
-    ['nl', 'Nederlands'],
-    ['ro', 'Română'],
-    ['ru', 'Русский'],
+    ['en', 'English'], ['ar', 'العربية'], ['es', 'Español'], ['fr', 'Français'],
+    ['pt', 'Português'], ['de', 'Deutsch'], ['it', 'Italiano'], ['pl', 'Polski'],
+    ['nl', 'Nederlands'], ['ro', 'Română'], ['ru', 'Русский'],
   ]
 
   const links = [
@@ -65,6 +57,8 @@ export function LandingNav({
     ...(showReviews ? [{ href: '#reviews', label: navReviews }] : []),
   ]
 
+  const close = () => setOpen(false)
+
   return (
     <header className="juba-busuu-nav" dir={dir}>
       <div className="juba-busuu-nav-inner">
@@ -73,7 +67,7 @@ export function LandingNav({
         </Link>
 
         <nav className="juba-busuu-nav-links" aria-label={navFeatures}>
-          {links.slice(0, 5).map((link) => (
+          {links.map((link) => (
             <a key={link.href + link.label} href={link.href}>{link.label}</a>
           ))}
         </nav>
@@ -86,7 +80,9 @@ export function LandingNav({
             {hasSession ? dashboard : getStarted}
           </Link>
           <details className="juba-busuu-locale-menu">
-            <summary className="juba-busuu-locale" aria-label={navLanguages}>{locale.toUpperCase()}</summary>
+            <summary className="juba-busuu-locale" aria-label={navLanguages}>
+              <span>{locale.toUpperCase()}</span><ChevronDown aria-hidden="true" />
+            </summary>
             <div className="juba-busuu-locale-options">
               {localeOptions.map(([code, label]) => (
                 <Link key={code} href={code === 'en' ? '/' : `/${code}`} aria-current={code === locale ? 'page' : undefined}>
@@ -97,30 +93,28 @@ export function LandingNav({
           </details>
         </div>
 
-        <button
-          type="button"
-          className="juba-busuu-menu"
-          onClick={() => setOpen((value) => !value)}
-          aria-expanded={open}
-          aria-label={open ? closeMenuLabel : openMenuLabel}
-        >
-          {open ? <X /> : <Menu />}
+        <button type="button" className="juba-busuu-menu" onClick={() => setOpen((v) => !v)}
+          aria-expanded={open} aria-label={open ? closeMenuLabel : openMenuLabel}>
+          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
         </button>
       </div>
 
       {open && (
         <div className="juba-busuu-mobile-menu">
-          <nav>
+          <nav aria-label={navFeatures}>
             {links.map((link) => (
-              <a key={link.href + link.label} href={link.href} onClick={() => setOpen(false)}>{link.label}</a>
+              <a key={link.href + link.label} href={link.href} onClick={close}>{link.label}</a>
             ))}
           </nav>
           <div className="juba-busuu-mobile-actions">
-            <Link href={hasSession ? '/dashboard' : '/login'} onClick={() => setOpen(false)}>{hasSession ? dashboard : signIn}</Link>
-            <Link href={hasSession ? '/dashboard' : '/register'} onClick={() => setOpen(false)}>{hasSession ? dashboard : getStarted}</Link>
+            <Link href={hasSession ? '/dashboard' : '/login'} onClick={close}>{hasSession ? dashboard : signIn}</Link>
+            <Link className="juba-busuu-mobile-cta" href={hasSession ? '/dashboard' : '/register'} onClick={close}>
+              {hasSession ? dashboard : getStarted}
+            </Link>
             <div className="juba-busuu-mobile-locales">
               {localeOptions.map(([code, label]) => (
-                <Link key={code} href={code === 'en' ? '/' : `/${code}`} onClick={() => setOpen(false)} aria-current={code === locale ? 'page' : undefined}>
+                <Link key={code} href={code === 'en' ? '/' : `/${code}`} onClick={close}
+                  aria-current={code === locale ? 'page' : undefined}>
                   {label}
                 </Link>
               ))}
