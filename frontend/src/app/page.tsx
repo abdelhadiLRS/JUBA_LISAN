@@ -332,6 +332,37 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* BENEFITS — Busuu-style closing product proof, grounded in existing JUBA LISAN features. */}
+      <section className="juba-benefits" aria-labelledby="juba-benefits-title">
+        <div className="juba-benefits-inner">
+          <div className="juba-benefits-heading">
+            <span className="juba-ref-kicker">{t('featureSectionLabel')}</span>
+            <h2 id="juba-benefits-title">{t('bentoTitle')}</h2>
+            <p>{t('bentoSubtitle')}</p>
+          </div>
+          <div className="juba-benefits-grid">
+            <article className="juba-benefit-card">
+              <div className="juba-benefit-number">01</div>
+              <BookOpen aria-hidden="true" />
+              <h3>{t('feature2Title')}</h3>
+              <p>{t('feature2Description')}</p>
+            </article>
+            <article className="juba-benefit-card">
+              <div className="juba-benefit-number">02</div>
+              <MessageCircle aria-hidden="true" />
+              <h3>{t('feature7Title')}</h3>
+              <p>{t('feature7Description')}</p>
+            </article>
+            <article className="juba-benefit-card">
+              <div className="juba-benefit-number">03</div>
+              <Headphones aria-hidden="true" />
+              <h3>{t('feature3Title')}</h3>
+              <p>{t('feature3Description')}</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section id="faq" className="juba-ref-faq">
         <div className="juba-ref-section-heading">
           <span className="juba-ref-kicker">{t('navFAQ')}</span>
