@@ -353,7 +353,8 @@
     },
     "learningLabel": "Learning",
     "cefrLabel": "CEFR",
-    "coachLabel": "Coach",
+    "coachLabel": "Coach"
+  },
   "settings": {
     "title": "Settings",
     "sectionAccount": "Account",
@@ -2179,7 +2180,8 @@
     "wordsMastered": "words mastered so far.",
     "learning": "Learning",
     "personalized": "personalized for you",
-    "adaptive": "adaptive",
+    "adaptive": "adaptive"
+  ,
     "learner": "Learner",
       "minutes": "min",
       "reviewEyebrow": "Smart review",
@@ -2208,7 +2210,6 @@
         }
       }
   },
-  },
   "visitorTranslator": {
     "open": "Open instant translator",
     "translate": "Translate",
@@ -2234,5 +2235,4 @@
     "translating": "Translating…",
     "translationFailed": "Translation failed."
   }
-}
 }
