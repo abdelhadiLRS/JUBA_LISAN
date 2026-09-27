@@ -2036,14 +2036,6 @@ B1_SETS: list[VocabularySet] = [
                 frequency_rank=280,
             ),
             VocabularyEntry(
-                word="eventually",
-                pos="adverb",
-                definition="In the end; after a long time.",
-                example="We eventually found the hotel after getting lost twice.",
-                ipa="/ɪˈventʃuəli/",
-                frequency_rank=230,
-            ),
-            VocabularyEntry(
                 word="obviously",
                 pos="adverb",
                 definition="In a way that is easy to see or understand.",
