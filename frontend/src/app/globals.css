@@ -949,3 +949,8 @@ html[data-theme='light'] {
   .juba-mobile-vocabulary{padding-left:10px!important;padding-right:10px!important}
   .juba-mobile-flashcards{padding-left:10px!important;padding-right:10px!important}
 }
+
+
+.juba-busuu-heading-split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);align-items:end;gap:48px}
+.juba-busuu-heading-split>p{margin:0;max-width:560px;justify-self:end}
+@media(max-width:800px){.juba-busuu-heading-split{grid-template-columns:1fr;gap:18px}.juba-busuu-heading-split>p{justify-self:start}}
