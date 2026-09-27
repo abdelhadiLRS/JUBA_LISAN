@@ -900,3 +900,23 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
 .juba-reference-page .juba-practical-language-grid a:hover{border-color:#9bdd68!important;background:#f3fbe9!important;transform:translateY(-2px)!important;box-shadow:0 5px 0 rgba(70,169,0,.12)!important}
 @media(max-width:900px){.juba-reference-page .juba-ai-showcase{grid-template-columns:1fr!important;padding:38px 24px!important;gap:28px!important}.juba-reference-page .juba-ai-showcase-copy{text-align:center!important}.juba-reference-page .juba-ai-showcase-copy .juba-ref-button{margin-inline:auto!important}.juba-reference-page .juba-ai-showcase-art{min-height:300px!important}.juba-reference-page .juba-games-showcase{padding:60px 18px!important}}
 @media(max-width:520px){.juba-reference-page .juba-ai-showcase{border-radius:24px!important;padding:28px 16px!important}.juba-reference-page .juba-ai-showcase-art{min-height:245px!important}.juba-reference-page .juba-games-tab{font-size:12px!important;padding:9px 12px!important}.juba-reference-page .juba-game-stage{padding:18px!important;border-radius:22px!important}}
+
+
+/* Landing closing sections final pass */
+.juba-reference-page .juba-ref-cta{background:#58cc02!important;color:#fff!important;padding:86px 24px!important;overflow:hidden!important}
+.juba-reference-page .juba-ref-cta-inner{max-width:1160px!important;margin:0 auto!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(320px,.72fr)!important;align-items:center!important;gap:48px!important}
+.juba-reference-page .juba-ref-cta h2{color:#fff!important;font-size:clamp(2.4rem,5vw,4.8rem)!important;line-height:.98!important;letter-spacing:-.055em!important;font-weight:950!important;margin:14px 0 18px!important}
+.juba-reference-page .juba-ref-cta p{color:rgba(255,255,255,.88)!important;max-width:600px!important;line-height:1.7!important}
+.juba-reference-page .juba-ref-cta .juba-ref-button{border:0!important;border-radius:999px!important;background:#fff!important;color:#252525!important;box-shadow:inset 0 -4px 0 #dfe9da!important;padding:14px 23px!important;font-weight:900!important;margin-top:22px!important}
+.juba-reference-page .juba-ref-cta .juba-ref-button:hover{background:#f3fbe9!important;transform:translateY(-1px)!important}
+.juba-reference-page .juba-ref-cta-device{display:flex!important;justify-content:center!important}
+.juba-reference-page .juba-ref-cta-device img{width:min(100%,500px)!important;height:auto!important;object-fit:contain!important}
+.juba-reference-page .juba-ref-faq{background:#fff!important;padding:88px 24px!important}
+.juba-reference-page .juba-ref-faq .juba-ref-section-heading{margin-bottom:34px!important}
+.juba-reference-page .juba-ref-faq .juba-ref-section-heading h2{font-size:clamp(2.2rem,4.4vw,3.8rem)!important}
+.juba-reference-page .juba-ref-faq>div:last-child{max-width:900px!important;margin-inline:auto!important}
+.juba-reference-page .juba-ref-review-grid{max-width:1160px!important;margin:0 auto!important;gap:16px!important}
+.juba-reference-page .juba-ref-review-card{border:1px solid #dfe9da!important;border-radius:22px!important;background:#fff!important;box-shadow:0 4px 0 rgba(70,169,0,.09)!important}
+.juba-reference-page .juba-ref-review-card:hover{border-color:#9bdd68!important;transform:translateY(-2px)!important}
+@media(max-width:900px){.juba-reference-page .juba-ref-cta-inner{grid-template-columns:1fr!important;text-align:center!important}.juba-reference-page .juba-ref-cta p{margin-inline:auto!important}.juba-reference-page .juba-ref-cta-device{order:2!important}.juba-reference-page .juba-ref-cta{padding:68px 20px!important}.juba-reference-page .juba-ref-faq{padding:68px 18px!important}}
+@media(max-width:520px){.juba-reference-page .juba-ref-cta{padding:58px 16px!important}.juba-reference-page .juba-ref-faq{padding:58px 14px!important}.juba-reference-page .juba-ref-review-card{border-radius:18px!important}}
