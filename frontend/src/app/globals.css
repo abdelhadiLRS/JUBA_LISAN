@@ -1013,3 +1013,228 @@ html[dir='rtl'] body {
     padding-top: 18px !important;
   }
 }
+
+
+/* Lesson — JUBA LISAN learning flow.
+   Keep lesson logic/API untouched; normalize every exercise state to the same
+   friendly, dimensional learning language used by Dashboard and Plan. */
+.juba-lesson-shell {
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+
+.juba-lesson-shell .juba-page-hero {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: var(--juba-learning-radius) !important;
+  background: #fff !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+
+.juba-lesson-shell > .mx-auto {
+  max-width: 900px !important;
+}
+
+.juba-lesson-shell header.sticky {
+  top: 10px !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 3px 0 rgba(0,0,0,.06) !important;
+}
+
+.juba-lesson-shell header.sticky a {
+  border: 2px solid var(--juba-learning-border) !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+  box-shadow: 0 2px 0 rgba(0,0,0,.05) !important;
+  font-weight: 900 !important;
+}
+
+.juba-lesson-shell header.sticky a:hover {
+  background: var(--juba-learning-green-soft) !important;
+  border-color: var(--juba-learning-green) !important;
+}
+
+.juba-lesson-shell header.sticky [role='progressbar'] {
+  background: var(--juba-learning-green) !important;
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,.08) !important;
+}
+
+.juba-lesson-shell .card,
+.juba-lesson-shell section.card {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 20px !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+
+.juba-lesson-shell .card article,
+.juba-lesson-shell section.card > div.rounded-2xl,
+.juba-lesson-shell section.card > nav.rounded-2xl {
+  border-color: var(--juba-learning-border) !important;
+  border-width: 2px !important;
+}
+
+.juba-lesson-shell section.card > div.rounded-2xl {
+  background: #fff !important;
+}
+
+.juba-lesson-shell section.card > div.rounded-2xl button,
+.juba-lesson-shell section.card > nav button {
+  border-width: 2px !important;
+}
+
+.juba-lesson-shell section.card h2 {
+  font-size: clamp(1.5rem, 3.2vw, 2.25rem) !important;
+  line-height: 1.25 !important;
+  font-weight: 900 !important;
+  letter-spacing: -.02em !important;
+}
+
+.juba-lesson-shell .bg-\[\#373fb8\] {
+  background: var(--juba-learning-green) !important;
+  color: #fff !important;
+}
+
+.juba-lesson-shell .text-\[\#373fb8\] {
+  color: var(--juba-learning-green-dark) !important;
+}
+
+.juba-lesson-shell .bg-\[\#ededff\] {
+  background: var(--juba-learning-green-soft) !important;
+}
+
+.juba-lesson-shell .bg-\[\#f4f4f2\] {
+  background: #f8f8f8 !important;
+}
+
+.juba-lesson-shell .border-\[rgba\(7\,7\,9\,.08\)\] {
+  border-color: var(--juba-learning-border) !important;
+}
+
+/* Exercise choices: large tactile buttons with a clear selected state. */
+.juba-lesson-shell [role='group'] button {
+  min-height: 64px !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-bottom-width: 4px !important;
+  border-radius: 16px !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,.02) !important;
+  font-weight: 800 !important;
+}
+
+.juba-lesson-shell [role='group'] button:hover {
+  border-color: var(--juba-learning-blue) !important;
+  background: #f3fbff !important;
+  transform: translateY(-1px) !important;
+}
+
+.juba-lesson-shell [role='group'] button[aria-pressed='true'] {
+  border-color: var(--juba-learning-green-dark) !important;
+  background: var(--juba-learning-green-soft) !important;
+  color: var(--juba-learning-green-dark) !important;
+  box-shadow: 0 2px 0 var(--juba-learning-green-dark) !important;
+}
+
+.juba-lesson-shell [role='group'] button[aria-pressed='true'] > span:first-child {
+  background: var(--juba-learning-green) !important;
+  border-color: var(--juba-learning-green-dark) !important;
+  color: #fff !important;
+}
+
+/* Answer controls. */
+.juba-lesson-shell input,
+.juba-lesson-shell textarea {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 16px !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+  font-weight: 700 !important;
+}
+
+.juba-lesson-shell input:focus,
+.juba-lesson-shell textarea:focus {
+  border-color: var(--juba-learning-blue) !important;
+  box-shadow: 0 0 0 3px rgba(28,176,246,.16) !important;
+  outline: none !important;
+}
+
+/* Feedback / completion states. */
+.juba-lesson-shell [role='status'] {
+  border-width: 2px !important;
+  border-radius: 16px !important;
+}
+
+.juba-lesson-shell .btn-primary,
+.juba-lesson-shell button.btn-primary {
+  min-height: 50px !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  border-radius: 14px !important;
+  background: var(--juba-learning-green) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 0 var(--juba-learning-green-dark) !important;
+  font-weight: 900 !important;
+}
+
+.juba-lesson-shell .btn-primary:hover:not(:disabled) {
+  transform: translateY(1px) !important;
+  box-shadow: 0 3px 0 var(--juba-learning-green-dark) !important;
+}
+
+.juba-lesson-shell .btn-outline-secondary,
+.juba-lesson-shell button:not(.btn-primary) {
+  font-weight: 800 !important;
+}
+
+.juba-lesson-shell section.card > div:last-child .btn-outline-secondary {
+  background: #fff !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  color: var(--juba-learning-ink) !important;
+}
+
+.juba-lesson-shell section.card > div:last-child .btn-outline-secondary:hover {
+  background: var(--juba-learning-green-soft) !important;
+  border-color: var(--juba-learning-green) !important;
+}
+
+.juba-lesson-shell audio {
+  width: 100% !important;
+  border-radius: 12px !important;
+}
+
+@media (max-width: 767px) {
+  .juba-lesson-shell {
+    padding-top: 12px !important;
+  }
+
+  .juba-lesson-shell .juba-page-hero {
+    padding: 18px !important;
+  }
+
+  .juba-lesson-shell header.sticky {
+    top: 6px !important;
+    padding: 12px !important;
+  }
+
+  .juba-lesson-shell section.card {
+    padding: 18px !important;
+    border-radius: 18px !important;
+  }
+
+  .juba-lesson-shell [role='group'] {
+    grid-template-columns: 1fr !important;
+  }
+
+  .juba-lesson-shell [role='group'] button {
+    min-height: 58px !important;
+  }
+
+  .juba-lesson-shell section.card > div:last-child {
+    flex-direction: column !important;
+  }
+
+  .juba-lesson-shell section.card > div:last-child > button,
+  .juba-lesson-shell section.card > div:last-child > a {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
