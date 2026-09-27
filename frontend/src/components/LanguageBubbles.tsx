@@ -53,7 +53,7 @@ export const SUPPORTED_LANGUAGE_COUNT = LANGUAGES.length
 
 export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   return (
-    <ul dir={dir} className="juba-busuu-language-list">
+    <ul dir={dir} className="juba-busuu-language-list" aria-labelledby="language-title">
       {LANGUAGES.map((language) => (
         <li key={language.code} className="juba-busuu-language-item">
           <Image
