@@ -133,7 +133,7 @@ export default async function Home() {
       </section>
 
       <section className="juba-busuu-proof" aria-labelledby="capabilities-title">
-          <h2 id="capabilities-title" className="sr-only">{t('languagesHeadline')}</h2>
+          <h2 id="capabilities-title" className="sr-only">{t('featureSectionLabel')}</h2>
         <div className="juba-busuu-container juba-busuu-proof-grid">
           <div><strong>CEFR</strong><span>{t('languagesHeadline')}</span></div>
           <div><strong>AI</strong><span>{t('flowAiDescription')}</span></div>
@@ -149,7 +149,7 @@ export default async function Home() {
             <p>{t('bentoSubtitle')}</p>
           </div>
           <div className="juba-busuu-feature-grid">
-            <Link href="/reading" className="juba-busuu-feature"><Image src="/landing/juba-reading.svg" alt="" width={360} height={250} /><span>{t('feature5Title')}</span><h3>{t('feature5Title')}</h3><p>{t('feature5Desc')}</p></Link>
+            <Link href="/reading" className="juba-busuu-feature"><Image src="/landing/juba-reading.svg" alt="" width={360} height={250} /><span>{t('featureSectionLabel')}</span><h3>{t('feature5Title')}</h3><p>{t('feature5Desc')}</p></Link>
             <Link href="/chat" className="juba-busuu-feature"><Image src="/landing/juba-chat.svg" alt="" width={360} height={250} /><span>{t('flowAiLabel')}</span><h3>{t('feature2Title')}</h3><p>{t('feature2Desc')}</p></Link>
             <Link href="/listening" className="juba-busuu-feature"><Image src="/landing/juba-listening.svg" alt="" width={360} height={250} /><span>{t('flowVoiceLabel')}</span><h3>{t('feature3Title')}</h3><p>{t('feature3Desc')}</p></Link>
           </div>
@@ -188,7 +188,7 @@ export default async function Home() {
 
       <section className="juba-busuu-benefits" aria-labelledby="benefits-title">
         <div className="juba-busuu-container">
-          <div className="juba-busuu-heading"><span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span><h2 id="benefits-title">{t('bentoTitle')}</h2></div>
+          <div className="juba-busuu-heading"><span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span><h2 id="benefits-title">{t('builtForLearners')}</h2></div>
           <div className="juba-busuu-benefit-list">
             <article><BookOpen aria-hidden="true" /><div><h3>{t('feature1Title')}</h3><p>{t('feature1Desc')}</p></div></article>
             <article><MessageCircle aria-hidden="true" /><div><h3>{t('feature6Title')}</h3><p>{t('feature6Desc')}</p></div></article>
@@ -213,7 +213,7 @@ export default async function Home() {
 
       <section className="juba-busuu-final-cta">
         <div className="juba-busuu-container juba-busuu-final-cta-inner">
-          <div><span className="juba-busuu-eyebrow">{t('heroBadge')}</span><h2>{t('ctaStart')}</h2><p>{t('heroSub')}</p><Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">{hasSession ? t('dashboard') : t('ctaStart')}<ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" /></Link></div>
+          <div><span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span><h2>{t('builtForLearners')}</h2><p>{t('flowDescription')}</p><Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">{hasSession ? t('dashboard') : t('ctaStart')}<ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" /></Link></div>
           <Image src="/landing/juba-hero-characters.svg" alt="" width={700} height={520} />
         </div>
       </section>
