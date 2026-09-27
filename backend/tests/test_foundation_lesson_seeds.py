@@ -639,3 +639,49 @@ def test_en_gb_b2_c1_overlaps_add_semantic_or_domain_value():
 
     assert "inference" in c1["implication"].definition.casefold()
     assert "systematic tendency" in c1["bias"].definition.casefold()
+
+
+def test_en_gb_progression_overlaps_add_level_appropriate_value():
+    """Selected overlaps should gain precision, context, or abstraction at the next CEFR level."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+    from app.data.en_GB.vocabulary_b1 import B1_SETS
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+    from app.data.en_GB.vocabulary_c2 import C2_SETS
+
+    a2 = {entry.word: entry for vocab_set in A2_SETS for entry in vocab_set.words}
+    b1 = {entry.word: entry for vocab_set in B1_SETS for entry in vocab_set.words}
+    c1 = {entry.word: entry for vocab_set in C1_SETS for entry in vocab_set.words}
+    c2 = {entry.word: entry for vocab_set in C2_SETS for entry in vocab_set.words}
+
+    expected = {
+        "A2": {
+            "tall": "tallest person",
+            "beautiful": "especially in spring",
+            "head": "hit his head lightly",
+            "arm": "wear a support",
+            "leg": "stopped running",
+        },
+        "B1": {
+            "meanwhile": "moved their work to another room",
+            "worth": "guided tour",
+            "species": "natural habitats",
+            "habitat": "cleared for agriculture",
+        },
+        "C2": {
+            "ambiguity": "competing interpretations",
+            "paradigm": "dominant paradigm",
+        },
+    }
+    for word, phrase in expected["A2"].items():
+        assert phrase.casefold() in a2[word].example.casefold()
+        assert len(a2[word].example.split()) >= 10
+    for word, phrase in expected["B1"].items():
+        assert phrase.casefold() in b1[word].example.casefold()
+        assert len(b1[word].example.split()) >= 10
+    for word, phrase in expected["C2"].items():
+        assert phrase.casefold() in c2[word].example.casefold()
+        assert len(c2[word].example.split()) >= 12
+
+    assert "contextual analysis" in c1["ambiguity"].definition.casefold()
+    assert "intellectual framework" in c2["paradigm"].definition.casefold()
+    assert b1["meanwhile"].example.casefold() != a2["meanwhile"].example.casefold()
