@@ -47,6 +47,7 @@ export function LandingNav({
 }: LandingNavProps) {
   const [open, setOpen] = useState(false)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const localeMenuRef = useRef<HTMLDetailsElement>(null)
 
   useEffect(() => {
     if (!open) return
@@ -83,6 +84,13 @@ export function LandingNav({
     { href: '#faq', label: navFAQ },
     ...(showReviews ? [{ href: '#reviews', label: navReviews }] : []),
   ]
+
+  const handleLocaleKeyDown = (event: React.KeyboardEvent<HTMLDetailsElement>) => {
+    if (event.key !== 'Escape' || !localeMenuRef.current?.open) return
+    event.preventDefault()
+    localeMenuRef.current.open = false
+    requestAnimationFrame(() => localeMenuRef.current?.querySelector<HTMLElement>('summary')?.focus())
+  }
 
   const close = (href?: string) => {
     setOpen(false)
@@ -125,7 +133,7 @@ export function LandingNav({
           <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-nav-cta">
             {hasSession ? dashboard : getStarted}
           </Link>
-          <details className="juba-busuu-locale-menu">
+          <details ref={localeMenuRef} onKeyDown={handleLocaleKeyDown} className="juba-busuu-locale-menu">
             <summary className="juba-busuu-locale" aria-label={interfaceLanguages}>
               <span>{locale.toUpperCase()}</span>
               <ChevronDown aria-hidden="true" />
