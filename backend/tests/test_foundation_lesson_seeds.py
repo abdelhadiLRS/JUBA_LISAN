@@ -685,3 +685,45 @@ def test_en_gb_progression_overlaps_add_level_appropriate_value():
     assert "contextual analysis" in c1["ambiguity"].definition.casefold()
     assert "intellectual framework" in c2["paradigm"].definition.casefold()
     assert b1["meanwhile"].example.casefold() != a2["meanwhile"].example.casefold()
+
+
+def test_en_gb_a2_b1_core_examples_are_contextual_and_reusable():
+    """Selected A2/B1 examples should teach meaning through realistic situations."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+    from app.data.en_GB.vocabulary_b1 import B1_SETS
+
+    a2 = {entry.word: entry for vocabulary_set in A2_SETS for entry in vocabulary_set.words}
+    b1 = {entry.word: entry for vocabulary_set in B1_SETS for entry in vocabulary_set.words}
+
+    a2_contexts = {
+        "suddenly": "lights went out",
+        "immediately": "called a taxi",
+        "at first": "new timetable confusing",
+        "in the end": "least traffic",
+        "later": "this afternoon",
+        "next": "completed form",
+        "after that": "finished the meeting",
+        "soon": "checking the connection",
+    }
+    b1_contexts = {
+        "memorable": "whole audience joined",
+        "screen": "fell from the desk",
+        "honestly": "practical sessions",
+        "option": "travel by train",
+        "stage": "testing phase",
+        "system": "change their appointments",
+        "opinion": "more evidence",
+        "resemble": "original building",
+        "specific": "problem that the new policy",
+        "voluntary": "choose whether or not",
+    }
+
+    for word, phrase in a2_contexts.items():
+        assert phrase.casefold() in a2[word].example.casefold()
+        assert len(a2[word].definition.split()) >= 8
+        assert len(a2[word].example.split()) >= 10
+
+    for word, phrase in b1_contexts.items():
+        assert phrase.casefold() in b1[word].example.casefold()
+        assert len(b1[word].definition.split()) >= 8
+        assert len(b1[word].example.split()) >= 10
