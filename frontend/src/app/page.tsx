@@ -182,6 +182,10 @@ export default async function Home() {
         orderingLabel={t('feature5Title')}
         sentenceBuilderLabel={t('feature2Title')}
         openLabel={t('openInJuba')}
+        practicalEyebrow={t('languagesEyebrow')}
+        practicalTitle={t('languagesHeadline')}
+        practicalDescription={t('languagesDescription')}
+        practicalCta={t('ctaStart')}
       />
 
       {/* LANGUAGE DIRECTORY — public discovery of supported learning languages. */}
