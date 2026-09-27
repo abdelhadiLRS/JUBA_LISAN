@@ -332,7 +332,7 @@ function ReadingPage() {
             {history.map((item) => (
               <div
                 key={item.id}
-                className="border-secondary-subtle bg-white border p-4"
+                className="card card-body"
               >
                 <div className="mb-3 flex items-start justify-between gap-4">
                   <div className="min-w-0">
@@ -513,7 +513,7 @@ function ReadingPage() {
         </div>
 
         {error && (
-          <p className="text-secondary text-[#b33a32] mb-4 font-sans">
+          <p className="text-danger mb-4 font-sans">
             {error}
           </p>
         )}
@@ -608,7 +608,7 @@ function ReadingPage() {
                 {exercise.questions.map((q) => (
                   <div
                     key={q.index}
-                    className="border-secondary-subtle bg-white border p-4"
+                    className="card card-body"
                   >
                     <TargetLanguageText
                       as="p"
@@ -655,7 +655,7 @@ function ReadingPage() {
               </div>
 
               {error && (
-                <p className="text-secondary text-[#b33a32] mt-3 font-sans">
+                <p className="text-danger mt-3 font-sans">
                   {error}
                 </p>
               )}
