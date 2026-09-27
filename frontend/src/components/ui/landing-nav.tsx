@@ -65,6 +65,7 @@ export function LandingNav({
   const [open, setOpen] = useState(false)
   const [regionOpen, setRegionOpen] = useState(false)
   const [showPricing, setShowPricing] = useState(true)
+
   const [visitorCountry, setVisitorCountry] = useState<string>('DZ')
 
   const countryLabels: Record<string, { name: string }> = {
@@ -103,10 +104,6 @@ export function LandingNav({
 
   useEffect(() => {
     let canceled = false
-    if (!stripeEnabled) {
-      setShowPricing(false)
-      return
-    }
     if (!hasSession) {
       setShowPricing(true)
       return
@@ -120,7 +117,7 @@ export function LandingNav({
     return () => {
       canceled = true
     }
-  }, [hasSession, stripeEnabled])
+  }, [hasSession])
 
   const closeMenu = () => setOpen(false)
 
@@ -129,7 +126,7 @@ export function LandingNav({
       <a href="#features" onClick={closeMenu} className="text-sm font-black text-[var(--juba-app-ink)] hover:text-[var(--juba-app-green)] transition-colors">
         {navFeatures}
       </a>
-      <a href="#demo" onClick={closeMenu} className="text-sm font-black text-[var(--juba-app-ink)] hover:text-[var(--juba-app-green)] transition-colors">
+      <a href="#games" onClick={closeMenu} className="text-sm font-black text-[var(--juba-app-ink)] hover:text-[var(--juba-app-green)] transition-colors">
         {navDemo}
       </a>
       <a href="#languages" onClick={closeMenu} className="text-sm font-black text-[var(--juba-app-ink)] hover:text-[var(--juba-app-green)] transition-colors">
