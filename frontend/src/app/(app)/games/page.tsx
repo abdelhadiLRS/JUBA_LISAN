@@ -89,7 +89,11 @@ export default function GamesPage() {
   const [roundScore, setRoundScore] = useState(0)
   const [round, setRound] = useState(0)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
-  const speechRef = useRef<SpeechRecognitionInstance | null>(null)\n  const [speechListening, setSpeechListening] = useState(false)\n  const [speechError, setSpeechError] = useState(false)\n  const [inputValue, setInputValue] = useState('')\n
+  const speechRef = useRef<SpeechRecognitionInstance | null>(null)
+  const [speechListening, setSpeechListening] = useState(false)
+  const [speechError, setSpeechError] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
     resetGameProgress,
