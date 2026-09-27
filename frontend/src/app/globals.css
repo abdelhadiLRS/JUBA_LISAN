@@ -2440,3 +2440,17 @@ body .juba-reference-page[dir="rtl"] .juba-ai-showcase-copy .juba-ref-button{ali
   .juba-reference-page .juba-games-tab{transition:none!important}
   .juba-reference-page .juba-games-tab:hover{transform:none!important}
 }
+
+
+/* Landing — keyboard focus visibility for interactive showcase controls */
+.juba-reference-page .juba-games-tab:focus-visible,
+.juba-reference-page .juba-game-stage-copy .juba-ref-button:focus-visible,
+.juba-reference-page .juba-practical-language-card:focus-visible,
+.juba-reference-page .juba-practical-language-copy .juba-ref-button:focus-visible{
+  outline:3px solid #46a900!important;
+  outline-offset:4px!important;
+  box-shadow:0 0 0 5px rgba(88,204,2,.16)!important;
+}
+.juba-reference-page .juba-practical-language-card{transition:transform .16s ease,border-color .16s ease,background .16s ease!important}
+.juba-reference-page .juba-practical-language-card:hover{transform:translateY(-2px)!important;border-color:#58cc02!important;background:#f8fdf3!important}
+@media(prefers-reduced-motion:reduce){.juba-reference-page .juba-practical-language-card{transition:none!important}.juba-reference-page .juba-practical-language-card:hover{transform:none!important}}
