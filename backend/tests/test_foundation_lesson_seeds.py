@@ -1901,3 +1901,28 @@ def test_en_gb_a1_alphabet_examples_support_spelling_and_sound_awareness():
     assert "spelling" in examples["D"].lower()
     assert "spelling" in examples["E"].lower()
 
+
+
+def test_en_gb_a1_identity_examples_are_contextual_and_reusable():
+    from app.data.en_GB.vocabulary_a1 import A1_SETS
+
+    entries = {
+        entry.word: entry
+        for vocab_set in A1_SETS
+        for entry in vocab_set.words
+    }
+    expected = {
+        "country": ["born in Spain", "live in Bristol"],
+        "language": ["at home", "second language"],
+        "student": ["local college", "Monday to Friday"],
+        "nationality": ["Algerian nationality", "Manchester"],
+        "family": ["three different towns", "at weekends"],
+        "friend": ["practise English together", "evening class"],
+        "live": ["near the station", "walk to work"],
+        "speak": ["Arabic and French", "learning to speak English"],
+    }
+    for word, fragments in expected.items():
+        example = entries[word].example.lower()
+        for fragment in fragments:
+            assert fragment.lower() in example, word
+
