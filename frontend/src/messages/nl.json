@@ -282,34 +282,34 @@
     "learningLabel": "Leren",
     "cefrLabel": "CEFR",
     "coachLabel": "Coach"
-  ,
-      "learner": "Leerling",
-      "minutes": "min",
-      "reviewEyebrow": "Slim herhalen",
-      "reviewTitle": "Je hebt herhalingen klaarstaan",
-      "reviewAction": "Start herhaling",
-      "reviewSkill": "Aanbevolen vaardigheid",
-      "learningLabel": "Leren",
-      "cefrLabel": "CEFR",
-      "coachLabel": "Coach",
-      "scenarios": {
-        "airport": {
-          "title": "Luchthaven",
-          "description": "Inchecken, de weg vragen en omgaan met vertragingen."
-        },
-        "jobInterview": {
-          "title": "Sollicitatiegesprek",
-          "description": "Oefen antwoorden, zelfvertrouwen en professionele woordenschat."
-        },
-        "restaurant": {
-          "title": "Restaurant",
-          "description": "Bestel natuurlijk en voer een echt gesprek."
-        },
-        "hotel": {
-          "title": "Hotel",
-          "description": "Boek een kamer, los problemen op en doe verzoeken."
-        }
+  "coach": {
+    "learner": "Leerling",
+    "minutes": "min",
+    "reviewEyebrow": "Slim herhalen",
+    "reviewTitle": "Je hebt herhalingen klaarstaan",
+    "reviewAction": "Start herhaling",
+    "reviewSkill": "Aanbevolen vaardigheid",
+    "learningLabel": "Leren",
+    "cefrLabel": "CEFR",
+    "coachLabel": "Coach",
+    "scenarios": {
+      "airport": {
+        "title": "Luchthaven",
+        "description": "Inchecken, de weg vragen en omgaan met vertragingen."
+      },
+      "jobInterview": {
+        "title": "Sollicitatiegesprek",
+        "description": "Oefen antwoorden, zelfvertrouwen en professionele woordenschat."
+      },
+      "restaurant": {
+        "title": "Restaurant",
+        "description": "Bestel natuurlijk en voer een echt gesprek."
+      },
+      "hotel": {
+        "title": "Hotel",
+        "description": "Boek een kamer, los problemen op en doe verzoeken."
       }
+    }
   },
   "settings": {
     "title": "Instellingen",
