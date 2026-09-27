@@ -3827,6 +3827,30 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
 }
 
 
+/* Dashboard progress strip — compact, game-like feedback without changing landing page. */
+.juba-dashboard .juba-dashboard-plan-progress {
+  height: 12px !important;
+  margin: 0 !important;
+  border: 2px solid #dcebd5 !important;
+  background: #edf4e9 !important;
+  box-shadow: inset 0 1px 0 rgba(0,0,0,.03) !important;
+}
+.juba-dashboard .juba-dashboard-plan-progress .progress-bar {
+  min-width: 0 !important;
+  background: var(--juba-learning-green) !important;
+  border-radius: 999px !important;
+}
+.juba-dashboard .card-footer .text-secondary {
+  font-size: .82rem !important;
+  font-weight: 800 !important;
+}
+@media (max-width: 767px) {
+  .juba-dashboard .juba-dashboard-plan-progress {
+    height: 11px !important;
+  }
+}
+
+
 /* Member dashboard visual refinement — scoped to authenticated app only. */
 .juba-dashboard { font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif !important; }
 .juba-dashboard .juba-dashboard-header { align-items:flex-end !important; }
