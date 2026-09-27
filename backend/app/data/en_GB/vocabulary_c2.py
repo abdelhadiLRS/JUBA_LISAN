@@ -1019,7 +1019,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="palaver",
                 pos="noun",
-                definition="Unnecessarily elaborate procedure or fuss. A common British informal term.",
+                definition="An informal British noun for unnecessary fuss, difficulty, or a complicated procedure.",
                 example="It was such a palaver just to renew a passport.",
                 ipa="/pəˈlɑːvə/",
                 frequency_rank=470,
@@ -1027,7 +1027,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="knackered",
                 pos="adjective",
-                definition="Extremely tired; exhausted. Very common British colloquialism.",
+                definition="A very informal British adjective meaning extremely tired or exhausted.",
                 example="I'm absolutely knackered after that 12-hour shift.",
                 ipa="/ˈnækəd/",
                 frequency_rank=440,
