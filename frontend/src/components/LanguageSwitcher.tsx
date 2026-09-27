@@ -71,7 +71,7 @@ export default function LanguageSwitcher() {
     <div ref={ref} className="relative w-full">
       {toast && (
         <div className="pointer-events-none fixed inset-x-0 top-20 z-[100] flex justify-center px-4" role="status" aria-live="polite">
-          <div className="pointer-events-auto flex items-center gap-2 rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-3 text-xs font-bold text-[#202127] shadow-[0_8px_22px_rgba(43,45,90,.10)]">
+          <div className="pointer-events-auto flex items-center gap-2 rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff] px-4 py-3 text-xs font-bold text-[#242424] shadow-[0_8px_22px_rgba(43,45,90,.10)]">
             <i className="ti ti-check icon icon-sm text-primary" aria-hidden="true" />
             {toastMsg}
           </div>
@@ -85,9 +85,9 @@ export default function LanguageSwitcher() {
         aria-expanded={multiple ? open : undefined}
         aria-haspopup={multiple ? 'listbox' : undefined}
         aria-label={multiple ? 'Switch target language' : `Current target language: ${targetLabel(activeLanguage.code, getLanguageByCode(activeLanguage.code)?.name ?? activeLanguage.code)}`}
-        className="group flex w-full items-center gap-3 rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff] px-3.5 py-2.5 text-left text-sm font-bold text-[#202127] shadow-[0_4px_14px_rgba(43,45,90,.06)] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_18px_rgba(43,45,90,.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5862e2] focus-visible:ring-offset-2 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-[0_4px_14px_rgba(43,45,90,.06)]"
+        className="group flex w-full items-center gap-3 rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff] px-3.5 py-2.5 text-left text-sm font-bold text-[#242424] shadow-[0_4px_14px_rgba(43,45,90,.06)] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_18px_rgba(43,45,90,.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#58cc02] focus-visible:ring-offset-2 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-[0_4px_14px_rgba(43,45,90,.06)]"
       >
-        <span className="flex h-9 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-black/10 bg-[#f3f4f8]">
+        <span className="flex h-9 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-black/10 bg-[#f7f7f7]">
           <Image src={getLanguageByCode(activeLanguage.code)?.flagPath ?? '/flags/arab-league.svg'} alt="" aria-hidden="true" width={44} height={32} unoptimized className="h-full w-full object-cover" />
         </span>
         <span className="min-w-0 flex-1 truncate">{isSwitching ? 'Switching…' : targetLabel(activeLanguage.code, getLanguageByCode(activeLanguage.code)?.name)}</span>
@@ -119,16 +119,16 @@ export default function LanguageSwitcher() {
                 aria-selected={ulang.is_active}
                 disabled={isSwitching}
                 onClick={() => handleSwitch(ulang.target_language)}
-                className={`flex w-full items-center gap-3 rounded-[12px] px-3 py-2.5 text-left text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5862e2] focus-visible:ring-inset disabled:cursor-wait disabled:opacity-60 ${
+                className={`flex w-full items-center gap-3 rounded-[12px] px-3 py-2.5 text-left text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#58cc02] focus-visible:ring-inset disabled:cursor-wait disabled:opacity-60 ${
                   ulang.is_active
-                    ? 'bg-[#ededff] text-[#202127]'
-                    : 'text-[#202127] hover:bg-[#ededff]'
+                    ? 'bg-[#efffe6] text-[#242424]'
+                    : 'text-[#242424] hover:bg-[#efffe6]'
                 }`}
               >
                 <Image src={lang.flagPath} alt="" aria-hidden="true" width={36} height={26} unoptimized className="h-[26px] w-9 shrink-0 rounded-md border border-black/10 object-cover" />
                 <span lang={lang.iso639} dir="auto" className="min-w-0 flex-1 truncate">{targetLabel(lang.code, lang.name)}</span>
                 {ulang.plan?.cefr_level && (
-                  <span className="rounded-full bg-[#fff3d1] px-2 py-0.5 text-[10px] font-black text-[#202127]">
+                  <span className="rounded-full bg-[#fff8d9] px-2 py-0.5 text-[10px] font-black text-[#242424]">
                     {ulang.plan.cefr_level}
                   </span>
                 )}
