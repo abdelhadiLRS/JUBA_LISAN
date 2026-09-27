@@ -94,16 +94,22 @@ export function LandingNav({
 
   useEffect(() => {
     const handleViewportChange = () => {
-      if (window.matchMedia('(min-width: 1001px)').matches) {
+      if (!window.matchMedia('(min-width: 1001px)').matches) return
+
+      if (open) {
         setOpen(false)
-        if (localeMenuRef.current) localeMenuRef.current.open = false
+        requestAnimationFrame(() => {
+          document.querySelector<HTMLElement>('.juba-busuu-nav-links a')?.focus()
+        })
       }
+
+      if (localeMenuRef.current) localeMenuRef.current.open = false
     }
 
     handleViewportChange()
     window.addEventListener('resize', handleViewportChange)
     return () => window.removeEventListener('resize', handleViewportChange)
-  }, [])
+  }, [open])
 
   useEffect(() => {
     const handlePointerDown = (event: PointerEvent) => {
