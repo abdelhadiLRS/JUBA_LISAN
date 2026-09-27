@@ -213,6 +213,34 @@ export default async function Home() {
         practicalCta={t('ctaStart')}
       />
 
+      {/* PRACTICAL SKILLS — Busuu-inspired real-life learning presentation, using JUBA LISAN modules. */}
+      <section className="juba-practical-skills" aria-labelledby="juba-practical-title">
+        <div className="juba-practical-inner">
+          <div className="juba-practical-heading">
+            <span className="juba-ref-kicker">{t('flowEyebrow')}</span>
+            <h2 id="juba-practical-title">{t('flowHeadline')}</h2>
+            <p>{t('flowDescription')}</p>
+          </div>
+          <div className="juba-practical-grid">
+            <Link href="/reading" className="juba-practical-card">
+              <Image src="/landing/juba-reading.svg" alt="" width={320} height={220} />
+              <div><span>{t('languagesEyebrow')}</span><h3>{t('languagesHeadline')}</h3><p>{t('languagesDescription')}</p></div>
+              <ArrowRight className={locale === 'ar' ? 'rotate-180' : undefined} aria-hidden="true" />
+            </Link>
+            <Link href="/listening" className="juba-practical-card">
+              <Image src="/landing/juba-listening.svg" alt="" width={320} height={220} />
+              <div><span>{t('flowVoiceLabel')}</span><h3>{t('flowVoiceTitle')}</h3><p>{t('flowVoiceDescription')}</p></div>
+              <ArrowRight className={locale === 'ar' ? 'rotate-180' : undefined} aria-hidden="true" />
+            </Link>
+            <Link href="/chat" className="juba-practical-card">
+              <Image src="/landing/juba-chat.svg" alt="" width={320} height={220} />
+              <div><span>{t('flowAiLabel')}</span><h3>{t('flowAiTitle')}</h3><p>{t('flowAiDescription')}</p></div>
+              <ArrowRight className={locale === 'ar' ? 'rotate-180' : undefined} aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* LANGUAGE DIRECTORY — public discovery of supported learning languages. */}
       <section id="languages" className="juba-ref-language-section">
         <div className="juba-ref-language-copy">
