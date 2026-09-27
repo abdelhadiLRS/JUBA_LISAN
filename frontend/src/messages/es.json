@@ -282,34 +282,34 @@
     "learningLabel": "Aprendizaje",
     "cefrLabel": "CEFR",
     "coachLabel": "Coach"
-  ,
-      "learner": "Estudiante",
-      "minutes": "min",
-      "reviewEyebrow": "Repaso inteligente",
-      "reviewTitle": "Tienes repasos pendientes",
-      "reviewAction": "Iniciar repaso",
-      "reviewSkill": "Habilidad recomendada",
-      "learningLabel": "Aprendizaje",
-      "cefrLabel": "CEFR",
-      "coachLabel": "Coach",
-      "scenarios": {
-        "airport": {
-          "title": "Aeropuerto",
-          "description": "Facturar, pedir indicaciones y gestionar retrasos."
-        },
-        "jobInterview": {
-          "title": "Entrevista de trabajo",
-          "description": "Practica respuestas, confianza y vocabulario profesional."
-        },
-        "restaurant": {
-          "title": "Restaurante",
-          "description": "Pide con naturalidad y afronta una conversación real."
-        },
-        "hotel": {
-          "title": "Hotel",
-          "description": "Reserva una habitación, resuelve problemas y haz peticiones."
-        }
+  "coach": {
+    "learner": "Estudiante",
+    "minutes": "min",
+    "reviewEyebrow": "Repaso inteligente",
+    "reviewTitle": "Tienes repasos pendientes",
+    "reviewAction": "Iniciar repaso",
+    "reviewSkill": "Habilidad recomendada",
+    "learningLabel": "Aprendizaje",
+    "cefrLabel": "CEFR",
+    "coachLabel": "Coach",
+    "scenarios": {
+      "airport": {
+        "title": "Aeropuerto",
+        "description": "Facturar, pedir indicaciones y gestionar retrasos."
+      },
+      "jobInterview": {
+        "title": "Entrevista de trabajo",
+        "description": "Practica respuestas, confianza y vocabulario profesional."
+      },
+      "restaurant": {
+        "title": "Restaurante",
+        "description": "Pide con naturalidad y afronta una conversación real."
+      },
+      "hotel": {
+        "title": "Hotel",
+        "description": "Reserva una habitación, resuelve problemas y haz peticiones."
       }
+    }
   },
   "settings": {
     "title": "Ajustes",
