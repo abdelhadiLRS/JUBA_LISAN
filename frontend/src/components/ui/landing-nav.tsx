@@ -241,7 +241,7 @@ export function LandingNav({
             <Link
               className="juba-busuu-mobile-cta"
               href={hasSession ? '/dashboard' : '/register'}
-              onClick={close}
+              onClick={() => close()}
             >
               {hasSession ? dashboard : getStarted}
             </Link>
