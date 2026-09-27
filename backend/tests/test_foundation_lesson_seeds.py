@@ -281,6 +281,38 @@ def test_en_gb_c2_examples_show_advanced_usage_in_context():
 
 
 
+def test_en_gb_b1_core_examples_are_contextual_and_reusable():
+    """Selected B1 examples should teach everyday meaning through specific, reusable contexts."""
+    from app.data.en_GB.vocabulary_b1 import B1_SETS
+
+    entries = {entry.word: entry for vocab_set in B1_SETS for entry in vocab_set.words}
+    expected_contexts = {
+        "experience": "international team",
+        "achievement": "working full-time",
+        "challenge": "affordable accommodation",
+        "opportunity": "practical experience",
+        "benefit": "better sleep",
+        "manage": "before the deadline",
+        "improve": "reviewing the difficult sounds",
+        "succeed": "local demand",
+        "device": "home visits",
+        "software": "payment is overdue",
+        "download": "without an internet connection",
+        "upload": "application is reviewed",
+        "search": "entry requirements",
+        "update": "critical fix",
+        "sustainable": "reduce emissions",
+        "recycle": "packaging separately",
+        "consequence": "rely on public transport",
+        "outcome": "pilot period",
+        "consider": "cancellation terms",
+        "affect": "customer confidence",
+    }
+    for word, phrase in expected_contexts.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 8
+
+
 def test_en_gb_b2_core_examples_teach_contextual_collocations():
     """Selected B2 examples should model useful professional and analytical contexts."""
     from app.data.en_GB.vocabulary_b2 import B2_SETS
