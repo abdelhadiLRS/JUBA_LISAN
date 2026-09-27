@@ -398,6 +398,16 @@ html[data-theme='light'] {
 .juba-busuu-locale-menu>summary svg{width:14px;height:14px;transition:transform .16s ease}
 .juba-busuu-locale-menu[open]>summary svg{transform:rotate(180deg)}
 .juba-busuu-locale-menu[open]>summary{background:var(--busuu-soft)}
+.juba-busuu-locale-menu>summary:focus-visible,
+.juba-busuu-nav a:focus-visible,
+.juba-busuu-menu:focus-visible,
+.juba-busuu-mobile-menu a:focus-visible,
+.juba-busuu-footer a:focus-visible{
+  outline:3px solid #1769e8;
+  outline-offset:3px;
+}
+.juba-busuu-mobile-menu a{min-height:44px;display:flex;align-items:center}
+
 .juba-busuu-locale-options{
   position:absolute;top:calc(100% + 8px);inset-inline-end:0;z-index:120;
   width:190px;padding:7px;background:#fff;border:1px solid var(--busuu-line);
