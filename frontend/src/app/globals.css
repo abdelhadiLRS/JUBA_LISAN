@@ -2190,3 +2190,204 @@ html[dir='rtl'] body {
     border-radius: 19px !important;
   }
 }
+
+/* Translator — instant language utility inside the same JUBA LISAN learning system. */
+.juba-mobile-translator {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding: 28px 16px 90px;
+  color: var(--juba-learning-ink);
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif;
+}
+.juba-mobile-translator .juba-page-hero {
+  margin-bottom: 22px;
+}
+.juba-mobile-translator .juba-page-title {
+  font-size: clamp(2.15rem, 5vw, 3.7rem) !important;
+  line-height: 1.02 !important;
+}
+.juba-mobile-translator .juba-page-subtitle {
+  margin-top: 10px !important;
+  font-weight: 700 !important;
+}
+.juba-translator-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+  gap: 16px;
+}
+.juba-translator-panel {
+  min-width: 0;
+  min-height: 390px;
+  display: flex;
+  flex-direction: column;
+}
+.juba-translator-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.juba-translator-select {
+  width: auto !important;
+  min-width: 145px;
+  padding-inline: 12px;
+  cursor: pointer;
+}
+.juba-translator-textarea,
+.juba-translator-result {
+  width: 100%;
+  min-height: 245px;
+  margin-top: 16px;
+  border: 2px solid var(--juba-learning-border);
+  border-radius: 16px;
+  background: #fff;
+  color: var(--juba-learning-ink);
+  font: inherit;
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.7;
+}
+.juba-translator-textarea {
+  flex: 1;
+  resize: vertical;
+  padding: 18px;
+  outline: none;
+}
+.juba-translator-textarea::placeholder {
+  color: var(--juba-learning-muted);
+}
+.juba-translator-textarea:focus,
+.juba-translator-result:focus-within {
+  border-color: var(--juba-learning-green);
+  box-shadow: 0 0 0 4px rgba(88,204,2,.13);
+}
+.juba-translator-result {
+  flex: 1;
+  padding: 18px;
+  overflow-wrap: anywhere;
+}
+.juba-translator-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+  color: var(--juba-learning-muted);
+  font-size: .8rem;
+  font-weight: 800;
+}
+.juba-translator-tool {
+  min-height: 40px !important;
+  padding: 7px 12px !important;
+  box-shadow: 0 2px 0 rgba(0,0,0,.05) !important;
+}
+.juba-translator-swap-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.juba-translator-swap {
+  width: 54px;
+  height: 54px;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  font-size: 1.35rem;
+}
+.juba-translator-learn {
+  min-height: 40px !important;
+}
+.juba-translator-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 18px;
+}
+.juba-translator-submit {
+  min-height: 54px !important;
+  min-width: 190px;
+  border-radius: 16px !important;
+  font-size: 1rem;
+}
+.juba-translator-actions p {
+  margin: 0;
+  font-weight: 700;
+}
+.juba-translator-status,
+.juba-translator-error {
+  margin-top: 18px;
+  font-weight: 850;
+}
+.juba-translator-status {
+  border-color: #b9e9a0 !important;
+  background: var(--juba-learning-green-soft) !important;
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-translator-error {
+  border-color: #ffc6c6 !important;
+  background: #fff5f5 !important;
+  color: #b42318 !important;
+}
+@media (max-width: 900px) {
+  .juba-translator-grid {
+    grid-template-columns: 1fr;
+  }
+  .juba-translator-swap-wrap {
+    order: 2;
+  }
+  .juba-translator-grid > .juba-translator-panel:first-child {
+    order: 1;
+  }
+  .juba-translator-grid > .juba-translator-panel:last-child {
+    order: 3;
+  }
+  .juba-translator-swap {
+    transform: rotate(90deg);
+  }
+}
+@media (max-width: 767px) {
+  .juba-mobile-translator {
+    padding: 14px 12px 88px;
+  }
+  .juba-mobile-translator .juba-page-hero {
+    padding: 21px !important;
+    border-radius: 19px !important;
+  }
+  .juba-mobile-translator .juba-page-title {
+    font-size: 2rem !important;
+  }
+  .juba-mobile-translator .juba-page-subtitle {
+    font-size: .9rem !important;
+    line-height: 1.7 !important;
+  }
+  .juba-translator-panel {
+    min-height: 330px;
+    padding: 16px !important;
+    border-radius: 18px !important;
+  }
+  .juba-translator-select {
+    min-width: 125px;
+  }
+  .juba-translator-textarea,
+  .juba-translator-result {
+    min-height: 210px;
+    font-size: 1rem;
+  }
+  .juba-translator-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .juba-translator-submit {
+    width: 100%;
+  }
+  .juba-translator-actions p {
+    text-align: center;
+    line-height: 1.6;
+  }
+}
+html[dir='rtl'] .juba-mobile-translator .juba-translator-toolbar,
+html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
+  text-align: right;
+}
