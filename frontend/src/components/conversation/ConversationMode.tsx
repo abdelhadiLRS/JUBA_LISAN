@@ -1026,7 +1026,7 @@ export default function ConversationMode({
 
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
-    <div className="juba-duo-conversation-shell mx-auto flex h-full max-w-4xl flex-col overflow-hidden p-4 md:p-6">
+    <div className="juba-duo-conversation-shell mx-auto flex h-full max-w-4xl flex-col overflow-hidden p-3 sm:p-4 md:p-6">
       {/* Header */}
       <div className="border-[#e1e5e2] mb-6 flex items-end justify-between border-b pb-4">
         <div>
@@ -1048,7 +1048,7 @@ export default function ConversationMode({
       </div>
 
       {trialMode && (
-        <div className="border-[#58a700]/40 bg-white text-[#68736d] mb-4 rounded-xl border px-4 py-3 text-center font-sans text-xs tracking-wide uppercase">
+        <div className="border-[#e1e5e2] bg-[#f1f7ed] text-[#438600] mb-4 rounded-xl border px-4 py-3 text-center font-sans text-xs font-semibold tracking-wide">
           {t('trialBanner', {
             minutes: Math.round((voiceTrialDurationSeconds ?? 300) / 60),
           })}
@@ -1058,7 +1058,7 @@ export default function ConversationMode({
       <MemorySavedToast visible={memoryToast} announcementId={memoryToastId} />
 
       {/* Transcript area */}
-      <div className="mb-4 min-h-0 flex-1 space-y-3 overflow-y-auto px-2">
+      <div className="mb-4 min-h-0 flex-1 space-y-4 overflow-y-auto px-1 sm:px-2">
         {transcript.length === 0 && !streamingText && status === 'live' && (
           <p className="text-[#68736d] py-8 text-center font-sans">
             {t('tapToStart')}
@@ -1099,12 +1099,12 @@ export default function ConversationMode({
 
       {/* Status message */}
       {status === 'error' && errorMsg && (
-        <div className="border-[#b33a32]/35 bg-white text-[#b33a32] mb-4 border px-4 py-3 font-sans text-xs">
+        <div className="border-[#b33a32]/30 bg-[#fff5f4] text-[#b33a32] mb-4 rounded-xl border px-4 py-3 font-sans text-xs">
           ✕ {errorMsg}
         </div>
       )}
       {status === 'ended' && (
-        <div className="border-[#e1e5e2] bg-white text-[#68736d] mb-4 border px-4 py-3 font-sans text-xs">
+        <div className="border-[#e1e5e2] bg-white text-[#68736d] mb-4 rounded-xl border px-4 py-3 font-sans text-xs">
           {t('sessionEnded')}
         </div>
       )}
