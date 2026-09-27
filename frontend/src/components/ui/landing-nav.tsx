@@ -74,7 +74,7 @@ export function LandingNav({
           <Image src="/logo.png" alt="JUBA LISAN" width={150} height={52} priority />
         </Link>
 
-        <nav className="juba-busuu-nav-links" aria-label={navFeatures}>
+        <nav className="juba-busuu-nav-links">
           {links.map((link) => (
             <a key={link.href} href={link.href}>
               {link.label}
@@ -124,7 +124,7 @@ export function LandingNav({
 
       {open && (
         <div id="juba-busuu-mobile-menu" className="juba-busuu-mobile-menu">
-          <nav aria-label={navFeatures}>
+          <nav>
             {links.map((link) => (
               <a key={link.href + link.label} href={link.href} onClick={close}>
                 {link.label}
