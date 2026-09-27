@@ -174,6 +174,29 @@ def test_c1_vocabulary_entries_match_shared_schema():
             assert entry.definition.strip(), f"{vocab_set.id}: missing definition for {entry.word}"
             assert entry.example.strip(), f"{vocab_set.id}: missing example for {entry.word}"
 
+def test_en_gb_c1_vocabulary_uses_british_spelling():
+    """C1 English content must stay consistent with the en_GB locale."""
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+
+    text = "\\n".join(
+        f"{entry.word} {entry.definition} {entry.example}"
+        for vocabulary_set in C1_SETS
+        for entry in vocabulary_set.words
+    ).casefold()
+
+    american_to_british = {
+        "galvanize": "galvanise",
+        "scrutinize": "scrutinise",
+        "organization": "organisation",
+        "favor": "favour",
+        "skeptical": "sceptical",
+    }
+
+    for american, british in american_to_british.items():
+        assert american not in text, f"American spelling remains in C1 content: {american}"
+        assert british in text, f"Expected British spelling is missing from C1 content: {british}"
+
+
 def test_c2_vocabulary_entries_match_shared_schema():
     """Authored C2 vocabulary must use valid parts of speech and learner-ready text."""
     from app.data.en_GB.vocabulary_c2 import C2_SETS
