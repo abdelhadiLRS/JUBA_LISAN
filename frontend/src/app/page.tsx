@@ -159,6 +159,24 @@ export default async function Home() {
         </div>
       </section>
 
+      <section className="juba-busuu-practical" aria-labelledby="practical-title">
+        <div className="juba-busuu-container juba-busuu-practical-grid">
+          <div className="juba-busuu-practical-copy">
+            <span className="juba-busuu-eyebrow">{t('flowEyebrow')}</span>
+            <h2 id="practical-title">{t('flowHeadline')}</h2>
+            <p>{t('flowDescription')}</p>
+            <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">
+              {hasSession ? t('dashboard') : t('ctaStart')}
+              <ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" />
+            </Link>
+          </div>
+          <div className="juba-busuu-practical-media">
+            <Image src="/landing/juba-learning-journey.svg" alt="" width={760} height={620} />
+          </div>
+        </div>
+      </section>
+
+
       <section id="features" className="juba-busuu-difference" aria-labelledby="difference-title">
         <div className="juba-busuu-container">
           <div className="juba-busuu-heading juba-busuu-heading-split">
@@ -231,23 +249,6 @@ export default async function Home() {
         <div className="juba-busuu-slogan-track">
           <span>{t('languagesHeadline')}</span><b>•</b><span>{t('flowVoiceTitle')}</span><b>•</b><span>{t('flowAiTitle')}</span><b>•</b>
           <span>{t('languagesHeadline')}</span><b>•</b><span>{t('flowVoiceTitle')}</span><b>•</b><span>{t('flowAiTitle')}</span>
-        </div>
-      </section>
-
-      <section className="juba-busuu-practical" aria-labelledby="practical-title">
-        <div className="juba-busuu-container juba-busuu-practical-grid">
-          <div className="juba-busuu-practical-copy">
-            <span className="juba-busuu-eyebrow">{t('flowEyebrow')}</span>
-            <h2 id="practical-title">{t('flowHeadline')}</h2>
-            <p>{t('flowDescription')}</p>
-            <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">
-              {hasSession ? t('dashboard') : t('ctaStart')}
-              <ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" />
-            </Link>
-          </div>
-          <div className="juba-busuu-practical-media">
-            <Image src="/landing/juba-learning-journey.svg" alt="" width={760} height={620} />
-          </div>
         </div>
       </section>
 
