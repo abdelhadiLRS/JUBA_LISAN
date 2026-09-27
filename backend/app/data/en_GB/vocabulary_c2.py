@@ -653,8 +653,8 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="empirical",
                 pos="adjective",
-                definition="Based on observation or experiment rather than theory.",
-                example="The researchers called for empirical support before accepting the proposed explanation.",
+                definition="Grounded in systematically gathered observation or experiment, especially when evidence is used to test or challenge a theoretical claim.",
+                example="The review found that the proposed mechanism remained plausible but lacked sufficient empirical support from controlled studies.",
                 ipa="/ɪmˈpɪrɪkəl/",
                 frequency_rank=350,
             ),
