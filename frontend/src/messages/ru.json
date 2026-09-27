@@ -86,7 +86,8 @@
     "dashboardStreak": "Day Streak",
     "dashboardXp": "Total XP",
     "dashboardMasteredWords": "Mastered Words",
-    "dashboardCurrentUnit": "Current Unit"
+    "dashboardCurrentUnit": "Current Unit",
+    "skipToContent": "Перейти к содержимому"
   },
   "common": {
     "loading": "Загрузка...",
@@ -161,7 +162,7 @@
     "grammar": "Грамматика",
     "vocabulary": "Словарный запас",
     "phrasebook": "Разговорник",
-  "settings": "Настройки",
+    "settings": "Настройки",
     "faq": "Частые вопросы",
     "admin": "Администрирование",
     "conversation": "Разговор",
