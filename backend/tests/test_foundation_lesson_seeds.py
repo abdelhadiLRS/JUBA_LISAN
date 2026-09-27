@@ -269,9 +269,9 @@ def test_c1_formal_writing_prioritises_high_utility_language():
     formal = next(v for v in C1_SETS if v.id == "formal_writing_c1")
     words = {entry.word.casefold() for entry in formal.words}
 
-    for word in {"hitherto", "inasmuch as", "thereof", "aforesaid"}:
+    for word in {"hitherto", "inasmuch as", "thereof", "aforesaid", "pursuant to", "hereby", "thereafter"}:
         assert word not in words
-    for word in {"subsequently", "subject to", "consequently", "prior to"}:
+    for word in {"subsequently", "subject to", "consequently", "prior to", "in response to", "with effect from", "in line with"}:
         assert word in words
 
 
