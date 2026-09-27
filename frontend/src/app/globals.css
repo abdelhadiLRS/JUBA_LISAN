@@ -1301,3 +1301,24 @@ html[data-theme='light'] {
 .juba-duo-conversation-shell :is(p,span,div){overflow-wrap:anywhere}
 @media(max-width:767px){.juba-duo-conversation-shell{padding:12px!important}.juba-duo-conversation-shell [class*="overflow-y-auto"]{padding-inline:2px}}
 @media(prefers-reduced-motion:reduce){.juba-duo-conversation-shell *{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+
+
+/* JUBA LISAN lesson accessibility: clear keyboard focus and reduced-motion support. */
+.juba-lesson-shell :is(a,button,input,textarea,select,summary,[tabindex]):focus-visible {
+  outline: 3px solid #58a700 !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 4px rgba(88,167,0,.14) !important;
+}
+.juba-lesson-shell :is(button,a,input,textarea,select) {
+  -webkit-tap-highlight-color: rgba(88,167,0,.14);
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-lesson-shell *,
+  .juba-lesson-shell *::before,
+  .juba-lesson-shell *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
