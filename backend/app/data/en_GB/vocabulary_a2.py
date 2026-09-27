@@ -477,7 +477,7 @@ A2_SETS: list[VocabularySet] = [
                 word="cash",
                 pos="noun",
                 definition="Money in the form of coins or notes.",
-                example="Do you pay by cash or card?",
+                example="Do you pay in cash or by card?",
                 ipa="/kæʃ/",
                 frequency_rank=295,
             ),
@@ -707,7 +707,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="medicine",
                 pos="noun",
-                definition="A drug or treatment used to cure illness.",
+                definition="A drug or treatment used to treat or manage an illness.",
                 example="Take this medicine twice a day.",
                 ipa="/ˈmedɪsɪn/",
                 frequency_rank=310,
@@ -756,7 +756,7 @@ A2_SETS: list[VocabularySet] = [
                 word="population",
                 pos="noun",
                 definition="The number of people living in a place.",
-                example="The population of Tokyo is huge.",
+                example="The population of Tokyo is very large.",
                 ipa="/ˌpɒpjəˈleɪʃən/",
                 frequency_rank=250,
             ),
@@ -779,7 +779,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="north",
                 pos="noun",
-                definition="The direction to the left when facing the rising sun.",
+                definition="The direction opposite to south.",
                 example="Edinburgh is in the north of Scotland.",
                 ipa="/nɔːθ/",
                 frequency_rank=185,
@@ -1169,7 +1169,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="cough",
                 pos="noun",
-                definition="A sudden sound made when air bursts from the lungs.",
+                definition="A sudden, forceful movement of air from the lungs through the mouth or nose.",
                 example="I have had a cough for a week.",
                 ipa="/kɒf/",
                 frequency_rank=440,
@@ -1459,7 +1459,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="lion",
                 pos="noun",
-                definition="A large wild cat found in Africa, known as the king of animals.",
+                definition="A large wild cat found mainly in Africa and parts of Asia.",
                 example="We saw a lion at the safari park.",
                 ipa="/ˈlaɪən/",
                 frequency_rank=250,
@@ -1675,7 +1675,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="mountain",
                 pos="noun",
-                definition="A very high hill.",
+                definition="A very high area of land, often with steep sides.",
                 example="The mountains are colder than the beach.",
                 ipa="/ˈmaʊntɪn/",
                 frequency_rank=200,
