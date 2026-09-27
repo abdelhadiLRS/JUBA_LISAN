@@ -2766,3 +2766,84 @@ body .juba-reference-page[dir="rtl"] .juba-ai-showcase-copy .juba-ref-button{ali
     transition:none!important;
   }
 }
+
+
+/* HERO REFERENCE — lightweight curved line-art framing inspired by the supplied Duolingo reference. */
+body .juba-reference-page .juba-ref-hero::before,
+body .juba-reference-page .juba-ref-hero::after{
+  content:""!important;
+  position:absolute!important;
+  pointer-events:none!important;
+  z-index:1!important;
+  border:3px solid rgba(88,204,2,.22)!important;
+  border-radius:50%!important;
+  transform:rotate(-12deg)!important;
+}
+body .juba-reference-page .juba-ref-hero::before{
+  width:420px!important;
+  height:210px!important;
+  left:-185px!important;
+  top:105px!important;
+  border-right-color:transparent!important;
+  border-bottom-color:transparent!important;
+}
+body .juba-reference-page .juba-ref-hero::after{
+  width:360px!important;
+  height:180px!important;
+  right:-150px!important;
+  top:185px!important;
+  border-left-color:transparent!important;
+  border-bottom-color:transparent!important;
+  transform:rotate(18deg)!important;
+}
+body .juba-reference-page .juba-ref-hero-inner::before,
+body .juba-reference-page .juba-ref-hero-inner::after{
+  content:""!important;
+  position:absolute!important;
+  width:180px!important;
+  height:90px!important;
+  border:2px solid rgba(37,37,37,.11)!important;
+  border-radius:50%!important;
+  pointer-events:none!important;
+  z-index:-1!important;
+}
+body .juba-reference-page .juba-ref-hero-inner::before{
+  left:-95px!important;
+  top:265px!important;
+  transform:rotate(22deg)!important;
+}
+body .juba-reference-page .juba-ref-hero-inner::after{
+  right:-95px!important;
+  top:95px!important;
+  transform:rotate(-22deg)!important;
+}
+@media(max-width:900px){
+  body .juba-reference-page .juba-ref-hero::before{
+    width:300px!important;height:150px!important;left:-180px!important;top:95px!important;
+  }
+  body .juba-reference-page .juba-ref-hero::after{
+    width:270px!important;height:135px!important;right:-175px!important;top:160px!important;
+  }
+  body .juba-reference-page .juba-ref-hero-inner::before,
+  body .juba-reference-page .juba-ref-hero-inner::after{
+    opacity:.65!important;
+  }
+}
+@media(max-width:560px){
+  body .juba-reference-page .juba-ref-hero::before,
+  body .juba-reference-page .juba-ref-hero::after{
+    opacity:.7!important;
+  }
+  body .juba-reference-page .juba-ref-hero-inner::before,
+  body .juba-reference-page .juba-ref-hero-inner::after{
+    display:none!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body .juba-reference-page .juba-ref-hero::before,
+  body .juba-reference-page .juba-ref-hero::after,
+  body .juba-reference-page .juba-ref-hero-inner::before,
+  body .juba-reference-page .juba-ref-hero-inner::after{
+    transform:none!important;
+  }
+}
