@@ -2999,70 +2999,48 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
 }
 .juba-mobile-feedback .text-\[\#b33a32\] {
 
-/* Auth — entry surfaces follow the same JUBA LISAN tactile learning language. */
-.juba-auth-mobile {
-  color: var(--juba-learning-ink) !important;
-  background: var(--juba-learning-bg) !important;
-  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
-}
-.juba-auth-mobile input {
+.juba-register select,
+.juba-register input[type='checkbox'] { accent-color: var(--juba-learning-green); }
+.juba-register select {
   min-height: 52px;
   border: 2px solid var(--juba-learning-border) !important;
   border-radius: 14px !important;
   background: #fff !important;
-  color: var(--juba-learning-ink) !important;
   font-family: inherit !important;
   font-weight: 700;
 }
-.juba-auth-mobile input:focus {
+.juba-register label:has(input[type='checkbox']) {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+}
+.juba-register label:has(input[type='checkbox']):hover {
+  border-color: var(--juba-learning-green) !important;
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-forgot-password > div > div {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 4px 0 rgba(0,0,0,.06) !important;
+}
+.juba-forgot-password input {
+  min-height: 52px;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  font-weight: 700;
+}
+.juba-forgot-password input:focus {
   border-color: var(--juba-learning-green) !important;
   box-shadow: 0 0 0 4px rgba(88,204,2,.13) !important;
+  outline: none !important;
 }
-.juba-auth-mobile button[type='submit'] {
-  min-height: 54px;
+.juba-forgot-password button[type='submit'] {
+  min-height: 52px;
   border: 2px solid var(--juba-learning-green-dark) !important;
   border-radius: 14px !important;
   background: var(--juba-learning-green) !important;
   box-shadow: 0 4px 0 var(--juba-learning-green-dark) !important;
   font-weight: 900 !important;
 }
-.juba-auth-mobile button[type='submit']:hover:not(:disabled) {
-  opacity: 1 !important;
-  transform: translateY(1px);
-}
-.juba-auth-mobile .rounded-\[26px\] {
-  border: 2px solid var(--juba-learning-border) !important;
-  border-radius: 22px !important;
-  box-shadow: 0 4px 0 rgba(0,0,0,.06) !important;
-}
-.juba-auth-mobile .text-\[\#373fb8\] {
-  color: var(--juba-learning-green-dark) !important;
-}
-.juba-auth-mobile .bg-\[\#373fb8\] {
-  background: var(--juba-learning-green) !important;
-}
-.juba-auth-mobile button[type='button']:hover {
-  background: var(--juba-learning-green-soft) !important;
-  color: var(--juba-learning-green-dark) !important;
-}
-.juba-auth-mobile a:hover {
-  color: var(--juba-learning-green-dark) !important;
-}
-.juba-auth-mobile button:focus-visible,
-.juba-auth-mobile a:focus-visible,
-.juba-auth-mobile input:focus-visible {
-  outline: 3px solid var(--juba-learning-blue) !important;
-  outline-offset: 2px !important;
-}
-@media (max-width: 767px) {
-  .juba-auth-mobile section:last-child {
-    padding: 18px 12px 32px !important;
-  }
-  .juba-auth-mobile .rounded-\[26px\] {
-    padding: 20px !important;
-    border-radius: 18px !important;
-  }
-}
-html[dir='rtl'] .juba-auth-mobile input {
-  text-align: right;
-}
+.juba-forgot-password a:hover { color: var(--juba-learning-green-dark) !important; }
