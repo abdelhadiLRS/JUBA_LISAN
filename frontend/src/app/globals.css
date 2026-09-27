@@ -940,3 +940,19 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
 .juba-reference-page .juba-ref-review-card p{color:#68766d!important;line-height:1.7!important}
 .juba-reference-page .juba-ref-review-card strong{color:#252525!important}
 @media(max-width:700px){.juba-reference-page .juba-ref-reviews{padding:64px 18px!important}}
+
+/* Landing header + hero final spacing pass */
+.juba-reference-page .juba-landing-header{height:72px!important;background:rgba(255,255,255,.96)!important;backdrop-filter:blur(12px)!important;border-bottom:1px solid #e7eee3!important}
+.juba-reference-page .juba-landing-header-inner{height:72px!important;width:min(1240px,calc(100% - 40px))!important;padding:0!important}
+.juba-reference-page .juba-landing-brand>span:first-child{width:136px!important;height:44px!important}
+.juba-reference-page .juba-landing-brand>span:first-child img{max-width:136px!important;height:44px!important}
+.juba-reference-page .juba-landing-nav-links{gap:24px!important;white-space:nowrap!important}
+.juba-reference-page .juba-landing-actions{gap:14px!important}
+.juba-reference-page .juba-ref-hero{padding-top:0!important}
+.juba-reference-page .juba-ref-hero-inner{min-height:calc(100svh - 72px)!important;padding-top:54px!important;padding-bottom:68px!important;gap:44px!important}
+.juba-reference-page .juba-ref-hero-copy{padding-bottom:8px!important}
+.juba-reference-page .juba-ref-hero-art{min-height:420px!important}
+.juba-reference-page .juba-ref-hero-art .juba-landing-real-image{max-height:470px!important}
+@media(max-width:1100px){.juba-reference-page .juba-landing-nav-links{gap:16px!important}.juba-reference-page .juba-landing-nav-links a{font-size:12px!important}.juba-reference-page .juba-ref-hero-inner{gap:24px!important}.juba-reference-page .juba-ref-hero-copy h1{font-size:clamp(3rem,6.6vw,5.4rem)!important}}
+@media(max-width:767px){.juba-reference-page .juba-landing-header{height:68px!important}.juba-reference-page .juba-landing-header-inner{height:68px!important;width:calc(100% - 28px)!important}.juba-reference-page .juba-ref-hero-inner{min-height:auto!important;padding-top:38px!important;padding-bottom:50px!important}.juba-reference-page .juba-ref-hero-art{min-height:280px!important}.juba-reference-page .juba-ref-hero-art .juba-landing-real-image{max-height:330px!important}}
+@media(max-width:520px){.juba-reference-page .juba-ref-hero-inner{padding-top:30px!important;padding-bottom:40px!important;gap:12px!important}.juba-reference-page .juba-ref-hero-art{min-height:230px!important}.juba-reference-page .juba-ref-hero-art .juba-landing-real-image{max-height:280px!important}}
