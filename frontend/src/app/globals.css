@@ -772,3 +772,34 @@ html[data-theme='light'] {
  .juba-duo-sidebar{height:64px;padding:0 14px}.juba-duo-sidebar .juba-duo-nav{display:none}.juba-duo-sidebar>div:nth-child(2){margin-left:auto}.juba-duo-main{min-height:calc(100dvh - 64px)}.juba-duo-home{width:min(100% - 24px,720px);padding-top:22px}.juba-duo-welcome{align-items:flex-start;flex-direction:column}.juba-duo-welcome h1{font-size:27px}.juba-duo-top-stats{width:100%}.juba-duo-top-stats div{flex:1}.juba-duo-grid{grid-template-columns:1fr}.juba-duo-side{grid-template-columns:1fr 1fr}.juba-duo-node-row.is-offset{transform:none}.juba-duo-path:before{left:38px;transform:none}.juba-duo-node-row{justify-content:flex-start;min-height:116px}.juba-duo-node-copy{width:auto;flex:1}.juba-duo-node{width:64px;height:64px}.juba-duo-node-row.is-offset .juba-duo-node-copy{order:0;text-align:left;align-items:flex-start}.juba-duo-links{grid-template-columns:1fr 1fr}
 }
 @media (max-width:560px){.juba-duo-home{width:calc(100% - 20px)}.juba-duo-side{grid-template-columns:1fr}.juba-duo-unit{padding:20px}.juba-duo-unit h2{font-size:20px}.juba-duo-guide{display:none}.juba-duo-premium{align-items:flex-start;flex-wrap:wrap}.juba-duo-premium button,.juba-duo-premium .btn{margin-left:38px}.juba-duo-node-copy strong{font-size:14px}}
+\n
+/* JUBA LISAN — member shell refinement */
+.juba-duo-sidebar{box-sizing:border-box}
+.juba-duo-logo-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#58a700;color:#fff;font-size:11px;font-weight:900;letter-spacing:-.04em;box-shadow:0 3px 0 #438600}
+.juba-duo-language{display:flex;align-items:center}
+.juba-duo-language button{border:1px solid #e1e7e2!important;border-radius:12px!important;background:#fff!important;color:#52606d!important;font-family:'Nunito Sans',sans-serif!important;font-weight:800!important}
+.juba-duo-nav-link{display:flex;align-items:center;gap:8px;text-decoration:none}
+.juba-duo-nav-link svg{color:#8a94a0;transition:color .15s ease}
+.juba-duo-nav-link:hover svg,.juba-duo-nav-link.is-active svg{color:#58a700}
+.juba-duo-nav-link.is-active{box-shadow:inset 0 -2px 0 #58a700!important}
+.juba-duo-nav-link-sub{font-size:13px!important;padding-inline:11px!important}
+.juba-duo-resource-toggle{display:none}
+.juba-duo-nav-divider{display:flex;gap:4px!important;margin:0!important;border:0!important;padding:0!important}
+.juba-duo-user{display:flex;align-items:center;gap:10px;border:0!important;padding:0!important}
+.juba-duo-user>div:first-child{display:flex;align-items:center;margin:0!important}
+.juba-duo-user>div:first-child>div:first-child{width:40px;height:40px;border:2px solid #e5e7eb!important;box-shadow:0 2px 0 rgba(31,41,51,.06)}
+.juba-duo-user>div:first-child>div:nth-child(2){display:none}
+.juba-duo-version,.juba-duo-user-action{display:none!important}
+.juba-duo-mobile-trigger{display:none}
+.juba-duo-mobile-brand{font-family:'Nunito Sans',sans-serif;font-weight:900;color:#58a700;letter-spacing:-.02em}
+.juba-duo-mobile-menu{border-top:1px solid #e5e7eb;background:#fff;max-height:calc(100svh - 64px);overflow:auto;padding:8px 12px 18px;box-shadow:0 12px 28px rgba(31,41,51,.12)}
+@media(max-width:900px){
+ .juba-duo-sidebar{display:flex!important;position:sticky;top:0;height:64px;padding:0 14px}
+ .juba-duo-sidebar .juba-duo-nav{display:none!important}
+ .juba-duo-sidebar>div:nth-child(2){display:none!important}
+ .juba-duo-sidebar>div:last-child{margin-left:auto!important}
+ .juba-duo-sidebar>div:last-child .juba-duo-user{display:flex!important}
+ .juba-duo-mobile-trigger{display:inline-flex!important;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid #e1e7e2;border-radius:12px;background:#fff;color:#52606d;font-weight:900}
+ .juba-duo-mobile-menu .juba-duo-nav-link{padding:12px 14px!important;border-radius:12px!important}
+ .juba-duo-mobile-menu .juba-duo-nav-link.is-active{box-shadow:none!important;background:#eaf5df!important}
+}
