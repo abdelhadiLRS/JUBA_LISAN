@@ -2159,3 +2159,22 @@ def test_foundation_fallback_seed_has_practice_task_sequences_by_skill():
         tasks = seed["practice_tasks"]
         assert len(tasks) >= 4
         assert all(isinstance(task, str) and len(task) > 20 for task in tasks)
+
+
+def test_en_gb_a2_travel_definitions_distinguish_ticket_delay_platform_destination():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {
+        word.word: word
+        for vocab_set in A2_SETS
+        for word in vocab_set.words
+    }
+    expected = {
+        "ticket": "digital record",
+        "delay": "scheduled time",
+        "platform": "railway track",
+        "destination": "final place",
+    }
+    for word, phrase in expected.items():
+        assert phrase in entries[word].definition.lower()
+
