@@ -45,7 +45,6 @@ export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
           <div className="juba-busuu-footer-column">
             <h3>{t('footerProduct')}</h3>
             <Link href="#features">{t('navFeatures')}</Link>
-            <Link href="#features">{t('navFeatures')}</Link>
             <Link href="#languages">{t('navLanguages')}</Link>
             <Link href="#pricing">{t('navPricing')}</Link>
           </div>
