@@ -2847,3 +2847,68 @@ body .juba-reference-page .juba-ref-hero-inner::after{
     transform:none!important;
   }
 }
+
+
+/* HERO REFERENCE — refine the decorative line-art so it reads as intentional artwork, not borders. */
+body .juba-reference-page .juba-ref-hero{
+  --hero-line:rgba(88,204,2,.28)!important;
+}
+body .juba-reference-page .juba-ref-hero::before,
+body .juba-reference-page .juba-ref-hero::after{
+  border-width:4px!important;
+  border-color:var(--hero-line)!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+body .juba-reference-page .juba-ref-hero::before{
+  width:440px!important;
+  height:220px!important;
+  left:-215px!important;
+  top:90px!important;
+  border-right-color:transparent!important;
+  border-bottom-color:transparent!important;
+  border-radius:52% 48% 45% 55%!important;
+  transform:rotate(-18deg)!important;
+}
+body .juba-reference-page .juba-ref-hero::after{
+  width:390px!important;
+  height:195px!important;
+  right:-190px!important;
+  top:155px!important;
+  border-left-color:transparent!important;
+  border-bottom-color:transparent!important;
+  border-radius:48% 52% 55% 45%!important;
+  transform:rotate(20deg)!important;
+}
+body .juba-reference-page .juba-ref-hero-inner::before{
+  width:155px!important;
+  height:78px!important;
+  left:-68px!important;
+  top:300px!important;
+  border-width:3px!important;
+  border-color:rgba(37,37,37,.13)!important;
+  border-right-color:transparent!important;
+  transform:rotate(18deg)!important;
+}
+body .juba-reference-page .juba-ref-hero-inner::after{
+  width:155px!important;
+  height:78px!important;
+  right:-68px!important;
+  top:115px!important;
+  border-width:3px!important;
+  border-color:rgba(37,37,37,.13)!important;
+  border-left-color:transparent!important;
+  transform:rotate(-18deg)!important;
+}
+@media(max-width:900px){
+  body .juba-reference-page .juba-ref-hero::before{left:-245px!important;top:75px!important}
+  body .juba-reference-page .juba-ref-hero::after{right:-225px!important;top:150px!important}
+}
+@media(max-width:560px){
+  body .juba-reference-page .juba-ref-hero::before{
+    width:270px!important;height:135px!important;left:-185px!important;top:80px!important;border-width:3px!important;
+  }
+  body .juba-reference-page .juba-ref-hero::after{
+    width:240px!important;height:120px!important;right:-185px!important;top:145px!important;border-width:3px!important;
+  }
+}
