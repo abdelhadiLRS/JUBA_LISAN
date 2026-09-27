@@ -3505,3 +3505,28 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
     border-color:var(--juba-learning-border)!important;
   }
 }
+
+
+/* Accessibility polish for the unified JUBA LISAN learning interface. */
+.juba-learning-shell :is(a, button, input, select, textarea, [role="button"]):focus-visible,
+.juba-mobile-chat :is(a, button, input, select, textarea, [role="button"]):focus-visible,
+.juba-mobile-translator :is(a, button, input, select, textarea, [role="button"]):focus-visible {
+  outline: 3px solid var(--juba-learning-blue) !important;
+  outline-offset: 3px !important;
+}
+.juba-learning-shell :is(button, a, input, select, textarea):disabled,
+.juba-mobile-chat :is(button, input, select, textarea):disabled,
+.juba-mobile-translator :is(button, input, select, textarea):disabled {
+  cursor: not-allowed;
+  opacity: .58;
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-learning-shell *,
+  .juba-mobile-chat *,
+  .juba-mobile-translator * {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
