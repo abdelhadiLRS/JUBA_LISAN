@@ -493,3 +493,52 @@
     padding: 18px !important;
   }
 }
+
+
+.round-complete {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 34px 18px 18px;
+  text-align: center;
+}
+.round-complete-icon {
+  display: grid;
+  place-items: center;
+  width: 82px;
+  height: 82px;
+  border: 2px solid var(--juba-learning-border);
+  border-radius: 24px;
+  background: var(--juba-learning-green-soft);
+  font-size: 42px;
+}
+.round-complete h2 {
+  margin: 0;
+  color: var(--juba-learning-ink);
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 900;
+}
+.round-complete p {
+  margin: 0 0 8px;
+  color: var(--juba-learning-muted);
+  font-size: 18px;
+}
+.round-complete p strong {
+  color: var(--juba-learning-green-dark);
+  font-size: 28px;
+}
+.round-achievements {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #d6a900;
+  border-radius: 16px;
+  background: #fff7d6;
+  color: #6d5400;
+  font-weight: 900;
+}
+.round-complete .next {
+  max-width: 360px;
+  margin-top: 8px;
+}
