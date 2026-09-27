@@ -2191,3 +2191,52 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
     transform:none!important;
   }
 }
+
+
+/* Landing — final games/AI proportion refinement */
+.juba-reference-page .juba-game-stage-image img{
+  max-height:420px!important;
+}
+.juba-reference-page .juba-game-stage-copy .juba-ref-button{
+  margin-top:4px!important;
+  align-self:flex-start!important;
+}
+.juba-reference-page .juba-practical-language-copy .juba-ref-button{
+  margin-top:2px!important;
+}
+.juba-reference-page .juba-ai-showcase-image{
+  max-height:430px!important;
+}
+.juba-reference-page .juba-ai-showcase-copy .juba-ref-kicker{
+  margin-bottom:2px!important;
+}
+.juba-reference-page .juba-ai-showcase-copy .juba-ref-button{
+  margin-top:4px!important;
+}
+.juba-reference-page .juba-ai-showcase-art{
+  isolation:isolate!important;
+}
+.juba-reference-page .juba-ai-chat-bubble{
+  pointer-events:none!important;
+}
+@media(max-width:900px){
+  .juba-reference-page .juba-game-stage-image img{
+    max-height:340px!important;
+  }
+  .juba-reference-page .juba-ai-showcase-image{
+    max-height:360px!important;
+  }
+}
+@media(max-width:600px){
+  .juba-reference-page .juba-game-stage-copy .juba-ref-button,
+  .juba-reference-page .juba-practical-language-copy .juba-ref-button,
+  .juba-reference-page .juba-ai-showcase-copy .juba-ref-button{
+    width:100%!important;
+  }
+  .juba-reference-page .juba-game-stage-image img{
+    max-height:240px!important;
+  }
+  .juba-reference-page .juba-ai-showcase-image{
+    max-height:290px!important;
+  }
+}
