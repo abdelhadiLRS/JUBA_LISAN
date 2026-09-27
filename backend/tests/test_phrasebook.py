@@ -360,3 +360,16 @@ async def test_generate_phrasebook_native_help_not_found(client, test_user):
 
     assert response.status_code == 404
     assert response.json()["detail"] == "Phrasebook category not found"
+
+@pytest.mark.asyncio
+async def test_en_gb_a2_planning_phrases_support_negotiation_and_confirmation(client, test_user):
+    _, headers = test_user
+    response = await client.get("/api/phrasebook?language=en-GB", headers=headers)
+    assert response.status_code == 200
+    categories = response.json()["categories"]
+    plans = next(category for category in categories if category["id"] == "making_plans_a2")
+    phrases = {entry["text"] for entry in plans["phrases"]}
+    assert "Would Saturday afternoon work for you?" in phrases
+    assert "Could we meet a little earlier?" in phrases
+    assert "That suits me." in phrases
+    assert "Just to confirm, we're meeting at [time] at [place]." in phrases
