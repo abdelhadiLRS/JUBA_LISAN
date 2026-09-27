@@ -1993,3 +1993,23 @@ def test_en_gb_a2_weather_definitions_distinguish_conditions():
     assert "frequent or heavy rain" in entries["rainy"].definition
     assert "moving air" in entries["windy"].definition
 
+\n
+def test_en_gb_a1_alphabet_consonant_examples_teach_articulation():
+    from app.data.en_GB.vocabulary_a1 import A1_SETS
+
+    alphabet = next(item for item in A1_SETS if item.id == "alphabet_a1")
+    examples = {entry.word: entry.example.lower() for entry in alphabet.words}
+    expected = {
+        "F": ["top teeth", "lower lip", "/f/"],
+        "G": ["letter name", "/dʒiː/", "/ɡ/"],
+        "J": ["/dʒ/", "jam"],
+        "K": ["letter name", "/k/"],
+        "L": ["tongue", "upper teeth", "/l/"],
+        "M": ["close your lips", "nose", "/m/"],
+        "N": ["tongue", "nose", "/n/"],
+        "X": ["/ks/", "/k/", "/s/"],
+    }
+    for letter, fragments in expected.items():
+        for fragment in fragments:
+            assert fragment in examples[letter], letter
+
