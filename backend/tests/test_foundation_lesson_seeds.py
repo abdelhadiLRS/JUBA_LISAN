@@ -1712,3 +1712,22 @@ def test_foundation_fallback_seed_aligns_actions_to_each_skill():
             continue
         assert phrase.casefold() in seed["skill_quality"]["focus"].casefold(), skill
         assert seed["skill_quality"]["evidence"]
+
+
+def test_foundation_fallback_seed_has_skill_specific_evidence_requirements():
+    expected = {
+        "grammar": ["target form", "form-meaning"],
+        "vocabulary": ["target meaning", "natural collocation"],
+        "reading": ["main idea", "text evidence"],
+        "listening": ["gist", "heard detail"],
+        "speaking": ["without reading", "follow-up"],
+        "writing": ["connected response", "Revise"],
+        "review": ["original model", "Distinguish"],
+    }
+    for skill, fragments in expected.items():
+        seed = get_foundation_lesson_seed("en_GB", "B1", "nonexistent", skill)
+        assert seed is not None
+        evidence = " ".join(seed["evidence_requirements"])
+        for fragment in fragments:
+            assert fragment.lower() in evidence.lower()
+
