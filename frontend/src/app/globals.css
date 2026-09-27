@@ -447,7 +447,7 @@ html[data-theme='light'] {
 .juba-busuu-final-cta-inner img{width:100%;height:auto;max-height:420px;object-fit:contain}
 .juba-busuu-final-cta .juba-busuu-primary{background:#fff;color:var(--busuu-green-dark)!important}
 
-.juba-busuu-landing .juba-duo-footer{margin:0!important;border:0!important;border-radius:0!important;background:#171a19!important;color:#fff!important}
+.juba-busuu-landing .juba-busuu-footer{margin:0!important;border:0!important;border-radius:0!important;background:#171a19!important;color:#fff!important}
 .juba-busuu-landing .juba-busuu-footer-shell{width:min(1180px,calc(100% - 40px));margin:auto;padding:72px 0 28px}
 .juba-busuu-landing .juba-busuu-footer-top{display:flex;justify-content:space-between;gap:30px;padding-bottom:48px;border-bottom:1px solid #39423e}
 .juba-busuu-landing .juba-busuu-footer-brand p{color:#b7c0bb!important;max-width:420px;line-height:1.7}
