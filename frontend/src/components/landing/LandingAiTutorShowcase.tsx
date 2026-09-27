@@ -65,7 +65,6 @@ export function LandingAiTutorShowcase({
           <Mic className="h-4 w-4" /> {openLabel}
         </Link>
       </div>
-    </div>
     </section>
   )
 }
