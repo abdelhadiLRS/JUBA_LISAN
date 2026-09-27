@@ -12,8 +12,8 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="seminal",
                 pos="adjective",
-                definition="Strongly influencing later developments.",
-                example="This is a seminal work in the field.",
+                definition="Having a strong and lasting influence on later ideas, research, or developments.",
+                example="The 1960s paper became a seminal work in the field of linguistics.",
                 ipa="/ˈsemɪnəl/",
                 frequency_rank=490,
             ),
@@ -36,15 +36,15 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="astute",
                 pos="adjective",
-                definition="Having keen insight; shrewd.",
-                example="Her astute observation changed our approach.",
+                definition="Quick to notice and understand what is important, especially when making decisions.",
+                example="His astute reading of the data exposed a flaw in the original argument.",
                 ipa="/əˈstjuːt/",
                 frequency_rank=480,
             ),
             VocabularyEntry(
                 word="tenuous",
                 pos="adjective",
-                definition="Weak; having little substance.",
+                definition="Weak or uncertain, especially because the evidence or connection is slight.",
                 example="The connection between the two events is tenuous.",
                 ipa="/ˈtenjuəs/",
                 frequency_rank=500,
@@ -52,7 +52,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="nascent",
                 pos="adjective",
-                definition="Just coming into existence.",
+                definition="Recently coming into existence or beginning to develop.",
                 example="The nascent technology shows promise.",
                 ipa="/ˈneɪsənt/",
                 frequency_rank=490,
@@ -60,7 +60,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="inextricable",
                 pos="adjective",
-                definition="Impossible to disentangle or separate.",
+                definition="So closely connected that the parts cannot be separated or understood independently.",
                 example="Language and culture are inextricably linked.",
                 ipa="/ɪnˈekstrɪkəbəl/",
                 frequency_rank=520,
@@ -84,7 +84,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="poignant",
                 pos="adjective",
-                definition="Evoking a keen sense of sadness or regret.",
+                definition="Causing a strong feeling of sadness, sympathy, or emotional significance.",
                 example="The film had a poignant ending.",
                 ipa="/ˈpɔɪnjənt/",
                 frequency_rank=490,
@@ -108,7 +108,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="vacuous",
                 pos="adjective",
-                definition="Lacking thought or intelligence; empty.",
+                definition="Showing little serious thought, intelligence, or meaningful content.",
                 example="The speech was vacuous, full of buzzwords and no substance.",
                 ipa="/ˈvækjuəs/",
                 frequency_rank=520,
@@ -116,7 +116,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="ubiquitous",
                 pos="adjective",
-                definition="Present, appearing, or found everywhere.",
+                definition="Present or encountered in many places or throughout a particular area or group.",
                 example="Smartphones are now ubiquitous in modern life.",
                 ipa="/juːˈbɪkwɪtəs/",
                 frequency_rank=450,
@@ -132,7 +132,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="spurious",
                 pos="adjective",
-                definition="Not being what it purports to be; false.",
+                definition="False or misleading, especially because it appears to be genuine, valid, or well-founded.",
                 example="The study was based on spurious correlations.",
                 ipa="/ˈspjʊriəs/",
                 frequency_rank=490,
@@ -148,7 +148,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="discerning",
                 pos="adjective",
-                definition="Having good judgement or taste.",
+                definition="Good at recognising quality, subtle differences, or what is appropriate.",
                 example="The discerning reader will notice the subtle allusion.",
                 ipa="/dɪˈsɜːrnɪŋ/",
                 frequency_rank=460,
@@ -266,21 +266,21 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="prima facie",
                 pos="phrase",
-                definition="Based on the first impression; accepted as correct until proved otherwise.",
+                definition="Based on what appears to be true at first sight, before fuller evidence is considered.",
                 example="There is a prima facie case for further investigation.",
                 ipa="/ˌpraɪmə ˈfeɪʃi/",
             ),
             VocabularyEntry(
                 word="ipso facto",
                 pos="phrase",
-                definition="By that very fact or act; as an inevitable result.",
+                definition="By the fact or act just mentioned; as a direct consequence of it.",
                 example="An agreement signed under duress is, ipso facto, invalid.",
                 ipa="/ˌɪpsoʊ ˈfæktoʊ/",
             ),
             VocabularyEntry(
                 word="proviso",
                 pos="noun",
-                definition="A condition attached to an agreement.",
+                definition="A condition or qualification attached to an agreement, proposal, or decision.",
                 example="The grant was awarded with the proviso that results be published.",
                 ipa="/prəˈvaɪzoʊ/",
                 frequency_rank=490,
@@ -288,7 +288,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="heretofore",
                 pos="adverb",
-                definition="Until this time; before now.",
+                definition="Until the time being discussed; before the present point in time.",
                 example="The heretofore undiscovered manuscript sheds new light on the period.",
                 ipa="/ˌhɪrtəˈfɔːr/",
             ),
@@ -361,7 +361,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="reinvent the wheel",
                 pos="phrase",
-                definition="To waste time doing something already done.",
+                definition="To spend effort developing something that already exists or can be reused.",
                 example="We don't need to reinvent the wheel here.",
                 ipa="/ˌriːɪnˈvent ðə wiːl/",
             ),
@@ -375,7 +375,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="a catch-22",
                 pos="phrase",
-                definition="A dilemma with no escape due to contradictory conditions.",
+                definition="A situation in which contradictory conditions create an apparently unavoidable problem.",
                 example="You need experience to get a job, but you need a job to get experience — it's a catch-22.",
                 ipa="/ə ˌkætʃ twentiˈtuː/",
             ),
@@ -389,7 +389,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="move the goalposts",
                 pos="phrase",
-                definition="To change the rules or criteria unfairly.",
+                definition="To change the rules or requirements during a process, making success harder to achieve.",
                 example="They keep moving the goalposts — it's impossible to satisfy them.",
                 ipa="/muːv ðə ˈɡəʊlpəʊsts/",
             ),
@@ -438,7 +438,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="a sea change",
                 pos="phrase",
-                definition="A profound or notable transformation.",
+                definition="A major and often sudden change in a situation, attitude, or approach.",
                 example="The election marked a sea change in public opinion.",
                 ipa="/ə siː tʃeɪndʒ/",
             ),
@@ -469,7 +469,7 @@ C2_SETS: list[VocabularySet] = [
                 word="metaphor",
                 pos="noun",
                 definition="A figure of speech describing one thing as another.",
-                example="Life is a journey is a classic metaphor.",
+                example="Calling a career 'a marathon, not a sprint' is a metaphor for sustained effort.",
                 ipa="/ˈmetəfɔː/",
                 frequency_rank=340,
             ),
@@ -478,7 +478,7 @@ C2_SETS: list[VocabularySet] = [
                 pos="noun",
                 definition="Expression of meaning through words that say the opposite.",
                 example="The irony of his situation was not lost on him.",
-                ipa="/ˈaɪrəni/",
+                ipa="/ˈaɪərəni/",
                 frequency_rank=330,
             ),
             VocabularyEntry(
@@ -532,8 +532,8 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="foreshadowing",
                 pos="noun",
-                definition="A warning or sign of a future event.",
-                example="The dark clouds were foreshadowing the disaster to come.",
+                definition="A literary device in which earlier details hint at events that will happen later.",
+                example="The recurring references to the locked door foreshadow the revelation at the end.",
                 ipa="/fɔːˈʃædəʊɪŋ/",
                 frequency_rank=470,
             ),
@@ -548,9 +548,9 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="prose",
                 pos="noun",
-                definition="Written or spoken language that is not poetry.",
+                definition="Language in its ordinary written or spoken form, rather than verse.",
                 example="The essay is written in elegant, precise prose.",
-                ipa="/proʊz/",
+                ipa="/prəʊz/",
                 frequency_rank=350,
             ),
             VocabularyEntry(
@@ -590,7 +590,7 @@ C2_SETS: list[VocabularySet] = [
                 pos="noun",
                 definition="Exaggerated statements not meant to be taken literally.",
                 example='"I\'ve told you a million times" is hyperbole.',
-                ipa="/haɪˈpɜːrbəli/",
+                ipa="/haɪˈpɜːbəli/",
                 frequency_rank=420,
             ),
             VocabularyEntry(
@@ -636,7 +636,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="ontology",
                 pos="noun",
-                definition="The branch of metaphysics dealing with the nature of being.",
+                definition="The branch of philosophy concerned with what exists and what it means for something to be.",
                 example="The ontological assumptions are made explicit.",
                 ipa="/ɒnˈtɒlədʒi/",
                 frequency_rank=490,
@@ -644,7 +644,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="hegemony",
                 pos="noun",
-                definition="Leadership or dominance, especially of one state over others.",
+                definition="Dominance or prevailing influence by one group, state, or culture over others.",
                 example="The text critiques cultural hegemony.",
                 ipa="/hɪˈdʒeməni/",
                 frequency_rank=460,
@@ -668,7 +668,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="posit",
                 pos="verb",
-                definition="To assume as a fact; to put forward as a theory.",
+                definition="To put forward an idea or proposition as a basis for discussion or further reasoning.",
                 example="The author posits that inequality is systemic.",
                 ipa="/ˈpɒzɪt/",
                 frequency_rank=440,
@@ -676,7 +676,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="taxonomy",
                 pos="noun",
-                definition="A system of classification.",
+                definition="A structured system for classifying things into categories according to shared characteristics.",
                 example="Bloom's taxonomy categorises educational objectives.",
                 ipa="/tækˈsɒnəmi/",
                 frequency_rank=460,
@@ -708,7 +708,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="axiom",
                 pos="noun",
-                definition="A universally accepted principle; a self-evident truth.",
+                definition="A principle accepted as a starting point for reasoning, especially within a particular system or discipline.",
                 example="The axiom that all humans are equal underpins the argument.",
                 ipa="/ˈæksiəm/",
                 frequency_rank=450,
@@ -716,7 +716,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="dialectic",
                 pos="noun",
-                definition="The art of investigating truth through logical discussion.",
+                definition="A method of reasoning in which opposing ideas or positions are examined through structured argument.",
                 example="The Hegelian dialectic proceeds through thesis, antithesis, and synthesis.",
                 ipa="/ˌdaɪəˈlektɪk/",
                 frequency_rank=480,
@@ -732,7 +732,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="pedagogy",
                 pos="noun",
-                definition="The method and practice of teaching.",
+                definition="The theory and practice of teaching, including how learning is designed and supported.",
                 example="Modern pedagogy emphasises student-centred learning.",
                 ipa="/ˈpedəɡɒdʒi/",
                 frequency_rank=460,
@@ -748,7 +748,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="metacognition",
                 pos="noun",
-                definition="Awareness and understanding of one's own thought processes.",
+                definition="Awareness of and ability to reflect on and regulate one's own thinking and learning.",
                 example="Metacognition helps students regulate their own learning.",
                 ipa="/ˌmetəkɒɡˈnɪʃən/",
                 frequency_rank=480,
@@ -756,7 +756,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="reductionism",
                 pos="noun",
-                definition="The practice of analysing a complex phenomenon in terms of its simplest parts.",
+                definition="An approach that explains a complex phenomenon mainly by reducing it to simpler components or processes.",
                 example="Critics argue that the model suffers from reductionism.",
                 ipa="/rɪˈdʌkʃənɪzəm/",
                 frequency_rank=470,
@@ -764,7 +764,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="tenet",
                 pos="noun",
-                definition="A principle or belief, especially of a religion or philosophy.",
+                definition="A principle or belief that forms part of the foundation of a system, philosophy, or organisation.",
                 example="A central tenet of democracy is freedom of speech.",
                 ipa="/ˈtenɪt/",
                 frequency_rank=410,
@@ -788,7 +788,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="extrapolate",
                 pos="verb",
-                definition="To extend a conclusion beyond the available data; to infer from known facts.",
+                definition="To estimate or infer beyond the available data by extending a pattern or relationship.",
                 example="We cannot extrapolate global trends from a single study.",
                 ipa="/ɪkˈstræpəleɪt/",
                 frequency_rank=440,
@@ -796,7 +796,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="surmise",
                 pos="verb",
-                definition="To suppose without sufficient evidence; to conjecture.",
+                definition="To form a tentative conclusion or belief from limited evidence rather than certainty.",
                 example="She surmised that the delay was intentional.",
                 ipa="/səˈmaɪz/",
                 frequency_rank=450,
@@ -820,7 +820,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="impute",
                 pos="verb",
-                definition="To attribute a quality or characteristic to someone; to assign blame.",
+                definition="To attribute a quality, motive, or responsibility to a person or cause.",
                 example="The failure was imputed to a lack of oversight.",
                 ipa="/ɪmˈpjuːt/",
                 frequency_rank=460,
@@ -900,7 +900,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="adduce",
                 pos="verb",
-                definition="To cite as evidence or proof.",
+                definition="To cite evidence, facts, or examples in support of an argument.",
                 example="Several studies were adduced to support the argument.",
                 ipa="/əˈdjuːs/",
                 frequency_rank=480,
@@ -908,7 +908,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="opine",
                 pos="verb",
-                definition="To hold and express an opinion.",
+                definition="To express an opinion, especially in a formal or authoritative way.",
                 example="The critic opined that the work lacked depth.",
                 ipa="/əʊˈpaɪn/",
                 frequency_rank=460,
@@ -916,7 +916,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="aver",
                 pos="verb",
-                definition="To state or assert to be the case.",
+                definition="To state or assert that something is true, often firmly or formally.",
                 example="The defendant averred his innocence throughout the trial.",
                 ipa="/əˈvɜːr/",
                 frequency_rank=490,
@@ -924,7 +924,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="gainsay",
                 pos="verb",
-                definition="To deny or contradict a statement.",
+                definition="To deny, contradict, or challenge the truth of something.",
                 example="No one could gainsay the evidence presented.",
                 ipa="/ˌɡeɪnˈseɪ/",
                 frequency_rank=500,
@@ -940,7 +940,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="banter",
                 pos="noun",
-                definition="Playful, witty teasing or good-humoured exchange of remarks. Central to British social interaction.",
+                definition="Playful teasing and witty exchange of remarks, usually between people who know one another.",
                 example="The office was full of banter — they spent half the afternoon joking around.",
                 ipa="/ˈbæntə/",
                 frequency_rank=380,
@@ -948,7 +948,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="self-deprecating",
                 pos="adjective",
-                definition="Making gentle fun of oneself; modest about one's abilities. A characteristically British social style.",
+                definition="Making gentle fun of oneself, often to appear modest or to make an awkward situation less serious.",
                 example="He gave a self-deprecating speech about his many failed attempts before finally succeeding.",
                 ipa="/ˌself ˈdeprɪkeɪtɪŋ/",
                 frequency_rank=420,
@@ -964,7 +964,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="understatement",
                 pos="noun",
-                definition="A statement that deliberately describes something as much less significant than it is. A hallmark of British communication style.",
+                definition="A statement that deliberately makes something seem less important, serious, or impressive than it really is.",
                 example="Saying the flood was 'a bit of a problem' was a classic understatement.",
                 ipa="/ˈʌndəˌsteɪtmənt/",
                 frequency_rank=400,
@@ -972,7 +972,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="circumlocution",
                 pos="noun",
-                definition="The use of many words where fewer would suffice; indirect language. Often used ironically to describe British indirectness.",
+                definition="Using more words than necessary, often to express something indirectly rather than stating it plainly.",
                 example="British politeness sometimes leads to circumlocution: saying 'I'm not sure that's quite right' instead of 'you're wrong'.",
                 ipa="/ˌsɜːkəmləˈkjuːʃən/",
                 frequency_rank=480,
@@ -997,14 +997,14 @@ C2_SETS: list[VocabularySet] = [
                 word="register",
                 pos="noun",
                 definition="The level of formality and style of language appropriate to a particular social context.",
-                example="Switching between register in speech — from formal to informal — is a mark of native-like fluency.",
+                example="Choosing an appropriate register helps a speaker sound natural in a job interview, a meeting, or a chat with friends.",
                 ipa="/ˈredʒɪstə/",
                 frequency_rank=360,
             ),
             VocabularyEntry(
                 word="taking the piss",
                 pos="phrase",
-                definition="To mock or tease someone, often affectionately. An essential British idiom; also means to act unreasonably.",
+                definition="To mock or tease someone, often humorously; it can also mean to behave unreasonably or take unfair advantage.",
                 example="Is this price serious? You're taking the piss!",
                 ipa="/ˌteɪkɪŋ ðə ˈpɪs/",
             ),
@@ -1035,7 +1035,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="dodgy",
                 pos="adjective",
-                definition="Dishonest, unreliable, or of questionable quality. Widely used in British English.",
+                definition="Dishonest, unreliable, suspicious, or of questionable quality; common in informal British English.",
                 example="I wouldn't buy anything from that website — it looks a bit dodgy.",
                 ipa="/ˈdɒdʒi/",
                 frequency_rank=420,
@@ -1043,7 +1043,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="gobsmacked",
                 pos="adjective",
-                definition="So surprised that you cannot speak; utterly astonished. Distinctively British informal expression.",
+                definition="Extremely surprised or astonished; a strongly informal British expression.",
                 example="I was gobsmacked when I heard I'd won the award.",
                 ipa="/ˈɡɒbsmækt/",
                 frequency_rank=460,
@@ -1052,7 +1052,7 @@ C2_SETS: list[VocabularySet] = [
                 word="quid",
                 pos="noun",
                 definition="British informal term for a pound sterling (£1).",
-                example="That'll be twenty quid, please mate.",
+                example="The taxi fare was thirty quid, so we split the cost between us.",
                 ipa="/kwɪd/",
                 frequency_rank=370,
             ),
