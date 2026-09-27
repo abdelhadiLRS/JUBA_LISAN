@@ -46,7 +46,7 @@ export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
 
           {/* Resources Links */}
           <div>
-            <h4 className="font-black text-xs text-[var(--juba-app-yellow)] uppercase tracking-wider mb-4">
+            <h4 className="juba-footer-title font-black text-xs uppercase tracking-wider mb-4">
               {t('footerResources')}
             </h4>
             <ul className="space-y-3 text-sm font-bold">
