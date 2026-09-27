@@ -401,7 +401,10 @@ html[data-theme='light'] {
 .juba-busuu-feature span{margin-top:28px;color:var(--busuu-green-dark);font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.08em}
 .juba-busuu-feature h3{margin-top:9px;margin-bottom:10px;font-size:27px;line-height:1.05;letter-spacing:-.04em;font-weight:900}
 .juba-busuu-feature p{margin-top:0;color:var(--busuu-muted);line-height:1.75;font-size:14px}
+.juba-busuu-feature{border:1px solid var(--busuu-line);transition:border-color .18s,background .18s}
+.juba-busuu-feature:hover{border-color:#b9cbc3;background:#fbfdfc}
 .juba-busuu-feature:hover img{transform:scale(1.025);transition:transform .25s}
+.juba-busuu-feature:focus-visible{outline:2px solid var(--busuu-green);outline-offset:4px}
 
 .juba-busuu-testimonials{padding:112px 0;background:#fff}
 .juba-busuu-testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -424,7 +427,8 @@ html[data-theme='light'] {
 
 .juba-busuu-benefits{padding:112px 0;background:var(--busuu-soft)}
 .juba-busuu-benefit-list{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--busuu-line);border-bottom:1px solid var(--busuu-line)}
-.juba-busuu-benefit-list article{min-height:230px;padding:32px;border-inline-start:1px solid var(--busuu-line);display:flex;flex-direction:column;gap:20px}
+.juba-busuu-benefit-list article{min-height:230px;padding:32px;border-inline-start:1px solid var(--busuu-line);display:flex;flex-direction:column;gap:20px;transition:background .18s}
+.juba-busuu-benefit-list article:hover{background:#fff}
 .juba-busuu-benefit-list article:first-child{border-inline-start:0}
 .juba-busuu-benefit-list svg{width:32px;height:32px;color:var(--busuu-green-dark)}
 .juba-busuu-benefit-list h3{margin:0 0 9px;font-size:23px;font-weight:900}
@@ -432,7 +436,6 @@ html[data-theme='light'] {
 
 .juba-busuu-pricing{padding:110px 0;background:#fff}
 .juba-busuu-pricing .juba-busuu-heading{margin-bottom:40px}
-.juba-busuu-pricing [class*="rounded"]{border-radius:0!important}
 .juba-busuu-pricing button{border-radius:999px!important}
 .juba-busuu-faq{padding:110px 0;background:#fff}
 .juba-busuu-faq .juba-busuu-heading{margin-bottom:34px}
@@ -558,9 +561,9 @@ html[data-theme='light'] {
 .juba-busuu-language-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--busuu-line);border-bottom:1px solid var(--busuu-line)}
 .juba-busuu-language-item{min-height:92px;padding:18px 20px;display:flex;align-items:center;gap:14px;border-inline-start:1px solid var(--busuu-line);background:#fff;transition:background .18s,transform .18s}
 .juba-busuu-language-item:nth-child(4n+1){border-inline-start:0}
-.juba-busuu-language-item:hover{background:var(--busuu-soft);transform:translateY(-2px)}
+.juba-busuu-language-item:hover{background:var(--busuu-soft)}
+.juba-busuu-language-item:focus-within{outline:2px solid var(--busuu-green);outline-offset:-2px}
 .juba-busuu-language-item img{width:54px;height:36px;object-fit:cover;border-radius:3px;border:1px solid #dce3df;flex:none}
 .juba-busuu-language-item span:nth-child(2){font-size:14px;font-weight:850;color:var(--busuu-ink);flex:1}
-.juba-busuu-language-arrow{font-size:18px;color:var(--busuu-green-dark);opacity:.55}
 @media(max-width:900px){.juba-busuu-language-list{grid-template-columns:repeat(2,minmax(0,1fr))}.juba-busuu-language-item:nth-child(4n+1){border-inline-start:1px solid var(--busuu-line)}.juba-busuu-language-item:nth-child(2n+1){border-inline-start:0}}
 @media(max-width:600px){.juba-busuu-language-list{grid-template-columns:1fr}.juba-busuu-language-item{border-inline-start:0!important;border-top:1px solid var(--busuu-line)}.juba-busuu-language-item:first-child{border-top:0}}
