@@ -22,6 +22,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "reading",
             "writing",
             "listening",
+            "speaking",
             "review",
         ],
         competency_checklist=[
@@ -46,6 +47,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "reading",
             "writing",
             "listening",
+            "speaking",
             "review",
         ],
         competency_checklist=[
@@ -70,6 +72,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "reading",
             "writing",
             "listening",
+            "speaking",
             "review",
         ],
         competency_checklist=[
@@ -98,6 +101,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "reading",
             "writing",
             "listening",
+            "speaking",
             "review",
         ],
         competency_checklist=[
@@ -122,6 +126,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "reading",
             "writing",
             "listening",
+            "speaking",
             "review",
         ],
         competency_checklist=[
@@ -150,6 +155,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "reading",
             "writing",
             "listening",
+            "speaking",
             "review",
         ],
         competency_checklist=[
@@ -174,6 +180,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "reading",
             "writing",
             "listening",
+            "speaking",
             "review",
         ],
         competency_checklist=[
@@ -232,6 +239,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "reading",
             "writing",
             "listening",
+            "speaking",
             "review",
         ],
         competency_checklist=[
