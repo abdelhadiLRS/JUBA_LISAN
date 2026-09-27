@@ -3988,3 +3988,195 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
 .juba-lesson-shell audio { accent-color:var(--juba-learning-green-dark) !important; }
 .juba-lesson-shell .juba-lesson-success { border:2px solid #d7efc7 !important; border-radius:22px !important; background:var(--juba-learning-green-soft) !important; }
 @media(max-width:767px){ .juba-lesson-shell { padding-bottom:88px !important; } .juba-lesson-page .juba-lesson-card,.juba-lesson-page .juba-lesson-success { border-radius:18px !important; } .juba-lesson-page .juba-lesson-shell { padding-left:12px !important; padding-right:12px !important; } }
+
+
+/* ==========================================================================
+   Member learning routes — remaining Duolingo-inspired visual alignment.
+   Scope: Courses, Vocabulary, Review/Flashcards, Listening and Progress.
+   Landing page remains untouched.
+   ========================================================================== */
+
+.juba-mobile-courses,
+.juba-mobile-vocabulary,
+.juba-mobile-flashcards,
+.juba-mobile-listening,
+.juba-mobile-progress {
+  font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif !important;
+  color:var(--juba-learning-ink) !important;
+}
+
+.juba-mobile-courses .juba-card,
+.juba-mobile-vocabulary .juba-card,
+.juba-mobile-flashcards > div,
+.juba-mobile-flashcards .juba-panel,
+.juba-mobile-listening .juba-panel {
+  border:2px solid var(--juba-learning-border) !important;
+  border-radius:22px !important;
+  background:var(--juba-learning-surface) !important;
+  box-shadow:0 4px 0 rgba(0,0,0,.045),0 12px 28px rgba(0,0,0,.035) !important;
+}
+
+.juba-mobile-courses .juba-eyebrow,
+.juba-mobile-vocabulary .juba-eyebrow {
+  color:var(--juba-learning-green-dark) !important;
+  font-weight:900 !important;
+}
+
+.juba-mobile-courses section:first-child {
+  border-color:var(--juba-learning-green-dark) !important;
+  background:var(--juba-learning-green) !important;
+  box-shadow:0 5px 0 var(--juba-learning-green-dark) !important;
+}
+
+.juba-mobile-courses section:first-child .juba-eyebrow {
+  color:#fff !important;
+}
+.juba-mobile-courses section:first-child a:first-of-type {
+  color:var(--juba-learning-green-dark) !important;
+  box-shadow:0 4px 0 #d7efc7 !important;
+}
+.juba-mobile-courses .juba-card:not(section:first-child) {
+  border-color:var(--juba-learning-border) !important;
+}
+.juba-mobile-courses .juba-card a {
+  border-radius:14px !important;
+}
+.juba-mobile-courses .juba-card a[class*="bg-[#eee8ff]"] {
+  background:var(--juba-learning-green) !important;
+  color:#fff !important;
+  border:2px solid var(--juba-learning-green-dark) !important;
+  box-shadow:0 4px 0 var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-courses .juba-card a[class*="bg-[#eee8ff]"]:hover {
+  background:var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-courses .juba-card [class*="text-[#5a35dc]"] {
+  color:var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-courses .juba-card [class*="bg-[#eee8ff]"] {
+  background:var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-courses .juba-card [class*="border-[#eee8ff]"] {
+  border-color:var(--juba-learning-border) !important;
+}
+.juba-mobile-courses .juba-card [class*="bg-[#ffd85a]"] {
+  background:var(--juba-learning-yellow) !important;
+}
+.juba-mobile-courses .juba-card [class*="ring-[var(--juba-primary)]"] {
+  --tw-ring-color:var(--juba-learning-green) !important;
+}
+.juba-mobile-courses .juba-card [class*="bg-[#39751d]"] {
+  background:var(--juba-learning-green) !important;
+}
+
+.juba-mobile-vocabulary {
+  background:transparent !important;
+}
+.juba-mobile-vocabulary .juba-card {
+  border-color:var(--juba-learning-border) !important;
+}
+.juba-mobile-vocabulary .juba-card:hover {
+  border-color:#cceeb9 !important;
+  box-shadow:0 4px 0 rgba(0,0,0,.05),0 14px 30px rgba(88,204,2,.08) !important;
+}
+.juba-mobile-vocabulary [class*="border-[var(--juba-lilac)]"] {
+  border-color:var(--juba-learning-border) !important;
+}
+.juba-mobile-vocabulary [class*="text-[var(--juba-violet-dark)]"],
+.juba-mobile-vocabulary [class*="text-[var(--juba-violet)]"] {
+  color:var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-vocabulary [class*="bg-[var(--juba-violet-dark)]"] {
+  background:var(--juba-learning-green) !important;
+  color:#fff !important;
+  border:2px solid var(--juba-learning-green-dark) !important;
+  box-shadow:0 4px 0 var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-vocabulary [class*="bg-[var(--juba-yellow)]"] {
+  background:var(--juba-learning-yellow) !important;
+}
+.juba-mobile-vocabulary input {
+  border:2px solid var(--juba-learning-border) !important;
+  border-radius:14px !important;
+  background:#fff !important;
+  color:var(--juba-learning-ink) !important;
+}
+.juba-mobile-vocabulary input:focus {
+  border-color:var(--juba-learning-green) !important;
+  box-shadow:0 0 0 4px rgba(88,204,2,.13) !important;
+}
+
+.juba-mobile-flashcards > div:first-child {
+  border-color:var(--juba-learning-border) !important;
+}
+.juba-mobile-flashcards button {
+  font-family:inherit !important;
+}
+.juba-mobile-flashcards button[class*="border-[var(--juba-violet-dark)]"],
+.juba-mobile-flashcards button[class*="bg-[var(--juba-violet-dark)]"] {
+  border-color:var(--juba-learning-green-dark) !important;
+  background:var(--juba-learning-green) !important;
+  color:#fff !important;
+  box-shadow:0 4px 0 var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-flashcards button[class*="border-[var(--juba-lilac)]"] {
+  border-color:var(--juba-learning-border) !important;
+  border-radius:14px !important;
+}
+.juba-mobile-flashcards [class*="border-[var(--juba-lilac)]"] {
+  border-color:var(--juba-learning-border) !important;
+}
+.juba-mobile-flashcards [class*="bg-[var(--juba-lilac)]"] {
+  background:var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-flashcards [class*="text-[var(--juba-violet-dark)]"] {
+  color:var(--juba-learning-green-dark) !important;
+}
+
+.juba-mobile-listening .juba-panel {
+  border-radius:20px !important;
+}
+.juba-mobile-listening button {
+  font-family:inherit !important;
+  border-radius:14px !important;
+}
+.juba-mobile-listening [class*="border-[var(--juba-lilac)]"] {
+  border-color:var(--juba-learning-border) !important;
+}
+.juba-mobile-listening [class*="text-[var(--juba-violet-dark)]"] {
+  color:var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-listening [class*="bg-[var(--juba-violet-dark)]"] {
+  background:var(--juba-learning-green) !important;
+  color:#fff !important;
+  border-color:var(--juba-learning-green-dark) !important;
+  box-shadow:0 4px 0 var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-listening input,
+.juba-mobile-listening textarea,
+.juba-mobile-listening select {
+  border:2px solid var(--juba-learning-border) !important;
+  border-radius:14px !important;
+}
+.juba-mobile-listening input:focus,
+.juba-mobile-listening textarea:focus,
+.juba-mobile-listening select:focus {
+  border-color:var(--juba-learning-green) !important;
+  box-shadow:0 0 0 4px rgba(88,204,2,.13) !important;
+}
+
+@media(max-width:767px){
+  .juba-mobile-courses,
+  .juba-mobile-vocabulary,
+  .juba-mobile-flashcards,
+  .juba-mobile-listening,
+  .juba-mobile-progress {
+    padding-bottom:88px !important;
+  }
+  .juba-mobile-courses .juba-card,
+  .juba-mobile-vocabulary .juba-card,
+  .juba-mobile-flashcards > div,
+  .juba-mobile-listening .juba-panel {
+    border-radius:18px !important;
+  }
+}
