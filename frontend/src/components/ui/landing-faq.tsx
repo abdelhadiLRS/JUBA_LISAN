@@ -79,11 +79,7 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
         return (
           <div
             key={key}
-            className={`juba-landing-faq-item rounded-2xl border transition-all duration-200 ${
-              isOpen
-                ? 'shadow-[5px_5px_0_var(--juba-app-ink)] bg-[#fcfbf7]'
-                : 'shadow-[3px_3px_0_var(--juba-app-ink)] hover:translate-x-0.5 hover:translate-y-0.5'
-            }`}
+            className={`juba-landing-faq-item ${isOpen ? 'is-open' : ''}`}
           >
             <button
               type="button"
