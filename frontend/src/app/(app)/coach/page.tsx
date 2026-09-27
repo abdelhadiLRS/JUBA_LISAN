@@ -103,7 +103,7 @@ export default function CoachPage() {
           <button
             onClick={() => { setRefreshing(true); load() }}
             disabled={refreshing}
-            className="inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-2 border-[#e2f2d3] bg-white px-4 py-2.5 text-sm font-bold text-[var(--juba-text)] transition hover:border-[var(--juba-primary)] disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-[var(--juba-learning-border)] bg-white px-4 py-2.5 text-sm font-bold text-[var(--juba-text)] transition hover:border-[var(--juba-learning-green)] disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh coaching
@@ -124,10 +124,10 @@ export default function CoachPage() {
                   Your recent activity suggests this is the highest-impact skill to practice next. A short session is better than skipping the day.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
-                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-fl-fg px-5 py-3 text-sm font-bold text-[var(--juba-text)] transition hover:opacity-90">
+                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-[var(--juba-learning-green)] px-5 py-3 text-sm font-bold text-[var(--juba-text)] transition hover:opacity-90">
                     Start focused practice <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[#e2f2d3] px-5 py-3 text-sm font-bold text-[var(--juba-text)] transition hover:bg-[#e2f2d3]">
+                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[var(--juba-learning-border)] px-5 py-3 text-sm font-bold text-[var(--juba-text)] transition hover:bg-[var(--juba-learning-surface-soft)]">
                     View my plan
                   </Link>
                 </div>
@@ -169,7 +169,7 @@ export default function CoachPage() {
             </div>
             <div className="space-y-3">
               {(plan.lessons ?? []).slice(0, 4).map((lesson, index) => (
-                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[28px] border-2 border-2 border-[#e2f2d3] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-primary)]">
+                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[28px] border-2 border-[var(--juba-learning-border)] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-learning-green)]">
                   <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[20px] ${lesson.is_completed ? 'bg-[var(--juba-warm-soft)] text-[var(--juba-primary-dark)]' : 'bg-[var(--juba-primary-soft)] text-[var(--juba-primary-dark)]'}`}>
                     {lesson.is_completed ? <CheckCircle2 className="h-5 w-5" /> : <span className="text-sm font-black">{index + 1}</span>}
                   </div>
@@ -190,7 +190,7 @@ export default function CoachPage() {
             <p className="mt-2 text-sm leading-6 text-[var(--juba-muted)]">Stop memorizing isolated sentences. Practice what you actually need to say.</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
-                <Link key={scenario.title} href={scenario.href} className="rounded-[28px] border-2 border-[#e2f2d3] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-primary)] hover:bg-[var(--juba-primary-soft)]">
+                <Link key={scenario.title} href={scenario.href} className="rounded-[28px] border-2 border-[#e2f2d3] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-learning-green)] hover:bg-[var(--juba-primary-soft)]">
                   <span className="text-2xl">{scenario.icon}</span>
                   <p className="mt-3 text-sm font-black text-[var(--juba-text)]">{scenario.title}</p>
                   <p className="mt-1 text-xs leading-5 text-[var(--juba-muted)]">{scenario.desc}</p>
