@@ -1198,3 +1198,24 @@ def test_en_gb_c2_grammar_assessments_have_contextual_prompts_and_valid_syntax()
         assert question.correct in question.options
 
     assert questions["g-b1-006"].grammar_slug == "modal-verbs"
+
+
+
+def test_en_gb_a2_c2_grammar_assessments_use_discriminating_contexts():
+    """A2-C2 grammar checks should embed enough situation to make the target structure meaningful."""
+    from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+    questions = {question.id: question for question in ASSESSMENT_BANK}
+    expected = {
+        "g-a2-009": "open the fridge before making breakfast",
+        "g-a2-010": "ask your colleague politely",
+        "g-b1-001": "weather forecast predicts heavy rain",
+        "g-c1-005": "examined the contract before deciding not to sign it",
+        "g-c2-002": "agreed to the trial without knowing about the risks",
+        "g-c2-007": "questions followed immediately",
+    }
+    for question_id, phrase in expected.items():
+        question = questions[question_id]
+        assert phrase.casefold() in question.question.casefold()
+        assert len(question.question.split()) >= 12
+        assert question.correct in question.options
