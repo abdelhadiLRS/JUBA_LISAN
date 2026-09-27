@@ -1517,3 +1517,32 @@ def test_en_gb_a2_animals_and_nature_definitions_and_examples_are_informative():
     for word, phrase in expected_examples.items():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 14
+
+
+
+def test_en_gb_a2_comparison_and_place_definitions_are_distinguishing():
+    """A2 comparison and place vocabulary should define concepts with useful distinguishing features."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in A2_SETS for entry in vocabulary_set.words}
+    expected = {
+        "cheap": "comparing prices",
+        "expensive": "large amount of money",
+        "comfortable": "physically relaxed and supported",
+        "dangerous": "injury, damage",
+        "popular": "chosen, or used by many people",
+        "difficult": "effort, time, or skill",
+        "modern": "technology, or designs",
+        "quiet": "calm or peaceful",
+        "crowded": "little free space",
+        "village": "small settlement",
+        "countryside": "outside towns and cities",
+        "coast": "edge of the sea",
+        "mountain": "higher and steeper than a hill",
+        "island": "completely surrounded by water",
+        "neighbourhood": "where people live, work",
+        "suburb": "outside the centre of a city",
+        "region": "geographical, administrative, or cultural reasons",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].definition.casefold()
