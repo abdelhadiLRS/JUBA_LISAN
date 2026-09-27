@@ -111,6 +111,8 @@ export default async function Home() {
       {/* HERO — public Landing composition: bold typography, JUBA LISAN artwork, clear primary CTA. */}
       <section className="juba-ref-hero">
         <div className="juba-ref-hero-inner">
+        <span className="juba-hero-line-art juba-hero-line-art-left" aria-hidden="true" />
+        <span className="juba-hero-line-art juba-hero-line-art-right" aria-hidden="true" />
           <div className="juba-ref-hero-copy">
             <span className="juba-ref-kicker"><Sparkles className="h-4 w-4" /> {t('heroBadge')}</span>
             <h1>{t('heroTitle')}</h1>
