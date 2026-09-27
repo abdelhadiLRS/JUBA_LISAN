@@ -152,7 +152,7 @@ export function LandingNav({
   )
 
   return (
-    <nav dir={dir} className="sticky top-0 z-50 w-full bg-[#fcfaf7]/90 backdrop-blur-md border-b border-[var(--juba-app-line)] transition-all">
+    <nav dir={dir} className="sticky top-0 z-50 w-full bg-[var(--juba-learning-surface)]/95 backdrop-blur-md border-b border-[var(--juba-app-line)] transition-all">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-3 group" aria-label={homeLabel}>
@@ -187,7 +187,7 @@ export function LandingNav({
               aria-expanded={regionOpen}
               aria-haspopup="menu"
               aria-label={dir === 'rtl' ? 'تغيير المنطقة أو اللغة' : 'Change region or language'}
-              className="flex items-center gap-2 rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white px-3.5 py-2 text-xs font-black text-[var(--juba-app-ink)] shadow-[2px_2px_0_var(--juba-app-ink)] hover:bg-[#f5f8f1] transition-all"
+              className="flex items-center gap-2 rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white px-3.5 py-2 text-xs font-black text-[var(--juba-app-ink)] shadow-[2px_2px_0_var(--juba-app-ink)] hover:bg-[var(--juba-learning-green-soft)] transition-all"
             >
               <span className="text-base">{countryFlag(visitorCountry)}</span>
               <span className="rounded-md bg-[var(--juba-app-green-soft)] px-1.5 py-0.5 text-[10px] font-black">{visitorCountry}</span>
@@ -200,7 +200,7 @@ export function LandingNav({
                 <div className="mb-2 flex items-center gap-2 text-[10px] font-black uppercase tracking-wider text-[var(--juba-app-green)]">
                   <Globe2 className="h-4 w-4" /> Region & Language
                 </div>
-                <div className="rounded-xl border border-[var(--juba-app-line)] bg-[#f5f8f1] p-3">
+                <div className="rounded-xl border border-[var(--juba-app-line)] bg-[var(--juba-learning-green-soft)] p-3">
                   <div className="text-[10px] font-bold text-[var(--juba-app-muted)]">Visitor Region</div>
                   <div className="mt-1 flex items-center gap-2 font-black text-[var(--juba-app-ink)] text-xs">
                     <span className="text-base">{countryFlag(visitorCountry)}</span>
@@ -220,7 +220,7 @@ export function LandingNav({
                         className={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-black transition ${
                           locale === language.code
                             ? 'border border-[var(--juba-app-ink)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]'
-                            : 'text-[var(--juba-app-muted)] hover:bg-[#f5f8f1] hover:text-[var(--juba-app-ink)]'
+                            : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-learning-green-soft)] hover:text-[var(--juba-app-ink)]'
                         }`}
                       >
                         <span>{language.native}</span>
@@ -239,7 +239,7 @@ export function LandingNav({
 
           <Link
             href={hasSession ? '/dashboard' : '/register'}
-            className="flex items-center gap-2 rounded-2xl border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-green)] px-5 py-2.5 text-sm font-black text-white shadow-[3px_3px_0_var(--juba-app-ink)] hover:bg-[#236328] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-all"
+            className="flex items-center gap-2 rounded-2xl border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-green)] px-5 py-2.5 text-sm font-black text-white shadow-[3px_3px_0_var(--juba-app-ink)] hover:bg-[var(--juba-learning-green-dark)] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-all"
           >
             <span>{hasSession ? dashboard : getStarted}</span>
             <Sparkles className="h-4 w-4 text-[var(--juba-app-yellow)]" />
@@ -263,7 +263,7 @@ export function LandingNav({
       {open && (
         <div
           id="juba-mobile-navigation"
-          className="fixed inset-x-0 top-20 bottom-0 z-50 overflow-y-auto bg-[#fcfaf7] p-6 shadow-2xl border-t-2 border-[var(--juba-app-ink)] md:hidden animate-in slide-in-from-top-4 duration-200"
+          className="fixed inset-x-0 top-20 bottom-0 z-50 overflow-y-auto bg-[var(--juba-learning-bg)] p-6 shadow-2xl border-t-2 border-[var(--juba-app-ink)] md:hidden animate-in slide-in-from-top-4 duration-200"
         >
           <div className="flex flex-col gap-6">
             {/* Nav links */}
