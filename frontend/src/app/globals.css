@@ -2391,3 +2391,114 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-toolbar,
 html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
   text-align: right;
 }
+
+/* Grammar — structured reference and practice catalog in the unified JUBA LISAN style. */
+.juba-mobile-grammar {
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-mobile-grammar > .juba-card {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 22px !important;
+  background: #fff !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+.juba-mobile-grammar > .juba-card > div:first-child {
+  border-color: var(--juba-learning-border) !important;
+  background: var(--juba-learning-green) !important;
+}
+.juba-mobile-grammar > .juba-card > div:first-child .juba-eyebrow {
+  color: #fff !important;
+}
+.juba-mobile-grammar > .juba-card > div:nth-child(2) {
+  background: #fff !important;
+}
+.juba-mobile-grammar input {
+  min-height: 48px !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+  font-weight: 700 !important;
+}
+.juba-mobile-grammar input:focus {
+  border-color: var(--juba-learning-green) !important;
+  box-shadow: 0 0 0 4px rgba(88,204,2,.13) !important;
+  outline: none !important;
+}
+.juba-mobile-grammar .border-\[var\(--juba-lilac\)\] {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-mobile-grammar .bg-\[var\(--juba-lilac\)\] {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-grammar .text-\[var\(--juba-violet-dark\)\] {
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-grammar .text-\[var\(--juba-text\)\] {
+  color: var(--juba-learning-ink) !important;
+}
+.juba-mobile-grammar .text-\[var\(--juba-muted\)\] {
+  color: var(--juba-learning-muted) !important;
+}
+.juba-mobile-grammar section > div:first-child > span:first-child {
+  font-weight: 900 !important;
+  color: var(--juba-learning-ink) !important;
+}
+.juba-mobile-grammar section > div:first-child > div {
+  background: var(--juba-learning-border) !important;
+}
+.juba-mobile-grammar section > div:first-child > span:last-child {
+  font-weight: 700 !important;
+  color: var(--juba-learning-muted) !important;
+}
+.juba-mobile-grammar section a {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 18px !important;
+  background: #fff !important;
+  box-shadow: 0 3px 0 rgba(0,0,0,.05) !important;
+}
+.juba-mobile-grammar section a:hover {
+  border-color: var(--juba-learning-green) !important;
+  background: var(--juba-learning-green-soft) !important;
+  box-shadow: 0 5px 0 rgba(0,0,0,.06) !important;
+}
+.juba-mobile-grammar section a .bg-\[var\(--juba-lilac\)\] {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-grammar section a .border-\[var\(--juba-lilac\)\] {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-mobile-grammar section button {
+  min-height: 38px !important;
+  border-radius: 12px !important;
+  font-weight: 900 !important;
+}
+.juba-mobile-grammar section button[class*='bg-[var(--juba-text)]'] {
+  background: var(--juba-learning-green) !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  color: #fff !important;
+}
+.juba-mobile-grammar section button:hover {
+  border-color: var(--juba-learning-green) !important;
+}
+.juba-mobile-grammar button:focus-visible,
+.juba-mobile-grammar a:focus-visible,
+.juba-mobile-grammar input:focus-visible {
+  outline: 3px solid var(--juba-learning-blue) !important;
+  outline-offset: 2px !important;
+}
+@media (max-width: 767px) {
+  .juba-mobile-grammar {
+    padding: 14px 12px 88px !important;
+  }
+  .juba-mobile-grammar > .juba-card {
+    border-radius: 19px !important;
+  }
+  .juba-mobile-grammar > .juba-card > div {
+    padding-inline: 18px !important;
+  }
+  .juba-mobile-grammar section a {
+    border-radius: 16px !important;
+  }
+}
