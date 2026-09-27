@@ -1403,3 +1403,44 @@ def test_en_gb_a2_transport_health_and_study_examples_are_contextual():
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 10
+
+
+def test_en_gb_a2_cities_money_and_symptoms_examples_are_contextual():
+    """A2 city, money, and symptom vocabulary should model useful situations."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in A2_SETS for entry in vocabulary_set.words}
+    expected = {
+        "capital": "government departments",
+        "population": "millions of people",
+        "continent": "different languages and cultures",
+        "border": "showing our passports",
+        "north": "historic centre and castle",
+        "south": "warm summers",
+        "east": "high-speed train",
+        "west": "Pacific coast",
+        "attraction": "book tickets",
+        "climate": "change several times",
+        "compete": "training every morning",
+        "improve": "ask my coach for feedback",
+        "coin": "put it in my wallet",
+        "note": "pay for the bus",
+        "cost": "before deciding whether to buy it",
+        "spend": "planning meals",
+        "save": "buy a new computer",
+        "free": "planning our visit",
+        "worth": "rare model",
+        "budget": "comparing prices",
+        "exchange rate": "change some pounds",
+        "ATM": "withdraw some cash",
+        "headache": "quiet room",
+        "fever": "contacting a doctor",
+        "cough": "arranging an appointment",
+        "cold": "staying home today",
+        "sneeze": "asks to go home",
+        "tired": "slept badly last night",
+        "dizzy": "standing up quickly",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 10
