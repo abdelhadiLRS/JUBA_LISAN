@@ -261,7 +261,7 @@ export function LandingNav({
                 <Link
                   key={code}
                   href={code === 'en' ? '/' : `/${code}`}
-                  onClick={close}
+                  onClick={() => close()}
                   aria-current={code === locale ? 'page' : undefined}
                   lang={code}
                   dir="auto"
