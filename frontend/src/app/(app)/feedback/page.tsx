@@ -624,7 +624,7 @@ export default function FeedbackPage() {
   // If a detail view is open, render it instead
   if (selectedEntry) {
     return (
-      <div className="container-xl page-body py-4">
+      <div className="juba-mobile-feedback container-xl page-body py-4">
         <DetailView
           entry={selectedEntry}
           currentUserId={currentUserId}
@@ -640,7 +640,7 @@ export default function FeedbackPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl space-y-4 p-6">
+    <div className="juba-mobile-feedback mx-auto max-w-4xl space-y-4 p-6">
       {/* Page header */}
       <div className="border-[rgba(7,7,9,.08)] border-b pb-4">
         <p className="text-[#202127] text-[rgba(32,33,39,.52)] mb-1 font-semibold tracking-wide">
