@@ -247,6 +247,7 @@ export function LandingNav({
                   onClick={close}
                   aria-current={code === locale ? 'page' : undefined}
                   lang={code}
+                  dir="auto"
                   hrefLang={code}
                 >
                   {label}
