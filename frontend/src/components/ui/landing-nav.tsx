@@ -92,6 +92,16 @@ export function LandingNav({
     }
   }, [open])
 
+  useEffect(() => {
+    const handleViewportChange = () => {
+      if (window.matchMedia('(min-width: 1001px)').matches) setOpen(false)
+    }
+
+    handleViewportChange()
+    window.addEventListener('resize', handleViewportChange)
+    return () => window.removeEventListener('resize', handleViewportChange)
+  }, [])
+
   const localeOptions: Array<[Locale, string]> = [
     ['en', 'English'],
     ['ar', 'العربية'],
