@@ -145,7 +145,7 @@ export default async function Home() {
           <p>{t('flowDescription')}</p>
         </div>
         <div className="juba-ref-pillar-grid">
-          <Link href="/reading" className="juba-ref-pillar pillar-mint">
+          <Link href="/reading" className="juba-ref-pillar">
             <Image src="/landing/juba-reading.svg" alt="" width={210} height={150} className="juba-pillar-image" />
             <div className="pillar-icon"><BookOpen /></div>
             <span>{t('languagesEyebrow')}</span>
@@ -153,7 +153,7 @@ export default async function Home() {
             <p>{t('languagesDescription')}</p>
             <ArrowRight />
           </Link>
-          <Link href="/listening" className="juba-ref-pillar pillar-blue">
+          <Link href="/listening" className="juba-ref-pillar">
             <Image src="/landing/juba-listening.svg" alt="" width={210} height={150} className="juba-pillar-image" />
             <div className="pillar-icon"><Headphones /></div>
             <span>{t('flowVoiceLabel')}</span>
@@ -161,7 +161,7 @@ export default async function Home() {
             <p>{t('flowVoiceDescription')}</p>
             <ArrowRight />
           </Link>
-          <Link href="/chat" className="juba-ref-pillar pillar-yellow">
+          <Link href="/chat" className="juba-ref-pillar">
             <Image src="/landing/juba-chat.svg" alt="" width={210} height={150} className="juba-pillar-image" />
             <div className="pillar-icon"><MessageCircle /></div>
             <span>{t('flowAiLabel')}</span>
