@@ -1,4 +1,4 @@
-/**
+/** 
  * /conversation — Voice conversation page.
  *
  * ConversationMode uses @ricky0123/vad-react (ONNX/WASM) and the Web Audio
@@ -157,36 +157,38 @@ export default function ConversationPage() {
   if (!planReady) return <PageLoading minHeight="min-h-[calc(100vh-56px)] md:min-h-[60vh]" />
 
   return (
-    <MaintenanceGate>
-      {voiceTrial ? (
-        <ConversationMode
-          initialContext={initialContext}
-          autoStart={autoStart}
-          cefrLevel={voiceTrial.cefrLevel ?? cefrLevel}
-          targetLanguage={voiceTrial.targetLanguage ?? activeLanguage?.code}
-          voiceTrialToken={voiceTrial.token}
-          voiceTrialDurationSeconds={voiceTrial.durationSeconds}
-          trialMode
-        />
-      ) : freemiumExhausted ? (
-        <>
-          <FreemiumQuotaBanner feature="voice" className="mb-4" />
-          <PaywallBanner feature="voice" compact />
-        </>
-      ) : (
-        <ConversationMode
-          initialContext={initialContext}
-          autoStart={autoStart}
-          cefrLevel={cefrLevel}
-          targetLanguage={activeLanguage?.code}
-          freemiumVoiceRemaining={
-            showFreemiumVoicePill ? freemiumVoiceRemaining : undefined
-          }
-          freemiumVoiceLimit={
-            showFreemiumVoicePill ? freemiumVoiceLimit : undefined
-          }
-        />
-      )}
-    </MaintenanceGate>
+    <div className="juba-conversation-page">
+      <MaintenanceGate>
+        {voiceTrial ? (
+          <ConversationMode
+            initialContext={initialContext}
+            autoStart={autoStart}
+            cefrLevel={voiceTrial.cefrLevel ?? cefrLevel}
+            targetLanguage={voiceTrial.targetLanguage ?? activeLanguage?.code}
+            voiceTrialToken={voiceTrial.token}
+            voiceTrialDurationSeconds={voiceTrial.durationSeconds}
+            trialMode
+          />
+        ) : freemiumExhausted ? (
+          <div className="juba-conversation-gated">
+            <FreemiumQuotaBanner feature="voice" className="mb-4" />
+            <PaywallBanner feature="voice" compact />
+          </div>
+        ) : (
+          <ConversationMode
+            initialContext={initialContext}
+            autoStart={autoStart}
+            cefrLevel={cefrLevel}
+            targetLanguage={activeLanguage?.code}
+            freemiumVoiceRemaining={
+              showFreemiumVoicePill ? freemiumVoiceRemaining : undefined
+            }
+            freemiumVoiceLimit={
+              showFreemiumVoicePill ? freemiumVoiceLimit : undefined
+            }
+          />
+        )}
+      </MaintenanceGate>
+    </div>
   )
 }
