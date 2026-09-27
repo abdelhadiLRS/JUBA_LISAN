@@ -1087,6 +1087,15 @@ def test_en_gb_c1_critical_thinking_examples_are_contextual_and_reusable():
 
 
 
+def test_en_gb_b1_past_perfect_assessment_uses_correct_reference_time():
+    """A past realisation about an earlier experience requires the past perfect."""
+    from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+    question = {item.id: item for item in ASSESSMENT_BANK}["g-b1-005"]
+    assert question.correct == "had"
+    assert question.grammar_slug == "past-perfect"
+
+
 def test_en_gb_b1_b2_grammar_assessments_use_realistic_contexts():
     """B1-B2 grammar checks should provide enough context to distinguish tense and structure choices."""
     from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
