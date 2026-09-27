@@ -189,6 +189,115 @@ export default function ConversationPage() {
           />
         )}
       </MaintenanceGate>
+      <style jsx global>{`
+        .juba-conversation-page {
+          min-height: calc(100vh - 56px);
+          padding: 20px 12px 40px;
+          background: var(--juba-learning-bg);
+          color: var(--juba-learning-ink);
+          font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif;
+        }
+        .juba-conversation-page .juba-conversation-shell {
+          max-width: 920px !important;
+          min-height: calc(100vh - 120px) !important;
+          padding: 0 !important;
+          overflow: visible !important;
+        }
+        .juba-conversation-page .juba-conversation-shell > div:first-child {
+          margin-bottom: 18px !important;
+          padding: 18px 20px !important;
+          border: 2px solid var(--juba-learning-green-dark) !important;
+          border-radius: 22px !important;
+          background: var(--juba-learning-green) !important;
+          box-shadow: 0 5px 0 var(--juba-learning-green-dark) !important;
+        }
+        .juba-conversation-page .juba-conversation-shell > div:first-child p,
+        .juba-conversation-page .juba-conversation-shell > div:first-child h1,
+        .juba-conversation-page .juba-conversation-shell > div:first-child button {
+          color: #fff !important;
+          font-family: inherit !important;
+        }
+        .juba-conversation-page .juba-conversation-shell > div:first-child h1 {
+          font-size: 1.7rem !important;
+          font-weight: 900 !important;
+          letter-spacing: -.02em !important;
+        }
+        .juba-conversation-page .juba-conversation-shell > div:first-child p {
+          opacity: .86;
+          font-size: .72rem !important;
+          font-weight: 900 !important;
+        }
+        .juba-conversation-page .juba-conversation-shell > div:nth-child(3) {
+          min-height: 340px !important;
+          margin-bottom: 16px !important;
+          padding: 18px !important;
+          border: 2px solid var(--juba-learning-border) !important;
+          border-radius: 20px !important;
+          background: #fff !important;
+          box-shadow: var(--juba-learning-shadow) !important;
+        }
+        .juba-conversation-page .juba-conversation-shell button {
+          font-family: inherit !important;
+          font-weight: 900 !important;
+        }
+        .juba-conversation-page .juba-conversation-shell button:not([disabled]) {
+          transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease !important;
+        }
+        .juba-conversation-page .juba-conversation-shell button:focus-visible {
+          outline: 3px solid var(--juba-learning-blue) !important;
+          outline-offset: 3px !important;
+        }
+        .juba-conversation-page .juba-conversation-shell > div:last-child {
+          gap: 14px !important;
+        }
+        .juba-conversation-page .juba-conversation-shell [class*="font-mono"] {
+          font-family: inherit !important;
+          letter-spacing: normal !important;
+        }
+        .juba-conversation-page .juba-conversation-shell [class*="border-[rgba(7,7,9,.08)]"] {
+          border-color: var(--juba-learning-border) !important;
+          border-radius: 14px !important;
+        }
+        .juba-conversation-page .juba-conversation-shell [class*="bg-[#5862e2]"] {
+          background: var(--juba-learning-green) !important;
+          border: 2px solid var(--juba-learning-green-dark) !important;
+          border-radius: 14px !important;
+          box-shadow: 0 3px 0 var(--juba-learning-green-dark) !important;
+        }
+        .juba-conversation-page .juba-conversation-shell [class*="bg-[#5862e2]"]:hover {
+          background: var(--juba-learning-green-dark) !important;
+        }
+        .juba-conversation-page .juba-conversation-shell [class*="text-[#5862e2]"] {
+          color: var(--juba-learning-green-dark) !important;
+        }
+        .juba-conversation-page .juba-conversation-shell .juba-gated,
+        .juba-conversation-gated {
+          max-width: 720px;
+          margin: 0 auto;
+          padding-top: 12px;
+        }
+        @media (max-width: 767px) {
+          .juba-conversation-page {
+            padding: 12px 10px 30px;
+          }
+          .juba-conversation-page .juba-conversation-shell {
+            min-height: calc(100vh - 90px) !important;
+          }
+          .juba-conversation-page .juba-conversation-shell > div:first-child {
+            padding: 16px !important;
+            border-radius: 18px !important;
+            box-shadow: 0 4px 0 var(--juba-learning-green-dark) !important;
+          }
+          .juba-conversation-page .juba-conversation-shell > div:first-child h1 {
+            font-size: 1.35rem !important;
+          }
+          .juba-conversation-page .juba-conversation-shell > div:nth-child(3) {
+            min-height: 300px !important;
+            padding: 12px !important;
+            border-radius: 18px !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }
