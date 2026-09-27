@@ -47,6 +47,7 @@ export function LandingNav({
 }: LandingNavProps) {
   const [open, setOpen] = useState(false)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
   const localeMenuRef = useRef<HTMLDetailsElement>(null)
 
   useEffect(() => {
@@ -55,10 +56,32 @@ export function LandingNav({
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
 
+    requestAnimationFrame(() => {
+      menuRef.current?.querySelector<HTMLElement>('a, button, [tabindex]:not([tabindex="-1"])')?.focus()
+    })
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
+        event.preventDefault()
         setOpen(false)
         requestAnimationFrame(() => menuButtonRef.current?.focus())
+        return
+      }
+
+      if (event.key !== 'Tab' || !menuRef.current) return
+      const focusable = Array.from(
+        menuRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+      )
+      if (!focusable.length) return
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
       }
     }
 
@@ -174,7 +197,7 @@ export function LandingNav({
       </div>
 
       {open && (
-        <div id="juba-busuu-mobile-menu" className="juba-busuu-mobile-menu">
+        <div ref={menuRef} id="juba-busuu-mobile-menu" className="juba-busuu-mobile-menu">
           <nav aria-label={primaryNavigation}>
             {links.map((link) => (
               <a key={link.href + link.label} href={link.href} onClick={() => close(link.href)}>
