@@ -24,6 +24,33 @@ def _foundation_available(target_language: str) -> bool:
     return True
 
 
+def _curated_seed(
+    target_language: str,
+    cefr_level: str,
+    unit_id: str,
+    lesson_type: str,
+) -> dict[str, Any] | None:
+    """Load a language-specific curated seed when one exists.
+
+    This keeps the main generator stable while allowing newly authored
+    languages to opt into the curated runtime layer incrementally.
+    """
+    code = _base_language(target_language)
+    if not code:
+        return None
+    try:
+        module = importlib.import_module(f"app.data.{code}.lesson_seeds")
+        getter = getattr(module, "get_lesson_seed", None)
+        if getter is None:
+            return None
+        seed = getter(cefr_level, unit_id, lesson_type)
+        if seed is not None:
+            return dict(seed)
+    except (ImportError, ModuleNotFoundError, AttributeError):
+        return None
+    return None
+
+
 def _find_unit(target_language: str, level: str, unit_id: str) -> Any | None:
     curriculum = get_curriculum(target_language)
     for unit in curriculum.get(str(level).upper(), []):
@@ -52,10 +79,17 @@ def get_foundation_lesson_seed(
     unit_id: str,
     lesson_type: str,
 ) -> dict[str, Any] | None:
-    """Build deterministic A1-C2 lesson material from foundation data."""
+    """Return curated language material first, then foundation-derived material."""
     level = str(cefr_level).upper()
     skill = str(lesson_type).lower()
-    if level not in {"A1", "A2", "B1", "B2", "C1", "C2"} or not _foundation_available(target_language):
+    if level not in {"A1", "A2", "B1", "B2", "C1", "C2"}:
+        return None
+
+    curated = _curated_seed(target_language, level, unit_id, skill)
+    if curated is not None:
+        return curated
+
+    if not _foundation_available(target_language):
         return None
 
     unit = _find_unit(target_language, level, unit_id)
