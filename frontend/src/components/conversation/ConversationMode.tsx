@@ -53,21 +53,21 @@ function QuotaBar({
   const exceeded = !unlimited && limit > 0 && used >= limit
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[rgba(32,33,39,.52)] w-36 shrink-0 font-mono tracking-widest uppercase">
+      <span className="text-[#68736d] w-36 shrink-0 font-sans tracking-wide uppercase">
         {label}
       </span>
       {unlimited ? (
-        <span className="text-[rgba(32,33,39,.52)] font-mono">∞</span>
+        <span className="text-[#68736d] font-sans">∞</span>
       ) : (
         <>
-          <div className="bg-[#f3f7ef] h-1 flex-1 overflow-hidden">
+          <div className="bg-[#f1f7ed] h-1 flex-1 overflow-hidden">
             <div
-              className={`h-full transition-all ${exceeded ? 'bg-[#b33a32]' : 'bg-[#5862e2]'}`}
+              className={`h-full transition-all ${exceeded ? 'bg-[#b33a32]' : 'bg-[#58a700]'}`}
               style={{ width: `${pct}%` }}
             />
           </div>
           <span
-            className={`text-[rgba(32,33,39,.52)] font-mono tabular-nums ${exceeded ? 'text-[#b33a32]' : 'text-[rgba(32,33,39,.52)]'}`}
+            className={`text-[#68736d] font-sans tabular-nums ${exceeded ? 'text-[#b33a32]' : 'text-[#68736d]'}`}
           >
             {used}&thinsp;/&thinsp;{limit}
           </span>
@@ -119,18 +119,18 @@ function QuotaPill({
     <div className="w-full">
       <button
         onClick={() => setOpen((v) => !v)}
-        className={`text-[rgba(32,33,39,.52)] flex w-full items-center justify-between border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
+        className={`text-[#68736d] flex w-full items-center justify-between border px-3 py-1.5 font-sans tracking-wide uppercase transition-colors ${
           alert
             ? 'border-[#b33a32]/50 text-[#b33a32] hover:border-[#b33a32]'
-            : 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[#373fb8] hover:text-[rgba(32,33,39,.52)]'
+            : 'border-[#e1e5e2] text-[#68736d] hover:border-[#58a700] hover:text-[#68736d]'
         }`}
       >
         <span>● {text}</span>
-        <span className="text-[rgba(32,33,39,.52)]">{open ? '▴' : '▾'}</span>
+        <span className="text-[#68736d]">{open ? '▴' : '▾'}</span>
       </button>
 
       {open && (
-        <div className="border-[rgba(7,7,9,.08)] bg-[#fff] space-y-1.5 border border-t-0 px-4 py-3">
+        <div className="border-[#e1e5e2] bg-white space-y-1.5 border border-t-0 px-4 py-3">
           <QuotaBar
             label={t('quotaSessions')}
             used={quota.sessions_this_week}
@@ -191,21 +191,21 @@ function TrialPremiumCta() {
   }
 
   return (
-    <div className="border-[rgba(7,7,9,.08)] bg-[#fff] mb-4 border p-5 text-center">
-      <p className="text-[rgba(32,33,39,.52)] mb-2 font-mono tracking-widest uppercase">
+    <div className="border-[#e1e5e2] bg-white mb-4 border p-5 text-center">
+      <p className="text-[#68736d] mb-2 font-sans tracking-wide uppercase">
         {tConversation('trialCtaLabel')}
       </p>
-      <h2 className="text-[#202127] mb-2 font-mono text-base font-bold">
+      <h2 className="text-[#30343b] mb-2 font-sans text-base font-bold">
         {tConversation('trialCtaTitle')}
       </h2>
-      <p className="text-[rgba(32,33,39,.52)] mb-5 font-mono text-xs leading-relaxed">
+      <p className="text-[#68736d] mb-5 font-sans text-xs leading-relaxed">
         {tConversation('trialCtaDesc')}
       </p>
       <div className="flex flex-col gap-3">
         <button
           onClick={() => handleCheckout('yearly')}
           disabled={loading !== null}
-          className="bg-[#5862e2] text-white hover:bg-[#5862e2]/90 w-full px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+          className="bg-[#58a700] text-white hover:bg-[#58a700]/90 w-full px-4 py-3 font-sans text-xs tracking-wide uppercase transition-colors disabled:opacity-50"
         >
           {loading === 'yearly' ? (
             '...'
@@ -223,7 +223,7 @@ function TrialPremiumCta() {
         <button
           onClick={() => handleCheckout('monthly')}
           disabled={loading !== null}
-          className="border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:text-[#202127] hover:border-[#373fb8] w-full border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+          className="border-[#e1e5e2] text-[#68736d] hover:text-[#30343b] hover:border-[#58a700] w-full border px-4 py-3 font-sans text-xs tracking-wide uppercase transition-colors disabled:opacity-50"
         >
           {loading === 'monthly'
             ? '...'
@@ -231,11 +231,11 @@ function TrialPremiumCta() {
         </button>
       </div>
       {error && (
-        <p className="mt-4 font-mono text-[#b33a32]">{error}</p>
+        <p className="mt-4 font-sans text-[#b33a32]">{error}</p>
       )}
       <button
         onClick={() => router.push('/plan')}
-        className="text-[rgba(32,33,39,.52)] hover:text-[#202127] mt-5 w-full font-mono tracking-widest uppercase transition-colors"
+        className="text-[#68736d] hover:text-[#30343b] mt-5 w-full font-sans tracking-wide uppercase transition-colors"
       >
         {t('paywallSkip')}
       </button>
@@ -1028,19 +1028,19 @@ export default function ConversationMode({
   return (
     <div className="juba-conversation-shell mx-auto flex h-full max-w-4xl flex-col overflow-hidden p-4 md:p-6">
       {/* Header */}
-      <div className="border-[rgba(7,7,9,.08)] mb-6 flex items-end justify-between border-b pb-4">
+      <div className="border-[#e1e5e2] mb-6 flex items-end justify-between border-b pb-4">
         <div>
-          <p className="text-[#202127] text-[rgba(32,33,39,.52)] mb-1 font-mono tracking-widest uppercase">
+          <p className="text-[#30343b] text-[#68736d] mb-1 font-sans tracking-wide uppercase">
             {t('subtitle')}
           </p>
-          <h1 className="text-[#202127] font-mono text-2xl font-bold tracking-tight">
+          <h1 className="text-[#30343b] font-sans text-2xl font-bold tracking-tight">
             {t('title')}
           </h1>
         </div>
         {onClose && (
           <button
             onClick={onClose}
-            className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] hover:text-[#202127] font-mono tracking-widest uppercase transition-colors"
+            className="text-[#68736d] text-[#68736d] hover:text-[#30343b] font-sans tracking-wide uppercase transition-colors"
           >
             ← {tCommon('back')}
           </button>
@@ -1048,7 +1048,7 @@ export default function ConversationMode({
       </div>
 
       {trialMode && (
-        <div className="border-[#5862e2]/40 bg-[#fff] text-[rgba(32,33,39,.52)] mb-4 border px-4 py-3 text-center font-mono text-xs tracking-widest uppercase">
+        <div className="border-[#58a700]/40 bg-white text-[#68736d] mb-4 border px-4 py-3 text-center font-sans text-xs tracking-wide uppercase">
           {t('trialBanner', {
             minutes: Math.round((voiceTrialDurationSeconds ?? 300) / 60),
           })}
@@ -1060,7 +1060,7 @@ export default function ConversationMode({
       {/* Transcript area */}
       <div className="mb-4 min-h-0 flex-1 space-y-3 overflow-y-auto px-2">
         {transcript.length === 0 && !streamingText && status === 'live' && (
-          <p className="text-[#202127] text-[rgba(32,33,39,.52)] py-8 text-center font-mono">
+          <p className="text-[#30343b] text-[#68736d] py-8 text-center font-sans">
             {t('tapToStart')}
           </p>
         )}
@@ -1099,12 +1099,12 @@ export default function ConversationMode({
 
       {/* Status message */}
       {status === 'error' && errorMsg && (
-        <div className="border-[#b33a32]/40 bg-[#fff] text-[#b33a32] mb-4 border px-4 py-3 font-mono text-xs">
+        <div className="border-[#b33a32]/35 bg-white text-[#b33a32] mb-4 border px-4 py-3 font-sans text-xs">
           ✕ {errorMsg}
         </div>
       )}
       {status === 'ended' && (
-        <div className="border-[rgba(7,7,9,.08)] bg-[#fff] text-[rgba(32,33,39,.52)] mb-4 border px-4 py-3 font-mono text-xs">
+        <div className="border-[#e1e5e2] bg-white text-[#68736d] mb-4 border px-4 py-3 font-sans text-xs">
           {t('sessionEnded')}
         </div>
       )}
@@ -1115,7 +1115,7 @@ export default function ConversationMode({
         !sessionActive &&
         (status === 'ready' || status === 'ended' || status === 'error') && (
           <div className="mb-4">
-            <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] mb-3 text-center font-mono tracking-widest uppercase">
+            <p className="text-[#68736d] text-[#68736d] mb-3 text-center font-sans tracking-wide uppercase">
               {t('startersHint')}
             </p>
             <div className="flex flex-wrap justify-center gap-2">
@@ -1130,7 +1130,7 @@ export default function ConversationMode({
                       },
                     ])
                   }
-                  className="text-[rgba(32,33,39,.52)] border-[rgba(7,7,9,.08)] hover:border-[#373fb8] hover:text-[#202127] border px-3 py-2 font-mono text-xs tracking-wide transition-colors"
+                  className="text-[#68736d] border-[#e1e5e2] hover:border-[#58a700] hover:text-[#30343b] border px-3 py-2 font-sans text-xs tracking-wide transition-colors"
                 >
                   {topic}
                 </button>
@@ -1150,7 +1150,7 @@ export default function ConversationMode({
         {/* Quota pill — freemium gets a simplified voice counter, premium gets full quota bars */}
         {freemiumVoiceRemaining != null && freemiumVoiceLimit != null ? (
           <span
-            className={`text-[#202127] font-mono tracking-widest uppercase ${freemiumVoiceRemaining <= 0 ? 'text-[#b33a32]' : 'text-[rgba(32,33,39,.52)]'}`}
+            className={`text-[#30343b] font-sans tracking-wide uppercase ${freemiumVoiceRemaining <= 0 ? 'text-[#b33a32]' : 'text-[#68736d]'}`}
           >
             {t('freemiumVoiceRemaining', {
               remaining: freemiumVoiceRemaining,
