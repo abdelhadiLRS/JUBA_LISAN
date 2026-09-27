@@ -1632,6 +1632,7 @@
     "planMonthly": "Lunar flexibil · {price}€/lună →",
     "planYearly": "Cea mai bună ofertă · {price}€/an · 2 luni gratuite →",
     "checkoutError": "Nu s-a putut iniția plata. Încearcă din nou.",
+    "checkoutLoading": "Se încarcă…",
     "pricingTitle": "Preț simplu și transparent",
     "pricingDesc": "{days} zile gratuite · fără taxă azi · anulează oricând",
     "pricingDescTrialUsed": "Alege lunar sau anual · anulează oricând",
