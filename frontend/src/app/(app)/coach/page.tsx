@@ -116,7 +116,7 @@ export default function CoachPage() {
       <div className="mx-auto max-w-7xl space-y-8">
         <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="page-pretitle mb-3 inline-flex items-center gap-2 rounded-full border border bg-primary-lt px-3 py-1.5 text-[var(--tblr-primary, #206bc4)]">
+            <div className="page-pretitle mb-3 inline-flex items-center gap-2 rounded-full border border bg-primary-lt px-3 py-1.5 text-primary">
               <BrainCircuit className="h-4 w-4" />
               {t('eyebrow')}
             </div>
@@ -141,12 +141,12 @@ export default function CoachPage() {
         <section className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
           <div className="card overflow-hidden p-6 sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-primary text-body ">
+              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded bg-primary text-body ">
                 <i className="ti ti-sparkles icon" aria-hidden="true" />
-                <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full border border-[#fff] bg-warning-lt" />
+                <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full border border-white bg-warning-lt" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[var(--tblr-primary, #206bc4)]">{t('insight')}</p>
+                <p className="text-xs font-extrabold uppercase tracking-[.18em] text-primary">{t('insight')}</p>
                 <h2 className="mt-2 text-2xl font-black text-body">{t('focusOn')} {weakestSkill.replaceAll('_', ' ')} {t('today')}</h2>
                 <p className="mt-2 max-w-xl text-sm leading-6 text-secondary">
                   {t('insightDescription')}
@@ -169,7 +169,7 @@ export default function CoachPage() {
                 <p className="text-xs font-bold uppercase tracking-[.16em] text-secondary">{t('momentum')}</p>
                 <p className="mt-1 text-xl font-black text-body">{t('keepStreak')}</p>
               </div>
-              <Flame className="h-6 w-6 text-[var(--tblr-primary, #206bc4)]" />
+              <Flame className="h-6 w-6 text-primary" />
             </div>
             <div className="grid grid-cols-3 gap-3">
               <Metric icon={<Flame />} value={`${progress.current_streak ?? 0}`} label={t('dayStreak')} />
@@ -183,7 +183,7 @@ export default function CoachPage() {
           <section className="card overflow-hidden border border-primary p-6 sm:p-8">
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--tblr-primary, #206bc4)]">{reviewCopy.eyebrow}</p>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-primary">{reviewCopy.eyebrow}</p>
                 <h2 className="mt-1 text-2xl font-black text-body">{reviewCopy.title}</h2>
                 <p className="mt-2 text-sm leading-6 text-secondary">
                   {smartReview.due_count} · {reviewCopy.skill}: {(smartReview.recommended_skill ?? weakestSkill).replaceAll('_', ' ')}
@@ -201,7 +201,7 @@ export default function CoachPage() {
           <section className="card p-6 sm:p-8">
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--tblr-primary, #206bc4)]">{t('review')}</p>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-primary">{t('review')}</p>
                 <h2 className="mt-1 text-2xl font-black text-body">
                   {t('focusOn')} {masteryFocusLabel} {t('today')}
                 </h2>
@@ -234,7 +234,7 @@ export default function CoachPage() {
           <div className="card p-6 sm:p-8">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--tblr-primary, #206bc4)]">{t('adaptiveQueue')}</p>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-primary">{t('adaptiveQueue')}</p>
                 <h2 className="mt-1 text-2xl font-black text-body">{t('bestWork')}</h2>
               </div>
               <span className="rounded-full bg-primary-lt px-3 py-1 text-xs font-bold text-secondary">{completed}/{total} {t('complete')}</span>
@@ -242,7 +242,7 @@ export default function CoachPage() {
             <div className="space-y-3">
               {(plan.lessons ?? []).slice(0, 4).map((lesson, index) => (
                 <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded border border bg-white p-4 transition hover:-translate-y-0.5 hover:border-primary">
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded ${lesson.is_completed ? 'bg-warning-lt text-[var(--tblr-primary, #206bc4)]' : 'bg-primary-lt text-[var(--tblr-primary, #206bc4)]'}`}>
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded ${lesson.is_completed ? 'bg-warning-lt text-primary' : 'bg-primary-lt text-primary'}`}>
                     {lesson.is_completed ? <CheckCircle2 className="h-5 w-5" /> : <span className="text-sm font-black">{index + 1}</span>}
                   </div>
                   <div className="min-w-0 flex-1">
@@ -257,7 +257,7 @@ export default function CoachPage() {
           </div>
 
           <div className="card p-6 sm:p-8">
-            <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--tblr-primary, #206bc4)]">{t('contextEyebrow')}</p>
+            <p className="text-xs font-bold uppercase tracking-[.16em] text-primary">{t('contextEyebrow')}</p>
             <h2 className="mt-1 text-2xl font-black text-body">{t('rooms')}</h2>
             <p className="mt-2 text-sm leading-6 text-secondary">{t('roomsDescription')}</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
@@ -284,7 +284,7 @@ export default function CoachPage() {
 function Metric({ icon, value, label }: { icon: ReactNode; value: string; label: string }) {
   return (
     <div className="rounded bg-primary-lt p-3">
-      <div className="mb-2 h-4 w-4 text-[var(--tblr-primary, #206bc4)]">{icon}</div>
+      <div className="mb-2 h-4 w-4 text-primary">{icon}</div>
       <p className="text-lg font-black text-body">{value}</p>
       <p className="text-[10px] font-bold uppercase tracking-wider text-secondary">{label}</p>
     </div>
@@ -295,7 +295,7 @@ function CoachCard({ icon, title, value, detail, href }: { icon: React.ReactNode
   return (
     <Link href={href} className="card group p-5">
       <div className="flex items-center justify-between">
-        <span className="flex h-10 w-10 items-center justify-center rounded bg-primary-lt text-[var(--tblr-primary, #206bc4)]">{icon}</span>
+        <span className="flex h-10 w-10 items-center justify-center rounded bg-primary-lt text-primary">{icon}</span>
         <ArrowRight className="h-4 w-4 text-secondary transition group-hover:translate-x-1" />
       </div>
       <p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-secondary">{title}</p>
