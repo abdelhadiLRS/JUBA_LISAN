@@ -1555,7 +1555,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="cheap",
                 pos="adjective",
-                definition="Costing little money.",
+                definition="Costing less money than something else; used when comparing prices.",
                 example="This restaurant is cheaper than the one on the corner.",
                 ipa="/tʃiːp/",
                 frequency_rank=155,
@@ -1563,7 +1563,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="expensive",
                 pos="adjective",
-                definition="Costing a lot of money.",
+                definition="Costing a large amount of money, especially compared with similar choices.",
                 example="The hotel was more expensive than we expected.",
                 ipa="/ɪkˈspensɪv/",
                 frequency_rank=180,
@@ -1571,7 +1571,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="comfortable",
                 pos="adjective",
-                definition="Providing physical ease and relaxation.",
+                definition="Making you feel physically relaxed and supported, without discomfort.",
                 example="This chair is the most comfortable in the house, so I use it when I read in the evening.",
                 ipa="/ˈkʌmftəbəl/",
                 frequency_rank=195,
@@ -1579,7 +1579,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="dangerous",
                 pos="adjective",
-                definition="Able or likely to cause harm.",
+                definition="Likely to cause injury, damage, or another form of harm.",
                 example="Driving on this road is more dangerous at night because there are few street lights.",
                 ipa="/ˈdeɪndʒərəs/",
                 frequency_rank=210,
@@ -1587,7 +1587,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="popular",
                 pos="adjective",
-                definition="Liked or enjoyed by many people.",
+                definition="Liked, chosen, or used by many people.",
                 example="The local football club is popular with families because it offers cheap tickets.",
                 ipa="/ˈpɒpjʊlə/",
                 frequency_rank=165,
@@ -1595,7 +1595,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="difficult",
                 pos="adjective",
-                definition="Needing much effort or skill to do.",
+                definition="Needing a lot of effort, time, or skill to complete successfully.",
                 example="The second exercise was more difficult than the first, so I asked the teacher for another example.",
                 ipa="/ˈdɪfɪkəlt/",
                 frequency_rank=140,
@@ -1611,7 +1611,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="modern",
                 pos="adjective",
-                definition="Relating to the present or recent times.",
+                definition="Using ideas, technology, or designs associated with the present or recent times.",
                 example="The new library is more modern than the old one, with digital screens and charging points for visitors.",
                 ipa="/ˈmɒdən/",
                 frequency_rank=220,
@@ -1619,7 +1619,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="quiet",
                 pos="adjective",
-                definition="Making little or no noise.",
+                definition="Making little or no noise, so that a place feels calm or peaceful.",
                 example="The village is quieter than the city centre, especially after the shops close in the evening.",
                 ipa="/ˈkwaɪət/",
                 frequency_rank=175,
@@ -1627,7 +1627,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="crowded",
                 pos="adjective",
-                definition="Full of people.",
+                definition="Containing many people, leaving little free space to move around.",
                 example="The train was more crowded in the morning, so we waited for the next one.",
                 ipa="/ˈkraʊdɪd/",
                 frequency_rank=260,
@@ -1643,7 +1643,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="village",
                 pos="noun",
-                definition="A small group of houses in a rural area.",
+                definition="A small settlement in a rural area, usually smaller than a town.",
                 example="The village is quieter than the town because there is less traffic and fewer shops.",
                 ipa="/ˈvɪlɪdʒ/",
                 frequency_rank=240,
@@ -1651,7 +1651,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="countryside",
                 pos="noun",
-                definition="The land and scenery of a rural area.",
+                definition="Land outside towns and cities, including fields, villages, and natural scenery.",
                 example="The countryside is more peaceful than the city, especially at night when there is less traffic.",
                 ipa="/ˈkʌntrisaɪd/",
                 frequency_rank=270,
@@ -1659,7 +1659,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="coast",
                 pos="noun",
-                definition="The land next to the sea.",
+                definition="The area of land along the edge of the sea.",
                 example="The coast is warmer than the mountains in winter, so we packed different clothes for the two places.",
                 ipa="/kəʊst/",
                 frequency_rank=250,
@@ -1667,7 +1667,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="mountain",
                 pos="noun",
-                definition="A very high area of land, often with steep sides.",
+                definition="A very high natural area of land, usually higher and steeper than a hill.",
                 example="The mountains are colder than the beach, so we took warm jackets even though it was sunny by the sea.",
                 ipa="/ˈmaʊntɪn/",
                 frequency_rank=200,
@@ -1675,7 +1675,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="island",
                 pos="noun",
-                definition="A piece of land surrounded by water.",
+                definition="An area of land completely surrounded by water.",
                 example="The island is smaller than the mainland, but it has enough shops and services for local residents.",
                 ipa="/ˈaɪlənd/",
                 frequency_rank=230,
@@ -1683,7 +1683,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="neighbourhood",
                 pos="noun",
-                definition="A district or area within a town or city.",
+                definition="A particular area of a town or city where people live, work, and use local services.",
                 example="My neighbourhood is more expensive than yours, mainly because rents are higher near the city centre.",
                 ipa="/ˈneɪbəhʊd/",
                 frequency_rank=310,
@@ -1691,7 +1691,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="suburb",
                 pos="noun",
-                definition="A residential area on the edge of a city.",
+                definition="A mainly residential area outside the centre of a city, often connected to it by roads or public transport.",
                 example="The suburbs are quieter than the city centre, but commuters usually spend longer travelling to work.",
                 ipa="/ˈsʌbɜːb/",
                 frequency_rank=340,
@@ -1699,7 +1699,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="region",
                 pos="noun",
-                definition="An area or division of a country.",
+                definition="A particular part of a country that is grouped together for geographical, administrative, or cultural reasons.",
                 example="The northern region is colder in winter, so farmers usually prepare for frost earlier.",
                 ipa="/ˈriːdʒən/",
                 frequency_rank=215,
