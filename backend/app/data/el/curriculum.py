@@ -61,7 +61,7 @@ for level, units in _LEVELS.items():
                 title=title,
                 grammar_points=grammar,
                 vocabulary_set_ids=vocab,
-                lesson_types=["grammar", "vocabulary", "reading", "writing", "listening", "review"],
+                lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
                 competency_checklist=_OBJECTIVES[level],
                 default_weeks=2,
                 prerequisite_unit=f"{level.lower()}-unit-{n-1}" if n > 1 else None,
