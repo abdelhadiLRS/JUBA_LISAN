@@ -101,10 +101,10 @@ export default async function Home() {
         signIn={t('signIn')}
         dashboard={t('dashboard')}
         getStarted={t('ctaStart')}
-        homeLabel={t('home')}
+        homeLabel={t('homeLabel')}
         brandTagline={t('brandTagline')}
-        openMenuLabel={t('openMenu')}
-        closeMenuLabel={t('closeMenu')}
+        openMenuLabel={t('openMenuLabel')}
+        closeMenuLabel={t('closeMenuLabel')}
         locale={locale as Locale}
       />
 
