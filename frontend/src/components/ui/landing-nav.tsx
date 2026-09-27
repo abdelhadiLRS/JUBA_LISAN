@@ -10,6 +10,7 @@ interface LandingNavProps {
   hasSession: boolean
   dir: 'ltr' | 'rtl'
   navFeatures: string
+  primaryNavigation: string
   navLanguages: string
   navReviews: string
   navPricing: string
@@ -28,6 +29,7 @@ export function LandingNav({
   hasSession,
   dir,
   navFeatures,
+  primaryNavigation,
   navLanguages,
   navReviews,
   navPricing,
@@ -92,7 +94,7 @@ export function LandingNav({
           <Image src="/logo.png" alt="JUBA LISAN" width={150} height={52} priority />
         </Link>
 
-        <nav className="juba-busuu-nav-links">
+        <nav className="juba-busuu-nav-links" aria-label={primaryNavigation}>
           {links.map((link) => (
             <a key={link.href} href={link.href}>
               {link.label}
@@ -143,7 +145,7 @@ export function LandingNav({
 
       {open && (
         <div id="juba-busuu-mobile-menu" className="juba-busuu-mobile-menu">
-          <nav>
+          <nav aria-label={primaryNavigation}>
             {links.map((link) => (
               <a key={link.href + link.label} href={link.href} onClick={close}>
                 {link.label}
