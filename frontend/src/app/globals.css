@@ -1861,3 +1861,100 @@ html[dir='rtl'] body {
   .juba-mobile-reading .reading-text { min-height: 220px !important; font-size: 1rem !important; line-height: 1.8 !important; }
   .juba-mobile-reading .space-y-2 > button { min-height: 50px !important; }
 }
+
+
+/* Assessment — one unified JUBA LISAN learning surface. */
+.juba-assessment-page {
+  background: var(--juba-learning-bg) !important;
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-assessment-card {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 4px 0 rgba(0,0,0,.07) !important;
+}
+.juba-assessment-card > div:first-child {
+  background: var(--juba-learning-green) !important;
+  border-color: var(--juba-learning-green-dark) !important;
+  color: #fff !important;
+}
+.juba-assessment-card > div:first-child * {
+  color: #fff !important;
+}
+.juba-assessment-page .juba-assessment-panel {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 18px !important;
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-assessment-page button {
+  font-family: inherit !important;
+}
+.juba-assessment-page .juba-assessment-action {
+  background: var(--juba-learning-green) !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  border-bottom-width: 5px !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  font-weight: 900 !important;
+}
+.juba-assessment-page .juba-assessment-action:hover {
+  background: var(--juba-learning-green-dark) !important;
+  transform: translateY(1px) !important;
+}
+.juba-assessment-page .juba-mobile-assessment > div:first-child {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 18px !important;
+  background: #fff !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+.juba-assessment-page .juba-mobile-assessment > div:first-child .rounded-[18px] {
+  background: var(--juba-learning-green-soft) !important;
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-assessment-page [class*="bg-[var(--juba-lilac)]"] {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-assessment-page [class*="border-[var(--juba-lilac)]"] {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-assessment-page [class*="text-[var(--juba-violet-dark)]"] {
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-assessment-page [class*="text-[var(--juba-muted)]"] {
+  color: var(--juba-learning-muted) !important;
+}
+.juba-assessment-page [class*="text-[var(--juba-text)]"] {
+  color: var(--juba-learning-ink) !important;
+}
+.juba-assessment-page [class*="border-[var(--juba-border)]"] {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-assessment-page button:focus-visible {
+  outline: 3px solid var(--juba-learning-blue) !important;
+  outline-offset: 3px !important;
+}
+.juba-assessment-page .grid button,
+.juba-assessment-page .flex.flex-wrap button {
+  min-height: 44px;
+  border-radius: 14px !important;
+  font-weight: 900 !important;
+}
+@media (max-width: 767px) {
+  .juba-assessment-page {
+    padding: 12px !important;
+  }
+  .juba-assessment-card {
+    border-radius: 18px !important;
+  }
+  .juba-assessment-card > div:first-child {
+    padding: 15px 16px !important;
+  }
+  .juba-assessment-card .text-6xl {
+    font-size: 3.5rem !important;
+  }
+  .juba-assessment-page .juba-mobile-assessment {
+    padding: 8px 0 24px !important;
+  }
+}
