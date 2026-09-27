@@ -2,7 +2,7 @@
 from app.data._types import CurriculumUnit
 
 def _u(level,n,title,g,v,goals,pr=None):
-    return CurriculumUnit(id=f"{level.lower()}-unit-{n}",level=level,unit_number=n,title=title,grammar_points=g,vocabulary_set_ids=v,lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=goals,default_weeks=2,prerequisite_unit=pr)
+    return CurriculumUnit(id=f"{level.lower()}-unit-{n}",level=level,unit_number=n,title=title,grammar_points=g,vocabulary_set_ids=v,lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],competency_checklist=goals,default_weeks=2,prerequisite_unit=pr)
 
 CURRICULUM = {
     "A1": [
