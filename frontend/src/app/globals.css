@@ -730,7 +730,14 @@ html[data-theme='light'] {
   .juba-busuu-landing .juba-busuu-footer-bottom div{gap:14px}
 }
 @media(prefers-reduced-motion:reduce){
-  .juba-busuu-slogan-track,.juba-busuu-feature,.juba-busuu-feature img{animation:none!important;transition:none!important}
+  .juba-busuu-landing *,
+  .juba-busuu-landing *::before,
+  .juba-busuu-landing *::after{
+    animation-duration:0.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:0.01ms!important;
+  }
 }
 
 /* ============================================================
