@@ -1354,3 +1354,25 @@ html[data-theme='light'] {
     transition-duration:.01ms!important;
   }
 }
+
+
+/* Respect the operating system's reduced-motion preference on the public landing page. */
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-landing *,
+  .juba-busuu-landing *::before,
+  .juba-busuu-landing *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .juba-busuu-slogan-track {
+    animation: none !important;
+    transform: none !important;
+    width: 100%;
+    white-space: normal;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
