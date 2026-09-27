@@ -64,7 +64,7 @@ export function LandingFooter({ t, dir = 'ltr', showReviews = false }: LandingFo
 
         <div className="juba-busuu-footer-language">
           <div className="juba-busuu-footer-language-heading">
-            <strong>{dir === 'rtl' ? 'لغة الواجهة' : 'Interface language'}</strong>
+            <strong>{t('navLanguages')}</strong>
             <span>{t('supportedLanguages')}</span>
           </div>
           <div className="juba-busuu-footer-language-list">
