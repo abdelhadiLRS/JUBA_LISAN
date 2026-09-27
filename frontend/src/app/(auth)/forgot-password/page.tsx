@@ -34,7 +34,7 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="bg-[#f4f4f2] flex min-h-screen items-center justify-center px-4">
+    <div className="juba-auth-mobile juba-forgot-password bg-[#f4f4f2] flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="mb-10 flex flex-col items-center">
           <Image
