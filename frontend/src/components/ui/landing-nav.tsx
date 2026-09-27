@@ -10,8 +10,7 @@ interface LandingNavProps {
   hasSession: boolean
   dir: 'ltr' | 'rtl'
   navFeatures: string
-  navDemo: string
-  navLanguages: string
+    navLanguages: string
   navReviews: string
   navPricing: string
   navFAQ: string
@@ -20,7 +19,6 @@ interface LandingNavProps {
   dashboard: string
   getStarted: string
   homeLabel: string
-  brandTagline: string
   openMenuLabel: string
   closeMenuLabel: string
   locale: Locale
@@ -30,7 +28,6 @@ export function LandingNav({
   hasSession,
   dir,
   navFeatures,
-  navDemo,
   navLanguages,
   navReviews,
   navPricing,
@@ -40,7 +37,6 @@ export function LandingNav({
   dashboard,
   getStarted,
   homeLabel,
-  brandTagline,
   openMenuLabel,
   closeMenuLabel,
   locale,
@@ -53,7 +49,6 @@ export function LandingNav({
     { href: '#pricing', label: navPricing },
     { href: '#faq', label: navFAQ },
     ...(showReviews ? [{ href: '#reviews', label: navReviews }] : []),
-    ...(navDemo ? [{ href: '#features', label: navDemo }] : []),
   ]
 
   return (
@@ -61,7 +56,6 @@ export function LandingNav({
       <div className="juba-busuu-nav-inner">
         <Link href="/" aria-label={homeLabel} className="juba-busuu-brand">
           <Image src="/logo.png" alt="JUBA LISAN" width={150} height={52} priority />
-          <span>{brandTagline}</span>
         </Link>
 
         <nav className="juba-busuu-nav-links" aria-label="Primary navigation">
