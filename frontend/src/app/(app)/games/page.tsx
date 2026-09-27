@@ -404,7 +404,7 @@ export default function GamesPage() {
                         {speechError && <small role="alert">{speechCopy[lang].error}</small>}
                       </div>
                     )}
-                    <form className="spelling-form" onSubmit={(event) => { event.preventDefault(); void submitTextAnswer() }}>
+                    <form className="spelling-form" aria-busy={submittingAnswer} onSubmit={(event) => { event.preventDefault(); void submitTextAnswer() }}>
                       <input value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder={question.skill === 'speaking' ? speechCopy[lang].type : t.choose} autoComplete="off" disabled={Boolean(selected) || speechListening || submittingAnswer} aria-busy={submittingAnswer} />
                       <button type="submit" className="next" disabled={Boolean(selected) || speechListening || submittingAnswer || !inputValue.trim()}>{submittingAnswer ? '…' : t.next}</button>
                       {speechError && <small className="form-error" role="alert">{speechCopy[lang].error}</small>}
