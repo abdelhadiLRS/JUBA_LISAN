@@ -16,7 +16,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "participi-irregolari",
         ],
         vocabulary_set_ids=["viaggi_a2", "esperienze_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forma il passato prossimo con avere per i verbi transitivi: ho mangiato, hai letto, ha scritto — e sa che con avere il participio passato non cambia, salvo quando è preceduto da un pronome diretto (Li ho visti)",
             "Forma il passato prossimo con essere per i verbi intransitivi di moto e cambiamento di stato, facendo concordare il participio passato in genere e numero con il soggetto: sono andato/andata, siamo partiti/partite",
@@ -37,7 +37,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "marcatori-temporali",
         ],
         vocabulary_set_ids=["infanzia_a2", "storie_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Coniuga l'imperfetto in tutte le persone: verbi regolari in -are (parlavo), -ere (leggevo), -ire (dormivo) e l'irregolare essere (ero/eri/era/eravamo/eravate/erano)",
             "Usa l'imperfetto per stati passati in corso, descrizioni di scene, azioni abituali nel passato ed età (Da bambino, avevo i capelli biondi; Di solito mangiavo alle otto)",
@@ -54,7 +54,7 @@ A2_UNITS: list[CurriculumUnit] = [
         title="Pronomi diretti e indiretti",
         grammar_points=["pronomi-diretti", "pronomi-indiretti", "pronomi-combinati"],
         vocabulary_set_ids=["acquisti_a2", "regali_a2", "soldi_prezzi_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Sostituisce il complemento oggetto con lo/la/li/le prima del verbo coniugato: Compro il libro -> Lo compro; ho visto le ragazze -> Le ho viste, includendo la concordanza obbligatoria del participio con li/la/le/lo",
             "Usa i pronomi indiretti mi/ti/gli/le/ci/vi/gli (loro) prima del verbo: Gli scrivo una lettera, Ti mando un messaggio",
@@ -71,7 +71,7 @@ A2_UNITS: list[CurriculumUnit] = [
         title="Comparativi e superlativi",
         grammar_points=["comparativi", "superlativi", "cosi-come"],
         vocabulary_set_ids=["città_a2", "cultura_a2", "animali_natura_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forma i comparativi di maggioranza/minoranza con piu/meno + aggettivo + di (davanti a nome/pronome) o che (davanti a due aggettivi, due nomi confrontati direttamente o un infinito): Roma e piu grande di Milano; E piu bello che utile",
             "Esprime l'uguaglianza con cosi...come o tanto...quanto: E cosi bravo come me, Mangia tanto quanto me",
@@ -92,7 +92,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "imperativo-pronomi",
         ],
         vocabulary_set_ids=["salute_a2", "consigli_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forma l'imperativo affermativo per tu (uguale all'indicativo presente nei verbi in -are: parla!, -ere: prendi!, -ire: dormi!), voi (uguale all'indicativo presente: parlate!, prendete!) e Lei di cortesia (uguale al congiuntivo presente: parli!, prenda!)",
             "Riconosce gli imperativi irregolari di tu: va'/vai, da'/dai, fa'/fai, sta'/stai, di' e li usa in contesti pratici (Va' a dormire!, Di' la verita!)",
@@ -109,7 +109,7 @@ A2_UNITS: list[CurriculumUnit] = [
         title="Condizionale e cortesia",
         grammar_points=["condizionale-presente", "condizionale-cortesia", "vorrei"],
         vocabulary_set_ids=["lavoro_a2", "richieste_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Coniuga il condizionale presente in tutte le persone, notando la radice condivisa con il futuro: parlerei, parleresti, parlerebbe, parleremmo, parlereste, parlerebbero; e le radici irregolari: sarei, avrei, farei, andrei, verrei, dovrei, potrei, vorrei",
             "Usa vorrei come forma standard di cortesia per richieste e ordinazioni in italiano: Vorrei un caffe, Vorrei prenotare un tavolo",
@@ -130,7 +130,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "discorso-indiretto",
         ],
         vocabulary_set_ids=["storie_a2", "aneddoti_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Collega gli eventi con connettivi narrativi: prima, poi, dopo, quindi, allora, alla fine, nel frattempo, improvvisamente, a quel punto",
             "Forma il trapassato prossimo (aveva + participio / era + participio) per esprimere un'azione avvenuta prima di un altro evento passato: Quando sono arrivato, aveva gia mangiato",
@@ -157,7 +157,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "trapassato-prossimo",
         ],
         vocabulary_set_ids=["ripasso_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Gestisce situazioni sociali di routine (acquisti, prenotazioni, richiesta di informazioni) usando correttamente tempi passati e forme di cortesia al condizionale",
             "Usa i pronomi complemento diretti, indiretti e combinati in brevi scambi senza errori sistematici",
