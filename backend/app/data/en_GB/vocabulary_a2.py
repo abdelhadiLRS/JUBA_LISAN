@@ -580,7 +580,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="timetable",
                 pos="noun",
-                definition="A schedule showing when transport departs and arrives.",
+                definition="A list of scheduled departure and arrival times for a transport service.",
                 example="Check the timetable on the app before leaving home because the first train is sometimes cancelled.",
                 ipa="/ˈtaɪmteɪbəl/",
                 frequency_rank=510,
@@ -1280,7 +1280,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="reservation",
                 pos="noun",
-                definition="An arrangement to have something kept for you.",
+                definition="An arrangement made in advance to keep a seat, room, table, or service available for you.",
                 example="I made a reservation for two nights and received an email confirming the dates and room type.",
                 ipa="/ˌrezəˈveɪʃən/",
                 frequency_rank=440,
@@ -1288,7 +1288,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="destination",
                 pos="noun",
-                definition="The place you are travelling to.",
+                definition="The place someone is travelling to or intends to reach.",
                 example="The train announcement named our destination, so we collected our bags and prepared to get off.",
                 ipa="/ˌdestɪˈneɪʃən/",
                 frequency_rank=370,
@@ -1296,14 +1296,14 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="sightseeing",
                 pos="noun",
-                definition="Visiting tourist attractions.",
+                definition="The activity of visiting interesting or famous places while travelling.",
                 example="We spent the morning sightseeing, visiting the old town and taking photos of its historic buildings.",
                 ipa="/ˈsaɪtˌsiːɪŋ/",
             ),
             VocabularyEntry(
                 word="souvenir",
                 pos="noun",
-                definition="A small item bought as a reminder of a place.",
+                definition="An object kept or given to someone as a reminder of a place, trip, or experience.",
                 example="I bought a small souvenir for my friend at the museum shop to remind her of our visit.",
                 ipa="/ˌsuːvəˈnɪə/",
                 frequency_rank=530,
@@ -1311,7 +1311,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="currency",
                 pos="noun",
-                definition="The money used in a particular country.",
+                definition="The system of money used in a country, such as pounds, euros, or yen.",
                 example="Before travelling, I checked the exchange rate to see how many yen I would get for my euros.",
                 ipa="/ˈkɜːənsi/",
                 frequency_rank=340,
@@ -1319,7 +1319,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="customs",
                 pos="noun",
-                definition="The place at a border where bags are checked.",
+                definition="The official process or area where travellers and goods are checked when entering or leaving a country.",
                 example="After landing, we followed the signs to customs, where officers may inspect passengers’ bags.",
                 ipa="/ˈkʌstəmz/",
                 frequency_rank=280,
@@ -1327,7 +1327,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="accommodation",
                 pos="noun",
-                definition="A place to stay, especially when travelling.",
+                definition="A place where someone can stay overnight or for a period, such as a hotel, hostel, or rented flat.",
                 example="We booked accommodation near the station so we could walk to the hotel after arriving late.",
                 ipa="/əˌkɒməˈdeɪʃən/",
                 frequency_rank=390,
@@ -1335,7 +1335,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="itinerary",
                 pos="noun",
-                definition="A planned route or journey.",
+                definition="A plan for a journey that lists places to visit and may include routes, times, and arrangements.",
                 example="I wrote an itinerary with train times, hotel addresses, and the places we planned to visit each day.",
                 ipa="/aɪˈtɪnərəri/",
                 frequency_rank=520,
@@ -1343,7 +1343,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="tour",
                 pos="noun",
-                definition="A journey visiting several places.",
+                definition="A planned journey to one or more places, often for sightseeing or with a guide.",
                 example="We joined a guided tour that stopped at the castle, the market, and the city’s oldest square.",
                 ipa="/tʊə/",
                 frequency_rank=295,
@@ -1739,7 +1739,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="return",
                 pos="noun",
-                definition="A ticket covering travel both ways, to and from a destination.",
+                definition="A ticket for a journey to a place and back again, often valid for a specified return date.",
                 example="Could I have a return to Bristol, please? I am coming back on Sunday evening.",
                 ipa="/rɪˈtɜːn/",
                 frequency_rank=310,
@@ -1747,7 +1747,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="peak",
                 pos="adjective",
-                definition="Relating to the busiest travel periods when rail fares are higher (usually weekday mornings and evenings).",
+                definition="Relating to the busiest travel times, when trains and other services are often more crowded and fares may be higher.",
                 example="A peak return costs more than an off-peak one, so I usually travel after the morning rush.",
                 ipa="/piːk/",
                 frequency_rank=350,
