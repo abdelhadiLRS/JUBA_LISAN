@@ -346,7 +346,7 @@ export default function DashboardPage() {
       <OnboardingTour />
       <WhatsNew />
 
-      <div className="container-xl juba-dashboard">
+      <div className="container-xl juba-dashboard juba-dashboard-page">
         <div className="juba-dashboard-header d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
           <div>
             <div className="text-secondary small">{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</div>
