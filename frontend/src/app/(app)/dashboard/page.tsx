@@ -346,13 +346,13 @@ export default function DashboardPage() {
       <OnboardingTour />
       <WhatsNew />
 
-      <div className="container-xl">
-        <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+      <div className="container-xl juba-dashboard">
+        <div className="juba-dashboard-header d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
           <div>
             <div className="text-secondary small">{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</div>
-            <div className="h3 mb-0">{t('welcomeBack')}, {user?.displayName || user?.username}</div>
+            <h1 className="juba-dashboard-title mb-0">{t('welcomeBack')}, {user?.displayName || user?.username}</h1>
           </div>
-          <button type="button" className="btn btn-outline-secondary" onClick={refreshDashboardData} disabled={refreshing}>
+          <button type="button" className="btn juba-btn-secondary" onClick={refreshDashboardData} disabled={refreshing}>
             <i className={`ti ti-refresh me-2 ${refreshing ? 'ti-spin' : ''}`} aria-hidden="true" />
             {t('refresh')}
           </button>
@@ -369,7 +369,7 @@ export default function DashboardPage() {
 
         <div className="row row-cards">
           <div className="col-12">
-            <div className="card">
+            <div className="card juba-learning-card">
               <div className="card-body">
                 <div className="row align-items-center">
                   <div className="col-auto">
@@ -383,7 +383,7 @@ export default function DashboardPage() {
                       {cefrLevel ? cefrLevel + ' · ' : ''}{nextLesson?.title || t('startWithAssessment')}
                     </div>
                     <div className="mt-3 d-flex flex-wrap gap-2">
-                      <Link href={nextLesson?.id ? '/lesson/' + nextLesson.id : '/assessment'} className="btn btn-primary">
+                      <Link href={nextLesson?.id ? '/lesson/' + nextLesson.id : '/assessment'} className="btn juba-btn-primary">
                         <i className="ti ti-player-play me-2" aria-hidden="true" />
                         {nextLesson ? t('startLesson') : tNav('assessment')}
                       </Link>
@@ -410,7 +410,7 @@ export default function DashboardPage() {
           </div>
 
           <div className="col-lg-8">
-            <div className="card">
+            <div className="card juba-learning-card">
               <div className="card-header">
                 <h3 className="card-title">{t('recentPerformance')}</h3>
                 <div className="card-actions">
@@ -426,17 +426,17 @@ export default function DashboardPage() {
                   <div className="col-sm-4">
                     <div className="subheader">{t('accuracy')}</div>
                     <div className="h1 mb-2">{accuracy}%</div>
-                    <div className="progress progress-sm">
+                    <div className="progress progress-sm juba-progress">
                       <div className="progress-bar" style={{ width: accuracy + '%' }} />
                     </div>
                     <div className="text-secondary mt-2">{getPerformanceLabel(accuracy / 100)}</div>
                   </div>
                   <div className="col-sm-8">
-                    <div className="chart-placeholder border rounded p-3">
+                    <div className="juba-performance-chart border rounded p-3">
                       <div className="d-flex align-items-end gap-2" style={{ minHeight: 140 }}>
                         {performanceValues.length ? performanceValues.map((value, index) => (
                           <div key={index} className="flex-fill text-center">
-                            <div className="bg-primary rounded-top" style={{ height: Math.max(8, Math.round(value * 1.2)), minHeight: 8 }} />
+                            <div className="juba-chart-bar rounded-top" style={{ height: Math.max(8, Math.round(value * 1.2)), minHeight: 8 }} />
                             <div className="text-secondary small mt-1">{index + 1}</div>
                           </div>
                         )) : <div className="text-secondary">{t('noSkills')}</div>}
@@ -447,7 +447,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="card mt-3">
+            <div className="card mt-3 juba-learning-card">
               <div className="card-header">
                 <h3 className="card-title">{t('lessonReady')}</h3>
                 <div className="card-actions"><span className="badge bg-blue-lt text-blue">{completedLessonCount}/{todayLessons.length || 0}</span></div>
@@ -464,7 +464,7 @@ export default function DashboardPage() {
                           <div className="text-secondary text-truncate">{tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} {t('minutes')}</div>
                         </div>
                         <div className="col-auto">
-                          {lesson.id && !done ? <Link href={'/lesson/' + lesson.id} className="btn btn-sm btn-primary">{t('startLesson')}</Link> : <span className="badge bg-success-lt text-success"><i className="ti ti-check me-1" />{t('completedToday', { completed: 1, total: 1 })}</span>}
+                          {lesson.id && !done ? <Link href={'/lesson/' + lesson.id} className="btn btn-sm juba-btn-primary">{t('startLesson')}</Link> : <span className="badge bg-success-lt text-success"><i className="ti ti-check me-1" />{t('completedToday', { completed: 1, total: 1 })}</span>}
                         </div>
                       </div>
                     </div>
@@ -474,14 +474,14 @@ export default function DashboardPage() {
                   <div className="empty">
                     <div className="empty-icon"><i className="ti ti-book-off" /></div>
                     <p className="empty-title">{t('startWithAssessment')}</p>
-                    <Link href="/assessment" className="btn btn-primary">{tNav('assessment')}</Link>
+                    <Link href="/assessment" className="btn juba-btn-primary">{tNav('assessment')}</Link>
                   </div>
                 )}
               </div>
               {hasPlan && (
                 <div className="card-footer d-flex justify-content-between align-items-center">
                   <span className="text-secondary">{pendingCount} {t('pendingLessons')}</span>
-                  <button type="button" onClick={skipDay} disabled={skipping} className="btn btn-outline-secondary btn-sm">{skipping ? '…' : t('skipDay')}</button>
+                  <button type="button" onClick={skipDay} disabled={skipping} className="btn btn-sm juba-btn-secondary">{skipping ? '…' : t('skipDay')}</button>
                 </div>
               )}
               {skipError && <div className="card-footer text-danger">{tError('body')}</div>}
@@ -489,7 +489,7 @@ export default function DashboardPage() {
           </div>
 
           <div className="col-lg-4">
-            <div className="card">
+            <div className="card juba-learning-card">
               <div className="card-header"><h3 className="card-title">{t('lessonReady')}</h3></div>
               <div className="card-body">
                 <div className="datagrid">
@@ -500,7 +500,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="card mt-3">
+            <div className="card mt-3 juba-learning-card">
               <div className="card-header"><h3 className="card-title">{tNav('resources')}</h3></div>
               <div className="list-group list-group-flush">
                 <Link href="/reading" className="list-group-item list-group-item-action"><i className="ti ti-book me-2" />{tNav('reading')}<span className="ms-auto"><i className="ti ti-chevron-right" /></span></Link>
@@ -510,7 +510,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="card mt-3">
+            <div className="card mt-3 juba-learning-card">
               <div className="card-header"><h3 className="card-title">{t('vocabularyProgress', { level: vocabularyLevel || '—' })}</h3></div>
               <div className="card-body">
                 <div className="d-flex justify-content-between mb-2"><span className="text-secondary">{t('vocabularyWords', { mastered: vocabularyMastered, total: vocabularyTotal })}</span><span>{vocabularyProgressPct}%</span></div>
@@ -521,7 +521,7 @@ export default function DashboardPage() {
 
           {showPremiumBanner && (
             <div className="col-12">
-              <div className="card">
+              <div className="card juba-learning-card">
                 <div className="card-status-start bg-warning" />
                 <div className="card-body">
                   <div className="row align-items-center">
