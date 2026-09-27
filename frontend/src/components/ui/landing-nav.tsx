@@ -147,21 +147,21 @@ export function LandingNav({
   )
 
   return (
-    <nav dir={dir} className="sticky top-0 z-50 w-full bg-[#fcfaf7]/90 backdrop-blur-md border-b border-[var(--juba-app-line)] transition-all">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <nav dir={dir} className="juba-landing-header sticky top-0 z-50 w-full transition-all">
+      <div className="juba-landing-header-inner mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-3 group" aria-label={homeLabel}>
-          <span className="relative flex h-12 w-[150px] items-center justify-start overflow-hidden">
+        <Link href="/" className="juba-landing-brand flex items-center gap-3 group" aria-label={homeLabel}>
+          <span className="relative flex h-11 w-[142px] items-center justify-start overflow-hidden">
             <Image
               src="/logo.png"
               alt="JUBA LISAN"
               width={150}
               height={52}
               priority
-              className="h-12 w-auto max-w-[150px] object-contain object-left"
+              className="h-11 w-auto max-w-[142px] object-contain object-left"
             />
           </span>
-          <span className="flex flex-col">
+          <span className="juba-landing-brand-copy flex flex-col">
             <span className="font-sans text-xl font-black tracking-tight text-[var(--juba-app-ink)]">
               JUBA <span className="text-[var(--juba-app-green)]">LISAN</span>
             </span>
@@ -170,10 +170,10 @@ export function LandingNav({
         </Link>
 
         {/* Desktop Nav Links */}
-        <div className="hidden items-center gap-8 md:flex">{links}</div>
+        <div className="juba-landing-nav-links hidden items-center gap-7 md:flex">{links}</div>
 
         {/* Desktop Right Controls */}
-        <div className="hidden items-center gap-4 md:flex">
+        <div className="juba-landing-actions hidden items-center gap-3 md:flex">
           {/* Region / Language Selector Dropdown */}
           <div className="relative">
             <button
@@ -245,7 +245,7 @@ export function LandingNav({
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}
-          className="flex h-11 w-11 items-center justify-center rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white shadow-[2px_2px_0_var(--juba-app-ink)] md:hidden"
+          className="juba-landing-mobile-trigger flex h-11 w-11 items-center justify-center md:hidden"
           aria-label={open ? closeMenuLabel : openMenuLabel}
           aria-expanded={open}
           aria-controls="juba-mobile-navigation"
@@ -258,7 +258,7 @@ export function LandingNav({
       {open && (
         <div
           id="juba-mobile-navigation"
-          className="fixed inset-x-0 top-20 bottom-0 z-50 overflow-y-auto bg-[#fcfaf7] p-6 shadow-2xl border-t-2 border-[var(--juba-app-ink)] md:hidden animate-in slide-in-from-top-4 duration-200"
+          className="juba-landing-mobile-sheet fixed inset-x-0 top-20 bottom-0 z-50 overflow-y-auto p-6 md:hidden animate-in slide-in-from-top-4 duration-200"
         >
           <div className="flex flex-col gap-6">
             {/* Nav links */}
