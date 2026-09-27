@@ -1362,3 +1362,44 @@ def test_en_gb_a2_daily_life_examples_are_contextual_and_reusable():
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 10
+
+
+def test_en_gb_a2_transport_health_and_study_examples_are_contextual():
+    """A2 transport, health, sport, study, and work examples should be reusable."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in A2_SETS for entry in vocabulary_set.words}
+    expected = {
+        "cash": "before I reach the checkout",
+        "change": "£20 for a £13 ticket",
+        "brand": "special offer",
+        "timetable": "first train is sometimes cancelled",
+        "ticket": "coming back on Sunday evening",
+        "departure": "check-in desk opens",
+        "arrival": "coach is delayed",
+        "rush hour": "roads are crowded",
+        "plane": "journey by train",
+        "hurt": "return to training gradually",
+        "pain": "good night's sleep",
+        "doctor": "fever since yesterday",
+        "recover": "returning to your normal routine",
+        "symptom": "when they started",
+        "athletic": "running and swimming",
+        "championship": "decided in the last minute",
+        "result": "final whistle",
+        "athlete": "travels regularly for competitions",
+        "fitness": "stay active and build strength",
+        "subject": "solving problems",
+        "grade": "structure, spelling, and references",
+        "homework": "ready for the next morning",
+        "degree": "analyses household spending",
+        "colleague": "help new staff",
+        "office": "instead of driving",
+        "salary": "travel at weekends",
+        "project": "completed their part",
+        "permission": "dentist appointment at four",
+        "rule": "using phones during lessons",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 10
