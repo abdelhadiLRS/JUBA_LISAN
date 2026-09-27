@@ -158,6 +158,18 @@ def get_foundation_lesson_seed(
         "transfer_task": f"Apply the target language to a new situation related to {title}, without copying the model.",
         "production_requirement": "Use at least three target words and one target structure in a new context.",
         "reflection_prompt": "Identify one language choice you can reuse in a similar real-life situation.",
+        "error_check": [
+            "Review one answer for meaning, grammar, and word choice before moving on.",
+            "Correct one deliberate or noticed mistake and explain the correction briefly.",
+        ],
+        "level_calibration": {
+            "A1": "Use short, highly familiar language with clear models and concrete situations.",
+            "A2": "Combine familiar language in practical situations and add simple reasons or details.",
+            "B1": "Connect ideas independently, handle everyday variation, and justify basic choices.",
+            "B2": "Express precise relationships between ideas, handle less predictable situations, and support claims.",
+            "C1": "Adapt register and structure to context, distinguish subtle meanings, and justify language choices.",
+            "C2": "Handle nuanced meaning, formal or specialised contexts, and precise stylistic choices.",
+        }[level],
     }
 
     base: dict[str, Any] = {
