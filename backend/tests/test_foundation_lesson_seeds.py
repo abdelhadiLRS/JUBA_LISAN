@@ -2251,3 +2251,21 @@ def test_en_gb_a1_public_transport_phrasebook_covers_real_journey_needs():
     ]
     assert list(phrases) == expected
     assert all(item.context and item.register == "neutral" for item in phrases.values())
+
+
+def test_en_gb_a2_directions_and_climate_examples_are_contextual():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for group in A2_SETS for entry in group.words}
+    expected = {
+        "north": ["north of the city", "metro south"],
+        "south": ["south of the lake", "at the bridge"],
+        "east": ["sun rises in the east", "morning light"],
+        "west": ["sun sets in the west", "from the beach"],
+        "climate": ["dry climate", "rainfall arriving in winter"],
+    }
+    for word, fragments in expected.items():
+        example = entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 12, word
+        for fragment in fragments:
+            assert fragment.casefold() in example, word
