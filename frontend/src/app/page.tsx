@@ -128,16 +128,16 @@ export default async function Home() {
             <h2 id="language-title">{t('languagesHeadline')}</h2>
             <p>{t('languagesDescription')}</p>
           </div>
-          <div className="juba-busuu-language-panel"><LanguageBubbles dir={rtl ? 'rtl' : 'ltr'} /></div>
+          <div className="juba-busuu-language-panel"><div className="juba-busuu-language-prompt"><span>{t('languagesEyebrow')}</span><strong>{t('languagesHeadline')}</strong></div><LanguageBubbles dir={rtl ? 'rtl' : 'ltr'} /></div>
         </div>
       </section>
 
       <section className="juba-busuu-proof" aria-labelledby="capabilities-title">
           <h2 id="capabilities-title" className="sr-only">{t('featureSectionLabel')}</h2>
         <div className="juba-busuu-container juba-busuu-proof-grid">
-          <div><strong>CEFR</strong><span>{t('languagesHeadline')}</span></div>
-          <div><strong>AI</strong><span>{t('flowAiDescription')}</span></div>
-          <div><strong>VOICE</strong><span>{t('flowVoiceDescription')}</span></div>
+          <div><strong>CEFR</strong><span>{t('proofCefr')}</span></div>
+          <div><strong>AI</strong><span>{t('proofTutor')}</span></div>
+          <div><strong>VOICE</strong><span>{t('proofVoice')}</span></div>
         </div>
       </section>
 
