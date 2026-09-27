@@ -326,9 +326,9 @@ export default function AssessmentPage() {
     }
   }
 
-  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[var(--j-shell-shadow)]'
-  const panelClass = 'rounded-[22px] border-2 border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/45 p-4'
-  const actionClass = 'w-full rounded-[18px] bg-[var(--juba-violet-dark)] px-4 py-3 font-bold text-white shadow-[0_6px_0_var(--juba-violet-dark)] transition hover:-translate-y-0.5 hover:bg-[var(--juba-violet-dark)]'
+  const cardClass = 'juba-assessment-card w-full max-w-2xl overflow-hidden rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[var(--j-shell-shadow)]'
+  const panelClass = 'juba-assessment-panel rounded-[22px] border-2 border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/45 p-4'
+  const actionClass = 'juba-assessment-action w-full rounded-[18px] bg-[var(--juba-violet-dark)] px-4 py-3 font-bold text-white shadow-[0_6px_0_var(--juba-violet-dark)] transition hover:-translate-y-0.5 hover:bg-[var(--juba-violet-dark)]'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
     return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
@@ -337,7 +337,7 @@ export default function AssessmentPage() {
   if (step === 'existing' && existingPlan) {
     const assessedDate = new Date(existingPlan.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
     return (
-      <div className="flex min-h-[60vh] items-center justify-center bg-gradient-to-br from-[var(--juba-lilac)]/30 via-white to-[var(--juba-sky)]/20 p-4 sm:p-6">
+      <div className="juba-assessment-page flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border-[var(--juba-border)] px-5 py-4">
             <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[var(--juba-lilac)] text-sm font-bold text-[var(--juba-violet-dark)]">A</span>
@@ -403,7 +403,7 @@ export default function AssessmentPage() {
 
   if (step === 'quiz' && currentQuestion) {
     return (
-      <div className="juba-mobile-assessment mx-auto w-full max-w-4xl px-4 py-6 sm:py-10">
+      <div className="juba-assessment-page juba-mobile-assessment mx-auto w-full max-w-4xl px-4 py-6 sm:py-10">
         <div className="mb-5 flex items-center justify-between rounded-[22px] border-2 border-[var(--juba-lilac)] bg-white px-5 py-4 shadow-sm">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('title')}</p>
@@ -421,7 +421,7 @@ export default function AssessmentPage() {
     const aiLevel = result.cefr_level
     const levelChanged = selectedLevel !== aiLevel
     return (
-      <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
+      <div className="juba-assessment-page flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border-[var(--juba-border)] px-5 py-4">
             <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[var(--juba-yellow)] text-sm font-bold text-[var(--juba-violet-dark)]">✓</span>
@@ -516,3 +516,5 @@ export default function AssessmentPage() {
 
   return null
 }
+
+
