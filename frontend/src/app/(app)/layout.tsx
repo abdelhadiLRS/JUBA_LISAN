@@ -311,11 +311,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
                   }`}
                 >
-                  <span
-                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
-                  >
-                    ●
-                  </span>
+                  {(() => { const Icon = navIcons[item.href] ?? Sparkles; return <Icon className={`h-5 w-5 shrink-0 ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`} aria-hidden="true" /> })()}
                   {item.label}
                   {item.href === '/feedback' && feedbackBadgeText && (
                     <span className="text-fl-label ml-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-red-600 leading-none font-bold tracking-normal text-white">
@@ -336,7 +332,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
               }`}
             >
-              <span className="text-fl-label text-fl-muted-4">●</span>
+              <Sparkles className="h-5 w-5 text-fl-muted-4" aria-hidden="true" />
               {tNav('admin')}
             </Link>
           )}
@@ -442,11 +438,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
                   }`}
                 >
-                  <span
-                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
-                  >
-                    ●
-                  </span>
+                  {(() => { const Icon = navIcons[item.href] ?? Sparkles; return <Icon className={`h-5 w-5 shrink-0 ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`} aria-hidden="true" /> })()}
                   {item.label}
                   {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
                     <span className="text-fl-accent ml-auto text-xs">★</span>
