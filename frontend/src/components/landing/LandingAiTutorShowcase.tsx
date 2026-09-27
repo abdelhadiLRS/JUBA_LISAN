@@ -55,7 +55,7 @@ export function LandingAiTutorShowcase({
         >
           {playing ? <Pause aria-hidden="true" /> : <Play aria-hidden="true" />}
         </button>
-        <span className="juba-ai-live-pill"><Volume2 aria-hidden="true" /> {playing ? speakingLabel : activeLabel}</span>
+        <span className="juba-ai-live-pill" aria-live="polite"><Volume2 aria-hidden="true" /> {playing ? speakingLabel : activeLabel}</span>
       </div>
       <div className="juba-ai-showcase-copy">
         <span className="juba-ref-kicker"><Sparkles className="h-4 w-4" /> AI</span>
