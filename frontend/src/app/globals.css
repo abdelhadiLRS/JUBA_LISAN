@@ -2393,3 +2393,50 @@ body .juba-reference-page .juba-ai-showcase-copy .juba-ref-button{align-self:fle
 @media(max-width:600px){body .juba-reference-page .juba-ai-showcase-copy .juba-ref-button{align-self:stretch!important}}
 body .juba-reference-page[dir="rtl"] .juba-ai-showcase-copy .juba-ref-button{align-self:flex-start!important}
 @media(max-width:600px){body .juba-reference-page[dir="rtl"] .juba-ai-showcase-copy .juba-ref-button{align-self:stretch!important}}
+
+/* Landing — games stage label refinement */
+.juba-reference-page .juba-game-stage-label{
+  display:inline-flex!important;
+  align-items:center!important;
+  width:max-content!important;
+  margin:10px 0 8px!important;
+  padding:6px 10px!important;
+  border-radius:999px!important;
+  background:#eaf7dc!important;
+  color:#46a900!important;
+  font-size:11px!important;
+  font-weight:900!important;
+  letter-spacing:.02em!important;
+}
+.juba-reference-page .juba-game-stage-index{
+  color:#46a900!important;
+  font-weight:900!important;
+}
+.juba-reference-page .juba-games-tab{
+  min-height:54px!important;
+  border-radius:16px!important;
+  border:1px solid #dfe9da!important;
+  background:#fff!important;
+  color:#252525!important;
+  font-weight:900!important;
+  transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease!important;
+}
+.juba-reference-page .juba-games-tab:hover{
+  border-color:#58cc02!important;
+  background:#f3fbe9!important;
+  transform:translateY(-1px)!important;
+}
+.juba-reference-page .juba-games-tab.is-active{
+  border-color:#58cc02!important;
+  background:#58cc02!important;
+  color:#fff!important;
+  box-shadow:inset 0 -3px 0 #46a900,0 8px 18px rgba(88,204,2,.12)!important;
+}
+.juba-reference-page .juba-games-tab.is-active::after{background:#fff!important}
+@media(max-width:600px){
+  .juba-reference-page .juba-game-stage-label{font-size:10px!important;margin-top:8px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .juba-reference-page .juba-games-tab{transition:none!important}
+  .juba-reference-page .juba-games-tab:hover{transform:none!important}
+}
