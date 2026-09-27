@@ -67,10 +67,10 @@ export default function UnitDrawer({
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-[rgba(36,36,36,.48)] p-0 backdrop-blur-sm sm:items-center sm:p-4" role="dialog" aria-modal="true" aria-label={unit.title}>
       <div
         ref={ref}
-        className="flex max-h-[88vh] w-full flex-col overflow-hidden rounded-t-[24px] border-2 border-[var(--juba-learning-border)] bg-white shadow-[0_24px_70px_rgba(36,36,36,.18)] sm:max-w-xl sm:rounded-[24px]"
+        className="flex max-h-[88vh] w-full flex-col overflow-hidden rounded-t-[24px] border-2 border-[var(--juba-learning-border)] bg-[var(--juba-learning-surface)] shadow-[0_24px_70px_rgba(36,36,36,.18)] sm:max-w-xl sm:rounded-[24px]"
       >
         {/* Header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b-2 border-[var(--juba-learning-border)] bg-white px-5 py-4 sm:px-6">
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b-2 border-[var(--juba-learning-border)] bg-[var(--juba-learning-surface)] px-5 py-4 sm:px-6">
           <div className="min-w-0">
             <span
               className="inline-flex rounded-full bg-[var(--juba-learning-green-soft)] px-2.5 py-1 text-xs font-black text-[var(--juba-learning-green-dark)]"
@@ -82,8 +82,9 @@ export default function UnitDrawer({
             </p>
           </div>
           <button
+            type="button"
             onClick={onClose}
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--juba-learning-border)] bg-white text-[var(--juba-learning-muted)] shadow-[0_2px_0_rgba(0,0,0,.05)] transition-colors hover:border-[var(--juba-learning-green)] hover:bg-[var(--juba-learning-green-soft)] hover:text-[var(--juba-learning-green-dark)]"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--juba-learning-border)] bg-[var(--juba-learning-surface)] text-[var(--juba-learning-muted)] shadow-[0_2px_0_rgba(0,0,0,.05)] transition-colors hover:border-[var(--juba-learning-green)] hover:bg-[var(--juba-learning-green-soft)] hover:text-[var(--juba-learning-green-dark)]"
             aria-label={tCommon('close')}
           >
             <X className="h-4.5 w-4.5" aria-hidden="true" />
@@ -111,7 +112,7 @@ export default function UnitDrawer({
 
         {/* Lessons */}
         <div>
-          <div className="border-b-2 border-[var(--juba-learning-border)] bg-[#fafafa] px-5 py-3 sm:px-6">
+          <div className="border-b-2 border-[var(--juba-learning-border)] bg-[var(--juba-learning-bg)] px-5 py-3 sm:px-6">
             <p className="text-xs font-black uppercase tracking-wide text-[var(--juba-learning-muted)]">
               {t('lessonsHeader', { count: lessons.length })}
             </p>
@@ -134,7 +135,7 @@ export default function UnitDrawer({
                       <Check className="h-3.5 w-3.5" aria-hidden="true" />
                     </span>
                   ) : (
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--juba-learning-border)] bg-white text-[var(--juba-learning-muted)]">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--juba-learning-border)] bg-[var(--juba-learning-surface)] text-[var(--juba-learning-muted)]">
                       <Circle className="h-2.5 w-2.5" aria-hidden="true" />
                     </span>
                   )}
@@ -152,6 +153,7 @@ export default function UnitDrawer({
                   </div>
                   {lesson.id != null && lesson.action && (
                     <button
+                      type="button"
                       onClick={() => onStartLesson(lesson.id!)}
                       className="min-h-10 shrink-0 rounded-[12px] border-2 border-[var(--juba-learning-green-dark)] bg-[var(--juba-learning-green)] px-3 py-2 text-xs font-black text-white shadow-[0_3px_0_var(--juba-learning-green-dark)] transition-transform hover:translate-y-0.5"
                     >
@@ -172,14 +174,16 @@ export default function UnitDrawer({
         <div className="border-t-2 border-[var(--juba-learning-border)] bg-white px-5 py-4 sm:px-6">
           <div className="grid gap-2 sm:grid-cols-2">
             <button
+              type="button"
               onClick={onStartUnit}
               className="min-h-11 w-full rounded-[13px] border-2 border-[var(--juba-learning-green-dark)] bg-[var(--juba-learning-green)] px-5 py-2.5 text-sm font-black text-white shadow-[0_4px_0_var(--juba-learning-green-dark)] transition-transform hover:translate-y-0.5"
             >
               {tCommon('start')} →
             </button>
             <button
+              type="button"
               onClick={onClose}
-              className="min-h-11 w-full rounded-[13px] border-2 border-[var(--juba-learning-border)] bg-white px-5 py-2.5 text-sm font-black text-[var(--juba-learning-ink)] shadow-[0_3px_0_rgba(0,0,0,.05)] transition-transform hover:translate-y-0.5"
+              className="min-h-11 w-full rounded-[13px] border-2 border-[var(--juba-learning-border)] bg-[var(--juba-learning-surface)] px-5 py-2.5 text-sm font-black text-[var(--juba-learning-ink)] shadow-[0_3px_0_rgba(0,0,0,.05)] transition-transform hover:translate-y-0.5"
             >
               {tCommon('close')}
             </button>
