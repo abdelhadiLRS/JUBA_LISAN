@@ -17,6 +17,7 @@ import { LoadingBar } from '@/components/ui/loading-bar'
 import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
+import { BookOpen, ChartNoAxesColumnIncreasing, Gamepad2, GraduationCap, Headphones, Languages, MessageCircle, Settings, Users, Library, ClipboardCheck, UserRound, Search, Trophy, Flame, Sparkles } from 'lucide-react'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const tNav = useTranslations('nav')
@@ -25,33 +26,33 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   const mainNavItems = [
-    { href: '/dashboard', label: tNav('home') },
-    { href: '/plan', label: tNav('myPlan') },
-    { href: '/progress', label: tNav('progress') },
-    { href: '/games', label: tNav('games') },
-    { href: '/flashcards', label: tNav('flashcards') },
-    { href: '/friends', label: 'Friends' },
-    { href: '/chat', label: tNav('tutor') },
-    { href: '/listening', label: tNav('listening') },
-    { href: '/reading', label: tNav('reading') },
-    { href: '/conversation', label: tNav('conversation') },
-    { href: '/assessment', label: tNav('assessment') },
-    { href: '/coach', label: 'Coach' },
-    { href: '/courses', label: 'Courses' },
-    { href: '/review', label: 'Review' },
-    { href: '/translator', label: 'Translator' },
+    { href: '/dashboard', label: tNav('home'), icon: GraduationCap },
+    { href: '/plan', label: tNav('myPlan'), icon: BookOpen },
+    { href: '/progress', label: tNav('progress'), icon: ChartNoAxesColumnIncreasing },
+    { href: '/games', label: tNav('games'), icon: Gamepad2 },
+    { href: '/flashcards', label: tNav('flashcards'), icon: Library },
+    { href: '/friends', label: 'Friends', icon: Users },
+    { href: '/chat', label: tNav('tutor'), icon: MessageCircle },
+    { href: '/listening', label: tNav('listening'), icon: Headphones },
+    { href: '/reading', label: tNav('reading'), icon: BookOpen },
+    { href: '/conversation', label: tNav('conversation'), icon: Languages },
+    { href: '/assessment', label: tNav('assessment'), icon: ClipboardCheck },
+    { href: '/coach', label: 'Coach', icon: Sparkles },
+    { href: '/courses', label: 'Courses', icon: BookOpen },
+    { href: '/review', label: 'Review', icon: Trophy },
+    { href: '/translator', label: 'Translator', icon: Search },
   ]
 
   const resourceNavItems = [
-    { href: '/grammar', label: tNav('grammar') },
-    { href: '/vocabulary', label: tNav('vocabulary') },
-    { href: '/phrasebook', label: tNav('phrasebook') },
+    { href: '/grammar', label: tNav('grammar'), icon: BookOpen },
+    { href: '/vocabulary', label: tNav('vocabulary'), icon: Languages },
+    { href: '/phrasebook', label: tNav('phrasebook'), icon: Library },
   ]
 
   const bottomNavItems = [
-    { href: '/settings', label: tNav('settings') },
-    { href: '/faq', label: tNav('faq') },
-    { href: '/feedback', label: tNav('feedback') },
+    { href: '/settings', label: tNav('settings'), icon: Settings },
+    { href: '/faq', label: tNav('faq'), icon: MessageCircle },
+    { href: '/feedback', label: tNav('feedback'), icon: MessageCircle },
   ]
 
   const router = useRouter()
@@ -249,11 +250,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
                 }`}
               >
-                <span
-                  className={`text-fl-label ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`}
-                >
-                  ●
-                </span>
+                <item.icon className={`h-[18px] w-[18px] shrink-0 ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`} />
                 {item.label}
                 {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
                   <span className="text-fl-accent ml-auto text-xs">★</span>
