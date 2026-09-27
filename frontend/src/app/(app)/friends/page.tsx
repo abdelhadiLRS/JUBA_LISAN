@@ -116,7 +116,7 @@ export default function FriendsPage() {
           <UserPlus className="h-4 w-4" /> {inviteLoading ? 'Creating…' : 'Create invite'}
         </button>
         {inviteUrl && (
-          <div className="w-full rounded-2xl border border bg-light p-3">
+          <div className="w-full card border-secondary-subtle bg-light p-3">
             <div className="flex flex-wrap items-center gap-2">
               <p className="min-w-0 flex-1 break-all text-xs text-secondary">{inviteUrl}</p>
               <button onClick={copyInvite} className="btn btn-outline-secondary shrink-0">
