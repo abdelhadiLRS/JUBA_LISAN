@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+- Sharpened six C2 definitions to distinguish judgement, close conceptual links, contentiousness, ubiquity, ramifications, and official promulgation.
+- Added regression coverage for the revised C2 definition wording.
 - Refined 20 C2 vocabulary examples with clearer collocations, register, and reusable contexts across academic, formal, and spoken language.
 - Added targeted regression checks for contextual C2 examples.
 - Refined C1 vocabulary examples to demonstrate natural collocations, register, and reusable communicative contexts rather than definition-like sentences.
