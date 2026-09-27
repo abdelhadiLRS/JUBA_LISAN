@@ -320,10 +320,10 @@ export default function PlanPage() {
   return (
     <div className="juba-mobile-plan mx-auto max-w-6xl space-y-8 px-3 py-5 sm:px-6 sm:py-8">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-[32px] border-[3px] border-[var(--juba-ink)] bg-[var(--juba-violet)] px-6 py-7 text-white shadow-[7px_7px_0_var(--juba-ink)] sm:px-9 sm:py-9">
+      <section className="relative overflow-hidden rounded-[22px] border-2 border-[#e1e5e2] bg-white px-6 py-7 text-white shadow-[0_3px_0_rgba(31,41,51,.045)] sm:px-9 sm:py-9">
         <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[#58a700] opacity-95" />
-        <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--juba-coral)] opacity-80" />
-        <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[18px] bg-[var(--juba-mint)]" />
+        <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[#ffb020] opacity-80" />
+        <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[16px] bg-[#eaf5df]" />
         <div className="relative z-10 max-w-3xl">
           <div className="mb-5 flex flex-wrap items-center gap-2">
             <span className="rounded-full bg-white/15 px-3 py-1.5 text-xs font-black tracking-wide backdrop-blur-sm">
@@ -358,16 +358,16 @@ export default function PlanPage() {
 
       {/* Resume */}
       {activeLessonId != null && (
-        <section className="relative overflow-hidden rounded-[28px] bg-[#58a700] px-5 py-5 shadow-[0_3px_0_rgba(31,41,51,.045)] sm:px-7">
+        <section className="relative overflow-hidden rounded-[20px] bg-[#58a700] px-5 py-5 shadow-[0_3px_0_rgba(31,41,51,.045)] sm:px-7">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-ink)]">{t('learningRoadmap')}</p>
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-[#30343b]">{t('learningRoadmap')}</p>
               <h2 className="mt-1 text-xl font-black tracking-tight text-[#30343b]">{t('resume')}</h2>
-              <p className="mt-1 text-sm font-medium text-[var(--juba-ink)]">{t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}</p>
+              <p className="mt-1 text-sm font-medium text-[#30343b]">{t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}</p>
             </div>
             <button
               onClick={() => void launchLesson(activeLessonId)}
-              className="rounded-2xl border-[3px] border-[var(--juba-ink)] bg-[#58a700] px-6 py-3 text-sm font-black text-[var(--juba-ink)] shadow-[0_3px_0_#438600] transition-transform hover:-translate-y-0.5 active:translate-y-1"
+              className="rounded-2xl border-[3px] border-[#438600] bg-[#58a700] px-6 py-3 text-sm font-black text-[#30343b] shadow-[0_3px_0_#438600] transition-transform hover:-translate-y-0.5 active:translate-y-1"
             >
               {t('resume')} →
             </button>
@@ -390,9 +390,9 @@ export default function PlanPage() {
               <button
                 key={lesson.id}
                 onClick={() => void launchLesson(lesson.id)}
-                className="group flex items-center gap-4 rounded-[24px] border-2 border-[#e1e5e2] bg-white p-4 text-start shadow-[0_3px_0_rgba(31,41,51,.045)] transition-all hover:-translate-y-1 hover:border-[var(--juba-violet)]"
+                className="group flex items-center gap-4 rounded-[20px] border-2 border-[#e1e5e2] bg-white p-4 text-start shadow-[0_3px_0_rgba(31,41,51,.045)] transition-all hover:-translate-y-1 hover:border-[#58a700]"
               >
-                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[17px] text-sm font-black ${i % 2 === 0 ? 'bg-[var(--juba-mint)]' : 'bg-[var(--juba-sky)]'} text-[#30343b]`}>
+                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] text-sm font-black ${i % 2 === 0 ? 'bg-[#eaf5df]' : 'bg-[#f1f7ed]'} text-[#30343b]`}>
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span className="min-w-0 flex-1">
@@ -416,7 +416,7 @@ export default function PlanPage() {
         <div className="relative space-y-4">
           <div className="pointer-events-none absolute start-[28px] top-8 bottom-8 hidden w-1 rounded-full bg-[#eaf5df] sm:block" />
           {units.length === 0 && (
-            <div className="rounded-[28px] border-2 border-[#e1e5e2] bg-white px-6 py-12 text-center shadow-[0_3px_0_rgba(31,41,51,.045)]">
+            <div className="rounded-[20px] border-2 border-[#e1e5e2] bg-white px-6 py-12 text-center shadow-[0_3px_0_rgba(31,41,51,.045)]">
               <p className="text-sm font-black text-[#68736d]">{t('noUnitsForLevel', { level })}</p>
               <p className="mt-2 text-xs font-medium text-[#68736d]">{t('noUnitsDesc')}</p>
             </div>
@@ -476,7 +476,7 @@ export default function PlanPage() {
       {allUnitsCompleted && !plan.completion_test_taken && <LevelTestBanner planId={plan.id} level={level} />}
 
       {plan.completion_test_taken && (
-        <section className="rounded-[28px] border-2 border-[#e1e5e2] bg-white px-5 py-5 shadow-[0_3px_0_rgba(31,41,51,.045)] sm:px-7">
+        <section className="rounded-[20px] border-2 border-[#e1e5e2] bg-white px-5 py-5 shadow-[0_3px_0_rgba(31,41,51,.045)] sm:px-7">
           <p className="text-xs font-black uppercase tracking-[0.12em] text-[#438600]">{t('levelTestResult')}</p>
           <p className="mt-2 text-sm font-semibold text-[#68736d]">
             {t('testScore')} <span className="font-black text-[#30343b]">{plan.completion_test_score != null ? `${Math.round(plan.completion_test_score * 100)}%` : 'n/a'}</span>
