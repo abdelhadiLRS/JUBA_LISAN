@@ -15,16 +15,16 @@ type Props = {
 type MemoryCard = { id: string; label: string; pair_key?: string; flipped: boolean; matched: boolean }
 
 const copy = {
-  ar: { memory: 'الذاكرة', matching: 'المطابقة', ordering: 'الترتيب', reset: 'إعادة', moves: 'المحاولات', match: 'طابق العنصرين المتشابهين', chooseLeft: 'اختر كلمة', chooseRight: 'اختر ترجمتها', order: 'اضغط العناصر بالترتيب الصحيح', complete: 'أحسنت! أكملت التحدي.', up: 'أعلى', down: 'أسفل', undo: 'تراجع', clear: 'مسح' },
-  fr: { memory: 'Mémoire', matching: 'Association', ordering: 'Classement', reset: 'Réinitialiser', moves: 'Coups', match: 'Associe les deux éléments', chooseLeft: 'Choisis un mot', chooseRight: 'Choisis sa traduction', order: 'Appuie sur les éléments dans le bon ordre', complete: 'Bravo ! Défi terminé.', up: 'Monter', down: 'Descendre', undo: 'Annuler', clear: 'Effacer' },
-  en: { memory: 'Memory', matching: 'Matching', ordering: 'Ordering', reset: 'Reset', moves: 'Moves', match: 'Match the two items', chooseLeft: 'Choose a word', chooseRight: 'Choose its translation', order: 'Tap the items in the correct order', complete: 'Great job! Challenge complete.', up: 'Up', down: 'Down', undo: 'Undo', clear: 'Clear' },
-  es: { memory: 'Memoria', matching: 'Emparejar', ordering: 'Ordenar', reset: 'Reiniciar', moves: 'Movimientos', match: 'Empareja los dos elementos', chooseLeft: 'Elige una palabra', chooseRight: 'Elige su traducción', order: 'Pulsa los elementos en el orden correcto', complete: '¡Muy bien! Desafío completado.', up: 'Arriba', down: 'Abajo', undo: 'Deshacer', clear: 'Borrar' },
-  de: { memory: 'Memory', matching: 'Zuordnen', ordering: 'Ordnen', reset: 'Zurücksetzen', moves: 'Züge', match: 'Ordne die beiden Elemente zu', chooseLeft: 'Wähle ein Wort', chooseRight: 'Wähle seine Übersetzung', order: 'Tippe die Elemente in der richtigen Reihenfolge an', complete: 'Gut gemacht! Herausforderung abgeschlossen.', up: 'Nach oben', down: 'Nach unten', undo: 'Rückgängig', clear: 'Löschen' },
-  it: { memory: 'Memoria', matching: 'Abbinamento', ordering: 'Ordine', reset: 'Reimposta', moves: 'Mosse', match: 'Abbina i due elementi', chooseLeft: 'Scegli una parola', chooseRight: 'Scegli la traduzione', order: 'Tocca gli elementi nell’ordine corretto', complete: 'Ottimo! Sfida completata.', up: 'Su', down: 'Giù', undo: 'Annulla', clear: 'Cancella' },
-  pt: { memory: 'Memória', matching: 'Correspondência', ordering: 'Ordenação', reset: 'Repor', moves: 'Movimentos', match: 'Liga os dois elementos', chooseLeft: 'Escolhe uma palavra', chooseRight: 'Escolhe a tradução', order: 'Toca nos elementos pela ordem correta', complete: 'Muito bem! Desafio concluído.', up: 'Cima', down: 'Baixo', undo: 'Desfazer', clear: 'Limpar' },
-  ja: { memory: 'メモリー', matching: 'マッチング', ordering: '並べ替え', reset: 'リセット', moves: '手数', match: '2つの要素を合わせてください', chooseLeft: '単語を選んでください', chooseRight: '翻訳を選んでください', order: '正しい順番でタップしてください', complete: 'よくできました！チャレンジ完了です。', up: '上へ', down: '下へ', undo: '元に戻す', clear: 'クリア' },
-  ko: { memory: '기억', matching: '짝맞추기', ordering: '순서 맞추기', reset: '재설정', moves: '횟수', match: '두 요소를 짝지어 보세요', chooseLeft: '단어를 선택하세요', chooseRight: '번역을 선택하세요', order: '올바른 순서로 항목을 눌러 보세요', complete: '잘했어요! 도전 완료.', up: '위', down: '아래', undo: '실행 취소', clear: '지우기' },
-  zh: { memory: '记忆', matching: '配对', ordering: '排序', reset: '重置', moves: '操作次数', match: '匹配两个元素', chooseLeft: '选择一个词', chooseRight: '选择它的翻译', order: '按正确顺序点击元素', complete: '做得好！挑战完成。', up: '上移', down: '下移', undo: '撤销', clear: '清除' },
+  ar: { memory: 'الذاكرة', matching: 'المطابقة', ordering: 'الترتيب', reset: 'إعادة', moves: 'المحاولات', match: 'طابق العنصرين المتشابهين', chooseLeft: 'اختر كلمة', chooseRight: 'اختر ترجمتها', order: 'اضغط العناصر بالترتيب الصحيح', complete: 'أحسنت! أكملت التحدي.', up: 'أعلى', down: 'أسفل', undo: 'تراجع', clear: 'مسح', saving: 'جارٍ الحفظ…', saveError: 'تعذّر حفظ النتيجة. حاول الحفظ مجددًا أو أعد التحدي.', tryAgain: 'حاول مجددًا', loading: 'جارٍ تحميل التحدي…', hiddenCard: 'بطاقة مخفية' },
+  fr: { memory: 'Mémoire', matching: 'Association', ordering: 'Classement', reset: 'Réinitialiser', moves: 'Coups', match: 'Associe les deux éléments', chooseLeft: 'Choisis un mot', chooseRight: 'Choisis sa traduction', order: 'Appuie sur les éléments dans le bon ordre', complete: 'Bravo ! Défi terminé.', up: 'Monter', down: 'Descendre', undo: 'Annuler', clear: 'Effacer', saving: 'Enregistrement…', saveError: 'Impossible d’enregistrer le résultat. Réessaie ou réinitialise le défi.', tryAgain: 'Réessayer', loading: 'Chargement du défi…', hiddenCard: 'Carte cachée' },
+  en: { memory: 'Memory', matching: 'Matching', ordering: 'Ordering', reset: 'Reset', moves: 'Moves', match: 'Match the two items', chooseLeft: 'Choose a word', chooseRight: 'Choose its translation', order: 'Tap the items in the correct order', complete: 'Great job! Challenge complete.', up: 'Up', down: 'Down', undo: 'Undo', clear: 'Clear', saving: 'Saving…', saveError: 'Unable to save the result. Try saving again or reset the challenge.', tryAgain: 'Try again', loading: 'Loading challenge…', hiddenCard: 'Hidden card' },
+  es: { memory: 'Memoria', matching: 'Emparejar', ordering: 'Ordenar', reset: 'Reiniciar', moves: 'Movimientos', match: 'Empareja los dos elementos', chooseLeft: 'Elige una palabra', chooseRight: 'Elige su traducción', order: 'Pulsa los elementos en el orden correcto', complete: '¡Muy bien! Desafío completado.', up: 'Arriba', down: 'Abajo', undo: 'Deshacer', clear: 'Borrar', saving: 'Guardando…', saveError: 'No se pudo guardar el resultado. Inténtalo de nuevo o reinicia el desafío.', tryAgain: 'Reintentar', loading: 'Cargando desafío…', hiddenCard: 'Tarjeta oculta' },
+  de: { memory: 'Memory', matching: 'Zuordnen', ordering: 'Ordnen', reset: 'Zurücksetzen', moves: 'Züge', match: 'Ordne die beiden Elemente zu', chooseLeft: 'Wähle ein Wort', chooseRight: 'Wähle seine Übersetzung', order: 'Tippe die Elemente in der richtigen Reihenfolge an', complete: 'Gut gemacht! Herausforderung abgeschlossen.', up: 'Nach oben', down: 'Nach unten', undo: 'Rückgängig', clear: 'Löschen', saving: 'Speichern…', saveError: 'Ergebnis konnte nicht gespeichert werden. Versuche es erneut oder setze die Herausforderung zurück.', tryAgain: 'Erneut versuchen', loading: 'Herausforderung wird geladen…', hiddenCard: 'Verdeckte Karte' },
+  it: { memory: 'Memoria', matching: 'Abbinamento', ordering: 'Ordine', reset: 'Reimposta', moves: 'Mosse', match: 'Abbina i due elementi', chooseLeft: 'Scegli una parola', chooseRight: 'Scegli la traduzione', order: 'Tocca gli elementi nell’ordine corretto', complete: 'Ottimo! Sfida completata.', up: 'Su', down: 'Giù', undo: 'Annulla', clear: 'Cancella', saving: 'Salvataggio…', saveError: 'Impossibile salvare il risultato. Riprova o reimposta la sfida.', tryAgain: 'Riprova', loading: 'Caricamento della sfida…', hiddenCard: 'Carta coperta' },
+  pt: { memory: 'Memória', matching: 'Correspondência', ordering: 'Ordenação', reset: 'Repor', moves: 'Movimentos', match: 'Liga os dois elementos', chooseLeft: 'Escolhe uma palavra', chooseRight: 'Escolhe a tradução', order: 'Toca nos elementos pela ordem correta', complete: 'Muito bem! Desafio concluído.', up: 'Cima', down: 'Baixo', undo: 'Desfazer', clear: 'Limpar', saving: 'A guardar…', saveError: 'Não foi possível guardar o resultado. Tenta novamente ou reinicia o desafio.', tryAgain: 'Tentar novamente', loading: 'A carregar desafio…', hiddenCard: 'Carta oculta' },
+  ja: { memory: 'メモリー', matching: 'マッチング', ordering: '並べ替え', reset: 'リセット', moves: '手数', match: '2つの要素を合わせてください', chooseLeft: '単語を選んでください', chooseRight: '翻訳を選んでください', order: '正しい順番でタップしてください', complete: 'よくできました！チャレンジ完了です。', up: '上へ', down: '下へ', undo: '元に戻す', clear: 'クリア', saving: '保存中…', saveError: '結果を保存できませんでした。もう一度試すか、チャレンジをリセットしてください。', tryAgain: '再試行', loading: 'チャレンジを読み込み中…', hiddenCard: '裏向きのカード' },
+  ko: { memory: '기억', matching: '짝맞추기', ordering: '순서 맞추기', reset: '재설정', moves: '횟수', match: '두 요소를 짝지어 보세요', chooseLeft: '단어를 선택하세요', chooseRight: '번역을 선택하세요', order: '올바른 순서로 항목을 눌러 보세요', complete: '잘했어요! 도전 완료.', up: '위', down: '아래', undo: '실행 취소', clear: '지우기', saving: '저장 중…', saveError: '결과를 저장할 수 없습니다. 다시 시도하거나 도전을 초기화하세요.', tryAgain: '다시 시도', loading: '도전 불러오는 중…', hiddenCard: '숨겨진 카드' },
+  zh: { memory: '记忆', matching: '配对', ordering: '排序', reset: '重置', moves: '操作次数', match: '匹配两个元素', chooseLeft: '选择一个词', chooseRight: '选择它的翻译', order: '按正确顺序点击元素', complete: '做得好！挑战完成。', up: '上移', down: '下移', undo: '撤销', clear: '清除', saving: '正在保存…', saveError: '无法保存结果。请重试或重置挑战。', tryAgain: '重试', loading: '正在加载挑战…', hiddenCard: '隐藏卡片' },
 } as const
 
 export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title }: Props) {
@@ -210,15 +210,15 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
       <div className="interactive-toolbar">
         <strong>{title ?? (mode === 'memory' ? t.memory : mode === 'matching' ? t.matching : t.ordering)}</strong>
         <span>{t.moves}: {moves}</span>
-        <button type="button" onClick={reset} disabled={!challenge || completed || locked || saving}>{saving ? '…' : t.reset}</button>
+        <button type="button" onClick={reset} disabled={!challenge || completed || locked || saving}>{saving ? t.saving : t.reset}</button>
       </div>
 
-      {!challenge && <p className="interactive-instruction">Loading challenge…</p>}
+      {!challenge && <p className="interactive-instruction">{t.loading}</p>}
 
       {challenge?.type === 'memory' && <>
         <p className="interactive-instruction">{t.match}</p>
         <div className="memory-board">{memoryCards.map((card, index) =>
-          <button key={card.id} type="button" className={`memory-card ${card.flipped || card.matched ? 'revealed' : ''} ${card.matched ? 'matched' : ''} ${memoryRetryCount(card.id) >= 2 ? 'retry-focus' : ''}`} onClick={() => flipCard(index)} aria-label={card.flipped || card.matched ? card.label : 'Hidden card'}>
+          <button key={card.id} type="button" className={`memory-card ${card.flipped || card.matched ? 'revealed' : ''} ${card.matched ? 'matched' : ''} ${memoryRetryCount(card.id) >= 2 ? 'retry-focus' : ''}`} onClick={() => flipCard(index)} aria-label={card.flipped || card.matched ? card.label : t.hiddenCard}>
             <span>{card.flipped || card.matched ? card.label : '✦'}</span>
           </button>)}</div>
       </>}
@@ -243,11 +243,11 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
         })}</div>
         <button type="button" className="interactive-secondary" onClick={() => setOrder(value => value.slice(0, -1))} disabled={saving || !order.length}>{t.undo}</button>
         <button type="button" className="interactive-secondary" onClick={() => setOrder([])} disabled={saving || !order.length}>{t.clear}</button>
-        <button type="button" className="interactive-secondary" onClick={submitOrder} disabled={order.length !== items.length || saving}>{saving ? '…' : '✓'}</button>
+        <button type="button" className="interactive-secondary" onClick={submitOrder} disabled={order.length !== items.length || saving}>{saving ? t.saving : '✓'}</button>
       </>}
 
-      {saving && <p className="interactive-instruction" role="status" aria-live="polite">Saving…</p>}
-      {completionError && !completed && <div className="interactive-error" role="alert"><p>Unable to save the result. Try saving again or reset the challenge.</p><button type="button" onClick={retryCompletion} disabled={saving}>Try again</button><button type="button" onClick={reset} disabled={saving}>{t.reset}</button></div>}
+      {saving && <p className="interactive-instruction" role="status" aria-live="polite">{t.saving}</p>}
+      {completionError && !completed && <div className="interactive-error" role="alert"><p>{t.saveError}</p><button type="button" onClick={retryCompletion} disabled={saving}>{t.tryAgain}</button><button type="button" onClick={reset} disabled={saving}>{t.reset}</button></div>}
       {completed && <div className="interactive-complete" role="status">🏆 {t.complete}</div>}
     </div>
   )
