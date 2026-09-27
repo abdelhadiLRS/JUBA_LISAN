@@ -138,14 +138,6 @@ B2_SETS: list[VocabularySet] = [
         unit_ref="b2-unit-3",
         words=[
             VocabularyEntry(
-                word="deadline",
-                pos="noun",
-                definition="The latest time by which something must be done.",
-                example="The deadline for the report is Friday.",
-                ipa="/ˈdedlaɪn/",
-                frequency_rank=410,
-            ),
-            VocabularyEntry(
                 word="colleague",
                 pos="noun",
                 definition="Someone you work with, especially in the same organisation or profession.",
