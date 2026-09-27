@@ -16,3 +16,14 @@ def test_german_curated_seeds_cover_a2_to_c2():
         assert reading is not None
         assert reading["text"]
         assert len(reading["questions"]) >= 2
+
+
+
+def test_german_curriculum_includes_full_skill_cycle():
+    from app.data.de.curriculum import CURRICULUM
+
+    expected = {"grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"}
+    for level in ("A2", "B1", "B2", "C1", "C2"):
+        assert CURRICULUM[level]
+        for unit in CURRICULUM[level]:
+            assert expected.issubset(set(unit.lesson_types))
