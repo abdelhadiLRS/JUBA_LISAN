@@ -2208,3 +2208,25 @@ def test_en_gb_b1_memorable_and_unforgettable_are_distinguished():
     assert "solo trip abroad" in unforgettable.example
     assert memorable.example != unforgettable.example
 
+
+
+
+def test_en_gb_a2_comparison_examples_explain_real_choices():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for group in A2_SETS for entry in group.words}
+    expected = {
+        "cheap": ["cheaper than", "lunch menu includes a drink"],
+        "expensive": ["festival surcharge"],
+        "comfortable": ["supports me during long study sessions"],
+        "dangerous": ["sharp bends", "drivers to see"],
+        "beautiful": ["gardens are full of flowers"],
+        "quiet": ["lorries use the bypass"],
+        "crowded": ["8:15 train", "8:45 service"],
+        "countryside": ["footpaths were quiet", "wild flowers"],
+    }
+    for word, fragments in expected.items():
+        example = entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 12, word
+        for fragment in fragments:
+            assert fragment.casefold() in example, word
