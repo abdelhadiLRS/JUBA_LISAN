@@ -162,7 +162,12 @@
     "regionEurope": "Europa",
     "regionAfricaMiddleEast": "Afrika & Naher Osten",
     "regionAsia": "Asien",
-    "regionPacific": "Pazifik"
+    "regionPacific": "Pazifik",
+    "appCtaTitle": "Lerne überall mit JUBA LISAN",
+    "appCtaDescription": "Halte dein Sprachtraining griffbereit. Setze Lektionen, KI-Gespräche, Hörübungen und deinen Lernfortschritt überall fort.",
+    "appCtaNote": "Web-Erlebnis · Für mobile Bildschirme entwickelt",
+    "onlineLanguagesTitle": "Sprachen online lernen",
+    "onlineLanguagesDescription": "Wähle eine Sprache und entdecke die Lernerfahrung von JUBA LISAN."
   },
   "common": {
     "loading": "Laden...",
