@@ -1,11 +1,12 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   ACHIEVEMENTS,
   type AchievementId,
 } from '@/lib/games/achievements'
 import {
+  answerGameSessionQuestion,
   completeGameSession,
   startGameSession,
   type GameSessionQuestion,
@@ -16,6 +17,15 @@ import { useProgressStore } from '@/store/progress'
 import './games.css'
 
 type Lang = GameLanguage
+type SpeechRecognitionResultEventLike = Event & { results: ArrayLike<ArrayLike<{ transcript: string }>> }
+type SpeechRecognitionInstance = { lang: string; continuous: boolean; interimResults: boolean; start: () => void; stop: () => void; abort: () => void; onresult: ((event: SpeechRecognitionResultEventLike) => void) | null; onerror: (() => void) | null; onend: (() => void) | null }
+type SpeechRecognitionConstructor = new () => SpeechRecognitionInstance
+declare global { interface Window { SpeechRecognition?: SpeechRecognitionConstructor; webkitSpeechRecognition?: SpeechRecognitionConstructor } }
+const speechCopy: Record<'ar' | 'fr' | 'en', { start: string; stop: string; fallback: string; error: string; type: string }> = {
+  ar: { start: 'تحدث للإجابة', stop: 'إيقاف التسجيل', fallback: 'التعرف الصوتي غير مدعوم في هذا المتصفح.', error: 'تعذر الوصول إلى الميكروفون أو التعرف على الكلام.', type: 'أو اكتب إجابتك' },
+  fr: { start: 'Répondre à l’oral', stop: 'Arrêter', fallback: 'La reconnaissance vocale n’est pas prise en charge par ce navigateur.', error: 'Le microphone ou la reconnaissance vocale a échoué.', type: 'Ou écris ta réponse' },
+  en: { start: 'Speak your answer', stop: 'Stop recording', fallback: 'Speech recognition is not supported by this browser.', error: 'Microphone or speech recognition failed.', type: 'Or type your answer' },
+}
 function getLocalDateKey() {
   const now = new Date()
   const year = now.getFullYear()
@@ -79,13 +89,54 @@ export default function GamesPage() {
   const [roundScore, setRoundScore] = useState(0)
   const [round, setRound] = useState(0)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
-
+  const speechRef = useRef<SpeechRecognitionInstance | null>(null)\n  const [speechListening, setSpeechListening] = useState(false)\n  const [speechError, setSpeechError] = useState(false)\n  const [inputValue, setInputValue] = useState('')\n
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
     resetGameProgress,
   } = useProgressStore()
 
   const level = Math.floor(xp / 100) + 1
+  const speechSupported = typeof window !== 'undefined' && Boolean(window.SpeechRecognition || window.webkitSpeechRecognition)
+
+  useEffect(() => () => { speechRef.current?.abort(); speechRef.current = null }, [])
+
+  function startSpeechInput() {
+    if (!speechSupported || selected) return
+    const Constructor = window.SpeechRecognition || window.webkitSpeechRecognition
+    if (!Constructor) return
+    const recognition = new Constructor()
+    recognition.lang = lang === 'ar' ? 'ar-SA' : lang === 'fr' ? 'fr-FR' : 'en-US'
+    recognition.continuous = false
+    recognition.interimResults = false
+    recognition.onresult = (event) => {
+      const transcript = event.results[0]?.[0]?.transcript?.trim() ?? ''
+      if (transcript) setInputValue(transcript)
+    }
+    recognition.onerror = () => { setSpeechError(true); setSpeechListening(false) }
+    recognition.onend = () => { setSpeechListening(false); speechRef.current = null }
+    setSpeechError(false)
+    speechRef.current = recognition
+    setSpeechListening(true)
+    recognition.start()
+  }
+
+  function stopSpeechInput() {
+    speechRef.current?.stop()
+    setSpeechListening(false)
+  }
+
+  async function submitTextAnswer() {
+    const value = inputValue.trim()
+    if (!question || selected || !value) return
+    try {
+      if (sessionId) await answerGameSessionQuestion(sessionId, question.id, value)
+      answer(value)
+      setInputValue('')
+    } catch {
+      setSpeechError(true)
+    }
+  }
+
   const t = copy[lang]
   const today = getLocalDateKey()
   const dailyCompletedToday = gameStats.lastDailyChallengeDate === today
@@ -131,6 +182,8 @@ export default function GamesPage() {
       setRound(0)
       setRoundScore(0)
       setSelected(null)
+      setInputValue('')
+      setSpeechError(false)
       setAnswers([])
       setSessionId(session.session_id)
       setSessionQuestions(session.questions)
@@ -199,6 +252,8 @@ export default function GamesPage() {
     const nextRound = round + 1
     setRound(nextRound)
     setSelected(null)
+    setInputValue('')
+    setSpeechError(false)
     setQuestion(sessionQuestions[nextRound] ?? null)
   }
 
@@ -308,17 +363,38 @@ export default function GamesPage() {
             {question && (
               <>
                 <h2 style={{ whiteSpace: 'pre-line' }}>{question.prompt}</h2>
-                <p className="choose">{t.choose}</p>
-                <div className="choices">
-                  {question.choices.map((choice) => {
-                    const state = selected === choice ? 'selected' : ''
-                    return (
-                      <button key={choice} className={`choice ${state}`} onClick={() => answer(choice)}>
-                        {choice}
-                      </button>
-                    )
-                  })}
-                </div>
+                {question.input_mode === 'text' ? (
+                  <>
+                    {question.skill === 'speaking' && (
+                      <div className="speaking-controls" aria-label={speechCopy[lang].start}>
+                        {speechSupported ? (
+                          <button type="button" className={`audio-play speech-button${speechListening ? ' listening' : ''}`} onClick={speechListening ? stopSpeechInput : startSpeechInput} disabled={Boolean(selected)}>
+                            {speechListening ? '⏹️ ' + speechCopy[lang].stop : '🎙️ ' + speechCopy[lang].start}
+                          </button>
+                        ) : <small>{speechCopy[lang].fallback}</small>}
+                        {speechError && <small role="alert">{speechCopy[lang].error}</small>}
+                      </div>
+                    )}
+                    <form className="spelling-form" onSubmit={(event) => { event.preventDefault(); void submitTextAnswer() }}>
+                      <input value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder={question.skill === 'speaking' ? speechCopy[lang].type : t.choose} autoComplete="off" disabled={Boolean(selected) || speechListening} />
+                      <button type="submit" className="next" disabled={Boolean(selected) || speechListening || !inputValue.trim()}>{t.next}</button>
+                    </form>
+                  </>
+                ) : (
+                  <>
+                    <p className="choose">{t.choose}</p>
+                    <div className="choices">
+                      {question.choices.map((choice) => {
+                        const state = selected === choice ? 'selected' : ''
+                        return (
+                          <button key={choice} className={`choice ${state}`} onClick={() => answer(choice)}>
+                            {choice}
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </>
+                )}
                 {selected && (
                   <div className="feedback good">
                     <strong>{t.answered}</strong>
