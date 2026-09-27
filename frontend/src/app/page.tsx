@@ -154,9 +154,11 @@ export default async function Home() {
 
       <section id="features" className="juba-busuu-difference" aria-labelledby="difference-title">
         <div className="juba-busuu-container">
-          <div className="juba-busuu-heading">
-            <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
-            <h2 id="difference-title">{t('bentoTitle')}</h2>
+          <div className="juba-busuu-heading juba-busuu-heading-split">
+            <div>
+              <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
+              <h2 id="difference-title">{t('bentoTitle')}</h2>
+            </div>
             <p>{t('bentoSubtitle')}</p>
           </div>
           <div className="juba-busuu-feature-grid">
