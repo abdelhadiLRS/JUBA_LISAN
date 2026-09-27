@@ -194,9 +194,9 @@ export default async function Home() {
         <section id="reviews" className="juba-busuu-testimonials" aria-labelledby="reviews-title">
           <div className="juba-busuu-container">
             <div className="juba-busuu-heading">
-              <span className="juba-busuu-eyebrow">{t('landingReviews.eyebrow')}</span>
-              <h2 id="reviews-title">{t('landingReviews.title')}</h2>
-              <p>{t('landingReviews.subtitle')}</p>
+              <span className="juba-busuu-eyebrow">{t('navReviews')}</span>
+              <h2 id="reviews-title">{t('navReviews')}</h2>
+              <p>{t('bentoSubtitle')}</p>
             </div>
             <div className="juba-busuu-testimonial-grid">
               {reviews.slice(0, 6).map((review) => (
