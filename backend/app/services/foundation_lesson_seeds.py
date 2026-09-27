@@ -116,6 +116,24 @@ def get_foundation_lesson_seed(
     grammar_names = [topic.title for topic in grammar]
     competencies = list(getattr(unit, "competency_checklist", []) or [])[:4]
 
+    # Keep the fallback seed teachable rather than merely exposing raw data.
+    # These fields give every generated lesson a small input -> retrieval ->
+    # production sequence even when a language has no curated lesson seed yet.
+    target_words = vocabulary_words[:6]
+    target_phrases = phrases[:4]
+    input_examples = (grammar_examples[:3] + vocabulary_examples[:3])[:6]
+    content_quality = {
+        "input_examples": input_examples,
+        "target_words": target_words,
+        "target_phrases": target_phrases,
+        "retrieval_sequence": [
+            "Recall the meaning of three target items without looking.",
+            "Use two target items in new sentences.",
+            "Complete the final task using the target grammar or skill.",
+        ],
+        "production_requirement": "Use at least three target words and one target structure in a new context.",
+    }
+
     phrases: list[str] = []
     try:
         from app.data.phrasebook import get_phrasebook_categories
@@ -148,6 +166,7 @@ def get_foundation_lesson_seed(
         ],
         "recycle": vocabulary_words[:4] + phrases[:2],
         "phrases": phrases,
+        "content_quality": content_quality,
     }
 
     if skill == "grammar":
@@ -163,6 +182,7 @@ def get_foundation_lesson_seed(
             f"Identify the main topic of the text: {title}.",
             "Find two useful expressions in the text.",
             "Explain one detail using your own words.",
+            "Use one target word from the text in a new sentence.",
         ]
         base["scenario"] = f"Read the text and then use its information to complete a short task about {title}."
         base["retrieval_prompts"] = ["What is the main idea?", "Which two words or phrases do you remember?", "What can you say about the topic without looking?"]
@@ -173,12 +193,13 @@ def get_foundation_lesson_seed(
             "Identify the main idea you hear.",
             "Note two useful expressions from the recording.",
             "Give one detail that supports the main idea.",
+            "Repeat one useful phrase and adapt it to your own situation.",
         ]
         base["scenario"] = f"Listen for information you would need in a real interaction about {title}."
         base["retrieval_prompts"] = ["What was the main idea?", "Which detail did you hear?", "Which phrase could you reuse?"]
     elif skill == "speaking":
         base["objective"] = f"Speak about {title} using the target grammar and vocabulary."
-        base["prompt"] = f"Speak about {title}. Use the target grammar and at least three topic words."
+        base["prompt"] = f"Speak about {title}. Use the target grammar and at least three topic words, then answer one follow-up question."
         base["phrases"] = (grammar_examples + vocabulary_examples)[:6]
         base["examples"] = grammar_examples[:2]
         base["scenario"] = f"Role-play a short conversation about {title} and respond without reading a model."
