@@ -141,7 +141,7 @@ export default function FriendsPage() {
           <div className="flex items-center justify-between pt-2"><h2 className="juba-section-title">Your learning friends</h2><span className="juba-badge">{friends.length}</span></div>
           {loading ? <p className="juba-muted">Loading…</p> : friends.length===0 ? <Empty text="No friends yet. Search for another learner to start practising together."/> :
             <div className="grid gap-3 md:grid-cols-2">{friends.map(person=><PersonCard key={person.id} person={person}><div className="flex gap-2"><Link href={'/friends/chat/'+person.id} className="btn btn-primary"><MessageCircle className="h-4 w-4"/> Chat</Link><button onClick={()=>remove(person.id)} disabled={actionId===person.id} className="btn btn-outline-secondary" title="Remove friend"><UserMinus className="h-4 w-4"/></button></div></PersonCard>)}</div>}
-          {error && <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</p>}
+          {error && <p className="rounded border border-danger-subtle bg-danger-lt px-4 py-3 text-sm text-danger">{error}</p>}
         </div>
 
         <div className="card">
@@ -158,8 +158,8 @@ export default function FriendsPage() {
 }
 
 function PersonCard({person,children}:{person:Person;children:React.ReactNode}) {
-  return <div className="flex items-center gap-3 rounded-2xl border border bg-white p-3 shadow-sm">
-    <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border bg-light">
+  return <div className="flex items-center gap-3 rounded border border-secondary-subtle bg-white p-3 shadow-sm">
+    <div className="h-11 w-11 shrink-0 overflow-hidden rounded-circle border border-secondary-subtle bg-light">
       {person.avatar ? <AuthAvatarImage avatar={person.avatar} alt="" width={44} height={44} className="h-full w-full object-cover"/> : <div className="flex h-full w-full items-center justify-center font-bold text-secondary">{(person.display_name||person.username||'?')[0].toUpperCase()}</div>}
     </div>
     <div className="min-w-0 flex-1"><p className="truncate font-semibold">{person.display_name||person.username}</p><p className="truncate text-xs text-secondary">@{person.username}{person.target_language?' · '+person.target_language:''}</p></div>
