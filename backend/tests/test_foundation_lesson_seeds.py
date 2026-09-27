@@ -831,6 +831,29 @@ def test_en_gb_c2_academic_examples_are_contextual_and_reusable():
         assert len(entries[word].example.split()) >= 16
 
 
+def test_en_gb_c1_contextual_examples_are_deep_and_reusable():
+    """A selected C1 batch should model multi-clause, transferable contexts."""
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+
+    entries = {entry.word: entry for vocabulary_set in C1_SETS for entry in vocabulary_set.words}
+    expected = {
+        "nuance": "firm deadline and a flexible target",
+        "integrity": "disclosed the accounting error herself",
+        "scrutiny": "reduce consumer choice",
+        "catalyst": "succession planning",
+        "fallout": "cancelled contracts",
+        "perpetuate": "repeated summaries omit the correction",
+        "reconcile": "falling satisfaction while interviews",
+        "transcend": "schools, and local businesses",
+        "epitomise": "different learning needs",
+        "disseminate": "compare the evidence",
+        "instigate": "differences between approved contracts",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 16
+
+
 def test_en_gb_c1_analytical_examples_are_contextual_and_reusable():
     """Selected C1 analytical vocabulary should model transferable real-world contexts."""
     from app.data.en_GB.vocabulary_c1 import C1_SETS
