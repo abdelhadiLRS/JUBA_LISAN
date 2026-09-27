@@ -11,13 +11,13 @@ const badgeVariants = cva(
       variant: {
         default: 'bg-[var(--juba-app-yellow)] text-[var(--juba-app-ink)] [a]:hover:opacity-80',
         secondary:
-          'bg-[#f3f7ef] text-[var(--juba-app-ink)] [a]:hover:bg-[var(--juba-app-green-soft)]',
+          'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)] [a]:hover:bg-[var(--juba-app-green-soft)]',
         destructive:
           'border-[#b33a32]/30 bg-[#b33a32]/10 text-[#b33a32] [a]:hover:bg-[#b33a32]/20',
         outline:
-          'bg-[var(--juba-app-surface)] text-[var(--juba-app-ink)] [a]:hover:bg-[#f3f7ef]',
+          'bg-[var(--juba-app-surface)] text-[var(--juba-app-ink)] [a]:hover:bg-[var(--juba-app-green-soft)]',
         ghost:
-          'border-transparent text-[var(--juba-app-muted)] hover:bg-[#f3f7ef] hover:text-[var(--juba-app-ink)]',
+          'border-transparent text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]',
         link: 'border-transparent text-[var(--juba-app-green-dark)] underline-offset-4 hover:underline',
       },
     },
