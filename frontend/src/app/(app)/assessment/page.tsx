@@ -337,7 +337,7 @@ export default function AssessmentPage() {
   if (step === 'existing' && existingPlan) {
     const assessedDate = new Date(existingPlan.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
     return (
-      <div className="juba-assessment-page flex min-h-[60vh] items-center justify-center bg-[#f8faf7] p-4 sm:p-6>
+      <div className="juba-assessment-page flex min-h-[60vh] items-center justify-center bg-[#f8faf7] p-4 sm:p-6">
         <div className={cardClass}>
           <div className="flex items-center gap-3 border-b border-[#e1e5e2] px-5 py-4">
             <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#eaf5df] text-sm font-bold text-[#438600]">A</span>
