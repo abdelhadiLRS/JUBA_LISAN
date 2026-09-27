@@ -15,6 +15,7 @@ Parameters:
 - Week: {week}, Day: {day}
 - Curated content seed and course context: {content_seed}
   The curated source material contains authored target-language examples. Treat it as the canonical lexical/grammar source for this lesson.
+  When present, use its can-do outcomes, success criteria, scenario, recycle items, phrases, and retrieval prompts as the lesson's pedagogical spine.
 
 {language_prompt_overlay}
 
@@ -83,12 +84,18 @@ PEDAGOGICAL ENRICHMENT — DO NOT PRODUCE A THIN LESSON:
 - "communication_goal" must describe something the learner can actually say, understand, read, or write after the lesson.
 - "pronunciation_focus" should be included for listening/pronunciation lessons and identify one concrete sound, stress, rhythm, linking, or spelling-to-sound feature.
 - "review_prompt" should contain 2-3 short retrieval questions or prompts that recycle the lesson target.
+- Align the lesson with the supplied can-do outcomes and success criteria. The learner should finish with a visible, assessable ability rather than only item-level knowledge.
+- If a scenario is supplied, make at least one task an action-oriented real-life task in that scenario.
 - Include deliberate recycling: at least 2 exercises should reuse vocabulary or grammar from the unit in a new context.
+- Use supplied recycle items and phrases where natural; do not force unrelated vocabulary into the lesson.
 - Include at least one contextual/communicative task (role-play, short dialogue completion, information gap, or real-life response) whenever the lesson type allows it.
 - Include at least one production task for speaking or writing in addition to recognition questions whenever the lesson type allows it.
 - For listening lessons, create a short listen-and-understand task with 2-3 comprehension checks.
 - For reading lessons, include a short level-appropriate text or dialogue and 2-3 comprehension checks.
 - For review lessons, deliberately mix earlier grammar and vocabulary from the same level instead of teaching a new isolated point.
+- Where appropriate, include a short mediation or information-transfer task: extract meaning from a message, then explain, relay, classify, or use that information for another person.
+- For speaking and listening, prioritize intelligibility, rhythm, stress, turn-taking, and repair strategies over imitation of an idealized native accent.
+- For higher levels (B2-C2), require evidence, qualification, register control, or discourse organization when the topic supports it.
 
 The lesson should take about 20-30 minutes. Include 5-7 exercises of mixed types
 (multiple_choice, fill_blank, free_write, pronunciation).
@@ -133,7 +140,11 @@ Return a JSON object using this exact schema:
     ],
     "examples": [
       {{"sentence": "[natural example sentence in {target_language_name}]", "note": "[what this example shows]"}}
-    ]
+    ],
+    "can_do": ["[observable learner outcome in {target_language_name}]"],
+    "success_criteria": ["[criterion the learner can check after the lesson]"],
+    "scenario": "[short real-life task context, if relevant]",
+    "retrieval_prompt": "[one short prompt for later recall]"
   }},
   "native_explanation": {{
     "text": "[same explanation translated into {native_language_name}]",
@@ -211,6 +222,8 @@ Before returning, verify:
 - If native_language_name is not "none", every exercise has native_explanation in {native_language_name}.
 - If native_language_name is not "none", every exercise has native_hint in {native_language_name}.
 - No native_hint reveals or literally includes the correct answer.
+- The lesson's main task visibly aligns with the can-do outcome and success criteria.
+- The lesson uses the supplied scenario/recycle material when those fields are present.
 """
 
 FILL_BLANK_EVAL_PROMPT = """
