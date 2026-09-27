@@ -2149,3 +2149,13 @@ def test_en_gb_a2_health_definitions_are_precise_and_contextual():
         assert phrase.casefold() in entries[word].definition.casefold(), word
     assert "bus journey" in entries["nausea"].example.casefold()
 
+
+
+def test_foundation_fallback_seed_has_practice_task_sequences_by_skill():
+    skills = ["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"]
+    for skill in skills:
+        seed = get_foundation_lesson_seed("en_GB", "B1", "nonexistent", skill)
+        assert seed is not None
+        tasks = seed["practice_tasks"]
+        assert len(tasks) >= 4
+        assert all(isinstance(task, str) and len(task) > 20 for task in tasks)
