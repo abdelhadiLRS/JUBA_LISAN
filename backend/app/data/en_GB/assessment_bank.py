@@ -240,10 +240,10 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="g-b1-006",
         skill="grammar",
         difficulty="B1",
-        question="Your cough has lasted for several days and sounds bad. You ___ see a doctor.",
-        options=["ought to", "must", "should", "should to"],
+        question="Your cough has lasted for several days, but there is no emergency. The pharmacist advises you that you ___ see a doctor if it continues.",
+        options=["should", "should to", "should seeing", "should saw"],
         correct="should",
-        grammar_slug="modal-verbs",
+        grammar_slug="modal-verbs";
     ),
     AssessmentQuestion(
         id="g-b1-007",
