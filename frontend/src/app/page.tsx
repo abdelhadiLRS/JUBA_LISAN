@@ -121,7 +121,7 @@ export default async function Home() {
           </div>
           <div className="juba-busuu-hero-visual">
             <div className="juba-busuu-hero-disc" aria-hidden="true" />
-            <Image src="/landing/juba-hero-characters.svg" alt={t('heroTitle')} width={900} height={700} priority />
+            <Image src="/landing/juba-hero-characters.svg" alt="" width={900} height={700} priority aria-hidden="true" />
           </div>
         </div>
       </section>
