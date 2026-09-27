@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { PageLoading } from '@/components/ui/page-loading'
 import { apiFetch } from '@/lib/api'
-import { subscribeToLearningProgressUpdated } from '@/lib/learning-progress'
 import { getCurriculumUnits, type CurriculumUnit } from '@/data/curriculum'
 import { useLanguageStore } from '@/store/language'
 import UnitCard from '@/components/plan/UnitCard'
@@ -78,11 +77,21 @@ interface CompetencyMap {
   [unitId: string]: number // 0–1
 }
 
-interface CompletionState {
-  state: 'in_progress' | 'ready' | 'taken'
-  score: number | null
-  recommendation: string | null
-  next_level: string | null
+interface LearningJourneyResponse {
+  next_lesson_id: number | null
+  next_unit_id: string | null
+  sections: {
+    units: {
+      id: string
+      progress: number
+      state: string
+      lessons: {
+        id: number | null
+        state: string
+        is_completed: boolean
+      }[]
+    }[]
+  }[]
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -137,17 +146,16 @@ export default function PlanPage() {
   const [lessonStates, setLessonStates] = useState<
     Record<string, Pick<Lesson, 'id' | 'completed' | 'action'>>
   >({})
-  const [completion, setCompletion] = useState<CompletionState | null>(null)
   const [units, setUnits] = useState<CurriculumUnit[]>([])
 
   const loadPlan = useCallback(async () => {
     setLoading(true)
     setError('')
-    setCompletion(null)
     try {
-      const [planRes, compRes, todayRes, pendingRes, lessonsRes] =
+      const [planRes, journeyRes, compRes, todayRes, pendingRes, lessonsRes] =
         await Promise.all([
           apiFetch('/api/study-plan/current'),
+          apiFetch('/api/study-plan/learning-path').catch(() => null),
           apiFetch('/api/progress/competencies').catch(() => null),
           apiFetch('/api/study-plan/today').catch(() => null),
           apiFetch('/api/study-plan/pending-lessons').catch(() => null),
@@ -159,15 +167,32 @@ export default function PlanPage() {
           router.push('/assessment')
           return
         }
-        throw new Error(t('planLoadFailed', { status: planRes.status }))
+        throw new Error(`Failed to load plan (${planRes.status})`)
       }
 
       const planData = (await planRes.json()) as StudyPlan
       setPlan(planData)
 
-      if (compRes?.ok) {
+      if (journeyRes?.ok) {
+        const journey = (await journeyRes.json()) as LearningJourneyResponse
+        if (journey.next_lesson_id != null) {
+          setActiveLessonId(journey.next_lesson_id)
+        }
+        const journeyMap: CompetencyMap = {}
+        for (const section of journey.sections) {
+          for (const unit of section.units) {
+            journeyMap[unit.id] = unit.progress
+          }
+        }
+        if (Object.keys(journeyMap).length > 0) {
+          setCompetencies(journeyMap)
+        }
+      }
+
+      // Learning Journey is the authoritative progression snapshot.
+      // Use the legacy competency endpoint only if the journey request failed.
+      if (compRes?.ok && !journeyRes?.ok) {
         const compData = await compRes.json()
-        // Backend returns [{unit_id, score}, ...] or Record<string, number>
         if (Array.isArray(compData)) {
           const map: CompetencyMap = {}
           for (const item of compData as { unit_id: string; score: number }[]) {
@@ -214,9 +239,7 @@ export default function PlanPage() {
       if (todayRes?.ok) {
         const todayData = (await todayRes.json()) as {
           lessons: TodayLesson[]
-          completion?: CompletionState
         }
-        setCompletion(todayData.completion ?? null)
         const nextLesson = todayData.lessons.find(
           (l) => l.id != null && !l.is_completed
         )
@@ -233,7 +256,7 @@ export default function PlanPage() {
 
       setLessonStates(states)
     } catch (err) {
-      setError(err instanceof Error ? err.message : t('loadFailed'))
+      setError(err instanceof Error ? err.message : 'Failed to load')
     } finally {
       setLoading(false)
     }
@@ -244,11 +267,28 @@ export default function PlanPage() {
     void loadPlan()
   }, [loadPlan])
 
-  useEffect(() => {
-    return subscribeToLearningProgressUpdated(() => {
-      void loadPlan()
-    })
-  }, [loadPlan])
+  const launchLesson = useCallback(
+    async (lessonId: number) => {
+      try {
+        const response = await apiFetch('/api/study-plan/launch-lesson', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ lesson_id: lessonId }),
+        })
+        if (!response.ok) {
+          if (response.status === 409) {
+            setError(t('lessonLocked'))
+            return
+          }
+          throw new Error(`Failed to launch lesson (${response.status})`)
+        }
+        router.push(`/lesson/${lessonId}`)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : t('lessonLaunchFailed'))
+      }
+    },
+    [router, t],
+  )
 
   useEffect(() => {
     if (plan?.cefr_level && activeLanguage?.code) {
@@ -274,252 +314,185 @@ export default function PlanPage() {
   const byUnit = lessonsByUnit(allLessons)
   const currentUnitId = plan.current_unit
 
-  const startUnit = async (unitId: string) => {
-    const directLesson = (byUnit[unitId] ?? []).find((lesson) => lesson.id != null && !lesson.completed)
-    if (directLesson?.id != null) {
-      router.push(`/lesson/${directLesson.id}`)
-      return
-    }
-
-    // The lesson drawer can be opened before a lesson has been materialized.
-    // Ask the backend for the current learning entry so the primary action
-    // still takes the learner into a real lesson instead of only closing the drawer.
-    try {
-      const todayRes = await apiFetch('/api/study-plan/today')
-      if (todayRes.ok) {
-        const today = (await todayRes.json()) as { lessons?: Array<{ id: number | null; unit_id?: string; is_completed?: boolean }> }
-        const lesson = today.lessons?.find((item) => item.id != null && item.unit_id === unitId && !item.is_completed)
-          ?? today.lessons?.find((item) => item.id != null && !item.is_completed)
-        if (lesson?.id != null) {
-          router.push(`/lesson/${lesson.id}`)
-          return
-        }
-      }
-
-      const journeyRes = await apiFetch('/api/study-plan/learning-path')
-      if (journeyRes.ok) {
-        const journey = (await journeyRes.json()) as { next_lesson_id?: number | null; next_unit_id?: string | null }
-        if (journey.next_lesson_id != null && (!journey.next_unit_id || journey.next_unit_id === unitId)) {
-          router.push(`/lesson/${journey.next_lesson_id}`)
-          return
-        }
-      }
-    } catch {
-      // Keep the fallback navigation below available even if the API is temporarily unavailable.
-    }
-
-    router.push('/plan')
-  }
-
-  // The real level test unlocks when the learner reaches the plan's final
-  // position, as reported by the backend completion contract.
-  const levelTestReady = completion?.state === 'ready'
+  const allUnitsCompleted =
+    units.length > 0 && units.every((u) => (competencies[u.id] ?? 0) >= 0.8)
 
   return (
-    <div className="space-y-4">
-      {/* ── Header ── */}
-      <div className="card overflow-hidden">
-        <div className="flex items-center gap-2 border-b border bg-primary-lt px-6 py-4">
-          <span className="text-secondary">●</span>
-          <span className="text-secondary text-xs font-black tracking-[.12em] uppercase">
-            {t('learningRoadmap')}
-          </span>
-        </div>
-        <div className="flex flex-wrap items-center gap-4 bg-light px-6 py-5 sm:px-7">
-          <div>
-            <p className="text-secondary text-xs font-black tracking-[.12em] uppercase">
-              {langName ? `${langName} — ${t('level')}` : t('level')}
-            </p>
-            <p className="text-body font-sans text-3xl font-black tracking-tight">
+    <div className="juba-mobile-plan mx-auto max-w-6xl space-y-8 px-3 py-5 sm:px-6 sm:py-8">
+      {/* Hero */}
+      <section className="relative overflow-hidden rounded-[32px] border-[3px] border-[var(--juba-ink)] bg-[var(--juba-violet)] px-6 py-7 text-white shadow-[7px_7px_0_var(--juba-ink)] sm:px-9 sm:py-9">
+        <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--juba-yellow)] opacity-95" />
+        <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--juba-coral)] opacity-80" />
+        <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[18px] bg-[var(--juba-mint)]" />
+        <div className="relative z-10 max-w-3xl">
+          <div className="mb-5 flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-[var(--juba-surface)]/15 px-3 py-1.5 text-xs font-black tracking-wide backdrop-blur-sm">
+              {t('learningRoadmap')}
+            </span>
+            <span className="rounded-full bg-[var(--juba-yellow)] px-3 py-1.5 text-xs font-black text-[var(--juba-text)]">
               {level}
-            </p>
+            </span>
           </div>
-          <div className="bg-light h-8 w-px" />
-          <div>
-            <p className="text-secondary text-xs font-black tracking-[.12em] uppercase">
-              {t('duration')}
-            </p>
-            <p className="text-body font-sans">
-              {t('durationDetail', {
-                weeks: plan.duration_weeks,
-                days: plan.days_per_week,
-              })}
-            </p>
-          </div>
-          <div className="bg-light h-8 w-px" />
-          <div>
-            <p className="text-secondary text-xs font-black tracking-[.12em] uppercase">
-              {t('unitsLabel')}
-            </p>
-            <p className="text-body font-sans">
-              {units.length}
-            </p>
+          <h1 className="max-w-2xl text-3xl font-black tracking-[-0.045em] sm:text-5xl">
+            {langName ? `${langName} · ${t('level')}` : t('level')}
+          </h1>
+          <p className="mt-3 max-w-xl text-sm font-medium leading-6 text-white/80 sm:text-base">
+            {t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <div className="rounded-2xl bg-[var(--juba-surface)]/12 px-4 py-3 backdrop-blur-sm">
+              <p className="text-[11px] font-bold text-white/65">{t('unitsLabel')}</p>
+              <p className="mt-0.5 text-xl font-black">{units.length}</p>
+            </div>
+            <div className="rounded-2xl bg-[var(--juba-surface)]/12 px-4 py-3 backdrop-blur-sm">
+              <p className="text-[11px] font-bold text-white/65">{t('pendingLessons')}</p>
+              <p className="mt-0.5 text-xl font-black">{pendingLessons.length}</p>
+            </div>
+            <div className="rounded-2xl bg-[var(--juba-surface)]/12 px-4 py-3 backdrop-blur-sm">
+              <p className="text-[11px] font-bold text-white/65">{t('level')}</p>
+              <p className="mt-0.5 text-xl font-black">{Math.round((competencies[currentUnitId] ?? 0) * 100)}%</p>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* ── Unit list ── */}
-      <div className="space-y-2">
-        {units.length === 0 && (
-          <div className="border bg-white space-y-3 border px-6 py-10 text-center">
-            <p className="text-secondary font-sans text-xs tracking-[.12em] uppercase">
-              {t('noUnitsForLevel', { level })}
-            </p>
-            <p className="text-secondary font-sans">
-              {t('noUnitsDesc')}
-            </p>
-          </div>
-        )}
-        {units.map((unit, i) => {
-          const unitLessons = byUnit[unit.id] ?? []
-          const completedLessons = unitLessons.filter((l) => l.completed).length
-          const isActive = unit.id === currentUnitId
-          const unitComp = competencies[unit.id] ?? 0
-          const isCompleted =
-            unitComp >= 0.8 ||
-            (completedLessons > 0 && completedLessons === unitLessons.length)
-
-          // A unit is locked if its prerequisite is not completed
-          const prereqUnit = unit.prerequisite_unit
-          const prereqCompleted = prereqUnit
-            ? (competencies[prereqUnit] ?? 0) >= 0.8
-            : true
-          const isLocked =
-            !isActive && !isCompleted && !prereqCompleted && i > 0
-
-          return (
-            <UnitCard
-              key={unit.id}
-              title={unit.title}
-              index={i}
-              lessonCount={unitLessons.length || unit.lesson_types.length}
-              grammarCount={unit.grammar_points.length}
-              competency={unitComp}
-              status={{
-                completed: isCompleted,
-                active: isActive,
-                locked: isLocked,
-                isLevelTest: false,
-              }}
-              onClick={() => setActiveDrawer(unit)}
-              onStartLesson={
-                isActive && activeLessonId != null
-                  ? () => router.push(`/lesson/${activeLessonId}`)
-                  : undefined
-              }
-            />
-          )
-        })}
-
-        {/* Level test pseudo-unit */}
-        {units.length > 0 && (
-          <UnitCard
-            title={t('completionTestTitle', { level })}
-            index={units.length}
-            lessonCount={1}
-            grammarCount={0}
-            competency={
-              plan.completion_test_score != null
-                ? plan.completion_test_score
-                : 0
-            }
-            status={{
-              completed: plan.completion_test_taken,
-              active: levelTestReady && !plan.completion_test_taken,
-              locked: !levelTestReady && !plan.completion_test_taken,
-              isLevelTest: true,
-            }}
-            onClick={() => {
-              if (levelTestReady && !plan.completion_test_taken) {
-                router.push(`/assessment/level-test?plan=${plan.id}`)
-              }
-            }}
-          />
-        )}
-      </div>
-
-      {/* ── Pending lessons ── */}
-      {pendingLessons.length > 0 && (
-        <div className="card overflow-hidden">
-          <div className="border-b border bg-primary-lt px-6 py-4">
-            <div className="flex items-center gap-2">
-              <span className="text-secondary">●</span>
-              <span className="text-secondary text-xs font-black tracking-[.12em] uppercase">
-                {pendingLessons.length} {t('pendingLessons')}
-              </span>
+      {/* Resume */}
+      {activeLessonId != null && (
+        <section className="relative overflow-hidden rounded-[28px] bg-[var(--juba-yellow)] px-5 py-5 shadow-[var(--j-shell-shadow)] sm:px-7">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-ink)]">{t('learningRoadmap')}</p>
+              <h2 className="mt-1 text-xl font-black tracking-tight text-[var(--juba-text)]">{t('resume')}</h2>
+              <p className="mt-1 text-sm font-medium text-[var(--juba-ink)]">{t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}</p>
             </div>
-            <p className="text-secondary font-sans">
-              {t('pendingReassurance')}
-            </p>
+            <button
+              onClick={() => void launchLesson(activeLessonId)}
+              className="rounded-2xl border-[3px] border-[var(--juba-ink)] bg-[var(--juba-yellow)] px-6 py-3 text-sm font-black text-[var(--juba-ink)] shadow-[4px_4px_0_var(--juba-ink)] transition-transform hover:-translate-y-0.5 active:translate-y-1"
+            >
+              {t('resume')} →
+            </button>
           </div>
-          <div className="divide-y divide-[var(--tblr-border-color)]">
-            {pendingLessons.map((lesson) => (
-              <div
+        </section>
+      )}
+
+      {/* Pending lessons */}
+      {pendingLessons.length > 0 && (
+        <section>
+          <div className="mb-4 flex items-end justify-between gap-4 px-1">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-violet-dark)]">{t('pendingLessons')}</p>
+              <h2 className="mt-1 text-2xl font-black tracking-tight text-[var(--juba-text)]">{t('learningRoadmap')}</h2>
+            </div>
+            <span className="rounded-full bg-[var(--juba-lilac)] px-3 py-1 text-xs font-black text-[var(--juba-violet-dark)]">{pendingLessons.length}</span>
+          </div>
+          <div className="grid gap-3 md:grid-cols-2">
+            {pendingLessons.map((lesson, i) => (
+              <button
                 key={lesson.id}
-                className="flex flex-wrap items-center justify-between gap-3 px-6 py-3"
+                onClick={() => void launchLesson(lesson.id)}
+                className="group flex items-center gap-4 rounded-[24px] border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] p-4 text-start shadow-[var(--j-shell-shadow)] transition-all hover:-translate-y-1 hover:border-[var(--juba-violet)]"
               >
-                <div>
-                  <p className="text-body font-sans text-xs">{lesson.title}</p>
-                  <p className="text-secondary mt-0.5 font-sans tracking-[.12em] uppercase">
-                    W{lesson.week_number} D{lesson.day_number} ·{' '}
-                    {lesson.lesson_type}
-                  </p>
-                </div>
-                <button
-                  onClick={() => router.push(`/lesson/${lesson.id}`)}
-                  className="btn btn-primary px-3 py-1 text-xs tracking-[.12em] uppercase"
-                >
-                  {t('resume')}
-                </button>
-              </div>
+                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[17px] text-sm font-black ${i % 2 === 0 ? 'bg-[var(--juba-mint)]' : 'bg-[var(--juba-sky)]'} text-[var(--juba-text)]`}>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm font-black text-[var(--juba-text)]">{lesson.title}</span>
+                  <span className="mt-1 block text-xs font-semibold text-[var(--juba-muted)]">W{lesson.week_number} · D{lesson.day_number} · {lesson.lesson_type}</span>
+                </span>
+                <span className="text-xl font-black text-[var(--juba-violet-dark)] transition-transform group-hover:translate-x-1">→</span>
+              </button>
             ))}
           </div>
+        </section>
+      )}
+
+      {/* Path */}
+      <section>
+        <div className="mb-5 px-1">
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-violet-dark)]">{t('learningRoadmap')}</p>
+          <h2 className="mt-1 text-2xl font-black tracking-tight text-[var(--juba-text)]">{langName || t('level')} · {level}</h2>
         </div>
-      )}
 
-      {/* ── Level test banner ── */}
-      {levelTestReady && !plan.completion_test_taken && (
-        <LevelTestBanner planId={plan.id} level={level} />
-      )}
+        <div className="relative space-y-4">
+          <div className="pointer-events-none absolute start-[28px] top-8 bottom-8 hidden w-1 rounded-full bg-[var(--juba-lilac)] sm:block" />
+          {units.length === 0 && (
+            <div className="rounded-[28px] border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] px-6 py-12 text-center shadow-[var(--j-shell-shadow)]">
+              <p className="text-sm font-black text-[var(--juba-muted)]">{t('noUnitsForLevel', { level })}</p>
+              <p className="mt-2 text-xs font-medium text-[var(--juba-muted)]">{t('noUnitsDesc')}</p>
+            </div>
+          )}
+          {units.map((unit, i) => {
+            const unitLessons = byUnit[unit.id] ?? []
+            const completedLessons = unitLessons.filter((l) => l.completed).length
+            const isActive = unit.id === currentUnitId
+            const unitComp = competencies[unit.id] ?? 0
+            const isCompleted = unitComp >= 0.8 || (completedLessons > 0 && completedLessons === unitLessons.length)
+            const prereqUnit = unit.prerequisite_unit
+            const prereqCompleted = prereqUnit ? (competencies[prereqUnit] ?? 0) >= 0.8 : true
+            const isLocked = !isActive && !isCompleted && !prereqCompleted && i > 0
 
-      {/* ── Completion test result ── */}
-      {plan.completion_test_taken && (
-        <div className="card space-y-2 px-6 py-4">
-          <p className="text-secondary text-xs font-black tracking-[.12em] uppercase">
-            {t('levelTestResult')}
-          </p>
-          <p className="text-body font-sans">
-            {t('testScore')}{' '}
-            <span className="font-bold">
-              {plan.completion_test_score != null
-                ? `${Math.round(plan.completion_test_score * 100)}%`
-                : 'n/a'}
-            </span>
-          </p>
-          {plan.completion_test_recommendation && (
-            <p className="text-secondary font-sans">
-              {plan.completion_test_recommendation}
-            </p>
+            return (
+              <div key={unit.id} className="relative sm:ps-16">
+                <div className="absolute start-3 top-5 z-10 hidden h-8 w-8 items-center justify-center rounded-full border-4 border-[#fbfaff] bg-[var(--juba-violet-dark)] shadow-sm sm:flex">
+                  <span className="text-[10px] font-black text-white">{i + 1}</span>
+                </div>
+                <UnitCard
+                  title={unit.title}
+                  index={i}
+                  lessonCount={unitLessons.length || unit.lesson_types.length}
+                  grammarCount={unit.grammar_points.length}
+                  competency={unitComp}
+                  status={{ completed: isCompleted, active: isActive, locked: isLocked, isLevelTest: false }}
+                  onClick={() => setActiveDrawer(unit)}
+                  onStartLesson={isActive && activeLessonId != null ? () => void launchLesson(activeLessonId) : undefined}
+                />
+              </div>
+            )
+          })}
+
+          {units.length > 0 && (
+            <div className="relative sm:ps-16">
+              <UnitCard
+                title={t('completionTestTitle', { level })}
+                index={units.length}
+                lessonCount={1}
+                grammarCount={0}
+                competency={plan.completion_test_score ?? 0}
+                status={{
+                  completed: plan.completion_test_taken,
+                  active: allUnitsCompleted && !plan.completion_test_taken,
+                  locked: !allUnitsCompleted,
+                  isLevelTest: true,
+                }}
+                onClick={() => {
+                  if (allUnitsCompleted && !plan.completion_test_taken) router.push(`/assessment/level-test?plan=${plan.id}`)
+                }}
+              />
+            </div>
           )}
         </div>
+      </section>
+
+      {allUnitsCompleted && !plan.completion_test_taken && <LevelTestBanner planId={plan.id} level={level} />}
+
+      {plan.completion_test_taken && (
+        <section className="rounded-[28px] border-2 border-[var(--juba-border)] bg-[var(--juba-surface)] px-5 py-5 shadow-[var(--j-shell-shadow)] sm:px-7">
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-violet-dark)]">{t('levelTestResult')}</p>
+          <p className="mt-2 text-sm font-semibold text-[var(--juba-muted)]">
+            {t('testScore')} <span className="font-black text-[var(--juba-text)]">{plan.completion_test_score != null ? `${Math.round(plan.completion_test_score * 100)}%` : 'n/a'}</span>
+          </p>
+          {plan.completion_test_recommendation && <p className="mt-2 text-sm text-[var(--juba-muted)]">{plan.completion_test_recommendation}</p>}
+        </section>
       )}
 
-      {/* ── Active drawer ── */}
       {activeDrawer && (
         <UnitDrawer
           unit={activeDrawer}
-          lessons={(byUnit[activeDrawer.id] ?? []).map((l) => ({
-            ...l,
-            completed: l.completed ?? false,
-          }))}
+          lessons={(byUnit[activeDrawer.id] ?? []).map((l) => ({ ...l, completed: l.completed ?? false }))}
           onClose={() => setActiveDrawer(null)}
           onStartLesson={(lessonId) => {
             setActiveDrawer(null)
-            router.push(`/lesson/${lessonId}`)
-          }}
-          onStartUnit={() => {
-            setActiveDrawer(null)
-            void startUnit(activeDrawer.id)
+            void launchLesson(lessonId)
           }}
         />
       )}
