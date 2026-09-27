@@ -186,14 +186,6 @@ C2_SETS: list[VocabularySet] = [
                 frequency_rank=500,
             ),
             VocabularyEntry(
-                word="notwithstanding",
-                pos="preposition",
-                definition="In spite of; despite.",
-                example="Notwithstanding the difficulties, we succeeded.",
-                ipa="/ˌnɒtwɪθˈstændɪŋ/",
-                frequency_rank=460,
-            ),
-            VocabularyEntry(
                 word="predicated on",
                 pos="phrase",
                 definition="Based on or dependent on.",
@@ -801,22 +793,6 @@ C2_SETS: list[VocabularySet] = [
                 example="His silence was misconstrued as agreement.",
                 ipa="/ˌmɪskənˈstruː/",
                 frequency_rank=450,
-            ),
-            VocabularyEntry(
-                word="corroborate",
-                pos="verb",
-                definition="To confirm or give support to a statement, theory, or finding.",
-                example="The witness corroborated the defendant's alibi.",
-                ipa="/kəˈrɒbəreɪt/",
-                frequency_rank=420,
-            ),
-            VocabularyEntry(
-                word="articulate",
-                pos="verb",
-                definition="To express an idea clearly and coherently.",
-                example="She articulated her concerns in a formal letter.",
-                ipa="/ɑːˈtɪkjʊleɪt/",
-                frequency_rank=300,
             ),
             VocabularyEntry(
                 word="conjecture",
