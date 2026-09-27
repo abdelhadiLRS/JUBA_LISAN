@@ -266,6 +266,26 @@ A2_CATEGORIES: list[PhrasebookCategory] = [
                 context="Estimating your arrival time",
                 register="neutral",
             ),
+            PhrasebookEntry(
+                text="Would Saturday afternoon work for you?",
+                context="Suggesting a specific alternative time",
+                register="neutral",
+            ),
+            PhrasebookEntry(
+                text="Could we meet a little earlier?",
+                context="Negotiating a change to the meeting time",
+                register="neutral",
+            ),
+            PhrasebookEntry(
+                text="That suits me.",
+                context="Confirming that a suggested arrangement is convenient",
+                register="neutral",
+            ),
+            PhrasebookEntry(
+                text="Just to confirm, we're meeting at [time] at [place].",
+                context="Checking the final meeting details",
+                register="neutral",
+            ),
         ],
     ),
     PhrasebookCategory(
