@@ -679,7 +679,6 @@ html[data-theme='light'] {
   .juba-busuu-landing #languages,.juba-busuu-landing #features,.juba-busuu-landing #reviews,.juba-busuu-landing #benefits,.juba-busuu-landing #pricing,.juba-busuu-landing #faq{scroll-margin-top:80px}
   .juba-busuu-nav-inner{min-height:66px}.juba-busuu-brand img{width:124px}
   .juba-busuu-mobile-menu{max-height:calc(100dvh - 66px);padding-bottom:max(28px,env(safe-area-inset-bottom))}
-  .juba-busuu-mobile-menu{max-height:calc(100dvh - 66px);padding-bottom:max(28px,env(safe-area-inset-bottom))}
   .juba-busuu-hero-grid{min-height:0;padding:50px 0 58px}
   .juba-busuu-hero h1{font-size:clamp(2.9rem,13vw,4.4rem)}
   .juba-busuu-hero p{font-size:16px}.juba-busuu-hero-visual{min-height:290px}
