@@ -761,3 +761,43 @@ def test_en_gb_a1_identity_and_greetings_are_contextual():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].definition.split()) >= 7
         assert len(entries[word].example.split()) >= 7
+
+
+def test_en_gb_a2_b2_selected_examples_add_teaching_context():
+    """Selected entries should explain meaning through concrete, reusable contexts."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+    from app.data.en_GB.vocabulary_b2 import B2_SETS
+
+    a2 = {entry.word: entry for s in A2_SETS for entry in s.words}
+    b2 = {entry.word: entry for s in B2_SETS for entry in s.words}
+    expected = {
+        "eventually": ("three people", 10),
+        "meanwhile": ("customers' questions", 10),
+        "hope": ("save enough money", 10),
+        "intend": ("cancelled my other appointments", 10),
+        "book": ("restaurant", 10),
+        "decision": ("better job", 10),
+        "traditional": ("local music and food", 10),
+        "exciting": ("last ten minutes", 10),
+    }
+    for word, (phrase, minimum) in expected.items():
+        assert phrase.casefold() in a2[word].example.casefold()
+        assert len(a2[word].example.split()) >= minimum
+
+    expected_b2 = {
+        "variable": "recorded it throughout the trial",
+        "censorship": "restricted reporting",
+        "circulation": "cheaper weekend edition",
+        "preceding": "financial model",
+        "ensuing": "asked for more evidence",
+        "foreseeable": "changes in demand",
+        "unfold": "compared the original documents",
+        "remorse": "harm caused to the family",
+        "apprehensive": "large organisation",
+        "overwhelmed": "first week",
+        "melancholy": "lively rhythm",
+    }
+    for word, phrase in expected_b2.items():
+        assert phrase.casefold() in b2[word].example.casefold()
+        assert len(b2[word].definition.split()) >= 8
+        assert len(b2[word].example.split()) >= 10
