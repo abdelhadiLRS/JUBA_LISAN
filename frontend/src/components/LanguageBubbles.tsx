@@ -66,7 +66,6 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
             unoptimized
           />
           <span lang={language.code} dir="auto">{language.name}</span>
-          <span className="juba-busuu-language-arrow" aria-hidden="true">↗</span>
         </div>
       ))}
     </div>
