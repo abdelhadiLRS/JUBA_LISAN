@@ -1699,6 +1699,7 @@
     "planMonthly": "Mensuel flexible · {price}€/mois →",
     "planYearly": "Meilleure offre · {price}€/an · 2 mois offerts →",
     "checkoutError": "Impossible de lancer le paiement. Veuillez réessayer.",
+    "checkoutLoading": "Chargement…",
     "pricingTitle": "Tarif simple et transparent",
     "pricingDesc": "{days} jours gratuits · aucun débit aujourd'hui · annulez à tout moment",
     "pricingDescTrialUsed": "Choisissez mensuel ou annuel · annulez à tout moment",
