@@ -235,3 +235,261 @@
   .game-card:nth-child(4n+3) { background: linear-gradient(145deg,#fff,#e9fbf3); }
   .game-card:nth-child(4n) { background: linear-gradient(145deg,#fff,#fff0ec); }
 }
+
+
+/* --------------------------------------------------------------------------
+   JUBA LISAN unified learning surface
+   Match the reference learning language: white canvas, green progression,
+   tactile controls, compact stats, rounded cards. Keep game behavior intact.
+   -------------------------------------------------------------------------- */
+.juba-games {
+  background: var(--juba-learning-bg) !important;
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+
+.games-header {
+  background: var(--juba-learning-green) !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 5px 0 var(--juba-learning-green-dark) !important;
+  color: #fff !important;
+  padding: 30px !important;
+}
+
+.games-header::before,
+.games-header::after {
+  opacity: .22 !important;
+}
+.games-header::before { background: #fff !important; }
+.games-header::after { background: #fff !important; }
+
+.games-brand {
+  background: rgba(255,255,255,.16) !important;
+  border: 2px solid rgba(255,255,255,.24) !important;
+  letter-spacing: .08em !important;
+}
+
+.games-header h1 {
+  font-weight: 900 !important;
+  letter-spacing: -.025em !important;
+}
+
+.language-control {
+  border: 2px solid rgba(255,255,255,.3) !important;
+  border-radius: 16px !important;
+  background: rgba(255,255,255,.14) !important;
+  backdrop-filter: none !important;
+}
+.language-control button.active {
+  color: var(--juba-learning-green-dark) !important;
+  background: #fff !important;
+}
+
+.stats-grid > div,
+.games-panel,
+.game-card,
+.play-card {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: var(--juba-learning-radius) !important;
+  background: #fff !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+
+.stats-grid > div:nth-child(2),
+.stats-grid > div:nth-child(3) {
+  border-color: var(--juba-learning-border) !important;
+}
+
+.stats-grid strong,
+.game-title,
+.games-panel h3,
+.section-heading h2,
+.play-card h2,
+.round-score strong,
+.mini-stats b {
+  color: var(--juba-learning-ink) !important;
+  font-weight: 900 !important;
+}
+
+.stats-grid small,
+.game-desc,
+.mini-stats span,
+.badge,
+.games-skill-summary span,
+.round-meta,
+.choose,
+.round-score,
+.daily-challenge small,
+.reset,
+.back {
+  color: var(--juba-learning-muted) !important;
+}
+
+.daily-challenge {
+  border: 2px solid #d6a900 !important;
+  border-radius: var(--juba-learning-radius) !important;
+  background: var(--juba-learning-yellow) !important;
+  box-shadow: 0 4px 0 #d6a900 !important;
+  color: var(--juba-learning-ink) !important;
+}
+.daily-challenge::after { background: #fff !important; opacity: .2 !important; }
+.daily-challenge.completed {
+  border-color: var(--juba-learning-green-dark) !important;
+  background: var(--juba-learning-green-soft) !important;
+  box-shadow: 0 4px 0 var(--juba-learning-green-dark) !important;
+}
+.daily-challenge .start,
+.start {
+  color: var(--juba-learning-green-dark) !important;
+  font-weight: 900 !important;
+}
+
+.game-card {
+  min-height: 238px !important;
+  border-radius: 20px !important;
+}
+.game-card::before {
+  background: var(--juba-learning-green-soft) !important;
+  opacity: 1 !important;
+}
+.game-card:nth-child(2)::before { background: #fff7d6 !important; }
+.game-card:nth-child(3)::before { background: #e8f8ff !important; }
+.game-card:nth-child(4)::before { background: #f0eaff !important; }
+.game-card:nth-child(5)::before { background: #ffeaea !important; }
+.game-card:nth-child(6)::before { background: #e8f8ff !important; }
+
+.game-card:hover {
+  transform: translateY(-2px) !important;
+  border-color: var(--juba-learning-green) !important;
+  box-shadow: 0 5px 0 rgba(0,0,0,.07) !important;
+}
+
+.game-icon {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 18px !important;
+  background: var(--juba-learning-green-soft) !important;
+}
+.game-card:nth-child(2) .game-icon { background: #fff7d6 !important; }
+.game-card:nth-child(3) .game-icon { background: #e8f8ff !important; }
+.game-card:nth-child(4) .game-icon { background: #f0eaff !important; }
+.game-card:nth-child(5) .game-icon { background: #ffeaea !important; }
+.game-card:nth-child(6) .game-icon { background: #e8f8ff !important; }
+
+.game-card .start,
+.daily-challenge .start {
+  font-size: 14px !important;
+}
+
+.badge {
+  border: 2px solid var(--juba-learning-border) !important;
+  background: #f7f7f7 !important;
+}
+.badge.unlocked {
+  border-color: #d6a900 !important;
+  background: #fff7d6 !important;
+  color: #6d5400 !important;
+}
+
+.games-skill-summary span {
+  border: 2px solid var(--juba-learning-border) !important;
+  background: #fff !important;
+}
+
+.play-card {
+  max-width: 860px !important;
+}
+.play-card::before { background: var(--juba-learning-green-soft) !important; }
+.choice {
+  min-height: 64px !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-bottom-width: 4px !important;
+  border-radius: 16px !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+}
+.choice:hover,
+.choice.selected {
+  border-color: var(--juba-learning-green-dark) !important;
+  background: var(--juba-learning-green-soft) !important;
+  color: var(--juba-learning-green-dark) !important;
+  transform: translateY(-1px) !important;
+}
+.choice.selected {
+  box-shadow: 0 3px 0 var(--juba-learning-green-dark) !important;
+}
+.feedback {
+  border-color: var(--juba-learning-green-dark) !important;
+  background: var(--juba-learning-green-soft) !important;
+}
+.feedback span { color: var(--juba-learning-muted) !important; }
+
+.next {
+  min-height: 52px !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  border-radius: 14px !important;
+  background: var(--juba-learning-green) !important;
+  box-shadow: 0 4px 0 var(--juba-learning-green-dark) !important;
+}
+.next:active {
+  box-shadow: 0 2px 0 var(--juba-learning-green-dark) !important;
+}
+
+.juba-games button:focus-visible {
+  outline: 3px solid var(--juba-learning-blue) !important;
+}
+
+@media (max-width: 640px) {
+  .juba-games {
+    background: var(--juba-learning-bg) !important;
+    padding: 12px 12px 96px !important;
+  }
+  .games-header {
+    min-height: 0 !important;
+    padding: 22px 18px !important;
+    border-radius: 20px !important;
+    background: var(--juba-learning-green) !important;
+    color: #fff !important;
+  }
+  .games-brand {
+    background: rgba(255,255,255,.16) !important;
+    color: #fff !important;
+  }
+  .games-header h1 {
+    color: #fff !important;
+    font-size: 29px !important;
+  }
+  .language-control {
+    background: rgba(255,255,255,.14) !important;
+    border-color: rgba(255,255,255,.3) !important;
+  }
+  .language-control span,
+  .language-control button {
+    color: #fff !important;
+  }
+  .language-control button.active {
+    background: #fff !important;
+    color: var(--juba-learning-green-dark) !important;
+  }
+  .stats-grid > div,
+  .game-card,
+  .games-panel,
+  .play-card {
+    border: 2px solid var(--juba-learning-border) !important;
+    border-radius: 18px !important;
+    box-shadow: var(--juba-learning-shadow) !important;
+  }
+  .game-card {
+    min-height: 154px !important;
+  }
+  .game-card:hover { transform: none !important; }
+  .game-card:active { transform: translateY(1px) !important; }
+  .game-icon {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 16px !important;
+  }
+  .play-card {
+    padding: 18px !important;
+  }
+}
