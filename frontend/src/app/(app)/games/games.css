@@ -492,3 +492,29 @@
   background: rgba(var(--tblr-primary-rgb), .08) !important;
   color: var(--tblr-body-color) !important;
 }
+
+
+/* Final authoritative Tabler games skin */
+.juba-tabler-app .juba-games{padding:1.5rem 1rem 4rem;background:var(--tblr-body-bg);color:var(--tblr-body-color)}
+.juba-tabler-app .juba-games .games-shell{max-width:1200px}
+.juba-tabler-app .juba-games .games-header{min-height:0;margin-bottom:1.5rem;padding:1.5rem;background:var(--tblr-card-bg)!important;color:var(--tblr-body-color)!important;border:1px solid var(--tblr-card-border-color)!important;border-radius:.625rem!important;box-shadow:var(--tblr-box-shadow-card)!important}
+.juba-tabler-app .juba-games .games-header::before,.juba-tabler-app .juba-games .games-header::after,.juba-tabler-app .juba-games .game-card::before,.juba-tabler-app .juba-games .daily-challenge::after,.juba-tabler-app .juba-games .play-card::before{display:none!important}
+.juba-tabler-app .juba-games .games-brand{background:rgba(var(--tblr-primary-rgb),.1)!important;color:var(--tblr-primary)!important;border-radius:.25rem!important}
+.juba-tabler-app .juba-games .stats-grid>div,.juba-tabler-app .juba-games .games-panel,.juba-tabler-app .juba-games .game-card,.juba-tabler-app .juba-games .play-card{border:1px solid var(--tblr-card-border-color)!important;border-radius:.625rem!important;background:var(--tblr-card-bg)!important;color:var(--tblr-body-color)!important;box-shadow:var(--tblr-box-shadow-card)!important}
+.juba-tabler-app .juba-games .daily-challenge,.juba-tabler-app .juba-games .achievement-toast,.juba-tabler-app .juba-games .feedback{border:1px solid var(--tblr-card-border-color)!important;border-radius:.625rem!important;background:rgba(var(--tblr-primary-rgb),.05)!important;color:var(--tblr-body-color)!important;box-shadow:none!important}
+.juba-tabler-app .juba-games .game-icon,.juba-tabler-app .juba-games .game-card:nth-child(n) .game-icon{background:rgba(var(--tblr-primary-rgb),.1)!important;border-radius:.5rem!important}
+.juba-tabler-app .juba-games .game-title,.juba-tabler-app .juba-games .games-header h1,.juba-tabler-app .juba-games .section-heading h2,.juba-tabler-app .juba-games .games-panel h3,.juba-tabler-app .juba-games .play-card h2,.juba-tabler-app .juba-games .stats-grid strong,.juba-tabler-app .juba-games .mini-stats b{color:var(--tblr-body-color)!important}
+.juba-tabler-app .juba-games .stats-grid small,.juba-tabler-app .juba-games .game-desc,.juba-tabler-app .juba-games .mini-stats span,.juba-tabler-app .juba-games .round-meta,.juba-tabler-app .juba-games .choose,.juba-tabler-app .juba-games .round-score,.juba-tabler-app .juba-games .daily-challenge small{color:var(--tblr-secondary)!important}
+.juba-tabler-app .juba-games .start,.juba-tabler-app .juba-games .reset,.juba-tabler-app .juba-games .back{color:var(--tblr-primary)!important}
+.juba-tabler-app .juba-games .choice,.juba-tabler-app .juba-games .interactive-secondary,.juba-tabler-app .juba-games .match-option,.juba-tabler-app .juba-games .ordering-pool button{border:1px solid var(--tblr-border-color)!important;border-radius:.375rem!important;background:var(--tblr-bg-surface-secondary)!important;color:var(--tblr-body-color)!important;box-shadow:none!important}
+.juba-tabler-app .juba-games .choice:hover,.juba-tabler-app .juba-games .choice.selected,.juba-tabler-app .juba-games .match-option:hover,.juba-tabler-app .juba-games .match-option.selected{border-color:var(--tblr-primary)!important;background:rgba(var(--tblr-primary-rgb),.08)!important;transform:none!important}
+.juba-tabler-app .juba-games .choice.selected{box-shadow:none!important}
+.juba-tabler-app .juba-games .next{border:1px solid var(--tblr-primary)!important;border-radius:.375rem!important;background:var(--tblr-primary)!important;color:#fff!important;box-shadow:none!important}
+.juba-tabler-app .juba-games .badge{border-radius:.25rem!important;background:rgba(var(--tblr-primary-rgb),.1)!important;color:var(--tblr-primary)!important}
+.juba-tabler-app .juba-games .memory-card{border:1px solid var(--tblr-primary)!important;border-radius:.5rem!important;background:var(--tblr-primary)!important;box-shadow:none!important}
+.juba-tabler-app .juba-games .memory-card.revealed,.juba-tabler-app .juba-games .memory-card.matched{background:rgba(var(--tblr-primary-rgb),.08)!important;color:var(--tblr-body-color)!important}
+.juba-tabler-app .juba-games .interactive-game{border:1px solid var(--tblr-card-border-color)!important;border-radius:.625rem!important;background:var(--tblr-card-bg)!important;color:var(--tblr-body-color)!important;box-shadow:var(--tblr-box-shadow-card)!important}
+.juba-tabler-app .juba-games .interactive-game::before{display:none!important}
+.juba-tabler-app .juba-games .interactive-language-bar{border:1px solid var(--tblr-border-color)!important;border-radius:.375rem!important;background:var(--tblr-bg-surface)!important;box-shadow:none!important}
+.juba-tabler-app .juba-games .interactive-language-bar button.active{background:rgba(var(--tblr-primary-rgb),.1)!important;color:var(--tblr-primary)!important}
+@media(max-width:640px){.juba-tabler-app .juba-games{padding:1rem .75rem 3rem}.juba-tabler-app .juba-games .games-header{padding:1rem}.juba-tabler-app .juba-games .stats-grid>div,.juba-tabler-app .juba-games .games-panel,.juba-tabler-app .juba-games .game-card,.juba-tabler-app .juba-games .play-card{border-radius:.5rem!important}.juba-tabler-app .juba-games .game-card{min-height:0;padding:1rem}.juba-tabler-app .juba-games .game-icon{width:3rem;height:3rem}.juba-tabler-app .juba-games .play-card{padding:1rem}}
