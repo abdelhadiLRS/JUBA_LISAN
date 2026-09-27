@@ -2940,3 +2940,101 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
     padding-inline: 15px !important;
   }
 }
+
+/* Feedback — community requests and discussion use the same JUBA LISAN card language. */
+.juba-mobile-feedback {
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-mobile-feedback .card {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 20px !important;
+  background: #fff !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+.juba-mobile-feedback .text-\[\#202127\] {
+  color: var(--juba-learning-ink) !important;
+}
+.juba-mobile-feedback .text-\[rgba\(32\,33\,39\,\.52\)\] {
+  color: var(--juba-learning-muted) !important;
+}
+.juba-mobile-feedback .border-\[rgba\(7\,7\,9\,\.08\)\] {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-mobile-feedback .bg-\[\#f4f4f2\] {
+  background: #fff !important;
+}
+.juba-mobile-feedback button {
+  font-family: inherit !important;
+  border-radius: 12px !important;
+}
+.juba-mobile-feedback input,
+.juba-mobile-feedback textarea,
+.juba-mobile-feedback select {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+}
+.juba-mobile-feedback input:focus,
+.juba-mobile-feedback textarea:focus,
+.juba-mobile-feedback select:focus {
+  border-color: var(--juba-learning-green) !important;
+  box-shadow: 0 0 0 4px rgba(88,204,2,.13) !important;
+  outline: none !important;
+}
+.juba-mobile-feedback .border-\[\#5862e2\] {
+  border-color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-feedback .bg-\[\#5862e2\] {
+  background: var(--juba-learning-green) !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  box-shadow: 0 3px 0 var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-feedback .text-\[\#373fb8\] {
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-feedback .border-rose-200\/30 {
+  border-color: #ffc6c6 !important;
+}
+.juba-mobile-feedback .text-\[\#b33a32\] {
+  color: #b42318 !important;
+}
+.juba-mobile-feedback .juba-faq-question,
+.juba-mobile-feedback .hover\:bg-\[rgba\(7\,7\,9\,\.08\)\]:hover {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-feedback .rounded-full {
+  border-radius: 999px !important;
+}
+.juba-mobile-feedback button:focus-visible,
+.juba-mobile-feedback a:focus-visible,
+.juba-mobile-feedback input:focus-visible,
+.juba-mobile-feedback textarea:focus-visible,
+.juba-mobile-feedback select:focus-visible {
+  outline: 3px solid var(--juba-learning-blue) !important;
+  outline-offset: 2px !important;
+}
+.juba-mobile-feedback .fixed.inset-0 > .card {
+  border-radius: 22px !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,.18) !important;
+}
+.juba-mobile-feedback .fixed.inset-0 > .card > div:first-child {
+  background: var(--juba-learning-green-soft) !important;
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-mobile-feedback .fixed.inset-0 > .card button[type='submit'] {
+  color: #fff !important;
+  font-weight: 900 !important;
+}
+@media (max-width: 767px) {
+  .juba-mobile-feedback {
+    padding: 14px 12px 88px !important;
+  }
+  .juba-mobile-feedback .card {
+    border-radius: 18px !important;
+  }
+  .juba-mobile-feedback .fixed.inset-0 {
+    padding: 12px !important;
+  }
+}
