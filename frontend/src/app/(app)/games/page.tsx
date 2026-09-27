@@ -88,6 +88,8 @@ export default function GamesPage() {
   const [selected, setSelected] = useState<string | null>(null)
   const [roundScore, setRoundScore] = useState(0)
   const [round, setRound] = useState(0)
+  const [roundComplete, setRoundComplete] = useState(false)
+  const [finishingRound, setFinishingRound] = useState(false)
   const [newAchievements, setNewAchievements] = useState<AchievementId[]>([])
   const speechRef = useRef<SpeechRecognitionInstance | null>(null)
   const [speechListening, setSpeechListening] = useState(false)
@@ -184,6 +186,8 @@ export default function GamesPage() {
       setDailyMode(session.daily_challenge)
       setDailyChallengeDate(session.daily_challenge_date)
       setRound(0)
+      setRoundComplete(false)
+      setFinishingRound(false)
       setRoundScore(0)
       setSelected(null)
       setInputValue('')
@@ -207,7 +211,8 @@ export default function GamesPage() {
   }
 
   async function finishRound() {
-    if (!sessionId) return
+    if (!sessionId || finishingRound) return false
+    setFinishingRound(true)
     const previousAchievements = new Set(achievements)
     try {
       const server = await completeGameSession(
@@ -237,20 +242,22 @@ export default function GamesPage() {
         },
         achievements: server.achievements as AchievementId[],
       })
+      return true
     } catch {
-      return
+      return false
+    } finally {
+      setFinishingRound(false)
     }
   }
 
-  function next() {
+  async function next() {
     if (!game || !question) return
     if (round >= ROUND_SIZE - 1) {
-      void finishRound()
-      setGame(null)
-      setDailyMode(false)
-      setDailyChallengeDate('')
-      setQuestion(null)
-      setSessionId(null)
+      const completed = await finishRound()
+      if (completed) {
+        setRoundComplete(true)
+        setQuestion(null)
+      }
       return
     }
     const nextRound = round + 1
@@ -271,6 +278,8 @@ export default function GamesPage() {
     setSessionQuestions([])
     setAnswers([])
     setRound(0)
+    setRoundComplete(false)
+    setFinishingRound(false)
     setRoundScore(0)
     setSelected(null)
     setNewAchievements([])
@@ -287,7 +296,7 @@ export default function GamesPage() {
           <div className="language-control">
             <span>{t.lang}</span>
             {(['ar', 'fr', 'en'] as Lang[]).map((value) => (
-              <button key={value} className={lang === value ? 'active' : ''} onClick={() => setLang(value)}>
+              <button type="button" key={value} className={lang === value ? 'active' : ''} onClick={() => setLang(value)}>
                 {value.toUpperCase()}
               </button>
             ))}
@@ -305,7 +314,7 @@ export default function GamesPage() {
             <div className="achievement-toast" style={{ display: newAchievements.length ? 'block' : 'none' }}>
               🏅 <strong>{t.newBadge}</strong> {newAchievements.map((id) => ACHIEVEMENTS[id].title).join(' · ')}
             </div>
-            <button className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} onClick={() => startGame(dailyGame, true)} disabled={dailyCompletedToday} aria-disabled={dailyCompletedToday}>
+            <button type="button" className={`daily-challenge${dailyCompletedToday ? ' completed' : ''}`} onClick={() => startGame(dailyGame, true)} disabled={dailyCompletedToday} aria-disabled={dailyCompletedToday}>
               <span className="daily-icon">📅</span>
               <span><strong>{t.daily}</strong><small>{t.dailyDesc}</small></span>
               <span className="start">{dailyCompletedToday ? '✓' : t.start} {dailyCompletedToday ? '' : '→'}</span>
@@ -313,12 +322,12 @@ export default function GamesPage() {
 
             <div className="section-heading">
               <h2>{t.games}</h2>
-              <button className="reset" onClick={reset}>{t.reset}</button>
+              <button type="button" className="reset" onClick={reset}>{t.reset}</button>
             </div>
 
             <section className="game-grid">
               {gameCards.map((card) => (
-                <button key={card.id} className="game-card" onClick={() => startGame(card.id)}>
+                <button type="button" key={card.id} className="game-card" onClick={() => startGame(card.id)}>
                   <span className="game-icon">{card.icon}</span>
                   <span className="game-title">{card.title}</span>
                   <span className="game-desc">{card.desc}</span>
@@ -362,9 +371,21 @@ export default function GamesPage() {
           </>
         ) : (
           <section className="play-card">
-            <button className="back" onClick={() => { setGame(null); setDailyMode(false) }}>← {t.back}</button>
+            <button type="button" className="back" onClick={() => { setGame(null); setDailyMode(false) }}>← {t.back}</button>
             <div className="round-meta">{dailyMode ? `📅 ${t.daily} · ` : ''}{round + 1} / {ROUND_SIZE} · +XP</div>
-            {question && (
+            {roundComplete ? (
+              <div className="round-complete" role="status" aria-live="polite">
+                <div className="round-complete-icon">🏆</div>
+                <h2>{t.done}</h2>
+                <p>{t.score}: <strong>{roundScore}</strong></p>
+                {newAchievements.length > 0 && (
+                  <div className="round-achievements">🏅 {newAchievements.map((id) => ACHIEVEMENTS[id].title).join(' · ')}</div>
+                )}
+                <button type="button" className="next" onClick={() => { setGame(null); setDailyMode(false); setDailyChallengeDate(''); setSessionId(null); setSessionQuestions([]); setAnswers([]); setRoundComplete(false); setRound(0) }}>
+                  ← {t.back}
+                </button>
+              </div>
+            ) : question && (
               <>
                 <h2 style={{ whiteSpace: 'pre-line' }}>{question.prompt}</h2>
                 {question.input_mode === 'text' ? (
@@ -391,7 +412,7 @@ export default function GamesPage() {
                       {question.choices.map((choice) => {
                         const state = selected === choice ? 'selected' : ''
                         return (
-                          <button key={choice} className={`choice ${state}`} onClick={() => answer(choice)}>
+                          <button type="button" key={choice} className={`choice ${state}`} onClick={() => answer(choice)}>
                             {choice}
                           </button>
                         )
@@ -405,7 +426,7 @@ export default function GamesPage() {
                     <span>{question.hint}</span>
                   </div>
                 )}
-                {selected && <button className="next" onClick={next}>{round >= ROUND_SIZE - 1 ? t.done : t.next} →</button>}
+                {selected && <button type="button" className="next" onClick={() => { void next() }} disabled={finishingRound}>{round >= ROUND_SIZE - 1 ? t.done : t.next} →</button>}
               </>
             )}
             <div className="round-score">{t.score}: <strong>{roundScore}</strong></div>
