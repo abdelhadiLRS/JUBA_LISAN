@@ -282,34 +282,34 @@
     "learningLabel": "Apprendimento",
     "cefrLabel": "QCER",
     "coachLabel": "Coach"
-  ,
-      "learner": "Studente",
-      "minutes": "min",
-      "reviewEyebrow": "Ripasso intelligente",
-      "reviewTitle": "Hai ripassi da fare",
-      "reviewAction": "Inizia il ripasso",
-      "reviewSkill": "Abilità consigliata",
-      "learningLabel": "Apprendimento",
-      "cefrLabel": "QCER",
-      "coachLabel": "Coach",
-      "scenarios": {
-        "airport": {
-          "title": "Aeroporto",
-          "description": "Fare il check-in, chiedere indicazioni e gestire i ritardi."
-        },
-        "jobInterview": {
-          "title": "Colloquio di lavoro",
-          "description": "Esercitati con risposte, sicurezza e vocabolario professionale."
-        },
-        "restaurant": {
-          "title": "Ristorante",
-          "description": "Ordinare naturalmente e gestire una conversazione reale."
-        },
-        "hotel": {
-          "title": "Hotel",
-          "description": "Prenotare una camera, risolvere problemi e fare richieste."
-        }
+  "coach": {
+    "learner": "Studente",
+    "minutes": "min",
+    "reviewEyebrow": "Ripasso intelligente",
+    "reviewTitle": "Hai ripassi da fare",
+    "reviewAction": "Inizia il ripasso",
+    "reviewSkill": "Abilità consigliata",
+    "learningLabel": "Apprendimento",
+    "cefrLabel": "QCER",
+    "coachLabel": "Coach",
+    "scenarios": {
+      "airport": {
+        "title": "Aeroporto",
+        "description": "Fare il check-in, chiedere indicazioni e gestire i ritardi."
+      },
+      "jobInterview": {
+        "title": "Colloquio di lavoro",
+        "description": "Esercitati con risposte, sicurezza e vocabolario professionale."
+      },
+      "restaurant": {
+        "title": "Ristorante",
+        "description": "Ordinare naturalmente e gestire una conversazione reale."
+      },
+      "hotel": {
+        "title": "Hotel",
+        "description": "Prenotare una camera, risolvere problemi e fare richieste."
       }
+    }
   },
   "settings": {
     "title": "Impostazioni",
