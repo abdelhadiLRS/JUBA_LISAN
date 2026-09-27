@@ -1,6 +1,7 @@
 # Changelog
 
 ## [Unreleased]
+- Strengthened a further C2 vocabulary batch with domain-specific collocations and more informative academic, regulatory, analytical, and formal contexts for `seminal`, `convoluted`, `tenuous`, `judicious`, `ubiquitous`, `esoteric`, `pervasive`, `discerning`, `pertinent`, `heretofore`, and `subsume`.
 - Strengthened a further C1 vocabulary batch with more precise definitions and domain-specific collocations, including resilience, scrutiny, precedent, mitigation, dissemination, and investigation contexts.
 - Strengthened selected C1/C2 vocabulary definitions and examples with clearer semantic boundaries, authentic collocations, and more demanding analytical/formal contexts.
 - Tightened C1→C2 progression further by keeping `extrapolate` in C2's advanced inference set and removing the redundant C2 `rhetoric` repeat.
