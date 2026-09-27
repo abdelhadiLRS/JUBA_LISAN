@@ -111,3 +111,19 @@ def test_a1_vocabulary_uses_only_supported_parts_of_speech():
     for vocab_set in VOCABULARY_SETS:
         for entry in vocab_set.words:
             assert entry.pos in allowed, f"{vocab_set.id}: {entry.word} -> {entry.pos}"
+
+
+
+def test_a2_vocabulary_entries_match_shared_schema():
+    """Authored A2 vocabulary must use valid parts of speech and usable teaching text."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+    allowed = {"noun", "verb", "adjective", "adverb", "phrase", "conjunction", "preposition", "numeral", "pronoun"}
+
+    assert A2_SETS
+    for vocab_set in A2_SETS:
+        assert vocab_set.level == "A2"
+        assert vocab_set.words
+        for entry in vocab_set.words:
+            assert entry.pos in allowed, f"{vocab_set.id}: {entry.word} -> {entry.pos}"
+            assert entry.definition.strip(), f"{vocab_set.id}: missing definition for {entry.word}"
+            assert entry.example.strip(), f"{vocab_set.id}: missing example for {entry.word}"
