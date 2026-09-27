@@ -38,7 +38,7 @@ export function CookieBanner() {
           {t('message')}{' '}
           <Link
             href="/privacy"
-            className="font-bold text-[#202127] underline decoration-[#5862e2] decoration-2 underline-offset-2 transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5862e2] focus-visible:ring-offset-2"
+            className="font-bold text-[#242424] underline decoration-[#58cc02] decoration-2 underline-offset-2 transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#58cc02] focus-visible:ring-offset-2"
           >
             {t('learnMore')}
           </Link>
@@ -46,7 +46,7 @@ export function CookieBanner() {
         <button
           type="button"
           onClick={accept}
-          className="inline-flex min-h-10 flex-shrink-0 items-center justify-center rounded-[14px] bg-[#5862e2] px-5 py-2 text-xs font-black uppercase tracking-wider text-white shadow-[0_8px_18px_rgba(88,98,226,.18)] transition hover:bg-[#4f59d5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5862e2] focus-visible:ring-offset-2"
+          className="inline-flex min-h-10 flex-shrink-0 items-center justify-center rounded-[14px] bg-[#58cc02] px-5 py-2 text-xs font-black uppercase tracking-wider text-white shadow-[0_8px_18px_rgba(88,98,226,.18)] transition hover:bg-[#46a302] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#58cc02] focus-visible:ring-offset-2"
         >
           {t('accept')}
         </button>
