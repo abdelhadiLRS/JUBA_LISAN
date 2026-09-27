@@ -2852,3 +2852,91 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
     border-radius: 18px !important;
   }
 }
+
+/* FAQ — help content uses the same clean, tactile JUBA LISAN information surfaces. */
+.juba-mobile-faq {
+  width: min(100% - 32px, 980px);
+  margin: 24px auto 90px;
+  padding: 24px !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 22px !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-mobile-faq > .border-b {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-mobile-faq h1,
+.juba-mobile-faq p,
+.juba-mobile-faq span,
+.juba-mobile-faq li {
+  font-family: inherit !important;
+}
+.juba-mobile-faq h1 {
+  color: var(--juba-learning-ink) !important;
+  font-weight: 900 !important;
+}
+.juba-mobile-faq .text-\[rgba\(32\,33\,39\,\.52\)\] {
+  color: var(--juba-learning-muted) !important;
+}
+.juba-mobile-faq .border-\[rgba\(7\,7\,9\,\.08\)\] {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-mobile-faq > .card {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+.juba-mobile-faq .juba-faq-question {
+  min-height: 58px;
+  background: #fff !important;
+}
+.juba-mobile-faq .juba-faq-question:hover {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-faq .juba-faq-question > span:first-child {
+  color: var(--juba-learning-ink) !important;
+  font-weight: 850 !important;
+}
+.juba-mobile-faq .juba-faq-question > span:last-child {
+  color: var(--juba-learning-green-dark) !important;
+  font-weight: 900 !important;
+}
+.juba-mobile-faq .juba-faq-answer {
+  background: #fbfffa !important;
+  border-color: var(--juba-learning-border) !important;
+  color: var(--juba-learning-muted) !important;
+}
+.juba-mobile-faq .juba-faq-answer strong,
+.juba-mobile-faq .juba-faq-answer code,
+.juba-mobile-faq .juba-faq-answer a {
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-faq .juba-faq-answer code {
+  border-radius: 6px;
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-faq button:focus-visible,
+.juba-mobile-faq a:focus-visible {
+  outline: 3px solid var(--juba-learning-blue) !important;
+  outline-offset: 2px !important;
+}
+@media (max-width: 767px) {
+  .juba-mobile-faq {
+    width: calc(100% - 24px);
+    margin: 14px auto 88px;
+    padding: 16px !important;
+    border-radius: 18px !important;
+  }
+  .juba-mobile-faq > .card {
+    border-radius: 15px !important;
+  }
+  .juba-mobile-faq .juba-faq-question {
+    padding-inline: 15px !important;
+  }
+  .juba-mobile-faq .juba-faq-answer {
+    padding-inline: 15px !important;
+  }
+}
