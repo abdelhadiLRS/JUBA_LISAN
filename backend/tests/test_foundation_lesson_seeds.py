@@ -1594,3 +1594,31 @@ def test_en_gb_a2_health_and_shopping_definitions_are_distinguishing():
     for word, phrase in expected_definitions.items():
         assert phrase.casefold() in entries[word].definition.casefold(), word
         assert len(entries[word].definition.split()) >= 6, word
+
+
+
+def test_en_gb_a2_geography_and_sports_definitions_are_distinguishing():
+    """Selected A2 definitions should make geography and sports terms meaningfully distinct."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for vocab_set in A2_SETS for entry in vocab_set.words}
+    expected = {
+        "capital": "national government is based",
+        "continent": "major continuous land areas",
+        "border": "boundary separating two countries",
+        "north": "compass that is opposite to south",
+        "south": "compass that is opposite to north",
+        "east": "direction in which the sun appears to rise",
+        "west": "direction in which the sun appears to set",
+        "tourist": "travels to another place for pleasure",
+        "attraction": "attracts visitors because it is interesting or enjoyable",
+        "culture": "everyday ways of life shared by a particular society",
+        "climate": "usual pattern of weather in a place over a long period",
+        "compete": "take part in a contest or activity",
+        "championship": "competition used to decide the winner",
+        "score": "get points or goals for yourself or your team",
+        "result": "final score or outcome of a game",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].definition.casefold(), word
+        assert len(entries[word].definition.split()) >= 7, word
