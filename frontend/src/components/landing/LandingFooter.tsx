@@ -38,7 +38,7 @@ export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
             </h4>
             <ul className="space-y-3 text-sm font-bold">
               <li><a href="#features" className="juba-footer-link transition-colors">{t('navFeatures')}</a></li>
-              <li><a href="#demo" className="juba-footer-link transition-colors">{t('aiVoiceDemo')}</a></li>
+              <li><a href="#games" className="juba-footer-link transition-colors">{t('aiVoiceDemo')}</a></li>
               <li><a href="#languages" className="juba-footer-link transition-colors">{t('supportedLanguages')}</a></li>
               <li><a href="#pricing" className="juba-footer-link transition-colors">{t('navPricing')}</a></li>
             </ul>
