@@ -119,7 +119,7 @@ function QuotaPill({
     <div className="w-full">
       <button
         onClick={() => setOpen((v) => !v)}
-        className={`text-[#68736d] flex w-full items-center justify-between border px-3 py-1.5 font-sans tracking-wide uppercase transition-colors ${
+        className={`text-[#68736d] flex w-full items-center justify-between rounded-xl border px-3 py-1.5 font-sans tracking-wide uppercase transition-colors ${
           alert
             ? 'border-[#b33a32]/50 text-[#b33a32] hover:border-[#b33a32]'
             : 'border-[#e1e5e2] text-[#68736d] hover:border-[#58a700] hover:text-[#68736d]'
@@ -223,7 +223,7 @@ function TrialPremiumCta() {
         <button
           onClick={() => handleCheckout('monthly')}
           disabled={loading !== null}
-          className="border-[#e1e5e2] text-[#68736d] hover:text-[#30343b] hover:border-[#58a700] w-full border px-4 py-3 font-sans text-xs tracking-wide uppercase transition-colors disabled:opacity-50"
+          className="border-[#e1e5e2] text-[#68736d] hover:text-[#438600] hover:border-[#58a700] w-full border px-4 py-3 font-sans text-xs tracking-wide uppercase transition-colors disabled:opacity-50"
         >
           {loading === 'monthly'
             ? '...'
@@ -235,7 +235,7 @@ function TrialPremiumCta() {
       )}
       <button
         onClick={() => router.push('/plan')}
-        className="text-[#68736d] hover:text-[#30343b] mt-5 w-full font-sans tracking-wide uppercase transition-colors"
+        className="text-[#68736d] hover:text-[#438600] mt-5 w-full font-sans tracking-wide uppercase transition-colors"
       >
         {t('paywallSkip')}
       </button>
@@ -1030,7 +1030,7 @@ export default function ConversationMode({
       {/* Header */}
       <div className="border-[#e1e5e2] mb-6 flex items-end justify-between border-b pb-4">
         <div>
-          <p className="text-[#30343b] text-[#68736d] mb-1 font-sans tracking-wide uppercase">
+          <p className="text-[#68736d] mb-1 font-sans tracking-wide uppercase">
             {t('subtitle')}
           </p>
           <h1 className="text-[#30343b] font-sans text-2xl font-bold tracking-tight">
@@ -1040,7 +1040,7 @@ export default function ConversationMode({
         {onClose && (
           <button
             onClick={onClose}
-            className="text-[#68736d] text-[#68736d] hover:text-[#30343b] font-sans tracking-wide uppercase transition-colors"
+            className="text-[#68736d] hover:text-[#438600] font-sans tracking-wide uppercase transition-colors"
           >
             ← {tCommon('back')}
           </button>
@@ -1048,7 +1048,7 @@ export default function ConversationMode({
       </div>
 
       {trialMode && (
-        <div className="border-[#58a700]/40 bg-white text-[#68736d] mb-4 border px-4 py-3 text-center font-sans text-xs tracking-wide uppercase">
+        <div className="border-[#58a700]/40 bg-white text-[#68736d] mb-4 rounded-xl border px-4 py-3 text-center font-sans text-xs tracking-wide uppercase">
           {t('trialBanner', {
             minutes: Math.round((voiceTrialDurationSeconds ?? 300) / 60),
           })}
@@ -1115,7 +1115,7 @@ export default function ConversationMode({
         !sessionActive &&
         (status === 'ready' || status === 'ended' || status === 'error') && (
           <div className="mb-4">
-            <p className="text-[#68736d] text-[#68736d] mb-3 text-center font-sans tracking-wide uppercase">
+            <p className="text-[#68736d] mb-3 text-center font-sans tracking-wide uppercase">
               {t('startersHint')}
             </p>
             <div className="flex flex-wrap justify-center gap-2">
@@ -1130,7 +1130,7 @@ export default function ConversationMode({
                       },
                     ])
                   }
-                  className="text-[#68736d] border-[#e1e5e2] hover:border-[#58a700] hover:text-[#30343b] border px-3 py-2 font-sans text-xs tracking-wide transition-colors"
+                  className="text-[#68736d] border-[#e1e5e2] hover:border-[#58a700] hover:text-[#438600] rounded-xl border px-3 py-2 font-sans text-xs tracking-wide transition-colors"
                 >
                   {topic}
                 </button>
