@@ -1632,6 +1632,7 @@
     "planMonthly": "Flexibel maandelijks · €{price}/maand →",
     "planYearly": "Beste waarde · €{price}/jaar · 2 maanden gratis →",
     "checkoutError": "Betaling kon niet worden gestart. Probeer opnieuw.",
+    "checkoutLoading": "Laden…",
     "pricingTitle": "Eenvoudige, transparante prijzen",
     "pricingDesc": "{days} dagen gratis · vandaag geen kosten · altijd opzegbaar",
     "pricingDescTrialUsed": "Kies maandelijks of jaarlijks · altijd opzegbaar",
