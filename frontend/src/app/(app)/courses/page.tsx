@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, BookOpen, CheckCircle2, Headphones, LockKeyhole, Mic2, Sparkles } from 'lucide-react'
+import { ArrowRight, BookOpen, CheckCircle2, Headphones, LockKeyhole, Mic2, Sparkles, Coffee, Utensils, Plane, Briefcase } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import { CEFR_LEVELS, getCurriculumUnits, type CEFRLevel, type CurriculumUnit } from '@/data/curriculum'
 import { useLanguageStore } from '@/store/language'
@@ -37,10 +37,10 @@ const skills = [
 ]
 
 const places = [
-  { icon: '☕', title: 'Café', text: 'Order, ask and respond.' },
-  { icon: '🍽️', title: 'Restaurant', text: 'Food, requests and payment.' },
-  { icon: '✈️', title: 'Travel', text: 'Tickets, directions and arrival.' },
-  { icon: '💼', title: 'Work', text: 'Meetings and everyday tasks.' },
+  { icon: Coffee, title: 'Café', text: 'Order, ask and respond.' },
+  { icon: Utensils, title: 'Restaurant', text: 'Food, requests and payment.' },
+  { icon: Plane, title: 'Travel', text: 'Tickets, directions and arrival.' },
+  { icon: Briefcase, title: 'Work', text: 'Meetings and everyday tasks.' },
 ]
 
 function getPlanLessonCount(plan: StudyPlan | null): number {
@@ -123,14 +123,14 @@ export default function CoursesPage() {
   return (
     <main className="juba-mobile-courses min-h-screen px-4 py-8 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-6xl space-y-8">
-        <section className="juba-card relative overflow-hidden rounded-[22px] border-2 border-[#e1e5e2] bg-[#58a700] p-7 text-white shadow-[0_5px_0_#438600] sm:p-10">
+        <section className="juba-card relative overflow-hidden rounded-[20px] border-2 border-[#e1e5e2] bg-[#58a700] p-7 text-white shadow-[0_5px_0_#438600] sm:p-10">
           <div className="relative z-10 max-w-3xl">
             <div className="juba-eyebrow"><Sparkles className="h-4 w-4" /> Your learning world</div>
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-6xl">Learn language you can actually use.</h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[18px] bg-white px-5 py-3 font-black text-[#438600] shadow-[0_5px_0_#d7efc7] transition hover:-translate-y-0.5">Continue journey <ArrowRight className="h-4 w-4" /></Link>
-              <Link href="/assessment" className="inline-flex items-center gap-2 rounded-[18px] border-2 border-white/25 bg-white/10 px-5 py-3 font-black text-white transition hover:bg-white/20">Find my level</Link>
+              <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[14px] bg-white px-5 py-3 font-black text-[#438600] shadow-[0_5px_0_#d7efc7] transition hover:-translate-y-0.5">Continue journey <ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/assessment" className="inline-flex items-center gap-2 rounded-[14px] border-2 border-white/25 bg-white/10 px-5 py-3 font-black text-white transition hover:bg-white/20">Find my level</Link>
             </div>
           </div>
           <div className="juba-hero-glow" aria-hidden="true" />
@@ -154,7 +154,7 @@ export default function CoursesPage() {
 
           {loading ? (
             <div className="grid gap-5 lg:grid-cols-2" aria-label="Loading courses">
-              {CEFR_LEVELS.map((level) => <div key={level} className="juba-card h-64 animate-pulse rounded-[22px] border-2 border-[#e1e5e2] bg-white p-6" />)}
+              {CEFR_LEVELS.map((level) => <div key={level} className="juba-card h-64 animate-pulse rounded-[20px] border-2 border-[#e1e5e2] bg-white p-6" />)}
             </div>
           ) : (
             <div className="grid gap-5 lg:grid-cols-2">
@@ -172,7 +172,7 @@ export default function CoursesPage() {
                 const lessonCount = current ? Math.max(currentLessonCount, totalLessons) : totalLessons || units.reduce((sum, unit) => sum + unit.lesson_types.length, 0)
 
                 return (
-                  <article key={level} className={`juba-card relative rounded-[22px] border-2 border-[#e1e5e2] bg-white p-6 shadow-[0_4px_0_rgba(31,41,51,.05)] transition hover:-translate-y-1 ${current ? 'ring-2 ring-[#58a700]' : ''}`}>
+                  <article key={level} className={`juba-card relative rounded-[20px] border-2 border-[#e1e5e2] bg-white p-6 shadow-[0_4px_0_rgba(31,41,51,.05)] transition hover:-translate-y-1 ${current ? 'ring-2 ring-[#58a700]' : ''}`}>
                     {current && <span className="absolute -top-3 right-5 rounded-full bg-[#58a700] px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-white shadow-[0_2px_0_#438600]">Current level</span>}
                     <div className="flex items-start justify-between gap-4">
                       <div><span className="text-xs font-bold uppercase tracking-[.16em] text-[#68736d]">Level {index + 1}</span><h3 className="mt-2 text-2xl font-black text-[#30343b]">{LEVEL_META[level].title}</h3></div>
@@ -197,14 +197,14 @@ export default function CoursesPage() {
           )}
         </section>
 
-        <section className="juba-card rounded-[22px] border-2 border-[#e1e5e2] bg-white p-6 shadow-[0_4px_0_rgba(31,41,51,.05)] sm:p-7">
+        <section className="juba-card rounded-[20px] border-2 border-[#e1e5e2] bg-white p-6 shadow-[0_4px_0_rgba(31,41,51,.05)] sm:p-7">
           <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="juba-eyebrow">Real-world missions</p><h2 className="mt-2 text-2xl font-black text-[#30343b]">Practice language where it matters.</h2></div><Link href="/learning-journey" className="font-bold text-[#438600] underline underline-offset-4">See my journey</Link></div>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {places.map((place) => <div key={place.title} className="rounded-2xl border border-[#e1e5e2] bg-[#f8faf7] p-4"><span className="text-2xl" aria-hidden="true">{place.icon}</span><p className="mt-3 font-black text-[#30343b]">{place.title}</p><p className="mt-1 text-sm text-[#68736d]">{place.text}</p></div>)}
+            {places.map(({ icon: Icon, title, text }) => <div key={title} className="rounded-2xl border border-[#e1e5e2] bg-[#f8faf7] p-4 transition-colors hover:border-[#58a700] hover:bg-[#f1f7ed]"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#eaf5df] text-[#438600]" aria-hidden="true"><Icon className="h-5 w-5" /></span><p className="mt-3 font-black text-[#30343b]">{title}</p><p className="mt-1 text-sm text-[#68736d]">{text}</p></div>)}
           </div>
         </section>
 
-        <section className="juba-card rounded-[22px] border-2 border-[#e1e5e2] bg-white p-6 shadow-[0_4px_0_rgba(31,41,51,.05)] sm:p-7">
+        <section className="juba-card rounded-[20px] border-2 border-[#e1e5e2] bg-white p-6 shadow-[0_4px_0_rgba(31,41,51,.05)] sm:p-7">
           <div className="flex items-center gap-3"><Sparkles className="h-6 w-6 text-[#438600]" /><h2 className="text-2xl font-black text-[#30343b]">The JUBA rhythm</h2></div>
           <div className="mt-6 grid gap-3 sm:grid-cols-4">{['Learn', 'Practice', 'Recall', 'Review'].map((step, i) => <div key={step} className="rounded-2xl border border-[#e1e5e2] bg-[#f8faf7] p-4"><span className="text-xs font-bold text-[#68736d]">0{i + 1}</span><p className="mt-2 font-black text-[#30343b]">{step}</p></div>)}</div>
         </section>
