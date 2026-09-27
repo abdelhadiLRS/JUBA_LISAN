@@ -182,10 +182,8 @@ export function LandingNav({
         </Link>
 
         <nav className="juba-busuu-nav-links" aria-label={primaryNavigation}>
-          {links.map((link) => (
-            <a key={link.href} href={link.href}>
-              {link.label}
-            </a>
+          {links.slice(0, 4).map((link) => (
+            <a key={link.href} href={link.href}>{link.label}</a>
           ))}
         </nav>
 
