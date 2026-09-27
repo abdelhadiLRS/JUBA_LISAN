@@ -1,62 +1,74 @@
-"""Curated Romanian A2-C2 lesson seeds."""
+"""Curated Romanian A2-C2 lesson seeds for JUBA LISAN."""
 from __future__ import annotations
+
 from typing import Any
 
-S: dict[tuple[str,str,str],dict[str,Any]] = {}
+from app.data.language_foundations.ro import CURRICULUM
 
-def add(level, unit, data):
-    for skill, value in data.items():
-        S[(level, unit, skill)] = value
+_SKILLS = ("grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review")
 
-add("A2","ro-a2-unit-1",{
-"grammar":{"title":"Perfectul compus","objective":"Relatează experiențe trecute.","grammar":["perfectul compus","auxiliarul a avea"],"examples":["Am vizitat Brașovul anul trecut.","Am cumpărat bilete înainte de plecare."]},
-"vocabulary":{"title":"Călătorii","objective":"Folosește vocabularul de bază pentru călătorii.","words":[("călătorie","trip","Am făcut o călătorie scurtă."),("gară","station","Gara este aproape."),("bilet","ticket","Am cumpărat un bilet.")]},
-"reading":{"title":"Un weekend la Brașov","objective":"Înțelege o narațiune scurtă.","text":"Sâmbătă dimineață, Andrei a plecat cu trenul spre Brașov. A ajuns la prânz și a vizitat centrul vechi. Duminică s-a întors acasă.","questions":["Unde a mers Andrei?","Cum a călătorit?"]},
-"listening":{"title":"Planul de weekend","objective":"Identifică informații despre o călătorie.","transcript":"Vineri seara plecăm spre Sibiu. Sâmbătă vizităm centrul și duminică ne întoarcem.","questions":["Când pleacă?","Ce vizitează sâmbătă?"]},
-"speaking":{"title":"Povestește o călătorie","objective":"Povestește o experiență recentă.","prompt":"Vorbește 45 de secunde despre o călătorie recentă.","phrases":["Am fost la...","Am ajuns...","Apoi am..."],"examples":["Am fost la Cluj weekendul trecut. Am vizitat centrul orașului."]},
-"writing":{"title":"Mesaj despre o excursie","objective":"Scrie despre o experiență trecută.","prompt":"Scrie 80-100 de cuvinte despre o excursie recentă.","guidance":["Folosește cel puțin cinci verbe la perfectul compus.","Menționează unde ai fost și ce ai făcut."],"examples":["Weekendul trecut am fost la..."]},
-"review":{"title":"Recapitulare: călătorii","objective":"Consolidează trecutul și vocabularul.","questions":["Transformă «Merg la Sibiu» la trecut.","Completează: Am ___ un bilet ieri.","Povestește o excursie."]}
-})
+_CONTENT: dict[str, dict[str, Any]] = {
+"ro-a2-unit-1":{"text":"Sâmbătă am plecat cu trenul spre Brașov. Am cumpărat biletul din gară și am ajuns înainte de prânz.","words":[("călătorie","trip","Călătoria a fost plăcută."),("gară","station","Gara este aproape."),("bilet","ticket","Am cumpărat un bilet.")],"questions":["Unde a plecat persoana?","De unde a cumpărat biletul?","Când a ajuns?"],"prompt":"Povestește o călătorie recentă folosind verbe la perfectul compus."},
+"ro-a2-unit-2":{"text":"Maria lucrează dimineața și urmează un curs seara. Poate să studieze după serviciu, iar în weekend vrea să exerseze mai mult.","words":[("curs","course","Urmez un curs de limbi străine."),("a putea","can","Pot să studiez seara."),("a exersa","to practise","Vreau să exersez mai mult.")],"questions":["Când lucrează Maria?","Când studiază?","Ce vrea să facă în weekend?"],"prompt":"Descrie ce poți, vrei și trebuie să faci într-o săptămână obișnuită."},
+"ro-a2-unit-3":{"text":"După serviciu, Dan merge la farmacie pentru că îl doare gâtul. Farmacistul îi recomandă apă, odihnă și un consult dacă simptomele continuă.","words":[("gât","throat","Mă doare gâtul."),("farmacie","pharmacy","Farmacia este la colț."),("simptom","symptom","Simptomele continuă.")],"questions":["De ce merge Dan la farmacie?","Ce îi recomandă farmacistul?","Când trebuie să consulte un medic?"],"prompt":"Descrie o problemă de sănătate și pune întrebări potrivite într-o conversație la farmacie."},
+"ro-a2-unit-4":{"text":"Îmi place apartamentul luminos, dar prefer cartierul liniștit. Pentru mine, o locuință bună trebuie să fie aproape de transportul public.","words":[("luminos","bright","Apartamentul este luminos."),("liniștit","quiet","Cartierul este liniștit."),("preferință","preference","Am o preferință clară.")],"questions":["Ce îi place vorbitorului?","Ce preferă?","Ce condiție consideră importantă?"],"prompt":"Compară două locuri și explică-ți preferințele folosind adjective."},
+"ro-b1-unit-1":{"text":"Când eram copil, petreceam verile la bunici. Acum îmi amintesc acele zile și înțeleg cât de mult m-au influențat.","words":[("amintire","memory","Este o amintire importantă."),("copilărie","childhood","Copilăria mea a fost liniștită."),("a influența","to influence","Experiența m-a influențat.")],"questions":["Unde petrecea persoana verile?","Ce face acum cu amintirile?","Cum au influențat-o acele experiențe?"],"prompt":"Povestește o experiență din trecut și explică efectul ei asupra prezentului."},
+"ro-b1-unit-2":{"text":"La birou, colegii folosesc un calendar comun pentru întâlniri. Dacă apare o problemă, discută direct și caută o soluție împreună.","words":[("calendar","calendar","Folosim un calendar comun."),("întâlnire","meeting","Avem o întâlnire luni."),("soluție","solution","Căutăm o soluție.")],"questions":["Ce folosesc colegii?","Ce fac atunci când apare o problemă?","Cum caută o soluție?"],"prompt":"Descrie o situație de comunicare la locul de muncă și propune o soluție."},
+"ro-b1-unit-3":{"text":"Știrile despre transport au provocat reacții diferite. Unii locuitori consideră măsura utilă, în timp ce alții cer mai multe explicații.","words":[("știre","news item","Am citit o știre interesantă."),("locuitor","resident","Locuitorii au răspuns."),("măsură","measure","Măsura a provocat discuții.")],"questions":["Ce a provocat reacții?","Ce cred unii locuitori?","Ce cer ceilalți?"],"prompt":"Prezintă două opinii diferite despre o știre și explică-le."},
+"ro-b1-unit-4":{"text":"Am decis să învăț mai serios limba română. Mai întâi îmi organizez timpul, apoi aleg materiale și stabilesc obiective săptămânale.","words":[("decizie","decision","Am luat o decizie."),("obiectiv","goal","Am un obiectiv săptămânal."),("a organiza","to organise","Îmi organizez timpul.")],"questions":["Ce a decis persoana?","Ce face mai întâi?","Cum își organizează învățarea?"],"prompt":"Explică o decizie importantă și pașii pe care îi vei urma."},
+"ro-b2-unit-1":{"text":"O propunere poate părea eficientă la prima vedere, însă analiza datelor arată și câteva riscuri. De aceea, argumentele trebuie comparate înaintea deciziei.","words":[("propunere","proposal","Propunerea trebuie analizată."),("risc","risk","Există un risc important."),("argument","argument","Argumentul se bazează pe date.")],"questions":["Cum poate părea propunerea inițial?","Ce arată datele?","Ce trebuie făcut înaintea deciziei?"],"prompt":"Construiește un argument echilibrat cu o idee principală, un contraargument și o concluzie."},
+"ro-b2-unit-2":{"text":"Într-o echipă profesionistă, mesajele trebuie să fie clare, iar responsabilitățile bine definite. Când apar neînțelegeri, reformularea poate evita conflictele inutile.","words":[("responsabilitate","responsibility","Responsabilitatea este clară."),("neînțelegere","misunderstanding","A apărut o neînțelegere."),("reformulare","rephrasing","Reformularea clarifică mesajul.")],"questions":["Cum trebuie să fie mesajele?","Ce se întâmplă când apar neînțelegeri?","De ce este utilă reformularea?"],"prompt":"Simulează o situație profesională în care clarifici politicos o neînțelegere."},
+"ro-b2-unit-3":{"text":"Un festival local poate susține economia orașului, dar succesul său depinde și de protejarea spațiilor publice și de implicarea comunității.","words":[("festival","festival","Festivalul atrage vizitatori."),("comunitate","community","Comunitatea participă activ."),("patrimoniu","heritage","Patrimoniul trebuie protejat.")],"questions":["Cum poate ajuta festivalul orașul?","De ce trebuie protejate spațiile publice?","Ce rol are comunitatea?"],"prompt":"Discută avantajele și posibilele probleme ale unui eveniment cultural."},
+"ro-b2-unit-4":{"text":"Când o poveste este relatată din perspective diferite, aceleași evenimente pot părea foarte diferite. Detaliile alese de narator influențează interpretarea cititorului.","words":[("narator","narrator","Naratorul descrie evenimentele."),("perspectivă","perspective","Perspectiva schimbă interpretarea."),("detaliu","detail","Un detaliu poate fi important.")],"questions":["De ce pot părea diferite aceleași evenimente?","Cine influențează selecția detaliilor?","Cum este afectat cititorul?"],"prompt":"Povestește aceeași situație din două perspective diferite."},
+"ro-c1-unit-1":{"text":"În analiza academică, rezultatele trebuie separate de interpretări. Datele pot indica o asociere, fără să demonstreze automat o relație cauzală.","words":[("asociere","association","Datele indică o asociere."),("cauzalitate","causality","Cauzalitatea nu este demonstrată."),("interpretare","interpretation","Interpretarea trebuie justificată.")],"questions":["Ce trebuie separat?","Ce pot indica datele?","Ce nu demonstrează automat asocierea?"],"prompt":"Prezintă o concluzie academică și formuleaz-o cu gradul potrivit de prudență."},
+"ro-c1-unit-2":{"text":"În comunicarea profesională, o recomandare eficientă trebuie să precizeze responsabilitățile, termenul și criteriile de verificare, fără ambiguități inutile.","words":[("responsabilitate","responsibility","Responsabilitatea trebuie precizată."),("termen","deadline","Termenul este vineri."),("criteriu","criterion","Criteriul de evaluare este clar.")],"questions":["Ce trebuie să precizeze recomandarea?","De ce trebuie evitată ambiguitatea?","Ce عنصر verificare este menționat?"],"prompt":"Redactează o recomandare profesională precisă, cu responsabilități și termene."},
+"ro-c1-unit-3":{"text":"Analiza unui fenomen cultural cere atenție la contextul istoric, la limbaj și la publicul căruia i se adresează opera.","words":[("context","context","Contextul istoric este important."),("fenomen","phenomenon","Fenomenul merită analizat."),("public","audience","Opera se adresează unui public larg.")],"questions":["La ce trebuie să fie atentă analiza?","De ce contează contextul istoric?","Cui se poate adresa opera?"],"prompt":"Analizează un fenomen cultural și explică de ce contextul îi schimbă interpretarea."},
+"ro-c1-unit-4":{"text":"O afirmație nu devine convingătoare doar prin formulare sigură. Forța ei depinde de dovezi, de limitele recunoscute și de felul în care sunt tratate obiecțiile.","words":[("dovadă","evidence","Afirmația are nevoie de dovezi."),("obiecție","objection","Autorul răspunde unei obiecții."),("limită","limitation","Studiul are o limită.")],"questions":["De ce nu este suficient un ton sigur?","Ce susține o afirmație?","Cum trebuie tratate obiecțiile?"],"prompt":"Construiește un argument nuanțat care recunoaște o obiecție și răspunde la ea."},
+"ro-c2-unit-1":{"text":"Discursul public poate combina informația explicită cu sugestii indirecte. Interpretarea corectă depinde de context, de alegerea cuvintelor și de relația dintre vorbitor și public.","words":[("subtext","subtext","Subtextul schimbă interpretarea."),("discurs","discourse","Discursul are mai multe niveluri."),("sugestie","implication","Sugestia nu este formulată direct.")],"questions":["Ce poate combina discursul public?","De ce contează contextul?","Ce alte elemente influențează interpretarea?"],"prompt":"Analizează o afirmație publică și separă sensul explicit de subtext."},
+"ro-c2-unit-2":{"text":"Într-un document formal, precizia nu înseamnă doar alegerea unor cuvinte dificile; ea presupune delimitarea clară a obligațiilor, excepțiilor și condițiilor.","words":[("delimitare","delimitation","Delimitarea responsabilităților este necesară."),("obligație","obligation","Obligația este clar formulată."),("excepție","exception","Documentul prevede o excepție.")],"questions":["Ce înseamnă precizia în document?","Ce trebuie delimitat?","De ce nu sunt suficiente cuvintele dificile?"],"prompt":"Redactează un paragraf formal în care precizezi obligații, condiții și o excepție."},
+"ro-c2-unit-3":{"text":"Într-o operă literară, alegerea unui cuvânt poate produce efecte de ton, ritm și perspectivă. Sensul se construiește prin relația dintre detalii, nu prin elemente izolate.","words":[("ton","tone","Tonul textului este ambiguu."),("ritm","rhythm","Ritmul frazei este rapid."),("perspectivă","perspective","Perspectiva narativă este complexă.")],"questions":["Ce efecte poate produce alegerea unui cuvânt?","Cum se construiește sensul?","De ce nu trebuie analizate elementele izolat?"],"prompt":"Analizează stilul unui scurt text literar, concentrându-te pe ton, ritm și perspectivă."},
+"ro-c2-unit-4":{"text":"O formulare precisă poate părea mai puțin spectaculoasă decât una categorică, dar reduce riscul de interpretare greșită și permite autorului să distingă certitudinea de probabilitate.","words":[("precizie","precision","Precizia este esențială."),("certitudine","certainty","Autorul exprimă certitudinea cu atenție."),("probabilitate","probability","Probabilitatea trebuie formulată clar.")],"questions":["De ce poate fi preferată formularea precisă?","Ce risc reduce?","Ce diferență trebuie păstrată?"],"prompt":"Rescrie trei afirmații categorice astfel încât să exprime corect certitudinea și probabilitatea."},
+}
 
-add("B1","ro-b1-unit-1",{
-"grammar":{"title":"Condiționalul","objective":"Exprimă situații ipotetice.","grammar":["aș + infinitiv","dacă + condițional"],"examples":["Aș participa dacă aș avea timp.","Dacă aș locui acolo, aș folosi bicicleta."]},
-"vocabulary":{"title":"Muncă și dezvoltare","objective":"Discută despre obiective profesionale.","words":[("experiență","experience","Am experiență în acest domeniu."),("abilitate","skill","Vreau să-mi dezvolt o abilitate."),("obiectiv","goal","Obiectivul meu este clar.")]},
-"reading":{"title":"Un nou curs profesional","objective":"Înțelege motivele unei decizii.","text":"Mara lucrează în administrație, dar vrea să-și schimbe specializarea. A ales un curs de analiză de date deoarece poate studia seara și poate aplica imediat ceea ce învață.","questions":["De ce urmează cursul?","Când studiază?"]},
-"listening":{"title":"O decizie profesională","objective":"Identifică motive și planuri.","transcript":"Am decis să urmez un curs avansat pentru că vreau să comunic mai bine la serviciu. Dacă reușesc să-mi organizez timpul, voi participa la toate sesiunile.","questions":["De ce urmează cursul?","Ce condiție menționează vorbitorul?"]},
-"speaking":{"title":"O alegere importantă","objective":"Prezintă o decizie și justifică alegerea.","prompt":"Vorbește un minut despre o alegere profesională și explică motivele.","phrases":["Am ales să...","Motivul principal este...","Dacă aș putea..."],"examples":["Am ales să învăț o limbă străină deoarece îmi poate extinde oportunitățile."]},
-"writing":{"title":"Plan de dezvoltare","objective":"Scrie despre un obiectiv și pașii necesari.","prompt":"Scrie 120-150 de cuvinte despre un obiectiv profesional.","guidance":["Explică motivul.","Folosește două structuri condiționale.","Propune pași concreți."],"examples":["În următoarele luni vreau să..."]},
-"review":{"title":"Recapitulare: decizii","objective":"Consolidează condiționalul.","questions":["Completează: Dacă aș avea timp, aș ___.","Explică diferența dintre obiectiv și abilitate.","Formulează un plan."]}
-})
-
-add("B2","ro-b2-unit-1",{
-"grammar":{"title":"Vorbirea indirectă","objective":"Raportează opinii și construiește argumente.","grammar":["a spune că","a întreba dacă","conectori de concesie"],"examples":["Expertul a spus că măsura ar putea reduce costurile.","Deși există avantaje, rezultatele depind de context."]},
-"vocabulary":{"title":"Dezbatere și societate","objective":"Argumentează pe teme sociale.","words":[("argument","argument","Argumentul se bazează pe date."),("dovadă","evidence","Avem nevoie de dovezi."),("impact","impact","Impactul trebuie analizat.")]},
-"reading":{"title":"Munca hibridă","objective":"Analizează argumente pro și contra.","text":"Munca hibridă poate reduce timpul petrecut pe drum și poate oferi flexibilitate. Totuși, comunicarea informală poate deveni mai dificilă. Eficiența depinde de organizare și de natura activității.","questions":["Care este un avantaj?","Care este o limită?"]},
-"listening":{"title":"Două perspective","objective":"Identifică poziții și contraargumente.","transcript":"Munca hibridă funcționează bine pentru echipele autonome. Pe de altă parte, colegii noi au nevoie de mai mult contact direct.","questions":["Pentru cine funcționează bine?","Cine are nevoie de contact direct?"]},
-"speaking":{"title":"Dezbatere argumentată","objective":"Susține o poziție și răspunde unei perspective alternative.","prompt":"Vorbește 90 de secunde despre avantajele și limitele muncii hibride.","phrases":["Pe de o parte...","Pe de altă parte...","Un argument important este..."],"examples":["Munca hibridă oferă flexibilitate, însă eficiența depinde de tipul echipei."]},
-"writing":{"title":"Text argumentativ","objective":"Scrie un text echilibrat.","prompt":"Scrie 180-220 de cuvinte despre munca hibridă.","guidance":["Prezintă două argumente.","Include un contraargument.","Încheie cu o concluzie."],"examples":["Munca hibridă a schimbat modul în care echipele colaborează."]},
-"review":{"title":"Recapitulare: argumentare","objective":"Consolidează raportarea opiniilor și folosirea conectorilor.","questions":["Raportează o opinie.","Adaugă un contraargument.","Scrie o concluzie."]}
-})
-
-add("C1","ro-c1-unit-1",{
-"grammar":{"title":"Precizie și prudență","objective":"Formulează afirmații academice cu gradul potrivit de certitudine.","grammar":["se pare că","este posibil ca + conjunctiv","a sugera că"],"examples":["Datele sugerează că efectul este limitat.","Este posibil ca rezultatele să difere."]},
-"vocabulary":{"title":"Cercetare și analiză","objective":"Folosește terminologie pentru evidență.","words":[("ipoteză","hypothesis","Ipoteza trebuie verificată."),("eșantion","sample","Eșantionul este relativ mic."),("limitare","limitation","Studiul are o limitare importantă.")]},
-"reading":{"title":"Interpretarea datelor","objective":"Distinge rezultate, interpretări și limite.","text":"Rezultatele indică o asociere între utilizarea platformei și frecvența studiului. Cu toate acestea, datele nu permit stabilirea unei relații cauzale. Eșantionul a fost format din voluntari.","questions":["Ce indică rezultatele?","De ce nu se poate stabili cauzalitatea?"]},
-"listening":{"title":"Prezentarea unei cercetări","objective":"Extrage concluzii și limite.","transcript":"Rezultatele sunt promițătoare, dar trebuie interpretate cu prudență. Eșantionul este mic și nu putem exclude alte explicații.","questions":["Cum trebuie interpretate rezultatele?","Care este limita?"]},
-"speaking":{"title":"Analiză critică","objective":"Prezintă o interpretare nuanțată.","prompt":"Vorbește două minute despre o afirmație bazată pe date și explică limitele.","phrases":["Datele sugerează...","Această interpretare trebuie privită cu prudență.","O limitare importantă este..."],"examples":["Datele sugerează o asociere, dar nu demonstrează cauzalitatea."]},
-"writing":{"title":"Paragraf academic","objective":"Redactează o analiză prudentă.","prompt":"Scrie 220-280 de cuvinte despre interpretarea unui set de date.","guidance":["Separă rezultatele de interpretare.","Folosește formulări prudente.","Menționează două limitări."],"examples":["Rezultatele indică... Cu toate acestea..."]},
-"review":{"title":"Recapitulare: analiză critică","objective":"Consolidează limbajul de evidență.","questions":["Formulează concluzie prudentă.","Menționează o limitare.","Transformă o afirmație absolută într-o formulare mai precisă."]}
-})
-
-add("C2","ro-c2-unit-1",{
-"grammar":{"title":"Pragmatică și nuanță","objective":"Controlează sensul implicit și registrul.","grammar":["eufemism","ironie contextuală","emfază","atenuare retorică"],"examples":["Nu este tocmai o soluție ideală.","Așa-zisa eficiență depinde de criteriul folosit."]},
-"vocabulary":{"title":"Discurs și precizie","objective":"Alege expresii cu diferențe fine de sens.","words":[("subtext","subtext","Subtextul mesajului este important."),("nuanță","nuance","Există o nuanță importantă."),("retoric","rhetorical","Întrebarea are un rol retoric."),("ambiguitate","ambiguity","Ambiguitatea poate fi intenționată.")]},
-"reading":{"title":"Sensul implicit","objective":"Interpretează intenția și efectul stilistic.","text":"Autorul nu contestă direct propunerea; în schimb, enumeră consecințele și încheie cu observația că «experiența ne va lămuri». Formula pare neutră, dar în context poate transmite scepticism.","questions":["Cum este exprimată critica?","Ce sugerează ultima formulare?"]},
-"listening":{"title":"Ton și intenție","objective":"Identifică sensul pragmatic.","transcript":"Sigur, putem considera că planul este «perfect» — mai ales dacă nu ne interesează costurile. În acest context, formularea sugerează ironie.","questions":["Este vorbitorul aprobator?","Ce indică ironia?"]},
-"speaking":{"title":"Controlul nuanței","objective":"Adaptează formularea la intenție și registru.","prompt":"Vorbește 2-3 minute despre aceeași opinie în registru neutru, diplomatic și ironic.","phrases":["O formulare mai precisă ar fi...","Nu rezultă neapărat că...","În acest context..."],"examples":["O formulare diplomatică poate evita critica directă și poate pune accentul pe consecințe."]},
-"writing":{"title":"Analiză pragmatică","objective":"حلّل المعنى الضمني والأثر الأسلوبي باللغة الرومانية.","prompt":"Scrie 300-350 de cuvinte despre modul în care contextul schimbă interpretarea unei afirmații.","guidance":["Distinge sensul literal de cel implicit.","Analizează registrul și tonul.","Folosește exemple în limba română."],"examples":["La nivel literal, afirmația pare neutră; pragmatic, contextul îi modifică interpretarea."]},
-"review":{"title":"Recapitulare: pragmatica","objective":"Consolidează controlul tonului și al sensului implicit.","questions":["Explică diferența dintre sensul literal și cel implicit.","Reformulează o critică directă diplomatic.","Identifică un exemplu de ironie contextuală."]}
-})
+def _unit(unit_id: str, level: str):
+    return next((unit for unit in CURRICULUM.get(level, []) if unit.id == unit_id), None)
 
 def get_lesson_seed(level: str, unit_id: str, lesson_type: str) -> dict[str, Any] | None:
-    return S.get((str(level).upper(), str(unit_id), str(lesson_type)))
+    level = str(level).upper()
+    skill = str(lesson_type).lower()
+    unit = _unit(unit_id, level)
+    content = _CONTENT.get(unit_id)
+    if unit is None or content is None or skill not in _SKILLS:
+        return None
+    words = content["words"]
+    base = {
+        "title": unit.title,
+        "objective": f"Dezvoltă competența de limba română la nivelul {level} prin tema „{unit.title}”.",
+        "unit_id": unit_id,
+        "source": "curated_romanian",
+        "grammar": list(unit.grammar_points),
+        "words": words,
+        "vocabulary_words": [word[0] for word in words],
+        "examples": [content["text"]],
+    }
+    if skill == "grammar":
+        base["objective"] = f"Folosește structurile „{', '.join(unit.grammar_points)}” în contextul temei „{unit.title}”."
+    elif skill == "vocabulary":
+        base["objective"] = f"Folosește vocabularul specific temei „{unit.title}” în propoziții naturale."
+    elif skill == "reading":
+        base["text"], base["questions"] = content["text"], content["questions"]
+    elif skill == "listening":
+        base["transcript"], base["questions"] = content["text"], content["questions"]
+    elif skill == "speaking":
+        base["prompt"] = content["prompt"]
+        base["phrases"] = [word[2] for word in words]
+    elif skill == "writing":
+        base["prompt"] = content["prompt"]
+        base["guidance"] = [
+            f"Folosește cel puțin o structură din: {', '.join(unit.grammar_points)}.",
+            "Folosește cel puțin trei cuvinte din vocabularul lecției.",
+            "Leagă ideile prin propoziții clare și coerente.",
+        ]
+    else:
+        base["questions"] = content["questions"] + [f"Explică legătura dintre tema „{unit.title}” și gramatica țintă."]
+    return base
