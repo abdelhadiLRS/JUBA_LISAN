@@ -4,7 +4,7 @@ import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import type { Locale } from '@/lib/locales'
-import { ArrowRight, BookOpen, Headphones, MessageCircle } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, BookOpen, Headphones, MessageCircle } from 'lucide-react'
 import PricingSection from '@/components/billing/PricingSection'
 import { LandingFAQ } from '@/components/ui/landing-faq'
 import { LandingNav } from '@/components/ui/landing-nav'
@@ -152,21 +152,30 @@ export default async function Home() {
           <div className="juba-busuu-feature-grid">
             <Link href="/reading" className="juba-busuu-feature">
               <Image src="/landing/juba-reading.svg" alt="" width={360} height={250} />
-              <span>{t('featureSectionLabel')}</span>
-              <h3>{t('feature5Title')}</h3>
-              <p>{t('feature5Desc')}</p>
+              <div className="juba-busuu-feature-body">
+                <span>{t('featureSectionLabel')}</span>
+                <h3>{t('feature5Title')}</h3>
+                <p>{t('feature5Desc')}</p>
+                <ArrowUpRight className="juba-busuu-feature-arrow" aria-hidden="true" />
+              </div>
             </Link>
             <Link href="/chat" className="juba-busuu-feature">
               <Image src="/landing/juba-chat.svg" alt="" width={360} height={250} />
-              <span>{t('flowAiLabel')}</span>
-              <h3>{t('feature2Title')}</h3>
-              <p>{t('feature2Desc')}</p>
+              <div className="juba-busuu-feature-body">
+                <span>{t('flowAiLabel')}</span>
+                <h3>{t('feature2Title')}</h3>
+                <p>{t('feature2Desc')}</p>
+                <ArrowUpRight className="juba-busuu-feature-arrow" aria-hidden="true" />
+              </div>
             </Link>
             <Link href="/listening" className="juba-busuu-feature">
               <Image src="/landing/juba-listening.svg" alt="" width={360} height={250} />
-              <span>{t('flowVoiceLabel')}</span>
-              <h3>{t('feature3Title')}</h3>
-              <p>{t('feature3Desc')}</p>
+              <div className="juba-busuu-feature-body">
+                <span>{t('flowVoiceLabel')}</span>
+                <h3>{t('feature3Title')}</h3>
+                <p>{t('feature3Desc')}</p>
+                <ArrowUpRight className="juba-busuu-feature-arrow" aria-hidden="true" />
+              </div>
             </Link>
           </div>
         </div>
