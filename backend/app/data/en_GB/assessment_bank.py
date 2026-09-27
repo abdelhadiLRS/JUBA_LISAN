@@ -233,8 +233,8 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         difficulty="B1",
         question="At a restaurant, I realised that I ___ never eaten sushi before.",
         options=["did", "have", "had", "was"],
-        correct="have",
-        grammar_slug="present-perfect",
+        correct="had",
+        grammar_slug="past-perfect",
     ),
     AssessmentQuestion(
         id="g-b1-006",
