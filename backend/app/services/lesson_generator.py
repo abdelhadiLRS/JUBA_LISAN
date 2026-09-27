@@ -9,6 +9,7 @@ from app.data.grammar import get_grammar_topics
 from app.data.phrasebook import get_phrasebook_categories
 from app.data.vocabulary import get_vocabulary_sets
 from app.data.ar.lessons import get_arabic_a1_lessons, get_arabic_a1_content_seed
+from app.data.tr.lesson_seeds import get_lesson_seed as get_turkish_lesson_seed
 from app.schemas.lessons import (
     ExerciseContent,
     FillBlankEvaluation,
@@ -209,6 +210,75 @@ def get_valid_grammar_slugs(target_language: str = "en-GB") -> set[str]:
     return {slug for units in curriculum.values() for unit in units for slug in unit.grammar_points}
 
 
+def _seed_fallback_lesson(*, seed: dict[str, Any], cefr_level: str, lesson_type: str, unit_id: str, target_language: str) -> LessonContent:
+    """Build a small deterministic lesson from an authored language seed when the LLM is unavailable."""
+    title = str(seed.get("title") or "Lesson")
+    exercises: list[ExerciseContent] = []
+    if seed.get("questions"):
+        for question, options, correct in seed["questions"][:4]:
+            exercises.append(ExerciseContent(type="multiple_choice", question=question, options=list(options), correct=correct))
+    elif seed.get("words"):
+        words = seed["words"]
+        for word, definition, example in words[:3]:
+            options = [word]
+            for other_word, _, _ in words:
+                if other_word != word and other_word not in options:
+                    options.append(other_word)
+                if len(options) == 3:
+                    break
+            exercises.append(ExerciseContent(
+                type="multiple_choice",
+                question=f"Which Turkish word means '{definition}'?",
+                options=options,
+                correct=word,
+                explanation=example,
+            ))
+        if words:
+            word, _, example = words[0]
+            exercises.append(ExerciseContent(
+                type="fill_blank",
+                question=example.replace(word, "___", 1),
+                correct=word,
+                accepted_answers=[word],
+            ))
+    else:
+        examples = list(seed.get("examples") or seed.get("phrases") or [])
+        for example in examples[:3]:
+            exercises.append(ExerciseContent(
+                type="multiple_choice",
+                question=f"Which sentence is an example from this lesson?\n{example}",
+                options=[example, "Bu cümle konu dışıdır.", "Bu başka bir örnektir."],
+                correct=example,
+            ))
+    if not exercises:
+        exercises.append(ExerciseContent(
+            type="free_write",
+            question=str(seed.get("objective") or "Write a short response using today's language."),
+            correct="",
+        ))
+    explanation = {
+        "title": title,
+        "body": str(seed.get("objective") or "Practice the curated lesson material."),
+        "examples": list(seed.get("examples") or seed.get("phrases") or []),
+    }
+    vocabulary = [
+        {"word": word, "definition": definition, "example": example}
+        for word, definition, example in seed.get("words", [])
+    ]
+    lesson = LessonContent(
+        lesson_type=lesson_type,
+        title=title,
+        cefr_level=cefr_level,
+        unit_id=unit_id,
+        explanation=explanation,
+        exercises=exercises,
+        vocabulary=vocabulary or None,
+        grammar_refs=list(seed.get("grammar") or []),
+    )
+    _attach_stable_exercise_metadata(lesson, target_language=target_language, topic=title, unit_id=unit_id)
+    return lesson
+
+
 def _fallback_lesson(*, cefr_level: str, lesson_type: str, topic: str, unit_id: str, target_language: str) -> LessonContent | None:
     """Keep the authored A1 English starter course launchable without an LLM."""
     if target_language not in {"en", "en-GB", "en-US", "en_US"} or cefr_level.upper() != "A1":
@@ -287,6 +357,14 @@ async def generate_lesson(
         unit_id = scheduled["unit_id"]
 
     scheduled_objective = ""
+    curated_lesson_seed = (
+        get_turkish_lesson_seed(cefr_level, unit_id, lesson_type)
+        if target_language == "tr" else None
+    )
+    if curated_lesson_seed:
+        scheduled_objective = str(curated_lesson_seed.get("objective") or "")
+        topic = str(curated_lesson_seed.get("title") or topic)
+        grammar_points = list(curated_lesson_seed.get("grammar") or grammar_points or [])
     seed = (
         get_arabic_a1_content_seed(f"a1-u{unit_id.split('-')[-1]}-w{week}-d{day}")
         if target_language == "ar" and cefr_level == "A1" and unit_id.startswith("a1-unit-")
@@ -304,6 +382,8 @@ async def generate_lesson(
         "vocabulary_set_ids": vocabulary_set_ids or [],
         "curated_source_material": curated_material,
     }
+    if curated_lesson_seed is not None:
+        seed_payload["curated_lesson_seed"] = curated_lesson_seed
     if seed is not None:
         seed_payload["lesson_seed"] = {
             "target_phrases": seed.target_phrases, "model_sentences": seed.model_sentences,
@@ -344,16 +424,20 @@ async def generate_lesson(
     )
     if fallback is not None:
         lesson = fallback
-    else:
+    elif curated_lesson_seed is not None:
         try:
             lesson = await llm_adapter.structured_output(
                 [{"role": "system", "content": prompt}],
                 LessonContent,
             )
         except Exception:
-            if fallback is None:
-                raise
-            lesson = fallback
+            lesson = _seed_fallback_lesson(
+                seed=curated_lesson_seed,
+                cefr_level=cefr_level,
+                lesson_type=lesson_type,
+                unit_id=unit_id,
+                target_language=target_language,
+            )
 
     lesson.grammar_refs = [s for s in lesson.grammar_refs if s in valid_slugs]
     if not lesson.vocabulary:
