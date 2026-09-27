@@ -342,6 +342,19 @@ def test_en_gb_c2_definitions_distinguish_precise_meanings():
     for word, phrase in expected_definitions.items():
         assert phrase.casefold() in entries[word].definition.casefold()
 
+def test_en_gb_c2_avoids_redundant_c1_headwords():
+    """C2 should not re-teach C1 headwords when the C2 entry adds no distinct meaning."""
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+    from app.data.en_GB.vocabulary_c2 import C2_SETS
+
+    c1_headwords = {entry.word.strip().casefold() for vocab_set in C1_SETS for entry in vocab_set.words}
+    c2_headwords = {entry.word.strip().casefold() for vocab_set in C2_SETS for entry in vocab_set.words}
+
+    redundant = {"articulate", "notwithstanding", "corroborate"}
+    assert not redundant & c2_headwords
+    assert redundant <= c1_headwords
+
+
 def test_en_gb_c2_has_no_duplicate_headword_and_part_of_speech():
     """Avoid teaching the same C2 headword twice with the same grammatical role."""
     from app.data.en_GB.vocabulary_c2 import C2_SETS
