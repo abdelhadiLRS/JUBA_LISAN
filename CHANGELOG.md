@@ -1,6 +1,13 @@
 # Changelog
 
 ## [Unreleased]
+### Educational Content Quality
+
+- Foundation-derived lessons now carry observable can-do outcomes, success criteria, practical scenarios, recycling material, phrasebook language, and retrieval prompts.
+- Lesson generation now treats those pedagogical fields as the lesson spine and requires stronger alignment between outcomes, practice, communication tasks, and review.
+- Added guidance for mediation/information-transfer tasks, speaking/listening intelligibility and interaction, and higher-level B2–C2 discourse demands.
+- Added regression coverage for the new pedagogical seed contract.
+
 ### Games
 
 - Real playable Games Hub with Word Match, Quick Choice, Sentence Builder, Listen & Choose, Spelling Challenge, and Memory Cards.
