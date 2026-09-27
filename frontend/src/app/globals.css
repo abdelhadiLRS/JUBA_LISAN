@@ -2457,3 +2457,200 @@ body .juba-reference-page[dir="rtl"] .juba-ai-showcase-copy .juba-ref-button{ali
 @media(prefers-reduced-motion:reduce){
   .juba-reference-page .juba-ai-showcase-art:hover{transform:none!important}
 }
+
+
+/* Landing — Busuu-inspired footer structure */
+.juba-reference-page .juba-duo-footer{
+  margin-top:0!important;
+  padding:0!important;
+  background:#253d4f!important;
+  color:#fff!important;
+  border-top:0!important;
+}
+.juba-reference-page .juba-busuu-footer-shell{
+  width:min(1180px,calc(100% - 40px))!important;
+  margin:0 auto!important;
+  padding:58px 0 22px!important;
+}
+.juba-reference-page .juba-busuu-footer-top{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:space-between!important;
+  gap:32px!important;
+  padding-bottom:38px!important;
+  border-bottom:1px solid rgba(255,255,255,.16)!important;
+}
+.juba-reference-page .juba-busuu-footer-brand{
+  max-width:460px!important;
+}
+.juba-reference-page .juba-busuu-footer-logo{
+  display:inline-flex!important;
+  align-items:center!important;
+  margin-bottom:16px!important;
+}
+.juba-reference-page .juba-busuu-footer-logo img{
+  width:auto!important;
+  height:52px!important;
+  max-width:170px!important;
+  object-fit:contain!important;
+}
+.juba-reference-page .juba-busuu-footer-brand p{
+  margin:0!important;
+  max-width:430px!important;
+  color:rgba(255,255,255,.72)!important;
+  font-size:14px!important;
+  line-height:1.7!important;
+}
+.juba-reference-page .juba-busuu-footer-social{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:10px!important;
+  align-items:center!important;
+}
+.juba-reference-page .juba-busuu-footer-social a{
+  display:inline-flex!important;
+  align-items:center!important;
+  min-height:38px!important;
+  padding:8px 13px!important;
+  border:1px solid rgba(255,255,255,.2)!important;
+  border-radius:999px!important;
+  color:#fff!important;
+  background:rgba(255,255,255,.05)!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  text-decoration:none!important;
+  transition:background .16s ease,border-color .16s ease,transform .16s ease!important;
+}
+.juba-reference-page .juba-busuu-footer-social a:hover{
+  background:rgba(88,204,2,.18)!important;
+  border-color:#58cc02!important;
+  transform:translateY(-1px)!important;
+}
+.juba-reference-page .juba-busuu-footer-grid{
+  display:grid!important;
+  grid-template-columns:1.35fr repeat(4,minmax(0,1fr))!important;
+  gap:34px!important;
+  padding:40px 0 38px!important;
+}
+.juba-reference-page .juba-busuu-footer-column{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:10px!important;
+}
+.juba-reference-page .juba-busuu-footer-column h3{
+  margin:0 0 8px!important;
+  color:#fff!important;
+  font-size:13px!important;
+  line-height:1.2!important;
+  font-weight:900!important;
+  letter-spacing:.01em!important;
+}
+.juba-reference-page .juba-busuu-footer-column a,
+.juba-reference-page .juba-busuu-footer-contact{
+  color:rgba(255,255,255,.68)!important;
+  font-size:13px!important;
+  line-height:1.5!important;
+  font-weight:600!important;
+  text-decoration:none!important;
+  transition:color .16s ease!important;
+}
+.juba-reference-page .juba-busuu-footer-column a:hover{
+  color:#b7f36b!important;
+}
+.juba-reference-page .juba-busuu-footer-contact button{
+  color:rgba(255,255,255,.68)!important;
+  background:transparent!important;
+  border:0!important;
+  padding:0!important;
+  font-size:13px!important;
+  font-weight:600!important;
+}
+.juba-reference-page .juba-busuu-footer-language{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:15px!important;
+  padding:25px 0!important;
+  border-top:1px solid rgba(255,255,255,.16)!important;
+  border-bottom:1px solid rgba(255,255,255,.16)!important;
+}
+.juba-reference-page .juba-busuu-footer-language>span{
+  color:#fff!important;
+  font-size:13px!important;
+  font-weight:900!important;
+}
+.juba-reference-page .juba-busuu-footer-language-list{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:8px 18px!important;
+}
+.juba-reference-page .juba-busuu-footer-language-list a{
+  color:rgba(255,255,255,.62)!important;
+  font-size:12px!important;
+  font-weight:600!important;
+  text-decoration:none!important;
+  transition:color .16s ease!important;
+}
+.juba-reference-page .juba-busuu-footer-language-list a:hover{
+  color:#b7f36b!important;
+}
+.juba-reference-page .juba-busuu-footer-bottom{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:20px!important;
+  padding-top:20px!important;
+  color:rgba(255,255,255,.5)!important;
+  font-size:11px!important;
+  line-height:1.5!important;
+}
+.juba-reference-page .juba-busuu-footer-bottom>div{
+  display:flex!important;
+  gap:18px!important;
+}
+.juba-reference-page .juba-busuu-footer-bottom a{
+  color:rgba(255,255,255,.58)!important;
+  text-decoration:none!important;
+}
+.juba-reference-page .juba-busuu-footer-bottom a:hover{
+  color:#b7f36b!important;
+}
+@media(max-width:900px){
+  .juba-reference-page .juba-busuu-footer-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:28px 22px!important;
+  }
+  .juba-reference-page .juba-busuu-footer-column:first-child{
+    grid-column:1/-1!important;
+  }
+}
+@media(max-width:600px){
+  .juba-reference-page .juba-busuu-footer-shell{
+    width:calc(100% - 28px)!important;
+    padding:42px 0 18px!important;
+  }
+  .juba-reference-page .juba-busuu-footer-top{
+    flex-direction:column!important;
+    gap:22px!important;
+    padding-bottom:28px!important;
+  }
+  .juba-reference-page .juba-busuu-footer-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:28px 18px!important;
+    padding:30px 0!important;
+  }
+  .juba-reference-page .juba-busuu-footer-column:first-child{
+    grid-column:1/-1!important;
+  }
+  .juba-reference-page .juba-busuu-footer-language-list{
+    gap:9px 15px!important;
+  }
+  .juba-reference-page .juba-busuu-footer-bottom{
+    align-items:flex-start!important;
+    flex-direction:column!important;
+    gap:12px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .juba-reference-page .juba-busuu-footer-social a{transition:none!important}
+}
