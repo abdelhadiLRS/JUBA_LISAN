@@ -212,7 +212,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <PageLoading
         label={tCommon('initializing')}
         minHeight="min-h-screen"
-        className="bg-fl-bg"
+        className="bg-[var(--juba-learning-bg)]"
       />
     )
   }
@@ -225,19 +225,19 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         : ''
 
   return (
-    <div className="juba-learning-shell bg-fl-bg flex min-h-screen md:h-screen md:overflow-hidden">
+    <div className="juba-learning-shell bg-[var(--juba-learning-bg)] flex min-h-screen md:h-screen md:overflow-hidden">
       {/* Sidebar */}
-      <aside className="juba-learning-sidebar border-fl-border bg-fl-bg hidden w-52 shrink-0 flex-col border-r px-0 py-0 md:flex">
+      <aside className="juba-learning-sidebar border-[var(--juba-learning-border)] bg-white hidden w-[260px] shrink-0 flex-col border-r px-0 py-0 md:flex">
         {/* Logo area */}
-        <div className="border-fl-border flex items-center gap-2 border-b px-5 py-5">
-          <span className="text-fl-label text-fl-muted-2">●</span>
-          <span className="text-fl-fg font-code text-sm font-bold tracking-widest uppercase">
+        <div className="border-[var(--juba-learning-border)] flex items-center gap-2 border-b px-5 py-5">
+          <span className="text-[var(--juba-learning-muted)]">●</span>
+          <span className="text-[var(--juba-learning-ink)] font-sans text-sm font-extrabold tracking-widest uppercase">
             JUBA LISAN
           </span>
         </div>
 
         {/* Language switcher */}
-        <div className="border-fl-border border-b">
+        <div className="border-[var(--juba-learning-border)] border-b">
           <LanguageSwitcher />
         </div>
 
@@ -251,16 +251,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
+                className={`flex items-center gap-3 px-5 py-3 font-sans text-sm font-semibold wrap-anywhere transition-colors ${
                   active
-                    ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                    ? 'text-[var(--juba-learning-ink)] bg-[var(--juba-learning-green-soft)] border-[var(--juba-learning-green)] border-l-2'
+                    : 'text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] hover:bg-[var(--juba-learning-surface-soft)] border-l-2 border-transparent'
                 }`}
               >
-                {(() => { const Icon = navIcons[item.href] ?? Sparkles; return <Icon className={`h-5 w-5 shrink-0 ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`} aria-hidden="true" /> })()}
+                {(() => { const Icon = navIcons[item.href] ?? Sparkles; return <Icon className={`h-5 w-5 shrink-0 ${active ? 'text-[var(--juba-learning-green-dark)]' : 'text-[var(--juba-learning-muted)]'}`} aria-hidden="true" /> })()}
                 {item.label}
                 {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
-                  <span className="text-fl-accent ml-auto text-xs">★</span>
+                  <span className="text-[var(--juba-learning-green-dark)] ml-auto text-xs">★</span>
                 )}
               </Link>
             )
@@ -270,7 +270,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <div className="mt-2">
             <button
               onClick={() => setResourcesOpen((o) => !o)}
-              className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors"
+              className="text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-muted)] flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-sans text-sm font-semibold wrap-anywhere uppercase transition-colors"
             >
               <span>{tNav('resources')}</span>
               <ChevronDown className={`h-4 w-4 transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
@@ -283,13 +283,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
+                    className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-sans text-sm font-semibold wrap-anywhere transition-colors ${
                       active
-                        ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                        : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                        ? 'text-[var(--juba-learning-ink)] bg-[var(--juba-learning-green-soft)] border-[var(--juba-learning-green)] border-l-2'
+                        : 'text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] hover:bg-[var(--juba-learning-surface-soft)] border-l-2 border-transparent'
                     }`}
                   >
-                    {(() => { const Icon = navIcons[item.href] ?? Sparkles; return <Icon className={`h-4 w-4 shrink-0 ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`} aria-hidden="true" /> })()}
+                    {(() => { const Icon = navIcons[item.href] ?? Sparkles; return <Icon className={`h-4 w-4 shrink-0 ${active ? 'text-[var(--juba-learning-green-dark)]' : 'text-[var(--juba-learning-muted)]'}`} aria-hidden="true" /> })()}
                     {item.label}
                   </Link>
                 )
@@ -297,7 +297,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Bottom items */}
-          <div className="border-fl-border mt-2 border-t pt-2">
+          <div className="border-[var(--juba-learning-border)] mt-2 border-t pt-2">
             {bottomNavItems.map((item) => {
               const active =
                 pathname === item.href || pathname.startsWith(item.href + '/')
@@ -305,16 +305,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
+                  className={`flex items-center gap-3 px-5 py-3 font-sans text-sm font-semibold wrap-anywhere transition-colors ${
                     active
-                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                      ? 'text-[var(--juba-learning-ink)] bg-[var(--juba-learning-green-soft)] border-[var(--juba-learning-green)] border-l-2'
+                      : 'text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] hover:bg-[var(--juba-learning-surface-soft)] border-l-2 border-transparent'
                   }`}
                 >
-                  {(() => { const Icon = navIcons[item.href] ?? Sparkles; return <Icon className={`h-5 w-5 shrink-0 ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`} aria-hidden="true" /> })()}
+                  {(() => { const Icon = navIcons[item.href] ?? Sparkles; return <Icon className={`h-5 w-5 shrink-0 ${active ? 'text-[var(--juba-learning-green-dark)]' : 'text-[var(--juba-learning-muted)]'}`} aria-hidden="true" /> })()}
                   {item.label}
                   {item.href === '/feedback' && feedbackBadgeText && (
-                    <span className="text-fl-label ml-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-red-600 leading-none font-bold tracking-normal text-white">
+                    <span className="text-white ml-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-red-600 leading-none font-bold tracking-normal">
                       {feedbackBadgeText}
                     </span>
                   )}
@@ -326,22 +326,22 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {user?.role === 'admin' && (
             <Link
               href="/admin"
-              className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
+              className={`flex items-center gap-3 px-5 py-3 font-sans text-sm font-semibold wrap-anywhere transition-colors ${
                 pathname.startsWith('/admin')
-                  ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                  : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                  ? 'text-[var(--juba-learning-ink)] bg-[var(--juba-learning-green-soft)] border-[var(--juba-learning-green)] border-l-2'
+                  : 'text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] hover:bg-[var(--juba-learning-surface-soft)] border-l-2 border-transparent'
               }`}
             >
-              <Sparkles className="h-5 w-5 text-fl-muted-4" aria-hidden="true" />
+              <Sparkles className="h-5 w-5 text-[var(--juba-learning-muted)]" aria-hidden="true" />
               {tNav('admin')}
             </Link>
           )}
         </nav>
 
         {/* User + logout */}
-        <div className="border-fl-border border-t px-5 py-4">
+        <div className="border-[var(--juba-learning-border)] border-t px-5 py-4">
           <div className="mb-3 flex items-center gap-3">
-            <div className="border-fl-border h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border">
+            <div className="border-[var(--juba-learning-border)] h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border">
               {user?.avatar ? (
                 <AuthAvatarImage
                   avatar={user.avatar}
@@ -350,8 +350,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   height={32}
                   className="h-full w-full object-cover"
                   fallback={
-                    <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                      <span className="text-fl-muted-1 font-mono text-xs select-none">
+                    <div className="bg-[var(--juba-learning-green-soft)] flex h-full w-full items-center justify-center">
+                      <span className="text-[var(--juba-learning-muted)] font-sans text-xs select-none">
                         {(user?.displayName ||
                           user?.username ||
                           '?')[0].toUpperCase()}
@@ -360,8 +360,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   }
                 />
               ) : (
-                <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                  <span className="text-fl-muted-1 font-mono text-xs select-none">
+                <div className="bg-[var(--juba-learning-green-soft)] flex h-full w-full items-center justify-center">
+                  <span className="text-[var(--juba-learning-muted)] font-sans text-xs select-none">
                     {(user?.displayName ||
                       user?.username ||
                       '?')[0].toUpperCase()}
@@ -370,31 +370,31 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               )}
             </div>
             <div className="min-w-0">
-              <p className="text-fl-caption text-fl-muted-2 truncate font-mono tracking-widest uppercase">
+              <p className="text-fl-caption text-[var(--juba-learning-muted)] truncate font-mono tracking-widest uppercase">
                 {user?.displayName || user?.username}
               </p>
-              <p className="text-fl-label text-fl-muted-4 truncate font-mono">
+              <p className="text-[var(--juba-learning-ink)] text-[var(--juba-learning-muted)] truncate font-mono">
                 @{user?.username?.toLowerCase()}
               </p>
               {trialDaysLeft > 0 && (
-                <p className="text-fl-label text-fl-accent truncate font-mono text-xs">
+                <p className="text-[var(--juba-learning-ink)] text-[var(--juba-learning-green-dark)] truncate font-sans text-xs">
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
             </div>
           </div>
-          <p className="text-fl-label text-fl-muted-4 font-code mb-2 tracking-wider">
+          <p className="text-[var(--juba-learning-ink)] text-[var(--juba-learning-muted)] font-code mb-2 tracking-wider">
             v1.9.15
           </p>
           <button
             onClick={() => setContactOpen(true)}
-            className="text-fl-muted-2 hover:text-fl-fg mb-1 w-full text-left font-mono text-xs tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] mb-1 w-full text-left font-sans text-xs font-semibold tracking-widest uppercase transition-colors"
           >
             {tNav('contact')}
           </button>
           <button
             onClick={() => setLogoutConfirm(true)}
-            className="text-fl-muted-2 hover:text-fl-fg w-full text-left font-mono text-xs tracking-widest uppercase transition-colors"
+            className="text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] w-full text-left font-sans text-xs font-semibold tracking-widest uppercase transition-colors"
           >
             {tCommon('logout')}
           </button>
@@ -402,14 +402,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Mobile top bar */}
-      <div className="border-fl-border bg-fl-bg fixed top-0 right-0 left-0 z-50 border-b md:hidden">
+      <div className="border-[var(--juba-learning-border)] bg-[var(--juba-learning-bg)] fixed top-0 right-0 left-0 z-50 border-b md:hidden">
         <div className="flex items-center justify-between px-4 py-3">
-          <span className="text-fl-fg font-code text-xs font-bold tracking-widest uppercase">
+          <span className="text-[var(--juba-learning-ink)] font-code text-xs font-bold tracking-widest uppercase">
             JUBA LISAN
           </span>
           <button
             onClick={() => setMobileMenuOpen((o) => !o)}
-            className="text-fl-muted-2 hover:text-fl-fg p-1 font-mono transition-colors"
+            className="text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] p-1 font-mono transition-colors"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
             <span className="text-base leading-none">
@@ -420,8 +420,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         {/* Dropdown */}
         {mobileMenuOpen && (
-          <nav className="border-fl-border bg-fl-bg max-h-[calc(100svh-3.5rem)] overflow-y-auto overscroll-contain border-t pb-2">
-            <div className="border-fl-border border-b">
+          <nav className="border-[var(--juba-learning-border)] bg-[var(--juba-learning-bg)] max-h-[calc(100svh-3.5rem)] overflow-y-auto overscroll-contain border-t pb-2">
+            <div className="border-[var(--juba-learning-border)] border-b">
               <LanguageSwitcher />
             </div>
             {mainNavItems.map((item) => {
@@ -432,16 +432,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
+                  className={`flex items-center gap-3 px-5 py-3 font-sans text-sm font-semibold wrap-anywhere uppercase transition-colors ${
                     active
-                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                      ? 'text-[var(--juba-learning-ink)] bg-[var(--juba-learning-green-soft)] border-[var(--juba-learning-green)] border-l-2'
+                      : 'text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] hover:bg-[var(--juba-learning-surface-soft)] border-l-2 border-transparent'
                   }`}
                 >
-                  {(() => { const Icon = navIcons[item.href] ?? Sparkles; return <Icon className={`h-5 w-5 shrink-0 ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`} aria-hidden="true" /> })()}
+                  {(() => { const Icon = navIcons[item.href] ?? Sparkles; return <Icon className={`h-5 w-5 shrink-0 ${active ? 'text-[var(--juba-learning-green-dark)]' : 'text-[var(--juba-learning-muted)]'}`} aria-hidden="true" /> })()}
                   {item.label}
                   {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
-                    <span className="text-fl-accent ml-auto text-xs">★</span>
+                    <span className="text-[var(--juba-learning-green-dark)] ml-auto text-xs">★</span>
                   )}
                 </Link>
               )
@@ -451,10 +451,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <div>
               <button
                 onClick={() => setResourcesOpen((o) => !o)}
-                className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors"
+                className="text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-muted)] flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-sans text-sm font-semibold wrap-anywhere uppercase transition-colors"
               >
                 <span>{tNav('resources')}</span>
-                <span className="text-fl-label">
+                <span className="text-[var(--juba-learning-ink)]">
                   {resourcesOpen ? '▴' : '▾'}
                 </span>
               </button>
@@ -468,14 +468,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       key={item.href}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
+                      className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-sans text-sm font-semibold wrap-anywhere uppercase transition-colors ${
                         active
-                          ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                          : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                          ? 'text-[var(--juba-learning-ink)] bg-[var(--juba-learning-green-soft)] border-[var(--juba-learning-green)] border-l-2'
+                          : 'text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] hover:bg-[var(--juba-learning-surface-soft)] border-l-2 border-transparent'
                       }`}
                     >
                       <span
-                        className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
+                        className={`text-[var(--juba-learning-ink)] ${active ? 'text-[var(--juba-learning-ink)]' : 'text-[var(--juba-learning-muted)]'}`}
                       >
                         ·
                       </span>
@@ -494,20 +494,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
+                  className={`flex items-center gap-3 px-5 py-3 font-sans text-sm font-semibold wrap-anywhere uppercase transition-colors ${
                     active
-                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                      ? 'text-[var(--juba-learning-ink)] bg-[var(--juba-learning-green-soft)] border-[var(--juba-learning-green)] border-l-2'
+                      : 'text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] hover:bg-[var(--juba-learning-surface-soft)] border-l-2 border-transparent'
                   }`}
                 >
                   <span
-                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
+                    className={`text-[var(--juba-learning-ink)] ${active ? 'text-[var(--juba-learning-ink)]' : 'text-[var(--juba-learning-muted)]'}`}
                   >
                     ●
                   </span>
                   {item.label}
                   {item.href === '/feedback' && feedbackBadgeText && (
-                    <span className="text-fl-label ml-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-red-600 leading-none font-bold tracking-normal text-white">
+                    <span className="text-[var(--juba-learning-ink)] ml-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-red-600 leading-none font-bold tracking-normal text-white">
                       {feedbackBadgeText}
                     </span>
                   )}
@@ -519,19 +519,19 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <Link
                 href="/admin"
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
+                className={`flex items-center gap-3 px-5 py-3 font-sans text-sm font-semibold wrap-anywhere uppercase transition-colors ${
                   pathname.startsWith('/admin')
-                    ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                    ? 'text-[var(--juba-learning-ink)] bg-[var(--juba-learning-green-soft)] border-[var(--juba-learning-green)] border-l-2'
+                    : 'text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] hover:bg-[var(--juba-learning-surface-soft)] border-l-2 border-transparent'
                 }`}
               >
-                <span className="text-fl-label text-fl-muted-4">●</span>
+                <span className="text-[var(--juba-learning-ink)] text-[var(--juba-learning-muted)]">●</span>
                 {tNav('admin')}
               </Link>
             )}
-            <div className="border-fl-border mx-5 mt-2 border-t pt-3">
+            <div className="border-[var(--juba-learning-border)] mx-5 mt-2 border-t pt-3">
               <div className="mb-2 flex items-center gap-3">
-                <div className="border-fl-border h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
+                <div className="border-[var(--juba-learning-border)] h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
                   {user?.avatar ? (
                     <AuthAvatarImage
                       avatar={user.avatar}
@@ -540,8 +540,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       height={28}
                       className="h-full w-full object-cover"
                       fallback={
-                        <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                          <span className="text-fl-hint text-fl-muted-1 font-mono select-none">
+                        <div className="bg-[var(--juba-learning-green-soft)] flex h-full w-full items-center justify-center">
+                          <span className="text-fl-hint text-[var(--juba-learning-muted)] font-mono select-none">
                             {(user?.displayName ||
                               user?.username ||
                               '?')[0].toUpperCase()}
@@ -550,8 +550,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       }
                     />
                   ) : (
-                    <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                      <span className="text-fl-hint text-fl-muted-1 font-mono select-none">
+                    <div className="bg-[var(--juba-learning-green-soft)] flex h-full w-full items-center justify-center">
+                      <span className="text-fl-hint text-[var(--juba-learning-muted)] font-mono select-none">
                         {(user?.displayName ||
                           user?.username ||
                           '?')[0].toUpperCase()}
@@ -560,20 +560,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   )}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-fl-caption text-fl-muted-2 truncate font-mono tracking-widest uppercase">
+                  <p className="text-fl-caption text-[var(--juba-learning-muted)] truncate font-mono tracking-widest uppercase">
                     {user?.displayName || user?.username}
                   </p>
-                  <p className="text-fl-label text-fl-muted-4 truncate font-mono">
+                  <p className="text-[var(--juba-learning-ink)] text-[var(--juba-learning-muted)] truncate font-mono">
                     @{user?.username?.toLowerCase()}
                   </p>
                 </div>
               </div>
               {trialDaysLeft > 0 && (
-                <p className="text-fl-label text-fl-accent mb-2 font-mono text-xs">
+                <p className="text-[var(--juba-learning-ink)] text-[var(--juba-learning-green-dark)] mb-2 font-sans text-xs">
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
-              <p className="text-fl-label text-fl-muted-4 font-code mb-2 tracking-wider">
+              <p className="text-[var(--juba-learning-ink)] text-[var(--juba-learning-muted)] font-code mb-2 tracking-wider">
                 v1.9.15
               </p>
               <button
@@ -581,7 +581,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   setMobileMenuOpen(false)
                   setContactOpen(true)
                 }}
-                className="text-fl-muted-2 hover:text-fl-fg mb-1 block font-mono text-xs tracking-widest uppercase transition-colors"
+                className="text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] mb-1 block font-sans text-xs font-semibold tracking-widest uppercase transition-colors"
               >
                 {tNav('contact')}
               </button>
@@ -590,7 +590,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   setMobileMenuOpen(false)
                   setLogoutConfirm(true)
                 }}
-                className="text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
+                className="text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] font-sans text-xs font-semibold tracking-widest uppercase transition-colors"
               >
                 {tCommon('logout')}
               </button>
@@ -603,18 +603,18 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <main className="juba-learning-main flex min-h-[100dvh] flex-1 flex-col overflow-hidden pt-14 md:min-h-screen md:pt-0">
         {/* Email verification banner */}
         {user && user.is_verified === false && (
-          <div className="border-fl-border bg-fl-surface flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
-            <span className="text-fl-muted-1 font-mono text-xs tracking-wide">
+          <div className="border-[var(--juba-learning-border)] bg-[var(--juba-learning-surface-soft)] flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
+            <span className="text-[var(--juba-learning-muted)] font-sans text-xs tracking-wide">
               ● {tCommon('verifyEmailBanner')}
             </span>
             {resendSent ? (
-              <span className="text-fl-muted-2 font-mono text-xs">
+              <span className="text-[var(--juba-learning-muted)] font-sans text-xs">
                 {tCommon('verifyEmailSent')}
               </span>
             ) : (
               <button
                 onClick={handleResendVerification}
-                className="text-fl-accent font-mono text-xs underline transition-all hover:no-underline"
+                className="text-[var(--juba-learning-green-dark)] font-sans text-xs underline transition-all hover:no-underline"
               >
                 {tCommon('resendVerification')}
               </button>
