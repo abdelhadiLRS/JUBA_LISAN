@@ -163,7 +163,12 @@
     "regionAfricaMiddleEast": "África y Oriente Medio",
     "regionAsia": "Asia",
     "regionPacific": "Pacífico",
-    "navPrimary": "Navegación principal"
+    "navPrimary": "Navegación principal",
+    "appCtaTitle": "Aprende en cualquier lugar con JUBA LISAN",
+    "appCtaDescription": "Lleva tu práctica de idiomas contigo. Continúa tus lecciones, conversaciones con IA, ejercicios de escucha y progreso donde estés.",
+    "appCtaNote": "Experiencia web · Diseñada para pantallas móviles",
+    "onlineLanguagesTitle": "Aprende idiomas en línea",
+    "onlineLanguagesDescription": "Elige un idioma y explora la experiencia de aprendizaje disponible en JUBA LISAN."
   },
   "common": {
     "loading": "Cargando...",
