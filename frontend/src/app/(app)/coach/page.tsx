@@ -247,7 +247,7 @@ export default function CoachPage() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-bold text-body">{lesson.title}</p>
-                    <p className="mt-1 text-xs text-secondary">{lesson.lesson_type.replaceAll('_', ' ')} · {lesson.estimated_minutes || 25} min</p>
+                    <p className="mt-1 text-xs text-secondary">{lesson.lesson_type.replaceAll('_', ' ')} · {lesson.estimated_minutes || 25} {t('minutes')}</p>
                   </div>
                   <ArrowRight className="h-4 w-4 text-secondary transition group-hover:translate-x-1" />
                 </Link>
