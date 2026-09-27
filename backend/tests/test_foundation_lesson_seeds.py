@@ -1087,6 +1087,16 @@ def test_en_gb_c1_critical_thinking_examples_are_contextual_and_reusable():
 
 
 
+def test_en_gb_c1_concessive_assessment_has_one_structure_match():
+    """C1 concessive assessment should pair despite with a noun phrase, not a clause."""
+    from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+    question = {item.id: item for item in ASSESSMENT_BANK}["g-c1-006"]
+    assert question.correct == "Despite"
+    assert "this evidence" in question.question
+    assert question.options == ["Despite", "Although", "Despite of", "In spite that"]
+
+
 def test_en_gb_b1_modal_advice_has_one_grammatical_answer():
     """B1 advice questions should not include competing modal answers such as must or ought to."""
     from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
