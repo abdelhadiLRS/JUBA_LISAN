@@ -1322,3 +1322,43 @@ def test_en_gb_a2_extended_examples_are_contextual_and_reusable():
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 10
+
+
+def test_en_gb_a2_daily_life_examples_are_contextual_and_reusable():
+    """A2 daily-life vocabulary should model situations learners can reuse."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in A2_SETS for entry in vocabulary_set.words}
+    expected = {
+        "price": "compare it with the cheaper one",
+        "queue": "shopping list",
+        "sale": "winter coats",
+        "discount": "student card",
+        "afford": "saving money and using the bus",
+        "packaging": "reduce the amount of waste",
+        "bus": "five minutes from my flat",
+        "train": "fifteen minutes early",
+        "taxi": "last bus has already left",
+        "underground": "during rush hour",
+        "platform": "check the screen",
+        "delay": "signal problem",
+        "back": "regular breaks",
+        "stomach": "after lunch",
+        "throat": "slight cough",
+        "medicine": "after meals",
+        "appointment": "leave work early",
+        "healthy": "vegetables, fruit, and simple meals",
+        "tourist": "museums, historic buildings",
+        "culture": "how people live, work, and celebrate",
+        "talented": "piano and guitar",
+        "practise": "play the new song confidently",
+        "coach": "arriving on time",
+        "score": "win the match",
+        "exam": "reviewing my notes",
+        "meeting": "finish the report",
+        "bill": "train departs in twenty minutes",
+        "wallet": "return to the flat",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 10
