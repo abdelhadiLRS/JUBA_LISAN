@@ -2206,7 +2206,8 @@
           "title": "Hotel",
           "description": "Book a room, solve problems and make requests."
         }
-      }},
+      }
+  },
   "visitorTranslator": {
     "open": "Open instant translator",
     "translate": "Translate",
