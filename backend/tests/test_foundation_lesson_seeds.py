@@ -325,3 +325,19 @@ def test_c1_idioms_avoid_redundant_fence_variants():
     words = {entry.word.casefold() for entry in idioms.words}
     assert "on the fence" in words
     assert "sit on the fence" not in words
+
+def test_en_gb_c2_definitions_distinguish_precise_meanings():
+    """Selected C2 definitions should explain semantic nuance rather than repeat the headword."""
+    from app.data.en_GB.vocabulary_c2 import C2_SETS
+
+    entries = {entry.word: entry for vocab_set in C2_SETS for entry in vocab_set.words}
+    expected_definitions = {
+        "judicious": "weighing the likely consequences",
+        "inextricable": "cannot be separated without changing or losing their meaning",
+        "contentious": "provoke strong disagreement or argument",
+        "ubiquitous": "seemingly impossible to avoid",
+        "ramification": "complex or far-reaching consequences",
+        "promulgate": "put a law, rule, or policy into effect",
+    }
+    for word, phrase in expected_definitions.items():
+        assert phrase.casefold() in entries[word].definition.casefold()
