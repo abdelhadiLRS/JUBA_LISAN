@@ -656,3 +656,120 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
 .juba-reference-page .juba-ref-pricing .juba-ff-limited {
   color: #68766d !important;
 }
+
+
+/* LANDING FINAL POLISH — remove remaining legacy palette from public landing only */
+.juba-reference-page .juba-landing-actions > div > button,
+.juba-reference-page .juba-landing-mobile-sheet > div > div:nth-child(2) {
+  border-color:#dfe9da !important;
+  color:#252525 !important;
+  box-shadow:0 3px 0 rgba(70,169,0,.12) !important;
+}
+.juba-reference-page .juba-landing-actions > div > button:hover {
+  background:#f3fbe9 !important;
+}
+.juba-reference-page .juba-landing-actions > div > div {
+  border-color:#dfe9da !important;
+  box-shadow:0 6px 0 rgba(70,169,0,.12) !important;
+}
+.juba-reference-page .juba-landing-actions > div > div .text-\[var\(--juba-app-green\)\] {
+  color:#46a900 !important;
+}
+.juba-reference-page .juba-landing-actions > a:last-of-type svg {
+  color:#b7f36b !important;
+}
+.juba-reference-page .juba-duo-footer h4 {
+  color:#b7f36b !important;
+}
+
+/* AI showcase: one clean green/white surface, no legacy purple accents */
+.juba-reference-page .juba-ai-showcase {
+  background:#f3fbe9 !important;
+  border-top:1px solid #dfe9da !important;
+  border-bottom:1px solid #dfe9da !important;
+}
+.juba-reference-page .juba-ai-showcase-copy h2 {
+  color:#252525 !important;
+}
+.juba-reference-page .juba-ai-showcase-copy p {
+  color:#68766d !important;
+}
+.juba-reference-page .juba-ai-chat-bubble {
+  background:#fff !important;
+  border:1px solid #dfe9da !important;
+  color:#252525 !important;
+  box-shadow:0 4px 0 rgba(70,169,0,.12) !important;
+}
+.juba-reference-page .juba-ai-chat-tutor {
+  border-color:#b7e88f !important;
+}
+.juba-reference-page .juba-ai-play {
+  background:#58cc02 !important;
+  border-color:#46a900 !important;
+  box-shadow:0 4px 0 #46a900 !important;
+}
+.juba-reference-page .juba-ai-live-pill {
+  background:#fff !important;
+  border-color:#dfe9da !important;
+  color:#46a900 !important;
+}
+.juba-reference-page .juba-ai-wave i {
+  background:#58cc02 !important;
+}
+
+/* Games showcase: same white canvas and green interaction states */
+.juba-reference-page .juba-games-showcase {
+  background:#fff !important;
+  color:#252525 !important;
+  border-top:1px solid #dfe9da !important;
+}
+.juba-reference-page .juba-games-heading h2,
+.juba-reference-page .juba-game-stage-copy h3 {
+  color:#252525 !important;
+}
+.juba-reference-page .juba-games-heading p,
+.juba-reference-page .juba-game-stage-copy p {
+  color:#68766d !important;
+}
+.juba-reference-page .juba-games-tab {
+  color:#68766d !important;
+  background:#fff !important;
+  border-color:#dfe9da !important;
+}
+.juba-reference-page .juba-games-tab.is-active {
+  color:#fff !important;
+  background:#58cc02 !important;
+  border-color:#46a900 !important;
+  box-shadow:0 3px 0 #46a900 !important;
+}
+.juba-reference-page .juba-game-stage {
+  border-color:#dfe9da !important;
+  background:#fff !important;
+  box-shadow:0 5px 0 rgba(70,169,0,.1) !important;
+}
+.juba-reference-page .juba-game-stage-index {
+  color:#46a900 !important;
+}
+
+/* Public language directory: replace the old purple mini-system */
+.juba-reference-page .juba-ref-language-art > .juba-ref-language-overlay > section {
+  border-color:#dfe9da !important;
+  background:#fff !important;
+  box-shadow:0 8px 0 rgba(70,169,0,.08) !important;
+}
+.juba-reference-page .juba-ref-language-art .text-\[\#635bff\] {
+  color:#46a900 !important;
+}
+.juba-reference-page .juba-ref-language-art .bg-\[\#eeedff\] {
+  background:#f3fbe9 !important;
+}
+.juba-reference-page .juba-ref-language-art .text-\[\#202127\] {
+  color:#252525 !important;
+}
+.juba-reference-page .juba-ref-language-art [class*="border-[#e9eaf2]"] {
+  border-color:#dfe9da !important;
+}
+.juba-reference-page .juba-ref-language-art [class*="hover:border-[#c9c7ff]"]:hover {
+  border-color:#58cc02 !important;
+  background:#f3fbe9 !important;
+}
