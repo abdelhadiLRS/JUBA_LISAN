@@ -54,8 +54,9 @@ export default function UnitCard({ title, index, lessonCount, grammarCount, comp
   const barColor = status.completed ? 'var(--juba-learning-green)' : status.active ? 'var(--juba-learning-yellow)' : 'var(--juba-learning-green-soft)'
 
   return (
-    <div className="overflow-hidden rounded-[20px] border-2 border-[var(--juba-learning-border)] bg-white shadow-[var(--juba-learning-shadow)]">
+    <div className="overflow-hidden rounded-[20px] border-2 border-[var(--juba-learning-border)] bg-[var(--juba-learning-surface)] shadow-[var(--juba-learning-shadow)]">
       <button
+        type="button"
         onClick={onClick}
         disabled={status.locked}
         className="group w-full p-5 text-start transition-transform sm:p-6 enabled:hover:-translate-y-0.5 disabled:cursor-default disabled:opacity-80"
@@ -65,7 +66,7 @@ export default function UnitCard({ title, index, lessonCount, grammarCount, comp
           <StatusBadge status={status} index={index} />
           <div className="min-w-0 flex-1">
             <div className="mb-1 flex items-center gap-2">
-              <span className="rounded-full border border-[var(--juba-learning-border)] bg-[#f8f8f8] px-2.5 py-1 text-[10px] font-black text-[var(--juba-learning-muted)]">{String(index + 1).padStart(2, '0')}</span>
+              <span className="rounded-full border border-[var(--juba-learning-border)] bg-[var(--juba-learning-bg)] px-2.5 py-1 text-[10px] font-black text-[var(--juba-learning-muted)]">{String(index + 1).padStart(2, '0')}</span>
               {status.active && <span className="rounded-full bg-[var(--juba-learning-green-soft)] px-2.5 py-1 text-[10px] font-black text-[var(--juba-learning-green-dark)]">{tCommon('start')}</span>}
             </div>
             <h3 className="truncate text-lg font-black tracking-tight text-[var(--juba-learning-ink)]">{title}</h3>
@@ -77,12 +78,12 @@ export default function UnitCard({ title, index, lessonCount, grammarCount, comp
           </div>
           {!status.locked && <div className="hidden shrink-0 rounded-full bg-[var(--juba-learning-green-soft)] px-3 py-1.5 text-xs font-black text-[var(--juba-learning-green-dark)] sm:block">{barWidth}%</div>}
         </div>
-        {!status.locked && <div className="mt-5 h-3 overflow-hidden rounded-full border-2 border-[var(--juba-learning-border)] bg-[#f1f1f1]"><div className="h-full rounded-full transition-all duration-700" style={{ width: `${barWidth}%`, background: barColor }} /></div>}
+        {!status.locked && <div className="mt-5 h-3 overflow-hidden rounded-full border-2 border-[var(--juba-learning-border)] bg-[var(--juba-learning-bg)]"><div className="h-full rounded-full transition-all duration-700" style={{ width: `${barWidth}%`, background: barColor }} /></div>}
       </button>
 
       {status.active && onStartLesson && (
-        <div className="flex justify-end border-t-2 border-[var(--juba-learning-border)] bg-[#fcfcfc] px-5 py-4 sm:px-6">
-          <button onClick={onStartLesson} className="min-h-11 rounded-[13px] border-2 border-[var(--juba-learning-green-dark)] bg-[var(--juba-learning-green)] px-5 py-2.5 text-xs font-black text-white shadow-[0_4px_0_var(--juba-learning-green-dark)] transition-transform hover:translate-y-0.5">{tCommon('start')} →</button>
+        <div className="flex justify-end border-t-2 border-[var(--juba-learning-border)] bg-[var(--juba-learning-bg)] px-5 py-4 sm:px-6">
+          <button type="button" onClick={onStartLesson} className="min-h-11 rounded-[13px] border-2 border-[var(--juba-learning-green-dark)] bg-[var(--juba-learning-green)] px-5 py-2.5 text-xs font-black text-white shadow-[0_4px_0_var(--juba-learning-green-dark)] transition-transform hover:translate-y-0.5">{tCommon('start')} →</button>
         </div>
       )}
     </div>
