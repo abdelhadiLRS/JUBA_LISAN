@@ -662,7 +662,7 @@ html[data-theme='light'] {
   .juba-busuu-nav-links{display:none}.juba-busuu-nav-actions{display:none}
   .juba-busuu-menu{
     margin-inline-start:auto;display:inline-flex;align-items:center;justify-content:center;
-    width:42px;height:42px;padding:0;border:1px solid var(--busuu-line);border-radius:50%;
+    width:44px;height:44px;padding:0;border:1px solid var(--busuu-line);border-radius:50%;
     background:#fff;color:var(--busuu-ink);
   }
   .juba-busuu-mobile-menu{
