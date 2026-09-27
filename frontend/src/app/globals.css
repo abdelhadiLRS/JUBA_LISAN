@@ -489,7 +489,8 @@ html[data-theme='light'] {
 .juba-busuu-language-prompt strong{font-size:26px;letter-spacing:-.04em}
 .juba-busuu-language-list{
   display:flex!important;gap:0!important;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity;
-  border:0!important;padding:0 0 14px;
+  margin:0!important;padding:0 0 14px;list-style:none;
+  border:0!important;
 }
 .juba-busuu-language-list::-webkit-scrollbar{display:none}
 .juba-busuu-language-item{
