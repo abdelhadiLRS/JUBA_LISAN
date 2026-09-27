@@ -48,6 +48,7 @@ export default async function Home() {
   const hasSession = cookieStore.has('refresh_token')
   const locale = await getLocale()
   const t = await getTranslations('landing')
+  const reviewT = await getTranslations('landingReviews')
 
   let stripeEnabled = false
   let trialDays = 7
@@ -194,13 +195,19 @@ export default async function Home() {
         <section id="reviews" className="juba-busuu-testimonials" aria-labelledby="reviews-title">
           <div className="juba-busuu-container">
             <div className="juba-busuu-heading">
-              <span className="juba-busuu-eyebrow">{t('navReviews')}</span>
-              <h2 id="reviews-title">{t('navReviews')}</h2>
-              <p>{t('bentoSubtitle')}</p>
+              <span className="juba-busuu-eyebrow">{reviewT('eyebrow')}</span>
+              <h2 id="reviews-title">{reviewT('title')}</h2>
+              <p>{reviewT('subtitle')}</p>
             </div>
             <div className="juba-busuu-testimonial-grid">
               {reviews.slice(0, 6).map((review) => (
                 <article key={review.id} className="juba-busuu-testimonial">
+                  <div className="juba-busuu-testimonial-meta">
+                    <span aria-label={reviewT('starsLabel', { rating: review.rating })}>
+                      {'★'.repeat(Math.max(0, Math.min(5, review.rating)))}
+                    </span>
+                    <span>{reviewT('learningLanguage', { language: review.target_language })}</span>
+                  </div>
                   <p>“{review.comment ?? ''}”</p>
                   <strong>{review.user_display_name || 'JUBA LISAN learner'}</strong>
                 </article>
