@@ -280,6 +280,29 @@ def test_en_gb_c2_examples_show_advanced_usage_in_context():
         assert phrase.casefold() in examples[word].casefold()
 
 
+
+def test_en_gb_c2_core_examples_teach_advanced_collocations():
+    """Selected C2 examples should teach domain-specific collocations and nuanced usage."""
+    from app.data.en_GB.vocabulary_c2 import C2_SETS
+
+    entries = {entry.word: entry for vocab_set in C2_SETS for entry in vocab_set.words}
+    expected_contexts = {
+        "seminal": "reshaped subsequent linguistic research",
+        "convoluted": "applicable requirements",
+        "tenuous": "fall in exports",
+        "judicious": "allocation of research funding",
+        "ubiquitous": "urban commerce",
+        "esoteric": "early analytic philosophy",
+        "pervasive": "disclosure was voluntary",
+        "discerning": "repackages familiar claims",
+        "pertinent": "reduce competition",
+        "heretofore": "accepted account of the negotiations",
+        "subsume": "single compliance process",
+    }
+    for word, phrase in expected_contexts.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+
+
 def test_en_gb_c1_examples_are_contextual_and_reusable():
     """C1 examples should teach natural usage, not merely restate definitions."""
     from app.data.en_GB.vocabulary_c1 import C1_SETS
