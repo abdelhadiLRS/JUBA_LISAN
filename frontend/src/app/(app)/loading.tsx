@@ -26,7 +26,7 @@ export default function AppLoading() {
           <span className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-10 w-10 rounded-xl" />
         </header>
 
-        <main className="min-h-screen bg-[#f8faf7] px-3 py-5 sm:px-6 sm:py-8">
+        <main aria-busy="true" className="min-h-screen bg-[#f8faf7] px-3 py-5 sm:px-6 sm:py-8">
           <div className="mx-auto max-w-6xl space-y-5">
             <section className="rounded-2xl border border-[#e1e5e2] bg-white p-5 sm:p-7">
               <div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-4 w-28 rounded-lg" />
@@ -40,11 +40,12 @@ export default function AppLoading() {
 
             <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
               <section className="rounded-2xl border border-[#e1e5e2] bg-white p-5 sm:p-7">
-                <div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-5 w-32 rounded-lg" />
+                <div className="flex items-center justify-between gap-3"><div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-5 w-32 rounded-lg" /><div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-4 w-16 rounded-lg" /></div>
+                <div className="mt-5 h-2 overflow-hidden rounded-xl bg-[#f1f7ed]"><div className="juba-loading-pill bg-[#dff0d2] animate-pulse h-full w-1/3 rounded-xl" /></div>
                 <div className="mt-5 space-y-4">
-                  <div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-20 w-full rounded-2xl" />
-                  <div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-20 w-full rounded-2xl" />
-                  <div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-20 w-full rounded-2xl" />
+                  <div className="flex items-center gap-4 rounded-2xl border border-[#e1e5e2] p-4"><div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-14 w-14 shrink-0 rounded-full" /><div className="flex-1 space-y-2"><div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-4 w-3/5 rounded-lg" /><div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-3 w-2/5 rounded-lg" /></div></div>
+                  <div className="flex items-center gap-4 rounded-2xl border border-[#e1e5e2] p-4"><div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-14 w-14 shrink-0 rounded-full" /><div className="flex-1 space-y-2"><div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-4 w-2/3 rounded-lg" /><div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-3 w-1/2 rounded-lg" /></div></div>
+                  <div className="flex items-center gap-4 rounded-2xl border border-[#e1e5e2] p-4"><div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-14 w-14 shrink-0 rounded-full" /><div className="flex-1 space-y-2"><div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-4 w-1/2 rounded-lg" /><div className="juba-loading-pill bg-[#f1f7ed] animate-pulse h-3 w-2/5 rounded-lg" /></div></div>
                 </div>
               </section>
 
