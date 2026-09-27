@@ -33,7 +33,7 @@ export function LandingFooter({ t, dir = 'ltr', showReviews = false }: LandingFo
             <p>{t('footerTagline')}</p>
           </div>
 
-          <div className="juba-busuu-footer-social" aria-label="JUBA LISAN social links">
+          <div className="juba-busuu-footer-social" aria-label={t('footerResources')}>
             <a href="https://github.com/abdelhadiLRS/JUBA_LISAN" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
           </div>
         </div>
