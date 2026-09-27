@@ -1087,6 +1087,16 @@ def test_en_gb_c1_critical_thinking_examples_are_contextual_and_reusable():
 
 
 
+def test_en_gb_b1_modal_advice_has_one_grammatical_answer():
+    """B1 advice questions should not include competing modal answers such as must or ought to."""
+    from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+    question = {item.id: item for item in ASSESSMENT_BANK}["g-b1-006"]
+    assert question.correct == "should"
+    assert question.options == ["should", "should to", "should seeing", "should saw"]
+    assert "pharmacist advises" in question.question
+
+
 def test_en_gb_b1_past_perfect_assessment_uses_correct_reference_time():
     """A past realisation about an earlier experience requires the past perfect."""
     from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
