@@ -26,7 +26,7 @@ export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
   ]
 
   return (
-    <footer dir={dir} className="juba-duo-footer">
+    <footer dir={dir} className="juba-busuu-footer">
       <div className="juba-busuu-footer-shell">
         <div className="juba-busuu-footer-top">
           <div className="juba-busuu-footer-brand">
