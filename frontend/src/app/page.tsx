@@ -266,11 +266,11 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="pricing" className="juba-busuu-pricing">
+      <section id="pricing" className="juba-busuu-pricing" aria-labelledby="pricing-title">
         <div className="juba-busuu-container">
           <div className="juba-busuu-heading">
             <span className="juba-busuu-eyebrow">{t('navPricing')}</span>
-            <h2>{t('navPricing')}</h2>
+            <h2 id="pricing-title">{t('navPricing')}</h2>
           </div>
           <PricingSection
             stripeEnabled={stripeEnabled}
@@ -284,21 +284,21 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="faq" className="juba-busuu-faq">
+      <section id="faq" className="juba-busuu-faq" aria-labelledby="faq-section-title">
         <div className="juba-busuu-container">
           <div className="juba-busuu-heading">
             <span className="juba-busuu-eyebrow">{t('navFAQ')}</span>
-            <h2>{t('faqTitle')}</h2>
+            <h2 id="faq-section-title">{t('faqTitle')}</h2>
           </div>
           <LandingFAQ dir={rtl ? 'rtl' : 'ltr'} />
         </div>
       </section>
 
-      <section className="juba-busuu-final-cta">
+      <section className="juba-busuu-final-cta" aria-labelledby="final-cta-title">
         <div className="juba-busuu-container juba-busuu-final-cta-inner">
           <div>
             <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
-            <h2>{t('builtForLearners')}</h2>
+            <h2 id="final-cta-title">{t('builtForLearners')}</h2>
             <p>{t('flowDescription')}</p>
             <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">
               {hasSession ? t('dashboard') : t('ctaStart')}
