@@ -40,19 +40,19 @@ export function LearningExperience({ t }: LearningExperienceProps) {
             <Link
               href={href}
               key={title}
-              className="group relative flex min-h-[230px] flex-col border-b border-[#dce7dc] px-5 py-6 transition-colors md:min-h-[250px] md:border-b-0 md:border-r md:last:border-r-0 md:px-6"
+              className="group relative flex min-h-[230px] flex-col border-b border-[var(--juba-learning-border)] px-5 py-6 transition-colors md:min-h-[250px] md:border-b-0 md:border-r md:last:border-r-0 md:px-6"
             >
               <div className="mb-7 flex items-center justify-between">
-                <span className="text-[11px] font-black tracking-[0.18em] text-[#39751d]">
+                <span className="text-[11px] font-black tracking-[0.18em] text-[var(--juba-learning-green-dark)]">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <Icon className="h-5 w-5 text-[#39751d] transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
               </div>
-              <div className="mb-5 text-[10px] font-black tracking-[0.2em] text-[#718078]">{art}</div>
-              <h3 className="max-w-[180px] text-[20px] font-black leading-[1.05] tracking-[-0.035em] text-[#183022]">
+              <div className="mb-5 text-[10px] font-black tracking-[0.2em] text-[var(--juba-learning-muted)]">{art}</div>
+              <h3 className="max-w-[180px] text-[20px] font-black leading-[1.05] tracking-[-0.035em] text-[var(--juba-learning-ink)]">
                 {t(title)}
               </h3>
-              <p className="mt-3 max-w-[190px] text-[12px] leading-5 text-[#617068]">{t(desc)}</p>
+              <p className="mt-3 max-w-[190px] text-[12px] leading-5 text-[var(--juba-learning-muted)]">{t(desc)}</p>
               <span className="mt-auto inline-flex items-center gap-1 pt-5 text-[10px] font-black uppercase tracking-[0.16em] text-[#39751d]">
                 Explore <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />
               </span>
