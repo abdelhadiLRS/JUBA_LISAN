@@ -100,6 +100,7 @@ export function LandingGamesShowcase({
         id={`juba-game-panel-${activeGame.key}`}
         className="juba-game-stage"
         role="tabpanel"
+        aria-live="polite"
         aria-labelledby={`juba-game-tab-${activeGame.key}`}
       >
         <div className="juba-game-stage-image">
