@@ -1,5 +1,7 @@
 {
   "landing": {
+    "openMenuLabel": "Deschide meniul de navigare",
+    "closeMenuLabel": "Închide meniul de navigare",
     "hero": "Învață limbi străine cu un partener de conversație real prin voce",
     "heroSub": "Vorbește. Ascultă. Îmbunătățește-te.",
     "signIn": "Conectare",
