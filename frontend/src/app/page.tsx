@@ -194,8 +194,9 @@ export default async function Home() {
         <section id="reviews" className="juba-busuu-testimonials" aria-labelledby="reviews-title">
           <div className="juba-busuu-container">
             <div className="juba-busuu-heading">
-              <span className="juba-busuu-eyebrow">{t('navReviews')}</span>
-              <h2 id="reviews-title">{t('navReviews')}</h2>
+              <span className="juba-busuu-eyebrow">{t('landingReviews.eyebrow')}</span>
+              <h2 id="reviews-title">{t('landingReviews.title')}</h2>
+              <p>{t('landingReviews.subtitle')}</p>
             </div>
             <div className="juba-busuu-testimonial-grid">
               {reviews.slice(0, 6).map((review) => (
@@ -243,6 +244,7 @@ export default async function Home() {
             <article><BookOpen aria-hidden="true" /><div><h3>{t('feature1Title')}</h3><p>{t('feature1Desc')}</p></div></article>
             <article><MessageCircle aria-hidden="true" /><div><h3>{t('feature6Title')}</h3><p>{t('feature6Desc')}</p></div></article>
             <article><Headphones aria-hidden="true" /><div><h3>{t('feature8Title')}</h3><p>{t('feature8Desc')}</p></div></article>
+            <article><BookOpen aria-hidden="true" /><div><h3>{t('feature7Title')}</h3><p>{t('feature7Desc')}</p></div></article>
           </div>
         </div>
       </section>
