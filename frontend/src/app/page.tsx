@@ -230,7 +230,7 @@ export default async function Home() {
               {reviews.slice(0, 6).map((review) => {
                 const displayName = review.user_display_name?.trim() || 'JUBA LISAN learner'
                 const initials = displayName
-                  .split(/\\s+/)
+                  .split(/\s+/)
                   .filter(Boolean)
                   .slice(0, 2)
                   .map((part) => part[0])
