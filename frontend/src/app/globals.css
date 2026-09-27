@@ -548,7 +548,7 @@ html[data-theme='light'] {
 /* Benefits */
 .juba-busuu-benefits{padding:118px 0;background:#fff}
 .juba-busuu-benefit-list{
-  display:grid;grid-template-columns:repeat(3,1fr);
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
   border-top:1px solid var(--busuu-line);border-bottom:1px solid var(--busuu-line);
 }
 .juba-busuu-benefit-list article{
@@ -651,9 +651,10 @@ html[data-theme='light'] {
   .juba-busuu-actions{justify-content:center}.juba-busuu-hero-visual{min-height:400px}
   .juba-busuu-feature-grid,.juba-busuu-testimonial-grid{grid-template-columns:1fr}
   .juba-busuu-feature{min-height:0}.juba-busuu-feature img{height:240px}
-  .juba-busuu-benefit-list{grid-template-columns:1fr}
-  .juba-busuu-benefit-list article{border-inline-start:0;border-top:1px solid var(--busuu-line)}
-  .juba-busuu-benefit-list article:first-child{border-top:0}
+  .juba-busuu-benefit-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .juba-busuu-benefit-list article{border-inline-start:1px solid var(--busuu-line);border-top:1px solid var(--busuu-line)}
+  .juba-busuu-benefit-list article:nth-child(odd){border-inline-start:0}
+  .juba-busuu-benefit-list article:nth-child(-n+2){border-top:0}
   .juba-busuu-final-cta-inner{text-align:center;padding:54px 36px}
   .juba-busuu-final-cta-inner p{margin-inline:auto}.juba-busuu-final-cta-inner img{max-width:600px;margin:auto}
   .juba-busuu-landing .juba-busuu-footer-intro{align-items:flex-start;flex-direction:column}
@@ -679,6 +680,9 @@ html[data-theme='light'] {
   .juba-busuu-stats-grid{grid-template-columns:1fr 1fr}
   .juba-busuu-stats-grid article{min-height:125px;padding:24px 16px}
   .juba-busuu-difference,.juba-busuu-testimonials,.juba-busuu-practical,.juba-busuu-benefits,.juba-busuu-pricing,.juba-busuu-faq{padding:78px 0}
+  .juba-busuu-benefit-list{grid-template-columns:1fr}
+  .juba-busuu-benefit-list article,.juba-busuu-benefit-list article:nth-child(odd){border-inline-start:0;border-top:1px solid var(--busuu-line)}
+  .juba-busuu-benefit-list article:first-child{border-top:0}
   .juba-busuu-feature img{height:210px}.juba-busuu-testimonial{min-height:0}
   .juba-busuu-practical-media{min-height:290px;border-radius:18px}
   .juba-busuu-final-cta{padding-bottom:78px}.juba-busuu-final-cta-inner{min-height:0;padding:42px 22px}
