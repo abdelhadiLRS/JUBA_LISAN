@@ -165,6 +165,8 @@ export default function FlashcardsPage() {
             {t('myVocabularyBtn')}
           </Link>
           <button
+            type="button"
+            aria-expanded={showGenerate}
             onClick={() => {
               setShowGenerate(!showGenerate)
             }}
@@ -199,10 +201,11 @@ export default function FlashcardsPage() {
           )}
           <form onSubmit={generateCards} className="space-y-4">
             <div>
-              <label className="text-[#30343b] mb-2 block text-xs font-semibold tracking-wide uppercase">
+              <label htmlFor="flashcard-topic" className="text-[#30343b] mb-2 block text-xs font-semibold tracking-wide uppercase">
                 {t('topic')}
               </label>
               <input
+                id="flashcard-topic"
                 type="text"
                 value={genTopic}
                 onChange={(e) => setGenTopic(e.target.value)}
@@ -213,10 +216,11 @@ export default function FlashcardsPage() {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-[#30343b] mb-2 block text-xs font-semibold tracking-wide uppercase">
+                <label htmlFor="flashcard-count" className="text-[#30343b] mb-2 block text-xs font-semibold tracking-wide uppercase">
                   {t('count')}
                 </label>
                 <select
+                  id="flashcard-count"
                   value={genCount}
                   onChange={(e) => setGenCount(Number(e.target.value))}
                   className="bg-[#f8faf7] border-[#e1e5e2] text-[#30343b] focus:border-[#58a700] focus:ring-2 focus:ring-[#58a700]/15 w-full rounded-xl border px-4 py-3 text-sm focus:outline-none"
@@ -229,10 +233,11 @@ export default function FlashcardsPage() {
                 </select>
               </div>
               <div>
-                <label className="text-[#30343b] mb-2 block text-xs font-semibold tracking-wide uppercase">
+                <label htmlFor="flashcard-level" className="text-[#30343b] mb-2 block text-xs font-semibold tracking-wide uppercase">
                   {t('level')}
                 </label>
                 <select
+                  id="flashcard-level"
                   value={genCefr}
                   onChange={(e) => setGenCefr(e.target.value)}
                   className="bg-[#f8faf7] border-[#e1e5e2] text-[#30343b] focus:border-[#58a700] focus:ring-2 focus:ring-[#58a700]/15 w-full rounded-xl border px-4 py-3 text-sm focus:outline-none"
@@ -282,7 +287,7 @@ export default function FlashcardsPage() {
           {total === 0 && (
             <p className="text-[#68736d] mt-2 text-sm">{t('noCardsHint')}</p>
           )}
-          <button onClick={loadDue} className={btnSecondary + ' mt-6'}>
+          <button type="button" onClick={loadDue} className={btnSecondary + ' mt-6'}>
             {t('refresh')}
           </button>
         </div>
@@ -300,6 +305,8 @@ export default function FlashcardsPage() {
               {/* Mode toggle */}
               <div className="bg-[#f1f7ed] inline-flex rounded-xl p-1">
                 <button
+                  type="button"
+                  aria-pressed={!speakingMode}
                   onClick={() => {
                     setSpeakingMode(false)
                     setFlipped(false)
@@ -313,6 +320,8 @@ export default function FlashcardsPage() {
                   {t('standardMode')}
                 </button>
                 <button
+                  type="button"
+                  aria-pressed={speakingMode}
                   onClick={() => {
                     setSpeakingMode(true)
                     setFlipped(false)
@@ -430,6 +439,7 @@ export default function FlashcardsPage() {
                     },
                   ].map(({ key, q, style }) => (
                     <button
+                      type="button"
                       key={q}
                       onClick={() => reviewCard(q)}
                       className="min-w-[80px] rounded-xl border border-[#e1e5e2] py-3 text-sm font-semibold transition-all hover:border-[color-mix(in_srgb,#e1e5e2_60%,#30343b)] hover:bg-[#eaf5df]"
