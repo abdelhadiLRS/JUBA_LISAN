@@ -41,7 +41,7 @@ export function LandingAiTutorShowcase({
         />
         <div className="juba-ai-chat-bubble juba-ai-chat-user">{userMessage}</div>
         <div className="juba-ai-chat-bubble juba-ai-chat-tutor">{aiMessage}</div>
-        <div className="juba-ai-wave" aria-label={playing ? speakingLabel : activeLabel}>
+        <div className="juba-ai-wave" aria-hidden="true">
           {Array.from({ length: 11 }).map((_, index) => (
             <i key={index} className={playing ? 'is-playing' : ''} style={{ '--wave-delay': `${index * 70}ms` } as CSSProperties} />
           ))}
