@@ -305,7 +305,7 @@ export default function ChatPage() {
 
   return (
     <MaintenanceGate>
-      <div className="flex h-[calc(100dvh-56px)] w-full overflow-hidden md:h-screen">
+      <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden md:h-screen">
         <MemorySavedToast
           visible={memoryToast}
           announcementId={memoryToastId}
@@ -322,7 +322,7 @@ export default function ChatPage() {
         {sidebarOpen && (
           <aside className="border-[#e2f2d3] bg-[#e2f2d3]/40 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
             <div className="border-[#e2f2d3] flex items-center justify-between border-b-2 px-4 py-3">
-              <span className="text-[var(--juba-muted)] font-semibold tracking-wide">
+              <span className="juba-chat-label text-[var(--juba-muted)] font-semibold tracking-wide">
                 {t('conversations')}
               </span>
               <button
@@ -361,7 +361,7 @@ export default function ChatPage() {
                   </button>
                 </div>
               ) : conversations.length === 0 ? (
-                <p className="text-[var(--juba-muted)] px-4 py-4 font-mono">
+                <p className="juba-chat-empty text-[var(--juba-muted)] px-4 py-4 font-mono">
                   {t('noConversation')}
                 </p>
               ) : (
@@ -459,7 +459,7 @@ export default function ChatPage() {
                 <p className="text-[var(--juba-muted)] font-semibold tracking-wide">
                   {t('title')}
                 </p>
-                <p className="text-[var(--juba-muted)] max-w-xs font-mono text-xs leading-relaxed">
+                <p className="juba-chat-subtitle text-[var(--juba-muted)] max-w-xs font-mono text-xs leading-relaxed">
                   {t('subtitle', {
                     language: activeLanguage
                       ? tLang(activeLanguage.code)
@@ -572,12 +572,12 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1 rounded-xl border-2 border-[#e2f2d3] bg-white px-4 py-3 font-mono text-base text-[var(--juba-text)] shadow-[2px_2px_0_var(--juba-border)] transition-all placeholder:text-[#8a918c] focus:border-[#39751d] focus:outline-none focus:ring-2 focus:ring-[#39751d]/15 disabled:opacity-40"
+                    className="juba-chat-input flex-1 rounded-xl border-2 border-[#e2f2d3] bg-white px-4 py-3 font-mono text-base text-[var(--juba-text)] shadow-[2px_2px_0_var(--juba-border)] transition-all placeholder:text-[#8a918c] focus:border-[#39751d] focus:outline-none focus:ring-2 focus:ring-[#39751d]/15 disabled:opacity-40"
                   />
                   <button
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || loadingMsgs}
-                    className="rounded-xl border-2 border-[#25302a] bg-[#39751d] px-5 font-mono font-bold uppercase tracking-widest text-white shadow-[3px_3px_0_#25302a] transition-all hover:-translate-y-0.5 hover:bg-[#39751d] hover:shadow-[4px_4px_0_#25302a] active:translate-y-0.5 active:shadow-[1px_1px_0_#25302a] disabled:opacity-30"
+                    className="juba-chat-send rounded-xl border-2 border-[#25302a] bg-[#39751d] px-5 font-mono font-bold uppercase tracking-widest text-white shadow-[3px_3px_0_#25302a] transition-all hover:-translate-y-0.5 hover:bg-[#39751d] hover:shadow-[4px_4px_0_#25302a] active:translate-y-0.5 active:shadow-[1px_1px_0_#25302a] disabled:opacity-30"
                   >
                     {sending ? '...' : t('send')}
                   </button>
