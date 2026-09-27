@@ -245,7 +245,7 @@ export default function PricingSection({
                   onClick={() => startCheckout(plan.interval)}
                   className="juba-ff-plan-cta inline-block px-6 py-2.5 text-center font-sans text-sm font-extrabold transition-colors disabled:opacity-50"
                 >
-                  {checkoutLoading === plan.interval ? 'Loading…' : plan.cta}
+                  {checkoutLoading === plan.interval ? tBilling('checkoutLoading') : plan.cta}
                 </button>
               ) : (
                 <Link
@@ -333,7 +333,7 @@ export default function PricingSection({
             onClick={() => startCheckout('yearly')}
             className="juba-ff-plan-cta inline-block px-10 py-3 font-sans text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
           >
-            {checkoutLoading === 'yearly' ? 'Loading…' : tBilling(trialUsed ? 'ctaRegisterTrialUsed' : 'ctaRegister')}
+            {checkoutLoading === 'yearly' ? tBilling('checkoutLoading') : tBilling(trialUsed ? 'ctaRegisterTrialUsed' : 'ctaRegister')}
           </button>
         ) : (
           <Link
