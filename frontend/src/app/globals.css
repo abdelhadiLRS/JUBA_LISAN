@@ -431,6 +431,7 @@ html[data-theme='light'] {
   color:var(--busuu-ink)!important;font-size:12px;text-decoration:none;
 }
 .juba-busuu-locale-options a:hover,.juba-busuu-locale-options a[aria-current=page]{background:var(--busuu-soft);color:var(--busuu-green-dark)!important}
+.juba-busuu-locale-options a:focus-visible{outline:3px solid #1769e8;outline-offset:2px}
 .juba-busuu-menu{display:none}
 
 /* Hero: clean white Busuu-like editorial composition */
