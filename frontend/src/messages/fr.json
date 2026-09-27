@@ -2273,7 +2273,8 @@
           "title": "Hôtel",
           "description": "Réserver une chambre, résoudre des problèmes et faire des demandes."
         }
-      }},
+      }
+  },
   "visitorTranslator": {
     "open": "Ouvrir le traducteur instantané",
     "translate": "Traduire",
