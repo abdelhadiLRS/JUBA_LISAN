@@ -4211,3 +4211,48 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
 .juba-mobile-progress a {
   font-family: inherit !important;
 }
+
+
+/* Progress route refinement — match Dashboard density and Duolingo-style feedback. */
+.juba-mobile-progress {
+  font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif !important;
+}
+.juba-mobile-progress .juba-panel {
+  border:2px solid var(--juba-learning-border) !important;
+  border-radius:22px !important;
+  background:var(--juba-learning-surface) !important;
+  box-shadow:0 4px 0 rgba(0,0,0,.045),0 12px 28px rgba(0,0,0,.035) !important;
+}
+.juba-mobile-progress input,
+.juba-mobile-progress select {
+  min-height:46px !important;
+  border:2px solid var(--juba-learning-border) !important;
+  border-radius:14px !important;
+  background:#fff !important;
+  color:var(--juba-learning-ink) !important;
+  font-family:inherit !important;
+}
+.juba-mobile-progress input:focus,
+.juba-mobile-progress select:focus {
+  border-color:var(--juba-learning-green) !important;
+  box-shadow:0 0 0 4px rgba(88,204,2,.13) !important;
+  outline:none !important;
+}
+.juba-mobile-progress button {
+  font-family:inherit !important;
+  font-weight:900 !important;
+}
+.juba-mobile-progress a {
+  font-weight:800 !important;
+}
+.juba-mobile-progress section:first-child {
+  border-color:var(--juba-learning-green-dark) !important;
+  box-shadow:0 5px 0 var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-progress [role='progressbar'] {
+  transition:width .35s ease !important;
+}
+@media(max-width:767px){
+  .juba-mobile-progress .juba-panel { border-radius:18px !important; }
+  .juba-mobile-progress section:first-child { border-radius:18px !important; }
+}
