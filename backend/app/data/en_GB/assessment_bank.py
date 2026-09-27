@@ -575,7 +575,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         skill="vocabulary",
         difficulty="B1",
         question='The new training programme led to a significant improvement in customer satisfaction. In this context, what does "significant" mean?',
-        options=["tiny", "beautiful", "important", "old"],
+        options=["minor", "considerable", "important", "predictable"],
         correct="important",
     ),
     AssessmentQuestion(
@@ -668,7 +668,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         skill="vocabulary",
         difficulty="B2",
         question='Choose the word closest in meaning to "ambiguous".',
-        options=["clear", "unclear", "dangerous", "boring"],
+        options=["open to several interpretations", "easy to understand", "based on evidence", "deliberately persuasive"],
         correct="unclear",
     ),
     AssessmentQuestion(
@@ -708,7 +708,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         skill="vocabulary",
         difficulty="C1",
         question='The researcher warned that the pernicious effects of misinformation could persist for years. What does "pernicious" mean here?',
-        options=["harmless", "beneficial", "having a harmful effect", "temporary"],
+        options=["causing gradual harm", "providing a useful benefit", "lasting only briefly", "causing immediate damage"],
         correct="having a harmful effect",
     ),
     AssessmentQuestion(
