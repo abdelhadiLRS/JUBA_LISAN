@@ -295,15 +295,30 @@ export default async function Home() {
 
       <section id="benefits" className="juba-busuu-benefits" aria-labelledby="benefits-title">
         <div className="juba-busuu-container">
-          <div className="juba-busuu-heading">
-            <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
-            <h2 id="benefits-title">{t('builtForLearners')}</h2>
+          <div className="juba-busuu-heading juba-busuu-heading-split">
+            <div>
+              <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
+              <h2 id="benefits-title">{t('builtForLearners')}</h2>
+            </div>
+            <p>{t('flowDescription')}</p>
           </div>
           <div className="juba-busuu-benefit-list">
-            <article><BookOpen aria-hidden="true" /><div><h3>{t('feature1Title')}</h3><p>{t('feature1Desc')}</p></div></article>
-            <article><MessageCircle aria-hidden="true" /><div><h3>{t('feature6Title')}</h3><p>{t('feature6Desc')}</p></div></article>
-            <article><Headphones aria-hidden="true" /><div><h3>{t('feature8Title')}</h3><p>{t('feature8Desc')}</p></div></article>
-            <article><Languages aria-hidden="true" /><div><h3>{t('feature7Title')}</h3><p>{t('feature7Desc')}</p></div></article>
+            <article>
+              <BookOpen aria-hidden="true" />
+              <div><span>{t('featureSectionLabel')}</span><h3>{t('feature1Title')}</h3><p>{t('feature1Desc')}</p></div>
+            </article>
+            <article>
+              <MessageCircle aria-hidden="true" />
+              <div><span>{t('flowAiLabel')}</span><h3>{t('feature6Title')}</h3><p>{t('feature6Desc')}</p></div>
+            </article>
+            <article>
+              <Headphones aria-hidden="true" />
+              <div><span>{t('flowVoiceLabel')}</span><h3>{t('feature8Title')}</h3><p>{t('feature8Desc')}</p></div>
+            </article>
+            <article>
+              <Languages aria-hidden="true" />
+              <div><span>{t('languagesEyebrow')}</span><h3>{t('feature7Title')}</h3><p>{t('feature7Desc')}</p></div>
+            </article>
           </div>
         </div>
       </section>
