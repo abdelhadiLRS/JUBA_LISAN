@@ -2230,3 +2230,24 @@ def test_en_gb_a2_comparison_examples_explain_real_choices():
         assert len(entries[word].example.split()) >= 12, word
         for fragment in fragments:
             assert fragment.casefold() in example, word
+
+
+def test_en_gb_a1_public_transport_phrasebook_covers_real_journey_needs():
+    from app.data.en_GB.phrasebook_a1 import A1_CATEGORIES
+
+    category = next(item for item in A1_CATEGORIES if item.id == "public_transport_a1")
+    phrases = {item.text: item for item in category.phrases}
+    expected = [
+        "Where can I buy a ticket?",
+        "A single to [place], please.",
+        "A return to [place], please.",
+        "Which platform does it leave from?",
+        "Does this bus go to [place]?",
+        "Where do I get off?",
+        "Is this seat free?",
+        "What time is the next bus?",
+        "I've missed my stop.",
+        "Is there a delay?",
+    ]
+    assert list(phrases) == expected
+    assert all(item.context and item.register == "neutral" for item in phrases.values())
