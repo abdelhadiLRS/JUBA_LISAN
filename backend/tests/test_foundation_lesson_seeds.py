@@ -1219,3 +1219,22 @@ def test_en_gb_a2_c2_grammar_assessments_use_discriminating_contexts():
         assert phrase.casefold() in question.question.casefold()
         assert len(question.question.split()) >= 12
         assert question.correct in question.options
+
+
+
+def test_en_gb_c1_c2_formal_grammar_assessments_use_context():
+    """Advanced formal grammar should be assessed through realistic academic or institutional situations."""
+    from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+    questions = {question.id: question for question in ASSESSMENT_BANK}
+    expected = {
+        "g-c1-003": "reviewing the safety report",
+        "g-c1-004": "witness statements and financial records",
+        "g-c2-003": "conference rules state that attendance is mandatory",
+        "g-c2-004": "conflicting results",
+    }
+    for question_id, phrase in expected.items():
+        question = questions[question_id]
+        assert phrase.casefold() in question.question.casefold()
+        assert len(question.question.split()) >= 14
+        assert question.correct in question.options
