@@ -260,3 +260,26 @@ def test_en_gb_vocabulary_has_no_exact_duplicate_entries_within_level():
 
     assert not duplicates, "Exact within-level duplicates: " + ", ".join(duplicates)
 \n
+
+
+def test_c1_formal_writing_prioritises_high_utility_language():
+    """C1 formal writing should favour broadly useful formal language over archaic legalese."""
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+
+    formal = next(v for v in C1_SETS if v.id == "formal_writing_c1")
+    words = {entry.word.casefold() for entry in formal.words}
+
+    for word in {"hitherto", "inasmuch as", "thereof", "aforesaid"}:
+        assert word not in words
+    for word in {"subsequently", "subject to", "consequently", "prior to"}:
+        assert word in words
+
+
+def test_c1_idioms_avoid_redundant_fence_variants():
+    """Keep one high-utility expression for indecision rather than teaching near-duplicates."""
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+
+    idioms = next(v for v in C1_SETS if v.id == "idioms_c1")
+    words = {entry.word.casefold() for entry in idioms.words}
+    assert "on the fence" in words
+    assert "sit on the fence" not in words
