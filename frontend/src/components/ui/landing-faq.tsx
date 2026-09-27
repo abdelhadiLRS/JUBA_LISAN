@@ -79,7 +79,7 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
         return (
           <div
             key={key}
-            className={`rounded-2xl border-2 border-[var(--juba-app-ink)] bg-white transition-all duration-200 ${
+            className={`juba-landing-faq-item rounded-2xl border transition-all duration-200 ${
               isOpen
                 ? 'shadow-[5px_5px_0_var(--juba-app-ink)] bg-[#fcfbf7]'
                 : 'shadow-[3px_3px_0_var(--juba-app-ink)] hover:translate-x-0.5 hover:translate-y-0.5'
@@ -89,19 +89,19 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
               type="button"
               onClick={() => setOpen(isOpen ? null : i)}
               aria-expanded={isOpen}
-              className="flex w-full items-center justify-between p-5 text-start font-black text-base text-[var(--juba-app-ink)]"
+              className="juba-landing-faq-question flex w-full items-center justify-between p-5 text-start font-black text-base"
             >
               <span className="pr-4">{t(key)}</span>
               <span
-                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--juba-app-ink)] bg-[var(--juba-app-green-soft)] transition-transform duration-200 ${
-                  isOpen ? 'rotate-180 bg-[var(--juba-app-yellow)]' : ''
+                className={`juba-landing-faq-icon flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-transform duration-200 ${
+                  isOpen ? 'rotate-180' : ''
                 }`}
               >
                 <ChevronDown className="h-4 w-4 text-[var(--juba-app-ink)]" />
               </span>
             </button>
             {isOpen && (
-              <div className="border-t-2 border-[var(--juba-app-line)] px-5 pt-4 pb-6 text-sm font-medium leading-7 text-[var(--juba-app-muted)] animate-in fade-in duration-150">
+              <div className="juba-landing-faq-answer border-t px-5 pt-4 pb-6 text-sm font-medium leading-7 animate-in fade-in duration-150">
                 {renderAnswer(key)}
               </div>
             )}
