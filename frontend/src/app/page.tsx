@@ -448,7 +448,7 @@ export default async function Home() {
       )}
 
       {/* REAL PRICING — existing billing/API data is untouched. */}
-      <section id="pricing" className="juba-ref-pricing">
+      <div id="pricing" className="juba-ref-pricing">
         <PricingSection
           stripeEnabled={stripeEnabled}
           trialDays={trialDays}
@@ -458,7 +458,7 @@ export default async function Home() {
           totalPriceMonthly={totalPriceMonthly}
           totalPriceYearly={totalPriceYearly}
         />
-      </section>
+      </div>
 
       <section className="juba-ref-cta">
         <div className="juba-ref-cta-inner">
