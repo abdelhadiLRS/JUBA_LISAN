@@ -214,8 +214,13 @@ export function LandingNav({
         </button>
       </div>
 
-      {open && (
-        <div ref={menuRef} id="juba-busuu-mobile-menu" className="juba-busuu-mobile-menu">
+      <div
+        ref={menuRef}
+        id="juba-busuu-mobile-menu"
+        className="juba-busuu-mobile-menu"
+        hidden={!open}
+        aria-hidden={!open}
+      >
           <nav aria-label={primaryNavigation}>
             {links.map((link) => (
               <a key={link.href + link.label} href={link.href} onClick={() => close(link.href)}>
@@ -249,8 +254,7 @@ export function LandingNav({
               ))}
             </nav>
           </div>
-        </div>
-      )}
+      </div>
     </header>
   )
 }
