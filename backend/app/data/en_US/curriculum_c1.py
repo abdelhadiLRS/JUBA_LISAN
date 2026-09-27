@@ -12,7 +12,7 @@ C1_UNITS: list[CurriculumUnit] = [
         title="Mixed Conditionals & Speculation",
         grammar_points=["mixed-conditionals", "hedging-language", "word-formation"],
         vocabulary_set_ids=["abstract_concepts_c1"],
-        lesson_types=["grammar", "reading", "writing", "listening", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Construct mixed conditional sentences combining past and present time frames.",
             "Speculate about past events and their present consequences.",
@@ -30,7 +30,7 @@ C1_UNITS: list[CurriculumUnit] = [
         title="Participle Clauses",
         grammar_points=["participle-clauses", "word-formation"],
         vocabulary_set_ids=["advanced_verbs_c1"],
-        lesson_types=["grammar", "reading", "writing", "listening", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Use present and past participle clauses to reduce relative clauses.",
             "Replace adverbial clauses with participial equivalents for conciseness.",
@@ -48,7 +48,7 @@ C1_UNITS: list[CurriculumUnit] = [
         title="Hedging & Formal Register",
         grammar_points=["hedging-language", "ellipsis-substitution", "inversion"],
         vocabulary_set_ids=["formal_writing_c1"],
-        lesson_types=["grammar", "reading", "writing", "listening", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Hedge claims appropriately in academic and professional writing.",
             "Use formal connectors and discourse phrases accurately.",
@@ -66,7 +66,7 @@ C1_UNITS: list[CurriculumUnit] = [
         title="Emphasis: Inversion & Cleft Sentences",
         grammar_points=["inversion", "cleft-sentences"],
         vocabulary_set_ids=["idioms_c1"],
-        lesson_types=["grammar", "reading", "writing", "listening", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Use subject–auxiliary inversion after negative and restrictive adverbials.",
             "Construct it-cleft and wh-cleft sentences for emphasis.",
@@ -88,7 +88,7 @@ C1_UNITS: list[CurriculumUnit] = [
             "participle-clauses",
         ],
         vocabulary_set_ids=["academic_discourse_c1"],
-        lesson_types=["grammar", "reading", "writing", "listening", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Apply ellipsis and substitution to avoid repetition in formal writing.",
             "Use academic cohesion vocabulary to link arguments across paragraphs.",
@@ -106,7 +106,7 @@ C1_UNITS: list[CurriculumUnit] = [
         title="Advanced Relative Clauses, Critical Thinking & Phrasal Verbs",
         grammar_points=["advanced-relative-clauses", "phrasal-verbs-c1"],
         vocabulary_set_ids=["critical_thinking_c1"],
-        lesson_types=["grammar", "reading", "writing", "listening", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Use non-defining, sentential, and reduced relative clauses correctly.",
             "Master formal and advanced phrasal verbs (bring about, stem from, rule out).",
@@ -124,7 +124,7 @@ C1_UNITS: list[CurriculumUnit] = [
         title="Argumentation & Rhetoric",
         grammar_points=["hedging-language", "inversion"],
         vocabulary_set_ids=["debate_rhetoric_c1"],
-        lesson_types=["grammar", "reading", "writing", "listening", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Build a persuasive argument using assertion, evidence, and refutation.",
             "Employ rhetorical devices (inversion, concession, emphasis) in speeches.",
@@ -154,7 +154,7 @@ C1_UNITS: list[CurriculumUnit] = [
             "academic_discourse_c1",
             "debate_rhetoric_c1",
         ],
-        lesson_types=["grammar", "reading", "writing", "listening", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Produce a sustained piece of formal writing integrating all C1 grammar structures.",
             "Demonstrate flexible control of register in both formal and semi-formal contexts.",
