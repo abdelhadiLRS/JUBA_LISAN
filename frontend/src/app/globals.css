@@ -3040,7 +3040,6 @@ body .juba-reference-page .juba-practical-card>svg{width:22px!important;height:2
 @media(prefers-reduced-motion:reduce){.juba-reference-page .juba-benefit-card{transition:none!important}}
 
 
-/* JUBA LISAN LANDING — complete Busuu-style visual system. This is the only visual system used by the public landing page. */
 .juba-busuu-landing{
   --busuu-green:#00a86b;
   --busuu-green-dark:#087a50;
