@@ -19,3 +19,5 @@
 - Added a B1 vocabulary schema/content regression check covering valid parts of speech and non-empty definitions/examples.
 - Refined B2 vocabulary definitions and examples for stronger semantic precision, collocation context, register awareness, and practical learner usage.
 - Added a B2 vocabulary schema/content regression check covering valid parts of speech and non-empty definitions/examples.
+- Refined C1 vocabulary for semantic precision, advanced collocations, formal register, and consistent British-English spelling.
+- Added a C1 vocabulary schema/content regression check covering valid parts of speech and non-empty definitions/examples.
