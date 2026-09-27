@@ -2240,3 +2240,28 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
     max-height:290px!important;
   }
 }
+
+/* Landing — practical language directory density */
+.juba-reference-page .juba-practical-language-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:12px!important;
+}
+.juba-reference-page .juba-practical-language-card{
+  min-width:0!important;
+  min-height:70px!important;
+}
+@media(max-width:900px){
+  .juba-reference-page .juba-practical-language-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:600px){
+  .juba-reference-page .juba-practical-language-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  .juba-reference-page .juba-practical-language-card{
+    min-height:66px!important;
+    padding:11px!important;
+  }
+}
