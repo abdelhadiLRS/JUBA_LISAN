@@ -3346,3 +3346,48 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
   .juba-admin-shell .juba-admin-nav{overflow-x:auto;flex-wrap:nowrap}
   .juba-admin-shell .juba-admin-nav-item{flex:none}
 }
+
+.juba-admin-users-shell,.juba-admin-feedback-shell,.juba-admin-reviews-shell,.juba-admin-system-shell{
+  color:var(--juba-learning-ink)!important;
+  font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif!important;
+}
+.juba-admin-users-shell .juba-admin-nav,.juba-admin-feedback-shell .juba-admin-nav,
+.juba-admin-reviews-shell .juba-admin-nav,.juba-admin-system-shell .juba-admin-nav{
+  border-color:var(--juba-learning-border)!important;background:#fff!important;
+  box-shadow:0 4px 0 rgba(0,0,0,.05)!important;
+}
+.juba-admin-users-shell .juba-admin-nav-item,.juba-admin-feedback-shell .juba-admin-nav-item,
+.juba-admin-reviews-shell .juba-admin-nav-item,.juba-admin-system-shell .juba-admin-nav-item{
+  border-left:0!important;border-radius:12px!important;
+}
+.juba-admin-users-shell button[class*="bg-[#5862e2]"],
+.juba-admin-feedback-shell button[class*="bg-[#5862e2]"],
+.juba-admin-reviews-shell button[class*="bg-[#5862e2]"],
+.juba-admin-system-shell button[class*="bg-[#5862e2]"]{
+  background:var(--juba-learning-green)!important;
+  border:2px solid var(--juba-learning-green-dark)!important;
+  border-radius:12px!important;
+  box-shadow:0 3px 0 var(--juba-learning-green-dark)!important;
+}
+.juba-admin-users-shell button[class*="bg-[#5862e2]"]:hover,
+.juba-admin-feedback-shell button[class*="bg-[#5862e2]"]:hover,
+.juba-admin-reviews-shell button[class*="bg-[#5862e2]"]:hover,
+.juba-admin-system-shell button[class*="bg-[#5862e2]"]:hover{
+  background:var(--juba-learning-green-dark)!important;
+}
+.juba-admin-users-shell input,.juba-admin-users-shell select,.juba-admin-users-shell textarea,
+.juba-admin-feedback-shell input,.juba-admin-feedback-shell select,.juba-admin-feedback-shell textarea,
+.juba-admin-reviews-shell input,.juba-admin-reviews-shell select,.juba-admin-reviews-shell textarea,
+.juba-admin-system-shell input,.juba-admin-system-shell select,.juba-admin-system-shell textarea{
+  border-color:var(--juba-learning-border)!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  color:var(--juba-learning-ink)!important;
+}
+.juba-admin-users-shell input:focus,.juba-admin-users-shell select:focus,.juba-admin-users-shell textarea:focus,
+.juba-admin-feedback-shell input:focus,.juba-admin-feedback-shell select:focus,.juba-admin-feedback-shell textarea:focus,
+.juba-admin-reviews-shell input:focus,.juba-admin-reviews-shell select:focus,.juba-admin-reviews-shell textarea:focus,
+.juba-admin-system-shell input:focus,.juba-admin-system-shell select:focus,.juba-admin-system-shell textarea:focus{
+  outline:0!important;border-color:var(--juba-learning-green)!important;
+  box-shadow:0 0 0 3px rgba(88,204,2,.12)!important;
+}
