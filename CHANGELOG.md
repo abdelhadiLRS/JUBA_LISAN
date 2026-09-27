@@ -4,6 +4,7 @@
 # Changelog
 
 ## [Unreleased]
+- Strengthened additional en-GB A2–C2 vocabulary assessment prompts with realistic situations and contextual inference, reducing isolated definition-style questions; added regression coverage.
 - Strengthened 39 B2 vocabulary entries with concrete, reusable contexts across academic, workplace, media, research, industry, and news domains; added regression coverage for contextual example quality.
 - Deepened ten intentional B1→B2 vocabulary overlaps (`alternative`, `coverage`, `efficient`, `evidence`, `manufacture`, `meanwhile`, `outcome`, `renewable`, `sustainable`, `regret`) with more specific professional, media, production, environmental, and decision-making contexts, plus regression coverage for meaningful progression.
 - Strengthened B2 vocabulary progression with more contextual professional/analytical examples and removed a duplicate `implication` entry sharing the same noun headword and part of speech.
