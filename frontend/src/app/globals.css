@@ -857,3 +857,9 @@ html[data-theme='light'] {
 .juba-mobile-progress section>div[class*="bg-\[var\(--juba-app-bg"]{background:#f8faf7!important;border-color:#e5e7eb!important}
 .juba-mobile-progress .juba-panel a{color:#58a700!important}
 @media(max-width:600px){.juba-mobile-progress{width:calc(100% - 20px)!important;padding:18px 0 56px!important}.juba-mobile-progress>section:first-child{padding:22px!important}.juba-mobile-progress>section:first-child h1{font-size:30px!important}}
+
+
+.juba-busuu-testimonial-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.juba-busuu-testimonial-meta span:first-child{color:#f2b01e;font-size:13px;letter-spacing:.08em;line-height:1}
+.juba-busuu-testimonial-meta span:last-child{color:var(--busuu-muted);font-size:12px;font-weight:800}
+@media(max-width:600px){.juba-busuu-testimonial-meta{align-items:flex-start;flex-direction:column;gap:7px}}
