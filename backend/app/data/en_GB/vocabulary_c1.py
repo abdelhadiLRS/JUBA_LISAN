@@ -20,7 +20,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="paradigm",
                 pos="noun",
-                definition="A typical example or model; a framework of thought.",
+                definition="A widely used model or framework for understanding or describing something.",
                 example="This discovery shifted the scientific paradigm.",
                 ipa="/ˈpærədaɪm/",
                 frequency_rank=460,
@@ -28,7 +28,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="nuance",
                 pos="noun",
-                definition="A subtle difference in meaning or expression.",
+                definition="A small but important difference in meaning, expression, or effect.",
                 example="You need to appreciate the nuances of the language.",
                 ipa="/ˈnjuːɑːns/",
                 frequency_rank=470,
@@ -36,7 +36,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="integrity",
                 pos="noun",
-                definition="The quality of being honest and having strong principles.",
+                definition="The quality of being honest and guided by strong moral principles.",
                 example="Her integrity is beyond question.",
                 ipa="/ɪnˈteɡrɪti/",
                 frequency_rank=320,
@@ -60,7 +60,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="scrutiny",
                 pos="noun",
-                definition="Close and detailed examination.",
+                definition="Very careful and detailed examination, especially of something that may contain problems.",
                 example="The policy came under public scrutiny.",
                 ipa="/ˈskruːtɪni/",
                 frequency_rank=410,
@@ -68,7 +68,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="autonomy",
                 pos="noun",
-                definition="The right or condition of self-government.",
+                definition="The right or ability to make decisions independently, without external control.",
                 example="The region was granted greater autonomy.",
                 ipa="/ɔːˈtɑːnəmi/",
                 frequency_rank=400,
@@ -84,7 +84,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="legacy",
                 pos="noun",
-                definition="Something handed down from an earlier time.",
+                definition="Something valuable, influential, or significant passed on from an earlier period.",
                 example="The project left a lasting legacy.",
                 ipa="/ˈleɡəsi/",
                 frequency_rank=310,
@@ -92,7 +92,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="magnitude",
                 pos="noun",
-                definition="The great size or importance of something.",
+                definition="The size, extent, or importance of something, especially when it is difficult to measure precisely.",
                 example="We underestimated the magnitude of the problem.",
                 ipa="/ˈmæɡnɪtuːd/",
                 frequency_rank=395,
@@ -100,7 +100,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="precedent",
                 pos="noun",
-                definition="An earlier event used as a guide for future situations.",
+                definition="An earlier case, decision, or action that may be used as a guide in a later similar situation.",
                 example="The ruling set an important precedent.",
                 ipa="/ˈpresɪdənt/",
                 frequency_rank=380,
@@ -116,7 +116,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="impetus",
                 pos="noun",
-                definition="The force or energy that makes something happen.",
+                definition="A force or influence that gives someone or something the impetus to act or develop.",
                 example="The crisis provided the impetus for reform.",
                 ipa="/ˈɪmpɪtəs/",
                 frequency_rank=370,
@@ -124,7 +124,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="catalyst",
                 pos="noun",
-                definition="A person or thing that precipitates change.",
+                definition="A person, event, or development that causes a change or starts a process.",
                 example="Her speech was the catalyst for the movement.",
                 ipa="/ˈkætəlɪst/",
                 frequency_rank=420,
@@ -132,7 +132,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="manifestation",
                 pos="noun",
-                definition="A tangible or visible form of an idea or feeling.",
+                definition="A visible, physical, or practical expression of an idea, quality, or feeling.",
                 example="The protest was a manifestation of public anger.",
                 ipa="/ˌmænɪfesˈteɪʃən/",
                 frequency_rank=450,
@@ -156,7 +156,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="fallout",
                 pos="noun",
-                definition="The adverse results of a situation or action.",
+                definition="The negative effects or consequences that follow an event, decision, or action.",
                 example="The political fallout from the scandal was severe.",
                 ipa="/ˈfɔːlaʊt/",
                 frequency_rank=410,
@@ -172,8 +172,8 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="alleviate",
                 pos="verb",
-                definition="To make something less severe.",
-                example="The medicine alleviates pain quickly.",
+                definition="To reduce the severity, intensity, or harmful effects of something.",
+                example="The new measures are intended to alleviate pressure on the health service.",
                 ipa="/əˈliːvieɪt/",
                 frequency_rank=460,
             ),
@@ -204,15 +204,15 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="advocate",
                 pos="verb",
-                definition="To publicly support or recommend.",
-                example="She advocates for better education.",
+                definition="To publicly support a particular idea, policy, or course of action.",
+                example="She advocates better access to education in rural areas.",
                 ipa="/ˈædvəkeɪt/",
                 frequency_rank=340,
             ),
             VocabularyEntry(
                 word="mitigate",
                 pos="verb",
-                definition="To make something less harmful or serious.",
+                definition="To reduce the harmful or serious effects of something.",
                 example="Steps were taken to mitigate the risks.",
                 ipa="/ˈmɪtɪɡeɪt/",
                 frequency_rank=410,
@@ -228,7 +228,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="perpetuate",
                 pos="verb",
-                definition="To make something continue indefinitely.",
+                definition="To cause a situation, belief, or practice to continue, especially when it is undesirable.",
                 example="Stereotypes can perpetuate discrimination.",
                 ipa="/pərˈpetʃueɪt/",
                 frequency_rank=450,
@@ -244,7 +244,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="reconcile",
                 pos="verb",
-                definition="To make two conflicting things compatible.",
+                definition="To make two ideas, demands, or situations that seem incompatible exist together.",
                 example="It is hard to reconcile these two views.",
                 ipa="/ˈrekənsaɪl/",
                 frequency_rank=430,
@@ -260,7 +260,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="epitomise",
                 pos="verb",
-                definition="To be a perfect example of.",
+                definition="To be a very typical or outstanding example of a particular quality or type.",
                 example="This building epitomises modern design.",
                 ipa="/ɪˈpɪtəmaɪz/",
                 frequency_rank=490,
@@ -276,7 +276,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="circumvent",
                 pos="verb",
-                definition="To find a way around an obstacle or rule.",
+                definition="To avoid a problem, restriction, or rule, often by finding an indirect way of achieving something.",
                 example="They tried to circumvent the regulations.",
                 ipa="/ˌsɜːrkəmˈvent/",
                 frequency_rank=440,
@@ -308,7 +308,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="instigate",
                 pos="verb",
-                definition="To bring about or initiate an action or event.",
+                definition="To deliberately cause an action or event to begin, especially something controversial or undesirable.",
                 example="The report instigated a thorough investigation.",
                 ipa="/ˈɪnstɪɡeɪt/",
                 frequency_rank=440,
@@ -316,7 +316,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="relinquish",
                 pos="verb",
-                definition="To voluntarily give up or let go of something.",
+                definition="To give up control, a right, or possession, usually reluctantly or voluntarily.",
                 example="He relinquished control of the company.",
                 ipa="/rɪˈlɪŋkwɪʃ/",
                 frequency_rank=430,
@@ -519,7 +519,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="hitherto",
                 pos="adverb",
-                definition="Until now; before this point.",
+                definition="Until the time being discussed; until then.",
                 example="Hitherto, no solution had been found.",
                 ipa="/ˌhɪðəˈtuː/",
                 frequency_rank=480,
@@ -534,7 +534,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="thereof",
                 pos="adverb",
-                definition="Of the thing just mentioned.",
+                definition="Of, from, or relating to the thing or subject just mentioned.",
                 example="The contract and all obligations thereof remain in force.",
                 ipa="/ðeərˈɑːv/",
                 frequency_rank=490,
@@ -564,14 +564,14 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="hereby",
                 pos="adverb",
-                definition="As a result of this document or statement; by this means.",
+                definition="By this document, statement, or action.",
                 example="I hereby declare the meeting open.",
                 ipa="/ˌhɪərˈbaɪ/",
             ),
             VocabularyEntry(
                 word="therein",
                 pos="adverb",
-                definition="In that place, document, or respect.",
+                definition="In that place, document, or matter just mentioned.",
                 example="The contract and all provisions contained therein.",
                 ipa="/ˌðeərˈɪn/",
             ),
@@ -594,7 +594,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="purport",
                 pos="verb",
-                definition="To claim or appear to be something, often falsely.",
+                definition="To claim or appear to be something, especially without necessarily proving that the claim is true.",
                 example="The document purports to prove his innocence.",
                 ipa="/pərˈpɔːrt/",
                 frequency_rank=470,
@@ -610,7 +610,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="whereby",
                 pos="adverb",
-                definition="By which; through which.",
+                definition="By which means or through which process.",
                 example="A system whereby complaints are addressed promptly.",
                 ipa="/weərˈbaɪ/",
                 frequency_rank=390,
@@ -626,7 +626,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="contention",
                 pos="noun",
-                definition="A point asserted as part of an argument.",
+                definition="A claim or position that someone argues for or maintains.",
                 example="My central contention is that this policy is ineffective.",
                 ipa="/kənˈtenʃən/",
                 frequency_rank=410,
@@ -650,7 +650,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="corroborate",
                 pos="verb",
-                definition="To confirm or give support to a statement.",
+                definition="To provide evidence that confirms or supports a statement, theory, or account.",
                 example="The witness corroborated the account.",
                 ipa="/kəˈrɑːbəreɪt/",
                 frequency_rank=460,
@@ -658,7 +658,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="refute",
                 pos="verb",
-                definition="To prove a statement or theory to be wrong.",
+                definition="To show, using evidence or reasoning, that a statement or theory is false or incorrect.",
                 example="The study sought to refute the earlier findings.",
                 ipa="/rɪˈfjuːt/",
                 frequency_rank=430,
@@ -666,7 +666,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="extrapolate",
                 pos="verb",
-                definition="To extend conclusions beyond the data available.",
+                definition="To estimate or infer values or conclusions beyond the range of the available data.",
                 example="We should not extrapolate these findings to the whole population.",
                 ipa="/ɪkˈstræpəleɪt/",
                 frequency_rank=490,
@@ -674,7 +674,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="caveat",
                 pos="noun",
-                definition="A warning or qualification about a statement.",
+                definition="A condition, limitation, or warning that should be considered when interpreting a statement.",
                 example="With the caveat that more research is needed, we can conclude...",
                 ipa="/ˈkæviæt/",
                 frequency_rank=450,
@@ -794,7 +794,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="fallacy",
                 pos="noun",
-                definition="A mistaken belief based on unsound reasoning.",
+                definition="An error in reasoning that makes an argument logically unsound or misleading.",
                 example="This is a common logical fallacy.",
                 ipa="/ˈfæləsi/",
                 frequency_rank=420,
@@ -802,7 +802,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="perception",
                 pos="noun",
-                definition="The way something is understood or interpreted.",
+                definition="The way a person or group understands, interprets, or views something.",
                 example="Public perception of the issue has shifted.",
                 ipa="/pərˈsepʃən/",
                 frequency_rank=295,
@@ -818,7 +818,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="subjectivity",
                 pos="noun",
-                definition="The quality of being based on personal feelings rather than facts.",
+                definition="The influence of personal feelings, experiences, or preferences on judgement or interpretation.",
                 example="Artistic judgements are prone to subjectivity.",
                 ipa="/ˌsʌbdʒekˈtɪvɪti/",
                 frequency_rank=450,
@@ -832,9 +832,9 @@ C1_SETS: list[VocabularySet] = [
                 frequency_rank=240,
             ),
             VocabularyEntry(
-                word="skeptical",
+                word="sceptical",
                 pos="adjective",
-                definition="Not easily convinced; having doubts.",
+                definition="Not easily convinced that something is true or reliable; having doubts.",
                 example="I am skeptical of these results.",
                 ipa="/ˈskeptɪkəl/",
                 frequency_rank=390,
@@ -880,7 +880,7 @@ C1_SETS: list[VocabularySet] = [
                 frequency_rank=430,
             ),
             VocabularyEntry(
-                word="scrutinize",
+                word="scrutinise",
                 pos="verb",
                 definition="To examine something very carefully.",
                 example="We must scrutinize the data before drawing conclusions.",
