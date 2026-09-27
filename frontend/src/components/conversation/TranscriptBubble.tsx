@@ -73,15 +73,15 @@ export default function TranscriptBubble({
       </div>
 
       <div
-        className={`flex max-w-[75%] flex-col gap-1 ${isUser ? 'items-end' : 'items-start'}`}
+        className={`flex max-w-[85%] flex-col gap-1 sm:max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}
       >
-        <span className="text-[#68736d] font-sans tracking-widest uppercase">
+        <span className="text-[#68736d] font-sans text-[11px] font-bold tracking-wide uppercase">
           {isUser ? t('you') : t('assistant')}
         </span>
         <TargetLanguageText
           as="div"
           languageCode={languageCode}
-          className={`rounded-[18px] border px-4 py-3 shadow-[0_4px_14px_rgba(31,41,51,.06)] ${
+          className={`rounded-2xl border px-4 py-3 leading-relaxed break-words shadow-[0_4px_14px_rgba(31,41,51,.06)] ${
             isUser
               ? 'bg-[#58a700] text-white border-[#438600]'
               : 'bg-white text-[#30343b] border-[#e1e5e2]'
