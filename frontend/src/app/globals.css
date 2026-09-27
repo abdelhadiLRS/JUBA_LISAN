@@ -1715,3 +1715,69 @@ html[dir='rtl'] body {
   .juba-chat-composer { padding: 10px !important; }
   .juba-chat-composer .juba-primary-button { min-width: 48px !important; padding-inline: 12px !important; }
 }
+
+
+/* Listening — JUBA LISAN learning-practice surface. */
+.juba-mobile-listening {
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-mobile-listening .juba-panel {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 20px !important;
+  background: #fff !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+.juba-mobile-listening > .flex.items-start.justify-between {
+  padding: 4px 2px 2px !important;
+}
+.juba-mobile-listening h1 {
+  color: var(--juba-learning-ink) !important;
+  font-weight: 900 !important;
+  letter-spacing: -.025em !important;
+}
+.juba-mobile-listening button:not(.juba-primary-button):not(.juba-secondary-button) {
+  font-weight: 800 !important;
+}
+.juba-mobile-listening .juba-primary-button {
+  min-height: 50px !important;
+  border-color: var(--juba-learning-green-dark) !important;
+  background: var(--juba-learning-green) !important;
+  box-shadow: 0 4px 0 var(--juba-learning-green-dark) !important;
+  color: #fff !important;
+}
+.juba-mobile-listening .juba-secondary-button {
+  border-color: var(--juba-learning-border) !important;
+  background: #fff !important;
+}
+.juba-mobile-listening .border-\[var\(--juba-lilac\)\] {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-mobile-listening .bg-\[var\(--juba-lilac\)\] {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-listening .border-\[var\(--juba-violet-dark\)\] {
+  border-color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-listening .text-\[var\(--juba-violet-dark\)\] {
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-listening .border-2.rounded-2xl {
+  min-height: 52px !important;
+  border-width: 2px !important;
+  border-radius: 15px !important;
+  background: #fff !important;
+  font-weight: 750 !important;
+}
+.juba-mobile-listening .border-2.rounded-2xl:hover {
+  border-color: var(--juba-learning-blue) !important;
+  background: #f4fbff !important;
+}
+.juba-mobile-listening .juba-panel .font-mono {
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+@media (max-width: 767px) {
+  .juba-mobile-listening { padding-bottom: 86px !important; }
+  .juba-mobile-listening .juba-panel { border-radius: 18px !important; padding: 16px !important; }
+  .juba-mobile-listening .border-2.rounded-2xl { min-height: 50px !important; }
+}
