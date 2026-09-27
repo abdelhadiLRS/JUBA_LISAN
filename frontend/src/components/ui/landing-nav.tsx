@@ -116,19 +116,12 @@ export function LandingNav({
     return () => document.removeEventListener('pointerdown', handlePointerDown)
   }, [])
 
-  const localeOptions: Array<[Locale, string]> = [
-    ['en', 'English'],
-    ['ar', 'العربية'],
-    ['es', 'Español'],
-    ['fr', 'Français'],
-    ['pt', 'Português'],
-    ['de', 'Deutsch'],
-    ['it', 'Italiano'],
-    ['pl', 'Polski'],
-    ['nl', 'Nederlands'],
-    ['ro', 'Română'],
-    ['ru', 'Русский'],
-  ]
+  const localeCodes: Locale[] = ['en', 'ar', 'es', 'fr', 'pt', 'de', 'it', 'pl', 'nl', 'ro', 'ru']
+  const localeDisplayNames = new Intl.DisplayNames([locale], { type: 'language' })
+  const localeOptions: Array<[Locale, string]> = localeCodes.map((code) => [
+    code,
+    localeDisplayNames.of(code) ?? code.toUpperCase(),
+  ])
 
   const links = [
     { href: '#features', label: navFeatures },
