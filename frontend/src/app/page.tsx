@@ -310,7 +310,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <LandingFooter t={t} dir={rtl ? 'rtl' : 'ltr'} locale={locale as Locale} showReviews={reviews.length > 0} />
+      <LandingFooter t={t} hasSession={hasSession} dir={rtl ? 'rtl' : 'ltr'} locale={locale as Locale} showReviews={reviews.length > 0} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </main>
   )
