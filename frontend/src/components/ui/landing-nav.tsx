@@ -177,7 +177,7 @@ export function LandingNav({
             >
               {hasSession ? dashboard : getStarted}
             </Link>
-            <div className="juba-busuu-mobile-locales">
+            <nav className="juba-busuu-mobile-locales" aria-label={navLanguages}>
               {localeOptions.map(([code, label]) => (
                 <Link
                   key={code}
@@ -190,7 +190,7 @@ export function LandingNav({
                   {label}
                 </Link>
               ))}
-            </div>
+            </nav>
           </div>
         </div>
       )}
