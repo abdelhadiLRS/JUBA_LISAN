@@ -396,3 +396,26 @@ def test_en_gb_c2_has_no_duplicate_headword_and_part_of_speech():
                 seen[key] = vocabulary_set.id
 
     assert not duplicates, "Duplicate C2 headwords: " + ", ".join(duplicates)
+
+
+def test_en_gb_c1_core_examples_teach_collocations_and_real_context():
+    """Selected C1 examples should expose useful collocations and realistic contexts."""
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+
+    entries = {entry.word: entry for vocab_set in C1_SETS for entry in vocab_set.words}
+    expected_contexts = {
+        "resilience": "essential services within weeks of the flood",
+        "scrutiny": "regulatory scrutiny",
+        "magnitude": "magnitude of the housing shortage",
+        "precedent": "set a precedent",
+        "conundrum": "limited infrastructure",
+        "impetus": "fresh impetus",
+        "exacerbate": "financial pressure on smaller firms",
+        "encompass": "long-term sustainability",
+        "mitigate": "risk of delays",
+        "perpetuate": "perpetuate misconceptions",
+        "disseminate": "open-access report",
+        "instigate": "procurement process",
+    }
+    for word, phrase in expected_contexts.items():
+        assert phrase.casefold() in entries[word].example.casefold()
