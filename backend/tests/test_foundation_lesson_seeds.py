@@ -2178,3 +2178,20 @@ def test_en_gb_a2_travel_definitions_distinguish_ticket_delay_platform_destinati
     for word, phrase in expected.items():
         assert phrase in entries[word].definition.lower()
 
+
+
+def test_en_gb_a2_currency_and_health_examples_are_contextual():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {word.word: word for group in A2_SETS for word in group.words}
+    expected = {
+        "exchange rate": ["how many euros", "£100"],
+        "sneeze": ["dusty cupboard", "let the dust settle"],
+        "dizzy": ["carousel stopped", "spinning feeling passed"],
+    }
+    for word, fragments in expected.items():
+        example = entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 12
+        for fragment in fragments:
+            assert fragment.casefold() in example, word
+
