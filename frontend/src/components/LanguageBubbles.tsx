@@ -53,13 +53,9 @@ export const SUPPORTED_LANGUAGE_COUNT = LANGUAGES.length
 
 export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   return (
-    <div
-      dir={dir}
-      aria-label={dir === 'rtl' ? 'اللغات المتاحة في جوبا لسان' : 'Languages available in JUBA LISAN'}
-      className="juba-busuu-language-list"
-    >
+    <ul dir={dir} className="juba-busuu-language-list">
       {LANGUAGES.map((language) => (
-        <div key={language.code} className="juba-busuu-language-item">
+        <li key={language.code} className="juba-busuu-language-item">
           <Image
             src={`https://flagcdn.com/w80/${language.country}.png`}
             alt={`${language.alt} flag`}
@@ -68,8 +64,8 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
             unoptimized
           />
           <span lang={language.code} dir="auto">{language.name}</span>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
