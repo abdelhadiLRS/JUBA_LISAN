@@ -40,7 +40,34 @@ CurriculumUnit(id="no-a1-unit-6",level="A1",unit_number=6,title="Food and drink"
 CurriculumUnit(id="no-a1-unit-7",level="A1",unit_number=7,title="Places and location",grammar_points=["places-a1"],vocabulary_set_ids=["places_a1"],lesson_types=["grammar","vocabulary","speaking","listening","reading","writing","review"],competency_checklist=["Recognize the target pattern","Use it in a short exchange","Complete a controlled production task"],default_weeks=1),
 CurriculumUnit(id="no-a1-unit-8",level="A1",unit_number=8,title="A1 review and interaction",grammar_points=["review-a1"],vocabulary_set_ids=["review_a1"],lesson_types=["grammar","vocabulary","speaking","listening","reading","writing","review"],competency_checklist=["Recognize the target pattern","Use it in a short exchange","Complete a controlled production task"],default_weeks=1),
 ]
- else: CURRICULUM[level]=[CurriculumUnit(id=f"no-{level.lower()}-unit-1",level=level,unit_number=1,title=f"Norwegian {level} communication",grammar_points=["progressive grammar and communication"],vocabulary_set_ids=["greetings_a1"],lesson_types=["grammar","vocabulary","reading","writing","review"],competency_checklist=["Build level-appropriate communication"],default_weeks=2)]
+ else:
+  themes = {
+   "A2":["Reiser og transport","Helse og avtaler","Arbeid og rutiner","Byliv","Planer","Sammenligning","Erfaringer","Hverdagsvalg"],
+   "B1":["Utdanning og mål","Arbeid og erfaring","Miljø og løsninger","Medier og informasjon","Samfunn","Kommunikasjon","Problemløsning","B1-repetisjon"],
+   "B2":["Argumentasjon","Arbeidsliv og teknologi","Medier og kildekritikk","Økonomi","Samfunn og politikk","Kultur og identitet","Profesjonell kommunikasjon","B2-repetisjon"],
+   "C1":["Akademisk argumentasjon","Forskningsmetode","Institusjonelt språk","Arbeidsliv","Kilde og evidens","Retorikk","Pragmatikk","C1-repetisjon"],
+   "C2":["Avansert argumentasjon","Pragmatisk presisjon","Retorisk organisering","Diskursanalyse","Register og stil","Oversettelsespresisjon","Litterær og kritisk stil","C2-syntese"],
+  }
+  CURRICULUM[level]=[
+   CurriculumUnit(
+    id="no-"+level.lower()+"-unit-"+str(i),
+    level=level,
+    unit_number=i,
+    title=title,
+    grammar_points=["progressive grammar and communication"],
+    vocabulary_set_ids=["greetings_a1"],
+    lesson_types=["grammar","vocabulary","reading","listening","speaking","writing","review"],
+    competency_checklist=[
+     "Understand the main target-language structures for the unit",
+     "Use the topic vocabulary in context",
+     "Complete a reading and listening task",
+     "Produce a short spoken and written response",
+    ],
+    default_weeks=2,
+    prerequisite_unit=("no-"+level.lower()+"-unit-"+str(i-1) if i > 1 else None),
+   )
+   for i,title in enumerate(themes[level],1)
+  ]
 ASSESSMENT_BANK=[
 AssessmentQuestion(id="no-a1-001",skill="speaking",difficulty="A1",question="Which expression matches 'hello'?",options=["Hei","advanced academic phrase","unrelated expression","technical term"],correct="Hei"),
 AssessmentQuestion(id="no-a1-002",skill="vocabulary",difficulty="A1",question="Which expression matches 'my name is...'?",options=["Jeg heter...","advanced academic phrase","unrelated expression","technical term"],correct="Jeg heter..."),
