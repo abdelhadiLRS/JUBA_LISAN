@@ -2437,3 +2437,23 @@ body .juba-reference-page[dir="rtl"] .juba-ai-showcase-copy .juba-ref-button{ali
 .juba-reference-page .juba-practical-language-card{transition:transform .16s ease,border-color .16s ease,background .16s ease!important}
 .juba-reference-page .juba-practical-language-card:hover{transform:translateY(-2px)!important;border-color:#58cc02!important;background:#f8fdf3!important}
 @media(prefers-reduced-motion:reduce){.juba-reference-page .juba-practical-language-card{transition:none!important}.juba-reference-page .juba-practical-language-card:hover{transform:none!important}}
+
+
+/* Landing — accessible focus treatment for the AI conversation demo */
+.juba-reference-page .juba-ai-play:focus-visible,
+.juba-reference-page .juba-ai-showcase-copy .juba-ref-button:focus-visible{
+  outline:3px solid #46a900!important;
+  outline-offset:4px!important;
+  box-shadow:0 0 0 5px rgba(88,204,2,.18)!important;
+}
+.juba-reference-page .juba-ai-live-pill{
+  max-width:calc(100% - 24px)!important;
+  overflow-wrap:anywhere!important;
+}
+@media(max-width:600px){
+  .juba-reference-page .juba-ai-showcase-art{min-height:300px!important}
+  .juba-reference-page .juba-ai-live-pill{font-size:12px!important;padding:7px 10px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .juba-reference-page .juba-ai-showcase-art:hover{transform:none!important}
+}
