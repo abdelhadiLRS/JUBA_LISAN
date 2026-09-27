@@ -1,6 +1,7 @@
 # Changelog
 
 ## [Unreleased]
+- Removed a repeated C2 entry for `promulgate` and added a regression check against duplicate headword/part-of-speech pairs within C2.
 - Sharpened six C2 definitions to distinguish judgement, close conceptual links, contentiousness, ubiquity, ramifications, and official promulgation.
 - Added regression coverage for the revised C2 definition wording.
 - Refined 20 C2 vocabulary examples with clearer collocations, register, and reusable contexts across academic, formal, and spoken language.
