@@ -301,7 +301,7 @@ C1_SETS: list[VocabularySet] = [
                 word="disseminate",
                 pos="verb",
                 definition="To spread information widely.",
-                example="The findings were disseminated across the organization.",
+                example="The findings were disseminated across the organisation.",
                 ipa="/dɪˈsemɪneɪt/",
                 frequency_rank=420,
             ),
@@ -360,7 +360,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="take something with a pinch of salt",
                 pos="phrase",
-                definition="To be skeptical about a claim.",
+                definition="To be sceptical about a claim.",
                 example="Take his advice with a pinch of salt.",
                 ipa="/teɪk ˈsʌmθɪŋ wɪð ə pɪntʃ əv sɔːlt/",
             ),
@@ -778,7 +778,7 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="bias",
                 pos="noun",
-                definition="An unfair prejudice in favor of or against something.",
+                definition="An unfair prejudice in favour of or against something.",
                 example="The report showed clear confirmation bias.",
                 ipa="/ˈbaɪəs/",
                 frequency_rank=360,
