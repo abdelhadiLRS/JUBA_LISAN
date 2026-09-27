@@ -1838,3 +1838,24 @@ def test_en_gb_a2_sequence_words_use_richer_contexts():
         for fragment in fragments:
             assert fragment.lower() in example
 
+
+
+def test_en_gb_a2_transport_examples_show_practical_context():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {
+        entry.word: entry
+        for vocab_set in A2_SETS
+        for entry in vocab_set.words
+    }
+    expected = {
+        "tube": ["changed at Green Park", "museum"],
+        "Oyster card": ["topped up", "separate tickets"],
+        "coach": ["cost of a hotel", "early in the morning"],
+        "Mind the gap": ["space between the train and platform"],
+    }
+    for word, fragments in expected.items():
+        example = entries[word].example.lower()
+        for fragment in fragments:
+            assert fragment.lower() in example, word
+
