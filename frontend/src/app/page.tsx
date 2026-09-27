@@ -132,7 +132,8 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="juba-busuu-proof" aria-label="JUBA LISAN capabilities">
+      <section className="juba-busuu-proof" aria-labelledby="capabilities-title">
+          <h2 id="capabilities-title" className="sr-only">{t('languagesHeadline')}</h2>
         <div className="juba-busuu-container juba-busuu-proof-grid">
           <div><strong>CEFR</strong><span>{t('languagesHeadline')}</span></div>
           <div><strong>AI</strong><span>{t('flowAiDescription')}</span></div>
