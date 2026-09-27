@@ -16,7 +16,8 @@ const habits = [
 
 export default function LearningJourneyPage() {
   return (
-    <main className="juba-mobile-journey min-h-screen overflow-hidden bg-[#f4f4f2] text-[#202127]">
+    <main className="juba-mobile-journey juba-jl-journey min-h-screen overflow-hidden bg-[#f7f7f7] text-[#242424]">
+      <style>{".juba-jl-journey{font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif;color:#242424}.juba-jl-journey>section:first-child{background:#58cc02!important;border-color:#46a302!important}.juba-jl-journey>section:first-child .border-\\[rgba\\(7\\,7\\,9\\,.08\\)\\]{border-color:#cceeb9!important}.juba-jl-journey>section:first-child a:first-of-type{color:#fff}.juba-jl-journey .bg-\\[\\#5862e2\\]{background:#58cc02!important}.juba-jl-journey .bg-\\[\\#202127\\]{background:#46a302!important}.juba-jl-journey .bg-\\[\\#ededff\\]{background:#efffe6!important;color:#46a302!important}.juba-jl-journey article{border:2px solid #e5e5e5!important;border-radius:20px!important;box-shadow:0 4px 0 rgba(0,0,0,.06)!important}.juba-jl-journey article:hover{border-color:#58cc02!important;background:#fbfffa}.juba-jl-journey .bg-\\[\\#f4f4f2\\]{background:#f7f7f7!important}.juba-jl-journey h1,.juba-jl-journey h2,.juba-jl-journey h3{font-weight:900;letter-spacing:-.04em}.juba-jl-journey p{line-height:1.65}.juba-jl-journey a{transition:transform .12s ease,border-color .12s ease}.juba-jl-journey a:hover{transform:translateY(-1px)}"}</style>
       <section className="relative border-b border-[#5862e2] bg-[#5862e2] text-white">
         <div className="mx-auto max-w-6xl px-5 pb-16 pt-8 sm:px-8 lg:pb-24 lg:pt-12">
           <nav className="mb-16 flex items-center justify-between">
