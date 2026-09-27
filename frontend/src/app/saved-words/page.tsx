@@ -116,7 +116,8 @@ export default function SavedWordsPage() {
       }
 
   return (
-    <main dir={isArabic ? 'rtl' : 'ltr'} className="min-h-screen bg-[#f4f4f2] px-4 py-8 sm:px-6">
+    <main dir={isArabic ? 'rtl' : 'ltr'} className="juba-jl-saved-words min-h-screen bg-[#f7f7f7] px-4 py-8 sm:px-6">
+      <style>{".juba-jl-saved-words{font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif;color:#242424}.juba-jl-saved-words h1,.juba-jl-saved-words h2{font-weight:900;letter-spacing:-.04em}.juba-jl-saved-words .text-\\[\\#202127\\]{color:#242424!important}.juba-jl-saved-words .bg-\\[var\\(--juba-yellow\\)\\]{background:#efffe6!important;border-color:#b9e9a0!important}.juba-jl-saved-words .bg-\\[var\\(--juba-ink\\)\\]{background:#46a302!important}.juba-jl-saved-words section{border:2px solid #e5e5e5!important;border-radius:20px!important;box-shadow:0 4px 0 rgba(0,0,0,.06)!important}.juba-jl-saved-words article{border:2px solid #e5e5e5!important;background:#fff!important;border-radius:16px!important}.juba-jl-saved-words article:hover{border-color:#58cc02!important;background:#efffe6!important}.juba-jl-saved-words button{font-family:inherit}.juba-jl-saved-words a{font-weight:900}.juba-jl-saved-words .rounded-full{border-radius:12px}.juba-jl-saved-words input:focus,.juba-jl-saved-words button:focus-visible,.juba-jl-saved-words a:focus-visible{outline:3px solid #1cb0f6;outline-offset:2px}@media(max-width:640px){.juba-jl-saved-words{padding-top:18px!important}.juba-jl-saved-words section{border-radius:18px!important}}"}</style>
       <div className="mx-auto max-w-5xl">
         <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>
