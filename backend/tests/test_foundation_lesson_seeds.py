@@ -1288,3 +1288,37 @@ def test_en_gb_a2_future_and_weather_examples_use_practical_contexts():
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 12
+
+
+def test_en_gb_a2_extended_examples_are_contextual_and_reusable():
+    """Additional A2 examples should model complete, reusable situations."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in A2_SETS for entry in vocabulary_set.words}
+    expected = {
+        "told": "what had happened during the group project",
+        "wore": "asked candidates to dress formally",
+        "won": "scoring the final goal",
+        "wrote": "heating had stopped working",
+        "sunny": "eat lunch outside",
+        "cloudy": "rain stayed away",
+        "boring": "caught an earlier bus home",
+        "friendly": "find the right size",
+        "safe": "walk home from the local school",
+        "receipt": "return the jacket",
+        "basket": "bread and fruit for dinner",
+        "trolley": "food for a family gathering",
+        "countryside": "less traffic",
+        "coast": "different clothes for the two places",
+        "mountain": "warm jackets",
+        "island": "shops and services",
+        "neighbourhood": "rents are higher",
+        "suburb": "travelling to work",
+        "single": "travelling there today",
+        "return": "coming back on Sunday evening",
+        "peak": "morning rush",
+        "timetable": "arrive before the appointment",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 10
