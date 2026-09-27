@@ -186,6 +186,12 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
     else setOrder([])
   }
 
+  function retryCompletion() {
+    if (mode === 'memory') void finish(memoryTrace)
+    else if (mode === 'matching') void finish(matchingTrace)
+    else if (mode === 'ordering') void finish(orderingTrace)
+  }
+
   function reset() {
     if (!challenge || challenge.type !== mode) return
     if (memoryTimer.current !== null) {
@@ -241,7 +247,7 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
       </>}
 
       {saving && <p className="interactive-instruction" role="status" aria-live="polite">Saving…</p>}
-      {completionError && !completed && <div className="interactive-error" role="alert"><p>Unable to save the result. Reset and try again.</p><button type="button" onClick={reset}>{t.reset}</button></div>}
+      {completionError && !completed && <div className="interactive-error" role="alert"><p>Unable to save the result. Try saving again or reset the challenge.</p><button type="button" onClick={retryCompletion} disabled={saving}>Try again</button><button type="button" onClick={reset} disabled={saving}>{t.reset}</button></div>}
       {completed && <div className="interactive-complete" role="status">🏆 {t.complete}</div>}
     </div>
   )
