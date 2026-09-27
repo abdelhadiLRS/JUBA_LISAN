@@ -1137,14 +1137,6 @@ B1_SETS: list[VocabularySet] = [
                 frequency_rank=150,
             ),
             VocabularyEntry(
-                word="never",
-                pos="adverb",
-                definition="Not at any time; not ever.",
-                example="I have never seen that film.",
-                ipa="/ˈnevə/",
-                frequency_rank=120,
-            ),
-            VocabularyEntry(
                 word="so far",
                 pos="phrase",
                 definition="Up to this point in time.",
