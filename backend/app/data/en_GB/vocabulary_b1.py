@@ -12,7 +12,7 @@ B1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="experience",
                 pos="noun",
-                definition="Something that has happened to you.",
+                definition="Something that happens to you or that you do, especially as part of your life.",
                 example="That was a great experience.",
                 ipa="/ɪkˈspɪərɪəns/",
                 frequency_rank=185,
@@ -20,7 +20,7 @@ B1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="achievement",
                 pos="noun",
-                definition="Something difficult done successfully.",
+                definition="Something difficult that you succeed in doing.",
                 example="Getting the job was a great achievement.",
                 ipa="/əˈtʃiːvmənt/",
                 frequency_rank=340,
@@ -36,7 +36,7 @@ B1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="opportunity",
                 pos="noun",
-                definition="A chance to do something.",
+                definition="A chance to do or achieve something.",
                 example="This is a great opportunity.",
                 ipa="/ˌɒpəˈtjuːnɪti/",
                 frequency_rank=225,
@@ -170,7 +170,7 @@ B1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="artificial intelligence",
                 pos="noun",
-                definition="Computer systems that mimic human intelligence.",
+                definition="Computer systems designed to perform tasks that normally require human intelligence.",
                 example="Artificial intelligence is changing many industries.",
                 ipa="/ˌɑːtɪˈfɪʃəl ɪnˈtelɪdʒəns/",
             ),
@@ -306,7 +306,7 @@ B1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="carbon footprint",
                 pos="noun",
-                definition="The total greenhouse gas emissions caused by an individual.",
+                definition="The total greenhouse gas emissions caused by a person, activity, organisation, or product.",
                 example="I want to reduce my carbon footprint.",
                 ipa="/ˈkɑːbən ˈfʊtprɪnt/",
             ),
@@ -337,7 +337,7 @@ B1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="global warming",
                 pos="noun",
-                definition="The gradual rise in the earth's temperature.",
+                definition="The long-term increase in the Earth's average temperature.",
                 example="Global warming is melting the ice caps.",
                 ipa="/ˌɡləʊbəl ˈwɔːmɪŋ/",
             ),
@@ -501,8 +501,8 @@ B1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="automatic",
                 pos="adjective",
-                definition="Working by itself without human control.",
-                example="The door is automatic.",
+                definition="Working or happening automatically, without someone having to control it each time.",
+                example="The doors open automatically when someone approaches.",
                 ipa="/ˌɔːtəˈmætɪk/",
                 frequency_rank=390,
             ),
@@ -811,7 +811,7 @@ B1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="evidence",
                 pos="noun",
-                definition="Facts that prove or disprove a claim.",
+                definition="Facts or information that help to show whether a claim is true.",
                 example="There is no evidence for that.",
                 ipa="/ˈevɪdəns/",
                 frequency_rank=195,
@@ -947,7 +947,7 @@ B1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="equality",
                 pos="noun",
-                definition="The state of being treated the same.",
+                definition="The state of having the same rights, opportunities, or treatment as others.",
                 example="We believe in equality for all.",
                 ipa="/ɪˈkwɒlɪti/",
                 frequency_rank=300,
