@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Mic, Pause, Play, Sparkles, Volume2 } from 'lucide-react'
@@ -60,9 +61,9 @@ export function LandingAiTutorShowcase({
         <span className="juba-ref-kicker"><Sparkles className="h-4 w-4" /> AI</span>
         <h2>{imageAlt}</h2>
         <p>{aiMessage}</p>
-        <a href={href} className="juba-ref-button">
+        <Link href={href} className="juba-ref-button">
           <Mic className="h-4 w-4" /> {openLabel}
-        </a>
+        </Link>
       </div>
     </div>
   )
