@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ChevronDown, Menu, X } from 'lucide-react'
@@ -42,12 +42,16 @@ export function LandingNav({
   locale,
 }: LandingNavProps) {
   const [open, setOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     if (!open) return
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key === 'Escape') {
+        setOpen(false)
+        requestAnimationFrame(() => menuButtonRef.current?.focus())
+      }
     }
 
     document.addEventListener('keydown', handleKeyDown)
@@ -76,7 +80,10 @@ export function LandingNav({
     ...(showReviews ? [{ href: '#reviews', label: navReviews }] : []),
   ]
 
-  const close = () => setOpen(false)
+  const close = () => {
+    setOpen(false)
+    requestAnimationFrame(() => menuButtonRef.current?.focus())
+  }
 
   return (
     <header className="juba-busuu-nav" dir={dir}>
@@ -122,6 +129,7 @@ export function LandingNav({
         </div>
 
         <button
+          ref={menuButtonRef}
           type="button"
           className="juba-busuu-menu"
           onClick={() => setOpen((value) => !value)}
