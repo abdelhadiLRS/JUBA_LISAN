@@ -836,3 +836,20 @@ def test_en_gb_a1_assessment_vocabulary_uses_contextual_prompts():
     for question_id, phrase in expected.items():
         assert phrase.casefold() in questions[question_id].question.casefold()
         assert len(questions[question_id].question.split()) >= 12
+
+
+def test_en_gb_advanced_vocabulary_assessments_use_context():
+    """Higher-level vocabulary items should be assessed in meaningful contexts."""
+    from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+    questions = {item.id: item for item in ASSESSMENT_BANK}
+    expected = {
+        "v-a2-006": "pay electronically",
+        "r-b2-006": "safety measures",
+        "r-c1-007": "report contained",
+        "v-c2-009": "final terms",
+    }
+    for question_id, phrase in expected.items():
+        question = questions[question_id].question
+        assert phrase.casefold() in question.casefold()
+        assert len(question.split()) >= 12
