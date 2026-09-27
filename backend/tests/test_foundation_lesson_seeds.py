@@ -1679,6 +1679,20 @@ def test_foundation_fallback_seed_has_spaced_retrieval_and_input_design():
 
 
 
+def test_foundation_fallback_seed_has_a_complete_learning_sequence():
+    seed = get_foundation_lesson_seed("en_GB", "B1", "nonexistent", "grammar")
+    assert seed is not None
+    quality = seed["content_quality"]
+    assert len(quality["quality_gates"]) >= 5
+    assert quality["lesson_sequence"] == [
+        "Input: notice the target language in a clear context.",
+        "Guided practice: use the target language with limited support.",
+        "Retrieval: recall target items without the original model.",
+        "Transfer: apply the language to a changed but related situation.",
+        "Evidence: complete a final task that makes learning observable.",
+    ]
+
+
 def test_foundation_fallback_seed_aligns_actions_to_each_skill():
     """Each lesson skill should expose a distinct practice-and-evidence cycle."""
     from app.services.foundation_lesson_seeds import get_foundation_lesson_seed
