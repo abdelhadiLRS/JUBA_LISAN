@@ -66,7 +66,7 @@ function LoginForm() {
               <span className="text-lg font-semibold tracking-tight">JUBA LISAN</span>
             </div>
             <div className="mt-28 max-w-xl">
-              <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-[#ededff] px-3 py-1.5 text-xs font-medium text-[#373fb8]">
+              <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-[#efffe6] px-3 py-1.5 text-xs font-medium text-[#373fb8]">
                 <Globe2 className="h-3.5 w-3.5" />
                 {tCommon('tagline')}
               </p>
@@ -95,7 +95,7 @@ function LoginForm() {
 
             <div className="rounded-[26px] border border-black/[0.08] bg-white p-6 shadow-[0_12px_30px_rgba(43,45,90,.055)] sm:p-8">
               <div className="mb-8">
-                <p className="text-sm font-medium text-[#373fb8]">Welcome back</p>
+                <p className="text-sm font-medium text-[#46a302]">Welcome back</p>
                 <h1 className="mt-1 text-3xl font-semibold tracking-tight">{t('title')}</h1>
                 <p className="mt-2 text-sm leading-6 text-black/50">Sign in to continue your learning journey.</p>
               </div>
@@ -116,7 +116,7 @@ function LoginForm() {
                   <span className="mb-2 block text-sm font-medium">{t('email')}</span>
                   <div className="relative">
                     <Mail className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-black/50" />
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="username" autoCorrect="off" autoCapitalize="none" spellCheck={false} required className="w-full rounded-2xl border border-black/[0.08] bg-[#fafafa] px-11 py-3.5 text-sm outline-none transition placeholder:text-black/50 focus:border-[var(--juba-primary)] focus:ring-4 focus:ring-[color-mix(in_srgb,var(--juba-primary)_18%,transparent)]" />
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="username" autoCorrect="off" autoCapitalize="none" spellCheck={false} required className="w-full rounded-2xl border border-[#dfe5db] bg-white px-11 py-3.5 text-sm outline-none transition placeholder:text-black/50 focus:border-[var(--juba-primary)] focus:ring-4 focus:ring-[color-mix(in_srgb,var(--juba-primary)_18%,transparent)]" />
                   </div>
                 </label>
                 <label className="block">
@@ -124,19 +124,19 @@ function LoginForm() {
                   <div className="relative">
                     <LockKeyhole className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-black/50" />
                     <input type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" autoCorrect="off" autoCapitalize="none" spellCheck={false} required className="w-full rounded-2xl border border-black/[0.08] bg-[#fafafa] px-11 py-3.5 pr-12 text-sm outline-none transition focus:border-[var(--juba-primary)] focus:ring-4 focus:ring-[color-mix(in_srgb,var(--juba-primary)_18%,transparent)]" />
-                    <button type="button" onClick={() => setShowPassword((v) => !v)} className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl p-2 text-black/50 hover:bg-[#ededff] hover:text-[#202127]" aria-label={showPassword ? t('hidePassword') : t('showPassword')}>
+                    <button type="button" onClick={() => setShowPassword((v) => !v)} className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl p-2 text-black/50 hover:bg-[#efffe6] hover:text-[#202127]" aria-label={showPassword ? t('hidePassword') : t('showPassword')}>
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
                 </label>
-                <button disabled={loading} type="submit" className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-[#373fb8] px-4 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60">
+                <button disabled={loading} type="submit" className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-[#58cc02] border-2 border-[#46a302] px-4 py-3.5 text-sm font-extrabold text-white shadow-[0_4px_0_#46a302] transition hover:translate-y-px hover:shadow-[0_3px_0_#46a302] disabled:cursor-not-allowed disabled:opacity-60">
                   {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
                   {loading ? t('signingIn') : t('submit')}
                 </button>
               </form>
 
               <div className="mt-7 flex flex-col gap-3 text-center text-sm text-black/50">
-                <span>{t('noAccount')} <Link href="/register" className="font-medium text-[#373fb8] hover:underline">{t('register')}</Link></span>
+                <span>{t('noAccount')} <Link href="/register" className="font-medium text-[#46a302] hover:underline">{t('register')}</Link></span>
                 <Link href="/forgot-password" className="hover:text-[#202127]">{t('forgotPassword')}</Link>
               </div>
             </div>
