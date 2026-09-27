@@ -1,3 +1,4 @@
+- Added regression coverage for the intentional B2→C1 overlaps `implication` and `bias`, requiring more specialised inference and methodological contexts at C1.
 - Strengthened 20 B1 vocabulary examples with concrete everyday, study, work, technology, environment, and decision-making contexts, plus regression coverage requiring reusable contextual examples.
 - Strengthened B2→C1→C2 semantic progression: replaced generic C1 repeats (`subsequently`, `consequently`, `prior to`) with more advanced formal connectors, deepened C1 `bias`/`implication` contexts, and added methodological nuance to C2 `empirical` usage with regression coverage.
 # Changelog
