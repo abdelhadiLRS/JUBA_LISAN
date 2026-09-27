@@ -769,7 +769,7 @@ html[dir='rtl'] body {
   background: #cfcfcf !important;
 }
 
-.juba-learning-sidebar .juba-learning-nav a[class*='bg-fl-surface-2']::after {
+.juba-learning-sidebar .juba-learning-nav a[class*='juba-learning-active']::after {
   background: var(--juba-learning-green) !important;
 }
 
@@ -4362,5 +4362,49 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
     width: 100%;
     margin: 12px 0 60px;
     padding: 0 10px;
+  }
+}
+
+
+/* Navigation finish: match the member learning surface, not the legacy app shell. */
+.juba-learning-sidebar {
+  background: #fff !important;
+  border-color: var(--juba-learning-border) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-learning-sidebar .juba-learning-nav a,
+.juba-learning-sidebar .juba-learning-nav button {
+  min-height: 46px !important;
+  border-radius: 12px !important;
+  margin: 2px 8px !important;
+  padding-inline: 12px !important;
+  border-left-width: 0 !important;
+  font-family: inherit !important;
+  font-weight: 750 !important;
+  letter-spacing: 0 !important;
+}
+.juba-learning-sidebar .juba-learning-nav a:hover,
+.juba-learning-sidebar .juba-learning-nav button:hover {
+  background: var(--juba-learning-green-soft) !important;
+  color: var(--juba-learning-ink) !important;
+}
+.juba-learning-sidebar .juba-learning-nav a[class*='bg-[var(--juba-learning-green-soft)]'] {
+  background: var(--juba-learning-green-soft) !important;
+  color: var(--juba-learning-ink) !important;
+  border-left: 3px solid var(--juba-learning-green) !important;
+}
+.juba-learning-sidebar .juba-learning-nav a[class*='bg-[var(--juba-learning-green-soft)]']::after {
+  background: var(--juba-learning-green) !important;
+}
+.juba-learning-sidebar > div:first-child {
+  background: #fff !important;
+}
+.juba-learning-sidebar .border-b,
+.juba-learning-sidebar .border-t {
+  border-color: var(--juba-learning-border) !important;
+}
+@media (max-width: 767px) {
+  .juba-learning-main {
+    padding-top: 60px !important;
   }
 }
