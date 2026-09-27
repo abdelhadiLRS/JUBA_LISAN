@@ -855,3 +855,24 @@ def test_en_gb_advanced_vocabulary_assessments_use_context():
         question = questions[question_id].question
         assert phrase.casefold() in question.casefold()
         assert len(question.split()) >= 12
+
+
+def test_en_gb_b1_vocabulary_examples_are_contextual_and_reusable():
+    from app.data.en_GB.vocabulary_b1 import B1_SETS
+
+    entries = {
+        entry.word: entry
+        for vocabulary_set in B1_SETS
+        for entry in vocabulary_set.words
+    }
+
+    expected = {
+        "wireless": "hotel provides wireless internet",
+        "password": "Change your password regularly",
+        "artificial intelligence": "helping hospitals analyse medical images",
+        "I think": "because the roads are usually busy",
+        "unforgettable": "audience joined the singer",
+        "apparently": "venue has a problem with its electrical system",
+    }
+    for word, phrase in expected.items():
+        assert phrase in entries[word].example
