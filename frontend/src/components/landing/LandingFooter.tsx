@@ -5,12 +5,13 @@ import type { Locale } from '@/lib/locales'
 
 interface LandingFooterProps {
   t: (key: string) => string
+  hasSession: boolean
   dir?: 'ltr' | 'rtl'
   locale?: Locale
   showReviews?: boolean
 }
 
-export function LandingFooter({ t, dir = 'ltr', locale = 'en', showReviews = false }: LandingFooterProps) {
+export function LandingFooter({ t, hasSession, dir = 'ltr', locale = 'en', showReviews = false }: LandingFooterProps) {
   const footerLanguages = [
     ['English', 'en'], ['Français', 'fr'], ['Español', 'es'], ['Deutsch', 'de'],
     ['Italiano', 'it'], ['Português', 'pt'], ['العربية', 'ar'], ['Русский', 'ru'],
@@ -30,7 +31,7 @@ export function LandingFooter({ t, dir = 'ltr', locale = 'en', showReviews = fal
           <div className="juba-busuu-footer-intro-links">
             <Link href="#languages">{t('navLanguages')}</Link>
             <Link href="#pricing">{t('navPricing')}</Link>
-            <Link href="/register">{t('ctaStart')}</Link>
+            <Link href={hasSession ? '/dashboard' : '/register'}>{hasSession ? t('dashboard') : t('ctaStart')}</Link>
           </div>
         </div>
 
@@ -40,7 +41,7 @@ export function LandingFooter({ t, dir = 'ltr', locale = 'en', showReviews = fal
             <Link href="#features">{t('navFeatures')}</Link>
             <Link href="#languages">{t('supportedLanguages')}</Link>
             <Link href="#features">{t('howItWorks')}</Link>
-            <Link href="/register">{t('ctaExplore')}</Link>
+            <Link href="#features">{t('ctaExplore')}</Link>
           </div>
 
           <div className="juba-busuu-footer-column">
