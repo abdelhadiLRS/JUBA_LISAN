@@ -63,7 +63,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="juba-mobile-settings mx-auto max-w-6xl space-y-4 px-4 py-6 sm:px-6 md:py-8"">
+    <div className="juba-mobile-settings mx-auto max-w-6xl space-y-4 px-4 py-6 sm:px-6 md:py-8">
       <SettingsPageHeader
         eyebrow={`${t('sectionAccount')} / ${t('title')}`}
         title={t('title')}
@@ -108,9 +108,9 @@ export default function SettingsPage() {
                   disabled={deleting}
                   className="w-full rounded-[20px] border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
                   style={{
-                    color: 'var(--juba-danger)',
+                    color: '#b33a32',
                     borderColor:
-                      'color-mix(in srgb, var(--juba-danger) 35%, transparent)',
+                      'color-mix(in srgb, #b33a32 35%, transparent)',
                   }}
                 >
                   {t('deleteAccount')}
@@ -150,13 +150,13 @@ export default function SettingsPage() {
             <div className="flex flex-col gap-2">
               <a
                 href="/terms?from=settings"
-                className="text-[#68736d] hover:text-[var(--juba-text)] text-sm font-medium transition-colors"
+                className="text-[#68736d] hover:text-[#30343b] text-sm font-medium transition-colors"
               >
                 {t('termsOfService')}
               </a>
               <a
                 href="/privacy?from=settings"
-                className="text-[#68736d] hover:text-[var(--juba-text)] text-sm font-medium transition-colors"
+                className="text-[#68736d] hover:text-[#30343b] text-sm font-medium transition-colors"
               >
                 {t('privacyPolicy')}
               </a>
