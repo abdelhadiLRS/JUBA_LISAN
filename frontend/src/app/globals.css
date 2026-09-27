@@ -4180,3 +4180,34 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
     border-radius:18px !important;
   }
 }
+
+
+/* Final member-route token bridge: legacy lilac/violet utilities inherit the unified learning palette. */
+.juba-mobile-vocabulary,
+.juba-mobile-flashcards,
+.juba-mobile-listening {
+  --juba-lilac: var(--juba-learning-border);
+  --juba-violet-dark: var(--juba-learning-green-dark);
+  --juba-violet: var(--juba-learning-green);
+  --juba-yellow: var(--juba-learning-yellow);
+  --juba-border: var(--juba-learning-border);
+}
+.juba-mobile-progress {
+  --juba-lilac: var(--juba-learning-border);
+  --juba-violet-dark: var(--juba-learning-green-dark);
+  --juba-violet: var(--juba-learning-green);
+  --juba-yellow: var(--juba-learning-yellow);
+  --juba-border: var(--juba-learning-border);
+}
+.juba-mobile-vocabulary .juba-card,
+.juba-mobile-flashcards .juba-panel,
+.juba-mobile-listening .juba-panel,
+.juba-mobile-progress .juba-panel {
+  box-shadow: 0 4px 0 rgba(0,0,0,.045), 0 12px 28px rgba(0,0,0,.035) !important;
+}
+.juba-mobile-vocabulary a,
+.juba-mobile-flashcards a,
+.juba-mobile-listening a,
+.juba-mobile-progress a {
+  font-family: inherit !important;
+}
