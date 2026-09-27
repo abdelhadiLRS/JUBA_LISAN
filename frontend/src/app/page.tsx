@@ -8,7 +8,7 @@ import { ArrowRight, ArrowUpRight, BookOpen, Headphones, MessageCircle } from 'l
 import PricingSection from '@/components/billing/PricingSection'
 import { LandingFAQ } from '@/components/ui/landing-faq'
 import { LandingNav } from '@/components/ui/landing-nav'
-import { LanguageBubbles } from '@/components/LanguageBubbles'
+import { LanguageBubbles, SUPPORTED_LANGUAGE_COUNT } from '@/components/LanguageBubbles'
 import { LandingFooter } from '@/components/landing/LandingFooter'
 import type { ReviewPublic } from '@/types/api'
 
@@ -144,7 +144,7 @@ export default async function Home() {
 
       <section className="juba-busuu-stats" aria-label={t('featureSectionLabel')}>
         <div className="juba-busuu-container juba-busuu-stats-grid">
-          <article><strong>42</strong><span>{t('supportedLanguages')}</span></article>
+          <article><strong>{SUPPORTED_LANGUAGE_COUNT}</strong><span>{t('supportedLanguages')}</span></article>
           <article><strong>A1–C2</strong><span>{t('proofCefr')}</span></article>
           <article><strong>AI</strong><span>{t('proofTutor')}</span></article>
           <article><strong>VOICE</strong><span>{t('proofVoice')}</span></article>
