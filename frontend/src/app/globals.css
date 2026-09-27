@@ -912,3 +912,104 @@ html[dir='rtl'] body {
     width: 100%;
   }
 }
+
+
+/* Plan / learning path — use the same JUBA LISAN dashboard system. */
+.juba-mobile-plan {
+  color: var(--juba-learning-ink);
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif;
+}
+
+.juba-mobile-plan > section {
+  border-radius: var(--juba-learning-radius) !important;
+}
+
+.juba-mobile-plan > section:first-child {
+  background: var(--juba-learning-green) !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  box-shadow: 0 5px 0 var(--juba-learning-green-dark) !important;
+}
+
+.juba-mobile-plan > section:first-child [class*='bg-[var(--juba-yellow)]'],
+.juba-mobile-plan > section:first-child [class*='bg-[var(--juba-coral)]'],
+.juba-mobile-plan > section:first-child [class*='bg-[var(--juba-mint)]'] {
+  opacity: .16 !important;
+}
+
+.juba-mobile-plan > section:first-child h1 {
+  font-weight: 900 !important;
+}
+
+.juba-mobile-plan > section:first-child span {
+  border-radius: 999px !important;
+}
+
+.juba-mobile-plan > section:nth-child(2) {
+  background: var(--juba-learning-yellow) !important;
+  border: 2px solid #d6a900 !important;
+  box-shadow: 0 4px 0 #d6a900 !important;
+}
+
+.juba-mobile-plan > section:nth-child(2) button {
+  background: #fff !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  color: var(--juba-learning-ink) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 3px 0 #d8d8d8 !important;
+}
+
+.juba-mobile-plan > section:nth-child(3) button,
+.juba-mobile-plan > section:nth-child(4) > div.relative > div.relative {
+  border-color: var(--juba-learning-border) !important;
+  border-radius: var(--juba-learning-radius) !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+  background: #fff !important;
+}
+
+.juba-mobile-plan > section:nth-child(3) button:hover {
+  border-color: var(--juba-learning-green) !important;
+  background: var(--juba-learning-green-soft) !important;
+}
+
+.juba-mobile-plan > section:nth-child(3) button span:first-child {
+  background: var(--juba-learning-green-soft) !important;
+  color: var(--juba-learning-green-dark) !important;
+}
+
+.juba-mobile-plan > section:nth-child(4) .absolute.start-3 {
+  background: var(--juba-learning-green) !important;
+  border-color: #fff !important;
+}
+
+.juba-mobile-plan > section:nth-child(4) .pointer-events-none {
+  background: #dff5cf !important;
+}
+
+.juba-mobile-plan h1,
+.juba-mobile-plan h2,
+.juba-mobile-plan h3 {
+  font-weight: 900 !important;
+  color: var(--juba-learning-ink);
+}
+
+.juba-mobile-plan section:not(:first-child) p {
+  color: inherit;
+}
+
+.juba-mobile-plan [class*='text-[var(--juba-violet-dark)]'] {
+  color: var(--juba-learning-green-dark) !important;
+}
+
+.juba-mobile-plan [class*='text-[var(--juba-text)]'] {
+  color: var(--juba-learning-ink) !important;
+}
+
+.juba-mobile-plan [class*='text-[var(--juba-muted)]'] {
+  color: var(--juba-learning-muted) !important;
+}
+
+@media (max-width: 767px) {
+  .juba-mobile-plan {
+    padding-top: 18px !important;
+  }
+}
