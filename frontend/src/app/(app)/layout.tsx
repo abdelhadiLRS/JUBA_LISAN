@@ -220,19 +220,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="juba-duo-shell">
       {/* Sidebar */}
-      <aside className="juba-duo-sidebar">
+      <header className="juba-duo-sidebar">
         {/* Logo area */}
         <div className="border-fl-border flex items-center gap-2 border-b px-5 py-5">
-          <span className="text-fl-label text-fl-muted-2">●</span>
+          <span className="juba-duo-logo-mark" aria-hidden="true">JL</span>
           <span className="text-fl-fg font-code text-sm font-bold tracking-widest uppercase">
             JUBA LISAN
           </span>
         </div>
 
         {/* Language switcher */}
-        <div className="border-fl-border border-b">
-          <LanguageSwitcher />
-        </div>
+        <div className="juba-duo-language"><LanguageSwitcher /></div>
 
         {/* Nav */}
         <nav className="juba-duo-nav">
@@ -244,11 +242,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
-                  active
-                    ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                }`}
+                className={`juba-duo-nav-link ${active ? 'is-active' : ''}`}
               >
                 <item.icon className={`h-[18px] w-[18px] shrink-0 ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`} />
                 {item.label}
@@ -263,7 +257,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <div className="mt-2">
             <button
               onClick={() => setResourcesOpen((o) => !o)}
-              className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors"
+              className="juba-duo-resource-toggle"
             >
               <span>{tNav('resources')}</span>
               <span className="text-fl-label">{resourcesOpen ? '▴' : '▾'}</span>
@@ -276,17 +270,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
-                      active
-                        ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                        : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                    }`}
+                    className={`juba-duo-nav-link juba-duo-nav-link-sub ${active ? 'is-active' : ''}`}
                   >
-                    <span
-                      className={`text-fl-label ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`}
-                    >
-                      ·
-                    </span>
+                    <item.icon className="h-[17px] w-[17px] shrink-0" />
                     {item.label}
                   </Link>
                 )
@@ -294,7 +280,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Bottom items */}
-          <div className="border-fl-border mt-2 border-t pt-2">
+          <div className="juba-duo-nav-divider">
             {bottomNavItems.map((item) => {
               const active =
                 pathname === item.href || pathname.startsWith(item.href + '/')
@@ -302,17 +288,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
-                    active
-                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                  }`}
+                  className={`juba-duo-nav-link ${active ? 'is-active' : ''}`}
                 >
-                  <span
-                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
-                  >
-                    ●
-                  </span>
+                  <item.icon className="h-[17px] w-[17px] shrink-0" />
                   {item.label}
                   {item.href === '/feedback' && feedbackBadgeText && (
                     <span className="text-fl-label ml-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-red-600 leading-none font-bold tracking-normal text-white">
@@ -327,20 +305,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {user?.role === 'admin' && (
             <Link
               href="/admin"
-              className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
-                pathname.startsWith('/admin')
-                  ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                  : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-              }`}
+              className={`juba-duo-nav-link ${pathname.startsWith('/admin') ? 'is-active' : ''}`}
             >
-              <span className="text-fl-label text-fl-muted-4">●</span>
+              <Settings className="h-[17px] w-[17px] shrink-0" />
               {tNav('admin')}
             </Link>
           )}
         </nav>
 
         {/* User + logout */}
-        <div className="border-fl-border border-t px-5 py-4">
+        <div className="juba-duo-user">
           <div className="mb-3 flex items-center gap-3">
             <div className="border-fl-border h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border">
               {user?.avatar ? (
@@ -384,44 +358,42 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               )}
             </div>
           </div>
-          <p className="text-fl-label text-fl-muted-4 font-code mb-2 tracking-wider">
+          <p className="juba-duo-version">
             v1.9.15
           </p>
           <button
             onClick={() => setContactOpen(true)}
-            className="text-fl-muted-2 hover:text-fl-fg mb-1 w-full text-left font-mono text-xs tracking-widest uppercase transition-colors"
+            className="juba-duo-user-action"
           >
             {tNav('contact')}
           </button>
           <button
             onClick={() => setLogoutConfirm(true)}
-            className="text-fl-muted-2 hover:text-fl-fg w-full text-left font-mono text-xs tracking-widest uppercase transition-colors"
+            className="juba-duo-user-action"
           >
             {tCommon('logout')}
           </button>
         </div>
-      </aside>
+      </header>
 
       {/* Mobile top bar */}
       <div className="border-fl-border bg-fl-bg fixed top-0 right-0 left-0 z-50 border-b md:hidden">
         <div className="flex items-center justify-between px-4 py-3">
-          <span className="text-fl-fg font-code text-xs font-bold tracking-widest uppercase">
-            JUBA LISAN
-          </span>
+          <span className="juba-duo-mobile-brand">JUBA LISAN</span>
           <button
             onClick={() => setMobileMenuOpen((o) => !o)}
-            className="text-fl-muted-2 hover:text-fl-fg p-1 font-mono transition-colors"
+            className="juba-duo-mobile-trigger"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            <span className="text-base leading-none">
-              {mobileMenuOpen ? '✕' : '☰'}
+            <span className="text-base leading-none" aria-hidden="true">
+              {mobileMenuOpen ? '×' : '☰'}
             </span>
           </button>
         </div>
 
         {/* Dropdown */}
         {mobileMenuOpen && (
-          <nav className="border-fl-border bg-fl-bg max-h-[calc(100svh-3.5rem)] overflow-y-auto overscroll-contain border-t pb-2">
+          <nav className="juba-duo-mobile-menu">
             <div className="border-fl-border border-b">
               <LanguageSwitcher />
             </div>
@@ -433,17 +405,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
-                    active
-                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                  }`}
+                  className={`juba-duo-nav-link ${active ? 'is-active' : ''}`}
                 >
-                  <span
-                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
-                  >
-                    ●
-                  </span>
+                  <item.icon className="h-[17px] w-[17px] shrink-0" />
                   {item.label}
                   {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
                     <span className="text-fl-accent ml-auto text-xs">★</span>
