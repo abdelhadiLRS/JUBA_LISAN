@@ -108,6 +108,7 @@ export function LandingGamesShowcase({
         id="juba-game-panel"
         className="juba-game-stage"
         role="tabpanel"
+        tabIndex={0}
         aria-live="polite"
         aria-labelledby={`juba-game-tab-${activeGame.key}`}
       >
@@ -120,7 +121,7 @@ export function LandingGamesShowcase({
           <h3>{labels[activeGame.key]}</h3>
           <p>{openLabel}</p>
           <Link href={activeGame.href} className="juba-ref-button">
-            {openLabel} <ArrowUpRight aria-hidden="true" />
+            {openLabel} <ArrowUpRight className={dir === 'rtl' ? 'rotate-180' : undefined} aria-hidden="true" />
           </Link>
         </div>
       </div>
