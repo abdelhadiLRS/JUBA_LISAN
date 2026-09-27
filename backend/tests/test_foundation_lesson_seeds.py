@@ -28,6 +28,7 @@ def test_czech_foundation_runtime_seeds_cover_a2_to_c2():
 def test_unknown_foundation_language_returns_none():
     assert get_foundation_lesson_seed("xx", "B1", "xx-b1-1", "reading") is None
 
+
 def test_curated_language_is_auto_discovered():
     seed = get_foundation_lesson_seed("no", "C2", "no-c2-unit-8", "speaking")
     assert seed is not None
@@ -38,7 +39,7 @@ def test_curated_language_is_auto_discovered():
 CURATED_LANGUAGES = [
     "tr", "nl", "ru", "pl", "de", "fr", "es", "it", "pt",
     "ja", "ko", "zh", "ro", "cs", "el", "hu", "uk", "fi",
-    "sv", "da", "no", "is", "vi", "bg", "sr", "hr",
+    "sv", "da", "no", "is", "vi", "bg", "sr", "hr", "he",
 ]
 
 
