@@ -1026,7 +1026,7 @@ export default function ConversationMode({
 
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
-    <div className="juba-conversation-shell mx-auto flex h-full max-w-4xl flex-col overflow-hidden p-4 md:p-6">
+    <div className="juba-duo-conversation-shell mx-auto flex h-full max-w-4xl flex-col overflow-hidden p-4 md:p-6">
       {/* Header */}
       <div className="border-[#e1e5e2] mb-6 flex items-end justify-between border-b pb-4">
         <div>
