@@ -1057,3 +1057,75 @@ html[data-theme='light'] {
 .juba-mobile-conversation{background:#f8faf7!important;min-height:100%!important}
 .juba-mobile-conversation .card{background:#fff!important;border-color:#e5e7eb!important;border-radius:20px!important;box-shadow:0 3px 0 rgba(31,41,51,.045)!important}
 @media(max-width:767px){.juba-mobile-faq{padding:18px 10px 72px!important}.juba-mobile-feedback .container-xl{padding-left:10px!important;padding-right:10px!important}.juba-mobile-conversation{padding-bottom:72px!important}}
+
+
+/* JUBA LISAN — final member shell consistency: light learning UI. */
+.juba-duo-shell{
+  --juba-member-green:#58a700;
+  --juba-member-green-dark:#438600;
+  --juba-member-bg:#f8faf7;
+  --juba-member-surface:#fff;
+  --juba-member-border:#e1e5e2;
+  --juba-member-text:#30343b;
+  --juba-member-muted:#68736d;
+  background:var(--juba-member-bg)!important;
+  color:var(--juba-member-text)!important;
+  font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif!important;
+}
+.juba-duo-shell .font-code,
+.juba-duo-shell .font-mono{font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif!important}
+.juba-duo-sidebar{
+  background:#fff!important;
+  border-color:var(--juba-member-border)!important;
+  color:var(--juba-member-text)!important;
+}
+.juba-duo-logo-mark{
+  background:var(--juba-member-green)!important;
+  border-color:var(--juba-member-green-dark)!important;
+  color:#fff!important;
+}
+.juba-duo-nav-link{
+  color:#68736d!important;
+  border-color:transparent!important;
+}
+.juba-duo-nav-link:hover{
+  background:#f1f7ed!important;
+  color:#30343b!important;
+}
+.juba-duo-nav-link.is-active{
+  background:#eaf5df!important;
+  border-color:#d7efc7!important;
+  color:#438600!important;
+  box-shadow:none!important;
+}
+.juba-duo-nav-link.is-active svg,
+.juba-duo-nav-link svg{color:currentColor!important}
+.juba-duo-resource-toggle,
+.juba-duo-user-action{
+  color:#68736d!important;
+}
+.juba-duo-resource-toggle:hover,
+.juba-duo-user-action:hover{
+  color:#438600!important;
+}
+.juba-duo-nav-divider{border-color:var(--juba-member-border)!important}
+.juba-duo-user{border-color:var(--juba-member-border)!important}
+.juba-duo-main{background:var(--juba-member-bg)!important}
+.juba-duo-mobile-brand{color:#438600!important;font-family:'Nunito Sans','Noto Sans Arabic',sans-serif!important}
+.juba-duo-mobile-trigger{
+  color:#438600!important;
+  border-color:var(--juba-member-border)!important;
+  background:#fff!important;
+}
+.juba-duo-mobile-menu{
+  background:#fff!important;
+  border-color:var(--juba-member-border)!important;
+}
+.juba-duo-shell .text-fl-accent{color:#438600!important}
+.juba-duo-shell .bg-fl-bg,
+.juba-duo-shell .bg-fl-surface{background:#fff!important}
+.juba-duo-shell .border-fl-border{border-color:var(--juba-member-border)!important}
+.juba-duo-shell .text-fl-fg{color:#30343b!important}
+.juba-duo-shell .text-fl-muted-1,
+.juba-duo-shell .text-fl-muted-2,
+.juba-duo-shell .text-fl-muted-4{color:#68736d!important}
