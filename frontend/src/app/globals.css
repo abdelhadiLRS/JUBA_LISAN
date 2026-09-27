@@ -489,8 +489,6 @@ html[data-theme='light'] {
   .juba-busuu-hero-visual{min-height:270px}.juba-busuu-hero-visual img{max-height:300px}
   .juba-busuu-language-discovery,.juba-busuu-difference,.juba-busuu-testimonials,.juba-busuu-practical,.juba-busuu-benefits,.juba-busuu-pricing,.juba-busuu-faq{padding:78px 0}
   .juba-busuu-proof{padding-bottom:78px}
-  .juba-busuu-language-panel>section>div:last-child{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .juba-busuu-language-panel>section>div:last-child>div{border-top:1px solid var(--busuu-line)!important}
   .juba-busuu-feature img{height:200px}.juba-busuu-testimonial{min-height:0}
   .juba-busuu-slogan{padding:28px 0}
   .juba-busuu-practical-media{min-height:280px}
