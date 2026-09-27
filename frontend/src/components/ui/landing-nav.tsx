@@ -206,7 +206,7 @@ export function LandingNav({
             ))}
           </nav>
           <div className="juba-busuu-mobile-actions">
-            <Link href={hasSession ? '/dashboard' : '/login'} onClick={close}>
+            <Link href={hasSession ? '/dashboard' : '/login'} onClick={() => close()}>
               {hasSession ? dashboard : signIn}
             </Link>
             <Link
