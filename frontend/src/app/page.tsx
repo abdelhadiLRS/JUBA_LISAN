@@ -285,6 +285,18 @@ export default async function Home() {
         </section>
       )}
 
+      {/* EDITORIAL SLOGAN — a Busuu-inspired brand moment using only real JUBA LISAN themes. */}
+      <section className="juba-editorial-slogan" aria-label={t('flowHeadline')}>
+        <div className="juba-editorial-slogan-track">
+          <span>{t('languagesHeadline')}</span><b aria-hidden="true">•</b>
+          <span>{t('flowVoiceTitle')}</span><b aria-hidden="true">•</b>
+          <span>{t('flowAiTitle')}</span><b aria-hidden="true">•</b>
+          <span>{t('languagesHeadline')}</span><b aria-hidden="true">•</b>
+          <span>{t('flowVoiceTitle')}</span><b aria-hidden="true">•</b>
+          <span>{t('flowAiTitle')}</span>
+        </div>
+      </section>
+
       {/* PUBLIC PRICING — visitor-visible plans using the existing billing data. */}
       <section id="pricing" className="juba-ref-pricing">
         <PricingSection
