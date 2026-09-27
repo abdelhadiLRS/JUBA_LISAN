@@ -467,3 +467,16 @@ body .juba-reference-page .juba-ref-faq{padding:105px 22px!important;background:
 body .juba-reference-page .juba-ref-faq .juba-ref-section-heading{margin-bottom:42px!important}
 @media(max-width:900px){body .juba-reference-page .juba-ref-pillar-grid,body .juba-reference-page .juba-ref-review-grid{grid-template-columns:1fr 1fr!important}body .juba-reference-page .juba-ref-language-section,body .juba-reference-page .juba-ref-cta-inner{grid-template-columns:1fr!important}body .juba-reference-page .juba-ref-language-copy{max-width:760px!important;text-align:center!important}.juba-reference-page .juba-ref-language-art{min-height:360px!important}}
 @media(max-width:560px){body .juba-reference-page .juba-ff-nav-inner{width:calc(100% - 14px)!important;min-height:60px!important}.juba-reference-page .juba-ref-hero{padding:48px 14px 0!important;min-height:590px!important}.juba-reference-page .juba-ref-hero-actions{flex-direction:column!important}.juba-reference-page .juba-ref-button,.juba-reference-page .juba-ref-text-link{width:100%!important}.juba-reference-page .juba-ref-hero-art{min-height:220px!important}.juba-reference-page .juba-ref-section,.juba-reference-page .juba-ref-language-section,.juba-reference-page .juba-ref-reviews,.juba-reference-page .juba-ref-pricing,.juba-reference-page .juba-ref-faq{padding:72px 14px!important}.juba-reference-page .juba-ref-pillar-grid,.juba-reference-page .juba-ref-review-grid{grid-template-columns:1fr!important}.juba-reference-page .juba-ref-pillar{min-height:0}.juba-reference-page .juba-ref-cta{padding:72px 16px!important}}
+
+
+/* LANDING FOOTER — match the same reference system */
+body .juba-reference-page .juba-duo-footer{margin-top:0!important;padding:82px 0 28px!important;background:#252525!important;color:#fff!important;border-top:7px solid #58cc02!important}
+body .juba-reference-page .juba-duo-footer .juba-footer-title{color:#b7f36b!important;font-size:11px!important;letter-spacing:.08em!important}
+body .juba-reference-page .juba-duo-footer .juba-footer-copy{color:#d7ddd8!important;line-height:1.8!important}
+body .juba-reference-page .juba-duo-footer .juba-footer-meta{color:#8e9891!important}
+body .juba-reference-page .juba-duo-footer .juba-footer-link{color:#d7ddd8!important;text-decoration:none!important}
+body .juba-reference-page .juba-duo-footer .juba-footer-link:hover{color:#58cc02!important}
+body .juba-reference-page .juba-duo-footer .juba-footer-bottom{border-top:1px solid #454b47!important;color:#8e9891!important}
+body .juba-reference-page .juba-duo-footer img{filter:none!important}
+body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7f36b!important;outline-offset:4px!important}
+@media(max-width:700px){body .juba-reference-page .juba-duo-footer{padding:62px 0 24px!important}.juba-reference-page .juba-duo-footer .grid{gap:30px!important}}
