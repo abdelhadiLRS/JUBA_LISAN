@@ -2195,3 +2195,16 @@ def test_en_gb_a2_currency_and_health_examples_are_contextual():
         for fragment in fragments:
             assert fragment.casefold() in example, word
 
+\n
+def test_en_gb_b1_memorable_and_unforgettable_are_distinguished():
+    from app.data.en_GB.vocabulary_b1 import B1_SETS
+
+    entries = {word.word: word for group in B1_SETS for word in group.words}
+    memorable = entries["memorable"]
+    unforgettable = entries["unforgettable"]
+    assert "does not have to be emotionally powerful" in memorable.definition
+    assert "strong emotional experience" in unforgettable.definition
+    assert "training day" in memorable.example
+    assert "solo trip abroad" in unforgettable.example
+    assert memorable.example != unforgettable.example
+
