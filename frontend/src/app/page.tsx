@@ -81,7 +81,8 @@ export default async function Home() {
   const rtl = locale === 'ar'
 
   return (
-    <main className="juba-busuu-landing min-h-screen overflow-x-hidden" dir={rtl ? 'rtl' : 'ltr'} lang={locale}>\n      <a className="juba-busuu-skip-link" href="#landing-content">{t('skipToContent')}</a>
+    <main className="juba-busuu-landing min-h-screen overflow-x-hidden" dir={rtl ? 'rtl' : 'ltr'} lang={locale}>
+      <a className="juba-busuu-skip-link" href="#landing-content">{t('skipToContent')}</a>
       <LandingNav
         hasSession={hasSession}
         dir={rtl ? 'rtl' : 'ltr'}
