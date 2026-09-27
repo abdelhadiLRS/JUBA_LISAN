@@ -439,8 +439,8 @@ html[data-theme='light'] {
 .juba-busuu-landing #landing-content,.juba-busuu-landing #languages,.juba-busuu-landing #features,.juba-busuu-landing #reviews,.juba-busuu-landing #benefits,.juba-busuu-landing #pricing,.juba-busuu-landing #faq{scroll-margin-top:92px}
 .juba-busuu-hero{background:#fff;overflow:hidden}
 .juba-busuu-hero-grid{
-  min-height:620px;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
-  align-items:center;gap:30px;padding:72px 0 92px;
+  min-height:590px;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  align-items:center;gap:42px;padding:64px 0 84px;
 }
 .juba-busuu-hero-copy{max-width:610px}
 .juba-busuu-eyebrow{
@@ -449,7 +449,7 @@ html[data-theme='light'] {
 }
 .juba-busuu-hero h1{
   margin:16px 0 22px;max-width:680px;
-  font-size:clamp(3.25rem,6.4vw,6.2rem);line-height:.91;
+  font-size:clamp(3rem,5.7vw,5.6rem);line-height:.94;
   letter-spacing:-.075em;font-weight:950;color:var(--busuu-ink);
 }
 .juba-busuu-hero p{
@@ -464,11 +464,11 @@ html[data-theme='light'] {
 .juba-busuu-secondary:focus-visible{outline:3px solid var(--busuu-blue);outline-offset:4px;border-radius:2px}
 .juba-busuu-hero-visual{position:relative;min-height:500px;display:flex;align-items:center;justify-content:center}
 .juba-busuu-hero-disc{
-  position:absolute;width:min(520px,80vw);aspect-ratio:1;border-radius:50%;
+  position:absolute;width:min(560px,82vw);aspect-ratio:1;border-radius:50%;
   background:var(--busuu-mint);z-index:0;
 }
 .juba-busuu-hero-visual img{
-  position:relative;z-index:1;width:min(760px,100%);height:auto;max-height:550px;
+  position:relative;z-index:1;width:min(800px,108%);height:auto;max-height:570px;
   object-fit:contain;filter:none;
 }
 .juba-busuu-hero-proof{
