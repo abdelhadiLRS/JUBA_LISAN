@@ -1,6 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+
+### Educational Content Quality — A1 progression pass
+- Added speaking practice to every A1 curriculum unit so the foundation sequence explicitly covers reading, listening, speaking, and writing.
+- Renamed the A1 `Abilities & Wishes` unit to `Abilities & Free Time` to match its authored grammar and competency scope.
+- Normalised A1 British-English `Cheers` and `ta` entries to the supported `phrase` part of speech.
+- Added regression checks for four-skill curriculum coverage, non-empty competencies, and vocabulary schema integrity.
 ### Educational Content Quality
 
 - Foundation-derived lessons now carry observable can-do outcomes, success criteria, practical scenarios, recycling material, phrasebook language, and retrieval prompts.
