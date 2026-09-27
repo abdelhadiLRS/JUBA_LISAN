@@ -16,7 +16,7 @@ B2_UNITS: list[CurriculumUnit] = [
             "concordancia-temporal",
         ],
         vocabulary_set_ids=["sentimentos_b2", "hipóteses_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forma o imperfeito do conjuntivo a partir da terceira pessoa do plural do pretérito perfeito simples, substituindo -ram por -sse: falaram -> falasse; foram -> fosse; tiveram -> tivesse; vieram -> viesse",
             "Usa o imperfeito do conjuntivo em condicionais de tipo 2 (Se tivesse tempo, faria isso), após verbos da principal no passado (Queria que viesse, Pedia que ficasse) e após conjunções concessivas com valor passado: Embora estivesse cansado, continuou",
@@ -39,7 +39,7 @@ B2_UNITS: list[CurriculumUnit] = [
             "infinitivo-pessoal",
         ],
         vocabulary_set_ids=["hábitos_b2", "mudanças_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Usa estar a + infinitivo para ação em curso num momento específico (progressivo no PE): Estou a trabalhar, Estava a dormir; e andar a + infinitivo para ação repetida com nuance enfática: Anda sempre a reclamar, Ando a ler um livro interessante",
             "Usa perífrases aspetuais como começar a + infinitivo, deixar de + infinitivo, voltar a + infinitivo, continuar a + infinitivo e acabar de + infinitivo",
@@ -57,7 +57,7 @@ B2_UNITS: list[CurriculumUnit] = [
         title="Conectores e coerência textual",
         grammar_points=["conectores-avancados", "coesao-textual", "registo-formal"],
         vocabulary_set_ids=["ensaios_b2", "académico_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Usa corretamente conjunções concessivas com conjuntivo: embora + conjuntivo (Embora chovesse, saímos), ainda que + conjuntivo, mesmo que + conjuntivo, por mais que + conjuntivo",
             "Usa conectores causais com registo e posição corretos: porque (neutro), uma vez que/visto que/dado que (formal), como (causal, em posição inicial: Como estava cansado, fui dormir)",
@@ -79,7 +79,7 @@ B2_UNITS: list[CurriculumUnit] = [
             "proverbios",
         ],
         vocabulary_set_ids=["idiomas_b2", "cultura_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Compreende e usa mais de 20 expressões idiomáticas portuguesas frequentes: estar com água pela barba, fazer das tripas coração, deitar água na fervura, ficar de pedra e cal, dar a volta por cima",
             "Interpreta expressões coloquiais do português europeu sem tradução literal: está bem, com certeza, pois, não é?",
@@ -101,7 +101,7 @@ B2_UNITS: list[CurriculumUnit] = [
             "matizadores",
         ],
         vocabulary_set_ids=["debates_b2", "temas-sociais_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Apresenta uma tese clara e desenvolve-a com argumentos de apoio usando: em primeiro lugar, em segundo lugar, além disso, a este respeito, importa salientar que, cabe referir que",
             "Introduz e refuta um contra-argumento: é certo que..., no entanto; embora seja verdade que..., não se pode ignorar que; poder-se-ia argumentar que..., mas na realidade",
@@ -123,7 +123,7 @@ B2_UNITS: list[CurriculumUnit] = [
             "preterito-mais-que-perfeito",
         ],
         vocabulary_set_ids=["literatura_b2", "leitura_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Usa em conjunto pretérito perfeito simples, imperfeito e mais-que-perfeito composto em narrativa literária: perfeito simples para eventos concluídos em primeiro plano, imperfeito para descrições de fundo e mais-que-perfeito para eventos anteriores ao momento narrativo",
             "Reconhece o mais-que-perfeito simples literário (falara, comera, fora, viera) em textos clássicos portugueses e compreende a sua equivalência funcional com tinha falado",
@@ -141,7 +141,7 @@ B2_UNITS: list[CurriculumUnit] = [
         title="Média e atualidade",
         grammar_points=["linguagem-jornalistica", "titulos", "discurso-reportado"],
         vocabulary_set_ids=["notícias_b2", "atualidade_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Identifica características do estilo jornalístico do português europeu: construções nominalizadas, voz passiva, se passivo, se impessoal, conectores formais e frases mais longas e complexas típicas da imprensa",
             "Interpreta a gramática dos títulos de jornal em português: formas verbais truncadas, presente para passado recente, infinitivo para referência futura e elipse de cópulas",
@@ -168,7 +168,7 @@ B2_UNITS: list[CurriculumUnit] = [
             "discurso-reportado",
         ],
         vocabulary_set_ids=["revisão_b2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Escreve um ensaio formal de cerca de 200 palavras integrando imperfeito do conjuntivo, embora + conjuntivo, conectores avançados e estrutura argumentativa clara",
             "Usa corretamente o infinitivo pessoal em orações finais e após preposições, demonstrando domínio de um traço distintivo do português",
