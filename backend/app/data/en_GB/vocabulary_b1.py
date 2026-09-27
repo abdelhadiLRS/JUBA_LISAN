@@ -275,8 +275,8 @@ B1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="climate change",
                 pos="noun",
-                definition="Long-term changes in global temperature and weather patterns.",
-                example="The report links climate change to shifts in rainfall patterns and a greater likelihood of some extreme weather events.",
+                definition="Long-term shifts in average temperatures and weather patterns, caused by natural processes and human activities.",
+                example="The regional climate-change report compares rainfall records over thirty years and explains how changing patterns affect local farming and water supplies."
                 ipa="/ˈklaɪmɪt tʃeɪndʒ/",
             ),
             VocabularyEntry(
@@ -337,8 +337,8 @@ B1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="global warming",
                 pos="noun",
-                definition="The long-term increase in the Earth's average temperature.",
-                example="Global warming is melting the ice caps.",
+                definition="The long-term rise in Earth’s average surface temperature, mainly driven by human greenhouse-gas emissions.",
+                example="Global warming has increased the risk of heatwaves, so the city is planting trees and opening cool public spaces during hot weather."
                 ipa="/ˌɡləʊbəl ˈwɔːmɪŋ/",
             ),
         ],
