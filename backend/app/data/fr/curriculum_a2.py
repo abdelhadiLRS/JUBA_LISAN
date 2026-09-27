@@ -17,7 +17,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "accord-participe-etre",
         ],
         vocabulary_set_ids=["voyages_fr_a2", "experiences_fr_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forme le passé composé avec avoir + participe passé pour la majorité des verbes",
             "Conjugue au passé composé les verbes qui utilisent être comme auxiliaire : aller, venir, arriver, partir, naître, mourir, monter, descendre, entrer, sortir, rester, tomber, retourner",
@@ -39,7 +39,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "description-passee",
         ],
         vocabulary_set_ids=["enfance_fr_a2", "souvenirs_fr_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Conjugue l'imparfait pour tous les verbes sur le radical de la première personne du pluriel au présent (nous parlons → je parlais)",
             "Utilise l'imparfait pour les descriptions, les habitudes passées et les actions en cours interrompues",
@@ -57,7 +57,7 @@ A2_UNITS: list[CurriculumUnit] = [
         title="Les pronoms compléments",
         grammar_points=["pronoms-cod", "pronoms-coi", "pronoms-y-en", "ordre-pronoms"],
         vocabulary_set_ids=["achats_fr_a2", "cadeaux_fr_a2", "argent_prix_fr_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Remplace les compléments d'objet direct par le/la/l'/les : Tu vois le film ? Oui, je le vois",
             "Utilise les pronoms d'objet indirect lui/leur : Je lui parle, Je leur donne le livre",
@@ -75,7 +75,7 @@ A2_UNITS: list[CurriculumUnit] = [
         title="Comparaisons et superlatifs",
         grammar_points=["comparatifs", "superlatifs", "meilleur-mieux"],
         vocabulary_set_ids=["villes_fr_a2", "culture_fr_a2", "animaux_nature_fr_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Compare avec plus/moins/aussi + adjectif/adverbe + que : Paris est plus grand que Lyon",
             "Forme le superlatif avec le/la/les + plus/moins + adjectif + de : C'est la plus belle ville de France",
@@ -98,7 +98,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "imperatif-irregulier",
         ],
         vocabulary_set_ids=["sante_fr_a2", "conseils_fr_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forme l'impératif affirmatif à la 2e personne du singulier et aux 1re et 2e personnes du pluriel en utilisant le présent sans le pronom sujet",
             "Maîtrise les quatre verbes irréguliers à l'impératif : être (sois/soyons/soyez), avoir (aie/ayons/ayez), savoir (sache/sachons/sachez), vouloir (veuille/veuillons/veuillez)",
@@ -116,7 +116,7 @@ A2_UNITS: list[CurriculumUnit] = [
         title="Le futur simple et le conditionnel",
         grammar_points=["futur-simple", "conditionnel-present", "si-present-futur"],
         vocabulary_set_ids=["travail_fr_a2", "projets_fr_a2", "connecteurs_fr_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forme le futur simple avec l'infinitif + terminaisons -ai, -as, -a, -ons, -ez, -ont",
             "Maîtrise les radicaux irréguliers du futur : être (ser-), avoir (aur-), aller (ir-), faire (fer-), pouvoir (pourr-), vouloir (voudr-), venir (viendr-), voir (verr-), savoir (saur-)",
@@ -138,7 +138,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "relatifs-simples",
         ],
         vocabulary_set_ids=["histoires_fr_a2", "anecdotes_fr_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Enchaîne des événements avec des marqueurs de séquence : d'abord, ensuite, puis, après, plus tard, alors, finalement, à la fin",
             "Utilise les pronoms relatifs simples qui (sujet) et que (objet) pour enrichir les phrases : le livre que j'ai lu, la personne qui parle",
@@ -166,7 +166,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "relatifs-simples",
         ],
         vocabulary_set_ids=["revision_fr_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Gère des situations sociales courantes (achats, rendez-vous, indications) avec un usage approprié des temps verbaux",
             "Utilise avec précision les pronoms compléments et les formes de l'impératif dans des échanges fonctionnels brefs",
