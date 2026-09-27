@@ -130,6 +130,14 @@ export default async function Home() {
           <div className="juba-busuu-hero-visual">
             <div className="juba-busuu-hero-disc" aria-hidden="true" />
             <Image src="/landing/juba-hero-characters.svg" alt="" width={900} height={700} priority aria-hidden="true" />
+            <div className="juba-busuu-hero-card juba-busuu-hero-card-top" aria-hidden="true">
+              <strong>A1–C2</strong>
+              <span>{t('proofCefr')}</span>
+            </div>
+            <div className="juba-busuu-hero-card juba-busuu-hero-card-bottom" aria-hidden="true">
+              <strong>{SUPPORTED_LANGUAGE_COUNT}</strong>
+              <span>{t('supportedLanguages')}</span>
+            </div>
           </div>
         </div>
       </section>
