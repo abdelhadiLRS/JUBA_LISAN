@@ -436,7 +436,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="price",
                 pos="noun",
-                definition="The amount of money needed to buy something.",
+                definition="The amount of money a shop or seller asks you to pay for something.",
                 example="What is the price of this jacket? I like it, but I want to compare it with the cheaper one next to it.",
                 ipa="/praɪs/",
                 frequency_rank=180,
@@ -1067,7 +1067,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="cost",
                 pos="verb",
-                definition="To have a particular price.",
+                definition="To have a particular price that someone must pay for a product or service.",
                 example="How much does it cost? I want to check the price before deciding whether to buy it.",
                 ipa="/kɒst/",
                 frequency_rank=115,
@@ -1075,7 +1075,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="spend",
                 pos="verb",
-                definition="To use money to buy something.",
+                definition="To use money for something you buy or for a service you receive.",
                 example="I spend too much on food when I shop without a list, so I am planning meals before I go.",
                 ipa="/spend/",
                 frequency_rank=185,
@@ -1083,7 +1083,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="save",
                 pos="verb",
-                definition="To keep money for future use.",
+                definition="To keep money instead of spending it now, usually for a future purpose.",
                 example="I save 20% of my salary each month because I am planning to buy a new computer.",
                 ipa="/seɪv/",
                 frequency_rank=160,
@@ -1091,7 +1091,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="free",
                 pos="adjective",
-                definition="Costing nothing.",
+                definition="Available without payment; costing no money.",
                 example="Entry to the museum is free on Sundays, so we are planning our visit for this weekend.",
                 ipa="/friː/",
                 frequency_rank=65,
@@ -1099,7 +1099,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="worth",
                 pos="adjective",
-                definition="Having a particular value.",
+                definition="Having a value that can be measured in money or judged in relation to the benefit it provides.",
                 example="This old watch is worth a lot because it belonged to my grandfather and is a rare model.",
                 ipa="/wɜːθ/",
                 frequency_rank=135,
@@ -1107,7 +1107,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="budget",
                 pos="noun",
-                definition="The amount of money available to spend.",
+                definition="The amount of money available for a particular purpose, especially after planning expected costs.",
                 example="I have a small budget this month, so I am comparing prices before buying anything non-essential.",
                 ipa="/ˈbʌdʒɪt/",
                 frequency_rank=275,
@@ -1547,7 +1547,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="tall",
                 pos="adjective",
-                definition="Having greater than average height.",
+                definition="Having more height from the ground to the top than someone or something being compared with.",
                 example="My brother is taller than me, but my sister is the tallest person in our family.",
                 ipa="/tɔːl/",
                 frequency_rank=120,
