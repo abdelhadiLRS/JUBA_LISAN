@@ -3040,7 +3040,7 @@ A1_SETS: list[VocabularySet] = [
         words=[
             VocabularyEntry(
                 word="Cheers",
-                pos="exclamation",
+                pos="phrase",
                 definition="Informal British way of saying thank you, or used as a toast when drinking.",
                 example="Cheers for helping me with my bag!",
                 ipa="/tʃɪəz/",
@@ -3080,7 +3080,7 @@ A1_SETS: list[VocabularySet] = [
             ),
             VocabularyEntry(
                 word="ta",
-                pos="exclamation",
+                pos="phrase",
                 definition="Very informal British way of saying thank you.",
                 example="Could you pass the salt? Ta!",
                 ipa="/tɑː/",
