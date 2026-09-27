@@ -380,7 +380,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         skill="grammar",
         difficulty="C2",
         question=(
-            "___ he known about the risks, he would never have agreed."
+            "The researcher agreed to the trial without knowing about the risks. ___ he known about the risks, he would never have agreed."
             ' (formal conditional without "if")'
         ),
         options=["Had", "Should", "Were", "Did"],
@@ -1094,7 +1094,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="g-c1-005",
         skill="grammar",
         difficulty="C1",
-        question='"___ the contract carefully, she refused to sign." — Which option is grammatically correct?',
+        question='The lawyer examined the contract before deciding not to sign it. "___ the contract carefully, she refused to sign." — Which option is grammatically correct?',
         options=["Having read", "Having been read", "After read", "She having read"],
         correct="Having read",
         grammar_slug="participle-clauses",
