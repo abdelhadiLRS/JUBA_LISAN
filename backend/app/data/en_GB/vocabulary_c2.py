@@ -60,7 +60,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="inextricable",
                 pos="adjective",
-                definition="So closely connected that the parts cannot be separated or understood independently.",
+                definition="So closely linked that the elements cannot be separated without changing or losing their meaning.",
                 example="Language and culture are inextricably linked.",
                 ipa="/ɪnˈekstrɪkəbəl/",
                 frequency_rank=520,
@@ -68,7 +68,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="judicious",
                 pos="adjective",
-                definition="Having or showing good judgement.",
+                definition="Showing sound judgement by choosing carefully and weighing the likely consequences.",
                 example="A judicious use of resources is essential.",
                 ipa="/dʒuːˈdɪʃəs/",
                 frequency_rank=510,
@@ -92,7 +92,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="contentious",
                 pos="adjective",
-                definition="Causing or likely to cause disagreement.",
+                definition="Likely to provoke strong disagreement or argument, especially because people hold opposing views.",
                 example="The proposed changes remain a contentious issue among residents.",
                 ipa="/kənˈtenʃəs/",
                 frequency_rank=430,
@@ -116,7 +116,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="ubiquitous",
                 pos="adjective",
-                definition="Present or encountered in many places or throughout a particular area or group.",
+                definition="Found everywhere within a particular place, group, or aspect of life; seemingly impossible to avoid.",
                 example="Smartphones are now ubiquitous in modern life.",
                 ipa="/juːˈbɪkwɪtəs/",
                 frequency_rank=450,
@@ -203,7 +203,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="promulgate",
                 pos="verb",
-                definition="To make known by official proclamation.",
+                definition="To announce or put a law, rule, or policy into effect through an official act.",
                 example="The revised safety regulations were promulgated last week and take effect next month.",
                 ipa="/ˈprɒməlɡeɪt/",
                 frequency_rank=530,
@@ -235,7 +235,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="ramification",
                 pos="noun",
-                definition="A complex result or consequence.",
+                definition="One of several often complex or far-reaching consequences that follow from an action or decision.",
                 example="Before signing the agreement, consider the long-term ramifications of the decision.",
                 ipa="/ˌræmɪfɪˈkeɪʃən/",
                 frequency_rank=480,
