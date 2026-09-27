@@ -926,3 +926,32 @@ def test_en_gb_b2_domain_examples_are_contextual_and_reusable():
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 10
+
+
+
+def test_en_gb_c1_critical_thinking_examples_are_contextual_and_reusable():
+    """Selected C1 reasoning vocabulary should model evidence-based use in context."""
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+
+    entries = {entry.word: entry for vocabulary_set in C1_SETS for entry in vocabulary_set.words}
+    expected = {
+        "empathy": "employee feels their concerns have not been heard",
+        "autonomy": "central management retained control",
+        "quandary": "one offers better pay",
+        "undermine": "essential repairs will be completed",
+        "advocate": "reliable transport and internet access",
+        "articulate": "which risks required immediate action",
+        "fallacy": "popularity does not prove effectiveness",
+        "validity": "sample excludes the customers",
+        "sceptical": "very small sample",
+        "counterargument": "higher maintenance costs later",
+        "overarching": "energy use, procurement, transport",
+        "underpin": "affect thousands of customers",
+        "nuanced": "creating new barriers for others",
+        "scrutinise": "missing values, unusual patterns",
+        "discrepancy": "1,240 applications",
+        "tentative": "pending board approval",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 14
