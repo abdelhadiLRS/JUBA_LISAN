@@ -1926,3 +1926,26 @@ def test_en_gb_a1_identity_examples_are_contextual_and_reusable():
         for fragment in fragments:
             assert fragment.lower() in example, word
 
+
+
+def test_en_gb_a2_future_plans_examples_are_actionable():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {
+        entry.word: entry
+        for vocab_set in A2_SETS
+        for entry in vocab_set.words
+    }
+    expected = {
+        "plan": ["collect the keys", "decorate her new flat"],
+        "hope": ["next spring", "money aside"],
+        "intend": ["submit the project by Friday", "three tasks"],
+        "book": ["table for four", "quiet seat"],
+        "decision": ["compared rent", "job offers"],
+        "soon": ["shop closes at six"],
+    }
+    for word, fragments in expected.items():
+        example = entries[word].example.lower()
+        for fragment in fragments:
+            assert fragment.lower() in example, word
+
