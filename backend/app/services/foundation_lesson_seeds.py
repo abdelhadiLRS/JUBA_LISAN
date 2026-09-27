@@ -170,6 +170,19 @@ def get_foundation_lesson_seed(
             "C1": "Adapt register and structure to context, distinguish subtle meanings, and justify language choices.",
             "C2": "Handle nuanced meaning, formal or specialised contexts, and precise stylistic choices.",
         }[level],
+        "spaced_retrieval": [
+            "Revisit the same target items later in the lesson without showing the answer first.",
+            "Revisit them in the next related lesson with a changed context.",
+            "Check delayed recall again after several lessons before introducing extra load.",
+        ],
+        "input_design": {
+            "A1": "Prefer short, concrete examples with one main meaning at a time.",
+            "A2": "Use familiar situations with a small amount of variation and clear context.",
+            "B1": "Use connected examples that require learners to infer meaning from context.",
+            "B2": "Use varied contexts, collocations, and distinctions between near-synonyms.",
+            "C1": "Use authentic-looking contexts with register, implication, and nuanced distinctions.",
+            "C2": "Use demanding contexts where precision, stance, register, and subtle meaning matter.",
+        }[level],
     }
 
     base: dict[str, Any] = {
