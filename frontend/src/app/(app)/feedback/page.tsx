@@ -384,7 +384,7 @@ function DetailView({
                 disabled={voting}
                 className={`text-[var(--juba-learning-muted)] border-2 px-3 py-1 font-semibold tracking-wide transition-colors disabled:opacity-50 ${
                   entry.voted_by_me
-                    ? 'border-[#5862e2]/60 text-[#373fb8] bg-[var(--juba-learning-green)]/10'
+                    ? 'border-[var(--juba-learning-green-dark)]/60 text-[#373fb8] bg-[var(--juba-learning-green)]/10'
                     : 'border-[var(--juba-learning-border)] text-[var(--juba-learning-muted)] hover:border-[var(--juba-learning-green)] hover:text-[var(--juba-learning-ink)]'
                 }`}
               >
@@ -659,7 +659,7 @@ export default function FeedbackPage() {
             onClick={() => setTab(tabOption)}
             className={`text-[var(--juba-learning-ink)] -mb-px border-b-2 px-5 py-2 font-semibold tracking-wide transition-colors ${
               tab === tabOption
-                ? 'border-[#5862e2] text-[var(--juba-learning-ink)]'
+                ? 'border-[var(--juba-learning-green-dark)] text-[var(--juba-learning-ink)]'
                 : 'text-[var(--juba-learning-muted)] hover:text-[var(--juba-learning-ink)] border-transparent'
             }`}
           >
@@ -686,7 +686,7 @@ export default function FeedbackPage() {
             onClick={() => setSort(s)}
             className={`text-[var(--juba-learning-muted)] border-2 px-3 py-1 font-semibold tracking-wide transition-colors ${
               sort === s
-                ? 'border-[#5862e2]/40 text-[var(--juba-learning-ink)]'
+                ? 'border-[var(--juba-learning-green-dark)]/40 text-[var(--juba-learning-ink)]'
                 : 'border-[var(--juba-learning-border)] text-[var(--juba-learning-muted)] hover:border-[var(--juba-learning-green)] hover:text-[var(--juba-learning-ink)]'
             }`}
           >
@@ -766,7 +766,7 @@ export default function FeedbackPage() {
                         }}
                         className={`border-2 px-2 py-1 text-sm leading-none transition-colors ${
                           entry.voted_by_me
-                            ? 'border-[#5862e2]/60 text-[#373fb8] bg-[var(--juba-learning-green)]/10'
+                            ? 'border-[var(--juba-learning-green-dark)]/60 text-[#373fb8] bg-[var(--juba-learning-green)]/10'
                             : 'border-[var(--juba-learning-border)] text-[var(--juba-learning-muted)] hover:border-[var(--juba-learning-green)] hover:text-[var(--juba-learning-ink)]'
                         }`}
                         title={entry.voted_by_me ? 'Remove vote' : 'Vote'}
