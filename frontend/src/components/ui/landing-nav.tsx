@@ -186,7 +186,10 @@ export function LandingNav({
             {hasSession ? dashboard : getStarted}
           </Link>
           <details ref={localeMenuRef} onKeyDown={handleLocaleKeyDown} className="juba-busuu-locale-menu">
-            <summary className="juba-busuu-locale" aria-label={interfaceLanguages}>
+            <summary
+              className="juba-busuu-locale"
+              aria-label={`${interfaceLanguages}: ${localeDisplayNames.of(locale) ?? locale.toUpperCase()}`}
+            >
               <span>{locale.toUpperCase()}</span>
               <ChevronDown aria-hidden="true" />
             </summary>
