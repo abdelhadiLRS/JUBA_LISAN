@@ -25,7 +25,7 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   const [open, setOpen] = useState<number | null>(0)
 
   const strong = (chunks: React.ReactNode) => (
-    <strong className="font-bold text-[var(--juba-app-ink)]">{chunks}</strong>
+    <strong className="font-bold text-[var(--busuu-ink)]">{chunks}</strong>
   )
 
   const renderAnswer = (key: string) => {
@@ -44,10 +44,10 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
         <ol className="list-none space-y-2.5">
           {steps.map((step, i) => (
             <li key={i} className="flex items-start gap-3">
-              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[var(--juba-app-ink)] bg-[var(--juba-app-green-soft)] text-xs font-black text-[var(--juba-app-ink)]">
+              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[var(--busuu-line)] bg-[var(--busuu-soft)] text-xs font-black text-[var(--busuu-ink)]">
                 {i + 1}
               </span>
-              <span className="text-sm font-semibold leading-6 text-[var(--juba-app-ink)]">{step}</span>
+              <span className="text-sm font-semibold leading-6 text-[var(--busuu-ink)]">{step}</span>
             </li>
           ))}
         </ol>
@@ -73,7 +73,7 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   }
 
   return (
-    <div dir={dir} className="mx-auto max-w-4xl space-y-3 px-4">
+    <div dir={dir} className="mx-auto max-w-4xl">
       {FAQ_KEYS.map((key, i) => {
         const isOpen = open === i
         return (
@@ -89,7 +89,7 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
             >
               <span className="pr-4">{t(key)}</span>
               <span
-                className={`juba-landing-faq-icon flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-transform duration-200 ${
+                className={`juba-landing-faq-icon flex h-8 w-8 shrink-0 items-center justify-center transition-transform duration-200 ${
                   isOpen ? 'rotate-180' : ''
                 }`}
               >
