@@ -558,7 +558,7 @@ def test_en_gb_b2_overlap_examples_add_specific_context():
         "meanwhile": "temporary production elsewhere",
         "outcome": "decide whether to expand the service",
         "renewable": "long-term operating emissions",
-        "sustainable": "without ... accessibility",
+        "sustainable": "expense of accessibility",
         "regret": "final testing phase",
     }
     for word, phrase in expected_contexts.items():
