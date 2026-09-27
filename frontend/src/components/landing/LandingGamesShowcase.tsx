@@ -80,6 +80,28 @@ export function LandingGamesShowcase({
           </Link>
         </div>
       </div>
+
+      <section className="juba-practical-language-section" aria-labelledby="juba-practical-title">
+        <div className="juba-practical-language-copy">
+          <span className="juba-ref-kicker">{dir === 'rtl' ? 'تعلّم للاستخدام الحقيقي' : 'Learn for real life'}</span>
+          <h2 id="juba-practical-title">{dir === 'rtl' ? 'تعلّم اللغات للحياة والعمل' : 'Learn languages for life and work'}</h2>
+          <p>{dir === 'rtl' ? 'دروس قصيرة ومحادثات واقعية ونطق واستماع ومفردات تساعدك على استخدام اللغة بثقة في الحياة اليومية والعمل.' : 'Short lessons, real conversations, pronunciation, listening and vocabulary built around situations you actually face.'}</p>
+          <Link href="/register" className="juba-ref-button">{dir === 'rtl' ? 'تعلّم مجانًا' : 'Start learning for free'}</Link>
+        </div>
+        <div className="juba-practical-language-grid">
+          {[
+            ['🇬🇧','English','الإنجليزية'],['🇪🇸','Español','الإسبانية'],['🇫🇷','Français','الفرنسية'],['🇩🇪','Deutsch','الألمانية'],
+            ['🇮🇹','Italiano','الإيطالية'],['🇵🇹','Português','البرتغالية'],['🇯🇵','日本語','اليابانية'],['🇰🇷','한국어','الكورية'],
+            ['🇩🇿','العربية','العربية'],['🇷🇺','Русский','الروسية'],['🇹🇷','Türkçe','التركية'],['🇨🇳','中文','الصينية'],
+            ['🇳🇱','Nederlands','الهولندية'],['🇵🇱','Polski','البولندية'],
+          ].map(([flag,name,arName]) => (
+            <Link key={name} href="/register" className="juba-practical-language-card">
+              <span className="juba-practical-language-flag" aria-hidden="true">{flag}</span>
+              <span><strong>{dir === 'rtl' ? arName : name}</strong><small>{dir === 'rtl' ? name : 'JUBA LISAN'}</small></span>
+            </Link>
+          ))}
+        </div>
+      </section>
     </section>
   )
 }
