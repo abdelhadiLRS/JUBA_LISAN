@@ -143,7 +143,7 @@ export function LandingNav({
   return (
     <header className="juba-busuu-nav" dir={dir}>
       <div className="juba-busuu-nav-inner">
-        <Link href="/" aria-label={homeLabel} className="juba-busuu-brand">
+        <Link href="/" aria-label={homeLabel} aria-current="page" className="juba-busuu-brand">
           <Image src="/logo.png" alt="JUBA LISAN" width={150} height={52} priority />
         </Link>
 
