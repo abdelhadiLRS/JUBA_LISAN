@@ -803,6 +803,33 @@ def test_en_gb_a2_b2_selected_examples_add_teaching_context():
         assert len(b2[word].example.split()) >= 10
 
 
+
+def test_en_gb_c2_academic_examples_are_contextual_and_reusable():
+    """Selected C2 academic vocabulary should model precise, reusable disciplinary contexts."""
+    from app.data.en_GB.vocabulary_c2 import C2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in C2_SETS for entry in vocabulary_set.words}
+    expected = {
+        "elusive": "demand changed sharply between weekdays and weekends",
+        "nascent": "early trials suggest lower energy use",
+        "inextricable": "multilingual classrooms",
+        "contentious": "new housing",
+        "lucid": "sampling method worked",
+        "spurious": "no plausible mechanism",
+        "palpable": "final vote would determine",
+        "taxonomy": "recalling information to evaluating evidence",
+        "juxtapose": "official claims about rapid recovery",
+        "axiom": "equal access to essential services",
+        "dialectic": "two competing explanations",
+        "syllogism": "two premises",
+        "pedagogy": "retrieve knowledge",
+        "hermeneutics": "historical context, language, genre",
+        "metacognition": "plan a study task",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 16
+
 def test_foundation_fallback_seed_has_a_complete_learning_sequence():
     """Fallback lessons should connect input, retrieval, and production."""
     from app.services.foundation_lesson_seeds import get_foundation_lesson_seed
