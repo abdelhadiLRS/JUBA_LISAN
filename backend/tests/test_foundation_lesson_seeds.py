@@ -1816,3 +1816,25 @@ def test_en_gb_a1_phrasebook_greetings_have_accurate_register_contexts():
     requests = {phrase.text: phrase for phrase in categories["basic_requests"].phrases}
     assert "no trouble was caused" in requests["Not at all."].context
     assert "genuinely welcome" in requests["My pleasure."].context
+
+
+def test_en_gb_a2_sequence_words_use_richer_contexts():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {
+        entry.word: entry
+        for vocab_set in A2_SETS
+        for entry in vocab_set.words
+    }
+    expected = {
+        "at first": ["old timetable", "after a week"],
+        "in the end": ["train", "rush-hour traffic"],
+        "later": ["customer", "shop is quieter"],
+        "next": ["sign the form", "return envelope"],
+        "after that": ["course ended", "final assignment"],
+    }
+    for word, fragments in expected.items():
+        example = entries[word].example.lower()
+        for fragment in fragments:
+            assert fragment.lower() in example
+
