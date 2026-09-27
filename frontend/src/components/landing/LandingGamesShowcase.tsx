@@ -62,7 +62,7 @@ export function LandingGamesShowcase({
         <h2>{title}</h2>
         <p>{description}</p>
       </div>
-      <div className="juba-games-tabs" role="tablist" aria-label={title}>
+      <div className="juba-games-tabs" role="tablist" aria-orientation="horizontal" aria-label={title}>
         {GAMES.map((game) => (
           <button
             key={game.key}
