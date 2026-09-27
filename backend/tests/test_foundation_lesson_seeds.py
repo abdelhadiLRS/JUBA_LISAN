@@ -1480,3 +1480,40 @@ def test_en_gb_a2_travel_and_directions_examples_are_actionable():
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 10
+
+
+
+def test_en_gb_a2_animals_and_nature_definitions_and_examples_are_informative():
+    """A2 nature vocabulary should teach distinguishing features and reusable situations."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in A2_SETS for entry in vocabulary_set.words}
+    expected_definitions = {
+        "lion": "lives in groups called prides",
+        "elephant": "trunk used to pick up food and water",
+        "insect": "six legs and usually two antennae",
+        "whale": "marine mammal that breathes air",
+        "forest": "shelter for plants and animals",
+        "desert": "receives little rain",
+        "valley": "between hills or mountains",
+        "species": "share important characteristics",
+        "habitat": "feeds, and reproduces",
+        "wildlife": "living in the wild",
+    }
+    expected_examples = {
+        "lion": "move quietly through the grass",
+        "elephant": "sprayed water over its back",
+        "insect": "fly back outside",
+        "whale": "surface twice before swimming away",
+        "forest": "followed the marked path",
+        "desert": "very little rain falls each year",
+        "valley": "river running between the houses",
+        "species": "nesting areas",
+        "habitat": "less food and shelter",
+        "wildlife": "visitors on marked paths",
+    }
+    for word, phrase in expected_definitions.items():
+        assert phrase.casefold() in entries[word].definition.casefold()
+    for word, phrase in expected_examples.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 14
