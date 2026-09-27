@@ -224,7 +224,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {/* Logo area */}
         <div className="border-fl-border flex items-center gap-2 border-b px-5 py-5">
           <span className="juba-duo-logo-mark" aria-hidden="true">JL</span>
-          <span className="text-fl-fg font-code text-sm font-bold tracking-widest uppercase">
+          <span className="text-fl-fg font-sans text-sm font-bold tracking-widest uppercase">
             JUBA LISAN
           </span>
         </div>
@@ -542,7 +542,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
-              <p className="text-fl-label text-fl-muted-4 font-code mb-2 tracking-wider">
+              <p className="text-fl-label text-fl-muted-4 font-sans mb-2 tracking-wider">
                 v1.9.15
               </p>
               <button
