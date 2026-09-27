@@ -2265,3 +2265,115 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
     padding:11px!important;
   }
 }
+
+
+/* Landing — games + AI visual refinement pass */
+.juba-reference-page .juba-games-showcase{
+  position:relative!important;
+  overflow:visible!important;
+}
+.juba-reference-page .juba-games-showcase::before{
+  content:""!important;
+  position:absolute!important;
+  top:72px!important;
+  left:50%!important;
+  width:min(760px,80vw)!important;
+  height:220px!important;
+  transform:translateX(-50%)!important;
+  border-radius:50%!important;
+  background:radial-gradient(ellipse,#f3fbe9 0%,rgba(243,251,233,0) 72%)!important;
+  pointer-events:none!important;
+  z-index:0!important;
+}
+.juba-reference-page .juba-games-heading,
+.juba-reference-page .juba-games-tabs,
+.juba-reference-page .juba-game-stage,
+.juba-reference-page .juba-practical-language-section{
+  position:relative!important;
+  z-index:1!important;
+}
+.juba-reference-page .juba-game-stage{
+  transition:transform .2s ease,box-shadow .2s ease!important;
+}
+.juba-reference-page .juba-game-stage:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 18px 38px rgba(37,37,37,.09)!important;
+}
+.juba-reference-page .juba-game-stage-image{
+  background:
+    radial-gradient(circle at 50% 45%,#ffffff 0%,#f3fbe9 62%,#eaf7dc 100%)!important;
+}
+.juba-reference-page .juba-practical-language-section{
+  position:relative!important;
+}
+.juba-reference-page .juba-practical-language-section::before{
+  content:""!important;
+  position:absolute!important;
+  top:-1px!important;
+  left:50%!important;
+  width:56px!important;
+  height:4px!important;
+  transform:translateX(-50%)!important;
+  border-radius:999px!important;
+  background:#58cc02!important;
+}
+.juba-reference-page .juba-ai-showcase{
+  position:relative!important;
+  overflow:hidden!important;
+}
+.juba-reference-page .juba-ai-showcase::before{
+  content:""!important;
+  position:absolute!important;
+  width:260px!important;
+  height:260px!important;
+  top:-150px!important;
+  right:-80px!important;
+  border-radius:50%!important;
+  background:#b7f36b!important;
+  opacity:.28!important;
+  pointer-events:none!important;
+}
+.juba-reference-page .juba-ai-showcase-art,
+.juba-reference-page .juba-ai-showcase-copy{
+  position:relative!important;
+  z-index:1!important;
+}
+.juba-reference-page .juba-ai-showcase-art{
+  transition:transform .2s ease,box-shadow .2s ease!important;
+}
+.juba-reference-page .juba-ai-showcase-art:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 10px 26px rgba(37,37,37,.08)!important;
+}
+.juba-reference-page .juba-ai-showcase-copy .juba-ref-kicker{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:6px!important;
+  padding:6px 10px!important;
+  border-radius:999px!important;
+  background:#eaf7dc!important;
+  color:#46a900!important;
+}
+.juba-reference-page .juba-ai-showcase-copy .juba-ref-button{
+  box-shadow:inset 0 -3px 0 #46a900,0 8px 18px rgba(88,204,2,.14)!important;
+}
+@media(max-width:600px){
+  .juba-reference-page .juba-games-showcase::before{
+    top:54px!important;
+    width:100vw!important;
+  }
+  .juba-reference-page .juba-game-stage:hover,
+  .juba-reference-page .juba-ai-showcase-art:hover{
+    transform:none!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .juba-reference-page .juba-game-stage,
+  .juba-reference-page .juba-ai-showcase-art{
+    transition:none!important;
+  }
+  .juba-reference-page .juba-game-stage:hover,
+  .juba-reference-page .juba-ai-showcase-art:hover{
+    transform:none!important;
+  }
+}
