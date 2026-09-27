@@ -1,45 +1,66 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
+import { ArrowRight, BookOpen, CheckCircle2, Headphones, LockKeyhole, Mic2, Sparkles } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
-import { subscribeToLearningProgressUpdated } from '@/lib/learning-progress'
 import { CEFR_LEVELS, getCurriculumUnits, type CEFRLevel, type CurriculumUnit } from '@/data/curriculum'
 import { useLanguageStore } from '@/store/language'
-import { CEFR_DESCRIPTORS, CEFR_SKILLS, type CEFRSkill } from '@/data/cefr-descriptors'
 
 interface StudyPlan {
   cefr_level: CEFRLevel
-  generated_plan?: { weekly_plan?: Array<{ days?: Array<{ unit_id: string }> }> }
+  generated_plan?: {
+    weekly_plan?: Array<{
+      days?: Array<{ unit_id: string }>
+    }>
+  }
 }
-interface CompetencyRecord { unit_id: string; score: number }
 
-const skills = ['learn', 'listen', 'speak'] as const
+interface CompetencyRecord {
+  unit_id: string
+  score: number
+}
+
+const LEVEL_META: Record<CEFRLevel, { title: string; desc: string }> = {
+  A1: { title: 'A1 · Starter', desc: 'Build your first practical vocabulary and everyday phrases.' },
+  A2: { title: 'A2 · Elementary', desc: 'Understand common situations and speak with more confidence.' },
+  B1: { title: 'B1 · Intermediate', desc: 'Express ideas, follow conversations, and read with independence.' },
+  B2: { title: 'B2 · Upper Intermediate', desc: 'Handle richer conversations and more precise language.' },
+  C1: { title: 'C1 · Advanced', desc: 'Develop fluent, nuanced communication for demanding contexts.' },
+  C2: { title: 'C2 · Mastery', desc: 'Refine precise, natural communication across demanding contexts.' },
+}
+
+const skills = [
+  { icon: BookOpen, title: 'Learn', text: 'Build useful language in small, focused steps.' },
+  { icon: Headphones, title: 'Listen', text: 'Train your ear with short real-world practice.' },
+  { icon: Mic2, title: 'Speak', text: 'Turn recognition into confident active recall.' },
+]
+
 const places = [
-  { icon: '☕', key: 'cafe' },
-  { icon: '🍽️', key: 'restaurant' },
-  { icon: '✈️', key: 'travel' },
-  { icon: '💼', key: 'work' },
-] as const
+  { icon: '☕', title: 'Café', text: 'Order, ask and respond.' },
+  { icon: '🍽️', title: 'Restaurant', text: 'Food, requests and payment.' },
+  { icon: '✈️', title: 'Travel', text: 'Tickets, directions and arrival.' },
+  { icon: '💼', title: 'Work', text: 'Meetings and everyday tasks.' },
+]
 
 function getPlanLessonCount(plan: StudyPlan | null): number {
-  return plan?.generated_plan?.weekly_plan?.reduce((total, week) => total + (week.days?.length ?? 0), 0) ?? 0
+  return plan?.generated_plan?.weekly_plan?.reduce(
+    (total, week) => total + (week.days?.length ?? 0),
+    0,
+  ) ?? 0
 }
 
 export default function CoursesPage() {
-  const t = useTranslations('courses')
-  const locale = useLocale()
   const activeLanguage = useLanguageStore((s) => s.activeLanguage)
   const [plan, setPlan] = useState<StudyPlan | null>(null)
   const [competencies, setCompetencies] = useState<Record<string, number>>({})
   const [levelUnits, setLevelUnits] = useState<Record<CEFRLevel, CurriculumUnit[]>>({} as Record<CEFRLevel, CurriculumUnit[]>)
   const [journeyUnits, setJourneyUnits] = useState<Record<string, { id: string; progress: number; state: string; lessons?: Array<{ id: number; is_completed: boolean; state: string }> }>>({})
   const [loading, setLoading] = useState(true)
-  const [refreshToken, setRefreshToken] = useState(0)
 
   useEffect(() => {
     let cancelled = false
+
     async function load() {
       setLoading(true)
       try {
@@ -50,43 +71,49 @@ export default function CoursesPage() {
           apiFetch('/api/study-plan/learning-path').catch(() => null),
           ...CEFR_LEVELS.map((level) => getCurriculumUnits(level, language).catch(() => [])),
         ])
-        const nextPlan = planRes?.ok ? await planRes.json() as StudyPlan : null
+        const nextPlan = planRes?.ok ? (await planRes.json() as StudyPlan) : null
+
         if (cancelled) return
         setPlan(nextPlan)
+
         if (compRes?.ok) {
           const raw = await compRes.json()
           const next: Record<string, number> = {}
           if (Array.isArray(raw)) {
             for (const item of raw as CompetencyRecord[]) next[item.unit_id] = item.score
-          } else if (raw && typeof raw === 'object') Object.assign(next, raw as Record<string, number>)
+          } else if (raw && typeof raw === 'object') {
+            Object.assign(next, raw as Record<string, number>)
+          }
           if (!cancelled) setCompetencies(next)
         }
+
         if (journeyRes?.ok) {
           const journey = await journeyRes.json()
           const nextJourney: Record<string, { id: string; progress: number; state: string; lessons?: Array<{ id: number; is_completed: boolean; state: string }> }> = {}
-          for (const section of journey.sections ?? []) for (const unit of section.units ?? []) nextJourney[unit.id] = unit
+          for (const section of journey.sections ?? []) {
+            for (const unit of section.units ?? []) nextJourney[unit.id] = unit
+          }
           setJourneyUnits(nextJourney)
         }
-        setLevelUnits(Object.fromEntries(CEFR_LEVELS.map((level, index) => [level, curriculumResponses[index] ?? []])) as Record<CEFRLevel, CurriculumUnit[]>)
+
+        const units = Object.fromEntries(
+          CEFR_LEVELS.map((level, index) => [level, curriculumResponses[index] ?? []]),
+        ) as Record<CEFRLevel, CurriculumUnit[]>
+        setLevelUnits(units)
       } finally {
         if (!cancelled) setLoading(false)
       }
     }
+
     void load()
     return () => { cancelled = true }
-  }, [activeLanguage?.code, refreshToken])
-
-  useEffect(() => {
-    return subscribeToLearningProgressUpdated(() => {
-      setRefreshToken((value) => value + 1)
-    })
-  }, [])
+  }, [activeLanguage?.code])
 
   const currentLevel = plan?.cefr_level ?? null
   const currentIndex = currentLevel ? CEFR_LEVELS.indexOf(currentLevel) : 0
   const currentUnits = currentLevel ? (levelUnits[currentLevel] ?? []) : []
   const currentProgress = useMemo(() => {
-    if (!currentUnits.length) return 0
+    if (currentUnits.length === 0) return 0
     const journeyScores = currentUnits.map((unit) => journeyUnits[unit.id]?.progress).filter((score): score is number => typeof score === 'number')
     if (journeyScores.length) return Math.round((journeyScores.reduce((sum, score) => sum + score, 0) / journeyScores.length) * 100)
     return Math.round((currentUnits.reduce((sum, unit) => sum + (competencies[unit.id] ?? 0), 0) / currentUnits.length) * 100)
@@ -94,39 +121,41 @@ export default function CoursesPage() {
   const currentLessonCount = getPlanLessonCount(plan)
 
   return (
-    <div className="juba-mobile-courses space-y-8">
-        <section className="card relative overflow-hidden border-0 bg-primary text-white p-4 p-md-5">
+    <main className="juba-mobile-courses min-h-screen px-4 py-8 sm:px-6 lg:px-10">
+      <div className="mx-auto max-w-6xl space-y-8">
+        <section className="juba-card relative overflow-hidden rounded-[32px] border-2 border-[#eee8ff] bg-[#39751d] p-7 text-white shadow-[0_22px_48px_rgba(108,69,245,.22)] sm:p-10">
           <div className="relative z-10 max-w-3xl">
-            <div className="page-pretitle d-flex align-items-center gap-2"><i className="ti ti-sparkles icon icon-sm" aria-hidden="true" /> {t('heroEyebrow')}</div>
-            <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-6xl">{t('heroTitle')}</h1>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">{t('heroDescription')}</p>
+            <div className="juba-eyebrow"><Sparkles className="h-4 w-4" /> Your learning world</div>
+            <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-6xl">Learn language you can actually use.</h1>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">Move through practical situations, strengthen your memory, and unlock the next part of your journey one mission at a time.</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/courses" className="inline-flex items-center gap-2 rounded bg-white px-5 py-3 font-black text-primary shadow-sm transition hover:-translate-y-0.5">{t('openRoadmap')} <i className="ti ti-arrow-right icon" aria-hidden="true" /></Link>
-              <Link href="/assessment" className="inline-flex items-center gap-2 rounded border-2 border-white/25 bg-white/10 px-5 py-3 font-black text-white transition hover:bg-white/20">{t('findLevel')}</Link>
+              <Link href="/learning-journey" className="inline-flex items-center gap-2 rounded-[18px] bg-white px-5 py-3 font-black text-[#5a35dc] shadow-[0_5px_0_#d7ceff] transition hover:-translate-y-0.5">Continue journey <ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/assessment" className="inline-flex items-center gap-2 rounded-[18px] border-2 border-white/25 bg-white/10 px-5 py-3 font-black text-white transition hover:bg-white/20">Find my level</Link>
             </div>
           </div>
           <div className="juba-hero-glow" aria-hidden="true" />
         </section>
 
         <section className="grid gap-4 md:grid-cols-3">
-          {skills.map((key, index) => {
-            return (
-              <div key={key} className="card p-4">
-                <div className="avatar avatar-md rounded-2 bg-primary-lt text-primary"><i className={['ti ti-book','ti ti-headphones','ti ti-microphone'][index] + ' icon'} aria-hidden="true" /></div>
-                <h2 className="mt-4 text-xl font-black text-body">{t(`skills.${key}.title`)}</h2>
-                <p className="mt-2 text-sm leading-6 text-secondary">{t(`skills.${key}.text`)}</p>
-              </div>
-            )
-          })}
+          {skills.map(({ icon: Icon, title, text }) => (
+            <div key={title} className="juba-card rounded-[27px] border-2 border-[#eee8ff] bg-white p-5 shadow-[0_12px_28px_rgba(52,37,90,.07)]">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#eee8ff] text-[#5a35dc]"><Icon className="h-5 w-5" /></div>
+              <h2 className="mt-4 text-xl font-black text-[var(--juba-text)]">{title}</h2>
+              <p className="mt-2 text-sm leading-6 text-[#617068]">{text}</p>
+            </div>
+          ))}
         </section>
 
         <section>
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-            <div><p className="page-pretitle">{t('roadmapEyebrow')}</p><h2 className="mt-2 text-3xl font-black text-body sm:text-4xl">{t('roadmapTitle')}</h2></div>
-            <span className="rounded-full border border-secondary-subtle bg-light px-4 py-2 text-sm font-bold text-secondary">CEFR · {t('levelCount', { count: CEFR_LEVELS.length })}</span>
+            <div><p className="juba-eyebrow">Your roadmap</p><h2 className="mt-2 text-3xl font-black text-[var(--juba-text)] sm:text-4xl">One path. Six levels.</h2></div>
+            <span className="rounded-full border border-[var(--juba-border)] bg-[#f2f0e8] px-4 py-2 text-sm font-bold text-[#617068]">CEFR · {CEFR_LEVELS.length} levels</span>
           </div>
+
           {loading ? (
-            <div className="grid gap-5 lg:grid-cols-2" aria-label={t('loading')}>{CEFR_LEVELS.map((level) => <div key={level} className="card h-64 animate-pulse rounded border border-secondary-subtle bg-white p-6" />)}</div>
+            <div className="grid gap-5 lg:grid-cols-2" aria-label="Loading courses">
+              {CEFR_LEVELS.map((level) => <div key={level} className="juba-card h-64 animate-pulse rounded-[28px] border-2 border-[#eee8ff] bg-white p-6" />)}
+            </div>
           ) : (
             <div className="grid gap-5 lg:grid-cols-2">
               {CEFR_LEVELS.map((level, index) => {
@@ -135,22 +164,31 @@ export default function CoursesPage() {
                 const units = levelUnits[level] ?? []
                 const journeyLevelUnits = units.map((unit) => journeyUnits[unit.id]).filter(Boolean)
                 const totalLessons = journeyLevelUnits.reduce((sum, unit) => sum + (unit?.lessons?.length ?? 0), 0)
-                const progress = current ? currentProgress : journeyLevelUnits.length ? Math.round((journeyLevelUnits.reduce((sum, unit) => sum + (unit?.progress ?? 0), 0) / journeyLevelUnits.length) * 100) : 0
+                const progress = current
+                  ? currentProgress
+                  : journeyLevelUnits.length
+                    ? Math.round((journeyLevelUnits.reduce((sum, unit) => sum + (unit?.progress ?? 0), 0) / journeyLevelUnits.length) * 100)
+                    : 0
                 const lessonCount = current ? Math.max(currentLessonCount, totalLessons) : totalLessons || units.reduce((sum, unit) => sum + unit.lesson_types.length, 0)
+
                 return (
-                  <article key={level} className={`card relative rounded border border-secondary-subtle bg-white p-6 shadow-sm transition hover:-translate-y-1 ${current ? 'ring-2 ring-primary' : ''}`}>
-                    {current && <span className="absolute -top-3 right-5 rounded-full bg-warning-lt px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-body">{t('currentLevel')}</span>}
+                  <article key={level} className={`juba-card relative rounded-[30px] border-2 border-[#eee8ff] bg-white p-6 shadow-[0_12px_28px_rgba(52,37,90,.07)] transition hover:-translate-y-1 ${current ? 'ring-2 ring-[var(--juba-primary)]' : ''}`}>
+                    {current && <span className="absolute -top-3 right-5 rounded-full bg-[#ffd85a] px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-[var(--juba-text)]">Current level</span>}
                     <div className="flex items-start justify-between gap-4">
-                      <div><span className="text-xs font-bold uppercase tracking-[.16em] text-secondary">{t('levelLabel', { number: index + 1 })}</span><h3 className="mt-2 text-2xl font-black text-body">{t(`levels.${level}.title`)}</h3></div>
-                      <div className={`flex h-10 w-10 items-center justify-center rounded-full ${unlocked ? 'bg-warning-lt text-primary' : 'bg-light text-secondary'}`}>{unlocked ? <CheckCircle2 className="h-5 w-5" /> : <LockKeyhole className="h-5 w-5" />}</div>
+                      <div><span className="text-xs font-bold uppercase tracking-[.16em] text-[#617068]">Level {index + 1}</span><h3 className="mt-2 text-2xl font-black text-[var(--juba-text)]">{LEVEL_META[level].title}</h3></div>
+                      <div className={`flex h-10 w-10 items-center justify-center rounded-full ${unlocked ? 'bg-[#fff0b5] text-[#5a35dc]' : 'bg-[#f2f0e8] text-[#617068]'}`}>
+                        {unlocked ? <CheckCircle2 className="h-5 w-5" /> : <LockKeyhole className="h-5 w-5" />}
+                      </div>
                     </div>
-                    <p className="mt-3 max-w-xl text-sm leading-6 text-secondary">{t(`levels.${level}.desc`)}</p>
-                    <div className="mt-6 flex items-center justify-between text-sm font-bold text-body"><span>{t('lessons', { count: lessonCount })}</span><span>{progress}%</span></div>
-                    <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-light"><div className="h-full rounded-full bg-warning-lt transition-all" style={{ width: `${progress}%` }} /></div>
+                    <p className="mt-3 max-w-xl text-sm leading-6 text-[#617068]">{LEVEL_META[level].desc}</p>
+                    <div className="mt-6 flex items-center justify-between text-sm font-bold text-[var(--juba-text)]"><span>{lessonCount} lessons</span><span>{progress}%</span></div>
+                    <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-[#f2f0e8]"><div className="h-full rounded-full bg-[#ffd85a] transition-all" style={{ width: `${progress}%` }} /></div>
                     {unlocked ? (
-                      <Link href={current ? '/plan' : `/courses/${level}`} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary-lt px-5 py-3 font-black text-primary transition hover:bg-primary">{current ? t('openLearningPlan') : t('exploreLevel')} <i className="ti ti-arrow-right icon" aria-hidden="true" /></Link>
+                      <Link href={current ? '/plan' : `/courses/${level}`} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#eee8ff] px-5 py-3 font-black text-[#5a35dc] transition hover:bg-[var(--juba-primary)]">
+                        {current ? 'Open learning plan' : 'Explore level'} <ArrowRight className="h-4 w-4" />
+                      </Link>
                     ) : (
-                      <span className="mt-6 inline-flex items-center gap-2 rounded-xl bg-light px-5 py-3 font-bold text-secondary"><i className="ti ti-lock icon" aria-hidden="true" /> {t('unlockLater')}</span>
+                      <span className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#f2f0e8] px-5 py-3 font-bold text-[#617068]"><LockKeyhole className="h-4 w-4" /> Unlock later</span>
                     )}
                   </article>
                 )
@@ -159,48 +197,18 @@ export default function CoursesPage() {
           )}
         </section>
 
-        <section className="card">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="page-pretitle">{t('cefrEyebrow')}</p>
-              <h2 className="mt-2 text-2xl font-black text-body sm:text-3xl">{t('cefrTitle')}</h2>
-              <p className="mt-2 max-w-3xl text-sm leading-6 text-secondary">{t('cefrDescription')}</p>
-            </div>
-            <span className="rounded-full bg-primary-lt px-4 py-2 text-xs font-black text-primary">CEFR · A1–C2</span>
-          </div>
-          <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {CEFR_LEVELS.map((level) => (
-              <article key={level} className="p-4">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <span className="text-xs font-black uppercase tracking-[.16em] text-secondary">{t('cefrLevelLabel')}</span>
-                    <h3 className="mt-1 text-xl font-black text-body">{level} · {t(`levels.${level}.title`).replace(`${level} · `, '')}</h3>
-                  </div>
-                  <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-primary ring-1 ring-secondary-subtle">{level}</span>
-                </div>
-                <p className="mt-3 text-sm leading-6 text-secondary">{t(`levels.${level}.desc`)}</p>
-                <div className="mt-5 space-y-3">
-                  {CEFR_SKILLS.map((skill: CEFRSkill) => (
-                    <div key={skill} className="border p-3 rounded-2">
-                      <p className="text-xs font-black uppercase tracking-[.12em] text-primary">{t(`cefrSkills.${skill}`)}</p>
-                      <p className="mt-1 text-sm leading-5 text-body">{CEFR_DESCRIPTORS[locale === 'ar' ? 'ar' : 'en'][level][skill]}</p>
-                    </div>
-                  ))}
-                </div>
-              </article>
-            ))}
+        <section className="juba-card rounded-[30px] border-2 border-[#eee8ff] bg-white p-6 shadow-[0_12px_28px_rgba(52,37,90,.07)] sm:p-7">
+          <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="juba-eyebrow">Real-world missions</p><h2 className="mt-2 text-2xl font-black text-[var(--juba-text)]">Practice language where it matters.</h2></div><Link href="/learning-journey" className="font-bold text-[#5a35dc] underline underline-offset-4">See my journey</Link></div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {places.map((place) => <div key={place.title} className="rounded-2xl border border-[var(--juba-border)] bg-[#f2f0e8] p-4"><span className="text-2xl" aria-hidden="true">{place.icon}</span><p className="mt-3 font-black text-[var(--juba-text)]">{place.title}</p><p className="mt-1 text-sm text-[#617068]">{place.text}</p></div>)}
           </div>
         </section>
 
-        <section className="card">
-          <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="page-pretitle">{t('missionsEyebrow')}</p><h2 className="mt-2 text-2xl font-black text-body">{t('missionsTitle')}</h2></div><Link href="/learning-journey" className="font-bold text-primary underline underline-offset-4">{t('openRoadmap')}</Link></div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{places.map((place) => <div key={place.key} className="border p-4 rounded-2"><span className="text-2xl" aria-hidden="true">{place.icon}</span><p className="mt-3 font-black text-body">{t(`places.${place.key}.title`)}</p><p className="mt-1 text-sm text-secondary">{t(`places.${place.key}.text`)}</p></div>)}</div>
+        <section className="juba-card rounded-[30px] border-2 border-[#eee8ff] bg-white p-6 shadow-[0_12px_28px_rgba(52,37,90,.07)] sm:p-7">
+          <div className="flex items-center gap-3"><Sparkles className="h-6 w-6 text-[var(--juba-primary-dark)]" /><h2 className="text-2xl font-black text-[var(--juba-text)]">The JUBA rhythm</h2></div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-4">{['Learn', 'Practice', 'Recall', 'Review'].map((step, i) => <div key={step} className="rounded-2xl border border-[var(--juba-border)] bg-[#f2f0e8] p-4"><span className="text-xs font-bold text-[#617068]">0{i + 1}</span><p className="mt-2 font-black text-[var(--juba-text)]">{step}</p></div>)}</div>
         </section>
-
-        <section className="card">
-          <div className="flex items-center gap-3"><i className="ti ti-sparkles icon text-primary" aria-hidden="true" /><h2 className="text-2xl font-black text-body">{t('rhythmTitle')}</h2></div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-4">{(['learn', 'practice', 'recall', 'review'] as const).map((step, i) => <div key={step} className="rounded border border-secondary-subtle bg-light p-4"><span className="text-xs font-bold text-secondary">0{i + 1}</span><p className="mt-2 font-black text-body">{t(`rhythm.${step}`)}</p></div>)}</div>
-        </section>
-    </div>
+      </div>
+    </main>
   )
 }
