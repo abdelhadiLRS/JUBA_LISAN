@@ -64,27 +64,26 @@ export default function UnitDrawer({
   }
 
   return (
-    <div className="bg-[rgba(24,37,27,.48)] fixed inset-0 z-50 flex items-end justify-center p-0 backdrop-blur-sm sm:items-center sm:p-4">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-[rgba(36,36,36,.48)] p-0 backdrop-blur-sm sm:items-center sm:p-4" role="dialog" aria-modal="true" aria-label={unit.title}>
       <div
         ref={ref}
-        className="border-[var(--juba-app-line)] bg-white max-h-[80vh] w-full overflow-y-auto rounded-t-[28px] border shadow-[0_24px_70px_rgba(24,37,27,.18)] sm:max-w-xl sm:rounded-[28px]"
+        className="flex max-h-[88vh] w-full flex-col overflow-hidden rounded-t-[24px] border-2 border-[var(--juba-learning-border)] bg-white shadow-[0_24px_70px_rgba(36,36,36,.18)] sm:max-w-xl sm:rounded-[24px]"
       >
         {/* Header */}
-        <div className="border-[var(--juba-app-line)] bg-white sticky top-0 z-10 flex items-center justify-between gap-4 border-b px-6 py-5 sm:px-7">
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b-2 border-[var(--juba-learning-border)] bg-white px-5 py-4 sm:px-6">
           <div className="min-w-0">
             <span
-              className="text-xs font-semibold"
-              style={{ color: 'var(--juba-app-green-dark)' }}
+              className="inline-flex rounded-full bg-[var(--juba-learning-green-soft)] px-2.5 py-1 text-xs font-black text-[var(--juba-learning-green-dark)]"
             >
               {unit.level} · {t('unitLabel')}
             </span>
-            <p className="text-[var(--juba-app-ink)] mt-0.5 truncate text-base font-bold">
+            <p className="mt-1 truncate text-base font-black text-[var(--juba-learning-ink)]">
               {unit.title}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] shrink-0 rounded-2xl p-2 transition-colors hover:bg-[var(--juba-app-green-soft)]"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--juba-learning-border)] bg-white text-[var(--juba-learning-muted)] shadow-[0_2px_0_rgba(0,0,0,.05)] transition-colors hover:border-[var(--juba-learning-green)] hover:bg-[var(--juba-learning-green-soft)] hover:text-[var(--juba-learning-green-dark)]"
             aria-label={tCommon('close')}
           >
             <X className="h-4.5 w-4.5" aria-hidden="true" />
@@ -93,15 +92,15 @@ export default function UnitDrawer({
 
         {/* Grammar points */}
         {unit.grammar_points.length > 0 && (
-          <div className="border-[var(--juba-app-line)] border-b px-6 py-5 sm:px-7">
-            <p className="text-[var(--juba-app-muted)] mb-2.5 text-xs font-semibold tracking-wide uppercase">
+          <div className="border-b-2 border-[var(--juba-learning-border)] px-5 py-5 sm:px-6">
+            <p className="mb-2.5 text-xs font-black uppercase tracking-wide text-[var(--juba-learning-muted)]">
               {t('grammarCovered')}
             </p>
             <div className="flex flex-wrap gap-1.5">
               {unit.grammar_points.map((gp) => (
                 <span
                   key={gp}
-                  className="bg-[var(--juba-app-green-soft)] text-[var(--juba-app-muted)] rounded-full px-2.5 py-1 text-xs font-medium"
+                  className="rounded-full border-2 border-[var(--juba-learning-border)] bg-[var(--juba-learning-green-soft)] px-2.5 py-1 text-xs font-bold text-[var(--juba-learning-green-dark)]"
                 >
                   {gp}
                 </span>
@@ -112,44 +111,40 @@ export default function UnitDrawer({
 
         {/* Lessons */}
         <div>
-          <div className="border-[var(--juba-app-line)] border-b px-5 py-3 sm:px-6">
-            <p className="text-[var(--juba-app-muted)] text-xs font-semibold tracking-wide uppercase">
+          <div className="border-b-2 border-[var(--juba-learning-border)] bg-[#fafafa] px-5 py-3 sm:px-6">
+            <p className="text-xs font-black uppercase tracking-wide text-[var(--juba-learning-muted)]">
               {t('lessonsHeader', { count: lessons.length })}
             </p>
           </div>
-          <div className="divide-y divide-[var(--juba-app-line)]">
+          <div className="divide-y-2 divide-[var(--juba-learning-border)]">
             {lessons.length === 0 ? (
               <div className="px-5 py-6 sm:px-6">
-                <p className="text-[var(--juba-app-muted)] text-sm">{t('noLessons')}</p>
+                <p className="text-sm font-semibold text-[var(--juba-learning-muted)]">{t('noLessons')}</p>
               </div>
             ) : (
               lessons.map((lesson, i) => (
                 <div
                   key={lesson.id ?? i}
-                  className={`flex items-center gap-3 px-5 py-3.5 transition-colors sm:px-6 ${lesson.action ? 'hover:bg-[var(--juba-app-green-soft)]' : ''}`}
+                  className="flex items-center gap-3 px-5 py-4 sm:px-6"
                 >
                   {lesson.completed ? (
                     <span
-                      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
-                      style={{
-                        background: 'var(--juba-app-green)',
-                        color: 'var(--juba-app-ink)',
-                      }}
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--juba-learning-green-dark)] bg-[var(--juba-learning-green)] text-white shadow-[0_2px_0_var(--juba-learning-green-dark)]"
                     >
                       <Check className="h-3.5 w-3.5" aria-hidden="true" />
                     </span>
                   ) : (
-                    <span className="border-[var(--juba-app-line)] text-[var(--juba-app-muted)] flex h-6 w-6 shrink-0 items-center justify-center rounded-full border">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--juba-learning-border)] bg-white text-[var(--juba-learning-muted)]">
                       <Circle className="h-2.5 w-2.5" aria-hidden="true" />
                     </span>
                   )}
                   <div className="min-w-0 flex-1">
                     <p
-                      className={`truncate text-sm font-medium ${lesson.completed ? 'text-[var(--juba-app-muted)] line-through' : 'text-[var(--juba-app-ink)]'}`}
+                      className={`truncate text-sm font-medium ${lesson.completed ? 'text-[var(--juba-learning-muted)] line-through' : 'text-[var(--juba-learning-ink)]'}`}
                     >
                       {lesson.title}
                     </p>
-                    <p className="text-[var(--juba-app-muted)] mt-0.5 text-xs">
+                    <p className="mt-0.5 text-xs font-semibold text-[var(--juba-learning-muted)]">
                       {t('weekDay', { week: lesson.week, day: lesson.day })} ·{' '}
                       {lessonTypeLabel[lesson.lesson_type] ??
                         lesson.lesson_type}
@@ -158,7 +153,7 @@ export default function UnitDrawer({
                   {lesson.id != null && lesson.action && (
                     <button
                       onClick={() => onStartLesson(lesson.id!)}
-                      className="shrink-0 juba-primary-button rounded-xl px-3 py-2 text-xs"
+                      className="min-h-10 shrink-0 rounded-[12px] border-2 border-[var(--juba-learning-green-dark)] bg-[var(--juba-learning-green)] px-3 py-2 text-xs font-black text-white shadow-[0_3px_0_var(--juba-learning-green-dark)] transition-transform hover:translate-y-0.5"
                     >
                       {lesson.action === 'review'
                         ? t('reviewLesson')
@@ -174,17 +169,17 @@ export default function UnitDrawer({
         </div>
 
         {/* Primary action */}
-        <div className="border-[var(--juba-app-line)] bg-white sticky bottom-0 border-t px-6 py-5 sm:px-7">
+        <div className="border-t-2 border-[var(--juba-learning-border)] bg-white px-5 py-4 sm:px-6">
           <div className="grid gap-2 sm:grid-cols-2">
             <button
               onClick={onStartUnit}
-              className="juba-primary-button w-full"
+              className="min-h-11 w-full rounded-[13px] border-2 border-[var(--juba-learning-green-dark)] bg-[var(--juba-learning-green)] px-5 py-2.5 text-sm font-black text-white shadow-[0_4px_0_var(--juba-learning-green-dark)] transition-transform hover:translate-y-0.5"
             >
               {tCommon('start')} →
             </button>
             <button
               onClick={onClose}
-              className="juba-secondary-button w-full"
+              className="min-h-11 w-full rounded-[13px] border-2 border-[var(--juba-learning-border)] bg-white px-5 py-2.5 text-sm font-black text-[var(--juba-learning-ink)] shadow-[0_3px_0_rgba(0,0,0,.05)] transition-transform hover:translate-y-0.5"
             >
               {tCommon('close')}
             </button>
