@@ -20,6 +20,7 @@ from app.data.it.lesson_seeds import get_lesson_seed as get_italian_lesson_seed
 from app.data.pt.lesson_seeds import get_lesson_seed as get_portuguese_lesson_seed
 from app.data.ja.lesson_seeds import get_lesson_seed as get_japanese_lesson_seed
 from app.data.ko.lesson_seeds import get_lesson_seed as get_korean_lesson_seed
+from app.data.zh.lesson_seeds import get_lesson_seed as get_chinese_lesson_seed
 from app.schemas.lessons import (
     ExerciseContent,
     FillBlankEvaluation,
@@ -411,6 +412,7 @@ async def generate_lesson(
         "pt": get_portuguese_lesson_seed,
         "ja": get_japanese_lesson_seed,
         "ko": get_korean_lesson_seed,
+        "zh": get_chinese_lesson_seed,
     }
     curated_lesson_seed = (
         seed_getters[target_language](cefr_level, unit_id, lesson_type)
