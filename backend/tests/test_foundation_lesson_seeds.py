@@ -1663,3 +1663,16 @@ def test_foundation_fallback_seed_calibrates_quality_to_cefr_level():
             continue
         assert phrase.casefold() in seed["content_quality"]["level_calibration"].casefold()
         assert len(seed["content_quality"]["error_check"]) == 2
+
+
+
+def test_foundation_fallback_seed_has_spaced_retrieval_and_input_design():
+    """Fallback content should support retention and level-appropriate input."""
+    from app.services.foundation_lesson_seeds import get_foundation_lesson_seed
+
+    seed = get_foundation_lesson_seed("en_GB", "A2", "unknown", "vocabulary")
+    if seed is None:
+        return
+    quality = seed["content_quality"]
+    assert len(quality["spaced_retrieval"]) == 3
+    assert "familiar situations" in quality["input_design"]
