@@ -16,7 +16,7 @@ B1_UNITS: list[CurriculumUnit] = [
             "espressioni-impersonali",
         ],
         vocabulary_set_ids=["emozioni_b1", "opinioni_b1"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forma il congiuntivo presente dei verbi regolari e degli irregolari essenziali: sia, abbia, faccia, vada, venga, dica, esca, possa, voglia, sappia, tenga, notando che il congiuntivo ha meno forme distinte dell'indicativo (io/tu/lui/lei coincidono)",
             "Usa il congiuntivo dopo verbi di opinione e stati mentali con cambio di soggetto: pensare che, credere che, sperare che, temere che, dubitare che: Penso che venga domani",
@@ -38,7 +38,7 @@ B1_UNITS: list[CurriculumUnit] = [
             "congiuntivo-dubbi",
         ],
         vocabulary_set_ids=["lavoro_b1", "studio_b1"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Usa il congiuntivo dopo verbi di volonta e desiderio: volere che, desiderare che, preferire che, chiedere che, insistere che: Voglio che tu mi dica la verita",
             "Usa il congiuntivo dopo espressioni emotive: sono contento/a che, mi dispiace che, ho paura che, e un peccato che, mi stupisce che: Mi dispiace che tu non possa venire",
@@ -60,7 +60,7 @@ B1_UNITS: list[CurriculumUnit] = [
             "concordanza-tempi",
         ],
         vocabulary_set_ids=["esperienze_b1", "progetti_b1"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forma il trapassato prossimo (avevo/ero + participio passato) con scelta corretta dell'ausiliare e concordanza del participio; vale la stessa regola essere/avere del passato prossimo: era gia partita, avevo gia mangiato",
             "Usa il trapassato prossimo per ordinare due eventi passati: trapassato per l'evento anteriore, passato prossimo o imperfetto per quello successivo: Quando ho chiamato, era gia uscito",
@@ -77,7 +77,7 @@ B1_UNITS: list[CurriculumUnit] = [
         title="Forma passiva e costruzioni impersonali",
         grammar_points=["forma-passiva", "si-impersonale", "si-passivante"],
         vocabulary_set_ids=["notizie_b1", "società_b1"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forma la diatesi passiva con essere + participio passato in tutti i tempi, facendo concordare il participio con il soggetto in genere e numero: Il libro e stato scritto da Calvino, Le case vengono costruite velocemente",
             "Usa venire + participio passato come alternativa passiva nei tempi semplici (non composti) per processi dinamici: La pizza viene preparata con ingredienti freschi; e andare + participio passato per esprimere obbligo o necessita: La legge va rispettata",
@@ -95,7 +95,7 @@ B1_UNITS: list[CurriculumUnit] = [
         title="Pronomi relativi e frasi relative",
         grammar_points=["che-relativo", "cui", "il-quale"],
         vocabulary_set_ids=["descrizioni_b1", "persone_b1"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Usa che come pronome relativo di base sia per il soggetto sia per il complemento oggetto nelle frasi relative in italiano: il libro che ho comprato, la persona che e arrivata",
             "Usa cui dopo tutte le preposizioni per formare le relative: il libro di cui ti ho parlato, la citta in cui vivo, la persona a cui ho scritto, il motivo per cui sono venuto; senza usare che dopo una preposizione",
@@ -112,7 +112,7 @@ B1_UNITS: list[CurriculumUnit] = [
         title="Periodo ipotetico e ipotesi",
         grammar_points=["periodo-ipotetico-1", "periodo-ipotetico-2", "se-congiuntivo"],
         vocabulary_set_ids=["situazioni_b1", "ipotesi_b1"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forma e usa il periodo ipotetico di tipo 1 (reale): se + indicativo presente + futuro semplice per condizioni probabili: Se studia, passera l'esame",
             "Forma e usa il periodo ipotetico di tipo 2 (irreale del presente): se + congiuntivo imperfetto + condizionale presente per condizioni presenti/future irreali o poco probabili: Se avessi i soldi, viaggerei di piu",
@@ -133,7 +133,7 @@ B1_UNITS: list[CurriculumUnit] = [
             "trasformazioni-temporali",
         ],
         vocabulary_set_ids=["opinioni_b1", "dibattiti_b1"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Riporta il discorso con i corretti cambi di tempo quando il verbo dichiarativo e al passato: presente -> imperfetto (Dice che e stanco -> Ha detto che era stanco), futuro -> condizionale (Dice che verra -> Ha detto che sarebbe venuto)",
             "Riporta correttamente le domande usando se nelle domande si/no (Mi ha chiesto se ero stanco) e gli interrogativi con ordine non invertito nelle domande aperte (Mi ha chiesto dove abitassi)",
@@ -158,7 +158,7 @@ B1_UNITS: list[CurriculumUnit] = [
             "discorso-indiretto-passato",
         ],
         vocabulary_set_ids=["ripasso_b1"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Gestisce con relativa scioltezza la maggior parte delle situazioni quotidiane (viaggio, lavoro, interazione sociale) ed esprime opinioni con sfumature",
             "Usa correttamente il congiuntivo presente nei principali contesti B1: giudizio soggettivo, dubbio, volonta, emozione, applicandolo anche dopo espressioni impersonali",
