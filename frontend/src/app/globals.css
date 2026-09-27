@@ -834,3 +834,314 @@ html[data-theme='light'] {
   .juba-busuu-practical-media{min-height:300px;border-radius:20px}
   .juba-busuu-final-cta-inner{border-radius:18px;padding:42px 22px}
 }
+
+
+/* Public marketing chrome: borrow Busuu's simple hierarchy without copying its branding. */
+.juba-busuu-landing .juba-busuu-nav{
+  position:relative!important;
+  inset:auto!important;
+  z-index:50;
+  width:100%;
+  background:#fff!important;
+  border:0!important;
+  border-bottom:1px solid #e5e9e7!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+}
+.juba-busuu-landing .juba-busuu-nav-inner{
+  width:min(1240px,calc(100% - 48px));
+  min-height:78px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  gap:34px;
+  padding:0;
+}
+.juba-busuu-landing .juba-busuu-brand{display:flex;align-items:center;flex:0 0 auto}
+.juba-busuu-landing .juba-busuu-brand img{width:142px;height:auto;display:block}
+.juba-busuu-landing .juba-busuu-nav-links{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:28px;
+  flex:1;
+}
+.juba-busuu-landing .juba-busuu-nav-links a{
+  color:#252a27!important;
+  font-size:14px;
+  font-weight:700;
+  text-decoration:none;
+  padding:29px 0 27px;
+  border-bottom:2px solid transparent;
+  transition:color .18s,border-color .18s;
+}
+.juba-busuu-landing .juba-busuu-nav-links a:hover{
+  color:var(--busuu-green-dark)!important;
+  border-bottom-color:var(--busuu-green);
+}
+.juba-busuu-landing .juba-busuu-nav-actions{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex:0 0 auto;
+}
+.juba-busuu-landing .juba-busuu-login{
+  color:#252a27!important;
+  font-size:14px;
+  font-weight:750;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.juba-busuu-landing .juba-busuu-login:hover{color:var(--busuu-green-dark)!important}
+.juba-busuu-landing .juba-busuu-nav-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:0 20px;
+  border-radius:999px;
+  background:var(--busuu-green)!important;
+  color:#fff!important;
+  font-size:14px;
+  font-weight:800;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.juba-busuu-landing .juba-busuu-nav-cta:hover{background:var(--busuu-green-dark)!important}
+.juba-busuu-landing .juba-busuu-locale-menu{position:relative}
+.juba-busuu-landing .juba-busuu-locale-menu summary{list-style:none;cursor:pointer}
+.juba-busuu-landing .juba-busuu-locale-menu summary::-webkit-details-marker{display:none}
+.juba-busuu-landing .juba-busuu-locale{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  color:#252a27;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.04em;
+  padding:8px 0;
+}
+.juba-busuu-landing .juba-busuu-locale svg{width:14px;height:14px}
+.juba-busuu-landing .juba-busuu-locale-options{
+  position:absolute;
+  inset-inline-end:0;
+  top:calc(100% + 8px);
+  width:180px;
+  padding:8px;
+  background:#fff;
+  border:1px solid #dfe6e2;
+  box-shadow:0 18px 45px rgba(23,26,25,.14);
+  border-radius:8px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2px;
+}
+.juba-busuu-landing .juba-busuu-locale-options a{
+  padding:9px 8px;
+  color:#252a27!important;
+  font-size:12px;
+  text-decoration:none;
+  border-radius:4px;
+}
+.juba-busuu-landing .juba-busuu-locale-options a:hover{background:var(--busuu-soft)}
+.juba-busuu-landing .juba-busuu-menu{display:none}
+
+.juba-busuu-landing .juba-busuu-footer{
+  margin:0!important;
+  padding:0!important;
+  background:#17201c!important;
+  color:#fff!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.juba-busuu-landing .juba-busuu-footer-shell{
+  width:min(1240px,calc(100% - 48px));
+  margin:auto;
+  padding:76px 0 28px!important;
+}
+.juba-busuu-landing .juba-busuu-footer-intro{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:48px;
+  padding-bottom:58px;
+  border-bottom:1px solid #39443f;
+}
+.juba-busuu-landing .juba-busuu-footer-brand{max-width:520px}
+.juba-busuu-landing .juba-busuu-footer-logo{display:inline-flex;margin-bottom:20px}
+.juba-busuu-landing .juba-busuu-footer-logo img{width:156px;height:auto;filter:brightness(0) invert(1)}
+.juba-busuu-landing .juba-busuu-footer-brand p{
+  margin:0;
+  color:#b8c2bd!important;
+  font-size:16px;
+  line-height:1.65;
+}
+.juba-busuu-landing .juba-busuu-footer-intro-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 28px;
+}
+.juba-busuu-landing .juba-busuu-footer-intro-links a{
+  color:#fff!important;
+  font-size:14px;
+  font-weight:750;
+  text-decoration:none;
+}
+.juba-busuu-landing .juba-busuu-footer-intro-links a:hover{text-decoration:underline}
+.juba-busuu-landing .juba-busuu-footer-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:42px;
+  padding:56px 0;
+  border-bottom:1px solid #39443f;
+}
+.juba-busuu-landing .juba-busuu-footer-column{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:12px;
+}
+.juba-busuu-landing .juba-busuu-footer-column h3{
+  margin:0 0 8px;
+  color:#fff!important;
+  font-size:13px;
+  font-weight:850;
+  letter-spacing:.04em;
+}
+.juba-busuu-landing .juba-busuu-footer-column a,
+.juba-busuu-landing .juba-busuu-footer-column span{
+  color:#b8c2bd!important;
+  font-size:14px;
+  line-height:1.45;
+  text-decoration:none;
+}
+.juba-busuu-landing .juba-busuu-footer-column a:hover{text-decoration:underline;color:#fff!important}
+.juba-busuu-landing .juba-busuu-footer-language{
+  padding:34px 0;
+  display:grid;
+  grid-template-columns:180px 1fr;
+  gap:30px;
+  border-bottom:1px solid #39443f;
+}
+.juba-busuu-landing .juba-busuu-footer-language-heading{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.juba-busuu-landing .juba-busuu-footer-language-heading strong{
+  color:#fff;
+  font-size:14px;
+}
+.juba-busuu-landing .juba-busuu-footer-language-heading span{
+  color:#7f8b85;
+  font-size:12px;
+}
+.juba-busuu-landing .juba-busuu-footer-language-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px 22px;
+}
+.juba-busuu-landing .juba-busuu-footer-language-list a{
+  color:#b8c2bd!important;
+  font-size:13px;
+  text-decoration:none;
+}
+.juba-busuu-landing .juba-busuu-footer-language-list a:hover{color:#fff!important;text-decoration:underline}
+.juba-busuu-landing .juba-busuu-footer-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding-top:24px;
+  color:#7f8b85!important;
+  font-size:12px;
+}
+.juba-busuu-landing .juba-busuu-footer-bottom div{display:flex;gap:20px}
+.juba-busuu-landing .juba-busuu-footer-bottom a{color:#9da9a3!important;text-decoration:none}
+.juba-busuu-landing .juba-busuu-footer-bottom a:hover{color:#fff!important;text-decoration:underline}
+
+@media(max-width:900px){
+  .juba-busuu-landing .juba-busuu-nav-inner{min-height:70px;width:calc(100% - 32px);gap:20px}
+  .juba-busuu-landing .juba-busuu-nav-links,.juba-busuu-landing .juba-busuu-nav-actions{display:none}
+  .juba-busuu-landing .juba-busuu-menu{
+    margin-inline-start:auto;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:42px;height:42px;
+    padding:0;
+    border:1px solid #dfe6e2;
+    border-radius:50%;
+    background:#fff;
+    color:#17201c;
+  }
+  .juba-busuu-landing .juba-busuu-menu svg{width:20px;height:20px}
+  .juba-busuu-landing .juba-busuu-mobile-menu{
+    position:absolute;
+    inset-inline:0;
+    top:100%;
+    z-index:60;
+    padding:24px 20px 28px;
+    background:#fff;
+    border-bottom:1px solid #dfe6e2;
+    box-shadow:0 18px 35px rgba(23,26,25,.10);
+  }
+  .juba-busuu-landing .juba-busuu-mobile-menu nav{
+    display:grid;
+    gap:0;
+    border-top:1px solid #e5e9e7;
+  }
+  .juba-busuu-landing .juba-busuu-mobile-menu nav a{
+    padding:16px 4px;
+    color:#252a27!important;
+    font-weight:750;
+    text-decoration:none;
+    border-bottom:1px solid #e5e9e7;
+  }
+  .juba-busuu-landing .juba-busuu-mobile-actions{
+    display:grid;
+    gap:12px;
+    padding-top:20px;
+  }
+  .juba-busuu-landing .juba-busuu-mobile-actions>a{
+    display:flex;
+    justify-content:center;
+    padding:13px 18px;
+    border:1px solid #cfd9d4;
+    color:#252a27!important;
+    font-weight:750;
+    text-decoration:none;
+    border-radius:999px;
+  }
+  .juba-busuu-landing .juba-busuu-mobile-actions .juba-busuu-mobile-cta{
+    background:var(--busuu-green);
+    border-color:var(--busuu-green);
+    color:#fff!important;
+  }
+  .juba-busuu-landing .juba-busuu-mobile-locales{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+    padding-top:8px;
+  }
+  .juba-busuu-landing .juba-busuu-mobile-locales a{
+    padding:10px 6px;
+    text-align:center;
+    color:#66716c!important;
+    font-size:12px;
+    text-decoration:none;
+    background:#f5f8f6;
+  }
+  .juba-busuu-landing .juba-busuu-footer-intro{align-items:flex-start;flex-direction:column}
+  .juba-busuu-landing .juba-busuu-footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .juba-busuu-landing .juba-busuu-footer-language{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .juba-busuu-landing .juba-busuu-nav-inner{width:calc(100% - 28px)}
+  .juba-busuu-landing .juba-busuu-brand img{width:124px}
+  .juba-busuu-landing .juba-busuu-footer-shell{width:calc(100% - 28px)!important;padding-top:54px!important}
+  .juba-busuu-landing .juba-busuu-footer-grid{grid-template-columns:1fr!important;gap:34px}
+  .juba-busuu-landing .juba-busuu-footer-bottom{align-items:flex-start;flex-direction:column}
+  .juba-busuu-landing .juba-busuu-footer-bottom div{gap:14px}
+}
