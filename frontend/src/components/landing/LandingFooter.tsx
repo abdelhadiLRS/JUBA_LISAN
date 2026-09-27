@@ -58,7 +58,7 @@ export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
 
           {/* Legal Links */}
           <div>
-            <h4 className="font-black text-xs text-[var(--juba-app-yellow)] uppercase tracking-wider mb-4">
+            <h4 className="juba-footer-title">
               {t('footerLegal')}
             </h4>
             <ul className="space-y-3 text-sm font-bold">
