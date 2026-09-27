@@ -159,37 +159,6 @@
     "grammar": "Грамматика",
     "vocabulary": "Словарный запас",
     "phrasebook": "Разговорник",
-    {
-    "coach": {
-      "learner": "Ученик",
-      "minutes": "мин",
-      "reviewEyebrow": "Умное повторение",
-      "reviewTitle": "Есть задания для повторения",
-      "reviewAction": "Начать повторение",
-      "reviewSkill": "Рекомендуемый навык",
-      "learningLabel": "Обучение",
-      "cefrLabel": "CEFR",
-      "coachLabel": "Тренер",
-      "scenarios": {
-        "airport": {
-          "title": "Аэропорт",
-          "description": "Регистрация, вопросы о маршруте и задержки."
-        },
-        "jobInterview": {
-          "title": "Собеседование",
-          "description": "Практика ответов, уверенности и профессиональной лексики."
-        },
-        "restaurant": {
-          "title": "Ресторан",
-          "description": "Заказывайте естественно и ведите реальный разговор."
-        },
-        "hotel": {
-          "title": "Отель",
-          "description": "Забронируйте номер, решайте проблемы и делайте запросы."
-        }
-      }
-    }
-  },
   "settings": "Настройки",
     "faq": "Частые вопросы",
     "admin": "Администрирование",
@@ -312,6 +281,35 @@
     "learningLabel": "Обучение",
     "cefrLabel": "CEFR",
     "coachLabel": "Тренер"
+  },
+  "coach": {
+    "learner": "Ученик",
+    "minutes": "мин",
+    "reviewEyebrow": "Умное повторение",
+    "reviewTitle": "Есть задания для повторения",
+    "reviewAction": "Начать повторение",
+    "reviewSkill": "Рекомендуемый навык",
+    "learningLabel": "Обучение",
+    "cefrLabel": "CEFR",
+    "coachLabel": "Тренер",
+    "scenarios": {
+      "airport": {
+        "title": "Аэропорт",
+        "description": "Регистрация, вопросы о маршруте и задержки."
+      },
+      "jobInterview": {
+        "title": "Собеседование",
+        "description": "Практика ответов, уверенности и профессиональной лексики."
+      },
+      "restaurant": {
+        "title": "Ресторан",
+        "description": "Заказывайте естественно и ведите реальный разговор."
+      },
+      "hotel": {
+        "title": "Отель",
+        "description": "Забронируйте номер, решайте проблемы и делайте запросы."
+      }
+    }
   },
   "settings": {
     "title": "Настройки",
