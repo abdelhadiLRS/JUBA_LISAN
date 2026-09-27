@@ -94,12 +94,26 @@ export function LandingNav({
 
   useEffect(() => {
     const handleViewportChange = () => {
-      if (window.matchMedia('(min-width: 1001px)').matches) setOpen(false)
+      if (window.matchMedia('(min-width: 1001px)').matches) {
+        setOpen(false)
+        if (localeMenuRef.current) localeMenuRef.current.open = false
+      }
     }
 
     handleViewportChange()
     window.addEventListener('resize', handleViewportChange)
     return () => window.removeEventListener('resize', handleViewportChange)
+  }, [])
+
+  useEffect(() => {
+    const handlePointerDown = (event: PointerEvent) => {
+      const menu = localeMenuRef.current
+      if (!menu?.open || !(event.target instanceof Node) || menu.contains(event.target)) return
+      menu.open = false
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown)
+    return () => document.removeEventListener('pointerdown', handlePointerDown)
   }, [])
 
   const localeOptions: Array<[Locale, string]> = [
