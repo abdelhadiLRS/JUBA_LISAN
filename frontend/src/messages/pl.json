@@ -281,7 +281,8 @@
     },
     "learningLabel": "Nauka",
     "cefrLabel": "CEFR",
-    "coachLabel": "Trener",
+    "coachLabel": "Trener"
+  },
   "coach": {
     "learner": "Osoba ucząca się",
     "minutes": "min",
