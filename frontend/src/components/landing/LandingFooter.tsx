@@ -61,7 +61,7 @@ export function LandingFooter({ t, hasSession, dir = 'ltr', locale = 'en', showR
             <h3>{t('aboutMe')}</h3>
             <Link href="/privacy?from=landing">{t('privacy')}</Link>
             <Link href="/terms?from=landing">{t('terms')}</Link>
-            <Link href="/register">{t('ctaStart')}</Link>
+            <Link href={hasSession ? '/dashboard' : '/register'}>{hasSession ? t('dashboard') : t('ctaStart')}</Link>
           </div>
         </div>
 
