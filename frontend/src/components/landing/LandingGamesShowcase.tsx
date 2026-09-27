@@ -74,10 +74,10 @@ export function LandingGamesShowcase({
             tabIndex={active === game.key ? 0 : -1}
             onClick={() => setActive(game.key)}
             onKeyDown={(event) => {
-              if (event.key === 'ArrowDown' || (event.key === (dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight'))) {
+              if (event.key === (dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight')) {
                 event.preventDefault()
                 moveGame(1)
-              } else if (event.key === 'ArrowUp' || (event.key === (dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft'))) {
+              } else if (event.key === (dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft')) {
                 event.preventDefault()
                 moveGame(-1)
               } else if (event.key === 'Home') {
