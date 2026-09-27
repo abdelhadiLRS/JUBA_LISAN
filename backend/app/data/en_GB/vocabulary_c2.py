@@ -779,14 +779,6 @@ C2_SETS: list[VocabularySet] = [
                 frequency_rank=450,
             ),
             VocabularyEntry(
-                word="promulgate",
-                pos="verb",
-                definition="To make a law or policy widely known; to disseminate officially.",
-                example="The new regulations were promulgated by the ministry.",
-                ipa="/ˈprɒməlɡeɪt/",
-                frequency_rank=470,
-            ),
-            VocabularyEntry(
                 word="expound",
                 pos="verb",
                 definition="To present and explain a theory or idea in detail.",
