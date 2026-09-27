@@ -123,7 +123,7 @@ export default function CoursesPage() {
   return (
     <main className="juba-mobile-courses min-h-screen px-4 py-8 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-6xl space-y-8">
-        <section className="juba-card relative overflow-hidden rounded-[32px] border-2 border-[var(--juba-learning-border)] bg-[var(--juba-learning-green)] p-7 text-white shadow-[0_22px_48px_rgba(88,204,2,.18)] sm:p-10">
+        <section className="juba-card relative overflow-hidden rounded-[22px] border-2 border-[var(--juba-learning-border)] bg-[var(--juba-learning-green)] p-7 text-white shadow-[0_22px_48px_rgba(88,204,2,.18)] sm:p-10">
           <div className="relative z-10 max-w-3xl">
             <div className="juba-eyebrow"><Sparkles className="h-4 w-4" /> Your learning world</div>
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-6xl">Learn language you can actually use.</h1>
@@ -172,7 +172,7 @@ export default function CoursesPage() {
                 const lessonCount = current ? Math.max(currentLessonCount, totalLessons) : totalLessons || units.reduce((sum, unit) => sum + unit.lesson_types.length, 0)
 
                 return (
-                  <article key={level} className={`juba-card relative rounded-[30px] border-2 border-[var(--juba-learning-border)] bg-white p-6 shadow-[0_12px_28px_rgba(0,0,0,.045)] transition hover:-translate-y-1 ${current ? 'ring-2 ring-[var(--juba-learning-green)]' : ''}`}>
+                  <article key={level} className={`juba-card relative rounded-[22px] border-2 border-[var(--juba-learning-border)] bg-white p-6 shadow-[0_12px_28px_rgba(0,0,0,.045)] transition hover:-translate-y-1 ${current ? 'ring-2 ring-[var(--juba-learning-green)]' : ''}`}>
                     {current && <span className="absolute -top-3 right-5 rounded-full bg-[var(--juba-learning-yellow)] px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-[var(--juba-text)]">Current level</span>}
                     <div className="flex items-start justify-between gap-4">
                       <div><span className="text-xs font-bold uppercase tracking-[.16em] text-[var(--juba-learning-muted)]">Level {index + 1}</span><h3 className="mt-2 text-2xl font-black text-[var(--juba-text)]">{LEVEL_META[level].title}</h3></div>
