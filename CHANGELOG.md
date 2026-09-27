@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+- Refined 20 C2 vocabulary examples with clearer collocations, register, and reusable contexts across academic, formal, and spoken language.
+- Added targeted regression checks for contextual C2 examples.
 - Refined C1 vocabulary examples to demonstrate natural collocations, register, and reusable communicative contexts rather than definition-like sentences.
 - Added regression coverage ensuring C1 examples are substantive, contextual, and distinct from their definitions.
 ### Educational Content Quality — C1 progression refinement
