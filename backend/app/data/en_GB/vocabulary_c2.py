@@ -571,14 +571,6 @@ C2_SETS: list[VocabularySet] = [
                 frequency_rank=420,
             ),
             VocabularyEntry(
-                word="rhetoric",
-                pos="noun",
-                definition="The use of language and argument to communicate effectively or persuade an audience.",
-                example="The candidate's rhetoric appealed to the working class.",
-                ipa="/ˈretərɪk/",
-                frequency_rank=330,
-            ),
-            VocabularyEntry(
                 word="synecdoche",
                 pos="noun",
                 definition="A figure of speech where a part represents the whole.",
