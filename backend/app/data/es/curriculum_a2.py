@@ -17,7 +17,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "acentuacion-general",
         ],
         vocabulary_set_ids=["viajes_a2", "experiencias_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Conjuga verbos regulares en -ar/-er/-ir en pretérito indefinido para las seis personas (hablé, comiste, vivió)",
             "Usa los indefinidos irregulares más frecuentes: ser/ir (fui/fuiste), estar (estuve), tener (tuve), hacer (hice), venir (vine), poder (pude)",
@@ -35,7 +35,7 @@ A2_UNITS: list[CurriculumUnit] = [
         title="Describir el pasado: pretérito imperfecto",
         grammar_points=["imperfecto", "preterito-vs-imperfecto", "solia"],
         vocabulary_set_ids=["infancia_a2", "descripciones_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Conjuga el pretérito imperfecto en todas las personas: patrón regular -aba/-ía y verbos irregulares ser (era), ir (iba), ver (veía)",
             "Usa el imperfecto para estados en desarrollo, descripciones de contexto y hábitos del pasado (de niño, siempre comía...)",
@@ -56,7 +56,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "doble-objeto",
         ],
         vocabulary_set_ids=["compras_a2", "regalos_a2", "dinero_precios_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Sustituye complementos directos por lo/la/los/las en la posición correcta: ¿El libro? Lo tengo en casa",
             "Usa pronombres de objeto indirecto le/les y comprende que le sustituye tanto a 'a él' como a 'a ella'",
@@ -73,7 +73,7 @@ A2_UNITS: list[CurriculumUnit] = [
         title="Comparaciones y superlativos",
         grammar_points=["comparativos", "superlativos", "tan-como"],
         vocabulary_set_ids=["ciudades_a2", "cultura_a2", "animales_naturaleza_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Compara con más/menos + adjetivo/adverbio + que y distingue esta estructura de más de + número: Es más caro que el otro, Cuesta más de 10 euros",
             "Expresa igualdad con tan + adjetivo/adverbio + como y tanto/a/os/as + sustantivo + como",
@@ -95,7 +95,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "b-v-basico",
         ],
         vocabulary_set_ids=["salud_a2", "consejos_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forma el imperativo afirmativo de tú con verbos regulares (¡Habla! ¡Come! ¡Escribe!) y las ocho formas irregulares: ten, pon, ven, sal, haz, di, ve, sé",
             "Forma el imperativo negativo de tú con la base del presente de subjuntivo: ¡No hables! ¡No comas! ¡No salgas!",
@@ -113,7 +113,7 @@ A2_UNITS: list[CurriculumUnit] = [
         title="Futuro simple y condicional",
         grammar_points=["futuro-simple", "condicional-simple", "si-presente-futuro"],
         vocabulary_set_ids=["trabajo_a2", "planes_a2", "conectores_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Conjuga el futuro simple en todas las personas usando el infinitivo como base (hablaré, comerás, vivirá) y raíces irregulares: habr-, querr-, podr-, tendr-, vendr-, saldr-, pondr-, dir-, har-",
             "Usa el futuro para predicciones y para expresar probabilidad en el presente (¿Dónde estará Juan?)",
@@ -134,7 +134,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "estilo-indirecto",
         ],
         vocabulary_set_ids=["historias_a2", "anécdotas_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Encadena eventos con marcadores de secuencia: primero, luego, después, más tarde, entonces, finalmente, al final",
             "Combina pretérito indefinido (acciones principales cerradas) e imperfecto (descripciones de fondo) en un párrafo narrativo sostenido",
@@ -161,7 +161,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "b-v-basico",
         ],
         vocabulary_set_ids=["repaso_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Resuelve situaciones sociales rutinarias (compras, citas, indicaciones) con uso adecuado de los tiempos verbales",
             "Usa con precisión pronombres de objeto y formas de imperativo en intercambios funcionales breves",
