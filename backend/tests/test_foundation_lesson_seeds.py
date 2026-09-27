@@ -281,6 +281,44 @@ def test_en_gb_c2_examples_show_advanced_usage_in_context():
 
 
 
+def test_en_gb_b2_core_examples_teach_contextual_collocations():
+    """Selected B2 examples should model useful professional and analytical contexts."""
+    from app.data.en_GB.vocabulary_b2 import B2_SETS
+
+    entries = {entry.word: entry for vocab_set in B2_SETS for entry in vocab_set.words}
+    expected_contexts = {
+        "analyse": "exposed to rising energy costs",
+        "conclude": "cost projections and staffing requirements",
+        "demonstrate": "shorter procurement cycles",
+        "evaluate": "original criteria",
+        "justify": "evidence available at the time",
+        "significant": "customer retention",
+        "assumption": "demand will remain stable",
+        "implication": "small suppliers",
+        "stakeholder": "timetable for construction",
+        "transparent": "how each charge is calculated",
+        "implement": "staff training and revised reporting procedures",
+        "objective": "reduce processing times",
+        "subsequently": "leading a successful audit",
+        "prior to": "supporting documentation",
+        "consequently": "termination clause",
+    }
+    for word, phrase in expected_contexts.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+
+
+def test_en_gb_b2_has_no_duplicate_headword_and_part_of_speech():
+    """B2 vocabulary should not repeat the same headword/POS pair."""
+    from app.data.en_GB.vocabulary_b2 import B2_SETS
+
+    seen = set()
+    for vocab_set in B2_SETS:
+        for entry in vocab_set.words:
+            key = (entry.word.casefold(), entry.pos.casefold())
+            assert key not in seen, f"Duplicate B2 vocabulary entry: {entry.word} ({entry.pos})"
+            seen.add(key)
+
+
 def test_en_gb_c2_core_examples_teach_advanced_collocations():
     """Selected C2 examples should teach domain-specific collocations and nuanced usage."""
     from app.data.en_GB.vocabulary_c2 import C2_SETS
