@@ -292,7 +292,7 @@ C1_SETS: list[VocabularySet] = [
                 word="galvanise",
                 pos="verb",
                 definition="To shock or excite someone into taking action.",
-                example="The crisis galvanized the community into action.",
+                example="The crisis galvanised the community into action.",
                 ipa="/ˈɡælvənaɪz/",
                 frequency_rank=430,
             ),
@@ -877,14 +877,6 @@ C1_SETS: list[VocabularySet] = [
                 frequency_rank=390,
             ),
             VocabularyEntry(
-                word="reconcile",
-                pos="verb",
-                definition="To make two conflicting ideas or facts compatible.",
-                example="How do you reconcile economic growth with sustainability?",
-                ipa="/ˈrekənsaɪl/",
-                frequency_rank=370,
-            ),
-            VocabularyEntry(
                 word="predisposition",
                 pos="noun",
                 definition="A tendency or inclination to behave in a certain way.",
@@ -924,14 +916,6 @@ C1_SETS: list[VocabularySet] = [
         topic="Debate & Rhetorical Language",
         unit_ref="c1-unit-7",
         words=[
-            VocabularyEntry(
-                word="advocate",
-                pos="verb",
-                definition="To publicly support or recommend a cause.",
-                example="She advocates for stricter environmental laws.",
-                ipa="/ˈædvəkeɪt/",
-                frequency_rank=340,
-            ),
             VocabularyEntry(
                 word="rebut",
                 pos="verb",
