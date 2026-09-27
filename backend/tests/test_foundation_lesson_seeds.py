@@ -1568,3 +1568,29 @@ def test_en_gb_a2_body_and_money_definitions_are_precise():
     }
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].definition.casefold()
+
+
+
+def test_en_gb_a2_health_and_shopping_definitions_are_distinguishing():
+    """Selected A2 definitions should distinguish closely related everyday concepts."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for vocab_set in A2_SETS for entry in vocab_set.words}
+    expected_definitions = {
+        "back": "behind the chest and stomach",
+        "throat": "connects them to the oesophagus and lungs",
+        "hurt": "feel physical pain or to cause someone physical pain",
+        "pain": "physical or emotional sensation",
+        "medicine": "prevent, treat, or manage a medical condition",
+        "appointment": "planned time to meet a doctor or another professional",
+        "healthy": "good health and not being affected by illness or injury",
+        "sale": "shop offers some products at lower prices than usual",
+        "discount": "amount taken off the usual price",
+        "afford": "enough money to pay for something",
+        "basket": "small open container with a handle",
+        "trolley": "large wheeled container used to carry many shopping items",
+        "packaging": "paper, cardboard, glass, or plastic used to protect or contain a product",
+    }
+    for word, phrase in expected_definitions.items():
+        assert phrase.casefold() in entries[word].definition.casefold(), word
+        assert len(entries[word].definition.split()) >= 6, word
