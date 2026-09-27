@@ -20,8 +20,8 @@ C1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="paradigm",
                 pos="noun",
-                definition="A prevailing model or framework through which a subject, problem, or set of practices is understood.",
-                example="The shift from fixed offices to hybrid work has altered the management paradigm across the sector.",
+                definition="A prevailing model or framework through which a subject, problem, or set of practices is understood, especially within a particular field or organisation.",
+                example="The shift from fixed offices to hybrid work has altered the management paradigm across the sector, changing assumptions about supervision and collaboration.",
                 ipa="/ˈpærədaɪm/",
                 frequency_rank=460,
             ),
