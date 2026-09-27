@@ -113,6 +113,11 @@ export default async function Home() {
               </Link>
               <a href="#languages" className="juba-busuu-secondary">{t('ctaExplore')}</a>
             </div>
+            <div className="juba-busuu-hero-proof" aria-label={t('featureSectionLabel')}>
+              <span><strong>CEFR</strong>{t('proofCefr')}</span>
+              <span><strong>AI</strong>{t('proofTutor')}</span>
+              <span><strong>VOICE</strong>{t('proofVoice')}</span>
+            </div>
           </div>
           <div className="juba-busuu-hero-visual">
             <div className="juba-busuu-hero-disc" aria-hidden="true" />
