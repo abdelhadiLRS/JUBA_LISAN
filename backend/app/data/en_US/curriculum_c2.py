@@ -12,7 +12,7 @@ C2_UNITS: list[CurriculumUnit] = [
         title="Discourse Markers & Text Cohesion",
         grammar_points=["discourse-markers", "register-and-style", "fronting-emphasis"],
         vocabulary_set_ids=["nuanced_adjectives_c2"],
-        lesson_types=["grammar", "reading", "writing"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Use a wide range of discourse markers to organize arguments at paragraph and essay level.",
             "Identify how discourse markers signal logical relationships in sophisticated texts.",
@@ -30,7 +30,7 @@ C2_UNITS: list[CurriculumUnit] = [
         title="Nominalization & Academic Style",
         grammar_points=["nominalization", "register-and-style", "discourse-markers"],
         vocabulary_set_ids=["formal_register_c2"],
-        lesson_types=["grammar", "writing", "reading"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Convert verb and adjective phrases into noun phrases using nominalization.",
             "Produce academic writing with the impersonal, dense style characteristic of C2.",
@@ -48,7 +48,7 @@ C2_UNITS: list[CurriculumUnit] = [
         title="Idiomatic & Figurative Language",
         grammar_points=["fronting-emphasis", "idiomatic-expressions"],
         vocabulary_set_ids=["idiomatic_expressions_c2"],
-        lesson_types=["grammar", "reading", "vocabulary", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Use a wide range of idiomatic expressions naturally in spoken and written English.",
             "Interpret figurative language in authentic literary and journalistic texts.",
@@ -66,7 +66,7 @@ C2_UNITS: list[CurriculumUnit] = [
         title="Fronting, Emphasis & Stylistic Devices",
         grammar_points=["fronting-emphasis", "register-and-style"],
         vocabulary_set_ids=["literary_devices_c2"],
-        lesson_types=["grammar", "writing", "reading"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Use object fronting, adverbial fronting, and concessive fronting for effect.",
             "Identify and deploy literary devices (metaphor, irony, juxtaposition) in writing.",
@@ -88,7 +88,7 @@ C2_UNITS: list[CurriculumUnit] = [
             "advanced-concessive-structures",
         ],
         vocabulary_set_ids=["critical_analysis_c2"],
-        lesson_types=["grammar", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Read and critically evaluate complex academic and professional texts.",
             "Use critical analysis vocabulary (paradigm, empirical, discourse, posit) accurately.",
@@ -117,7 +117,7 @@ C2_UNITS: list[CurriculumUnit] = [
             "literary_devices_c2",
             "critical_analysis_c2",
         ],
-        lesson_types=["grammar", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Demonstrate mastery of all C2 grammar structures in extended writing tasks.",
             "Use the full range of C2 vocabulary with precision and appropriate register.",
@@ -135,7 +135,7 @@ C2_UNITS: list[CurriculumUnit] = [
         title="American Pragmatics & Cultural Nuance",
         grammar_points=["pragmatic-competence", "american-pragmatics"],
         vocabulary_set_ids=["american_pragmatics_c2"],
-        lesson_types=["grammar", "reading", "writing", "listening", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Understand and deploy American pragmatic conventions: directness, small talk, and positivity bias.",
             "Interpret American humor, sports metaphors, and regional dialect features in spoken contexts.",
@@ -172,7 +172,7 @@ C2_UNITS: list[CurriculumUnit] = [
             "american_pragmatics_c2",
             "c2_review_en_us",
         ],
-        lesson_types=["grammar", "reading", "writing", "listening", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Demonstrate mastery of all C2 grammar structures in extended writing tasks.",
             "Use the full range of C2 vocabulary with precision and appropriate register.",
