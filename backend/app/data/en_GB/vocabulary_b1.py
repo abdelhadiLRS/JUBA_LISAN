@@ -44,16 +44,16 @@ B1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="memorable",
                 pos="adjective",
-                definition="Worth remembering because it was unusual, enjoyable, important, or emotionally significant.",
-                example="The final concert was memorable because the whole audience joined the musicians for the last song.",
+                definition="Worth remembering because it is interesting, unusual, or important; it does not have to be emotionally powerful.",
+                example="The training day was memorable because the instructor used a simple experiment to explain a difficult idea.",
                 ipa="/ˈmemərəbəl/",
                 frequency_rank=480,
             ),
             VocabularyEntry(
                 word="unforgettable",
                 pos="adjective",
-                definition="So special it cannot be forgotten.",
-                example="The concert was unforgettable because the audience joined the singer for the final song.",
+                definition="So powerful or distinctive that it is very difficult to forget, often because of a strong emotional experience.",
+                example="Her first solo trip abroad was unforgettable: she missed her train, met a helpful family, and arrived safely after midnight.",
                 ipa="/ˌʌnfəˈɡetəbəl/",
             ),
             VocabularyEntry(
