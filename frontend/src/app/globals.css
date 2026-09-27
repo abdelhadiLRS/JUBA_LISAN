@@ -2869,7 +2869,7 @@ body .juba-reference-page .juba-ref-hero::before{
   border-radius:52% 48% 45% 55%!important;
   transform:rotate(-18deg)!important;
 }
-body .juba-reference-page .juba-ref-hero-inner > .juba-ref-hero-bottom::before{
+body .juba-reference-page .juba-ref-hero-inner::after{
   content:""!important;
   position:absolute!important;
   width:390px!important;
@@ -2882,6 +2882,7 @@ body .juba-reference-page .juba-ref-hero-inner > .juba-ref-hero-bottom::before{
   border-radius:48% 52% 55% 45%!important;
   transform:rotate(20deg)!important;
   pointer-events:none!important;
+  z-index:-1!important;
 }
 body .juba-reference-page .juba-ref-hero-inner::before{
   width:155px!important;
@@ -2905,13 +2906,13 @@ body .juba-reference-page .juba-ref-hero-inner::after{
 }
 @media(max-width:900px){
   body .juba-reference-page .juba-ref-hero::before{left:-245px!important;top:75px!important}
-  body .juba-reference-page .juba-ref-hero-inner > .juba-ref-hero-bottom::before{right:-225px!important;top:150px!important}
+  body .juba-reference-page .juba-ref-hero-inner::after{right:-225px!important;top:150px!important}
 }
 @media(max-width:560px){
   body .juba-reference-page .juba-ref-hero::before{
     width:270px!important;height:135px!important;left:-185px!important;top:80px!important;border-width:3px!important;
   }
-  body .juba-reference-page .juba-ref-hero-inner > .juba-ref-hero-bottom::before{
+  body .juba-reference-page .juba-ref-hero-inner::after{
     width:240px!important;height:120px!important;right:-185px!important;top:145px!important;border-width:3px!important;
   }
 }
