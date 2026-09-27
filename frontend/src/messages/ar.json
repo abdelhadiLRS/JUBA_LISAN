@@ -156,7 +156,8 @@
       "ko-KR": "مرحبًا!",
       "zh-CN": "مرحبًا!"
     },
-    "ar": "العربية"
+    "ar": "العربية",
+    "skipToContent": "تخطّي إلى المحتوى"
   },
   "common": {
     "loading": "جارٍ التحميل...",
@@ -642,14 +643,13 @@
     },
     "learningLabel": "التعلّم",
     "cefrLabel": "مستوى CEFR",
-    "coachLabel": "المدرّب"
-  ,
+    "coachLabel": "المدرّب",
     "learner": "متعلم",
-      "minutes": "د",
-      "reviewEyebrow": "مراجعة ذكية",
-      "reviewTitle": "لديك مراجعات مستحقة",
-      "reviewAction": "ابدأ المراجعة",
-      "reviewSkill": "المهارة المقترحة"
+    "minutes": "د",
+    "reviewEyebrow": "مراجعة ذكية",
+    "reviewTitle": "لديك مراجعات مستحقة",
+    "reviewAction": "ابدأ المراجعة",
+    "reviewSkill": "المهارة المقترحة"
   },
   "plan": {
     "title": "خطتي",
