@@ -1781,3 +1781,83 @@ html[dir='rtl'] body {
   .juba-mobile-listening .juba-panel { border-radius: 18px !important; padding: 16px !important; }
   .juba-mobile-listening .border-2.rounded-2xl { min-height: 50px !important; }
 }
+
+
+/* Reading — unified JUBA LISAN reading lesson surface. */
+.juba-mobile-reading {
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-mobile-reading .juba-panel {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 20px !important;
+  background: #fff !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+.juba-mobile-reading h1 {
+  color: var(--juba-learning-ink) !important;
+  font-weight: 900 !important;
+  letter-spacing: -.025em !important;
+}
+.juba-mobile-reading .font-mono {
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-mobile-reading .reading-text {
+  min-height: 260px !important;
+  font-size: 1.05rem !important;
+  line-height: 1.9 !important;
+  font-weight: 650 !important;
+}
+.juba-mobile-reading .border-\[var\(--juba-lilac\)\] {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-mobile-reading .bg-\[var\(--juba-lilac\)\] {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-reading .border-\[var\(--juba-violet-dark\)\] {
+  border-color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-reading .text-\[var\(--juba-violet-dark\)\] {
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-reading .space-y-2 > button {
+  min-height: 52px !important;
+  border-width: 2px !important;
+  border-radius: 15px !important;
+  background: #fff !important;
+  font-weight: 750 !important;
+}
+.juba-mobile-reading .space-y-2 > button:hover {
+  border-color: var(--juba-learning-blue) !important;
+  background: #f4fbff !important;
+}
+.juba-mobile-reading .space-y-2 > button.bg-\[var\(--juba-lilac\)\] {
+  background: var(--juba-learning-green-soft) !important;
+  border-color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-reading .juba-primary-button {
+  min-height: 50px !important;
+  border-color: var(--juba-learning-green-dark) !important;
+  background: var(--juba-learning-green) !important;
+  box-shadow: 0 4px 0 var(--juba-learning-green-dark) !important;
+  color: #fff !important;
+  font-weight: 900 !important;
+}
+.juba-mobile-reading .juba-secondary-button {
+  border-color: var(--juba-learning-border) !important;
+  background: #fff !important;
+}
+.juba-mobile-reading .border-green-600\/50 {
+  border-color: #58cc02 !important;
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-reading .border-red-600\/50 {
+  border-color: #ff4b4b !important;
+  background: #fff1f1 !important;
+}
+@media (max-width: 767px) {
+  .juba-mobile-reading { padding-bottom: 86px !important; }
+  .juba-mobile-reading .juba-panel { border-radius: 18px !important; padding: 16px !important; }
+  .juba-mobile-reading .reading-text { min-height: 220px !important; font-size: 1rem !important; line-height: 1.8 !important; }
+  .juba-mobile-reading .space-y-2 > button { min-height: 50px !important; }
+}
