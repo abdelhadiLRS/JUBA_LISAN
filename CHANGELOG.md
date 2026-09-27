@@ -1,3 +1,4 @@
+- Strengthened B2→C1→C2 semantic progression: replaced generic C1 repeats (`subsequently`, `consequently`, `prior to`) with more advanced formal connectors, deepened C1 `bias`/`implication` contexts, and added methodological nuance to C2 `empirical` usage with regression coverage.
 # Changelog
 
 ## [Unreleased]
