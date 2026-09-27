@@ -326,7 +326,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="g-c1-001",
         skill="grammar",
         difficulty="C1",
-        question="___ the manager who approved the decision. (cleft sentence)",
+        question="After the funding decision was reviewed, the board identified the manager responsible for the approval. ___ the manager who approved the decision. (cleft sentence)",
         options=["It was", "It is", "There was", "What was"],
         correct="It was",
         grammar_slug="cleft-sentences",
@@ -368,7 +368,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         skill="grammar",
         difficulty="C2",
         question=(
-            '"The ___ of new regulations has significantly impacted small businesses."'
+            '"The government introduced new regulations last year, and the ___ has significantly increased compliance costs for small businesses."'
             ' — Choose the correct nominalization of "implement".'
         ),
         options=["implementation", "implementing", "implemented", "implements"],
@@ -1112,7 +1112,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="g-c2-005",
         skill="grammar",
         difficulty="C2",
-        question='"Not only ___ the project late, but the final report was also full of errors." (formal inversion)',
+        question='"The project missed its delivery deadline, and the final report also contained several errors. Not only ___ the project late, but the final report was also full of errors." (formal inversion)',
         options=[
             "they delivered",
             "delivered they",
@@ -1238,7 +1238,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="g-c1-007",
         skill="grammar",
         difficulty="C1",
-        question="Rarely ___ such a detailed explanation before the meeting.",
+        question="The committee had reviewed many technical reports, but before this project I had almost never seen such a detailed explanation. Rarely ___ such a detailed explanation before the meeting.",
         options=["I have seen", "have I seen", "I saw", "did I saw"],
         correct="have I seen",
         grammar_slug="negative-inversion",
@@ -1247,7 +1247,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="g-c1-008",
         skill="grammar",
         difficulty="C1",
-        question="The manager insisted that the report ___ by Friday.",
+        question="The audit is needed before the board meeting, so the manager insisted that the final report ___ by Friday.",
         options=["is completed", "was completed", "be completed", "will complete"],
         correct="be completed",
         grammar_slug="mandative-subjunctive",
@@ -1256,7 +1256,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="g-c1-009",
         skill="grammar",
         difficulty="C1",
-        question="___ the warning signs, they proceeded with the plan.",
+        question="The safety officer had pointed out several warning signs before the work began. ___ the warning signs, the contractors proceeded with the plan.",
         options=["Despite noticing", "Although noticing", "Despite they noticed", "In spite notice"],
         correct="Despite noticing",
         grammar_slug="concessive-gerund",
@@ -1265,7 +1265,7 @@ ASSESSMENT_BANK: list[AssessmentQuestion] = [
         id="g-c1-010",
         skill="grammar",
         difficulty="C1",
-        question="Had we known about the delay, we ___ a different route.",
+        question="The road was closed unexpectedly, and the journey took much longer than planned. Had we known about the delay, we ___ a different route.",
         options=["take", "would take", "would have taken", "had taken"],
         correct="would have taken",
         grammar_slug="inverted-third-conditional",
