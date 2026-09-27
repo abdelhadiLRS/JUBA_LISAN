@@ -863,3 +863,89 @@ html[data-theme='light'] {
 .juba-busuu-testimonial-meta span:first-child{color:#f2b01e;font-size:13px;letter-spacing:.08em;line-height:1}
 .juba-busuu-testimonial-meta span:last-child{color:var(--busuu-muted);font-size:12px;font-weight:800}
 @media(max-width:600px){.juba-busuu-testimonial-meta{align-items:flex-start;flex-direction:column;gap:7px}}
+
+
+/* JUBA LISAN — core learning surfaces: courses / vocabulary / flashcards */
+.juba-mobile-courses,.juba-mobile-vocabulary,.juba-mobile-flashcards{
+  font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif!important;
+  color:#202124!important;
+}
+.juba-mobile-courses .juba-card,.juba-mobile-vocabulary .juba-card,.juba-mobile-flashcards>div>div{
+  border-color:#e5e7eb!important;
+  box-shadow:0 2px 0 rgba(31,41,51,.04)!important;
+}
+.juba-mobile-courses .juba-card{
+  border-radius:20px!important;
+}
+.juba-mobile-courses>div>section:first-child{
+  background:#58a700!important;
+  border:0!important;
+  border-radius:20px!important;
+  box-shadow:0 4px 0 #438600!important;
+}
+.juba-mobile-courses .juba-hero-glow{opacity:.12!important}
+.juba-mobile-courses .juba-eyebrow,.juba-mobile-vocabulary .juba-eyebrow{
+  color:#587064!important;
+  font-family:'Nunito Sans',sans-serif!important;
+}
+.juba-mobile-courses>div>section:first-child .juba-eyebrow{color:#fff!important}
+.juba-mobile-courses [class*="bg-\[#ffd85a\]"]{background:#eaf5df!important}
+.juba-mobile-courses [class*="ring-[var(--juba-primary)]"]{--tw-ring-color:#58a700!important}
+.juba-mobile-courses a[class*="bg-\[var(--juba-primary)\]"]{background:#58a700!important;box-shadow:0 3px 0 #438600!important}
+.juba-mobile-vocabulary{padding-top:24px!important;padding-bottom:56px!important}
+.juba-mobile-vocabulary .juba-card{
+  background:#fff!important;
+  border-radius:20px!important;
+}
+.juba-mobile-vocabulary [style*="--juba-yellow"]{background:#58a700!important}
+.juba-mobile-vocabulary [class*="bg-[var(--juba-yellow)]"]{background:#58a700!important;color:#fff!important;box-shadow:0 3px 0 #438600!important}
+.juba-mobile-vocabulary [class*="bg-[var(--juba-violet-dark)]"]{background:#58a700!important;color:#fff!important;box-shadow:0 3px 0 #438600!important}
+.juba-mobile-vocabulary [class*="border-[var(--juba-lilac)]"]{border-color:#e1e5e2!important}
+.juba-mobile-vocabulary [class*="bg-[var(--juba-lilac)]"]{background:#f4f7f2!important}
+.juba-mobile-vocabulary input{
+  min-height:44px!important;
+  border-color:#e1e5e2!important;
+  background:#fff!important;
+  border-radius:12px!important;
+  font-family:'Nunito Sans','Noto Sans Arabic',sans-serif!important;
+}
+.juba-mobile-vocabulary input:focus{border-color:#58a700!important;box-shadow:0 0 0 4px rgba(88,167,0,.12)!important;outline:0!important}
+.juba-mobile-flashcards{
+  padding-top:24px!important;
+  padding-bottom:56px!important;
+}
+.juba-mobile-flashcards>div>div:first-child{
+  border-radius:20px!important;
+  background:#58a700!important;
+  border:0!important;
+  color:#fff!important;
+  box-shadow:0 4px 0 #438600!important;
+}
+.juba-mobile-flashcards>div>div:first-child h1,
+.juba-mobile-flashcards>div>div:first-child p,
+.juba-mobile-flashcards>div>div:first-child svg{color:#fff!important}
+.juba-mobile-flashcards>div>div:not(:first-child){
+  border-radius:20px!important;
+  border-color:#e5e7eb!important;
+}
+.juba-mobile-flashcards [class*="bg-[var(--juba-violet-dark)]"]{background:#58a700!important;color:#fff!important;box-shadow:0 3px 0 #438600!important}
+.juba-mobile-flashcards [class*="bg-[var(--juba-lilac)]"]{background:#f4f7f2!important}
+.juba-mobile-flashcards [class*="border-[var(--juba-lilac)]"]{border-color:#e1e5e2!important}
+.juba-mobile-flashcards input,.juba-mobile-flashcards select{
+  min-height:44px!important;
+  border-radius:12px!important;
+  border-color:#e1e5e2!important;
+  font-family:'Nunito Sans','Noto Sans Arabic',sans-serif!important;
+}
+.juba-mobile-flashcards input:focus,.juba-mobile-flashcards select:focus{border-color:#58a700!important;box-shadow:0 0 0 4px rgba(88,167,0,.12)!important;outline:0!important}
+.juba-mobile-courses button,.juba-mobile-vocabulary button,.juba-mobile-flashcards button{
+  font-family:'Nunito Sans','Noto Sans Arabic',sans-serif!important;
+}
+@media(max-width:600px){
+  .juba-mobile-courses{padding:18px 0 56px!important}
+  .juba-mobile-courses>div{gap:24px!important}
+  .juba-mobile-courses>div>section:first-child{padding:22px!important}
+  .juba-mobile-courses>div>section:first-child h1{font-size:30px!important;line-height:1.05!important}
+  .juba-mobile-vocabulary{padding-left:10px!important;padding-right:10px!important}
+  .juba-mobile-flashcards{padding-left:10px!important;padding-right:10px!important}
+}
