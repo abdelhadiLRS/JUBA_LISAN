@@ -1,5 +1,7 @@
 {
   "landing": {
+    "openMenuLabel": "Otwórz menu nawigacji",
+    "closeMenuLabel": "Zamknij menu nawigacji",
     "hero": "Ucz się języków z prawdziwym partnerem do rozmowy głosowej",
     "heroSub": "Mów. Słuchaj. Rozwijaj się.",
     "signIn": "Zaloguj się",
