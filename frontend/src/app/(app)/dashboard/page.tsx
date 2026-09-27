@@ -345,209 +345,113 @@ export default function DashboardPage() {
     <>
       <OnboardingTour />
       <WhatsNew />
-
-      <div className="container-xl juba-dashboard juba-dashboard-page">
-        <div className="juba-dashboard-header d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+      <div className="juba-duo-home">
+        <section className="juba-duo-welcome">
           <div>
-            <div className="text-secondary small">{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</div>
-            <h1 className="juba-dashboard-title mb-0">{t('welcomeBack')}, {user?.displayName || user?.username}</h1>
+            <span className="juba-duo-eyebrow">{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</span>
+            <h1>{t('welcomeBack')}, {user?.displayName || user?.username}</h1>
+            <p>{cefrLevel ? cefrLevel + ' · ' : ''}{nextLesson?.title || t('startWithAssessment')}</p>
           </div>
-          <button type="button" className="btn juba-btn-secondary" onClick={refreshDashboardData} disabled={refreshing}>
-            <RefreshCw className={`me-2 ${refreshing ? 'animate-spin' : ''}`} size={17} aria-hidden="true" />
-            {t('refresh')}
-          </button>
-        </div>
+          <div className="juba-duo-top-stats">
+            <div><Flame size={20} /><strong>{streak}</strong><span>{t('streak')}</span></div>
+            <div><Trophy size={20} /><strong>{xp}</strong><span>{t('xp')}</span></div>
+          </div>
+        </section>
 
         {loadError && (
-          <div className="alert alert-danger" role="alert">
-            <div>{tError('body')}</div>
-            <button type="button" className="btn btn-sm btn-outline-danger mt-2" onClick={() => { setLoadError(false); setLoading(true); loadData() }}>
-              {tError('retry')}
-            </button>
+          <div className="juba-duo-alert" role="alert">
+            <span>{tError('body')}</span>
+            <button type="button" onClick={() => { setLoadError(false); setLoading(true); loadData() }}>{tError('retry')}</button>
           </div>
         )}
 
-        <div className="row row-cards">
-          <div className="col-12">
-            <div className="card juba-learning-card">
-              <div className="card-body">
-                <div className="row align-items-center">
-                  <div className="col-auto">
-                    <span className="avatar avatar-lg bg-primary-lt text-primary">
-                      <BookOpen size={26} strokeWidth={2.4} aria-hidden="true" />
-                    </span>
-                  </div>
-                  <div className="col">
-                    <h3 className="card-title mb-1">{t('nextStep')}</h3>
-                    <div className="text-secondary">
-                      {cefrLevel ? cefrLevel + ' · ' : ''}{nextLesson?.title || t('startWithAssessment')}
-                    </div>
-                    <div className="mt-3">
-                      <div className="d-flex align-items-center justify-content-between mb-2"><span className="text-secondary small">{t('daysRemaining')}</span><strong className="small">{currentDayDisplay}/{totalDays || 0}</strong></div>
-                      <div className="progress juba-dashboard-plan-progress" aria-label={t('daysRemaining')}><div className="progress-bar" style={{ width: planCompletion + '%' }} /></div>
-                    </div>
-                    <div className="mt-3 d-flex flex-wrap gap-2">
-                      <Link href={nextLesson?.id ? '/lesson/' + nextLesson.id : '/assessment'} className="btn juba-btn-primary">
-                        <Play className="me-2" size={17} fill="currentColor" aria-hidden="true" />
-                        {nextLesson ? t('startLesson') : tNav('assessment')}
-                      </Link>
-                      <Link href="/plan" className="btn btn-outline-secondary">
-                        {t('goToMyPlan')}
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="col-auto d-none d-md-block">
-                    <span className="badge bg-primary-lt text-primary">{streak} {t('streak')}</span>
-                    <div className="text-secondary text-end mt-2">{xp} {t('xp')}</div>
-                  </div>
+        <div className="juba-duo-grid">
+          <main className="juba-duo-course">
+            <section className="juba-duo-unit">
+              <div className="juba-duo-unit-head">
+                <div>
+                  <span className="juba-duo-unit-kicker">{t('nextStep')}</span>
+                  <h2>{cefrLevel || 'A1'} · {nextLesson?.title || t('startWithAssessment')}</h2>
                 </div>
+                <Link href="/plan" className="juba-duo-guide">{t('goToMyPlan')}</Link>
               </div>
-              <div className="card-footer">
-                <div className="row text-center g-3">
-                  <div className="col-6 col-md-3"><div className="d-flex align-items-center justify-content-center gap-2"><ListChecks size={18} aria-hidden="true" /><div className="text-secondary">{t('lessonsCompleted')}</div></div><div className="h2 mb-0 mt-1">{totalLessons}</div></div>
-                  <div className="col-6 col-md-3"><div className="d-flex align-items-center justify-content-center gap-2"><Trophy size={18} aria-hidden="true" /><div className="text-secondary">{t('accuracy')}</div></div><div className="h2 mb-0 mt-1">{accuracy}%</div></div>
-                  <div className="col-6 col-md-3"><div className="d-flex align-items-center justify-content-center gap-2"><Flame size={18} aria-hidden="true" /><div className="text-secondary">{t('streak')}</div></div><div className="h2 mb-0 mt-1">{streak}</div></div>
-                  <div className="col-6 col-md-3"><div className="d-flex align-items-center justify-content-center gap-2"><CalendarDays size={18} aria-hidden="true" /><div className="text-secondary">{t('daysRemaining')}</div></div><div className="h2 mb-0 mt-1">{Math.max(totalDays - progressDay, 0)}</div></div>
-                </div>
+              <div className="juba-duo-progress">
+                <span style={{ width: planCompletion + '%' }} />
               </div>
-            </div>
-          </div>
+              <div className="juba-duo-progress-meta">
+                <span>{currentDayDisplay}/{totalDays || 0}</span>
+                <span>{planCompletion}%</span>
+              </div>
+            </section>
 
-          <div className="col-lg-8">
-            <div className="card juba-learning-card">
-              <div className="card-header">
-                <h3 className="card-title">{t('recentPerformance')}</h3>
-                <div className="card-actions">
-                  {(['week', 'month', 'all'] as const).map((range) => (
-                    <button key={range} type="button" onClick={() => changeHistoryRange(range)} className={`btn btn-sm ${historyRange === range ? 'btn-primary' : 'btn-ghost-secondary'}`}>
-                      {t('historyRanges.' + range)}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div className="card-body">
-                <div className="row row-cards">
-                  <div className="col-sm-4">
-                    <div className="subheader">{t('accuracy')}</div>
-                    <div className="h1 mb-2">{accuracy}%</div>
-                    <div className="progress progress-sm juba-progress">
-                      <div className="progress-bar" style={{ width: accuracy + '%' }} />
+            <section className="juba-duo-path" aria-label={t('lessonReady')}>
+              {todayLessons.length ? todayLessons.map((lesson, index) => {
+                const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
+                const current = !done && (!nextLesson || lesson.id === nextLesson.id)
+                return (
+                  <div key={lesson.id ?? lesson.title} className={`juba-duo-node-row ${index % 2 ? 'is-offset' : ''}`}>
+                    <div className={`juba-duo-node ${done ? 'is-done' : current ? 'is-current' : ''}`}>
+                      {done ? <Check size={28} strokeWidth={3} /> : current ? <Play size={27} fill="currentColor" /> : <BookOpen size={25} />}
                     </div>
-                    <div className="text-secondary mt-2">{getPerformanceLabel(accuracy / 100)}</div>
-                  </div>
-                  <div className="col-sm-8">
-                    <div className="juba-performance-chart border rounded p-3">
-                      <div className="d-flex align-items-center justify-content-between mb-3">
-                        <div><div className="subheader">{t('recentPerformance')}</div><div className="h3 mb-0">{chartAverage}%</div></div>
-                        <span className="badge bg-primary-lt text-primary">{t('accuracy')}: {accuracy}%</span>
-                      </div>
-                      <div className="d-flex align-items-end gap-2" style={{ minHeight: 140 }}>
-                        {performanceValues.length ? performanceValues.map((value, index) => (
-                          <div key={index} className="flex-fill text-center">
-                            <div className="juba-chart-bar rounded-top" style={{ height: Math.max(8, Math.round((value / chartMax) * 120)), minHeight: 8 }} />
-                            <div className="text-secondary small mt-1">{index + 1}</div>
-                          </div>
-                        )) : <div className="text-secondary">{t('noSkills')}</div>}
-                      </div>
+                    <div className="juba-duo-node-copy">
+                      <strong>{lesson.title}</strong>
+                      <span>{tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} {t('minutes')}</span>
+                      {current && lesson.id ? <Link href={'/lesson/' + lesson.id} className="juba-duo-cta">{t('startLesson')}</Link> : done ? <span className="juba-duo-complete"><Check size={15} />{t('completedToday', { completed: 1, total: 1 })}</span> : null}
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="card mt-3 juba-learning-card">
-              <div className="card-header">
-                <h3 className="card-title">{t('lessonReady')}</h3>
-                <div className="card-actions"><span className="badge bg-blue-lt text-blue">{completedLessonCount}/{todayLessons.length || 0}</span></div>
-              </div>
-              <div className="list-group list-group-flush">
-                {todayLessons.map((lesson) => {
-                  const done = (lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted
-                  return (
-                    <div key={lesson.id ?? lesson.title} className="list-group-item">
-                      <div className="row align-items-center">
-                        <div className="col-auto"><span className={`avatar avatar-sm ${done ? 'bg-success-lt text-success' : 'bg-primary-lt text-primary'}`}>{done ? <Check size={19} strokeWidth={3} aria-hidden="true" /> : <BookOpen size={19} strokeWidth={2.5} aria-hidden="true" />}</span></div>
-                        <div className="col text-truncate">
-                          <div className="text-reset">{lesson.title}</div>
-                          <div className="text-secondary text-truncate">{tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} {t('minutes')}</div>
-                        </div>
-                        <div className="col-auto">
-                          {lesson.id && !done ? <Link href={'/lesson/' + lesson.id} className="btn btn-sm juba-btn-primary">{t('startLesson')}</Link> : <span className="badge bg-success-lt text-success"><Check className="me-1" size={15} strokeWidth={3} />{t('completedToday', { completed: 1, total: 1 })}</span>}
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-                {todayLessons.length === 0 && (
-                  <div className="empty">
-                    <div className="empty-icon"><BookOpen size={28} aria-hidden="true" /></div>
-                    <p className="empty-title">{t('startWithAssessment')}</p>
-                    <Link href="/assessment" className="btn juba-btn-primary">{tNav('assessment')}</Link>
-                  </div>
-                )}
-              </div>
-              {hasPlan && (
-                <div className="card-footer d-flex justify-content-between align-items-center">
-                  <span className="text-secondary">{pendingCount} {t('pendingLessons')}</span>
-                  <button type="button" onClick={skipDay} disabled={skipping} className="btn btn-sm juba-btn-secondary">{skipping ? '…' : t('skipDay')}</button>
+                )
+              }) : (
+                <div className="juba-duo-empty">
+                  <BookOpen size={34} />
+                  <h3>{t('startWithAssessment')}</h3>
+                  <Link href="/assessment" className="juba-duo-cta">{tNav('assessment')}</Link>
                 </div>
               )}
-              {skipError && <div className="card-footer text-danger">{tError('body')}</div>}
-            </div>
-          </div>
+            </section>
+          </main>
 
-          <div className="col-lg-4">
-            <div className="card juba-learning-card">
-              <div className="card-header"><h3 className="card-title">{t('lessonReady')}</h3></div>
-              <div className="card-body">
-                <div className="datagrid">
-                  {progressBars.length ? progressBars.map(({ day, value, active }) => (
-                    <div className="datagrid-item" key={day}><div className="datagrid-title">{day}</div><div className="datagrid-content"><span className={`badge ${active ? 'bg-success-lt text-success' : 'bg-primary-lt text-primary'}`}>{value} {t('xp')}</span></div></div>
-                  )) : <div className="text-secondary">{t('noSkills')}</div>}
-                </div>
-              </div>
-            </div>
+          <aside className="juba-duo-side">
+            <section className="juba-duo-card juba-duo-streak-card">
+              <div className="juba-duo-card-icon"><Flame size={24} /></div>
+              <div><span>{t('streak')}</span><strong>{streak}</strong><small>{t('today')}</small></div>
+            </section>
 
-            <div className="card mt-3 juba-learning-card">
-              <div className="card-header"><h3 className="card-title">{tNav('resources')}</h3></div>
-              <div className="list-group list-group-flush">
-                <Link href="/reading" className="list-group-item list-group-item-action"><BookOpen className="me-2" size={18} />{tNav('reading')}<span className="ms-auto"><ArrowUpRight size={16} aria-hidden="true" /></span></Link>
-                <Link href="/courses" className="list-group-item list-group-item-action"><LayoutDashboard className="me-2" size={18} />{tNav('courses')}<span className="ms-auto"><ArrowUpRight size={16} aria-hidden="true" /></span></Link>
-                <Link href="/flashcards" className="list-group-item list-group-item-action"><Library className="me-2" size={18} />{tNav('flashcards')}<span className="ms-auto"><ArrowUpRight size={16} aria-hidden="true" /></span></Link>
-                <Link href="/chat" className="list-group-item list-group-item-action"><Headphones className="me-2" size={18} />{tNav('tutor')}<span className="ms-auto"><ArrowUpRight size={16} aria-hidden="true" /></span></Link>
-              </div>
-            </div>
+            <section className="juba-duo-card">
+              <div className="juba-duo-card-head"><h3>{t('accuracy')}</h3><span>{accuracy}%</span></div>
+              <div className="juba-duo-meter"><span style={{ width: accuracy + '%' }} /></div>
+              <p>{getPerformanceLabel(accuracy / 100)}</p>
+            </section>
 
-            <div className="card mt-3 juba-learning-card">
-              <div className="card-header"><h3 className="card-title">{t('vocabularyProgress', { level: vocabularyLevel || '—' })}</h3></div>
-              <div className="card-body">
-                <div className="d-flex justify-content-between mb-2"><span className="text-secondary">{t('vocabularyWords', { mastered: vocabularyMastered, total: vocabularyTotal })}</span><span>{vocabularyProgressPct}%</span></div>
-                <div className="progress"><div className="progress-bar bg-success" style={{ width: vocabularyProgressPct + '%' }} /></div>
-              </div>
-            </div>
-          </div>
+            <section className="juba-duo-card">
+              <div className="juba-duo-card-head"><h3>{t('vocabularyProgress', { level: vocabularyLevel || '—' })}</h3><span>{vocabularyProgressPct}%</span></div>
+              <div className="juba-duo-meter"><span style={{ width: vocabularyProgressPct + '%' }} /></div>
+              <p>{t('vocabularyWords', { mastered: vocabularyMastered, total: vocabularyTotal })}</p>
+              <Link href="/vocabulary" className="juba-duo-card-link">{tNav('vocabulary')} <ArrowUpRight size={16} /></Link>
+            </section>
 
-          {showPremiumBanner && (
-            <div className="col-12">
-              <div className="card juba-learning-card">
-                <div className="card-status-start bg-warning" />
-                <div className="card-body">
-                  <div className="row align-items-center">
-                    <div className="col-auto"><span className="avatar bg-warning-lt text-warning"><Trophy size={19} aria-hidden="true" /></span></div>
-                    <div className="col">
-                      <h3 className="card-title">{freemiumTrialActive ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft }) : t(paymentRecovery ? 'premiumBannerPastDueTitle' : 'premiumBannerTitle')}</h3>
-                      <div className="text-secondary">{freemiumTrialActive ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft }) : paymentRecovery ? t('premiumBannerPastDueDesc') : t(trialEligible ? 'premiumBannerDesc' : 'premiumBannerDescTrialUsed')}</div>
-                    </div>
-                    <div className="col-auto">
-                      {paymentRecovery ? <button onClick={handleManageSubscription} disabled={portalLoading} className="btn btn-warning">{portalLoading ? '…' : tBilling('updatePayment')}</button> : !freemiumTrialActive ? <SubscriptionPlanButtons /> : null}
-                    </div>
-                  </div>
-                  {portalError && <div className="text-danger mt-3">{portalError}</div>}
-                </div>
+            <section className="juba-duo-card">
+              <div className="juba-duo-card-head"><h3>{t('recentPerformance')}</h3><span>{chartAverage}%</span></div>
+              <div className="juba-duo-mini-bars">
+                {performanceValues.length ? performanceValues.map((value, index) => <span key={index} style={{ height: Math.max(10, value) + '%' }} />) : <i>{t('noSkills')}</i>}
               </div>
-            </div>
-          )}
+            </section>
+
+            <section className="juba-duo-links">
+              <Link href="/reading"><BookOpen size={18} />{tNav('reading')}</Link>
+              <Link href="/listening"><Headphones size={18} />{tNav('listening')}</Link>
+              <Link href="/flashcards"><Library size={18} />{tNav('flashcards')}</Link>
+              <Link href="/chat"><Mic2 size={18} />{tNav('tutor')}</Link>
+            </section>
+          </aside>
         </div>
+
+        {showPremiumBanner && (
+          <section className="juba-duo-premium">
+            <Trophy size={24} />
+            <div><strong>{freemiumTrialActive ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft }) : t(paymentRecovery ? 'premiumBannerPastDueTitle' : 'premiumBannerTitle')}</strong><span>{freemiumTrialActive ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft }) : paymentRecovery ? t('premiumBannerPastDueDesc') : t(trialEligible ? 'premiumBannerDesc' : 'premiumBannerDescTrialUsed')}</span></div>
+            {paymentRecovery ? <button onClick={handleManageSubscription} disabled={portalLoading}>{portalLoading ? '…' : tBilling('updatePayment')}</button> : !freemiumTrialActive ? <SubscriptionPlanButtons /> : null}
+          </section>
+        )}
       </div>
     </>
   )
