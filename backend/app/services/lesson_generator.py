@@ -10,6 +10,9 @@ from app.data.phrasebook import get_phrasebook_categories
 from app.data.vocabulary import get_vocabulary_sets
 from app.data.ar.lessons import get_arabic_a1_lessons, get_arabic_a1_content_seed
 from app.data.tr.lesson_seeds import get_lesson_seed as get_turkish_lesson_seed
+from app.data.nl.lesson_seeds import get_lesson_seed as get_dutch_lesson_seed
+from app.data.ru.lesson_seeds import get_lesson_seed as get_russian_lesson_seed
+from app.data.pl.lesson_seeds import get_lesson_seed as get_polish_lesson_seed
 from app.schemas.lessons import (
     ExerciseContent,
     FillBlankEvaluation,
@@ -357,9 +360,15 @@ async def generate_lesson(
         unit_id = scheduled["unit_id"]
 
     scheduled_objective = ""
+    seed_getters = {
+        "tr": get_turkish_lesson_seed,
+        "nl": get_dutch_lesson_seed,
+        "ru": get_russian_lesson_seed,
+        "pl": get_polish_lesson_seed,
+    }
     curated_lesson_seed = (
-        get_turkish_lesson_seed(cefr_level, unit_id, lesson_type)
-        if target_language == "tr" else None
+        seed_getters[target_language](cefr_level, unit_id, lesson_type)
+        if target_language in seed_getters else None
     )
     if curated_lesson_seed:
         scheduled_objective = str(curated_lesson_seed.get("objective") or "")
