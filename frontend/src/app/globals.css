@@ -773,3 +773,48 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
   border-color:#58cc02 !important;
   background:#f3fbe9 !important;
 }
+
+
+/* Landing final component consistency */
+.juba-reference-page .juba-ref-pillar .juba-pillar-image {
+  display:block !important;
+  width:100% !important;
+  height:150px !important;
+  object-fit:contain !important;
+  margin:0 auto 14px !important;
+}
+.juba-reference-page .juba-ref-pillar > span {
+  color:#46a900 !important;
+  font-size:10px !important;
+  font-weight:950 !important;
+  letter-spacing:.08em !important;
+  text-transform:uppercase !important;
+}
+.juba-reference-page .juba-ref-pillar.pillar-mint,
+.juba-reference-page .juba-ref-pillar.pillar-blue,
+.juba-reference-page .juba-ref-pillar.pillar-yellow {
+  background:#fff !important;
+}
+.juba-reference-page .juba-ref-cta .juba-ref-kicker {
+  color:#b7f36b !important;
+}
+.juba-reference-page .juba-ref-cta .juba-ref-button:hover {
+  background:#f3fbe9 !important;
+}
+.juba-reference-page .juba-games-showcase .juba-games-heading,
+.juba-reference-page .juba-games-showcase .juba-game-stage,
+.juba-reference-page .juba-games-showcase .juba-practical-language-section {
+  max-width:1160px !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+.juba-reference-page .juba-practical-language-section {
+  border-top:1px solid #dfe9da !important;
+}
+.juba-reference-page .juba-practical-language-copy .juba-ref-button {
+  margin-top:4px !important;
+}
+@media(max-width:700px){
+  .juba-reference-page .juba-ref-pillar .juba-pillar-image{height:125px !important}
+  .juba-reference-page .juba-ref-cta .juba-ref-cta-device{order:2 !important}
+}
