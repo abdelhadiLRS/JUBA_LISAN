@@ -628,6 +628,9 @@ html[data-theme='light'] {
 .juba-busuu-landing .juba-busuu-footer-bottom a{color:#9da9a3!important;text-decoration:none}
 
 /* Responsive */
+.juba-busuu-stats-grid{grid-template-columns:repeat(2,1fr)}
+.juba-busuu-stats-grid article:nth-child(3){border-inline-start:0;border-top:1px solid var(--busuu-line)}
+.juba-busuu-stats-grid article:nth-child(4){border-top:1px solid var(--busuu-line)}
 @media(max-width:1000px){
   .juba-busuu-nav-links{display:none}.juba-busuu-nav-actions{display:none}
   .juba-busuu-menu{
