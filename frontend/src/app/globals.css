@@ -663,6 +663,9 @@ html[data-theme='light'] {
   .juba-busuu-landing .juba-busuu-footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   .juba-busuu-landing .juba-busuu-footer-language{grid-template-columns:1fr}
 }
+.juba-busuu-stats{padding-bottom:72px}
+.juba-busuu-stats-grid{grid-template-columns:1fr 1fr}
+.juba-busuu-stats-grid article{min-height:125px;padding:24px 16px}
 @media(max-width:600px){
   .juba-busuu-container,.juba-busuu-nav-inner,.juba-busuu-language-discovery>.juba-busuu-container{width:calc(100% - 28px)}
   .juba-busuu-nav-inner{min-height:66px}.juba-busuu-brand img{width:124px}
