@@ -76,7 +76,7 @@ export function LandingFooter({ t, dir = 'ltr', showReviews = false }: LandingFo
         </div>
 
         <div className="juba-busuu-footer-bottom">
-          <span>© {new Date().getFullYear()} JUBA LISAN. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} JUBA LISAN</span>
           <div>
             <Link href="/terms?from=landing">{t('terms')}</Link>
             <Link href="/privacy?from=landing">{t('privacy')}</Link>
