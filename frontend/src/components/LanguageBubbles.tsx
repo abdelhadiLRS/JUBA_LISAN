@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 type Language = { code: string; name: string; country: string; learners: string }
 
-const LANGUAGES: Language[] = [
+export const LANGUAGES: Language[] = [
   { code: 'en', name: 'English', country: 'gb', learners: '26M' },
   { code: 'es', name: 'Español', country: 'es', learners: '2M' },
   { code: 'fr', name: 'Français', country: 'fr', learners: '5M' },
@@ -45,12 +45,13 @@ const LANGUAGES: Language[] = [
   { code: 'th', name: 'ไทย', country: 'th', learners: '—' },
 ]
 
+export const FEATURED_LANGUAGES = LANGUAGES.slice(0, 14)
 export const SUPPORTED_LANGUAGE_COUNT = LANGUAGES.length
 
 export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   return (
     <ul dir={dir} className="juba-busuu-language-list" aria-labelledby="language-title">
-      {LANGUAGES.slice(0, 14).map((language) => (
+      {FEATURED_LANGUAGES.map((language) => (
         <li key={language.code} className="juba-busuu-language-item">
           <Image
             src={`https://flagcdn.com/w80/${language.country}.png`}
