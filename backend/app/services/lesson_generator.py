@@ -29,6 +29,7 @@ from app.schemas.lessons import (
     LessonContent,
     PronunciationEvaluation,
 )
+from app.services.foundation_lesson_seeds import get_foundation_lesson_seed
 from app.services.language_helpers import (
     get_comprehension_length_guidance,
     get_language_name,
@@ -474,6 +475,10 @@ async def generate_lesson(
         seed_getters[target_language](cefr_level, unit_id, lesson_type)
         if target_language in seed_getters else None
     )
+    if curated_lesson_seed is None:
+        curated_lesson_seed = get_foundation_lesson_seed(
+            target_language, cefr_level, unit_id, lesson_type
+        )
     if curated_lesson_seed:
         scheduled_objective = str(curated_lesson_seed.get("objective") or "")
         topic = str(curated_lesson_seed.get("title") or topic)
