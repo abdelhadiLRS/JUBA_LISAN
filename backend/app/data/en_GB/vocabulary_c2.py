@@ -589,8 +589,8 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="paradigm",
                 pos="noun",
-                definition="A typical example or pattern; a model or framework.",
-                example="This study challenges the dominant paradigm.",
+                definition="A dominant intellectual framework or set of assumptions that shapes how a field defines problems, evidence, and acceptable explanations.",
+                example="The findings challenge the dominant paradigm by questioning the assumptions on which the field has based its standard models.",
                 ipa="/ˈpærədaɪm/",
                 frequency_rank=390,
             ),
