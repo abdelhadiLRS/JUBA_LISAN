@@ -55,7 +55,7 @@
                       aria-current={active ? 'step' : undefined}
                       aria-label={t('exerciseProgress', { current: index + 1, total: exercises.length })}
                       className={cn(
-                        'flex h-9 min-w-9 items-center justify-center rounded-xl border px-3 text-xs font-black transition-colors disabled:cursor-not-allowed disabled:opacity-45',
+                        'flex h-11 min-w-11 items-center justify-center rounded-xl border px-3 text-xs font-black transition-colors disabled:cursor-not-allowed disabled:opacity-45',
                         active
                           ? 'border-[#438600] bg-[#58a700] text-white shadow-[0_3px_0_#438600]'
                           : answered
