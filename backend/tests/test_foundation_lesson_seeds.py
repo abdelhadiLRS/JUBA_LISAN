@@ -539,3 +539,30 @@ def test_en_gb_c1_core_examples_teach_collocations_and_real_context():
     }
     for word, phrase in expected_contexts.items():
         assert phrase.casefold() in entries[word].example.casefold()
+
+
+def test_en_gb_b2_overlap_examples_add_specific_context():
+    """Intentional B1/B2 overlaps should add domain, precision, or decision-making value at B2."""
+    from app.data.en_GB.vocabulary_b1 import B1_SETS
+    from app.data.en_GB.vocabulary_b2 import B2_SETS
+
+    b1 = {entry.word: entry for vocab_set in B1_SETS for entry in vocab_set.words}
+    b2 = {entry.word: entry for vocab_set in B2_SETS for entry in vocab_set.words}
+
+    expected_contexts = {
+        "alternative": "stronger technical support",
+        "coverage": "national newspapers",
+        "efficient": "duplicate data entry",
+        "evidence": "supplier’s explanation",
+        "manufacture": "highly automated production lines",
+        "meanwhile": "temporary production elsewhere",
+        "outcome": "decide whether to expand the service",
+        "renewable": "long-term operating emissions",
+        "sustainable": "without ... accessibility",
+        "regret": "final testing phase",
+    }
+    for word, phrase in expected_contexts.items():
+        assert word in b1 and word in b2
+        assert phrase.casefold() in b2[word].example.casefold()
+        assert b2[word].example.casefold() != b1[word].example.casefold()
+        assert len(b2[word].example.split()) >= 10
