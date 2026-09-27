@@ -827,7 +827,7 @@ C1_SETS: list[VocabularySet] = [
                 word="sceptical",
                 pos="adjective",
                 definition="Not easily convinced that something is true or reliable; having doubts.",
-                example="I am skeptical of these results.",
+                example="I am sceptical of these results.",
                 ipa="/ˈskeptɪkəl/",
                 frequency_rank=390,
             ),
