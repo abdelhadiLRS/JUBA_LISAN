@@ -243,7 +243,9 @@ export default function PlanPage() {
         const nextLesson = todayData.lessons.find(
           (l) => l.id != null && !l.is_completed
         )
-        setActiveLessonId(nextLesson?.id ?? null)
+        if (nextLesson?.id != null) {
+          setActiveLessonId(nextLesson.id)
+        }
         for (const lesson of todayData.lessons) {
           if (lesson.id == null) continue
           states[lessonKey(lesson.week, lesson.day, lesson.title)] = {
@@ -302,8 +304,30 @@ export default function PlanPage() {
     return <PageLoading />
   }
 
-  if (error || !plan) {
+  if (!plan) {
     return <NoPlanBanner />
+  }
+
+  if (error) {
+    return (
+      <div className="juba-mobile-plan mx-auto flex min-h-[60vh] max-w-2xl items-center justify-center px-4 py-8">
+        <section className="w-full rounded-[28px] border-2 border-[var(--juba-learning-red)] bg-[var(--juba-learning-surface)] p-6 text-center shadow-[var(--juba-learning-shadow)] sm:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--juba-learning-red)]">
+            {t('learningRoadmap')}
+          </p>
+          <h1 className="mt-2 text-xl font-black text-[var(--juba-learning-ink)]">
+            {error}
+          </h1>
+          <button
+            type="button"
+            onClick={() => void loadPlan()}
+            className="mt-6 rounded-2xl border-2 border-[var(--juba-learning-green-dark)] bg-[var(--juba-learning-green)] px-5 py-3 text-sm font-black text-white shadow-[3px_3px_0_var(--juba-learning-green-dark)] transition-transform hover:-translate-y-0.5"
+          >
+            {t('resume')} →
+          </button>
+        </section>
+      </div>
+    )
   }
 
   const level = plan.cefr_level as CEFRLevel
