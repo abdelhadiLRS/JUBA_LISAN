@@ -1254,6 +1254,14 @@ def test_en_gb_a2_irregular_verbs_use_transferable_contexts():
         "fell": "road became slippery",
         "felt": "prepared a quick meal",
         "forgot": "wait under a shop doorway",
+        "flew": "flew to Manchester for the weekend",
+        "grew": "grew up in a small town",
+        "heard": "heard a strange noise outside",
+        "kept": "kept the receipt in his wallet",
+        "ran": "ran five kilometres before work",
+        "slept": "slept for eight hours",
+        "spent": "spent the weekend in Rome",
+        "stood": "stood in a queue for an hour",
     }
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].example.casefold()
