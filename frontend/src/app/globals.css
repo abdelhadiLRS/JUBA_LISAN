@@ -1284,3 +1284,177 @@ html[data-theme='light'] {
     padding-inline-start:14px;
   }
 }
+
+
+/* Final responsive polish for the public landing experience. */
+.juba-busuu-landing .juba-busuu-hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.02fr) minmax(420px,.98fr);
+  align-items:center;
+  gap:30px;
+}
+.juba-busuu-landing .juba-busuu-hero-copy{position:relative;z-index:2}
+.juba-busuu-landing .juba-busuu-hero-visual{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.juba-busuu-landing .juba-busuu-hero-visual img{
+  position:relative;
+  z-index:2;
+  width:min(720px,100%);
+  height:auto;
+}
+.juba-busuu-landing .juba-busuu-hero-disc{
+  position:absolute;
+  inset:50% auto auto 50%;
+  transform:translate(-50%,-50%);
+  aspect-ratio:1;
+  height:auto;
+  z-index:1;
+}
+.juba-busuu-landing .juba-busuu-feature-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.juba-busuu-landing .juba-busuu-feature{
+  display:flex;
+  flex-direction:column;
+  text-decoration:none;
+  color:inherit!important;
+  padding-bottom:30px;
+}
+.juba-busuu-landing .juba-busuu-feature p{
+  color:var(--busuu-muted);
+  line-height:1.65;
+}
+.juba-busuu-landing .juba-busuu-benefit-list{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid var(--busuu-line);
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-benefit-list article{
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+}
+.juba-busuu-landing .juba-busuu-benefit-list article+article{
+  border-inline-start:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-benefit-list h3{
+  margin:0 0 8px;
+  font-size:22px;
+}
+.juba-busuu-landing .juba-busuu-benefit-list p{
+  margin:0;
+  color:var(--busuu-muted);
+  line-height:1.6;
+}
+.juba-busuu-landing .juba-busuu-practical-grid{
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  align-items:center;
+  gap:70px;
+}
+.juba-busuu-landing .juba-busuu-practical-copy h2{
+  margin:0;
+  line-height:.96;
+  letter-spacing:-.065em;
+}
+.juba-busuu-landing .juba-busuu-practical-copy p{
+  max-width:560px;
+  color:var(--busuu-muted);
+  font-size:18px;
+  line-height:1.65;
+}
+.juba-busuu-landing .juba-busuu-practical-media{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.juba-busuu-landing .juba-busuu-practical-media img{
+  width:min(100%,760px);
+  height:auto;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner{
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(320px,1.1fr);
+  align-items:center;
+  gap:30px;
+  overflow:hidden;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner>div{position:relative;z-index:2}
+.juba-busuu-landing .juba-busuu-final-cta-inner h2{
+  margin:0;
+  max-width:620px;
+  color:#fff;
+  font-size:clamp(3rem,5vw,5.4rem);
+  line-height:.95;
+  letter-spacing:-.065em;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner p{
+  max-width:560px;
+  color:rgba(255,255,255,.82);
+  font-size:17px;
+  line-height:1.6;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner>img{
+  width:min(100%,700px);
+  height:auto;
+  justify-self:center;
+}
+@media(max-width:1000px){
+  .juba-busuu-landing .juba-busuu-hero-grid{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+  .juba-busuu-landing .juba-busuu-hero-copy{max-width:760px;margin:auto}
+  .juba-busuu-landing .juba-busuu-hero p{margin-inline:auto}
+  .juba-busuu-landing .juba-busuu-actions{justify-content:center}
+  .juba-busuu-landing .juba-busuu-hero-proof{justify-content:center;margin-inline:auto}
+  .juba-busuu-landing .juba-busuu-hero-visual{min-height:410px}
+  .juba-busuu-landing .juba-busuu-hero-visual img{max-width:620px}
+  .juba-busuu-landing .juba-busuu-feature-grid,
+  .juba-busuu-landing .juba-busuu-benefit-list{
+    grid-template-columns:1fr;
+  }
+  .juba-busuu-landing .juba-busuu-benefit-list article+article{
+    border-inline-start:0;
+    border-top:1px solid var(--busuu-line);
+  }
+  .juba-busuu-landing .juba-busuu-practical-grid,
+  .juba-busuu-landing .juba-busuu-final-cta-inner{
+    grid-template-columns:1fr;
+    gap:38px;
+  }
+  .juba-busuu-landing .juba-busuu-final-cta-inner>img{max-width:560px}
+}
+@media(max-width:600px){
+  .juba-busuu-landing .juba-busuu-hero-grid{
+    gap:12px;
+    min-height:auto;
+  }
+  .juba-busuu-landing .juba-busuu-hero-visual{min-height:285px}
+  .juba-busuu-landing .juba-busuu-hero-disc{width:250px}
+  .juba-busuu-landing .juba-busuu-hero-proof{
+    text-align:start;
+    justify-content:flex-start;
+  }
+  .juba-busuu-landing .juba-busuu-hero-proof span{
+    font-size:11px;
+  }
+  .juba-busuu-landing .juba-busuu-feature{
+    min-height:0;
+  }
+  .juba-busuu-landing .juba-busuu-feature img{height:auto;min-height:220px}
+  .juba-busuu-landing .juba-busuu-benefit-list article{
+    min-height:0;
+    padding:28px 0;
+  }
+  .juba-busuu-landing .juba-busuu-practical-grid{gap:34px}
+  .juba-busuu-landing .juba-busuu-practical-copy p{font-size:16px}
+  .juba-busuu-landing .juba-busuu-final-cta-inner h2{font-size:clamp(2.7rem,12vw,4rem)}
+}
