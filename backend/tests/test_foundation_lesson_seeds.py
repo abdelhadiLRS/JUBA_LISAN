@@ -1546,3 +1546,25 @@ def test_en_gb_a2_comparison_and_place_definitions_are_distinguishing():
     }
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].definition.casefold()
+
+
+
+def test_en_gb_a2_body_and_money_definitions_are_precise():
+    """Common A2 body and money terms should have learner-useful definitions."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in A2_SETS for entry in vocabulary_set.words}
+    expected = {
+        "head": "above the neck",
+        "arm": "shoulder and the wrist",
+        "leg": "standing, walking, and running",
+        "price": "seller asks you to pay",
+        "cost": "product or service",
+        "spend": "product or service",
+        "save": "instead of spending it now",
+        "free": "without payment",
+        "worth": "measured in money",
+        "budget": "planning expected costs",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].definition.casefold()
