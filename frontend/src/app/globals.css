@@ -3763,3 +3763,65 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
 .juba-dashboard .card-status-start.bg-warning {
   background: var(--juba-learning-yellow) !important;
 }
+
+
+/* ==========================================================================\n   JUBA LISAN — member experience: Duolingo-inspired visual pass\n   Scope: authenticated member dashboard + auth screens only. Landing page is untouched.\n   ========================================================================== */
+.juba-learning-shell { --member-green:#58cc02; --member-green-dark:#46a302; --member-blue:#1cb0f6; --member-yellow:#ffc800; }
+.juba-learning-shell .juba-learning-sidebar { width:260px !important; border-right:2px solid var(--juba-learning-border) !important; box-shadow:4px 0 0 rgba(0,0,0,.025) !important; }
+.juba-learning-shell .juba-learning-sidebar > div:first-child { min-height:72px; padding:18px 22px !important; }
+.juba-learning-shell .juba-learning-sidebar > div:first-child > span:last-child { font-size:16px !important; font-weight:900 !important; letter-spacing:.02em !important; }
+.juba-learning-shell .juba-learning-nav { padding:14px 8px !important; }
+.juba-learning-shell .juba-learning-nav a,
+.juba-learning-shell .juba-learning-nav button { min-height:48px !important; margin:3px 4px !important; width:calc(100% - 8px) !important; padding:10px 14px !important; gap:12px !important; border:2px solid transparent !important; border-radius:14px !important; }
+.juba-learning-shell .juba-learning-nav a:hover,
+.juba-learning-shell .juba-learning-nav button:hover { border-color:#d7efc7 !important; transform:translateY(-1px); }
+.juba-learning-shell .juba-learning-nav a[class*="bg-fl-surface-2"] { border-color:#d7efc7 !important; box-shadow:inset 4px 0 0 var(--member-green), 0 2px 0 rgba(0,0,0,.04) !important; }
+.juba-learning-shell .juba-learning-nav svg { flex:none; stroke-width:2.4; }
+.juba-learning-shell .juba-learning-sidebar > div:last-child { padding:16px 18px !important; }
+.juba-learning-shell .juba-learning-sidebar > div:last-child .rounded-full { border:2px solid var(--juba-learning-border) !important; }
+
+.juba-dashboard { max-width:1240px !important; padding-top:30px !important; }
+.juba-dashboard .juba-dashboard-header { padding:0 4px 6px; }
+.juba-dashboard .juba-dashboard-title { font-size:clamp(28px,3vw,40px) !important; line-height:1.08 !important; }
+.juba-dashboard .juba-learning-card { border-width:2px !important; border-radius:22px !important; box-shadow:0 4px 0 rgba(0,0,0,.045), 0 10px 26px rgba(0,0,0,.035) !important; }
+.juba-dashboard .juba-learning-card .card-header { min-height:64px; padding:16px 20px !important; }
+.juba-dashboard .juba-learning-card .card-body { padding:20px !important; }
+.juba-dashboard .juba-learning-card .card-footer { padding:15px 20px !important; }
+.juba-dashboard .juba-btn-primary,
+.juba-dashboard .btn-primary { min-height:48px !important; padding:10px 18px !important; border-radius:14px !important; box-shadow:0 4px 0 var(--member-green-dark) !important; transition:transform .12s ease, box-shadow .12s ease !important; }
+.juba-dashboard .juba-btn-primary:active,
+.juba-dashboard .btn-primary:active { transform:translateY(3px) !important; box-shadow:0 1px 0 var(--member-green-dark) !important; }
+.juba-dashboard .juba-btn-secondary,
+.juba-dashboard .btn-outline-secondary,
+.juba-dashboard .btn-ghost-secondary { border-radius:14px !important; }
+.juba-dashboard .avatar { border-radius:16px !important; }
+.juba-dashboard .progress { height:14px !important; }
+.juba-dashboard .list-group-item { min-height:72px; padding:15px 20px !important; }
+.juba-dashboard .list-group-item .avatar { width:42px; height:42px; }
+.juba-dashboard .datagrid { gap:8px !important; }
+.juba-dashboard .datagrid-item { border-radius:14px !important; padding:12px !important; }
+.juba-dashboard .juba-performance-chart { min-height:190px; }
+
+/* Auth: same friendly learning language as the member area, without touching landing. */
+.juba-auth-mobile { background:#f7f9f5 !important; font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif !important; }
+.juba-auth-mobile > div { max-width:1280px !important; }
+.juba-auth-mobile section:first-child { background:#fff !important; border-right:2px solid var(--juba-learning-border) !important; }
+.juba-auth-mobile section:first-child .rounded-full { background:#eaf8df !important; border-color:#d7efc7 !important; color:var(--juba-learning-green-dark) !important; }
+.juba-auth-mobile section:first-child h2 { font-weight:900 !important; letter-spacing:-.045em !important; }
+.juba-auth-mobile section:first-child h2 span { color:var(--juba-learning-green-dark) !important; }
+.juba-auth-mobile section:nth-child(2) { background:#f7f9f5 !important; }
+.juba-auth-mobile section:nth-child(2) > div > div { border:2px solid var(--juba-learning-border) !important; border-radius:22px !important; box-shadow:0 4px 0 rgba(0,0,0,.045), 0 14px 32px rgba(0,0,0,.045) !important; }
+.juba-auth-mobile section:nth-child(2) input,
+.juba-auth-mobile section:nth-child(2) select { min-height:50px !important; border:2px solid #dfe5db !important; border-radius:14px !important; background:#fff !important; color:var(--juba-learning-ink) !important; }
+.juba-auth-mobile section:nth-child(2) input:focus,
+.juba-auth-mobile section:nth-child(2) select:focus { border-color:var(--member-green) !important; box-shadow:0 0 0 4px rgba(88,204,2,.13) !important; }
+.juba-auth-mobile section:nth-child(2) form > button { min-height:52px !important; border:2px solid var(--member-green-dark) !important; border-radius:14px !important; background:var(--member-green) !important; box-shadow:0 4px 0 var(--member-green-dark) !important; font-weight:900 !important; }
+.juba-auth-mobile section:nth-child(2) form > button:active { transform:translateY(3px); box-shadow:0 1px 0 var(--member-green-dark) !important; }
+.juba-auth-mobile a { color:var(--member-green-dark); font-weight:800; }
+.juba-auth-mobile .rounded-2xl { border-radius:14px !important; }
+@media(max-width:767px){
+  .juba-learning-shell .juba-learning-sidebar { width:auto !important; }
+  .juba-dashboard { padding:18px 12px 88px !important; }
+  .juba-auth-mobile section:nth-child(2) { padding:18px 12px !important; }
+  .juba-auth-mobile section:nth-child(2) > div > div { border-radius:18px !important; padding:20px !important; }
+}
