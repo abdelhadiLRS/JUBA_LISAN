@@ -326,7 +326,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   className="h-full w-full object-cover"
                   fallback={
                     <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                      <span className="text-fl-muted-1 font-mono text-xs select-none">
+                      <span className="text-fl-muted-1 font-sans text-xs select-none">
                         {(user?.displayName ||
                           user?.username ||
                           '?')[0].toUpperCase()}
@@ -336,7 +336,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 />
               ) : (
                 <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                  <span className="text-fl-muted-1 font-mono text-xs select-none">
+                  <span className="text-fl-muted-1 font-sans text-xs select-none">
                     {(user?.displayName ||
                       user?.username ||
                       '?')[0].toUpperCase()}
@@ -345,14 +345,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               )}
             </div>
             <div className="min-w-0">
-              <p className="text-fl-caption text-fl-muted-2 truncate font-mono tracking-widest uppercase">
+              <p className="text-fl-caption text-fl-muted-2 truncate font-sans tracking-widest uppercase">
                 {user?.displayName || user?.username}
               </p>
-              <p className="text-fl-label text-fl-muted-4 truncate font-mono">
+              <p className="text-fl-label text-fl-muted-4 truncate font-sans">
                 @{user?.username?.toLowerCase()}
               </p>
               {trialDaysLeft > 0 && (
-                <p className="text-fl-label text-fl-accent truncate font-mono text-xs">
+                <p className="text-fl-label text-fl-accent truncate font-sans text-xs">
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
@@ -420,7 +420,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <div>
               <button
                 onClick={() => setResourcesOpen((o) => !o)}
-                className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors"
+                className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors"
               >
                 <span>{tNav('resources')}</span>
                 <span className="text-fl-label">
@@ -437,7 +437,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       key={item.href}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
+                      className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                         active
                           ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
                           : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
@@ -463,7 +463,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
+                  className={`flex items-center gap-3 px-5 py-3 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                     active
                       ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
                       : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
@@ -488,7 +488,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <Link
                 href="/admin"
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
+                className={`flex items-center gap-3 px-5 py-3 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                   pathname.startsWith('/admin')
                     ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
                     : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
@@ -510,7 +510,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       className="h-full w-full object-cover"
                       fallback={
                         <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                          <span className="text-fl-hint text-fl-muted-1 font-mono select-none">
+                          <span className="text-fl-hint text-fl-muted-1 font-sans select-none">
                             {(user?.displayName ||
                               user?.username ||
                               '?')[0].toUpperCase()}
@@ -520,7 +520,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     />
                   ) : (
                     <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                      <span className="text-fl-hint text-fl-muted-1 font-mono select-none">
+                      <span className="text-fl-hint text-fl-muted-1 font-sans select-none">
                         {(user?.displayName ||
                           user?.username ||
                           '?')[0].toUpperCase()}
@@ -529,16 +529,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   )}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-fl-caption text-fl-muted-2 truncate font-mono tracking-widest uppercase">
+                  <p className="text-fl-caption text-fl-muted-2 truncate font-sans tracking-widest uppercase">
                     {user?.displayName || user?.username}
                   </p>
-                  <p className="text-fl-label text-fl-muted-4 truncate font-mono">
+                  <p className="text-fl-label text-fl-muted-4 truncate font-sans">
                     @{user?.username?.toLowerCase()}
                   </p>
                 </div>
               </div>
               {trialDaysLeft > 0 && (
-                <p className="text-fl-label text-fl-accent mb-2 font-mono text-xs">
+                <p className="text-fl-label text-fl-accent mb-2 font-sans text-xs">
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
@@ -550,7 +550,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   setMobileMenuOpen(false)
                   setContactOpen(true)
                 }}
-                className="text-fl-muted-2 hover:text-fl-fg mb-1 block font-mono text-xs tracking-widest uppercase transition-colors"
+                className="text-fl-muted-2 hover:text-fl-fg mb-1 block font-sans text-xs tracking-widest uppercase transition-colors"
               >
                 {tNav('contact')}
               </button>
@@ -559,7 +559,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   setMobileMenuOpen(false)
                   setLogoutConfirm(true)
                 }}
-                className="text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
+                className="text-fl-muted-2 hover:text-fl-fg font-sans text-xs tracking-widest uppercase transition-colors"
               >
                 {tCommon('logout')}
               </button>
@@ -573,17 +573,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {/* Email verification banner */}
         {user && user.is_verified === false && (
           <div className="border-fl-border bg-fl-surface flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
-            <span className="text-fl-muted-1 font-mono text-xs tracking-wide">
+            <span className="text-fl-muted-1 font-sans text-xs tracking-wide">
               ● {tCommon('verifyEmailBanner')}
             </span>
             {resendSent ? (
-              <span className="text-fl-muted-2 font-mono text-xs">
+              <span className="text-fl-muted-2 font-sans text-xs">
                 {tCommon('verifyEmailSent')}
               </span>
             ) : (
               <button
                 onClick={handleResendVerification}
-                className="text-fl-accent font-mono text-xs underline transition-all hover:no-underline"
+                className="text-fl-accent font-sans text-xs underline transition-all hover:no-underline"
               >
                 {tCommon('resendVerification')}
               </button>
