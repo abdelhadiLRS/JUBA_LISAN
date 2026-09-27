@@ -213,9 +213,10 @@ export default async function Home() {
               {reviews.slice(0, 6).map((review) => (
                 <article key={review.id} className="juba-busuu-testimonial">
                   <div className="juba-busuu-testimonial-meta">
-                    <span aria-label={reviewT('starsLabel', { rating: review.rating })}>
+                    <span aria-hidden="true">
                       {'★'.repeat(Math.max(0, Math.min(5, review.rating)))}
                     </span>
+                    <span className="sr-only">{reviewT('starsLabel', { rating: review.rating })}</span>
                     <span>{reviewT('learningLanguage', { language: review.target_language })}</span>
                   </div>
                   <p>“{review.comment ?? ''}”</p>
