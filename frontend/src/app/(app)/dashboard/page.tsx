@@ -353,7 +353,7 @@ export default function DashboardPage() {
             <h1 className="juba-dashboard-title mb-0">{t('welcomeBack')}, {user?.displayName || user?.username}</h1>
           </div>
           <button type="button" className="btn juba-btn-secondary" onClick={refreshDashboardData} disabled={refreshing}>
-            <i className={`ti ti-refresh me-2 ${refreshing ? 'ti-spin' : ''}`} aria-hidden="true" />
+            <RefreshCw className={`me-2 ${refreshing ? 'animate-spin' : ''}`} size={17} aria-hidden="true" />
             {t('refresh')}
           </button>
         </div>
@@ -374,7 +374,7 @@ export default function DashboardPage() {
                 <div className="row align-items-center">
                   <div className="col-auto">
                     <span className="avatar avatar-lg bg-primary-lt text-primary">
-                      <i className="ti ti-school icon" aria-hidden="true" />
+                      <BookOpen size={26} strokeWidth={2.4} aria-hidden="true" />
                     </span>
                   </div>
                   <div className="col">
@@ -384,7 +384,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="mt-3 d-flex flex-wrap gap-2">
                       <Link href={nextLesson?.id ? '/lesson/' + nextLesson.id : '/assessment'} className="btn juba-btn-primary">
-                        <i className="ti ti-player-play me-2" aria-hidden="true" />
+                        <Play className="me-2" size={17} fill="currentColor" aria-hidden="true" />
                         {nextLesson ? t('startLesson') : tNav('assessment')}
                       </Link>
                       <Link href="/plan" className="btn btn-outline-secondary">
@@ -458,13 +458,13 @@ export default function DashboardPage() {
                   return (
                     <div key={lesson.id ?? lesson.title} className="list-group-item">
                       <div className="row align-items-center">
-                        <div className="col-auto"><span className={`avatar avatar-sm ${done ? 'bg-success-lt text-success' : 'bg-primary-lt text-primary'}`}><i className={`ti ${done ? 'ti-check' : 'ti-book'}`} aria-hidden="true" /></span></div>
+                        <div className="col-auto"><span className={`avatar avatar-sm ${done ? 'bg-success-lt text-success' : 'bg-primary-lt text-primary'}`}>{done ? <Check size={19} strokeWidth={3} aria-hidden="true" /> : <BookOpen size={19} strokeWidth={2.5} aria-hidden="true" />}</span></div>
                         <div className="col text-truncate">
                           <div className="text-reset">{lesson.title}</div>
                           <div className="text-secondary text-truncate">{tPlan('lessonTypes.' + lesson.lessonType)} · {lesson.estimatedMinutes} {t('minutes')}</div>
                         </div>
                         <div className="col-auto">
-                          {lesson.id && !done ? <Link href={'/lesson/' + lesson.id} className="btn btn-sm juba-btn-primary">{t('startLesson')}</Link> : <span className="badge bg-success-lt text-success"><i className="ti ti-check me-1" />{t('completedToday', { completed: 1, total: 1 })}</span>}
+                          {lesson.id && !done ? <Link href={'/lesson/' + lesson.id} className="btn btn-sm juba-btn-primary">{t('startLesson')}</Link> : <span className="badge bg-success-lt text-success"><Check className="me-1" size={15} strokeWidth={3} />{t('completedToday', { completed: 1, total: 1 })}</span>}
                         </div>
                       </div>
                     </div>
@@ -472,7 +472,7 @@ export default function DashboardPage() {
                 })}
                 {todayLessons.length === 0 && (
                   <div className="empty">
-                    <div className="empty-icon"><i className="ti ti-book-off" /></div>
+                    <div className="empty-icon"><BookOpen size={28} aria-hidden="true" /></div>
                     <p className="empty-title">{t('startWithAssessment')}</p>
                     <Link href="/assessment" className="btn juba-btn-primary">{tNav('assessment')}</Link>
                   </div>
@@ -503,10 +503,10 @@ export default function DashboardPage() {
             <div className="card mt-3 juba-learning-card">
               <div className="card-header"><h3 className="card-title">{tNav('resources')}</h3></div>
               <div className="list-group list-group-flush">
-                <Link href="/reading" className="list-group-item list-group-item-action"><i className="ti ti-book me-2" />{tNav('reading')}<span className="ms-auto"><i className="ti ti-chevron-right" /></span></Link>
-                <Link href="/courses" className="list-group-item list-group-item-action"><i className="ti ti-school me-2" />{tNav('courses')}<span className="ms-auto"><i className="ti ti-chevron-right" /></span></Link>
-                <Link href="/flashcards" className="list-group-item list-group-item-action"><i className="ti ti-cards me-2" />{tNav('flashcards')}<span className="ms-auto"><i className="ti ti-chevron-right" /></span></Link>
-                <Link href="/chat" className="list-group-item list-group-item-action"><i className="ti ti-message me-2" />{tNav('tutor')}<span className="ms-auto"><i className="ti ti-chevron-right" /></span></Link>
+                <Link href="/reading" className="list-group-item list-group-item-action"><BookOpen className="me-2" size={18} />{tNav('reading')}<span className="ms-auto"><ArrowUpRight size={16} aria-hidden="true" /></span></Link>
+                <Link href="/courses" className="list-group-item list-group-item-action"><LayoutDashboard className="me-2" size={18} />{tNav('courses')}<span className="ms-auto"><ArrowUpRight size={16} aria-hidden="true" /></span></Link>
+                <Link href="/flashcards" className="list-group-item list-group-item-action"><Library className="me-2" size={18} />{tNav('flashcards')}<span className="ms-auto"><ArrowUpRight size={16} aria-hidden="true" /></span></Link>
+                <Link href="/chat" className="list-group-item list-group-item-action"><Headphones className="me-2" size={18} />{tNav('tutor')}<span className="ms-auto"><ArrowUpRight size={16} aria-hidden="true" /></span></Link>
               </div>
             </div>
 
@@ -525,7 +525,7 @@ export default function DashboardPage() {
                 <div className="card-status-start bg-warning" />
                 <div className="card-body">
                   <div className="row align-items-center">
-                    <div className="col-auto"><span className="avatar bg-warning-lt text-warning"><i className="ti ti-star" /></span></div>
+                    <div className="col-auto"><span className="avatar bg-warning-lt text-warning"><Trophy size={19} aria-hidden="true" /></span></div>
                     <div className="col">
                       <h3 className="card-title">{freemiumTrialActive ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft }) : t(paymentRecovery ? 'premiumBannerPastDueTitle' : 'premiumBannerTitle')}</h3>
                       <div className="text-secondary">{freemiumTrialActive ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft }) : paymentRecovery ? t('premiumBannerPastDueDesc') : t(trialEligible ? 'premiumBannerDesc' : 'premiumBannerDescTrialUsed')}</div>
