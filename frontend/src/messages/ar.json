@@ -159,7 +159,12 @@
       "zh-CN": "مرحبًا!"
     },
     "ar": "العربية",
-    "skipToContent": "تخطّي إلى المحتوى"
+    "skipToContent": "تخطّي إلى المحتوى",
+    "appCtaTitle": "تعلّم في أي مكان مع JUBA LISAN",
+    "appCtaDescription": "واصل ممارسة اللغة بسهولة. تابع الدروس والمحادثات مع الذكاء الاصطناعي والاستماع وتقدّمك أينما كنت.",
+    "appCtaNote": "تجربة ويب محسّنة لشاشات الهاتف",
+    "onlineLanguagesTitle": "تعلّم اللغات عبر الإنترنت",
+    "onlineLanguagesDescription": "اختر لغة واستكشف تجربة التعلّم المتاحة في JUBA LISAN."
   },
   "common": {
     "loading": "جارٍ التحميل...",
