@@ -78,3 +78,14 @@ def test_curated_language_curriculum_units_match_runtime_seed_keys():
                     seed = get_foundation_lesson_seed(language, level, unit.id, skill)
                     assert seed is not None, (language, level, unit.id, skill)
                     assert seed.get("unit_id") == unit.id, (language, level, unit.id, skill)
+
+
+def test_foundation_seed_exposes_pedagogical_quality_contract():
+    seed = get_foundation_lesson_seed("en_GB", "A1", "a1-unit-1", "speaking")
+    assert seed is not None
+    assert seed["can_do"]
+    assert len(seed["success_criteria"]) >= 2
+    assert seed["scenario"]
+    assert seed["retrieval_prompts"]
+    assert seed["recycle"]
+    assert seed["phrases"]
