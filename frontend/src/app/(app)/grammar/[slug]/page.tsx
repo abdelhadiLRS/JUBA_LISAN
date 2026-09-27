@@ -23,9 +23,9 @@ function renderExplanation(text: string) {
       return (
         <li
           key={i}
-          className="text-secondary font-sans text-xs leading-relaxed"
+          className="text-[var(--juba-muted)] font-mono text-xs leading-relaxed"
         >
-          <span className="text-secondary mr-2">{'\u00b7'}</span>
+          <span className="text-[var(--juba-muted)] mr-2">{'\u00b7'}</span>
           <RichText text={line.slice(2)} />
         </li>
       )
@@ -40,7 +40,7 @@ function renderExplanation(text: string) {
             .map((cell, ci) => (
               <td
                 key={ci}
-                className="text-body text-secondary border-secondary-subtle border px-3 py-1.5 font-sans"
+                className="text-[var(--juba-text)] text-[var(--juba-muted)] border-[var(--juba-lilac)] border px-3 py-1.5 font-mono"
               >
                 <RichText text={cell.trim()} />
               </td>
@@ -49,7 +49,7 @@ function renderExplanation(text: string) {
       )
     }
     return (
-      <p key={i} className="text-secondary font-sans text-xs leading-relaxed">
+      <p key={i} className="text-[var(--juba-muted)] font-mono text-xs leading-relaxed">
         <RichText text={line} />
       </p>
     )
@@ -63,14 +63,14 @@ function RichText({ text }: { text: string }) {
       {parts.map((part, i) => {
         if (part.startsWith('**') && part.endsWith('**')) {
           return (
-            <strong key={i} className="text-body font-bold">
+            <strong key={i} className="text-[var(--juba-text)] font-bold">
               {part.slice(2, -2)}
             </strong>
           )
         }
         if (part.startsWith('`') && part.endsWith('`')) {
           return (
-            <code key={i} className="bg-primary-lt text-body px-1 font-sans">
+            <code key={i} className="bg-[var(--juba-lilac)] text-[var(--juba-text)] px-1 font-mono">
               {part.slice(1, -1)}
             </code>
           )
@@ -165,10 +165,10 @@ export default function GrammarDetailPage({
   if (loadError) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <p className="text-secondary font-sans text-sm">{tCommon('error')}</p>
+        <p className="text-[var(--juba-muted)] font-mono text-sm">{tCommon('error')}</p>
         <button
           onClick={() => fetchTopics(targetLanguageCode)}
-          className="text-[var(--tblr-primary, #206bc4)] font-sans text-xs tracking-widest uppercase underline"
+          className="text-[var(--juba-violet)] font-mono text-xs tracking-widest uppercase underline"
         >
           {tCommon('retry')}
         </button>
@@ -188,57 +188,57 @@ export default function GrammarDetailPage({
 
   return (
     <div className="mx-auto max-w-5xl space-y-4 p-6">
-      <nav className="text-body text-secondary flex items-center gap-2 font-sans">
+      <nav className="text-[var(--juba-text)] text-[var(--juba-muted)] flex items-center gap-2 font-mono">
         <Link
           href="/grammar"
-          className="hover:text-body tracking-widest uppercase transition-colors"
+          className="hover:text-[var(--juba-text)] tracking-widest uppercase transition-colors"
         >
           {tNav('grammar')}
         </Link>
         <span>{'\u203a'}</span>
-        <span className="text-secondary tracking-widest uppercase">
+        <span className="text-[var(--juba-muted)] tracking-widest uppercase">
           {topic.level}
         </span>
         <span>{'\u203a'}</span>
-        <span className="text-body tracking-wide">{topic.title}</span>
+        <span className="text-[var(--juba-text)] tracking-wide">{topic.title}</span>
       </nav>
 
-      <div className="border-secondary-subtle bg-white border">
-        <div className="border-secondary-subtle flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-body text-secondary">{'\u25cf'}</span>
-          <span className="text-body text-secondary font-sans tracking-widest uppercase">
+      <div className="border-[var(--juba-lilac)] bg-white border">
+        <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">{'\u25cf'}</span>
+          <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
             {t('backToGrammar')}
           </span>
         </div>
         <div className="space-y-3 px-6 py-5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="border-secondary-subtle text-body text-secondary border px-2 py-0.5 font-sans tracking-widest uppercase">
+            <span className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] border px-2 py-0.5 font-mono tracking-widest uppercase">
               {topic.level}
             </span>
-            <span className="border-secondary-subtle text-body text-secondary border px-2 py-0.5 font-sans tracking-widest uppercase">
+            <span className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] border px-2 py-0.5 font-mono tracking-widest uppercase">
               {topic.category}
             </span>
           </div>
-          <h1 className="text-body font-sans text-xl font-bold tracking-wide">
+          <h1 className="text-[var(--juba-text)] font-mono text-xl font-bold tracking-wide">
             {topic.title}
           </h1>
-          <p className="text-secondary font-sans text-xs leading-relaxed">
+          <p className="text-[var(--juba-muted)] font-mono text-xs leading-relaxed">
             {topic.summary}
           </p>
           {topic.structure && (
-            <div className="border-secondary-subtle bg-primary-lt/40 border px-4 py-3">
-              <p className="text-body text-secondary mb-1 font-sans tracking-widest uppercase">
+            <div className="border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/40 border px-4 py-3">
+              <p className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-1 font-mono tracking-widest uppercase">
                 {t('structure')}
               </p>
-              <p className="text-body font-sans text-xs">{topic.structure}</p>
+              <p className="text-[var(--juba-text)] font-mono text-xs">{topic.structure}</p>
             </div>
           )}
         </div>
       </div>
 
-      <div className="border-secondary-subtle bg-white border">
-        <div className="border-secondary-subtle flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-body text-secondary font-sans tracking-widest uppercase">
+      <div className="border-[var(--juba-lilac)] bg-white border">
+        <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
             {t('explanation')}
           </span>
         </div>
@@ -262,11 +262,11 @@ export default function GrammarDetailPage({
       </div>
 
       {nativeLanguageName && (
-        <div className="border-secondary-subtle bg-white border">
+        <div className="border-[var(--juba-lilac)] bg-white border">
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
-            className="border-secondary-subtle text-body text-secondary hover:text-body flex w-full items-center justify-between border-b px-6 py-4 font-sans tracking-widest uppercase transition-colors"
+            className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] flex w-full items-center justify-between border-b px-6 py-4 font-mono tracking-widest uppercase transition-colors"
             aria-expanded={nativeHelpOpen}
           >
             <span>
@@ -277,7 +277,7 @@ export default function GrammarDetailPage({
           {nativeHelpOpen && (
             <div className="space-y-4 px-6 py-5">
               {loadingNativeHelp ? (
-                <p className="text-secondary font-sans text-xs">
+                <p className="text-[var(--juba-muted)] font-mono text-xs">
                   {tCommon('nativeHelpLoading', {
                     language: nativeLanguageName,
                   })}
@@ -285,23 +285,23 @@ export default function GrammarDetailPage({
               ) : nativeHelp ? (
                 <>
                   <div className="space-y-2">
-                    <p className="text-secondary text-sm leading-relaxed">
+                    <p className="text-[var(--juba-muted)] text-sm leading-relaxed">
                       {nativeHelp.summary}
                     </p>
-                    <p className="text-secondary text-sm leading-relaxed">
+                    <p className="text-[var(--juba-muted)] text-sm leading-relaxed">
                       {nativeHelp.explanation}
                     </p>
                   </div>
 
                   {nativeHelp.key_points.length > 0 && (
                     <div className="space-y-2">
-                      <p className="text-body text-secondary font-sans tracking-widest uppercase">
+                      <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
                         {tCommon('nativeHelpKeyPoints')}
                       </p>
                       <ul className="space-y-1">
                         {nativeHelp.key_points.map((point, i) => (
-                          <li key={i} className="text-secondary text-sm">
-                            <span className="text-secondary mr-2">·</span>
+                          <li key={i} className="text-[var(--juba-muted)] text-sm">
+                            <span className="text-[var(--juba-muted)] mr-2">·</span>
                             {point}
                           </li>
                         ))}
@@ -310,58 +310,58 @@ export default function GrammarDetailPage({
                   )}
 
                   {nativeHelp.examples.length > 0 && (
-                    <div className="border-secondary-subtle space-y-2 border-t pt-3">
-                      <p className="text-body text-secondary font-sans tracking-widest uppercase">
+                    <div className="border-[var(--juba-lilac)] space-y-2 border-t pt-3">
+                      <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
                         {t('examples')}
                       </p>
                       {nativeHelp.examples.map((ex, i) => (
                         <div key={i} className="space-y-0.5">
                           <TargetLanguageText
                             languageCode={targetLanguageCode}
-                            className="text-secondary text-sm italic"
+                            className="text-[var(--juba-muted)] text-sm italic"
                           >
                             {ex.sentence}
                           </TargetLanguageText>
-                          <p className="text-secondary text-sm">{ex.note}</p>
+                          <p className="text-[var(--juba-muted)] text-sm">{ex.note}</p>
                         </div>
                       ))}
                     </div>
                   )}
 
                   {nativeHelp.common_traps.length > 0 && (
-                    <div className="border-secondary-subtle space-y-2 border-t pt-3">
-                      <p className="text-body text-secondary font-sans tracking-widest uppercase">
+                    <div className="border-[var(--juba-lilac)] space-y-2 border-t pt-3">
+                      <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
                         {tCommon('nativeHelpCommonTraps')}
                       </p>
                       {nativeHelp.common_traps.map((trap, i) => (
                         <div key={i} className="space-y-0.5">
-                          <p className="text-secondary text-sm">
+                          <p className="text-[var(--juba-muted)] text-sm">
                             {trap.mistake}
                           </p>
-                          <p className="text-secondary text-sm">{trap.fix}</p>
+                          <p className="text-[var(--juba-muted)] text-sm">{trap.fix}</p>
                         </div>
                       ))}
                     </div>
                   )}
 
                   {nativeHelp.mini_glossary.length > 0 && (
-                    <div className="border-secondary-subtle space-y-2 border-t pt-3">
-                      <p className="text-body text-secondary font-sans tracking-widest uppercase">
+                    <div className="border-[var(--juba-lilac)] space-y-2 border-t pt-3">
+                      <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
                         {tCommon('nativeHelpMiniGlossary')}
                       </p>
                       {nativeHelp.mini_glossary.map((item, i) => (
                         <div key={i}>
                           <TargetLanguageText
                             languageCode={targetLanguageCode}
-                            className="text-secondary text-sm font-bold"
+                            className="text-[var(--juba-muted)] text-sm font-bold"
                           >
                             {item.term}
                           </TargetLanguageText>
-                          <p className="text-secondary text-sm">
+                          <p className="text-[var(--juba-muted)] text-sm">
                             {item.meaning}
                           </p>
                           {item.note && (
-                            <p className="text-secondary text-sm">
+                            <p className="text-[var(--juba-muted)] text-sm">
                               {item.note}
                             </p>
                           )}
@@ -375,7 +375,7 @@ export default function GrammarDetailPage({
                   <button
                     type="button"
                     onClick={generateNativeHelp}
-                    className="text-secondary hover:text-body font-sans text-sm transition-colors"
+                    className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-mono text-sm transition-colors"
                   >
                     {nativeHelpError
                       ? tCommon('retry')
@@ -391,19 +391,19 @@ export default function GrammarDetailPage({
       )}
 
       {topic.rules.length > 0 && (
-        <div className="border-secondary-subtle bg-white border">
-          <div className="border-secondary-subtle flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-body text-secondary font-sans tracking-widest uppercase">
+        <div className="border-[var(--juba-lilac)] bg-white border">
+          <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
               {t('keyRules')}
             </span>
           </div>
           <ul className="space-y-2 px-6 py-5">
             {topic.rules.map((rule, i) => (
               <li key={i} className="flex items-start gap-2">
-                <span className="text-body text-secondary mt-0.5 shrink-0 font-sans">
+                <span className="text-[var(--juba-text)] text-[var(--juba-muted)] mt-0.5 shrink-0 font-mono">
                   {i + 1}.
                 </span>
-                <p className="text-secondary font-sans text-xs leading-relaxed">
+                <p className="text-[var(--juba-muted)] font-mono text-xs leading-relaxed">
                   {rule}
                 </p>
               </li>
@@ -413,9 +413,9 @@ export default function GrammarDetailPage({
       )}
 
       {topic.examples.length > 0 && (
-        <div className="border-secondary-subtle bg-white border">
-          <div className="border-secondary-subtle flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-body text-secondary font-sans tracking-widest uppercase">
+        <div className="border-[var(--juba-lilac)] bg-white border">
+          <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
               {t('examples')}
             </span>
           </div>
@@ -423,11 +423,11 @@ export default function GrammarDetailPage({
             {topic.examples.map((ex, i) => (
               <div
                 key={i}
-                className="border-secondary-subtle space-y-0.5 border-l-2 pl-4"
+                className="border-[var(--juba-lilac)] space-y-0.5 border-l-2 pl-4"
               >
-                <p className="text-body font-sans text-xs">{ex.text}</p>
+                <p className="text-[var(--juba-text)] font-mono text-xs">{ex.text}</p>
                 {ex.note && (
-                  <p className="text-body text-secondary font-sans italic">
+                  <p className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono italic">
                     {ex.note}
                   </p>
                 )}
@@ -438,9 +438,9 @@ export default function GrammarDetailPage({
       )}
 
       {topic.common_mistakes.length > 0 && (
-        <div className="border-secondary-subtle bg-white border">
-          <div className="border-secondary-subtle flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-body text-secondary font-sans tracking-widest uppercase">
+        <div className="border-[var(--juba-lilac)] bg-white border">
+          <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
               {t('commonMistakes')}
             </span>
           </div>
@@ -449,24 +449,24 @@ export default function GrammarDetailPage({
               <div key={i} className="space-y-1.5">
                 {m.wrong && (
                   <div className="flex items-start gap-2">
-                    <span className="text-body shrink-0 font-sans text-red-500">
+                    <span className="text-[var(--juba-text)] shrink-0 font-mono text-red-500">
                       {'\u2717'}
                     </span>
-                    <p className="text-secondary font-sans text-xs line-through">
+                    <p className="text-[var(--juba-muted)] font-mono text-xs line-through">
                       {m.wrong}
                     </p>
                   </div>
                 )}
                 {m.correct && (
                   <div className="flex items-start gap-2">
-                    <span className="text-body shrink-0 font-sans text-green-500">
+                    <span className="text-[var(--juba-text)] shrink-0 font-mono text-green-500">
                       {'\u2713'}
                     </span>
-                    <p className="text-body font-sans text-xs">{m.correct}</p>
+                    <p className="text-[var(--juba-text)] font-mono text-xs">{m.correct}</p>
                   </div>
                 )}
                 {m.note && (
-                  <p className="text-body text-secondary pl-5 font-sans">
+                  <p className="text-[var(--juba-text)] text-[var(--juba-muted)] pl-5 font-mono">
                     {m.note}
                   </p>
                 )}
@@ -477,9 +477,9 @@ export default function GrammarDetailPage({
       )}
 
       {relatedTopics.length > 0 && (
-        <div className="border-secondary-subtle bg-white border">
-          <div className="border-secondary-subtle flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-body text-secondary font-sans tracking-widest uppercase">
+        <div className="border-[var(--juba-lilac)] bg-white border">
+          <div className="border-[var(--juba-lilac)] flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
               {t('relatedTopics')}
             </span>
           </div>
@@ -490,10 +490,10 @@ export default function GrammarDetailPage({
                   <Link
                     key={rt.slug}
                     href={`/grammar/${rt.slug}`}
-                    className="border-secondary-subtle text-body text-secondary hover:border-[var(--tblr-primary, #206bc4)] hover:text-body border px-3 py-2 font-sans tracking-widest uppercase transition-colors"
+                    className="border-[var(--juba-lilac)] text-[var(--juba-text)] text-[var(--juba-muted)] hover:border-[var(--juba-violet)] hover:text-[var(--juba-text)] border px-3 py-2 font-mono tracking-widest uppercase transition-colors"
                   >
                     {'\u25cf'} {rt.title}
-                    <span className="text-secondary ml-2">{rt.level}</span>
+                    <span className="text-[var(--juba-muted)] ml-2">{rt.level}</span>
                   </Link>
                 )
             )}
@@ -503,7 +503,7 @@ export default function GrammarDetailPage({
 
       <Link
         href="/grammar"
-        className="text-body text-secondary hover:text-body inline-block font-sans tracking-widest uppercase transition-colors"
+        className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] inline-block font-mono tracking-widest uppercase transition-colors"
       >
         {'\u2190'} {t('backLink')}
       </Link>
