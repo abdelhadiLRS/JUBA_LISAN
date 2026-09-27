@@ -558,8 +558,7 @@ html[data-theme='light'] {
 .juba-busuu-pricing .juba-ff-comparison tr{
   border-color:var(--busuu-line)!important;
 }
-.juba-busuu-pricing .juba-ff-check,
-.juba-busuu-pricing .text-\[\#46a900\]{
+.juba-busuu-pricing .juba-ff-check{
   color:var(--busuu-green-dark)!important;
 }
 \n@media(prefers-reduced-motion:reduce){.juba-busuu-slogan-track{animation:none!important}}
