@@ -356,36 +356,7 @@
     },
     "learningLabel": "Apprentissage",
     "cefrLabel": "CECR",
-    "coachLabel": "Coach"
-  ,
-      "learner": "Apprenant",
-      "minutes": "min",
-      "reviewEyebrow": "Révision intelligente",
-      "reviewTitle": "Vous avez des révisions à faire",
-      "reviewAction": "Commencer la révision",
-      "reviewSkill": "Compétence recommandée",
-      "learningLabel": "Apprentissage",
-      "cefrLabel": "CECR",
-      "coachLabel": "Coach",
-      "scenarios": {
-        "airport": {
-          "title": "Aéroport",
-          "description": "Enregistrer vos bagages, demander votre chemin et gérer les retards."
-        },
-        "jobInterview": {
-          "title": "Entretien d’embauche",
-          "description": "Pratiquer les réponses, la confiance et le vocabulaire professionnel."
-        },
-        "restaurant": {
-          "title": "Restaurant",
-          "description": "Commander naturellement et gérer une vraie conversation."
-        },
-        "hotel": {
-          "title": "Hôtel",
-          "description": "Réserver une chambre, résoudre des problèmes et faire des demandes."
-        }
-      }
-  },
+    "coachLabel": "Coach",
   "settings": {
     "title": "Paramètres",
     "sectionAccount": "Compte",
@@ -2275,8 +2246,34 @@
     "wordsMastered": "mots maîtrisés jusqu’à présent.",
     "learning": "Apprentissage",
     "personalized": "personnalisé pour vous",
-    "adaptive": "adaptatif"
-  },
+    "adaptive": "adaptatif",
+    "learner": "Apprenant",
+      "minutes": "min",
+      "reviewEyebrow": "Révision intelligente",
+      "reviewTitle": "Vous avez des révisions à faire",
+      "reviewAction": "Commencer la révision",
+      "reviewSkill": "Compétence recommandée",
+      "learningLabel": "Apprentissage",
+      "cefrLabel": "CECR",
+      "coachLabel": "Coach",
+      "scenarios": {
+        "airport": {
+          "title": "Aéroport",
+          "description": "Enregistrer vos bagages, demander votre chemin et gérer les retards."
+        },
+        "jobInterview": {
+          "title": "Entretien d’embauche",
+          "description": "Pratiquer les réponses, la confiance et le vocabulaire professionnel."
+        },
+        "restaurant": {
+          "title": "Restaurant",
+          "description": "Commander naturellement et gérer une vraie conversation."
+        },
+        "hotel": {
+          "title": "Hôtel",
+          "description": "Réserver une chambre, résoudre des problèmes et faire des demandes."
+        }
+      }},
   "visitorTranslator": {
     "open": "Ouvrir le traducteur instantané",
     "translate": "Traduire",
