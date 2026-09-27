@@ -2042,3 +2042,34 @@ def test_en_gb_a2_travel_definitions_are_distinguishing():
         for fragment in fragments:
             assert fragment.lower() in definition, word
 
+
+
+def test_en_gb_a1_daily_routine_examples_are_contextual_and_reusable():
+    from app.data.en_GB.vocabulary_a1 import A1_SETS
+
+    entries = {entry.word: entry for group in A1_SETS for entry in group.words}
+    expected = {
+        "wake up": "when my alarm rings",
+        "get up": "catches the early bus",
+        "have breakfast": "toast and a cup of tea",
+        "go to work": "station is near his flat",
+        "have lunch": "short break from the shop",
+        "go home": "calls her sister",
+        "have dinner": "finished work",
+        "go to bed": "early class tomorrow",
+        "brush teeth": "after breakfast",
+        "take a shower": "after his run",
+        "commute": "listens to the news",
+        "work": "small bookshop",
+        "study": "writes down new words",
+        "cook": "cuts the vegetables",
+        "clean": "do the washing",
+        "usually": "drink tea at weekends",
+        "often": "weekly report",
+        "every day": "before breakfast",
+        "year": "practising speaking with a partner",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 9
+
