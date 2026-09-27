@@ -47,6 +47,7 @@ export function LandingNav({
 }: LandingNavProps) {
   const [open, setOpen] = useState(false)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const headerRef = useRef<HTMLElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const localeMenuRef = useRef<HTMLDetailsElement>(null)
 
@@ -59,6 +60,11 @@ export function LandingNav({
     requestAnimationFrame(() => {
       menuRef.current?.querySelector<HTMLElement>('a, button, [tabindex]:not([tabindex="-1"])')?.focus()
     })
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!(event.target instanceof Node) || headerRef.current?.contains(event.target)) return
+      setOpen(false)
+    }
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -86,8 +92,10 @@ export function LandingNav({
     }
 
     document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('pointerdown', handlePointerDown)
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('pointerdown', handlePointerDown)
       document.body.style.overflow = previousOverflow
     }
   }, [open])
@@ -164,7 +172,7 @@ export function LandingNav({
   }
 
   return (
-    <header className="juba-busuu-nav" dir={dir}>
+    <header ref={headerRef} className="juba-busuu-nav" dir={dir}>
       <div className="juba-busuu-nav-inner">
         <Link href={locale === 'en' ? '/' : `/${locale}`} aria-label={homeLabel} aria-current="page" className="juba-busuu-brand">
           <Image src="/logo.png" alt="JUBA LISAN" width={150} height={52} priority />
