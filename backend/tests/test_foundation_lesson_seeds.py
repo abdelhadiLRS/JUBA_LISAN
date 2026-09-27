@@ -61,3 +61,19 @@ def test_curated_languages_auto_discover_all_core_skills():
                     assert seed.get("prompt"), (language, level, skill)
                 elif skill == "vocabulary":
                     assert seed.get("words"), (language, level, skill)
+
+
+def test_curated_language_curriculum_units_match_runtime_seed_keys():
+    from app.data.curriculum import get_curriculum
+
+    for language in CURATED_LANGUAGES:
+        curriculum = get_curriculum(language)
+        for level in ["A2", "B1", "B2", "C1", "C2"]:
+            units = curriculum.get(level, [])
+            assert units, (language, level)
+            for unit in units:
+                assert unit.lesson_types, (language, level, unit.id)
+                for skill in unit.lesson_types:
+                    seed = get_foundation_lesson_seed(language, level, unit.id, skill)
+                    assert seed is not None, (language, level, unit.id, skill)
+                    assert seed.get("unit_id") == unit.id, (language, level, unit.id, skill)
