@@ -188,3 +188,52 @@ def test_c2_vocabulary_entries_match_shared_schema():
             assert entry.pos in allowed, f"{vocab_set.id}: {entry.word} -> {entry.pos}"
             assert entry.definition.strip(), f"{vocab_set.id}: missing definition for {entry.word}"
             assert entry.example.strip(), f"{vocab_set.id}: missing example for {entry.word}"
+
+def test_en_gb_vocabulary_has_no_exact_duplicate_entries_across_cefr_levels():
+    """Do not silently teach the identical word/POS/definition at multiple levels."""
+    from app.data.en_GB.vocabulary import VOCABULARY_SETS
+
+    seen: dict[tuple[str, str, str], str] = {}
+    duplicates: list[tuple[str, str]] = []
+
+    for vocabulary_set in VOCABULARY_SETS:
+        for entry in vocabulary_set.words:
+            key = (
+                entry.word.strip().casefold(),
+                entry.pos.strip().casefold(),
+                entry.definition.strip(),
+            )
+            previous_level = seen.get(key)
+            if previous_level is not None and previous_level != vocabulary_set.level:
+                duplicates.append((entry.word, f"{previous_level}/{vocabulary_set.level}"))
+            elif previous_level is None:
+                seen[key] = vocabulary_set.level
+
+    assert not duplicates, (
+        "Exact vocabulary duplicates were found across CEFR levels: "
+        + ", ".join(f"{word} ({levels})" for word, levels in duplicates)
+    )
+
+
+def test_en_gb_vocabulary_has_no_exact_duplicate_entries_within_level():
+    """Do not duplicate the same word/POS/definition inside a CEFR level."""
+    from app.data.en_GB.vocabulary import VOCABULARY_SETS
+
+    seen: set[tuple[str, str, str, str]] = set()
+    duplicates: list[str] = []
+
+    for vocabulary_set in VOCABULARY_SETS:
+        for entry in vocabulary_set.words:
+            key = (
+                vocabulary_set.level,
+                entry.word.strip().casefold(),
+                entry.pos.strip().casefold(),
+                entry.definition.strip(),
+            )
+            if key in seen:
+                duplicates.append(f"{vocabulary_set.level}: {entry.word}")
+            else:
+                seen.add(key)
+
+    assert not duplicates, "Exact within-level duplicates: " + ", ".join(duplicates)
+\n
