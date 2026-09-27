@@ -1800,3 +1800,19 @@ def test_en_gb_a2_irregular_verb_definitions_explain_meaning():
         assert phrase.casefold() in definition.casefold(), word
         assert "past tense of" in definition.casefold(), word
 
+
+
+def test_en_gb_a1_phrasebook_greetings_have_accurate_register_contexts():
+    from app.data.en_GB.phrasebook_a1 import A1_CATEGORIES
+
+    categories = {category.id: category for category in A1_CATEGORIES}
+    greetings = {phrase.text: phrase for phrase in categories["greetings"].phrases}
+    assert greetings["Good morning."].register == "neutral"
+    assert "everyday and professional" in greetings["Good morning."].context
+    assert greetings["Good afternoon."].register == "neutral"
+    assert "everyday or professional" in greetings["Good afternoon."].context
+    assert greetings["Good evening."].register == "neutral"
+    assert "beginning a conversation" in greetings["Good evening."].context
+    requests = {phrase.text: phrase for phrase in categories["basic_requests"].phrases}
+    assert "no trouble was caused" in requests["Not at all."].context
+    assert "genuinely welcome" in requests["My pleasure."].context
