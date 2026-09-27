@@ -588,7 +588,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="ticket",
                 pos="noun",
-                definition="A piece of paper or card allowing you to travel.",
+                definition="A document or digital record that gives you permission to use a particular journey or service.",
                 example="I bought a return ticket because I am travelling to Bristol today and coming back on Sunday evening.",
                 ipa="/ˈtɪkɪt/",
                 frequency_rank=290,
@@ -596,7 +596,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="platform",
                 pos="noun",
-                definition="The area in a station where passengers board trains.",
+                definition="The numbered area beside a railway track where passengers wait to board or leave a train.",
                 example="The train leaves from platform 3, so check the screen before you go to the waiting area.",
                 ipa="/ˈplætfɔːm/",
                 frequency_rank=360,
@@ -620,7 +620,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="delay",
                 pos="noun",
-                definition="When something happens later than planned.",
+                definition="A period of waiting because a service or event starts or arrives later than its scheduled time.",
                 example="There is a 30-minute delay because of a signal problem, so passengers are waiting on the platform.",
                 ipa="/dɪˈleɪ/",
                 frequency_rank=380,
@@ -1288,7 +1288,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="destination",
                 pos="noun",
-                definition="The place someone is travelling to or intends to reach.",
+                definition="The final place a person or vehicle is travelling towards.",
                 example="The train announcement named our destination, so we collected our bags and prepared to get off.",
                 ipa="/ˌdestɪˈneɪʃən/",
                 frequency_rank=370,
