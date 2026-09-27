@@ -186,13 +186,6 @@ C2_SETS: list[VocabularySet] = [
                 frequency_rank=500,
             ),
             VocabularyEntry(
-                word="inasmuch as",
-                pos="phrase",
-                definition="To the extent that; because.",
-                example="The policy failed inasmuch as it ignored economic factors.",
-                ipa="/ɪnəzˈmʌtʃ æz/",
-            ),
-            VocabularyEntry(
                 word="notwithstanding",
                 pos="preposition",
                 definition="In spite of; despite.",
