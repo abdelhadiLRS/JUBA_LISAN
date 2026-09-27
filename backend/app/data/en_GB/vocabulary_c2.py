@@ -468,7 +468,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="metaphor",
                 pos="noun",
-                definition="A figure of speech describing one thing as another.",
+                definition="A figure of speech that presents one thing as another to suggest a comparison or shared quality.",
                 example="Calling a career 'a marathon, not a sprint' is a metaphor for sustained effort.",
                 ipa="/ˈmetəfɔː/",
                 frequency_rank=340,
@@ -476,7 +476,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="irony",
                 pos="noun",
-                definition="Expression of meaning through words that say the opposite.",
+                definition="A contrast between the literal wording and the intended meaning, or between what is expected and what actually happens.",
                 example="The irony of his situation was not lost on him.",
                 ipa="/ˈaɪərəni/",
                 frequency_rank=330,
@@ -484,7 +484,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="satire",
                 pos="noun",
-                definition="The use of humour or irony to expose folly or vice.",
+                definition="The use of humour, irony, or exaggeration to criticise foolishness, wrongdoing, or social problems.",
                 example="Swift's A Modest Proposal is biting satire.",
                 ipa="/ˈsætaɪə/",
                 frequency_rank=400,
@@ -500,7 +500,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="tone",
                 pos="noun",
-                definition="The general character or attitude of a piece of writing.",
+                definition="The distinctive attitude or emotional quality conveyed by a piece of writing or speech.",
                 example="The author's tone shifts from hopeful to mournful.",
                 ipa="/təʊn/",
                 frequency_rank=220,
@@ -508,7 +508,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="motif",
                 pos="noun",
-                definition="A recurring subject, theme, or idea.",
+                definition="A recurring image, subject, pattern, or idea that contributes to the meaning of a literary work.",
                 example="Water is a dominant motif throughout the novel.",
                 ipa="/məʊˈtiːf/",
                 frequency_rank=420,
@@ -580,7 +580,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="allegory",
                 pos="noun",
-                definition="A story that can be interpreted to reveal a hidden meaning.",
+                definition="A narrative in which characters, events, or settings also represent broader ideas or meanings.",
                 example="Animal Farm is an allegory of the Russian Revolution.",
                 ipa="/ˈæləɡɔːri/",
                 frequency_rank=410,
@@ -596,7 +596,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="rhetoric",
                 pos="noun",
-                definition="The art of effective or persuasive speaking or writing.",
+                definition="The use of language and argument to communicate effectively or persuade an audience.",
                 example="The candidate's rhetoric appealed to the working class.",
                 ipa="/ˈretərɪk/",
                 frequency_rank=330,
@@ -636,7 +636,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="ontology",
                 pos="noun",
-                definition="The branch of philosophy concerned with what exists and what it means for something to be.",
+                definition="The branch of philosophy concerned with the nature of reality, existence, and what it means for something to be.",
                 example="The ontological assumptions are made explicit.",
                 ipa="/ɒnˈtɒlədʒi/",
                 frequency_rank=490,
@@ -716,7 +716,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="dialectic",
                 pos="noun",
-                definition="A method of reasoning in which opposing ideas or positions are examined through structured argument.",
+                definition="A method of reasoning that examines opposing ideas or positions through structured argument and critical exchange.",
                 example="The Hegelian dialectic proceeds through thesis, antithesis, and synthesis.",
                 ipa="/ˌdaɪəˈlektɪk/",
                 frequency_rank=480,
@@ -732,7 +732,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="pedagogy",
                 pos="noun",
-                definition="The theory and practice of teaching, including how learning is designed and supported.",
+                definition="The theory and practice of teaching, including how learning is planned, facilitated, and assessed.",
                 example="Modern pedagogy emphasises student-centred learning.",
                 ipa="/ˈpedəɡɒdʒi/",
                 frequency_rank=460,
@@ -764,7 +764,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="tenet",
                 pos="noun",
-                definition="A principle or belief that forms part of the foundation of a system, philosophy, or organisation.",
+                definition="A principle or belief that forms an important part of the foundation of a system, philosophy, or organisation.",
                 example="A central tenet of democracy is freedom of speech.",
                 ipa="/ˈtenɪt/",
                 frequency_rank=410,
@@ -908,7 +908,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="opine",
                 pos="verb",
-                definition="To express an opinion, especially in a formal or authoritative way.",
+                definition="To express an opinion, especially in a formal or authoritative manner.",
                 example="The critic opined that the work lacked depth.",
                 ipa="/əʊˈpaɪn/",
                 frequency_rank=460,
@@ -916,7 +916,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="aver",
                 pos="verb",
-                definition="To state or assert that something is true, often firmly or formally.",
+                definition="To state or assert that something is true, often firmly or publicly.",
                 example="The defendant averred his innocence throughout the trial.",
                 ipa="/əˈvɜːr/",
                 frequency_rank=490,
@@ -924,7 +924,7 @@ C2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="gainsay",
                 pos="verb",
-                definition="To deny, contradict, or challenge the truth of something.",
+                definition="To deny, contradict, or challenge the truth or validity of something.",
                 example="No one could gainsay the evidence presented.",
                 ipa="/ˌɡeɪnˈseɪ/",
                 frequency_rank=500,
