@@ -1257,3 +1257,86 @@ html[data-theme='light'] {
     animation:none!important;
   }
 }
+
+
+/* ============================================================
+   JUBA LISAN — DUO-STYLE LEARNING SYSTEM
+   Replaces the legacy member dashboard/shell visually.
+   ============================================================ */
+.juba-duo-shell{min-height:100dvh;background:#fff;color:#1f2933;font-family:'Nunito Sans',system-ui,sans-serif;display:flex;flex-direction:column}
+.juba-duo-sidebar{position:sticky;top:0;z-index:50;height:72px;width:100%;display:flex;align-items:center;border-bottom:1px solid #e5e7eb;background:#fff;padding:0 28px;gap:22px;box-shadow:0 1px 0 rgba(31,41,51,.03)}
+.juba-duo-sidebar>div:first-child{border:0!important;padding:0!important;display:flex;align-items:center;flex:0 0 auto}
+.juba-duo-sidebar>div:first-child span:first-child{display:none}
+.juba-duo-sidebar>div:first-child span:last-child{font-family:'Nunito Sans',sans-serif;font-size:19px;letter-spacing:-.02em;color:#58a700;font-weight:900}
+.juba-duo-sidebar>div:nth-child(2){border:0!important;order:3;margin-left:auto}
+.juba-duo-sidebar .juba-duo-nav{display:flex;align-items:center;gap:4px;overflow-x:auto;white-space:nowrap;flex:1;scrollbar-width:none}
+.juba-duo-sidebar .juba-duo-nav::-webkit-scrollbar{display:none}
+.juba-duo-sidebar .juba-duo-nav>a,.juba-duo-sidebar .juba-duo-nav button{font-family:'Nunito Sans',sans-serif!important;text-transform:none!important;letter-spacing:0!important;border:0!important;border-radius:12px;padding:10px 13px!important;color:#52606d!important;background:transparent!important;font-weight:800!important;font-size:14px!important;white-space:nowrap}
+.juba-duo-sidebar .juba-duo-nav>a:hover,.juba-duo-sidebar .juba-duo-nav button:hover{background:#f1f8e8!important;color:#58a700!important}
+.juba-duo-sidebar .juba-duo-nav>a[class*="bg-fl-surface-2"]{background:#e8f5dc!important;color:#58a700!important}
+.juba-duo-sidebar .juba-duo-nav>a span:first-child{display:none}
+.juba-duo-sidebar .juba-duo-nav>div{margin:0!important}
+.juba-duo-sidebar .juba-duo-nav>div>button{display:none}
+.juba-duo-sidebar .juba-duo-nav>div>div{display:flex!important;gap:4px}
+.juba-duo-sidebar .juba-duo-nav>div>div>a{font-family:'Nunito Sans',sans-serif!important;text-transform:none!important;letter-spacing:0!important;border:0!important;border-radius:12px;padding:10px 13px!important;color:#52606d!important;font-weight:800!important;font-size:14px!important}
+.juba-duo-sidebar .juba-duo-nav>div.border-fl-border{border:0!important;padding:0!important;margin:0!important}
+.juba-duo-sidebar .juba-duo-nav>div.border-fl-border>a{font-family:'Nunito Sans',sans-serif!important}
+.juba-duo-sidebar>div:last-child{display:flex;align-items:center;border:0!important;padding:0!important;margin:0!important;gap:10px}
+.juba-duo-sidebar>div:last-child>div{margin:0!important}
+.juba-duo-sidebar>div:last-child>p,.juba-duo-sidebar>div:last-child>button{display:none}
+.juba-duo-sidebar .font-mono,.juba-duo-sidebar .font-code{font-family:'Nunito Sans',sans-serif!important}
+.juba-duo-main{min-height:calc(100dvh - 72px);flex:1;display:flex;flex-direction:column;background:#fff}
+.juba-duo-main>.min-h-0{overflow-y:auto!important;flex:1}
+.juba-duo-main .border-fl-border.bg-fl-surface{background:#fff!important;border-color:#e5e7eb!important;color:#667085!important}
+.juba-duo-home{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:30px 0 70px}
+.juba-duo-welcome{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:26px}
+.juba-duo-eyebrow{display:block;color:#58a700;font-size:13px;font-weight:900;letter-spacing:.04em;margin-bottom:5px}
+.juba-duo-welcome h1{margin:0;font-size:32px;line-height:1.1;font-weight:900;letter-spacing:-.035em;color:#202124}
+.juba-duo-welcome p{margin:7px 0 0;color:#68727d;font-size:15px;font-weight:700}
+.juba-duo-top-stats{display:flex;gap:10px}
+.juba-duo-top-stats div{display:grid;grid-template-columns:auto auto;column-gap:8px;align-items:center;padding:10px 14px;border:1px solid #e5e7eb;border-radius:16px;background:#fff;box-shadow:0 2px 0 rgba(31,41,51,.05)}
+.juba-duo-top-stats svg{grid-row:span 2;color:#ff9600}
+.juba-duo-top-stats strong{font-size:17px;line-height:1;color:#202124}.juba-duo-top-stats span{font-size:11px;color:#7b8794;font-weight:800}
+.juba-duo-grid{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:34px;align-items:start}
+.juba-duo-course{min-width:0}
+.juba-duo-unit{border-radius:20px;background:#58a700;color:#fff;padding:24px 26px 20px;box-shadow:0 4px 0 #438600;margin-bottom:30px}
+.juba-duo-unit-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+.juba-duo-unit-kicker{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;opacity:.85}
+.juba-duo-unit h2{margin:5px 0 0;font-size:24px;font-weight:900;letter-spacing:-.02em}
+.juba-duo-guide{border:2px solid rgba(255,255,255,.45);color:#fff;text-decoration:none;border-radius:12px;padding:8px 12px;font-size:12px;font-weight:900}
+.juba-duo-progress{height:9px;border-radius:99px;background:rgba(255,255,255,.25);overflow:hidden;margin-top:22px}.juba-duo-progress span{display:block;height:100%;border-radius:99px;background:#fff}
+.juba-duo-progress-meta{display:flex;justify-content:space-between;margin-top:7px;font-size:11px;font-weight:900;opacity:.9}
+.juba-duo-path{position:relative;padding:6px 0 20px}
+.juba-duo-path:before{content:"";position:absolute;left:50%;top:15px;bottom:15px;width:6px;transform:translateX(-50%);border-radius:99px;background:#e8eaed}
+.juba-duo-node-row{position:relative;display:flex;align-items:center;gap:22px;min-height:132px;width:100%;justify-content:center}.juba-duo-node-row.is-offset{transform:translateX(46px)}
+.juba-duo-node{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:#e9ecef;border:5px solid #d5d9dd;color:#7a828a;box-shadow:0 5px 0 #c8cdd1;z-index:2;flex:0 0 auto}
+.juba-duo-node.is-done{background:#ffc800;border-color:#e1ad00;color:#fff;box-shadow:0 5px 0 #d39f00}.juba-duo-node.is-current{background:#58a700;border-color:#438600;color:#fff;box-shadow:0 5px 0 #438600;transform:scale(1.08)}
+.juba-duo-node-copy{width:260px;display:flex;flex-direction:column;gap:4px}.juba-duo-node-row.is-offset .juba-duo-node-copy{order:-1;text-align:right;align-items:flex-end}
+.juba-duo-node-copy strong{font-size:15px;color:#30343b;font-weight:900}.juba-duo-node-copy span{font-size:12px;color:#7b8794;font-weight:700}
+.juba-duo-cta{display:inline-flex;align-items:center;justify-content:center;width:max-content;margin-top:7px;padding:10px 17px;border-radius:12px;background:#58a700;color:#fff;text-decoration:none;font-size:13px;font-weight:900;box-shadow:0 3px 0 #438600}.juba-duo-cta:hover{background:#438600}
+.juba-duo-complete{display:flex;align-items:center;gap:5px;color:#58a700!important;font-weight:900!important}
+.juba-duo-empty{display:grid;place-items:center;text-align:center;padding:50px 20px;gap:9px;color:#7b8794}.juba-duo-empty h3{margin:0;color:#30343b}
+.juba-duo-side{display:grid;gap:14px}
+.juba-duo-card{border:2px solid #e5e7eb;border-radius:18px;background:#fff;padding:18px;box-shadow:0 2px 0 rgba(31,41,51,.04)}
+.juba-duo-streak-card{display:flex;align-items:center;gap:14px;border-color:#f1d69b;background:#fffaf0}.juba-duo-card-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:#fff0bf;color:#ff9600}.juba-duo-streak-card div:last-child{display:flex;flex-direction:column}.juba-duo-streak-card span,.juba-duo-streak-card small{font-size:11px;color:#7b8794;font-weight:800}.juba-duo-streak-card strong{font-size:25px;line-height:1.05;color:#202124}
+.juba-duo-card-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.juba-duo-card h3{margin:0;font-size:14px;font-weight:900;color:#30343b}.juba-duo-card-head>span{font-size:13px;font-weight:900;color:#58a700}.juba-duo-meter{height:10px;border-radius:99px;background:#edf0f2;overflow:hidden;margin:13px 0 8px}.juba-duo-meter span{display:block;height:100%;border-radius:99px;background:#58a700}.juba-duo-card p{margin:0;font-size:12px;color:#7b8794;font-weight:700}.juba-duo-card-link{display:flex;align-items:center;gap:5px;margin-top:12px;color:#58a700;text-decoration:none;font-size:12px;font-weight:900}
+.juba-duo-mini-bars{height:86px;display:flex;align-items:flex-end;gap:7px;margin-top:13px}.juba-duo-mini-bars span{flex:1;min-height:8px;border-radius:7px 7px 2px 2px;background:#58a700}.juba-duo-mini-bars i{font-size:12px;color:#8a94a0}
+.juba-duo-links{display:grid;grid-template-columns:1fr 1fr;gap:8px}.juba-duo-links a{display:flex;align-items:center;gap:7px;padding:11px;border-radius:13px;background:#f7f8f9;color:#4d5864;text-decoration:none;font-size:12px;font-weight:900}.juba-duo-links a:hover{background:#eaf5df;color:#58a700}
+.juba-duo-premium{margin-top:26px;display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:18px;background:#fff7db;border:2px solid #f3d58a;color:#6b4d00}.juba-duo-premium>svg{color:#ff9600;flex:0 0 auto}.juba-duo-premium div{display:flex;flex-direction:column;gap:3px;flex:1}.juba-duo-premium strong{font-size:14px}.juba-duo-premium span{font-size:12px}.juba-duo-premium button,.juba-duo-premium .btn{border-radius:12px;font-weight:900}
+.juba-duo-alert{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 15px;margin-bottom:18px;border:2px solid #f1c7c7;border-radius:14px;background:#fff6f6;color:#a23b3b;font-size:13px;font-weight:800}.juba-duo-alert button{border:0;border-radius:10px;padding:7px 11px;background:#a23b3b;color:#fff;font-weight:900}
+.juba-auth-mobile{background:#f7f9f7!important;color:#202124!important;font-family:'Nunito Sans',system-ui,sans-serif!important}
+.juba-auth-mobile>div{max-width:1180px!important}
+.juba-auth-mobile section{border-color:#e5e7eb!important}
+.juba-auth-mobile section:first-child{background:linear-gradient(160deg,#58a700 0%,#7fbe3c 55%,#dff2bd 100%)!important;color:#fff!important;border:0!important}
+.juba-auth-mobile section:first-child h2{font-weight:900!important;letter-spacing:-.04em!important}
+.juba-auth-mobile section:first-child .text-black\/50{color:rgba(255,255,255,.78)!important}
+.juba-auth-mobile section:first-child .bg-\[\#ededff\]{background:rgba(255,255,255,.18)!important;border-color:rgba(255,255,255,.35)!important;color:#fff!important}
+.juba-auth-mobile section:nth-child(2)>div>div:last-child{border:2px solid #e5e7eb!important;border-radius:22px!important;box-shadow:0 5px 0 #dfe3e1!important}
+.juba-auth-mobile input,.juba-auth-mobile select{border:2px solid #e1e5e2!important;background:#fff!important;border-radius:14px!important;min-height:50px;font-family:'Nunito Sans',sans-serif!important}
+.juba-auth-mobile input:focus,.juba-auth-mobile select:focus{border-color:#58a700!important;box-shadow:0 0 0 4px rgba(88,167,0,.12)!important}
+.juba-auth-mobile button[type="submit"]{background:#58a700!important;border-color:#438600!important;border-radius:14px!important;box-shadow:0 4px 0 #438600!important;color:#fff!important;font-weight:900!important;min-height:52px}
+.juba-auth-mobile a{font-weight:800}
+@media (max-width:900px){
+ .juba-duo-sidebar{height:64px;padding:0 14px}.juba-duo-sidebar .juba-duo-nav{display:none}.juba-duo-sidebar>div:nth-child(2){margin-left:auto}.juba-duo-main{min-height:calc(100dvh - 64px)}.juba-duo-home{width:min(100% - 24px,720px);padding-top:22px}.juba-duo-welcome{align-items:flex-start;flex-direction:column}.juba-duo-welcome h1{font-size:27px}.juba-duo-top-stats{width:100%}.juba-duo-top-stats div{flex:1}.juba-duo-grid{grid-template-columns:1fr}.juba-duo-side{grid-template-columns:1fr 1fr}.juba-duo-node-row.is-offset{transform:none}.juba-duo-path:before{left:38px;transform:none}.juba-duo-node-row{justify-content:flex-start;min-height:116px}.juba-duo-node-copy{width:auto;flex:1}.juba-duo-node{width:64px;height:64px}.juba-duo-node-row.is-offset .juba-duo-node-copy{order:0;text-align:left;align-items:flex-start}.juba-duo-links{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){.juba-duo-home{width:calc(100% - 20px)}.juba-duo-side{grid-template-columns:1fr}.juba-duo-unit{padding:20px}.juba-duo-unit h2{font-size:20px}.juba-duo-guide{display:none}.juba-duo-premium{align-items:flex-start;flex-wrap:wrap}.juba-duo-premium button,.juba-duo-premium .btn{margin-left:38px}.juba-duo-node-copy strong{font-size:14px}}
