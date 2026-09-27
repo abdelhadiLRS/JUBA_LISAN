@@ -46,6 +46,15 @@ export function LandingGamesShowcase({
 
   const activeGame = GAMES.find((game) => game.key === active) ?? GAMES[0]
 
+  const moveGame = (direction: 1 | -1) => {
+    const currentIndex = GAMES.findIndex((game) => game.key === active)
+    const nextIndex = (currentIndex + direction + GAMES.length) % GAMES.length
+    setActive(GAMES[nextIndex].key)
+    requestAnimationFrame(() => {
+      document.getElementById('juba-game-tab-' + GAMES[nextIndex].key)?.focus()
+    })
+  }
+
   return (
     <section dir={dir} id="games" className="juba-games-showcase">
       <div className="juba-games-heading">
@@ -64,6 +73,23 @@ export function LandingGamesShowcase({
             aria-controls={`juba-game-panel-${game.key}`}
             tabIndex={active === game.key ? 0 : -1}
             onClick={() => setActive(game.key)}
+            onKeyDown={(event) => {
+              if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+                event.preventDefault()
+                moveGame(1)
+              } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+                event.preventDefault()
+                moveGame(-1)
+              } else if (event.key === 'Home') {
+                event.preventDefault()
+                setActive(GAMES[0].key)
+                document.getElementById('juba-game-tab-' + GAMES[0].key)?.focus()
+              } else if (event.key === 'End') {
+                event.preventDefault()
+                setActive(GAMES[GAMES.length - 1].key)
+                document.getElementById('juba-game-tab-' + GAMES[GAMES.length - 1].key)?.focus()
+              }
+            }}
             className={active === game.key ? 'juba-games-tab is-active' : 'juba-games-tab'}
           >
             {labels[game.key]}
