@@ -352,7 +352,7 @@ html[data-theme='light'] {
   --busuu-blue:#1769e8;
   background:#fff!important;
   color:var(--busuu-ink)!important;
-  font-family:var(--font-geist-sans),system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  font-family:"Nunito Sans","Noto Sans Arabic",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
 }
 .juba-busuu-landing *{box-sizing:border-box}
 .juba-busuu-container{width:min(1200px,calc(100% - 48px));margin-inline:auto}
