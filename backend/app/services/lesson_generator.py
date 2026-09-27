@@ -13,6 +13,7 @@ from app.data.tr.lesson_seeds import get_lesson_seed as get_turkish_lesson_seed
 from app.data.nl.lesson_seeds import get_lesson_seed as get_dutch_lesson_seed
 from app.data.ru.lesson_seeds import get_lesson_seed as get_russian_lesson_seed
 from app.data.pl.lesson_seeds import get_lesson_seed as get_polish_lesson_seed
+from app.data.de.lesson_seeds import get_lesson_seed as get_german_lesson_seed
 from app.schemas.lessons import (
     ExerciseContent,
     FillBlankEvaluation,
@@ -231,7 +232,7 @@ def _seed_fallback_lesson(*, seed: dict[str, Any], cefr_level: str, lesson_type:
                     break
             exercises.append(ExerciseContent(
                 type="multiple_choice",
-                question=f"Which Turkish word means '{definition}'?",
+                question=f"Which {target_language} word means '{definition}'?",
                 options=options,
                 correct=word,
                 explanation=example,
@@ -365,6 +366,7 @@ async def generate_lesson(
         "nl": get_dutch_lesson_seed,
         "ru": get_russian_lesson_seed,
         "pl": get_polish_lesson_seed,
+        "de": get_german_lesson_seed,
     }
     curated_lesson_seed = (
         seed_getters[target_language](cefr_level, unit_id, lesson_type)
