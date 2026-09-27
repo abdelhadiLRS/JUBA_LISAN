@@ -117,7 +117,7 @@ export default async function Home() {
             <p>{t('heroSub')}</p>
             <div className="juba-ref-hero-actions">
               <Link href={hasSession ? '/dashboard' : '/register'} className="juba-ref-button">
-                {hasSession ? t('dashboard') : t('ctaStart')} <ArrowRight className="h-5 w-5" />
+                {hasSession ? t('dashboard') : t('ctaStart')} <ArrowRight className={`h-5 w-5 ${locale === 'ar' ? 'rotate-180' : ''}`} aria-hidden="true" />
               </Link>
               <a href="#features" className="juba-ref-text-link">{t('ctaExplore')}</a>
             </div>
@@ -151,7 +151,7 @@ export default async function Home() {
             <span>{t('languagesEyebrow')}</span>
             <h3>{t('languagesHeadline')}</h3>
             <p>{t('languagesDescription')}</p>
-            <ArrowRight />
+            <ArrowRight className={locale === 'ar' ? 'rotate-180' : undefined} aria-hidden="true" />
           </Link>
           <Link href="/listening" className="juba-ref-pillar">
             <Image src="/landing/juba-listening.svg" alt="" width={210} height={150} className="juba-pillar-image" />
@@ -194,7 +194,7 @@ export default async function Home() {
           <span className="juba-ref-kicker">{t('languagesEyebrow')}</span>
           <h2>{t('languagesHeadline')}</h2>
           <p>{t('languagesDescription')}</p>
-          <Link href="/register" className="juba-ref-button">{t('ctaStart')} <ArrowRight className="h-4 w-4" /></Link>
+          <Link href="/register" className="juba-ref-button">{t('ctaStart')} <ArrowRight className={`h-4 w-4 ${locale === 'ar' ? 'rotate-180' : ''}`} aria-hidden="true" /></Link>
         </div>
         <div className="juba-ref-language-art">
           <div className="juba-ref-language-overlay">
@@ -252,7 +252,7 @@ export default async function Home() {
             <h2>{t('ctaStart')}</h2>
             <p>{t('heroSub')}</p>
             <Link href={hasSession ? '/dashboard' : '/register'} className="juba-ref-button">
-              {hasSession ? t('dashboard') : t('ctaStart')} <ArrowRight className="h-4 w-4" />
+              {hasSession ? t('dashboard') : t('ctaStart')} <ArrowRight className={`h-4 w-4 ${locale === 'ar' ? 'rotate-180' : ''}`} aria-hidden="true" />
             </Link>
           </div>
           <div className="juba-ref-cta-device">
