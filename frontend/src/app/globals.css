@@ -2010,3 +2010,131 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
   .juba-reference-page .juba-ai-showcase{width:calc(100% - 28px)!important;padding:14px!important;border-radius:24px!important}
   .juba-reference-page .juba-ai-showcase-art{min-height:330px!important;border-radius:18px!important}
 }
+
+
+/* Landing — final AI conversation surface */
+.juba-reference-page .juba-ai-chat-bubble{
+  position:absolute!important;
+  z-index:3!important;
+  max-width:min(280px,42%)!important;
+  padding:10px 14px!important;
+  border-radius:16px!important;
+  border:1px solid #dfe9da!important;
+  background:#fff!important;
+  color:#252525!important;
+  font-size:13px!important;
+  font-weight:800!important;
+  line-height:1.45!important;
+  box-shadow:0 8px 20px rgba(37,37,37,.08)!important;
+}
+.juba-reference-page .juba-ai-chat-user{
+  left:6%!important;
+  top:13%!important;
+}
+.juba-reference-page .juba-ai-chat-tutor{
+  right:6%!important;
+  bottom:18%!important;
+  background:#f3fbe9!important;
+  border-color:#b7e58c!important;
+}
+.juba-reference-page .juba-ai-wave{
+  position:absolute!important;
+  z-index:3!important;
+  left:50%!important;
+  bottom:22px!important;
+  transform:translateX(-50%)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:4px!important;
+  width:132px!important;
+  height:34px!important;
+  padding:7px 10px!important;
+  border:1px solid #dfe9da!important;
+  border-radius:999px!important;
+  background:rgba(255,255,255,.94)!important;
+  box-shadow:0 6px 18px rgba(37,37,37,.06)!important;
+}
+.juba-reference-page .juba-ai-wave i{
+  display:block!important;
+  width:3px!important;
+  height:8px!important;
+  border-radius:999px!important;
+  background:#58cc02!important;
+  transform-origin:center!important;
+}
+.juba-reference-page .juba-ai-wave i.is-playing{
+  animation:jubaLandingVoiceWave .72s ease-in-out infinite alternate!important;
+  animation-delay:var(--wave-delay)!important;
+}
+@keyframes jubaLandingVoiceWave{
+  from{transform:scaleY(.65)}
+  to{transform:scaleY(2.15)}
+}
+.juba-reference-page .juba-ai-play{
+  position:absolute!important;
+  z-index:4!important;
+  right:18px!important;
+  bottom:18px!important;
+  width:52px!important;
+  height:52px!important;
+  display:grid!important;
+  place-items:center!important;
+  border:1px solid #46a900!important;
+  border-radius:50%!important;
+  background:#58cc02!important;
+  color:#fff!important;
+  box-shadow:inset 0 -3px 0 #46a900,0 8px 18px rgba(88,204,2,.18)!important;
+  cursor:pointer!important;
+}
+.juba-reference-page .juba-ai-play svg{width:19px!important;height:19px!important}
+.juba-reference-page .juba-ai-live-pill{
+  position:absolute!important;
+  z-index:4!important;
+  left:18px!important;
+  bottom:22px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:6px!important;
+  min-height:30px!important;
+  padding:6px 10px!important;
+  border:1px solid #dfe9da!important;
+  border-radius:999px!important;
+  background:#fff!important;
+  color:#46a900!important;
+  font-size:11px!important;
+  font-weight:900!important;
+  box-shadow:0 6px 18px rgba(37,37,37,.05)!important;
+}
+.juba-reference-page .juba-ai-live-pill svg{width:13px!important;height:13px!important}
+@media(max-width:600px){
+  .juba-reference-page .juba-ai-chat-bubble{
+    max-width:44%!important;
+    padding:8px 10px!important;
+    font-size:11px!important;
+    border-radius:13px!important;
+  }
+  .juba-reference-page .juba-ai-chat-user{top:9%!important}
+  .juba-reference-page .juba-ai-chat-tutor{bottom:22%!important}
+  .juba-reference-page .juba-ai-wave{
+    bottom:16px!important;
+    width:108px!important;
+    height:30px!important;
+  }
+  .juba-reference-page .juba-ai-play{
+    right:10px!important;
+    bottom:10px!important;
+    width:46px!important;
+    height:46px!important;
+  }
+  .juba-reference-page .juba-ai-live-pill{
+    left:10px!important;
+    bottom:16px!important;
+    min-height:27px!important;
+    padding:5px 8px!important;
+    font-size:10px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .juba-reference-page .juba-ai-wave i.is-playing{animation:none!important}
+}
