@@ -49,6 +49,8 @@ const LANGUAGES: Language[] = [
   { code: 'th', name: 'ไทย', country: 'th', alt: 'Thailand' },
 ]
 
+export const SUPPORTED_LANGUAGE_COUNT = LANGUAGES.length
+
 export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   return (
     <div
