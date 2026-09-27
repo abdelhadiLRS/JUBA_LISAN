@@ -8,7 +8,7 @@ import { ArrowRight, ArrowUpRight, BookOpen, Headphones, Languages, MessageCircl
 import PricingSection from '@/components/billing/PricingSection'
 import { LandingFAQ } from '@/components/ui/landing-faq'
 import { LandingNav } from '@/components/ui/landing-nav'
-import { LanguageBubbles, SUPPORTED_LANGUAGE_COUNT } from '@/components/LanguageBubbles'
+import { FEATURED_LANGUAGES, LanguageBubbles, SUPPORTED_LANGUAGE_COUNT } from '@/components/LanguageBubbles'
 import { LandingFooter } from '@/components/landing/LandingFooter'
 import type { ReviewPublic } from '@/types/api'
 
@@ -331,14 +331,9 @@ export default async function Home() {
             <p>{t('onlineLanguagesDescription')}</p>
           </div>
           <div className="juba-busuu-online-language-grid">
-            {[
-              ['English', 'en'], ['Spanish', 'es'], ['French', 'fr'], ['German', 'de'],
-              ['Italian', 'it'], ['Portuguese', 'pt'], ['Japanese', 'ja'], ['Korean', 'ko'],
-              ['Arabic', 'ar'], ['Chinese', 'zh'], ['Russian', 'ru'], ['Turkish', 'tr'],
-              ['Dutch', 'nl'], ['Polish', 'pl'],
-            ].map(([label, code]) => (
-              <Link key={code} href={`#languages`} lang={code} dir="auto">
-                <span>{label}</span>
+            {FEATURED_LANGUAGES.map(({ name, code }) => (
+              <Link key={code} href="#languages" lang={code} dir="auto">
+                <span>{name}</span>
                 <ArrowUpRight aria-hidden="true" />
               </Link>
             ))}
