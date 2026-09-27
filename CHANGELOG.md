@@ -15,8 +15,5 @@
 - Added regression coverage for the new pedagogical seed contract.
 - Refined A2 British-English vocabulary definitions and examples for clearer, more natural learner-facing language across health, geography, shopping, and weather contexts.
 - Added an A2 vocabulary schema/content regression check covering valid parts of speech and non-empty definitions/examples.
-
-### Games
-
-- Real playable Games Hub with Word Match, Quick Choice, Sentence Builder, Listen & Choose, Spelling Challenge, and Memory Cards.
-- Server-authoritative game sessions with persisted answers, scores, accuracy, streaks, XP, and achievements.
+- Refined B1 vocabulary definitions and examples where the original wording was too narrow or absolute, including AI, carbon footprint, evidence, equality, experience, and automatic processes.
+- Added a B1 vocabulary schema/content regression check covering valid parts of speech and non-empty definitions/examples.
