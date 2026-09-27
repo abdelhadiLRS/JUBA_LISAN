@@ -61,7 +61,7 @@ export function PageLoading({
       aria-busy="true"
       aria-label={text}
     >
-      <div className="card flex min-w-52 flex-col items-center gap-3 border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-6 py-5 shadow-[4px_4px_0_var(--juba-app-line)]">
+      <div className="juba-card flex min-w-52 flex-col items-center gap-3 border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-6 py-5 shadow-[4px_4px_0_var(--juba-app-line)]">
         <span className="inline-flex items-center rounded-full border border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-3 py-1.5 text-[var(--juba-app-green-dark)] text-xs font-semibold tracking-[0.08em] uppercase">
           {showDot && <i className="ti ti-loader-2 icon icon-spin" aria-hidden="true" />}
           {text}
