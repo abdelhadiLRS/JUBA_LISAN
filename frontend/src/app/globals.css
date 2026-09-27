@@ -2998,6 +2998,8 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
   border-color: #ffc6c6 !important;
 }
 .juba-mobile-feedback .text-\[\#b33a32\] {
+  color: #b33a32 !important;
+}
 
 .juba-register select,
 .juba-register input[type='checkbox'] { accent-color: var(--juba-learning-green); }
