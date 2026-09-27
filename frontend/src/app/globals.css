@@ -497,7 +497,52 @@ html[data-theme='light'] {
   .juba-busuu-footer-top,.juba-busuu-footer-bottom{flex-direction:column}
   .juba-busuu-footer-grid{grid-template-columns:1fr!important}
 }
-@media(prefers-reduced-motion:reduce){.juba-busuu-slogan-track{animation:none!important}}
+
+.juba-busuu-pricing .juba-ff-plan-card,
+.juba-busuu-pricing .juba-ff-comparison{
+  border:1px solid var(--busuu-line)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background:#fff!important;
+}
+.juba-busuu-pricing .juba-ff-plan-head{
+  border-color:var(--busuu-line)!important;
+}
+.juba-busuu-pricing .juba-ff-plan-name,
+.juba-busuu-pricing .juba-ff-plan-price,
+.juba-busuu-pricing .juba-ff-plan-desc,
+.juba-busuu-pricing .juba-ff-table-cell{
+  color:var(--busuu-ink)!important;
+}
+.juba-busuu-pricing .juba-ff-plan-old,
+.juba-busuu-pricing .juba-ff-pricing-subtitle,
+.juba-busuu-pricing .juba-ff-comparison th,
+.juba-busuu-pricing .juba-ff-limited,
+.juba-busuu-pricing .juba-ff-minus{
+  color:var(--busuu-muted)!important;
+}
+.juba-busuu-pricing .juba-ff-plan-cta{
+  border-radius:999px!important;
+  background:var(--busuu-green)!important;
+  color:#fff!important;
+  border:1px solid var(--busuu-green)!important;
+}
+.juba-busuu-pricing .juba-ff-plan-cta:hover{
+  background:var(--busuu-green-dark)!important;
+  border-color:var(--busuu-green-dark)!important;
+}
+.juba-busuu-pricing .juba-ff-plan-free a{
+  border-color:var(--busuu-line)!important;
+  color:var(--busuu-ink)!important;
+}
+.juba-busuu-pricing .juba-ff-comparison tr{
+  border-color:var(--busuu-line)!important;
+}
+.juba-busuu-pricing .juba-ff-check,
+.juba-busuu-pricing .text-\[\#46a900\]{
+  color:var(--busuu-green-dark)!important;
+}
+\n@media(prefers-reduced-motion:reduce){.juba-busuu-slogan-track{animation:none!important}}
 
 
 .juba-busuu-language-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--busuu-line);border-bottom:1px solid var(--busuu-line)}
