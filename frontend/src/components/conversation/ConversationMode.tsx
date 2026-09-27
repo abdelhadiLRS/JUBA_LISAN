@@ -53,14 +53,14 @@ function QuotaBar({
   const exceeded = !unlimited && limit > 0 && used >= limit
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[#68736d] w-36 shrink-0 font-sans text-xs font-semibold tracking-wide uppercase">
+      <span className="text-[#68736d] w-28 shrink-0 font-sans text-xs font-semibold tracking-wide uppercase sm:w-36">
         {label}
       </span>
       {unlimited ? (
         <span className="text-[#438600] font-sans font-bold">∞</span>
       ) : (
         <>
-          <div className="bg-[#f1f7ed] h-1 flex-1 overflow-hidden">
+          <div className="bg-[#f1f7ed] h-1 flex-1 overflow-hidden rounded-full">
             <div
               className={`h-full transition-all ${exceeded ? 'bg-[#b33a32]' : 'bg-[#58a700]'}`}
               style={{ width: `${pct}%` }}
@@ -119,10 +119,10 @@ function QuotaPill({
     <div className="w-full">
       <button
         onClick={() => setOpen((v) => !v)}
-        className={`text-[#68736d] flex w-full items-center justify-between rounded-xl border px-3 py-1.5 font-sans tracking-wide uppercase transition-colors ${
+        className={`text-[#68736d] flex w-full items-center justify-between rounded-xl border px-3 py-2 font-sans tracking-wide uppercase transition-colors ${
           alert
             ? 'border-[#b33a32]/50 text-[#b33a32] hover:border-[#b33a32]'
-            : 'border-[#e1e5e2] text-[#68736d] hover:border-[#58a700] hover:text-[#68736d]'
+            : 'border-[#e1e5e2] text-[#68736d] hover:border-[#58a700] hover:text-[#438600]'
         }`}
       >
         <span>● {text}</span>
@@ -130,7 +130,7 @@ function QuotaPill({
       </button>
 
       {open && (
-        <div className="border-[#e1e5e2] bg-white space-y-1.5 border border-t-0 px-4 py-3">
+        <div className="border-[#e1e5e2] bg-white space-y-2 rounded-b-xl border border-t-0 px-4 py-3 shadow-[0_3px_0_rgba(31,41,51,.035)]">
           <QuotaBar
             label={t('quotaSessions')}
             used={quota.sessions_this_week}
