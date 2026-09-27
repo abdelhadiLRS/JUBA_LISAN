@@ -30,7 +30,7 @@ export function LandingAiTutorShowcase({
   const [playing, setPlaying] = useState(false)
 
   return (
-    <div dir={dir} className="juba-ai-showcase">
+    <section id="ai-tutor" aria-labelledby="juba-ai-tutor-title" dir={dir} className="juba-ai-showcase">
       <div className="juba-ai-showcase-art">
         <Image
           src="/landing/juba-ai-tutor.svg"
@@ -59,12 +59,13 @@ export function LandingAiTutorShowcase({
       </div>
       <div className="juba-ai-showcase-copy">
         <span className="juba-ref-kicker"><Sparkles className="h-4 w-4" /> AI</span>
-        <h2>{imageAlt}</h2>
+        <h2 id="juba-ai-tutor-title">{imageAlt}</h2>
         <p>{aiMessage}</p>
         <Link href={href} className="juba-ref-button">
           <Mic className="h-4 w-4" /> {openLabel}
         </Link>
       </div>
     </div>
+    </section>
   )
 }
