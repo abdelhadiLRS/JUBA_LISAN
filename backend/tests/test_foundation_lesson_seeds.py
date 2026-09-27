@@ -2092,3 +2092,20 @@ def test_en_gb_a2_narrative_and_everyday_examples_add_context():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 12
 
+
+
+def test_en_gb_a2_health_examples_include_useful_detail():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for group in A2_SETS for entry in group.words}
+    expected = {
+        "prescription": ["how many tablets", "each day"],
+        "allergy": ["told the waiter", "sauce contained"],
+        "recover": ["return to exercise gradually", "felt stronger"],
+    }
+    for word, fragments in expected.items():
+        example = entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 12
+        for fragment in fragments:
+            assert fragment.casefold() in example, word
+
