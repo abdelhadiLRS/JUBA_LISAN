@@ -1,10 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Check, ChevronDown, Globe2, Menu, X, Sparkles } from 'lucide-react'
-import { hasActiveLandingSubscription } from '@/lib/landing-subscription'
+import { Menu, X } from 'lucide-react'
 import type { Locale } from '@/lib/locales'
 
 interface LandingNavProps {
