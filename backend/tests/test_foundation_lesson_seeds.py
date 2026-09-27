@@ -262,6 +262,30 @@ def test_en_gb_vocabulary_has_no_exact_duplicate_entries_within_level():
 \n
 
 
+def test_en_gb_c1_examples_are_contextual_and_reusable():
+    """C1 examples should teach natural usage, not merely restate definitions."""
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+
+    entries = [entry for vocab_set in C1_SETS for entry in vocab_set.words]
+    assert entries
+
+    for entry in entries:
+        assert entry.example.strip()
+        assert entry.example.strip().endswith((".", "!", "?"))
+        assert entry.example.strip().casefold() != entry.definition.strip().casefold()
+        assert len(entry.example.split()) >= 5
+
+    expected_contexts = {
+        "articulate": "concerns clearly during the meeting",
+        "substantiate": "with sufficient evidence",
+        "delineate": "responsibilities of each department",
+        "elucidate": "relationship between the two processes",
+        "rebut": "presenting new evidence",
+    }
+    examples = {entry.word: entry.example for entry in entries}
+    for word, phrase in expected_contexts.items():
+        assert phrase.casefold() in examples[word].casefold()
+
 def test_c1_formal_writing_prioritises_high_utility_language():
     """C1 formal writing should favour broadly useful formal language over archaic legalese."""
     from app.data.en_GB.vocabulary_c1 import C1_SETS
