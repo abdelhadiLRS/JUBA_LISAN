@@ -2133,3 +2133,19 @@ def test_en_us_a1_greetings_and_numbers_use_realistic_context():
         assert phrase.casefold() in entries[word].example.casefold(), word
         assert len(entries[word].example.split()) >= 8, word
 
+
+
+def test_en_gb_a2_health_definitions_are_precise_and_contextual():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for group in A2_SETS for entry in group.words}
+    expected_definitions = {
+        "nausea": "unpleasant feeling in your stomach",
+        "allergy": "immune system",
+        "symptom": "change in the body",
+        "prescription": "authorised healthcare professional",
+    }
+    for word, phrase in expected_definitions.items():
+        assert phrase.casefold() in entries[word].definition.casefold(), word
+    assert "bus journey" in entries["nausea"].example.casefold()
+
