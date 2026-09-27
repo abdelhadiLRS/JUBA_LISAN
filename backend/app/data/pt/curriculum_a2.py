@@ -16,7 +16,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "preterito-perfeito-irregular",
         ],
         vocabulary_set_ids=["viagens_a2", "experiências_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Conjuga verbos regulares em -ar (falei, falaste, falou, falámos, falaram), -er (comi, comeste, comeu, comemos, comeram) e -ir (parti, partiste, partiu, partimos, partiram) no pretérito perfeito simples",
             "Usa as formas irregulares mais frequentes: ser e ir partilham as mesmas formas (fui, foste, foi, fomos, foram); ter (tive), estar (estive), fazer (fiz), poder (pude), vir (vim), ver (vi), dar (dei), saber (soube), trazer (trouxe)",
@@ -33,7 +33,7 @@ A2_UNITS: list[CurriculumUnit] = [
         title="Pretérito imperfeito e narração",
         grammar_points=["preterito-imperfeito", "perfeito-vs-imperfeito", "costumava"],
         vocabulary_set_ids=["infância_a2", "descrições_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Conjuga o imperfeito em todas as pessoas: verbos regulares em -ar (falava), -er (comia), -ir (partia) e os irregulares ser (era/eras/era/éramos/eram), ter (tinha) e vir (vinha)",
             "Usa o imperfeito para estados passados em curso, descrições de cenários e ações habituais no passado: Quando era criança, brincava todos os dias na rua",
@@ -55,7 +55,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "combinacao-pronominal",
         ],
         vocabulary_set_ids=["compras_a2", "presentes_a2", "dinheiro_precos_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Usa os pronomes de complemento direto o/a/os/as e os pronomes de complemento indireto me/te/lhe/nos/vos/lhes",
             "Aplica a regra fundamental de colocação pronominal no PE: ênclise (depois do verbo, com hífen) como padrão em frases afirmativas (Vi-o, Deram-me o livro), e próclise após negação (Não o vi), em subordinadas (Quando o encontrei...) e após certos advérbios (Sempre me disseram...)",
@@ -72,7 +72,7 @@ A2_UNITS: list[CurriculumUnit] = [
         title="Comparações e superlativos",
         grammar_points=["comparativos", "superlativos", "tao-como"],
         vocabulary_set_ids=["cidades_a2", "cultura_a2", "animais_natureza_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Compara com mais/menos + adjetivo/advérbio + do que (antes de nome/pronome) ou que (noutros contextos): Lisboa é mais cara do que o Porto",
             "Exprime igualdade com tão + adjetivo/advérbio + como e tanto/a/os/as + nome + como: É tão bom como eu, Come tanto como eu",
@@ -93,7 +93,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "imperativo-irregular",
         ],
         vocabulary_set_ids=["saúde_a2", "conselhos_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Forma o imperativo afirmativo de tu a partir da terceira pessoa do singular do presente do indicativo (fala!, come!, parte!) e o imperativo afirmativo de você/o senhor a partir da terceira pessoa do presente do conjuntivo (fale!, coma!, parta!)",
             "Forma o imperativo negativo de tu com não + presente do conjuntivo na segunda pessoa: não fales!, não comas!, não partas!; e de você com não + presente do conjuntivo na terceira pessoa: não fale!, não coma!",
@@ -110,7 +110,7 @@ A2_UNITS: list[CurriculumUnit] = [
         title="Futuro do presente e condicional",
         grammar_points=["futuro-do-presente", "condicional", "futuro-composto"],
         vocabulary_set_ids=["trabalho_a2", "planos_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Conjuga o futuro do presente em todas as pessoas usando o infinitivo como radical (falarei, falarás, falará, falaremos, falarão) e radicais irregulares: dir-, far-, irei, poderei, quererei, saberei, trarei, valerei, virei",
             "Usa o futuro do presente para previsões e para probabilidade no presente: Que horas serão? Serão três horas",
@@ -131,7 +131,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "discurso-indireto",
         ],
         vocabulary_set_ids=["histórias_a2", "anedotas_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Liga acontecimentos em sequência com: primeiro, depois, a seguir, mais tarde, entretanto, por fim, finalmente, de repente, nesse momento",
             "Combina pretérito perfeito (ações concluídas em primeiro plano) e imperfeito (descrições de fundo) num parágrafo narrativo sustentado de 80-100 palavras",
@@ -157,7 +157,7 @@ A2_UNITS: list[CurriculumUnit] = [
             "condicional",
         ],
         vocabulary_set_ids=["revisão_a2"],
-        lesson_types=["grammar", "vocabulary", "reading", "writing", "review"],
+        lesson_types=["grammar", "vocabulary", "reading", "listening", "speaking", "writing", "review"],
         competency_checklist=[
             "Lida com situações sociais de rotina (compras, reservas, pedido de informações) usando corretamente tempos passados, futuro e formas de cortesia no condicional",
             "Aplica as regras de colocação pronominal do PE (ênclise em frases afirmativas principais, próclise após negação e em subordinadas) sem erros sistemáticos",
