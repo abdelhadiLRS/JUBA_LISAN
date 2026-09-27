@@ -57,9 +57,12 @@ export function LandingGamesShowcase({
         {GAMES.map((game) => (
           <button
             key={game.key}
+            id={`juba-game-tab-${game.key}`}
             type="button"
             role="tab"
             aria-selected={active === game.key}
+            aria-controls={`juba-game-panel-${game.key}`}
+            tabIndex={active === game.key ? 0 : -1}
             onClick={() => setActive(game.key)}
             className={active === game.key ? 'juba-games-tab is-active' : 'juba-games-tab'}
           >
@@ -67,7 +70,12 @@ export function LandingGamesShowcase({
           </button>
         ))}
       </div>
-      <div className="juba-game-stage">
+      <div
+        id={`juba-game-panel-${activeGame.key}`}
+        className="juba-game-stage"
+        role="tabpanel"
+        aria-labelledby={`juba-game-tab-${activeGame.key}`}
+      >
         <div className="juba-game-stage-image">
           <Image src={activeGame.src} alt={labels[activeGame.key]} width={420} height={260} priority={active === 'matching'} />
         </div>
