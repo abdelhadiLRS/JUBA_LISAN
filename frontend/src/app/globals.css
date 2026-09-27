@@ -3044,3 +3044,119 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
   font-weight: 900 !important;
 }
 .juba-forgot-password a:hover { color: var(--juba-learning-green-dark) !important; }
+
+
+/* Chat — keep the text tutor inside the same JUBA LISAN learning system. */
+.juba-mobile-chat {
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+  color: var(--juba-learning-ink) !important;
+  background: var(--juba-learning-bg) !important;
+}
+.juba-mobile-chat aside,
+.juba-mobile-chat > div > div:first-child,
+.juba-mobile-chat > div > div:last-child {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-mobile-chat aside {
+  background: #f8fff4 !important;
+}
+.juba-mobile-chat aside > div:first-child,
+.juba-mobile-chat > div > div:first-child {
+  background: #fff !important;
+}
+.juba-mobile-chat button,
+.juba-mobile-chat input {
+  font-family: inherit !important;
+}
+.juba-mobile-chat button:hover:not(:disabled) {
+  border-color: var(--juba-learning-green) !important;
+}
+.juba-mobile-chat .juba-chat-label,
+.juba-mobile-chat .juba-chat-empty,
+.juba-mobile-chat .juba-chat-subtitle {
+  color: var(--juba-learning-muted) !important;
+}
+.juba-mobile-chat .font-mono {
+  font-family: inherit !important;
+}
+.juba-mobile-chat .juba-chat-input {
+  min-height: 50px;
+  border-color: var(--juba-learning-border) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+.juba-mobile-chat .juba-chat-input:focus {
+  border-color: var(--juba-learning-green) !important;
+  box-shadow: 0 0 0 4px rgba(88,204,2,.13), var(--juba-learning-shadow) !important;
+}
+.juba-mobile-chat .juba-chat-send {
+  min-height: 50px;
+  border-color: var(--juba-learning-green-dark) !important;
+  background: var(--juba-learning-green) !important;
+  box-shadow: 0 3px 0 var(--juba-learning-green-dark) !important;
+  letter-spacing: .04em !important;
+}
+.juba-mobile-chat .juba-chat-send:hover:not(:disabled) {
+  background: var(--juba-learning-green-dark) !important;
+  box-shadow: 0 4px 0 #2f7800 !important;
+}
+.juba-mobile-chat [class*="bg-[#39751d]"] {
+  background: var(--juba-learning-green) !important;
+  border-color: var(--juba-learning-green-dark) !important;
+  box-shadow: 0 3px 0 var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-chat [class*="bg-[#e2f2d3]"] {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-chat .word-selectable {
+  border-color: var(--juba-learning-border) !important;
+  border-radius: 16px !important;
+}
+.juba-mobile-chat button:focus-visible,
+.juba-mobile-chat input:focus-visible {
+  outline: 3px solid var(--juba-learning-blue) !important;
+  outline-offset: 2px !important;
+}
+@media (max-width: 767px) {
+  .juba-mobile-chat {
+    height: calc(100dvh - 56px) !important;
+  }
+  .juba-mobile-chat .juba-chat-input {
+    min-width: 0;
+  }
+  .juba-mobile-chat .juba-chat-send {
+    padding-inline: 16px !important;
+  }
+}
+
+/* App loading — skeletons must use the same white/green learning shell as loaded pages. */
+.juba-tabler-app {
+  min-height: 100vh;
+  background: var(--juba-learning-bg) !important;
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-tabler-app .navbar,
+.juba-tabler-app .juba-page-context {
+  background: #fff !important;
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-tabler-app .avatar.bg-primary {
+  background: var(--juba-learning-green) !important;
+}
+.juba-tabler-app .placeholder {
+  background: var(--juba-learning-green-soft) !important;
+  opacity: 1 !important;
+}
+.juba-tabler-app .card {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 18px !important;
+  background: #fff !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+.juba-tabler-app .page-body {
+  background: var(--juba-learning-bg) !important;
+}
+.juba-tabler-app .container-xl {
+  max-width: 1180px;
+}
