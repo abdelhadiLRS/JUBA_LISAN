@@ -678,7 +678,7 @@ export default function GamesPage() {
   }
 
   return (
-    <main className="space-y-5" dir={direction}>
+    <main className="juba-games space-y-5" dir={direction}>
       <section className="games-shell">
         <header className="games-header">
           <div>
