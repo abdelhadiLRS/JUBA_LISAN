@@ -2210,7 +2210,6 @@
       "writing": "Écriture"
     }
   },
-  },
   "coach": {
     "eyebrow": "Votre coach d’apprentissage IA",
     "headlineSuffix": "voici votre prochaine étape.",
@@ -2275,6 +2274,7 @@
           "description": "Réserver une chambre, résoudre des problèmes et faire des demandes."
         }
       }
+  },
   },
   "visitorTranslator": {
     "open": "Ouvrir le traducteur instantané",
