@@ -217,7 +217,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <LandingFooter t={t} dir={rtl ? 'rtl' : 'ltr'} />
+      <LandingFooter t={t} dir={rtl ? 'rtl' : 'ltr'} showReviews={reviews.length > 0} />
     </main>
   )
 }
