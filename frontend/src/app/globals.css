@@ -545,3 +545,36 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
     min-height: 68px;
   }
 }
+
+
+/* Landing FAQ — same header/hero visual language */
+.juba-reference-page .juba-landing-faq-item {
+  border: 1px solid #dfe9da !important;
+  border-radius: 18px !important;
+  background: #fff !important;
+  box-shadow: 0 3px 0 rgba(70,169,0,.12) !important;
+}
+.juba-reference-page .juba-landing-faq-item.is-open {
+  border-color: #b7e88f !important;
+  box-shadow: 0 5px 0 rgba(70,169,0,.16) !important;
+}
+.juba-reference-page .juba-landing-faq-question {
+  color: #252525 !important;
+  min-height: 68px;
+}
+.juba-reference-page .juba-landing-faq-question:hover {
+  color: #46a900 !important;
+}
+.juba-reference-page .juba-landing-faq-icon {
+  border: 0 !important;
+  background: #b7f36b !important;
+  color: #252525 !important;
+  box-shadow: inset 0 -2px 0 #8dce43;
+}
+.juba-reference-page .juba-landing-faq-answer {
+  border-color: #e7eee3 !important;
+  color: #68766d !important;
+}
+.juba-reference-page .juba-landing-faq-answer strong {
+  color: #252525 !important;
+}
