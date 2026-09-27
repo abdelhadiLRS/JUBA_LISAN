@@ -15,6 +15,10 @@ interface LandingGamesShowcaseProps {
   orderingLabel: string
   sentenceBuilderLabel: string
   openLabel: string
+  practicalEyebrow: string
+  practicalTitle: string
+  practicalDescription: string
+  practicalCta: string
 }
 
 const GAMES = [
@@ -34,6 +38,10 @@ export function LandingGamesShowcase({
   orderingLabel,
   sentenceBuilderLabel,
   openLabel,
+  practicalEyebrow,
+  practicalTitle,
+  practicalDescription,
+  practicalCta,
 }: LandingGamesShowcaseProps) {
   const [active, setActive] = useState<(typeof GAMES)[number]['key']>('matching')
 
@@ -118,10 +126,10 @@ export function LandingGamesShowcase({
 
       <section className="juba-practical-language-section" aria-labelledby="juba-practical-title">
         <div className="juba-practical-language-copy">
-          <span className="juba-ref-kicker">{dir === 'rtl' ? 'تعلّم للاستخدام الحقيقي' : 'Learn for real life'}</span>
-          <h2 id="juba-practical-title">{dir === 'rtl' ? 'تعلّم اللغات للحياة والعمل' : 'Learn languages for life and work'}</h2>
-          <p>{dir === 'rtl' ? 'دروس قصيرة ومحادثات واقعية ونطق واستماع ومفردات تساعدك على استخدام اللغة بثقة في الحياة اليومية والعمل.' : 'Short lessons, real conversations, pronunciation, listening and vocabulary built around situations you actually face.'}</p>
-          <Link href="/register" className="juba-ref-button">{dir === 'rtl' ? 'تعلّم مجانًا' : 'Start learning for free'}</Link>
+          <span className="juba-ref-kicker">{practicalEyebrow}</span>
+          <h2 id="juba-practical-title">{practicalTitle}</h2>
+          <p>{practicalDescription}</p>
+          <Link href="/register" className="juba-ref-button">{practicalCta}</Link>
         </div>
         <div className="juba-practical-language-grid">
           {[
