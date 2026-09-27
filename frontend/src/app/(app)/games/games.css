@@ -542,3 +542,17 @@
   max-width: 360px;
   margin-top: 8px;
 }
+
+
+/* Text-answer submission feedback */
+.juba-games .form-error {
+  display: block;
+  grid-column: 1 / -1;
+  margin: 8px 0 0;
+  color: var(--juba-learning-red, #ff4b4b);
+  font-size: 13px;
+  font-weight: 800;
+}
+.juba-games .spelling-form[aria-busy='true'] {
+  opacity: .8;
+}
