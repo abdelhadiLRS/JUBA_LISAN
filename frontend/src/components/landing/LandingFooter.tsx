@@ -5,9 +5,10 @@ import { ContactButton } from '@/components/ui/contact-button'
 interface LandingFooterProps {
   t: (key: string) => string
   dir?: 'ltr' | 'rtl'
+  showReviews?: boolean
 }
 
-export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
+export function LandingFooter({ t, dir = 'ltr', showReviews = false }: LandingFooterProps) {
   const footerLanguages = [
     ['English', 'en'],
     ['Français', 'fr'],
@@ -51,7 +52,7 @@ export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
 
           <div className="juba-busuu-footer-column">
             <h3>{t('aboutMe')}</h3>
-            <Link href="#reviews">{t('navReviews')}</Link>
+            {showReviews && <Link href="#reviews">{t('navReviews')}</Link>}
             <Link href="#faq">{t('navFAQ')}</Link>
             <Link href="/">{t('homeLabel')}</Link>
             <Link href="/register">{t('ctaStart')}</Link>
