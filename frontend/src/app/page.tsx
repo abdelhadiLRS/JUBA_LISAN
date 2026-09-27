@@ -12,24 +12,29 @@ import { LanguageBubbles, SUPPORTED_LANGUAGE_COUNT } from '@/components/Language
 import { LandingFooter } from '@/components/landing/LandingFooter'
 import type { ReviewPublic } from '@/types/api'
 
-export const metadata: Metadata = {
-  title: 'JUBA LISAN: AI-Powered Language Learning Platform',
-  description:
-    'Learn languages naturally with your personal AI tutor. Master real-time voice conversations, structured CEFR lessons, interactive reading and listening, and smart flashcards.',
-  robots: { index: true, follow: true },
-  openGraph: {
-    title: 'JUBA LISAN: AI-Powered Language Learning Platform',
-    description: 'Learn languages naturally with your personal AI tutor.',
-    url: 'https://jubalisan.com',
-    type: 'website',
-    images: [{ url: '/og-image-v2.png', width: 1200, height: 630, alt: 'JUBA LISAN' }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'JUBA LISAN: AI-Powered Language Learning Platform',
-    description: 'Learn languages naturally with your personal AI tutor.',
-    images: ['/og-image-v2.png'],
-  },
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('landing')
+  const title = `JUBA LISAN: ${t('heroTitle')}`
+  const description = t('heroSub')
+
+  return {
+    title,
+    description,
+    robots: { index: true, follow: true },
+    openGraph: {
+      title,
+      description,
+      url: 'https://jubalisan.com',
+      type: 'website',
+      images: [{ url: '/og-image-v2.png', width: 1200, height: 630, alt: 'JUBA LISAN' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/og-image-v2.png'],
+    },
+  }
 }
 
 const jsonLd = {
