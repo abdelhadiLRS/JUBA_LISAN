@@ -606,6 +606,7 @@ html[data-theme='light'] {
 .juba-busuu-pricing button,.juba-busuu-pricing .juba-ff-plan-cta{border-radius:999px!important}
 .juba-busuu-pricing .juba-ff-plan-cta{background:var(--busuu-green)!important;color:#fff!important;border-color:var(--busuu-green)!important}
 .juba-busuu-pricing .juba-ff-plan-cta:hover{background:var(--busuu-green-dark)!important;border-color:var(--busuu-green-dark)!important}
+.juba-busuu-pricing :is(button,a):focus-visible{outline:3px solid var(--busuu-blue)!important;outline-offset:3px}
 .juba-busuu-pricing .juba-ff-plan-badge--accent,.juba-busuu-pricing .juba-ff-plan-badge{color:var(--busuu-green-dark)!important;border-color:var(--busuu-line)!important;background:var(--busuu-mint)!important}
 .juba-busuu-pricing .juba-ff-plan-name,.juba-busuu-pricing .juba-ff-plan-price,.juba-busuu-pricing .juba-ff-plan-desc,.juba-busuu-pricing .juba-ff-table-cell{color:var(--busuu-ink)!important}
 .juba-busuu-pricing .juba-ff-period,.juba-busuu-pricing .juba-ff-plan-placeholder,.juba-busuu-pricing .juba-ff-plan-old,.juba-busuu-pricing .juba-ff-pricing-subtitle,.juba-busuu-pricing .juba-ff-comparison th,.juba-busuu-pricing .juba-ff-limited,.juba-busuu-pricing .juba-ff-minus{color:var(--busuu-muted)!important}
@@ -618,6 +619,7 @@ html[data-theme='light'] {
 .juba-busuu-faq .juba-landing-faq-question{min-height:76px;padding:22px 0!important;font-size:18px!important;font-weight:800}
 .juba-busuu-faq .juba-landing-faq-answer{padding:0 0 24px!important;color:var(--busuu-muted)!important;line-height:1.8}
 .juba-busuu-faq .juba-landing-faq-icon{border:1px solid var(--busuu-line)!important;background:#fff!important;color:var(--busuu-ink)!important}
+.juba-busuu-faq :is(button,a):focus-visible{outline:3px solid var(--busuu-blue)!important;outline-offset:3px}
 
 /* Final CTA */
 .juba-busuu-final-cta{padding:0 0 118px;background:#fff}
@@ -652,6 +654,7 @@ html[data-theme='light'] {
 .juba-busuu-landing .juba-busuu-footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:11px}
 .juba-busuu-landing .juba-busuu-footer-column h3{margin:0 0 7px;color:#fff!important;font-size:13px;font-weight:850}
 .juba-busuu-landing .juba-busuu-footer-column a,.juba-busuu-landing .juba-busuu-footer-column span{color:#b8c2bd!important;font-size:13px;line-height:1.45;text-decoration:none}
+.juba-busuu-landing .juba-busuu-footer a:focus-visible{outline:3px solid #45f09a;outline-offset:3px;border-radius:2px}
 .juba-busuu-landing .juba-busuu-footer-language{padding:32px 0;display:grid;grid-template-columns:180px 1fr;gap:30px;border-bottom:1px solid #39443f}
 .juba-busuu-landing .juba-busuu-footer-language-heading{display:flex;flex-direction:column;gap:5px}
 .juba-busuu-landing .juba-busuu-footer-language-heading strong{color:#fff;font-size:13px}
