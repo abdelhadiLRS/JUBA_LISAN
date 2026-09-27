@@ -452,7 +452,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="basket",
                 pos="noun",
-                definition="A container used to carry shopping.",
+                definition="A small open container with a handle, used to carry a few items while shopping.",
                 example="She put the vegetables in the basket before choosing some bread and fruit for dinner.",
                 ipa="/ˈbɑːskɪt/",
                 frequency_rank=420,
@@ -460,7 +460,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="trolley",
                 pos="noun",
-                definition="A large wheeled basket used in supermarkets.",
+                definition="A large wheeled container used to carry many shopping items around a supermarket.",
                 example="We need a trolley for all this shopping because we are buying food for a family gathering.",
                 ipa="/ˈtrɒli/",
                 frequency_rank=580,
@@ -492,7 +492,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="sale",
                 pos="noun",
-                definition="A period when prices are reduced.",
+                definition="A period when a shop offers some products at lower prices than usual.",
                 example="The shop has a big sale today, so several winter coats are cheaper than they were last week.",
                 ipa="/seɪl/",
                 frequency_rank=210,
@@ -500,7 +500,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="discount",
                 pos="noun",
-                definition="A reduction in the price of something.",
+                definition="An amount taken off the usual price of a product or service.",
                 example="Students get a 10% discount if they show their student card when they pay at the till.",
                 ipa="/ˈdɪskaʊnt/",
                 frequency_rank=410,
@@ -508,7 +508,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="afford",
                 pos="verb",
-                definition="To have enough money for something.",
+                definition="To have enough money to pay for something without causing financial difficulty.",
                 example="I cannot afford a new car at the moment, so I am saving money and using the bus instead.",
                 ipa="/əˈfɔːd/",
                 frequency_rank=330,
@@ -524,7 +524,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="packaging",
                 pos="noun",
-                definition="Material used to wrap or contain products.",
+                definition="Material such as paper, cardboard, glass, or plastic used to protect or contain a product.",
                 example="We prefer products with less packaging because we want to reduce the amount of waste we throw away.",
                 ipa="/ˈpækɪdʒɪŋ/",
                 frequency_rank=560,
@@ -667,7 +667,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="back",
                 pos="noun",
-                definition="The rear part of the body from neck to bottom.",
+                definition="The part of the body behind the chest and stomach, extending from the shoulders down to the hips.",
                 example="My back hurts from sitting all day, so I am going to take regular breaks and walk around the office.",
                 ipa="/bæk/",
                 frequency_rank=50,
@@ -683,7 +683,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="throat",
                 pos="noun",
-                definition="The passage inside the neck.",
+                definition="The passage at the back of the mouth and nose that connects them to the oesophagus and lungs.",
                 example="I have a sore throat and a slight cough, so I am going to rest at home today.",
                 ipa="/θrəʊt/",
                 frequency_rank=395,
@@ -691,7 +691,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="hurt",
                 pos="verb",
-                definition="To feel pain or cause pain.",
+                definition="To feel physical pain or to cause someone physical pain.",
                 example="My knee hurts after running, so I am resting today and will return to training gradually.",
                 ipa="/hɜːt/",
                 frequency_rank=200,
@@ -699,7 +699,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="pain",
                 pos="noun",
-                definition="An unpleasant physical sensation.",
+                definition="An unpleasant physical or emotional sensation, often caused by injury, illness, or stress.",
                 example="The pain in my back is almost gone after a good night's sleep and a short walk this morning.",
                 ipa="/peɪn/",
                 frequency_rank=185,
@@ -707,7 +707,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="medicine",
                 pos="noun",
-                definition="A drug or treatment used to treat or manage an illness.",
+                definition="A substance or treatment used to prevent, treat, or manage a medical condition.",
                 example="The pharmacist told me to take this medicine twice a day after meals and to read the instructions carefully.",
                 ipa="/ˈmedɪsɪn/",
                 frequency_rank=310,
@@ -723,7 +723,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="appointment",
                 pos="noun",
-                definition="A scheduled meeting with a doctor.",
+                definition="A planned time to meet a doctor or another professional for medical care or advice.",
                 example="I have a doctor's appointment at 3, so I need to leave work early and arrive a few minutes before the appointment.",
                 ipa="/əˈpɔɪntmənt/",
                 frequency_rank=380,
@@ -731,7 +731,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="healthy",
                 pos="adjective",
-                definition="In good physical condition.",
+                definition="Having good health and not being affected by illness or injury.",
                 example="I am trying to eat healthy food, so I usually prepare vegetables, fruit, and simple meals at home.",
                 ipa="/ˈhelθi/",
                 frequency_rank=320,
