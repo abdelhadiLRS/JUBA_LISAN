@@ -1632,6 +1632,7 @@
     "planMonthly": "Mensile flessibile · {price}€/mese →",
     "planYearly": "Miglior offerta · {price}€/anno · 2 mesi gratis →",
     "checkoutError": "Impossibile avviare il pagamento. Riprova.",
+    "checkoutLoading": "Caricamento…",
     "pricingTitle": "Prezzo semplice e trasparente",
     "pricingDesc": "{days} giorni gratis · nessun addebito oggi · annulla quando vuoi",
     "pricingDescTrialUsed": "Scegli mensile o annuale · annulla quando vuoi",
