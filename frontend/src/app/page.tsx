@@ -4,14 +4,12 @@ import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import type { Locale } from '@/lib/locales'
-import { ArrowRight, BookOpen, Headphones, MessageCircle, Sparkles } from 'lucide-react'
+import { ArrowRight, BookOpen, Headphones, MessageCircle } from 'lucide-react'
 import PricingSection from '@/components/billing/PricingSection'
 import { LandingFAQ } from '@/components/ui/landing-faq'
 import { LandingNav } from '@/components/ui/landing-nav'
 import { LanguageBubbles } from '@/components/LanguageBubbles'
 import { LandingFooter } from '@/components/landing/LandingFooter'
-import { LandingAiTutorShowcase } from '@/components/landing/LandingAiTutorShowcase'
-import { LandingGamesShowcase } from '@/components/landing/LandingGamesShowcase'
 import type { ReviewPublic } from '@/types/api'
 
 export const metadata: Metadata = {
@@ -51,7 +49,6 @@ export default async function Home() {
   const hasSession = cookieStore.has('refresh_token')
   const locale = await getLocale()
   const t = await getTranslations('landing')
-  const tBilling = await getTranslations('billing')
 
   let stripeEnabled = false
   let trialDays = 7
@@ -67,7 +64,6 @@ export default async function Home() {
       fetch(`${backendUrl}/api/config`, { next: { revalidate: 3600 } }),
       fetch(`${backendUrl}/api/reviews/public?limit=100`, { next: { revalidate: 300 } }),
     ])
-
     if (configRes.ok) {
       const cfg = await configRes.json()
       stripeEnabled = cfg.stripe_enabled ?? false
@@ -79,18 +75,16 @@ export default async function Home() {
     }
     if (reviewsRes.ok) reviews = await reviewsRes.json()
   } catch {
-    // Public landing data is non-fatal.
+    // Landing data is non-fatal.
   }
 
+  const rtl = locale === 'ar'
+
   return (
-    <main
-      className="juba-reference-page min-h-screen overflow-x-hidden"
-      dir={locale === 'ar' ? 'rtl' : 'ltr'}
-      lang={locale}
-    >
+    <main className="juba-busuu-landing min-h-screen overflow-x-hidden" dir={rtl ? 'rtl' : 'ltr'} lang={locale}>
       <LandingNav
         hasSession={hasSession}
-        dir={locale === 'ar' ? 'rtl' : 'ltr'}
+        dir={rtl ? 'rtl' : 'ltr'}
         navFeatures={t('navFeatures')}
         navDemo={t('navDemo')}
         navLanguages={t('navLanguages')}
@@ -108,270 +102,124 @@ export default async function Home() {
         locale={locale as Locale}
       />
 
-      {/* HERO — public Landing composition: bold typography, JUBA LISAN artwork, clear primary CTA. */}
-      <section className="juba-ref-hero">
-        <div className="juba-ref-hero-inner">
-        <span className="juba-hero-line-art juba-hero-line-art-left" aria-hidden="true" />
-        <span className="juba-hero-line-art juba-hero-line-art-right" aria-hidden="true" />
-          <div className="juba-ref-hero-copy">
-            <span className="juba-ref-kicker"><Sparkles className="h-4 w-4" /> {t('heroBadge')}</span>
-            <h1>{t('heroTitle')}</h1>
+      <section className="juba-busuu-hero" aria-labelledby="landing-hero-title">
+        <div className="juba-busuu-container juba-busuu-hero-grid">
+          <div className="juba-busuu-hero-copy">
+            <span className="juba-busuu-eyebrow">{t('heroBadge')}</span>
+            <h1 id="landing-hero-title">{t('heroTitle')}</h1>
             <p>{t('heroSub')}</p>
-            <div className="juba-ref-hero-actions">
-              <Link href={hasSession ? '/dashboard' : '/register'} className="juba-ref-button">
-                {hasSession ? t('dashboard') : t('ctaStart')} <ArrowRight className={`h-5 w-5 ${locale === 'ar' ? 'rotate-180' : ''}`} aria-hidden="true" />
+            <div className="juba-busuu-actions">
+              <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">
+                {hasSession ? t('dashboard') : t('ctaStart')}
+                <ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" />
               </Link>
-              <a href="#features" className="juba-ref-text-link">{t('ctaExplore')}</a>
+              <a href="#languages" className="juba-busuu-secondary">{t('ctaExplore')}</a>
             </div>
           </div>
-
-          <div className="juba-ref-hero-art juba-landing-image-art">
-            <Image
-              src="/landing/juba-hero-characters.svg"
-              alt={t('heroTitle')}
-              width={900}
-              height={700}
-              className="juba-landing-real-image"
-              priority
-            />
+          <div className="juba-busuu-hero-visual">
+            <div className="juba-busuu-hero-disc" aria-hidden="true" />
+            <Image src="/landing/juba-hero-characters.svg" alt={t('heroTitle')} width={900} height={700} priority />
           </div>
         </div>
-        <div className="juba-ref-hero-bottom" aria-hidden="true" />
       </section>
 
-      {/* BUSUU-STYLE LANGUAGE DISCOVERY — JUBA LISAN content, Busuu-inspired information hierarchy. */}
-      <section className="juba-busuu-language-strip" aria-labelledby="juba-language-strip-title">
-        <div className="juba-busuu-section-shell">
-          <div className="juba-busuu-section-heading">
-            <span className="juba-ref-kicker">{t('languagesEyebrow')}</span>
-            <h2 id="juba-language-strip-title">{t('languagesHeadline')}</h2>
+      <section id="languages" className="juba-busuu-language-discovery" aria-labelledby="language-title">
+        <div className="juba-busuu-container">
+          <div className="juba-busuu-heading">
+            <span className="juba-busuu-eyebrow">{t('languagesEyebrow')}</span>
+            <h2 id="language-title">{t('languagesHeadline')}</h2>
             <p>{t('languagesDescription')}</p>
           </div>
-          <div className="juba-busuu-language-stage">
-            <LanguageBubbles dir={locale === 'ar' ? 'rtl' : 'ltr'} />
-          </div>
+          <div className="juba-busuu-language-panel"><LanguageBubbles dir={rtl ? 'rtl' : 'ltr'} /></div>
         </div>
       </section>
 
-      {/* BUSUU-STYLE STATS — factual product capabilities, without invented user numbers. */}
-      <section className="juba-busuu-stats" aria-label="JUBA LISAN highlights">
-        <div className="juba-busuu-stats-grid">
+      <section className="juba-busuu-proof" aria-label="JUBA LISAN capabilities">
+        <div className="juba-busuu-container juba-busuu-proof-grid">
           <div><strong>CEFR</strong><span>{t('languagesDescription')}</span></div>
           <div><strong>AI</strong><span>{t('flowAiDescription')}</span></div>
           <div><strong>VOICE</strong><span>{t('flowVoiceDescription')}</span></div>
         </div>
       </section>
 
-      {/* PRODUCT PILLARS — core learning paths presented in the Landing visual system. */}
-      <section id="features" className="juba-ref-section juba-ref-pillars">
-        <div className="juba-ref-section-heading">
-          <span className="juba-ref-kicker">{t('flowEyebrow')}</span>
-          <h2>{t('flowHeadline')}</h2>
-          <p>{t('flowDescription')}</p>
-        </div>
-        <div className="juba-ref-pillar-grid">
-          <Link href="/reading" className="juba-ref-pillar">
-            <Image src="/landing/juba-reading.svg" alt="" width={210} height={150} className="juba-pillar-image" />
-            <div className="pillar-icon"><BookOpen /></div>
-            <span>{t('languagesEyebrow')}</span>
-            <h3>{t('languagesHeadline')}</h3>
-            <p>{t('languagesDescription')}</p>
-            <ArrowRight className={locale === 'ar' ? 'rotate-180' : undefined} aria-hidden="true" />
-          </Link>
-          <Link href="/listening" className="juba-ref-pillar">
-            <Image src="/landing/juba-listening.svg" alt="" width={210} height={150} className="juba-pillar-image" />
-            <div className="pillar-icon"><Headphones /></div>
-            <span>{t('flowVoiceLabel')}</span>
-            <h3>{t('flowVoiceTitle')}</h3>
-            <p>{t('flowVoiceDescription')}</p>
-            <ArrowRight />
-          </Link>
-          <Link href="/chat" className="juba-ref-pillar">
-            <Image src="/landing/juba-chat.svg" alt="" width={210} height={150} className="juba-pillar-image" />
-            <div className="pillar-icon"><MessageCircle /></div>
-            <span>{t('flowAiLabel')}</span>
-            <h3>{t('flowAiTitle')}</h3>
-            <p>{t('flowAiDescription')}</p>
-            <ArrowRight />
-          </Link>
-        </div>
-      </section>
-
-      <LandingGamesShowcase
-        dir={locale === 'ar' ? 'rtl' : 'ltr'}
-        eyebrow={t('featureSectionLabel')}
-        title={t('bentoTitle')}
-        description={t('bentoSubtitle')}
-        matchingLabel={t('feature6Title')}
-        memoryLabel={t('feature8Title')}
-        orderingLabel={t('feature5Title')}
-        sentenceBuilderLabel={t('feature2Title')}
-        openLabel={t('openInJuba')}
-        practicalEyebrow={t('languagesEyebrow')}
-        practicalTitle={t('languagesHeadline')}
-        practicalDescription={t('languagesDescription')}
-        practicalCta={t('ctaStart')}
-      />
-
-      {/* PRACTICAL SKILLS — Busuu-inspired real-life learning presentation, using JUBA LISAN modules. */}
-      <section className="juba-practical-skills" aria-labelledby="juba-practical-title">
-        <div className="juba-practical-inner">
-          <div className="juba-practical-heading">
-            <span className="juba-ref-kicker">{t('flowEyebrow')}</span>
-            <h2 id="juba-practical-title">{t('flowHeadline')}</h2>
-            <p>{t('flowDescription')}</p>
+      <section id="features" className="juba-busuu-difference" aria-labelledby="difference-title">
+        <div className="juba-busuu-container">
+          <div className="juba-busuu-heading">
+            <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
+            <h2 id="difference-title">{t('bentoTitle')}</h2>
+            <p>{t('bentoSubtitle')}</p>
           </div>
-          <div className="juba-practical-grid">
-            <Link href="/reading" className="juba-practical-card">
-              <Image src="/landing/juba-reading.svg" alt="" width={320} height={220} />
-              <div><span>{t('languagesEyebrow')}</span><h3>{t('languagesHeadline')}</h3><p>{t('languagesDescription')}</p></div>
-              <ArrowRight className={locale === 'ar' ? 'rotate-180' : undefined} aria-hidden="true" />
-            </Link>
-            <Link href="/listening" className="juba-practical-card">
-              <Image src="/landing/juba-listening.svg" alt="" width={320} height={220} />
-              <div><span>{t('flowVoiceLabel')}</span><h3>{t('flowVoiceTitle')}</h3><p>{t('flowVoiceDescription')}</p></div>
-              <ArrowRight className={locale === 'ar' ? 'rotate-180' : undefined} aria-hidden="true" />
-            </Link>
-            <Link href="/chat" className="juba-practical-card">
-              <Image src="/landing/juba-chat.svg" alt="" width={320} height={220} />
-              <div><span>{t('flowAiLabel')}</span><h3>{t('flowAiTitle')}</h3><p>{t('flowAiDescription')}</p></div>
-              <ArrowRight className={locale === 'ar' ? 'rotate-180' : undefined} aria-hidden="true" />
-            </Link>
+          <div className="juba-busuu-feature-grid">
+            <Link href="/reading" className="juba-busuu-feature"><Image src="/landing/juba-reading.svg" alt="" width={360} height={250} /><span>{t('languagesEyebrow')}</span><h3>{t('feature2Title')}</h3><p>{t('feature2Description')}</p></Link>
+            <Link href="/chat" className="juba-busuu-feature"><Image src="/landing/juba-chat.svg" alt="" width={360} height={250} /><span>{t('flowAiLabel')}</span><h3>{t('feature7Title')}</h3><p>{t('feature7Description')}</p></Link>
+            <Link href="/listening" className="juba-busuu-feature"><Image src="/landing/juba-listening.svg" alt="" width={360} height={250} /><span>{t('flowVoiceLabel')}</span><h3>{t('feature3Title')}</h3><p>{t('feature3Description')}</p></Link>
           </div>
         </div>
       </section>
 
-      {/* LANGUAGE DIRECTORY — public discovery of supported learning languages. */}
-      <section id="languages" className="juba-ref-language-section">
-        <div className="juba-ref-language-copy">
-          <span className="juba-ref-kicker">{t('languagesEyebrow')}</span>
-          <h2>{t('languagesHeadline')}</h2>
-          <p>{t('languagesDescription')}</p>
-          <Link href="/register" className="juba-ref-button">{t('ctaStart')} <ArrowRight className={`h-4 w-4 ${locale === 'ar' ? 'rotate-180' : ''}`} aria-hidden="true" /></Link>
-        </div>
-        <div className="juba-ref-language-art">
-          <div className="juba-ref-language-overlay">
-            <LanguageBubbles dir={locale === 'ar' ? 'rtl' : 'ltr'} />
-          </div>
-        </div>
-      </section>
-
-      {/* AI / VOICE — public conversation-learning showcase. */}
-      <LandingAiTutorShowcase
-        dir={locale === 'ar' ? 'rtl' : 'ltr'}
-        imageAlt={t('flowAiTitle')}
-        userMessage={t('showcaseUserMsg')}
-        aiMessage={t('showcaseAiMsg')}
-        activeLabel={t('showcaseMicActive')}
-        speakingLabel={t('showcaseSpeaking')}
-        openLabel={t('openAiTutor')}
-      />
-
-      {/* REAL PUBLIC REVIEWS ONLY. */}
       {reviews.length > 0 && (
-        <section id="reviews" className="juba-ref-reviews">
-          <div className="juba-ref-section-heading">
-            <span className="juba-ref-kicker">{t('navReviews')}</span>
-            <h2>{t('navReviews')}</h2>
-          </div>
-          <div className="juba-ref-review-grid">
-            {reviews.slice(0, 6).map((review) => (
-              <article key={review.id} className="juba-ref-review-card">
-                <p>“{review.comment ?? ''}”</p>
-                <strong>{review.user_display_name || 'JUBA LISAN learner'}</strong>
-              </article>
-            ))}
+        <section id="reviews" className="juba-busuu-testimonials" aria-labelledby="reviews-title">
+          <div className="juba-busuu-container">
+            <div className="juba-busuu-heading"><span className="juba-busuu-eyebrow">{t('navReviews')}</span><h2 id="reviews-title">{t('navReviews')}</h2></div>
+            <div className="juba-busuu-testimonial-grid">
+              {reviews.slice(0, 6).map((review) => <article key={review.id} className="juba-busuu-testimonial"><p>“{review.comment ?? ''}”</p><strong>{review.user_display_name || 'JUBA LISAN learner'}</strong></article>)}
+            </div>
           </div>
         </section>
       )}
 
-      {/* EDITORIAL SLOGAN — a Busuu-inspired brand moment using only real JUBA LISAN themes. */}
-      <section className="juba-editorial-slogan" aria-label={t('flowHeadline')}>
-        <div className="juba-editorial-slogan-track">
-          <span>{t('languagesHeadline')}</span><b aria-hidden="true">•</b>
-          <span>{t('flowVoiceTitle')}</span><b aria-hidden="true">•</b>
-          <span>{t('flowAiTitle')}</span><b aria-hidden="true">•</b>
-          <span>{t('languagesHeadline')}</span><b aria-hidden="true">•</b>
-          <span>{t('flowVoiceTitle')}</span><b aria-hidden="true">•</b>
-          <span>{t('flowAiTitle')}</span>
+      <section className="juba-busuu-slogan" aria-hidden="true">
+        <div className="juba-busuu-slogan-track">
+          <span>{t('languagesHeadline')}</span><b>•</b><span>{t('flowVoiceTitle')}</span><b>•</b><span>{t('flowAiTitle')}</span><b>•</b>
+          <span>{t('languagesHeadline')}</span><b>•</b><span>{t('flowVoiceTitle')}</span><b>•</b><span>{t('flowAiTitle')}</span>
         </div>
       </section>
 
-      {/* PUBLIC PRICING — visitor-visible plans using the existing billing data. */}
-      <section id="pricing" className="juba-ref-pricing">
-        <PricingSection
-          stripeEnabled={stripeEnabled}
-          trialDays={trialDays}
-          hasSession={hasSession}
-          priceMonthly={priceMonthly}
-          priceYearly={priceYearly}
-          totalPriceMonthly={totalPriceMonthly}
-          totalPriceYearly={totalPriceYearly}
-        />
+      <section className="juba-busuu-practical" aria-labelledby="practical-title">
+        <div className="juba-busuu-container juba-busuu-practical-grid">
+          <div className="juba-busuu-practical-copy">
+            <span className="juba-busuu-eyebrow">{t('flowEyebrow')}</span>
+            <h2 id="practical-title">{t('flowHeadline')}</h2>
+            <p>{t('flowDescription')}</p>
+            <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">{hasSession ? t('dashboard') : t('ctaStart')}<ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" /></Link>
+          </div>
+          <div className="juba-busuu-practical-media"><Image src="/landing/juba-learning-journey.svg" alt="" width={760} height={620} /></div>
+        </div>
       </section>
 
-      <section className="juba-ref-cta">
-        <div className="juba-ref-cta-inner">
-          <div>
-            <span className="juba-ref-kicker">{t('heroBadge')}</span>
-            <h2>{t('ctaStart')}</h2>
-            <p>{t('heroSub')}</p>
-            <Link href={hasSession ? '/dashboard' : '/register'} className="juba-ref-button">
-              {hasSession ? t('dashboard') : t('ctaStart')} <ArrowRight className={`h-4 w-4 ${locale === 'ar' ? 'rotate-180' : ''}`} aria-hidden="true" />
-            </Link>
-          </div>
-          <div className="juba-ref-cta-device">
-            <Image
-              src="/landing/juba-learning-journey.svg"
-              alt={t('ctaStart')}
-              width={760}
-              height={620}
-              className="juba-landing-real-image juba-cta-real-image"
-            />
+      <section className="juba-busuu-benefits" aria-labelledby="benefits-title">
+        <div className="juba-busuu-container">
+          <div className="juba-busuu-heading"><span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span><h2 id="benefits-title">{t('bentoTitle')}</h2></div>
+          <div className="juba-busuu-benefit-list">
+            <article><BookOpen aria-hidden="true" /><div><h3>{t('feature2Title')}</h3><p>{t('feature2Description')}</p></div></article>
+            <article><MessageCircle aria-hidden="true" /><div><h3>{t('feature7Title')}</h3><p>{t('feature7Description')}</p></div></article>
+            <article><Headphones aria-hidden="true" /><div><h3>{t('feature3Title')}</h3><p>{t('feature3Description')}</p></div></article>
           </div>
         </div>
       </section>
 
-      {/* BENEFITS — Busuu-style closing product proof, grounded in existing JUBA LISAN features. */}
-      <section className="juba-benefits" aria-labelledby="juba-benefits-title">
-        <div className="juba-benefits-inner">
-          <div className="juba-benefits-heading">
-            <span className="juba-ref-kicker">{t('featureSectionLabel')}</span>
-            <h2 id="juba-benefits-title">{t('bentoTitle')}</h2>
-            <p>{t('bentoSubtitle')}</p>
-          </div>
-          <div className="juba-benefits-grid">
-            <article className="juba-benefit-card">
-              <div className="juba-benefit-number">01</div>
-              <BookOpen aria-hidden="true" />
-              <h3>{t('feature2Title')}</h3>
-              <p>{t('feature2Description')}</p>
-            </article>
-            <article className="juba-benefit-card">
-              <div className="juba-benefit-number">02</div>
-              <MessageCircle aria-hidden="true" />
-              <h3>{t('feature7Title')}</h3>
-              <p>{t('feature7Description')}</p>
-            </article>
-            <article className="juba-benefit-card">
-              <div className="juba-benefit-number">03</div>
-              <Headphones aria-hidden="true" />
-              <h3>{t('feature3Title')}</h3>
-              <p>{t('feature3Description')}</p>
-            </article>
-          </div>
+      <section id="pricing" className="juba-busuu-pricing">
+        <div className="juba-busuu-container">
+          <div className="juba-busuu-heading"><span className="juba-busuu-eyebrow">{t('navPricing')}</span><h2>{t('navPricing')}</h2></div>
+          <PricingSection stripeEnabled={stripeEnabled} trialDays={trialDays} hasSession={hasSession} priceMonthly={priceMonthly} priceYearly={priceYearly} totalPriceMonthly={totalPriceMonthly} totalPriceYearly={totalPriceYearly} />
         </div>
       </section>
 
-      <section id="faq" className="juba-ref-faq">
-        <div className="juba-ref-section-heading">
-          <span className="juba-ref-kicker">{t('navFAQ')}</span>
-          <h2>{t('faqTitle')}</h2>
+      <section id="faq" className="juba-busuu-faq">
+        <div className="juba-busuu-container">
+          <div className="juba-busuu-heading"><span className="juba-busuu-eyebrow">{t('navFAQ')}</span><h2>{t('faqTitle')}</h2></div>
+          <LandingFAQ dir={rtl ? 'rtl' : 'ltr'} />
         </div>
-        <LandingFAQ dir={locale === 'ar' ? 'rtl' : 'ltr'} />
       </section>
 
-      <LandingFooter t={t} dir={locale === 'ar' ? 'rtl' : 'ltr'} />
+      <section className="juba-busuu-final-cta">
+        <div className="juba-busuu-container juba-busuu-final-cta-inner">
+          <div><span className="juba-busuu-eyebrow">{t('heroBadge')}</span><h2>{t('ctaStart')}</h2><p>{t('heroSub')}</p><Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">{hasSession ? t('dashboard') : t('ctaStart')}<ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" /></Link></div>
+          <Image src="/landing/juba-hero-characters.svg" alt="" width={700} height={520} />
+        </div>
+      </section>
+
+      <LandingFooter t={t} dir={rtl ? 'rtl' : 'ltr'} />
     </main>
   )
 }
