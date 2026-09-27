@@ -389,7 +389,7 @@ html[data-theme='light'] {
 .juba-busuu-nav-cta:hover,.juba-busuu-primary:hover{background:var(--busuu-green-dark);transform:translateY(-1px)}
 .juba-busuu-locale-menu{position:relative}
 .juba-busuu-locale{
-  display:inline-flex;align-items:center;gap:4px;height:38px;padding:0 10px;
+  display:inline-flex;align-items:center;gap:4px;min-height:44px;padding:0 10px;
   list-style:none;border:1px solid var(--busuu-line);border-radius:6px;
   color:var(--busuu-ink);font-size:12px;font-weight:800;cursor:pointer;
 }
@@ -415,8 +415,8 @@ html[data-theme='light'] {
   display:grid;grid-template-columns:1fr 1fr;gap:2px;
 }
 .juba-busuu-locale-options a{
-  padding:9px 8px;border-radius:4px;color:var(--busuu-ink)!important;
-  font-size:12px;text-decoration:none;
+  min-height:44px;display:flex;align-items:center;padding:9px 8px;border-radius:4px;
+  color:var(--busuu-ink)!important;font-size:12px;text-decoration:none;
 }
 .juba-busuu-locale-options a:hover,.juba-busuu-locale-options a[aria-current=page]{background:var(--busuu-soft);color:var(--busuu-green-dark)!important}
 .juba-busuu-menu{display:none}
