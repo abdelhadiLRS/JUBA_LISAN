@@ -729,3 +729,71 @@ html[dir='rtl'] body {
     min-height: 100vh !important;
   }
 }
+
+
+/* Semantic shell hooks — keep navigation visually consistent across every
+   authenticated page without coupling the design to route-specific markup. */
+.juba-learning-shell {
+  --sidebar-width: 258px;
+}
+
+.juba-learning-sidebar {
+  width: var(--sidebar-width) !important;
+  min-width: var(--sidebar-width) !important;
+  box-shadow: 2px 0 0 rgba(0,0,0,.025) !important;
+}
+
+.juba-learning-sidebar > div:first-child {
+  min-height: 72px !important;
+}
+
+.juba-learning-sidebar .juba-learning-nav a,
+.juba-learning-sidebar .juba-learning-nav button {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.juba-learning-sidebar .juba-learning-nav a::after {
+  content: '' !important;
+  position: absolute !important;
+  inset-inline-end: 10px !important;
+  top: 50% !important;
+  width: 5px !important;
+  height: 5px !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  transform: translateY(-50%) !important;
+}
+
+.juba-learning-sidebar .juba-learning-nav a:hover::after {
+  background: #cfcfcf !important;
+}
+
+.juba-learning-sidebar .juba-learning-nav a[class*='bg-fl-surface-2']::after {
+  background: var(--juba-learning-green) !important;
+}
+
+.juba-learning-main > div:last-child {
+  scrollbar-width: thin !important;
+  scrollbar-color: #d5d5d5 transparent !important;
+}
+
+.juba-learning-main > div:last-child::-webkit-scrollbar {
+  width: 9px !important;
+}
+
+.juba-learning-main > div:last-child::-webkit-scrollbar-thumb {
+  background: #d5d5d5 !important;
+  border-radius: 999px !important;
+  border: 3px solid var(--juba-learning-bg) !important;
+}
+
+@media (max-width: 767px) {
+  .juba-learning-shell {
+    display: block !important;
+  }
+
+  .juba-learning-main {
+    width: 100% !important;
+  }
+}
