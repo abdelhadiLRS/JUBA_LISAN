@@ -16,12 +16,8 @@ export function LandingFooter({ t, dir = 'ltr', showReviews = false }: LandingFo
     ['Deutsch', 'de'],
     ['Italiano', 'it'],
     ['Português', 'pt'],
-    ['日本語', 'ja'],
-    ['한국어', 'ko'],
     ['العربية', 'ar'],
-    ['中文', 'zh'],
     ['Русский', 'ru'],
-    ['Türkçe', 'tr'],
     ['Nederlands', 'nl'],
     ['Polski', 'pl'],
   ]
