@@ -12,6 +12,17 @@ def test_czech_foundation_runtime_seeds_cover_a2_to_c2():
             assert seed is not None
             assert seed["title"]
             assert seed["objective"]
+            assert seed["source"] == "language_foundation"
+
+            if skill == "reading":
+                assert seed.get("text")
+                assert len(seed.get("questions", [])) >= 3
+            elif skill == "listening":
+                assert seed.get("transcript")
+            elif skill in {"speaking", "writing"}:
+                assert seed.get("prompt")
+            elif skill == "vocabulary":
+                assert seed.get("words")
 
 
 def test_unknown_foundation_language_returns_none():
