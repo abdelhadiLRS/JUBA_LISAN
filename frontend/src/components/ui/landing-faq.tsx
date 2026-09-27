@@ -93,7 +93,7 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
                   isOpen ? 'rotate-180' : ''
                 }`}
               >
-                <ChevronDown className="h-4 w-4 text-[var(--juba-app-ink)]" />
+                <ChevronDown className="h-4 w-4 text-[var(--busuu-ink)]" />
               </span>
             </button>
             {isOpen && (
