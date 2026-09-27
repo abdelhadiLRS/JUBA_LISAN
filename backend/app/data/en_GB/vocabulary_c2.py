@@ -201,14 +201,6 @@ C2_SETS: list[VocabularySet] = [
                 ipa="/ˈpredɪkeɪtɪd ɒn/",
             ),
             VocabularyEntry(
-                word="elucidate",
-                pos="verb",
-                definition="To make something clear; to explain.",
-                example="Could you elucidate your reasoning?",
-                ipa="/ɪˈluːsɪdeɪt/",
-                frequency_rank=510,
-            ),
-            VocabularyEntry(
                 word="promulgate",
                 pos="verb",
                 definition="To make known by official proclamation.",
