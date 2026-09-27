@@ -132,14 +132,14 @@ export function LandingGamesShowcase({
           <p>{practicalDescription}</p>
           <Link href="/register" className="juba-ref-button">{practicalCta}</Link>
         </div>
-        <div className="juba-practical-language-grid" role="list" aria-label={practicalTitle}>
+        <div className="juba-practical-language-grid" role="group" aria-label={practicalTitle}>
           {[
             ['🇬🇧','English','الإنجليزية'],['🇪🇸','Español','الإسبانية'],['🇫🇷','Français','الفرنسية'],['🇩🇪','Deutsch','الألمانية'],
             ['🇮🇹','Italiano','الإيطالية'],['🇵🇹','Português','البرتغالية'],['🇯🇵','日本語','اليابانية'],['🇰🇷','한국어','الكورية'],
             ['🇩🇿','العربية','العربية'],['🇷🇺','Русский','الروسية'],['🇹🇷','Türkçe','التركية'],['🇨🇳','中文','الصينية'],
             ['🇳🇱','Nederlands','الهولندية'],['🇵🇱','Polski','البولندية'],
           ].map(([flag,name,arName]) => (
-            <Link key={name} href="/register" role="listitem" aria-label={`${practicalCta}: ${dir === 'rtl' ? arName : name}`} className="juba-practical-language-card">
+            <Link key={name} href="/register" aria-label={`${practicalCta}: ${dir === 'rtl' ? arName : name}`} className="juba-practical-language-card">
               <span className="juba-practical-language-flag" aria-hidden="true">{flag}</span>
               <span><strong>{dir === 'rtl' ? arName : name}</strong><small>{dir === 'rtl' ? name : 'JUBA LISAN'}</small></span>
             </Link>
