@@ -1859,3 +1859,32 @@ def test_en_gb_a2_transport_examples_show_practical_context():
         for fragment in fragments:
             assert fragment.lower() in example, word
 
+
+
+def test_en_gb_a2_travel_vocabulary_examples_are_actionable():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {
+        entry.word: entry
+        for vocab_set in A2_SETS
+        for entry in vocab_set.words
+    }
+    expected = {
+        "passport": ["airport check-in", "boarding pass"],
+        "luggage": ["weight limit", "hand luggage"],
+        "check in": ["room key", "leave our bags"],
+        "reservation": ["two nights", "room type"],
+        "destination": ["train announcement", "get off"],
+        "sightseeing": ["old town", "historic buildings"],
+        "souvenir": ["museum shop", "remind her"],
+        "currency": ["exchange rate", "yen"],
+        "customs": ["signs to customs", "inspect passengers"],
+        "accommodation": ["near the station", "arriving late"],
+        "itinerary": ["train times", "hotel addresses"],
+        "tour": ["guided tour", "oldest square"],
+    }
+    for word, fragments in expected.items():
+        example = entries[word].example.lower()
+        for fragment in fragments:
+            assert fragment.lower() in example, word
+
