@@ -1142,3 +1142,21 @@ html[data-theme='light'] {
 .juba-duo-shell .text-fl-muted-1,
 .juba-duo-shell .text-fl-muted-2,
 .juba-duo-shell .text-fl-muted-4{color:#68736d!important}
+/* Landing accessibility: respect users who request reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-landing *,
+  .juba-busuu-landing *::before,
+  .juba-busuu-landing *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .juba-busuu-landing .juba-busuu-feature:hover,
+  .juba-busuu-landing .juba-busuu-feature:hover img,
+  .juba-busuu-landing .juba-busuu-nav-cta:hover,
+  .juba-busuu-landing .juba-busuu-primary:hover {
+    transform: none !important;
+  }
+}
