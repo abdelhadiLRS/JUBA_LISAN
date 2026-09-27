@@ -4,78 +4,66 @@ export default function AppLoading() {
   const t = useTranslations('common')
 
   return (
-    <div className="page juba-tabler-app min-h-screen bg-[#f5f7fb]">
-      <div className="page-wrapper min-w-0 w-100">
-        <header className="navbar navbar-expand-md navbar-light bg-white border-bottom">
-          <div className="container-fluid flex-nowrap gap-3">
-            <div className="navbar-brand d-flex align-items-center gap-2 me-2">
-              <span className="avatar avatar-sm rounded-2 bg-primary text-white fw-bold">JL</span>
-              <span className="fw-bold text-dark">JUBA LISAN</span>
-            </div>
-            <div className="flex-fill overflow-visible min-w-0 juba-top-nav-shell">
-              <div className="navbar-nav flex-row flex-nowrap align-items-center gap-1 juba-top-nav">
-                <span className="placeholder rounded-2" style={{ width: 72, height: 28 }} />
-                <span className="placeholder rounded-2" style={{ width: 84, height: 28 }} />
-                <span className="placeholder rounded-2" style={{ width: 96, height: 28 }} />
-                <span className="placeholder rounded-2" style={{ width: 88, height: 28 }} />
-              </div>
-            </div>
-            <div className="navbar-nav flex-row align-items-center gap-2 ms-auto">
-              <span className="placeholder rounded-circle" style={{ width: 36, height: 36 }} />
-              <span className="placeholder rounded-2" style={{ width: 76, height: 28 }} />
-              <span className="placeholder rounded-circle" style={{ width: 36, height: 36 }} />
-              <span className="placeholder rounded-2" style={{ width: 36, height: 28 }} />
-            </div>
-          </div>
+    <div className="juba-duo-shell min-h-screen bg-[#f8faf7] text-[#30343b]">
+      <aside className="juba-duo-sidebar hidden lg:flex">
+        <div className="juba-duo-logo-mark" aria-hidden="true">JL</div>
+        <div className="mt-6 w-full space-y-2">
+          <span className="juba-loading-pill block h-11 w-full rounded-xl" />
+          <span className="juba-loading-pill block h-11 w-full rounded-xl" />
+          <span className="juba-loading-pill block h-11 w-full rounded-xl" />
+          <span className="juba-loading-pill block h-11 w-full rounded-xl" />
+          <span className="juba-loading-pill block h-11 w-full rounded-xl" />
+        </div>
+        <div className="mt-auto w-full space-y-2">
+          <span className="juba-loading-pill block h-10 w-full rounded-xl" />
+          <span className="juba-loading-pill block h-10 w-full rounded-xl" />
+        </div>
+      </aside>
+
+      <div className="juba-duo-main min-h-screen">
+        <header className="flex items-center justify-between border-b border-[#e1e5e2] bg-white px-4 py-3 lg:hidden">
+          <div className="juba-duo-mobile-brand">JUBA LISAN</div>
+          <span className="juba-loading-pill h-10 w-10 rounded-xl" />
         </header>
 
-        <div className="juba-page-context bg-white border-bottom">
-          <div className="container-xl py-3">
-            <div className="d-flex align-items-center gap-3">
-              <span className="placeholder rounded-2 flex-shrink-0" style={{ width: 40, height: 40 }} />
-              <div className="min-w-0">
-                <span className="placeholder d-block mb-2" style={{ width: 110, height: 10 }} />
-                <span className="placeholder d-block" style={{ width: 150, height: 24 }} />
+        <main className="min-h-screen bg-[#f8faf7] px-3 py-5 sm:px-6 sm:py-8">
+          <div className="mx-auto max-w-6xl space-y-5">
+            <section className="rounded-2xl border border-[#e1e5e2] bg-white p-5 sm:p-7">
+              <div className="juba-loading-pill h-4 w-28 rounded-lg" />
+              <div className="juba-loading-pill mt-3 h-8 w-2/3 max-w-md rounded-lg" />
+              <div className="juba-loading-pill mt-3 h-4 w-full max-w-xl rounded-lg" />
+              <div className="mt-6 flex flex-wrap gap-3">
+                <span className="juba-loading-pill h-10 w-24 rounded-xl" />
+                <span className="juba-loading-pill h-10 w-24 rounded-xl" />
               </div>
-            </div>
-          </div>
-        </div>
+            </section>
 
-        <main className="page-body bg-[#f5f7fb]">
-          <div className="container-xl py-4">
-            <div className="juba-app-page">
-              <div className="row g-4">
-                <div className="col-12">
-                  <div className="card">
-                    <div className="card-body p-4">
-                      <div className="placeholder col-5 mb-3" style={{ height: 28 }} />
-                      <div className="placeholder col-8 mb-2" style={{ height: 14 }} />
-                      <div className="placeholder col-6" style={{ height: 14 }} />
-                    </div>
-                  </div>
+            <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+              <section className="rounded-2xl border border-[#e1e5e2] bg-white p-5 sm:p-7">
+                <div className="juba-loading-pill h-5 w-32 rounded-lg" />
+                <div className="mt-5 space-y-4">
+                  <div className="juba-loading-pill h-20 w-full rounded-2xl" />
+                  <div className="juba-loading-pill h-20 w-full rounded-2xl" />
+                  <div className="juba-loading-pill h-20 w-full rounded-2xl" />
                 </div>
-                <div className="col-12 col-md-6">
-                  <div className="card h-100">
-                    <div className="card-body p-4">
-                      <div className="placeholder col-4 mb-3" style={{ height: 20 }} />
-                      <div className="placeholder col-10 mb-2" style={{ height: 12 }} />
-                      <div className="placeholder col-7" style={{ height: 12 }} />
-                    </div>
-                  </div>
+              </section>
+
+              <aside className="space-y-4">
+                <div className="rounded-2xl border border-[#e1e5e2] bg-white p-5">
+                  <div className="juba-loading-pill h-5 w-28 rounded-lg" />
+                  <div className="juba-loading-pill mt-4 h-3 w-full rounded-lg" />
+                  <div className="juba-loading-pill mt-2 h-3 w-4/5 rounded-lg" />
                 </div>
-                <div className="col-12 col-md-6">
-                  <div className="card h-100">
-                    <div className="card-body p-4">
-                      <div className="placeholder col-4 mb-3" style={{ height: 20 }} />
-                      <div className="placeholder col-10 mb-2" style={{ height: 12 }} />
-                      <div className="placeholder col-7" style={{ height: 12 }} />
-                    </div>
-                  </div>
+                <div className="rounded-2xl border border-[#e1e5e2] bg-white p-5">
+                  <div className="juba-loading-pill h-5 w-36 rounded-lg" />
+                  <div className="juba-loading-pill mt-4 h-3 w-full rounded-lg" />
+                  <div className="juba-loading-pill mt-2 h-3 w-3/5 rounded-lg" />
                 </div>
-              </div>
-              <div className="visually-hidden" role="status" aria-live="polite">
-                {t('loading')}
-              </div>
+              </aside>
+            </div>
+
+            <div className="visually-hidden" role="status" aria-live="polite">
+              {t('loading')}
             </div>
           </div>
         </main>
