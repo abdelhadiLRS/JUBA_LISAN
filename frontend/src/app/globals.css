@@ -628,9 +628,6 @@ html[data-theme='light'] {
 .juba-busuu-landing .juba-busuu-footer-bottom a{color:#9da9a3!important;text-decoration:none}
 
 /* Responsive */
-.juba-busuu-stats-grid{grid-template-columns:repeat(2,1fr)}
-.juba-busuu-stats-grid article:nth-child(3){border-inline-start:0;border-top:1px solid var(--busuu-line)}
-.juba-busuu-stats-grid article:nth-child(4){border-top:1px solid var(--busuu-line)}
 @media(max-width:1000px){
   .juba-busuu-nav-links{display:none}.juba-busuu-nav-actions{display:none}
   .juba-busuu-menu{
@@ -662,10 +659,10 @@ html[data-theme='light'] {
   .juba-busuu-landing .juba-busuu-footer-intro{align-items:flex-start;flex-direction:column}
   .juba-busuu-landing .juba-busuu-footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   .juba-busuu-landing .juba-busuu-footer-language{grid-template-columns:1fr}
+  .juba-busuu-stats-grid{grid-template-columns:repeat(2,1fr)}
+  .juba-busuu-stats-grid article:nth-child(3){border-inline-start:0;border-top:1px solid var(--busuu-line)}
+  .juba-busuu-stats-grid article:nth-child(4){border-top:1px solid var(--busuu-line)}
 }
-.juba-busuu-stats{padding-bottom:72px}
-.juba-busuu-stats-grid{grid-template-columns:1fr 1fr}
-.juba-busuu-stats-grid article{min-height:125px;padding:24px 16px}
 @media(max-width:600px){
   .juba-busuu-container,.juba-busuu-nav-inner,.juba-busuu-language-discovery>.juba-busuu-container{width:calc(100% - 28px)}
   .juba-busuu-nav-inner{min-height:66px}.juba-busuu-brand img{width:124px}
@@ -678,6 +675,9 @@ html[data-theme='light'] {
   .juba-busuu-language-item{min-width:112px;min-height:105px}
   .juba-busuu-language-item img{width:46px;height:46px}
   .juba-busuu-language-discovery{padding-bottom:72px}
+  .juba-busuu-stats{padding-bottom:72px}
+  .juba-busuu-stats-grid{grid-template-columns:1fr 1fr}
+  .juba-busuu-stats-grid article{min-height:125px;padding:24px 16px}
   .juba-busuu-difference,.juba-busuu-testimonials,.juba-busuu-practical,.juba-busuu-benefits,.juba-busuu-pricing,.juba-busuu-faq{padding:78px 0}
   .juba-busuu-feature img{height:210px}.juba-busuu-testimonial{min-height:0}
   .juba-busuu-practical-media{min-height:290px;border-radius:18px}
