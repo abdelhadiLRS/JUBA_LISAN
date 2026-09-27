@@ -204,6 +204,42 @@ def get_foundation_lesson_seed(
         "content_quality": content_quality,
     }
 
+    # Keep each skill aligned to the same learning cycle while making the
+    # learner action specific to the skill rather than relying on raw data.
+    base["skill_quality"] = {
+        "grammar": {
+            "focus": "notice -> controlled use -> contrast -> independent production",
+            "evidence": "Produce one accurate sentence in a changed context and explain the key form.",
+        },
+        "vocabulary": {
+            "focus": "notice -> meaning -> collocation -> retrieval -> transfer",
+            "evidence": "Use target words naturally with appropriate collocations in a new situation.",
+        },
+        "reading": {
+            "focus": "predict -> understand -> retrieve -> infer -> respond",
+            "evidence": "Support an answer with information from the text and reuse one target item.",
+        },
+        "listening": {
+            "focus": "predict -> listen for gist -> listen for detail -> retrieve -> respond",
+            "evidence": "Report a key detail accurately and reuse one expression from the input.",
+        },
+        "speaking": {
+            "focus": "plan -> produce -> follow-up -> repair -> extend",
+            "evidence": "Respond spontaneously to a follow-up while maintaining target-language accuracy.",
+        },
+        "writing": {
+            "focus": "plan -> draft -> connect -> review -> revise",
+            "evidence": "Revise one sentence for clarity, grammar, or register rather than only correcting spelling.",
+        },
+        "review": {
+            "focus": "retrieve -> discriminate -> apply -> explain -> reflect",
+            "evidence": "Demonstrate retained language without relying on the original lesson model.",
+        },
+    }.get(skill, {
+        "focus": "retrieve -> practise -> transfer",
+        "evidence": "Use the target language accurately in a changed context.",
+    })
+
     if skill == "grammar":
         base["objective"] = f"Use the target grammar for {title} at {level} level."
         base["scenario"] = f"Complete a short real-life interaction related to {title} using the target structure."
