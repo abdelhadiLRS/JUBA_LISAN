@@ -31,7 +31,7 @@ export function LandingAiTutorShowcase({
 
   return (
     <section id="ai-tutor" aria-labelledby="juba-ai-tutor-title" dir={dir} className="juba-ai-showcase">
-      <div className="juba-ai-showcase-art">
+      <div className={`juba-ai-showcase-art ${playing ? 'is-playing' : ''}`} data-playing={playing ? 'true' : 'false'}>
         <Image
           src="/landing/juba-ai-tutor.svg"
           alt={imageAlt}
