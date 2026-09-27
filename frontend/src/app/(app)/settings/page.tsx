@@ -83,15 +83,15 @@ export default function SettingsPage() {
 
           <div className="border-fl-border bg-fl-surface border p-6">
             <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-4">
-              <span className="text-[rgba(32,33,39,.52)] text-fl-muted-2">●</span>
-              <span className="text-[rgba(32,33,39,.52)] text-fl-muted-2 font-sans tracking-wide">
+              <span className="text-secondary text-fl-muted-2">●</span>
+              <span className="text-secondary text-fl-muted-2 font-sans tracking-wide">
                 {t('cardSessionSecurity')}
               </span>
             </div>
             <div className="space-y-2">
               <button
                 onClick={() => setLogoutConfirm(true)}
-                className="text-[rgba(32,33,39,.52)] text-fl-muted-2 border-fl-border hover:text-fl-error hover:border-red-200/50 w-full border py-3 font-sans tracking-wide transition-colors"
+                className="text-secondary text-fl-muted-2 border-fl-border hover:text-fl-error hover:border-red-200/50 w-full border py-3 font-sans tracking-wide transition-colors"
               >
                 {tCommon('logout')}
               </button>
@@ -100,7 +100,7 @@ export default function SettingsPage() {
                 <button
                   onClick={() => setDeleteConfirm(true)}
                   disabled={deleting}
-                  className="text-[rgba(32,33,39,.52)] text-fl-error border-red-200/50 hover:border-fl-error/70 w-full border py-3 font-sans tracking-wide transition-colors disabled:opacity-40"
+                  className="text-secondary text-fl-error border-red-200/50 hover:border-fl-error/70 w-full border py-3 font-sans tracking-wide transition-colors disabled:opacity-40"
                 >
                   {t('deleteAccount')}
                 </button>
@@ -134,8 +134,8 @@ export default function SettingsPage() {
         <SettingsPanel id="legal" title={t('sectionLegal')}>
           <div className="border-fl-border bg-fl-surface border p-6">
             <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-4">
-              <span className="text-[rgba(32,33,39,.52)] text-fl-muted-2">●</span>
-              <span className="text-[rgba(32,33,39,.52)] text-fl-muted-2 font-sans tracking-wide">
+              <span className="text-secondary text-fl-muted-2">●</span>
+              <span className="text-secondary text-fl-muted-2 font-sans tracking-wide">
                 {t('cardLegalDocuments')}
               </span>
             </div>
