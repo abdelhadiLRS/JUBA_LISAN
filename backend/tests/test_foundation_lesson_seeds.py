@@ -356,6 +356,30 @@ def test_en_gb_c2_avoids_redundant_c1_headwords():
     assert "extrapolate" not in c1_headwords
 
 
+
+def test_en_gb_c1_c2_examples_demonstrate_advanced_semantic_use():
+    """Selected C1/C2 examples should teach collocation, nuance, and analytical context."""
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+    from app.data.en_GB.vocabulary_c2 import C2_SETS
+
+    c1 = {entry.word: entry for vocab_set in C1_SETS for entry in vocab_set.words}
+    c2 = {entry.word: entry for vocab_set in C2_SETS for entry in vocab_set.words}
+
+    assert "regulator's authority" in c1["ambiguity"].example
+    assert "management paradigm" in c1["paradigm"].example
+    assert "fragile consensus" in c1["consensus"].example
+    assert "licensing requirements" in c1["circumvent"].example
+    assert "community clinics" in c1["alleviate"].example
+
+    assert "certainty is possible" in c2["epistemology"].example
+    assert "ontological assumptions" in c2["ontology"].example
+    assert "socially neutral" in c2["hegemony"].example
+    assert "precedence over equity" in c2["interrogate"].example
+    assert "reproduced through institutions" in c2["posit"].example
+    assert "climate resilience" in c2["discourse"].example
+    assert "social and economic constraints" in c2["reductionism"].example
+    assert "stronger evidence emerges" in c2["tenet"].example
+
 def test_en_gb_c2_has_no_duplicate_headword_and_part_of_speech():
     """Avoid teaching the same C2 headword twice with the same grammatical role."""
     from app.data.en_GB.vocabulary_c2 import C2_SETS
