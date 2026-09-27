@@ -16,14 +16,14 @@ A1_CATEGORIES: list[PhrasebookCategory] = [
                 register="informal",
             ),
             PhrasebookEntry(
-                text="Good morning.", context="Greeting before noon", register="formal"
+                text="Good morning.", context="Standard greeting used in the morning in everyday and professional settings", register="neutral"
             ),
             PhrasebookEntry(
                 text="Good afternoon.",
-                context="Greeting between noon and 6 pm",
-                register="formal",
+                context="Standard greeting used from around midday until early evening in everyday or professional settings",
+                register="neutral",
             ),
-            PhrasebookEntry(text="Good evening.", context="Greeting after 6 pm", register="formal"),
+            PhrasebookEntry(text="Good evening.", context="Standard greeting used in the evening when arriving or beginning a conversation", register="neutral"),
             PhrasebookEntry(
                 text="How are you?",
                 context="Asking about well-being",
@@ -133,12 +133,12 @@ A1_CATEGORIES: list[PhrasebookCategory] = [
             ),
             PhrasebookEntry(
                 text="Not at all.",
-                context="British alternative to 'You're welcome' — slightly more formal",
+                context="Polite response to thanks, especially to reassure someone that no trouble was caused",
                 register="neutral",
             ),
             PhrasebookEntry(
                 text="My pleasure.",
-                context="Warm British response to thanks",
+                context="Friendly response to thanks, often used when helping someone was genuinely welcome",
                 register="neutral",
             ),
         ],
