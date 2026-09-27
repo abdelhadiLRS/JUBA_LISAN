@@ -1663,3 +1663,52 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
   .juba-reference-page[dir="rtl"] .juba-ai-live-pill{right:10px!important;left:auto!important}
   .juba-reference-page[dir="rtl"] .juba-ai-play{left:10px!important;right:auto!important}
 }
+
+
+/* Landing — final section anchors and interaction details */
+.juba-reference-page #games,
+.juba-reference-page #ai-tutor,
+.juba-reference-page #languages,
+.juba-reference-page #reviews,
+.juba-reference-page #pricing,
+.juba-reference-page #faq{
+  scroll-margin-top:88px!important;
+}
+.juba-reference-page .juba-game-stage-image img{
+  transition:transform .22s ease!important;
+}
+.juba-reference-page .juba-game-stage:hover .juba-game-stage-image img{
+  transform:translateY(-3px) scale(1.01)!important;
+}
+.juba-reference-page .juba-ai-showcase-copy{
+  position:relative!important;
+}
+.juba-reference-page .juba-ai-showcase-copy h2{
+  color:#252525!important;
+  font-size:clamp(2rem,4vw,3.25rem)!important;
+  line-height:1.04!important;
+  letter-spacing:-.045em!important;
+  font-weight:950!important;
+}
+.juba-reference-page .juba-ai-showcase-copy p{
+  color:#68766d!important;
+  line-height:1.75!important;
+}
+@media(max-width:600px){
+  .juba-reference-page #games,
+  .juba-reference-page #ai-tutor,
+  .juba-reference-page #languages,
+  .juba-reference-page #reviews,
+  .juba-reference-page #pricing,
+  .juba-reference-page #faq{
+    scroll-margin-top:76px!important;
+  }
+  .juba-reference-page .juba-ai-showcase{
+    padding:14px!important;
+    border-radius:24px!important;
+  }
+  .juba-reference-page .juba-ai-showcase-art{
+    min-height:330px!important;
+    border-radius:18px!important;
+  }
+}
