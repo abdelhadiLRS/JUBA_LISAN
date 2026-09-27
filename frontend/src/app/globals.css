@@ -438,7 +438,11 @@ html[data-theme='light'] {
 .juba-busuu-faq .juba-landing-faq-item{border:0!important;border-bottom:1px solid var(--busuu-line)!important;border-radius:0!important;background:#fff!important;box-shadow:none!important}
 .juba-busuu-faq .juba-landing-faq-question{min-height:76px;padding:22px 0!important;font-size:18px!important;font-weight:800}
 .juba-busuu-faq .juba-landing-faq-answer{padding:0 0 24px!important;color:var(--busuu-muted)!important;line-height:1.8}
-.juba-busuu-faq .juba-landing-faq-icon{border:1px solid var(--busuu-line)!important;background:#fff!important}
+.juba-busuu-faq .juba-landing-faq-icon{border:1px solid var(--busuu-line)!important;background:#fff!important;color:var(--busuu-ink)!important}
+.juba-busuu-faq .juba-landing-faq-item{transition:border-color .18s,background .18s}
+.juba-busuu-faq .juba-landing-faq-item.is-open{background:var(--busuu-soft)!important}
+.juba-busuu-faq .juba-landing-faq-question:hover{color:var(--busuu-green-dark)!important}
+.juba-busuu-faq .juba-landing-faq-question:focus-visible{outline:2px solid var(--busuu-green);outline-offset:3px}
 
 .juba-busuu-final-cta{padding:0 0 110px;background:#fff}
 .juba-busuu-final-cta-inner{min-height:500px;background:var(--busuu-green);color:#fff;padding:70px;display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.9fr);align-items:center;gap:35px;overflow:hidden}
