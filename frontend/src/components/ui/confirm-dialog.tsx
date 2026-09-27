@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useEffectEvent, useId, useRef } from 'react'
+import { Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-
 
 interface ConfirmDialogProps {
   open: boolean
@@ -37,6 +37,7 @@ export function ConfirmDialog({
   const cancelIfIdle = useEffectEvent(() => {
     if (!confirming) onCancel()
   })
+
   useEffect(() => {
     if (!open) return
     const opener = document.activeElement as HTMLElement | null
@@ -72,16 +73,12 @@ export function ConfirmDialog({
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-center justify-center p-4"
-      style={{
-        backgroundColor: 'color-mix(in srgb, var(--juba-app-ink) 55%, transparent)',
-        backdropFilter: 'blur(8px)',
-      }}
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-[color-mix(in_srgb,var(--juba-app-ink)_55%,transparent)] p-4 backdrop-blur-md"
       onClick={() => !confirming && onCancel()}
     >
       <div
         ref={dialogRef}
-        className="card w-full max-w-sm overflow-hidden border-2 border-[var(--juba-app-line)] shadow-[5px_5px_0_var(--juba-app-line)]"
+        className="juba-card w-full max-w-sm overflow-hidden border-2 border-[var(--juba-app-line)] shadow-[5px_5px_0_var(--juba-app-line)]"
         onClick={(e) => e.stopPropagation()}
         role="alertdialog"
         aria-modal="true"
@@ -95,7 +92,7 @@ export function ConfirmDialog({
           >
             {danger ? <i className="ti ti-alert-triangle icon" aria-hidden="true" /> : <i className="ti ti-circle-check icon" aria-hidden="true" />}
           </span>
-          <span id={titleId} className="text-sm font-semibold tracking-tight text-[var(--juba-app-ink)]">
+          <span id={titleId} className="text-sm font-bold tracking-tight text-[var(--juba-app-ink)]">
             {title}
           </span>
         </div>
@@ -117,7 +114,7 @@ export function ConfirmDialog({
             ref={cancelRef}
             onClick={onCancel}
             disabled={confirming}
-            className="btn btn-outline-secondary flex-1"
+            className="juba-btn-secondary flex-1"
           >
             {cancelLabel ?? tCommon('cancel')}
           </button>
@@ -126,10 +123,10 @@ export function ConfirmDialog({
             onClick={onConfirm}
             disabled={confirming}
             aria-busy={confirming}
-            className={`flex-1 rounded-xl border-2 border-transparent px-4 py-2.5 text-sm font-semibold shadow-[3px_3px_0_var(--juba-app-line)] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
+            className={`flex-1 rounded-xl border-2 px-4 py-2.5 text-sm font-bold shadow-[3px_3px_0_var(--juba-app-line)] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
               danger
-                ? 'bg-[#b33a32] text-white hover:opacity-90 focus-visible:ring-[#b33a32]'
-                : 'bg-[var(--juba-app-green-dark)] text-white hover:opacity-90 focus-visible:ring-[var(--juba-app-green)]'
+                ? 'border-[#b33a32] bg-[#b33a32] text-white hover:opacity-90 focus-visible:ring-[#b33a32]'
+                : 'border-[var(--juba-app-green-dark)] bg-[var(--juba-app-green)] text-white hover:bg-[var(--juba-app-green-dark)] focus-visible:ring-[var(--juba-app-green)]'
             }`}
           >
             {confirming ? <span className="inline-flex items-center gap-2"><Loader2 className="size-4 animate-spin" />{confirmLabel}</span> : confirmLabel}
