@@ -215,3 +215,26 @@ class TestGetAssessmentBank:
         for question_id, context in expected.items():
             assert context in questions[question_id]
             assert "What does" not in questions[question_id] or "here" in questions[question_id]
+
+
+    def test_en_gb_vocabulary_distractors_are_not_duplicate_meanings(self):
+        from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+        questions = {question.id: question for question in ASSESSMENT_BANK}
+        assert questions["v-b1-001"].options == ["minor", "urgent", "important", "predictable"]
+        assert questions["v-b2-002"].options == [
+            "open to several interpretations",
+            "well-supported by evidence",
+            "emotionally charged",
+            "unrelated to the topic",
+        ]
+        assert questions["v-c1-003"].options == [
+            "causing lasting harm",
+            "providing a useful benefit",
+            "causing only temporary inconvenience",
+            "improving conditions",
+        ]
+        for question_id in ("v-b1-001", "v-b2-002", "v-c1-003"):
+            question = questions[question_id]
+            assert question.correct in question.options
+            assert len(set(question.options)) == 4
