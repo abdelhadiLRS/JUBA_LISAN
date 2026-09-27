@@ -221,6 +221,15 @@ def _seed_fallback_lesson(*, seed: dict[str, Any], cefr_level: str, lesson_type:
     if seed.get("questions"):
         for question, options, correct in seed["questions"][:4]:
             exercises.append(ExerciseContent(type="multiple_choice", question=question, options=list(options), correct=correct))
+    elif seed.get("prompt"):
+        exercises.append(
+            ExerciseContent(
+                type="free_write",
+                question=str(seed["prompt"]),
+                correct=str((seed.get("examples") or [""])[0]),
+                explanation="\n".join(str(item) for item in (seed.get("guidance") or seed.get("phrases") or [])),
+            )
+        )
     elif seed.get("words"):
         words = seed["words"]
         for word, definition, example in words[:3]:
@@ -265,6 +274,10 @@ def _seed_fallback_lesson(*, seed: dict[str, Any], cefr_level: str, lesson_type:
         "body": str(seed.get("objective") or "Practice the curated lesson material."),
         "examples": list(seed.get("examples") or seed.get("phrases") or []),
     }
+    if seed.get("transcript"):
+        explanation["transcript"] = str(seed["transcript"])
+    if seed.get("guidance"):
+        explanation["guidance"] = list(seed["guidance"])
     vocabulary = [
         {"word": word, "definition": definition, "example": example}
         for word, definition, example in seed.get("words", [])
