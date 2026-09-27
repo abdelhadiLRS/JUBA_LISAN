@@ -1,6 +1,7 @@
 # Changelog
 
 ## [Unreleased]
+- Strengthened selected C1/C2 vocabulary definitions and examples with clearer semantic boundaries, authentic collocations, and more demanding analytical/formal contexts.
 - Tightened C1→C2 progression further by keeping `extrapolate` in C2's advanced inference set and removing the redundant C2 `rhetoric` repeat.
 - Removed three redundant C2 repeats of C1 headwords (`articulate`, `notwithstanding`, `corroborate`) where the higher-level entries added no sufficiently distinct meaning; retained other C1/C2 overlaps where the C2 context provides a distinct academic or discourse use.
 - Added regression coverage for the curated C1→C2 vocabulary progression.
