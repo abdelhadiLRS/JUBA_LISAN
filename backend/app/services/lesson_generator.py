@@ -324,9 +324,63 @@ def _seed_fallback_lesson(*, seed: dict[str, Any], cefr_level: str, lesson_type:
 
 def _fallback_lesson(*, cefr_level: str, lesson_type: str, topic: str, unit_id: str, target_language: str) -> LessonContent | None:
     """Keep the authored A1 English starter course launchable without an LLM."""
-    if target_language not in {"en", "en-GB", "en-US", "en_US"} or cefr_level.upper() != "A1":
+    if target_language not in {"en", "en-GB", "en-US", "en_US"}:
         return None
+
+    level = cefr_level.upper()
     title = topic.strip() or "Identity & Greetings"
+
+    # English A2-C2 curricula expose speaking as a first-class skill. Keep
+    # speaking launchable even when the optional LLM service is unavailable.
+    if lesson_type == "speaking" and level in {"A2", "B1", "B2", "C1", "C2"}:
+        prompts = {
+            "A2": "Speak for 30–45 seconds about the topic. Describe a recent experience, a plan, or a familiar situation using simple connected sentences.",
+            "B1": "Speak for about 60 seconds. Explain your experience or plan, give a reason, and add one relevant detail or example.",
+            "B2": "Speak for 90 seconds. Present a clear position on the topic, support it with reasons or examples, and acknowledge one alternative view.",
+            "C1": "Speak for 2 minutes. Develop a nuanced response to the topic, distinguish evidence from opinion, and use appropriate hedging and transitions.",
+            "C2": "Speak for 2–3 minutes. Address the topic precisely, adapt register and emphasis to context, and use implicit meaning or rhetorical nuance where appropriate.",
+        }
+        examples = {
+            "A2": "I had a busy weekend. On Saturday, I visited my friend and we went to the city centre.",
+            "B1": "I would choose this option because it is practical, affordable, and gives me more opportunities to learn.",
+            "B2": "My main concern is the long-term impact. Although the proposal has clear benefits, its costs should also be considered.",
+            "C1": "The evidence suggests that the change could be beneficial, although the available data does not fully establish a causal relationship.",
+            "C2": "The proposal is defensible in principle, but its practical implications are considerably more nuanced than the headline argument suggests.",
+        }
+        phrases = {
+            "A2": ["In my experience...", "I think...", "For example...", "In the future..."],
+            "B1": ["I would say that...", "The main reason is...", "For instance...", "Another point is..."],
+            "B2": ["From my perspective...", "This is partly because...", "On the other hand...", "A good example would be..."],
+            "C1": ["It could be argued that...", "The evidence appears to suggest...", "That said...", "A useful distinction is..."],
+            "C2": ["A more precise interpretation would be...", "This does not necessarily imply...", "By contrast...", "The distinction is significant because..."],
+        }
+        lesson = LessonContent(
+            lesson_type=lesson_type,
+            title=f"{title} — Speaking",
+            cefr_level=cefr_level,
+            unit_id=unit_id,
+            explanation={
+                "title": f"{title} — Speaking",
+                "body": prompts[level],
+                "examples": [examples[level]],
+                "guidance": phrases[level],
+            },
+            exercises=[
+                ExerciseContent(
+                    type="free_write",
+                    question=prompts[level],
+                    correct=examples[level],
+                    explanation="\n".join(phrases[level]),
+                )
+            ],
+        )
+        _attach_stable_exercise_metadata(
+            lesson, target_language=target_language, topic=title, unit_id=unit_id
+        )
+        return lesson
+
+    if level != "A1":
+        return None
     base = {
         "lesson_type": lesson_type, "title": title, "cefr_level": cefr_level,
         "unit_id": unit_id, "grammar_refs": ["to-be", "subject-pronouns", "questions", "yes-no"],
