@@ -43,6 +43,17 @@ export function LandingNav({
 }: LandingNavProps) {
   const [open, setOpen] = useState(false)
 
+  useEffect(() => {
+    if (!open) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [open])
+
   const localeOptions: Array<[Locale, string]> = [
     ['en', 'English'],
     ['ar', 'العربية'],
