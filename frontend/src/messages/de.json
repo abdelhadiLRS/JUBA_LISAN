@@ -1632,6 +1632,7 @@
     "planMonthly": "Flexibel monatlich · {price}€/Monat →",
     "planYearly": "Bester Wert · {price}€/Jahr · 2 Monate gratis →",
     "checkoutError": "Checkout konnte nicht gestartet werden. Bitte erneut versuchen.",
+    "checkoutLoading": "Wird geladen…",
     "pricingTitle": "Einfache, transparente Preise",
     "pricingDesc": "{days} Tage gratis · heute keine Abbuchung · jederzeit kündbar",
     "pricingDescTrialUsed": "Wähle monatlich oder jährlich · jederzeit kündbar",
