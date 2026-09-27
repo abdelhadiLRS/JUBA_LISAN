@@ -819,3 +819,20 @@ def test_foundation_fallback_seed_has_a_complete_learning_sequence():
     ]
     assert "three target words" in quality["production_requirement"]
     assert "follow-up question" in seed["prompt"]
+
+
+def test_en_gb_a1_assessment_vocabulary_uses_contextual_prompts():
+    """Beginner assessment should test vocabulary through usable situations."""
+    from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+    questions = {item.id: item for item in ASSESSMENT_BANK}
+    expected = {
+        "v-a1-001": "opposite of",
+        "v-a1-003": "family member",
+        "v-a1-004": "weather is clear",
+        "v-a1-007": "room where he sleeps",
+        "v-a1-009": "wear on her feet",
+    }
+    for question_id, phrase in expected.items():
+        assert phrase.casefold() in questions[question_id].question.casefold()
+        assert len(questions[question_id].question.split()) >= 12
