@@ -1376,3 +1376,48 @@ html[data-theme='light'] {
     justify-content: center;
   }
 }
+
+
+/* JUBA LISAN — lesson player mobile ergonomics. */
+.juba-lesson-shell{
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.juba-lesson-shell audio{
+  max-width:100%;
+  accent-color:#58a700;
+}
+.juba-lesson-shell input,
+.juba-lesson-shell textarea,
+.juba-lesson-shell select{
+  max-width:100%;
+  font:inherit;
+}
+.juba-lesson-shell :is(input,textarea,select):focus{
+  border-color:#58a700!important;
+  outline:0;
+  box-shadow:0 0 0 3px rgba(88,167,0,.13)!important;
+}
+.juba-lesson-shell button:disabled{
+  cursor:not-allowed;
+  filter:saturate(.65);
+}
+@media(max-width:640px){
+  .juba-lesson-shell{
+    padding-inline:10px!important;
+  }
+  .juba-lesson-shell section.card{
+    padding:16px!important;
+    border-radius:18px!important;
+  }
+  .juba-lesson-shell :is(input,textarea,select){
+    font-size:16px!important;
+  }
+  .juba-lesson-shell audio{
+    width:100%;
+  }
+  .juba-lesson-shell :is(button,a){
+    max-width:100%;
+    overflow-wrap:anywhere;
+  }
+}
