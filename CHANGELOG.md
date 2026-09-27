@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 ### Educational Content Quality — C1 progression refinement
+- Further reduced archaic/legal density in C1 formal writing (`pursuant to`, `hereby`, `thereafter`) in favour of practical formal collocations (`in response to`, `with effect from`, `in line with`).
+- Corrected selected C1 British English IPA transcriptions for idioms and `overarching`.
+
 - Replaced several low-utility archaic/legal forms in C1 formal writing with higher-utility formal language (`subsequently`, `subject to`, `consequently`, `prior to`).
 - Removed the redundant C1 idiom variant `sit on the fence` while retaining `on the fence` for the same decision/indecision concept.
 
