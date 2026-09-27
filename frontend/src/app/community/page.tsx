@@ -37,7 +37,8 @@ const culturalData = [
 
 export default function CommunityPage() {
   return (
-    <div className="min-h-screen overflow-hidden bg-[#f4f4f2] text-[#202127]">
+    <div className="juba-jl-community min-h-screen overflow-hidden bg-[#f7f7f7] text-[#242424]">
+      <style>{".juba-jl-community{font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif;background:#f7f7f7;color:#242424}.juba-jl-community>section:first-of-type{background:#58cc02!important;border-bottom:6px solid #46a302}.juba-jl-community .juba-eyebrow{background:#efffe6;color:#46a302;border:2px solid #cceeb9;border-radius:999px;padding:7px 12px;font-weight:900}.juba-jl-community h1,.juba-jl-community h2,.juba-jl-community h3{font-weight:900;letter-spacing:-.035em}.juba-jl-community>section{border-color:#e5e5e5!important}.juba-jl-community .rounded-\\[28px\\]{border:2px solid #e5e5e5!important;border-radius:20px!important;box-shadow:0 4px 0 rgba(0,0,0,.06)!important}.juba-jl-community .bg-\\[\\#ededff\\]{background:#efffe6!important}.juba-jl-community .text-\\[var\\(--juba-text\\)\\]{color:#242424!important}.juba-jl-community .text-white\\/80{color:#fff!important;opacity:.86}.juba-jl-community .text-slate-900{color:#242424!important}.juba-jl-community .text-slate-600,.juba-jl-community .text-slate-300{color:#777!important}.juba-jl-community .bg-white{background:#fff!important}.juba-jl-community .juba-card{border:2px solid #e5e5e5!important;border-radius:20px!important;box-shadow:0 4px 0 rgba(0,0,0,.06)!important}@media(max-width:640px){.juba-jl-community h1{font-size:2.7rem!important}.juba-jl-community h2{font-size:2rem!important}}"}</style>
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-[#373fb8] py-20 text-white">
         <div className="absolute inset-0 juba-hero-glow opacity-30" />
