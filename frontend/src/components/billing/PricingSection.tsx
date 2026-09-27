@@ -139,7 +139,7 @@ export default function PricingSection({
       originalPrice: totalPriceMonthly,
       badge: tBilling(trialUsed ? 'trialBadgeTrialUsed' : 'trialBadge'),
       desc: null,
-      badgeStyle: 'text-[#275d19] border-[#3d7b27]/30',
+      badgeStyle: 'text-[#46a900] border-[#dfe9da] bg-[#f3fbe9]',
       href: hasSession ? '/dashboard' : '/register?plan=monthly',
       cta: tBilling(trialUsed ? 'ctaRegisterTrialUsed' : 'ctaRegister'),
       isFree: false as const,
@@ -153,7 +153,7 @@ export default function PricingSection({
       originalPrice: totalPriceYearly,
       badge: tBilling('bestValue'),
       desc: null,
-      badgeStyle: 'text-[#275d19] border-[#3d7b27]/30',
+      badgeStyle: 'text-[#46a900] border-[#dfe9da] bg-[#f3fbe9]',
       href: hasSession ? '/dashboard' : '/register?plan=yearly',
       cta: tBilling(trialUsed ? 'ctaRegisterTrialUsed' : 'ctaRegister'),
       isFree: false as const,
@@ -181,7 +181,7 @@ export default function PricingSection({
           return (
             <div
               key={plan.name}
-              className={`juba-ff-plan-card flex flex-col gap-4 rounded-[26px] border border-[#d9e5d7] bg-white p-6 shadow-[0_12px_30px_rgba(24,48,34,.07)] ${
+              className={`juba-ff-plan-card flex flex-col gap-4 rounded-[26px] border border-[#dfe9da] bg-white p-6 shadow-[0_8px_24px_rgba(37,37,37,.055)] ${
                 plan.isFree
                   ? 'juba-ff-plan-free'
                   : plan.name === tBilling('planYearlyName')
@@ -252,7 +252,7 @@ export default function PricingSection({
                   href={plan.href}
                   className={`inline-block px-6 py-2.5 text-center font-sans text-xs font-bold tracking-widest uppercase transition-colors ${
                     plan.isFree
-                      ? 'border-[#d9e5d7] text-[#68766d] hover:text-[#183022] border'
+                      ? 'border-[#dfe9da] text-[#68766d] hover:text-[#183022] border'
                       : 'juba-ff-plan-cta'
                   }`}
                 >
@@ -265,7 +265,7 @@ export default function PricingSection({
       </div>
 
       {/* Comparison table */}
-      <div className="juba-ff-comparison overflow-hidden rounded-[26px] border border-[#d9e5d7] bg-white shadow-[0_12px_30px_rgba(24,48,34,.06)]">
+      <div className="juba-ff-comparison overflow-hidden rounded-[22px] border border-[#dfe9da] bg-white shadow-[0_8px_24px_rgba(37,37,37,.045)]">
         <table className="w-full table-fixed">
           <thead>
             <tr className="juba-ff-comparison-head border-b">
@@ -288,7 +288,7 @@ export default function PricingSection({
               <tr
                 key={i}
                 className={
-                  i < tableRows.length - 1 ? 'border-[#d9e5d7] border-b' : ''
+                  i < tableRows.length - 1 ? 'border-[#dfe9da] border-b' : ''
                 }
               >
                 <td className="juba-ff-table-cell px-3 py-3 font-sans text-xs sm:px-5">
@@ -307,14 +307,14 @@ export default function PricingSection({
                 </td>
                 <td className="px-1 py-3 text-center sm:px-4">
                   {row.monthly ? (
-                    <Check className="text-[#275d19] mx-auto h-3.5 w-3.5" />
+                    <Check className="text-[#46a900] mx-auto h-3.5 w-3.5" />
                   ) : (
                     <Minus className="text-[#68766d] mx-auto h-3.5 w-3.5" />
                   )}
                 </td>
                 <td className="px-1 py-3 text-center sm:px-4">
                   {row.yearly ? (
-                    <Check className="text-[#275d19] mx-auto h-3.5 w-3.5" />
+                    <Check className="text-[#46a900] mx-auto h-3.5 w-3.5" />
                   ) : (
                     <Minus className="text-[#68766d] mx-auto h-3.5 w-3.5" />
                   )}
