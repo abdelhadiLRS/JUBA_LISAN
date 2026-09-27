@@ -51,36 +51,24 @@ const LANGUAGES: Language[] = [
 
 export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   return (
-    <section dir={dir} aria-label={dir === 'rtl' ? 'اللغات المتاحة في جوبا لسان' : 'Languages available in JUBA LISAN'} className="juba-landing-language-bubbles w-full rounded-[28px] border border-[#dfe9da] bg-white p-4 shadow-[0_8px_0_rgba(70,169,0,.08)] sm:p-6">
-      <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
-        <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
-          <p className="text-[10px] font-black uppercase tracking-[.18em] text-[#46a900]">{dir === 'rtl' ? 'استكشف اللغات' : 'Explore languages'}</p>
-          <h3 className="mt-1 text-xl font-black tracking-tight text-[#252525] sm:text-2xl">{dir === 'rtl' ? `اكتشف العالم. ${LANGUAGES.length} لغة.` : `Search the world. ${LANGUAGES.length} languages.`}</h3>
+    <div
+      dir={dir}
+      aria-label={dir === 'rtl' ? 'اللغات المتاحة في جوبا لسان' : 'Languages available in JUBA LISAN'}
+      className="juba-busuu-language-list"
+    >
+      {LANGUAGES.map((language) => (
+        <div key={language.code} className="juba-busuu-language-item">
+          <Image
+            src={`https://flagcdn.com/w80/${language.country}.png`}
+            alt={`${language.alt} flag`}
+            width={80}
+            height={60}
+            unoptimized
+          />
+          <span lang={language.code} dir="auto">{language.name}</span>
+          <span className="juba-busuu-language-arrow" aria-hidden="true">↗</span>
         </div>
-        <span className="rounded-full bg-[#f3fbe9] px-3 py-1.5 text-[10px] font-extrabold text-[#46a900]">{dir === 'rtl' ? `${LANGUAGES.length} لغة` : `${LANGUAGES.length} languages`}</span>
-      </div>
-      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
-        {LANGUAGES.map((language) => (
-          <div
-            key={language.code}
-            className={`group flex min-w-0 items-center gap-3 rounded-2xl border border-[#dfe9da] bg-white px-3 py-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#58cc02] hover:bg-[#f3fbe9] hover:shadow-[0_5px_0_rgba(70,169,0,.12)] ${dir === 'rtl' ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}
-          >
-            <div className="relative h-11 w-[62px] shrink-0 overflow-hidden rounded-lg border border-black/5 bg-[#f3fbe9] shadow-sm">
-              <Image
-                src={`https://flagcdn.com/w160/${language.country}.png`}
-                alt={`${language.alt} flag`}
-                width={160}
-                height={120}
-                unoptimized
-                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-            </div>
-            <span lang={language.code} dir="auto" className="min-w-0 flex-1 break-words text-sm font-extrabold text-[#252525]">
-              {language.name}
-            </span>
-          </div>
-        ))}
-      </div>
-    </section>
+      ))}
+    </div>
   )
 }
