@@ -2109,3 +2109,27 @@ def test_en_gb_a2_health_examples_include_useful_detail():
         for fragment in fragments:
             assert fragment.casefold() in example, word
 
+
+
+def test_en_us_a1_greetings_and_numbers_use_realistic_context():
+    from app.data.en_US.vocabulary_a1 import A1_SETS
+
+    entries = {entry.word: entry for group in A1_SETS for entry in group.words}
+    expected = {
+        "hello": "greet a classmate",
+        "goodbye": "lesson is over",
+        "please": "borrow a pen",
+        "thank you": "explains the homework",
+        "sorry": "bus was delayed",
+        "excuse me": "need directions",
+        "welcome": "new student joins",
+        "fine": "teacher asks how you are",
+        "three": "cinema",
+        "five": "class ends at 10:00",
+        "eleven": "timetable",
+        "nineteen": "count the chairs",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold(), word
+        assert len(entries[word].example.split()) >= 8, word
+
