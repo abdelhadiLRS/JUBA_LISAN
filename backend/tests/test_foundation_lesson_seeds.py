@@ -934,6 +934,24 @@ def test_foundation_fallback_seed_has_a_complete_learning_sequence():
     assert "follow-up question" in seed["prompt"]
 
 
+def test_en_gb_a1_a2_vocabulary_assessments_use_realistic_situations():
+    """Beginner vocabulary checks should use short, recognisable situations rather than isolated prompts."""
+    from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+    questions = {item.id: item for item in ASSESSMENT_BANK}
+    expected = {
+        "v-a1-002": "introduced to a new colleague",
+        "v-a1-006": "soon after waking up",
+        "v-a1-008": "counting the seats in a row",
+        "v-a2-005": "forecast says it will be very hot",
+        "v-a2-007": "once every twelve months",
+    }
+    for question_id, phrase in expected.items():
+        question = questions[question_id].question
+        assert phrase.casefold() in question.casefold()
+        assert len(question.split()) >= 10
+
+
 def test_en_gb_a1_assessment_vocabulary_uses_contextual_prompts():
     """Beginner assessment should test vocabulary through usable situations."""
     from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
