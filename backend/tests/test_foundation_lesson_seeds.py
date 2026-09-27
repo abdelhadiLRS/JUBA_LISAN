@@ -1160,3 +1160,22 @@ def test_en_gb_b1_c1_assessments_add_discriminating_context():
         question = questions[question_id].question
         assert phrase.casefold() in question.casefold()
         assert len(question.split()) >= 12
+
+
+
+def test_en_gb_c2_selected_examples_add_transferable_context():
+    """Selected C2 examples should place advanced vocabulary in concrete, reusable situations."""
+    from app.data.en_GB.vocabulary_c2 import C2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in C2_SETS for entry in vocabulary_set.words}
+    expected = {
+        "albeit": "additional evening session",
+        "henceforth": "research participants",
+        "predicated on": "energy prices will remain stable",
+        "ephemeral": "launch campaign ended",
+        "poignant": "rebuilding the family home",
+        "vacuous": "how the proposed changes would be funded",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 12
