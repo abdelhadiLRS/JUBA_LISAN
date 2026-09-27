@@ -114,44 +114,44 @@ export default function VocabularyPage() {
   }
 
   return (
-    <div className="container-xl page-body py-4">
-      <div className="card-header d-flex align-items-center justify-content-between gap-3">
+    <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
+      <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <span className="text-secondary">●</span>
-          <span className="text-secondary font-sans tracking-widest uppercase">
+          <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
+          <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
             {t('myVocabulary')}
           </span>
           {!loading && (
-            <span className="text-secondary font-sans tracking-widest">
+            <span className="text-fl-hint text-[var(--juba-muted)] font-mono tracking-widest">
               {total}
             </span>
           )}
         </div>
         <Link
           href="/flashcards"
-          className="btn btn-outline-secondary inline-flex items-center border border-secondary-subtle bg-white px-4 py-2 font-sans text-xs font-bold tracking-widest uppercase"
+          className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] border-[var(--juba-lilac)] hover:border-[var(--juba-violet)] border px-4 py-2 font-mono tracking-widest uppercase transition-colors"
         >
           ← {t('backToFlashcards')}
         </Link>
       </div>
 
       {guestItems.length > 0 && (
-        <section className="card bg-yellow-lt p-5">
+        <section className="juba-card rounded-[30px] border-2 border-[var(--juba-violet)] bg-[var(--juba-yellow)] p-5 dark:border-white dark:bg-lime-300">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-secondary">
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-neutral-950/60">
                 JUBA LISAN · Visitor learning
               </p>
-              <h2 className="mt-1 text-xl fw-bold tracking-tight">
+              <h2 className="mt-1 text-xl font-black tracking-tight text-neutral-950">
                 Saved from Instant Translator
               </h2>
-              <p className="mt-1 text-secondary">
+              <p className="mt-1 text-xs font-semibold text-neutral-800/75">
                 These items are saved in this browser. Sign in later to sync them with your account.
               </p>
             </div>
             <Link
               href="/register"
-              className="btn btn-primary inline-flex shrink-0 items-center justify-center px-4 py-2 text-xs font-black"
+              className="inline-flex shrink-0 items-center justify-center rounded-full border-2 border-neutral-950 bg-white px-4 py-2 text-xs font-black text-neutral-950 shadow-[3px_3px_0_rgba(17,17,17,.85)] transition hover:-translate-y-0.5"
             >
               Create account to sync
             </Link>
@@ -160,16 +160,16 @@ export default function VocabularyPage() {
             {guestItems.map((item) => (
               <div
                 key={item.id}
-                className="list-group-item d-flex align-items-start justify-content-between gap-3"
+                className="flex items-start justify-between gap-3 rounded-[28px] border-2 border-neutral-950/80 bg-white/80 px-4 py-3"
               >
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="text-body fw-bold">{item.sourceText}</p>
-                    <span className="badge bg-dark text-white">
+                    <p className="text-sm font-black text-neutral-950">{item.sourceText}</p>
+                    <span className="rounded-full bg-neutral-950 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">
                       {item.sourceLanguage === 'auto' ? 'auto' : item.sourceLanguage}
                     </span>
                   </div>
-                  <p className="mt-1 text-secondary">{item.translation}</p>
+                  <p className="mt-1 text-sm font-semibold text-neutral-800">{item.translation}</p>
                   <div className="mt-2 flex items-center gap-3 text-[10px] font-bold uppercase tracking-wider text-neutral-500">
                     <span>Mastery {item.mastery}%</span>
                     <span>Review ready</span>
@@ -178,7 +178,7 @@ export default function VocabularyPage() {
                 <button
                   type="button"
                   onClick={() => deleteGuestItem(item.id)}
-                  className="badge bg-light text-secondary"
+                  className="shrink-0 rounded-full border border-neutral-950/30 px-2.5 py-1 text-[10px] font-black text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
                   aria-label="Remove saved item"
                 >
                   Remove
@@ -194,32 +194,32 @@ export default function VocabularyPage() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder={t('vocabularySearch')}
-        className="w-full border px-4 py-3 font-sans text-sm transition-colors focus:outline-none"
+        className="bg-[var(--juba-lilac)]/40 border-[var(--juba-lilac)] text-[var(--juba-text)] placeholder:text-fl-border-2 focus:border-[var(--juba-violet)] w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
       />
 
-      <div className="card overflow-hidden bg-white">
+      <div className="border-[var(--juba-lilac)] bg-white border">
         {loading ? (
           <PageLoading fullScreen={false} className="block p-5" />
         ) : items.length === 0 ? (
-          <p className="text-[rgba(32,33,39,.52)] p-5 font-sans text-xs tracking-widest uppercase">
+          <p className="text-[var(--juba-muted)] p-5 font-mono text-xs tracking-widest uppercase">
             {debouncedSearch ? t('myVocabularyNoResults') : t('myVocabularyEmpty')}
           </p>
         ) : (
-          <div className="divide-y divide-black/[0.07]">
+          <div className="divide-fl-border divide-y">
             {items.map((item) => (
-              <div key={item.id} className="flex items-start justify-between gap-4 px-5 py-4 transition hover-bg-light">
+              <div key={item.id} className="flex items-start justify-between gap-4 px-5 py-3">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <p className="text-[#202127] font-sans text-xs font-bold">{item.word}</p>
+                    <p className="text-[var(--juba-text)] font-mono text-xs font-bold">{item.word}</p>
                     <AudioPlayer text={item.word} size="sm" />
                   </div>
-                  <p className="text-secondary mt-0.5 font-sans text-xs leading-relaxed">{item.definition}</p>
-                  <p className="text-secondary mt-1 font-sans tracking-widest uppercase">{item.translation}</p>
+                  <p className="text-[var(--juba-muted)] mt-0.5 font-mono text-xs leading-relaxed">{item.definition}</p>
+                  <p className="text-[var(--juba-muted)] text-[var(--juba-text)] mt-1 font-mono tracking-widest uppercase">{item.translation}</p>
                 </div>
                 <button
                   onClick={() => deleteItem(item.id)}
                   disabled={deletingId === item.id}
-                  className="text-[rgba(32,33,39,.52)] shrink-0 font-sans text-xs transition-colors hover:text-red-400 disabled:opacity-40"
+                  className="text-[var(--juba-muted)] shrink-0 font-mono text-xs transition-colors hover:text-red-400 disabled:opacity-40"
                   aria-label="Delete"
                 >
                   ✕
