@@ -899,3 +899,30 @@ def test_en_gb_a2_vocabulary_examples_are_contextual_and_reusable():
     }
     for word, phrase in expected.items():
         assert phrase in entries[word].example
+
+
+
+def test_en_gb_b2_domain_examples_are_contextual_and_reusable():
+    """Selected B2 domain vocabulary should model specific, reusable situations."""
+    from app.data.en_GB.vocabulary_b2 import B2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in B2_SETS for entry in vocabulary_set.words}
+    expected = {
+        "strategy": "customer research",
+        "infrastructure": "new housing",
+        "procurement": "supplier bids",
+        "outsource": "online shop",
+        "emission": "environmental targets",
+        "logistics": "coordinating speakers",
+        "subsidy": "reduces water consumption",
+        "prototype": "tested a prototype with users",
+        "supply chain": "delay several orders",
+        "overhead": "renegotiating its service contracts",
+        "compliance": "workplace safety regulations",
+        "propaganda": "unsupported claims",
+        "referendum": "constitutional proposal",
+        "correspondent": "interviewing residents",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 10
