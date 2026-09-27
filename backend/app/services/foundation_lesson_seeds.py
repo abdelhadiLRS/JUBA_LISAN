@@ -175,6 +175,20 @@ def get_foundation_lesson_seed(
             "Revisit them in the next related lesson with a changed context.",
             "Check delayed recall again after several lessons before introducing extra load.",
         ],
+        "quality_gates": [
+            "Every lesson input must contain at least two target items that can be retrieved later.",
+            "At least one practice task must require a changed context rather than copying the model.",
+            "The final task must provide observable evidence of the stated skill objective.",
+            "Feedback must address meaning and language form where both are relevant.",
+            "Do not increase task complexity unless the learner has already demonstrated the target language at the current level.",
+        ],
+        "lesson_sequence": [
+            "Input: notice the target language in a clear context.",
+            "Guided practice: use the target language with limited support.",
+            "Retrieval: recall target items without the original model.",
+            "Transfer: apply the language to a changed but related situation.",
+            "Evidence: complete a final task that makes learning observable.",
+        ],
         "input_design": {
             "A1": "Prefer short, concrete examples with one main meaning at a time.",
             "A2": "Use familiar situations with a small amount of variation and clear context.",
