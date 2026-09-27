@@ -476,13 +476,13 @@ function ReadingPage() {
         <div className="flex gap-3 pt-1">
           <button type="button"
             onClick={loadNext}
-            className="border-secondary-subtle bg-white text-body hover:bg-white flex-1 border py-3 font-sans text-sm tracking-widest uppercase transition-colors"
+            className="btn btn-outline-secondary flex-1 font-sans text-sm tracking-widest uppercase"
           >
             {t('nextExercise')}
           </button>
           <button type="button"
             onClick={() => loadHistory(0)}
-            className="border-secondary-subtle bg-white text-secondary hover:text-body hover:bg-white border px-4 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+            className="btn btn-outline-secondary font-sans text-xs tracking-widest uppercase"
           >
             {t('viewHistory')}
           </button>
@@ -529,7 +529,7 @@ function ReadingPage() {
             </p>
             <button type="button"
               onClick={handleGenerate}
-              className="border-secondary-subtle bg-white text-body hover:bg-white border px-8 py-3 font-sans text-sm tracking-widest uppercase transition-colors"
+              className="btn btn-outline-secondary font-sans text-sm tracking-widest uppercase"
             >
               {t('generate')}
             </button>
@@ -575,7 +575,7 @@ function ReadingPage() {
               <p className="text-secondary mb-2 font-sans tracking-widest uppercase">
                 {t('textLabel')}
               </p>
-              <div className="border-secondary-subtle bg-white relative border p-5">
+              <div className="card card-body relative">
                 <div
                   ref={textRef}
                   onPointerUp={() =>
@@ -663,7 +663,7 @@ function ReadingPage() {
               <button type="button"
                 onClick={handleSubmit}
                 disabled={!allAnswered || submitting}
-                className="border-secondary-subtle bg-dark text-light hover:bg-dark/90 focus-visible:outline-fl-fg mt-4 w-full border py-3 font-sans text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+                className="btn btn-primary mt-4 w-full font-sans text-sm font-bold tracking-widest uppercase disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {submitting ? tCommon('checking') : t('submit')}
               </button>
