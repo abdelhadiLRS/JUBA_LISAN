@@ -23,7 +23,7 @@ add("B1","ro-b1-unit-1",{
 "vocabulary":{"title":"Muncă și dezvoltare","objective":"Discută despre obiective profesionale.","words":[("experiență","experience","Am experiență în acest domeniu."),("abilitate","skill","Vreau să-mi dezvolt o abilitate."),("obiectiv","goal","Obiectivul meu este clar.")]},
 "reading":{"title":"Un nou curs profesional","objective":"Înțelege motivele unei decizii.","text":"Mara lucrează în administrație, dar vrea să-și schimbe specializarea. A ales un curs de analiză de date deoarece poate studia seara și poate aplica imediat ceea ce învață.","questions":["De ce urmează cursul?","Când studiază?"]},
 "listening":{"title":"O decizie profesională","objective":"Identifică motive și planuri.","transcript":"Am decis să urmez un curs avansat pentru că vreau să comunic mai bine la serviciu. Dacă reușesc să-mi organizez timpul, voi participa la toate sesiunile.","questions":["De ce urmează cursul?","Ce condiție menționează vorbitorul?"]},
-"speaking":{"title":"O alegere importantă","objective":"Prezintă قرارًا مع تبرير.","prompt":"Vorbește un minut despre o alegere profesională și explică motivele.","phrases":["Am ales să...","Motivul principal este...","Dacă aș putea..."],"examples":["Am ales să învăț o limbă străină deoarece îmi poate extinde oportunitățile."]},
+"speaking":{"title":"O alegere importantă","objective":"Prezintă o decizie și justifică alegerea.","prompt":"Vorbește un minut despre o alegere profesională și explică motivele.","phrases":["Am ales să...","Motivul principal este...","Dacă aș putea..."],"examples":["Am ales să învăț o limbă străină deoarece îmi poate extinde oportunitățile."]},
 "writing":{"title":"Plan de dezvoltare","objective":"Scrie despre un obiectiv și pașii necesari.","prompt":"Scrie 120-150 de cuvinte despre un obiectiv profesional.","guidance":["Explică motivul.","Folosește două structuri condiționale.","Propune pași concreți."],"examples":["În următoarele luni vreau să..."]},
 "review":{"title":"Recapitulare: decizii","objective":"Consolidează condiționalul.","questions":["Completează: Dacă aș avea timp, aș ___.","Explică diferența dintre obiectiv și abilitate.","Formulează un plan."]}
 })
@@ -35,7 +35,7 @@ add("B2","ro-b2-unit-1",{
 "listening":{"title":"Două perspective","objective":"Identifică poziții și contraargumente.","transcript":"Munca hibridă funcționează bine pentru echipele autonome. Pe de altă parte, colegii noi au nevoie de mai mult contact direct.","questions":["Pentru cine funcționează bine?","Cine are nevoie de contact direct?"]},
 "speaking":{"title":"Dezbatere argumentată","objective":"Susține o poziție și răspunde unei perspective alternative.","prompt":"Vorbește 90 de secunde despre avantajele și limitele muncii hibride.","phrases":["Pe de o parte...","Pe de altă parte...","Un argument important este..."],"examples":["Munca hibridă oferă flexibilitate, însă eficiența depinde de tipul echipei."]},
 "writing":{"title":"Text argumentativ","objective":"Scrie un text echilibrat.","prompt":"Scrie 180-220 de cuvinte despre munca hibridă.","guidance":["Prezintă două argumente.","Include un contraargument.","Încheie cu o concluzie."],"examples":["Munca hibridă a schimbat modul în care echipele colaborează."]},
-"review":{"title":"Recapitulare: argumentare","objective":"Consolidează raportarea والروابط.","questions":["Raportează o opinie.","Adaugă un contraargument.","Scrie o concluzie."]}
+"review":{"title":"Recapitulare: argumentare","objective":"Consolidează raportarea opiniilor și folosirea conectorilor.","questions":["Raportează o opinie.","Adaugă un contraargument.","Scrie o concluzie."]}
 })
 
 add("C1","ro-c1-unit-1",{
@@ -45,7 +45,7 @@ add("C1","ro-c1-unit-1",{
 "listening":{"title":"Prezentarea unei cercetări","objective":"Extrage concluzii și limite.","transcript":"Rezultatele sunt promițătoare, dar trebuie interpretate cu prudență. Eșantionul este mic și nu putem exclude alte explicații.","questions":["Cum trebuie interpretate rezultatele?","Care este limita?"]},
 "speaking":{"title":"Analiză critică","objective":"Prezintă o interpretare nuanțată.","prompt":"Vorbește două minute despre o afirmație bazată pe date și explică limitele.","phrases":["Datele sugerează...","Această interpretare trebuie privită cu prudență.","O limitare importantă este..."],"examples":["Datele sugerează o asociere, dar nu demonstrează cauzalitatea."]},
 "writing":{"title":"Paragraf academic","objective":"Redactează o analiză prudentă.","prompt":"Scrie 220-280 de cuvinte despre interpretarea unui set de date.","guidance":["Separă rezultatele de interpretare.","Folosește formulări prudente.","Menționează două limitări."],"examples":["Rezultatele indică... Cu toate acestea..."]},
-"review":{"title":"Recapitulare: analiză critică","objective":"Consolidează limbajul de evidență.","questions":["Formulează concluzie prudentă.","Menționează o limitare.","حوّل جملة مطلقة إلى صياغة دقيقة."]}
+"review":{"title":"Recapitulare: analiză critică","objective":"Consolidează limbajul de evidență.","questions":["Formulează concluzie prudentă.","Menționează o limitare.","Transformă o afirmație absolută într-o formulare mai precisă."]}
 })
 
 add("C2","ro-c2-unit-1",{
