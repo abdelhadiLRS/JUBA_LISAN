@@ -77,15 +77,15 @@ const AITutorChat: React.FC = () => {
 
   return (
     <div className="rounded-[26px] border border-[rgba(7,7,9,.08)] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)] flex h-[600px] flex-col overflow-hidden">
-      <div className="flex items-center justify-between border-b border-[rgba(7,7,9,.08)] bg-[#ededff] p-4 sm:p-5">
+      <div className="flex items-center justify-between border-b border-[rgba(7,7,9,.08)] bg-[#efffe6] p-4 sm:p-5">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-[16px] border border-[#202127] bg-[#fff3d1] shadow-[0_8px_20px_rgba(43,45,90,.08)]">
-            <Bot className="h-5 w-5 text-[#202127]" aria-hidden="true" />
+          <div className="flex h-11 w-11 items-center justify-center rounded-[16px] border border-[#242424] bg-[#fff8d9] shadow-[0_8px_20px_rgba(43,45,90,.08)]">
+            <Bot className="h-5 w-5 text-[#242424]" aria-hidden="true" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="font-black text-[#202127]">المدرس الذكي</h3>
-              <span className="inline-flex items-center gap-1 rounded-full bg-[#ededff] px-2 py-1 text-[10px] font-bold text-[#373fb8]"><Sparkles className="h-3 w-3" />AI</span>
+              <h3 className="font-black text-[#242424]">المدرس الذكي</h3>
+              <span className="inline-flex items-center gap-1 rounded-full bg-[#efffe6] px-2 py-1 text-[10px] font-bold text-[#46a302]"><Sparkles className="h-3 w-3" />AI</span>
             </div>
             <p className="text-xs font-semibold text-[rgba(32,33,39,.52)]">متصل الآن · تدريب محادثة</p>
           </div>
@@ -94,7 +94,7 @@ const AITutorChat: React.FC = () => {
         <select
           value={selectedLanguage}
           onChange={(e) => setSelectedLanguage(e.target.value)}
-          className="rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff] text-[#202127] shadow-none outline-none transition focus:border-[#5862e2] focus:ring-2 focus:ring-[#5862e2]/10 w-auto min-w-[125px] px-3 py-2 text-sm font-bold outline-none"
+          className="rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff] text-[#242424] shadow-none outline-none transition focus:border-[#58cc02] focus:ring-2 focus:ring-[#58cc02]/10 w-auto min-w-[125px] px-3 py-2 text-sm font-bold outline-none"
           aria-label="لغة المحادثة"
         >
           <option value="العربية">العربية</option>
@@ -105,7 +105,7 @@ const AITutorChat: React.FC = () => {
         </select>
       </div>
 
-      <div className="flex-1 space-y-4 overflow-y-auto bg-[#f4f4f2] p-4 sm:p-5">
+      <div className="flex-1 space-y-4 overflow-y-auto bg-[#f7f7f7] p-4 sm:p-5">
         {messages.map((message) => (
           <motion.div
             key={message.id}
@@ -116,8 +116,8 @@ const AITutorChat: React.FC = () => {
             <div
               className={`max-w-[82%] rounded-[18px] border p-4 shadow-[0_8px_20px_rgba(43,45,90,.06)] ${
                 message.role === 'user'
-                  ? 'rounded-br-md border-[#202127] bg-[#5862e2] text-white'
-                  : 'rounded-bl-md border-[rgba(7,7,9,.08)] bg-[#fff] text-[#202127]'
+                  ? 'rounded-br-md border-[#242424] bg-[#58cc02] text-white'
+                  : 'rounded-bl-md border-[rgba(7,7,9,.08)] bg-[#fff] text-[#242424]'
               }`}
             >
               <p className="text-sm font-medium leading-6">{message.content}</p>
@@ -141,9 +141,9 @@ const AITutorChat: React.FC = () => {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
             <div className="rounded-[18px] rounded-bl-md border border-[rgba(7,7,9,.08)] bg-[#fff] p-4 shadow-[0_8px_20px_rgba(43,45,90,.06)]">
               <div className="flex items-center gap-1.5" aria-label="جاري الرد">
-                <span className="h-2 w-2 animate-bounce rounded-full bg-[#5862e2]" />
-                <span className="h-2 w-2 animate-bounce rounded-full bg-[#fff3d1] [animation-delay:150ms]" />
-                <span className="h-2 w-2 animate-bounce rounded-full bg-[#202127] [animation-delay:300ms]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-[#58cc02]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-[#fff8d9] [animation-delay:150ms]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-[#242424] [animation-delay:300ms]" />
               </div>
             </div>
           </motion.div>
@@ -158,7 +158,7 @@ const AITutorChat: React.FC = () => {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyPress}
             placeholder="اكتب رسالتك هنا..."
-            className="rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff] text-[#202127] shadow-none outline-none transition focus:border-[#5862e2] focus:ring-2 focus:ring-[#5862e2]/10 flex-1 px-3 py-3"
+            className="rounded-[14px] border border-[rgba(7,7,9,.08)] bg-[#fff] text-[#242424] shadow-none outline-none transition focus:border-[#58cc02] focus:ring-2 focus:ring-[#58cc02]/10 flex-1 px-3 py-3"
             disabled={isLoading}
           />
           <motion.button
@@ -166,7 +166,7 @@ const AITutorChat: React.FC = () => {
             onClick={sendMessage}
             disabled={isLoading || !input.trim()}
             aria-label="إرسال الرسالة"
-            className="rounded-[14px] bg-[#5862e2] text-white shadow-[0_8px_18px_rgba(88,98,226,.18)] transition hover:bg-[#4f59d5] disabled:cursor-not-allowed disabled:opacity-50 min-h-12 min-w-12 px-4"
+            className="rounded-[14px] bg-[#58cc02] text-white shadow-[0_8px_18px_rgba(88,98,226,.18)] transition hover:bg-[#46a302] disabled:cursor-not-allowed disabled:opacity-50 min-h-12 min-w-12 px-4"
             whileHover={{ scale: isLoading ? 1 : 1.03 }}
             whileTap={{ scale: isLoading ? 1 : 0.96 }}
           >
