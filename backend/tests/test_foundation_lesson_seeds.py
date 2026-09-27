@@ -89,3 +89,25 @@ def test_foundation_seed_exposes_pedagogical_quality_contract():
     assert seed["retrieval_prompts"]
     assert seed["recycle"]
     assert seed["phrases"]
+
+
+def test_curriculum_units_provide_four_skill_practice_and_competencies():
+    """Every CEFR unit should support the four core skills, not grammar-only study."""
+    from app.data.curriculum import CEFR_LEVELS, get_curriculum
+
+    for level in CEFR_LEVELS:
+        units = get_curriculum("en-GB")[level]
+        assert units, level
+        for unit in units:
+            assert unit.competency_checklist, unit.id
+            assert {"reading", "listening", "speaking", "writing"} <= set(unit.lesson_types), unit.id
+
+
+def test_a1_vocabulary_uses_only_supported_parts_of_speech():
+    """Authored A1 entries must conform to the shared vocabulary schema."""
+    from app.data.en_GB.vocabulary import VOCABULARY_SETS
+    allowed = {"noun", "verb", "adjective", "adverb", "phrase", "conjunction", "preposition", "numeral", "pronoun"}
+
+    for vocab_set in VOCABULARY_SETS:
+        for entry in vocab_set.words:
+            assert entry.pos in allowed, f"{vocab_set.id}: {entry.word} -> {entry.pos}"
