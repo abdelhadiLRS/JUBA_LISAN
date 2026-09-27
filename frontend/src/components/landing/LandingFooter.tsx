@@ -10,73 +10,63 @@ interface LandingFooterProps {
 
 export function LandingFooter({ t, dir = 'ltr', showReviews = false }: LandingFooterProps) {
   const footerLanguages = [
-    ['English', 'en'],
-    ['Français', 'fr'],
-    ['Español', 'es'],
-    ['Deutsch', 'de'],
-    ['Italiano', 'it'],
-    ['Português', 'pt'],
-    ['العربية', 'ar'],
-    ['Русский', 'ru'],
-    ['Nederlands', 'nl'],
-    ['Polski', 'pl'],
+    ['English', 'en'], ['Français', 'fr'], ['Español', 'es'], ['Deutsch', 'de'],
+    ['Italiano', 'it'], ['Português', 'pt'], ['العربية', 'ar'], ['Русский', 'ru'],
+    ['Nederlands', 'nl'], ['Polski', 'pl'], ['Română', 'ro'],
   ]
 
   return (
     <footer dir={dir} className="juba-busuu-footer">
       <div className="juba-busuu-footer-shell">
-        <div className="juba-busuu-footer-top">
+        <div className="juba-busuu-footer-intro">
           <div className="juba-busuu-footer-brand">
             <Link href="/" className="juba-busuu-footer-logo" aria-label="JUBA LISAN">
-              <Image src="/logo.png" alt="JUBA LISAN" width={180} height={62} />
+              <Image src="/logo.png" alt="JUBA LISAN" width={168} height={58} />
             </Link>
             <p>{t('footerTagline')}</p>
           </div>
-
-          <div className="juba-busuu-footer-social" aria-label={t('footerResources')}>
-            <a href="https://github.com/abdelhadiLRS/JUBA_LISAN" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+          <div className="juba-busuu-footer-intro-links">
+            <Link href="#languages">{t('navLanguages')}</Link>
+            <Link href="#pricing">{t('navPricing')}</Link>
+            <Link href="/register">{t('ctaStart')}</Link>
           </div>
         </div>
 
         <div className="juba-busuu-footer-grid">
           <div className="juba-busuu-footer-column">
-            <h3>{t('footerProduct')}</h3>
-            <Link href="#features">{t('navFeatures')}</Link>
-            <Link href="#languages">{t('navLanguages')}</Link>
-            <Link href="#pricing">{t('navPricing')}</Link>
-          </div>
-
-          <div className="juba-busuu-footer-column">
-            <h3>{t('aboutMe')}</h3>
-            {showReviews && <Link href="#reviews">{t('navReviews')}</Link>}
-            <Link href="#faq">{t('navFAQ')}</Link>
-            <Link href="/register">{t('ctaStart')}</Link>
-          </div>
-
-          <div className="juba-busuu-footer-column">
             <h3>{t('footerLearning')}</h3>
-            <Link href="#languages">{t('supportedLanguages')}</Link>
             <Link href="#features">{t('navFeatures')}</Link>
+            <Link href="#languages">{t('supportedLanguages')}</Link>
             <Link href="#features">{t('howItWorks')}</Link>
             <Link href="/register">{t('ctaExplore')}</Link>
           </div>
 
           <div className="juba-busuu-footer-column">
-            <h3>{t('footerResources')}</h3>
+            <h3>{t('footerProduct')}</h3>
+            <Link href="#pricing">{t('navPricing')}</Link>
+            {showReviews && <Link href="#reviews">{t('navReviews')}</Link>}
             <Link href="#faq">{t('navFAQ')}</Link>
+          </div>
+
+          <div className="juba-busuu-footer-column">
+            <h3>{t('footerResources')}</h3>
             <a href="https://github.com/abdelhadiLRS/JUBA_LISAN" target="_blank" rel="noopener noreferrer">{t('github')}</a>
             <span className="juba-busuu-footer-contact"><ContactButton /></span>
           </div>
 
           <div className="juba-busuu-footer-column">
-            <h3>{t('footerLegal')}</h3>
+            <h3>{t('aboutMe')}</h3>
             <Link href="/privacy?from=landing">{t('privacy')}</Link>
             <Link href="/terms?from=landing">{t('terms')}</Link>
+            <Link href="/register">{t('ctaStart')}</Link>
           </div>
         </div>
 
         <div className="juba-busuu-footer-language">
-          <span>{dir === 'rtl' ? 'لغة الواجهة' : 'Interface language'}</span>
+          <div className="juba-busuu-footer-language-heading">
+            <strong>{dir === 'rtl' ? 'لغة الواجهة' : 'Interface language'}</strong>
+            <span>{t('supportedLanguages')}</span>
+          </div>
           <div className="juba-busuu-footer-language-list">
             {footerLanguages.map(([label, code]) => (
               <Link key={code} href={code === 'en' ? '/' : `/${code}`}>
