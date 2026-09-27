@@ -26,6 +26,7 @@ export default function NoPlanBanner() {
         </p>
 
         <button
+          type="button"
           onClick={() => router.push('/assessment')}
           className="rounded-2xl border-2 border-[var(--juba-learning-green-dark)] bg-[var(--juba-learning-green)] px-5 py-3 text-sm font-black text-white shadow-[3px_3px_0_var(--juba-learning-green-dark)] transition-transform hover:-translate-y-0.5 active:translate-y-0 w-full"
         >
