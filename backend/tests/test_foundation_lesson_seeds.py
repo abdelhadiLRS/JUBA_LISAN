@@ -1179,3 +1179,22 @@ def test_en_gb_c2_selected_examples_add_transferable_context():
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 12
+
+
+def test_en_gb_c2_grammar_assessments_have_contextual_prompts_and_valid_syntax():
+    """C2 grammar items should test advanced structures inside meaningful situations."""
+    from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+    questions = {question.id: question for question in ASSESSMENT_BANK}
+    expected = {
+        "g-c2-008": "board has not yet approved",
+        "g-c2-009": "application deadline is tomorrow",
+        "g-c2-010": "figures looked consistent at first",
+    }
+    for question_id, phrase in expected.items():
+        question = questions[question_id]
+        assert phrase.casefold() in question.question.casefold()
+        assert len(question.question.split()) >= 15
+        assert question.correct in question.options
+
+    assert questions["g-b1-006"].grammar_slug == "modal-verbs"
