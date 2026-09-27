@@ -94,7 +94,7 @@ export function LandingNav({
               <span>{locale.toUpperCase()}</span>
               <ChevronDown aria-hidden="true" />
             </summary>
-            <div className="juba-busuu-locale-options" role="list">
+            <div className="juba-busuu-locale-options">
               {localeOptions.map(([code, label]) => (
                 <Link
                   key={code}
