@@ -158,3 +158,18 @@ def test_b2_vocabulary_entries_match_shared_schema():
             assert entry.pos in allowed, f"{vocab_set.id}: {entry.word} -> {entry.pos}"
             assert entry.definition.strip(), f"{vocab_set.id}: missing definition for {entry.word}"
             assert entry.example.strip(), f"{vocab_set.id}: missing example for {entry.word}"
+
+def test_c1_vocabulary_entries_match_shared_schema():
+    """Authored C1 vocabulary must use valid parts of speech and learner-ready text."""
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+
+    allowed = {"noun", "verb", "adjective", "adverb", "phrase", "conjunction", "preposition", "numeral", "pronoun"}
+
+    assert C1_SETS
+    for vocab_set in C1_SETS:
+        assert vocab_set.level == "C1"
+        assert vocab_set.words
+        for entry in vocab_set.words:
+            assert entry.pos in allowed, f"{vocab_set.id}: {entry.word} -> {entry.pos}"
+            assert entry.definition.strip(), f"{vocab_set.id}: missing definition for {entry.word}"
+            assert entry.example.strip(), f"{vocab_set.id}: missing example for {entry.word}"
