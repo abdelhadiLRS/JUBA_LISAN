@@ -527,6 +527,9 @@ html[data-theme='light'] {
 .juba-busuu-pricing .juba-ff-table-cell{
   color:var(--busuu-ink)!important;
 }
+.juba-busuu-pricing .juba-ff-plan-badge--accent{color:var(--busuu-green-dark)!important;border-color:var(--busuu-line)!important;background:var(--busuu-mint)!important}
+.juba-busuu-pricing .juba-ff-plan-free-link{border:1px solid var(--busuu-line)!important;color:var(--busuu-ink)!important}
+.juba-busuu-pricing .juba-ff-plan-free-link:hover{background:var(--busuu-soft)!important;color:var(--busuu-green-dark)!important}
 .juba-busuu-pricing .juba-ff-plan-badge{color:var(--busuu-green-dark)!important;border-color:var(--busuu-line)!important;background:var(--busuu-mint)!important}
 .juba-busuu-pricing .juba-ff-period,.juba-busuu-pricing .juba-ff-plan-placeholder{color:var(--busuu-muted)!important}
 .juba-busuu-pricing .juba-ff-comparison-plan-head{color:var(--busuu-muted)!important}
