@@ -65,7 +65,6 @@ export function LandingFooter({ t, dir = 'ltr', showReviews = false }: LandingFo
         <div className="juba-busuu-footer-language">
           <div className="juba-busuu-footer-language-heading">
             <strong>{t('navLanguages')}</strong>
-            <span>{t('supportedLanguages')}</span>
           </div>
           <div className="juba-busuu-footer-language-list" aria-label={t('navLanguages')}>
             {footerLanguages.map(([label, code]) => (
