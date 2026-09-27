@@ -14,6 +14,7 @@ from app.data.nl.lesson_seeds import get_lesson_seed as get_dutch_lesson_seed
 from app.data.ru.lesson_seeds import get_lesson_seed as get_russian_lesson_seed
 from app.data.pl.lesson_seeds import get_lesson_seed as get_polish_lesson_seed
 from app.data.de.lesson_seeds import get_lesson_seed as get_german_lesson_seed
+from app.data.fr.lesson_seeds import get_lesson_seed as get_french_lesson_seed
 from app.schemas.lessons import (
     ExerciseContent,
     FillBlankEvaluation,
@@ -380,6 +381,7 @@ async def generate_lesson(
         "ru": get_russian_lesson_seed,
         "pl": get_polish_lesson_seed,
         "de": get_german_lesson_seed,
+        "fr": get_french_lesson_seed,
     }
     curated_lesson_seed = (
         seed_getters[target_language](cefr_level, unit_id, lesson_type)
