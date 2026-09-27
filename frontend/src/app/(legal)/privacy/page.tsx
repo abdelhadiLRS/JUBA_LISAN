@@ -54,7 +54,8 @@ export default function PrivacyPage() {
   ]
 
   return (
-    <div>
+    <div className="juba-jl-legal min-h-screen px-4 py-10 sm:px-6">
+      <style>{".juba-jl-legal{font-family:Nunito Sans,Noto Sans Arabic,system-ui,sans-serif;background:#f7f7f7;color:#242424}.juba-jl-legal .juba-legal-card{border:2px solid #e5e5e5;background:#fff;border-radius:22px;box-shadow:0 4px 0 rgba(0,0,0,.06);color:#242424}.juba-jl-legal h1,.juba-jl-legal h2{color:#242424!important;font-weight:900}.juba-jl-legal p,.juba-jl-legal li{color:#555!important;line-height:1.75}.juba-jl-legal a{color:#46a302!important;font-weight:800}.juba-jl-legal .juba-legal-dot{color:#58cc02!important}.juba-jl-legal .juba-legal-meta{color:#777!important}@media(max-width:640px){.juba-jl-legal{padding-top:24px}.juba-jl-legal .juba-legal-card{border-radius:18px}}"}</style>
       <div className="mb-10 flex flex-col items-center">
         <Link href="/">
           <Image
@@ -66,20 +67,20 @@ export default function PrivacyPage() {
           />
         </Link>
         <h1 className="text-[#202127] font-sans text-xl font-bold tracking-wide">JUBA LISAN</h1>
-        <p className="text-black/50 text-black/50 mt-1 font-semibold tracking-wide">
+        <p className="juba-legal-meta juba-legal-meta mt-1 font-semibold tracking-wide">
           {tCommon('tagline')}
         </p>
       </div>
 
-      <div className="space-y-8 rounded-[26px] border border-black/[0.08] bg-white p-6 shadow-[0_12px_30px_rgba(43,45,90,.055)] sm:p-8">
+      <div className="juba-legal-card space-y-8 p-6 sm:p-8">
         <div className="border-black/[0.08] flex items-center gap-2 border-b border-black/[0.08] pb-4">
-          <span className="text-[#202127] text-black/50"><span className="h-2 w-2 rounded-full bg-[#5862e2]" /></span>/span>
-          <span className="text-black/50 font-sans text-xs tracking-wide">
+          <span className="text-[#202127] juba-legal-meta"><span className="h-2 w-2 rounded-full bg-[#5862e2]" /></span>/span>
+          <span className="juba-legal-meta font-sans text-xs tracking-wide">
             {t('pageTitle')}
           </span>
         </div>
 
-        <p className="text-black/50 text-black/50 font-sans tracking-wide">
+        <p className="juba-legal-meta juba-legal-meta font-sans tracking-wide">
           {t('updated')}
         </p>
 
@@ -105,7 +106,7 @@ export default function PrivacyPage() {
                 key={item}
                 className="text-[#202127] flex gap-2 font-sans text-sm leading-relaxed"
               >
-                <span className="text-black/50 flex-shrink-0">—</span>
+                <span className="juba-legal-meta flex-shrink-0">—</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -125,7 +126,7 @@ export default function PrivacyPage() {
                 key={item}
                 className="text-[#202127] flex gap-2 font-sans text-sm leading-relaxed"
               >
-                <span className="text-black/50 flex-shrink-0">—</span>
+                <span className="juba-legal-meta flex-shrink-0">—</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -156,13 +157,13 @@ export default function PrivacyPage() {
         <div className="border-black/[0.08] flex gap-6 border-t border-black/[0.08] pt-4">
           <Link
             href={termsHref}
-            className="text-black/50 hover:text-[#202127] font-sans text-xs tracking-wide transition-colors"
+            className="juba-legal-meta hover:text-[#202127] font-sans text-xs tracking-wide transition-colors"
           >
             {t('linkTerms')}
           </Link>
           <Link
             href={backHref}
-            className="text-black/50 hover:text-[#202127] font-sans text-xs tracking-wide transition-colors"
+            className="juba-legal-meta hover:text-[#202127] font-sans text-xs tracking-wide transition-colors"
           >
             {backLabel}
           </Link>
