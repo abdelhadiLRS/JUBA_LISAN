@@ -139,6 +139,29 @@ export default async function Home() {
         <div className="juba-ref-hero-bottom" aria-hidden="true" />
       </section>
 
+      {/* BUSUU-STYLE LANGUAGE DISCOVERY — JUBA LISAN content, Busuu-inspired information hierarchy. */}
+      <section className="juba-busuu-language-strip" aria-labelledby="juba-language-strip-title">
+        <div className="juba-busuu-section-shell">
+          <div className="juba-busuu-section-heading">
+            <span className="juba-ref-kicker">{t('languagesEyebrow')}</span>
+            <h2 id="juba-language-strip-title">{t('languagesHeadline')}</h2>
+            <p>{t('languagesDescription')}</p>
+          </div>
+          <div className="juba-busuu-language-stage">
+            <LanguageBubbles dir={locale === 'ar' ? 'rtl' : 'ltr'} />
+          </div>
+        </div>
+      </section>
+
+      {/* BUSUU-STYLE STATS — factual product capabilities, without invented user numbers. */}
+      <section className="juba-busuu-stats" aria-label="JUBA LISAN highlights">
+        <div className="juba-busuu-stats-grid">
+          <div><strong>CEFR</strong><span>{t('languagesDescription')}</span></div>
+          <div><strong>AI</strong><span>{t('flowAiDescription')}</span></div>
+          <div><strong>VOICE</strong><span>{t('flowVoiceDescription')}</span></div>
+        </div>
+      </section>
+
       {/* PRODUCT PILLARS — core learning paths presented in the Landing visual system. */}
       <section id="features" className="juba-ref-section juba-ref-pillars">
         <div className="juba-ref-section-heading">
