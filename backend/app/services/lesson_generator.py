@@ -221,8 +221,25 @@ def _seed_fallback_lesson(*, seed: dict[str, Any], cefr_level: str, lesson_type:
     title = str(seed.get("title") or "Lesson")
     exercises: list[ExerciseContent] = []
     if seed.get("questions"):
-        for question, options, correct in seed["questions"][:4]:
-            exercises.append(ExerciseContent(type="multiple_choice", question=question, options=list(options), correct=correct))
+        for item in seed["questions"][:4]:
+            if isinstance(item, (list, tuple)) and len(item) == 3:
+                question, options, correct = item
+                exercises.append(
+                    ExerciseContent(
+                        type="multiple_choice",
+                        question=str(question),
+                        options=list(options),
+                        correct=str(correct),
+                    )
+                )
+            else:
+                exercises.append(
+                    ExerciseContent(
+                        type="free_write",
+                        question=str(item),
+                        correct="",
+                    )
+                )
     elif seed.get("prompt"):
         exercises.append(
             ExerciseContent(
@@ -276,6 +293,8 @@ def _seed_fallback_lesson(*, seed: dict[str, Any], cefr_level: str, lesson_type:
         "body": str(seed.get("objective") or "Practice the curated lesson material."),
         "examples": list(seed.get("examples") or seed.get("phrases") or []),
     }
+    if seed.get("text"):
+        explanation["text"] = str(seed["text"])
     if seed.get("transcript"):
         explanation["transcript"] = str(seed["transcript"])
     if seed.get("guidance"):
