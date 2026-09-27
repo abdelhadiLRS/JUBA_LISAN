@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap');
 
 @custom-variant dark (&:where(html:not([data-theme='light']), html:not([data-theme='light']) *));
 
@@ -379,7 +380,6 @@ body .juba-reference-page .juba-footer-bottom{border-top:1px solid #444!importan
    visually consistent without changing application data or API behavior.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap');
 
 :root {
   --juba-learning-green: #58cc02;
