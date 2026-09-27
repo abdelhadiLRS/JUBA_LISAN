@@ -38,7 +38,7 @@ def test_curated_language_is_auto_discovered():
 CURATED_LANGUAGES = [
     "tr", "nl", "ru", "pl", "de", "fr", "es", "it", "pt",
     "ja", "ko", "zh", "ro", "cs", "el", "hu", "uk", "fi",
-    "sv", "da", "no", "is", "vi",
+    "sv", "da", "no", "is", "vi", "bg",
 ]
 
 
