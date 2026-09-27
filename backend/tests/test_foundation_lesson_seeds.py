@@ -1622,3 +1622,23 @@ def test_en_gb_a2_geography_and_sports_definitions_are_distinguishing():
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].definition.casefold(), word
         assert len(entries[word].definition.split()) >= 7, word
+
+
+
+def test_en_gb_c1_c2_grammar_contexts_are_situational():
+    """Advanced grammar prompts should test structures inside realistic situations."""
+    from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+    entries = {item.id: item for item in ASSESSMENT_BANK if item.skill == "grammar"}
+    expected = {
+        "g-c1-001": "funding decision",
+        "g-c1-007": "technical reports",
+        "g-c1-008": "audit is needed",
+        "g-c1-009": "safety officer",
+        "g-c1-010": "road was closed unexpectedly",
+        "g-c2-001": "compliance costs for small businesses",
+        "g-c2-005": "delivery deadline",
+    }
+    for question_id, phrase in expected.items():
+        assert phrase.casefold() in entries[question_id].question.casefold(), question_id
+        assert len(entries[question_id].question.split()) >= 15, question_id
