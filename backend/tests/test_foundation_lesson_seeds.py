@@ -2013,3 +2013,32 @@ def test_en_gb_a1_alphabet_consonant_examples_teach_articulation():
         for fragment in fragments:
             assert fragment in examples[letter], letter
 
+
+
+def test_en_gb_a2_travel_definitions_are_distinguishing():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {
+        entry.word: entry
+        for vocab_set in A2_SETS
+        for entry in vocab_set.words
+    }
+    expected = {
+        "return": ["journey to a place and back again"],
+        "peak": ["busiest travel times", "more crowded"],
+        "timetable": ["scheduled departure and arrival times"],
+        "reservation": ["made in advance", "available for you"],
+        "destination": ["intends to reach"],
+        "sightseeing": ["interesting or famous places"],
+        "souvenir": ["reminder of a place, trip, or experience"],
+        "currency": ["system of money"],
+        "customs": ["entering or leaving a country"],
+        "accommodation": ["stay overnight", "hotel, hostel"],
+        "itinerary": ["plan for a journey", "routes, times"],
+        "tour": ["planned journey", "with a guide"],
+    }
+    for word, fragments in expected.items():
+        definition = entries[word].definition.lower()
+        for fragment in fragments:
+            assert fragment.lower() in definition, word
+
