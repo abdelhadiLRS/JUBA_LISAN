@@ -116,6 +116,22 @@ def get_foundation_lesson_seed(
     grammar_names = [topic.title for topic in grammar]
     competencies = list(getattr(unit, "competency_checklist", []) or [])[:4]
 
+    phrases: list[str] = []
+    try:
+        from app.data.phrasebook import get_phrasebook_categories
+        for category in get_phrasebook_categories(target_language):
+            if str(category.level).upper() != level:
+                continue
+            for phrase in category.phrases:
+                if phrase.text not in phrases:
+                    phrases.append(phrase.text)
+                if len(phrases) >= 6:
+                    break
+            if len(phrases) >= 6:
+                break
+    except (ImportError, AttributeError):
+        phrases = []
+
     # Keep the fallback seed teachable rather than merely exposing raw data.
     # These fields give every generated lesson a small input -> retrieval ->
     # production sequence even when a language has no curated lesson seed yet.
@@ -133,22 +149,6 @@ def get_foundation_lesson_seed(
         ],
         "production_requirement": "Use at least three target words and one target structure in a new context.",
     }
-
-    phrases: list[str] = []
-    try:
-        from app.data.phrasebook import get_phrasebook_categories
-        for category in get_phrasebook_categories(target_language):
-            if str(category.level).upper() != level:
-                continue
-            for phrase in category.phrases:
-                if phrase.text not in phrases:
-                    phrases.append(phrase.text)
-                if len(phrases) >= 6:
-                    break
-            if len(phrases) >= 6:
-                break
-    except (ImportError, AttributeError):
-        phrases = []
 
     base: dict[str, Any] = {
         "title": title,
