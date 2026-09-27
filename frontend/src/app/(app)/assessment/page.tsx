@@ -17,7 +17,6 @@ import { type AssessmentQuestion, type CEFRLevel } from '@/data/types'
 import { CEFR_LEVELS } from '@/data/curriculum'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { PageLoading } from '@/components/ui/page-loading'
-import { markLearningProgressUpdated } from '@/lib/learning-progress'
 
 interface AnswerRecord {
   question_id: string
@@ -239,7 +238,7 @@ export default function AssessmentPage() {
       setStep('result')
     } catch (err) {
       const msg = err instanceof Error ? err.message : ''
-      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || t('evaluationFailed'))
+      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || 'Evaluation failed')
     } finally {
       setEvaluating(false)
     }
@@ -270,14 +269,16 @@ export default function AssessmentPage() {
       }
       const data = (await res.json()) as AssessmentCompleteResponse
       setCreatedPlanId(data.plan_id)
-      markLearningProgressUpdated()
-      // Plan creation is the end of the assessment wizard. Navigate directly
-      // to the generated roadmap so the selected duration/goals are reflected
-      // immediately instead of leaving the user on the Step 3 screen.
-      router.replace('/plan')
+      if (data.voice_trial?.available && data.voice_trial.token) {
+        setVoiceTrial(data.voice_trial)
+        setStep('voice-trial-offer')
+        setSubmitting(false)
+        return
+      }
+      router.push('/plan')
     } catch (err) {
       const msg = err instanceof Error ? err.message : ''
-      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || t('planCreationFailed'))
+      setError(msg === 'ai_service_error' || msg === 'ai_service_unavailable' ? tCommon('errorMessage') : msg || 'Failed to create plan')
       setSubmitting(false)
     }
   }
@@ -325,9 +326,9 @@ export default function AssessmentPage() {
     }
   }
 
-  const cardClass = 'w-full max-w-2xl overflow-hidden rounded border border bg-white shadow-sm'
-  const panelClass = 'rounded border border bg-primary-lt p-4'
-  const actionClass = 'w-full rounded border border-secondary-subtle bg-warning-lt px-4 py-3 font-bold text-body  transition hover:-translate-y-0.5'
+  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[30px] border-2 border-[var(--juba-lilac)] bg-white shadow-[var(--j-shell-shadow)]'
+  const panelClass = 'rounded-[22px] border-2 border-[var(--juba-lilac)] bg-[var(--juba-lilac)]/45 p-4'
+  const actionClass = 'w-full rounded-[18px] bg-[var(--juba-violet-dark)] px-4 py-3 font-bold text-white shadow-[0_6px_0_var(--juba-violet-dark)] transition hover:-translate-y-0.5 hover:bg-[var(--juba-violet-dark)]'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
     return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
@@ -336,38 +337,38 @@ export default function AssessmentPage() {
   if (step === 'existing' && existingPlan) {
     const assessedDate = new Date(existingPlan.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
     return (
-      <div className="flex min-h-[60vh] items-center justify-center bg-gradient-to-br from-[var(--tblr-primary-lt, #e9f2ff)]/30 via-white to-[var(--tblr-primary-lt, #e9f2ff)]/20 p-4 sm:p-6">
+      <div className="flex min-h-[60vh] items-center justify-center bg-gradient-to-br from-[var(--juba-lilac)]/30 via-white to-[var(--juba-sky)]/20 p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded bg-primary-lt text-sm font-bold text-[var(--tblr-primary, #206bc4)]">A</span>
+          <div className="flex items-center gap-3 border-b border-[var(--juba-border)] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[var(--juba-lilac)] text-sm font-bold text-[var(--juba-violet-dark)]">A</span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.12em] text-secondary">{t('title')}</p>
-              <p className="text-xs text-secondary">{t('currentLevel')}</p>
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('title')}</p>
+              <p className="text-xs text-[var(--juba-muted)]">{t('currentLevel')}</p>
             </div>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('currentLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-body">{existingPlan.cefr_level}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('currentLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-[var(--juba-text)]">{existingPlan.cefr_level}</p>
             </div>
             <div className={panelClass}>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('assessedOn')}</p>
-              <p className="mt-1 text-sm text-body">{assessedDate}</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('assessedOn')}</p>
+              <p className="mt-1 text-sm text-[var(--juba-text)]">{assessedDate}</p>
             </div>
-            <p className="text-sm leading-relaxed text-secondary">{t('alreadyHasPlan')}</p>
+            <p className="text-sm leading-relaxed text-[var(--juba-muted)]">{t('alreadyHasPlan')}</p>
             {canOfferVoiceTrial && (
               <div className={panelClass + ' space-y-3'}>
-                <p className="font-semibold text-body">{t('voiceTrialTitle')}</p>
-                <p className="text-xs leading-relaxed text-secondary">{t('voiceTrialDesc', { minutes: 5 })}</p>
-                <button type="button" onClick={requestVoiceTrial} disabled={trialLoading} className={actionClass + ' disabled:opacity-50'}>
+                <p className="font-semibold text-[var(--juba-text)]">{t('voiceTrialTitle')}</p>
+                <p className="text-xs leading-relaxed text-[var(--juba-muted)]">{t('voiceTrialDesc', { minutes: 5 })}</p>
+                <button onClick={requestVoiceTrial} disabled={trialLoading} className={actionClass + ' disabled:opacity-50'}>
                   {trialLoading ? '...' : `${t('voiceTrialStart')} →`}
                 </button>
               </div>
             )}
-            {error && <div className="rounded border border-danger/30 bg-danger/10 px-4 py-3 text-xs text-danger">✕ {error}</div>}
+            {error && <div className="rounded-[18px] border border-[var(--juba-danger)]/30 bg-[var(--juba-danger)]/10 px-4 py-3 text-xs text-[var(--juba-danger)]">✕ {error}</div>}
             <div className="flex gap-2">
-              <button type="button" onClick={() => router.push('/dashboard')} className="flex-1 rounded border border px-3 py-3 text-xs font-semibold text-secondary transition hover:bg-success-lt">← {tCommon('backToDashboard')}</button>
-              <button type="button" onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
+              <button onClick={() => router.push('/dashboard')} className="flex-1 rounded-[18px] border border-[var(--juba-border)] px-3 py-3 text-xs font-semibold text-[var(--juba-muted)] transition hover:bg-[var(--juba-surface-soft)]">← {tCommon('backToDashboard')}</button>
+              <button onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
             </div>
           </div>
         </div>
@@ -402,13 +403,13 @@ export default function AssessmentPage() {
 
   if (step === 'quiz' && currentQuestion) {
     return (
-      <div className="space-y-4">
-        <div className="mb-5 flex items-center justify-between rounded border border-secondary-subtle bg-white px-5 py-4 shadow-sm">
+      <div className="juba-mobile-assessment mx-auto w-full max-w-4xl px-4 py-6 sm:py-10">
+        <div className="mb-5 flex items-center justify-between rounded-[22px] border-2 border-[var(--juba-lilac)] bg-white px-5 py-4 shadow-sm">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.12em] text-secondary">{t('title')}</p>
-            <p className="mt-1 text-sm font-semibold text-body">{currentLevel}</p>
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('title')}</p>
+            <p className="mt-1 text-sm font-semibold text-[var(--juba-text)]">{currentLevel}</p>
           </div>
-          <div className="rounded bg-primary-lt px-3 py-1.5 text-xs font-bold text-[var(--tblr-primary, #206bc4)]">{questionNumber}/{MAX_QUESTIONS}</div>
+          <div className="rounded-[18px] bg-[var(--juba-lilac)] px-3 py-1.5 text-xs font-bold text-[var(--juba-violet-dark)]">{questionNumber}/{MAX_QUESTIONS}</div>
         </div>
         <AdaptiveQuizCard question={currentQuestion} questionNumber={questionNumber} totalQuestions={MAX_QUESTIONS} onAnswer={handleAnswer} languageCode={activeLanguage?.code} />
       </div>
@@ -422,47 +423,47 @@ export default function AssessmentPage() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded bg-warning-lt text-sm font-bold text-[var(--tblr-primary, #206bc4)]">✓</span>
+          <div className="flex items-center gap-3 border-b border-[var(--juba-border)] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[var(--juba-yellow)] text-sm font-bold text-[var(--juba-violet-dark)]">✓</span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.12em] text-secondary">{t('resultStep')}</p>
-              <p className="text-xs text-secondary">{t('cefrLevel')}</p>
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('resultStep')}</p>
+              <p className="text-xs text-[var(--juba-muted)]">{t('cefrLevel')}</p>
             </div>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('cefrLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-body">{aiLevel}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('cefrLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-[var(--juba-text)]">{aiLevel}</p>
             </div>
             <div className={panelClass}>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{tCommon('score')}</p>
-              <p className="mt-1 text-3xl font-extrabold text-body">{score}%</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{tCommon('score')}</p>
+              <p className="mt-1 text-3xl font-extrabold text-[var(--juba-text)]">{score}%</p>
             </div>
             <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('overrideLevel')}</p>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('overrideLevel')}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {CEFR_LEVELS.map((lvl) => (
-                  <button key={lvl} type="button" onClick={() => setSelectedLevel(lvl)} className={`rounded border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--tblr-primary, #206bc4)] bg-primary-lt text-[var(--tblr-primary, #206bc4)]' : 'border text-secondary hover:bg-success-lt'}`}>
+                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[18px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--juba-violet-dark)] bg-[var(--juba-lilac)] text-[var(--juba-violet-dark)]' : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:bg-[var(--juba-surface-soft)]'}`}>
                     {lvl}
                   </button>
                 ))}
               </div>
-              {levelChanged && <p className="mt-2 text-xs text-secondary">{t('suggestedLevel', { aiLevel, selectedLevel })}</p>}
+              {levelChanged && <p className="mt-2 text-xs text-[var(--juba-muted)]">{t('suggestedLevel', { aiLevel, selectedLevel })}</p>}
             </div>
             {result.strengths.length > 0 && (
               <div>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('strengths')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded border border bg-warning-lt px-3 py-1.5 text-xs font-medium text-[var(--tblr-primary, #206bc4)]">{s}</span>)}</div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('strengths')}</p>
+                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[18px] border border-[var(--juba-border)] bg-[var(--juba-yellow)] px-3 py-1.5 text-xs font-medium text-[var(--juba-violet-dark)]">{s}</span>)}</div>
               </div>
             )}
             {result.weaknesses.length > 0 && (
               <div>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('needsWork')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded border border-danger/25 bg-danger/10 px-3 py-1.5 text-xs font-medium text-danger">{w}</span>)}</div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('needsWork')}</p>
+                <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded-[18px] border border-[var(--juba-danger)]/25 bg-[var(--juba-danger)]/10 px-3 py-1.5 text-xs font-medium text-[var(--juba-danger)]">{w}</span>)}</div>
               </div>
             )}
-            {error && <div className="rounded border border-danger/30 bg-danger/10 px-4 py-3 text-xs text-danger">✕ {error}</div>}
-            <button type="button" onClick={() => setStep('duration')} className={actionClass}>{t('createPlan')} →</button>
+            {error && <div className="rounded-[18px] border border-[var(--juba-danger)]/30 bg-[var(--juba-danger)]/10 px-4 py-3 text-xs text-[var(--juba-danger)]">✕ {error}</div>}
+            <button onClick={() => setStep('duration')} className={actionClass}>{t('createPlan')} →</button>
           </div>
         </div>
       </div>
@@ -476,17 +477,13 @@ export default function AssessmentPage() {
         selectedGoals={selectedGoals}
         onSelectDuration={setDurationOption}
         onToggleGoal={(goal) => setSelectedGoals((prev) => prev.includes(goal) ? prev.filter((g) => g !== goal) : [...prev, goal])}
-        onConfirm={() => {
-          setError('')
-          void handleComplete()
-        }}
+        onConfirm={handleComplete}
         onBack={() => {
           const isBeginner = result?.score === 0 && result?.cefr_level === 'A1' && answers.length === 0
           setStep(isBeginner ? 'beginner-gate' : 'result')
         }}
         cefr_level={selectedLevel}
         loading={submitting}
-        error={error}
       />
     )
   }
@@ -496,21 +493,21 @@ export default function AssessmentPage() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded bg-primary-lt text-sm font-bold text-[var(--tblr-primary, #206bc4)]">◉</span>
-            <p className="text-xs font-bold uppercase tracking-[0.12em] text-secondary">{t('voiceTrialLabel')}</p>
+          <div className="flex items-center gap-3 border-b border-[var(--juba-border)] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[18px] bg-[var(--juba-lilac)] text-sm font-bold text-[var(--juba-violet-dark)]">◉</span>
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('voiceTrialLabel')}</p>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{t('cefrLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-body">{selectedLevel}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--juba-muted)]">{t('cefrLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-[var(--juba-text)]">{selectedLevel}</p>
             </div>
             <div className={panelClass}>
-              <p className="mb-2 font-semibold text-body">{t('voiceTrialTitle')}</p>
-              <p className="text-xs leading-relaxed text-secondary">{t('voiceTrialDesc', { minutes })}</p>
+              <p className="mb-2 font-semibold text-[var(--juba-text)]">{t('voiceTrialTitle')}</p>
+              <p className="text-xs leading-relaxed text-[var(--juba-muted)]">{t('voiceTrialDesc', { minutes })}</p>
             </div>
-            <button type="button" onClick={startVoiceTrial} className={actionClass}>{t('voiceTrialStart')} →</button>
-            <button type="button" onClick={() => router.push('/plan')} className="w-full py-2 text-xs font-semibold uppercase tracking-[0.1em] text-secondary transition hover:text-body">{t('voiceTrialSkip')}</button>
+            <button onClick={startVoiceTrial} className={actionClass}>{t('voiceTrialStart')} →</button>
+            <button onClick={() => router.push('/plan')} className="w-full py-2 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--juba-muted)] transition hover:text-[var(--juba-text)]">{t('voiceTrialSkip')}</button>
           </div>
         </div>
       </div>
