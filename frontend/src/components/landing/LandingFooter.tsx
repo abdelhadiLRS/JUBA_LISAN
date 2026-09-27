@@ -22,7 +22,7 @@ export function LandingFooter({ t, dir = 'ltr', locale = 'en', showReviews = fal
       <div className="juba-busuu-footer-shell">
         <div className="juba-busuu-footer-intro">
           <div className="juba-busuu-footer-brand">
-            <Link href="/" className="juba-busuu-footer-logo" aria-label="JUBA LISAN">
+            <Link href={locale === 'en' ? '/' : `/${locale}`} className="juba-busuu-footer-logo" aria-label="JUBA LISAN">
               <Image src="/logo.png" alt="JUBA LISAN" width={168} height={58} />
             </Link>
             <p>{t('footerTagline')}</p>
