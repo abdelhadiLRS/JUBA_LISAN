@@ -566,3 +566,54 @@ def test_en_gb_b2_overlap_examples_add_specific_context():
         assert phrase.casefold() in b2[word].example.casefold()
         assert b2[word].example.casefold() != b1[word].example.casefold()
         assert len(b2[word].example.split()) >= 10
+
+
+def test_en_gb_b2_core_examples_are_contextual_and_reusable():
+    """Selected B2 examples should teach reusable collocations in realistic contexts."""
+    from app.data.en_GB.vocabulary_b2 import B2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in B2_SETS for entry in vocabulary_set.words}
+    expected_contexts = {
+        "criterion": "after-sales support",
+        "hypothesis": "shorter delivery times",
+        "perspective": "customer perspective",
+        "relevant": "decision under consideration",
+        "consistent": "regional offices",
+        "colleague": "monthly accounts",
+        "negotiate": "production delay",
+        "collaborate": "safer use in hospitals",
+        "priorities": "deadline changed",
+        "feedback": "abandoned transactions",
+        "budget": "energy costs",
+        "delegate": "regulatory review",
+        "initiative": "alternative suppliers",
+        "influence": "investment decisions",
+        "bias": "selection process",
+        "controversy": "local traffic",
+        "campaign": "essential food and clothing",
+        "stereotype": "older customers",
+        "diversity": "professional backgrounds",
+        "inequality": "specialist healthcare",
+        "journalism": "could not initially be verified",
+        "globalisation": "several countries",
+        "mainstream": "ordinary workplace software",
+        "sensationalise": "unverified claims",
+        "accountability": "who approved each stage",
+        "in retrospect": "backup system",
+        "predecessor": "easier to maintain",
+        "simultaneously": "update inventory",
+        "allegation": "disputed transaction",
+        "dispute": "contractual dispute",
+        "summit": "industrial emissions",
+        "treaty": "shared rules",
+        "coalition": "local businesses and residents",
+        "eyewitness": "accounts of the collision",
+        "speculation": "cause of the outage",
+        "breakthrough": "cheaper to manufacture",
+        "phenomenon": "different climates",
+        "theoretical": "case studies",
+        "evaluation": "independent evaluation",
+    }
+    for word, phrase in expected_contexts.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 10
