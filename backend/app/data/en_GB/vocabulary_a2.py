@@ -1131,8 +1131,8 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="exchange rate",
                 pos="noun",
-                definition="The rate at which one currency is exchanged for another.",
-                example="What is the exchange rate today? I need to change some pounds before travelling abroad.",
+                definition="The value of one currency expressed in another currency, used to calculate how much money you receive when exchanging.",
+                example="The exchange rate was better at the bank near our hotel, so we checked how many euros we would get for £100 before changing our money.",
                 ipa="/ɪksˈtʃeɪndʒ reɪt/",
             ),
             VocabularyEntry(
@@ -1185,8 +1185,8 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="sneeze",
                 pos="verb",
-                definition="To suddenly expel air from the nose.",
-                example="She keeps sneezing during the lesson, so she thinks she might have a cold and asks to go home.",
+                definition="To force air suddenly out through the nose, often because of dust, an allergy, or a cold.",
+                example="I started to sneeze when I opened the dusty cupboard, so I stepped outside and let the dust settle before cleaning it.",
                 ipa="/sniːz/",
                 frequency_rank=560,
             ),
@@ -1201,8 +1201,8 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="dizzy",
                 pos="adjective",
-                definition="Feeling as if everything is spinning.",
-                example="I feel dizzy after standing up quickly, so I need to sit down and wait until I feel steady.",
+                definition="Feeling unsteady or as if you or the surroundings are spinning.",
+                example="After the carousel stopped, the children felt dizzy and sat on a bench until the spinning feeling passed.",
                 ipa="/ˈdɪzi/",
                 frequency_rank=530,
             ),
