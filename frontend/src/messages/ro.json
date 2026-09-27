@@ -89,8 +89,7 @@
     "dashboardXp": "Total XP",
     "dashboardMasteredWords": "Mastered Words",
     "dashboardCurrentUnit": "Current Unit",
-    "skipToContent": "Sari la conținut"
-  ,
+    "skipToContent": "Sari la conținut",
     "homeLabel": "JUBA LISAN home",
     "brandTagline": "Learn · Speak · Grow",
     "proofCefr": "CEFR-aligned learning",
@@ -163,8 +162,13 @@
     "regionEurope": "Europe",
     "regionAfricaMiddleEast": "Africa & Middle East",
     "regionAsia": "Asia",
-    "regionPacific": "Pacific"
-},
+    "regionPacific": "Pacific",
+    "appCtaTitle": "Învață oriunde cu JUBA LISAN",
+    "appCtaDescription": "Păstrează practica limbii mereu la îndemână. Continuă lecțiile, conversațiile cu AI, exercițiile de ascultare și urmărește-ți progresul oriunde te-ai afla.",
+    "appCtaNote": "Experiență web · Concepută pentru ecrane mobile",
+    "onlineLanguagesTitle": "Învață limbi online",
+    "onlineLanguagesDescription": "Alege o limbă și explorează experiența de învățare disponibilă în JUBA LISAN."
+  },
   "common": {
     "loading": "Se încarcă...",
     "error": "Eroare",
