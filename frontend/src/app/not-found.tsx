@@ -5,11 +5,11 @@ export default async function NotFound() {
   const t = await getTranslations('notFound')
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[var(--juba-bg)] px-6 py-12 text-[var(--juba-text)]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(108,69,245,0.16),transparent_42%)]" />
+    <main className="juba-jl-not-found relative flex min-h-screen items-center justify-center overflow-hidden bg-[#f7f7f7] px-6 py-12 text-[#242424]">
+      <style>{`.juba-jl-not-found{font-family:Nunito Sans,Noto Sans Arabic,system-ui,sans-serif}.juba-jl-not-found .juba-card{border:2px solid #e5e5e5;border-radius:22px;box-shadow:0 4px 0 rgba(0,0,0,.06)}.juba-jl-not-found .juba-404-mark{background:#58cc02;color:#fff;border:2px solid #46a302;box-shadow:0 3px 0 #46a302}.juba-jl-not-found .juba-404-pill{background:#efffe6;color:#46a302;border-color:#b9e9a0}.juba-jl-not-found .juba-404-primary{background:#58cc02;color:#fff;border:2px solid #46a302;box-shadow:0 3px 0 #46a302}.juba-jl-not-found .juba-404-secondary{border:2px solid #e5e5e5;background:#fff;color:#242424}.juba-jl-not-found .juba-404-secondary:hover{background:#efffe6;border-color:#58cc02}@media(max-width:640px){.juba-jl-not-found .juba-card{border-radius:18px}}`}</style>
       <div className="relative w-full max-w-lg">
         <div className="mb-8 flex items-center justify-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--juba-violet)] text-lg font-black text-white shadow-lg shadow-[var(--juba-shadow-md)]">
+          <div className="juba-404-mark flex h-11 w-11 items-center justify-center rounded-2xl text-lg font-black">
             J
           </div>
           <span className="text-xl font-extrabold tracking-tight">
@@ -19,7 +19,7 @@ export default async function NotFound() {
 
         <section className="juba-card overflow-hidden bg-[var(--juba-surface)]">
           <div className="border-b border-[var(--juba-border)] px-7 py-6  sm:px-9">
-            <div className="mb-4 inline-flex items-center rounded-full border border-[var(--juba-border)] bg-[var(--juba-lilac)] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[var(--juba-violet)]">
+            <div className="juba-404-pill mb-4 inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
               404
             </div>
             <h1 className="text-2xl font-black tracking-tight text-[var(--juba-text)]">
@@ -35,13 +35,13 @@ export default async function NotFound() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/dashboard"
-                className="flex-1 rounded-[18px] bg-[var(--juba-violet)] px-6 py-3.5 text-center text-sm font-bold text-white shadow-md shadow-[var(--juba-shadow-md)] transition hover:bg-[var(--juba-violet-dark)] active:scale-[0.98]"
+                className="juba-404-primary flex-1 rounded-[14px] px-6 py-3.5 text-center text-sm font-bold transition active:scale-[0.98]"
               >
                 {t('dashboard')}
               </Link>
               <Link
                 href="/"
-                className="flex-1 rounded-[18px] border border-[var(--juba-border)] px-6 py-3.5 text-center text-sm font-bold text-[var(--juba-text)] transition hover:bg-neutral-50   hover:bg-[var(--juba-lilac)]"
+                className="juba-404-secondary flex-1 rounded-[14px] px-6 py-3.5 text-center text-sm font-bold transition"
               >
                 {t('home')}
               </Link>
