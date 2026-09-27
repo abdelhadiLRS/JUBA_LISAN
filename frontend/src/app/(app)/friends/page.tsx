@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { apiFetch } from '@/lib/api'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
+import { Check, CheckCheck, Clipboard, Link as LinkIcon, MessageCircle, Search, UserMinus, UserPlus, Users } from 'lucide-react'
 
 type Person = { id:number; username:string; display_name:string; avatar?:string|null; target_language?:string; bio?:string|null }
 type RequestItem = { id:number; user:Person }
