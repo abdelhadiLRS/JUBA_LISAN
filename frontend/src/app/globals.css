@@ -2155,3 +2155,39 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
   .juba-reference-page[dir="rtl"] .juba-ai-live-pill{right:10px!important;left:auto!important}
   .juba-reference-page[dir="rtl"] .juba-ai-play{left:10px!important;right:auto!important}
 }
+
+/* Landing — final keyboard focus and touch states */
+.juba-reference-page .juba-games-tab:focus-visible,
+.juba-reference-page .juba-practical-language-card:focus-visible,
+.juba-reference-page .juba-ref-button:focus-visible,
+.juba-reference-page .juba-ai-play:focus-visible{
+  outline:3px solid #b7f36b!important;
+  outline-offset:3px!important;
+}
+.juba-reference-page .juba-games-tab:focus-visible{
+  border-color:#58cc02!important;
+}
+.juba-reference-page .juba-practical-language-card:active,
+.juba-reference-page .juba-ref-button:active{
+  transform:translateY(1px)!important;
+}
+.juba-reference-page .juba-ai-play:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:inset 0 -3px 0 #46a900,0 11px 22px rgba(88,204,2,.22)!important;
+}
+.juba-reference-page .juba-ai-play:active{
+  transform:translateY(1px)!important;
+}
+@media(max-width:600px){
+  .juba-reference-page .juba-ai-play:hover{
+    transform:none!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .juba-reference-page .juba-ai-play:hover,
+  .juba-reference-page .juba-ai-play:active,
+  .juba-reference-page .juba-practical-language-card:active,
+  .juba-reference-page .juba-ref-button:active{
+    transform:none!important;
+  }
+}
