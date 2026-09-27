@@ -1731,3 +1731,26 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
     transform:none!important;
   }
 }
+
+
+/* Landing — AI tutor live-state finish */
+.juba-reference-page .juba-ai-showcase-art.is-playing{
+  border-color:#9bdd68!important;
+  box-shadow:0 0 0 4px #f3fbe9,0 12px 30px rgba(37,37,37,.07)!important;
+}
+.juba-reference-page .juba-ai-showcase-art.is-playing .juba-ai-live-pill{
+  background:#58cc02!important;
+  border-color:#46a900!important;
+  color:#fff!important;
+}
+.juba-reference-page .juba-ai-showcase-art.is-playing .juba-ai-play{
+  box-shadow:0 0 0 6px rgba(88,204,2,.14),inset 0 -3px 0 #46a900!important;
+}
+.juba-reference-page .juba-ai-showcase-art:not(.is-playing) .juba-ai-wave{
+  opacity:.72!important;
+}
+@media(max-width:600px){
+  .juba-reference-page .juba-ai-showcase-art.is-playing{
+    box-shadow:0 0 0 3px #f3fbe9,0 8px 22px rgba(37,37,37,.07)!important;
+  }
+}
