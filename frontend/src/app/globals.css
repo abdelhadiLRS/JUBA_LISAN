@@ -578,3 +578,81 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
 .juba-reference-page .juba-landing-faq-answer strong {
   color: #252525 !important;
 }
+
+
+/* Landing pricing — unified with the same green/white reference system */
+.juba-reference-page .juba-ref-pricing {
+  background: #fff !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-pricing-title {
+  color: #252525 !important;
+  font-size: clamp(2rem, 4vw, 3rem) !important;
+  letter-spacing: -.045em !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-pricing-subtitle {
+  color: #68766d !important;
+  max-width: 620px;
+  margin-inline: auto;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-plan-card {
+  border: 1px solid #dfe9da !important;
+  border-radius: 22px !important;
+  box-shadow: 0 5px 0 rgba(70,169,0,.12) !important;
+  padding: 24px !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-plan-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 0 rgba(70,169,0,.16) !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-plan-head {
+  border-color: #e7eee3 !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-plan-icon,
+.juba-reference-page .juba-ref-pricing .juba-ff-plan-name,
+.juba-reference-page .juba-ref-pricing .juba-ff-plan-price {
+  color: #252525 !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-plan-old,
+.juba-reference-page .juba-ref-pricing .juba-ff-plan-desc {
+  color: #68766d !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-plan-card.juba-ff-plan-yearly {
+  border-color: #9bdd68 !important;
+  box-shadow: 0 6px 0 rgba(70,169,0,.2) !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-plan-card.juba-ff-plan-yearly::before {
+  background: #b7f36b !important;
+  color: #252525 !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-plan-cta {
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #58cc02 !important;
+  color: #fff !important;
+  box-shadow: inset 0 -3px 0 #46a900 !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-plan-cta:hover {
+  background: #46a900 !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-comparison {
+  border: 1px solid #dfe9da !important;
+  border-radius: 20px !important;
+  box-shadow: 0 4px 0 rgba(70,169,0,.1) !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-comparison-head {
+  background: #f3fbe9 !important;
+  border-color: #dfe9da !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-comparison th,
+.juba-reference-page .juba-ref-pricing .juba-ff-table-cell {
+  color: #252525 !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-comparison tbody tr {
+  border-color: #e7eee3 !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-check {
+  color: #58cc02 !important;
+}
+.juba-reference-page .juba-ref-pricing .juba-ff-limited {
+  color: #68766d !important;
+}
