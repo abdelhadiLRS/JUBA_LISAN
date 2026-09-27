@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+- Removed three redundant C2 repeats of C1 headwords (`articulate`, `notwithstanding`, `corroborate`) where the higher-level entries added no sufficiently distinct meaning; retained other C1/C2 overlaps where the C2 context provides a distinct academic or discourse use.
+- Added regression coverage for the curated C1→C2 vocabulary progression.
 - Removed a repeated C2 entry for `promulgate` and added a regression check against duplicate headword/part-of-speech pairs within C2.
 - Sharpened six C2 definitions to distinguish judgement, close conceptual links, contentiousness, ubiquity, ramifications, and official promulgation.
 - Added regression coverage for the revised C2 definition wording.
