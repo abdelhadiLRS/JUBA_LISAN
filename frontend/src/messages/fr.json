@@ -162,7 +162,12 @@
     "regionPacific": "Pacifique",
     "hero": "Apprenez les langues avec un vrai partenaire de conversation vocale",
     "footer": "Open source · Auto-hébergez gratuitement ou abonnez-vous au service hébergé",
-    "skipToContent": "Aller au contenu"
+    "skipToContent": "Aller au contenu",
+    "appCtaTitle": "Apprenez partout avec JUBA LISAN",
+    "appCtaDescription": "Gardez votre pratique linguistique à portée de main. Continuez vos leçons, conversations IA, écoute et progression où que vous soyez.",
+    "appCtaNote": "Expérience web · Pensée pour les écrans mobiles",
+    "onlineLanguagesTitle": "Apprendre les langues en ligne",
+    "onlineLanguagesDescription": "Choisissez une langue et découvrez l’expérience d’apprentissage disponible dans JUBA LISAN."
   },
   "common": {
     "loading": "Chargement...",
