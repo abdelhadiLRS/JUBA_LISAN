@@ -38,30 +38,31 @@ export function LandingFooter({ t, hasSession, dir = 'ltr', locale = 'en', showR
         <div className="juba-busuu-footer-grid">
           <div className="juba-busuu-footer-column">
             <h3>{t('footerLearning')}</h3>
-            <Link href="#features">{t('navFeatures')}</Link>
-            <Link href="#languages">{t('supportedLanguages')}</Link>
             <Link href="#features">{t('howItWorks')}</Link>
-            <Link href="#features">{t('ctaExplore')}</Link>
+            <Link href="#languages">{t('navLanguages')}</Link>
+            <Link href="#benefits">{t('builtForLearners')}</Link>
+            {showReviews && <Link href="#reviews">{t('navReviews')}</Link>}
+          </div>
+
+          <div className="juba-busuu-footer-column">
+            <h3>{t('aboutMe')}</h3>
+            <Link href="#features">{t('navFeatures')}</Link>
+            <Link href="#pricing">{t('navPricing')}</Link>
+            <a href="https://github.com/abdelhadiLRS/JUBA_LISAN" target="_blank" rel="noopener noreferrer">{t('github')}</a>
           </div>
 
           <div className="juba-busuu-footer-column">
             <h3>{t('footerProduct')}</h3>
-            <Link href="#pricing">{t('navPricing')}</Link>
-            {showReviews && <Link href="#reviews">{t('navReviews')}</Link>}
+            <Link href={hasSession ? '/dashboard' : '/register'}>{hasSession ? t('dashboard') : t('ctaStart')}</Link>
+            <Link href="#languages">{t('availableInApp')}</Link>
             <Link href="#faq">{t('navFAQ')}</Link>
           </div>
 
           <div className="juba-busuu-footer-column">
             <h3>{t('footerResources')}</h3>
-            <a href="https://github.com/abdelhadiLRS/JUBA_LISAN" target="_blank" rel="noopener noreferrer">{t('github')}</a>
             <span className="juba-busuu-footer-contact"><ContactButton /></span>
-          </div>
-
-          <div className="juba-busuu-footer-column">
-            <h3>{t('aboutMe')}</h3>
             <Link href="/privacy?from=landing">{t('privacy')}</Link>
             <Link href="/terms?from=landing">{t('terms')}</Link>
-            <Link href={hasSession ? '/dashboard' : '/register'}>{hasSession ? t('dashboard') : t('ctaStart')}</Link>
           </div>
         </div>
 
