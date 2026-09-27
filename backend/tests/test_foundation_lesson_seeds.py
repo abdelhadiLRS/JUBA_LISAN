@@ -341,3 +341,20 @@ def test_en_gb_c2_definitions_distinguish_precise_meanings():
     }
     for word, phrase in expected_definitions.items():
         assert phrase.casefold() in entries[word].definition.casefold()
+
+def test_en_gb_c2_has_no_duplicate_headword_and_part_of_speech():
+    """Avoid teaching the same C2 headword twice with the same grammatical role."""
+    from app.data.en_GB.vocabulary_c2 import C2_SETS
+
+    seen: dict[tuple[str, str], str] = {}
+    duplicates: list[str] = []
+    for vocabulary_set in C2_SETS:
+        for entry in vocabulary_set.words:
+            key = (entry.word.strip().casefold(), entry.pos.strip().casefold())
+            previous_set = seen.get(key)
+            if previous_set is not None:
+                duplicates.append(f"{entry.word} ({previous_set}/{vocabulary_set.id})")
+            else:
+                seen[key] = vocabulary_set.id
+
+    assert not duplicates, "Duplicate C2 headwords: " + ", ".join(duplicates)
