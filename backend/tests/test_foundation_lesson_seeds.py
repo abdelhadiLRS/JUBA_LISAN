@@ -1748,3 +1748,22 @@ def test_foundation_fallback_seed_calibrates_difficulty_by_cefr():
         progression = " ".join(seed["difficulty_progression"])
         assert fragment.lower() in progression.lower()
 
+
+
+def test_foundation_fallback_seed_has_skill_specific_feedback_cycles():
+    expected = {
+        "grammar": ["target form", "changed context"],
+        "vocabulary": ["collocation", "new sentence"],
+        "reading": ["text", "inference"],
+        "listening": ["gist", "corrected detail"],
+        "speaking": ["accuracy", "extension"],
+        "writing": ["cohesion", "revision"],
+        "review": ["confusion", "again"],
+    }
+    for skill, fragments in expected.items():
+        seed = get_foundation_lesson_seed("en_GB", "B1", "nonexistent", skill)
+        assert seed is not None
+        feedback = " ".join(seed["feedback_cycle"])
+        for fragment in fragments:
+            assert fragment.lower() in feedback.lower()
+
