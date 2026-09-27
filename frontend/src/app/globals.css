@@ -480,3 +480,68 @@ body .juba-reference-page .juba-duo-footer .juba-footer-bottom{border-top:1px so
 body .juba-reference-page .juba-duo-footer img{filter:none!important}
 body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7f36b!important;outline-offset:4px!important}
 @media(max-width:700px){body .juba-reference-page .juba-duo-footer{padding:62px 0 24px!important}.juba-reference-page .juba-duo-footer .grid{gap:30px!important}}
+
+
+/* Landing header — reference-matched visual system */
+.juba-reference-page .juba-landing-header {
+  background: rgba(255,255,255,.96) !important;
+  border-bottom: 1px solid #e7eee3;
+  box-shadow: 0 2px 14px rgba(37,37,37,.05);
+  backdrop-filter: blur(14px);
+}
+.juba-reference-page .juba-landing-header-inner {
+  min-height: 72px;
+}
+.juba-reference-page .juba-landing-brand-copy {
+  display: none;
+}
+.juba-reference-page .juba-landing-brand img {
+  display: block;
+}
+.juba-reference-page .juba-landing-nav-links > a {
+  position: relative;
+  color: #252525 !important;
+  font-size: .86rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -.01em;
+  padding: 9px 2px;
+}
+.juba-reference-page .juba-landing-nav-links > a:hover {
+  color: #46a900 !important;
+}
+.juba-reference-page .juba-landing-actions > a:first-of-type {
+  color: #252525 !important;
+  font-size: .86rem !important;
+  font-weight: 800 !important;
+}
+.juba-reference-page .juba-landing-actions > a:last-of-type {
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #58cc02 !important;
+  box-shadow: inset 0 -3px 0 #46a900 !important;
+  padding: 11px 19px !important;
+  color: #fff !important;
+  transform: none !important;
+}
+.juba-reference-page .juba-landing-actions > a:last-of-type:hover {
+  background: #46a900 !important;
+  transform: translateY(-1px) !important;
+}
+.juba-reference-page .juba-landing-mobile-trigger {
+  border: 2px solid #252525 !important;
+  border-radius: 999px !important;
+  background: #fff !important;
+  box-shadow: 0 2px 0 #252525 !important;
+}
+.juba-reference-page .juba-landing-mobile-sheet {
+  background: #fff !important;
+  border-top: 1px solid #e7eee3 !important;
+}
+.juba-reference-page .juba-landing-mobile-sheet .rounded-2xl {
+  border-radius: 18px;
+}
+@media (max-width: 767px) {
+  .juba-reference-page .juba-landing-header-inner {
+    min-height: 68px;
+  }
+}
