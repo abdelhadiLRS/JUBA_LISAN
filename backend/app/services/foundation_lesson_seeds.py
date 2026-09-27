@@ -253,6 +253,51 @@ def get_foundation_lesson_seed(
         ],
     }[level]
 
+    base["practice_tasks"] = {
+        "grammar": [
+            "Notice: underline the target form in two input examples and state what it expresses.",
+            "Controlled: complete three short items using the target form; check each against the model.",
+            "Contrast: choose between the target form and a related form in two different contexts.",
+            "Transfer: write a new sentence about a different person, time, or situation using the target form.",
+        ],
+        "vocabulary": [
+            "Notice: match each target word to its meaning using the lesson context.",
+            "Collocation: pair target words with natural verbs, nouns, or adjectives from the input.",
+            "Retrieval: cover the definitions and recall the meaning of four target items.",
+            "Transfer: use three target items in a short message about a new but related situation.",
+        ],
+        "reading": [
+            "Before reading: predict two likely details from the title or situation.",
+            "First read: choose the main idea from three plausible options.",
+            "Second read: locate evidence for two detail questions and infer one unstated relationship.",
+            "After reading: summarise the text in your own words and reuse one target expression.",
+        ],
+        "listening": [
+            "Before listening: predict the topic and one piece of information you need.",
+            "First listen: identify the gist without pausing for individual words.",
+            "Second listen: record two details and the expression that signals the speaker's purpose.",
+            "After listening: report the information in your own words and adapt one phrase.",
+        ],
+        "speaking": [
+            "Plan: note three target words and one useful structure, not full sentences.",
+            "First turn: speak for a short, level-appropriate response without reading a model.",
+            "Follow-up: answer a question asking for a reason, detail, or clarification.",
+            "Repair and extend: correct one unclear phrase and add a relevant detail.",
+        ],
+        "writing": [
+            "Plan: identify the reader, purpose, and three target items before drafting.",
+            "Draft: write a connected response suited to the lesson's level and situation.",
+            "Review: check meaning, target language, sentence links, and register where relevant.",
+            "Revise: improve one sentence and explain what became clearer or more accurate.",
+        ],
+        "review": [
+            "Retrieve: answer short prompts using earlier language without looking at the model.",
+            "Discriminate: distinguish two related words or forms in context.",
+            "Apply: complete a mixed task using language from more than one earlier lesson.",
+            "Reflect: identify one item recalled accurately and one item needing another review.",
+        ],
+    }.get(skill, [])
+
     base["evidence_requirements"] = {
         "grammar": [
             "Accurately produce the target form in a new sentence.",
