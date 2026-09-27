@@ -1731,3 +1731,20 @@ def test_foundation_fallback_seed_has_skill_specific_evidence_requirements():
         for fragment in fragments:
             assert fragment.lower() in evidence.lower()
 
+
+
+def test_foundation_fallback_seed_calibrates_difficulty_by_cefr():
+    expectations = {
+        "A1": "concrete and familiar",
+        "A2": "small changes",
+        "B1": "justify a choice",
+        "B2": "less predictable",
+        "C1": "register, stance",
+        "C2": "nuance, register",
+    }
+    for level, fragment in expectations.items():
+        seed = get_foundation_lesson_seed("en_GB", level, "nonexistent", "grammar")
+        assert seed is not None
+        progression = " ".join(seed["difficulty_progression"])
+        assert fragment.lower() in progression.lower()
+
