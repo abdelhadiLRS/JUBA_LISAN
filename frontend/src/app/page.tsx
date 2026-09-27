@@ -86,7 +86,6 @@ export default async function Home() {
         hasSession={hasSession}
         dir={rtl ? 'rtl' : 'ltr'}
         navFeatures={t('navFeatures')}
-        navDemo={t('navDemo')}
         navLanguages={t('navLanguages')}
         navReviews={t('navReviews')}
         navPricing={t('navPricing')}
@@ -96,7 +95,6 @@ export default async function Home() {
         dashboard={t('dashboard')}
         getStarted={t('ctaStart')}
         homeLabel={t('homeLabel')}
-        brandTagline={t('brandTagline')}
         openMenuLabel={t('openMenuLabel')}
         closeMenuLabel={t('closeMenuLabel')}
         locale={locale as Locale}
