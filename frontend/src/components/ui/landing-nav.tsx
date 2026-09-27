@@ -72,7 +72,7 @@ export function LandingNav({
           <Image src="/logo.png" alt="JUBA LISAN" width={150} height={52} priority />
         </Link>
 
-        <nav className="juba-busuu-nav-links" aria-label="Primary navigation">
+        <nav className="juba-busuu-nav-links" aria-label={navFeatures}>
           {links.slice(0, 5).map((link) => (
             <a key={link.href + link.label} href={link.href}>{link.label}</a>
           ))}
@@ -86,7 +86,7 @@ export function LandingNav({
             {hasSession ? dashboard : getStarted}
           </Link>
           <details className="juba-busuu-locale-menu">
-            <summary className="juba-busuu-locale" aria-label="Change language">{locale.toUpperCase()}</summary>
+            <summary className="juba-busuu-locale" aria-label={navLanguages}>{locale.toUpperCase()}</summary>
             <div className="juba-busuu-locale-options">
               {localeOptions.map(([code, label]) => (
                 <Link key={code} href={code === 'en' ? '/' : `/${code}`} aria-current={code === locale ? 'page' : undefined}>
