@@ -1084,3 +1084,27 @@ def test_en_gb_c1_critical_thinking_examples_are_contextual_and_reusable():
     for word, phrase in expected.items():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 14
+
+
+
+def test_en_gb_b1_b2_grammar_assessments_use_realistic_contexts():
+    """B1-B2 grammar checks should provide enough context to distinguish tense and structure choices."""
+    from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+    questions = {item.id: item for item in ASSESSMENT_BANK}
+    expected = {
+        "g-b1-002": "operations manager reviews the weekly report",
+        "g-b1-003": "met a chef at the café",
+        "g-b1-004": "After the meeting, Maya told me",
+        "g-b1-005": "At a restaurant, I realised",
+        "g-b1-006": "cough has lasted for several days",
+        "g-b2-001": "regret leaving school early",
+        "g-b2-002": "arrived after the scheduled start",
+        "g-b2-003": "security system should have detected",
+        "g-b2-004": "regrets spending hours on social media",
+        "g-c1-002": "hosted many talented actors",
+    }
+    for question_id, phrase in expected.items():
+        question = questions[question_id].question
+        assert phrase.casefold() in question.casefold()
+        assert len(question.split()) >= 12
