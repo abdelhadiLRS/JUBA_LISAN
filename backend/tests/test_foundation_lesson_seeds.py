@@ -1238,3 +1238,23 @@ def test_en_gb_c1_c2_formal_grammar_assessments_use_context():
         assert phrase.casefold() in question.question.casefold()
         assert len(question.question.split()) >= 14
         assert question.correct in question.options
+
+
+def test_en_gb_a2_irregular_verbs_use_transferable_contexts():
+    """Selected A2 irregular verbs should model useful everyday situations, not isolated sentences."""
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in A2_SETS for entry in vocabulary_set.words}
+    expected = {
+        "began": "workshop began at 9 am",
+        "broke": "phone screen when he dropped it",
+        "brought": "reusable bottle",
+        "caught": "last bus home",
+        "chose": "earlier train",
+        "fell": "road became slippery",
+        "felt": "prepared a quick meal",
+        "forgot": "wait under a shop doorway",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 10
