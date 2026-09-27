@@ -155,6 +155,166 @@ LESSON_SEEDS = {
             ("Aynı cümle neden farklı etki yaratabilir?", ["Bağlama göre pragmatik anlamı değişebilir", "Her zaman aynı anlamı taşır", "Çünkü kelimeler değişir"], "Bağlama göre pragmatik anlamı değişebilir"),
         ],
     },
+    ("A2","a2-unit-1","speaking"): {
+        "title":"Günlük hayatını anlat",
+        "objective":"Günlük rutinini, yaşadığın yeri ve hafta sonu planlarını basitçe anlatmak.",
+        "prompt":"Yaklaşık bir dakika konuş. Nerede yaşadığını, hafta içi neler yaptığını ve hafta sonu ne yaptığını anlat.",
+        "phrases":["Genellikle ... yaparım.","Hafta sonları ... giderim.","Yaşadığım yerde ... var."],
+        "examples":["Ankara'da yaşıyorum. Hafta içi çalışırım. Hafta sonları arkadaşlarımla parka giderim."]
+    },
+    ("A2","a2-unit-1","writing"): {
+        "title":"Mahalleni tanıt",
+        "objective":"Mahalle ve günlük hayat hakkında kısa, bağlantılı cümleler yazmak.",
+        "prompt":"60–80 kelimeyle mahalleni tanıt. Nerede olduğunu, yakınındaki yerleri ve orada ne yaptığını yaz.",
+        "guidance":["En az üç yer adı kullan.","yakın, uzak veya merkez gibi konum ifadeleri kullan.","Günlük bir etkinlik ekle."],
+        "examples":["Mahallem şehir merkezine yakın. Evimizin yanında küçük bir market var. Otobüs durağı da çok yakın. Hafta sonları parka gidiyorum."]
+    },
+    ("A2","a2-unit-1","review"): {
+        "title":"Ev ve şehir tekrarı",
+        "objective":"Konum, geçmiş zaman ve günlük şehir kelimelerini tekrar etmek.",
+        "questions":[
+            ("Hangisi geçmişte yapılan bir işi anlatır?",["Dün çalıştım.","Yarın çalışacağım.","Şimdi çalışıyorum."],"Dün çalıştım."),
+            ("“İstasyon evden uzak.” cümlesinde hangi bilgi veriliyor?",["Mesafe","Zaman","Hava durumu"],"Mesafe"),
+            ("Hangisi doğru?",["Geçen hafta Ankara'ya gittim.","Geçen hafta Ankara'ya gidiyorum.","Geçen hafta Ankara'ya gideceğim."],"Geçen hafta Ankara'ya gittim.")
+        ]
+    },
+
+    ("B1","b1-unit-1","listening"): {
+        "title":"Bir kurs hakkında konuşma",
+        "objective":"Bir konuşmada kursun zamanı, amacı ve konuşmacının motivasyonunu anlamak.",
+        "transcript":"Ayşe: Yeni bir dil kursuna başladım. Dersler salı ve perşembe akşamları. Mehmet: Neden bu kursu seçtin? Ayşe: İşimde yabancı müşterilerle daha rahat konuşmak istiyorum.",
+        "questions":[
+            ("Dersler ne zaman?",["Salı ve perşembe akşamları","Pazartesi sabahları","Her gün"],"Salı ve perşembe akşamları"),
+            ("Ayşe neden kursa başladı?",["İşinde daha rahat konuşmak için","Tatile gitmek için","Yeni bir eve taşınmak için"],"İşinde daha rahat konuşmak için"),
+            ("Ayşe kiminle daha rahat konuşmak istiyor?",["Yabancı müşterilerle","Komşularıyla","Öğretmenleriyle"],"Yabancı müşterilerle")
+        ]
+    },
+    ("B1","b1-unit-1","speaking"): {
+        "title":"Bir kararını açıkla",
+        "objective":"Bir kararın nedenlerini açıklamak ve farklı koşullarda ne yapacağını söylemek.",
+        "prompt":"Önemli bir kararını anlat. Neden bu kararı verdiğini ve daha fazla zamanın olsaydı ne yapacağını açıkla.",
+        "phrases":["... kararını verdim çünkü ...","Bunun en önemli nedeni ...","Daha fazla zamanım olsaydı ..."],
+        "examples":["Akşam kursuna katılmaya karar verdim çünkü gündüz çalışıyorum. Daha fazla zamanım olsaydı konuşma pratiği de yapardım."]
+    },
+    ("B1","b1-unit-1","writing"): {
+        "title":"Bir deneyimini anlat",
+        "objective":"Bir deneyimi neden, sonuç ve kişisel değerlendirmeyle anlatmak.",
+        "prompt":"100–120 kelimeyle öğrendiğin bir beceriyi veya yaşadığın önemli bir deneyimi anlat. Neden başladığını, ne öğrendiğini ve bugün nasıl değerlendirdiğini yaz.",
+        "guidance":["Geçmiş zaman eklerini doğru kullan.","çünkü, bu yüzden ve ayrıca gibi bağlaçlar kullan.","Sonunda kişisel bir değerlendirme yap."],
+        "examples":["Geçen yıl Türkçe konuşma kursuna başladım çünkü günlük hayatta daha rahat konuşmak istiyordum. İlk başta zorlandım, fakat düzenli çalıştım. Birkaç ay sonra insanlarla daha kolay iletişim kurmaya başladım."]
+    },
+    ("B1","b1-unit-1","review"): {
+        "title":"Deneyim ve kararlar tekrarı",
+        "objective":"Deneyim anlatımı, neden-sonuç bağlantıları ve varsayımsal ifadeleri tekrar etmek.",
+        "questions":[
+            ("Neden-sonuç ilişkisi kuran ifade hangisidir?",["çünkü","ama","ve"],"çünkü"),
+            ("Hangisi varsayımsal bir durumdur?",["Daha fazla zamanım olsaydı daha çok okurdum.","Dün kitap okudum.","Şimdi kitap okuyorum."],"Daha fazla zamanım olsaydı daha çok okurdum."),
+            ("Hangisi geçmiş bir deneyimi anlatır?",["Geçen yıl kursa başladım.","Gelecek yıl kursa başlayacağım.","Şimdi kursa gidiyorum."],"Geçen yıl kursa başladım.")
+        ]
+    },
+
+    ("B2","b2-unit-1","listening"): {
+        "title":"Geçmiş bir kararı değerlendirmek",
+        "objective":"Bir konuşmada pişmanlık, alternatifler ve sonuçlar arasındaki ilişkiyi anlamak.",
+        "transcript":"Selin: Geriye dönünce o işi kabul edebilirdim diye düşünüyorum. Yeni deneyimler kazanırdım. Ancak o dönemde taşınmak ailem için çok zordu. Bu yüzden bugün kararıma daha farklı bakıyorum.",
+        "questions":[
+            ("Selin neyi düşünüyor?",["İşi kabul edebileceğini","Şehri hemen terk ettiğini","Yeni bir kursa başladığını"],"İşi kabul edebileceğini"),
+            ("Taşınmak neden zordu?",["Ailesi için zor olduğu için","İş olmadığı için","Kurs başladığı için"],"Ailesi için zor olduğu için"),
+            ("Selin bugün kararına nasıl bakıyor?",["Daha farklı bakıyor","Hiç düşünmüyor","Kesinlikle pişman"],"Daha farklı bakıyor")
+        ]
+    },
+    ("B2","b2-unit-1","speaking"): {
+        "title":"Alternatifleri tartış",
+        "objective":"Bir kararın avantaj ve dezavantajlarını tartışmak ve karşıt görüşü değerlendirmek.",
+        "prompt":"İki farklı seçenek içeren bir karar seç. Her seçeneğin avantajlarını ve dezavantajlarını açıkla; sonunda hangi koşulda hangi seçeneği tercih edeceğini belirt.",
+        "phrases":["Bir yandan ..., diğer yandan ...","Bunun avantajı ...","Öte yandan ...","Bu koşullarda ... daha mantıklı olurdu."],
+        "examples":["Bir yandan yeni iş daha iyi fırsatlar sunuyor, diğer yandan taşınmak gerekiyor. Bu koşullarda aile durumuna göre karar vermek daha mantıklı olurdu."]
+    },
+    ("B2","b2-unit-1","writing"): {
+        "title":"İki seçeneği karşılaştır",
+        "objective":"İki seçeneği kanıt, karşılaştırma ve sonuç bölümleriyle dengeli biçimde değerlendirmek.",
+        "prompt":"160–200 kelimeyle iki farklı seçenek içeren bir karar hakkında yaz. Her seçeneğin avantaj ve dezavantajlarını karşılaştır ve sonunda gerekçeli bir sonuç ver.",
+        "guidance":["bir yandan ... diğer yandan yapısını kullan.","En az bir varsayımsal cümle yaz.","Sonuç bölümünde gerekçeni açıkça belirt."],
+        "examples":["Bir yandan yeni iş daha iyi kariyer fırsatları sunuyor. Diğer yandan taşınma ve ek masraflar gerekiyor. Eğer aile koşullarım farklı olsaydı, yeni işi kabul edebilirdim."]
+    },
+    ("B2","b2-unit-1","review"): {
+        "title":"Karşılaştırma ve varsayım tekrarı",
+        "objective":"Geçmiş varsayımlarını, karşıtlık bağlaçlarını ve sonuç ifadelerini pekiştirmek.",
+        "questions":[
+            ("Karşıtlık bildiren ifade hangisidir?",["diğer yandan","bu yüzden","örneğin"],"diğer yandan"),
+            ("Hangisi gerçekleşmemiş bir olasılığı anlatır?",["Kabul edebilirdim.","Kabul ediyorum.","Kabul edeceğim."],"Kabul edebilirdim."),
+            ("Hangisi dengeli bir değerlendirmedir?",["Hem avantajları hem dezavantajları var.","Sadece avantajları var.","Hiçbir sonucu yok."],"Hem avantajları hem dezavantajları var.")
+        ]
+    },
+
+    ("C1","c1-unit-1","listening"): {
+        "title":"Veriler ne gösteriyor?",
+        "objective":"Bir uzman açıklamasında bulgu, yorum ve belirsizlik arasındaki farkı anlamak.",
+        "transcript":"Araştırma, düzenli kısa çalışma dönemleri ile daha iyi sonuçlar arasında belirgin bir ilişki olduğunu gösteriyor. Ancak bu sonuç, tek başına çalışma süresinin başarıya neden olduğunu kanıtlamıyor. Motivasyon ve önceki deneyim de etkili olabilir.",
+        "questions":[
+            ("Araştırma ne gösteriyor?",["Bir ilişki olduğunu","Kesin bir nedensellik olduğunu","Motivasyonun önemsiz olduğunu"],"Bir ilişki olduğunu"),
+            ("Sonuç neyi kanıtlamıyor?",["Tek başına çalışma süresinin nedenselliğini","Verilerin varlığını","Katılımcıların çalıştığını"],"Tek başına çalışma süresinin nedenselliğini"),
+            ("Hangi faktörler de etkili olabilir?",["Motivasyon ve önceki deneyim","Hava ve ulaşım","Yaş ve şehir"],"Motivasyon ve önceki deneyim")
+        ]
+    },
+    ("C1","c1-unit-1","speaking"): {
+        "title":"Bir tezi temkinli değerlendir",
+        "objective":"Bir görüşü kanıtlarla değerlendirmek, belirsizliği işaretlemek ve dengeli sonuç çıkarmak.",
+        "prompt":"Eğitim, çalışma veya teknoloji hakkında bir tez seç. İki gerekçe sun, en az bir noktayı sınırlandır ve sonunda ölçülü bir sonuç çıkar.",
+        "phrases":["Eldeki veriler ... gösteriyor.","Bundan doğrudan ... sonucu çıkarılamaz.","Bununla birlikte ...","Dolayısıyla daha temkinli bir ifadeyle ..."],
+        "examples":["Eldeki veriler yöntemin yararlı olabileceğini gösteriyor. Bundan herkes için aynı sonucu doğuracağı sonucu çıkarılamaz."]
+    },
+    ("C1","c1-unit-1","writing"): {
+        "title":"Dengeli bir analiz yaz",
+        "objective":"Kanıtları, karşı görüşü ve belirsizliği açıkça ayıran akademik bir metin yazmak.",
+        "prompt":"220–280 kelimeyle tartışmalı bir tez hakkında analiz yaz. En az iki gerekçe, bir karşı görüş ve ölçülü bir sonuç kullan.",
+        "guidance":["Bulgu ile yorumu birbirinden ayır.","muhtemelen, görünüşe göre veya ... düşünülebilir gibi ifadeler kullan.","Sonucun kapsamını açıkça sınırlandır."],
+        "examples":["Sonuçlar düzenli çalışmanın yararlı olabileceğine işaret ediyor. Bununla birlikte, yöntemin tek başına başarıyı açıkladığı söylenemez."]
+    },
+    ("C1","c1-unit-1","review"): {
+        "title":"Belirsizlik ve çıkarım tekrarı",
+        "objective":"Kesinlik derecelerini, çıkarım ifadelerini ve temkinli akademik dili tekrar etmek.",
+        "questions":[
+            ("Güçlü bir çıkarım hangisidir?",["Mutlaka doğru olmalı.","Belki doğru olabilir.","Belki de yanlıştır."],"Mutlaka doğru olmalı."),
+            ("Temkinli bir ifade hangisidir?",["... düşünülebilir.","Kesinlikle her zaman böyledir.","Hiçbir istisna yoktur."],"... düşünülebilir."),
+            ("Akademik değerlendirmede ne ayrılmalıdır?",["Bulgu ve yorum","Başlık ve sayfa","Soru ve nokta"],"Bulgu ve yorum")
+        ]
+    },
+
+    ("C2","c2-unit-1","listening"): {
+        "title":"İlişki, nedensellik ve kapsam",
+        "objective":"Yoğun bir akademik açıklamada nedensellik iddiasının koşullarını ve kapsam sınırlarını çözümlemek.",
+        "transcript":"Gözlemlenen bir ilişki başlangıçta yalnızca betimleyici bir nitelik taşır. Nedensel bir yorum için alternatif açıklamaların ve olası karıştırıcı değişkenlerin sistematik biçimde incelenmesi gerekir. Bunun ardından bile bulgunun başka bağlamlara ne ölçüde aktarılabileceği ayrıca değerlendirilmelidir.",
+        "questions":[
+            ("Gözlemlenen ilişki başlangıçta hangi niteliği taşır?",["Betimleyici","Kesin nedensel","Normatif"],"Betimleyici"),
+            ("Nedensel yorumdan önce ne incelenmelidir?",["Alternatif açıklamalar ve karıştırıcı değişkenler","Sadece ilk izlenim","Yalnızca başlık"],"Alternatif açıklamalar ve karıştırıcı değişkenler"),
+            ("Başka hangi konu ayrıca değerlendirilmelidir?",["Bulgunun başka bağlamlara aktarılabilirliği","Konuşmacının yaşı","Metnin uzunluğu"],"Bulgunun başka bağlamlara aktarılabilirliği")
+        ]
+    },
+    ("C2","c2-unit-1","speaking"): {
+        "title":"İncelikli bir argüman kur",
+        "objective":"Karmaşık bir tezi karşı görüşü hesaba katarak, kapsamını sınırlandırarak ve kesinlik derecesini kontrol ederek savunmak.",
+        "prompt":"İleri düzey bir tez seç. Görüşünü açıkça kur, güçlü bir karşı görüşü ele al, kendi iddianı uygun yerde sınırlandır ve sonuçta hangi koşullarda geçerli olduğunu belirt.",
+        "phrases":["Bu tez şu açıdan savunulabilir: ...","Ancak bu açıklama ... durumunda yetersiz kalır.","Buradan ... sonucunu çıkarmak erken olur.","Dolayısıyla daha isabetli ifade ... olacaktır."],
+        "examples":["Bu tez verilerdeki ilişki açısından savunulabilir. Ancak alternatif nedenler dikkate alınmadığında bu açıklama yetersiz kalır."]
+    },
+    ("C2","c2-unit-1","writing"): {
+        "title":"İleri düzey argümantasyon",
+        "objective":"Karşı görüş, kip seçimi, kapsam sınırı ve sonuç arasında tutarlı bir akademik argüman kurmak.",
+        "prompt":"300–400 kelimeyle ileri düzey bir tez hakkında bağımsız bir argüman yaz. Bir karşı görüşü ele al, bir varsayımsal değerlendirme ekle ve bulgu, yorum ve sonuç arasındaki farkı açıkça göster.",
+        "guidance":["Dolaylı aktarımda uygun biçimde -miş veya aktarma yapılarını kullan.","Varsayımsal durumlarda koşul yapısını bilinçli seç.","Genellemelerin kapsamını sınırlandır."],
+        "examples":["Araştırma, yöntemin etkili olduğunu düşündürüyor; ancak bunun her koşulda üstün olduğu sonucuna varmak erken olacaktır."]
+    },
+    ("C2","c2-unit-1","review"): {
+        "title":"İncelikli dil kullanımı – Review",
+        "objective":"Kapsam sınırlandırma, karşı görüş ve temkinli çıkarım yapılarını tekrar etmek.",
+        "questions":[
+            ("Temkinli bir sonuç hangisidir?",["Buradan kesin olarak şu sonucu çıkaramayız.","Bu her durumda böyledir.","Bunun hiçbir istisnası yoktur."],"Buradan kesin olarak şu sonucu çıkaramayız."),
+            ("Karşı görüşü tanıtan ifade hangisidir?",["Bununla birlikte","Kesinlikle","Örneğin değil"],"Bununla birlikte"),
+            ("İyi bir ileri düzey argüman ne yapar?",["İddianın kapsamını ve dayanaklarını açıklar","Her şeyi kesin kabul eder","Karşı görüşleri yok sayar"],"İddianın kapsamını ve dayanaklarını açıklar")
+        ]
+    },
+
 }
 
 
