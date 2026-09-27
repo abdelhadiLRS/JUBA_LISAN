@@ -101,7 +101,7 @@ export default function CoursesPage() {
             <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-6xl">{t('heroTitle')}</h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">{t('heroDescription')}</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/courses" className="inline-flex items-center gap-2 rounded bg-white px-5 py-3 font-black text-[var(--tblr-primary, #206bc4)] shadow-sm transition hover:-translate-y-0.5">{t('openRoadmap')} <i className="ti ti-arrow-right icon" aria-hidden="true" /></Link>
+              <Link href="/courses" className="inline-flex items-center gap-2 rounded bg-white px-5 py-3 font-black text-primary shadow-sm transition hover:-translate-y-0.5">{t('openRoadmap')} <i className="ti ti-arrow-right icon" aria-hidden="true" /></Link>
               <Link href="/assessment" className="inline-flex items-center gap-2 rounded border-2 border-white/25 bg-white/10 px-5 py-3 font-black text-white transition hover:bg-white/20">{t('findLevel')}</Link>
             </div>
           </div>
@@ -142,13 +142,13 @@ export default function CoursesPage() {
                     {current && <span className="absolute -top-3 right-5 rounded-full bg-warning-lt px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-body">{t('currentLevel')}</span>}
                     <div className="flex items-start justify-between gap-4">
                       <div><span className="text-xs font-bold uppercase tracking-[.16em] text-secondary">{t('levelLabel', { number: index + 1 })}</span><h3 className="mt-2 text-2xl font-black text-body">{t(`levels.${level}.title`)}</h3></div>
-                      <div className={`flex h-10 w-10 items-center justify-center rounded-full ${unlocked ? 'bg-warning-lt text-[var(--tblr-primary, #206bc4)]' : 'bg-light text-secondary'}`}>{unlocked ? <CheckCircle2 className="h-5 w-5" /> : <LockKeyhole className="h-5 w-5" />}</div>
+                      <div className={`flex h-10 w-10 items-center justify-center rounded-full ${unlocked ? 'bg-warning-lt text-primary' : 'bg-light text-secondary'}`}>{unlocked ? <CheckCircle2 className="h-5 w-5" /> : <LockKeyhole className="h-5 w-5" />}</div>
                     </div>
                     <p className="mt-3 max-w-xl text-sm leading-6 text-secondary">{t(`levels.${level}.desc`)}</p>
                     <div className="mt-6 flex items-center justify-between text-sm font-bold text-body"><span>{t('lessons', { count: lessonCount })}</span><span>{progress}%</span></div>
                     <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-light"><div className="h-full rounded-full bg-warning-lt transition-all" style={{ width: `${progress}%` }} /></div>
                     {unlocked ? (
-                      <Link href={current ? '/plan' : `/courses/${level}`} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary-lt px-5 py-3 font-black text-[var(--tblr-primary, #206bc4)] transition hover:bg-primary">{current ? t('openLearningPlan') : t('exploreLevel')} <i className="ti ti-arrow-right icon" aria-hidden="true" /></Link>
+                      <Link href={current ? '/plan' : `/courses/${level}`} className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary-lt px-5 py-3 font-black text-primary transition hover:bg-primary">{current ? t('openLearningPlan') : t('exploreLevel')} <i className="ti ti-arrow-right icon" aria-hidden="true" /></Link>
                     ) : (
                       <span className="mt-6 inline-flex items-center gap-2 rounded-xl bg-light px-5 py-3 font-bold text-secondary"><i className="ti ti-lock icon" aria-hidden="true" /> {t('unlockLater')}</span>
                     )}
@@ -166,7 +166,7 @@ export default function CoursesPage() {
               <h2 className="mt-2 text-2xl font-black text-body sm:text-3xl">{t('cefrTitle')}</h2>
               <p className="mt-2 max-w-3xl text-sm leading-6 text-secondary">{t('cefrDescription')}</p>
             </div>
-            <span className="rounded-full bg-primary-lt px-4 py-2 text-xs font-black text-[var(--tblr-primary, #206bc4)]">CEFR · A1–C2</span>
+            <span className="rounded-full bg-primary-lt px-4 py-2 text-xs font-black text-primary">CEFR · A1–C2</span>
           </div>
           <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {CEFR_LEVELS.map((level) => (
@@ -176,13 +176,13 @@ export default function CoursesPage() {
                     <span className="text-xs font-black uppercase tracking-[.16em] text-secondary">{t('cefrLevelLabel')}</span>
                     <h3 className="mt-1 text-xl font-black text-body">{level} · {t(`levels.${level}.title`).replace(`${level} · `, '')}</h3>
                   </div>
-                  <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-[var(--tblr-primary, #206bc4)] ring-1 ring-secondary-subtle">{level}</span>
+                  <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-primary ring-1 ring-secondary-subtle">{level}</span>
                 </div>
                 <p className="mt-3 text-sm leading-6 text-secondary">{t(`levels.${level}.desc`)}</p>
                 <div className="mt-5 space-y-3">
                   {CEFR_SKILLS.map((skill: CEFRSkill) => (
                     <div key={skill} className="border p-3 rounded-2">
-                      <p className="text-xs font-black uppercase tracking-[.12em] text-[var(--tblr-primary, #206bc4)]">{t(`cefrSkills.${skill}`)}</p>
+                      <p className="text-xs font-black uppercase tracking-[.12em] text-primary">{t(`cefrSkills.${skill}`)}</p>
                       <p className="mt-1 text-sm leading-5 text-body">{CEFR_DESCRIPTORS[locale === 'ar' ? 'ar' : 'en'][level][skill]}</p>
                     </div>
                   ))}
@@ -193,13 +193,13 @@ export default function CoursesPage() {
         </section>
 
         <section className="card">
-          <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="page-pretitle">{t('missionsEyebrow')}</p><h2 className="mt-2 text-2xl font-black text-body">{t('missionsTitle')}</h2></div><Link href="/learning-journey" className="font-bold text-[var(--tblr-primary, #206bc4)] underline underline-offset-4">{t('openRoadmap')}</Link></div>
+          <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="page-pretitle">{t('missionsEyebrow')}</p><h2 className="mt-2 text-2xl font-black text-body">{t('missionsTitle')}</h2></div><Link href="/learning-journey" className="font-bold text-primary underline underline-offset-4">{t('openRoadmap')}</Link></div>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{places.map((place) => <div key={place.key} className="border p-4 rounded-2"><span className="text-2xl" aria-hidden="true">{place.icon}</span><p className="mt-3 font-black text-body">{t(`places.${place.key}.title`)}</p><p className="mt-1 text-sm text-secondary">{t(`places.${place.key}.text`)}</p></div>)}</div>
         </section>
 
         <section className="card">
           <div className="flex items-center gap-3"><i className="ti ti-sparkles icon text-primary" aria-hidden="true" /><h2 className="text-2xl font-black text-body">{t('rhythmTitle')}</h2></div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-4">{(['learn', 'practice', 'recall', 'review'] as const).map((step, i) => <div key={step} className="rounded-2xl border border-secondary-subtle bg-light p-4"><span className="text-xs font-bold text-secondary">0{i + 1}</span><p className="mt-2 font-black text-body">{t(`rhythm.${step}`)}</p></div>)}</div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-4">{(['learn', 'practice', 'recall', 'review'] as const).map((step, i) => <div key={step} className="rounded border border-secondary-subtle bg-light p-4"><span className="text-xs font-bold text-secondary">0{i + 1}</span><p className="mt-2 font-black text-body">{t(`rhythm.${step}`)}</p></div>)}</div>
         </section>
     </div>
   )
