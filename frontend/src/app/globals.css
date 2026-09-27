@@ -1173,3 +1173,50 @@ html[data-theme='light'] {
     transform: none !important;
   }
 }
+
+
+/* JUBA LISAN — lesson interaction polish */
+.juba-lesson-shell{
+  font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif!important;
+}
+.juba-lesson-shell .juba-page-hero h1,
+.juba-lesson-shell h2{
+  text-wrap:balance;
+}
+.juba-lesson-shell button,
+.juba-lesson-shell a{
+  -webkit-tap-highlight-color:transparent;
+}
+.juba-lesson-shell input:focus,
+.juba-lesson-shell textarea:focus,
+.juba-lesson-shell select:focus{
+  border-color:#58a700!important;
+  box-shadow:0 0 0 4px rgba(88,167,0,.12)!important;
+}
+.juba-lesson-shell audio{
+  accent-color:#58a700;
+}
+@media (max-width:767px){
+  .juba-lesson-shell{
+    padding-bottom:1.5rem;
+  }
+  .juba-lesson-shell .juba-page-hero{
+    border-radius:18px;
+    padding:1rem;
+  }
+  .juba-lesson-shell header.sticky{
+    top:.5rem;
+    margin-bottom:1rem;
+    border-radius:16px;
+  }
+  .juba-lesson-shell section.card{
+    border-radius:18px;
+    padding:1rem;
+  }
+  .juba-lesson-shell section.card > div.rounded-2xl{
+    border-radius:16px;
+  }
+  .juba-lesson-shell button{
+    min-height:42px;
+  }
+}
