@@ -262,7 +262,25 @@ def test_en_gb_vocabulary_has_no_exact_duplicate_entries_within_level():
 \n
 
 
-def test_en_gb_c2_examples_show_advanced_usage_in_context():\n    """Selected C2 examples should demonstrate natural collocations and useful context."""\n    from app.data.en_GB.vocabulary_c2 import C2_SETS\n\n    entries = [entry for vocab_set in C2_SETS for entry in vocab_set.words]\n    examples = {entry.word: entry.example for entry in entries}\n    expected_contexts = {\n        "elusive": "a reliable solution remained elusive",\n        "nascent": "with cautious optimism",\n        "commensurate": "experience and responsibilities",\n        "token gesture": "working conditions remained unchanged",\n        "shed light on": "root causes of staff turnover",\n        "obfuscate": "instead of clarifying them",\n    }\n    for word, phrase in expected_contexts.items():\n        assert phrase.casefold() in examples[word].casefold()\n\ndef test_en_gb_c1_examples_are_contextual_and_reusable():
+def test_en_gb_c2_examples_show_advanced_usage_in_context():
+    """Selected C2 examples should demonstrate natural collocations and useful context."""
+    from app.data.en_GB.vocabulary_c2 import C2_SETS
+
+    entries = [entry for vocab_set in C2_SETS for entry in vocab_set.words]
+    examples = {entry.word: entry.example for entry in entries}
+    expected_contexts = {
+        "elusive": "a reliable solution remained elusive",
+        "nascent": "with cautious optimism",
+        "commensurate": "experience and responsibilities",
+        "token gesture": "working conditions remained unchanged",
+        "shed light on": "root causes of staff turnover",
+        "obfuscate": "instead of clarifying them",
+    }
+    for word, phrase in expected_contexts.items():
+        assert phrase.casefold() in examples[word].casefold()
+
+
+def test_en_gb_c1_examples_are_contextual_and_reusable():
     """C1 examples should teach natural usage, not merely restate definitions."""
     from app.data.en_GB.vocabulary_c1 import C1_SETS
 
