@@ -2269,3 +2269,18 @@ def test_en_gb_a2_directions_and_climate_examples_are_contextual():
         assert len(entries[word].example.split()) >= 12, word
         for fragment in fragments:
             assert fragment.casefold() in example, word
+
+
+def test_en_gb_b1_climate_terms_distinguish_global_warming():
+    from app.data.en_GB.vocabulary_b1 import B1_SETS
+
+    entries = {entry.word: entry for group in B1_SETS for entry in group.words}
+    climate_change = entries["climate change"]
+    global_warming = entries["global warming"]
+    assert "long-term shifts" in climate_change.definition
+    assert "weather patterns" in climate_change.definition
+    assert "rainfall records over thirty years" in climate_change.example
+    assert "rise in earth’s average surface temperature" in global_warming.definition
+    assert "greenhouse-gas emissions" in global_warming.definition
+    assert "risk of heatwaves" in global_warming.example
+    assert climate_change.example != global_warming.example
