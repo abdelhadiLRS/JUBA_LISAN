@@ -9,7 +9,6 @@ import type { Locale } from '@/lib/locales'
 
 interface LandingNavProps {
   hasSession: boolean
-  stripeEnabled: boolean
   dir: 'ltr' | 'rtl'
   navFeatures: string
   navDemo: string
@@ -44,7 +43,6 @@ const LOCALES_DATA: Record<Locale, { name: string; native: string }> = {
 
 export function LandingNav({
   hasSession,
-  stripeEnabled,
   dir,
   navFeatures,
   navDemo,
