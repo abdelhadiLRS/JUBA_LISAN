@@ -954,3 +954,54 @@ html[data-theme='light'] {
 .juba-busuu-heading-split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);align-items:end;gap:48px}
 .juba-busuu-heading-split>p{margin:0;max-width:560px;justify-self:end}
 @media(max-width:800px){.juba-busuu-heading-split{grid-template-columns:1fr;gap:18px}.juba-busuu-heading-split>p{justify-self:start}}
+
+
+/* JUBA LISAN — reading / listening / grammar */
+.juba-mobile-listening,.juba-mobile-reading,.juba-mobile-grammar{
+  font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif!important;
+  color:#202124!important;
+}
+.juba-mobile-listening .juba-panel,.juba-mobile-reading .juba-panel,
+.juba-mobile-grammar .juba-card{
+  background:#fff!important;
+  border-color:#e5e7eb!important;
+  border-radius:20px!important;
+  box-shadow:0 2px 0 rgba(31,41,51,.04)!important;
+}
+.juba-mobile-listening .font-mono,.juba-mobile-reading .font-mono,
+.juba-mobile-grammar .font-mono{
+  font-family:'Nunito Sans','Noto Sans Arabic',sans-serif!important;
+}
+.juba-mobile-listening [class*="text-[var(--juba-violet-dark)]"],
+.juba-mobile-reading [class*="text-[var(--juba-violet-dark)]"],
+.juba-mobile-grammar [class*="text-[var(--juba-violet-dark)]"]{color:#58a700!important}
+.juba-mobile-listening [class*="border-[var(--juba-lilac)]"],
+.juba-mobile-reading [class*="border-[var(--juba-lilac)]"],
+.juba-mobile-grammar [class*="border-[var(--juba-lilac)]"]{border-color:#e1e5e2!important}
+.juba-mobile-listening [class*="bg-[var(--juba-lilac)]"],
+.juba-mobile-reading [class*="bg-[var(--juba-lilac)]"],
+.juba-mobile-grammar [class*="bg-[var(--juba-lilac)]"]{background:#f4f7f2!important}
+.juba-mobile-listening [class*="bg-[var(--juba-violet-dark)]"],
+.juba-mobile-reading [class*="bg-[var(--juba-violet-dark)]"],
+.juba-mobile-grammar [class*="bg-[var(--juba-violet-dark)]"]{
+  background:#58a700!important;color:#fff!important;box-shadow:0 3px 0 #438600!important
+}
+.juba-mobile-listening [class*="bg-[var(--juba-yellow)]"],
+.juba-mobile-reading [class*="bg-[var(--juba-yellow)]"],
+.juba-mobile-grammar [class*="bg-[var(--juba-yellow)]"]{background:#58a700!important;color:#fff!important}
+.juba-mobile-grammar .juba-eyebrow{color:#587064!important}
+.juba-mobile-grammar input,.juba-mobile-grammar select{
+  min-height:44px!important;border-radius:12px!important;border-color:#e1e5e2!important;
+  background:#fff!important;font-family:'Nunito Sans','Noto Sans Arabic',sans-serif!important
+}
+.juba-mobile-grammar input:focus,.juba-mobile-grammar select:focus{
+  border-color:#58a700!important;box-shadow:0 0 0 4px rgba(88,167,0,.12)!important;outline:0!important
+}
+.juba-mobile-listening a,.juba-mobile-reading a,.juba-mobile-grammar a,
+.juba-mobile-listening button,.juba-mobile-reading button,.juba-mobile-grammar button{
+  font-family:'Nunito Sans','Noto Sans Arabic',sans-serif!important
+}
+@media(max-width:600px){
+  .juba-mobile-listening,.juba-mobile-reading{padding:18px 10px 56px!important}
+  .juba-mobile-grammar{padding:18px 10px 56px!important}
+}
