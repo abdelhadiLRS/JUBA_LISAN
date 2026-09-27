@@ -3882,3 +3882,93 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
  .juba-learning-shell .juba-learning-nav a,
  .juba-learning-shell .juba-learning-nav button { min-height:50px !important; }
 }
+
+
+/* Member learning routes — extend the dashboard language to Plan and Assessment only. */
+.juba-mobile-plan,
+.juba-assessment-page {
+  font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif !important;
+  color:var(--juba-learning-ink) !important;
+}
+.juba-mobile-plan .juba-learning-green,
+.juba-assessment-page .juba-learning-green { color:var(--juba-learning-green-dark) !important; }
+
+.juba-mobile-plan > section:first-child {
+  border-color:var(--juba-learning-green-dark) !important;
+  background:var(--juba-learning-green) !important;
+  box-shadow:5px 5px 0 var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-plan section {
+  font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif !important;
+}
+.juba-mobile-plan button,
+.juba-mobile-plan a {
+  font-weight:900 !important;
+}
+.juba-mobile-plan .rounded-\[28px\],
+.juba-mobile-plan .rounded-\[32px\] {
+  border-radius:22px !important;
+}
+.juba-mobile-plan .shadow-\[var\(--juba-learning-shadow\)\] {
+  box-shadow:var(--juba-learning-shadow) !important;
+}
+.juba-mobile-plan .bg-\[var\(--juba-learning-yellow\)\] {
+  background:var(--juba-learning-yellow) !important;
+}
+.juba-mobile-plan .bg-\[var\(--juba-learning-green\)\] {
+  background:var(--juba-learning-green) !important;
+}
+.juba-mobile-plan .border-\[var\(--juba-learning-green-dark\)\] {
+  border-color:var(--juba-learning-green-dark) !important;
+}
+
+/* Assessment: remove the old lilac/violet visual language while preserving its flow. */
+.juba-assessment-page {
+  --juba-assessment-accent:var(--juba-learning-green);
+  --juba-assessment-accent-dark:var(--juba-learning-green-dark);
+  --juba-assessment-soft:var(--juba-learning-green-soft);
+}
+.juba-assessment-page .juba-assessment-card {
+  border:2px solid var(--juba-learning-border) !important;
+  border-radius:22px !important;
+  background:var(--juba-learning-surface) !important;
+  box-shadow:var(--juba-learning-shadow) !important;
+}
+.juba-assessment-page .juba-assessment-panel {
+  border:2px solid #d7efc7 !important;
+  border-radius:18px !important;
+  background:var(--juba-learning-green-soft) !important;
+}
+.juba-assessment-page .juba-assessment-action {
+  min-height:48px !important;
+  border:2px solid var(--juba-learning-green-dark) !important;
+  border-radius:14px !important;
+  background:var(--juba-learning-green) !important;
+  color:#fff !important;
+  box-shadow:0 4px 0 var(--juba-learning-green-dark) !important;
+  font-weight:900 !important;
+}
+.juba-assessment-page .juba-assessment-action:hover {
+  background:var(--juba-learning-green) !important;
+  transform:translateY(1px) !important;
+}
+.juba-assessment-page input,
+.juba-assessment-page select,
+.juba-assessment-page textarea {
+  border-color:var(--juba-learning-border) !important;
+  border-radius:14px !important;
+}
+.juba-assessment-page input:focus,
+.juba-assessment-page select:focus,
+.juba-assessment-page textarea:focus {
+  border-color:var(--juba-learning-green) !important;
+  box-shadow:0 0 0 4px rgba(88,204,2,.13) !important;
+}
+.juba-assessment-page .text-\[var\(--juba-violet-dark\)\] {
+  color:var(--juba-learning-green-dark) !important;
+}
+@media(max-width:767px){
+  .juba-mobile-plan { padding-bottom:88px !important; }
+  .juba-assessment-page { padding-bottom:88px !important; }
+  .juba-assessment-page .juba-assessment-card { border-radius:18px !important; }
+}
