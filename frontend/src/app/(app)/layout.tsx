@@ -217,9 +217,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         : ''
 
   return (
-    <div className="bg-fl-bg flex min-h-screen md:h-screen md:overflow-hidden">
+    <div className="juba-duo-shell">
       {/* Sidebar */}
-      <aside className="border-fl-border bg-fl-bg hidden w-52 shrink-0 flex-col border-r px-0 py-0 md:flex">
+      <aside className="juba-duo-sidebar">
         {/* Logo area */}
         <div className="border-fl-border flex items-center gap-2 border-b px-5 py-5">
           <span className="text-fl-label text-fl-muted-2">●</span>
@@ -234,7 +234,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 overflow-y-auto py-4">
+        <nav className="juba-duo-nav">
           {/* Main items */}
           {mainNavItems.map((item) => {
             const active =
@@ -608,7 +608,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Main */}
-      <main className="flex min-h-[100dvh] flex-1 flex-col overflow-hidden pt-14 md:min-h-screen md:pt-0">
+      <main className="juba-duo-main">
         {/* Email verification banner */}
         {user && user.is_verified === false && (
           <div className="border-fl-border bg-fl-surface flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
