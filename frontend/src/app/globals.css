@@ -485,7 +485,7 @@ html[data-theme='light'] {
 
 /* Language strip */
 .juba-busuu-stats{background:#fff;padding:0 0 96px}
-.juba-busuu-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--busuu-line);border-bottom:1px solid var(--busuu-line)}
+.juba-busuu-stats-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--busuu-line);border-bottom:1px solid var(--busuu-line)}
 .juba-busuu-stats-grid article{min-height:150px;padding:30px 24px;display:flex;flex-direction:column;justify-content:center;gap:7px;border-inline-start:1px solid var(--busuu-line)}
 .juba-busuu-stats-grid article:first-child{border-inline-start:0}
 .juba-busuu-stats-grid strong{font-size:clamp(2rem,4vw,3.5rem);line-height:1;font-weight:950;letter-spacing:-.06em;color:var(--busuu-ink)}
