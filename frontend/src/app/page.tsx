@@ -88,7 +88,25 @@ export default async function Home() {
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
       lang={locale}
     >
-
+      <LandingNav
+        hasSession={hasSession}
+        dir={locale === 'ar' ? 'rtl' : 'ltr'}
+        navFeatures={t('navFeatures')}
+        navDemo={t('aiVoiceDemo')}
+        navLanguages={t('supportedLanguages')}
+        navReviews={t('navReviews')}
+        navPricing={t('navPricing')}
+        navFAQ={t('navFAQ')}
+        showReviews={reviews.length > 0}
+        signIn={t('signIn')}
+        dashboard={t('dashboard')}
+        getStarted={t('ctaStart')}
+        homeLabel={t('home')}
+        brandTagline={t('brandTagline')}
+        openMenuLabel={t('openMenu')}
+        closeMenuLabel={t('closeMenu')}
+        locale={locale as Locale}
+      />
 
       {/* HERO — the visitor-facing composition is deliberately rebuilt around the supplied reference:
           oversized playful type, pale paper background, organic illustration, floating cards and a single CTA. */}
