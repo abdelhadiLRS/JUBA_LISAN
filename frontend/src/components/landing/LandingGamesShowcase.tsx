@@ -70,14 +70,14 @@ export function LandingGamesShowcase({
             type="button"
             role="tab"
             aria-selected={active === game.key}
-            aria-controls={`juba-game-panel-${game.key}`}
+            aria-controls="juba-game-panel"
             tabIndex={active === game.key ? 0 : -1}
             onClick={() => setActive(game.key)}
             onKeyDown={(event) => {
-              if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+              if (event.key === 'ArrowDown' || (event.key === (dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight'))) {
                 event.preventDefault()
                 moveGame(1)
-              } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+              } else if (event.key === 'ArrowUp' || (event.key === (dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft'))) {
                 event.preventDefault()
                 moveGame(-1)
               } else if (event.key === 'Home') {
@@ -97,7 +97,7 @@ export function LandingGamesShowcase({
         ))}
       </div>
       <div
-        id={`juba-game-panel-${activeGame.key}`}
+        id="juba-game-panel"
         className="juba-game-stage"
         role="tabpanel"
         aria-live="polite"
