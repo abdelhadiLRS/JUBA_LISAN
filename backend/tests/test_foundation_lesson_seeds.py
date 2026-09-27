@@ -801,3 +801,21 @@ def test_en_gb_a2_b2_selected_examples_add_teaching_context():
         assert phrase.casefold() in b2[word].example.casefold()
         assert len(b2[word].definition.split()) >= 8
         assert len(b2[word].example.split()) >= 10
+
+
+def test_foundation_fallback_seed_has_a_complete_learning_sequence():
+    """Fallback lessons should connect input, retrieval, and production."""
+    from app.services.foundation_lesson_seeds import get_foundation_lesson_seed
+
+    seed = get_foundation_lesson_seed("en_GB", "A1", "unit-1", "speaking")
+    assert seed is not None
+    quality = seed["content_quality"]
+    assert quality["input_examples"]
+    assert quality["target_words"]
+    assert quality["retrieval_sequence"] == [
+        "Recall the meaning of three target items without looking.",
+        "Use two target items in new sentences.",
+        "Complete the final task using the target grammar or skill.",
+    ]
+    assert "three target words" in quality["production_requirement"]
+    assert "follow-up question" in seed["prompt"]
