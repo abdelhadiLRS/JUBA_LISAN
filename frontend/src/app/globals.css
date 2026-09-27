@@ -1712,3 +1712,22 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
     border-radius:18px!important;
   }
 }
+
+
+/* Landing — respect reduced-motion preferences */
+@media(prefers-reduced-motion:reduce){
+  .juba-reference-page .juba-games-tab,
+  .juba-reference-page .juba-game-stage-image img,
+  .juba-reference-page .juba-practical-language-card,
+  .juba-reference-page .juba-ai-play,
+  .juba-reference-page .juba-ref-button{
+    transition:none!important;
+    animation:none!important;
+    scroll-behavior:auto!important;
+  }
+  .juba-reference-page .juba-game-stage:hover .juba-game-stage-image img,
+  .juba-reference-page .juba-practical-language-card:hover,
+  .juba-reference-page .juba-ai-play:hover{
+    transform:none!important;
+  }
+}
