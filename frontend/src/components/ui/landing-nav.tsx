@@ -75,9 +75,12 @@ export function LandingNav({
       }
 
       if (event.key !== 'Tab' || !menuRef.current) return
-      const focusable = Array.from(
-        menuRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
-      )
+      const focusable = [
+        ...(menuButtonRef.current ? [menuButtonRef.current] : []),
+        ...Array.from(
+          menuRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+        ),
+      ]
       if (!focusable.length) return
 
       const first = focusable[0]
