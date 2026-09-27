@@ -1676,3 +1676,25 @@ def test_foundation_fallback_seed_has_spaced_retrieval_and_input_design():
     quality = seed["content_quality"]
     assert len(quality["spaced_retrieval"]) == 3
     assert "familiar situations" in quality["input_design"]
+
+
+
+def test_foundation_fallback_seed_aligns_actions_to_each_skill():
+    """Each lesson skill should expose a distinct practice-and-evidence cycle."""
+    from app.services.foundation_lesson_seeds import get_foundation_lesson_seed
+
+    expected = {
+        "grammar": "controlled use",
+        "vocabulary": "collocation",
+        "reading": "infer",
+        "listening": "listen for gist",
+        "speaking": "follow-up",
+        "writing": "revise",
+        "review": "discriminate",
+    }
+    for skill, phrase in expected.items():
+        seed = get_foundation_lesson_seed("en_GB", "A2", "unknown", skill)
+        if seed is None:
+            continue
+        assert phrase.casefold() in seed["skill_quality"]["focus"].casefold(), skill
+        assert seed["skill_quality"]["evidence"]
