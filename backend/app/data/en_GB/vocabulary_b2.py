@@ -28,7 +28,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="demonstrate",
                 pos="verb",
-                definition="To show clearly; to prove.",
+                definition="To make something clear by giving evidence, examples, or demonstrations.",
                 example="The data demonstrates a clear trend.",
                 ipa="/ˈdemənstreɪt/",
                 frequency_rank=275,
@@ -36,7 +36,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="evaluate",
                 pos="verb",
-                definition="To judge or assess the quality of something.",
+                definition="To assess something carefully in order to decide its quality, value, or effectiveness.",
                 example="We need to evaluate the results carefully.",
                 ipa="/ɪˈvæljueɪt/",
                 frequency_rank=330,
@@ -60,7 +60,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="assumption",
                 pos="noun",
-                definition="Something accepted as true without proof.",
+                definition="An idea accepted as true without enough evidence to prove it.",
                 example="That is a false assumption.",
                 ipa="/əˈsʌmpʃən/",
                 frequency_rank=310,
@@ -84,8 +84,8 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="hypothesis",
                 pos="noun",
-                definition="A proposed explanation to be tested.",
-                example="The hypothesis was proved correct.",
+                definition="A possible explanation for something that can be tested or investigated.",
+                example="The results supported the hypothesis, but further testing was needed.",
                 ipa="/haɪˈpɒθɪsɪs/",
                 frequency_rank=380,
             ),
@@ -108,7 +108,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="consistent",
                 pos="adjective",
-                definition="Always behaving in the same way; coherent.",
+                definition="Remaining similar or compatible across different situations, results, or examples.",
                 example="The results were consistent across all tests.",
                 ipa="/kənˈsɪstənt/",
                 frequency_rank=290,
@@ -148,7 +148,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="colleague",
                 pos="noun",
-                definition="A person you work with.",
+                definition="Someone you work with, especially in the same organisation or profession.",
                 example="My colleague helped me with the presentation.",
                 ipa="/ˈkɒliːɡ/",
                 frequency_rank=350,
@@ -157,7 +157,7 @@ B2_SETS: list[VocabularySet] = [
                 word="negotiate",
                 pos="verb",
                 definition="To discuss in order to reach an agreement.",
-                example="We negotiated a better contract.",
+                example="We negotiated the contract until both sides accepted the terms.",
                 ipa="/nɪˈɡəʊʃieɪt/",
                 frequency_rank=365,
             ),
@@ -165,7 +165,7 @@ B2_SETS: list[VocabularySet] = [
                 word="collaborate",
                 pos="verb",
                 definition="To work jointly with others.",
-                example="We collaborated on the project.",
+                example="The two teams collaborated on a project to improve customer service.",
                 ipa="/kəˈlæbəreɪt/",
                 frequency_rank=380,
             ),
@@ -188,7 +188,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="feedback",
                 pos="noun",
-                definition="Information about performance given for improvement.",
+                definition="Comments or information about performance intended to help someone improve.",
                 example="The feedback from the client was positive.",
                 ipa="/ˈfiːdbæk/",
                 frequency_rank=390,
@@ -244,7 +244,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="stakeholder",
                 pos="noun",
-                definition="A person with an interest in a project or company.",
+                definition="A person or group affected by, or able to influence, a project or organisation.",
                 example="We need to consult all stakeholders.",
                 ipa="/ˈsteɪkhəʊldə/",
             ),
@@ -275,7 +275,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="bias",
                 pos="noun",
-                definition="An unfair preference for or against something.",
+                definition="A tendency to favour or oppose a person, group, or idea without a fair basis.",
                 example="The article showed clear political bias.",
                 ipa="/ˈbaɪəs/",
                 frequency_rank=360,
@@ -291,7 +291,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="controversy",
                 pos="noun",
-                definition="Prolonged public disagreement or debate.",
+                definition="A situation in which people publicly disagree about an issue for a period of time.",
                 example="The policy caused great controversy.",
                 ipa="/ˈkɒntrəvɜːsi/",
                 frequency_rank=380,
@@ -347,7 +347,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="propaganda",
                 pos="noun",
-                definition="Information spread to promote a cause or viewpoint.",
+                definition="Information, especially biased or misleading information, spread to promote a particular cause or viewpoint.",
                 example="The government used propaganda to control opinion.",
                 ipa="/ˌprɒpəˈɡændə/",
                 frequency_rank=440,
@@ -363,7 +363,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="mainstream",
                 pos="adjective",
-                definition="Considered normal and accepted by most people.",
+                definition="Accepted, familiar, or widely used by most people in a society or group.",
                 example="The idea has entered mainstream politics.",
                 ipa="/ˈmeɪnstriːm/",
                 frequency_rank=340,
@@ -379,7 +379,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="accountability",
                 pos="noun",
-                definition="The obligation to accept responsibility for one's actions.",
+                definition="The responsibility to explain or justify your actions and accept the consequences.",
                 example="There must be greater accountability in public office.",
                 ipa="/əˌkaʊntəˈbɪlɪti/",
                 frequency_rank=360,
@@ -571,7 +571,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="yearning",
                 pos="noun",
-                definition="A strong desire or longing.",
+                definition="A strong, persistent desire for someone or something that is absent or difficult to obtain.",
                 example="He had a yearning to return home.",
                 ipa="/ˈjɜːnɪŋ/",
                 frequency_rank=440,
@@ -683,7 +683,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="scenario",
                 pos="noun",
-                definition="A possible situation or sequence of events.",
+                definition="A possible situation or sequence of events that can be considered when planning or analysing something.",
                 example="In the worst-case scenario, we lose the client.",
                 ipa="/sɪˈnɑːɪəʊ/",
                 frequency_rank=320,
@@ -691,7 +691,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="contingency",
                 pos="noun",
-                definition="A possible event that may or may not occur.",
+                definition="An event that may happen in the future and must be considered when making plans.",
                 example="We need a contingency plan.",
                 ipa="/kənˈtɪndʒənsi/",
                 frequency_rank=430,
@@ -699,7 +699,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="likelihood",
                 pos="noun",
-                definition="The probability of something happening.",
+                definition="The chance that something will happen.",
                 example="What is the likelihood of success?",
                 ipa="/ˈlaɪklɪhʊd/",
                 frequency_rank=370,
@@ -755,7 +755,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="feasible",
                 pos="adjective",
-                definition="Possible to do easily or conveniently.",
+                definition="Possible and practical to do successfully in the available circumstances.",
                 example="Is it feasible to complete the project by Friday?",
                 ipa="/ˈfiːzɪbəl/",
                 frequency_rank=340,
@@ -787,7 +787,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="infrastructure",
                 pos="noun",
-                definition="The basic systems and services of a country or organisation.",
+                definition="The basic physical and organisational systems and services needed for a country, city, or organisation to operate.",
                 example="The country needs to invest in infrastructure.",
                 ipa="/ˈɪnfrəstrʌktʃə/",
                 frequency_rank=295,
@@ -795,8 +795,8 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="procurement",
                 pos="noun",
-                definition="The process of obtaining goods and services for an organisation.",
-                example="The procurement department handles all suppliers.",
+                definition="The process by which an organisation obtains goods or services, often through formal purchasing procedures.",
+                example="The procurement team manages supplier contracts and purchasing procedures.",
                 ipa="/prəˈkjʊəmənt/",
                 frequency_rank=430,
             ),
@@ -819,7 +819,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="emission",
                 pos="noun",
-                definition="The production and discharge of something, especially gas.",
+                definition="The release of a substance, especially a gas or other pollutant, into the environment.",
                 example="Carbon emissions must be reduced.",
                 ipa="/ɪˈmɪʃən/",
                 frequency_rank=340,
@@ -835,7 +835,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="sustainable",
                 pos="adjective",
-                definition="Able to be maintained without harming the environment.",
+                definition="Able to continue for a long time without causing unacceptable environmental, social, or economic harm.",
                 example="We need more sustainable production methods.",
                 ipa="/səˈsteɪnəbəl/",
                 frequency_rank=310,
@@ -891,7 +891,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="allegation",
                 pos="noun",
-                definition="A claim that someone has done something wrong.",
+                definition="A claim that someone has done something wrong or illegal, without it necessarily having been proved.",
                 example="The minister denied all allegations.",
                 ipa="/ˌæləˈɡeɪʃən/",
                 frequency_rank=380,
@@ -915,7 +915,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="sanction",
                 pos="noun",
-                definition="An official order restricting trade with a country.",
+                definition="An official measure that restricts trade, financial activity, or other dealings with a country or organisation.",
                 example="Economic sanctions were imposed on the regime.",
                 ipa="/ˈsæŋkʃən/",
                 frequency_rank=340,
@@ -931,7 +931,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="referendum",
                 pos="noun",
-                definition="A public vote on a specific issue.",
+                definition="A public vote in which people decide a specific political or constitutional question.",
                 example="The country held a referendum on independence.",
                 ipa="/ˌrefəˈrendəm/",
                 frequency_rank=390,
@@ -963,7 +963,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="speculation",
                 pos="noun",
-                definition="Forming opinions without definite evidence.",
+                definition="The process of forming ideas or making guesses about something without enough evidence to be certain.",
                 example="There is much speculation about the decision.",
                 ipa="/ˌspekjuˈleɪʃən/",
                 frequency_rank=360,
@@ -971,7 +971,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="breakthrough",
                 pos="noun",
-                definition="A significant discovery or achievement.",
+                definition="An important discovery or development that represents a major advance.",
                 example="Scientists announced a major breakthrough.",
                 ipa="/ˈbreɪkθruː/",
                 frequency_rank=350,
@@ -1027,7 +1027,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="correlation",
                 pos="noun",
-                definition="A mutual relationship between two or more things.",
+                definition="A relationship in which two variables or sets of data change in a related way.",
                 example="There is a strong correlation between exercise and mental health.",
                 ipa="/ˌkɒrɪˈleɪʃən/",
                 frequency_rank=260,
@@ -1051,7 +1051,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="empirical",
                 pos="adjective",
-                definition="Based on observation or experience rather than theory.",
+                definition="Based on observations, measurements, or practical experience rather than only on theory.",
                 example="The theory is supported by empirical evidence.",
                 ipa="/ɪmˈpɪrɪkəl/",
                 frequency_rank=310,
@@ -1075,7 +1075,7 @@ B2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="comprehensive",
                 pos="adjective",
-                definition="Covering completely or broadly; thorough.",
+                definition="Including all or nearly all the important details, aspects, or areas of a subject.",
                 example="The report provides a comprehensive overview of the issue.",
                 ipa="/ˌkɒmprɪˈhensɪv/",
                 frequency_rank=180,
