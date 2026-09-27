@@ -321,8 +321,8 @@ B1_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="habitat",
                 pos="noun",
-                definition="The natural environment of an animal or plant.",
-                example="Many animals are losing their habitat.",
+                definition="The natural environment where a particular animal or plant normally lives and finds the conditions it needs.",
+                example="Many animals are losing their habitat as forests are cleared for agriculture and new housing.",
                 ipa="/ˈhæbɪtæt/",
                 frequency_rank=390,
             ),
