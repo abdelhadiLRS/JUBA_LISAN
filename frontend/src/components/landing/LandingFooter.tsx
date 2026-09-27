@@ -45,7 +45,7 @@ export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
           <div className="juba-busuu-footer-column">
             <h3>{t('footerProduct')}</h3>
             <Link href="#features">{t('navFeatures')}</Link>
-            <Link href="#features">{t('navDemo')}</Link>
+            <Link href="#features">{t('navFeatures')}</Link>
             <Link href="#languages">{t('navLanguages')}</Link>
             <Link href="#pricing">{t('navPricing')}</Link>
           </div>
@@ -61,7 +61,7 @@ export function LandingFooter({ t, dir = 'ltr' }: LandingFooterProps) {
           <div className="juba-busuu-footer-column">
             <h3>{t('footerLearning')}</h3>
             <Link href="#languages">{t('supportedLanguages')}</Link>
-            <Link href="#features">{t('navDemo')}</Link>
+            <Link href="#features">{t('navFeatures')}</Link>
             <Link href="#features">{t('howItWorks')}</Link>
             <Link href="/register">{t('ctaExplore')}</Link>
           </div>
