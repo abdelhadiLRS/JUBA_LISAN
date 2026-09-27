@@ -95,6 +95,7 @@ export default function GamesPage() {
   const [speechListening, setSpeechListening] = useState(false)
   const [speechError, setSpeechError] = useState(false)
   const [inputValue, setInputValue] = useState('')
+  const [submittingAnswer, setSubmittingAnswer] = useState(false)
 
   const {
     xp, streak, skills, gameStats, achievements, setProgress,
@@ -133,13 +134,16 @@ export default function GamesPage() {
 
   async function submitTextAnswer() {
     const value = inputValue.trim()
-    if (!question || selected || !value) return
+    if (!question || selected || submittingAnswer || !value) return
+    setSubmittingAnswer(true)
     try {
       if (sessionId) await answerGameSessionQuestion(sessionId, question.id, value)
       answer(value)
       setInputValue('')
     } catch {
       setSpeechError(true)
+    } finally {
+      setSubmittingAnswer(false)
     }
   }
 
@@ -401,8 +405,9 @@ export default function GamesPage() {
                       </div>
                     )}
                     <form className="spelling-form" onSubmit={(event) => { event.preventDefault(); void submitTextAnswer() }}>
-                      <input value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder={question.skill === 'speaking' ? speechCopy[lang].type : t.choose} autoComplete="off" disabled={Boolean(selected) || speechListening} />
-                      <button type="submit" className="next" disabled={Boolean(selected) || speechListening || !inputValue.trim()}>{t.next}</button>
+                      <input value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder={question.skill === 'speaking' ? speechCopy[lang].type : t.choose} autoComplete="off" disabled={Boolean(selected) || speechListening || submittingAnswer} aria-busy={submittingAnswer} />
+                      <button type="submit" className="next" disabled={Boolean(selected) || speechListening || submittingAnswer || !inputValue.trim()}>{submittingAnswer ? '…' : t.next}</button>
+                      {speechError && <small className="form-error" role="alert">{speechCopy[lang].error}</small>}
                     </form>
                   </>
                 ) : (
