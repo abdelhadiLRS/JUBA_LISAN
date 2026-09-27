@@ -305,7 +305,7 @@ export default function ChatPage() {
 
   return (
     <MaintenanceGate>
-      <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden md:h-screen"">
+      <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden md:h-screen">
         <MemorySavedToast
           visible={memoryToast}
           announcementId={memoryToastId}
