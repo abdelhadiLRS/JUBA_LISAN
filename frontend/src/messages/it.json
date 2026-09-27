@@ -281,7 +281,8 @@
     },
     "learningLabel": "Apprendimento",
     "cefrLabel": "QCER",
-    "coachLabel": "Coach",
+    "coachLabel": "Coach"
+  },
   "coach": {
     "learner": "Studente",
     "minutes": "min",
