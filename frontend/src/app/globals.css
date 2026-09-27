@@ -1614,3 +1614,30 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
   .juba-reference-page .juba-practical-language-grid{grid-template-columns:1fr!important}
   .juba-reference-page .juba-ai-showcase{width:calc(100% - 28px)!important}
 }
+
+
+/* Landing — interaction and accessibility polish */
+.juba-reference-page .juba-games-tab:focus-visible,
+.juba-reference-page .juba-ai-play:focus-visible,
+.juba-reference-page .juba-practical-language-card:focus-visible,
+.juba-reference-page .juba-ref-button:focus-visible,
+.juba-reference-page .juba-ref-text-link:focus-visible{
+  outline:3px solid #b7f36b!important;
+  outline-offset:3px!important;
+}
+.juba-reference-page .juba-games-tab{
+  -webkit-tap-highlight-color:transparent!important;
+}
+.juba-reference-page .juba-games-tab[aria-selected="true"]{
+  position:relative!important;
+}
+.juba-reference-page .juba-ai-play{
+  transition:transform .16s ease,box-shadow .16s ease!important;
+}
+.juba-reference-page .juba-ai-play:hover{
+  transform:translateY(-2px)!important;
+}
+@media(max-width:600px){
+  .juba-reference-page .juba-games-heading h2{font-size:clamp(2rem,10vw,2.65rem)!important}
+  .juba-reference-page .juba-games-heading p{font-size:14px!important}
+}
