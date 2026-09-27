@@ -2967,3 +2967,20 @@ body .juba-reference-page .juba-practical-card>svg{width:22px!important;height:2
 @media(max-width:1050px){.juba-reference-page .juba-landing-brand{min-width:auto!important}.juba-reference-page .juba-landing-brand-copy{display:none!important}.juba-reference-page .juba-landing-nav-links{gap:15px!important}}
 @media(max-width:767px){.juba-reference-page .juba-landing-header-inner{height:68px!important;width:calc(100% - 24px)!important}.juba-reference-page .juba-landing-mobile-sheet{top:68px!important}}
 @media(prefers-reduced-motion:reduce){.juba-reference-page .juba-landing-nav-links a::after{transition:none!important}}
+
+
+/* Landing — benefit proof section, inspired by Busuu's final feature summary. */
+.juba-reference-page .juba-benefits{padding:112px 22px!important;background:#fff!important}
+.juba-reference-page .juba-benefits-inner{width:min(1160px,100%)!important;margin:auto!important}
+.juba-reference-page .juba-benefits-heading{max-width:760px!important;margin:0 auto 48px!important;text-align:center!important}
+.juba-reference-page .juba-benefits-heading h2{margin:12px 0!important;color:#252525!important;font-size:clamp(2.4rem,5vw,4.6rem)!important;line-height:.98!important;letter-spacing:-.065em!important;font-weight:950!important}
+.juba-reference-page .juba-benefits-heading p{max-width:680px!important;margin:auto!important;color:#68766d!important;line-height:1.8!important}
+.juba-reference-page .juba-benefits-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:18px!important}
+.juba-reference-page .juba-benefit-card{position:relative!important;min-height:300px!important;padding:30px!important;border:2px solid #dfe9da!important;border-radius:28px!important;background:#f8fbf6!important;box-shadow:0 5px 0 #e9f0e5!important;overflow:hidden!important}
+.juba-reference-page .juba-benefit-card svg{width:30px!important;height:30px!important;margin:34px 0 20px!important;color:#46a900!important;stroke-width:2.4!important}
+.juba-reference-page .juba-benefit-number{position:absolute!important;inset:22px 24px auto auto!important;color:#b7f36b!important;font-size:14px!important;font-weight:950!important;letter-spacing:.08em!important}
+.juba-reference-page .juba-benefit-card h3{margin:0 0 10px!important;font-size:25px!important;line-height:1.08!important;letter-spacing:-.04em!important;font-weight:950!important;color:#252525!important}
+.juba-reference-page .juba-benefit-card p{margin:0!important;color:#68766d!important;line-height:1.75!important;font-size:14px!important}
+.juba-reference-page .juba-benefit-card::after{content:""!important;position:absolute!important;width:150px!important;height:150px!important;right:-65px!important;bottom:-70px!important;border:2px solid rgba(88,204,2,.15)!important;border-radius:50%!important;pointer-events:none!important}
+@media(max-width:900px){.juba-reference-page .juba-benefits-grid{grid-template-columns:1fr!important}.juba-reference-page .juba-benefit-card{min-height:240px!important}}
+@media(max-width:560px){.juba-reference-page .juba-benefits{padding:76px 14px!important}.juba-reference-page .juba-benefit-card{padding:24px!important}.juba-reference-page .juba-benefit-card svg{margin-top:28px!important}}
