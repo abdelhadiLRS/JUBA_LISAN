@@ -89,6 +89,7 @@ export default async function Home() {
         navFeatures={t('navFeatures')}
         primaryNavigation={t('nav.primaryNavigation')}
         navLanguages={t('navLanguages')}
+        interfaceLanguages={t('interfaceLanguages')}
         navReviews={t('navReviews')}
         navPricing={t('navPricing')}
         navFAQ={t('navFAQ')}
