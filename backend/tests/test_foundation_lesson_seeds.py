@@ -876,3 +876,26 @@ def test_en_gb_b1_vocabulary_examples_are_contextual_and_reusable():
     }
     for word, phrase in expected.items():
         assert phrase in entries[word].example
+
+
+def test_en_gb_a2_vocabulary_examples_are_contextual_and_reusable():
+    from app.data.en_GB.vocabulary_a2 import A2_SETS
+
+    entries = {
+        entry.word: entry
+        for vocabulary_set in A2_SETS
+        for entry in vocabulary_set.words
+    }
+    expected = {
+        "comfortable": "when I read in the evening",
+        "dangerous": "few street lights",
+        "popular": "offers cheap tickets",
+        "difficult": "asked the teacher for another example",
+        "modern": "charging points for visitors",
+        "quiet": "after the shops close",
+        "crowded": "waited for the next one",
+        "village": "less traffic and fewer shops",
+        "region": "prepare for frost earlier",
+    }
+    for word, phrase in expected.items():
+        assert phrase in entries[word].example
