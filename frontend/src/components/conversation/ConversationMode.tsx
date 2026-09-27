@@ -53,11 +53,11 @@ function QuotaBar({
   const exceeded = !unlimited && limit > 0 && used >= limit
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[#68736d] w-36 shrink-0 font-sans tracking-wide uppercase">
+      <span className="text-[#68736d] w-36 shrink-0 font-sans text-xs font-semibold tracking-wide uppercase">
         {label}
       </span>
       {unlimited ? (
-        <span className="text-[#68736d] font-sans">∞</span>
+        <span className="text-[#438600] font-sans font-bold">∞</span>
       ) : (
         <>
           <div className="bg-[#f1f7ed] h-1 flex-1 overflow-hidden">
@@ -191,7 +191,7 @@ function TrialPremiumCta() {
   }
 
   return (
-    <div className="border-[#e1e5e2] bg-white mb-4 border p-5 text-center">
+    <div className="border-[#e1e5e2] bg-white mb-4 rounded-[20px] border-2 p-5 text-center shadow-[0_3px_0_rgba(31,41,51,.045)]">
       <p className="text-[#68736d] mb-2 font-sans tracking-wide uppercase">
         {tConversation('trialCtaLabel')}
       </p>
@@ -205,7 +205,7 @@ function TrialPremiumCta() {
         <button
           onClick={() => handleCheckout('yearly')}
           disabled={loading !== null}
-          className="bg-[#58a700] text-white hover:bg-[#58a700]/90 w-full px-4 py-3 font-sans text-xs tracking-wide uppercase transition-colors disabled:opacity-50"
+          className="bg-[#58a700] text-white hover:bg-[#438600] w-full rounded-xl px-4 py-3 font-sans text-xs font-bold tracking-wide uppercase shadow-[0_3px_0_#438600] transition-colors disabled:opacity-50"
         >
           {loading === 'yearly' ? (
             '...'
@@ -223,7 +223,7 @@ function TrialPremiumCta() {
         <button
           onClick={() => handleCheckout('monthly')}
           disabled={loading !== null}
-          className="border-[#e1e5e2] text-[#68736d] hover:text-[#438600] hover:border-[#58a700] w-full border px-4 py-3 font-sans text-xs tracking-wide uppercase transition-colors disabled:opacity-50"
+          className="border-[#e1e5e2] text-[#68736d] hover:text-[#438600] hover:border-[#58a700] w-full rounded-xl border-2 px-4 py-3 font-sans text-xs font-bold tracking-wide uppercase transition-colors disabled:opacity-50"
         >
           {loading === 'monthly'
             ? '...'
@@ -235,7 +235,7 @@ function TrialPremiumCta() {
       )}
       <button
         onClick={() => router.push('/plan')}
-        className="text-[#68736d] hover:text-[#438600] mt-5 w-full font-sans tracking-wide uppercase transition-colors"
+        className="text-[#68736d] hover:text-[#438600] mt-5 w-full rounded-xl px-3 py-2 font-sans text-xs font-semibold tracking-wide uppercase transition-colors"
       >
         {t('paywallSkip')}
       </button>
@@ -1060,7 +1060,7 @@ export default function ConversationMode({
       {/* Transcript area */}
       <div className="mb-4 min-h-0 flex-1 space-y-3 overflow-y-auto px-2">
         {transcript.length === 0 && !streamingText && status === 'live' && (
-          <p className="text-[#30343b] text-[#68736d] py-8 text-center font-sans">
+          <p className="text-[#68736d] py-8 text-center font-sans">
             {t('tapToStart')}
           </p>
         )}
