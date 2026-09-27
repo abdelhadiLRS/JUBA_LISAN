@@ -40,6 +40,7 @@ export function LandingFooter({ t, hasSession, dir = 'ltr', locale = 'en', showR
             <h3>{t('footerLearning')}</h3>
             <Link href="#features">{t('howItWorks')}</Link>
             <Link href="#languages">{t('navLanguages')}</Link>
+            <Link href="#online-languages">{t('onlineLanguagesTitle')}</Link>
             <Link href="#benefits">{t('builtForLearners')}</Link>
             {showReviews && <Link href="#reviews">{t('navReviews')}</Link>}
           </div>
