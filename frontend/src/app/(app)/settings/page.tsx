@@ -5,6 +5,15 @@ import { useTranslations } from 'next-intl'
 import { apiFetch } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
 import { useRouter } from 'next/navigation'
+import {
+  Bot,
+  CreditCard,
+  Globe2,
+  MessageSquareText,
+  Palette,
+  User,
+  Volume2,
+} from 'lucide-react'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { useLogout } from '@/hooks/useLogout'
 import { ProfileSection } from '@/components/settings/ProfileSection'
@@ -34,12 +43,12 @@ export default function SettingsPage() {
   const [deleting, setDeleting] = useState(false)
 
   const navItems = [
-    { href: '#account', label: t('sectionAccount'), icon: 'user' },
-    { href: '#preferences', label: t('sectionAppearance'), icon: 'palette' },
-    { href: '#voice', label: t('sectionConversation'), icon: 'volume' },
-    { href: '#plan', label: t('sectionUsageLimits'), icon: 'credit-card' },
-    { href: '#community', label: t('sectionReview'), icon: 'message-circle-2' },
-    { href: '#legal', label: t('sectionLegal'), icon: 'world' },
+    { href: '#account', label: t('sectionAccount'), icon: User },
+    { href: '#preferences', label: t('sectionAppearance'), icon: Palette },
+    { href: '#voice', label: t('sectionConversation'), icon: Volume2 },
+    { href: '#plan', label: t('sectionUsageLimits'), icon: CreditCard },
+    { href: '#community', label: t('sectionReview'), icon: MessageSquareText },
+    { href: '#legal', label: t('sectionLegal'), icon: Globe2 },
   ]
 
   async function handleDeleteAccount() {
@@ -54,7 +63,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="card">
+    <div className="mx-auto max-w-6xl space-y-4 px-4 py-6 sm:px-6 md:py-8">
       <SettingsPageHeader
         eyebrow={`${t('sectionAccount')} / ${t('title')}`}
         title={t('title')}
@@ -67,13 +76,13 @@ export default function SettingsPage() {
           href="/settings/languages"
           label={t('languagesManage')}
           description={t('sectionLanguages')}
-          icon="world"
+          icon={Globe2}
         />
         <SettingsActionCard
           href="/settings/memories"
           label={t('memoryManage')}
           description={t('sectionMemory')}
-          icon="robot"
+          icon={Bot}
         />
       </div>
 
@@ -81,17 +90,14 @@ export default function SettingsPage() {
         <SettingsPanel id="account" title={t('sectionAccount')}>
           <ProfileSection title={t('cardProfileAccess')} />
 
-          <div className="border-fl-border bg-fl-surface border p-6">
-            <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-4">
-              <span className="text-secondary text-fl-muted-2">●</span>
-              <span className="text-secondary text-fl-muted-2 font-sans tracking-wide">
-                {t('cardSessionSecurity')}
-              </span>
-            </div>
+          <div className="juba-panel">
+            <p className="text-[var(--juba-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
+              {t('cardSessionSecurity')}
+            </p>
             <div className="space-y-2">
               <button
                 onClick={() => setLogoutConfirm(true)}
-                className="text-secondary text-fl-muted-2 border-fl-border hover:text-fl-error hover:border-red-200/50 w-full border py-3 font-sans tracking-wide transition-colors"
+                className="border-[var(--juba-lilac)] text-[var(--juba-muted)] w-full rounded-[20px] border py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-surface-soft)]"
               >
                 {tCommon('logout')}
               </button>
@@ -100,7 +106,12 @@ export default function SettingsPage() {
                 <button
                   onClick={() => setDeleteConfirm(true)}
                   disabled={deleting}
-                  className="text-secondary text-fl-error border-red-200/50 hover:border-fl-error/70 w-full border py-3 font-sans tracking-wide transition-colors disabled:opacity-40"
+                  className="w-full rounded-[20px] border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
+                  style={{
+                    color: 'var(--juba-danger)',
+                    borderColor:
+                      'color-mix(in srgb, var(--juba-danger) 35%, transparent)',
+                  }}
                 >
                   {t('deleteAccount')}
                 </button>
@@ -132,23 +143,20 @@ export default function SettingsPage() {
         </SettingsPanel>
 
         <SettingsPanel id="legal" title={t('sectionLegal')}>
-          <div className="border-fl-border bg-fl-surface border p-6">
-            <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-4">
-              <span className="text-secondary text-fl-muted-2">●</span>
-              <span className="text-secondary text-fl-muted-2 font-sans tracking-wide">
-                {t('cardLegalDocuments')}
-              </span>
-            </div>
+          <div className="border-[var(--juba-lilac)] bg-white rounded-[28px] border p-6">
+            <p className="text-[var(--juba-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
+              {t('cardLegalDocuments')}
+            </p>
             <div className="flex flex-col gap-2">
               <a
                 href="/terms?from=settings"
-                className="text-fl-muted-2 hover:text-fl-fg font-sans text-xs tracking-widest uppercase transition-colors"
+                className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] text-sm font-medium transition-colors"
               >
                 {t('termsOfService')}
               </a>
               <a
                 href="/privacy?from=settings"
-                className="text-fl-muted-2 hover:text-fl-fg font-sans text-xs tracking-widest uppercase transition-colors"
+                className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] text-sm font-medium transition-colors"
               >
                 {t('privacyPolicy')}
               </a>
