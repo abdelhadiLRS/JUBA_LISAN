@@ -193,3 +193,25 @@ class TestGetAssessmentBank:
                 )
                 assert question.correct in question.options, f"Correct answer missing from options: {prefix}"
 
+
+
+    def test_en_gb_b1_to_c2_vocabulary_assessments_use_context(self):
+        from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+        expected = {
+            "v-a2-001": "After moving from Morocco to Spain",
+            "v-a2-007": "annual staff meeting",
+            "v-a2-008": "tomorrow’s newspaper",
+            "v-a2-009": "starters, main courses, desserts",
+            "v-b1-001": "training programme",
+            "v-b1-003": "speak in front of the class",
+            "v-b1-008": "same office",
+            "v-b2-004": "online banking",
+            "v-c1-001": "closed the branch",
+            "v-c1-003": "effects of misinformation",
+            "v-c2-004": "spokesperson equivocated",
+        }
+        questions = {question.id: question.question for question in ASSESSMENT_BANK}
+        for question_id, context in expected.items():
+            assert context in questions[question_id]
+            assert "What does" not in questions[question_id] or "here" in questions[question_id]
