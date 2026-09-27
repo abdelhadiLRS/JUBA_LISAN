@@ -2756,3 +2756,99 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
     padding-inline: 16px !important;
   }
 }
+
+/* Settings — account controls use the same friendly, tactile JUBA LISAN shell. */
+.juba-mobile-settings {
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-mobile-settings h1,
+.juba-mobile-settings h2,
+.juba-mobile-settings h3 {
+  color: var(--juba-learning-ink) !important;
+  font-weight: 900 !important;
+}
+.juba-mobile-settings .juba-panel {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 20px !important;
+  background: #fff !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+.juba-mobile-settings .juba-panel > * {
+  font-family: inherit !important;
+}
+.juba-mobile-settings .border-\[var\(--juba-lilac\)\] {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-mobile-settings .bg-\[var\(--juba-surface-soft\)\] {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-settings .text-\[var\(--juba-muted\)\] {
+  color: var(--juba-learning-muted) !important;
+}
+.juba-mobile-settings .text-\[var\(--juba-text\)\] {
+  color: var(--juba-learning-ink) !important;
+}
+.juba-mobile-settings a:hover {
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-settings button {
+  font-family: inherit !important;
+}
+.juba-mobile-settings input,
+.juba-mobile-settings select,
+.juba-mobile-settings textarea {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+}
+.juba-mobile-settings input:focus,
+.juba-mobile-settings select:focus,
+.juba-mobile-settings textarea:focus {
+  border-color: var(--juba-learning-green) !important;
+  box-shadow: 0 0 0 4px rgba(88,204,2,.13) !important;
+  outline: none !important;
+}
+.juba-mobile-settings button:hover:not(:disabled) {
+  border-color: var(--juba-learning-green) !important;
+}
+.juba-mobile-settings button:focus-visible,
+.juba-mobile-settings a:focus-visible {
+  outline: 3px solid var(--juba-learning-blue) !important;
+  outline-offset: 2px !important;
+}
+.juba-mobile-settings [class*='bg-[var(--juba-primary)]'],
+.juba-mobile-settings [class*='bg-[var(--juba-primary-dark)]'] {
+  background: var(--juba-learning-green) !important;
+  border-color: var(--juba-learning-green-dark) !important;
+  color: #fff !important;
+}
+.juba-mobile-settings [class*='bg-[var(--juba-lilac)]'] {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-settings [class*='text-[var(--juba-violet-dark)]'] {
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-settings .rounded-\[28px\],
+.juba-mobile-settings .rounded-\[24px\],
+.juba-mobile-settings .rounded-\[20px\] {
+  border-radius: 18px !important;
+}
+.juba-mobile-settings a[href^='/terms'],
+.juba-mobile-settings a[href^='/privacy'] {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  font-weight: 800 !important;
+}
+@media (max-width: 767px) {
+  .juba-mobile-settings {
+    padding: 14px 12px 88px !important;
+  }
+  .juba-mobile-settings .juba-panel {
+    border-radius: 18px !important;
+  }
+}
