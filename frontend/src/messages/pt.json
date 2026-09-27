@@ -86,7 +86,8 @@
     "dashboardStreak": "Day Streak",
     "dashboardXp": "Total XP",
     "dashboardMasteredWords": "Mastered Words",
-    "dashboardCurrentUnit": "Current Unit"
+    "dashboardCurrentUnit": "Current Unit",
+    "skipToContent": "Ir para o conteúdo"
   },
   "common": {
     "loading": "Carregando...",
