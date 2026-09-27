@@ -287,6 +287,47 @@ def get_foundation_lesson_seed(
         "Show evidence that the target language can be retrieved independently.",
     ])
 
+    base["feedback_cycle"] = {
+        "grammar": [
+            "Identify whether the target form is accurate.",
+            "Explain the relevant form-meaning issue.",
+            "Reattempt the sentence in a changed context.",
+        ],
+        "vocabulary": [
+            "Check meaning and collocation, not spelling alone.",
+            "Replace an unsuitable word with a better contextual choice.",
+            "Reuse the corrected item in a new sentence.",
+        ],
+        "reading": [
+            "Check the answer against the text before revealing the solution.",
+            "Explain which textual clue supports the answer.",
+            "Revisit one inference after feedback.",
+        ],
+        "listening": [
+            "Separate misunderstanding of the gist from missed detail.",
+            "Replay or revisit the relevant input before checking the answer.",
+            "Restate the corrected detail in the learner's own words.",
+        ],
+        "speaking": [
+            "Identify one meaning, fluency, or accuracy issue worth improving.",
+            "Repair the utterance without simply copying a model.",
+            "Repeat the idea with one useful extension.",
+        ],
+        "writing": [
+            "Review meaning, grammar, cohesion, and register.",
+            "Revise at least one sentence rather than only marking errors.",
+            "Compare the revision with the original and explain the improvement.",
+        ],
+        "review": [
+            "Identify which item or structure was not retrieved.",
+            "Contrast it with the nearest likely confusion.",
+            "Retrieve it again after the correction.",
+        ],
+    }.get(skill, [
+        "Identify one meaningful language issue.",
+        "Correct it and reuse the language in a changed context.",
+    ])
+
     base["skill_quality"] = {
         "grammar": {
             "focus": "notice -> controlled use -> contrast -> independent production",
