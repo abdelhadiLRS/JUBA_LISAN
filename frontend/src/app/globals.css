@@ -1322,3 +1322,28 @@ html[data-theme='light'] {
     transition-duration: .01ms !important;
   }
 }
+
+
+/* JUBA LISAN — accessible keyboard focus for the member learning shell. */
+.juba-duo-shell :where(a,button,[role="button"],input,select,textarea):focus-visible{
+  outline:3px solid rgba(88,167,0,.48)!important;
+  outline-offset:3px!important;
+}
+.juba-duo-shell :where(button,a,[role="button"]):disabled,
+.juba-duo-shell :where(button,a,[role="button"])[aria-disabled="true"]{
+  cursor:not-allowed!important;
+}
+.juba-duo-shell :where(input,select,textarea):focus-visible{
+  border-color:#58a700!important;
+  box-shadow:0 0 0 3px rgba(88,167,0,.12)!important;
+}
+@media (prefers-reduced-motion: reduce){
+  .juba-duo-shell *,
+  .juba-duo-shell *::before,
+  .juba-duo-shell *::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
