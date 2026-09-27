@@ -830,6 +830,32 @@ def test_en_gb_c2_academic_examples_are_contextual_and_reusable():
         assert phrase.casefold() in entries[word].example.casefold()
         assert len(entries[word].example.split()) >= 16
 
+
+def test_en_gb_c1_analytical_examples_are_contextual_and_reusable():
+    """Selected C1 analytical vocabulary should model transferable real-world contexts."""
+    from app.data.en_GB.vocabulary_c1 import C1_SETS
+
+    entries = {entry.word: entry for vocabulary_set in C1_SETS for entry in vocabulary_set.words}
+    expected = {
+        "magnitude": "vacancy rates, waiting lists, and average rents",
+        "precedent": "access to public information",
+        "conundrum": "urgently needed housing projects",
+        "impetus": "outdated equipment was delaying experiments",
+        "alleviate": "routine follow-up care closer to home",
+        "exacerbate": "loan repayments",
+        "encompass": "environmental impact",
+        "mitigate": "a second supplier",
+        "substantiate": "independently verified",
+        "proliferate": "readers check the source",
+        "galvanise": "checking on older neighbours",
+        "relinquish": "independent board",
+        "delineate": "who approves purchases",
+        "manifestation": "online ordering and home delivery",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 18
+
 def test_foundation_fallback_seed_has_a_complete_learning_sequence():
     """Fallback lessons should connect input, retrieval, and production."""
     from app.services.foundation_lesson_seeds import get_foundation_lesson_seed
