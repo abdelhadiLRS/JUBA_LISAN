@@ -7730,111 +7730,6 @@ main [dir="rtl"] h3,
   box-shadow: none !important;
 }
 
-/* One card treatment across every authenticated page. */
-.juba-tabler-app .juba-app-page [class*="rounded-"]:not([class*="rounded-full"]) {
-  border-radius: .625rem !important;
-}
-.juba-tabler-app .juba-app-page [class*="rounded-full"] {
-  border-radius: 9999px !important;
-}
-.juba-tabler-app .juba-app-page [class*="shadow-"] {
-  box-shadow: var(--tblr-box-shadow-card) !important;
-}
-.juba-tabler-app .juba-app-page .juba-card {
-  border-radius: .625rem !important;
-  box-shadow: var(--tblr-box-shadow-card) !important;
-}
-
-/* Remove the former custom dashboard palette from authenticated pages. */
-.juba-tabler-app .juba-app-page [class*="bg-[#"],
-.juba-tabler-app .juba-app-page [class*="bg-[rgb"],
-.juba-tabler-app .juba-app-page [class*="bg-[rgba"] {
-  background-image: none !important;
-}
-.juba-tabler-app .juba-app-page [class*="ring-black"],
-.juba-tabler-app .juba-app-page [class*="ring-white"],
-.juba-tabler-app .juba-app-page [class*="border-black"],
-.juba-tabler-app .juba-app-page [class*="border-white"] {
-  --tw-ring-color: var(--tblr-border-color) !important;
-  border-color: var(--tblr-border-color) !important;
-}
-
-/* Every bordered content surface inside the authenticated app follows the
-   same Tabler card language, regardless of which page originally rendered it. */
-.juba-tabler-app .juba-app-page :where(div,section,article,aside,li)[class*="border"][class*="bg-"] {
-  border-color: var(--tblr-card-border-color) !important;
-}
-.juba-tabler-app .juba-app-page :where(div,section,article,aside)[class*="border"] {
-  border-color: var(--tblr-card-border-color) !important;
-}
-.juba-tabler-app .juba-app-page :where(div,section,article,aside)[class*="border"][class*="bg-"] {
-  border-radius: .625rem !important;
-  box-shadow: var(--tblr-box-shadow-card) !important;
-}
-.juba-tabler-app .juba-app-page :where(input,select,textarea)[class*="border"] {
-  border-radius: .25rem !important;
-}
-.juba-tabler-app .juba-app-page .badge,
-.juba-tabler-app .juba-app-page [class*="badge"] {
-  border-radius: .25rem !important;
-}
-.juba-tabler-app .juba-app-page [class*="bg-primary-lt"],
-.juba-tabler-app .juba-app-page [class*="bg-secondary-lt"],
-.juba-tabler-app .juba-app-page [class*="bg-azure-lt"],
-.juba-tabler-app .juba-app-page [class*="bg-yellow-lt"],
-.juba-tabler-app .juba-app-page [class*="bg-green-lt"],
-.juba-tabler-app .juba-app-page [class*="bg-red-lt"] {
-  background-image: none !important;
-}
- 
-/* Tabler buttons, badges, form controls and tables are the only visual
-   primitives exposed by the application shell. */
-.juba-tabler-app .juba-app-page button,
-.juba-tabler-app .juba-app-page a[class*="bg-"],
-.juba-tabler-app .juba-app-page [role="button"] {
-  border-radius: .25rem !important;
-}
-.juba-tabler-app .juba-app-page input,
-.juba-tabler-app .juba-app-page select,
-.juba-tabler-app .juba-app-page textarea {
-  border-radius: .25rem !important;
-  border-color: var(--tblr-border-color) !important;
-  background: var(--tblr-bg-surface) !important;
-  color: var(--tblr-body-color) !important;
-}
-.juba-tabler-app .juba-app-page table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  background: var(--tblr-bg-surface);
-  border: 1px solid var(--tblr-border-color);
-}
-.juba-tabler-app .juba-app-page th {
-  background: var(--tblr-bg-surface-secondary);
-  color: var(--tblr-secondary);
-  font-size: .75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-.juba-tabler-app .juba-app-page th,
-.juba-tabler-app .juba-app-page td {
-  padding: .75rem 1rem;
-  border-bottom: 1px solid var(--tblr-border-color);
-}
-.juba-tabler-app .juba-app-page tr:last-child td { border-bottom: 0; }
-
-/* Legacy gradient/illustrative surfaces become standard Tabler cards. */
-.juba-tabler-app .juba-app-page [class*="bg-gradient"],
-.juba-tabler-app .juba-app-page [class*="from-"],
-.juba-tabler-app .juba-app-page [class*="to-"] {
-  background-image: none !important;
-}
-.juba-tabler-app .juba-app-page .juba-dashboard > div,
-.juba-tabler-app .juba-app-page .juba-dashboard section,
-.juba-tabler-app .juba-app-page .juba-dashboard aside {
-  border-radius: .25rem !important;
-}
-
 /* Top-only authenticated navigation. Sidebar navigation is intentionally disabled. */
 .juba-tabler-app .navbar-vertical,
 .juba-tabler-app .navbar-vertical + .page-wrapper { display: none !important; }
@@ -7860,22 +7755,6 @@ main [dir="rtl"] h3,
 }
 .juba-tabler-app .navbar .dropdown-menu .nav-link:hover { background: var(--tblr-bg-surface-secondary) !important; }
 .juba-tabler-app .navbar .dropdown-menu .nav-link.active { background: rgba(var(--tblr-primary-rgb), .1) !important; }
-
-/* Do not allow the former dashboard-specific visual system to leak into
-   nested cards/components. */
-.juba-tabler-app .juba-app-page .juba-ff-feature-card,
-.juba-tabler-app .juba-app-page .juba-ff-dashboard-card,
-.juba-tabler-app .juba-app-page .juba-ff-chat-card,
-.juba-tabler-app .juba-app-page .juba-ff-step,
-.juba-tabler-app .juba-app-page .juba-ff-practice,
-.juba-tabler-app .juba-app-page .juba-card {
-  border: 1px solid var(--tblr-card-border-color) !important;
-  border-radius: .25rem !important;
-  box-shadow: var(--tblr-box-shadow-card) !important;
-  background: var(--tblr-bg-surface) !important;
-}
-
-
 
 /* Responsive top-only navigation: mobile stays horizontal and never opens a sidebar. */
 .juba-tabler-app .navbar > .container-fluid { min-width: 0; }
