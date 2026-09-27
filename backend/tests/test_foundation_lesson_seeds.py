@@ -350,9 +350,10 @@ def test_en_gb_c2_avoids_redundant_c1_headwords():
     c1_headwords = {entry.word.strip().casefold() for vocab_set in C1_SETS for entry in vocab_set.words}
     c2_headwords = {entry.word.strip().casefold() for vocab_set in C2_SETS for entry in vocab_set.words}
 
-    redundant = {"articulate", "notwithstanding", "corroborate"}
+    redundant = {"articulate", "notwithstanding", "corroborate", "rhetoric"}
     assert not redundant & c2_headwords
     assert redundant <= c1_headwords
+    assert "extrapolate" not in c1_headwords
 
 
 def test_en_gb_c2_has_no_duplicate_headword_and_part_of_speech():
