@@ -7,9 +7,9 @@ const cards = [
   { key: 'feature1', icon: BookOpen, art: 'ASSESS', tone: 'green', href: '/assessment' },
   { key: 'feature2', icon: MessageSquare, art: 'AI', tone: 'yellow', href: '/chat' },
   { key: 'feature3', icon: Mic, art: 'VOICE', tone: 'blue', href: '/conversation' },
-  { key: 'feature4', icon: Headphones, art: 'LISTEN', tone: 'purple', href: '/dashboard' },
-  { key: 'feature6', icon: Layers, art: 'REVIEW', tone: 'coral', href: '/dashboard' },
-  { key: 'feature8', icon: TrendingUp, art: 'PROGRESS', tone: 'mint', href: '/dashboard' },
+  { key: 'feature4', icon: Headphones, art: 'LISTEN', tone: 'green', href: '/dashboard' },
+  { key: 'feature6', icon: Layers, art: 'REVIEW', tone: 'yellow', href: '/dashboard' },
+  { key: 'feature8', icon: TrendingUp, art: 'PROGRESS', tone: 'blue', href: '/dashboard' },
 ]
 
 export function BentoFeatures({ t }: BentoFeaturesProps) {
