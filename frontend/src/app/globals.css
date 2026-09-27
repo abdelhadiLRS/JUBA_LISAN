@@ -2067,3 +2067,126 @@ html[dir='rtl'] body {
     font-size: 1.35rem !important;
   }
 }
+
+
+/* Courses — roadmap and level cards use the same JUBA LISAN learning language. */
+.juba-mobile-courses {
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-mobile-courses .juba-card {
+  border-color: var(--juba-learning-border) !important;
+  background: #fff !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+}
+.juba-mobile-courses > div > section:first-child {
+  border-color: var(--juba-learning-green-dark) !important;
+  background: var(--juba-learning-green) !important;
+  box-shadow: 0 5px 0 var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-courses > div > section:first-child .juba-eyebrow {
+  color: rgba(255,255,255,.9) !important;
+  background: rgba(255,255,255,.14) !important;
+  border-color: rgba(255,255,255,.25) !important;
+}
+.juba-mobile-courses > div > section:first-child a:first-of-type {
+  background: #fff !important;
+  color: var(--juba-learning-green-dark) !important;
+  box-shadow: 0 4px 0 rgba(70,163,2,.35) !important;
+}
+.juba-mobile-courses > div > section:first-child a:last-of-type {
+  border-color: rgba(255,255,255,.45) !important;
+  background: rgba(255,255,255,.12) !important;
+}
+.juba-mobile-courses h1,
+.juba-mobile-courses h2,
+.juba-mobile-courses h3 {
+  font-weight: 900 !important;
+  color: var(--juba-learning-ink) !important;
+}
+.juba-mobile-courses > div > section:first-child h1,
+.juba-mobile-courses > div > section:first-child p {
+  color: #fff !important;
+}
+.juba-mobile-courses .juba-eyebrow {
+  color: var(--juba-learning-green-dark) !important;
+  font-weight: 900 !important;
+}
+.juba-mobile-courses .bg-\[\#eee8ff\] {
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-mobile-courses .text-\[\#5a35dc\],
+.juba-mobile-courses .text-\[var\(--juba-primary-dark\)\] {
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-courses .border-\[\#eee8ff\] {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-mobile-courses .bg-\[\#ffd85a\] {
+  background: var(--juba-learning-yellow) !important;
+}
+.juba-mobile-courses .bg-\[\#fff0b5\] {
+  background: #fff4c7 !important;
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-courses .bg-\[\#f2f0e8\] {
+  background: #f7f7f7 !important;
+}
+.juba-mobile-courses .border-\[var\(--juba-border\)\] {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-mobile-courses .text-\[\#617068\] {
+  color: var(--juba-learning-muted) !important;
+}
+.juba-mobile-courses article.juba-card {
+  transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease !important;
+}
+.juba-mobile-courses article.juba-card:hover {
+  border-color: var(--juba-learning-green) !important;
+  box-shadow: 0 5px 0 rgba(0,0,0,.06) !important;
+}
+.juba-mobile-courses article.juba-card .ring-2 {
+  --tw-ring-color: var(--juba-learning-green) !important;
+}
+.juba-mobile-courses article.juba-card a {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-bottom-width: 4px !important;
+  border-radius: 13px !important;
+  background: var(--juba-learning-green-soft) !important;
+  color: var(--juba-learning-green-dark) !important;
+}
+.juba-mobile-courses article.juba-card a:hover {
+  background: #e4fbd8 !important;
+  border-color: var(--juba-learning-green) !important;
+  transform: translateY(1px) !important;
+}
+.juba-mobile-courses .h-2\.5 > div {
+  background: var(--juba-learning-green) !important;
+}
+.juba-mobile-courses > div > section:nth-last-child(-n+2) .rounded-2xl {
+  border: 2px solid var(--juba-learning-border) !important;
+  background: #fafafa !important;
+}
+.juba-mobile-courses a:focus-visible {
+  outline: 3px solid var(--juba-learning-blue) !important;
+  outline-offset: 3px !important;
+}
+@media (max-width: 767px) {
+  .juba-mobile-courses {
+    padding: 14px 12px 88px !important;
+  }
+  .juba-mobile-courses > div {
+    gap: 22px !important;
+  }
+  .juba-mobile-courses > div > section:first-child {
+    border-radius: 20px !important;
+    padding: 22px !important;
+  }
+  .juba-mobile-courses > div > section:first-child h1 {
+    font-size: 2.15rem !important;
+    line-height: 1.08 !important;
+  }
+  .juba-mobile-courses .juba-card {
+    border-radius: 19px !important;
+  }
+}
