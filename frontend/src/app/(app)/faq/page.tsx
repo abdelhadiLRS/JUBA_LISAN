@@ -118,7 +118,7 @@ export default function FAQPage() {
   })()
 
   return (
-    <div className="card">
+    <div className="juba-mobile-faq card">
       {/* Header */}
       <div className="border-[rgba(7,7,9,.08)] mb-8 border-b pb-4">
         <p className="text-[rgba(32,33,39,.52)] text-[rgba(32,33,39,.52)] mb-1 font-sans tracking-widest uppercase">
