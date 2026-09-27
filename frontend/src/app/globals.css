@@ -1263,3 +1263,27 @@ html[data-theme='light'] {
     box-shadow:0 2px 0 rgba(31,41,51,.045)!important;
   }
 }
+
+
+/* JUBA LISAN — keyboard accessibility and reduced-motion support for learning UI. */
+.juba-duo-shell :is(a,button,[role="button"],input,select,textarea):focus-visible,
+.juba-lesson-shell :is(a,button,[role="button"],input,select,textarea):focus-visible,
+.juba-mobile-conversation :is(a,button,[role="button"],input,select,textarea):focus-visible{
+  outline:3px solid #58a700!important;
+  outline-offset:3px!important;
+}
+.juba-duo-shell :is(a,button,[role="button"]):focus:not(:focus-visible),
+.juba-lesson-shell :is(a,button,[role="button"]):focus:not(:focus-visible),
+.juba-mobile-conversation :is(a,button,[role="button"]):focus:not(:focus-visible){
+  outline:none!important;
+}
+@media(prefers-reduced-motion:reduce){
+  .juba-duo-shell *,
+  .juba-lesson-shell *,
+  .juba-mobile-conversation *{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
