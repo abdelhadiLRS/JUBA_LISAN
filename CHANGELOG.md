@@ -17,3 +17,5 @@
 - Added an A2 vocabulary schema/content regression check covering valid parts of speech and non-empty definitions/examples.
 - Refined B1 vocabulary definitions and examples where the original wording was too narrow or absolute, including AI, carbon footprint, evidence, equality, experience, and automatic processes.
 - Added a B1 vocabulary schema/content regression check covering valid parts of speech and non-empty definitions/examples.
+- Refined B2 vocabulary definitions and examples for stronger semantic precision, collocation context, register awareness, and practical learner usage.
+- Added a B2 vocabulary schema/content regression check covering valid parts of speech and non-empty definitions/examples.
