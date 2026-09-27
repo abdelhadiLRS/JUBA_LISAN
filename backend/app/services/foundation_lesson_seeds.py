@@ -220,6 +220,39 @@ def get_foundation_lesson_seed(
 
     # Keep each skill aligned to the same learning cycle while making the
     # learner action specific to the skill rather than relying on raw data.
+    base["difficulty_progression"] = {
+        "A1": [
+            "Keep the context concrete and familiar.",
+            "Limit each task to one main communicative demand.",
+            "Move from recognition to short supported production.",
+        ],
+        "A2": [
+            "Add small changes in people, place, time, or purpose.",
+            "Require short reasons, details, or choices.",
+            "Move from supported practice to simple independent transfer.",
+        ],
+        "B1": [
+            "Connect ideas across more than one sentence or turn.",
+            "Require learners to justify a choice or infer meaning from context.",
+            "Reduce modelling before the final production task.",
+        ],
+        "B2": [
+            "Introduce less predictable contexts and competing interpretations.",
+            "Require precise relationships, collocations, or evidence.",
+            "Expect independent transfer with limited scaffolding.",
+        ],
+        "C1": [
+            "Require adaptation of register, stance, structure, or implication.",
+            "Use subtle distinctions and context-dependent choices.",
+            "Make learners justify why a particular formulation fits the situation.",
+        ],
+        "C2": [
+            "Require precise control of nuance, register, and stylistic effect.",
+            "Use specialised or formally demanding contexts where appropriate.",
+            "Require independent evaluation of competing formulations before production.",
+        ],
+    }[level]
+
     base["evidence_requirements"] = {
         "grammar": [
             "Accurately produce the target form in a new sentence.",
