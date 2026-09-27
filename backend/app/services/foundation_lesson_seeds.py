@@ -142,12 +142,22 @@ def get_foundation_lesson_seed(
         "input_examples": input_examples,
         "target_words": target_words,
         "target_phrases": target_phrases,
+        "meaning_check": [
+            "Explain the meaning of two target items using the lesson context.",
+            "Choose the target item that best fits a new situation and explain why.",
+        ],
+        "controlled_practice": [
+            "Complete one short task using the target language with the model available.",
+            "Change one detail in the model and produce a new, accurate sentence.",
+        ],
         "retrieval_sequence": [
             "Recall the meaning of three target items without looking.",
             "Use two target items in new sentences.",
             "Complete the final task using the target grammar or skill.",
         ],
+        "transfer_task": f"Apply the target language to a new situation related to {title}, without copying the model.",
         "production_requirement": "Use at least three target words and one target structure in a new context.",
+        "reflection_prompt": "Identify one language choice you can reuse in a similar real-life situation.",
     }
 
     base: dict[str, Any] = {
