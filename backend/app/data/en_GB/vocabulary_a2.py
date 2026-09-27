@@ -1209,15 +1209,15 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="nausea",
                 pos="noun",
-                definition="A feeling of wanting to vomit.",
-                example="The medicine can cause nausea.",
+                definition="An unpleasant feeling in your stomach that makes you think you may vomit.",
+                example="The smell of the food made me feel nausea during the bus journey, so I opened the window and took a few slow breaths.",
                 ipa="/ˈnɔːziə/",
                 frequency_rank=510,
             ),
             VocabularyEntry(
                 word="prescription",
                 pos="noun",
-                definition="A written order from a doctor for medicine.",
+                definition="An instruction from an authorised healthcare professional for a pharmacist to supply a particular medicine.",
                 example="The doctor gave me a prescription for the medicine and explained how many tablets to take each day.",
                 ipa="/prɪˈskrɪpʃən/",
                 frequency_rank=440,
@@ -1225,7 +1225,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="allergy",
                 pos="noun",
-                definition="A reaction by the body to certain substances.",
+                definition="A response by the immune system to a substance that is usually harmless, such as pollen or certain foods.",
                 example="I told the waiter about my peanut allergy and asked whether the sauce contained any nuts.",
                 ipa="/ˈælədʒi/",
                 frequency_rank=480,
@@ -1241,7 +1241,7 @@ A2_SETS: list[VocabularySet] = [
             VocabularyEntry(
                 word="symptom",
                 pos="noun",
-                definition="A sign that suggests a person has an illness.",
+                definition="A change in the body or how you feel that may indicate an illness or other health problem.",
                 example="What are your symptoms? Tell the doctor when they started and whether they have become worse.",
                 ipa="/ˈsɪmptəm/",
                 frequency_rank=380,
