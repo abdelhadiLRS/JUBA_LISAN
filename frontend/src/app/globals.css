@@ -1241,3 +1241,46 @@ html[data-theme='light'] {
   .juba-busuu-landing .juba-busuu-heading p{font-size:15px}
   .juba-busuu-landing .juba-busuu-language-panel{padding:22px 18px 4px}
 }
+
+
+/* Hero proof row: compact capability signals, not fabricated social proof. */
+.juba-busuu-landing .juba-busuu-hero-proof{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0;
+  margin-top:34px;
+  padding-top:22px;
+  border-top:1px solid rgba(255,255,255,.22);
+  max-width:650px;
+}
+.juba-busuu-landing .juba-busuu-hero-proof span{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding-inline-end:22px;
+  margin-inline-end:22px;
+  color:rgba(255,255,255,.82);
+  font-size:12px;
+  line-height:1.35;
+}
+.juba-busuu-landing .juba-busuu-hero-proof span+span{
+  border-inline-start:1px solid rgba(255,255,255,.2);
+  padding-inline-start:22px;
+}
+.juba-busuu-landing .juba-busuu-hero-proof strong{
+  color:#45f09a;
+  font-size:11px;
+  letter-spacing:.07em;
+}
+@media(max-width:600px){
+  .juba-busuu-landing .juba-busuu-hero-proof{
+    gap:14px 0;
+  }
+  .juba-busuu-landing .juba-busuu-hero-proof span{
+    padding-inline-end:14px;
+    margin-inline-end:14px;
+  }
+  .juba-busuu-landing .juba-busuu-hero-proof span+span{
+    padding-inline-start:14px;
+  }
+}
