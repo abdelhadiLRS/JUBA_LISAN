@@ -26,20 +26,6 @@ interface LandingNavProps {
   locale: Locale
 }
 
-const LOCALES_DATA: Record<Locale, { name: string; native: string }> = {
-  en: { name: 'English', native: 'English' },
-  ar: { name: 'Arabic', native: 'العربية' },
-  es: { name: 'Spanish', native: 'Español' },
-  fr: { name: 'French', native: 'Français' },
-  pt: { name: 'Portuguese', native: 'Português' },
-  de: { name: 'German', native: 'Deutsch' },
-  it: { name: 'Italian', native: 'Italiano' },
-  pl: { name: 'Polish', native: 'Polski' },
-  nl: { name: 'Dutch', native: 'Nederlands' },
-  ro: { name: 'Romanian', native: 'Română' },
-  ru: { name: 'Russian', native: 'Русский' },
-}
-
 export function LandingNav({
   hasSession,
   dir,
