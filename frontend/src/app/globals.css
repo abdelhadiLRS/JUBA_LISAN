@@ -3972,3 +3972,19 @@ html[dir='rtl'] .juba-mobile-translator .juba-translator-footer {
   .juba-assessment-page { padding-bottom:88px !important; }
   .juba-assessment-page .juba-assessment-card { border-radius:18px !important; }
 }
+
+
+/* Lesson experience — same member learning language as Dashboard, Plan and Assessment. */
+.juba-lesson-page { font-family:'Nunito Sans','Noto Sans Arabic',system-ui,sans-serif !important; color:var(--juba-learning-ink) !important; }
+.juba-lesson-page h1,.juba-lesson-page h2,.juba-lesson-page h3 { font-weight:900 !important; letter-spacing:-.035em !important; }
+.juba-lesson-page .juba-lesson-shell { max-width:980px !important; }
+.juba-lesson-page .juba-lesson-card { border:2px solid var(--juba-learning-border) !important; border-radius:22px !important; background:#fff !important; box-shadow:0 4px 0 rgba(0,0,0,.045),0 12px 28px rgba(0,0,0,.035) !important; }
+.juba-lesson-page .juba-lesson-progress { height:12px !important; border:2px solid #dcebd5 !important; border-radius:999px !important; background:#edf4e9 !important; overflow:hidden !important; }
+.juba-lesson-page .juba-lesson-progress > div { background:var(--juba-learning-green) !important; border-radius:999px !important; }
+.juba-lesson-page button { font-family:inherit !important; }
+.juba-lesson-page button:not(:disabled):hover { transform:translateY(-1px); }
+.juba-lesson-page input,.juba-lesson-page textarea { background:#fff !important; border:2px solid var(--juba-learning-border) !important; border-radius:16px !important; }
+.juba-lesson-page input:focus,.juba-lesson-page textarea:focus { border-color:var(--juba-learning-green) !important; box-shadow:0 0 0 4px rgba(88,204,2,.13) !important; }
+.juba-lesson-page audio { accent-color:var(--juba-learning-green-dark) !important; }
+.juba-lesson-page .juba-lesson-success { border:2px solid #d7efc7 !important; border-radius:22px !important; background:var(--juba-learning-green-soft) !important; }
+@media(max-width:767px){ .juba-lesson-page { padding-bottom:88px !important; } .juba-lesson-page .juba-lesson-card,.juba-lesson-page .juba-lesson-success { border-radius:18px !important; } .juba-lesson-page .juba-lesson-shell { padding-left:12px !important; padding-right:12px !important; } }
