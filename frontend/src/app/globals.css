@@ -1509,3 +1509,142 @@ html[dir='rtl'] body {
     font-size: 2.35rem !important;
   }
 }
+
+
+/* Social / Friends — same JUBA LISAN reference language, no separate visual style. */
+.juba-page-shell {
+  color: var(--juba-learning-ink) !important;
+  font-family: 'Nunito Sans', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+.juba-page-hero {
+  padding: 28px !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  border-radius: 22px !important;
+  background: var(--juba-learning-green) !important;
+  box-shadow: 0 5px 0 var(--juba-learning-green-dark) !important;
+}
+.juba-eyebrow {
+  color: rgba(255,255,255,.86) !important;
+  font-weight: 900 !important;
+  letter-spacing: .08em !important;
+}
+.juba-page-title {
+  margin-top: 6px !important;
+  color: #fff !important;
+  font-weight: 900 !important;
+  letter-spacing: -.04em !important;
+}
+.juba-page-subtitle {
+  color: rgba(255,255,255,.88) !important;
+  max-width: 680px !important;
+}
+.juba-panel {
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 20px !important;
+  background: #fff !important;
+  box-shadow: var(--juba-learning-shadow) !important;
+  padding: 22px !important;
+}
+.juba-section-title {
+  color: var(--juba-learning-ink) !important;
+  font-weight: 900 !important;
+  letter-spacing: -.02em !important;
+}
+.juba-input {
+  width: 100% !important;
+  min-height: 48px !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+  font-weight: 700 !important;
+}
+.juba-input:focus {
+  border-color: var(--juba-learning-blue) !important;
+  box-shadow: 0 0 0 3px rgba(28,176,246,.15) !important;
+  outline: none !important;
+}
+.juba-primary-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  min-height: 44px !important;
+  padding: 9px 15px !important;
+  border: 2px solid var(--juba-learning-green-dark) !important;
+  border-radius: 13px !important;
+  background: var(--juba-learning-green) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 0 var(--juba-learning-green-dark) !important;
+  font-weight: 900 !important;
+}
+.juba-primary-button:hover:not(:disabled) {
+  transform: translateY(1px) !important;
+  box-shadow: 0 3px 0 var(--juba-learning-green-dark) !important;
+}
+.juba-primary-button:disabled {
+  opacity: .55 !important;
+}
+.juba-secondary-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  min-height: 44px !important;
+  padding: 9px 14px !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 13px !important;
+  background: #fff !important;
+  color: var(--juba-learning-ink) !important;
+  box-shadow: 0 3px 0 rgba(0,0,0,.06) !important;
+  font-weight: 900 !important;
+}
+.juba-secondary-button:hover:not(:disabled) {
+  border-color: var(--juba-learning-green) !important;
+  background: var(--juba-learning-green-soft) !important;
+}
+.juba-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 28px !important;
+  padding: 3px 10px !important;
+  border: 2px solid var(--juba-learning-border) !important;
+  border-radius: 999px !important;
+  background: #f7f7f7 !important;
+  color: var(--juba-learning-ink) !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+}
+.juba-muted {
+  color: var(--juba-learning-muted) !important;
+}
+.juba-page-shell .border-\[var\(--juba-border\)\] {
+  border-color: var(--juba-learning-border) !important;
+}
+.juba-page-shell .bg-\[var\(--juba-surface\)\],
+.juba-page-shell .bg-\[var\(--juba-bg\)\] {
+  background: #fff !important;
+}
+.juba-page-shell .text-\[var\(--juba-muted\)\] {
+  color: var(--juba-learning-muted) !important;
+}
+.juba-page-shell .rounded-2xl.border-dashed {
+  border-color: var(--juba-learning-border) !important;
+  background: #fafafa !important;
+}
+.juba-page-shell > section:nth-child(2) > div > div > div {
+  transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease !important;
+}
+.juba-page-shell > section:nth-child(2) > div > div > div:hover {
+  border-color: var(--juba-learning-green) !important;
+  box-shadow: 0 4px 0 rgba(0,0,0,.06) !important;
+  transform: translateY(-1px) !important;
+}
+@media (max-width: 767px) {
+  .juba-page-shell { padding: 14px 12px 90px !important; }
+  .juba-page-hero { padding: 22px 18px !important; border-radius: 19px !important; }
+  .juba-panel { padding: 17px !important; border-radius: 18px !important; }
+  .juba-page-shell > section:nth-child(2) > div { grid-template-columns: 1fr !important; }
+  .juba-page-shell .juba-primary-button,
+  .juba-page-shell .juba-secondary-button { min-height: 46px !important; }
+}
