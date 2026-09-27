@@ -2,12 +2,12 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useLanguageStore } from '@/store/language'
 import {
   getLanguageByCode,
-  normalizeLanguageCode,
   TARGET_LANGUAGE_CATALOG,
 } from '@/lib/target-languages'
 import TargetLanguageSelector from '@/components/TargetLanguageSelector'
@@ -18,7 +18,6 @@ import type { UserLanguageInfo } from '@/store/language'
 export default function MyLanguagesPage() {
   const t = useTranslations('languages')
   const tTarget = useTranslations('targetLanguages')
-  const targetLabel = (code: string) => (tTarget.has(code) ? tTarget(code) : getLanguageByCode(code)?.name ?? code)
   const tSettings = useTranslations('settings')
   const tCommon = useTranslations('common')
   const router = useRouter()
@@ -59,7 +58,7 @@ export default function MyLanguagesPage() {
     if (ok) {
       const level = info.plan?.cefr_level ?? ''
       setToast(
-        t('switched', { language: targetLabel(info.target_language), level })
+        t('switched', { language: tTarget(info.target_language), level })
       )
       setTimeout(() => setToast(''), 2500)
       router.refresh()
@@ -72,7 +71,7 @@ export default function MyLanguagesPage() {
     if (!ok) {
       setToast(
         t('deleteError', {
-          language: targetLabel(deleteTarget.target_language),
+          language: tTarget(deleteTarget.target_language),
         })
       )
       setDeleteTarget(null)
@@ -93,11 +92,11 @@ export default function MyLanguagesPage() {
   const availableLanguageCodes = useLanguageStore(
     (s) => s.availableLanguageCodes
   )
-  const addedCodes = userLanguages.map((ul) => normalizeLanguageCode(ul.target_language))
+  const addedCodes = userLanguages.map((ul) => ul.target_language)
   // Only show operator-enabled languages that the user hasn't added yet
   const unusedCodes = TARGET_LANGUAGE_CATALOG.filter(
     (l) =>
-      availableLanguageCodes.includes(normalizeLanguageCode(l.code)) && !addedCodes.includes(normalizeLanguageCode(l.code))
+      availableLanguageCodes.includes(l.code) && !addedCodes.includes(l.code)
   ).map((l) => l.code)
   const hasMultiple = userLanguages.length > 1
 
@@ -106,35 +105,35 @@ export default function MyLanguagesPage() {
       {/* Toast */}
       {toast && (
         <div className="pointer-events-none fixed inset-x-0 top-16 z-50 flex justify-center">
-          <div className="animate-in fade-in slide-in-from-top-2 border-secondary-subtle bg-white text-secondary pointer-events-auto border px-4 py-2 font-sans text-xs tracking-widest uppercase shadow-lg">
+          <div className="animate-in fade-in slide-in-from-top-2 border-[var(--juba-lilac)] bg-white text-[var(--juba-muted)] pointer-events-auto border px-4 py-2 font-mono text-xs tracking-widest uppercase shadow-lg">
             {toast}
           </div>
         </div>
       )}
 
       {/* Breadcrumb */}
-      <nav className="text-body text-secondary mb-8 flex items-center gap-2 font-sans">
+      <nav className="text-[var(--juba-text)] text-[var(--juba-muted)] mb-8 flex items-center gap-2 font-mono">
         <Link
           href="/settings"
-          className="hover:text-body tracking-widest uppercase transition-colors"
+          className="hover:text-[var(--juba-text)] tracking-widest uppercase transition-colors"
         >
           {tSettings('title')}
         </Link>
         <span>›</span>
-        <span className="text-body tracking-widest uppercase">
+        <span className="text-[var(--juba-text)] tracking-widest uppercase">
           {t('myLanguages')}
         </span>
       </nav>
 
       {/* Header + Add button */}
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-body font-sans text-xl font-bold tracking-widest uppercase">
+        <h1 className="text-[var(--juba-text)] font-mono text-xl font-bold tracking-widest uppercase">
           {t('myLanguages')}
         </h1>
         {unusedCodes.length > 0 && (
           <button
             onClick={() => setAddModalOpen(true)}
-            className="btn btn-primary px-4 py-2 font-sans text-xs font-bold tracking-widest uppercase transition-colors"
+            className="bg-[var(--juba-violet)] text-[var(--juba-violet)]-fg hover:bg-[var(--juba-violet)]/90 px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
           >
             + {t('addLanguage')}
           </button>
@@ -145,8 +144,8 @@ export default function MyLanguagesPage() {
       {loading ? (
         <PageLoading />
       ) : userLanguages.length === 0 ? (
-        <div className="card border px-6 py-10 text-center">
-          <p className="text-secondary font-sans text-sm">
+        <div className="border-[var(--juba-lilac)] bg-white border px-6 py-10 text-center">
+          <p className="text-[var(--juba-muted)] font-mono text-sm">
             {t('noLanguages')}
           </p>
         </div>
@@ -154,11 +153,9 @@ export default function MyLanguagesPage() {
         <div className="space-y-3">
           {[...userLanguages]
             .sort((a, b) =>
-              (() => {
-                const aLabel = targetLabel(a.target_language).toLowerCase()
-                const bLabel = targetLabel(b.target_language).toLowerCase()
-                return aLabel < bLabel ? -1 : aLabel > bLabel ? 1 : a.target_language < b.target_language ? -1 : a.target_language > b.target_language ? 1 : 0
-              })()
+              tTarget(a.target_language).localeCompare(
+                tTarget(b.target_language)
+              )
             )
             .map((ulang) => {
               const lang = getLangInfo(ulang.target_language)
@@ -169,21 +166,30 @@ export default function MyLanguagesPage() {
               return (
                 <div
                   key={ulang.target_language}
-                  className={`card border p-5 ${
-                    isActive ? 'border-[#5862e2]/50' : 'border-secondary-subtle'
+                  className={`bg-white border p-5 ${
+                    isActive ? 'border-[var(--juba-violet)]/50' : 'border-[var(--juba-lilac)]'
                   }`}
                 >
-                  {/* Top row: language + status */}
+                  {/* Top row: flag + name + status */}
                   <div className="mb-3 flex items-center gap-3">
-                    <span className="text-body flex-1 font-sans text-sm font-bold">
-                      {targetLabel(ulang.target_language)}
+                    {lang && (
+                      <Image
+                        src={lang.flagPath}
+                        alt={lang.code}
+                        width={28}
+                        height={20}
+                        className="shrink-0 object-cover"
+                      />
+                    )}
+                    <span className="text-[var(--juba-text)] flex-1 font-mono text-sm font-bold">
+                      {tTarget(ulang.target_language)}
                     </span>
                     {isActive ? (
-                      <span className="text-body bg-[#5862e2]/20 text-[#5862e2] px-2 py-0.5 font-sans text-xs tracking-widest uppercase">
+                      <span className="text-[var(--juba-text)] bg-[var(--juba-violet)]/20 text-[var(--juba-violet)] px-2 py-0.5 font-mono text-xs tracking-widest uppercase">
                         {t('activeLanguage')}
                       </span>
                     ) : plan?.cefr_level ? (
-                      <span className="text-body text-secondary font-sans tracking-wide">
+                      <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
                         {plan.cefr_level}
                       </span>
                     ) : null}
@@ -191,7 +197,7 @@ export default function MyLanguagesPage() {
 
                   {/* Stats */}
                   {plan && (
-                    <div className="text-secondary mb-3 flex flex-wrap gap-x-6 gap-y-1 font-sans text-xs">
+                    <div className="text-[var(--juba-muted)] mb-3 flex flex-wrap gap-x-6 gap-y-1 font-mono text-xs">
                       <span>
                         {t('levelLabel')}: {plan.cefr_level ?? '—'}
                       </span>
@@ -201,7 +207,7 @@ export default function MyLanguagesPage() {
                       {progress && (
                         <>
                           <span>
-                            {t('xpLabel')}: {progress.total_xp.toLocaleString('en-US')}
+                            {t('xpLabel')}: {progress.total_xp.toLocaleString()}
                           </span>
                           <span>
                             {t('streakLabel')}: {progress.current_streak}d
@@ -219,7 +225,7 @@ export default function MyLanguagesPage() {
                     {isActive ? (
                       <button
                         onClick={() => router.push(`/plan`)}
-                        className="text-body text-secondary hover:text-body font-sans text-xs tracking-widest uppercase transition-colors"
+                        className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-mono text-xs tracking-widest uppercase transition-colors"
                       >
                         {t('viewDetails')} →
                       </button>
@@ -228,7 +234,7 @@ export default function MyLanguagesPage() {
                         <button
                           onClick={() => handleSwitch(ulang)}
                           disabled={switchingCode === ulang.target_language}
-                          className="text-body text-body bg-[#5862e2] hover:bg-[#5862e2]/90 px-3 py-1 font-sans text-xs tracking-widest uppercase transition-colors disabled:opacity-40"
+                          className="text-[var(--juba-text)] text-[var(--juba-text)] bg-fl-fg hover:bg-[var(--juba-violet)]/90 px-3 py-1 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-40"
                         >
                           {switchingCode === ulang.target_language
                             ? '...'
@@ -237,7 +243,7 @@ export default function MyLanguagesPage() {
                         {hasMultiple && (
                           <button
                             onClick={() => setDeleteTarget(ulang)}
-                            className="text-body text-secondary hover:text-rose-600 font-sans text-xs tracking-widest uppercase transition-colors"
+                            className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-rose-600 font-mono text-xs tracking-widest uppercase transition-colors"
                           >
                             {t('removeLanguage')}
                           </button>
@@ -254,8 +260,8 @@ export default function MyLanguagesPage() {
       {/* Add language modal */}
       {addModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-light border-secondary-subtle w-full max-w-lg border p-6 shadow-lg">
-            <h2 className="text-body mb-4 font-sans text-sm font-bold tracking-widest uppercase">
+          <div className="bg-[var(--juba-lilac)]/40 border-[var(--juba-lilac)] w-full max-w-lg border p-6 shadow-xl">
+            <h2 className="text-[var(--juba-text)] mb-4 font-mono text-sm font-bold tracking-widest uppercase">
               {t('selectLanguage')}
             </h2>
             <TargetLanguageSelector
@@ -266,14 +272,14 @@ export default function MyLanguagesPage() {
             <div className="mt-5 flex justify-end gap-2">
               <button
                 onClick={() => setAddModalOpen(false)}
-                className="text-body text-secondary hover:text-body px-4 py-2 font-sans text-xs tracking-widest uppercase transition-colors"
+                className="text-[var(--juba-text)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors"
               >
                 {tCommon('cancel')}
               </button>
               <button
                 onClick={handleAdd}
                 disabled={!addingCode}
-                className="btn btn-primary px-4 py-2 font-sans text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+                className="bg-[var(--juba-violet)] text-[var(--juba-violet)]-fg hover:bg-[var(--juba-violet)]/90 px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
               >
                 {t('addLanguage')}
               </button>
@@ -286,7 +292,7 @@ export default function MyLanguagesPage() {
       <ConfirmDialog
         open={deleteTarget !== null}
         title={t('removeConfirmTitle', {
-          language: deleteTarget ? targetLabel(deleteTarget.target_language) : '',
+          language: deleteTarget ? tTarget(deleteTarget.target_language) : '',
         })}
         message={t('removeConfirmMessage')}
         confirmLabel={t('removeConfirmButton')}
