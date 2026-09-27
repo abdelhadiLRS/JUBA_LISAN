@@ -649,14 +649,6 @@ C1_SETS: list[VocabularySet] = [
                 frequency_rank=430,
             ),
             VocabularyEntry(
-                word="extrapolate",
-                pos="verb",
-                definition="To estimate or infer values or conclusions beyond the range of the available data.",
-                example="We should not extrapolate these findings to the whole population.",
-                ipa="/ɪkˈstræpəleɪt/",
-                frequency_rank=490,
-            ),
-            VocabularyEntry(
                 word="caveat",
                 pos="noun",
                 definition="A condition, limitation, or warning that should be considered when interpreting a statement.",
