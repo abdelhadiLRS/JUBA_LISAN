@@ -281,7 +281,8 @@
     },
     "learningLabel": "Învățare",
     "cefrLabel": "CEFR",
-    "coachLabel": "Antrenor",
+    "coachLabel": "Antrenor"
+  },
   "coach": {
     "learner": "Cursant",
     "minutes": "min",
