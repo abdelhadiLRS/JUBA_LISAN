@@ -12,6 +12,7 @@ interface LandingNavProps {
   navFeatures: string
   primaryNavigation: string
   navLanguages: string
+  interfaceLanguages: string
   navReviews: string
   navPricing: string
   navFAQ: string
@@ -31,6 +32,7 @@ export function LandingNav({
   navFeatures,
   primaryNavigation,
   navLanguages,
+  interfaceLanguages,
   navReviews,
   navPricing,
   navFAQ,
@@ -124,7 +126,7 @@ export function LandingNav({
             {hasSession ? dashboard : getStarted}
           </Link>
           <details className="juba-busuu-locale-menu">
-            <summary className="juba-busuu-locale" aria-label={navLanguages}>
+            <summary className="juba-busuu-locale" aria-label={interfaceLanguages}>
               <span>{locale.toUpperCase()}</span>
               <ChevronDown aria-hidden="true" />
             </summary>
@@ -177,7 +179,7 @@ export function LandingNav({
             >
               {hasSession ? dashboard : getStarted}
             </Link>
-            <nav className="juba-busuu-mobile-locales" aria-label={navLanguages}>
+            <nav className="juba-busuu-mobile-locales" aria-label={interfaceLanguages}>
               {localeOptions.map(([code, label]) => (
                 <Link
                   key={code}
