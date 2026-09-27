@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+- Refined C1 vocabulary examples to demonstrate natural collocations, register, and reusable communicative contexts rather than definition-like sentences.
+- Added regression coverage ensuring C1 examples are substantive, contextual, and distinct from their definitions.
 ### Educational Content Quality — C1 progression refinement
 - Further reduced archaic/legal density in C1 formal writing (`pursuant to`, `hereby`, `thereafter`) in favour of practical formal collocations (`in response to`, `with effect from`, `in line with`).
 - Corrected selected C1 British English IPA transcriptions for idioms and `overarching`.
