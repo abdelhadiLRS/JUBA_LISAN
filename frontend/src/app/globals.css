@@ -1641,3 +1641,25 @@ body .juba-reference-page .juba-duo-footer a:focus-visible{outline:3px solid #b7
   .juba-reference-page .juba-games-heading h2{font-size:clamp(2rem,10vw,2.65rem)!important}
   .juba-reference-page .juba-games-heading p{font-size:14px!important}
 }
+
+
+/* Landing — final games + AI directional polish */
+.juba-reference-page .juba-games-tabs[role="tablist"]{isolation:isolate!important}
+.juba-reference-page .juba-games-tab{cursor:pointer!important;user-select:none!important}
+.juba-reference-page[dir="rtl"] .juba-game-stage-copy .juba-ref-button{align-self:flex-start!important}
+.juba-reference-page[dir="rtl"] .juba-practical-language-card{text-align:right!important}
+.juba-reference-page[dir="rtl"] .juba-ai-showcase-copy{text-align:right!important}
+.juba-reference-page[dir="rtl"] .juba-ai-showcase-copy .juba-ref-button{flex-direction:row-reverse!important}
+.juba-reference-page[dir="rtl"] .juba-ai-chat-user{left:auto!important;right:6%!important}
+.juba-reference-page[dir="rtl"] .juba-ai-chat-tutor{right:auto!important;left:6%!important}
+.juba-reference-page[dir="rtl"] .juba-ai-live-pill{left:auto!important;right:18px!important}
+.juba-reference-page[dir="rtl"] .juba-ai-play{right:auto!important;left:18px!important}
+@media(max-width:900px){
+  .juba-reference-page[dir="rtl"] .juba-ai-showcase-copy{text-align:center!important}
+  .juba-reference-page[dir="rtl"] .juba-ai-chat-user{right:3%!important;left:auto!important}
+  .juba-reference-page[dir="rtl"] .juba-ai-chat-tutor{left:3%!important;right:auto!important}
+}
+@media(max-width:520px){
+  .juba-reference-page[dir="rtl"] .juba-ai-live-pill{right:10px!important;left:auto!important}
+  .juba-reference-page[dir="rtl"] .juba-ai-play{left:10px!important;right:auto!important}
+}
