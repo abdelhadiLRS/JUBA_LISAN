@@ -52,6 +52,9 @@ export function LandingNav({
   useEffect(() => {
     if (!open) return
 
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpen(false)
@@ -60,7 +63,10 @@ export function LandingNav({
     }
 
     document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = previousOverflow
+    }
   }, [open])
 
   const localeOptions: Array<[Locale, string]> = [
