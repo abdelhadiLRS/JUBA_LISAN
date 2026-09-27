@@ -382,6 +382,10 @@ export default function DashboardPage() {
                     <div className="text-secondary">
                       {cefrLevel ? cefrLevel + ' · ' : ''}{nextLesson?.title || t('startWithAssessment')}
                     </div>
+                    <div className="mt-3">
+                      <div className="d-flex align-items-center justify-content-between mb-2"><span className="text-secondary small">{t('daysRemaining')}</span><strong className="small">{currentDayDisplay}/{totalDays || 0}</strong></div>
+                      <div className="progress juba-dashboard-plan-progress" aria-label={t('daysRemaining')}><div className="progress-bar" style={{ width: planCompletion + '%' }} /></div>
+                    </div>
                     <div className="mt-3 d-flex flex-wrap gap-2">
                       <Link href={nextLesson?.id ? '/lesson/' + nextLesson.id : '/assessment'} className="btn juba-btn-primary">
                         <Play className="me-2" size={17} fill="currentColor" aria-hidden="true" />
@@ -399,11 +403,11 @@ export default function DashboardPage() {
                 </div>
               </div>
               <div className="card-footer">
-                <div className="row text-center">
-                  <div className="col"><div className="text-secondary">{t('lessonsCompleted')}</div><div className="h2 mb-0">{totalLessons}</div></div>
-                  <div className="col"><div className="text-secondary">{t('accuracy')}</div><div className="h2 mb-0">{accuracy}%</div></div>
-                  <div className="col"><div className="text-secondary">{t('streak')}</div><div className="h2 mb-0">{streak}</div></div>
-                  <div className="col"><div className="text-secondary">{t('daysRemaining')}</div><div className="h2 mb-0">{Math.max(totalDays - progressDay, 0)}</div></div>
+                <div className="row text-center g-3">
+                  <div className="col-6 col-md-3"><div className="d-flex align-items-center justify-content-center gap-2"><ListChecks size={18} aria-hidden="true" /><div className="text-secondary">{t('lessonsCompleted')}</div></div><div className="h2 mb-0 mt-1">{totalLessons}</div></div>
+                  <div className="col-6 col-md-3"><div className="d-flex align-items-center justify-content-center gap-2"><Trophy size={18} aria-hidden="true" /><div className="text-secondary">{t('accuracy')}</div></div><div className="h2 mb-0 mt-1">{accuracy}%</div></div>
+                  <div className="col-6 col-md-3"><div className="d-flex align-items-center justify-content-center gap-2"><Flame size={18} aria-hidden="true" /><div className="text-secondary">{t('streak')}</div></div><div className="h2 mb-0 mt-1">{streak}</div></div>
+                  <div className="col-6 col-md-3"><div className="d-flex align-items-center justify-content-center gap-2"><CalendarDays size={18} aria-hidden="true" /><div className="text-secondary">{t('daysRemaining')}</div></div><div className="h2 mb-0 mt-1">{Math.max(totalDays - progressDay, 0)}</div></div>
                 </div>
               </div>
             </div>
@@ -433,10 +437,14 @@ export default function DashboardPage() {
                   </div>
                   <div className="col-sm-8">
                     <div className="juba-performance-chart border rounded p-3">
+                      <div className="d-flex align-items-center justify-content-between mb-3">
+                        <div><div className="subheader">{t('recentPerformance')}</div><div className="h3 mb-0">{chartAverage}%</div></div>
+                        <span className="badge bg-primary-lt text-primary">{t('accuracy')}: {accuracy}%</span>
+                      </div>
                       <div className="d-flex align-items-end gap-2" style={{ minHeight: 140 }}>
                         {performanceValues.length ? performanceValues.map((value, index) => (
                           <div key={index} className="flex-fill text-center">
-                            <div className="juba-chart-bar rounded-top" style={{ height: Math.max(8, Math.round(value * 1.2)), minHeight: 8 }} />
+                            <div className="juba-chart-bar rounded-top" style={{ height: Math.max(8, Math.round((value / chartMax) * 120)), minHeight: 8 }} />
                             <div className="text-secondary small mt-1">{index + 1}</div>
                           </div>
                         )) : <div className="text-secondary">{t('noSkills')}</div>}
