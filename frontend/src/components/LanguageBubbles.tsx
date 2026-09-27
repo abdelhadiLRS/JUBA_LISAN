@@ -51,13 +51,13 @@ const LANGUAGES: Language[] = [
 
 export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
   return (
-    <section dir={dir} aria-label="Languages available in JUBA LISAN" className="juba-landing-language-bubbles w-full rounded-[28px] border border-[#dfe9da] bg-white p-4 shadow-[0_8px_0_rgba(70,169,0,.08)] sm:p-6">
+    <section dir={dir} aria-label={dir === 'rtl' ? 'اللغات المتاحة في جوبا لسان' : 'Languages available in JUBA LISAN'} className="juba-landing-language-bubbles w-full rounded-[28px] border border-[#dfe9da] bg-white p-4 shadow-[0_8px_0_rgba(70,169,0,.08)] sm:p-6">
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
-          <p className="text-[10px] font-black uppercase tracking-[.18em] text-[#46a900]">Explore languages</p>
-          <h3 className="mt-1 text-xl font-black tracking-tight text-[#252525] sm:text-2xl">Search the world. {LANGUAGES.length} languages.</h3>
+          <p className="text-[10px] font-black uppercase tracking-[.18em] text-[#46a900]">{dir === 'rtl' ? 'استكشف اللغات' : 'Explore languages'}</p>
+          <h3 className="mt-1 text-xl font-black tracking-tight text-[#252525] sm:text-2xl">{dir === 'rtl' ? `اكتشف العالم. ${LANGUAGES.length} لغة.` : `Search the world. ${LANGUAGES.length} languages.`}</h3>
         </div>
-        <span className="rounded-full bg-[#f3fbe9] px-3 py-1.5 text-[10px] font-extrabold text-[#46a900]">{LANGUAGES.length} languages</span>
+        <span className="rounded-full bg-[#f3fbe9] px-3 py-1.5 text-[10px] font-extrabold text-[#46a900]">{dir === 'rtl' ? `${LANGUAGES.length} لغة` : `${LANGUAGES.length} languages`}</span>
       </div>
       <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
         {LANGUAGES.map((language) => (
