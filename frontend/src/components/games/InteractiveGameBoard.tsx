@@ -227,16 +227,16 @@ export function InteractiveGameBoard({ mode, lang, challenge, onComplete, title 
 
       {challenge?.type === 'ordering' && <>
         <p className="interactive-instruction">{t.order}</p>{retryInstruction && <p className="interactive-retry" role="status">{retryInstruction}</p>}
-        <div className="ordering-pool">{items.map(item => <button key={item.id} type="button" disabled={order.includes(item.id)} onClick={() => setOrder(current => [...current, item.id])}>{item.label}</button>)}</div>
+        <div className="ordering-pool">{items.map(item => <button key={item.id} type="button" disabled={saving || order.includes(item.id)} onClick={() => setOrder(current => [...current, item.id])}>{item.label}</button>)}</div>
         <div className="ordering-result">{order.map((id, index) => {
           const item = items.find(entry => entry.id === id)
           return <div key={id} className="order-row"><span>{index + 1}. {item?.label}</span>
-            <button type="button" onClick={() => setOrder(current => { const next=[...current]; [next[index-1], next[index]]=[next[index], next[index-1]]; return next })} disabled={index === 0}>{t.up}</button>
-            <button type="button" onClick={() => setOrder(current => { const next=[...current]; [next[index], next[index+1]]=[next[index+1], next[index]]; return next })} disabled={index === order.length - 1}>{t.down}</button>
+            <button type="button" onClick={() => setOrder(current => { const next=[...current]; [next[index-1], next[index]]=[next[index], next[index-1]]; return next })} disabled={saving || index === 0}>{t.up}</button>
+            <button type="button" onClick={() => setOrder(current => { const next=[...current]; [next[index], next[index+1]]=[next[index+1], next[index]]; return next })} disabled={saving || index === order.length - 1}>{t.down}</button>
           </div>
         })}</div>
-        <button type="button" className="interactive-secondary" onClick={() => setOrder(value => value.slice(0, -1))} disabled={!order.length}>{t.undo}</button>
-        <button type="button" className="interactive-secondary" onClick={() => setOrder([])} disabled={!order.length}>{t.clear}</button>
+        <button type="button" className="interactive-secondary" onClick={() => setOrder(value => value.slice(0, -1))} disabled={saving || !order.length}>{t.undo}</button>
+        <button type="button" className="interactive-secondary" onClick={() => setOrder([])} disabled={saving || !order.length}>{t.clear}</button>
         <button type="button" className="interactive-secondary" onClick={submitOrder} disabled={order.length !== items.length || saving}>{saving ? '…' : '✓'}</button>
       </>}
 
