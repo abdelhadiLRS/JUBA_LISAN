@@ -1672,6 +1672,7 @@
     "planMonthly": "Flexible monthly · €{price}/month →",
     "planYearly": "Best value · €{price}/year · 2 months free →",
     "checkoutError": "Unable to start checkout. Please try again.",
+    "checkoutLoading": "Loading…",
     "pricingTitle": "Simple, transparent pricing",
     "pricingDesc": "{days} days free · No charge today · Cancel anytime",
     "pricingDescTrialUsed": "Choose monthly or yearly · Cancel anytime",
