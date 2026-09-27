@@ -320,14 +320,14 @@ export default function ChatPage() {
 
         {/* Sidebar */}
         {sidebarOpen && (
-          <aside className="border-[#e2f2d3] bg-[#e2f2d3]/40 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
-            <div className="border-[#e2f2d3] flex items-center justify-between border-b-2 px-4 py-3">
-              <span className="text-[var(--juba-muted)] font-semibold tracking-wide">
+          <aside className="border-[#e1e5e2] bg-[#f4f7f2]/70 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
+            <div className="border-[#e1e5e2] flex items-center justify-between border-b-2 px-4 py-3">
+              <span className="text-[#68736d] font-semibold tracking-wide">
                 {t('conversations')}
               </span>
               <button
                 onClick={newChat}
-                className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] font-semibold tracking-wide transition-colors"
+                className="text-[#68736d] hover:text-[#30343b] font-semibold tracking-wide transition-colors"
                 title={t('newConversation')}
               >
                 + {t('newConversation')}
@@ -338,7 +338,7 @@ export default function ChatPage() {
                 <PageLoading fullScreen={false} className="block px-4 py-4" />
               ) : convLoadError ? (
                 <div className="flex flex-col items-center gap-3 px-4 py-6">
-                  <p className="text-rose-600 font-mono text-xs">
+                  <p className="text-rose-600 font-sans text-xs">
                     {tCommon('error')}
                   </p>
                   <button
@@ -355,13 +355,13 @@ export default function ChatPage() {
                         })
                         .finally(() => setLoadingConvs(false))
                     }}
-                    className="rounded-xl border-2 border-[#e2f2d3] bg-[var(--juba-surface)] px-4 py-2 font-semibold tracking-wide text-[var(--juba-text)] shadow-[2px_2px_0_var(--juba-border)] transition-all hover:-translate-y-0.5 hover:border-[#39751d]"
+                    className="rounded-xl border-2 border-[#e1e5e2] bg-white px-4 py-2 font-semibold tracking-wide text-[#30343b] shadow-[2px_2px_0_#e1e5e2] transition-all hover:-translate-y-0.5 hover:border-[#58a700]"
                   >
                     {tCommon('retry')}
                   </button>
                 </div>
               ) : conversations.length === 0 ? (
-                <p className="text-[var(--juba-muted)] px-4 py-4 font-mono">
+                <p className="text-[#68736d] px-4 py-4 font-sans">
                   {t('noConversation')}
                 </p>
               ) : (
@@ -369,18 +369,18 @@ export default function ChatPage() {
                   <div
                     key={c.id}
                     onClick={() => selectConversation(c.id)}
-                    className={`group border-[#e2f2d3] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
+                    className={`group border-[#e1e5e2] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
                       activeId === c.id
-                        ? 'bg-[#e2f2d3] border-l-[#39751d] border-l-2'
+                        ? 'bg-[#e1e5e2] border-l-[#58a700] border-l-2'
                         : 'hover:bg-white border-l-2 border-l-transparent'
                     }`}
                   >
                     <span
-                      className={`text-[var(--juba-text)] truncate pr-1 font-mono leading-tight ${activeId === c.id ? 'text-[var(--juba-text)]' : 'text-[var(--juba-muted)]'}`}
+                      className={`text-[#30343b] truncate pr-1 font-sans leading-tight ${activeId === c.id ? 'text-[#30343b]' : 'text-[#68736d]'}`}
                     >
                       {c.source === 'voice' && (
                         <span
-                          className="text-[var(--juba-muted)] mr-1.5"
+                          className="text-[#68736d] mr-1.5"
                           title="Voice session"
                         >
                           🎤
@@ -393,7 +393,7 @@ export default function ChatPage() {
                         e.stopPropagation()
                         setDeletePending(c.id)
                       }}
-                      className="text-[var(--juba-text)] text-rose-600 hover:text-rose-600 shrink-0 font-mono opacity-0 transition-all group-hover:opacity-100"
+                      className="text-[#30343b] text-rose-600 hover:text-rose-600 shrink-0 font-sans opacity-0 transition-all group-hover:opacity-100"
                       title="Delete"
                     >
                       ✕
@@ -408,18 +408,18 @@ export default function ChatPage() {
         {/* Main chat area */}
         <div className="flex flex-1 flex-col overflow-hidden">
           {/* Header */}
-          <div className="border-[#e2f2d3] bg-[#e2f2d3]/40 flex shrink-0 items-center gap-2 border-b px-5 py-4">
+          <div className="border-[#e1e5e2] bg-[#f4f7f2]/70 flex shrink-0 items-center gap-2 border-b px-5 py-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] mr-1 text-lg transition-colors"
+              className="text-[#68736d] hover:text-[#30343b] mr-1 text-lg transition-colors"
               title={
                 sidebarOpen ? t('toggleSidebarHide') : t('toggleSidebarShow')
               }
             >
               {sidebarOpen ? '◀' : '☰'}
             </button>
-            <span className="text-[var(--juba-muted)]">●</span>
-            <span className="text-[var(--juba-muted)] font-semibold tracking-wide">
+            <span className="text-[#68736d]">●</span>
+            <span className="text-[#68736d] font-semibold tracking-wide">
               {activeId
                 ? (conversations.find((c) => c.id === activeId)?.title ??
                   t('title'))
@@ -427,11 +427,11 @@ export default function ChatPage() {
             </span>
             {sending ? (
               <div className="ml-auto flex flex-col items-end gap-0.5">
-                <span className="text-[var(--juba-muted)] animate-pulse font-semibold tracking-wide">
+                <span className="text-[#68736d] animate-pulse font-semibold tracking-wide">
                   {t('thinking')}
                 </span>
                 {sendingWarn && (
-                  <span className="text-[var(--juba-muted)] font-mono tracking-widest text-amber-500 uppercase">
+                  <span className="text-[#68736d] font-sans tracking-widest text-[#438600] uppercase">
                     {t('takingLonger')}
                   </span>
                 )}
@@ -439,7 +439,7 @@ export default function ChatPage() {
             ) : messages.length > 0 ? (
               <button
                 onClick={continueInVoice}
-                className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] ml-auto font-semibold tracking-wide transition-colors"
+                className="text-[#68736d] hover:text-[#30343b] ml-auto font-semibold tracking-wide transition-colors"
               >
                 {t('continueInVoice')}
               </button>
@@ -456,10 +456,10 @@ export default function ChatPage() {
               </div>
             ) : messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
-                <p className="text-[var(--juba-muted)] font-semibold tracking-wide">
+                <p className="text-[#68736d] font-semibold tracking-wide">
                   {t('title')}
                 </p>
-                <p className="text-[var(--juba-muted)] max-w-xs font-mono text-xs leading-relaxed">
+                <p className="text-[#68736d] max-w-xs font-sans text-xs leading-relaxed">
                   {t('subtitle', {
                     language: activeLanguage
                       ? tLang(activeLanguage.code)
@@ -474,7 +474,7 @@ export default function ChatPage() {
                   className={`flex items-end gap-2 ${msg.role === 'user' ? 'ml-auto max-w-[75%] flex-row-reverse' : 'flex-row'}`}
                 >
                   {/* Avatar */}
-                  <div className="border-[#e2f2d3] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#e2f2d3]">
+                  <div className="border-[#e1e5e2] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#e1e5e2]">
                     {msg.role === 'assistant' ? (
                       <Image
                         src="/logo_head.png"
@@ -491,8 +491,8 @@ export default function ChatPage() {
                         height={28}
                         className="h-full w-full object-cover"
                         fallback={
-                          <div className="bg-[#e2f2d3] flex h-full w-full items-center justify-center">
-                            <span className="text-[var(--juba-muted)] font-mono select-none">
+                          <div className="bg-[#e1e5e2] flex h-full w-full items-center justify-center">
+                            <span className="text-[#68736d] font-sans select-none">
                               {(user?.displayName ||
                                 user?.username ||
                                 '?')[0].toUpperCase()}
@@ -501,8 +501,8 @@ export default function ChatPage() {
                         }
                       />
                     ) : (
-                      <div className="bg-[#e2f2d3] flex h-full w-full items-center justify-center">
-                        <span className="text-[var(--juba-muted)] font-mono select-none">
+                      <div className="bg-[#e1e5e2] flex h-full w-full items-center justify-center">
+                        <span className="text-[#68736d] font-sans select-none">
                           {(user?.displayName ||
                             user?.username ||
                             '?')[0].toUpperCase()}
@@ -514,10 +514,10 @@ export default function ChatPage() {
                     <TargetLanguageText
                       as="div"
                       languageCode={targetLanguageCode}
-                      className={`word-selectable border-2 border-[#e2f2d3] px-4 py-3 text-left ${
+                      className={`word-selectable border-2 border-[#e1e5e2] px-4 py-3 text-left ${
                         msg.role === 'user'
-                          ? 'bg-[#39751d] text-white border-[#25302a] shadow-[3px_3px_0_#25302a]'
-                          : 'bg-white text-[var(--juba-text)] border-2 border-[#e2f2d3] shadow-[2px_2px_0_var(--juba-border)]'
+                          ? 'bg-[#58a700] text-white border-[#438600] shadow-[3px_3px_0_#438600]'
+                          : 'bg-white text-[#30343b] border-2 border-[#e1e5e2] shadow-[2px_2px_0_#e1e5e2]'
                       }`}
                       onPointerUp={
                         msg.role === 'assistant' &&
@@ -528,7 +528,7 @@ export default function ChatPage() {
                     >
                       {msg.content ||
                         (sending && i === messages.length - 1 ? (
-                          <span className="text-[var(--juba-muted)] animate-pulse">
+                          <span className="text-[#68736d] animate-pulse">
                             ▌
                           </span>
                         ) : null)}
@@ -545,7 +545,7 @@ export default function ChatPage() {
               ))
             )}
             {error && (
-              <div className="text-[var(--juba-text)] text-rose-600 rounded-xl border-2 border-rose-300 bg-rose-50 px-4 py-2 font-mono">
+              <div className="text-[#30343b] text-rose-600 rounded-xl border-2 border-rose-300 bg-rose-50 px-4 py-2 font-sans">
                 ✕{' '}
                 {error === 'No active study plan found'
                   ? tCommon('noActivePlan')
@@ -556,7 +556,7 @@ export default function ChatPage() {
           </div>
 
           {/* Input */}
-          <div className="border-t-2 border-[#e2f2d3] bg-[#e2f2d3]/40 shrink-0 px-4 py-4">
+          <div className="border-t-2 border-[#e1e5e2] bg-[#f4f7f2]/70 shrink-0 px-4 py-4">
             {freemiumExhausted ? (
               <PaywallBanner feature="chat" compact />
             ) : (
@@ -572,17 +572,17 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1 rounded-xl border-2 border-[#e2f2d3] bg-white px-4 py-3 font-mono text-base text-[var(--juba-text)] shadow-[2px_2px_0_var(--juba-border)] transition-all placeholder:text-[#8a918c] focus:border-[#39751d] focus:outline-none focus:ring-2 focus:ring-[#39751d]/15 disabled:opacity-40"
+                    className="flex-1 rounded-xl border-2 border-[#e1e5e2] bg-white px-4 py-3 font-sans text-base text-[#30343b] shadow-[2px_2px_0_#e1e5e2] transition-all placeholder:text-[#8a918c] focus:border-[#58a700] focus:outline-none focus:ring-2 focus:ring-[#58a700]/15 disabled:opacity-40"
                   />
                   <button
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || loadingMsgs}
-                    className="rounded-xl border-2 border-[#25302a] bg-[#39751d] px-5 font-mono font-bold uppercase tracking-widest text-white shadow-[3px_3px_0_#25302a] transition-all hover:-translate-y-0.5 hover:bg-[#39751d] hover:shadow-[4px_4px_0_#25302a] active:translate-y-0.5 active:shadow-[1px_1px_0_#25302a] disabled:opacity-30"
+                    className="rounded-xl border-2 border-[#438600] bg-[#58a700] px-5 font-sans font-bold uppercase tracking-widest text-white shadow-[3px_3px_0_#438600] transition-all hover:-translate-y-0.5 hover:bg-[#58a700] hover:shadow-[4px_4px_0_#438600] active:translate-y-0.5 active:shadow-[1px_1px_0_#438600] disabled:opacity-30"
                   >
                     {sending ? '...' : t('send')}
                   </button>
                 </div>
-                <p className="text-[var(--juba-muted)] text-[#8a918c] mt-2 font-mono tracking-wide">
+                <p className="text-[#68736d] text-[#8a918c] mt-2 font-sans tracking-wide">
                   {t('enterToSend')}
                 </p>
               </>
