@@ -804,6 +804,28 @@ def test_en_gb_a2_b2_selected_examples_add_teaching_context():
 
 
 
+def test_en_gb_c2_reasoning_verbs_are_contextual_and_reusable():
+    """Advanced reasoning verbs should model evidence, qualification, and argument structure."""
+    from app.data.en_GB.vocabulary_c2 import C2_SETS
+
+    entries = {entry.word: entry for vocabulary_set in C2_SETS for entry in vocabulary_set.words}
+    expected = {
+        "extrapolate": "single regional study",
+        "surmise": "deliberately delaying the project",
+        "expound": "archival evidence challenged",
+        "impute": "unclear responsibilities and incompatible software",
+        "misconstrue": "requested further evidence",
+        "conjecture": "distinguish speculation from conclusions",
+        "adduce": "longitudinal studies",
+        "opine": "historical depth",
+        "aver": "documentary evidence",
+        "gainsay": "raw data and analytical method",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].example.split()) >= 18
+
+
 def test_en_gb_c2_academic_examples_are_contextual_and_reusable():
     """Selected C2 academic vocabulary should model precise, reusable disciplinary contexts."""
     from app.data.en_GB.vocabulary_c2 import C2_SETS
