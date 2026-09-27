@@ -1108,3 +1108,26 @@ def test_en_gb_b1_b2_grammar_assessments_use_realistic_contexts():
         question = questions[question_id].question
         assert phrase.casefold() in question.casefold()
         assert len(question.split()) >= 12
+
+
+
+def test_en_gb_b1_c1_assessments_add_discriminating_context():
+    from app.data.en_GB.assessment_bank import ASSESSMENT_BANK
+
+    questions = {item.id: item for item in ASSESSMENT_BANK}
+    expected = {
+        "g-b1-007": "meeting started at 9:00",
+        "g-b1-008": "old letter from 1965",
+        "g-b1-009": "During the interview",
+        "g-b1-010": "saw the event myself",
+        "g-b2-005": "guests are arriving at 8:00",
+        "g-b2-006": "night of heavy rain",
+        "g-b2-012": "editor found several errors",
+        "g-b2-013": "leaked file",
+        "v-c1-007": "added barriers and clearer warning signs",
+        "v-c1-008": "research seminar",
+    }
+    for question_id, phrase in expected.items():
+        question = questions[question_id].question
+        assert phrase.casefold() in question.casefold()
+        assert len(question.split()) >= 12
