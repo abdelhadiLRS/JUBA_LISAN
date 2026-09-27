@@ -166,4 +166,4 @@ function PersonCard({person,children}:{person:Person;children:React.ReactNode}) 
     {children}
   </div>
 }
-function Empty({text}:{text:string}) { return <div className="rounded-2xl border border-dashed border bg-light p-6 text-center text-sm text-secondary">{text}</div> }
+function Empty({text}:{text:string}) { return <div className="card border-secondary-subtle border-dashed bg-light p-6 text-center text-sm text-secondary">{text}</div> }
