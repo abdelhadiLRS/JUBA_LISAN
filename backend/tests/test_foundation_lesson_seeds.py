@@ -727,3 +727,37 @@ def test_en_gb_a2_b1_core_examples_are_contextual_and_reusable():
         assert phrase.casefold() in b1[word].example.casefold()
         assert len(b1[word].definition.split()) >= 8
         assert len(b1[word].example.split()) >= 10
+
+
+def test_en_gb_a1_identity_and_greetings_are_contextual():
+    """Core A1 identity and greeting entries should teach usable language, not isolated definitions."""
+    from app.data.en_GB.vocabulary_a1 import A1_SETS
+
+    entries = {entry.word: entry for vocabulary_set in A1_SETS for entry in vocabulary_set.words}
+    expected = {
+        "name": "friends usually call me",
+        "age": "two years younger",
+        "city": "small city",
+        "teacher": "practise speaking",
+        "email": "meeting time and address",
+        "address": "full address",
+        "profession": "local hospital",
+        "married": "have two children",
+        "single": "shares a flat",
+        "spell": "write it down",
+        "introduce": "from Manchester",
+        "hello": "new neighbour",
+        "goodbye": "colleagues before leaving",
+        "please": "open the window",
+        "thank you": "carry the boxes",
+        "sorry": "bus was delayed",
+        "welcome": "our class",
+        "nice": "plans for the weekend",
+        "meet": "spoken by email",
+        "fine": "short rest",
+        "evening": "after everyone gets home",
+    }
+    for word, phrase in expected.items():
+        assert phrase.casefold() in entries[word].example.casefold()
+        assert len(entries[word].definition.split()) >= 7
+        assert len(entries[word].example.split()) >= 7
