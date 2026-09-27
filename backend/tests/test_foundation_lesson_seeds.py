@@ -812,6 +812,8 @@ def test_foundation_fallback_seed_has_a_complete_learning_sequence():
     quality = seed["content_quality"]
     assert quality["input_examples"]
     assert quality["target_words"]
+    assert quality["target_phrases"]
+    assert all(phrase in seed["phrases"] for phrase in quality["target_phrases"])
     assert quality["retrieval_sequence"] == [
         "Recall the meaning of three target items without looking.",
         "Use two target items in new sentences.",
