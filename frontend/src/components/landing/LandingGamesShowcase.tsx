@@ -116,6 +116,7 @@ export function LandingGamesShowcase({
         </div>
         <div className="juba-game-stage-copy">
           <span className="juba-game-stage-index">{GAMES.findIndex((game) => game.key === activeGame.key) + 1} / {GAMES.length}</span>
+          <span className="juba-game-stage-label">{dir === 'rtl' ? 'تعلّم باللعب' : 'Learn by playing'}</span>
           <h3>{labels[activeGame.key]}</h3>
           <p>{openLabel}</p>
           <Link href={activeGame.href} className="juba-ref-button">
