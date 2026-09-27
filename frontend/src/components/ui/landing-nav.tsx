@@ -43,6 +43,20 @@ export function LandingNav({
 }: LandingNavProps) {
   const [open, setOpen] = useState(false)
 
+  const localeOptions: Array<[Locale, string]> = [
+    ['en', 'English'],
+    ['ar', 'العربية'],
+    ['es', 'Español'],
+    ['fr', 'Français'],
+    ['pt', 'Português'],
+    ['de', 'Deutsch'],
+    ['it', 'Italiano'],
+    ['pl', 'Polski'],
+    ['nl', 'Nederlands'],
+    ['ro', 'Română'],
+    ['ru', 'Русский'],
+  ]
+
   const links = [
     { href: '#features', label: navFeatures },
     { href: '#languages', label: navLanguages },
@@ -71,9 +85,16 @@ export function LandingNav({
           <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-nav-cta">
             {hasSession ? dashboard : getStarted}
           </Link>
-          <Link href={locale === 'ar' ? '/en' : '/ar'} className="juba-busuu-locale" aria-label="Change language">
-            {locale === 'ar' ? 'EN' : 'AR'}
-          </Link>
+          <details className="juba-busuu-locale-menu">
+            <summary className="juba-busuu-locale" aria-label="Change language">{locale.toUpperCase()}</summary>
+            <div className="juba-busuu-locale-options">
+              {localeOptions.map(([code, label]) => (
+                <Link key={code} href={code === 'en' ? '/' : `/${code}`} aria-current={code === locale ? 'page' : undefined}>
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </details>
         </div>
 
         <button
@@ -97,7 +118,13 @@ export function LandingNav({
           <div className="juba-busuu-mobile-actions">
             <Link href={hasSession ? '/dashboard' : '/login'} onClick={() => setOpen(false)}>{hasSession ? dashboard : signIn}</Link>
             <Link href={hasSession ? '/dashboard' : '/register'} onClick={() => setOpen(false)}>{hasSession ? dashboard : getStarted}</Link>
-            <Link href={locale === 'ar' ? '/en' : '/ar'} onClick={() => setOpen(false)}>{locale === 'ar' ? 'English' : 'العربية'}</Link>
+            <div className="juba-busuu-mobile-locales">
+              {localeOptions.map(([code, label]) => (
+                <Link key={code} href={code === 'en' ? '/' : `/${code}`} onClick={() => setOpen(false)} aria-current={code === locale ? 'page' : undefined}>
+                  {label}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       )}
