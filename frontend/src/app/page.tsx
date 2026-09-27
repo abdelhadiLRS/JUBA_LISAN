@@ -72,7 +72,7 @@ export default async function Home() {
       totalPriceMonthly = cfg.total_price_monthly ?? 0
       totalPriceYearly = cfg.total_price_yearly ?? 0
     }
-    if (reviewsRes.ok) reviews = await reviewsRes.json()
+    if (reviewsRes.ok) reviews = (await reviewsRes.json()).filter((review: ReviewPublic) => review.comment?.trim())
   } catch {
     // Landing data is non-fatal.
   }
