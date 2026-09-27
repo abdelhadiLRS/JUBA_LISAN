@@ -424,20 +424,23 @@ async def generate_lesson(
     )
     if fallback is not None:
         lesson = fallback
-    elif curated_lesson_seed is not None:
+    else:
         try:
             lesson = await llm_adapter.structured_output(
                 [{"role": "system", "content": prompt}],
                 LessonContent,
             )
         except Exception:
-            lesson = _seed_fallback_lesson(
-                seed=curated_lesson_seed,
-                cefr_level=cefr_level,
-                lesson_type=lesson_type,
-                unit_id=unit_id,
-                target_language=target_language,
-            )
+            if curated_lesson_seed is not None:
+                lesson = _seed_fallback_lesson(
+                    seed=curated_lesson_seed,
+                    cefr_level=cefr_level,
+                    lesson_type=lesson_type,
+                    unit_id=unit_id,
+                    target_language=target_language,
+                )
+            else:
+                raise
 
     lesson.grammar_refs = [s for s in lesson.grammar_refs if s in valid_slugs]
     if not lesson.vocabulary:
