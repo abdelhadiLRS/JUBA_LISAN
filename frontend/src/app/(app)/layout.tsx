@@ -17,6 +17,7 @@ import { LoadingBar } from '@/components/ui/loading-bar'
 import { PageLoading } from '@/components/ui/page-loading'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
+import { BarChart3, BookOpen, Bot, Brain, ChevronDown, ClipboardCheck, Gamepad2, Globe2, GraduationCap, Headphones, Home, Languages, MessageCircle, MessagesSquare, Settings, Sparkles, Trophy, Users, Wrench } from 'lucide-react'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const tNav = useTranslations('nav')
@@ -47,6 +48,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     { href: '/vocabulary', label: tNav('vocabulary') },
     { href: '/phrasebook', label: tNav('phrasebook') },
   ]
+
+  const navIcons: Record<string, typeof Home> = {
+    '/dashboard': Home, '/plan': GraduationCap, '/progress': BarChart3, '/games': Gamepad2, '/flashcards': Brain,
+    '/friends': Users, '/chat': MessageCircle, '/listening': Headphones, '/reading': BookOpen, '/conversation': MessagesSquare,
+    '/assessment': ClipboardCheck, '/coach': Bot, '/courses': Languages, '/review': Trophy, '/translator': Globe2,
+    '/grammar': Sparkles, '/vocabulary': Brain, '/phrasebook': BookOpen, '/settings': Settings, '/faq': Wrench, '/feedback': MessageCircle,
+  }
 
   const bottomNavItems = [
     { href: '/settings', label: tNav('settings') },
@@ -249,11 +257,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
                 }`}
               >
-                <span
-                  className={`text-fl-label ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`}
-                >
-                  ●
-                </span>
+                {(() => { const Icon = navIcons[item.href] ?? Sparkles; return <Icon className={`h-5 w-5 shrink-0 ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`} aria-hidden="true" /> })()}
                 {item.label}
                 {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
                   <span className="text-fl-accent ml-auto text-xs">★</span>
@@ -269,7 +273,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors"
             >
               <span>{tNav('resources')}</span>
-              <span className="text-fl-label">{resourcesOpen ? '▴' : '▾'}</span>
+              <ChevronDown className={`h-4 w-4 transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
             </button>
             {resourcesOpen &&
               resourceNavItems.map((item) => {
@@ -285,11 +289,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
                     }`}
                   >
-                    <span
-                      className={`text-fl-label ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`}
-                    >
-                      ·
-                    </span>
+                    {(() => { const Icon = navIcons[item.href] ?? Sparkles; return <Icon className={`h-4 w-4 shrink-0 ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`} aria-hidden="true" /> })()}
                     {item.label}
                   </Link>
                 )
