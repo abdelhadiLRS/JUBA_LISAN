@@ -481,6 +481,7 @@ html[data-theme='light'] {
 }
 .juba-busuu-hero-proof span:last-child{border-inline-end:0}
 .juba-busuu-hero-proof strong{color:var(--busuu-green-dark);font-size:10px;letter-spacing:.08em}
+.juba-busuu-landing :is(a,button,[role="button"]):focus-visible{outline:3px solid var(--busuu-blue);outline-offset:4px}
 
 /* Language strip */
 .juba-busuu-stats{background:#fff;padding:0 0 96px}
@@ -676,7 +677,7 @@ html[data-theme='light'] {
     box-shadow:0 18px 35px rgba(23,26,25,.10);
   }
   .juba-busuu-mobile-menu nav{display:grid;border-top:1px solid #e5e9e7}
-  .juba-busuu-mobile-menu nav a{padding:15px 4px;color:var(--busuu-ink)!important;font-weight:750;text-decoration:none;border-bottom:1px solid #e5e9e7}
+  .juba-busuu-mobile-menu nav a{padding:15px 4px;color:var(--busuu-ink)!important;font-weight:750;text-decoration:none;border-bottom:1px solid #e5e9e7}.juba-busuu-mobile-menu nav a:focus-visible{outline:3px solid var(--busuu-blue);outline-offset:-2px}
   .juba-busuu-mobile-actions{display:grid;gap:10px;padding-top:18px}
   .juba-busuu-mobile-actions>a{display:flex;justify-content:center;padding:13px 18px;border:1px solid #cfd9d4;color:var(--busuu-ink)!important;font-weight:750;text-decoration:none;border-radius:999px}
   .juba-busuu-mobile-actions .juba-busuu-mobile-cta{background:var(--busuu-green);border-color:var(--busuu-green);color:#fff!important}
@@ -710,7 +711,7 @@ html[data-theme='light'] {
   .juba-busuu-hero-grid{min-height:0;padding:50px 0 58px}
   .juba-busuu-hero h1{font-size:clamp(2.9rem,13vw,4.4rem)}
   .juba-busuu-hero p{font-size:16px}.juba-busuu-hero-visual{min-height:290px}
-  .juba-busuu-hero-visual img{max-height:310px}.juba-busuu-hero-proof{justify-content:flex-start;text-align:start}
+  .juba-busuu-hero-visual img{max-height:310px}.juba-busuu-hero-proof{justify-content:center;text-align:center}
   .juba-busuu-language-panel{padding:22px 16px 7px;border-radius:16px}
   .juba-busuu-language-prompt strong{font-size:21px}
   .juba-busuu-language-item{min-width:112px;min-height:105px}
