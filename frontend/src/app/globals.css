@@ -370,3 +370,46 @@ body .juba-reference-page .juba-footer-link:hover{color:#fff!important}
 body .juba-reference-page .juba-footer-bottom{border-top:1px solid #444!important;color:#999!important}
 @media(max-width:900px){body .juba-reference-page .juba-practical-language-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}body .juba-reference-page .juba-ref-hero{padding-top:58px!important;min-height:650px!important}}
 @media(max-width:560px){body .juba-reference-page .juba-ref-hero{padding:45px 14px 0!important;min-height:590px!important}body .juba-reference-page .juba-ref-hero-copy h1{font-size:clamp(2.8rem,13vw,4.3rem)!important}body .juba-reference-page .juba-ref-hero-art{min-height:220px!important}body .juba-reference-page .juba-landing-real-image{max-height:250px!important}body .juba-reference-page .juba-practical-language-grid{grid-template-columns:1fr!important}body .juba-reference-page .juba-practical-language-section{padding:75px 14px!important}}
+
+
+/* LANDING — unified reference treatment */
+body .juba-reference-page{
+  --landing-green:#58cc02;--landing-green-dark:#46a900;--landing-lime:#b7f36b;
+  --landing-ink:#252525;--landing-muted:#68766d;--landing-soft:#f3fbe9;--landing-border:#dfe9da;
+}
+body .juba-reference-page .juba-ref-section,
+body .juba-reference-page .juba-games-showcase,
+body .juba-reference-page .juba-ref-language-section,
+body .juba-reference-page .juba-ref-reviews,
+body .juba-reference-page .juba-ref-pricing,
+body .juba-reference-page .juba-ref-faq{background:#fff!important;color:var(--landing-ink)!important}
+body .juba-reference-page .juba-ref-section h2,
+body .juba-reference-page .juba-ref-language-section h2,
+body .juba-reference-page .juba-ref-reviews h2,
+body .juba-reference-page .juba-ref-pricing h2,
+body .juba-reference-page .juba-ref-faq h2{color:var(--landing-ink)!important;font-weight:950!important;letter-spacing:-.055em!important}
+body .juba-reference-page .juba-ref-pillar,
+body .juba-reference-page .juba-ref-review-card,
+body .juba-reference-page .juba-ref-faq-item,
+body .juba-reference-page .juba-ref-pricing-card,
+body .juba-reference-page .juba-ref-language-card{border-color:var(--landing-border)!important;border-radius:20px!important;box-shadow:0 4px 0 #edf3e9!important;background:#fff!important}
+body .juba-reference-page .juba-ref-pillar:hover,
+body .juba-reference-page .juba-ref-review-card:hover,
+body .juba-reference-page .juba-ref-language-card:hover{border-color:var(--landing-green)!important;transform:translateY(-3px)!important}
+body .juba-reference-page .juba-games-showcase{border-top:1px solid #edf3e9!important}
+body .juba-reference-page .juba-games-showcase [class*="game"]{--tw-ring-color:var(--landing-green)}
+body .juba-reference-page .juba-ai-showcase{background:var(--landing-soft)!important;border-top:1px solid #e5f0de!important;border-bottom:1px solid #e5f0de!important}
+body .juba-reference-page .juba-ref-cta{background:var(--landing-green)!important;background-image:none!important;color:#fff!important;border-radius:28px!important}
+body .juba-reference-page .juba-ref-cta *{color:inherit}
+body .juba-reference-page .juba-ref-cta a{background:#fff!important;color:var(--landing-green-dark)!important;border-color:#fff!important;box-shadow:0 4px 0 var(--landing-green-dark)!important}
+body .juba-reference-page .juba-ref-button:hover,
+body .juba-reference-page .juba-ff-nav-cta:hover{background:var(--landing-green-dark)!important}
+body .juba-reference-page .juba-ref-pricing .juba-ff-button,
+body .juba-reference-page .juba-ref-pricing button{border-radius:14px!important;font-weight:900!important}
+body .juba-reference-page .juba-ref-pricing .juba-ff-highlight,
+body .juba-reference-page .juba-ref-pricing [class*="highlight"]{border-color:var(--landing-green)!important}
+body .juba-reference-page .juba-ref-faq details,
+body .juba-reference-page .juba-ref-faq [data-state]{border-color:var(--landing-border)!important}
+body .juba-reference-page .juba-ref-faq *{--faq-accent:var(--landing-green)}
+body .juba-reference-page .juba-ref-faq a{color:var(--landing-green-dark)!important}
+@media(max-width:700px){body .juba-reference-page .juba-ref-pillar,body .juba-reference-page .juba-ref-review-card,body .juba-reference-page .juba-ref-faq-item,body .juba-reference-page .juba-ref-pricing-card,body .juba-reference-page .juba-ref-language-card{border-radius:16px!important}}
