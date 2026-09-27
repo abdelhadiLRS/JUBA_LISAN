@@ -664,8 +664,9 @@ html[data-theme='light'] {
   .juba-busuu-mobile-actions>a{display:flex;justify-content:center;padding:13px 18px;border:1px solid #cfd9d4;color:var(--busuu-ink)!important;font-weight:750;text-decoration:none;border-radius:999px}
   .juba-busuu-mobile-actions .juba-busuu-mobile-cta{background:var(--busuu-green);border-color:var(--busuu-green);color:#fff!important}
   .juba-busuu-mobile-locales{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding-top:8px}
-  .juba-busuu-mobile-locales a{padding:10px 6px;text-align:center;color:var(--busuu-muted)!important;font-size:12px;text-decoration:none;background:var(--busuu-soft)}
+  .juba-busuu-mobile-locales a{min-height:44px;display:flex;align-items:center;justify-content:center;padding:10px 6px;text-align:center;color:var(--busuu-muted)!important;font-size:12px;text-decoration:none;background:var(--busuu-soft);border:1px solid transparent;border-radius:8px}
   .juba-busuu-mobile-locales a[aria-current=page]{color:var(--busuu-green-dark)!important;background:var(--busuu-mint);font-weight:850}
+  .juba-busuu-mobile-locales a:focus-visible{outline:3px solid #1769e8;outline-offset:2px}
   .juba-busuu-hero-grid,.juba-busuu-practical-grid,.juba-busuu-final-cta-inner{grid-template-columns:1fr}
   .juba-busuu-hero-copy{text-align:center;margin:auto}.juba-busuu-hero-copy p{margin-inline:auto}
   .juba-busuu-actions{justify-content:center}.juba-busuu-hero-visual{min-height:400px}
