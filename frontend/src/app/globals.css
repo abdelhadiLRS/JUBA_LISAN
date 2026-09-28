@@ -515,6 +515,28 @@ html[data-theme='light'] {
   .juba-busuu-language-item img { width:44px; height:32px; }
 }
 
+/* ── Landing section refinement ─────────────────────────────────────────── */
+.juba-busuu-hero { isolation:isolate; overflow:hidden; }
+.juba-busuu-hero > div:first-of-type { position:relative; z-index:1; }
+.juba-busuu-demo, .juba-busuu-section, .juba-busuu-pricing { width:100%; }
+.juba-busuu-demo { background:#fff; padding-top:8px; }
+.juba-busuu-demo-card { border-radius:24px !important; box-shadow:0 14px 40px rgba(23,33,27,.08); overflow:hidden; }
+.juba-busuu-demo-card > div:first-child { background:#f4fbf7; }
+.juba-busuu-feature-card { border-radius:20px !important; padding:28px !important; box-shadow:0 8px 28px rgba(23,33,27,.06); transition:transform .18s ease, box-shadow .18s ease; }
+.juba-busuu-feature-card:hover { transform:translateY(-3px); box-shadow:0 14px 34px rgba(23,33,27,.09); }
+.juba-busuu-pricing { padding-block:8px 20px; }
+.juba-busuu-open-source { border-radius:20px !important; box-shadow:0 8px 28px rgba(23,33,27,.06); }
+.juba-busuu-section h2 { letter-spacing:-.035em; }
+.juba-busuu-section a:not(.juba-busuu-nav-cta) { text-decoration-thickness:1px; text-underline-offset:3px; }
+.juba-busuu-page button:focus-visible, .juba-busuu-page a:focus-visible, .juba-busuu-page summary:focus-visible { outline:3px solid rgba(0,168,107,.28); outline-offset:3px; }
+.juba-busuu-page[dir="rtl"] .juba-busuu-nav-actions { flex-direction:row-reverse; }
+.juba-busuu-page[dir="rtl"] .juba-busuu-locale-options { right:auto; left:0; }
+.juba-busuu-page[dir="rtl"] .juba-busuu-footer { direction:rtl; }
+@media (max-width:640px) { .juba-busuu-demo-card { border-radius:18px !important; } .juba-busuu-feature-card { padding:22px !important; } }
+@media (prefers-reduced-motion:reduce) {
+  .juba-busuu-page *, .juba-busuu-page *::before, .juba-busuu-page *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; transition-duration:.01ms !important; }
+}
+
 /* ── Duolingo-derived application shell ─────────────────────────────────── */
 .juba-duo-shell {
   --duo-green:#58cc02;
@@ -570,6 +592,9 @@ html[data-theme='light'] {
 .juba-duo-nav-link.is-active {
   background:#e9f8dc; color:#46a302; box-shadow:inset 4px 0 0 var(--duo-green);
 }
+.juba-duo-shell[dir="rtl"] .juba-duo-nav-link.is-active { box-shadow:inset -4px 0 0 var(--duo-green); }
+.juba-duo-shell[dir="rtl"] .juba-duo-user-action { text-align:right; }
+.juba-duo-shell[dir="rtl"] .juba-duo-node-row.is-offset { transform:translateX(-58px); }
 .juba-duo-resource-toggle {
   display:flex; align-items:center; justify-content:space-between; width:100%;
   border:0; background:transparent; padding:11px 12px; color:#999;
