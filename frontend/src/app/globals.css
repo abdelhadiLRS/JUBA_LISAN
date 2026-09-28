@@ -3861,8 +3861,8 @@ html[data-theme='light'] {
 .juba-duo-page-frame .border-gray-200,
 .juba-duo-page-frame .border-slate-200,
 .juba-duo-page-frame .border-zinc-200{border-color:var(--duo-border)!important}
-.juba-duo-page-frame a.bg-\\[\\#58a700\\],
-.juba-duo-page-frame button.bg-\\[\\#58a700\\]{
+.juba-duo-page-frame a.bg-\[\#58a700\],
+.juba-duo-page-frame button.bg-\[\#58a700\]{
   background:var(--duo-green)!important;
   box-shadow:0 4px 0 var(--duo-green-dark);
   border-radius:12px!important;
