@@ -2323,3 +2323,31 @@ html[data-theme='light'] {
   outline:3px solid var(--duo-blue);
   outline-offset:3px;
 }
+
+/* Respect reduced-motion preferences without crossing the two theme scopes. */
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page *,
+  .juba-busuu-page *::before,
+  .juba-busuu-page *::after,
+  .juba-duo-shell *,
+  .juba-duo-shell *::before,
+  .juba-duo-shell *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .juba-busuu-page .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .juba-busuu-page .animate-float,
+  .juba-busuu-page .animate-bubble-in {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+
