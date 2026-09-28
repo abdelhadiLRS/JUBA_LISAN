@@ -311,14 +311,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="juba-busuu-slogan" aria-label={t('navLanguages')}>
-        <div className="juba-busuu-slogan-track" aria-hidden="true">
-          {[...featuredLanguages, ...featuredLanguages].map(({ name, code }, index) => (
-            <span key={`${code}-${index}`} lang={code}>{name} <b>·</b></span>
-          ))}
-        </div>
-      </section>
-
       <section className="juba-busuu-app-cta" aria-labelledby="app-cta-title">
         <div className="juba-busuu-container juba-busuu-app-cta-inner">
           <div className="juba-busuu-app-cta-copy">
@@ -344,6 +336,14 @@ export default async function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="juba-busuu-slogan" aria-label={t('navLanguages')}>
+        <div className="juba-busuu-slogan-track" aria-hidden="true">
+          {[...featuredLanguages, ...featuredLanguages].map(({ name, code }, index) => (
+            <span key={`${code}-${index}`} lang={code}>{name} <b>·</b></span>
+          ))}
         </div>
       </section>
 
