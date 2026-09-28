@@ -9,35 +9,35 @@ const CulturalMap: React.FC = () => {
       name: 'الشرق الأوسط',
       countries: ['السعودية', 'الإمارات', 'مصر', 'الأردن'],
       languages: ['العربية الفصحى', 'اللهجات المحلية'],
-      color: 'from-amber-400 to-orange-500'
+      color: 'from-[var(--duo-yellow)] to-[var(--duo-green)]'
     },
     {
       name: 'أوروبا الغربية',
       countries: ['فرنسا', 'ألمانيا', 'إسبانيا', 'إيطاليا'],
       languages: ['الفرنسية', 'الألمانية', 'الإسبانية', 'الإيطالية'],
-      color: 'from-blue-400 to-indigo-500'
+      color: 'from-[var(--duo-blue)] to-[var(--duo-purple)]'
     },
     {
       name: 'آسيا الشرقية',
       countries: ['الصين', 'اليابان', 'كوريا الجنوبية'],
       languages: ['الصينية', 'اليابانية', 'الكورية'],
-      color: 'from-red-400 to-pink-500'
+      color: 'from-[var(--duo-red)] to-[var(--duo-purple)]'
     },
     {
       name: 'أمريكا اللاتينية',
       countries: ['المكسيك', 'البرازيل', 'الأرجنتين'],
       languages: ['الإسبانية', 'البرتغالية'],
-      color: 'from-green-400 to-emerald-500'
+      color: 'from-[var(--duo-green)] to-[var(--duo-blue)]'
     }
   ];
 
   return (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+        <h2 className="text-2xl font-bold text-[var(--duo-ink)] mb-2">
           خريطة الثقافات واللغات
         </h2>
-        <p className="text-slate-600 dark:text-slate-400">
+        <p className="text-[var(--duo-muted)]">
           استكشف التنوع الثقافي حول العالم
         </p>
       </div>
@@ -46,7 +46,7 @@ const CulturalMap: React.FC = () => {
         {regions.map((region, index) => (
           <motion.div
             key={region.name}
-            className={`juba-card bg-gradient-to-br ${region.color} p-6 text-white`}
+            className={`rounded-[20px] border-2 border-white/20 bg-gradient-to-br ${region.color} p-6 text-white`}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.1, duration: 0.4 }}
@@ -61,7 +61,7 @@ const CulturalMap: React.FC = () => {
                   {region.countries.map(country => (
                     <span
                       key={country}
-                      className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm"
+                      className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-sm"
                     >
                       {country}
                     </span>
@@ -75,7 +75,7 @@ const CulturalMap: React.FC = () => {
                   {region.languages.map(language => (
                     <span
                       key={language}
-                      className="px-3 py-1 bg-white/30 backdrop-blur-sm rounded-full text-sm font-medium"
+                      className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium"
                     >
                       {language}
                     </span>
@@ -85,7 +85,7 @@ const CulturalMap: React.FC = () => {
             </div>
 
             <motion.button
-              className="mt-6 w-full py-3 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30 transition-all font-semibold"
+              className="mt-6 w-full py-3 border-2 border-white/20 bg-white/10 backdrop-blur-sm rounded-xl hover:bg-white/20 transition-all font-semibold"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -96,7 +96,7 @@ const CulturalMap: React.FC = () => {
       </div>
 
       <motion.div
-        className="mt-8 p-6 bg-slate-100 dark:bg-slate-800 rounded-2xl"
+        className="mt-8 p-6 border-2 border-[var(--duo-line)] bg-[var(--duo-card)] rounded-2xl"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
