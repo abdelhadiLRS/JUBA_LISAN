@@ -132,7 +132,7 @@ export function VisitorTranslator() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={t('open')}
-        className="fixed bottom-5 end-5 z-40 inline-flex items-center gap-2 rounded-2xl border border-[var(--juba-app-ink)] bg-white px-5 py-3 text-sm font-black text-[var(--juba-app-ink)] shadow-[0_8px_24px_rgba(24,37,27,.16)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(24,37,27,.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2"
+        className="fixed bottom-5 end-5 z-40 inline-flex items-center gap-2 rounded-2xl border border-[var(--duo-ink)] bg-[var(--duo-card)] px-5 py-3 text-sm font-black text-[var(--duo-ink)] shadow-[0_8px_24px_var(--duo-line)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_var(--duo-line)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2"
       >
         <Languages className="h-4 w-4" aria-hidden="true" />
         {t('translate')}
@@ -150,15 +150,15 @@ export function VisitorTranslator() {
             aria-modal="true"
             aria-labelledby="visitor-translator-title"
             aria-describedby="visitor-translator-description"
-            className="w-full max-w-6xl overflow-hidden rounded-[22px] border border-black/10 bg-white shadow-[0_28px_80px_rgba(0,0,0,.22)]"
+            className="w-full max-w-6xl overflow-hidden rounded-[22px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_28px_80px_rgba(0,0,0,.22)]"
           >
-            <header className="flex items-center justify-between border-b border-black/10 px-5 py-4 sm:px-7">
+            <header className="flex items-center justify-between border-b border-[var(--duo-line)] px-5 py-4 sm:px-7">
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--juba-app-green)] text-white">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--duo-green)] text-white">
                   <Languages className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <div>
-                  <h2 id="visitor-translator-title" className="text-xl font-black tracking-tight text-[var(--juba-app-ink)] sm:text-2xl">
+                  <h2 id="visitor-translator-title" className="text-xl font-black tracking-tight text-[var(--duo-ink)] sm:text-2xl">
                     {t('title')}
                   </h2>
                   <p id="visitor-translator-description" className="sr-only">{t('description')}</p>
@@ -168,24 +168,24 @@ export function VisitorTranslator() {
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label={t('close')}
-                className="rounded-full p-2 text-black/55 transition hover:bg-black/5 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)]"
+                className="rounded-full p-2 text-[var(--duo-muted)] transition hover:bg-[color-mix(in_srgb,var(--duo-ink)_5%,transparent)] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)]"
               >
                 <X className="h-5 w-5" aria-hidden="true" />
               </button>
             </header>
 
-            <div className="border-b border-black/10 px-5 pt-4 sm:px-7">
+            <div className="border-b border-[var(--duo-line)] px-5 pt-4 sm:px-7">
               <div className="flex gap-6 text-sm font-bold">
-                <button type="button" className="border-b-2 border-[var(--juba-app-green)] pb-3 text-[var(--juba-app-ink)]">
+                <button type="button" className="border-b-2 border-[var(--duo-green)] pb-3 text-[var(--duo-ink)]">
                   {t('translate')}
                 </button>
               </div>
             </div>
 
             <form onSubmit={translate} className="p-4 sm:p-7">
-              <div className="grid overflow-hidden rounded-2xl border border-black/10 lg:grid-cols-[1fr_auto_1fr]">
-                <section className="flex min-h-[360px] flex-col bg-white">
-                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 px-4 py-3 sm:px-5">
+              <div className="grid overflow-hidden rounded-2xl border border-[var(--duo-line)] lg:grid-cols-[1fr_auto_1fr]">
+                <section className="flex min-h-[360px] flex-col bg-[var(--duo-card)]">
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--duo-line)] px-4 py-3 sm:px-5">
                     <label className="sr-only" htmlFor="visitor-translator-source">{t('sourceLanguage')}</label>
                     <select
                       id="visitor-translator-source"
@@ -196,14 +196,14 @@ export function VisitorTranslator() {
                         setDetectedSource('')
                         setSaved(false)
                       }}
-                      className="min-w-[150px] rounded-lg bg-transparent px-2 py-2 text-sm font-bold text-[var(--juba-app-ink)] outline-none hover:bg-black/5 focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)]"
+                      className="min-w-[150px] rounded-lg bg-transparent px-2 py-2 text-sm font-bold text-[var(--duo-ink)] outline-none hover:bg-[color-mix(in_srgb,var(--duo-ink)_5%,transparent)] focus-visible:ring-2 focus-visible:ring-[var(--duo-green)]"
                     >
                       <option value="auto">{t('autoDetect')}</option>
                       {UNIQUE_LANGUAGES.map((language) => (
                         <option key={language.code} value={language.code}>{language.label}</option>
                       ))}
                     </select>
-                    <span className="text-xs font-medium text-black/45">
+                    <span className="text-xs font-medium text-[var(--duo-muted)]">
                       {detectedSource && source === 'auto' ? `${t('detected')}: ${languageLabel(detectedSource)}` : ''}
                     </span>
                   </div>
@@ -218,28 +218,28 @@ export function VisitorTranslator() {
                     autoFocus
                     placeholder={t('inputPlaceholder')}
                     aria-label={t('textToTranslate')}
-                    className="min-h-[255px] flex-1 resize-none bg-transparent px-5 py-5 text-lg leading-8 text-[var(--juba-app-ink)] outline-none placeholder:text-black/35 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--juba-app-green)]"
+                    className="min-h-[255px] flex-1 resize-none bg-transparent px-5 py-5 text-lg leading-8 text-[var(--duo-ink)] outline-none placeholder:text-[var(--duo-muted)] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--duo-green)]"
                   />
-                  <div className="flex items-center justify-between px-5 pb-4 text-xs text-black/40">
+                  <div className="flex items-center justify-between px-5 pb-4 text-xs text-[var(--duo-muted)]">
                     <span>{text.length}/2000</span>
                     <span>{source === 'auto' ? t('automaticDetection') : languageLabel(source)}</span>
                   </div>
                 </section>
 
-                <div className="flex items-center justify-center border-y border-black/10 bg-[#fafafa] p-3 lg:border-x lg:border-y-0">
+                <div className="flex items-center justify-center border-y border-[var(--duo-line)] bg-[var(--duo-bg)] p-3 lg:border-x lg:border-y-0">
                   <button
                     type="button"
                     onClick={swapLanguages}
                     disabled={source === 'auto' || loading}
                     aria-label={t('swap')}
-                    className="rounded-full border border-black/10 bg-white p-2.5 text-[var(--juba-app-ink)] shadow-sm transition hover:scale-105 disabled:opacity-35"
+                    className="rounded-full border border-[var(--duo-line)] bg-[var(--duo-card)] p-2.5 text-[var(--duo-ink)] shadow-sm transition hover:scale-105 disabled:opacity-35"
                   >
                     <ArrowRightLeft className="h-4 w-4" aria-hidden="true" />
                   </button>
                 </div>
 
-                <section className="flex min-h-[360px] flex-col bg-[#fafafa]">
-                  <div className="flex items-center justify-between border-b border-black/10 px-4 py-3 sm:px-5">
+                <section className="flex min-h-[360px] flex-col bg-[var(--duo-bg)]">
+                  <div className="flex items-center justify-between border-b border-[var(--duo-line)] px-4 py-3 sm:px-5">
                     <label className="sr-only" htmlFor="visitor-translator-target">{t('targetLanguage')}</label>
                     <select
                       id="visitor-translator-target"
@@ -249,47 +249,47 @@ export function VisitorTranslator() {
                         setTranslation('')
                         setSaved(false)
                       }}
-                      className="min-w-[150px] rounded-lg bg-transparent px-2 py-2 text-sm font-bold text-[var(--juba-app-ink)] outline-none hover:bg-black/5 focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)]"
+                      className="min-w-[150px] rounded-lg bg-transparent px-2 py-2 text-sm font-bold text-[var(--duo-ink)] outline-none hover:bg-[color-mix(in_srgb,var(--duo-ink)_5%,transparent)] focus-visible:ring-2 focus-visible:ring-[var(--duo-green)]"
                     >
                       {UNIQUE_LANGUAGES.map((language) => (
                         <option key={language.code} value={language.code}>{language.label}</option>
                       ))}
                     </select>
-                    <span className="text-xs text-black/40">{languageLabel(target)}</span>
+                    <span className="text-xs text-[var(--duo-muted)]">{languageLabel(target)}</span>
                   </div>
                   <div className="flex flex-1 items-start px-5 py-5">
                     {error ? (
                       <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-bold text-red-700" role="alert">{error}</p>
                     ) : translation ? (
                       <div className="w-full">
-                        <p className="text-lg leading-8 text-[var(--juba-app-ink)] sm:text-xl">{translation}</p>
+                        <p className="text-lg leading-8 text-[var(--duo-ink)] sm:text-xl">{translation}</p>
                         <div className="mt-6 flex flex-wrap items-center gap-2">
-                          <button type="button" onClick={speakTranslation} aria-label="Listen" className="rounded-lg p-2 text-black/55 transition hover:bg-black/10 hover:text-black">
+                          <button type="button" onClick={speakTranslation} aria-label="Listen" className="rounded-lg p-2 text-[var(--duo-muted)] transition hover:bg-[color-mix(in_srgb,var(--duo-ink)_10%,transparent)] hover:text-black">
                             <Volume2 className="h-5 w-5" aria-hidden="true" />
                           </button>
-                          <button type="button" onClick={copyTranslation} aria-label="Copy" className="rounded-lg p-2 text-black/55 transition hover:bg-black/10 hover:text-black">
+                          <button type="button" onClick={copyTranslation} aria-label="Copy" className="rounded-lg p-2 text-[var(--duo-muted)] transition hover:bg-[color-mix(in_srgb,var(--duo-ink)_10%,transparent)] hover:text-black">
                             {copied ? <Check className="h-5 w-5" aria-hidden="true" /> : <Copy className="h-5 w-5" aria-hidden="true" />}
                           </button>
-                          <button type="button" onClick={saveToLearning} className="inline-flex items-center gap-2 rounded-lg bg-white px-3 py-2 text-xs font-black text-[var(--juba-app-ink)] shadow-sm ring-1 ring-black/10 hover:bg-black/5">
+                          <button type="button" onClick={saveToLearning} className="inline-flex items-center gap-2 rounded-lg bg-[var(--duo-card)] px-3 py-2 text-xs font-black text-[var(--duo-ink)] shadow-sm ring-1 ring-black/10 hover:bg-[color-mix(in_srgb,var(--duo-ink)_5%,transparent)]">
                             <BookOpenCheck className="h-4 w-4" aria-hidden="true" />
                             {saved ? t('savedLocally') : t('learnThis')}
                           </button>
                         </div>
-                        {saved && <p className="mt-3 text-xs font-bold text-[var(--juba-app-ink)]" role="status">{t('savedNote')}</p>}
+                        {saved && <p className="mt-3 text-xs font-bold text-[var(--duo-ink)]" role="status">{t('savedNote')}</p>}
                       </div>
                     ) : (
-                      <p className="text-lg text-black/35">{t('translationPlaceholder')}</p>
+                      <p className="text-lg text-[var(--duo-muted)]">{t('translationPlaceholder')}</p>
                     )}
                   </div>
                 </section>
               </div>
 
               <div className="mt-4 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-xs text-black/45">{t('workflow')}</p>
+                <p className="text-xs text-[var(--duo-muted)]">{t('workflow')}</p>
                 <button
                   type="submit"
                   disabled={!text.trim() || loading}
-                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[var(--juba-app-green)] px-7 py-3 text-sm font-black text-white transition hover:opacity-90 disabled:opacity-45"
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[var(--duo-green)] px-7 py-3 text-sm font-black text-white transition hover:opacity-90 disabled:opacity-45"
                 >
                   {loading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Languages className="h-4 w-4" aria-hidden="true" />}
                   {loading ? t('translating') : t('translate')}
