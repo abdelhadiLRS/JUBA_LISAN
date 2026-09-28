@@ -2131,7 +2131,7 @@ html[data-theme='light'] {
   }
 
   .juba-duo-page-frame .juba-mobile-chat {
-    height:calc(100dvh - 56px);
+    height:calc(100dvh - 66px);
   }
 }
 
