@@ -13,21 +13,21 @@ function TopicCard({ topic }: { topic: GrammarTopic }) {
   return (
     <Link
       href={`/grammar/${topic.slug}`}
-      className="juba-card group block rounded-[24px] border-2 border-[#e1e5e2] p-0 transition-all hover:-translate-y-1 hover:shadow-lg"
+      className="juba-card group block rounded-[24px] border-2 border-[var(--duo-line)] p-0 transition-all hover:-translate-y-1 hover:shadow-lg"
     >
       <div className="space-y-2 px-4 py-4">
         <div className="flex items-start justify-between gap-2">
-          <p className="text-[#30343b] group-hover:text-[#438600] text-xs leading-snug font-bold tracking-wide transition-colors">
+          <p className="text-[var(--duo-ink)] group-hover:text-[var(--duo-green-dark)] text-xs leading-snug font-bold tracking-wide transition-colors">
             {topic.title}
           </p>
-          <span className="border-[#e1e5e2] text-[#68736d] shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase">
+          <span className="border-[var(--duo-line)] text-[var(--duo-muted)] shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase">
             {topic.level}
           </span>
         </div>
-        <p className="text-[#68736d] text-xs leading-relaxed">
+        <p className="text-[var(--duo-muted)] text-xs leading-relaxed">
           {topic.summary}
         </p>
-        <span className="bg-[#e1e5e2] text-[#438600] inline-block rounded-full px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase">
+        <span className="bg-[var(--duo-line)] text-[var(--duo-green-dark)] inline-block rounded-full px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase">
           {topic.category}
         </span>
       </div>
@@ -87,8 +87,8 @@ export default function GrammarIndexPage() {
   if (loadError) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-6">
-        <p className="text-[#68736d] text-sm">{tCommon('error')}</p>
-        <button onClick={() => fetchTopics(activeLanguage?.code ?? 'en-GB')} className="rounded-full bg-[#e1e5e2] px-4 py-2 text-xs font-bold tracking-widest text-[#438600] uppercase transition-colors hover:bg-[#438600]">
+        <p className="text-[var(--duo-muted)] text-sm">{tCommon('error')}</p>
+        <button onClick={() => fetchTopics(activeLanguage?.code ?? 'en-GB')} className="rounded-full bg-[var(--duo-line)] px-4 py-2 text-xs font-bold tracking-widest text-[var(--duo-green-dark)] uppercase transition-colors hover:bg-[var(--duo-green-dark)]">
           {tCommon('retry')}
         </button>
       </div>
@@ -97,24 +97,24 @@ export default function GrammarIndexPage() {
 
   return (
     <div className="juba-mobile-grammar mx-auto max-w-6xl space-y-8 p-4 sm:p-6">
-      <div className="juba-card rounded-[30px] border-2 border-[#e1e5e2] p-0 shadow-[0 3px 0 rgba(31,41,51,.045)]">
-        <div className="border-b border-[#e1e5e2] px-6 py-4">
+      <div className="juba-card rounded-[30px] border-2 border-[var(--duo-line)] p-0 shadow-[0 3px 0 rgba(31,41,51,.045)]">
+        <div className="border-b border-[var(--duo-line)] px-6 py-4">
           <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-[#58a700]" />
+            <span className="h-2 w-2 rounded-full bg-[var(--duo-green)]" />
             <span className="juba-eyebrow">{t('title')}</span>
           </div>
         </div>
         <div className="space-y-4 px-6 py-5">
-          <p className="text-[#68736d] text-xs leading-relaxed">
+          <p className="text-[var(--duo-muted)] text-xs leading-relaxed">
             {topics.length} topics · A1 – C2
           </p>
-          <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('searchPlaceholder')} className="w-full max-w-sm rounded-[20px] border border-[#e1e5e2] bg-[#e1e5e2] px-4 py-2.5 text-sm text-[#30343b] placeholder:text-[#68736d] transition-colors focus:border-[#438600] focus:outline-none" />
+          <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('searchPlaceholder')} className="w-full max-w-sm rounded-[20px] border border-[var(--duo-line)] bg-[var(--duo-line)] px-4 py-2.5 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] transition-colors focus:border-[var(--duo-green-dark)] focus:outline-none" />
           <div className="flex flex-wrap gap-2">
-            <button onClick={() => setActiveCategory('All')} className={`rounded-full px-3 py-1.5 text-xs font-bold tracking-wide transition-colors ${activeCategory === 'All' ? 'bg-[#30343b] text-[white]' : 'border border-[#e1e5e2] text-[#68736d] hover:bg-[#e1e5e2]'}`}>
+            <button onClick={() => setActiveCategory('All')} className={`rounded-full px-3 py-1.5 text-xs font-bold tracking-wide transition-colors ${activeCategory === 'All' ? 'bg-[var(--duo-ink)] text-[white]' : 'border border-[var(--duo-line)] text-[var(--duo-muted)] hover:bg-[var(--duo-line)]'}`}>
               {t('allCategories')}
             </button>
             {usedCategories.map((cat) => (
-              <button key={cat} onClick={() => setActiveCategory(activeCategory === cat ? 'All' : cat)} className={`rounded-full px-3 py-1.5 text-xs font-bold tracking-wide transition-colors ${activeCategory === cat ? 'bg-[#e1e5e2] text-[#438600]' : 'border border-[#e1e5e2] text-[#68736d] hover:bg-[#e1e5e2]'}`}>
+              <button key={cat} onClick={() => setActiveCategory(activeCategory === cat ? 'All' : cat)} className={`rounded-full px-3 py-1.5 text-xs font-bold tracking-wide transition-colors ${activeCategory === cat ? 'bg-[var(--duo-line)] text-[var(--duo-green-dark)]' : 'border border-[var(--duo-line)] text-[var(--duo-muted)] hover:bg-[var(--duo-line)]'}`}>
                 {cat}
               </button>
             ))}
@@ -122,7 +122,7 @@ export default function GrammarIndexPage() {
         </div>
       </div>
 
-      {(search || activeCategory !== 'All') && <p className="text-xs font-medium text-[#68736d]">{t('topicsFound', { count: filtered.length })}</p>}
+      {(search || activeCategory !== 'All') && <p className="text-xs font-medium text-[var(--duo-muted)]">{t('topicsFound', { count: filtered.length })}</p>}
 
       {CEFR_LEVELS.map((level) => {
         const levelTopics = filtered.filter((t) => t.level === level)
@@ -130,9 +130,9 @@ export default function GrammarIndexPage() {
         return (
           <section key={level} className="space-y-3">
             <div className="flex items-center gap-3">
-              <span className="text-[#30343b] text-base font-bold tracking-widest">{level}</span>
-              <div className="h-px flex-1 bg-[#e1e5e2]" />
-              <span className="text-xs text-[#68736d]">{levelTopics.length} topic{levelTopics.length !== 1 ? 's' : ''}</span>
+              <span className="text-[var(--duo-ink)] text-base font-bold tracking-widest">{level}</span>
+              <div className="h-px flex-1 bg-[var(--duo-line)]" />
+              <span className="text-xs text-[var(--duo-muted)]">{levelTopics.length} topic{levelTopics.length !== 1 ? 's' : ''}</span>
             </div>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {levelTopics.map((t) => <TopicCard key={t.slug} topic={t} />)}
@@ -143,8 +143,8 @@ export default function GrammarIndexPage() {
 
       {filtered.length === 0 && (
         <div className="juba-card space-y-4 px-6 py-10 text-center">
-          <p className="text-xs font-bold tracking-widest text-[#68736d] uppercase">{t('noResults')}</p>
-          {(search || activeCategory !== 'All') && <button onClick={() => { setSearch(''); setActiveCategory('All') }} className="rounded-full border border-[#e1e5e2] px-4 py-2 text-xs font-bold text-[#68736d] transition-colors hover:bg-[#e1e5e2]">{tCommon('clearFilters')}</button>}
+          <p className="text-xs font-bold tracking-widest text-[var(--duo-muted)] uppercase">{t('noResults')}</p>
+          {(search || activeCategory !== 'All') && <button onClick={() => { setSearch(''); setActiveCategory('All') }} className="rounded-full border border-[var(--duo-line)] px-4 py-2 text-xs font-bold text-[var(--duo-muted)] transition-colors hover:bg-[var(--duo-line)]">{tCommon('clearFilters')}</button>}
         </div>
       )}
     </div>
