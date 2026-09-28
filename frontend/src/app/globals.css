@@ -1564,7 +1564,7 @@ html[data-theme='light'] {
 .juba-duo-page-frame textarea:focus {
   border-color:var(--duo-blue) !important;
   outline:none;
-  box-shadow:0 0 0 3px rgba(28,176,246,.14) !important;
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--duo-blue) 14%,transparent) !important;
 }
 
 .juba-duo-page-frame .juba-badge {
@@ -1721,7 +1721,7 @@ html[data-theme='light'] {
 .juba-duo-page-frame .juba-games .game-card:hover {
   transform:translateY(-2px);
   border-color:var(--duo-green);
-  box-shadow:0 5px 0 rgba(88,204,2,.18);
+  box-shadow:0 5px 0 color-mix(in srgb,var(--duo-green) 18%,transparent);
 }
 .juba-duo-page-frame .juba-games .daily-challenge.completed {
   opacity:.72;
@@ -1746,7 +1746,7 @@ html[data-theme='light'] {
   height:52px;
   margin-bottom:14px;
   border-radius:14px;
-  background:rgba(88,204,2,.12);
+  background:color-mix(in srgb,var(--duo-green) 12%,transparent);
   font-size:1.55rem;
 }
 .juba-duo-page-frame .juba-games .game-title {
@@ -1807,7 +1807,7 @@ html[data-theme='light'] {
 }
 .juba-duo-page-frame .juba-games .badge.unlocked {
   border-color:rgba(88,204,2,.35);
-  background:rgba(88,204,2,.08);
+  background:color-mix(in srgb,var(--duo-green) 8%,transparent);
   color:var(--duo-green-dark);
 }
 .juba-duo-page-frame .juba-games .games-skill-summary {
@@ -1842,7 +1842,7 @@ html[data-theme='light'] {
 .juba-duo-page-frame .juba-games .choice:hover,
 .juba-duo-page-frame .juba-games .choice.selected {
   border-color:var(--duo-green);
-  background:rgba(88,204,2,.08);
+  background:color-mix(in srgb,var(--duo-green) 8%,transparent);
 }
 .juba-duo-page-frame .juba-games .next {
   border-color:var(--duo-green-dark);
@@ -1860,7 +1860,7 @@ html[data-theme='light'] {
 .juba-duo-page-frame .juba-games input:focus {
   border-color:var(--duo-blue);
   outline:none;
-  box-shadow:0 0 0 3px rgba(28,176,246,.14);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--duo-blue) 14%,transparent);
 }
 @media (max-width:760px) {
   .juba-duo-page-frame .juba-games .games-shell { padding:20px 14px 36px; }
@@ -1918,7 +1918,7 @@ html[data-theme='light'] {
   border-radius:20px;
   background:var(--duo-card);
   color:var(--duo-ink);
-  box-shadow:0 3px 0 rgba(31,41,51,.035);
+  box-shadow:0 3px 0 color-mix(in srgb,var(--duo-ink) 4%,transparent);
 }
 
 .juba-duo-page-frame .juba-mobile-listening input,
@@ -1949,7 +1949,7 @@ html[data-theme='light'] {
 .juba-duo-page-frame .juba-mobile-settings select:focus {
   border-color:var(--duo-blue);
   outline:none;
-  box-shadow:0 0 0 3px rgba(28,176,246,.14);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--duo-blue) 14%,transparent);
 }
 
 .juba-duo-page-frame .juba-mobile-listening button,
@@ -1973,7 +1973,7 @@ html[data-theme='light'] {
 .juba-duo-page-frame .juba-mobile-translator button:focus-visible,
 .juba-duo-page-frame .juba-mobile-friends button:focus-visible,
 .juba-duo-page-frame .juba-mobile-assessment button:focus-visible {
-  outline:3px solid rgba(28,176,246,.25);
+  outline:3px solid color-mix(in srgb,var(--duo-blue) 25%,transparent);
   outline-offset:3px;
 }
 
@@ -1995,7 +1995,7 @@ html[data-theme='light'] {
   background:#fff;
   color:var(--duo-ink);
   border-radius:12px;
-  box-shadow:0 3px 0 rgba(31,41,51,.035);
+  box-shadow:0 3px 0 color-mix(in srgb,var(--duo-ink) 4%,transparent);
   font-weight:800;
 }
 
@@ -2010,7 +2010,7 @@ html[data-theme='light'] {
   border-radius:20px;
   background:#fff;
   color:var(--duo-ink);
-  box-shadow:0 3px 0 rgba(31,41,51,.035);
+  box-shadow:0 3px 0 color-mix(in srgb,var(--duo-ink) 4%,transparent);
 }
 
 .juba-duo-page-frame .juba-mobile-grammar .juba-eyebrow,
@@ -2041,7 +2041,7 @@ html[data-theme='light'] {
 
 .juba-duo-page-frame .juba-mobile-chat button:focus-visible,
 .juba-duo-page-frame .juba-mobile-chat input:focus-visible {
-  outline:3px solid rgba(28,176,246,.25);
+  outline:3px solid color-mix(in srgb,var(--duo-blue) 25%,transparent);
   outline-offset:3px;
 }
 
