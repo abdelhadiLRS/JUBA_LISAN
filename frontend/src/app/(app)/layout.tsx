@@ -615,6 +615,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         className="juba-duo-main min-w-0 overflow-x-hidden"
         id="main-content"
         aria-label={tNav('navigation')}
+        tabIndex={-1}
       >
         {/* Email verification banner */}
         {user && user.is_verified === false && (
