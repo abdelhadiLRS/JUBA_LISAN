@@ -108,7 +108,7 @@ export default function GrammarIndexPage() {
           <p className="text-[var(--duo-muted)] text-xs leading-relaxed">
             {topics.length} topics · A1 – C2
           </p>
-          <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('searchPlaceholder')} className="w-full max-w-sm rounded-[20px] border border-[var(--duo-line)] bg-[var(--duo-line)] px-4 py-2.5 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] transition-colors focus:border-[var(--duo-green-dark)] focus:outline-none" />
+          <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('searchPlaceholder')} className="w-full max-w-sm rounded-[20px] border-2 border-[var(--duo-line)] bg-white px-4 py-2.5 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] transition-colors focus:border-[var(--duo-green-dark)] focus:outline-none" />
           <div className="flex flex-wrap gap-2">
             <button onClick={() => setActiveCategory('All')} className={`rounded-full px-3 py-1.5 text-xs font-bold tracking-wide transition-colors ${activeCategory === 'All' ? 'bg-[var(--duo-ink)] text-[white]' : 'border border-[var(--duo-line)] text-[var(--duo-muted)] hover:bg-[var(--duo-line)]'}`}>
               {t('allCategories')}
