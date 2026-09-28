@@ -226,7 +226,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {/* Logo area */}
         <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-5 py-5">
           <span className="juba-duo-logo-mark" aria-hidden="true">JL</span>
-          <span className="text-fl-fg font-sans text-sm font-bold tracking-widest uppercase">
+          <span className="text-[var(--duo-ink)] font-sans text-sm font-bold tracking-widest uppercase">
             JUBA LISAN
           </span>
         </div>
@@ -246,7 +246,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 href={item.href}
                 className={`juba-duo-nav-link ${active ? 'is-active' : ''}`}
               >
-                <item.icon className={`h-[18px] w-[18px] shrink-0 ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`} />
+                <item.icon className={`h-[18px] w-[18px] shrink-0 ${active ? 'text-[var(--duo-green)]' : 'text-[#8a8a8a]'}`} />
                 {item.label}
                 {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
                   <span className="text-[var(--duo-green)] ms-auto text-xs">★</span>
@@ -262,7 +262,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               className="juba-duo-resource-toggle"
             >
               <span>{tNav('resources')}</span>
-              <span className="text-fl-label">{resourcesOpen ? '▴' : '▾'}</span>
+              <span className="text-[var(--duo-ink)]">{resourcesOpen ? '▴' : '▾'}</span>
             </button>
             {resourcesOpen &&
               resourceNavItems.map((item) => {
@@ -295,7 +295,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <item.icon className="h-[17px] w-[17px] shrink-0" />
                   {item.label}
                   {item.href === '/feedback' && feedbackBadgeText && (
-                    <span className="text-fl-label ms-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-[var(--duo-red)] leading-none font-bold tracking-normal text-white">
+                    <span className="text-[var(--duo-ink)] ms-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-[var(--duo-red)] leading-none font-bold tracking-normal text-white">
                       {feedbackBadgeText}
                     </span>
                   )}
@@ -327,8 +327,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   height={32}
                   className="h-full w-full object-cover"
                   fallback={
-                    <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                      <span className="text-fl-muted-1 font-sans text-xs select-none">
+                    <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
+                      <span className="text-[var(--duo-muted)] font-sans text-xs select-none">
                         {(user?.displayName ||
                           user?.username ||
                           '?')[0].toUpperCase()}
@@ -337,8 +337,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   }
                 />
               ) : (
-                <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                  <span className="text-fl-muted-1 font-sans text-xs select-none">
+                <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
+                  <span className="text-[var(--duo-muted)] font-sans text-xs select-none">
                     {(user?.displayName ||
                       user?.username ||
                       '?')[0].toUpperCase()}
@@ -347,14 +347,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               )}
             </div>
             <div className="min-w-0">
-              <p className="text-fl-caption text-fl-muted-2 truncate font-sans tracking-widest uppercase">
+              <p className="text-[var(--duo-muted)] text-[var(--duo-muted)] truncate font-sans tracking-widest uppercase">
                 {user?.displayName || user?.username}
               </p>
-              <p className="text-fl-label text-fl-muted-4 truncate font-sans">
+              <p className="text-[var(--duo-ink)] text-[#8a8a8a] truncate font-sans">
                 @{user?.username?.toLowerCase()}
               </p>
               {trialDaysLeft > 0 && (
-                <p className="text-fl-label text-fl-accent truncate font-sans text-xs">
+                <p className="text-[var(--duo-ink)] text-[var(--duo-green)] truncate font-sans text-xs">
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
@@ -422,10 +422,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <div>
               <button
                 onClick={() => setResourcesOpen((o) => !o)}
-                className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-s-2 border-transparent px-5 py-2 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors"
+                className="text-[#8a8a8a] hover:text-[var(--duo-muted)] flex w-full items-center justify-between border-s-2 border-transparent px-5 py-2 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors"
               >
                 <span>{tNav('resources')}</span>
-                <span className="text-fl-label">
+                <span className="text-[var(--duo-ink)]">
                   {resourcesOpen ? '▴' : '▾'}
                 </span>
               </button>
@@ -441,12 +441,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       onClick={() => setMobileMenuOpen(false)}
                       className={`flex items-center gap-3 py-2.5 pe-5 ps-8 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                         active
-                          ? 'text-fl-fg bg-fl-surface-2 border-s-2 border-[var(--duo-green)]'
-                          : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-s-2 border-transparent'
+                          ? 'text-[var(--duo-ink)] bg-[var(--duo-line)] border-s-2 border-[var(--duo-green)]'
+                          : 'text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:bg-[var(--duo-card)] border-s-2 border-transparent'
                       }`}
                     >
                       <span
-                        className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
+                        className={`text-[var(--duo-ink)] ${active ? 'text-[var(--duo-ink)]' : 'text-[#8a8a8a]'}`}
                       >
                         ·
                       </span>
@@ -467,18 +467,18 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center gap-3 px-5 py-3 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                     active
-                      ? 'text-fl-fg bg-fl-surface-2 border-s-2 border-[var(--duo-green)]'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-s-2 border-transparent'
+                      ? 'text-[var(--duo-ink)] bg-[var(--duo-line)] border-s-2 border-[var(--duo-green)]'
+                      : 'text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:bg-[var(--duo-card)] border-s-2 border-transparent'
                   }`}
                 >
                   <span
-                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
+                    className={`text-[var(--duo-ink)] ${active ? 'text-[var(--duo-ink)]' : 'text-[#8a8a8a]'}`}
                   >
                     ●
                   </span>
                   {item.label}
                   {item.href === '/feedback' && feedbackBadgeText && (
-                    <span className="text-fl-label ms-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-[var(--duo-red)] leading-none font-bold tracking-normal text-white">
+                    <span className="text-[var(--duo-ink)] ms-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-[var(--duo-red)] leading-none font-bold tracking-normal text-white">
                       {feedbackBadgeText}
                     </span>
                   )}
@@ -492,11 +492,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`flex items-center gap-3 px-5 py-3 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                   pathname.startsWith('/admin')
-                    ? 'text-fl-fg bg-fl-surface-2 border-s-2 border-[var(--duo-green)]'
-                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-s-2 border-transparent'
+                    ? 'text-[var(--duo-ink)] bg-[var(--duo-line)] border-s-2 border-[var(--duo-green)]'
+                    : 'text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:bg-[var(--duo-card)] border-s-2 border-transparent'
                 }`}
               >
-                <span className="text-fl-label text-fl-muted-4">●</span>
+                <span className="text-[var(--duo-ink)] text-[#8a8a8a]">●</span>
                 {tNav('admin')}
               </Link>
             )}
@@ -511,8 +511,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       height={28}
                       className="h-full w-full object-cover"
                       fallback={
-                        <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                          <span className="text-fl-hint text-fl-muted-1 font-sans select-none">
+                        <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
+                          <span className="text-[var(--duo-muted)] text-[var(--duo-muted)] font-sans select-none">
                             {(user?.displayName ||
                               user?.username ||
                               '?')[0].toUpperCase()}
@@ -521,8 +521,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       }
                     />
                   ) : (
-                    <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                      <span className="text-fl-hint text-fl-muted-1 font-sans select-none">
+                    <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
+                      <span className="text-[var(--duo-muted)] text-[var(--duo-muted)] font-sans select-none">
                         {(user?.displayName ||
                           user?.username ||
                           '?')[0].toUpperCase()}
@@ -531,20 +531,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   )}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-fl-caption text-fl-muted-2 truncate font-sans tracking-widest uppercase">
+                  <p className="text-[var(--duo-muted)] text-[var(--duo-muted)] truncate font-sans tracking-widest uppercase">
                     {user?.displayName || user?.username}
                   </p>
-                  <p className="text-fl-label text-fl-muted-4 truncate font-sans">
+                  <p className="text-[var(--duo-ink)] text-[#8a8a8a] truncate font-sans">
                     @{user?.username?.toLowerCase()}
                   </p>
                 </div>
               </div>
               {trialDaysLeft > 0 && (
-                <p className="text-fl-label text-fl-accent mb-2 font-sans text-xs">
+                <p className="text-[var(--duo-ink)] text-[var(--duo-green)] mb-2 font-sans text-xs">
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
-              <p className="text-fl-label text-fl-muted-4 font-sans mb-2 tracking-wider">
+              <p className="text-[var(--duo-ink)] text-[#8a8a8a] font-sans mb-2 tracking-wider">
                 v1.9.15
               </p>
               <button
@@ -552,7 +552,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   setMobileMenuOpen(false)
                   setContactOpen(true)
                 }}
-                className="text-fl-muted-2 hover:text-fl-fg mb-1 block font-sans text-xs tracking-widest uppercase transition-colors"
+                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] mb-1 block font-sans text-xs tracking-widest uppercase transition-colors"
               >
                 {tNav('contact')}
               </button>
@@ -561,7 +561,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   setMobileMenuOpen(false)
                   setLogoutConfirm(true)
                 }}
-                className="text-fl-muted-2 hover:text-fl-fg font-sans text-xs tracking-widest uppercase transition-colors"
+                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-sans text-xs tracking-widest uppercase transition-colors"
               >
                 {tCommon('logout')}
               </button>
@@ -574,18 +574,18 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <main className="juba-duo-main">
         {/* Email verification banner */}
         {user && user.is_verified === false && (
-          <div className="border-[var(--duo-line)] bg-fl-surface flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
-            <span className="text-fl-muted-1 font-sans text-xs tracking-wide">
+          <div className="border-[var(--duo-line)] bg-[var(--duo-card)] flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
+            <span className="text-[var(--duo-muted)] font-sans text-xs tracking-wide">
               ● {tCommon('verifyEmailBanner')}
             </span>
             {resendSent ? (
-              <span className="text-fl-muted-2 font-sans text-xs">
+              <span className="text-[var(--duo-muted)] font-sans text-xs">
                 {tCommon('verifyEmailSent')}
               </span>
             ) : (
               <button
                 onClick={handleResendVerification}
-                className="text-fl-accent font-sans text-xs underline transition-all hover:no-underline"
+                className="text-[var(--duo-green)] font-sans text-xs underline transition-all hover:no-underline"
               >
                 {tCommon('resendVerification')}
               </button>
