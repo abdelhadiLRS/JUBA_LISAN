@@ -22,7 +22,7 @@ const REGISTERS: Register[] = ['formal', 'neutral', 'informal']
 const REGISTER_COLORS: Record<string, string> = {
   formal: 'text-[var(--duo-green-dark)]',
   neutral: 'text-[var(--duo-muted)]',
-  informal: 'text-[var(--juba-ink)]',
+  informal: 'text-[var(--duo-ink)]',
 }
 
 function CategoryCard({
