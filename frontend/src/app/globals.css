@@ -3048,3 +3048,129 @@ html[data-theme='light'] {
     font-size:15px;
   }
 }
+
+
+/* Final landing closing CTA + footer pass — public landing only. */
+.juba-busuu-landing .juba-busuu-final-cta{
+  padding:28px 0 0;
+  background:#fff;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner{
+  position:relative;
+  min-height:420px;
+  padding:78px 72px;
+  overflow:hidden;
+  border-radius:0;
+  background:var(--busuu-green);
+  color:#fff;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner>div:first-child{
+  position:relative;
+  z-index:2;
+  max-width:650px;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner .juba-busuu-eyebrow{color:rgba(255,255,255,.78)}
+.juba-busuu-landing .juba-busuu-final-cta-inner h2{
+  max-width:680px;
+  margin:14px 0 18px;
+  color:#fff;
+  font-size:clamp(3rem,5.8vw,5.8rem);
+  line-height:.9;
+  letter-spacing:-.075em;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner p{
+  max-width:520px;
+  margin:0 0 30px;
+  color:rgba(255,255,255,.82);
+  font-size:16px;
+  line-height:1.7;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner .juba-busuu-primary{
+  background:#fff;
+  color:var(--busuu-ink);
+  border-color:#fff;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner .juba-busuu-primary:hover{background:#f5f8f6}
+.juba-busuu-landing .juba-busuu-final-cta-inner>img{
+  position:absolute;
+  inset-inline-end:-20px;
+  bottom:-70px;
+  width:min(54%,680px);
+  max-height:470px;
+  object-fit:contain;
+  object-position:center bottom;
+  opacity:.98;
+  pointer-events:none;
+}
+.juba-busuu-landing .juba-busuu-footer{
+  margin-top:0;
+  padding:72px 0 28px;
+  background:var(--busuu-ink);
+  color:#fff;
+  border-top:1px solid rgba(220,230,225,.16);
+}
+.juba-busuu-landing .juba-busuu-footer-grid{
+  grid-template-columns:minmax(260px,1.5fr) repeat(4,minmax(120px,1fr));
+  gap:42px;
+  padding-bottom:58px;
+}
+.juba-busuu-landing .juba-busuu-footer-brand{
+  max-width:330px;
+}
+.juba-busuu-landing .juba-busuu-footer-brand p{
+  max-width:30ch;
+  margin-top:18px;
+  color:rgba(255,255,255,.62);
+  font-size:13px;
+  line-height:1.7;
+}
+.juba-busuu-landing .juba-busuu-footer-grid h3{
+  margin:0 0 16px;
+  color:#fff;
+  font-size:11px;
+  font-weight:850;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.juba-busuu-landing .juba-busuu-footer-grid a{
+  color:rgba(255,255,255,.7);
+  font-size:13px;
+  line-height:1.55;
+}
+.juba-busuu-landing .juba-busuu-footer-grid a:hover{color:#fff}
+.juba-busuu-landing .juba-busuu-footer-bottom{
+  padding-top:24px;
+  border-top:1px solid rgba(220,230,225,.16);
+}
+@media(max-width:1000px){
+  .juba-busuu-landing .juba-busuu-final-cta-inner{padding:64px 48px;min-height:390px}
+  .juba-busuu-landing .juba-busuu-final-cta-inner>img{width:48%;bottom:-52px}
+  .juba-busuu-landing .juba-busuu-footer-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .juba-busuu-landing .juba-busuu-footer-brand{grid-column:1/-1;max-width:520px}
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-final-cta{padding-top:16px}
+  .juba-busuu-landing .juba-busuu-final-cta-inner{
+    min-height:560px;
+    padding:58px 22px 0;
+    text-align:center;
+  }
+  .juba-busuu-landing .juba-busuu-final-cta-inner>div:first-child{margin-inline:auto}
+  .juba-busuu-landing .juba-busuu-final-cta-inner h2{font-size:clamp(2.8rem,12vw,4.2rem);margin-inline:auto}
+  .juba-busuu-landing .juba-busuu-final-cta-inner p{margin-inline:auto}
+  .juba-busuu-landing .juba-busuu-final-cta-inner>img{
+    inset-inline:50%;
+    inset-inline-end:auto;
+    transform:translateX(-50%);
+    bottom:-72px;
+    width:92%;
+    max-width:500px;
+  }
+  .juba-busuu-landing .juba-busuu-footer{padding-top:56px}
+  .juba-busuu-landing .juba-busuu-footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 24px;padding-bottom:42px}
+  .juba-busuu-landing .juba-busuu-footer-brand{grid-column:1/-1}
+}
+@media(max-width:420px){
+  .juba-busuu-landing .juba-busuu-final-cta-inner{min-height:510px;padding-top:50px}
+  .juba-busuu-landing .juba-busuu-footer-grid{grid-template-columns:1fr}
+}
