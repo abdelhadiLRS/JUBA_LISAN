@@ -325,7 +325,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <item.icon className="h-[17px] w-[17px] shrink-0" />
                   {item.label}
                   {item.href === '/feedback' && feedbackBadgeText && (
-                    <span className="text-[var(--duo-ink)] ms-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-[var(--duo-red)] leading-none font-bold tracking-normal text-white">
+                    <span className="ms-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-[var(--duo-red)] leading-none font-bold tracking-normal text-white">
                       {feedbackBadgeText}
                     </span>
                   )}
@@ -410,7 +410,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Mobile top bar */}
-      <div className="juba-duo-mobile-bar border-[var(--duo-line)] bg-[var(--duo-bg)] fixed inset-x-0 top-0 z-50 border-b">
+      <div className="juba-duo-mobile-bar border-[var(--duo-line)] bg-[var(--duo-bg)] fixed inset-x-0 top-0 z-50 border-b shadow-[0_2px_0_var(--duo-line)]">
         <div className="flex items-center justify-between px-4 py-3">
           <span className="juba-duo-mobile-brand">JUBA LISAN</span>
           <button
