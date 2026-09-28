@@ -158,6 +158,15 @@
   h6 {
     letter-spacing: -0.02em;
   }
+
+  :lang(ar) h1,
+  :lang(ar) h2,
+  :lang(ar) h3,
+  :lang(ar) h4,
+  :lang(ar) h5,
+  :lang(ar) h6 {
+    letter-spacing: normal;
+  }
 }
 
 @utility font-target-latin {
