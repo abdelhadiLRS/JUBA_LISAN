@@ -3441,3 +3441,38 @@ html[data-theme='light'] {
   border-top:1px solid rgba(220,230,225,.16);
   border-radius:0!important;
 }
+
+
+/* Landing cleanup normalization — keeps the public page internally consistent. */
+.juba-busuu-landing .juba-busuu-language-panel{
+  border-radius:0;
+  box-shadow:none;
+}
+.juba-busuu-landing .juba-busuu-practical-media{
+  border-radius:0;
+}
+.juba-busuu-landing .juba-busuu-footer-intro-links a,
+.juba-busuu-landing .juba-busuu-footer-column a,
+.juba-busuu-landing .juba-busuu-footer-language-list a{
+  border:0;
+  border-radius:0;
+  padding:0;
+}
+.juba-busuu-landing .juba-busuu-footer-intro-links a::after,
+.juba-busuu-landing .juba-busuu-footer-column a::after,
+.juba-busuu-landing .juba-busuu-footer-language-list a::after{
+  bottom:-2px;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner{
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner img{
+  border-radius:0;
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-language-panel,
+  .juba-busuu-landing .juba-busuu-practical-media{
+    border-radius:0;
+  }
+}
