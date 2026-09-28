@@ -428,7 +428,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         {/* Dropdown */}
         {mobileMenuOpen && (
-          <nav id="juba-duo-mobile-menu" className="juba-duo-mobile-menu">
+          <nav
+            id="juba-duo-mobile-menu"
+            className="juba-duo-mobile-menu max-h-[calc(100vh-57px)] overflow-y-auto overscroll-contain"
+          >
             <div className="border-[var(--duo-line)] border-b">
               <LanguageSwitcher />
             </div>
@@ -607,7 +610,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Main */}
-      <main className="juba-duo-main" id="main-content" aria-label={tNav('navigation')}>
+      <main
+        className="juba-duo-main min-w-0"
+        id="main-content"
+        aria-label={tNav('navigation')}
+      >
         {/* Email verification banner */}
         {user && user.is_verified === false && (
           <div className="border-[var(--duo-line)] bg-[var(--duo-card)] flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
