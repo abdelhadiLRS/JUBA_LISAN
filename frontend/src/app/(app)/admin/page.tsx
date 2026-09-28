@@ -134,7 +134,7 @@ export default function AdminOverviewPage() {
       </div>
 
       {statsError && (
-        <div className="rounded-2xl rounded-2xl border-2 border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[var(--duo-card)] px-4 py-3 font-sans text-xs text-[var(--duo-red)]">
+        <div className="rounded-2xl border-2 border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[var(--duo-card)] px-4 py-3 font-sans text-xs text-[var(--duo-red)]">
           {statsError}
         </div>
       )}
@@ -165,7 +165,7 @@ export default function AdminOverviewPage() {
           </div>
           <Link
             href="/admin/system"
-            className="border-[var(--duo-line)] text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-purple)] ms-auto border px-3 py-2 font-semibold tracking-wide transition-colors"
+            className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-purple)] ms-auto border px-3 py-2 font-semibold tracking-wide transition-colors"
           >
             {t('openSystemControls')}
           </Link>
