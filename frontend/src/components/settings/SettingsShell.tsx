@@ -40,7 +40,7 @@ export function SettingsNav({
   items: { href: string; label: string; icon: LucideIcon }[]
 }) {
   return (
-    <nav className="flex flex-wrap items-center gap-1 rounded-[20px] border-2 border-[var(--duo-line)] bg-white p-1.5">
+    <nav className="flex flex-wrap items-center gap-1 rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] p-1.5">
       {items.map((item) => {
         const Icon = item.icon
         return (
@@ -95,7 +95,7 @@ export function SettingsActionCard({
   return (
     <Link
       href={href}
-      className="group block rounded-[20px] border-2 border-[var(--duo-line)] bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-[var(--duo-green)] hover:shadow-[0_4px_0_rgba(31,41,51,.045)]"
+      className="group block rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] p-5 transition-all hover:-translate-y-0.5 hover:border-[var(--duo-green)] hover:shadow-[0_4px_0_rgba(31,41,51,.045)]"
     >
       <div className="mb-4 flex items-center justify-between gap-3">
         <span
