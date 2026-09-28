@@ -14,8 +14,6 @@ interface LandingNavProps {
   navLanguages: string
   interfaceLanguages: string
   navReviews: string
-  navPricing: string
-  navFAQ: string
   showReviews: boolean
   signIn: string
   dashboard: string
@@ -34,8 +32,6 @@ export function LandingNav({
   navLanguages,
   interfaceLanguages,
   navReviews,
-  navPricing,
-  navFAQ,
   showReviews,
   signIn,
   dashboard,
@@ -143,8 +139,6 @@ export function LandingNav({
   const links = [
     { href: '#features', label: navFeatures },
     { href: '#languages', label: navLanguages },
-    { href: '#pricing', label: navPricing },
-    { href: '#faq', label: navFAQ },
     ...(showReviews ? [{ href: '#reviews', label: navReviews }] : []),
   ]
 
@@ -182,7 +176,7 @@ export function LandingNav({
         </Link>
 
         <nav className="juba-busuu-nav-links" aria-label={primaryNavigation}>
-          {links.slice(0, 4).map((link) => (
+          {links.map((link) => (
             <a key={link.href} href={link.href}>{link.label}</a>
           ))}
         </nav>
