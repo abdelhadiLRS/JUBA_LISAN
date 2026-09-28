@@ -52,7 +52,7 @@ export function SubscriptionPlanButtons({
           type="button"
           onClick={() => startCheckout('yearly')}
           disabled={loading !== null}
-          className="juba-primary-button flex-1 px-4 py-2.5 text-xs disabled:opacity-50"
+          className="bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white flex-1 rounded-xl px-4 py-2.5 text-xs font-bold shadow-[0_3px_0_var(--duo-green-dark)] transition-colors disabled:opacity-50"
         >
           {loading === 'yearly' ? (
             <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -71,7 +71,7 @@ export function SubscriptionPlanButtons({
           type="button"
           onClick={() => startCheckout('monthly')}
           disabled={loading !== null}
-          className="juba-secondary-button flex-1 px-4 py-2.5 text-xs disabled:opacity-50"
+          className="border-2 border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] flex-1 rounded-xl px-4 py-2.5 text-xs font-bold transition-colors disabled:opacity-50"
         >
           {loading === 'monthly' ? (
             <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -80,7 +80,7 @@ export function SubscriptionPlanButtons({
           )}
         </button>
       </div>
-      {error && <p className="rounded-xl border border-[var(--juba-app-error)]/25 bg-red-50 px-3 py-2 text-[var(--juba-app-error)] font-sans text-xs leading-5">{error}</p>}
+      {error && <p className="rounded-xl border border-[var(--duo-red)]/30 bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] px-3 py-2 text-[var(--duo-red)] font-sans text-xs leading-5">{error}</p>}
     </div>
   )
 }
