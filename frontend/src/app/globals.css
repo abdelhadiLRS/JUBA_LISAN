@@ -1359,3 +1359,133 @@ html[data-theme='light'] {
     padding-inline:12px;
   }
 }
+
+/* ── Final Duolingo geometry + RTL audit ───────────────────────────────── */
+/* This final layer resolves cascade conflicts between the older shell rules and
+   the canonical Duolingo application geometry. It does not change route logic. */
+
+.juba-duo-shell .juba-duo-sidebar {
+  width:250px;
+  background:#fff;
+  border-color:var(--duo-line);
+}
+
+.juba-duo-shell .juba-duo-main {
+  margin-inline-start:250px;
+  margin-inline-end:0;
+  min-width:0;
+  background:var(--duo-bg);
+}
+
+.juba-duo-shell[dir="rtl"] .juba-duo-main {
+  margin-inline-start:0;
+  margin-inline-end:250px;
+}
+
+.juba-duo-shell .juba-duo-page-frame {
+  width:100%;
+  min-width:0;
+  margin:0;
+  background:var(--duo-bg);
+}
+
+/* Sidebar active state follows document direction, including nested resources. */
+.juba-duo-shell[dir="ltr"] .juba-duo-nav-link.is-active {
+  box-shadow:inset 4px 0 0 var(--duo-green);
+}
+.juba-duo-shell[dir="rtl"] .juba-duo-nav-link.is-active {
+  box-shadow:inset -4px 0 0 var(--duo-green);
+}
+
+/* Mobile navigation is direction-aware rather than relying on left-only
+   borders/padding from the legacy implementation. */
+.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu {
+  direction:rtl;
+  text-align:right;
+}
+.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu .juba-duo-nav-link,
+.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu .juba-duo-resource-toggle {
+  text-align:right;
+}
+.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu .border-l-2 {
+  border-left-width:0 !important;
+  border-right-width:2px !important;
+}
+.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu .pl-8 {
+  padding-left:0 !important;
+  padding-right:2rem !important;
+}
+.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu .pr-5 {
+  padding-right:1.25rem !important;
+  padding-left:0 !important;
+}
+.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu .ml-auto {
+  margin-left:0 !important;
+  margin-right:auto !important;
+}
+
+/* Dashboard: preserve the Duolingo path rhythm while keeping content fluid. */
+.juba-duo-home {
+  width:100%;
+  min-width:0;
+}
+.juba-duo-welcome,
+.juba-duo-grid,
+.juba-duo-premium {
+  width:min(1120px,100%);
+}
+.juba-duo-node-row {
+  width:min(620px,100%);
+}
+.juba-duo-node-copy {
+  min-width:0;
+}
+.juba-duo-node-copy strong,
+.juba-duo-node-copy span {
+  overflow-wrap:anywhere;
+}
+
+@media (max-width:900px) {
+  .juba-duo-shell .juba-duo-main,
+  .juba-duo-shell[dir="rtl"] .juba-duo-main {
+    margin-inline:0;
+    padding-top:66px;
+  }
+
+  .juba-duo-shell .juba-duo-page-frame {
+    min-height:calc(100vh - 66px);
+  }
+
+  .juba-duo-page-frame > .juba-duo-home {
+    padding-top:12px;
+  }
+
+  .juba-duo-home .juba-duo-node-row.is-offset,
+  .juba-duo-shell[dir="rtl"] .juba-duo-home .juba-duo-node-row.is-offset {
+    transform:none;
+  }
+}
+
+@media (max-width:560px) {
+  .juba-duo-welcome,
+  .juba-duo-grid,
+  .juba-duo-premium {
+    width:100%;
+  }
+
+  .juba-duo-home {
+    padding-inline:12px;
+  }
+
+  .juba-duo-node-row {
+    gap:12px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .juba-duo-shell .juba-duo-nav-link,
+  .juba-duo-shell .juba-duo-cta,
+  .juba-duo-shell .juba-duo-links a {
+    transition:none !important;
+  }
+}
