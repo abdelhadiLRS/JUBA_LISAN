@@ -2139,3 +2139,86 @@ html[data-theme='light'] {
     min-width:0;
   }
 }
+
+/* ── Final responsive containment for Duolingo application routes ──────── */
+.juba-duo-page-frame .juba-mobile-listening,
+.juba-duo-page-frame .juba-mobile-reading,
+.juba-duo-page-frame .juba-mobile-grammar,
+.juba-duo-page-frame .juba-mobile-vocabulary,
+.juba-duo-page-frame .juba-mobile-settings,
+.juba-duo-page-frame .juba-mobile-plan,
+.juba-duo-page-frame .juba-mobile-flashcards,
+.juba-duo-page-frame .juba-mobile-courses,
+.juba-duo-page-frame .juba-mobile-coach,
+.juba-duo-page-frame .juba-mobile-phrasebook,
+.juba-duo-page-frame .juba-mobile-translator,
+.juba-duo-page-frame .juba-mobile-friends,
+.juba-duo-page-frame .juba-mobile-assessment,
+.juba-duo-page-frame .juba-mobile-chat,
+.juba-duo-page-frame .juba-games {
+  min-width:0;
+  max-width:100%;
+  overflow-wrap:anywhere;
+}
+
+.juba-duo-page-frame .juba-mobile-listening > *,
+.juba-duo-page-frame .juba-mobile-reading > *,
+.juba-duo-page-frame .juba-mobile-grammar > *,
+.juba-duo-page-frame .juba-mobile-vocabulary > *,
+.juba-duo-page-frame .juba-mobile-settings > *,
+.juba-duo-page-frame .juba-mobile-plan > *,
+.juba-duo-page-frame .juba-mobile-flashcards > *,
+.juba-duo-page-frame .juba-mobile-courses > *,
+.juba-duo-page-frame .juba-mobile-coach > *,
+.juba-duo-page-frame .juba-mobile-phrasebook > *,
+.juba-duo-page-frame .juba-mobile-translator > *,
+.juba-duo-page-frame .juba-mobile-friends > *,
+.juba-duo-page-frame .juba-mobile-assessment > *,
+.juba-duo-page-frame .juba-games > * {
+  min-width:0;
+  max-width:100%;
+}
+
+.juba-duo-page-frame .juba-mobile-listening img,
+.juba-duo-page-frame .juba-mobile-reading img,
+.juba-duo-page-frame .juba-mobile-grammar img,
+.juba-duo-page-frame .juba-mobile-vocabulary img,
+.juba-duo-page-frame .juba-mobile-settings img,
+.juba-duo-page-frame .juba-mobile-plan img,
+.juba-duo-page-frame .juba-mobile-flashcards img,
+.juba-duo-page-frame .juba-mobile-courses img,
+.juba-duo-page-frame .juba-mobile-coach img,
+.juba-duo-page-frame .juba-mobile-phrasebook img,
+.juba-duo-page-frame .juba-mobile-translator img,
+.juba-duo-page-frame .juba-mobile-friends img,
+.juba-duo-page-frame .juba-mobile-assessment img,
+.juba-duo-page-frame .juba-games img {
+  max-width:100%;
+  height:auto;
+}
+
+@media (max-width:560px) {
+  .juba-duo-page-frame .juba-mobile-listening button,
+  .juba-duo-page-frame .juba-mobile-reading button,
+  .juba-duo-page-frame .juba-mobile-grammar button,
+  .juba-duo-page-frame .juba-mobile-vocabulary button,
+  .juba-duo-page-frame .juba-mobile-settings button,
+  .juba-duo-page-frame .juba-mobile-plan button,
+  .juba-duo-page-frame .juba-mobile-flashcards button,
+  .juba-duo-page-frame .juba-mobile-courses a,
+  .juba-duo-page-frame .juba-mobile-coach button,
+  .juba-duo-page-frame .juba-mobile-phrasebook button,
+  .juba-duo-page-frame .juba-mobile-translator button,
+  .juba-duo-page-frame .juba-mobile-friends button,
+  .juba-duo-page-frame .juba-mobile-assessment button {
+    max-width:100%;
+  }
+
+  .juba-duo-page-frame .juba-games .play-card {
+    padding:18px 14px;
+  }
+
+  .juba-duo-page-frame .juba-games .game-card {
+    min-height:0;
+  }
+}
