@@ -64,13 +64,13 @@ export default function UnitDrawer({
   }
 
   return (
-    <div className="bg-[rgba(24,37,27,.48)] fixed inset-0 z-50 flex items-end justify-center p-0 backdrop-blur-sm sm:items-center sm:p-4">
+    <div className="bg-[color-mix(in_srgb,var(--duo-ink)_48%,transparent)] fixed inset-0 z-50 flex items-end justify-center p-0 backdrop-blur-sm sm:items-center sm:p-4">
       <div
         ref={ref}
-        className="border-[var(--duo-line)] bg-white max-h-[80vh] w-full overflow-y-auto rounded-t-[28px] border shadow-[0_24px_70px_rgba(24,37,27,.18)] sm:max-w-xl sm:rounded-[28px]"
+        className="border-[var(--duo-line)] bg-[var(--duo-card)] max-h-[80vh] w-full overflow-y-auto rounded-t-[28px] border shadow-[0_24px_70px_var(--duo-line)] sm:max-w-xl sm:rounded-[28px]"
       >
         {/* Header */}
-        <div className="border-[var(--duo-line)] bg-white sticky top-0 z-10 flex items-center justify-between gap-4 border-b px-6 py-5 sm:px-7">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] sticky top-0 z-10 flex items-center justify-between gap-4 border-b px-6 py-5 sm:px-7">
           <div className="min-w-0">
             <span
               className="text-xs font-semibold"
@@ -84,7 +84,7 @@ export default function UnitDrawer({
           </div>
           <button
             onClick={onClose}
-            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] shrink-0 rounded-2xl p-2 transition-colors hover:bg-[rgba(88,204,2,.10)]"
+            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] shrink-0 rounded-2xl p-2 transition-colors hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)]"
             aria-label={tCommon('close')}
           >
             <X className="h-4.5 w-4.5" aria-hidden="true" />
@@ -101,7 +101,7 @@ export default function UnitDrawer({
               {unit.grammar_points.map((gp) => (
                 <span
                   key={gp}
-                  className="bg-[rgba(88,204,2,.10)] text-[var(--duo-muted)] rounded-full px-2.5 py-1 text-xs font-medium"
+                  className="bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-muted)] rounded-full px-2.5 py-1 text-xs font-medium"
                 >
                   {gp}
                 </span>
@@ -126,7 +126,7 @@ export default function UnitDrawer({
               lessons.map((lesson, i) => (
                 <div
                   key={lesson.id ?? i}
-                  className={`flex items-center gap-3 px-5 py-3.5 transition-colors sm:px-6 ${lesson.action ? 'hover:bg-[rgba(88,204,2,.10)]' : ''}`}
+                  className={`flex items-center gap-3 px-5 py-3.5 transition-colors sm:px-6 ${lesson.action ? 'hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)]' : ''}`}
                 >
                   {lesson.completed ? (
                     <span
@@ -174,7 +174,7 @@ export default function UnitDrawer({
         </div>
 
         {/* Primary action */}
-        <div className="border-[var(--duo-line)] bg-white sticky bottom-0 border-t px-6 py-5 sm:px-7">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] sticky bottom-0 border-t px-6 py-5 sm:px-7">
           <div className="grid gap-2 sm:grid-cols-2">
             <button
               onClick={onStartUnit}
