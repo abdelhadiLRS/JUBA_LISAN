@@ -5,6 +5,8 @@ import { getLocale, getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import type { Locale } from '@/lib/locales'
 import { ArrowRight, ArrowUpRight, BookOpen, Headphones, Languages, MessageCircle } from 'lucide-react'
+import PricingSection from '@/components/billing/PricingSection'
+import { LandingFAQ } from '@/components/ui/landing-faq'
 import { LandingNav } from '@/components/ui/landing-nav'
 import { LanguageBubbles } from '@/components/LanguageBubbles'
 import { LandingFooter } from '@/components/landing/LandingFooter'
@@ -74,11 +76,29 @@ export default async function Home() {
   const t = await getTranslations('landing')
   const reviewT = await getTranslations('landingReviews')
 
+  let stripeEnabled = false
+  let trialDays = 7
+  let priceMonthly = 0
+  let priceYearly = 0
+  let totalPriceMonthly = 0
+  let totalPriceYearly = 0
   let reviews: ReviewPublic[] = []
 
   try {
     const backendUrl = process.env.BACKEND_URL || 'http://backend:8000'
-    const reviewsRes = await fetch(`${backendUrl}/api/reviews/public?limit=100`, { next: { revalidate: 300 } })
+    const [configRes, reviewsRes] = await Promise.all([
+      fetch(`${backendUrl}/api/config`, { next: { revalidate: 3600 } }),
+      fetch(`${backendUrl}/api/reviews/public?limit=100`, { next: { revalidate: 300 } }),
+    ])
+    if (configRes.ok) {
+      const cfg = await configRes.json()
+      stripeEnabled = cfg.stripe_enabled ?? false
+      trialDays = cfg.stripe_trial_days ?? 7
+      priceMonthly = cfg.price_monthly ?? 0
+      priceYearly = cfg.price_yearly ?? 0
+      totalPriceMonthly = cfg.total_price_monthly ?? 0
+      totalPriceYearly = cfg.total_price_yearly ?? 0
+    }
     if (reviewsRes.ok) reviews = (await reviewsRes.json()).filter((review: ReviewPublic) => review.comment?.trim())
   } catch {
     // Landing data is non-fatal.
@@ -289,6 +309,14 @@ export default async function Home() {
         </div>
       </section>
 
+      <section className="juba-busuu-slogan" aria-label={t('navLanguages')}>
+        <div className="juba-busuu-slogan-track" aria-hidden="true">
+          {[...featuredLanguages, ...featuredLanguages].map(({ name, code }, index) => (
+            <span key={`${code}-${index}`} lang={code}>{name} <b>·</b></span>
+          ))}
+        </div>
+      </section
+
       <section className="juba-busuu-app-cta" aria-labelledby="app-cta-title">
         <div className="juba-busuu-container juba-busuu-app-cta-inner">
           <div className="juba-busuu-app-cta-copy">
@@ -317,14 +345,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="juba-busuu-slogan" aria-label={t('navLanguages')}>
-        <div className="juba-busuu-slogan-track" aria-hidden="true">
-          {[...featuredLanguages, ...featuredLanguages].map(({ name, code }, index) => (
-            <span key={`${code}-${index}`} lang={code}>{name} <b>·</b></span>
-          ))}
-        </div>
-      </section>
-
       <section id="online-languages" className="juba-busuu-online-languages" aria-labelledby="online-languages-title">
         <div className="juba-busuu-container">
           <div className="juba-busuu-heading juba-busuu-heading-split">
@@ -345,6 +365,49 @@ export default async function Home() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="faq" className="juba-busuu-faq" aria-labelledby="faq-section-title">
+        <div className="juba-busuu-container">
+          <div className="juba-busuu-heading">
+            <span className="juba-busuu-eyebrow">{t('navFAQ')}</span>
+            <h2 id="faq-section-title">{t('faqTitle')}</h2>
+          </div>
+          <LandingFAQ dir={rtl ? 'rtl' : 'ltr'} />
+        </div>
+      </section>
+
+      <section id="pricing" className="juba-busuu-pricing" aria-labelledby="pricing-title">
+        <div className="juba-busuu-container">
+          <div className="juba-busuu-heading">
+            <span className="juba-busuu-eyebrow">{t('navPricing')}</span>
+            <h2 id="pricing-title">{t('navPricing')}</h2>
+          </div>
+          <PricingSection
+            stripeEnabled={stripeEnabled}
+            trialDays={trialDays}
+            hasSession={hasSession}
+            priceMonthly={priceMonthly}
+            priceYearly={priceYearly}
+            totalPriceMonthly={totalPriceMonthly}
+            totalPriceYearly={totalPriceYearly}
+          />
+        </div>
+      </section>
+
+      <section className="juba-busuu-final-cta" aria-labelledby="final-cta-title">
+        <div className="juba-busuu-container juba-busuu-final-cta-inner">
+          <div>
+            <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
+            <h2 id="final-cta-title">{t('builtForLearners')}</h2>
+            <p>{t('flowDescription')}</p>
+            <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">
+              {hasSession ? t('dashboard') : t('ctaStart')}
+              <ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" />
+            </Link>
+          </div>
+          <Image src="/landing/juba-hero-characters.svg" alt="" width={700} height={520} />
         </div>
       </section>
 
