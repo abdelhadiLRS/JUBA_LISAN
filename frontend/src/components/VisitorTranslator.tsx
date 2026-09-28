@@ -140,7 +140,7 @@ export function VisitorTranslator() {
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/45 p-3 backdrop-blur-sm sm:p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-[var(--duo-muted)] p-3 backdrop-blur-sm sm:p-6"
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) setOpen(false)
           }}
@@ -150,7 +150,7 @@ export function VisitorTranslator() {
             aria-modal="true"
             aria-labelledby="visitor-translator-title"
             aria-describedby="visitor-translator-description"
-            className="w-full max-w-6xl overflow-hidden rounded-[22px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_28px_80px_rgba(0,0,0,.22)]"
+            className="w-full max-w-6xl overflow-hidden rounded-[22px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_28px_80px_var(--duo-line)]"
           >
             <header className="flex items-center justify-between border-b border-[var(--duo-line)] px-5 py-4 sm:px-7">
               <div className="flex items-center gap-3">
@@ -270,7 +270,7 @@ export function VisitorTranslator() {
                           <button type="button" onClick={copyTranslation} aria-label="Copy" className="rounded-lg p-2 text-[var(--duo-muted)] transition hover:bg-[color-mix(in_srgb,var(--duo-ink)_10%,transparent)] hover:text-black">
                             {copied ? <Check className="h-5 w-5" aria-hidden="true" /> : <Copy className="h-5 w-5" aria-hidden="true" />}
                           </button>
-                          <button type="button" onClick={saveToLearning} className="inline-flex items-center gap-2 rounded-lg bg-[var(--duo-card)] px-3 py-2 text-xs font-black text-[var(--duo-ink)] shadow-sm ring-1 ring-black/10 hover:bg-[color-mix(in_srgb,var(--duo-ink)_5%,transparent)]">
+                          <button type="button" onClick={saveToLearning} className="inline-flex items-center gap-2 rounded-lg bg-[var(--duo-card)] px-3 py-2 text-xs font-black text-[var(--duo-ink)] shadow-sm ring-1 ring-[color-mix(in_srgb,var(--duo-ink)_10%,transparent)] hover:bg-[color-mix(in_srgb,var(--duo-ink)_5%,transparent)]">
                             <BookOpenCheck className="h-4 w-4" aria-hidden="true" />
                             {saved ? t('savedLocally') : t('learnThis')}
                           </button>
