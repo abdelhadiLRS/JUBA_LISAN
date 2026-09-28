@@ -442,7 +442,7 @@ export default function FlashcardsPage() {
                       type="button"
                       key={q}
                       onClick={() => reviewCard(q)}
-                      className="min-w-[80px] rounded-xl border border-[var(--duo-line)] py-3 text-sm font-semibold transition-all hover:border-[color-mix(in_srgb,var(--duo-line)_60%,var(--duo-ink))] hover:bg-[rgba(88,204,2,.12)]"
+                      className="w-full min-w-0 rounded-xl border border-[var(--duo-line)] py-3 text-sm font-semibold transition-all hover:border-[color-mix(in_srgb,var(--duo-line)_60%,var(--duo-ink))] hover:bg-[rgba(88,204,2,.12)]"
                       style={style}
                     >
                       {t(key)}
