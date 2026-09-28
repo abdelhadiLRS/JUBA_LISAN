@@ -5,20 +5,20 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const badgeVariants = cva(
-  'group/badge inline-flex h-7 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full border-2 border-[var(--juba-app-line)] px-2.5 py-0.5 text-xs font-bold whitespace-nowrap transition-all focus-visible:border-[var(--juba-app-green-dark)] focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)]/25 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-[#b33a32] aria-invalid:ring-[#b33a32]/20 [&>svg]:pointer-events-none [&>svg]:size-3!',
+  'group/badge inline-flex h-7 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full border-2 border-[var(--duo-line)] px-2.5 py-0.5 text-xs font-bold whitespace-nowrap transition-all focus-visible:border-[var(--duo-green-dark)] focus-visible:ring-2 focus-visible:ring-[var(--duo-green)]/25 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-[var(--duo-red)] aria-invalid:ring-[var(--duo-red)]/20 [&>svg]:pointer-events-none [&>svg]:size-3!',
   {
     variants: {
       variant: {
-        default: 'bg-[var(--juba-app-yellow)] text-[var(--juba-app-ink)] [a]:hover:opacity-80',
+        default: 'bg-[var(--duo-yellow)] text-[var(--duo-ink)] [a]:hover:opacity-80',
         secondary:
-          'bg-[#f3f7ef] text-[var(--juba-app-ink)] [a]:hover:bg-[var(--juba-app-green-soft)]',
+          'bg-[rgba(88,204,2,.08)] text-[var(--duo-ink)] [a]:hover:bg-[rgba(88,204,2,.10)]',
         destructive:
-          'border-[#b33a32]/30 bg-[#b33a32]/10 text-[#b33a32] [a]:hover:bg-[#b33a32]/20',
+          'border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 text-[var(--duo-red)] [a]:hover:bg-[var(--duo-red)]/20',
         outline:
-          'bg-[var(--juba-app-surface)] text-[var(--juba-app-ink)] [a]:hover:bg-[#f3f7ef]',
+          'bg-[var(--duo-card)] text-[var(--duo-ink)] [a]:hover:bg-[rgba(88,204,2,.08)]',
         ghost:
-          'border-transparent text-[var(--juba-app-muted)] hover:bg-[#f3f7ef] hover:text-[var(--juba-app-ink)]',
-        link: 'border-transparent text-[var(--juba-app-green-dark)] underline-offset-4 hover:underline',
+          'border-transparent text-[var(--duo-muted)] hover:bg-[rgba(88,204,2,.08)] hover:text-[var(--duo-ink)]',
+        link: 'border-transparent text-[var(--duo-green-dark)] underline-offset-4 hover:underline',
       },
     },
     defaultVariants: {
