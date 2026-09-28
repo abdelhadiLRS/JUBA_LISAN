@@ -38,7 +38,7 @@ export function CookieBanner() {
           {t('message')}{' '}
           <Link
             href="/privacy"
-            className="font-bold text-[var(--duo-ink)] underline decoration-[#5862e2] decoration-2 underline-offset-2 transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-purple)] focus-visible:ring-offset-2"
+            className="font-bold text-[var(--duo-ink)] underline decoration-[var(--duo-purple)] decoration-2 underline-offset-2 transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-purple)] focus-visible:ring-offset-2"
           >
             {t('learnMore')}
           </Link>
