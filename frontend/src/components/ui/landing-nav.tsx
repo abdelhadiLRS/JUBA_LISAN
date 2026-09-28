@@ -174,7 +174,7 @@ export function LandingNav({
     <header ref={headerRef} className="juba-busuu-nav" dir={dir}>
       <div className="juba-busuu-nav-inner">
         <Link href={safeLocale === 'en' ? '/' : `/${safeLocale}`} aria-label={homeLabel} aria-current="page" className="juba-busuu-brand">
-          <Image src="/logo.png" alt="JUBA LISAN" width={150} height={52} priority />
+          <Image src="/logo.png" alt="JUBA LISAN" width={150} height={52} priority style={{ height: 'auto' }} />
         </Link>
 
         <nav className="juba-busuu-nav-links" aria-label={primaryNavigation}>
@@ -197,7 +197,7 @@ export function LandingNav({
               className="juba-busuu-locale"
               aria-label={`${interfaceLanguages}: ${localeDisplayNames.of(safeLocale) ?? safeLocale.toUpperCase()}`}
             >
-              <span>{locale.toUpperCase()}</span>
+              <span>{safeLocale.toUpperCase()}</span>
               <ChevronDown aria-hidden="true" />
             </summary>
             <div className="juba-busuu-locale-options">
