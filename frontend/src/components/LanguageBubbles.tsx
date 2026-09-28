@@ -1,4 +1,3 @@
-
 'use client'
 
 import Image from 'next/image'
@@ -50,9 +49,13 @@ export const FEATURED_LANGUAGES = LANGUAGES.slice(0, 14)
 export const SUPPORTED_LANGUAGE_COUNT = LANGUAGES.length
 
 export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
+  // Keep the rendered catalog local to this component. This avoids relying on
+  // Turbopack's live named-export binding during Fast Refresh.
+  const featuredLanguages = LANGUAGES.slice(0, 14)
+
   return (
     <ul dir={dir} className="juba-busuu-language-list" aria-labelledby="language-title">
-      {FEATURED_LANGUAGES.map((language) => (
+      {featuredLanguages.map((language) => (
         <li key={language.code} className="juba-busuu-language-item">
           <Image
             src={`https://flagcdn.com/w80/${language.country}.png`}
