@@ -207,7 +207,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <PageLoading
         label={tCommon('initializing')}
         minHeight="min-h-screen"
-        className="bg-fl-bg"
+        className="bg-[var(--duo-bg)]"
       />
     )
   }
@@ -224,7 +224,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <header className="juba-duo-sidebar">
         {/* Logo area */}
-        <div className="border-fl-border flex items-center gap-2 border-b px-5 py-5">
+        <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-5 py-5">
           <span className="juba-duo-logo-mark" aria-hidden="true">JL</span>
           <span className="text-fl-fg font-sans text-sm font-bold tracking-widest uppercase">
             JUBA LISAN
@@ -318,7 +318,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {/* User + logout */}
         <div className="juba-duo-user">
           <div className="mb-3 flex items-center gap-3">
-            <div className="border-fl-border h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border">
+            <div className="border-[var(--duo-line)] h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border">
               {user?.avatar ? (
                 <AuthAvatarImage
                   avatar={user.avatar}
@@ -379,7 +379,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </header>
 
       {/* Mobile top bar */}
-      <div className="juba-duo-mobile-bar border-fl-border bg-fl-bg fixed top-0 right-0 left-0 z-50 border-b">
+      <div className="juba-duo-mobile-bar border-[var(--duo-line)] bg-[var(--duo-bg)] fixed inset-x-0 top-0 z-50 border-b">
         <div className="flex items-center justify-between px-4 py-3">
           <span className="juba-duo-mobile-brand">JUBA LISAN</span>
           <button
@@ -396,7 +396,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {/* Dropdown */}
         {mobileMenuOpen && (
           <nav className="juba-duo-mobile-menu">
-            <div className="border-fl-border border-b">
+            <div className="border-[var(--duo-line)] border-b">
               <LanguageSwitcher />
             </div>
             {mainNavItems.map((item) => {
@@ -500,9 +500,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 {tNav('admin')}
               </Link>
             )}
-            <div className="border-fl-border mx-5 mt-2 border-t pt-3">
+            <div className="border-[var(--duo-line)] mx-5 mt-2 border-t pt-3">
               <div className="mb-2 flex items-center gap-3">
-                <div className="border-fl-border h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
+                <div className="border-[var(--duo-line)] h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
                   {user?.avatar ? (
                     <AuthAvatarImage
                       avatar={user.avatar}
@@ -574,7 +574,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <main className="juba-duo-main">
         {/* Email verification banner */}
         {user && user.is_verified === false && (
-          <div className="border-fl-border bg-fl-surface flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
+          <div className="border-[var(--duo-line)] bg-fl-surface flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
             <span className="text-fl-muted-1 font-sans text-xs tracking-wide">
               ● {tCommon('verifyEmailBanner')}
             </span>
