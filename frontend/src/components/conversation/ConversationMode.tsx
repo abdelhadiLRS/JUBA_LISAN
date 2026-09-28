@@ -130,7 +130,7 @@ function QuotaPill({
       </button>
 
       {open && (
-        <div className="border-[var(--duo-line)] bg-white space-y-2 rounded-b-xl border border-t-0 px-4 py-3 shadow-[0_3px_0_rgba(31,41,51,.035)]">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] space-y-2 rounded-b-xl border border-t-0 px-4 py-3 shadow-[0_3px_0_rgba(31,41,51,.035)]">
           <QuotaBar
             label={t('quotaSessions')}
             used={quota.sessions_this_week}
@@ -191,7 +191,7 @@ function TrialPremiumCta() {
   }
 
   return (
-    <div className="border-[var(--duo-line)] bg-white mb-4 rounded-[20px] border-2 p-5 text-center shadow-[0_3px_0_rgba(31,41,51,.045)]">
+    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] mb-4 rounded-[20px] border-2 p-5 text-center shadow-[0_3px_0_rgba(31,41,51,.045)]">
       <p className="text-[var(--duo-muted)] mb-2 font-sans tracking-wide uppercase">
         {tConversation('trialCtaLabel')}
       </p>
@@ -1104,7 +1104,7 @@ export default function ConversationMode({
         </div>
       )}
       {status === 'ended' && (
-        <div className="border-[var(--duo-line)] bg-white text-[var(--duo-muted)] mb-4 rounded-xl border px-4 py-3 font-sans text-xs">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-muted)] mb-4 rounded-xl border px-4 py-3 font-sans text-xs">
           {t('sessionEnded')}
         </div>
       )}
