@@ -362,7 +362,7 @@ export default function PhrasebookPage() {
     activeLevel !== 'All' || activeRegister !== 'All' || !!search
 
   return (
-    <div className="juba-mobile-phrasebook mx-auto max-w-4xl space-y-8 p-6"">
+    <div className="juba-mobile-phrasebook mx-auto max-w-4xl space-y-8 p-6">
       <div className="border-[var(--duo-line)] bg-white border">
         <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-6 py-4">
           <span className="text-[var(--duo-ink)] text-[var(--duo-muted)]">{'\u25cf'}</span>
