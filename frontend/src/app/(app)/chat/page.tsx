@@ -320,14 +320,14 @@ export default function ChatPage() {
 
         {/* Sidebar */}
         {sidebarOpen && (
-          <aside className="border-[#e1e5e2] bg-[#f4f7f2]/70 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
-            <div className="border-[#e1e5e2] flex items-center justify-between border-b-2 px-4 py-3">
-              <span className="text-[#68736d] font-semibold tracking-wide">
+          <aside className="border-[var(--duo-line)] bg-[var(--duo-bg)]/70 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
+            <div className="border-[var(--duo-line)] flex items-center justify-between border-b-2 px-4 py-3">
+              <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
                 {t('conversations')}
               </span>
               <button
                 onClick={newChat}
-                className="text-[#68736d] hover:text-[#30343b] font-semibold tracking-wide transition-colors"
+                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-semibold tracking-wide transition-colors"
                 title={t('newConversation')}
               >
                 + {t('newConversation')}
@@ -355,13 +355,13 @@ export default function ChatPage() {
                         })
                         .finally(() => setLoadingConvs(false))
                     }}
-                    className="rounded-xl border-2 border-[#e1e5e2] bg-white px-4 py-2 font-semibold tracking-wide text-[#30343b] shadow-[2px_2px_0_#e1e5e2] transition-all hover:-translate-y-0.5 hover:border-[#58a700]"
+                    className="rounded-xl border-2 border-[var(--duo-line)] bg-white px-4 py-2 font-semibold tracking-wide text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all hover:-translate-y-0.5 hover:border-[var(--duo-green)]"
                   >
                     {tCommon('retry')}
                   </button>
                 </div>
               ) : conversations.length === 0 ? (
-                <p className="text-[#68736d] px-4 py-4 font-sans">
+                <p className="text-[var(--duo-muted)] px-4 py-4 font-sans">
                   {t('noConversation')}
                 </p>
               ) : (
@@ -369,18 +369,18 @@ export default function ChatPage() {
                   <div
                     key={c.id}
                     onClick={() => selectConversation(c.id)}
-                    className={`group border-[#e1e5e2] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
+                    className={`group border-[var(--duo-line)] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
                       activeId === c.id
-                        ? 'bg-[#e1e5e2] border-l-[#58a700] border-l-2'
+                        ? 'bg-[var(--duo-line)] border-l-[var(--duo-green)] border-l-2'
                         : 'hover:bg-white border-l-2 border-l-transparent'
                     }`}
                   >
                     <span
-                      className={`text-[#30343b] truncate pr-1 font-sans leading-tight ${activeId === c.id ? 'text-[#30343b]' : 'text-[#68736d]'}`}
+                      className={`text-[var(--duo-ink)] truncate pr-1 font-sans leading-tight ${activeId === c.id ? 'text-[var(--duo-ink)]' : 'text-[var(--duo-muted)]'}`}
                     >
                       {c.source === 'voice' && (
                         <span
-                          className="text-[#68736d] mr-1.5"
+                          className="text-[var(--duo-muted)] mr-1.5"
                           title="Voice session"
                         >
                           🎤
@@ -393,7 +393,7 @@ export default function ChatPage() {
                         e.stopPropagation()
                         setDeletePending(c.id)
                       }}
-                      className="text-[#30343b] text-rose-600 hover:text-rose-600 shrink-0 font-sans opacity-0 transition-all group-hover:opacity-100"
+                      className="text-[var(--duo-ink)] text-rose-600 hover:text-rose-600 shrink-0 font-sans opacity-0 transition-all group-hover:opacity-100"
                       title="Delete"
                     >
                       ✕
@@ -408,18 +408,18 @@ export default function ChatPage() {
         {/* Main chat area */}
         <div className="flex flex-1 flex-col overflow-hidden">
           {/* Header */}
-          <div className="border-[#e1e5e2] bg-[#f4f7f2]/70 flex shrink-0 items-center gap-2 border-b px-5 py-4">
+          <div className="border-[var(--duo-line)] bg-[var(--duo-bg)]/70 flex shrink-0 items-center gap-2 border-b px-5 py-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-[#68736d] hover:text-[#30343b] mr-1 text-lg transition-colors"
+              className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] mr-1 text-lg transition-colors"
               title={
                 sidebarOpen ? t('toggleSidebarHide') : t('toggleSidebarShow')
               }
             >
               {sidebarOpen ? '◀' : '☰'}
             </button>
-            <span className="text-[#68736d]">●</span>
-            <span className="text-[#68736d] font-semibold tracking-wide">
+            <span className="text-[var(--duo-muted)]">●</span>
+            <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
               {activeId
                 ? (conversations.find((c) => c.id === activeId)?.title ??
                   t('title'))
@@ -427,11 +427,11 @@ export default function ChatPage() {
             </span>
             {sending ? (
               <div className="ml-auto flex flex-col items-end gap-0.5">
-                <span className="text-[#68736d] animate-pulse font-semibold tracking-wide">
+                <span className="text-[var(--duo-muted)] animate-pulse font-semibold tracking-wide">
                   {t('thinking')}
                 </span>
                 {sendingWarn && (
-                  <span className="text-[#68736d] font-sans tracking-widest text-[#438600] uppercase">
+                  <span className="text-[var(--duo-muted)] font-sans tracking-widest text-[var(--duo-green-dark)] uppercase">
                     {t('takingLonger')}
                   </span>
                 )}
@@ -439,7 +439,7 @@ export default function ChatPage() {
             ) : messages.length > 0 ? (
               <button
                 onClick={continueInVoice}
-                className="text-[#68736d] hover:text-[#30343b] ml-auto font-semibold tracking-wide transition-colors"
+                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] ml-auto font-semibold tracking-wide transition-colors"
               >
                 {t('continueInVoice')}
               </button>
@@ -456,10 +456,10 @@ export default function ChatPage() {
               </div>
             ) : messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
-                <p className="text-[#68736d] font-semibold tracking-wide">
+                <p className="text-[var(--duo-muted)] font-semibold tracking-wide">
                   {t('title')}
                 </p>
-                <p className="text-[#68736d] max-w-xs font-sans text-xs leading-relaxed">
+                <p className="text-[var(--duo-muted)] max-w-xs font-sans text-xs leading-relaxed">
                   {t('subtitle', {
                     language: activeLanguage
                       ? tLang(activeLanguage.code)
@@ -474,7 +474,7 @@ export default function ChatPage() {
                   className={`flex items-end gap-2 ${msg.role === 'user' ? 'ml-auto max-w-[75%] flex-row-reverse' : 'flex-row'}`}
                 >
                   {/* Avatar */}
-                  <div className="border-[#e1e5e2] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#e1e5e2]">
+                  <div className="border-[var(--duo-line)] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[var(--duo-line)]">
                     {msg.role === 'assistant' ? (
                       <Image
                         src="/logo_head.png"
@@ -491,8 +491,8 @@ export default function ChatPage() {
                         height={28}
                         className="h-full w-full object-cover"
                         fallback={
-                          <div className="bg-[#e1e5e2] flex h-full w-full items-center justify-center">
-                            <span className="text-[#68736d] font-sans select-none">
+                          <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
+                            <span className="text-[var(--duo-muted)] font-sans select-none">
                               {(user?.displayName ||
                                 user?.username ||
                                 '?')[0].toUpperCase()}
@@ -501,8 +501,8 @@ export default function ChatPage() {
                         }
                       />
                     ) : (
-                      <div className="bg-[#e1e5e2] flex h-full w-full items-center justify-center">
-                        <span className="text-[#68736d] font-sans select-none">
+                      <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
+                        <span className="text-[var(--duo-muted)] font-sans select-none">
                           {(user?.displayName ||
                             user?.username ||
                             '?')[0].toUpperCase()}
@@ -514,10 +514,10 @@ export default function ChatPage() {
                     <TargetLanguageText
                       as="div"
                       languageCode={targetLanguageCode}
-                      className={`word-selectable border-2 border-[#e1e5e2] px-4 py-3 text-left ${
+                      className={`word-selectable border-2 border-[var(--duo-line)] px-4 py-3 text-left ${
                         msg.role === 'user'
-                          ? 'bg-[#58a700] text-white border-[#438600] shadow-[3px_3px_0_#438600]'
-                          : 'bg-white text-[#30343b] border-2 border-[#e1e5e2] shadow-[2px_2px_0_#e1e5e2]'
+                          ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green-dark)] shadow-[3px_3px_0_var(--duo-green-dark)]'
+                          : 'bg-white text-[var(--duo-ink)] border-2 border-[var(--duo-line)] shadow-[2px_2px_0_var(--duo-line)]'
                       }`}
                       onPointerUp={
                         msg.role === 'assistant' &&
@@ -528,7 +528,7 @@ export default function ChatPage() {
                     >
                       {msg.content ||
                         (sending && i === messages.length - 1 ? (
-                          <span className="text-[#68736d] animate-pulse">
+                          <span className="text-[var(--duo-muted)] animate-pulse">
                             ▌
                           </span>
                         ) : null)}
@@ -545,7 +545,7 @@ export default function ChatPage() {
               ))
             )}
             {error && (
-              <div className="text-[#30343b] text-rose-600 rounded-xl border-2 border-rose-300 bg-rose-50 px-4 py-2 font-sans">
+              <div className="text-[var(--duo-ink)] text-rose-600 rounded-xl border-2 border-rose-300 bg-rose-50 px-4 py-2 font-sans">
                 ✕{' '}
                 {error === 'No active study plan found'
                   ? tCommon('noActivePlan')
@@ -556,7 +556,7 @@ export default function ChatPage() {
           </div>
 
           {/* Input */}
-          <div className="border-t-2 border-[#e1e5e2] bg-[#f4f7f2]/70 shrink-0 px-4 py-4">
+          <div className="border-t-2 border-[var(--duo-line)] bg-[var(--duo-bg)]/70 shrink-0 px-4 py-4">
             {freemiumExhausted ? (
               <PaywallBanner feature="chat" compact />
             ) : (
@@ -572,17 +572,17 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1 rounded-xl border-2 border-[#e1e5e2] bg-white px-4 py-3 font-sans text-base text-[#30343b] shadow-[2px_2px_0_#e1e5e2] transition-all placeholder:text-[#8a918c] focus:border-[#58a700] focus:outline-none focus:ring-2 focus:ring-[#58a700]/15 disabled:opacity-40"
+                    className="flex-1 rounded-xl border-2 border-[var(--duo-line)] bg-white px-4 py-3 font-sans text-base text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all placeholder:text-[#8a918c] focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/15 disabled:opacity-40"
                   />
                   <button
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || loadingMsgs}
-                    className="rounded-xl border-2 border-[#438600] bg-[#58a700] px-5 font-sans font-bold uppercase tracking-widest text-white shadow-[3px_3px_0_#438600] transition-all hover:-translate-y-0.5 hover:bg-[#58a700] hover:shadow-[4px_4px_0_#438600] active:translate-y-0.5 active:shadow-[1px_1px_0_#438600] disabled:opacity-30"
+                    className="rounded-xl border-2 border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 font-sans font-bold uppercase tracking-widest text-white shadow-[3px_3px_0_var(--duo-green-dark)] transition-all hover:-translate-y-0.5 hover:bg-[var(--duo-green)] hover:shadow-[4px_4px_0_var(--duo-green-dark)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--duo-green-dark)] disabled:opacity-30"
                   >
                     {sending ? '...' : t('send')}
                   </button>
                 </div>
-                <p className="text-[#68736d] text-[#8a918c] mt-2 font-sans tracking-wide">
+                <p className="text-[var(--duo-muted)] text-[#8a918c] mt-2 font-sans tracking-wide">
                   {t('enterToSend')}
                 </p>
               </>
