@@ -989,13 +989,13 @@ html[data-theme='light'] {
   transition:background-color .15s ease,color .15s ease,border-color .15s ease;
 }
 .juba-duo-nav-link:hover {
-  background:#f1f8eb;
+  background:color-mix(in srgb,var(--duo-green) 8%,transparent);
   color:var(--duo-green-dark);
 }
 .juba-duo-nav-link.is-active {
-  background:#e9f8dc;
+  background:color-mix(in srgb,var(--duo-green) 14%,transparent);
   color:var(--duo-green-dark);
-  border-color:#d6efc2;
+  border-color:color-mix(in srgb,var(--duo-green) 24%,transparent);
   box-shadow:inset 4px 0 0 var(--duo-green);
 }
 .juba-duo-shell[dir="rtl"] .juba-duo-nav-link.is-active {
@@ -1022,7 +1022,7 @@ html[data-theme='light'] {
   letter-spacing:.06em;
 }
 .juba-duo-resource-toggle:hover {
-  background:#f5f5f5;
+  background:var(--duo-bg);
   color:var(--duo-ink);
 }
 .juba-duo-nav-divider {
