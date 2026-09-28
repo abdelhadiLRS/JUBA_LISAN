@@ -52,14 +52,14 @@ export function BillingSection() {
             className={`border px-2.5 py-1 font-mono text-xs font-bold tracking-widest uppercase ${
               user?.subscription_status === 'active' &&
               !user?.cancel_at_period_end
-                ? 'border-green-600/40 text-green-500'
+                ? 'border-[color-mix(in_srgb,var(--duo-green-dark)_40%,transparent)] text-[var(--duo-green-dark)]'
                 : user?.subscription_status === 'active' &&
                     user?.cancel_at_period_end
                   ? 'border-[var(--duo-green)]/40 text-[var(--duo-green-dark)]'
                   : user?.subscription_status === 'trialing'
                     ? 'border-[var(--duo-green)]/40 text-[var(--duo-green-dark)]'
                     : paymentRecovery
-                      ? 'border-yellow-500/40 text-yellow-500'
+                      ? 'border-[color-mix(in_srgb,var(--duo-yellow)_40%,transparent)] text-[var(--duo-yellow)]'
                       : 'border-[var(--duo-line)] text-[var(--duo-muted)]'
             }`}
           >
@@ -111,8 +111,8 @@ export function BillingSection() {
           )}
 
         {paymentRecovery && (
-          <div className="border border-yellow-500/30 bg-yellow-500/5 p-3">
-            <p className="font-mono text-xs font-bold tracking-widest text-yellow-500 uppercase">
+          <div className="border border-[color-mix(in_srgb,var(--duo-yellow)_30%,transparent)] bg-[color-mix(in_srgb,var(--duo-yellow)_5%,transparent)] p-3">
+            <p className="font-mono text-xs font-bold tracking-widest text-[var(--duo-yellow)] uppercase">
               {tBilling('pastDueTitle')}
             </p>
             <p className="text-[var(--duo-muted)] mt-2 font-mono text-xs leading-relaxed">
@@ -126,7 +126,7 @@ export function BillingSection() {
           <button
             onClick={handleManageSubscription}
             disabled={portalLoading}
-            className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-line)]-2 w-full border py-2.5 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
+            className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-ink)] w-full border py-2.5 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-50"
           >
             {portalLoading
               ? '...'
@@ -137,7 +137,7 @@ export function BillingSection() {
         )}
 
         {portalError && (
-          <p className="text-[var(--duo-muted)] font-mono text-red-500">{portalError}</p>
+          <p className="text-[var(--duo-muted)] font-mono text-[var(--duo-red)]">{portalError}</p>
         )}
       </div>
     </div>
