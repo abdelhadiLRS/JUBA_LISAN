@@ -61,29 +61,29 @@ export function ReviewSection({ title }: { title?: string } = {}) {
 
   return (
     <>
-      <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] border p-6">
-        <div className="border-[var(--juba-border)] mb-4 flex items-center gap-2 border-b pb-4">
-          <span className="text-[var(--juba-text)] text-[var(--juba-muted)]">●</span>
-          <span className="text-[var(--juba-text)] text-[var(--juba-muted)] font-mono tracking-widest uppercase">
+      <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border p-6">
+        <div className="border-[var(--duo-line)] mb-4 flex items-center gap-2 border-b pb-4">
+          <span className="text-[var(--duo-ink)] text-[var(--duo-muted)]">●</span>
+          <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
             {title ?? t('sectionReview')}
           </span>
         </div>
 
-        <p className="text-[var(--juba-muted)] mb-1 font-mono text-sm leading-relaxed">
+        <p className="text-[var(--duo-muted)] mb-1 font-mono text-sm leading-relaxed">
           {t('reviewDescription')}
         </p>
         {review?.is_approved === false && (
-          <p className="text-[var(--juba-muted)] text-[var(--juba-muted)] mb-4 font-mono tracking-widest uppercase">
+          <p className="text-[var(--duo-muted)] text-[var(--duo-muted)] mb-4 font-mono tracking-widest uppercase">
             {t('reviewPending')}
           </p>
         )}
 
         {loading ? (
-          <div className="text-[var(--juba-muted)] flex items-center gap-2 py-5 font-mono text-xs">
+          <div className="text-[var(--duo-muted)] flex items-center gap-2 py-5 font-mono text-xs">
             <Loader2 className="size-4 animate-spin" /> {tReview('checking')}
           </div>
         ) : error ? (
-          <p className="text-[var(--juba-coral)]-fg py-5 font-mono text-xs">{error}</p>
+          <p className="text-[var(--duo-red)]-fg py-5 font-mono text-xs">{error}</p>
         ) : (
           <div className="-mx-5">
             <ReviewForm
@@ -106,7 +106,7 @@ export function ReviewSection({ title }: { title?: string } = {}) {
                   type="button"
                   onClick={() => setDeleteConfirm(true)}
                   disabled={deleting}
-                  className="border-[var(--juba-coral)]/30 text-[var(--juba-coral)]-fg text-[var(--juba-text)] hover:bg-[var(--juba-coral)]/10 flex w-full items-center justify-center gap-2 border py-3 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-60"
+                  className="border-[var(--duo-red)]/30 text-[var(--duo-red)]-fg text-[var(--duo-ink)] hover:bg-[var(--duo-red)]/10 flex w-full items-center justify-center gap-2 border py-3 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-60"
                 >
                   {deleting ? (
                     <Loader2 className="size-3.5 animate-spin" />
@@ -118,12 +118,12 @@ export function ReviewSection({ title }: { title?: string } = {}) {
               </div>
             )}
             {saved && (
-              <p className="text-[var(--juba-violet-dark)] px-5 pb-5 font-mono text-xs">
+              <p className="text-[var(--duo-purple)] px-5 pb-5 font-mono text-xs">
                 {t('reviewSaved')}
               </p>
             )}
             {deleted && (
-              <p className="text-[var(--juba-violet-dark)] px-5 pb-5 font-mono text-xs">
+              <p className="text-[var(--duo-purple)] px-5 pb-5 font-mono text-xs">
                 {t('reviewDeleted')}
               </p>
             )}
