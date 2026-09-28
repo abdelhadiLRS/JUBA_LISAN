@@ -158,7 +158,7 @@ export default function UnitDrawer({
                   {lesson.id != null && lesson.action && (
                     <button
                       onClick={() => onStartLesson(lesson.id!)}
-                      className="shrink-0 juba-primary-button rounded-xl px-3 py-2 text-xs"
+                      className="shrink-0 bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white rounded-xl px-3 py-2 text-xs font-bold shadow-[0_3px_0_var(--duo-green-dark)] transition-colors"
                     >
                       {lesson.action === 'review'
                         ? t('reviewLesson')
@@ -178,13 +178,13 @@ export default function UnitDrawer({
           <div className="grid gap-2 sm:grid-cols-2">
             <button
               onClick={onStartUnit}
-              className="juba-primary-button w-full"
+              className="bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white w-full rounded-xl px-5 py-3 text-xs font-bold shadow-[0_3px_0_var(--duo-green-dark)] transition-colors"
             >
               {tCommon('start')} →
             </button>
             <button
               onClick={onClose}
-              className="juba-secondary-button w-full"
+              className="border-2 border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] w-full rounded-xl px-5 py-3 text-xs font-bold transition-colors"
             >
               {tCommon('close')}
             </button>
