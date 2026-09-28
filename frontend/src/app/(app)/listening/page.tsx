@@ -287,7 +287,7 @@ function ListeningPage() {
 
   // ── Loading ──────────────────────────────────────────────────────────────
   if (pageState === 'loading') {
-    return <PageLoading minHeight="min-h-[calc(100vh-56px)] md:min-h-screen" />
+    return <PageLoading minHeight="min-h-[calc(100vh-56px)] lg:min-h-screen" />
   }
 
   // ── Generating (poll) ─────────────────────────────────────────────────────
@@ -300,7 +300,7 @@ function ListeningPage() {
             ? `${t('generatingDesc')} ${t('generatingLong')}`
             : t('generatingDesc')
         }
-        minHeight="min-h-[calc(100vh-56px)] md:min-h-screen"
+        minHeight="min-h-[calc(100vh-56px)] lg:min-h-screen"
       />
     )
   }
