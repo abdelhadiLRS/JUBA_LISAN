@@ -539,7 +539,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 {tNav('admin')}
               </Link>
             )}
-            <div className="border-[var(--duo-line)] mx-5 mt-2 border-t pt-3">
+            <div className="mx-5 mt-2 border-t-2 border-[var(--duo-line)] pt-3">
               <div className="mb-2 flex items-center gap-3">
                 <div className="border-[var(--duo-line)] h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
                   {user?.avatar ? (
@@ -583,7 +583,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
-              <p className="text-[var(--duo-muted)] font-sans mb-2 tracking-wider">
+              <p className="mb-2 font-sans tracking-wider text-[var(--duo-muted)]">
                 v1.9.16
               </p>
               <button
