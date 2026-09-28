@@ -210,14 +210,14 @@ export function VoiceRecorder({
 
   const colorClass =
     state === 'recording'
-      ? 'border-[color-mix(in_srgb,#b33a32_55%,var(--juba-app-line))] bg-[color-mix(in_srgb,#b33a32_8%,var(--juba-app-surface))] text-[var(--juba-app-error)] animate-pulse'
+      ? 'border-[color-mix(in_srgb,var(--duo-red)_55%,var(--duo-line))] bg-[color-mix(in_srgb,var(--duo-red)_8%,var(--duo-card))] text-[var(--duo-red)] animate-pulse'
       : state === 'transcribing'
-        ? 'border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-muted)]'
+        ? 'border-[var(--duo-line)] bg-[var(--duo-green)] text-[var(--duo-muted)]'
         : state === 'error'
-          ? 'border-[color-mix(in_srgb,#b33a32_40%,var(--juba-app-line))] bg-[color-mix(in_srgb,#b33a32_8%,var(--juba-app-surface))] text-[var(--juba-app-error)]'
+          ? 'border-[color-mix(in_srgb,var(--duo-red)_40%,var(--duo-line))] bg-[color-mix(in_srgb,var(--duo-red)_8%,var(--duo-card))] text-[var(--duo-red)]'
           : disabled
-            ? 'border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-muted)] cursor-not-allowed opacity-40'
-            : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-green-dark)]'
+            ? 'border-[var(--duo-line)] bg-[var(--duo-green)] text-[var(--duo-muted)] cursor-not-allowed opacity-40'
+            : 'border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:bg-[var(--duo-green)] hover:text-[var(--duo-green-dark)]'
 
   return (
     <button
@@ -226,7 +226,7 @@ export function VoiceRecorder({
       disabled={disabled || state === 'transcribing'}
       aria-label={state === 'recording' ? t('ariaStop') : t('ariaRecord')}
       aria-busy={state === 'transcribing'}
-      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border-2 px-4 py-2.5 text-xs font-semibold shadow-[2px_2px_0_var(--juba-app-line)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--juba-app-line)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--juba-app-line)] disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[2px_2px_0_var(--juba-app-line)] ${colorClass} ${className}`}
+      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border-2 px-4 py-2.5 text-xs font-semibold shadow-[2px_2px_0_var(--duo-line)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--duo-line)] active:translate-y-0.5 active:shadow-[1px_1px_0_var(--duo-line)] disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[2px_2px_0_var(--duo-line)] ${colorClass} ${className}`}
     >
       {label}
     </button>
