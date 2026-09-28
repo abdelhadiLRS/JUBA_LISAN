@@ -585,6 +585,9 @@ html[data-theme='light'] {
 }
 .juba-duo-user-action:hover { color:#3c3c3c; }
 .juba-duo-mobile-menu { position:fixed; top:57px; inset-inline:0; z-index:49; background:#fff; border-bottom:2px solid var(--duo-line); box-shadow:0 12px 30px rgba(0,0,0,.10); max-height:calc(100vh - 57px); overflow:auto; }
+.juba-duo-mobile-bar { background:#fff !important; border-color:var(--duo-line) !important; color:#3c3c3c !important; }
+.juba-duo-mobile-bar .border-fl-border { border-color:var(--duo-line) !important; }
+.juba-duo-mobile-bar .bg-fl-bg { background:#fff !important; }
 .juba-duo-mobile-brand { font-weight:900; color:#3c3c3c; letter-spacing:.06em; }
 .juba-duo-mobile-trigger { border:0; background:#fff; color:#3c3c3c; width:40px; height:40px; border-radius:10px; }
 .juba-duo-mobile-trigger:hover { background:#f1f1f1; }
