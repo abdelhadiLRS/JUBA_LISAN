@@ -283,9 +283,30 @@ html[data-theme='light'] {
   }
 }
 
-.word-selectable::selection,
-.word-selectable *::selection {
-  background: rgba(217, 119, 6, 0.35);
+.juba-duo-shell .word-selectable::selection,
+.juba-duo-shell .word-selectable *::selection {
+  background: color-mix(in srgb, var(--duo-green) 28%, transparent);
+}
+
+.juba-busuu-page .word-selectable::selection,
+.juba-busuu-page .word-selectable *::selection {
+  background: color-mix(in srgb, var(--busuu-green) 24%, transparent);
+}
+
+.juba-busuu-page {
+  scrollbar-color: var(--busuu-line) var(--busuu-cream);
+}
+
+.juba-busuu-page::-webkit-scrollbar-track {
+  background: var(--busuu-cream);
+}
+
+.juba-busuu-page::-webkit-scrollbar-thumb {
+  background: var(--busuu-line);
+}
+
+.juba-busuu-page::-webkit-scrollbar-thumb:hover {
+  background: var(--busuu-muted);
 }
 
 /* ── Scroll-reveal animation ── */
