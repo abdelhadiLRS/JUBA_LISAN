@@ -601,7 +601,21 @@ html[data-theme='light'] {
   box-shadow:inset 0 -3px 0 var(--duo-green-dark);
 }
 .juba-duo-language { padding:10px 16px; border-bottom:1px solid var(--duo-line); }
-.juba-duo-nav { flex:1; overflow:auto; padding:12px 10px; scrollbar-width:thin; }
+.juba-duo-nav {
+  flex:1;
+  min-height:0;
+  overflow:auto;
+  overscroll-behavior:contain;
+  padding:12px 10px;
+  scrollbar-width:thin;
+}
+.juba-duo-nav-link:focus-visible,
+.juba-duo-resource-toggle:focus-visible,
+.juba-duo-user-action:focus-visible,
+.juba-duo-mobile-trigger:focus-visible {
+  outline:3px solid color-mix(in srgb,var(--duo-blue) 45%,transparent);
+  outline-offset:2px;
+}
 .juba-duo-nav-link {
   display:flex; align-items:center; gap:12px; width:100%; min-height:44px;
   padding:9px 12px; margin:2px 0; border-radius:12px; border:0;
