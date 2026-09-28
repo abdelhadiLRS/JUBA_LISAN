@@ -62,10 +62,10 @@ export default function DurationSelector({
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center bg-[var(--duo-bg)] p-4 sm:p-6">
-      <div className="w-full max-w-2xl overflow-hidden rounded-[26px] border border-[rgba(7,7,9,.08)] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
-        <div className="flex items-center gap-3 border-b border-[rgba(7,7,9,.07)] bg-[var(--duo-bg)] px-6 py-4">
-          <span className="text-xs text-[rgba(32,33,39,.52)]">●</span>
-          <span className="text-xs text-[rgba(32,33,39,.52)] font-semibold tracking-[0.12em] uppercase">
+      <div className="w-full max-w-2xl overflow-hidden rounded-[26px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_12px_30px_rgba(43,45,90,.055)]">
+        <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-[var(--duo-bg)] px-6 py-4">
+          <span className="text-xs text-[var(--duo-muted)]">●</span>
+          <span className="text-xs text-[var(--duo-muted)] font-semibold tracking-[0.12em] uppercase">
             {t('step3')}
           </span>
         </div>
@@ -73,7 +73,7 @@ export default function DurationSelector({
         <div className="space-y-8 p-6 sm:p-8">
           {/* Duration */}
           <div>
-            <p className="text-xs text-[rgba(32,33,39,.52)] mb-3 font-semibold tracking-[0.12em] uppercase">
+            <p className="text-xs text-[var(--duo-muted)] mb-3 font-semibold tracking-[0.12em] uppercase">
               {t('howManyWeeks', { cefr_level })}
             </p>
             <div className="grid grid-cols-2 gap-3">
@@ -84,28 +84,28 @@ export default function DurationSelector({
                   onClick={() => onSelectDuration(opt)}
                   className={`rounded-[20px] border-2 px-4 py-4 text-left transition-all ${
                     selectedWeeks === opt.weeks
-                      ? 'bg-[var(--duo-blue)] text-white border-[var(--duo-blue)] shadow-[0_8px_20px_rgba(88,98,226,.16)]'
-                      : 'border-[rgba(7,7,9,.08)] bg-[var(--duo-bg)] text-[var(--duo-ink)] hover:border-[var(--duo-blue)] hover:bg-[rgba(88,204,2,.10)] hover:text-[var(--duo-blue-dark)]'
+                      ? 'bg-[var(--duo-blue)] text-white border-[var(--duo-blue)] shadow-[0_8px_20px_color-mix(in_srgb,var(--duo-purple)_16%,transparent)]'
+                      : 'border-[var(--duo-line)] bg-[var(--duo-bg)] text-[var(--duo-ink)] hover:border-[var(--duo-blue)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-blue-dark)]'
                   }`}
                 >
                   <p className="font-sans text-xs font-bold tracking-widest uppercase">
                     {t('nWeeks', { count: opt.weeks })}
                   </p>
                   <p
-                    className={`text-[rgba(32,33,39,.52)] mt-0.5 font-sans ${
+                    className={`text-[var(--duo-muted)] mt-0.5 font-sans ${
                       selectedWeeks === opt.weeks
                         ? 'opacity-70'
-                        : 'text-[rgba(32,33,39,.52)]'
+                        : 'text-[var(--duo-muted)]'
                     }`}
                   >
                     {intensityMap[opt.intensity]} ·{' '}
                     {t('approxLessons', { count: opt.weeks * opt.daysPerWeek })}
                   </p>
                   <p
-                    className={`text-[rgba(32,33,39,.52)] mt-0.5 font-sans ${
+                    className={`text-[var(--duo-muted)] mt-0.5 font-sans ${
                       selectedWeeks === opt.weeks
                         ? 'opacity-60'
-                        : 'text-[rgba(32,33,39,.52)]'
+                        : 'text-[var(--duo-muted)]'
                     }`}
                   >
                     {t('daysPerWeek', { count: opt.daysPerWeek })}
@@ -117,7 +117,7 @@ export default function DurationSelector({
 
           {/* Goals */}
           <div>
-            <p className="text-xs text-[rgba(32,33,39,.52)] mb-3 font-semibold tracking-[0.12em] uppercase">
+            <p className="text-xs text-[var(--duo-muted)] mb-3 font-semibold tracking-[0.12em] uppercase">
               {t('mainGoals')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -128,8 +128,8 @@ export default function DurationSelector({
                   onClick={() => onToggleGoal(g.id)}
                   className={`rounded-full border-2 px-3 py-2 text-xs font-semibold tracking-[0.08em] uppercase transition-all ${
                     selectedGoals.includes(g.id)
-                      ? 'bg-[var(--duo-blue)] text-white border-[var(--duo-blue)] shadow-[0_6px_14px_rgba(88,98,226,.14)]'
-                      : 'border-[rgba(7,7,9,.08)] bg-[var(--duo-bg)] text-[var(--duo-ink)] hover:border-[var(--duo-blue)] hover:bg-[rgba(88,204,2,.10)] hover:text-[var(--duo-blue-dark)]'
+                      ? 'bg-[var(--duo-blue)] text-white border-[var(--duo-blue)] shadow-[0_6px_14px_color-mix(in_srgb,var(--duo-purple)_14%,transparent)]'
+                      : 'border-[var(--duo-line)] bg-[var(--duo-bg)] text-[var(--duo-ink)] hover:border-[var(--duo-blue)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-blue-dark)]'
                   }`}
                 >
                   {selectedGoals.includes(g.id) ? '✓ ' : ''}
@@ -142,7 +142,7 @@ export default function DurationSelector({
           </div>
 
           {/* Summary */}
-          <div className="space-y-1 rounded-[18px] border border-[rgba(7,7,9,.08)] bg-[var(--duo-bg)] px-4 py-3 text-xs tracking-wide text-[var(--duo-ink)]">
+          <div className="space-y-1 rounded-[18px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-4 py-3 text-xs tracking-wide text-[var(--duo-ink)]">
             <p>
               {t('summaryLevel')}:{' '}
               <span className="text-[var(--duo-ink)] font-bold">{cefr_level}</span>
@@ -187,7 +187,7 @@ export default function DurationSelector({
             <button
               type="button"
               onClick={onBack}
-              className="border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)] hover:border-[rgba(7,7,9,.14)] hover:bg-[rgba(88,204,2,.10)] hover:text-[var(--duo-blue-dark)] flex-1 rounded-[14px] border py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+              className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-ink)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-blue-dark)] flex-1 rounded-[14px] border py-3 font-sans text-xs tracking-widest uppercase transition-colors"
             >
               ← {tCommon('back')}
             </button>
