@@ -315,7 +315,7 @@ export default async function Home() {
             <span key={`${code}-${index}`} lang={code}>{name} <b>·</b></span>
           ))}
         </div>
-      </section
+      </section>
 
       <section className="juba-busuu-app-cta" aria-labelledby="app-cta-title">
         <div className="juba-busuu-container juba-busuu-app-cta-inner">
