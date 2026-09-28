@@ -737,3 +737,130 @@ html[data-theme='light'] {
 .juba-duo-shell .text-fl-label,
 .juba-duo-shell .text-fl-caption,
 .juba-duo-shell .text-fl-hint { color:#888 !important; }
+
+/* ── Duolingo application content frame ────────────────────────────────────
+   Shared chrome for every authenticated route. Feature-specific components
+   keep their own layout and behavior; this block only supplies the common
+   application surface, typography, controls, cards and RTL geometry.
+   ------------------------------------------------------------------------- */
+.juba-duo-main {
+  flex:1;
+  min-width:0;
+  min-height:100vh;
+  background:var(--duo-bg);
+}
+.juba-duo-page-frame {
+  min-width:0;
+  min-height:100vh;
+  width:calc(100% - 250px);
+  margin-inline-start:250px;
+  background:var(--duo-bg);
+}
+.juba-duo-page-frame:has(> .juba-duo-home) {
+  width:100%;
+  margin-inline-start:0;
+}
+.juba-duo-shell[dir="rtl"] .juba-duo-page-frame {
+  margin-inline-start:0;
+  margin-inline-end:250px;
+}
+.juba-duo-shell[dir="rtl"] .juba-duo-page-frame:has(> .juba-duo-home) {
+  margin-inline-end:0;
+}
+
+/* Shared page rhythm */
+.juba-duo-page-frame > div:not(.juba-duo-home),
+.juba-duo-page-frame > section:not(.juba-duo-home) {
+  color:var(--duo-ink);
+}
+.juba-duo-page-frame h1,
+.juba-duo-page-frame h2,
+.juba-duo-page-frame h3,
+.juba-duo-page-frame h4 {
+  color:var(--duo-ink);
+  letter-spacing:-.025em;
+}
+.juba-duo-page-frame a {
+  color:var(--duo-blue-dark);
+}
+.juba-duo-page-frame a:hover {
+  color:#0f79ae;
+}
+
+/* Existing semantic cards become Duolingo-style surfaces without requiring
+   every route to be rewritten around the new design system. */
+.juba-duo-page-frame .bg-fl-surface,
+.juba-duo-page-frame .bg-fl-surface-2 {
+  background:var(--duo-card) !important;
+}
+.juba-duo-page-frame .border-fl-border,
+.juba-duo-page-frame .border-fl-border-2 {
+  border-color:var(--duo-line) !important;
+}
+.juba-duo-page-frame .rounded-lg,
+.juba-duo-page-frame .rounded-xl {
+  border-radius:14px;
+}
+.juba-duo-page-frame button:not(.juba-duo-user-action):not(.juba-duo-mobile-trigger) {
+  min-height:40px;
+  font-weight:750;
+}
+.juba-duo-page-frame input:focus,
+.juba-duo-page-frame select:focus,
+.juba-duo-page-frame textarea:focus,
+.juba-duo-page-frame button:focus-visible,
+.juba-duo-page-frame a:focus-visible {
+  outline:3px solid rgba(28,176,246,.22);
+  outline-offset:2px;
+}
+.juba-duo-page-frame input,
+.juba-duo-page-frame select,
+.juba-duo-page-frame textarea {
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.juba-duo-page-frame input:focus,
+.juba-duo-page-frame select:focus,
+.juba-duo-page-frame textarea:focus {
+  border-color:var(--duo-blue) !important;
+  box-shadow:0 0 0 3px rgba(28,176,246,.12);
+}
+
+/* Duolingo-like success/action treatment for legacy accent controls. */
+.juba-duo-page-frame .bg-fl-accent {
+  background:var(--duo-green) !important;
+  color:#fff !important;
+  box-shadow:0 3px 0 var(--duo-green-dark);
+}
+.juba-duo-page-frame .bg-fl-accent:hover {
+  background:var(--duo-green-dark) !important;
+}
+.juba-duo-page-frame .text-fl-accent {
+  color:var(--duo-green-dark) !important;
+}
+.juba-duo-page-frame .text-red-600,
+.juba-duo-page-frame .text-red-500 {
+  color:var(--duo-red) !important;
+}
+.juba-duo-page-frame .bg-red-600,
+.juba-duo-page-frame .bg-red-500 {
+  background:var(--duo-red) !important;
+}
+
+/* Mobile: the fixed app bar becomes the only chrome reservation. */
+@media (max-width:900px) {
+  .juba-duo-page-frame,
+  .juba-duo-shell[dir="rtl"] .juba-duo-page-frame {
+    width:100%;
+    margin-inline:0;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  .juba-duo-shell *,
+  .juba-duo-shell *::before,
+  .juba-duo-shell *::after {
+    scroll-behavior:auto !important;
+    animation-duration:.01ms !important;
+    transition-duration:.01ms !important;
+  }
+}
+
