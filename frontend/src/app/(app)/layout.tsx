@@ -518,7 +518,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       className="h-full w-full object-cover"
                       fallback={
                         <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
-                          <span className="text-[var(--duo-muted)] text-[var(--duo-muted)] font-sans select-none">
+                          <span className="text-[var(--duo-muted)] font-sans select-none">
                             {(user?.displayName ||
                               user?.username ||
                               '?')[0].toUpperCase()}
@@ -537,10 +537,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   )}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[var(--duo-muted)] text-[var(--duo-muted)] truncate font-sans tracking-widest uppercase">
+                  <p className="text-[var(--duo-muted)] truncate font-sans tracking-widest uppercase">
                     {user?.displayName || user?.username}
                   </p>
-                  <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] truncate font-sans">
+                  <p className="text-[var(--duo-muted)] truncate font-sans">
                     @{user?.username?.toLowerCase()}
                   </p>
                 </div>
@@ -550,7 +550,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
-              <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans mb-2 tracking-wider">
+              <p className="text-[var(--duo-muted)] font-sans mb-2 tracking-wider">
                 v1.9.15
               </p>
               <button
