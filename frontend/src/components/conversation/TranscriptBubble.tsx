@@ -38,7 +38,7 @@ export default function TranscriptBubble({
               : 'border-[color-mix(in_srgb,var(--duo-green)_15%,transparent)] animate-halo-idle'
           }`}
         />
-        <div className="h-7 w-7 overflow-hidden rounded-full border border-[var(--duo-line)] bg-[rgba(88,204,2,.12)] shadow-[0_4px_12px_rgba(67,134,0,.10)]">
+        <div className="h-7 w-7 overflow-hidden rounded-full border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] shadow-[0_4px_12px_color-mix(in_srgb,var(--duo-green-dark)_10%,transparent)]">
           {!isUser ? (
             <Image
               src="/logo_head.png"
@@ -55,7 +55,7 @@ export default function TranscriptBubble({
               height={28}
               className="h-full w-full object-cover"
               fallback={
-                <div className="flex h-full w-full items-center justify-center bg-[rgba(88,204,2,.12)]">
+                <div className="flex h-full w-full items-center justify-center bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]">
                   <span className="select-none font-sans font-bold text-[var(--duo-green-dark)]">
                     {(userInitial ?? '?').toUpperCase()}
                   </span>
@@ -63,7 +63,7 @@ export default function TranscriptBubble({
               }
             />
           ) : (
-            <div className="bg-[rgba(88,204,2,.08)] flex h-full w-full items-center justify-center">
+            <div className="bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] flex h-full w-full items-center justify-center">
               <span className="text-[var(--duo-muted)] font-sans select-none">
                 {(userInitial ?? '?').toUpperCase()}
               </span>
@@ -81,10 +81,10 @@ export default function TranscriptBubble({
         <TargetLanguageText
           as="div"
           languageCode={languageCode}
-          className={`rounded-2xl border px-4 py-3 leading-relaxed break-words shadow-[0_4px_14px_rgba(31,41,51,.06)] ${
+          className={`rounded-2xl border px-4 py-3 leading-relaxed break-words shadow-[0_4px_14px_var(--duo-line)] ${
             isUser
               ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green-dark)]'
-              : 'bg-white text-[var(--duo-ink)] border-[var(--duo-line)]'
+              : 'bg-[var(--duo-card)] text-[var(--duo-ink)] border-[var(--duo-line)]'
           }`}
         >
           {text}
