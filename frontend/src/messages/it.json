@@ -168,7 +168,8 @@
     "appCtaDescription": "Tieni la pratica linguistica sempre a portata di mano. Continua lezioni, conversazioni con l’IA, ascolto e progressi ovunque tu sia.",
     "appCtaNote": "Esperienza web · Pensata per gli schermi mobili",
     "onlineLanguagesTitle": "Impara le lingue online",
-    "onlineLanguagesDescription": "Scegli una lingua e scopri l’esperienza di apprendimento disponibile in JUBA LISAN."
+
+    "onlineLanguagePrefix": "Impara",    "onlineLanguagesDescription": "Scegli una lingua e scopri l’esperienza di apprendimento disponibile in JUBA LISAN."
   },
   "common": {
     "loading": "Caricamento...",
