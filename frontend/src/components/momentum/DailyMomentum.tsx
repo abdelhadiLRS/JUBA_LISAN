@@ -25,7 +25,7 @@ interface DailyMomentumProps {
 const btnPrimary =
   'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition-all disabled:opacity-50 shadow-sm hover:shadow-md active:scale-[0.98]'
 const btnSecondary =
-  'inline-flex items-center justify-center gap-2 rounded-xl border border-fl-border px-4 py-2.5 text-sm font-medium transition-all hover:bg-[var(--duo-card)] hover:border-[var(--duo-green)] active:scale-[0.98]'
+  'inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--duo-line)] px-4 py-2.5 text-sm font-medium transition-all hover:bg-[var(--duo-card)] hover:border-[var(--duo-green)] active:scale-[0.98]'
 
 export function DailyMomentum({
   nextAction,
@@ -84,7 +84,7 @@ export function DailyMomentum({
       aria-label={t('dailyMomentum')}
     >
       {/* Header with gradient */}
-      <div className="relative border-b border-fl-border bg-gradient-to-r from-[var(--duo-blue)]/10 via-[var(--duo-blue)]/5 to-transparent p-5 sm:p-6">
+      <div className="relative border-b border-[var(--duo-line)] bg-gradient-to-r from-[var(--duo-blue)]/10 via-[var(--duo-blue)]/5 to-transparent p-5 sm:p-6">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -right-16 -top-16 h-32 w-32 rounded-full bg-[var(--duo-blue)]/5 blur-2xl" />
           <div className="absolute -bottom-8 -left-8 h-24 w-24 rounded-full bg-[var(--duo-yellow)]/5 blur-xl" />
@@ -95,8 +95,8 @@ export function DailyMomentum({
             <Flame className="h-5 w-5" />
           </div>
           <div>
-            <h2 className="text-fl-fg text-lg font-bold tracking-tight">{t('dailyMomentum')}</h2>
-            <p className="text-fl-muted-2 mt-0.5 text-sm">{t('dailyMomentumSubtitle')}</p>
+            <h2 className="text-[var(--duo-ink)] text-lg font-bold tracking-tight">{t('dailyMomentum')}</h2>
+            <p className="text-[var(--duo-muted)] mt-0.5 text-sm">{t('dailyMomentumSubtitle')}</p>
           </div>
           
           {isCelebrating && (
@@ -110,23 +110,23 @@ export function DailyMomentum({
       {/* Three core questions grid */}
       <div className="grid grid-cols-1 gap-4 p-5 sm:p-6 md:grid-cols-3">
         {/* What should I do now? */}
-        <div className="group relative overflow-hidden rounded-xl border border-fl-border bg-fl-surface p-4 transition-all duration-300 hover:border-[var(--duo-green)] hover:shadow-lg hover:shadow-[var(--duo-green)]/5">
+        <div className="group relative overflow-hidden rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-all duration-300 hover:border-[var(--duo-green)] hover:shadow-lg hover:shadow-[var(--duo-green)]/5">
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--duo-green)]/0 via-[var(--duo-green)]/0 to-[var(--duo-green)]/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           
           <div className="relative">
             <div className="mb-3 flex items-center gap-2">
               <BookOpen className="h-4 w-4 text-[var(--duo-green)]" />
-              <p className="text-fl-muted-2 text-xs font-semibold uppercase tracking-wide">{t('whatNow')}</p>
+              <p className="text-[var(--duo-muted)] text-xs font-semibold uppercase tracking-wide">{t('whatNow')}</p>
             </div>
             
             {nextAction ? (
               <>
-                <h3 className="text-fl-fg text-base font-bold leading-tight">{nextAction.title}</h3>
+                <h3 className="text-[var(--duo-ink)] text-base font-bold leading-tight">{nextAction.title}</h3>
                 <div className="mt-2 flex items-center gap-2">
                   <span className="rounded-md bg-[rgba(88,204,2,.10)] px-2 py-0.5 text-xs font-medium text-[var(--duo-green-dark)]">
                     {tPlan(getLessonTypeLabelKey(nextAction.lesson_type))}
                   </span>
-                  <span className="flex items-center gap-1 text-fl-muted-2 text-xs">
+                  <span className="flex items-center gap-1 text-[var(--duo-muted)] text-xs">
                     <Clock className="h-3 w-3" />
                     {nextAction.estimated_minutes}min
                   </span>
@@ -141,7 +141,7 @@ export function DailyMomentum({
             ) : hasPlan ? (
               <div className="flex flex-col items-center justify-center py-4">
                 <CheckCircle className="mb-2 h-8 w-8 text-[var(--duo-yellow)]" />
-                <p className="text-fl-muted-1 text-sm font-medium">{t('allCaughtUp')}</p>
+                <p className="text-[var(--duo-muted)] text-sm font-medium">{t('allCaughtUp')}</p>
               </div>
             ) : (
               <Link href="/assessment">
@@ -154,24 +154,24 @@ export function DailyMomentum({
         </div>
         
         {/* What is due for review? */}
-        <div className="group relative overflow-hidden rounded-xl border border-fl-border bg-fl-surface p-4 transition-all duration-300 hover:border-[var(--duo-blue)] hover:shadow-lg hover:shadow-[var(--duo-blue)]/5">
+        <div className="group relative overflow-hidden rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-all duration-300 hover:border-[var(--duo-blue)] hover:shadow-lg hover:shadow-[var(--duo-blue)]/5">
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--duo-blue)]/0 via-[var(--duo-blue)]/0 to-[var(--duo-blue)]/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           
           <div className="relative">
             <div className="mb-3 flex items-center gap-2">
               <Clock className="h-4 w-4 text-[var(--duo-blue)]" />
-              <p className="text-fl-muted-2 text-xs font-semibold uppercase tracking-wide">{t('dueForReview')}</p>
+              <p className="text-[var(--duo-muted)] text-xs font-semibold uppercase tracking-wide">{t('dueForReview')}</p>
             </div>
             
             {reviewDueCount > 0 ? (
               <>
                 <div className="mb-2 flex items-baseline gap-2">
-                  <h3 className="text-fl-fg text-3xl font-bold text-[var(--duo-blue)]">
+                  <h3 className="text-[var(--duo-ink)] text-3xl font-bold text-[var(--duo-blue)]">
                     {reviewDueCount}
                   </h3>
-                  <span className="text-fl-muted-2 text-sm">{t('itemsToReview')}</span>
+                  <span className="text-[var(--duo-muted)] text-sm">{t('itemsToReview')}</span>
                 </div>
-                <div className="mt-3 flex items-center gap-2 text-fl-muted-2 text-xs">
+                <div className="mt-3 flex items-center gap-2 text-[var(--duo-muted)] text-xs">
                   <div className="h-2 w-2 rounded-full bg-[var(--duo-blue)] animate-pulse" />
                   <span>{t('reviewReminder')}</span>
                 </div>
@@ -185,29 +185,29 @@ export function DailyMomentum({
             ) : (
               <div className="flex flex-col items-center justify-center py-4">
                 <CheckCircle className="mb-2 h-8 w-8 text-[var(--duo-yellow)]" />
-                <h3 className="text-fl-fg text-xl font-bold">✓</h3>
-                <p className="text-fl-muted-2 mt-1 text-sm">{t('noReviewsDue')}</p>
+                <h3 className="text-[var(--duo-ink)] text-xl font-bold">✓</h3>
+                <p className="text-[var(--duo-muted)] mt-1 text-sm">{t('noReviewsDue')}</p>
               </div>
             )}
           </div>
         </div>
         
         {/* How close to today's goal? */}
-        <div className="group relative overflow-hidden rounded-xl border border-fl-border bg-fl-surface p-4 transition-all duration-300 hover:border-[var(--duo-yellow)] hover:shadow-lg hover:shadow-[var(--duo-yellow)]/5">
+        <div className="group relative overflow-hidden rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition-all duration-300 hover:border-[var(--duo-yellow)] hover:shadow-lg hover:shadow-[var(--duo-yellow)]/5">
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--duo-yellow)]/0 via-[var(--duo-yellow)]/0 to-[var(--duo-yellow)]/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           
           <div className="relative">
             <div className="mb-3 flex items-center gap-2">
               <Zap className={`h-4 w-4 ${goalProgress.current >= goalProgress.target ? 'text-[var(--duo-yellow)]' : 'text-[var(--duo-blue)]'}`} />
-              <p className="text-fl-muted-2 text-xs font-semibold uppercase tracking-wide">{t('todayGoal')}</p>
+              <p className="text-[var(--duo-muted)] text-xs font-semibold uppercase tracking-wide">{t('todayGoal')}</p>
             </div>
             
             <div className="mb-3 flex items-end justify-between">
               <div className="flex items-baseline gap-1">
-                <span className={`text-3xl font-bold ${goalProgress.current >= goalProgress.target ? 'text-[var(--duo-yellow)]' : 'text-fl-fg'}`}>
+                <span className={`text-3xl font-bold ${goalProgress.current >= goalProgress.target ? 'text-[var(--duo-yellow)]' : 'text-[var(--duo-ink)]'}`}>
                   {goalProgress.current}
                 </span>
-                <span className="text-fl-muted-2 text-sm">/ {goalProgress.target}</span>
+                <span className="text-[var(--duo-muted)] text-sm">/ {goalProgress.target}</span>
               </div>
               <span className={`rounded-full px-2 py-1 text-xs font-bold ${
                 goalProgress.current >= goalProgress.target 
@@ -219,7 +219,7 @@ export function DailyMomentum({
             </div>
             
             {/* Animated progress bar */}
-            <div className="bg-fl-surface-2 relative h-3 w-full overflow-hidden rounded-full">
+            <div className="bg-[var(--duo-line)] relative h-3 w-full overflow-hidden rounded-full">
               <div 
                 className="absolute inset-y-0 start-0 rounded-full transition-all duration-300"
                 style={{ 
@@ -237,7 +237,7 @@ export function DailyMomentum({
               )}
             </div>
             
-            <p className="text-fl-muted-2 mt-2 text-xs">
+            <p className="text-[var(--duo-muted)] mt-2 text-xs">
               {goalProgress.current >= goalProgress.target 
                 ? t('goalCompleted') 
                 : t('lessonsCompletedToday')}
@@ -248,8 +248,8 @@ export function DailyMomentum({
       
       {/* Motivational footer */}
       {goalProgress.current > 0 && goalProgress.current < goalProgress.target && (
-        <div className="border-t border-fl-border bg-[var(--duo-card)]/50 px-5 py-3">
-          <p className="text-fl-muted-2 text-center text-xs">
+        <div className="border-t border-[var(--duo-line)] bg-[var(--duo-card)]/50 px-5 py-3">
+          <p className="text-[var(--duo-muted)] text-center text-xs">
             {t('keepGoing', { remaining: goalProgress.target - goalProgress.current })}
           </p>
         </div>
