@@ -6,9 +6,9 @@ const buttonVariants = cva("group/button inline-flex shrink-0 items-center justi
   variants: {
     variant: {
       default: 'border-[var(--duo-blue)] bg-[var(--duo-blue)] text-white shadow-[0_5px_0_var(--duo-blue-dark)] hover:-translate-y-px hover:shadow-[0_6px_0_var(--duo-blue-dark)]',
-      outline: 'border-[rgba(7,7,9,.09)] bg-white text-[var(--duo-ink)] shadow-[0_4px_0_rgba(7,7,9,.08)] hover:bg-[var(--duo-bg)] hover:-translate-y-px',
-      secondary: 'border-[rgba(7,7,9,.08)] bg-[rgba(88,204,2,.10)] text-[var(--duo-blue-dark)] shadow-none hover:bg-[rgba(88,204,2,.14)] hover:-translate-y-px',
-      ghost: 'text-[rgba(32,33,39,.52)] hover:bg-[var(--duo-bg)] hover:text-[var(--duo-ink)]',
+      outline: 'border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-[0_4px_0_var(--duo-line)] hover:bg-[var(--duo-bg)] hover:-translate-y-px',
+      secondary: 'border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-blue-dark)] shadow-none hover:bg-[color-mix(in_srgb,var(--duo-green)_14%,transparent)] hover:-translate-y-px',
+      ghost: 'text-[var(--duo-muted)] hover:bg-[var(--duo-bg)] hover:text-[var(--duo-ink)]',
       destructive: 'border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 text-[var(--duo-red)] hover:bg-[var(--duo-red)]/20 focus-visible:ring-[var(--duo-red)]/20',
       link: 'text-[var(--duo-blue-dark)] underline-offset-4 hover:underline',
     },
