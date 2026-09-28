@@ -433,10 +433,10 @@ function ReadingPage() {
             return (
               <div
                 key={q.index}
-                className={`border-2 border-[var(--juba-border)] p-4 ${
+                className={`rounded-[20px] border-2 border-[var(--duo-line)] bg-white p-4 shadow-[0_3px_0_rgba(31,41,51,.035)] ${
                   isCorrect
-                    ? 'border-green-600/50 bg-green-950/30'
-                    : 'border-red-600/50 bg-red-950/30'
+                    ? 'border-[rgba(88,204,2,.45)] bg-[rgba(88,204,2,.08)]'
+                    : 'border-[rgba(255,75,75,.45)] bg-[rgba(255,75,75,.08)]'
                 }`}
               >
                 <TargetLanguageText
@@ -452,9 +452,9 @@ function ReadingPage() {
                       key={k}
                       className={`px-3 py-1.5 ${
                         k === correctKey
-                          ? 'font-bold text-green-400'
+                          ? 'font-bold text-[var(--duo-green-dark)]'
                           : k === userAnswer && !isCorrect
-                            ? 'text-red-400 line-through opacity-70'
+                            ? 'text-[var(--duo-red)] line-through opacity-70'
                             : 'text-[var(--duo-muted)]'
                       }`}
                     >
