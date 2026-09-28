@@ -306,12 +306,12 @@ function ReadingPage() {
     return (
       <div className="juba-mobile-reading mx-auto max-w-6xl px-4 py-6 md:px-8">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-[#30343b] font-sans text-sm font-bold tracking-widest uppercase">
+          <h1 className="text-[var(--duo-ink)] font-sans text-sm font-bold tracking-widest uppercase">
             {t('historyTitle')}
           </h1>
           <button
             onClick={loadNext}
-            className="text-[#68736d] hover:text-[#30343b] font-sans tracking-widest uppercase transition-colors"
+            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-sans tracking-widest uppercase transition-colors"
           >
             {t('practiceMore')}
           </button>
@@ -321,7 +321,7 @@ function ReadingPage() {
           <PageLoading fullScreen={false} className="block p-5" />
         ) : history.length === 0 ? (
           <div className="juba-panel rounded-[28px] p-6 text-center">
-            <p className="text-[#68736d] font-sans text-xs tracking-wide">
+            <p className="text-[var(--duo-muted)] font-sans text-xs tracking-wide">
               {t('historyEmpty')}
             </p>
           </div>
@@ -334,18 +334,18 @@ function ReadingPage() {
               >
                 <div className="mb-3 flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="text-[#30343b] truncate font-sans text-xs font-bold tracking-wide">
+                    <p className="text-[var(--duo-ink)] truncate font-sans text-xs font-bold tracking-wide">
                       {item.exercise.topic}
                     </p>
-                    <p className="text-[#30343b] text-[#68736d] mt-0.5 font-sans tracking-widest uppercase">
+                    <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mt-0.5 font-sans tracking-widest uppercase">
                       {item.exercise.level} · {item.exercise.exercise_type}
                     </p>
                   </div>
                   <div className="shrink-0 text-right">
-                    <p className="text-[#30343b] font-sans text-xs font-bold">
+                    <p className="text-[var(--duo-ink)] font-sans text-xs font-bold">
                       {item.score}/{item.exercise.questions.length}
                     </p>
-                    <p className="text-[#30343b] text-[#438600] font-sans">
+                    <p className="text-[var(--duo-ink)] text-[var(--duo-green-dark)] font-sans">
                       +{item.xp_earned} XP
                     </p>
                   </div>
@@ -353,7 +353,7 @@ function ReadingPage() {
                 <TargetLanguageText
                   as="p"
                   languageCode={item.exercise.target_language}
-                  className="text-[#68736d] border-[#e1e5e2] mb-3 line-clamp-3 border-t pt-3"
+                  className="text-[var(--duo-muted)] border-[var(--duo-line)] mb-3 line-clamp-3 border-t pt-3"
                 >
                   {item.exercise.text}
                 </TargetLanguageText>
@@ -365,7 +365,7 @@ function ReadingPage() {
                     setIsReplay(true)
                     setPageState('exercise')
                   }}
-                  className="text-[#30343b] text-[#68736d] hover:text-[#30343b] font-sans tracking-widest uppercase transition-colors"
+                  className="text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-sans tracking-widest uppercase transition-colors"
                 >
                   {t('practiceAgain')}
                 </button>
@@ -395,23 +395,23 @@ function ReadingPage() {
         <div className="juba-panel rounded-[28px] p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[#30343b] text-[#68736d] font-sans tracking-widest uppercase">
+              <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
                 {t('resultsLabel')}
               </p>
-              <p className="text-[#30343b] mt-1 font-sans text-2xl font-bold">
+              <p className="text-[var(--duo-ink)] mt-1 font-sans text-2xl font-bold">
                 {result.score}/{exercise.questions.length}
               </p>
             </div>
             <div className="text-right">
-              <p className="text-[#30343b] text-[#68736d] font-sans tracking-widest uppercase">
+              <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
                 XP
               </p>
               {isReplay ? (
-                <p className="text-[#30343b] text-[#68736d] mt-1 font-sans">
+                <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mt-1 font-sans">
                   {t('replayNoXp')}
                 </p>
               ) : (
-                <p className="text-[#438600] mt-1 font-sans text-xl font-bold">
+                <p className="text-[var(--duo-green-dark)] mt-1 font-sans text-xl font-bold">
                   +{result.xp_earned}
                 </p>
               )}
@@ -421,7 +421,7 @@ function ReadingPage() {
 
         {/* Question review */}
         <div className="space-y-3">
-          <p className="text-[#30343b] text-[#68736d] font-sans tracking-widest uppercase">
+          <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
             {t('review')}
           </p>
           {exercise.questions.map((q) => {
@@ -442,7 +442,7 @@ function ReadingPage() {
                 <TargetLanguageText
                   as="p"
                   languageCode={targetLanguageCode}
-                  className="text-[#30343b] mb-3"
+                  className="text-[var(--duo-ink)] mb-3"
                 >
                   {q.index + 1}. {q.question}
                 </TargetLanguageText>
@@ -455,10 +455,10 @@ function ReadingPage() {
                           ? 'font-bold text-green-400'
                           : k === userAnswer && !isCorrect
                             ? 'text-red-400 line-through opacity-70'
-                            : 'text-[#68736d]'
+                            : 'text-[var(--duo-muted)]'
                       }`}
                     >
-                      <span className="text-[#30343b] font-sans font-bold">
+                      <span className="text-[var(--duo-ink)] font-sans font-bold">
                         {k}.
                       </span>{' '}
                       <TargetLanguageText languageCode={targetLanguageCode}>
@@ -476,13 +476,13 @@ function ReadingPage() {
         <div className="flex gap-3 pt-1">
           <button
             onClick={loadNext}
-            className="juba-primary-button flex-1 border-2 border-[#e1e5e2] py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+            className="juba-primary-button flex-1 border-2 border-[var(--duo-line)] py-3 font-sans text-xs tracking-widest uppercase transition-colors"
           >
             {t('nextExercise')}
           </button>
           <button
             onClick={() => loadHistory(0)}
-            className="juba-secondary-button border-2 border-[#e1e5e2] px-4 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+            className="juba-secondary-button border-2 border-[var(--duo-line)] px-4 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
           >
             {t('viewHistory')}
           </button>
@@ -501,19 +501,19 @@ function ReadingPage() {
     return (
       <div className="juba-mobile-reading mx-auto max-w-6xl px-4 py-6 md:px-8">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-[#30343b] font-sans text-sm font-bold tracking-widest uppercase">
+          <h1 className="text-[var(--duo-ink)] font-sans text-sm font-bold tracking-widest uppercase">
             {t('title')}
           </h1>
           <button
             onClick={() => loadHistory(0)}
-            className="text-[#30343b] text-[#68736d] hover:text-[#30343b] font-sans tracking-widest uppercase transition-colors"
+            className="text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-sans tracking-widest uppercase transition-colors"
           >
             {t('history')}
           </button>
         </div>
 
         {error && (
-          <p className="text-[#30343b] mb-4 font-sans text-red-500">{error}</p>
+          <p className="text-[var(--duo-ink)] mb-4 font-sans text-red-500">{error}</p>
         )}
 
         <FreemiumQuotaBanner feature="reading" className="mb-4" />
@@ -522,12 +522,12 @@ function ReadingPage() {
           <PaywallBanner feature="reading" compact />
         ) : (
           <div className="juba-panel flex flex-col items-center gap-5 p-8 text-center">
-            <p className="text-[#68736d] font-sans text-xs tracking-wide">
+            <p className="text-[var(--duo-muted)] font-sans text-xs tracking-wide">
               {t('noExercises')}
             </p>
             <button
               onClick={handleGenerate}
-              className="juba-primary-button border-2 border-[#e1e5e2] px-8 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
+              className="juba-primary-button border-2 border-[var(--duo-line)] px-8 py-3 font-sans text-xs tracking-widest uppercase transition-colors"
             >
               {t('generate')}
             </button>
@@ -545,16 +545,16 @@ function ReadingPage() {
       {/* Header */}
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-[#30343b] font-sans text-sm font-bold tracking-widest uppercase">
+          <h1 className="text-[var(--duo-ink)] font-sans text-sm font-bold tracking-widest uppercase">
             {t('title')}
           </h1>
-          <p className="text-[#30343b] text-[#68736d] mt-0.5 font-sans tracking-widest uppercase">
+          <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mt-0.5 font-sans tracking-widest uppercase">
             {exercise.level} · {exercise.exercise_type} · {exercise.topic}
           </p>
         </div>
         <button
           onClick={() => loadHistory(0)}
-          className="text-[#30343b] text-[#68736d] hover:text-[#30343b] shrink-0 font-sans tracking-widest uppercase transition-colors"
+          className="text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] shrink-0 font-sans tracking-widest uppercase transition-colors"
         >
           {t('history')}
         </button>
@@ -570,7 +570,7 @@ function ReadingPage() {
           <div className="flex flex-col gap-5 md:grid md:grid-cols-[55fr_45fr] md:gap-6">
             {/* Left: reading text */}
             <div>
-              <p className="text-[#30343b] text-[#68736d] mb-2 font-sans tracking-widest uppercase">
+              <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mb-2 font-sans tracking-widest uppercase">
                 {t('textLabel')}
               </p>
               <div className="juba-panel relative p-5">
@@ -586,20 +586,20 @@ function ReadingPage() {
                   <TargetLanguageText
                     as="p"
                     languageCode={exercise.target_language}
-                    className="reading-text text-[#30343b] word-selectable cursor-text whitespace-pre-wrap select-text"
+                    className="reading-text text-[var(--duo-ink)] word-selectable cursor-text whitespace-pre-wrap select-text"
                   >
                     {exercise.text}
                   </TargetLanguageText>
                 </div>
               </div>
-              <p className="text-[#30343b] text-[#68736d] mt-2 text-center font-sans tracking-widest uppercase">
+              <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mt-2 text-center font-sans tracking-widest uppercase">
                 {t('selectWordHint')}
               </p>
             </div>
 
             {/* Right: questions */}
             <div>
-              <p className="text-[#30343b] text-[#68736d] mb-2 font-sans tracking-widest uppercase">
+              <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] mb-2 font-sans tracking-widest uppercase">
                 {t('questionsLabel')}
               </p>
               <div className="space-y-4">
@@ -614,7 +614,7 @@ function ReadingPage() {
                       onPointerUp={() =>
                         handleTextSelection(q.question, exercise.level)
                       }
-                      className="text-[#30343b] word-selectable mb-3 cursor-text select-text"
+                      className="text-[var(--duo-ink)] word-selectable mb-3 cursor-text select-text"
                     >
                       {q.index + 1}. {q.question}
                     </TargetLanguageText>
@@ -630,13 +630,13 @@ function ReadingPage() {
                                 [String(q.index)]: k,
                               }))
                             }
-                            className={`w-full border-2 border-[#e1e5e2] px-3 py-2 text-left transition-colors ${
+                            className={`w-full border-2 border-[var(--duo-line)] px-3 py-2 text-left transition-colors ${
                               selected
-                                ? 'border-[#438600] text-[#30343b] bg-[#e1e5e2]'
-                                : 'border-[#e1e5e2] text-[#68736d] hover:border-juba-muted hover:text-[#30343b]'
+                                ? 'border-[var(--duo-green-dark)] text-[var(--duo-ink)] bg-[var(--duo-line)]'
+                                : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-juba-muted hover:text-[var(--duo-ink)]'
                             }`}
                           >
-                            <span className="text-[#30343b] font-sans font-bold">
+                            <span className="text-[var(--duo-ink)] font-sans font-bold">
                               {k}.
                             </span>{' '}
                             <TargetLanguageText
@@ -653,7 +653,7 @@ function ReadingPage() {
               </div>
 
               {error && (
-                <p className="text-[#30343b] mt-3 font-sans text-red-500">
+                <p className="text-[var(--duo-ink)] mt-3 font-sans text-red-500">
                   {error}
                 </p>
               )}
@@ -661,7 +661,7 @@ function ReadingPage() {
               <button
                 onClick={handleSubmit}
                 disabled={!allAnswered || submitting}
-                className="juba-primary-button mt-4 w-full border-2 border-[#e1e5e2] py-3 font-sans text-xs tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+                className="juba-primary-button mt-4 w-full border-2 border-[var(--duo-line)] py-3 font-sans text-xs tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {submitting ? '...' : t('submit')}
               </button>
