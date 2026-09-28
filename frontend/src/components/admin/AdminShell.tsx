@@ -76,7 +76,7 @@ export function AdminMetric({
         <p className="juba-admin-metric-label text-[10px] text-[var(--duo-muted)] mb-1 font-sans tracking-widest uppercase">
           {label}
         </p>
-        <p className="juba-admin-metric-value text-[#202127] truncate text-lg font-black">{value}</p>
+        <p className="juba-admin-metric-value text-[var(--duo-ink)] truncate text-lg font-black">{value}</p>
       </div>
       <span className="juba-admin-metric-icon"><Icon className="size-5 shrink-0" aria-hidden="true" /></span>
     </div>
@@ -91,7 +91,7 @@ export function AdminBadge({
   tone?: 'neutral' | 'info' | 'success' | 'warning' | 'danger'
 }) {
   const toneClass = {
-    neutral: 'border-[rgba(7,7,9,.08)] text-[rgba(32,33,39,.52)]',
+    neutral: 'border-[var(--duo-line)] text-[rgba(32,33,39,.52)]',
     info: 'border-blue-500/40 text-blue-400',
     success: 'border-green-500/40 text-green-400',
     warning: 'border-yellow-500/40 text-yellow-400',
