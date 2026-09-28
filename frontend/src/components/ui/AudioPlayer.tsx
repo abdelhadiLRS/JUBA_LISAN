@@ -246,12 +246,12 @@ export function AudioPlayer({
 
   const colorClass =
     state === 'playing'
-      ? 'border-[var(--juba-app-green)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)]'
+      ? 'border-[var(--duo-green)] bg-[var(--duo-green)] text-[var(--duo-green-dark)]'
       : state === 'loading'
-        ? 'border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] text-[var(--juba-app-muted)]'
+        ? 'border-[var(--duo-line)] bg-[var(--duo-green)] text-[var(--duo-muted)]'
         : state === 'error'
-          ? 'border-[color-mix(in_srgb,#b33a32_40%,var(--juba-app-line))] bg-[color-mix(in_srgb,#b33a32_8%,var(--juba-app-surface))] text-[var(--juba-app-error)]'
-          : 'border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-muted)] hover:border-[var(--juba-app-green)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-green-dark)]'
+          ? 'border-[color-mix(in_srgb,var(--duo-red)_40%,var(--duo-line))] bg-[color-mix(in_srgb,var(--duo-red)_8%,var(--duo-card))] text-[var(--duo-red)]'
+          : 'border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:bg-[var(--duo-green)] hover:text-[var(--duo-green-dark)]'
 
   return (
     <button
@@ -261,7 +261,7 @@ export function AudioPlayer({
       aria-label={state === 'playing' ? t('ariaStop') : t('ariaListen')}
       aria-busy={state === 'loading'}
       disabled={state === 'loading'}
-      className={`inline-flex items-center justify-center rounded-full border-2 font-semibold shadow-[2px_2px_0_var(--juba-app-line)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-80 ${colorClass} ${sizeClass} ${className}`}
+      className={`inline-flex items-center justify-center rounded-full border-2 font-semibold shadow-[2px_2px_0_var(--duo-line)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-80 ${colorClass} ${sizeClass} ${className}`}
     >
       {label}
     </button>
