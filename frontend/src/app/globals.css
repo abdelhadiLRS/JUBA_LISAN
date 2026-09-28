@@ -3575,3 +3575,45 @@ html[data-theme='light'] {
   .juba-busuu-landing .juba-ff-plan-card{min-height:0;padding:24px!important}
   .juba-busuu-landing .juba-ff-plan-price{font-size:30px!important}
 }
+
+
+/* Final landing pricing responsive refinement — public landing only. */
+.juba-busuu-landing .juba-ff-plan-card{
+  position:relative;
+}
+.juba-busuu-landing .juba-ff-plan-card:focus-within{
+  outline:3px solid var(--busuu-blue);
+  outline-offset:2px;
+}
+@media(max-width:1000px){
+  .juba-busuu-landing .juba-ff-plan-card{
+    min-height:300px;
+    padding:26px!important;
+  }
+  .juba-busuu-landing .juba-ff-pricing .grid{
+    gap:12px;
+  }
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-ff-plan-card{
+    min-height:0;
+  }
+  .juba-busuu-landing .juba-ff-plan-head{
+    align-items:flex-start;
+  }
+  .juba-busuu-landing .juba-ff-plan-badge{
+    max-width:48%;
+    white-space:normal;
+    text-align:center;
+    line-height:1.3;
+  }
+  .juba-busuu-landing .juba-ff-comparison{
+    margin-inline:-2px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .juba-busuu-landing .juba-ff-plan-cta,
+  .juba-busuu-landing .juba-ff-plan-free-link{
+    transition:none;
+  }
+}
