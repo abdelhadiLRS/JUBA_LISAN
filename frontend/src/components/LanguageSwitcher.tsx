@@ -58,7 +58,7 @@ export default function LanguageSwitcher() {
   }
 
   const skeleton = useMemo(() => (
-    <div className="flex min-w-0 items-center gap-2 rounded-[14px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-2.5 shadow-[0_3px_0_rgba(0,0,0,.035)] animate-pulse" aria-label="Loading languages">
+    <div className="flex min-w-0 items-center gap-2 rounded-[14px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-2.5 shadow-[0_3px_0_var(--duo-line)] animate-pulse" aria-label="Loading languages">
       <div className="h-3 w-20 rounded bg-[var(--duo-line)]" />
     </div>
   ), [])
@@ -71,7 +71,7 @@ export default function LanguageSwitcher() {
     <div ref={ref} className="relative w-full">
       {toast && (
         <div className="pointer-events-none fixed inset-x-0 top-20 z-[100] flex justify-center px-4" role="status" aria-live="polite">
-          <div className="pointer-events-auto flex items-center gap-2 rounded-[14px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-3 text-xs font-bold text-[var(--duo-ink)] shadow-[0_8px_22px_rgba(43,45,90,.10)]">
+          <div className="pointer-events-auto flex items-center gap-2 rounded-[14px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-3 text-xs font-bold text-[var(--duo-ink)] shadow-[0_8px_22px_var(--duo-line)]">
             <i className="ti ti-check icon icon-sm text-[var(--duo-green-dark)]" aria-hidden="true" />
             {toastMsg}
           </div>
@@ -85,7 +85,7 @@ export default function LanguageSwitcher() {
         aria-expanded={multiple ? open : undefined}
         aria-haspopup={multiple ? 'listbox' : undefined}
         aria-label={multiple ? 'Switch target language' : `Current target language: ${targetLabel(activeLanguage.code, getLanguageByCode(activeLanguage.code)?.name ?? activeLanguage.code)}`}
-        className="group flex min-w-0 w-full items-center gap-3 rounded-[14px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-2.5 text-left text-sm font-bold text-[var(--duo-ink)] shadow-[0_3px_0_rgba(0,0,0,.035)] transition-all hover:border-[var(--duo-green)] hover:shadow-[0_3px_0_var(--duo-green-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-blue)] focus-visible:ring-offset-2 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-[0_3px_0_rgba(0,0,0,.035)]"
+        className="group flex min-w-0 w-full items-center gap-3 rounded-[14px] border border-[var(--duo-line)] bg-[var(--duo-card)] px-3.5 py-2.5 text-left text-sm font-bold text-[var(--duo-ink)] shadow-[0_3px_0_var(--duo-line)] transition-all hover:border-[var(--duo-green)] hover:shadow-[0_3px_0_var(--duo-green-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-blue)] focus-visible:ring-offset-2 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-[0_3px_0_var(--duo-line)]"
       >
         <span className="flex h-9 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-[var(--duo-line)] bg-[var(--duo-bg)]">
           <Image src={getLanguageByCode(activeLanguage.code)?.flagPath ?? '/flags/arab-league.svg'} alt="" aria-hidden="true" width={44} height={32} unoptimized className="h-full w-full object-cover" />
