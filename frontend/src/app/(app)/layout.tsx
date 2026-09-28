@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useAuthStore, isSubscribed } from '@/store/auth'
 import { useProgressStore } from '@/store/progress'
 import { LearningProgressBridge } from '@/components/LearningProgressBridge'
@@ -20,6 +20,8 @@ import { AuthAvatarImage } from '@/components/AuthAvatarImage'
 import { BookOpen, ChartNoAxesColumnIncreasing, Gamepad2, GraduationCap, Headphones, Languages, MessageCircle, Settings, Users, Library, ClipboardCheck, UserRound, Search, Trophy, Flame, Sparkles } from 'lucide-react'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
+  const locale = useLocale()
+  const dir = locale === 'ar' ? 'rtl' : 'ltr'
   const tNav = useTranslations('nav')
   const tCommon = useTranslations('common')
   const tBilling = useTranslations('billing')
@@ -218,7 +220,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         : ''
 
   return (
-    <div className="juba-duo-shell">
+    <div className="juba-duo-shell" dir={dir}>
       {/* Sidebar */}
       <header className="juba-duo-sidebar">
         {/* Logo area */}
@@ -377,7 +379,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </header>
 
       {/* Mobile top bar */}
-      <div className="border-fl-border bg-fl-bg fixed top-0 right-0 left-0 z-50 border-b md:hidden">
+      <div className="juba-duo-mobile-bar border-fl-border bg-fl-bg fixed top-0 right-0 left-0 z-50 border-b md:hidden">
         <div className="flex items-center justify-between px-4 py-3">
           <span className="juba-duo-mobile-brand">JUBA LISAN</span>
           <button
