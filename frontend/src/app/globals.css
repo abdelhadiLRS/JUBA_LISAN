@@ -1433,32 +1433,8 @@ html[data-theme='light'] {
   box-shadow:inset -4px 0 0 var(--duo-green);
 }
 
-/* Mobile navigation is direction-aware rather than relying on left-only
-   borders/padding from the legacy implementation. */
-.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu {
-  direction:rtl;
-  text-align:right;
-}
-.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu .juba-duo-nav-link,
-.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu .juba-duo-resource-toggle {
-  text-align:right;
-}
-.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu .border-l-2 {
-  border-left-width:0 !important;
-  border-right-width:2px !important;
-}
-.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu .pl-8 {
-  padding-left:0 !important;
-  padding-right:2rem !important;
-}
-.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu .pr-5 {
-  padding-right:1.25rem !important;
-  padding-left:0 !important;
-}
-.juba-duo-shell[dir="rtl"] .juba-duo-mobile-menu .ml-auto {
-  margin-left:0 !important;
-  margin-right:auto !important;
-}
+/* Mobile navigation uses logical CSS properties in the component markup, so RTL
+   requires no physical left/right overrides here. */
 
 /* Dashboard: preserve the Duolingo path rhythm while keeping content fluid. */
 .juba-duo-home {
