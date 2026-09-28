@@ -1818,3 +1818,35 @@ html[data-theme='light'] {
     height:230px;
   }
 }
+
+/* Landing flow refinement — language marquee sits between learner benefits and product conversion. */
+.juba-busuu-landing .juba-busuu-slogan{
+  border-block:1px solid var(--busuu-line);
+  background:var(--busuu-ink);
+}
+.juba-busuu-landing .juba-busuu-slogan-track{
+  padding-block:6px;
+  will-change:transform;
+}
+.juba-busuu-landing .juba-busuu-slogan-track span{
+  display:inline-flex;
+  align-items:center;
+  gap:28px;
+}
+.juba-busuu-landing .juba-busuu-slogan-track b{
+  color:#45f09a;
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-slogan{padding-block:28px}
+  .juba-busuu-landing .juba-busuu-slogan-track{gap:20px}
+  .juba-busuu-landing .juba-busuu-slogan-track span{gap:20px}
+}
+@media(prefers-reduced-motion:reduce){
+  .juba-busuu-landing .juba-busuu-slogan-track{
+    animation:none;
+    width:100%;
+    justify-content:center;
+    flex-wrap:wrap;
+    white-space:normal;
+  }
+}
