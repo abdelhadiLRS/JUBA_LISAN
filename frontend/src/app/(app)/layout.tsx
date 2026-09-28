@@ -540,7 +540,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <p className="text-[var(--duo-muted)] text-[var(--duo-muted)] truncate font-sans tracking-widest uppercase">
                     {user?.displayName || user?.username}
                   </p>
-                  <p className="text-[var(--duo-ink)] text-[#8a8a8a] truncate font-sans">
+                  <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] truncate font-sans">
                     @{user?.username?.toLowerCase()}
                   </p>
                 </div>
@@ -550,7 +550,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
-              <p className="text-[var(--duo-ink)] text-[#8a8a8a] font-sans mb-2 tracking-wider">
+              <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans mb-2 tracking-wider">
                 v1.9.15
               </p>
               <button
