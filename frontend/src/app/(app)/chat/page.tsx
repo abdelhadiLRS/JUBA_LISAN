@@ -320,7 +320,7 @@ export default function ChatPage() {
 
         {/* Sidebar */}
         {sidebarOpen && (
-          <aside className="border-[var(--duo-line)] bg-[var(--duo-bg)]/70 fixed top-14 bottom-0 start-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-e-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
+          <aside className="border-[var(--duo-line)] bg-[var(--duo-bg)]/70 fixed top-14 bottom-0 start-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-e-2 md:relative md:top-auto md:bottom-auto md:start-auto md:z-auto">
             <div className="border-[var(--duo-line)] flex items-center justify-between border-b-2 px-4 py-3">
               <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
                 {t('conversations')}
@@ -372,7 +372,7 @@ export default function ChatPage() {
                     className={`group border-[var(--duo-line)] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
                       activeId === c.id
                         ? 'bg-[var(--duo-line)] border-s-[var(--duo-green)] border-l-2'
-                        : 'hover:bg-white border-s-2 border-l-transparent'
+                        : 'hover:bg-white border-s-2 border-s-transparent'
                     }`}
                   >
                     <span
