@@ -102,7 +102,7 @@ export function SettingsActionCard({
           className="flex h-9 w-9 items-center justify-center rounded-xl"
           style={{
             color: 'var(--duo-green-dark)',
-            background: 'rgba(88,204,2,.12)',
+            background: 'color-mix(in_srgb,var(--duo-green)_12%,transparent)',
           }}
         >
           <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
