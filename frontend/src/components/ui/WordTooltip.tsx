@@ -12,15 +12,15 @@ export interface TooltipPos { x: number; y: number }
 export function WordTooltip({ word, pos, saveState, onSave, onDismiss, labels }: { word: string; pos: TooltipPos; saveState: SaveState; onSave: () => void; onDismiss: () => void; labels: { saveWord: string; wordSaved: string; wordSaveError: string } }) {
   return (
     <div style={{ left: pos.x, top: pos.y }} className="pointer-events-auto fixed z-50 max-w-[calc(100vw-24px)] -translate-x-1/2 -translate-y-full">
-      <div className="juba-card flex max-w-full flex-wrap items-center gap-3 border-2 border-[var(--juba-app-line)] px-3 py-2.5 text-xs shadow-[4px_4px_0_var(--juba-app-line)]">
-        <span className="text-[var(--juba-app-ink)] font-semibold">{word}</span>
-        {saveState === 'idle' && <button type="button" onClick={onSave} className="inline-flex items-center gap-1.5 border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] text-[var(--juba-app-green-dark)] hover:bg-[var(--juba-app-green-soft)] rounded-xl px-2.5 py-1 shadow-[2px_2px_0_var(--juba-app-line)] text-[11px] font-semibold tracking-wide uppercase transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-1"><Save className="h-3.5 w-3.5" aria-hidden="true" />{labels.saveWord}</button>}
-        {saveState === 'saving' && <span className="inline-flex items-center gap-1.5 text-[var(--juba-app-muted)] tracking-widest uppercase"><Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />Saving</span>}
-        {saveState === 'saved' && <span className="inline-flex items-center gap-1.5 text-[var(--juba-app-green-dark)] font-semibold tracking-wide uppercase"><Check className="h-3.5 w-3.5" aria-hidden="true" />{labels.wordSaved}</span>}
-        {saveState === 'error' && <span className="inline-flex items-center gap-1.5 text-[#b33a32] font-semibold tracking-wide uppercase"><AlertCircle className="h-3.5 w-3.5" aria-hidden="true" />{labels.wordSaveError}</span>}
-        <button type="button" onClick={onDismiss} className="ml-auto rounded-lg border-2 border-transparent px-1 text-[var(--juba-app-muted)] transition-colors hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-1" aria-label="dismiss"><X className="h-3.5 w-3.5" aria-hidden="true" /></button>
+      <div className="rounded-[26px] bg-[var(--duo-card)] flex max-w-full flex-wrap items-center gap-3 border-2 border-[var(--duo-line)] px-3 py-2.5 text-xs shadow-[4px_4px_0_var(--duo-line)]">
+        <span className="text-[var(--duo-ink)] font-semibold">{word}</span>
+        {saveState === 'idle' && <button type="button" onClick={onSave} className="inline-flex items-center gap-1.5 border-2 border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-green-dark)] hover:bg-[var(--duo-green)] rounded-xl px-2.5 py-1 shadow-[2px_2px_0_var(--duo-line)] text-[11px] font-semibold tracking-wide uppercase transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-1"><Save className="h-3.5 w-3.5" aria-hidden="true" />{labels.saveWord}</button>}
+        {saveState === 'saving' && <span className="inline-flex items-center gap-1.5 text-[var(--duo-muted)] tracking-widest uppercase"><Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />Saving</span>}
+        {saveState === 'saved' && <span className="inline-flex items-center gap-1.5 text-[var(--duo-green-dark)] font-semibold tracking-wide uppercase"><Check className="h-3.5 w-3.5" aria-hidden="true" />{labels.wordSaved}</span>}
+        {saveState === 'error' && <span className="inline-flex items-center gap-1.5 text-[var(--duo-red)] font-semibold tracking-wide uppercase"><AlertCircle className="h-3.5 w-3.5" aria-hidden="true" />{labels.wordSaveError}</span>}
+        <button type="button" onClick={onDismiss} className="ms-auto rounded-lg border-2 border-transparent px-1 text-[var(--duo-muted)] transition-colors hover:bg-[var(--duo-green)] hover:text-[var(--duo-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-1" aria-label="dismiss"><X className="h-3.5 w-3.5" aria-hidden="true" /></button>
       </div>
-      <div className="border-t-[var(--juba-app-line)] mx-auto mt-px h-0 w-0 border-x-4 border-t-4 border-x-transparent" />
+      <div className="border-t-[var(--duo-line)] mx-auto mt-px h-0 w-0 border-x-4 border-t-4 border-x-transparent" />
     </div>
   )
 }
