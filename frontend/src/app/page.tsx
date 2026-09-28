@@ -138,44 +138,47 @@ export default async function Home() {
       />
 
       {/* Hero */}
-      <section className="juba-busuu-hero flex flex-1 flex-col items-center justify-center px-6 pt-[10px] pb-12 text-center">
-        <div className="mb-1 flex flex-col items-center">
-          <div className="mb-0">
-            <LanguageBubbles />
+      <section className="juba-busuu-hero">
+        <div className="juba-busuu-hero-inner">
+          <div className="juba-busuu-hero-copy">
+            <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
+            <h1>{t('heroTitle')}</h1>
+            <p>{t('heroSub')}</p>
+            <div className="juba-busuu-hero-actions">
+              <Link
+                href={
+                  hasSession
+                    ? '/dashboard'
+                    : allowRegistration
+                      ? '/register'
+                      : '/login'
+                }
+                className="juba-busuu-hero-primary"
+              >
+                {hasSession
+                  ? t('dashboard')
+                  : allowRegistration
+                    ? tCommon('start')
+                    : t('signIn')}
+              </Link>
+              <a href="#features" className="juba-busuu-hero-secondary">
+                {t('howItWorks')} <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </div>
-          <span className="text-fl-label text-fl-muted-2 mb-4 font-mono tracking-widest uppercase">
-            {tCommon('tagline')}
-          </span>
-          <h1 className="text-fl-fg mb-4 max-w-xl font-sans text-3xl leading-tight font-bold tracking-tight md:text-5xl">
-            {t('heroTitle')}
-          </h1>
-          <p className="text-fl-muted-1 mb-8 max-w-lg font-sans text-base leading-relaxed md:text-lg">
-            {t('heroSub')}
-          </p>
-        </div>
-        <div className="flex flex-col items-center gap-3 sm:flex-row">
-          <Link
-            href={
-              hasSession
-                ? '/dashboard'
-                : allowRegistration
-                  ? '/register'
-                  : '/login'
-            }
-            className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 px-8 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors"
-          >
-            {hasSession
-              ? t('dashboard')
-              : allowRegistration
-                ? tCommon('start')
-                : t('signIn')}
-          </Link>
-          <a
-            href="#features"
-            className="border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 border px-8 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
-          >
-            {t('howItWorks')} ↓
-          </a>
+          <div className="juba-busuu-hero-visual" aria-label={t('navLanguages')}>
+            <div className="juba-busuu-language-panel">
+              <div className="juba-busuu-language-panel-heading">
+                <span className="juba-busuu-language-panel-dot" aria-hidden="true" />
+                <span>{t('navLanguages')}</span>
+              </div>
+              <LanguageBubbles dir={dir} />
+            </div>
+            <div className="juba-busuu-floating-note">
+              <span aria-hidden="true">✦</span>
+              <span>{tCommon('tagline')}</span>
+            </div>
+          </div>
         </div>
       </section>
 
