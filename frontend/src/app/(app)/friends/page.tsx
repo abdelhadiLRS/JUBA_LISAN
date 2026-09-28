@@ -95,7 +95,7 @@ export default function FriendsPage() {
           <div className="flex items-center justify-between pt-2"><h2 className="juba-section-title">Your learning friends</h2><span className="juba-badge">{friends.length}</span></div>
           {loading ? <p className="juba-muted">Loading…</p> : friends.length===0 ? <Empty text="No friends yet. Search for another learner to start practising together."/> :
             <div className="grid gap-3 md:grid-cols-2">{friends.map(person=><PersonCard key={person.id} person={person}><div className="flex flex-wrap gap-2"><Link href={'/friends/chat/'+person.id} className="juba-primary-button"><MessageCircle className="h-4 w-4"/> Chat</Link><button onClick={()=>remove(person.id)} disabled={actionId===person.id} className="juba-secondary-button" title="Remove friend"><UserMinus className="h-4 w-4"/></button></div></PersonCard>)}</div>}
-          {error && <p className="rounded-xl border border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[rgba(255,75,75,.08)] px-4 py-3 text-sm text-[var(--duo-red)]">{error}</p>}
+          {error && <p className="rounded-xl border border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] px-4 py-3 text-sm text-[var(--duo-red)]">{error}</p>}
         </div>
 
         <div className="juba-panel">
@@ -112,7 +112,7 @@ export default function FriendsPage() {
 }
 
 function PersonCard({person,children}:{person:Person;children:React.ReactNode}) {
-  return <div className="flex items-center gap-3 rounded-[20px] border border-[var(--duo-line)] bg-white p-3 shadow-[0_3px_0_rgba(31,41,51,.045)]">
+  return <div className="flex items-center gap-3 rounded-[20px] border border-[var(--duo-line)] bg-[var(--duo-card)] p-3 shadow-[0_3px_0_var(--duo-line)]">
     <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-[var(--duo-line)] bg-[var(--duo-bg)]">
       {person.avatar ? <AuthAvatarImage avatar={person.avatar} alt="" width={44} height={44} className="h-full w-full object-cover"/> : <div className="flex h-full w-full items-center justify-center font-bold text-[var(--duo-muted)]">{(person.display_name||person.username||'?')[0].toUpperCase()}</div>}
     </div>
