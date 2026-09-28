@@ -23,7 +23,7 @@ export function AdminPageHeader({
             {eyebrow}
           </span>
         </div>
-        <h1 className="juba-admin-title text-[#202127] text-xl font-black tracking-tight">
+        <h1 className="juba-admin-title text-[var(--duo-ink)] text-xl font-black tracking-tight">
           {title}
         </h1>
       </div>
@@ -42,9 +42,9 @@ export function AdminPanel({
   children: ReactNode
 }) {
   return (
-    <div className="juba-admin-panel juba-card rounded-[26px] border border-[rgba(7,7,9,.08)] bg-[#fff] shadow-[0_12px_30px_rgba(43,45,90,.055)]">
+    <div className="juba-admin-panel rounded-[26px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_3px_0_var(--duo-line)]">
       {(title || meta) && (
-        <div className="juba-admin-panel-head border-[rgba(7,7,9,.08)] flex flex-wrap items-center gap-2 border-b px-5 py-4">
+        <div className="juba-admin-panel-head border-[var(--duo-line)] flex flex-wrap items-center gap-2 border-b px-5 py-4">
           {title && (
             <>
               <span className="juba-admin-kicker-dot" aria-hidden="true">✦</span>
@@ -53,7 +53,7 @@ export function AdminPanel({
               </span>
             </>
           )}
-          {meta && <div className="ml-auto">{meta}</div>}
+          {meta && <div className="ms-auto">{meta}</div>}
         </div>
       )}
       {children}
@@ -71,9 +71,9 @@ export function AdminMetric({
   icon: LucideIcon
 }) {
   return (
-    <div className="juba-admin-metric juba-card rounded-[20px] border border-[rgba(7,7,9,.08)] bg-[#fff] shadow-[0_12px_30px_rgba(43,45,90,.055)] flex items-center justify-between gap-3 border px-4 py-3">
+    <div className="juba-admin-metric rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_3px_0_var(--duo-line)] flex items-center justify-between gap-3 border px-4 py-3">
       <div className="min-w-0">
-        <p className="juba-admin-metric-label text-[10px] text-[rgba(32,33,39,.52)] mb-1 font-sans tracking-widest uppercase">
+        <p className="juba-admin-metric-label text-[10px] text-[var(--duo-muted)] mb-1 font-sans tracking-widest uppercase">
           {label}
         </p>
         <p className="juba-admin-metric-value text-[#202127] truncate text-lg font-black">{value}</p>
