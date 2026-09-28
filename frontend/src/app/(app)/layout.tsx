@@ -246,6 +246,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="juba-duo-shell" dir={dir}>
+      <a className="juba-duo-skip-link" href="#main-content">
+        {locale === 'ar' ? 'تجاوز إلى المحتوى الرئيسي' : 'Skip to main content'}
+      </a>
       {/* Sidebar */}
       <aside className="juba-duo-sidebar" aria-label={tNav('navigation')}>
         {/* Logo area */}
