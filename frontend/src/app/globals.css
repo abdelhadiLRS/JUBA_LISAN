@@ -3616,3 +3616,94 @@ html[data-theme='light'] {
     transform:none;
   }
 }
+
+
+/* Final landing closing system pass — public landing only. */
+.juba-busuu-landing .juba-busuu-pricing{
+  padding:112px 0 120px;
+  background:#f7f7f4;
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-pricing .juba-busuu-heading{
+  max-width:900px;
+  margin:0 auto 44px;
+  text-align:center;
+}
+.juba-busuu-landing .juba-busuu-pricing .juba-busuu-heading h2{
+  max-width:760px;
+  margin:12px auto 16px;
+  font-size:clamp(2.8rem,5vw,5rem);
+  line-height:.94;
+  letter-spacing:-.07em;
+}
+.juba-busuu-landing .juba-busuu-pricing .juba-busuu-heading p{
+  max-width:620px;
+  margin-inline:auto;
+  color:var(--busuu-muted);
+  font-size:15px;
+  line-height:1.75;
+}
+.juba-busuu-landing .juba-busuu-final-cta{
+  padding:28px 0 0;
+  background:#f7f7f4;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner{
+  min-height:420px;
+  padding:72px 64px;
+  border-radius:0;
+  background:var(--busuu-green);
+  color:#fff;
+  overflow:hidden;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner h2{
+  max-width:720px;
+  margin:12px 0 18px;
+  font-size:clamp(3rem,5.6vw,5.8rem);
+  line-height:.9;
+  letter-spacing:-.075em;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner p{
+  max-width:540px;
+  margin:0 0 28px;
+  color:rgba(255,255,255,.86);
+  font-size:16px;
+  line-height:1.7;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner .juba-busuu-primary{
+  background:#fff;
+  color:var(--busuu-ink);
+  border-color:#fff;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner .juba-busuu-primary:hover{
+  background:#f3f5f4;
+  color:var(--busuu-green-dark);
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner img{
+  max-width:54%;
+  opacity:.98;
+}
+.juba-busuu-landing .juba-busuu-footer{
+  margin-top:0;
+  border-top:1px solid rgba(220,230,225,.16);
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-pricing{
+    padding:72px 0 76px;
+  }
+  .juba-busuu-landing .juba-busuu-final-cta{
+    padding-top:16px;
+  }
+  .juba-busuu-landing .juba-busuu-final-cta-inner{
+    min-height:0;
+    padding:58px 24px 34px;
+    text-align:center;
+  }
+  .juba-busuu-landing .juba-busuu-final-cta-inner h2,
+  .juba-busuu-landing .juba-busuu-final-cta-inner p{
+    margin-inline:auto;
+  }
+  .juba-busuu-landing .juba-busuu-final-cta-inner img{
+    max-width:92%;
+    margin:30px auto -34px;
+  }
+}
