@@ -89,7 +89,7 @@ export default function CoachPage() {
       <div className="mx-auto max-w-7xl space-y-8">
         <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="juba-eyebrow mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--duo-line)] bg-[rgba(88,204,2,.12)] px-3 py-1.5 text-[var(--duo-green-dark)]">
+            <div className="juba-eyebrow mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1.5 text-[var(--duo-green-dark)]">
               <BrainCircuit className="h-4 w-4" />
               Your AI Learning Coach
             </div>
@@ -103,7 +103,7 @@ export default function CoachPage() {
           <button
             onClick={() => { setRefreshing(true); load() }}
             disabled={refreshing}
-            className="inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-[var(--duo-line)] bg-white px-4 py-2.5 text-sm font-bold text-[var(--duo-ink)] transition hover:border-[var(--duo-green-dark)] disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2.5 text-sm font-bold text-[var(--duo-ink)] transition hover:border-[var(--duo-green-dark)] disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh coaching
@@ -127,7 +127,7 @@ export default function CoachPage() {
                   <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-[var(--duo-green)] px-5 py-3 text-sm font-bold text-[var(--duo-ink)] transition hover:bg-[var(--duo-green-dark)]">
                     Start focused practice <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[var(--duo-line)] px-5 py-3 text-sm font-bold text-[var(--duo-ink)] transition hover:bg-[rgba(88,204,2,.12)]">
+                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[var(--duo-line)] px-5 py-3 text-sm font-bold text-[var(--duo-ink)] transition hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]">
                     View my plan
                   </Link>
                 </div>
@@ -165,12 +165,12 @@ export default function CoachPage() {
                 <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--duo-green-dark)]">Adaptive queue</p>
                 <h2 className="mt-1 text-2xl font-black text-[var(--duo-ink)]">Your best work for today</h2>
               </div>
-              <span className="rounded-full bg-[rgba(88,204,2,.12)] px-3 py-1 text-xs font-bold text-[var(--duo-muted)]">{completed}/{total} complete</span>
+              <span className="rounded-full bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1 text-xs font-bold text-[var(--duo-muted)]">{completed}/{total} complete</span>
             </div>
             <div className="space-y-3">
               {(plan.lessons ?? []).slice(0, 4).map((lesson, index) => (
-                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[20px] border-2 border-[var(--duo-line)] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[var(--duo-green-dark)]">
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[20px] ${lesson.is_completed ? 'bg-[rgba(88,204,2,.12)] text-[var(--duo-green-dark)]' : 'bg-[rgba(88,204,2,.12)] text-[var(--duo-green-dark)]'}`}>
+                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--duo-green-dark)]">
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[20px] ${lesson.is_completed ? 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]' : 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]'}`}>
                     {lesson.is_completed ? <CheckCircle2 className="h-5 w-5" /> : <span className="text-sm font-black">{index + 1}</span>}
                   </div>
                   <div className="min-w-0 flex-1">
@@ -190,7 +190,7 @@ export default function CoachPage() {
             <p className="mt-2 text-sm leading-6 text-[var(--duo-muted)]">Stop memorizing isolated sentences. Practice what you actually need to say.</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
-                <Link key={scenario.title} href={scenario.href} className="rounded-[20px] border-2 border-[var(--duo-line)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--duo-green-dark)] hover:bg-[rgba(88,204,2,.12)]">
+                <Link key={scenario.title} href={scenario.href} className="rounded-[20px] border-2 border-[var(--duo-line)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--duo-green-dark)] hover:bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]">
                   <span className="text-2xl">{scenario.icon}</span>
                   <p className="mt-3 text-sm font-black text-[var(--duo-ink)]">{scenario.title}</p>
                   <p className="mt-1 text-xs leading-5 text-[var(--duo-muted)]">{scenario.desc}</p>
@@ -211,7 +211,7 @@ export default function CoachPage() {
 
 function Metric({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
   return (
-    <div className="rounded-[16px] bg-[rgba(88,204,2,.12)] p-3">
+    <div className="rounded-[16px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] p-3">
       <div className="mb-2 h-4 w-4 text-[var(--duo-green-dark)]">{icon}</div>
       <p className="text-lg font-black text-[var(--duo-ink)]">{value}</p>
       <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--duo-muted)]">{label}</p>
@@ -223,7 +223,7 @@ function CoachCard({ icon, title, value, detail, href }: { icon: React.ReactNode
   return (
     <Link href={href} className="juba-card group p-5">
       <div className="flex items-center justify-between">
-        <span className="flex h-10 w-10 items-center justify-center rounded-[16px] bg-[rgba(88,204,2,.12)] text-[var(--duo-green-dark)]">{icon}</span>
+        <span className="flex h-10 w-10 items-center justify-center rounded-[16px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] text-[var(--duo-green-dark)]">{icon}</span>
         <ArrowRight className="h-4 w-4 text-[var(--duo-muted)] transition group-hover:translate-x-1" />
       </div>
       <p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-[var(--duo-muted)]">{title}</p>
