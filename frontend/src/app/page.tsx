@@ -8,7 +8,7 @@ import { ArrowRight, ArrowUpRight, BookOpen, Headphones, Languages, MessageCircl
 import PricingSection from '@/components/billing/PricingSection'
 import { LandingFAQ } from '@/components/ui/landing-faq'
 import { LandingNav } from '@/components/ui/landing-nav'
-import { LANGUAGES, LanguageBubbles, SUPPORTED_LANGUAGE_COUNT } from '@/components/LanguageBubbles'
+import { LanguageBubbles } from '@/components/LanguageBubbles'
 import { LandingFooter } from '@/components/landing/LandingFooter'
 import type { ReviewPublic } from '@/types/api'
 
@@ -48,6 +48,27 @@ const jsonLd = {
     'AI-powered language learning platform with CEFR lessons, AI tutoring, voice conversation, reading, listening and flashcards.',
 }
 
+// Landing-only catalog. Keeping this list in the page prevents a stale Turbopack
+// named-export binding from breaking the public homepage during Fast Refresh.
+const FEATURED_LANGUAGES = [
+  { code: 'en', name: 'English' },
+  { code: 'es', name: 'Español' },
+  { code: 'fr', name: 'Français' },
+  { code: 'ja', name: '日本語' },
+  { code: 'de', name: 'Deutsch' },
+  { code: 'it', name: 'Italiano' },
+  { code: 'ko', name: '한국어' },
+  { code: 'ar', name: 'العربية' },
+  { code: 'ru', name: 'Русский' },
+  { code: 'tr', name: 'Türkçe' },
+  { code: 'zh', name: '中文' },
+  { code: 'pt', name: 'Português' },
+  { code: 'nl', name: 'Nederlands' },
+  { code: 'pl', name: 'Polski' },
+] as const
+
+const SUPPORTED_LANGUAGE_COUNT = 38
+
 export default async function Home() {
   const cookieStore = await cookies()
   const hasSession = cookieStore.has('refresh_token')
@@ -84,7 +105,7 @@ export default async function Home() {
   }
 
   const rtl = locale === 'ar'
-  const featuredLanguages = LANGUAGES.slice(0, 14)
+  const featuredLanguages = FEATURED_LANGUAGES
 
   return (
     <main className="juba-busuu-landing min-h-screen overflow-x-hidden" dir={rtl ? 'rtl' : 'ltr'} lang={locale}>
