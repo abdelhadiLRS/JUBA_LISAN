@@ -24,7 +24,7 @@ const CulturalCard: React.FC<CulturalCardProps> = ({
 
   return (
     <motion.div
-      className="juba-card bg-white dark:bg-slate-800 overflow-hidden cursor-pointer"
+      className="overflow-hidden rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-[0_3px_0_var(--duo-line)] cursor-pointer"
       whileHover={{ y: -5 }}
       onClick={() => setIsExpanded(!isExpanded)}
       initial={{ opacity: 0, y: 20 }}
@@ -35,14 +35,14 @@ const CulturalCard: React.FC<CulturalCardProps> = ({
         <div className="flex items-center gap-4 mb-4">
           <span className="text-4xl">{flag}</span>
           <div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white">{country}</h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">{language}</p>
+            <h3 className="text-xl font-bold text-[var(--duo-ink)]">{country}</h3>
+            <p className="text-sm text-[var(--duo-muted)]">{language}</p>
           </div>
         </div>
 
         <div className="space-y-3">
           <div className="flex items-start gap-2">
-            <span className="text-amber-600 dark:text-amber-500">💬</span>
+            <span className="text-[var(--duo-yellow)]">💬</span>
             <div>
               <p className="text-xs text-slate-500 dark:text-slate-400">التحية الشائعة</p>
               <p className="text-slate-900 dark:text-white font-medium">{greeting}</p>
@@ -73,7 +73,7 @@ const CulturalCard: React.FC<CulturalCardProps> = ({
           )}
         </div>
 
-        <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+        <div className="mt-4 pt-4 border-t border-[var(--duo-line)]">
           <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
             انقر للمزيد من المعلومات
           </p>
