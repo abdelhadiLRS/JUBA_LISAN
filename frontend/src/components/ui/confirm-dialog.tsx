@@ -74,44 +74,44 @@ export function ConfirmDialog({
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center p-4"
       style={{
-        backgroundColor: 'color-mix(in srgb, var(--juba-app-ink) 55%, transparent)',
+        backgroundColor: 'color-mix(in srgb, var(--duo-ink) 55%, transparent)',
         backdropFilter: 'blur(8px)',
       }}
       onClick={() => !confirming && onCancel()}
     >
       <div
         ref={dialogRef}
-        className="card w-full max-w-sm overflow-hidden border-2 border-[var(--juba-app-line)] shadow-[5px_5px_0_var(--juba-app-line)]"
+        className="card w-full max-w-sm overflow-hidden border-2 border-[var(--duo-line)] shadow-[5px_5px_0_var(--duo-line)]"
         onClick={(e) => e.stopPropagation()}
         role="alertdialog"
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
       >
-        <div className="flex items-center gap-3 border-b-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-6 py-4">
+        <div className="flex items-center gap-3 border-b-2 border-[var(--duo-line)] bg-[rgba(88,204,2,.10)] px-6 py-4">
           <span
-            className={`flex h-8 w-8 items-center justify-center rounded-full text-sm ${danger ? 'bg-[color-mix(in_srgb,#b33a32_12%,var(--juba-app-surface))] text-[#b33a32]' : 'bg-[var(--juba-app-yellow)] text-[var(--juba-app-green-dark)]'}`}
+            className={`flex h-8 w-8 items-center justify-center rounded-full text-sm ${danger ? 'bg-[color-mix(in_srgb,var(--duo-red)_12%,var(--duo-card))] text-[var(--duo-red)]' : 'bg-[var(--duo-yellow)] text-[var(--duo-green-dark)]'}`}
             aria-hidden="true"
           >
             {danger ? <i className="ti ti-alert-triangle icon" aria-hidden="true" /> : <i className="ti ti-circle-check icon" aria-hidden="true" />}
           </span>
-          <span id={titleId} className="text-sm font-semibold tracking-tight text-[var(--juba-app-ink)]">
+          <span id={titleId} className="text-sm font-semibold tracking-tight text-[var(--duo-ink)]">
             {title}
           </span>
         </div>
 
         <div className="px-6 py-6">
-          <p id={descriptionId} className="text-sm leading-6 text-[var(--juba-app-muted)]">
+          <p id={descriptionId} className="text-sm leading-6 text-[var(--duo-muted)]">
             {message}
           </p>
           {error && (
-            <p role="alert" className="mt-3 text-sm leading-5 text-[#b33a32]">
+            <p role="alert" className="mt-3 text-sm leading-5 text-[var(--duo-red)]">
               {error}
             </p>
           )}
         </div>
 
-        <div className="flex gap-3 border-t-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-6 py-4">
+        <div className="flex gap-3 border-t-2 border-[var(--duo-line)] bg-[rgba(88,204,2,.10)] px-6 py-4">
           <button
             type="button"
             ref={cancelRef}
@@ -126,10 +126,10 @@ export function ConfirmDialog({
             onClick={onConfirm}
             disabled={confirming}
             aria-busy={confirming}
-            className={`flex-1 rounded-xl border-2 border-transparent px-4 py-2.5 text-sm font-semibold shadow-[3px_3px_0_var(--juba-app-line)] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
+            className={`flex-1 rounded-xl border-2 border-transparent px-4 py-2.5 text-sm font-semibold shadow-[3px_3px_0_var(--duo-line)] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
               danger
-                ? 'bg-[#b33a32] text-white hover:opacity-90 focus-visible:ring-[#b33a32]'
-                : 'bg-[var(--juba-app-green-dark)] text-white hover:opacity-90 focus-visible:ring-[var(--juba-app-green)]'
+                ? 'bg-[var(--duo-red)] text-white hover:opacity-90 focus-visible:ring-[var(--duo-red)]'
+                : 'bg-[var(--duo-green-dark)] text-white hover:opacity-90 focus-visible:ring-[var(--duo-green)]'
             }`}
           >
             {confirming ? <span className="inline-flex items-center gap-2"><Loader2 className="size-4 animate-spin" />{confirmLabel}</span> : confirmLabel}
