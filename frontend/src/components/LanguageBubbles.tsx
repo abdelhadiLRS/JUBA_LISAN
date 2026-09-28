@@ -45,13 +45,27 @@ export const LANGUAGES: Language[] = [
   { code: 'th', name: 'ไทย', country: 'th' },
 ]
 
-export const FEATURED_LANGUAGES = LANGUAGES.slice(0, 14)
+export const FEATURED_LANGUAGES: Language[] = [
+  { code: 'en', name: 'English', country: 'gb' },
+  { code: 'es', name: 'Español', country: 'es' },
+  { code: 'fr', name: 'Français', country: 'fr' },
+  { code: 'ja', name: '日本語', country: 'jp' },
+  { code: 'de', name: 'Deutsch', country: 'de' },
+  { code: 'it', name: 'Italiano', country: 'it' },
+  { code: 'ko', name: '한국어', country: 'kr' },
+  { code: 'ar', name: 'العربية', country: 'dz' },
+  { code: 'ru', name: 'Русский', country: 'ru' },
+  { code: 'tr', name: 'Türkçe', country: 'tr' },
+  { code: 'zh', name: '中文', country: 'cn' },
+  { code: 'pt', name: 'Português', country: 'pt' },
+  { code: 'nl', name: 'Nederlands', country: 'nl' },
+  { code: 'pl', name: 'Polski', country: 'pl' },
+]
+
 export const SUPPORTED_LANGUAGE_COUNT = LANGUAGES.length
 
 export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
-  // Keep the rendered catalog local to this component. This avoids relying on
-  // Turbopack's live named-export binding during Fast Refresh.
-  const featuredLanguages = LANGUAGES.slice(0, 14)
+  const featuredLanguages = FEATURED_LANGUAGES
 
   return (
     <ul dir={dir} className="juba-busuu-language-list" aria-labelledby="language-title">
