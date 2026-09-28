@@ -430,6 +430,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {mobileMenuOpen && (
           <nav
             id="juba-duo-mobile-menu"
+            aria-label={tNav('navigation')}
             className="juba-duo-mobile-menu max-h-[calc(100vh-66px)] overflow-y-auto overscroll-contain"
           >
             <div className="border-[var(--duo-line)] border-b">
