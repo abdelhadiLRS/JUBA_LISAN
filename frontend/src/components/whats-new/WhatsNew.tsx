@@ -79,24 +79,24 @@ export default function WhatsNew() {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="presentation">
       {/* Backdrop */}
       <div
-        className="bg-fl-bg/80 absolute inset-0 backdrop-blur-sm"
+        className="bg-[color-mix(in_srgb,var(--duo-ink)_55%,transparent)] absolute inset-0 backdrop-blur-sm"
         onClick={dismiss}
         aria-hidden="true"
       />
 
       {/* Modal */}
-      <div className="border-fl-border bg-fl-surface relative z-10 w-full max-w-md border shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="whats-new-title">
+      <div className="relative z-10 w-full max-w-md rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] shadow-[0_6px_0_var(--duo-line)]" role="dialog" aria-modal="true" aria-labelledby="whats-new-title">
         {/* Header */}
-        <div className="border-fl-border flex items-center gap-3 border-b px-5 pt-5 pb-4">
+        <div className="flex items-center gap-3 border-b-2 border-[var(--duo-line)] px-5 pt-5 pb-4">
           <Sparkles
-            className="text-fl-accent h-[1.125rem] w-[1.125rem]"
+            className="text-[var(--duo-purple)] h-[1.125rem] w-[1.125rem]"
             aria-hidden="true"
           />
           <div>
-            <p id="whats-new-title" className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+            <p id="whats-new-title" className="text-xs text-[var(--duo-muted)] font-bold tracking-widest uppercase">
               {t('title')}
             </p>
-            <p className="text-fl-hint text-fl-muted-4 font-mono tracking-widest">
+            <p className="text-[10px] text-[var(--duo-muted)] font-bold tracking-widest">
               {t('version')}
             </p>
           </div>
@@ -107,17 +107,17 @@ export default function WhatsNew() {
           {entries.map((entry) => (
             <div key={entry.key} className="flex gap-3">
               <CircleDot
-                className="text-fl-accent mt-0.5 h-3.5 w-3.5 shrink-0"
+                className="text-[var(--duo-purple)] mt-0.5 h-3.5 w-3.5 shrink-0"
                 aria-hidden="true"
               />
               <div>
-                <p className="text-fl-label text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
+                <p className="text-fl-label text-xs text-[var(--duo-muted)] mb-1 font-bold tracking-widest uppercase">
                   {entry.label}
                 </p>
-                <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
+                <p className="text-[var(--duo-muted)] text-xs leading-relaxed">
                   {t.rich(`${entry.key}.desc`, {
                     bold: (chunks) => (
-                      <strong className="text-fl-muted-2 font-semibold">
+                      <strong className="text-[var(--duo-ink)] font-semibold">
                         {chunks}
                       </strong>
                     ),
@@ -129,12 +129,12 @@ export default function WhatsNew() {
         </div>
 
         {/* Footer */}
-        <div className="border-fl-border flex justify-end border-t px-5 pt-3 pb-5">
+        <div className="flex justify-end border-t-2 border-[var(--duo-line)] px-5 pt-3 pb-5">
           <button
             ref={closeButtonRef}
             type="button"
             onClick={dismiss}
-            className="text-fl-label bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 px-5 py-2 font-mono tracking-widest uppercase transition-colors"
+            className="text-xs rounded-xl bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green-dark)] px-5 py-2.5 font-bold tracking-widest uppercase shadow-[0_3px_0_var(--duo-green-dark)] transition-colors"
           >
             {t('cta')} →
           </button>
