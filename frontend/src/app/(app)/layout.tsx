@@ -379,7 +379,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </header>
 
       {/* Mobile top bar */}
-      <div className="juba-duo-mobile-bar border-fl-border bg-fl-bg fixed top-0 right-0 left-0 z-50 border-b md:hidden">
+      <div className="juba-duo-mobile-bar border-fl-border bg-fl-bg fixed top-0 right-0 left-0 z-50 border-b">
         <div className="flex items-center justify-between px-4 py-3">
           <span className="juba-duo-mobile-brand">JUBA LISAN</span>
           <button
