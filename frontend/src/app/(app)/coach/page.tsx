@@ -143,7 +143,7 @@ export default function CoachPage() {
               </div>
               <Flame className="h-6 w-6 text-[var(--duo-green-dark)]" />
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-3">
               <Metric icon={<Flame />} value={`${progress.current_streak ?? 0}`} label="day streak" />
               <Metric icon={<Zap />} value={`${progress.total_xp ?? 0}`} label="total XP" />
               <Metric icon={<Target />} value={`${progress.accuracy ? Math.round(progress.accuracy * 100) : 0}%`} label="accuracy" />
