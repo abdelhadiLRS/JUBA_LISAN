@@ -635,7 +635,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             )}
           </div>
         )}
-        <div className="juba-duo-page-frame min-h-0 flex-1 overflow-y-auto overscroll-contain" tabIndex={-1} id="app-scroll-region">
+        <div
+          className="juba-duo-page-frame min-h-0 flex-1 overflow-y-auto overscroll-contain"
+          tabIndex={-1}
+          id="app-scroll-region"
+        >
           {children}
         </div>
       </main>
