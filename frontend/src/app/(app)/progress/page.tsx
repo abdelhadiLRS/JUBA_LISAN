@@ -27,7 +27,7 @@ interface HistoryRangeSummary { period: 'week' | 'month' | 'all'; from_date?: st
 type CompetencyStatus = 'mastered' | 'in-progress' | 'not-started'
 
 function getCompetencyStatus(itemIndex: number, masteredCount: number, totalCount: number, score: number): CompetencyStatus { if (itemIndex < masteredCount) return 'mastered'; if (score > 0 && itemIndex < totalCount) return 'in-progress'; return 'not-started' }
-const STATUS_BADGE: Record<CompetencyStatus, { Icon: LucideIcon; color: string; background: string }> = { mastered: { Icon: Check, color: 'var(--duo-card)', background: 'var(--duo-green-dark)' }, 'in-progress': { Icon: LoaderCircle, color: 'var(--duo-red)', background: 'color-mix(in srgb, var(--juba-yellow) 30%, transparent)' }, 'not-started': { Icon: Circle, color: 'var(--duo-muted)', background: 'transparent' } }
+const STATUS_BADGE: Record<CompetencyStatus, { Icon: LucideIcon; color: string; background: string }> = { mastered: { Icon: Check, color: 'var(--duo-card)', background: 'var(--duo-green-dark)' }, 'in-progress': { Icon: LoaderCircle, color: 'var(--duo-red)', background: 'color-mix(in srgb, var(--duo-yellow) 30%, transparent)' }, 'not-started': { Icon: Circle, color: 'var(--duo-muted)', background: 'transparent' } }
 
 function UnitCompetencyBlock({ unit, record }: { unit: CurriculumUnit; record: CompetencyRecord | undefined }) {
   const t = useTranslations('progress'); const tPlan = useTranslations('plan'); const masteredCount = record?.mastered_count ?? 0; const totalCount = unit.competency_checklist.length; const score = record?.score ?? 0; const pct = totalCount > 0 ? Math.round((masteredCount / totalCount) * 100) : 0; const complete = pct === 100
@@ -92,8 +92,8 @@ export default function ProgressPage() {
   const statTiles = summary ? [{ label: t('xp'), value: summary.total_xp.toLocaleString(), Icon: Sparkles, highlight: false }, { label: t('streak'), value: `${summary.current_streak} ${t('days')}`, Icon: Flame, highlight: summary.current_streak > 0 }, { label: t('lessons'), value: summary.total_lessons, Icon: BookOpen, highlight: false }, { label: t('accuracy'), value: `${Math.round(summary.accuracy * 100)}%`, Icon: Check, highlight: false }] : []
 
   return <div className="juba-mobile-progress mx-auto max-w-6xl space-y-7 px-3 py-5 sm:px-6 sm:py-8">
-    <section className="relative overflow-hidden rounded-[32px] border-[3px] border-[var(--juba-ink)] bg-[var(--juba-violet)] px-6 py-7 text-white shadow-[7px_7px_0_var(--juba-ink)] sm:px-9 sm:py-9">
-      <div className="pointer-events-none absolute -end-10 -top-16 h-44 w-44 rounded-full bg-[var(--juba-yellow)]"/>
+    <section className="relative overflow-hidden rounded-[32px] border-[3px] border-[var(--duo-ink)] bg-[var(--duo-purple)] px-6 py-7 text-white shadow-[7px_7px_0_var(--duo-ink)] sm:px-9 sm:py-9">
+      <div className="pointer-events-none absolute -end-10 -top-16 h-44 w-44 rounded-full bg-[var(--duo-yellow)]"/>
       <div className="pointer-events-none absolute -bottom-14 start-1/3 h-32 w-32 rounded-full bg-[var(--duo-red)] opacity-80"/>
       <div className="relative z-10 flex flex-wrap items-end justify-between gap-5">
         <div><p className="text-xs font-black uppercase tracking-[.14em] text-white/70">{t('subtitle')}</p><h1 className="mt-2 text-3xl font-black tracking-[-.045em] sm:text-5xl">{t('subtitle')}</h1><p className="mt-2 text-sm font-medium text-white/75">{activeLanguage?.name ?? ''} · {cefrLevel}</p></div>
