@@ -76,7 +76,7 @@ export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
   const current = LOCALES.find((item) => item.code === locale) ?? LOCALES[0]
 
   return (
-    <div className="fixed right-4 top-4 z-[90]" dir="ltr">
+    <div className="fixed end-4 top-4 z-[90]" dir="ltr">
       <div className="relative">
         <button
           type="button"
@@ -93,7 +93,7 @@ export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
         </button>
 
         {open && (
-          <div role="listbox" aria-label={locale === 'ar' ? 'لغة الموقع' : 'Site language'} className="absolute right-0 top-[calc(100%+8px)] w-64 overflow-hidden rounded-2xl border border-[var(--duo-line)] bg-white p-3 shadow-xl">
+          <div role="listbox" aria-label={locale === 'ar' ? 'لغة الموقع' : 'Site language'} className="absolute end-0 top-[calc(100%+8px)] w-64 overflow-hidden rounded-2xl border border-[var(--duo-line)] bg-white p-3 shadow-xl">
             <div className="mb-3 flex items-center gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--duo-muted)]">
               <Globe2 className="h-3.5 w-3.5" aria-hidden="true" />
               {locale === 'ar' ? 'المنطقة واللغة' : 'Region & language'}
