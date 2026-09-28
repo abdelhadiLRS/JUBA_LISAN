@@ -90,7 +90,7 @@ export function ReviewForm({
     <>
       <div className="space-y-5 px-5 py-5">
         <div>
-          <p className="text-[var(--juba-muted)] mb-3 font-mono tracking-widest uppercase">
+          <p className="text-[var(--duo-muted)] mb-3 font-mono tracking-widest uppercase">
             {t('ratingLabel')}
           </p>
           <div
@@ -108,8 +108,8 @@ export function ReviewForm({
                 onClick={() => setRating(value)}
                 className={`border px-3 py-2 transition-colors ${
                   value <= rating
-                    ? 'border-yellow-400 text-yellow-400'
-                    : 'border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)]'
+                    ? 'border-[var(--duo-yellow)] text-[var(--duo-yellow)]'
+                    : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)]'
                 }`}
               >
                 <Star className="size-5 fill-current" />
@@ -121,7 +121,7 @@ export function ReviewForm({
         <div>
           <label
             htmlFor="review-comment"
-            className="text-[var(--juba-muted)] mb-2 block font-mono tracking-widest uppercase"
+            className="text-[var(--duo-muted)] mb-2 block font-mono tracking-widest uppercase"
           >
             {t('commentLabel')}
           </label>
@@ -131,12 +131,12 @@ export function ReviewForm({
             onChange={(event) => setComment(event.target.value)}
             maxLength={2000}
             rows={4}
-            className="border-[var(--juba-border)] bg-[var(--juba-bg)] text-[var(--juba-text)] placeholder:text-[var(--juba-muted)] focus:border-[var(--juba-violet)] w-full resize-none border px-3 py-2 font-mono text-sm outline-none"
+            className="border-[var(--duo-line)] bg-[var(--duo-bg)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-purple)] w-full resize-none border px-3 py-2 font-mono text-sm outline-none"
             placeholder={t('commentPlaceholder')}
           />
         </div>
 
-        {error && <p className="text-[var(--juba-danger)] font-mono text-xs">{error}</p>}
+        {error && <p className="text-[var(--duo-red)] font-mono text-xs">{error}</p>}
       </div>
 
       <div className="flex gap-2 px-5 pb-5">
@@ -144,7 +144,7 @@ export function ReviewForm({
           <button
             type="button"
             onClick={onCancel}
-            className="border-[var(--juba-border)] text-[var(--juba-muted)] hover:text-[var(--juba-text)] flex-1 border py-3 font-mono font-bold tracking-widest uppercase transition-colors"
+            className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] flex-1 border py-3 font-mono font-bold tracking-widest uppercase transition-colors"
           >
             {cancelLabel ?? t('cancel')}
           </button>
@@ -153,7 +153,7 @@ export function ReviewForm({
           type="button"
           onClick={handleSubmit}
           disabled={submitting}
-          className="bg-[var(--juba-yellow)] text-[var(--juba-ink)] hover:bg-[var(--juba-yellow)]/90 flex flex-1 items-center justify-center gap-2 py-3 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-60"
+          className="bg-[var(--duo-yellow)] text-[var(--juba-ink)] hover:bg-[var(--duo-yellow)]/90 flex flex-1 items-center justify-center gap-2 py-3 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-60"
         >
           {submitting && <Loader2 className="size-3.5 animate-spin" />}
           {submitLabel ?? t('submit')}
@@ -206,21 +206,21 @@ export function ReviewPrompt({
   }
 
   return (
-    <div className="fixed inset-0 z-[180] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
-      <div className="border-[var(--juba-border)] bg-[var(--juba-surface)] w-full max-w-md border shadow-2xl">
-        <div className="border-[var(--juba-border)] flex items-center justify-between border-b px-5 py-4">
+    <div className="fixed inset-0 z-[180] flex items-center justify-center bg-[color-mix(in_srgb,var(--duo-ink)_70%,transparent)] p-4 backdrop-blur-sm">
+      <div className="border-[var(--duo-line)] bg-[var(--duo-card)] w-full max-w-md border shadow-[0_8px_24px_var(--duo-line)]">
+        <div className="border-[var(--duo-line)] flex items-center justify-between border-b px-5 py-4">
           <div>
-            <p className="text-[var(--juba-muted)] font-mono tracking-widest uppercase">
+            <p className="text-[var(--duo-muted)] font-mono tracking-widest uppercase">
               {t('eyebrow')}
             </p>
-            <h2 className="text-[var(--juba-text)] mt-1 font-sans text-lg font-semibold tracking-tight">
+            <h2 className="text-[var(--duo-ink)] mt-1 font-sans text-lg font-semibold tracking-tight">
               {t('title')}
             </h2>
           </div>
           <button
             type="button"
             onClick={handleCancel}
-            className="text-[var(--juba-muted)] hover:text-[var(--juba-text)] p-2 transition-colors"
+            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] p-2 transition-colors"
             aria-label={t('closeLabel')}
           >
             <X className="size-4" />
@@ -229,13 +229,13 @@ export function ReviewPrompt({
 
         {checking ? (
           <div className="px-5 py-5">
-            <div className="text-[var(--juba-muted)] flex items-center gap-2 font-mono text-xs">
+            <div className="text-[var(--duo-muted)] flex items-center gap-2 font-mono text-xs">
               <Loader2 className="size-4 animate-spin" /> {t('checking')}
             </div>
           </div>
         ) : statusCheckFailed ? (
           <div className="px-5 py-5">
-            <p className="text-[var(--juba-danger)] font-mono text-xs">{error}</p>
+            <p className="text-[var(--duo-red)] font-mono text-xs">{error}</p>
           </div>
         ) : (
           <ReviewForm
