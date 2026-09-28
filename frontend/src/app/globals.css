@@ -1757,3 +1757,64 @@ html[data-theme='light'] {
     padding:15px 16px;
   }
 }
+
+/* Landing fidelity pass — preserve the three-stat Busuu rhythm and sharpen editorial cards. */
+.juba-busuu-landing .juba-busuu-stats-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.juba-busuu-landing .juba-busuu-feature-grid{
+  align-items:stretch;
+}
+.juba-busuu-landing .juba-busuu-feature{
+  min-height:500px;
+  border-radius:0;
+}
+.juba-busuu-landing .juba-busuu-feature img{
+  height:290px;
+}
+.juba-busuu-landing .juba-busuu-feature-body h3{
+  font-size:clamp(24px,2.2vw,31px);
+}
+.juba-busuu-landing .juba-busuu-feature-body p{
+  max-width:31ch;
+}
+.juba-busuu-landing .juba-busuu-benefit-list article{
+  min-height:270px;
+  padding:36px 30px;
+}
+.juba-busuu-landing .juba-busuu-benefit-list article svg{
+  flex:0 0 auto;
+}
+@media(max-width:1000px){
+  .juba-busuu-landing .juba-busuu-stats-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  .juba-busuu-landing .juba-busuu-feature-grid{
+    display:flex;
+    overflow-x:auto;
+  }
+  .juba-busuu-landing .juba-busuu-feature{
+    flex:0 0 min(360px,78vw);
+  }
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-stats-grid{
+    grid-template-columns:1fr;
+  }
+  .juba-busuu-landing .juba-busuu-stats-grid article,
+  .juba-busuu-landing .juba-busuu-stats-grid article:nth-child(3),
+  .juba-busuu-landing .juba-busuu-stats-grid article:nth-child(4){
+    border-inline-start:0;
+    border-top:1px solid var(--busuu-line);
+  }
+  .juba-busuu-landing .juba-busuu-stats-grid article:first-child{
+    border-top:0;
+  }
+  .juba-busuu-landing .juba-busuu-feature{
+    min-height:470px;
+    flex-basis:min(330px,84vw);
+  }
+  .juba-busuu-landing .juba-busuu-feature img{
+    height:230px;
+  }
+}
