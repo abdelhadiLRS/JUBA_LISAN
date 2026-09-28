@@ -2017,3 +2017,81 @@ html[data-theme='light'] {
     border-radius:14px!important;
   }
 }
+
+
+/* Landing closing sequence: keep the app CTA, final CTA and footer visually connected. */
+.juba-busuu-landing .juba-busuu-app-cta{
+  border-top:0;
+}
+.juba-busuu-landing .juba-busuu-app-cta + .juba-busuu-online-languages{
+  border-top:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-final-cta{
+  padding-top:28px;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner{
+  position:relative;
+  border-radius:0 0 28px 28px;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner::after{
+  content:"";
+  position:absolute;
+  inset:auto 7% -18px;
+  height:36px;
+  background:rgba(23,26,25,.08);
+  filter:blur(18px);
+  z-index:-1;
+}
+.juba-busuu-landing .juba-busuu-footer{
+  border-top:1px solid rgba(220,230,225,.16);
+}
+.juba-busuu-landing .juba-busuu-footer-intro-links a{
+  min-height:42px;
+  display:inline-flex;
+  align-items:center;
+  padding:9px 14px;
+  border:1px solid #39443f;
+  border-radius:999px;
+  transition:background .16s,border-color .16s,color .16s;
+}
+.juba-busuu-landing .juba-busuu-footer-intro-links a:hover{
+  background:#fff;
+  border-color:#fff;
+  color:var(--busuu-ink);
+}
+.juba-busuu-landing .juba-busuu-footer-language{
+  padding:26px 0;
+  border-bottom:1px solid #39443f;
+}
+.juba-busuu-landing .juba-busuu-footer-language-heading{
+  margin-bottom:12px;
+}
+.juba-busuu-landing .juba-busuu-footer-language-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+.juba-busuu-landing .juba-busuu-footer-language-list a{
+  padding:7px 10px;
+  border-radius:999px;
+  border:1px solid #39443f;
+  transition:background .16s,border-color .16s,color .16s;
+}
+.juba-busuu-landing .juba-busuu-footer-language-list a:hover,
+.juba-busuu-landing .juba-busuu-footer-language-list a[aria-current="page"]{
+  background:var(--busuu-mint);
+  border-color:var(--busuu-mint);
+  color:var(--busuu-green-dark);
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-final-cta{padding-top:18px}
+  .juba-busuu-landing .juba-busuu-final-cta-inner{border-radius:0 0 20px 20px}
+  .juba-busuu-landing .juba-busuu-footer-intro-links{
+    display:grid;
+    grid-template-columns:1fr;
+    width:100%;
+  }
+  .juba-busuu-landing .juba-busuu-footer-intro-links a{
+    justify-content:center;
+  }
+}
