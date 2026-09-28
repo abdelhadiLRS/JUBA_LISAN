@@ -108,9 +108,9 @@ export default function SettingsPage() {
                   disabled={deleting}
                   className="w-full rounded-[20px] border py-2.5 text-sm font-medium transition-colors disabled:opacity-40"
                   style={{
-                    color: '#b33a32',
+                    color: 'var(--duo-red)',
                     borderColor:
-                      'color-mix(in srgb, #b33a32 35%, transparent)',
+                      'color-mix(in srgb, var(--duo-red) 35%, transparent)',
                   }}
                 >
                   {t('deleteAccount')}
