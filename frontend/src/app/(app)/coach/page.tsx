@@ -115,7 +115,7 @@ export default function CoachPage() {
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
               <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-[var(--duo-green)] text-[var(--duo-ink)] shadow-[0_4px_0_var(--duo-green-dark)]">
                 <Sparkles className="h-10 w-10" />
-                <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full border-2 border-white bg-[#ffb020]" />
+                <span className="absolute -end-1 -top-1 h-4 w-4 rounded-full border-2 border-white bg-[#ffb020]" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[var(--duo-green-dark)]">Coach insight</p>
