@@ -173,7 +173,7 @@ export default function CoursesPage() {
 
                 return (
                   <article key={level} className={`juba-card relative rounded-[20px] border-2 border-[var(--duo-line)] bg-white p-6 shadow-[0_4px_0_rgba(31,41,51,.05)] transition hover:-translate-y-1 ${current ? 'ring-2 ring-[var(--duo-green)]' : ''}`}>
-                    {current && <span className="absolute -top-3 right-5 rounded-full bg-[var(--duo-green)] px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-white shadow-[0_2px_0_var(--duo-green-dark)]">Current level</span>}
+                    {current && <span className="absolute -top-3 end-5 rounded-full bg-[var(--duo-green)] px-3 py-1 text-[11px] font-black uppercase tracking-[.14em] text-white shadow-[0_2px_0_var(--duo-green-dark)]">Current level</span>}
                     <div className="flex items-start justify-between gap-4">
                       <div><span className="text-xs font-bold uppercase tracking-[.16em] text-[var(--duo-muted)]">Level {index + 1}</span><h3 className="mt-2 text-2xl font-black text-[var(--duo-ink)]">{LEVEL_META[level].title}</h3></div>
                       <div className={`flex h-10 w-10 items-center justify-center rounded-full ${unlocked ? 'bg-[rgba(88,204,2,.12)] text-[var(--duo-green-dark)]' : 'bg-[var(--duo-bg)] text-[var(--duo-muted)]'}`}>
