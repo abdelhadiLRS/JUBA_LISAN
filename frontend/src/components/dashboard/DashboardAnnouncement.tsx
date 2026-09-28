@@ -112,7 +112,7 @@ export function DashboardAnnouncement() {
         <section
           role="status"
           dir={isArabic ? 'rtl' : 'ltr'}
-          className={`relative mb-6 rounded-[26px] border p-4 pe-12 shadow-[0_12px_30px_var(--duo-line)] ${
+          className={`relative mb-6 rounded-[26px] border p-4 pe-12 shadow-[0_3px_0_var(--duo-line)] ${
             syncNotice.status === 'synced'
               ? 'border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-purple)_12%,transparent)]'
               : 'border-[var(--duo-line)] bg-[var(--duo-card)]'
@@ -173,7 +173,7 @@ export function DashboardAnnouncement() {
       {showAnnouncement && translation && (
         <section
           aria-labelledby="dashboard-announcement-title"
-          className="relative mb-6 rounded-[26px] border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-purple)_12%,transparent)] p-5 pe-14 shadow-[0_12px_30px_var(--duo-line)]"
+          className="relative mb-6 rounded-[26px] border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-purple)_12%,transparent)] p-5 pe-14 shadow-[0_3px_0_var(--duo-line)]"
         >
           <div className="flex gap-3">
             <Megaphone
