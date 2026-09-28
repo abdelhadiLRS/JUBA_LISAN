@@ -478,7 +478,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   }`}
                 >
                   <span
-                    className={`text-[var(--duo-ink)] ${active ? 'text-[var(--duo-ink)]' : 'text-[#8a8a8a]'}`}
+                    className={`text-[var(--duo-ink)] ${active ? 'text-[var(--duo-ink)]' : 'text-[var(--duo-muted)]'}`}
                   >
                     ●
                   </span>
@@ -502,7 +502,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     : 'text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:bg-[var(--duo-card)] border-s-2 border-transparent'
                 }`}
               >
-                <span className="text-[var(--duo-ink)] text-[#8a8a8a]">●</span>
+                <span className="text-[var(--duo-muted)]">●</span>
                 {tNav('admin')}
               </Link>
             )}
@@ -546,7 +546,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </div>
               </div>
               {trialDaysLeft > 0 && (
-                <p className="text-[var(--duo-ink)] text-[var(--duo-green)] mb-2 font-sans text-xs">
+                <p className="text-[var(--duo-green-dark)] mb-2 font-sans text-xs">
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
