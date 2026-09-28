@@ -2408,3 +2408,96 @@ html[data-theme='light'] {
   }
   .juba-busuu-landing .juba-busuu-difference .juba-busuu-feature-body{padding:24px 22px 26px}
 }
+
+/* Landing benefits fidelity pass — public landing only. */
+.juba-busuu-landing .juba-busuu-benefits{
+  padding:112px 0 120px;
+  background:#fff;
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-benefits .juba-busuu-heading-split{
+  margin-bottom:42px;
+}
+.juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border-top:1px solid var(--busuu-line);
+  border-inline-start:1px solid var(--busuu-line);
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list article{
+  min-height:300px;
+  padding:34px 28px 30px;
+  gap:22px;
+  border-inline-start:0;
+  border-inline-end:1px solid var(--busuu-line);
+  border-bottom:0;
+  background:#fff;
+}
+.juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list article:last-child{
+  border-inline-end:0;
+}
+.juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list article>svg{
+  width:30px;
+  height:30px;
+  stroke-width:1.8;
+  color:var(--busuu-green-dark);
+}
+.juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list article>div{
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+.juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list article span{
+  color:var(--busuu-muted);
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+.juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list article h3{
+  margin:10px 0 10px;
+  font-size:clamp(21px,2vw,28px);
+  line-height:1.04;
+  letter-spacing:-.035em;
+}
+.juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list article p{
+  max-width:29ch;
+  margin:0;
+  color:var(--busuu-muted);
+  font-size:14px;
+  line-height:1.68;
+}
+@media(max-width:1000px){
+  .juba-busuu-landing .juba-busuu-benefits{
+    padding:88px 0 96px;
+  }
+  .juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list article:nth-child(2){
+    border-inline-end:0;
+  }
+  .juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list article:nth-child(-n+2){
+    border-bottom:1px solid var(--busuu-line);
+  }
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-benefits{
+    padding:72px 0 76px;
+  }
+  .juba-busuu-landing .juba-busuu-benefits .juba-busuu-heading-split{
+    margin-bottom:30px;
+  }
+  .juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list{
+    grid-template-columns:1fr;
+  }
+  .juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list article{
+    min-height:0;
+    padding:26px 22px 28px;
+    border-inline-end:0;
+    border-bottom:1px solid var(--busuu-line);
+  }
+  .juba-busuu-landing .juba-busuu-benefits .juba-busuu-benefit-list article:last-child{
+    border-bottom:0;
+  }
+}
