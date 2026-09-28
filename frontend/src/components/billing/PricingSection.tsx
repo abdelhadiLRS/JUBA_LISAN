@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Circle, CircleDot, Diamond, Check, Minus, ArrowRight, Loader2 } from 'lucide-react'
+import { Circle, CircleDot, Diamond, Check, Minus } from 'lucide-react'
 import { getLandingSubscriptionState } from '@/lib/landing-subscription'
 import { apiFetch } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
