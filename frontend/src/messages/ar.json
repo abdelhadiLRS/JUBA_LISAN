@@ -164,7 +164,8 @@
     "appCtaDescription": "واصل ممارسة اللغة بسهولة. تابع الدروس والمحادثات مع الذكاء الاصطناعي والاستماع وتقدّمك أينما كنت.",
     "appCtaNote": "تجربة ويب محسّنة لشاشات الهاتف",
     "onlineLanguagesTitle": "تعلّم اللغات عبر الإنترنت",
-    "onlineLanguagesDescription": "اختر لغة واستكشف تجربة التعلّم المتاحة في JUBA LISAN."
+
+    "onlineLanguagePrefix": "تعلّم",    "onlineLanguagesDescription": "اختر لغة واستكشف تجربة التعلّم المتاحة في JUBA LISAN."
   },
   "common": {
     "loading": "جارٍ التحميل...",
