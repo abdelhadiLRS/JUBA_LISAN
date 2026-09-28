@@ -941,7 +941,7 @@ html[data-theme='light'] {
   display:flex;
   flex-direction:column;
   overflow-y:auto;
-  background:#fff;
+  background:var(--duo-card);
   border-inline-end:2px solid var(--duo-line);
   color:var(--duo-ink);
 }
@@ -1034,7 +1034,7 @@ html[data-theme='light'] {
   flex-shrink:0;
   padding:14px 15px 16px;
   border-top:2px solid var(--duo-line);
-  background:#fff;
+  background:var(--duo-card);
 }
 .juba-duo-logo-mark {
   display:grid;
@@ -1055,7 +1055,7 @@ html[data-theme='light'] {
 }
 .juba-duo-version {
   margin:0 0 10px;
-  color:#999;
+  color:var(--duo-muted);
   font-size:10px;
   font-weight:700;
   letter-spacing:.08em;
@@ -1066,7 +1066,7 @@ html[data-theme='light'] {
   padding:7px 0;
   border:0;
   background:transparent;
-  color:#777;
+  color:var(--duo-muted);
   text-align:start;
   font-size:12px;
   font-weight:700;
@@ -1092,7 +1092,7 @@ html[data-theme='light'] {
   place-items:center;
   border:2px solid var(--duo-line);
   border-radius:12px;
-  background:#fff;
+  background:var(--duo-card);
   color:var(--duo-ink);
 }
 .juba-duo-mobile-trigger:hover {
@@ -1102,7 +1102,7 @@ html[data-theme='light'] {
 .juba-duo-mobile-menu {
   max-height:calc(100vh - 66px);
   overflow-y:auto;
-  background:#fff;
+  background:var(--duo-card);
   border-top:1px solid var(--duo-line);
   box-shadow:0 8px 24px color-mix(in srgb,var(--duo-ink) 8%,transparent);
 }
@@ -1183,7 +1183,7 @@ html[data-theme='light'] {
 .juba-duo-page-frame .juba-mobile-translator textarea,
 .juba-duo-page-frame .juba-mobile-translator select,
 .juba-duo-page-frame .juba-mobile-coach textarea {
-  background:#fff;
+  background:var(--duo-card);
   border-color:var(--duo-line) !important;
   color:var(--duo-ink);
 }
@@ -1402,7 +1402,7 @@ html[data-theme='light'] {
 
 .juba-duo-shell .juba-duo-sidebar {
   width:250px;
-  background:#fff;
+  background:var(--duo-card);
   border-color:var(--duo-line);
 }
 
@@ -1590,7 +1590,7 @@ html[data-theme='light'] {
 
 .juba-duo-page-frame .juba-badge {
   border-color:var(--duo-line);
-  background:#fff;
+  background:var(--duo-card);
   color:var(--duo-ink);
 }
 
@@ -1690,7 +1690,7 @@ html[data-theme='light'] {
   padding:0 10px;
   border:2px solid var(--duo-line);
   border-radius:12px;
-  background:#fff;
+  background:var(--duo-card);
   color:var(--duo-ink);
   font-weight:900;
 }
@@ -1711,7 +1711,7 @@ html[data-theme='light'] {
 .juba-duo-page-frame .juba-games .play-card {
   border:2px solid var(--duo-line);
   border-radius:16px;
-  background:#fff;
+  background:var(--duo-card);
   box-shadow:0 3px 0 color-mix(in srgb,var(--duo-ink) 4%,transparent);
 }
 .juba-duo-page-frame .juba-games .stats-grid > div {
@@ -1733,7 +1733,7 @@ html[data-theme='light'] {
 .juba-duo-page-frame .juba-games .game-card {
   border:2px solid var(--duo-line);
   border-radius:16px;
-  background:#fff;
+  background:var(--duo-card);
   color:var(--duo-ink);
   box-shadow:0 3px 0 color-mix(in srgb,var(--duo-ink) 4%,transparent);
   transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease;
@@ -1824,7 +1824,7 @@ html[data-theme='light'] {
   padding:8px 10px;
   border:2px solid var(--duo-line);
   border-radius:10px;
-  background:#fff;
+  background:var(--duo-card);
 }
 .juba-duo-page-frame .juba-games .badge.unlocked {
   border-color:color-mix(in srgb,var(--duo-green) 35%,transparent);
@@ -1856,7 +1856,7 @@ html[data-theme='light'] {
   min-height:44px;
   border:2px solid var(--duo-line);
   border-radius:12px;
-  background:#fff;
+  background:var(--duo-card);
   color:var(--duo-ink);
   font-weight:900;
 }
@@ -1875,7 +1875,7 @@ html[data-theme='light'] {
   min-height:44px;
   border:2px solid var(--duo-line);
   border-radius:12px;
-  background:#fff;
+  background:var(--duo-card);
   color:var(--duo-ink);
 }
 .juba-duo-page-frame .juba-games input:focus {
@@ -1956,7 +1956,7 @@ html[data-theme='light'] {
   min-height:44px;
   border-color:var(--duo-line);
   border-radius:12px;
-  background:#fff;
+  background:var(--duo-card);
   color:var(--duo-ink);
 }
 
@@ -2013,7 +2013,7 @@ html[data-theme='light'] {
 .juba-duo-page-frame .juba-mobile-listening .juba-secondary-button,
 .juba-duo-page-frame .juba-mobile-reading .juba-secondary-button {
   border-color:var(--duo-line);
-  background:#fff;
+  background:var(--duo-card);
   color:var(--duo-ink);
   border-radius:12px;
   box-shadow:0 3px 0 color-mix(in srgb,var(--duo-ink) 4%,transparent);
@@ -2029,7 +2029,7 @@ html[data-theme='light'] {
 .juba-duo-page-frame .juba-mobile-friends .juba-card {
   border:2px solid var(--duo-line);
   border-radius:20px;
-  background:#fff;
+  background:var(--duo-card);
   color:var(--duo-ink);
   box-shadow:0 3px 0 color-mix(in srgb,var(--duo-ink) 4%,transparent);
 }
