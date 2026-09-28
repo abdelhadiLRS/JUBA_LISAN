@@ -371,7 +371,7 @@ export default function ChatPage() {
                     onClick={() => selectConversation(c.id)}
                     className={`group border-[var(--duo-line)] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
                       activeId === c.id
-                        ? 'bg-[var(--duo-line)] border-s-[var(--duo-green)] border-l-2'
+                        ? 'bg-[var(--duo-line)] border-s-2 border-s-[var(--duo-green)]'
                         : 'hover:bg-white border-s-2 border-s-transparent'
                     }`}
                   >
