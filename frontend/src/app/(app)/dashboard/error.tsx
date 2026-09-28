@@ -15,19 +15,19 @@ export default function DashboardError({ error, reset }: DashboardErrorProps) {
 
   return (
     <main className="flex min-h-[70vh] items-center justify-center px-6 py-12">
-      <section className="border-fl-border bg-fl-surface w-full max-w-lg border p-8 text-center shadow-sm">
-        <p className="text-fl-accent mb-3 font-mono text-xs font-semibold tracking-[0.2em] uppercase">
+      <section className="w-full max-w-lg rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] p-8 text-center shadow-[0_3px_0_var(--duo-line)]">
+        <p className="text-[var(--duo-green-dark)] mb-3 font-mono text-xs font-semibold tracking-[0.2em] uppercase">
           JUBA LISAN
         </p>
-        <h1 className="text-fl-fg mb-3 text-xl font-semibold">
+        <h1 className="text-[var(--duo-ink)] mb-3 text-xl font-semibold">
           Dashboard temporarily unavailable
         </h1>
-        <p className="text-fl-muted-2 mb-6 text-sm leading-6">
+        <p className="text-[var(--duo-muted)] mb-6 text-sm leading-6">
           The dashboard could not render correctly. Your account data is not
           affected. Try again, or return to the dashboard entry point.
         </p>
         {error.digest && (
-          <p className="text-fl-muted-3 mb-6 font-mono text-xs">
+          <p className="text-[var(--duo-muted)] mb-6 font-mono text-xs">
             Error reference: {error.digest}
           </p>
         )}
@@ -35,13 +35,13 @@ export default function DashboardError({ error, reset }: DashboardErrorProps) {
           <button
             type="button"
             onClick={reset}
-            className="bg-fl-accent text-fl-accent-fg rounded-xl px-5 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90"
+            className="bg-fl-accent text-[var(--duo-green-dark)]-fg rounded-xl px-5 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90"
           >
             Try again
           </button>
           <Link
             href="/dashboard"
-            className="border-fl-border text-fl-fg rounded-xl border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--juba-surface-soft)]"
+            className="border-2 border-[var(--duo-line)] text-[var(--duo-ink)] rounded-xl px-5 py-2.5 text-sm font-bold transition-colors hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]"
           >
             Go to dashboard
           </Link>
