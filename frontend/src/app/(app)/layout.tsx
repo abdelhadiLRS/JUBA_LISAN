@@ -576,7 +576,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </p>
               )}
               <p className="text-[var(--duo-muted)] font-sans mb-2 tracking-wider">
-                v1.9.15
+                v1.9.16
               </p>
               <button
                 onClick={() => {
