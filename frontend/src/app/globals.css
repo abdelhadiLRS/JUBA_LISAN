@@ -4408,3 +4408,69 @@ html[data-theme='light'] {
  .juba-busuu-landing .juba-busuu-language-prompt{padding:19px 16px;display:block}
  .juba-busuu-landing .juba-busuu-language-prompt strong{display:block;margin-top:6px}
 }
+
+
+/* Landing structural correction — match the current Busuu section rhythm, public landing only. */
+.juba-busuu-landing{
+  --landing-max:1240px;
+  background:#fff!important;
+}
+.juba-busuu-landing .juba-busuu-container{
+  width:min(var(--landing-max),calc(100% - 48px));
+  margin-inline:auto;
+}
+.juba-busuu-landing :is(.juba-busuu-practical,.juba-busuu-difference,.juba-busuu-testimonials,.juba-busuu-benefits,.juba-busuu-online-languages,.juba-busuu-faq,.juba-busuu-pricing){
+  box-shadow:none!important;
+}
+.juba-busuu-landing .juba-busuu-practical-grid{
+  min-height:520px;
+  align-items:stretch;
+}
+.juba-busuu-landing .juba-busuu-practical-copy{
+  align-self:center;
+}
+.juba-busuu-landing .juba-busuu-practical-media{
+  min-height:520px;
+  border:0;
+}
+.juba-busuu-landing .juba-busuu-feature-grid,
+.juba-busuu-landing .juba-busuu-testimonial-grid,
+.juba-busuu-landing .juba-busuu-benefit-list,
+.juba-busuu-landing .juba-busuu-online-language-grid{
+  box-shadow:none!important;
+}
+.juba-busuu-landing .juba-busuu-feature,
+.juba-busuu-landing .juba-busuu-testimonial,
+.juba-busuu-landing .juba-busuu-benefit-list article,
+.juba-busuu-landing .juba-busuu-online-language-grid a{
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.juba-busuu-landing .juba-busuu-slogan{
+  min-height:86px;
+  display:flex;
+  align-items:center;
+}
+.juba-busuu-landing .juba-busuu-app-cta{
+  overflow:hidden;
+}
+.juba-busuu-landing .juba-busuu-online-languages{
+  background:#fff;
+}
+.juba-busuu-landing .juba-busuu-faq{
+  background:#fff;
+}
+.juba-busuu-landing .juba-busuu-pricing{
+  background:#f5f8f6;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner{
+  background:var(--busuu-mint);
+}
+.juba-busuu-landing .juba-busuu-footer{
+  background:#171a19!important;
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-container{width:min(100% - 32px,var(--landing-max))}
+  .juba-busuu-landing .juba-busuu-practical-grid{min-height:0}
+  .juba-busuu-landing .juba-busuu-practical-media{min-height:360px}
+}
