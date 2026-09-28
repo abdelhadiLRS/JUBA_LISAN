@@ -430,7 +430,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {mobileMenuOpen && (
           <nav
             id="juba-duo-mobile-menu"
-            className="juba-duo-mobile-menu max-h-[calc(100vh-57px)] overflow-y-auto overscroll-contain"
+            className="juba-duo-mobile-menu max-h-[calc(100vh-66px)] overflow-y-auto overscroll-contain"
           >
             <div className="border-[var(--duo-line)] border-b">
               <LanguageSwitcher />
