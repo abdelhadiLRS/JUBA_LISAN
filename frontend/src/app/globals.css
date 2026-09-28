@@ -2963,3 +2963,88 @@ html[data-theme='light'] {
     font-size:15px;
   }
 }
+
+
+/* Final landing FAQ pass — public landing only. */
+.juba-busuu-landing .juba-busuu-faq{
+  padding:112px 0 120px;
+  background:#fff;
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-faq .juba-busuu-heading{
+  max-width:820px;
+  margin:0 auto 46px;
+  text-align:center;
+}
+.juba-busuu-landing .juba-busuu-faq .juba-busuu-heading h2{
+  max-width:760px;
+  margin:12px auto 16px;
+  font-size:clamp(2.8rem,5vw,5rem);
+  line-height:.94;
+  letter-spacing:-.07em;
+}
+.juba-busuu-landing .juba-busuu-faq .juba-busuu-heading p{
+  max-width:600px;
+  margin-inline:auto;
+  color:var(--busuu-muted);
+  font-size:15px;
+  line-height:1.75;
+}
+.juba-busuu-landing .juba-busuu-faq .juba-landing-faq{
+  max-width:900px;
+  margin-inline:auto;
+  border-top:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-faq .juba-landing-faq-item{
+  margin:0!important;
+  border:0!important;
+  border-bottom:1px solid var(--busuu-line)!important;
+  border-radius:0!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+.juba-busuu-landing .juba-busuu-faq .juba-landing-faq-item button{
+  width:100%;
+  min-height:78px;
+  padding:22px 4px;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  color:var(--busuu-ink);
+  font-size:16px;
+  font-weight:850;
+  line-height:1.4;
+  text-align:start;
+}
+.juba-busuu-landing .juba-busuu-faq .juba-landing-faq-item button:hover{
+  color:var(--busuu-green-dark);
+}
+.juba-busuu-landing .juba-busuu-faq .juba-landing-faq-item button:focus-visible{
+  outline:3px solid var(--busuu-blue);
+  outline-offset:-3px;
+}
+.juba-busuu-landing .juba-busuu-faq .juba-landing-faq-item [data-radix-accordion-content]{
+  color:var(--busuu-muted);
+  font-size:14px;
+  line-height:1.75;
+}
+.juba-busuu-landing .juba-busuu-faq .juba-landing-faq-item [data-radix-accordion-content]>div{
+  padding:0 4px 24px;
+  max-width:760px;
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-faq{
+    padding:72px 0 76px;
+  }
+  .juba-busuu-landing .juba-busuu-faq .juba-busuu-heading{
+    margin-bottom:30px;
+  }
+  .juba-busuu-landing .juba-busuu-faq .juba-busuu-heading h2{
+    font-size:clamp(2.7rem,12vw,4rem);
+  }
+  .juba-busuu-landing .juba-busuu-faq .juba-landing-faq-item button{
+    min-height:70px;
+    padding:19px 2px;
+    font-size:15px;
+  }
+}
