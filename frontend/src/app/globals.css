@@ -593,7 +593,7 @@ html[data-theme='light'] {
 .juba-duo-sidebar {
   position:fixed; inset-block:0; inset-inline-start:0; width:250px; z-index:40;
   background:var(--duo-card); border-inline-end:2px solid var(--duo-line);
-  display:flex; flex-direction:column; min-height:100vh;
+  display:flex; flex-direction:column; min-height:100dvh;
 }
 .juba-duo-logo-mark {
   display:grid; place-items:center; width:38px; height:38px; border-radius:12px;
@@ -637,7 +637,7 @@ html[data-theme='light'] {
 .juba-duo-mobile-trigger { border:0; background:var(--duo-card); color:var(--duo-ink); width:40px; height:40px; border-radius:10px; }
 .juba-duo-mobile-trigger:hover { background:color-mix(in srgb,var(--duo-ink) 5%,transparent); }
 .juba-duo-home {
-  width:100%; margin:0; min-height:100vh;
+  width:100%; margin:0; min-height:100dvh;
   padding:34px clamp(22px,4vw,64px) 60px;
 }
 .juba-duo-shell[dir="rtl"] .juba-duo-main { margin-inline-start:0; margin-inline-end:250px; }
@@ -781,8 +781,8 @@ html[data-theme='light'] {
 .juba-duo-main {
   flex:1;
   min-width:0;
-  min-height:100vh;
-  height:100vh;
+  min-height:100dvh;
+  height:100dvh;
   display:flex;
   flex-direction:column;
   overflow:hidden;
@@ -943,7 +943,7 @@ html[data-theme='light'] {
 
 /* ── Duolingo application shell: sidebar + content geometry ─────────────── */
 .juba-duo-shell {
-  min-height:100vh;
+  min-height:100dvh;
   background:var(--duo-bg);
   color:var(--duo-ink);
 }
@@ -968,7 +968,7 @@ html[data-theme='light'] {
 }
 .juba-duo-main {
   min-width:0;
-  min-height:100vh;
+  min-height:100dvh;
   margin-inline-start:250px;
   background:var(--duo-bg);
 }
@@ -1129,7 +1129,7 @@ html[data-theme='light'] {
   color:var(--duo-green-dark);
 }
 .juba-duo-mobile-menu {
-  max-height:calc(100vh - 66px);
+  max-height:calc(100dvh - 66px);
   overflow-y:auto;
   background:var(--duo-card);
   border-top:1px solid var(--duo-line);
@@ -1522,7 +1522,7 @@ html[data-theme='light'] {
   }
 
   .juba-duo-shell .juba-duo-page-frame {
-    min-height:calc(100vh - 66px);
+    min-height:calc(100dvh - 66px);
   }
 
   .juba-duo-page-frame > .juba-duo-home {
@@ -2166,7 +2166,7 @@ html[data-theme='light'] {
 /* ── Chat tablet geometry: match the 900px application-shell transition ── */
 @media (min-width:901px) and (max-width:1023px) {
   .juba-duo-page-frame .juba-mobile-chat {
-    height:100vh;
+    height:100dvh;
   }
 
   .juba-duo-page-frame .juba-mobile-chat .chat-sidebar-backdrop {
