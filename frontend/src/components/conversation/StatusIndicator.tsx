@@ -11,5 +11,5 @@ export default function StatusIndicator({ status, userSpeaking, assistantSpeakin
   else if (status === 'ended') label = t('sessionEnded')
   else if (status === 'error') { label = t('statusError'); dotClass = 'text-[var(--duo-red)]' }
   else label = t('statusReady')
-  return <div role="status" aria-live="polite" aria-atomic="true" className="flex items-center gap-2 rounded-full border border-[var(--duo-line)] bg-[rgba(88,204,2,.12)] px-3 py-1.5"><span className={`text-xs leading-none ${dotClass} ${pulse ? 'animate-pulse' : ''}`} aria-hidden="true">●</span><span className="text-[var(--duo-muted)] text-[0.68rem] font-semibold tracking-wide uppercase">{label}</span></div>
+  return <div role="status" aria-live="polite" aria-atomic="true" className="flex items-center gap-2 rounded-full border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1.5"><span className={`text-xs leading-none ${dotClass} ${pulse ? 'animate-pulse' : ''}`} aria-hidden="true">●</span><span className="text-[var(--duo-muted)] text-[0.68rem] font-semibold tracking-wide uppercase">{label}</span></div>
 }
