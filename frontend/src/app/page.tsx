@@ -138,7 +138,7 @@ export default async function Home() {
       />
 
       {/* Hero */}
-      <section className="flex flex-1 flex-col items-center justify-center px-6 pt-[10px] pb-12 text-center">
+      <section className="juba-busuu-hero flex flex-1 flex-col items-center justify-center px-6 pt-[10px] pb-12 text-center">
         <div className="mb-1 flex flex-col items-center">
           <div className="mb-0">
             <LanguageBubbles />
@@ -183,7 +183,7 @@ export default async function Home() {
         aria-labelledby="lingu-demo-title"
         className="mx-auto w-full max-w-5xl px-6 pb-12"
       >
-        <div className="border-fl-border bg-fl-surface mx-auto max-w-xl border">
+        <div className="juba-busuu-demo-card border-fl-border bg-fl-surface mx-auto max-w-xl border">
           <div className="border-fl-border border-b px-5 py-4 sm:px-6">
             <h2
               id="lingu-demo-title"
@@ -277,7 +277,7 @@ export default async function Home() {
             ].map(({ title, desc, Icon }) => (
               <div
                 key={title}
-                className="border-fl-border bg-fl-surface border p-6"
+                className="juba-busuu-feature-card border-fl-border bg-fl-surface border p-6"
               >
                 <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-3">
                   <Icon className="text-fl-muted-2 h-4 w-4" />
@@ -301,7 +301,7 @@ export default async function Home() {
 
       {/* Pricing */}
       <ScrollReveal>
-        <div id="pricing" className="scroll-mt-16">
+        <div id="pricing" className="juba-busuu-pricing scroll-mt-16">
           <PricingSection
             allowRegistration={allowRegistration}
             stripeEnabled={stripeEnabled}
@@ -317,8 +317,8 @@ export default async function Home() {
 
       {/* Open Source */}
       <ScrollReveal>
-        <section className="mx-auto w-full max-w-5xl px-6 pb-16">
-          <div className="border-fl-border bg-fl-surface flex flex-col items-center justify-between gap-4 border px-8 py-5 sm:flex-row">
+        <section className="juba-busuu-section mx-auto w-full max-w-5xl px-6 pb-16">
+          <div className="juba-busuu-open-source border-fl-border bg-fl-surface flex flex-col items-center justify-between gap-4 border px-8 py-5 sm:flex-row">
             <div className="flex items-center gap-4">
               <Image
                 src="/github.svg"
