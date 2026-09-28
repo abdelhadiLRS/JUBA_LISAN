@@ -1179,3 +1179,183 @@ html[data-theme='light'] {
     border-radius:14px;
   }
 }
+
+
+/* ── Final Duolingo route polish: interaction surfaces + mobile geometry ── */
+/* Keep the authenticated product surface consistently Duolingo-like even
+   where individual legacy pages still carry historical utility classes. */
+.juba-duo-page-frame {
+  background:var(--duo-bg);
+  color:var(--duo-ink);
+}
+.juba-duo-page-frame .juba-mobile-chat,
+.juba-duo-page-frame .juba-mobile-listening,
+.juba-duo-page-frame .juba-mobile-reading,
+.juba-duo-page-frame .juba-mobile-grammar,
+.juba-duo-page-frame .juba-mobile-vocabulary,
+.juba-duo-page-frame .juba-mobile-settings,
+.juba-duo-page-frame .juba-mobile-assessment,
+.juba-duo-page-frame .juba-mobile-plan,
+.juba-duo-page-frame .juba-mobile-flashcards,
+.juba-duo-page-frame .juba-games,
+.juba-duo-page-frame .juba-mobile-conversation {
+  color:var(--duo-ink);
+}
+.juba-duo-page-frame .juba-mobile-chat,
+.juba-duo-page-frame .juba-mobile-listening,
+.juba-duo-page-frame .juba-mobile-reading,
+.juba-duo-page-frame .juba-mobile-grammar,
+.juba-duo-page-frame .juba-mobile-vocabulary,
+.juba-duo-page-frame .juba-mobile-settings,
+.juba-duo-page-frame .juba-mobile-assessment,
+.juba-duo-page-frame .juba-mobile-plan,
+.juba-duo-page-frame .juba-mobile-flashcards,
+.juba-duo-page-frame .juba-games,
+.juba-duo-page-frame .juba-mobile-conversation {
+  background:var(--duo-bg);
+}
+
+/* Legacy hard-coded light palette → Duolingo palette. */
+.juba-duo-page-frame .text-\\[\\#30343b\\] { color:var(--duo-ink) !important; }
+.juba-duo-page-frame .text-\\[\\#68736d\\] { color:var(--duo-muted) !important; }
+.juba-duo-page-frame .text-\\[\\#58a700\\] { color:var(--duo-green) !important; }
+.juba-duo-page-frame .text-\\[\\#438600\\] { color:var(--duo-green-dark) !important; }
+.juba-duo-page-frame .text-\\[\\#8a918c\\] { color:#8a8a8a !important; }
+.juba-duo-page-frame .border-\\[\\#e1e5e2\\] { border-color:var(--duo-line) !important; }
+.juba-duo-page-frame .bg-\\[\\#f8faf7\\],
+.juba-duo-page-frame .bg-\\[\\#f4f7f2\\],
+.juba-duo-page-frame .bg-\\[\\#f1f7ed\\] { background:#f7faf5 !important; }
+.juba-duo-page-frame .bg-\\[\\#eaf5df\\] { background:#e9f8dc !important; }
+.juba-duo-page-frame .bg-\\[\\#e1e5e2\\] { background:var(--duo-line) !important; }
+.juba-duo-page-frame .bg-\\[\\#58a700\\] { background:var(--duo-green) !important; }
+.juba-duo-page-frame .bg-\\[\\#438600\\] { background:var(--duo-green-dark) !important; }
+
+/* Chat uses a denser two-pane workspace. */
+.juba-duo-page-frame .juba-mobile-chat aside {
+  background:#fff !important;
+  border-color:var(--duo-line) !important;
+}
+.juba-duo-page-frame .juba-mobile-chat > div {
+  background:var(--duo-bg);
+}
+.juba-duo-page-frame .juba-mobile-chat input,
+.juba-duo-page-frame .juba-mobile-chat textarea {
+  background:#fff !important;
+  border-color:var(--duo-line) !important;
+  color:var(--duo-ink) !important;
+  box-shadow:none !important;
+}
+.juba-duo-page-frame .juba-mobile-chat input:focus,
+.juba-duo-page-frame .juba-mobile-chat textarea:focus {
+  border-color:var(--duo-blue) !important;
+  box-shadow:0 0 0 3px rgba(28,176,246,.12) !important;
+}
+.juba-duo-page-frame .juba-mobile-chat button {
+  border-radius:12px;
+}
+.juba-duo-page-frame .juba-mobile-chat button.bg-\\[\\#58a700\\] {
+  background:var(--duo-green) !important;
+}
+
+/* Learning activities: white cards, strong green primary actions, blue focus. */
+.juba-duo-page-frame .juba-mobile-listening .juba-panel,
+.juba-duo-page-frame .juba-mobile-reading .juba-panel {
+  background:#fff !important;
+}
+.juba-duo-page-frame .juba-mobile-listening .juba-primary-button,
+.juba-duo-page-frame .juba-mobile-reading .juba-primary-button {
+  background:var(--duo-green) !important;
+  border-color:var(--duo-green-dark) !important;
+  color:#fff !important;
+  box-shadow:0 3px 0 var(--duo-green-dark);
+}
+.juba-duo-page-frame .juba-mobile-listening .juba-secondary-button,
+.juba-duo-page-frame .juba-mobile-reading .juba-secondary-button {
+  background:#fff !important;
+  border-color:var(--duo-line) !important;
+  color:var(--duo-ink) !important;
+}
+.juba-duo-page-frame .juba-mobile-listening select,
+.juba-duo-page-frame .juba-mobile-reading select,
+.juba-duo-page-frame .juba-mobile-listening input,
+.juba-duo-page-frame .juba-mobile-reading input,
+.juba-duo-page-frame .juba-mobile-listening textarea,
+.juba-duo-page-frame .juba-mobile-reading textarea {
+  border-color:var(--duo-line) !important;
+  background:#fff !important;
+  color:var(--duo-ink) !important;
+}
+
+/* Resource pages. */
+.juba-duo-page-frame .juba-mobile-grammar,
+.juba-duo-page-frame .juba-mobile-vocabulary,
+.juba-duo-page-frame .juba-mobile-settings,
+.juba-duo-page-frame .juba-mobile-assessment,
+.juba-duo-page-frame .juba-mobile-plan,
+.juba-duo-page-frame .juba-mobile-flashcards {
+  max-width:1120px;
+}
+.juba-duo-page-frame .juba-mobile-grammar .juba-card,
+.juba-duo-page-frame .juba-mobile-vocabulary .juba-card,
+.juba-duo-page-frame .juba-mobile-settings .juba-panel,
+.juba-duo-page-frame .juba-mobile-settings .juba-card,
+.juba-duo-page-frame .juba-mobile-assessment > div,
+.juba-duo-page-frame .juba-mobile-plan > section,
+.juba-duo-page-frame .juba-mobile-flashcards > div {
+  border-color:var(--duo-line) !important;
+}
+.juba-duo-page-frame .juba-mobile-grammar input,
+.juba-duo-page-frame .juba-mobile-vocabulary input,
+.juba-duo-page-frame .juba-mobile-settings input,
+.juba-duo-page-frame .juba-mobile-settings select,
+.juba-duo-page-frame .juba-mobile-assessment input,
+.juba-duo-page-frame .juba-mobile-plan input,
+.juba-duo-page-frame .juba-mobile-flashcards input,
+.juba-duo-page-frame .juba-mobile-flashcards select {
+  background:#fff !important;
+  color:var(--duo-ink) !important;
+  border-color:var(--duo-line) !important;
+}
+.juba-duo-page-frame .juba-mobile-grammar input:focus,
+.juba-duo-page-frame .juba-mobile-vocabulary input:focus,
+.juba-duo-page-frame .juba-mobile-settings input:focus,
+.juba-duo-page-frame .juba-mobile-settings select:focus,
+.juba-duo-page-frame .juba-mobile-assessment input:focus,
+.juba-duo-page-frame .juba-mobile-plan input:focus,
+.juba-duo-page-frame .juba-mobile-flashcards input:focus,
+.juba-duo-page-frame .juba-mobile-flashcards select:focus {
+  border-color:var(--duo-blue) !important;
+  box-shadow:0 0 0 3px rgba(28,176,246,.12) !important;
+}
+
+/* The dashboard already owns its mobile rhythm; don't double-count the
+   shell's 66px mobile chrome reservation. */
+@media (max-width:900px) {
+  .juba-duo-page-frame > .juba-duo-home {
+    padding-top:12px;
+  }
+  .juba-duo-page-frame .juba-mobile-chat,
+  .juba-duo-page-frame .juba-mobile-listening,
+  .juba-duo-page-frame .juba-mobile-reading,
+  .juba-duo-page-frame .juba-mobile-grammar,
+  .juba-duo-page-frame .juba-mobile-vocabulary,
+  .juba-duo-page-frame .juba-mobile-settings,
+  .juba-duo-page-frame .juba-mobile-assessment,
+  .juba-duo-page-frame .juba-mobile-plan,
+  .juba-duo-page-frame .juba-mobile-flashcards {
+    padding-top:24px;
+  }
+}
+@media (max-width:560px) {
+  .juba-duo-page-frame .juba-mobile-chat,
+  .juba-duo-page-frame .juba-mobile-listening,
+  .juba-duo-page-frame .juba-mobile-reading,
+  .juba-duo-page-frame .juba-mobile-grammar,
+  .juba-duo-page-frame .juba-mobile-vocabulary,
+  .juba-duo-page-frame .juba-mobile-settings,
+  .juba-duo-page-frame .juba-mobile-assessment,
+  .juba-duo-page-frame .juba-mobile-plan,
+  .juba-duo-page-frame .juba-mobile-flashcards {
+    padding-inline:12px;
+  }
+}
