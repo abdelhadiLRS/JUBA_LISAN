@@ -37,7 +37,7 @@ export default function TargetLanguageSelector({
   })
 
   return (
-    <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+    <div className="grid grid-cols-1 gap-2.5 min-[420px]:grid-cols-2 sm:grid-cols-3">
       {filtered.map((lang) => {
         const selected = normalizeLanguageCode(value) === lang.code
         return (
@@ -46,16 +46,16 @@ export default function TargetLanguageSelector({
             type="button"
             onClick={() => onChange(lang.code)}
             aria-pressed={selected}
-            className={`group relative flex min-h-16 items-center gap-3 rounded-[16px] border px-3 py-3 text-left text-sm font-extrabold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5862e2] focus-visible:ring-offset-2 ${
+            className={`group relative flex min-h-16 items-center gap-3 rounded-[16px] border px-3 py-3 text-left text-sm font-extrabold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-blue)] focus-visible:ring-offset-2 ${
               selected
-                ? 'border-[#635bff] bg-[#eeedff] text-[#202127] shadow-[0_6px_18px_rgba(43,45,90,.08)] -translate-y-0.5'
-                : 'border-[#e6e7ef] bg-[#fff] text-[#202127] hover:-translate-y-0.5 hover:border-[#c9c7ff] hover:bg-[#f8f7ff]'
+                ? 'border-[var(--duo-green)] bg-[rgba(88,204,2,.10)] text-[var(--duo-ink)] shadow-[0_3px_0_var(--duo-green-dark)] -translate-y-0.5'
+                : 'border-[var(--duo-line)] bg-white text-[var(--duo-ink)] hover:-translate-y-0.5 hover:border-[var(--duo-green)] hover:bg-[rgba(88,204,2,.08)]'
             }`}
           >
-            <Image src={lang.flagPath} alt="" aria-hidden="true" width={34} height={24} unoptimized className="h-6 w-[34px] shrink-0 rounded-md border border-black/10 object-cover shadow-sm" />
+            <Image src={lang.flagPath} alt="" aria-hidden="true" width={34} height={24} unoptimized className="h-6 w-[34px] shrink-0 rounded-md border border-[var(--duo-line)] object-cover shadow-sm" />
             <span lang={lang.iso639} dir="auto" className="min-w-0 flex-1 truncate">{label(lang.code, lang.name)}</span>
             {selected && (
-              <span className="ml-auto flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#202127] text-white">
+              <span className="ms-auto flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--duo-green-dark)] text-white">
                 <Check className="h-3 w-3" aria-hidden="true" />
               </span>
             )}
