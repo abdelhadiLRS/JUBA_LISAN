@@ -50,7 +50,7 @@ const PAGE_SIZE = 10
 const STATUS_STYLES: Record<string, string> = {
   pending: 'border-[var(--duo-line)] text-[var(--duo-muted)]',
   planned: 'border-[var(--duo-green-dark)]/40 text-[var(--duo-green-dark)]',
-  in_progress: 'border-[var(--duo-yellow)]/40 text-[#9a7000]',
+  in_progress: 'border-[var(--duo-yellow)]/40 text-[var(--duo-ink)]',
   done: 'border-[var(--duo-green-dark)]/40 text-[var(--duo-green-dark)]',
   declined: 'border-rose-200/30 text-[var(--duo-red)]',
 }
