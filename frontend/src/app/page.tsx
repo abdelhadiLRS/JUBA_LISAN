@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { cookies } from 'next/headers'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import {
   BookOpen,
@@ -19,6 +19,7 @@ import { ContactButton } from '@/components/ui/contact-button'
 import { LanguageBubbles } from '@/components/LanguageBubbles'
 import { LandingReviewsCarousel } from '@/components/reviews/LandingReviewsCarousel'
 import type { ReviewPublic } from '@/types/api'
+import { normalizeLocale } from '@/lib/locales'
 
 export const metadata: Metadata = {
   title: 'FreeLingo: AI-powered language learning',
@@ -73,6 +74,8 @@ const jsonLd = {
 export default async function Home() {
   const cookieStore = await cookies()
   const hasSession = cookieStore.has('refresh_token')
+  const locale = normalizeLocale(await getLocale())
+  const dir = locale === 'ar' ? 'rtl' : 'ltr'
   const t = await getTranslations('landing')
   const tCommon = await getTranslations('common')
   const tBilling = await getTranslations('billing')
@@ -122,14 +125,20 @@ export default async function Home() {
       {/* Nav */}
       <LandingNav
         hasSession={hasSession}
-        stripeEnabled={stripeEnabled}
+        dir={dir}
         navFeatures={t('navFeatures')}
+        primaryNavigation={tCommon('primaryNavigation')}
+        navLanguages={t('navLanguages')}
+        interfaceLanguages={t('interfaceLanguages')}
         navReviews={t('navReviews')}
-        navPricing={t('navPricing')}
-        navFAQ={t('navFAQ')}
         showReviews={reviews.length > 0}
         signIn={t('signIn')}
         dashboard={t('dashboard')}
+        getStarted={t('ctaStart')}
+        homeLabel={t('homeLabel')}
+        openMenuLabel={t('openMenuLabel')}
+        closeMenuLabel={t('closeMenuLabel')}
+        locale={locale}
       />
 
       {/* Hero */}
@@ -142,7 +151,7 @@ export default async function Home() {
             {tCommon('tagline')}
           </span>
           <h1 className="text-fl-fg mb-4 max-w-xl font-sans text-3xl leading-tight font-bold tracking-tight md:text-5xl">
-            {t('hero')}
+            {t('heroTitle')}
           </h1>
           <p className="text-fl-muted-1 mb-8 max-w-lg font-sans text-base leading-relaxed md:text-lg">
             {t('heroSub')}
