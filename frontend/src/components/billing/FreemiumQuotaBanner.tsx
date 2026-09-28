@@ -43,7 +43,7 @@ export function FreemiumQuotaBanner({
       <div
         className={`juba-billing-quota flex items-center justify-between border px-3 py-2 text-xs ${className}`}
       >
-        <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--juba-app-muted)]">
+        <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--duo-muted)]">
           <Clock3 className="h-3.5 w-3.5" aria-hidden="true" />
           {t('trialDaysLeft', { days: trialDaysLeft })}
         </span>
@@ -94,10 +94,10 @@ export function FreemiumQuotaBanner({
   if (info.limit === 0) {
     return (
       <div
-        className={`border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] flex items-center justify-between border px-3 py-2 font-sans text-xs ${className}`}
+        className={`border-[var(--duo-line)] bg-[var(--duo-card)] flex items-center justify-between border px-3 py-2 font-sans text-xs ${className}`}
       >
-        <span className="font-semibold text-[var(--juba-app-muted)]">{info.label}</span>
-        <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--juba-app-green-dark)]">
+        <span className="font-semibold text-[var(--duo-muted)]">{info.label}</span>
+        <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--duo-green-dark)]">
           <LockKeyhole className="h-3.5 w-3.5" aria-hidden="true" />
           {t('requiresSubscription')}
         </span>
@@ -110,16 +110,16 @@ export function FreemiumQuotaBanner({
 
   return (
     <div
-      className={`border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] flex items-center justify-between border px-3 py-2 font-sans text-xs ${className}`}
+      className={`border-[var(--duo-line)] bg-[var(--duo-card)] flex items-center justify-between border px-3 py-2 font-sans text-xs ${className}`}
     >
-      <span className="text-[var(--juba-app-muted)]">
+      <span className="text-[var(--duo-muted)]">
         {info.label}:{' '}
-        <span className={low ? 'font-bold text-[var(--juba-app-error)]' : 'font-semibold text-[var(--juba-app-muted)]'}>
+        <span className={low ? 'font-bold text-[var(--duo-red)]' : 'font-semibold text-[var(--duo-muted)]'}>
           {info.remaining}/{info.limit}
         </span>
       </span>
       {low && (
-        <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--juba-app-green-dark)]">
+        <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--duo-green-dark)]">
           <AlertCircle className="h-3.5 w-3.5" aria-hidden="true" />
           {t('freeLimit')}
         </span>
