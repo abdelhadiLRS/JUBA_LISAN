@@ -336,8 +336,11 @@ export default async function Home() {
           </div>
           <div className="juba-busuu-online-language-grid">
             {FEATURED_LANGUAGES.map(({ name, code }) => (
-              <Link key={code} href="#languages" lang={code} dir="auto">
-                <span>{name}</span>
+              <Link key={code} href="#languages" lang={code} dir="auto" className="juba-busuu-online-language-link">
+                <span>
+                  <strong>{t('onlineLanguagePrefix')}</strong>
+                  {name}
+                </span>
                 <ArrowUpRight aria-hidden="true" />
               </Link>
             ))}
