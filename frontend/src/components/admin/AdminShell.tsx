@@ -91,11 +91,11 @@ export function AdminBadge({
   tone?: 'neutral' | 'info' | 'success' | 'warning' | 'danger'
 }) {
   const toneClass = {
-    neutral: 'border-[var(--duo-line)] text-[rgba(32,33,39,.52)]',
-    info: 'border-blue-500/40 text-blue-400',
-    success: 'border-green-500/40 text-green-400',
-    warning: 'border-yellow-500/40 text-yellow-400',
-    danger: 'border-red-500/30 text-[#dc2626]',
+    neutral: 'border-[var(--duo-line)] text-[var(--duo-muted)]',
+    info: 'border-[color-mix(in_srgb,var(--duo-blue)_40%,transparent)] text-[var(--duo-blue)]',
+    success: 'border-[color-mix(in_srgb,var(--duo-green)_40%,transparent)] text-[var(--duo-green-dark)]',
+    warning: 'border-[color-mix(in_srgb,var(--duo-yellow)_40%,transparent)] text-[var(--duo-yellow)]',
+    danger: 'border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] text-[var(--duo-red)]',
   }[tone]
 
   return (
