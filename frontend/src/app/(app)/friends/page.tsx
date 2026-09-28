@@ -86,8 +86,8 @@ export default function FriendsPage() {
         <div className="juba-panel space-y-4">
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--duo-muted)]" />
-              <input value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>e.key==='Enter'&&search()} placeholder="Search learners by name or username" className="juba-input pl-10" />
+              <Search className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--duo-muted)]" />
+              <input value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>e.key==='Enter'&&search()} placeholder="Search learners by name or username" className="juba-input ps-10" />
             </div>
             <button onClick={search} disabled={searching} className="juba-primary-button"><Search className="h-4 w-4" /> {searching?'Searching…':'Search'}</button>
           </div>
