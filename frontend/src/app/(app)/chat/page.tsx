@@ -313,14 +313,14 @@ export default function ChatPage() {
         {/* Sidebar backdrop — mobile only */}
         {sidebarOpen && (
           <div
-            className="fixed inset-x-0 top-14 bottom-0 z-10 bg-black/40 lg:hidden"
+            className="chat-sidebar-backdrop fixed inset-x-0 top-14 bottom-0 z-10 bg-black/40 lg:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}
 
         {/* Sidebar */}
         {sidebarOpen && (
-          <aside className="border-[var(--duo-line)] bg-[var(--duo-bg)]/70 fixed top-14 bottom-0 start-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-e-2 lg:relative lg:top-auto lg:bottom-auto lg:start-auto lg:z-auto">
+          <aside className="chat-conversations-sidebar border-[var(--duo-line)] bg-[var(--duo-bg)]/70 fixed top-14 bottom-0 start-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-e-2 lg:relative lg:top-auto lg:bottom-auto lg:start-auto lg:z-auto">
             <div className="border-[var(--duo-line)] flex items-center justify-between border-b-2 px-4 py-3">
               <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
                 {t('conversations')}
