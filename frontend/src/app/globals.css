@@ -605,7 +605,7 @@ html[data-theme='light'] {
 .juba-duo-nav-link {
   display:flex; align-items:center; gap:12px; width:100%; min-height:44px;
   padding:9px 12px; margin:2px 0; border-radius:12px; border:0;
-  text-decoration:none; color:#777; font-size:14px; font-weight:700;
+  text-decoration:none; color:var(--duo-muted); font-size:14px; font-weight:700;
   transition:background .15s ease, color .15s ease, transform .1s ease;
 }
 .juba-duo-nav-link:hover { background:color-mix(in srgb,var(--duo-green) 8%,transparent); color:var(--duo-ink); }
@@ -647,18 +647,18 @@ html[data-theme='light'] {
   max-width:1120px; margin:0 auto 24px; display:flex; align-items:flex-end;
   justify-content:space-between; gap:24px;
 }
-.juba-duo-eyebrow { display:block; color:#777; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.09em; margin-bottom:7px; }
-.juba-duo-welcome h1 { margin:0; color:#3c3c3c; font-size:clamp(28px,3vw,42px); font-weight:900; letter-spacing:-.04em; }
-.juba-duo-welcome p { margin:7px 0 0; color:#777; font-size:15px; }
+.juba-duo-eyebrow { display:block; color:var(--duo-muted); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.09em; margin-bottom:7px; }
+.juba-duo-welcome h1 { margin:0; color:var(--duo-ink); font-size:clamp(28px,3vw,42px); font-weight:900; letter-spacing:-.04em; }
+.juba-duo-welcome p { margin:7px 0 0; color:var(--duo-muted); font-size:15px; }
 .juba-duo-top-stats { display:flex; gap:12px; }
 .juba-duo-top-stats > div {
   min-width:100px; display:grid; grid-template-columns:auto 1fr; grid-template-rows:auto auto;
-  column-gap:8px; padding:11px 14px; background:#fff; border:2px solid var(--duo-line); border-radius:14px;
+  column-gap:8px; padding:11px 14px; background:var(--duo-card); border:2px solid var(--duo-line); border-radius:14px;
 }
 .juba-duo-top-stats svg { grid-row:1 / span 2; align-self:center; color:var(--duo-yellow); }
-.juba-duo-top-stats strong { font-size:18px; line-height:1; color:#3c3c3c; }
-.juba-duo-top-stats span { font-size:10px; color:#999; font-weight:800; text-transform:uppercase; }
-.juba-duo-alert { max-width:1120px; margin:0 auto 18px; padding:12px 16px; background:#fff0f0; border:2px solid #ffc6c6; border-radius:12px; color:#b63a3a; display:flex; justify-content:space-between; gap:14px; align-items:center; }
+.juba-duo-top-stats strong { font-size:18px; line-height:1; color:var(--duo-ink); }
+.juba-duo-top-stats span { font-size:10px; color:var(--duo-muted); font-weight:800; text-transform:uppercase; }
+.juba-duo-alert { max-width:1120px; margin:0 auto 18px; padding:12px 16px; background:color-mix(in srgb,var(--duo-red) 8%,transparent); border:2px solid color-mix(in srgb,var(--duo-red) 35%,transparent); border-radius:12px; color:var(--duo-red); display:flex; justify-content:space-between; gap:14px; align-items:center; }
 .juba-duo-alert button { border:0; background:#ff4b4b; color:#fff; padding:8px 14px; border-radius:10px; font-weight:800; }
 .juba-duo-grid { max-width:1120px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1.65fr) minmax(280px,.8fr); gap:22px; }
 .juba-duo-course,.juba-duo-side { min-width:0; }
@@ -668,11 +668,11 @@ html[data-theme='light'] {
 }
 .juba-duo-unit-head { display:flex; align-items:center; justify-content:space-between; gap:16px; }
 .juba-duo-unit-kicker { color:var(--duo-green-dark); font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; }
-.juba-duo-unit h2 { margin:5px 0 0; font-size:22px; color:#3c3c3c; font-weight:900; }
+.juba-duo-unit h2 { margin:5px 0 0; font-size:22px; color:var(--duo-ink); font-weight:900; }
 .juba-duo-guide,.juba-duo-card-link { color:var(--duo-blue-dark); font-size:13px; font-weight:800; text-decoration:none; }
-.juba-duo-progress { height:14px; margin-top:20px; overflow:hidden; border-radius:999px; background:#e9ece7; }
+.juba-duo-progress { height:14px; margin-top:20px; overflow:hidden; border-radius:999px; background:var(--duo-line); }
 .juba-duo-progress span,.juba-duo-meter span { display:block; height:100%; border-radius:inherit; background:var(--duo-green); }
-.juba-duo-progress-meta { display:flex; justify-content:space-between; margin-top:7px; color:#999; font-size:11px; font-weight:800; }
+.juba-duo-progress-meta { display:flex; justify-content:space-between; margin-top:7px; color:var(--duo-muted); font-size:11px; font-weight:800; }
 .juba-duo-path { position:relative; padding:24px 8px 8px; }
 .juba-duo-node-row { position:relative; display:flex; align-items:center; gap:18px; max-width:620px; margin:0 auto 16px; }
 .juba-duo-node-row.is-offset { transform:translateX(58px); }
@@ -684,8 +684,8 @@ html[data-theme='light'] {
 .juba-duo-node.is-done { background:var(--duo-green); border-color:var(--duo-green-dark); color:#fff; box-shadow:0 5px 0 var(--duo-green-dark); }
 .juba-duo-node.is-current { background:var(--duo-blue); border-color:var(--duo-blue-dark); color:#fff; box-shadow:0 5px 0 var(--duo-blue-dark); }
 .juba-duo-node-copy { display:flex; flex-direction:column; gap:4px; min-width:0; }
-.juba-duo-node-copy strong { font-size:15px; font-weight:900; color:#3c3c3c; }
-.juba-duo-node-copy span { font-size:12px; color:#888; }
+.juba-duo-node-copy strong { font-size:15px; font-weight:900; color:var(--duo-ink); }
+.juba-duo-node-copy span { font-size:12px; color:var(--duo-muted); }
 .juba-duo-cta {
   width:max-content; display:inline-flex; align-items:center; justify-content:center; min-height:40px; padding:0 17px;
   margin-top:5px; border-radius:12px; background:var(--duo-green); color:#fff !important; text-decoration:none; font-size:13px; font-weight:900;
@@ -693,34 +693,34 @@ html[data-theme='light'] {
 }
 .juba-duo-cta:hover { background:var(--duo-green-dark); transform:translateY(1px); }
 .juba-duo-complete { display:inline-flex; align-items:center; gap:5px; color:var(--duo-green-dark) !important; font-weight:800; }
-.juba-duo-empty { display:flex; flex-direction:column; align-items:center; gap:10px; padding:42px 20px; text-align:center; color:#888; }
-.juba-duo-empty h3 { margin:0; color:#3c3c3c; }
-.juba-duo-card { background:#fff; border:2px solid var(--duo-line); border-radius:16px; padding:18px; margin-bottom:14px; box-shadow:0 2px 0 color-mix(in srgb,var(--duo-ink) 3%,transparent); }
+.juba-duo-empty { display:flex; flex-direction:column; align-items:center; gap:10px; padding:42px 20px; text-align:center; color:var(--duo-muted); }
+.juba-duo-empty h3 { margin:0; color:var(--duo-ink); }
+.juba-duo-card { background:var(--duo-card); border:2px solid var(--duo-line); border-radius:16px; padding:18px; margin-bottom:14px; box-shadow:0 2px 0 color-mix(in srgb,var(--duo-ink) 3%,transparent); }
 .juba-duo-streak-card { display:flex; align-items:center; gap:14px; }
-.juba-duo-card-icon { display:grid; place-items:center; width:48px; height:48px; border-radius:14px; background:#fff4d6; color:#e5a900; }
-.juba-duo-streak-card strong { display:block; font-size:28px; line-height:1; color:#3c3c3c; }
-.juba-duo-streak-card span,.juba-duo-streak-card small { display:block; color:#888; font-size:11px; font-weight:800; text-transform:uppercase; }
+.juba-duo-card-icon { display:grid; place-items:center; width:48px; height:48px; border-radius:14px; background:color-mix(in srgb,var(--duo-yellow) 18%,transparent); color:var(--duo-yellow); }
+.juba-duo-streak-card strong { display:block; font-size:28px; line-height:1; color:var(--duo-ink); }
+.juba-duo-streak-card span,.juba-duo-streak-card small { display:block; color:var(--duo-muted); font-size:11px; font-weight:800; text-transform:uppercase; }
 .juba-duo-card-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.juba-duo-card-head h3 { margin:0; font-size:14px; color:#3c3c3c; font-weight:900; }
+.juba-duo-card-head h3 { margin:0; font-size:14px; color:var(--duo-ink); font-weight:900; }
 .juba-duo-card-head > span { color:var(--duo-green-dark); font-size:13px; font-weight:900; }
-.juba-duo-meter { height:10px; overflow:hidden; border-radius:999px; background:#ecefec; margin:13px 0 8px; }
-.juba-duo-card p { margin:0; color:#888; font-size:12px; line-height:1.5; }
+.juba-duo-meter { height:10px; overflow:hidden; border-radius:999px; background:var(--duo-line); margin:13px 0 8px; }
+.juba-duo-card p { margin:0; color:var(--duo-muted); font-size:12px; line-height:1.5; }
 .juba-duo-mini-bars { height:90px; display:flex; align-items:flex-end; gap:7px; margin-top:12px; }
 .juba-duo-mini-bars span { flex:1; min-height:8px; border-radius:7px 7px 2px 2px; background:var(--duo-blue); }
-.juba-duo-mini-bars i { color:#aaa; font-size:12px; }
+.juba-duo-mini-bars i { color:var(--duo-muted); font-size:12px; }
 .juba-duo-links { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-.juba-duo-links a { display:flex; align-items:center; gap:8px; padding:12px; border-radius:12px; background:#fff; border:2px solid var(--duo-line); color:#555; text-decoration:none; font-size:12px; font-weight:800; }
-.juba-duo-links a:hover { border-color:#bcdca6; background:#f0f8ea; }
+.juba-duo-links a { display:flex; align-items:center; gap:8px; padding:12px; border-radius:12px; background:var(--duo-card); border:2px solid var(--duo-line); color:var(--duo-muted); text-decoration:none; font-size:12px; font-weight:800; }
+.juba-duo-links a:hover { border-color:var(--duo-green); background:color-mix(in srgb,var(--duo-green) 8%,transparent); }
 .juba-duo-premium {
   max-width:1120px; margin:22px auto 0; padding:16px 18px; display:flex; align-items:center; gap:14px;
   background:#fff8dd; border:2px solid #f0d979; border-radius:16px; color:#755e00;
 }
 .juba-duo-premium > div { flex:1; display:flex; flex-direction:column; gap:3px; }
-.juba-duo-premium strong { color:#5c4a00; font-size:14px; }
-.juba-duo-premium span { font-size:12px; color:#8b7a28; }
+.juba-duo-premium strong { color:var(--duo-ink); font-size:14px; }
+.juba-duo-premium span { font-size:12px; color:var(--duo-muted); }
 .juba-duo-premium button { border:0; border-radius:10px; background:var(--duo-green); color:#fff; padding:9px 14px; font-weight:900; }
 .juba-duo-shell input,.juba-duo-shell select,.juba-duo-shell textarea {
-  border:2px solid #dfe3de; background:#fff; color:#3c3c3c; border-radius:12px;
+  border:2px solid #dfe3de; background:#fff; color:var(--duo-ink); border-radius:12px;
 }
 .juba-duo-shell button { font-family:inherit; }
 .juba-duo-shell button:not(.juba-duo-user-action):not(.juba-duo-mobile-trigger) { border-radius:12px; }
