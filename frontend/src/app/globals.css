@@ -2724,3 +2724,84 @@ html[data-theme='light'] {
     border-bottom:0;
   }
 }
+
+
+/* Language discovery fidelity pass — match the current Busuu "I want to learn" rhythm. */
+.juba-busuu-landing .juba-busuu-language-discovery{
+  padding-top:70px;
+  padding-bottom:72px;
+}
+.juba-busuu-landing .juba-busuu-language-discovery .juba-busuu-heading{
+  max-width:760px;
+  margin-inline:auto;
+  margin-bottom:34px;
+}
+.juba-busuu-landing .juba-busuu-language-discovery .juba-busuu-heading h2{
+  max-width:680px;
+  margin-inline:auto;
+}
+.juba-busuu-landing .juba-busuu-language-discovery .juba-busuu-heading p{
+  max-width:620px;
+  margin-inline:auto;
+}
+.juba-busuu-landing .juba-busuu-language-panel{
+  border:1px solid var(--busuu-line);
+  background:#fff;
+}
+.juba-busuu-landing .juba-busuu-language-prompt{
+  padding:20px 24px;
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-language-prompt strong{
+  font-size:clamp(1.05rem,2vw,1.35rem);
+  letter-spacing:-.025em;
+}
+.juba-busuu-landing .juba-busuu-language-list{
+  overscroll-behavior-inline:contain;
+  scroll-padding-inline:0;
+}
+.juba-busuu-landing .juba-busuu-language-item{
+  min-width:138px;
+  min-height:148px;
+  padding:18px 14px 16px;
+  justify-content:center;
+  gap:10px;
+  transition:background-color .16s ease;
+}
+.juba-busuu-landing .juba-busuu-language-item:hover,
+.juba-busuu-landing .juba-busuu-language-item:focus-within{
+  background:var(--busuu-soft);
+}
+.juba-busuu-landing .juba-busuu-language-item span{
+  font-size:14px;
+  font-weight:850;
+}
+.juba-busuu-landing .juba-busuu-language-item small{
+  color:var(--busuu-muted);
+  font-size:11px;
+}
+.juba-busuu-landing .juba-busuu-language-item a,
+.juba-busuu-landing .juba-busuu-language-item button{
+  border-radius:0;
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-language-discovery{
+    padding-top:52px;
+    padding-bottom:56px;
+  }
+  .juba-busuu-landing .juba-busuu-language-discovery .juba-busuu-heading{
+    margin-bottom:26px;
+  }
+  .juba-busuu-landing .juba-busuu-language-prompt{
+    padding:16px;
+  }
+  .juba-busuu-landing .juba-busuu-language-item{
+    min-width:124px;
+    min-height:132px;
+    padding-inline:10px;
+  }
+  .juba-busuu-landing .juba-busuu-language-item img{
+    width:52px;
+    height:52px;
+  }
+}
