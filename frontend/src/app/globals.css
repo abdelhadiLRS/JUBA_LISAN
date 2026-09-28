@@ -921,13 +921,14 @@ html[data-theme='light'] {
   background:var(--duo-red) !important;
 }
 
-/* Mobile: the fixed app bar becomes the only chrome reservation. */
+/* Mobile: reserve the fixed app bar once on the main shell.
+   The scroll frame must not add a second 66px top offset. */
 @media (max-width:900px) {
   .juba-duo-page-frame,
   .juba-duo-shell[dir="rtl"] .juba-duo-page-frame {
     width:100%;
     margin-inline:0;
-    padding-top:66px;
+    padding-top:0;
   }
 }
 @media (prefers-reduced-motion:reduce) {
