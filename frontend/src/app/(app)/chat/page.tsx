@@ -320,7 +320,7 @@ export default function ChatPage() {
 
         {/* Sidebar */}
         {sidebarOpen && (
-          <aside className="border-[var(--duo-line)] bg-[var(--duo-bg)]/70 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
+          <aside className="border-[var(--duo-line)] bg-[var(--duo-bg)]/70 fixed top-14 bottom-0 start-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-e-2 md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
             <div className="border-[var(--duo-line)] flex items-center justify-between border-b-2 px-4 py-3">
               <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
                 {t('conversations')}
@@ -371,12 +371,12 @@ export default function ChatPage() {
                     onClick={() => selectConversation(c.id)}
                     className={`group border-[var(--duo-line)] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
                       activeId === c.id
-                        ? 'bg-[var(--duo-line)] border-l-[var(--duo-green)] border-l-2'
-                        : 'hover:bg-white border-l-2 border-l-transparent'
+                        ? 'bg-[var(--duo-line)] border-s-[var(--duo-green)] border-l-2'
+                        : 'hover:bg-white border-s-2 border-l-transparent'
                     }`}
                   >
                     <span
-                      className={`text-[var(--duo-ink)] truncate pr-1 font-sans leading-tight ${activeId === c.id ? 'text-[var(--duo-ink)]' : 'text-[var(--duo-muted)]'}`}
+                      className={`text-[var(--duo-ink)] truncate pe-1 font-sans leading-tight ${activeId === c.id ? 'text-[var(--duo-ink)]' : 'text-[var(--duo-muted)]'}`}
                     >
                       {c.source === 'voice' && (
                         <span
@@ -411,7 +411,7 @@ export default function ChatPage() {
           <div className="border-[var(--duo-line)] bg-[var(--duo-bg)]/70 flex shrink-0 items-center gap-2 border-b px-5 py-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] mr-1 text-lg transition-colors"
+              className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] me-1 text-lg transition-colors"
               title={
                 sidebarOpen ? t('toggleSidebarHide') : t('toggleSidebarShow')
               }
@@ -439,7 +439,7 @@ export default function ChatPage() {
             ) : messages.length > 0 ? (
               <button
                 onClick={continueInVoice}
-                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] ml-auto font-semibold tracking-wide transition-colors"
+                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] ms-auto font-semibold tracking-wide transition-colors"
               >
                 {t('continueInVoice')}
               </button>
