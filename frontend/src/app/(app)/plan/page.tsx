@@ -322,7 +322,7 @@ export default function PlanPage() {
       {/* Hero */}
       <section className="relative overflow-hidden rounded-[22px] border-2 border-[var(--duo-line)] bg-white px-6 py-7 text-white shadow-[0_3px_0_rgba(31,41,51,.045)] sm:px-9 sm:py-9">
         <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--duo-green)] opacity-95" />
-        <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[#ffb020] opacity-80" />
+        <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--duo-yellow)] opacity-80" />
         <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[16px] bg-[rgba(88,204,2,.12)]" />
         <div className="relative z-10 max-w-3xl">
           <div className="mb-5 flex flex-wrap items-center gap-2">
@@ -392,7 +392,7 @@ export default function PlanPage() {
                 onClick={() => void launchLesson(lesson.id)}
                 className="group flex items-center gap-4 rounded-[20px] border-2 border-[var(--duo-line)] bg-white p-4 text-start shadow-[0_3px_0_rgba(31,41,51,.045)] transition-all hover:-translate-y-1 hover:border-[var(--duo-green)]"
               >
-                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] text-sm font-black ${i % 2 === 0 ? 'bg-[rgba(88,204,2,.12)]' : 'bg-[#f1f7ed]'} text-[var(--duo-ink)]`}>
+                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] text-sm font-black ${i % 2 === 0 ? 'bg-[rgba(88,204,2,.12)]' : 'bg-[rgba(88,204,2,.08)]'} text-[var(--duo-ink)]`}>
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span className="min-w-0 flex-1">
