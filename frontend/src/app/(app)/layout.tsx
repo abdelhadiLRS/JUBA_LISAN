@@ -69,6 +69,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const loadConfig = useConfigStore((s) => s.load)
   const [logoutConfirm, setLogoutConfirm] = useState(false)
   const mobileMenuTriggerRef = useRef<HTMLButtonElement>(null)
+  const mobileMenuPanelRef = useRef<HTMLElement>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [resourcesOpen, setResourcesOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
@@ -190,6 +191,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!mobileMenuOpen) return
+
+    mobileMenuPanelRef.current?.querySelector<HTMLElement>('a, button, input, select, textarea')?.focus()
 
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -440,6 +443,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {/* Dropdown */}
         <nav
           id="juba-duo-mobile-menu"
+          ref={mobileMenuPanelRef}
           hidden={!mobileMenuOpen}
           aria-label={tNav('navigation')}
           className="juba-duo-mobile-menu max-h-[calc(100dvh-66px)] overflow-y-auto overscroll-contain"
