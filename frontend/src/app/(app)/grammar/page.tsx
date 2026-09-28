@@ -88,7 +88,7 @@ export default function GrammarIndexPage() {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-6">
         <p className="text-[var(--duo-muted)] text-sm">{tCommon('error')}</p>
-        <button onClick={() => fetchTopics(activeLanguage?.code ?? 'en-GB')} className="rounded-full bg-[var(--duo-line)] px-4 py-2 text-xs font-bold tracking-widest text-[var(--duo-green-dark)] uppercase transition-colors hover:bg-[var(--duo-green-dark)]">
+        <button onClick={() => fetchTopics(activeLanguage?.code ?? 'en-GB')} className="rounded-full bg-[var(--duo-bg)] px-4 py-2 text-xs font-bold tracking-widest text-[var(--duo-green-dark)] uppercase transition-colors hover:bg-[var(--duo-green-dark)] hover:text-white">
           {tCommon('retry')}
         </button>
       </div>
