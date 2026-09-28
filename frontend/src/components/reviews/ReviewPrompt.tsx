@@ -153,7 +153,7 @@ export function ReviewForm({
           type="button"
           onClick={handleSubmit}
           disabled={submitting}
-          className="bg-[var(--duo-yellow)] text-[var(--juba-ink)] hover:bg-[var(--duo-yellow)]/90 flex flex-1 items-center justify-center gap-2 py-3 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-60"
+          className="bg-[var(--duo-yellow)] text-[var(--duo-ink)] hover:bg-[var(--duo-yellow)]/90 flex flex-1 items-center justify-center gap-2 py-3 font-mono font-bold tracking-widest uppercase transition-colors disabled:opacity-60"
         >
           {submitting && <Loader2 className="size-3.5 animate-spin" />}
           {submitLabel ?? t('submit')}
