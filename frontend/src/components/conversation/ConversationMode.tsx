@@ -130,7 +130,7 @@ function QuotaPill({
       </button>
 
       {open && (
-        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] space-y-2 rounded-b-xl border border-t-0 px-4 py-3 shadow-[0_3px_0_rgba(31,41,51,.035)]">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] space-y-2 rounded-b-xl border border-t-0 px-4 py-3 shadow-[0_3px_0_var(--duo-line)]">
           <QuotaBar
             label={t('quotaSessions')}
             used={quota.sessions_this_week}
