@@ -185,10 +185,10 @@ export function ProfileSection({ title }: { title?: string } = {}) {
   }
 
   return (
-    <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] space-y-5 border p-6">
-      <div className="border-[var(--juba-app-line)] flex items-center gap-2 border-b pb-4">
-        <span className="text-[var(--juba-app-muted)]">●</span>
-        <span className="text-[var(--juba-app-muted)] font-mono tracking-widest uppercase">
+    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] space-y-5 border p-6">
+      <div className="border-[var(--duo-line)] flex items-center gap-2 border-b pb-4">
+        <span className="text-[var(--duo-muted)]">●</span>
+        <span className="text-[var(--duo-muted)] font-mono tracking-widest uppercase">
           {title ?? t('sectionProfile')}
         </span>
       </div>
@@ -199,7 +199,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={avatarUploading}
-          className="border-[var(--juba-app-line)] hover:border-[var(--juba-app-line)]-2 relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border transition-colors focus:outline-none disabled:opacity-60"
+          className="border-[var(--duo-line)] hover:border-[var(--duo-line)]-2 relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border transition-colors focus:outline-none disabled:opacity-60"
         >
           {user?.avatar ? (
             <AuthAvatarImage
@@ -209,8 +209,8 @@ export function ProfileSection({ title }: { title?: string } = {}) {
               height={64}
               className="h-full w-full object-cover"
               fallback={
-                <div className="bg-[var(--juba-app-surface)]-2 flex h-full w-full items-center justify-center">
-                  <span className="text-[var(--juba-app-muted)] font-mono text-xl select-none">
+                <div className="bg-[var(--duo-card)]-2 flex h-full w-full items-center justify-center">
+                  <span className="text-[var(--duo-muted)] font-mono text-xl select-none">
                     {(user?.displayName ||
                       user?.username ||
                       '?')[0].toUpperCase()}
@@ -219,15 +219,15 @@ export function ProfileSection({ title }: { title?: string } = {}) {
               }
             />
           ) : (
-            <div className="bg-[var(--juba-app-surface)]-2 flex h-full w-full items-center justify-center">
-              <span className="text-[var(--juba-app-muted)] font-mono text-xl select-none">
+            <div className="bg-[var(--duo-card)]-2 flex h-full w-full items-center justify-center">
+              <span className="text-[var(--duo-muted)] font-mono text-xl select-none">
                 {(user?.displayName || user?.username || '?')[0].toUpperCase()}
               </span>
             </div>
           )}
           {avatarUploading && (
-            <div className="bg-[var(--juba-app-bg)]/70 absolute inset-0 flex items-center justify-center">
-              <span className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] animate-pulse font-mono">
+            <div className="bg-[var(--duo-bg)]/70 absolute inset-0 flex items-center justify-center">
+              <span className="text-[var(--duo-muted)] text-[var(--duo-muted)] animate-pulse font-mono">
                 ...
               </span>
             </div>
@@ -238,7 +238,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={avatarUploading}
-            className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-ink)] block font-mono tracking-widest uppercase transition-colors disabled:opacity-40"
+            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] block font-mono tracking-widest uppercase transition-colors disabled:opacity-40"
           >
             {avatarUploading ? t('avatarUploading') : t('avatarChange')}
           </button>
@@ -246,7 +246,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
             <button
               type="button"
               onClick={handleAvatarRemove}
-              className="text-[var(--juba-app-muted)] hover:text-[var(--juba-app-error)] block font-mono tracking-widest uppercase transition-colors"
+              className="text-[var(--duo-muted)] hover:text-[var(--duo-red)] block font-mono tracking-widest uppercase transition-colors"
             >
               {t('avatarRemove')}
             </button>
@@ -261,7 +261,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
         />
       </div>
       {avatarError && (
-        <div className="border-[var(--juba-app-error)]/40 text-[var(--juba-app-error)] border px-4 py-3 font-mono text-xs">
+        <div className="border-[var(--duo-red)]/40 text-[var(--duo-red)] border px-4 py-3 font-mono text-xs">
           ✕ {avatarError}
         </div>
       )}
@@ -276,7 +276,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
         { label: t('email'), value: email, onChange: setEmail, type: 'email' },
       ].map((field) => (
         <div key={field.label}>
-          <label className="text-[var(--juba-app-muted)] mb-2 block font-mono tracking-widest uppercase">
+          <label className="text-[var(--duo-muted)] mb-2 block font-mono tracking-widest uppercase">
             {field.label}
           </label>
           <input
@@ -286,13 +286,13 @@ export function ProfileSection({ title }: { title?: string } = {}) {
             autoCorrect={field.type === 'email' ? 'off' : undefined}
             autoCapitalize={field.type === 'email' ? 'none' : undefined}
             spellCheck={field.type === 'email' ? false : undefined}
-            className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] focus:border-[var(--juba-app-line)]-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+            className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] focus:border-[var(--duo-line)]-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
           />
         </div>
       ))}
 
       <div>
-        <label className="text-[var(--juba-app-muted)] mb-2 block font-mono tracking-widest uppercase">
+        <label className="text-[var(--duo-muted)] mb-2 block font-mono tracking-widest uppercase">
           {t('bio')}
         </label>
         <textarea
@@ -301,21 +301,21 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           rows={3}
           maxLength={500}
           placeholder={t('bioPlaceholder')}
-          className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] focus:border-[var(--juba-app-line)]-2 min-h-[74px] w-full resize-y border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-line)]-2 min-h-[74px] w-full resize-y border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
         />
-        <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mt-1 font-mono">
+        <p className="text-[var(--duo-muted)] text-[var(--duo-muted)] mt-1 font-mono">
           {t('bioHint')}
         </p>
       </div>
 
       <div>
-        <label className="text-[var(--juba-app-muted)] mb-2 block font-mono tracking-widest uppercase">
+        <label className="text-[var(--duo-muted)] mb-2 block font-mono tracking-widest uppercase">
           {t('nativeLanguage')}
         </label>
         <select
           value={nativeLanguage}
           onChange={(e) => setNativeLanguage(e.target.value)}
-          className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] focus:border-[var(--juba-app-line)]-2 w-full appearance-none border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] focus:border-[var(--duo-line)]-2 w-full appearance-none border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
         >
           {[...LANGUAGES]
             .sort((a, b) => getLanguageLabel(tLang, a).localeCompare(getLanguageLabel(tLang, b)))
@@ -328,13 +328,13 @@ export function ProfileSection({ title }: { title?: string } = {}) {
       </div>
 
       <div>
-        <label className="text-[var(--juba-app-muted)] mb-2 block font-mono tracking-widest uppercase">
+        <label className="text-[var(--duo-muted)] mb-2 block font-mono tracking-widest uppercase">
           {t('uiLocale')}
         </label>
         <select
           value={uiLocale}
           onChange={(e) => setUiLocale(e.target.value)}
-          className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] focus:border-[var(--juba-app-line)]-2 w-full appearance-none border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] focus:border-[var(--duo-line)]-2 w-full appearance-none border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
         >
           {[...SUPPORTED_LOCALES]
             .sort((a, b) => tLang(a).localeCompare(tLang(b)))
@@ -344,13 +344,13 @@ export function ProfileSection({ title }: { title?: string } = {}) {
               </option>
             ))}
         </select>
-        <p className="text-[var(--juba-app-muted)] text-[var(--juba-app-muted)] mt-1 font-mono">
+        <p className="text-[var(--duo-muted)] text-[var(--duo-muted)] mt-1 font-mono">
           {t('uiLocaleHint')}
         </p>
       </div>
 
       <div>
-        <label className="text-[var(--juba-app-muted)] mb-2 block font-mono tracking-widest uppercase">
+        <label className="text-[var(--duo-muted)] mb-2 block font-mono tracking-widest uppercase">
           {t('newPassword')}
         </label>
         <input
@@ -361,12 +361,12 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           autoCorrect="off"
           autoCapitalize="none"
           spellCheck={false}
-          className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] focus:border-[var(--juba-app-line)]-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-line)]-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
         />
       </div>
 
       <div>
-        <label className="text-[var(--juba-app-muted)] mb-2 block font-mono tracking-widest uppercase">
+        <label className="text-[var(--duo-muted)] mb-2 block font-mono tracking-widest uppercase">
           {t('confirmPassword')}
         </label>
         <input
@@ -378,13 +378,13 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           autoCorrect="off"
           autoCapitalize="none"
           spellCheck={false}
-          className="bg-[var(--juba-app-bg)] border-[var(--juba-app-line)] text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] focus:border-[var(--juba-app-line)]-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none disabled:opacity-30"
+          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-line)]-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none disabled:opacity-30"
         />
       </div>
 
       {message && (
         <div
-          className={`border px-4 py-3 font-mono text-xs ${message.type === 'ok' ? 'border-[var(--juba-app-line)] text-[var(--juba-app-muted)]' : 'border-[var(--juba-app-error)]/40 text-[var(--juba-app-error)]'}`}
+          className={`border px-4 py-3 font-mono text-xs ${message.type === 'ok' ? 'border-[var(--duo-line)] text-[var(--duo-muted)]' : 'border-[var(--duo-red)]/40 text-[var(--duo-red)]'}`}
         >
           {message.type === 'ok' ? '✓ ' : '✕ '}
           {message.text}
@@ -394,7 +394,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
       <button
         onClick={handleSave}
         disabled={saving}
-        className="bg-[var(--juba-app-green)] text-white hover:bg-[var(--juba-app-green)]/90 w-full py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+        className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green)]/90 w-full py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
       >
         {saving ? t('saving') : t('saveChanges')}
       </button>
