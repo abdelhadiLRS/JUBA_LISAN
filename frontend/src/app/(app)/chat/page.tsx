@@ -338,7 +338,7 @@ export default function ChatPage() {
                 <PageLoading fullScreen={false} className="block px-4 py-4" />
               ) : convLoadError ? (
                 <div className="flex flex-col items-center gap-3 px-4 py-6">
-                  <p className="text-rose-600 font-sans text-xs">
+                  <p className="text-[var(--duo-red)] font-sans text-xs">
                     {tCommon('error')}
                   </p>
                   <button
@@ -355,7 +355,7 @@ export default function ChatPage() {
                         })
                         .finally(() => setLoadingConvs(false))
                     }}
-                    className="rounded-xl border-2 border-[var(--duo-line)] bg-white px-4 py-2 font-semibold tracking-wide text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all hover:-translate-y-0.5 hover:border-[var(--duo-green)]"
+                    className="rounded-xl border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2 font-semibold tracking-wide text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all hover:-translate-y-0.5 hover:border-[var(--duo-green)]"
                   >
                     {tCommon('retry')}
                   </button>
@@ -372,7 +372,7 @@ export default function ChatPage() {
                     className={`group border-[var(--duo-line)] flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
                       activeId === c.id
                         ? 'bg-[var(--duo-line)] border-s-2 border-s-[var(--duo-green)]'
-                        : 'hover:bg-white border-s-2 border-s-transparent'
+                        : 'hover:bg-[var(--duo-card)] border-s-2 border-s-transparent'
                     }`}
                   >
                     <span
@@ -393,7 +393,7 @@ export default function ChatPage() {
                         e.stopPropagation()
                         setDeletePending(c.id)
                       }}
-                      className="text-[var(--duo-ink)] text-rose-600 hover:text-rose-600 shrink-0 font-sans opacity-0 transition-all group-hover:opacity-100"
+                      className="text-[var(--duo-ink)] text-[var(--duo-red)] hover:text-[var(--duo-red)] shrink-0 font-sans opacity-0 transition-all group-hover:opacity-100"
                       title="Delete"
                     >
                       ✕
@@ -517,7 +517,7 @@ export default function ChatPage() {
                       className={`word-selectable border-2 border-[var(--duo-line)] px-4 py-3 text-left ${
                         msg.role === 'user'
                           ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green-dark)] shadow-[3px_3px_0_var(--duo-green-dark)]'
-                          : 'bg-white text-[var(--duo-ink)] border-2 border-[var(--duo-line)] shadow-[2px_2px_0_var(--duo-line)]'
+                          : 'bg-[var(--duo-card)] text-[var(--duo-ink)] border-2 border-[var(--duo-line)] shadow-[2px_2px_0_var(--duo-line)]'
                       }`}
                       onPointerUp={
                         msg.role === 'assistant' &&
@@ -545,7 +545,7 @@ export default function ChatPage() {
               ))
             )}
             {error && (
-              <div className="text-[var(--duo-ink)] text-[var(--duo-red)] rounded-xl border-2 border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[rgba(255,75,75,.08)] px-4 py-2 font-sans">
+              <div className="text-[var(--duo-ink)] text-[var(--duo-red)] rounded-xl border-2 border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] px-4 py-2 font-sans">
                 ✕{' '}
                 {error === 'No active study plan found'
                   ? tCommon('noActivePlan')
@@ -572,7 +572,7 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1 rounded-xl border-2 border-[var(--duo-line)] bg-white px-4 py-3 font-sans text-base text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/15 disabled:opacity-40"
+                    className="flex-1 rounded-xl border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-3 font-sans text-base text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/15 disabled:opacity-40"
                   />
                   <button
                     onClick={sendMessage}
