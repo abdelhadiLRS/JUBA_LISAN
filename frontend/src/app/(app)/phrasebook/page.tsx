@@ -20,8 +20,8 @@ const CEFR_LEVELS: CEFRLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 const REGISTERS: Register[] = ['formal', 'neutral', 'informal']
 
 const REGISTER_COLORS: Record<string, string> = {
-  formal: 'text-[#438600]',
-  neutral: 'text-[#68736d]',
+  formal: 'text-[var(--duo-green-dark)]',
+  neutral: 'text-[var(--duo-muted)]',
   informal: 'text-[var(--juba-ink)]',
 }
 
@@ -81,24 +81,24 @@ function CategoryCard({
 
   return (
     <div className="juba-panel p-0">
-      <div className="border-[#e1e5e2] flex items-center gap-3 border-b px-5 py-4">
+      <div className="border-[var(--duo-line)] flex items-center gap-3 border-b px-5 py-4">
         <span className="text-xl">{cat.icon}</span>
         <div className="min-w-0 flex-1">
-          <p className="text-[#30343b] truncate font-sans text-xs font-bold tracking-wide">
+          <p className="text-[var(--duo-ink)] truncate font-sans text-xs font-bold tracking-wide">
             {cat.situation}
           </p>
         </div>
-        <span className="border-[#e1e5e2] text-[#30343b] text-[#68736d] shrink-0 border px-2 py-0.5 font-sans tracking-widest uppercase">
+        <span className="border-[var(--duo-line)] text-[var(--duo-ink)] text-[var(--duo-muted)] shrink-0 border px-2 py-0.5 font-sans tracking-widest uppercase">
           {cat.level}
         </span>
       </div>
 
       {nativeLanguageName && (
-        <div className="border-[#e1e5e2] border-b px-5 py-3">
+        <div className="border-[var(--duo-line)] border-b px-5 py-3">
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
-            className="text-[#30343b] text-[#68736d] hover:text-[#30343b] flex w-full items-center justify-between font-sans tracking-widest uppercase transition-colors"
+            className="text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] flex w-full items-center justify-between font-sans tracking-widest uppercase transition-colors"
             aria-expanded={nativeHelpOpen}
           >
             <span>
@@ -109,26 +109,26 @@ function CategoryCard({
           {nativeHelpOpen && (
             <div className="mt-3 space-y-3">
               {loadingNativeHelp ? (
-                <p className="text-[#68736d] font-sans text-xs">
+                <p className="text-[var(--duo-muted)] font-sans text-xs">
                   {tCommon('nativeHelpLoading', {
                     language: nativeLanguageName,
                   })}
                 </p>
               ) : nativeHelp ? (
                 <>
-                  <p className="text-[#68736d] text-sm leading-relaxed">
+                  <p className="text-[var(--duo-muted)] text-sm leading-relaxed">
                     {nativeHelp.summary}
                   </p>
 
                   {nativeHelp.usage_tips.length > 0 && (
                     <div className="space-y-1">
-                      <p className="text-[#30343b] text-[#68736d] font-sans tracking-widest uppercase">
+                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpUsageTips')}
                       </p>
                       <ul className="space-y-1">
                         {nativeHelp.usage_tips.map((tip, i) => (
-                          <li key={i} className="text-[#68736d] text-sm">
-                            <span className="text-[#68736d] mr-2">·</span>
+                          <li key={i} className="text-[var(--duo-muted)] text-sm">
+                            <span className="text-[var(--duo-muted)] mr-2">·</span>
                             {tip}
                           </li>
                         ))}
@@ -137,12 +137,12 @@ function CategoryCard({
                   )}
 
                   {nativeHelp.register_notes.length > 0 && (
-                    <div className="border-[#e1e5e2] space-y-1 border-t pt-3">
-                      <p className="text-[#30343b] text-[#68736d] font-sans tracking-widest uppercase">
+                    <div className="border-[var(--duo-line)] space-y-1 border-t pt-3">
+                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpRegisterNotes')}
                       </p>
                       {nativeHelp.register_notes.map((note, i) => (
-                        <p key={i} className="text-[#68736d] text-sm">
+                        <p key={i} className="text-[var(--duo-muted)] text-sm">
                           {note}
                         </p>
                       ))}
@@ -150,58 +150,58 @@ function CategoryCard({
                   )}
 
                   {nativeHelp.phrase_notes.length > 0 && (
-                    <div className="border-[#e1e5e2] space-y-2 border-t pt-3">
-                      <p className="text-[#30343b] text-[#68736d] font-sans tracking-widest uppercase">
+                    <div className="border-[var(--duo-line)] space-y-2 border-t pt-3">
+                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpPhraseNotes')}
                       </p>
                       {nativeHelp.phrase_notes.map((item, i) => (
                         <div key={i} className="space-y-0.5">
                           <TargetLanguageText
                             languageCode={language}
-                            className="text-[#68736d] text-sm italic"
+                            className="text-[var(--duo-muted)] text-sm italic"
                           >
                             {item.phrase}
                           </TargetLanguageText>
-                          <p className="text-[#68736d] text-sm">{item.note}</p>
+                          <p className="text-[var(--duo-muted)] text-sm">{item.note}</p>
                         </div>
                       ))}
                     </div>
                   )}
 
                   {nativeHelp.common_traps.length > 0 && (
-                    <div className="border-[#e1e5e2] space-y-2 border-t pt-3">
-                      <p className="text-[#30343b] text-[#68736d] font-sans tracking-widest uppercase">
+                    <div className="border-[var(--duo-line)] space-y-2 border-t pt-3">
+                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpCommonTraps')}
                       </p>
                       {nativeHelp.common_traps.map((trap, i) => (
                         <div key={i} className="space-y-0.5">
-                          <p className="text-[#68736d] text-sm">
+                          <p className="text-[var(--duo-muted)] text-sm">
                             {trap.mistake}
                           </p>
-                          <p className="text-[#68736d] text-sm">{trap.fix}</p>
+                          <p className="text-[var(--duo-muted)] text-sm">{trap.fix}</p>
                         </div>
                       ))}
                     </div>
                   )}
 
                   {nativeHelp.mini_glossary.length > 0 && (
-                    <div className="border-[#e1e5e2] space-y-2 border-t pt-3">
-                      <p className="text-[#30343b] text-[#68736d] font-sans tracking-widest uppercase">
+                    <div className="border-[var(--duo-line)] space-y-2 border-t pt-3">
+                      <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
                         {tCommon('nativeHelpMiniGlossary')}
                       </p>
                       {nativeHelp.mini_glossary.map((item, i) => (
                         <div key={i}>
                           <TargetLanguageText
                             languageCode={language}
-                            className="text-[#68736d] text-sm font-bold"
+                            className="text-[var(--duo-muted)] text-sm font-bold"
                           >
                             {item.term}
                           </TargetLanguageText>
-                          <p className="text-[#68736d] text-sm">
+                          <p className="text-[var(--duo-muted)] text-sm">
                             {item.meaning}
                           </p>
                           {item.note && (
-                            <p className="text-[#68736d] text-sm">
+                            <p className="text-[var(--duo-muted)] text-sm">
                               {item.note}
                             </p>
                           )}
@@ -214,7 +214,7 @@ function CategoryCard({
                 <button
                   type="button"
                   onClick={generateNativeHelp}
-                  className="text-[#68736d] hover:text-[#30343b] font-sans text-sm transition-colors"
+                  className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-sans text-sm transition-colors"
                 >
                   {nativeHelpError
                     ? tCommon('retry')
@@ -228,20 +228,20 @@ function CategoryCard({
         </div>
       )}
 
-      <ul className="divide-[#e1e5e2] divide-y">
+      <ul className="divide-[var(--duo-line)] divide-y">
         {phrases.map((phrase, i) => (
           <li key={i} className="group space-y-1 px-5 py-3">
             <div className="flex items-start justify-between gap-3">
               <TargetLanguageText
                 as="p"
                 languageCode={language}
-                className="text-[#30343b] flex-1"
+                className="text-[var(--duo-ink)] flex-1"
               >
                 {phrase.text}
               </TargetLanguageText>
               <div className="flex shrink-0 items-center gap-1">
                 <span
-                  className={`text-[#30343b] font-sans tracking-widest uppercase ${REGISTER_COLORS[phrase.register]}`}
+                  className={`text-[var(--duo-ink)] font-sans tracking-widest uppercase ${REGISTER_COLORS[phrase.register]}`}
                 >
                   {t(phrase.register)}
                 </span>
@@ -257,7 +257,7 @@ function CategoryCard({
               <TargetLanguageText
                 as="p"
                 languageCode={language}
-                className="text-[#68736d] italic"
+                className="text-[var(--duo-muted)] italic"
               >
                 {phrase.context}
               </TargetLanguageText>
@@ -285,7 +285,7 @@ function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="text-[#30343b] text-[#68736d] hover:text-[#30343b] px-1 font-sans transition-colors"
+      className="text-[var(--duo-ink)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] px-1 font-sans transition-colors"
       title="Copy"
       aria-label="Copy phrase"
     >
@@ -347,10 +347,10 @@ export default function PhrasebookPage() {
   if (loadError) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <p className="text-[#68736d] font-sans text-sm">{tCommon('error')}</p>
+        <p className="text-[var(--duo-muted)] font-sans text-sm">{tCommon('error')}</p>
         <button
           onClick={() => fetchCategories(activeLanguage?.code ?? 'en-GB')}
-          className="text-[#438600] font-sans text-xs tracking-widest uppercase underline"
+          className="text-[var(--duo-green-dark)] font-sans text-xs tracking-widest uppercase underline"
         >
           {tCommon('retry')}
         </button>
@@ -363,15 +363,15 @@ export default function PhrasebookPage() {
 
   return (
     <div className="juba-mobile-phrasebook mx-auto max-w-4xl space-y-8 p-6"">
-      <div className="border-[#e1e5e2] bg-white border">
-        <div className="border-[#e1e5e2] flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-[#30343b] text-[#68736d]">{'\u25cf'}</span>
-          <span className="text-[#30343b] text-[#68736d] font-sans tracking-widest uppercase">
+      <div className="border-[var(--duo-line)] bg-white border">
+        <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-[var(--duo-ink)] text-[var(--duo-muted)]">{'\u25cf'}</span>
+          <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
             {t('title')}
           </span>
         </div>
         <div className="space-y-4 px-6 py-5">
-          <p className="text-[#68736d] font-sans text-xs leading-relaxed">
+          <p className="text-[var(--duo-muted)] font-sans text-xs leading-relaxed">
             {t('statsLine', {
               situationCount: categories.length,
               phraseCount: totalPhrases,
@@ -385,12 +385,12 @@ export default function PhrasebookPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t('searchPlaceholder')}
-              className="border-[#e1e5e2] bg-[#e1e5e2] text-[#30343b] placeholder:text-[#68736d] focus:border-[#438600] w-full border px-3 py-2 font-sans text-xs focus:outline-none"
+              className="border-[var(--duo-line)] bg-[var(--duo-line)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green-dark)] w-full border px-3 py-2 font-sans text-xs focus:outline-none"
             />
           </div>
 
           <div className="space-y-2">
-            <p className="text-[#30343b] text-[#68736d] font-sans tracking-widest uppercase">
+            <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
               {t('level')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -398,10 +398,10 @@ export default function PhrasebookPage() {
                 <button
                   key={lvl}
                   onClick={() => setActiveLevel(lvl)}
-                  className={`text-[#30343b] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
+                  className={`text-[var(--duo-ink)] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                     activeLevel === lvl
-                      ? 'border-[#438600] text-[#30343b] bg-[#e1e5e2]'
-                      : 'border-[#e1e5e2] text-[#68736d] hover:border-[#438600] hover:text-[#30343b]'
+                      ? 'border-[var(--duo-green-dark)] text-[var(--duo-ink)] bg-[var(--duo-line)]'
+                      : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]'
                   }`}
                 >
                   {lvl === 'All' ? tCommon('all') : lvl}
@@ -411,7 +411,7 @@ export default function PhrasebookPage() {
           </div>
 
           <div className="space-y-2">
-            <p className="text-[#30343b] text-[#68736d] font-sans tracking-widest uppercase">
+            <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
               {t('register')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -419,10 +419,10 @@ export default function PhrasebookPage() {
                 <button
                   key={reg}
                   onClick={() => setActiveRegister(reg)}
-                  className={`text-[#30343b] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
+                  className={`text-[var(--duo-ink)] border px-3 py-1.5 font-sans tracking-widest uppercase transition-colors ${
                     activeRegister === reg
-                      ? 'border-[#438600] text-[#30343b] bg-[#e1e5e2]'
-                      : 'border-[#e1e5e2] text-[#68736d] hover:border-[#438600] hover:text-[#30343b]'
+                      ? 'border-[var(--duo-green-dark)] text-[var(--duo-ink)] bg-[var(--duo-line)]'
+                      : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]'
                   }`}
                 >
                   {reg === 'All' ? tCommon('all') : t(reg)}
@@ -434,7 +434,7 @@ export default function PhrasebookPage() {
       </div>
 
       {hasActiveFilters && (
-        <p className="text-[#30343b] text-[#68736d] font-sans">
+        <p className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans">
           {t('situationsShown', { count: filteredCategories.length })}
         </p>
       )}
@@ -445,10 +445,10 @@ export default function PhrasebookPage() {
         return (
           <section key={level} className="space-y-3">
             <div className="flex items-center gap-3">
-              <span className="text-[#30343b] font-sans text-base font-bold tracking-widest">
+              <span className="text-[var(--duo-ink)] font-sans text-base font-bold tracking-widest">
                 {level}
               </span>
-              <div className="bg-[#e1e5e2] h-px flex-1" />
+              <div className="bg-[var(--duo-line)] h-px flex-1" />
             </div>
             <div className="grid gap-4 md:grid-cols-2">
               {cats.map((cat) => (
@@ -466,8 +466,8 @@ export default function PhrasebookPage() {
       })}
 
       {filteredCategories.length === 0 && (
-        <div className="border-[#e1e5e2] bg-white space-y-4 border px-6 py-10 text-center">
-          <p className="text-[#68736d] font-sans text-xs tracking-widest uppercase">
+        <div className="border-[var(--duo-line)] bg-white space-y-4 border px-6 py-10 text-center">
+          <p className="text-[var(--duo-muted)] font-sans text-xs tracking-widest uppercase">
             {t('noResults')}
           </p>
           {hasActiveFilters && (
@@ -477,7 +477,7 @@ export default function PhrasebookPage() {
                 setActiveRegister('All')
                 setSearch('')
               }}
-              className="text-[#30343b] border-[#e1e5e2] text-[#68736d] hover:border-[#438600] hover:text-[#30343b] border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
+              className="text-[var(--duo-ink)] border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)] border px-4 py-2 font-sans tracking-widest uppercase transition-colors"
             >
               {tCommon('clearFilters')}
             </button>
