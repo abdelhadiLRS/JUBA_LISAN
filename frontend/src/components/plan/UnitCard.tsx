@@ -82,7 +82,7 @@ export default function UnitCard({ title, index, lessonCount, grammarCount, comp
 
       {status.active && onStartLesson && (
         <div className="juba-ff-unit-action flex justify-end px-5 pb-5 sm:px-6">
-          <button onClick={onStartLesson} className="juba-primary-button rounded-full px-5 py-2.5 text-xs">{tCommon('start')} →</button>
+          <button onClick={onStartLesson} className="bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white rounded-full px-5 py-2.5 text-xs font-bold shadow-[0_3px_0_var(--duo-green-dark)] transition-colors">{tCommon('start')} →</button>
         </div>
       )}
     </div>
