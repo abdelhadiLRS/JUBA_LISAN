@@ -431,7 +431,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <nav
             id="juba-duo-mobile-menu"
             aria-label={tNav('navigation')}
-            className="juba-duo-mobile-menu max-h-[calc(100vh-66px)] overflow-y-auto overscroll-contain"
+            className="juba-duo-mobile-menu max-h-[calc(100dvh-66px)] overflow-y-auto overscroll-contain"
           >
             <div className="border-[var(--duo-line)] border-b">
               <LanguageSwitcher />
@@ -614,7 +614,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <main
         className="juba-duo-main min-w-0 overflow-x-hidden"
         id="main-content"
-        aria-label={tNav('navigation')}
+        aria-label="Main content"
         tabIndex={-1}
       >
         {/* Email verification banner */}
