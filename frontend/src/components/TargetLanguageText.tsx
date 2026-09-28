@@ -31,7 +31,7 @@ export function TargetLanguageText({
     >
       {children}
       {(accessibleReading || accessibleTranslation) && (
-        <span className="mt-1 block font-sans text-xs leading-relaxed tracking-normal normal-case text-[var(--juba-app-muted)] opacity-90">
+        <span className="mt-1 block font-sans text-xs leading-relaxed tracking-normal normal-case text-[var(--duo-muted)] opacity-90">
           {[accessibleReading, accessibleTranslation].filter(Boolean).join(' · ')}
         </span>
       )}
