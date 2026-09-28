@@ -189,11 +189,11 @@ export default function FlashcardsPage() {
               className="mb-4 rounded-xl px-4 py-3 text-sm"
               role="alert"
               style={{
-                color: '#b33a32',
+                color: 'var(--duo-red)',
                 background:
-                  'color-mix(in srgb, #b33a32 8%, transparent)',
+                  'color-mix(in srgb, var(--duo-red) 8%, transparent)',
                 border:
-                  '1px solid color-mix(in srgb, #b33a32 30%, transparent)',
+                  '1px solid color-mix(in srgb, var(--duo-red) 30%, transparent)',
               }}
             >
               {genError}
@@ -303,7 +303,7 @@ export default function FlashcardsPage() {
                 {current + 1} / {cards.length} due
               </span>
               {/* Mode toggle */}
-              <div className="bg-[#f1f7ed] inline-flex rounded-xl p-1">
+              <div className="bg-[rgba(88,204,2,.08)] inline-flex rounded-xl p-1">
                 <button
                   type="button"
                   aria-pressed={!speakingMode}
@@ -336,7 +336,7 @@ export default function FlashcardsPage() {
                 </button>
               </div>
             </div>
-            <div className="bg-[#f1f7ed] h-1.5 overflow-hidden rounded-full">
+            <div className="bg-[rgba(88,204,2,.08)] h-1.5 overflow-hidden rounded-full">
               <div
                 className="h-full rounded-full transition-all duration-500"
                 style={{
@@ -420,7 +420,7 @@ export default function FlashcardsPage() {
                     {
                       key: 'again',
                       q: 0,
-                      style: { color: '#b33a32' },
+                      style: { color: 'var(--duo-red)' },
                     },
                     {
                       key: 'hard',
