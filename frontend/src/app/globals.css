@@ -927,6 +927,7 @@ html[data-theme='light'] {
   .juba-duo-shell[dir="rtl"] .juba-duo-page-frame {
     width:100%;
     margin-inline:0;
+    padding-top:66px;
   }
 }
 @media (prefers-reduced-motion:reduce) {
