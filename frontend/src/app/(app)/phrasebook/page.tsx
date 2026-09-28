@@ -363,7 +363,7 @@ export default function PhrasebookPage() {
 
   return (
     <div className="juba-mobile-phrasebook mx-auto max-w-4xl space-y-8 p-6">
-      <div className="border-[var(--duo-line)] bg-white border">
+      <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border">
         <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-6 py-4">
           <span className="text-[var(--duo-ink)] text-[var(--duo-muted)]">{'\u25cf'}</span>
           <span className="text-[var(--duo-ink)] text-[var(--duo-muted)] font-sans tracking-widest uppercase">
@@ -466,7 +466,7 @@ export default function PhrasebookPage() {
       })}
 
       {filteredCategories.length === 0 && (
-        <div className="border-[var(--duo-line)] bg-white space-y-4 border px-6 py-10 text-center">
+        <div className="border-[var(--duo-line)] bg-[var(--duo-card)] space-y-4 border px-6 py-10 text-center">
           <p className="text-[var(--duo-muted)] font-sans text-xs tracking-widest uppercase">
             {t('noResults')}
           </p>
