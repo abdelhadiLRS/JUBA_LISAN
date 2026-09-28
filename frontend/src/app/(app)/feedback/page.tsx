@@ -48,11 +48,11 @@ type SortOption = 'votes' | 'date'
 const PAGE_SIZE = 10
 
 const STATUS_STYLES: Record<string, string> = {
-  pending: 'border-[#e1e5e2] text-[#68736d]',
-  planned: 'border-[#58a700]/40 text-[#438600]',
-  in_progress: 'border-[#ffb020]/40 text-[#a66a00]',
-  done: 'border-[#58a700]/40 text-[#438600]',
-  declined: 'border-rose-200/30 text-[#b33a32]',
+  pending: 'border-[var(--duo-line)] text-[var(--duo-muted)]',
+  planned: 'border-[var(--duo-green-dark)]/40 text-[var(--duo-green-dark)]',
+  in_progress: 'border-[var(--duo-yellow)]/40 text-[#9a7000]',
+  done: 'border-[var(--duo-green-dark)]/40 text-[var(--duo-green-dark)]',
+  declined: 'border-rose-200/30 text-[var(--duo-red)]',
 }
 
 // ---------------------------------------------------------------------------
@@ -75,7 +75,7 @@ function StatusBadge({ status, label }: { status: string; label: string }) {
   const cls = STATUS_STYLES[status] ?? STATUS_STYLES.pending
   return (
     <span
-      className={`text-[#68736d] rounded-full border px-2 py-0.5 font-semibold tracking-wide ${cls}`}
+      className={`text-[var(--duo-muted)] rounded-full border px-2 py-0.5 font-semibold tracking-wide ${cls}`}
     >
       {label}
     </span>
@@ -100,9 +100,9 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
   const [error, setError] = useState('')
 
   const inputCls =
-    'w-full bg-[#f8faf7] border-2 border-[#e1e5e2] px-4 py-3 text-sm text-[#30343b] placeholder:text-[#68736d] focus:outline-none focus:border-[#58a700] transition-colors resize-none'
+    'w-full bg-[var(--duo-bg)] border-2 border-[var(--duo-line)] px-4 py-3 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:outline-none focus:border-[var(--duo-green-dark)] transition-colors resize-none'
   const textareaCls =
-    'w-full bg-[#f8faf7] border-2 border-[#e1e5e2] px-4 py-3 text-sm text-[#30343b] placeholder:text-[#68736d] focus:outline-none focus:border-[#58a700] transition-colors resize-y min-h-[106px]'
+    'w-full bg-[var(--duo-bg)] border-2 border-[var(--duo-line)] px-4 py-3 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:outline-none focus:border-[var(--duo-green-dark)] transition-colors resize-y min-h-[106px]'
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -149,10 +149,10 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="border-[#e1e5e2] flex items-center justify-between border-b px-6 py-4">
+        <div className="border-[var(--duo-line)] flex items-center justify-between border-b px-6 py-4">
           <div className="flex items-center gap-2">
-            <span className="text-[#30343b] text-[#68736d]">●</span>
-            <span className="text-[#30343b] text-[#68736d] font-semibold tracking-wide">
+            <span className="text-[var(--duo-muted)]">●</span>
+            <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
               {type === 'feature'
                 ? t('modalCreateTitleFeature')
                 : t('modalCreateTitleBug')}
@@ -160,7 +160,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
           </div>
           <button
             onClick={onClose}
-            className="text-[#30343b] text-[#68736d] hover:text-[#30343b] font-sans transition-colors"
+            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-sans transition-colors"
           >
             ✕
           </button>
@@ -169,12 +169,12 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-3 p-6">
           {error && (
-            <div className="border-[#b33a32]/40 text-[#b33a32] border-2 px-4 py-3 text-sm">
+            <div className="border-[var(--duo-red)]/40 text-[var(--duo-red)] border-2 px-4 py-3 text-sm">
               ✕ {error}
             </div>
           )}
           <div>
-            <label className="text-[#68736d] text-[#68736d] mb-1 block font-semibold tracking-wide">
+            <label className="text-[var(--duo-muted)] mb-1 block font-semibold tracking-wide">
               {t('labelTitle')}
             </label>
             <input
@@ -193,7 +193,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
             />
           </div>
           <div>
-            <label className="text-[#68736d] text-[#68736d] mb-1 block font-semibold tracking-wide">
+            <label className="text-[var(--duo-muted)] mb-1 block font-semibold tracking-wide">
               {t('labelDescription')}
             </label>
             <textarea
@@ -214,14 +214,14 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
             <button
               type="button"
               onClick={onClose}
-              className="border-[#e1e5e2] text-[#68736d] hover:text-[#30343b] hover:border-[#58a700] flex-1 border-2 px-4 py-3 text-sm tracking-widest uppercase transition-colors"
+              className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-green-dark)] flex-1 border-2 px-4 py-3 text-sm tracking-widest uppercase transition-colors"
             >
               {t('cancel')}
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="bg-[#58a700] text-white hover:bg-[#58a700]/90 flex-1 py-3 text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+              className="bg-[var(--duo-green-dark)] text-white hover:bg-[var(--duo-green-dark)]/90 flex-1 py-3 text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
             >
               {submitting ? t('submitting') : t('submit')}
             </button>
@@ -352,25 +352,25 @@ function DetailView({
       {/* Back */}
       <button
         onClick={onBack}
-        className="text-[#30343b] text-[#68736d] hover:text-[#30343b] font-semibold tracking-wide transition-colors"
+        className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-semibold tracking-wide transition-colors"
       >
         {t('backToList')}
       </button>
 
       {/* Entry card */}
       <div className="card">
-        <div className="border-[#e1e5e2] space-y-3 border-b px-6 py-5">
+        <div className="border-[var(--duo-line)] space-y-3 border-b px-6 py-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
-            <h2 className="text-[#30343b] min-w-0 flex-1 font-sans text-base leading-snug font-bold">
+            <h2 className="text-[var(--duo-ink)] min-w-0 flex-1 font-sans text-base leading-snug font-bold">
               {entry.title}
             </h2>
             <StatusBadge status={entry.status} label={statusLabel} />
           </div>
-          <p className="text-[#68736d] text-sm leading-relaxed whitespace-pre-wrap">
+          <p className="text-[var(--duo-muted)] text-sm leading-relaxed whitespace-pre-wrap">
             {entry.description}
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <span className="text-[#68736d] text-[#68736d] inline-flex flex-wrap items-center gap-x-1 font-sans">
+            <span className="text-[var(--duo-muted)] inline-flex flex-wrap items-center gap-x-1 font-sans">
               <span>
                 {t('by')} {entry.author.display_name}
               </span>
@@ -382,10 +382,10 @@ function DetailView({
               <button
                 onClick={handleVote}
                 disabled={voting}
-                className={`text-[#68736d] border-2 px-3 py-1 font-semibold tracking-wide transition-colors disabled:opacity-50 ${
+                className={`text-[var(--duo-muted)] border-2 px-3 py-1 font-semibold tracking-wide transition-colors disabled:opacity-50 ${
                   entry.voted_by_me
-                    ? 'border-[#58a700]/60 text-[#438600] bg-[#58a700]/10'
-                    : 'border-[#e1e5e2] text-[#68736d] hover:border-[#58a700] hover:text-[#30343b]'
+                    ? 'border-[var(--duo-green-dark)]/60 text-[var(--duo-green-dark)] bg-[var(--duo-green-dark)]/10'
+                    : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]'
                 }`}
               >
                 ▲ {entry.vote_count}
@@ -395,7 +395,7 @@ function DetailView({
             {(currentUserId === entry.author.id || isAdmin) && (
               <button
                 onClick={() => setDeleteEntryPending(true)}
-                className="text-[#68736d] border-rose-200/30 text-[#b33a32] hover:border-rose-200 ml-auto border-2 px-3 py-1 font-semibold tracking-wide transition-colors"
+                className="text-[var(--duo-muted)] border-rose-200/30 text-[var(--duo-red)] hover:border-rose-200 ml-auto border-2 px-3 py-1 font-semibold tracking-wide transition-colors"
               >
                 {t('deleteEntry')}
               </button>
@@ -404,16 +404,16 @@ function DetailView({
         </div>
 
         {/* Comments */}
-        <div className="divide-[#e1e5e2] divide-y">
+        <div className="divide-[var(--duo-line)] divide-y">
           {comments.length === 0 ? (
-            <p className="text-[#68736d] px-6 py-6 text-center text-sm">
+            <p className="text-[var(--duo-muted)] px-6 py-6 text-center text-sm">
               {t('addComment')}
             </p>
           ) : (
             comments.map((c) => (
               <div key={c.id} className="space-y-1 px-6 py-4">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[#68736d] text-[#68736d] inline-flex flex-wrap items-center gap-x-1 font-sans">
+                  <span className="text-[var(--duo-muted)] inline-flex flex-wrap items-center gap-x-1 font-sans">
                     <span>{c.author.display_name}</span>
                     <AdminAuthorBadge role={c.author.role} />
                     <span>· {formatDate(c.created_at)}</span>
@@ -421,13 +421,13 @@ function DetailView({
                   {currentUserId === c.author.id && (
                     <button
                       onClick={() => setDeletePendingComment(c)}
-                      className="text-[#68736d] text-[#68736d] hover:text-[#b33a32] font-semibold tracking-wide transition-colors"
+                      className="text-[var(--duo-muted)] hover:text-[var(--duo-red)] font-semibold tracking-wide transition-colors"
                     >
                       {t('deleteComment')}
                     </button>
                   )}
                 </div>
-                <p className="text-[#68736d] text-sm leading-relaxed whitespace-pre-wrap">
+                <p className="text-[var(--duo-muted)] text-sm leading-relaxed whitespace-pre-wrap">
                   {c.body}
                 </p>
               </div>
@@ -438,10 +438,10 @@ function DetailView({
         {/* Add comment form */}
         <form
           onSubmit={handlePostComment}
-          className="border-[#e1e5e2] space-y-2 border-t px-6 py-4"
+          className="border-[var(--duo-line)] space-y-2 border-t px-6 py-4"
         >
           {error && (
-            <div className="border-[#b33a32]/40 text-[#b33a32] border-2 px-4 py-2 text-sm">
+            <div className="border-[var(--duo-red)]/40 text-[var(--duo-red)] border-2 px-4 py-2 text-sm">
               ✕ {error}
             </div>
           )}
@@ -451,12 +451,12 @@ function DetailView({
             onChange={(e) => setCommentBody(e.target.value)}
             placeholder={t('commentPlaceholder')}
             maxLength={2000}
-            className="bg-[#f8faf7] border-[#e1e5e2] text-[#30343b] placeholder:text-[#68736d] focus:border-[#58a700] form-control"
+            className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green-dark)] form-control"
           />
           <button
             type="submit"
             disabled={postingComment || !commentBody.trim()}
-            className="border-[#e1e5e2] text-[#30343b] text-[#68736d] hover:text-[#30343b] hover:border-[#58a700] border-2 px-4 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
+            className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] hover:border-[var(--duo-green-dark)] border-2 px-4 py-2 font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-30"
           >
             {postingComment ? t('postingComment') : t('postComment')}
           </button>
@@ -642,25 +642,25 @@ export default function FeedbackPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-4 p-6">
       {/* Page header */}
-      <div className="border-[#e1e5e2] border-b pb-4">
-        <p className="text-[#30343b] text-[#68736d] mb-1 font-semibold tracking-wide">
+      <div className="border-[var(--duo-line)] border-b pb-4">
+        <p className="text-[var(--duo-muted)] mb-1 font-semibold tracking-wide">
           {t('title')}
         </p>
-        <h1 className="text-[#30343b] font-sans text-2xl font-bold tracking-tight">
+        <h1 className="text-[var(--duo-ink)] font-sans text-2xl font-bold tracking-tight">
           {t('subtitle')}
         </h1>
       </div>
 
       {/* Tabs */}
-      <div className="border-[#e1e5e2] flex border-b">
+      <div className="border-[var(--duo-line)] flex border-b">
         {(['feature', 'bug'] as Tab[]).map((tabOption) => (
           <button
             key={tabOption}
             onClick={() => setTab(tabOption)}
-            className={`text-[#30343b] -mb-px border-b-2 px-5 py-2 font-semibold tracking-wide transition-colors ${
+            className={`text-[var(--duo-ink)] -mb-px border-b-2 px-5 py-2 font-semibold tracking-wide transition-colors ${
               tab === tabOption
-                ? 'border-[#58a700] text-[#30343b]'
-                : 'text-[#68736d] hover:text-[#30343b] border-transparent'
+                ? 'border-[var(--duo-green-dark)] text-[var(--duo-ink)]'
+                : 'text-[var(--duo-muted)] hover:text-[var(--duo-ink)] border-transparent'
             }`}
           >
             {tabOption === 'feature' ? t('tabFeatures') : t('tabBugs')}
@@ -669,7 +669,7 @@ export default function FeedbackPage() {
         <div className="flex-1" />
         <button
           onClick={() => setShowCreate(true)}
-          className="text-[#30343b] text-[#68736d] hover:text-[#30343b] px-4 py-2 font-semibold tracking-wide transition-colors"
+          className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] px-4 py-2 font-semibold tracking-wide transition-colors"
         >
           {tab === 'feature' ? t('newFeature') : t('newBug')}
         </button>
@@ -677,30 +677,30 @@ export default function FeedbackPage() {
 
       {/* Filters + sort row */}
       <div className="flex flex-wrap items-center gap-3">
-        <span className="text-[#68736d] text-[#68736d] font-semibold tracking-wide">
+        <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
           {t('sortBy')}
         </span>
         {(['votes', 'date'] as SortOption[]).map((s) => (
           <button
             key={s}
             onClick={() => setSort(s)}
-            className={`text-[#68736d] border-2 px-3 py-1 font-semibold tracking-wide transition-colors ${
+            className={`text-[var(--duo-muted)] border-2 px-3 py-1 font-semibold tracking-wide transition-colors ${
               sort === s
-                ? 'border-[#58a700]/40 text-[#30343b]'
-                : 'border-[#e1e5e2] text-[#68736d] hover:border-[#58a700] hover:text-[#30343b]'
+                ? 'border-[var(--duo-green-dark)]/40 text-[var(--duo-ink)]'
+                : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]'
             }`}
           >
             {s === 'votes' ? t('sortVotes') : t('sortDate')}
           </button>
         ))}
 
-        <span className="text-[#68736d] text-[#68736d] ml-2 font-semibold tracking-wide">
+        <span className="text-[var(--duo-muted)] ml-2 font-semibold tracking-wide">
           {t('filterStatus')}
         </span>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="bg-[#f8faf7] border-[#e1e5e2] text-[#68736d] text-[#68736d] focus:border-[#58a700] form-select"
+          className="bg-[var(--duo-bg)] border-[var(--duo-line)] text-[var(--duo-muted)] focus:border-[var(--duo-green-dark)] form-select"
         >
           {statusOptions.map((o) => (
             <option key={o.value} value={o.value}>
@@ -712,7 +712,7 @@ export default function FeedbackPage() {
 
       {/* Error */}
       {error && (
-        <div className="border-[#b33a32]/40 text-[#b33a32] border-2 px-4 py-3 text-sm">
+        <div className="border-[var(--duo-red)]/40 text-[var(--duo-red)] border-2 px-4 py-3 text-sm">
           ✕ {error}
         </div>
       )}
@@ -725,7 +725,7 @@ export default function FeedbackPage() {
             className="block px-6 py-10 text-center"
           />
         ) : entries.length === 0 ? (
-          <p className="text-[#68736d] px-6 py-10 text-center text-sm">
+          <p className="text-[var(--duo-muted)] px-6 py-10 text-center text-sm">
             {t('noEntries')}
           </p>
         ) : (
@@ -736,7 +736,7 @@ export default function FeedbackPage() {
                 <div
                   key={entry.id}
                   className={`hover:bg-[#f1f7ed] flex cursor-pointer gap-4 px-5 py-4 transition-colors ${
-                    i < entries.length - 1 ? 'border-[#e1e5e2] border-b' : ''
+                    i < entries.length - 1 ? 'border-[var(--duo-line)] border-b' : ''
                   }`}
                   onClick={() => setSelectedEntry(entry)}
                 >
@@ -766,14 +766,14 @@ export default function FeedbackPage() {
                         }}
                         className={`border-2 px-2 py-1 text-sm leading-none transition-colors ${
                           entry.voted_by_me
-                            ? 'border-[#58a700]/60 text-[#438600] bg-[#58a700]/10'
-                            : 'border-[#e1e5e2] text-[#68736d] hover:border-[#58a700] hover:text-[#30343b]'
+                            ? 'border-[var(--duo-green-dark)]/60 text-[var(--duo-green-dark)] bg-[var(--duo-green-dark)]/10'
+                            : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green-dark)] hover:text-[var(--duo-ink)]'
                         }`}
                         title={entry.voted_by_me ? 'Remove vote' : 'Vote'}
                       >
                         ▲
                       </button>
-                      <span className="text-[#68736d] text-[#68736d] font-sans tabular-nums">
+                      <span className="text-[var(--duo-muted)] font-sans tabular-nums">
                         {entry.vote_count}
                       </span>
                     </div>
@@ -784,7 +784,7 @@ export default function FeedbackPage() {
                   {/* Content */}
                   <div className="min-w-0 flex-1 space-y-1.5">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-[#30343b] truncate text-sm font-semibold">
+                      <span className="text-[var(--duo-ink)] truncate text-sm font-semibold">
                         {entry.title}
                       </span>
                       <StatusBadge
@@ -792,16 +792,16 @@ export default function FeedbackPage() {
                         label={getStatusLabel(entry.status)}
                       />
                       {entry.unread_by_me && (
-                        <span className="border-2 border-[#b33a32]/30 bg-[#fff5f4] px-2 py-0.5 font-sans text-[10px] leading-none font-bold tracking-wide text-[#b33a32] uppercase">
+                        <span className="border-2 border-[var(--duo-red)]/30 bg-[#fff5f4] px-2 py-0.5 font-sans text-[10px] leading-none font-bold tracking-wide text-[var(--duo-red)] uppercase">
                           {t('unread')}
                         </span>
                       )}
                     </div>
-                    <p className="text-[#68736d] line-clamp-2 text-sm leading-relaxed">
+                    <p className="text-[var(--duo-muted)] line-clamp-2 text-sm leading-relaxed">
                       {entry.description}
                     </p>
                     <div className="flex flex-wrap items-center gap-3">
-                      <span className="text-[#68736d] text-[#68736d] inline-flex flex-wrap items-center gap-x-1 font-sans">
+                      <span className="text-[var(--duo-muted)] inline-flex flex-wrap items-center gap-x-1 font-sans">
                         <span>
                           {t('by')} {entry.author.display_name}
                         </span>
@@ -809,7 +809,7 @@ export default function FeedbackPage() {
                         <span>· {formatDate(entry.created_at)}</span>
                       </span>
                       {entry.comment_count > 0 && (
-                        <span className="text-[#68736d] text-[#68736d] font-sans">
+                        <span className="text-[var(--duo-muted)] font-sans">
                           ◌{' '}
                           {entry.comment_count === 1
                             ? t('comment')
@@ -822,7 +822,7 @@ export default function FeedbackPage() {
                             e.stopPropagation()
                             setDeletePending(entry)
                           }}
-                          className="text-[#68736d] text-[#68736d] hover:text-[#b33a32] ml-auto font-semibold tracking-wide transition-colors"
+                          className="text-[var(--duo-muted)] hover:text-[var(--duo-red)] ml-auto font-semibold tracking-wide transition-colors"
                         >
                           {t('deleteEntry')}
                         </button>
