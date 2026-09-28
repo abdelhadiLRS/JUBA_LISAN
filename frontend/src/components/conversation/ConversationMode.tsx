@@ -1099,7 +1099,7 @@ export default function ConversationMode({
 
       {/* Status message */}
       {status === 'error' && errorMsg && (
-        <div className="border-[var(--duo-red)]/30 bg-[rgba(255,75,75,.08)] text-[var(--duo-red)] mb-4 rounded-xl border px-4 py-3 font-sans text-xs">
+        <div className="border-[var(--duo-red)]/30 bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)] text-[var(--duo-red)] mb-4 rounded-xl border px-4 py-3 font-sans text-xs">
           ✕ {errorMsg}
         </div>
       )}
