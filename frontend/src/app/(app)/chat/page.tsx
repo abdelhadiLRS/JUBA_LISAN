@@ -380,7 +380,7 @@ export default function ChatPage() {
                     >
                       {c.source === 'voice' && (
                         <span
-                          className="text-[var(--duo-muted)] mr-1.5"
+                          className="text-[var(--duo-muted)] me-1.5"
                           title="Voice session"
                         >
                           🎤
@@ -426,7 +426,7 @@ export default function ChatPage() {
                 : t('newConversation')}
             </span>
             {sending ? (
-              <div className="ml-auto flex flex-col items-end gap-0.5">
+              <div className="ms-auto flex flex-col items-end gap-0.5">
                 <span className="text-[var(--duo-muted)] animate-pulse font-semibold tracking-wide">
                   {t('thinking')}
                 </span>
@@ -471,7 +471,7 @@ export default function ChatPage() {
               messages.map((msg, i) => (
                 <div
                   key={i}
-                  className={`flex items-end gap-2 ${msg.role === 'user' ? 'ml-auto max-w-[75%] flex-row-reverse' : 'flex-row'}`}
+                  className={`flex items-end gap-2 ${msg.role === 'user' ? 'ms-auto max-w-[75%] flex-row-reverse' : 'flex-row'}`}
                 >
                   {/* Avatar */}
                   <div className="border-[var(--duo-line)] mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border-2 border-[var(--duo-line)]">
