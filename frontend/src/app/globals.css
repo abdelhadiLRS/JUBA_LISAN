@@ -817,6 +817,38 @@ html[data-theme='light'] {
   box-shadow:0 0 0 3px rgba(28,176,246,.12);
 }
 
+/* Legacy JUBA application components share the Duolingo surface language. */
+.juba-duo-page-frame .juba-card,
+.juba-duo-page-frame .juba-panel,
+.juba-duo-page-frame .juba-page-shell {
+  background:var(--duo-card) !important;
+  border-color:var(--duo-line) !important;
+  color:var(--duo-ink);
+  border-radius:16px;
+  box-shadow:0 2px 0 rgba(0,0,0,.03);
+}
+.juba-duo-page-frame .juba-card,
+.juba-duo-page-frame .juba-panel { border-width:2px; }
+.juba-duo-page-frame .juba-page-hero {
+  background:var(--duo-card) !important;
+  border-color:var(--duo-line) !important;
+  color:var(--duo-ink);
+  border-radius:18px;
+}
+.juba-duo-page-frame .juba-primary-button {
+  background:var(--duo-green) !important;
+  border-color:var(--duo-green-dark) !important;
+  color:#fff !important;
+  box-shadow:0 3px 0 var(--duo-green-dark);
+}
+.juba-duo-page-frame .juba-primary-button:hover {
+  background:var(--duo-green-dark) !important;
+}
+.juba-duo-page-frame .juba-hero-glow {
+  background:linear-gradient(180deg,#fff 0%,#f7fbf4 100%) !important;
+  border-color:var(--duo-line) !important;
+}
+
 /* Duolingo-like success/action treatment for legacy accent controls. */
 .juba-duo-page-frame .bg-fl-accent {
   background:var(--duo-green) !important;
