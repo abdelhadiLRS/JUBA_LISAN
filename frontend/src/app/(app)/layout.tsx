@@ -611,7 +611,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
       {/* Main */}
       <main
-        className="juba-duo-main min-w-0"
+        className="juba-duo-main min-w-0 overflow-x-hidden"
         id="main-content"
         aria-label={tNav('navigation')}
       >
@@ -636,7 +636,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
         )}
         <div
-          className="juba-duo-page-frame min-h-0 flex-1 overflow-y-auto overscroll-contain"
+          className="juba-duo-page-frame min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain"
           tabIndex={-1}
           id="app-scroll-region"
         >
