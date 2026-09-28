@@ -1489,3 +1489,125 @@ html[data-theme='light'] {
     transition:none !important;
   }
 }
+
+
+/* ── Canonical Duolingo surface coverage for every internal route ─────────── */
+/* Runtime pages may still contain historical class names; these selectors
+   keep their visual language inside the authenticated Duolingo shell without
+   touching their business logic. */
+.juba-duo-page-frame .juba-mobile-courses,
+.juba-duo-page-frame .juba-mobile-coach,
+.juba-duo-page-frame .juba-mobile-phrasebook,
+.juba-duo-page-frame .juba-mobile-translator,
+.juba-duo-page-frame .juba-assessment-page,
+.juba-duo-page-frame .juba-games {
+  color:var(--duo-ink);
+  background:var(--duo-bg) !important;
+}
+
+.juba-duo-page-frame .juba-card,
+.juba-duo-page-frame .juba-panel,
+.juba-duo-page-frame .juba-page-hero {
+  border-color:var(--duo-line) !important;
+  background:var(--duo-card) !important;
+  color:var(--duo-ink);
+  box-shadow:0 3px 0 rgba(0,0,0,.035);
+}
+
+.juba-duo-page-frame .juba-eyebrow {
+  color:var(--duo-green-dark) !important;
+}
+
+.juba-duo-page-frame .juba-primary-button {
+  border-color:var(--duo-green-dark) !important;
+  background:var(--duo-green) !important;
+  color:#fff !important;
+  box-shadow:0 3px 0 var(--duo-green-dark);
+}
+
+.juba-duo-page-frame .juba-primary-button:hover {
+  background:var(--duo-green-dark) !important;
+}
+
+.juba-duo-page-frame .juba-secondary-button {
+  border-color:var(--duo-line) !important;
+  background:#fff !important;
+  color:var(--duo-ink) !important;
+  box-shadow:0 3px 0 rgba(0,0,0,.035);
+}
+
+.juba-duo-page-frame .juba-input,
+.juba-duo-page-frame select,
+.juba-duo-page-frame textarea {
+  border-color:var(--duo-line) !important;
+  color:var(--duo-ink);
+  background:#fff !important;
+}
+
+.juba-duo-page-frame .juba-input:focus,
+.juba-duo-page-frame select:focus,
+.juba-duo-page-frame textarea:focus {
+  border-color:var(--duo-blue) !important;
+  outline:none;
+  box-shadow:0 0 0 3px rgba(28,176,246,.14) !important;
+}
+
+.juba-duo-page-frame .juba-badge {
+  border-color:var(--duo-line);
+  background:#fff;
+  color:var(--duo-ink);
+}
+
+.juba-duo-page-frame .juba-muted,
+.juba-duo-page-frame .juba-page-subtitle {
+  color:var(--duo-muted) !important;
+}
+
+.juba-duo-page-frame .juba-mobile-courses .juba-card.bg-\[\#58a700\],
+.juba-duo-page-frame .juba-mobile-coach .juba-card.bg-\[\#58a700\] {
+  background:var(--duo-green) !important;
+  border-color:var(--duo-green-dark) !important;
+  box-shadow:0 5px 0 var(--duo-green-dark);
+}
+
+.juba-duo-page-frame .juba-mobile-courses .juba-hero-glow,
+.juba-duo-page-frame .juba-mobile-coach .juba-hero-glow {
+  opacity:.12;
+}
+
+.juba-duo-page-frame .juba-assessment-page .juba-card,
+.juba-duo-page-frame .juba-assessment-page .juba-panel {
+  background:#fff !important;
+}
+
+.juba-duo-page-frame .juba-games button:focus-visible,
+.juba-duo-page-frame .juba-mobile-courses button:focus-visible,
+.juba-duo-page-frame .juba-mobile-coach button:focus-visible,
+.juba-duo-page-frame .juba-mobile-phrasebook button:focus-visible,
+.juba-duo-page-frame .juba-mobile-translator button:focus-visible,
+.juba-duo-page-frame .juba-assessment-page button:focus-visible {
+  outline:3px solid rgba(28,176,246,.28);
+  outline-offset:2px;
+}
+
+@media (max-width:900px) {
+  .juba-duo-page-frame .juba-mobile-courses,
+  .juba-duo-page-frame .juba-mobile-coach,
+  .juba-duo-page-frame .juba-mobile-phrasebook,
+  .juba-duo-page-frame .juba-mobile-translator,
+  .juba-duo-page-frame .juba-assessment-page,
+  .juba-duo-page-frame .juba-games {
+    padding-top:24px;
+  }
+}
+
+@media (max-width:560px) {
+  .juba-duo-page-frame .juba-mobile-courses,
+  .juba-duo-page-frame .juba-mobile-coach,
+  .juba-duo-page-frame .juba-mobile-phrasebook,
+  .juba-duo-page-frame .juba-mobile-translator,
+  .juba-duo-page-frame .juba-assessment-page,
+  .juba-duo-page-frame .juba-games {
+    padding-inline:12px;
+  }
+}
