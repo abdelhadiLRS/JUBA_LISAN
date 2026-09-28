@@ -2361,7 +2361,7 @@ html[data-theme='light'] {
     radial-gradient(ellipse at 78% 42%, color-mix(in srgb,var(--busuu-green) 11%,transparent), transparent 35%),
     linear-gradient(180deg,#fff 0%,var(--busuu-cream) 100%);
 }
-.juba-busuu-page > section.juba-busuu-hero-inner {
+.juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-inner {
   width:min(1160px,100%);
   margin-inline:auto;
   display:grid;
@@ -2405,14 +2405,14 @@ html[data-theme='light'] {
   font-size:clamp(17px,1.55vw,20px);
   line-height:1.75;
 }
-.juba-busuu-page > section.juba-busuu-hero-actions {
+.juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-actions {
   display:flex;
   align-items:center;
   flex-wrap:wrap;
   gap:14px;
 }
-.juba-busuu-page > section.juba-busuu-hero-primary,
-.juba-busuu-page > section.juba-busuu-hero-secondary {
+.juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-primary,
+.juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-secondary {
   display:inline-flex;
   min-height:54px;
   align-items:center;
@@ -2425,23 +2425,23 @@ html[data-theme='light'] {
   text-decoration:none;
   transition:background .18s ease,transform .18s ease,box-shadow .18s ease;
 }
-.juba-busuu-page > section.juba-busuu-hero-primary {
+.juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-primary {
   background:var(--busuu-green);
   color:#fff;
   box-shadow:0 4px 0 var(--busuu-green-dark);
 }
-.juba-busuu-page > section.juba-busuu-hero-primary:hover {
+.juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-primary:hover {
   transform:translateY(2px);
   background:var(--busuu-green-dark);
   box-shadow:0 2px 0 #006d47;
 }
-.juba-busuu-page > section.juba-busuu-hero-secondary {
+.juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-secondary {
   border:1px solid var(--busuu-line);
   background:#fff;
   color:var(--busuu-ink);
 }
-.juba-busuu-page > section.juba-busuu-hero-secondary:hover { background:var(--busuu-mint); }
-.juba-busuu-page > section.juba-busuu-hero-visual { position:relative; min-width:0; }
+.juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-secondary:hover { background:var(--busuu-mint); }
+.juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-visual { position:relative; min-width:0; }
 .juba-busuu-page .juba-busuu-language-panel {
   position:relative;
   padding:26px 24px 22px;
@@ -2514,23 +2514,23 @@ html[data-theme='light'] {
   color:var(--busuu-green-dark);
 }
 @media (max-width:900px) {
-  .juba-busuu-page > section.juba-busuu-hero-inner {
+  .juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-inner {
     grid-template-columns:minmax(0,1fr);
     gap:46px;
     max-width:720px;
   }
   .juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-copy { max-width:700px; }
   .juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-copy h1 { max-width:700px; }
-  .juba-busuu-page > section.juba-busuu-hero-visual { width:min(620px,100%); margin-inline:auto; }
+  .juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-visual { width:min(620px,100%); margin-inline:auto; }
 }
 @media (max-width:560px) {
   .juba-busuu-page > section.juba-busuu-hero { padding:44px 18px 58px !important; }
-  .juba-busuu-page > section.juba-busuu-hero-inner { gap:38px; }
+  .juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-inner { gap:38px; }
   .juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-copy h1 { font-size:clamp(36px,10vw,48px); }
   .juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-copy p { font-size:16px; line-height:1.7; }
-  .juba-busuu-page > section.juba-busuu-hero-actions { align-items:stretch; flex-direction:column; }
-  .juba-busuu-page > section.juba-busuu-hero-primary,
-  .juba-busuu-page > section.juba-busuu-hero-secondary { width:100%; }
+  .juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-actions { align-items:stretch; flex-direction:column; }
+  .juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-primary,
+  .juba-busuu-page > section.juba-busuu-hero .juba-busuu-hero-secondary { width:100%; }
   .juba-busuu-page .juba-busuu-language-panel { padding:20px 12px 18px; border-radius:22px; }
   .juba-busuu-page .juba-busuu-language-list { grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px 6px; }
   .juba-busuu-page .juba-busuu-language-item { font-size:11px; }
