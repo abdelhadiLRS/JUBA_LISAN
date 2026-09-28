@@ -289,21 +289,11 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="pricing" className="juba-busuu-pricing" aria-labelledby="pricing-title">
-        <div className="juba-busuu-container">
-          <div className="juba-busuu-heading">
-            <span className="juba-busuu-eyebrow">{t('navPricing')}</span>
-            <h2 id="pricing-title">{t('navPricing')}</h2>
-          </div>
-          <PricingSection
-            stripeEnabled={stripeEnabled}
-            trialDays={trialDays}
-            hasSession={hasSession}
-            priceMonthly={priceMonthly}
-            priceYearly={priceYearly}
-            totalPriceMonthly={totalPriceMonthly}
-            totalPriceYearly={totalPriceYearly}
-          />
+      <section className="juba-busuu-slogan" aria-label={t('navLanguages')}>
+        <div className="juba-busuu-slogan-track" aria-hidden="true">
+          {[...FEATURED_LANGUAGES, ...FEATURED_LANGUAGES].map(({ name, code }, index) => (
+            <span key={`${code}-${index}`} lang={code}>{name} <b>·</b></span>
+          ))}
         </div>
       </section>
 
@@ -364,6 +354,25 @@ export default async function Home() {
           <LandingFAQ dir={rtl ? 'rtl' : 'ltr'} />
         </div>
       </section>
+
+      <section id="pricing" className="juba-busuu-pricing" aria-labelledby="pricing-title">
+        <div className="juba-busuu-container">
+          <div className="juba-busuu-heading">
+            <span className="juba-busuu-eyebrow">{t('navPricing')}</span>
+            <h2 id="pricing-title">{t('navPricing')}</h2>
+          </div>
+          <PricingSection
+            stripeEnabled={stripeEnabled}
+            trialDays={trialDays}
+            hasSession={hasSession}
+            priceMonthly={priceMonthly}
+            priceYearly={priceYearly}
+            totalPriceMonthly={totalPriceMonthly}
+            totalPriceYearly={totalPriceYearly}
+          />
+        </div>
+      </section>
+
 
       <section className="juba-busuu-final-cta" aria-labelledby="final-cta-title">
         <div className="juba-busuu-container juba-busuu-final-cta-inner">
