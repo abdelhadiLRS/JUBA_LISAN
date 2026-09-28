@@ -78,7 +78,7 @@ export function DailyMomentum({
 
   return (
     <section 
-      className={`juba-card mb-6 overflow-hidden transition-all duration-500 ${
+      className={`mb-6 overflow-hidden rounded-[26px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_4px_0_var(--duo-line)] transition-all duration-500 ${
         isCelebrating ? 'ring-2 ring-[var(--duo-yellow)] ring-offset-2 ring-offset-[var(--duo-bg)]' : ''
       }`}
       aria-label={t('dailyMomentum')}
