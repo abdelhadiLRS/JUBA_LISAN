@@ -60,7 +60,7 @@ function QuotaBar({
         <span className="text-[var(--duo-green-dark)] font-sans font-bold">∞</span>
       ) : (
         <>
-          <div className="bg-[rgba(88,204,2,.08)] h-1 flex-1 overflow-hidden rounded-full">
+          <div className="bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] h-1 flex-1 overflow-hidden rounded-full">
             <div
               className={`h-full transition-all ${exceeded ? 'bg-[var(--duo-red)]' : 'bg-[var(--duo-green)]'}`}
               style={{ width: `${pct}%` }}
@@ -1048,7 +1048,7 @@ export default function ConversationMode({
       </div>
 
       {trialMode && (
-        <div className="border-[var(--duo-line)] bg-[rgba(88,204,2,.08)] text-[var(--duo-green-dark)] mb-4 rounded-xl border px-4 py-3 text-center font-sans text-xs font-semibold tracking-wide">
+        <div className="border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] text-[var(--duo-green-dark)] mb-4 rounded-xl border px-4 py-3 text-center font-sans text-xs font-semibold tracking-wide">
           {t('trialBanner', {
             minutes: Math.round((voiceTrialDurationSeconds ?? 300) / 60),
           })}
