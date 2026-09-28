@@ -2216,3 +2216,127 @@ html[data-theme='light'] {
     padding-inline:12px;
   }
 }
+
+
+/* Busuu fidelity pass — public landing only.
+   Keep the editorial, flat rhythm of the current Busuu homepage while preserving JUBA LISAN content. */
+.juba-busuu-landing .juba-busuu-nav{
+  background:#fff;
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-nav-inner{
+  min-height:72px;
+}
+.juba-busuu-landing .juba-busuu-nav-cta{
+  min-height:44px;
+  padding-inline:20px;
+}
+.juba-busuu-landing .juba-busuu-locale{
+  border:0;
+  border-radius:0;
+  background:#fff;
+  padding-inline:8px;
+}
+.juba-busuu-landing .juba-busuu-locale-menu[open]>summary{
+  background:var(--busuu-soft);
+}
+.juba-busuu-landing .juba-busuu-hero{
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-hero-grid{
+  min-height:640px;
+  padding-top:54px;
+  padding-bottom:72px;
+}
+.juba-busuu-landing .juba-busuu-hero h1{
+  max-width:720px;
+}
+.juba-busuu-landing .juba-busuu-hero-visual::before{
+  background:var(--busuu-mint);
+}
+.juba-busuu-landing .juba-busuu-language-discovery{
+  padding-top:64px;
+  padding-bottom:86px;
+}
+.juba-busuu-landing .juba-busuu-language-panel{
+  border-radius:0;
+  box-shadow:none;
+}
+.juba-busuu-landing .juba-busuu-language-item{
+  border-radius:0;
+}
+.juba-busuu-landing .juba-busuu-stats{
+  padding-bottom:0;
+}
+.juba-busuu-landing .juba-busuu-stats-grid{
+  border-top:1px solid var(--busuu-line);
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-practical{
+  border-top:1px solid var(--busuu-line);
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-practical-media{
+  border-radius:0;
+  box-shadow:none;
+}
+.juba-busuu-landing .juba-busuu-feature{
+  border:1px solid var(--busuu-line);
+  border-radius:0;
+  box-shadow:none;
+}
+.juba-busuu-landing .juba-busuu-feature:hover{
+  box-shadow:none;
+  transform:translateY(-2px);
+}
+.juba-busuu-landing .juba-busuu-testimonial{
+  border:1px solid var(--busuu-line);
+  border-radius:0;
+  background:#f7f7f4;
+}
+.juba-busuu-landing .juba-busuu-benefit-list article{
+  border-radius:0;
+}
+.juba-busuu-landing .juba-busuu-app-cta{
+  border-block:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-online-languages{
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-online-language-grid{
+  border-top:1px solid var(--busuu-line);
+  border-inline-start:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-online-language-grid a{
+  border-inline-end:1px solid var(--busuu-line);
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-faq{
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-pricing{
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-final-cta{
+  padding-top:0;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner{
+  border-radius:0;
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-hero-grid{
+    min-height:0;
+    padding-top:42px;
+    padding-bottom:54px;
+  }
+  .juba-busuu-landing .juba-busuu-language-discovery{
+    padding-top:48px;
+    padding-bottom:62px;
+  }
+  .juba-busuu-landing .juba-busuu-practical-media{
+    border-radius:0;
+  }
+  .juba-busuu-landing .juba-busuu-final-cta-inner{
+    border-radius:0;
+  }
+}
