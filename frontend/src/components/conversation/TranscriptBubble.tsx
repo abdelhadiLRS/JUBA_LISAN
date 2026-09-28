@@ -34,11 +34,11 @@ export default function TranscriptBubble({
         <span
           className={`pointer-events-none absolute inset-[-5px] rounded-full border-2 transition-[border-color,opacity] duration-700 ${
             speaking
-              ? 'border-[color-mix(in_srgb,#58a700_65%,transparent)] animate-halo-speaking'
-              : 'border-[color-mix(in_srgb,#58a700_15%,transparent)] animate-halo-idle'
+              ? 'border-[color-mix(in_srgb,var(--duo-green)_65%,transparent)] animate-halo-speaking'
+              : 'border-[color-mix(in_srgb,var(--duo-green)_15%,transparent)] animate-halo-idle'
           }`}
         />
-        <div className="h-7 w-7 overflow-hidden rounded-full border border-[#e1e5e2] bg-[#eaf5df] shadow-[0_4px_12px_rgba(67,134,0,.10)]">
+        <div className="h-7 w-7 overflow-hidden rounded-full border border-[var(--duo-line)] bg-[rgba(88,204,2,.12)] shadow-[0_4px_12px_rgba(67,134,0,.10)]">
           {!isUser ? (
             <Image
               src="/logo_head.png"
@@ -55,16 +55,16 @@ export default function TranscriptBubble({
               height={28}
               className="h-full w-full object-cover"
               fallback={
-                <div className="flex h-full w-full items-center justify-center bg-[#eaf5df]">
-                  <span className="select-none font-sans font-bold text-[#438600]">
+                <div className="flex h-full w-full items-center justify-center bg-[rgba(88,204,2,.12)]">
+                  <span className="select-none font-sans font-bold text-[var(--duo-green-dark)]">
                     {(userInitial ?? '?').toUpperCase()}
                   </span>
                 </div>
               }
             />
           ) : (
-            <div className="bg-[#f1f7ed] flex h-full w-full items-center justify-center">
-              <span className="text-[#68736d] font-sans select-none">
+            <div className="bg-[rgba(88,204,2,.08)] flex h-full w-full items-center justify-center">
+              <span className="text-[var(--duo-muted)] font-sans select-none">
                 {(userInitial ?? '?').toUpperCase()}
               </span>
             </div>
@@ -75,7 +75,7 @@ export default function TranscriptBubble({
       <div
         className={`flex max-w-[85%] flex-col gap-1 sm:max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}
       >
-        <span className="text-[#68736d] font-sans text-[11px] font-bold tracking-wide uppercase">
+        <span className="text-[var(--duo-muted)] font-sans text-[11px] font-bold tracking-wide uppercase">
           {isUser ? t('you') : t('assistant')}
         </span>
         <TargetLanguageText
@@ -83,8 +83,8 @@ export default function TranscriptBubble({
           languageCode={languageCode}
           className={`rounded-2xl border px-4 py-3 leading-relaxed break-words shadow-[0_4px_14px_rgba(31,41,51,.06)] ${
             isUser
-              ? 'bg-[#58a700] text-white border-[#438600]'
-              : 'bg-white text-[#30343b] border-[#e1e5e2]'
+              ? 'bg-[var(--duo-green)] text-white border-[var(--duo-green-dark)]'
+              : 'bg-white text-[var(--duo-ink)] border-[var(--duo-line)]'
           }`}
         >
           {text}
