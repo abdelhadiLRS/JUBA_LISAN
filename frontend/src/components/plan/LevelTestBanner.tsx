@@ -14,7 +14,7 @@ export default function LevelTestBanner({ planId, level }: Props) {
   const router = useRouter()
 
   return (
-    <div className="juba-card mt-2 overflow-hidden">
+    <div className="mt-2 overflow-hidden rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_3px_0_var(--duo-line)]">
       <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4 sm:px-6">
         <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--duo-yellow)] text-[var(--duo-green-dark)]">
           <Award className="h-4.5 w-4.5" aria-hidden="true" />
@@ -35,7 +35,7 @@ export default function LevelTestBanner({ planId, level }: Props) {
         <button
           type="button"
           onClick={() => router.push(`/assessment/level-test?plan=${planId}`)}
-          className="juba-primary-button"
+          className="bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white rounded-xl px-5 py-2.5 text-xs font-bold shadow-[0_3px_0_var(--duo-green-dark)] transition-colors"
         >
           {t('beginLevelTest')} →
         </button>
