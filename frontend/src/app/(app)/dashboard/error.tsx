@@ -35,7 +35,7 @@ export default function DashboardError({ error, reset }: DashboardErrorProps) {
           <button
             type="button"
             onClick={reset}
-            className="bg-fl-accent text-[var(--duo-green-dark)]-fg rounded-xl px-5 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90"
+            className="bg-[var(--duo-green)] text-white shadow-[0_3px_0_var(--duo-green-dark)] rounded-xl px-5 py-2.5 text-sm font-bold transition-opacity hover:opacity-90"
           >
             Try again
           </button>
