@@ -2489,3 +2489,110 @@ html[data-theme='light'] {
     width:calc(100% - 24px);
   }
 }
+
+
+/* Navigation fidelity pass — keep the public header close to Busuu's restrained editorial chrome. */
+.juba-busuu-landing .juba-busuu-nav{
+  position:sticky;
+  top:0;
+  z-index:80;
+}
+.juba-busuu-landing .juba-busuu-nav-inner{
+  width:min(1240px,calc(100% - 48px));
+  min-height:72px;
+  margin-inline:auto;
+  gap:28px;
+}
+.juba-busuu-landing .juba-busuu-brand{
+  flex:0 0 auto;
+}
+.juba-busuu-landing .juba-busuu-brand img{
+  width:132px;
+  height:auto;
+  display:block;
+}
+.juba-busuu-landing .juba-busuu-nav-links{
+  gap:24px;
+}
+.juba-busuu-landing .juba-busuu-nav-links a{
+  font-size:13px;
+  font-weight:750;
+  letter-spacing:-.01em;
+  padding-block:25px;
+  position:relative;
+}
+.juba-busuu-landing .juba-busuu-nav-links a::after{
+  content:"";
+  position:absolute;
+  inset-inline:0;
+  bottom:18px;
+  height:2px;
+  transform:scaleX(0);
+  transform-origin:center;
+  background:var(--busuu-green);
+  transition:transform .18s ease;
+}
+.juba-busuu-landing .juba-busuu-nav-links a:hover::after,
+.juba-busuu-landing .juba-busuu-nav-links a:focus-visible::after{
+  transform:scaleX(1);
+}
+.juba-busuu-landing .juba-busuu-nav-actions{
+  gap:12px;
+}
+.juba-busuu-landing .juba-busuu-login{
+  font-size:13px;
+  font-weight:800;
+  padding:12px 8px;
+}
+.juba-busuu-landing .juba-busuu-nav-cta{
+  min-height:44px;
+  padding:11px 19px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:850;
+}
+.juba-busuu-landing .juba-busuu-locale{
+  min-height:44px;
+  font-size:12px;
+  font-weight:850;
+  letter-spacing:.04em;
+}
+.juba-busuu-landing .juba-busuu-locale-options{
+  min-width:210px;
+  padding:8px;
+  border:1px solid var(--busuu-line);
+  box-shadow:0 16px 38px rgba(23,26,25,.12);
+}
+.juba-busuu-landing .juba-busuu-locale-options a{
+  min-height:40px;
+  border-radius:4px;
+  font-size:13px;
+}
+@media(max-width:1000px){
+  .juba-busuu-landing .juba-busuu-nav-inner{
+    width:min(100% - 36px,1240px);
+  }
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-nav-inner{
+    width:calc(100% - 28px);
+    min-height:64px;
+    gap:12px;
+  }
+  .juba-busuu-landing .juba-busuu-brand img{
+    width:116px;
+  }
+  .juba-busuu-landing .juba-busuu-mobile-menu{
+    border-top:1px solid var(--busuu-line);
+    box-shadow:0 18px 40px rgba(23,26,25,.08);
+  }
+  .juba-busuu-landing .juba-busuu-mobile-menu nav a{
+    min-height:52px;
+    border-bottom:1px solid var(--busuu-line);
+    font-weight:800;
+  }
+  .juba-busuu-landing .juba-busuu-mobile-cta{
+    min-height:48px;
+    border-radius:999px;
+  }
+}
