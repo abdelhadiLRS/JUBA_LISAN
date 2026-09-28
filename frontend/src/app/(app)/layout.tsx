@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
@@ -68,6 +68,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [initializing, setInitializing] = useState(true)
   const loadConfig = useConfigStore((s) => s.load)
   const [logoutConfirm, setLogoutConfirm] = useState(false)
+  const mobileMenuTriggerRef = useRef<HTMLButtonElement>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [resourcesOpen, setResourcesOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
@@ -194,6 +195,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       if (event.key === 'Escape') {
         setMobileMenuOpen(false)
         setResourcesOpen(false)
+        mobileMenuTriggerRef.current?.focus()
       }
     }
 
@@ -423,6 +425,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <span className="juba-duo-mobile-brand">JUBA LISAN</span>
           <button
             onClick={() => setMobileMenuOpen((o) => !o)}
+            ref={mobileMenuTriggerRef}
             className="juba-duo-mobile-trigger"
             aria-label={mobileMenuOpen ? (locale === 'ar' ? 'إغلاق القائمة' : 'Close menu') : (locale === 'ar' ? 'فتح القائمة' : 'Open menu')}
             aria-expanded={mobileMenuOpen}
