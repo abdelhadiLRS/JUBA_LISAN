@@ -249,7 +249,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <item.icon className={`h-[18px] w-[18px] shrink-0 ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`} />
                 {item.label}
                 {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
-                  <span className="text-fl-accent ml-auto text-xs">★</span>
+                  <span className="text-[var(--duo-green)] ms-auto text-xs">★</span>
                 )}
               </Link>
             )
@@ -295,7 +295,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <item.icon className="h-[17px] w-[17px] shrink-0" />
                   {item.label}
                   {item.href === '/feedback' && feedbackBadgeText && (
-                    <span className="text-fl-label ml-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-red-600 leading-none font-bold tracking-normal text-white">
+                    <span className="text-fl-label ms-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-[var(--duo-red)] leading-none font-bold tracking-normal text-white">
                       {feedbackBadgeText}
                     </span>
                   )}
@@ -412,7 +412,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <item.icon className="h-[17px] w-[17px] shrink-0" />
                   {item.label}
                   {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
-                    <span className="text-fl-accent ml-auto text-xs">★</span>
+                    <span className="text-[var(--duo-green)] ms-auto text-xs">★</span>
                   )}
                 </Link>
               )
@@ -422,7 +422,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <div>
               <button
                 onClick={() => setResourcesOpen((o) => !o)}
-                className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors"
+                className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-s-2 border-transparent px-5 py-2 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors"
               >
                 <span>{tNav('resources')}</span>
                 <span className="text-fl-label">
@@ -439,10 +439,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       key={item.href}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
+                      className={`flex items-center gap-3 py-2.5 pe-5 ps-8 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                         active
-                          ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                          : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                          ? 'text-fl-fg bg-fl-surface-2 border-s-2 border-[var(--duo-green)]'
+                          : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-s-2 border-transparent'
                       }`}
                     >
                       <span
@@ -467,8 +467,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center gap-3 px-5 py-3 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                     active
-                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                      ? 'text-fl-fg bg-fl-surface-2 border-s-2 border-[var(--duo-green)]'
+                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-s-2 border-transparent'
                   }`}
                 >
                   <span
@@ -478,7 +478,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   </span>
                   {item.label}
                   {item.href === '/feedback' && feedbackBadgeText && (
-                    <span className="text-fl-label ml-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-red-600 leading-none font-bold tracking-normal text-white">
+                    <span className="text-fl-label ms-auto flex h-6 w-6 shrink-0 -translate-y-0.5 items-center justify-center rounded-full bg-[var(--duo-red)] leading-none font-bold tracking-normal text-white">
                       {feedbackBadgeText}
                     </span>
                   )}
@@ -492,8 +492,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`flex items-center gap-3 px-5 py-3 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
                   pathname.startsWith('/admin')
-                    ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
+                    ? 'text-fl-fg bg-fl-surface-2 border-s-2 border-[var(--duo-green)]'
+                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-s-2 border-transparent'
                 }`}
               >
                 <span className="text-fl-label text-fl-muted-4">●</span>
