@@ -320,7 +320,7 @@ export default function PlanPage() {
   return (
     <div className="juba-mobile-plan mx-auto max-w-6xl space-y-8 px-3 py-5 sm:px-6 sm:py-8">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-[22px] border-2 border-[var(--duo-line)] bg-white px-6 py-7 text-white shadow-[0_3px_0_rgba(31,41,51,.045)] sm:px-9 sm:py-9">
+      <section className="relative overflow-hidden rounded-[22px] border-2 border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-7 text-[var(--duo-ink)] shadow-[0_4px_0_var(--duo-green-dark)] sm:px-9 sm:py-9]">
         <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--duo-green)] opacity-95" />
         <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--duo-yellow)] opacity-80" />
         <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[16px] bg-[rgba(88,204,2,.12)]" />
