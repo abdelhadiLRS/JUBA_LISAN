@@ -4421,3 +4421,42 @@ html[data-theme='light'] {
   .juba-busuu-landing .juba-busuu-pricing{padding:72px 0 76px}
   .juba-busuu-landing .juba-busuu-pricing .juba-ff-plan-card{min-height:0;padding:24px!important}
 }
+
+
+/* Final landing closing CTA + footer removal pass — public landing only. */
+.juba-busuu-landing .juba-busuu-final-cta{
+  padding:0!important;
+  background:#fff;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner{
+  min-height:460px;
+  padding:72px 64px!important;
+  border-radius:0!important;
+  background:var(--busuu-green)!important;
+  box-shadow:none!important;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner h2{
+  max-width:760px;
+  font-size:clamp(3rem,6vw,5.8rem);
+  line-height:.9;
+  letter-spacing:-.075em;
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner p{max-width:560px;line-height:1.7}
+.juba-busuu-landing .juba-busuu-final-cta-inner .juba-busuu-primary{
+  border-radius:999px;
+  background:#fff;
+  color:var(--busuu-ink);
+}
+.juba-busuu-landing .juba-busuu-final-cta-inner .juba-busuu-primary:hover{background:#eef2ef}
+.juba-busuu-landing .juba-busuu-footer{
+  margin-top:0!important;
+  border-top:1px solid rgba(220,230,225,.16);
+  border-radius:0!important;
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-final-cta-inner{
+    min-height:0;
+    padding:64px 24px!important;
+  }
+  .juba-busuu-landing .juba-busuu-final-cta-inner h2{font-size:clamp(2.8rem,12vw,4.2rem)}
+}
