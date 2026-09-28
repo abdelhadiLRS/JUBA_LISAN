@@ -528,7 +528,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     />
                   ) : (
                     <div className="bg-[var(--duo-line)] flex h-full w-full items-center justify-center">
-                      <span className="text-[var(--duo-muted)] text-[var(--duo-muted)] font-sans select-none">
+                      <span className="text-[var(--duo-muted)] font-sans select-none">
                         {(user?.displayName ||
                           user?.username ||
                           '?')[0].toUpperCase()}
