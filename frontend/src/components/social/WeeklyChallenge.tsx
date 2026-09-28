@@ -37,7 +37,7 @@ export default function WeeklyChallenge() {
   const percent = Math.min(100, Math.round((progress / target) * 100))
 
   return (
-    <div className="mx-auto max-w-4xl rounded-[28px] border-2 border-[rgba(206,130,255,.12)] bg-[var(--duo-bg)] p-8 shadow-[0 3px 0 rgba(0,0,0,.035)]">
+    <div className="mx-auto max-w-4xl rounded-[28px] border-2 border-[color-mix(in_srgb,var(--duo-purple)_12%,transparent)] bg-[var(--duo-bg)] p-8 shadow-[0_3px_0_var(--duo-line)]">
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
           <span className="juba-eyebrow">Weekly Challenge</span>
