@@ -310,7 +310,7 @@ html[data-theme='light'] {
 }
 
 /* ── Scroll-reveal animation ── */
-.reveal {
+.juba-busuu-page .reveal {
   opacity: 0;
   transform: translateY(24px);
   transition:
@@ -318,7 +318,7 @@ html[data-theme='light'] {
     transform 0.6s ease-out;
 }
 
-.reveal-visible {
+.juba-busuu-page .reveal-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -345,11 +345,11 @@ html[data-theme='light'] {
   }
 }
 
-.animate-float {
+.juba-busuu-page .animate-float {
   animation: float 3s ease-in-out infinite;
 }
 
-.animate-bubble-in {
+.juba-busuu-page .animate-bubble-in {
   animation: bubble-in 0.4s ease-out forwards;
   opacity: 0;
 }
