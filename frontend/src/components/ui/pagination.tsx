@@ -64,17 +64,17 @@ export function Pagination({
       <button
         onClick={() => onPageChange(Math.max(0, page - 1))}
         disabled={isFirst || isDisabled}
-        className="rounded-xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--juba-app-muted)] shadow-[0_3px_0_var(--juba-app-line)] transition-all hover:-translate-y-px hover:border-[var(--juba-app-green-dark)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-green-dark)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
+        className="rounded-xl border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--duo-muted)] shadow-[0_3px_0_var(--duo-line)] transition-all hover:-translate-y-px hover:border-[var(--duo-green-dark)] hover:bg-[rgba(88,204,2,.10)] hover:text-[var(--duo-green-dark)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
       >
         {prevLabel}
       </button>
-      <span className="rounded-lg border border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-3 py-1.5 text-xs font-bold tabular-nums text-[var(--juba-app-muted)]">
+      <span className="rounded-lg border border-[var(--duo-line)] bg-[rgba(88,204,2,.10)] px-3 py-1.5 text-xs font-bold tabular-nums text-[var(--duo-muted)]">
         {info}
       </span>
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={isLast || isDisabled}
-        className="rounded-xl border-2 border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--juba-app-muted)] shadow-[0_3px_0_var(--juba-app-line)] transition-all hover:-translate-y-px hover:border-[var(--juba-app-green-dark)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-green-dark)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
+        className="rounded-xl border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-4 py-2 text-xs font-bold tracking-widest uppercase text-[var(--duo-muted)] shadow-[0_3px_0_var(--duo-line)] transition-all hover:-translate-y-px hover:border-[var(--duo-green-dark)] hover:bg-[rgba(88,204,2,.10)] hover:text-[var(--duo-green-dark)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
       >
         {nextLabel}
       </button>
