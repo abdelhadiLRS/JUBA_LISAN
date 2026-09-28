@@ -323,10 +323,10 @@ export default function PlanPage() {
       <section className="relative overflow-hidden rounded-[22px] border-2 border-[var(--duo-green-dark)] bg-[var(--duo-green)] px-5 py-7 text-[var(--duo-ink)] shadow-[0_4px_0_var(--duo-green-dark)] sm:px-9 sm:py-9">
         <div className="pointer-events-none absolute -end-8 -top-12 h-40 w-40 rounded-full bg-[var(--duo-green)] opacity-95" />
         <div className="pointer-events-none absolute -bottom-16 start-1/3 h-32 w-32 rounded-full bg-[var(--duo-yellow)] opacity-80" />
-        <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[16px] bg-[rgba(88,204,2,.12)]" />
+        <div className="pointer-events-none absolute bottom-5 end-1/4 h-12 w-12 rotate-12 rounded-[16px] bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]" />
         <div className="relative z-10 max-w-3xl">
           <div className="mb-5 flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-white/15 px-3 py-1.5 text-xs font-black tracking-wide backdrop-blur-sm">
+            <span className="rounded-full bg-[var(--duo-card)]/15 px-3 py-1.5 text-xs font-black tracking-wide backdrop-blur-sm">
               {t('learningRoadmap')}
             </span>
             <span className="rounded-full bg-[var(--duo-green)] px-3 py-1.5 text-xs font-black text-[var(--duo-ink)]">
@@ -340,15 +340,15 @@ export default function PlanPage() {
             {t('durationDetail', { weeks: plan.duration_weeks, days: plan.days_per_week })}
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <div className="rounded-2xl bg-white/12 px-4 py-3 backdrop-blur-sm">
+            <div className="rounded-2xl bg-[var(--duo-card)]/12 px-4 py-3 backdrop-blur-sm">
               <p className="text-[11px] font-bold text-white/65">{t('unitsLabel')}</p>
               <p className="mt-0.5 text-xl font-black">{units.length}</p>
             </div>
-            <div className="rounded-2xl bg-white/12 px-4 py-3 backdrop-blur-sm">
+            <div className="rounded-2xl bg-[var(--duo-card)]/12 px-4 py-3 backdrop-blur-sm">
               <p className="text-[11px] font-bold text-white/65">{t('pendingLessons')}</p>
               <p className="mt-0.5 text-xl font-black">{pendingLessons.length}</p>
             </div>
-            <div className="rounded-2xl bg-white/12 px-4 py-3 backdrop-blur-sm">
+            <div className="rounded-2xl bg-[var(--duo-card)]/12 px-4 py-3 backdrop-blur-sm">
               <p className="text-[11px] font-bold text-white/65">{t('level')}</p>
               <p className="mt-0.5 text-xl font-black">{Math.round((competencies[currentUnitId] ?? 0) * 100)}%</p>
             </div>
@@ -358,7 +358,7 @@ export default function PlanPage() {
 
       {/* Resume */}
       {activeLessonId != null && (
-        <section className="relative overflow-hidden rounded-[20px] bg-[var(--duo-green)] px-5 py-5 shadow-[0_3px_0_rgba(31,41,51,.045)] sm:px-7">
+        <section className="relative overflow-hidden rounded-[20px] bg-[var(--duo-green)] px-5 py-5 shadow-[0_3px_0_var(--duo-line)] sm:px-7">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--duo-ink)]">{t('learningRoadmap')}</p>
@@ -383,16 +383,16 @@ export default function PlanPage() {
               <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--duo-green-dark)]">{t('pendingLessons')}</p>
               <h2 className="mt-1 text-2xl font-black tracking-tight text-[var(--duo-ink)]">{t('learningRoadmap')}</h2>
             </div>
-            <span className="rounded-full bg-[rgba(88,204,2,.12)] px-3 py-1 text-xs font-black text-[var(--duo-green-dark)]">{pendingLessons.length}</span>
+            <span className="rounded-full bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] px-3 py-1 text-xs font-black text-[var(--duo-green-dark)]">{pendingLessons.length}</span>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
             {pendingLessons.map((lesson, i) => (
               <button
                 key={lesson.id}
                 onClick={() => void launchLesson(lesson.id)}
-                className="group flex items-center gap-4 rounded-[20px] border-2 border-[var(--duo-line)] bg-white p-4 text-start shadow-[0_3px_0_rgba(31,41,51,.045)] transition-all hover:-translate-y-1 hover:border-[var(--duo-green)]"
+                className="group flex items-center gap-4 rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] p-4 text-start shadow-[0_3px_0_var(--duo-line)] transition-all hover:-translate-y-1 hover:border-[var(--duo-green)]"
               >
-                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] text-sm font-black ${i % 2 === 0 ? 'bg-[rgba(88,204,2,.12)]' : 'bg-[rgba(88,204,2,.08)]'} text-[var(--duo-ink)]`}>
+                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] text-sm font-black ${i % 2 === 0 ? 'bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)]' : 'bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'} text-[var(--duo-ink)]`}>
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span className="min-w-0 flex-1">
@@ -414,9 +414,9 @@ export default function PlanPage() {
         </div>
 
         <div className="relative space-y-4">
-          <div className="pointer-events-none absolute start-[28px] top-8 bottom-8 hidden w-1 rounded-full bg-[rgba(88,204,2,.12)] sm:block" />
+          <div className="pointer-events-none absolute start-[28px] top-8 bottom-8 hidden w-1 rounded-full bg-[color-mix(in_srgb,var(--duo-green)_12%,transparent)] sm:block" />
           {units.length === 0 && (
-            <div className="rounded-[20px] border-2 border-[var(--duo-line)] bg-white px-6 py-12 text-center shadow-[0_3px_0_rgba(31,41,51,.045)]">
+            <div className="rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-6 py-12 text-center shadow-[0_3px_0_var(--duo-line)]">
               <p className="text-sm font-black text-[var(--duo-muted)]">{t('noUnitsForLevel', { level })}</p>
               <p className="mt-2 text-xs font-medium text-[var(--duo-muted)]">{t('noUnitsDesc')}</p>
             </div>
@@ -476,7 +476,7 @@ export default function PlanPage() {
       {allUnitsCompleted && !plan.completion_test_taken && <LevelTestBanner planId={plan.id} level={level} />}
 
       {plan.completion_test_taken && (
-        <section className="rounded-[20px] border-2 border-[var(--duo-line)] bg-white px-5 py-5 shadow-[0_3px_0_rgba(31,41,51,.045)] sm:px-7">
+        <section className="rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-5 py-5 shadow-[0_3px_0_var(--duo-line)] sm:px-7">
           <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--duo-green-dark)]">{t('levelTestResult')}</p>
           <p className="mt-2 text-sm font-semibold text-[var(--duo-muted)]">
             {t('testScore')} <span className="font-black text-[var(--duo-ink)]">{plan.completion_test_score != null ? `${Math.round(plan.completion_test_score * 100)}%` : 'n/a'}</span>
