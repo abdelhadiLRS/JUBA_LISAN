@@ -47,7 +47,7 @@ export function SettingsNav({
           <a
             key={item.href}
             href={item.href}
-            className="flex min-h-10 items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold text-[var(--duo-muted)] transition-colors hover:bg-[rgba(88,204,2,.08)] hover:text-[var(--duo-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-blue)]"
+            className="flex min-h-10 items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold text-[var(--duo-muted)] transition-colors hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] hover:text-[var(--duo-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-blue)]"
           >
             <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
             {item.label}
