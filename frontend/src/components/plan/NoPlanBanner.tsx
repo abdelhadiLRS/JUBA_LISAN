@@ -10,8 +10,8 @@ export default function NoPlanBanner() {
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 py-16 text-center">
-      <div className="juba-card w-full max-w-md p-8">
-        <span className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[rgba(88,204,2,.10)] text-[var(--duo-green-dark)]">
+      <div className="w-full max-w-md rounded-[26px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] p-8 shadow-[0_3px_0_var(--duo-line)]">
+        <span className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-green-dark)]">
           <BookOpen className="h-6 w-6" aria-hidden="true" />
         </span>
 
@@ -27,7 +27,7 @@ export default function NoPlanBanner() {
 
         <button
           onClick={() => router.push('/assessment')}
-          className="juba-primary-button w-full"
+          className="bg-[var(--duo-green)] hover:bg-[var(--duo-green-dark)] text-white w-full rounded-xl px-5 py-3 text-xs font-bold shadow-[0_3px_0_var(--duo-green-dark)] transition-colors"
         >
           {t('startAssessment')}
         </button>
