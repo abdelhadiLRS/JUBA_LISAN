@@ -326,9 +326,9 @@ export default function AssessmentPage() {
     }
   }
 
-  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[20px] border-2 border-[#e1e5e2] bg-white shadow-[0_4px_0_rgba(31,41,51,.06)]'
-  const panelClass = 'rounded-[20px] border-2 border-[#e1e5e2] bg-[#eaf5df]/45 p-4'
-  const actionClass = 'w-full rounded-[14px] bg-[#58a700] px-4 py-3 font-bold text-white shadow-[0_6px_0_#58a700] transition hover:-translate-y-0.5 hover:bg-[#58a700]'
+  const cardClass = 'w-full max-w-2xl overflow-hidden rounded-[20px] border-2 border-[var(--duo-line)] bg-white shadow-[0_4px_0_rgba(31,41,51,.06)]'
+  const panelClass = 'rounded-[20px] border-2 border-[var(--duo-line)] bg-[rgba(88,204,2,.12)]/45 p-4'
+  const actionClass = 'w-full rounded-[14px] bg-[var(--duo-green)] px-4 py-3 font-bold text-white shadow-[0_6px_0_var(--duo-green)] transition hover:-translate-y-0.5 hover:bg-[var(--duo-green)]'
 
   if (step === 'checking' || (step === 'quiz' && (evaluating || !currentQuestion))) {
     return <PageLoading label={evaluating ? t('evaluating') : tCommon('loading')} />
@@ -337,29 +337,29 @@ export default function AssessmentPage() {
   if (step === 'existing' && existingPlan) {
     const assessedDate = new Date(existingPlan.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
     return (
-      <div className="juba-assessment-page flex min-h-[60vh] items-center justify-center bg-[#f8faf7] p-4 sm:p-6">
+      <div className="juba-assessment-page flex min-h-[60vh] items-center justify-center bg-[var(--duo-bg)] p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border-[#e1e5e2] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#eaf5df] text-sm font-bold text-[#438600]">A</span>
+          <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[rgba(88,204,2,.12)] text-sm font-bold text-[var(--duo-green-dark)]">A</span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-[#68736d]">{t('title')}</p>
-              <p className="text-xs text-[#68736d]">{t('currentLevel')}</p>
+              <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('title')}</p>
+              <p className="text-xs text-[var(--duo-muted)]">{t('currentLevel')}</p>
             </div>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#68736d]">{t('currentLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-[#30343b]">{existingPlan.cefr_level}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('currentLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-[var(--duo-ink)]">{existingPlan.cefr_level}</p>
             </div>
             <div className={panelClass}>
-              <p className="text-xs font-semibold uppercase tracking-wide text-[#68736d]">{t('assessedOn')}</p>
-              <p className="mt-1 text-sm text-[#30343b]">{assessedDate}</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('assessedOn')}</p>
+              <p className="mt-1 text-sm text-[var(--duo-ink)]">{assessedDate}</p>
             </div>
-            <p className="text-sm leading-relaxed text-[#68736d]">{t('alreadyHasPlan')}</p>
+            <p className="text-sm leading-relaxed text-[var(--duo-muted)]">{t('alreadyHasPlan')}</p>
             {canOfferVoiceTrial && (
               <div className={panelClass + ' space-y-3'}>
-                <p className="font-semibold text-[#30343b]">{t('voiceTrialTitle')}</p>
-                <p className="text-xs leading-relaxed text-[#68736d]">{t('voiceTrialDesc', { minutes: 5 })}</p>
+                <p className="font-semibold text-[var(--duo-ink)]">{t('voiceTrialTitle')}</p>
+                <p className="text-xs leading-relaxed text-[var(--duo-muted)]">{t('voiceTrialDesc', { minutes: 5 })}</p>
                 <button onClick={requestVoiceTrial} disabled={trialLoading} className={actionClass + ' disabled:opacity-50'}>
                   {trialLoading ? '...' : `${t('voiceTrialStart')} →`}
                 </button>
@@ -367,7 +367,7 @@ export default function AssessmentPage() {
             )}
             {error && <div className="rounded-[14px] border border-[#b33a32]/30 bg-[#b33a32]/10 px-4 py-3 text-xs text-[#b33a32]">✕ {error}</div>}
             <div className="flex gap-2">
-              <button onClick={() => router.push('/dashboard')} className="flex-1 rounded-[14px] border border-[#e1e5e2] px-3 py-3 text-xs font-semibold text-[#68736d] transition hover:bg-[#f1f7ed]">← {tCommon('backToDashboard')}</button>
+              <button onClick={() => router.push('/dashboard')} className="flex-1 rounded-[14px] border border-[var(--duo-line)] px-3 py-3 text-xs font-semibold text-[var(--duo-muted)] transition hover:bg-[#f1f7ed]">← {tCommon('backToDashboard')}</button>
               <button onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
             </div>
           </div>
@@ -404,12 +404,12 @@ export default function AssessmentPage() {
   if (step === 'quiz' && currentQuestion) {
     return (
       <div className="juba-mobile-assessment mx-auto w-full max-w-4xl px-4 py-6 sm:py-10">
-        <div className="mb-5 flex items-center justify-between rounded-[20px] border-2 border-[#e1e5e2] bg-white px-5 py-4 shadow-sm">
+        <div className="mb-5 flex items-center justify-between rounded-[20px] border-2 border-[var(--duo-line)] bg-white px-5 py-4 shadow-sm">
           <div>
-            <p className="text-xs font-bold uppercase tracking-wide text-[#68736d]">{t('title')}</p>
-            <p className="mt-1 text-sm font-semibold text-[#30343b]">{currentLevel}</p>
+            <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('title')}</p>
+            <p className="mt-1 text-sm font-semibold text-[var(--duo-ink)]">{currentLevel}</p>
           </div>
-          <div className="rounded-[14px] bg-[#eaf5df] px-3 py-1.5 text-xs font-bold text-[#438600]">{questionNumber}/{MAX_QUESTIONS}</div>
+          <div className="rounded-[14px] bg-[rgba(88,204,2,.12)] px-3 py-1.5 text-xs font-bold text-[var(--duo-green-dark)]">{questionNumber}/{MAX_QUESTIONS}</div>
         </div>
         <AdaptiveQuizCard question={currentQuestion} questionNumber={questionNumber} totalQuestions={MAX_QUESTIONS} onAnswer={handleAnswer} languageCode={activeLanguage?.code} />
       </div>
@@ -423,42 +423,42 @@ export default function AssessmentPage() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border-[#e1e5e2] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#eaf5df] text-sm font-bold text-[#438600]">✓</span>
+          <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[rgba(88,204,2,.12)] text-sm font-bold text-[var(--duo-green-dark)]">✓</span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-[#68736d]">{t('resultStep')}</p>
-              <p className="text-xs text-[#68736d]">{t('cefrLevel')}</p>
+              <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('resultStep')}</p>
+              <p className="text-xs text-[var(--duo-muted)]">{t('cefrLevel')}</p>
             </div>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#68736d]">{t('cefrLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-[#30343b]">{aiLevel}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('cefrLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-[var(--duo-ink)]">{aiLevel}</p>
             </div>
             <div className={panelClass}>
-              <p className="text-xs font-semibold uppercase tracking-wide text-[#68736d]">{tCommon('score')}</p>
-              <p className="mt-1 text-3xl font-extrabold text-[#30343b]">{score}%</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{tCommon('score')}</p>
+              <p className="mt-1 text-3xl font-extrabold text-[var(--duo-ink)]">{score}%</p>
             </div>
             <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[#68736d]">{t('overrideLevel')}</p>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('overrideLevel')}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {CEFR_LEVELS.map((lvl) => (
-                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[14px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[#58a700] bg-[#eaf5df] text-[#438600]' : 'border-[#e1e5e2] text-[#68736d] hover:bg-[#f1f7ed]'}`}>
+                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[14px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--duo-green)] bg-[rgba(88,204,2,.12)] text-[var(--duo-green-dark)]' : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:bg-[#f1f7ed]'}`}>
                     {lvl}
                   </button>
                 ))}
               </div>
-              {levelChanged && <p className="mt-2 text-xs text-[#68736d]">{t('suggestedLevel', { aiLevel, selectedLevel })}</p>}
+              {levelChanged && <p className="mt-2 text-xs text-[var(--duo-muted)]">{t('suggestedLevel', { aiLevel, selectedLevel })}</p>}
             </div>
             {result.strengths.length > 0 && (
               <div>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#68736d]">{t('strengths')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[14px] border border-[#e1e5e2] bg-[#eaf5df] px-3 py-1.5 text-xs font-medium text-[#438600]">{s}</span>)}</div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('strengths')}</p>
+                <div className="flex flex-wrap justify-center gap-2">{result.strengths.map((s) => <span key={s} className="rounded-[14px] border border-[var(--duo-line)] bg-[rgba(88,204,2,.12)] px-3 py-1.5 text-xs font-medium text-[var(--duo-green-dark)]">{s}</span>)}</div>
               </div>
             )}
             {result.weaknesses.length > 0 && (
               <div>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#68736d]">{t('needsWork')}</p>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('needsWork')}</p>
                 <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded-[14px] border border-[#b33a32]/25 bg-[#b33a32]/10 px-3 py-1.5 text-xs font-medium text-[#b33a32]">{w}</span>)}</div>
               </div>
             )}
@@ -493,21 +493,21 @@ export default function AssessmentPage() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-4 sm:p-6">
         <div className={cardClass}>
-          <div className="flex items-center gap-3 border-b border-[#e1e5e2] px-5 py-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#eaf5df] text-sm font-bold text-[#438600]">◉</span>
-            <p className="text-xs font-bold uppercase tracking-wide text-[#68736d]">{t('voiceTrialLabel')}</p>
+          <div className="flex items-center gap-3 border-b border-[var(--duo-line)] px-5 py-4">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[rgba(88,204,2,.12)] text-sm font-bold text-[var(--duo-green-dark)]">◉</span>
+            <p className="text-xs font-bold uppercase tracking-wide text-[var(--duo-muted)]">{t('voiceTrialLabel')}</p>
           </div>
           <div className="space-y-6 p-6 sm:p-8 text-center">
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#68736d]">{t('cefrLevel')}</p>
-              <p className="text-6xl font-extrabold tracking-tight text-[#30343b]">{selectedLevel}</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('cefrLevel')}</p>
+              <p className="text-6xl font-extrabold tracking-tight text-[var(--duo-ink)]">{selectedLevel}</p>
             </div>
             <div className={panelClass}>
-              <p className="mb-2 font-semibold text-[#30343b]">{t('voiceTrialTitle')}</p>
-              <p className="text-xs leading-relaxed text-[#68736d]">{t('voiceTrialDesc', { minutes })}</p>
+              <p className="mb-2 font-semibold text-[var(--duo-ink)]">{t('voiceTrialTitle')}</p>
+              <p className="text-xs leading-relaxed text-[var(--duo-muted)]">{t('voiceTrialDesc', { minutes })}</p>
             </div>
             <button onClick={startVoiceTrial} className={actionClass}>{t('voiceTrialStart')} →</button>
-            <button onClick={() => router.push('/plan')} className="w-full py-2 text-xs font-semibold uppercase tracking-wide text-[#68736d] transition hover:text-[#30343b]">{t('voiceTrialSkip')}</button>
+            <button onClick={() => router.push('/plan')} className="w-full py-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)] transition hover:text-[var(--duo-ink)]">{t('voiceTrialSkip')}</button>
           </div>
         </div>
       </div>
