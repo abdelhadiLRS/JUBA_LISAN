@@ -417,7 +417,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <button
             onClick={() => setMobileMenuOpen((o) => !o)}
             className="juba-duo-mobile-trigger"
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={mobileMenuOpen ? (locale === 'ar' ? 'إغلاق القائمة' : 'Close menu') : (locale === 'ar' ? 'فتح القائمة' : 'Open menu')}
             aria-expanded={mobileMenuOpen}
             aria-controls="juba-duo-mobile-menu"
           >
