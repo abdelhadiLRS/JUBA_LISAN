@@ -2092,3 +2092,35 @@ html[data-theme='light'] {
     border-radius:16px;
   }
 }
+
+
+/* ── Chat tablet geometry: match the 900px application-shell transition ── */
+@media (min-width:901px) and (max-width:1023px) {
+  .juba-duo-page-frame .juba-mobile-chat {
+    height:100vh;
+  }
+
+  .juba-duo-page-frame .juba-mobile-chat .chat-sidebar-backdrop {
+    display:none;
+  }
+
+  .juba-duo-page-frame .juba-mobile-chat .chat-conversations-sidebar {
+    position:relative;
+    inset:auto;
+    z-index:auto;
+  }
+}
+
+@media (max-width:560px) {
+  .juba-duo-page-frame .juba-mobile-chat > div:last-child {
+    min-width:0;
+  }
+
+  .juba-duo-page-frame .juba-mobile-chat .chat-conversations-sidebar {
+    width:min(88vw,22rem);
+  }
+
+  .juba-duo-page-frame .juba-mobile-chat .chat-conversations-sidebar + div {
+    min-width:0;
+  }
+}
