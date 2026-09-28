@@ -101,7 +101,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center p-4"
       style={{
-        backgroundColor: 'color-mix(in srgb, var(--juba-app-ink) 55%, transparent)',
+        backgroundColor: 'color-mix(in srgb, var(--duo-ink) 55%, transparent)',
         backdropFilter: 'blur(8px)',
       }}
       onClick={() => !isLoading && onClose()}
@@ -113,14 +113,14 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
-        className="card w-full max-w-md overflow-hidden border-2 border-[var(--juba-app-line)] shadow-[5px_5px_0_var(--juba-app-line)]"
+        className="card w-full max-w-md overflow-hidden border-2 border-[var(--duo-line)] shadow-[5px_5px_0_var(--duo-line)]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-3 border-b-2 border-[var(--juba-app-line)] bg-[var(--juba-app-green-soft)] px-6 py-4">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--juba-app-yellow)] text-[var(--juba-app-green-dark)]" aria-hidden="true">
+        <div className="flex items-center gap-3 border-b-2 border-[var(--duo-line)] bg-[rgba(88,204,2,.10)] px-6 py-4">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--duo-yellow)] text-[var(--duo-green-dark)]" aria-hidden="true">
             <i className="ti ti-help-circle icon" aria-hidden="true" />
           </span>
-          <span id={titleId} className="flex-1 text-sm font-semibold tracking-tight text-[var(--juba-app-ink)]">
+          <span id={titleId} className="flex-1 text-sm font-semibold tracking-tight text-[var(--duo-ink)]">
             {t('title')}
           </span>
           <button
@@ -136,7 +136,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
 
         {status === 'success' ? (
           <div className="flex flex-col items-center gap-3 px-6 py-10" role="status" aria-live="polite">
-            <span className="inline-flex items-center gap-2 rounded-full bg-[color-mix(in srgb, var(--juba-app-yellow) 28%, var(--juba-app-surface))] px-4 py-2 text-sm font-semibold text-[var(--juba-app-green-dark)]">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[color-mix(in srgb, var(--duo-yellow) 28%, var(--duo-card))] px-4 py-2 text-sm font-semibold text-[var(--duo-green-dark)]">
               <i className="ti ti-circle-check icon" aria-hidden="true" /> {t('sent')}
             </span>
           </div>
@@ -145,7 +145,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
             <p id={descriptionId} className="sr-only">{t('description')}</p>
             <div className="flex flex-col gap-5 px-6 py-6">
               <div className="flex flex-col gap-2">
-                <label htmlFor="contact-email" className="text-xs font-semibold text-[var(--juba-app-muted)]">{t('labelEmail')}</label>
+                <label htmlFor="contact-email" className="text-xs font-semibold text-[var(--duo-muted)]">{t('labelEmail')}</label>
                 <input
                   ref={firstFieldRef}
                   id="contact-email"
@@ -154,13 +154,13 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isLoading}
-                  className="form-control rounded-xl border-2 border-[var(--juba-app-line)] bg-[#fffdf8] shadow-[2px_2px_0_var(--juba-app-line)] px-3 py-2.5 text-sm text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] transition focus:border-[var(--juba-app-green)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-app-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="form-control rounded-xl border-2 border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[2px_2px_0_var(--duo-line)] px-3 py-2.5 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] transition focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderEmail')}
                 />
               </div>
 
               <div className="flex flex-col gap-2">
-                <label htmlFor="contact-subject" className="text-xs font-semibold text-[var(--juba-app-muted)]">{t('labelSubject')}</label>
+                <label htmlFor="contact-subject" className="text-xs font-semibold text-[var(--duo-muted)]">{t('labelSubject')}</label>
                 <input
                   id="contact-subject"
                   type="text"
@@ -169,15 +169,15 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   disabled={isLoading}
-                  className="form-control rounded-xl border border-[var(--juba-app-line)] bg-[#fffdf8] px-3 py-2.5 text-sm text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] transition focus:border-[var(--juba-app-green)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-app-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="form-control rounded-xl border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-2.5 text-sm text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] transition focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderSubject')}
                 />
               </div>
 
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between gap-3">
-                  <label htmlFor="contact-description" className="text-xs font-semibold text-[var(--juba-app-muted)]">{t('labelDescription')}</label>
-                  <span className="text-[10px] font-medium tabular-nums text-[var(--juba-app-muted)]">{description.length}/5000</span>
+                  <label htmlFor="contact-description" className="text-xs font-semibold text-[var(--duo-muted)]">{t('labelDescription')}</label>
+                  <span className="text-[10px] font-medium tabular-nums text-[var(--duo-muted)]">{description.length}/5000</span>
                 </div>
                 <textarea
                   id="contact-description"
@@ -187,20 +187,20 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   disabled={isLoading}
-                  className="form-control min-h-[120px] resize-y rounded-xl border-2 border-[var(--juba-app-line)] bg-[#fffdf8] shadow-[2px_2px_0_var(--juba-app-line)] px-3 py-2.5 text-sm leading-6 text-[var(--juba-app-ink)] placeholder:text-[var(--juba-app-muted)] transition focus:border-[var(--juba-app-green)] focus:outline-none focus:ring-2 focus:ring-[var(--juba-app-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="form-control min-h-[120px] resize-y rounded-xl border-2 border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[2px_2px_0_var(--duo-line)] px-3 py-2.5 text-sm leading-6 text-[var(--duo-ink)] placeholder:text-[var(--duo-muted)] transition focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/30 disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder={t('placeholderDescription')}
                 />
               </div>
 
               {status === 'error' && (
-                <p role="alert" className="inline-flex w-full items-start gap-2 rounded-xl bg-[color-mix(in_srgb,#b33a32_10%,var(--juba-app-surface))] px-3 py-2.5 text-sm leading-relaxed text-[#b33a32]">
+                <p role="alert" className="inline-flex w-full items-start gap-2 rounded-xl bg-[color-mix(in_srgb,var(--duo-red)_10%,var(--duo-card))] px-3 py-2.5 text-sm leading-relaxed text-[var(--duo-red)]">
                   <i className="ti ti-alert-circle icon" aria-hidden="true" />
                   <span>{errorMsg}</span>
                 </p>
               )}
             </div>
 
-            <div className="flex gap-3 border-t-2 border-[var(--juba-app-line)] bg-[#fffdf8] px-6 py-4">
+            <div className="flex gap-3 border-t-2 border-[var(--duo-line)] bg-[var(--duo-card)] px-6 py-4">
               <button
                 type="button"
                 onClick={onClose}
@@ -212,7 +212,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="inline-flex flex-1 items-center justify-center rounded-xl border-2 border-transparent bg-[var(--juba-app-green)] shadow-[3px_3px_0_var(--juba-app-ink)] px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--juba-app-green)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" aria-busy={isLoading}
+                className="inline-flex flex-1 items-center justify-center rounded-xl border-2 border-transparent bg-[var(--duo-green)] shadow-[3px_3px_0_var(--duo-ink)] px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-green)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" aria-busy={isLoading}
               >
                 {isLoading ? (
                   <span className="inline-flex items-center">
