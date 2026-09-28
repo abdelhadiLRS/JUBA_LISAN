@@ -91,13 +91,13 @@ export default function SettingsPage() {
           <ProfileSection title={t('cardProfileAccess')} />
 
           <div className="juba-panel">
-            <p className="text-[#68736d] mb-4 text-xs font-semibold tracking-wide uppercase">
+            <p className="text-[var(--duo-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
               {t('cardSessionSecurity')}
             </p>
             <div className="space-y-2">
               <button
                 onClick={() => setLogoutConfirm(true)}
-                className="border-[#e1e5e2] text-[#68736d] w-full rounded-[20px] border py-2.5 text-sm font-medium transition-colors hover:bg-[#f4f7f2]"
+                className="border-[var(--duo-line)] text-[var(--duo-muted)] w-full rounded-[20px] border py-2.5 text-sm font-medium transition-colors hover:bg-[var(--duo-bg)]"
               >
                 {tCommon('logout')}
               </button>
@@ -143,20 +143,20 @@ export default function SettingsPage() {
         </SettingsPanel>
 
         <SettingsPanel id="legal" title={t('sectionLegal')}>
-          <div className="border-[#e1e5e2] bg-white rounded-[28px] border p-6">
-            <p className="text-[#68736d] mb-4 text-xs font-semibold tracking-wide uppercase">
+          <div className="border-[var(--duo-line)] bg-white rounded-[28px] border p-6">
+            <p className="text-[var(--duo-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
               {t('cardLegalDocuments')}
             </p>
             <div className="flex flex-col gap-2">
               <a
                 href="/terms?from=settings"
-                className="text-[#68736d] hover:text-[#30343b] text-sm font-medium transition-colors"
+                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] text-sm font-medium transition-colors"
               >
                 {t('termsOfService')}
               </a>
               <a
                 href="/privacy?from=settings"
-                className="text-[#68736d] hover:text-[#30343b] text-sm font-medium transition-colors"
+                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] text-sm font-medium transition-colors"
               >
                 {t('privacyPolicy')}
               </a>
