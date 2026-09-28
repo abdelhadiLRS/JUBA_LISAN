@@ -2095,3 +2095,76 @@ html[data-theme='light'] {
     justify-content:center;
   }
 }
+
+
+/* Final landing pass: hero + language selector rhythm, without touching app/dashboard UI. */
+.juba-busuu-landing .juba-busuu-hero{
+  position:relative;
+  background:#fff;
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-hero-grid{
+  min-height:620px;
+}
+.juba-busuu-landing .juba-busuu-hero-copy{
+  position:relative;
+  z-index:2;
+}
+.juba-busuu-landing .juba-busuu-hero-proof{
+  margin-top:26px;
+}
+.juba-busuu-landing .juba-busuu-hero-visual{
+  position:relative;
+  isolation:isolate;
+}
+.juba-busuu-landing .juba-busuu-hero-visual::before{
+  content:"";
+  position:absolute;
+  width:min(620px,92%);
+  aspect-ratio:1;
+  border-radius:50%;
+  background:var(--busuu-mint);
+  z-index:-1;
+}
+.juba-busuu-landing .juba-busuu-language-discovery{
+  position:relative;
+  margin-top:-1px;
+  padding-top:76px;
+  background:#fff;
+}
+.juba-busuu-landing .juba-busuu-language-prompt{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.juba-busuu-landing .juba-busuu-language-prompt strong{
+  color:var(--busuu-ink);
+}
+.juba-busuu-landing .juba-busuu-language-prompt span{
+  color:var(--busuu-muted);
+  font-size:13px;
+}
+.juba-busuu-landing .juba-busuu-language-panel{
+  box-shadow:0 14px 44px rgba(23,26,25,.07);
+}
+.juba-busuu-landing .juba-busuu-language-list{
+  scrollbar-width:none;
+}
+.juba-busuu-landing .juba-busuu-language-list::-webkit-scrollbar{
+  display:none;
+}
+.juba-busuu-landing .juba-busuu-language-item{
+  transition:background .16s ease,transform .16s ease;
+}
+.juba-busuu-landing .juba-busuu-language-item:hover{
+  transform:translateY(-2px);
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-language-discovery{
+    padding-top:52px;
+  }
+  .juba-busuu-landing .juba-busuu-language-prompt{
+    align-items:flex-start;
+  }
+}
