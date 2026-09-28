@@ -53,21 +53,21 @@ function QuotaBar({
   const exceeded = !unlimited && limit > 0 && used >= limit
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[#68736d] w-28 shrink-0 font-sans text-xs font-semibold tracking-wide uppercase sm:w-36">
+      <span className="text-[var(--duo-muted)] w-28 shrink-0 font-sans text-xs font-semibold tracking-wide uppercase sm:w-36">
         {label}
       </span>
       {unlimited ? (
-        <span className="text-[#438600] font-sans font-bold">∞</span>
+        <span className="text-[var(--duo-green-dark)] font-sans font-bold">∞</span>
       ) : (
         <>
-          <div className="bg-[#f1f7ed] h-1 flex-1 overflow-hidden rounded-full">
+          <div className="bg-[rgba(88,204,2,.08)] h-1 flex-1 overflow-hidden rounded-full">
             <div
-              className={`h-full transition-all ${exceeded ? 'bg-[#b33a32]' : 'bg-[#58a700]'}`}
+              className={`h-full transition-all ${exceeded ? 'bg-[var(--duo-red)]' : 'bg-[var(--duo-green)]'}`}
               style={{ width: `${pct}%` }}
             />
           </div>
           <span
-            className={`text-[#68736d] font-sans tabular-nums ${exceeded ? 'text-[#b33a32]' : 'text-[#68736d]'}`}
+            className={`text-[var(--duo-muted)] font-sans tabular-nums ${exceeded ? 'text-[var(--duo-red)]' : 'text-[var(--duo-muted)]'}`}
           >
             {used}&thinsp;/&thinsp;{limit}
           </span>
@@ -119,18 +119,18 @@ function QuotaPill({
     <div className="w-full">
       <button
         onClick={() => setOpen((v) => !v)}
-        className={`text-[#68736d] flex w-full items-center justify-between rounded-xl border px-3 py-2 font-sans tracking-wide uppercase transition-colors ${
+        className={`text-[var(--duo-muted)] flex w-full items-center justify-between rounded-xl border px-3 py-2 font-sans tracking-wide uppercase transition-colors ${
           alert
-            ? 'border-[#b33a32]/50 text-[#b33a32] hover:border-[#b33a32]'
-            : 'border-[#e1e5e2] text-[#68736d] hover:border-[#58a700] hover:text-[#438600]'
+            ? 'border-[var(--duo-red)]/50 text-[var(--duo-red)] hover:border-[var(--duo-red)]'
+            : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)]'
         }`}
       >
         <span>● {text}</span>
-        <span className="text-[#68736d]">{open ? '▴' : '▾'}</span>
+        <span className="text-[var(--duo-muted)]">{open ? '▴' : '▾'}</span>
       </button>
 
       {open && (
-        <div className="border-[#e1e5e2] bg-white space-y-2 rounded-b-xl border border-t-0 px-4 py-3 shadow-[0_3px_0_rgba(31,41,51,.035)]">
+        <div className="border-[var(--duo-line)] bg-white space-y-2 rounded-b-xl border border-t-0 px-4 py-3 shadow-[0_3px_0_rgba(31,41,51,.035)]">
           <QuotaBar
             label={t('quotaSessions')}
             used={quota.sessions_this_week}
@@ -191,21 +191,21 @@ function TrialPremiumCta() {
   }
 
   return (
-    <div className="border-[#e1e5e2] bg-white mb-4 rounded-[20px] border-2 p-5 text-center shadow-[0_3px_0_rgba(31,41,51,.045)]">
-      <p className="text-[#68736d] mb-2 font-sans tracking-wide uppercase">
+    <div className="border-[var(--duo-line)] bg-white mb-4 rounded-[20px] border-2 p-5 text-center shadow-[0_3px_0_rgba(31,41,51,.045)]">
+      <p className="text-[var(--duo-muted)] mb-2 font-sans tracking-wide uppercase">
         {tConversation('trialCtaLabel')}
       </p>
-      <h2 className="text-[#30343b] mb-2 font-sans text-base font-bold">
+      <h2 className="text-[var(--duo-ink)] mb-2 font-sans text-base font-bold">
         {tConversation('trialCtaTitle')}
       </h2>
-      <p className="text-[#68736d] mb-5 font-sans text-xs leading-relaxed">
+      <p className="text-[var(--duo-muted)] mb-5 font-sans text-xs leading-relaxed">
         {tConversation('trialCtaDesc')}
       </p>
       <div className="flex flex-col gap-3">
         <button
           onClick={() => handleCheckout('yearly')}
           disabled={loading !== null}
-          className="bg-[#58a700] text-white hover:bg-[#438600] w-full rounded-xl px-4 py-3 font-sans text-xs font-bold tracking-wide uppercase shadow-[0_3px_0_#438600] transition-colors disabled:opacity-50"
+          className="bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green-dark)] w-full rounded-xl px-4 py-3 font-sans text-xs font-bold tracking-wide uppercase shadow-[0_3px_0_var(--duo-green-dark)] transition-colors disabled:opacity-50"
         >
           {loading === 'yearly' ? (
             '...'
@@ -223,7 +223,7 @@ function TrialPremiumCta() {
         <button
           onClick={() => handleCheckout('monthly')}
           disabled={loading !== null}
-          className="border-[#e1e5e2] text-[#68736d] hover:text-[#438600] hover:border-[#58a700] w-full rounded-xl border-2 px-4 py-3 font-sans text-xs font-bold tracking-wide uppercase transition-colors disabled:opacity-50"
+          className="border-[var(--duo-line)] text-[var(--duo-muted)] hover:text-[var(--duo-green-dark)] hover:border-[var(--duo-green)] w-full rounded-xl border-2 px-4 py-3 font-sans text-xs font-bold tracking-wide uppercase transition-colors disabled:opacity-50"
         >
           {loading === 'monthly'
             ? '...'
@@ -231,11 +231,11 @@ function TrialPremiumCta() {
         </button>
       </div>
       {error && (
-        <p className="mt-4 font-sans text-[#b33a32]">{error}</p>
+        <p className="mt-4 font-sans text-[var(--duo-red)]">{error}</p>
       )}
       <button
         onClick={() => router.push('/plan')}
-        className="text-[#68736d] hover:text-[#438600] mt-5 w-full rounded-xl px-3 py-2 font-sans text-xs font-semibold tracking-wide uppercase transition-colors"
+        className="text-[var(--duo-muted)] hover:text-[var(--duo-green-dark)] mt-5 w-full rounded-xl px-3 py-2 font-sans text-xs font-semibold tracking-wide uppercase transition-colors"
       >
         {t('paywallSkip')}
       </button>
@@ -1028,19 +1028,19 @@ export default function ConversationMode({
   return (
     <div className="juba-duo-conversation-shell mx-auto flex h-full max-w-4xl flex-col overflow-hidden p-3 sm:p-4 md:p-6">
       {/* Header */}
-      <div className="border-[#e1e5e2] mb-6 flex items-end justify-between border-b pb-4">
+      <div className="border-[var(--duo-line)] mb-6 flex items-end justify-between border-b pb-4">
         <div>
-          <p className="text-[#68736d] mb-1 font-sans tracking-wide uppercase">
+          <p className="text-[var(--duo-muted)] mb-1 font-sans tracking-wide uppercase">
             {t('subtitle')}
           </p>
-          <h1 className="text-[#30343b] font-sans text-2xl font-bold tracking-tight">
+          <h1 className="text-[var(--duo-ink)] font-sans text-2xl font-bold tracking-tight">
             {t('title')}
           </h1>
         </div>
         {onClose && (
           <button
             onClick={onClose}
-            className="text-[#68736d] hover:text-[#438600] font-sans tracking-wide uppercase transition-colors"
+            className="text-[var(--duo-muted)] hover:text-[var(--duo-green-dark)] font-sans tracking-wide uppercase transition-colors"
           >
             ← {tCommon('back')}
           </button>
@@ -1048,7 +1048,7 @@ export default function ConversationMode({
       </div>
 
       {trialMode && (
-        <div className="border-[#e1e5e2] bg-[#f1f7ed] text-[#438600] mb-4 rounded-xl border px-4 py-3 text-center font-sans text-xs font-semibold tracking-wide">
+        <div className="border-[var(--duo-line)] bg-[rgba(88,204,2,.08)] text-[var(--duo-green-dark)] mb-4 rounded-xl border px-4 py-3 text-center font-sans text-xs font-semibold tracking-wide">
           {t('trialBanner', {
             minutes: Math.round((voiceTrialDurationSeconds ?? 300) / 60),
           })}
@@ -1060,7 +1060,7 @@ export default function ConversationMode({
       {/* Transcript area */}
       <div className="mb-4 min-h-0 flex-1 space-y-4 overflow-y-auto px-1 sm:px-2">
         {transcript.length === 0 && !streamingText && status === 'live' && (
-          <p className="text-[#68736d] py-8 text-center font-sans">
+          <p className="text-[var(--duo-muted)] py-8 text-center font-sans">
             {t('tapToStart')}
           </p>
         )}
@@ -1099,12 +1099,12 @@ export default function ConversationMode({
 
       {/* Status message */}
       {status === 'error' && errorMsg && (
-        <div className="border-[#b33a32]/30 bg-[#fff5f4] text-[#b33a32] mb-4 rounded-xl border px-4 py-3 font-sans text-xs">
+        <div className="border-[var(--duo-red)]/30 bg-[rgba(255,75,75,.08)] text-[var(--duo-red)] mb-4 rounded-xl border px-4 py-3 font-sans text-xs">
           ✕ {errorMsg}
         </div>
       )}
       {status === 'ended' && (
-        <div className="border-[#e1e5e2] bg-white text-[#68736d] mb-4 rounded-xl border px-4 py-3 font-sans text-xs">
+        <div className="border-[var(--duo-line)] bg-white text-[var(--duo-muted)] mb-4 rounded-xl border px-4 py-3 font-sans text-xs">
           {t('sessionEnded')}
         </div>
       )}
@@ -1115,7 +1115,7 @@ export default function ConversationMode({
         !sessionActive &&
         (status === 'ready' || status === 'ended' || status === 'error') && (
           <div className="mb-4">
-            <p className="text-[#68736d] mb-3 text-center font-sans tracking-wide uppercase">
+            <p className="text-[var(--duo-muted)] mb-3 text-center font-sans tracking-wide uppercase">
               {t('startersHint')}
             </p>
             <div className="flex flex-wrap justify-center gap-2">
@@ -1130,7 +1130,7 @@ export default function ConversationMode({
                       },
                     ])
                   }
-                  className="text-[#68736d] border-[#e1e5e2] hover:border-[#58a700] hover:text-[#438600] rounded-xl border px-3 py-2 font-sans text-xs tracking-wide transition-colors"
+                  className="text-[var(--duo-muted)] border-[var(--duo-line)] hover:border-[var(--duo-green)] hover:text-[var(--duo-green-dark)] rounded-xl border px-3 py-2 font-sans text-xs tracking-wide transition-colors"
                 >
                   {topic}
                 </button>
@@ -1150,7 +1150,7 @@ export default function ConversationMode({
         {/* Quota pill — freemium gets a simplified voice counter, premium gets full quota bars */}
         {freemiumVoiceRemaining != null && freemiumVoiceLimit != null ? (
           <span
-            className={`text-[#30343b] font-sans tracking-wide uppercase ${freemiumVoiceRemaining <= 0 ? 'text-[#b33a32]' : 'text-[#68736d]'}`}
+            className={`text-[var(--duo-ink)] font-sans tracking-wide uppercase ${freemiumVoiceRemaining <= 0 ? 'text-[var(--duo-red)]' : 'text-[var(--duo-muted)]'}`}
           >
             {t('freemiumVoiceRemaining', {
               remaining: freemiumVoiceRemaining,
