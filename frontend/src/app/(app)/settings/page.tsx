@@ -143,7 +143,7 @@ export default function SettingsPage() {
         </SettingsPanel>
 
         <SettingsPanel id="legal" title={t('sectionLegal')}>
-          <div className="border-[var(--duo-line)] bg-white rounded-[28px] border p-6">
+          <div className="border-[var(--duo-line)] bg-[var(--duo-card)] rounded-[28px] border p-6">
             <p className="text-[var(--duo-muted)] mb-4 text-xs font-semibold tracking-wide uppercase">
               {t('cardLegalDocuments')}
             </p>
