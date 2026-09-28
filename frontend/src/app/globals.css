@@ -2501,3 +2501,171 @@ html[data-theme='light'] {
     border-bottom:0;
   }
 }
+
+/* Landing testimonials fidelity pass — public landing only. */
+.juba-busuu-landing .juba-busuu-testimonials{
+  padding:112px 0 120px;
+  background:#fff;
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-testimonials .juba-busuu-heading{
+  max-width:900px;
+  margin-bottom:42px;
+}
+.juba-busuu-landing .juba-busuu-testimonials .juba-busuu-heading h2{
+  max-width:760px;
+  margin-inline:auto;
+}
+.juba-busuu-landing .juba-busuu-testimonials .juba-busuu-heading p{
+  max-width:650px;
+}
+.juba-busuu-landing .juba-busuu-testimonial-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;
+  overflow:visible;
+  padding:0;
+  border-top:1px solid var(--busuu-line);
+  border-inline-start:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-testimonial{
+  min-height:330px;
+  padding:30px 28px 28px;
+  display:flex;
+  flex-direction:column;
+  flex:initial;
+  border:0;
+  border-inline-end:1px solid var(--busuu-line);
+  border-bottom:1px solid var(--busuu-line);
+  border-radius:0;
+  background:#f7f7f4;
+  box-shadow:none;
+}
+.juba-busuu-landing .juba-busuu-testimonial-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  min-height:24px;
+  margin-bottom:28px;
+}
+.juba-busuu-landing .juba-busuu-testimonial-meta > span:first-child{
+  color:var(--busuu-green-dark);
+  font-size:12px;
+  letter-spacing:.08em;
+}
+.juba-busuu-landing .juba-busuu-testimonial-meta > span:last-child{
+  color:var(--busuu-muted);
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+.juba-busuu-landing .juba-busuu-testimonial p{
+  max-width:34ch;
+  margin:0;
+  font-size:clamp(17px,1.45vw,21px);
+  line-height:1.55;
+  letter-spacing:-.018em;
+  color:var(--busuu-ink);
+}
+.juba-busuu-landing .juba-busuu-testimonial-person{
+  margin-top:auto;
+  padding-top:30px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+.juba-busuu-landing .juba-busuu-testimonial-avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:var(--busuu-green);
+  color:#fff;
+  border:0;
+}
+.juba-busuu-landing .juba-busuu-testimonial-person strong{
+  color:var(--busuu-ink);
+  font-size:12px;
+  font-weight:850;
+}
+.juba-busuu-landing .juba-busuu-testimonial :is(a,button):focus-visible{
+  outline:3px solid var(--busuu-blue);
+  outline-offset:3px;
+}
+@media(max-width:1000px){
+  .juba-busuu-landing .juba-busuu-testimonials{
+    padding:88px 0 96px;
+  }
+  .juba-busuu-landing .juba-busuu-testimonial-grid{
+    grid-template-columns:1fr;
+  }
+  .juba-busuu-landing .juba-busuu-testimonial{
+    min-height:250px;
+    display:grid;
+    grid-template-columns:minmax(150px,.42fr) minmax(0,1fr);
+    grid-template-rows:auto 1fr;
+    column-gap:28px;
+  }
+  .juba-busuu-landing .juba-busuu-testimonial-meta{
+    grid-column:1;
+    grid-row:1 / span 2;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-start;
+    margin:0;
+  }
+  .juba-busuu-landing .juba-busuu-testimonial p{
+    grid-column:2;
+    grid-row:1;
+    max-width:48ch;
+  }
+  .juba-busuu-landing .juba-busuu-testimonial-person{
+    grid-column:2;
+    grid-row:2;
+    padding-top:20px;
+  }
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-testimonials{
+    padding:72px 0 76px;
+  }
+  .juba-busuu-landing .juba-busuu-testimonials .juba-busuu-heading{
+    margin-bottom:30px;
+  }
+  .juba-busuu-landing .juba-busuu-testimonial-grid{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    padding:0 0 10px;
+    border-inline-start:0;
+    border-top:1px solid var(--busuu-line);
+    scrollbar-width:none;
+    scroll-snap-type:x proximity;
+  }
+  .juba-busuu-landing .juba-busuu-testimonial-grid::-webkit-scrollbar{
+    display:none;
+  }
+  .juba-busuu-landing .juba-busuu-testimonial{
+    min-width:min(88vw,360px);
+    min-height:285px;
+    display:flex;
+    padding:26px 22px 24px;
+    border-inline-start:1px solid var(--busuu-line);
+    border-bottom:1px solid var(--busuu-line);
+    scroll-snap-align:start;
+  }
+  .juba-busuu-landing .juba-busuu-testimonial-meta{
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:24px;
+  }
+  .juba-busuu-landing .juba-busuu-testimonial p{
+    font-size:18px;
+    line-height:1.58;
+  }
+  .juba-busuu-landing .juba-busuu-testimonial-person{
+    padding-top:24px;
+  }
+}
