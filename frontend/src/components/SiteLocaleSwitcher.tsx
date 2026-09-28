@@ -84,7 +84,7 @@ export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
           aria-expanded={open}
           aria-haspopup="listbox"
           aria-label={locale === 'ar' ? 'تغيير المنطقة ولغة الموقع' : 'Change region and site language'}
-          className="flex items-center gap-2 rounded-full border border-[var(--duo-line)] bg-white/90 px-3 py-2 text-xs font-bold text-[var(--duo-ink)] shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md"
+          className="flex items-center gap-2 rounded-full border border-[var(--duo-line)] bg-[var(--duo-card)]/90 px-3 py-2 text-xs font-bold text-[var(--duo-ink)] shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md"
         >
           <span className="text-base" aria-hidden="true">{countryFlag(country)}</span>
           <span className="rounded-md border border-[var(--duo-line)] px-2 py-1 text-[10px] font-black">{country}</span>
@@ -93,12 +93,12 @@ export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
         </button>
 
         {open && (
-          <div role="listbox" aria-label={locale === 'ar' ? 'لغة الموقع' : 'Site language'} className="absolute end-0 top-[calc(100%+8px)] w-64 overflow-hidden rounded-2xl border border-[var(--duo-line)] bg-white p-3 shadow-xl">
+          <div role="listbox" aria-label={locale === 'ar' ? 'لغة الموقع' : 'Site language'} className="absolute end-0 top-[calc(100%+8px)] w-64 overflow-hidden rounded-2xl border border-[var(--duo-line)] bg-[var(--duo-card)] p-3 shadow-xl">
             <div className="mb-3 flex items-center gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--duo-muted)]">
               <Globe2 className="h-3.5 w-3.5" aria-hidden="true" />
               {locale === 'ar' ? 'المنطقة واللغة' : 'Region & language'}
             </div>
-            <div className="mb-3 rounded-xl bg-[rgba(88,204,2,.10)] px-3 py-2.5">
+            <div className="mb-3 rounded-xl bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] px-3 py-2.5">
               <div className="text-[10px] font-bold text-[var(--duo-muted)]">{locale === 'ar' ? 'منطقتك' : 'Visitor region'}</div>
               <div className="mt-1 flex items-center gap-2 font-black text-[var(--duo-ink)]">
                 <span className="text-lg" aria-hidden="true">{countryFlag(country)}</span>
@@ -110,7 +110,7 @@ export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
               <div className="mt-1 grid max-h-64 grid-cols-2 gap-1 overflow-auto">
                 {LOCALES.map((item) => (
                   <button key={item.code} type="button" role="option" aria-selected={item.code === locale} onClick={() => selectLocale(item.code)}
-                    className={`flex items-center justify-between gap-2 rounded-xl px-3 py-2 text-xs font-bold transition ${locale === item.code ? 'bg-[rgba(88,204,2,.10)] text-[var(--duo-ink)]' : 'text-[var(--duo-muted)] hover:bg-[rgba(88,204,2,.10)] hover:text-[var(--duo-ink)]'}`}>
+                    className={`flex items-center justify-between gap-2 rounded-xl px-3 py-2 text-xs font-bold transition ${locale === item.code ? 'bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-ink)]' : 'text-[var(--duo-muted)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-ink)]'}`}>
                     <span className="flex min-w-0 items-center gap-2"><span className="text-base leading-none" aria-hidden="true">{countryFlag(item.country.toUpperCase())}</span><span className="truncate">{item.native}</span></span>
                     {item.code === locale && <Check className="h-3.5 w-3.5 text-[var(--duo-green)]" aria-hidden="true" />}
                   </button>
