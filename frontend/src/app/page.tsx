@@ -127,7 +127,7 @@ export default async function Home() {
         hasSession={hasSession}
         dir={dir}
         navFeatures={t('navFeatures')}
-        primaryNavigation={tCommon('primaryNavigation')}
+        primaryNavigation={tCommon('menu')}
         navLanguages={t('navLanguages')}
         interfaceLanguages={t('interfaceLanguages')}
         navReviews={t('navReviews')}
