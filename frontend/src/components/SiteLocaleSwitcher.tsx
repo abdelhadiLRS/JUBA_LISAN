@@ -84,40 +84,40 @@ export function SiteLocaleSwitcher({ locale }: { locale: Locale }) {
           aria-expanded={open}
           aria-haspopup="listbox"
           aria-label={locale === 'ar' ? 'تغيير المنطقة ولغة الموقع' : 'Change region and site language'}
-          className="flex items-center gap-2 rounded-full border border-[var(--juba-app-line)] bg-white/90 px-3 py-2 text-xs font-bold text-[var(--juba-app-ink)] shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md"
+          className="flex items-center gap-2 rounded-full border border-[var(--duo-line)] bg-white/90 px-3 py-2 text-xs font-bold text-[var(--duo-ink)] shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md"
         >
           <span className="text-base" aria-hidden="true">{countryFlag(country)}</span>
-          <span className="rounded-md border border-[var(--juba-app-line)] px-2 py-1 text-[10px] font-black">{country}</span>
+          <span className="rounded-md border border-[var(--duo-line)] px-2 py-1 text-[10px] font-black">{country}</span>
           <span className="text-xs font-black uppercase">{locale}</span>
           <ChevronDown className="h-3 w-3" aria-hidden="true" />
         </button>
 
         {open && (
-          <div role="listbox" aria-label={locale === 'ar' ? 'لغة الموقع' : 'Site language'} className="absolute right-0 top-[calc(100%+8px)] w-64 overflow-hidden rounded-2xl border border-[var(--juba-app-line)] bg-white p-3 shadow-xl">
-            <div className="mb-3 flex items-center gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--juba-app-muted)]">
+          <div role="listbox" aria-label={locale === 'ar' ? 'لغة الموقع' : 'Site language'} className="absolute right-0 top-[calc(100%+8px)] w-64 overflow-hidden rounded-2xl border border-[var(--duo-line)] bg-white p-3 shadow-xl">
+            <div className="mb-3 flex items-center gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[var(--duo-muted)]">
               <Globe2 className="h-3.5 w-3.5" aria-hidden="true" />
               {locale === 'ar' ? 'المنطقة واللغة' : 'Region & language'}
             </div>
-            <div className="mb-3 rounded-xl bg-[var(--juba-app-green-soft)] px-3 py-2.5">
-              <div className="text-[10px] font-bold text-[var(--juba-app-muted)]">{locale === 'ar' ? 'منطقتك' : 'Visitor region'}</div>
-              <div className="mt-1 flex items-center gap-2 font-black text-[var(--juba-app-ink)]">
+            <div className="mb-3 rounded-xl bg-[rgba(88,204,2,.10)] px-3 py-2.5">
+              <div className="text-[10px] font-bold text-[var(--duo-muted)]">{locale === 'ar' ? 'منطقتك' : 'Visitor region'}</div>
+              <div className="mt-1 flex items-center gap-2 font-black text-[var(--duo-ink)]">
                 <span className="text-lg" aria-hidden="true">{countryFlag(country)}</span>
                 <span>{country}</span>
               </div>
             </div>
-            <div className="border-t border-[var(--juba-app-line)] pt-3">
-              <div className="px-2 text-[10px] font-bold text-[var(--juba-app-muted)]">{locale === 'ar' ? 'لغة الواجهة' : 'Interface language'}</div>
+            <div className="border-t border-[var(--duo-line)] pt-3">
+              <div className="px-2 text-[10px] font-bold text-[var(--duo-muted)]">{locale === 'ar' ? 'لغة الواجهة' : 'Interface language'}</div>
               <div className="mt-1 grid max-h-64 grid-cols-2 gap-1 overflow-auto">
                 {LOCALES.map((item) => (
                   <button key={item.code} type="button" role="option" aria-selected={item.code === locale} onClick={() => selectLocale(item.code)}
-                    className={`flex items-center justify-between gap-2 rounded-xl px-3 py-2 text-xs font-bold transition ${locale === item.code ? 'bg-[var(--juba-app-green-soft)] text-[var(--juba-app-ink)]' : 'text-[var(--juba-app-muted)] hover:bg-[var(--juba-app-green-soft)] hover:text-[var(--juba-app-ink)]'}`}>
+                    className={`flex items-center justify-between gap-2 rounded-xl px-3 py-2 text-xs font-bold transition ${locale === item.code ? 'bg-[rgba(88,204,2,.10)] text-[var(--duo-ink)]' : 'text-[var(--duo-muted)] hover:bg-[rgba(88,204,2,.10)] hover:text-[var(--duo-ink)]'}`}>
                     <span className="flex min-w-0 items-center gap-2"><span className="text-base leading-none" aria-hidden="true">{countryFlag(item.country.toUpperCase())}</span><span className="truncate">{item.native}</span></span>
-                    {item.code === locale && <Check className="h-3.5 w-3.5 text-[var(--juba-app-green)]" aria-hidden="true" />}
+                    {item.code === locale && <Check className="h-3.5 w-3.5 text-[var(--duo-green)]" aria-hidden="true" />}
                   </button>
                 ))}
               </div>
             </div>
-            <p className="mt-3 px-2 text-[10px] leading-4 text-[var(--juba-app-muted)]">{locale === 'ar' ? 'يتم تقدير المنطقة من المنطقة الزمنية للمتصفح، وتُستخدم DZ كقيمة افتراضية.' : 'Region is estimated from your browser time zone; DZ is the default.'}</p>
+            <p className="mt-3 px-2 text-[10px] leading-4 text-[var(--duo-muted)]">{locale === 'ar' ? 'يتم تقدير المنطقة من المنطقة الزمنية للمتصفح، وتُستخدم DZ كقيمة افتراضية.' : 'Region is estimated from your browser time zone; DZ is the default.'}</p>
           </div>
         )}
       </div>
