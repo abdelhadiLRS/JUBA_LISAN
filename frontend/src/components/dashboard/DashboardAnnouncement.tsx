@@ -112,23 +112,23 @@ export function DashboardAnnouncement() {
         <section
           role="status"
           dir={isArabic ? 'rtl' : 'ltr'}
-          className={`relative mb-6 rounded-[26px] border p-4 pr-12 shadow-[0_12px_30px_rgba(43,45,90,.055)] ${
+          className={`relative mb-6 rounded-[26px] border p-4 pe-12 shadow-[0_12px_30px_var(--duo-line)] ${
             syncNotice.status === 'synced'
-              ? 'border-[rgba(7,7,9,.08)] bg-[#ededff]'
-              : 'border-[rgba(7,7,9,.08)] bg-white'
+              ? 'border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-purple)_12%,transparent)]'
+              : 'border-[var(--duo-line)] bg-[var(--duo-card)]'
           }`}
         >
           <div className="flex items-start gap-3">
             <CheckCircle2
               className={`mt-0.5 size-5 shrink-0 ${
                 syncNotice.status === 'synced'
-                  ? 'text-[#5862e2]'
-                  : 'text-[rgba(32,33,39,.52)]'
+                  ? 'text-[var(--duo-purple)]'
+                  : 'text-[var(--duo-muted)]'
               }`}
               aria-hidden="true"
             />
             <div className="min-w-0">
-              <p className="text-[#202127] text-sm font-semibold">
+              <p className="text-[var(--duo-ink)] text-sm font-semibold">
                 {syncNotice.status === 'synced'
                   ? isArabic
                     ? `تمت مزامنة ${syncNotice.count} ${syncNotice.count === 1 ? 'كلمة' : 'كلمات'} محفوظة من وضع الزائر.`
@@ -137,7 +137,7 @@ export function DashboardAnnouncement() {
                     ? 'احتفظنا بالكلمات المحفوظة على هذا الجهاز. يمكنك مزامنتها لاحقًا.'
                     : 'Your saved words are still on this device and can be synced later.'}
               </p>
-              <p className="text-[rgba(32,33,39,.52)] mt-1 text-xs leading-relaxed">
+              <p className="text-[var(--duo-muted)] mt-1 text-xs leading-relaxed">
                 {syncNotice.status === 'synced'
                   ? isArabic
                     ? 'أصبحت الآن جزءًا من مفردات حسابك.'
@@ -151,7 +151,7 @@ export function DashboardAnnouncement() {
                   type="button"
                   onClick={retryGuestSync}
                   disabled={syncing}
-                  className="mt-3 inline-flex items-center gap-2 rounded-full border border-[rgba(7,7,9,.08)] bg-white px-3 py-1.5 text-xs font-semibold text-[#202127] transition-colors hover:bg-[#f4f4f2] disabled:cursor-wait disabled:opacity-50"
+                  className="mt-3 inline-flex items-center gap-2 rounded-full border border-[var(--duo-line)] bg-[var(--duo-card)] px-3 py-1.5 text-xs font-semibold text-[var(--duo-ink)] transition-colors hover:bg-[var(--duo-bg)] disabled:cursor-wait disabled:opacity-50"
                 >
                   <RefreshCw className={`size-3.5 ${syncing ? 'animate-spin' : ''}`} aria-hidden="true" />
                   {isArabic ? 'إعادة المزامنة' : 'Retry sync'}
@@ -163,7 +163,7 @@ export function DashboardAnnouncement() {
             type="button"
             onClick={dismissSyncNotice}
             aria-label={isArabic ? 'إغلاق' : 'Dismiss'}
-            className="text-[rgba(32,33,39,.52)] hover:text-[#202127] absolute top-3 right-3 inline-flex size-8 items-center justify-center transition-colors"
+            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] absolute top-3 end-3 inline-flex size-8 items-center justify-center transition-colors"
           >
             <X className="size-4" aria-hidden="true" />
           </button>
@@ -173,28 +173,28 @@ export function DashboardAnnouncement() {
       {showAnnouncement && translation && (
         <section
           aria-labelledby="dashboard-announcement-title"
-          className="relative mb-6 rounded-[26px] border border-[rgba(7,7,9,.08)] bg-[#ededff] p-5 pr-14 shadow-[0_12px_30px_rgba(43,45,90,.055)]"
+          className="relative mb-6 rounded-[26px] border border-[var(--duo-line)] bg-[color-mix(in_srgb,var(--duo-purple)_12%,transparent)] p-5 pr-14 shadow-[0_12px_30px_var(--duo-line)]"
         >
           <div className="flex gap-3">
             <Megaphone
-              className="text-[#373fb8] mt-0.5 size-5 shrink-0"
+              className="text-[var(--duo-purple)] mt-0.5 size-5 shrink-0"
               aria-hidden="true"
             />
             <div className="min-w-0">
               <h2
                 id="dashboard-announcement-title"
-                className="text-[#202127] text-lg font-extrabold leading-tight whitespace-pre-wrap"
+                className="text-[var(--duo-ink)] text-lg font-extrabold leading-tight whitespace-pre-wrap"
               >
                 {translation.title}
               </h2>
-              <p className="text-[#373fb8] mt-1 text-xs font-extrabold tracking-[.12em] uppercase whitespace-pre-wrap">
+              <p className="text-[var(--duo-purple)] mt-1 text-xs font-extrabold tracking-[.12em] uppercase whitespace-pre-wrap">
                 {translation.subtitle}
               </p>
-              <p className="text-[rgba(32,33,39,.52)] mt-3 text-sm leading-relaxed whitespace-pre-wrap">
+              <p className="text-[var(--duo-muted)] mt-3 text-sm leading-relaxed whitespace-pre-wrap">
                 {translation.description}
               </p>
               {error && (
-                <p role="alert" className="text-[#b33a32] mt-3 font-sans text-xs">
+                <p role="alert" className="text-[var(--duo-red)] mt-3 font-sans text-xs">
                   {t('announcementDismissError')}
                 </p>
               )}
@@ -205,7 +205,7 @@ export function DashboardAnnouncement() {
             onClick={dismiss}
             disabled={pending}
             aria-label={t('announcementDismiss')}
-            className="text-[rgba(32,33,39,.52)] hover:text-[#202127] absolute top-3 right-3 inline-flex size-9 items-center justify-center transition-colors disabled:cursor-wait disabled:opacity-40"
+            className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] absolute top-3 end-3 inline-flex size-9 items-center justify-center transition-colors disabled:cursor-wait disabled:opacity-40"
           >
             <X className="size-5" aria-hidden="true" />
           </button>
