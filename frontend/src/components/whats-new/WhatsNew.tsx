@@ -111,7 +111,7 @@ export default function WhatsNew() {
                 aria-hidden="true"
               />
               <div>
-                <p className="text-fl-label text-xs text-[var(--duo-muted)] mb-1 font-bold tracking-widest uppercase">
+                <p className="text-xs text-[var(--duo-muted)] mb-1 font-bold tracking-widest uppercase">
                   {entry.label}
                 </p>
                 <p className="text-[var(--duo-muted)] text-xs leading-relaxed">
