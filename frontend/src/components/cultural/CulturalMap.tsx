@@ -104,10 +104,10 @@ const CulturalMap: React.FC = () => {
         <div className="flex items-start gap-4">
           <span className="text-3xl">💡</span>
           <div>
-            <h4 className="font-bold text-slate-900 dark:text-white mb-2">
+            <h4 className="font-bold text-[var(--duo-ink)] mb-2">
               هل تعلم؟
             </h4>
-            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+            <p className="text-[var(--duo-muted)] text-sm leading-relaxed">
               هناك أكثر من 7000 لغة حية في العالم اليوم، لكن نصفها قد يختفي بحلول نهاية هذا القرن. 
               تعلم اللغات يساعد في الحفاظ على هذا التراث الإنساني الغني!
             </p>
