@@ -1850,3 +1850,54 @@ html[data-theme='light'] {
     white-space:normal;
   }
 }
+
+/* Online language directory — editorial link rows closer to Busuu's compact resource lists. */
+.juba-busuu-landing .juba-busuu-online-language-grid a{
+  min-height:82px;
+  padding:18px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  color:var(--busuu-ink);
+  text-decoration:none;
+  border-inline-end:1px solid var(--busuu-line);
+  border-bottom:1px solid var(--busuu-line);
+  transition:background .16s, color .16s;
+}
+.juba-busuu-landing .juba-busuu-online-language-grid a:nth-child(4n){border-inline-end:0}
+.juba-busuu-landing .juba-busuu-online-language-grid a:hover{
+  background:var(--busuu-mint);
+  color:var(--busuu-green-dark);
+}
+.juba-busuu-landing .juba-busuu-online-language-grid a span{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.juba-busuu-landing .juba-busuu-online-language-grid a strong{
+  color:var(--busuu-muted);
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.juba-busuu-landing .juba-busuu-online-language-grid a > svg{
+  width:17px;
+  height:17px;
+  flex:0 0 auto;
+  transition:transform .16s;
+}
+.juba-busuu-landing .juba-busuu-online-language-grid a:hover > svg{
+  transform:translate(2px,-2px);
+}
+@media(max-width:900px){
+  .juba-busuu-landing .juba-busuu-online-language-grid a:nth-child(4n){border-inline-end:1px solid var(--busuu-line)}
+  .juba-busuu-landing .juba-busuu-online-language-grid a:nth-child(2n){border-inline-end:0}
+}
+@media(max-width:640px){
+  .juba-busuu-landing .juba-busuu-online-language-grid a{
+    min-height:72px;
+    padding:16px;
+  }
+}
