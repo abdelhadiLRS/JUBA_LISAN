@@ -123,7 +123,7 @@ export function DailyMomentum({
               <>
                 <h3 className="text-[var(--duo-ink)] text-base font-bold leading-tight">{nextAction.title}</h3>
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="rounded-md bg-[rgba(88,204,2,.10)] px-2 py-0.5 text-xs font-medium text-[var(--duo-green-dark)]">
+                  <span className="rounded-md bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] px-2 py-0.5 text-xs font-medium text-[var(--duo-green-dark)]">
                     {tPlan(getLessonTypeLabelKey(nextAction.lesson_type))}
                   </span>
                   <span className="flex items-center gap-1 text-[var(--duo-muted)] text-xs">
@@ -211,8 +211,8 @@ export function DailyMomentum({
               </div>
               <span className={`rounded-full px-2 py-1 text-xs font-bold ${
                 goalProgress.current >= goalProgress.target 
-                  ? 'bg-[rgba(255,200,0,.14)] text-[var(--duo-yellow)]' 
-                  : 'bg-[rgba(88,204,2,.10)] text-[var(--duo-green)]'
+                  ? 'bg-[color-mix(in_srgb,var(--duo-yellow)_14%,transparent)] text-[var(--duo-yellow)]' 
+                  : 'bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-green)]'
               }`}>
                 {goalPercentage}%
               </span>
