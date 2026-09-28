@@ -763,7 +763,7 @@ html[data-theme='light'] {
    the Duolingo application palette without changing their business logic. */
 .juba-duo-shell .text-fl-label,
 .juba-duo-shell .text-fl-caption,
-.juba-duo-shell .text-fl-hint { color:#888 !important; }
+.juba-duo-shell .text-fl-hint { color:var(--duo-muted) !important; }
 
 /* ── Duolingo application content frame ────────────────────────────────────
    Shared chrome for every authenticated route. Feature-specific components
@@ -846,6 +846,13 @@ html[data-theme='light'] {
 .juba-duo-page-frame textarea {
   transition:border-color .15s ease, box-shadow .15s ease;
 }
+@media (max-width: 900px) {
+  .juba-duo-main,
+  .juba-duo-shell[dir="rtl"] .juba-duo-main {
+    margin-inline: 0;
+  }
+}
+
 .juba-duo-page-frame input:focus,
 .juba-duo-page-frame select:focus,
 .juba-duo-page-frame textarea:focus {
