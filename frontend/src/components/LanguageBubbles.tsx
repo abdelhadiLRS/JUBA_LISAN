@@ -78,6 +78,7 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
             width={80}
             height={60}
             unoptimized
+            style={{ height: 'auto' }}
           />
           <span lang={language.code} dir="auto">{language.name}</span>
         </li>
