@@ -1216,19 +1216,19 @@ html[data-theme='light'] {
 }
 
 /* Legacy hard-coded light palette → Duolingo palette. */
-.juba-duo-page-frame .text-\\[\\#30343b\\] { color:var(--duo-ink) !important; }
-.juba-duo-page-frame .text-\\[\\#68736d\\] { color:var(--duo-muted) !important; }
-.juba-duo-page-frame .text-\\[\\#58a700\\] { color:var(--duo-green) !important; }
-.juba-duo-page-frame .text-\\[\\#438600\\] { color:var(--duo-green-dark) !important; }
-.juba-duo-page-frame .text-\\[\\#8a918c\\] { color:#8a8a8a !important; }
-.juba-duo-page-frame .border-\\[\\#e1e5e2\\] { border-color:var(--duo-line) !important; }
-.juba-duo-page-frame .bg-\\[\\#f8faf7\\],
-.juba-duo-page-frame .bg-\\[\\#f4f7f2\\],
-.juba-duo-page-frame .bg-\\[\\#f1f7ed\\] { background:#f7faf5 !important; }
-.juba-duo-page-frame .bg-\\[\\#eaf5df\\] { background:#e9f8dc !important; }
-.juba-duo-page-frame .bg-\\[\\#e1e5e2\\] { background:var(--duo-line) !important; }
-.juba-duo-page-frame .bg-\\[\\#58a700\\] { background:var(--duo-green) !important; }
-.juba-duo-page-frame .bg-\\[\\#438600\\] { background:var(--duo-green-dark) !important; }
+.juba-duo-page-frame .text-\[\#30343b\] { color:var(--duo-ink) !important; }
+.juba-duo-page-frame .text-\[\#68736d\] { color:var(--duo-muted) !important; }
+.juba-duo-page-frame .text-\[\#58a700\] { color:var(--duo-green) !important; }
+.juba-duo-page-frame .text-\[\#438600\] { color:var(--duo-green-dark) !important; }
+.juba-duo-page-frame .text-\[\#8a918c\] { color:#8a8a8a !important; }
+.juba-duo-page-frame .border-\[\#e1e5e2\] { border-color:var(--duo-line) !important; }
+.juba-duo-page-frame .bg-\[\#f8faf7\],
+.juba-duo-page-frame .bg-\[\#f4f7f2\],
+.juba-duo-page-frame .bg-\[\#f1f7ed\] { background:#f7faf5 !important; }
+.juba-duo-page-frame .bg-\[\#eaf5df\] { background:#e9f8dc !important; }
+.juba-duo-page-frame .bg-\[\#e1e5e2\] { background:var(--duo-line) !important; }
+.juba-duo-page-frame .bg-\[\#58a700\] { background:var(--duo-green) !important; }
+.juba-duo-page-frame .bg-\[\#438600\] { background:var(--duo-green-dark) !important; }
 
 /* Chat uses a denser two-pane workspace. */
 .juba-duo-page-frame .juba-mobile-chat aside {
@@ -1253,7 +1253,7 @@ html[data-theme='light'] {
 .juba-duo-page-frame .juba-mobile-chat button {
   border-radius:12px;
 }
-.juba-duo-page-frame .juba-mobile-chat button.bg-\\[\\#58a700\\] {
+.juba-duo-page-frame .juba-mobile-chat button.bg-\[\#58a700\] {
   background:var(--duo-green) !important;
 }
 
