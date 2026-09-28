@@ -246,7 +246,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 href={item.href}
                 className={`juba-duo-nav-link ${active ? 'is-active' : ''}`}
               >
-                <item.icon className={`h-[18px] w-[18px] shrink-0 ${active ? 'text-[var(--duo-green)]' : 'text-[#8a8a8a]'}`} />
+                <item.icon className={`h-[18px] w-[18px] shrink-0 ${active ? 'text-[var(--duo-green)]' : 'text-[var(--duo-muted)]'}`} />
                 {item.label}
                 {showPremiumBadge && PREMIUM_HREFS.has(item.href) && (
                   <span className="text-[var(--duo-green)] ms-auto text-xs">★</span>
@@ -260,12 +260,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <button
               onClick={() => setResourcesOpen((o) => !o)}
               className="juba-duo-resource-toggle"
+              aria-expanded={resourcesOpen}
+              aria-controls="desktop-resources-menu"
             >
               <span>{tNav('resources')}</span>
               <span className="text-[var(--duo-ink)]">{resourcesOpen ? '▴' : '▾'}</span>
             </button>
             {resourcesOpen &&
-              resourceNavItems.map((item) => {
+              <div id="desktop-resources-menu">{resourceNavItems.map((item) => {
                 const active =
                   pathname === item.href || pathname.startsWith(item.href + '/')
                 return (
@@ -278,7 +280,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     {item.label}
                   </Link>
                 )
-              })}
+              })}</div>}
           </div>
 
           {/* Bottom items */}
@@ -347,14 +349,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               )}
             </div>
             <div className="min-w-0">
-              <p className="text-[var(--duo-muted)] text-[var(--duo-muted)] truncate font-sans tracking-widest uppercase">
+              <p className="text-[var(--duo-muted)] truncate font-sans tracking-widest uppercase">
                 {user?.displayName || user?.username}
               </p>
-              <p className="text-[var(--duo-ink)] text-[#8a8a8a] truncate font-sans">
+              <p className="text-[var(--duo-muted)] truncate font-sans">
                 @{user?.username?.toLowerCase()}
               </p>
               {trialDaysLeft > 0 && (
-                <p className="text-[var(--duo-ink)] text-[var(--duo-green)] truncate font-sans text-xs">
+                <p className="text-[var(--duo-green-dark)] truncate font-sans text-xs">
                   ★ {tBilling('trialDays', { days: trialDaysLeft })}
                 </p>
               )}
@@ -386,6 +388,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             onClick={() => setMobileMenuOpen((o) => !o)}
             className="juba-duo-mobile-trigger"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="juba-duo-mobile-menu"
           >
             <span className="text-base leading-none" aria-hidden="true">
               {mobileMenuOpen ? '×' : '☰'}
@@ -395,7 +399,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         {/* Dropdown */}
         {mobileMenuOpen && (
-          <nav className="juba-duo-mobile-menu">
+          <nav id="juba-duo-mobile-menu" className="juba-duo-mobile-menu">
             <div className="border-[var(--duo-line)] border-b">
               <LanguageSwitcher />
             </div>
@@ -422,7 +426,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <div>
               <button
                 onClick={() => setResourcesOpen((o) => !o)}
-                className="text-[#8a8a8a] hover:text-[var(--duo-muted)] flex w-full items-center justify-between border-s-2 border-transparent px-5 py-2 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors"
+                className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] flex w-full items-center justify-between border-s-2 border-transparent px-5 py-2 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors"
               >
                 <span>{tNav('resources')}</span>
                 <span className="text-[var(--duo-ink)]">
@@ -446,7 +450,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       }`}
                     >
                       <span
-                        className={`text-[var(--duo-ink)] ${active ? 'text-[var(--duo-ink)]' : 'text-[#8a8a8a]'}`}
+                        className={`text-[var(--duo-ink)] ${active ? 'text-[var(--duo-ink)]' : 'text-[var(--duo-muted)]'}`}
                       >
                         ·
                       </span>
