@@ -292,8 +292,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <span>{tNav('resources')}</span>
               <span className="text-[var(--duo-ink)]">{resourcesOpen ? '▴' : '▾'}</span>
             </button>
-            {resourcesOpen &&
-              <div id="desktop-resources-menu">{resourceNavItems.map((item) => {
+            <div id="desktop-resources-menu" hidden={!resourcesOpen}>
+              {resourceNavItems.map((item) => {
                 const active =
                   pathname === item.href || pathname.startsWith(item.href + '/')
                 return (
@@ -307,7 +307,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     {item.label}
                   </Link>
                 )
-              })}</div>}
+              })}
+            </div>
           </div>
 
           {/* Bottom items */}
@@ -469,8 +470,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   {resourcesOpen ? '▴' : '▾'}
                 </span>
               </button>
-              {resourcesOpen &&
-                <div id="mobile-resources-menu">{resourceNavItems.map((item) => {
+              <div id="mobile-resources-menu" hidden={!resourcesOpen}>
+                {resourceNavItems.map((item) => {
                   const active =
                     pathname === item.href ||
                     pathname.startsWith(item.href + '/')
@@ -493,7 +494,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       {item.label}
                     </Link>
                   )
-                })}</div>}
+                })}
+              </div>
             </div>
 
             {/* Bottom items (mobile) */}
