@@ -179,6 +179,26 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   ])
 
   useEffect(() => {
+    if (!mobileMenuOpen) return
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileMenuOpen(false)
+        setResourcesOpen(false)
+      }
+    }
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    document.addEventListener('keydown', handleEscape)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', handleEscape)
+    }
+  }, [mobileMenuOpen])
+
+  useEffect(() => {
     if (initializing) return
 
     async function loadFeedbackUnreadCount() {
