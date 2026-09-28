@@ -607,7 +607,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Main */}
-      <main className="juba-duo-main" id="main-content">
+      <main className="juba-duo-main" id="main-content" aria-label={tNav('navigation')}>
         {/* Email verification banner */}
         {user && user.is_verified === false && (
           <div className="border-[var(--duo-line)] bg-[var(--duo-card)] flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
@@ -628,7 +628,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             )}
           </div>
         )}
-        <div className="juba-duo-page-frame min-h-0 flex-1 overflow-y-auto overscroll-contain" tabIndex={-1}>
+        <div className="juba-duo-page-frame min-h-0 flex-1 overflow-y-auto overscroll-contain" tabIndex={-1} id="app-scroll-region">
           {children}
         </div>
       </main>
