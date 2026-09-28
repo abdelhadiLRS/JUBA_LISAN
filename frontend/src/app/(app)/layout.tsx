@@ -265,6 +265,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 key={item.href}
                 href={item.href}
                 className={`juba-duo-nav-link ${active ? 'is-active' : ''}`}
+                aria-current={active ? 'page' : undefined}
               >
                 <item.icon className={`h-[18px] w-[18px] shrink-0 ${active ? 'text-[var(--duo-green)]' : 'text-[var(--duo-muted)]'}`} />
                 {item.label}
@@ -295,6 +296,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     key={item.href}
                     href={item.href}
                     className={`juba-duo-nav-link juba-duo-nav-link-sub ${active ? 'is-active' : ''}`}
+                    aria-current={active ? 'page' : undefined}
                   >
                     <item.icon className="h-[17px] w-[17px] shrink-0" />
                     {item.label}
@@ -313,6 +315,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   className={`juba-duo-nav-link ${active ? 'is-active' : ''}`}
+                  aria-current={active ? 'page' : undefined}
                 >
                   <item.icon className="h-[17px] w-[17px] shrink-0" />
                   {item.label}
@@ -330,6 +333,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <Link
               href="/admin"
               className={`juba-duo-nav-link ${pathname.startsWith('/admin') ? 'is-active' : ''}`}
+              aria-current={pathname.startsWith('/admin') ? 'page' : undefined}
             >
               <Settings className="h-[17px] w-[17px] shrink-0" />
               {tNav('admin')}
@@ -432,6 +436,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`juba-duo-nav-link ${active ? 'is-active' : ''}`}
+                  aria-current={active ? 'page' : undefined}
                 >
                   <item.icon className="h-[17px] w-[17px] shrink-0" />
                   {item.label}
