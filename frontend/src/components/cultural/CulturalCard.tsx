@@ -44,16 +44,16 @@ const CulturalCard: React.FC<CulturalCardProps> = ({
           <div className="flex items-start gap-2">
             <span className="text-[var(--duo-yellow)]">💬</span>
             <div>
-              <p className="text-xs text-slate-500 dark:text-slate-400">التحية الشائعة</p>
-              <p className="text-slate-900 dark:text-white font-medium">{greeting}</p>
+              <p className="text-xs text-[var(--duo-muted)]">التحية الشائعة</p>
+              <p className="text-[var(--duo-ink)] font-medium">{greeting}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-2">
-            <span className="text-amber-600 dark:text-amber-500">🎭</span>
+            <span className="text-[var(--duo-yellow)]">🎭</span>
             <div>
-              <p className="text-xs text-slate-500 dark:text-slate-400">تقليد ثقافي</p>
-              <p className="text-slate-900 dark:text-white">{tradition}</p>
+              <p className="text-xs text-[var(--duo-muted)]">تقليد ثقافي</p>
+              <p className="text-[var(--duo-ink)]">{tradition}</p>
             </div>
           </div>
 
@@ -64,17 +64,17 @@ const CulturalCard: React.FC<CulturalCardProps> = ({
               exit={{ opacity: 0, height: 0 }}
               className="flex items-start gap-2"
             >
-              <span className="text-amber-600 dark:text-amber-500">💡</span>
+              <span className="text-[var(--duo-yellow)]">💡</span>
               <div>
-                <p className="text-xs text-slate-500 dark:text-slate-400">هل تعلم؟</p>
-                <p className="text-slate-900 dark:text-white">{funFact}</p>
+                <p className="text-xs text-[var(--duo-muted)]">هل تعلم؟</p>
+                <p className="text-[var(--duo-ink)]">{funFact}</p>
               </div>
             </motion.div>
           )}
         </div>
 
         <div className="mt-4 pt-4 border-t border-[var(--duo-line)]">
-          <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
+          <p className="text-xs text-[var(--duo-muted)] text-center">
             انقر للمزيد من المعلومات
           </p>
         </div>
