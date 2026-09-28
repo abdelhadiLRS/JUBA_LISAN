@@ -2340,3 +2340,152 @@ html[data-theme='light'] {
     border-radius:0;
   }
 }
+
+
+/* Busuu-detail pass: tighter editorial proportions and controls for the public landing. */
+.juba-busuu-landing .juba-busuu-container{
+  width:min(1240px,calc(100% - 48px));
+}
+.juba-busuu-landing .juba-busuu-heading{
+  margin-bottom:42px;
+}
+.juba-busuu-landing .juba-busuu-eyebrow{
+  letter-spacing:.11em;
+}
+.juba-busuu-landing .juba-busuu-primary{
+  min-height:48px;
+  padding:12px 20px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:850;
+}
+.juba-busuu-landing .juba-busuu-hero-copy{
+  padding-inline-start:4px;
+}
+.juba-busuu-landing .juba-busuu-hero h1{
+  font-size:clamp(3.2rem,6.1vw,5.9rem);
+  line-height:.91;
+}
+.juba-busuu-landing .juba-busuu-hero-visual::before{
+  width:min(600px,88%);
+}
+.juba-busuu-landing .juba-busuu-hero-proof{
+  max-width:570px;
+}
+.juba-busuu-landing .juba-busuu-language-prompt{
+  min-height:82px;
+}
+.juba-busuu-landing .juba-busuu-language-prompt span{
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.juba-busuu-landing .juba-busuu-language-list{
+  padding-bottom:0;
+}
+.juba-busuu-landing .juba-busuu-language-item img{
+  width:58px;
+  height:58px;
+  border:2px solid #fff;
+  box-shadow:0 0 0 1px var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-stats-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.juba-busuu-landing .juba-busuu-stats-grid article{
+  min-height:154px;
+  padding:28px 24px;
+  border-inline-end:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-stats-grid article:last-child{
+  border-inline-end:0;
+}
+.juba-busuu-landing .juba-busuu-stats-grid strong{
+  font-size:clamp(2rem,4vw,3.4rem);
+  letter-spacing:-.055em;
+}
+.juba-busuu-landing .juba-busuu-stats-grid span{
+  max-width:20ch;
+  line-height:1.5;
+}
+.juba-busuu-landing .juba-busuu-practical-copy h2,
+.juba-busuu-landing .juba-busuu-heading h2{
+  text-wrap:balance;
+}
+.juba-busuu-landing .juba-busuu-feature-grid{
+  border-top:1px solid var(--busuu-line);
+  border-inline-start:1px solid var(--busuu-line);
+  gap:0;
+}
+.juba-busuu-landing .juba-busuu-feature{
+  border-top:0;
+  border-inline-start:0;
+  border-inline-end:1px solid var(--busuu-line);
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-feature:last-child{
+  border-inline-end:0;
+}
+.juba-busuu-landing .juba-busuu-feature img{
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-testimonial-grid{
+  scrollbar-width:none;
+}
+.juba-busuu-landing .juba-busuu-testimonial-grid::-webkit-scrollbar{
+  display:none;
+}
+.juba-busuu-landing .juba-busuu-testimonial{
+  box-shadow:none;
+}
+.juba-busuu-landing .juba-busuu-benefit-list{
+  background:#fff;
+}
+.juba-busuu-landing .juba-busuu-app-cta-inner{
+  min-height:500px;
+}
+.juba-busuu-landing .juba-busuu-online-languages .juba-busuu-heading-split{
+  align-items:end;
+}
+.juba-busuu-landing .juba-busuu-footer{
+  background:#171a19;
+}
+@media(max-width:1000px){
+  .juba-busuu-landing .juba-busuu-container{
+    width:min(100% - 36px,1240px);
+  }
+  .juba-busuu-landing .juba-busuu-stats-grid article{
+    min-height:136px;
+  }
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-container{
+    width:calc(100% - 28px);
+  }
+  .juba-busuu-landing .juba-busuu-hero h1{
+    font-size:clamp(2.8rem,13vw,4.2rem);
+    line-height:.94;
+  }
+  .juba-busuu-landing .juba-busuu-stats-grid{
+    grid-template-columns:1fr;
+  }
+  .juba-busuu-landing .juba-busuu-stats-grid article{
+    border-inline-end:0;
+    border-bottom:1px solid var(--busuu-line);
+  }
+  .juba-busuu-landing .juba-busuu-stats-grid article:last-child{
+    border-bottom:0;
+  }
+  .juba-busuu-landing .juba-busuu-feature-grid{
+    border-inline-start:0;
+  }
+  .juba-busuu-landing .juba-busuu-feature{
+    border-inline-end:1px solid var(--busuu-line);
+  }
+}
+@media(max-width:420px){
+  .juba-busuu-landing .juba-busuu-container{
+    width:calc(100% - 24px);
+  }
+}
