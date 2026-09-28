@@ -1791,7 +1791,9 @@ html[data-theme='light'] {
 
 
 
-.juba-busuu-landing .juba-busuu-footer-language-list a:hover,
+.juba-busuu-landing .juba-busuu-footer-language-list a:hover{
+  color:var(--busuu-green);
+}
 
 @media(max-width:700px){
   .juba-busuu-landing .juba-busuu-final-cta{padding-top:18px}
