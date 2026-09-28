@@ -247,7 +247,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="juba-duo-shell" dir={dir}>
       {/* Sidebar */}
-      <header className="juba-duo-sidebar">
+      <aside className="juba-duo-sidebar" aria-label={tNav('navigation')}>
         {/* Logo area */}
         <div className="border-[var(--duo-line)] flex items-center gap-2 border-b px-5 py-5">
           <span className="juba-duo-logo-mark" aria-hidden="true">JL</span>
@@ -407,7 +407,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             {tCommon('logout')}
           </button>
         </div>
-      </header>
+      </aside>
 
       {/* Mobile top bar */}
       <div className="juba-duo-mobile-bar border-[var(--duo-line)] bg-[var(--duo-bg)] fixed inset-x-0 top-0 z-50 border-b">
@@ -607,7 +607,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Main */}
-      <main className="juba-duo-main">
+      <main className="juba-duo-main" id="main-content">
         {/* Email verification banner */}
         {user && user.is_verified === false && (
           <div className="border-[var(--duo-line)] bg-[var(--duo-card)] flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-2">
@@ -628,7 +628,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             )}
           </div>
         )}
-        <div className="juba-duo-page-frame min-h-0 flex-1 overflow-y-auto overscroll-contain" id="main-content" tabIndex={-1}>
+        <div className="juba-duo-page-frame min-h-0 flex-1 overflow-y-auto overscroll-contain" tabIndex={-1}>
           {children}
         </div>
       </main>
