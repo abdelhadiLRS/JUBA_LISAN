@@ -545,7 +545,7 @@ export default function ChatPage() {
               ))
             )}
             {error && (
-              <div className="text-[var(--duo-ink)] text-rose-600 rounded-xl border-2 border-rose-300 bg-rose-50 px-4 py-2 font-sans">
+              <div className="text-[var(--duo-ink)] text-[var(--duo-red)] rounded-xl border-2 border-[color-mix(in_srgb,var(--duo-red)_30%,transparent)] bg-[rgba(255,75,75,.08)] px-4 py-2 font-sans">
                 ✕{' '}
                 {error === 'No active study plan found'
                   ? tCommon('noActivePlan')
@@ -572,7 +572,7 @@ export default function ChatPage() {
                     }
                     disabled={sending || loadingMsgs}
                     placeholder={t('placeholder')}
-                    className="flex-1 rounded-xl border-2 border-[var(--duo-line)] bg-white px-4 py-3 font-sans text-base text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all placeholder:text-[#8a918c] focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/15 disabled:opacity-40"
+                    className="flex-1 rounded-xl border-2 border-[var(--duo-line)] bg-white px-4 py-3 font-sans text-base text-[var(--duo-ink)] shadow-[2px_2px_0_var(--duo-line)] transition-all placeholder:text-[var(--duo-muted)] focus:border-[var(--duo-green)] focus:outline-none focus:ring-2 focus:ring-[var(--duo-green)]/15 disabled:opacity-40"
                   />
                   <button
                     onClick={sendMessage}
@@ -582,7 +582,7 @@ export default function ChatPage() {
                     {sending ? '...' : t('send')}
                   </button>
                 </div>
-                <p className="text-[var(--duo-muted)] text-[#8a918c] mt-2 font-sans tracking-wide">
+                <p className="text-[var(--duo-muted)] text-[var(--duo-muted)] mt-2 font-sans tracking-wide">
                   {t('enterToSend')}
                 </p>
               </>
