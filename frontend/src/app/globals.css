@@ -1611,3 +1611,247 @@ html[data-theme='light'] {
     padding-inline:12px;
   }
 }
+
+
+/* ── JUBA EDU game surfaces inside the Duolingo application system ───────── */
+.juba-duo-page-frame .juba-games .games-shell {
+  width:min(100%, 1080px);
+  margin:0 auto;
+  padding:28px 24px 48px;
+}
+.juba-duo-page-frame .juba-games .games-header {
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:20px;
+}
+.juba-duo-page-frame .juba-games .games-brand {
+  color:var(--duo-green-dark);
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.juba-duo-page-frame .juba-games .games-header h1 {
+  margin:.35rem 0 0;
+  color:var(--duo-ink);
+  font-size:clamp(1.5rem,3vw,2.15rem);
+  font-weight:900;
+  line-height:1.15;
+}
+.juba-duo-page-frame .juba-games .language-control {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  color:var(--duo-muted);
+  font-size:.8rem;
+  font-weight:800;
+}
+.juba-duo-page-frame .juba-games .language-control button {
+  min-width:42px;
+  min-height:38px;
+  padding:0 10px;
+  border:2px solid var(--duo-line);
+  border-radius:12px;
+  background:#fff;
+  color:var(--duo-ink);
+  font-weight:900;
+}
+.juba-duo-page-frame .juba-games .language-control button.active {
+  border-color:var(--duo-green-dark);
+  background:var(--duo-green);
+  color:#fff;
+  box-shadow:0 3px 0 var(--duo-green-dark);
+}
+.juba-duo-page-frame .juba-games .stats-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:16px;
+}
+.juba-duo-page-frame .juba-games .stats-grid > div,
+.juba-duo-page-frame .juba-games .games-panel,
+.juba-duo-page-frame .juba-games .play-card {
+  border:2px solid var(--duo-line);
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 3px 0 rgba(0,0,0,.035);
+}
+.juba-duo-page-frame .juba-games .stats-grid > div {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:14px 16px;
+}
+.juba-duo-page-frame .juba-games .stats-grid strong {
+  color:var(--duo-ink);
+  font-size:1.2rem;
+  font-weight:900;
+}
+.juba-duo-page-frame .juba-games .stats-grid small {
+  color:var(--duo-muted);
+  font-weight:700;
+}
+.juba-duo-page-frame .juba-games .daily-challenge,
+.juba-duo-page-frame .juba-games .game-card {
+  border:2px solid var(--duo-line);
+  border-radius:16px;
+  background:#fff;
+  color:var(--duo-ink);
+  box-shadow:0 3px 0 rgba(0,0,0,.035);
+  transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease;
+}
+.juba-duo-page-frame .juba-games .daily-challenge:hover,
+.juba-duo-page-frame .juba-games .game-card:hover {
+  transform:translateY(-2px);
+  border-color:var(--duo-green);
+  box-shadow:0 5px 0 rgba(88,204,2,.18);
+}
+.juba-duo-page-frame .juba-games .daily-challenge.completed {
+  opacity:.72;
+}
+.juba-duo-page-frame .juba-games .game-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+.juba-duo-page-frame .juba-games .game-card {
+  min-height:190px;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  text-align:start;
+}
+.juba-duo-page-frame .juba-games .game-icon {
+  display:grid;
+  place-items:center;
+  width:52px;
+  height:52px;
+  margin-bottom:14px;
+  border-radius:14px;
+  background:rgba(88,204,2,.12);
+  font-size:1.55rem;
+}
+.juba-duo-page-frame .juba-games .game-title {
+  font-weight:900;
+  font-size:1.05rem;
+}
+.juba-duo-page-frame .juba-games .game-desc {
+  margin-top:7px;
+  color:var(--duo-muted);
+  font-size:.86rem;
+  line-height:1.5;
+}
+.juba-duo-page-frame .juba-games .start {
+  margin-top:auto;
+  padding-top:14px;
+  color:var(--duo-green-dark);
+  font-weight:900;
+}
+.juba-duo-page-frame .juba-games .games-dashboard {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:16px;
+}
+.juba-duo-page-frame .juba-games .games-panel {
+  padding:18px;
+}
+.juba-duo-page-frame .juba-games .games-panel h3 {
+  margin:0 0 12px;
+  color:var(--duo-ink);
+  font-size:1rem;
+  font-weight:900;
+}
+.juba-duo-page-frame .juba-games .mini-stats {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+.juba-duo-page-frame .juba-games .mini-stats span,
+.juba-duo-page-frame .juba-games .badge {
+  color:var(--duo-muted);
+  font-size:.8rem;
+  font-weight:700;
+}
+.juba-duo-page-frame .juba-games .mini-stats b {
+  display:block;
+  color:var(--duo-ink);
+  font-size:1.05rem;
+  font-weight:900;
+}
+.juba-duo-page-frame .juba-games .badge {
+  display:inline-flex;
+  margin:0 6px 6px 0;
+  padding:8px 10px;
+  border:2px solid var(--duo-line);
+  border-radius:10px;
+  background:#fff;
+}
+.juba-duo-page-frame .juba-games .badge.unlocked {
+  border-color:rgba(88,204,2,.35);
+  background:rgba(88,204,2,.08);
+  color:var(--duo-green-dark);
+}
+.juba-duo-page-frame .juba-games .games-skill-summary {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px 12px;
+  margin-top:16px;
+  color:var(--duo-muted);
+  font-size:.82rem;
+}
+.juba-duo-page-frame .juba-games .games-skill-summary strong {
+  color:var(--duo-ink);
+}
+.juba-duo-page-frame .juba-games .play-card {
+  max-width:760px;
+  margin:20px auto 0;
+  padding:24px;
+}
+.juba-duo-page-frame .juba-games .choice,
+.juba-duo-page-frame .juba-games .next,
+.juba-duo-page-frame .juba-games .audio-play,
+.juba-duo-page-frame .juba-games .back,
+.juba-duo-page-frame .juba-games .spelling-form button {
+  min-height:44px;
+  border:2px solid var(--duo-line);
+  border-radius:12px;
+  background:#fff;
+  color:var(--duo-ink);
+  font-weight:900;
+}
+.juba-duo-page-frame .juba-games .choice:hover,
+.juba-duo-page-frame .juba-games .choice.selected {
+  border-color:var(--duo-green);
+  background:rgba(88,204,2,.08);
+}
+.juba-duo-page-frame .juba-games .next {
+  border-color:var(--duo-green-dark);
+  background:var(--duo-green);
+  color:#fff;
+  box-shadow:0 3px 0 var(--duo-green-dark);
+}
+.juba-duo-page-frame .juba-games input {
+  min-height:44px;
+  border:2px solid var(--duo-line);
+  border-radius:12px;
+  background:#fff;
+  color:var(--duo-ink);
+}
+.juba-duo-page-frame .juba-games input:focus {
+  border-color:var(--duo-blue);
+  outline:none;
+  box-shadow:0 0 0 3px rgba(28,176,246,.14);
+}
+@media (max-width:760px) {
+  .juba-duo-page-frame .juba-games .games-shell { padding:20px 14px 36px; }
+  .juba-duo-page-frame .juba-games .games-header { align-items:stretch; flex-direction:column; }
+  .juba-duo-page-frame .juba-games .stats-grid,
+  .juba-duo-page-frame .juba-games .game-grid,
+  .juba-duo-page-frame .juba-games .games-dashboard { grid-template-columns:1fr; }
+  .juba-duo-page-frame .juba-games .mini-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
