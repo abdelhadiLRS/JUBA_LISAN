@@ -24,34 +24,34 @@ interface Props {
 
 function StatusBadge({ status, index }: { status: UnitStatus; index: number }): ReactNode {
   const palettes = [
-    { bg: 'var(--juba-app-green-soft)', fg: 'var(--juba-app-green-dark)' },
-    { bg: 'var(--juba-app-green-soft)', fg: 'var(--juba-app-green-dark)' },
-    { bg: 'var(--juba-app-yellow)', fg: 'var(--juba-app-green-dark)' },
-    { bg: 'var(--juba-app-green-soft)', fg: 'var(--juba-app-green-dark)' },
-    { bg: '#ffd9d1', fg: 'var(--juba-app-green-dark)' },
+    { bg: 'rgba(88,204,2,.10)', fg: 'var(--duo-green-dark)' },
+    { bg: 'rgba(88,204,2,.10)', fg: 'var(--duo-green-dark)' },
+    { bg: 'var(--duo-yellow)', fg: 'var(--duo-green-dark)' },
+    { bg: 'rgba(88,204,2,.10)', fg: 'var(--duo-green-dark)' },
+    { bg: 'rgba(255,75,75,.12)', fg: 'var(--duo-green-dark)' },
   ]
   const palette = palettes[index % palettes.length]
 
   if (status.isLevelTest) {
-    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[var(--juba-app-green-soft)] text-[var(--juba-app-green-dark)] shadow-[0_5px_0_var(--juba-app-ink)]"><Ribbon className="h-7 w-7" /></span>
+    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[rgba(88,204,2,.10)] text-[var(--duo-green-dark)] shadow-[0_5px_0_var(--duo-ink)]"><Ribbon className="h-7 w-7" /></span>
   }
   if (status.completed) {
-    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[var(--juba-app-green)] text-white shadow-[0_6px_0_var(--juba-app-green-dark)]"><Check className="h-7 w-7" strokeWidth={3} /></span>
+    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[var(--duo-green)] text-white shadow-[0_6px_0_var(--duo-green-dark)]"><Check className="h-7 w-7" strokeWidth={3} /></span>
   }
   if (status.active) {
-    return <span className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl text-[var(--juba-app-green-dark)] shadow-[0_5px_0_rgba(24,37,27,.12)]" style={{ background: palette.bg }}><span className="absolute -end-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white text-[var(--juba-app-green)] shadow-sm"><Sparkles className="h-3.5 w-3.5" /></span><Play className="h-7 w-7 fill-current" /></span>
+    return <span className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl text-[var(--duo-green-dark)] shadow-[0_5px_0_rgba(24,37,27,.12)]" style={{ background: palette.bg }}><span className="absolute -end-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white text-[var(--duo-green)] shadow-sm"><Sparkles className="h-3.5 w-3.5" /></span><Play className="h-7 w-7 fill-current" /></span>
   }
   if (status.locked) {
-    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#eef2eb] text-[#8b978f]"><Lock className="h-5 w-5" /></span>
+    return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[var(--duo-bg)] text-[var(--duo-muted)]"><Lock className="h-5 w-5" /></span>
   }
-  return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl text-[var(--juba-app-green-dark)]" style={{ background: palette.bg }}><Circle className="h-6 w-6" /></span>
+  return <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl text-[var(--duo-green-dark)]" style={{ background: palette.bg }}><Circle className="h-6 w-6" /></span>
 }
 
 export default function UnitCard({ title, index, lessonCount, grammarCount, competency, status, onClick, onStartLesson }: Props) {
   const t = useTranslations('plan')
   const tCommon = useTranslations('common')
   const barWidth = Math.round(competency * 100)
-  const barColor = status.completed ? 'var(--juba-app-green)' : status.active ? 'var(--juba-app-yellow)' : 'var(--juba-app-green-soft)'
+  const barColor = status.completed ? 'var(--duo-green)' : status.active ? 'var(--duo-yellow)' : 'rgba(88,204,2,.10)'
 
   return (
     <div className={`juba-ff-unit-card group ${status.locked ? 'juba-ff-unit-locked' : status.active ? 'juba-ff-unit-active' : ''}`}>
@@ -72,7 +72,7 @@ export default function UnitCard({ title, index, lessonCount, grammarCount, comp
             <div className="juba-ff-unit-meta mt-1.5 flex flex-wrap items-center gap-2 text-xs font-semibold">
               <span>{t('nLessons', { count: lessonCount })}</span>
               {grammarCount > 0 && <><span aria-hidden="true">•</span><span>{t('nGrammar', { count: grammarCount })}</span></>}
-              {status.isLevelTest && <span className="rounded-full bg-[var(--juba-app-green-soft)] px-2 py-0.5 text-[10px] font-black text-[var(--juba-app-green-dark)]">{t('levelTestLabel')}</span>}
+              {status.isLevelTest && <span className="rounded-full bg-[rgba(88,204,2,.10)] px-2 py-0.5 text-[10px] font-black text-[var(--duo-green-dark)]">{t('levelTestLabel')}</span>}
             </div>
           </div>
           {!status.locked && <div className="juba-ff-unit-percent hidden shrink-0 rounded-full px-3 py-1.5 text-xs font-black sm:block">{barWidth}%</div>}
