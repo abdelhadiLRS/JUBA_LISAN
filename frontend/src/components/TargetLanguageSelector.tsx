@@ -48,8 +48,8 @@ export default function TargetLanguageSelector({
             aria-pressed={selected}
             className={`group relative flex min-h-16 items-center gap-3 rounded-[16px] border px-3 py-3 text-left text-sm font-extrabold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-blue)] focus-visible:ring-offset-2 ${
               selected
-                ? 'border-[var(--duo-green)] bg-[rgba(88,204,2,.10)] text-[var(--duo-ink)] shadow-[0_3px_0_var(--duo-green-dark)] -translate-y-0.5'
-                : 'border-[var(--duo-line)] bg-white text-[var(--duo-ink)] hover:-translate-y-0.5 hover:border-[var(--duo-green)] hover:bg-[rgba(88,204,2,.08)]'
+                ? 'border-[var(--duo-green)] bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-ink)] shadow-[0_3px_0_var(--duo-green-dark)] -translate-y-0.5'
+                : 'border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] hover:-translate-y-0.5 hover:border-[var(--duo-green)] hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'
             }`}
           >
             <Image src={lang.flagPath} alt="" aria-hidden="true" width={34} height={24} unoptimized className="h-6 w-[34px] shrink-0 rounded-md border border-[var(--duo-line)] object-cover shadow-sm" />
