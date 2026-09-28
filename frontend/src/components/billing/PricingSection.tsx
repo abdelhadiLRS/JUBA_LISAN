@@ -162,18 +162,7 @@ export default function PricingSection({
   ]
 
   return (
-    <section aria-label={tBilling('pricingTitle')} className="juba-ff-pricing mx-auto block w-full max-w-6xl px-4 pb-24 sm:px-6">
-      <div className="mb-10 text-center">
-        <h2 className="juba-ff-pricing-title mb-2 font-sans text-3xl font-black tracking-tight">
-          {tBilling('pricingTitle')}
-        </h2>
-        <p className="juba-ff-pricing-subtitle font-sans text-sm">
-          {tBilling(trialUsed ? 'pricingDescTrialUsed' : 'pricingDesc', {
-            days: trialDays,
-          })}
-        </p>
-      </div>
-
+    <section aria-label={tBilling('pricingTitle')} className="juba-ff-pricing w-full">
       {/* Plan cards */}
       <div className="mb-12 grid grid-cols-1 gap-4 md:grid-cols-3">
         {plans.map((plan) => {
