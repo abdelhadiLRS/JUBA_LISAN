@@ -387,7 +387,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <p className="juba-duo-version">
-            v1.9.15
+            v1.9.16
           </p>
           <button
             onClick={() => setContactOpen(true)}
