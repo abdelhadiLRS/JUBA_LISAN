@@ -1,390 +1,304 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { cookies } from 'next/headers'
-import { getLocale, getTranslations } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
-import type { Locale } from '@/lib/locales'
-import { ArrowRight, ArrowUpRight, BookOpen, Headphones, Languages, MessageCircle } from 'lucide-react'
+import {
+  BookOpen,
+  MessageSquare,
+  Mic,
+  Headphones,
+  Layers,
+  TrendingUp,
+} from 'lucide-react'
 import PricingSection from '@/components/billing/PricingSection'
 import { LandingFAQ } from '@/components/ui/landing-faq'
 import { LandingNav } from '@/components/ui/landing-nav'
+import { ScrollReveal } from '@/components/ui/scroll-reveal'
+import { ContactButton } from '@/components/ui/contact-button'
 import { LanguageBubbles } from '@/components/LanguageBubbles'
-import { LandingFooter } from '@/components/landing/LandingFooter'
+import { LandingReviewsCarousel } from '@/components/reviews/LandingReviewsCarousel'
 import type { ReviewPublic } from '@/types/api'
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('landing')
-  const title = `JUBA LISAN: ${t('heroTitle')}`
-  const description = t('heroSub')
-
-  return {
-    title,
-    description,
-    robots: { index: true, follow: true },
-    openGraph: {
-      title,
-      description,
-      url: 'https://jubalisan.com',
-      type: 'website',
-      images: [{ url: '/og-image-v2.png', width: 1200, height: 630, alt: 'JUBA LISAN' }],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: ['/og-image-v2.png'],
-    },
-  }
+export const metadata: Metadata = {
+  title: 'FreeLingo: AI-powered language learning',
+  description:
+    'Learn languages with an AI tutor, real-time voice conversations, spaced-repetition flashcards, and structured grammar lessons. Self-hosted and privacy-friendly.',
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: 'FreeLingo: AI-powered language learning',
+    description:
+      'Learn languages with an AI tutor, real-time voice conversations, spaced-repetition flashcards, and structured grammar lessons.',
+    url: 'https://freelingo.app',
+    type: 'website',
+    images: [
+      {
+        url: '/og-image-v2.png',
+        width: 1200,
+        height: 630,
+        alt: 'FreeLingo: AI-powered language learning',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'FreeLingo: AI-powered language learning',
+    description:
+      'Learn languages with an AI tutor, real-time voice conversations, spaced-repetition flashcards, and structured grammar lessons.',
+    images: ['/og-image-v2.png'],
+  },
 }
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'JUBA LISAN',
+  name: 'FreeLingo',
   applicationCategory: 'EducationApplication',
   operatingSystem: 'Web',
-  url: 'https://jubalisan.com',
+  url: 'https://freelingo.app',
   description:
-    'AI-powered language learning platform with CEFR lessons, AI tutoring, voice conversation, reading, listening and flashcards.',
+    'Self-hosted AI-powered language learning platform with voice conversation, flashcards, grammar lessons, and a personal AI tutor.',
+  author: {
+    '@type': 'Person',
+    name: 'Arturo Carretero Calvo',
+    url: 'https://www.arturocarreterocalvo.com',
+  },
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
 }
-
-// Landing-only catalog. Keeping this list in the page prevents a stale Turbopack
-// named-export binding from breaking the public homepage during Fast Refresh.
-const FEATURED_LANGUAGES = [
-  { code: 'en', name: 'English' },
-  { code: 'es', name: 'Español' },
-  { code: 'fr', name: 'Français' },
-  { code: 'ja', name: '日本語' },
-  { code: 'de', name: 'Deutsch' },
-  { code: 'it', name: 'Italiano' },
-  { code: 'ko', name: '한국어' },
-  { code: 'ar', name: 'العربية' },
-  { code: 'ru', name: 'Русский' },
-  { code: 'tr', name: 'Türkçe' },
-  { code: 'zh', name: '中文' },
-  { code: 'pt', name: 'Português' },
-  { code: 'nl', name: 'Nederlands' },
-  { code: 'pl', name: 'Polski' },
-] as const
-
-const SUPPORTED_LANGUAGE_COUNT = 38
 
 export default async function Home() {
   const cookieStore = await cookies()
   const hasSession = cookieStore.has('refresh_token')
-  const locale = await getLocale()
   const t = await getTranslations('landing')
-  const reviewT = await getTranslations('landingReviews')
+  const tCommon = await getTranslations('common')
+  const tBilling = await getTranslations('billing')
 
+  let allowRegistration = false
   let stripeEnabled = false
   let trialDays = 7
-  let priceMonthly = 0
-  let priceYearly = 0
-  let totalPriceMonthly = 0
-  let totalPriceYearly = 0
+  let priceMonthly = 0.0
+  let priceYearly = 0.0
+  let totalPriceMonthly = 0.0
+  let totalPriceYearly = 0.0
   let reviews: ReviewPublic[] = []
-
   try {
     const backendUrl = process.env.BACKEND_URL || 'http://backend:8000'
     const [configRes, reviewsRes] = await Promise.all([
+      // Landing CTAs can lag registration changes by the existing one-hour cache.
+      // The backend still enforces ALLOW_REGISTRATION on every signup request.
       fetch(`${backendUrl}/api/config`, { next: { revalidate: 3600 } }),
-      fetch(`${backendUrl}/api/reviews/public?limit=100`, { next: { revalidate: 300 } }),
+      fetch(`${backendUrl}/api/reviews/public?limit=100`, {
+        next: { revalidate: 300 },
+      }).catch(() => null),
     ])
     if (configRes.ok) {
       const cfg = await configRes.json()
+      allowRegistration = cfg.allow_registration === true
       stripeEnabled = cfg.stripe_enabled ?? false
       trialDays = cfg.stripe_trial_days ?? 7
-      priceMonthly = cfg.price_monthly ?? 0
-      priceYearly = cfg.price_yearly ?? 0
-      totalPriceMonthly = cfg.total_price_monthly ?? 0
-      totalPriceYearly = cfg.total_price_yearly ?? 0
+      priceMonthly = cfg.price_monthly ?? 0.0
+      priceYearly = cfg.price_yearly ?? 0.0
+      totalPriceMonthly = cfg.total_price_monthly ?? 0.0
+      totalPriceYearly = cfg.total_price_yearly ?? 0.0
     }
-    if (reviewsRes.ok) reviews = (await reviewsRes.json()).filter((review: ReviewPublic) => review.comment?.trim())
+    if (reviewsRes?.ok) {
+      reviews = await reviewsRes.json()
+    }
   } catch {
-    // Landing data is non-fatal.
+    /* non-fatal */
   }
 
-  const rtl = locale === 'ar'
-  const featuredLanguages = FEATURED_LANGUAGES
-
   return (
-    <main className="juba-busuu-landing min-h-screen overflow-x-hidden" dir={rtl ? 'rtl' : 'ltr'} lang={locale}>
-      <a className="juba-busuu-skip-link" href="#landing-content">{t('skipToContent')}</a>
+    <div className="bg-fl-bg text-fl-fg flex min-h-screen flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      {/* Nav */}
       <LandingNav
         hasSession={hasSession}
-        dir={rtl ? 'rtl' : 'ltr'}
+        stripeEnabled={stripeEnabled}
         navFeatures={t('navFeatures')}
-        primaryNavigation={t('navFeatures')}
-        navLanguages={t('navLanguages')}
-        interfaceLanguages={t('interfaceLanguages')}
         navReviews={t('navReviews')}
+        navPricing={t('navPricing')}
+        navFAQ={t('navFAQ')}
         showReviews={reviews.length > 0}
         signIn={t('signIn')}
         dashboard={t('dashboard')}
-        getStarted={t('ctaStart')}
-        homeLabel={t('homeLabel')}
-        openMenuLabel={t('openMenuLabel')}
-        closeMenuLabel={t('closeMenuLabel')}
-        locale={locale as Locale}
       />
 
-      <section id="landing-content" tabIndex={-1} className="juba-busuu-hero" aria-labelledby="landing-hero-title">
-        <div className="juba-busuu-container juba-busuu-hero-grid">
-          <div className="juba-busuu-hero-copy">
-            <span className="juba-busuu-eyebrow">{t('heroBadge')}</span>
-            <h1 id="landing-hero-title">{t('heroTitle')}</h1>
-            <p>{t('heroSub')}</p>
-            <div className="juba-busuu-actions">
-              <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">
-                {hasSession ? t('dashboard') : t('ctaStart')}
-                <ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" />
-              </Link>
-              <a href="#languages" className="juba-busuu-secondary">{t('ctaExplore')}</a>
-            </div>
-            <div className="juba-busuu-hero-proof" role="group" aria-label={t('featureSectionLabel')}>
-              <span><strong>CEFR</strong>{t('proofCefr')}</span>
-              <span><strong>AI</strong>{t('proofTutor')}</span>
-              <span><strong>VOICE</strong>{t('proofVoice')}</span>
-            </div>
+      {/* Hero */}
+      <section className="flex flex-1 flex-col items-center justify-center px-6 pt-[10px] pb-12 text-center">
+        <div className="mb-1 flex flex-col items-center">
+          <div className="mb-0">
+            <LanguageBubbles />
           </div>
-          <div className="juba-busuu-hero-visual">
-            <div className="juba-busuu-hero-disc" aria-hidden="true" />
-            <Image src="/landing/juba-hero-characters.svg" alt="" width={900} height={700} priority aria-hidden="true" />
-          </div>
+          <span className="text-fl-label text-fl-muted-2 mb-4 font-mono tracking-widest uppercase">
+            {tCommon('tagline')}
+          </span>
+          <h1 className="text-fl-fg mb-4 max-w-xl font-sans text-3xl leading-tight font-bold tracking-tight md:text-5xl">
+            {t('hero')}
+          </h1>
+          <p className="text-fl-muted-1 mb-8 max-w-lg font-sans text-base leading-relaxed md:text-lg">
+            {t('heroSub')}
+          </p>
+        </div>
+        <div className="flex flex-col items-center gap-3 sm:flex-row">
+          <Link
+            href={
+              hasSession
+                ? '/dashboard'
+                : allowRegistration
+                  ? '/register'
+                  : '/login'
+            }
+            className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 px-8 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors"
+          >
+            {hasSession
+              ? t('dashboard')
+              : allowRegistration
+                ? tCommon('start')
+                : t('signIn')}
+          </Link>
+          <a
+            href="#features"
+            className="border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 border px-8 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+          >
+            {t('howItWorks')} ↓
+          </a>
         </div>
       </section>
 
-      <section id="languages" className="juba-busuu-language-discovery" aria-labelledby="language-title">
-        <div className="juba-busuu-container">
-          <div className="juba-busuu-heading">
-            <span className="juba-busuu-eyebrow">{t('languagesEyebrow')}</span>
-            <h2 id="language-title">{t('languagesHeadline')}</h2>
-            <p>{t('languagesDescription')}</p>
+      <section
+        aria-labelledby="lingu-demo-title"
+        className="mx-auto w-full max-w-5xl px-6 pb-12"
+      >
+        <div className="border-fl-border bg-fl-surface mx-auto max-w-xl border">
+          <div className="border-fl-border border-b px-5 py-4 sm:px-6">
+            <h2
+              id="lingu-demo-title"
+              className="text-fl-fg font-mono text-base font-bold"
+            >
+              {t('microDemo.title')}
+            </h2>
+            <p className="text-fl-caption text-fl-muted-1 mt-1 font-mono">
+              {t('microDemo.exampleLabel')}
+            </p>
           </div>
-          <div className="juba-busuu-language-panel">
-            <div className="juba-busuu-language-prompt">
-              <span>{t('languagesEyebrow')}</span>
-              <strong>{t('languagesHeadline')}</strong>
-            </div>
-            <LanguageBubbles dir={rtl ? 'rtl' : 'ltr'} />
-          </div>
-        </div>
-      </section>
-
-      <section className="juba-busuu-stats" aria-label={t('proofSectionLabel')}>
-        <div className="juba-busuu-container juba-busuu-stats-grid">
-          <article><strong>{SUPPORTED_LANGUAGE_COUNT}</strong><span>{t('supportedLanguages')}</span></article>
-          <article><strong>A1–C2</strong><span>{t('proofCefr')}</span></article>
-          <article><strong>AI</strong><span>{t('proofTutor')}</span></article>
-        </div>
-      </section>
-
-      <section className="juba-busuu-practical" aria-labelledby="practical-title">
-        <div className="juba-busuu-container juba-busuu-practical-grid">
-          <div className="juba-busuu-practical-copy">
-            <span className="juba-busuu-eyebrow">{t('flowEyebrow')}</span>
-            <h2 id="practical-title">{t('flowHeadline')}</h2>
-            <p>{t('flowDescription')}</p>
-            <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">
-              {hasSession ? t('dashboard') : t('ctaStart')}
-              <ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" />
-            </Link>
-          </div>
-          <div className="juba-busuu-practical-media">
-            <Image src="/landing/juba-learning-journey.svg" alt="" width={760} height={620} />
-          </div>
-        </div>
-      </section>
-
-
-      <section id="features" className="juba-busuu-difference" aria-labelledby="difference-title">
-        <div className="juba-busuu-container">
-          <div className="juba-busuu-heading juba-busuu-heading-split">
+          <div className="space-y-5 p-5 sm:p-6">
             <div>
-              <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
-              <h2 id="difference-title">{t('bentoTitle')}</h2>
+              <p className="text-fl-caption text-fl-muted-1 mb-2 font-mono">
+                {t('microDemo.questionLabel')}
+              </p>
+              <p
+                lang="en-GB"
+                className="text-fl-fg font-mono text-sm leading-relaxed"
+              >
+                What did you do yesterday?
+              </p>
             </div>
-            <p>{t('bentoSubtitle')}</p>
-          </div>
-          <div className="juba-busuu-feature-grid">
-            <Link href="/reading" className="juba-busuu-feature">
-              <Image src="/landing/juba-reading.svg" alt="" width={360} height={250} />
-              <div className="juba-busuu-feature-body">
-                <span>{t('featureSectionLabel')}</span>
-                <h3>{t('feature5Title')}</h3>
-                <p>{t('feature5Desc')}</p>
-                <ArrowUpRight className="juba-busuu-feature-arrow" aria-hidden="true" />
-              </div>
-            </Link>
-            <Link href="/chat" className="juba-busuu-feature">
-              <Image src="/landing/juba-chat.svg" alt="" width={360} height={250} />
-              <div className="juba-busuu-feature-body">
-                <span>{t('flowAiLabel')}</span>
-                <h3>{t('feature2Title')}</h3>
-                <p>{t('feature2Desc')}</p>
-                <ArrowUpRight className="juba-busuu-feature-arrow" aria-hidden="true" />
-              </div>
-            </Link>
-            <Link href="/listening" className="juba-busuu-feature">
-              <Image src="/landing/juba-listening.svg" alt="" width={360} height={250} />
-              <div className="juba-busuu-feature-body">
-                <span>{t('flowVoiceLabel')}</span>
-                <h3>{t('feature3Title')}</h3>
-                <p>{t('feature3Desc')}</p>
-                <ArrowUpRight className="juba-busuu-feature-arrow" aria-hidden="true" />
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {reviews.length > 0 && (
-        <section id="reviews" className="juba-busuu-testimonials" aria-labelledby="reviews-title">
-          <div className="juba-busuu-container">
-            <div className="juba-busuu-heading">
-              <span className="juba-busuu-eyebrow">{reviewT('eyebrow')}</span>
-              <h2 id="reviews-title">{reviewT('title')}</h2>
-              <p>{reviewT('subtitle')}</p>
+            <div className="border-fl-border border-l-2 pl-4">
+              <p className="text-fl-caption text-fl-muted-1 mb-2 font-mono">
+                {t('microDemo.answerLabel')}
+              </p>
+              <p
+                lang="en-GB"
+                className="text-fl-fg-2 font-mono text-sm leading-relaxed"
+              >
+                Yesterday I go to the park.
+              </p>
             </div>
-            <div className="juba-busuu-testimonial-grid">
-              {reviews.slice(0, 6).map((review) => {
-                const displayName = review.user_display_name?.trim() || 'JUBA LISAN learner'
-                const initials = displayName
-                  .split(/\s+/)
-                  .filter(Boolean)
-                  .slice(0, 2)
-                  .map((part) => part[0])
-                  .join('')
-                  .toUpperCase()
-
-                return (
-                  <article key={review.id} className="juba-busuu-testimonial">
-                    <div className="juba-busuu-testimonial-meta">
-                      <span aria-hidden="true">
-                        {'★'.repeat(Math.max(0, Math.min(5, review.rating)))}
-                      </span>
-                      <span className="sr-only">{reviewT('starsLabel', { rating: review.rating })}</span>
-                      <span>{reviewT('learningLanguage', { language: review.target_language })}</span>
-                    </div>
-                    <p>“{review.comment ?? ''}”</p>
-                    <div className="juba-busuu-testimonial-person">
-                      <span className="juba-busuu-testimonial-avatar" aria-hidden="true">{initials}</span>
-                      <strong>{displayName}</strong>
-                    </div>
-                  </article>
-                )
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section id="benefits" className="juba-busuu-benefits" aria-labelledby="benefits-title">
-        <div className="juba-busuu-container">
-          <div className="juba-busuu-heading juba-busuu-heading-split">
-            <div>
-              <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
-              <h2 id="benefits-title">{t('builtForLearners')}</h2>
-            </div>
-            <p>{t('flowDescription')}</p>
-          </div>
-          <div className="juba-busuu-benefit-list">
-            <article>
-              <BookOpen aria-hidden="true" />
-              <div><span>{t('featureSectionLabel')}</span><h3>{t('feature1Title')}</h3><p>{t('feature1Desc')}</p></div>
-            </article>
-            <article>
-              <MessageCircle aria-hidden="true" />
-              <div><span>{t('flowAiLabel')}</span><h3>{t('feature6Title')}</h3><p>{t('feature6Desc')}</p></div>
-            </article>
-            <article>
-              <Headphones aria-hidden="true" />
-              <div><span>{t('flowVoiceLabel')}</span><h3>{t('feature8Title')}</h3><p>{t('feature8Desc')}</p></div>
-            </article>
-            <article>
-              <Languages aria-hidden="true" />
-              <div><span>{t('languagesEyebrow')}</span><h3>{t('feature7Title')}</h3><p>{t('feature7Desc')}</p></div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section className="juba-busuu-slogan" aria-label={t('navLanguages')}>
-        <div className="juba-busuu-slogan-track" aria-hidden="true">
-          {[...featuredLanguages, ...featuredLanguages].map(({ name, code }, index) => (
-            <span key={`${code}-${index}`} lang={code}>{name} <b>·</b></span>
-          ))}
-        </div>
-      </section>
-
-      <section className="juba-busuu-app-cta" aria-labelledby="app-cta-title">
-        <div className="juba-busuu-container juba-busuu-app-cta-inner">
-          <div className="juba-busuu-app-cta-copy">
-            <span className="juba-busuu-eyebrow">{t('availableInApp')}</span>
-            <h2 id="app-cta-title">{t('appCtaTitle')}</h2>
-            <p>{t('appCtaDescription')}</p>
-            <div className="juba-busuu-app-actions">
-              <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">
-                {hasSession ? t('dashboard') : t('ctaStart')}
-                <ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" />
-              </Link>
-              <span>{t('appCtaNote')}</span>
-            </div>
-          </div>
-          <div className="juba-busuu-app-cta-art" aria-hidden="true">
-            <div className="juba-busuu-app-device">
-              <div className="juba-busuu-app-device-top" />
-              <div className="juba-busuu-app-device-screen">
-                <strong>JUBA LISAN</strong>
-                <span>{t('flowAiTitle')}</span>
-                <span>{t('flowVoiceTitle')}</span>
-                <span>{t('feature8Title')}</span>
-              </div>
+            <div className="border-fl-accent/40 border-l-2 pl-4">
+              <p className="text-fl-caption text-fl-muted-1 mb-2 font-mono">
+                {t('microDemo.correctionLabel')}
+              </p>
+              <p
+                lang="en-GB"
+                className="text-fl-fg font-mono text-sm leading-relaxed"
+              >
+                Yesterday I{' '}
+                <strong className="font-bold underline underline-offset-4">
+                  went
+                </strong>{' '}
+                to the park.
+              </p>
+              <p className="text-fl-muted-1 mt-2 font-mono text-sm leading-relaxed">
+                {t('microDemo.explanation')}
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="online-languages" className="juba-busuu-online-languages" aria-labelledby="online-languages-title">
-        <div className="juba-busuu-container">
-          <div className="juba-busuu-heading juba-busuu-heading-split">
-            <div>
-              <span className="juba-busuu-eyebrow">{t('navLanguages')}</span>
-              <h2 id="online-languages-title">{t('onlineLanguagesTitle')}</h2>
-            </div>
-            <p>{t('onlineLanguagesDescription')}</p>
-          </div>
-          <div className="juba-busuu-online-language-grid">
-            {featuredLanguages.map(({ name, code }) => (
-              <Link key={code} href="#languages" lang={code} dir="auto" className="juba-busuu-online-language-link">
-                <span>
-                  <strong>{t('onlineLanguagePrefix')}</strong>
-                  {name}
-                </span>
-                <ArrowUpRight aria-hidden="true" />
-              </Link>
+      {/* Features */}
+      <ScrollReveal>
+        <section
+          id="features"
+          className="mx-auto w-full max-w-5xl scroll-mt-16 px-6 pb-24"
+        >
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {[
+              {
+                title: t('feature1Title'),
+                desc: t('feature1Desc'),
+                Icon: BookOpen,
+              },
+              {
+                title: t('feature2Title'),
+                desc: t('feature2Desc'),
+                Icon: MessageSquare,
+              },
+              { title: t('feature3Title'), desc: t('feature3Desc'), Icon: Mic },
+              {
+                title: t('feature4Title'),
+                desc: t('feature4Desc'),
+                Icon: Headphones,
+              },
+              {
+                title: t('feature5Title'),
+                desc: t('feature5Desc'),
+                Icon: Layers,
+              },
+              {
+                title: t('feature6Title'),
+                desc: t('feature6Desc'),
+                Icon: TrendingUp,
+              },
+            ].map(({ title, desc, Icon }) => (
+              <div
+                key={title}
+                className="border-fl-border bg-fl-surface border p-6"
+              >
+                <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-3">
+                  <Icon className="text-fl-muted-2 h-4 w-4" />
+                  <span className="text-fl-label text-fl-muted-2 font-sans text-sm font-semibold tracking-tight">
+                    {title}
+                  </span>
+                </div>
+                <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
+                  {desc}
+                </p>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
+      </ScrollReveal>
 
-      <section id="faq" className="juba-busuu-faq" aria-labelledby="faq-section-title">
-        <div className="juba-busuu-container">
-          <div className="juba-busuu-heading">
-            <span className="juba-busuu-eyebrow">{t('navFAQ')}</span>
-            <h2 id="faq-section-title">{t('faqTitle')}</h2>
-          </div>
-          <LandingFAQ dir={rtl ? 'rtl' : 'ltr'} />
-        </div>
-      </section>
+      {/* Reviews */}
+      <ScrollReveal>
+        <LandingReviewsCarousel reviews={reviews} />
+      </ScrollReveal>
 
-      <section id="pricing" className="juba-busuu-pricing" aria-labelledby="pricing-title">
-        <div className="juba-busuu-container">
-          <div className="juba-busuu-heading">
-            <span className="juba-busuu-eyebrow">{t('navPricing')}</span>
-            <h2 id="pricing-title">{t('navPricing')}</h2>
-          </div>
+      {/* Pricing */}
+      <ScrollReveal>
+        <div id="pricing" className="scroll-mt-16">
           <PricingSection
+            allowRegistration={allowRegistration}
             stripeEnabled={stripeEnabled}
             trialDays={trialDays}
             hasSession={hasSession}
@@ -394,25 +308,124 @@ export default async function Home() {
             totalPriceYearly={totalPriceYearly}
           />
         </div>
-      </section>
+      </ScrollReveal>
 
-      <section className="juba-busuu-final-cta" aria-labelledby="final-cta-title">
-        <div className="juba-busuu-container juba-busuu-final-cta-inner">
-          <div>
-            <span className="juba-busuu-eyebrow">{t('featureSectionLabel')}</span>
-            <h2 id="final-cta-title">{t('builtForLearners')}</h2>
-            <p>{t('flowDescription')}</p>
-            <Link href={hasSession ? '/dashboard' : '/register'} className="juba-busuu-primary">
-              {hasSession ? t('dashboard') : t('ctaStart')}
-              <ArrowRight className={rtl ? 'rotate-180' : ''} aria-hidden="true" />
-            </Link>
+      {/* Open Source */}
+      <ScrollReveal>
+        <section className="mx-auto w-full max-w-5xl px-6 pb-16">
+          <div className="border-fl-border bg-fl-surface flex flex-col items-center justify-between gap-4 border px-8 py-5 sm:flex-row">
+            <div className="flex items-center gap-4">
+              <Image
+                src="/github.svg"
+                alt="GitHub"
+                width={20}
+                height={20}
+                className="block opacity-80 dark:hidden"
+              />
+              <Image
+                src="/github_white.svg"
+                alt="GitHub"
+                width={20}
+                height={20}
+                className="hidden opacity-80 dark:block"
+              />
+              <div className="text-left">
+                <p className="text-fl-fg font-sans text-sm font-semibold tracking-tight">
+                  {tBilling('openSourceTitle')}
+                </p>
+                <p className="text-fl-hint text-fl-muted-2 mt-0.5 font-mono tracking-widest uppercase">
+                  {tBilling('openSourceDesc')}
+                </p>
+              </div>
+            </div>
+            <a
+              href="https://github.com/artcc/freelingo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 border px-6 py-2.5 font-mono text-xs font-bold tracking-widest whitespace-nowrap uppercase transition-colors"
+            >
+              {tBilling('openSourceCta')}
+            </a>
           </div>
-          <Image src="/landing/juba-hero-characters.svg" alt="" width={700} height={520} />
-        </div>
-      </section>
+        </section>
+      </ScrollReveal>
 
-      <LandingFooter t={t} hasSession={hasSession} dir={rtl ? 'rtl' : 'ltr'} locale={locale as Locale} showReviews={reviews.length > 0} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-    </main>
+      {/* FAQ */}
+      <ScrollReveal>
+        <section
+          id="faq"
+          className="mx-auto w-full max-w-5xl scroll-mt-16 px-6 pb-16"
+        >
+          <h2 className="text-fl-label text-fl-muted-2 mb-8 text-center font-mono tracking-widest uppercase">
+            {t('faqTitle')}
+          </h2>
+          <LandingFAQ />
+        </section>
+      </ScrollReveal>
+
+      {/* Footer */}
+      <footer className="border-fl-border border-t px-6 py-10">
+        <div className="mx-auto grid max-w-4xl grid-cols-2 gap-8 md:grid-cols-4">
+          <div>
+            <span className="text-fl-hint text-fl-muted-3 font-code block tracking-widest uppercase">
+              FreeLingo
+            </span>
+            <span className="text-fl-hint text-fl-muted-4 mt-2 block font-mono leading-relaxed">
+              © {new Date().getFullYear()}
+            </span>
+          </div>
+          <div>
+            <h4 className="text-fl-label text-fl-muted-2 mb-3 font-sans text-sm font-semibold tracking-tight">
+              {t('footerProduct')}
+            </h4>
+            <div className="flex flex-col gap-2">
+              <a
+                href="https://github.com/artcc/freelingo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-fl-hint text-fl-muted-3 hover:text-fl-muted-1 font-mono tracking-widest uppercase transition-colors"
+              >
+                {t('github')}
+              </a>
+            </div>
+          </div>
+          <div>
+            <h4 className="text-fl-label text-fl-muted-2 mb-3 font-sans text-sm font-semibold tracking-tight">
+              {t('footerLegal')}
+            </h4>
+            <div className="flex flex-col gap-2">
+              <Link
+                href="/privacy?from=landing"
+                className="text-fl-hint text-fl-muted-3 hover:text-fl-muted-1 font-mono tracking-widest uppercase transition-colors"
+              >
+                {t('privacy')}
+              </Link>
+              <Link
+                href="/terms?from=landing"
+                className="text-fl-hint text-fl-muted-3 hover:text-fl-muted-1 font-mono tracking-widest uppercase transition-colors"
+              >
+                {t('terms')}
+              </Link>
+            </div>
+          </div>
+          <div>
+            <h4 className="text-fl-label text-fl-muted-2 mb-3 font-sans text-sm font-semibold tracking-tight">
+              {t('contact')}
+            </h4>
+            <div className="flex flex-col gap-2">
+              <a
+                href="https://www.arturocarreterocalvo.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-fl-hint text-fl-muted-3 hover:text-fl-muted-1 font-mono tracking-widest uppercase transition-colors"
+              >
+                {t('aboutMe')}
+              </a>
+              <ContactButton />
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
   )
 }
