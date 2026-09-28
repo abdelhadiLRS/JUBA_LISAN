@@ -3707,3 +3707,175 @@ html[data-theme='light'] {
     margin:30px auto -34px;
   }
 }
+
+
+/* JUBA LISAN learner app — Duolingo-inspired shared product system. */
+.juba-duo-shell{
+  --duo-green:#58cc02;
+  --duo-green-dark:#46a302;
+  --duo-blue:#1cb0f6;
+  --duo-blue-dark:#168dcc;
+  --duo-yellow:#ffc800;
+  --duo-red:#ff4b4b;
+  --duo-purple:#ce82ff;
+  --duo-ink:#3c3c3c;
+  --duo-muted:#777;
+  --duo-bg:#f7f7f7;
+  --duo-border:#e5e5e5;
+  background:var(--duo-bg);
+  color:var(--duo-ink);
+}
+.juba-duo-sidebar{
+  background:#fff;
+  border-bottom:2px solid var(--duo-border);
+  box-shadow:0 2px 0 rgba(0,0,0,.035);
+}
+.juba-duo-sidebar>div:first-child span:last-child{color:var(--duo-green)!important}
+.juba-duo-sidebar .juba-duo-nav>a,
+.juba-duo-sidebar .juba-duo-nav button,
+.juba-duo-sidebar .juba-duo-nav>div>div>a{
+  border-radius:12px!important;
+  color:#4b4b4b!important;
+  font-weight:800!important;
+}
+.juba-duo-sidebar .juba-duo-nav>a:hover,
+.juba-duo-sidebar .juba-duo-nav button:hover,
+.juba-duo-sidebar .juba-duo-nav>div>div>a:hover{
+  background:#eefbe7!important;
+  color:var(--duo-green-dark)!important;
+}
+.juba-duo-sidebar .juba-duo-nav>a[class*="bg-fl-surface-2"]{
+  background:#eaf8df!important;
+  color:var(--duo-green-dark)!important;
+  box-shadow:inset 0 -3px 0 var(--duo-green);
+}
+.juba-duo-page-frame{
+  background:var(--duo-bg);
+}
+.juba-duo-page-frame>*{
+  color:var(--duo-ink);
+}
+.juba-duo-page-frame h1,
+.juba-duo-page-frame h2,
+.juba-duo-page-frame h3,
+.juba-duo-page-frame h4{
+  color:var(--duo-ink);
+  font-weight:900;
+  letter-spacing:-.025em;
+}
+.juba-duo-page-frame a{transition:background-color .16s,border-color .16s,color .16s,transform .12s}
+.juba-duo-page-frame button,
+.juba-duo-page-frame [role="button"]{
+  border-radius:12px;
+  font-weight:800;
+}
+.juba-duo-page-frame input,
+.juba-duo-page-frame select,
+.juba-duo-page-frame textarea{
+  border-radius:12px;
+  border-width:2px;
+  border-color:var(--duo-border);
+  background:#fff;
+}
+.juba-duo-page-frame input:focus,
+.juba-duo-page-frame select:focus,
+.juba-duo-page-frame textarea:focus{
+  border-color:var(--duo-blue);
+  box-shadow:0 0 0 3px rgba(28,176,246,.16);
+  outline:0;
+}
+/* Existing dashboard components retain their data, actions and APIs; only presentation changes. */
+.juba-duo-home{
+  width:min(1180px,calc(100% - 40px));
+  padding:32px 0 80px;
+}
+.juba-duo-welcome h1{font-size:32px;color:var(--duo-ink)}
+.juba-duo-eyebrow{color:var(--duo-green-dark)}
+.juba-duo-top-stats div{
+  border:2px solid var(--duo-border);
+  border-radius:16px;
+  box-shadow:0 3px 0 #d8d8d8;
+}
+.juba-duo-grid{grid-template-columns:minmax(0,1fr) 320px;gap:28px}
+.juba-duo-unit{
+  border-radius:18px;
+  background:var(--duo-green);
+  box-shadow:0 5px 0 var(--duo-green-dark);
+}
+.juba-duo-guide{
+  border-width:2px;
+  border-radius:12px;
+}
+.juba-duo-progress{background:rgba(255,255,255,.3)}
+.juba-duo-path:before{background:#dedede;width:8px}
+.juba-duo-node{
+  width:82px;height:82px;
+  background:#e9e9e9;
+  border:6px solid #d2d2d2;
+  box-shadow:0 6px 0 #bdbdbd;
+}
+.juba-duo-node.is-done{
+  background:var(--duo-yellow);
+  border-color:#e5b500;
+  box-shadow:0 6px 0 #c99f00;
+}
+.juba-duo-node.is-current{
+  background:var(--duo-green);
+  border-color:var(--duo-green-dark);
+  box-shadow:0 6px 0 var(--duo-green-dark);
+}
+.juba-duo-cta{
+  border-radius:12px;
+  background:var(--duo-green);
+  box-shadow:0 4px 0 var(--duo-green-dark);
+}
+.juba-duo-cta:hover{background:#4fba00;transform:translateY(1px)}
+.juba-duo-card{
+  border:2px solid var(--duo-border);
+  border-radius:16px;
+  box-shadow:0 3px 0 #dcdcdc;
+}
+.juba-duo-streak-card{border-color:#f0d889;background:#fffdf2}
+.juba-duo-card-icon{border-radius:14px;background:#fff3c4;color:#f2a900}
+.juba-duo-meter{background:#ededed}
+.juba-duo-meter span{background:var(--duo-green)}
+.juba-duo-card-head>span,.juba-duo-card-link,.juba-duo-complete{color:var(--duo-green-dark)!important}
+.juba-duo-mini-bars span{background:var(--duo-blue)}
+.juba-duo-links a{border:2px solid var(--duo-border);border-radius:14px;background:#fff;color:#555}
+.juba-duo-links a:hover{background:#eef9ff;color:var(--duo-blue-dark)}
+.juba-duo-premium{border:2px solid #efd47a;border-radius:16px;background:#fff9df}
+.juba-duo-alert{border-radius:14px}
+/* Make common page-level content feel like one Duolingo-style family. */
+.juba-duo-page-frame .rounded-xl,
+.juba-duo-page-frame .rounded-2xl,
+.juba-duo-page-frame .rounded-3xl{
+  border-radius:16px!important;
+}
+.juba-duo-page-frame .shadow-sm,
+.juba-duo-page-frame .shadow-md,
+.juba-duo-page-frame .shadow-lg{
+  box-shadow:0 3px 0 #dedede!important;
+}
+.juba-duo-page-frame .bg-white{background:#fff!important}
+.juba-duo-page-frame .border-gray-100,
+.juba-duo-page-frame .border-gray-200,
+.juba-duo-page-frame .border-slate-200,
+.juba-duo-page-frame .border-zinc-200{border-color:var(--duo-border)!important}
+.juba-duo-page-frame a.bg-\\[\\#58a700\\],
+.juba-duo-page-frame button.bg-\\[\\#58a700\\]{
+  background:var(--duo-green)!important;
+  box-shadow:0 4px 0 var(--duo-green-dark);
+  border-radius:12px!important;
+}
+@media(max-width:900px){
+  .juba-duo-home{width:min(100% - 24px,760px);padding-top:24px}
+  .juba-duo-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .juba-duo-home{width:calc(100% - 20px);padding-bottom:56px}
+  .juba-duo-welcome h1{font-size:27px}
+  .juba-duo-node{width:68px;height:68px}
+}
+@media(prefers-reduced-motion:reduce){
+  .juba-duo-page-frame a,.juba-duo-page-frame button{transition:none!important}
+}
