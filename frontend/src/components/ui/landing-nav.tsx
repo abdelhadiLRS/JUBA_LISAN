@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ChevronDown, Menu, X } from 'lucide-react'
-import type { Locale } from '@/lib/locales'
+import { normalizeLocale, type Locale } from '@/lib/locales'
 
 interface LandingNavProps {
   hasSession: boolean
@@ -130,7 +130,9 @@ export function LandingNav({
   }, [])
 
   const localeCodes: Locale[] = ['en', 'ar', 'es', 'fr', 'pt', 'de', 'it', 'pl', 'nl', 'ro', 'ru']
-  const localeDisplayNames = new Intl.DisplayNames([locale], { type: 'language' })
+  // Keep the navigation resilient if a stale client payload supplies an invalid locale.
+  const safeLocale = typeof locale === 'string' ? normalizeLocale(locale) : 'en'
+  const localeDisplayNames = new Intl.DisplayNames([safeLocale], { type: 'language' })
   const localeOptions: Array<[Locale, string]> = localeCodes.map((code) => [
     code,
     localeDisplayNames.of(code) ?? code.toUpperCase(),
@@ -171,7 +173,7 @@ export function LandingNav({
   return (
     <header ref={headerRef} className="juba-busuu-nav" dir={dir}>
       <div className="juba-busuu-nav-inner">
-        <Link href={locale === 'en' ? '/' : `/${locale}`} aria-label={homeLabel} aria-current="page" className="juba-busuu-brand">
+        <Link href={safeLocale === 'en' ? '/' : `/${safeLocale}`} aria-label={homeLabel} aria-current="page" className="juba-busuu-brand">
           <Image src="/logo.png" alt="JUBA LISAN" width={150} height={52} priority />
         </Link>
 
@@ -193,7 +195,7 @@ export function LandingNav({
           <details ref={localeMenuRef} onKeyDown={handleLocaleKeyDown} className="juba-busuu-locale-menu">
             <summary
               className="juba-busuu-locale"
-              aria-label={`${interfaceLanguages}: ${localeDisplayNames.of(locale) ?? locale.toUpperCase()}`}
+              aria-label={`${interfaceLanguages}: ${localeDisplayNames.of(safeLocale) ?? safeLocale.toUpperCase()}`}
             >
               <span>{locale.toUpperCase()}</span>
               <ChevronDown aria-hidden="true" />
@@ -203,7 +205,7 @@ export function LandingNav({
                 <Link
                   key={code}
                   href={code === 'en' ? '/' : `/${code}`}
-                  aria-current={code === locale ? 'page' : undefined}
+                  aria-current={code === safeLocale ? 'page' : undefined}
                   lang={code}
                   dir="auto"
                   hrefLang={code}
@@ -261,7 +263,7 @@ export function LandingNav({
                   key={code}
                   href={code === 'en' ? '/' : `/${code}`}
                   onClick={() => close()}
-                  aria-current={code === locale ? 'page' : undefined}
+                  aria-current={code === safeLocale ? 'page' : undefined}
                   lang={code}
                   dir="auto"
                   hrefLang={code}
