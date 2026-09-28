@@ -2596,3 +2596,131 @@ html[data-theme='light'] {
     border-radius:999px;
   }
 }
+
+
+/* Hero fidelity pass — editorial split, generous whitespace, compact actions. */
+.juba-busuu-landing .juba-busuu-hero-grid{
+  grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+  gap:28px;
+  min-height:650px;
+  padding-top:42px;
+  padding-bottom:70px;
+}
+.juba-busuu-landing .juba-busuu-hero-copy{
+  max-width:600px;
+}
+.juba-busuu-landing .juba-busuu-hero h1{
+  max-width:650px;
+  margin-top:18px;
+  margin-bottom:24px;
+  font-size:clamp(3.25rem,6.15vw,5.75rem);
+  line-height:.9;
+  letter-spacing:-.078em;
+}
+.juba-busuu-landing .juba-busuu-hero p{
+  max-width:500px;
+  margin-bottom:28px;
+  font-size:17px;
+  line-height:1.7;
+}
+.juba-busuu-landing .juba-busuu-actions{
+  gap:16px;
+}
+.juba-busuu-landing .juba-busuu-primary{
+  min-height:50px;
+  padding-inline:22px;
+}
+.juba-busuu-landing .juba-busuu-secondary{
+  font-size:14px;
+  font-weight:800;
+}
+.juba-busuu-landing .juba-busuu-hero-visual{
+  min-height:540px;
+  transform:translateX(2%);
+}
+.juba-busuu-landing .juba-busuu-hero-visual::before{
+  width:min(590px,91%);
+}
+.juba-busuu-landing .juba-busuu-hero-visual img{
+  width:min(820px,116%);
+  max-height:590px;
+}
+.juba-busuu-landing .juba-busuu-hero-proof{
+  margin-top:30px;
+  padding-top:17px;
+}
+@media(max-width:1000px){
+  .juba-busuu-landing .juba-busuu-hero-grid{
+    grid-template-columns:1fr;
+    min-height:0;
+    gap:18px;
+    padding-top:36px;
+    padding-bottom:58px;
+  }
+  .juba-busuu-landing .juba-busuu-hero-visual{
+    order:-1;
+    min-height:390px;
+    transform:none;
+  }
+  .juba-busuu-landing .juba-busuu-hero-copy{
+    max-width:760px;
+    margin-inline:auto;
+    text-align:center;
+  }
+  .juba-busuu-landing .juba-busuu-hero h1,
+  .juba-busuu-landing .juba-busuu-hero p{
+    margin-inline:auto;
+  }
+  .juba-busuu-landing .juba-busuu-actions{
+    justify-content:center;
+  }
+  .juba-busuu-landing .juba-busuu-hero-proof{
+    margin-inline:auto;
+    justify-content:center;
+    text-align:start;
+  }
+}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-hero-grid{
+    padding-top:24px;
+    padding-bottom:48px;
+    gap:4px;
+  }
+  .juba-busuu-landing .juba-busuu-hero-visual{
+    min-height:285px;
+  }
+  .juba-busuu-landing .juba-busuu-hero-visual::before{
+    width:min(320px,86vw);
+  }
+  .juba-busuu-landing .juba-busuu-hero-visual img{
+    width:min(560px,126%);
+    max-height:330px;
+  }
+  .juba-busuu-landing .juba-busuu-hero h1{
+    margin-top:14px;
+    margin-bottom:18px;
+    font-size:clamp(2.75rem,13vw,4rem);
+    line-height:.94;
+    letter-spacing:-.065em;
+  }
+  .juba-busuu-landing .juba-busuu-hero p{
+    font-size:16px;
+    line-height:1.65;
+    margin-bottom:24px;
+  }
+  .juba-busuu-landing .juba-busuu-actions{
+    flex-direction:column;
+    align-items:stretch;
+    gap:10px;
+  }
+  .juba-busuu-landing .juba-busuu-primary,
+  .juba-busuu-landing .juba-busuu-secondary{
+    width:100%;
+    justify-content:center;
+    text-align:center;
+  }
+  .juba-busuu-landing .juba-busuu-secondary{
+    padding-block:10px;
+    border-bottom:0;
+  }
+}
