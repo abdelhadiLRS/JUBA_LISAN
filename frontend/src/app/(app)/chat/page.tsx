@@ -109,7 +109,7 @@ export default function ChatPage() {
 
   // Open sidebar by default only on desktop
   useEffect(() => {
-    setSidebarOpen(window.innerWidth >= 768)
+    setSidebarOpen(window.innerWidth >= 1024)
   }, [])
 
   // Warn if LLM takes longer than 60 s
@@ -165,7 +165,7 @@ export default function ChatPage() {
 
   async function selectConversation(id: number) {
     dismissTooltip()
-    if (window.innerWidth < 768) setSidebarOpen(false)
+    if (window.innerWidth < 1024) setSidebarOpen(false)
     setActiveId(id)
     setMessages([])
     setError('')
@@ -189,7 +189,7 @@ export default function ChatPage() {
     setActiveId(null)
     setMessages([])
     setError('')
-    if (window.innerWidth < 768) setSidebarOpen(false)
+    if (window.innerWidth < 1024) setSidebarOpen(false)
     requestAnimationFrame(() => inputRef.current?.focus())
   }
 
@@ -305,7 +305,7 @@ export default function ChatPage() {
 
   return (
     <MaintenanceGate>
-      <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden md:h-screen">
+      <div className="juba-mobile-chat flex h-[calc(100dvh-56px)] w-full overflow-hidden lg:h-screen">
         <MemorySavedToast
           visible={memoryToast}
           announcementId={memoryToastId}
@@ -313,14 +313,14 @@ export default function ChatPage() {
         {/* Sidebar backdrop — mobile only */}
         {sidebarOpen && (
           <div
-            className="fixed inset-x-0 top-14 bottom-0 z-10 bg-black/40 md:hidden"
+            className="fixed inset-x-0 top-14 bottom-0 z-10 bg-black/40 lg:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}
 
         {/* Sidebar */}
         {sidebarOpen && (
-          <aside className="border-[var(--duo-line)] bg-[var(--duo-bg)]/70 fixed top-14 bottom-0 start-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-e-2 md:relative md:top-auto md:bottom-auto md:start-auto md:z-auto">
+          <aside className="border-[var(--duo-line)] bg-[var(--duo-bg)]/70 fixed top-14 bottom-0 start-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-e-2 lg:relative lg:top-auto lg:bottom-auto lg:start-auto lg:z-auto">
             <div className="border-[var(--duo-line)] flex items-center justify-between border-b-2 px-4 py-3">
               <span className="text-[var(--duo-muted)] font-semibold tracking-wide">
                 {t('conversations')}
