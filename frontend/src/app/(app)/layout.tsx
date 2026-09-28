@@ -179,6 +179,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   ])
 
   useEffect(() => {
+    setMobileMenuOpen(false)
+    setResourcesOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
     if (!mobileMenuOpen) return
 
     const handleEscape = (event: KeyboardEvent) => {
