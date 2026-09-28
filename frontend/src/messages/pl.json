@@ -167,7 +167,8 @@
     "appCtaDescription": "Miej naukę języka zawsze pod ręką. Kontynuuj lekcje, rozmowy z AI, ćwiczenia ze słuchania i śledź postępy, gdziekolwiek jesteś.",
     "appCtaNote": "Doświadczenie webowe · Zaprojektowane z myślą o ekranach mobilnych",
     "onlineLanguagesTitle": "Ucz się języków online",
-    "onlineLanguagesDescription": "Wybierz język i poznaj możliwości nauki dostępne w JUBA LISAN."
+
+    "onlineLanguagePrefix": "Ucz się",    "onlineLanguagesDescription": "Wybierz język i poznaj możliwości nauki dostępne w JUBA LISAN."
   },
   "common": {
     "loading": "Ładowanie...",
