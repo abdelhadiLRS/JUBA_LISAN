@@ -231,7 +231,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     return (
       <PageLoading
         label={tCommon('initializing')}
-        minHeight="min-h-screen"
+        minHeight="min-h-[100dvh]"
         className="bg-[var(--duo-bg)]"
       />
     )
