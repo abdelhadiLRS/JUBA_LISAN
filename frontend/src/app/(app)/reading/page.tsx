@@ -433,10 +433,10 @@ function ReadingPage() {
             return (
               <div
                 key={q.index}
-                className={`rounded-[20px] border-2 border-[var(--duo-line)] bg-white p-4 shadow-[0_3px_0_rgba(31,41,51,.035)] ${
+                className={`rounded-[20px] border-2 border-[var(--duo-line)] bg-[var(--duo-card)] p-4 shadow-[0_3px_0_var(--duo-line)] ${
                   isCorrect
-                    ? 'border-[rgba(88,204,2,.45)] bg-[rgba(88,204,2,.08)]'
-                    : 'border-[rgba(255,75,75,.45)] bg-[rgba(255,75,75,.08)]'
+                    ? 'border-[color-mix(in_srgb,var(--duo-green)_45%,transparent)] bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'
+                    : 'border-[color-mix(in_srgb,var(--duo-red)_45%,transparent)] bg-[color-mix(in_srgb,var(--duo-red)_8%,transparent)]'
                 }`}
               >
                 <TargetLanguageText
@@ -513,7 +513,7 @@ function ReadingPage() {
         </div>
 
         {error && (
-          <p className="text-[var(--duo-ink)] mb-4 font-sans text-red-500">{error}</p>
+          <p className="text-[var(--duo-ink)] mb-4 font-sans text-[var(--duo-red)]">{error}</p>
         )}
 
         <FreemiumQuotaBanner feature="reading" className="mb-4" />
@@ -653,7 +653,7 @@ function ReadingPage() {
               </div>
 
               {error && (
-                <p className="text-[var(--duo-ink)] mt-3 font-sans text-red-500">
+                <p className="text-[var(--duo-ink)] mt-3 font-sans text-[var(--duo-red)]">
                   {error}
                 </p>
               )}
