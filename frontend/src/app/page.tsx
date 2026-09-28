@@ -8,7 +8,7 @@ import { ArrowRight, ArrowUpRight, BookOpen, Headphones, Languages, MessageCircl
 import PricingSection from '@/components/billing/PricingSection'
 import { LandingFAQ } from '@/components/ui/landing-faq'
 import { LandingNav } from '@/components/ui/landing-nav'
-import { FEATURED_LANGUAGES, LanguageBubbles, SUPPORTED_LANGUAGE_COUNT } from '@/components/LanguageBubbles'
+import { LANGUAGES, LanguageBubbles, SUPPORTED_LANGUAGE_COUNT } from '@/components/LanguageBubbles'
 import { LandingFooter } from '@/components/landing/LandingFooter'
 import type { ReviewPublic } from '@/types/api'
 
@@ -84,6 +84,7 @@ export default async function Home() {
   }
 
   const rtl = locale === 'ar'
+  const featuredLanguages = LANGUAGES.slice(0, 14)
 
   return (
     <main className="juba-busuu-landing min-h-screen overflow-x-hidden" dir={rtl ? 'rtl' : 'ltr'} lang={locale}>
@@ -92,7 +93,7 @@ export default async function Home() {
         hasSession={hasSession}
         dir={rtl ? 'rtl' : 'ltr'}
         navFeatures={t('navFeatures')}
-        primaryNavigation={t('nav.primaryNavigation')}
+        primaryNavigation={t('navFeatures')}
         navLanguages={t('navLanguages')}
         interfaceLanguages={t('interfaceLanguages')}
         navReviews={t('navReviews')}
@@ -291,7 +292,7 @@ export default async function Home() {
 
       <section className="juba-busuu-slogan" aria-label={t('navLanguages')}>
         <div className="juba-busuu-slogan-track" aria-hidden="true">
-          {[...FEATURED_LANGUAGES, ...FEATURED_LANGUAGES].map(({ name, code }, index) => (
+          {[...featuredLanguages, ...featuredLanguages].map(({ name, code }, index) => (
             <span key={`${code}-${index}`} lang={code}>{name} <b>·</b></span>
           ))}
         </div>
@@ -335,7 +336,7 @@ export default async function Home() {
             <p>{t('onlineLanguagesDescription')}</p>
           </div>
           <div className="juba-busuu-online-language-grid">
-            {FEATURED_LANGUAGES.map(({ name, code }) => (
+            {featuredLanguages.map(({ name, code }) => (
               <Link key={code} href="#languages" lang={code} dir="auto" className="juba-busuu-online-language-link">
                 <span>
                   <strong>{t('onlineLanguagePrefix')}</strong>
