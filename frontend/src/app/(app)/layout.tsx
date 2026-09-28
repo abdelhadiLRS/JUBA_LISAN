@@ -427,6 +427,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <button
                 onClick={() => setResourcesOpen((o) => !o)}
                 className="text-[var(--duo-muted)] hover:text-[var(--duo-ink)] flex w-full items-center justify-between border-s-2 border-transparent px-5 py-2 font-sans text-sm tracking-wide wrap-anywhere uppercase transition-colors"
+                aria-expanded={resourcesOpen}
+                aria-controls="mobile-resources-menu"
               >
                 <span>{tNav('resources')}</span>
                 <span className="text-[var(--duo-ink)]">
@@ -434,7 +436,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </span>
               </button>
               {resourcesOpen &&
-                resourceNavItems.map((item) => {
+                <div id="mobile-resources-menu">{resourceNavItems.map((item) => {
                   const active =
                     pathname === item.href ||
                     pathname.startsWith(item.href + '/')
@@ -457,7 +459,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       {item.label}
                     </Link>
                   )
-                })}
+                })}</div>}
             </div>
 
             {/* Bottom items (mobile) */}
