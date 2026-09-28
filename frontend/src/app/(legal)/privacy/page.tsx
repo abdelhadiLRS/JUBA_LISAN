@@ -66,20 +66,20 @@ export default function PrivacyPage() {
           />
         </Link>
         <h1 className="text-[#202127] font-sans text-xl font-bold tracking-wide">JUBA LISAN</h1>
-        <p className="text-black/50 text-black/50 mt-1 font-semibold tracking-wide">
+        <p className="mt-1 font-semibold tracking-wide text-black/50">
           {tCommon('tagline')}
         </p>
       </div>
 
       <div className="space-y-8 rounded-[26px] border border-black/[0.08] bg-white p-6 shadow-[0_12px_30px_rgba(43,45,90,.055)] sm:p-8">
         <div className="border-black/[0.08] flex items-center gap-2 border-b border-black/[0.08] pb-4">
-          <span className="text-[#202127] text-black/50"><span className="h-2 w-2 rounded-full bg-[#5862e2]" /></span>/span>
+          <span className="text-black/50"><span className="inline-block h-2 w-2 rounded-full bg-[#5862e2]" /></span>
           <span className="text-black/50 font-sans text-xs tracking-wide">
             {t('pageTitle')}
           </span>
         </div>
 
-        <p className="text-black/50 text-black/50 font-sans tracking-wide">
+        <p className="font-sans tracking-wide text-black/50">
           {t('updated')}
         </p>
 
