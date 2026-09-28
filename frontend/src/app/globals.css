@@ -4356,3 +4356,68 @@ html[data-theme='light'] {
 
 
 
+
+
+/* Final landing pricing pass — public landing only. */
+.juba-busuu-landing .juba-busuu-pricing{
+  padding:112px 0 120px;
+  background:#f7f7f4;
+  border-bottom:1px solid var(--busuu-line);
+}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-pricing{max-width:1120px;margin-inline:auto}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-plan-card{
+  min-height:360px;
+  border:1px solid var(--busuu-line)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  padding:30px!important;
+  background:#fff!important;
+}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-plan-card.juba-ff-plan-yearly{
+  border-top:3px solid var(--busuu-green)!important;
+}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-plan-head{
+  min-height:42px;
+  border-color:var(--busuu-line)!important;
+}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-plan-icon{color:var(--busuu-green-dark)}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-plan-badge{
+  border-color:var(--busuu-line)!important;
+  border-radius:999px;
+  color:var(--busuu-green-dark);
+  background:var(--busuu-mint);
+}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-plan-price{
+  font-size:clamp(2rem,3vw,2.8rem)!important;
+  letter-spacing:-.055em;
+}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-plan-old{color:#89938e}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-plan-desc{color:var(--busuu-muted)}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-plan-cta{
+  min-height:48px;
+  border:1px solid var(--busuu-green-dark);
+  border-radius:999px;
+  background:var(--busuu-green);
+  color:#fff;
+}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-plan-cta:hover{background:var(--busuu-green-dark)}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-plan-free-link{
+  min-height:48px;
+  border:1px solid var(--busuu-ink);
+  border-radius:999px;
+  color:var(--busuu-ink);
+}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-comparison{
+  border:1px solid var(--busuu-line)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-comparison-head{background:#eef2ef}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-comparison th,
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-comparison td{border-color:var(--busuu-line)}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-check{color:var(--busuu-green-dark)}
+.juba-busuu-landing .juba-busuu-pricing .juba-ff-minus{color:#a4ada8}
+@media(max-width:700px){
+  .juba-busuu-landing .juba-busuu-pricing{padding:72px 0 76px}
+  .juba-busuu-landing .juba-busuu-pricing .juba-ff-plan-card{min-height:0;padding:24px!important}
+}
