@@ -128,7 +128,7 @@ function CategoryCard({
                       <ul className="space-y-1">
                         {nativeHelp.usage_tips.map((tip, i) => (
                           <li key={i} className="text-[var(--duo-muted)] text-sm">
-                            <span className="text-[var(--duo-muted)] mr-2">·</span>
+                            <span className="text-[var(--duo-muted)] me-2">·</span>
                             {tip}
                           </li>
                         ))}
