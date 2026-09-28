@@ -365,7 +365,7 @@ export default function AssessmentPage() {
                 </button>
               </div>
             )}
-            {error && <div className="rounded-[14px] border border-[#b33a32]/30 bg-[#b33a32]/10 px-4 py-3 text-xs text-[#b33a32]">✕ {error}</div>}
+            {error && <div className="rounded-[14px] border border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 px-4 py-3 text-xs text-[var(--duo-red)]">✕ {error}</div>}
             <div className="flex gap-2">
               <button onClick={() => router.push('/dashboard')} className="flex-1 rounded-[14px] border border-[var(--duo-line)] px-3 py-3 text-xs font-semibold text-[var(--duo-muted)] transition hover:bg-[rgba(88,204,2,.08)]">← {tCommon('backToDashboard')}</button>
               <button onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
@@ -459,10 +459,10 @@ export default function AssessmentPage() {
             {result.weaknesses.length > 0 && (
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('needsWork')}</p>
-                <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded-[14px] border border-[#b33a32]/25 bg-[#b33a32]/10 px-3 py-1.5 text-xs font-medium text-[#b33a32]">{w}</span>)}</div>
+                <div className="flex flex-wrap justify-center gap-2">{result.weaknesses.map((w) => <span key={w} className="rounded-[14px] border border-[var(--duo-red)]/25 bg-[var(--duo-red)]/10 px-3 py-1.5 text-xs font-medium text-[var(--duo-red)]">{w}</span>)}</div>
               </div>
             )}
-            {error && <div className="rounded-[14px] border border-[#b33a32]/30 bg-[#b33a32]/10 px-4 py-3 text-xs text-[#b33a32]">✕ {error}</div>}
+            {error && <div className="rounded-[14px] border border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 px-4 py-3 text-xs text-[var(--duo-red)]">✕ {error}</div>}
             <button onClick={() => setStep('duration')} className={actionClass}>{t('createPlan')} →</button>
           </div>
         </div>
