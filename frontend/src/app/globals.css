@@ -659,7 +659,7 @@ html[data-theme='light'] {
 .juba-duo-top-stats strong { font-size:18px; line-height:1; color:var(--duo-ink); }
 .juba-duo-top-stats span { font-size:10px; color:var(--duo-muted); font-weight:800; text-transform:uppercase; }
 .juba-duo-alert { max-width:1120px; margin:0 auto 18px; padding:12px 16px; background:color-mix(in srgb,var(--duo-red) 8%,transparent); border:2px solid color-mix(in srgb,var(--duo-red) 35%,transparent); border-radius:12px; color:var(--duo-red); display:flex; justify-content:space-between; gap:14px; align-items:center; }
-.juba-duo-alert button { border:0; background:#ff4b4b; color:#fff; padding:8px 14px; border-radius:10px; font-weight:800; }
+.juba-duo-alert button { border:0; background:var(--duo-red); color:#fff; padding:8px 14px; border-radius:10px; font-weight:800; }
 .juba-duo-grid { max-width:1120px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1.65fr) minmax(280px,.8fr); gap:22px; }
 .juba-duo-course,.juba-duo-side { min-width:0; }
 .juba-duo-unit {
@@ -678,8 +678,8 @@ html[data-theme='light'] {
 .juba-duo-node-row.is-offset { transform:translateX(58px); }
 .juba-duo-node {
   position:relative; z-index:1; display:grid; place-items:center; width:70px; height:70px; flex:0 0 70px;
-  border-radius:50%; background:#fff; border:4px solid #d8ddd7; color:#a2aaa1;
-  box-shadow:0 5px 0 #cfd5cd;
+  border-radius:50%; background:var(--duo-card); border:4px solid var(--duo-line); color:var(--duo-muted);
+  box-shadow:0 5px 0 var(--duo-line);
 }
 .juba-duo-node.is-done { background:var(--duo-green); border-color:var(--duo-green-dark); color:#fff; box-shadow:0 5px 0 var(--duo-green-dark); }
 .juba-duo-node.is-current { background:var(--duo-blue); border-color:var(--duo-blue-dark); color:#fff; box-shadow:0 5px 0 var(--duo-blue-dark); }
@@ -747,6 +747,15 @@ html[data-theme='light'] {
   .juba-duo-mobile-bar { display:none !important; }
   .juba-duo-mobile-menu { display:none !important; }
 }
+@media (max-width: 420px) {
+  .juba-duo-top-stats { flex-direction:column; }
+  .juba-duo-top-stats > div { min-width:0; width:100%; }
+  .juba-duo-node-row { gap:12px; }
+  .juba-duo-node-copy { min-width:0; }
+  .juba-duo-node-copy strong,
+  .juba-duo-node-copy span { overflow-wrap:anywhere; }
+}
+
 @media (max-width: 560px) {
   .juba-duo-home,
   .juba-duo-shell[dir="rtl"] .juba-duo-home { padding-inline:12px; }
@@ -812,7 +821,7 @@ html[data-theme='light'] {
   color:var(--duo-blue-dark);
 }
 .juba-duo-page-frame a:hover {
-  color:#0f79ae;
+  color:var(--duo-blue-dark);
 }
 
 /* Existing semantic cards become Duolingo-style surfaces without requiring
