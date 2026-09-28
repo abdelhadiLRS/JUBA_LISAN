@@ -180,7 +180,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMobileMenuOpen(false)
-    setResourcesOpen(false)
+    setResourcesOpen(
+      resourceNavItems.some(
+        (item) => pathname === item.href || pathname.startsWith(item.href + '/')
+      )
+    )
   }, [pathname])
 
   useEffect(() => {
