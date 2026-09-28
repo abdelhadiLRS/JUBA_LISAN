@@ -28,10 +28,10 @@ export default function BeginnerGate({
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center bg-[var(--duo-bg)] p-4 sm:p-6">
-      <div className="w-full max-w-xl overflow-hidden rounded-[26px] border border-[rgba(7,7,9,.08)] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
-        <div className="flex items-center gap-3 border-b border-[rgba(7,7,9,.07)] bg-[var(--duo-bg)] px-6 py-4">
-          <span className="text-xs text-[rgba(32,33,39,.52)]">●</span>
-          <span className="text-xs text-[rgba(32,33,39,.52)] font-semibold tracking-[0.12em] uppercase">
+      <div className="w-full max-w-xl overflow-hidden rounded-[26px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_12px_30px_var(--duo-line)]">
+        <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-[var(--duo-bg)] px-6 py-4">
+          <span className="text-xs text-[var(--duo-muted)]">●</span>
+          <span className="text-xs text-[var(--duo-muted)] font-semibold tracking-[0.12em] uppercase">
             {t('step1')}
           </span>
         </div>
@@ -40,7 +40,7 @@ export default function BeginnerGate({
             <p className="text-2xl font-extrabold tracking-tight text-[var(--duo-ink)]">
               {t('studiedBefore', { language })}
             </p>
-            <p className="text-xs text-[rgba(32,33,39,.52)] font-sans">
+            <p className="text-xs text-[var(--duo-muted)] font-sans">
               {t('studiedBeforeHint')}
             </p>
           </div>
@@ -48,22 +48,22 @@ export default function BeginnerGate({
             <button
               type="button"
               onClick={onBeginner}
-              className="w-full rounded-[16px] border border-[rgba(7,7,9,.08)] bg-[var(--duo-bg)] px-5 py-4 text-left font-sans text-xs uppercase tracking-widest text-[var(--duo-ink)] transition-all hover:border-[var(--duo-blue)] hover:bg-[rgba(88,204,2,.10)] hover:text-[var(--duo-blue-dark)] hover:shadow-[0_8px_18px_rgba(43,45,90,.05)]"
+              className="w-full rounded-[16px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-5 py-4 text-left font-sans text-xs uppercase tracking-widest text-[var(--duo-ink)] transition-all hover:border-[var(--duo-blue)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-blue-dark)] hover:shadow-[0_8px_18px_var(--duo-line)]"
             >
-              <span className="text-[rgba(32,33,39,.52)] me-3">○</span>
+              <span className="text-[var(--duo-muted)] me-3">○</span>
               {t('beginnerOption')}
-              <span className="text-xs text-[rgba(32,33,39,.52)] mt-1 ms-6 block normal-case">
+              <span className="text-xs text-[var(--duo-muted)] mt-1 ms-6 block normal-case">
                 {t('beginnerOptionHint')}
               </span>
             </button>
             <button
               type="button"
               onClick={onHasExperience}
-              className="w-full rounded-[16px] bg-[var(--duo-blue)] px-5 py-4 text-left font-sans text-xs font-bold uppercase tracking-widest text-white shadow-[0_8px_18px_rgba(88,98,226,.18)] transition-all hover:bg-[var(--duo-blue-dark)] hover:shadow-[0_10px_22px_rgba(55,63,184,.2)]"
+              className="w-full rounded-[16px] bg-[var(--duo-blue)] px-5 py-4 text-left font-sans text-xs font-bold uppercase tracking-widest text-white shadow-[0_8px_18px_color-mix(in_srgb,var(--duo-purple)_18%,transparent)] transition-all hover:bg-[var(--duo-blue-dark)] hover:shadow-[0_10px_22px_color-mix(in_srgb,var(--duo-purple)_20%,transparent)]"
             >
               <span className="me-3">●</span>
               {t('hasExperienceOption')}
-              <span className="text-[rgba(32,33,39,.52)] mt-1 ms-6 block font-normal normal-case opacity-70">
+              <span className="text-[var(--duo-muted)] mt-1 ms-6 block font-normal normal-case opacity-70">
                 {t('hasExperienceOptionHint')}
               </span>
             </button>
