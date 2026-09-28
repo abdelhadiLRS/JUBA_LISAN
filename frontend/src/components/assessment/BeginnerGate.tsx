@@ -50,9 +50,9 @@ export default function BeginnerGate({
               onClick={onBeginner}
               className="w-full rounded-[16px] border border-[rgba(7,7,9,.08)] bg-[var(--duo-bg)] px-5 py-4 text-left font-sans text-xs uppercase tracking-widest text-[var(--duo-ink)] transition-all hover:border-[var(--duo-blue)] hover:bg-[rgba(88,204,2,.10)] hover:text-[var(--duo-blue-dark)] hover:shadow-[0_8px_18px_rgba(43,45,90,.05)]"
             >
-              <span className="text-[rgba(32,33,39,.52)] mr-3">○</span>
+              <span className="text-[rgba(32,33,39,.52)] me-3">○</span>
               {t('beginnerOption')}
-              <span className="text-xs text-[rgba(32,33,39,.52)] mt-1 ml-6 block normal-case">
+              <span className="text-xs text-[rgba(32,33,39,.52)] mt-1 ms-6 block normal-case">
                 {t('beginnerOptionHint')}
               </span>
             </button>
@@ -61,9 +61,9 @@ export default function BeginnerGate({
               onClick={onHasExperience}
               className="w-full rounded-[16px] bg-[var(--duo-blue)] px-5 py-4 text-left font-sans text-xs font-bold uppercase tracking-widest text-white shadow-[0_8px_18px_rgba(88,98,226,.18)] transition-all hover:bg-[var(--duo-blue-dark)] hover:shadow-[0_10px_22px_rgba(55,63,184,.2)]"
             >
-              <span className="mr-3">●</span>
+              <span className="me-3">●</span>
               {t('hasExperienceOption')}
-              <span className="text-[rgba(32,33,39,.52)] mt-1 ml-6 block font-normal normal-case opacity-70">
+              <span className="text-[rgba(32,33,39,.52)] mt-1 ms-6 block font-normal normal-case opacity-70">
                 {t('hasExperienceOptionHint')}
               </span>
             </button>
