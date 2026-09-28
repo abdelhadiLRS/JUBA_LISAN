@@ -93,21 +93,21 @@ export function VoiceSection({ title }: { title?: string } = {}) {
   if (ttsProvider !== 'openai') return null
 
   return (
-    <div className="border-[var(--juba-app-line)] bg-[var(--juba-app-surface)] border p-6">
-      <div className="border-[var(--juba-app-line)] mb-5 flex items-center gap-2 border-b pb-4">
-        <span className="text-[var(--juba-app-muted)]">●</span>
-        <span className="text-[var(--juba-app-muted)] font-mono tracking-widest uppercase">
+    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] border p-6">
+      <div className="border-[var(--duo-line)] mb-5 flex items-center gap-2 border-b pb-4">
+        <span className="text-[var(--duo-muted)]">●</span>
+        <span className="text-[var(--duo-muted)] font-mono tracking-widest uppercase">
           {title ?? t('sectionVoice')}
         </span>
       </div>
-      <p className="mb-4 font-mono text-[var(--juba-app-muted)]">
+      <p className="mb-4 font-mono text-[var(--duo-muted)]">
         {t('voiceHint')}
       </p>
       <div className="flex items-center gap-3">
         <select
           value={selectedVoice}
           onChange={(e) => selectVoice(e.target.value)}
-          className="flex-1 appearance-none border border-[var(--juba-app-line)] bg-[var(--juba-app-bg)] px-4 py-3 font-mono text-sm tracking-widest uppercase text-[var(--juba-app-ink)] transition-colors focus:border-[var(--juba-app-line)] focus:outline-none"
+          className="flex-1 appearance-none border border-[var(--duo-line)] bg-[var(--duo-bg)] px-4 py-3 font-mono text-sm tracking-widest uppercase text-[var(--duo-ink)] transition-colors focus:border-[var(--duo-line)] focus:outline-none"
         >
           {OPENAI_VOICES.map((voice) => (
             <option key={voice} value={voice}>
@@ -119,7 +119,7 @@ export function VoiceSection({ title }: { title?: string } = {}) {
           type="button"
           onClick={() => void togglePreview(selectedVoice)}
           disabled={loadingVoice === selectedVoice}
-          className="whitespace-nowrap border border-[var(--juba-app-line)] px-4 py-3 font-mono tracking-widest uppercase text-[var(--juba-app-muted)] transition-colors hover:border-[var(--juba-app-line)] hover:text-[var(--juba-app-ink)] disabled:opacity-40"
+          className="whitespace-nowrap border border-[var(--duo-line)] px-4 py-3 font-mono tracking-widest uppercase text-[var(--duo-muted)] transition-colors hover:border-[var(--duo-line)] hover:text-[var(--duo-ink)] disabled:opacity-40"
         >
           {loadingVoice === selectedVoice
             ? '...'
