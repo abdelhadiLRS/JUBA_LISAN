@@ -1084,3 +1084,98 @@ html[data-theme='light'] {
 @media (min-width:901px) {
   .juba-duo-mobile-bar { display:none !important; }
 }
+
+
+/* ── Legacy route normalization: Duolingo surfaces ─────────────────────── */
+.juba-duo-page-frame .juba-mobile-progress,
+.juba-duo-page-frame .juba-mobile-translator,
+.juba-duo-page-frame .juba-mobile-coach,
+.juba-duo-page-frame .juba-mobile-phrasebook,
+.juba-duo-page-frame .juba-mobile-friends,
+.juba-duo-page-frame .juba-page-shell {
+  color:var(--duo-ink);
+}
+.juba-duo-page-frame .juba-mobile-progress,
+.juba-duo-page-frame .juba-mobile-translator,
+.juba-duo-page-frame .juba-mobile-coach,
+.juba-duo-page-frame .juba-mobile-phrasebook,
+.juba-duo-page-frame .juba-mobile-friends {
+  background:var(--duo-bg);
+}
+.juba-duo-page-frame .juba-card,
+.juba-duo-page-frame .juba-panel {
+  border:2px solid var(--duo-line);
+  background:var(--duo-card) !important;
+  color:var(--duo-ink);
+  box-shadow:0 3px 0 rgba(0,0,0,.025);
+}
+.juba-duo-page-frame .juba-card h1,
+.juba-duo-page-frame .juba-card h2,
+.juba-duo-page-frame .juba-card h3,
+.juba-duo-page-frame .juba-panel h1,
+.juba-duo-page-frame .juba-panel h2,
+.juba-duo-page-frame .juba-panel h3,
+.juba-duo-page-frame .juba-page-hero h1,
+.juba-duo-page-frame .juba-page-hero h2,
+.juba-duo-page-frame .juba-page-hero h3 {
+  color:var(--duo-ink);
+}
+.juba-duo-page-frame .juba-page-hero {
+  background:linear-gradient(180deg,#fff 0%,#f7fbf4 100%) !important;
+  border:2px solid var(--duo-line);
+  box-shadow:0 3px 0 rgba(0,0,0,.025);
+}
+.juba-duo-page-frame .juba-primary-button {
+  min-height:44px;
+  border-radius:12px;
+  font-weight:800;
+}
+.juba-duo-page-frame .juba-mobile-progress [class*="bg-"],
+.juba-duo-page-frame .juba-mobile-coach [class*="bg-"],
+.juba-duo-page-frame .juba-mobile-translator [class*="bg-"] {
+  border-radius:12px;
+}
+.juba-duo-page-frame .juba-mobile-progress button,
+.juba-duo-page-frame .juba-mobile-translator button,
+.juba-duo-page-frame .juba-mobile-coach button,
+.juba-duo-page-frame .juba-mobile-phrasebook button,
+.juba-duo-page-frame .juba-mobile-friends button {
+  font-weight:800;
+}
+.juba-duo-page-frame .juba-mobile-progress input,
+.juba-duo-page-frame .juba-mobile-progress select,
+.juba-duo-page-frame .juba-mobile-translator textarea,
+.juba-duo-page-frame .juba-mobile-translator select,
+.juba-duo-page-frame .juba-mobile-coach textarea {
+  background:#fff;
+  border-color:var(--duo-line) !important;
+  color:var(--duo-ink);
+}
+.juba-duo-page-frame .juba-mobile-progress input:focus,
+.juba-duo-page-frame .juba-mobile-progress select:focus,
+.juba-duo-page-frame .juba-mobile-translator textarea:focus,
+.juba-duo-page-frame .juba-mobile-translator select:focus,
+.juba-duo-page-frame .juba-mobile-coach textarea:focus {
+  border-color:var(--duo-blue) !important;
+  box-shadow:0 0 0 3px rgba(28,176,246,.12);
+}
+.juba-duo-page-frame .juba-mobile-progress .text-fl-accent,
+.juba-duo-page-frame .juba-mobile-translator .text-fl-accent,
+.juba-duo-page-frame .juba-mobile-coach .text-fl-accent,
+.juba-duo-page-frame .juba-mobile-phrasebook .text-fl-accent {
+  color:var(--duo-green-dark) !important;
+}
+.juba-duo-page-frame .juba-mobile-progress .bg-fl-accent,
+.juba-duo-page-frame .juba-mobile-translator .bg-fl-accent,
+.juba-duo-page-frame .juba-mobile-coach .bg-fl-accent,
+.juba-duo-page-frame .juba-mobile-phrasebook .bg-fl-accent {
+  background:var(--duo-green) !important;
+  box-shadow:0 3px 0 var(--duo-green-dark);
+}
+@media (max-width:640px) {
+  .juba-duo-page-frame .juba-card,
+  .juba-duo-page-frame .juba-panel,
+  .juba-duo-page-frame .juba-page-hero {
+    border-radius:14px;
+  }
+}
