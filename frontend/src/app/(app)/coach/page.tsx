@@ -85,25 +85,25 @@ export default function CoachPage() {
   const vocabProgress = Math.round((progress.vocabulary_progress ?? 0) * 100)
 
   return (
-    <main className="juba-mobile-coach min-h-screen bg-[#f8faf7] px-4 py-8 sm:px-6 lg:px-10">
+    <main className="juba-mobile-coach min-h-screen bg-[var(--duo-bg)] px-4 py-8 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-7xl space-y-8">
         <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="juba-eyebrow mb-3 inline-flex items-center gap-2 rounded-full border border-[#e1e5e2] bg-[#eaf5df] px-3 py-1.5 text-[#438600]">
+            <div className="juba-eyebrow mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--duo-line)] bg-[rgba(88,204,2,.12)] px-3 py-1.5 text-[var(--duo-green-dark)]">
               <BrainCircuit className="h-4 w-4" />
               Your AI Learning Coach
             </div>
-            <h1 className="text-3xl font-black tracking-tight text-[#30343b] sm:text-4xl">
+            <h1 className="text-3xl font-black tracking-tight text-[var(--duo-ink)] sm:text-4xl">
               {user?.displayName || user?.username || 'Learner'}, here is your next best move.
             </h1>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#68736d] sm:text-base">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--duo-muted)] sm:text-base">
               JUBA LISAN turns your activity into a focused daily plan instead of asking you to decide what to study next.
             </p>
           </div>
           <button
             onClick={() => { setRefreshing(true); load() }}
             disabled={refreshing}
-            className="inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-[#e1e5e2] bg-white px-4 py-2.5 text-sm font-bold text-[#30343b] transition hover:border-[var(--juba-primary)] disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-[20px] border-2 border-[var(--duo-line)] bg-white px-4 py-2.5 text-sm font-bold text-[var(--duo-ink)] transition hover:border-[var(--juba-primary)] disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh coaching
@@ -113,21 +113,21 @@ export default function CoachPage() {
         <section className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
           <div className="juba-card overflow-hidden p-6 sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-[#58a700] text-[#30343b] shadow-[0_4px_0_#438600]">
+              <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-[var(--duo-green)] text-[var(--duo-ink)] shadow-[0_4px_0_var(--duo-green-dark)]">
                 <Sparkles className="h-10 w-10" />
                 <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full border-2 border-white bg-[#ffb020]" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[#438600]">Coach insight</p>
-                <h2 className="mt-2 text-2xl font-black text-[#30343b]">Focus on {weakestSkill.replaceAll('_', ' ')} today.</h2>
-                <p className="mt-2 max-w-xl text-sm leading-6 text-[#68736d]">
+                <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[var(--duo-green-dark)]">Coach insight</p>
+                <h2 className="mt-2 text-2xl font-black text-[var(--duo-ink)]">Focus on {weakestSkill.replaceAll('_', ' ')} today.</h2>
+                <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--duo-muted)]">
                   Your recent activity suggests this is the highest-impact skill to practice next. A short session is better than skipping the day.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
-                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-[#58a700] px-5 py-3 text-sm font-bold text-[#30343b] transition hover:bg-[#438600]">
+                  <Link href="/conversation" className="inline-flex items-center gap-2 rounded-[20px] bg-[var(--duo-green)] px-5 py-3 text-sm font-bold text-[var(--duo-ink)] transition hover:bg-[var(--duo-green-dark)]">
                     Start focused practice <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[#e1e5e2] px-5 py-3 text-sm font-bold text-[#30343b] transition hover:bg-[#eaf5df]">
+                  <Link href="/plan" className="inline-flex items-center gap-2 rounded-[20px] border-2 border-[var(--duo-line)] px-5 py-3 text-sm font-bold text-[var(--duo-ink)] transition hover:bg-[rgba(88,204,2,.12)]">
                     View my plan
                   </Link>
                 </div>
@@ -138,10 +138,10 @@ export default function CoachPage() {
           <div className="juba-card p-6">
             <div className="mb-5 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-[#68736d]">Today's momentum</p>
-                <p className="mt-1 text-xl font-black text-[#30343b]">Keep the streak alive</p>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--duo-muted)]">Today's momentum</p>
+                <p className="mt-1 text-xl font-black text-[var(--duo-ink)]">Keep the streak alive</p>
               </div>
-              <Flame className="h-6 w-6 text-[#438600]" />
+              <Flame className="h-6 w-6 text-[var(--duo-green-dark)]" />
             </div>
             <div className="grid grid-cols-3 gap-3">
               <Metric icon={<Flame />} value={`${progress.current_streak ?? 0}`} label="day streak" />
@@ -162,45 +162,45 @@ export default function CoachPage() {
           <div className="juba-card p-6 sm:p-8">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-[#438600]">Adaptive queue</p>
-                <h2 className="mt-1 text-2xl font-black text-[#30343b]">Your best work for today</h2>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--duo-green-dark)]">Adaptive queue</p>
+                <h2 className="mt-1 text-2xl font-black text-[var(--duo-ink)]">Your best work for today</h2>
               </div>
-              <span className="rounded-full bg-[#eaf5df] px-3 py-1 text-xs font-bold text-[#68736d]">{completed}/{total} complete</span>
+              <span className="rounded-full bg-[rgba(88,204,2,.12)] px-3 py-1 text-xs font-bold text-[var(--duo-muted)]">{completed}/{total} complete</span>
             </div>
             <div className="space-y-3">
               {(plan.lessons ?? []).slice(0, 4).map((lesson, index) => (
-                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[20px] border-2 border-[#e1e5e2] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-primary)]">
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[20px] ${lesson.is_completed ? 'bg-[#eaf5df] text-[#438600]' : 'bg-[#eaf5df] text-[#438600]'}`}>
+                <Link key={`${lesson.id}-${index}`} href={lesson.id ? `/lesson/${lesson.id}` : '/plan'} className="group flex items-center gap-4 rounded-[20px] border-2 border-[var(--duo-line)] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-primary)]">
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[20px] ${lesson.is_completed ? 'bg-[rgba(88,204,2,.12)] text-[var(--duo-green-dark)]' : 'bg-[rgba(88,204,2,.12)] text-[var(--duo-green-dark)]'}`}>
                     {lesson.is_completed ? <CheckCircle2 className="h-5 w-5" /> : <span className="text-sm font-black">{index + 1}</span>}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-bold text-[#30343b]">{lesson.title}</p>
-                    <p className="mt-1 text-xs text-[#68736d]">{lesson.lesson_type.replaceAll('_', ' ')} · {lesson.estimated_minutes || 25} min</p>
+                    <p className="truncate text-sm font-bold text-[var(--duo-ink)]">{lesson.title}</p>
+                    <p className="mt-1 text-xs text-[var(--duo-muted)]">{lesson.lesson_type.replaceAll('_', ' ')} · {lesson.estimated_minutes || 25} min</p>
                   </div>
-                  <ArrowRight className="h-4 w-4 text-[#68736d] transition group-hover:translate-x-1" />
+                  <ArrowRight className="h-4 w-4 text-[var(--duo-muted)] transition group-hover:translate-x-1" />
                 </Link>
               ))}
-              {!plan.lessons?.length && !loading && <p className="rounded-[20px] border border-dashed border-[#e1e5e2] p-6 text-center text-sm text-[#68736d]">Complete your assessment to unlock an adaptive learning plan.</p>}
+              {!plan.lessons?.length && !loading && <p className="rounded-[20px] border border-dashed border-[var(--duo-line)] p-6 text-center text-sm text-[var(--duo-muted)]">Complete your assessment to unlock an adaptive learning plan.</p>}
             </div>
           </div>
 
           <div className="juba-card p-6 sm:p-8">
-            <p className="text-xs font-bold uppercase tracking-[.16em] text-[#438600]">Practice in context</p>
-            <h2 className="mt-1 text-2xl font-black text-[#30343b]">Real-world rooms</h2>
-            <p className="mt-2 text-sm leading-6 text-[#68736d]">Stop memorizing isolated sentences. Practice what you actually need to say.</p>
+            <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--duo-green-dark)]">Practice in context</p>
+            <h2 className="mt-1 text-2xl font-black text-[var(--duo-ink)]">Real-world rooms</h2>
+            <p className="mt-2 text-sm leading-6 text-[var(--duo-muted)]">Stop memorizing isolated sentences. Practice what you actually need to say.</p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {scenarios.map((scenario) => (
-                <Link key={scenario.title} href={scenario.href} className="rounded-[20px] border-2 border-[#e1e5e2] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-primary)] hover:bg-[#eaf5df]">
+                <Link key={scenario.title} href={scenario.href} className="rounded-[20px] border-2 border-[var(--duo-line)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--juba-primary)] hover:bg-[rgba(88,204,2,.12)]">
                   <span className="text-2xl">{scenario.icon}</span>
-                  <p className="mt-3 text-sm font-black text-[#30343b]">{scenario.title}</p>
-                  <p className="mt-1 text-xs leading-5 text-[#68736d]">{scenario.desc}</p>
+                  <p className="mt-3 text-sm font-black text-[var(--duo-ink)]">{scenario.title}</p>
+                  <p className="mt-1 text-xs leading-5 text-[var(--duo-muted)]">{scenario.desc}</p>
                 </Link>
               ))}
             </div>
           </div>
         </section>
 
-        <footer className="flex flex-col gap-2 border-t border-[#e1e5e2] pt-6 text-xs text-[#68736d] sm:flex-row sm:items-center sm:justify-between">
+        <footer className="flex flex-col gap-2 border-t border-[var(--duo-line)] pt-6 text-xs text-[var(--duo-muted)] sm:flex-row sm:items-center sm:justify-between">
           <span>Learning {language?.name ? `· ${language.name}` : '· personalized for you'}</span>
           <span>CEFR {plan.cefr_level || 'adaptive'} · JUBA LISAN Coach</span>
         </footer>
@@ -211,10 +211,10 @@ export default function CoachPage() {
 
 function Metric({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
   return (
-    <div className="rounded-[16px] bg-[#eaf5df] p-3">
-      <div className="mb-2 h-4 w-4 text-[#438600]">{icon}</div>
-      <p className="text-lg font-black text-[#30343b]">{value}</p>
-      <p className="text-[10px] font-bold uppercase tracking-wider text-[#68736d]">{label}</p>
+    <div className="rounded-[16px] bg-[rgba(88,204,2,.12)] p-3">
+      <div className="mb-2 h-4 w-4 text-[var(--duo-green-dark)]">{icon}</div>
+      <p className="text-lg font-black text-[var(--duo-ink)]">{value}</p>
+      <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--duo-muted)]">{label}</p>
     </div>
   )
 }
@@ -223,12 +223,12 @@ function CoachCard({ icon, title, value, detail, href }: { icon: React.ReactNode
   return (
     <Link href={href} className="juba-card group p-5">
       <div className="flex items-center justify-between">
-        <span className="flex h-10 w-10 items-center justify-center rounded-[16px] bg-[#eaf5df] text-[#438600]">{icon}</span>
-        <ArrowRight className="h-4 w-4 text-[#68736d] transition group-hover:translate-x-1" />
+        <span className="flex h-10 w-10 items-center justify-center rounded-[16px] bg-[rgba(88,204,2,.12)] text-[var(--duo-green-dark)]">{icon}</span>
+        <ArrowRight className="h-4 w-4 text-[var(--duo-muted)] transition group-hover:translate-x-1" />
       </div>
-      <p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-[#68736d]">{title}</p>
-      <p className="mt-1 text-2xl font-black text-[#30343b]">{value}</p>
-      <p className="mt-2 text-xs leading-5 text-[#68736d]">{detail}</p>
+      <p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-[var(--duo-muted)]">{title}</p>
+      <p className="mt-1 text-2xl font-black text-[var(--duo-ink)]">{value}</p>
+      <p className="mt-2 text-xs leading-5 text-[var(--duo-muted)]">{detail}</p>
     </Link>
   )
 }
