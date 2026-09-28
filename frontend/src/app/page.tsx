@@ -22,28 +22,28 @@ import type { ReviewPublic } from '@/types/api'
 import { normalizeLocale } from '@/lib/locales'
 
 export const metadata: Metadata = {
-  title: 'FreeLingo: AI-powered language learning',
+  title: 'JUBA LISAN — Learn languages naturally with AI',
   description:
-    'Learn languages with an AI tutor, real-time voice conversations, spaced-repetition flashcards, and structured grammar lessons. Self-hosted and privacy-friendly.',
+    'Learn languages naturally with AI through speaking, listening, reading, vocabulary, grammar, and personalized practice.',
   robots: { index: true, follow: true },
   openGraph: {
-    title: 'FreeLingo: AI-powered language learning',
+    title: 'JUBA LISAN — AI-powered language learning',
     description:
-      'Learn languages with an AI tutor, real-time voice conversations, spaced-repetition flashcards, and structured grammar lessons.',
-    url: 'https://freelingo.app',
+      'Learn languages naturally with AI through speaking, listening, reading, vocabulary, grammar, and personalized practice.',
+    url: 'https://jubalisan.com',
     type: 'website',
     images: [
       {
         url: '/og-image-v2.png',
         width: 1200,
         height: 630,
-        alt: 'FreeLingo: AI-powered language learning',
+        alt: 'JUBA LISAN — AI-powered language learning',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'FreeLingo: AI-powered language learning',
+    title: 'JUBA LISAN — AI-powered language learning',
     description:
       'Learn languages with an AI tutor, real-time voice conversations, spaced-repetition flashcards, and structured grammar lessons.',
     images: ['/og-image-v2.png'],
@@ -53,17 +53,13 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'FreeLingo',
+  name: 'JUBA LISAN',
   applicationCategory: 'EducationApplication',
   operatingSystem: 'Web',
-  url: 'https://freelingo.app',
+  url: 'https://jubalisan.com',
   description:
-    'Self-hosted AI-powered language learning platform with voice conversation, flashcards, grammar lessons, and a personal AI tutor.',
-  author: {
-    '@type': 'Person',
-    name: 'Arturo Carretero Calvo',
-    url: 'https://www.arturocarreterocalvo.com',
-  },
+    'JUBA LISAN is an AI-powered language learning platform with conversation, vocabulary, grammar, listening, reading, and personalized learning.',
+  
   offers: {
     '@type': 'Offer',
     price: '0',
@@ -116,7 +112,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="bg-fl-bg text-fl-fg flex min-h-screen flex-col">
+    <div className="juba-busuu-page flex min-h-screen flex-col">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -348,7 +344,7 @@ export default async function Home() {
               </div>
             </div>
             <a
-              href="https://github.com/artcc/freelingo"
+              href="https://github.com/abdelhadiLRS/JUBA_LISAN"
               target="_blank"
               rel="noopener noreferrer"
               className="border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 border px-6 py-2.5 font-mono text-xs font-bold tracking-widest whitespace-nowrap uppercase transition-colors"
@@ -373,7 +369,7 @@ export default async function Home() {
       </ScrollReveal>
 
       {/* Footer */}
-      <footer className="border-fl-border border-t px-6 py-10">
+      <footer className="juba-busuu-footer border-t px-6 py-10">
         <div className="mx-auto grid max-w-4xl grid-cols-2 gap-8 md:grid-cols-4">
           <div>
             <span className="text-fl-hint text-fl-muted-3 font-code block tracking-widest uppercase">
