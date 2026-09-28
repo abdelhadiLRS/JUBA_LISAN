@@ -630,7 +630,7 @@ html[data-theme='light'] {
   text-align:left; padding:7px 2px; font-size:12px; font-weight:700;
 }
 .juba-duo-user-action:hover { color:var(--duo-ink); }
-.juba-duo-mobile-menu { position:fixed; top:57px; inset-inline:0; z-index:49; background:var(--duo-card); border-bottom:2px solid var(--duo-line); box-shadow:0 12px 30px color-mix(in srgb,var(--duo-ink) 10%,transparent); max-height:calc(100vh - 57px); overflow:auto; }
+.juba-duo-mobile-menu { position:fixed; top:66px; inset-inline:0; z-index:49; background:var(--duo-card); border-bottom:2px solid var(--duo-line); box-shadow:0 12px 30px color-mix(in srgb,var(--duo-ink) 10%,transparent); max-height:calc(100vh - 66px); overflow:auto; }
 .juba-duo-mobile-bar { background:var(--duo-card) !important; border-color:var(--duo-line) !important; color:var(--duo-ink) !important; }
 .juba-duo-mobile-bar .border-fl-border { border-color:var(--duo-line) !important; }
 .juba-duo-mobile-bar .bg-fl-bg { background:var(--duo-card) !important; }
@@ -1417,6 +1417,32 @@ html[data-theme='light'] {
   }
 }
 
+.juba-duo-shell {
+  overflow-x:hidden;
+}
+
+.juba-duo-shell .juba-duo-sidebar,
+.juba-duo-shell .juba-duo-mobile-menu {
+  overscroll-behavior:contain;
+}
+
+.juba-duo-shell .juba-duo-nav-link,
+.juba-duo-shell .juba-duo-resource-toggle,
+.juba-duo-shell .juba-duo-user-action {
+  touch-action:manipulation;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .juba-duo-shell *,
+  .juba-duo-shell *::before,
+  .juba-duo-shell *::after {
+    scroll-behavior:auto !important;
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+}
+
 /* ── Final Duolingo geometry + RTL audit ───────────────────────────────── */
 /* This final layer resolves cascade conflicts between the older shell rules and
    the canonical Duolingo application geometry. It does not change route logic. */
@@ -1444,6 +1470,8 @@ html[data-theme='light'] {
   min-width:0;
   margin:0;
   background:var(--duo-bg);
+  overflow-x:hidden;
+  overscroll-behavior:contain;
 }
 
 /* Sidebar active state follows document direction, including nested resources. */
