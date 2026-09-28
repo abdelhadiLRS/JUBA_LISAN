@@ -30,27 +30,27 @@ export default function AdaptiveQuizCard({
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center bg-[var(--duo-bg)] p-4 sm:p-6">
-      <div className="w-full max-w-2xl overflow-hidden rounded-[26px] border border-[rgba(7,7,9,.08)] bg-white shadow-[0_12px_30px_rgba(43,45,90,.055)]">
+      <div className="w-full max-w-2xl overflow-hidden rounded-[26px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_12px_30px_var(--duo-line)]">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[rgba(7,7,9,.07)] bg-[var(--duo-bg)] px-5 py-4 sm:px-6">
+        <div className="flex items-center justify-between border-b border-[var(--duo-line)] bg-[var(--duo-bg)] px-5 py-4 sm:px-6">
           <div className="flex items-center gap-2">
-            <span className="text-xs text-[rgba(32,33,39,.52)]">●</span>
-            <span className="text-xs text-[rgba(32,33,39,.52)] font-semibold tracking-[0.12em] uppercase">
+            <span className="text-xs text-[var(--duo-muted)]">●</span>
+            <span className="text-xs text-[var(--duo-muted)] font-semibold tracking-[0.12em] uppercase">
               {t('step2', { questionNumber, totalQuestions })}
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-[rgba(32,33,39,.52)] border-[rgba(7,7,9,.08)] rounded-full border px-2 py-1 font-semibold tracking-[0.12em] uppercase">
+            <span className="text-xs text-[var(--duo-muted)] border-[var(--duo-line)] rounded-full border px-2 py-1 font-semibold tracking-[0.12em] uppercase">
               {question.difficulty}
             </span>
-            <span className="text-xs text-[rgba(32,33,39,.52)] border-[rgba(7,7,9,.08)] rounded-full border px-2 py-1 font-semibold tracking-[0.12em] uppercase">
+            <span className="text-xs text-[var(--duo-muted)] border-[var(--duo-line)] rounded-full border px-2 py-1 font-semibold tracking-[0.12em] uppercase">
               {skillLabelMap[question.skill] ?? question.skill}
             </span>
           </div>
         </div>
 
         {/* Progress bar */}
-        <div className="h-1 bg-[rgba(88,204,2,.10)]">
+        <div className="h-1 bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)]">
           <div
             className="h-1 bg-[var(--duo-blue)] transition-all duration-300"
             style={{ width: `${progress}%` }}
@@ -75,9 +75,9 @@ export default function AdaptiveQuizCard({
                 <button
                   key={option}
                   onClick={() => onAnswer(option)}
-                  className="flex w-full items-start gap-3 rounded-[16px] border border-[rgba(7,7,9,.08)] bg-[var(--duo-bg)] px-4 py-3 text-left text-[var(--duo-ink)] transition-all hover:border-[var(--duo-blue)] hover:bg-[rgba(88,204,2,.10)] hover:text-[var(--duo-blue-dark)] hover:shadow-[0_8px_18px_rgba(43,45,90,.05)]"
+                  className="flex w-full items-start gap-3 rounded-[16px] border border-[var(--duo-line)] bg-[var(--duo-bg)] px-4 py-3 text-left text-[var(--duo-ink)] transition-all hover:border-[var(--duo-blue)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-blue-dark)] hover:shadow-[0_8px_18px_var(--duo-line)]"
                 >
-                  <span className="text-xs text-[rgba(32,33,39,.52)] shrink-0 font-sans">
+                  <span className="text-xs text-[var(--duo-muted)] shrink-0 font-sans">
                     {labels[i]}.
                   </span>
                   <TargetLanguageText languageCode={languageCode}>
