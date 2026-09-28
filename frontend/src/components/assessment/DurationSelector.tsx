@@ -62,7 +62,7 @@ export default function DurationSelector({
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center bg-[var(--duo-bg)] p-4 sm:p-6">
-      <div className="w-full max-w-2xl overflow-hidden rounded-[26px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_12px_30px_rgba(43,45,90,.055)]">
+      <div className="w-full max-w-2xl overflow-hidden rounded-[26px] border border-[var(--duo-line)] bg-[var(--duo-card)] shadow-[0_3px_0_var(--duo-line)]">
         <div className="flex items-center gap-3 border-b border-[var(--duo-line)] bg-[var(--duo-bg)] px-6 py-4">
           <span className="text-xs text-[var(--duo-muted)]">●</span>
           <span className="text-xs text-[var(--duo-muted)] font-semibold tracking-[0.12em] uppercase">
@@ -84,7 +84,7 @@ export default function DurationSelector({
                   onClick={() => onSelectDuration(opt)}
                   className={`rounded-[20px] border-2 px-4 py-4 text-left transition-all ${
                     selectedWeeks === opt.weeks
-                      ? 'bg-[var(--duo-blue)] text-white border-[var(--duo-blue)] shadow-[0_8px_20px_color-mix(in_srgb,var(--duo-purple)_16%,transparent)]'
+                      ? 'bg-[var(--duo-blue)] text-white border-[var(--duo-blue)] shadow-[0_3px_0_var(--duo-blue-dark)]'
                       : 'border-[var(--duo-line)] bg-[var(--duo-bg)] text-[var(--duo-ink)] hover:border-[var(--duo-blue)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-blue-dark)]'
                   }`}
                 >
@@ -128,7 +128,7 @@ export default function DurationSelector({
                   onClick={() => onToggleGoal(g.id)}
                   className={`rounded-full border-2 px-3 py-2 text-xs font-semibold tracking-[0.08em] uppercase transition-all ${
                     selectedGoals.includes(g.id)
-                      ? 'bg-[var(--duo-blue)] text-white border-[var(--duo-blue)] shadow-[0_6px_14px_color-mix(in_srgb,var(--duo-purple)_14%,transparent)]'
+                      ? 'bg-[var(--duo-blue)] text-white border-[var(--duo-blue)] shadow-[0_3px_0_var(--duo-blue-dark)]'
                       : 'border-[var(--duo-line)] bg-[var(--duo-bg)] text-[var(--duo-ink)] hover:border-[var(--duo-blue)] hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] hover:text-[var(--duo-blue-dark)]'
                   }`}
                 >
