@@ -11,13 +11,13 @@ const badgeVariants = cva(
       variant: {
         default: 'bg-[var(--duo-yellow)] text-[var(--duo-ink)] [a]:hover:opacity-80',
         secondary:
-          'bg-[rgba(88,204,2,.08)] text-[var(--duo-ink)] [a]:hover:bg-[rgba(88,204,2,.10)]',
+          'bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] text-[var(--duo-ink)] [a]:hover:bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)]',
         destructive:
           'border-[var(--duo-red)]/30 bg-[var(--duo-red)]/10 text-[var(--duo-red)] [a]:hover:bg-[var(--duo-red)]/20',
         outline:
-          'bg-[var(--duo-card)] text-[var(--duo-ink)] [a]:hover:bg-[rgba(88,204,2,.08)]',
+          'bg-[var(--duo-card)] text-[var(--duo-ink)] [a]:hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]',
         ghost:
-          'border-transparent text-[var(--duo-muted)] hover:bg-[rgba(88,204,2,.08)] hover:text-[var(--duo-ink)]',
+          'border-transparent text-[var(--duo-muted)] hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)] hover:text-[var(--duo-ink)]',
         link: 'border-transparent text-[var(--duo-green-dark)] underline-offset-4 hover:underline',
       },
     },
