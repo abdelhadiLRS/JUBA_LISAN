@@ -191,7 +191,7 @@ function TrialPremiumCta() {
   }
 
   return (
-    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] mb-4 rounded-[20px] border-2 p-5 text-center shadow-[0_3px_0_rgba(31,41,51,.045)]">
+    <div className="border-[var(--duo-line)] bg-[var(--duo-card)] mb-4 rounded-[20px] border-2 p-5 text-center shadow-[0_3px_0_var(--duo-line)]">
       <p className="text-[var(--duo-muted)] mb-2 font-sans tracking-wide uppercase">
         {tConversation('trialCtaLabel')}
       </p>
