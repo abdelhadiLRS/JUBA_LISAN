@@ -46,7 +46,7 @@ export default function TargetLanguageSelector({
             type="button"
             onClick={() => onChange(lang.code)}
             aria-pressed={selected}
-            className={`group relative flex min-h-16 items-center gap-3 rounded-[16px] border px-3 py-3 text-left text-sm font-extrabold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-blue)] focus-visible:ring-offset-2 ${
+            className={`group relative flex min-h-16 items-center gap-3 rounded-[16px] border px-3 py-3 text-start text-sm font-extrabold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--duo-blue)] focus-visible:ring-offset-2 ${
               selected
                 ? 'border-[var(--duo-green)] bg-[color-mix(in_srgb,var(--duo-green)_10%,transparent)] text-[var(--duo-ink)] shadow-[0_3px_0_var(--duo-green-dark)] -translate-y-0.5'
                 : 'border-[var(--duo-line)] bg-[var(--duo-card)] text-[var(--duo-ink)] hover:-translate-y-0.5 hover:border-[var(--duo-green)] hover:bg-[color-mix(in_srgb,var(--duo-green)_8%,transparent)]'
