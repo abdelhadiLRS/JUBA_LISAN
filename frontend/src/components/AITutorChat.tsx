@@ -143,7 +143,7 @@ const AITutorChat: React.FC = () => {
               <div className="flex items-center gap-1.5" aria-label="جاري الرد">
                 <span className="h-2 w-2 animate-bounce rounded-full bg-[var(--duo-purple)]" />
                 <span className="h-2 w-2 animate-bounce rounded-full bg-[color-mix(in_srgb,var(--duo-yellow)_18%,transparent)] [animation-delay:150ms]" />
-                <span className="h-2 w-2 animate-bounce rounded-full bg-[#202127] [animation-delay:300ms]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-[var(--duo-ink)] [animation-delay:300ms]" />
               </div>
             </div>
           </motion.div>
