@@ -83,28 +83,28 @@ export default function OnboardingTour() {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="bg-fl-bg/80 absolute inset-0 backdrop-blur-sm"
+        className="bg-[color-mix(in_srgb,var(--duo-ink)_70%,transparent)] absolute inset-0 backdrop-blur-sm"
         onClick={dismiss}
       />
 
       {/* Modal */}
-      <div className="border-fl-border bg-fl-surface relative z-10 w-full max-w-md border shadow-2xl">
+      <div className="border-[var(--duo-line)] bg-[var(--duo-card)] relative z-10 w-full max-w-md border shadow-2xl">
         {/* Top bar */}
-        <div className="border-fl-border flex items-center justify-between border-b px-5 pt-5 pb-4">
+        <div className="border-[var(--duo-line)] flex items-center justify-between border-b px-5 pt-5 pb-4">
           {/* Progress dots */}
           <div className="flex gap-1.5">
             {Array.from({ length: totalSteps }).map((_, i) => (
               <span
                 key={i}
                 className={`block h-1.5 w-1.5 rounded-full transition-colors ${
-                  i === step ? 'bg-fl-accent' : 'bg-fl-border'
+                  i === step ? 'bg-[var(--duo-green)]' : 'bg-[var(--duo-line)]'
                 }`}
               />
             ))}
           </div>
           <button
             onClick={dismiss}
-            className="text-fl-hint text-fl-muted-3 hover:text-fl-fg font-mono tracking-widest uppercase transition-colors"
+            className="text-[var(--duo-muted)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-mono tracking-widest uppercase transition-colors"
           >
             {t('skip')}
           </button>
@@ -121,18 +121,18 @@ export default function OnboardingTour() {
           }`}
         >
           <div className="mb-4 flex items-center gap-3">
-            <Icon className="text-fl-muted-2 h-5 w-5" />
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+            <Icon className="text-[var(--duo-muted)] h-5 w-5" />
+            <span className="text-[var(--duo-muted)] text-[var(--duo-muted)] font-mono tracking-widest uppercase">
               {t(`step${step + 1}.label`)}
               {stripeEnabled && PREMIUM_STEPS.has(step) && (
-                <span className="text-fl-accent ml-1">★</span>
+                <span className="text-[var(--duo-green-dark)] ms-1">★</span>
               )}
             </span>
           </div>
-          <h2 className="text-fl-fg mb-2 font-mono text-base font-bold">
+          <h2 className="text-[var(--duo-ink)] mb-2 font-mono text-base font-bold">
             {t(`step${step + 1}.title`)}
           </h2>
-          <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
+          <p className="text-[var(--duo-muted)] font-mono text-xs leading-relaxed">
             {t(`step${step + 1}.desc`)}
           </p>
         </div>
@@ -142,21 +142,21 @@ export default function OnboardingTour() {
           <button
             onClick={() => goTo(step - 1, 'prev')}
             disabled={isFirst}
-            className="text-fl-label text-fl-muted-2 hover:text-fl-fg font-mono tracking-widest uppercase transition-colors disabled:opacity-0"
+            className="text-[var(--duo-muted)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-mono tracking-widest uppercase transition-colors disabled:opacity-0"
           >
             ← {t('prev')}
           </button>
           {isLast ? (
             <button
               onClick={dismiss}
-              className="text-fl-label bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 px-5 py-2 font-mono tracking-widest uppercase transition-colors"
+              className="text-[var(--duo-muted)] bg-[var(--duo-green)] text-white hover:bg-[var(--duo-green)]/90 px-5 py-2 font-mono tracking-widest uppercase transition-colors"
             >
               {t('done')}
             </button>
           ) : (
             <button
               onClick={() => goTo(step + 1, 'next')}
-              className="text-fl-label text-fl-muted-1 hover:text-fl-fg font-mono tracking-widest uppercase transition-colors"
+              className="text-[var(--duo-muted)] text-[var(--duo-muted)] hover:text-[var(--duo-ink)] font-mono tracking-widest uppercase transition-colors"
             >
               {t('next')} →
             </button>
