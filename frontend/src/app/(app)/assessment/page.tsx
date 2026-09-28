@@ -367,7 +367,7 @@ export default function AssessmentPage() {
             )}
             {error && <div className="rounded-[14px] border border-[#b33a32]/30 bg-[#b33a32]/10 px-4 py-3 text-xs text-[#b33a32]">✕ {error}</div>}
             <div className="flex gap-2">
-              <button onClick={() => router.push('/dashboard')} className="flex-1 rounded-[14px] border border-[var(--duo-line)] px-3 py-3 text-xs font-semibold text-[var(--duo-muted)] transition hover:bg-[#f1f7ed]">← {tCommon('backToDashboard')}</button>
+              <button onClick={() => router.push('/dashboard')} className="flex-1 rounded-[14px] border border-[var(--duo-line)] px-3 py-3 text-xs font-semibold text-[var(--duo-muted)] transition hover:bg-[rgba(88,204,2,.08)]">← {tCommon('backToDashboard')}</button>
               <button onClick={() => setStep('beginner-gate')} className={actionClass + ' flex-[1.75]'}>{t('retake')}</button>
             </div>
           </div>
@@ -443,7 +443,7 @@ export default function AssessmentPage() {
               <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--duo-muted)]">{t('overrideLevel')}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {CEFR_LEVELS.map((lvl) => (
-                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[14px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--duo-green)] bg-[rgba(88,204,2,.12)] text-[var(--duo-green-dark)]' : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:bg-[#f1f7ed]'}`}>
+                  <button key={lvl} onClick={() => setSelectedLevel(lvl)} className={`rounded-[14px] border px-4 py-2 text-xs font-bold transition ${selectedLevel === lvl ? 'border-[var(--duo-green)] bg-[rgba(88,204,2,.12)] text-[var(--duo-green-dark)]' : 'border-[var(--duo-line)] text-[var(--duo-muted)] hover:bg-[rgba(88,204,2,.08)]'}`}>
                     {lvl}
                   </button>
                 ))}
