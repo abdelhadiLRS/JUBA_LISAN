@@ -6218,3 +6218,73 @@ html[data-theme='light'] {
 @media (prefers-reduced-motion: reduce) {
   .juba-busuu-app .juba-duo-nav-link { transition: none; }
 }
+
+/* ── Busuu visual pass: authenticated JUBA LISAN interface ────────────────
+   This is the active app theme. Keep every rule scoped so the public landing
+   and standalone auth pages are unaffected.
+*/
+.juba-busuu-app .juba-duo-page-frame {
+  color: var(--busuu-ink);
+  background: var(--busuu-cream);
+}
+.juba-busuu-app .juba-duo-page-frame h1,
+.juba-busuu-app .juba-duo-page-frame h2,
+.juba-busuu-app .juba-duo-page-frame h3,
+.juba-busuu-app .juba-duo-page-frame h4 {
+  color: var(--busuu-ink);
+  letter-spacing: -.025em;
+}
+.juba-busuu-app .juba-duo-page-frame a:not([class*="juba-primary-button"]) {
+  color: var(--busuu-green-dark);
+}
+.juba-busuu-app .juba-duo-page-frame a:not([class*="juba-primary-button"]):hover {
+  color: var(--busuu-green);
+}
+.juba-busuu-app .juba-duo-sidebar {
+  border-inline-end: 1px solid var(--busuu-line);
+  box-shadow: 3px 0 22px color-mix(in srgb, var(--busuu-ink) 4%, transparent);
+}
+.juba-busuu-app .juba-duo-sidebar > div:first-child {
+  border-color: var(--busuu-line);
+}
+.juba-busuu-app .juba-duo-nav-link:focus-visible,
+.juba-busuu-app .juba-duo-resource-toggle:focus-visible,
+.juba-busuu-app .juba-duo-user-action:focus-visible,
+.juba-busuu-app .juba-duo-mobile-trigger:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--busuu-green) 42%, transparent);
+  outline-offset: 2px;
+}
+.juba-busuu-app .juba-duo-page-frame :is(.juba-card, .juba-panel, .juba-page-shell, .juba-page-hero, [data-slot="card"]) {
+  border-color: var(--busuu-line) !important;
+  border-radius: 20px !important;
+  background: var(--busuu-card) !important;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--busuu-ink) 5%, transparent) !important;
+}
+.juba-busuu-app .juba-duo-page-frame :is(button, [role="button"]):not(.juba-duo-user-action):not(.juba-duo-mobile-trigger) {
+  border-radius: 12px;
+}
+.juba-busuu-app .juba-duo-page-frame :is(button, a)[class*="juba-primary-button"],
+.juba-busuu-app .juba-duo-page-frame .juba-primary-button {
+  border-radius: 999px !important;
+  background: var(--busuu-green) !important;
+  box-shadow: 0 3px 0 var(--busuu-green-dark) !important;
+}
+.juba-busuu-app .juba-duo-page-frame :is(button, a)[class*="juba-primary-button"]:hover,
+.juba-busuu-app .juba-duo-page-frame .juba-primary-button:hover {
+  background: var(--busuu-green-dark) !important;
+}
+.juba-busuu-app .juba-duo-mobile-menu .juba-duo-nav-link.is-active {
+  background: var(--busuu-mint);
+  color: var(--busuu-green-dark);
+  border-color: transparent;
+}
+@media (max-width: 900px) {
+  .juba-busuu-app .juba-duo-main {
+    margin-inline-start: 0;
+    padding-top: 66px;
+  }
+  .juba-busuu-app .juba-duo-page-frame {
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
+}
+
