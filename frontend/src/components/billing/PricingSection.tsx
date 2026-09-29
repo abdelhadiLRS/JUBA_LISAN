@@ -258,7 +258,7 @@ export default function PricingSection({
         <table className="w-full min-w-[680px] table-fixed">
           <thead>
             <tr className="juba-ff-comparison-head border-b">
-              <th className="juba-ff-comparison-label w-[42%] px-3 py-3 text-left font-sans tracking-widest uppercase sm:w-auto sm:px-5">
+              <th className="juba-ff-comparison-label w-[42%] px-3 py-3 text-start font-sans tracking-widest uppercase sm:w-auto sm:px-5">
                 &nbsp;
               </th>
               <th className="juba-ff-comparison-plan-head w-[19.333%] px-1 py-3 text-center font-sans tracking-[0.18em] uppercase sm:w-auto sm:px-4 sm:tracking-widest">
