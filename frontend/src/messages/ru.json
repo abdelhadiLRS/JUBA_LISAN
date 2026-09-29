@@ -258,7 +258,8 @@
     "coach": "Тренер",
     "courses": "Курсы",
     "review": "Повторение",
-    "translator": "Переводчик"
+    "translator": "Переводчик",
+    "navigation": "Навигация"
   },
   "auth": {
     "login": {
