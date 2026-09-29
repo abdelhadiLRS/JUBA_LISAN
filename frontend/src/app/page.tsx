@@ -759,8 +759,6 @@ export default async function Home() {
                   src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
                   loading="lazy"
                   decoding="async"
-                  loading="lazy"
-                  decoding="async"
                   alt=""
                 />
                 <span>{t('newOpportunitiesTicker')}</span>
@@ -768,15 +766,11 @@ export default async function Home() {
                   src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
                   loading="lazy"
                   decoding="async"
-                  loading="lazy"
-                  decoding="async"
                   alt=""
                 />
                 <span>{t('newYouTicker')}</span>
                 <img
                   src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
-                  loading="lazy"
-                  decoding="async"
                   loading="lazy"
                   decoding="async"
                   alt=""
