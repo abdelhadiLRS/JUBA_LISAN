@@ -516,19 +516,50 @@ export default async function Home() {
           </div>
           <div>
             <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
+              {t('footerLearning')}
+            </h4>
+            <div className="flex flex-col gap-2">
+              <a href="#features" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
+                {t('navFeatures')}
+              </a>
+              <a href="#languages" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
+                {t('navLanguages')}
+              </a>
+              <a href="#pricing" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
+                {t('navPricing')}
+              </a>
+            </div>
+          </div>
+          <div>
+            <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
+              {t('footerResources')}
+            </h4>
+            <div className="flex flex-col gap-2">
+              <a href="#reviews" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
+                {t('navReviews')}
+              </a>
+              <a href="#faq" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
+                {t('navFAQ')}
+              </a>
+              <a
+                href="https://github.com/abdelhadiLRS/JUBA_LISAN"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors"
+              >
+                {t('github')}
+              </a>
+            </div>
+          </div>
+          <div>
+            <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
               {t('footerLegal')}
             </h4>
             <div className="flex flex-col gap-2">
-              <Link
-                href="/privacy?from=landing"
-                className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors"
-              >
+              <Link href="/privacy?from=landing" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
                 {t('privacy')}
               </Link>
-              <Link
-                href="/terms?from=landing"
-                className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors"
-              >
+              <Link href="/terms?from=landing" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
                 {t('terms')}
               </Link>
             </div>
