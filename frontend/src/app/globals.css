@@ -4226,3 +4226,44 @@ html[data-theme='light'] {
     padding-top: 48px;
   }
 }
+
+
+/* ── Busuu landing: focused hero hierarchy and responsive composition ───── */
+.juba-busuu-page .juba-busuu-hero-inner { align-items: center; }
+.juba-busuu-page .juba-busuu-hero-copy { position: relative; z-index: 2; }
+.juba-busuu-page .juba-busuu-hero-copy h1 { max-width: 12ch; text-wrap: balance; }
+.juba-busuu-page .juba-busuu-hero-copy p { text-wrap: pretty; }
+.juba-busuu-page .juba-busuu-hero-actions { gap: 16px; }
+.juba-busuu-page .juba-busuu-hero-primary {
+  min-width: 184px; min-height: 56px; border-radius: 999px; font-weight: 800;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.juba-busuu-page .juba-busuu-hero-primary:hover { transform: translateY(1px); }
+.juba-busuu-page .juba-busuu-hero-secondary { min-height: 56px; border-radius: 999px; font-weight: 750; }
+.juba-busuu-page .juba-busuu-hero-visual { min-width: 0; isolation: isolate; }
+.juba-busuu-page .juba-busuu-language-panel {
+  border: 1px solid var(--busuu-line);
+  background: color-mix(in srgb, var(--busuu-card) 94%, var(--busuu-mint));
+}
+.juba-busuu-page .juba-busuu-floating-note {
+  z-index: 3; border: 1px solid var(--busuu-line);
+  background: var(--busuu-card); color: var(--busuu-ink);
+}
+.juba-busuu-page .juba-busuu-features-heading {
+  max-width: 720px; margin: 0 auto 32px; text-align: center;
+}
+.juba-busuu-page .juba-busuu-features-heading h2 {
+  margin-top: 12px; font-size: clamp(30px, 4vw, 48px); font-weight: 800;
+  line-height: 1.15; text-wrap: balance;
+}
+@media (max-width: 900px) {
+  .juba-busuu-page .juba-busuu-hero-copy h1 { max-width: 15ch; }
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-hero-copy h1 {
+    max-width: 13ch; font-size: clamp(36px, 10vw, 48px); line-height: 1.12;
+  }
+  .juba-busuu-page .juba-busuu-hero-actions { align-items: stretch; }
+  .juba-busuu-page .juba-busuu-hero-primary,
+  .juba-busuu-page .juba-busuu-hero-secondary { min-height: 52px; }
+}
