@@ -12541,3 +12541,26 @@ html[data-theme='light'] {
     display: none;
   }
 }
+
+
+/* === Landing accessibility: honor reduced-motion preferences === */
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages-track {
+    animation: none !important;
+    transform: none !important;
+  }
+  .juba-busuu-page .juba-busuu-new-languages {
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group[aria-hidden="true"] {
+    display: none;
+  }
+  .juba-busuu-page .juba-busuu-reference-hero-primary,
+  .juba-busuu-page .juba-busuu-language-cta-link,
+  .juba-busuu-page .juba-busuu-different-card,
+  .juba-busuu-page .juba-ff-review-card,
+  .juba-busuu-page .juba-busuu-app-store-badge {
+    transition: none !important;
+  }
+}
