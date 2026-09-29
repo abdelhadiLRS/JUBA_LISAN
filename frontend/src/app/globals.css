@@ -3067,3 +3067,132 @@ html[data-theme='light'] {
   .juba-busuu-page #features { padding:54px 18px 68px; }
   .juba-busuu-page .juba-busuu-feature-card { min-height:0; padding:24px !important; }
 }
+
+
+/* ── JUBA LISAN landing redesign: Busuu-inspired visual hierarchy ── */
+.juba-busuu-page {
+  --busuu-cream:#fbfaf6;
+  --busuu-card:#fff;
+  --busuu-line:#dce5df;
+  background:var(--busuu-cream);
+}
+.juba-busuu-page .juba-busuu-nav {
+  border:0;
+  background:color-mix(in srgb,var(--busuu-cream) 92%,transparent);
+  box-shadow:0 1px 0 color-mix(in srgb,var(--busuu-ink) 7%,transparent);
+}
+.juba-busuu-page .juba-busuu-nav-inner {
+  width:min(1240px,calc(100% - 48px));
+  min-height:82px;
+}
+.juba-busuu-page .juba-busuu-nav-cta,
+.juba-busuu-page .juba-busuu-mobile-cta {
+  border-radius:999px;
+  background:var(--busuu-green);
+  box-shadow:0 3px 0 var(--busuu-green-dark);
+  transition:transform .16s ease,background .16s ease,box-shadow .16s ease;
+}
+.juba-busuu-page .juba-busuu-nav-cta:hover,
+.juba-busuu-page .juba-busuu-mobile-cta:hover {
+  transform:translateY(2px);
+  background:var(--busuu-green-dark);
+  box-shadow:0 1px 0 var(--busuu-green-dark);
+}
+.juba-busuu-page > .juba-busuu-hero {
+  overflow:hidden;
+  padding-block:clamp(68px,8vw,112px) clamp(88px,10vw,132px);
+  background:
+    radial-gradient(ellipse at 82% 12%,color-mix(in srgb,var(--busuu-green) 12%,transparent),transparent 36%),
+    linear-gradient(135deg,#fbfaf6 0%,#f1faf4 58%,#e9f8ef 100%);
+}
+.juba-busuu-page > .juba-busuu-hero .juba-busuu-hero-inner {
+  grid-template-columns:minmax(0,1.04fr) minmax(370px,.96fr);
+  gap:clamp(42px,6vw,92px);
+}
+.juba-busuu-page > .juba-busuu-hero .juba-busuu-hero-copy h1 {
+  color:var(--busuu-ink);
+  font-size:clamp(44px,5.4vw,74px);
+  line-height:1.06;
+  letter-spacing:-.05em;
+}
+.juba-busuu-page > .juba-busuu-hero .juba-busuu-hero-copy p {
+  max-width:560px;
+  font-size:clamp(17px,1.45vw,20px);
+  line-height:1.8;
+}
+.juba-busuu-page > .juba-busuu-hero .juba-busuu-hero-primary {
+  min-height:58px;
+  padding-inline:32px;
+  border-radius:999px;
+  box-shadow:0 5px 0 var(--busuu-green-dark);
+}
+.juba-busuu-page > .juba-busuu-hero .juba-busuu-hero-secondary {
+  min-height:58px;
+  padding-inline:26px;
+  border:1px solid var(--busuu-line);
+  border-radius:999px;
+  background:#fff;
+}
+.juba-busuu-page .juba-busuu-language-panel {
+  border:1px solid #dcebe1;
+  border-radius:32px;
+  background:#fff;
+  box-shadow:0 24px 70px color-mix(in srgb,var(--busuu-ink) 12%,transparent);
+}
+.juba-busuu-page .juba-busuu-language-panel-heading {
+  font-size:16px;
+  font-weight:800;
+}
+.juba-busuu-page .juba-busuu-language-item {
+  min-height:92px;
+  border:1px solid #edf1ed;
+  border-radius:18px;
+  background:#fff;
+}
+.juba-busuu-page .juba-busuu-language-item:hover {
+  border-color:color-mix(in srgb,var(--busuu-green) 42%,var(--busuu-line));
+  background:var(--busuu-mint);
+}
+.juba-busuu-page > section[aria-labelledby="lingu-demo-title"] {
+  padding-block:clamp(60px,7vw,92px);
+  background:#fff;
+}
+.juba-busuu-page .juba-busuu-demo-card {
+  border-radius:28px!important;
+  box-shadow:0 16px 48px color-mix(in srgb,var(--busuu-ink) 8%,transparent);
+}
+.juba-busuu-page > section#features {
+  max-width:1240px;
+  padding-block:clamp(64px,8vw,104px);
+}
+.juba-busuu-page .juba-busuu-feature-card {
+  border-radius:24px!important;
+  box-shadow:0 4px 0 #e8eee9;
+}
+.juba-busuu-page .juba-busuu-feature-card:hover {
+  transform:translateY(-3px);
+  box-shadow:0 7px 0 #dcebe1;
+}
+.juba-busuu-page .juba-busuu-pricing {
+  background:linear-gradient(180deg,#f2faf5 0%,var(--busuu-cream) 100%);
+}
+.juba-busuu-page .juba-busuu-footer {
+  border-top:1px solid var(--busuu-line)!important;
+  background:#f2f8f3;
+}
+@media(max-width:900px) {
+  .juba-busuu-page > .juba-busuu-hero .juba-busuu-hero-inner {
+    grid-template-columns:minmax(0,1fr);
+    max-width:720px;
+  }
+}
+@media(max-width:600px) {
+  .juba-busuu-page .juba-busuu-nav-inner { width:calc(100% - 32px); min-height:68px; }
+  .juba-busuu-page > .juba-busuu-hero { padding:44px 18px 70px; }
+  .juba-busuu-page > .juba-busuu-hero .juba-busuu-hero-copy h1 { font-size:clamp(38px,10vw,54px); }
+  .juba-busuu-page .juba-busuu-language-item { min-height:78px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .juba-busuu-page .juba-busuu-nav-cta,
+  .juba-busuu-page .juba-busuu-mobile-cta { transition:none; }
+}
