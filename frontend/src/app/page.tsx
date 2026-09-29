@@ -232,44 +232,44 @@ export default async function Home() {
 
       <section
         aria-labelledby="lingu-demo-title"
-        className="mx-auto w-full max-w-5xl px-6 pb-12"
+        className="juba-busuu-demo-section mx-auto w-full max-w-5xl px-6 pb-16"
       >
-        <div className="juba-busuu-demo-card border-fl-border bg-fl-surface mx-auto max-w-xl border">
-          <div className="border-fl-border border-b px-5 py-4 sm:px-6">
+        <div className="juba-busuu-demo-card mx-auto max-w-xl">
+          <div className="juba-busuu-demo-card-header border-b px-5 py-4 sm:px-6">
             <h2
               id="lingu-demo-title"
-              className="text-fl-fg font-mono text-base font-bold"
+              className="juba-busuu-demo-title text-base font-bold"
             >
               {t('microDemo.title')}
             </h2>
-            <p className="text-fl-caption text-fl-muted-1 mt-1 font-mono">
+            <p className="juba-busuu-demo-subtitle mt-1">
               {t('microDemo.exampleLabel')}
             </p>
           </div>
           <div className="space-y-5 p-5 sm:p-6">
             <div>
-              <p className="text-fl-caption text-fl-muted-1 mb-2 font-mono">
+              <p className="juba-busuu-demo-label mb-2">
                 {t('microDemo.questionLabel')}
               </p>
               <p
                 lang="en-GB"
-                className="text-fl-fg font-mono text-sm leading-relaxed"
+                className="juba-busuu-demo-copy text-sm leading-relaxed"
               >
                 What did you do yesterday?
               </p>
             </div>
-            <div className="border-fl-border border-s-2 ps-4">
+            <div className="juba-busuu-demo-answer border-s-2 ps-4">
               <p className="text-fl-caption text-fl-muted-1 mb-2 font-mono">
                 {t('microDemo.answerLabel')}
               </p>
               <p
                 lang="en-GB"
-                className="text-fl-fg-2 font-mono text-sm leading-relaxed"
+                className="juba-busuu-demo-copy-muted text-sm leading-relaxed"
               >
                 Yesterday I go to the park.
               </p>
             </div>
-            <div className="border-fl-accent/40 border-s-2 ps-4">
+            <div className="juba-busuu-demo-correction border-s-2 ps-4">
               <p className="text-fl-caption text-fl-muted-1 mb-2 font-mono">
                 {t('microDemo.correctionLabel')}
               </p>
@@ -283,7 +283,7 @@ export default async function Home() {
                 </strong>{' '}
                 to the park.
               </p>
-              <p className="text-fl-muted-1 mt-2 font-mono text-sm leading-relaxed">
+              <p className="juba-busuu-demo-explanation mt-2 text-sm leading-relaxed">
                 {t('microDemo.explanation')}
               </p>
             </div>
