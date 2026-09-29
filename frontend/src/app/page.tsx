@@ -168,6 +168,28 @@ export default async function Home() {
             </div>
           </div>
           <div className="juba-busuu-hero-visual" aria-label={t('navLanguages')}>
+            <div className="juba-busuu-lesson-preview" aria-label={t('microDemo.title')}>
+              <div className="juba-busuu-lesson-preview-top">
+                <span className="juba-busuu-lesson-preview-mark" aria-hidden="true">✓</span>
+                <div>
+                  <strong>{t('microDemo.title')}</strong>
+                  <span>{t('microDemo.exampleLabel')}</span>
+                </div>
+                <span className="juba-busuu-lesson-preview-level">B1</span>
+              </div>
+              <div className="juba-busuu-lesson-preview-progress" aria-hidden="true"><span /></div>
+              <div className="juba-busuu-lesson-preview-body">
+                <span className="juba-busuu-lesson-preview-label">{t('microDemo.questionLabel')}</span>
+                <p lang="en-GB">What did you do yesterday?</p>
+                <span className="juba-busuu-lesson-preview-label">{t('microDemo.answerLabel')}</span>
+                <p className="juba-busuu-lesson-preview-answer" lang="en-GB">Yesterday I go to the park.</p>
+                <div className="juba-busuu-lesson-preview-correction">
+                  <span className="juba-busuu-lesson-preview-label">{t('microDemo.correctionLabel')}</span>
+                  <p lang="en-GB">Yesterday I <strong> went </strong> to the park.</p>
+                  <span>{t('microDemo.explanation')}</span>
+                </div>
+              </div>
+            </div>
             <div id="languages" className="juba-busuu-language-panel scroll-mt-24">
               <div id="language-title" className="juba-busuu-language-panel-heading">
                 <span className="juba-busuu-language-panel-dot" aria-hidden="true" />
