@@ -317,6 +317,50 @@ export default async function Home() {
         </div>
       </ScrollReveal>
 
+      {/* Busuu-style app download band */}
+      <ScrollReveal>
+        <section className="juba-busuu-app-section" aria-label={t('ctaStart')}>
+          <div className="juba-busuu-app-inner">
+            <div className="juba-busuu-app-copy">
+              <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
+              <h2>{t('heroTitle')}</h2>
+              <p>{t('heroSub')}</p>
+              <div className="juba-busuu-app-badges">
+                <span className="juba-busuu-app-badge">
+                  <img
+                    src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Apple_Logo.svg"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                  <span>App Store</span>
+                </span>
+                <span className="juba-busuu-app-badge">
+                  <span className="juba-busuu-app-play" aria-hidden="true">▶</span>
+                  <span>Google Play</span>
+                </span>
+              </div>
+            </div>
+            <div className="juba-busuu-app-art" aria-hidden="true">
+              <img
+                className="juba-busuu-app-convector"
+                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/convector-green.svg"
+                alt=""
+              />
+              <img
+                className="juba-busuu-app-triangle-up"
+                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/triangle-up.svg"
+                alt=""
+              />
+              <img
+                className="juba-busuu-app-triangle-down"
+                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/triangle-down.svg"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
       {/* Busuu reference editorial awards/app section */}
       <ScrollReveal>
         <section className="juba-busuu-awards-section" aria-label={t('navFeatures')}>
