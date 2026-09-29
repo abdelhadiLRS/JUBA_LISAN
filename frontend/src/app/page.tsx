@@ -385,7 +385,7 @@ export default async function Home() {
 
       {/* Busuu reference: New languages editorial banner */}
       <ScrollReveal>
-        <section className="juba-busuu-new-languages" aria-label={t('languagesTitle')}>
+        <section className="juba-busuu-new-languages" aria-label={t('newLanguagesLabel')}>
           <div className="juba-busuu-new-languages-track">
             {[0, 1].map((group) => (
               <div
@@ -398,6 +398,8 @@ export default async function Home() {
                   src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
                   alt=""
                 />
+                <span>{t('newYouLabel')}</span>
+
                 <span>{t('newOpportunitiesTicker')}</span>
                 <img
                   src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
