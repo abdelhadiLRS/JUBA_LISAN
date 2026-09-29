@@ -1183,6 +1183,8 @@ html[data-theme='light'] {
 .juba-duo-mobile-menu {
   max-height:calc(100dvh - 66px);
   overflow-y:auto;
+  overscroll-behavior:contain;
+  padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px));
   background:var(--duo-card);
   border-top:1px solid var(--duo-line);
   box-shadow:0 8px 24px color-mix(in srgb,var(--duo-ink) 8%,transparent);
