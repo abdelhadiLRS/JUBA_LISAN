@@ -5085,3 +5085,142 @@ html[data-theme='light'] {
     background:var(--duo-card);
   }
 }
+
+/* ── JUBA LISAN authenticated UI: Busuu-inspired application redesign ───── */
+.juba-duo-shell {
+  --duo-green: var(--busuu-green, #00a86b);
+  --duo-green-dark: var(--busuu-green-dark, #008957);
+  --duo-blue: #168fcb;
+  --duo-blue-dark: #1176a8;
+  --duo-purple: #8b78c7;
+  --duo-yellow: #d79a18;
+  --duo-red: #d94f55;
+  --duo-ink: #17211b;
+  --duo-muted: #53615a;
+  --duo-bg: #fbfaf6;
+  --duo-card: #ffffff;
+  --duo-line: #dce5df;
+  background:
+    radial-gradient(ellipse at 90% 0%, color-mix(in srgb, #00a86b 5%, transparent), transparent 34%),
+    var(--duo-bg);
+  color: var(--duo-ink);
+}
+.juba-duo-shell .juba-duo-sidebar {
+  inset-block: 12px;
+  inset-inline-start: 12px;
+  width: 252px;
+  min-height: auto;
+  overflow: hidden;
+  border: 1px solid var(--duo-line);
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--duo-card) 96%, var(--duo-bg));
+  box-shadow: 0 12px 38px color-mix(in srgb, var(--duo-ink) 7%, transparent);
+}
+.juba-duo-shell[dir="rtl"] .juba-duo-sidebar { inset-inline-start: 12px; }
+.juba-duo-shell .juba-duo-logo-mark {
+  border-radius: 13px;
+  box-shadow: none;
+}
+.juba-duo-shell .juba-duo-language {
+  border-bottom-color: var(--duo-line);
+}
+.juba-duo-shell .juba-duo-nav {
+  padding: 14px 12px;
+}
+.juba-duo-shell .juba-duo-nav-link {
+  min-height: 46px;
+  margin-block: 3px;
+  padding-inline: 14px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  color: var(--duo-muted);
+  font-weight: 650;
+}
+.juba-duo-shell .juba-duo-nav-link:hover {
+  background: var(--busuu-mint, #e8f8f0);
+  color: var(--duo-green-dark);
+}
+.juba-duo-shell .juba-duo-nav-link.is-active,
+.juba-duo-shell[dir="rtl"] .juba-duo-nav-link.is-active {
+  border-color: color-mix(in srgb, var(--duo-green) 18%, var(--duo-line));
+  background: var(--busuu-mint, #e8f8f0);
+  color: var(--duo-green-dark);
+  box-shadow: none;
+  font-weight: 800;
+}
+.juba-duo-shell .juba-duo-nav-link.is-active svg { color: var(--duo-green-dark) !important; }
+.juba-duo-shell .juba-duo-resource-toggle {
+  min-height: 42px;
+  border-radius: 12px;
+  color: var(--duo-muted);
+}
+.juba-duo-shell .juba-duo-resource-toggle:hover {
+  background: color-mix(in srgb, var(--duo-green) 7%, transparent);
+  color: var(--duo-ink);
+}
+.juba-duo-shell .juba-duo-main {
+  margin-inline-start: 276px;
+  margin-inline-end: 12px;
+  width: calc(100% - 288px);
+  overflow: hidden;
+  border: 1px solid var(--duo-line);
+  border-radius: 24px;
+  background: var(--duo-card);
+  box-shadow: 0 12px 38px color-mix(in srgb, var(--duo-ink) 4%, transparent);
+}
+.juba-duo-shell[dir="rtl"] .juba-duo-main {
+  margin-inline-start: 12px;
+  margin-inline-end: 276px;
+}
+.juba-duo-shell .juba-duo-page-frame {
+  padding: 0;
+  background: transparent;
+}
+.juba-duo-shell .juba-duo-page-frame :is(.bg-white,[class~="bg-[var(--duo-card)]"]) {
+  background-color: var(--duo-card);
+}
+.juba-duo-shell .juba-duo-page-frame :is(.rounded-2xl,.rounded-3xl) {
+  border-radius: 22px;
+}
+.juba-duo-shell .juba-duo-page-frame :is(input,select,textarea) {
+  border: 1px solid var(--duo-line);
+  border-radius: 12px;
+  background: #fff;
+}
+.juba-duo-shell .juba-duo-page-frame :is(button,a[class*="bg-[var(--duo-green)]"]) {
+  transition: background-color .16s ease, border-color .16s ease, transform .16s ease;
+}
+.juba-duo-shell .juba-duo-mobile-bar {
+  border-radius: 0 0 20px 20px;
+  border-color: var(--duo-line);
+  background: rgba(255,255,255,.96);
+}
+@media (max-width: 1100px) {
+  .juba-duo-shell .juba-duo-sidebar {
+    inset-block: 0;
+    inset-inline-start: 0;
+    border-radius: 0 20px 20px 0;
+  }
+  .juba-duo-shell[dir="rtl"] .juba-duo-sidebar {
+    inset-inline-start: 0;
+    border-radius: 20px 0 0 20px;
+  }
+  .juba-duo-shell .juba-duo-main,
+  .juba-duo-shell[dir="rtl"] .juba-duo-main {
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+@media (max-width: 640px) {
+  .juba-duo-shell {
+    background: var(--duo-bg);
+  }
+  .juba-duo-shell .juba-duo-page-frame {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
