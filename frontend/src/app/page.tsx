@@ -104,7 +104,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="juba-busuu-page flex min-h-screen flex-col">
+    <div dir={dir} className="juba-busuu-page flex min-h-screen flex-col">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -342,8 +342,18 @@ export default async function Home() {
             </div>
             <div className="juba-busuu-app-art" aria-hidden="true">
               <img
+                className="juba-busuu-app-branch-left"
+                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-left.svg"
+                alt=""
+              />
+              <img
                 className="juba-busuu-app-convector"
                 src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/convector-green.svg"
+                alt=""
+              />
+              <img
+                className="juba-busuu-app-branch-right"
+                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-right.svg"
                 alt=""
               />
               <img
