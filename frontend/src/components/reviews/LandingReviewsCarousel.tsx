@@ -114,15 +114,20 @@ export function LandingReviewsCarousel({
             className="juba-ff-review-card border-[var(--busuu-line)] bg-[var(--busuu-card)] flex min-h-52 w-[280px] flex-none snap-start flex-col border p-5 sm:w-[340px]"
           >
             <div className="mb-4 flex items-start justify-between gap-4">
-              <div>
-                <h3 className="text-[var(--busuu-ink)] font-sans text-sm font-semibold tracking-tight">
-                  {review.user_display_name}
-                </h3>
+              <div className="juba-busuu-review-person">
+                <div className="juba-busuu-review-avatar" aria-hidden="true">
+                  <span>{review.user_display_name.trim().charAt(0).toUpperCase()}</span>
+                </div>
+                <div>
+                  <h3 className="text-[var(--busuu-ink)] font-sans text-sm font-semibold tracking-tight">
+                    {review.user_display_name}
+                  </h3>
                 <p className="text-[var(--busuu-muted)] mt-1 font-sans text-xs font-bold tracking-wide">
                   {t('learningLanguage', {
                     language: languageLabel(review.target_language),
                   })}
                 </p>
+                </div>
               </div>
               <Stars
                 rating={review.rating}
