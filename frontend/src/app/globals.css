@@ -7205,3 +7205,41 @@ html[data-theme='light'] {
     border-radius: 15px;
   }
 }
+
+
+/* ── Busuu visual layer for the authenticated JUBA LISAN interface ─────────
+   Applied to the app shell and dashboard surfaces; preserves route behavior. */
+.juba-duo-shell {
+  --duo-green: var(--busuu-green, #00a86b);
+  --duo-green-dark: var(--busuu-green-dark, #008957);
+  --duo-ink: var(--busuu-ink, #17211b);
+  --duo-muted: var(--busuu-muted, #53615a);
+  --duo-bg: var(--busuu-cream, #fbfaf6);
+  --duo-card: var(--busuu-card, #fff);
+  --duo-line: var(--busuu-line, #dce5df);
+  background: var(--duo-bg);
+  color: var(--duo-ink);
+}
+.juba-duo-sidebar {
+  background: linear-gradient(180deg, #fff 0%, #f7fcf8 100%);
+  border-inline-end: 1px solid var(--duo-line);
+  box-shadow: 8px 0 28px color-mix(in srgb, var(--duo-ink) 4%, transparent);
+}
+.juba-duo-logo-mark { border-radius: 13px; background: var(--duo-green); box-shadow: inset 0 -3px 0 var(--duo-green-dark); }
+.juba-duo-nav { padding: 16px 12px; }
+.juba-duo-nav-link { min-height: 46px; border-radius: 13px; font-weight: 650; }
+.juba-duo-nav-link:hover { background: color-mix(in srgb, var(--duo-green) 7%, white); }
+.juba-duo-nav-link.is-active { background: var(--busuu-mint, #e8f8f0); color: var(--duo-green-dark); box-shadow: none; }
+.juba-duo-shell[dir="rtl"] .juba-duo-nav-link.is-active { box-shadow: none; }
+.juba-duo-user { background: #fff; border-top: 1px solid var(--duo-line); }
+.juba-duo-mobile-bar { background: rgba(251,250,246,.96) !important; border-color: var(--duo-line) !important; box-shadow: 0 5px 18px color-mix(in srgb, var(--duo-ink) 5%, transparent) !important; backdrop-filter: blur(14px); }
+.juba-duo-mobile-menu { background: var(--duo-bg); border-bottom: 1px solid var(--duo-line); box-shadow: 0 16px 36px color-mix(in srgb, var(--duo-ink) 10%, transparent); }
+.juba-duo-mobile-trigger { border-radius: 12px; border: 1px solid var(--duo-line); background: #fff; color: var(--duo-ink); }
+.juba-duo-main, .juba-duo-page-frame { background: var(--duo-bg); }
+.juba-duo-home .juba-duo-unit, .juba-duo-home .juba-duo-path, .juba-duo-home .juba-duo-card, .juba-duo-home .juba-duo-links {
+  border: 1px solid var(--duo-line); border-radius: 22px;
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--duo-ink) 5%, transparent);
+}
+.juba-duo-home .juba-duo-unit { overflow: hidden; }
+.juba-duo-home .juba-duo-node { border-radius: 18px; }
+@media (max-width: 900px) { .juba-duo-sidebar { box-shadow: none; } }
