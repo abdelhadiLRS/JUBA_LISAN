@@ -168,7 +168,10 @@
     "appCtaNote": "Веб-версия · Оптимизирована для мобильных экранов",
     "onlineLanguagesTitle": "Изучайте языки онлайн",
     "onlineLanguagePrefix": "Изучайте",
-    "onlineLanguagesDescription": "Выберите язык и изучите возможности обучения, доступные в JUBA LISAN."
+    "onlineLanguagesDescription": "Выберите язык и изучите возможности обучения, доступные в JUBA LISAN.",
+    "newLanguagesLabel": "Новые языки",
+    "newOpportunitiesLabel": "Новые возможности",
+    "newYouLabel": "Новый ты"
   },
   "common": {
     "loading": "Загрузка...",
