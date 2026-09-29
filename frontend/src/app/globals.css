@@ -11627,3 +11627,18 @@ html[data-theme='light'] {
     min-height: 250px;
   }
 }
+
+
+/* === Landing fidelity pass: app note hierarchy === */
+.juba-busuu-page .juba-busuu-app-note {
+  max-width: 520px;
+  margin-top: 12px;
+  color: #6a776f;
+  font-size: 11px;
+  line-height: 1.5;
+}
+@media (max-width: 820px) {
+  .juba-busuu-page .juba-busuu-app-note {
+    margin-inline: auto;
+  }
+}
