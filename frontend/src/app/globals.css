@@ -661,6 +661,12 @@ html[data-theme='light'] {
 }
 .juba-duo-user-action:hover { color:var(--duo-ink); }
 .juba-duo-mobile-menu { position:fixed; top:66px; inset-inline:0; z-index:49; background:var(--duo-card); border-bottom:2px solid var(--duo-line); box-shadow:0 12px 30px color-mix(in srgb,var(--duo-ink) 10%,transparent); max-height:calc(100dvh - 66px); overflow:auto; }
+.juba-duo-shell .juba-duo-mobile-menu {
+  box-sizing:border-box;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  overscroll-behavior-y:contain;
+  scrollbar-gutter:stable;
+}
 .juba-duo-mobile-menu a:focus-visible,
 .juba-duo-mobile-menu button:focus-visible {
   outline:3px solid color-mix(in srgb,var(--duo-blue) 45%,transparent);
