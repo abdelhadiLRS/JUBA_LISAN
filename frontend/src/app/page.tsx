@@ -230,66 +230,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <section
-        aria-labelledby="lingu-demo-title"
-        className="juba-busuu-demo-section mx-auto w-full max-w-5xl px-6 pb-16"
-      >
-        <div className="juba-busuu-demo-card mx-auto max-w-xl">
-          <div className="juba-busuu-demo-card-header border-b px-5 py-4 sm:px-6">
-            <h2
-              id="lingu-demo-title"
-              className="juba-busuu-demo-title text-base font-bold"
-            >
-              {t('microDemo.title')}
-            </h2>
-            <p className="juba-busuu-demo-subtitle mt-1">
-              {t('microDemo.exampleLabel')}
-            </p>
-          </div>
-          <div className="space-y-5 p-5 sm:p-6">
-            <div>
-              <p className="juba-busuu-demo-label mb-2">
-                {t('microDemo.questionLabel')}
-              </p>
-              <p
-                lang="en-GB"
-                className="juba-busuu-demo-copy text-sm leading-relaxed"
-              >
-                What did you do yesterday?
-              </p>
-            </div>
-            <div className="juba-busuu-demo-answer border-s-2 ps-4">
-              <p className="juba-busuu-demo-label mb-2">
-                {t('microDemo.answerLabel')}
-              </p>
-              <p
-                lang="en-GB"
-                className="juba-busuu-demo-copy-muted text-sm leading-relaxed"
-              >
-                Yesterday I go to the park.
-              </p>
-            </div>
-            <div className="juba-busuu-demo-correction border-s-2 ps-4">
-              <p className="juba-busuu-demo-label mb-2">
-                {t('microDemo.correctionLabel')}
-              </p>
-              <p
-                lang="en-GB"
-                className="juba-busuu-demo-copy text-sm leading-relaxed"
-              >
-                Yesterday I{' '}
-                <strong className="font-bold underline underline-offset-4">
-                  went
-                </strong>{' '}
-                to the park.
-              </p>
-              <p className="juba-busuu-demo-explanation mt-2 text-sm leading-relaxed">
-                {t('microDemo.explanation')}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Features */}
       <ScrollReveal>
