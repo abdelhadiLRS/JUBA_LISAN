@@ -2677,26 +2677,7 @@ html[data-theme='light'] {
   .juba-busuu-page .juba-ff-comparison { border-radius:16px!important; }
 }
 
-/* Respect reduced-motion preferences without coupling the two design systems. */
-@media (prefers-reduced-motion: reduce) {
-  .juba-duo-shell *,
-  .juba-duo-shell *::before,
-  .juba-duo-shell *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
 
-  .juba-busuu-page *,
-  .juba-busuu-page *::before,
-  .juba-busuu-page *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
 
 /* ── Landing-only Busuu finish: keep the public page light and consistent ── */
 .juba-busuu-page {
