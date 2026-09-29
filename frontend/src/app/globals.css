@@ -8175,3 +8175,75 @@ html[data-theme='light'] {
   .juba-duo-shell.juba-busuu-app .juba-duo-sidebar { display: none; }
   .juba-duo-shell.juba-busuu-app .juba-duo-main { border: 0; border-radius: 0; box-shadow: none; }
 }
+
+
+/* ── Unified Busuu design system for the authenticated JUBA LISAN interface ──
+   Final scoped layer: keeps all internal routes on the same Busuu visual system. */
+.juba-duo-shell.juba-busuu-app {
+  --duo-green: var(--busuu-green);
+  --duo-green-dark: var(--busuu-green-dark);
+  --duo-blue: #287fbd;
+  --duo-blue-dark: #21699d;
+  --duo-purple: #7c68b4;
+  --duo-yellow: #d6a500;
+  --duo-red: #d94b4b;
+  --duo-ink: var(--busuu-ink);
+  --duo-muted: var(--busuu-muted);
+  --duo-bg: var(--busuu-cream);
+  --duo-card: var(--busuu-card);
+  --duo-line: var(--busuu-line);
+  background: var(--busuu-cream);
+  color: var(--busuu-ink);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-page-frame {
+  color: var(--busuu-ink);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-page-frame :is(
+  .juba-card, .juba-duo-card, [class*="rounded-"][class*="border"],
+  [class*="shadow-"][class*="bg-"]
+) {
+  border-color: var(--busuu-line);
+  background-color: var(--busuu-card);
+  color: var(--busuu-ink);
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--busuu-green) 8%, var(--busuu-line));
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-page-frame :is(h1,h2,h3,h4) {
+  color: var(--busuu-ink);
+  letter-spacing: -.025em;
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-page-frame :is(input,select,textarea) {
+  border: 1px solid var(--busuu-line);
+  border-radius: 12px;
+  background: var(--busuu-card);
+  color: var(--busuu-ink);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-page-frame :is(input,select,textarea):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--busuu-green) 22%, transparent);
+  outline-offset: 1px;
+  border-color: var(--busuu-green);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-page-frame :is(button,[role="button"],a[class*="juba-duo-cta"]) {
+  border-radius: 12px;
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-page-frame :is(
+  button[class*="bg-[var(--duo-green)]"],
+  a[class*="bg-[var(--duo-green)]"]
+) {
+  background: var(--busuu-green);
+  color: #fff;
+  box-shadow: 0 3px 0 var(--busuu-green-dark);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-page-frame :is(
+  button[class*="bg-[var(--duo-green)]"],
+  a[class*="bg-[var(--duo-green)]"]
+):hover {
+  background: var(--busuu-green-dark);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-nav-link.is-active {
+  border-inline-start: 3px solid var(--busuu-green);
+  background: var(--busuu-mint);
+  color: var(--busuu-green-dark);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-nav-link.is-active svg {
+  color: var(--busuu-green-dark) !important;
+}
