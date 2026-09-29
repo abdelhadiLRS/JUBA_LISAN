@@ -2881,16 +2881,6 @@ html[data-theme='light'] {
   justify-items:center;
   gap:14px;
 }
-.juba-busuu-page .juba-ff-pricing-eyebrow {
-  display:inline-flex;
-  align-items:center;
-  border-radius:999px;
-  padding:7px 13px;
-  background:var(--busuu-mint);
-  color:var(--busuu-green-dark);
-  font-size:12px;
-  font-weight:800;
-}
 .juba-busuu-page .juba-ff-pricing-title {
   max-width:760px;
   margin:0;
