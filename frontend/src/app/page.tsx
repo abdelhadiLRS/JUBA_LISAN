@@ -110,6 +110,10 @@ export default async function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
+      <a className="juba-busuu-skip-link" href="#main-content">
+        {t('skipToContent')}
+      </a>
+
       {/* Nav */}
       <LandingNav
         hasSession={hasSession}
@@ -131,7 +135,7 @@ export default async function Home() {
       />
 
       {/* Busuu reference hero: centered blue composition with the visual anchored below the CTA */}
-      <section className="juba-busuu-reference-hero">
+      <section id="main-content" className="juba-busuu-reference-hero">
         <div className="juba-busuu-reference-hero-inner">
           <div className="juba-busuu-reference-hero-copy">
             <span className="juba-busuu-reference-kicker">{tCommon('tagline')}</span>
