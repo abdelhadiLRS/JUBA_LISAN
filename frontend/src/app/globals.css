@@ -3315,3 +3315,140 @@ html[data-theme='light'] {
 @media(max-width:600px) {
   .juba-busuu-page .juba-busuu-features-heading { gap:12px; margin-bottom:28px; }
 }
+
+
+/* JUBA LISAN app interface: Busuu visual system */
+.juba-duo-shell {
+  --duo-green: #00a86b;
+  --duo-green-dark: #008957;
+  --duo-blue: #1cb0a5;
+  --duo-blue-dark: #159b91;
+  --duo-purple: #8b78d8;
+  --duo-yellow: #f5b82e;
+  --duo-red: #e65b5b;
+  --duo-ink: #17211b;
+  --duo-muted: #53615a;
+  --duo-bg: #fbfaf6;
+  --duo-card: #ffffff;
+  --duo-line: #dce5df;
+  background: var(--duo-bg);
+  color: var(--duo-ink);
+}
+.juba-duo-shell .juba-duo-sidebar {
+  background: #fff;
+  border-color: var(--duo-line);
+  box-shadow: 1px 0 0 var(--duo-line);
+}
+.juba-duo-shell .juba-duo-nav-link {
+  min-height: 48px;
+  border-radius: 14px;
+  border-inline-start: 0;
+  margin-inline: 10px;
+  padding-inline: 14px;
+  color: var(--duo-muted);
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+.juba-duo-shell .juba-duo-nav-link:hover {
+  background: #e8f8f0;
+  color: var(--duo-green-dark);
+}
+.juba-duo-shell .juba-duo-nav-link.is-active {
+  border-inline-start: 0;
+  background: #e8f8f0;
+  color: var(--duo-green-dark);
+  font-weight: 800;
+}
+.juba-duo-shell .juba-duo-resource-toggle {
+  min-height: 44px;
+  border-radius: 12px;
+  margin-inline: 10px;
+  padding-inline: 14px;
+}
+.juba-duo-shell .juba-duo-mobile-bar {
+  border-color: var(--duo-line);
+  background: rgba(251,250,246,.96);
+  box-shadow: 0 1px 0 var(--duo-line);
+  backdrop-filter: blur(14px);
+}
+.juba-duo-shell .juba-duo-mobile-menu {
+  border-color: var(--duo-line);
+  background: var(--duo-bg);
+}
+.juba-duo-shell .juba-duo-page-frame {
+  background: var(--duo-bg);
+}
+.juba-duo-shell .juba-duo-home {
+  color: var(--duo-ink);
+}
+.juba-duo-shell .juba-duo-home .juba-duo-welcome {
+  border: 1px solid var(--duo-line);
+  border-radius: 28px;
+  background: linear-gradient(125deg,#fff 0%,#f0faf4 100%);
+  box-shadow: 0 8px 28px rgba(23,33,27,.05);
+}
+.juba-duo-shell .juba-duo-home .juba-duo-card,
+.juba-duo-shell .juba-duo-home .juba-duo-unit,
+.juba-duo-shell .juba-duo-home .juba-duo-path,
+.juba-duo-shell .juba-duo-home .juba-duo-links,
+.juba-duo-shell .juba-duo-home .juba-duo-premium {
+  border: 1px solid var(--duo-line);
+  border-radius: 24px;
+  background: var(--duo-card);
+  box-shadow: 0 4px 0 #e9eee9;
+}
+.juba-duo-shell .juba-duo-home .juba-duo-card {
+  padding: 24px;
+}
+.juba-duo-shell .juba-duo-home .juba-duo-unit {
+  padding: 26px;
+}
+.juba-duo-shell .juba-duo-home .juba-duo-cta {
+  border-radius: 999px;
+  background: var(--duo-green);
+  box-shadow: 0 4px 0 var(--duo-green-dark);
+}
+.juba-duo-shell .juba-duo-home .juba-duo-cta:hover {
+  background: var(--duo-green-dark);
+}
+.juba-duo-shell .juba-duo-home .juba-duo-progress,
+.juba-duo-shell .juba-duo-home .juba-duo-meter {
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e8f0ea;
+}
+.juba-duo-shell .juba-duo-home .juba-duo-progress span,
+.juba-duo-shell .juba-duo-home .juba-duo-meter span {
+  border-radius: inherit;
+  background: var(--duo-green);
+}
+.juba-duo-shell .juba-duo-home .juba-duo-node {
+  border: 3px solid #dce5df;
+  box-shadow: 0 4px 0 #e9eee9;
+}
+.juba-duo-shell .juba-duo-home .juba-duo-node.is-current,
+.juba-duo-shell .juba-duo-home .juba-duo-node.is-done {
+  border-color: var(--duo-green);
+  background: var(--duo-green);
+  color: #fff;
+}
+.juba-duo-shell .juba-duo-home .juba-duo-links a {
+  border-radius: 14px;
+  background: #f2faf5;
+  color: var(--duo-ink);
+}
+.juba-duo-shell .juba-duo-home .juba-duo-links a:hover {
+  background: #e8f8f0;
+  color: var(--duo-green-dark);
+}
+@media (max-width: 760px) {
+  .juba-duo-shell .juba-duo-home .juba-duo-welcome,
+  .juba-duo-shell .juba-duo-home .juba-duo-card,
+  .juba-duo-shell .juba-duo-home .juba-duo-unit,
+  .juba-duo-shell .juba-duo-home .juba-duo-path,
+  .juba-duo-shell .juba-duo-home .juba-duo-links,
+  .juba-duo-shell .juba-duo-home .juba-duo-premium {
+    border-radius: 20px;
+  }
+  .juba-duo-shell .juba-duo-home .juba-duo-card,
+  .juba-duo-shell .juba-duo-home .juba-duo-unit { padding: 18px; }
+}
