@@ -10258,3 +10258,50 @@ html[data-theme='light'] {
     font-size: 34px;
   }
 }
+
+
+/* === Landing testimonials: Busuu profile-card composition === */
+.juba-busuu-page .juba-ff-review-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 246px;
+  padding: 22px 22px 24px;
+  border-radius: 18px;
+}
+.juba-busuu-page .juba-ff-review-card::after {
+  content: '';
+  position: absolute;
+  inset-inline-end: -38px;
+  bottom: -54px;
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  background: #e8f8f0;
+  opacity: .9;
+}
+.juba-busuu-page .juba-busuu-review-person {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.juba-busuu-page .juba-busuu-review-avatar {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  border-radius: 50%;
+  background: var(--busuu-mint);
+  color: var(--busuu-green-dark);
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: 0 0 0 3px #fff, 0 0 0 4px #dce5df;
+}
+.juba-busuu-page .juba-ff-review-card > p {
+  position: relative;
+  z-index: 1;
+  margin-top: 4px;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-ff-review-card { min-height: 224px; }
+}
