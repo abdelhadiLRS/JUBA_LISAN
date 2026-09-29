@@ -356,15 +356,11 @@ export default async function Home() {
                 className="juba-busuu-app-branch-left"
                 loading="lazy"
                 decoding="async"
-                loading="lazy"
-                decoding="async"
                 src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-left.svg"
                 alt=""
               />
               <img
                 className="juba-busuu-app-convector"
-                loading="lazy"
-                decoding="async"
                 loading="lazy"
                 decoding="async"
                 src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/convector-green.svg"
@@ -374,8 +370,6 @@ export default async function Home() {
                 className="juba-busuu-app-branch-right"
                 loading="lazy"
                 decoding="async"
-                loading="lazy"
-                decoding="async"
                 src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-right.svg"
                 alt=""
               />
@@ -383,15 +377,11 @@ export default async function Home() {
                 className="juba-busuu-app-triangle-up"
                 loading="lazy"
                 decoding="async"
-                loading="lazy"
-                decoding="async"
                 src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/triangle-up.svg"
                 alt=""
               />
               <img
                 className="juba-busuu-app-triangle-down"
-                loading="lazy"
-                decoding="async"
                 loading="lazy"
                 decoding="async"
                 src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/triangle-down.svg"
