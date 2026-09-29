@@ -69,9 +69,9 @@ export function LanguageBubbles({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
 
   return (
     <ul
-      id="language-title"
       dir={dir}
       className="juba-busuu-language-list"
+      aria-labelledby="language-title"
     >
       {featuredLanguages.map((language) => (
         <li key={language.code} className="juba-busuu-language-item">
