@@ -6152,3 +6152,69 @@ html[data-theme='light'] {
   .juba-busuu-app .juba-duo-nav-link,
   .juba-busuu-app .juba-duo-user-action { transition: none; }
 }
+
+
+/* ── JUBA LISAN app: consistent Busuu-style surfaces across every route ── */
+.juba-busuu-app .juba-duo-main {
+  background: var(--busuu-cream);
+}
+.juba-busuu-app .juba-duo-page-frame {
+  color: var(--busuu-ink);
+}
+.juba-busuu-app .juba-duo-page-frame :is(.juba-card, .juba-panel, .juba-page-shell, .juba-page-hero, [data-slot="card"]) {
+  border: 1px solid var(--busuu-line) !important;
+  border-radius: 22px !important;
+  background: var(--busuu-card) !important;
+  color: var(--busuu-ink);
+  box-shadow: 0 5px 18px color-mix(in srgb, var(--busuu-ink) 5%, transparent) !important;
+}
+.juba-busuu-app .juba-duo-page-frame :is(input, select, textarea) {
+  border-color: var(--busuu-line);
+  border-radius: 12px;
+  background: var(--busuu-card);
+  color: var(--busuu-ink);
+}
+.juba-busuu-app .juba-duo-page-frame :is(input, select, textarea):focus-visible {
+  border-color: var(--busuu-green);
+  outline: 3px solid color-mix(in srgb, var(--busuu-green) 18%, transparent);
+  outline-offset: 1px;
+}
+.juba-busuu-app .juba-duo-page-frame :is(button, a)[class*="juba-primary-button"],
+.juba-busuu-app .juba-duo-page-frame .juba-primary-button {
+  border: 1px solid var(--busuu-green) !important;
+  border-radius: 999px !important;
+  background: var(--busuu-green) !important;
+  color: #fff !important;
+  box-shadow: 0 3px 0 var(--busuu-green-dark) !important;
+  font-weight: 750;
+}
+.juba-busuu-app .juba-duo-page-frame :is(button, a)[class*="juba-primary-button"]:hover,
+.juba-busuu-app .juba-duo-page-frame .juba-primary-button:hover {
+  background: var(--busuu-green-dark) !important;
+}
+.juba-busuu-app .juba-duo-sidebar > div:first-child {
+  min-height: 82px;
+  background: linear-gradient(180deg, #fff, #fbfdfb);
+}
+.juba-busuu-app .juba-duo-nav-link {
+  transition: background-color .16s ease, color .16s ease, transform .16s ease;
+}
+.juba-busuu-app .juba-duo-nav-link:hover {
+  transform: translateX(-2px);
+}
+.juba-busuu-app[dir="ltr"] .juba-duo-nav-link:hover {
+  transform: translateX(2px);
+}
+.juba-busuu-app .juba-duo-mobile-brand {
+  color: var(--busuu-ink);
+  font-weight: 850;
+  letter-spacing: .06em;
+}
+.juba-busuu-app .juba-duo-skip-link {
+  border-radius: 999px;
+  background: var(--busuu-green);
+  color: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-app .juba-duo-nav-link { transition: none; }
+}
