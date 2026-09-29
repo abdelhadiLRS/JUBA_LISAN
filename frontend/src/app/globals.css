@@ -5224,3 +5224,193 @@ html[data-theme='light'] {
   }
 }
 
+
+
+/* ── Landing page visual redesign: Busuu-style public experience ───────── */
+.juba-busuu-page {
+  --busuu-radius-card: 24px;
+  --busuu-shadow-card: 0 4px 0 color-mix(in srgb, var(--busuu-green) 13%, var(--busuu-line));
+  background: var(--busuu-cream);
+}
+.juba-busuu-page .juba-busuu-nav {
+  background: color-mix(in srgb, var(--busuu-card) 94%, transparent);
+  border-bottom: 1px solid var(--busuu-line);
+}
+.juba-busuu-page .juba-busuu-nav-inner {
+  min-height: 80px;
+}
+.juba-busuu-page .juba-busuu-nav-cta,
+.juba-busuu-page .juba-busuu-mobile-cta {
+  min-height: 48px;
+  padding-inline: 24px;
+  border-radius: 999px;
+  background: var(--busuu-green);
+  box-shadow: 0 4px 0 var(--busuu-green-dark);
+  font-weight: 800;
+}
+.juba-busuu-page .juba-busuu-nav-cta:hover,
+.juba-busuu-page .juba-busuu-mobile-cta:hover {
+  background: var(--busuu-green-dark);
+  box-shadow: 0 2px 0 #006d47;
+  transform: translateY(2px);
+}
+.juba-busuu-page > .juba-busuu-hero {
+  padding-block: clamp(64px, 8vw, 112px) clamp(54px, 7vw, 88px) !important;
+  background:
+    radial-gradient(ellipse at 78% 32%, color-mix(in srgb, var(--busuu-green) 13%, transparent), transparent 38%),
+    linear-gradient(180deg, #fff 0%, var(--busuu-cream) 100%) !important;
+}
+.juba-busuu-page > .juba-busuu-hero .juba-busuu-hero-inner {
+  width: min(1200px, 100%);
+  grid-template-columns: minmax(0, 1fr) minmax(0, .92fr);
+  gap: clamp(34px, 6vw, 84px);
+}
+.juba-busuu-page .juba-busuu-hero-copy h1 {
+  max-width: 12ch;
+  font-size: clamp(42px, 5.1vw, 68px);
+  font-weight: 850;
+  line-height: 1.08;
+  letter-spacing: -.045em;
+}
+.juba-busuu-page .juba-busuu-hero-copy p {
+  max-width: 560px;
+  font-size: clamp(17px, 1.45vw, 20px);
+  line-height: 1.8;
+}
+.juba-busuu-page .juba-busuu-hero-primary {
+  min-height: 58px;
+  padding-inline: 30px;
+  border-radius: 999px;
+  box-shadow: 0 4px 0 var(--busuu-green-dark);
+  font-weight: 800;
+}
+.juba-busuu-page .juba-busuu-hero-secondary {
+  min-height: 58px;
+  padding-inline: 24px;
+  border-radius: 999px;
+  border: 1px solid var(--busuu-line);
+  background: var(--busuu-card);
+}
+.juba-busuu-page .juba-busuu-hero-visual {
+  gap: 18px;
+  padding: clamp(16px, 2.2vw, 26px);
+  border: 1px solid color-mix(in srgb, var(--busuu-green) 16%, var(--busuu-line));
+  border-radius: 32px;
+  background: linear-gradient(145deg, var(--busuu-mint) 0%, #f8fcf9 56%, #fff 100%);
+  box-shadow: 0 18px 55px color-mix(in srgb, var(--busuu-green) 8%, transparent);
+}
+.juba-busuu-page .juba-busuu-lesson-preview {
+  border-radius: 24px;
+  box-shadow: 0 6px 0 color-mix(in srgb, var(--busuu-green) 12%, var(--busuu-line)), 0 18px 45px color-mix(in srgb, var(--busuu-ink) 7%, transparent);
+}
+.juba-busuu-page .juba-busuu-language-panel {
+  border-radius: 24px;
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--busuu-green) 12%, var(--busuu-line));
+}
+.juba-busuu-page .juba-busuu-proof-strip {
+  padding-block: 8px 30px;
+  background: var(--busuu-cream);
+}
+.juba-busuu-page .juba-busuu-proof-inner {
+  width: min(1160px, 100%);
+  margin-inline: auto;
+  border: 1px solid var(--busuu-line);
+  border-radius: 22px;
+  background: var(--busuu-card);
+  box-shadow: var(--busuu-shadow-card);
+}
+.juba-busuu-page #features {
+  max-width: 1160px;
+  padding-top: clamp(44px, 6vw, 76px);
+}
+.juba-busuu-page .juba-busuu-features-heading {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.juba-busuu-page .juba-busuu-features-heading h2 {
+  margin-top: 14px;
+  color: var(--busuu-ink);
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 850;
+  line-height: 1.15;
+  letter-spacing: -.035em;
+}
+.juba-busuu-page .juba-busuu-feature-card {
+  min-height: 220px;
+  border: 1px solid var(--busuu-line) !important;
+  border-radius: var(--busuu-radius-card) !important;
+  background: var(--busuu-card) !important;
+  box-shadow: var(--busuu-shadow-card) !important;
+}
+.juba-busuu-page .juba-busuu-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 0 color-mix(in srgb, var(--busuu-green) 18%, var(--busuu-line)) !important;
+}
+.juba-busuu-page .juba-ff-pricing {
+  background: linear-gradient(180deg, var(--busuu-cream) 0%, var(--busuu-mint) 100%);
+}
+.juba-busuu-page .juba-ff-plan-card {
+  border-radius: var(--busuu-radius-card);
+  box-shadow: var(--busuu-shadow-card);
+}
+.juba-busuu-page .juba-ff-comparison {
+  border-radius: 22px;
+}
+.juba-busuu-page .juba-landing-faq-item {
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 1px solid var(--busuu-line);
+  border-radius: 18px;
+  background: var(--busuu-card);
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--busuu-green) 9%, var(--busuu-line));
+}
+.juba-busuu-page .juba-landing-faq-item.is-open {
+  border-color: color-mix(in srgb, var(--busuu-green) 35%, var(--busuu-line));
+}
+.juba-busuu-page .juba-landing-faq-question {
+  min-height: 68px;
+  color: var(--busuu-ink);
+}
+.juba-busuu-page .juba-landing-faq-icon {
+  border-radius: 50%;
+  background: var(--busuu-mint);
+}
+.juba-busuu-page .juba-landing-faq-answer {
+  border-color: var(--busuu-line);
+  color: var(--busuu-muted);
+}
+.juba-busuu-page .juba-busuu-footer {
+  background: #172a20;
+}
+@media (max-width: 900px) {
+  .juba-busuu-page > .juba-busuu-hero .juba-busuu-hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 760px;
+  }
+  .juba-busuu-page .juba-busuu-hero-copy h1 {
+    max-width: 15ch;
+  }
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-nav-inner {
+    min-height: 68px;
+  }
+  .juba-busuu-page > .juba-busuu-hero {
+    padding: 42px 18px 52px !important;
+  }
+  .juba-busuu-page .juba-busuu-hero-visual {
+    padding: 12px;
+    border-radius: 24px;
+  }
+  .juba-busuu-page .juba-busuu-proof-inner {
+    padding: 18px;
+  }
+  .juba-busuu-page .juba-busuu-feature-card {
+    min-height: 0;
+    padding: 22px !important;
+  }
+  .juba-busuu-page .juba-landing-faq-question {
+    min-height: 60px;
+    padding: 16px;
+  }
+}
