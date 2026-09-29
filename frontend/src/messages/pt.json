@@ -168,7 +168,10 @@
     "appCtaNote": "Experiência web · Pensada para ecrãs móveis",
     "onlineLanguagesTitle": "Aprenda idiomas online",
     "onlineLanguagePrefix": "Aprenda",
-    "onlineLanguagesDescription": "Escolha um idioma e explore a experiência de aprendizagem disponível no JUBA LISAN."
+    "onlineLanguagesDescription": "Escolha um idioma e explore a experiência de aprendizagem disponível no JUBA LISAN.",
+    "newLanguagesLabel": "Novos idiomas",
+    "newOpportunitiesLabel": "Novas oportunidades",
+    "newYouLabel": "Um novo você"
   },
   "common": {
     "loading": "Carregando...",
