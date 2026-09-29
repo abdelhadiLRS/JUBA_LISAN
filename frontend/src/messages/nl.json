@@ -168,7 +168,10 @@
     "appCtaNote": "Webervaring · Ontworpen voor mobiele schermen",
     "onlineLanguagesTitle": "Leer talen online",
     "onlineLanguagePrefix": "Leer",
-    "onlineLanguagesDescription": "Kies een taal en ontdek de leerervaring die beschikbaar is in JUBA LISAN."
+    "onlineLanguagesDescription": "Kies een taal en ontdek de leerervaring die beschikbaar is in JUBA LISAN.",
+    "newLanguagesLabel": "Nieuwe talen",
+    "newOpportunitiesLabel": "Nieuwe kansen",
+    "newYouLabel": "Een nieuwe jij"
   },
   "common": {
     "loading": "Laden...",
