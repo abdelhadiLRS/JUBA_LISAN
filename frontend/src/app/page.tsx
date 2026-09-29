@@ -207,67 +207,80 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Busuu-style differentiation section */}
       <ScrollReveal>
-        <section
-          id="features"
-          className="mx-auto w-full max-w-5xl scroll-mt-16 px-6 pb-24"
-        >
-          <div className="juba-busuu-features-heading">
-            <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
-            <h2>{t('navFeatures')}</h2>
-          </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {[
-              {
-                title: t('feature1Title'),
-                desc: t('feature1Desc'),
-                Icon: BookOpen,
-              },
-              {
-                title: t('feature2Title'),
-                desc: t('feature2Desc'),
-                Icon: MessageSquare,
-              },
-              { title: t('feature3Title'), desc: t('feature3Desc'), Icon: Mic },
-              {
-                title: t('feature4Title'),
-                desc: t('feature4Desc'),
-                Icon: Headphones,
-              },
-              {
-                title: t('feature5Title'),
-                desc: t('feature5Desc'),
-                Icon: Layers,
-              },
-              {
-                title: t('feature6Title'),
-                desc: t('feature6Desc'),
-                Icon: TrendingUp,
-              },
-            ].map(({ title, desc, Icon }) => (
-              <div
-                key={title}
-                className="juba-busuu-feature-card border p-6"
-              >
-                <div className="juba-busuu-feature-card-heading mb-4 flex items-center gap-3 border-b pb-3">
-                  <Icon className="juba-busuu-feature-icon h-5 w-5" />
-                  <span className="juba-busuu-feature-title font-sans text-sm font-bold tracking-tight">
-                    {title}
-                  </span>
-                </div>
-                <p className="juba-busuu-feature-description text-sm leading-relaxed">
-                  {desc}
-                </p>
-              </div>
-            ))}
+        <section id="features" className="juba-busuu-different scroll-mt-16">
+          <div className="juba-busuu-different-inner">
+            <div className="juba-busuu-different-heading">
+              <span className="juba-busuu-eyebrow">{tCommon('tagline')}</span>
+              <h2>{t('navFeatures')}</h2>
+            </div>
+
+            <div className="juba-busuu-different-grid">
+              {[
+                {
+                  title: t('feature1Title'),
+                  desc: t('feature1Desc'),
+                  Icon: BookOpen,
+                  tone: 'blue',
+                },
+                {
+                  title: t('feature2Title'),
+                  desc: t('feature2Desc'),
+                  Icon: MessageSquare,
+                  tone: 'green',
+                },
+                {
+                  title: t('feature3Title'),
+                  desc: t('feature3Desc'),
+                  Icon: Mic,
+                  tone: 'yellow',
+                },
+                {
+                  title: t('feature4Title'),
+                  desc: t('feature4Desc'),
+                  Icon: Headphones,
+                  tone: 'violet',
+                },
+                {
+                  title: t('feature5Title'),
+                  desc: t('feature5Desc'),
+                  Icon: Layers,
+                  tone: 'lime',
+                },
+                {
+                  title: t('feature6Title'),
+                  desc: t('feature6Desc'),
+                  Icon: TrendingUp,
+                  tone: 'orange',
+                },
+              ].map(({ title, desc, Icon, tone }) => (
+                <article key={title} className={`juba-busuu-different-card tone-${tone}`}>
+                  <div className="juba-busuu-different-icon">
+                    <Icon aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h3>{title}</h3>
+                    <p>{desc}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
       </ScrollReveal>
 
       {/* Reviews */}
       <ScrollReveal>
-        <LandingReviewsCarousel reviews={reviews} />
+        <section id="reviews" className="juba-busuu-testimonials scroll-mt-16">
+          <div className="juba-busuu-testimonials-inner">
+            <div className="juba-busuu-different-heading">
+              <span className="juba-busuu-eyebrow">{t('navReviews')}</span>
+              <h2>{t('navReviews')}</h2>
+            </div>
+            <LandingReviewsCarousel reviews={reviews} />
+          </div>
+        </section>
       </ScrollReveal>
 
       {/* Pricing */}
