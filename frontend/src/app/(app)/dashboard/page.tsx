@@ -345,7 +345,7 @@ export default function DashboardPage() {
     <>
       <OnboardingTour />
       <WhatsNew />
-      <div className="juba-duo-home">
+      <div className="juba-duo-home juba-busuu-dashboard">
         <section className="juba-duo-welcome">
           <div>
             <span className="juba-duo-eyebrow">{activeLanguage ? tTarget(activeLanguage.code) : t('today')}</span>
