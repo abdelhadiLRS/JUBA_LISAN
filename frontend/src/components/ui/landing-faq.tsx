@@ -87,7 +87,7 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
               aria-expanded={isOpen}
               className="juba-landing-faq-question flex w-full items-center justify-between p-5 text-start font-black text-base"
             >
-              <span className="pr-4">{t(key)}</span>
+              <span className="pe-4">{t(key)}</span>
               <span
                 className={`juba-landing-faq-icon flex h-8 w-8 shrink-0 items-center justify-center transition-transform duration-200 ${
                   isOpen ? 'rotate-180' : ''
