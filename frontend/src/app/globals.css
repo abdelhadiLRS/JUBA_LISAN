@@ -12683,3 +12683,19 @@ html[data-theme='light'] {
     padding: 7px 0;
   }
 }
+
+
+/* === Landing FAQ: preserve native disclosure hiding semantics === */
+.juba-busuu-page .juba-landing-faq-answer[hidden] {
+  display: none !important;
+}
+.juba-busuu-page .juba-landing-faq-question[aria-expanded="true"] .juba-landing-faq-icon {
+  background: #dff5e9;
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-landing-faq-icon,
+  .juba-busuu-page .juba-landing-faq-answer {
+    animation: none !important;
+    transition: none !important;
+  }
+}
