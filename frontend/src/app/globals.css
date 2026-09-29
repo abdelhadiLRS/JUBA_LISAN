@@ -9289,3 +9289,103 @@ html[data-theme='light'] {
     min-height: 104px;
   }
 }
+
+/* Busuu-style differentiation and testimonials — landing only */
+.juba-busuu-page .juba-busuu-different {
+  background: #f7f8f3;
+  padding: clamp(64px, 8vw, 104px) 24px;
+}
+.juba-busuu-page .juba-busuu-different-inner,
+.juba-busuu-page .juba-busuu-testimonials-inner {
+  width: min(1120px, 100%);
+  margin-inline: auto;
+}
+.juba-busuu-page .juba-busuu-different-heading {
+  max-width: 720px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+.juba-busuu-page .juba-busuu-different-heading h2 {
+  margin: 10px 0 0;
+  color: var(--busuu-ink, #10243e);
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -.035em;
+}
+.juba-busuu-page .juba-busuu-different-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.juba-busuu-page .juba-busuu-different-card {
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 26px;
+  padding: 26px;
+  border-radius: 20px;
+  border: 1px solid rgba(16,36,62,.08);
+  background: #fff;
+  box-shadow: 0 2px 0 rgba(16,36,62,.03);
+}
+.juba-busuu-page .juba-busuu-different-icon {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+}
+.juba-busuu-page .juba-busuu-different-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.juba-busuu-page .juba-busuu-different-card.tone-blue .juba-busuu-different-icon { background:#e7f0ff; color:#116eee; }
+.juba-busuu-page .juba-busuu-different-card.tone-green .juba-busuu-different-icon { background:#dff7e8; color:#16884b; }
+.juba-busuu-page .juba-busuu-different-card.tone-yellow .juba-busuu-different-icon { background:#fff1b8; color:#765c00; }
+.juba-busuu-page .juba-busuu-different-card.tone-violet .juba-busuu-different-icon { background:#eee5ff; color:#7046b8; }
+.juba-busuu-page .juba-busuu-different-card.tone-lime .juba-busuu-different-icon { background:#e8f6bc; color:#557000; }
+.juba-busuu-page .juba-busuu-different-card.tone-orange .juba-busuu-different-icon { background:#ffe4cf; color:#9a4a00; }
+.juba-busuu-page .juba-busuu-different-card h3 {
+  margin: 0;
+  color: var(--busuu-ink, #10243e);
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+.juba-busuu-page .juba-busuu-different-card p {
+  margin: 8px 0 0;
+  color: #526276;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.juba-busuu-page .juba-busuu-testimonials {
+  background: #fff;
+  padding: clamp(64px, 8vw, 104px) 24px;
+}
+.juba-busuu-page .juba-busuu-testimonials-inner > .juba-busuu-different-heading {
+  margin-bottom: 34px;
+}
+.juba-busuu-page .juba-busuu-testimonials-inner > div:last-child {
+  width: 100%;
+}
+@media (max-width: 820px) {
+  .juba-busuu-page .juba-busuu-different-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-busuu-different {
+    padding-inline: 16px;
+  }
+  .juba-busuu-page .juba-busuu-different-grid {
+    grid-template-columns: 1fr;
+  }
+  .juba-busuu-page .juba-busuu-different-card {
+    min-height: 180px;
+  }
+  .juba-busuu-page .juba-busuu-testimonials {
+    padding-inline: 16px;
+  }
+}
