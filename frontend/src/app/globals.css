@@ -90,7 +90,7 @@
   --fl-muted-1: #999999;
   --fl-muted-0: #aaaaaa;
   --fl-fg-2: #e0e0e0;
-  --fl-fg: var(--duo-bg);
+  --fl-fg: var(--fl-fg-2);
   --fl-fg-bright: #ffffff;
   --fl-error: #ff3b3b;
   --fl-error-fg: #ff6b6b;
@@ -102,30 +102,30 @@
   --fl-accent-fg: #0a0a0a;
   /* shadcn tokens */
   --background: var(--fl-bg);
-  --foreground: var(--duo-bg);
+  --foreground: var(--fl-fg-2);
   --card: var(--fl-surface);
-  --card-foreground: var(--duo-bg);
+  --card-foreground: var(--fl-fg-2);
   --popover: var(--fl-surface);
-  --popover-foreground: var(--duo-bg);
-  --primary: var(--duo-bg);
+  --popover-foreground: var(--fl-fg-2);
+  --primary: var(--fl-fg-2);
   --primary-foreground: var(--fl-bg);
   --secondary: #1a1a1a;
-  --secondary-foreground: var(--duo-bg);
+  --secondary-foreground: var(--fl-fg-2);
   --muted: #1a1a1a;
   --muted-foreground: #666666;
   --accent: #1a1a1a;
-  --accent-foreground: var(--duo-bg);
+  --accent-foreground: var(--fl-fg-2);
   --destructive: #ff3b3b;
   --border: var(--fl-border);
   --input: #1a1a1a;
   --ring: #444444;
   --radius: 0px;
   --sidebar: var(--fl-bg);
-  --sidebar-foreground: var(--duo-bg);
-  --sidebar-primary: var(--duo-bg);
+  --sidebar-foreground: var(--fl-fg-2);
+  --sidebar-primary: var(--fl-fg-2);
   --sidebar-primary-foreground: var(--fl-bg);
   --sidebar-accent: #1a1a1a;
-  --sidebar-accent-foreground: var(--duo-bg);
+  --sidebar-accent-foreground: var(--fl-fg-2);
   --sidebar-border: var(--fl-border);
   --sidebar-ring: #444444;
 }
