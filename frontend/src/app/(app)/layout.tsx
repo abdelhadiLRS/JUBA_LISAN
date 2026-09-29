@@ -33,16 +33,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     { href: '/progress', label: tNav('progress'), icon: ChartNoAxesColumnIncreasing },
     { href: '/games', label: tNav('games'), icon: Gamepad2 },
     { href: '/flashcards', label: tNav('flashcards'), icon: Library },
-    { href: '/friends', label: 'Friends', icon: Users },
+    { href: '/friends', label: tNav('friends'), icon: Users },
     { href: '/chat', label: tNav('tutor'), icon: MessageCircle },
     { href: '/listening', label: tNav('listening'), icon: Headphones },
     { href: '/reading', label: tNav('reading'), icon: BookOpen },
     { href: '/conversation', label: tNav('conversation'), icon: Languages },
     { href: '/assessment', label: tNav('assessment'), icon: ClipboardCheck },
-    { href: '/coach', label: 'Coach', icon: Sparkles },
-    { href: '/courses', label: 'Courses', icon: BookOpen },
-    { href: '/review', label: 'Review', icon: Trophy },
-    { href: '/translator', label: 'Translator', icon: Search },
+    { href: '/coach', label: tNav('coach'), icon: Sparkles },
+    { href: '/courses', label: tNav('courses'), icon: BookOpen },
+    { href: '/review', label: tNav('review'), icon: Trophy },
+    { href: '/translator', label: tNav('translator'), icon: Search },
   ]
 
   const resourceNavItems = [
