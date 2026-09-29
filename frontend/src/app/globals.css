@@ -10907,3 +10907,93 @@ html[data-theme='light'] {
     padding-inline: 16px;
   }
 }
+
+/* === Busuu landing: editorial recognition band === */
+.juba-busuu-page .juba-busuu-awards-section {
+  overflow: hidden;
+  padding: clamp(62px, 8vw, 94px) 24px;
+  background: var(--busuu-cream);
+  border-top: 1px solid #edf1ee;
+  border-bottom: 1px solid #e4ebe6;
+}
+.juba-busuu-page .juba-busuu-awards-inner {
+  width: min(1120px, 100%);
+  min-height: 240px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) 150px;
+  align-items: center;
+  gap: 24px;
+}
+.juba-busuu-page .juba-busuu-awards-art {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.juba-busuu-page .juba-busuu-awards-art img {
+  width: 150px;
+  height: auto;
+}
+.juba-busuu-page .juba-busuu-awards-art-right {
+  justify-content: flex-end;
+}
+.juba-busuu-page .juba-busuu-awards-copy {
+  text-align: center;
+}
+.juba-busuu-page .juba-busuu-awards-copy .juba-busuu-eyebrow {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--busuu-green-dark);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.juba-busuu-page .juba-busuu-awards-copy h2 {
+  margin: 0;
+  color: var(--busuu-ink);
+  font-size: clamp(32px, 4.2vw, 50px);
+  line-height: 1.04;
+  font-weight: 850;
+  letter-spacing: -.045em;
+}
+.juba-busuu-page .juba-busuu-awards-copy p {
+  max-width: 620px;
+  margin: 14px auto 0;
+  color: var(--busuu-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.juba-busuu-page .juba-busuu-awards-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 22px;
+}
+.juba-busuu-page .juba-busuu-awards-badges span {
+  padding: 8px 12px;
+  border: 1px solid #cfe0d6;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--busuu-green-dark);
+  font-size: 11px;
+  font-weight: 800;
+}
+@media (max-width: 720px) {
+  .juba-busuu-page .juba-busuu-awards-inner {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .juba-busuu-page .juba-busuu-awards-art {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .juba-busuu-page .juba-busuu-awards-section {
+    padding-inline: 16px;
+  }
+  .juba-busuu-page .juba-busuu-awards-copy p {
+    font-size: 14px;
+  }
+}
