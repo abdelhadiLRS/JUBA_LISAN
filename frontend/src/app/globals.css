@@ -3452,3 +3452,91 @@ html[data-theme='light'] {
   .juba-duo-shell .juba-duo-home .juba-duo-card,
   .juba-duo-shell .juba-duo-home .juba-duo-unit { padding: 18px; }
 }
+
+
+/* Busuu-inspired visual layer for the learner dashboard only. */
+.juba-busuu-dashboard {
+  --duo-green: var(--busuu-green);
+  --duo-green-dark: var(--busuu-green-dark);
+  --duo-blue: #2f80ed;
+  --duo-blue-dark: #2468c7;
+  --duo-purple: #7c6ee6;
+  --duo-yellow: #f2b544;
+  --duo-red: #d94a4a;
+  --duo-ink: var(--busuu-ink);
+  --duo-muted: var(--busuu-muted);
+  --duo-bg: var(--busuu-cream);
+  --duo-card: var(--busuu-card);
+  --duo-line: var(--busuu-line);
+  background: var(--busuu-cream);
+  color: var(--busuu-ink);
+}
+.juba-busuu-dashboard .juba-duo-welcome h1 {
+  font-weight: 750;
+  letter-spacing: -0.035em;
+}
+.juba-busuu-dashboard .juba-duo-top-stats > div,
+.juba-busuu-dashboard .juba-duo-unit,
+.juba-busuu-dashboard .juba-duo-card {
+  border: 1px solid var(--busuu-line);
+  border-radius: 18px;
+  box-shadow: 0 5px 18px rgb(23 33 27 / 5%);
+}
+.juba-busuu-dashboard .juba-duo-unit {
+  padding: clamp(18px, 2.5vw, 28px);
+}
+.juba-busuu-dashboard .juba-duo-unit-kicker,
+.juba-busuu-dashboard .juba-duo-card-head > span {
+  color: var(--busuu-green-dark);
+}
+.juba-busuu-dashboard .juba-duo-node {
+  border-width: 3px;
+  box-shadow: 0 3px 0 var(--busuu-line);
+}
+.juba-busuu-dashboard .juba-duo-node.is-done {
+  border-color: var(--busuu-green-dark);
+  box-shadow: 0 3px 0 var(--busuu-green-dark);
+}
+.juba-busuu-dashboard .juba-duo-node.is-current {
+  background: #2f80ed;
+  border-color: #2468c7;
+  box-shadow: 0 3px 0 #2468c7;
+}
+.juba-busuu-dashboard .juba-duo-cta,
+.juba-busuu-dashboard .juba-duo-premium button {
+  border-radius: 999px;
+  background: var(--busuu-green);
+  box-shadow: none;
+  font-weight: 750;
+}
+.juba-busuu-dashboard .juba-duo-cta:hover,
+.juba-busuu-dashboard .juba-duo-premium button:hover {
+  background: var(--busuu-green-dark);
+}
+.juba-busuu-dashboard .juba-duo-links a {
+  border: 1px solid var(--busuu-line);
+  border-radius: 14px;
+  background: var(--busuu-card);
+}
+.juba-busuu-dashboard .juba-duo-links a:hover {
+  border-color: var(--busuu-green);
+  background: var(--busuu-mint);
+}
+.juba-busuu-dashboard .juba-duo-premium {
+  border: 1px solid var(--busuu-line);
+  border-radius: 18px;
+  background: var(--busuu-mint);
+}
+@media (max-width: 760px) {
+  .juba-busuu-dashboard .juba-duo-welcome {
+    align-items: stretch;
+  }
+  .juba-busuu-dashboard .juba-duo-top-stats > div {
+    min-width: 0;
+    flex: 1;
+  }
+  .juba-busuu-dashboard .juba-duo-unit-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
