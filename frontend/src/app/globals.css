@@ -12115,3 +12115,36 @@ html[data-theme='light'] {
     border-radius: 18px;
   }
 }
+
+
+/* === Landing fidelity pass: compact editorial ticker === */
+.juba-busuu-page .juba-busuu-new-languages {
+  min-height: 150px;
+}
+.juba-busuu-page .juba-busuu-new-languages-group {
+  gap: clamp(28px, 4vw, 58px);
+  padding-inline: clamp(28px, 4vw, 58px);
+}
+.juba-busuu-page .juba-busuu-new-languages-group span {
+  font-size: clamp(38px, 5vw, 68px);
+  font-weight: 850;
+}
+.juba-busuu-page .juba-busuu-new-languages-group img {
+  width: 48px;
+  height: 48px;
+  flex-basis: 48px;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-new-languages {
+    min-height: 122px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group {
+    gap: 24px;
+    padding-inline: 24px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group img {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+}
