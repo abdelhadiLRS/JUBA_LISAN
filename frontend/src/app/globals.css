@@ -11914,3 +11914,37 @@ html[data-theme='light'] {
     animation: none;
   }
 }
+
+
+/* === Landing fidelity pass: footer grid and spacing === */
+.juba-busuu-page .juba-busuu-footer {
+  padding: 72px 24px 54px;
+}
+.juba-busuu-page .juba-busuu-footer > div {
+  width: min(1120px, 100%);
+  max-width: none !important;
+  gap: 48px 56px;
+}
+.juba-busuu-page .juba-busuu-footer > div > div:first-child {
+  padding-inline-end: 28px;
+}
+.juba-busuu-page .juba-busuu-footer-link {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  min-height: 22px;
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-footer {
+    padding: 58px 20px 42px;
+  }
+  .juba-busuu-page .juba-busuu-footer > div {
+    gap: 34px 22px;
+  }
+  .juba-busuu-page .juba-busuu-footer > div > div:first-child {
+    grid-column: 1 / -1;
+    padding-inline-end: 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #2b3b32;
+  }
+}
