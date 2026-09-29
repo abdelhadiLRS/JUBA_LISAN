@@ -329,14 +329,7 @@ export default async function Home() {
                 alt="GitHub"
                 width={20}
                 height={20}
-                className="block opacity-80 dark:hidden"
-              />
-              <Image
-                src="/github_white.svg"
-                alt="GitHub"
-                width={20}
-                height={20}
-                className="hidden opacity-80 dark:block"
+                className="block opacity-80"
               />
               <div className="text-start">
                 <p className="text-fl-fg font-sans text-sm font-semibold tracking-tight">
