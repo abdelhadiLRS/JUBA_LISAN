@@ -259,8 +259,14 @@ export default function PricingSection({
       </div>
 
       {/* Comparison table */}
-      <div className="juba-ff-comparison overflow-x-auto border border-[var(--busuu-line)] bg-white">
+      <div
+        className="juba-ff-comparison overflow-x-auto border border-[var(--busuu-line)] bg-white"
+        role="region"
+        aria-label={tBilling('pricingTitle')}
+        tabIndex={0}
+      >
         <table className="w-full min-w-[680px] table-fixed">
+          <caption className="sr-only">{tBilling('pricingTitle')}</caption>
           <thead>
             <tr className="juba-ff-comparison-head border-b">
               <th className="juba-ff-comparison-label w-[42%] px-3 py-3 text-start font-sans tracking-widest uppercase sm:w-auto sm:px-5">
