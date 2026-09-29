@@ -197,20 +197,28 @@
     system-ui, sans-serif;
 }
 
-::-webkit-scrollbar {
-  width: 4px;
+/* Scrollbars belong to the authenticated Duolingo shell, not the public landing. */
+.juba-duo-shell {
+  scrollbar-color: var(--duo-line) var(--duo-bg);
+  scrollbar-width: thin;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--fl-bg);
+.juba-duo-shell *::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--fl-border);
+.juba-duo-shell *::-webkit-scrollbar-track {
+  background: var(--duo-bg);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--fl-border-2);
+.juba-duo-shell *::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--duo-line);
+}
+
+.juba-duo-shell *::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--duo-muted) 55%, var(--duo-line));
 }
 
 /* ── Light theme ── */
