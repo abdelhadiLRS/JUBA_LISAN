@@ -10018,3 +10018,38 @@ html[data-theme='light'] {
     padding: 15px 16px 20px;
   }
 }
+
+
+/* === Landing language chooser: tighter Busuu-style tile rhythm === */
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item {
+  min-height: 108px;
+  border-color: #dfe6e1;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 0 #edf0ee;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item span {
+  color: var(--busuu-ink);
+  font-size: 14px;
+  line-height: 1.25;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item img {
+  width: 42px;
+  height: 42px !important;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #dce5df;
+}
+@media (min-width: 1100px) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
