@@ -393,12 +393,17 @@ export default async function Home() {
                 aria-hidden={group === 1}
                 key={group}
               >
-                <span>{t('languagesTitle')}</span>
+                <span>{t('newLanguagesTicker')}</span>
                 <img
                   src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
                   alt=""
                 />
-                <span>{t('languagesSubtitle')}</span>
+                <span>{t('newOpportunitiesTicker')}</span>
+                <img
+                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
+                  alt=""
+                />
+                <span>{t('newYouTicker')}</span>
                 <img
                   src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Speech.svg"
                   alt=""
