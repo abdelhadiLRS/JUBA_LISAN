@@ -256,6 +256,43 @@ export default async function Home() {
         </section>
       </ScrollReveal>
 
+      {/* Busuu reference editorial bridge */}
+      <ScrollReveal>
+        <section className="juba-busuu-editorial-bridge" aria-label={t('ctaStart')}>
+          <div className="juba-busuu-editorial-bridge-inner">
+            <div className="juba-busuu-editorial-copy">
+              <span className="juba-busuu-editorial-kicker">{tCommon('tagline')}</span>
+              <h2>{t('heroTitle')}</h2>
+              <p>{t('heroSub')}</p>
+              <div className="juba-busuu-editorial-cta-row">
+                <img
+                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-left.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <Link
+                  href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
+                  className="juba-busuu-reference-primary"
+                >
+                  {hasSession ? t('dashboard') : allowRegistration ? tCommon('start') : t('signIn')}
+                </Link>
+                <img
+                  src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/tree-branch-right.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
+            <div className="juba-busuu-editorial-art" aria-hidden="true">
+              <img
+                src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/convector-green.svg"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
       {/* Reviews */}
       <ScrollReveal>
         <section id="reviews" className="juba-busuu-testimonials scroll-mt-16">
