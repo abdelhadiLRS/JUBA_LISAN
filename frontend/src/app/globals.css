@@ -1005,6 +1005,7 @@ html[data-theme='light'] {
   width:100%;
   min-width:0;
   min-height:calc(100vh - 1px);
+  min-height:calc(100dvh - 1px);
   background:var(--duo-bg);
 }
 .juba-duo-nav {
