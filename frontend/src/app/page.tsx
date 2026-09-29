@@ -196,7 +196,7 @@ export default async function Home() {
               href={hasSession ? '/dashboard' : allowRegistration ? '/register' : '/login'}
               className="juba-busuu-language-cta-link"
             >
-              {hasSession ? t('dashboard') : allowRegistration ? tCommon('start') : t('signIn')}
+              {hasSession ? t('dashboard') : allowRegistration ? t('ctaStart') : t('signIn')}
             </Link>
           </div>
         </div>
