@@ -61,7 +61,8 @@ export function LandingReviewsCarousel({
 
   return (
     <section
-      className="juba-ff-reviews mx-auto w-full max-w-5xl scroll-mt-16 px-6 pb-24 text-[var(--busuu-ink)]"
+      id="reviews"
+      className="juba-ff-reviews mx-auto w-full max-w-5xl scroll-mt-24 px-6 pb-24 text-[var(--busuu-ink)]"
       aria-labelledby="reviews-title"
     >
       <div className="mb-8 flex flex-col gap-3 text-center">
