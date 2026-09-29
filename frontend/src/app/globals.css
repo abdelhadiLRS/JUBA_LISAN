@@ -6023,3 +6023,132 @@ html[data-theme='light'] {
     padding: 24px 16px 42px;
   }
 }
+
+
+/* ── Busuu visual system for the authenticated application ─────────────────
+   Scoped to .juba-busuu-app so the public landing and other surfaces remain isolated.
+*/
+.juba-busuu-app {
+  --duo-green: var(--busuu-green);
+  --duo-green-dark: var(--busuu-green-dark);
+  --duo-blue: #2f80ed;
+  --duo-blue-dark: #2468c7;
+  --duo-purple: #7c6ee6;
+  --duo-yellow: #f2b544;
+  --duo-red: #d94a4a;
+  --duo-ink: var(--busuu-ink);
+  --duo-muted: var(--busuu-muted);
+  --duo-bg: var(--busuu-cream);
+  --duo-card: var(--busuu-card);
+  --duo-line: var(--busuu-line);
+  background: var(--busuu-cream);
+  color: var(--busuu-ink);
+}
+.juba-busuu-app .juba-duo-sidebar {
+  width: 268px;
+  background: var(--busuu-card);
+  border-inline-end: 1px solid var(--busuu-line);
+  box-shadow: 4px 0 24px color-mix(in srgb, var(--busuu-ink) 3%, transparent);
+}
+.juba-busuu-app .juba-duo-logo-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: var(--busuu-green);
+  box-shadow: none;
+}
+.juba-busuu-app .juba-duo-nav { padding: 16px 14px; }
+.juba-busuu-app .juba-duo-nav-link {
+  min-height: 46px;
+  margin: 3px 0;
+  padding: 11px 14px;
+  border-radius: 999px;
+  color: var(--busuu-muted);
+  font-weight: 650;
+}
+.juba-busuu-app .juba-duo-nav-link:hover {
+  background: var(--busuu-mint);
+  color: var(--busuu-green-dark);
+}
+.juba-busuu-app .juba-duo-nav-link.is-active {
+  background: var(--busuu-mint);
+  color: var(--busuu-green-dark);
+  box-shadow: none;
+  font-weight: 800;
+}
+.juba-busuu-app .juba-duo-shell[dir="rtl"] .juba-duo-nav-link.is-active,
+.juba-busuu-app[dir="rtl"] .juba-duo-nav-link.is-active {
+  box-shadow: none;
+}
+.juba-busuu-app .juba-duo-resource-toggle {
+  color: var(--busuu-muted);
+  padding-inline: 14px;
+}
+.juba-busuu-app .juba-duo-nav-divider { border-color: var(--busuu-line); }
+.juba-busuu-app .juba-duo-user {
+  border-color: var(--busuu-line);
+  background: var(--busuu-cream);
+}
+.juba-busuu-app .juba-duo-user-action {
+  border-radius: 999px;
+  padding: 9px 12px;
+}
+.juba-busuu-app .juba-duo-user-action:hover {
+  background: var(--busuu-mint);
+  color: var(--busuu-green-dark);
+}
+.juba-busuu-app .juba-duo-mobile-bar {
+  background: color-mix(in srgb, var(--busuu-cream) 96%, transparent) !important;
+  border-color: var(--busuu-line) !important;
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--busuu-ink) 5%) !important;
+  backdrop-filter: blur(14px);
+}
+.juba-busuu-app .juba-duo-mobile-trigger {
+  border: 1px solid var(--busuu-line);
+  border-radius: 999px;
+  background: var(--busuu-card);
+}
+.juba-busuu-app .juba-duo-mobile-menu {
+  background: var(--busuu-cream);
+  border-color: var(--busuu-line);
+  box-shadow: 0 16px 32px color-mix(in srgb, var(--busuu-ink) 10%, transparent);
+}
+.juba-busuu-app .juba-duo-page-frame {
+  background: var(--busuu-cream);
+}
+.juba-busuu-app .juba-duo-card,
+.juba-busuu-app .juba-duo-unit,
+.juba-busuu-app .juba-duo-links,
+.juba-busuu-app .juba-duo-premium {
+  border: 1px solid var(--busuu-line);
+  border-radius: 20px;
+  background: var(--busuu-card);
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--busuu-ink) 5%, transparent);
+}
+.juba-busuu-app .juba-duo-cta,
+.juba-busuu-app .juba-duo-guide,
+.juba-busuu-app .juba-duo-premium button {
+  border-radius: 999px;
+  box-shadow: none;
+}
+.juba-busuu-app .juba-duo-progress,
+.juba-busuu-app .juba-duo-meter {
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--busuu-green) 12%, var(--busuu-line));
+}
+.juba-busuu-app .juba-duo-progress > span,
+.juba-busuu-app .juba-duo-meter > span {
+  border-radius: inherit;
+  background: var(--busuu-green);
+}
+@media (max-width: 1100px) {
+  .juba-busuu-app .juba-duo-sidebar { width: 248px; }
+}
+@media (max-width: 900px) {
+  .juba-busuu-app .juba-duo-sidebar { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-app .juba-duo-nav-link,
+  .juba-busuu-app .juba-duo-user-action { transition: none; }
+}
