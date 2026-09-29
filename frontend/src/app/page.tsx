@@ -518,7 +518,6 @@ export default async function Home() {
             </div>
           </div>
 
-          </div>
           <div>
             <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
               {t('footerResources')}
