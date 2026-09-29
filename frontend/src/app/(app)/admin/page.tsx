@@ -140,7 +140,7 @@ export default function AdminOverviewPage() {
       )}
 
       <div
-        className={`border px-5 py-4 ${
+        className={`rounded-2xl border-2 px-5 py-4 shadow-[0_3px_0_var(--duo-line)] ${
           maintenanceMode
             ? 'border-[color-mix(in_srgb,var(--duo-yellow)_40%,transparent)] bg-[color-mix(in_srgb,var(--duo-yellow)_8%,transparent)]'
             : 'border-[var(--duo-line)] bg-[var(--duo-card)]'
@@ -228,7 +228,7 @@ export default function AdminOverviewPage() {
             <Link
               key={action.href}
               href={action.href}
-              className="border-[var(--duo-line)] bg-[var(--duo-card)] hover:border-[var(--duo-green)] group rounded-2xl border p-5 transition-colors"
+              className="border-[var(--duo-line)] bg-[var(--duo-card)] hover:border-[var(--duo-green)] group rounded-2xl border-2 p-5 shadow-[0_3px_0_var(--duo-line)] transition-colors"
             >
               <div className="mb-5 flex items-center justify-between">
                 <Icon
