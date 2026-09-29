@@ -167,8 +167,8 @@
     "appCtaDescription": "Houd je taaloefening altijd bij de hand. Ga verder met lessen, AI-gesprekken, luisteroefeningen en je voortgang, waar je ook bent.",
     "appCtaNote": "Webervaring · Ontworpen voor mobiele schermen",
     "onlineLanguagesTitle": "Leer talen online",
-
-    "onlineLanguagePrefix": "Leer",    "onlineLanguagesDescription": "Kies een taal en ontdek de leerervaring die beschikbaar is in JUBA LISAN."
+    "onlineLanguagePrefix": "Leer",
+    "onlineLanguagesDescription": "Kies een taal en ontdek de leerervaring die beschikbaar is in JUBA LISAN."
   },
   "common": {
     "loading": "Laden...",
@@ -259,7 +259,8 @@
     "coach": "Coach",
     "courses": "Cursussen",
     "review": "Herhaling",
-    "translator": "Vertaler"
+    "translator": "Vertaler",
+    "navigation": "Navigatie"
   },
   "auth": {
     "login": {
