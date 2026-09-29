@@ -248,10 +248,6 @@ export default async function Home() {
       <ScrollReveal>
         <section id="reviews" className="juba-busuu-testimonials scroll-mt-16">
           <div className="juba-busuu-testimonials-inner">
-            <div className="juba-busuu-different-heading">
-              <span className="juba-busuu-eyebrow">{t('navReviews')}</span>
-              <h2>{t('navReviews')}</h2>
-            </div>
             <LandingReviewsCarousel reviews={reviews} />
           </div>
         </section>
