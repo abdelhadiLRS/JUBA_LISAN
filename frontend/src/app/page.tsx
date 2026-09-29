@@ -459,7 +459,7 @@ export default async function Home() {
 
       {/* Footer */}
       <footer className="juba-busuu-footer border-t px-6 py-10">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 md:grid-cols-5">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-10 gap-y-10 md:grid-cols-3 lg:grid-cols-6">
           <div>
             <span className="juba-busuu-footer-brand block text-xs font-bold tracking-widest uppercase">
               JUBA LISAN
@@ -517,21 +517,7 @@ export default async function Home() {
               </a>
             </div>
           </div>
-          <div>
-            <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
-              {t('footerLearning')}
-            </h4>
-            <div className="flex flex-col gap-2">
-              <a href="#features" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('navFeatures')}
-              </a>
-              <a href="#languages" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('navLanguages')}
-              </a>
-              <a href="#pricing" className="juba-busuu-footer-link text-xs font-semibold tracking-wide transition-colors">
-                {t('navPricing')}
-              </a>
-            </div>
+
           </div>
           <div>
             <h4 className="juba-busuu-footer-heading mb-3 font-sans text-sm font-bold tracking-tight">
