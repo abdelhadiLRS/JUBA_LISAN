@@ -12629,3 +12629,57 @@ html[data-theme='light'] {
     transition: none;
   }
 }
+
+
+/* === Landing fidelity pass: proof strip responsive rhythm === */
+.juba-busuu-page .juba-busuu-proof-inner {
+  border-radius: 20px;
+  box-shadow: 0 3px 0 rgba(23,33,27,.035), 0 14px 34px rgba(23,33,27,.065);
+}
+.juba-busuu-page .juba-busuu-proof-item > span:last-child {
+  max-width: 190px;
+  text-wrap: balance;
+}
+.juba-busuu-page .juba-busuu-proof-check {
+  box-shadow: inset 0 0 0 1px rgba(0,137,87,.08);
+}
+@media (max-width: 760px) {
+  .juba-busuu-page .juba-busuu-proof-strip {
+    padding-inline: 18px;
+  }
+  .juba-busuu-page .juba-busuu-proof-inner {
+    align-items: stretch;
+    gap: 12px;
+    padding: 20px;
+    border-radius: 18px;
+  }
+  .juba-busuu-page .juba-busuu-proof-stat {
+    justify-content: center;
+    padding: 4px 0 12px;
+    border-bottom: 1px solid var(--busuu-line);
+  }
+  .juba-busuu-page .juba-busuu-proof-item {
+    min-width: 0;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 0;
+  }
+  .juba-busuu-page .juba-busuu-proof-item > span:last-child {
+    max-width: none;
+    overflow-wrap: anywhere;
+  }
+  .juba-busuu-page .juba-busuu-proof-check {
+    width: 26px;
+    height: 26px;
+    font-size: 14px;
+  }
+}
+@media (max-width: 420px) {
+  .juba-busuu-page .juba-busuu-proof-inner {
+    gap: 6px;
+    padding: 18px;
+  }
+  .juba-busuu-page .juba-busuu-proof-item {
+    padding: 7px 0;
+  }
+}
