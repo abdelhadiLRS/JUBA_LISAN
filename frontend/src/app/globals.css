@@ -4515,3 +4515,28 @@ html[data-theme='light'] {
     border-radius: 16px;
   }
 }
+
+
+/* Final specificity overrides for the Busuu landing visual pass */
+.juba-busuu-page > .juba-busuu-hero {
+  padding-block: clamp(58px, 7vw, 104px) clamp(64px, 8vw, 112px) !important;
+  background:
+    radial-gradient(ellipse at 78% 18%, rgba(0, 168, 107, .10), transparent 35%),
+    linear-gradient(180deg, #fff 0%, #f5fbf7 100%) !important;
+}
+.juba-busuu-page > .juba-busuu-hero .juba-busuu-hero-inner {
+  width: min(1240px, 100%);
+  grid-template-columns: minmax(0, 1.03fr) minmax(0, .97fr);
+  align-items: center;
+  gap: clamp(38px, 6vw, 88px);
+}
+@media (max-width: 900px) {
+  .juba-busuu-page > .juba-busuu-hero .juba-busuu-hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .juba-busuu-page > .juba-busuu-hero {
+    padding: 40px 18px 54px !important;
+  }
+}
