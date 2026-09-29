@@ -12993,3 +12993,59 @@ html[data-theme='light'] {
     grid-column: auto;
   }
 }
+
+
+/* === Landing fidelity pass: calmer editorial ticker and edge fade === */
+.juba-busuu-page .juba-busuu-new-languages {
+  min-height: 164px;
+  isolation: isolate;
+}
+.juba-busuu-page .juba-busuu-new-languages::before,
+.juba-busuu-page .juba-busuu-new-languages::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  width: clamp(28px, 6vw, 88px);
+  pointer-events: none;
+}
+.juba-busuu-page .juba-busuu-new-languages::before {
+  inset-inline-start: 0;
+  background: linear-gradient(to right, #fff, rgba(255,255,255,0));
+}
+.juba-busuu-page .juba-busuu-new-languages::after {
+  inset-inline-end: 0;
+  background: linear-gradient(to left, #fff, rgba(255,255,255,0));
+}
+.juba-busuu-page .juba-busuu-new-languages-track {
+  animation-duration: 48s;
+  will-change: transform;
+}
+.juba-busuu-page .juba-busuu-new-languages-group {
+  gap: clamp(30px, 4.5vw, 64px);
+}
+.juba-busuu-page .juba-busuu-new-languages-group span {
+  font-size: clamp(30px, 4.3vw, 56px);
+}
+.juba-busuu-page .juba-busuu-new-languages-group img {
+  width: 48px;
+  height: 48px;
+  flex-basis: 48px;
+}
+@media (max-width: 700px) {
+  .juba-busuu-page .juba-busuu-new-languages {
+    min-height: 132px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-track {
+    animation-duration: 58s;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group span {
+    font-size: clamp(26px, 7vw, 34px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-new-languages-track {
+    will-change: auto;
+  }
+}
