@@ -85,6 +85,8 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
               type="button"
               onClick={() => setOpen(isOpen ? null : i)}
               aria-expanded={isOpen}
+              aria-controls={`landing-faq-answer-${key}`}
+              id={`landing-faq-question-${key}`}
               className="juba-landing-faq-question flex w-full items-center justify-between p-5 text-start font-black text-base"
             >
               <span className="pe-4">{t(key)}</span>
@@ -97,7 +99,12 @@ export function LandingFAQ({ dir = 'ltr' }: { dir?: 'ltr' | 'rtl' }) {
               </span>
             </button>
             {isOpen && (
-              <div className="juba-landing-faq-answer border-t px-5 pt-4 pb-6 text-sm font-medium leading-7 animate-in fade-in duration-150">
+              <div
+                id={`landing-faq-answer-${key}`}
+                role="region"
+                aria-labelledby={`landing-faq-question-${key}`}
+                className="juba-landing-faq-answer border-t px-5 pt-4 pb-6 text-sm font-medium leading-7 animate-in fade-in duration-150"
+              >
                 {renderAnswer(key)}
               </div>
             )}
