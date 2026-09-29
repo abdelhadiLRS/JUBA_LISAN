@@ -11948,3 +11948,39 @@ html[data-theme='light'] {
     border-bottom: 1px solid #2b3b32;
   }
 }
+
+
+/* === Landing fidelity pass: editorial ticker finishing details === */
+.juba-busuu-page .juba-busuu-new-languages {
+  min-height: 168px;
+  background: #fff;
+  border-top: 1px solid #e7eee9;
+  border-bottom: 1px solid #e7eee9;
+}
+.juba-busuu-page .juba-busuu-new-languages-track {
+  will-change: transform;
+}
+.juba-busuu-page .juba-busuu-new-languages-group {
+  min-width: max-content;
+}
+.juba-busuu-page .juba-busuu-new-languages-group span {
+  display: inline-block;
+  color: var(--busuu-ink);
+}
+.juba-busuu-page .juba-busuu-new-languages-group span:nth-of-type(2) {
+  color: var(--busuu-green-dark);
+}
+.juba-busuu-page .juba-busuu-new-languages-group span:nth-of-type(3) {
+  color: var(--busuu-ink);
+}
+.juba-busuu-page .juba-busuu-new-languages-group img {
+  opacity: .95;
+}
+@media (max-width: 640px) {
+  .juba-busuu-page .juba-busuu-new-languages {
+    min-height: 128px;
+  }
+  .juba-busuu-page .juba-busuu-new-languages-group span {
+    font-size: clamp(34px, 10vw, 52px);
+  }
+}
