@@ -12896,3 +12896,31 @@ html[data-theme='light'] {
     display: none;
   }
 }
+
+
+/* === Landing accessibility pass: visible keyboard focus === */
+.juba-busuu-page :is(a, button, [role="button"], input, select, textarea):focus-visible {
+  outline: 3px solid #1769d2;
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+.juba-busuu-page .juba-busuu-reference-primary:focus-visible,
+.juba-busuu-page .juba-busuu-language-cta-link:focus-visible,
+.juba-busuu-page .juba-busuu-nav-cta:focus-visible,
+.juba-busuu-page .juba-busuu-open-source-cta:focus-visible {
+  outline-color: #fff;
+  box-shadow: 0 0 0 3px #1769d2;
+}
+.juba-busuu-page .juba-busuu-language-list {
+  scroll-padding-inline: 8px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page *,
+  .juba-busuu-page *::before,
+  .juba-busuu-page *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
