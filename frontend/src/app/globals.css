@@ -13049,3 +13049,25 @@ html[data-theme='light'] {
     will-change: auto;
   }
 }
+
+
+/* === Landing refinement: keyboard and touch feedback for language cards === */
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-list {
+  -webkit-overflow-scrolling: touch;
+  scroll-padding-inline: 4px;
+}
+.juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item:focus-visible,
+.juba-busuu-page .juba-busuu-language-cta-link:focus-visible {
+  outline: 3px solid #116eee;
+  outline-offset: 4px;
+}
+.juba-busuu-page .juba-busuu-language-cta-link:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 0 #008957;
+}
+@media (prefers-reduced-motion: reduce) {
+  .juba-busuu-page .juba-busuu-reference-languages .juba-busuu-language-item,
+  .juba-busuu-page .juba-busuu-language-cta-link {
+    transition: none;
+  }
+}
