@@ -7695,3 +7695,73 @@ html[data-theme='light'] {
     padding: 20px !important;
   }
 }
+
+
+/* ── Busuu-inspired authenticated app skin (JUBA LISAN) ───────────────────
+   Applies the Busuu visual language to signed-in pages without changing routes
+   or application behavior. */
+.juba-duo-shell.juba-busuu-app {
+  --duo-green: #00a86b;
+  --duo-green-dark: #008957;
+  --duo-blue: #1cb0f6;
+  --duo-blue-dark: #1597d2;
+  --duo-purple: #8d75c7;
+  --duo-yellow: #e5a900;
+  --duo-red: #d94b4b;
+  --duo-ink: #17211b;
+  --duo-muted: #53615a;
+  --duo-bg: #fbfaf6;
+  --duo-card: #ffffff;
+  --duo-line: #dce5df;
+  background: var(--duo-bg);
+  color: var(--duo-ink);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-sidebar {
+  background: #fff;
+  border-color: var(--duo-line);
+  box-shadow: 3px 0 18px color-mix(in srgb, var(--duo-ink) 4%, transparent);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-nav-link {
+  border-radius: 12px;
+  font-weight: 650;
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-nav-link:hover {
+  background: #e8f8f0;
+  color: var(--duo-green-dark);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-nav-link.is-active {
+  background: #e8f8f0;
+  color: var(--duo-green-dark);
+  border-color: transparent;
+  box-shadow: inset 3px 0 0 var(--duo-green);
+}
+.juba-duo-shell.juba-busuu-app[dir="rtl"] .juba-duo-nav-link.is-active {
+  box-shadow: inset -3px 0 0 var(--duo-green);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-main,
+.juba-duo-shell.juba-busuu-app .juba-duo-page-frame {
+  background: var(--duo-bg);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-mobile-bar {
+  background: rgba(251,250,246,.96) !important;
+  backdrop-filter: blur(14px);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-mobile-trigger {
+  border-radius: 999px;
+  background: #fff;
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-unit,
+.juba-duo-shell.juba-busuu-app .juba-duo-card,
+.juba-duo-shell.juba-busuu-app .juba-duo-top-stats > div {
+  border: 1px solid var(--duo-line);
+  border-radius: 18px;
+  box-shadow: 0 5px 18px color-mix(in srgb, var(--duo-ink) 4%, transparent);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-cta {
+  border-radius: 999px;
+  box-shadow: 0 3px 0 var(--duo-green-dark);
+}
+.juba-duo-shell.juba-busuu-app .juba-duo-logo-mark {
+  border-radius: 50%;
+  box-shadow: none;
+}
