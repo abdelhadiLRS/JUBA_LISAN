@@ -628,9 +628,13 @@ html[data-theme='light'] {
 .juba-duo-nav-link:focus-visible,
 .juba-duo-resource-toggle:focus-visible,
 .juba-duo-user-action:focus-visible,
-.juba-duo-mobile-trigger:focus-visible {
-  outline:3px solid color-mix(in srgb,var(--duo-blue) 45%,transparent);
+.juba-duo-mobile-trigger:focus-visible,
+.juba-duo-language :focus-visible,
+.juba-duo-mobile-menu > .border-b :focus-visible {
+  outline:3px solid color-mix(in srgb,var(--duo-blue) 55%,transparent);
   outline-offset:2px;
+  position:relative;
+  z-index:1;
 }
 .juba-duo-nav-link {
   display:flex; align-items:center; gap:12px; width:100%; min-height:44px;
