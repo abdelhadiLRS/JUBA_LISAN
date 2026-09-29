@@ -1465,6 +1465,22 @@ html[data-theme='light'] {
   touch-action:manipulation;
 }
 
+/* Visible keyboard focus for all shell navigation controls, including RTL layouts. */
+.juba-duo-shell .juba-duo-nav-link:focus-visible,
+.juba-duo-shell .juba-duo-resource-toggle:focus-visible,
+.juba-duo-shell .juba-duo-user-action:focus-visible,
+.juba-duo-shell .juba-duo-mobile-trigger:focus-visible,
+.juba-duo-shell .juba-duo-mobile-menu a:focus-visible,
+.juba-duo-shell .juba-duo-mobile-menu button:focus-visible {
+  outline:3px solid var(--duo-blue);
+  outline-offset:2px;
+  border-radius:10px;
+}
+
+.juba-duo-shell .juba-duo-mobile-trigger:focus-visible {
+  outline-offset:3px;
+}
+
 @media (prefers-reduced-motion:reduce) {
   .juba-duo-shell *,
   .juba-duo-shell *::before,
