@@ -326,18 +326,26 @@ export default async function Home() {
               <h2>{t('heroTitle')}</h2>
               <p>{t('heroSub')}</p>
               <div className="juba-busuu-app-badges">
-                <span className="juba-busuu-app-badge">
+                <a
+                  href="/"
+                  className="juba-busuu-app-store-badge"
+                  aria-label="App Store"
+                >
                   <img
-                    src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Apple_Logo.svg"
-                    alt=""
-                    aria-hidden="true"
+                    src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+                    alt="App Store"
                   />
-                  <span>App Store</span>
-                </span>
-                <span className="juba-busuu-app-badge">
-                  <span className="juba-busuu-app-play" aria-hidden="true">▶</span>
-                  <span>Google Play</span>
-                </span>
+                </a>
+                <a
+                  href="/"
+                  className="juba-busuu-app-store-badge"
+                  aria-label="Google Play"
+                >
+                  <img
+                    src="https://raw.githubusercontent.com/abdelhadiLRS/JUBA_LISAN/main/theme/busuu/Learn%20Languages%20Online_%20Start%20for%20Free%20-%20Busuu_files/GetItOnGooglePlay_Badge_Web_color_English.png"
+                    alt="Google Play"
+                  />
+                </a>
               </div>
             </div>
             <div className="juba-busuu-app-art" aria-hidden="true">
