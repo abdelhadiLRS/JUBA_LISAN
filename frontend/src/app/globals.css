@@ -1006,7 +1006,7 @@ html[data-theme='light'] {
   width:250px;
   display:flex;
   flex-direction:column;
-  overflow-y:auto;
+  overflow:hidden;
   background:var(--duo-card);
   border-inline-end:2px solid var(--duo-line);
   color:var(--duo-ink);
